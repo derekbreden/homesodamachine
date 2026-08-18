@@ -32,8 +32,9 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     proud tongue cannot, a shiplap within the slab (`_floor_lap`), so every seam
     laps and none butts — and four interlocking screw
     bosses cross the seam — one per ±X side wall per level, the bottom pair
-    tucked just under the Z-seam plane (so it pins the two bottom pieces),
-    the top pair under the ceiling. Each boss is on an X axis: the screw
+    standing just over the floor (so it pins the two bottom pieces), the top
+    pair under the ceiling, and between them the two FOUR-CORNER screws, one
+    per side wall at the seam plane, each crossing all four pieces. Each boss is on an X axis: the screw
     drives in from the left/right EXTERIOR face. The BACK piece carries the
     PLUG (faucet mounting-plate idiom): a cylinder reaching inward from the
     wall with a screw clearance through it. The
@@ -47,8 +48,10 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     3-sided band (their outer ±Y wall + both side walls, stopping short of
     the Y-seam overlap) telescoping +Z into the top pieces — with the
     socket collars; the TOP pieces carry the pins. Four X-axis screws cross
-    each seam (one per side wall per Y column: front pins at the front-wall
-    corners, back pins just behind the Y-seam mouth). A WALL THAT LIP STANDS
+    each seam: the wall-end stations (front-wall corners for the front
+    column, rear-wall for the back) and the two four-corner screws, each
+    crossing all four pieces — the back pair's split plug, the front lip's
+    channel, front-bottom's proud socket. A WALL THAT LIP STANDS
     ON IS `2 * wall` THICK, floor slab to lip rim (`_lip_underwall`): the lip
     is a skin standing proud of the interior face, and a skin that began at
     the seam would land its underside in air — a soffit round three sides of
@@ -97,9 +100,9 @@ A level stands where its socket has a body to be bored into (`_level_clear`).
 
 Each seam is pinned at BOTH ends of every piece that crosses it, so nothing can
 hinge open at its far end: the Z seams at both ends of their column, and the Y
-seam at a level for each end of each piece — with one seam plane that is four
-levels, the under-seam level pinning the two bottom pieces and the over-rim
-level the two tops. Levels are searched per side wall against what stands
+seam at a level for each end of each piece — the floor and ceiling levels
+close the outer ends, and the four-corner screw closes the inner ends of all
+four pieces at once. Levels are searched per side wall against what stands
 against it, so the two walls need not carry the same ones; main() prints what
 each ended up with.
 
@@ -634,6 +637,24 @@ z_joint_clear = 3.0
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
 
+# THE FOUR-CORNER SCREW: one M3 per side wall at (`_y_boss`, `z_seam`), where all four
+# pieces meet, crossing every one of them — the Y-boss idiom with the seam plane through
+# it. The back pair carries the plug as two half-cylinders, each piece its own half; the
+# front lip's two halves carry the slide channel; and FRONT-BOTTOM alone carries the
+# socket, a pedestal standing proud through the plane off its own lip face, so the bore
+# and the insert live in one piece's solid. The head sits in the standard counterbore,
+# astride the visible seam line. It pins fb↔bb over the floor level, ft↔bt under the
+# ceiling one, and each column's Z seam against its far station — every pair at both
+# ends of its span.
+corner_screw_len = 12.0      # M3×12 SHCS — the corner's own length
+# The corner chain, read the way `boss_in` is: head seat, pin, heat-set and cap, less the
+# wall the counterbore is sunk into. TWO walls stand at the corner (the back piece's own
+# with the front lip inside it), so the socket roots one `wall` deeper than a Y-boss
+# collar and the cap lands past `boss_in` — the reach the cold core's flank slot
+# receives (`_cold_core_interface.corner_boss_slots`, `corner-slot-lands`).
+corner_boss_in = head_cbore_depth + corner_screw_len + socket_cap - wall
+corner_core_reach = corner_boss_in - boss_in
+
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from:
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
@@ -1050,13 +1071,14 @@ def east_band_free_y():
 
 
 def front_band_collar_z():
-    """The FRONT column's collars in height, as `(z0, z1)` — the only thing the seam stands in
-    a ±X boss-chain band forward of the Y seam's own station.
+    """The front-wall station's collar in height, as `(z0, z1)` — the one thing the seam
+    stands in a ±X boss-chain band forward of `front_band_free_y`'s aft fence. The
+    four-corner boss and its web stand wholly behind that fence, so they never enter
+    this answer.
 
-    THE SEAM'S HEIGHT IS STATED (`z_seam`), so the one boss the front half's bands carry has
-    a height a body can be placed against BEFORE the box is sized. `front_band_free_y` turns
-    it into a depth; a caller that wants to stand under it rather than beside it asks for it
-    directly."""
+    THE SEAM'S HEIGHT IS STATED (`z_seam`), so the collar has a height a body can be
+    placed against BEFORE the box is sized. `front_band_free_y` turns it into a depth;
+    a caller that wants to stand under it rather than beside it asks directly."""
     zc = _z_pin_z(z_seam)
     return (zc - socket_r, zc + socket_r)
 
@@ -1083,10 +1105,11 @@ def front_band_free_y(front_face, z0=None, z1=None):
     """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
     `east_band_free_y` says this half has and is not.
 
-    The front column's two Z stations are its ends, and the seam's height IS stated
-    (`z_seam`), so a caller that says what height it stands at gets the answer for that
-    height: a body clear of the collars in z has the column from the front wall to the Y
-    seam's own bosses. A caller that names no height gets the run with both collars standing.
+    The front-wall station and the four-corner boss are its ends, and the seam's height
+    IS stated (`z_seam`), so a caller that says what height it stands at gets the answer
+    for that height: a body clear of the seam's furniture in z has the column from the
+    front wall to the corner boss's own fore face. A caller that names no height gets the
+    run with the front-wall collar standing.
 
     IT TAKES THE FRONT FACE because it cannot state it. The back half's two ends are both
     struck on planes the box states about itself — `y_seam` and `rear_plane_y` — but the front
@@ -1095,11 +1118,11 @@ def front_band_free_y(front_face, z0=None, z1=None):
     builds the wall on."""
     iy0 = front_face - interior_clearance - front_seam_clear
     yf = _z_front_station_y(iy0)
-    yfr = y_seam - wall - z_lip_y_margin - socket_r
+    aft = _y_boss(y_seam) - socket_r
     cz0, cz1 = front_band_collar_z()
     if z0 is not None and (z1 <= cz0 or z0 >= cz1):
-        return (iy0, yfr + socket_r)          # clear of both collars in height
-    return (yf + socket_r, yfr - socket_r)
+        return (iy0, aft)                     # clear of the seam's furniture in height
+    return (yf + socket_r, aft)
 
 
 def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
@@ -1121,9 +1144,10 @@ def seam_bosses(inner, y_joint, splits):
     one actually occupies of that wall, both walls' taken together.
 
     A boss is a collar round a bore, so what it takes of the band is `2 * socket_r` across
-    and the same tall, at the station its own screw is on. Read from the definitions that
-    BUILD them (`_bosses`, `_y_corner`, `_z_stations`, `_z_station_y`), so a footprint cannot
-    drift from the geometry it stands for.
+    and the same tall, at the station its own screw is on — and the four-corner boss takes
+    its 45° web's run below the collar too. Read from the definitions that BUILD them
+    (`_bosses`, `_y_corner`, `_z_stations`, `_z_station_y`, `_corner_socket`), so a
+    footprint cannot drift from the geometry it stands for.
 
     THE HEIGHT IS HALF THE ANSWER. A body hung on a flank clears a boss by standing beside it
     or by standing over it, and a reading with no z in it can only see the first — it would
@@ -1132,11 +1156,16 @@ def seam_bosses(inner, y_joint, splits):
     r = socket_r
     yb0, yb1 = _y_corner(inner, y_joint)
     out = [(yb0, yb1, z - r, z + r)
-           for _x_in, _x_ext, _sx, z in _bosses(inner, splits, y_joint)]
+           for _x_in, _x_ext, _sx, z in _bosses(inner, y_joint)]
     for _x_in, _x_ext, _sx, ys, col in _z_stations(inner, y_joint):
         zp = _z_pin_z(splits[0] if col == "front" else splits[1])
         y0, y1 = _z_station_y(ys)
         out.append((y0, y1, zp - r, zp + r))
+    # The four-corner boss: its collar, and the 45° web running from the collar's
+    # underside down to the lip face.
+    ycb = _y_boss(y_joint)
+    out.append((ycb - r, ycb + r,
+                z_seam - r - (corner_boss_in - wall), z_seam + r))
     return out
 
 
@@ -1990,18 +2019,17 @@ def _seam_level(inner, y0, y1, want, away, limit, x_in, sx, depth):
     return None
 
 
-def _bosses(inner, splits, y_joint):
+def _bosses(inner, y_joint):
     """Per-boss tuple (x_in, x_ext, sx, z_boss): the inner ±X wall face the screw
     passes through, its matching exterior face, sx = +1 (left) / −1 (right)
     inboard, and the bore-axis height.
 
     The Y seam runs the box's whole height and BOTH columns cross it, so it is
-    pinned at a level for each end of each piece that crosses it. `splits` is
-    every Z-seam height; each DISTINCT height contributes a level just under it
-    and one just over its lip rim, and the floor and ceiling close the ends.
-    With one seam plane that is four levels, and every piece carries a level at
-    each end of its own span: the under-seam level pins the two bottom pieces,
-    the over-rim level the two tops.
+    pinned at a level for each end of each piece that crosses it. The floor and
+    ceiling levels close the outer ends — the under-floor level pins the two
+    bottom pieces, the under-ceiling one the two tops — and the FOUR-CORNER
+    screw at the seam plane itself closes the inner ends of all four at once
+    (`_corner_socket`).
 
     A level sits as near the end it pins as its OWN wall allows — the two walls
     are independent screws, so each is searched separately and they need not
@@ -2020,9 +2048,6 @@ def _bosses(inner, splits, y_joint):
         at = (lambda want, away, limit, x=x_in, s=sx:
               _seam_level(inner, fy0, fy1, want, away, limit, x, s, boss_in))
         wanted = [(zf, +1.0, zt)]                                  # a wall above the floor
-        for sp in sorted(set(splits)):
-            wanted.append((sp - wall - r, -1.0, zf))               # just under that Z seam
-            wanted.append((sp + lip_len + wall + r, +1.0, zt))     # just over its lip rim
         wanted.append((zt, -1.0, zf))                              # under the ceiling
         levels = []
         for want, away, limit in wanted:
@@ -2038,13 +2063,15 @@ def _bosses(inner, splits, y_joint):
     return out
 
 
-def _boss_x(x_ext, sx):
+def _boss_x(x_ext, sx, length=None):
     """Inboard X stations from the ±X exterior, each sized to its job: the
     screw-head seat (recess), the pin/heat-set boundary (the screw spans the seat
-    to the heat-set, so the pin body is screw_len − heatset_depth long), the
-    heat-set end, and the pod cap one wall past it."""
+    to the heat-set, so the pin body is the screw's length − heatset_depth long),
+    the heat-set end, and the pod cap one wall past it. `length` is `screw_len`
+    unless the boss carries its own — the four-corner's `corner_screw_len`."""
+    length = screw_len if length is None else length
     x_seat = x_ext + sx * head_cbore_depth
-    x_tip = x_seat + sx * (screw_len - heatset_depth)
+    x_tip = x_seat + sx * (length - heatset_depth)
     x_heat = x_tip + sx * heatset_depth
     x_cap = x_heat + sx * socket_cap
     return x_seat, x_tip, x_heat, x_cap
@@ -2094,11 +2121,11 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
     return bore.fuse(heat).fuse(chan)
 
 
-def _screw_cut(x_ext, sx, z_boss, y_boss):
+def _screw_cut(x_ext, sx, z_boss, y_boss, length=None):
     """M3 shank clearance from the ±X exterior through the plug to the heat-set,
     plus the SHCS head counterbore at the exterior — the seat one wall outboard
     of the heat-set."""
-    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx, length)
     shank = _xcyl(screw_clear_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_tip)
     cbore = _xcyl(head_cbore_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_ext + sx * head_cbore_depth)
     return shank.fuse(cbore)
@@ -2183,50 +2210,36 @@ def _z_pin_z(zj):
     return zj + plug_dia / 2.0
 
 
-def _z_back_station_y(iy1, y_joint):
-    """The BACK column's two X-pin stations in Y — behind the Y-seam mouth (where the
-    telescoped front lip stops) and the rear-wall corner.
+def _z_back_station_y(iy1):
+    """The BACK column's X-pin station in Y — the rear-wall corner.
 
-    Its own function because it is read twice: once here, to build the stations, and once by
-    `east_band_free_y`, to say where the columns they carry leave the ±X band free. Struck off
-    the rear plane and the seam alone, so the second reader needs no placed piece.
-
-    Behind the mouth, the station stands off the Z-lip's Y-gap edge (y_joint + lip_len +
-    z_lip_y_margin) by a full socket_r — the same clearance the front column's aft station
-    keeps from that gap on its side. Drop the z_lip_y_margin term and the pod's −Y wall
-    pinches to (wall − z_lip_y_margin) against the gap, too thin to telescope into the top
-    piece; with it the pod keeps a full wall each side of its bore.
-
-    AT THE REAR WALL the collar's own +Y face lies on that wall's inner face — unless the
-    standing corner there carries a column, and then the lens runs forward to its cusp and
-    would hole the collar's root. So that end answers the way the front column's front-wall
-    station does (`_z_front_station_y`): one socket_r ahead of the cusp."""
+    The collar's own +Y face lies on that wall's inner face — unless the standing corner
+    there carries a column, and then the lens runs forward to its cusp and would hole the
+    collar's root. So that end answers the way the front column's front-wall station does
+    (`_z_front_station_y`): one socket_r ahead of the cusp."""
     r = socket_bore_dia / 2.0
     plain = iy1 - wall - r
     if any(sy > 0 for _sx, sy in column_corners):
         plain = min(plain, iy1 - _column_along() - socket_r)
-    return (y_joint + lip_len + z_lip_y_margin + wall + r, plain)
+    return plain
 
 
 def _z_stations(inner, y_joint):
-    """X-axis pin stations along the Z seams — TWO per ±X wall per Y column, one
-    at each END of that column's seam, so a seam pinned only at one end cannot
-    hinge open at the other.
+    """X-axis pin stations along the Z seams — ONE per ±X wall per Y column, at the
+    wall end of that column's seam. The seam's other end is the four-corner screw
+    (`_corner_socket`), so each column is pinned at both ends of its span and cannot
+    hinge open.
 
     Front column: the front-wall corner — or, where that corner carries a column,
-    behind it (`_z_front_station_y`) — and the aft end of its own lip, just
-    ahead of where the Y-seam furniture starts. Back column: just behind the
-    Y-seam mouth (where the telescoped front lip stops) and the rear-wall
-    corner. Every station stands in the ±X band the walls' standoff opens off
-    the cold core, and the depth between the two columns is what `east_band_free_y`
-    hands a body hung on that wall. Each column's stations ride that column's own
-    seam height."""
+    behind it (`_z_front_station_y`). Back column: the rear-wall corner. Every
+    station stands in the ±X band the walls' standoff opens off the cold core, and
+    the depth between the two columns is what `east_band_free_y` hands a body hung
+    on that wall. The stations ride the stated seam plane."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     yf = _z_front_station_y(iy0)                    # front column, front wall
-    yfr = y_joint - wall - z_lip_y_margin - socket_r  # front column, aft end of its lip
-    yb, ybr = _z_back_station_y(iy1, y_joint)
+    ybr = _z_back_station_y(iy1)                    # back column, rear wall
     out = []
-    for ys, col in ((yf, "front"), (yfr, "front"), (yb, "back"), (ybr, "back")):
+    for ys, col in ((yf, "front"), (ybr, "back")):
         out.append((ix0, ix0 - wall, +1.0, ys, col))
         out.append((ix1, ix1 + wall, -1.0, ys, col))
     return out
@@ -2360,6 +2373,59 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     return bore.fuse(heat).fuse(chan)
 
 
+# --- the four-corner screw: the Y-boss idiom with the seam plane through it --
+#
+# One per side wall at (`_y_boss`, `z_seam`). The BACK pair carries the plug — each piece
+# its own half-cylinder, the flat on the plane (the bottom's half prints at its rim, the
+# top's flat-face-down on its own mouth). The FRONT lip's two halves carry the slide
+# channel, and FRONT-BOTTOM alone carries the socket: a pedestal off its own lip face,
+# proud through the plane the way the lip itself is, so the bore and the insert live in
+# one piece's solid and the heat-set presses into a whole mouth. A 45° web under the
+# pedestal carries it to the lip face, so the piece prints floor-down with nothing
+# hanging. The screw crosses all four pieces; the plug registers in the bore the way
+# every Y-boss plug does.
+
+
+def _corner_plug(x_ext, sx, zlo, zhi):
+    """The back pair's pin at the four-corner, clipped to the piece band it is fused
+    into — each back piece carries the half the seam plane leaves it."""
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx, corner_screw_len)
+    yb = _y_boss(y_seam)
+    xa, xb = sorted((x_ext, x_tip))
+    return _xcyl(plug_dia / 2.0, yb, z_seam, x_ext, x_tip).intersect(
+        _ybox(xa - 1.0, xb + 1.0, yb - plug_dia, yb + plug_dia, zlo, zhi))
+
+
+def _corner_socket(x_in, x_ext, sx):
+    """Front-bottom's socket at the four-corner: the pedestal — a collar off the lip's
+    own inner face out to the cap, with the 45° web under it."""
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx, corner_screw_len)
+    yb = _y_boss(y_seam)
+    lip_in = x_in + sx * wall
+    xa, xb = sorted((lip_in, x_cap))
+    collar = _xcyl(socket_r, yb, z_seam, xa, xb)
+    drop = abs(x_cap - lip_in)
+    floor = z_seam - socket_r
+    web = _xz_prism(yb - socket_r, yb + socket_r,
+                    [(lip_in, floor), (x_cap, floor), (lip_in, floor - drop)])
+    return collar.fuse(web)
+
+
+def _corner_cuts(x_in, x_ext, sx):
+    """The corner socket's inner cuts — bore, insert pocket, and the +Y slide channel,
+    the Y-boss cuts one wall deeper. Cut from BOTH front pieces: the channel crosses the
+    lip, so each piece's own half comes out of its own solid."""
+    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx, corner_screw_len)
+    yb = _y_boss(y_seam)
+    bore_y = yb + split_slip / 2.0
+    bore = _xcyl(socket_bore_dia / 2.0, bore_y, z_seam, x_in, x_tip)
+    heat = _xcyl(heatset_dia / 2.0, yb, z_seam, x_tip, x_heat)
+    bx0, bx1 = sorted((x_in, x_tip))
+    chan = _ybox(bx0, bx1, bore_y, y_seam + lip_len + 1.0,
+                 z_seam - socket_bore_dia / 2.0, z_seam + socket_bore_dia / 2.0)
+    return bore.fuse(heat).fuse(chan)
+
+
 def build_front_half(box):
     """The whole front column, both pieces still joined at its Z seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
@@ -2371,7 +2437,7 @@ def build_front_half(box):
     # floor cannot tongue proud like the walls). Lands in the bottom piece.
     front = front.fuse(_floor_lap(inner, y_joint)[0])
     yb = _y_boss(y_joint)
-    bosses = _bosses(inner, box.splits, y_joint)
+    bosses = _bosses(inner, y_joint)
     # One collar per level, each standing on the lip band the lip has already put
     # down that wall.
     for x_in, x_ext, sx, z_boss in bosses:
@@ -2414,7 +2480,7 @@ def build_back_half(box):
     if box.funnel:
         back = back.cut(_hopper_cut(inner, outer, box.funnel))
     yb = _y_boss(y_joint)
-    bosses = _bosses(inner, box.splits, y_joint)
+    bosses = _bosses(inner, y_joint)
     # One plug per level, standing on the back mouth off the wall it drives through.
     # The corner ahead of that mouth is the front lip's, whole.
     for x_in, x_ext, sx, z_boss in bosses:
@@ -3410,6 +3476,17 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj))
+        for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+            x_ext = x_in - sx * wall
+            if y_side == "front":
+                # The four-corner socket: front-bottom's alone, proud through the plane.
+                piece = piece.fuse(_corner_socket(x_in, x_ext, sx))
+                piece = piece.cut(_corner_cuts(x_in, x_ext, sx))
+            else:
+                # The back-bottom half of the four-corner pin, flat on the plane.
+                piece = piece.fuse(_corner_plug(x_ext, sx, oz0 - 1.0, zj))
+            piece = piece.cut(_screw_cut(x_ext, sx, z_seam, _y_boss(y_joint),
+                                         corner_screw_len))
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
@@ -3417,6 +3494,16 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
+        for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+            x_ext = x_in - sx * wall
+            if y_side == "front":
+                # The corner's slide channel through front-top's half of the lip.
+                piece = piece.cut(_corner_cuts(x_in, x_ext, sx))
+            else:
+                # The back-top half of the four-corner pin, flat-face on its own mouth.
+                piece = piece.fuse(_corner_plug(x_ext, sx, zj, oz1 + 1.0))
+            piece = piece.cut(_screw_cut(x_ext, sx, z_seam, _y_boss(y_joint),
+                                         corner_screw_len))
     piece = piece.intersect(_rounded_outer(outer))
     zlo, zhi = (oz0 - 1.0, zj) if z_side == "bottom" else (zj, oz1 + 1.0)
     if y_side == "back":
@@ -3556,7 +3643,7 @@ def _report_levels(box):
     """The Y-seam cross-pin heights each ±X wall ended up with. They are searched
     per wall against what stands against it, so the two can differ — printing
     them keeps a wall that had to give up a level visible instead of silent."""
-    bosses = _bosses(box.inner, box.splits, box.y_joint)
+    bosses = _bosses(box.inner, box.y_joint)
     for sx, label in ((+1.0, "−X"), (-1.0, "+X")):
         zs = sorted(z for _xi, _xe, s, z in bosses if s == sx)
         print(f"  Y-seam levels {label} wall: {len(zs)} — "
@@ -3707,7 +3794,7 @@ def main():
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
         # The Y-seam ladder as the walls came out — per wall, and one figure when they agree.
         "Y_LEVELS": "/".join(str(c) for c in sorted({
-            sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.splits, box.y_joint)
+            sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.y_joint)
                 if s == sx) for sx in (+1.0, -1.0)})),
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",

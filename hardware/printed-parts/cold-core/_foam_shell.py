@@ -1,10 +1,11 @@
 """Top-level foam-shell assembly: union the wall builders, then cut
 all the port holes and channel openings."""
 
+from _cold_core_interface import corner_boss_slots, foam_shell_outer_height
 from _reservoir_pocket_walls import build_reservoir_pocket_walls
 from _reservoir_supports import build_reservoir_supports
 from _support_ring import build_tank_support_ring
-from _outer_shell import build_outer_shell, cut_insert_pockets
+from _outer_shell import build_outer_shell, cut_insert_pockets, _rounded_footprint
 from _port_cuts import (
     cut_line_corridors,
     cut_lane_slots,
@@ -43,6 +44,13 @@ def build_full_shell():
         .union(build_reed_channels(side=+1))
         .union(build_reed_channels(side=-1))
     )
+    # The enclosure's four-corner boss slots: an inward emboss on each ±Y flank, the liner
+    # unioned before the void is cut so the pour stays sealed behind and beside it
+    # (`_cold_core_interface.corner_boss_slots`). The liner is trimmed to the rounded
+    # footprint, since its fore end reaches into the corner round.
+    footprint = _rounded_footprint(foam_shell_outer_height).unwrap()
+    for liner, void in corner_boss_slots():
+        foam_shell = foam_shell.union(liner.intersect(footprint)).cut(void)
     foam_shell = cut_insert_pockets(foam_shell)
     foam_shell = cut_line_corridors(foam_shell, (pocket_walls, corner_posts))
     for cut in (

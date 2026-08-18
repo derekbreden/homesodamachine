@@ -85,13 +85,27 @@ possible: the lip's side segments pass in the ±X chain bands, its ceiling segme
 under the top wall, and the floor's shiplap inside the slab, so none of the three
 meets the core at all.
 
-That seam runs the box's whole height, so it is pinned at **[4](Y_LEVELS) levels** per
-side wall, not once near the top — a wall above the floor, one under the Z-seam plane, one
-over its lip rim, and one under the ceiling, so every piece crossing it is pinned at
-both ends of its own span: the under-seam level pins the two bottom pieces, the
-over-rim level the two tops. `_bosses` drops a level landing within two socket
-collars of one already placed, so the ladder carries one level per distinct height it
-is owed.
+That seam runs the box's whole height, so it is pinned at **[2](Y_LEVELS) levels** per
+side wall — a wall above the floor and one under the ceiling — and at the
+**four-corner screw** between them, so every piece crossing it is pinned at both ends
+of its own span: the floor level pins the two bottom pieces, the ceiling level the two
+tops, and the corner screw all four at once. `_bosses` drops a level landing within
+two socket collars of one already placed, so the ladder carries one level per height
+it is owed.
+
+**The four-corner screw is the Y-boss idiom with the seam plane through it.** One M3×12
+per side wall at the Y-boss station on `z_seam`, where all four pieces meet: the back
+pair carries the plug as two half-cylinders — each piece its own half, the flat on the
+plane, the bottom's at its rim and the top's flat-face-down on its own mouth — the
+front lip's two halves carry the slide channel, and `enclosure-front-bottom` alone
+carries the socket: a pedestal off its own lip face, proud through the plane the way
+the lip itself is, so the bore and the heat-set live in one piece's solid. A 45° web
+carries the pedestal to the lip face, so it prints floor-down with nothing hanging.
+The head sits in the standard counterbore astride the visible seam line, and the screw
+clamps back wall and front lip against the pedestal's shoulder — all four pieces in
+one sandwich, the shank shear-locking them in Y and Z at the point. Its cap stands
+`corner_core_reach` past the boss chain, in a slot the cold core's flanks carry for it
+(`_cold_core_interface.corner_boss_slots`, read live by `corner-slot-lands`).
 
 Bottom↔top, per column: the same joint rotated 90°, at `enclosure.z_seam` — the
 bottom pieces carry a 3-sided lip + socket collars, the top pieces carry the pins,
@@ -112,11 +126,10 @@ bottoms on it, the condenser's aft fin roots on it, and the compressor's suction
 is struck from it.
 
 A Z seam is pinned at **both ends of its column**, not just one, or the far end
-hinges open. The front column takes the front-wall corner and the aft end of its
-own lip; the back column takes one just behind the Y-seam mouth and one in the
-rear-wall corner. Every station stands in the ±X band the walls' standoff opens
-off the cold core, which runs clear the full depth, so none has to dodge the
-pack.
+hinges open. The front column takes the front-wall corner and the four-corner
+screw; the back column takes the four-corner screw and the rear-wall corner.
+Every station stands in the ±X band the walls' standoff opens off the cold
+core, so none has to dodge the pack.
 Each cross-pin mates the walls of its overlap (the
 pin's mouth-side face on the receiving mouth, the socket collar's rim-side face
 on the lip rim) and the two are coaxial by construction, so the **overlap
@@ -162,7 +175,7 @@ stays inside the slab, so the seat is square and there is nothing standing there
 clear.
 
 So the pack seats flush against the **seams**, not against the walls, and both
-walls carry all [4](Y_LEVELS) levels at full section.
+walls carry all [2](Y_LEVELS) levels at full section.
 
 The Y seam is a stated plane, `enclosure.y_seam`, checked against those bands
 rather than derived from them: which pieces the box comes apart into is a decision
@@ -218,10 +231,11 @@ The slab takes the weight and the back wall takes the aft, so the four between t
 direction the core could go. `enclosure_assembly.check_core_held` reads each inside its own
 window off the built pieces (`core-held`).
 
-**The core enters the pocket from ahead or from above.** The pocket is that outline carried
-straight down, so it stands clear of the core at every stand-off and closes on it at the slip:
-the front assembly slides aft onto a core already down, or the core comes straight down into a
-box already telescoped.
+**The core enters the pocket from ahead.** The pocket is that outline carried straight
+down, so it stands clear of the core at every stand-off and closes on it at the slip:
+the core goes down into the open back tub, and the front assembly slides aft onto it —
+the four-corner bosses riding the flank slots the core carries for them
+(`corner-slot-lands`).
 
 **Neither feature needs support.** The front blocks print floor-down with no overhang in them at
 all. An aft bracket's leg stands up off the bed and its foot's bearing face is uppermost, and the
