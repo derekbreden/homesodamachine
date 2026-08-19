@@ -2,19 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-f5f9c22a4c7dbf55.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f5f9c22a4c7dbf55.tar.gz"
+    "asset": "cad-505ba8ea7a37d78e.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-505ba8ea7a37d78e.tar.gz"
   },
   "bundle": {
-    "sha256": "f5f9c22a4c7dbf55208cadbbc9fcb07436c0cd8fe3cb0bfa06360e07c7499e5e",
-    "bytes": 27211757,
+    "sha256": "505ba8ea7a37d78e079388f530be113d8d48ae9631541ce81cf1268ef829ff72",
+    "bytes": 27209932,
     "solids": 96
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "16f7a93bd006104b23d9a2ad01b7a6da2c103eb9f36ea451004279f7bb44df9a",
-    "hardware/manifold-layout/enclosure-assembly.step": "ca8b7adcf6876d8a7b6431a8c8653f87dd8d41cb2b7151f615de9f600257ffde",
+    "hardware/manifold-layout/enclosure-assembly.step": "596403738bdee9235518f3e1c1f8deab3f180a1db0dfaafb3fee32d3f46c7e2d",
     "hardware/manifold-layout/manifold-layout.step": "15c1f52733f0db31a4d6f654eff690037838435ece7a13afef888b74c62df83e",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "3930047b04cd73bcf0df827cd6d82312084a72f70cc439615899635198865e23",
