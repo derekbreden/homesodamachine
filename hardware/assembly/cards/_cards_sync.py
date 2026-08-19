@@ -101,17 +101,19 @@ def enclosure(m: Machine):
     pieces = sorted(m.a.pieces)
 
     # ── what the cards' sentences stand on ────────────────────────────────
-    # EN-01 stages four quadrants and the cartridge that rides out of their bay,
-    # EN-02 says no separate panel closes a face, and EN-07 cross-pins the
-    # quadrants alone — the cartridge slides and is pinned by nothing. A SIXTH
-    # printed piece, or a fifth that is not the cartridge, has no number in it to
-    # drift, so this is the only thing that can put those sentences back.
+    # EN-01 stages four quadrants, the cartridge that rides out of their bay and the
+    # cap screwed under it; EN-02 says no separate panel closes a face; EN-07
+    # cross-pins the quadrants alone. THE THREE ARE HELD THREE DIFFERENT WAYS — a
+    # quadrant is cross-pinned, the cartridge slides and is pinned by nothing, the cap
+    # is screwed to the cartridge on the bench — so a piece added or renamed has no
+    # number in these sentences to drift, and this is the only thing that can put them
+    # back.
     assert pieces == ["back-bottom", "back-top", "front-bottom", "front-top",
-                      "pump-cartridge"], (
-        f"the box prints as {pieces} and EN-01 stages four quadrants and one cartridge, "
-        f"EN-07 cross-pins the quadrants alone — restate them, or the deck ships a card "
-        f"for a part that is not made")
-    quadrants = [p for p in pieces if p != "pump-cartridge"]
+                      "pump-cap", "pump-cartridge"], (
+        f"the box prints as {pieces} and EN-01 stages four quadrants, one cartridge and "
+        f"its cap, EN-07 cross-pins the quadrants alone — restate them, or the deck ships "
+        f"a card for a part that is not made")
+    quadrants = [p for p in pieces if not p.startswith("pump-")]
     # EN-01 tables ONE Z seam for both columns and EN-07 draws it as one level line
     # round the box, the four pieces meeting at a four-way corner on each side wall.
     # Two planes again and both cards are drawing a box that is not this one.

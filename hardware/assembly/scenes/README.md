@@ -36,7 +36,7 @@ does not name is reported, not dropped.
 
 **`inner` draws a root at the depth its own model has.** Two models draw the cold core, and each
 owns one thing. [`printed-parts/cold-core/foam-assembly`](/hardware/printed-parts/cold-core/foam-assembly/)
-owns the five printed pieces and the port table on their faces; it is the **interface**, and both
+owns the six printed pieces and the port table on their faces; it is the **interface**, and both
 larger models load it. [`cold-core-layout`](/hardware/cold-core-layout/) owns what stands inside
 the shell — the vessel, the coil, both reservoirs, the sensing, the eight internal lines — in the
 shell's own frame. [`manifold-layout`](/hardware/manifold-layout/) owns the machine, and imports

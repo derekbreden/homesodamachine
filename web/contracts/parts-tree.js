@@ -90,7 +90,7 @@ export const BRANCHES = [
       { id: "shell", label: "Foam shell",
         holds: ["printed-parts/cold-core/foam-shell", "printed-parts/cold-core/foam-cap",
                 "printed-parts/cold-core/foam-assembly"],
-        note: "The five printed pieces the pour goes into, and the outside faces the " +
+        note: "The six printed pieces the pour goes into, and the outside faces the " +
               "enclosure loads." },
       { id: "reservoirs", label: "Reservoirs", holds: ["printed-parts/cold-core/reservoir"],
         note: "Two vented printed vessels, nested in the foam where they pre-chill." },

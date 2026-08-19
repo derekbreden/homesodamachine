@@ -406,18 +406,18 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # AND BOTH PUMPS HANG UNDER A TRAY ON THE PUMP CARTRIDGE'S DECK — the two-piece pump case
-    # with its cylinder cut off, so the same four surfaces that fitted the part still do: a plate
-    # on the head's crown, a ramp off it, the octagon bore on the boss, and a shoulder of tower on
-    # the boss's crown (`enclosure.build_cartridge` fuses one per station off
-    # `enclosure_assembly.pump_tray_stations`, read by `trays-hold`). Two zip ties per pump close
-    # round the pump and the tray together through the plate's four channels, reaching under the
-    # stamped bracket the part carries at that same crown, and those straps are what carry the
-    # pump: a tray a body hangs UNDER holds nothing on its own, the same bargain the flow meter's
-    # saddles and the regulator's rib strike. The deck rides out of the front bay with both
-    # heads on it.
-    ("pump-a-head", "enclosure-pump-cartridge", "tray"),
-    ("pump-b-head", "enclosure-pump-cartridge", "tray"),
+    # AND BOTH PUMPS STAND IN A CASE THAT IS TWO PRINTED PIECES — the pump cartridge and the
+    # cap screwed under it, parting on the pump's own bracket plane
+    # (`enclosure.cap_split_z`). Above that plane the cartridge is a block the pump stands in,
+    # and its tray takes the boss on the octagon bore and the boss's crown on a shoulder of
+    # tower; below it the cap closes on the head. What carries the pump is the stamped bracket
+    # the part holds in that same plane, `bracket_w` across against a head of `head_w`: it laps
+    # the cap's top face all round the head, and two M3×10 on the lane between the pumps draw
+    # the cap up onto the block (`enclosure._cap_screws`, read by `trays-hold`). The surfaces
+    # that fit the part in `pump-tray/pump_case.py` fit it here, closed on screws. The whole
+    # case rides out of the front bay with both pumps aboard.
+    ("pump-a-head", "enclosure-pump-cartridge", "case"),
+    ("pump-b-head", "enclosure-pump-cartridge", "case"),
 )
 
 

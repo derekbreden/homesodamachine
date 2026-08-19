@@ -2,6 +2,8 @@
   "/hardware/service/_pump_replacement_sync.py": {
     "BARB_AIR": "1.025",
     "BOX_TEES": "6",
+    "CAP_SCREWS": "2",
+    "CAP_SCREW_LEN": "10",
     "CAP_VALVES": "3",
     "CART_PUMPS": "2",
     "JOINT_COUNT": "4",
