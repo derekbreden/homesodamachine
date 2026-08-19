@@ -671,7 +671,7 @@ corner_core_reach = corner_boss_in - boss_in
 #                 onto the −X wall, and the berth cut back out of it
 #   c14           the mains inlet's heat-set stations on the back wall, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
-#   side_wells    the side walls' Wago wells, (side, y, z, size) — one press-fit pocket
+#   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z) — one press-fit pocket
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
@@ -1805,8 +1805,19 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     floor = y_outer - plate.thick - plate.pad_depth
     for dx, dz in plate.screws:
         sx, sz = plate.x + dx, plate.z + dz
-        solid = solid.fuse(_ycyl(plate.collar_d / 2.0, sx, sz, floor, y_inner))
-        solid = solid.fuse(_ycyl(plate.stem_d / 2.0, sx, sz, floor - plate.bore_depth, floor))
+        r = plate.collar_d / 2.0
+        deep = floor - plate.bore_depth
+        solid = solid.fuse(_ycyl(r, sx, sz, floor, y_inner))
+        solid = solid.fuse(_ycyl(plate.stem_d / 2.0, sx, sz, deep, floor))
+        # The pair is a D below its axis on a 45° web down the wall, the box's one boss
+        # shape — held to the `rear_seam_clear` band, the air the pack stands off this
+        # wall; the stem past it keeps its own round. The pocket cuts below take back
+        # whatever stands in the plate's own seat.
+        shallow = y_inner - rear_seam_clear
+        solid = solid.fuse(_ybox(sx - r, sx + r, shallow, y_inner, sz - r, sz))
+        solid = solid.fuse(_yz_prism(sx - r, sx + r,
+                                     [(y_inner, sz - r), (shallow, sz - r),
+                                      (y_inner, sz - r - rear_seam_clear)]))
     solid = solid.cut(_rect_cut_y(plate.x, plate.z,
                                   plate.width + 2.0 * plate.slip,
                                   plate.height + 2.0 * plate.slip,
@@ -1859,6 +1870,15 @@ def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
     band = _ybox(ox0 - 1.0, ox1 + 1.0, boss_y0, y_inner, zlo, zhi)
     for px, pz, width, rise in field.pockets:
         boss = _port_chip(px, pz, width + 2.0 * field.rim, rise + field.rim, boss_y0, y_inner)
+        # The boss is a D below its bore's axis, on a 45° web run down the wall — squared
+        # and webbed the way every boss on this box is, so its underside prints off the
+        # wall it stands on.
+        w2 = width / 2.0 + field.rim
+        zb = pz - w2
+        boss = boss.fuse(_ybox(px - w2, px + w2, boss_y0, y_inner, zb, pz))
+        boss = boss.fuse(_yz_prism(px - w2, px + w2,
+                                   [(y_inner, zb), (boss_y0, zb),
+                                    (y_inner, zb - field.proud)]))
         solid = solid.fuse(boss.intersect(silhouette).intersect(band))
     for px, pz, width, rise in field.pockets:
         solid = solid.cut(_port_chip(px, pz, width, rise,
@@ -2607,11 +2627,25 @@ def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
     piece-side: where a station's height meets a mounting boss's, the two share the same
     material, and a bore cut before that collar is fused is a bore the collar fills back in.
     Cut here, the boss fuses nothing where the collar already stands and is bored through it
-    all the same."""
+    all the same.
+
+    A boss is a D below its axis, on a 45° web run down the wall — the seam collars'
+    own shape (`_front_socket`) at the mount's scale — and the web stops on the boss's
+    own tip plane, which is the body's mounting face."""
     for sy, sz, tip in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        solid = solid.fuse(_xcyl(mount_boss_dia / 2.0, sy, sz, tip, inner[1]))
+        r = mount_boss_dia / 2.0
+        # The fill and the web stop one `wall` short of the tip plane: the plane is the
+        # body's mounting face, and past it is the body's own back side — solder tails,
+        # potting lips — which only the bore's own pad annulus may meet.
+        stop = tip + wall
+        drop = inner[1] - stop
+        solid = solid.fuse(_xcyl(r, sy, sz, tip, inner[1]))
+        solid = solid.fuse(_ybox(stop, inner[1], sy - r, sy + r, sz - r, sz))
+        solid = solid.fuse(_xz_prism(sy - r, sy + r,
+                                     [(inner[1], sz - r), (stop, sz - r),
+                                      (inner[1], sz - r - drop)]))
         solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, tip,
                                 tip + heatset_depth + mount_bore_relief))
     return solid
@@ -2632,8 +2666,12 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 
     THE ROOF IS TWO TABS, NOT A SOFFIT. The band over the pocket keeps `wago_roof_tab`
     at each end and opens between them: each tab catches the lug's lift and prints as
-    its own short bridge, with nothing hanging the pocket's full width."""
-    for side, sy, sz, size in stations:
+    its own short bridge, with nothing hanging the pocket's full width.
+
+    A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
+    flank's air stops being the well's — the crown of whatever the station stands over —
+    and a wedge that would cross it is cut off flat there instead."""
+    for side, sy, sz, size, clear_z in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
         face = inner[1] if side > 0 else inner[0]
@@ -2647,6 +2685,14 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.fuse(_ybox(tower[0], tower[1],
                                  sy - half_y, sy + half_y,
                                  sz - half_z, sz + half_z))
+        zb = sz - half_z
+        drop = engage if clear_z is None else min(engage, zb - clear_z)
+        if drop > 0.3:
+            prof = [(face, zb), (face - side * engage, zb)]
+            if drop < engage - 1e-9:
+                prof.append((face - side * (engage - drop), zb - drop))
+            prof.append((face, zb - drop))
+            solid = solid.fuse(_xz_prism(sy - half_y, sy + half_y, prof))
         pk_y = stand_y / 2.0 + wago_well_press
         solid = solid.cut(_ybox(pocket[0], pocket[1],
                                 sy - pk_y, sy + pk_y,
@@ -3179,26 +3225,30 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
         face = plane - sign * _panel.SEAT
         near, far = sorted((face, face - sign * _panel.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
-        # THE PLATE'S FOOT: the section behind the valves' own mounting plane, carried
-        # down to the piece's bed face, so the plate prints as a wall standing on the bed
-        # rather than a soffit hanging over it. Behind the plane, because the valves hang
-        # below the plate while sunk into it. Inset one `wall` to the lip's own face —
+        # THE PLATE'S FOOT: the plate's own section less one `PORT_SLIP` of air off the
+        # valve-side face, carried down to the piece's bed face, so the plate prints as a
+        # wall standing on the bed rather than a soffit hanging over it. The valves' bottom
+        # ports and the runs on them leave through the same channels the plate carries,
+        # run on down to the foot's own bed edge. Inset one `wall` to the lip's own face —
         # below the rim that face is the bottom piece's lip, and the foot telescopes down
         # it the way every interior face does. The fore-facing panel's alone: under an
-        # aft-facing plate the same band is the fold's own junction field, tees and
-        # valve bottoms crossing every section of it. The seats' wall-to-wall span stays
-        # above the rim (`z-seam-under-deck`).
+        # aft-facing plate the same band is the fold's own junction field, tees crossing
+        # every section of it. The seats' wall-to-wall span stays above the rim
+        # (`z-seam-under-deck`).
         foot_z0 = max(z0, inner[4])
-        if sign < 0 and foot_z0 < mid_z - half - 1e-9:
+        footed = sign < 0 and foot_z0 < mid_z - half - 1e-9
+        if footed:
             lx0, lx1 = lip_face_x()
-            fy0, fy1 = sorted((plane, far))
+            fy0, fy1 = sorted((face - sign * _panel.PORT_SLIP, far))
             solid = solid.fuse(_ybox(lx0, lx1, fy0, fy1, foot_z0, mid_z - half))
         turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
             solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
-            solid = solid.cut(_panel.build_port_channel(_panel.height() + 2.0)
+            chan = _panel.height() if not footed else max(
+                _panel.height(), 2.0 * (sz - foot_z0))
+            solid = solid.cut(_panel.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))
     return solid
 
