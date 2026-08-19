@@ -1536,7 +1536,15 @@ def check_panel_web(spec) -> Bound:
     chosen so a feature reads right and stands up. `EXTRUSION_W` is not: it is the printer's,
     and it is the width below which a wall is not thin but absent. A solid states material at
     any width whatever, so nothing that reads the model can tell the two apart; only a figure
-    from outside the model can."""
+    from outside the model can.
+
+    AND A NAME IS NOT A NOZZLE. `copper_plugs.min_printable_thickness` is 1.0 and its bound
+    says PRINTABLE, but no nozzle stands behind it — `ledger/machine-time.md` names one for
+    two of its four print groups, and the group the plug stack prints in is not one of them.
+    It is not wrong today, because 1.0 is over one bead on anything this shop runs; it is
+    unheld, which is a different thing and reads more confident for saying printable. The
+    figure to copy is `touch_flo_shell.display_line_width` — 0.62, its own part's bead, on the
+    0.4 group `machine-time.md` does name."""
     rows, worst = [], None
     for label, extra, sweep in (("stands ", 0.0, 0.0), ("travels", spec["stroke"], spec["stroke"])):
         a = _vseat.build_sockets(extra)
