@@ -3632,17 +3632,19 @@ def build_stack(psu, pcba, wagos, wall_seat):
     return out
 
 
-def wago_wells(row, cluster):
-    """Every wall's well stations, `(side, y, z, size)` — one per placed lug, read off the lug's
-    own box so a well cannot end up anywhere but under the thing it holds."""
+def wago_wells(row, cluster, over):
+    """Every wall's well stations, `(side, y, z, size, clear_z)` — one per placed lug, read off
+    the lug's own box so a well cannot end up anywhere but under the thing it holds. `clear_z`
+    is the plane the flank's air stops being the well's — `over` is the row's, the crown of the
+    brick it runs along, and a cluster well carries None: its wall is open beneath it."""
     out = []
     for _name, solid, _carry in row:
         b = box(solid)
-        out.append((+1, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, "413"))
+        out.append((+1, (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, "413", over))
     for name, solid, _carry, size in cluster:
         b = box(solid)
         out.append((CLUSTER_WAGOS[name][0],
-                    (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, size))
+                    (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0, size, None))
     return tuple(out)
 
 
@@ -4829,7 +4831,7 @@ def build_pack() -> cq.Assembly:
     cluster = build_cluster_wagos()
     for name, solid, _carry, _size in cluster:
         a.add(solid, name=name, color=C_AC_HUB)
-    a.side_wells = wago_wells(wagos, cluster)
+    a.side_wells = wago_wells(wagos, cluster, over=box(psu).zmax + 1.0)
     check_east_band([("psu", psu), ("pcba", pcba), ("relay-2", relay2)]
                     + [(n, s) for n, s, _c in wagos]
                     + [(n, s) for n, s, _c, _k in stack])
