@@ -18,7 +18,7 @@ Masses come from bom.md §7, which is geometry-derived and commit-gated, so a pr
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
 | Bulk PETG, 0.8 nozzle | Cold-core shell, the enclosure's four quadrants and its pump cartridge, four foam-cap pieces | [10.8](MT_RATE_BULK) h/kg — **measured** | [7.416](MT_KG_BULK) kg | [80.1](MT_H_BULK) |
-| Watertight translucent PETG | Both reservoir bodies + caps — 3 mm walls, Arachne, fine nozzle for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)) | [22](MT_RATE_TIGHT) h/kg — est., ~½ the bulk volumetric rate | [0.880](MT_KG_TIGHT) kg | [19.4](MT_H_TIGHT) |
+| Watertight translucent PETG, 0.6 nozzle | Both reservoir bodies + caps — 3 mm walls as 5 × 0.60 mm beads, Arachne, for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)); the nozzle is the one all three logged runs were made on ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) | [22](MT_RATE_TIGHT) h/kg — est., ~½ the bulk volumetric rate | [0.880](MT_KG_TIGHT) kg | [19.4](MT_H_TIGHT) |
 | Small PETG parts | Drip pan, plug stack, PRV shroud, reed bridge, fuse clamp | [30](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.127](MT_KG_SMALL) kg | [3.8](MT_H_SMALL) |
 | PET-CF, 0.4 nozzle | Faucet touch-flo shell + mounting plate — fine layers, 50 °C chamber, hardened nozzle | [60](MT_RATE_PETCF) h/kg — est. | [0.163](MT_KG_PETCF) kg | [9.8](MT_H_PETCF) |
 | **Printer time per unit** | | | **[8.586](MT_KG)** kg | **[113.0](MT_H_PRINT)** |
@@ -92,7 +92,20 @@ A second unit behind the first does not cost another [3.5](MT_DAYS_TURN) days �
 
 1. **Foam cure time.** [cold-core.md](/hardware/assembly/cold-core.md) open item 2 — mix proportions, pot life, cure time and pour temperature window are all still unread from the datasheet. The 4 h rows in §2 are placeholders; the real figure changes the turnaround, not the throughput.
 2. **The three estimated print rates.** Only the bulk-PETG rate is measured. The reservoir plate has been sliced twice ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) but Bambu Studio wrote no per-plate estimate into either 3MF, so the watertight rate is still inferred. Record the slicer's time on the next slice of each group and these become measurements.
-3. **Print failure rate.** The [65 %](MT_DUTY) duty figure carries it implicitly. A measured scrap rate would separate "the printer was idle" from "the printer printed something that went in the bin".
+3. **The small-parts group names no nozzle, and two bounds are held to a wall without one.**
+   Every other group here names one: bulk PETG 0.8 (measured,
+   [enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)), watertight
+   0.6 (measured, three runs), PET-CF 0.4. The small-parts group — drip pan, plug stack, PRV
+   shroud, reed bridge, fuse clamp — has no print log and no chosen nozzle, so a bead width for
+   those parts does not exist in this tree. Two constants stand on one anyway:
+   `copper_plugs.min_printable_thickness` = 1.0, whose bound is labelled "Every plug leaves a
+   **printable** wall standing between its arches", and `_cold_core_interface.port_lane_wall` =
+   1.5, whose comment says below it "the wall between two features stops being printable". Neither
+   is wrong — both clear one bead on any nozzle this shop runs — but neither is held either, and a
+   label that says printable reads as though it were. The figure to copy is
+   `touch_flo_shell.display_line_width` = 0.62, which is its own part's bead on a group that names
+   its nozzle.
+4. **Print failure rate.** The [65 %](MT_DUTY) duty figure carries it implicitly. A measured scrap rate would separate "the printer was idle" from "the printer printed something that went in the bin".
 
 ## Sources
 [value](NAME) texts are updated by:
