@@ -146,6 +146,7 @@ import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import hopper_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
+import jg_pp0408w as _jgu                             # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
 import seaflo_discharge_chain as _dis                 # noqa: E402
@@ -1263,6 +1264,8 @@ PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, cartrid
 PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
 PLATE_END_AIR = 0.3          # each end off the side wall, and each notch off the lip's face
+TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
+TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
@@ -1295,12 +1298,48 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             f"one row")
     x1 = _enc.interior_x()[1] - PLATE_END_AIR
     notch_x = _enc.lip_face_x()[1] - PLATE_END_AIR
+    # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
+    # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
+    # the arm the tee carries through it. `CAP_NEAR` is where the collar the bore journals on
+    # begins, so the wall must reach past that at rest or a bore holds nothing.
+    #
+    # THE WALL DOES NOT RESTRAIN THE TEE ALONG ITS OWN AXIS, and its aft face is struck so
+    # that it cannot. A tee travels WITHIN this wall: the collar runs in its bore and the
+    # STEEL in front is the only thing that stops it, which is the one surface meant to.
+    # `HALF_W` is the run's radius, so `BRANCH_REACH - HALF_W` off the collet face is where
+    # the arm ends and the body it grows out of begins — the first thing on a tee that a wall
+    # behind it could ever land on. Take the wall back from there by the whole stroke AND
+    # `TEE_WALL_BODY_AIR` on top, so at full travel there is still air between the tee's
+    # shoulder and this face rather than a kiss. Depth past that point is not room the wall
+    # may take: it is the tee's, and a wall standing in it is a wall the tee lands on before
+    # its own grip has opened.
+    #
+    # `stroke` IS THE TRAVEL THE RELEASE ASKS OF A TEE: its rest gap off the steel, plus how
+    # far its collet sleeve moves before the grip opens. That second figure is NOT on the
+    # tee's STEP — a harvested solid carries the sleeve where it was when it was scanned and
+    # has no way to say how far it slides — so it is read from the one member of this collet
+    # family measured in hand, `jg_pp0408w.COLLET_TRAVEL`, off the caliper record at
+    # `off-the-shelf-parts/john-guest-union/`: extended 41.80, pressed 39.13, half the
+    # difference each end. `stroke_ceiling` is the same sum against the sleeve's own proud
+    # length instead, which is as far as it could POSSIBLY be pressed — a sleeve cannot travel
+    # further than it stands out — so the two bracket the answer and `collet-travel-fits`
+    # holds one under the other.
+    tee = ml.tee
+    branch_face = faces[0]
+    stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": round(2.0 * hole_z - z0, 6),
             "x0": round(-x1, 6), "x1": round(x1, 6),
             "notch_x": round(notch_x, 6),
-            "notch_z": round(_enc.z_seam + _enc.lip_len, 6), "hole_d": PLATE_HOLE_D}
+            "notch_z": round(_enc.z_seam + _enc.lip_len, 6), "hole_d": PLATE_HOLE_D,
+            "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
+                                - stroke - TEE_WALL_BODY_AIR, 6),
+            "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
+            "collar_r": tee.BARREL_R,
+            "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
+            "stroke": round(stroke, 6),
+            "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6)}
 
 
 def _plate_notches(spec):
@@ -1390,6 +1429,67 @@ def check_collet_plate(spec, mcarry) -> None:
             f"the steel's fore face stands {air:.2f} mm off the barb plane — the standoff "
             f"is spent before the plate and its rest gap fit in it. Raise "
             f"`BARB_STANDOFF`, or thin the plate"])))
+
+
+def check_release_travel(pieces, placed, spec) -> Bound:
+    """Whether the cartridge's release has ROOM TO HAPPEN.
+
+    EVERY OTHER BOUND ON THIS CARD READS WHERE A BODY STANDS. This one reads whether one can
+    MOVE, which is a different question, and the only one that can fail on a machine whose
+    every body is standing exactly where it should. The release is a MOTION: the gripped
+    tubes drag each anchor tee forward until its collet nose lands on the steel, and then the
+    body keeps coming while the nose is held, which is what opens the grip. `spec["stroke"]`
+    is the whole of that travel — the rest gap off the plate plus the sleeve's own measured
+    slide. A tee that cannot make it does not let its tube go, and nothing about the seated
+    machine looks wrong.
+
+    A BUTTED NEIGHBOUR TRAVELS WITH THE BODY IT BUTTS. `manifold_layout.BUTT` is zero: two
+    collet faces meet with no tube between them, so neither can lag the other by even a
+    millimetre. The valve standing on an anchor tee's run is therefore read here too, and a
+    valve with nowhere to go is a tee that cannot travel. Which valve stands on which tee is
+    measured off the placed bodies rather than named, so a re-numbered pack cannot make this
+    bound quietly read the wrong pair.
+
+    Each body is offered the stroke, fore, against every printed piece — AND THAT SCOPE IS A
+    DISCOUNT THIS BOUND DEPENDS ON. A released body is already touching its own tube at rest,
+    by construction: the barb tube the collet grips stands half a millimetre fore of the tee
+    and travels out with it. A sweep counting every placed body would meet the workpiece
+    before it met anything actually in the way, and report the joint as the obstruction. What
+    can stop a tee is the box, so the box is what this reads. Widening it means first saying
+    what a joint is."""
+    stroke = spec["stroke"]
+    solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
+    boxes = {n: b.BoundingBox() for n, b in placed.items()}
+    rows, bad = [], []
+    for tee in sorted(ml.BARB_OF):
+        name = ml.body_name(tee)
+        if name not in placed:
+            continue
+        tb = boxes[name]
+        riding = [name] + sorted(
+            o for o, ob in boxes.items()
+            if o != name and abs(ob.zmin - tb.zmax) < 0.5
+            and ob.xmin < tb.xmax and ob.xmax > tb.xmin)
+        for body in riding:
+            moved = placed[body].translate(cq.Vector(0.0, -stroke, 0.0))
+            worst, into = 0.0, ""
+            for piece, solid in zip(pieces, solids):
+                try:
+                    vol = moved.intersect(solid).Volume()
+                except Exception:
+                    vol = 0.0
+                if vol > worst:
+                    worst, into = vol, piece
+            rows.append((tee, body, worst, into))
+            if worst > 1e-6:
+                bad.append((tee, body, worst, into))
+    return record_bound(Bound(
+        "release-travel", "The anchor tees and what butts them can make the release stroke",
+        not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} bodies clear {stroke:.3f} mm fore",
+        f"every body the release moves free over its whole {stroke:.3f} mm",
+        [f"{t:5} {b:14} {'CLEAR' if v <= 1e-6 else f'{v:10.1f} mm3 into {i}'}"
+         for t, b, v, i in rows]))
 
 
 def check_bay_floor(pieces, shell) -> Bound:
@@ -5751,6 +5851,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the floor that whole storey stands on, against the rim it stands on — then each
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
+    # And whether the release those figures serve can actually happen — the one reading on
+    # this card that asks a body to move rather than asking where it is.
+    check_release_travel(pieces, a.pack_solids, box.collet_plate)
     check_head_sweep(a.pack_solids, pieces)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
