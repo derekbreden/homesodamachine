@@ -2576,33 +2576,39 @@ def _z_station_y(ys):
 
 
 def _z_pod(x_in, x_ext, sx, ys, inner, zj):
-    """BOTTOM socket: the Y-seam collar rotated — one pipe round the bore, off the
-    ±X wall's inner face out to the cap, one `wall` of material round the bore its
-    whole length. Its +Z face lands on the lip rim and its −Z face a hair under the seam
-    mouth, so it stands on the band the whole way — on the lip above the mouth and on the
-    wall under it below, which is one surface and not two.
+    """BOTTOM boss: the plastic round the bore, off the ±X wall's inner face out to the
+    cap, at least one `wall` of material round the bore its whole length. Its +Z face
+    lands ON the lip rim and its −Z face a hair under the seam mouth, so it stands on the
+    band the whole way — on the lip above the mouth and on the wall under it below, which
+    is one surface and not two.
 
-    Its upper half telescopes into the top piece, and a station abutting a wall sits
-    in one of the box's rounded verticals — so the collar is held inside the cavity
-    that piece rounds, concentric with it, and clear of whatever column stands in
-    that cavity's corners.
+    ITS SECTION IS A SQUARE AND NOT A CIRCLE, and that is the whole of why the rim is
+    clean. `lip_len` is derived (`plug_dia/2 + socket_r`) so the boss's far face lands on
+    the rim — but a pipe has no face there, only the line where it grazes the plane, and a
+    graze is a wedge that thins to nothing. Every wall crossing near it — the slide
+    channel, the pin's flanks, a column's own round — then cuts a feather off that wedge.
+    A flat top makes the derivation true instead of nearly true, and the feathers have
+    nowhere to form.
 
-    THE COLLAR IS A D BELOW ITS AXIS, on a 45° web run its whole reach down the wall —
-    the box's one boss shape. At the front-wall stations the condenser's crown stands
-    under the band, one `cond_mount_clear` off the lip face, and the 45° passes over
-    it on that lane."""
+    Its upper half telescopes into the top piece, and a station abutting a wall sits in one
+    of the box's rounded verticals — the cavity intersect holds it inside whatever column
+    stands in that cavity's corners, and against flats that clip is arcs and lines where
+    against a pipe it was a b-spline.
+
+    IT STANDS ON A 45° WEB run its whole reach down the wall — the box's one boss shape.
+    At the front-wall stations the condenser's crown stands under the band, one
+    `cond_mount_clear` off the lip face, and the 45° passes over it on that lane."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     zp = _z_pin_z(zj)
     zb = zp - socket_r
     lip_in = x_in + sx * wall
-    collar = _xcyl(socket_r, ys, zp, xa, xb)
-    collar = collar.fuse(_ybox(xa, xb, ys - socket_r, ys + socket_r, zb, zp))
-    collar = collar.fuse(_xz_prism(ys - socket_r, ys + socket_r,
-                                   [(lip_in, zb), (x_cap, zb),
-                                    (lip_in, zb - abs(x_cap - lip_in))]))
-    return collar.intersect(_cavity(inner, 0.0, (iz0 - 1.0, iz1 + 1.0)))
+    boss = _ybox(xa, xb, ys - socket_r, ys + socket_r, zb, zp + socket_r)
+    boss = boss.fuse(_xz_prism(ys - socket_r, ys + socket_r,
+                               [(lip_in, zb), (x_cap, zb),
+                                (lip_in, zb - abs(x_cap - lip_in))]))
+    return boss.intersect(_cavity(inner, 0.0, (iz0 - 1.0, iz1 + 1.0)))
 
 
 def _z_pin(x_ext, sx, ys, zj):
@@ -2614,7 +2620,7 @@ def _z_pin(x_ext, sx, ys, zj):
 
     THE FLANKS ARE THE NOSE'S OWN TANGENT PLANES, one `plug_dia` apart, so the section is
     a slot's shape and the two meet with material either side and no edge between them —
-    the box's boss idiom (`_z_pod`'s collar, `_corner_socket`'s D) stood on its head. Set
+    the box's boss idiom (`_corner_socket`'s D) stood on its head. Set
     the flanks on the crown instead of the axis and they bear on the nose along one line:
     a blade hung off a tangent, which slices in the model and prints as nothing.
 
@@ -2985,6 +2991,50 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     return slab.cut(_ybox(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
                           plate["fore_y"] - plate_slot_slip,
                           plate["aft_y"] + plate_slot_slip, plate["z0"], rim + 1.0))
+
+
+def _tee_wall(inner, y_joint, plate, bay):
+    """THE WALL THE ANCHOR TEES STAND IN: front-top's own section behind the collet plate,
+    wall to wall and the whole height of the bay, with one bore per tee.
+
+    A BORE HOLDS ITS TEE ACROSS ITS OWN AXIS AND LEAVES IT FREE ALONG IT. Each arm carries a
+    round collar (`tee_connector.branch_collar`) and the bore closes on that, so a tee is
+    located in X and Z by printed material and free in Y — which is the one direction the
+    release moves it. What a tee otherwise hangs from is the valve butted onto its run, two
+    joints away and answering to a press fit; what it stands in is this.
+
+    ITS FORE FACE IS THE STEEL'S AFT FACE, struck once as one figure
+    (`enclosure_assembly.collet_plate_spec`). The plate drops down in front of it, so every
+    bore is stopped at its fore mouth by steel and the collet nose that lands there lands on
+    steel and not on plastic. Its aft face is the arm's own root, where the tee stops being
+    round and the run body begins — the whole of the arm and no more.
+
+    AND IT IS THE BAY'S BACK. Over the plate's own band the steel closes the bay; above and
+    below it nothing does, and the berth the cartridge leaves looks into the cavity. This
+    stands the whole storey, so what is behind the bay is a wall.
+
+    THE Z SEAM PASSES IT the way it passes the floor, on `_z_seam_berth`'s own channels."""
+    slab = _ybox(inner[0], inner[1], plate["aft_y"], plate["wall_aft_y"], z_seam, bay[2])
+    slab = slab.cut(_z_seam_berth(inner, y_joint))
+    for hx, hz in plate["holes"]:
+        slab = slab.cut(_tee_bore(plate, hx, hz))
+    return slab
+
+
+def _tee_bore(plate, hx, hz):
+    """One tee's bore through that wall, TEARDROPPED.
+
+    The piece prints bedded on the seam plane, so a bore on Y lies horizontal and its crown is
+    the one overhang this wall could carry. The roof is two 45 degree planes standing on the
+    bore's own tangent points: 45 degrees is the steepest the arc itself reaches before it
+    turns over, so the planes take the hole from exactly where it stops being printable and
+    nothing over it is laid on air. The three lower quarters the collar bears on are untouched."""
+    r = plate["bore_r"]
+    y0, y1 = plate["aft_y"] - 1.0, plate["wall_aft_y"] + 1.0
+    t = r / math.sqrt(2.0)
+    return _ycyl(r, hx, hz, y0, y1).fuse(
+        _xz_prism(y0, y1, [(hx - t, hz + t), (hx + t, hz + t),
+                           (hx, hz + r * math.sqrt(2.0))]))
 
 
 def _unified(solid):
@@ -4331,6 +4381,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the flavour manifold's valve panels, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
+    # The wall the anchor tees stand in, behind the collet plate — BEFORE the panels, because
+    # a panel's seats are cut out of whatever stands on that plane and this stands on it.
+    if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
+        piece = piece.fuse(_tee_wall(inner, y_joint, box.collet_plate, box.pump_bay))
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
     # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
