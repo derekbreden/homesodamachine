@@ -19,14 +19,20 @@ four to a plane. Each plane gets a panel: [2](PANEL_COUNT) per machine.
 | under a channel | [6.80](CHANNEL_FLOOR) mm of plate |
 | seat height | [-6](PANEL_SEAT) mm — the seat is **sunk**, so nothing stands off the face |
 | depth on the deck's plane | [10](PANEL_D) mm, the plate and nothing else |
+| post over the mounting plane | [6](PANEL_POST) mm — the whole of what a socket can hold |
+| face set off its valves | 0 on the still deck, [2.835](PANEL_SETBACK) mm on the travelling one |
+| socket, travelling deck | [9.835](PANEL_SOCKET_LONG) mm long — the floor sinks by that figure, the mouth does not move |
+| post in the plate at rest | [6](PANEL_POST) mm still, [3.165](PANEL_GRIP) mm travelling |
 | material, both panels | [162.79](PANEL_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
 
 Four blind sockets, one under each of the Beduan's corner posts, the post pressed into it
 ([`../../valve-seat/`](/hardware/printed-parts/valve-seat/)). The posts in their sockets are the
-whole of the retention — nothing bolts a valve and nothing is bonded — and the valve's own round
-body boss lands **on the plate's own face**, which is what sets its height.
+whole of the retention — nothing bolts a valve and nothing is bonded. On the still deck the
+valve's own round body boss lands **on the plate's own face**, which is what sets its height;
+on the travelling deck it stands off that face and something else does, which is the section
+below.
 
 **A boss is material round a socket, and this plate is that material.** It is one socket and one
 wall thick, so the seat is sunk into it rather than stood on it: the same
@@ -44,6 +50,34 @@ The plate's height is the seats' own reach off their valves' centres, [18.8](PAN
 and one [3](PANEL_MARGIN) mm margin past that. Each valve's two quick-connect collets and the
 tube butted into them hang past it in air.
 
+## The deck that travels
+
+One deck is butted onto the anchor tees of the pump cartridge's release
+([`../enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md) "The pump
+cartridge and its bay"). Its four valves make the release stroke with the tees they butt, so
+**its plate's face is where those valves ARRIVE, not where they rest.** The face stands
+[2.835](PANEL_SETBACK) mm — the whole stroke — off the plane a seated body boss would land on,
+and each socket's floor sinks by the same figure to [9.835](PANEL_SOCKET_LONG) mm so a post does
+not bottom before the travel is spent. The mouth, the radius and the [3](SOCKET_FLOOR) mm of
+floor behind are untouched: it is the same plate, standing somewhere else.
+
+**The boss does not touch it at rest.** The valve stands one stroke off, in air, and what sets
+its height is the anchor tee it butts — held across its own axis by the printed wall behind the
+collet plate (`enclosure._tee_wall`) and free along it. At full release the boss lands on the
+face, so the face is the stop that ENDS the stroke rather than the one the valve rests on. This
+is the one deck whose valves are located by the manifold rather than by their own plate.
+
+**A post stands [3.165](PANEL_GRIP) mm inside the plate's section at rest**, of the
+[6](PANEL_POST) mm it has, reaching its whole length only at full release. The posts in their
+sockets are the whole of the retention, so this deck is held LEAST in the state the machine runs
+in and most while the cartridge is being pulled out. What the plate actually surrounds is read
+rather than subtracted — the port channel crosses close to the sockets here, and a figure struck
+off the setback alone would not know it.
+
+**The port travels with the body**, so its channel is struck along the whole sweep instead of
+where the port rests (`build_port_channel`): round at both ends, a slot only over the stretch the
+port crosses.
+
 ## Where the two go
 
 Read off the placed valves at every build, never stated — `manifold_layout` folds the pack and
@@ -52,12 +86,14 @@ refrigeration base's crown, so where a deck lands is that stack's arithmetic. `v
 groups the valves no cap cradle holds by the plane each stands on and hands back one panel per
 plane, and the `panels-hold` gate reads every valve against the plate under it.
 
-| panel | valves | stands |
-|---|---|---|
-| `valve-panel-aft` | V-C, V-D, V-G, V-J | aft of its deck, bosses facing forward |
-| `valve-panel-fore` | V-E, V-F, V-H, V-I | forward of its deck, bosses facing aft |
+| panel | valves | stands | face |
+|---|---|---|---|
+| `valve-panel-aft` | V-C, V-D, V-G, V-J | aft of its deck, bosses facing forward | on its valves — they stand still |
+| `valve-panel-fore` | V-E, V-F, V-H, V-I | forward of its deck, bosses facing aft | one stroke off — its valves travel |
 
-The two face each other with both decks between them.
+The two face each other with both decks between them. Which one travels is read off the placed
+pack at every build and never named here: `valves_on_anchor_tees` says whose valves butt a tee,
+so a re-folded manifold moves the setback with it.
 
 ## Print
 

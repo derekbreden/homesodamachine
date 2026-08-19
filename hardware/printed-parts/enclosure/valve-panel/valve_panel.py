@@ -117,6 +117,35 @@ def port_channel_depth() -> float:
     return port_drop() + PORT_SLIP
 
 
+def setback() -> float:
+    """The release stroke, which is how far ONE deck's plate stands off its valves.
+
+    The deck butted onto the anchor tees carries valves that TRAVEL, so its plate's face is not
+    where those valves rest — it is where they arrive. `enclosure_assembly.valve_panel_stations`
+    decides which deck that is by reading the placed pack; the figure itself is two constants
+    and no geometry, so this states it without standing a machine.
+
+    The import is in the call for the reason `panels_of_machine` gives: at module scope it
+    closes a cycle through `enclosure`."""
+    sys.path.insert(0, str(_hw / "manifold-layout"))
+    sys.path.insert(0, str(_hw / "reference" / "jg-pp0408w"))
+    import enclosure_assembly as _ea                            # noqa: PLC0415
+    import jg_pp0408w as _jgu                                   # noqa: PLC0415
+    return _ea.PLATE_REST_GAP + _jgu.COLLET_TRAVEL
+
+
+def grip(travel: float = 0.0) -> float:
+    """How much of a corner post stands INSIDE the plate, with the valve at rest.
+
+    THE POSTS IN THEIR SOCKETS ARE THE WHOLE OF THE RETENTION (`valve_seat`), so this is the
+    whole of what holds a valve down. A still deck's face is the valve's own landing plane and
+    the post is in the plate over its whole length. A deck set back by `travel` meets its post
+    that much later, and the post reaches its full length only at the end of the stroke — so a
+    travelling valve is held LEAST in the state the machine runs in and most while it is being
+    pulled out."""
+    return _seat.seat_top_z - travel
+
+
 def build_port_channel(length: float, sweep: float = 0.0):
     """One valve's port channel, in the valve's own frame: the barrel and its slip, run `length`
     along the plate's own Y and open at both ends.
@@ -304,6 +333,9 @@ def main():
         print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, closed form "
               f"{panel_volume(width, len(seats)) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
     width, seats = next(iter(sorted(panels.values())))
+    _setback = setback()
+    print(f"  the travelling deck's plate stands {_setback:.3f} mm off its valves; a post is "
+          f"{grip(_setback):.3f} mm in the plate at rest of {_seat.seat_top_z:g} mm")
 
     substitute_md(
         _here.parent / "README.md",
@@ -326,6 +358,10 @@ def main():
             "CHANNEL_FLOOR": f"{channel_floor():.2f}",
             "PORT_DROP": f"{port_drop():.2f}",
             "PORT_SLIP": f"{PORT_SLIP:g}",
+            "PANEL_POST": f"{_seat.seat_top_z:g}",
+            "PANEL_SETBACK": f"{_setback:.3f}",
+            "PANEL_GRIP": f"{grip(_setback):.3f}",
+            "PANEL_SOCKET_LONG": f"{_seat.socket_depth() + _setback:.3f}",
         },
     )
     print("-> README.md")
