@@ -3,9 +3,10 @@
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in
 committed `.3mf` snapshots.
 
-Geometry: the four-piece box from
-[`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py), one piece per
-plate — sizes in [README.md](README.md), which the generator writes.
+Geometry: the five-piece box from
+[`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) — four quadrants
+and the pump cartridge, one piece per plate — sizes in [README.md](README.md), which the
+generator writes.
 
 ## PET-GF15 print of the front-top (settings per [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf))
 

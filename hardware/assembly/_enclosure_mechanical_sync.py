@@ -136,6 +136,12 @@ def main():
         # The box `enclosure._dims` builds around the pack, and where it comes apart.
         "BOX_SIZE": (f"{_ox1 - _ox0:.0f} × {_oy1 - _oy0:.0f} × {_oz1 - _oz0:.0f} mm"),
         "WALL_T": f"{_enc.wall:.4g} mm",
+        # The FRONT wall's own section, which is not the wall the other five faces keep: it
+        # is the face a user hauls the pump cartridge out by, so it carries section the way
+        # the facet does and grows INWARD off the stated exterior. What noses into it takes a
+        # 45°-chamfered relief instead, which is why the doc quotes the nominal here and
+        # `box-front` reads the pack against the relieved surface region by region.
+        "FRONT_WALL": f"{_enc.front_wall:.4g} mm",
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",

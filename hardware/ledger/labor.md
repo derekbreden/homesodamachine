@@ -115,11 +115,11 @@ Every wetted and gas joint in the unit: the vessel's four elbow stacks, the seve
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.3 kg of filament across the twenty-one §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [56](TOTAL_INSERTS) heat-set inserts and the [56](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
+Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.6 kg of filament across the twenty-two §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [56](TOTAL_INSERTS) heat-set inserts and the [56](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
-| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.3 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
+| Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.6 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
 | Press the [56](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the nameplate's pair, floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [12](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [52](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
 | Drive the [56](TOTAL_SCREWS) machine screws that close the build | — | [12](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) touch-flo, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [2](NAMEPLATE_SCREWS) nameplate, [4](FLOOR_SCREWS) floor | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
@@ -127,11 +127,12 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
 | Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
-| Stage the four printed pieces and the rear wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
+| Stage the five printed pieces and the rear wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, power column, close the box, drip tray | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
+| Stage the collet plate and drop it into its two wall pockets, holes forward | EN-01, EN-07 | In through the open pump bay once the box is closed; gravity holds it and the walls take every other direction | 5 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, install-kit bag | 10 |
 | Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 5 |
-| **Assembly** | | | **[120](LAB_SEC8)** |
+| **Assembly** | | | **[125](LAB_SEC8)** |
 
 ## 9. Power-on & testing
 
@@ -173,14 +174,14 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
 | 6. Wiring | [1 h 35 m](LAB_HM6) | [$158.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
-| 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
+| 8. Assembly | [2 h 5 m](LAB_HM8) | [$208.33](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[9 h 55 m](LAB_HM)** | **[$991.67](LAB_USD)** |
+| **Per-unit total** | **[10 h](LAB_HM)** | **[$1,000.00](LAB_USD)** |
 
-The target is 10 hours attended per unit. Bottom-up this says [9 h 55 m](LAB_HM). Where the remaining time sits:
+The target is 10 hours attended per unit. Bottom-up this says [10 h](LAB_HM). Where the remaining time sits:
 
-- **Assembly** ([2 h](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
+- **Assembly** ([2 h 5 m](LAB_HM8), the largest category) — over a third of it is tending printers, which is setup, not work: a second printer takes it straight out of the unit.
 - **Wiring** ([1 h 35 m](LAB_HM6)) — three quarters of it is the twelve harnesses. A crimp jig and a batch cut list against the harness schedule move that number; nothing else in the section will.
 - **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build, and the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
 

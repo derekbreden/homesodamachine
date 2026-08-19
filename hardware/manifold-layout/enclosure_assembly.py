@@ -1159,7 +1159,8 @@ def pump_tray_stations(placed: dict) -> tuple:
         if (axis, sign) != (2, 1.0):
             raise ValueError(
                 f"{head} stands its can on {'+' if sign > 0 else '-'}{'xyz'[axis]} and "
-                f"`enclosure._pump_trays` lays a plate on a Z face — a pump on another axis "
+                f"`enclosure.build_cartridge` lays a plate on a Z face — a pump on another "
+                f"axis "
                 f"needs the builder to learn it, not this table.")
         out.append(centre)
     return tuple(out)
@@ -1205,30 +1206,36 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 #
 # THE CARTRIDGE'S RELEASE, and the one piece of this machine that is steel. A flat of 1/8"
 # 304 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, its
-# ends dropped into the pockets `enclosure._plate_pockets` prints. Four holes pass the barb
+# foot sunk in the seat `enclosure._bay_floor` cuts down the bay floor's top — the seat takes
+# it fore, aft and across and carries it on its own bottom, and with the cartridge out it
+# lifts straight up through the bay. Its two bottom corners are NOTCHED for front-bottom's
+# Z-seam lip, which stands proud of that floor to the rim: one `wall` in from each end, from
+# the foot up to the rim, and above the rim the flat is whole. Four holes pass the barb
 # tubes and nothing wider: pull the cartridge and the gripped tubes drag the tees forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
 # the grip opens, and the tubes draw out through the holes they entered by. Pushing the
 # cartridge home threads them back into the same collets, the deck's stop pads landing on
 # the plate's fore face, the tees braced by the deck lattice their own butted valves hang
 # them from. The user's two hands are the whole mechanism: one pulls the cartridge, the
-# other braces the box, and the box carries the brace to this plate through the pockets.
+# other braces the box, and the box carries the brace to this plate through the floor.
 PLATE_T = 3.175              # 1/8" 304, waterjet from `collet-plate.dxf`
 PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, cartridge seated
 PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
-PLATE_CROWN_AIR = 5.0        # plate top under the heads' crown plane — the straps' lane
-PLATE_END_AIR = 0.3          # each end off its pocket's wall face
+PLATE_END_AIR = 0.3          # each end off the side wall, and each notch off the lip's face
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
     """The plate as the four branch collets and the walls place it — faces, band, ends,
-    holes — the one figure the steel, the pockets and the cartridge's stops all read.
+    notches, holes — the one figure the steel, the bay floor's seat and the waterjet's own
+    outline all read.
 
-    Its Z band is walled in from both sides: the bottom rides one slip over the Z-seam
-    lip's rim, since everything front-top hangs on a side wall stands clear of the rim
-    front-bottom's lip telescopes to; the top stands `PLATE_CROWN_AIR` under the heads'
-    crown plane, which is the lane the trays' straps close in."""
+    ITS Z BAND IS STRUCK ON THE HOLES. The bottom is one `wall` down inside the bay floor,
+    which is the seat the foot stands in; the top is then whatever puts the four collet
+    holes in the middle of the band, which is the only place a hole is as far from the free
+    edge above it as from the seated edge below. The NOTCHES follow from the same figures:
+    front-bottom's lip stands proud of that floor to the rim, so each bottom corner is cut
+    back to the lip's own inner face over exactly the height the lip reaches."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
         (px, py, pz), _axis = mcarry(ml.branch_port(t))
@@ -1239,23 +1246,40 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             f"the four branch collets stand on {len(set(round(f, 4) for f in faces))} planes "
             f"({sorted(set(round(f, 4) for f in faces))}) — one plate presses one plane")
     aft = faces[0] - PLATE_REST_GAP
-    crown = min(cz for _cx, _cy, cz in tray_stations)
-    rim = _enc.z_seam + _enc.lip_len
+    z0 = _enc.bay_floor_z(tray_stations)[1] - _enc.wall
+    hole_z = holes[0][1]
+    if max(abs(hz - hole_z) for _hx, hz in holes) > 1e-6:
+        raise ValueError(
+            f"the four branch collets stand on {len(set(round(hz, 4) for _hx, hz in holes))} "
+            f"heights ({sorted(set(round(hz, 4) for _hx, hz in holes))}) — one band centres "
+            f"one row")
     x1 = _enc.interior_x()[1] - PLATE_END_AIR
+    notch_x = _enc.lip_face_x()[1] - PLATE_END_AIR
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
-            "z0": round(rim + _enc.plate_pocket_hover + _enc.plate_pocket_reach
-                        + 2.0 * _enc.plate_slot_slip, 6),
-            "z1": round(crown - PLATE_CROWN_AIR, 6),
-            "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D}
+            "z0": round(z0, 6), "z1": round(2.0 * hole_z - z0, 6),
+            "x0": round(-x1, 6), "x1": round(x1, 6),
+            "notch_x": round(notch_x, 6),
+            "notch_z": round(_enc.z_seam + _enc.lip_len, 6), "hole_d": PLATE_HOLE_D}
+
+
+def _plate_notches(spec):
+    """The two bottom corners the Z-seam lip takes out of the flat, in world boxes: from the
+    lip's own inner face out past the end, and from the plate's foot up to the rim."""
+    return [(spec["notch_x"], spec["x1"] + 1.0, spec["z0"] - 1.0, spec["notch_z"]),
+            (spec["x0"] - 1.0, -spec["notch_x"], spec["z0"] - 1.0, spec["notch_z"])]
 
 
 def build_collet_plate(spec):
-    """The steel itself: one box, four bores."""
+    """The steel itself: one box, two corner notches, four bores."""
     plate = (cq.Workplane("XY")
              .box(spec["x1"] - spec["x0"], spec["aft_y"] - spec["fore_y"],
                   spec["z1"] - spec["z0"], centered=False)
              .translate((spec["x0"], spec["fore_y"], spec["z0"]))).val()
+    for nx0, nx1, nz0, nz1 in _plate_notches(spec):
+        plate = plate.cut(
+            cq.Workplane("XY").box(nx1 - nx0, PLATE_T + 2.0, nz1 - nz0, centered=False)
+            .translate((nx0, spec["fore_y"] - 1.0, nz0)).val())
     for hx, hz in spec["holes"]:
         plate = plate.cut(cq.Solid.makeCylinder(
             spec["hole_d"] / 2.0, PLATE_T + 2.0,
@@ -1269,6 +1293,10 @@ def export_collet_plate_dxf(spec, path):
     flat = (cq.Workplane("XY")
             .box(spec["x1"] - spec["x0"], spec["z1"] - spec["z0"], 1.0, centered=False)
             .translate((spec["x0"], spec["z0"], 0.0)))
+    for nx0, nx1, nz0, nz1 in _plate_notches(spec):
+        flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
+                        .box(nx1 - nx0, nz1 - nz0, 2.0, centered=False)
+                        .translate((nx0, nz0, 0.0)))
     for hx, hz in spec["holes"]:
         flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
                         .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
@@ -1277,8 +1305,21 @@ def export_collet_plate_dxf(spec, path):
 
 def check_collet_plate(spec, mcarry) -> None:
     """The plate against the joints it works: the nose it must catch, the tube it must
-    pass, and the berth the standoff opened for it between the barbs and the collets."""
+    pass, the berth the standoff opened for it between the barbs and the collets, and where
+    its four holes fall in the band the floor and the rim leave it."""
     hole_r = spec["hole_d"] / 2.0
+    mid = (spec["z0"] + spec["z1"]) / 2.0
+    hole_z = spec["holes"][0][1]
+    off = abs(hole_z - mid)
+    record_bound(Bound(
+        "plate-holes-centred", "The collet holes stand centred in the plate's band",
+        off <= 1e-6,
+        f"holes at z {hole_z:g}, band {spec['z0']:g}..{spec['z1']:g}, off {off:.3f} mm",
+        "the row on the band's own middle",
+        ([] if off <= 1e-6 else [
+            f"a hole {off:.2f} mm off centre has {hole_z - spec['z0']:.2f} mm of steel under "
+            f"it and {spec['z1'] - hole_z:.2f} over — the nose is caught by whichever edge "
+            f"is nearer, and the plate bows about the other"])))
     record_bound(Bound(
         "plate-stops-collets", "The plate's holes catch the collet noses",
         hole_r + 1.0 <= COLLET_NOSE_R + 1e-9,
@@ -1306,6 +1347,71 @@ def check_collet_plate(spec, mcarry) -> None:
             f"the steel's fore face stands {air:.2f} mm off the barb plane — the standoff "
             f"is spent before the plate and its rest gap fit in it. Raise "
             f"`BARB_STANDOFF`, or thin the plate"])))
+
+
+def check_bay_floor(pieces, shell) -> Bound:
+    """Whether the bay floor lies on front-top's own bed plane and takes the plate's foot.
+
+    Two readings on the one solid. FIRST, the bed: a slab one probe over the seam mouth,
+    across the floor's whole plan LESS what front-bottom's Z seam stands in
+    (`enclosure._z_seam_berth` — the lip's channel down each flank and a pocket per front
+    collar), is the piece's first layers, and full means the floor lies on the bed rather
+    than hanging in the piece. SECOND, the seat: the same slab under the plate's own
+    footprint is what the steel bottoms on."""
+    spec = shell.collet_plate
+    z_bed, top = _enc.bay_floor_z(shell.pump_trays)
+    probe = 0.5
+    ft = pieces["front-top"]
+    ft = ft.val() if hasattr(ft, "val") else ft
+    berth = _enc._z_seam_berth(shell.inner, shell.y_joint)
+    lx0, lx1 = _enc.lip_face_x()
+    aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
+    rows = []
+    for name, y0, y1, z0 in (("bed", _enc.front_plane_y, aft, z_bed),
+                             ("seat", spec["fore_y"], spec["aft_y"], spec["z0"] - probe)):
+        plug = _enc._ybox(lx0, lx1, y0, y1, z0, z0 + probe).cut(berth)
+        rows.append((name, plug.intersect(ft).Volume() / plug.Volume()))
+    worst = min(g for _n, g in rows)
+    ok = worst >= 1.0 - 1e-6
+    return record_bound(Bound(
+        "bay-floor-bedded", "The bay floor lies on the bed and seats the collet plate", ok,
+        f"bed {rows[0][1] * 100:.1f}% solid, seat {rows[1][1] * 100:.1f}% solid",
+        f"the floor whole on the seam plane {z_bed:g} and under the plate's foot "
+        f"{spec['z0']:g}",
+        ([] if ok else
+         [f"{n}: {g * 100:.1f}% of its plan" for n, g in rows if g < 1.0 - 1e-6]
+         + ["the floor is this piece's first layers and the plate's seat is sunk in it — a "
+            "hole in either is material the print has to bridge or the steel has to hang "
+            f"over. The floor runs {z_bed:g} to {top:g}"])))
+
+
+def check_head_sweep(solids: dict, pieces) -> Bound:
+    """Whether each pump head can leave through the front of the box.
+
+    The bay's sill is the floor's top and the head bottoms one millimetre over it, so what
+    is read here is not a clearance at rest — `pack-closes` has that — but the SWEEP: the
+    head's own box carried fore to the exterior, against the piece it has to pass through."""
+    ft = pieces["front-top"]
+    ft = ft.val() if hasattr(ft, "val") else ft
+    rows = []
+    for n, s in sorted(solids.items()):
+        if not (n.startswith("pump-") and n.endswith("-head")):
+            continue
+        b = box(s)
+        sweep = _enc._ybox(b.xmin, b.xmax, _enc.front_plane_y - _enc.front_wall, b.ymax,
+                           b.zmin, b.zmax)
+        rows.append((n, sweep.intersect(ft).Volume()))
+    worst = max([v for _n, v in rows], default=0.0)
+    ok = worst <= 1e-3
+    return record_bound(Bound(
+        "heads-sweep-out", "Every pump head sweeps out through the bay", ok,
+        f"{len(rows)} heads, most in the way {worst:.1f} mm³",
+        "nothing of front-top in a head's path to the front",
+        ([] if ok else
+         [f"{n} meets {v:.1f} mm³ of front-top on its way out" for n, v in rows if v > 1e-3]
+         + ["the bay's sill is the bay floor's top, and the floor's top is the plane the "
+            "cartridge's own pump reliefs floor on. A head in the way is a head hanging "
+            "under that plane — raise it, or thin the floor"])))
 
 
 # What a standing post's annulus may read short by. A post is fused as one cylinder and bored
@@ -5516,6 +5622,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_panels_hold(pieces, a.pack_solids)
     # And each pump against the piece whose plate lies on its head, one storey up from those.
     check_trays_hold(pieces, a.pack_solids)
+    # And the floor that whole storey stands on, against the rim it stands on — then each
+    # pump head against the lane it leaves the box through.
+    check_bay_floor(pieces, box)
+    check_head_sweep(a.pack_solids, pieces)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)

@@ -2775,15 +2775,17 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
+        "out/enclosure-assembly/hardware/manifold-layout/collet-plate.dxf",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
-O1=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
-O2=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
+O0=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/collet-plate.dxf)
+O1=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
+O2=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
+O3=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -2796,9 +2798,10 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py > /dev/null
-cp hardware/manifold-layout/enclosure-assembly.facts.json $$O0
-cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O1
-cp hardware/manifold-layout/enclosure-assembly.step $$O2
+cp hardware/manifold-layout/collet-plate.dxf $$O0
+cp hardware/manifold-layout/enclosure-assembly.facts.json $$O1
+cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O2
+cp hardware/manifold-layout/enclosure-assembly.step $$O3
 """,
 )
 
@@ -4005,6 +4008,7 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md",
@@ -4016,10 +4020,11 @@ O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enc
 O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
 O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
 O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
-O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
+O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -4036,10 +4041,11 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O0
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O1
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O2
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O3
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O4
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O5
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O6
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O7
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O4
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O5
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O6
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O7
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O8
 """,
 )
 
@@ -6060,6 +6066,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -6824,6 +6831,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -7017,6 +7025,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -7210,6 +7219,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -7403,6 +7413,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -7596,6 +7607,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -7789,6 +7801,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -7982,6 +7995,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -8175,6 +8189,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -8368,6 +8383,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -8572,6 +8588,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -8765,6 +8782,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -9081,6 +9099,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -9313,6 +9332,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -9586,6 +9606,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -9781,6 +9802,7 @@ sh_test(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure-assembly.facts.json",
         "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        "hardware/manifold-layout/enclosure-assembly.step",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",

@@ -178,7 +178,11 @@ SCENES = (
     Scene(
         "front-top", "Enclosure front top",
         roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
-        later=("hopper-funnel",),
+        # BOTH OF THIS PIECE'S OPENINGS ARE FILLED FROM THE ROOM, so what arrives through
+        # either is late. The collet plate goes down its two wall pockets through the pump
+        # bay on nothing but gravity, and the funnel drops into the hopper on its own brim —
+        # neither is a joint a hand can make with the piece upside down on a bench.
+        later=("collet-plate", "hopper-funnel"),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
         # they stand one behind the other on two Y planes, and a camera down the valves' own
@@ -191,7 +195,9 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, and the hopper opening is an opening — nothing is in it yet.",
+             "material. Its two openings stand empty — the hopper takes the funnel and the "
+             "front bay takes the cartridge both pumps ride, and each is filled with the box "
+             "standing.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve body and
@@ -339,7 +345,7 @@ Part = namedtuple("Part", "id title step cam up zoom solid",
 # one piece, three things to teach, three poses. What makes them three pictures is the camera,
 # which is why the camera is in the row.
 PARTS = (
-    Part("en01-shell", "Enclosure, four pieces",
+    Part("en01-shell", "Enclosure, five pieces",
          "hardware/printed-parts/enclosure/enclosure/enclosure.step",
          cam=(0.75, -1.0, 0.55)),
     # The bare wall from OUTSIDE — the union bores in a rectangle, the C14 window under them.

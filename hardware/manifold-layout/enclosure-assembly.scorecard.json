@@ -629,6 +629,16 @@
    "active": true
   },
   {
+   "id": "plate-holes-centred",
+   "label": "The collet holes stand centred in the plate's band",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holes at z 188.245, band 163.865..212.625, off 0.000 mm",
+   "target": "the row on the band's own middle",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "plate-stops-collets",
    "label": "The plate's holes catch the collet noses",
    "kind": "gate",
@@ -915,6 +925,26 @@
    "active": true
   },
   {
+   "id": "bay-floor-bedded",
+   "label": "The bay floor lies on the bed and seats the collet plate",
+   "kind": "gate",
+   "status": "pass",
+   "value": "bed 100.0% solid, seat 100.0% solid",
+   "target": "the floor whole on the seam plane 160 and under the plate's foot 163.865",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "heads-sweep-out",
+   "label": "Every pump head sweeps out through the bay",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2 heads, most in the way 0.0 mm\u00b3",
+   "target": "nothing of front-top in a head's path to the front",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "floor-mounts-land",
    "label": "Every floor post under a bolted-down body is printed",
    "kind": "gate",
@@ -1083,7 +1113,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 149.00..168.90, 214.75..252.90",
+   "value": "seam at 160.00, lane 149.00..160.00, 215.62..252.90",
    "target": "a lane containing it",
    "detail": [],
    "active": true

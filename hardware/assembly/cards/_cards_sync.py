@@ -22,10 +22,10 @@ One subsystem is one function taking the built `Machine` and returning
    reading to a coordinate: "the east end of the row" survives the row moving,
    "z 342.4" does not, and the row moved twice this month.
 2. Assert the structure the sentence around it depends on, the way
-   `_bom_sync.py` asserts `not ml.JOINS`. A card that says "nothing is cut in
-   the front wall" is only true while `pack.front_ports` is empty, so the
-   assertion is what puts the sentence back when it stops being true — the value
-   alone cannot, because there is no number in it to drift.
+   `_bom_sync.py` asserts `not ml.JOINS`. A card that says "no connection is
+   cut in the front wall" is only true while `pack.front_ports` is empty, so
+   the assertion is what puts the sentence back when it stops being true — the
+   value alone cannot, because there is no number in it to drift.
 3. Wrap the value on the card: `<span class="dim" data-gen="NAME">value</span>`,
    or `data-gen` straight on a `<td class="v">`. Text only, no child tags.
 4. Add the name to that card's set in `cards`, and name this driver in the
@@ -118,8 +118,9 @@ def enclosure(m: Machine):
     assert abs(box.splits[0] - box.splits[1]) < 1e-9, (
         f"the Z seams stand at {box.splits} — EN-01 tables one seam for both columns "
         f"and EN-07 draws them on one rule; say what they are instead")
-    # EN-02: "nothing at all is cut in the front wall", which is why CO2 comes in
-    # at the back. EN-04: the condenser's air still has no route through a side
+    # EN-02: "no connection is cut in the front wall" — the pump bay is the one
+    # opening cut there and the cartridge's face closes it — which is why CO2 comes
+    # in at the back. EN-04: the condenser's air still has no route through a side
     # face (enclosure-mechanical.md Open items 2) — the card says so, and stops
     # saying so the moment a grille is cut.
     assert not pack.front_ports and not box.front_ports, (
@@ -384,6 +385,7 @@ def sub_assemblies(m: Machine):
     # A rib the cap prints and a rib a strap closes are two counts. `fluid-14` reaches a valve
     # on the front top, so its channel leaves SA-04 empty and SA-07 is where the tie goes on.
     cap_lid = _scenes.SCENE_BY_ID["cap-lid"]
+    front_top = _scenes.SCENE_BY_ID["front-top"]
     ribs_strapped = [n for n in cap_ribs if n not in cap_lid.later]
     ribs_empty = [n for n in cap_ribs if n in cap_lid.later]
     cap_chains = under("foam-assembly", "cradle")
@@ -397,16 +399,29 @@ def sub_assemblies(m: Machine):
     captured = under("enclosure-back-top", "wall-capture")
 
     # SA-01 and SA-02 each end on a body that is NOT in their picture: the tray in
-    # one, the funnel in the other. The piece carries it in the finished machine and
-    # the scene holds it back, which is the pair of readings those two sentences
-    # stand on.
+    # one, the funnel and the steel plate in the other. The piece carries it in the
+    # finished machine and the scene holds it back, which is the pair of readings
+    # those two sentences stand on.
     for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "hopper-funnel"),
+                             ("front-top", "collet-plate"),
                              ("hopper-drain", "hopper-drain-union"),
                              ("cap-lid", "tube-fluid-14")):
         scene = _scenes.SCENE_BY_ID[scene_id]
         assert holder.get(absent) in scene.roots and absent in scene.later, (
             f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
             f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
+
+    # The wells this piece leaves the bench with. The steel takes one too and reaches it
+    # through the pump bay with the box standing, so the scene holds it back.
+    front_top_wells = [n for n in under("enclosure-front-top", "well")
+                       if n not in front_top.later]
+
+    # No tray stands on the piece the bay is cut in. SA-02's note sends both pumps out of the
+    # front of the machine on the cartridge, and there is no number in that sentence.
+    assert not under("enclosure-front-top", "tray"), (
+        f"{', '.join(under('enclosure-front-top', 'tray'))} hang(s) in a tray on "
+        f"`enclosure-front-top` — SA-02 says the pumps ride out of the front bay on "
+        f"`enclosure-pump-cartridge` and this piece keeps the valves; restate the card")
 
     # SA-06's three figures are the drain joint's own stack, and each of them is read off the
     # part that owns it: the stub states its own length and how much of it the spout takes, the
@@ -465,12 +480,12 @@ def sub_assemblies(m: Machine):
         "SA01_BOSSED": f"{len(under('enclosure-back-top', 'bosses'))}",
         "SA01_CAPTURED": f"{len(captured)}",
         "SA01_RIB_RUNS": f"{len(back_top_ribs)}",
-        # The front top's three columns, each a different joint on one piece: the
-        # valves press into seats fused into its own decks, the pumps hang in trays
-        # fused to its own walls, the lever nuts stand in wells printed in them.
+        # The front top's two columns, each a different joint on one piece: the valves and
+        # the display's cover plate come down on bosses — the valve seats fused into its own
+        # decks, the plate's two in the facet's inset floor — and the lever nuts stand in
+        # wells printed in its walls.
         "SA02_SEATED": f"{len(under('enclosure-front-top', 'bosses'))}",
-        "SA02_TRAYS": f"{len(under('enclosure-front-top', 'saddle'))}",
-        "SA02_WELLS": f"{len(under('enclosure-front-top', 'well'))}",
+        "SA02_WELLS": f"{len(front_top_wells)}",
         "SA04_CRADLES": f"{len(cap_cradled)}",
         "SA04_CHAINS": f"{len(cap_chain_bodies)}",
         "SA04_RIB_RUNS": f"{len(ribs_strapped)}",
@@ -492,7 +507,7 @@ def sub_assemblies(m: Machine):
     cards = {
         "sa-01-back-top": {"SA01_BOSSED", "SA01_CAPTURED", "SA01_RIB_RUNS", "WALL_BOSSES",
                            "FLUID_18_LEN"},
-        "sa-02-front-top": {"SA02_SEATED", "SA02_TRAYS", "SA02_WELLS"},
+        "sa-02-front-top": {"SA02_SEATED", "SA02_WELLS"},
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
                           "SA04_RIB_EMPTY"},
