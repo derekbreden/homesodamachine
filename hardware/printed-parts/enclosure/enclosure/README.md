@@ -642,10 +642,12 @@ The face rides its opening on stated air, `bay_face_slip` at the jambs and
 **The front wall is `front_wall` thick — a face a user hauls on — and grows inward,**
 the exterior and the facet standing where the appliance's stated depth put them. What
 noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
-pocket across the refrigeration bay, floored where the compressor's kiss, the
-condenser's rails and the fuse's air already were, and one pocket per pump in the
+pocket across the compressor, floored on its own kiss, and one pocket per pump in the
 cartridge's face, floored where the tray's own wrap rule puts its root
-(`pump_relief_floor`). `box-front` reads every placed body against the relieved
+(`pump_relief_floor`). The compressor is the only body in the refrigeration stratum
+standing fore of the wall's interior plane — the condenser bears on that plane through
+its rails and the fuse clamp stands clear behind it — so the wall keeps its full section
+across the rest of the front. `box-front` reads every placed body against the relieved
 surface, region by region.
 
 ## Pump trays

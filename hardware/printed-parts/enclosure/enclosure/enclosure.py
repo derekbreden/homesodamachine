@@ -625,10 +625,12 @@ rear_plane_y = 464.0
 # `box-front` reads the pack against the relieved surface, region by region, not one plane.
 front_wall = 9.0
 front_plane_y = 14.0
-# The refrigeration stratum's relief: one stated pocket across the compressor, condenser and
-# fuse bay, floored where those bodies' packed faces already are — the compressor keeps its
-# stated kiss, the condenser its rails, the fuse its air. Stated as (x0, x1, z0, z1, floor).
-fridge_relief = (-78.0, 102.0, -1.0, 148.0, 11.0)
+# The refrigeration stratum's relief: one stated pocket across THE COMPRESSOR ALONE, floored on
+# the face it packs to. It is the only body in this stratum that stands fore of the front wall's
+# own interior plane — the condenser bears on that plane through its rails and the fuse clamp
+# stands clear behind it — so the wall keeps its full `front_wall` section everywhere else along
+# the front. Stated as (x0, x1, z0, z1, floor).
+fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
 # And each pump's relief in the cartridge face, floored where the tray's own wrap rule wants
 # its root: `pump_tray` demands root ≥ head_half + MARGIN off the pump's axis, and the floor
 # is what the root is struck to. The face over a pump keeps this floor less the exterior
@@ -3576,10 +3578,12 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
         half = cond_slot_half(fz1 - fz0)
-        # The rail roots on the refrigeration bay's own relieved floor — the wall surface
-        # actually behind the block (`fridge_relief`), which the front wall's section
-        # stands back from.
-        solid = solid.fuse(_ybox(cx0, cx1, fridge_relief[4], face + cond_slot_grip,
+        # The rail roots on the wall surface actually behind the block, which is the front
+        # wall's own interior plane where no relief is struck over this station's span.
+        root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in (fridge_relief,)
+                                        if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
+                                        and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
+        solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip,
                                  root, fz1 + half + cond_rail_wall))
         # The groove runs out past the rail's own aft end, so the flange enters from the bay.
         solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, face, face + cond_slot_grip + 1.0,
