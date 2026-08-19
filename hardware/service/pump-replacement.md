@@ -1,65 +1,78 @@
 # Pump replacement
 
-The BPT tube around each Kamoer KPHM400's rotor is a consumable and a pump is replaced as a unit.
-This procedure runs on the access the factory bench uses: `enclosure-front-top` comes off, and the
-whole flavor manifold comes off with it.
+The BPT tube around each Kamoer KPHM400's rotor is a consumable and a pump is replaced as a
+unit. Both pumps ride `enclosure-pump-cartridge`, the printed piece whose face fills the bay in
+the front wall: pull the face against a braced box and both heads come out on its deck. No
+quadrant comes off and nothing is unscrewed.
 
-Every joint that parts is a flavor line. No joint on the water, CO2 or carbonated-water path is
-opened — every body on those three paths stands aft of the seam or on the cold core's own lid — so
-the carbonator stays full, stays under pressure, and stays connected.
+[4](JOINT_COUNT) joints part, all four on the flavor path, and the technician opens none of
+them — the collet plate opens all four as the cartridge is pulled. No joint on the water, CO2
+or carbonated-water path is opened either: every body on those three paths stands aft of the
+bay or on the cold core's own lid, so the carbonator stays full, stays under pressure, and
+stays connected.
 
-The appliance runs **dry mode** first: a firmware cycle that fills the manifold with air. Air enters
-at the hopper funnel and both reservoir cap vents; what it displaces leaves at the faucet's
-gooseneck tip. The user's part is a vessel under the faucet.
+The appliance runs **dry mode** first: a firmware cycle that fills the manifold with air. Air
+enters at the hopper funnel and both reservoir cap vents; what it displaces leaves at the
+faucet's gooseneck tip. The user's part is a vessel under the faucet.
 
-## What the quadrant carries
+## What the cartridge carries
 
-| Rides up with `enclosure-front-top` | Stays |
+| Rides out on `enclosure-pump-cartridge` | Stays |
 |---|---|
-| [8](LIFT_VALVES) valves — V-C…V-J, on the two printed panels ([`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)) | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
-| Both Kamoer pumps, in their printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | The SeaFlo and both its chains, on the core's cap |
-| All [6](LIFT_TEES) PP0208E tees — each butts a valve that rides | The ASSE chain, the water split, the flow regulator, the WR1110, the DIGITEN meter |
-| Every hairpin, turn and butted stub inside the pack | Every rear-wall bulkhead, and the cold core itself |
-| The display housing | The hopper funnel — lifted out first, step 2 |
+| Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](PANEL_VALVES) valves — V-C…V-J, on the two printed panels ([`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)) |
+| The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
+| Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
+| | The collet plate, in its two pockets on `enclosure-front-top`'s side walls |
+| | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
+| | The hopper funnel, in its throat; the display; the SeaFlo and both its chains; the cold core itself |
 
-**The manifold comes out as one body.** No tube inside the pack crosses the seam: the four
-[180° hairpins](/hardware/manifold-layout/README.md), the two source turns and every butted collet
-join bodies on the same side of it. Break the [8](JOINT_COUNT_4) joints below and the pack — valves, tees, pumps,
-tube — lifts on the ceiling.
+**The manifold does not move.** Every valve, tee and tube in the pack stands on a seat the box
+keeps, so the only tube ends that cross the bay's mouth are the four the pumps carry out with
+them. The funnel stays in its throat, the display stays in its bezel, and the pack is never
+handled.
 
-## The [8](JOINT_COUNT_3) joints that part
+## The [4](JOINT_COUNT_3) joints the plate opens
 
 Derived at every build from `manifold_layout.SEGMENTS` and `manifold_layout.MOUTHS` against
-`_scorecard.fastened_by`. A valve that changes seat changes this table, and
-`_pump_replacement_sync.py` fails rather than letting it drift.
+`_scorecard.fastened_by` and `_facts.pump_trays`, then asked a second time of the steel — the
+plate is bored one hole per barb tee, so what the pieces hold and what the plate releases have
+to name one set. A pump that changes seat changes this table, and `_pump_replacement_sync.py`
+fails rather than letting it drift.
 
-| Joint | Lifting end | Staying end | Tube | Air-filled by |
+| Joint | Cartridge end | Staying end | Exposed tube | Air-filled by |
 |---|---|---|---|---|
-| `fluid-5` | Y-B-1 | V-B-O | [177.0](LEN_5) mm | every state — it is the air inlet |
-| `fluid-14` | V-F-O | reservoir A fill conduit | [363.3](LEN_14) mm | state 1 |
-| `fluid-24` | V-I-O | reservoir B fill conduit | [174.1](LEN_24) mm | state 3 |
-| `fluid-18` | V-G-O | `bulkhead-flavor-a` | [441.5](LEN_18) mm | state 2 |
-| `fluid-28` | V-J-O | `bulkhead-flavor-b` | [320.4](LEN_28) mm | state 4 |
-| `fluid-16` | V-E-I | reservoir A draw conduit | [116.7](LEN_16) mm | no state — comes apart wet |
-| `fluid-26` | V-H-I | reservoir B draw conduit | [116.7](LEN_26) mm | no state — comes apart wet |
-| `fluid-3` | Y-A-1 | V-A-O | [176.8](LEN_3) mm | no state — comes apart wet |
+| `fluid-11` | pump A's suction barb | Y-C's branch collet | [5.7](LEN_11) mm | states 1 and 2 |
+| `fluid-12` | pump A's discharge barb | Y-D's branch collet | [5.7](LEN_12) mm | states 1 and 2 |
+| `fluid-21` | pump B's suction barb | Y-F's branch collet | [5.7](LEN_21) mm | states 3 and 4 |
+| `fluid-22` | pump B's discharge barb | Y-G's branch collet | [5.7](LEN_22) mm | states 3 and 4 |
 
-**`fluid-3` holds tap water.** Its supply side runs V-A → `fluid-2` → flow regulator → `fluid-1` →
-water split → `water-2` → ASSE 1022 → rear bulkhead → the customer's stop, a closed column at house
-pressure with no atmospheric opening on it, so opening V-A admits water. The run crests at
-[316.1](SOURCE_CREST) mm between its two ends: broken at the tee it drains its descending leg out
-and its ascending leg back onto V-A's closed seat, which stays with the core.
+**Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
+and a tee on that pump's own channel, so either state that runs a pump carries air across both
+of its joints. Nothing comes apart wet, nothing drains onto a body beneath it, and no reservoir
+is drawn on — the vessel under the faucet is the only vessel the procedure asks for.
 
-**The two draw lines hold syrup.** Each runs from the bulkhead in its reservoir's trough, under the
-liquid, up the cap conduit to its valve — so the air a purge could push into one has to reach a port
-with concentrate standing on it. The published `Air Purge Out` states reach it by running the
-reservoir dry through the nozzle.
+## How the plate lets go
 
-**A reservoir does not siphon when its draw line is broken.** `fluid-16` and `fluid-26` crest at
-[281.3](DRAW_CREST) mm on the way to their valves and the cold core's crown is
-[305.6](CORE_BOX_TOP) mm, so the crest stands [-24.3](SIPHON_MARGIN) mm over the highest point liquid
-inside the core reaches. A draw line is broken at the valve end whatever the reservoir holds, and
-what comes out is the descending leg.
+The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
+`collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
+on edge in two slotted pockets on `enclosure-front-top`'s side walls. Gravity holds it down and
+the walls take every other direction; it lifts out through the bay whenever the cartridge is out.
+
+Seated, the steel stands in the berth between the barbs and the collets, and that berth is
+spent three ways: [1.025](BARB_AIR) mm of air off the barb plane, the plate's own
+[3.175](PLATE_T) mm, and [1.5](REST_GAP) mm of nose air under the four branch collet faces.
+Its four holes stand on the four branch collets' own axes and each is bored to two figures at
+once — wide enough to pass the Ø[6.35 mm](TUBE_OD) tube it has to let slide, narrow enough to
+leave land under the collet nose it has to stop. `enclosure_assembly.check_collet_plate` holds
+the bore to both at every build.
+
+Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm until each
+nose lands on that land. The body keeps coming, the nose is held, the grip opens, and the tube
+draws out through the hole it entered by. Push the cartridge home and the same four tubes
+thread the same four holes back into the same collets, the deck's stop pads landing on the
+plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
+one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
+through the pockets. There is no lock and no tool.
 
 ## Dry mode
 
@@ -88,65 +101,49 @@ States"; this doc names the order they run in.
 
 ## Procedure
 
-**1. Run dry mode.** Vessel under the faucet — states 2 and 4 send a slug of air and residual syrup
-out the gooseneck.
+**1. Run dry mode.** Vessel under the faucet — states 2 and 4 send a slug of air and residual
+syrup out the gooseneck.
 
-**2. Lift the hopper funnel out.** Its throat is cut through the top wall of both top pieces
-(`enclosure._hopper_cut`), so the basin clears before the seam parts. Release the union's collet
-with the 1/4" jaw of the JG collet quick-connect tool — square on the sleeve, the way the user does
-it weekly — and the basin lifts away with its stub and clamp still on it. `fluid-4` stays on V-B,
-dry — it is the cycle's own air inlet.
+**2. Pull the cartridge.** One hand flat on the face, the other braced on the box. Draw it
+straight forward along the two wall ledges its deck rides: the [4](JOINT_COUNT_2) joints let go
+against the plate in the first few millimetres, and the rest of the stroke is the deck coming
+out of the bay. Pull the two DC-5 spade pairs off the motor tabs and set the cartridge
+face-down on the bench.
 
-**3. Break the [8](JOINT_COUNT_5) joints.** Press each collet ring — the same 1/4" jaw — and draw the tube out. Pull **`fluid-18` and
-`fluid-28` at the bulkheads**, not at V-G and V-J, so the two longest runs ride up with the quadrant
-instead of dangling; the rest release at whichever end reaches. Cloth under `fluid-3`, `fluid-16`
-and `fluid-26`.
+**3. Swap the pumps.** Cut the two 8" straps under each pump's stamped mounting bracket and lift
+the boss out of its [53 mm](PUMP_SOCKET) octagon bore — no tool, no fastener. The new pump goes
+in the same way: straps threaded through the plate's four channels and left lying open
+**first**, then the boss lowered until the plate lands on the head's crown all the way round,
+then each strap closed round plate and bracket together and flush-cut. Cinch on **the bracket
+only** — never a barb, never the motor can. Tug-test each.
 
-**4. Lift the quadrant.** Set it panels-down on the bench.
+**4. Route 1/4" OD LLDPE through the new heads** — onto the BPT barbs directly, around the
+rotor, zip-tied tight. Then push a fresh barb tube fully over each of the four barbs and leave
+it standing aft off the face; that stub is what the plate's hole passes and the branch collet
+grips.
 
-**5. Swap the pumps.** Cut the two 8" straps under each pump's stamped mounting bracket and lift the
-boss out of its [53 mm](PUMP_SOCKET) octagon bore — no tool, no fastener. Pull the DC-5 spade pairs
-off the motor tabs. The new pump goes in the same way: straps threaded through the plate's four
-channels and left lying open **first**, then the boss lowered until the plate lands on the head's
-crown all the way round, then each strap closed round plate and bracket together and flush-cut.
-Cinch on **the bracket only** — never a barb, never the motor can. Tug-test each.
+**5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
+once the deck is in. Then the deck onto its ledges, the four tubes through the plate's holes
+and into the branch collets, and a firm push on the face with one hand bracing the box. The
+stop pads landing on the steel is the seat: a face standing proud of the wall is a tube that has
+not gone home.
 
-**6. Route 1/4" OD LLDPE through the new heads** — onto the BPT barbs directly, around the rotor,
-zip-tied tight.
-
-**7. Reassemble.** Quadrant down, all [8](JOINT_COUNT_7) joints pushed fully home and tug-tested, funnel back in its
-throat and its union onto the stub.
-
-**8. Re-prime.** Both channels through the hopper-fill path, then a dispense on each until it runs
-clean.
+**6. Re-prime.** Both channels through the hopper-fill path, then a dispense on each until it
+runs clean.
 
 ## Output condition
 
 - Both pumps replaced, each hanging on two straps under its own bracket, tug-tested
-- All [8](JOINT_COUNT_6) joints remade and tug-tested; funnel reseated
+- Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints threaded home, the
+  cartridge's face flush in the bay and its stop pads on the steel
 - Both channels re-primed and dispensing clean
 - No joint on the water, CO2 or carbonated-water path opened; the carbonator never depressurised
 
 ## Open items
 
-1. **Whether the Beduan passes flow outlet to inlet is unknown.**
-   [`fluid-topology.md`](/hardware/topology/fluid-topology.md) states the manifold's valves as
-   inlet-to-outlet only, and nothing in the tree says whether the B07NWCQJK9 is direct-acting or
-   pilot-operated. A direct-acting seat energised at low differential passes either way; a pilot
-   needs forward differential to lift at all. Settling it opens a reverse loop for the two draw
-   lines — headspace out the fill bore, backwards across the pump, in at the draw port under the
-   liquid, syrup returned to its own reservoir and the cap's PTFE vent carrying the imbalance — which
-   would take those two joints dry without spending concentrate. A bench reading on one valve
-   answers it, and a second reading answers whether the pump pushes air down a filled draw column
-   against its standing head or churns at the interface.
-2. **The reel's bore is not in this tree.** Every figure here is a tube length; `_routing.STOCKS`
-   carries 1/4" LLDPE's [6.35 mm](TUBE_OD) OD and the bend floor, and no ID. At a nominal 0.170"
-   the [8](JOINT_COUNT_2) joints come to [28](JOINT_ML) mL between them and `fluid-3` to
-   [2.6](WET_ML) mL — arithmetic on `_pump_replacement_sync.NOMINAL_BORE` rather than a reading.
-   Measure a reel and these become volumes.
-3. **Dry-run wear on a KPHM400's BPT tube is not characterised.** States 1, 2, 4 and 5 turn both
-   rotors on air.
-4. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
+1. **Dry-run wear on a KPHM400's BPT tube is not characterised.** Every one of the four states
+   turns a rotor on air.
+2. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
 
