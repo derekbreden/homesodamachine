@@ -983,16 +983,6 @@
    "active": true
   },
   {
-   "id": "grip-reaches-cusp",
-   "label": "The lane behind each flank grip is open to the columns' cusp",
-   "kind": "gate",
-   "status": "pass",
-   "value": "15 mm of reach off the exterior side face, most shut 0.0 mm\u00b3",
-   "target": "the band from `interior_x` in one `_column_along` clear behind the whole opening",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "floor-mounts-land",
    "label": "Every floor post under a bolted-down body is printed",
    "kind": "gate",

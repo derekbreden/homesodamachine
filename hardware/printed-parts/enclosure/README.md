@@ -53,7 +53,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 ## What is on the front face
 
 - ESP32-S3 config display — a 4.3" touchscreen let into the 45° facet, centred, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
-- The pump cartridge's face — the flat front under the facet, jamb to jamb, filling the bay it slides out of with both flavour pumps aboard. Two hand-holds struck through its flank returns, no latch and no fastener: a pull is what draws it, and the four barb tubes let go on the collet plate as it comes. Detail: [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md) "The pump cartridge and its bay".
+- The pump cartridge's face — the flat front under the facet, jamb to jamb, filling the bay it slides out of with both flavour pumps aboard. No latch and no fastener: a pull on the face is what draws it, and the four barb tubes let go on the collet plate as it comes. Detail: [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md) "The pump cartridge and its bay".
 - Nothing else. Every fluid connection the customer makes is on the back wall: the water inlet, the CO2 inlet, and the umbilical that carries carbonated water and both flavours up to the faucet.
 
 ## Sub-folders
