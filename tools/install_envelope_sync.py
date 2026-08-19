@@ -44,9 +44,11 @@ sys.path.insert(0, str(Path(sys.argv[1]).parents[1] / "reference" / "jg-bulkhead
 import enclosure, port_ring, jg_bulkhead_union
 _pack, box = enclosure.machine_of()
 o = box.outer
+cart = box.collet_plate["fore_y"] - enclosure.cap_kiss - o[2] if box.collet_plate else 0.0
 print(json.dumps({"w": o[1] - o[0], "d": o[3] - o[2], "h": o[5] - o[4],
                   "field": port_ring.THICK,
-                  "collet": jg_bulkhead_union.PROUD_LENGTH}))
+                  "collet": jg_bulkhead_union.PROUD_LENGTH,
+                  "cart": cart}))
 """
 
 
@@ -87,6 +89,13 @@ def main():
     variables["PORT_RING_THICK"] = f"{m['field']:g} mm"
     variables["TURN_IN"] = f"{TURN_IN_LEAD_BEND + m['collet'] + m['field']:g} mm"
     expected.update({"COLLET_PROUD": 1, "PORT_RING_THICK": 1, "TURN_IN": 1})
+
+    # WHAT THE FRONT OWES. The pump cartridge draws straight out of the bay with both pumps
+    # aboard, so what the room has to give it is its own depth — exterior face to the aft
+    # face that stops on the collet plate. The one service access on this machine that
+    # faces the room instead of the wall.
+    variables["CART_DRAW"] = f"{m['cart']:.4g} mm"
+    expected["CART_DRAW"] = 1
 
     variables[f"{key}_WDH"] = f"{m['w']:.4g} × {m['d']:.4g} × {m['h']:.4g} mm"
     variables[f"{key}_FOOTPRINT"] = f"{m['w'] * m['d'] / 1e6:.3f} m²"
