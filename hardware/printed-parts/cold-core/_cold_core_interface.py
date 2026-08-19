@@ -1265,6 +1265,12 @@ cap_side_anchors = {
     # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
     # through, so the pair cannot drift apart quietly.
     "water-3": SideAnchor((141.500, 3.242), 7.600, 3.375, 1.500),
+    # `fluid-18`'s gate-side hold: its crossing runs the crown storey fore of the pump, and
+    # this post stands the whole of that storey off the lid to grip it — the blade's front
+    # face one air fore of the pump's own, the pipe proud of it by less than its wrap. The
+    # union side is the box's own wall rib on the aft straight
+    # (`enclosure_assembly.TUBE_ANCHOR_SITES`).
+    "fluid-18": SideAnchor((51.675, 34.000), 45.800, 3.375, 1.000),
 }
 
 

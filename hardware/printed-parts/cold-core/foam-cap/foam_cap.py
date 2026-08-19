@@ -471,10 +471,12 @@ def main():
     # its chain anchors, whose crown is the seated body's own axis.
     cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
     anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
+    side_proud = max((cap_side_anchor_height(n) for n in cap_side_anchors), default=0.0)
     head_radius = 2.75
     for name, lid, outer_z, inward, proud in (
         ("foam-cap-lid-bottom", lid_bottom, 0.0, 1.0, 0.0),
-        ("foam-cap-lid-top", lid_top, lid_total_height, -1.0, max(cradle_proud, anchor_proud)),
+        ("foam-cap-lid-top", lid_top, lid_total_height, -1.0,
+         max(cradle_proud, anchor_proud, side_proud)),
     ):
         zlen = lid.val().BoundingBox().zlen
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \
