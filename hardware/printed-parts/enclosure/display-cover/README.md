@@ -7,8 +7,9 @@ it: the plate's top face lies in the plane, and both screws are countersunk into
 their own lands, so nothing stands proud of the face anywhere.
 
 The plate is also what fastens the display. The glass sits in the bezel counterbore
-of `enclosure-front-top`; this border stands over it and is drawn down into that same
-piece by two screws, so the display is captured between the two printed parts.
+of `enclosure-front-top`; this border laps it all round and two screws draw the plate
+down into that same piece, closing on the glass through the TPU ring between them, so
+the display is captured between the two printed parts.
 
 ## Frame
 
@@ -58,9 +59,13 @@ widest material the plate has.
 ## The lap
 
 The plate's underside sits [2 mm](COVER_T) below the 45° face and the glass's front
-face [3 mm](GLASS_FACE_DEPTH) below it, so [1 mm](GLASS_LAP_AIR) of air runs under
-the border all the way round. The border stands over the glass; it does not bear on
-it.
+face [3 mm](GLASS_FACE_DEPTH) below it. What stands in that step all the way round is
+the display gasket
+([`display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)) — a
+TPU 90A ring cut to the glass's own outline outside and to this plate's window inside,
+so it lands under the border and nowhere else, and its thickness is the step itself.
+The border bears on the glass through that ring, which is what makes the two screws
+hold the display rather than the plate alone.
 
 ## Regenerate
 
