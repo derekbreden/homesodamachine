@@ -44,7 +44,30 @@ static const uint8_t ADDR_MCP_B = 0x21;  // U3, south
 static const uint8_t ADDR_RTC   = 0x68;  // U6 DS3231SN
 
 // ── Buzzer — IO13 -> R5 -> Q1 -> U8 ────────────────────────────────────────
-static const int PIN_BUZZ = 13;
+//
+// U8 is an MLT-5020 passive magnetic transducer — a coil pulling on a ferrous
+// diaphragm, with no amplitude input of its own — and Q1 switches its low side
+// hard, so the coil sees 5 V or it sees nothing. Every sound the board can make
+// is therefore made out of WHEN that switch closes, and out of nothing else:
+//
+//   PITCH   free. LEDC puts any frequency on IO13. Loudness is not flat across
+//           it: the diaphragm is a resonator, loudest at its mechanical peak
+//           (the datasheet's 4 kHz) and falling away either side of it. `ladder`
+//           walks the span so the peak is heard rather than trusted.
+//   VOLUME  duty cycle, and only duty cycle. The diaphragm follows the
+//           fundamental of the pulse train, whose amplitude goes as sin(pi*d):
+//           50% is the loudest a note gets, 5% lands ~16 dB under it, 2% ~24 dB
+//           under. Duty above 50% mirrors what is below, so the whole knob is
+//           0..50%. A real range, but not a clean one — the narrower the pulse
+//           the thinner it sounds, and far enough down it is a click, not a note.
+//   SHAPE   envelopes, slides, trills, tremolo, all built from those two.
+//
+// One coil on one LEDC channel is one voice: no chords, and no waveform but
+// square. `demo` plays the whole span, and also runs once at boot.
+static const int PIN_BUZZ  = 13;
+static const int BUZZ_BITS = 10;                  // 0..1023 duty; the 80 MHz APB holds this from ~77 Hz up
+static const int BUZZ_FULL = (1 << BUZZ_BITS) - 1;
+static const int BUZZ_LOUD = 50;                  // duty %, the loudest a note gets
 
 // ── Gas dividers — MQ-6 through R1/R2 and R3/R4, ADC1 input-only pins ──────
 static const int PIN_GAS_AOUT = 39;  // analog level
@@ -418,12 +441,56 @@ static void cmdRs485() {
     if (wasUp) rs485Begin();
 }
 
-static void beep(int hz, int ms) {
-    tone(PIN_BUZZ, hz, ms);
-    delay(ms + 25);
-    noTone(PIN_BUZZ);
-    pinMode(PIN_BUZZ, OUTPUT);   // tone() hands IO13 to LEDC; take it back as GPIO
+// ── The one voice ─────────────────────────────────────────────────────────
+// LEDC stays attached across a whole phrase, so a note can change pitch or duty
+// under itself without a gap opening. toneOff() is what hands IO13 back to plain
+// GPIO and holds Q1's base down.
+static bool buzzOn = false;
+
+static void toneOn(int hz, int dutyPct) {
+    if (hz < 80) hz = 80;                    // below this the 10-bit timer cannot divide down
+    dutyPct = constrain(dutyPct, 0, 100);
+    if (!buzzOn) {
+        if (!ledcAttach(PIN_BUZZ, hz, BUZZ_BITS)) return;   // no LEDC channel free
+        buzzOn = true;
+    } else {
+        ledcChangeFrequency(PIN_BUZZ, hz, BUZZ_BITS);
+    }
+    ledcWrite(PIN_BUZZ, (uint32_t)dutyPct * BUZZ_FULL / 100);
+}
+
+static void toneOff() {
+    if (buzzOn) { ledcWrite(PIN_BUZZ, 0); ledcDetach(PIN_BUZZ); buzzOn = false; }
+    pinMode(PIN_BUZZ, OUTPUT);   // LEDC hands IO13 back; Q1's base is held off here
     digitalWrite(PIN_BUZZ, LOW);
+}
+
+static void note(int hz, int ms, int dutyPct) { toneOn(hz, dutyPct); delay(ms); toneOff(); }
+
+// What the continuity probe and the pump marks sound: one note at full loudness,
+// then the gap that keeps a repeat from running into itself.
+static void beep(int hz, int ms) { note(hz, ms, BUZZ_LOUD); delay(25); }
+
+// How far under the loudest this pitch can be. The diaphragm follows the pulse
+// train's fundamental, so amplitude goes as sin(pi*d) and 50% duty is the 0 dB
+// reference — which is also why 60% and 40% sound alike.
+static float dutyDb(int pct) {
+    if (pct <= 0) return -99.0f;
+    return 20.0f * log10f(sinf(PI * (float)pct / 100.0f));
+}
+
+// nth space-separated word of a command line as an int (0 is the command itself).
+static int argInt(const String &line, int n, int def) {
+    int seen = 0, from = 0;
+    while (from <= (int)line.length()) {
+        int sp = line.indexOf(' ', from);
+        String w = sp < 0 ? line.substring(from) : line.substring(from, sp);
+        w.trim();
+        if (w.length()) { if (seen == n) return w.toInt(); seen++; }
+        if (sp < 0) break;
+        from = sp + 1;
+    }
+    return def;
 }
 
 // The continuity probe. It runs by itself from power-on and never needs starting:
@@ -888,6 +955,170 @@ static void cmdBuzz() {
     Serial.println("  done");
 }
 
+// ───────────────────────────────────────────────────────────────────────────
+// What U8 can be made to sound like. `buzz` above answers whether the chain
+// carries; everything below answers what it carries — which is the question a
+// machine's alarms, acks and refusals get designed against.
+
+// A key on the console cuts any of this short, so a bench reset is never held
+// hostage to the boot demo. Returns true when it was asked to stop.
+static bool buzzAbort() {
+    if (!Serial.available()) return false;
+    while (Serial.available()) Serial.read();
+    toneOff();
+    Serial.println("   (cut short)");
+    return true;
+}
+
+// ── Shapes ────────────────────────────────────────────────────────────────
+// The transducer has no decay of its own: a note stops dead when the switching
+// stops. Anything that rings, swells or slides is the duty and the frequency
+// being walked while it sounds.
+
+// Struck, then let go — duty decaying under a held pitch instead of ending square.
+static void chime(int hz, int ms, int peakPct) {
+    const int steps = 28;
+    for (int i = 0; i < steps; i++) {
+        toneOn(hz, (int)(peakPct * expf(-3.2f * (float)i / steps) + 0.5f));
+        delay(ms / steps);
+    }
+    toneOff();
+}
+
+// Pitch is heard in ratios, so a slide is geometric — a linear hz ramp stalls at
+// the top and spends all its time down where the diaphragm is quiet.
+static void slide(int fromHz, int toHz, int ms, int dutyPct) {
+    const int steps = 48;
+    for (int i = 0; i <= steps; i++) {
+        toneOn((int)(fromHz * powf((float)toHz / fromHz, (float)i / steps)), dutyPct);
+        delay(ms / steps);
+    }
+    toneOff();
+}
+
+// One pitch with the duty swinging under it — amplitude modulation, which is the
+// only wobble a square wave has to offer.
+static void tremolo(int hz, int ms, int rateHz, int peakPct) {
+    const int stepMs = 5;
+    for (int t = 0; t < ms; t += stepMs) {
+        float d = 0.55f + 0.45f * sinf(2.0f * PI * rateHz * (float)t / 1000.0f);
+        toneOn(hz, (int)(peakPct * d + 0.5f));
+        delay(stepMs);
+    }
+    toneOff();
+}
+
+// ── The range, played ─────────────────────────────────────────────────────
+
+// Fixed duty, pitch walked across the audible span. Every rung gets the same
+// drive, so what changes between them is the diaphragm alone — the loud rung is
+// where U8 resonates, and that is the note the machine's sounds want to sit on.
+static const int kLadder[] = {150, 220, 320, 440, 600, 800, 1000, 1300, 1600, 2000,
+                              2400, 2700, 3100, 3500, 4000, 4500, 5000, 5600, 6300,
+                              7000, 8000};
+static const unsigned kLadderN = sizeof kLadder / sizeof *kLadder;
+
+static bool cmdLadder() {
+    Serial.printf("\n-- pitch: %d Hz .. %d Hz, every rung at %d%% duty --\n",
+                  kLadder[0], kLadder[kLadderN - 1], BUZZ_LOUD);
+    Serial.println("   same drive throughout, so the loudest rung is U8's resonance.");
+    for (unsigned i = 0; i < kLadderN; i++) {
+        Serial.printf("   %5d Hz\n", kLadder[i]);
+        note(kLadder[i], 140, BUZZ_LOUD);
+        delay(55);
+        if (buzzAbort()) return false;
+    }
+    Serial.println("  done");
+    return true;
+}
+
+// One pitch held, duty stepped. This is the whole of the volume control.
+static const int kDuty[] = {1, 2, 3, 5, 8, 12, 18, 25, 35, 50};
+static const unsigned kDutyN = sizeof kDuty / sizeof *kDuty;
+
+static bool cmdDuty(int hz) {
+    Serial.printf("\n-- volume: %d Hz throughout, duty %d%% .. %d%% --\n",
+                  hz, kDuty[0], kDuty[kDutyN - 1]);
+    Serial.println("   the pitch never moves. dB is against 50%, the loudest this note gets.");
+    for (unsigned i = 0; i < kDutyN; i++) {
+        Serial.printf("   %3d%% duty   %5.1f dB\n", kDuty[i], dutyDb(kDuty[i]));
+        note(hz, 320, kDuty[i]);
+        delay(90);
+        if (buzzAbort()) return false;
+    }
+    Serial.println("  done — past 50% it mirrors back down, so 50% is the ceiling");
+    return true;
+}
+
+// Seven sounds a machine might actually make, each one built from the two knobs
+// above and nothing else.
+static bool cmdPalette() {
+    Serial.println("\n-- shapes, out of those same two knobs --");
+
+    Serial.println("   tick      4 ms at full duty — too short to have a pitch left in it");
+    for (int i = 0; i < 4; i++) { note(4000, 4, BUZZ_LOUD); delay(110); }
+    delay(400); if (buzzAbort()) return false;
+
+    Serial.println("   ack       two notes up — a thing was taken");
+    note(2200, 70, BUZZ_LOUD); note(3300, 90, BUZZ_LOUD);
+    delay(500); if (buzzAbort()) return false;
+
+    Serial.println("   chime     struck and let go — duty decaying under a held pitch");
+    chime(3500, 260, BUZZ_LOUD); delay(60); chime(2600, 420, BUZZ_LOUD);
+    delay(500); if (buzzAbort()) return false;
+
+    Serial.println("   refuse    low and square — the quiet ugly end of the ladder, on purpose");
+    note(320, 180, BUZZ_LOUD); delay(70); note(260, 260, BUZZ_LOUD);
+    delay(500); if (buzzAbort()) return false;
+
+    Serial.println("   chirp     a slide, 800 Hz -> 6 kHz in 160 ms");
+    slide(800, 6000, 160, BUZZ_LOUD);
+    delay(500); if (buzzAbort()) return false;
+
+    Serial.println("   tremolo   one pitch, duty swinging at 9 Hz");
+    tremolo(3200, 900, 9, BUZZ_LOUD);
+    delay(500); if (buzzAbort()) return false;
+
+    Serial.println("   alarm     what a gas trip wants — two pitches, hard alternation, no gaps");
+    for (int i = 0; i < 6; i++) { note(2700, 120, BUZZ_LOUD); note(3600, 120, BUZZ_LOUD); }
+    Serial.println("  done");
+    return true;
+}
+
+static void cmdDemo() {
+    Serial.println("\n=====================================================");
+    Serial.println(" U8 — the whole range, and where it ends");
+    Serial.println("=====================================================");
+    Serial.println(" MLT-5020 magnetic transducer, low-side switched by Q1 off IO13.");
+    Serial.println(" Pitch is free; volume is duty cycle and nothing else; one voice,");
+    Serial.println(" square only. Any key cuts this short.");
+    if (!cmdLadder()) return;
+    delay(600);
+    if (!cmdDuty(4000)) return;
+    delay(600);
+    if (!cmdPalette()) return;
+    Serial.println("\n replay a part:  ladder | duty [hz] | palette | demo");
+    Serial.println(" one at a time:  tone <hz> [ms] [duty%]   sweep <lo> <hi> [ms]");
+}
+
+static void cmdTone(const String &line) {
+    int hz = argInt(line, 1, 0);
+    if (hz <= 0) { Serial.println("usage: tone <hz> [ms] [duty%]   (duty 1..50, 50 = loudest)"); return; }
+    int ms   = argInt(line, 2, 400);
+    int duty = argInt(line, 3, BUZZ_LOUD);
+    Serial.printf("\n%d Hz, %d ms, %d%% duty (%.1f dB under this note's loudest)\n",
+                  hz, ms, duty, dutyDb(duty));
+    note(hz, ms, duty);
+}
+
+static void cmdSweep(const String &line) {
+    int lo = argInt(line, 1, 0), hi = argInt(line, 2, 0);
+    if (lo <= 0 || hi <= 0) { Serial.println("usage: sweep <lo hz> <hi hz> [ms]"); return; }
+    int ms = argInt(line, 3, 1500);
+    Serial.printf("\nsliding %d Hz -> %d Hz over %d ms at %d%% duty\n", lo, hi, ms, BUZZ_LOUD);
+    slide(lo, hi, ms, BUZZ_LOUD);
+}
+
 static void cmdInfo() {
     uint64_t m = ESP.getEfuseMac();
     Serial.println("\n-- board / silicon --");
@@ -926,8 +1157,15 @@ static void cmdHelp() {
     Serial.println("  mcp    both MCP23017s: registers + safe write round-trip");
     Serial.println("  in     off-board signal pins + gas ADC");
     Serial.println("  walk   blink ERR / RUN / ACT in turn");
-    Serial.println("  buzz   3 short beeps (audible)");
+    Serial.println("  buzz   3 short beeps — does the IO13 -> R5 -> Q1 -> U8 chain carry");
     Serial.println("  help   this list");
+    Serial.println("\nU8's range — what it can be made to sound like, not merely that it sounds:");
+    Serial.println("  demo    all three below, back to back (this is what boot plays)");
+    Serial.println("  ladder  150 Hz .. 8 kHz at one duty — the loudest rung is the resonance");
+    Serial.println("  duty [hz]  one pitch, duty 1%..50% — the only volume control there is");
+    Serial.println("  palette tick / ack / chime / refuse / chirp / tremolo / alarm");
+    Serial.println("  tone <hz> [ms] [duty%]      one note");
+    Serial.println("  sweep <lo> <hi> [ms]        one slide");
     Serial.println("\nthese four actuate real hardware and idle as inputs — only a command by");
     Serial.println("name ever drives one: IO2 relay, IO19 compressor interlock, IO17 pump A,");
     Serial.println("IO4 pump B. 'arm'+'drive' hold one at a level; 'pump' is the bounded run.");
@@ -982,8 +1220,11 @@ void setup() {
     Serial.printf("boot: J9 link up on IO32/IO34 @ %ld — a line arriving there runs a command\n",
                   RS485_BAUD);
 
-    // Three notes: the board is up, and the IO13 -> R5 -> Q1 -> U8 chain carries.
-    for (int i = 0; i < 3; i++) { beep(PROBE_HZ, PROBE_MS); delay(PROBE_MS); }
+    // The board is up and the IO13 -> R5 -> Q1 -> U8 chain carries — said at
+    // length, because what U8 can be made to sound like is the thing a bench has
+    // to answer before a machine's alarms and acks can be written. Any key skips
+    // straight to the prompt.
+    cmdDemo();
 
     cmdWifi();      // needs nobody at the board
     cmdHelp();
@@ -1051,6 +1292,12 @@ static bool dispatch(const String &line) {
     else if (line == "in")   cmdInputs();
     else if (line == "walk") cmdLedWalk();
     else if (line == "buzz") cmdBuzz();
+    else if (line == "demo") cmdDemo();
+    else if (line == "ladder") cmdLadder();
+    else if (line == "duty" || line.startsWith("duty ")) cmdDuty(argInt(line, 1, 4000));
+    else if (line == "palette") cmdPalette();
+    else if (line.startsWith("tone")) cmdTone(line);
+    else if (line.startsWith("sweep")) cmdSweep(line);
     else if (line == "help") cmdHelp();
     else return false;
     return true;
