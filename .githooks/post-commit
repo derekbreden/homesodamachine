@@ -1,0 +1,27 @@
+#!/bin/sh
+# A SYNC THAT STAGES DURING A PATHSPEC COMMIT LEAVES A GHOST IN THE REAL INDEX.
+#
+# `git commit -- <paths>` runs against a TEMPORARY index (`GIT_INDEX_FILE` points at
+# `.git/next-index-*.lock`). Everything the pre-commit re-derives and stages goes in through
+# that one and IS committed — but the real index is never updated, so it keeps the file's
+# PRE-COMMIT blob. HEAD moves on, the worktree moves with it, and the index alone stays
+# behind. `git status` shows `MM`, and the next bare `git commit` lands that older blob and
+# silently undoes what this commit derived. It has taken the ledger backwards three times.
+#
+# THE SIGNATURE IS EXACT AND NOTHING ELSE WEARS IT: the worktree matches HEAD, and the index
+# matches neither. Content somebody staged on purpose and is holding for a later commit does
+# NOT look like this — there the worktree still differs from HEAD, so it is never touched.
+# What is dropped here was authored by no one, and dropping it changes no file.
+root=$(git rev-parse --show-toplevel) || exit 0
+_ghosts=$(git -C "$root" diff --cached --name-only HEAD | while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  git -C "$root" diff --quiet HEAD -- "$f" 2>/dev/null && printf '%s\n' "$f"
+done)
+[ -n "$_ghosts" ] || exit 0
+printf '%s\n' "$_ghosts" | while IFS= read -r f; do
+  git -C "$root" reset -q HEAD -- "$f" >/dev/null 2>&1
+done
+echo "post-commit: dropped $(printf '%s\n' "$_ghosts" | wc -l | tr -d ' ') stale index entry(ies) this commit left behind." >&2
+printf '%s\n' "$_ghosts" | sed 's/^/      /' >&2
+echo "post-commit:   each held a blob older than HEAD; no file changed." >&2
+exit 0
