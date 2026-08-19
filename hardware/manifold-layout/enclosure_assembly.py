@@ -1607,8 +1607,8 @@ def check_bay_floor(pieces, shell) -> Bound:
 
     Two readings on the one solid. FIRST, the bed: a slab one probe over the seam mouth,
     across the floor's whole plan LESS what front-bottom's Z seam stands in
-    (`enclosure._z_seam_berth` — the lip's channel down each flank and a pocket per front
-    collar), is the piece's first layers, and full means the floor lies on the bed rather
+    (`enclosure._z_seam_berth` — a pocket per front collar, the lip itself being given up
+    over this run), is the piece's first layers, and full means the floor lies on the bed rather
     than hanging in the piece. SECOND, the seat: the same slab under the plate's own
     footprint is what the steel bottoms on."""
     spec = shell.collet_plate
@@ -1616,7 +1616,7 @@ def check_bay_floor(pieces, shell) -> Bound:
     probe = 0.5
     ft = pieces["front-top"]
     ft = ft.val() if hasattr(ft, "val") else ft
-    berth = _enc._z_seam_berth(shell.inner, shell.y_joint)
+    berth = _enc._z_seam_berth(shell.inner, spec, shell.y_joint)
     lx0, lx1 = _enc.lip_face_x()
     aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
     rows = []

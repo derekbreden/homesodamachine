@@ -608,12 +608,13 @@ reliefs floor on, one millimetre under the heads, and the floor's top is that pl
 (`bay_floor_z`). Sill, face reveal and head clearance are then one figure, not three.
 `bay-floor-bedded` reads the floor's whole plan solid on the bed.
 
-**A channel down each side passes the Z seam** (`_z_seam_berth`). Front-bottom's side
-lip runs the wall's whole length and stands proud of this floor to the rim, and the
-front column's socket collars stand proud of that again, so the floor gives up one
-`wall` at each flank and one pocket per collar. The floor's outboard edges are notched
-on the same solid and reach the wall whole above the rim. Nothing about the telescope
-moves.
+**One pocket per collar passes the Z seam** (`_z_seam_berth`), and nothing else does.
+Front-bottom's side lip is given up over this whole run (`_flank_lip_drop`) — round both
+front corners and back down each flank as far as the tee wall's aft face — so the floor
+crosses it wall to wall instead of surrendering one `wall` at each flank. What still
+stands over the mouth here is the front column's socket boss on its own plinth, and the
+floor opens for that alone. Aft of that run the lip is carried whole and the telescope
+is untouched.
 
 The **collet plate's foot is sunk in a seat** cut one `wall` down the floor's top, so
 the steel is located fore, aft and across by printed material and carried on the
