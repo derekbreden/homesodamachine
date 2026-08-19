@@ -17,8 +17,7 @@ way the tap-water trough and the meter's saddles are fused onto their walls, one
 the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the
 face's own pump relief. NO TRAY SHIPS AS A PART.
 
-    ACROSS  the case's own footprint, carried out to the straps' channels and one `MARGIN`
-            past each
+    ACROSS  the case's own footprint
     ALONG   the case's own footprint, cut back to the face it roots on
     DEEP    the bore's whole run on the boss, and one `SHOULDER` of tower over its crown
 
@@ -63,17 +62,15 @@ from docgen import substitute_md                          # noqa: E402
 
 
 # --- what the pump brings ----------------------------------------------------
-# The head's square, half of it: how far its crown reaches off the pump's axis, and the flank the
-# strap turns down.
+# The head's square, half of it: how far its crown reaches off the pump's axis.
 head_half = _kp.head_w / 2.0
-# How far the head hangs under that crown — the strap's two long legs.
+# How far the head hangs under that crown, into the cap that closes on it.
 head_depth = _kp.head_depth
 # The boss's octagon, half of it at the flats.
 boss_half = _pc.bore_half_span
 # The boss's whole run off the head's crown — the bore wall's depth.
 boss_depth = _pc.bore_bottom_z
-# The bore the case turns the can in, half of it: what rises out of the shoulder, and what the
-# strap's run has to clear where it crosses.
+# The bore the case turns the can in, half of it — what rises out of the shoulder.
 can_half = _pc.cylinder_id / 2.0
 # The mounting bracket the part carries at that same crown, stated by `kamoer_kphm400` and drawn
 # by nobody. It stands proud of the head all the way round, in the plane the plate lands on and
