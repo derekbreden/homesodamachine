@@ -535,6 +535,32 @@ if [ -n "$_carrying" ]; then
   [ "$(printf '%s\n' "$_carrying" | wc -l)" -gt 20 ] && echo "      …" >&2
   echo "" >&2
 fi
+
+# AND THE INDEX THIS COMMIT DID NOT USE IS STILL THERE. A commit naming paths runs against a
+# TEMPORARY index — `GIT_INDEX_FILE` points at `.git/next-index-*.lock`, everything above reads
+# that, and git throws it away afterwards. The real index keeps whatever was staged into it and
+# is not touched by the commit at all. So content staged once and committed around sits there,
+# and the tree moves on past it: `git status` shows `MM`, and the next bare `git commit` lands a
+# figure nobody derived from anything current. Reading it takes unsetting the variable, which is
+# the only place in this file that reaches around what git set up.
+if [ -n "$GIT_INDEX_FILE" ]; then
+  _took=$(git -C "$root" diff --cached --name-only)
+  _real=$( unset GIT_INDEX_FILE; git -C "$root" diff --cached --name-only )
+  _orphan=$(printf '%s\n' "$_real" | grep -vxF "$_took" | grep -v '^$')
+  if [ -n "$_orphan" ]; then
+    _tree=$( unset GIT_INDEX_FILE; git -C "$root" diff --name-only )
+    _live=$(printf '%s\n' "$_orphan" | grep -xF "$_tree" | grep -v '^$')
+    echo "pre-commit: the index holds $(printf '%s\n' "$_orphan" | wc -l | tr -d ' ') path(s) this commit does not take:" >&2
+    printf '%s\n' "$_orphan" | head -12 | sed 's/^/      /' >&2
+    if [ -n "$_live" ]; then
+      echo "pre-commit:   and these no longer match the tree, so a bare \`git commit\` would land" >&2
+      echo "pre-commit:   content the working tree has already moved past:" >&2
+      printf '%s\n' "$_live" | head -12 | sed 's/^/      /' >&2
+      echo "pre-commit:   git reset -- <path>  drops one; it changes no file." >&2
+    fi
+    echo "" >&2
+  fi
+fi
 if [ "$owed" -gt 0 ]; then
   echo "pre-commit: THIS COMMIT IS IN, and it owes a follow-up. $owed check(s) came back red:$owed_names" >&2
   echo "pre-commit: git push." >&2
