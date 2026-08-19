@@ -2605,31 +2605,39 @@ def _z_pod(x_in, x_ext, sx, ys, inner, zj):
     return collar.intersect(_cavity(inner, 0.0, (iz0 - 1.0, iz1 + 1.0)))
 
 
-def _z_pin(x_in, x_ext, sx, ys, zj):
-    """TOP pin: a round cylinder from the ±X exterior to the heat-set, registering
-    in the bottom socket's bore. Its −Z face stands on the top piece's own mouth,
-    so the wall it drives through carries the whole of it, and it drops down the
-    socket's +Z channel as the pieces close.
+def _z_pin(x_ext, sx, ys, zj):
+    """TOP tongue: ONE prism from the ±X exterior to the heat-set — a half-round nose
+    below its axis, parallel flanks from that axis up to the lip rim. The nose registers
+    in the bottom socket's bore; the flanks stand in the +Z channel the nose swept coming
+    down. Its lowest point is the top piece's own mouth, so the wall it drives through
+    carries the whole of it.
 
-    AND THE FIN OVER IT STANDS IN THE PATH IT SWEPT. That channel runs from the bore up
-    through the lip's rim, because the pin descends the whole of it — so seated, everything
-    over the pin's crown is a slot through the seam that nothing closes. The fin is the
-    pin's own section carried to the rim, `split_slip` narrower than the channel the way
-    the pin is narrower than the bore, riding down with it and filling it at full seat."""
+    THE FLANKS ARE THE NOSE'S OWN TANGENT PLANES, one `plug_dia` apart, so the section is
+    a slot's shape and the two meet with material either side and no edge between them —
+    the box's boss idiom (`_z_pod`'s collar, `_corner_socket`'s D) stood on its head. Set
+    the flanks on the crown instead of the axis and they bear on the nose along one line:
+    a blade hung off a tangent, which slices in the model and prints as nothing.
+
+    ONE `plug_dia` IS ALSO THE CHANNEL LESS ITS SLIP, since the bore is the plug plus
+    `split_slip` — so the same width that continues the nose rides the channel free."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     zp = _z_pin_z(zj)
-    pin = _xcyl(plug_dia / 2.0, ys, zp, x_ext, x_tip)
-    half = socket_bore_dia / 2.0 - split_slip / 2.0
-    fin = _ybox(min(x_in, x_tip), max(x_in, x_tip), ys - half, ys + half,
-                zp + plug_dia / 2.0, zj + lip_len)
-    return pin.fuse(fin)
+    r = plug_dia / 2.0
+    xa, xb = sorted((x_ext, x_tip))
+    nose = _xcyl(r, ys, zp, x_ext, x_tip)
+    shank = _ybox(xa, xb, ys - r, ys + r, zp, zj + lip_len)
+    return _unified(nose.fuse(shank)).val()
 
 
 def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
-    """Bottom-socket inner cuts: the bore that receives the pin, the heat-set
-    pocket at the deep end, and a +Z channel for the slide-down. The slip
-    lives on the +Z (slide-in) side: the bore is shifted +slip/2 so its −Z
-    wall registers on the pin's −Z face at the mouth."""
+    """Bottom-socket inner cuts: the bore that receives the tongue's nose, the heat-set
+    pocket at the deep end, and a +Z channel for the slide-down — struck at the bore's own
+    axis carrying the bore's width, so the channel's walls continue the bore's sides.
+
+    THE SLIP LIVES ON THE +Z (SLIDE-IN) SIDE: the bore is shifted +slip/2, which puts its
+    lowest line on the mouth (`zj`) where the nose's own lowest line lands. Seated, the two
+    bear on that plane and the whole slip is overhead — and the channel, a slip wider than
+    the tongue that fills it, is closed to the rim."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
     zp = _z_pin_z(zj)
     bore_z = zp + split_slip / 2.0
@@ -4256,9 +4264,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
-        for x_in, x_ext, sx, ys, _c in stations:
-            piece = piece.fuse(_z_pin(x_in, x_ext, sx, ys, zj))
-        for x_in, x_ext, sx, ys, _c in stations:
+        for _x_in, x_ext, sx, ys, _c in stations:
+            piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
+        for _x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
         for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
             x_ext = x_in - sx * wall
