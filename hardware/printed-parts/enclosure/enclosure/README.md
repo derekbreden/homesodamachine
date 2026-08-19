@@ -759,6 +759,25 @@ plane as the soffit, facing down — both at 45° to the bed, which is the angle
 everything else on this box is relieved to, so the soffit lays on itself and
 neither takes support.
 
+**One line in that soffit is not a face and does not lay on itself.** The PCB
+through-hole's up-slope end wall breaks out of the back plane, and the two surfaces
+meeting there both point *down* — so the line is the bottom vertex of a wedge. Either
+side of it is 45° and lays itself once the line exists; the line is the one bead on this
+piece with nothing under it, and it runs the hole's full [106 mm](RIDGE_LEN). It stands
+in the cavity behind the housing, which is closed on five sides by the time the piece
+leaves the bed, so it cannot be reached with support and is built instead.
+
+A [3 mm](RIDGE_WALL_T) rib (`_ridge_wall`) carries it — from the tee wall's crown up to
+that same back plane, under the line for its whole width. **Its fore face is two planes
+the box already has and no third one**: below the jog, the bay's own back carried straight
+up off the crown, so the storey over the bay reads as the same plane the bay does; above
+it, the hole's own end wall carried on past the soffit, which is 45° and is the plane the
+display's body already lies against — the rib presents the part the surface its hole
+presents, and no new fit. Where the two meet is read, not chosen. The jog is also what
+keeps the rib clear: run straight up it would stand in the hopper's throat, and slanted
+straight from crown to line it would run into the display's body where that stands proud
+of the soffit. `ridge-carried` reads the drop from the line to the material beneath it.
+
 ## Hopper opening
 
 One rectangular opening spans the top wall **directly behind the display

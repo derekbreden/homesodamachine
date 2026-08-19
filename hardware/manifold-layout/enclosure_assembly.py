@@ -132,6 +132,7 @@ from _cadq_export import export_assembly, export_dxf, import_step  # noqa: E402
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
+import _meshes                                        # noqa: E402
 import _routing                                       # noqa: E402
 import _overlap                                       # noqa: E402
 # The import-time ledger. Every module below that states a bound about its own constants has
@@ -5960,6 +5961,59 @@ def check_bay_lintel(shell, display_solid) -> Bound:
             f"the display"])))
 
 
+# How far down the reading looks before it says NOTHING IS THERE. Struck long on purpose: a
+# ridge with nothing under it should report the drop it actually has, not the limit of the
+# instrument, and the cavity under this one is the whole storey over the pump bay.
+RIDGE_REACH = 60.0
+
+
+def check_ridge_carried(pieces: dict, shell) -> Bound:
+    """Whether the ridge the display's through-hole leaves is laid on printed material.
+
+    `enclosure.pcb_ridge` is a line `display_pcb_x` long where the hole's up-slope end wall
+    breaks out of the housing slab's back, and BOTH FACES POINT DOWN OFF IT. That makes it the
+    bottom vertex of a wedge: 45° either side lays itself once the line exists, but the line
+    itself is the one bead on this piece with nothing beneath it. It is not a wall too thin to
+    print and it is not a clash — every volume in the box is right, every piece pair is clear,
+    and the model is exactly what was drawn. It is a line the machine cannot begin.
+
+    A THIRD THING SUPPORT CANNOT REACH IT. The ridge stands in the cavity behind the display
+    housing, closed on five sides by the time the piece is off the bed, so the answer is
+    printed section rather than a setting in the slicer — `enclosure._ridge_wall`.
+
+    Read as a DROP: at stations across the ridge's own width, how far below it the piece's own
+    material first stands, looking in a column one `EXTRUSION_W` wide hung off the ridge and
+    aft of it. A carried ridge reads zero, because the rib's ramp contains the ridge line.
+    An uncarried one reads the cavity, which is what it is — and if nothing stands within
+    `RIDGE_REACH` the reading says so rather than reporting the instrument's own limit."""
+    piece = pieces["front-top"]
+    piece = piece.val() if hasattr(piece, "val") else piece
+    ry, rz = _enc.pcb_ridge(shell.outer)
+    half = _enc.display_pcb_x / 2.0
+    cx = _enc.display_centre_x(shell.outer) + _enc.display_body_offset_x
+    w = EXTRUSION_W
+    rows = []
+    for i in range(9):
+        x = cx - half + w + (2.0 * half - 2.0 * w) * i / 8.0
+        col = (cq.Workplane("XY").box(w, w, RIDGE_REACH, centered=False)
+               .translate((x - w / 2.0, ry, rz - RIDGE_REACH)).val())
+        got, vol = _overlap.common(piece, col)
+        if vol < 1e-9:
+            rows.append((x, None))
+        else:
+            rows.append((x, rz - _meshes.box(got).zmax))
+    bad = [r for r in rows if r[1] is None or r[1] > w + 1e-9]
+    worst = max((d for _x, d in rows if d is not None), default=None)
+    return record_bound(Bound(
+        "ridge-carried", "The ridge the display's through-hole leaves is laid on material",
+        not bad,
+        (f"{len(rows) - len(bad)}/{len(rows)} stations carried"
+         + (f", furthest drop {worst:.4f} mm" if worst is not None else "")),
+        f"material within one {w:g} mm extrusion under every station",
+        [(f"x {x:8.3f}   nothing within {RIDGE_REACH:g} mm below" if d is None
+          else f"x {x:8.3f}   drop {d:.4f} mm") for x, d in bad]))
+
+
 def machine():
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
@@ -6035,6 +6089,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And each pump against the piece whose plate lies on its head, one storey up from those.
     check_trays_hold(pieces, a.pack_solids)
     check_cap_laps_bracket(pieces, a.pack_solids)
+    # And the one line in that piece a nozzle would otherwise have to begin in air, against the
+    # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
+    check_ridge_carried(pieces, box)
     # And the floor that whole storey stands on, against the rim it stands on — then each
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
