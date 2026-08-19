@@ -247,17 +247,21 @@ the core goes down into the open back tub, and the front assembly slides aft ont
 the four-corner bosses riding the flank slots the core carries for them
 (`corner-slot-lands`).
 
-**Neither feature needs support.** The front blocks print floor-down with no overhang in them at
-all. An aft bracket's leg stands up off the bed and its foot's bearing face is uppermost, and the
-straight between them descends toward the tip at 25° off vertical, so every layer of the foot is
-laid on the one above it.
+**The front blocks need no support**: they print floor-down with no overhang in them at all. **An
+aft bracket's bearing face does.** The straight from the head of the leg out to the foot's tip
+descends at 25° off vertical and is the bracket's upper face, laid on the section beneath it the
+whole way out — but the bearing face under it is flat and is the lowest thing on the bracket, so
+it is a soffit off the back wall and takes support, the way the tap-water trough on that same
+wall does.
 
 ## Print orientation + corner relief
 
-Every piece prints on a **Z face** — the bottom pieces floor-down, the top
-pieces ceiling-down, each lying on its closed face with its seam mouth up. The
-build axis is therefore Z, and the anti-warp relief goes on the arrises that run
-along it: the box's four **standing verticals**, rounded to match the foam
+Every piece prints on its **Z− face** — the bottom pieces floor-down on the
+floor slab, the top pieces mouth-down on the seam rim. One bed plane for all
+four, read in the box's own frame: the build axis is **+Z** everywhere, so the
+face that hangs is always the one looking **down**, and that is the side every
+45° relief on this box is struck on. The anti-warp relief goes on the arrises
+that run along the build axis: the box's four **standing verticals**, rounded to match the foam
 shell's 12 mm outer radius — concentric inner one wall in, so the wall is
 preserved.
 
@@ -343,14 +347,14 @@ running east on the withdrawal axis, and the rim rebate cut through it leaves a 
 ceiling down either flank — the lid the tray's flange runs under, held at one height
 for the block's whole length, so it cannot be reached at 45° from the wall it grows out
 of. Its floor is the same case one storey down, and wider: a slab the tray's whole
-footprint, hanging off that wall. Ceiling-down neither turns into a face that can be
-laid on air, and what stands over the lid is the vent gap (`drip_pan.VENT_GAP`), which
+footprint, hanging off that wall. Both look down, so neither turns into a face that can
+be laid on air, and what stands over the lid is the vent gap (`drip_pan.VENT_GAP`), which
 is air by construction. So the sleeve prints on support, one block 53 mm deep by the
 tray's rim plus a wall either way, in the band above the tray's slot.
 
 The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
-stand 30° off vertical and are free; its **top face is flat**, a soffit off the wall
-over the lane, and that face hangs. The strap's cavity behind the trough is one
+stand 30° off vertical and are free; its **underside is flat**, a soffit off the wall
+under the lane, and that face hangs. The strap's cavity behind the trough is one
 opening the trough's whole length, and the support in it draws out end to end.
 
 The **pump trays** off the front wall are the third. A tray's plate goes down on the
@@ -415,7 +419,7 @@ A tie is a closed loop, so its strap also has to cross the chain's top flat — 
 that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the strap's own section
 plus its clearance), so `wall` stays whole across the whole ceiling and the deck pays
 the millimetre out of its own headroom. That leg is **laid, not pulled**: this piece
-prints ceiling-down and is populated the same way up, so the strap lies on the
+is populated inverted on the bench — ceiling down — so the strap lies on the
 ceiling's inner face and the chain comes down onto it.
 
 Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
@@ -464,10 +468,11 @@ solid that went into it, so a rib fused straight on carries its lip in as many p
 as it was laid down in. Cleaned first, the built piece reads one cylindrical seat face
 9.50 long, one channel floor of 64.40 mm², and each lip **one 9.500 edge**.
 
-Printed ceiling-down there is **no overhang in this feature at all** — the rib stands
-up off the bed, its flanks are vertical, and the bore's crown is the deepest thing in
-it, facing up the whole way round. Nothing in it needs support and nothing has to be
-picked out of it.
+Printed Z−-down the rib **hangs off the top wall** and starts on its two lips — one
+`digiten_saddle_wall` strip either side of the bore, the saddle's whole 9.50 length, with
+nothing under them. Everything over those lips is the arc closing inward on itself, so
+the hood carries its own crown, its flanks are vertical, and the lips are the only thing
+in the feature support has to reach.
 
 ## Tube anchors
 
@@ -632,9 +637,10 @@ corner. The display reference is seated in the housing by
 `display_centre_x` the counterbore reads, so the housing and the part in it cannot
 land on two different centres.
 
-Ceiling-down the housing lies flat, and every one of its faces — the facet and
-its back plane as the soffit — is 45° or vertical to the bed, so none of them is
-an overhang.
+Printed Z−-down the housing's two planes are the facet, facing up, and its back
+plane as the soffit, facing down — both at 45° to the bed, which is the angle
+everything else on this box is relieved to, so the soffit lays on itself and
+neither takes support.
 
 ## Hopper opening
 

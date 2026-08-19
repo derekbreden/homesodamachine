@@ -67,10 +67,12 @@ own seam furniture fences it sideways, the back Z seam's lip behind, and the flo
 two core lugs (`_core_fence`) ahead. The floor that core stands on is flat: the
 Y seam's floor overlap is a shiplap within the slab, not a proud tongue.
 
-Every piece prints on a Z face — the bottom pieces floor-down, the top pieces
-ceiling-down, each lying on its closed face with its seam mouth up. So the build
-axis is Z, and the anti-warp corner relief goes on the arrises that run along
-it: the box's four standing verticals. Each quadrant owns only two of them —
+Every piece prints on its Z− FACE — the bottom pieces floor-down on the slab,
+the top pieces mouth-down on the seam rim. One bed plane for all four, read in
+the box's own frame, so the build axis is +Z everywhere and the face that hangs
+is always the one looking DOWN. That is the side every 45° relief in this file
+is struck on. The anti-warp corner relief goes on the arrises that run along the
+build axis: the box's four standing verticals. Each quadrant owns only two of them —
 its other two "corners" are the Y-seam, a telescoping mating face with no
 exterior arris to relieve — so the front pieces round the front-left/right
 verticals, the back pieces the back-left/right, and every seam stays square.
@@ -531,9 +533,9 @@ core_hold_land = 8.0          # that foot's own thickness where it leaves the gu
 #
 # THE SECTION IS A TRIANGLE AND NOT AN L. One face runs from the foot's own tip to the head of
 # that leg, so the corner between them is solid and the foot is a flange on a web rather than a
-# cantilever. It takes no envelope the L's two arms did not already reach, and printed
-# ceiling-down it falls `core_hold_reach + rear_seam_clear` in `core_hold_rise - core_hold_land`
-# — 25° off vertical — so the foot is drawn out of the air rather than off a support strip.
+# cantilever. It takes no envelope the L's two arms did not already reach, and it falls
+# `core_hold_reach + rear_seam_clear` in `core_hold_rise - core_hold_land` — 25° off vertical,
+# which is the bracket's own UPPER face, laid on the section beneath it the whole way out.
 core_hold_rise = 40.0
 
 
@@ -2089,9 +2091,9 @@ def _hopper_cut(inner, outer, centre):
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint):
     """The flat ceiling's two side strips on a top piece, corbelled: a 45° underside
-    rising off each ±X wall to nothing at the hopper opening's edge, so a piece printing
-    on its mouth lays every ceiling layer on the one below it — the strip's own span is
-    wall-rooted on one side and open over the opening on the other.
+    rising off each ±X wall to nothing at the hopper opening's edge, so a top piece —
+    printing mouth-down — lays every ceiling layer on the one below it. The strip's own
+    span is wall-rooted on one side and open over the opening on the other.
 
     The corbel runs the housing's back plane to the Y-seam furniture's fore face, and a
     second one carries the lip's ceiling tongue, struck one `wall` lower on the tongue's
@@ -3283,9 +3285,12 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1):
     over the crown. The foot lands on the cap at 0, the way every other seat in this box lands
     on the face it takes.
 
-    THAT STRAIGHT IS BOTH THE GUSSET AND THE PRINT. It leaves no re-entrant corner for the foot
-    to bend at, and printed ceiling-down it descends toward the tip at 25° off vertical, so every
-    layer of the foot is laid on the one above it and nothing under this bracket needs support."""
+    THAT STRAIGHT IS THE GUSSET. It leaves no re-entrant corner for the foot to bend at, and it
+    is the bracket's upper face — 25° off vertical, every layer of it laid on the one below.
+
+    THE BEARING FACE HANGS. It is flat and it is the lowest thing on the bracket, so printed
+    Z−-down it is a soffit `core_hold_reach + rear_seam_clear` off the wall and it takes print
+    support, the way the tap-water trough on this same wall does."""
     for sx0, sx1, aft, crown in stations:
         if not (y0 <= aft <= y1 and z0 <= crown <= z1):
             continue
@@ -3396,9 +3401,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     one `wall` of PETG between it and the trough, so at no station is it anything but a hole
     through solid material, and a strap in it stays where it was put.
 
-    THE BLOCK'S TOP FACE HANGS. Printed ceiling-down that face is a horizontal soffit over the
-    lane, and it takes print support the way the drip tray's rails do. The cavity is one opening
-    from the first tie band to the last, and what is left in it draws out end to end.
+    THE BLOCK'S UNDERSIDE HANGS. Printed Z−-down that face is a horizontal soffit under the
+    lane, and it takes print support the way the drip tray's rails do — the V's own two flanks
+    stand 30° off vertical and carry themselves. The cavity is one opening from the first tie
+    band to the last, and what is left in it draws out end to end.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -3679,9 +3685,10 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
     are not the trough's ties: cut them and the meter comes out of its saddles. What is hanging is
     a purchased part of a few tens of grams on two nylon straps.
 
-    Printed ceiling-down the rib stands up off the bed and the bore's crown is the deepest thing in
-    it, facing up all the way round — so there is no overhang anywhere in this feature and no
-    support in it to pick out."""
+    Printed Z−-down the rib HANGS OFF THE TOP WALL and starts on its two lips — one
+    `digiten_saddle_wall` strip either side of the bore, the saddle's whole length, with nothing
+    under them. Everything over those lips is the arc closing inward on itself, so the hood
+    carries its own crown and the lips are the only thing in it support has to reach."""
     if not station or z1 < inner[5] - 1e-6:
         return solid
     x_axis, z_axis, seat_r, bands = station
