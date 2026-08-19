@@ -79,11 +79,14 @@ window_corner_r = display_corner_r
 border_x = (cover_x - window_x) / 2.0
 border_slope = (cover_slope - window_slope) / 2.0
 
-# THE LAP STANDS OVER THE GLASS AND NOT ON IT. The plate's underside is one `display_inset_depth`
-# below the 45° face and the glass's own front face is `display_bezel_depth` less its 1 mm of
-# cover glass below it, so [1 mm](GLASS_LAP_AIR) of air runs under the border all the way round.
+# THE LAP BEARS ON THE GLASS THROUGH THE GASKET. The plate's underside is one
+# `display_inset_depth` below the 45° face and the glass's own front face is
+# `display_bezel_depth` less its 1 mm of cover glass below it, so the border stands
+# [1 mm](GLASS_LAP_SEAT) off the glass all the way round. `display_gasket`'s TPU ring is that
+# step — its section IS this figure rather than a thickness chosen beside it — so what the
+# two screws pull down on is the display, not the plate alone.
 glass_face_depth = display_bezel_depth - 1.0
-glass_lap_air = glass_face_depth - display_inset_depth
+glass_lap_seat = glass_face_depth - display_inset_depth
 
 # THE HEAD LANDS UNDER THE 45° FACE AND THE PLANE CLOSES OVER IT. Same flat-bottomed
 # ⌀`head_cbore_dia` seat the foam cap's lids take, sunk `display_cover_seat_recess` under the
@@ -183,7 +186,7 @@ def main():
     print(f"  {cbore_dia:g} flat counterbore {cbore_depth:g} deep over a "
           f"{screw_clear_dia:g} shank, {land_under_head:g} of land under the head; "
           f"M3x{screw_len:g} DIN 912 into a ruthex M3 short, {thread_engaged:g} engaged")
-    print(f"  {glass_lap_air:g} of air under the lap, glass face {glass_face_depth:g} below the "
+    print(f"  {glass_lap_seat:g} of air under the lap, glass face {glass_face_depth:g} below the "
           f"45° plane and the plate's underside {display_inset_depth:g}")
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
           f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
@@ -214,7 +217,7 @@ def main():
         "THREAD_ENGAGED": f"{thread_engaged:.4g} mm",
         "HEATSET_DEPTH": f"{heatset_depth:.4g} mm",
         "GLASS_FACE_DEPTH": f"{glass_face_depth:.4g} mm",
-        "GLASS_LAP_AIR": f"{glass_lap_air:.4g} mm",
+        "GLASS_LAP_SEAT": f"{glass_lap_seat:.4g} mm",
     }
 
     substitute_md(_here.parent / "README.md", variables=variables)
