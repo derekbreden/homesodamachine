@@ -232,9 +232,10 @@ tone on IO13 (LEDC), so the part must be externally driven — `C94598` (MLT-502
 electromagnetic. Every passive SMD buzzer in the library is Extended; `C94598` has the deepest
 stock at 5×5 mm. Its ~100 mA coil exceeds the ESP32 GPIO's ~12 mA source, so it is **low-side
 switched** by Q1 (`C2146`, S8050 NPN, Basic): IO13 → R5 (1 kΩ base) → Q1 base; Q1 collector
-sinks the buzzer's − leg, emitter to the GND plane, the + leg on the 5 V plane. No flyback
-diode (per the step spec); the S8050's 25 V Vce(o) is the only clamp on the coil's turn-off
-spike — the first thing to add if the transistor shows stress. Q1 emitter and U8 + are SMD
+sinks the buzzer's − leg, emitter to the GND plane, the + leg on the 5 V plane. D7 (`C81598`,
+1N4148W, SOD-123) clamps the coil's turn-off spike across it, cathode on the 5 V plane and
+anode on the − leg, so the S8050's 25 V Vce(o) is not the only thing standing in front of an
+inductive kick. Q1 emitter and U8 + are SMD
 plane pads and auto-stitch to GND / 5 V (see [`plane-stitching.md`](plane-stitching.md)).
 
 **BT1 is a THT coin base (`C5365915`, Kinghelm KH-CR2032-2-1), not the cheapest SMT clip.**
