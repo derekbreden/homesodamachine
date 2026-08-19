@@ -562,13 +562,13 @@ braced by the valves their runs butt into, each of those in a panel seat. One ha
 pulls, the other braces the box; the box carries the brace to the steel through the
 floor.
 
-**THE STROKE IS READ, NOT ASSUMED.** `release-travel` offers every body the release moves
-the whole stroke and reports what it hits — a motion, where every other bound on that card
-reads where a body stands — and all eight clear it. A butted neighbour travels with the
-body it butts, so the four valves butted to the anchor tees make the same stroke the
-tees do: they all stand on one deck, and `_valve_panels` sets that plate's face a whole
-stroke further fore and sinks its four sockets by the same figure, so a post keeps its grip
-over the travel. The other deck's setback is zero and nothing about it moves. Its sibling
+**THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
+whole stroke and reports what it hits — a motion, where every other bound on that card
+reads where a body stands — and all four clear it. The stroke is the rest gap and nothing
+more: the nose presses the moment it reaches the steel, the grip opens on contact, the tee
+stops there, and the tube draws out of it. What gives over that millimetre and a half is
+the tube stub itself, flexing inside the two collets that hold it — the valve standing on
+the far end of that stub never moves, and no valve is read here. Its sibling
 `check_insertion_backing` reads the other direction, where a tube pushed into a branch
 collet drives its tee aft and the step in the wall's bore is what stops it.
 
@@ -635,8 +635,8 @@ the one direction the release moves it. The wall's fore face IS the steel's aft 
 one figure with the plate (`enclosure_assembly.collet_plate_spec`), so every bore is
 stopped at its fore mouth by steel and the nose that lands there lands on steel; the
 plate bears back on the wall across its whole face. Its aft face stands one whole stroke
-plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still
-air behind the tee — depth past that plane is the tee's and not the wall's to take. What
+plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at the end of the stroke there is
+still air behind the tee — depth past that plane is the tee's and not the wall's to take. What
 the wall holds is the collar, across the bore; what stops the tee is the steel.
 
 **That wall is also the bay's back.** Over the plate's own band the steel closes the
