@@ -8,20 +8,26 @@
 # behind. `git status` shows `MM`, and the next bare `git commit` lands that older blob and
 # silently undoes what this commit derived. It has taken the ledger backwards three times.
 #
-# THE SIGNATURE IS EXACT AND NOTHING ELSE WEARS IT: the worktree matches HEAD, and the index
-# matches neither. Content somebody staged on purpose and is holding for a later commit does
-# NOT look like this — there the worktree still differs from HEAD, so it is never touched.
-# What is dropped here was authored by no one, and dropping it changes no file.
+# THE SIGNATURE: the worktree matches HEAD, and the index matches neither. Content somebody
+# staged on purpose and is holding for a later commit does NOT look like this — there the
+# worktree still differs from HEAD, so it is never touched.
+#
+# ONE OTHER THING WEARS IT, and that is why the blob is named before it goes: stage a change,
+# then edit the file back to what HEAD holds. The worktree matches HEAD, the index keeps the
+# staged edit, and this drops it — the index was that edit's only reference. So the hash is
+# printed first. The blob is still in the object store until it is collected, and
+# `git cat-file -p <hash>` reads it back.
 root=$(git rev-parse --show-toplevel) || exit 0
 _ghosts=$(git -C "$root" diff --cached --name-only HEAD | while IFS= read -r f; do
   [ -n "$f" ] || continue
   git -C "$root" diff --quiet HEAD -- "$f" 2>/dev/null && printf '%s\n' "$f"
 done)
 [ -n "$_ghosts" ] || exit 0
+echo "post-commit: dropped $(printf '%s\n' "$_ghosts" | wc -l | tr -d ' ') stale index entry(ies) this commit left behind." >&2
 printf '%s\n' "$_ghosts" | while IFS= read -r f; do
+  _blob=$(git -C "$root" rev-parse ":$f" 2>/dev/null)
+  echo "      $f  was $_blob" >&2
   git -C "$root" reset -q HEAD -- "$f" >/dev/null 2>&1
 done
-echo "post-commit: dropped $(printf '%s\n' "$_ghosts" | wc -l | tr -d ' ') stale index entry(ies) this commit left behind." >&2
-printf '%s\n' "$_ghosts" | sed 's/^/      /' >&2
-echo "post-commit:   each held a blob older than HEAD; no file changed." >&2
+echo "post-commit:   no file changed. To read one back: git cat-file -p <hash>" >&2
 exit 0
