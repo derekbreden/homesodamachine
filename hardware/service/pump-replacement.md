@@ -78,12 +78,12 @@ through the floor. There is no lock and no tool.
 
 Four states in order, both pumps forward, every valve inlet to outlet.
 
-| # | Open | Pump | Path |
-|---|---|---|---|
-| 1 | V-B, V-C, V-F | A | hopper → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump A** → Y-D → V-F → `fluid-14` → reservoir A |
-| 2 | V-B, V-C, V-G | A | same head, then Y-D → hairpin `fluid-17` → V-G → `fluid-18` → out the tip |
-| 3 | V-B, V-D, V-I | B | mirror of 1, into reservoir B |
-| 4 | V-B, V-D, V-J | B | mirror of 2, out the tip |
+| # | Canonical state | Open | Pump | Path |
+|---|---|---|---|---|
+| 1 | Air Purge In → Reservoir A | V-B, V-C, V-F | A | hopper → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump A** → Y-D → V-F → `fluid-14` → reservoir A |
+| 2 | Air Purge Through A | V-B, V-C, V-G | A | same head, then Y-D → hairpin `fluid-17` → V-G → `fluid-18` → out the tip |
+| 3 | Air Purge In → Reservoir B | V-B, V-D, V-I | B | mirror of 1, into reservoir B |
+| 4 | Air Purge Through B | V-B, V-D, V-J | B | mirror of 2, out the tip |
 
 States 2 and 4 are the ones that carry air to a nozzle without drawing on a reservoir, so a pump
 swap costs no concentrate. Three valves is the most any state opens, and states 1 and 2 sit entirely
@@ -143,9 +143,16 @@ runs clean.
 
 ## Open items
 
-1. **Dry-run wear on a KPHM400's BPT tube is not characterised.** Every one of the four states
+1. **Nothing sequences these four states.** Each is canonical on its own — they are the two
+   `Air Purge In` and two `Air Purge Through` rows of
+   [`fluid-topology.md`](/hardware/topology/fluid-topology.md) "Operations — Valve States" — but
+   the cycle that runs them in order is named only here. `firmware/src_appliance` carries no
+   purge and no dry mode: what it has is a per-channel PRIME (`machinePrimeBegin`,
+   `machineIsPriming`, `HOLD_PRIME`), and priming FILLS where this EMPTIES. Step 1 of this
+   procedure cannot be performed until something sequences them.
+2. **Dry-run wear on a KPHM400's BPT tube is not characterised.** Every one of the four states
    turns a rotor on air.
-2. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
+3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
 
