@@ -53,8 +53,8 @@ that ring, in the ±X boss-chain bands its own side segments run down, so the se
 height carries the lip and the collars together. The cold core spans the seam in both
 columns.
 
-The plane stands where the seam's own machinery fits the pack: the lip's fusion
-shoulder over the condenser's fin crown, the rim under the forward valve panel's wall-to-wall span
+The plane stands where the seam's own machinery fits the pack: the seam ring's foot
+over the condenser's fin crown, the rim under the forward valve panel's wall-to-wall span
 (`z-seam-under-deck` — a plate roots on a wall only above the rim; its foot runs
 below, inset on the lip's own face), and the rim
 crossing the pump heads' band on the air the pack stands them off the lip's face
