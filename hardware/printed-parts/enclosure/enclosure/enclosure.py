@@ -755,7 +755,9 @@ sill_wash = 1.4              # the sill's top face falls this much fore, so the 
 # steps in opposite directions, neither outline containing the other, and a thin ledge at
 # every junction. What the face fits through, the block behind it fits through.
 cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
-plate_slot_slip = 0.2        # per-side air round the collet plate in the floor's seat
+plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor's seat. NOT
+                             # across it: the seat's ends are the side walls themselves, and
+                             # what holds the steel off those is `PLATE_END_AIR` alone
 
 # --- THE CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
 #
@@ -2863,7 +2865,7 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
     wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
                       inner[2] + c - 1.5, top)
     return wall_box.fuse(wedge_box).fuse(
-        _flank_opening(inner, plate["fore_y"], z_seam + lip_len + wall, top))
+        _flank_opening(inner, plate["aft_y"], z_seam + lip_len + wall, top))
 
 
 def _rim_cap(inner, outer, plate, zj):
@@ -2876,9 +2878,11 @@ def _rim_cap(inner, outer, plate, zj):
     whole of it at once rather than bridging anything.
 
     IT STOPS ON THE JAMB. `bay_x_span` is the cartridge's own span and this is what stands
-    outboard of it, so nothing of the cap is ever in the withdrawal path. Aft it stops where
-    `_flank_opening` does, on the plate's fore face, so the two share one plane instead of
-    leaving a slot between them.
+    outboard of it, so nothing of the cap is ever in the withdrawal path. AFT IT STOPS ON THE
+    PLATE'S FORE FACE, and not because the opening over it does — the opening runs on past to
+    the tee wall. It stops there because the steel's own berth is what is aft of it: the cap
+    is the last printed thing under the plate's end, and a millimetre more of it is a
+    millimetre the plate cannot come down through.
 
     AND THE SILHOUETTE TAKES ITS OUTBOARD END. Struck as a rectangle it reaches the exterior
     plane, which the box's front corners do not — `corner_round` has turned away from it by
@@ -2900,9 +2904,16 @@ def _flank_opening(inner, y_aft, z0, z1):
     A column here is the whole of the box's corner post: the side wall's own section, the
     front wall's, and the quarter-round between them. So the opening does not begin at the
     exterior — it begins where that post's arc lands on the side wall's inner face, one
-    `_column_along` aft of `front_plane_y`, and runs from there to the collet plate. Nothing
-    of the box stands in it after that.
+    `_column_along` aft of `front_plane_y`, and runs from there to the TEE WALL's fore face.
+    Nothing of the box stands in it after that.
 
+    IT RUNS PAST THE PLATE AND STOPS ON THE WALL BEHIND IT. Ending on `plate["fore_y"]` left
+    the plate's own thickness of side wall standing aft of the opening — a band one `wall`
+    deep and the whole storey tall, whose only job was to be the outboard end of a berth the
+    plate already keeps `enclosure_assembly.PLATE_END_AIR` off. `plate["aft_y"]` is where the
+    section behind it starts, so the opening ends on printed wall rather than on a free edge
+    of its own, and the plate's ends stand in the opening the way everything else in this
+    storey does.
     ITS FLOOR IS THE SEAM'S CAP (`_rim_cap`), one `wall` over the rim. Under the rim
     front-bottom's lip telescopes into this wall and an opening cut there is a seam that does
     not close; between the two planes stands the cap, and cutting THAT would open the seam's
@@ -3095,9 +3106,17 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
     OUTBOARD OF THE BAY IT STANDS TO THE RIM. The cartridge sweeps the span between the
     posts and nothing else does, so either side of that span the floor carries on up to the
-    Z-seam rim — which is the flank opening's own floor (`_flank_opening`). The opening then
-    reads as one ledge from the exterior in to the bay's edge instead of the wall's own
-    section and a drop behind it."""
+    Z-seam rim — and the seam's cap (`_rim_cap`) stands one `wall` on top of that, which is
+    what the flank opening floors on. The opening then reads as one ledge from the exterior
+    in to the bay's edge instead of the wall's own section and a drop behind it.
+
+    ITS SEAT ENDS ON THE SIDE WALL AND NOT ON THE STEEL. Struck at the plate's own edge plus
+    `plate_slot_slip`, the seat stopped 0.1 mm short of the wall — because the plate is
+    already `enclosure_assembly.PLATE_END_AIR` inboard of it, and the two clearances were
+    stacked on one gap without ever being struck against each other. What stood in the
+    difference was a rib 0.1 mm wide and the seat's whole height, which is not a thin wall
+    but no wall: below one extrusion the slicer lays nothing there at all. There is nothing
+    outboard of the side wall for this seat to hold, so the wall is its end."""
     z0, z1 = bay_floor_z(pump_trays)
     rim = z_seam + lip_len
     bx0, bx1 = bay_x_span(inner)
@@ -3107,7 +3126,7 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
         slab = slab.fuse(_ybox(min(x_in, edge), max(x_in, edge), front_plane_y,
                                plate["aft_y"] + plate_slot_slip + wall, z1, rim))
     slab = slab.cut(_z_seam_berth(inner, plate, y_joint))
-    return slab.cut(_ybox(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
+    return slab.cut(_ybox(inner[0], inner[1],
                           plate["fore_y"] - plate_slot_slip,
                           plate["aft_y"] + plate_slot_slip, plate["z0"], rim + 1.0))
 

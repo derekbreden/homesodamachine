@@ -587,12 +587,17 @@ posts are the only thing left standing in them. A column here is the whole of th
 corner — the side wall's own section, the front wall's, and the quarter-round between
 them, one post. So the opening does not begin at the exterior: it begins where that post's
 arc lands on the side wall's inner face, [12 mm](COLUMN_ALONG) aft of `front_plane_y`, and
-runs from there to the collet plate.
+runs from there **past the collet plate to the tee wall's fore face**. Ending it on the
+plate's fore face left the plate's own thickness of side wall standing behind the opening
+— a band one `wall` deep and the whole storey tall, whose only job was to be the outboard
+end of a berth the plate already keeps its own end air off. It ends on printed section now
+instead of on a free edge of its own.
 
-**Its floor is the Z-seam rim.** Front-top's side wall under that plane is the outer
-register front-bottom's lip telescopes into, so the opening begins where the lip ends and
-the Z seam keeps its whole lip. The flat span's sill runs one `lip_len` lower because the
-pump heads leave under it, and the two meet in a step at the post.
+**Its floor is the seam's cap**, one `wall` over the rim (`_rim_cap`). Front-top's side wall
+under that plane is the outer register front-bottom's lip telescopes into, so an opening cut
+there would be a seam that does not close; between the two planes stands the cap. The flat
+span's sill runs lower because the pump heads leave under it, and the two meet in a step at
+the post.
 
 **The cartridge stays between the jambs.** It is the flat span and what stands behind it,
 out to `bay_x_span` and no further at any height. The posts stand in this piece's own
