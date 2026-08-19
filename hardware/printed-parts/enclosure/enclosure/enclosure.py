@@ -373,6 +373,9 @@ floor_heatset_depth = 9.5
 # otherwise wrap.
 wago_well_wall = 3.0        # well wall thickness
 wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
+# The well's roof is two tabs, this wide, one at each end of the pocket's span — each
+# catches the lug's lift and prints as its own short bridge.
+wago_roof_tab = 2.0
 
 
 def wago_stand(size="413"):
@@ -1364,11 +1367,12 @@ def _dims(pack):
     y_joint = y_seam
     splits = _z_joints(placed, inner, z_seam)
     # THE RIM'S OWN CEILING. Wall-rooted furniture stands on a piece's wall, and below the
-    # rim the wall's inner face is the bottom piece's lip — so the flavour deck's plates
-    # (the valve panels wall to wall, the pump trays' storey with its webs) stand whole
-    # above the rim. The lip's ring cannot read them: they are printed material, not pack,
-    # and a plate standing ON the rim is a touch with no volume in it. This reads their
-    # storeys off the same stations the pieces build them from.
+    # rim the wall's inner face is the bottom piece's lip — so the flavour deck's
+    # wall-to-wall spans (the valve panels' seat plates, the pump trays' storey with its
+    # webs) stand whole above the rim; a panel's FOOT runs below it inset on the lip's own
+    # face (`_valve_panels`). The lip's ring cannot read any of them: they are printed
+    # material, not pack, and a plate standing ON the rim is a touch with no volume in it.
+    # This reads the wall-to-wall storeys off the same stations the pieces build them from.
     rim = max(splits) + lip_len
     decks = [mz - _panel.height() / 2.0
              for _plane, _sign, seats in pack.valve_panels
@@ -2086,7 +2090,7 @@ def _back_plug(x_ext, sx, z_boss, y_boss):
     return _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
 
 
-def _front_socket(x_in, x_ext, sx, z_boss, y_joint):
+def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
     """FRONT socket: a collar round the bore — a pipe standing off the ±X wall's
     inner face, from that face out to the cap over the insert's blind end, one
     `wall` of material round the bore its whole length.
@@ -2095,10 +2099,32 @@ def _front_socket(x_in, x_ext, sx, z_boss, y_joint):
     is struck from) and its forward face a hair ahead of the lip's own fusion
     shoulder, so it stands on the lip band down its whole length.
 
+    THE COLLAR IS A D BELOW ITS AXIS. A round pipe tangent to a flat leaves a crevice
+    either side of the tangent line — an overhang that starts at zero degrees — so the
+    lower half is squared to the flat it meets: the floor collar's fill stands on the
+    slab, and any other level's stands on a 45° web run down the lip's own face, the
+    corner pedestal's idiom. A collar whose crown reaches the ceiling squares its upper
+    half into it the same way.
+
     Bore, heat-set and the plug's slide path are cut afterwards."""
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
-    return _xcyl(socket_r, _y_boss(y_joint), z_boss, xa, xb)
+    yb = _y_boss(y_joint)
+    iz0, iz1 = inner[4], inner[5]
+    boss = _xcyl(socket_r, yb, z_boss, xa, xb)
+    boss = boss.fuse(_ybox(xa, xb, yb - socket_r, yb + socket_r,
+                           z_boss - socket_r, z_boss))
+    if z_boss - socket_r > iz0 + 0.01:
+        lip_in = x_in + sx * wall
+        drop = abs(x_cap - lip_in)
+        floor = z_boss - socket_r
+        boss = boss.fuse(_xz_prism(yb - socket_r, yb + socket_r,
+                                   [(lip_in, floor), (x_cap, floor),
+                                    (lip_in, floor - drop)]))
+    if z_boss + socket_r > iz1 - 0.01:
+        boss = boss.fuse(_ybox(xa, xb, yb - socket_r, yb + socket_r,
+                               z_boss, z_boss + socket_r))
+    return boss
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
@@ -2398,17 +2424,22 @@ def _corner_plug(x_ext, sx, zlo, zhi):
 
 def _corner_socket(x_in, x_ext, sx):
     """Front-bottom's socket at the four-corner: the pedestal — a collar off the lip's
-    own inner face out to the cap, with the 45° web under it."""
+    own inner face out to the cap, a D below its axis, with the 45° web under it.
+
+    The D is the merge: a round pipe tangent to the web's flat top leaves a crevice
+    either side of the tangent line, so the lower half is squared and the two meet on
+    one flat."""
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx, corner_screw_len)
     yb = _y_boss(y_seam)
     lip_in = x_in + sx * wall
     xa, xb = sorted((lip_in, x_cap))
     collar = _xcyl(socket_r, yb, z_seam, xa, xb)
-    drop = abs(x_cap - lip_in)
     floor = z_seam - socket_r
+    fill = _ybox(xa, xb, yb - socket_r, yb + socket_r, floor, z_seam)
+    drop = abs(x_cap - lip_in)
     web = _xz_prism(yb - socket_r, yb + socket_r,
                     [(lip_in, floor), (x_cap, floor), (lip_in, floor - drop)])
-    return collar.fuse(web)
+    return collar.fuse(fill).fuse(web)
 
 
 def _corner_cuts(x_in, x_ext, sx):
@@ -2441,7 +2472,7 @@ def build_front_half(box):
     # One collar per level, each standing on the lip band the lip has already put
     # down that wall.
     for x_in, x_ext, sx, z_boss in bosses:
-        front = front.fuse(_front_socket(x_in, x_ext, sx, z_boss, y_joint))
+        front = front.fuse(_front_socket(x_in, x_ext, sx, z_boss, y_joint, inner))
     # A collar's forward face stands ahead of the seam plane, so the topmost one can
     # poke into the display facet; trim it to that plane. The facet runs wall to
     # wall, so it needs no end wall — both ends are the exterior side walls, which
@@ -2590,7 +2621,11 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     The tower stands off the wall's inner face and the cavity is cut from that face
     outward past its own end, so the pocket opens INBOARD and bottoms on the wall. What
     the lug meets at the bottom of its travel is the wall itself, not a printed floor —
-    the wall is the datum, so the ports stand at a height the wall states."""
+    the wall is the datum, so the ports stand at a height the wall states.
+
+    THE ROOF IS TWO TABS, NOT A SOFFIT. The band over the pocket keeps `wago_roof_tab`
+    at each end and opens between them: each tab catches the lug's lift and prints as
+    its own short bridge, with nothing hanging the pocket's full width."""
     for side, sy, sz, size in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
@@ -2605,11 +2640,16 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.fuse(_ybox(tower[0], tower[1],
                                  sy - half_y, sy + half_y,
                                  sz - half_z, sz + half_z))
+        pk_y = stand_y / 2.0 + wago_well_press
         solid = solid.cut(_ybox(pocket[0], pocket[1],
-                                sy - (stand_y / 2.0 + wago_well_press),
-                                sy + (stand_y / 2.0 + wago_well_press),
+                                sy - pk_y, sy + pk_y,
                                 sz - (stand_z / 2.0 + wago_well_press),
                                 sz + (stand_z / 2.0 + wago_well_press)))
+        solid = solid.cut(_ybox(pocket[0], pocket[1],
+                                sy - pk_y + wago_roof_tab,
+                                sy + pk_y - wago_roof_tab,
+                                sz + stand_z / 2.0 + wago_well_press,
+                                sz + half_z + 1.0))
     return solid
 
 
@@ -3132,6 +3172,20 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
         face = plane - sign * _panel.SEAT
         near, far = sorted((face, face - sign * _panel.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
+        # THE PLATE'S FOOT: the section behind the valves' own mounting plane, carried
+        # down to the piece's bed face, so the plate prints as a wall standing on the bed
+        # rather than a soffit hanging over it. Behind the plane, because the valves hang
+        # below the plate while sunk into it. Inset one `wall` to the lip's own face —
+        # below the rim that face is the bottom piece's lip, and the foot telescopes down
+        # it the way every interior face does. The fore-facing panel's alone: under an
+        # aft-facing plate the same band is the fold's own junction field, tees and
+        # valve bottoms crossing every section of it. The seats' wall-to-wall span stays
+        # above the rim (`z-seam-under-deck`).
+        foot_z0 = max(z0, inner[4])
+        if sign < 0 and foot_z0 < mid_z - half - 1e-9:
+            lx0, lx1 = lip_face_x()
+            fy0, fy1 = sorted((plane, far))
+            solid = solid.fuse(_ybox(lx0, lx1, fy0, fy1, foot_z0, mid_z - half))
         turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:

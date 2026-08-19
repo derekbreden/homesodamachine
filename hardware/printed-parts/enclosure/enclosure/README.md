@@ -54,8 +54,9 @@ height carries the lip and the collars together. The cold core spans the seam in
 columns.
 
 The plane stands where the seam's own machinery fits the pack: the lip's fusion
-shoulder over the condenser's fin crown, the rim under the forward valve panel's plate
-(`z-seam-under-deck` — a plate roots on a wall only above the rim), and the rim
+shoulder over the condenser's fin crown, the rim under the forward valve panel's wall-to-wall span
+(`z-seam-under-deck` — a plate roots on a wall only above the rim; its foot runs
+below, inset on the lip's own face), and the rim
 crossing the pump heads' band on the air the pack stands them off the lip's face
 (`enclosure_assembly.PACK_Y`, `pumps-pass-lip`). `main()` prints each seam, how it
 landed, and the band the bed allowed it.
@@ -99,8 +100,12 @@ pair carries the plug as two half-cylinders — each piece its own half, the fla
 plane, the bottom's at its rim and the top's flat-face-down on its own mouth — the
 front lip's two halves carry the slide channel, and `enclosure-front-bottom` alone
 carries the socket: a pedestal off its own lip face, proud through the plane the way
-the lip itself is, so the bore and the heat-set live in one piece's solid. A 45° web
-carries the pedestal to the lip face, so it prints floor-down with nothing hanging.
+the lip itself is, so the bore and the heat-set live in one piece's solid. The
+pedestal is a D below its axis, and a 45° web carries it to the lip face — collar,
+fill and web meet on flats, and the piece prints floor-down with nothing hanging.
+The Y seam's own collars keep the same shape: a D squared onto the slab at the floor
+level, a D on its web with its crown squared into the ceiling at the top one
+(`_front_socket`).
 The head sits in the standard counterbore astride the visible seam line, and the screw
 clamps back wall and front lip against the pedestal's shoulder — all four pieces in
 one sandwich, the shank shear-locking them in Y and Z at the point. Its cap stands
