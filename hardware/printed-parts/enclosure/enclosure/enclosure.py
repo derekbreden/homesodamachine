@@ -3265,22 +3265,21 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
         face = plane - sign * _panel.SEAT
         near, far = sorted((face, face - sign * _panel.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
-        # THE PLATE'S FOOT: the plate's own section less one `PORT_SLIP` of air off the
-        # valve-side face, carried down to the piece's bed face, so the plate prints as a
-        # wall standing on the bed rather than a soffit hanging over it. The valves' bottom
-        # ports and the runs on them leave through the same channels the plate carries,
-        # run on down to the foot's own bed edge. Inset one `wall` to the lip's own face —
-        # below the rim that face is the bottom piece's lip, and the foot telescopes down
-        # it the way every interior face does. The fore-facing panel's alone: under an
-        # aft-facing plate the same band is the fold's own junction field, tees crossing
-        # every section of it. The seats' wall-to-wall span stays above the rim
+        # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
+        # face, its valve-side face one plane with the plate's, so the plate prints as a
+        # wall standing on the bed with nothing left hanging. The valves' bottom ports and
+        # the runs on them leave through the same channels the plate carries, run on down
+        # to the foot's own bed edge. Inset one `wall` to the lip's own face — below the
+        # rim that face is the bottom piece's lip, and the foot telescopes down it the way
+        # every interior face does. The fore-facing panel's alone: under an aft-facing
+        # plate the same band is the fold's own junction field, tees crossing every
+        # section of it. The seats' wall-to-wall span stays above the rim
         # (`z-seam-under-deck`).
         foot_z0 = max(z0, inner[4])
         footed = sign < 0 and foot_z0 < mid_z - half - 1e-9
         if footed:
             lx0, lx1 = lip_face_x()
-            fy0, fy1 = sorted((face - sign * _panel.PORT_SLIP, far))
-            solid = solid.fuse(_ybox(lx0, lx1, fy0, fy1, foot_z0, mid_z - half))
+            solid = solid.fuse(_ybox(lx0, lx1, near, far, foot_z0, mid_z - half))
         turn = cq.Location(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0),
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
