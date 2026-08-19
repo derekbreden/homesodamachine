@@ -2,6 +2,8 @@
   "/hardware/assembly/_internal_plumbing_sync.py": {
     "CAP_CONDUIT_D": "6.5 mm",
     "CAP_FLUID_LINES": "7",
+    "CAP_SCREWS": "2",
+    "CAP_SCREW_LEN": "10",
     "CARB_1_LOOP": "40.1 mm",
     "DIGITEN_COLLET_FREE": "6 mm",
     "DISCHARGE_CHAIN_LEN": "83.4 mm",
@@ -10,7 +12,6 @@
     "MANIFOLD_VALVES": "10",
     "PUMP_BRACKET": "68.6 mm",
     "PUMP_CAN_BORE": "37 mm",
-    "PUMP_LOOP": "143 mm",
     "PUMP_SOCKET": "53 mm",
     "PUMP_SOCKET_D": "21 mm",
     "PVC_BEND_R": "15.9 mm",

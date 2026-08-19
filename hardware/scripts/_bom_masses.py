@@ -65,11 +65,14 @@ PARTS = {
         "enclosure/enclosure/enclosure-front-top.step",
     ],
     # THE FIFTH PIECE OF THE BOX, and the one that leaves it loaded: the front wall's flat
-    # span, the deck behind it and both pump trays come off the plate as one solid
-    # (`enclosure.build_cartridge`). A tray is that solid's own material, so nothing stands
-    # under a pump that ships on its own — the same bargain the valve panels make below.
-    "Enclosure — pump cartridge": [
+    # span and the block behind it that both pumps stand in come off the plate as one solid
+    # (`enclosure.build_cartridge`), and the cap that closes on both heads comes off it as a
+    # second (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed
+    # together on the bench and ride as one. A tray is the cartridge's own material, so
+    # nothing stands under a pump that ships on its own — the valve panels' bargain below.
+    "Enclosure — pump cartridge + cap (one set)": [
         "enclosure/enclosure/enclosure-pump-cartridge.step",
+        "enclosure/enclosure/enclosure-pump-cap.step",
     ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [

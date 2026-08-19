@@ -126,8 +126,8 @@ pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 # collet down its limb, every junction is a Tee, and each pump barb is taken by a
 # tee's branch, which is what puts that tee's run across the head's face.
 assert not ml.JOINS, (
-    f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §4 buys "
-    f"none — add the PP0308E row back with this count behind it")
+    f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §8 buys "
+    f"one, for the hopper drain — raise that row's count to cover these too")
 
 # EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
 # ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on

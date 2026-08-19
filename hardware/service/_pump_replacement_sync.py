@@ -22,6 +22,7 @@ sys.path.insert(0, str(_root / "tools"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "pump-tray"))
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
 
 import _facts                                          # noqa: E402  — the placed pack, off the last build
@@ -29,6 +30,7 @@ import _routing as R                                   # noqa: E402  — the sto
 import _scorecard as _sc                               # noqa: E402  — what fastens each body
 import manifold_layout as _ml                          # noqa: E402  — the segment and mouth tables
 import pump_tray as _tray                              # noqa: E402  — the bore the boss lifts out of
+import enclosure as _enc                               # noqa: E402  — the cap, its screws and the split
 from _cold_core_interface import cap_cradles           # noqa: E402  — the valves the core's lid holds
 
 from docgen import substitute_md                       # noqa: E402
@@ -171,6 +173,11 @@ def main():
         # The socket the boss lifts out of, off the module that draws the tray. `internal-plumbing`
         # quotes the same figure for putting a pump in.
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
+        # THE CAP AND THE SCREWS THAT HOLD IT, the joint a swap opens before a pump is
+        # reachable at all. Counted off the module that cuts both the clearance bores and the
+        # heat-set seats, so a screw added there is a screw this procedure names.
+        "CAP_SCREWS": f"{len(_enc.cap_screw_ys(f.box.inner, f.box.collet_plate))}",
+        "CAP_SCREW_LEN": f"{_enc.screw_len:.4g}",
     }
 
     substitute_md(_here / "pump-replacement.md", variables=variables)

@@ -61,7 +61,8 @@ WALL_COLORS = {"front-bottom": cq.Color(0.15, 0.15, 0.16),
                "front-top": cq.Color(0.19, 0.19, 0.21),
                "back-bottom": cq.Color(0.13, 0.13, 0.14),
                "back-top": cq.Color(0.17, 0.17, 0.18),
-               "pump-cartridge": cq.Color(0.22, 0.21, 0.24)}
+               "pump-cartridge": cq.Color(0.22, 0.21, 0.24),
+               "pump-cap": cq.Color(0.25, 0.24, 0.27)}
 # The collet plate — the one piece of this box that is steel, waterjet from 1/8" 304.
 C_STEEL_PLATE = cq.Color(0.72, 0.73, 0.75)
 C_COVER = cq.Color(0.14, 0.14, 0.15)

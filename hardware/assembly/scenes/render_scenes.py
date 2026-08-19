@@ -73,7 +73,7 @@ def core_bodies(carry):
     `enclosure_assembly` imports `foam-assembly.step` as ONE solid, so the machine has no handle
     on the top cap, on the vessel, or on a line inside the shell — and those ARE what a bench
     unit of the core is made of. `cold-core-layout/cold_core_assembly` has them, and it builds in
-    `foam-assembly`'s own frame: the same five printed pieces, and everything else around them.
+    `foam-assembly`'s own frame: the same six printed pieces, and everything else around them.
 
     `carry.where` is the placement the machine seats that stack under, so it is what stands
     these."""

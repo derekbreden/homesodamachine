@@ -360,10 +360,9 @@ opening the trough's whole length, and the support in it draws out end to end.
 
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
-no face under it to hang and no support in it to pick out — and it gives this piece a
-solid slab across the whole front storey to grow from instead of a wall ring. Both deck
-rails stand full height on it rather than on 45° webs off the side walls, and the collet
-plate sits in a seat sunk in its top rather than in two corbelled wall pockets.
+no face under it to hang and no support in it to pick out. It is a solid slab across the
+whole front storey, and everything in that storey grows from it: both deck rails stand
+full height on it, and the collet plate's foot sits in a blind seat sunk in its top.
 
 ## Tap-water cradle
 
@@ -522,11 +521,24 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 ## The pump cartridge and its bay
 
 **The pumps slide out of the front of the box.** The front wall's flat span — corner
-column to corner column, sill to lintel — a **return** down each flank, and the tray
-storey that hangs both pumps come out of front-top as one printed piece, the **pump
-cartridge** (`build_cartridge`): the face, the two returns, the deck, both trays, both
-pumps, riding two rails that stand on the bay's floor (`_bay_rails`). Nothing latches
-it. The four barb tubes
+column to corner column, sill to lintel — a **return** down each flank, and the storey
+both pumps stand in come out of front-top as the **pump cartridge**
+(`build_cartridge`): the face, the two returns, the block behind them, both trays and
+both pumps, riding two rails that stand on the bay's floor (`_bay_rails`).
+
+**It is a block, and it parts on the pump's own bracket plane.** What the bay leaves
+between the face and the collet plate is filled — sparse infill under a printed skin —
+and the two Kamoers are voids in that fill. The split is `cap_split_z`, the head-to-boss
+junction the tray's plate already lands on: over it the block is the cartridge and each
+pump stands in the tray that bores its boss; under it the block is
+**`enclosure-pump-cap`** (`build_pump_cap`), one piece closing on both heads. What
+carries a pump is the stamped bracket it holds in that plane — `bracket_w` across
+against a head of `head_w` — lapping the cap's top face all round the head's opening,
+with two M3 on the lane between the pumps drawing the cap up onto the block
+(`_cap_screws`). The motor cans open through the block's ceiling and each head's front
+face through the cap's underside: the bay top stands `bay_crown_air` over the crowns and
+the sill one millimetre under the faces, so what the block covers is what there is room
+to cover. Nothing latches the cartridge. The four barb tubes
 gripped in the anchor tees' branch collets are the retention, and the **collet plate**
 is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap

@@ -61,7 +61,7 @@ Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom lo
 # TWO MODELS OF THE CORE, AND A SCENE MAY WANT EITHER. `manifold-layout/enclosure_assembly` is the
 # appliance and places the core as ONE solid with a port table — which is the right body for a
 # picture of the machine. `cold-core-layout/cold_core_assembly` is the same stack one frame in:
-# the five printed pieces AND the vessel, the coil, both reservoirs, every fitting, the sensing
+# the six printed pieces AND the vessel, the coil, both reservoirs, every fitting, the sensing
 # and the eight lines among them, in the shell's own frame. Its `one-core` gate holds every body
 # the outer model draws standing in the inner one, so the two agree about what they share.
 #
@@ -346,7 +346,7 @@ Part = namedtuple("Part", "id title step cam up zoom solid",
 # one piece, three things to teach, three poses. What makes them three pictures is the camera,
 # which is why the camera is in the row.
 PARTS = (
-    Part("en01-shell", "Enclosure, five pieces",
+    Part("en01-shell", "Enclosure, six pieces",
          "hardware/printed-parts/enclosure/enclosure/enclosure.step",
          cam=(0.75, -1.0, 0.55)),
     # The bare wall from OUTSIDE — the union bores in a rectangle, the C14 window under them.

@@ -112,8 +112,11 @@ def main():
         # And the loop each of a pump's two straps closes — the tray's plate and the bracket the
         # part carries under it, off the module that draws the tray, with the bore and the can's
         # own hole that tray takes the pump on.
-        "PUMP_LOOP": f"{_tray.strap_loop():.3g} mm",
         "PUMP_BRACKET": f"{_tray.bracket_half * 2:.4g} mm",
+        # The cap and what closes it, off the module that cuts both the clearance bores and
+        # the heat-set seats — so a screw added there is a screw the bench is told to drive.
+        "CAP_SCREWS": f"{len(_enc.cap_screw_ys(_f.box.inner, _f.box.collet_plate))}",
+        "CAP_SCREW_LEN": f"{_enc.screw_len:.4g}",
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
         "PUMP_SOCKET_D": f"{_tray.boss_depth:.4g} mm",
         "PUMP_CAN_BORE": f"{2 * _tray.can_half:.4g} mm",
