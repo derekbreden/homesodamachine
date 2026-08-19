@@ -733,7 +733,7 @@ post_along = 14.676
 face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
 cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
-pad_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
+cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
 plate_slot_slip = 0.2        # per-side air round the collet plate in the floor's seat
 
 # --- THE CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
@@ -3014,8 +3014,8 @@ def _cartridge_gross(box, halves_cache=None):
     deck_aft = plate["fore_y"] - 2.0
     # THE CAP'S OWN AFT FACE IS THE STOP. Its whole storey stands under the plate's top, so
     # the face it presents to the steel is the piece's own — no pad hangs off anything to
-    # reach it — and `pad_kiss` is the air left at that face when the cartridge is home.
-    cap_aft = plate["fore_y"] - pad_kiss
+    # reach it — and `cap_kiss` is the air left at that face when the cartridge is home.
+    cap_aft = plate["fore_y"] - cap_kiss
     split = cap_split_z(box.pump_trays)
     floor_top = bay_floor_z(box.pump_trays)[1]
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
