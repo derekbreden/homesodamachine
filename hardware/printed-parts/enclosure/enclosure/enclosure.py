@@ -701,8 +701,9 @@ corner_core_reach = corner_boss_in - boss_in
 # THE FLOOR IS THIS PIECE'S FIRST LAYERS — front-top beds on the seam plane, so a floor
 # struck there lies on the bed with nothing under it to hang. Its thickness is the only
 # thing above it: the cartridge reaches down to the plane its pump reliefs floor on, and
-# the floor's top is that plane. Front-bottom's side lip rises through a channel down each
-# side of it and stands proud to the rim, so the telescope is untouched.
+# the floor's top is that plane. Front-bottom's side lip is given up over this whole run
+# (`_flank_lip_drop`), so the floor crosses it wall to wall and only the front boss's own
+# plinth still stands over the mouth here.
 #
 # The BAY is the opening all that leaves through: the flat front wall between the corner
 # columns' along-wall edges, from the floor's top up past the motor cans' crowns. The
@@ -2973,12 +2974,15 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
     still crossing the seam, because it is what carries the screw and the heat-set — so the
     drop is cut back off each front station and the boss stands on a run of lip its own
     width and no more."""
-    bx0, bx1 = bay_x_span(inner)
-    lo, hi = zj - 1.0, zj + lip_len + wall + 1.0
-    drop = None
-    for x0, x1 in ((inner[0] - wall - 1.0, bx0), (bx1, inner[1] + wall + 1.0)):
-        box = _ybox(x0, x1, inner[2] - wall - 1.0, plate["wall_aft_y"], lo, hi)
-        drop = box if drop is None else drop.fuse(box)
+    # Down to the mouth and NOT past it: below the seam this run is front-bottom's own wall,
+    # which the drop has no business in — only the lip standing proud of the mouth.
+    lo, hi = zj, zj + lip_len + wall + 1.0
+    # WALL TO WALL, and not jamb to jamb. Between the jambs the front flat has already given
+    # its lip up (`_front_flat_lip_drop`) and nothing else of the bottom piece stands over
+    # the mouth here, so reaching across costs nothing — and stopping ON the jamb would put
+    # this cut's own side plane on the one plane three other cuts already end on.
+    drop = _ybox(inner[0] - wall - 1.0, inner[1] + wall + 1.0,
+                 inner[2] - wall - 1.0, plate["wall_aft_y"], lo, hi)
     for x_in, _x_ext, sx, ys, col in _z_stations(inner, y_joint):
         if col != "front":
             continue
@@ -2990,13 +2994,13 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
 def _z_seam_berth(inner, plate, y_joint):
     """What front-bottom's Z seam occupies inside front-top's own walls, over the storey the
     bay floor stands in: the lip — the cavity's one-`wall` skin from the seam mouth to the
-    rim, less the front-flat span it gives up (`_front_flat_lip_drop`) — and the front
-    column's socket collars standing proud of it.
+    rim, less the front-flat span it gives up (`_front_flat_lip_drop`) and less both flanks
+    over the front run (`_flank_lip_drop`) — and the front column's socket collars standing
+    proud of it.
 
-    Everything front-top stands in this storey opens for it: the floor a channel down each
-    side. Every one is cut with this one solid, so
-    the telescope keeps a lip that runs the side walls whole and collars nothing has to
-    dodge one at a time.
+    Everything front-top stands in this storey opens for it, and over this run that is one
+    pocket per collar and nothing else: the lip is not here to be opened for. Every one is
+    cut with this one solid, so what a piece has to dodge is never worked out twice.
 
     OVER THE RIM IT FLARES AT 45°. A notch this deep would otherwise leave a `wall`-wide
     flat looking down at the bed on whatever spans back to the side wall above it; the
@@ -3027,10 +3031,10 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     `enclosure_assembly.collet_plate_spec`, so the steel and the pocket that takes it are
     one figure.
 
-    A CHANNEL DOWN EACH SIDE PASSES THE Z SEAM (`_z_seam_berth`), whose lip stands proud of
-    this floor's top and reaches the rim, and whose front collars stand proud of that. What
-    the channel costs is `wall` of floor at each flank and one pocket per collar; what it
-    keeps is a seam that runs the side walls whole.
+    ONE POCKET PER COLLAR PASSES THE Z SEAM (`_z_seam_berth`), and nothing else does. The
+    lip is given up over this whole run (`_flank_lip_drop`), so the floor runs the walls
+    whole instead of surrendering `wall` of itself down each flank — what still stands over
+    the mouth here is the front boss on its own plinth, and the floor opens for that alone.
 
     OUTBOARD OF THE BAY IT STANDS TO THE RIM. The cartridge sweeps the span between the
     posts and nothing else does, so either side of that span the floor carries on up to the
@@ -3077,7 +3081,9 @@ def _tee_wall(inner, y_joint, plate, bay):
     below it nothing does, and the berth the cartridge leaves looks into the cavity. This
     stands the whole storey, so what is behind the bay is a wall.
 
-    THE Z SEAM PASSES IT the way it passes the floor, on `_z_seam_berth`'s own channels."""
+    AND THE Z SEAM DOES NOT PASS IT AT ALL. The lip is given up over this whole band
+    (`_flank_lip_drop`) and the front bosses stand fore of it, so the berth is empty here and
+    this wall comes out solid from flank to flank."""
     slab = _ybox(inner[0], inner[1], plate["aft_y"], plate["wall_aft_y"], z_seam, bay[2])
     slab = slab.cut(_z_seam_berth(inner, plate, y_joint))
     for hx, hz in plate["holes"]:
