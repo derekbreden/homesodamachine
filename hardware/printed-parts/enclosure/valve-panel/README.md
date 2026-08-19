@@ -23,6 +23,7 @@ four to a plane. Each plane gets a panel: [2](PANEL_COUNT) per machine.
 | face set off its valves | 0 on the still deck, [2.835](PANEL_SETBACK) mm on the travelling one |
 | socket, travelling deck | [9.835](PANEL_SOCKET_LONG) mm long — the floor sinks by that figure, the mouth does not move |
 | post in the plate at rest | [6](PANEL_POST) mm still, [3.165](PANEL_GRIP) mm travelling |
+| socket to port channel | [1.115](PANEL_WEB) mm still, [0.224](PANEL_WEB_TRAVEL) mm travelling — **measured** |
 | material, both panels | [162.79](PANEL_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
@@ -70,13 +71,25 @@ is the one deck whose valves are located by the manifold rather than by their ow
 **A post stands [3.165](PANEL_GRIP) mm inside the plate's section at rest**, of the
 [6](PANEL_POST) mm it has, reaching its whole length only at full release. The posts in their
 sockets are the whole of the retention, so this deck is held LEAST in the state the machine runs
-in and most while the cartridge is being pulled out. What the plate actually surrounds is read
-rather than subtracted — the port channel crosses close to the sockets here, and a figure struck
-off the setback alone would not know it.
+in and most while the cartridge is being pulled out.
 
 **The port travels with the body**, so its channel is struck along the whole sweep instead of
 where the port rests (`build_port_channel`): round at both ends, a slot only over the stretch the
 port crosses.
+
+**The socket and that channel close on each other from both ends** — the floor sinks by the
+stroke, the sweep drags the channel by the same stroke — and what is left between them is
+[0.224](PANEL_WEB_TRAVEL) mm of plate, against [1.115](PANEL_WEB) mm on the still deck. `web()`
+measures it rather than striking it off the radii: the two features run at right angles and their
+axes come closest above the socket's own top, so the arithmetic answers for a cylinder that is
+not there.
+
+**Read that against the nozzle, not against zero.** These plates are `enclosure-front-top`'s
+material and that piece prints on a 0.8 ([`machine-time.md`](/hardware/ledger/machine-time.md),
+the bulk-PETG group), so the still deck's web is one and a half extrusions and the travelling
+deck's is under a third of one. A CAD model states material there either way, so
+`post-engagement` — which reads the length of post its plate stands around, and is the bound
+that holds this deck's [3.165](PANEL_GRIP) mm — reads a post fully surrounded on both decks.
 
 ## Where the two go
 
