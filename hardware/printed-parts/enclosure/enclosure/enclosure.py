@@ -93,8 +93,8 @@ A plug is the wall it drives through and the reach it needs past it: the first
 `wall` of its length is that wall's own material and the rest a stub off it, its
 mouth-side face on the mouth that receives it. A socket is a pipe round that plug —
 one `wall` of material, a `socket_cap` over the insert's blind end — its rim-side
-face on the lip rim and its far face a hair inside the lip's own fusion shoulder,
-so it stands on the lip band down its whole length. Those are the two matings the
+face on the lip rim and its far face a hair under the seam mouth, so it stands on
+that band — lip above the mouth, wall under it below — down its whole length. Those are the two matings the
 overlap depth is struck from. Between two levels the corner is the wall's own air.
 A level stands where its socket has a body to be bored into (`_level_clear`).
 
@@ -626,7 +626,7 @@ front_plane_y = 8.0
 y_seam = 200.0
 # The bottom↔top seam: ONE plane, both Y columns — the seam line runs level round the box
 # and the four pieces meet at a four-way corner on each side wall. The plane stands where
-# its own machinery fits the pack: the lip's fusion shoulder over the condenser's fin
+# its own machinery fits the pack: the seam ring's foot over the condenser's fin
 # crown (`z-seam-front-lane`), the rim under the forward valve panel's plate
 # (`z-seam-under-deck`), and the rim crossing the pump heads' band on the air the pack
 # stands them off the lip's face (`pumps-pass-lip`, `enclosure_assembly.PACK_Y`).
@@ -1233,8 +1233,11 @@ def _lip_denied(placed, inner, y_span):
     """The seam heights the pack denies ONE Y column's Z seam, as z spans.
 
     The lip is the one part of a Z seam whose position rides the seam height: the
-    cavity's own one-`wall` skin (`_lip_band`), running from its fusion shoulder
-    (`zj − wall`) up to its rim (`zj + lip_len`). The four station collars ride with
+    cavity's own one-`wall` skin (`_lip_band`), read from one `wall` under the mouth
+    (`zj − wall`) up to the rim (`zj + lip_len`). The lip proper starts on the mouth; the
+    `wall` below it is the top of `_lip_underwall`, and reading the two together is what
+    keeps this conservative — the skin really is continuous there, and a body in it is in
+    the seam's way whichever of the two it touches. The four station collars ride with
     it, in the ±X boss-chain bands the lip's own side segments run down, so they
     occupy the same lane wherever the seam lands.
 
@@ -2285,8 +2288,8 @@ def _lip_ring(inner, gap, z0, z1):
 
 def _z_lip(inner, y_joint, zj):
     """The bottom pieces' seam lip: a full-wall band whose outer faces are
-    flush with the body's inner walls, running one wall down into the body
-    (the fusion shoulder) and up over the overlap to the rim. The segment
+    flush with the body's inner walls, standing on the seam mouth and running
+    up over the overlap to the rim. The segment
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
     lip and the two telescopes never stack on one wall surface.
 
@@ -2302,9 +2305,10 @@ def _z_lip(inner, y_joint, zj):
     COLUMN the band wraps that column's face too — the pillar telescopes into the
     piece above it on the same one wall of overlap every other face uses.
 
-    THIS BAND IS THE TOP OF A WALL AND NOT A LEDGE ON ONE. What carries it down to the
-    floor slab is `_lip_underwall`, which is why the fusion shoulder is a shoulder and
-    not a soffit.
+    THIS BAND IS WHAT STANDS PROUD OF THE MOUTH AND NOTHING ELSE. It begins on the seam
+    plane, because that is where the piece it belongs to ends: below the mouth there is no
+    telescope, only wall, and `_lip_underwall` carries it. A band reaching one `wall` down
+    past the mouth would be describing the wall it is standing on.
 
     ITS GAP IS OPENED BOTH WAYS off the joint. Aft, for the other piece's Y lip to pass;
     FORWARD, because this band is proud on the same wall surface its own piece's Y lip is
@@ -2313,7 +2317,7 @@ def _z_lip(inner, y_joint, zj):
     either side of that."""
     return _lip_ring(inner,
                      (y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin),
-                     zj - wall, zj + lip_len)
+                     zj, zj + lip_len)
 
 
 def _lip_underwall(inner, y_joint, zj):
@@ -2331,7 +2335,9 @@ def _lip_underwall(inner, y_joint, zj):
     and that band wherever the band ends up. What has to be clear of it is the pack, and
     the pack already stands one `wall` off both ±Y walls (`front_seam_clear`,
     `rear_seam_clear`) and one boss chain off both ±X ones (`side_band_inset`) — every
-    face this skin is on. `wall-under-lip` measures that rather than assuming it, and
+    face this skin is on. It runs to the SEAM MOUTH and not to one `wall` under it: the
+    last `wall` before the mouth is no more a telescope than the first one off the slab,
+    and stopping short of the mouth is what put a slit down the flank the first time. `wall-under-lip` measures that rather than assuming it, and
     `lip_face_x` is the flank a body down there meets.
 
     AND ITS GAP IS OPENED ONE WAY, which is where it parts from the lip's. This is wall,
@@ -2346,7 +2352,7 @@ def _lip_underwall(inner, y_joint, zj):
     loaded corner, and it is narrower than two extrusions of the nozzle this box prints
     with."""
     return _lip_ring(inner, (y_joint, y_joint + lip_len + z_lip_y_margin),
-                     inner[4], zj - wall)
+                     inner[4], zj)
 
 
 def _z_station_y(ys):
@@ -2360,8 +2366,9 @@ def _z_station_y(ys):
 def _z_pod(x_in, x_ext, sx, ys, inner, zj):
     """BOTTOM socket: the Y-seam collar rotated — one pipe round the bore, off the
     ±X wall's inner face out to the cap, one `wall` of material round the bore its
-    whole length. Its +Z face lands on the lip rim and its −Z face a hair under the
-    lip's own fusion shoulder, so it stands on the lip band the whole way.
+    whole length. Its +Z face lands on the lip rim and its −Z face a hair under the seam
+    mouth, so it stands on the band the whole way — on the lip above the mouth and on the
+    wall under it below, which is one surface and not two.
 
     Its upper half telescopes into the top piece, and a station abutting a wall sits
     in one of the box's rounded verticals — so the collar is held inside the cavity
@@ -3522,8 +3529,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     y_joint if y_side == "front" else oy1 + 1.0,
                     oz0 - 1.0, oz1 + 1.0)
         piece = piece.fuse(_z_lip(inner, y_joint, zj).intersect(col))
-        # And the wall that carries that lip down to the slab, so its fusion shoulder is a
-        # shoulder and not a soffit. Fused here with the lip and before every pocket, so a
+        # And the wall that carries that lip down to the slab, so the lip stands on a wall
+        # and not in air. Fused here with the lip and before every pocket, so a
         # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
         for x_in, x_ext, sx, ys, _c in stations:
