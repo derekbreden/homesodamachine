@@ -953,6 +953,16 @@
    "active": true
   },
   {
+   "id": "ridge-carried",
+   "label": "The ridge the display's through-hole leaves is laid on material",
+   "kind": "gate",
+   "status": "pass",
+   "value": "9/9 stations carried, furthest drop 0.0000 mm",
+   "target": "material within one 0.8 mm extrusion under every station",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "bay-floor-bedded",
    "label": "The bay floor lies on the bed and seats the collet plate",
    "kind": "gate",

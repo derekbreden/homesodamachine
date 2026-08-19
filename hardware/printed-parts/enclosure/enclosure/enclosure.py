@@ -261,6 +261,13 @@ display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a socket collar
                                  # clean through (it overhangs the hole otherwise)
+# THAT HOLE LEAVES A RIDGE, AND THE RIDGE IS CARRIED. Where the hole's up-slope end wall breaks
+# out of the slab's back the two planes meet in a line `display_pcb_x` long, and BOTH face down
+# off it — the bottom vertex of a wedge, inside a closed cavity, which is the one line on this
+# piece a nozzle would have to lay in air. `_ridge_wall` stands under it, `pcb_ridge` is where,
+# and `ridge-carried` is the reading. Its section is the thickness of a rib and nothing more:
+# what it carries is one bead's start, not a load.
+ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
 # The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
 # this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
 # `display_cover_seat_recess` under the 45° face so the plane closes over it.
@@ -1760,6 +1767,25 @@ def housing_back_y(outer):
     return outer[2] + display_housing_back
 
 
+def pcb_ridge(outer):
+    """The RIDGE the display's PCB through-hole leaves across that slab's back, as one
+    `(y, z)` station on it. The line itself runs `display_pcb_x` in X, centred on the body's
+    own offset — `_ridge_wall` spans exactly that and `ridge-carried` reads exactly that.
+
+    The hole is cut perpendicular to the 45° face and the slab's back is parallel to it, so
+    the hole's up-slope end wall and that back meet in a line — and BOTH FACE DOWN OFF IT.
+    That makes the line the bottom vertex of a wedge: 45° either side of it is self-supporting
+    once laid, but the line itself has nothing under it, and it stands inside a closed cavity
+    where support is not reachable. It is one station because it is one intersection: the
+    hole's own up-slope face (`display_pcb_slope` past `display_body_offset_slope`) taken
+    `display_facet_thickness` in, which is where the slab's back is."""
+    p = display_plane(outer)
+    r = (p.origin
+         + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
+         - p.zDir * display_facet_thickness)
+    return r.y, r.z
+
+
 def _seat_back(depth, half_slope):
     """How far aft of the box's front face a pocket of `depth`, reaching
     `half_slope` up the 45° from the facet's centre, drives into the slab. Both
@@ -3101,6 +3127,43 @@ def _tee_wall(inner, y_joint, plate, bay):
     for hx, hz in plate["holes"]:
         slab = slab.cut(_tee_bore(plate, hx, hz))
     return slab
+
+
+def _ridge_wall(outer, plate, bay):
+    """THE RIB THAT CARRIES THE RIDGE: front-top's own section from the tee wall's crown up to
+    the display housing's back, standing under `pcb_ridge` for the through-hole's whole width.
+
+    WHAT IT CARRIES IS A STARTING LINE. Both faces meeting at that ridge point down, so the
+    first bead laid along it is laid on air — 106 mm of it, in a cavity that closes before the
+    piece is finished, which is why it cannot be supported and has to be built. Everything
+    above the ridge is 45° and lays itself.
+
+    ITS FORE FACE IS TWO PLANES THE BOX ALREADY HAS, AND NO THIRD ONE. Below, the bay's own
+    back (`plate["aft_y"]`) carried straight up off the tee wall's crown, so the storey over
+    the bay reads as the same plane the bay does. Above, THE HOLE'S OWN END WALL, carried on
+    past the slab's back until it reaches that plane — 45°, which is both the steepest a face
+    may hang at and the plane the display's body already lies against, so the rib presents the
+    part the surface its hole presents and no new fit. The two meet where they meet; that
+    corner is read, not chosen.
+
+    ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`, and its top is the slab's own back —
+    struck on that plane rather than into it, so the rib and the housing meet on one figure.
+    The jog is what keeps it off the funnel: a rib of this section run straight up would stand
+    in the hopper's throat, and one slanted straight from crown to ridge would run into the
+    display's own body where it stands proud of the slab."""
+    ry, rz = pcb_ridge(outer)
+    fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
+    ramp, back = ry + rz, rz - ry     # the hole's end wall, y + z; the slab's back, z - y
+    d = t * math.sqrt(2.0)            # that ramp offset one thickness, along Y
+    return _yz_prism(
+        display_centre_x(outer) + display_body_offset_x - display_pcb_x / 2.0,
+        display_centre_x(outer) + display_body_offset_x + display_pcb_x / 2.0,
+        [(fore, foot),                                          # the bay's back, on the crown
+         (fore, ramp - fore),                                   # where it meets the end wall
+         (ry, rz),                                              # the ridge
+         ((ramp + d - back) / 2.0, (ramp + d + back) / 2.0),    # the top face's aft end
+         (fore + t, ramp + d - (fore + t)),                     # the aft face's own jog
+         (fore + t, foot)])
 
 
 def _tee_bore(plate, hx, hz):
@@ -4480,6 +4543,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # a panel's seats are cut out of whatever stands on that plane and this stands on it.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
         piece = piece.fuse(_tee_wall(inner, y_joint, box.collet_plate, box.pump_bay))
+        # And the rib that stands on that wall's crown, carrying the ridge the display's
+        # through-hole leaves across the housing's back. With the wall, because it stands on
+        # it — and after the facet's own cuts, which the half took before it was split.
+        piece = piece.fuse(_ridge_wall(outer, box.collet_plate, box.pump_bay))
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
     # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
@@ -4749,6 +4816,8 @@ def main():
             sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.y_joint)
                 if s == sx) for sx in (+1.0, -1.0)})),
         "PLUG_DIA": f"{plug_dia:.4g} mm",
+        "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
+        "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
