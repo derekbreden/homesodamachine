@@ -197,9 +197,16 @@ git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep
 # FIGURES in it came off whatever solids happen to be dirty, so a mass for a part nobody
 # has finished lands in this commit's diff under this commit's name. A solid held back is
 # a row that stays as it was, which the next commit to land that geometry re-derives.
+#
+# WHAT A DIRTY SOLID LOOKS LIKE HERE IS ITS TRACKED PROXY. `*.step` is ignored
+# (`.gitignore`), so the STEP a mass is weighed off never shows in a diff and cannot be
+# the key. What moves with it and IS tracked is the piece's own `.step.png` render and
+# `cad-artifacts.lock.json`, which is what the index carries in place of the solids.
 bom_synced=false
 if $touches_printed; then
-  _mid=$(git -C "$root" diff --name-only -- "$hw/printed-parts/" | grep '\.step$' | head -3)
+  _mid=$(git -C "$root" diff --name-only \
+           -- "$hw/printed-parts/" "$hw/cad-artifacts.lock.json" \
+         | grep -E '\.step\.png$|cad-artifacts\.lock\.json$' | head -3)
   if [ -n "$_mid" ]; then
     echo "pre-commit: $hw bom printed masses — held, these solids are mid-edit and their" >&2
     echo "pre-commit:   masses would be this commit's figures:" >&2
