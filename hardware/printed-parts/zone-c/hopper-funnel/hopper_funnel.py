@@ -61,12 +61,10 @@ collar_w = 159.0        # collar footprint (X) — the frame's width less 2 × b
                         # basin takes the top wall's FULL width: it stands behind the display
                         # facet, which spans the machine, so there is nothing beside it to leave
                         # room for
-collar_d = collar_w     # collar footprint (Y) — as deep as it is wide. One rise serves every run
-                        # (see ramp_angle), so the grade is measured on the LONGEST of them, and
-                        # a Y half-run past the X one would quietly put the front/back floor
-                        # under `ramp_angle`. Square is where the two meet: the most plan area
-                        # the grade allows, and plan area is what buys capacity cheaply.
-                        # `funnel-ramp-grade` holds the line
+collar_d = collar_w     # collar footprint (Y) — as deep as it is wide. One rise serves every
+                        # run (see ramp_angle), struck on the LONGEST of them, and square is
+                        # the most plan area a given rise serves: plan area is what buys
+                        # capacity cheaply
 brim_margin = 10.0      # top-wall left between the collar edge and the frame, all around —
                         # one overhang catches the flange, the rest is what stands beyond it
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
@@ -90,22 +88,32 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # capacity while the spout is the half that buys a joint.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
-chute_h = 21.65        # straight rectangular chute height — brim top down to the ramp start,
-                        # and what holds `drop` where `water-3` still crosses under the union
-neck_dx = 1.21          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
+chute_h = 21.00        # straight rectangular chute height — brim top down to the ramp start,
+                        # and what holds `drop` where `water-3` still crosses under the union:
+                        # the ramp's rise rides its longest half-run, and every millimetre it
+                        # grows comes back out of this figure so the drain's height stands still
+neck_dx = 1.85          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
                         # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
-                        # centre: the two source valves leave it between their coils and the
-                        # east one is stepped outboard (`manifold_layout.SOURCE_SPREAD`), so its
-                        # middle lies half that spread east. A collar centred in the top wall's
-                        # frame and a neck centred in the collar would hang the spout against
-                        # the west coil — `fluid-4` falls one straight column off this tip and
-                        # has no corner to spend stepping across. The offset costs depth, since
-                        # it lengthens the floor's long half-run and one rise serves every run,
-                        # and what pays for it is the fall under the spout
-                        # (`enclosure_assembly.build_funnel`, held by `room-holds`). IN Y THE
-                        # NECK STANDS ON THE COLLAR'S OWN CENTRE: the basin is symmetric about
-                        # its spout front to back, and `enclosure.funnel_front_y` stands the
-                        # whole part where that puts the drain.
+                        # centre: the two source valves leave it between their coils, the
+                        # east one stepped outboard (`manifold_layout.SOURCE_SPREAD`), and
+                        # V-D's aft corner reaches the fall's own band from the west now that
+                        # the folded deck rides `manifold_layout.BARB_STANDOFF` — so the
+                        # column stands east of the slot's middle, its tube one air off that
+                        # corner and still inside the east coil's fence. A collar centred in
+                        # the top wall's frame and a neck centred in the collar would hang the
+                        # spout against the west coil — `fluid-4` falls one straight column
+                        # off this tip and has no corner to spend stepping across. The offset
+                        # costs depth, since it lengthens the floor's long half-run and one
+                        # rise serves every run, and what pays for it is the fall under the
+                        # spout (`enclosure_assembly.build_funnel`, held by `room-holds`).
+neck_dy = 3.0           # neck aft of the collar centre, IN Y. `fluid-4` falls one straight
+                        # column off the spout's tip, and the drain's whole berth is the
+                        # window between two fences: the folded deck's crossbar barrels
+                        # fore — which ride `manifold_layout.BARB_STANDOFF` aft — and the
+                        # cold core's front face aft, which the union may not reach. The
+                        # standoff moved the fore fence; this is as much of the follow as
+                        # the aft fence leaves, the fall's column clearing the barrels at
+                        # the machine's own metre off them.
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
                         # sticky and the basin has to come out of the machine clean, so
@@ -127,27 +135,20 @@ clamp_shoulder = 2.0    # silicone left standing either side of the clamp's band
 spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder
 # The drop stacks the chute below the brim, the ramp rise the shallowest line
 # needs at its grade, and the spout tube.
+#
+# ONE RISE SERVES EVERY RUN, so a longer run is a shallower one — and the rise is struck on
+# the LONGEST half-run to the neck, whichever axis that is, so `ramp_angle` describes the
+# shallowest line by construction. Both offsets lengthen their own half; the drop grows with
+# the longest of them, and `chute_h` is where that growth is paid back so the drain stands
+# still.
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
-_ramp_rise = _ramp_run * math.tan(math.radians(ramp_angle))
+_y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
+_ramp_rise = max(_ramp_run, _y_run) * math.tan(math.radians(ramp_angle))
 drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
-# ONE RISE SERVES EVERY RUN, so a longer run is a shallower one, and `ramp_angle` describes the
-# floor only while the X half-run is the LONGEST one to the neck. The neck is offset in X alone,
-# which lengthens that half; a Y run past it would put the front/back floor under the grade this
-# file claims while still claiming it. Widening the collar in Y walks at that line.
-_y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0
-_bounds.state(
-    "funnel-ramp-grade", "The X half-run is the funnel floor's shallowest line",
-    f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
-    _y_run <= _ramp_run,
-    f"collar_d {collar_d:g} makes the Y half-run ({_y_run:.2f} mm) longer than the X "
-    f"({_ramp_run:.2f} mm), so the front/back floor grades "
-    f"{math.degrees(math.atan(_ramp_rise / _y_run)):.2f}° — below ramp_angle "
-    f"{ramp_angle:g}°, which no longer describes the shallowest line. Keep collar_d ≤ "
-    f"{2.0 * (_ramp_run + spout_id / 2.0) + 2.0 * collar_wall:.1f} mm.")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.
-drain_local = (neck_dx, 0.0, -drop)
+drain_local = (neck_dx, neck_dy, -drop)
 
 
 # --- primitives -------------------------------------------------------------
@@ -190,26 +191,27 @@ def build_solids(drop=drop):
     top_z = brim_thickness                              # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
+    ncy = cy + neck_dy                                  # and aft over `fluid-4`'s slot
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
     end_z = -drop                                       # spout exit (the drain)
     neck_z = end_z + spout_tube                         # ramp tip = tube top
 
     # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
-    # the neck_dx-offset spout, straight spout tube.
+    # the offset spout, straight spout tube.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, 0.0, top_z, cx, cy)
         .fuse(_box(w, d, ramp_top_z, 0.0, cx, cy))
-        .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, cy, neck_z))
-        .fuse(_cyl(spout_or, neck_z, end_z, ncx, cy))
+        .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, ncy, neck_z))
+        .fuse(_cyl(spout_or, neck_z, end_z, ncx, ncy))
     )
     # Bore: the same chain, one wall in, open at the top and out through the tube.
     cavity = (
         _box(bore_w, bore_d, ramp_top_z, top_z + 1.0, cx, cy)
-        .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, cy, neck_z))
-        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, cy))
+        .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, ncy, neck_z))
+        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, ncy))
     )
     meta = {
-        "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx,
+        "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx, "ncy": ncy,
         "bore_w": bore_w, "bore_d": bore_d,
         "brim_overhang": brim_overhang, "brim_margin": brim_margin,
         "collar_wall": collar_wall,

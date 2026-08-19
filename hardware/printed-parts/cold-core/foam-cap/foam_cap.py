@@ -68,6 +68,8 @@ from _cold_core_interface import (
     cap_side_depth,
     cap_side_len,
     cap_side_wall,
+    drain_berth_span,
+    drain_berth_depth,
     cap_anchor_cav_w,
     cap_anchor_cav_wall,
     cap_anchor_len,
@@ -351,6 +353,18 @@ def main():
             add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
             lid_total_height),
         lid_total_height)
+    # THE DRAIN'S BERTH: the fore edge set back over the hopper drain's column
+    # (`_cold_core_interface.drain_berth_*`), the corner the union hangs in and `water-3`'s
+    # crossing steps into. The plate alone stands there, so the cut is its own closed form.
+    _by0, _by1 = drain_berth_span
+    _bx = outer_shell_x_length / 2.0
+    lid_top = lid_top.cut(
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=-1.0)
+        .moveTo(((_bx - drain_berth_depth + _bx + 1.0) / 2.0, (_by0 + _by1) / 2.0))
+        .rect(drain_berth_depth + 1.0, _by1 - _by0)
+        .extrude(lid_total_height + 2.0)
+        .unwrap())
     gasket = build_foam_cap_gasket()
 
     # Each deck column is a full-section cylinder off the floor's cavity side, less
@@ -435,10 +449,14 @@ def main():
         * (cap_side_anchor_height(n) - cap_side_tunnel_h(n))
         for n, s in cap_side_anchors.items()
     )
+    # The drain berth's cut is the plate's own section over its span — nothing else stands
+    # in the fore edge's band.
+    drain_berth_volume = (drain_berth_depth * (drain_berth_span[1] - drain_berth_span[0])
+                          * wall_and_floor_thickness)
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
                   + conduit_lid_relief_volume - cradle_volume - anchor_volume
-                  - side_anchor_volume)
+                  - side_anchor_volume + drain_berth_volume)
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \
