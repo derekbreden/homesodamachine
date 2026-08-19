@@ -1181,6 +1181,7 @@
   ],
   "collet_plate": {
    "aft_y": 78.81,
+   "arm_bore_r": 6.6915,
    "bore_r": 7.108,
    "collar_in_y": 87.565,
    "collar_r": 6.858,
@@ -1791,7 +1792,8 @@
       -77.07,
       197.675
      ]
-    ]
+    ],
+    0.0
    ],
    [
     89.08,
@@ -1813,7 +1815,8 @@
       -77.07,
       237.815
      ]
-    ]
+    ],
+    2.835
    ]
   ],
   "vent_chase": [
@@ -1849,7 +1852,7 @@
   ],
   "y_joint": 200.0
  },
- "card": "f611fcfe4a29d67e7d0da4c9b8867ddc",
+ "card": "d9dd52878f81c3b404c3da4705a1dcd8",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2868,7 +2871,7 @@
   }
  ],
  "schema": 1,
- "step": "3a536f977fac08c60887420f15676128",
+ "step": "1b4a8f27cf3c9f3ea6b00a00f93dae55",
  "valve_panels": {
   "valve-panel-aft": [
    209.0,

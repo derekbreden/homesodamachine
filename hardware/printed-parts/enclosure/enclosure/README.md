@@ -364,6 +364,15 @@ no face under it to hang and no support in it to pick out. It is a solid slab ac
 whole front storey: the cartridge slides across it, and the collet plate's foot sits in a
 blind seat sunk in its top.
 
+The **tee wall** behind that plate costs nothing standing up, and its four bores are the
+only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
+lies horizontal and its crown is the only face in the wall that could be laid on air.
+Each is **teardropped** (`_tee_bore`): the roof is two 45° planes standing on the bore's
+own tangent points, 45° being the steepest the arc itself reaches before it turns over,
+so the hole is taken over from exactly where it stops being printable and nothing above
+it is laid on air. The three lower quarters the collar bears on are untouched, and the
+wall needs no support.
+
 ## Tap-water cradle
 
 A stepped trough on the −X wall that the ASSE 1022 chain lies in
@@ -543,13 +552,24 @@ gripped in the anchor tees' branch collets are the retention, and the **collet p
 is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
 fore of the four collets in the bay floor's own seat, four holes passing the tubes and
-nothing wider. Pull the cartridge and the gripped tubes drag the tees forward until
-each collet's nose lands on the steel — the body keeps coming, the nose is held, the
-grip opens, and the tubes draw out through the holes they entered by. Push it home and
-the tubes thread back into the same collets, the cap's own aft face landing on the
-plate's own fore face, the tees braced by the valves their runs butt into, each of
-those in a panel seat. One hand pulls, the other braces the box; the box carries the
-brace to the steel through the floor.
+nothing wider. Pull the cartridge and the gripped tubes drag the tees forward, each tee
+running in its own bore in the wall behind the steel and held across its collar while
+free along its axis, until each collet's nose lands on the steel — the body keeps
+coming, the nose is held, the grip opens, and the tubes draw out through the holes they
+entered by. Push it home and the tubes thread back into the same collets, the cap's own
+aft face landing on the plate's own fore face, the tees square in those same bores and
+braced by the valves their runs butt into, each of those in a panel seat. One hand
+pulls, the other braces the box; the box carries the brace to the steel through the
+floor.
+
+**The stroke is not clear today.** `release-travel` reads whether every body the release
+moves has the room to move — a motion, where every other bound on that card reads where
+a body stands — and it is red at 4 of 8 bodies clear. A butted neighbour travels with
+the body it butts, so the four tees make the whole stroke and the four valves standing
+on their runs do not: the valve's seating datum and the release's travel direction are
+the same direction, you push the valve fore to seat it, and the release pushes it fore
+again, into the surface that seated it. The plate and the wall are cut for the mechanism
+above; the machine does not yet perform it.
 
 **What lands on the steel is the cap's own aft face.** The cap's whole storey stands
 under the plate's top, so the face it presents to the steel is the piece's own — nothing
@@ -603,6 +623,24 @@ seat, and the top is whatever puts the four collet holes **centred** in the band
 end, from the foot up to the rim, for the side lip standing proud there — the outline
 is a waterjet cut and `build_collet_plate` writes the notches into `collet-plate.dxf`
 with the holes.
+
+The **wall behind the steel is struck on the same four collets** (`_tee_wall`).
+Front-top stands a section of its own material aft of the plate, wall to wall and the
+whole height of the bay, with one bore per anchor tee. A bore closes on the round collar
+that tee's branch arm carries — `TEE_WALL_BORE_SLIP` on the radius, a running fit and
+not a grip — so a tee is located in X and Z by printed material and free in Y, which is
+the one direction the release moves it. The wall's fore face IS the steel's aft face,
+one figure with the plate (`enclosure_assembly.collet_plate_spec`), so every bore is
+stopped at its fore mouth by steel and the nose that lands there lands on steel; the
+plate bears back on the wall across its whole face. Its aft face stands one whole stroke
+plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still
+air behind the tee — depth past that plane is the tee's and not the wall's to take. What
+the wall holds is the collar, across the bore; what stops the tee is the steel.
+
+**That wall is also the bay's back.** Over the plate's own band the steel closes the
+bay; above and below it this wall does, so what stands behind the berth the cartridge
+leaves is a wall rather than the cavity. The Z seam passes it the way it passes the
+floor, on `_z_seam_berth`'s own channels.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): jamb to jamb between
 the corner columns' cusps, from the floor's own top up past the motor cans' crowns

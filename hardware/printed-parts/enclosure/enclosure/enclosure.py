@@ -1506,7 +1506,7 @@ def _dims(pack):
     # no wall of this box carries it.
     rim = max(splits) + lip_len
     decks = [mz - _panel.height() / 2.0
-             for _plane, _sign, seats in pack.valve_panels
+             for _plane, _sign, seats, _back in pack.valve_panels
              for mz in [(min(z for _x, z in seats) + max(z for _x, z in seats)) / 2.0]]
     deck_floor = min(decks) if decks else iz1
     record_bound(Bound(
@@ -2958,7 +2958,36 @@ def bay_floor_z(pump_trays):
     return z_seam, min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
 
 
-def _z_seam_berth(inner, y_joint):
+def _flank_lip_drop(inner, plate, y_joint, zj):
+    """The Z-seam lip given up on BOTH FLANKS over the front run — front-bottom stops
+    standing a wall up into front-top there, and nothing above has to open for one.
+
+    `_front_flat_lip_drop`'s twin, turned a quarter: that one gives the lip up across the
+    bay's own flat, this one gives it up round the corners and back down each flank as far
+    as the tee wall's aft face (`plate["wall_aft_y"]`). What the telescope was doing over
+    that run is done better by what stands there now — the seam's cap over it, the bay
+    floor bedded through it, the tee wall across it — and a lip that registers nothing is
+    a wall poking into a cavity cut to receive it.
+
+    THE BOSS KEEPS ITS PLINTH. Its own `2 * socket_r` of lip is the one thing over this run
+    still crossing the seam, because it is what carries the screw and the heat-set — so the
+    drop is cut back off each front station and the boss stands on a run of lip its own
+    width and no more."""
+    bx0, bx1 = bay_x_span(inner)
+    lo, hi = zj - 1.0, zj + lip_len + wall + 1.0
+    drop = None
+    for x0, x1 in ((inner[0] - wall - 1.0, bx0), (bx1, inner[1] + wall + 1.0)):
+        box = _ybox(x0, x1, inner[2] - wall - 1.0, plate["wall_aft_y"], lo, hi)
+        drop = box if drop is None else drop.fuse(box)
+    for x_in, _x_ext, sx, ys, col in _z_stations(inner, y_joint):
+        if col != "front":
+            continue
+        xa, xb = sorted((x_in - sx * (wall + 1.0), x_in + sx * (wall + 1.0)))
+        drop = drop.cut(_ybox(xa, xb, ys - socket_r, ys + socket_r, lo, hi))
+    return drop
+
+
+def _z_seam_berth(inner, plate, y_joint):
     """What front-bottom's Z seam occupies inside front-top's own walls, over the storey the
     bay floor stands in: the lip — the cavity's one-`wall` skin from the seam mouth to the
     rim, less the front-flat span it gives up (`_front_flat_lip_drop`) — and the front
@@ -2980,6 +3009,7 @@ def _z_seam_berth(inner, y_joint):
         face = x_in + sx * wall
         berth = berth.fuse(_xz_prism(inner[2] - 1.0, y_joint,
                                      [(face, rim), (x_in, rim), (x_in, rim + wall)]))
+    berth = berth.cut(_flank_lip_drop(inner, plate, y_joint, z_seam))
     for x_in, x_ext, sx, ys, col in _z_stations(inner, y_joint):
         if col == "front":
             berth = berth.fuse(_z_pod(x_in, x_ext, sx, ys, inner, z_seam))
@@ -3015,7 +3045,7 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     for x_in, edge in ((inner[0], bx0), (inner[1], bx1)):
         slab = slab.fuse(_ybox(min(x_in, edge), max(x_in, edge), front_plane_y,
                                plate["aft_y"] + plate_slot_slip + wall, z1, rim))
-    slab = slab.cut(_z_seam_berth(inner, y_joint))
+    slab = slab.cut(_z_seam_berth(inner, plate, y_joint))
     return slab.cut(_ybox(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
                           plate["fore_y"] - plate_slot_slip,
                           plate["aft_y"] + plate_slot_slip, plate["z0"], rim + 1.0))
@@ -3049,7 +3079,7 @@ def _tee_wall(inner, y_joint, plate, bay):
 
     THE Z SEAM PASSES IT the way it passes the floor, on `_z_seam_berth`'s own channels."""
     slab = _ybox(inner[0], inner[1], plate["aft_y"], plate["wall_aft_y"], z_seam, bay[2])
-    slab = slab.cut(_z_seam_berth(inner, y_joint))
+    slab = slab.cut(_z_seam_berth(inner, plate, y_joint))
     for hx, hz in plate["holes"]:
         slab = slab.cut(_tee_bore(plate, hx, hz))
     return slab
@@ -3062,13 +3092,23 @@ def _tee_bore(plate, hx, hz):
     the one overhang this wall could carry. The roof is two 45 degree planes standing on the
     bore's own tangent points: 45 degrees is the steepest the arc itself reaches before it
     turns over, so the planes take the hole from exactly where it stops being printable and
-    nothing over it is laid on air. The three lower quarters the collar bears on are untouched."""
-    r = plate["bore_r"]
+    nothing over it is laid on air. The three lower quarters the collar bears on are untouched.
+
+    AND IT STEPS. Fore of `collar_in_y` it is bored for the COLLAR, which is what it journals;
+    aft of that station for the ARM alone, which is narrower. The collar cannot pass into the
+    smaller bore, so the ring between the two is what the tee rests against — its aft stop, and
+    the reason a tube can be pushed into its branch collet without driving the tee out of the
+    way. The release travels the other direction and never touches it."""
     y0, y1 = plate["aft_y"] - 1.0, plate["wall_aft_y"] + 1.0
-    t = r / math.sqrt(2.0)
-    return _ycyl(r, hx, hz, y0, y1).fuse(
-        _xz_prism(y0, y1, [(hx - t, hz + t), (hx + t, hz + t),
-                           (hx, hz + r * math.sqrt(2.0))]))
+    cut = None
+    for r, a, b in ((plate["bore_r"], y0, plate["collar_in_y"]),
+                    (plate["arm_bore_r"], plate["collar_in_y"], y1)):
+        t = r / math.sqrt(2.0)
+        part = _ycyl(r, hx, hz, a, b).fuse(
+            _xz_prism(a, b, [(hx - t, hz + t), (hx + t, hz + t),
+                             (hx, hz + r * math.sqrt(2.0))]))
+        cut = part if cut is None else cut.fuse(part)
+    return cut
 
 
 def _unified(solid):
@@ -3972,15 +4012,20 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
     round body boss lands on. Everything is struck in the valve's own frame at `plane`, its
     mounting plane, and turned onto the deck — the plate's face follows from `SEAT` and is not
     the datum anything here is placed on."""
-    for plane, sign, seats in stations:
+    for plane, sign, seats, setback in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
         half = _panel.height() / 2.0
         if not (y0 <= plane <= y1 and z0 <= mid_z <= z1):
             continue
         # The plate: its valve-side face on the plane the valve lands on, its back one `THICK`
-        # outboard of that.
-        face = plane - sign * _panel.SEAT
+        # outboard of that — AND SET BACK BY WHATEVER TRAVEL THIS DECK'S VALVES NEED (`setback`,
+        # zero for a deck that stands still). A plate's face is a stop in the direction its
+        # valves are pressed onto it, and on the deck butted to the anchor tees that is the same
+        # direction the release drags them. Standing the face a whole stroke fore of where a
+        # seated valve's body lands leaves that body air to travel into, and the sockets sink by
+        # the same figure so their posts keep their grip over the whole of it.
+        face = plane - sign * (_panel.SEAT + setback)
         near, far = sorted((face, face - sign * _panel.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
@@ -4002,10 +4047,10 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
-            solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
+            solid = solid.cut(_seat.build_sockets(setback).val().moved(turn).moved(at))
             chan = _panel.height() if not footed else max(
                 _panel.height(), 2.0 * (sz - foot_z0))
-            solid = solid.cut(_panel.build_port_channel(chan + 2.0)
+            solid = solid.cut(_panel.build_port_channel(chan + 2.0, setback)
                               .val().moved(turn).moved(at))
     return solid
 
@@ -4064,7 +4109,7 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     # AND AFT onto the nearest panel plate that crosses this same band — its own near face, so
     # the two meet plane to plane and the web is the gap and not a millimetre more.
     reach = None
-    for plane, sign, seats in panels:
+    for plane, sign, seats, _setback in panels:
         zs = [z for _x, z in seats]
         mid_z, half = (min(zs) + max(zs)) / 2.0, _panel.height() / 2.0
         if mid_z + half <= zb0 or mid_z - half >= zb1:
@@ -4330,6 +4375,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # The front flat's share of both skins goes to the bay's floor and the heads
             # that pass through its berth; the sill and its drain are front-top's.
             piece = piece.cut(_front_flat_lip_drop(inner, zj))
+            # And both flanks over the same run, round the corners to the tee wall's aft
+            # face — the boss's own plinth is all that still crosses the seam there.
+            piece = piece.cut(_flank_lip_drop(inner, box.collet_plate, y_joint, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
