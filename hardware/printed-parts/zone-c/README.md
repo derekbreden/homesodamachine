@@ -42,7 +42,7 @@ flavors. Valve states:
 
 ## Lives in other zones
 
-- Both flavor pumps — in trays on the pump cartridge's own deck, drawn out of the front wall's bay with the cartridge ([`../enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)).
+- Both flavor pumps — standing in trays on the pump cartridge, held up by the cap screwed under it, and drawn out of the front wall's bay with both ([`../enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)).
 - Flavor reservoirs and level sensing — Zone A, nested in the foam shell ([`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/)).
 - Valve seats — the boss sets on the foam-cap top ([`/hardware/printed-parts/valve-seat/`](/hardware/printed-parts/valve-seat/)).
 - Config display — let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris ([`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md)).

@@ -110,12 +110,14 @@ against the plate in the first few millimetres, and the rest of the stroke is th
 out of the bay. Pull the two DC-5 spade pairs off the motor tabs and set the cartridge
 face-down on the bench.
 
-**3. Swap the pumps.** Cut the two 8" straps under each pump's stamped mounting bracket and lift
-the boss out of its [53 mm](PUMP_SOCKET) octagon bore — no tool, no fastener. The new pump goes
-in the same way: straps threaded through the plate's four channels and left lying open
-**first**, then the boss lowered until the plate lands on the head's crown all the way round,
-then each strap closed round plate and bracket together and flush-cut. Cinch on **the bracket
-only** — never a barb, never the motor can. Tug-test each.
+**3. Unscrew the cap, then swap the pumps.** Back out the [2](CAP_SCREWS)
+M3×[10](CAP_SCREW_LEN) on the lane between the pumps and lift the cap away — it closes on both
+heads and it is the only thing holding either up, so nothing else has to be cut or released.
+Then lift each boss out of its [53 mm](PUMP_SOCKET) octagon bore. The new pump goes in the same
+way: boss lowered until the head's crown lands all the way round, cap back on, both screws drawn
+up. **What carries a pump is its own stamped bracket**, lapping the cap's top face all round the
+head — so a cap that will not sit down flat is a pump that is not seated, and forcing the screws
+puts the load on the block instead of the bracket. Tug-test each pump once the cap is closed.
 
 **4. Route 1/4" OD LLDPE through the new heads** — onto the BPT barbs directly, around the
 rotor, zip-tied tight. Then push a fresh barb tube fully over each of the four barbs and leave
@@ -133,7 +135,7 @@ runs clean.
 
 ## Output condition
 
-- Both pumps replaced, each hanging on two straps under its own bracket, tug-tested
+- Both pumps replaced, each standing in the cartridge with the cap closed on its bracket, tug-tested
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints threaded home, the
   cartridge's face flush in the bay and its stop pads on the steel
 - Both channels re-primed and dispensing clean

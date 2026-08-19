@@ -1182,6 +1182,45 @@ def pump_tray_plans(a=None, shell=None) -> dict:
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
 
 
+def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
+    """Whether the cap has material under every pump's bracket, all four sides.
+
+    The bracket is what carries a pump: `bracket_w` across against a head of `head_w`, sitting
+    in the plane the cap parts from the cartridge on. What it bears on is the cap's own top
+    face, in the annulus between the head's void and the bracket's edge. `kamoer_kphm400`
+    states that lip and draws none of it, so this reads the printed piece rather than the
+    pump: one probe per side, a `wall` deep under the split, and a side with no material under
+    it is a corner of the bracket hanging over the head's own opening."""
+    cap = pieces.get("pump-cap")
+    if cap is None:
+        return record_bound(Bound(
+            "cap-laps-bracket", "The cap has material under every pump's bracket", True,
+            "no cap in this box", "material under all four sides of each bracket", []))
+    solid = cap.val() if hasattr(cap, "val") else cap
+    stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
+    split = _enc.cap_split_z(stations)
+    inner = _tray.head_half + _enc.cap_pump_air
+    outer = _tray.bracket_half
+    rows, worst = [], None
+    for cx, cy, _cz in stations:
+        for name, box in (
+                ("+X", (cx + inner, cx + outer, cy - inner, cy + inner)),
+                ("-X", (cx - outer, cx - inner, cy - inner, cy + inner)),
+                ("+Y", (cx - inner, cx + inner, cy + inner, cy + outer)),
+                ("-Y", (cx - inner, cx + inner, cy - outer, cy - inner))):
+            probe = _enc._ybox(box[0], box[1], box[2], box[3], split - _enc.wall, split)
+            vol = solid.intersect(probe).Volume()
+            worst = vol if worst is None else min(worst, vol)
+            rows.append((f"({cx:+.1f}) {name}", vol))
+    bad = [r for r in rows if r[1] <= 0.0]
+    return record_bound(Bound(
+        "cap-laps-bracket", "The cap has material under every pump's bracket", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} sides land, least {worst:.1f} mm³",
+        "material under all four sides of each bracket",
+        [f"{who}: the cap has {vol:.1f} mm³ under this side of the bracket — the lip that "
+         f"carries the pump hangs over the head's own opening here" for who, vol in bad]))
+
+
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
     """Whether every pump is standing in the tray its head's face lies against.
 
@@ -4372,15 +4411,12 @@ def check_chains_seated(chains: dict, foam) -> Bound:
 def check_strap_vocabulary() -> Bound:
     """Whether every module that cuts a strap cavity cuts it for the same strap.
 
-    `enclosure`, `_cold_core_interface` and `pump_tray` each state the fastener their own
-    features read, and the box imports the tray rather than the other way round. This is the
-    module that seats all three, so it is where they are held together."""
+    `enclosure` and `_cold_core_interface` each state the fastener their own features read,
+    and the box imports the core's interface rather than the other way round. This is the
+    module that seats both, so it is where they are held together."""
     pairs = (("width", "_cold_core_interface", _enc.tie_strap_w, _cci.cap_anchor_strap_w),
              ("cavity", "_cold_core_interface", _enc.tie_cav_w, _cci.cap_anchor_cav_w),
-             ("end wall", "_cold_core_interface", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall),
-             # The tray takes the WIDE strap, so it is the box's wide pair this one answers to.
-             ("wide width", "pump_tray", _enc.tie_strap_wide_w, _tray.strap_w),
-             ("wide cavity", "pump_tray", _enc.tie_cav_wide_w, _tray.cav_w))
+             ("end wall", "_cold_core_interface", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall))
     bad = [(what, who, a, b) for what, who, a, b in pairs if abs(a - b) > 1e-9]
     return record_bound(Bound(
         "strap-vocabulary", "Every box cuts its strap cavities for the same strap", not bad,
@@ -5743,6 +5779,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_panels_hold(pieces, a.pack_solids)
     # And each pump against the piece whose plate lies on its head, one storey up from those.
     check_trays_hold(pieces, a.pack_solids)
+    check_cap_laps_bracket(pieces, a.pack_solids)
     # And the floor that whole storey stands on, against the rim it stands on — then each
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
