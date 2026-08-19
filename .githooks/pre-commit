@@ -517,7 +517,24 @@ fi
 # WHAT THIS IS GETS SAID ON THE PATH EVERY COMMIT TAKES. The line below said it only to a
 # commit that broke something, so a run of green ✓ lines from a thing called `pre-commit`
 # read as enforcement to everyone it never stopped — which is everyone.
+#
+# AND WHAT IT IS CARRYING GETS SAID TOO, because in this tree that is not the same as what
+# its author changed. Several sessions work one checkout, and a peer's work reaches a commit
+# by three separate routes: the INDEX carries their staged work into a bare `git commit`; the
+# HOOKS above stage into the temporary index a pathspec commit builds, so a sync's output
+# lands whether or not it was named; and `git commit -- <paths>` takes the WORKING-TREE
+# content of the paths it names, so a peer's unstaged edit to one of those files goes in
+# whole. The third has no fix at the command — git has no notion of whose a hunk is, and a
+# clean `git status` a moment earlier proves nothing. What it has is a reader, so the list
+# goes here where it is seen at commit time rather than in a later `git show --stat`.
 echo "" >&2
+_carrying=$(git -C "$root" diff --cached --name-only | sed 's/^/      /')
+if [ -n "$_carrying" ]; then
+  echo "pre-commit: carrying $(printf '%s\n' "$_carrying" | wc -l | tr -d ' ') path(s):" >&2
+  printf '%s\n' "$_carrying" | head -20 >&2
+  [ "$(printf '%s\n' "$_carrying" | wc -l)" -gt 20 ] && echo "      …" >&2
+  echo "" >&2
+fi
 if [ "$owed" -gt 0 ]; then
   echo "pre-commit: THIS COMMIT IS IN, and it owes a follow-up. $owed check(s) came back red:$owed_names" >&2
   echo "pre-commit: git push." >&2
