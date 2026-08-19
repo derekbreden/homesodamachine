@@ -77,6 +77,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from OCP.BRepExtrema import BRepExtrema_DistShapeShape as _BRepDist
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -1002,6 +1003,14 @@ def _valve_up(placed: dict, name: str) -> tuple:
     return axis, (1.0 if d[axis] > 0.0 else -1.0)
 
 
+def _bodies(placed: dict) -> dict:
+    """`placed` reaches these readers in either of the two shapes the tree hands round —
+    `{name: solid}` from the stand, and the pack's own `{name: (solid, colour)}`. Both mean
+    the same bodies, so take the solid either way rather than making every caller remember
+    which one it is holding."""
+    return {n: (b[0] if isinstance(b, tuple) else b) for n, b in placed.items()}
+
+
 def valve_panel_decks(placed: dict) -> dict:
     """The valves a panel holds, grouped by the plane they stand on.
 
@@ -1011,6 +1020,7 @@ def valve_panel_decks(placed: dict) -> dict:
 
     The cap's three valves are not here: the cold core's lid prints their seats
     (`_cold_core_interface.cap_cradles`), and a body is held once."""
+    placed = _bodies(placed)
     groups = collections.defaultdict(list)
     for name in placed:
         if not name.startswith("valve-v-") or name in _cci.cap_cradles:
@@ -1049,7 +1059,7 @@ def valves_on_anchor_tees(placed: dict) -> set:
     valve whose box begins where an anchor tee's ends, across that tee's own width, is the one
     that travels when the release drags the tee forward. Measured off the placed bodies rather
     than named, so a renumbered pack cannot leave this reading the wrong pair."""
-    boxes = {n: b.BoundingBox() for n, b in placed.items()}
+    boxes = {n: b.BoundingBox() for n, b in _bodies(placed).items()}
     out = set()
     for t in ml.BARB_OF:
         name = ml.body_name(t)
@@ -1493,6 +1503,50 @@ def check_collet_plate(spec, mcarry) -> None:
             f"the steel's fore face stands {air:.2f} mm off the barb plane — the standoff "
             f"is spent before the plate and its rest gap fit in it. Raise "
             f"`BARB_STANDOFF`, or thin the plate"])))
+
+
+EXTRUSION_W = 0.8            # `enclosure-front-top` prints on a 0.8 nozzle (`ledger/machine-time.md`)
+
+
+def check_panel_web(spec) -> Bound:
+    """The wall left between a valve seat's sockets and the port channel that runs past them.
+
+    A WALL THINNER THAN ONE EXTRUSION IS NOT A THIN WALL, IT IS NOTHING. This piece prints on a
+    0.8 nozzle, so a web the model draws at a quarter of that is a web the slicer lays no
+    material in at all: the socket opens into the channel and the post loses its inboard flank
+    over that stretch. The solid says the post is surrounded; the bed says otherwise, and no
+    clash check, no volume and no `post-engagement` reading can tell the difference — they all
+    measure the model, and the model is right.
+
+    THE TWO COME CLOSE BY CONSTRUCTION, so this is worth reading rather than assuming. A
+    socket's inner edge stands `corner_inset - socket_radius` off the plate's centreline and
+    the channel's rest circle stands `port_radius + PORT_SLIP` — a tenth of a millimetre apart
+    if they ever met at the same height. What keeps them apart is height alone: the channel's
+    widest station is above the sockets' mouths. Anything that drags it down into their band
+    spends that tenth, which is why the swept stretch of a travelling deck's channel carries
+    `SWEEP_SLIP` and not `PORT_SLIP`.
+
+    Read off the cutters rather than the piece: they are what the plate is hollowed by, so the
+    distance between them IS the web, and reading it here does not depend on finding the right
+    two faces in a solid that has been through thirty other booleans."""
+    rows, worst = [], None
+    for label, extra, sweep in (("stands ", 0.0, 0.0), ("travels", spec["stroke"], spec["stroke"])):
+        a = _vseat.build_sockets(extra)
+        b = _panel.build_port_channel(_panel.height() + 2.0, sweep)
+        a = a.val() if hasattr(a, "val") else a
+        b = b.val() if hasattr(b, "val") else b
+        d = _BRepDist(a.wrapped, b.wrapped)
+        web = d.Value() if d.IsDone() else 0.0
+        rows.append((label, web))
+        worst = web if worst is None else min(worst, web)
+    bad = [r for r in rows if r[1] < EXTRUSION_W - 1e-9]
+    return record_bound(Bound(
+        "panel-web", "A valve seat's sockets keep a printable wall to the port channel",
+        not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} decks over one extrusion, least {worst:.4f} mm",
+        f"at least one {EXTRUSION_W:g} mm extrusion of wall between socket and channel",
+        [f"{lab}   {w:.4f} mm   {100.0 * w / EXTRUSION_W:.0f}% of an extrusion"
+         for lab, w in rows]))
 
 
 POST_GRIP_FLOOR = 3.0        # of a post inside its plate at rest — see `check_post_engagement`
@@ -6031,6 +6085,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And how much of each valve's post the plate actually surrounds, which is what holds a
     # valve — `panels-hold` reads that one is near its plate and cannot read that.
     check_post_engagement(pieces, a.pack_solids, box.collet_plate)
+    # And whether the wall between a seat's sockets and its port channel is thick enough for
+    # the nozzle to lay anything in — the one reading here the solid itself cannot give.
+    check_panel_web(box.collet_plate)
     check_head_sweep(a.pack_solids, pieces)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
