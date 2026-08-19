@@ -1608,6 +1608,14 @@ LOOSE = {
         "back at the same collet, so the length between that joint and V-B has to give: a rib "
         "strapped across it would be a fixed point the customer works against, and the run would "
         "take the load at the collet instead of along its own length.",
+    "fluid-18":
+        "Nozzle A's line to its rear union. The cold core's side post grips its crossing fore "
+        "of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is "
+        "the fall and the union column's own straight — a column whose overhead is the drip "
+        "tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the "
+        "pump's casting and the moisture plate's lane: nothing printed stands within a rib's "
+        "reach of it. The slack sags toward the cap's open air below, away from every line "
+        "beside it.",
 }
 
 

@@ -143,6 +143,7 @@
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
+    "fluid-18 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
@@ -1260,14 +1261,14 @@
    "id": "tube-anchored",
    "label": "No run goes further than one span with nothing holding it",
    "kind": "goal",
-   "status": "fail",
-   "value": "20/21 within span, 1 left loose",
+   "status": "pass",
+   "value": "20/20 within span, 2 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 444.8 mm unheld, 244.8 over",
     "carb-1: 144.5 mm, held at its anchor",
     "co2-2: 114.2 mm, held at its anchor",
     "fluid-28: 167.2 mm, held at its anchor",
+    "fluid-18: 245.3 mm unheld \u2014 left loose; Nozzle A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the drip tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
     "fluid-4: 290.1 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false

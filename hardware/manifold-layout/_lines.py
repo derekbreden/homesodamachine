@@ -955,6 +955,19 @@ GATE_LANE_Y = 175.0
 def _gate_a_deck_y(solids) -> float:
     """Where the east line comes about to cross — the last station forward of the pump's face."""
     return solids["seaflo-pump"].BoundingBox().ymin - _split.TUBE_D / 2.0 - LANE_CLEAR
+
+
+def _gate_a_lane_y(solids) -> float:
+    """Where the slant off the gate lands on the crown lane — fore of V-K, whose block takes
+    the lane's east flank from its own front face aft."""
+    return solids["vk-solenoid"].BoundingBox().ymin - _split.TUBE_D / 2.0 - LANE_CLEAR
+
+
+def _gate_a_desc_y(solids) -> float:
+    """Where the crown lane starts down — aft of `fluid-14`'s fall, which owns the lane's low
+    room fore of this, one section and an air off its own last corner."""
+    return (_fill_a_lane_y(solids) + FILL_A_LANE_RUN + FILL_A_FALL_RUN
+            + _split.TUBE_D / 2.0 + 1.0)
 # EAST the line has the machine to cross, because its union stands in the WEST pair — and it
 # takes ONE STOREY from the bay it climbs out of to the column it falls down: the strip that
 # carries it aft over the core's crown and the strip that carries it west are one daylight, so
@@ -973,6 +986,12 @@ def _gate_a_deck_y(solids) -> float:
 # the core's front and falls onto the cap behind it, so the tallest of it stands a full section
 # below, and the crown lane passes over it the whole way aft.
 GATE_A_CROSS_Z = 299.2
+# WHAT HOLDS THE LINE is the cold core's side post, standing the full storey off its lid to
+# grip the crossing fore of the pump (`_cold_core_interface.cap_side_anchors["fluid-18"]`).
+# The fall and the union column's straight run loose past it (`_scorecard.LOOSE`): that
+# column's overhead is the tray's sleeve, the flow meter and the meter's own down-line, and
+# its flanks are the pump's casting and the moisture plate's lane — nothing printed stands
+# within a rib's reach of it.
 # Where the line has come down onto its union's own storey: forward of the drip tray, whose
 # channel takes that column from y 346 aft.
 GATE_A_FALL_Y = 340.0
@@ -1063,6 +1082,10 @@ def _fluid_18(F, solids):
     across the core's front and falls onto the cap behind it, so the tallest of it stands a
     section and more below this run, and the two share the column with a storey between them.
 
+    THE SIDE POST HOLDS IT. The cold core stands a post the whole storey off its lid and
+    grips the crossing fore of the pump (`_cold_core_interface.cap_side_anchors["fluid-18"]`);
+    the fall and the union column's straight run loose past it (`_scorecard.LOOSE`).
+
     IT CROSSES FORE OF THE PUMP AND FALLS BEHIND IT — west onto its union's column, and then down
     that column to the union's storey, forward of the drip tray, which takes the same column from
     its own front rim aft."""
@@ -1075,13 +1098,13 @@ def _fluid_18(F, solids):
         (gate[0], gate[1], GATE_A_CROSS_Z),               # up the bay nothing fences, to the storey
         (lane_x, GATE_LANE_Y, GATE_A_CROSS_Z),            # one diagonal west and aft onto the crown lane
         (lane_x, deck_y, GATE_A_CROSS_Z),                 # aft over `fluid-14`, under the bowl
-        (tin[0], deck_y, GATE_A_CROSS_Z),                 # west across the machine, fore of the pump
+        (tin[0], deck_y, GATE_A_CROSS_Z),                 # west across the machine, fore of the pump — through the side post
         (tin[0], GATE_A_FALL_Y, tin[2]),                  # down the column onto the union's storey
         "bulkhead-flavor-a.tube-in",                      # and straight aft into the collet
         kind="fluid", bend=TUBE_BEND,
         note="nozzle A: V-G-O → rear union, up the gate's own bay onto the crown lane over "
-             "`fluid-14`, and west across the machine fore of the pump on that same storey and "
-             "down its union's own column")
+             "`fluid-14`, and west across the machine fore of the pump on that same storey — "
+             "through the cold core's side post — and down its union's own column")
 
 
 # --- the four reservoir lines, gate to vessel and vessel to gate --------------
