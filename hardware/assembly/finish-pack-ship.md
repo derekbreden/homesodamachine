@@ -35,11 +35,11 @@ Tooling (per-appliance-amortized only — single-asset tools live in [`/hardware
 
 ### 1. Cosmetic wipe-down + final visual inspection
 
-Take the appliance fresh off the [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) bench. Wipe every exposed surface with the microfiber + isopropyl: the rear wall and its inlets, the Zone C top door + its surround, condenser intake/exhaust grilles, both side faces, the front face, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift out the dishwasher-safe silicone funnel, wipe it down separately, and seat it back in after the unit is dry. The unit has been on the burn-in bench for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
+Take the appliance fresh off the [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) bench. Wipe every exposed surface with the microfiber + isopropyl: the rear wall and its inlets, the funnel's brim and the top wall around it, condenser intake/exhaust grilles, both side faces, the front face and the cartridge's own span of it, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift out the dishwasher-safe silicone funnel, wipe it down separately, and seat it back in after the unit is dry. The unit has been on the burn-in bench for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
 
 Inspect every exposed surface against the following pass criteria:
 
-- Every visible printed surface clean of layer-line debris and stringing — particular attention to the Zone C top door and the rear wall's cutouts where small printed features land near user sightlines.
+- Every visible printed surface clean of layer-line debris and stringing — particular attention to the hopper opening's collar seat, the pump cartridge's face and the bay jambs either side of it, and the rear wall's cutouts, where small printed features land near user sightlines.
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any wall cutout. Every cutout on the wall is a fitting's own
   flange or housing — the machine carries no cable gland.

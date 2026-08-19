@@ -60,12 +60,19 @@ PARTS = {
     "Flavor reservoir body — right": ["cold-core/reservoir/reservoir-right.step"],
     "Flavor reservoir cap — left": ["cold-core/reservoir/reservoir-cap-left.step"],
     "Flavor reservoir cap — right": ["cold-core/reservoir/reservoir-cap-right.step"],
-    "Enclosure — front bottom + front top (two pieces)": [
+    "Enclosure — front bottom + front top (two quadrants)": [
         "enclosure/enclosure/enclosure-front-bottom.step",
         "enclosure/enclosure/enclosure-front-top.step",
     ],
+    # THE FIFTH PIECE OF THE BOX, and the one that leaves it loaded: the front wall's flat
+    # span, the deck behind it and both pump trays come off the plate as one solid
+    # (`enclosure.build_cartridge`). A tray is that solid's own material, so nothing stands
+    # under a pump that ships on its own — the same bargain the valve panels make below.
+    "Enclosure — pump cartridge": [
+        "enclosure/enclosure/enclosure-pump-cartridge.step",
+    ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
-    "Enclosure — back bottom + back top (two pieces)": [
+    "Enclosure — back bottom + back top (two quadrants)": [
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
