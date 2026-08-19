@@ -137,10 +137,12 @@ for name, mk, bk in CROSS:
 # power supply. Matched against the part NAME.
 #   A DIN 912 cap screw is on this list because a fastener row is named for the
 # body it fastens, so the pump's bracket screws read as a pump to `ELECTRICAL`.
-# Hardware carries no signal. The pump cartridge is the same reading of the same
-# rule: a printed piece is named for what it carries, and the piece that carries
-# both Kamoers out of the box is a wall, not a load.
-NO_PIN = r"ESP32-WROOM|MCP23017|DS3231|Mean Well|DIN 912|pump cartridge"
+# Hardware carries no signal. The pump cartridge and the display cover plate are
+# the same reading of the same rule: a printed piece is named for what it carries,
+# and neither the wall that takes both Kamoers out of the box nor the border that
+# holds the glass in its facet is a load. The display itself is on the CROSS table.
+NO_PIN = (r"ESP32-WROOM|MCP23017|DS3231|Mean Well|DIN 912"
+          r"|pump cartridge|Display cover plate")
 
 # Enforce the piezo failure mode away: every BOM line whose PART NAME looks like a
 # controller-facing electrical part must be covered by a CROSS bom-marker or the
