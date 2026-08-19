@@ -943,7 +943,7 @@
    "active": true
   },
   {
-   "id": "cap-laps-bracket",
+   "id": "pump-cap-laps-bracket",
    "label": "The cap has material under every pump's bracket",
    "kind": "gate",
    "status": "pass",
@@ -973,12 +973,12 @@
    "active": true
   },
   {
-   "id": "pads-stop-on-plate",
+   "id": "pump-cap-stops-on-plate",
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
    "value": "6440.2 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
-   "target": "the cap's face on the plate's and `pad_kiss` 0.1 mm of air at it",
+   "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
   },

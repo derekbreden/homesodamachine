@@ -1194,7 +1194,7 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
     cap = pieces.get("pump-cap")
     if cap is None:
         return record_bound(Bound(
-            "cap-laps-bracket", "The cap has material under every pump's bracket", True,
+            "pump-cap-laps-bracket", "The cap has material under every pump's bracket", True,
             "no cap in this box", "material under all four sides of each bracket", []))
     solid = cap.val() if hasattr(cap, "val") else cap
     stations = tuple(c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items()))
@@ -1214,7 +1214,7 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
             rows.append((f"({cx:+.1f}) {name}", vol))
     bad = [r for r in rows if r[1] <= 0.0]
     return record_bound(Bound(
-        "cap-laps-bracket", "The cap has material under every pump's bracket", not bad,
+        "pump-cap-laps-bracket", "The cap has material under every pump's bracket", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} sides land, least {worst:.1f} mm³",
         "material under all four sides of each bracket",
         [f"{who}: the cap has {vol:.1f} mm³ under this side of the bracket — the lip that "
@@ -1425,29 +1425,29 @@ def check_bay_floor(pieces, shell) -> Bound:
             f"over. The floor runs {z_bed:g} to {top:g}"])))
 
 
-def check_stop_pads(pieces, spec) -> Bound:
+def check_cap_stop(pieces, spec) -> Bound:
     """Whether the cap's aft face actually lands on the collet plate's fore face.
 
     A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The cap is the piece whose
     storey stands against the steel, and the face it presents is the whole of the stop, so
     this reads both halves of that: the AREA standing against the plate's own band one
-    `pad_kiss` off its fore face, and that the kiss itself is air — a face through the steel
+    `cap_kiss` off its fore face, and that the kiss itself is air — a face through the steel
     is no better than one that misses it."""
     cart = pieces["pump-cap"]
     cart = cart.val() if hasattr(cart, "val") else cart
     probe = 0.4
     band = (spec["x0"], spec["x1"], spec["z0"], spec["z1"])
-    land = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.pad_kiss - probe,
-                      spec["fore_y"] - _enc.pad_kiss, band[2], band[3])
-    kiss = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.pad_kiss,
+    land = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.cap_kiss - probe,
+                      spec["fore_y"] - _enc.cap_kiss, band[2], band[3])
+    kiss = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.cap_kiss,
                       spec["fore_y"], band[2], band[3])
     area = land.intersect(cart).Volume() / probe
     bite = kiss.intersect(cart).Volume()
     ok = area > 1e-6 and bite <= 1e-6
     return record_bound(Bound(
-        "pads-stop-on-plate", "The cap's aft face lands on the collet plate", ok,
+        "pump-cap-stops-on-plate", "The cap's aft face lands on the collet plate", ok,
         f"{area:.1f} mm² on the steel, {bite:.3f} mm³ inside the kiss",
-        f"the cap's face on the plate's and `pad_kiss` {_enc.pad_kiss:g} mm of air at it",
+        f"the cap's face on the plate's and `cap_kiss` {_enc.cap_kiss:g} mm of air at it",
         ([] if ok else
          ([f"no pad stands against the plate's band z {spec['z0']:g}..{spec['z1']:g} — the "
            f"cartridge has no aft stop against the steel and nothing but the anchor tees "
@@ -5751,7 +5751,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_head_sweep(a.pack_solids, pieces)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
-    check_stop_pads(pieces, box.collet_plate)
+    check_cap_stop(pieces, box.collet_plate)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)
