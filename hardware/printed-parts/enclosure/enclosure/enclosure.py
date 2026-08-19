@@ -268,6 +268,14 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a so
 # and `ridge-carried` is the reading. Its section is the thickness of a rib and nothing more:
 # what it carries is one bead's start, not a load.
 ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
+# THE RIB RUNS WALL TO WALL, so the loom that crosses it is bored through it. SIG-7 is the
+# config display's own run — four 22 AWG in the 1/2" PET expandable braid `ledger/bom.md` §11
+# buys (`assembly/cable-assemblies.md`) — and a braid of that kind is BOUGHT by its nominal and
+# PASSES at what it opens to. The bore takes the opened figure, which is the braid's own ceiling,
+# so a loom never has to be squeezed through one. Nothing here is a fit: the bore locates
+# nothing, carries nothing, and the loom is dressed after it is through.
+cable_sleeve_nom = 12.7          # 1/2" PET expandable braid, SIG-7's own
+cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling — [19.05 mm](CABLE_BORE)
 # The cover plate and the two screws through it — the same DIN 912 M3 cap screw every seam in
 # this machine takes, in the same ⌀`head_cbore_dia` flat-bottomed counterbore, landing
 # `display_cover_seat_recess` under the 45° face so the plane closes over it.
@@ -3129,9 +3137,9 @@ def _tee_wall(inner, y_joint, plate, bay):
     return slab
 
 
-def _ridge_wall(outer, plate, bay):
+def _ridge_wall(inner, outer, plate, bay):
     """THE RIB THAT CARRIES THE RIDGE: front-top's own section from the tee wall's crown up to
-    the display housing's back, standing under `pcb_ridge` for the through-hole's whole width.
+    the display housing's back, wall to wall, standing under `pcb_ridge` over the whole of it.
 
     WHAT IT CARRIES IS A STARTING LINE. Both faces meeting at that ridge point down, so the
     first bead laid along it is laid on air — 106 mm of it, in a cavity that closes before the
@@ -3150,30 +3158,57 @@ def _ridge_wall(outer, plate, bay):
     struck on that plane rather than into it, so the rib and the housing meet on one figure.
     The jog is what keeps it off the funnel: a rib of this section run straight up would stand
     in the hopper's throat, and one slanted straight from crown to ridge would run into the
-    display's own body where it stands proud of the slab."""
+    display's own body where it stands proud of the slab.
+
+    IT RUNS WALL TO WALL AND NOT THE RIDGE'S OWN LENGTH. What it carries is `display_pcb_x` of
+    line, but a rib ending in free air at each end of that line would stand on the tee wall's
+    crown with two free ends and nothing at its own; run out to the flanks it lands in the side
+    walls and the storey over the bay is closed rather than partly closed. THAT CLOSING IS THE
+    COST: this is now the only section between the bay's storey and the cavity aft of it, so
+    anything crossing crosses through it.
+
+    ONE THING DOES. The bore is the config display's loom (`cable_sleeve_open`), teardropped
+    (`_teardrop_y`) for the reason a tee's bore is: the rib beds on Z and a bore on Y lies
+    horizontal in it.
+    It stands at the middle of the rib's own straight run, on the box's centreline, which is
+    where the display's back is and where the loom leaves it: read, not chosen. The straight run
+    is where it goes because the run has two parallel faces to bore between, and the ramp above
+    it is what the ridge stands on — the bore is not allowed near that, and `ridge-carried` is
+    what says so."""
     ry, rz = pcb_ridge(outer)
     fore, foot, t = plate["aft_y"], bay[2], ridge_wall_t
     ramp, back = ry + rz, rz - ry     # the hole's end wall, y + z; the slab's back, z - y
     d = t * math.sqrt(2.0)            # that ramp offset one thickness, along Y
-    return _yz_prism(
-        display_centre_x(outer) + display_body_offset_x - display_pcb_x / 2.0,
-        display_centre_x(outer) + display_body_offset_x + display_pcb_x / 2.0,
+    jog = ramp - fore                 # where the fore face leaves the bay's plane for the ramp
+    slab = _yz_prism(
+        inner[0], inner[1],
         [(fore, foot),                                          # the bay's back, on the crown
-         (fore, ramp - fore),                                   # where it meets the end wall
+         (fore, jog),                                           # where it meets the end wall
          (ry, rz),                                              # the ridge
          ((ramp + d - back) / 2.0, (ramp + d + back) / 2.0),    # the top face's aft end
          (fore + t, ramp + d - (fore + t)),                     # the aft face's own jog
          (fore + t, foot)])
+    return slab.cut(_teardrop_y(cable_sleeve_open / 2.0, display_centre_x(outer),
+                                (foot + jog) / 2.0, fore - 1.0, fore + t + 1.0))
+
+
+def _teardrop_y(r, x, z, y0, y1):
+    """The cutter for a bore on Y, TEARDROPPED — a horizontal hole in a piece bedded on Z.
+
+    A ROUND HOLE ON A HORIZONTAL AXIS HAS NO TOP. Its crown is where the arc turns over, and
+    the layer that closes it is laid across the chord beneath with nothing under it. The roof
+    is two 45 degree planes standing on the bore's own tangent points and meeting over its
+    axis: 45 degrees is the steepest the arc itself reaches before it turns over, so the planes
+    take the hole from exactly where it stops being printable, and nothing over it is laid on
+    air. The three lower quarters — which is what a bore bears on — are untouched."""
+    t = r / math.sqrt(2.0)
+    return _ycyl(r, x, z, y0, y1).fuse(
+        _xz_prism(y0, y1, [(x - t, z + t), (x + t, z + t), (x, z + r * math.sqrt(2.0))]))
 
 
 def _tee_bore(plate, hx, hz):
-    """One tee's bore through that wall, TEARDROPPED.
-
-    The piece prints bedded on the seam plane, so a bore on Y lies horizontal and its crown is
-    the one overhang this wall could carry. The roof is two 45 degree planes standing on the
-    bore's own tangent points: 45 degrees is the steepest the arc itself reaches before it
-    turns over, so the planes take the hole from exactly where it stops being printable and
-    nothing over it is laid on air. The three lower quarters the collar bears on are untouched.
+    """One tee's bore through that wall, teardropped (`_teardrop_y`) because this piece beds on
+    the seam plane and a bore on Y lies horizontal in it.
 
     AND IT STEPS. Fore of `collar_in_y` it is bored for the COLLAR, which is what it journals;
     aft of that station for the ARM alone, which is narrower. The collar cannot pass into the
@@ -3184,10 +3219,7 @@ def _tee_bore(plate, hx, hz):
     cut = None
     for r, a, b in ((plate["bore_r"], y0, plate["collar_in_y"]),
                     (plate["arm_bore_r"], plate["collar_in_y"], y1)):
-        t = r / math.sqrt(2.0)
-        part = _ycyl(r, hx, hz, a, b).fuse(
-            _xz_prism(a, b, [(hx - t, hz + t), (hx + t, hz + t),
-                             (hx, hz + r * math.sqrt(2.0))]))
+        part = _teardrop_y(r, hx, hz, a, b)
         cut = part if cut is None else cut.fuse(part)
     return cut
 
@@ -3217,8 +3249,18 @@ def build_cartridge(box, halves_cache=None):
     WHAT STOPS IT ON THE STEEL IS THE CAP'S OWN AFT FACE, one storey down — this piece owns
     no feature below `cap_split_z`. Printed face-down: the outer skin is the bed, the block
     stands off it, and every pocket rises as a plateau's absence with nothing hanging."""
-    inner, plate = box.inner, box.collet_plate
+    inner, outer, plate = box.inner, box.outer, box.collet_plate
     solid = _cartridge_gross(box, halves_cache).cut(_cap_room(box))
+    # ITS BOTTOM IS ONE PLANE, AND THAT PLANE IS THE FACE'S OWN SILL REVEAL. Where no head
+    # noses in, the front wall's section runs back to `front_plane_y`, and that section is
+    # still the face — but the fill under the split carried it down onto the bay floor while
+    # the face beside it stood one `face_reveal` up, so the piece's underside stepped and a
+    # riser of exactly `face_reveal` ran along every band to carry the step. What rides the
+    # floor is the cap; nothing of this piece reaches below the reveal that keeps its face
+    # off the sill.
+    floor_top = bay_floor_z(box.pump_trays)[1]
+    solid = solid.cut(_ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
+                            outer[4] - 1.0, floor_top + face_reveal))
     for bore in _cap_screws(inner, plate, box.pump_trays)[1]:
         solid = solid.cut(bore)
     return _unified(solid)
@@ -3266,8 +3308,9 @@ def _cartridge_gross(box, halves_cache=None):
     floor_top = bay_floor_z(box.pump_trays)[1]
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
     # front wall presents wherever a head noses into it, and the surface the face carries
-    # across the whole of both pockets. Under the split it stands off the bay floor on the
-    # face's own `face_reveal`: what carries this piece is the bay floor it rides.
+    # across the whole of both pockets. Under the split it beds on the bay floor's own top,
+    # because the piece that comes out of it there is the cap and the cap is what rides
+    # that plane; `build_cartridge` takes its own share back to the face's sill reveal.
     solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split,
                              top - face_reveal))
     solid = solid.fuse(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
@@ -4546,7 +4589,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # And the rib that stands on that wall's crown, carrying the ridge the display's
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
-        piece = piece.fuse(_ridge_wall(outer, box.collet_plate, box.pump_bay))
+        piece = piece.fuse(_ridge_wall(inner, outer, box.collet_plate, box.pump_bay))
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
     # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
@@ -4818,6 +4861,7 @@ def main():
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
+        "CABLE_BORE": f"{cable_sleeve_open:.4g} mm",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
