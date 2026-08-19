@@ -3173,8 +3173,8 @@ def _would_land_on(b, placed):
 # The zip tie's own stock, and the room it needs to lie in. Two of them shut the mouth of the
 # trough the chain lies in (`asse_cradle`), and a tie is a closed loop: the strap has to cross
 # the chain's top flat, which is the highest thing on this storey. The strap is THREADED through
-# the trough's bore and then LAID across this channel — the piece prints ceiling-down and is
-# populated the same way up, so the strap lies on the ceiling's inner face and the chain comes
+# the trough's bore and then LAID across this channel — the piece is populated INVERTED on the
+# bench, ceiling down, so the strap lies on the ceiling's inner face and the chain comes
 # down onto it. Nothing is pulled through here, which is why the room is a clearance and not a
 # working reach.
 ASSE_TIE_T = 1.0
