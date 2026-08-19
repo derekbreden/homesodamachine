@@ -2627,7 +2627,11 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     bx0, bx1 = sorted((x_in, x_tip))
     chan = _ybox(bx0, bx1, ys - socket_bore_dia / 2.0, ys + socket_bore_dia / 2.0,
                  bore_z, zj + lip_len + 1.0)
-    return bore.fuse(heat).fuse(chan)
+    # THE CHANNEL STANDS ON THE BORE'S OWN AXIS and carries its width, so the bore's upper
+    # half lies wholly inside it. Unified, or the arc between the two survives as a seam
+    # across one plane and the cut imprints it on the piece as two coplanar faces.
+    cut = bore.fuse(heat).fuse(chan)
+    return cut.clean() if hasattr(cut, "clean") else cut
 
 
 # --- the four-corner screw: the Y-boss idiom with the seam plane through it --
@@ -2947,14 +2951,25 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     A CHANNEL DOWN EACH SIDE PASSES THE Z SEAM (`_z_seam_berth`), whose lip stands proud of
     this floor's top and reaches the rim, and whose front collars stand proud of that. What
     the channel costs is `wall` of floor at each flank and one pocket per collar; what it
-    keeps is a seam that runs the side walls whole."""
+    keeps is a seam that runs the side walls whole.
+
+    OUTBOARD OF THE BAY IT STANDS TO THE RIM. The cartridge sweeps the span between the
+    posts and nothing else does, so either side of that span the floor carries on up to the
+    Z-seam rim — which is the flank opening's own floor (`_flank_opening`). The opening then
+    reads as one ledge from the exterior in to the bay's edge instead of the wall's own
+    section and a drop behind it."""
     z0, z1 = bay_floor_z(pump_trays)
+    rim = z_seam + lip_len
+    bx0, bx1 = bay_x_span(inner)
     slab = _ybox(inner[0], inner[1], front_plane_y,
                  plate["aft_y"] + plate_slot_slip + wall, z0, z1)
+    for x_in, edge in ((inner[0], bx0), (inner[1], bx1)):
+        slab = slab.fuse(_ybox(min(x_in, edge), max(x_in, edge), front_plane_y,
+                               plate["aft_y"] + plate_slot_slip + wall, z1, rim))
     slab = slab.cut(_z_seam_berth(inner, y_joint))
     return slab.cut(_ybox(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
                           plate["fore_y"] - plate_slot_slip,
-                          plate["aft_y"] + plate_slot_slip, plate["z0"], z1 + 1.0))
+                          plate["aft_y"] + plate_slot_slip, plate["z0"], rim + 1.0))
 
 
 def build_cartridge(box, halves_cache=None):
