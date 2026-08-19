@@ -3034,8 +3034,14 @@ def _tee_wall(inner, y_joint, plate, bay):
     ITS FORE FACE IS THE STEEL'S AFT FACE, struck once as one figure
     (`enclosure_assembly.collet_plate_spec`). The plate drops down in front of it, so every
     bore is stopped at its fore mouth by steel and the collet nose that lands there lands on
-    steel and not on plastic. Its aft face is the arm's own root, where the tee stops being
-    round and the run body begins — the whole of the arm and no more.
+    steel and not on plastic.
+
+    ITS AFT FACE STOPS SHORT OF THE TEE, ON PURPOSE. A tee travels WITHIN this wall, and the
+    wall is not allowed to be what ends that travel: the face stands one whole stroke plus
+    `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still air
+    between the two. Depth past that plane is not the wall's to take — it is the tee's, and a
+    wall standing in it lands the tee's shoulder before the grip has opened. What the wall
+    holds is the collar, across the bore; what stops the tee is the steel, and nothing else.
 
     AND IT IS THE BAY'S BACK. Over the plate's own band the steel closes the bay; above and
     below it nothing does, and the berth the cartridge leaves looks into the cavity. This
