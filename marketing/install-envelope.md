@@ -54,6 +54,12 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/port-ring/`).
 - **300 mm of pull-forward** — the umbilical's service loop, sized to bring the rear wall to
   the cabinet face so its own connections can be reached.
+- **[70.54 mm](CART_DRAW) of draw at the FRONT face** — the pump cartridge comes straight
+  out of the bay with both peristaltic pumps and their tubing aboard, and that figure is its
+  own depth, exterior face to the aft face that stops on the collet plate. A hand on the
+  face and somewhere to set it down are on top of it. This is the one service access that
+  faces the room rather than a wall
+  ([`service/pump-replacement.md`](/hardware/service/pump-replacement.md)).
 - **A gap at each side face** — the condenser draws through the grille on one side and
   exhausts through the other.
 - **Headroom over the top wall** — the flavor funnel is filled by inverting a 440 mL
