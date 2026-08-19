@@ -22,7 +22,7 @@ bottom:
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [21 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [21.31 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
@@ -34,9 +34,10 @@ bottom:
   rectangular collar seats either way). The whole floor is the ramp — every
   surface of it falls toward the spout, no flat anywhere, so the basin drains
   dry. One rise serves every run, so the grade is struck on the long X half-run
-  and every other line on the floor lands steeper. A straight spout tube carries the exit down to the drain, which sits
-  **above** V-B's up-facing inlet collet — `fluid-4` is the gravity drain and the
-  air-purge path, so the tube from drain to V-B must only fall. The pack is
+  and every other line on the floor lands steeper. A straight spout tube carries the exit down to the drain, and the
+  elbow under it turns the fall aft one leg lower — which still stands
+  **above** V-B's inlet collet, since `fluid-4` is the gravity drain and the
+  air-purge path and the run from that mouth to V-B must only fall. The pack is
   measured on the real solids by the enclosure-assembly scorecard. Total drop
   [53 mm](HOPPER_DROP) below the brim.
 - **The clamp land.** That spout tube is [12 mm](HOPPER_LAND) of straight round,
@@ -48,7 +49,7 @@ bottom:
   grips tube and this spout is silicone. Every millimetre of this land lowers the
   drain exactly as a millimetre of chute does, so the two come out of one budget.
 
-Capacity to the brim is [658 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [662 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's
@@ -57,20 +58,22 @@ accommodates it — funnel and hole cannot drift apart.
 
 ## Lifting it out
 
-The basin is captive until its collet lets go. `fluid-4` starts at a JG PP0408W
-union coaxial under the spout
-([`reference/jg-pp0408w`](/hardware/reference/jg-pp0408w/)), and that union's
-upper collet holds the drain stub. Releasing it is a push on the sleeve's own
-annular face — Ø9.57 outside, 1.44 mm of wall, 1.34 mm of travel — and the push
-has to land **square**: a collet grips by wedging its teeth against the tube, so
-a sleeve pressed on one side bites harder rather than letting go. That face
-stands below the top wall at the foot of the [53 mm](HOPPER_DROP) drop, and it
-carries concentrate.
+The basin is captive until its collet lets go. `fluid-4` starts at a JG PP0308E
+union ELBOW under the spout
+([`reference/elbow-connector`](/hardware/reference/elbow-connector/README.md)):
+its +Z leg stands coaxial with the spout and holds the drain stub, its +Y leg
+hands the run aft. Turning the fall inside the fitting is what keeps the joint
+out of the folded deck's own storey, where the anchor tees' barrels crown one
+storey under the top wall. Releasing it is a push on the sleeve's own annular
+face, and the push has to land **square**: a collet
+grips by wedging its teeth against the tube, so a sleeve pressed on one side
+bites harder rather than letting go. That face stands below the top wall at the
+foot of the [53 mm](HOPPER_DROP) drop, and it carries concentrate.
 
 **The user releases it with the 1/4" jaw of a JG collet quick-connect tool.**
 The jaw drops over the stub and bears on the whole annulus at once, so the push
-is square by construction — which a thumb on a 1.44 mm land, reached blind and
-sticky, is not. The basin then lifts away with its stub and clamp still on it,
+is square by construction — which a thumb on a millimetre and a half of land,
+reached blind and sticky, is not. The basin then lifts away with its stub and clamp still on it,
 and `fluid-4` stays on the machine.
 
 ## Regenerate

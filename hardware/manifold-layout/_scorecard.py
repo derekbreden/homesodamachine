@@ -493,7 +493,7 @@ NEVER = {
     # a feature the customer has to work past every time the basin is washed.
     "hopper-funnel":
         "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, "
-        "and the union's collet grips the stub the spout carries — so the basin is held down by "
+        "and the elbow's own collet grips the stub the spout carries — so the basin is held down by "
         "the joint it releases from. It is a dishwasher part and comes out by hand.",
     "hopper-drain-stub":
         "The worm clamp closes the basin's silicone spout onto it over the whole of the spout's "
@@ -503,8 +503,8 @@ NEVER = {
         "A worm clamp closes on itself — the band draws through its own housing and the housing "
         "rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "hopper-drain-union":
-        "Both its collets land on held bodies — the upper takes the stub the basin carries, the "
-        "lower starts `fluid-4` down to V-B in its cradle on the cold core's cap — so the barrel "
+        "Both its collets land on held bodies — the +Z leg takes the stub the basin carries, the "
+        "+Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap — so the elbow "
         "hangs between two seats with nothing printed closing on it. It is the joint the customer "
         "opens, and a thumb on that collet is the whole of the motion.",
     # THE CHECK IN THE GAS CHAIN, the middle body of three standing on one axis at one height.
@@ -638,7 +638,7 @@ MADE_UP = (
     # brings the two faces together. The tube is cut to the two grips and swallowed whole by them,
     # which is why there is no `water-4` either.
     ("vk-solenoid.outlet", "suction-chain.tube-port"),
-    # The basin's stub and the union's upper collet. The stub IS the tube in that grip — it runs
+    # The basin's stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
     # `hopper_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
     # filled by the thing it is a grip on.
     ("hopper-drain-stub.spout", "hopper-drain-union.stub"),
@@ -646,7 +646,7 @@ MADE_UP = (
     # bore under the clamp's band. The basin drains THROUGH the stub, so the drain's lead is the
     # stub's own bore and there is no length of anything else to leave room for.
     ("hopper-funnel.drain", "hopper-drain-stub.funnel"),
-    # The spout's exit face and the union's upper collet face, which meet. That contact is what
+    # The spout's exit face and the elbow's +Z collet face, which meet. That contact is what
     # leaves no stub standing in the room between the silicone and the fitting.
     ("hopper-funnel.drain", "hopper-drain-union.stub"),
 )
