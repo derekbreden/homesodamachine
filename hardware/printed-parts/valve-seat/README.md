@@ -4,8 +4,8 @@
 
 How this machine holds a Beduan solenoid on a printed face: one blind socket under each of the
 valve's four corner posts, the post pressed into it. The posts in their sockets are the whole of
-the retention — no screw, no insert, nothing bonded — and the valve's round body boss lands on
-whatever the sockets open in, which is what sets its height.
+the retention — no screw, no insert, nothing bonded. The valve's round body boss lands on
+whatever the sockets open in, and on every seat but one that is what sets its height.
 
     tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py
 
@@ -14,7 +14,11 @@ valve, and **the face decides which of two forms it takes**:
 
 - **Sunk** — `build_sockets()` hands back the four holes for a face to CUT. A boss is material
   round a socket, and a face [7](SOCKET_DEPTH) mm deep plus a wall behind is that material
-  already. The valve lands on the face itself. The two valve panels take this form.
+  already. The valve lands on the face itself. Both valve panels take this form, and on one of
+  them the face stands a release stroke back from where a seated valve's boss lands, so those
+  four valves are located by the fittings they butt and reach the face only at full release
+  ([`../enclosure/valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)).
+  `build_sockets(extra)` is what sinks their floors to suit.
 - **Stood** — `build_seat(seat)` hands back the four bosses for a face to FUSE, for a face
   thinner than a socket is deep. The valve lands on the four boss tops. The cold core's cap
   lid takes this form.
