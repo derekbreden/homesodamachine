@@ -200,6 +200,31 @@ SCENES = (
              "front bay takes the cartridge both pumps ride, and each is filled with the box "
              "standing.",
     ),
+    # THE UNIT THAT FILLS THAT BAY, and the one scene here rooted on TWO printed pieces of one
+    # block: the cartridge over the pump's own bracket plane and the cap under it. Nothing in
+    # the tables holds the cap — its two screws draw it up onto the block it was cut from — so
+    # it stands beside the cartridge as a root rather than as something the cartridge carries.
+    #
+    # A QUARTER TURN, NOT A HALF. Face-down is the pose this piece prints in and the pose it is
+    # worked in, and a turn about X is what lays that face on the bench: the block's ceiling
+    # comes round to the room, both pumps' axes lie across the bench, and the four barb stubs
+    # stand straight up off the aft edge. A half turn would lay it on its ceiling instead.
+    Scene(
+        "pump-cartridge", "Pump cartridge",
+        roots=("enclosure-pump-cartridge", "enclosure-pump-cap"), inner=(),
+        flip=((1, 0, 0), 90.0), also=(), later=(),
+        # Over the ceiling, which is the side both pumps show through — a can standing in its
+        # bore is the whole of "that pump is in". Swung onto the +X flank far enough to open
+        # the return, and lifted enough to carry the aft edge and its four stubs in one frame.
+        cam=(0.9, -0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
+        note="Face-down, the pose it prints in and the pose it is worked in: the outer skin on "
+             "the bench, the block standing off it, and the four barb stubs up off the aft edge "
+             "where a hand pushes them on. Both motor cans open through the ceiling, which is "
+             "the face turned to the room; the cap is the far half and the split runs round the "
+             "block on the pump's own bracket plane. Nothing on this unit is screwed to the box "
+             "— those four stubs, gripped in the anchor tees, are the whole of what holds it "
+             "in.",
+    ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve body and
     # the pump's can read as things standing up off the plate rather than as outlines. `up` is
@@ -475,13 +500,14 @@ BEARS_ON = {
 def holders():
     """`name -> the part that holds it`, off the machine's own tables.
 
-    Four sources, in the order a later one may correct an earlier: the fastening table, the two
-    box anchor tables, and the cap's. A body named twice is named with the same parent by each —
-    the regulator lies in a rib off the wall that also carries its row — so the merge is a
-    reading and not a choice."""
+    Five sources, in the order a later one may correct an earlier: the fastening table, the two
+    box anchor tables, the cap's, and the pack's own barb runs. A body named twice is named with
+    the same parent by each — the regulator lies in a rib off the wall that also carries its row
+    — so the merge is a reading and not a choice."""
     import _scorecard as _sc
     import enclosure_assembly as _ea
     import _cold_core_interface as _cci
+    import manifold_layout as _ml
 
     out, orphans = {}, []
     for name, by, joint in _sc.mounts():
@@ -504,6 +530,16 @@ def holders():
     for name, station in _cci.cap_anchors.items():
         # A run's rib holds the tube; a chain's holds the chain itself.
         out[f"tube-{name}" if station.over_face is not None else name] = "foam-assembly"
+    # A TUBE PUSHED OVER A BARB GOES ON WITH THE PUMP AND COMES OFF WITH IT, and no table above
+    # holds one: `manifold_layout` draws these four inside the pack, one per anchor tee, from the
+    # barb's own collet plane to the tee's branch. `BARB_OF` names the pump each stands on. A
+    # stub is made up on the cartridge's own bench, threads the collet plate's hole as the
+    # cartridge goes home, and is drawn back out of the tee when the cartridge is pulled — so it
+    # stands on the head whose barb grips it and goes wherever that head goes.
+    pump_at = {x: name for name, x in _ml.PUMPS.items()}
+    for cid, _frm, _to, how in _ml.SEGMENTS:
+        if how in _ml.BARB_OF:
+            out[f"tube-fluid-{cid}"] = f"{pump_at[_ml.BARB_OF[how][0]]}-head"
     # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
     # Kamoers' rear bosses and motor cans on their heads. One purchased thing apiece, drawn as
     # several so each takes its own colour.

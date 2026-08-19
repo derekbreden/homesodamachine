@@ -52,7 +52,7 @@ SIZE = "1600x1200"
 PART_SIZE = SIZE
 
 
-# The eight scenes a card knows as `scene-<id>.png` keep that name; the two named for the card
+# The nine scenes a card knows as `scene-<id>.png` keep that name; the two named for the card
 # whose picture they are take the card's own file name, the way a part shot does.
 _SCENE_PNG = {"en04-stratum": "en04-stratum.png", "en06-column": "en06-column.png"}
 
