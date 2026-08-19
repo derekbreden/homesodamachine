@@ -60,11 +60,11 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
+    "hopper-funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 10.674",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
-    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 36.249",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
    "active": true
@@ -114,8 +114,6 @@
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
-    "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
-    "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 seated against it",
@@ -148,14 +146,16 @@
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
+    "valve-v-a \u2014 foam-assembly: 1.020 mm \u2014 seated against it",
+    "valve-v-b \u2014 foam-assembly: 1.020 mm \u2014 seated against it",
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "pump-a-head \u2014 collet-plate: 1.025 mm",
     "pump-b-head \u2014 collet-plate: 1.025 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
-    "fluid-4 \u2014 valve-v-d: 1.202 mm",
-    "fluid-4 \u2014 tee-y-a: 1.202 mm",
+    "hopper-drain-clamp \u2014 hopper-drain-union: 1.337 mm",
+    "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 port-ring-carb-word: 1.342 mm",
     "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.366 mm",
     "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.366 mm",
@@ -165,15 +165,13 @@
     "tee-y-d \u2014 collet-plate: 1.504 mm",
     "tee-y-f \u2014 collet-plate: 1.504 mm",
     "tee-y-g \u2014 collet-plate: 1.504 mm",
-    "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
     "foam-assembly \u2014 wago-sensors: 1.600 mm",
-    "water-3 \u2014 hopper-drain-union: 1.623 mm",
+    "fluid-4 \u2014 coil-v-b: 1.695 mm",
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
-    "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "fluid-14 \u2014 valve-v-a: 1.731 mm",
     "fluid-14 \u2014 seaflo-pump: 1.757 mm",
-    "fluid-24 \u2014 fluid-4: 1.971 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm"
    ],
    "active": true
@@ -185,6 +183,16 @@
    "status": "pass",
    "value": "5/5 on the bed",
    "target": "every piece on the bed",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "hopper-floor-grade",
+   "label": "The basin's floor takes its rise off the half-run the neck lengthens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the Y half-run at or under the X (75.17 mm)",
    "detail": [],
    "active": true
   },
@@ -459,12 +467,12 @@
    "active": true
   },
   {
-   "id": "source-hairpins",
-   "label": "Both source runs carry the hairpin the berth costs",
+   "id": "source-step-room",
+   "label": "Both source runs step on two arcs alone",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "2 hairpins drawn",
+   "target": "the travel over the two-arc floor by 0.5 mm on each channel",
    "detail": [],
    "active": true
   },
@@ -673,7 +681,7 @@
    "label": "Every pack body reaching over the cold core clears its cap",
    "kind": "gate",
    "status": "pass",
-   "value": "8 over the lid at z 253.40, lowest clears by 2.615 mm",
+   "value": "8 over the lid at z 253.40, lowest clears by 9.615 mm",
    "target": "at least 1 mm over the cap",
    "detail": [],
    "active": true
@@ -857,8 +865,18 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "9.717 mm to the basin",
+   "value": "10.366 mm to the basin",
    "target": "1 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "drain-over-deck",
+   "label": "The basin's drain joint stands over the pack under its column",
+   "kind": "gate",
+   "status": "pass",
+   "value": "7 under the joint's foot at z 277.62, nearest 10.312 mm",
+   "target": "at least 1 mm under the fitting's foot",
    "detail": [],
    "active": true
   },
@@ -941,6 +959,26 @@
    "status": "pass",
    "value": "2 heads, most in the way 0.0 mm\u00b3",
    "target": "nothing of front-top in a head's path to the front",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "pads-stop-on-plate",
+   "label": "The cartridge's stop pads land on the collet plate",
+   "kind": "gate",
+   "status": "pass",
+   "value": "73.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "target": "pad on the plate's fore face and `pad_kiss` 0.1 mm of air at it",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "grip-reaches-cusp",
+   "label": "The lane behind each flank grip is open to the columns' cusp",
+   "kind": "gate",
+   "status": "pass",
+   "value": "15 mm of reach off the exterior side face, most shut 0.0 mm\u00b3",
+   "target": "the band from `interior_x` in one `_column_along` clear behind the whole opening",
    "detail": [],
    "active": true
   },
@@ -1183,8 +1221,8 @@
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 200.00, housing back plane at 88.25",
-   "target": "aft of 90.25",
+   "value": "seam at 200.00, housing back plane at 76.38",
+   "target": "aft of 78.38",
    "detail": [],
    "active": true
   },
@@ -1193,7 +1231,7 @@
    "label": "The housing's back cut keeps a wall behind the display's seats",
    "kind": "gate",
    "status": "pass",
-   "value": "cut at 83.25 aft of the front face, seats reach 61.45",
+   "value": "cut at 71.38 aft of the front face, seats reach 61.45",
    "target": "a 3 mm wall behind them, so aft of 64.45",
    "detail": [],
    "active": true
@@ -1213,8 +1251,8 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 88.25..247.25",
-   "target": "frame x -89.50..89.50, y 88.25..461.00",
+   "value": "collar x -79.50..79.50, y 76.38..235.38",
+   "target": "frame x -89.50..89.50, y 76.38..461.00",
    "detail": [],
    "active": true
   },
@@ -1233,8 +1271,18 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 10.00, +X 10.00, +Y 213.75 mm",
+   "value": "\u2212X 10.00, +X 10.00, +Y 225.62 mm",
    "target": "each at least brim_margin 10.00 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "funnel-brim-lands",
+   "label": "The funnel's brim lands on top wall ahead of the throat",
+   "kind": "gate",
+   "status": "pass",
+   "value": "brim front at y 69.38, facet arris at 66.38",
+   "target": "a 3 mm landing, so at or aft of 69.38",
    "detail": [],
    "active": true
   },
@@ -1274,8 +1322,8 @@
     "gasher-co2: tube-hung \u2014 nothing fastens it; Both its hops land on held bodies \u2014 `co2-0` back to the ABU44 clamped through the rear wall, `co2-1` on to the WR1110 strapped into its rib off the top one \u2014 and each is ten millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's own axis with nothing printed closing on it. A seat under the middle body of three made-up ones would fight the two either side of it for where the chain stands.",
     "hopper-drain-clamp: tube-clamp \u2014 nothing fastens it; A worm clamp closes on itself \u2014 the band draws through its own housing and the housing rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
     "hopper-drain-stub: tube-clamp \u2014 nothing fastens it; The worm clamp closes the basin's silicone spout onto it over the whole of the spout's land, and the pair is made up at the factory. Nothing printed is in the path: the stub leaves the machine with the basin every time it is washed.",
-    "hopper-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the upper takes the stub the basin carries, the lower starts `fluid-4` down to V-B in its cradle on the cold core's cap \u2014 so the barrel hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",
-    "hopper-funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, and the union's collet grips the stub the spout carries \u2014 so the basin is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
+    "hopper-drain-union: tube-hung \u2014 nothing fastens it; Both its collets land on held bodies \u2014 the +Z leg takes the stub the basin carries, the +Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap \u2014 so the elbow hangs between two seats with nothing printed closing on it. It is the joint the customer opens, and a thumb on that collet is the whole of the motion.",
+    "hopper-funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, and the elbow's own collet grips the stub the spout carries \u2014 so the basin is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
     "tee-y-a: pack \u2014 nothing fastens it; Its collets make up onto V-C's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
     "tee-y-b: pack \u2014 nothing fastens it; Its collets make up onto V-D's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
     "tee-y-c: pack \u2014 nothing fastens it; Its collets make up onto V-E's, face to face on one stub with no tube between them, and that valve stands in four printed sockets \u2014 so what holds this tee is the seat under the valve it butts. Nothing printed reaches the tee itself, and a second seat on a body already made up onto a held one would fight it for the joint's own position.",
@@ -1348,7 +1396,7 @@
     "co2-2: 114.2 mm, held at its anchor",
     "fluid-28: 164.4 mm, held at its anchor",
     "fluid-18: 245.3 mm unheld \u2014 left loose; Nozzle A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the drip tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
-    "fluid-4: 294.2 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 199.9 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }

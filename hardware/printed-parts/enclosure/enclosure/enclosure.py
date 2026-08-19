@@ -255,7 +255,7 @@ display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # stands over the funnel and carries nothing. What it may not do is come forward into what the
 # face carries: the inset and the bezel counterbore are the display's SEATS, and
 # `display-housing-seats` keeps a wall of slab behind the deeper of the two.
-display_housing_back = 83.25
+display_housing_back = 71.38
 display_bezel_depth = 4.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
@@ -293,10 +293,13 @@ display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 m
 # derived: the two are printed in the same piece, so this is clearance for the eye and the
 # deburring tool rather than a fit.
 hopper_chain_gap = 1.0
-# The collar's front edge, read by `enclosure_assembly.funnel_centre`. What fences it is under
-# the drain rather than over the brim: the union on the spout stands in the window between
-# `_lines.CROSS_Y`'s crossing and the cold core's front face, and neither rides the display.
-funnel_front_y = 88.25
+# The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE HOPPER IS WHERE THE
+# USER POURS, so it stands as far forward as the top wall lets it — this is `housing_back_y` for
+# this box, the plane the display housing's slab stops on, and what stops THAT is the brim rather
+# than the throat: the flange overhangs the collar by `hopper_funnel.brim_overhang` and has to
+# land on top wall, which begins at the display facet's own arris. `funnel-brim-lands` is that
+# reading.
+funnel_front_y = 76.38
 # The top wall between the display housing's back plane and the throat, read on
 # `funnel-collar-frame`. The brim's overhang lands on the housing slab at zero.
 hopper_front_ledge = 0.0
@@ -706,6 +709,22 @@ corner_core_reach = corner_boss_in - boss_in
 # Front-bottom's front lip drops across the whole flat span, because the floor stands in
 # that band — so the front Z-joint is the corner columns' pillar telescopes and a butt at
 # the seam, and the wall keeps its single `front_wall` section from slab to seam.
+#
+# ABOVE THE Z-SEAM RIM THE OPENING TURNS BOTH CORNERS (`_flank_bay`). It takes the front
+# wall's own corners outboard of the jambs and then each SIDE wall's one-`wall` skin, aft to
+# the collet plate, and the cartridge's face turns aft with it: the machine's flanks carry a
+# panel and a reveal, and the panel is the cartridge. The jambs turn the corner and keep
+# going — across the front the opening stops where the corner column's quarter-round lands
+# on the front wall's inner face, along a flank where the same quarter-round lands on the
+# side wall's, so a column bounds it both ways and stands in it at full section.
+#
+# A RETURN IS THE SIDE WALL'S OWN SECTION AND NO MORE. Those columns stand full section in
+# the cartridge's own withdrawal path — the quarter-disc spans `interior_x` in to the cusp
+# over the first `_column_along` of the flank, at every height — so nothing of this piece
+# may reach inboard of `interior_x` on a flank and slide out past them. The DEPTH a hand
+# needs is the box's to keep instead of the panel's to carry: the grip (`_flank_grip`) is
+# struck through the return into the lane front-top leaves behind it, and that lane is open
+# to the columns' own cusp plane, `_column_along` in from `interior_x`.
 bay_jamb_slip = 0.5          # bay edge off each corner column's along-wall edge
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
 bay_face_slip = 1.0          # cartridge face into the bay, per side
@@ -715,6 +734,9 @@ cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
 rail_slip = 0.2              # deck underside onto the rail's bearing face
 rail_bear = 3.0              # how far a rail reaches under the deck's edge
 pad_kiss = 0.1               # stop pad air off the collet plate's fore face at full seat
+pad_land = 6.0               # how far a stop pad laps down that face
+grip_rise = 40.0             # a flank grip's opening in height — four fingers stacked
+grip_run = 20.0              # and fore-and-aft, the room a fingertip curls behind the return
 plate_slot_slip = 0.2        # per-side air round the collet plate in the floor's seat
 
 
@@ -2082,6 +2104,25 @@ def with_funnel(box, centre):
             f"x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}; the collar it "
             f"has room for is {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
             f"{lims[3] - lims[2] - _funnel.brim_margin:.1f}"])))
+    # AND THE FRONT EDGE, WHICH IS NOT A FREE ONE. Forward the flange runs out over the display
+    # housing's roof, and that roof stops at the facet's own arris — the line where the 45°
+    # meets the top face. A brim reaching past it overhangs the chamfer and bears on nothing.
+    # The landing asked for is one `wall`, the same ligament `display-housing-seats` keeps
+    # behind the display's own seats: at the arris itself the slab under the flange is a
+    # feather edge, and a wall in from it the wedge is the wall's own section deep.
+    arris = box.outer[2] + display_facet_slope * math.sin(math.radians(display_facet_angle_deg))
+    brim_y0 = y0 - _funnel.brim_overhang
+    lands = brim_y0 >= arris + wall - tol
+    record_bound(Bound(
+        "funnel-brim-lands", "The funnel's brim lands on top wall ahead of the throat", lands,
+        f"brim front at y {brim_y0:.2f}, facet arris at {arris:.2f}",
+        f"a {wall:g} mm landing, so at or aft of {arris + wall:.2f}",
+        ([] if lands else [
+            f"the brim's front edge stands at y {brim_y0:.2f} and the top face begins at the "
+            f"facet's arris, y {arris:.2f} — the flange reaches "
+            f"{arris + wall - brim_y0:.2f} mm past the landing it owes and hangs over the 45°. "
+            f"Take `funnel_front_y` aft of {arris + wall + _funnel.brim_overhang:.2f}, or "
+            f"shorten the facet"])))
     return box._replace(funnel=centre)
 
 
@@ -2706,28 +2747,92 @@ def _sill_wash(inner, outer, z_sill):
                       (inner[2] + 0.1, z_sill + 0.001)])
 
 
-def _bay_cut(inner, outer, bay, pump_trays):
+def _flank_bay(inner, outer, jamb_x0, jamb_x1, y_aft, z0, z1):
+    """The bay's share of the front wall's own CORNERS and of both SIDE walls, above the
+    Z-seam rim: outboard of each jamb the front wall goes to the exterior arris, and from
+    there the side wall's own one-`wall` skin runs aft to `y_aft`. Face and return come
+    round the arris as one skin, so the machine's flank reads as a panel in a reveal.
+
+    THE JAMBS TURN THE CORNER. Across the front the opening stops where a corner column's
+    quarter-round lands on the front wall's inner face (`bay_x_span`); along a flank it
+    stops where the same quarter-round lands on the side wall's, which is `interior_x`. Each
+    bound is a column's own landing, so the columns stand in this opening at full section
+    and nothing here has to dodge one: the front corner reaches only to `inner[2]`, where
+    the disc begins, and the flank reaches only to `interior_x`, which it is tangent to.
+
+    ITS SILL IS THE RIM AND NOT THE FLOOR'S TOP. Front-top's side wall over the lip's own
+    band is the outer register that telescope closes on, so this opening begins where the
+    lip ends. The flat span's sill runs `lip_len` lower because the pump heads leave under
+    it, and the two meet in a step at the jamb."""
+    out = None
+    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+        x_out = x_in - sx * (wall + 1.0)
+        jamb = jamb_x0 if sx > 0 else jamb_x1
+        side = _ybox(min(x_in, x_out), max(x_in, x_out), outer[2] - 1.0, y_aft, z0, z1)
+        corner = _ybox(min(jamb, x_out), max(jamb, x_out),
+                       outer[2] - 1.0, inner[2], z0, z1)
+        both = side.fuse(corner)
+        out = both if out is None else out.fuse(both)
+    return out
+
+
+def _bay_cut(inner, outer, bay, pump_trays, plate):
     """The bay's opening through front-top: the flat wall band jamb to jamb from the
-    floor's own top to the bay top, and the soffit wedge's share where the facet slab leans
-    into the cans' path above the cavity ceiling line."""
+    floor's own top to the bay top, both flanks over the rim (`_flank_bay`), and the soffit
+    wedge's share where the facet slab leans into the cans' path above the cavity ceiling
+    line."""
     bx0, bx1, top = bay
     c = _soffit_c(outer)
     wall_box = _ybox(bx0, bx1, outer[2] - 1.0, inner[2] + 0.5,
                      bay_floor_z(pump_trays)[1], top)
     wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
                       inner[2] + c - 1.5, top)
-    return wall_box.fuse(wedge_box)
+    return wall_box.fuse(wedge_box).fuse(
+        _flank_bay(inner, outer, bx0, bx1, plate["fore_y"], z_seam + lip_len, top))
 
 
-def _cartridge_face_region(inner, outer, bay, pump_trays):
-    """The bay region the cartridge's face keeps: the same two boxes one slip and one
-    reveal smaller, so the face rides its opening on stated air."""
+def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
+    """The bay region the cartridge's face keeps: the same figures one slip and one reveal
+    smaller, so the face and its two flank returns ride their opening on stated air."""
     bx0, bx1, top = bay
     fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
     z0, z1 = bay_floor_z(pump_trays)[1] + face_reveal, top - face_reveal
     c = _soffit_c(outer)
     return (_ybox(fx0, fx1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
-            .fuse(_ybox(fx0, fx1, inner[2] + 0.4, z1 - c + 1.5, inner[2] + c - 1.5, z1)))
+            .fuse(_ybox(fx0, fx1, inner[2] + 0.4, z1 - c + 1.5, inner[2] + c - 1.5, z1))
+            .fuse(_flank_bay(inner, outer, fx0, fx1,
+                             plate["fore_y"] - bay_face_slip,
+                             z_seam + lip_len + face_reveal, z1)))
+
+
+def _flank_grip(inner, tray_z, plate):
+    """The hand-hold struck into each flank return, one per side: an opening through the
+    return's own section, its fore edge on the column's own fence and its foot on the deck
+    rails' bearing face.
+
+    THOSE TWO PLANES ARE WHAT BOUND THE LANE BEHIND IT. Front-top keeps that lane clear from
+    `interior_x` in to the columns' cusp, so a finger through this opening turns behind the
+    panel and pulls on the return's own fore wall — the depth is the box's to keep, because
+    the columns stand full section in this piece's withdrawal path and no material of it may
+    reach inboard of `interior_x` on a flank.
+
+    ITS AFT END CLOSES AS TWO 45° FACES. The cartridge prints face-down, so the return's own
+    section is laid up the flank and a square-ended opening would leave that section
+    bridging the grip's whole rise. Gabled, every layer over it lands on the one below —
+    `relief_chamfer` again, on the one relief in this piece that is a hole and not a pocket.
+
+    It serves the first pull, which breaks four collets against a braced box. Past that the
+    cartridge stands proud of the machine and is its own handle."""
+    y0, y1 = inner[2] + _column_along(), inner[2] + _column_along() + grip_run
+    z0, z1 = tray_z - rail_slip, tray_z - rail_slip + grip_rise
+    out = []
+    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+        x_out = x_in - sx * (wall + 1.0)
+        xa, xb = min(x_in, x_out), max(x_in, x_out)
+        gable = _yz_prism(xa, xb, [(y1, z0), (y1 + grip_rise / 2.0, (z0 + z1) / 2.0),
+                                   (y1, z1)])
+        out.append(_ybox(xa, xb, y0, y1, z0, z1).fuse(gable))
+    return out
 
 
 def bay_floor_z(pump_trays):
@@ -2823,12 +2928,19 @@ def build_cartridge(box, halves_cache=None):
 
     The face is the front half's own material inside `_cartridge_face_region` — the same
     solid the bay cut removes from front-top, one slip smaller, pump reliefs and all — so
-    the opening and the thing that fills it come out of one figure. The deck is the two
-    pump trays rooted on the reliefs' floor, webbed across by `_tray_webs`' own boxes, and
-    cropped to the jambs' sweep air; its aft edge stops two millimetres short of the collet
-    plate and the stop pads carry the last of it, landing on the plate's own fore face at
-    `pad_kiss`. Printed face-down: the outer skin is the bed, the deck stands as a wall,
-    and every pocket rises as a plateau's absence with nothing hanging."""
+    the opening and the thing that fills it come out of one figure. That figure turns both
+    corners above the Z-seam rim, so the face carries a RETURN down each flank and the
+    machine's sides read as a panel in a reveal; the grip is struck through each return
+    (`_flank_grip`). The deck is the two pump trays rooted on the reliefs' floor, webbed
+    across by `_tray_webs`' own boxes, and cropped to the jambs' sweep air.
+
+    ITS AFT EDGE STOPS TWO MILLIMETRES SHORT OF THE COLLET PLATE AND THE STOP PADS CARRY
+    THE LAST OF IT. A pad hangs off the deck's own plate down over the steel's fore face,
+    lapping it by `pad_land` and standing `pad_kiss` off it at full seat, in the lane
+    between its own pump's head and the rail the deck rides — the one band on this plane
+    where nothing of the box or the pump stands. Printed face-down: the outer skin is the
+    bed, the deck stands as a wall, and every pocket rises as a plateau's absence with
+    nothing hanging."""
     inner, outer = box.inner, box.outer
     bay, plate = box.pump_bay, box.collet_plate
     if not bay or not plate:
@@ -2841,7 +2953,7 @@ def build_cartridge(box, halves_cache=None):
         if halves_cache is not None:
             halves_cache["front"] = half
     solid = half.val().intersect(
-        _cartridge_face_region(inner, outer, bay, box.pump_trays))
+        _cartridge_face_region(inner, outer, bay, box.pump_trays, plate))
     for cx, cy, cz in box.pump_trays:
         tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
         solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
@@ -2849,17 +2961,23 @@ def build_cartridge(box, halves_cache=None):
     bx0, bx1, top = bay
     dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
     deck_aft = plate["fore_y"] - 2.0
-    keep = (_cartridge_face_region(inner, outer, bay, box.pump_trays)
+    keep = (_cartridge_face_region(inner, outer, bay, box.pump_trays, plate)
             .fuse(_ybox(dx0, dx1, outer[2], deck_aft,
                         bay_floor_z(box.pump_trays)[1], top)))
     solid = solid.intersect(keep)
     tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
-    for sx in (+1.0, -1.0):
-        edge = dx1 if sx > 0 else dx0
-        pad = _ybox(min(edge, edge - sx * 10.0), max(edge, edge - sx * 10.0),
+    # One stop pad per pump, in that pump's own outboard lane: outboard of the head it
+    # hangs beside and inboard of the rail its deck rides, both by the deck's own sweep air.
+    for cx, _cy, _cz in box.pump_trays:
+        sx = 1.0 if cx > 0 else -1.0
+        head_edge = cx + sx * (_tray.head_half + cart_deck_slip)
+        rail_tip = (dx1 if sx > 0 else dx0) - sx * (rail_bear + cart_deck_slip)
+        pad = _ybox(min(head_edge, rail_tip), max(head_edge, rail_tip),
                     deck_aft - 0.1, plate["fore_y"] - pad_kiss,
-                    tray_z, tray_z + _tray.PLATE)
+                    plate["z1"] - pad_land, tray_z + _tray.PLATE)
         solid = solid.fuse(pad)
+    for grip in _flank_grip(inner, tray_z, plate):
+        solid = solid.cut(grip)
     return cq.Workplane(obj=solid)
 
 
@@ -4068,7 +4186,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the cartridge, and what it takes from this piece is what `build_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
-        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays))
+        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays,
+                                   box.collet_plate))
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
         # face and gets past the reveal runs back out the front.
         piece = piece.cut(_sill_wash(inner, outer, bay_floor_z(box.pump_trays)[1]))
@@ -4303,6 +4422,10 @@ def main():
         "CORE_HOLD_WIDE": (f"{machine.core_holds[0][1] - machine.core_holds[0][0]:.4g} mm"
                            if machine.core_holds else "no station"),
         "COLUMN_ARC": f"{column_round:.3g} mm",
+        # What a hand gets on a flank: the return's own section and the lane the box keeps
+        # open behind it, off the exterior side face.
+        "GRIP_REACH": f"{wall + _column_along():.3g} mm",
+        "PAD_LAND": f"{pad_land:.3g} mm",
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",

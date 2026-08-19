@@ -37,6 +37,7 @@ import _facts  # noqa: E402  — the machine as the last build wrote it down
 import _scorecard as _card  # noqa: E402  — the fastening table, one row per placed body
 import _clearing  # noqa: E402  — the solid distance the card's own clearance rows are read at
 import enclosure as _enc  # noqa: E402  — on the path once `enclosure_assembly` is imported
+import display_gasket as _dgasket  # noqa: E402  — likewise
 import iec_c14_inlet as _c14  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
 import meanwell_irm90 as _psu  # noqa: E402  — on the path once `enclosure_assembly` is imported
@@ -218,6 +219,10 @@ def main():
         # quote a lap the plate is not cut to.
         "DISPLAY_INSET_LAP": f"{_enc.display_inset_lap:g} mm",
         "DISPLAY_BORDER": f"{2.0 * _enc.display_inset_lap:g} mm",
+        # The soft ring between the plate's lap and the glass. Its thickness IS the step
+        # between the two seats, taken off the same two depths the facet is cut to, so the
+        # doc quotes the gap the ring fills rather than a figure typed beside it.
+        "DISPLAY_GASKET_T": f"{_dgasket.thickness:g} mm",
         # The head seat the plate's two screws land in — the same counterbore every seam screw
         # in the box takes, recessed the way the cold core's cap lids recess theirs.
         "DISPLAY_CBORE_D": f"{_enc.head_cbore_dia:g}",

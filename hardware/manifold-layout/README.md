@@ -21,7 +21,7 @@ about the hinge the four barb tees' front collets stand on.
 | 2 × pump | Kamoer KPHM400 ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [57](BARB_PITCH) mm apart on one face, both facing the same way, [20.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [20.07](TEE_RUN) mm either side of the body centre, [40.14](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [4](TUBE_COUNT2) × tube | 1/4" OD LLDPE, both straight. |
+| [4](TUBE_COUNT2) × tube | 1/4" OD LLDPE, all straight — the four the collet plate's berth opens between each pump barb and its anchor tee. |
 
 ## Frame
 
@@ -76,11 +76,11 @@ corner, at 59.4 it is clean. `HSM_SPINE_R=` moves the radius on its own.
 
 ## The quarter turns
 
-Six more of the butts open into a 90° of R[14](QUARTER_R), [21.99](QUARTER_LEN) mm of tube
-each, and all [2](QUARTER_COUNT) stand on one plane — y [79.07](BEND_Y), the far collet of the
-valve that ends a limb. Each joint's fixed collet opens +Y there, the tube turns onto +Z, and
-whatever was butted to it comes round with the turn. The axis runs along X, so the six share one
-transform per deck and a mirrored pair still faces itself.
+[2](QUARTER_COUNT4) more of the butts open into a 90° of R[14](QUARTER_R),
+[21.99](QUARTER_LEN) mm of tube each, and both of them stand on one plane — y
+[79.07](BEND_Y), the far collet of the valve that ends a limb. Each joint's fixed collet opens
++Y there, the tube turns onto +Z, and whatever was butted to it comes round with the turn. The
+axis runs along X, so the pair shares one transform and still faces itself across the mirror.
 
 | | |
 |---|---|
@@ -89,23 +89,27 @@ transform per deck and a mirrored pair still faces itself.
 ### The source valves' step
 
 Once they are round, V-A and V-B go [19.72](STEP_TRAVEL) mm further along their run and
-[14](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
+[7](STEP_JOG) mm across it, toward the foam shell's crown, without changing direction. Two arcs
 of one radius with a straight between them do that, and the two distances fix the pair:
 
     travel = 2R·sinθ + s·cosθ        jog = 2R(1 − cosθ) + s·sinθ
 
 which solve to `(2R − jog)·cosθ + travel·sinθ = 2R`, and at R[14](QUARTER_R) that is
-θ = [52.872](STEP_ANGLE)° either side of s = [20.15](STEP_STRAIGHT) mm —
-[155.00](STEP_LEN) mm of tube.
+θ = [29.601](STEP_ANGLE)° either side of s = [6.77](STEP_STRAIGHT) mm —
+[21.24](STEP_LEN) mm of tube.
 
 That pair has a member only while `(2R − jog)² + travel² ≥ (2R)²`, and the travel is not this
 run's to choose: V-A and V-B stand on the cold core's cap, which the pack does not carry, so
-every millimetre the pack goes aft comes off it. **What spans less here is a longer tube.** A
-hairpin ahead of the step is what makes one — half a turn out, a straight, and the other half,
-which leaves the heading where it found it and puts the run BEHIND where it started. Its arcs
-sweep the whole circle and so sum to nothing between them, which is why the route lands on its
-straight alone and why that straight may point backward. It hands the step both the travel it
-needs and a column that is not the quarter's, and it costs `2πR` and the chord.
+every millimetre the pack goes aft — the collet plate's berth among them — comes off it. **THE
+JOG IS WHAT THE FLOOR IS SET BY.** Written out, that floor is `√(jog·(4R − jog))`, and it climbs
+with the jog for every jog under 2R: at [7](STEP_JOG2) mm across it is
+[18.52](STEP_FLOOR) mm against a travel of [19.72](STEP_TRAVEL2), so each run is the pair of
+arcs and nothing else.
+
+Under that floor the family has no member at all, and a run that cannot span its jog has to go
+BACKWARD first — a hairpin of half a turn, a straight and the other half, which leaves the
+heading exactly where it found it and hands the step the travel it was short of, at a cost of
+`2πR` and the chord. `hairpins_drawn` counts the ones drawn and it is [0](HAIRPIN_COUNT).
 
 **A 90° pair is the member of that family with no straight in it, and it puts the jog EQUAL to
 the travel**, because each quarter spends R on both axes. So 90° turns step 28 across as well as
@@ -115,8 +119,8 @@ the travel**, because each quarter spends R on both axes. So 90° turns step 28 
 that holds the run and the way it steps, so leaning that plane about the run costs the step
 nothing — one pair of arcs carries a valve toward the crown and outboard at the same time, and
 only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
-[14.21](STEP_CROSS_A) mm across in the same 28 along, θ = [52.445](STEP_ANGLE_A)° either side of
-s = [20.15](STEP_STRAIGHT_A) mm, [154.79](STEP_LEN_A) mm of tube. What the spread buys is the slot
+[7.41](STEP_CROSS_A) mm across in the same [19.72](STEP_TRAVEL3) along, θ = [32.878](STEP_ANGLE_A)° either side of
+s = [5.38](STEP_STRAIGHT_A) mm, [21.45](STEP_LEN_A) mm of tube. What the spread buys is the slot
 on the mirror line — the pair stands a valve's half-width either side of x 0 and the hopper's
 gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
 one for one.
@@ -136,7 +140,7 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 are collet butted to collet: tube in both quick-connects, none between them, no solid drawn.
 [4](TUBE_COUNT) are the straight reservoir crossings, [4](SPINE_COUNT) are the fold's 180°
 turns and [2](QUARTER_COUNT2) are the quarter turns above. Every corner in the manifold —
-[18](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
+[14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
@@ -145,16 +149,28 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[188](ENV_X) × [168](ENV_Y) × [241](ENV_Z) mm — [7.62](ENV_L) L of bounding box over the
+[188](ENV_X) × [169](ENV_Y) × [241](ENV_Z) mm — [7.64](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
-Add one [14](STUB_LEN) mm mouth stub on each of the six and it is
-[188](REACH_X) × [168](REACH_Y) × [255](REACH_Z).
+Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
+[188](REACH_X) × [169](REACH_Y) × [255](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
-`BARB_STANDOFF` is the climb given to a barb over and above what `LIMB_PITCH` demands, and it
-is 0 as well; a barb is not a quick-connect, so that one is a modelling convenience, and z
-[88.38](DECK_Z2) rides on it one millimetre for one.
+
+`BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
+and it is [5.7](BARB_STANDOFF) mm — **the collet plate's berth**. Both pumps ride out of the box
+on their own cartridge and these four runs are what release. A waterjet 1/8" 304 flat stands on
+edge in the gap, one hole per tube: the holes pass the Ø6.35 tube and catch the collet noses, so
+pulling the cartridge draws the anchor tees forward against the steel and the tubes come out of
+their collets. Push the cartridge home and the four click back in. Nothing is unscrewed and no
+hand goes behind the deck.
+
+`enclosure_assembly.py` strikes the plate off the placed barbs and writes `collet-plate.dxf`
+beside this file — the flat
+[`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) stages with the
+printed pieces and drops into the pump bay's own seat. The berth is steel and its two airs, so
+the whole deck rides on it one millimetre for one: z [88.38](DECK_Z2) carries it, and so does
+every millimetre of `SOURCE_TRAVEL` the source runs have left to step in.
 
 ## Standing it on the refrigeration stratum
 

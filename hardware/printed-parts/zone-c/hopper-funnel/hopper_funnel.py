@@ -88,10 +88,11 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # capacity while the spout is the half that buys a joint.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
-chute_h = 21.00        # straight rectangular chute height — brim top down to the ramp start,
-                        # and what holds `drop` where `water-3` still crosses under the union:
-                        # the ramp's rise rides its longest half-run, and every millimetre it
-                        # grows comes back out of this figure so the drain's height stands still
+chute_h = 21.31        # straight rectangular chute height — brim top down to the ramp start,
+                        # and what holds `drop` where the drain's elbow still stands over the
+                        # folded deck: the ramp's rise rides its longest half-run, and every
+                        # millimetre it grows comes back out of this figure so the drain's
+                        # height stands still
 neck_dx = 1.85          # neck (ramp foot + spout) off the collar centre. THE SPOUT STANDS OVER
                         # THE SLOT IT DRAINS INTO, and that slot is not on the collar's own
                         # centre: the two source valves leave it between their coils, the
@@ -106,14 +107,15 @@ neck_dx = 1.85          # neck (ramp foot + spout) off the collar centre. THE SP
                         # costs depth, since it lengthens the floor's long half-run and one
                         # rise serves every run, and what pays for it is the fall under the
                         # spout (`enclosure_assembly.build_funnel`, held by `room-holds`).
-neck_dy = 3.0           # neck aft of the collar centre, IN Y. `fluid-4` falls one straight
-                        # column off the spout's tip, and the drain's whole berth is the
-                        # window between two fences: the folded deck's crossbar barrels
-                        # fore — which ride `manifold_layout.BARB_STANDOFF` aft — and the
-                        # cold core's front face aft, which the union may not reach. The
-                        # standoff moved the fore fence; this is as much of the follow as
-                        # the aft fence leaves, the fall's column clearing the barrels at
-                        # the machine's own metre off them.
+neck_dy = 0.0           # neck off the collar centre IN Y, and it is 0: THE BASIN KEEPS ITS
+                        # OWN MIRROR PLANE ACROSS Y. Every feature of the part — brim, chute,
+                        # ramp and spout — stands on one plane through the collar's X axis, so
+                        # the depth axis of the mould, of the floor's grade and of the finished
+                        # basin is unhanded, and the Y offset costs no depth the X one does not
+                        # already ask for. WHAT THE FITTING NEEDS IS A COLUMN, NOT A BERTH:
+                        # the elbow under the spout turns the fall aft inside its own envelope
+                        # (`reference/elbow-connector`) and stands one leg under the exit face,
+                        # so nothing below the basin asks the basin to lean.
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
                         # sticky and the basin has to come out of the machine clean, so
@@ -145,6 +147,20 @@ _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dx)
 _y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + abs(neck_dy)
 _ramp_rise = max(_ramp_run, _y_run) * math.tan(math.radians(ramp_angle))
 drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
+
+# ONE RISE SERVES EVERY RUN AND IT IS STRUCK ON THE LONGEST, which is what lets `ramp_angle`
+# describe the floor's shallowest line by construction. WHICH AXIS THAT LONGEST RUN IS ON is the
+# neck's to say: an offset lengthens its own half and shortens the other, so the run the grade
+# rides is the run on the axis the neck is offset along — and the neck is offset in X alone. The
+# reading is what holds the part to that description, so a neck moved in Y is a floor whose
+# depth is being bought on an axis the part is not offset on.
+_bounds.state(
+    "hopper-floor-grade", "The basin's floor takes its rise off the half-run the neck lengthens",
+    f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
+    _y_run <= _ramp_run + 1e-9,
+    f"the neck stands {neck_dy:g} mm off the collar's Y centre, which makes the Y half-run "
+    f"{_y_run:.2f} mm against the X's {_ramp_run:.2f} — so the rise the whole floor is struck "
+    f"on rides the depth axis, and `neck_dx` buys the basin nothing.")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.

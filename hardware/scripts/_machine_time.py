@@ -70,6 +70,7 @@ GROUP_OF = [
     ("Carbonator reed bridge", "small"),
     ("Drip pan",               "small"),
     ("Fuse clamp",             "small"),
+    ("Display cover plate",    "small"),
     ("Port ring",              "small"),
     ("Tube collar",            "small"),
     ("Nameplate",              "small"),

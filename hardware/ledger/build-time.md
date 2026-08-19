@@ -13,11 +13,11 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 | Generator | Cuts | Seconds |
 |---|---|---:|
 | [`assembly/cards/_build.py`](/hardware/assembly/cards/_build.py) | every build card, and the deck they print as | [123](BT_BUILD) |
-| [`assembly/scenes/render_scenes.py`](/hardware/assembly/scenes/render_scenes.py) | every card's picture, off the placed machine | [65](BT_RENDER_SCENES) |
+| [`assembly/scenes/render_scenes.py`](/hardware/assembly/scenes/render_scenes.py) | every card's picture, off the placed machine | [46](BT_RENDER_SCENES) |
 | [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) | the placed machine — every body in the box | [44](BT_ENCLOSURE_ASSEMBLY) |
 | [`printed-parts/enclosure/enclosure/enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) | the box, in its printable pieces | [20](BT_ENCLOSURE) |
 | [`faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py) | the faucet stack on its counter | [12](BT_FAUCET_ASSEMBLY) |
-| [`manifold-layout/manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) | the fittings and the runs between them | [13](BT_MANIFOLD_LAYOUT) |
+| [`manifold-layout/manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) | the fittings and the runs between them | [8.1](BT_MANIFOLD_LAYOUT) |
 | [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | both flavor reservoirs and their caps | [2.8](BT_RESERVOIR) |
 | [`printed-parts/cold-core/foam-assembly/foam_assembly.py`](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py) | the foam shell and its four cap pieces | [2.8](BT_FOAM_ASSEMBLY) |
 | [`printed-parts/refrigeration/fuse-clamp/fuse_clamp.py`](/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py) | the thermal fuse's clamp | [0.1](BT_FUSE_CLAMP) |

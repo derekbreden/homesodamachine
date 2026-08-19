@@ -271,14 +271,22 @@
   "hardware/reference/condenser-block/condenser_block.py": [
     "hardware/reference/condenser-block/condenser_block.py"
   ],
+  "hardware/reference/elbow-connector/elbow_connector.py": [
+    "hardware/reference/elbow-connector/elbow-connector.step",
+    "hardware/reference/elbow-connector/elbow_connector.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_run_lock.py"
+  ],
   "hardware/reference/hopper-drain-stub/hopper_drain_stub.py": [
     "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
     "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+    "hardware/reference/elbow-connector/elbow_connector.py",
     "hardware/reference/hopper-drain-stub/hopper_drain_stub.py",
-    "hardware/reference/jg-pp0408w/jg_pp0408w.py",
     "hardware/reference/worm-clamp/worm_clamp.py",
     "hardware/scripts/_cadq_export.py",
     "hardware/scripts/_materials.py",
+    "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"

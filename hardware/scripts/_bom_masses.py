@@ -76,6 +76,10 @@ PARTS = {
         "enclosure/enclosure/enclosure-back-bottom.step",
         "enclosure/enclosure/enclosure-back-top.step",
     ],
+    # THE DISPLAY'S OWN PIECE OF THE BOX, printed apart from the piece it fills: the border that
+    # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
+    # fastening, so it ships on every unit the screen does.
+    "Display cover plate": ["enclosure/display-cover/display-cover.step"],
     # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one file per crossing the back wall
     # passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.

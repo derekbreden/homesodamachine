@@ -3,11 +3,11 @@
 
 The basin comes out of the machine and goes into the dishwasher. The stub goes
 with it: it is worm-clamped to the spout at the factory and stays. What parts is
-the stub's free end and the John Guest union under the top wall — thumb on the
-collet, basin lifts out; stub back into the collet, basin back in.
+the stub's free end and the John Guest union elbow under the top wall — thumb on
+the collet, basin lifts out; stub back into the collet, basin back in.
 
 The stub is hidden at both ends. `FUNNEL_ENGAGEMENT` of it stands inside the
-silicone and `UNION_INSERTION` inside the union, and the union's collet face
+silicone and `UNION_INSERTION` inside the fitting, and the fitting's collet face
 meets the spout's own exit face, so nothing of it is in the room between them.
 
 THIS FILE WRITES NO SOLID. The stub is a cut length of the same 1/4" LLDPE every
@@ -18,9 +18,9 @@ reads them against.
 
 Frame:
   Origin = the spout's exit face, on the spout's axis — the plane the funnel's
-      silicone ends and the union's collet begins.
+      silicone ends and the fitting's collet begins.
   +Z = up, into the funnel. The stub runs from `-UNION_INSERTION` to
-      `+FUNNEL_ENGAGEMENT`; the union hangs at z ≤ 0.
+      `+FUNNEL_ENGAGEMENT`; the fitting hangs at z ≤ 0.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py selftest
@@ -35,12 +35,12 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "reference" / "worm-clamp",
-           _hw / "reference" / "jg-pp0408w",
+           _hw / "reference" / "elbow-connector",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import worm_clamp as _clamp
-import jg_pp0408w as _union
+import elbow_connector as _union
 import hopper_funnel as _funnel
 
 # --- the stub ---------------------------------------------------------------
@@ -50,6 +50,9 @@ STUB_ID = 4.32          # its bore
 # Up the spout's straight land as far as the ramp tip, which is where the bore stops being
 # round and starts opening into the basin's floor.
 FUNNEL_ENGAGEMENT = _funnel.spout_tube
+# What the stub owes the fitting it pushes into, read off that fitting: the elbow's socket
+# bottoms a 1/4" tube at its own stop, and a stub cut past that stop is a stub standing on metal
+# instead of in a collet.
 UNION_INSERTION = _union.INSERTION
 LENGTH = FUNNEL_ENGAGEMENT + UNION_INSERTION
 
@@ -65,18 +68,7 @@ CLAMP_RESERVE = SPOUT_OD - _clamp.RANGE[0]
 CLAMP_Z = FUNNEL_ENGAGEMENT / 2.0
 CLAMP_SHOULDER = (FUNNEL_ENGAGEMENT - _clamp.BAND_W) / 2.0
 
-# --- the union under it -----------------------------------------------------
-
-# The union's upper collet face lies on the spout's exit face, so its far port — where
-# `fluid-4` starts — hangs this far below the drain.
-UNION_DROP = _union.OVERALL
-
-
-def union_port() -> tuple:
-    """Where `fluid-4` leaves the joint: `(position, outward axis)` in this frame, the union's
-    lower collet face looking down."""
-    return ((0.0, 0.0, -UNION_DROP), (0.0, 0.0, -1.0))
-
+# --- the joint's own three figures ------------------------------------------
 
 def joint_holds() -> None:
     """The three figures the joint stands on, against the parts that carry them.
@@ -98,8 +90,8 @@ def joint_holds() -> None:
             f"it does not reach the silicone. Bill the size that carries this spout.")
     if LENGTH <= UNION_INSERTION:
         raise ValueError(
-            f"the stub is {LENGTH:.2f} mm and {UNION_INSERTION:g} of it is inside the union — "
-            f"nothing is left for the spout to be clamped onto.")
+            f"the stub is {LENGTH:.2f} mm and {UNION_INSERTION:g} of it is inside the "
+            f"fitting — nothing is left for the spout to be clamped onto.")
 
 
 # --- the solids -------------------------------------------------------------
@@ -114,11 +106,6 @@ def build_stub():
 def build_clamp():
     """The worm clamp, closed on the spout at `CLAMP_Z`. The housing faces +X."""
     return _clamp.build_worm_clamp(CLAMP_D).translate((0, 0, CLAMP_Z))
-
-
-def build_union():
-    """The union hanging off the joint face, its upper collet on z = 0."""
-    return _union.build_jg_pp0408w().translate((0, 0, -_union.reach()))
 
 
 # --- controls -------------------------------------------------------------

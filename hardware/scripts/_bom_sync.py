@@ -30,6 +30,7 @@ import manifold_layout as ml
 import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
+import enclosure as _enc  # likewise
 import nameplate as _np  # likewise
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
@@ -229,9 +230,31 @@ nameplate_inserts_per_build = len(_np.screw_stations())
 # One M3 × 8 in from outside through each counterbore into its boss's insert — 1:1 with the
 # bosses, and the same screw the shelf's sixteen and the condenser's two are.
 nameplate_screws_per_build = nameplate_inserts_per_build
-# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair and the plate's.
+
+# Display cover-plate hardware (assembly/enclosure-mechanical.md §8). THE PLATE IS THE
+# DISPLAY'S ONLY FASTENING, so this pair of stations is what holds the screen in the facet.
+# They are a mirrored pair on the facet's centreline at ±`enclosure.display_screw_x`:
+# `enclosure._display_cuts` sinks a pad pocket at each and bores a ruthex short under its
+# floor, and `display_cover` stands one pad on each — so the plate and the inset are cut for
+# the same stations or neither drops into the other.
+display_cover_stations = tuple(s * _enc.display_screw_x for s in (-1.0, +1.0))
+display_cover_inserts_per_build = len(display_cover_stations)
+# One M3 × 8 down each — the same screw the shelf's sixteen, the condenser's two and the
+# nameplate's two are, reaching the land, the insert and the relief bored under it.
+display_cover_screws_per_build = display_cover_inserts_per_build
+
+# THE PLATE AND ITS RING ARE PRINTED PARTS AND §7 BILLS BOTH: the plate a row of its own, the
+# gasket a line in the soft-seal sentence that carries every TPU seal in the machine. A body
+# the machine places and the ledger does not buy is a part nobody prints.
+_display_stack = {"display-cover", "display-gasket"} - set(_f.bodies)
+assert not _display_stack, (
+    f"the machine no longer stands {sorted(_display_stack)} — bom.md §7 bills the display's "
+    f"cover plate and its gasket, and §13 bills the plate's two inserts and two M3 × 8")
+
+# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's
+# and the display cover plate's.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
-                  + nameplate_screws_per_build)
+                  + nameplate_screws_per_build + display_cover_screws_per_build)
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
@@ -241,6 +264,7 @@ total_m3_inserts_per_build = (
     + shelf_inserts_per_build
     + cond_inserts_per_build
     + nameplate_inserts_per_build
+    + display_cover_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
 
@@ -255,6 +279,7 @@ total_m3_screws_per_build = (
     + shelf_screws_per_build
     + cond_screws_per_build
     + nameplate_screws_per_build
+    + display_cover_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -304,6 +329,8 @@ def main():
         "M3X8_TOTAL": f"{m3x8_per_build:.4g}",
         "NAMEPLATE_INSERTS": f"{nameplate_inserts_per_build:.4g}",
         "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
+        "DISPLAY_COVER_INSERTS": f"{display_cover_inserts_per_build:.4g}",
+        "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
@@ -364,6 +391,7 @@ def main():
             "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
+            "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",
