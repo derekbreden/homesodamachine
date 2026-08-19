@@ -44,7 +44,7 @@ Read off the placed pumps at every build, never stated. `pump_tray_seats` reads 
 
 Plate on head's crown, shoulder on boss's crown, bore on the boss's flanks — every one of them a plane or a shared wall, so a tray and the pump it takes share no volume.
 
-**What ties a tray to the rest of the piece is the cartridge's, not the tray's.** A tray reaches the cartridge's face and nothing else, so `enclosure._tray_webs` closes the gaps it leaves inside that piece — one web between the two trays and one across-run to each edge of the deck — each this plate thick and in this plate's own band. There is no web to a side wall and none aft onto a panel: the deck is a loose piece, and what carries its edges is the pair of rails standing on the bay's floor (`enclosure._bay_rails`), which its own edge strips ride. The storey comes out one plate jamb to jamb, and its aft edge stops short of the collet plate with the stop pads carrying the last of it.
+**What ties a tray to the rest of the piece is the cartridge's, not the tray's.** A tray reaches the cartridge's face and nothing else, so `enclosure._tray_webs` closes the gaps it leaves inside that piece — one web between the two trays and one across-run to each edge of the deck — each this plate thick and in this plate's own band. There is no web to a side wall and none aft onto a panel: the deck is a loose piece, and what carries it is the bay's own floor, which the whole cartridge rides. The storey comes out one plate jamb to jamb, and what lands on the collet plate is the cap's aft face one storey down.
 
 ## Print
 

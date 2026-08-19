@@ -1254,7 +1254,7 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # tubes and nothing wider: pull the cartridge and the gripped tubes drag the tees forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
 # the grip opens, and the tubes draw out through the holes they entered by. Pushing the
-# cartridge home threads them back into the same collets, the deck's stop pads landing on
+# cartridge home threads them back into the same collets, the cap's own aft face landing on
 # the plate's fore face, the tees braced by the deck lattice their own butted valves hang
 # them from. The user's two hands are the whole mechanism: one pulls the cartridge, the
 # other braces the box, and the box carries the brace to this plate through the floor.
@@ -1426,14 +1426,14 @@ def check_bay_floor(pieces, shell) -> Bound:
 
 
 def check_stop_pads(pieces, spec) -> Bound:
-    """Whether the cartridge's stop pads actually land on the collet plate's fore face.
+    """Whether the cap's aft face actually lands on the collet plate's fore face.
 
-    A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The deck's aft edge stops short
-    of the steel and the pads carry the last of it, so this reads both halves of that: the
-    AREA of cartridge standing against the plate's own band one `pad_kiss` off its fore
-    face, and that the kiss itself is air — a pad through the steel is no better than a pad
-    that misses it."""
-    cart = pieces["pump-cartridge"]
+    A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The cap is the piece whose
+    storey stands against the steel, and the face it presents is the whole of the stop, so
+    this reads both halves of that: the AREA standing against the plate's own band one
+    `pad_kiss` off its fore face, and that the kiss itself is air — a face through the steel
+    is no better than one that misses it."""
+    cart = pieces["pump-cap"]
     cart = cart.val() if hasattr(cart, "val") else cart
     probe = 0.4
     band = (spec["x0"], spec["x1"], spec["z0"], spec["z1"])
@@ -1445,9 +1445,9 @@ def check_stop_pads(pieces, spec) -> Bound:
     bite = kiss.intersect(cart).Volume()
     ok = area > 1e-6 and bite <= 1e-6
     return record_bound(Bound(
-        "pads-stop-on-plate", "The cartridge's stop pads land on the collet plate", ok,
+        "pads-stop-on-plate", "The cap's aft face lands on the collet plate", ok,
         f"{area:.1f} mm² on the steel, {bite:.3f} mm³ inside the kiss",
-        f"pad on the plate's fore face and `pad_kiss` {_enc.pad_kiss:g} mm of air at it",
+        f"the cap's face on the plate's and `pad_kiss` {_enc.pad_kiss:g} mm of air at it",
         ([] if ok else
          ([f"no pad stands against the plate's band z {spec['z0']:g}..{spec['z1']:g} — the "
            f"cartridge has no aft stop against the steel and nothing but the anchor tees "

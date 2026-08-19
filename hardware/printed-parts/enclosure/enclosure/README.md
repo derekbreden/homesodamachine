@@ -546,19 +546,16 @@ fore of the four collets in the bay floor's own seat, four holes passing the tub
 nothing wider. Pull the cartridge and the gripped tubes drag the tees forward until
 each collet's nose lands on the steel — the body keeps coming, the nose is held, the
 grip opens, and the tubes draw out through the holes they entered by. Push it home and
-the tubes thread back into the same collets, the deck's stop pads landing on the
+the tubes thread back into the same collets, the cap's own aft face landing on the
 plate's own fore face, the tees braced by the valves their runs butt into, each of
 those in a panel seat. One hand pulls, the other braces the box; the box carries the
 brace to the steel through the floor.
 
-**The deck's aft edge stops two millimetres short of the steel and the stop pads carry
-the last of it.** A pad hangs off the deck's own plate down over the plate's fore face,
-lapping it by [6 mm](PAD_LAND) and standing `pad_kiss` off it at full seat, in the lane
-between its own pump's head and the deck's own edge — the one band on that plane
-where neither the box nor the pump stands. `pads-stop-on-plate` reads the area against
-the steel and the kiss against the cartridge: a stop that does not touch what it stops
-is not a stop, and nothing but the anchor tees would limit how far the cartridge pushed
-home.
+**What lands on the steel is the cap's own aft face.** The cap's whole storey stands
+under the plate's top, so the face it presents to the steel is the piece's own — nothing
+hangs off anything to reach it — and `pad_kiss` is the air left at that face when the
+cartridge is home. `pads-stop-on-plate` reads the area standing against the plate's band
+and that the kiss itself is air.
 
 ## The flank openings
 
@@ -674,7 +671,7 @@ each the trays' own plate thick and in that plate's own band, cropped to the jam
 sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
 rails. The webs to the side walls and the aft web onto a panel are not drawn here:
 the rails standing on the floor carry the deck instead, and its aft edge stops two
-millimetres short of the collet plate with the stop pads carrying the last of it.
+millimetres short of the collet plate, and the cap's aft face one storey down is what lands on the steel.
 
 Printed face-down the outer skin goes on the bed first, the deck and both flank
 returns stand as walls off it, and every pocket rises as a plateau's absence. The one

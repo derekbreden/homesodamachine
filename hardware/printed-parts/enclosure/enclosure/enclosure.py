@@ -694,7 +694,7 @@ corner_core_reach = corner_boss_in - boss_in
 # (`enclosure_assembly.build_collet_plate`) is the release — pull the cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
-# the same collets, the deck's stop pads landing on the plate's own face.
+# the same collets, the cap's own aft face landing on the plate's.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
 # slides across it, and the collet plate is sunk in its own seat.
@@ -727,8 +727,7 @@ bay_face_slip = 0.4          # cartridge face inside the opening, per side — i
 face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
 cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
-pad_kiss = 0.1               # stop pad air off the collet plate's fore face at full seat
-pad_land = 6.0               # how far a stop pad laps down that face
+pad_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
 plate_slot_slip = 0.2        # per-side air round the collet plate in the floor's seat
 
 # --- THE CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
@@ -2962,21 +2961,15 @@ def build_cartridge(box, halves_cache=None):
     withdrawal path, and nothing of it reaches their x. The deck is the two pump trays rooted
     on the reliefs' floor, webbed across by `_tray_webs`' own boxes.
 
-    ITS AFT EDGE STOPS TWO MILLIMETRES SHORT OF THE COLLET PLATE AND THE STOP PADS CARRY
-    THE LAST OF IT. A pad hangs off the deck's own plate down over the steel's fore face,
-    lapping it by `pad_land` and standing `pad_kiss` off it at full seat, in the lane
-    between its own pump's head and the deck's own edge — the one band on this plane
-    where nothing of the box or the pump stands. Printed face-down: the outer skin is the
-    bed, the deck stands as a wall, and every pocket rises as a plateau's absence with
-    nothing hanging."""
+    WHAT STOPS IT ON THE STEEL IS THE CAP'S OWN AFT FACE, one storey down — this piece owns
+    no feature below `cap_split_z`. Printed face-down: the outer skin is the bed, the block
+    stands off it, and every pocket rises as a plateau's absence with nothing hanging."""
     inner, plate, bay = box.inner, box.collet_plate, box.pump_bay
     solid = _cartridge_gross(box, halves_cache).cut(_cap_room(box))
     bx0, bx1, _top = bay
     dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
     deck_aft = plate["fore_y"] - 2.0
     tray_z = cap_split_z(box.pump_trays)
-    for pad in _stop_pads(box):
-        solid = solid.fuse(pad)
     for bore in _cap_screws(inner, plate, box.pump_trays)[1]:
         solid = solid.cut(bore)
     return cq.Workplane(obj=solid)
@@ -3013,10 +3006,10 @@ def _cartridge_gross(box, halves_cache=None):
     dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
     cx0, cx1 = _cap_x_span(bay)
     deck_aft = plate["fore_y"] - 2.0
-    # THE CAP REACHES THE STEEL. Its own storey is under the plate's top, so what stands
-    # between it and the collet plate is the slot's air and nothing else — and the aft lip of
-    # each bracket has material under it only as far as this plane goes.
-    cap_aft = plate["fore_y"] - plate_slot_slip
+    # THE CAP'S OWN AFT FACE IS THE STOP. Its whole storey stands under the plate's top, so
+    # the face it presents to the steel is the piece's own — no pad hangs off anything to
+    # reach it — and `pad_kiss` is the air left at that face when the cartridge is home.
+    cap_aft = plate["fore_y"] - pad_kiss
     split = cap_split_z(box.pump_trays)
     floor_top = bay_floor_z(box.pump_trays)[1]
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
@@ -3077,29 +3070,6 @@ def _cap_room(box):
     return room.cut(wall_solid)
 
 
-def _stop_pads(box):
-    """One stop pad per pump, in that pump's own outboard lane: outboard of the head it
-    hangs beside and inboard of the rail its deck rides, both by the deck's own sweep air.
-
-    A PAD LAPS THE STEEL PAST THE SPLIT. Its business is the collet plate's fore face, which
-    it reaches `pad_land` down — below `cap_split_z` — so it belongs whole to the piece whose
-    deck carries it, and the cap opens for it rather than sharing it."""
-    bay, plate = box.pump_bay, box.collet_plate
-    bx0, bx1, _top = bay
-    dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
-    deck_aft = plate["fore_y"] - 2.0
-    tray_z = cap_split_z(box.pump_trays)
-    out = []
-    for cx, _cy, _cz in box.pump_trays:
-        sx = 1.0 if cx > 0 else -1.0
-        head_edge = cx + sx * (_tray.head_half + cart_deck_slip)
-        deck_edge = dx1 if sx > 0 else dx0
-        out.append(_ybox(min(head_edge, deck_edge), max(head_edge, deck_edge),
-                         deck_aft - 0.1, plate["fore_y"] - pad_kiss,
-                         plate["z1"] - pad_land, tray_z + _tray.PLATE))
-    return out
-
-
 def _cap_screws(inner, plate, pump_trays):
     """The two screws that draw the cap up onto the block, on the lane's own centreline —
     as (clearance bores, heat-set bores).
@@ -3136,8 +3106,6 @@ def build_pump_cap(box, halves_cache=None):
     bx0, bx1 = cap_band_x(box.pump_trays)
     solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
                             bay_floor_z(box.pump_trays)[1] - 1.0, split - cap_web_t))
-    for pad in _stop_pads(box):
-        solid = solid.cut(pad)
     # THE FOUR BARB TUBES CROSS THIS PIECE'S OWN AFT LIP, on their way from the barbs into the
     # anchor tees' collets, so it carries the steel's four holes on the steel's own figure.
     for hx, hz in plate["holes"]:
@@ -3945,7 +3913,7 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
 # plate — `pump_tray.PLATE` thick, in that plate's own band — so the storey comes out one plate,
 # and its edge strips ride the bay's rails. The webs to the side walls and the aft web onto a
 # panel are not drawn: the rails carry the deck instead, and its aft edge stops short of the
-# collet plate with the stop pads carrying the last of it.
+# collet plate, and the cap's own aft face one storey down is what lands on the steel.
 def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     """The webs that tie every pump tray in this piece's band to what stands beside it.
 
@@ -4593,7 +4561,6 @@ def main():
         "COLUMN_ARC": f"{column_round:.3g} mm",
         # What a hand gets on a flank: the return's own section and the lane the box keeps
         # open behind it, off the exterior side face.
-        "PAD_LAND": f"{pad_land:.3g} mm",
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",

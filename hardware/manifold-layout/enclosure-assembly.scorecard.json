@@ -947,7 +947,7 @@
    "label": "The cap has material under every pump's bracket",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 sides land, least 80.8 mm\u00b3",
+   "value": "8/8 sides land, least 99.9 mm\u00b3",
    "target": "material under all four sides of each bracket",
    "detail": [],
    "active": true
@@ -974,11 +974,11 @@
   },
   {
    "id": "pads-stop-on-plate",
-   "label": "The cartridge's stop pads land on the collet plate",
+   "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "127.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
-   "target": "pad on the plate's fore face and `pad_kiss` 0.1 mm of air at it",
+   "value": "6647.7 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "target": "the cap's face on the plate's and `pad_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
   },
