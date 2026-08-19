@@ -768,15 +768,27 @@ in the cavity behind the housing, which is closed on five sides by the time the 
 leaves the bed, so it cannot be reached with support and is built instead.
 
 A [3 mm](RIDGE_WALL_T) rib (`_ridge_wall`) carries it — from the tee wall's crown up to
-that same back plane, under the line for its whole width. **Its fore face is two planes
-the box already has and no third one**: below the jog, the bay's own back carried straight
-up off the crown, so the storey over the bay reads as the same plane the bay does; above
-it, the hole's own end wall carried on past the soffit, which is 45° and is the plane the
-display's body already lies against — the rib presents the part the surface its hole
-presents, and no new fit. Where the two meet is read, not chosen. The jog is also what
-keeps the rib clear: run straight up it would stand in the hopper's throat, and slanted
+that same back plane, **wall to wall**, under the line over the whole of it. **Its fore face
+is two planes the box already has and no third one**: below the jog, the bay's own back
+carried straight up off the crown, so the storey over the bay reads as the same plane the
+bay does; above it, the hole's own end wall carried on past the soffit, which is 45° and is
+the plane the display's body already lies against — the rib presents the part the surface
+its hole presents, and no new fit. Where the two meet is read, not chosen. The jog is also
+what keeps the rib clear: run straight up it would stand in the hopper's throat, and slanted
 straight from crown to line it would run into the display's body where that stands proud
 of the soffit. `ridge-carried` reads the drop from the line to the material beneath it.
+
+**Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
+side walls rather than ending in free air over the tee wall's crown, which leaves it the only
+section between the bay's storey and the cavity behind it — so the config display's loom is
+bored through it. SIG-7 is four 22 AWG in the 1/2" PET expandable braid, and a braid of that
+kind is bought by its nominal and passes at what it *opens* to, so the bore is the opened
+figure — Ø[19.05 mm](CABLE_BORE) — and a loom never has to be squeezed through one. It locates
+nothing and carries nothing; the loom is dressed after it is through. The bore stands on the
+box's centreline at the middle of the rib's straight run, which is where the display's back is
+and where the loom leaves it, and it is teardropped for the reason every bore on Y in this
+piece is: the piece beds on Z, so a hole on Y lies horizontal and its crown would otherwise be
+laid across the chord under it.
 
 ## Hopper opening
 
