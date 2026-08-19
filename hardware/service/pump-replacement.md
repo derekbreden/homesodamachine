@@ -167,13 +167,15 @@ runs clean.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
-4. **The stroke is not clear, so the cartridge cannot come out.** `release-travel` reads red at
-   4 of 8 bodies clear. A butted neighbour travels with the body it butts, so the four anchor tees
-   make the whole stroke and the four valves standing on their runs do not. The valve's seating
-   datum and the release's travel direction are the same direction: you push the valve fore to seat
-   it, and the release pushes it fore again, into the surface that seated it. Nothing about the
-   seated machine looks wrong — the gate reads a motion, where every other bound on that card reads
-   where a body stands. Step 2 of this procedure cannot be performed until it clears.
+4. ~~**The stroke is not clear, so the cartridge cannot come out.**~~ **CLOSED.**
+   `release-travel` offers every body the release moves the whole stroke and all eight clear it.
+   A butted neighbour travels with the body it butts, so the four valves butted to the anchor
+   tees travel too — all four on one deck, whose plate face stands a whole stroke further fore
+   with its sockets sunk to match, so a post keeps its grip over the travel.
+   `check_insertion_backing` reads the other direction: a tube pushed into a branch collet
+   drives its tee aft, and the step in the wall's own bore takes the collar, so a joint seats
+   to depth instead of shoving the tee out of the tube's path. Steps 2 and 5 run on the two
+   of them.
 
 ## Sources
 [value](NAME) texts are updated by:

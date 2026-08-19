@@ -562,14 +562,15 @@ braced by the valves their runs butt into, each of those in a panel seat. One ha
 pulls, the other braces the box; the box carries the brace to the steel through the
 floor.
 
-**The stroke is not clear today.** `release-travel` reads whether every body the release
-moves has the room to move — a motion, where every other bound on that card reads where
-a body stands — and it is red at 4 of 8 bodies clear. A butted neighbour travels with
-the body it butts, so the four tees make the whole stroke and the four valves standing
-on their runs do not: the valve's seating datum and the release's travel direction are
-the same direction, you push the valve fore to seat it, and the release pushes it fore
-again, into the surface that seated it. The plate and the wall are cut for the mechanism
-above; the machine does not yet perform it.
+**THE STROKE IS READ, NOT ASSUMED.** `release-travel` offers every body the release moves
+the whole stroke and reports what it hits — a motion, where every other bound on that card
+reads where a body stands — and all eight clear it. A butted neighbour travels with the
+body it butts, so the four valves butted to the anchor tees make the same stroke the
+tees do: they all stand on one deck, and `_valve_panels` sets that plate's face a whole
+stroke further fore and sinks its four sockets by the same figure, so a post keeps its grip
+over the travel. The other deck's setback is zero and nothing about it moves. Its sibling
+`check_insertion_backing` reads the other direction, where a tube pushed into a branch
+collet drives its tee aft and the step in the wall's bore is what stops it.
 
 **What lands on the steel is the cap's own aft face.** The cap's whole storey stands
 under the plate's top, so the face it presents to the steel is the piece's own — nothing
