@@ -5749,8 +5749,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
     check_head_sweep(a.pack_solids, pieces)
-    # And the cartridge's own two joints with what it leaves against: the stop pads on the
-    # steel, and the hand-holds struck through its flank returns.
+    # And the cartridge's own joint with what it lands against: the cap's aft face on the
+    # steel.
     check_stop_pads(pieces, box.collet_plate)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.

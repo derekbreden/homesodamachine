@@ -69,7 +69,7 @@ the bore to both at every build.
 Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm until each
 nose lands on that land. The body keeps coming, the nose is held, the grip opens, and the tube
 draws out through the hole it entered by. Push the cartridge home and the same four tubes
-thread the same four holes back into the same collets, the deck's stop pads landing on the
+thread the same four holes back into the same collets, the cap's own aft face landing on the
 plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
 one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
 through the floor. There is no lock and no tool.
@@ -127,7 +127,7 @@ grips.
 **5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
 once the deck is in. Then the deck onto its ledges, the four tubes through the plate's holes
 and into the branch collets, and a firm push on the face with one hand bracing the box. The
-stop pads landing on the steel is the seat: a face standing proud of the wall is a tube that has
+cap's face landing on the steel is the seat: a face standing proud of the wall is a tube that has
 not gone home.
 
 **6. Re-prime.** Both channels through the hopper-fill path, then a dispense on each until it
@@ -137,7 +137,7 @@ runs clean.
 
 - Both pumps replaced, each standing in the cartridge with the cap closed on its bracket, tug-tested
 - Four fresh barb tubes on the barbs and all [4](JOINT_COUNT_4) joints threaded home, the
-  cartridge's face flush in the bay and its stop pads on the steel
+  cartridge's face flush in the bay and the cap's aft face on the steel
 - Both channels re-primed and dispensing clean
 - No joint on the water, CO2 or carbonated-water path opened; the carbonator never depressurised
 
