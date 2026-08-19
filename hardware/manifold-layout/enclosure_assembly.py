@@ -6014,6 +6014,57 @@ def check_ridge_carried(pieces: dict, shell) -> Bound:
           else f"x {x:8.3f}   drop {d:.4f} mm") for x, d in bad]))
 
 
+def check_loom_passes(pieces: dict, shell) -> Bound:
+    """Whether the config display's loom still has its way through the ridge rib.
+
+    `enclosure._ridge_wall` runs wall to wall, so it is the only section between the bay's
+    storey and the cavity behind it, and SIG-7 crosses it. That makes the bore a PASSAGE, and a
+    passage is the one thing this card's other readings cannot see: every one of them measures
+    where a body stands, and no body stands in a hole. A later fuse landing in it — a boss, a
+    rib, an anchor on that same face — closes the only route the loom has and moves nothing
+    that anything else here reads.
+
+    Measured as the passage's OWN RADIUS and measured exactly: the bore's axis, struck across
+    the rib's thickness, at its exact distance from the printed piece. What comes back is the
+    largest thing that goes through — so a boss fused into the bore reads as a smaller bore
+    rather than as a volume, and the failure names the size that still passes.
+
+    NOT AS OCCUPANCY. A cylinder of the bore's own diameter intersected with the piece reads
+    0.09 mm3 on a bore that is perfectly clear: the wall is round, the boolean is meshed, and
+    the facets of a tessellated cylinder fall inside the true one. That is the instrument
+    talking, not the geometry, and thresholding it means picking a number that means nothing.
+    An exact distance has no such term.
+
+    The segment spans the rib and no further, so what this reads is the SECTION and not the
+    corridor either side of it — a body standing off the bore's mouth is `clearance-floor`'s
+    and `pack-closes`'s to find, not this one's."""
+    piece = pieces["front-top"]
+    piece = piece.val() if hasattr(piece, "val") else piece
+    ry, rz = _enc.pcb_ridge(shell.outer)
+    fore, t = shell.collet_plate["aft_y"], _enc.ridge_wall_t
+    jog = (ry + rz) - fore
+    axis_z = (shell.pump_bay[2] + jog) / 2.0
+    d = _enc.cable_sleeve_open
+    cx = _enc.display_centre_x(shell.outer)
+    axis = cq.Edge.makeLine(cq.Vector(cx, fore, axis_z), cq.Vector(cx, fore + t, axis_z))
+    dist = _BRepDist(axis.wrapped, piece.wrapped)
+    if not dist.IsDone():
+        raise RuntimeError(
+            "loom-passes: the exact distance from the bore's axis to front-top failed — "
+            "the passage is unknown, not clear")
+    got = 2.0 * dist.Value()
+    ok = got >= d - 1e-6
+    return record_bound(Bound(
+        "loom-passes", "The config display's loom has a clear bore through the ridge rib", ok,
+        f"{got:.4f} mm passes at x {cx:g}, z {axis_z:.3f}",
+        f"a {d:.4g} mm bore clean through {_enc.ridge_wall_t:g} mm of rib",
+        ([] if ok else [
+            f"only {got:.4f} mm passes where the loom crosses — SIG-7 is four 22 AWG in a "
+            f"{_enc.cable_sleeve_nom:g} mm expandable braid that opens to {d:.4g}, and this "
+            f"rib is the only section it can cross. Move whatever narrowed the bore, or "
+            f"move the bore"])))
+
+
 def machine():
     """The pack, and the box around it. One build: the box is sized on the pack's bodies,
     and then carries the stations they seat in its walls.
@@ -6092,6 +6143,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the one line in that piece a nozzle would otherwise have to begin in air, against the
     # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
     check_ridge_carried(pieces, box)
+    # And the one route through it, since that rib is now the only section between the
+    # bay's storey and the cavity aft of it — a hole nothing else on this card can see.
+    check_loom_passes(pieces, box)
     # And the floor that whole storey stands on, against the rim it stands on — then each
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)

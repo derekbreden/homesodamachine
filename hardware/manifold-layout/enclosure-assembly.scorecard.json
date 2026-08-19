@@ -963,6 +963,16 @@
    "active": true
   },
   {
+   "id": "loom-passes",
+   "label": "The config display's loom has a clear bore through the ridge rib",
+   "kind": "gate",
+   "status": "pass",
+   "value": "19.0500 mm passes at x 0, z 304.781",
+   "target": "a 19.05 mm bore clean through 3 mm of rib",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "bay-floor-bedded",
    "label": "The bay floor lies on the bed and seats the collet plate",
    "kind": "gate",
