@@ -1495,6 +1495,68 @@ def check_collet_plate(spec, mcarry) -> None:
             f"`BARB_STANDOFF`, or thin the plate"])))
 
 
+POST_GRIP_FLOOR = 3.0        # of a post inside its plate at rest — see `check_post_engagement`
+
+
+def check_post_engagement(pieces, placed, spec) -> Bound:
+    """How much of each valve's corner post is standing INSIDE its plate, at rest.
+
+    `panels-hold` reads whether a valve is near the plate that holds it. This reads how much
+    of it is HELD, which is a different quantity and the one `valve_seat`'s own headline turns
+    on: the posts in their sockets are the whole of the retention. A post engaged half a
+    millimetre sits at exactly the same radial clearance from its socket wall as one engaged
+    six, so proximity cannot tell them apart and nothing else on this card was looking.
+
+    IT MATTERS MOST ON THE DECK THAT TRAVELS. Setting that plate's face back by the release
+    stroke buys the valve its room out of the post's own grip: at rest the post stands in the
+    plate by its length LESS the setback, and only at full release is it in to the hilt. Rest
+    is the state the machine spends its life in, two peristaltic pumps away; full release is a
+    few seconds of a service call. So the reading that matters is the one at rest, and this
+    takes it there.
+
+    Measured rather than computed: a sleeve around each post's own axis, just outside its
+    socket AND NO LONGER THAN THE POST, intersected with the printed piece. What comes back is
+    the stretch of that post's length the plate actually surrounds — so a socket shortened by a port channel crossing it,
+    or by any later cut, reads short here even though the arithmetic still says six."""
+    solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
+    inset, r = _vseat.corner_inset, _vseat.socket_radius
+    travellers = valves_on_anchor_tees(placed)
+    rows, bad = [], []
+    for _name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
+        for valve, u, v in seats:
+            worst = None
+            for du in (-inset, inset):
+                for dv in (-inset, inset):
+                    # CLIPPED TO THE POST'S OWN LENGTH, and that clip is the whole reading.
+                    # A sleeve run further than the post measures how long the SOCKET is,
+                    # which is a fact about the plate and not about what holds the valve —
+                    # they part by exactly the setback, and the longer number is the flattering
+                    # one. From the mounting plane, `seat_top_z` along the valve's own +Z.
+                    base = cq.Vector(u + du, plane, v + dv)
+                    axis = cq.Vector(0, sign, 0)
+                    sleeve = (cq.Solid.makeCylinder(r + 0.8, _vseat.seat_top_z, base, axis)
+                              .cut(cq.Solid.makeCylinder(r + 0.02, _vseat.seat_top_z,
+                                                         base, axis)))
+                    held = 0.0
+                    for solid in solids:
+                        try:
+                            bb = sleeve.intersect(solid).BoundingBox()
+                            held = max(held, bb.ylen)
+                        except Exception:
+                            pass
+                    worst = held if worst is None else min(worst, held)
+            rows.append((valve, valve in travellers, worst))
+            if worst < POST_GRIP_FLOOR - 1e-6:
+                bad.append(valve)
+    return record_bound(Bound(
+        "post-engagement", "Every valve's posts stand in their plate at rest", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} valves gripped, least "
+        f"{min((w for _v, _t, w in rows), default=0.0):.3f} mm",
+        f"at least {POST_GRIP_FLOOR:g} mm of every post inside its plate with the valve at rest",
+        [f"{v:12} {'travels' if t else 'stands '}   {w:6.3f} mm of "
+         f"{_vseat.seat_top_z:g} in the plate" for v, t, w in rows]))
+
+
 def check_release_travel(pieces, placed, spec) -> Bound:
     """Whether the cartridge's release has ROOM TO HAPPEN.
 
@@ -5966,6 +6028,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_release_travel(pieces, a.pack_solids, box.collet_plate)
     # And the same question asked backwards — what takes the push that seats a tube in a tee.
     check_insertion_backing(pieces, a.pack_solids, box.collet_plate)
+    # And how much of each valve's post the plate actually surrounds, which is what holds a
+    # valve — `panels-hold` reads that one is near its plate and cannot read that.
+    check_post_engagement(pieces, a.pack_solids, box.collet_plate)
     check_head_sweep(a.pack_solids, pieces)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.

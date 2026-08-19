@@ -2785,8 +2785,12 @@ def _front_flat_lip_drop(inner, zj):
     one `front_wall` section, slab to mouth. The corner columns keep their wraps — the front
     Z-joint is their pillar telescopes and the butt at the seam."""
     bx0, bx1 = bay_x_span(inner)
+    # THE AFT FACE IS THE SKIN'S OWN, not a hair past it. The skin stands exactly one `wall`
+    # proud of the cavity face, so a cut to `inner[2] + wall` takes all of it and stops; the
+    # tenth that used to be added reached into the cavity beyond, and where that overshoot
+    # ran out at the jamb it left faces of no width at all — six edges under a micron.
     return _ybox(bx0, bx1,
-                 inner[2] - 0.1, inner[2] + wall + 0.1,
+                 inner[2] - 0.1, inner[2] + wall,
                  inner[4] - 1.0, zj + lip_len + 1.0)
 
 
@@ -3081,11 +3085,14 @@ def _tee_wall(inner, y_joint, plate, bay):
     below it nothing does, and the berth the cartridge leaves looks into the cavity. This
     stands the whole storey, so what is behind the bay is a wall.
 
-    AND THE Z SEAM DOES NOT PASS IT AT ALL. The lip is given up over this whole band
-    (`_flank_lip_drop`) and the front bosses stand fore of it, so the berth is empty here and
-    this wall comes out solid from flank to flank."""
+    AND THE Z SEAM DOES NOT PASS IT AT ALL, so this wall opens for nothing but its own bores.
+    The lip is given up over this whole band (`_flank_lip_drop`) and the front bosses stand
+    fore of it, so `_z_seam_berth` is empty across the wall's own slab — measured, 0.0 mm3 of
+    it — and the wall comes out solid flank to flank. It therefore takes no berth cut: a cut
+    that removes nothing is not a guard, because nothing here re-reads it if the lip ever
+    comes back. What would bring the lip back is a change to `_flank_lip_drop`, and this
+    wall's slab is struck on the plate's own two planes, so the two would part in silence."""
     slab = _ybox(inner[0], inner[1], plate["aft_y"], plate["wall_aft_y"], z_seam, bay[2])
-    slab = slab.cut(_z_seam_berth(inner, plate, y_joint))
     for hx, hz in plate["holes"]:
         slab = slab.cut(_tee_bore(plate, hx, hz))
     return slab
