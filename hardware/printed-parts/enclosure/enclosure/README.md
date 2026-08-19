@@ -160,7 +160,7 @@ material and the rest a stub off it, its mouth-side face on the receiving mouth.
 socket is a **pipe round that plug** — Ø[16.3 mm](SOCKET_OD) outside,
 Ø[10.3 mm](SOCKET_BORE) bored, one `wall` of material the whole way, a `socket_cap`
 over the insert's blind end — its rim-side face on the lip rim and its far face a
-hair inside the lip's own fusion shoulder, so it stands on the lip band down its
+hair under the seam mouth, so it stands on that band down its
 whole length. That band is one `wall` deep and runs the piece's full height, the way
 a telescoping lip does. Those two matings are the pair the overlap depth is struck
 from. Between two levels the corner is the wall's own air.
