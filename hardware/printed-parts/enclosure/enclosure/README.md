@@ -553,8 +553,8 @@ brace to the steel through the floor.
 
 **What lands on the steel is the cap's own aft face.** The cap's whole storey stands
 under the plate's top, so the face it presents to the steel is the piece's own — nothing
-hangs off anything to reach it — and `pad_kiss` is the air left at that face when the
-cartridge is home. `pads-stop-on-plate` reads the area standing against the plate's band
+hangs off anything to reach it — and `cap_kiss` is the air left at that face when the
+cartridge is home. `pump-cap-stops-on-plate` reads the area standing against the plate's band
 and that the kiss itself is air.
 
 ## The flank openings
