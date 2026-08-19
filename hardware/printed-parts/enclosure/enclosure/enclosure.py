@@ -2627,11 +2627,7 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     bx0, bx1 = sorted((x_in, x_tip))
     chan = _ybox(bx0, bx1, ys - socket_bore_dia / 2.0, ys + socket_bore_dia / 2.0,
                  bore_z, zj + lip_len + 1.0)
-    # THE CHANNEL STANDS ON THE BORE'S OWN AXIS and carries its width, so the bore's upper
-    # half lies wholly inside it. Unified, or the arc between the two survives as a seam
-    # across one plane and the cut imprints it on the piece as two coplanar faces.
-    cut = bore.fuse(heat).fuse(chan)
-    return cut.clean() if hasattr(cut, "clean") else cut
+    return bore.fuse(heat).fuse(chan)
 
 
 # --- the four-corner screw: the Y-boss idiom with the seam plane through it --
@@ -2972,6 +2968,18 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
                           plate["aft_y"] + plate_slot_slip, plate["z0"], rim + 1.0))
 
 
+def _unified(solid):
+    """One printed piece, with its coincident-plane seams merged.
+
+    EVERY BOOLEAN LEAVES SPLITTERS. A cutter that fuses a bore to a channel standing on that
+    bore's own axis lands the tangent arc on the piece as a seam across one plane, and the two
+    faces either side of it are one surface reported as two. A volume cannot see them and a
+    clash cannot either; on a section they read as a hole that is not there. The box carries
+    them in the hundreds otherwise, so this is one call at the end of a piece rather than a
+    guard at every fuse that makes one."""
+    return cq.Workplane(obj=solid).clean()
+
+
 def build_cartridge(box, halves_cache=None):
     """THE PUMP CARTRIDGE: the bay's face and the tray deck behind it, one printed piece.
 
@@ -2993,7 +3001,7 @@ def build_cartridge(box, halves_cache=None):
     tray_z = cap_split_z(box.pump_trays)
     for bore in _cap_screws(inner, plate, box.pump_trays)[1]:
         solid = solid.cut(bore)
-    return cq.Workplane(obj=solid)
+    return _unified(solid)
 
 
 def _cartridge_gross(box, halves_cache=None):
@@ -3115,7 +3123,7 @@ def build_pump_cap(box, halves_cache=None):
                                 plate["fore_y"] - 12.0, plate["aft_y"] + 1.0))
     for bore in _cap_screws(inner, plate, box.pump_trays)[0]:
         solid = solid.cut(bore)
-    return cq.Workplane(obj=solid)
+    return _unified(solid)
 
 
 def build_front_half(box):
@@ -4333,7 +4341,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     for sx, sy, _name, room in box.column_reliefs:
         pillar = _column_pillar(inner, sx, sy, box.splits[0] if sy < 0 else box.splits[1])
         piece = piece.cut(_ybox(*room).intersect(pillar))
-    return cq.Workplane(obj=piece)
+    return _unified(piece)
 
 
 # --- reporting --------------------------------------------------------------
