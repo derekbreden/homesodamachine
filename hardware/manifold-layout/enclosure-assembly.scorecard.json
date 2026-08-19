@@ -997,6 +997,25 @@
    "active": true
   },
   {
+   "id": "post-engagement",
+   "label": "Every valve's posts stand in their plate at rest",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8/8 valves gripped, least 3.165 mm",
+   "target": "at least 3 mm of every post inside its plate with the valve at rest",
+   "detail": [
+    "valve-v-c    stands     6.000 mm of 6 in the plate",
+    "valve-v-d    stands     6.000 mm of 6 in the plate",
+    "valve-v-g    stands     6.000 mm of 6 in the plate",
+    "valve-v-j    stands     6.000 mm of 6 in the plate",
+    "valve-v-e    travels    3.165 mm of 6 in the plate",
+    "valve-v-f    travels    3.165 mm of 6 in the plate",
+    "valve-v-h    travels    3.165 mm of 6 in the plate",
+    "valve-v-i    travels    3.165 mm of 6 in the plate"
+   ],
+   "active": true
+  },
+  {
    "id": "heads-sweep-out",
    "label": "Every pump head sweeps out through the bay",
    "kind": "gate",
