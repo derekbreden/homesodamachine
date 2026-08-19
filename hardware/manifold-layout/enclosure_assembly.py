@@ -1528,7 +1528,15 @@ def check_panel_web(spec) -> Bound:
 
     Read off the cutters rather than the piece: they are what the plate is hollowed by, so the
     distance between them IS the web, and reading it here does not depend on finding the right
-    two faces in a solid that has been through thirty other booleans."""
+    two faces in a solid that has been through thirty other booleans.
+
+    AND IT IS THE ONLY THING ON THIS CARD HELD TO WHAT THE MACHINE CAN LAY. Several bounds here
+    keep a minimum wall — `plug-web` at 1 mm, `port-field-web` at a rim's own width, and
+    `port-pocket-floor` at `enclosure.wall` — but every one of those figures is the design's,
+    chosen so a feature reads right and stands up. `EXTRUSION_W` is not: it is the printer's,
+    and it is the width below which a wall is not thin but absent. A solid states material at
+    any width whatever, so nothing that reads the model can tell the two apart; only a figure
+    from outside the model can."""
     rows, worst = [], None
     for label, extra, sweep in (("stands ", 0.0, 0.0), ("travels", spec["stroke"], spec["stroke"])):
         a = _vseat.build_sockets(extra)
