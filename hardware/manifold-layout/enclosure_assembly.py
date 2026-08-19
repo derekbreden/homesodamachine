@@ -5983,10 +5983,11 @@ def check_pumps_in_bay(placed: dict, shell) -> Bound:
                 msgs.append(f"{n} stands {b.ymin - _enc.pump_relief_floor:.2f} mm off its "
                             f"relief's floor — under the millimetre the pass-by keeps")
         margin = min(b.xmin - bx0, bx1 - b.xmax)
-        rows.append((n, margin - _enc.cart_deck_slip))
-        if margin < _enc.cart_deck_slip - 1e-6:
-            msgs.append(f"{n} stands {margin:.2f} mm inside a jamb — the sweep wants "
-                        f"`cart_deck_slip` {_enc.cart_deck_slip:g} everywhere")
+        rows.append((n, margin - _enc.bay_face_slip))
+        if margin < _enc.bay_face_slip - 1e-6:
+            msgs.append(f"{n} stands {margin:.2f} mm inside a jamb — the block's own edge is "
+                        f"`bay_face_slip` {_enc.bay_face_slip:g} in from the jamb, and what "
+                        f"the block carries has to stand inside that")
         if b.zmax > top - _enc.bay_crown_air + 1e-6:
             msgs.append(f"{n} crowns at z {b.zmax:.2f} against a bay top of {top:.2f}")
     ok = not msgs
