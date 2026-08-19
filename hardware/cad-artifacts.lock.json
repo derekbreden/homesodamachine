@@ -2,19 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-9deddb7ddc03bef8.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9deddb7ddc03bef8.tar.gz"
+    "asset": "cad-37cd88baf4f2377a.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-37cd88baf4f2377a.tar.gz"
   },
   "bundle": {
-    "sha256": "9deddb7ddc03bef84aca44507857d130f86eb77603ecd547698717de78c49bec",
-    "bytes": 27703384,
+    "sha256": "37cd88baf4f2377aa66ef6cdd788ad81f6993c5216c473e0f41e1951e0d94d89",
+    "bytes": 27716598,
     "solids": 94
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "16f7a93bd006104b23d9a2ad01b7a6da2c103eb9f36ea451004279f7bb44df9a",
-    "hardware/manifold-layout/enclosure-assembly.step": "8e9f44481fa098031b473a3df2a2c840fb4a8a52fdeb334450be2dc2ae4de6de",
+    "hardware/manifold-layout/enclosure-assembly.step": "798181234fccc642979ac740eec1903a907feb3e608bb7df177ef31f692e398d",
     "hardware/manifold-layout/manifold-layout.step": "65c188c539f9c16da4651dbfe20c307d222e78ae4ebb1495284f651e92098030",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "3930047b04cd73bcf0df827cd6d82312084a72f70cc439615899635198865e23",
@@ -45,8 +45,8 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "27509a92c04ff3eb5ba72f83ed4b7d14d86f232c9a94afc0c6637395e20b9c9f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "b125ce08ff176ce8e7681897a2d04a75450134cda1ca14efc29ca0bb42cb28ff",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "14e2a9482ee992d35715addaf85159fc4768fa911c879570e1039b0cd7a5d23c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "054768c4bb9cd97d8477a7f0c5e4b5a1ec9cb892d00a0aaf5ebd8f31d25cf3e3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "4ccf05b96db3e77dc50af41a62f6f7b30fbda01318061fae8470390711ca1454",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "8533652339da203a768f6d7887db5cc6e3261ea7aeb1aadf91e7b1aaf5084fbb",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "23cebfdc9eb6efbc7497b8efe6c294eb2bfa1fb8e2c82625f78c3e6033e6f6d6",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
