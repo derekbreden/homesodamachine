@@ -22,7 +22,7 @@ faucet's gooseneck tip. The user's part is a vessel under the faucet.
 | Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](PANEL_VALVES) valves — V-C…V-J, on the two printed panels ([`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
-| | The collet plate, in the blind seat sunk in the bay floor's top |
+| | The collet plate, in the blind seat sunk in the bay floor's top, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
 | | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
 | | The hopper funnel, in its throat; the display; the SeaFlo and both its chains; the cold core itself |
 
@@ -55,8 +55,9 @@ is drawn on — the vessel under the faucet is the only vessel the procedure ask
 
 The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
 `collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
-on edge in a blind seat sunk one `wall` into the bay floor's top. Gravity holds it down and the
-seat takes every other direction; it lifts out through the bay whenever the cartridge is out.
+on edge in a blind seat sunk one `wall` into the bay floor's top. Gravity holds it down, the
+seat takes it fore, aft and across at the foot, and the printed wall behind it takes the push
+across its whole face; it lifts out through the bay whenever the cartridge is out.
 
 Seated, the steel stands in the berth between the barbs and the collets, and that berth is
 spent three ways: [1.025](BARB_AIR) mm of air off the barb plane, the plate's own
@@ -66,11 +67,22 @@ once — wide enough to pass the Ø[6.35 mm](TUBE_OD) tube it has to let slide, 
 leave land under the collet nose it has to stop. `enclosure_assembly.check_collet_plate` holds
 the bore to both at every build.
 
-Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm until each
-nose lands on that land. The body keeps coming, the nose is held, the grip opens, and the tube
-draws out through the hole it entered by. Push the cartridge home and the same four tubes
-thread the same four holes back into the same collets, the cap's own aft face landing on the
-plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
+**The wall behind the steel is what holds a tee square while that happens.**
+`enclosure-front-top` carries a section of its own material aft of the plate, wall to wall and
+the whole height of the bay, bored once per anchor tee (`enclosure._tee_wall`). Each bore
+closes on the round collar the tee's branch arm carries — `TEE_WALL_BORE_SLIP` on the radius,
+a running fit and not a grip — so a tee is located across its own axis by printed material and
+free along it, which is the one direction the release moves it. The wall's fore face IS the
+steel's aft face, struck as one figure, so every bore is stopped at its fore mouth by steel
+and the nose that lands there lands on steel and not on plastic. Its aft face stands one whole
+stroke plus `TEE_WALL_BODY_AIR` fore of the tee's own body, so at full release there is still
+air behind the tee: what the wall holds is the collar, and what stops the tee is the steel.
+
+Pull the cartridge and the gripped tubes drag the tees forward [1.5](REST_GAP) mm — each tee
+running in its own bore — until each nose lands on that land. The body keeps coming, the nose
+is held, the grip opens, and the tube draws out through the hole it entered by. Push the
+cartridge home and the same four tubes thread the same four holes back into the same collets,
+the cap's own aft face landing on the plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
 one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
 through the floor. There is no lock and no tool.
 
@@ -155,6 +167,13 @@ runs clean.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
+4. **The stroke is not clear, so the cartridge cannot come out.** `release-travel` reads red at
+   4 of 8 bodies clear. A butted neighbour travels with the body it butts, so the four anchor tees
+   make the whole stroke and the four valves standing on their runs do not. The valve's seating
+   datum and the release's travel direction are the same direction: you push the valve fore to seat
+   it, and the release pushes it fore again, into the surface that seated it. Nothing about the
+   seated machine looks wrong — the gate reads a motion, where every other bound on that card reads
+   where a body stands. Step 2 of this procedure cannot be performed until it clears.
 
 ## Sources
 [value](NAME) texts are updated by:

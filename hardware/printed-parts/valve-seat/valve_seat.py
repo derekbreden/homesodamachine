@@ -70,7 +70,7 @@ def socket_depth():
     return seat_top_z - socket_floor_z
 
 
-def build_sockets():
+def build_sockets(extra: float = 0.0):
     """The four SOCKETS of one seat, in the valve's own frame — nothing else.
 
     A BOSS IS MATERIAL ROUND A SOCKET. A face already thick enough to hold one IS that material,
@@ -81,16 +81,21 @@ def build_sockets():
 
     A consumer CUTS this where it would FUSE `build_seat` — the two are the same seat, sunk or
     stood, and a face that can take one does not want the other. `valve_panel` sinks; the cold
-    core's cap lid, whose own lid is thinner than a socket is deep, stands."""
+    core's cap lid, whose own lid is thinner than a socket is deep, stands.
+
+    `extra` SINKS THE FLOOR FURTHER WITHOUT MOVING THE MOUTH — for a valve that has to TRAVEL
+    along its posts rather than sit still on them. A post drives toward its socket's floor, so
+    a valve given room to move is a valve whose floor has to be that much further down or it
+    bottoms before its travel is spent. The mouth, the radius and the grip are untouched."""
     sockets = None
     for sx in (-1.0, 1.0):
         for sy in (-1.0, 1.0):
             socket = (
                 cq.Workplane("XY")
-                .workplane(offset=socket_floor_z)
+                .workplane(offset=socket_floor_z - extra)
                 .center(sx * corner_inset, sy * corner_inset)
                 .circle(socket_radius)
-                .extrude(seat_top_z - socket_floor_z + 1.0)
+                .extrude(seat_top_z - socket_floor_z + extra + 1.0)
             )
             sockets = socket if sockets is None else sockets.union(socket)
     return sockets

@@ -117,17 +117,31 @@ def port_channel_depth() -> float:
     return port_drop() + PORT_SLIP
 
 
-def build_port_channel(length: float):
+def build_port_channel(length: float, sweep: float = 0.0):
     """One valve's port channel, in the valve's own frame: the barrel and its slip, run `length`
     along the plate's own Y and open at both ends.
 
     A CYLINDER AND NOT A SLOT. The port is round and the channel closes on it all the way round
     at one slip, the way the meter's saddles take a barrel — a square slot to the same width
-    would take the plate's whole depth at the corners for air the port is nowhere near."""
-    return (cq.Workplane("XZ")
-            .center(0.0, _valve.port_center_z)
-            .circle(_valve.port_radius + PORT_SLIP)
+    would take the plate's whole depth at the corners for air the port is nowhere near.
+
+    `sweep` DRAWS THAT CIRCLE ALONG THE VALVE'S OWN TRAVEL and takes the stadium it traces. A
+    valve given room to move carries its port with it, so a channel struck only where the port
+    RESTS closes on it everywhere it goes — the setback frees the body and the port lands in
+    the plate instead. The section stays round at both ends and is a slot only over the stretch
+    the port actually sweeps."""
+    r = _valve.port_radius + PORT_SLIP
+    def barrel(at):
+        return (cq.Workplane("XZ").center(0.0, at).circle(r)
+                .extrude(length / 2.0, both=True))
+    ch = barrel(_valve.port_center_z)
+    if sweep > 0.0:
+        ch = ch.union(barrel(_valve.port_center_z - sweep)).union(
+            cq.Workplane("XZ")
+            .center(0.0, _valve.port_center_z - sweep / 2.0)
+            .rect(2.0 * r, sweep)
             .extrude(length / 2.0, both=True))
+    return ch
 
 
 def build_valve_panel(width: float, seats):
