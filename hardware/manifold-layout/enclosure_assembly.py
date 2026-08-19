@@ -1588,6 +1588,15 @@ def check_release_travel(pieces, placed, spec) -> Bound:
     stays seated on its own plate exactly as every other valve does, and only the tee is
     offered the stroke.
 
+    THAT THE STUB BENDS IS STATED, NOT DERIVED, AND NOTHING IN THIS TREE CAN CHECK IT. Every
+    body in the model is rigid: there is no compliance anywhere in it, so a chain of reasoning
+    over it can only ever conclude that something rigid has to move, and reading `BUTT` as 0
+    says the two collet faces meet with no tube between them — which is a fact about a gap and
+    not about whether the tube INSIDE them can articulate. The mechanism here is the account of
+    someone who has handled the fittings. It is the one premise under the release that no bound
+    on this card reaches, and anything downstream describing the stub rests on it rather than
+    on geometry.
+
     Each body is offered the stroke, fore, against every printed piece — AND THAT SCOPE IS A
     DISCOUNT THIS BOUND DEPENDS ON. A released body is already touching its own tube at rest,
     by construction: the barb tube the collet grips stands half a millimetre fore of the tee
