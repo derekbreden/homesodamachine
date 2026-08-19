@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -960,6 +960,25 @@
    "value": "bed 100.0% solid, seat 100.0% solid",
    "target": "the floor whole on the seam plane 160 and under the plate's foot 163.865",
    "detail": [],
+   "active": true
+  },
+  {
+   "id": "release-travel",
+   "label": "The anchor tees and what butts them can make the release stroke",
+   "kind": "gate",
+   "status": "fail",
+   "value": "4/8 bodies clear 2.835 mm fore",
+   "target": "every body the release moves free over its whole 2.835 mm",
+   "detail": [
+    "Y-C   tee-y-c        CLEAR",
+    "Y-C   valve-v-e          1829.9 mm3 into front-top",
+    "Y-D   tee-y-d        CLEAR",
+    "Y-D   valve-v-f          1829.9 mm3 into front-top",
+    "Y-F   tee-y-f        CLEAR",
+    "Y-F   valve-v-h          1829.9 mm3 into front-top",
+    "Y-G   tee-y-g        CLEAR",
+    "Y-G   valve-v-i          1829.9 mm3 into front-top"
+   ],
    "active": true
   },
   {
