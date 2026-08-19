@@ -733,7 +733,12 @@ bay_face_slip = 0.4          # cartridge face inside the opening, per side — i
 post_along = 14.676
 face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
-cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
+# THE CARTRIDGE HAS ONE OUTLINE AND NOT TWO. Face, deck and cap all stand `bay_face_slip`
+# inside the jambs and `face_reveal` under the lintel, because they are one printed block and
+# the thing that has to pass the opening is the block. Giving the deck air of its own put the
+# face 0.6 proud of it down every flank and the deck 0.4 proud of the face along its top —
+# steps in opposite directions, neither outline containing the other, and a thin ledge at
+# every junction. What the face fits through, the block behind it fits through.
 cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
 plate_slot_slip = 0.2        # per-side air round the collet plate in the floor's seat
 
@@ -2946,7 +2951,7 @@ def _cap_x_span(bay):
     """The cap's own two edges — the deck's own, since nothing of the box stands inside the
     jambs at this storey."""
     _bx0, bx1, _top = bay
-    edge = bx1 - cart_deck_slip
+    edge = bx1 - bay_face_slip
     return -edge, edge
 
 
@@ -3149,12 +3154,8 @@ def build_cartridge(box, halves_cache=None):
     WHAT STOPS IT ON THE STEEL IS THE CAP'S OWN AFT FACE, one storey down — this piece owns
     no feature below `cap_split_z`. Printed face-down: the outer skin is the bed, the block
     stands off it, and every pocket rises as a plateau's absence with nothing hanging."""
-    inner, plate, bay = box.inner, box.collet_plate, box.pump_bay
+    inner, plate = box.inner, box.collet_plate
     solid = _cartridge_gross(box, halves_cache).cut(_cap_room(box))
-    bx0, bx1, _top = bay
-    dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
-    deck_aft = plate["fore_y"] - 2.0
-    tray_z = cap_split_z(box.pump_trays)
     for bore in _cap_screws(inner, plate, box.pump_trays)[1]:
         solid = solid.cut(bore)
     return _unified(solid)
@@ -3188,20 +3189,24 @@ def _cartridge_gross(box, halves_cache=None):
     face = _cartridge_face_region(inner, outer, bay, box.pump_trays, plate)
     solid = half.val().intersect(face)
     bx0, bx1, top = bay
-    dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
+    dx0, dx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
     cx0, cx1 = _cap_x_span(bay)
-    deck_aft = plate["fore_y"] - 2.0
     # THE CAP'S OWN AFT FACE IS THE STOP. Its whole storey stands under the plate's top, so
     # the face it presents to the steel is the piece's own — no pad hangs off anything to
     # reach it — and `cap_kiss` is the air left at that face when the cartridge is home.
-    cap_aft = plate["fore_y"] - cap_kiss
+    #
+    # BOTH STOREYS PRESENT THAT SAME FACE. The deck stood further fore than the cap for no
+    # stated reason, which put a step across the block's whole back and a ledge at the split
+    # to carry it. One plane for both is one face against the steel and no ledge at all.
+    deck_aft = cap_aft = plate["fore_y"] - cap_kiss
     split = cap_split_z(box.pump_trays)
     floor_top = bay_floor_z(box.pump_trays)[1]
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
     # front wall presents wherever a head noses into it, and the surface the face carries
     # across the whole of both pockets. Under the split it stands off the bay floor on the
     # face's own `face_reveal`: what carries this piece is the bay floor it rides.
-    solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split, top))
+    solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split,
+                             top - face_reveal))
     solid = solid.fuse(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
                              split))
     for void in _pump_voids(box.pump_trays, top):
