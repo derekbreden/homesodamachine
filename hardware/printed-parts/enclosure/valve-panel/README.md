@@ -124,6 +124,23 @@ own underside to bridge and its root standing on nothing, and this plate carries
 them. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces
 row).
 
+## Open items
+
+1. **Whether [3.165](PANEL_GRIP) mm of post is enough is not known.** The posts in their sockets
+   are the whole of the retention, and on the travelling deck a little over half a post is in the
+   plate in the state the machine spends its life in. `post-engagement` holds that figure at a
+   floor of 3 mm, and the floor is a number somebody chose: it stands just under what the deck
+   has, so it catches a geometry that moves and asserts nothing about the geometry that is there.
+   No pull-out or fatigue figure for a Beduan corner post in printed PETG exists in this repo.
+   The nearest measured retention figure is a press fit in PET-CF held at ~10 lbf
+   ([`touch-flo-shell/print-log.md`](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md)),
+   a different joint in a different material.
+2. **`panel-web` is the only bound on this plate that reads what a nozzle can lay.** Everything
+   else about it — the sockets' clearance, the channel's floor, the seats' pitch, the margin past
+   the last seat — is read against a solid, and a solid states material at any width. The plate
+   comes off a 0.8 bead, so a feature the model draws thinner than one reads green in every check
+   but that one. `EXTRUSION_W` is named once in the whole tree.
+
 ## Files
 
 - `valve_panel.py` — the panel's own figures, and one drawn in its own frame for the wall to turn
