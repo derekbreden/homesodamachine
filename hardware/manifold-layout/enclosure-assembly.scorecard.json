@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -915,17 +915,17 @@
    "label": "Every valve on a printed panel is standing in its seats",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 valves seated, furthest off 0.000 mm",
-   "target": "every valve within 0.2 mm of the plate under it",
+   "value": "8/8 valves seated, furthest off 0.199 mm",
+   "target": "a still valve on its plate within 0.2 mm, a travelling one gripped in sockets of 0.2 mm clearance",
    "detail": [
-    "valve-panel-aft    valve-v-c    y-plane  171.080 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-d    y-plane  171.080 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-g    y-plane  171.080 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-j    y-plane  171.080 -Z   off 0.0000",
-    "valve-panel-fore   valve-v-e    y-plane   89.080 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-f    y-plane   89.080 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-h    y-plane   89.080 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-i    y-plane   89.080 +Z   off 0.0000"
+    "valve-panel-aft    valve-v-c    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
+    "valve-panel-aft    valve-v-d    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
+    "valve-panel-aft    valve-v-g    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
+    "valve-panel-aft    valve-v-j    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
+    "valve-panel-fore   valve-v-e    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000",
+    "valve-panel-fore   valve-v-f    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000",
+    "valve-panel-fore   valve-v-h    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000",
+    "valve-panel-fore   valve-v-i    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000"
    ],
    "active": true
   },
@@ -966,18 +966,33 @@
    "id": "release-travel",
    "label": "The anchor tees and what butts them can make the release stroke",
    "kind": "gate",
-   "status": "fail",
-   "value": "4/8 bodies clear 2.835 mm fore",
+   "status": "pass",
+   "value": "8/8 bodies clear 2.835 mm fore",
    "target": "every body the release moves free over its whole 2.835 mm",
    "detail": [
     "Y-C   tee-y-c        CLEAR",
-    "Y-C   valve-v-e          1829.9 mm3 into front-top",
+    "Y-C   valve-v-e      CLEAR",
     "Y-D   tee-y-d        CLEAR",
-    "Y-D   valve-v-f          1829.9 mm3 into front-top",
+    "Y-D   valve-v-f      CLEAR",
     "Y-F   tee-y-f        CLEAR",
-    "Y-F   valve-v-h          1829.9 mm3 into front-top",
+    "Y-F   valve-v-h      CLEAR",
     "Y-G   tee-y-g        CLEAR",
-    "Y-G   valve-v-i          1829.9 mm3 into front-top"
+    "Y-G   valve-v-i      CLEAR"
+   ],
+   "active": true
+  },
+  {
+   "id": "insertion-backing",
+   "label": "An anchor tee is backed against the push that seats its tube",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 tees stopped going aft",
+   "target": "every anchor tee landing on printed material before it can travel aft",
+   "detail": [
+    "Y-C   tee-y-c        backed by front-top,      12.0 mm3 at 2.835 mm",
+    "Y-D   tee-y-d        backed by front-top,      12.0 mm3 at 2.835 mm",
+    "Y-F   tee-y-f        backed by front-top,      12.0 mm3 at 2.835 mm",
+    "Y-G   tee-y-g        backed by front-top,      12.0 mm3 at 2.835 mm"
    ],
    "active": true
   },

@@ -84,6 +84,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "compressor",
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
+           _hw / "printed-parts" / "valve-seat",
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "worm-clamp",
            _hw / "reference" / "jg-pp0408w",
@@ -146,6 +147,7 @@ import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import hopper_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
+import valve_seat as _vseat                           # noqa: E402
 import jg_pp0408w as _jgu                             # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
@@ -1039,13 +1041,46 @@ def panel_name(axis: int, sign: float, plane: float, taken: dict) -> str:
     return name if name not in taken else f"{name}-{plane:.0f}"
 
 
+def valves_on_anchor_tees(placed: dict) -> set:
+    """The valves butted onto an anchor tee's run, by name.
+
+    A BUTTED PAIR MEETS FACE TO FACE — `manifold_layout.BUTT` is zero, so there is tube in both
+    collets and none between them, and neither body can lag the other by a millimetre. The
+    valve whose box begins where an anchor tee's ends, across that tee's own width, is the one
+    that travels when the release drags the tee forward. Measured off the placed bodies rather
+    than named, so a renumbered pack cannot leave this reading the wrong pair."""
+    boxes = {n: b.BoundingBox() for n, b in placed.items()}
+    out = set()
+    for t in ml.BARB_OF:
+        name = ml.body_name(t)
+        if name not in boxes:
+            continue
+        tb = boxes[name]
+        out.update(o for o, ob in boxes.items()
+                   if o != name and abs(ob.zmin - tb.zmax) < 0.5
+                   and ob.xmin < tb.xmax and ob.xmax > tb.xmin)
+    return out
+
+
 def valve_panel_stations(placed: dict) -> tuple:
-    """Every deck as `enclosure.Box.valve_panels` — `(plane, sign, ((x, z), …))` per panel.
+    """Every deck as `enclosure.Box.valve_panels` — `(plane, sign, ((x, z), …), setback)`.
 
     The world Y a deck's valves stand their mounting faces on, which way their own +Z runs off
     it, and each valve's footprint centre. This is the whole of what the wall is handed: the
     plate's extent is the seats' own, and its thickness, margin and seat height are
-    `valve_panel`'s."""
+    `valve_panel`'s.
+
+    A DECK CARRYING A VALVE THAT TRAVELS IS SET BACK BY THE WHOLE STROKE. Its plate's face is
+    where its valves' bodies land, and that face is a stop in the one direction the release
+    moves them — you push a valve fore onto it to seat it, and the release pushes it fore
+    again, into the surface that seated it. So the face of such a deck stands one stroke
+    further fore, its sockets sink that much deeper to keep their grip, and the valve is left
+    free to make the travel. What sets its position then is the anchor tee it butts, which is
+    itself held by the wall behind the collet plate (`enclosure._tee_wall`) — so the deck that
+    travels is the one deck whose valves are located by the manifold rather than by their own
+    plate. Every other deck's setback is zero and nothing about it changes."""
+    travellers = valves_on_anchor_tees(placed)
+    stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
     out = []
     for _name, (axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
         if axis != 1:
@@ -1053,7 +1088,10 @@ def valve_panel_stations(placed: dict) -> tuple:
                 f"a valve deck stands its valves' own +Z on {'xyz'[axis]} and "
                 f"`enclosure._valve_panels` fuses a plate across the box's width on a Y plane — "
                 f"a deck on another axis needs the builder to learn it, not this table.")
-        out.append((plane, sign, tuple((round(u, 6), round(v, 6)) for _n, u, v in seats)))
+        moving = any(n in travellers for n, _u, _v in seats)
+        out.append((plane, sign,
+                    tuple((round(u, 6), round(v, 6)) for _n, u, v in seats),
+                    round(stroke if moving else 0.0, 6)))
     return tuple(out)
 
 
@@ -1079,24 +1117,41 @@ def valve_panel_plans(a=None) -> dict:
 def check_panels_hold(pieces: dict, placed: dict) -> Bound:
     """Whether every valve on a panel is standing in the piece that carries its seats.
 
-    Read as the seat is: a valve's four corner posts hang in four sockets and its round body
-    boss lands on the four boss tops, so the valve and the printed piece TOUCH. Anything else is
-    a plate drawn beside a valve rather than under it. The detail is the table, so a deck that
-    has moved prints what it now is."""
+    A DECK THAT STANDS STILL AND A DECK THAT TRAVELS ARE HELD DIFFERENTLY, and this reads each
+    the way it is actually held rather than holding both to one figure.
+
+    A STILL deck: the four corner posts hang in four sockets and the round body boss lands on
+    the plate's face, so the valve and the printed piece TOUCH. Zero, within `PANEL_SEAT_SLIP`.
+    Anything else is a plate drawn beside a valve rather than under it.
+
+    A TRAVELLING deck — the one butted onto the anchor tees — must NOT touch its plate's face:
+    that face is set back by the whole release stroke precisely so the valve has somewhere to
+    go (`valve_panel_stations`). What holds such a valve is its four posts in their sockets, so
+    the nearest the valve comes to the piece is the socket's own clearance, and THAT is what
+    this expects. Reading it against `PANEL_SEAT_SLIP` would pass only because that figure and
+    `valve_seat.socket_clearance` happen to be the same number today — a bound true by
+    coincidence, which is the shape of a bound that stops being true without anyone editing it.
+
+    The detail is the table, so a deck that has moved prints what it now is."""
     rows, worst = [], 0.0
     solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
+    travellers = valves_on_anchor_tees(placed)
     for name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
         for valve, _u, _v in seats:
             gap = min(_clearing.gap(placed[valve], piece, 1.0) for piece in solids)
             worst = max(worst, gap)
-            rows.append((name, valve, plane, sign, gap))
-    bad = [r for r in rows if r[4] > PANEL_SEAT_SLIP]
+            moving = valve in travellers
+            room = (_vseat.socket_clearance if moving else 0.0) + PANEL_SEAT_SLIP
+            rows.append((name, valve, plane, sign, gap, moving, room))
+    bad = [r for r in rows if r[4] > r[6]]
     return record_bound(Bound(
         "panels-hold", "Every valve on a printed panel is standing in its seats", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} valves seated, furthest off {worst:.3f} mm",
-        f"every valve within {PANEL_SEAT_SLIP:g} mm of the plate under it",
-        [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   off {g:.4f}"
-         for n, v, p, s, g in rows]))
+        f"a still valve on its plate within {PANEL_SEAT_SLIP:g} mm, a travelling one gripped "
+        f"in sockets of {_vseat.socket_clearance:g} mm clearance",
+        [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   "
+         f"{'travels' if m else 'stands '}   off {g:.4f} of {r:.4f}"
+         for n, v, p, s, g, m, r in rows]))
 
 
 # --- the flavour manifold's pump trays --------------------------------------
@@ -1266,6 +1321,7 @@ COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connecto
 PLATE_END_AIR = 0.3          # each end off the side wall, and each notch off the lip's face
 TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
 TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
+TEE_WALL_ARM_SLIP = 0.10     # the aft bore's air on the ARM — what leaves the collar a ledge
 
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
@@ -1301,7 +1357,14 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
     # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
     # the arm the tee carries through it. `CAP_NEAR` is where the collar the bore journals on
-    # begins, so the wall must reach past that at rest or a bore holds nothing.
+    # begins, so the wall must reach past that at rest or a bore holds nothing — and
+    # `collar_in_y` is that station in the world, which is where the BORE STEPS. Fore of it the
+    # bore takes the collar, which is what it journals; aft of it the bore takes the ARM alone,
+    # `ARM_R` being what the tee stands between its collar and its body. The collar cannot pass
+    # into the smaller of the two, so it lands on the ring between them, and that ring is the
+    # tee's AFT stop. It costs the release nothing, the release travelling the other way. It is
+    # the stop this machine has never had: a tube pushed into a branch collet pushes the tee
+    # AFT, and until now nothing took that push but friction.
     #
     # THE WALL DOES NOT RESTRAIN THE TEE ALONG ITS OWN AXIS, and its aft face is struck so
     # that it cannot. A tee travels WITHIN this wall: the collar runs in its bore and the
@@ -1338,6 +1401,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
             "collar_r": tee.BARREL_R,
             "bore_r": round(tee.BARREL_R + TEE_WALL_BORE_SLIP, 6),
+            "arm_bore_r": round(tee.ARM_R + TEE_WALL_ARM_SLIP / 2.0, 6),
             "stroke": round(stroke, 6),
             "stroke_ceiling": round(PLATE_REST_GAP + tee.COLLET_PROUD, 6)}
 
@@ -1490,6 +1554,52 @@ def check_release_travel(pieces, placed, spec) -> Bound:
         f"every body the release moves free over its whole {stroke:.3f} mm",
         [f"{t:5} {b:14} {'CLEAR' if v <= 1e-6 else f'{v:10.1f} mm3 into {i}'}"
          for t, b, v, i in rows]))
+
+
+def check_insertion_backing(pieces, placed, spec) -> Bound:
+    """Whether an anchor tee is BACKED against the push that seats a tube in it.
+
+    THE SIBLING OF `release-travel`, AND IT READS THE OTHER DIRECTION. That bound offers each
+    tee the stroke fore, because fore is where the release goes. But a barb tube is pushed INTO
+    a branch collet, and the tube comes from the pump ahead of it, so seating one pushes the tee
+    AFT. A tee free that way does not seat its tube — it simply moves out of the tube's path,
+    and the tube stops short of the fitting's own tube stop with nothing anywhere saying so.
+    (The tee is a harvested solid and states no insertion depth of its own; the figure named
+    here is the concept, not another fitting's constant.)
+
+    What backs it is the step in the wall's own bore (`enclosure._tee_bore`): fore of the
+    collar's rest station the bore takes the collar, aft of it only the narrower arm, and the
+    collar lands on the ring between. So this bound wants each tee STOPPED rather than free —
+    a reading of zero here is the pass, and travel is the failure. It is the one bound on this
+    card whose success is an interference."""
+    probe = spec["stroke"]
+    solids = {n: (q.val() if hasattr(q, "val") else q) for n, q in pieces.items()}
+    rows, bad = [], []
+    for tee in sorted(ml.BARB_OF):
+        name = ml.body_name(tee)
+        if name not in placed:
+            continue
+        moved = placed[name].translate(cq.Vector(0.0, probe, 0.0))
+        worst, into = 0.0, ""
+        for piece, solid in solids.items():
+            try:
+                vol = moved.intersect(solid).Volume()
+            except Exception:
+                vol = 0.0
+            if vol > worst:
+                worst, into = vol, piece
+        rows.append((tee, name, worst, into))
+        if worst <= 1e-6:
+            bad.append(tee)
+    return record_bound(Bound(
+        "insertion-backing", "An anchor tee is backed against the push that seats its tube",
+        not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} tees stopped going aft",
+        "every anchor tee landing on printed material before it can travel aft",
+        [f"{t:5} {n:14} " + (f"backed by {i}, {v:9.1f} mm3 at {probe:.3f} mm"
+                             if v > 1e-6 else
+                             "FREE — nothing takes the tube's own insertion push")
+         for t, n, v, i in rows]))
 
 
 def check_bay_floor(pieces, shell) -> Bound:
@@ -5854,6 +5964,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.
     check_release_travel(pieces, a.pack_solids, box.collet_plate)
+    # And the same question asked backwards — what takes the push that seats a tube in a tee.
+    check_insertion_backing(pieces, a.pack_solids, box.collet_plate)
     check_head_sweep(a.pack_solids, pieces)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
