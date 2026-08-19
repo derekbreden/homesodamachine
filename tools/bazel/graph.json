@@ -1502,7 +1502,6 @@
       "hardware/assembly/cards/out/cc-14-pour-body-foam.png",
       "hardware/assembly/cards/out/cc-15-columns-gaskets-caps.png",
       "hardware/assembly/cards/out/deck.pdf",
-      "hardware/assembly/cards/out/en-01-stage-the-four-pieces.png",
       "hardware/assembly/cards/out/en-01-stage-the-printed-pieces.png",
       "hardware/assembly/cards/out/en-02-rear-wall-bodies.png",
       "hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png",
@@ -1804,6 +1803,7 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
+      "hardware/assembly/cards/00-cover.html",
       "hardware/assembly/cards/ab-01-inspect-connect-power.html",
       "hardware/assembly/cards/ab-02-water-fill-co2.html",
       "hardware/assembly/cards/ab-05-level-transitions.html",
@@ -1871,6 +1871,7 @@
       "hardware/assembly/cards/wr-05-signal-looms.html"
     ],
     "writes": [
+      "hardware/assembly/cards/00-cover.html",
       "hardware/assembly/cards/ab-01-inspect-connect-power.html",
       "hardware/assembly/cards/ab-02-water-fill-co2.html",
       "hardware/assembly/cards/ab-05-level-transitions.html",
