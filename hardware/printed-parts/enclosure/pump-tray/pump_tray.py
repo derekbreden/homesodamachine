@@ -120,28 +120,29 @@ def far_reach() -> float:
 # head. A wedge under each of them carries the pump: the load stands on the flanks, and the
 # bracket lip over it only keeps the part from lifting off them.
 
-def head_seats(air: float) -> list:
-    """The four ledges a cap keeps inside a head void struck `air` off the head's own square,
-    in this module's frame — one solid per band, each carrying both sides.
+def head_room(air: float, depth: float):
+    """THE ROOM A CAP LEAVES ONE HEAD, in this module's frame — from the crown down `depth`.
 
-    Each is THE CASE'S OWN WALL over that band: the void's own block there, less the room
-    `pump_case.cavity` left. So the ledge roots on the void's face rather than floating off it,
-    its top face IS the head's 45 degree face to the micron, and it stops on the ramp's foot —
-    below which the flank runs narrow and the void opens back out to its air."""
+    The head's own square struck `air` off it, CLOSED BACK IN WHEREVER THE CASE CLOSED IN ON
+    THE PART. `pump_case.cavity` is that closing, and the part is clipped to it, so the room
+    follows the same walls the whole way down: the four 45 degree faces the clip leaves the
+    head land on this piece's own material, and the plumb flank under each of them is the same
+    wall carried on. Nothing about it is banded — a pocket that opens back out under a seat is
+    a pocket the part can rock in.
+
+    THE RAMPS PRESS AND THE PLUMB FLANKS CLEAR. A seat is a wedge and the room takes the
+    case's surface there to the micron. A plumb flank only locates, and drawn to the micron it
+    is 56 mm of press for two M3 to pull a pump through — so the room takes `air` back on
+    those, stepping out at the narrow taper's own foot, which is under every seat and over
+    every flank."""
     half = head_half + air
+    room = cq.Solid.makeBox(2 * half, 2 * half, depth, cq.Vector(-half, -half, -depth))
     cavity = _pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))
-    out = []
-    for top, bottom in _pc.flank_ramp_bands():
-        band = cq.Solid.makeBox(2 * half, 2 * half, top - bottom,
-                                cq.Vector(-half, -half, bottom))
-        # ONLY WHAT REACHES THE BAND'S FOOT IS A SEAT. The cavity's corners are round and a
-        # void struck on the head's square has square ones, so the cut also comes back with a
-        # crumb in each corner the ramp never gets to — the round showing inside the square.
-        # A ramp runs the band's whole depth by construction; a crumb stops short of its foot.
-        lumps = [l for l in band.cut(cavity).Solids()
-                 if l.BoundingBox().zmin < bottom + 1e-6]
-        out.append(lumps[0] if len(lumps) == 1 else cq.Compound.makeCompound(lumps))
-    return out
+    plumb_half = _pc.skirt_narrow_half_extent - _pc.skirt_wall + air
+    foot = _pc.flank_ramp_bands()[0][1]
+    plumb = cq.Solid.makeBox(2 * plumb_half, 2 * half, foot + depth,
+                             cq.Vector(-plumb_half, -half, -depth))
+    return room.intersect(cavity.fuse(plumb))
 
 
 def _case_base():
