@@ -123,25 +123,16 @@ def _zbox(w, d, z0, z1, ox=cx, oy=cy):
             .val())
 
 
-def _case_cavity():
-    """The case's skirt + lower-extension interior void, rebuilt from
-    pump_case's inner profiles — the space the pump head occupies."""
-    skirt = pc.loft_profile_stack(0, pc.skirt_z_steps, pc.skirt_inner_profiles)
-    ramp_h = (pc.skirt_base_half_extent + pc.skirt_wide_flare_per_side
-              - pc.skirt_narrow_half_extent)
-    uniform = pc.lower_height - ramp_h - pc.lower_footprint_straight
-    steps = [-pc.lower_footprint_straight, -ramp_h, -uniform]
-    lower = pc.loft_profile_stack(pc.skirt_bottom_z, steps,
-                                  pc._lower_profile_set(pc.skirt_wall))
-    return skirt.union(lower)
-
-
 def build_head():
     """Datasheet head block clipped to the case cavity: fills the skirt +
-    lower-extension void and stops at every wall instead of poking through."""
+    lower-extension void and stops at every wall instead of poking through.
+
+    WHAT THE CLIP LEAVES THE PART IS ITS SEATS. `pump_case.flank_ramp_bands` is where that
+    cavity closes in, so the head comes out of it with a 45 degree face on each side at each
+    band, looking down and outboard — four faces, and they are what anything holding this pump
+    up bears on."""
     box = _zbox(head_w, head_w, head_front_z, base_plane_z)
-    cavity = _case_cavity().val()
-    return cq.Workplane(obj=box.intersect(cavity))
+    return cq.Workplane(obj=box.intersect(pc.cavity().val()))
 
 
 def build_rotor_housing():
