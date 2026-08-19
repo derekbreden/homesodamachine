@@ -22,7 +22,7 @@ faucet's gooseneck tip. The user's part is a vessel under the faucet.
 | Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](PANEL_VALVES) valves — V-C…V-J, on the two printed panels ([`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
-| | The collet plate, in its two pockets on `enclosure-front-top`'s side walls |
+| | The collet plate, in the blind seat sunk in the bay floor's top |
 | | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
 | | The hopper funnel, in its throat; the display; the SeaFlo and both its chains; the cold core itself |
 
@@ -55,8 +55,8 @@ is drawn on — the vessel under the faucet is the only vessel the procedure ask
 
 The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
 `collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
-on edge in two slotted pockets on `enclosure-front-top`'s side walls. Gravity holds it down and
-the walls take every other direction; it lifts out through the bay whenever the cartridge is out.
+on edge in a blind seat sunk one `wall` into the bay floor's top. Gravity holds it down and the
+seat takes every other direction; it lifts out through the bay whenever the cartridge is out.
 
 Seated, the steel stands in the berth between the barbs and the collets, and that berth is
 spent three ways: [1.025](BARB_AIR) mm of air off the barb plane, the plate's own
@@ -72,7 +72,7 @@ draws out through the hole it entered by. Push the cartridge home and the same f
 thread the same four holes back into the same collets, the deck's stop pads landing on the
 plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
 one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
-through the pockets. There is no lock and no tool.
+through the floor. There is no lock and no tool.
 
 ## Dry mode
 
@@ -105,7 +105,7 @@ States"; this doc names the order they run in.
 syrup out the gooseneck.
 
 **2. Pull the cartridge.** One hand flat on the face, the other braced on the box. Draw it
-straight forward along the two wall ledges its deck rides: the [4](JOINT_COUNT_2) joints let go
+straight forward along the bay floor it rides: the [4](JOINT_COUNT_2) joints let go
 against the plate in the first few millimetres, and the rest of the stroke is the deck coming
 out of the bay. Pull the two DC-5 spade pairs off the motor tabs and set the cartridge
 face-down on the bench.
