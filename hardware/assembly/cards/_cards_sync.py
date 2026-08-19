@@ -38,7 +38,7 @@ not its craft.
 
 import os
 import sys
-from collections import namedtuple
+from collections import Counter, namedtuple
 from pathlib import Path
 
 # The gate renders no CAD and supersedes no build: it reads one assembly and
@@ -80,6 +80,50 @@ def _machine() -> Machine:
     import _facts
     f = _facts.read()
     return Machine(f, f.box, f.box)
+
+
+# ═══ 00 — The cover ════════════════════════════════════════════════════════
+
+#: The page the deck opens on, which is not one of the operations it tables.
+COVER = "00-cover"
+
+
+def deck(_m: Machine):
+    """The cover's contents table and its count of the whole: the deck's own shape.
+
+    THE ONE CARD THAT STATES THE DECK RATHER THAN THE APPLIANCE. Every other figure
+    here is read off the built machine because the machine is what gets built; these
+    are read off the card files because the deck is what gets printed. `tools/` is a
+    station deck with a build of its own one directory down, and the glob that counts
+    these does not descend into it.
+
+    The registry is that same census, so a deck a bench starts writing needs a row on
+    the cover and nothing here: its code arrives as a name this card is registered for
+    and does not carry, and the last card of a deck deleted takes the name off both
+    sides at once."""
+    stems = sorted(p.stem for p in CARDS_DIR.glob("*.html") if p.stem != COVER)
+    counts = Counter(stem.partition("-")[0] for stem in stems)
+
+    # A CARD IS NAMED FOR ITS DECK AND ITS PLACE IN IT — `pv-03-rod-register` — so one
+    # census answers the table's figure twice: how many cards a deck holds, and how far
+    # it runs. A gap or a repeat parts the two readings, and a bench reading `PV 14` off
+    # the table goes to the tray for a PV-14 that was never printed.
+    for code, held in sorted(counts.items()):
+        numbers = sorted(s.partition("-")[2].partition("-")[0] for s in stems
+                         if s.partition("-")[0] == code)
+        assert numbers == [f"{i:02d}" for i in range(1, held + 1)], (
+            f"the {code.upper()} deck is numbered {numbers} — the cover tables one figure "
+            f"for how many cards it holds and how far it runs; renumber it")
+
+    facts = {
+        # The deck's length, less the page that states it.
+        "CARDS_TOTAL": f"{len(stems)}",
+        # One per row of the table, in the code the row's chip carries. `CARDS_SA` lands
+        # twice on the page — the row, and the footer's clause about the unit cards —
+        # because they are one count, and a name is one value across the whole deck.
+        **{f"CARDS_{code.upper()}": f"{held}" for code, held in counts.items()},
+    }
+    return facts, {COVER: set(facts)}
 
 
 # ═══ EN — Enclosure mechanical ═════════════════════════════════════════════
@@ -578,8 +622,8 @@ def sub_assemblies(m: Machine):
     return facts, cards
 
 
-SUBSYSTEMS = (enclosure, electronics_shelf, cold_core, refrigerant_loop, internal_plumbing,
-              bench, sub_assemblies)
+SUBSYSTEMS = (deck, enclosure, electronics_shelf, cold_core, refrigerant_loop,
+              internal_plumbing, bench, sub_assemblies)
 
 
 def collect(machine: Machine = None):
