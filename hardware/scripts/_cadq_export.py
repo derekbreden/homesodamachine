@@ -19,7 +19,7 @@ Usage from any generator script:
     )
     from _cadq_export import export_step          # for cq workplanes / solids
     from _cadq_export import export_assembly        # for cq.Assembly objects
-    from _cadq_export import export_dxf            # for ezdxf Drawing objects
+    from _cadq_export import export_dxf            # for ezdxf Drawings / flat cq sections
     from _cadq_export import export_pdf            # for ReportLab build callbacks
 
     export_step(model, str(out_path))
@@ -842,9 +842,16 @@ def export_assembly(assembly, target_path):
     _queue_thumbnail(target_path, colored)
 
 
-def export_dxf(doc, target_path):
-    """ezdxf Drawing.saveas with atomic write and canonical output."""
-    _atomic_write(target_path, lambda p: doc.saveas(p))
+def export_dxf(source, target_path):
+    """Write a DXF with atomic write and canonical output. `source` is either an
+    ezdxf Drawing, saved through its own .saveas, or a CadQuery shape of a flat
+    section, handed to cq.exporters.export — which keys the format off the suffix
+    the temp file shares with the target."""
+    if hasattr(source, "saveas"):
+        _atomic_write(target_path, lambda p: source.saveas(p))
+        return
+    import cadquery as cq
+    _atomic_write(target_path, lambda p: cq.exporters.export(source, p))
 
 
 def export_pdf(build, target_path):
