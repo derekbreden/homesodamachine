@@ -991,7 +991,6 @@ genrule(
         "hardware/assembly/cards/ip-04-manifold-pumps-channels.html",
         "hardware/assembly/cards/ip-05-risers.html",
         "hardware/assembly/cards/ip-06-witness-tidy.html",
-        "hardware/assembly/cards/out/en-01-stage-the-four-pieces.png",
         "hardware/assembly/cards/pv-01-chamfer-port-holes.html",
         "hardware/assembly/cards/pv-02-tap-npt-ports.html",
         "hardware/assembly/cards/pv-03-rod-register.html",
@@ -1321,6 +1320,7 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png",
         "out/cards-build/hardware/assembly/cards/out/wr-05-signal-looms.png",
         "out/cards-build/hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png",
+        "out/cards-build/hardware/assembly/cards/00-cover.html",
         "out/cards-build/hardware/assembly/cards/ab-01-inspect-connect-power.html",
         "out/cards-build/hardware/assembly/cards/ab-02-water-fill-co2.html",
         "out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html",
@@ -1494,71 +1494,72 @@ O100=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-03-ac-diele
 O101=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png)
 O102=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-05-signal-looms.png)
 O103=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png)
-O104=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-01-inspect-connect-power.html)
-O105=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-02-water-fill-co2.html)
-O106=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html)
-O107=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-06-burn-in-log.html)
-O108=$$PWD/$(location out/cards-build/hardware/assembly/cards/ca-02-harness-schedule.html)
-O109=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html)
-O110=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
-O111=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
-O112=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
-O113=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-vessel.html)
-O114=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
-O115=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
-O116=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
-O117=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
-O118=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
-O119=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
-O120=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-rear-wall-bodies.html)
-O121=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
-O122=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html)
-O123=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html)
-O124=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
-O125=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
-O126=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-hopper.html)
-O127=$$PWD/$(location out/cards-build/hardware/assembly/cards/es-01-prepare-the-shelf.html)
-O128=$$PWD/$(location out/cards-build/hardware/assembly/cards/es-03-stage-psu-relays-pcba.html)
-O129=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
-O130=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
-O131=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
-O132=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
-O133=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
-O134=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
-O135=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
-O136=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
-O137=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
-O138=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
-O139=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
-O140=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
-O141=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
-O142=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
-O143=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-risers.html)
-O144=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html)
-O145=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
-O146=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
-O147=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
-O148=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
-O149=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
-O150=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
-O151=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
-O152=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-vessel.html)
-O153=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
-O154=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
-O155=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
-O156=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
-O157=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
-O158=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
-O159=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
-O160=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
-O161=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
-O162=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
-O163=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-hopper-drain.html)
-O164=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
-O165=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
-O166=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
-O167=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
-O168=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
+O104=$$PWD/$(location out/cards-build/hardware/assembly/cards/00-cover.html)
+O105=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-01-inspect-connect-power.html)
+O106=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-02-water-fill-co2.html)
+O107=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-05-level-transitions.html)
+O108=$$PWD/$(location out/cards-build/hardware/assembly/cards/ab-06-burn-in-log.html)
+O109=$$PWD/$(location out/cards-build/hardware/assembly/cards/ca-02-harness-schedule.html)
+O110=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the-coil.html)
+O111=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
+O112=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
+O113=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
+O114=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-vessel.html)
+O115=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
+O116=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
+O117=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
+O118=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
+O119=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
+O120=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
+O121=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-rear-wall-bodies.html)
+O122=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
+O123=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html)
+O124=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html)
+O125=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
+O126=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
+O127=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-hopper.html)
+O128=$$PWD/$(location out/cards-build/hardware/assembly/cards/es-01-prepare-the-shelf.html)
+O129=$$PWD/$(location out/cards-build/hardware/assembly/cards/es-03-stage-psu-relays-pcba.html)
+O130=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
+O131=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
+O132=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
+O133=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-05-compressor-smoke-test.html)
+O134=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-01-wipe-down-inspect.html)
+O135=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-02-drain-dry-nameplate.html)
+O136=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-03-cap-photograph.html)
+O137=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-04-pack-kit-carton.html)
+O138=$$PWD/$(location out/cards-build/hardware/assembly/cards/fs-05-weigh-label-handoff.html)
+O139=$$PWD/$(location out/cards-build/hardware/assembly/cards/gt-02-push-to-connect.html)
+O140=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-01-co2-path.html)
+O141=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-02-water-path.html)
+O142=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-03-manifold-valves-tees.html)
+O143=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-04-manifold-pumps-channels.html)
+O144=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-05-risers.html)
+O145=$$PWD/$(location out/cards-build/hardware/assembly/cards/ip-06-witness-tidy.html)
+O146=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-01-chamfer-port-holes.html)
+O147=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-02-tap-npt-ports.html)
+O148=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-03-rod-register.html)
+O149=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-edges.html)
+O150=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
+O151=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
+O152=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
+O153=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-vessel.html)
+O154=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
+O155=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
+O156=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
+O157=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-04-suction-tie-in.html)
+O158=$$PWD/$(location out/cards-build/hardware/assembly/cards/rl-05-pinch-swage.html)
+O159=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-01-back-top.html)
+O160=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.html)
+O161=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
+O162=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
+O163=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
+O164=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-hopper-drain.html)
+O165=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
+O166=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
+O167=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
+O168=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-04-cabinet-12v-runs.html)
+O169=$$PWD/$(location out/cards-build/hardware/assembly/cards/wr-05-signal-looms.html)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -1676,71 +1677,72 @@ cp hardware/assembly/cards/out/wr-03-ac-dielectric-check.png $$O100
 cp hardware/assembly/cards/out/wr-04-cabinet-12v-runs.png $$O101
 cp hardware/assembly/cards/out/wr-05-signal-looms.png $$O102
 cp hardware/assembly/cards/out/wr-06-bundle-route-strain-relieve.png $$O103
-cp hardware/assembly/cards/ab-01-inspect-connect-power.html $$O104
-cp hardware/assembly/cards/ab-02-water-fill-co2.html $$O105
-cp hardware/assembly/cards/ab-05-level-transitions.html $$O106
-cp hardware/assembly/cards/ab-06-burn-in-log.html $$O107
-cp hardware/assembly/cards/ca-02-harness-schedule.html $$O108
-cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O109
-cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O110
-cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O111
-cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O112
-cp hardware/assembly/cards/cc-10-lower-the-vessel.html $$O113
-cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O114
-cp hardware/assembly/cards/cc-12-route-penetrations.html $$O115
-cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O116
-cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O117
-cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O118
-cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O119
-cp hardware/assembly/cards/en-02-rear-wall-bodies.html $$O120
-cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O121
-cp hardware/assembly/cards/en-04-stand-the-stratum.html $$O122
-cp hardware/assembly/cards/en-05-seat-cold-core.html $$O123
-cp hardware/assembly/cards/en-06-power-column.html $$O124
-cp hardware/assembly/cards/en-07-close-the-box.html $$O125
-cp hardware/assembly/cards/en-09-display-and-hopper.html $$O126
-cp hardware/assembly/cards/es-01-prepare-the-shelf.html $$O127
-cp hardware/assembly/cards/es-03-stage-psu-relays-pcba.html $$O128
-cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O129
-cp hardware/assembly/cards/fc-03-sensor-health.html $$O130
-cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O131
-cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O132
-cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O133
-cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O134
-cp hardware/assembly/cards/fs-03-cap-photograph.html $$O135
-cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O136
-cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O137
-cp hardware/assembly/cards/gt-02-push-to-connect.html $$O138
-cp hardware/assembly/cards/ip-01-co2-path.html $$O139
-cp hardware/assembly/cards/ip-02-water-path.html $$O140
-cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O141
-cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O142
-cp hardware/assembly/cards/ip-05-risers.html $$O143
-cp hardware/assembly/cards/ip-06-witness-tidy.html $$O144
-cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O145
-cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O146
-cp hardware/assembly/cards/pv-03-rod-register.html $$O147
-cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O148
-cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O149
-cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O150
-cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O151
-cp hardware/assembly/cards/pv-09-close-the-vessel.html $$O152
-cp hardware/assembly/cards/pv-11-hydro-test.html $$O153
-cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O154
-cp hardware/assembly/cards/pv-14-port-fittings.html $$O155
-cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O156
-cp hardware/assembly/cards/rl-05-pinch-swage.html $$O157
-cp hardware/assembly/cards/sa-01-back-top.html $$O158
-cp hardware/assembly/cards/sa-02-front-top.html $$O159
-cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O160
-cp hardware/assembly/cards/sa-04-cap-lid.html $$O161
-cp hardware/assembly/cards/sa-05-back-half.html $$O162
-cp hardware/assembly/cards/sa-06-hopper-drain.html $$O163
-cp hardware/assembly/cards/sa-07-cold-core.html $$O164
-cp hardware/assembly/cards/sa-08-cold-core-open.html $$O165
-cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O166
-cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O167
-cp hardware/assembly/cards/wr-05-signal-looms.html $$O168
+cp hardware/assembly/cards/00-cover.html $$O104
+cp hardware/assembly/cards/ab-01-inspect-connect-power.html $$O105
+cp hardware/assembly/cards/ab-02-water-fill-co2.html $$O106
+cp hardware/assembly/cards/ab-05-level-transitions.html $$O107
+cp hardware/assembly/cards/ab-06-burn-in-log.html $$O108
+cp hardware/assembly/cards/ca-02-harness-schedule.html $$O109
+cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O110
+cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O111
+cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O112
+cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O113
+cp hardware/assembly/cards/cc-10-lower-the-vessel.html $$O114
+cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O115
+cp hardware/assembly/cards/cc-12-route-penetrations.html $$O116
+cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O117
+cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O118
+cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O119
+cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O120
+cp hardware/assembly/cards/en-02-rear-wall-bodies.html $$O121
+cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O122
+cp hardware/assembly/cards/en-04-stand-the-stratum.html $$O123
+cp hardware/assembly/cards/en-05-seat-cold-core.html $$O124
+cp hardware/assembly/cards/en-06-power-column.html $$O125
+cp hardware/assembly/cards/en-07-close-the-box.html $$O126
+cp hardware/assembly/cards/en-09-display-and-hopper.html $$O127
+cp hardware/assembly/cards/es-01-prepare-the-shelf.html $$O128
+cp hardware/assembly/cards/es-03-stage-psu-relays-pcba.html $$O129
+cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O130
+cp hardware/assembly/cards/fc-03-sensor-health.html $$O131
+cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O132
+cp hardware/assembly/cards/fc-05-compressor-smoke-test.html $$O133
+cp hardware/assembly/cards/fs-01-wipe-down-inspect.html $$O134
+cp hardware/assembly/cards/fs-02-drain-dry-nameplate.html $$O135
+cp hardware/assembly/cards/fs-03-cap-photograph.html $$O136
+cp hardware/assembly/cards/fs-04-pack-kit-carton.html $$O137
+cp hardware/assembly/cards/fs-05-weigh-label-handoff.html $$O138
+cp hardware/assembly/cards/gt-02-push-to-connect.html $$O139
+cp hardware/assembly/cards/ip-01-co2-path.html $$O140
+cp hardware/assembly/cards/ip-02-water-path.html $$O141
+cp hardware/assembly/cards/ip-03-manifold-valves-tees.html $$O142
+cp hardware/assembly/cards/ip-04-manifold-pumps-channels.html $$O143
+cp hardware/assembly/cards/ip-05-risers.html $$O144
+cp hardware/assembly/cards/ip-06-witness-tidy.html $$O145
+cp hardware/assembly/cards/pv-01-chamfer-port-holes.html $$O146
+cp hardware/assembly/cards/pv-02-tap-npt-ports.html $$O147
+cp hardware/assembly/cards/pv-03-rod-register.html $$O148
+cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O149
+cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O150
+cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O151
+cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O152
+cp hardware/assembly/cards/pv-09-close-the-vessel.html $$O153
+cp hardware/assembly/cards/pv-11-hydro-test.html $$O154
+cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O155
+cp hardware/assembly/cards/pv-14-port-fittings.html $$O156
+cp hardware/assembly/cards/rl-04-suction-tie-in.html $$O157
+cp hardware/assembly/cards/rl-05-pinch-swage.html $$O158
+cp hardware/assembly/cards/sa-01-back-top.html $$O159
+cp hardware/assembly/cards/sa-02-front-top.html $$O160
+cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O161
+cp hardware/assembly/cards/sa-04-cap-lid.html $$O162
+cp hardware/assembly/cards/sa-05-back-half.html $$O163
+cp hardware/assembly/cards/sa-06-hopper-drain.html $$O164
+cp hardware/assembly/cards/sa-07-cold-core.html $$O165
+cp hardware/assembly/cards/sa-08-cold-core-open.html $$O166
+cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O167
+cp hardware/assembly/cards/wr-04-cabinet-12v-runs.html $$O168
+cp hardware/assembly/cards/wr-05-signal-looms.html $$O169
 """,
 )
 
