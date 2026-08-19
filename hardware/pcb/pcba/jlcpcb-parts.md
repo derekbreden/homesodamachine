@@ -38,6 +38,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | U8 — alarm/tone buzzer | MLT-5020, passive magnetic (external drive), 4 kHz/75 dB, ~100 mA | SMD 5×5 mm | C94598 | Extended | 104,490 | $0.434 |
 | Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
 | R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
+| D7 — buzzer-coil flyback clamp | 1N4148W, 75 V / 150 mA switching diode, 4 ns trr | SOD-123 | C81598 | Basic | 1,387,906 (2026-08-19) | $0.0117 |
 | U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 3,175 (2026-08-03) | $7.83 |
 | BT1 — RTC backup | CR2032 coin base, 2-pin THT (horizontal) | THT plugin ~25×23 mm | C5365915 | Extended | 11,888 (2026-06-30) | $0.135 |
 | U7 — RS485 to display | COS13487EESA-3.3, auto-direction transceiver, 3.3 V | SOP-8 (= SOIC-8) | C51949447 | Extended | 3,735 (2026-08-03) | $0.55 |
@@ -79,7 +80,7 @@ Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C98220 = YAGE
 = UNI-ROYAL 0402WGF series (0402 R21/R26/R27); C100444 = CR0402FF4701G (4.7 kΩ 0402, R22 — Basic
 C25900 read 0 at the 2026-08-03 order, swapped on the order form); C49678 = YAGEO
 CC0805KRX7R9BB104; C165895 = Toshiba TBD62083AFWG (octal DMOS sink driver); C47023 = Microchip MCP23017-E/SO;
-C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
+C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C81598 = ST(Semtech) 1N4148W; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
 across the five XH pin counts used (4/5/6/7/9P), vertical THT.
 
