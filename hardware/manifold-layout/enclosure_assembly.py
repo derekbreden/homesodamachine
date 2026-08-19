@@ -1051,46 +1051,18 @@ def panel_name(axis: int, sign: float, plane: float, taken: dict) -> str:
     return name if name not in taken else f"{name}-{plane:.0f}"
 
 
-def valves_on_anchor_tees(placed: dict) -> set:
-    """The valves butted onto an anchor tee's run, by name.
-
-    A BUTTED PAIR MEETS FACE TO FACE — `manifold_layout.BUTT` is zero, so there is tube in both
-    collets and none between them, and neither body can lag the other by a millimetre. The
-    valve whose box begins where an anchor tee's ends, across that tee's own width, is the one
-    that travels when the release drags the tee forward. Measured off the placed bodies rather
-    than named, so a renumbered pack cannot leave this reading the wrong pair."""
-    boxes = {n: b.BoundingBox() for n, b in _bodies(placed).items()}
-    out = set()
-    for t in ml.BARB_OF:
-        name = ml.body_name(t)
-        if name not in boxes:
-            continue
-        tb = boxes[name]
-        out.update(o for o, ob in boxes.items()
-                   if o != name and abs(ob.zmin - tb.zmax) < 0.5
-                   and ob.xmin < tb.xmax and ob.xmax > tb.xmin)
-    return out
-
-
 def valve_panel_stations(placed: dict) -> tuple:
-    """Every deck as `enclosure.Box.valve_panels` — `(plane, sign, ((x, z), …), setback)`.
+    """Every deck as `enclosure.Box.valve_panels` — `(plane, sign, ((x, z), …))` per panel.
 
     The world Y a deck's valves stand their mounting faces on, which way their own +Z runs off
     it, and each valve's footprint centre. This is the whole of what the wall is handed: the
     plate's extent is the seats' own, and its thickness, margin and seat height are
     `valve_panel`'s.
 
-    A DECK CARRYING A VALVE THAT TRAVELS IS SET BACK BY THE WHOLE STROKE. Its plate's face is
-    where its valves' bodies land, and that face is a stop in the one direction the release
-    moves them — you push a valve fore onto it to seat it, and the release pushes it fore
-    again, into the surface that seated it. So the face of such a deck stands one stroke
-    further fore, its sockets sink that much deeper to keep their grip, and the valve is left
-    free to make the travel. What sets its position then is the anchor tee it butts, which is
-    itself held by the wall behind the collet plate (`enclosure._tee_wall`) — so the deck that
-    travels is the one deck whose valves are located by the manifold rather than by their own
-    plate. Every other deck's setback is zero and nothing about it changes."""
-    travellers = valves_on_anchor_tees(placed)
-    stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
+    EVERY DECK IS STRUCK THE SAME AND NO VALVE MOVES. A valve seats its whole post in its
+    socket and lands its body on its plate's face, on this deck as on every other — the
+    release moves the TEE, and the millimetre it takes is absorbed by the tube stub between
+    them, not by anything the plate does."""
     out = []
     for _name, (axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
         if axis != 1:
@@ -1098,10 +1070,8 @@ def valve_panel_stations(placed: dict) -> tuple:
                 f"a valve deck stands its valves' own +Z on {'xyz'[axis]} and "
                 f"`enclosure._valve_panels` fuses a plate across the box's width on a Y plane — "
                 f"a deck on another axis needs the builder to learn it, not this table.")
-        moving = any(n in travellers for n, _u, _v in seats)
         out.append((plane, sign,
-                    tuple((round(u, 6), round(v, 6)) for _n, u, v in seats),
-                    round(stroke if moving else 0.0, 6)))
+                    tuple((round(u, 6), round(v, 6)) for _n, u, v in seats)))
     return tuple(out)
 
 
@@ -1127,41 +1097,27 @@ def valve_panel_plans(a=None) -> dict:
 def check_panels_hold(pieces: dict, placed: dict) -> Bound:
     """Whether every valve on a panel is standing in the piece that carries its seats.
 
-    A DECK THAT STANDS STILL AND A DECK THAT TRAVELS ARE HELD DIFFERENTLY, and this reads each
-    the way it is actually held rather than holding both to one figure.
-
-    A STILL deck: the four corner posts hang in four sockets and the round body boss lands on
-    the plate's face, so the valve and the printed piece TOUCH. Zero, within `PANEL_SEAT_SLIP`.
-    Anything else is a plate drawn beside a valve rather than under it.
-
-    A TRAVELLING deck — the one butted onto the anchor tees — must NOT touch its plate's face:
-    that face is set back by the whole release stroke precisely so the valve has somewhere to
-    go (`valve_panel_stations`). What holds such a valve is its four posts in their sockets, so
-    the nearest the valve comes to the piece is the socket's own clearance, and THAT is what
-    this expects. Reading it against `PANEL_SEAT_SLIP` would pass only because that figure and
-    `valve_seat.socket_clearance` happen to be the same number today — a bound true by
-    coincidence, which is the shape of a bound that stops being true without anyone editing it.
+    Read as the seat is: a valve's four corner posts hang in four sockets and its round body
+    boss lands on the plate's face, so the valve and the printed piece TOUCH. Anything else is
+    a plate drawn beside a valve rather than under it. EVERY VALVE ON THE MACHINE IS HELD THIS
+    ONE WAY — the release moves tees, not valves — so one figure is the right figure here and
+    a second reading would be a distinction the machine does not make.
 
     The detail is the table, so a deck that has moved prints what it now is."""
     rows, worst = [], 0.0
     solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
-    travellers = valves_on_anchor_tees(placed)
     for name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
         for valve, _u, _v in seats:
             gap = min(_clearing.gap(placed[valve], piece, 1.0) for piece in solids)
             worst = max(worst, gap)
-            moving = valve in travellers
-            room = (_vseat.socket_clearance if moving else 0.0) + PANEL_SEAT_SLIP
-            rows.append((name, valve, plane, sign, gap, moving, room))
-    bad = [r for r in rows if r[4] > r[6]]
+            rows.append((name, valve, plane, sign, gap))
+    bad = [r for r in rows if r[4] > PANEL_SEAT_SLIP]
     return record_bound(Bound(
         "panels-hold", "Every valve on a printed panel is standing in its seats", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} valves seated, furthest off {worst:.3f} mm",
-        f"a still valve on its plate within {PANEL_SEAT_SLIP:g} mm, a travelling one gripped "
-        f"in sockets of {_vseat.socket_clearance:g} mm clearance",
-        [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   "
-         f"{'travels' if m else 'stands '}   off {g:.4f} of {r:.4f}"
-         for n, v, p, s, g, m, r in rows]))
+        f"every valve within {PANEL_SEAT_SLIP:g} mm of the plate under it",
+        [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   off {g:.4f}"
+         for n, v, p, s, g in rows]))
 
 
 # --- the flavour manifold's pump trays --------------------------------------
@@ -1399,7 +1355,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     # holds one under the other.
     tee = ml.tee
     branch_face = faces[0]
-    stroke = PLATE_REST_GAP + _jgu.COLLET_TRAVEL
+    stroke = PLATE_REST_GAP
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": round(2.0 * hole_z - z0, 6),
@@ -1508,7 +1464,7 @@ def check_collet_plate(spec, mcarry) -> None:
 EXTRUSION_W = 0.8            # `enclosure-front-top` prints on a 0.8 nozzle (`ledger/machine-time.md`)
 
 
-def check_panel_web(spec) -> Bound:
+def check_panel_web() -> Bound:
     """The wall left between a valve seat's sockets and the port channel that runs past them.
 
     A WALL THINNER THAN ONE EXTRUSION IS NOT A THIN WALL, IT IS NOTHING. This piece prints on a
@@ -1520,11 +1476,10 @@ def check_panel_web(spec) -> Bound:
 
     THE TWO COME CLOSE BY CONSTRUCTION, so this is worth reading rather than assuming. A
     socket's inner edge stands `corner_inset - socket_radius` off the plate's centreline and
-    the channel's rest circle stands `port_radius + PORT_SLIP` — a tenth of a millimetre apart
-    if they ever met at the same height. What keeps them apart is height alone: the channel's
-    widest station is above the sockets' mouths. Anything that drags it down into their band
-    spends that tenth, which is why the swept stretch of a travelling deck's channel carries
-    `SWEEP_SLIP` and not `PORT_SLIP`.
+    the channel stands `port_radius + PORT_SLIP` — a tenth of a millimetre apart if they ever
+    met at the same height. What keeps them apart is height alone: the channel's widest station
+    is above the sockets' mouths. Anything that drags it down into their band spends that tenth
+    at once, and nothing about a solid says it has been spent.
 
     Read off the cutters rather than the piece: they are what the plate is hollowed by, so the
     distance between them IS the web, and reading it here does not depend on finding the right
@@ -1545,24 +1500,21 @@ def check_panel_web(spec) -> Bound:
     unheld, which is a different thing and reads more confident for saying printable. The
     figure to copy is `touch_flo_shell.display_line_width` — 0.62, its own part's bead, on the
     0.4 group `machine-time.md` does name."""
-    rows, worst = [], None
-    for label, extra, sweep in (("stands ", 0.0, 0.0), ("travels", spec["stroke"], spec["stroke"])):
-        a = _vseat.build_sockets(extra)
-        b = _panel.build_port_channel(_panel.height() + 2.0, sweep)
-        a = a.val() if hasattr(a, "val") else a
-        b = b.val() if hasattr(b, "val") else b
-        d = _BRepDist(a.wrapped, b.wrapped)
-        web = d.Value() if d.IsDone() else 0.0
-        rows.append((label, web))
-        worst = web if worst is None else min(worst, web)
+    a = _vseat.build_sockets()
+    b = _panel.build_port_channel(_panel.height() + 2.0)
+    a = a.val() if hasattr(a, "val") else a
+    b = b.val() if hasattr(b, "val") else b
+    d = _BRepDist(a.wrapped, b.wrapped)
+    worst = d.Value() if d.IsDone() else 0.0
+    rows = [("seat", worst)]
     bad = [r for r in rows if r[1] < EXTRUSION_W - 1e-9]
     return record_bound(Bound(
         "panel-web", "A valve seat's sockets keep a printable wall to the port channel",
         not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} decks over one extrusion, least {worst:.4f} mm",
+        f"{worst:.4f} mm of wall, {100.0 * worst / EXTRUSION_W:.0f}% of an extrusion",
         f"at least one {EXTRUSION_W:g} mm extrusion of wall between socket and channel",
-        [f"{lab}   {w:.4f} mm   {100.0 * w / EXTRUSION_W:.0f}% of an extrusion"
-         for lab, w in rows]))
+        [f"socket to port channel   {w:.4f} mm   {100.0 * w / EXTRUSION_W:.0f}% of an "
+         f"extrusion of {EXTRUSION_W:g}" for _lab, w in rows]))
 
 
 POST_GRIP_FLOOR = 3.0        # of a post inside its plate at rest — see `check_post_engagement`
@@ -1577,20 +1529,12 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
     millimetre sits at exactly the same radial clearance from its socket wall as one engaged
     six, so proximity cannot tell them apart and nothing else on this card was looking.
 
-    IT MATTERS MOST ON THE DECK THAT TRAVELS. Setting that plate's face back by the release
-    stroke buys the valve its room out of the post's own grip: at rest the post stands in the
-    plate by its length LESS the setback, and only at full release is it in to the hilt. Rest
-    is the state the machine spends its life in, two peristaltic pumps away; full release is a
-    few seconds of a service call. So the reading that matters is the one at rest, and this
-    takes it there.
-
     Measured rather than computed: a sleeve around each post's own axis, just outside its
     socket AND NO LONGER THAN THE POST, intersected with the printed piece. What comes back is
     the stretch of that post's length the plate actually surrounds — so a socket shortened by a port channel crossing it,
     or by any later cut, reads short here even though the arithmetic still says six."""
     solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
     inset, r = _vseat.corner_inset, _vseat.socket_radius
-    travellers = valves_on_anchor_tees(placed)
     rows, bad = [], []
     for _name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
         for valve, u, v in seats:
@@ -1600,8 +1544,9 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
                     # CLIPPED TO THE POST'S OWN LENGTH, and that clip is the whole reading.
                     # A sleeve run further than the post measures how long the SOCKET is,
                     # which is a fact about the plate and not about what holds the valve —
-                    # they part by exactly the setback, and the longer number is the flattering
-                    # one. From the mounting plane, `seat_top_z` along the valve's own +Z.
+                    # the two differ by whatever the plate's face stands off the mounting
+                    # plane, and the longer number is the flattering one. From the mounting
+                    # plane, `seat_top_z` along the valve's own +Z.
                     base = cq.Vector(u + du, plane, v + dv)
                     axis = cq.Vector(0, sign, 0)
                     sleeve = (cq.Solid.makeCylinder(r + 0.8, _vseat.seat_top_z, base, axis)
@@ -1615,16 +1560,15 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
                         except Exception:
                             pass
                     worst = held if worst is None else min(worst, held)
-            rows.append((valve, valve in travellers, worst))
+            rows.append((valve, worst))
             if worst < POST_GRIP_FLOOR - 1e-6:
                 bad.append(valve)
     return record_bound(Bound(
         "post-engagement", "Every valve's posts stand in their plate at rest", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} valves gripped, least "
-        f"{min((w for _v, _t, w in rows), default=0.0):.3f} mm",
+        f"{min((w for _v, w in rows), default=0.0):.3f} mm",
         f"at least {POST_GRIP_FLOOR:g} mm of every post inside its plate with the valve at rest",
-        [f"{v:12} {'travels' if t else 'stands '}   {w:6.3f} mm of "
-         f"{_vseat.seat_top_z:g} in the plate" for v, t, w in rows]))
+        [f"{v:12} {w:6.3f} mm of {_vseat.seat_top_z:g} in the plate" for v, w in rows]))
 
 
 def check_release_travel(pieces, placed, spec) -> Bound:
@@ -1639,12 +1583,10 @@ def check_release_travel(pieces, placed, spec) -> Bound:
     slide. A tee that cannot make it does not let its tube go, and nothing about the seated
     machine looks wrong.
 
-    A BUTTED NEIGHBOUR TRAVELS WITH THE BODY IT BUTTS. `manifold_layout.BUTT` is zero: two
-    collet faces meet with no tube between them, so neither can lag the other by even a
-    millimetre. The valve standing on an anchor tee's run is therefore read here too, and a
-    valve with nowhere to go is a tee that cannot travel. Which valve stands on which tee is
-    measured off the placed bodies rather than named, so a re-numbered pack cannot make this
-    bound quietly read the wrong pair.
+    THE VALVE BUTTED ON THE RUN DOES NOT TRAVEL AND IS NOT READ HERE. What gives is the tube
+    stub between the two collets, which bends over the millimetre the tee takes — so a valve
+    stays seated on its own plate exactly as every other valve does, and only the tee is
+    offered the stroke.
 
     Each body is offered the stroke, fore, against every printed piece — AND THAT SCOPE IS A
     DISCOUNT THIS BOUND DEPENDS ON. A released body is already touching its own tube at rest,
@@ -1655,35 +1597,28 @@ def check_release_travel(pieces, placed, spec) -> Bound:
     what a joint is."""
     stroke = spec["stroke"]
     solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
-    boxes = {n: b.BoundingBox() for n, b in placed.items()}
     rows, bad = [], []
     for tee in sorted(ml.BARB_OF):
         name = ml.body_name(tee)
         if name not in placed:
             continue
-        tb = boxes[name]
-        riding = [name] + sorted(
-            o for o, ob in boxes.items()
-            if o != name and abs(ob.zmin - tb.zmax) < 0.5
-            and ob.xmin < tb.xmax and ob.xmax > tb.xmin)
-        for body in riding:
-            moved = placed[body].translate(cq.Vector(0.0, -stroke, 0.0))
-            worst, into = 0.0, ""
-            for piece, solid in zip(pieces, solids):
-                try:
-                    vol = moved.intersect(solid).Volume()
-                except Exception:
-                    vol = 0.0
-                if vol > worst:
-                    worst, into = vol, piece
-            rows.append((tee, body, worst, into))
-            if worst > 1e-6:
-                bad.append((tee, body, worst, into))
+        moved = placed[name].translate(cq.Vector(0.0, -stroke, 0.0))
+        worst, into = 0.0, ""
+        for piece, solid in zip(pieces, solids):
+            try:
+                vol = moved.intersect(solid).Volume()
+            except Exception:
+                vol = 0.0
+            if vol > worst:
+                worst, into = vol, piece
+        rows.append((tee, name, worst, into))
+        if worst > 1e-6:
+            bad.append((tee, name, worst, into))
     return record_bound(Bound(
-        "release-travel", "The anchor tees and what butts them can make the release stroke",
+        "release-travel", "Every anchor tee can make the release stroke",
         not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} bodies clear {stroke:.3f} mm fore",
-        f"every body the release moves free over its whole {stroke:.3f} mm",
+        f"{len(rows) - len(bad)}/{len(rows)} tees clear {stroke:.3f} mm fore",
+        f"every tee the release moves free over its whole {stroke:.3f} mm",
         [f"{t:5} {b:14} {'CLEAR' if v <= 1e-6 else f'{v:10.1f} mm3 into {i}'}"
          for t, b, v, i in rows]))
 
@@ -6104,7 +6039,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_post_engagement(pieces, a.pack_solids, box.collet_plate)
     # And whether the wall between a seat's sockets and its port channel is thick enough for
     # the nozzle to lay anything in — the one reading here the solid itself cannot give.
-    check_panel_web(box.collet_plate)
+    check_panel_web()
     check_head_sweep(a.pack_solids, pieces)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
