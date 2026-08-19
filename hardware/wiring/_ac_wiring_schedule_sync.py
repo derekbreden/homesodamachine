@@ -103,7 +103,13 @@ solenoid_count = 10
 len_short_mm = 50       # AC-3 (shelf hop)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, DC-5 pigtail
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), LV-1/2/3, DC-4, DC-6/DC-7 valve fan-outs, SIG-4
-len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to the peristaltic pumps
+len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
+# DC-5 IS THE ONE RUN WHOSE DEVICE LEAVES THE BOX. Both peristaltics ride the pump cartridge
+# out of the front bay, and the spade pairs come off the motor tabs with the cartridge already
+# drawn clear — so this run is cut to the DRAWN-OUT reach, not the seated one. Straight line
+# from the board to the far motor's tab end is 215 mm seated and 275 mm with the cartridge
+# out; the rung above that carries the routed path and the service loop.
+len_cartridge_mm = 400  # DC-5 to the peristaltic pumps, measured with the cartridge drawn
 len_manifold_mm = 300   # DC-6/DC-7 (shelf → manifold trunks)
 len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor on the unbroken SJOOW jacket), DC-8 (shelf → side-wall fan)
 len_aft_strip_mm = 500  # DC-9 (shelf → V-K at the aft strip, past the water bulkhead)
@@ -157,6 +163,7 @@ def main():
         "LEN_SHORT_2": f"~{len_short_2_mm:.4g} mm",
         "LEN_MID": f"~{len_mid_mm:.4g} mm",
         "LEN_PUMP": f"~{len_pump_mm:.4g} mm",
+        "LEN_CARTRIDGE": f"~{len_cartridge_mm:.4g} mm",
         "LEN_MANIFOLD": f"~{len_manifold_mm:.4g} mm",
         "LEN_COMPRESSOR": f"~{len_compressor_mm:.4g} mm",
         "LEN_AFT_STRIP": f"~{len_aft_strip_mm:.4g} mm",
