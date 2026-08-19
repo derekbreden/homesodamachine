@@ -618,7 +618,11 @@ overhang's width of wall remains outboard of the brim edge the whole way around.
 
 The basin stands on the box's own stated **`funnel_front_y`** and takes the top
 wall's full width, because the facet in front of it spans the machine and there is
-nothing beside it to leave room for. What fences that plane is under the drain
+nothing beside it to leave room for. The frame's two side strips on the front top are
+corbelled (`_ceiling_corbels`): a 45° underside off each ±X wall to nothing at the
+opening's edge, and over the seam's ceiling tongue off the top collar's own chain
+face, so the piece printing on its mouth lays every ceiling layer on the one below
+it. What fences that plane is under the drain
 rather than over the brim: the union on the spout stands in the window between
 `_lines.CROSS_Y`'s crossing and the cold core's front face, and neither wall of
 that window rides the display. The ledge the facet leaves the throat is read back

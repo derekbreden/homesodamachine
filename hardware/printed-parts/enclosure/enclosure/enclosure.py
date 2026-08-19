@@ -2004,6 +2004,34 @@ def _hopper_cut(inner, outer, centre):
     return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
 
 
+def _ceiling_corbels(solid, inner, outer, centre, y_joint):
+    """The flat ceiling's two side strips on a top piece, corbelled: a 45° underside
+    rising off each ±X wall to nothing at the hopper opening's edge, so a piece printing
+    on its mouth lays every ceiling layer on the one below it — the strip's own span is
+    wall-rooted on one side and open over the opening on the other.
+
+    The corbel runs the housing's back plane to the Y-seam furniture's fore face, and a
+    second, shallower one carries the lip's ceiling tongue: it roots on the ceiling
+    collar's own chain-deep face — the column the collar's web already carries — and
+    rides with the tongue into the mouth it telescopes into. The collar band itself
+    (chain-deep at the wall) is the collar's own D, fill and web."""
+    cx, _cy = centre
+    hole_x0, hole_x1 = cx - _funnel.collar_w / 2.0, cx + _funnel.collar_w / 2.0
+    iz1 = inner[5]
+    y0 = housing_back_y(outer)
+    yb = _y_boss(y_joint)
+    for hole_x, wall_x in ((hole_x1, inner[1]), (hole_x0, inner[0])):
+        deep = abs(wall_x - hole_x)
+        solid = solid.fuse(_xz_prism(y0, yb - socket_r,
+                                     [(hole_x, iz1), (wall_x, iz1),
+                                      (wall_x, iz1 - deep)]))
+        chain = wall_x - (boss_in if wall_x > 0 else -boss_in)
+        solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
+                                     [(hole_x, iz1), (chain, iz1),
+                                      (chain, iz1 - abs(chain - hole_x))]))
+    return solid
+
+
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
 #
 # Four bosses cross the seam, one in each top/bottom corner of the ±X side
@@ -3690,6 +3718,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
+    # And the flat ceiling's two strips over the hopper opening's flanks, on the front
+    # top alone — the piece whose ceiling is nothing but those strips.
+    if y_side == "front" and z_side == "top" and box.funnel:
+        piece = _ceiling_corbels(piece, inner, outer, box.funnel, y_joint)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
