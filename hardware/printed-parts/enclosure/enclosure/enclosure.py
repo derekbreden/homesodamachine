@@ -724,6 +724,12 @@ corner_core_reach = corner_boss_in - boss_in
 # and the front of the box outboard of the bay is theirs.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
 bay_face_slip = 0.4          # cartridge face inside the opening, per side — its running fit
+# HOW FAR A CORNER POST REACHES ALONG THE FRONT WALL'S INNER FACE. The post is the whole of
+# the box's corner and the bay stops on it, so this is what the front of the machine keeps
+# outboard of the opening. It is carried past the column's own arc — which lands one
+# `column_round` in — far enough that the cartridge's face clears front-bottom's Z-seam wrap
+# without stepping in under the rim.
+post_along = 14.676
 face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
 cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
@@ -2686,9 +2692,9 @@ def _corner_cuts(x_in, x_ext, sx):
 
 def bay_x_span(inner):
     """The bay's two jambs: the flat front wall between the corner columns' along-wall
-    cusps themselves. The columns ARE the jambs — nothing of the
+    posts' own reach (`post_along`). The columns ARE the jambs — nothing of the
     front wall's flat span survives outside the cartridge's face."""
-    return inner[0] + _column_along(), inner[1] - _column_along()
+    return inner[0] + post_along, inner[1] - post_along
 
 
 def _soffit_c(outer):
@@ -2808,7 +2814,7 @@ def _flank_opening(inner, y_aft, z0, z1):
 
 def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
     """The bay region the cartridge's face keeps: the same figures one slip and one reveal
-    smaller, so the face and its two flank returns ride their opening on stated air."""
+    smaller, so the face rides its opening on stated air."""
     bx0, bx1, top = bay
     fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
     z0, z1 = bay_floor_z(pump_trays)[1] + face_reveal, top - face_reveal
@@ -2978,7 +2984,7 @@ def build_cartridge(box, halves_cache=None):
 def _cartridge_gross(box, halves_cache=None):
     """THE CARTRIDGE AND ITS CAP AS ONE SOLID, before `cap_split_z` parts them.
 
-    The bay's own room, FILLED. The face and its two flank returns come out of the front
+    The bay's own room, FILLED. The face comes out of the front
     half's own material, the two trays root on the reliefs' floor and web across, and then
     the block takes everything between the face and the collet plate that no pump stands in
     — the deck's own width, both sides of the split. `_pump_voids` cuts the pumps out last,
@@ -3015,14 +3021,12 @@ def _cartridge_gross(box, halves_cache=None):
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
     # front wall presents wherever a head noses into it, and the surface the face carries
     # across the whole of both pockets. Under the split it stands off the bay floor on the
-    # face's own `face_reveal`: what carries this piece is the rails its deck rides.
+    # face's own `face_reveal`: what carries this piece is the bay floor it rides.
     solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split, top))
     solid = solid.fuse(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
                              split))
     for void in _pump_voids(box.pump_trays, top):
         solid = solid.cut(void)
-    for sweep in _column_sweep(inner, outer, cap_aft):
-        solid = solid.cut(sweep)
     for cx, cy, cz in box.pump_trays:
         tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
         solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
@@ -3032,23 +3036,6 @@ def _cartridge_gross(box, halves_cache=None):
     if halves_cache is not None:
         halves_cache["cartridge-gross"] = solid
     return solid
-
-
-def _column_sweep(inner, outer, y_aft):
-    """What the corner columns' Z-seam wraps deny the cartridge over the whole of its travel.
-
-    A wrap stands one `wall` inboard of the column it wraps and reaches `column_round + wall`
-    off the interior corner, over the lip's own band (`_column_pillar`). THE CARTRIDGE SLIDES
-    THROUGH THAT BAND, so what it gives up is not a notch at the wrap's own station but the
-    lane outboard of the wrap's reach at every y it passes — one `cart_deck_slip` of sweep air
-    inside that, and only under the rim, where the wraps are."""
-    reach = column_round + wall + cart_deck_slip
-    out = []
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        face = x_in + sx * reach
-        out.append(_ybox(min(x_in, face), max(x_in, face), outer[2] - 1.0, y_aft,
-                         z_seam - 1.0, z_seam + lip_len))
-    return out
 
 
 def _cap_room(box):
@@ -4304,9 +4291,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # for the same reason they go after the seam's own bosses.
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
     # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
-    # them is the bay's own furniture — the floor across the front, the two rails standing
-    # on it, and the slot the collet plate drops through — and then the opening itself, cut
-    # last of the wall's work. The floor goes on first, because the rails stand on it.
+    # them is the bay's own furniture — the floor across the front and the seat the collet
+    # plate drops into — and then the opening itself, cut last of the wall's work.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
         tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
         piece = piece.fuse(_bay_floor(inner, y_joint, box.collet_plate, box.pump_trays))
