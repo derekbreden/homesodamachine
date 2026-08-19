@@ -2393,11 +2393,25 @@ def _z_pod(x_in, x_ext, sx, ys, inner, zj):
     Its upper half telescopes into the top piece, and a station abutting a wall sits
     in one of the box's rounded verticals — so the collar is held inside the cavity
     that piece rounds, concentric with it, and clear of whatever column stands in
-    that cavity's corners."""
+    that cavity's corners.
+
+    THE COLLAR IS A D BELOW ITS AXIS, on a 45° web run down the wall — the box's one
+    boss shape. The web drops one `socket_r` and flattens: at the front-wall stations
+    the refrigeration stratum's crown stands under the band, and one collar radius is
+    the drop that clears it by the boss's own figures, so all four stations carry the
+    same web."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
-    collar = _xcyl(socket_r, ys, _z_pin_z(zj), xa, xb)
+    zp = _z_pin_z(zj)
+    zb = zp - socket_r
+    lip_in = x_in + sx * wall
+    collar = _xcyl(socket_r, ys, zp, xa, xb)
+    collar = collar.fuse(_ybox(xa, xb, ys - socket_r, ys + socket_r, zb, zp))
+    collar = collar.fuse(_xz_prism(ys - socket_r, ys + socket_r,
+                                   [(lip_in, zb), (x_cap, zb),
+                                    (x_cap - sx * socket_r, zb - socket_r),
+                                    (lip_in, zb - socket_r)]))
     return collar.intersect(_cavity(inner, 0.0, (iz0 - 1.0, iz1 + 1.0)))
 
 
