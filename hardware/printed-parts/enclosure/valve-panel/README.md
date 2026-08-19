@@ -23,7 +23,8 @@ four to a plane. Each plane gets a panel: [2](PANEL_COUNT) per machine.
 | face set off its valves | 0 on the still deck, [2.835](PANEL_SETBACK) mm on the travelling one |
 | socket, travelling deck | [9.835](PANEL_SOCKET_LONG) mm long — the floor sinks by that figure, the mouth does not move |
 | post in the plate at rest | [6](PANEL_POST) mm still, [3.165](PANEL_GRIP) mm travelling |
-| socket to port channel | [1.115](PANEL_WEB) mm still, [0.224](PANEL_WEB_TRAVEL) mm travelling — **measured** |
+| socket to port channel | [1.115](PANEL_WEB) mm still, [0.924](PANEL_WEB_TRAVEL) mm travelling — **measured** |
+| air round the port | [1](PANEL_PORT_SLIP) mm where it rests, [0.3](PANEL_SWEEP_SLIP) mm over the stretch it passes through |
 | material, both panels | [162.79](PANEL_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
@@ -77,19 +78,23 @@ in and most while the cartridge is being pulled out.
 where the port rests (`build_port_channel`): round at both ends, a slot only over the stretch the
 port crosses.
 
-**The socket and that channel close on each other from both ends** — the floor sinks by the
-stroke, the sweep drags the channel by the same stroke — and what is left between them is
-[0.224](PANEL_WEB_TRAVEL) mm of plate, against [1.115](PANEL_WEB) mm on the still deck. `web()`
-measures it rather than striking it off the radii: the two features run at right angles and their
-axes come closest above the socket's own top, so the arithmetic answers for a cylinder that is
-not there.
+**The sweep is what a socket has to keep clear of.** A socket's inner edge stands 8.6 mm off
+the plate's centreline and the channel's rest circle 8.5, a tenth apart — but the rest circle's
+widest station sits above the sockets' mouths and never meets them, and sinking a floor moves a
+socket down its own axis further from it. Sweeping drags that station DOWN into the sockets'
+band, so the swept stretch carries [0.3](PANEL_SWEEP_SLIP) mm of air where the resting barrel
+carries [1](PANEL_PORT_SLIP): the port gets its millimetre where it sits and three tenths where
+it only passes. That leaves [0.924](PANEL_WEB_TRAVEL) mm of plate between socket and channel on
+this deck, against [1.115](PANEL_WEB) mm on the still one.
 
 **Read that against the nozzle, not against zero.** These plates are `enclosure-front-top`'s
 material and that piece prints on a 0.8 ([`machine-time.md`](/hardware/ledger/machine-time.md),
-the bulk-PETG group), so the still deck's web is one and a half extrusions and the travelling
-deck's is under a third of one. A CAD model states material there either way, so
-`post-engagement` — which reads the length of post its plate stands around, and is the bound
-that holds this deck's [3.165](PANEL_GRIP) mm — reads a post fully surrounded on both decks.
+the bulk-PETG group), so one bead of this plate is [0.8](PANEL_EXTRUSION) mm: the still deck's
+web is [139](PANEL_WEB_PCT)% of one and the travelling deck's [115](PANEL_WEB_TRAVEL_PCT)%, and
+both get laid. `web()`
+measures the figure rather than striking it off the radii — the two features run at right angles
+and their axes come closest above the socket's own top, so arithmetic answers for a cylinder that
+is not there — and `panel-web` holds it at every build.
 
 ## Where the two go
 
