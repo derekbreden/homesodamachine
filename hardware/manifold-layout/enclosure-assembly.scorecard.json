@@ -1016,6 +1016,19 @@
    "active": true
   },
   {
+   "id": "panel-web",
+   "label": "A valve seat's sockets keep a printable wall to the port channel",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 decks over one extrusion, least 0.9239 mm",
+   "target": "at least one 0.8 mm extrusion of wall between socket and channel",
+   "detail": [
+    "stands    1.1151 mm   139% of an extrusion",
+    "travels   0.9239 mm   115% of an extrusion"
+   ],
+   "active": true
+  },
+  {
    "id": "heads-sweep-out",
    "label": "Every pump head sweeps out through the bay",
    "kind": "gate",
