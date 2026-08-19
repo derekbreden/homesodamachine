@@ -67,8 +67,9 @@ export const BRANCHES = [
         note: "How a valve is held on a printed face." },
       { id: "scenes", label: "Bench scenes",
         holds: [`${SCENES}/back-top.glb`, `${SCENES}/front-top.glb`,
-                `${SCENES}/back-half.glb`, `${SCENES}/hopper-drain.glb`,
-                `${SCENES}/en04-stratum.glb`, `${SCENES}/en06-column.glb`],
+                `${SCENES}/pump-cartridge.glb`, `${SCENES}/back-half.glb`,
+                `${SCENES}/hopper-drain.glb`, `${SCENES}/en04-stratum.glb`,
+                `${SCENES}/en06-column.glb`],
         note: "One unit per picture, as it stands on the bench that builds it — a printed " +
               "piece carrying what fastens to it, or a group of bodies the bench names " +
               "together." },
