@@ -2,19 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-1bfb4eda839910a4.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-1bfb4eda839910a4.tar.gz"
+    "asset": "cad-e6d89d9c37ad843c.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e6d89d9c37ad843c.tar.gz"
   },
   "bundle": {
-    "sha256": "1bfb4eda839910a40dcd4318c2e0270a45caac53de1bd37d787255f297ebf619",
-    "bytes": 28078314,
+    "sha256": "e6d89d9c37ad843c717b5111fb0e3fb2f6823ac8ad60e2b7bf60f33b3a88c481",
+    "bytes": 28411996,
     "solids": 96
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "16f7a93bd006104b23d9a2ad01b7a6da2c103eb9f36ea451004279f7bb44df9a",
-    "hardware/manifold-layout/enclosure-assembly.step": "0718f4c4b4e3f2711d862bb0983e82f711c18cf361e05ec93920a17baaa9c813",
+    "hardware/manifold-layout/enclosure-assembly.step": "ad5e5c23d92da9a280496cf74c1d7a8c226369fbe821225a25ad043bbdc1945e",
     "hardware/manifold-layout/manifold-layout.step": "15c1f52733f0db31a4d6f654eff690037838435ece7a13afef888b74c62df83e",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "3930047b04cd73bcf0df827cd6d82312084a72f70cc439615899635198865e23",
@@ -44,11 +44,11 @@
     "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "daac242aef30ecfe48661b607cca972418134167b1a33ca77421d5c5e3ec983a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "838039c18bbad7a8d83f5a267415e6872f3753f4a67e3235b3124d4ddd6d563a",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "aa52fa95d5ab5121f1474ca86bbb35f11f8c586239d126b998b669c4a741a758",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "fd56cd113bb63bf71a3c6e7908c2adbd0411219daf5862a54cfe8bed1d981291",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "b8cefe33d8e6df3cee7a5715b86dd690c26d55188fefb190dea0f1b9b0665da3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "4dfb2da6c2b54780b6d03cc0a808396307709052068e89bca3bf012c97dcfb7f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "2987f31696fb2a67435d78eff7607f0ad5d8802831776892c287de2f51184202",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "973b12b7dcd197a69d23c181cc619057cf8ae00f02be49ace361fe635da941e9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "463972901e484b80fc30a9a05e7d16604a9105550458b0acfd4a92f0c49f58d8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "020910af3f852c59e65c1ee48a2b0d6796bdc2cb4efee4dada62c219e2842f8b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "5e2ea78372025ff3d5ff9665a3ee66e50346c7df4821a070e035458290b2e6bf",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "ea8ad58962fd5f1c13e567e238415f47b311b4e8494563cf58684cfcd40ba3b7",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "a088370979de79dea05563c6e070ad62637bb1a34afbd117ca2256a81b8bd374",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
