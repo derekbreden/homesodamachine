@@ -2812,7 +2812,34 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
     wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
                       inner[2] + c - 1.5, top)
     return wall_box.fuse(wedge_box).fuse(
-        _flank_opening(inner, plate["fore_y"], z_seam + lip_len, top))
+        _flank_opening(inner, plate["fore_y"], z_seam + lip_len + wall, top))
+
+
+def _rim_cap(inner, outer, plate, zj):
+    """THE SEAM'S CEILING, both flanks — a `wall`-thick slab bedded on the lip rim, from the
+    exterior face in to the bay's own jamb, front wall back to the collet plate's fore face.
+
+    Everything the Z seam carries stands under it: the lip rim, the boss's flat crown, the
+    channel the pin rides down. Those all top out on ONE plane, because `lip_len` is derived
+    (`plug_dia/2 + socket_r`) to land the boss's far face on the rim — so the cap beds on the
+    whole of it at once rather than bridging anything.
+
+    IT STOPS ON THE JAMB. `bay_x_span` is the cartridge's own span and this is what stands
+    outboard of it, so nothing of the cap is ever in the withdrawal path. Aft it stops where
+    `_flank_opening` does, on the plate's fore face, so the two share one plane instead of
+    leaving a slot between them.
+
+    AND THE SILHOUETTE TAKES ITS OUTBOARD END. Struck as a rectangle it reaches the exterior
+    plane, which the box's front corners do not — `corner_round` has turned away from it by
+    then — so the slab is cut to `_rounded_outer` and the corner it ends on is the box's own,
+    not a square one standing proud of it."""
+    bx0, bx1 = bay_x_span(inner)
+    rim = zj + lip_len
+    out = None
+    for x0, x1 in ((outer[0], bx0), (bx1, outer[1])):
+        slab = _ybox(x0, x1, inner[2], plate["fore_y"], rim, rim + wall)
+        out = slab if out is None else out.fuse(slab)
+    return out.intersect(_rounded_outer(outer))
 
 
 def _flank_opening(inner, y_aft, z0, z1):
@@ -2825,9 +2852,10 @@ def _flank_opening(inner, y_aft, z0, z1):
     `_column_along` aft of `front_plane_y`, and runs from there to the collet plate. Nothing
     of the box stands in it after that.
 
-    ITS FLOOR IS THE Z-SEAM RIM. Under that plane front-top's side wall is the outer register
-    front-bottom's lip telescopes into, and an opening cut there is a seam that does not
-    close."""
+    ITS FLOOR IS THE SEAM'S CAP (`_rim_cap`), one `wall` over the rim. Under the rim
+    front-bottom's lip telescopes into this wall and an opening cut there is a seam that does
+    not close; between the two planes stands the cap, and cutting THAT would open the seam's
+    cavity to the storey it is meant to be shut off from."""
     out = None
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
         x_out = x_in - sx * (wall + 1.0)
@@ -4402,6 +4430,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the cartridge, and what it takes from this piece is what `build_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
+        # The seam's ceiling first: the opening's floor is this slab's top, so it has to be
+        # standing before the opening is cut or the cut would take the plane it stands on.
+        piece = piece.fuse(_rim_cap(inner, outer, box.collet_plate, z_seam))
         piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays,
                                    box.collet_plate))
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
