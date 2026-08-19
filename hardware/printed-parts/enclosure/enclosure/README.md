@@ -232,9 +232,9 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   [9 mm](CORE_HOLD_WIDE) wide: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
-  [8 mm](CORE_HOLD_LAND) over the crown. The foot lands on the cap — 0 by intent, the way every
-  other seat in this box lands on the face it takes — and that straight is what makes the foot a
-  flange on a web instead of a cantilever. The lane is the one strip of the aft crown clear of
+  [8 mm](CORE_HOLD_LAND) over the crown. The foot lands on the cap — 0 by intent, the way a seat
+  in this box lands on the face it takes unless something else locates it — and that straight is
+  what makes the foot a flange on a web instead of a cantilever. The lane is the one strip of the aft crown clear of
   the water pump inboard, the power column outboard and the rear wall's two flavour unions in the
   band, taken on both flanks so the pair is a mirror.
 
