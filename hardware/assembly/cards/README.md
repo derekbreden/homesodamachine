@@ -282,6 +282,7 @@ its far end hanging.
 | SA-06 | Hopper basin drain stub |
 | SA-07 | Cold core, plumbed |
 | SA-08 | Cold core, ready to foam |
+| SA-09 | Pump cartridge |
 
 ### GT — Technique (appendix)
 

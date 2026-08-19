@@ -48,7 +48,8 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 CARDS_DIR = Path(__file__).resolve().parent
 _hw = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
-           "printed-parts/enclosure/back-panel", "reference/compressor",
+           "printed-parts/enclosure/back-panel", "printed-parts/enclosure/enclosure",
+           "printed-parts/enclosure/pump-tray", "reference/compressor",
            "reference/jg-bulkhead-union", "reference/iec-c14-inlet",
            "printed-parts/zone-c/hopper-funnel", "reference/worm-clamp",
            "reference/jg-pp0408w", "reference/hopper-drain-stub"):
@@ -369,12 +370,16 @@ def sub_assemblies(m: Machine):
     import sys as _sys
     _sys.path.insert(0, str(_hw / "assembly" / "scenes"))
     import _scenes
+    import _scorecard as _sc
     import _cold_core_interface as _cci
     import hopper_drain_stub as _stub
     import hopper_funnel as _funnel
 
+    import enclosure as _enc
+    import pump_tray as _tray
+
     holder = _scenes.holders()
-    joint = {name: j for name, _by, j in __import__("_scorecard").mounts()}
+    joint = {name: j for name, _by, j in _sc.mounts()}
 
     def under(part, *joints):
         return sorted(n for n, by in holder.items()
@@ -424,6 +429,42 @@ def sub_assemblies(m: Machine):
         f"{', '.join(under('enclosure-front-top', 'tray'))} hang(s) in a tray on "
         f"`enclosure-front-top` — SA-02 says the pumps ride out of the front bay on "
         f"`enclosure-pump-cartridge` and this piece keeps the valves; restate the card")
+
+    # SA-09'S UNIT IS TWO PRINTED PIECES CLOSED ON THE PUMPS BETWEEN THEM, and the pumps are
+    # the only bodies standing on it. A body the tables hand this piece by some other joint is
+    # a column the card has not got.
+    cart_pumps = under("enclosure-pump-cartridge", "case")
+    carried = sorted(n for n, by in holder.items()
+                     if by == "enclosure-pump-cartridge" and n not in _sc.RIDES)
+    assert carried == cart_pumps, (
+        f"`enclosure-pump-cartridge` carries {carried} and closes on {cart_pumps} in the case "
+        f"it makes round them — SA-09 names one joint for the whole unit; restate the card")
+
+    # WHY A CAP CAN CARRY A PUMP AT ALL. The part's own stamped bracket stands proud of the head
+    # all round in the very plane the two pieces part on, so it laps the cap's top face and the
+    # two screws take the load through it. A bracket inside the head's own square laps nothing.
+    assert _tray.bracket_half > _tray.head_half, (
+        f"the Kamoer's bracket is {2 * _tray.bracket_half:g} across a head of "
+        f"{2 * _tray.head_half:g} — SA-09 hangs both pumps off a lip standing proud all round, "
+        f"and that lip is the whole load path the cap's two screws close")
+
+    # THE FOUR BARB TUBES THE UNIT LEAVES THE BENCH HOLDING IN THE AIR, off the pumps whose
+    # barbs grip them. ONE STUB PER HOLE IN THE STEEL: the plate is bored one hole per barb tee
+    # and the tubes thread it as the cartridge goes home, so a stub with no hole in front of it
+    # is one the first pull tears out. `_pump_replacement_sync` asks the service bench's half of
+    # this same reading.
+    cart_stubs = sorted(n for n, by in holder.items()
+                        if by in set(cart_pumps) and n.startswith("tube-"))
+    assert len(cart_stubs) == len(m.box.collet_plate["holes"]), (
+        f"the cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
+        f"{len(m.box.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
+    # WHAT EACH OF THEM STANDS PROUD OF ITS BARB, which is the berth the steel and its two airs
+    # are spent in. One plate presses one plane, so the four are one figure or the card has no
+    # sentence: a stub the plate is not in the berth of releases nothing.
+    stands = {round(m.a.bb(n).ymax - m.a.bb(n).ymin, 6) for n in cart_stubs}
+    assert len(stands) == 1, (
+        f"the four barb tubes stand {sorted(stands)} proud of their barbs — SA-09 quotes one "
+        f"figure for all four, and one collet plate stands in one berth")
 
     # SA-06's three figures are the drain joint's own stack, and each of them is read off the
     # part that owns it: the stub states its own length and how much of it the spout takes, the
@@ -504,6 +545,18 @@ def sub_assemblies(m: Machine):
         # A cap pours with six, clamped to the shell's face, and they come out
         # again after cure — the stack's other six belong to the other cap.
         "CAP_POUR_SCREWS": f"{len(_cci.attachment_xy_positions)}",
+        # SA-09's figures are the case the two pieces make round a Kamoer: the octagon that
+        # locates it, the bracket the cap carries it by, and the two screws that close on that
+        # bracket. Each read off the module that cuts it.
+        "SA09_PUMPS": f"{len(cart_pumps)}",
+        "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
+        "PUMP_BRACKET": f"{2 * _tray.bracket_half:.4g} mm",
+        "PUMP_HEAD_W": f"{2 * _tray.head_half:.4g} mm",
+        "SA09_CAP_SCREWS": f"{len(_enc.cap_screw_ys(m.box.inner, m.box.collet_plate))}",
+        "SA09_CAP_SCREW": f"M3 {X} {_enc.screw_len:.4g}",
+        # And what it leaves the bench holding out in the air, and how far that stands.
+        "SA09_STUBS": f"{len(cart_stubs)}",
+        "SA09_STUB_STAND": f"{stands.pop():.4g} mm",
     }
 
     cards = {
@@ -518,6 +571,9 @@ def sub_assemblies(m: Machine):
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
         "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
+        "sa-09-pump-cartridge": {"SA09_PUMPS", "PUMP_SOCKET", "PUMP_BRACKET", "PUMP_HEAD_W",
+                                 "SA09_CAP_SCREWS", "SA09_CAP_SCREW", "SA09_STUBS",
+                                 "SA09_STUB_STAND"},
     }
     return facts, cards
 
