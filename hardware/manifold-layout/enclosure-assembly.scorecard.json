@@ -915,17 +915,17 @@
    "label": "Every valve on a printed panel is standing in its seats",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 valves seated, furthest off 0.199 mm",
-   "target": "a still valve on its plate within 0.2 mm, a travelling one gripped in sockets of 0.2 mm clearance",
+   "value": "8/8 valves seated, furthest off 0.000 mm",
+   "target": "every valve within 0.2 mm of the plate under it",
    "detail": [
-    "valve-panel-aft    valve-v-c    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
-    "valve-panel-aft    valve-v-d    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
-    "valve-panel-aft    valve-v-g    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
-    "valve-panel-aft    valve-v-j    y-plane  171.080 -Z   stands    off 0.0000 of 0.2000",
-    "valve-panel-fore   valve-v-e    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000",
-    "valve-panel-fore   valve-v-f    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000",
-    "valve-panel-fore   valve-v-h    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000",
-    "valve-panel-fore   valve-v-i    y-plane   89.080 +Z   travels   off 0.1994 of 0.4000"
+    "valve-panel-aft    valve-v-c    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-d    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-g    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-j    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-fore   valve-v-e    y-plane   89.080 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-f    y-plane   89.080 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-h    y-plane   89.080 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-i    y-plane   89.080 +Z   off 0.0000"
    ],
    "active": true
   },
@@ -964,20 +964,16 @@
   },
   {
    "id": "release-travel",
-   "label": "The anchor tees and what butts them can make the release stroke",
+   "label": "Every anchor tee can make the release stroke",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 bodies clear 2.835 mm fore",
-   "target": "every body the release moves free over its whole 2.835 mm",
+   "value": "4/4 tees clear 1.500 mm fore",
+   "target": "every tee the release moves free over its whole 1.500 mm",
    "detail": [
     "Y-C   tee-y-c        CLEAR",
-    "Y-C   valve-v-e      CLEAR",
     "Y-D   tee-y-d        CLEAR",
-    "Y-D   valve-v-f      CLEAR",
     "Y-F   tee-y-f        CLEAR",
-    "Y-F   valve-v-h      CLEAR",
-    "Y-G   tee-y-g        CLEAR",
-    "Y-G   valve-v-i      CLEAR"
+    "Y-G   tee-y-g        CLEAR"
    ],
    "active": true
   },
@@ -989,10 +985,10 @@
    "value": "4/4 tees stopped going aft",
    "target": "every anchor tee landing on printed material before it can travel aft",
    "detail": [
-    "Y-C   tee-y-c        backed by front-top,      12.0 mm3 at 2.835 mm",
-    "Y-D   tee-y-d        backed by front-top,      12.0 mm3 at 2.835 mm",
-    "Y-F   tee-y-f        backed by front-top,      12.0 mm3 at 2.835 mm",
-    "Y-G   tee-y-g        backed by front-top,      12.0 mm3 at 2.835 mm"
+    "Y-C   tee-y-c        backed by front-top,       9.3 mm3 at 1.500 mm",
+    "Y-D   tee-y-d        backed by front-top,       9.3 mm3 at 1.500 mm",
+    "Y-F   tee-y-f        backed by front-top,       9.3 mm3 at 1.500 mm",
+    "Y-G   tee-y-g        backed by front-top,       9.3 mm3 at 1.500 mm"
    ],
    "active": true
   },
@@ -1001,17 +997,17 @@
    "label": "Every valve's posts stand in their plate at rest",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 valves gripped, least 3.165 mm",
+   "value": "8/8 valves gripped, least 6.000 mm",
    "target": "at least 3 mm of every post inside its plate with the valve at rest",
    "detail": [
-    "valve-v-c    stands     6.000 mm of 6 in the plate",
-    "valve-v-d    stands     6.000 mm of 6 in the plate",
-    "valve-v-g    stands     6.000 mm of 6 in the plate",
-    "valve-v-j    stands     6.000 mm of 6 in the plate",
-    "valve-v-e    travels    3.165 mm of 6 in the plate",
-    "valve-v-f    travels    3.165 mm of 6 in the plate",
-    "valve-v-h    travels    3.165 mm of 6 in the plate",
-    "valve-v-i    travels    3.165 mm of 6 in the plate"
+    "valve-v-c     6.000 mm of 6 in the plate",
+    "valve-v-d     6.000 mm of 6 in the plate",
+    "valve-v-g     6.000 mm of 6 in the plate",
+    "valve-v-j     6.000 mm of 6 in the plate",
+    "valve-v-e     6.000 mm of 6 in the plate",
+    "valve-v-f     6.000 mm of 6 in the plate",
+    "valve-v-h     6.000 mm of 6 in the plate",
+    "valve-v-i     6.000 mm of 6 in the plate"
    ],
    "active": true
   },
@@ -1020,11 +1016,10 @@
    "label": "A valve seat's sockets keep a printable wall to the port channel",
    "kind": "gate",
    "status": "pass",
-   "value": "2/2 decks over one extrusion, least 0.9239 mm",
+   "value": "1.1151 mm of wall, 139% of an extrusion",
    "target": "at least one 0.8 mm extrusion of wall between socket and channel",
    "detail": [
-    "stands    1.1151 mm   139% of an extrusion",
-    "travels   0.9239 mm   115% of an extrusion"
+    "socket to port channel   1.1151 mm   139% of an extrusion of 0.8"
    ],
    "active": true
   },

@@ -1512,7 +1512,7 @@ def _dims(pack):
     # no wall of this box carries it.
     rim = max(splits) + lip_len
     decks = [mz - _panel.height() / 2.0
-             for _plane, _sign, seats, _back in pack.valve_panels
+             for _plane, _sign, seats in pack.valve_panels
              for mz in [(min(z for _x, z in seats) + max(z for _x, z in seats)) / 2.0]]
     deck_floor = min(decks) if decks else iz1
     record_bound(Bound(
@@ -4030,20 +4030,15 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
     round body boss lands on. Everything is struck in the valve's own frame at `plane`, its
     mounting plane, and turned onto the deck — the plate's face follows from `SEAT` and is not
     the datum anything here is placed on."""
-    for plane, sign, seats, setback in stations:
+    for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
         half = _panel.height() / 2.0
         if not (y0 <= plane <= y1 and z0 <= mid_z <= z1):
             continue
         # The plate: its valve-side face on the plane the valve lands on, its back one `THICK`
-        # outboard of that — AND SET BACK BY WHATEVER TRAVEL THIS DECK'S VALVES NEED (`setback`,
-        # zero for a deck that stands still). A plate's face is a stop in the direction its
-        # valves are pressed onto it, and on the deck butted to the anchor tees that is the same
-        # direction the release drags them. Standing the face a whole stroke fore of where a
-        # seated valve's body lands leaves that body air to travel into, and the sockets sink by
-        # the same figure so their posts keep their grip over the whole of it.
-        face = plane - sign * (_panel.SEAT + setback)
+        # outboard of that.
+        face = plane - sign * _panel.SEAT
         near, far = sorted((face, face - sign * _panel.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
@@ -4065,10 +4060,10 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
-            solid = solid.cut(_seat.build_sockets(setback).val().moved(turn).moved(at))
+            solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
             chan = _panel.height() if not footed else max(
                 _panel.height(), 2.0 * (sz - foot_z0))
-            solid = solid.cut(_panel.build_port_channel(chan + 2.0, setback)
+            solid = solid.cut(_panel.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))
     return solid
 
@@ -4127,7 +4122,7 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     # AND AFT onto the nearest panel plate that crosses this same band — its own near face, so
     # the two meet plane to plane and the web is the gap and not a millimetre more.
     reach = None
-    for plane, sign, seats, _setback in panels:
+    for plane, sign, seats in panels:
         zs = [z for _x, z in seats]
         mid_z, half = (min(zs) + max(zs)) / 2.0, _panel.height() / 2.0
         if mid_z + half <= zb0 or mid_z - half >= zb1:

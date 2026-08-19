@@ -146,17 +146,15 @@ def extrusion() -> float:
     return _ea.EXTRUSION_W
 
 
-def web(travel: float = 0.0) -> float:
+def web() -> float:
     """The plate left between a corner socket and the port channel, MEASURED.
 
     The two features run at right angles — the sockets down the valve's own axis, the channel
-    across the plate on its Y — and on a deck that travels it is the SWEEP that closes them,
-    alone. A socket's inner edge stands `corner_inset - socket_radius` off the centreline and
-    the channel's rest circle `port_radius + PORT_SLIP`, a tenth of a millimetre apart if they
-    ever met at one height; the rest circle's widest station is above the sockets' mouths and
-    never does. Sinking the floor moves a socket DOWN its own axis, away from that station, and
-    costs nothing. Sweeping drags the station down into the sockets' band, which is why the
-    swept stretch carries `SWEEP_SLIP` and not `PORT_SLIP`.
+    across the plate on its Y. A socket's inner edge stands `corner_inset - socket_radius` off
+    the centreline and the channel `port_radius + PORT_SLIP`, a tenth of a millimetre apart if
+    they ever met at one height; the channel's widest station is above the sockets' mouths and
+    never does. Anything that brings the two to one height spends that tenth at once, and
+    nothing about a solid says it has been spent.
 
     NOT ARITHMETIC. The closest approach of the two axes lies above the socket's own top, so a
     figure struck off the radii answers for a cylinder that is not there. This reads the solids.
@@ -165,60 +163,34 @@ def web(travel: float = 0.0) -> float:
     `enclosure-front-top`'s material and that piece prints on a 0.8 (`ledger/machine-time.md`,
     the bulk-PETG group). A web under one extrusion wide is a web the slicer does not lay, and
     the socket opens into the channel over the stretch it does not."""
-    sockets = _seat.build_sockets(travel).val()
-    channel = build_port_channel(height() + 2.0, travel).val()
+    sockets = _seat.build_sockets().val()
+    channel = build_port_channel(height() + 2.0).val()
     d = BRepExtrema_DistShapeShape(sockets.wrapped, channel.wrapped)
     d.Perform()
     return d.Value()
 
 
-def grip(travel: float = 0.0) -> float:
+def grip() -> float:
     """How much of a corner post stands INSIDE the plate, with the valve at rest.
 
     THE POSTS IN THEIR SOCKETS ARE THE WHOLE OF THE RETENTION (`valve_seat`), so this is the
     whole of what holds a valve down. A still deck's face is the valve's own landing plane and
-    the post is in the plate over its whole length. A deck set back by `travel` meets its post
-    that much later, and the post reaches its full length only at the end of the stroke — so a
-    travelling valve is held LEAST in the state the machine runs in and most while it is being
-    pulled out."""
-    return _seat.seat_top_z - travel
+    the post is in the plate over its whole length, on every deck — the release moves the tee
+    it butts and not the valve itself, so no plate on this machine is set off its valves."""
+    return _seat.seat_top_z
 
 
-# What the SWEPT stretch of a channel carries instead of `PORT_SLIP`. The channel's rest circle
-# stands clear of the sockets either side of it by z alone — its widest station is above their
-# mouths. Sweeping drags that widest station DOWN into their band, and the socket's own inner
-# edge is only `corner_inset - socket_radius` off the plate's centreline, so the two close on
-# each other fast. This is the air the port gets over the stretch it only passes through.
-SWEEP_SLIP = 0.3
-
-
-def build_port_channel(length: float, sweep: float = 0.0):
+def build_port_channel(length: float):
     """One valve's port channel, in the valve's own frame: the barrel and its slip, run `length`
     along the plate's own Y and open at both ends.
 
     A CYLINDER AND NOT A SLOT. The port is round and the channel closes on it all the way round
     at one slip, the way the meter's saddles take a barrel — a square slot to the same width
-    would take the plate's whole depth at the corners for air the port is nowhere near.
-
-    `sweep` DRAWS THAT CIRCLE ALONG THE VALVE'S OWN TRAVEL and takes the stadium it traces. A
-    valve given room to move carries its port with it, so a channel struck only where the port
-    RESTS closes on it everywhere it goes — the setback frees the body and the port lands in
-    the plate instead. The section stays round at both ends and is a slot only over the stretch
-    the port actually sweeps."""
-    r = _valve.port_radius + PORT_SLIP
-    rs = _valve.port_radius + SWEEP_SLIP
-    def barrel(at, rad):
-        return (cq.Workplane("XZ").center(0.0, at).circle(rad)
-                .extrude(length / 2.0, both=True))
-    ch = barrel(_valve.port_center_z, r)
-    if sweep > 0.0:
-        ch = ch.union(barrel(_valve.port_center_z - sweep, rs)).union(
-            cq.Workplane("XZ")
-            .center(0.0, _valve.port_center_z - sweep / 2.0)
-            .rect(2.0 * rs, sweep)
+    would take the plate's whole depth at the corners for air the port is nowhere near."""
+    return (cq.Workplane("XZ")
+            .center(0.0, _valve.port_center_z)
+            .circle(_valve.port_radius + PORT_SLIP)
             .extrude(length / 2.0, both=True))
-    return ch
-
 
 def build_valve_panel(width: float, seats):
     """One panel: the plate, with one `valve_seat`'s sockets and one port channel sunk into it
@@ -380,13 +352,10 @@ def main():
         print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, closed form "
               f"{panel_volume(width, len(seats)) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
     width, seats = next(iter(sorted(panels.values())))
-    _setback = setback()
-    print(f"  the travelling deck's plate stands {_setback:.3f} mm off its valves; a post is "
-          f"{grip(_setback):.3f} mm in the plate at rest of {_seat.seat_top_z:g} mm")
+    print(f"  a post stands {grip():.3f} mm in the plate of {_seat.seat_top_z:g} mm")
     _ext = extrusion()
-    print(f"  socket to port channel: {web():.4f} mm standing, {web(_setback):.4f} mm travelling"
-          f" — {100.0 * web() / _ext:.0f}% and {100.0 * web(_setback) / _ext:.0f}% of a "
-          f"{_ext:g} bead")
+    print(f"  socket to port channel: {web():.4f} mm — "
+          f"{100.0 * web() / _ext:.0f}% of a {_ext:g} bead")
 
     substitute_md(
         _here.parent / "README.md",
@@ -410,16 +379,11 @@ def main():
             "PORT_DROP": f"{port_drop():.2f}",
             "PORT_SLIP": f"{PORT_SLIP:g}",
             "PANEL_POST": f"{_seat.seat_top_z:g}",
-            "PANEL_SETBACK": f"{_setback:.3f}",
-            "PANEL_GRIP": f"{grip(_setback):.3f}",
-            "PANEL_SOCKET_LONG": f"{_seat.socket_depth() + _setback:.3f}",
+            "PANEL_GRIP": f"{grip():.3f}",
             "PANEL_WEB": f"{web():.3f}",
-            "PANEL_WEB_TRAVEL": f"{web(_setback):.3f}",
-            "PANEL_SWEEP_SLIP": f"{SWEEP_SLIP:g}",
             "PANEL_PORT_SLIP": f"{PORT_SLIP:g}",
             "PANEL_EXTRUSION": f"{_ext:g}",
             "PANEL_WEB_PCT": f"{100.0 * web() / _ext:.0f}",
-            "PANEL_WEB_TRAVEL_PCT": f"{100.0 * web(_setback) / _ext:.0f}",
         },
     )
     print("-> README.md")
