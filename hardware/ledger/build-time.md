@@ -12,7 +12,7 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 
 | Generator | Cuts | Seconds |
 |---|---|---:|
-| [`assembly/cards/_build.py`](/hardware/assembly/cards/_build.py) | every build card, and the deck they print as | [123](BT_BUILD) |
+| [`assembly/cards/_build.py`](/hardware/assembly/cards/_build.py) | every build card, and the deck they print as | [109](BT_BUILD) |
 | [`assembly/scenes/render_scenes.py`](/hardware/assembly/scenes/render_scenes.py) | every card's picture, off the placed machine | [24](BT_RENDER_SCENES) |
 | [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) | the placed machine — every body in the box | [55](BT_ENCLOSURE_ASSEMBLY) |
 | [`printed-parts/enclosure/enclosure/enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) | the box, in its printable pieces | [20](BT_ENCLOSURE) |

@@ -2605,13 +2605,24 @@ def _z_pod(x_in, x_ext, sx, ys, inner, zj):
     return collar.intersect(_cavity(inner, 0.0, (iz0 - 1.0, iz1 + 1.0)))
 
 
-def _z_pin(x_ext, sx, ys, zj):
+def _z_pin(x_in, x_ext, sx, ys, zj):
     """TOP pin: a round cylinder from the ±X exterior to the heat-set, registering
     in the bottom socket's bore. Its −Z face stands on the top piece's own mouth,
     so the wall it drives through carries the whole of it, and it drops down the
-    socket's +Z channel as the pieces close."""
+    socket's +Z channel as the pieces close.
+
+    AND THE FIN OVER IT STANDS IN THE PATH IT SWEPT. That channel runs from the bore up
+    through the lip's rim, because the pin descends the whole of it — so seated, everything
+    over the pin's crown is a slot through the seam that nothing closes. The fin is the
+    pin's own section carried to the rim, `split_slip` narrower than the channel the way
+    the pin is narrower than the bore, riding down with it and filling it at full seat."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    return _xcyl(plug_dia / 2.0, ys, _z_pin_z(zj), x_ext, x_tip)
+    zp = _z_pin_z(zj)
+    pin = _xcyl(plug_dia / 2.0, ys, zp, x_ext, x_tip)
+    half = socket_bore_dia / 2.0 - split_slip / 2.0
+    fin = _ybox(min(x_in, x_tip), max(x_in, x_tip), ys - half, ys + half,
+                zp + plug_dia / 2.0, zj + lip_len)
+    return pin.fuse(fin)
 
 
 def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
@@ -4245,8 +4256,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
-        for _x_in, x_ext, sx, ys, _c in stations:
-            piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
+        for x_in, x_ext, sx, ys, _c in stations:
+            piece = piece.fuse(_z_pin(x_in, x_ext, sx, ys, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
         for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
