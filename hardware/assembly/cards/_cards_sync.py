@@ -100,7 +100,15 @@ def deck(_m: Machine):
     The registry is that same census, so a deck a bench starts writing needs a row on
     the cover and nothing here: its code arrives as a name this card is registered for
     and does not carry, and the last card of a deck deleted takes the name off both
-    sides at once."""
+    sides at once.
+
+    `CARDS_SA` LANDS TWICE, and both are the same claim about the same thing. The
+    cover reads `102 cards · one per bench operation, N per finished unit`, and cards
+    are what it counts across the whole sentence: the deck holds an operation card
+    for each step of the bench and a unit card for each sub-assembly one finished
+    machine carries, and the SA deck is the second kind. A count of the sub-assemblies
+    themselves would be a smaller figure — the cold core and the cap lid each take two
+    cards, one per state — so this is the deck's shape and not the machine's."""
     stems = sorted(p.stem for p in CARDS_DIR.glob("*.html") if p.stem != COVER)
     counts = Counter(stem.partition("-")[0] for stem in stems)
 
