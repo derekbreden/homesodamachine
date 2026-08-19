@@ -168,14 +168,14 @@ runs clean.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
    [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13.
 4. ~~**The stroke is not clear, so the cartridge cannot come out.**~~ **CLOSED.**
-   `release-travel` offers every body the release moves the whole stroke and all eight clear it.
-   A butted neighbour travels with the body it butts, so the four valves butted to the anchor
-   tees travel too — all four on one deck, whose plate face stands a whole stroke further fore
-   with its sockets sunk to match, so a post keeps its grip over the travel.
-   `check_insertion_backing` reads the other direction: a tube pushed into a branch collet
-   drives its tee aft, and the step in the wall's own bore takes the collar, so a joint seats
-   to depth instead of shoving the tee out of the tube's path. Steps 2 and 5 run on the two
-   of them.
+   `release-travel` offers each anchor tee the whole stroke and all four clear it. The stroke
+   is the rest gap alone — the nose presses the moment it reaches the steel, the grip opens on
+   contact, and the tee stops there while the tube draws out of it. The tee is the only body
+   that moves: the tube stub flexes inside the two collets that hold it, and the valve on its
+   far end stands where it was seated. `check_insertion_backing` reads the other direction: a
+   tube pushed into a branch collet drives its tee aft, and the step in the wall's own bore
+   takes the collar, so a joint seats to depth instead of shoving the tee out of the tube's
+   path. Steps 2 and 5 run on the two of them.
 
 ## Sources
 [value](NAME) texts are updated by:

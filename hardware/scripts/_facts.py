@@ -268,9 +268,8 @@ def gather(whole=None, module=None):
         # machine by name, so they take this one rather than standing a second.
         "valve_panels": _plain(ea.valve_panel_plans(whole)),
         # And the decks as the WALL is handed them — plane, which way the valves' own +Z runs
-        # off it, the seats, and the setback. The plans above are what a plate is DRAWN from
-        # and carry no setback, so a reader wanting to know that one deck stands its face back
-        # by the release stroke cannot get it from them.
+        # off it, and the seats. The plans above are what a plate is DRAWN from, in the plate's
+        # own frame; these are where the box stands one.
         "valve_panel_stations": _plain(ea.valve_panel_stations(whole.pack.placed)),
         "pump_trays": _plain(ea.pump_tray_plans(whole, box)),
         "pack": {
@@ -385,13 +384,13 @@ class Facts:
 
     @property
     def valve_panel_stations(self):
-        """`(plane, sign, ((x, z), …), setback)` per deck, as `enclosure.Box.valve_panels` is.
+        """`(plane, sign, ((x, z), …))` per deck, as `enclosure.Box.valve_panels` is.
 
-        The fourth figure is the one the plans cannot carry: how far that deck's plate face
-        stands back from where a seated valve's body lands, which is zero everywhere except
-        the deck butted onto the anchor tees."""
-        return tuple((p, g, tuple(tuple(t) for t in seats), b)
-                     for p, g, seats, b in self._f["valve_panel_stations"])
+        What the plans cannot carry: the world plane a deck's valves stand their mounting
+        faces on, and which way their own +Z runs off it. A valve seats the same way on
+        either deck, so there is nothing per-deck beyond where it stands."""
+        return tuple((p, g, tuple(tuple(t) for t in seats))
+                     for p, g, seats in self._f["valve_panel_stations"])
 
     @property
     def pump_trays(self):

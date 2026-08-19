@@ -14,11 +14,9 @@ valve, and **the face decides which of two forms it takes**:
 
 - **Sunk** — `build_sockets()` hands back the four holes for a face to CUT. A boss is material
   round a socket, and a face [7](SOCKET_DEPTH) mm deep plus a wall behind is that material
-  already. The valve lands on the face itself. Both valve panels take this form, and on one of
-  them the face stands a release stroke back from where a seated valve's boss lands, so those
-  four valves are located by the fittings they butt and reach the face only at full release
-  ([`../enclosure/valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)).
-  `build_sockets(extra)` is what sinks their floors to suit.
+  already. The valve lands on the face itself. Both valve panels take this form
+  ([`../enclosure/valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)),
+  and a valve seats the same way on either of them.
 - **Stood** — `build_seat(seat)` hands back the four bosses for a face to FUSE, for a face
   thinner than a socket is deep. The valve lands on the four boss tops. The cold core's cap
   lid takes this form.

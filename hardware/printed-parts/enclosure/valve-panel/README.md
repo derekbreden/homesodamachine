@@ -20,21 +20,18 @@ four to a plane. Each plane gets a panel: [2](PANEL_COUNT) per machine.
 | seat height | [-6](PANEL_SEAT) mm — the seat is **sunk**, so nothing stands off the face |
 | depth on the deck's plane | [10](PANEL_D) mm, the plate and nothing else |
 | post over the mounting plane | [6](PANEL_POST) mm — the whole of what a socket can hold |
-| face set off its valves | 0 on the still deck, [2.835](PANEL_SETBACK) mm on the travelling one |
-| socket, travelling deck | [9.835](PANEL_SOCKET_LONG) mm long — the floor sinks by that figure, the mouth does not move |
-| post in the plate at rest | [6](PANEL_POST) mm still, [3.165](PANEL_GRIP) mm travelling |
-| socket to port channel | [1.115](PANEL_WEB) mm still, [0.924](PANEL_WEB_TRAVEL) mm travelling — **measured** |
-| air round the port | [1](PANEL_PORT_SLIP) mm where it rests, [0.3](PANEL_SWEEP_SLIP) mm over the stretch it passes through |
+| post in the plate | [6.000](PANEL_GRIP) mm, all of it |
+| air round the port | [1](PANEL_PORT_SLIP) mm, the box's own figure for air round a body |
+| socket to port channel | [1.115](PANEL_WEB) mm — **measured**, [139](PANEL_WEB_PCT)% of a [0.8](PANEL_EXTRUSION) mm bead |
 | material, both panels | [162.79](PANEL_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
 
 Four blind sockets, one under each of the Beduan's corner posts, the post pressed into it
 ([`../../valve-seat/`](/hardware/printed-parts/valve-seat/)). The posts in their sockets are the
-whole of the retention — nothing bolts a valve and nothing is bonded. On the still deck the
-valve's own round body boss lands **on the plate's own face**, which is what sets its height;
-on the travelling deck it stands off that face and something else does, which is the section
-below.
+whole of the retention — nothing bolts a valve and nothing is bonded — and the valve's own round
+body boss lands **on the plate's own face**, which is what sets its height. Every valve on either
+plate seats the same way.
 
 **A boss is material round a socket, and this plate is that material.** It is one socket and one
 wall thick, so the seat is sunk into it rather than stood on it: the same
@@ -52,49 +49,19 @@ The plate's height is the seats' own reach off their valves' centres, [18.8](PAN
 and one [3](PANEL_MARGIN) mm margin past that. Each valve's two quick-connect collets and the
 tube butted into them hang past it in air.
 
-## The deck that travels
+## The wall between a socket and the port channel
 
-One deck is butted onto the anchor tees of the pump cartridge's release
-([`../enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md) "The pump
-cartridge and its bay"). Its four valves make the release stroke with the tees they butt, so
-**its plate's face is where those valves ARRIVE, not where they rest.** The face stands
-[2.835](PANEL_SETBACK) mm — the whole stroke — off the plane a seated body boss would land on,
-and each socket's floor sinks by the same figure to [9.835](PANEL_SOCKET_LONG) mm so a post does
-not bottom before the travel is spent. The mouth, the radius and the [3](SOCKET_FLOOR) mm of
-floor behind are untouched: it is the same plate, standing somewhere else.
-
-**The boss does not touch it at rest.** The valve stands one stroke off, in air, and what sets
-its height is the anchor tee it butts — held across its own axis by the printed wall behind the
-collet plate (`enclosure._tee_wall`) and free along it. At full release the boss lands on the
-face, so the face is the stop that ENDS the stroke rather than the one the valve rests on. This
-is the one deck whose valves are located by the manifold rather than by their own plate.
-
-**A post stands [3.165](PANEL_GRIP) mm inside the plate's section at rest**, of the
-[6](PANEL_POST) mm it has, reaching its whole length only at full release. The posts in their
-sockets are the whole of the retention, so this deck is held LEAST in the state the machine runs
-in and most while the cartridge is being pulled out.
-
-**The port travels with the body**, so its channel is struck along the whole sweep instead of
-where the port rests (`build_port_channel`): round at both ends, a slot only over the stretch the
-port crosses.
-
-**The sweep is what a socket has to keep clear of.** A socket's inner edge stands 8.6 mm off
-the plate's centreline and the channel's rest circle 8.5, a tenth apart — but the rest circle's
-widest station sits above the sockets' mouths and never meets them, and sinking a floor moves a
-socket down its own axis further from it. Sweeping drags that station DOWN into the sockets'
-band, so the swept stretch carries [0.3](PANEL_SWEEP_SLIP) mm of air where the resting barrel
-carries [1](PANEL_PORT_SLIP): the port gets its millimetre where it sits and three tenths where
-it only passes. That leaves [0.924](PANEL_WEB_TRAVEL) mm of plate between socket and channel on
-this deck, against [1.115](PANEL_WEB) mm on the still one.
+The sockets run down the valve's own axis and the port channel across the plate on its Y, and
+where they pass each other is the thinnest material in the plate: [1.115](PANEL_WEB) mm.
+`web()` measures it rather than striking it off the radii — the two features' axes come closest
+above the socket's own top, so arithmetic answers for a cylinder that is not there.
 
 **Read that against the nozzle, not against zero.** These plates are `enclosure-front-top`'s
 material and that piece prints on a 0.8 ([`machine-time.md`](/hardware/ledger/machine-time.md),
-the bulk-PETG group), so one bead of this plate is [0.8](PANEL_EXTRUSION) mm: the still deck's
-web is [139](PANEL_WEB_PCT)% of one and the travelling deck's [115](PANEL_WEB_TRAVEL_PCT)%, and
-both get laid. `web()`
-measures the figure rather than striking it off the radii — the two features run at right angles
-and their axes come closest above the socket's own top, so arithmetic answers for a cylinder that
-is not there — and `panel-web` holds it at every build.
+the bulk-PETG group), so one bead of this plate is [0.8](PANEL_EXTRUSION) mm and the web is
+[139](PANEL_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is absent, and a
+solid states material at any width — so `panel-web` is the one check on this plate that reads
+what the machine can lay rather than what the model draws.
 
 ## Where the two go
 
@@ -104,14 +71,13 @@ refrigeration base's crown, so where a deck lands is that stack's arithmetic. `v
 groups the valves no cap cradle holds by the plane each stands on and hands back one panel per
 plane, and the `panels-hold` gate reads every valve against the plate under it.
 
-| panel | valves | stands | face |
-|---|---|---|---|
-| `valve-panel-aft` | V-C, V-D, V-G, V-J | aft of its deck, bosses facing forward | on its valves — they stand still |
-| `valve-panel-fore` | V-E, V-F, V-H, V-I | forward of its deck, bosses facing aft | one stroke off — its valves travel |
+| panel | valves | stands |
+|---|---|---|
+| `valve-panel-aft` | V-C, V-D, V-G, V-J | aft of its deck, bosses facing forward |
+| `valve-panel-fore` | V-E, V-F, V-H, V-I | forward of its deck, bosses facing aft |
 
-The two face each other with both decks between them. Which one travels is read off the placed
-pack at every build and never named here: `valves_on_anchor_tees` says whose valves butt a tee,
-so a re-folded manifold moves the setback with it.
+The two face each other with both decks between them, and both are the same plate: a valve is
+held one way in this machine, wherever it stands.
 
 ## Print
 
@@ -126,16 +92,7 @@ row).
 
 ## Open items
 
-1. **Whether [3.165](PANEL_GRIP) mm of post is enough is not known.** The posts in their sockets
-   are the whole of the retention, and on the travelling deck a little over half a post is in the
-   plate in the state the machine spends its life in. `post-engagement` holds that figure at a
-   floor of 3 mm, and the floor is a number somebody chose: it stands just under what the deck
-   has, so it catches a geometry that moves and asserts nothing about the geometry that is there.
-   No pull-out or fatigue figure for a Beduan corner post in printed PETG exists in this repo.
-   The nearest measured retention figure is a press fit in PET-CF held at ~10 lbf
-   ([`touch-flo-shell/print-log.md`](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md)),
-   a different joint in a different material.
-2. **`panel-web` is the only bound on this plate that reads what a nozzle can lay.** Everything
+1. **`panel-web` is the only bound on this plate that reads what a nozzle can lay.** Everything
    else about it — the sockets' clearance, the channel's floor, the seats' pitch, the margin past
    the last seat — is read against a solid, and a solid states material at any width. The plate
    comes off a 0.8 bead, so a feature the model draws thinner than one reads green in every check
