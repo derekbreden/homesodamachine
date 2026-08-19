@@ -44,6 +44,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
@@ -134,6 +135,28 @@ def setback() -> float:
     return _ea.PLATE_REST_GAP + _jgu.COLLET_TRAVEL
 
 
+def web(travel: float = 0.0) -> float:
+    """The plate left between a corner socket and the port channel, MEASURED.
+
+    The two features run at right angles — the sockets down the valve's own axis, the channel
+    across the plate on its Y — and they close on each other from both ends on a deck that
+    travels: the socket's floor sinks by the stroke and `build_port_channel`'s sweep drags the
+    channel along the same stroke. Neither alone does it.
+
+    NOT ARITHMETIC. The closest approach of the two axes lies above the socket's own top, so a
+    figure struck off the radii answers for a cylinder that is not there. This reads the solids.
+
+    Compare what comes back against the nozzle that lays it, not against zero: these plates are
+    `enclosure-front-top`'s material and that piece prints on a 0.8 (`ledger/machine-time.md`,
+    the bulk-PETG group). A web under one extrusion wide is a web the slicer does not lay, and
+    the socket opens into the channel over the stretch it does not."""
+    sockets = _seat.build_sockets(travel).val()
+    channel = build_port_channel(height() + 2.0, travel).val()
+    d = BRepExtrema_DistShapeShape(sockets.wrapped, channel.wrapped)
+    d.Perform()
+    return d.Value()
+
+
 def grip(travel: float = 0.0) -> float:
     """How much of a corner post stands INSIDE the plate, with the valve at rest.
 
@@ -144,6 +167,14 @@ def grip(travel: float = 0.0) -> float:
     travelling valve is held LEAST in the state the machine runs in and most while it is being
     pulled out."""
     return _seat.seat_top_z - travel
+
+
+# What the SWEPT stretch of a channel carries instead of `PORT_SLIP`. The channel's rest circle
+# stands clear of the sockets either side of it by z alone — its widest station is above their
+# mouths. Sweeping drags that widest station DOWN into their band, and the socket's own inner
+# edge is only `corner_inset - socket_radius` off the plate's centreline, so the two close on
+# each other fast. This is the air the port gets over the stretch it only passes through.
+SWEEP_SLIP = 0.3
 
 
 def build_port_channel(length: float, sweep: float = 0.0):
@@ -160,15 +191,16 @@ def build_port_channel(length: float, sweep: float = 0.0):
     the plate instead. The section stays round at both ends and is a slot only over the stretch
     the port actually sweeps."""
     r = _valve.port_radius + PORT_SLIP
-    def barrel(at):
-        return (cq.Workplane("XZ").center(0.0, at).circle(r)
+    rs = _valve.port_radius + SWEEP_SLIP
+    def barrel(at, rad):
+        return (cq.Workplane("XZ").center(0.0, at).circle(rad)
                 .extrude(length / 2.0, both=True))
-    ch = barrel(_valve.port_center_z)
+    ch = barrel(_valve.port_center_z, r)
     if sweep > 0.0:
-        ch = ch.union(barrel(_valve.port_center_z - sweep)).union(
+        ch = ch.union(barrel(_valve.port_center_z - sweep, rs)).union(
             cq.Workplane("XZ")
             .center(0.0, _valve.port_center_z - sweep / 2.0)
-            .rect(2.0 * r, sweep)
+            .rect(2.0 * rs, sweep)
             .extrude(length / 2.0, both=True))
     return ch
 
@@ -336,6 +368,7 @@ def main():
     _setback = setback()
     print(f"  the travelling deck's plate stands {_setback:.3f} mm off its valves; a post is "
           f"{grip(_setback):.3f} mm in the plate at rest of {_seat.seat_top_z:g} mm")
+    print(f"  socket to port channel: {web():.4f} mm standing, {web(_setback):.4f} mm travelling")
 
     substitute_md(
         _here.parent / "README.md",
@@ -362,6 +395,8 @@ def main():
             "PANEL_SETBACK": f"{_setback:.3f}",
             "PANEL_GRIP": f"{grip(_setback):.3f}",
             "PANEL_SOCKET_LONG": f"{_seat.socket_depth() + _setback:.3f}",
+            "PANEL_WEB": f"{web():.3f}",
+            "PANEL_WEB_TRAVEL": f"{web(_setback):.3f}",
         },
     )
     print("-> README.md")
