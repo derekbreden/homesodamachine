@@ -788,13 +788,16 @@ plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor
 # the corner columns or height past the display, so the block covers what there is room to
 # cover and no more.
 #
-# THE SCREWS RUN UP THE LANE BETWEEN THE PUMPS. `cap_band_x` is that lane — the two heads'
-# own inboard faces, less air — and it is the one column of this piece with no pump, no barb
+# THE SCREWS RUN UP THE LANE BETWEEN THE PUMPS. `cap_band_x` is that lane — one `wall` inboard
+# of each head's own room — and it is the one column of this piece with no pump, no barb
 # tube and no fitting in it at any height. The cap gives up its fill there and keeps
 # `cap_web_t`, so a screw crosses one web into a heat-set in the block above it and the
-# driver comes up the lane the fill gave up.
+# driver comes up the lane the fill gave up. WHAT SETS ITS EDGE IS THE SECTION LEFT STANDING,
+# not a figure off the part: struck off the head instead, the lane ate all but six tenths of
+# the material between itself and the pocket, and this piece prints in the same walls as every
+# other piece on the box.
 cap_pump_air = 0.4           # air round a pump body where the block closes on it
-cap_band_air = 1.0           # the screw lane's edge off each head's inboard face
+cap_band_web = wall          # the cap's own section between the screw lane and a head's room
 cap_web_t = 4.0              # the cap's section across that lane — what a screw crosses
 cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and aft
 
@@ -2950,15 +2953,16 @@ def cap_split_z(pump_trays):
 
 
 def cap_band_x(pump_trays):
-    """The screw lane between the two heads, as (x0, x1) — each head's own inboard face,
-    less `cap_band_air`.
+    """The screw lane between the two heads, as (x0, x1) — one `cap_band_web` inboard of each
+    head's own room, so what stands between the lane and the pocket is a printable section.
 
     THIS IS THE ONE COLUMN OF THE CARTRIDGE WITH NOTHING IN IT AT ANY HEIGHT. No pump, no
     barb tube, no fitting: the inboard barbs stand outboard of it and their tubes leave aft
     of the block entirely. So it is where the cap gives up its fill, where a screw crosses,
     and where a driver reaches the screw's head."""
-    edge = min(abs(cx) for cx, _cy, _cz in pump_trays) - _tray.head_half
-    return -(edge - cap_band_air), edge - cap_band_air
+    edge = (min(abs(cx) for cx, _cy, _cz in pump_trays)
+            - _tray.head_half - cap_pump_air - cap_band_web)
+    return -edge, edge
 
 
 def cap_screw_ys(inner, plate):
@@ -2977,9 +2981,9 @@ def _pump_voids(pump_trays, z_top):
     BELOW THE SPLIT the head is a square prism on the pump's own axis, `cap_pump_air` round
     it, opening out of the cap's underside — the head's front face stands one millimetre over
     the bay floor and no section fits there, so what would be a floor under it is the air the
-    part shows through instead. AND THE PRISM GIVES ITS SEATS BACK: `pump_tray.head_seats` is
-    the wedge under each of the head's four ramped flanks, and the void keeps none of it, so
-    the cap closes on those four faces and the pump stands on them.
+    part shows through instead. IT IS NOT A PRISM: `pump_tray.head_room` closes it back in
+    wherever the case closed in on the part, unbroken from the crown to the cap's own floor,
+    so the head's four ramped flanks land on this piece and the pump stands on them.
 
     ABOVE THE SPLIT there are two more, one per storey the part carries: the boss over the
     split to its own crown, and the can from that crown up through the ceiling, so the can
@@ -2992,14 +2996,9 @@ def _pump_voids(pump_trays, z_top):
     half = _tray.head_half + cap_pump_air
     boss = _tray.boss_half + cap_pump_air
     can_r = _tray.can_half + cap_pump_air
-    seats = _tray.head_seats(cap_pump_air)
+    room = _tray.head_room(cap_pump_air, _tray.head_depth + 1.0)
     for cx, cy, cz in pump_trays:
-        at = cq.Location(cq.Vector(cx, cy, cz))
-        head = _ybox(cx - half, cx + half, cy - half, cy + half,
-                     cz - _tray.head_depth - 1.0, cz)
-        for seat in seats:
-            head = head.cut(seat.moved(at))
-        out.append(head)
+        out.append(room.moved(cq.Location(cq.Vector(cx, cy, cz))))
         out.append(_ybox(cx - boss, cx + boss, cy - boss, cy + boss,
                          cz, cz + _tray.boss_depth))
         out.append(_zcyl(can_r, cx, cy, cz + _tray.boss_depth, z_top + 1.0))
