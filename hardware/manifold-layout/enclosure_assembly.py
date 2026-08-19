@@ -126,7 +126,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "display-gasket",
            _hw / "printed-parts" / "enclosure" / "enclosure"):
     sys.path.insert(0, str(_p))
-from _cadq_export import export_assembly, import_step              # noqa: E402
+from _cadq_export import export_assembly, export_dxf, import_step  # noqa: E402
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
@@ -1329,7 +1329,10 @@ def build_collet_plate(spec):
 
 def export_collet_plate_dxf(spec, path):
     """The waterjet's own file: the plate's outline and its four holes, flat — the section
-    of a unit slab cut the way the steel is, so the loops cannot disagree with the solid."""
+    of a unit slab cut the way the steel is, so the loops cannot disagree with the solid.
+
+    Written through `export_dxf`, so the header's save-time stamps and GUIDs come out
+    canonical and a rebuild that moves no dimension leaves the file alone."""
     flat = (cq.Workplane("XY")
             .box(spec["x1"] - spec["x0"], spec["z1"] - spec["z0"], 1.0, centered=False)
             .translate((spec["x0"], spec["z0"], 0.0)))
@@ -1340,7 +1343,7 @@ def export_collet_plate_dxf(spec, path):
     for hx, hz in spec["holes"]:
         flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
                         .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
-    cq.exporters.export(flat.section(0.5), str(path))
+    export_dxf(flat.section(0.5), str(path))
 
 
 def check_collet_plate(spec, mcarry) -> None:
