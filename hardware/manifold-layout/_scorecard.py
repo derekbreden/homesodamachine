@@ -202,7 +202,7 @@ CARB_SEGMENTS = (
 #             So a chain that lands is a `NEVER` row naming what it lands on, and a chain that
 #             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
-#             `well`, `cradle`, `saddle`, `channel`, `wall-capture`, `seam-capture`,
+#             `well`, `cradle`, `saddle`, `tray`, `channel`, `wall-capture`, `seam-capture`,
 #             `plate-capture`, `tube-clamp`,
 #             `deck-mount`, `basin`, `gap-press`, `tube-hung`, `pack`. Not an axis and not a score —
 #             it is how the machine puts this body down, and it is what lets a card count the
@@ -248,12 +248,14 @@ MOUNTS = (
     ("hopper-drain-stub", None, "tube-clamp"),
     ("hopper-drain-clamp", None, "tube-clamp"),
     ("hopper-drain-union", None, "tube-hung"),
-    # THE ONE STEEL PIECE, DROPPED INTO TWO PRINTED POCKETS. The collet plate's ends stand in
-    # slotted bosses on front-top's side walls (`enclosure._plate_pockets`), open at the top,
-    # gravity down and the walls every other way. What loads it is the cartridge's own release:
-    # the four anchor-tee collets press its aft face as the cartridge is pulled, the pockets'
-    # fore walls carry that into the side walls, and the user's aft brace on the box closes the
-    # loop. It lifts out through the bay with the cartridge removed.
+    # THE ONE STEEL PIECE, SUNK IN A PRINTED SEAT. The collet plate's foot stands in the seat
+    # `enclosure._bay_floor` cuts down the bay floor's top, one `wall` deep, its two bottom
+    # corners notched round front-bottom's Z-seam lip — gravity onto the seat's own bottom, the
+    # seat's walls fore and aft, the side walls across, and open at the top. What loads it is the
+    # cartridge's own release: the four anchor-tee collets press its aft face as the cartridge is
+    # pulled, the seat's fore wall carries that into a floor lying on the print bed, and the
+    # user's aft brace on the box closes the loop. It lifts out through the bay with the
+    # cartridge removed.
     ("collet-plate", "enclosure-front-top", "well"),
     # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
     # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
@@ -404,16 +406,18 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # AND BOTH PUMPS HANG UNDER A TRAY ON THE SAME PIECE — the two-piece pump case with its
-    # cylinder cut off, so the same four surfaces that fitted the part still do: a plate on the
-    # head's crown, a ramp off it, the octagon bore on the boss, and a shoulder of tower on the
-    # boss's crown (`enclosure._pump_trays` off `enclosure_assembly.pump_tray_stations`, read by
-    # `trays-hold`). Two zip ties per pump close round the pump and the tray together through the
-    # plate's four channels, reaching under the stamped bracket the part carries at that same
-    # crown, and those straps are what carry the pump: a tray a body hangs UNDER holds nothing on
-    # its own, the same bargain the flow meter's saddles and the regulator's rib strike.
-    ("pump-a-head", "enclosure-front-top", "saddle"),
-    ("pump-b-head", "enclosure-front-top", "saddle"),
+    # AND BOTH PUMPS HANG UNDER A TRAY ON THE PUMP CARTRIDGE'S DECK — the two-piece pump case
+    # with its cylinder cut off, so the same four surfaces that fitted the part still do: a plate
+    # on the head's crown, a ramp off it, the octagon bore on the boss, and a shoulder of tower on
+    # the boss's crown (`enclosure.build_cartridge` fuses one per station off
+    # `enclosure_assembly.pump_tray_stations`, read by `trays-hold`). Two zip ties per pump close
+    # round the pump and the tray together through the plate's four channels, reaching under the
+    # stamped bracket the part carries at that same crown, and those straps are what carry the
+    # pump: a tray a body hangs UNDER holds nothing on its own, the same bargain the flow meter's
+    # saddles and the regulator's rib strike. The deck rides out of the front bay with both
+    # heads on it.
+    ("pump-a-head", "enclosure-pump-cartridge", "tray"),
+    ("pump-b-head", "enclosure-pump-cartridge", "tray"),
 )
 
 

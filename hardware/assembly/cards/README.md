@@ -74,9 +74,9 @@ authoritative — `_cards_sync.py`'s variable is.
    another document. Prefer a structural reading to a coordinate — "the east end
    of the row" survives the row moving and `z 342.4` does not.
 2. Assert the structure the sentence around it rests on, the way
-   [`_bom_sync.py`](/hardware/scripts/_bom_sync.py) asserts `not ml.JOINS`. "Nothing
-   is cut in the front wall" holds no number, so only an assertion can put it
-   back.
+   [`_bom_sync.py`](/hardware/scripts/_bom_sync.py) asserts `not ml.JOINS`. "No
+   connection is cut in the front wall" holds no number, so only an assertion can
+   put it back.
 3. Wrap the value on the card, add the name to that card's set in `cards`, and
    name `_cards_sync.py` in the card's `.src` footer — the bench's own Sources
    line.
@@ -196,7 +196,7 @@ One card per procedure step, in the procedure's own order.
 
 | Card | Operation |
 |---|---|
-| EN-01 | Stage the four printed pieces |
+| EN-01 | Stage the printed pieces |
 | EN-02 | Seat the rear wall's connection bodies |
 | EN-03 | Bolt the compressor down to the slab |
 | EN-04 | Stand the condenser on the compressor's tangent |

@@ -25,16 +25,35 @@ GRAPH = _HERE.parent / "graph.json"
 #: chart's `%%` lines, a doc's figures sidecar, and a card's `data-gen` elements.
 
 
-#: The generated solids, which are on this disk and in no index — `hardware/cad-artifacts.lock.json`
-#: names them and the release asset they arrive in. A sandbox is filled from `srcs`, so a solid one
-#: generator cuts and the next loads has to be named there whichever side of the index it sits.
+#: The generated solids, which are on this disk and in no index. A sandbox is filled from `srcs`,
+#: so a solid one generator cuts and the next loads has to be named there whichever side of the
+#: index it sits.
+#:
+#: TWO READINGS SAY WHICH SOLIDS THOSE ARE AND `tracked` TAKES BOTH, because each holds one the
+#: other does not. `pack.py`'s walk reads this disk, so a solid cut since the last release is in
+#: it — and a solid a trace is filtered against the lock alone cannot enter the graph until a
+#: bundle is pinned, which is a part the sandbox is never filled with and an action that dies
+#: on a file sitting in the tree. `hardware/cad-artifacts.lock.json` names the solids the pinned
+#: bundle carries, which is the reading a checkout that has cut nothing of its own still has.
 LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
+
+#: ONE WALK ANSWERS WHICH `.step` ON THIS DISK IS A GENERATED SOLID, and `pack.py` is where it
+#: lives — `pack.py --check` holds that same walk against the outputs `graph.json` declares, so
+#: the solids a bundle ships and the solids an action is filled from are one reading. Its
+#: directory's hyphen keeps it out of a dotted import, so the path goes on `sys.path` and
+#: `tracked` imports it by name.
+sys.path.append(str(_ROOT / "tools" / "cad-artifacts"))
 
 
 def tracked() -> list:
-    """Every file this tree stands behind: git's, and the solids the lock names."""
+    """Every file this tree stands behind: git's, and the generated solids — the ones this disk
+    holds and the ones the lock names."""
     files = subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
                            capture_output=True, text=True, check=True).stdout.split()
+    # Imported here and not above: `trace_inputs`'s own selftest runs in an action holding the
+    # two modules it was watched reading, and nothing there asks this question.
+    import pack
+    files += pack.solids(_ROOT)
     try:
         files += json.loads(LOCK.read_text()).get("solids", {})
     except (OSError, ValueError):

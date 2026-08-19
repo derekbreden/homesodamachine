@@ -646,9 +646,11 @@ y_seam = 200.0
 # and the four pieces meet at a four-way corner on each side wall. The plane stands where
 # its own machinery fits the pack: the seam ring's foot over the condenser's fin
 # crown (`z-seam-front-lane`) and the rim under the forward valve panel's plate
-# (`z-seam-under-deck`). Across the bay the ring's front segment is the sill's
-# (`_front_flat_lip_drop`), and the pumps ride behind the cartridge face's own reliefs
-# (`pumps-in-bay`, `enclosure_assembly.PACK_Y`).
+# (`z-seam-under-deck`). Across the bay the ring's front segment goes to the bay floor and
+# the pump heads over it (`_front_flat_lip_drop`), and the seam's own MOUTH is the plane
+# that floor lies on (`bay-floor-bedded`); the pumps ride behind the cartridge face's own
+# reliefs (`pumps-in-bay`, `enclosure_assembly.PACK_Y`) and sweep out over the floor's top
+# (`heads-sweep-out`).
 z_seam = 160.0
 
 # A seam landing in an open band keeps this much air off every body in its own column,
@@ -679,36 +681,41 @@ corner_core_reach = corner_boss_in - boss_in
 
 # --- THE PUMP BAY AND ITS CARTRIDGE ------------------------------------------
 #
-# THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's whole flat span — corner
-# column to corner column — and the tray storey that hangs the pumps come out of front-top
-# as one piece, the PUMP CARTRIDGE: the face, the deck, both trays, both pumps. It rides two
-# wall ledges at the deck's own storey and nothing latches it: the four barb tubes gripped
-# in the anchor tees' branch collets are the retention, and the collet plate
+# THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
+# corner column — and the tray storey that hangs the pumps come out of front-top as one
+# piece, the PUMP CARTRIDGE: the face, the deck, both trays, both pumps. It rides two rails
+# standing on the bay's floor and nothing latches it: the four barb tubes gripped in the
+# anchor tees' branch collets are the retention, and the collet plate
 # (`enclosure_assembly.build_collet_plate`) is the release — pull the cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
 # the same collets, the deck's stop pads landing on the plate's own face.
 #
+# FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
+# stands on it: the two deck rails full height, and the collet plate sunk in its own seat.
+# THE FLOOR IS THIS PIECE'S FIRST LAYERS — front-top beds on the seam plane, so a floor
+# struck there lies on the bed with nothing under it to hang. Its thickness is the only
+# thing above it: the cartridge reaches down to the plane its pump reliefs floor on, and
+# the floor's top is that plane. Front-bottom's side lip rises through a channel down each
+# side of it and stands proud to the rim, so the telescope is untouched.
+#
 # The BAY is the opening all that leaves through: the flat front wall between the corner
-# columns' along-wall edges, from the Z-seam mouth up past the motor cans' crowns. The
-# columns are the jambs; front-bottom's wall top is the sill, washed fore so what runs down
-# the face runs out; the wall over the bay is the lintel, carrying the facet and the display.
-# Front-bottom's front lip drops across the whole flat span — above the sill the flat front
-# is cartridge, so the front Z-joint is the corner columns' own pillar telescopes and the
-# sill butt, and the wall keeps its single `front_wall` section from slab to sill.
+# columns' along-wall edges, from the floor's top up past the motor cans' crowns. The
+# columns are the jambs; the floor's own top is the sill, washed fore so what runs down the
+# face runs out; the wall over the bay is the lintel, carrying the facet and the display.
+# Front-bottom's front lip drops across the whole flat span, because the floor stands in
+# that band — so the front Z-joint is the corner columns' pillar telescopes and a butt at
+# the seam, and the wall keeps its single `front_wall` section from slab to seam.
 bay_jamb_slip = 0.5          # bay edge off each corner column's along-wall edge
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
 bay_face_slip = 1.0          # cartridge face into the bay, per side
 face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
 cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
-rail_t = 4.2                 # a bay ledge's section under its bearing face
-rail_slip = 0.2              # deck underside onto the ledge's bearing face
-rail_bear = 3.0              # how far a ledge reaches under the deck's edge
+rail_slip = 0.2              # deck underside onto the rail's bearing face
+rail_bear = 3.0              # how far a rail reaches under the deck's edge
 pad_kiss = 0.1               # stop pad air off the collet plate's fore face at full seat
-plate_slot_slip = 0.2        # per-side air round the collet plate in its wall pockets
-plate_pocket_reach = 8.0     # a plate pocket's boss, proud of its side wall
-plate_pocket_hover = 0.5     # the boss's wall arris over the Z-seam lip's rim beneath it
+plate_slot_slip = 0.2        # per-side air round the collet plate in the floor's seat
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from:
@@ -786,8 +793,7 @@ plate_pocket_hover = 0.5     # the boss's wall arris over the Z-seam lip's rim b
 #   collet_plate  the steel plate the barb tubes release against, as the dict
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
-#                 per hole. The walls pocket its ends (`_plate_pockets`) and the cartridge's
-#                 stop pads land on its fore face
+#                 per hole. The bay floor's seat takes its foot (`_bay_floor`)
 #   pump_bay      the cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
 #                 jamb between the corner columns' cusps, topped over the motor cans' crowns.
 #                 None when the pack stands no pumps
@@ -1439,17 +1445,18 @@ def _dims(pack):
     y_joint = y_seam
     splits = _z_joints(placed, inner, z_seam)
     # THE RIM'S OWN CEILING. Wall-rooted furniture stands on a piece's wall, and below the
-    # rim the wall's inner face is the bottom piece's lip — so the flavour deck's
-    # wall-to-wall spans (the valve panels' seat plates, the pump trays' storey with its
-    # webs) stand whole above the rim; a panel's FOOT runs below it inset on the lip's own
-    # face (`_valve_panels`). The lip's ring cannot read any of them: they are printed
-    # material, not pack, and a plate standing ON the rim is a touch with no volume in it.
-    # This reads the wall-to-wall storeys off the same stations the pieces build them from.
+    # rim the wall's inner face is the bottom piece's lip — so a valve panel's seat plate
+    # spans wall to wall whole above the rim, and its FOOT runs below it inset on the lip's
+    # own face (`_valve_panels`). The lip's ring cannot read one: it is printed material,
+    # not pack, and a plate standing ON the rim is a touch with no volume in it. This reads
+    # the wall-to-wall storeys off the same stations the pieces build them from. The bay's
+    # floor is the one span that does stand on the rim and answers elsewhere
+    # (`enclosure_assembly.check_bay_floor`); the trays' storey roots on the cartridge, so
+    # no wall of this box carries it.
     rim = max(splits) + lip_len
     decks = [mz - _panel.height() / 2.0
              for _plane, _sign, seats in pack.valve_panels
              for mz in [(min(z for _x, z in seats) + max(z for _x, z in seats)) / 2.0]]
-    decks += [cz for _cx, _cy, cz in pack.pump_trays]
     deck_floor = min(decks) if decks else iz1
     record_bound(Bound(
         "z-seam-under-deck", "The Z-seam rim stays under the flavour deck's lowest plate",
@@ -2628,18 +2635,26 @@ def _soffit_c(outer):
     return (origin[2] - origin[1]) - display_facet_thickness * math.sqrt(2.0)
 
 
-def _front_relief_regions(pump_trays):
-    """Every region the front wall's section is relieved over, as (x0, x1, z0, z1, floor):
-    the stated refrigeration bay, and one pocket per pump struck off its own tray station —
-    across, the tray's own half-width and a slip; in height, the head's hang under the
-    station to the tray's crown over it; floored on `pump_relief_floor`, the plane the
-    tray's root is struck to."""
-    regions = [fridge_relief]
+def _pump_relief_regions(pump_trays):
+    """One pocket per pump in the front wall's section, as (x0, x1, z0, z1, floor), struck
+    off its own tray station — across, the tray's own half-width and a slip; in height, the
+    head's hang under the station to the tray's crown over it; floored on
+    `pump_relief_floor`, the plane the tray's root is struck to.
+
+    ITS OWN Z0 IS THE LOWEST PLANE THE CARTRIDGE REACHES, so the bay floor's top is struck
+    on it (`bay_floor_z`) and the sill and the face's bottom reveal come off one figure."""
+    out = []
     for cx, _cy, cz in pump_trays:
         hw = _tray.half_width() + 1.0
-        regions.append((cx - hw, cx + hw, cz - _tray.head_depth - 1.0,
-                        cz + _tray.depth() + 1.0, pump_relief_floor))
-    return regions
+        out.append((cx - hw, cx + hw, cz - _tray.head_depth - 1.0,
+                    cz + _tray.depth() + 1.0, pump_relief_floor))
+    return out
+
+
+def _front_relief_regions(pump_trays):
+    """Every region the front wall's section is relieved over: the stated refrigeration
+    bay and the pumps' own pockets."""
+    return [fridge_relief] + _pump_relief_regions(pump_trays)
 
 
 def _front_relief_cuts(inner, pump_trays):
@@ -2670,96 +2685,136 @@ def _front_floor(regions, b):
 def _front_flat_lip_drop(inner, zj):
     """The front wall's share of the Z lip and its underwall skin, given up across the bay.
 
-    Above the sill the flat front is cartridge face; below it the wall is one `front_wall`
-    section, slab to sill. The corner columns keep their wraps — the front Z-joint is their
-    pillar telescopes and the sill butt."""
+    THE BAY FLOOR STANDS IN THIS BAND AND THE PUMP HEADS RUN DOWN THROUGH IT ON THEIR WAY
+    OUT, so the flat span cannot carry a lip there at any height. Below the seam the wall is
+    one `front_wall` section, slab to mouth. The corner columns keep their wraps — the front
+    Z-joint is their pillar telescopes and the butt at the seam."""
     bx0, bx1 = bay_x_span(inner)
     return _ybox(bx0 - bay_jamb_slip, bx1 + bay_jamb_slip,
                  inner[2] - 0.1, inner[2] + wall + 0.1,
                  inner[4] - 1.0, zj + lip_len + 1.0)
 
 
-def _sill_wash(inner, outer, zj):
+def _sill_wash(inner, outer, z_sill):
     """The sill's top face cut falling `sill_wash` toward the exterior, across the bay —
     the reveal's drain. What runs down the face and gets past the reveal lands on this
-    slope and runs back out the front."""
+    slope and runs back out the front. The sill is the bay floor's own top, so the drain is
+    a cut in the wall the floor's fore edge roots on."""
     bx0, bx1 = bay_x_span(inner)
     return _yz_prism(bx0 - bay_jamb_slip, bx1 + bay_jamb_slip,
-                     [(outer[2] - 0.1, zj - sill_wash), (outer[2] - 0.1, zj + 0.001),
-                      (inner[2] + 0.1, zj + 0.001)])
+                     [(outer[2] - 0.1, z_sill - sill_wash), (outer[2] - 0.1, z_sill + 0.001),
+                      (inner[2] + 0.1, z_sill + 0.001)])
 
 
-def _bay_cut(inner, outer, bay):
-    """The bay's opening through front-top: the flat wall band jamb to jamb from the seam
-    mouth to the bay top, and the soffit wedge's share where the facet slab leans into the
-    cans' path above the cavity ceiling line."""
+def _bay_cut(inner, outer, bay, pump_trays):
+    """The bay's opening through front-top: the flat wall band jamb to jamb from the
+    floor's own top to the bay top, and the soffit wedge's share where the facet slab leans
+    into the cans' path above the cavity ceiling line."""
     bx0, bx1, top = bay
     c = _soffit_c(outer)
-    wall_box = _ybox(bx0, bx1, outer[2] - 1.0, inner[2] + 0.5, z_seam, top)
+    wall_box = _ybox(bx0, bx1, outer[2] - 1.0, inner[2] + 0.5,
+                     bay_floor_z(pump_trays)[1], top)
     wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
                       inner[2] + c - 1.5, top)
     return wall_box.fuse(wedge_box)
 
 
-def _cartridge_face_region(inner, outer, bay):
+def _cartridge_face_region(inner, outer, bay, pump_trays):
     """The bay region the cartridge's face keeps: the same two boxes one slip and one
     reveal smaller, so the face rides its opening on stated air."""
     bx0, bx1, top = bay
     fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
-    z0, z1 = z_seam + face_reveal, top - face_reveal
+    z0, z1 = bay_floor_z(pump_trays)[1] + face_reveal, top - face_reveal
     c = _soffit_c(outer)
     return (_ybox(fx0, fx1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
             .fuse(_ybox(fx0, fx1, inner[2] + 0.4, z1 - c + 1.5, inner[2] + c - 1.5, z1)))
 
 
-def _bay_rails(inner, bay, tray_z, plate):
-    """The two wall ledges the cartridge's deck rides, and the 45° webs that carry them.
+def bay_floor_z(pump_trays):
+    """The bay floor's two planes: its underside on front-top's own seam mouth, and its top
+    on the plane the cartridge reaches down to.
+
+    THE FLOOR IS THIS PIECE'S FIRST LAYERS. Front-top beds on the seam plane, so a floor
+    struck there lies on the bed and nothing under it hangs. What sets its section is the
+    only thing over it: the cartridge's own pump reliefs floor on
+    `_pump_relief_regions`' z0, one millimetre under the heads, and the floor's top is that
+    plane — so the sill, the face's bottom reveal and the room the heads pass in are one
+    figure and not three."""
+    return z_seam, min(z0 for _x0, _x1, z0, _z1, _floor in _pump_relief_regions(pump_trays))
+
+
+def _z_seam_berth(inner, y_joint):
+    """What front-bottom's Z seam occupies inside front-top's own walls, over the storey the
+    bay floor stands in: the lip — the cavity's one-`wall` skin from the seam mouth to the
+    rim, less the front-flat span it gives up (`_front_flat_lip_drop`) — and the front
+    column's socket collars standing proud of it.
+
+    Everything front-top stands in this storey opens for it: the floor a channel down each
+    side, a rail a notch in its outboard foot. All of them are cut with this one solid, so
+    the telescope keeps a lip that runs the side walls whole and collars nothing has to
+    dodge one at a time.
+
+    OVER THE RIM IT FLARES AT 45°. A notch this deep would otherwise leave a `wall`-wide
+    flat looking down at the bed on whatever spans back to the side wall above it; the
+    flare rises off the lip's own inner face out to the wall, so the material over the
+    notch is laid on the layer under it like every other relief on this box."""
+    rim = z_seam + lip_len
+    berth = (_lip_band(inner, (z_seam, rim))
+             .cut(_front_flat_lip_drop(inner, z_seam)))
+    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+        face = x_in + sx * wall
+        berth = berth.fuse(_xz_prism(inner[2] - 1.0, y_joint,
+                                     [(face, rim), (x_in, rim), (x_in, rim + wall)]))
+    for x_in, x_ext, sx, ys, col in _z_stations(inner, y_joint):
+        if col == "front":
+            berth = berth.fuse(_z_pod(x_in, x_ext, sx, ys, inner, z_seam))
+    return berth
+
+
+def _bay_floor(inner, y_joint, plate, pump_trays):
+    """THE BAY'S FLOOR: front-top's own storey across the front, from the front wall's
+    interior face aft past the collet plate, on the bed and under everything else.
+
+    The collet plate is SUNK IN IT: a blind seat down the floor's top takes the steel's
+    foot, so the plate is located fore, aft and across by printed material and carried on
+    the seat's own bottom, and nothing over it is closed — with the cartridge out it lifts
+    straight up through the bay. The seat's floor is the plate's own z0, struck in
+    `enclosure_assembly.collet_plate_spec`, so the steel and the pocket that takes it are
+    one figure.
+
+    A CHANNEL DOWN EACH SIDE PASSES THE Z SEAM (`_z_seam_berth`), whose lip stands proud of
+    this floor's top and reaches the rim, and whose front collars stand proud of that. What
+    the channel costs is `wall` of floor at each flank and one pocket per collar; what it
+    keeps is a seam that runs the side walls whole."""
+    z0, z1 = bay_floor_z(pump_trays)
+    slab = _ybox(inner[0], inner[1], front_plane_y,
+                 plate["aft_y"] + plate_slot_slip + wall, z0, z1)
+    slab = slab.cut(_z_seam_berth(inner, y_joint))
+    return slab.cut(_ybox(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip,
+                          plate["fore_y"] - plate_slot_slip,
+                          plate["aft_y"] + plate_slot_slip, plate["z0"], z1 + 1.0))
+
+
+def _bay_rails(inner, y_joint, bay, tray_z, plate, pump_trays):
+    """The two rails the cartridge's deck rides, one on each side wall.
 
     Each bearing face stands one `rail_slip` under the deck's own plate and reaches
-    `rail_bear` under its edge; the web falls at 45° from the ledge's outer arris to the
-    wall, so the ledge prints on the wall it loads. They run from just aft of the face's
-    inner surface to just fore of the collet plate's pockets."""
+    `rail_bear` under its edge, and THE RAIL IS THAT FACE CARRIED FULL HEIGHT DOWN TO THE
+    BAY FLOOR — a wall standing on the floor, not a ledge hung off the side of one. What it
+    fills is the lane between the deck's sweep and the wall, which nothing else can occupy.
+    Its outboard foot is notched for the Z seam the same way the floor is, and above the
+    rim it reaches the wall whole. They run from just aft of the face's inner surface to the
+    plate's fore face."""
     bx0, bx1, _top = bay
-    y0, y1 = front_plane_y + 0.7, plate["fore_y"] - 4.4
+    y0, y1 = front_plane_y + 0.7, plate["fore_y"] - plate_slot_slip
     bear_top = tray_z - rail_slip
+    foot = bay_floor_z(pump_trays)[1]
+    berth = _z_seam_berth(inner, y_joint)
     out = []
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
         edge = (bx0 if sx > 0 else bx1) + sx * cart_deck_slip   # the deck's own edge
         tip = edge + sx * rail_bear                             # `rail_bear` under the deck
-        reach = abs(x_in - tip)
-        ledge = _ybox(min(x_in, tip), max(x_in, tip), y0, y1,
-                      bear_top - rail_t, bear_top)
-        web = _xz_prism(y0, y1, [(tip, bear_top - rail_t),
-                                 (x_in, bear_top - rail_t),
-                                 (x_in, bear_top - rail_t - reach)])
-        out.append(ledge.fuse(web))
-    return out
-
-
-def _plate_pockets(inner, plate):
-    """The two wall pockets the collet plate drops into: a boss proud of each side wall,
-    slotted for the plate's end, open at the top. The fore wall of each slot is what the
-    collets press the plate back against; the wall behind the boss is what the user's own
-    aft brace loads.
-
-    The underside is one 45° face rising off the wall's arris — the boss prints on the
-    wall that loads it — and that arris hovers `plate_pocket_hover` over the Z-seam lip's
-    rim, the plane every front-top hanger on a side wall stands clear of."""
-    y0, y1, z0, z1 = plate["fore_y"], plate["aft_y"], plate["z0"], plate["z1"]
-    rim_hover = z_seam + lip_len + plate_pocket_hover
-    out = []
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        face = x_in + sx * plate_pocket_reach
-        boss = _ybox(min(x_in, face), max(x_in, face), y0 - 4.0, y1 + 4.0,
-                     rim_hover, z1 + 0.5)
-        under = _xz_prism(y0 - 4.1, y1 + 4.1,
-                          [(x_in, rim_hover), (face, rim_hover),
-                           (face, rim_hover + plate_pocket_reach)])
-        slot = _ybox(min(x_in - sx * 0.1, face + sx * 0.1),
-                     max(x_in - sx * 0.1, face + sx * 0.1),
-                     y0 - plate_slot_slip, y1 + plate_slot_slip,
-                     z0 - plate_slot_slip, z1 + 1.0)
-        out.append(boss.cut(under).cut(slot))
+        out.append(_ybox(min(x_in, tip), max(x_in, tip), y0, y1, foot, bear_top).cut(berth))
     return out
 
 
@@ -2785,7 +2840,8 @@ def build_cartridge(box, halves_cache=None):
         half = build_front_half(box)
         if halves_cache is not None:
             halves_cache["front"] = half
-    solid = half.val().intersect(_cartridge_face_region(inner, outer, bay))
+    solid = half.val().intersect(
+        _cartridge_face_region(inner, outer, bay, box.pump_trays))
     for cx, cy, cz in box.pump_trays:
         tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
         solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
@@ -2793,8 +2849,9 @@ def build_cartridge(box, halves_cache=None):
     bx0, bx1, top = bay
     dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
     deck_aft = plate["fore_y"] - 2.0
-    keep = (_cartridge_face_region(inner, outer, bay)
-            .fuse(_ybox(dx0, dx1, outer[2], deck_aft, z_seam, top)))
+    keep = (_cartridge_face_region(inner, outer, bay, box.pump_trays)
+            .fuse(_ybox(dx0, dx1, outer[2], deck_aft,
+                        bay_floor_z(box.pump_trays)[1], top)))
     solid = solid.intersect(keep)
     tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
     for sx in (+1.0, -1.0):
@@ -3589,34 +3646,19 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
 #
 # A TRAY IS THE PUMP CASE WITH ITS CYLINDER CUT OFF — `pump_case`'s base plate, its ramp, its
 # octagon bore wall and one shoulder of its tower, so it wraps the head's crown AND the boss's.
-# `pump_tray` states what that cut adds and draws one in the pump's own frame; this roots it on
-# the front wall and fuses it into the piece, the way `_valve_panels` fuses a plate and
-# `_digiten_saddles` the meter's two Vs.
+# `pump_tray` states what that cut adds and draws one in the pump's own frame; `build_cartridge`
+# roots it on the cartridge's face and fuses it into that piece.
 #
 # THE STRAPS ARE WHAT HOLD A PUMP UP. It hangs under its tray, so two close round it and the
 # tray together through the plate's four channels, reaching under the bracket the part carries at
 # that crown — the meter's bargain, on the heaviest body either wall carries.
-def _pump_trays(solid, inner, stations, y0, y1, z0, z1):
-    """Every pump tray whose whole run falls in the depth and height band this piece owns.
-
-    Each station is the world point a pump's axis meets the +Z face of its head, which is
-    `pump_case`'s own base plane. The pumps stand their cans on +Z and their trays run to the
-    FRONT wall, so a tray reaches from that point to `inner[2]` and `pump_tray`'s own frame lands
-    on it with no turn in it."""
-    for cx, cy, cz in stations:
-        root = cy - inner[2]
-        if not (y0 <= inner[2] and cy + _tray.far_reach() <= y1
-                and z0 <= cz and cz + _tray.depth() <= z1):
-            continue
-        tray = _tray.build_pump_tray(root).val()
-        solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
-    return solid
-
-
-# A TRAY IS A CANTILEVER OFF THE FRONT WALL AND NOTHING ELSE, and these are what it meets on
-# every other side: one web to each side wall, one between the two trays, and one aft onto the
-# valve panel the fold stands behind them. Each is the trays' own plate — `pump_tray.PLATE`
-# thick, in that plate's own band — so the whole storey comes out one plate wall to wall.
+#
+# A TRAY IS A CANTILEVER OFF THE CARTRIDGE'S FACE AND NOTHING ELSE, and one web between the two
+# trays and the across-runs to the deck's own edges are what it meets. Each is the trays' own
+# plate — `pump_tray.PLATE` thick, in that plate's own band — so the storey comes out one plate,
+# and its edge strips ride the bay's rails. The webs to the side walls and the aft web onto a
+# panel are not drawn: the rails carry the deck instead, and its aft edge stops short of the
+# collet plate with the stop pads carrying the last of it.
 def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     """The webs that tie every pump tray in this piece's band to what stands beside it.
 
@@ -3917,9 +3959,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
         if y_side == "front" and box.pump_bay:
-            # The front flat's share of both skins goes to the bay, and the sill drains.
+            # The front flat's share of both skins goes to the bay's floor and the heads
+            # that pass through its berth; the sill and its drain are front-top's.
             piece = piece.cut(_front_flat_lip_drop(inner, zj))
-            piece = piece.cut(_sill_wash(inner, outer, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
@@ -4007,14 +4049,15 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # for the same reason they go after the seam's own bosses.
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
     # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
-    # them is the bay's own furniture — the ledges the deck rides and the pockets the
-    # collet plate drops into — and then the opening itself, cut last of the wall's work.
+    # them is the bay's own furniture — the floor across the front, the two rails standing
+    # on it, and the slot the collet plate drops through — and then the opening itself, cut
+    # last of the wall's work. The floor goes on first, because the rails stand on it.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
         tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
-        for ledge in _bay_rails(inner, box.pump_bay, tray_z, box.collet_plate):
-            piece = piece.fuse(ledge)
-        for pocket in _plate_pockets(inner, box.collet_plate):
-            piece = piece.fuse(pocket)
+        piece = piece.fuse(_bay_floor(inner, y_joint, box.collet_plate, box.pump_trays))
+        for rail in _bay_rails(inner, y_joint, box.pump_bay, tray_z, box.collet_plate,
+                               box.pump_trays):
+            piece = piece.fuse(rail)
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
@@ -4025,7 +4068,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the cartridge, and what it takes from this piece is what `build_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
-        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay))
+        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays))
+        # And the sill it leaves — the floor's own top — washed fore, so what runs down the
+        # face and gets past the reveal runs back out the front.
+        piece = piece.cut(_sill_wash(inner, outer, bay_floor_z(box.pump_trays)[1]))
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —

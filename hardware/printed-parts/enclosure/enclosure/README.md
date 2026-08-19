@@ -57,10 +57,10 @@ The plane stands where the seam's own machinery fits the pack: the seam ring's f
 over the condenser's fin crown, and the rim under the forward valve panel's
 wall-to-wall span (`z-seam-under-deck` — a plate roots on a wall only above the rim;
 its foot runs below, inset on the lip's own face). The ring's front segment across
-the flat span is the bay's (`_front_flat_lip_drop`): above the sill the flat front
-is cartridge face, and the pump heads ride behind that face's own reliefs
-(`pumps-in-bay`), not past a lip. `main()` prints each seam, how it landed, and the
-band the bed allowed it.
+the flat span is the bay's (`_front_flat_lip_drop`): the bay floor stands in that band
+and the pump heads run down through it on their way out (`heads-sweep-out`), so the
+flat front carries no lip there at any height.
+`main()` prints each seam, how it landed, and the band the bed allowed it.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`), the
@@ -118,9 +118,10 @@ Bottom↔top, per column: the same joint rotated 90°, at `enclosure.z_seam` —
 bottom pieces carry the lip + socket collars, the top pieces carry the pins,
 more X-axis screws crossing each seam. Front-bottom's lip runs its side walls
 whole and gives its front-flat span to the bay (`_front_flat_lip_drop`): the front
-Z-joint there is the corner columns' pillar telescopes and the washed sill butt.
-The front pair joins, the back pair joins, then the front assembly telescopes into
-the back as one.
+Z-joint there is the corner columns' pillar telescopes and a butt at the seam. Where
+the side lip runs on, front-top's **bay floor** channels for it and stands on the seam
+mouth beside it (`bay-floor-bedded`). The front pair joins, the back pair joins, then
+the front assembly telescopes into the back as one.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
 the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
@@ -342,7 +343,7 @@ prints on a thin support strip at the seam, the ceiling tongue's twin one slab
 down. The side-wall segments, vertical to the bed, are free.
 
 The **drip tray's sleeve** in the back-top piece costs the same, and it is the
-first of three features in the box that do. The sleeve is a solid block off the −X wall
+first of two features in the box that do. The sleeve is a solid block off the −X wall
 running east on the withdrawal axis, and the rim rebate cut through it leaves a flat
 ceiling down either flank — the lid the tray's flange runs under, held at one height
 for the block's whole length, so it cannot be reached at 45° from the wall it grows out
@@ -357,10 +358,12 @@ stand 30° off vertical and are free; its **underside is flat**, a soffit off th
 under the lane, and that face hangs. The strap's cavity behind the trough is one
 opening the trough's whole length, and the support in it draws out end to end.
 
-The **pump trays** off the front wall are the third. A tray's plate goes down on the
-bed first and its socket's octagon walls grow off the underside, so the socket itself
-has no overhang in it; the plate is a soffit over the lane its pump hangs in, anchored
-along its whole width where it meets the wall and bridging out from there.
+The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
+first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
+no face under it to hang and no support in it to pick out — and it gives this piece a
+solid slab across the whole front storey to grow from instead of a wall ring. Both deck
+rails stand full height on it rather than on 45° webs off the side walls, and the collet
+plate sits in a seat sunk in its top rather than in two corbelled wall pockets.
 
 ## Tap-water cradle
 
@@ -518,32 +521,62 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 ## The pump cartridge and its bay
 
-**The pumps slide out of the front of the box.** The front wall's whole flat span —
-corner column to corner column, sill to lintel — and the tray storey that hangs both
-pumps come out of front-top as one printed piece, the **pump cartridge**
-(`build_cartridge`): the face, the deck, both trays, both pumps, riding two wall
-ledges at the deck's own storey (`_bay_rails`). Nothing latches it. The four barb
-tubes gripped in the anchor tees' branch collets are the retention, and the **collet
-plate** is the release: a waterjet flat of 1/8" 304
+**The pumps slide out of the front of the box.** The front wall's flat span — corner
+column to corner column, sill to lintel — and the tray storey that hangs both pumps
+come out of front-top as one printed piece, the **pump cartridge**
+(`build_cartridge`): the face, the deck, both trays, both pumps, riding two rails that
+stand on the bay's floor (`_bay_rails`). Nothing latches it. The four barb tubes
+gripped in the anchor tees' branch collets are the retention, and the **collet plate**
+is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
-fore of the four collets in two slotted wall pockets (`_plate_pockets`), four holes
-passing the tubes and nothing wider. Pull the cartridge and the gripped tubes drag
-the tees forward until each collet's nose lands on the steel — the body keeps coming,
-the nose is held, the grip opens, and the tubes draw out through the holes they
-entered by. Push it home and the tubes thread back into the same collets, the deck's
-stop pads landing on the plate's own fore face, the tees braced by the valves their
-runs butt into, each of those in a panel seat. One hand pulls, the other braces the
-box; the box carries the brace to the steel through the pockets.
+fore of the four collets in the bay floor's own seat, four holes passing the tubes and
+nothing wider. Pull the cartridge and the gripped tubes drag the tees forward until
+each collet's nose lands on the steel — the body keeps coming, the nose is held, the
+grip opens, and the tubes draw out through the holes they entered by. Push it home and
+the tubes thread back into the same collets, the deck's stop pads landing on the
+plate's own fore face, the tees braced by the valves their runs butt into, each of
+those in a panel seat. One hand pulls, the other braces the box; the box carries the
+brace to the steel through the floor.
+
+## The bay floor
+
+**Front-top carries a floor across the bay** (`_bay_floor`), from the front wall's
+interior face aft past the collet plate, and everything in this storey stands on it.
+**It is this piece's first layers.** Front-top beds on the seam plane, so a floor
+struck there lies on the bed with nothing under it to hang, and what sets its section
+is the only thing over it: the cartridge reaches down to the plane its own pump
+reliefs floor on, one millimetre under the heads, and the floor's top is that plane
+(`bay_floor_z`). Sill, face reveal and head clearance are then one figure, not three.
+`bay-floor-bedded` reads the floor's whole plan solid on the bed.
+
+**A channel down each side passes the Z seam** (`_z_seam_berth`). Front-bottom's side
+lip runs the wall's whole length and stands proud of this floor to the rim, and the
+front column's socket collars stand proud of that again, so the floor gives up one
+`wall` at each flank and one pocket per collar. The rails' outboard feet are notched
+on the same solid and reach the wall whole above the rim. Nothing about the telescope
+moves.
+
+The **collet plate's foot is sunk in a seat** cut one `wall` down the floor's top, so
+the steel is located fore, aft and across by printed material and carried on the
+seat's own bottom, and nothing over it is closed — with the cartridge out, the plate
+lifts straight up through the bay. Its Z band follows from that: the bottom is the
+seat, and the top is whatever puts the four collet holes **centred** in the band
+(`plate-holes-centred`). Its two bottom corners are notched one `wall` in from each
+end, from the foot up to the rim, for the side lip standing proud there — the outline
+is a waterjet cut and `build_collet_plate` writes the notches into `collet-plate.dxf`
+with the holes.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): jamb to jamb between
-the corner columns' cusps, the sill washed fore so what runs down the face drains out
-(`_sill_wash`), the lintel over it carrying the facet and the display on a stated
-ligament (`bay-under-display`). Front-bottom's front lip drops across the whole flat
-span (`_front_flat_lip_drop`) — the front Z-joint is the corner columns' own pillar
-telescopes and the sill butt — and the front wall below keeps its single `front_wall`
-section from slab to sill. The face rides its opening on stated air, `bay_face_slip`
-at the jambs and `face_reveal` at the sill and lintel; the motor cans crown the
-opening's height (`pump_bay`, struck off the placed cans).
+the corner columns' cusps, from the floor's own top up past the motor cans' crowns
+(`pump_bay`, struck off the placed cans). The sill runs flat wall to wall, washed fore
+so what runs down the face drains out (`_sill_wash`); the lintel over the opening
+carries the facet and the display on a stated ligament (`bay-under-display`).
+`heads-sweep-out` reads each head's path to the front against the piece it passes
+through. Front-bottom's front lip drops across the whole flat span
+(`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
+it — and the front wall below keeps its single `front_wall` section from slab to seam.
+The face rides its opening on stated air, `bay_face_slip` at the jambs and
+`face_reveal` at the sill and lintel.
 
 **The front wall is `front_wall` thick — a face a user hauls on — and grows inward,**
 the exterior and the facet standing where the appliance's stated depth put them. What
@@ -595,9 +628,9 @@ between.
 the deck.** One web between the two trays and the across-runs to the deck's edges —
 each the trays' own plate thick and in that plate's own band, cropped to the jambs'
 sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
-ledges. The webs to the side walls and the aft web onto a panel are not drawn here:
-the walls keep the ledges instead, and the deck's aft edge stops two millimetres
-short of the collet plate with the stop pads carrying the last of it.
+rails. The webs to the side walls and the aft web onto a panel are not drawn here:
+the rails standing on the floor carry the deck instead, and its aft edge stops two
+millimetres short of the collet plate with the stop pads carrying the last of it.
 
 Printed face-down the outer skin goes on the bed first, the deck stands as a wall
 off the face's inner surface, and every pocket rises as a plateau's absence —

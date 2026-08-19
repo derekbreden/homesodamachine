@@ -44,7 +44,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.
 - The compressor stands upright, on its own feet, and cannot be laid on its side or inverted: the oil charge sits in the bottom of the hermetic can and the pickup is gravity-fed. That fixes its plate on the floor, which leaves a yaw as the only turn it has — and a yaw keeps its copper-bearing tangents horizontal, so the copper always leaves sideways.
 - The compressor is the one body on the floor the box fastens: four posts on the slab, struck off its own plate pattern, each rising through the rubber grommet in a plate hole to that grommet's crown, where a washer stops on it.
-- The flavor funnel feeds the pumps from above and stays top-removable for cleaning.
+- The flavor funnel drains by gravity onto the hopper gate below it, so its spout has to stand over that valve, and it stays top-removable for cleaning.
 - The drip pan sits directly under the ASSE 1022 chain's atmospheric vent; the backflow preventer + drip pan + moisture sensor co-locate on the water-inlet path.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.
 
@@ -53,6 +53,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 ## What is on the front face
 
 - ESP32-S3 config display — a 4.3" touchscreen let into the 45° facet, centred, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
+- The pump cartridge's face — the flat front under the facet, jamb to jamb, filling the bay it slides out of with both flavour pumps aboard. No handle, no latch, no fastener: a pull on the face is what draws it, and the four barb tubes let go on the collet plate as it comes. Detail: [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md) "The pump cartridge and its bay".
 - Nothing else. Every fluid connection the customer makes is on the back wall: the water inlet, the CO2 inlet, and the umbilical that carries carbonated water and both flavours up to the faucet.
 
 ## Sub-folders
@@ -62,7 +63,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the serialized plate the machine is named and rated on, lying flush in a pocket of the rear wall beside the port chips, held by two M3 cap screws.
 - [`port-ring/`](/hardware/printed-parts/enclosure/port-ring/) — the flat chip inset into the wall under each rear-wall fitting's flange, in the colour of the tube that goes into it and lettered with that port's name.
 - [`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
-- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the two-piece pump case with its cylinder cut off, which is what each Kamoer hangs under: plate on the head's crown, octagon bore on the boss, shoulder on the boss's crown. Not a separate part either: both are that same piece's material, off the front wall.
+- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the two-piece pump case with its cylinder cut off, which is what each Kamoer hangs under: plate on the head's crown, octagon bore on the boss, shoulder on the boss's crown. Not a separate part either: both are `enclosure-pump-cartridge`'s own material, standing off the face that fills the front wall's bay.
 
 ## Sources
 [value](NAME) texts are updated by:
