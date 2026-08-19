@@ -246,7 +246,7 @@
    0.0,
    90.50000010000002,
    461.00000000000006,
-   268.57500020000003
+   305.57500020000003
   ],
   "fuse-clamp": [
    -20.599999999999998,
@@ -1743,7 +1743,7 @@
   ],
   "y_joint": 200.0
  },
- "card": "df2c8f65c9d13c075333534b39a4e4a8",
+ "card": "ad7fe7f9a0b530bb9efec2f526ca86c3",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2728,7 +2728,7 @@
   }
  ],
  "schema": 1,
- "step": "afd2db90c262bfd23067ad3071b0c6d7",
+ "step": "a568f61845f67ef07685c0d9587ded3e",
  "valve_panels": {
   "valve-panel-aft": [
    209.0,
