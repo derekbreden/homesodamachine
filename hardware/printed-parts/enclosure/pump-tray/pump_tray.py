@@ -22,11 +22,12 @@ face's own pump relief. NO TRAY SHIPS AS A PART.
     DEEP    the bore's whole run on the boss, and one `SHOULDER` of tower over its crown
 
 THE CAP IS THE LOAD PATH AND THIS TRAY IS THE SEAT. A pump stands in the tray in plan and in
-clock, and what holds it up is the BRACKET the part carries at that same crown
-(`kamoer_kphm400.bracket_w`, stated there and drawn by nobody), lapping the top face of
-`enclosure.build_pump_cap` all round the head's opening. The cap parts from the cartridge on
-that very plane and two M3 draw it up, so this tray takes plan, clock and every moment, and the
-screws take the weight.
+clock, and what holds it up is one storey down: the head's own flanks ramp in twice on the way
+out of the cavity, and `enclosure.build_pump_cap` keeps the wedge under all four of those faces
+(`head_seats`). Over them the BRACKET the part carries at this crown (`kamoer_kphm400.bracket_w`,
+stated there and drawn by nobody) laps that cap's top face all round the head's opening, and the
+two M3 that draw the cap up hold the seat shut. So this tray takes plan, clock and every moment,
+the flanks take the weight, and the lip keeps the part from lifting off them.
 
 This module states what the tray adds over the case and draws one in its own frame; `enclosure`
 turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` draws it:
@@ -74,8 +75,8 @@ boss_depth = _pc.bore_bottom_z
 can_half = _pc.cylinder_id / 2.0
 # The mounting bracket the part carries at that same crown, stated by `kamoer_kphm400` and drawn
 # by nobody. It stands proud of the head all the way round, in the plane the plate lands on and
-# the plane the cap parts on, and THAT LIP IS WHAT THE CAP'S TOP FACE LAPS — so what carries a
-# pump is its own bracket and the two screws under it.
+# the plane the cap parts on, and THAT LIP IS WHAT THE CAP'S TOP FACE LAPS — the stop against a
+# pump lifting off the flank seats `head_seats` cuts for it.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
@@ -109,6 +110,38 @@ def far_reach() -> float:
     """How far the tray runs off the pump's axis away from the wall it roots on — the case's own
     footprint, which already carries past the head."""
     return case_half
+
+
+# --- what carries a head, one storey under the crown -------------------------
+# THE HEAD'S FLANKS RAMP IN TWICE ON THE WAY DOWN, and the case stood in both ramps. The skirt
+# tapers its NARROW half and the lower extension ramps its WIDE half — `pump_case`'s own
+# `flank_ramp_bands` — and `kamoer_kphm400` clips the head to that cavity, so on each side, at
+# each band, the part carries a 45 degree face LOOKING DOWN AND OUTBOARD. Four faces on one
+# head. A wedge under each of them carries the pump: the load stands on the flanks, and the
+# bracket lip over it only keeps the part from lifting off them.
+
+def head_seats(air: float) -> list:
+    """The four ledges a cap keeps inside a head void struck `air` off the head's own square,
+    in this module's frame — one solid per band, each carrying both sides.
+
+    Each is THE CASE'S OWN WALL over that band: the void's own block there, less the room
+    `pump_case.cavity` left. So the ledge roots on the void's face rather than floating off it,
+    its top face IS the head's 45 degree face to the micron, and it stops on the ramp's foot —
+    below which the flank runs narrow and the void opens back out to its air."""
+    half = head_half + air
+    cavity = _pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))
+    out = []
+    for top, bottom in _pc.flank_ramp_bands():
+        band = cq.Solid.makeBox(2 * half, 2 * half, top - bottom,
+                                cq.Vector(-half, -half, bottom))
+        # ONLY WHAT REACHES THE BAND'S FOOT IS A SEAT. The cavity's corners are round and a
+        # void struck on the head's square has square ones, so the cut also comes back with a
+        # crumb in each corner the ramp never gets to — the round showing inside the square.
+        # A ramp runs the band's whole depth by construction; a crumb stops short of its foot.
+        lumps = [l for l in band.cut(cavity).Solids()
+                 if l.BoundingBox().zmin < bottom + 1e-6]
+        out.append(lumps[0] if len(lumps) == 1 else cq.Compound.makeCompound(lumps))
+    return out
 
 
 def _case_base():

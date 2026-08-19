@@ -770,8 +770,15 @@ plate_slot_slip = 0.2        # per-side air round the collet plate in the floor'
 # `enclosure-pump-cap`, one piece for both pumps, and what it closes on is each head. The
 # cap's top face IS that plane, so the stamped bracket the part carries there — `bracket_w`
 # across against a head of `head_w`, standing proud all round — lands on the cap's own
-# material and the screws carry it. That lip is the only surface under this plane a pump can
-# bear up on: the head's front face stands one millimetre over the bay floor's own top.
+# material and the screws carry it.
+#
+# AND THE HEAD IS CARRIED BY ITS OWN FLANKS, not by that lip alone. The part's flanks ramp in
+# twice on the way down — `pump_case.flank_ramp_bands`, the two levels the case that printed
+# and held this pump closed on it — leaving a 45 degree face on each side at each band, four
+# faces looking down and outboard. The cap keeps the wedge under every one of them
+# (`pump_tray.head_seats`), so the weight stands on the flanks and the lip over it only keeps
+# the part from lifting off them. Nothing reaches under a head's FRONT face, which stands one
+# millimetre over the bay floor's own top.
 #
 # WHAT STAYS OPEN IS A COST. The motor cans open through the block's ceiling: the bay top
 # stands `bay_crown_air` over their crowns and the display facet sets that plane. The head's
@@ -2959,7 +2966,9 @@ def _pump_voids(pump_trays, z_top):
     BELOW THE SPLIT the head is a square prism on the pump's own axis, `cap_pump_air` round
     it, opening out of the cap's underside — the head's front face stands one millimetre over
     the bay floor and no section fits there, so what would be a floor under it is the air the
-    part shows through instead.
+    part shows through instead. AND THE PRISM GIVES ITS SEATS BACK: `pump_tray.head_seats` is
+    the wedge under each of the head's four ramped flanks, and the void keeps none of it, so
+    the cap closes on those four faces and the pump stands on them.
 
     ABOVE THE SPLIT there are two more, one per storey the part carries: the boss over the
     split to its own crown, and the can from that crown up through the ceiling, so the can
@@ -2972,9 +2981,14 @@ def _pump_voids(pump_trays, z_top):
     half = _tray.head_half + cap_pump_air
     boss = _tray.boss_half + cap_pump_air
     can_r = _tray.can_half + cap_pump_air
+    seats = _tray.head_seats(cap_pump_air)
     for cx, cy, cz in pump_trays:
-        out.append(_ybox(cx - half, cx + half, cy - half, cy + half,
-                         cz - _tray.head_depth - 1.0, cz))
+        at = cq.Location(cq.Vector(cx, cy, cz))
+        head = _ybox(cx - half, cx + half, cy - half, cy + half,
+                     cz - _tray.head_depth - 1.0, cz)
+        for seat in seats:
+            head = head.cut(seat.moved(at))
+        out.append(head)
         out.append(_ybox(cx - boss, cx + boss, cy - boss, cy + boss,
                          cz, cz + _tray.boss_depth))
         out.append(_zcyl(can_r, cx, cy, cz + _tray.boss_depth, z_top + 1.0))
@@ -3369,10 +3383,14 @@ def build_pump_cap(box, halves_cache=None):
     """THE PUMP CAP: what closes on both heads and screws up onto the cartridge.
 
     It is the cartridge's own solid under `cap_split_z` and nothing else — one piece for two
-    pumps. What holds a pump up is its top face: the stamped bracket the part carries in that
-    same plane stands `bracket_w` across against a head of `head_w`, so it laps this piece's
-    material all round the head's void and the two screws carry the load through it. Nothing
-    reaches under a head's front face, which stands one millimetre over the bay floor's top.
+    pumps. WHAT HOLDS A PUMP UP IS THE FOUR WEDGES IT CLOSES INTO THAT HEAD'S FLANKS: the part
+    ramps in on each side at each of `pump_case.flank_ramp_bands`, and this piece keeps the
+    material under all four of those 45 degree faces, so the load stands on the flanks the
+    case that printed this pump held it by. Its top face takes the rest: the stamped bracket
+    the part carries in that same plane stands `bracket_w` across against a head of `head_w`,
+    so it laps this piece all round the head's void and the two screws hold the seat shut.
+    Nothing reaches under a head's front face, which stands one millimetre over the bay
+    floor's top.
 
     IT GIVES UP THE LANE BETWEEN THE PUMPS and keeps `cap_web_t` over it, so the screws are
     short and their heads are reachable. Printed face-down on its own share of the face, the

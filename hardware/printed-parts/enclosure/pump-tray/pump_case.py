@@ -378,6 +378,13 @@ skirt_bottom_z = sum(skirt_z_steps)  # [-28.5 mm](SKIRT_BOTTOM_Z), case's wide-h
 # step_height higher into the skirt than the wide half (+Y).
 narrow_split_z = skirt_bottom_z + step_height  # [-9.5 mm](NARROW_SPLIT_Z)
 
+# The lower extension's own ramp: the wide half comes in from the skirt's flare to the narrow
+# half's width, at 45 degrees like every other flare on this case.  It runs one
+# lower_footprint_straight under the skirt's bottom, so the case's two flank ramps stand at
+# different depths and in opposite halves.
+lower_ramp_height = (skirt_base_half_extent + skirt_wide_flare_per_side
+                     - skirt_narrow_half_extent)
+
 # Lower cap Z anchors. The lower extension is a hollow shell from
 # skirt_bottom_z to lower_cap_top_z; the closing wall (the "lower cap")
 # fills lower_cap_top_z..lower_cap_bottom_z. lower_cap_bottom_z is the
@@ -539,21 +546,49 @@ def _lower_profile_set(wall_offset):
     return [top, top, narrow_symmetric, narrow_symmetric]
 
 
+def lower_z_steps():
+    """Signed world-Z deltas between the lower extension's four cross-section levels:
+    straight off the skirt, the wide half's ramp, then uniform to the cap."""
+    uniform = lower_height - lower_ramp_height - lower_footprint_straight
+    # Lower extension extends in -Z, away from the base plate.
+    return [-lower_footprint_straight, -lower_ramp_height, -uniform]
+
+
+def flank_ramp_bands():
+    """THE TWO BANDS THE CAVITY CLOSES IN ON A HEAD OVER, each (top_z, bottom_z).
+
+    The skirt tapers its NARROW half (-Y) over the first and the lower extension ramps its
+    WIDE half (+Y) over the second, both at 45 degrees.  Everywhere else the room round a head
+    is plumb, so these two bands are the only levels where the case can bear DOWN on the part
+    — and what stands in them is the surface a case carries a pump on."""
+    aft_top = skirt_bottom_z - lower_footprint_straight
+    return ((sum(skirt_z_steps[:1]), sum(skirt_z_steps[:3])),
+            (aft_top, aft_top - lower_ramp_height))
+
+
+def cavity():
+    """THE ROOM THE CASE LEAVES A HEAD — the skirt's interior and the lower extension's, as
+    one solid in the case's own world frame.
+
+    It is not a prism.  `flank_ramp_bands` is where it closes in, and a head shaped to it
+    (`kamoer_kphm400.build_head`) carries a 45 degree face on each side at each band, looking
+    down and outboard.  WHATEVER CLOSES ON THAT HEAD CLOSES ON THIS FIGURE: the case did it
+    with its own two walls, and the enclosure's pump cap does it with the ledges
+    `pump_tray.head_seats` cuts out of this same solid."""
+    skirt = loft_profile_stack(0, skirt_z_steps, skirt_inner_profiles)
+    lower = loft_profile_stack(skirt_bottom_z, lower_z_steps(),
+                               _lower_profile_set(skirt_wall))
+    return skirt.union(lower)
+
+
 def build_lower_extension():
     """Lower portion extending from skirt bottom: taper to uniform, then cap."""
-    lower_ramp_height = (skirt_base_half_extent + skirt_wide_flare_per_side
-                         - skirt_narrow_half_extent)
-    lower_uniform_straight = (lower_height - lower_ramp_height
-                              - lower_footprint_straight)
-    # Lower extension extends in -Z, away from the base plate.
-    lower_z_steps = [-lower_footprint_straight, -lower_ramp_height,
-                     -lower_uniform_straight]
-
     lower_outer_profiles = _lower_profile_set(0)
     lower_inner_profiles = _lower_profile_set(skirt_wall)
 
-    lower_outer = loft_profile_stack(skirt_bottom_z, lower_z_steps, lower_outer_profiles)
-    lower_inner = loft_profile_stack(skirt_bottom_z, lower_z_steps, lower_inner_profiles,
+    steps = lower_z_steps()
+    lower_outer = loft_profile_stack(skirt_bottom_z, steps, lower_outer_profiles)
+    lower_inner = loft_profile_stack(skirt_bottom_z, steps, lower_inner_profiles,
                                      overcut_last_step=True)
     lower_shell = lower_outer.cut(lower_inner)
 
