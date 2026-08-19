@@ -1,7 +1,7 @@
 {
   "/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py": {
-    "HOPPER_CAP": "658 mL",
-    "HOPPER_CHUTE": "21 mm",
+    "HOPPER_CAP": "662 mL",
+    "HOPPER_CHUTE": "21.31 mm",
     "HOPPER_DROP": "53 mm",
     "HOPPER_HOLD": "7 mm",
     "HOPPER_LAND": "12 mm",

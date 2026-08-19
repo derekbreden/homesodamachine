@@ -522,10 +522,11 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 ## The pump cartridge and its bay
 
 **The pumps slide out of the front of the box.** The front wall's flat span — corner
-column to corner column, sill to lintel — and the tray storey that hangs both pumps
-come out of front-top as one printed piece, the **pump cartridge**
-(`build_cartridge`): the face, the deck, both trays, both pumps, riding two rails that
-stand on the bay's floor (`_bay_rails`). Nothing latches it. The four barb tubes
+column to corner column, sill to lintel — a **return** down each flank, and the tray
+storey that hangs both pumps come out of front-top as one printed piece, the **pump
+cartridge** (`build_cartridge`): the face, the two returns, the deck, both trays, both
+pumps, riding two rails that stand on the bay's floor (`_bay_rails`). Nothing latches
+it. The four barb tubes
 gripped in the anchor tees' branch collets are the retention, and the **collet plate**
 is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
@@ -537,6 +538,53 @@ the tubes thread back into the same collets, the deck's stop pads landing on the
 plate's own fore face, the tees braced by the valves their runs butt into, each of
 those in a panel seat. One hand pulls, the other braces the box; the box carries the
 brace to the steel through the floor.
+
+**The deck's aft edge stops two millimetres short of the steel and the stop pads carry
+the last of it.** A pad hangs off the deck's own plate down over the plate's fore face,
+lapping it by [6 mm](PAD_LAND) and standing `pad_kiss` off it at full seat, in the lane
+between its own pump's head and the rail the deck rides — the one band on that plane
+where neither the box nor the pump stands. `pads-stop-on-plate` reads the area against
+the steel and the kiss against the cartridge: a stop that does not touch what it stops
+is not a stop, and nothing but the anchor tees would limit how far the cartridge pushed
+home.
+
+## The flank returns and the grips
+
+**Above the Z-seam rim the bay turns both corners** (`_flank_bay`). Outboard of each
+jamb it takes the front wall's own corner to the exterior arris, and from there each
+**side wall's one-`wall` skin** aft to the collet plate. The cartridge's face turns aft
+with it, so the machine's flanks carry a panel and a reveal and the panel is the
+cartridge — the same stated air as the front, `bay_face_slip` at the aft edge and
+`face_reveal` at sill and lintel.
+
+**The jambs turn the corner and keep going.** Across the front the opening stops where
+a corner column's quarter-round lands on the front wall's inner face — `_column_along`'s
+own fence, the one `bay_x_span` reads, [12 mm](COLUMN_ALONG) in from the interior corner
+and [15 mm](GRIP_REACH) in from the exterior side face. Along a flank it stops where the same
+quarter-round lands on the side wall's inner face, which is `interior_x`. Each bound is a
+column's own landing, so **the fore columns stand in this opening at full section**,
+printed as part of front-top, and nothing in the opening has to dodge one.
+
+**Its sill is the rim and not the floor's top.** Front-top's side wall over the lip's own
+band is the outer register that telescope closes on, so the flank opening begins where
+the lip ends and the Z seam keeps its whole lip. The flat span's sill runs one `lip_len`
+lower because the pump heads leave under it, and the two meet in a step at the jamb.
+
+**A return is the side wall's own section and no more.** Those columns stand full section
+in the cartridge's own withdrawal path — the quarter-disc spans `interior_x` in to the
+cusp over the first [12 mm](COLUMN_ALONG) of the flank, at every height — so nothing of
+this piece may reach inboard of `interior_x` on a flank and still slide out past them.
+
+**So the depth a hand needs is the box's to keep, not the panel's to carry.** The grip is
+struck through each return (`_flank_grip`), its fore edge on the column's own fence and
+its foot on the deck rails' bearing face — the two planes that bound the lane front-top
+leaves open behind the return, clear from `interior_x` in to the columns' cusp. A finger
+through the opening turns behind the panel, reaches [15 mm](GRIP_REACH) in from the
+exterior side face,
+and pulls on the return's own fore wall. `grip-reaches-cusp` reads that lane clear in both
+pieces over the grip's whole opening. The grip serves the first pull, which breaks four
+collets against a braced box; past that the cartridge stands proud of the machine and is
+its own handle.
 
 ## The bay floor
 
@@ -568,7 +616,8 @@ with the holes.
 
 The **bay** is the opening all that leaves through (`_bay_cut`): jamb to jamb between
 the corner columns' cusps, from the floor's own top up past the motor cans' crowns
-(`pump_bay`, struck off the placed cans). The sill runs flat wall to wall, washed fore
+(`pump_bay`, struck off the placed cans), and both flanks over the rim. The flat span's
+sill runs wall to wall, washed fore
 so what runs down the face drains out (`_sill_wash`); the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
@@ -632,9 +681,10 @@ rails. The webs to the side walls and the aft web onto a panel are not drawn her
 the rails standing on the floor carry the deck instead, and its aft edge stops two
 millimetres short of the collet plate with the stop pads carrying the last of it.
 
-Printed face-down the outer skin goes on the bed first, the deck stands as a wall
-off the face's inner surface, and every pocket rises as a plateau's absence —
-nothing on the cartridge hangs.
+Printed face-down the outer skin goes on the bed first, the deck and both flank
+returns stand as walls off it, and every pocket rises as a plateau's absence. The one
+hole in the piece is a flank grip, and its aft end is gabled at `relief_chamfer` so the
+return's section is laid over it — nothing on the cartridge hangs.
 `enclosure_assembly.check_trays_hold` reads each pump against the tray on it.
 
 ## Display housing
@@ -700,11 +750,12 @@ nothing beside it to leave room for. The frame's two side strips on the front to
 corbelled (`_ceiling_corbels`): a 45° underside off each ±X wall to nothing at the
 opening's edge, and over the seam's ceiling tongue off the top collar's own chain
 face, so the piece printing on its mouth lays every ceiling layer on the one below
-it. What fences that plane is under the drain
-rather than over the brim: the union on the spout stands in the window between
-`_lines.CROSS_Y`'s crossing and the cold core's front face, and neither wall of
-that window rides the display. The ledge the facet leaves the throat is read back
-as a bound on the frame above. The basin reaches aft for the plan area its
+it. THE HOPPER IS WHERE THE USER POURS, so that
+plane stands as far forward as the wall lets it — which is the display housing's own
+back cut — and what fences THAT is the brim rather than the throat: the flange
+overhangs the collar and has to land on top wall, and the top wall begins at the
+facet's own arris. `funnel-brim-lands` is the reading, and the ledge the facet
+leaves the throat is read back as a bound on the frame above. The basin reaches aft for the plan area its
 capacity needs — which puts it **across the Y seam**. Both halves take their share
 of the cut and the collar bridges it; what the seam gives up there is its top-wall
 lip over the hole's span, which the mouth shelf's own relief already accounts for.

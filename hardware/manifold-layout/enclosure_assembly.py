@@ -87,6 +87,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "worm-clamp",
            _hw / "reference" / "jg-pp0408w",
+           _hw / "reference" / "elbow-connector",
            _hw / "reference" / "hopper-drain-stub",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",
@@ -144,7 +145,7 @@ import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import hopper_drain_stub as _stub                     # noqa: E402
-import jg_pp0408w as _pp0408w                         # noqa: E402
+import elbow_connector as _elbow                      # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import seaflo_suction_chain as _suct                  # noqa: E402
 import seaflo_discharge_chain as _dis                 # noqa: E402
@@ -285,7 +286,7 @@ FUNNEL_ROT = 0.0
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
-                        C_DISPLAY, C_GND, C_MQ6, C_PLATE, C_PP0408W,
+                        C_DISPLAY, C_GND, C_MQ6, C_PLATE,
                         C_PSU, C_RELAY, C_SEAFLO, C_STEEL_PLATE,
                         M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_SILICONE_BLACK,
@@ -1383,6 +1384,72 @@ def check_bay_floor(pieces, shell) -> Bound:
          + ["the floor is this piece's first layers and the plate's seat is sunk in it — a "
             "hole in either is material the print has to bridge or the steel has to hang "
             f"over. The floor runs {z_bed:g} to {top:g}"])))
+
+
+def check_stop_pads(pieces, spec) -> Bound:
+    """Whether the cartridge's stop pads actually land on the collet plate's fore face.
+
+    A STOP THAT DOES NOT TOUCH WHAT IT STOPS IS NOT A STOP. The deck's aft edge stops short
+    of the steel and the pads carry the last of it, so this reads both halves of that: the
+    AREA of cartridge standing against the plate's own band one `pad_kiss` off its fore
+    face, and that the kiss itself is air — a pad through the steel is no better than a pad
+    that misses it."""
+    cart = pieces["pump-cartridge"]
+    cart = cart.val() if hasattr(cart, "val") else cart
+    probe = 0.4
+    band = (spec["x0"], spec["x1"], spec["z0"], spec["z1"])
+    land = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.pad_kiss - probe,
+                      spec["fore_y"] - _enc.pad_kiss, band[2], band[3])
+    kiss = _enc._ybox(band[0], band[1], spec["fore_y"] - _enc.pad_kiss,
+                      spec["fore_y"], band[2], band[3])
+    area = land.intersect(cart).Volume() / probe
+    bite = kiss.intersect(cart).Volume()
+    ok = area > 1e-6 and bite <= 1e-6
+    return record_bound(Bound(
+        "pads-stop-on-plate", "The cartridge's stop pads land on the collet plate", ok,
+        f"{area:.1f} mm² on the steel, {bite:.3f} mm³ inside the kiss",
+        f"pad on the plate's fore face and `pad_kiss` {_enc.pad_kiss:g} mm of air at it",
+        ([] if ok else
+         ([f"no pad stands against the plate's band z {spec['z0']:g}..{spec['z1']:g} — the "
+           f"cartridge has no aft stop against the steel and nothing but the anchor tees "
+           f"limits how far it pushes home"] if area <= 1e-6 else [])
+         + ([f"{bite:.2f} mm³ of the cartridge stands inside the kiss — the pad is through "
+             f"the steel, not on it"] if bite > 1e-6 else []))))
+
+
+def check_flank_grips(pieces, shell) -> Bound:
+    """Whether a hand fits the flank grips — the lane behind each return, which is what a
+    finger reaching through the opening turns into.
+
+    The return is the side wall's own section and carries no depth of its own: the corner
+    columns stand full section in the cartridge's withdrawal path, so the reach is the box's
+    to keep. What it has to keep clear is the band from `interior_x` in to the columns' own
+    cusp, over the grip's whole opening, in BOTH pieces — front-top's rails and the
+    cartridge's own deck are what would close it."""
+    ft, cart = pieces["front-top"], pieces["pump-cartridge"]
+    ft = ft.val() if hasattr(ft, "val") else ft
+    cart = cart.val() if hasattr(cart, "val") else cart
+    tray_z = min(cz for _cx, _cy, cz in shell.pump_trays)
+    rows = []
+    for grip in _enc._flank_grip(shell.inner, tray_z, shell.collet_plate):
+        g = box(grip)
+        x_in = _enc.interior_x()[0 if g.xmax < 0 else 1]
+        cusp = x_in + (1.0 if x_in < 0 else -1.0) * _enc._column_along()
+        lane = _enc._ybox(min(x_in, cusp), max(x_in, cusp), g.ymin, g.ymax, g.zmin, g.zmax)
+        shut = lane.intersect(ft).Volume() + lane.intersect(cart).Volume()
+        rows.append((f"x {x_in:+.1f}", shut))
+    worst = max(v for _n, v in rows)
+    ok = worst <= 1e-6
+    reach = _enc.wall + _enc._column_along()
+    return record_bound(Bound(
+        "grip-reaches-cusp", "The lane behind each flank grip is open to the columns' cusp",
+        ok,
+        f"{reach:g} mm of reach off the exterior side face, most shut {worst:.1f} mm³",
+        f"the band from `interior_x` in one `_column_along` clear behind the whole opening",
+        ([] if ok else
+         [f"{n}: {v:.1f} mm³ standing in it" for n, v in rows if v > 1e-6]
+         + ["a grip struck through a one-`wall` return is only as deep as the lane behind "
+            "it. Move the grip's own band, or clear what stands in this one"])))
 
 
 def check_head_sweep(solids: dict, pieces) -> Bound:
@@ -5359,12 +5426,16 @@ def funnel_centre(box):
     Centred across the box, and standing its front edge on the box's own stated
     `enclosure.funnel_front_y`.
 
-    WHAT FENCES THE BASIN IS UNDER ITS DRAIN. The union hangs on the spout and stands in the
-    window between `_lines.CROSS_Y`'s crossing and the cold core's front face — a window one
-    union wide, whose forward wall is the crossing and whose aft wall is the core, and
-    `water-3` is pinned to that core. Neither rides the display, so the plane the basin
-    stands on does not either. What the display housing leaves the throat is read as a bound
-    on `funnel-collar-frame`."""
+    THE HOPPER IS WHERE THE USER POURS, so the basin stands as far forward as the top wall
+    lets it: `enclosure.funnel_front_y` is the display housing's own back plane, and what stops
+    that plane going further forward is the BRIM rather than the throat — the flange overhangs
+    the collar and has to land on top wall, which begins at the display facet's arris
+    (`funnel-brim-lands`). What the housing then leaves the throat is `funnel-collar-frame`.
+
+    THE DRAIN RIDES THE BASIN WHEREVER THAT PUTS IT, and the elbow under the spout turns the
+    fall aft inside its own envelope — so nothing under the top wall has to be a berth wide
+    enough for a fitting to hang in, and `drain-over-deck` is the reading that says the foot
+    of it stands over the folded deck rather than in it."""
     ix0, ix1 = box.inner[0], box.inner[1]
     return ((ix0 + ix1) / 2.0, _enc.funnel_front_y + _funnel.collar_d / 2.0)
 
@@ -5378,11 +5449,10 @@ def build_funnel(box):
     THE BRIM RIDES THE CEILING, AND SO DOES THE DRAIN. The basin's underside bears on the top
     wall's outer face and `hopper_funnel.drop` is fixed, so every millimetre off
     `enclosure.appliance_height` is a millimetre off the drain's own height — and what that comes
-    out of is the fall `fluid-4` leaves the spout with before its first corner. That corner is
-    the last one in the run to reach its stock radius, so THE CEILING IS SPENT ON A BEND: the
-    height stands where the drop off the spout to the slot the source pair leaves is still one
-    `_lines.TUBE_BEND`, and `bend-radius` on the card is where a ceiling that took one more
-    millimetre would show up.
+    out of is the HEAD the gravity feed runs on. The elbow turns the fall itself, so no corner of
+    the run is waiting on that height; what is left of it is the drop from the elbow's own mouth
+    to V-B's collet, and `room-holds` on the card is where a ceiling that took one more millimetre
+    would show up.
 
     Returns `(placed, carry)` like every other seated body, so the drain the basin empties
     through rides the basin."""
@@ -5396,18 +5466,26 @@ def build_funnel(box):
 def build_drain_joint(funnel_carry):
     """The basin's disconnect, seated on the spout the funnel carries.
 
-    Three bodies on one axis, all of them read off `reference/hopper-drain-stub`'s own frame —
+    Three bodies on one column, all of them read off `reference/hopper-drain-stub`'s own frame —
     origin the spout's exit face, +Z up into the basin — so the joint's stack is stated once
     beside the parts and placed here:
 
-      * the stub, up inside the silicone and down into the union, hidden at both ends;
+      * the stub, up inside the silicone and down into the fitting, hidden at both ends;
       * the worm clamp, closed on the spout's land above the exit face;
-      * the union, its upper collet face ON that exit face, hanging `_union.OVERALL` below it.
+      * the union ELBOW, its +Z collet face ON that exit face.
+
+    THE FITTING IS WHAT TURNS THE FALL. The elbow turns inside its own envelope, so it stands
+    one `elbow_connector.LEG` under the spout's exit face and hands `fluid-4` out along +Y —
+    aft, on the storey the cap's open air is, heading the way the run is going. What that keeps
+    the joint out of is the bay under the spout: the folded deck's two anchor tees crown one
+    storey down there and the cold core packs the column in from behind, and `drain-over-deck`
+    is the reading that says the fitting's foot stands over them.
 
     The funnel is turned about Z alone, so the spout's axis is still the world's, and the joint
-    frame differs from the world by the drain's own position.
+    frame differs from the world by the drain's own position. Both of the elbow's legs lie on
+    world axes there: +Z takes the stub the basin carries, +Y hands the drain aft.
 
-    Returns `(name, solid, colour, carry)` per body — the union's carry is what `fluid-4`
+    Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
     anchors on now that it starts at a collet rather than at silicone."""
     _stub.joint_holds()
     drain, _axis = funnel_carry((_funnel.drain_local, (0.0, 0.0, -1.0)))
@@ -5416,11 +5494,48 @@ def build_drain_joint(funnel_carry):
                         station=(origin, drain))
     clamp, _ = seat_body(_stub.build_clamp().val(), seat="hopper-drain-clamp",
                          station=(origin, drain))
-    union, union_carry = seat_body(_pp0408w.build_jg_pp0408w().val(), seat="hopper-drain-union",
-                                   station=(_pp0408w.port(1.0), drain))
+    union, union_carry = seat_body(_elbow.build_elbow_connector().val(),
+                                   seat="hopper-drain-union",
+                                   station=(_elbow.port("z"), drain))
     return (("hopper-drain-stub", stub, C_STUB, None),
             ("hopper-drain-clamp", clamp, C_WORM, None),
-            ("hopper-drain-union", union, C_PP0408W, union_carry))
+            ("hopper-drain-union", union, M_JG_BLACK_PP, union_carry))
+
+
+def check_drain_over_deck(joint, pack) -> Bound:
+    """Whether the basin's drain joint stands clear over everything the pack puts beneath it.
+
+    THE JOINT HANGS IN THE FOLDED DECK'S OWN BAY and not over open air. The spout comes down on a
+    column the two anchor tees stand fore of, and their barrels crown one storey under the top
+    wall; a fitting that reaches that storey is a fitting with nowhere to go, since the cold core
+    packs the column in from behind. What buys the room is the ELBOW's own reach: it hangs one
+    `elbow_connector.LEG` under the spout, and its foot stands over the barrels rather than
+    beside them.
+
+    Read in plan and not in box — a body the joint does not stand over is a body this says nothing
+    about, however high it reaches."""
+    j = box(cq.Compound.makeCompound(list(joint)))
+    rows = []
+    for name, solid in pack.items():
+        if name.startswith("hopper-"):
+            continue
+        b = box(solid)
+        if b.xmin >= j.xmax or b.xmax <= j.xmin or b.ymin >= j.ymax or b.ymax <= j.ymin:
+            continue
+        rows.append((name, j.zmin - b.zmax))
+    worst = min((g for _n, g in rows), default=None)
+    under = [r for r in rows if r[1] < _card.CLEARANCE_FLOOR]
+    return record_bound(Bound(
+        "drain-over-deck", "The basin's drain joint stands over the pack under its column",
+        not under,
+        "nothing stands under it" if worst is None else
+        f"{len(rows)} under the joint's foot at z {j.zmin:.2f}, nearest {worst:.3f} mm",
+        f"at least {_card.CLEARANCE_FLOOR:g} mm under the fitting's foot",
+        [f"{n} crowns {-g:.3f} mm INTO the joint's own envelope" if g < 0 else
+         f"{n} leaves {g:.3f} mm under the joint, inside the {_card.CLEARANCE_FLOOR:g} the "
+         f"machine holds — `hopper_funnel.chute_h` and `ramp_angle` are what lower the drain, "
+         f"and the fitting's own reach is `elbow_connector.LEG`"
+         for n, g in sorted(under, key=lambda r: r[1])]))
 
 
 # The display's own frame faces its screen along −Y with the glass on Y = 0; the facet faces
@@ -5582,23 +5697,29 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_bowl_clear(a.pack_solids["flow-regulator"], funnel)
     # The disconnect, on the spout the basin carries. `fluid-4` starts at the union's lower
     # collet, so the joint goes in before the run is drawn.
-    for name, solid, colour, carry in build_drain_joint(funnel_carry):
+    joint = build_drain_joint(funnel_carry)
+    for name, solid, colour, carry in joint:
         a.add(solid, name=name, color=colour)
         if carry is not None:
             a.pack_solids[name], a.carries[name] = solid, carry
+    # And what the joint stands over — the reading the elbow is in the machine for.
+    check_drain_over_deck([s for _n, s, _c, _y in joint], a.pack_solids)
     draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     # WHERE THE MACHINE'S HEIGHT IS SPENT, recorded against the seat that spends it. The basin's
-    # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling, the union
-    # hangs its own length under the drain, and what is left is the fall `fluid-4`'s first corner
-    # has to turn its stock radius in. Every millimetre off `enclosure.appliance_height` comes
-    # out of this one, and so does every millimetre of the disconnect.
-    # THE FALL, AND NOT THE LENGTH. `fluid-4` carries head and is the basin's air-purge path, so
-    # its first leg has to DESCEND the straight its first corner turns in. A leg measured by
-    # distance reads a rise as room; measured by drop, a rise reads negative and the gate says so.
+    # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the elbow
+    # hands the line aft one leg below that — and what is left is the HEAD the gravity feed runs
+    # on, the drop from that mouth to V-B's own collet. Every millimetre off
+    # `enclosure.appliance_height`, and every millimetre `hopper_funnel.chute_h` takes for
+    # capacity, comes out of this one.
+    # THE DROP, AND NOT THE LENGTH. `fluid-4` carries head and is the basin's air-purge path, so
+    # what it owes is a line that never ends higher than it starts. A run measured by distance
+    # reads a rise as room; measured by drop, a rise reads negative and the gate says so. The
+    # band is the line's own bore: under one diameter of fall across a run this long there is no
+    # grade left once the corners have taken their tangents, and the basin stops draining dry.
     for r in a.runs:
         if r.id == "fluid-4":
-            note_room("hopper-funnel", "the fall off the union `fluid-4`'s first corner turns in",
-                      r.bend, r.pts[0][2] - r.pts[1][2])
+            note_room("hopper-funnel", "the drop off the elbow `fluid-4` reaches V-B on",
+                      _elbow.TUBE_D, r.pts[0][2] - r.pts[-1][2])
     display = build_display(box)
     a.add(display, name="display", color=C_DISPLAY)
     # The bay's lintel against the display standing over it — the bay top rides the cans,
@@ -5626,6 +5747,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
     check_head_sweep(a.pack_solids, pieces)
+    # And the cartridge's own two joints with what it leaves against: the stop pads on the
+    # steel, and the hand-holds struck through its flank returns.
+    check_stop_pads(pieces, box.collet_plate)
+    check_flank_grips(pieces, box)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)

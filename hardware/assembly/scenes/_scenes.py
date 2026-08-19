@@ -179,9 +179,10 @@ SCENES = (
         "front-top", "Enclosure front top",
         roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
         # BOTH OF THIS PIECE'S OPENINGS ARE FILLED FROM THE ROOM, so what arrives through
-        # either is late. The collet plate goes down its two wall pockets through the pump
-        # bay on nothing but gravity, and the funnel drops into the hopper on its own brim —
-        # neither is a joint a hand can make with the piece upside down on a bench.
+        # either is late. The collet plate stands on edge across the pump bay with its foot
+        # down in the blind seat cut in that bay's floor, on nothing but gravity, and the
+        # funnel drops into the hopper on its own brim — neither is a joint a hand can make
+        # with the piece upside down on a bench.
         later=("collet-plate", "hopper-funnel"),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —

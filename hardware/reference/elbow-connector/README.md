@@ -1,10 +1,18 @@
 # Elbow connector — reference fitting (stand-in)
 
-The production fitting is the **John Guest PP0308E** 1/4" union elbow, black PP
-— already in the BOM (`hardware/ledger/bom.md` §4) for the CO2-path bend, and
-the 90° elbow the [flavour pack](/hardware/manifold-layout/)
-sets on the **outer (unoccupied) port of every valve** to turn the line up out
-of the tray.
+The production fitting is the **John Guest PP0308E** 1/4" union elbow, black PP.
+
+**Where one stands in the machine:** under the hopper basin's spout, as the
+drain's disconnect. Its **+Z** leg takes the 1/4" LLDPE stub the basin carries
+(`hardware/reference/hopper-drain-stub/`) with the spout's exit face on its
+collet, and its **+Y** leg hands `fluid-4` aft to V-B. Turning the fall inside
+its own envelope is what the fitting is there for: it stands one leg under the
+spout where a straight union hangs its whole length, which keeps the joint out of
+the folded deck's own storey. `elbow_connector.py` beside this file states the
+figures the machine spaces it by and holds them to the STEP;
+[`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)
+`build_drain_joint` places it, and `drain-over-deck` on the machine's scorecard
+is what reads its foot against the pack beneath it.
 
 `elbow-connector.step` is **McMaster 51055K136**, a 1/4" push-to-connect
 drinking-water elbow — simply a STEP that happened to be available, used as a
@@ -33,4 +41,5 @@ corner (the back of the bend) sits at **Y = Z = −7.37**, and the body is
 **14.73 mm wide** across X (±7.37). Overall envelope **14.73 × 26.92 × 26.92 mm**.
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm, the collet
-outer radius 7.366 mm.
+outer radius 7.366 mm. A tube pushed into either leg runs **15.75 mm** before it
+bottoms on the socket's own stop, which is what the basin's drain stub is cut to.

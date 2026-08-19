@@ -66,8 +66,10 @@ collet butted to collet.
 
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
-tee meets a pump barb, and it is 0 as well; a barb is not a quick-connect, and the deck's
-height rides on this number one for one.
+tee meets a pump barb, and it is the COLLET PLATE'S BERTH: a barb is not a quick-connect, the
+four runs off the barbs are what the cartridge releases against, and the steel that stops their
+collets stands in this gap. The deck's height rides on it one for one, and so does what the two
+source runs have left to step in.
 
 The envelope, the deck, the two tube lengths, the mirror check and the clash check are in
 `README.md`, written back by this file, and printed by every run.
@@ -480,13 +482,18 @@ BENT = {"V-A": UPPER_Z, "V-B": UPPER_Z}
 # THE TRAVEL IS NOT THIS RUN'S TO CHOOSE. V-A and V-B stand on the cold core's cap, which is not
 # the pack, so every millimetre `enclosure_assembly.PACK_Y` carries the pack aft is a millimetre
 # taken off this — and so is every millimetre `BARB_STANDOFF` carries the decks aft of the
-# pumps, since the row's cradles hold still while Y-A and Y-B ride the deck. The collet plate's
-# berth spent `BARB_STANDOFF` that way, which puts this figure UNDER `two_arc_floor` (~24.9 at
-# this jog): both source runs now carry a hairpin ahead of the step, `hairpin_flat`'s answer to
-# exactly this. WHAT SPANS LESS HERE IS A LONGER TUBE, NOT A SHORTER ONE, and a run that never
-# heads backward cannot be longer than the straight line between its ends.
+# pumps, since the row's cradles hold still while Y-A and Y-B ride the deck. What the collet
+# plate's berth leaves after both have taken their share is this figure, and it is the whole of
+# what the step has to spend.
+#
+# THE JOG IS. `two_arc_floor` is `sqrt(jog·(4R − jog))`, which climbs with the jog for every jog
+# under `2R` — so the jog alone says whether the two-arc family has a member at the travel there
+# is, and it stands where BOTH channels' crosses clear that floor by `SOURCE_SLACK`. It is also
+# where the two valves sit: the pose turns the pack's own −Y onto the machine's −Z, so a
+# millimetre of jog is a millimetre of height the row on the cap gives up and a millimetre its
+# printed cradles stand taller (`_cold_core_interface.cap_cradles`).
 SOURCE_TRAVEL = 19.72
-SOURCE_JOG = 14.0
+SOURCE_JOG = 7.0
 # The step also carries each source valve OUTBOARD, off its own limb's column. A CROSS-MOVE IS A
 # VECTOR AND NOT A DISTANCE: both arcs and the straight lie in the one plane that holds the run
 # and the way it steps, so leaning that plane about the run costs the step nothing and only its
@@ -499,36 +506,34 @@ SOURCE_JOG = 14.0
 SOURCE_SPREAD = {"V-A": 2.42, "V-B": 0.0}
 
 
-# WHAT THE RUN DOES BEFORE IT STEPS IS GO BACKWARD. A hairpin — half a turn, a straight, and
-# the other half — leaves the heading exactly where it found it and puts the run BEHIND where it
-# started, which is travel handed back to the two-arc step that follows. The half-turns cancel
-# between them (a heading that sweeps the whole circle sums its arcs to nothing), so the hairpin
-# costs `2πR` and moves the run by its straight alone.
+# WHAT A RUN DOES WHEN THE TRAVEL WILL NOT REACH IS GO BACKWARD. A hairpin — half a turn, a
+# straight, and the other half — leaves the heading exactly where it found it and puts the run
+# BEHIND where it started, which is travel handed back to the two-arc step that follows. The
+# half-turns cancel between them (a heading that sweeps the whole circle sums its arcs to
+# nothing), so the hairpin costs `2πR` and moves the run by its straight alone.
 #
-# THIS FIGURE IS WHERE THAT STARTS, AND WHAT THE STEP KEEPS ONCE ONE IS DRAWN. It is the travel
-# the step holds over `two_arc_floor`: above the floor by this much, the pair of arcs has a
-# shape of its own and the run is the step alone; under it, the hairpin hands back exactly what
-# restores it. At the floor itself the pair is all arc — near-quarter turns whose mid-run
-# bulge sweeps a whole radius past the straight line — and `fluid-18`'s crown lane crosses
-# this bay a half-tube from where that bulge peaks. The figure is sized for the BULGE, not the
-# trigger: the step keeps enough travel that its arcs stay shallow and its sweep stays out of
-# the lane. `hairpins_drawn` reports how many are drawn, and at the travel this file states
-# that is both — the collet plate's berth took the step under its floor on each channel.
-SOURCE_SLACK = 6.5
-# WHERE THE HAIRPIN LEAVES THE RUN, offset from the column it came down. The run climbs back
-# past the height its own quarter turn is at, so it climbs in a different column than the one
-# the quarter is in, and this is the gap between them. The step that follows spends it: what
-# the hairpin puts out the step has to bring back, and its cross-move carries both.
+# THIS FIGURE IS THE MARGIN THE STEP KEEPS OVER `two_arc_floor`, AND WHAT IT BUYS IS A STRAIGHT.
+# `sbend_solve` takes `acos(c / m)`, and at the floor that argument is exactly 1: the two arcs
+# meet at a single point, the straight between them is zero, and the angle's slope against the
+# travel is vertical — a pair solved there is a pair that a hundredth of a millimetre swings by
+# a degree. Above the floor by this much each channel has a straight to stand on and an angle
+# that answers its travel smoothly. Under it `hairpin_back` asks the hairpin for exactly what
+# restores the margin; `hairpins_drawn` reports how many runs need one, and at the travel and
+# the jog above it is none.
+SOURCE_SLACK = 0.5
+# WHERE A HAIRPIN LEAVES THE RUN, offset from the column it came down. The run climbs back past
+# the height its own quarter turn is at, so it climbs in a different column than the one the
+# quarter is in, and this is the gap between them. The step that follows spends it: what the
+# hairpin puts out the step has to bring back, and its cross-move carries both.
 #
-# The lane it stands in leans between OUTBOARD and AWAY FROM THE CROWN, per channel:
-# 0° is straight outboard, 90° straight away. The turn stands `2·BEND_R` off the run
-# whichever way it faces, and each side's lean is wedged by its own fences. V-A's bay has
-# `fluid-18`'s crown-lane column one tube to the east — itself pinned between V-A's coil and
-# V-K — so its turn leans further away to keep its reach off that lane. V-B's has no lane in
-# it, and its step at the steeper lean folds back through its own quarter, so it keeps the
-# shallower one. The sign of outboard is away from the mirror plane; inboard is the twin's.
+# The lane it stands in leans between OUTBOARD and AWAY FROM THE CROWN: 0° is straight outboard,
+# 90° straight away, and the sign of outboard is away from the mirror plane. The turn stands
+# `2·BEND_R` off the run whichever way it faces, and the lean is what aims that reach into the
+# room the bay has rather than at `fluid-18`'s crown lane or the channel's own quarter. ONE
+# FIGURE SERVES BOTH CHANNELS, because until a hairpin is drawn nothing tells the two bays
+# apart — and `hairpins_drawn` is 0 at the travel and the jog above.
 HAIRPIN_OUT = 15.0
-HAIRPIN_TILT = {"V-A": 54.0, "V-B": 49.0}
+HAIRPIN_TILT = 49.0
 
 
 def two_arc_floor(r: float, jog: float) -> float:
@@ -556,7 +561,7 @@ def source_offset(name: str) -> tuple:
     needs no hairpin, and then the step is the whole run and has the whole cross."""
     if hairpin_back(MIN_BEND, SOURCE_TRAVEL, math.hypot(*source_cross(name))) <= 1e-9:
         return (0.0, 0.0)
-    t = math.radians(HAIRPIN_TILT[name])
+    t = math.radians(HAIRPIN_TILT)
     return (math.copysign(HAIRPIN_OUT * math.cos(t), P[name]["x"]),
             HAIRPIN_OUT * math.sin(t))
 
@@ -897,16 +902,23 @@ QUARTER_LEN = math.pi * BEND_R / 2.0
 # one of those steps takes round with it, which is whose `SOURCE_SPREAD` the step is drawn to.
 SBENDS = {3: "V-A", 5: "V-B"}
 
-# The berth's own price, on the card: `BARB_STANDOFF` took the source travel under the
-# two-arc floor on both channels, and each run buys it back with one hairpin. A count that
-# moves says the berth or the travel moved without the other.
+# The step's own room, on the card. `SOURCE_TRAVEL` is what the pack leaves after
+# `enclosure_assembly.PACK_Y` and `BARB_STANDOFF` have taken theirs, and `SOURCE_JOG` is what
+# sets the floor it has to clear — so this reads the two against each other on both channels at
+# once. A run that falls under the floor grows a hairpin, `2πR` and a chord of tube spent going
+# backward, and a step whose arcs meet at a point; the margin is what says neither is happening.
 _bounds.state(
-    "source-hairpins", "Both source runs carry the hairpin the berth costs",
-    "2 hairpins drawn",
-    hairpins_drawn() == 2,
-    f"{hairpins_drawn()} of 2 source runs carry a hairpin — `SOURCE_TRAVEL` "
-    f"{SOURCE_TRAVEL:g} against the two-arc floor no longer prices `BARB_STANDOFF` "
-    f"{BARB_STANDOFF:g} the way the berth was drawn. Re-solve the pair together.")
+    "source-step-room", "Both source runs step on two arcs alone",
+    f"the travel over the two-arc floor by {SOURCE_SLACK:g} mm on each channel",
+    hairpins_drawn() == 0,
+    "; ".join(
+        f"{v} steps {math.hypot(*source_cross(v)):.2f} across, whose floor is "
+        f"{two_arc_floor(MIN_BEND, math.hypot(*source_cross(v))):.2f} — "
+        f"{SOURCE_TRAVEL - two_arc_floor(MIN_BEND, math.hypot(*source_cross(v))):+.2f} mm of "
+        f"travel against the {SOURCE_SLACK:g} the step holds"
+        for v in SBENDS.values())
+    + ". `SOURCE_JOG` is the lever: the floor climbs with the cross, and the travel is the "
+      "pack's to give, not this run's.")
 
 # The four connections the hinge runs through, each a semicircle on its limb's own column.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
@@ -1242,6 +1254,7 @@ def main():
             "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",
             "QUARTER_COUNT": str(len(QUARTERS)), "QUARTER_COUNT2": str(len(QUARTERS)),
+            "QUARTER_COUNT4": str(len(QUARTERS)), "MOUTH_COUNT2": str(len(MOUTHS)),
             "BEND_Y": f"{BEND_Y:.2f}",
             "CORNER_COUNT": str(2 * len(SPINE) + len(QUARTERS) + 2 * len(SBENDS)
                                 + 2 * hairpins_drawn()),
@@ -1249,6 +1262,11 @@ def main():
             "STEP_STRAIGHT": f"{source_step('V-B')[1]:.2f}",
             "STEP_LEN": f"{source_step('V-B')[2]:.2f}",
             "STEP_TRAVEL": f"{SOURCE_TRAVEL:g}", "STEP_JOG": f"{SOURCE_JOG:g}",
+            "STEP_TRAVEL2": f"{SOURCE_TRAVEL:g}", "STEP_TRAVEL3": f"{SOURCE_TRAVEL:g}",
+            "STEP_JOG2": f"{SOURCE_JOG:g}",
+            "STEP_FLOOR": f"{two_arc_floor(MIN_BEND, SOURCE_JOG):.2f}",
+            "HAIRPIN_COUNT": str(hairpins_drawn()),
+            "BARB_STANDOFF": f"{BARB_STANDOFF:g}",
             "STEP_SPREAD": f"{SOURCE_SPREAD['V-A']:g}",
             "STEP_CROSS_A": f"{math.hypot(*source_cross('V-A')):.2f}",
             "STEP_ANGLE_A": f"{math.degrees(source_step('V-A')[0]):.3f}",
