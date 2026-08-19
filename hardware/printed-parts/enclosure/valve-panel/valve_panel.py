@@ -118,23 +118,6 @@ def port_channel_depth() -> float:
     return port_drop() + PORT_SLIP
 
 
-def setback() -> float:
-    """The release stroke, which is how far ONE deck's plate stands off its valves.
-
-    The deck butted onto the anchor tees carries valves that TRAVEL, so its plate's face is not
-    where those valves rest — it is where they arrive. `enclosure_assembly.valve_panel_stations`
-    decides which deck that is by reading the placed pack; the figure itself is two constants
-    and no geometry, so this states it without standing a machine.
-
-    The import is in the call for the reason `panels_of_machine` gives: at module scope it
-    closes a cycle through `enclosure`."""
-    sys.path.insert(0, str(_hw / "manifold-layout"))
-    sys.path.insert(0, str(_hw / "reference" / "jg-pp0408w"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415
-    import jg_pp0408w as _jgu                                   # noqa: PLC0415
-    return _ea.PLATE_REST_GAP + _jgu.COLLET_TRAVEL
-
-
 def extrusion() -> float:
     """The width of one bead of this plate, which is what a web is read against.
 
