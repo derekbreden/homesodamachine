@@ -101,19 +101,31 @@ def enclosure(m: Machine):
     pieces = sorted(m.a.pieces)
 
     # ── what the cards' sentences stand on ────────────────────────────────
-    # EN-01 and EN-02 both say the box is four pieces and no panel. A fifth
-    # printed piece — a front or back panel coming back — has no number in it to
+    # EN-01 stages four quadrants and the cartridge that rides out of their bay,
+    # EN-02 says no separate panel closes a face, and EN-07 cross-pins the
+    # quadrants alone — the cartridge slides and is pinned by nothing. A SIXTH
+    # printed piece, or a fifth that is not the cartridge, has no number in it to
     # drift, so this is the only thing that can put those sentences back.
-    assert pieces == ["back-bottom", "back-top", "front-bottom", "front-top"], (
-        f"the box prints as {pieces} and EN-01/EN-02 stage four pieces and no separate "
-        f"panel — restate them, or the deck ships a card for a part that is not made")
+    assert pieces == ["back-bottom", "back-top", "front-bottom", "front-top",
+                      "pump-cartridge"], (
+        f"the box prints as {pieces} and EN-01 stages four quadrants and one cartridge, "
+        f"EN-07 cross-pins the quadrants alone — restate them, or the deck ships a card "
+        f"for a part that is not made")
+    quadrants = [p for p in pieces if p != "pump-cartridge"]
+    # EN-01 tables ONE Z seam for both columns and EN-07 draws it as one level line
+    # round the box, the four pieces meeting at a four-way corner on each side wall.
+    # Two planes again and both cards are drawing a box that is not this one.
+    assert abs(box.splits[0] - box.splits[1]) < 1e-9, (
+        f"the Z seams stand at {box.splits} — EN-01 tables one seam for both columns "
+        f"and EN-07 draws them on one rule; say what they are instead")
     # EN-02: "nothing at all is cut in the front wall", which is why CO2 comes in
     # at the back. EN-04: the condenser's air still has no route through a side
     # face (enclosure-mechanical.md Open items 2) — the card says so, and stops
     # saying so the moment a grille is cut.
     assert not pack.front_ports and not box.front_ports, (
-        f"{len(box.front_ports)} station(s) are cut in the front wall — EN-02 says nothing "
-        f"is, and EN-02's whole CO2 paragraph is about that")
+        f"{len(box.front_ports)} station(s) are cut in the front wall — EN-02 says no "
+        f"connection is, and EN-02's whole CO2 paragraph is about that. The cartridge is "
+        f"a piece of that wall, not a station in it")
     # EN-06: "every one of those bosses is on `enclosure-back-top`", which is what
     # makes the power column bench work on that piece rather than work inside a
     # standing box. A boss forward of the Y seam or below the back Z seam is in a
@@ -205,10 +217,16 @@ def enclosure(m: Machine):
         # The box.
         "BOX_SIZE": f"{ox1 - ox0:.0f} {X} {oy1 - oy0:.0f} {X} {oz1 - oz0:.0f} mm",
         "BOX_PIECES": f"{len(pieces)}",
+        # EN-07 pins the quadrants and nothing else: the cartridge is held by its
+        # rails and comes out in the user's hands, so it is not one of the pieces
+        # a screw crosses.
+        "BOX_QUADRANTS": f"{len(quadrants)}",
         "WALL_T": f"{m.a.constants['wall']:.4g} mm",
         "Y_SEAM": f"{box.y_joint:.4g}",
+        # ONE FIGURE FOR BOTH COLUMNS, which the assertion above is what holds: the
+        # seam is a level line round the box, so a second name for the back column's
+        # half of it would be a fact that can only ever agree with this one.
         "Z_SEAM_FRONT": f"{box.splits[0]:.4g}",
-        "Z_SEAM_BACK": f"{box.splits[1]:.4g}",
         "SEAM_SCREWS_Z": f"{sum(1 for s in z_stations if s[4] == 'front')}",
         "STRATUM_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
         "CORE_X": f"{_span('foam-assembly'):.0f} mm",
@@ -249,8 +267,8 @@ def enclosure(m: Machine):
     }
 
     cards = {
-        "en-01-stage-the-four-pieces": {
-            "BOX_SIZE", "BOX_PIECES", "WALL_T", "Y_SEAM", "Z_SEAM_FRONT", "Z_SEAM_BACK",
+        "en-01-stage-the-printed-pieces": {
+            "BOX_SIZE", "BOX_PIECES", "WALL_T", "Y_SEAM", "Z_SEAM_FRONT",
             "WALL_BOSSES", "C14_BOSSES"},
         # UMBILICAL_DROP is the internal-plumbing subsystem's name for the gap between
         # the two storeys, and one namespace spans the deck: EN-02 states the same
@@ -268,7 +286,7 @@ def enclosure(m: Machine):
         "en-05-seat-cold-core": {
             "CORE_FOOTPRINT", "CAP_CONDUITS", "CORE_FRONT_PORTS"},
         "en-07-close-the-box": {
-            "BOX_PIECES", "Y_SEAM", "Z_SEAM_FRONT", "Z_SEAM_BACK", "SEAM_SCREWS_Z",
+            "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT", "SEAM_SCREWS_Z",
             "BODY_COUNT"},
         "en-09-display-and-hopper": {"HOPPER_PIECES"},
     }

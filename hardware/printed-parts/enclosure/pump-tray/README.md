@@ -2,13 +2,13 @@
 
 **The pump case with its cylinder cut off.** [`pump_case.py`](/hardware/printed-parts/enclosure/pump-tray/pump_case.py) draws a two-piece case for the Kamoer — the body this tray is cut from, and no part of its own; its base is a plate on the pump head's crown, a 45° ramp off that plate, an octagonal bore wall standing in the ramp, and a cylindrical tower over the bore that the motor can turns in. Cut the tower off above the bore, cut down to one [3](SHOULDER) mm shoulder over it, and what is left is the tray — the same four surfaces, conforming to the same pump.
 
-**It is not a part.** It is `enclosure-front-top`'s own material, fused the way the tap-water trough, the flow meter's saddles and the valve panels are — `enclosure._pump_trays` stands one, off the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps. Nothing ships under a pump and nothing is billed for one.
+**It is not a part.** It is the pump cartridge's own material (`enclosure.build_cartridge`), fused onto the deck that slides out of the front bay — one per pump, off the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the cartridge face's own pump relief. Nothing ships under a pump and nothing is billed for one.
 
 The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Each gets a tray: [2](TRAY_COUNT) per machine.
 
 | | |
 |---|---|
-| plate | [82.262](TRAY_W) across × [69.305](TRAY_L) mm |
+| plate | [82.262](TRAY_W) across × [69.405](TRAY_L) mm |
 | case footprint it is cut from | [70](CASE_W) mm square, ramp [18](RAMP_H) mm high |
 | bore wall | the boss's own octagon, [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
 | shoulder over the boss's crown | [3](SHOULDER) mm of tower, bored Ø[37](CAN_BORE) for the can |
@@ -16,13 +16,13 @@ The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Eac
 | head under it | [62.61](HEAD_W) mm square, hanging [48.88](HEAD_D) mm below |
 | channels | 4 — a pair either side of the can, each band [25](BAND_NEAR)–[30.83](BAND_FAR) mm off the pump's axis |
 | straps | 2 per pump, [4.826](STRAP_W) mm across, [143](STRAP_LOOP) mm of loop apiece |
-| material, both trays | [94.10](TRAY_VOL) cm³ of `enclosure-front-top` |
+| material, both trays | [94.16](TRAY_VOL) cm³ of the pump cartridge |
 
 ## What it covers
 
 **Two storeys of the pump, not one.** That is the whole reason it is a case and not a plate — no plate reaches both.
 
-- The **base plate** lands on the head's own +Z face and wraps its top edge all the way round, [3925](ON_HEAD) mm² of section on that face.
+- The **base plate** lands on the head's own +Z face and wraps its top edge all the way round, [3933](ON_HEAD) mm² of section on that face.
 - The **ramp** climbs off that plate at 45°.
 - The **bore wall** takes the boss on each of its eight faces and both its ledges, over the boss's whole [21](BOSS_DEPTH) mm.
 - The **shoulder** the cut tower leaves lands on the boss's crown and wraps its top edge, [1752](ON_CROWN) mm² on that face.
@@ -51,7 +51,7 @@ Plate on head's crown, shoulder on boss's crown, bore on the boss's flanks — e
 
 ## Print
 
-Both trays come off the bed inside `enclosure-front-top`, which prints ceiling-down. The plate goes down first and everything above it — ramp, bore wall, shoulder — grows off its underside, so the only face that hangs is the plate's own. It is a soffit over the lane its pump hangs in, anchored along its whole width where it meets the wall, and it takes print support the way the tap-water trough's block and the drip tray's sleeve do. The pump is laid into it that way up, both straps threaded through their channels first — there is no reaching under a seated pump afterwards. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7, in the front-pieces row).
+Both trays come off the bed inside the pump cartridge, which prints face-down on its outer skin. The deck stands as a wall off the face and the ramp, bore wall and shoulder grow off the plate's own section — nothing of the tray hangs and nothing takes support. The pump is laid in on the bench with the cartridge face-down, both straps threaded through their channels first, and the whole cartridge slides into the bay with the pumps aboard. PETG, the piece's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 ## Files
 

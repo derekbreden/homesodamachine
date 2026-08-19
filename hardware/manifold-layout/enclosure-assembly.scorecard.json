@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "90/90 declared",
+   "value": "91/91 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -64,7 +64,7 @@
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
-    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 34.578",
+    "hopper-funnel: the fall off the union `fluid-4`'s first corner turns in \u2014 wants 14, has 36.249",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
    "active": true
@@ -142,29 +142,38 @@
     "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
-    "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "fluid-18 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
+    "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "foam-assembly \u2014 discharge-chain: 0.200 mm \u2014 seated against it",
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
     "display \u2014 display-cover: 1.000 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
-    "water-3 \u2014 hopper-drain-union: 1.095 mm",
+    "pump-a-head \u2014 collet-plate: 1.025 mm",
+    "pump-b-head \u2014 collet-plate: 1.025 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
+    "fluid-4 \u2014 valve-v-d: 1.202 mm",
+    "fluid-4 \u2014 tee-y-a: 1.202 mm",
     "bulkhead-carb \u2014 port-ring-carb-word: 1.342 mm",
     "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.366 mm",
     "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.366 mm",
     "bulkhead-water \u2014 port-ring-water-word: 1.387 mm",
     "co2-inlet \u2014 port-ring-co2-word: 1.446 mm",
+    "tee-y-c \u2014 collet-plate: 1.504 mm",
+    "tee-y-d \u2014 collet-plate: 1.504 mm",
+    "tee-y-f \u2014 collet-plate: 1.504 mm",
+    "tee-y-g \u2014 collet-plate: 1.504 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.595 mm",
     "foam-assembly \u2014 wago-reeds-a: 1.600 mm",
     "foam-assembly \u2014 wago-sensors: 1.600 mm",
+    "water-3 \u2014 hopper-drain-union: 1.623 mm",
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
-    "fluid-14 \u2014 valve-v-a: 1.710 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
-    "fluid-14 \u2014 seaflo-pump: 1.756 mm",
+    "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "fluid-14 \u2014 seaflo-pump: 1.757 mm",
+    "fluid-24 \u2014 fluid-4: 1.971 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm"
    ],
    "active": true
@@ -174,18 +183,8 @@
    "label": "Every printed piece fits the bed",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 on the bed",
+   "value": "5/5 on the bed",
    "target": "every piece on the bed",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "funnel-ramp-grade",
-   "label": "The X half-run is the funnel floor's shallowest line",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "the Y half-run at or under the X (74.53 mm)",
    "detail": [],
    "active": true
   },
@@ -460,6 +459,16 @@
    "active": true
   },
   {
+   "id": "source-hairpins",
+   "label": "Both source runs carry the hairpin the berth costs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "2 hairpins drawn",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "plug-per-station",
    "label": "Every station is one plug's bottom face and every plug is one station's",
    "kind": "gate",
@@ -620,6 +629,36 @@
    "active": true
   },
   {
+   "id": "plate-stops-collets",
+   "label": "The plate's holes catch the collet noses",
+   "kind": "gate",
+   "status": "pass",
+   "value": "hole r 4 against a nose of r 5.715",
+   "target": "one millimetre of annulus under the nose, all round",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plate-passes-tubes",
+   "label": "The plate's holes pass the barb tubes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "hole r 4 over a \u00d86.35 tube",
+   "target": "half a millimetre of air round the tube",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plate-berth",
+   "label": "The standoff holds the plate off the barbs",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1.03 mm between the barb plane and the steel",
+   "target": "at least 0.7 mm \u2014 `manifold_layout.BARB_STANDOFF` is the whole berth",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "pack-over-core",
    "label": "Every pack body reaching over the cold core clears its cap",
    "kind": "gate",
@@ -634,7 +673,7 @@
    "label": "The floor ahead of the cold core stops short of it",
    "kind": "gate",
    "status": "pass",
-   "value": "core front at 178.00, nearest body 7.00 mm ahead of it",
+   "value": "core front at 178.00, nearest body 6.92 mm ahead of it",
    "target": "every body on the floor short of the core's front face",
    "detail": [],
    "active": true
@@ -784,12 +823,12 @@
    "active": true
   },
   {
-   "id": "pumps-pass-lip",
-   "label": "The pump heads stand off the lip's face where its band crosses theirs",
+   "id": "pumps-in-bay",
+   "label": "The pumps stand inside the bay with air at the face and the jambs",
    "kind": "gate",
    "status": "pass",
-   "value": "least air 1.00 mm",
-   "target": "air between the faces",
+   "value": "least air 3.10 mm",
+   "target": "a millimetre at the face, the deck's slip at the jambs, the crown air above",
    "detail": [],
    "active": true
   },
@@ -808,8 +847,18 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "9.208 mm to the basin",
+   "value": "9.717 mm to the basin",
    "target": "1 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bay-under-display",
+   "label": "The bay's lintel keeps a ligament under the display",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3.37 mm between the bay top and the display's envelope",
+   "target": "at least 2 mm of lintel",
    "detail": [],
    "active": true
   },
@@ -841,14 +890,14 @@
    "value": "8/8 valves seated, furthest off 0.000 mm",
    "target": "every valve within 0.2 mm of the plate under it",
    "detail": [
-    "valve-panel-aft    valve-v-c    y-plane  165.380 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-d    y-plane  165.380 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-g    y-plane  165.380 -Z   off 0.0000",
-    "valve-panel-aft    valve-v-j    y-plane  165.380 -Z   off 0.0000",
-    "valve-panel-fore   valve-v-e    y-plane   83.380 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-f    y-plane   83.380 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-h    y-plane   83.380 +Z   off 0.0000",
-    "valve-panel-fore   valve-v-i    y-plane   83.380 +Z   off 0.0000"
+    "valve-panel-aft    valve-v-c    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-d    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-g    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-aft    valve-v-j    y-plane  171.080 -Z   off 0.0000",
+    "valve-panel-fore   valve-v-e    y-plane   89.080 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-f    y-plane   89.080 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-h    y-plane   89.080 +Z   off 0.0000",
+    "valve-panel-fore   valve-v-i    y-plane   89.080 +Z   off 0.0000"
    ],
    "active": true
   },
@@ -888,11 +937,11 @@
    "value": "8/8 standing",
    "target": "a groove standing open at each fore flange and a bored boss under each aft one",
    "detail": [
-    "fore flange at z   9.000, under its groove   standing   (98.5% of the probe)",
-    "fore flange at z   9.000, over its groove    standing   (98.5% of the probe)",
+    "fore flange at z   9.000, under its groove   standing   (98.1% of the probe)",
+    "fore flange at z   9.000, over its groove    standing   (98.1% of the probe)",
     "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
-    "fore flange at z 145.600, under its groove   standing   (98.5% of the probe)",
-    "fore flange at z 145.600, over its groove    standing   (98.5% of the probe)",
+    "fore flange at z 145.600, under its groove   standing   (98.1% of the probe)",
+    "fore flange at z 145.600, over its groove    standing   (98.1% of the probe)",
     "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
@@ -1004,7 +1053,7 @@
    "label": "Every body carries the colour of what it is made of",
    "kind": "gate",
    "status": "pass",
-   "value": "130/130 coloured",
+   "value": "136/136 coloured",
    "target": "every body coloured",
    "detail": [],
    "active": true
@@ -1034,7 +1083,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 149.00..252.90",
+   "value": "seam at 160.00, lane 149.00..168.90, 214.75..252.90",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1071,11 +1120,11 @@
   },
   {
    "id": "box-front",
-   "label": "The pack stands behind the appliance's stated front plane",
+   "label": "The pack stands behind the front wall's relieved surface",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y 8.00, front wall at 8.00",
-   "target": "behind `front_plane_y` 8",
+   "value": "least air 0.00 mm, at compressor",
+   "target": "on or behind the wall's own surface, plane 14 and its reliefs",
    "detail": [],
    "active": true
   },
@@ -1174,7 +1223,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 54/54 corners at spec",
+   "value": "B \u2014 58/58 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
@@ -1188,7 +1237,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "58/58 mounted, 20 part of another body, 12 nothing fastens",
+   "value": "59/59 mounted, 20 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "fuse-clamp: gap-press \u2014 nothing fastens it; Both faces of the slot the clamp presses into are the compressor's own \u2014 the air its power box hangs over its mounting plate \u2014 so the clamp rides the can. The plate's four holes carry the floor's posts and the grommets, and every printed feature in reach of the clamp stands on the cabinet side of them.",
@@ -1211,7 +1260,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "90/90 stated",
+   "value": "91/91 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
@@ -1225,7 +1274,7 @@
    "target": "every connection made",
    "detail": [
     "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, the fold's hairpin, a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
-    "drawn 22, butt 11, fold 4, turn 2 \u2014 0 still to route",
+    "drawn 22, butt 7, fold 4, straight 4, turn 2 \u2014 0 still to route",
     "by circuit \u2014 co2 3/3, fluid 26/26, refrigerant 3/3, water 7/7",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
@@ -1234,14 +1283,14 @@
     "fluid-8 (fluid): Y-B-2 \u2192 V-D-I \u2014 made by a butt between two collets",
     "fluid-9 (fluid): V-C-O \u2192 Y-C-1 \u2014 made by the fold's hairpin",
     "fluid-10 (fluid): V-E-O \u2192 Y-C-2 \u2014 made by a butt between two collets",
-    "fluid-11 (fluid): Y-C-3 \u2192 P-A-I \u2014 made by a butt between two collets",
-    "fluid-12 (fluid): P-A-O \u2192 Y-D-1 \u2014 made by a butt between two collets",
+    "fluid-11 (fluid): Y-C-3 \u2192 P-A-I \u2014 made by a lane's own straight",
+    "fluid-12 (fluid): P-A-O \u2192 Y-D-1 \u2014 made by a lane's own straight",
     "fluid-13 (fluid): Y-D-2 \u2192 V-F-I \u2014 made by a butt between two collets",
     "fluid-17 (fluid): Y-D-3 \u2192 V-G-I \u2014 made by the fold's hairpin",
     "fluid-19 (fluid): V-D-O \u2192 Y-F-1 \u2014 made by the fold's hairpin",
     "fluid-20 (fluid): V-H-O \u2192 Y-F-2 \u2014 made by a butt between two collets",
-    "fluid-21 (fluid): Y-F-3 \u2192 P-B-I \u2014 made by a butt between two collets",
-    "fluid-22 (fluid): P-B-O \u2192 Y-G-1 \u2014 made by a butt between two collets",
+    "fluid-21 (fluid): Y-F-3 \u2192 P-B-I \u2014 made by a lane's own straight",
+    "fluid-22 (fluid): P-B-O \u2192 Y-G-1 \u2014 made by a lane's own straight",
     "fluid-23 (fluid): Y-G-3 \u2192 V-I-I \u2014 made by a butt between two collets",
     "fluid-27 (fluid): Y-G-2 \u2192 V-J-I \u2014 made by the fold's hairpin"
    ],
@@ -1267,9 +1316,9 @@
    "detail": [
     "carb-1: 144.5 mm, held at its anchor",
     "co2-2: 114.2 mm, held at its anchor",
-    "fluid-28: 167.2 mm, held at its anchor",
+    "fluid-28: 164.4 mm, held at its anchor",
     "fluid-18: 245.3 mm unheld \u2014 left loose; Nozzle A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the drip tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
-    "fluid-4: 290.1 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 294.2 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }

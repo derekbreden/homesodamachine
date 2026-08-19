@@ -22,7 +22,7 @@ bottom:
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [21.65 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [21 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
@@ -38,7 +38,7 @@ bottom:
   **above** V-B's up-facing inlet collet — `fluid-4` is the gravity drain and the
   air-purge path, so the tube from drain to V-B must only fall. The pack is
   measured on the real solids by the enclosure-assembly scorecard. Total drop
-  [54 mm](HOPPER_DROP) below the brim.
+  [53 mm](HOPPER_DROP) below the brim.
 - **The clamp land.** That spout tube is [12 mm](HOPPER_LAND) of straight round,
   which is a worm clamp's band and a shoulder of silicone either side of it. A
   1/4" LLDPE stub runs up the whole of it and the band closes the silicone onto
@@ -48,7 +48,7 @@ bottom:
   grips tube and this spout is silicone. Every millimetre of this land lowers the
   drain exactly as a millimetre of chute does, so the two come out of one budget.
 
-Capacity to the brim is [669 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [658 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's
@@ -64,7 +64,7 @@ upper collet holds the drain stub. Releasing it is a push on the sleeve's own
 annular face — Ø9.57 outside, 1.44 mm of wall, 1.34 mm of travel — and the push
 has to land **square**: a collet grips by wedging its teeth against the tube, so
 a sleeve pressed on one side bites harder rather than letting go. That face
-stands below the top wall at the foot of the [54 mm](HOPPER_DROP) drop, and it
+stands below the top wall at the foot of the [53 mm](HOPPER_DROP) drop, and it
 carries concentrate.
 
 **The user releases it with the 1/4" jaw of a JG collet quick-connect tool.**

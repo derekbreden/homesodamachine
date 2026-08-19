@@ -1257,14 +1257,16 @@ cap_side_anchors = {
     # The tap-water branch to V-K, on the lid's front step. `centre` is the run's own axis where
     # it crosses this post — the cap's (x, y), with the run along the cap's Y — and `over_face`
     # is the height that axis stands over the lid's outer face.
-    #   The cap's X is the CORE'S OWN FRONT FACE — the post is behind it and nothing is proud —
-    # and the cap's Y is on the mirror line, between the two port stubs the source pair leaves
-    # over this step. `axis_off` stands the pipe forward of that face by what reservoir B's own
-    # riser leaves the run: the seat is the shallower wrap that leaves, and the tie is what holds.
+    #   The post stands on the lid's front step inside the core's plan outline, its face two
+    # lanes aft of the core's own front plane — the crossing walks with the hopper drain's
+    # berth (`hopper_funnel.neck_dy`), and the post follows it aft so the fall off the union
+    # keeps its metre. The cap's Y is on the mirror line, between the two port stubs the
+    # source pair leaves over this step. `axis_off` stands the pipe forward of the post's
+    # face: the seat is the shallower wrap that leaves, and the tie is what holds.
     #   THE POST AND `_lines.CROSS_Y` ARE ONE FIGURE IN TWO FILES — the run crosses where this
     # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
     # through, so the pair cannot drift apart quietly.
-    "water-3": SideAnchor((141.500, 3.242), 7.600, 3.375, 1.500),
+    "water-3": SideAnchor((138.000, 3.242), 7.600, 3.375, 1.500),
     # `fluid-18`'s gate-side hold: its crossing runs the crown storey fore of the pump, and
     # this post stands the whole of that storey off the lid to grip it — the blade's front
     # face one air fore of the pump's own, the pipe proud of it by less than its wrap. The
@@ -1411,6 +1413,16 @@ def cap_conduit_station(name):
 corner_slot_x = (-137.0, -106.0)
 corner_slot_z = (129.45, 148.55)
 corner_slot_depth = 2.4
+
+# THE HOPPER DRAIN'S BERTH. The union hangs on the funnel's spout between the folded deck's
+# crossbar barrels and this core's front face, and the barrels ride
+# `manifold_layout.BARB_STANDOFF` aft — the drain follows (`hopper_funnel.neck_dy`), and the
+# top lid's fore edge is what gives: set back `drain_berth_depth` over the drain's column, in
+# the cap's own frame like `cap_side_anchors`. `water-3`'s crossing steps into the same
+# corner (`_lines.CROSS_DODGE_Y`). `pack-closes` and `clearance-floor` read the placed union
+# and the drawn run against the built core, so a berth outgrown reads red on the card.
+drain_berth_span = (-15.0, 15.0)     # cap Y, symmetric over the spout's column
+drain_berth_depth = 1.6              # off the lid's fore edge, at +X in the cap's frame
 
 
 def corner_boss_slots():
