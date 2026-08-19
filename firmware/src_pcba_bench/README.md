@@ -39,7 +39,8 @@ pio device monitor -e pcba_bench
 Naming the port matters whenever a 4.3B is also on USB: PlatformIO picks the S3
 otherwise, and esptool leaves that panel dark until it is reflashed.
 
-At boot it prints the command list, scans WiFi, and starts the continuity probe; then it idles as a console (`ACT` blinks as the heartbeat, and lights
+At boot it plays `demo` — the buzzer's whole range, about 17 s, any key skips it — then
+prints the command list, scans WiFi, and starts the continuity probe; then it idles as a console (`ACT` blinks as the heartbeat, and lights
 solid while a command runs). The first keystroke leaves the probe and calls the roll —
 press Enter once to reach a `>` prompt. Type `help` for the list:
 
@@ -56,7 +57,9 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `pumpmsg` | Sends the display's own `MSG_PUMP_RUN` frame back at it |
 | `watch` | Audible continuity probe — touch a connector pin to its GND and hold until it beeps |
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
-| `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain (audible) |
+| `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain carries (audible) |
+| `demo` / `ladder` / `duty` / `palette` | What that chain can be made to sound like — below |
+| `tone` / `sweep` | One note, or one slide, at a named pitch and duty |
 | `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
 | `pump` | Run a peristaltic pump on J13 through a DRV8870 (audible) |
 | `all` | The whole sweep |
@@ -67,6 +70,31 @@ board's own buzzer at one pitch per net, so probing needs no screen and no timin
 hold until it sounds. A contact has to hold 40 ms to register, and the serial log names
 whichever net answered. GPIO34–39 carry no internal pull-up, so IO35 idles low and answers to
 a 3V3 pin rather than a GND one, and IO34 stays out of the table.
+
+## What U8 can sound like
+
+`buzz` answers whether the chain carries. The four commands below answer what it carries,
+which is the question a machine's alarms, acks and refusals get designed against. `demo`
+plays all of it and is what boot plays.
+
+U8 is an MLT-5020 passive magnetic transducer — a coil pulling on a ferrous diaphragm, with
+no amplitude input of its own — and Q1 switches its low side hard, so the coil sees 5 V or it
+sees nothing. Every sound the board can make is made out of *when* that switch closes:
+
+- **Pitch is free.** LEDC puts any frequency on IO13. Loudness is not flat across it: the
+  diaphragm is a resonator, loudest at its mechanical peak and falling away either side.
+  `ladder` walks 150 Hz → 8 kHz at one fixed duty, so the loudest rung is the resonance
+  heard rather than trusted.
+- **Volume is duty cycle, and only duty cycle.** The diaphragm follows the fundamental of
+  the pulse train, whose amplitude goes as `sin(pi*d)` — so 50 % is the loudest a note gets,
+  5 % lands ~16 dB under it, 2 % ~24 dB under, and anything above 50 % mirrors what is below.
+  `duty [hz]` steps one held pitch from 1 % to 50 % and prints the dB against that ceiling.
+  It is a real range but not a clean one: the narrower the pulse the thinner it sounds, and
+  far enough down it stops being a note and becomes a click.
+- **Shape is whatever those two can be walked into** — decay envelopes, slides, trills,
+  tremolo. `palette` plays seven: tick, ack, chime, refuse, chirp, tremolo, alarm.
+
+One coil on one LEDC channel is one voice. No chords, and no waveform but square.
 
 ## Actuator outputs
 
