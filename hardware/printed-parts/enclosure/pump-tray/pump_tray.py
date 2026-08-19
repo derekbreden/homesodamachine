@@ -12,9 +12,10 @@ takes the boss on each of its eight faces and both its ledges; and the shoulder 
 leaves lands on the boss's crown and wraps ITS top edge. The can rises out of the tower's own
 bore and the tray never touches it.
 
-It is `enclosure-front-top`'s own material, fused the way the tap-water trough, the meter's
-saddles and the valve panels are: `enclosure._pump_trays` stands one per pump, off the stations
-`enclosure_assembly.pump_tray_stations` reads off the placed pumps. NO TRAY SHIPS AS A PART.
+It is the pump cartridge's own material (`enclosure.build_cartridge`), fused onto its deck the
+way the tap-water trough and the meter's saddles are fused onto their walls, one per pump off
+the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the
+face's own pump relief. NO TRAY SHIPS AS A PART.
 
     ACROSS  the case's own footprint, carried out to the straps' channels and one `MARGIN`
             past each
@@ -41,8 +42,8 @@ turns it onto a pump and fuses it. The frame is the pump's, as `kamoer_kphm400` 
   X = across the tray. Y = along it, and `root` is the way it runs to the wall.
   Origin is the pump's own axis on that face.
 
-Printed ceiling-down the plate goes on the bed first and everything above it — ramp, bore wall,
-shoulder — grows off its underside, so the only face that hangs is the plate's own.
+Printed face-down in the cartridge the deck stands as a wall off the face, and the ramp, bore
+wall and shoulder grow off the plate's own section — nothing of the tray hangs.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py
@@ -347,7 +348,7 @@ def selftest() -> int:
 
 def main():
     trays = trays_of_machine()
-    print(f"Pump tray — {len(trays)} stood in enclosure-front-top: {', '.join(sorted(trays))}")
+    print(f"Pump tray — {len(trays)} stood on the pump cartridge: {', '.join(sorted(trays))}")
     total, loop, storey = 0.0, 0.0, (0.0, 0.0)
     for name, root in sorted(trays.items()):
         solid = build_pump_tray(root).val()

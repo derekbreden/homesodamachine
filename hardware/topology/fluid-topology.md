@@ -41,7 +41,7 @@ No junction is carried by anything: none of them seats on a body, so each hangs 
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each sits on a barb, taken by its BRANCH, at the hinge — so its RUN lies across the pump head's face and IS the outboard half of a limb, with a valve on each end. Y-C and Y-F take suction, Y-D and Y-G discharge.
+**Y-C, Y-D, Y-F and Y-G are the PUMP-BARB junctions.** Each takes its barb by its BRANCH across the collet plate's berth — a short tube over the barb, through the steel, into the collet, the joint that releases when the pump cartridge is pulled — so its RUN lies across the pump head's face and IS the outboard half of a limb, with a valve on each end. Y-C and Y-F take suction, Y-D and Y-G discharge.
 
 Y-A's and Y-B's run ports are numbered from the source end down the limb. On a barb tee the branch takes the number nearest the barb it drops onto — Y-C-3 and Y-F-3 at the two suctions, Y-D-1 and Y-G-1 at the two discharges.
 
@@ -79,8 +79,8 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | Across the hinge — one 180° hairpin on the A1 limb's column |
 | 10 | V-E-O | Y-C-2 | Butted |
-| 11 | Y-C-3 | P-A-I | The tee's branch on the pump's suction barb |
-| 12 | P-A-O | Y-D-1 | The tee's branch on the pump's discharge barb |
+| 11 | Y-C-3 | P-A-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
+| 12 | P-A-O | Y-D-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
 | 13 | Y-D-2 | V-F-I | Butted |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | Up the `reservoir-a` cap conduit, off the bulkhead at the bottom of the wet V |
@@ -93,8 +93,8 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | Across the hinge — one 180° hairpin on the B1 limb's column |
 | 20 | V-H-O | Y-F-2 | Butted |
-| 21 | Y-F-3 | P-B-I | The tee's branch on the pump's suction barb |
-| 22 | P-B-O | Y-G-1 | The tee's branch on the pump's discharge barb |
+| 21 | Y-F-3 | P-B-I | The barb tube: over the suction barb, through the collet plate, into the tee's branch — the cartridge's release joint |
+| 22 | P-B-O | Y-G-1 | The barb tube: over the discharge barb, through the collet plate, into the tee's branch |
 | 23 | Y-G-3 | V-I-I | Butted |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | Up the `reservoir-b` cap conduit, off the bulkhead at the bottom of the wet V |

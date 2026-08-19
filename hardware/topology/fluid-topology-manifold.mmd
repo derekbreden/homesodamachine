@@ -11,11 +11,11 @@ flowchart LR
   %% edge against the built segment — an edge whose two ends are not that segment's two ends fails
   %% the gate.
 
-  %% [26](SEGMENT_COUNT) flavor segments. [11](BUTT_COUNT) are collet butted to collet and carry
+  %% [26](SEGMENT_COUNT) flavor segments. [7](BUTT_COUNT) are collet butted to collet and carry
   %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
   %% hinge's four hairpins and the source pair's two quarter-and-step turns. What is cut comes to
-  %% [2471.5 mm](FLUID_TOTAL) of 1/4" LLDPE over [49](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [445.5 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% [2709.9 mm](FLUID_TOTAL) of 1/4" LLDPE over [50](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [441.5 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
   %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The hopper's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
@@ -119,9 +119,9 @@ flowchart LR
   %% the run and 14 mm across it, toward the cold core's crown.
   Split -->|"fluid-1<br/>46.9 mm"| FlowReg
   FlowReg -->|"fluid-2<br/>157.9 mm"| VA
-  VA -->|"fluid-3<br/>52.9 mm"| YA
-  Hopper -->|"fluid-4<br/>290.1 mm"| VB
-  VB -->|"fluid-5<br/>52.8 mm"| YB
+  VA -->|"fluid-3<br/>176.8 mm"| YA
+  Hopper -->|"fluid-4<br/>294.2 mm"| VB
+  VB -->|"fluid-5<br/>177.0 mm"| YB
   YA <-->|"fluid-6<br/>butt"| YB
   YA -->|"fluid-7<br/>butt"| VC
   YB -->|"fluid-8<br/>butt"| VD
@@ -135,13 +135,13 @@ flowchart LR
   %% and a quarter back. Everything else along the limbs is butted.
   VC -->|"fluid-9<br/>75.4 mm"| YC
   VE -->|"fluid-10<br/>butt"| YC
-  YC -->|"fluid-11<br/>butt"| PA
-  PA -->|"fluid-12<br/>butt"| YD
+  YC -->|"fluid-11<br/>5.7 mm"| PA
+  PA -->|"fluid-12<br/>5.7 mm"| YD
   YD -->|"fluid-13<br/>butt"| VF
-  VF -->|"fluid-14<br/>369.5 mm"| ResAFill
-  ResA -->|"fluid-16<br/>123.2 mm"| VE
+  VF -->|"fluid-14<br/>363.3 mm"| ResAFill
+  ResA -->|"fluid-16<br/>116.7 mm"| VE
   YD -->|"fluid-17<br/>75.4 mm"| VG
-  VG -->|"fluid-18<br/>445.5 mm"| BhA
+  VG -->|"fluid-18<br/>441.5 mm"| BhA
 
   %% =========================
   %% Channel B — fluid-19 … fluid-28
@@ -151,13 +151,13 @@ flowchart LR
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19<br/>75.4 mm"| YF
   VH -->|"fluid-20<br/>butt"| YF
-  YF -->|"fluid-21<br/>butt"| PB
-  PB -->|"fluid-22<br/>butt"| YG
+  YF -->|"fluid-21<br/>5.7 mm"| PB
+  PB -->|"fluid-22<br/>5.7 mm"| YG
   YG -->|"fluid-23<br/>butt"| VI
-  VI -->|"fluid-24<br/>180.8 mm"| ResBFill
-  ResB -->|"fluid-26<br/>123.2 mm"| VH
+  VI -->|"fluid-24<br/>174.1 mm"| ResBFill
+  ResB -->|"fluid-26<br/>116.7 mm"| VH
   YG -->|"fluid-27<br/>75.4 mm"| VJ
-  VJ -->|"fluid-28<br/>327.1 mm"| BhB
+  VJ -->|"fluid-28<br/>320.4 mm"| BhB
 
   %% =========================
   %% V-K's own two runs — the carbonator circuit, through this bay
@@ -165,7 +165,7 @@ flowchart LR
   %% V-K gates the carbonator fill off the same split fluid-1 leaves. It stands on the cold core's
   %% crown, east of the SeaFlo, and water-3 is the one run in the assembly that crosses the whole
   %% machine — the split is in the west lane, V-K is on the east, and its inlet faces forward.
-  Split -->|"water-3<br/>253.8 mm"| VK
+  Split -->|"water-3<br/>254.9 mm"| VK
   %% V-K's outlet and the suction chain's collet meet face to face, so what joins them
   %% is the tube inside each grip and nothing between. There is no `water-4`.
   VK --> SuctChain

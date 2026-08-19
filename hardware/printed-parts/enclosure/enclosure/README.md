@@ -54,16 +54,18 @@ height carries the lip and the collars together. The cold core spans the seam in
 columns.
 
 The plane stands where the seam's own machinery fits the pack: the seam ring's foot
-over the condenser's fin crown, the rim under the forward valve panel's wall-to-wall span
-(`z-seam-under-deck` — a plate roots on a wall only above the rim; its foot runs
-below, inset on the lip's own face), and the rim
-crossing the pump heads' band on the air the pack stands them off the lip's face
-(`enclosure_assembly.PACK_Y`, `pumps-pass-lip`). `main()` prints each seam, how it
-landed, and the band the bed allowed it.
+over the condenser's fin crown, and the rim under the forward valve panel's
+wall-to-wall span (`z-seam-under-deck` — a plate roots on a wall only above the rim;
+its foot runs below, inset on the lip's own face). The ring's front segment across
+the flat span is the bay's (`_front_flat_lip_drop`): above the sill the flat front
+is cartridge face, and the pump heads ride behind that face's own reliefs
+(`pumps-in-bay`), not past a lip. `main()` prints each seam, how it landed, and the
+band the bed allowed it.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
-`enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
-`enclosure.step` — the four as separate solids in assembled position, seams
+`enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`), the
+`enclosure-pump-cartridge` that slides out of the front pair, and
+`enclosure.step` — all of them as separate solids in assembled position, seams
 intact (mirrors `faucet/touch-flo-shell`).
 
 ## Seams + bosses
@@ -113,9 +115,12 @@ one sandwich, the shank shear-locking them in Y and Z at the point. Its cap stan
 (`_cold_core_interface.corner_boss_slots`, read live by `corner-slot-lands`).
 
 Bottom↔top, per column: the same joint rotated 90°, at `enclosure.z_seam` — the
-bottom pieces carry a 3-sided lip + socket collars, the top pieces carry the pins,
-more X-axis screws crossing each seam. The front pair joins, the back pair joins,
-then the front assembly telescopes into the back as one.
+bottom pieces carry the lip + socket collars, the top pieces carry the pins,
+more X-axis screws crossing each seam. Front-bottom's lip runs its side walls
+whole and gives its front-flat span to the bay (`_front_flat_lip_drop`): the front
+Z-joint there is the corner columns' pillar telescopes and the washed sill butt.
+The front pair joins, the back pair joins, then the front assembly telescopes into
+the back as one.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
 the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
@@ -506,9 +511,47 @@ loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
 itself, and `check_tube_seated` reads the three run anchors the same way.
 
+## The pump cartridge and its bay
+
+**The pumps slide out of the front of the box.** The front wall's whole flat span —
+corner column to corner column, sill to lintel — and the tray storey that hangs both
+pumps come out of front-top as one printed piece, the **pump cartridge**
+(`build_cartridge`): the face, the deck, both trays, both pumps, riding two wall
+ledges at the deck's own storey (`_bay_rails`). Nothing latches it. The four barb
+tubes gripped in the anchor tees' branch collets are the retention, and the **collet
+plate** is the release: a waterjet flat of 1/8" 304
+(`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
+fore of the four collets in two slotted wall pockets (`_plate_pockets`), four holes
+passing the tubes and nothing wider. Pull the cartridge and the gripped tubes drag
+the tees forward until each collet's nose lands on the steel — the body keeps coming,
+the nose is held, the grip opens, and the tubes draw out through the holes they
+entered by. Push it home and the tubes thread back into the same collets, the deck's
+stop pads landing on the plate's own fore face, the tees braced by the valves their
+runs butt into, each of those in a panel seat. One hand pulls, the other braces the
+box; the box carries the brace to the steel through the pockets.
+
+The **bay** is the opening all that leaves through (`_bay_cut`): jamb to jamb between
+the corner columns' cusps, the sill washed fore so what runs down the face drains out
+(`_sill_wash`), the lintel over it carrying the facet and the display on a stated
+ligament (`bay-under-display`). Front-bottom's front lip drops across the whole flat
+span (`_front_flat_lip_drop`) — the front Z-joint is the corner columns' own pillar
+telescopes and the sill butt — and the front wall below keeps its single `front_wall`
+section from slab to sill. The face rides its opening on stated air, `bay_face_slip`
+at the jambs and `face_reveal` at the sill and lintel; the motor cans crown the
+opening's height (`pump_bay`, struck off the placed cans).
+
+**The front wall is `front_wall` thick — a face a user hauls on — and grows inward,**
+the exterior and the facet standing where the appliance's stated depth put them. What
+noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
+pocket across the refrigeration bay, floored where the compressor's kiss, the
+condenser's rails and the fuse's air already were, and one pocket per pump in the
+cartridge's face, floored where the tray's own wrap rule puts its root
+(`pump_relief_floor`). `box-front` reads every placed body against the relieved
+surface, region by region.
+
 ## Pump trays
 
-The front wall carries one per Kamoer (`_pump_trays`, off
+The cartridge's deck carries one per Kamoer (rooted on the pump reliefs' floor, off
 `enclosure_assembly.pump_tray_stations`), and it is **the two-piece pump case with its
 cylinder cut off**. `pump-tray/pump_case.py` draws that case; its base is a
 plate on the head's crown, a 45° ramp off the plate, an octagon bore wall standing in
@@ -543,21 +586,17 @@ off the lip they reach under. Unlike every other cavity on this box the channels
 **cut**, because there is no pair of end walls in a plate for a channel to be the gap
 between.
 
-**A tray is a cantilever off the front wall and nothing else, so `_tray_webs` closes
-what it leaves.** One web to each side wall, one between the two trays, and one aft
-onto the valve panel standing behind them — each the trays' own plate thick and in that
-plate's own band, so the storey comes out **one plate wall to wall** rather than two
-tongues in air. None of the four is a typed span: the three across are the remainder
-between the interior faces and the flanks the trays already have, and the aft one reads
-the panel's own near face, taking the nearest panel plate that crosses this band and
-leaving the aft deck's to its own storey. That near face is the plate's own — the valve
-panels carry their seats **sunk**, so nothing stands off one for a web to run into
-([`../valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)).
+**A tray is a cantilever off the cartridge's face, and `_tray_webs`' own boxes close
+the deck.** One web between the two trays and the across-runs to the deck's edges —
+each the trays' own plate thick and in that plate's own band, cropped to the jambs'
+sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
+ledges. The webs to the side walls and the aft web onto a panel are not drawn here:
+the walls keep the ledges instead, and the deck's aft edge stops two millimetres
+short of the collet plate with the stop pads carrying the last of it.
 
-Printed ceiling-down the plate goes on the bed first and everything over it — ramp,
-bore wall, shoulder — grows off its underside, so the only face that hangs is the
-plate's own. It is a soffit over the lane its pump hangs in and takes print support,
-the way the tap-water trough's block does.
+Printed face-down the outer skin goes on the bed first, the deck stands as a wall
+off the face's inner surface, and every pocket rises as a plateau's absence —
+nothing on the cartridge hangs.
 `enclosure_assembly.check_trays_hold` reads each pump against the tray on it.
 
 ## Display housing

@@ -611,10 +611,26 @@ def lip_face_x():
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
 rear_plane_y = 464.0
-# And the interior FRONT PLANE, holding the other end, with the 45° facet and its display
-# hanging on it and `box-front` reading the pack against it. Every millimetre aft carries
-# `housing_back_y` aft too, so what it spends is `hopper_front_ledge`.
-front_plane_y = 8.0
+# And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
+# the face a user hauls the pump cartridge out by, so it carries section the way the facet
+# does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
+# and the interior face stands here. What noses into the section gets a RELIEF, 45°-chamfered
+# like every pocket on this box (`front_reliefs`): the refrigeration stratum keeps the face it
+# was packed against, and each pump tray roots on a pocket floor struck by its own wrap rule.
+# `box-front` reads the pack against the relieved surface, region by region, not one plane.
+front_wall = 9.0
+front_plane_y = 14.0
+# The refrigeration stratum's relief: one stated pocket across the compressor, condenser and
+# fuse bay, floored where those bodies' packed faces already are — the compressor keeps its
+# stated kiss, the condenser its rails, the fuse its air. Stated as (x0, x1, z0, z1, floor).
+fridge_relief = (-78.0, 102.0, -1.0, 148.0, 11.0)
+# And each pump's relief in the cartridge face, floored where the tray's own wrap rule wants
+# its root: `pump_tray` demands root ≥ head_half + MARGIN off the pump's axis, and the floor
+# is what the root is struck to. The face over a pump keeps this floor less the exterior
+# plane (`front_plane_y − front_wall`) of section, which is the thinnest the user-facing
+# surface gets anywhere.
+pump_relief_floor = 8.9
+relief_chamfer = 45.0        # every relief ceiling rises at this angle to the mouth
 
 # Where the box splits front from back, and where both columns split bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
@@ -627,9 +643,10 @@ y_seam = 200.0
 # The bottom↔top seam: ONE plane, both Y columns — the seam line runs level round the box
 # and the four pieces meet at a four-way corner on each side wall. The plane stands where
 # its own machinery fits the pack: the seam ring's foot over the condenser's fin
-# crown (`z-seam-front-lane`), the rim under the forward valve panel's plate
-# (`z-seam-under-deck`), and the rim crossing the pump heads' band on the air the pack
-# stands them off the lip's face (`pumps-pass-lip`, `enclosure_assembly.PACK_Y`).
+# crown (`z-seam-front-lane`) and the rim under the forward valve panel's plate
+# (`z-seam-under-deck`). Across the bay the ring's front segment is the sill's
+# (`_front_flat_lip_drop`), and the pumps ride behind the cartridge face's own reliefs
+# (`pumps-in-bay`, `enclosure_assembly.PACK_Y`).
 z_seam = 160.0
 
 # A seam landing in an open band keeps this much air off every body in its own column,
@@ -657,6 +674,39 @@ corner_screw_len = 12.0      # M3×12 SHCS — the corner's own length
 # receives (`_cold_core_interface.corner_boss_slots`, `corner-slot-lands`).
 corner_boss_in = head_cbore_depth + corner_screw_len + socket_cap - wall
 corner_core_reach = corner_boss_in - boss_in
+
+# --- THE PUMP BAY AND ITS CARTRIDGE ------------------------------------------
+#
+# THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's whole flat span — corner
+# column to corner column — and the tray storey that hangs the pumps come out of front-top
+# as one piece, the PUMP CARTRIDGE: the face, the deck, both trays, both pumps. It rides two
+# wall ledges at the deck's own storey and nothing latches it: the four barb tubes gripped
+# in the anchor tees' branch collets are the retention, and the collet plate
+# (`enclosure_assembly.build_collet_plate`) is the release — pull the cartridge and the tees
+# come with it until their collets press the plate, the tubes come free, and the pumps are
+# in your hand. Pushing it home threads the four tubes back through the plate's holes into
+# the same collets, the deck's stop pads landing on the plate's own face.
+#
+# The BAY is the opening all that leaves through: the flat front wall between the corner
+# columns' along-wall edges, from the Z-seam mouth up past the motor cans' crowns. The
+# columns are the jambs; front-bottom's wall top is the sill, washed fore so what runs down
+# the face runs out; the wall over the bay is the lintel, carrying the facet and the display.
+# Front-bottom's front lip drops across the whole flat span — above the sill the flat front
+# is cartridge, so the front Z-joint is the corner columns' own pillar telescopes and the
+# sill butt, and the wall keeps its single `front_wall` section from slab to sill.
+bay_jamb_slip = 0.5          # bay edge off each corner column's along-wall edge
+bay_crown_air = 1.7          # bay top over the tallest motor can's crown
+bay_face_slip = 1.0          # cartridge face into the bay, per side
+face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
+sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
+cart_deck_slip = 1.0         # deck edge inside each jamb, the sweep's own air
+rail_t = 4.2                 # a bay ledge's section under its bearing face
+rail_slip = 0.2              # deck underside onto the ledge's bearing face
+rail_bear = 3.0              # how far a ledge reaches under the deck's edge
+pad_kiss = 0.1               # stop pad air off the collet plate's fore face at full seat
+plate_slot_slip = 0.2        # per-side air round the collet plate in its wall pockets
+plate_pocket_reach = 8.0     # a plate pocket's boss, proud of its side wall
+plate_pocket_hover = 0.5     # the boss's wall arris over the Z-seam lip's rim beneath it
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from:
@@ -731,11 +781,20 @@ corner_core_reach = corner_boss_in - boss_in
 #                 height it does have. A body hung on a wall answers to the boss that holds it
 #                 and to whatever the pack packed it against, and by the time one reaches a
 #                 corner both of those are already spent.
+#   collet_plate  the steel plate the barb tubes release against, as the dict
+#                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
+#                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
+#                 per hole. The walls pocket its ends (`_plate_pockets`) and the cartridge's
+#                 stop pads land on its fore face
+#   pump_bay      the cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
+#                 jamb between the corner columns' cusps, topped over the motor cans' crowns.
+#                 None when the pack stands no pumps
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
            "cond_mount asse_cradle digiten_saddles tube_anchors port_field nameplate "
-           "valve_panels pump_trays core_stops core_holds vent_chase column_reliefs")
+           "valve_panels pump_trays core_stops core_holds vent_chase column_reliefs "
+           "collet_plate pump_bay")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
 # A pack that does not carry a subsystem yet carries no stations for it, and the wall
@@ -746,9 +805,9 @@ Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "asse_cradle digiten_saddles tube_anchors port_field nameplate valve_panels "
-            "pump_trays core_stops core_holds vent_chase")
+            "pump_trays core_stops core_holds vent_chase collet_plate")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
-                             (), (), (), (), None, (), (), (), (), ())
+                             (), (), (), (), None, (), (), (), (), (), None)
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -1269,6 +1328,14 @@ def _lip_denied(placed, inner, y_span):
     cy0, cy1 = y_span
     ring = _lip_band(inner, (iz0, iz1)).intersect(
         _ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
+    # The front flat span carries no lip at any height — it is the bay's, and the pieces
+    # drop it (`_front_flat_lip_drop`) — so the ring measured here is the ring the box
+    # builds. Gated the way the bay itself is: on the pack standing pumps.
+    if any(n.startswith("pump-") and n.endswith("-motor") for n in placed):
+        bx0, bx1 = bay_x_span(inner)
+        ring = ring.cut(_ybox(bx0 - bay_jamb_slip, bx1 + bay_jamb_slip,
+                              inner[2] - 0.1, inner[2] + wall + 0.1,
+                              iz0 - 1.0, iz1 + 1.0))
     out = []
     for solid, _c in placed.values():
         hit = ring.intersect(solid)
@@ -1410,24 +1477,29 @@ def _dims(pack):
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
             f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
             f"repack inboard"])))
-    # The FRONT wall is the stated `front_plane_y`, and what the pack owes it is one
-    # `front_seam_clear`: the seam's lip carries into the cavity there, and a lip missing a
-    # side is a butt joint over the box's most visible run. A body mounted on the front wall
-    # seats on the plane this opens.
+    # The FRONT wall is the stated `front_plane_y` with its stated reliefs, and the pack is
+    # read against the RELIEVED surface, body by body: a body whose footprint stands wholly
+    # inside a relief answers to that relief's floor, and every other body to the plane
+    # itself. The compressor's reading is its stated kiss on the refrigeration bay's floor.
     #
     # The BACK wall is the stated `rear_plane_y`, for the same reason the ceiling is the
     # stated `appliance_height`: depth is a bound, not a consequence. Taken off the pack it
     # would follow whichever body reached furthest back, and anything seated on this plane
     # would follow that body too, holding every clearance between the two constant.
-    front_need = cymin - interior_clearance - front_seam_clear
+    regions = _front_relief_regions(pack.pump_trays)
+    front_rows = sorted(
+        (b.ymin - _front_floor(regions, b), name)
+        for name, b in zip(placed.keys(), bbs))
+    front_ok = front_rows[0][0] >= -stated_bound_tol
     record_bound(Bound(
-        "box-front", "The pack stands behind the appliance's stated front plane",
-        front_need >= iy0 - stated_bound_tol,
-        f"pack reaches y {front_need:.2f}, front wall at {iy0:.2f}",
-        f"behind `front_plane_y` {front_plane_y:g}",
-        ([] if front_need >= iy0 - stated_bound_tol else [
-            f"the pack reaches y {front_need:.2f} but the front wall stands at {iy0:.2f} — "
-            f"{iy0 - front_need:.2f} mm over. Lower `front_plane_y` or repack aft"])))
+        "box-front", "The pack stands behind the front wall's relieved surface",
+        front_ok,
+        f"least air {front_rows[0][0]:.2f} mm, at {front_rows[0][1]}",
+        f"on or behind the wall's own surface, plane {front_plane_y:g} and its reliefs",
+        ([] if front_ok else [
+            f"{name} stands {-air:.2f} mm inside the front wall's surface — deepen its "
+            f"relief in `_front_relief_regions`, or repack it aft"
+            for air, name in front_rows if air < -stated_bound_tol])))
     rear_need = cymax + interior_clearance + rear_seam_clear
     record_bound(Bound(
         "box-depth", "The pack stands inside the appliance's stated depth",
@@ -1473,7 +1545,7 @@ def _dims(pack):
             f"{iz1:.2f} — {need - iz1:.2f} mm over. Raise `appliance_height` or repack "
             f"downward"])))
     ox0, ox1 = ix0 - wall, ix1 + wall
-    oy0, oy1 = iy0 - wall, iy1 + wall
+    oy0, oy1 = iy0 - front_wall, iy1 + wall
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
@@ -1529,6 +1601,10 @@ def _dims(pack):
                            (splits[1], (y_joint, iy1 + 1.0))):
         band = _lip_underwall(inner, y_joint, zj).intersect(
             _ybox(ix0 - 1.0, ix1 + 1.0, cy0, cy1, iz0 - 1.0, iz1 + 1.0))
+        if zj == splits[0] and pack.pump_trays:
+            # The front flat's skin goes to the bay (`_front_flat_lip_drop`), so the band
+            # read here is the band the pieces build.
+            band = band.cut(_front_flat_lip_drop(inner, zj))
         for sx, sy in column_corners:
             band = band.cut(_column_pillar(inner, sx, sy, splits[0] if sy < 0 else splits[1]))
         for name, (solid, _c) in placed.items():
@@ -1574,6 +1650,13 @@ def _dims(pack):
                     b.ymax + (0.0 if sy > 0 else column_relief_slip),
                     b.zmin - column_relief_slip, b.zmax + column_relief_slip)))
 
+    # THE PUMP BAY: the flat front span between the corner columns' cusps, topped one
+    # `bay_crown_air` over the tallest motor can's crown — what the cartridge leaves
+    # through, struck off the placed cans the way every station is struck off its body.
+    bx0, bx1 = bay_x_span(inner)
+    crowns = [b.zmax for name, b in zip(placed.keys(), bbs)
+              if name.startswith("pump-") and name.endswith("-motor")]
+    pump_bay = (bx0, bx1, max(crowns) + bay_crown_air) if crowns else None
     return Box(inner, outer, y_joint, splits,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
@@ -1581,7 +1664,7 @@ def _dims(pack):
                pack.cond_mount, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.nameplate,
                pack.valve_panels, pack.pump_trays, pack.core_stops, pack.core_holds,
-               pack.vent_chase, tuple(reliefs))
+               pack.vent_chase, tuple(reliefs), pack.collet_plate, pump_bay)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -2526,11 +2609,210 @@ def _corner_cuts(x_in, x_ext, sx):
     return bore.fuse(heat).fuse(chan)
 
 
+# --- the pump bay's own machinery -------------------------------------------
+
+def bay_x_span(inner):
+    """The bay's two jambs: the flat front wall between the corner columns' along-wall
+    cusps, one `bay_jamb_slip` inside each. The columns ARE the jambs — nothing of the
+    front wall's flat span survives outside the cartridge's face."""
+    return (inner[0] + _column_along() + bay_jamb_slip,
+            inner[1] - _column_along() - bay_jamb_slip)
+
+
+def _soffit_c(outer):
+    """The display housing's soffit as the constant of its own 45° plane, z = y + c —
+    the facet's back plane, `display_facet_thickness` behind the face along its normal."""
+    _a, _n, origin, _dy, _dz = _facet_geom(outer)
+    return (origin[2] - origin[1]) - display_facet_thickness * math.sqrt(2.0)
+
+
+def _front_relief_regions(pump_trays):
+    """Every region the front wall's section is relieved over, as (x0, x1, z0, z1, floor):
+    the stated refrigeration bay, and one pocket per pump struck off its own tray station —
+    across, the tray's own half-width and a slip; in height, the head's hang under the
+    station to the tray's crown over it; floored on `pump_relief_floor`, the plane the
+    tray's root is struck to."""
+    regions = [fridge_relief]
+    for cx, _cy, cz in pump_trays:
+        hw = _tray.half_width() + 1.0
+        regions.append((cx - hw, cx + hw, cz - _tray.head_depth - 1.0,
+                        cz + _tray.depth() + 1.0, pump_relief_floor))
+    return regions
+
+
+def _front_relief_cuts(inner, pump_trays):
+    """The relief pockets cut out of the front wall: a box to each region's floor, its
+    ceiling rising at `relief_chamfer` to the mouth so the pocket prints in a standing
+    wall with no flat over it."""
+    iy0 = inner[2]
+    cuts = []
+    for x0, x1, z0, z1, floor in _front_relief_regions(pump_trays):
+        depth = iy0 - floor
+        cuts.append(_ybox(x0, x1, floor, iy0 + 1.0, z0, z1))
+        cuts.append(_yz_prism(x0, x1, [(floor, z1), (iy0 + 1.0, z1 + depth + 1.0),
+                                       (iy0 + 1.0, z1)]))
+    return cuts
+
+
+def _front_floor(regions, b):
+    """The front-wall surface one placed body faces: the deepest relief whose region holds
+    its whole (x, z) footprint, or the interior plane itself."""
+    floors = [front_plane_y]
+    for x0, x1, z0, z1, floor in regions:
+        if (b.xmin >= x0 - 1e-6 and b.xmax <= x1 + 1e-6
+                and b.zmin >= z0 - 1e-6 and b.zmax <= z1 + 1e-6):
+            floors.append(floor)
+    return min(floors)
+
+
+def _front_flat_lip_drop(inner, zj):
+    """The front wall's share of the Z lip and its underwall skin, given up across the bay.
+
+    Above the sill the flat front is cartridge face; below it the wall is one `front_wall`
+    section, slab to sill. The corner columns keep their wraps — the front Z-joint is their
+    pillar telescopes and the sill butt."""
+    bx0, bx1 = bay_x_span(inner)
+    return _ybox(bx0 - bay_jamb_slip, bx1 + bay_jamb_slip,
+                 inner[2] - 0.1, inner[2] + wall + 0.1,
+                 inner[4] - 1.0, zj + lip_len + 1.0)
+
+
+def _sill_wash(inner, outer, zj):
+    """The sill's top face cut falling `sill_wash` toward the exterior, across the bay —
+    the reveal's drain. What runs down the face and gets past the reveal lands on this
+    slope and runs back out the front."""
+    bx0, bx1 = bay_x_span(inner)
+    return _yz_prism(bx0 - bay_jamb_slip, bx1 + bay_jamb_slip,
+                     [(outer[2] - 0.1, zj - sill_wash), (outer[2] - 0.1, zj + 0.001),
+                      (inner[2] + 0.1, zj + 0.001)])
+
+
+def _bay_cut(inner, outer, bay):
+    """The bay's opening through front-top: the flat wall band jamb to jamb from the seam
+    mouth to the bay top, and the soffit wedge's share where the facet slab leans into the
+    cans' path above the cavity ceiling line."""
+    bx0, bx1, top = bay
+    c = _soffit_c(outer)
+    wall_box = _ybox(bx0, bx1, outer[2] - 1.0, inner[2] + 0.5, z_seam, top)
+    wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
+                      inner[2] + c - 1.5, top)
+    return wall_box.fuse(wedge_box)
+
+
+def _cartridge_face_region(inner, outer, bay):
+    """The bay region the cartridge's face keeps: the same two boxes one slip and one
+    reveal smaller, so the face rides its opening on stated air."""
+    bx0, bx1, top = bay
+    fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
+    z0, z1 = z_seam + face_reveal, top - face_reveal
+    c = _soffit_c(outer)
+    return (_ybox(fx0, fx1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
+            .fuse(_ybox(fx0, fx1, inner[2] + 0.4, z1 - c + 1.5, inner[2] + c - 1.5, z1)))
+
+
+def _bay_rails(inner, bay, tray_z, plate):
+    """The two wall ledges the cartridge's deck rides, and the 45° webs that carry them.
+
+    Each bearing face stands one `rail_slip` under the deck's own plate and reaches
+    `rail_bear` under its edge; the web falls at 45° from the ledge's outer arris to the
+    wall, so the ledge prints on the wall it loads. They run from just aft of the face's
+    inner surface to just fore of the collet plate's pockets."""
+    bx0, bx1, _top = bay
+    y0, y1 = front_plane_y + 0.7, plate["fore_y"] - 4.4
+    bear_top = tray_z - rail_slip
+    out = []
+    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+        edge = (bx0 if sx > 0 else bx1) + sx * cart_deck_slip   # the deck's own edge
+        tip = edge + sx * rail_bear                             # `rail_bear` under the deck
+        reach = abs(x_in - tip)
+        ledge = _ybox(min(x_in, tip), max(x_in, tip), y0, y1,
+                      bear_top - rail_t, bear_top)
+        web = _xz_prism(y0, y1, [(tip, bear_top - rail_t),
+                                 (x_in, bear_top - rail_t),
+                                 (x_in, bear_top - rail_t - reach)])
+        out.append(ledge.fuse(web))
+    return out
+
+
+def _plate_pockets(inner, plate):
+    """The two wall pockets the collet plate drops into: a boss proud of each side wall,
+    slotted for the plate's end, open at the top. The fore wall of each slot is what the
+    collets press the plate back against; the wall behind the boss is what the user's own
+    aft brace loads.
+
+    The underside is one 45° face rising off the wall's arris — the boss prints on the
+    wall that loads it — and that arris hovers `plate_pocket_hover` over the Z-seam lip's
+    rim, the plane every front-top hanger on a side wall stands clear of."""
+    y0, y1, z0, z1 = plate["fore_y"], plate["aft_y"], plate["z0"], plate["z1"]
+    rim_hover = z_seam + lip_len + plate_pocket_hover
+    out = []
+    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+        face = x_in + sx * plate_pocket_reach
+        boss = _ybox(min(x_in, face), max(x_in, face), y0 - 4.0, y1 + 4.0,
+                     rim_hover, z1 + 0.5)
+        under = _xz_prism(y0 - 4.1, y1 + 4.1,
+                          [(x_in, rim_hover), (face, rim_hover),
+                           (face, rim_hover + plate_pocket_reach)])
+        slot = _ybox(min(x_in - sx * 0.1, face + sx * 0.1),
+                     max(x_in - sx * 0.1, face + sx * 0.1),
+                     y0 - plate_slot_slip, y1 + plate_slot_slip,
+                     z0 - plate_slot_slip, z1 + 1.0)
+        out.append(boss.cut(under).cut(slot))
+    return out
+
+
+def build_cartridge(box, halves_cache=None):
+    """THE PUMP CARTRIDGE: the bay's face and the tray deck behind it, one printed piece.
+
+    The face is the front half's own material inside `_cartridge_face_region` — the same
+    solid the bay cut removes from front-top, one slip smaller, pump reliefs and all — so
+    the opening and the thing that fills it come out of one figure. The deck is the two
+    pump trays rooted on the reliefs' floor, webbed across by `_tray_webs`' own boxes, and
+    cropped to the jambs' sweep air; its aft edge stops two millimetres short of the collet
+    plate and the stop pads carry the last of it, landing on the plate's own fore face at
+    `pad_kiss`. Printed face-down: the outer skin is the bed, the deck stands as a wall,
+    and every pocket rises as a plateau's absence with nothing hanging."""
+    inner, outer = box.inner, box.outer
+    bay, plate = box.pump_bay, box.collet_plate
+    if not bay or not plate:
+        raise ValueError("a pump cartridge wants a bay and a collet plate, and this box "
+                         "carries neither station — the pack has no pumps to pull")
+    if halves_cache is not None and "front" in halves_cache:
+        half = halves_cache["front"]
+    else:
+        half = build_front_half(box)
+        if halves_cache is not None:
+            halves_cache["front"] = half
+    solid = half.val().intersect(_cartridge_face_region(inner, outer, bay))
+    for cx, cy, cz in box.pump_trays:
+        tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
+        solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
+    solid = _tray_webs(solid, inner, box.pump_trays, (), 0.0, 1e4, -1e4, 1e4)
+    bx0, bx1, top = bay
+    dx0, dx1 = bx0 + cart_deck_slip, bx1 - cart_deck_slip
+    deck_aft = plate["fore_y"] - 2.0
+    keep = (_cartridge_face_region(inner, outer, bay)
+            .fuse(_ybox(dx0, dx1, outer[2], deck_aft, z_seam, top)))
+    solid = solid.intersect(keep)
+    tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
+    for sx in (+1.0, -1.0):
+        edge = dx1 if sx > 0 else dx0
+        pad = _ybox(min(edge, edge - sx * 10.0), max(edge, edge - sx * 10.0),
+                    deck_aft - 0.1, plate["fore_y"] - pad_kiss,
+                    tray_z, tray_z + _tray.PLATE)
+        solid = solid.fuse(pad)
+    return cq.Workplane(obj=solid)
+
+
 def build_front_half(box):
     """The whole front column, both pieces still joined at its Z seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
+    # The front wall's reliefs, out of the section before anything stands on it: the
+    # refrigeration bay and the pump pockets, each floored on its own stated plane.
+    for cutter in _front_relief_cuts(inner, box.pump_trays):
+        front = front.cut(cutter)
     front = front.fuse(_front_lip(inner, y_joint))
     # The floor's overlap: the front's aft upper-half floor tongue, lapping the
     # back half's slab within the slab (the core rides the cavity side, so the
@@ -2900,7 +3182,10 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
         half = cond_slot_half(fz1 - fz0)
-        solid = solid.fuse(_ybox(cx0, cx1, inner[2], face + cond_slot_grip,
+        # The rail roots on the refrigeration bay's own relieved floor — the wall surface
+        # actually behind the block (`fridge_relief`), which the front wall's section
+        # stands back from.
+        solid = solid.fuse(_ybox(cx0, cx1, fridge_relief[4], face + cond_slot_grip,
                                  root, fz1 + half + cond_rail_wall))
         # The groove runs out past the rail's own aft end, so the flange enters from the bay.
         solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, face, face + cond_slot_grip + 1.0,
@@ -3624,6 +3909,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # and not in air. Fused here with the lip and before every pocket, so a
         # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
+        if y_side == "front" and box.pump_bay:
+            # The front flat's share of both skins goes to the bay, and the sill drains.
+            piece = piece.cut(_front_flat_lip_drop(inner, zj))
+            piece = piece.cut(_sill_wash(inner, outer, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
@@ -3710,12 +3999,15 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
     piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
-    # And that manifold's two pump trays, on the piece that owns the band each plate lies in.
-    # After the panels, whose own plate stands one behind them on the same storey.
-    piece = _pump_trays(piece, inner, box.pump_trays, ylo, yhi, zlo, zhi)
-    # And the webs that tie those trays to the walls, to each other and aft onto the panel —
-    # after both, because what each one spans is the air the two left between them.
-    piece = _tray_webs(piece, inner, box.pump_trays, box.valve_panels, ylo, yhi, zlo, zhi)
+    # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
+    # them is the bay's own furniture — the ledges the deck rides and the pockets the
+    # collet plate drops into — and then the opening itself, cut last of the wall's work.
+    if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
+        tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
+        for ledge in _bay_rails(inner, box.pump_bay, tray_z, box.collet_plate):
+            piece = piece.fuse(ledge)
+        for pocket in _plate_pockets(inner, box.collet_plate):
+            piece = piece.fuse(pocket)
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
@@ -3723,6 +4015,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # top alone — the piece whose ceiling is nothing but those strips.
     if y_side == "front" and z_side == "top" and box.funnel:
         piece = _ceiling_corbels(piece, inner, outer, box.funnel, y_joint)
+    # The bay's opening, after every fuse that stands near it: what leaves through it is
+    # the cartridge, and what it takes from this piece is what `build_cartridge` keeps.
+    if y_side == "front" and z_side == "top" and box.pump_bay:
+        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay))
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
@@ -3807,8 +4103,9 @@ def _report_levels(box):
 
 
 def build_pieces(box):
-    """The four printable pieces of one box, and the assembly of them in place
-    with the seams intact — one box description in, four pieces out.
+    """The printable pieces of one box — the four quadrants and, when the pack stands
+    pumps, the cartridge that slides out of the front pair — and the assembly of them in
+    place with the seams intact.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
     runs — `_dims` states its own as it sizes the shells, `with_funnel` states the throat's as
@@ -3818,10 +4115,18 @@ def build_pieces(box):
     stated size, nor the code that cuts it, and a station moves only when the body carrying it
     does."""
     cache = {}
+
+    def _product(n):
+        if n == "pump-cartridge":
+            return build_cartridge(box, halves_cache=cache)
+        return build_piece(box, *n.split("-"), halves_cache=cache)
+
+    names = [n for n in PIECE_COLORS
+             if n != "pump-cartridge" or (box.pump_bay and box.collet_plate)]
     pieces = {name: _realized.realized(
                   _realized.key(__name__, box, name),
-                  lambda n=name: build_piece(box, *n.split("-"), halves_cache=cache))
-              for name in PIECE_COLORS}
+                  lambda n=name: _product(n))
+              for name in names}
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),

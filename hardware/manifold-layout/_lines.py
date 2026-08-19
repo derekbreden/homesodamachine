@@ -343,15 +343,27 @@ def _co2_1(F):
 #
 #     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
-# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the hopper union's ring,
-# the union hangs on the funnel's drain, and the drain stands on the collar's Y CENTRE — so this
-# crossing walks with `enclosure.funnel_front_y` and with nothing else. The display housing's
+# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the hopper union's ring
+# and the fall `fluid-4` drops off it; the union hangs on the funnel's drain, and the drain
+# stands `hopper_funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
+# `enclosure.funnel_front_y` and that offset, and with nothing else. The display housing's
 # back is its own stated cut (`enclosure.display_housing_back`), so the facet does not drag the
 # basin aft behind it.
 # The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
 # funnel, so the union is not there to measure against and this is a Y rather than a standoff.
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
 CROSS_Y = 176.5
+# THE DODGE ROUND THE DRAIN'S FALL. `fluid-4` drops one straight column off the spout, and that
+# column rides `hopper_funnel.neck_dy` aft with the folded deck's own standoff — so where the
+# crossing passes it, the lane steps aft into the cap lid's notched fore corner and comes back,
+# two shallow plan corners each way. Everywhere else the lane holds `CROSS_Y`: the reservoir
+# draws and `water-5` cross this storey on their own columns west of here, and the lane at
+# `CROSS_Y` is what clears them. The span is the fall's column and its air; the post that grips
+# this run stands in the dodge (`_cold_core_interface.cap_side_anchors["water-3"]`), so the
+# gate that refuses a post no leg passes through holds the pair together.
+CROSS_DODGE_Y = 180.0
+CROSS_DODGE_SPAN = (-6.5, 10.0)
+CROSS_DODGE_RAMP = 8.0
 # And how far UNDER V-K's own inlet plane it runs. The hopper's disconnect hangs on the spout's
 # column and its ring stands in the storey this run used to cross on, so the crossing drops
 # beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
@@ -443,17 +455,22 @@ def _water_3(F):
     split, vk = F["water-split"], F["vk-solenoid"]
     src, dst = split.at("to-vk"), vk.at("inlet")
     z = dst[2] - CROSS_DROP
+    dx0, dx1 = CROSS_DODGE_SPAN
     return R.bent(
         "water-3", "water-split.to-vk",
         (src[0], src[1], z - CROSS_RISE),   # the whole fall, on the branch's column, past the lane
         (CHANNEL_X, CHANNEL_ENTRY_Y, z - CROSS_RISE),  # west OUT of the lid's shadow, still low
         (CHANNEL_X, CROSS_Y, z),              # forward down the channel, rising onto the lane
-        (CROSS_LIFT_X, CROSS_Y, z),           # east along that lane, beneath the union's foot
+        (dx0 - CROSS_DODGE_RAMP, CROSS_Y, z),  # east along that lane, to the drain's column
+        (dx0, CROSS_DODGE_Y, z),               # aft into the lid's notched corner, round the fall
+        (dx1, CROSS_DODGE_Y, z),               # through the side post's own grip
+        (CROSS_LIFT_X, CROSS_Y, z),            # and back onto the lane
         (dst[0], CROSS_APPROACH_Y, dst[2]),  # one lean off the core, onto V-K's column and plane
         "vk-solenoid.inlet",
         kind="water", lead=(None, _ml.STUB),
         note="tap water: split branch → V-K inlet, down into the west channel, across the window "
-             "under the hopper's union, and up V-K's own column into the mouth")
+             "under the hopper's union — stepping aft round the drain's fall — and up V-K's own "
+             "column into the mouth")
 
 
 def _fluid_1(F):
@@ -753,7 +770,9 @@ def _fluid_2(F, solids):
 # leg is longer than the corners it stands between. What comes back up the slot has already
 # turned. `clearance-floor` reads the slot against the ring on one side and the quarter on the
 # other; `bend-radius` reads the legs.
-FLUID_4_FLOOR_Z = 228.0   # the storey the run crosses on, well under the union's foot
+FLUID_4_FLOOR_Z = 226.5   # the storey the run crosses on, well under the union's foot and a
+                          # full air under V-D's rounded aft-bottom corner, which the folded
+                          # deck's standoff carried into this leg's band
 # THE COLUMN IT CLIMBS, and it is west of V-B rather than on the mirror line. Everything the run
 # has to clear on the way aft is inboard of it — the source pair, both their coils, and the slot
 # between them — so holding this column the whole way costs the run nothing and leaves the pair's
@@ -763,6 +782,16 @@ FLUID_4_FLOOR_Z = 228.0   # the storey the run crosses on, well under the union'
 # reservoir B's draw is inboard of the column and its fill outboard, and the daylight between
 # them is where this stands. `clearance-floor` reads it against both.
 FLUID_4_LOOP_X = -60.0
+# THE COLUMN'S OWN Y, forward of the drain's. The riser crosses `water-3`'s storey on the way
+# up, and the crossing lane holds `CROSS_Y` at this x — so the column stands its tube-pair
+# distance fore of that lane, and the west leg leans onto it past the deck's own reach.
+FLUID_4_RISER_Y = 168.0
+# The west leg holds AFT of the drain's own column while it crosses the folded deck's span —
+# V-D's top port barrel reaches the leg's storey from the fore side — and leans fore onto the
+# riser's column only west of the deck. Where the lean begins, and the aft the leg holds to
+# get there.
+FLUID_4_LEAN_X = -40.0
+FLUID_4_MID_Y = 172.5
 # HOW FAR AFT OF V-B THE RUN COMES ABOUT. The lean onto the collet's column and the straight
 # into the collet meet SQUARE — one is across the machine and the other along it — so a square
 # corner spends its whole radius as tangent in each, and the straight it leaves is this figure
@@ -829,8 +858,9 @@ def _fluid_4(F, solids):
     return R.bent(
         "fluid-4", "hopper-drain-union.outlet",
         (drain[0], drain[1], FLUID_4_FLOOR_Z),                # down off the collet, past the union's foot
-        (FLUID_4_LOOP_X, drain[1], FLUID_4_FLOOR_Z),          # west along the core's bare face
-        (FLUID_4_LOOP_X, drain[1], lane),                     # up its own column, west of the pair
+        (FLUID_4_LEAN_X, FLUID_4_MID_Y, FLUID_4_FLOOR_Z),     # west along the core's bare face, aft of the deck
+        (FLUID_4_LOOP_X, FLUID_4_RISER_Y, FLUID_4_FLOOR_Z),   # and fore onto its own column, past the deck's reach
+        (FLUID_4_LOOP_X, FLUID_4_RISER_Y, lane),              # up that column, fore of the crossing's lane
         (FLUID_4_LOOP_X, turn, lane),                         # aft on that column, over reservoir B's fill
         (inlet[0], turn, inlet[2]),                           # one lean east and down onto the collet's column
         "valve-v-b.inlet",                                    # and forward into the mouth

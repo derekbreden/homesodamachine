@@ -248,6 +248,13 @@ MOUNTS = (
     ("hopper-drain-stub", None, "tube-clamp"),
     ("hopper-drain-clamp", None, "tube-clamp"),
     ("hopper-drain-union", None, "tube-hung"),
+    # THE ONE STEEL PIECE, DROPPED INTO TWO PRINTED POCKETS. The collet plate's ends stand in
+    # slotted bosses on front-top's side walls (`enclosure._plate_pockets`), open at the top,
+    # gravity down and the walls every other way. What loads it is the cartridge's own release:
+    # the four anchor-tee collets press its aft face as the cartridge is pulled, the pockets'
+    # fore walls carry that into the side walls, and the user's aft brace on the box closes the
+    # loop. It lifts out through the bay with the cartridge removed.
+    ("collet-plate", "enclosure-front-top", "well"),
     # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
     # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
     # four sides, drawn down by two DIN 912 M3s into ruthex inserts in the facet's own inset

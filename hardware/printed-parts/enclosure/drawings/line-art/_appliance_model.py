@@ -5,7 +5,7 @@ The appliance the enclosure iso drawings show: THE MACHINE'S OWN WALLS.
 carries, and cuts the printed pieces of the box around them. This module takes
 that one build and keeps what stands OUTSIDE the closed machine:
 
-- the [4](PIECE_N) printed pieces — front/back × bottom/top — carrying the 45°
+- the [5](PIECE_N) printed pieces — front/back × bottom/top — carrying the 45°
   display facet let into the top-front arris and the funnel throat cut through
   the top wall,
 - the funnel standing in that throat and the display let into that facet,
