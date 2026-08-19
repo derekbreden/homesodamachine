@@ -977,7 +977,7 @@
    "label": "The cartridge's stop pads land on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "73.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "127.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "pad on the plate's fore face and `pad_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true

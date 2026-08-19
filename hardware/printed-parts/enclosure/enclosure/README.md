@@ -361,8 +361,8 @@ opening the trough's whole length, and the support in it draws out end to end.
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
 no face under it to hang and no support in it to pick out. It is a solid slab across the
-whole front storey, and everything in that storey grows from it: both deck rails stand
-full height on it, and the collet plate's foot sits in a blind seat sunk in its top.
+whole front storey: the cartridge slides across it, and the collet plate's foot sits in a
+blind seat sunk in its top.
 
 ## Tap-water cradle
 
@@ -524,7 +524,7 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 column to corner column, sill to lintel — a **return** down each flank, and the storey
 both pumps stand in come out of front-top as the **pump cartridge**
 (`build_cartridge`): the face, the two returns, the block behind them, both trays and
-both pumps, riding two rails that stand on the bay's floor (`_bay_rails`).
+both pumps, riding the bay's own floor.
 
 **It is a block, and it parts on the pump's own bracket plane.** What the bay leaves
 between the face and the collet plate is filled — sparse infill under a printed skin —
@@ -554,7 +554,7 @@ brace to the steel through the floor.
 **The deck's aft edge stops two millimetres short of the steel and the stop pads carry
 the last of it.** A pad hangs off the deck's own plate down over the plate's fore face,
 lapping it by [6 mm](PAD_LAND) and standing `pad_kiss` off it at full seat, in the lane
-between its own pump's head and the rail the deck rides — the one band on that plane
+between its own pump's head and the deck's own edge — the one band on that plane
 where neither the box nor the pump stands. `pads-stop-on-plate` reads the area against
 the steel and the kiss against the cartridge: a stop that does not touch what it stops
 is not a stop, and nothing but the anchor tees would limit how far the cartridge pushed
@@ -593,7 +593,7 @@ reliefs floor on, one millimetre under the heads, and the floor's top is that pl
 **A channel down each side passes the Z seam** (`_z_seam_berth`). Front-bottom's side
 lip runs the wall's whole length and stands proud of this floor to the rim, and the
 front column's socket collars stand proud of that again, so the floor gives up one
-`wall` at each flank and one pocket per collar. The rails' outboard feet are notched
+`wall` at each flank and one pocket per collar. The floor's outboard edges are notched
 on the same solid and reach the wall whole above the rim. Nothing about the telescope
 moves.
 
