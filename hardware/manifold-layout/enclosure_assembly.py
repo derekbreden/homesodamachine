@@ -1456,41 +1456,6 @@ def check_stop_pads(pieces, spec) -> Bound:
              f"the steel, not on it"] if bite > 1e-6 else []))))
 
 
-def check_flank_grips(pieces, shell) -> Bound:
-    """Whether a hand fits the flank grips — the lane behind each return, which is what a
-    finger reaching through the opening turns into.
-
-    The return is the side wall's own section and carries no depth of its own: the corner
-    columns stand full section in the cartridge's withdrawal path, so the reach is the box's
-    to keep. What it has to keep clear is the band from `interior_x` in to the columns' own
-    cusp, over the grip's whole opening, in BOTH pieces — front-top's rails and the
-    cartridge's own deck are what would close it."""
-    ft, cart = pieces["front-top"], pieces["pump-cartridge"]
-    ft = ft.val() if hasattr(ft, "val") else ft
-    cart = cart.val() if hasattr(cart, "val") else cart
-    tray_z = min(cz for _cx, _cy, cz in shell.pump_trays)
-    rows = []
-    for grip in _enc._flank_grip(shell.inner, tray_z, shell.collet_plate):
-        g = box(grip)
-        x_in = _enc.interior_x()[0 if g.xmax < 0 else 1]
-        cusp = x_in + (1.0 if x_in < 0 else -1.0) * _enc._column_along()
-        lane = _enc._ybox(min(x_in, cusp), max(x_in, cusp), g.ymin, g.ymax, g.zmin, g.zmax)
-        shut = lane.intersect(ft).Volume() + lane.intersect(cart).Volume()
-        rows.append((f"x {x_in:+.1f}", shut))
-    worst = max(v for _n, v in rows)
-    ok = worst <= 1e-6
-    reach = _enc.wall + _enc._column_along()
-    return record_bound(Bound(
-        "grip-reaches-cusp", "The lane behind each flank grip is open to the columns' cusp",
-        ok,
-        f"{reach:g} mm of reach off the exterior side face, most shut {worst:.1f} mm³",
-        f"the band from `interior_x` in one `_column_along` clear behind the whole opening",
-        ([] if ok else
-         [f"{n}: {v:.1f} mm³ standing in it" for n, v in rows if v > 1e-6]
-         + ["a grip struck through a one-`wall` return is only as deep as the lane behind "
-            "it. Move the grip's own band, or clear what stands in this one"])))
-
-
 def check_head_sweep(solids: dict, pieces) -> Bound:
     """Whether each pump head can leave through the front of the box.
 
@@ -5787,7 +5752,6 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the cartridge's own two joints with what it leaves against: the stop pads on the
     # steel, and the hand-holds struck through its flank returns.
     check_stop_pads(pieces, box.collet_plate)
-    check_flank_grips(pieces, box)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)

@@ -560,43 +560,24 @@ the steel and the kiss against the cartridge: a stop that does not touch what it
 is not a stop, and nothing but the anchor tees would limit how far the cartridge pushed
 home.
 
-## The flank returns and the grips
+## The flank openings
 
-**Above the Z-seam rim the bay turns both corners** (`_flank_bay`). Outboard of each
-jamb it takes the front wall's own corner to the exterior arris, and from there each
-**side wall's one-`wall` skin** aft to the collet plate. The cartridge's face turns aft
-with it, so the machine's flanks carry a panel and a reveal and the panel is the
-cartridge — the same stated air as the front, `bay_face_slip` at the aft edge and
-`face_reveal` at sill and lintel.
+**Both flanks open across the cartridge's own storey** (`_flank_opening`), and the corner
+posts are the only thing left standing in them. A column here is the whole of the box's
+corner — the side wall's own section, the front wall's, and the quarter-round between
+them, one post. So the opening does not begin at the exterior: it begins where that post's
+arc lands on the side wall's inner face, [12 mm](COLUMN_ALONG) aft of `front_plane_y`, and
+runs from there to the collet plate.
 
-**The jambs turn the corner and keep going.** Across the front the opening stops where
-a corner column's quarter-round lands on the front wall's inner face — `_column_along`'s
-own fence, the one `bay_x_span` reads, [12 mm](COLUMN_ALONG) in from the interior corner
-and [15 mm](GRIP_REACH) in from the exterior side face. Along a flank it stops where the same
-quarter-round lands on the side wall's inner face, which is `interior_x`. Each bound is a
-column's own landing, so **the fore columns stand in this opening at full section**,
-printed as part of front-top, and nothing in the opening has to dodge one.
+**Its floor is the Z-seam rim.** Front-top's side wall under that plane is the outer
+register front-bottom's lip telescopes into, so the opening begins where the lip ends and
+the Z seam keeps its whole lip. The flat span's sill runs one `lip_len` lower because the
+pump heads leave under it, and the two meet in a step at the post.
 
-**Its sill is the rim and not the floor's top.** Front-top's side wall over the lip's own
-band is the outer register that telescope closes on, so the flank opening begins where
-the lip ends and the Z seam keeps its whole lip. The flat span's sill runs one `lip_len`
-lower because the pump heads leave under it, and the two meet in a step at the jamb.
-
-**A return is the side wall's own section and no more.** Those columns stand full section
-in the cartridge's own withdrawal path — the quarter-disc spans `interior_x` in to the
-cusp over the first [12 mm](COLUMN_ALONG) of the flank, at every height — so nothing of
-this piece may reach inboard of `interior_x` on a flank and still slide out past them.
-
-**So the depth a hand needs is the box's to keep, not the panel's to carry.** The grip is
-struck through each return (`_flank_grip`), its fore edge on the column's own fence and
-its foot on the deck rails' bearing face — the two planes that bound the lane front-top
-leaves open behind the return, clear from `interior_x` in to the columns' cusp. A finger
-through the opening turns behind the panel, reaches [15 mm](GRIP_REACH) in from the
-exterior side face,
-and pulls on the return's own fore wall. `grip-reaches-cusp` reads that lane clear in both
-pieces over the grip's whole opening. The grip serves the first pull, which breaks four
-collets against a braced box; past that the cartridge stands proud of the machine and is
-its own handle.
+**The cartridge stays between the jambs.** It is the flat span and what stands behind it,
+out to `bay_x_span` and no further at any height. The posts stand in this piece's own
+withdrawal path, so nothing of it reaches their x, and the front of the box outboard of
+the bay is theirs.
 
 ## The bay floor
 
