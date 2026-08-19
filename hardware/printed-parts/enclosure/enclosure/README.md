@@ -570,7 +570,9 @@ stops there, and the tube draws out of it. What gives over that millimetre and a
 the tube stub itself, flexing inside the two collets that hold it — the valve standing on
 the far end of that stub never moves, and no valve is read here. Its sibling
 `check_insertion_backing` reads the other direction, where a tube pushed into a branch
-collet drives its tee aft and the step in the wall's bore is what stops it.
+collet drives its tee aft and the step in the wall's bore is what stops it. **That the stub bends is stated and not
+derived** — no body in this model has any compliance in it, so no bound reaches that premise;
+`check_release_travel`'s docstring is where it is marked and why.
 
 **What lands on the steel is the cap's own aft face.** The cap's whole storey stands
 under the plate's top, so the face it presents to the steel is the piece's own — nothing
