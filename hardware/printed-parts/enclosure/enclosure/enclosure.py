@@ -2011,10 +2011,11 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
     wall-rooted on one side and open over the opening on the other.
 
     The corbel runs the housing's back plane to the Y-seam furniture's fore face, and a
-    second, shallower one carries the lip's ceiling tongue: it roots on the ceiling
-    collar's own chain-deep face — the column the collar's web already carries — and
-    rides with the tongue into the mouth it telescopes into. The collar band itself
-    (chain-deep at the wall) is the collar's own D, fill and web."""
+    second one carries the lip's ceiling tongue, struck one `wall` lower on the tongue's
+    own underside: it roots on the ceiling collar's own chain-deep face — the column the
+    collar's web already carries — and rides with the tongue into the mouth it
+    telescopes into. The collar band itself (chain-deep at the wall) is the collar's own
+    D, fill and web."""
     cx, _cy = centre
     hole_x0, hole_x1 = cx - _funnel.collar_w / 2.0, cx + _funnel.collar_w / 2.0
     iz1 = inner[5]
@@ -2026,9 +2027,10 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
                                      [(hole_x, iz1), (wall_x, iz1),
                                       (wall_x, iz1 - deep)]))
         chain = wall_x - (boss_in if wall_x > 0 else -boss_in)
+        tz = iz1 - wall
         solid = solid.fuse(_xz_prism(yb - socket_r, y_joint + lip_len,
-                                     [(hole_x, iz1), (chain, iz1),
-                                      (chain, iz1 - abs(chain - hole_x))]))
+                                     [(hole_x, tz), (chain, tz),
+                                      (chain, tz - abs(chain - hole_x))]))
     return solid
 
 
