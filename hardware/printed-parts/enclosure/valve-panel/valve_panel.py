@@ -135,13 +135,28 @@ def setback() -> float:
     return _ea.PLATE_REST_GAP + _jgu.COLLET_TRAVEL
 
 
+def extrusion() -> float:
+    """The width of one bead of this plate, which is what a web is read against.
+
+    A WEB IS WIDE OR IT IS NOTHING, and the figure that decides which is the nozzle, not zero.
+    Taken from `enclosure_assembly.EXTRUSION_W` — the same constant `panel-web` holds `web()`
+    against — so the doc and the bound cannot come to differ about what one bead is."""
+    sys.path.insert(0, str(_hw / "manifold-layout"))
+    import enclosure_assembly as _ea                            # noqa: PLC0415
+    return _ea.EXTRUSION_W
+
+
 def web(travel: float = 0.0) -> float:
     """The plate left between a corner socket and the port channel, MEASURED.
 
     The two features run at right angles — the sockets down the valve's own axis, the channel
-    across the plate on its Y — and they close on each other from both ends on a deck that
-    travels: the socket's floor sinks by the stroke and `build_port_channel`'s sweep drags the
-    channel along the same stroke. Neither alone does it.
+    across the plate on its Y — and on a deck that travels it is the SWEEP that closes them,
+    alone. A socket's inner edge stands `corner_inset - socket_radius` off the centreline and
+    the channel's rest circle `port_radius + PORT_SLIP`, a tenth of a millimetre apart if they
+    ever met at one height; the rest circle's widest station is above the sockets' mouths and
+    never does. Sinking the floor moves a socket DOWN its own axis, away from that station, and
+    costs nothing. Sweeping drags the station down into the sockets' band, which is why the
+    swept stretch carries `SWEEP_SLIP` and not `PORT_SLIP`.
 
     NOT ARITHMETIC. The closest approach of the two axes lies above the socket's own top, so a
     figure struck off the radii answers for a cylinder that is not there. This reads the solids.
@@ -368,7 +383,10 @@ def main():
     _setback = setback()
     print(f"  the travelling deck's plate stands {_setback:.3f} mm off its valves; a post is "
           f"{grip(_setback):.3f} mm in the plate at rest of {_seat.seat_top_z:g} mm")
-    print(f"  socket to port channel: {web():.4f} mm standing, {web(_setback):.4f} mm travelling")
+    _ext = extrusion()
+    print(f"  socket to port channel: {web():.4f} mm standing, {web(_setback):.4f} mm travelling"
+          f" — {100.0 * web() / _ext:.0f}% and {100.0 * web(_setback) / _ext:.0f}% of a "
+          f"{_ext:g} bead")
 
     substitute_md(
         _here.parent / "README.md",
@@ -397,6 +415,11 @@ def main():
             "PANEL_SOCKET_LONG": f"{_seat.socket_depth() + _setback:.3f}",
             "PANEL_WEB": f"{web():.3f}",
             "PANEL_WEB_TRAVEL": f"{web(_setback):.3f}",
+            "PANEL_SWEEP_SLIP": f"{SWEEP_SLIP:g}",
+            "PANEL_PORT_SLIP": f"{PORT_SLIP:g}",
+            "PANEL_EXTRUSION": f"{_ext:g}",
+            "PANEL_WEB_PCT": f"{100.0 * web() / _ext:.0f}",
+            "PANEL_WEB_TRAVEL_PCT": f"{100.0 * web(_setback) / _ext:.0f}",
         },
     )
     print("-> README.md")
