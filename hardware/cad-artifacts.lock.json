@@ -2,19 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-2127d8bf4b32db7f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2127d8bf4b32db7f.tar.gz"
+    "asset": "cad-f4d83173d76e7daa.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f4d83173d76e7daa.tar.gz"
   },
   "bundle": {
-    "sha256": "2127d8bf4b32db7fd9dcbb481976799dc718f7361e8c950c127c67719531d79b",
-    "bytes": 28043478,
+    "sha256": "f4d83173d76e7daab52f9d875de1a74354a103c25f0a383eddbb4ec4f5d3a3e1",
+    "bytes": 28029586,
     "solids": 100
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "16f7a93bd006104b23d9a2ad01b7a6da2c103eb9f36ea451004279f7bb44df9a",
-    "hardware/manifold-layout/enclosure-assembly.step": "9a110f7627d01b896b9b79292d35dc05b12a6e39a2ad97d43e0c895466341d1c",
+    "hardware/manifold-layout/enclosure-assembly.step": "9e8caa2ad026a79a818f71dc0f030b9ac59b2be3b3a08405c1c578f8d869c9a5",
     "hardware/manifold-layout/manifold-layout.step": "15c1f52733f0db31a4d6f654eff690037838435ece7a13afef888b74c62df83e",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "3930047b04cd73bcf0df827cd6d82312084a72f70cc439615899635198865e23",
@@ -46,9 +46,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "99ee3d14df7e0351301efc2a79640ec105b1fc5e6939d0a5fd97b1181f9629a4",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a1d9480c01f749e41c8eb3c4f54597f820692f906a36da334f145e81f6d0f115",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e8da0f072195420aecc11e7d88e041570f283b069f9df43f1bd36e4220c5aec4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "efff6e1539f9c5cd75d7c151441cb64ea8a48564e4581e500eeedcc8cfa46a97",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "d85842b38724c5b3404929fda90cf1f62782d6a624d79fb954baa57ec7f92592",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cb4e842b39f70a6b73a844f40d6151f327ec5a8fbd1ae232c46a4c03a2290cc3",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "985687b0b7759b9c1e65d05096b339436c6b642b12d5f0c17656c40cefb5a265",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "ab951793391e010903b169d02f61a06ef58f60e68da7d009d75ad5118319b385",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
@@ -92,7 +92,7 @@
     "hardware/reference/jg-pp0408w/jg-pp0408w.step": "8eaac5629d83c934a1a0a8fa7c04ccadb055cad91594f6a455a75860d96da012",
     "hardware/reference/jg-pp061208w/jg-pp061208w.step": "d4a12cacdf1fc6ac55b5c75e8ce4cf6bf0c431f58e3d7e428c959608e4e5867e",
     "hardware/reference/jg-pp451223w/jg-pp451223w.step": "989374c283ac692fc3012a92715fa13ba84f5c014a19e547007e1fef206a50bb",
-    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "7c6707c210efe5c6843d0c1cb6f82d05e9d67128a78afa4e16e5b7944adf19c8",
+    "hardware/reference/kamoer-kphm400/kamoer-kphm400.step": "e85464f8811ad8eb6a76d8018e31f9b6d3655835aaee28872ef9eef6582e158f",
     "hardware/reference/meanwell-irm90/meanwell-irm90.step": "e928899b83055e2497f020cbbb2adc7c07f494d68243bd02ecfb2c69bc7a21a6",
     "hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step": "86e59e5017c27c2446590329892233b82a0a50a2acccd3ddfa8b739b74a3e3d4",
     "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "ca7b8f69506947f6c551b6aa251caca9ccac33d220c18b0e53c995bc0a14cfe1",
