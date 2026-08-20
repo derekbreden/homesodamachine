@@ -617,6 +617,18 @@ def interior_x():
     return (-(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall)
 
 
+def front_top_flank_face():
+    """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where
+    every other piece's is one `wall` in.
+
+    NOTHING OUTSIDE THAT PIECE READS THIS. `interior_x` is still the box's interior, and the
+    bodies, the seams and the other three pieces are all struck on it; this is the plane
+    front-top's own flank furniture stands on and the plane its openings are cut to."""
+    ix0, ix1 = interior_x()
+    grown = front_top_flank_t - wall
+    return (ix0 + grown, ix1 - grown)
+
+
 def lip_face_x():
     """The ±X interior faces BELOW a Z seam, one `wall` inboard of `interior_x`.
 
@@ -653,6 +665,33 @@ fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
 # surface gets anywhere.
 pump_relief_floor = 8.9
 relief_chamfer = 45.0        # every relief ceiling rises at this angle to the mouth
+
+# --- front-top's own ±X section ----------------------------------------------
+#
+# THE ONE WALL ON THIS BOX THAT IS NOT `wall`, and the only piece that carries it. front-top is
+# the piece a hand works: the cartridge is hauled out through its face, both its flanks are cut
+# away over that cartridge's whole storey (`_flank_opening`), and what is left stands 195 mm tall
+# on a seam rim it prints mouth-down on. A 3 mm skin either side of that opening is the section
+# holding the two ends of the piece together.
+#
+# IT IS TAKEN INWARD, and that is the whole of why nothing else on this box moves. The exterior
+# is `appliance_width`, the silhouette a counter appliance is judged by, and it stands where it
+# stands; `interior_x` is the plane every other piece and every seated body reads, and it stands
+# where it stands too. What moves is this one piece's own inner face, and only this piece knows
+# about it (`front_top_flank_face`).
+#
+# WHAT IT OWES, IT OWES TO THINGS THAT WERE ALREADY THERE: the Z-seam lip rises into this flank
+# and keeps its own `wall` of it, the collet plate lifts straight up through it and keeps its
+# lane, the openings are cut to the face this leaves rather than the one it replaced, and the
+# Wago wells bore through it to bottom on `interior_x` exactly where they bottomed before — so
+# a lever nut sits where it sat and simply has more wall behind it.
+front_top_flank_t = 9.0
+# And its one relief. `tube-water-3` runs down the −X flank inside the section this adds, so the
+# wall gives that run its lane back over a stated band and keeps the rest. Floored on
+# `lip_face_x` — the plane this box already states one `wall` inboard of `interior_x` — which
+# leaves 6 mm of wall standing there and clears the tube by better than a millimetre. Stated as
+# (y0, y1, z0, z1); the roof rises at `relief_chamfer` to the mouth, like every pocket here.
+front_top_flank_relief = (180.0, 215.0, 248.0, 266.0)
 
 # Where the box splits front from back, and where both columns split bottom from
 # top. Both are STATED planes: which pieces the box comes apart into is a decision
@@ -2032,6 +2071,17 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     air. Cut back at 45° it is a ramp the wall reaches under instead — the relief every hanging
     face on this box gets.
 
+    AND SO IS THE POCKET'S OWN CEILING, for the same reason and by the same figure. The pocket is
+    the plate's whole SILHOUETTE and not just its outline: the plate's back edge is chamfered
+    `plate.bevel` at 45° and the pocket answers it, its floor that much in from the outline all
+    round and opening out to full size at 45°. Cut square, a pocket one `plate.thick` deep hangs
+    that whole depth of flat ceiling off its head. Ramped, it hangs `plate.thick - plate.bevel`
+    of rim and no more — this is `_front_relief_cuts`' bargain, a ceiling rising at
+    `relief_chamfer` to the mouth, taken as far as an inlay can take it. It stops short of the
+    mouth where that one runs past it, because THE RIM HAS TO STAY SQUARE: a 45° opening at the
+    face would read as a V-groove round the plate instead of the flush inlay this face is. What
+    is left hanging is narrower than the square pocket hung before the plate ever thickened.
+
     WHAT IS LEFT STANDING IS THE STEM ALONE. The plateau carries the first `nameplate.floor_under`
     of the depth an insert's bore wants and the boss stands for the rest, round the insert and no
     wider. There is no collar and no web: a collar closes a pad pocket and there is no pad, and a
@@ -2060,7 +2110,11 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     for dx, dz in plate.screws:
         sx, sz = plate.x + dx, plate.z + dz
         solid = solid.fuse(_ycyl(plate.stem_d / 2.0, sx, sz, y_pad - plate.reach, y_pad))
-    solid = solid.cut(_rect_cut_y(plate.x, plate.z, pw, ph, pr, floor, y_outer + 1.0))
+    mouth = (cq.Workplane("XY").rect(pw, ph).extrude(plate.thick + 1.0)
+             .edges("|Z").fillet(pr).faces("<Z").chamfer(plate.bevel).val()
+             .rotate((0, 0, 0), (1, 0, 0), -90.0)
+             .translate(cq.Vector(plate.x, floor, plate.z)))
+    solid = solid.cut(mouth)
     for dx, dz in plate.screws:
         sx, sz = plate.x + dx, plate.z + dz
         solid = solid.cut(_ycyl(plate.bore_d / 2.0, sx, sz, floor - plate.bore_depth, floor))
@@ -2945,6 +2999,11 @@ def _flank_opening(inner, y_aft, z0, z1):
     """Front-top's ±X faces, open across the cartridge's own storey — and THE CORNER COLUMNS
     ARE THE ONLY THING LEFT IN THEM.
 
+    IT IS CUT TO THE FACE THIS PIECE ACTUALLY LEAVES and not to `interior_x`: front-top's
+    flanks carry `front_top_flank_t` (`front_top_flank_face`), so an opening struck on the
+    box's own interior plane would stop on air and leave the section this piece added standing
+    across the storey it is meant to open.
+
     A column here is the whole of the box's corner post: the side wall's own section, the
     front wall's, and the quarter-round between them. So the opening does not begin at the
     exterior — it begins where that post's arc lands on the side wall's inner face, one
@@ -2963,12 +3022,88 @@ def _flank_opening(inner, y_aft, z0, z1):
     not close; between the two planes stands the cap, and cutting THAT would open the seam's
     cavity to the storey it is meant to be shut off from."""
     out = None
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
+    fx0, fx1 = front_top_flank_face()
+    for x_in, x_face, sx in ((inner[0], fx0, +1.0), (inner[1], fx1, -1.0)):
         x_out = x_in - sx * (wall + 1.0)
-        box = _ybox(min(x_in, x_out), max(x_in, x_out),
+        box = _ybox(min(x_face, x_out), max(x_face, x_out),
                     inner[2] + _column_along(), y_aft, z0, z1)
         out = box if out is None else out.fuse(box)
     return out
+
+
+def _front_top_flanks(inner, outer, box, y_joint, zj):
+    """THE SECTION FRONT-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
+    (`front_top_flank_t`). Fused before any of this piece's flank furniture, so a well, a
+    panel or a port cut afterwards is cut out of the whole of it.
+
+    IT STOPS ONE `wall` SHORT UNDER THE RIM. Front-bottom's Z-seam tongue rises into this
+    flank over `lip_len` and the space it rises into is the `wall` inboard of `interior_x` —
+    so under the rim this takes what is left inboard of the tongue and not the tongue's own
+    lane. That holds whether the lip stands over a run or is given up on it
+    (`_flank_lip_drop`): the telescope is never asked about, it is simply left its room.
+
+    AND THE COLLET PLATE KEEPS ITS LANE. The steel lifts straight up through the bay with the
+    cartridge out, so what it needs is not its own seat but the column over it — its footprint
+    carried to the ceiling. That is `PLATE_T` of depth out of this section and nothing else,
+    which is why the plate is not a figure this reads: it is a lane cut through it."""
+    ix0, ix1, _iy0, _iy1, _iz0, iz1 = inner
+    fx0, fx1 = front_top_flank_face()
+    plate = box.collet_plate
+    y0, y1 = outer[2] - 1.0, y_joint + lip_len
+    rim = zj + lip_len
+    band = None
+    for x_in, x_face, sx in ((ix0, fx0, +1.0), (ix1, fx1, -1.0)):
+        lip_in = x_in + sx * wall
+        seg = _ybox(min(x_in, x_face), max(x_in, x_face), y0, y1, rim, iz1)
+        seg = seg.fuse(_ybox(min(lip_in, x_face), max(lip_in, x_face), y0, y1, zj, rim))
+        band = seg if band is None else band.fuse(seg)
+    # The steel's own column, floor to ceiling — its lane out of the machine.
+    band = band.cut(_ybox(ix0 - 1.0, ix1 + 1.0, plate["fore_y"], plate["aft_y"],
+                          plate["z0"] - 1.0, iz1 + 1.0))
+    # AND THE REST OF WHAT COMES UP OUT OF FRONT-BOTTOM. The tongue is not the only thing
+    # standing proud into this piece: the Z seam's pods and the four-corner's pedestal both
+    # root on the lip's own face and reach inboard PAST it, `boss_in` and `corner_boss_in`
+    # deep, which is further in than this section stands. They are given their room the same
+    # way the tongue is — struck out of it, rather than reasoned about.
+    for x_in, x_ext, sx, ys, col in _z_stations(inner, y_joint):
+        if col == "front":
+            band = band.cut(_z_pod(x_in, x_ext, sx, ys, inner, zj))
+    for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
+        band = band.cut(_corner_socket(x_in, x_in - sx * wall, sx))
+    # Everything this piece's own walls were already bored for, struck out before the section
+    # is fused rather than re-cut after it: the Y seam's bosses and the four-corner's, whose
+    # cuts were made in `build_front_half`, and the panel holes through both faces.
+    yb = _y_boss(y_joint)
+    for x_in, x_ext, sx, z_boss in _bosses(inner, y_joint):
+        band = band.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
+    for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
+        x_ext = x_in - sx * wall
+        band = band.cut(_corner_cuts(x_in, x_ext, sx))
+        band = band.cut(_screw_cut(x_ext, sx, z_seam, yb, corner_screw_len))
+    for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
+        band = band.cut(cutter)
+    for cutter in _x_port_cuts(box.east_ports, fx1 - 5.0, outer[1] + 5.0):
+        band = band.cut(cutter)
+    for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
+        band = band.cut(cutter)
+    return band.cut(_front_top_flank_relief_cut())
+
+
+def _front_top_flank_relief_cut():
+    """The −X flank's one relief, floored on `lip_face_x` with its roof rising at
+    `relief_chamfer` to the mouth.
+
+    THE ROOF IS THE ONLY FACE THAT NEEDS THE ANGLE. front-top prints mouth-down on its seam
+    rim, so it builds in +Z: the pocket's floor is printed on, its two ends are vertical, and
+    what would otherwise be laid over air is the run at `z1`. The ramp takes that back to the
+    mouth over its own depth, so nothing in it is flat over a hole."""
+    y0, y1, z0, z1 = front_top_flank_relief
+    face = front_top_flank_face()[0]
+    floor = lip_face_x()[0]
+    depth = abs(face - floor)
+    box_ = _ybox(min(face, floor), max(face, floor), y0, y1, z0, z1 - depth)
+    ramp = _xz_prism(y0, y1, [(face, z1 - depth), (floor, z1 - depth), (face, z1)])
+    return box_.fuse(ramp)
 
 
 def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
@@ -4634,6 +4769,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
+        # FRONT-TOP'S OWN ±X SECTION, first of everything this piece does to its flanks. The
+        # wells, the panels and every bore below are struck on `interior_x` and cut AFTER this,
+        # so each one is cut out of the whole section rather than out of the skin it replaced —
+        # which is what leaves a lever nut bottoming exactly where it bottomed before.
+        if y_side == "front" and box.collet_plate:
+            piece = piece.fuse(_front_top_flanks(inner, outer, box, y_joint, zj))
         for _x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
         for _x_in, x_ext, sx, ys, _c in stations:
@@ -4978,6 +5119,8 @@ def main():
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
+        # The one wall on this box that is not `wall`, and the piece that carries it.
+        "FRONT_TOP_FLANK": f"{front_top_flank_t:.4g} mm",
         # The Y-seam ladder as the walls came out — per wall, and one figure when they agree.
         "Y_LEVELS": "/".join(str(c) for c in sorted({
             sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.y_joint)

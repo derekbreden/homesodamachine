@@ -143,6 +143,11 @@ def main():
         # 45°-chamfered relief instead, which is why the doc quotes the nominal here and
         # `box-front` reads the pack against the relieved surface region by region.
         "FRONT_WALL": f"{_enc.front_wall:.4g} mm",
+        # And front-top's own ±X section, the only wall on this box that is neither `wall` nor
+        # the front face. It grows INWARD off `interior_x` — the exterior is the stated
+        # silhouette and every other piece and seated body reads the interior plane — so this
+        # is a figure about ONE piece and not about the box.
+        "FRONT_TOP_FLANK": f"{_enc.front_top_flank_t:.4g} mm",
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
