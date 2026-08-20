@@ -5,7 +5,7 @@ What the pieces have actually been printed in, and at what settings:
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [227 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
+It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a

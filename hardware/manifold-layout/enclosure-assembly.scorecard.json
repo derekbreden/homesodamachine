@@ -1,21 +1,21 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
    "label": "the printed box, outside face to outside face",
    "min": [
-    -113.5,
+    -107.5,
     5.0,
     -3.0
    ],
    "max": [
-    113.5,
+    107.5,
     472.25,
     355.0
    ],
    "mm": [
-    227.0,
+    215.0,
     467.25,
     358.0
    ]
@@ -29,12 +29,12 @@
     -3.0
    ],
    "max": [
-    113.5,
+    107.5,
     531.891,
     358.0
    ],
    "mm": [
-    227.0,
+    221.0,
     526.891,
     361.0
    ]
@@ -73,10 +73,12 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "nameplate \u2229 enclosure-back-top   517.9 mm\u00b3, x[  -14.03,   90.50] y[  462.50,  464.00] z[  226.87,  292.93]"
+   ],
    "active": true
   },
   {
@@ -161,6 +163,8 @@
     "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.366 mm",
     "bulkhead-water \u2014 port-ring-water-word: 1.387 mm",
     "co2-inlet \u2014 port-ring-co2-word: 1.446 mm",
+    "foam-assembly \u2014 nameplate: 1.500 mm",
+    "seaflo-pump \u2014 nameplate: 1.500 mm",
     "tee-y-c \u2014 collet-plate: 1.504 mm",
     "tee-y-d \u2014 collet-plate: 1.504 mm",
     "tee-y-f \u2014 collet-plate: 1.504 mm",
@@ -1268,22 +1272,12 @@
    "active": true
   },
   {
-   "id": "seam-plug-engages",
-   "label": "Every \u00b1X seam pin still reaches into its socket bore",
-   "kind": "gate",
-   "status": "pass",
-   "value": "Y/Z seam 5.75, four-corner 7.75",
-   "target": "at least 3 mm past the inner face",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
    "status": "pass",
    "value": "pack reaches x \u00b1104.50, wall at \u00b1104.50",
-   "target": "inside a 227 mm appliance",
+   "target": "inside a 215 mm appliance",
    "detail": [],
    "active": true
   },
