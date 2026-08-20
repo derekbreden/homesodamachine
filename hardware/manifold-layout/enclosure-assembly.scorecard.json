@@ -947,8 +947,18 @@
    "label": "The cap has material under every pump's bracket",
    "kind": "gate",
    "status": "pass",
-   "value": "8/8 sides land, least 99.9 mm\u00b3",
-   "target": "material under all four sides of each bracket",
+   "value": "6/6 closed sides land, least 493.6 mm\u00b3",
+   "target": "material under the three closed sides of each bracket (the aft face is open)",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "cap-passes-tubes",
+   "label": "Each barb tube leaves the cap through its opening",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4/4 clear, least 0.030 mm off the edge",
+   "target": "every \u00d86.35 tube inside the opening, which is the head's own square and 0.4 of air",
    "detail": [],
    "active": true
   },
@@ -1058,7 +1068,7 @@
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "6495.1 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "1230.4 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true

@@ -1206,14 +1206,21 @@ def pump_tray_plans(a=None, shell=None) -> dict:
 
 
 def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
-    """Whether the cap has material under every pump's bracket, all four sides.
+    """Whether the cap has material under every pump's bracket, on the three sides that close.
 
-    The bracket is what carries a pump: `bracket_w` across against a head of `head_w`, sitting
-    in the plane the cap parts from the cartridge on. What it bears on is the cap's own top
-    face, in the annulus between the head's void and the bracket's edge. `kamoer_kphm400`
-    states that lip and draws none of it, so this reads the printed piece rather than the
-    pump: one probe per side, a `wall` deep under the split, and a side with no material under
-    it is a corner of the bracket hanging over the head's own opening."""
+    The bracket steadies a pump: `bracket_w` across against a head of `head_w`, sitting in the
+    plane the cap parts from the cartridge on. What it bears on is the cap's own top face, in
+    the annulus between the head's void and the bracket's edge. `kamoer_kphm400` states that
+    lip and draws none of it, so this reads the printed piece rather than the pump: one probe
+    per side, a `wall` deep under the split, and a side with no material under it is a corner
+    of the bracket hanging over the head's own opening.
+
+    THE AFT SIDE IS OPEN AND IT IS NOT READ. The bay leaves 0.525 mm between a head's own room
+    and the collet plate, which is under one extrusion and would print as a 63 mm bridge, so
+    `enclosure.build_pump_cap` does not draw that face at all. Reading it would be reading for
+    the skin whose absence is the decision. WHAT CARRIES A PUMP IS NOT THIS LAP EITHER: the
+    head stands on the four flank seats `pump_tray.head_room` cuts for it, and the lap only
+    keeps the part square on them — three sides do that, and the fourth was 0.525 mm wide."""
     cap = pieces.get("pump-cap")
     if cap is None:
         return record_bound(Bound(
@@ -1229,7 +1236,6 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
         for name, box in (
                 ("+X", (cx + inner, cx + outer, cy - inner, cy + inner)),
                 ("-X", (cx - outer, cx - inner, cy - inner, cy + inner)),
-                ("+Y", (cx - inner, cx + inner, cy + inner, cy + outer)),
                 ("-Y", (cx - inner, cx + inner, cy - outer, cy - inner))):
             probe = _enc._ybox(box[0], box[1], box[2], box[3], split - _enc.wall, split)
             vol = solid.intersect(probe).Volume()
@@ -1238,10 +1244,49 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
     bad = [r for r in rows if r[1] <= 0.0]
     return record_bound(Bound(
         "pump-cap-laps-bracket", "The cap has material under every pump's bracket", not bad,
-        f"{len(rows) - len(bad)}/{len(rows)} sides land, least {worst:.1f} mm³",
-        "material under all four sides of each bracket",
+        f"{len(rows) - len(bad)}/{len(rows)} closed sides land, least {worst:.1f} mm³",
+        "material under the three closed sides of each bracket (the aft face is open)",
         [f"{who}: the cap has {vol:.1f} mm³ under this side of the bracket — the lip that "
          f"carries the pump hangs over the head's own opening here" for who, vol in bad]))
+
+
+def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
+    """Whether each barb tube leaves the cap through the opening rather than through material.
+
+    `enclosure.build_pump_cap` opens its aft face over each head's own square and bores nothing
+    for the four tubes, because each stands inside that square. THAT IS A CLAIM ABOUT THE BARB
+    PITCH AND NOTHING ELSE HERE READS IT: the tubes are stationed off the placed pumps and the
+    opening is struck off `head_half`, so a wider pitch or a fatter tube walks one into the web
+    and nothing else on this card would say so — a bore struck to catch it would lap that web
+    by a fraction of its radius and feather the section to nothing at the two levels it grazed,
+    which is why there is no bore.
+
+    Read as the tube's own outer wall against the opening's edge, per barb, on the axis the
+    opening is struck on."""
+    cap = pieces.get("pump-cap")
+    if cap is None:
+        return record_bound(Bound(
+            "cap-passes-tubes", "Each barb tube leaves the cap through its opening", True,
+            "no cap in this box", "every tube inside the opening it leaves by", []))
+    edge = _tray.head_half + _enc.cap_pump_air
+    r = ml.TUBE_D / 2.0
+    rows, worst = [], None
+    for cx, _cy, _cz in (c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items())):
+        for hx, _hz in plate["holes"]:
+            if (hx > 0.0) != (cx > 0.0):
+                continue
+            air = edge - (abs(hx - cx) + r)
+            worst = air if worst is None else min(worst, air)
+            rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
+    bad = [row for row in rows if row[1] < 0.0]
+    return record_bound(Bound(
+        "cap-passes-tubes", "Each barb tube leaves the cap through its opening", not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} clear, least {worst:.3f} mm off the edge",
+        f"every Ø{ml.TUBE_D:g} tube inside the opening, which is the head's own square and "
+        f"{_enc.cap_pump_air:g} of air",
+        [f"{who}: the tube stands {-air:.2f} mm proud of the opening's edge and the cap bores "
+         f"nothing for it — move the barb inboard, or the cap has to open past the head's "
+         f"square and carry the step that leaves" for who, air in bad]))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
@@ -6140,6 +6185,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And each pump against the piece whose plate lies on its head, one storey up from those.
     check_trays_hold(pieces, a.pack_solids)
     check_cap_laps_bracket(pieces, a.pack_solids)
+    check_cap_passes_tubes(pieces, a.pack_solids, box.collet_plate)
     # And the one line in that piece a nozzle would otherwise have to begin in air, against the
     # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
     check_ridge_carried(pieces, box)
