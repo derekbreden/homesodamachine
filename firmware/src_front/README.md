@@ -281,3 +281,26 @@ high-water mark and clears it.
 - **Flavor ratio and level** — the ratio is this display's own until a controller stores
   it; the level reads `--` until a reservoir is sensed.
 - **Dispense and carbonation state** on HOME.
+
+## Sound
+
+This panel has no sounder. The machine's one voice is U8 on the controller PCBA, so a finger
+landing on this glass becomes a sound only by crossing J9 as `MSG_SOUND_PLAY`.
+
+It is sent on `LV_EVENT_PRESSED`, not on the click, so the round trip hides inside the
+finger's own dwell and the tick lands where the finger did rather than where it lifted.
+Nothing is sent back — an ack would double the traffic in order to acknowledge a tick.
+Every button on this panel is made by `mkBtn()`, so the hook lives there and nowhere else:
+one place, and any button added later gets it without anyone having to remember.
+
+The tick means **your touch registered**, not "that worked". Outcomes — refused, finished,
+faulted — are the controller's own sounds. A touch that begins on a dark screen is withheld
+from every widget by the wake latch, so waking the panel does not tick.
+
+SETUP carries the settings, which the controller owns and persists: volume, quiet hours on
+or off, the window, and the volume inside it. Every control is a round trip — `MSG_SOUND_CFG_SET`
+out, `MSG_RESP_SOUND_CFG` back — and the rows show what came back rather than what was
+pressed, so a value the controller clamped is displayed clamped. Quiet hours with no
+believable clock read `NO CLOCK` rather than `ON`, because that is what they will do.
+
+None of it reaches the gas alarm. See [`../src_appliance/README.md`](../src_appliance/README.md).

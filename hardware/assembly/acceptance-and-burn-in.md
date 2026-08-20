@@ -43,11 +43,13 @@ Connect the test-rig water source to the rear-wall PP1208E 1/4" JG QC inlet, pus
 
 ### 2. Power on + interlock check
 
-Plug the C14 inlet into a bench outlet via the supplied NEMA 5-15P → C13 cord. Firmware boots; the ESP32-S3 rotary display lights up showing the selected flavor and reports sensor health on first read: both temperature probes (DS18B20 tank + DS18S20 coil) reporting within [±0.5 °C](THERMO_ACC) of bench ambient, MQ-6 in normal range, backflow drip pan dry, all reed switches in their expected state for an empty system (carbonator-empty, flavor-reservoirs-full from the hopper pre-prime, faucet closed).
+Plug the C14 inlet into a bench outlet via the supplied NEMA 5-15P → C13 cord. Firmware boots and the controller sounds `ready` — a short rise on U8, which is how a unit coming up is heard from across a line without watching it. Silence here is a finding: either the board did not reach the end of `setup()`, or U8's chain (IO13 → R5 → Q1) is open, which `buzz` on the bench console separates. The ESP32-S3 rotary display lights up showing the selected flavor and reports sensor health on first read: both temperature probes (DS18B20 tank + DS18S20 coil) reporting within [±0.5 °C](THERMO_ACC) of bench ambient, MQ-6 in normal range, backflow drip pan dry, all reed switches in their expected state for an empty system (carbonator-empty, flavor-reservoirs-full from the hopper pre-prime, faucet closed).
 
 Firmware should NOT dispense, should NOT energize the compressor, and should NOT energize the SeaFlo refill pump until the operator enters bench-acceptance mode and water-fill is explicitly commanded. The on-boot state is idle, sensors live, actuators dark.
 
-**Pass:** display reports all green sensors; no actuator energizes on boot. **Fail:** any sensor reads out-of-range on first read, or any actuator energizes without command — return to firmware-and-commissioning.
+**Pass:** the `ready` sound is heard; display reports all green sensors; no actuator energizes on boot. **Fail:** no sound at boot, any sensor reads out-of-range on first read, or any actuator energizes without command — return to firmware-and-commissioning.
+
+A sound at boot is not an actuator energizing. U8 is a 100 mA coil and IO13 is parked before anything else in `machineBegin()`, so a board that resets mid-alarm comes up silent; what is heard here is the end of `setup()`, after everything that reaches a load is already dark.
 
 ### 3. First water fill of the carbonator
 

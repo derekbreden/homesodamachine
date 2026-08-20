@@ -35,6 +35,12 @@ static const int PIN_LED_ERR = 15;  // D2 red   — active low
 static const int PIN_LED_RUN = 12;  // D3 green — heartbeat
 static const int PIN_LED_ACT = 14;  // D4 blue  — lit while the machine drives something
 
+// ── I2C — R19/R20 4.7k pull-ups to 3V3, out to J8 ─────────────────────────
+// U6 (DS3231 clock, 0x68) is what this build reaches. The two MCP23017s sit on
+// the same bus at 0x20/0x21 and stay untouched.
+static const int PIN_SDA = 21;
+static const int PIN_SCL = 22;
+
 // ── Gas dividers — MQ-6 through R1/R2 and R3/R4, ADC1 input-only pins ─────
 static const int PIN_GAS_AOUT = 39;  // analog level
 static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip

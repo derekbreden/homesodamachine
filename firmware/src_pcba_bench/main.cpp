@@ -28,6 +28,7 @@
 #include <WiFi.h>
 #include "proto_link.h"
 #include "rs485_echo.h"
+#include "sound.h"
 #include "fw_version.h"
 
 // ── Status LEDs — active high, through 470R to GND (D2/D3/D4) ──────────────
@@ -64,10 +65,12 @@ static const uint8_t ADDR_RTC   = 0x68;  // U6 DS3231SN
 //
 // One coil on one LEDC channel is one voice: no chords, and no waveform but
 // square. `demo` plays the whole span, and also runs once at boot.
+// The drive, the loudness budget and the machine's whole sound vocabulary live in
+// lib/sound, shared with the appliance — so `sound` below plays what a customer's
+// machine will play, and a board leaving the line has been heard making exactly
+// those sounds rather than a bench approximation of them.
 static const int PIN_BUZZ  = 13;
-static const int BUZZ_BITS = 10;                  // 0..1023 duty; the 80 MHz APB holds this from ~77 Hz up
-static const int BUZZ_FULL = (1 << BUZZ_BITS) - 1;
-static const int BUZZ_LOUD = 50;                  // duty %, the loudest a note gets
+static const int BUZZ_LOUD = SOUND_MAX_DUTY;      // duty %, the loudest a note gets
 
 // ── Gas dividers — MQ-6 through R1/R2 and R3/R4, ADC1 input-only pins ──────
 static const int PIN_GAS_AOUT = 39;  // analog level
@@ -442,28 +445,12 @@ static void cmdRs485() {
 }
 
 // ── The one voice ─────────────────────────────────────────────────────────
-// LEDC stays attached across a whole phrase, so a note can change pitch or duty
-// under itself without a gap opening. toneOff() is what hands IO13 back to plain
-// GPIO and holds Q1's base down.
-static bool buzzOn = false;
-
-static void toneOn(int hz, int dutyPct) {
-    if (hz < 80) hz = 80;                    // below this the 10-bit timer cannot divide down
-    dutyPct = constrain(dutyPct, 0, 100);
-    if (!buzzOn) {
-        if (!ledcAttach(PIN_BUZZ, hz, BUZZ_BITS)) return;   // no LEDC channel free
-        buzzOn = true;
-    } else {
-        ledcChangeFrequency(PIN_BUZZ, hz, BUZZ_BITS);
-    }
-    ledcWrite(PIN_BUZZ, (uint32_t)dutyPct * BUZZ_FULL / 100);
-}
-
-static void toneOff() {
-    if (buzzOn) { ledcWrite(PIN_BUZZ, 0); ledcDetach(PIN_BUZZ); buzzOn = false; }
-    pinMode(PIN_BUZZ, OUTPUT);   // LEDC hands IO13 back; Q1's base is held off here
-    digitalWrite(PIN_BUZZ, LOW);
-}
+// Characterization is inherently sequential — a ladder is one rung after another
+// with nothing else to do — so these block, which on a bench is the right shape
+// and in the appliance would not be. They sit on the library's raw drive, below
+// its sequencer; soundToneRaw() stops any sound in progress and takes the pin.
+static void toneOn(int hz, int dutyPct)  { soundToneRaw(hz, dutyPct); }
+static void toneOff()                    { soundToneRaw(0, 0); }
 
 static void note(int hz, int ms, int dutyPct) { toneOn(hz, dutyPct); delay(ms); toneOff(); }
 
@@ -477,6 +464,17 @@ static void beep(int hz, int ms) { note(hz, ms, BUZZ_LOUD); delay(25); }
 static float dutyDb(int pct) {
     if (pct <= 0) return -99.0f;
     return 20.0f * log10f(sinf(PI * (float)pct / 100.0f));
+}
+
+// A sound from the shared vocabulary, run to its end. The appliance never waits
+// like this — it services the sequencer from loop() — but a bench console has
+// nothing else to be doing, and the operator wants the whole sound before the
+// prompt comes back. The ceiling is what stops `sound alarm`, which loops.
+static void playAndWait(SoundId id, uint32_t ceilingMs = 4000) {
+    if (!soundPlay(id)) { Serial.println("  refused — silenced, or outranked by what is sounding"); return; }
+    unsigned long t0 = millis();
+    while (soundBusy() && millis() - t0 < ceilingMs) { soundService(); delay(2); }
+    soundStop();
 }
 
 // nth space-separated word of a command line as an int (0 is the command itself).
@@ -534,7 +532,7 @@ static const Analog kAnalog[] = {
 static const int ANALOG_N = 2;
 static const int ANALOG_MV = 800;            // floor sits ~142 mV with J11 empty
 
-static const int PROBE_HZ = 2700, PROBE_MS = 150;
+static const int PROBE_HZ = 2700, PROBE_MS = 150;   // SND_PROBE's own note, held blocking here
 static bool probeOn = false;
 static int  pStable[PROBE_N], pPending[PROBE_N];
 static unsigned long pSince[PROBE_N];
@@ -1101,6 +1099,47 @@ static void cmdDemo() {
     Serial.println(" one at a time:  tone <hz> [ms] [duty%]   sweep <lo> <hi> [ms]");
 }
 
+// What a finished machine sounds like, played on a bare board. Every one of these
+// is the appliance's own table in lib/sound — the same steps, the same duties —
+// so a board that sounds right here sounds right in a kitchen.
+static void cmdSound(const String &line) {
+    String rest = line.substring(5); rest.trim();
+    if (!rest.length() || rest == "list") {
+        Serial.println("\n-- the machine's sounds (lib/sound, shared with the appliance) --");
+        static const char *kPrio[] = {"ui", "event", "fault", "ALARM"};
+        for (uint8_t i = 1; i < SND_COUNT; i++) {
+            const Sound *sp = soundInfo((SoundId)i);
+            if (!sp) continue;
+            Serial.printf("   %-8s %-6s %s%s\n", sp->name, kPrio[sp->priority],
+                          (sp->flags & SND_F_UNSILENCEABLE) ? "cannot be silenced" : "",
+                          sp->repeats == SOUND_FOREVER ? " loops until stopped" : "");
+        }
+        Serial.println("   'sound <name>' plays one. 'sound all' plays them in order.");
+        return;
+    }
+    if (rest == "all") {
+        for (uint8_t i = 1; i < SND_COUNT; i++) {
+            const Sound *sp = soundInfo((SoundId)i);
+            if (!sp) continue;
+            Serial.printf("   %s\n", sp->name);
+            playAndWait((SoundId)i, 1500);
+            delay(400);
+            if (buzzAbort()) return;
+        }
+        Serial.println("  done");
+        return;
+    }
+    for (uint8_t i = 1; i < SND_COUNT; i++) {
+        const Sound *sp = soundInfo((SoundId)i);
+        if (sp && rest.equalsIgnoreCase(sp->name)) {
+            Serial.printf("\n%s\n", sp->name);
+            playAndWait((SoundId)i);
+            return;
+        }
+    }
+    Serial.printf("\nno sound called '%s' — 'sound list'\n", rest.c_str());
+}
+
 static void cmdTone(const String &line) {
     int hz = argInt(line, 1, 0);
     if (hz <= 0) { Serial.println("usage: tone <hz> [ms] [duty%]   (duty 1..50, 50 = loudest)"); return; }
@@ -1166,6 +1205,8 @@ static void cmdHelp() {
     Serial.println("  palette tick / ack / chime / refuse / chirp / tremolo / alarm");
     Serial.println("  tone <hz> [ms] [duty%]      one note");
     Serial.println("  sweep <lo> <hi> [ms]        one slide");
+    Serial.println("\nthe machine's own sounds, the same table the appliance plays:");
+    Serial.println("  sound list | sound <name> | sound all");
     Serial.println("\nthese four actuate real hardware and idle as inputs — only a command by");
     Serial.println("name ever drives one: IO2 relay, IO19 compressor interlock, IO17 pump A,");
     Serial.println("IO4 pump B. 'arm'+'drive' hold one at a level; 'pump' is the bounded run.");
@@ -1197,7 +1238,7 @@ void setup() {
     Serial.printf("boot: serial up, reset reason %d\n", (int)esp_reset_reason());
 
     pinMode(PIN_LED_ACT, OUTPUT); digitalWrite(PIN_LED_ACT, LOW);
-    pinMode(PIN_BUZZ, OUTPUT);    digitalWrite(PIN_BUZZ, LOW);
+    soundBegin(PIN_BUZZ);   // parks the coil, and owns IO13 from here on
     parkStraps();  // IO12 MTDI / IO15 MTDO — the board must stay resettable
 
     // Actuator pins stay inputs — see the SAFETY note at the top.
@@ -1292,6 +1333,7 @@ static bool dispatch(const String &line) {
     else if (line == "in")   cmdInputs();
     else if (line == "walk") cmdLedWalk();
     else if (line == "buzz") cmdBuzz();
+    else if (line.startsWith("sound")) cmdSound(line);
     else if (line == "demo") cmdDemo();
     else if (line == "ladder") cmdLadder();
     else if (line == "duty" || line.startsWith("duty ")) cmdDuty(argInt(line, 1, 4000));
@@ -1379,6 +1421,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 void loop() {
     unsigned long loopStart = millis();
     heartbeat();
+    soundService();   // the commands here pump it themselves; this catches anything left running
 
     if (probeOn) probePoll();
 

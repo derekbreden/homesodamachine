@@ -3,12 +3,38 @@
 #include "link.h"
 #include "machine.h"
 #include "pins.h"
+#include "rtc.h"
 #include "proto_link.h"
 #include "rs485_echo.h"
+#include "sound.h"
 #include "fw_version.h"
+
+// The wire ids in proto_msg.h and the SoundId enum in lib/sound are two halves of
+// one contract, and this is the seam that translates between them. Asserting the
+// pairs here means a sound added to the vocabulary without a wire number — or
+// renumbered on one side only — fails the build rather than playing the wrong
+// sound on a customer's machine.
+static_assert(SND_WIRE_TICK   == SND_TICK,   "sound wire id drift: tick");
+static_assert(SND_WIRE_ACK    == SND_ACK,    "sound wire id drift: ack");
+static_assert(SND_WIRE_CHIME  == SND_CHIME,  "sound wire id drift: chime");
+static_assert(SND_WIRE_REFUSE == SND_REFUSE, "sound wire id drift: refuse");
+static_assert(SND_WIRE_READY  == SND_READY,  "sound wire id drift: ready");
+static_assert(SND_WIRE_FAULT  == SND_FAULT,  "sound wire id drift: fault");
+static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 
 static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
+
+// What the controller currently holds, as the glass reads it.
+static void fillSoundCfg(SoundCfgPayload &c) {
+    c.volume      = soundVolume();
+    c.quietOn     = soundQuietOn() ? 1 : 0;
+    c.quietStart  = soundQuietStart();
+    c.quietEnd    = soundQuietEnd();
+    c.quietVolume = soundQuietVolume();
+    c.flags       = (rtcValid()          ? SOUND_CFG_F_CLOCK_OK  : 0)
+                  | (soundInQuietHours() ? SOUND_CFG_F_QUIET_NOW : 0);
+}
 
 // ── What the machine announces, going out on the pair ─────────────────────
 static void onPrimeState(uint8_t state, uint8_t channel, uint32_t ms) {
@@ -53,6 +79,39 @@ static void onMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // A click from the glass. Neither display carries a sounder, so this frame is
+    // the entire path from a finger on the panel to a sound in the room — which is
+    // why the glass sends it on touch-down rather than on the click, and why
+    // nothing is sent back: an ack would double the traffic to acknowledge a tick.
+    if (type == MSG_SOUND_PLAY && plen >= sizeof(SoundPlayPayload)) {
+        soundPlay((SoundId)payload[0]);
+        return;
+    }
+
+    if (type == MSG_SOUND_CFG_GET) {
+        SoundCfgPayload c;
+        fillSoundCfg(c);
+        link->send(MSG_RESP_SOUND_CFG, &c, sizeof(c));
+        return;
+    }
+
+    // The controller owns these and persists them; the answer is what it now
+    // holds, not an echo of what was asked for, so a value it clamped comes back
+    // clamped and the glass shows the truth.
+    if (type == MSG_SOUND_CFG_SET && plen >= sizeof(SoundCfgPayload)) {
+        SoundCfgPayload req;
+        memcpy(&req, payload, sizeof(req));
+        soundSetVolume(req.volume);
+        soundSetQuiet(req.quietOn != 0, req.quietStart, req.quietEnd, req.quietVolume);
+        Serial.printf("\n[J9] sound cfg: volume %u, quiet %s %02u:00-%02u:00 at %u\n",
+                      req.volume, req.quietOn ? "on" : "off",
+                      req.quietStart, req.quietEnd, req.quietVolume);
+        SoundCfgPayload c;
+        fillSoundCfg(c);
+        link->send(MSG_RESP_SOUND_CFG, &c, sizeof(c));
+        return;
+    }
+
     if (type == MSG_STATUS_REQ) {
         StatusPayload s{};
         s.uptimeS      = millis() / 1000;
@@ -60,8 +119,8 @@ static void onMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         s.framesRx     = j9.framesRx;
         s.framesTx     = j9.framesTx;
         s.gasMv        = (uint16_t)analogReadMilliVolts(PIN_GAS_AOUT);
-        s.flags        = (analogReadMilliVolts(PIN_GAS_DOUT) > 1500 ? STATUS_F_GAS_TRIP : 0)
-                       | (machineIsPriming() ? STATUS_F_PRIMING : 0);
+        s.flags        = (machineGasTripped()  ? STATUS_F_GAS_TRIP : 0)
+                       | (machineIsPriming()   ? STATUS_F_PRIMING  : 0);
         s.primeChannel = machinePumpChannel();
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
         link->send(MSG_RESP_STATUS, &s, sizeof(s));

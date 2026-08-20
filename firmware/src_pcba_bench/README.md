@@ -59,6 +59,7 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
 | `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain carries (audible) |
 | `demo` / `ladder` / `duty` / `palette` | What that chain can be made to sound like — below |
+| `sound list` / `sound <name>` / `sound all` | The machine's own sounds, from the same table the appliance plays |
 | `tone` / `sweep` | One note, or one slide, at a named pitch and duty |
 | `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
 | `pump` | Run a peristaltic pump on J13 through a DRV8870 (audible) |
@@ -95,6 +96,13 @@ sees nothing. Every sound the board can make is made out of *when* that switch c
   tremolo. `palette` plays seven: tick, ack, chime, refuse, chirp, tremolo, alarm.
 
 One coil on one LEDC channel is one voice. No chords, and no waveform but square.
+
+`ladder`, `duty`, `sweep` and `tone` measure the transducer and block while they do — a
+bench console has nothing else to be doing. `sound` is different: it plays the appliance's
+own vocabulary out of [`/firmware/lib/sound`](/firmware/lib/sound/sound.h), the same steps
+at the same duties, so a board that sounds right here sounds right in a kitchen. `sound all`
+walks the lot. What each sound is for, and why the alarm is the only one at full duty, is
+[`../src_appliance/README.md`](../src_appliance/README.md).
 
 ## Actuator outputs
 

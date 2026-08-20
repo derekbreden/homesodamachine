@@ -155,6 +155,7 @@ Query the firmware over serial for its loaded setpoints. Expected:
 - Compressor minimum off-time: **[3 min](MIN_OFF_TIME_BARE)**
 - Carbonator refill threshold: low-level reed (MCP23017 [0x21 PB4](REED_LOW))
 - Backflow alarm: armed on drip-pan moisture sensor
+- Sound volume: **70%**, quiet hours **off** (`volume` / `quiet` on the controller console)
 
 These are baked into the firmware on `main` as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
 
@@ -166,9 +167,24 @@ Then query the three limits the hardware imposes. Each one is a part's rating, a
 
 A unit that walks step 7 and passes step 6 can still be failing all three — nothing here reads them off behavior. The query is the check, and step 7's own walk goes through the state machine holding them (Open item 3).
 
+Then confirm the one safety property that lives entirely in firmware and has no hardware behind it: **the gas alarm cannot be silenced.** Volume, mute and quiet hours reach every sound the machine makes except that one, and a unit that let a customer mute a refrigerant-leak alarm would ship a defect nothing downstream would catch. Set the clock first, since quiet hours will not engage without one:
+
+```
+rtc set <YYYY-MM-DD> <HH:MM:SS>
+volume 0
+sound tick
+sound alarm
+sound stop
+volume 70
+```
+
+**Pass:** `sound tick` reports `silenced, so nothing will be heard` and the board stays silent; `sound alarm` reports `alarm at 100%` and the transducer sounds at full volume. **Fail:** either the tick is audible at volume 0, or the alarm is not — do not ship the unit; the exemption is `SND_F_UNSILENCEABLE` in [`/firmware/lib/sound/sound.h`](/firmware/lib/sound/sound.h).
+
+`sound list` prints what every sound would play at right now, which is the fastest read on whether volume and quiet hours are where this step expects them. U15 holds the compressor off the same MQ-6 signal in hardware with no firmware in the path — that interlock is step 8's, and it is a different check from this one.
+
 ### 10. Archive the per-serial commissioning log
 
-Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 tank / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, MQ-6 baseline, drip-pan baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification.
+Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 tank / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, MQ-6 baseline, drip-pan baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification, the DS3231 time as set, and the volume-0 alarm check from step 9.
 
 Where this log lives — local file under `/commissioning/<serial>/`, uploaded to cloud, both — is an Open item below. Working position: keep the file locally on the build host until that decision lands.
 
