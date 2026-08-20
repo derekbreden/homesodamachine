@@ -608,11 +608,16 @@ static void animTimerCb(lv_timer_t *t) {
 // the base's U7 keeps receiving and cancels its own, a layer below its ProtoLink.
 static HdlcLink j9;
 
+static int lastSendErr = 0;   // last refused send, surfaced by GET_DIAG
+
 // Fire and forget: an ack would double the traffic in order to acknowledge a
-// tick, and a tick that arrives late is worse than one that never arrives.
+// tick, and a tick that arrives late is worse than one that never arrives. A
+// refusal is worth knowing about though — this is the one send whose return
+// nothing else would ever look at.
 static void sendSound(uint8_t id) {
   SoundPlayPayload p{id};
-  j9.send(MSG_SOUND_PLAY, &p, sizeof(p));
+  int r = j9.send(MSG_SOUND_PLAY, &p, sizeof(p));
+  if (r < 0) { lastSendErr = r; Serial.printf("[J9] send(SOUND) = %d\n", r); }
 }
 
 // The controller owns volume and quiet hours and persists them; this is a cache
@@ -829,7 +834,24 @@ static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
 // wake latch above), so waking the panel does not tick.
 static void sendSound(uint8_t id);
 
-static void clickCb(lv_event_t *e) { (void)e; sendSound(SND_WIRE_TICK); }
+// A press records an INTENT to click; loop() decides whether it needs a frame.
+// Sending here would put the click on the pair immediately ahead of whatever the
+// button itself sends, and two frames back to back from one press is what makes
+// the far end's echo canceller collide with its own reply — see rs485_echo.h.
+// One press is one frame on J9, always.
+//
+// CLICK:0 / CLICK:1 on this board's console takes the click out of the path
+// entirely, which is how it gets bisected out of any future latency question.
+bool clickSend = true;
+static bool     clickPending = false;
+static uint32_t framesTxAtPress = 0;
+
+static void clickCb(lv_event_t *e) {
+  (void)e;
+  if (!clickSend) return;
+  clickPending    = true;
+  framesTxAtPress = j9.framesTx;   // if this moves, the button spoke for itself
+}
 
 // Every button on this panel is made here, so the click is hooked here and
 // nowhere else — one hook, and any button added later gets it without anyone
@@ -973,7 +995,6 @@ static void refreshStatusPage() {
 }
 
 // ── Prime — the hold, and the ticks under it ──
-static int lastSendErr = 0;
 
 static void primeSend(uint8_t type) {
   ChannelPayload p{flavorSel};
@@ -1699,6 +1720,9 @@ static void processTextLine(const char *line) {
     int p = atoi(line + 5);
     if (p < 0 || p >= PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
     else { showPage((Page)p); Serial.printf("OK:PAGE=%d\n", p); }
+  } else if (strncmp(line, "CLICK:", 6) == 0) {
+    if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");
+    else { clickSend = (line[6] == '1'); Serial.printf("OK:CLICK=%d\n", clickSend ? 1 : 0); }
   } else if (strncmp(line, "SOUND:", 6) == 0) {
     // The click's whole path, without a finger on the glass. This panel has no
     // sounder, so anything heard after this is the frame having crossed J9 and
@@ -1877,6 +1901,15 @@ void loop() {
     } else if (usbPos < sizeof(usbBuf) - 1) {
       usbBuf[usbPos++] = c;
     }
+  }
+
+  // A press that spoke for itself needs no click frame: the controller ticks on
+  // the command it received. Only a press that said nothing else sends one, and
+  // it goes out here rather than from inside the LVGL callback, so one press can
+  // never put two frames on the pair back to back.
+  if (clickPending) {
+    clickPending = false;
+    if (j9.framesTx == framesTxAtPress) sendSound(SND_WIRE_TICK);
   }
 
   j9.service();
