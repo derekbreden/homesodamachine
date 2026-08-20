@@ -50,9 +50,11 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_step, export_assembly
 from _materials import WALL_COLORS, one_body
 from docgen import substitute_md
+from perlin import fbm
 
 C_COUPON = WALL_COLORS["front-top"]
 
@@ -265,56 +267,6 @@ noise_blend = 3.0                # mm of arc length the normal turns over at eac
 noise_max_edge = 0.7             # mm, triangle size the displacement is sampled on
 
 
-def _fade(t):
-    return t * t * t * (t * (t * 6.0 - 15.0) + 10.0)
-
-
-def _perlin3(points, permutation):
-    """Classic 3D Perlin over an (n, 3) array, vectorised."""
-    lattice = np.floor(points).astype(np.int64)
-    frac = points - lattice
-    cell = lattice & 255
-    fade = _fade(frac)
-
-    def hashed(dx, dy, dz):
-        a = permutation[cell[:, 0] + dx]
-        b = permutation[(a + cell[:, 1] + dy) & 511]
-        return permutation[(b + cell[:, 2] + dz) & 511]
-
-    def dot(h, dx, dy, dz):
-        gx, gy, gz = frac[:, 0] - dx, frac[:, 1] - dy, frac[:, 2] - dz
-        low = h & 15
-        u = np.where(low < 8, gx, gy)
-        v = np.where(low < 4, gy, np.where((low == 12) | (low == 14), gx, gz))
-        return (np.where(low & 1 == 0, u, -u) + np.where(low & 2 == 0, v, -v))
-
-    def lerp(a, b, t):
-        return a + t * (b - a)
-
-    corners = {(dx, dy, dz): dot(hashed(dx, dy, dz), dx, dy, dz)
-               for dx in (0, 1) for dy in (0, 1) for dz in (0, 1)}
-    x0 = [lerp(corners[(0, dy, dz)], corners[(1, dy, dz)], fade[:, 0])
-          for dy in (0, 1) for dz in (0, 1)]
-    y0 = lerp(x0[0], x0[2], fade[:, 1])
-    y1 = lerp(x0[1], x0[3], fade[:, 1])
-    return lerp(y0, y1, fade[:, 2])
-
-
-def _fbm(points):
-    """Fractal Perlin at `noise_octaves` octaves, scaled so the field's own extreme
-    reaches ±1 — an amplitude in mm is then the displacement it actually buys."""
-    base = np.random.default_rng(noise_seed).permutation(256)
-    permutation = np.concatenate([base, base])
-    total = np.zeros(len(points))
-    amplitude, frequency = 1.0, 1.0 / noise_feature
-    for octave in range(noise_octaves):
-        shift = 37.13 * (octave + 1)
-        total += amplitude * _perlin3(points * frequency + shift, permutation)
-        amplitude *= noise_persistence
-        frequency *= 2.0
-    return total / np.abs(total).max()
-
-
 def _smoothstep(t):
     t = np.clip(t, 0.0, 1.0)
     return t * t * (3.0 - 2.0 * t)
@@ -386,7 +338,8 @@ def build_noise_mesh(out_dir):
     amplitude = (_noise_amplitude(vertices[:, 0])
                  * _noise_taper(vertices[:, 0], arc)
                  * on_show)
-    vertices += (_fold_normals(arc) * (_fbm(vertices) * amplitude)[:, None])
+    vertices += (_fold_normals(arc) * (fbm(vertices, noise_feature, noise_octaves, noise_persistence,
+                                       noise_seed) * amplitude)[:, None])
     return trimesh.Trimesh(vertices=vertices, faces=mesh.faces, process=True)
 
 
