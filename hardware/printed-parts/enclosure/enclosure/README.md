@@ -5,7 +5,7 @@ What the pieces have actually been printed in, and at what settings:
 
 A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
 bottom/top, every piece inside the H2C bed — that telescope and screw together.
-It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
+It measures [227 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -628,10 +628,11 @@ the steel is located fore, aft and across by printed material and carried on the
 seat's own bottom, and nothing over it is closed — with the cartridge out, the plate
 lifts straight up through the bay. Its Z band follows from that: the bottom is the
 seat, and the top is whatever puts the four collet holes **centred** in the band
-(`plate-holes-centred`). Its two bottom corners are notched one `wall` in from each
-end, from the foot up to the rim, for the side lip standing proud there — the outline
-is a waterjet cut and `build_collet_plate` writes the notches into `collet-plate.dxf`
-with the holes.
+(`plate-holes-centred`). Across, its ends stand `PLATE_END_AIR` off the side walls and
+the outline is whole between them: the one thing that ever stood proud of the floor
+down these flanks was the side lip, and it is given up over this whole run. The outline
+is a waterjet cut and `build_collet_plate` writes it into `collet-plate.dxf` with the
+holes.
 
 The **wall behind the steel is struck on the same four collets** (`_tee_wall`).
 Front-top stands a section of its own material aft of the plate, wall to wall and the

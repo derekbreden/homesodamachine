@@ -5,17 +5,17 @@
    "id": "enclosure",
    "label": "the printed box, outside face to outside face",
    "min": [
-    -107.5,
+    -113.5,
     5.0,
     -3.0
    ],
    "max": [
-    107.5,
+    113.5,
     472.25,
     355.0
    ],
    "mm": [
-    215.0,
+    227.0,
     467.25,
     358.0
    ]
@@ -29,12 +29,12 @@
     -3.0
    ],
    "max": [
-    107.5,
+    113.5,
     531.891,
     358.0
    ],
    "mm": [
-    221.0,
+    227.0,
     526.891,
     361.0
    ]
@@ -1242,7 +1242,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 149.00..160.00, 215.62..252.90",
+   "value": "seam at 160.00, lane 149.00..163.87, 215.62..252.90",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1268,12 +1268,22 @@
    "active": true
   },
   {
+   "id": "seam-plug-engages",
+   "label": "Every \u00b1X seam pin still reaches into its socket bore",
+   "kind": "gate",
+   "status": "pass",
+   "value": "Y/Z seam 5.75, four-corner 7.75",
+   "target": "at least 3 mm past the inner face",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "box-width",
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
    "status": "pass",
    "value": "pack reaches x \u00b1104.50, wall at \u00b1104.50",
-   "target": "inside a 215 mm appliance",
+   "target": "inside a 227 mm appliance",
    "detail": [],
    "active": true
   },
