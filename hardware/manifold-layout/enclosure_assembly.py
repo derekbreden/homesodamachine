@@ -2847,7 +2847,7 @@ NAMEPLATE_INK = "nameplate-ink"
 # The field's own shape, as `enclosure.Box.nameplate`: the plate's centre and outline, what the
 # wall stands to behind it, the two screw stations on it, and the boss one screw needs.
 Nameplate = collections.namedtuple(
-    "Nameplate", "x z width height corner slip thick wall screws "
+    "Nameplate", "x z width height corner bevel slip thick wall screws "
                  "stem_d reach bore_d bore_depth")
 
 
@@ -2881,7 +2881,7 @@ def nameplate_station(foam) -> tuple:
 def nameplate_cut(foam) -> Nameplate:
     """Everything the wall does for the plate, as `enclosure.Box.nameplate`."""
     x, z = nameplate_station(foam)
-    return Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.SLIP,
+    return Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.BEVEL, _np.SLIP,
                      _np.THICK, _np.WALL, _np.screw_stations(),
                      _np.boss_stem_d(), _np.boss_reach(),
                      _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
@@ -3147,10 +3147,11 @@ def check_nameplate_pocket(plate, pieces, foam) -> Bound:
     millimetres too tall overlaps nothing, seats nowhere in particular, and every other reading
     on this card comes back green. That is the case this one is here for.
 
-    THE READING IS THE POCKET'S OWN FOUR EDGES. At the depth the plate lies, the wall stands
-    where the plate's outline is not and gives way where it is — so each edge is asked twice, a
-    hair outside and a hair inside. A pocket cut to the wrong figure fails on whichever pair of
-    probes it moved past."""
+    THE READING IS THE POCKET'S OWN FOUR EDGES, taken at the MOUTH. The wall stands where the
+    plate's outline is not and gives way where it is — so each edge is asked twice, a hair
+    outside and a hair inside. A pocket cut to the wrong figure fails on whichever pair of probes
+    it moved past. It is read on the straight rim rather than at mid-thickness because deeper in
+    the pocket is the chamfer, where the outline is not the outline yet."""
     wall = pieces.get("back-top")
     if wall is None or plate is None:
         return record_bound(Bound(
@@ -3160,7 +3161,7 @@ def check_nameplate_pocket(plate, pieces, foam) -> Bound:
     wall = wall.val() if hasattr(wall, "val") else wall
     plate = plate.val() if hasattr(plate, "val") else plate
     x, z = nameplate_station(foam)
-    y = _enc.rear_plane_y + _enc.wall - _np.THICK / 2.0
+    y = _enc.rear_plane_y + _enc.wall - (_np.THICK - _np.BEVEL) / 2.0
     half_w = (_np.WIDTH + 2.0 * _np.SLIP) / 2.0
     half_h = (_np.HEIGHT + 2.0 * _np.SLIP) / 2.0
     # A probe small enough to sit inside the slip, offset by its own reach either side of an edge.
