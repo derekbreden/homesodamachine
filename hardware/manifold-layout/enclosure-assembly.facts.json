@@ -1458,6 +1458,7 @@
    352.0
   ],
   "nameplate": {
+   "bevel": 3.0,
    "bore_d": 4.0,
    "bore_depth": 6.5,
    "corner": 3.0,
@@ -2864,7 +2865,7 @@
   }
  ],
  "schema": 1,
- "step": "cb5ee6761bfbbc275c1c50cacb1c9dd1",
+ "step": "409514d236e6bde91a45f13cd89a9cf2",
  "valve_panel_stations": [
   [
    171.08,
