@@ -133,8 +133,11 @@ def head_room(air: float, depth: float):
     THE RAMPS PRESS AND THE PLUMB FLANKS CLEAR. A seat is a wedge and the room takes the
     case's surface there to the micron. A plumb flank only locates, and drawn to the micron it
     is 56 mm of press for two M3 to pull a pump through — so the room takes `air` back on
-    those, stepping out at the narrow taper's own foot, which is under every seat and over
-    every flank.
+    those — AND IT TAKES IT ALL THE WAY UP, so a seat ends where it meets its own flank and
+    nowhere else. Held off until the taper's foot the air kept the ramp its last four tenths
+    and paid for them with a shelf: a step of exactly `air`, facing down, one extrusion wide
+    and twenty-six long, standing where the two walls should simply have met. A seat is long
+    enough without it.
 
     AND THE CORNERS ARE THE ROOM'S OWN, SQUARE. The case rounds its corners on `corner_r` and
     the part is clipped to that, so the head's flanks — seats and all — END at the case's own
@@ -146,8 +149,7 @@ def head_room(air: float, depth: float):
     room = cq.Solid.makeBox(2 * half, 2 * half, depth, cq.Vector(-half, -half, -depth))
     open_to = [_pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))]
     plumb_half = _pc.skirt_narrow_half_extent - _pc.skirt_wall + air
-    foot = _pc.flank_ramp_bands()[0][1]
-    open_to.append(cq.Solid.makeBox(2 * plumb_half, 2 * half, foot + depth,
+    open_to.append(cq.Solid.makeBox(2 * plumb_half, 2 * half, depth,
                                     cq.Vector(-plumb_half, -half, -depth)))
     straight = _pc.skirt_base_half_extent - _pc.corner_r
     for sy in (-1.0, 1.0):

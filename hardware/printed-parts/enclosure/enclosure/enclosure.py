@@ -788,16 +788,16 @@ plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor
 # the corner columns or height past the display, so the block covers what there is room to
 # cover and no more.
 #
-# THE SCREWS RUN UP THE LANE BETWEEN THE PUMPS. `cap_band_x` is that lane — one `wall` inboard
-# of each head's own room — and it is the one column of this piece with no pump, no barb
+# THE SCREWS RUN UP THE LANE BETWEEN THE PUMPS. `cap_band_x` is that lane — the column the
+# front wall never relieved — and it is the one column of this piece with no pump, no barb
 # tube and no fitting in it at any height. The cap gives up its fill there and keeps
 # `cap_web_t`, so a screw crosses one web into a heat-set in the block above it and the
-# driver comes up the lane the fill gave up. WHAT SETS ITS EDGE IS THE SECTION LEFT STANDING,
-# not a figure off the part: struck off the head instead, the lane ate all but six tenths of
-# the material between itself and the pocket, and this piece prints in the same walls as every
-# other piece on the box.
+# driver comes up the lane the fill gave up. ITS WALL IS THE RELIEF'S OWN JAMB and not a
+# figure struck off anything: that jamb is already a step in this piece's fore face, and a
+# lane walled anywhere outboard of it leaves the strip between the two standing alone —
+# 1.3 mm of rib at one figure, six tenths of web at another. On the jamb the two are one
+# plane, nothing thin is left, and what stands against a pump's room is the relief's own slip.
 cap_pump_air = 0.4           # air round a pump body where the block closes on it
-cap_band_web = wall          # the cap's own section between the screw lane and a head's room
 cap_web_t = 4.0              # the cap's section across that lane — what a screw crosses
 cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and aft
 
@@ -2953,15 +2953,15 @@ def cap_split_z(pump_trays):
 
 
 def cap_band_x(pump_trays):
-    """The screw lane between the two heads, as (x0, x1) — one `cap_band_web` inboard of each
-    head's own room, so what stands between the lane and the pocket is a printable section.
+    """The screw lane between the two heads, as (x0, x1) — the inboard jamb of each pump's
+    own relief in the front wall, so the lane's wall and the fore face's step are one plane.
 
     THIS IS THE ONE COLUMN OF THE CARTRIDGE WITH NOTHING IN IT AT ANY HEIGHT. No pump, no
     barb tube, no fitting: the inboard barbs stand outboard of it and their tubes leave aft
     of the block entirely. So it is where the cap gives up its fill, where a screw crosses,
     and where a driver reaches the screw's head."""
-    edge = (min(abs(cx) for cx, _cy, _cz in pump_trays)
-            - _tray.head_half - cap_pump_air - cap_band_web)
+    edge = min(min(abs(x0), abs(x1))
+               for x0, x1, *_rest in _pump_relief_regions(pump_trays))
     return -edge, edge
 
 
