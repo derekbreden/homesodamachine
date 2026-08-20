@@ -27,6 +27,10 @@
     "PLATE_CORNER": "3 mm",
     "PLATE_H": "66.07 mm",
     "PLATE_W": "104.53 mm",
+    "POCKET_RIM": "1.5 mm",
+    "POCKET_SOFFIT": "147.8 mm\u00b2",
+    "POCKET_SOFFIT_SQUARE": "443.4 mm\u00b2",
+    "PORT_RING_T": "2 mm",
     "TITLE_EM": "6.5",
     "WALL_T": "3 mm"
   }

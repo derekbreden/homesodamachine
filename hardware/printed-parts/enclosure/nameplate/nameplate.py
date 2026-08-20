@@ -110,6 +110,11 @@ CORNER_R = 3.0
 # layers of 45° — no elephant's foot on the rim the customer can see, and no arris to catch the
 # pocket's own inside corner on the way in. It is `CORNER_R`, which is what takes the corner
 # rounds to nothing on the bed and the outline there to a plain rectangle.
+#
+# THE POCKET ANSWERS IT, so this figure is the wall's as much as the plate's: `enclosure.
+# _nameplate` cuts the pocket to this whole silhouette, and what that buys the WALL is its
+# ceiling. 45° is `enclosure.relief_chamfer`, the angle every relief ceiling on this box rises at
+# — struck square here, which is that angle, and `selftest` holds the two together.
 BEVEL = CORNER_R
 # The plate across and up. The width is the FIELD'S, less a margin at each end, so the plate runs
 # the whole of what the wall leaves it. The height is the stack standing on it plus HALF the
@@ -150,6 +155,21 @@ def boss_reach() -> float:
     It is the one thing here that reaches into the pack, and the plateau is why it is short: the
     wall now carries `floor_under` of what the bore needs, so the boss stands for the rest."""
     return THICK + _enc.heatset_depth + bore_relief() - WALL
+
+
+def pocket_flat() -> float:
+    """The pocket's ceiling ACROSS, between its own corner rounds. The slip cancels — it widens
+    the pocket and its corners equally — so this is the plate's width less two corner radii."""
+    return WIDTH - 2.0 * CORNER_R
+
+
+def pocket_soffit(hang: float) -> float:
+    """How much FLAT ceiling the pocket hangs off its head, for a pocket hanging `hang` deep.
+
+    The wall this pocket is cut into prints vertical, so its head is a down-facing face starting
+    in air. Cut square a pocket hangs its whole `THICK`; cut to the plate's chamfer it hangs
+    `THICK - BEVEL`, and the rest of the head is a 45° ramp the wall reaches under."""
+    return pocket_flat() * hang
 
 
 def boss_stem_d() -> float:
@@ -450,12 +470,23 @@ def selftest() -> int:
                      f"pack stands off it is {_enc.rear_seam_clear:g} — the rest is in the pack")
     if INK_DEPTH >= THICK:
         fails.append(f"type {INK_DEPTH:g} deep is cut through a plate {THICK:g} thick")
+    if abs(_enc.relief_chamfer - 45.0) > 1e-9:
+        fails.append(f"the plate's back edge and its pocket's ceiling are struck square, which is "
+                     f"45°, and this box rises its relief ceilings at "
+                     f"{_enc.relief_chamfer:g}° — the two no longer name one angle")
     if BEVEL > CORNER_R + 1e-9:
         fails.append(f"a {BEVEL:g} chamfer on a {CORNER_R:g} corner round turns the corner "
                      f"inside out")
     if BEVEL >= THICK:
         fails.append(f"a {BEVEL:g} chamfer takes the whole of a plate {THICK:g} thick and "
                      f"leaves it no straight rim in its pocket")
+    # A SCREW SEAT IS DEEPER THAN AN INLAY, and the pocket's head hangs in air either way. The
+    # chamfer is what keeps the deeper pocket from hanging more of it than the shallow one did —
+    # if it ever stops doing that, the section is being paid for by the wall's own printability.
+    if pocket_soffit(THICK - BEVEL) > pocket_soffit(_ring.THICK) + 1e-9:
+        fails.append(f"the pocket hangs {pocket_soffit(THICK - BEVEL):.1f} mm2 of flat ceiling "
+                     f"and an inlay-deep one at {_ring.THICK:g} hangs "
+                     f"{pocket_soffit(_ring.THICK):.1f}")
     if CBORE_DEPTH >= THICK:
         fails.append(f"a counterbore {CBORE_DEPTH:g} deep leaves no land in a plate "
                      f"{THICK:g} thick")
@@ -560,6 +591,8 @@ def main(unit: int):
           f"boss {boss_reach():.2f} off it, Ø{boss_stem_d():g} stem")
     print(f"  back edge chamfered {BEVEL:g} at 45°, "
           f"{bed_face(unit)[1]:.0f} mm2 of it on the bed")
+    print(f"  pocket hangs {pocket_soffit(THICK - BEVEL):.1f} mm2 of flat ceiling, "
+          f"where square it would hang {pocket_soffit(THICK):.1f}")
     print(f"-> {out.name}")
 
     variables = {
@@ -569,6 +602,10 @@ def main(unit: int):
         "WALL_T": f"{_enc.wall:g} mm",
         "PLATE_CORNER": f"{CORNER_R:g} mm",
         "PLATE_BEVEL": f"{BEVEL:g} mm",
+        "PORT_RING_T": f"{_ring.THICK:g} mm",
+        "POCKET_RIM": f"{THICK - BEVEL:g} mm",
+        "POCKET_SOFFIT": f"{pocket_soffit(THICK - BEVEL):.1f} mm\u00b2",
+        "POCKET_SOFFIT_SQUARE": f"{pocket_soffit(THICK):.1f} mm\u00b2",
         "PLATE_SLIP": f"{SLIP:g} mm",
         "SCREW_INSET": f"{SCREW_INSET:g} mm",
         "CBORE_D": f"{CBORE_DIA:g} mm",
