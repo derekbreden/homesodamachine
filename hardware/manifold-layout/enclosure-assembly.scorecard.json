@@ -152,6 +152,7 @@
     "pump-a-head \u2014 collet-plate: 1.025 mm",
     "pump-b-head \u2014 collet-plate: 1.025 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
+    "water-3 \u2014 enclosure-back-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.337 mm",
@@ -1276,6 +1277,16 @@
    "status": "pass",
    "value": "pack reaches x \u00b1104.50, wall at \u00b1104.50",
    "target": "inside a 215 mm appliance",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "back-top-flank-clear",
+   "label": "The pack stands clear of back-top's own flank face",
+   "kind": "gate",
+   "status": "pass",
+   "value": "least air 1.12 mm, at tube-water-3",
+   "target": "outside x \u00b1101.50, a 6 mm flank",
    "detail": [],
    "active": true
   },
