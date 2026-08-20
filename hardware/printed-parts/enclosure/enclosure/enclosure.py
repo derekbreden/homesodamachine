@@ -3433,9 +3433,11 @@ def build_pump_cap(box, halves_cache=None):
     # nothing — 0.525 mm of skin, 49 mm across, standing 28 mm on its own. The slot is the
     # whole square between them and the face keeps what it can carry.
     #
-    # ITS SILL IS THE STEEL'S OWN BORE. `plate["hole_d"]` round a tube of `ml.TUBE_D` is the
-    # air the plate gives it, and a sill struck one radius under the barb's own level gives it
-    # the same underfoot. ACROSS, IT IS THE HEAD'S SQUARE EXACTLY: aft of the case's straight
+    # ITS SILL IS THE WALL'S OWN CROWN — where the head's outlet relief ends and the part
+    # comes back out to the face its barbs stand on. Under that line the block has section to
+    # stand a wall in and does; over it there is none, and the tube wants the room anyway. It
+    # clears the lowest tube by 4.6 mm, which is the fall's own doing and not a figure struck
+    # for it. ACROSS, IT IS THE HEAD'S SQUARE EXACTLY: aft of the case's straight
     # run the room has already opened to that square (`pump_tray.head_room`), so the cut lands
     # on the room's own walls and adds no face there, and both tubes stand inside it —
     # `enclosure_assembly.check_cap_passes_tubes` reads that clearance off the placed barbs.
@@ -3443,8 +3445,7 @@ def build_pump_cap(box, halves_cache=None):
     # its radius and left the web feathering to nothing at the two levels it grazed.
     for cx, cy, cz in box.pump_trays:
         half = _tray.head_half + cap_pump_air
-        sill = min(hz for hx, hz in plate["holes"]
-                   if (hx > 0.0) == (cx > 0.0)) - plate["hole_d"] / 2.0
+        sill = cz - _tray.head_depth + _tray.outlet_relief_run
         solid = solid.cut(_ybox(cx - half, cx + half, cy + half, plate["fore_y"] + 1.0,
                                 sill, cz + 0.1))
     for bore in _cap_screws(inner, plate, box.pump_trays)[0]:

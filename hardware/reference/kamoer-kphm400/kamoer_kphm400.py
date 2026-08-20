@@ -69,6 +69,14 @@ body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings
 bracket_w = 68.6             # across the plate, against the head's own 62.61
 bracket_t = 2.0              # through it, the thick end of the 1.5–2 the part measures
 bracket_z = base_plane_z     # the junction face it sits on — the head's rear, the boss's front
+# THE OUTLET SIDE FALLS BACK UNDER ITS BARBS, STATED AND NOT MEASURED HERE. The datasheet
+# gives one envelope and this module drew it as a block, because nothing had ever needed the
+# face: `pump_case`'s own wall stood well clear of it. What needs it is a seat that reaches in
+# BEHIND the head to hold it — under the barbs the part falls back this far off the face they
+# stand on, and holds that fall from its front face up. The figure is confirmed on the part,
+# and it is confirmed as barely: a consumer taking a hold in it takes the whole of it.
+outlet_relief = 2.075        # how far the outlet side stands fore of `body_y_face`, under the barbs
+outlet_relief_run = 12.585   # how far up off the head's own front face it holds that fall
 
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
@@ -130,9 +138,15 @@ def build_head():
     WHAT THE CLIP LEAVES THE PART IS ITS SEATS. `pump_case.flank_ramp_bands` is where that
     cavity closes in, so the head comes out of it with a 45 degree face on each side at each
     band, looking down and outboard — four faces, and they are what anything holding this pump
-    up bears on."""
+    up bears on. AND THE OUTLET SIDE FALLS BACK under its barbs, which is the one thing here
+    the case did not shape and the datasheet does not carry — see `outlet_relief`."""
     box = _zbox(head_w, head_w, head_front_z, base_plane_z)
-    return cq.Workplane(obj=box.intersect(pc.cavity().val()))
+    relief = (cq.Workplane("XY")
+              .box(head_w + 2.0, outlet_relief + 2.0, outlet_relief_run,
+                   centered=(True, False, False))
+              .translate((cx, body_y_face - outlet_relief, head_front_z))
+              .val())
+    return cq.Workplane(obj=box.intersect(pc.cavity().val()).cut(relief))
 
 
 def build_rotor_housing():
