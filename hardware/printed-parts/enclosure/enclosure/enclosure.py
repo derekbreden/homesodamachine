@@ -2987,20 +2987,21 @@ def _pump_voids(pump_trays, z_top):
 
     ABOVE THE SPLIT there are two more, one per storey the part carries: the boss over the
     split to its own crown, and the can from that crown up through the ceiling, so the can
-    opens out of the block's top.
+    opens out of the block's top. THE BOSS IS TAKEN OUT ON ITS OWN OCTAGON
+    (`pump_tray.boss_room`) and not on a box round it — a box leaves its four corners standing
+    outside everything fused back after, sealed under the can and over the tray's ramp.
 
     ALL THREE ARE CUT FROM THE FILL AND THE TRAY IS FUSED AFTER. A tray conforms to the boss on
     the case's own figure and carries the air that fit belongs to; a void struck here is the
     block's, and the tray puts its own material back inside it."""
     out = []
-    half = _tray.head_half + cap_pump_air
-    boss = _tray.boss_half + cap_pump_air
     can_r = _tray.can_half + cap_pump_air
     room = _tray.head_room(cap_pump_air, _tray.head_depth + 1.0)
+    boss = _tray.boss_room(cap_pump_air)
     for cx, cy, cz in pump_trays:
-        out.append(room.moved(cq.Location(cq.Vector(cx, cy, cz))))
-        out.append(_ybox(cx - boss, cx + boss, cy - boss, cy + boss,
-                         cz, cz + _tray.boss_depth))
+        at = cq.Location(cq.Vector(cx, cy, cz))
+        out.append(room.moved(at))
+        out.append(boss.moved(at))
         out.append(_zcyl(can_r, cx, cy, cz + _tray.boss_depth, z_top + 1.0))
     return out
 
