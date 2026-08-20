@@ -101,9 +101,9 @@ owed_names=""
 # gate <name> <cmd…> — run a check; one ✓ line on pass, its full output on red.
 #
 # A RED CHECK DOES NOT HOLD THE COMMIT. The change lands, the deploy starts on it, and what
-# the check found is the next commit's work. So this output is the whole of what says the
-# tree is not clean — nothing downstream asks again, and the tally at the tail is what a
-# reader who scrolled past the middle still sees.
+# the check found is a SECOND COMMIT THE SAME SESSION OWES — not a later job and not someone
+# else's. So this output is the whole of what says the tree is not clean — nothing downstream
+# asks again, and the tally at the tail is what a reader who scrolled past the middle sees.
 gate() {
   _name=$1; shift
   ran=$((ran + 1))
@@ -564,6 +564,17 @@ fi
 if [ "$owed" -gt 0 ]; then
   echo "pre-commit: THIS COMMIT IS IN, and it owes a follow-up. $owed check(s) came back red:$owed_names" >&2
   echo "pre-commit: git push." >&2
+  echo "pre-commit:" >&2
+  echo "pre-commit: THAT FOLLOW-UP IS YOURS AND IT IS NOW — clear it before you report done." >&2
+  echo "pre-commit: Nobody else is coming to it. Do not ask whether to run it; run it." >&2
+  case "$owed_names" in
+    *"the lock names the solids on this disk"*)
+      echo "pre-commit:   tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write" >&2
+      echo "pre-commit:   then commit hardware/cad-artifacts.lock.json and push." >&2
+      echo "pre-commit:   That uploads a content-addressed bundle to a gh release on THIS repo —" >&2
+      echo "pre-commit:   the same place your push just went. It is not a publish." >&2
+      ;;
+  esac
 else
   echo "pre-commit: THIS COMMIT IS IN. $ran checked, none red — nothing here holds a commit." >&2
 fi
