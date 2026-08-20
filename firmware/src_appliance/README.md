@@ -88,16 +88,21 @@ times sits at the bottom, and the gas alarm holds the top alone:
 
 | | priority | duty | why |
 |---|---|---|---|
-| `tick` | ui | 6 | a touch registered — 4 ms, too short to have a pitch |
+| `tick` | ui | 26 | a touch registered — 27 ms of body, tip and release, no pitch in it |
 | `ack` | event | 18 | something was committed |
 | `chime` | event | 30 | an operation finished |
 | `refuse` | event | 40 | off resonance, so quiet and dull by physics as well as by level |
-| `welcome` | event | 28 | the boot chime — a major triad arpeggiated into resonance |
+| `welcome` | event | 28 | the boot chime — a major triad arpeggiated, restated a third higher, into resonance |
 | `fault` | fault | 34 | needs attention, nothing is leaking |
 | `alarm` | ALARM | 50 | gas trip — loops, and cannot be silenced |
 
 A request below what is already sounding is dropped, not queued: there is one coil, and a
 tick arriving mid-chime is worth less than the chime finishing.
+
+`tick`'s duty looks high against the rest of that column and is not: the ear integrates
+energy over 100–200 ms, and none of `tick` lasts 30. Duration is doing most of the
+attenuation, which is what lets the most-repeated sound in the machine be something you can
+feel under a finger without eating the alarm's headroom.
 
 `tick` means **your touch registered**, not "that worked". If success were the only thing
 that sounded, silence would mean both "you missed the glass" and "the machine refused you",
