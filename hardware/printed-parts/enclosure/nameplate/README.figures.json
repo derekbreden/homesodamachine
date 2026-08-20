@@ -6,23 +6,28 @@
     "NAMEPLATE_NOZZLE_D": "0.2 mm"
   },
   "/hardware/printed-parts/enclosure/nameplate/nameplate.py": {
+    "BED_AREA": "5895 mm\u00b2",
     "BORE_RELIEF": "1.25 mm",
-    "BOSS_COLLAR_D": "14.75 mm",
-    "BOSS_REACH": "8 mm",
+    "BOSS_REACH": "5 mm",
     "BOSS_STEM_D": "10 mm",
     "CBORE_D": "6.15 mm",
     "INK_DEPTH": "1 mm",
+    "INK_FLOOR": "3.5 mm",
     "LINK_EM": "6.05",
     "LOCKUP_W": "88.8 mm",
     "NAMEPLATE_CBORE_DEPTH": "3 mm",
+    "NAMEPLATE_FLOOR": "1.5 mm",
     "NAMEPLATE_LAND": "1.5 mm",
-    "NAMEPLATE_PAD_D": "9.15 mm",
-    "NAMEPLATE_PAD_DEPTH": "2.5 mm",
     "NAMEPLATE_SCREW_LEN": "8 mm",
     "NAMEPLATE_SCREW_REACH": "8 mm",
-    "NAMEPLATE_T": "2 mm",
+    "NAMEPLATE_SEAT_D": "9.15 mm",
+    "NAMEPLATE_T": "4.5 mm",
+    "NAMEPLATE_WALL": "6 mm",
+    "PLATE_BEVEL": "3 mm",
+    "PLATE_CORNER": "3 mm",
     "PLATE_H": "66.07 mm",
     "PLATE_W": "104.53 mm",
-    "TITLE_EM": "6.5"
+    "TITLE_EM": "6.5",
+    "WALL_T": "3 mm"
   }
 }

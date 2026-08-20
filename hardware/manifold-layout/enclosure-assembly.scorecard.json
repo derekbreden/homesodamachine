@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,12 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "nameplate \u2229 enclosure-back-top   517.9 mm\u00b3, x[  -14.03,   90.50] y[  462.50,  464.00] z[  226.87,  292.93]"
-   ],
+   "detail": [],
    "active": true
   },
   {

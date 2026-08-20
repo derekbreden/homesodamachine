@@ -2,12 +2,18 @@
 
 A flat plate lying in a pocket of the back wall's outer face, flush with it, in the field east
 of the flavour chips. Two M3 cap screws hold it; their heads land in counterbores sunk into the
-plate's own local thickening, so the face a customer meets is one plane of plate, head and wall.
+plate itself, so the face a customer meets is one plane of plate, head and wall.
 
-    THICK     the plate's thickness, the depth its pocket is cut to, and the height of the boss
-              the wall stands behind each screw
-    LAND      the plate's own section under a screw head. The plate thickens by `PAD_DEPTH`
-              there and the wall is pocketed to take that pad
+    THICK     a screw seat's own section — the head's height and the land under it. The plate
+              carries it EVERYWHERE, so nothing stands off its back
+    WALL      what the wall thickens to behind it, to floor a pocket one THICK deep
+
+IT PRINTS LETTERING UP, and that is what sets the section. The type is 0.2 mm work and wants to
+be laid last, on the face looking at the nozzle — which puts the plate's INBOARD face on the bed.
+A screw seat deeper than the plate would stand off that face as a pad, and a plate resting on two
+pads is a plate bridging its whole area. So the seat's depth goes INTO the plate: one thickness
+throughout, every feature sunk into the face that looks up, and the bed takes a solid plane.
+`enclosure._nameplate` thickens the wall to take the pocket that costs.
 
 WHERE IT STANDS. `WIDTH` and `HEIGHT` are the plate's, and the field it drops into is the
 wall's: `enclosure_assembly.nameplate_station` strikes that field on the flavour chips' own edge
@@ -24,9 +30,12 @@ Coordinate frame — the wall's, as `port_ring` states it, so the assembly seats
 of its own:
   Y = out through the wall. +Y = outboard, toward the customer.
   Origin = the plate's INBOARD face at its own centre. The plate spans y = 0 to y = THICK and
-      each pad hangs below y = 0.
+      nothing reaches below y = 0 — that plane is the bed.
   +Z = up. X completes the right-handed frame, so from outside the machine — looking down −Y —
       +X runs to the LEFT, a line of type reads along −X, and a row starts at large x.
+
+Its BACK EDGE IS CHAMFERED `BEVEL` at 45°, so the face on the bed is inset all round and
+the outline grows out to full size over the first three millimetres.
 
 It prints flat, two colours to a plate.
 
@@ -36,6 +45,7 @@ Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/nameplate.py selftest
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -60,15 +70,47 @@ import enclosure as _enc                              # noqa: E402
 import port_ring as _ring                             # noqa: E402
 
 
+# --- the two screws --------------------------------------------------------
+#
+# The head lands inside the plate and the wall's plane closes over it — a counterbore sunk to
+# the head's own height, with a land under it. THE PLATE CARRIES THAT SECTION EVERYWHERE rather
+# than thickening at each screw, so no pad stands off its back. What pays for it is the wall,
+# which thickens to floor a pocket that deep and is bored past it for the insert.
+LAND = 1.5
+HEAD_H = _enc.display_cover_head_h
+CBORE_DIA = _enc.head_cbore_dia
+SHANK_DIA = _enc.screw_clear_dia
+CBORE_DEPTH = HEAD_H
+# The plate's own section round a counterbore: one `enclosure.boss_ligament`, what this machine
+# gives every M3 seat.
+SEAT_DIA = CBORE_DIA + 2.0 * _enc.boss_ligament
+# How far a screw station stands in from the plate's edge: half a seat and one plate wall past it.
+SCREW_INSET = SEAT_DIA / 2.0 + 2.5
+# DIN 912 states a length under the head.
+SCREW_LEN = 8.0
+
+
 # --- the plate -------------------------------------------------------------
 
-# The plate's thickness and the depth of the pocket it lies in — `port_ring.THICK`, the depth of
-# inlay the rest of this face carries.
-THICK = _ring.THICK
+# THE PLATE IS ONE SCREW SEAT THICK, everywhere — the head's own height and the land under it.
+# `port_ring.THICK` is what the rest of this face inlays at, and this plate is deeper than that,
+# because what it has to bury is a screw and not a colour.
+THICK = CBORE_DEPTH + LAND
+# What the wall stands to behind it: its own stock, and the band the pack already stands off it.
+# `enclosure.rear_seam_clear` is that band — the plane the rear Z seam's lip presents the core —
+# so the thickening reaches a plane the box was holding open anyway and takes nothing from the
+# pack. `floor_under` is what the wall keeps below the pocket.
+WALL = _enc.wall + _enc.rear_seam_clear
 # The slip the plate takes all round in its pocket.
 SLIP = 0.2
 # The plate's corner round, and its pocket's.
 CORNER_R = 3.0
+# THE BACK EDGE IS CHAMFERED, 45° and `BEVEL` in the thickness. That face is the one on the bed,
+# so the chamfer is the first thing laid and the outline grows out to full size over three
+# layers of 45° — no elephant's foot on the rim the customer can see, and no arris to catch the
+# pocket's own inside corner on the way in. It is `CORNER_R`, which is what takes the corner
+# rounds to nothing on the bed and the outline there to a plain rectangle.
+BEVEL = CORNER_R
 # The plate across and up. The width is the FIELD'S, less a margin at each end, so the plate runs
 # the whole of what the wall leaves it. The height is the stack standing on it plus HALF the
 # padding the width came out with — the plate is landscape and its quiet band is landscape with
@@ -76,27 +118,6 @@ CORNER_R = 3.0
 # them against the type.
 WIDTH = 104.53
 HEIGHT = 66.07
-
-
-# --- the two screws --------------------------------------------------------
-#
-# The head lands inside the plate and the wall's plane closes over it — a counterbore sunk to
-# the head's own height, standing in the local thickening the plate carries at each screw. The
-# wall is pocketed to take that pad, and bored past it for the insert.
-LAND = 1.5
-HEAD_H = _enc.display_cover_head_h
-CBORE_DIA = _enc.head_cbore_dia
-SHANK_DIA = _enc.screw_clear_dia
-PAD_DEPTH = HEAD_H + LAND - THICK
-CBORE_DEPTH = HEAD_H
-# The pad, and the slip it drops into its own pocket on. One `enclosure.boss_ligament` of plate
-# stands round the counterbore, the section this machine gives every M3 seat.
-PAD_DIA = CBORE_DIA + 2.0 * _enc.boss_ligament
-PAD_SLIP = _enc.display_screw_pad_slip
-# How far a screw station stands in from the plate's edge: half a pad and one plate wall past it.
-SCREW_INSET = PAD_DIA / 2.0 + 2.5
-# DIN 912 states a length under the head.
-SCREW_LEN = 8.0
 
 
 def bore_relief() -> float:
@@ -116,22 +137,19 @@ def thread_engaged() -> float:
     return min(SCREW_LEN - LAND, _enc.heatset_depth)
 
 
-def pad_floor_depth() -> float:
-    """How far under the plate's OUTBOARD face a pad's pocket floor lies. The wall is pocketed
-    to this, and what the boss reaches inboard is measured from it."""
-    return THICK + PAD_DEPTH
+def floor_under() -> float:
+    """The stock the wall keeps under the plate, once a pocket one THICK deep is cut into a wall
+    `WALL` thick."""
+    return WALL - THICK
 
 
 def boss_reach() -> float:
-    """How far inboard of the wall's inner face a screw boss stands: everything under the pocket
-    floor, less the wall's own stock the pocket left standing."""
-    return pad_floor_depth() + _enc.heatset_depth + bore_relief() - _enc.wall
+    """How far a screw boss stands off the THICKENED wall's inner face: everything under the
+    pocket floor, less the floor the pocket left standing.
 
-
-def boss_collar_d() -> float:
-    """The boss at its widest, round the pad's own pocket — one `enclosure.wall` of material,
-    less the ligament the pad's plate already carries."""
-    return PAD_DIA + 2.0 * PAD_SLIP + 2.0 * 2.5
+    It is the one thing here that reaches into the pack, and the plateau is why it is short: the
+    wall now carries `floor_under` of what the bore needs, so the boss stands for the rest."""
+    return THICK + _enc.heatset_depth + bore_relief() - WALL
 
 
 def boss_stem_d() -> float:
@@ -369,21 +387,23 @@ def _stack_height(unit: int) -> float:
 
 
 def build_plate(unit: int):
-    """The plate: the outline, a pad under each screw, the screw passages through both, and the
-    type's recess taken out of its face."""
+    """The plate: one slab of the outline, chamfered on the back edge, the two screw passages,
+    and the type's recess.
+
+    EVERY CUT OPENS ON THE OUTBOARD FACE and nothing is fused to the inboard one, so the plate
+    goes on the bed as a plane and every feature is a hole the nozzle looks down into. The shank
+    is the one passage that reaches through, and at Ø`SHANK_DIA` it is a hole, not a bridge. The
+    chamfer is struck before the passages, on the clean prism."""
     body = (cq.Workplane("XY").workplane(offset=0.0)
             .rect(WIDTH, HEIGHT).extrude(THICK)
-            .edges("|Z").fillet(CORNER_R).val())
+            .edges("|Z").fillet(CORNER_R)
+            .faces("<Z").chamfer(BEVEL).val())
     # A quarter about −X carries the outline onto the wall's plane with its thickness running
     # OUTBOARD: the inboard face lands on y = 0, which is the face `seat` hands the pocket.
     body = body.rotate((0, 0, 0), (1, 0, 0), -90.0)
     for sx, sz in screw_stations():
-        body = body.fuse(cq.Solid.makeCylinder(
-            PAD_DIA / 2.0, PAD_DEPTH, cq.Vector(sx, -PAD_DEPTH, sz), cq.Vector(0, 1, 0)))
-    for sx, sz in screw_stations():
         body = body.cut(cq.Solid.makeCylinder(
-            SHANK_DIA / 2.0, THICK + PAD_DEPTH + 2.0,
-            cq.Vector(sx, -PAD_DEPTH - 1.0, sz), cq.Vector(0, 1, 0)))
+            SHANK_DIA / 2.0, THICK + 2.0, cq.Vector(sx, -1.0, sz), cq.Vector(0, 1, 0)))
         body = body.cut(cq.Solid.makeCylinder(
             CBORE_DIA / 2.0, CBORE_DEPTH + 1.0,
             cq.Vector(sx, THICK - CBORE_DEPTH, sz), cq.Vector(0, 1, 0)))
@@ -407,14 +427,14 @@ def build_part(unit: int) -> cq.Assembly:
 
 def split(shape) -> tuple:
     """A unit's STEP back apart, as `(plate, ink)`. The plate is the one body that reaches the
-    seating face; everything else lies in the recess."""
+    seating face; everything else lies in the recess, one `INK_DEPTH` off it."""
     solids = shape.Solids() if hasattr(shape, "Solids") else shape
-    floor = [s for s in solids if s.BoundingBox().ymin < -1e-6]
+    floor = [s for s in solids if s.BoundingBox().ymin < 1e-6]
     if len(floor) != 1 or len(solids) < 2:
         raise ValueError(
             f"a plate's STEP is the body and the type lying in it, and this one carries "
             f"{len(solids)} {'body' if len(solids) == 1 else 'bodies'}, {len(floor)} of them "
-            f"reaching the pads' own depth")
+            f"reaching the seating face")
     return (floor[0], cq.Compound.makeCompound([s for s in solids if s is not floor[0]]))
 
 
@@ -422,16 +442,25 @@ def selftest() -> int:
     """The plate against its own field, its screws against the stack they close, and the finest
     type on it against the tip that lays it."""
     fails = []
-    if THICK >= _enc.wall:
-        fails.append(f"a plate {THICK:g} thick lies in a wall {_enc.wall:g} thick and leaves no "
-                     f"floor under it")
+    if THICK >= WALL:
+        fails.append(f"a plate {THICK:g} thick lies in a wall {WALL:g} thick and leaves no floor "
+                     f"under it")
+    if WALL - _enc.wall > _enc.rear_seam_clear + 1e-9:
+        fails.append(f"the wall thickens {WALL - _enc.wall:g} behind the plate and the band the "
+                     f"pack stands off it is {_enc.rear_seam_clear:g} — the rest is in the pack")
     if INK_DEPTH >= THICK:
         fails.append(f"type {INK_DEPTH:g} deep is cut through a plate {THICK:g} thick")
-    if CBORE_DEPTH >= THICK + PAD_DEPTH:
-        fails.append(f"a counterbore {CBORE_DEPTH:g} deep leaves no land in a seat "
-                     f"{THICK + PAD_DEPTH:g} thick")
-    if abs((THICK + PAD_DEPTH - CBORE_DEPTH) - LAND) > 1e-9:
-        fails.append(f"the seat leaves {THICK + PAD_DEPTH - CBORE_DEPTH:g} under the head and "
+    if BEVEL > CORNER_R + 1e-9:
+        fails.append(f"a {BEVEL:g} chamfer on a {CORNER_R:g} corner round turns the corner "
+                     f"inside out")
+    if BEVEL >= THICK:
+        fails.append(f"a {BEVEL:g} chamfer takes the whole of a plate {THICK:g} thick and "
+                     f"leaves it no straight rim in its pocket")
+    if CBORE_DEPTH >= THICK:
+        fails.append(f"a counterbore {CBORE_DEPTH:g} deep leaves no land in a plate "
+                     f"{THICK:g} thick")
+    if abs((THICK - CBORE_DEPTH) - LAND) > 1e-9:
+        fails.append(f"the seat leaves {THICK - CBORE_DEPTH:g} under the head and "
                      f"`LAND` states {LAND:g}")
     if SCREW_LEN > screw_reach() + 1e-9:
         fails.append(f"an M3x{SCREW_LEN:g} runs {SCREW_LEN:g} under its head and the station "
@@ -439,8 +468,11 @@ def selftest() -> int:
     if thread_engaged() < _enc.heatset_depth - 1e-9:
         fails.append(f"the screw takes {thread_engaged():.2f} of a {_enc.heatset_depth:g} insert")
     for sx, sz in screw_stations():
-        if abs(sx) + PAD_DIA / 2.0 > WIDTH / 2.0 - 1e-9:
-            fails.append(f"a pad at x {sx:g} reaches past the plate's own edge")
+        if abs(sx) + SEAT_DIA / 2.0 > WIDTH / 2.0 - 1e-9:
+            fails.append(f"a seat at x {sx:g} reaches past the plate's own edge")
+        if abs(sx) + SHANK_DIA / 2.0 > WIDTH / 2.0 - BEVEL - 1e-9:
+            fails.append(f"the shank at x {sx:g} breaks out of the chamfer and the plate has no "
+                         f"face on the bed round it")
     for em in (TITLE_EM, BODY_EM, link_em()):
         got = _min_stroke(_flat("MACHINE", em))
         if got < BEAD:
@@ -460,12 +492,45 @@ def selftest() -> int:
     tall = _stack_height(1)
     if tall > HEIGHT + 1e-9:
         fails.append(f"the stack stands {tall:.2f} mm tall on a plate {HEIGHT:g} high")
+    # THE FACE ON THE BED IS ONE PLANE — the whole point of the section, and the one claim here
+    # that is measured off the built solid rather than argued from the figures.
+    faces, got, low = bed_face(1)
+    want = bed_face_want()
+    if low < -1e-6:
+        fails.append(f"the plate reaches {-low:.3f} mm below its seating face, and that face is "
+                     f"what goes on the bed")
+    if faces != 1 or abs(got - want) > 1e-3:
+        fails.append(f"the face on the bed is {len(bed)} face(s) of {got:.2f} mm2 and the outline "
+                     f"less its two shanks measures {want:.2f}")
     for f in fails:
         print(f"FAIL {f}")
     if not fails:
-        print(f"ok  nameplate  {WIDTH:g} x {HEIGHT:g} x {THICK:g}, "
-              f"{LAND:g} of land under each head, boss {boss_reach():.2f} inboard")
+        print(f"ok  nameplate  {WIDTH:g} x {HEIGHT:g} x {THICK:g}, {LAND:g} of land under each "
+              f"head, one plane of {got:.0f} mm2 on the bed, boss {boss_reach():.2f} off a wall "
+              f"{WALL:g} thick")
     return 1 if fails else 0
+
+
+def bed_face(unit: int = 1) -> tuple:
+    """What the plate lays on the bed, off the BUILT solid: `(faces, area, lowest)`.
+
+    Everything the plate carries is sunk into the face that looks up, so its inboard face is one
+    plane — the outline chamfered back by `BEVEL`, less the two screw shanks — and nothing
+    reaches below it. That is the whole claim of the section, and this is where it is measured
+    rather than argued."""
+    body = build_plate(unit)
+    bed = [f for f in body.Faces()
+           if abs(f.Center().y) < 1e-6 and abs(abs(f.normalAt().y) - 1.0) < 1e-6]
+    return (len(bed), sum(f.Area() for f in bed), body.BoundingBox().ymin)
+
+
+def bed_face_want() -> float:
+    """And what that face measures if it is the chamfered outline less the two shanks and
+    nothing else. At `BEVEL` = `CORNER_R` the corner rounds come to nothing there and the figure
+    is a plain rectangle, but the term is carried so the reading follows either one."""
+    return ((WIDTH - 2.0 * BEVEL) * (HEIGHT - 2.0 * BEVEL)
+            - (4.0 - math.pi) * (CORNER_R - BEVEL) ** 2
+            - 2.0 * math.pi * (SHANK_DIA / 2.0) ** 2)
 
 
 def _min_stroke(solid) -> float:
@@ -491,34 +556,40 @@ def main(unit: int):
     print(f"  {WIDTH:g} x {HEIGHT:g} x {THICK:g}, corners r{CORNER_R:g}")
     print(f"  screws at x ±{screw_stations()[0][0]:.3f} on the plate's centreline, "
           f"Ø{CBORE_DIA:g} counterbore {CBORE_DEPTH:g} deep, {LAND:g} of land")
-    print(f"  boss {boss_reach():.2f} inboard, Ø{boss_collar_d():g} collar / "
-          f"Ø{boss_stem_d():g} stem")
+    print(f"  wall {WALL:g} behind it, {floor_under():g} of floor, "
+          f"boss {boss_reach():.2f} off it, Ø{boss_stem_d():g} stem")
+    print(f"  back edge chamfered {BEVEL:g} at 45°, "
+          f"{bed_face(unit)[1]:.0f} mm2 of it on the bed")
     print(f"-> {out.name}")
 
     variables = {
         "PLATE_W": f"{WIDTH:g} mm",
         "PLATE_H": f"{HEIGHT:g} mm",
         "NAMEPLATE_T": f"{THICK:g} mm",
+        "WALL_T": f"{_enc.wall:g} mm",
         "PLATE_CORNER": f"{CORNER_R:g} mm",
+        "PLATE_BEVEL": f"{BEVEL:g} mm",
         "PLATE_SLIP": f"{SLIP:g} mm",
         "SCREW_INSET": f"{SCREW_INSET:g} mm",
         "CBORE_D": f"{CBORE_DIA:g} mm",
         "NAMEPLATE_CBORE_DEPTH": f"{CBORE_DEPTH:g} mm",
-        "NAMEPLATE_PAD_D": f"{PAD_DIA:g} mm",
-        "NAMEPLATE_PAD_DEPTH": f"{PAD_DEPTH:g} mm",
+        "NAMEPLATE_SEAT_D": f"{SEAT_DIA:g} mm",
+        "NAMEPLATE_WALL": f"{WALL:g} mm",
+        "NAMEPLATE_FLOOR": f"{floor_under():g} mm",
         "NAMEPLATE_LAND": f"{LAND:g} mm",
         "NAMEPLATE_SCREW_LEN": f"{SCREW_LEN:g} mm",
         "NAMEPLATE_SCREW_REACH": f"{screw_reach():.4g} mm",
         "BORE_RELIEF": f"{bore_relief():.4g} mm",
         "THREAD_ENGAGED": f"{thread_engaged():.4g} mm",
         "BOSS_REACH": f"{boss_reach():.4g} mm",
-        "BOSS_COLLAR_D": f"{boss_collar_d():g} mm",
         "BOSS_STEM_D": f"{boss_stem_d():g} mm",
         "TITLE_EM": f"{TITLE_EM:g}",
         "BODY_EM": f"{BODY_EM:g}",
         "LINK_EM": f"{link_em():.3g}",
         "LOCKUP_W": f"{lockup_width():.4g} mm",
         "INK_DEPTH": f"{INK_DEPTH:g} mm",
+        "INK_FLOOR": f"{THICK - INK_DEPTH:g} mm",
+        "BED_AREA": f"{bed_face(unit)[1]:.0f} mm\u00b2",
         "STACK_H": f"{_stack_height(unit):.4g} mm",
         "LOGO_H": f"{LOGO_H:g} mm",
     }

@@ -2844,11 +2844,11 @@ NAMEPLATE_BOSS_CLEAR = 1.5
 # The two bodies the plate goes into the assembly under — the part and the filament lying in it.
 NAMEPLATE = "nameplate"
 NAMEPLATE_INK = "nameplate-ink"
-# The field's own shape, as `enclosure.Box.nameplate`: the plate's centre and outline, the two
-# screw stations on it, and everything the wall has to cut and stand for one screw.
+# The field's own shape, as `enclosure.Box.nameplate`: the plate's centre and outline, what the
+# wall stands to behind it, the two screw stations on it, and the boss one screw needs.
 Nameplate = collections.namedtuple(
-    "Nameplate", "x z width height corner slip thick screws pad_d pad_slip pad_depth "
-                 "collar_d stem_d reach bore_d bore_depth")
+    "Nameplate", "x z width height corner slip thick wall screws "
+                 "stem_d reach bore_d bore_depth")
 
 
 def nameplate_field() -> tuple:
@@ -2882,9 +2882,8 @@ def nameplate_cut(foam) -> Nameplate:
     """Everything the wall does for the plate, as `enclosure.Box.nameplate`."""
     x, z = nameplate_station(foam)
     return Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.SLIP,
-                     _np.THICK, _np.screw_stations(),
-                     _np.PAD_DIA, _np.PAD_SLIP, _np.PAD_DEPTH,
-                     _np.boss_collar_d(), _np.boss_stem_d(), _np.boss_reach(),
+                     _np.THICK, _np.WALL, _np.screw_stations(),
+                     _np.boss_stem_d(), _np.boss_reach(),
                      _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
 
 
