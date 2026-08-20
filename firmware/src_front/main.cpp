@@ -166,6 +166,7 @@ static void *fb0 = nullptr, *fb1 = nullptr;
 // framebuffers (zero-copy: flush submits the just-drawn one and the panel flips
 // to it), so no separate draw buffer is allocated.
 static lv_disp_draw_buf_t draw_buf;
+static uint32_t flushCount = 0;   // frames actually pushed to the panel, per GET_DIAG
 
 // ── Shell geometry ──
 // The rail holds five 82 px targets with a link indicator in its foot; the pane takes the
@@ -577,11 +578,18 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 //  LVGL callbacks
 // ════════════════════════════════════════════════════════════
 
-// full_refresh mode: color_p is the whole back framebuffer LVGL just rendered.
-// Submit it (the panel flips to it at VSYNC), then wait for that flip before
-// releasing LVGL, so it never starts drawing the buffer still being scanned.
+// direct_mode: LVGL draws straight into the back framebuffer at absolute
+// coordinates, and only inside the areas that actually changed. It calls this
+// once per such area, so most calls have nothing to do — the frame is not
+// finished and LVGL has not rotated the buffers yet. Only the last call in a
+// refresh submits: color_p is then the whole back framebuffer, the panel flips
+// to it at VSYNC, and waiting for that flip is what stops LVGL drawing into the
+// buffer still being scanned out.
+//
 // The 100 ms timeout (not portMAX) means a missed VSYNC degrades, never deadlocks.
 static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p) {
+  if (!lv_disp_flush_is_last(disp)) { lv_disp_flush_ready(disp); return; }
+  flushCount++;
   esp_lcd_panel_draw_bitmap(panel, 0, 0, SCREEN_W, SCREEN_H, color_p);
   xSemaphoreTake(vsyncSem, 0);                      // drop a stale token
   xSemaphoreTake(vsyncSem, pdMS_TO_TICKS(100));     // wait for the flip
@@ -1169,9 +1177,10 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_set_pos(linkDot, 0, 8 + PAGE_COUNT * (RAIL_ITEM_H + 6) + 4);
 }
 
-// The screen behind it is already THEME_BG. LVGL repaints the whole 800x480 every frame
-// (full_refresh), so a second opaque fill of the pane is 586 KB written to PSRAM per frame
-// against a bus the scan-out DMA is reading continuously.
+// The screen behind it is already THEME_BG, and a second opaque fill of the pane is
+// 586 KB written to PSRAM against a bus the scan-out DMA is reading continuously.
+// Under direct_mode that cost is only paid where something changed, but a pane that
+// fills itself makes every change inside it dirty the whole pane.
 static lv_obj_t *buildPane(lv_obj_t *scr) {
   lv_obj_t *o = lv_obj_create(scr);
   lv_obj_set_size(o, PANE_W, SCREEN_H);
@@ -1719,7 +1728,7 @@ static void processTextLine(const char *line) {
                   "page=%d,svc=%d,flv=%d,stage=%u,holding=%d,reinits=%lu,unanswered=%u,"
                   "bridged=%lu,stale=%lu,sendErr=%d,"
                   "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
-                  "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
+                  "frame=%u,flushes=%lu,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
                   "link=%s,maxLoopMs=%lu,uptime=%lus\n",
                   setupCol ? (int)lv_obj_get_scroll_top(setupCol) : -1,
                   setupCol ? (int)lv_obj_get_scroll_bottom(setupCol) : -1,
@@ -1734,6 +1743,7 @@ static void processTextLine(const char *line) {
                   (unsigned long)ESP.getFreePsram(),
                   backlightOn ? 1 : 0,
                   (unsigned)animFrameIdx,
+                  (unsigned long)flushCount,
                   gt911Addr,
                   (unsigned long)touchCount,
                   (unsigned)lastTouchX, (unsigned)lastTouchY,
@@ -1900,8 +1910,8 @@ void setup() {
   }
   Serial.println("panelInit OK (double FB + bounce buffer)");
 
-  // LVGL — the two draw buffers ARE the two panel framebuffers (full-refresh
-  // double-buffer page-flip; zero-copy flush). No separate buffer allocated.
+  // LVGL — the two draw buffers ARE the two panel framebuffers, so the flush is a
+  // page flip and copies nothing. No separate buffer allocated.
   lv_init();
   lv_disp_draw_buf_init(&draw_buf, fb0, fb1, (uint32_t)SCREEN_W * SCREEN_H);
 
@@ -1911,7 +1921,20 @@ void setup() {
   disp_drv.ver_res = SCREEN_H;
   disp_drv.flush_cb = lvglFlush;
   disp_drv.draw_buf = &draw_buf;
-  disp_drv.full_refresh = 1;  // repaint the whole back buffer each frame, then flip
+  // direct_mode, not full_refresh. Both draw at absolute coordinates into a
+  // screen-sized buffer, and the difference is the clip: full_refresh clips to
+  // the whole display and so repaints all 800x480 — 768 KB into PSRAM — however
+  // little changed, which on this panel is ~90 ms of the ~115 ms loop. A prime
+  // hold ticking its elapsed label once per 100 ms was paying that in full for a
+  // few hundred pixels of text. direct_mode clips to the invalidated area, so
+  // the cost tracks what actually moved.
+  //
+  // With two buffers that needs the pair kept consistent, since a frame renders
+  // into whichever one is off-screen and the other still holds the frame before
+  // it. LVGL does that itself here — it records each frame's invalid areas and
+  // copies them across in refr_sync_areas() before drawing the next — but only
+  // because both buf1 and buf2 are set. A single-buffer direct_mode would tear.
+  disp_drv.direct_mode = 1;
   lv_disp_drv_register(&disp_drv);
 
   // Touch — GT911 on the shared I2C bus (reset already released via CH422G
