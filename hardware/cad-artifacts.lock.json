@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-5752ff4d9773cb46.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-5752ff4d9773cb46.tar.gz"
+    "asset": "cad-dee05ac1800b3d06.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-dee05ac1800b3d06.tar.gz"
   },
   "bundle": {
-    "sha256": "5752ff4d9773cb46a4d8de09fe2f73ebf627d98f4de2eaaf70b408c73d02d2db",
-    "bytes": 27516095,
+    "sha256": "dee05ac1800b3d0617eb066c650fb06899c28258f0ec7f2f5e980cf864684888",
+    "bytes": 27503815,
     "solids": 96
   },
   "solids": {
@@ -46,9 +46,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "99ee3d14df7e0351301efc2a79640ec105b1fc5e6939d0a5fd97b1181f9629a4",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a1d9480c01f749e41c8eb3c4f54597f820692f906a36da334f145e81f6d0f115",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "e8da0f072195420aecc11e7d88e041570f283b069f9df43f1bd36e4220c5aec4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "001215416bda25ca254364ce7581c0f27d4dd591c078588bb90d16133b33b98f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "a26a38808fe12a9862e8c86fd7ebc130045137f7306968caeb98f8a782d0a107",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "37c135b2152a97f83bf9283ff97b4300d5bb93b0c791c9fb4bd67a8199633868",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "b13d8f86d1ac67fd4f06799a08f91f8abaf1c763a11ee410ee1c5304aa5e6f49",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "cb4e842b39f70a6b73a844f40d6151f327ec5a8fbd1ae232c46a4c03a2290cc3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "49a490fe7d916bcec382b142a4cc8a06a6422977a20fe8b3782cfdbcaa307121",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "c37d547cba47be6a033db593d810804dd255f73a92acaf4ec114ba33f9ea0704",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "911faa0f6a42dcbd9bc3fdde089ade0fdec749c6d554c4447fddcaaed2fd65e7",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9c1c5236daeaeb8d0ce5c56e25e96bac423c023ce742952989e2071a11a52718",
