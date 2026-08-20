@@ -2,13 +2,13 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-646c2b89de3ad0bb.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-646c2b89de3ad0bb.tar.gz"
+    "asset": "cad-6676daa30d30a8b4.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6676daa30d30a8b4.tar.gz"
   },
   "bundle": {
-    "sha256": "646c2b89de3ad0bb1e989765e159d6ca3eefa55670894f7d268eef6f4aeb542b",
-    "bytes": 27400806,
-    "solids": 96
+    "sha256": "6676daa30d30a8b4d3ba2cbefdfb0083400f63f6b33a073a8f6a44e405c405a3",
+    "bytes": 28061631,
+    "solids": 100
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
@@ -55,6 +55,10 @@
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step": "d6e87c36b7e9ee925f3ad847e31e84b7ec9db3985112f9b777b43f22a9373d59",
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-b.step": "0c947f4b9ceb39dd0239f1da0159a3c39bf310345b7035e37fd7c802d18366ad",
     "hardware/printed-parts/enclosure/port-ring/port-ring-water.step": "c5a95ad3906bb397d219c99a604be500765e839b3b2cbea0424dc45e90dd57b9",
+    "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-facet.step": "e87d81ca55cf61fa265342994212d29aa4e9e241769dadc07b996f18cca8633b",
+    "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-flute.step": "af40ca11dc5c2111eb3e8a4b97580abfd09f25fa0db030e9418d159b9cb8e016",
+    "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-vee.step": "ac6452fa1a5bb868ba5a12b00bd0c76ad06d50cf2372617735c7e3c3187788fb",
+    "hardware/printed-parts/enclosure/texture-coupons/texture-coupons.step": "63e58e3655e98a900056cba35f67ec471031217dec525d5d148dcbaa20ca3048",
     "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step": "53f67038838d3bc97d23218fcba1001d1904a634abd90087b4d7faf3cf577e02",
     "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step": "d1d5e66b893a27948ac1b0d31c8fb854368065d0f7e6d07fd5f5c3a7ce63031d",
     "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step": "5cc1ca3afc7513b416fdfdb07b36f753e5037cce8944cd13ab27c245f0ca171d",
