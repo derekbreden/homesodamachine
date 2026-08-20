@@ -4661,10 +4661,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # meets is flush. The bosses carry the face's own through-holes across their depth, so a
         # bore that crosses the wall crosses them too.
         piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi)
-        # And the nameplate's own pocket on that same face, with its two screw bosses behind it.
-        # After the field, so a boss standing on this wall stands on a wall the field has already
-        # finished with.
-        piece = _nameplate(piece, box.nameplate, outer, oy1, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
@@ -4719,6 +4715,15 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
+    # And the nameplate — the pocket on the back wall's outer face, the plateau that floors it on
+    # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
+    # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,
+    # so anything fused onto this face afterwards would stand in the plate's own seat. The cold
+    # core's aft bracket is the one that does — its leg climbs this face right through the
+    # plate's lane, and cut here it roots on the pocket's floor with the plateau, one continuous
+    # section, instead of poking through into the plate.
+    if y_side == "back":
+        piece = _nameplate(piece, box.nameplate, outer, oy1, zlo, zhi)
     # And the flat ceiling's two strips over the hopper opening's flanks, on the front
     # top alone — the piece whose ceiling is nothing but those strips.
     if y_side == "front" and z_side == "top" and box.funnel:
