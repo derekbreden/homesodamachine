@@ -96,6 +96,9 @@ enum SoundId : uint8_t {
     SND_FAULT,    // needs attention, nothing is leaking
     SND_ALARM,    // gas trip — loops until stopped, and cannot be silenced
     SND_PROBE,    // the bench continuity probe's note
+    SND_ENGAGE,   // a held control took — the pump is yours
+    SND_RELEASE,  // it let go, whether you meant it to or not
+    SND_NOTE,     // the scratch note soundPlayNote() fills; not a fixed phrase
     SND_COUNT
 };
 
@@ -146,6 +149,12 @@ void    soundSetClock(int (*hourNow)());
 
 // What a given sound would actually play at right now, 0..100. 0 means silenced.
 uint8_t soundLevelFor(SoundId id);
+
+// A note whose pitch is not known until it plays — a reading rendered as a tone
+// rather than a phrase chosen from the table. It fills the SND_NOTE scratch step,
+// so a second call replaces the first rather than queueing behind it, and it is
+// always PRIO_UI: a measurement being spoken must never outrank a thing happening.
+bool soundPlayNote(uint16_t hz, uint16_t ms, uint8_t duty);
 
 // ── Characterization, for the bench ───────────────────────────────────────
 // Direct drive, below the sequencer — it stops any sound in progress and owns

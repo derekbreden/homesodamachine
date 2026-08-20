@@ -93,9 +93,12 @@ static void onPumpDone(uint8_t channel) {
 // click for these — one press is one frame on J9 — so the tick is made here, off
 // the command itself. A prime TICK is the same finger still held rather than a
 // new press, and a status poll is nobody's finger at all; neither sounds.
+// MSG_PRIME_START is deliberately not here. A hold is answered by the machine
+// itself with SND_ENGAGE when the pad takes, or SND_REFUSE when it does not —
+// both of which say more than a tick, and a tick underneath them would only be a
+// click getting cut off by the sweep that follows it.
 static bool isUserAction(uint8_t type) {
-    return type == MSG_PRIME_START || type == MSG_PUMP_RUN ||
-           type == MSG_CLEAN_START || type == MSG_SOUND_CFG_SET;
+    return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_SOUND_CFG_SET;
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
