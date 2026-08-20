@@ -194,6 +194,7 @@ static FlavorView  activeFlv = FLV_BOTH;
 static bool uiReady = false;
 
 static void showPage(Page p);
+static void refreshSoundRows();
 static void showFlavor(FlavorView v);
 static void showService(ServiceView v);
 static void animRun(bool on);
@@ -607,6 +608,31 @@ static void animTimerCb(lv_timer_t *t) {
 // the base's U7 keeps receiving and cancels its own, a layer below its ProtoLink.
 static HdlcLink j9;
 
+// Fire and forget: an ack would double the traffic in order to acknowledge a
+// tick, and a tick that arrives late is worse than one that never arrives.
+static void sendSound(uint8_t id) {
+  SoundPlayPayload p{id};
+  j9.send(MSG_SOUND_PLAY, &p, sizeof(p));
+}
+
+// The controller owns volume and quiet hours and persists them; this is a cache
+// of what it last said, and every edit is a round trip rather than a local write.
+static SoundCfgPayload soundCfg   = {70, 0, 22, 7, 25, 0};
+static bool            soundCfgOk = false;
+static unsigned long   soundCfgAskedMs = 0;
+
+static void soundCfgAsk() {
+  soundCfgAskedMs = millis();
+  j9.send(MSG_SOUND_CFG_GET, nullptr, 0);
+}
+
+static void soundCfgPush() {
+  SoundCfgPayload p = soundCfg;
+  p.flags = 0;                       // controller → glass only
+  j9.send(MSG_SOUND_CFG_SET, &p, sizeof(p));
+}
+
+
 // The base's last StatusPayload, and when it landed. Nothing else on this board knows the
 // controller's uptime or its build.
 static StatusPayload ctrlStatus = {};
@@ -666,6 +692,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     ctrlStatusMs = millis();
     refreshStatusPage();
     refreshLinkDot();
+    return;
+  }
+
+  if (type == MSG_RESP_SOUND_CFG && plen >= sizeof(SoundCfgPayload)) {
+    memcpy(&soundCfg, payload, sizeof(soundCfg));
+    soundCfgOk = true;
+    refreshSoundRows();
     return;
   }
 
@@ -780,8 +813,31 @@ static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
 // PRESS_LOCK stops the re-search: the press stays on the object it began on and a release
 // anywhere fires its click. Every button here takes it, and the two that commit something —
 // START CLEAN CYCLE and RESTART DISPLAY — give it back, so sliding off those still cancels.
+// ── The click ──
+// This panel has no sounder. The machine's one voice is U8 on the controller
+// PCBA, so a finger landing on this glass becomes a sound only by crossing J9 —
+// which is why it is sent on PRESSED rather than on the click: the round trip
+// hides inside the finger's own dwell, and the tick lands where the finger did
+// rather than where it lifted.
+//
+// It says "your touch registered", NOT "that worked". If only success made a
+// sound, silence would mean both "you missed" and "the machine refused you", and
+// on a capacitive panel with no travel those are exactly the two a user cannot
+// otherwise tell apart. Outcomes get their own sounds, from the controller.
+//
+// A touch that begins on a dark screen is withheld from every widget (see the
+// wake latch above), so waking the panel does not tick.
+static void sendSound(uint8_t id);
+
+static void clickCb(lv_event_t *e) { (void)e; sendSound(SND_WIRE_TICK); }
+
+// Every button on this panel is made here, so the click is hooked here and
+// nowhere else — one hook, and any button added later gets it without anyone
+// having to remember. It is added before the caller's own callback, so the
+// frame is on the wire before a page rebuild can delay it.
 static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg) {
   lv_obj_t *b = lv_btn_create(parent);
+  lv_obj_add_event_cb(b, clickCb, LV_EVENT_PRESSED, NULL);
   lv_obj_set_size(b, w, h);
   lv_obj_set_style_radius(b, 14, 0);
   lv_obj_set_style_shadow_width(b, 0, 0);
@@ -1233,6 +1289,109 @@ static lv_obj_t *setupRow(lv_obj_t *col, const char *cap, lv_obj_t **valueOut) {
   return c;
 }
 
+// ── Sound settings ──
+// The controller owns these; every control here is a round trip, and what the
+// rows show is always what came back rather than what was pressed.
+static lv_obj_t *setupVolume = nullptr, *setupQuiet = nullptr, *setupQuietFrom = nullptr,
+                *setupQuietTo = nullptr, *setupQuietVol = nullptr;
+
+// A caption, a value and a pair of steppers — the shape the ratio control uses.
+// PRESS_LOCK comes back off: these live in the scrolling column, and a drag that
+// starts on one should scroll it rather than being held as a press.
+static lv_obj_t *setupStepper(lv_obj_t *col, const char *cap, lv_event_cb_t cb,
+                              lv_obj_t **valueOut) {
+  lv_obj_t *c = mkCard(col, LV_PCT(100), 104);
+  lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_t *minus = mkBtn(c, 76, 56, COL_CARD_ON);
+  lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+  lv_obj_clear_flag(minus, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(minus, cb, ACT_EVENT, (void *)(intptr_t)-1);
+  lv_obj_center(mkText(minus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT));
+  lv_obj_t *plus = mkBtn(c, 76, 56, COL_CARD_ON);
+  lv_obj_align(plus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_clear_flag(plus, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(plus, cb, ACT_EVENT, (void *)(intptr_t)1);
+  lv_obj_center(mkText(plus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT));
+  *valueOut = mkText(c, "--", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(*valueOut, LV_ALIGN_BOTTOM_MID, 0, -16);
+  return c;
+}
+
+static int stepDir(lv_event_t *e) { return (int)(intptr_t)lv_event_get_user_data(e); }
+
+static void volStepCb(lv_event_t *e) {
+  int v = (int)soundCfg.volume + stepDir(e) * 10;
+  soundCfg.volume = (uint8_t)(v < 0 ? 0 : v > 100 ? 100 : v);
+  soundCfgPush();
+  refreshSoundRows();
+  // Heard at the level just set, which is the only way a volume control can be read.
+  sendSound(SND_WIRE_ACK);
+}
+
+static void quietVolStepCb(lv_event_t *e) {
+  int v = (int)soundCfg.quietVolume + stepDir(e) * 5;
+  soundCfg.quietVolume = (uint8_t)(v < 0 ? 0 : v > 100 ? 100 : v);
+  soundCfgPush();
+  refreshSoundRows();
+}
+
+static uint8_t hourStep(uint8_t h, int dir) { return (uint8_t)((h + dir + 24) % 24); }
+
+static void quietFromCb(lv_event_t *e) {
+  soundCfg.quietStart = hourStep(soundCfg.quietStart, stepDir(e));
+  soundCfgPush();
+  refreshSoundRows();
+}
+
+static void quietToCb(lv_event_t *e) {
+  soundCfg.quietEnd = hourStep(soundCfg.quietEnd, stepDir(e));
+  soundCfgPush();
+  refreshSoundRows();
+}
+
+static void quietToggleCb(lv_event_t *e) {
+  (void)e;
+  soundCfg.quietOn = soundCfg.quietOn ? 0 : 1;
+  soundCfgPush();
+  refreshSoundRows();
+}
+
+static void refreshSoundRows() {
+  if (!setupVolume) return;
+  char buf[40];
+  if (!soundCfgOk) {
+    lv_label_set_text(setupVolume,   "--");
+    lv_label_set_text(setupQuiet,    "--");
+    lv_label_set_text(setupQuietFrom,"--");
+    lv_label_set_text(setupQuietTo,  "--");
+    lv_label_set_text(setupQuietVol, "--");
+    return;
+  }
+  // Muting is worth naming rather than showing as 0%: it changes what the machine
+  // will and will not tell you. The gas alarm is exempt and stays audible.
+  if (soundCfg.volume) { snprintf(buf, sizeof buf, "%u%%", soundCfg.volume); lv_label_set_text(setupVolume, buf); }
+  else                 { lv_label_set_text(setupVolume, "MUTED"); }
+  lv_obj_set_style_text_color(setupVolume,
+      lv_color_hex(soundCfg.volume ? COL_TEXT : COL_WARN), 0);
+
+  // Quiet hours with no clock never engage, and a row reading "ON" while nothing
+  // happens is worse than one that says why.
+  bool clockOk = soundCfg.flags & SOUND_CFG_F_CLOCK_OK;
+  if (!soundCfg.quietOn)      lv_label_set_text(setupQuiet, "OFF");
+  else if (!clockOk)          lv_label_set_text(setupQuiet, "NO CLOCK");
+  else if (soundCfg.flags & SOUND_CFG_F_QUIET_NOW) lv_label_set_text(setupQuiet, "IN FORCE");
+  else                        lv_label_set_text(setupQuiet, "ON");
+  lv_obj_set_style_text_color(setupQuiet,
+      lv_color_hex(soundCfg.quietOn && !clockOk ? COL_WARN : COL_TEXT), 0);
+
+  snprintf(buf, sizeof buf, "%02u:00", soundCfg.quietStart);
+  lv_label_set_text(setupQuietFrom, buf);
+  snprintf(buf, sizeof buf, "%02u:00", soundCfg.quietEnd);
+  lv_label_set_text(setupQuietTo, buf);
+  snprintf(buf, sizeof buf, "%u%%", soundCfg.quietVolume);
+  lv_label_set_text(setupQuietVol, buf);
+}
+
 static void restartCb(lv_event_t *e) { (void)e; ESP.restart(); }
 
 static void setupScrollRefresh() {
@@ -1306,6 +1465,23 @@ static void buildSetup(lv_obj_t *page) {
   setupRow(setupCol, "FREE PSRAM", &setupPsram);
   setupRow(setupCol, "LOOP HIGH-WATER", &setupLoop);
   setupRow(setupCol, "UPTIME", &setupUptime);
+
+  // Sound. The controller holds all of it; these are its values, edited.
+  setupStepper(setupCol, "SOUND VOLUME", volStepCb, &setupVolume);
+
+  lv_obj_t *q = mkCard(setupCol, LV_PCT(100), 96);
+  lv_obj_align(mkText(q, "QUIET HOURS", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_t *qb = mkBtn(q, 168, 56, COL_CARD_ON);
+  lv_obj_align(qb, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
+  lv_obj_clear_flag(qb, LV_OBJ_FLAG_PRESS_LOCK);
+  lv_obj_add_event_cb(qb, quietToggleCb, ACT_EVENT, NULL);
+  lv_obj_center(mkText(qb, "TOGGLE", &lv_font_montserrat_20, COL_TEXT));
+  setupQuiet = mkText(q, "--", &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(setupQuiet, LV_ALIGN_BOTTOM_LEFT, 0, -14);
+
+  setupStepper(setupCol, "QUIET FROM",      quietFromCb,    &setupQuietFrom);
+  setupStepper(setupCol, "QUIET UNTIL",     quietToCb,      &setupQuietTo);
+  setupStepper(setupCol, "QUIET VOLUME",    quietVolStepCb, &setupQuietVol);
 
   lv_obj_t *r = mkBtn(setupCol, LV_PCT(100), 80, COL_CARD);
   lv_obj_clear_flag(r, LV_OBJ_FLAG_PRESS_LOCK);   // a drag that started here scrolls, and
@@ -1416,6 +1592,8 @@ static void showPage(Page p) {
   if (p == PAGE_STATUS)  { statusAskedMs = 0; refreshStatusPage(); }
   if (p == PAGE_SETUP) {
     refreshSetupPage();
+    refreshSoundRows();
+    soundCfgAsk();                    // the controller's values, not this board's guess
     lv_obj_update_layout(setupCol);   // the scroll extents are only real once laid out
     setupScrollRefresh();
   }
@@ -1752,6 +1930,14 @@ void loop() {
       else                 unanswered++;
       j9.send(MSG_STATUS_REQ, nullptr, 0);
     }
+  }
+
+  // The sound rows show "--" until the controller has answered once. A board that
+  // came up before the controller, or a pair that dropped, gets asked again rather
+  // than sitting on dashes.
+  if (uiReady && !screenIdle && !holding && activePage == PAGE_SETUP && !soundCfgOk &&
+      millis() - soundCfgAskedMs >= 2000) {
+    soundCfgAsk();
   }
 
   // Once a second: the rail's link indicator, and whichever page shows something live.

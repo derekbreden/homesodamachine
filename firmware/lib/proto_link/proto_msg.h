@@ -54,6 +54,14 @@ constexpr uint8_t MSG_ERR_SIZE_MISMATCH  = 0xE7;
 constexpr uint8_t MSG_ERR_CRC32_MISMATCH = 0xE8;
 constexpr uint8_t MSG_ERR_UNSUPPORTED    = 0xE9;  // this controller has no such subsystem
 
+// ── Sound (0x20..) ────────────────────────────────────────────────────────
+// The buzzer is U8 on the controller PCBA. Neither display carries a sounder of
+// its own, so every click a finger makes on glass crosses this pair.
+constexpr uint8_t MSG_SOUND_PLAY     = 0x20;  // SoundPlayPayload: make this sound now
+constexpr uint8_t MSG_SOUND_CFG_GET  = 0x21;  // no payload: answer with SoundCfgPayload
+constexpr uint8_t MSG_SOUND_CFG_SET  = 0x22;  // SoundCfgPayload: write volume / quiet hours
+constexpr uint8_t MSG_RESP_SOUND_CFG = 0x23;  // SoundCfgPayload, after a GET or a SET
+
 // Text wrapper
 constexpr uint8_t MSG_TEXT = 0xFE;
 
@@ -134,6 +142,41 @@ struct __attribute__((packed)) StatusPayload {
 
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
+
+// ── Sound ─────────────────────────────────────────────────────────────────
+// Wire-level sound ids. These mirror SoundId in lib/sound/sound.h, which is the
+// definition; the controller static_asserts in link.cpp that the two still agree,
+// so a sound added there without a number here does not compile.
+constexpr uint8_t SND_WIRE_TICK   = 1;  // a touch was registered — not "it worked"
+constexpr uint8_t SND_WIRE_ACK    = 2;  // something was committed
+constexpr uint8_t SND_WIRE_CHIME  = 3;  // an operation finished
+constexpr uint8_t SND_WIRE_REFUSE = 4;  // the machine said no
+constexpr uint8_t SND_WIRE_READY  = 5;  // the controller booted
+constexpr uint8_t SND_WIRE_FAULT  = 6;  // needs attention
+constexpr uint8_t SND_WIRE_ALARM  = 7;  // gas trip — cannot be silenced
+
+struct __attribute__((packed)) SoundPlayPayload {
+  uint8_t id;   // SND_WIRE_*
+};
+
+// Volume and quiet hours. The controller owns these and persists them in NVS;
+// the glass reads them with a GET and writes them with a SET, and both are
+// answered with the controller's resulting state rather than an echo.
+//
+// None of it reaches SND_WIRE_ALARM. A gas alarm a volume setting could mute
+// would be a safety defect, so the controller exempts it before any of these
+// fields are consulted.
+struct __attribute__((packed)) SoundCfgPayload {
+  uint8_t volume;       // 0..100; 0 mutes everything but the alarm
+  uint8_t quietOn;      // 0 / 1
+  uint8_t quietStart;   // hour, 0..23
+  uint8_t quietEnd;     // hour, 0..23; start > end wraps midnight
+  uint8_t quietVolume;  // 0..100, the ceiling while quiet hours are in force
+  uint8_t flags;        // SOUND_CFG_F_*, controller → glass only
+};
+
+constexpr uint8_t SOUND_CFG_F_CLOCK_OK  = 1 << 0;  // U6 answers and its time is believed
+constexpr uint8_t SOUND_CFG_F_QUIET_NOW = 1 << 1;  // quiet hours are in force right now
 
 inline uint32_t uartCrc32Update(uint32_t prev, const uint8_t *data, size_t len) {
   uint32_t crc = ~prev;

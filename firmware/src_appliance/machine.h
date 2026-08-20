@@ -46,6 +46,10 @@ void machinePrimeEnd();
 bool machinePumpRun(uint8_t channel, uint32_t ms);
 void machineStop();      // whatever is running, end it and park
 
+// The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
+// with no firmware in the path; what the firmware adds is the alarm.
+bool machineGasTripped();
+
 MachineState machineState();
 const char  *machineStateName();
 bool         machineIsPriming();
