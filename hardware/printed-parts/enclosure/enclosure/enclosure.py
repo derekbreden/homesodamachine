@@ -3400,8 +3400,7 @@ def _cap_screws(inner, plate, pump_trays):
 def build_pump_cap(box, halves_cache=None):
     """THE PUMP CAP: what closes on both heads and screws up onto the cartridge.
 
-    It is the cartridge's own solid under `cap_split_z` and nothing else — one piece for two
-    pumps. WHAT HOLDS A PUMP UP IS THE FOUR WEDGES IT CLOSES INTO THAT HEAD'S FLANKS: the part
+    It is the cartridge's own solid under `cap_split_z` — one piece for two pumps. WHAT HOLDS A PUMP UP IS THE FOUR WEDGES IT CLOSES INTO THAT HEAD'S FLANKS: the part
     ramps in on each side at each of `pump_case.flank_ramp_bands`, and this piece keeps the
     material under all four of those 45 degree faces, so the load stands on the flanks the
     case that printed this pump held it by. Its top face takes the rest: the stamped bracket
@@ -3409,6 +3408,11 @@ def build_pump_cap(box, halves_cache=None):
     so it laps this piece all round the head's void and the two screws hold the seat shut.
     Nothing reaches under a head's front face, which stands one millimetre over the bay
     floor's top.
+
+    THE TWO FACES IT DOES NOT DRAW are the underside and the aft, both over a head's own
+    square: the head's front face stands one millimetre over the bay floor and the bay leaves
+    0.525 mm between the head and the steel, and neither figure is a wall — so the part shows
+    through both and the piece stops where it has section to stop.
 
     IT GIVES UP THE LANE BETWEEN THE PUMPS and keeps `cap_web_t` over it, so the screws are
     short and their heads are reachable. Printed face-down on its own share of the face, the
@@ -3419,11 +3423,30 @@ def build_pump_cap(box, halves_cache=None):
     bx0, bx1 = cap_band_x(box.pump_trays)
     solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
                             bay_floor_z(box.pump_trays)[1] - 1.0, split - cap_web_t))
-    # THE FOUR BARB TUBES CROSS THIS PIECE'S OWN AFT LIP, on their way from the barbs into the
-    # anchor tees' collets, so it carries the steel's four holes on the steel's own figure.
-    for hx, hz in plate["holes"]:
-        solid = solid.cut(_ycyl(plate["hole_d"] / 2.0, hx, hz,
-                                plate["fore_y"] - 12.0, plate["aft_y"] + 1.0))
+    # THE AFT FACE IS OPEN OVER EACH HEAD, for the reason the underside is. What the pack
+    # leaves between a pump's own room and the steel is 0.525 mm — the bay is 66.635 deep off
+    # `pump_relief_floor` and the head is 62.61, so there are four millimetres of section to
+    # share between two faces and the fore one has taken most of it. A skin that thin is under
+    # one extrusion, it would print as a 63 mm bridge, and the four barb bores cross it. It is
+    # not a wall, so this piece does not draw one: the pocket runs out through the aft face and
+    # the part shows through, the same way it shows through the underside.
+    #
+    # WHAT STOPS ON THE STEEL IS WHAT IS LEFT, and it is plenty — the two outboard walls, the
+    # two webs either side of the lane, and the band the lane's own web leaves over it. What
+    # the bracket loses is 0.525 mm of lap on ONE of its four sides, and the lap was never the
+    # load path: the head stands on its flank seats.
+    #
+    # AND IT IS THE HEAD'S SQUARE EXACTLY. Aft of the case's own straight run the room has
+    # already opened to that square (`pump_tray.head_room`), so a cut struck on it lands on
+    # the room's own walls and adds no face at all. THE FOUR BARB TUBES LEAVE THROUGH IT: each
+    # stands inside the square it opens, so nothing of this piece is in their way and it bores
+    # nothing for them — `enclosure_assembly.check_cap_passes_tubes` reads that clearance off
+    # the placed barbs. Bored anyway, each hole lapped the room's wall by a fraction of its
+    # own radius and left the web feathering to nothing at the two levels it grazed.
+    for cx, cy, cz in box.pump_trays:
+        half = _tray.head_half + cap_pump_air
+        solid = solid.cut(_ybox(cx - half, cx + half, cy + half, plate["fore_y"] + 1.0,
+                                cz - _tray.head_depth - 2.0, cz + 0.1))
     for bore in _cap_screws(inner, plate, box.pump_trays)[0]:
         solid = solid.cut(bore)
     return _unified(solid)
