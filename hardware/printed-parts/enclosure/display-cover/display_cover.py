@@ -1,9 +1,24 @@
 """Display cover plate — the printed border that fills the display inset in the enclosure's
 45° facet, laps the Waveshare 4.3B's glass on all four sides, and closes that face flat.
 
-The inset, the bezel counterbore, the two pad pockets and the two heat-set bores are cut by
+The inset, its sunk land, the bezel counterbore and the two heat-set bores are cut by
 `enclosure._display_cuts`. This is the part that drops into them, and every figure here is off
 those same names.
+
+TWO SECTIONS, AND THE GLASS DECIDES WHICH. Over the glass the plate is
+`display_cover_thickness` and cannot be anything else: what stands in the step there is the
+display gasket, and under that the cover glass. Everywhere else — the whole lateral land the
+inset reaches out to for the screws — it is `display_cover_seat`, a screw seat's own section,
+and the land is sunk to meet it. So THERE IS NO PAD: what used to stand off the plate's back as
+two circles is now the back itself, over all the ground the glass is not under, and the plate
+is two and a half times its old section across the widest part of its span.
+
+IT PRINTS FACE DOWN. The top face has to come out flat and lie in the 45° plane, and a face
+printed against the bed is flat because the bed is. That orientation is also what makes the two
+sections free: build upward from the top face and every step in the back is an UP-facing one —
+the lap stops at its own depth and the seat carries on, with nothing hanging anywhere. What is
+left over the bed is the annular ledge at each counterbore, `(cbore_dia - screw_clear_dia) / 2`
+wide, which is a millimetre and a tenth.
 
 Frame: `enclosure.display_plane`'s own — +X the box's lateral axis, +Y up the 45° slope, +Z out
 of the face at the user, origin on the glass's centre IN THE 45° PLANE. The plate's TOP face
@@ -34,6 +49,7 @@ from enclosure import (
     display_bezel_x,
     display_corner_r,
     display_cover_cbore_depth,
+    display_cover_seat,
     display_cover_seat_recess,
     display_cover_slip,
     display_cover_thickness,
@@ -41,8 +57,6 @@ from enclosure import (
     display_inset_lap,
     display_inset_slope,
     display_inset_x,
-    display_screw_pad_depth,
-    display_screw_pad_dia,
     display_screw_x,
     head_cbore_dia,
     heatset_depth,
@@ -58,14 +72,20 @@ cover_x = display_inset_x - 2.0 * display_cover_slip          # [152.9 mm](COVER
 cover_slope = display_inset_slope - 2.0 * display_cover_slip  # [82.4 mm](COVER_SLOPE)
 cover_corner_r = display_corner_r - display_cover_slip        # [2.2 mm](COVER_CORNER_R)
 
-# The top face IS the 45° plane; the plate hangs `display_cover_thickness` below it, which is
-# the inset's own depth, and each pad hangs `display_screw_pad_depth` below that.
+# The top face IS the 45° plane and the body hangs below it. The LAP is `display_cover_thickness`
+# down, which is the inset's own depth; the SEAT is `display_cover_seat` down, and it is the
+# plate's back everywhere the glass is not beneath it.
 plate_z_top = 0.0
-plate_z_bottom = plate_z_top - display_cover_thickness
-pad_z_bottom = plate_z_bottom - display_screw_pad_depth
-# What the counterbore stands in — the plate's whole section under a screw, which is [5.2 mm](PAD_SEAT)
-# where the bare border is [2 mm](COVER_T).
-pad_seat_depth = display_cover_thickness + display_screw_pad_depth
+lap_z_bottom = plate_z_top - display_cover_thickness
+seat_z_bottom = plate_z_top - display_cover_seat
+
+# WHERE THE TWO MEET IS THE BEZEL'S OUTLINE, one slip out. Inside it the plate is over the glass
+# and has to stay thin; outside it the plate is over the inset's land and may be anything. The
+# deeper section's inner wall stands one `display_cover_slip` outside the bezel's own outline, so
+# it drops past that counterbore's wall on the same figure the plate's edge takes at the outline.
+seat_inner_x = display_bezel_x + 2.0 * display_cover_slip          # [114.1 mm](SEAT_INNER_X)
+seat_inner_slope = display_bezel_slope + 2.0 * display_cover_slip  # [77.6 mm](SEAT_INNER_SLOPE)
+seat_inner_corner_r = display_corner_r + display_cover_slip        # [2.8 mm](SEAT_INNER_R)
 
 # THE WINDOW IS THE GLASS, LESS THE LAP. `display_inset_lap` is what the border stands over the
 # glass on every side, so the opening is that lap taken off the glass twice over and the border
@@ -79,6 +99,18 @@ window_corner_r = display_corner_r
 border_x = (cover_x - window_x) / 2.0
 border_slope = (cover_slope - window_slope) / 2.0
 
+# WHAT THE DEEPER SECTION IS WORTH, per side: the band of border it thickens. Laterally the inset
+# reaches [19.4 mm](SEAT_BAND_X) past the glass for the screws to stand in, and all of it carries
+# the seat; up the slope the land is only [2.4 mm](SEAT_BAND_SLOPE), because there the border is
+# nearly all lap. What stays thin is the ring inside it — [3.3 mm](LAP_BAND) from the window out,
+# which covers the gasket's own footprint and one slip more.
+seat_band_x = (cover_x - seat_inner_x) / 2.0
+seat_band_slope = (cover_slope - seat_inner_slope) / 2.0
+lap_band = (seat_inner_x - window_x) / 2.0
+# What the deeper section is worth in stiffness, which is the reason to want it: a plate's
+# bending stiffness goes as the cube of its section, so this is [17.6×](SEAT_STIFFNESS) times.
+seat_stiffness = (display_cover_seat / display_cover_thickness) ** 3
+
 # THE LAP BEARS ON THE GLASS THROUGH THE GASKET. The plate's underside is one
 # `display_inset_depth` below the 45° face and the glass's own front face is
 # `display_bezel_depth` less its 1 mm of cover glass below it, so the border stands
@@ -90,11 +122,15 @@ glass_lap_seat = glass_face_depth - display_inset_depth
 
 # THE HEAD LANDS UNDER THE 45° FACE AND THE PLANE CLOSES OVER IT. Same flat-bottomed
 # ⌀`head_cbore_dia` seat the foam cap's lids take, sunk `display_cover_seat_recess` under the
-# face — [3.2 mm](COVER_CBORE_DEPTH) of the pad's [5.2 mm](PAD_SEAT), which leaves the land under the
-# head at the bare border's own [2 mm](COVER_LAND) section.
+# face — [3.2 mm](COVER_CBORE_DEPTH) of the seat's [5.2 mm](COVER_SEAT), which leaves the land under
+# the head at the lap's own [2 mm](COVER_LAND) section. That is what sets the seat: a screw seat is
+# its counterbore and the lap under it, and the plate carries exactly that.
 cbore_dia = head_cbore_dia
 cbore_depth = display_cover_cbore_depth
-land_under_head = pad_seat_depth - cbore_depth                 # [2 mm](COVER_LAND)
+land_under_head = display_cover_seat - cbore_depth             # [2 mm](COVER_LAND)
+# The ledge the counterbore's floor leaves round the shank. Printed face down it is the one thing
+# on the plate that hangs, and it hangs this far.
+cbore_ledge = (cbore_dia - screw_clear_dia) / 2.0              # [1.125 mm](CBORE_LEDGE)
 
 # WHAT THE SCREW HAS TO STAND IN, under the head: the land, then the bore the box cuts past it —
 # the ruthex M3 short's own thread and the relief under it, so a tip that runs past the insert
@@ -116,26 +152,16 @@ def _rounded_prism(x, slope, corner_r, z_bottom, z_top) -> cq.Workplane:
     )
 
 
-def _screw_pad(center_x) -> cq.Workplane:
-    """One pad, standing off the plate's underside into its pocket in the inset floor."""
-    return (
-        cq.Workplane("XY").workplane(offset=pad_z_bottom)
-        .center(center_x, 0.0)
-        .circle(display_screw_pad_dia / 2.0)
-        .extrude(display_screw_pad_depth)
-    )
-
-
 def _screw_bore(center_x) -> cq.Workplane:
     """One screw's whole passage through a pad: the shank clearance the length of the section,
     and over it the flat-bottomed head seat struck down from the TOP face. The head bears on the
     counterbore's floor, which is the land the pad exists to leave under it."""
     proud = 1.0  # struck past the top face so the seat breaks clean
     shank = (
-        cq.Workplane("XY").workplane(offset=pad_z_bottom)
+        cq.Workplane("XY").workplane(offset=seat_z_bottom)
         .center(center_x, 0.0)
         .circle(screw_clear_dia / 2.0)
-        .extrude(pad_seat_depth)
+        .extrude(display_cover_seat)
         .val()
     )
     cbore = (
@@ -149,18 +175,24 @@ def _screw_bore(center_x) -> cq.Workplane:
 
 
 def build_cover_outer() -> cq.Workplane:
-    """The border slab with a pad under each screw."""
-    plate = _rounded_prism(cover_x, cover_slope, cover_corner_r, plate_z_bottom, plate_z_top)
-    for sx in (-1.0, +1.0):
-        plate = plate.union(_screw_pad(sx * display_screw_x))
-    return plate
+    """The lap's own section over the whole outline, and under it the seat — the same outline
+    with the bezel's taken out of it.
+
+    A RING, NOT TWO PADS. The old part stood two ⌀12 circles off an otherwise flat back and had
+    to rest on them; this stands the whole border down to the seat and keeps the plate thin only
+    where the glass is under it."""
+    lap = _rounded_prism(cover_x, cover_slope, cover_corner_r, lap_z_bottom, plate_z_top)
+    seat = _rounded_prism(cover_x, cover_slope, cover_corner_r, seat_z_bottom, lap_z_bottom)
+    well = _rounded_prism(seat_inner_x, seat_inner_slope, seat_inner_corner_r,
+                          seat_z_bottom - 1.0, lap_z_bottom + 1.0)
+    return lap.union(seat.cut(well))
 
 
 def build_cover_inner_cut() -> cq.Workplane:
     """The window the screen shows through, and the two screw passages."""
     proud = 1.0  # struck past both faces so every cut breaks clean
     cut = _rounded_prism(window_x, window_slope, window_corner_r,
-                         pad_z_bottom - proud, plate_z_top + proud)
+                         seat_z_bottom - proud, plate_z_top + proud)
     for sx in (-1.0, +1.0):
         cut = cut.union(_screw_bore(sx * display_screw_x))
     return cut
@@ -168,6 +200,74 @@ def build_cover_inner_cut() -> cq.Workplane:
 
 def build_display_cover() -> cq.Workplane:
     return build_cover_outer().cut(build_cover_inner_cut())
+
+
+def glass_shadow() -> float:
+    """How much plate stands below the lap's own underside inside the GLASS's outline.
+
+    THIS IS THE ONE PLACE THE PLATE MAY NOT THICKEN. What is under it there is the gasket and
+    then the cover glass, and a plate that reaches into that step is a plate bearing on glass.
+    It has to be zero, and this measures the built solid rather than arguing from the figures."""
+    probe = _rounded_prism(display_bezel_x, display_bezel_slope, display_corner_r,
+                           seat_z_bottom - 1.0, lap_z_bottom - 1e-6).val()
+    got = build_display_cover().val().intersect(probe)
+    return got.Volume() if got is not None else 0.0
+
+
+def bed_face() -> tuple:
+    """What the plate lays on the bed, off the built solid: `(faces, area)`.
+
+    It prints face down, so the bed takes the TOP face — one plane, the outline less the window
+    and the two counterbores, and the face that has to come out flat and lie in the 45° plane."""
+    body = build_display_cover().val()
+    faces = [f for f in body.Faces()
+             if abs(f.Center().z - plate_z_top) < 1e-6
+             and abs(abs(f.normalAt().z) - 1.0) < 1e-6]
+    return (len(faces), sum(f.Area() for f in faces))
+
+
+def selftest() -> int:
+    """The plate against the glass it may not touch, the screw against the seat that holds it,
+    and the back against the bed it prints on."""
+    fails = []
+    shadow = glass_shadow()
+    if shadow > 1e-6:
+        fails.append(f"the plate stands {shadow:.3f} mm3 below its lap inside the glass's own "
+                     f"outline, and what is in that step is the gasket")
+    if abs(land_under_head - display_cover_thickness) > 1e-9:
+        fails.append(f"the land under a head is {land_under_head:g} and the lap it should be "
+                     f"the section of is {display_cover_thickness:g}")
+    if abs((cbore_depth + land_under_head) - display_cover_seat) > 1e-9:
+        fails.append(f"a {cbore_depth:g} counterbore over {land_under_head:g} of land is not the "
+                     f"{display_cover_seat:g} seat the plate carries")
+    if screw_len > screw_reach + 1e-9:
+        fails.append(f"an M3x{screw_len:g} runs {screw_len:g} under its head and the station "
+                     f"gives it {screw_reach:.2f}")
+    if thread_engaged < heatset_depth - 1e-9:
+        fails.append(f"the screw takes {thread_engaged:.2f} of a {heatset_depth:g} insert")
+    for band, name in ((seat_band_x, "laterally"), (seat_band_slope, "up the slope")):
+        if band <= 0.0:
+            fails.append(f"the seat leaves no band {name} — the glass reaches the plate's edge")
+    if seat_band_x < cbore_dia:
+        fails.append(f"the seat's lateral band is {seat_band_x:.2f} and a head's counterbore is "
+                     f"{cbore_dia:g} across — the seat cannot hold it")
+    # THE BACK IS ONE PLANE EITHER SIDE OF THE STEP, and the bed takes the top face whole.
+    faces, area = bed_face()
+    if faces != 1:
+        fails.append(f"the face on the bed is {faces} face(s) and the plate has one top")
+    body = build_display_cover().val()
+    low = body.BoundingBox().zmin
+    if abs(low - seat_z_bottom) > 1e-6:
+        fails.append(f"the plate reaches {low:.3f} and its seat is {seat_z_bottom:g} — something "
+                     f"stands off the back")
+    for f in fails:
+        print(f"FAIL {f}")
+    if not fails:
+        print(f"ok  display-cover  {cover_x:g} x {cover_slope:g}, {display_cover_thickness:g} "
+              f"over the glass and {display_cover_seat:g} on the land "
+              f"({seat_band_x:.1f} of band each side), {area:.0f} mm2 on the bed, "
+              f"0 mm3 in the gasket's step")
+    return 1 if fails else 0
 
 
 def main():
@@ -178,9 +278,14 @@ def main():
     print(f"-> {out.name}")
 
     bb = cover.val().BoundingBox()
+    faces, bed_area = bed_face()
     print("Display cover plate")
     print(f"  {cover_x:g} x {cover_slope:g} outer, r{cover_corner_r:g} corners, "
-          f"{display_cover_thickness:g} thick, {pad_seat_depth:g} under each screw")
+          f"{display_cover_thickness:g} over the glass and {display_cover_seat:g} on the land")
+    print(f"  seat band {seat_band_x:g} laterally / {seat_band_slope:g} up the slope, "
+          f"lap {lap_band:g} — {bed_area:.0f} mm2 of top face on the bed, printed face down")
+    print(f"  {seat_stiffness:.1f}x the bending stiffness across the land, "
+          f"{glass_shadow():.0f} mm3 standing in the gasket's step")
     print(f"  {window_x:g} x {window_slope:g} window, r{window_corner_r:g} corners — "
           f"{border_x:g} border laterally, {border_slope:g} up the slope")
     print(f"  {cbore_dia:g} flat counterbore {cbore_depth:g} deep over a "
@@ -203,9 +308,16 @@ def main():
         "BORDER_X": f"{border_x:.4g} mm",
         "BORDER_SLOPE": f"{border_slope:.4g} mm",
         "INSET_LAP": f"{display_inset_lap:.4g} mm",
-        "COVER_PAD_D": f"{display_screw_pad_dia:.4g} mm",
-        "COVER_PAD_DEPTH": f"{display_screw_pad_depth:.4g} mm",
-        "PAD_SEAT": f"{pad_seat_depth:.4g} mm",
+        "COVER_SEAT": f"{display_cover_seat:.4g} mm",
+        "SEAT_INNER_X": f"{seat_inner_x:.4g} mm",
+        "SEAT_INNER_SLOPE": f"{seat_inner_slope:.4g} mm",
+        "SEAT_INNER_R": f"{seat_inner_corner_r:.4g} mm",
+        "SEAT_BAND_X": f"{seat_band_x:.4g} mm",
+        "SEAT_BAND_SLOPE": f"{seat_band_slope:.4g} mm",
+        "LAP_BAND": f"{lap_band:.4g} mm",
+        "CBORE_LEDGE": f"{cbore_ledge:.4g} mm",
+        "SEAT_STIFFNESS": f"{seat_stiffness:.1f}\u00d7",
+        "BED_AREA": f"{bed_face()[1]:.0f} mm\u00b2",
         "PAD_X": f"{display_screw_x:.4g} mm",
         "SHANK_D": f"{screw_clear_dia:.4g} mm",
         "CBORE_D": f"{cbore_dia:.4g} mm",
@@ -228,4 +340,6 @@ def main():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+        sys.exit(selftest())
     main()
