@@ -37,13 +37,56 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 }
 
 // ── What the machine announces, going out on the pair ─────────────────────
+// This board answers; it does not interrupt. A prime that timed out and a bounded
+// run that finished both come from machineService(), on a clock of their own, and
+// putting them straight on the wire means driving it while the glass may already
+// be mid-frame — which collides, destroys this board's own echo, and costs
+// whichever frame the glass was sending (rs485_echo.h).
+//
+// So an announcement waits for a turn. It is held here and goes out inside the
+// window right after a frame arrives, when the glass is known to be listening
+// rather than talking. The glass polls on an interval for exactly this reason,
+// so the wait is bounded by that poll and not by whether anyone touches anything.
+struct Announce { uint8_t type; uint8_t len; uint8_t data[8]; };
+static const uint8_t ANN_DEPTH = 4;
+static Announce annQ[ANN_DEPTH];
+static uint8_t  annHead = 0, annTail = 0, annCount = 0;
+static uint32_t annDropped = 0;
+
+static void announceQueue(uint8_t type, const void *data, uint8_t len) {
+    if (len > sizeof(annQ[0].data)) len = sizeof(annQ[0].data);
+    if (annCount >= ANN_DEPTH) {
+        annTail = (uint8_t)((annTail + 1) % ANN_DEPTH);
+        annCount--;
+        annDropped++;
+    }
+    Announce &a = annQ[annHead];
+    a.type = type;
+    a.len  = len;
+    if (len && data) memcpy(a.data, data, len);
+    annHead = (uint8_t)((annHead + 1) % ANN_DEPTH);
+    annCount++;
+}
+
+// Drained only from inside onMessage, which is the one moment the far end is
+// certainly not driving the pair.
+static void announceFlush() {
+    while (annCount) {
+        Announce &a = annQ[annTail];
+        j9.send(a.type, a.len ? a.data : nullptr, a.len);
+        annTail = (uint8_t)((annTail + 1) % ANN_DEPTH);
+        annCount--;
+    }
+}
+
 static void onPrimeState(uint8_t state, uint8_t channel, uint32_t ms) {
     PrimeStatePayload st{state, channel, ms};
-    j9.send(MSG_RESP_PRIME, &st, sizeof(st));
+    announceQueue(MSG_RESP_PRIME, &st, sizeof(st));
 }
 
 static void onPumpDone(uint8_t channel) {
-    j9.sendResponse(MSG_RESP_PUMP_DONE, channel);
+    ResponsePayload r{channel};
+    announceQueue(MSG_RESP_PUMP_DONE, &r, sizeof(r));
 }
 
 // A frame that only a finger could have produced. The glass sends no separate
@@ -55,8 +98,19 @@ static bool isUserAction(uint8_t type) {
            type == MSG_CLEAN_START || type == MSG_SOUND_CFG_SET;
 }
 
-// ── What arrives on the pair, becoming an intent ──────────────────────────
+static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
+
+// The turn. A frame has landed, so the glass is listening rather than driving:
+// this is the only window in which this board puts anything on the pair. The
+// reply goes out from inside dispatch(), and anything the machine wanted to
+// volunteer since the last frame follows it here.
 static void onMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
+    dispatch(link, frame, len);
+    announceFlush();
+}
+
+// ── What arrives on the pair, becoming an intent ──────────────────────────
+static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     uint8_t        type    = msgType(frame);
     const uint8_t *payload = msgPayload(frame);
     uint16_t       plen    = msgPayloadLen(len);
@@ -174,6 +228,8 @@ void linkBegin() {
 
 void linkService() { j9.service(); }
 
+// The one thing here that speaks unprompted, and it is a bench command: it exists
+// to prove this board's half of the pair carries, with nobody expected to answer.
 void linkPing() {
     size_t before = j9Stream.echoSwallowed();
     uint32_t rxBefore = j9.framesRx;
@@ -202,6 +258,8 @@ void linkReport() {
         Serial.printf("    last frame %lu ms ago\n", millis() - j9.lastRxMs);
     else
         Serial.println("    nothing has arrived — the display is unpowered, unflashed, or A/B is swapped");
+    Serial.printf("    announcements held %u, dropped %lu\n",
+                  (unsigned)annCount, (unsigned long)annDropped);
     Serial.printf("    echo swallowed %u, outstanding %u, high-water %u, desyncs %u\n",
                   (unsigned)j9Stream.echoSwallowed(), (unsigned)j9Stream.echoOutstanding(),
                   (unsigned)j9Stream.echoHighWater(), (unsigned)j9Stream.echoDesyncs());

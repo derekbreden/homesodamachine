@@ -606,9 +606,63 @@ static void animTimerCb(lv_timer_t *t) {
 // the UART, typed frames through ProtoLink. This board's transceiver gates its receiver
 // off while driving, so nothing it sends returns and there is no echo to cancel here —
 // the base's U7 keeps receiving and cancels its own, a layer below its ProtoLink.
+static int lastSendErr = 0;   // last refused send, surfaced by GET_DIAG
+
 static HdlcLink j9;
 
-static int lastSendErr = 0;   // last refused send, surfaced by GET_DIAG
+// ── Taking turns on J9 ────────────────────────────────────────────────────
+// The pair is one differential pair, half-duplex, and nothing arbitrates it.
+// The controller answers a frame the instant it lands — from inside its receive
+// callback — so a second frame sent from here before that answer has come back
+// lands on top of it. The controller hears its own transmissions (U7's /RE is
+// grounded on the PCBA) and cancels them by matching the echo; a frame of ours
+// colliding with its reply destroys that echo, and the frame that gets lost is
+// ours. That is what a START that never arrives actually is.
+//
+// So nothing sends directly. Everything is posted here, and exactly one frame
+// is on the wire at a time: the next goes out once the answer has come back, or
+// once the turnaround window lapses if that answer is never coming. Order is
+// preserved, and a burst — a stepper pushing config and asking for a beep in
+// the same breath — is spaced instead of stacked.
+struct OutFrame { uint8_t type; uint8_t len; uint8_t data[40]; };
+static const uint8_t  OUT_Q_DEPTH   = 8;
+static const unsigned TURNAROUND_MS = 30;   // a reply is ~2 ms; this is the giving-up point
+
+static OutFrame      outQ[OUT_Q_DEPTH];
+static uint8_t       outHead = 0, outTail = 0, outCount = 0;
+static uint32_t      outDropped = 0;
+static unsigned long lastTxMs = 0;
+static bool          awaitingAnswer = false;
+
+static void j9Post(uint8_t type, const void *data, uint8_t len) {
+  if (len > sizeof(outQ[0].data)) len = sizeof(outQ[0].data);
+  if (outCount >= OUT_Q_DEPTH) {
+    // The far end has stopped answering. Dropping the OLDEST keeps the newest
+    // intent — a finger that just moved matters more than one that already did.
+    outTail = (uint8_t)((outTail + 1) % OUT_Q_DEPTH);
+    outCount--;
+    outDropped++;
+  }
+  OutFrame &f = outQ[outHead];
+  f.type = type;
+  f.len  = len;
+  if (len && data) memcpy(f.data, data, len);
+  outHead = (uint8_t)((outHead + 1) % OUT_Q_DEPTH);
+  outCount++;
+}
+
+// Called every loop, before j9.service() drains the wire.
+static void j9Pump() {
+  if (!outCount) return;
+  if (awaitingAnswer && millis() - lastTxMs < TURNAROUND_MS) return;
+  OutFrame &f = outQ[outTail];
+  int r = j9.send(f.type, f.len ? f.data : nullptr, f.len);
+  if (r < 0) { lastSendErr = r; Serial.printf("[J9] send(0x%02X) = %d\n", f.type, r); }
+  outTail = (uint8_t)((outTail + 1) % OUT_Q_DEPTH);
+  outCount--;
+  lastTxMs = millis();
+  awaitingAnswer = true;
+}
 
 // Fire and forget: an ack would double the traffic in order to acknowledge a
 // tick, and a tick that arrives late is worse than one that never arrives. A
@@ -616,8 +670,7 @@ static int lastSendErr = 0;   // last refused send, surfaced by GET_DIAG
 // nothing else would ever look at.
 static void sendSound(uint8_t id) {
   SoundPlayPayload p{id};
-  int r = j9.send(MSG_SOUND_PLAY, &p, sizeof(p));
-  if (r < 0) { lastSendErr = r; Serial.printf("[J9] send(SOUND) = %d\n", r); }
+  j9Post(MSG_SOUND_PLAY, &p, sizeof(p));
 }
 
 // The controller owns volume and quiet hours and persists them; this is a cache
@@ -628,13 +681,13 @@ static unsigned long   soundCfgAskedMs = 0;
 
 static void soundCfgAsk() {
   soundCfgAskedMs = millis();
-  j9.send(MSG_SOUND_CFG_GET, nullptr, 0);
+  j9Post(MSG_SOUND_CFG_GET, nullptr, 0);
 }
 
 static void soundCfgPush() {
   SoundCfgPayload p = soundCfg;
   p.flags = 0;                       // controller → glass only
-  j9.send(MSG_SOUND_CFG_SET, &p, sizeof(p));
+  j9Post(MSG_SOUND_CFG_SET, &p, sizeof(p));
 }
 
 
@@ -660,6 +713,8 @@ static void refreshStatusPage();
 static void refreshLinkDot();
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
+  awaitingAnswer = false;   // the controller has spoken; the wire is ours again
+
   (void)link;
   uint8_t type = msgType(frame);
   const uint8_t *payload = msgPayload(frame);
@@ -782,7 +837,7 @@ static void padWatch() {
 // MSG_RESP_PUMP_DONE once the run has finished.
 static void sendPumpRun(uint8_t channel, uint16_t ms) {
   PumpRunPayload req{channel, ms};
-  int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
+  int r = 0; j9Post(MSG_PUMP_RUN, &req, sizeof(req));
   Serial.printf("[J9] MSG_PUMP_RUN ch=%u ms=%u -> send()=%d, bytesTx=%lu bytesRx=%lu\n",
                 req.channel, req.ms, r,
                 (unsigned long)j9.bytesTx, (unsigned long)j9.bytesRx);
@@ -998,7 +1053,7 @@ static void refreshStatusPage() {
 
 static void primeSend(uint8_t type) {
   ChannelPayload p{flavorSel};
-  int r = j9.send(type, &p, sizeof(p));
+  int r = 0; j9Post(type, &p, sizeof(p));
   if (r < 0) {
     lastSendErr = r;
     Serial.printf("[J9] send(type 0x%02X) = %d\n", type, r);
@@ -1072,7 +1127,7 @@ static void flavorToPrimeCb(lv_event_t *e) {
 static void cleanStartCb(lv_event_t *e) {
   (void)e;
   ChannelPayload p{flavorSel};
-  j9.send(MSG_CLEAN_START, &p, sizeof(p));
+  j9Post(MSG_CLEAN_START, &p, sizeof(p));
   setCleanMsg("asked the controller ...");
 }
 
@@ -1752,7 +1807,7 @@ static void processTextLine(const char *line) {
     panelKick();                  // the wake sequence, without waiting for a sleep
     Serial.println("OK:PANEL:KICK");
   } else if (strcmp(line, "STATUS") == 0) {
-    j9.send(MSG_STATUS_REQ, nullptr, 0);
+    j9Post(MSG_STATUS_REQ, nullptr, 0);
     Serial.println("OK:STATUS requested");
   } else if (strcmp(line, "LINK") == 0) {
     Serial.printf("LINK:rx=GPIO%d,tx=GPIO%d,framesRx=%lu,framesTx=%lu,%s\n", rs485Rx, rs485Tx,
@@ -1802,7 +1857,7 @@ static void processTextLine(const char *line) {
     rs485Swap();
     Serial.printf("OK:RS485 rx=GPIO%d tx=GPIO%d\n", rs485Rx, rs485Tx);
   } else if (strncmp(line, "RS485:", 6) == 0) {
-    int r = j9.send(MSG_TEXT, line + 6, strlen(line + 6));
+    int r = 0; j9Post(MSG_TEXT, line + 6, (uint8_t)strlen(line + 6));
     Serial.printf("OK:sendText('%s')=%d\n", line + 6, r);
   } else {
     Serial.printf("ERR:unknown command '%s'\n", line);
@@ -1912,6 +1967,7 @@ void loop() {
     if (j9.framesTx == framesTxAtPress) sendSound(SND_WIRE_TICK);
   }
 
+  j9Pump();      // at most one frame on the wire at a time
   j9.service();
 
   // Panel reset, then the light, then the frames start moving again.
@@ -1964,12 +2020,16 @@ void loop() {
   // STATUS is up, every 10 s otherwise, and never while a hold owns the pair. Three in a
   // row with nothing back is the same failure, found before a finger meets the glass.
   if (uiReady && !screenIdle && !holding) {
-    uint32_t every = (activePage == PAGE_STATUS) ? 2000 : 10000;
+    // The controller no longer speaks unprompted — a prime that timed out or a
+    // pump that finished waits for a frame to answer. This poll is what collects
+    // those, so it is the ceiling on how stale news from the base can be. A poll
+    // pair is ~50 bytes; at 115200 that is 1% of the pair at this interval.
+    uint32_t every = (activePage == PAGE_STATUS) ? 500 : 1000;
     if (millis() - statusAskedMs >= every) {
       statusAskedMs = millis();
       if (unanswered >= 3) j9Reinit("3 status polls unanswered");
       else                 unanswered++;
-      j9.send(MSG_STATUS_REQ, nullptr, 0);
+      j9Post(MSG_STATUS_REQ, nullptr, 0);
     }
   }
 
