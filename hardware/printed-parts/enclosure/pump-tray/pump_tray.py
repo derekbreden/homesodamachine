@@ -185,6 +185,25 @@ def head_room(air: float, depth: float):
     return room.cut(relief)
 
 
+def boss_room(air: float):
+    """THE ROOM A BLOCK LEAVES ONE BOSS, in this module's frame — the case's own bore struck
+    `air` off it, the bore's whole depth off the head's crown.
+
+    IT IS THE BORE'S FIGURE AND NOT A BOX ROUND IT. The boss is an octagon with a ledge on
+    four of its faces, and a block that took a square out for it left the square's four
+    corners standing outside everything that goes back in: the tray's ramp closes them
+    underneath, the tray's bore wall and tower wall them inboard, and the block's own fill
+    caps them where the can begins. Four sealed pockets a pump, in a piece that is otherwise
+    solid — nothing can reach them and nothing was ever meant to be in them.
+
+    The tray is fused after this and carries the fit, so what this leaves is coarse by
+    intent: `air` off the part at every face, and the tray takes it back to the case's own
+    line where it bears."""
+    return (cq.Workplane("XY")
+            .polyline(_pc.offset_polygon(_pc.bore_profile, air)).close()
+            .extrude(boss_depth).val())
+
+
 def _case_base():
     """`pump_case`'s BASE, in that module's own frame: the calls `build_pump_case` makes for
     everything standing on the head's crown, and none of the skirt below it.
