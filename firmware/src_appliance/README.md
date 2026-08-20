@@ -92,7 +92,7 @@ times sits at the bottom, and the gas alarm holds the top alone:
 | `ack` | event | 18 | something was committed |
 | `chime` | event | 30 | an operation finished |
 | `refuse` | event | 40 | off resonance, so quiet and dull by physics as well as by level |
-| `ready` | event | 22 | the controller booted and parked |
+| `welcome` | event | 28 | the boot chime — a major triad arpeggiated into resonance |
 | `fault` | fault | 34 | needs attention, nothing is leaking |
 | `alarm` | ALARM | 50 | gas trip — loops, and cannot be silenced |
 

@@ -18,7 +18,7 @@ static_assert(SND_WIRE_TICK   == SND_TICK,   "sound wire id drift: tick");
 static_assert(SND_WIRE_ACK    == SND_ACK,    "sound wire id drift: ack");
 static_assert(SND_WIRE_CHIME  == SND_CHIME,  "sound wire id drift: chime");
 static_assert(SND_WIRE_REFUSE == SND_REFUSE, "sound wire id drift: refuse");
-static_assert(SND_WIRE_READY  == SND_READY,  "sound wire id drift: ready");
+static_assert(SND_WIRE_WELCOME == SND_WELCOME, "sound wire id drift: welcome");
 static_assert(SND_WIRE_FAULT  == SND_FAULT,  "sound wire id drift: fault");
 static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 

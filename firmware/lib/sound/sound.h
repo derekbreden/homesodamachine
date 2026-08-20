@@ -92,7 +92,7 @@ enum SoundId : uint8_t {
     SND_ACK,      // something was committed
     SND_CHIME,    // an operation finished
     SND_REFUSE,   // the machine said no
-    SND_READY,    // the controller has booted and parked
+    SND_WELCOME,  // the machine waking up — the boot chime
     SND_FAULT,    // needs attention, nothing is leaking
     SND_ALARM,    // gas trip — loops until stopped, and cannot be silenced
     SND_PROBE,    // the bench continuity probe's note

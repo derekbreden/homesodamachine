@@ -1699,6 +1699,14 @@ static void processTextLine(const char *line) {
     int p = atoi(line + 5);
     if (p < 0 || p >= PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
     else { showPage((Page)p); Serial.printf("OK:PAGE=%d\n", p); }
+  } else if (strncmp(line, "SOUND:", 6) == 0) {
+    // The click's whole path, without a finger on the glass. This panel has no
+    // sounder, so anything heard after this is the frame having crossed J9 and
+    // reached U8 on the controller — which is the one direction a touch travels,
+    // and the one a line test cannot otherwise exercise without an operator.
+    int id = atoi(line + 6);
+    if (id < 1 || id > SND_WIRE_ALARM) Serial.printf("ERR:SOUND expects 1..%d\n", SND_WIRE_ALARM);
+    else { sendSound((uint8_t)id); Serial.printf("OK:SOUND=%d\n", id); }
   } else if (strncmp(line, "PRIME:START:", 12) == 0) {
     // The pad's own handlers, without a finger on the glass — same frames, same ticks.
     int f = atoi(line + 12);
