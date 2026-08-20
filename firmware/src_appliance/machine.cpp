@@ -46,6 +46,33 @@ static void led(int pin, bool on) { digitalWrite(pin, pin == PIN_LED_ERR ? !on :
 static const unsigned long BEAT_ON_MS     = 30;
 static const unsigned long BEAT_PERIOD_MS = 2000;
 
+// ── The sound of a hold ───────────────────────────────────────────────────
+// A prime is the one thing in this machine a person does by holding still, and
+// the pump is loud enough that "is it running" answers itself. What the noise
+// does NOT answer is how long you have been holding — and the pad has a ceiling,
+// so that is the thing worth hearing.
+//
+// So the pitch is the progress bar. Once a second the hold speaks a short note,
+// low at the start and climbing toward SOUND_RESONANCE_HZ as the ceiling nears —
+// which is also where this diaphragm is loudest, so it grows more present as well
+// as higher without anything having to get faster or louder to say so. It stays a
+// tick rather than a tone: a tone held under a running pump for a minute is a
+// thing people learn to hate, and it would mask the pump's own note besides.
+static const unsigned long HOLD_NOTE_MS     = 1000;   // one reading per second
+static const int           HOLD_NOTE_LEN_MS = 18;
+static const int           HOLD_NOTE_DUTY   = 12;     // ~9 dB under the alarm; under the pump too
+static const int           HOLD_HZ_LO       = 2200;
+static const int           HOLD_HZ_HI       = 4200;
+
+static unsigned long lastHoldNoteMs = 0;
+
+static void holdNote(unsigned long elapsedMs) {
+    uint32_t span = PRIME_MAX_MS ? PRIME_MAX_MS : 1;
+    if (elapsedMs > span) elapsedMs = span;
+    int hz = HOLD_HZ_LO + (int)((int64_t)(HOLD_HZ_HI - HOLD_HZ_LO) * elapsedMs / span);
+    soundPlayNote((uint16_t)hz, HOLD_NOTE_LEN_MS, HOLD_NOTE_DUTY);
+}
+
 static void parkStraps() {
     pinMode(PIN_LED_RUN, INPUT_PULLDOWN);
     pinMode(PIN_LED_ERR, INPUT_PULLUP);
@@ -144,11 +171,14 @@ static void endPumping(uint8_t primeState) {
     state = ST_IDLE;
 
     if (why == HOLD_PRIME) {
-        // A finger lifting off the glass needs no sound — the user did it and is
-        // watching. The other two endings are the machine deciding, so they are
-        // the ones worth hearing: the display stopped answering, or the ceiling
-        // arrived under a finger that was still holding.
+        // The mirror of the engage. A finger that MEANT to lift already knows, but
+        // one that slid off the pad does not — PRESS_LOST ends a hold exactly as a
+        // lift does, and a pump spinning down sounds the same either way. The two
+        // endings below are the machine deciding rather than the finger, and they
+        // get the fault pattern instead: the display stopped answering, or the
+        // ceiling arrived under a finger that was still holding.
         if (primeState == PRIME_TIMEOUT || primeState == PRIME_LIMIT) soundPlay(SND_FAULT);
+        else                                                          soundPlay(SND_RELEASE);
         announce(primeState, ch, ran);
     } else {
         Serial.printf("\n[machine] pump %s done after %lu ms\n", kPump[ch].who, (unsigned long)ran);
@@ -174,6 +204,10 @@ void machineService() {
 
     unsigned long now = millis();
     if (hold == HOLD_PRIME) {
+        if (now - lastHoldNoteMs >= HOLD_NOTE_MS) {
+            lastHoldNoteMs = now;
+            holdNote(now - startedMs);
+        }
         // The hold is a heartbeat: a finger that lifts sends MSG_PRIME_STOP; a
         // display that crashes, unplugs, or loses the pair sends nothing. The head
         // stops either way.
@@ -205,6 +239,8 @@ bool machinePrimeBegin(uint8_t channel) {
         announce(PRIME_REFUSED, channel, 0);
         return false;
     }
+    soundPlay(SND_ENGAGE);           // the pad took — richer than a tick, and specific to a hold
+    lastHoldNoteMs = millis();       // the first reading is a second in, not immediately
     Serial.printf("\n[machine] prime %s at full (IO%d -> %s.IN1 -> J13.%s)\n",
                   kPump[channel].who, kPump[channel].pin, kPump[channel].driver, kPump[channel].j13);
     if (machineOnPrimeState) machineOnPrimeState(PRIME_RUNNING, channel, 0);

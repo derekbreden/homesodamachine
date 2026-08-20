@@ -95,6 +95,9 @@ times sits at the bottom, and the gas alarm holds the top alone:
 | `welcome` | event | 28 | the boot chime — a major triad arpeggiated, restated a third higher, into resonance |
 | `fault` | fault | 34 | needs attention, nothing is leaking |
 | `alarm` | ALARM | 50 | gas trip — loops, and cannot be silenced |
+| `engage` | event | 24 | a held control took — a rising sweep |
+| `release` | event | 24 | it let go, deliberately or not — the mirror, falling |
+| `note` | ui | — | a scratch note `soundPlayNote()` fills; pitch is the reading |
 
 A request below what is already sounding is dropped, not queued: there is one coil, and a
 tick arriving mid-chime is worth less than the chime finishing.
@@ -108,6 +111,25 @@ feel under a finger without eating the alarm's headroom.
 that sounded, silence would mean both "you missed the glass" and "the machine refused you",
 and on a capacitive panel with no travel those are the two a user cannot otherwise tell
 apart. Outcomes get their own sounds.
+
+### The sound of a hold
+
+A prime is the one thing here a person does by holding still, and the pump is loud
+enough that *is it running* answers itself. Two things the noise does not answer, and
+these do:
+
+- **Did the pad take, and has it let go?** The glass has no travel and no detent, a finger
+  sliding off ends the hold exactly as lifting does (`PRESS_LOST`), and a pump spins down
+  the same either way. `engage` and `release` are a matched pair — same duty, same span,
+  mirrored — so a slip is unmistakable without looking at anything.
+- **How long have I been holding?** The pitch is the progress bar. Once a second the hold
+  speaks a short note, climbing from 2200 Hz toward the resonance as the 60 s ceiling
+  nears — so it grows more present as well as higher, without anything having to get
+  faster or louder to say so. It stays a tick rather than a tone: a tone held under a
+  running pump for a minute is a thing people learn to hate, and it would mask the pump.
+
+The two endings that are the machine's decision rather than the finger's — a display that
+stopped answering, and the ceiling — get `fault` instead of `release`.
 
 ### What can be silenced, and what cannot
 

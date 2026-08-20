@@ -137,6 +137,29 @@ static const ToneStep kProbe[] = {
     {2700, 0, SOUND_MAX_DUTY, TONE_FLAT, 150},
 };
 
+// SND_ENGAGE / SND_RELEASE — a held control taking, and letting go. A matched
+// pair: the same duty and the same span, mirrored, so they are heard as two ends
+// of one gesture rather than as two unrelated noises.
+//
+// RELEASE is the one that earns its place. The pad on the glass has no travel and
+// no detent, a finger sliding off it ends the hold exactly as lifting does, and
+// the pump takes a moment to spin down — so without this, a slip and a deliberate
+// lift sound identical, which is to say they sound like nothing. A falling sweep
+// under a running pump is unmistakable and needs no one to be looking at the glass.
+static const ToneStep kEngage[] = {
+    {1800, 4200, 24, TONE_SLIDE, 110},
+};
+static const ToneStep kRelease[] = {
+    {4200, 1800, 24, TONE_SLIDE, 110},
+};
+
+// SND_NOTE — the scratch step soundPlayNote() writes into. Mutable on purpose;
+// everything else in this file is const, and this one is a buffer with a table
+// entry pointing at it.
+static ToneStep kNote[] = {
+    {SOUND_RESONANCE_HZ, 0, 10, TONE_FLAT, 30},
+};
+
 #define SND(arr) arr, (uint8_t)(sizeof(arr) / sizeof(*(arr)))
 
 static const Sound kSound[SND_COUNT] = {
@@ -149,6 +172,9 @@ static const Sound kSound[SND_COUNT] = {
     {"fault",  SND(kFault),         PRIO_FAULT, 4,             0},
     {"alarm",  SND(kAlarm),         PRIO_ALARM, SOUND_FOREVER, SND_F_UNSILENCEABLE},
     {"probe",  SND(kProbe),         PRIO_EVENT, 0,             0},
+    {"engage", SND(kEngage),        PRIO_EVENT, 0,             0},
+    {"release",SND(kRelease),       PRIO_EVENT, 0,             0},
+    {"note",   SND(kNote),          PRIO_UI,    0,             0},
 };
 
 // ════════════════════════════════════════════════════════════
@@ -415,6 +441,15 @@ void soundService() {
 
 bool    soundBusy()    { return cur != nullptr; }
 SoundId soundPlaying() { return curId; }
+
+bool soundPlayNote(uint16_t hz, uint16_t ms, uint8_t duty) {
+    kNote[0].hz    = hz;
+    kNote[0].arg   = 0;
+    kNote[0].duty  = duty > SOUND_MAX_DUTY ? SOUND_MAX_DUTY : duty;
+    kNote[0].shape = TONE_FLAT;
+    kNote[0].ms    = ms;
+    return soundPlay(SND_NOTE);
+}
 
 void soundBegin(int pin) {
     buzzPin  = pin;
