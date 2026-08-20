@@ -1,6 +1,8 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
     "APPLIANCE_HEIGHT": "358 mm",
+    "BACK_TOP_FLANK": "6 mm",
+    "BACK_TOP_WALL": "6 mm",
     "BOX_SIZE": "215 \u00d7 462 \u00d7 358 mm",
     "CABLE_BORE": "19.05 mm",
     "COLUMN_ALONG": "12 mm",
@@ -17,12 +19,14 @@
     "DISPLAY_FACET_SLOPE": "86.8 mm",
     "DISPLAY_FACET_X": "157.3 mm",
     "FRONT_TOP_FLANK": "9 mm",
+    "LIP_UNDERWALL": "6 mm",
     "LOOP_WR1110": "84.1 mm",
     "PLUG_DIA": "9.9 mm",
     "RIDGE_LEN": "106 mm",
     "RIDGE_WALL_T": "3 mm",
     "SOCKET_BORE": "10.3 mm",
     "SOCKET_OD": "16.3 mm",
+    "WALL_T": "3 mm",
     "Y_LEVELS": "2"
   }
 }
