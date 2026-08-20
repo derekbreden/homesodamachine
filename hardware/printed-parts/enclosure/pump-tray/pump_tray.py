@@ -139,23 +139,29 @@ def head_room(air: float, depth: float):
     and twenty-six long, standing where the two walls should simply have met. A seat is long
     enough without it.
 
-    AND THE CORNERS ARE THE ROOM'S OWN, SQUARE. The case rounds its corners on `corner_r` and
-    the part is clipped to that, so the head's flanks — seats and all — END at the case's own
-    straight run and its corners turn away inboard of the room's. A room that followed the
-    case out there would carry the arc as a facetted nub standing in its corner, stepping
-    every time the profile changed level, against a part that is nowhere near it. So past that
-    straight run the room stops reading the case and takes its own square corner."""
+    AND PAST THE CASE'S STRAIGHT RUN THE WALLS RUN ON STRAIGHT. The case rounds its corners on
+    `corner_r` and the part is clipped to that, so the head's flanks — seats and all — end at
+    that straight run and its corners turn away inboard of the room's own. Followed out there
+    the arc would stand in the room's corner as a facetted nub, stepping every time the
+    profile changed level, against a part nowhere near it; OPENED out there instead, every
+    flank would stop short of the room's own end and leave the aft wall standing on nothing
+    for the last few millimetres. So the room carries the case's flat on to its ends rather
+    than either — the same section it has at the straight run, held to the corner — and a
+    flank runs the room's whole depth into the wall that closes it."""
     half = head_half + air
     room = cq.Solid.makeBox(2 * half, 2 * half, depth, cq.Vector(-half, -half, -depth))
-    open_to = [_pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))]
+    cavity = _pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))
+    open_to = [cavity]
     plumb_half = _pc.skirt_narrow_half_extent - _pc.skirt_wall + air
     open_to.append(cq.Solid.makeBox(2 * plumb_half, 2 * half, depth,
                                     cq.Vector(-plumb_half, -half, -depth)))
     straight = _pc.skirt_base_half_extent - _pc.corner_r
     for sy in (-1.0, 1.0):
         y0 = straight if sy > 0 else -half
-        open_to.append(cq.Solid.makeBox(2 * half, half - straight, depth,
-                                        cq.Vector(-half, y0, -depth)))
+        band = cq.Solid.makeBox(2 * half, half - straight, depth,
+                                cq.Vector(-half, y0, -depth))
+        carried = cavity.translate(cq.Vector(0.0, sy * (half - straight), 0.0))
+        open_to.append(carried.intersect(band))
     whole = open_to[0]
     for part in open_to[1:]:
         whole = whole.fuse(part)
