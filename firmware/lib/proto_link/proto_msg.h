@@ -151,7 +151,7 @@ constexpr uint8_t SND_WIRE_TICK   = 1;  // a touch was registered — not "it wo
 constexpr uint8_t SND_WIRE_ACK    = 2;  // something was committed
 constexpr uint8_t SND_WIRE_CHIME  = 3;  // an operation finished
 constexpr uint8_t SND_WIRE_REFUSE = 4;  // the machine said no
-constexpr uint8_t SND_WIRE_READY  = 5;  // the controller booted
+constexpr uint8_t SND_WIRE_WELCOME = 5;  // the machine waking up — the boot chime
 constexpr uint8_t SND_WIRE_FAULT  = 6;  // needs attention
 constexpr uint8_t SND_WIRE_ALARM  = 7;  // gas trip — cannot be silenced
 
