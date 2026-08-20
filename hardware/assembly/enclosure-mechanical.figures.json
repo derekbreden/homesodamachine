@@ -2,6 +2,8 @@
   "/hardware/assembly/_enclosure_mechanical_sync.py": {
     "AC_RECESS_DEPTH": "3\u20135 mm",
     "APPLIANCE_W": "215 mm",
+    "BACK_TOP_FLANK": "6 mm",
+    "BACK_TOP_WALL": "6 mm",
     "BODY_COUNT": "91",
     "BOX_SIZE": "215 \u00d7 462 \u00d7 358 mm",
     "C14_BACK": "x 69, z 336.2",
@@ -33,6 +35,7 @@
     "HOPPER_NEAR_A": "coil-v-a",
     "HOPPER_NEAR_B": "coil-v-b",
     "HOPPER_TUBE_D": "\u00d86.35",
+    "LIP_UNDERWALL": "6 mm",
     "PORT_CHAIN_3": "82.58",
     "PORT_HOLE_D": "18",
     "PORT_NUT_D": "22.86",

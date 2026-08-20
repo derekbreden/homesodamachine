@@ -3,9 +3,12 @@
 What the pieces have actually been printed in, and at what settings:
 [print-log.md](print-log.md).
 
-A PETG box, 3 mm walls — [9 mm](FRONT_TOP_FLANK) on front-top's ±X flanks alone,
-taken INWARD so the silhouette and `interior_x` both stand still — **split into four
-printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
+A PETG box. [3 mm](WALL_T) is the section a piece starts from and every exterior
+wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
+and `interior_x` both stand still: a bottom piece's three lipped sides get
+[6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
+flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [6 mm](BACK_TOP_FLANK) and its
+back wall [6 mm](BACK_TOP_WALL). **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
 telescope and screw together.
 It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the

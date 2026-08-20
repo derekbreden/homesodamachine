@@ -148,6 +148,14 @@ def main():
         # silhouette and every other piece and seated body reads the interior plane — so this
         # is a figure about ONE piece and not about the box.
         "FRONT_TOP_FLANK": f"{_enc.front_top_flank_t:.4g} mm",
+        # And back-top's two, struck the same way and for the same reason: that piece is the
+        # only one of the four whose walls were still one `wall`, the two bottom pieces having
+        # carried `2 * wall` on three sides each all along (`_lip_underwall`). What the flank
+        # spends is the boss chain's room off `interior_x`; what the back wall spends is the
+        # standoff the pack already keeps off `rear_plane_y`.
+        "BACK_TOP_FLANK": f"{_enc.back_top_flank_t:.4g} mm",
+        "BACK_TOP_WALL": f"{_enc.back_top_wall_t:.4g} mm",
+        "LIP_UNDERWALL": f"{2.0 * _enc.wall:.4g} mm",
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",

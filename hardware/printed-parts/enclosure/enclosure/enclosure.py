@@ -652,6 +652,19 @@ def back_wall_t_at(x, z):
     return back_top_wall_t
 
 
+def back_top_flank_face():
+    """back-top's own ±X interior faces — `back_top_flank_t` in from the exterior, where the
+    box's own is one `wall` in.
+
+    NOTHING OUTSIDE THAT PIECE READS THIS, the same way nothing outside front-top reads its own
+    (`front_top_flank_face`). `interior_x` is still the box's interior and every seated body is
+    packed to it; this is the plane back-top's own flank furniture stands on, and the plane
+    `_dims` reads back against the pack (`back-top-flank-clear`)."""
+    ix0, ix1 = interior_x()
+    grown = back_top_flank_t - wall
+    return (ix0 + grown, ix1 - grown)
+
+
 def front_top_flank_face():
     """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where
     every other piece's is one `wall` in.
@@ -710,6 +723,28 @@ back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
     ("c14-inlet", 69.0, 336.21, 53.0, 35.0),      # the receptacle's flange and its two bosses
 )
+
+# --- back-top's own ±X section ------------------------------------------------
+#
+# THE LAST FLANK ON THIS BOX STILL AT `wall`. Both bottom pieces carry `2 * wall` down their
+# sides already — the lip's own skin, slab to rim (`_lip_underwall`) — and front-top carries
+# `front_top_flank_t`. This is what puts back-top on the same footing, so the side of the machine
+# is one section from the slab to the ceiling rather than a thin band across the back's top half.
+#
+# IT IS TAKEN INWARD, off `interior_x`, and what it spends is the boss chain's own room. A body
+# on this storey stands `side_band_inset` off both ±X walls; the nearest faces that are not a
+# Wago's are the PCBA's mounting plane and the PSU's flank, both at x 98.25 — 6.25 in from the
+# wall. Six leaves 3.25 mm of that and nine would leave a quarter of a millimetre, which is not
+# a clearance. Six is also the figure the two bottom pieces already carry.
+back_top_flank_t = 6.0
+# AND IT OWES ITS ROOM TO THINGS THAT WERE ALREADY THERE. The front half's Y lip telescopes into
+# this piece on this wall surface and back-bottom's Z lip rises into it on the same one, and the
+# lane each rises into is exactly the `wall` this would add — so the section begins past the one
+# and above the other, and neither telescope is ever asked about. The Wago wells bore from
+# `interior_x` as they always did, so a lever nut bottoms where it bottomed and simply sits in a
+# deeper pocket. And the drip tray's sleeve keeps its whole block: the tray withdraws through
+# this flank, so what stands round it is the sleeve's own section and not this one.
+
 # And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
 # the face a user hauls the pump cartridge out by, so it carries section the way the facet
 # does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
@@ -1707,6 +1742,40 @@ def _dims(pack):
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
             f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
             f"repack inboard"])))
+    # AND BACK-TOP'S OWN FLANKS STAND FURTHER IN THAN THAT. `back_top_flank_face` is
+    # `back_top_flank_t - wall` inboard of `interior_x` on that one piece, so a body that clears
+    # the appliance's width can still be standing in its wall — and `box-width` cannot see it,
+    # because the width it reads is the box's own. What this section may stand in is what the
+    # wall gives a LANE to and nothing else: a Wago in its own well, bored back to `interior_x`
+    # so the lug never moves, and whatever lies in the drip tray's sleeve. A body is matched to
+    # a lane by its CENTRE, so a well that no longer covers the lug it was cut for stops
+    # excusing it instead of excusing it by a hair.
+    bt0, bt1 = back_top_flank_face()
+    bt_y0 = y_joint + lip_len + z_lip_y_margin
+    bt_z0 = splits[1] + lip_len
+    lanes = ([(sy - hy, sy + hy, sz - hz, sz + hz)
+              for _sd, sy, sz, size, _cz in pack.side_wells
+              for hy, hz in (wago_half(size),)]
+             + [(by0, by1, bz0, bz1) for _bx0, _bx1, by0, by1, bz0, bz1 in pack.pan_sleeve[0]])
+    flank_rows = []
+    for name, b in zip(placed.keys(), bbs):
+        if b.ymax <= bt_y0 or b.zmax <= bt_z0:
+            continue
+        cy, cz = (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0
+        if any(ly0 <= cy <= ly1 and lz0 <= cz <= lz1 for ly0, ly1, lz0, lz1 in lanes):
+            continue
+        flank_rows.append((max(bt0 - b.xmin, b.xmax - bt1), name))
+    flank_rows.sort(reverse=True)
+    flank_over, flank_who = flank_rows[0] if flank_rows else (-bt1, "nothing")
+    flank_ok = flank_over <= stated_bound_tol
+    record_bound(Bound(
+        "back-top-flank-clear", "The pack stands clear of back-top's own flank face", flank_ok,
+        f"least air {-flank_over:.2f} mm, at {flank_who}",
+        f"outside x ±{bt1:.2f}, a {back_top_flank_t:g} mm flank",
+        ([] if flank_ok else [
+            f"{flank_who} stands {flank_over:.2f} mm inside back-top's flank at ±{bt1:.2f}. "
+            f"Give it a lane the way the tray's sleeve has one, seat it in a well, or lower "
+            f"`back_top_flank_t`"])))
     # The FRONT wall is the stated `front_plane_y` with its stated reliefs, and the pack is
     # read against the RELIEVED surface, body by body: a body whose footprint stands wholly
     # inside a relief answers to that relief's floor, and every other body to the plane
@@ -3232,6 +3301,62 @@ def _back_top_wall_relief_cut():
                                   (face, rz + hz)]))
         out = cut if out is None else out.fuse(cut)
     return out
+
+
+def _back_top_flanks(inner, outer, box, y_joint, zj):
+    """THE SECTION BACK-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
+    (`back_top_flank_t`). Fused before any of this piece's flank furniture, so the Wago wells,
+    the +X mounting bosses and every bore below are cut out of the whole of it.
+
+    IT BEGINS PAST BOTH TELESCOPES, and that is why it costs the seams nothing. The front half's
+    Y lip runs to `y_joint + lip_len` on this wall surface (`_front_lip`) and back-bottom's Z lip
+    rises to the rim on the same one, and the lane each rises into is precisely the `wall` this
+    section adds — so there is nothing to add in either. In Y it starts where `_lip_underwall`
+    starts one storey down, `z_lip_y_margin` past the lip's rim, so the step it leaves is never
+    what the closing front half lands on; in Z it starts at the rim, the way `_back_top_wall`
+    does. Every seam screw on this piece stands fore of that Y and under that Z, so not one of
+    them grows by a millimetre.
+
+    AND THE PAN'S SLEEVE KEEPS ITS BLOCK. The drip tray withdraws through this flank, and the
+    pack states the sleeve as one box rooted on the wall's own inner face with the berth cut back
+    out of it (`_pan_sleeve`). Struck out of this section rather than re-cut through it: the tray
+    stays where it is and at the size it is, and what stands round it is the sleeve's own section
+    instead of this one."""
+    ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
+    fx0, fx1 = back_top_flank_face()
+    y0, rim = y_joint + lip_len + z_lip_y_margin, zj + lip_len
+    depth = back_top_flank_t - wall
+    band = None
+    for x_in, x_face in ((ix0, fx0), (ix1, fx1)):
+        seg = _ybox(min(x_in, x_face), max(x_in, x_face), y0, iy1, rim, iz1)
+        # AND ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece beds on
+        # its own seam rim and builds in +Z, so a section that began square at the rim would
+        # put a `depth`-wide ledge over the lip's lane pointing straight at the plate — the
+        # soffit `_lip_underwall` exists one storey down to avoid. Taken back at 45° it is a
+        # wall the print grows into, and what the ramp gives up is `depth` of height in a band
+        # that has nothing standing in it.
+        seg = seg.cut(_xz_prism(y0 - 1.0, iy1 + 1.0,
+                                [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
+        band = seg if band is None else band.fuse(seg)
+    for bx0, bx1, by0, by1, bz0, bz1 in box.pan_sleeve[0]:
+        band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
+    # AND THE PRV CHASE'S RIB KEEPS ITS LANE, for the same reason the sleeve keeps its block and
+    # a Z tongue keeps its own. The rib stands proud of `interior_x` on this very wall surface
+    # and carries past back-bottom's rim into this piece, where the duct's west face IS back-top's
+    # inner face pressed on it (`_vent_chase`) — so the section this would add above the rim is
+    # the rib itself. Struck out on the chase's own figures rather than reasoned about, so it
+    # holds if the discharge ever moves.
+    for sx, sy, sz in box.vent_chase:
+        half = vent_channel_w / 2.0 + vent_rib_wall
+        if sz + half <= rim:
+            continue                       # the rib ends under the rim; this piece never meets it
+        band = band.cut(_ybox(min(ix0, sx) - 1.0, max(ix0, sx), sy - half, sy + half,
+                              rim - 1.0, sz + half))
+    # The one thing this wall was already bored for on the back half: the tray's own withdrawal
+    # slot, cut in `build_back_half` before this stood here.
+    for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
+        band = band.cut(cutter)
+    return band
 
 
 def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
@@ -4910,6 +5035,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # which is what leaves a lever nut bottoming exactly where it bottomed before.
         if y_side == "front" and box.collet_plate:
             piece = piece.fuse(_front_top_flanks(inner, outer, box, y_joint, zj))
+        # AND BACK-TOP'S OWN, first of everything that piece does to its flanks, for the same
+        # reason: the wells and the +X bosses below are struck on `interior_x` and cut after
+        # this, so each is cut out of the whole section rather than out of the skin it replaced.
+        if y_side == "back":
+            piece = piece.fuse(_back_top_flanks(inner, outer, box, y_joint, zj))
         for _x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
         for _x_in, x_ext, sx, ys, _c in stations:
@@ -5262,8 +5392,17 @@ def main():
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
-        # The one wall on this box that is not `wall`, and the piece that carries it.
+        # The walls on this box that are not `wall`, and the piece each belongs to. Every one
+        # grows INWARD off the plane the box states, so the silhouette and `interior_x` both
+        # stand still and only the piece carrying the section knows about it.
+        "WALL_T": f"{wall:.4g} mm",
         "FRONT_TOP_FLANK": f"{front_top_flank_t:.4g} mm",
+        "BACK_TOP_FLANK": f"{back_top_flank_t:.4g} mm",
+        "BACK_TOP_WALL": f"{back_top_wall_t:.4g} mm",
+        # And the section a bottom piece's three lipped sides carry for free — the lip's own
+        # skin carried to the slab (`_lip_underwall`), which is what the two flanks above are
+        # brought level with.
+        "LIP_UNDERWALL": f"{2.0 * wall:.4g} mm",
         # The Y-seam ladder as the walls came out — per wall, and one figure when they agree.
         "Y_LEVELS": "/".join(str(c) for c in sorted({
             sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.y_joint)
