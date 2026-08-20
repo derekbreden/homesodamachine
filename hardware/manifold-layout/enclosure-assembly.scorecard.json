@@ -1068,7 +1068,7 @@
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "2953.2 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "3050.8 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
