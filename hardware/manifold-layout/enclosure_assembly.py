@@ -1215,12 +1215,13 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
     per side, a `wall` deep under the split, and a side with no material under it is a corner
     of the bracket hanging over the head's own opening.
 
-    THE AFT SIDE IS OPEN AND IT IS NOT READ. The bay leaves 0.525 mm between a head's own room
-    and the collet plate, which is under one extrusion and would print as a 63 mm bridge, so
-    `enclosure.build_pump_cap` does not draw that face at all. Reading it would be reading for
-    the skin whose absence is the decision. WHAT CARRIES A PUMP IS NOT THIS LAP EITHER: the
-    head stands on the four flank seats `pump_tray.head_room` cuts for it, and the lap only
-    keeps the part square on them — three sides do that, and the fourth was 0.525 mm wide."""
+    THE AFT SIDE IS OPEN AT THIS PLANE AND IT IS NOT READ. `enclosure.build_pump_cap` gives up
+    its aft face from the barbs' own level to the split, so a made-up tube can come down it as
+    the cap rises; the split is where the bracket sits, so the lap there is gone by that
+    decision and reading for it would be reading for the thing given up. WHAT CARRIES A PUMP
+    IS NOT THIS LAP EITHER: the head stands on the four flank seats `pump_tray.head_room` cuts
+    for it, and the lap only keeps the part square on them — three sides do that, and the
+    fourth was 0.525 mm wide."""
     cap = pieces.get("pump-cap")
     if cap is None:
         return record_bound(Bound(

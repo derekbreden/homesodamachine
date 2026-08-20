@@ -3409,10 +3409,9 @@ def build_pump_cap(box, halves_cache=None):
     Nothing reaches under a head's front face, which stands one millimetre over the bay
     floor's top.
 
-    THE TWO FACES IT DOES NOT DRAW are the underside and the aft, both over a head's own
-    square: the head's front face stands one millimetre over the bay floor and the bay leaves
-    0.525 mm between the head and the steel, and neither figure is a wall — so the part shows
-    through both and the piece stops where it has section to stop.
+    THE UNDERSIDE IT DOES NOT DRAW, because the head's front face stands one millimetre over
+    the bay floor and no section fits there. THE AFT FACE IT DRAWS AS FAR AS THE BARBS, and
+    gives up the storey over them so the tubes can come down it.
 
     IT GIVES UP THE LANE BETWEEN THE PUMPS and keeps `cap_web_t` over it, so the screws are
     short and their heads are reachable. Printed face-down on its own share of the face, the
@@ -3423,30 +3422,31 @@ def build_pump_cap(box, halves_cache=None):
     bx0, bx1 = cap_band_x(box.pump_trays)
     solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
                             bay_floor_z(box.pump_trays)[1] - 1.0, split - cap_web_t))
-    # THE AFT FACE IS OPEN OVER EACH HEAD, for the reason the underside is. What the pack
-    # leaves between a pump's own room and the steel is 0.525 mm — the bay is 66.635 deep off
-    # `pump_relief_floor` and the head is 62.61, so there are four millimetres of section to
-    # share between two faces and the fore one has taken most of it. A skin that thin is under
-    # one extrusion, it would print as a 63 mm bridge, and the four barb bores cross it. It is
-    # not a wall, so this piece does not draw one: the pocket runs out through the aft face and
-    # the part shows through, the same way it shows through the underside.
+    # ONE SLOT PER PUMP IN THE AFT FACE, AND ITS TWO TUBES COME DOWN IT. This piece is brought
+    # UP onto a seated pump, so a tube already made up into its collet travels DOWN the aft
+    # face as the cap rises — through a bore it cannot travel at all, and the cap could only
+    # ever go on with all four joints broken. So the face is open from the barbs' own level to
+    # the split: a tube drops into the slot from above and the cap comes up past it.
     #
-    # WHAT STOPS ON THE STEEL IS WHAT IS LEFT, and it is plenty — the two outboard walls, the
-    # two webs either side of the lane, and the band the lane's own web leaves over it. What
-    # the bracket loses is 0.525 mm of lap on ONE of its four sides, and the lap was never the
-    # load path: the head stands on its flank seats.
+    # ONE SLOT, NOT TWO. A pump's two barbs stand at its head's own two edges, so a slot cut
+    # for each would take both edges of the face and leave the span between them hanging off
+    # nothing — 0.525 mm of skin, 49 mm across, standing 28 mm on its own. The slot is the
+    # whole square between them and the face keeps what it can carry.
     #
-    # AND IT IS THE HEAD'S SQUARE EXACTLY. Aft of the case's own straight run the room has
-    # already opened to that square (`pump_tray.head_room`), so a cut struck on it lands on
-    # the room's own walls and adds no face at all. THE FOUR BARB TUBES LEAVE THROUGH IT: each
-    # stands inside the square it opens, so nothing of this piece is in their way and it bores
-    # nothing for them — `enclosure_assembly.check_cap_passes_tubes` reads that clearance off
-    # the placed barbs. Bored anyway, each hole lapped the room's wall by a fraction of its
-    # own radius and left the web feathering to nothing at the two levels it grazed.
+    # ITS SILL IS THE STEEL'S OWN BORE. `plate["hole_d"]` round a tube of `ml.TUBE_D` is the
+    # air the plate gives it, and a sill struck one radius under the barb's own level gives it
+    # the same underfoot. ACROSS, IT IS THE HEAD'S SQUARE EXACTLY: aft of the case's straight
+    # run the room has already opened to that square (`pump_tray.head_room`), so the cut lands
+    # on the room's own walls and adds no face there, and both tubes stand inside it —
+    # `enclosure_assembly.check_cap_passes_tubes` reads that clearance off the placed barbs.
+    # This piece therefore bores nothing for them: a bore lapped the room's wall by a fifth of
+    # its radius and left the web feathering to nothing at the two levels it grazed.
     for cx, cy, cz in box.pump_trays:
         half = _tray.head_half + cap_pump_air
+        sill = min(hz for hx, hz in plate["holes"]
+                   if (hx > 0.0) == (cx > 0.0)) - plate["hole_d"] / 2.0
         solid = solid.cut(_ybox(cx - half, cx + half, cy + half, plate["fore_y"] + 1.0,
-                                cz - _tray.head_depth - 2.0, cz + 0.1))
+                                sill, cz + 0.1))
     for bore in _cap_screws(inner, plate, box.pump_trays)[0]:
         solid = solid.cut(bore)
     return _unified(solid)
