@@ -46,11 +46,25 @@ static void onPumpDone(uint8_t channel) {
     j9.sendResponse(MSG_RESP_PUMP_DONE, channel);
 }
 
+// A frame that only a finger could have produced. The glass sends no separate
+// click for these — one press is one frame on J9 — so the tick is made here, off
+// the command itself. A prime TICK is the same finger still held rather than a
+// new press, and a status poll is nobody's finger at all; neither sounds.
+static bool isUserAction(uint8_t type) {
+    return type == MSG_PRIME_START || type == MSG_PUMP_RUN ||
+           type == MSG_CLEAN_START || type == MSG_SOUND_CFG_SET;
+}
+
 // ── What arrives on the pair, becoming an intent ──────────────────────────
 static void onMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     uint8_t        type    = msgType(frame);
     const uint8_t *payload = msgPayload(frame);
     uint16_t       plen    = msgPayloadLen(len);
+
+    // Ahead of the dispatch, so the click lands under the finger rather than
+    // after whatever the command sets in motion. Anything the machine decides
+    // next — a refusal, a chime — outranks PRIO_UI and pre-empts it.
+    if (isUserAction(type)) soundPlay(SND_TICK);
 
     // A hold: START on finger down, TICK every PRIME_TICK_MS while it stays down,
     // STOP on lift. The machine announces all three, and a refusal.
@@ -188,7 +202,10 @@ void linkReport() {
         Serial.printf("    last frame %lu ms ago\n", millis() - j9.lastRxMs);
     else
         Serial.println("    nothing has arrived — the display is unpowered, unflashed, or A/B is swapped");
-    Serial.printf("    echo swallowed %u, outstanding %u, high-water %u\n",
+    Serial.printf("    echo swallowed %u, outstanding %u, high-water %u, desyncs %u\n",
                   (unsigned)j9Stream.echoSwallowed(), (unsigned)j9Stream.echoOutstanding(),
-                  (unsigned)j9Stream.echoHighWater());
+                  (unsigned)j9Stream.echoHighWater(), (unsigned)j9Stream.echoDesyncs());
+    if (j9Stream.echoDesyncs())
+        Serial.println("    a desync is a frame both ends talked over — the count rising under load\n"
+                       "    is the pair colliding, not the framer");
 }
