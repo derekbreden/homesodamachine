@@ -284,14 +284,20 @@ cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling 
 # land under the head at all, so the plate thickens under each screw by exactly the
 # counterbore's own depth and the inset floor is pocketed to take it. The land is then the
 # plate's own section. Everything else about the plate stays the border it is.
-display_cover_thickness = 2.0    # = display_inset_depth, so the plate's top lies in the face
+# THE COVER IS TWO SECTIONS, and which one it carries is decided by what is under it. Over the
+# glass it is `display_cover_thickness`, because what stands in the step there is the gasket;
+# everywhere else it is `display_cover_seat`, a whole screw seat, and the inset is sunk to that
+# over the same ground. So no pad stands off the plate's back and its own back is one plane
+# either side of the bezel's outline — see `_display_cuts` and `display_cover.py`.
+display_cover_thickness = 2.0    # the plate WHERE IT LAPS THE GLASS; = display_inset_depth, so
+                                 # the plate's top lies in the face
 display_cover_slip = 0.30        # per side, plate edge into the inset it drops in
 display_cover_head_h = 3.0       # DIN 912 M3 head, nominal
 display_cover_seat_recess = 0.2  # how far under the 45° face the head lands
 display_cover_cbore_depth = display_cover_head_h + display_cover_seat_recess
-display_screw_pad_dia = 12.0     # the plate's local thickening under each head
-display_screw_pad_depth = display_cover_cbore_depth   # so the land is the plate's own section
-display_screw_pad_slip = 0.30    # per side, pad into its pocket
+# The head's own counterbore and the lap's section under it — the plate everywhere the glass is
+# not beneath it, and the depth the inset's land is sunk to.
+display_cover_seat = display_cover_cbore_depth + display_cover_thickness
 # Each screw stands in the middle of the lateral land, halfway between the glass's edge and
 # the inset's own — the widest material either has.
 display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 mm](DISPLAY_SCREW_X)
@@ -1971,6 +1977,15 @@ def _display_cuts(outer):
     what a countersunk head needs — and `display_inset_lap` past it up the slope, which is
     the border's own width.
 
+    AND THE LAND IS SUNK PAST IT, to `display_cover_seat`, over everything OUTSIDE the bezel's
+    own outline. The cover carries a whole screw seat of section there rather than a pad under
+    each head, so what the land takes is the plate's own back and not two circles of it. It
+    stops ON that outline because inside it the bezel counterbore is already cut and the glass
+    is already in it: the plate has to stay `display_cover_thickness` there, bearing on the
+    gasket and through it on the glass, so there is nothing to sink and nothing that could be.
+    The bores follow the land down and are struck from its floor, so an insert is still set in
+    printed material.
+
     The glass is the datum: both rectangles are centred on the facet, which means centred on
     the BOX (`display_centre_x`), with flat 45° face all around. The glass overhangs the body
     unevenly, so the PCB hole sits offset by display_body_offset — and is cut
@@ -1997,25 +2012,27 @@ def _display_cuts(outer):
         .rect(display_pcb_x, display_pcb_slope)
         .extrude(-(display_facet_thickness + display_pcb_cut_through + 1.0)).val()  # through the pod
     )
-    cut = inset.fuse(bezel).fuse(pcb)
+    # The land, sunk from the inset's floor to the plate's own seat and stopped on the bezel's
+    # outline — one ring of void round a rectangle of standing floor, not two pad pockets.
+    land = (
+        cq.Workplane(plane).workplane(offset=-display_inset_depth)
+        .rect(display_inset_x, display_inset_slope)
+        .extrude(-(display_cover_seat - display_inset_depth))
+        .edges(along_normal).fillet(display_corner_r).val()
+        .cut(cq.Workplane(plane).workplane(offset=-display_inset_depth + 1.0)
+             .rect(display_bezel_x, display_bezel_slope)
+             .extrude(-(display_cover_seat - display_inset_depth + 2.0))
+             .edges(along_normal).fillet(display_corner_r).val())
+    )
+    cut = inset.fuse(bezel).fuse(pcb).fuse(land)
     for sx in (-1.0, +1.0):
-        # The pocket the plate's pad drops into, and under it the insert the screw pulls
-        # against. The bore starts at the pocket's floor, so the insert is set in printed
-        # material and not in the air over the pad.
-        px = sx * display_screw_x
-        pad_floor = display_inset_depth + display_screw_pad_depth
-        pocket = (
-            cq.Workplane(plane).workplane(offset=-display_inset_depth)
-            .center(px, 0.0)
-            .circle((display_screw_pad_dia + 2.0 * display_screw_pad_slip) / 2.0)
-            .extrude(-display_screw_pad_depth).val()
-        )
+        # And the insert the screw pulls against, struck from the land's own floor.
         bore = (
-            cq.Workplane(plane).workplane(offset=-pad_floor)
-            .center(px, 0.0).circle(heatset_dia / 2.0)
+            cq.Workplane(plane).workplane(offset=-display_cover_seat)
+            .center(sx * display_screw_x, 0.0).circle(heatset_dia / 2.0)
             .extrude(-(heatset_depth + mount_bore_relief)).val()
         )
-        cut = cut.fuse(pocket).fuse(bore)
+        cut = cut.fuse(bore)
     return cut
 
 

@@ -25,8 +25,9 @@ here is a depth below the face and reads directly against the depths
   corners r[2.2 mm](COVER_CORNER_R). That is the inset less
   [0.3 mm](COVER_SLIP) per side, corner radius included, so the plate's round and
   the inset's stay concentric and the fit is one figure the whole way round.
-- [2 mm](COVER_T) thick — the inset's own depth, which is what puts the top face in
-  the 45° plane.
+- [2 mm](COVER_T) thick **where it laps the glass** — the inset's own depth, which is
+  what puts the top face in the 45° plane. Everywhere else it is [5.2 mm](COVER_SEAT);
+  see *Two sections* below.
 - Window [107.5 mm](WINDOW_X) × [71 mm](WINDOW_SLOPE), corners
   r[2.5 mm](WINDOW_CORNER_R) — the glass less [3 mm](INSET_LAP) of lap per side.
   The corners carry the glass's own radius, since a constant lap round a corner
@@ -40,21 +41,51 @@ here is a depth below the face and reads directly against the depths
 One at each of x = ±[66.75 mm](PAD_X), y = 0 — the middle of the lateral land, the
 widest material the plate has.
 
-- **Pad** — ⌀[12 mm](COVER_PAD_D) standing [3.2 mm](COVER_PAD_DEPTH) below the plate's underside,
-  into the pocket `enclosure._display_cuts` sinks in the inset floor for it. The
-  plate is [5.2 mm](PAD_SEAT) thick under each screw where the bare border is
-  [2 mm](COVER_T).
+- **Seat** — no pad. The plate is already [5.2 mm](COVER_SEAT) thick everywhere the
+  glass is not under it, so a head's counterbore is sunk into the plate's own
+  section and nothing stands off its back.
 - **Head seat** — a flat-bottomed ⌀[6.15 mm](CBORE_D) counterbore struck
   [3.2 mm](COVER_CBORE_DEPTH) down from the top face over a ⌀[3.9 mm](SHANK_D) shank
   clearance, the same seat the foam cap's lids take. The head lands
   [0.2 mm](SEAT_RECESS) under the 45° face and the plane closes over it. Under the
-  head is [2 mm](COVER_LAND) of land — the bare border's own section, which is what the pad
-  exists to leave there.
+  head is [2 mm](COVER_LAND) of land — the lap's own section. Counterbore plus land is
+  what *sets* the [5.2 mm](COVER_SEAT) seat; the plate is not thickened to some figure
+  and then bored, it is exactly as thick as a buried M3 needs.
 - **Fastener** — M3 × [8 mm](COVER_SCREW_LEN) DIN 912 socket head cap, into a ruthex M3
-  short in the [5.25 mm](HEATSET_DEPTH) bore under each pocket, [5.25 mm](THREAD_ENGAGED)
+  short in the [5.25 mm](HEATSET_DEPTH) bore under each seat, [5.25 mm](THREAD_ENGAGED)
   of it in thread. DIN 912 states a length under the head, and what it has to stand in
   is [8.25 mm](COVER_SCREW_REACH): the land, the insert, and the relief the box bores under
   the insert so a tip that runs past it finds air rather than a floor.
+
+## Two sections
+
+Over the glass the plate is [2 mm](COVER_T) and can be nothing else — what stands in
+that step is the gasket, and under it the cover glass. Everywhere else it is
+[5.2 mm](COVER_SEAT), and `enclosure._display_cuts` sinks the inset's land to meet it.
+The two meet on the **bezel's own outline one slip out**,
+[114.1 mm](SEAT_INNER_X) × [77.6 mm](SEAT_INNER_SLOPE) with corners
+r[2.8 mm](SEAT_INNER_R), so the deeper section drops past the bezel counterbore's wall
+on the same figure the plate's edge takes at the outline.
+
+| | |
+|---|---|
+| Seat band, laterally | [19.4 mm](SEAT_BAND_X) each side — the whole land the inset reaches out for the screws |
+| Seat band, up the slope | [2.4 mm](SEAT_BAND_SLOPE) each side — there the border is nearly all lap |
+| Lap that stays thin | [3.3 mm](LAP_BAND) from the window out: the gasket's own footprint and one slip more |
+
+**What it buys.** The plate used to stand two ⌀12 circles off an otherwise flat back
+and rest on them, with the whole of its area [3.2 mm](COVER_CBORE_DEPTH) in the air.
+Now the back is one plane either side of a single step. Across the lateral land — the
+span the two screws bridge, and the only place this plate is asked to be stiff — the
+section goes 2 mm → 5.2 mm, which is [17.6×](SEAT_STIFFNESS) the bending stiffness,
+since that goes as the cube of the section.
+
+**It prints face down.** The top face has to come out flat and lie in the 45° plane,
+and a face printed against the bed is flat because the bed is. It is also what makes
+the step free: build upward from that face and every step in the back faces *up* — the
+lap stops at its own depth, the seat carries on, and nothing hangs. The bed takes
+[4908 mm²](BED_AREA) of top face in one plane. The only feature on the whole plate that
+hangs is the annular ledge at each counterbore, [1.125 mm](CBORE_LEDGE) wide.
 
 ## The lap
 
