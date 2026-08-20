@@ -134,15 +134,30 @@ def head_room(air: float, depth: float):
     case's surface there to the micron. A plumb flank only locates, and drawn to the micron it
     is 56 mm of press for two M3 to pull a pump through — so the room takes `air` back on
     those, stepping out at the narrow taper's own foot, which is under every seat and over
-    every flank."""
+    every flank.
+
+    AND THE CORNERS ARE THE ROOM'S OWN, SQUARE. The case rounds its corners on `corner_r` and
+    the part is clipped to that, so the head's flanks — seats and all — END at the case's own
+    straight run and its corners turn away inboard of the room's. A room that followed the
+    case out there would carry the arc as a facetted nub standing in its corner, stepping
+    every time the profile changed level, against a part that is nowhere near it. So past that
+    straight run the room stops reading the case and takes its own square corner."""
     half = head_half + air
     room = cq.Solid.makeBox(2 * half, 2 * half, depth, cq.Vector(-half, -half, -depth))
-    cavity = _pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))
+    open_to = [_pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))]
     plumb_half = _pc.skirt_narrow_half_extent - _pc.skirt_wall + air
     foot = _pc.flank_ramp_bands()[0][1]
-    plumb = cq.Solid.makeBox(2 * plumb_half, 2 * half, foot + depth,
-                             cq.Vector(-plumb_half, -half, -depth))
-    return room.intersect(cavity.fuse(plumb))
+    open_to.append(cq.Solid.makeBox(2 * plumb_half, 2 * half, foot + depth,
+                                    cq.Vector(-plumb_half, -half, -depth)))
+    straight = _pc.skirt_base_half_extent - _pc.corner_r
+    for sy in (-1.0, 1.0):
+        y0 = straight if sy > 0 else -half
+        open_to.append(cq.Solid.makeBox(2 * half, half - straight, depth,
+                                        cq.Vector(-half, y0, -depth)))
+    whole = open_to[0]
+    for part in open_to[1:]:
+        whole = whole.fuse(part)
+    return room.intersect(whole)
 
 
 def _case_base():
