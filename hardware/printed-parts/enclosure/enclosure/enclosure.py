@@ -52,7 +52,7 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     column, rear-wall for the back) and the two four-corner screws, each
     crossing all four pieces — the back pair's split plug, the front lip's
     channel, front-bottom's proud socket. A WALL THAT LIP STANDS
-    ON IS `2 * wall` THICK, floor slab to lip rim (`_lip_underwall`): the lip
+    ON CARRIES ITS SKIN, floor slab to lip rim (`_lip_underwall`): the lip
     is a skin standing proud of the interior face, and a skin that began at
     the seam would land its underside in air — a soffit round three sides of
     a piece that prints floor-down. Carried to the slab it is a wall instead,
@@ -150,6 +150,14 @@ import pump_tray as _tray
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
+# THE ±X WALLS ARE THICKER THAN THE REST, and they grow OUTWARD. Everything the box holds
+# is placed off `interior_x`, and those two flanks are where the loaded things are: the
+# collet plate spanning wall to wall behind the cartridge a user hauls out by hand, and
+# the Wago wells whose pockets bottom on the wall's own inner face. Section is the only
+# thing either of them wants, so the interior faces stay exactly where they are and the
+# EXTERIOR moves out — `appliance_width` carries the difference, and every figure struck
+# off `interior_x` or `lip_face_x` comes out at the number it came out at before.
+side_wall = 9.0             # ±X wall thickness, exterior face to interior face
 interior_clearance = 0.0    # gap between contents bbox and inner wall
 # The back wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
@@ -330,7 +338,15 @@ split_slip = 0.40            # diametral slide fit, plug into socket bore
 screw_clear_dia = 3.9        # M3 shank clearance
 head_cbore_dia = 6.15        # M3 SHCS head counterbore
 head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
-screw_len = 10.0             # M3 SHCS under-head length (M3x10), head seat → heat-set
+screw_len = 10.0             # M3 SHCS under-head length (M3×10), head seat → heat-set
+# AND THE ±X SEAM SCREW IS LONGER BY THE WALL IT CROSSES. Every one of these drives from a
+# side wall's exterior to reach a heat-set standing in the room beyond it, so the wall is
+# spent before the joint starts: what the chain gets is `head_cbore_depth + length` less
+# the section the counterbore is sunk into. Carrying `side_wall - wall` on the screw leaves
+# every figure inboard of that face — plug engagement, insert, cap, `boss_in` — at what a
+# `wall`-thick flank gave it, and both lengths land on a stock size. `seam-plug-engages`
+# measures the engagement rather than assuming it.
+seam_screw_len = screw_len + (side_wall - wall)     # 16.0 — an M3×16
 plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
 socket_bore_dia = plug_dia + split_slip          # 10.3 — slide fit over the plug
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
@@ -574,7 +590,7 @@ mount_boss_out = heatset_depth + mount_bore_relief
 # How far a boss stands inboard of the wall it drives through: the whole chain
 # of head counterbore, pin body, heat-set and cap, less the wall the counterbore
 # is sunk into. This is the socket collar's own depth off the wall.
-boss_in = head_cbore_depth + screw_len + socket_cap - wall
+boss_in = head_cbore_depth + seam_screw_len + socket_cap - side_wall
 # The band down each ±X wall IS that chain: what a floor body stands off the wall where the
 # seam's bosses are, so each mouth, plug and collar seats at full section and the body seats
 # flush against them. One name for the reader who is thinking about the band and one for the
@@ -597,8 +613,8 @@ appliance_height = 358.0
 # the whole pack is centred on. A body that leaves the floor, or a narrower one taking
 # its place, does not make the machine narrower; a pack that outgrows this is a red
 # `box-width`. What sets the number is the cold core standing its own `side_band_inset`
-# off both walls: 181 across, 14 either side, and one wall each side of that.
-appliance_width = 215.0
+# off both walls: 181 across, 14 either side, and one `side_wall` each side of that.
+appliance_width = 227.0
 
 
 # WHAT A STATED BOUND IS READ TO. Each of the three is a placed body's own box against a plane,
@@ -614,16 +630,17 @@ def interior_x():
     """The ±X interior faces, struck off the stated width alone. `_dims` builds the box on
     these and every body seated on a flank reads them through the same call, so the wall and
     the things that stand against it cannot come apart."""
-    return (-(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall)
+    return (-(appliance_width / 2.0 - side_wall), appliance_width / 2.0 - side_wall)
 
 
 def lip_face_x():
     """The ±X interior faces BELOW a Z seam, one `wall` inboard of `interior_x`.
 
-    A wall a Z-seam lip stands on is `2 * wall` thick from the floor slab to the lip rim
-    (`_lip_underwall`), so what a body seated low on a flank meets is this plane and not
-    the other one. The MQ-6's card bottoms on it (`_west_cradle`), which is the whole of
-    what holds the card in X."""
+    A wall a Z-seam lip stands on carries the lip's own skin from the floor slab to the lip
+    rim (`_lip_underwall`), so what a body seated low on a flank meets is this plane and not
+    the other one — the flank's own section and one `wall` of skin, which on these two walls
+    is `side_wall + wall`. The MQ-6's card bottoms on it (`_west_cradle`), which is the whole
+    of what holds the card in X."""
     ix0, ix1 = interior_x()
     return (ix0 + wall, ix1 - wall)
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
@@ -690,13 +707,13 @@ z_lip_y_margin = 2.0
 # astride the visible seam line. It pins fb↔bb over the floor level, ft↔bt under the
 # ceiling one, and each column's Z seam against its far station — every pair at both
 # ends of its span.
-corner_screw_len = 12.0      # M3×12 SHCS — the corner's own length
+corner_screw_len = seam_screw_len + 2.0      # 18.0 — an M3×18, the corner's own length
 # The corner chain, read the way `boss_in` is: head seat, pin, heat-set and cap, less the
 # wall the counterbore is sunk into. TWO walls stand at the corner (the back piece's own
 # with the front lip inside it), so the socket roots one `wall` deeper than a Y-boss
 # collar and the cap lands past `boss_in` — the reach the cold core's flank slot
 # receives (`_cold_core_interface.corner_boss_slots`, `corner-slot-lands`).
-corner_boss_in = head_cbore_depth + corner_screw_len + socket_cap - wall
+corner_boss_in = head_cbore_depth + corner_screw_len + socket_cap - side_wall
 corner_core_reach = corner_boss_in - boss_in
 
 # --- THE PUMP BAY AND ITS CARTRIDGE ------------------------------------------
@@ -1391,7 +1408,7 @@ def _lip_band(inner, z):
     return _cavity(inner, 0.0, (z0, z1)).cut(_cavity(inner, wall, (z0 - 1.0, z1 + 1.0)))
 
 
-def _lip_denied(placed, inner, y_span):
+def _lip_denied(placed, inner, y_span, plate, y_joint):
     """The seam heights the pack denies ONE Y column's Z seam, as z spans.
 
     The lip is the one part of a Z seam whose position rides the seam height: the
@@ -1439,12 +1456,31 @@ def _lip_denied(placed, inner, y_span):
         ring = ring.cut(_ybox(bx0, bx1,
                               inner[2] - 0.1, inner[2] + wall + 0.1,
                               iz0 - 1.0, iz1 + 1.0))
+    # AND BOTH FLANKS OVER THE FRONT RUN CARRY NO LIP EITHER (`_flank_lip_drop`) — but they
+    # are NOT cut out of the ring the way the front flat is, because the two drops give up
+    # different things. The front flat gives up its underwall with the lip, so nothing of
+    # that skin survives at any height and the ring there is simply gone. The flank drop
+    # takes the lip alone and leaves front-bottom's own wall under the mouth standing, so
+    # the skin over this run is half there — and a body in it denies only the seam heights
+    # whose UNDERWALL reaches it, not the whole of a lip's reach below. That is what
+    # splitting it off buys: the same outline the piece is cut on, read for what it left.
+    # The run is the FRONT column's alone — it ends on the tee wall's aft face, far fore of
+    # the Y joint — so the back column is asked nothing and the intersection is not taken
+    # there. An empty one comes back null rather than as a shape of no volume.
+    unlipped = None
+    if plate and cy0 < plate["wall_aft_y"]:
+        unlipped = ring.intersect(
+            _flank_lip_run(inner, plate, y_joint, (iz0 - 1.0, iz1 + 1.0)))
+        ring = ring.cut(unlipped)
     out = []
-    for solid, _c in placed.values():
-        hit = ring.intersect(solid)
-        if hit.Volume() > 1.0:
-            b = hit.BoundingBox()
-            out.append((b.zmin - lip_len, b.zmax + wall))
+    for band, reach in ((ring, lip_len), (unlipped, 0.0)):
+        if band is None:
+            continue
+        for solid, _c in placed.values():
+            hit = band.intersect(solid)
+            if hit.Volume() > 1.0:
+                b = hit.BoundingBox()
+                out.append((b.zmin - reach, b.zmax + wall))
     return out
 
 
@@ -1453,7 +1489,7 @@ def _lip_denied(placed, inner, y_span):
 _z_seam_passes = {}
 
 
-def _z_joints(placed, inner, stated):
+def _z_joints(placed, inner, stated, plate, y_joint):
     """The bottom↔top seam height per Y column: `(front, back)` — the one stated plane,
     both.
 
@@ -1491,7 +1527,8 @@ def _z_joints(placed, inner, stated):
     for col, y_span in (("front", (inner[2], y_seam)), ("back", (y_seam, inner[3]))):
         whole = _clipped(_open_bands(spans[col], iz0, iz1, z_joint_clear), bed_lo, bed_hi)
         _z_seam_passes[col] = not any(lo - 1e-9 <= stated <= hi + 1e-9 for lo, hi in whole)
-        lanes = _open_bands(_lip_denied(placed, inner, y_span), bed_lo, bed_hi, 0.0)
+        lanes = _open_bands(_lip_denied(placed, inner, y_span, plate, y_joint),
+                            bed_lo, bed_hi, 0.0)
         in_lane = any(lo - 1e-9 <= stated <= hi + 1e-9 for lo, hi in lanes)
         record_bound(Bound(
             f"z-seam-{col}-lane", f"The {col} column's lip ring is clear at the seam height",
@@ -1538,7 +1575,7 @@ def _dims(pack):
     iz1 = (iz0 - wall) + appliance_height - wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     y_joint = y_seam
-    splits = _z_joints(placed, inner, z_seam)
+    splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint)
     # THE RIM'S OWN CEILING. Wall-rooted furniture stands on a piece's wall, and below the
     # rim the wall's inner face is the bottom piece's lip — so a valve panel's seat plate
     # spans wall to wall whole above the rim, and its FOOT runs below it inset on the lip's
@@ -1562,6 +1599,26 @@ def _dims(pack):
             f"the lip's rim at {rim:.2f} reaches the deck's lowest wall-rooted plate at "
             f"{deck_floor:.2f} — a plate roots on a wall only above the rim. Lower "
             f"`z_seam`, or raise the deck"])))
+    # WHAT THE ±X SCREWS HAVE LEFT AFTER THE WALL. Every seam pin on this box drives from a
+    # side wall's exterior, so `side_wall` is spent before the pin reaches the room the socket
+    # stands in: what is left registers the two pieces, and the insert's pocket has to fall
+    # inboard of the inner face or it is bored into air the front piece does not own. Both
+    # lengths carry the wall (`seam_screw_len`, `corner_screw_len`), and this says whether they
+    # still do. The target is one `wall` of pin in the bore, the section everything else on
+    # this box is one of.
+    engages = [(nm, head_cbore_depth + (ln - heatset_depth) - side_wall)
+               for nm, ln in (("Y/Z seam", seam_screw_len), ("four-corner", corner_screw_len))]
+    least = min(e for _nm, e in engages)
+    record_bound(Bound(
+        "seam-plug-engages", "Every ±X seam pin still reaches into its socket bore",
+        least >= wall - stated_bound_tol,
+        ", ".join(f"{nm} {e:.2f}" for nm, e in engages),
+        f"at least {wall:g} mm past the inner face",
+        ([] if least >= wall - stated_bound_tol else [
+            f"a {side_wall:g} mm side wall leaves the shortest pin {least:.2f} mm inside the "
+            f"bore, under the {wall:g} mm a pin needs to register anything — the screw carries "
+            f"the wall it crosses, so raise `seam_screw_len`/`corner_screw_len` by what "
+            f"`side_wall` gained, to the next stock length"])))
     band_bosses = seam_bosses(inner, y_joint, splits)
     # What the pack still has to earn is the clearance. A body on the slab is held one
     # `side_band_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
@@ -1648,7 +1705,7 @@ def _dims(pack):
             f"the pack reaches z {need:.2f} but a {appliance_height:g} mm appliance ceilings at "
             f"{iz1:.2f} — {need - iz1:.2f} mm over. Raise `appliance_height` or repack "
             f"downward"])))
-    ox0, ox1 = ix0 - wall, ix1 + wall
+    ox0, ox1 = ix0 - side_wall, ix1 + side_wall
     oy0, oy1 = iy0 - front_wall, iy1 + wall
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
@@ -1687,9 +1744,9 @@ def _dims(pack):
     # The plug opposite it stands within that same footprint at a shallower reach.
     fy0, fy1 = _y_corner(inner, y_joint)
     _measure_wall_block(placed, inner, fy0, fy1, boss_in)
-    # WHAT EACH LIP'S OWN WALL COSTS THE CAVITY. A flank under a Z seam is `2 * wall` thick
-    # from the slab to the rim (`_lip_underwall`), so on three sides of each bottom piece the
-    # room stops one `wall` inboard of `inner`. The pack already stands that far off every one
+    # WHAT EACH LIP'S OWN WALL COSTS THE CAVITY. A flank under a Z seam carries its own wall
+    # AND the lip's skin from the slab to the rim (`_lip_underwall`), so on three sides of each
+    # bottom piece the room stops one `wall` inboard of `inner`. The pack already stands that far off every one
     # of them — `front_seam_clear` and `rear_seam_clear` at the ±Y walls, `side_band_inset` at
     # the ±X ones — and the MQ-6, the one body that touches a flank at all, is seated on this
     # skin's own face (`lip_face_x`). A body that stands in it anyway is a body the wall is
@@ -2341,7 +2398,7 @@ def _bosses(inner, y_joint):
                 continue
             levels.append(z)
         for z_boss in sorted(levels):
-            out.append((x_in, x_in - sx * wall, sx, z_boss))
+            out.append((x_in, x_in - sx * side_wall, sx, z_boss))
     return out
 
 
@@ -2349,9 +2406,9 @@ def _boss_x(x_ext, sx, length=None):
     """Inboard X stations from the ±X exterior, each sized to its job: the
     screw-head seat (recess), the pin/heat-set boundary (the screw spans the seat
     to the heat-set, so the pin body is the screw's length − heatset_depth long),
-    the heat-set end, and the pod cap one wall past it. `length` is `screw_len`
+    the heat-set end, and the pod cap one wall past it. `length` is `seam_screw_len`
     unless the boss carries its own — the four-corner's `corner_screw_len`."""
-    length = screw_len if length is None else length
+    length = seam_screw_len if length is None else length
     x_seat = x_ext + sx * head_cbore_depth
     x_tip = x_seat + sx * (length - heatset_depth)
     x_heat = x_tip + sx * heatset_depth
@@ -2544,8 +2601,8 @@ def _z_stations(inner, y_joint):
     ybr = _z_back_station_y(iy1)                    # back column, rear wall
     out = []
     for ys, col in ((yf, "front"), (ybr, "back")):
-        out.append((ix0, ix0 - wall, +1.0, ys, col))
-        out.append((ix1, ix1 + wall, -1.0, ys, col))
+        out.append((ix0, ix0 - side_wall, +1.0, ys, col))
+        out.append((ix1, ix1 + side_wall, -1.0, ys, col))
     return out
 
 
@@ -2597,7 +2654,8 @@ def _z_lip(inner, y_joint, zj):
 
 def _lip_underwall(inner, y_joint, zj):
     """The wall under a bottom piece's lip: the same skin, floor slab to the fusion
-    shoulder, so the wall is `2 * wall` thick from the slab to the lip rim.
+    shoulder, so from the slab to the lip rim the flank is its own section plus that skin —
+    `2 * wall` on the ±Y walls, `side_wall + wall` on the ±X ones.
 
     THE LIP'S UNDERSIDE WOULD OTHERWISE BE A SOFFIT — one `wall` wide, pointing at the
     bed, running three sides of a piece that prints floor-down, with nothing under it to
@@ -2618,7 +2676,7 @@ def _lip_underwall(inner, y_joint, zj):
     AND ITS GAP IS OPENED ONE WAY, which is where it parts from the lip's. This is wall,
     not a telescope: nothing it meets has to slide anywhere, so the only thing it owes room
     to is the OTHER piece's Y lip, aft of the joint. Carried to the joint on its own side it
-    simply fuses into its own piece's Y lip and the flank comes out one unbroken `2 * wall`
+    simply fuses into its own piece's Y lip and the flank comes out one unbroken section
     from the front wall to the Y rim. Opened the lip's way instead — off the joint in BOTH
     directions — it would stop `wall + z_lip_y_margin` short of a tongue that starts one
     `wall` short, and what stands between the two is nothing: a `z_lip_y_margin`-wide,
@@ -2934,7 +2992,7 @@ def _flank_opening(inner, y_aft, z0, z1):
     cavity to the storey it is meant to be shut off from."""
     out = None
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        x_out = x_in - sx * (wall + 1.0)
+        x_out = x_in - sx * (side_wall + 1.0)
         box = _ybox(min(x_in, x_out), max(x_in, x_out),
                     inner[2] + _column_along(), y_aft, z0, z1)
         out = box if out is None else out.fuse(box)
@@ -3055,17 +3113,28 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
     width and no more."""
     # Down to the mouth and NOT past it: below the seam this run is front-bottom's own wall,
     # which the drop has no business in — only the lip standing proud of the mouth.
-    lo, hi = zj, zj + lip_len + wall + 1.0
+    return _flank_lip_run(inner, plate, y_joint, (zj, zj + lip_len + wall + 1.0))
+
+
+def _flank_lip_run(inner, plate, y_joint, z):
+    """The drop's OUTLINE over a z band given: wall to wall and back to the tee wall's aft
+    face, less each front station's plinth.
+
+    `_flank_lip_drop` asks for the lip's own band, which is what a piece is cut on.
+    `_lip_denied` asks for the whole column, because it reads which seam HEIGHTS a body
+    denies rather than what one seam cuts — and the two have to come off this one outline
+    or the second is answering about a lip the box does not build."""
+    lo, hi = z
     # WALL TO WALL, and not jamb to jamb. Between the jambs the front flat has already given
     # its lip up (`_front_flat_lip_drop`) and nothing else of the bottom piece stands over
     # the mouth here, so reaching across costs nothing — and stopping ON the jamb would put
     # this cut's own side plane on the one plane three other cuts already end on.
-    drop = _ybox(inner[0] - wall - 1.0, inner[1] + wall + 1.0,
+    drop = _ybox(inner[0] - side_wall - 1.0, inner[1] + side_wall + 1.0,
                  inner[2] - wall - 1.0, plate["wall_aft_y"], lo, hi)
     for x_in, _x_ext, sx, ys, col in _z_stations(inner, y_joint):
         if col != "front":
             continue
-        xa, xb = sorted((x_in - sx * (wall + 1.0), x_in + sx * (wall + 1.0)))
+        xa, xb = sorted((x_in - sx * (side_wall + 1.0), x_in + sx * (wall + 1.0)))
         drop = drop.cut(_ybox(xa, xb, ys - socket_r, ys + socket_r, lo, hi))
     return drop
 
@@ -3804,8 +3873,8 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
 
     THE WALL IT BOTTOMS ON IS THE ONE THAT IS THERE. The card stands as low as a 32 mm card
     stands, which is under a Z seam, and a flank under a seam carries its lip's own wall down
-    to the slab — so the datum is `lip_face_x` and not `interior_x`, `2 * wall` of flank and
-    not one. `enclosure_assembly.build_mq6` seats the board on the same call."""
+    to the slab — so the datum is `lip_face_x` and not `interior_x`, `side_wall + wall` of
+    flank behind it and not one wall. `enclosure_assembly.build_mq6` seats the board on the same call."""
     span, _off = _mq6.header_span()
     for sy, sz in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
@@ -4566,7 +4635,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(_z_lip(inner, y_joint, zj).intersect(col))
         # And the wall that carries that lip down to the slab, so the lip stands on a wall
         # and not in air. Fused here with the lip and before every pocket, so a
-        # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
+        # well or a groove cut into this flank later is cut out of the whole section of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
         if y_side == "front" and box.pump_bay:
             # The front flat's share of both skins goes to the bay's floor and the heads
@@ -4580,7 +4649,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj))
         for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-            x_ext = x_in - sx * wall
+            x_ext = x_in - sx * side_wall
             if y_side == "front":
                 # The four-corner socket: front-bottom's alone, proud through the plane.
                 piece = piece.fuse(_corner_socket(x_in, x_ext, sx))
@@ -4598,7 +4667,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         for _x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
         for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-            x_ext = x_in - sx * wall
+            x_ext = x_in - sx * side_wall
             if y_side == "front":
                 # The corner's slide channel through front-top's half of the lip.
                 piece = piece.cut(_corner_cuts(x_in, x_ext, sx))
