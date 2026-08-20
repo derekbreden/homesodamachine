@@ -16,10 +16,22 @@ static const float PIf = 3.14159265f;
 // SND_ALARM holds the top alone.
 
 // SND_TICK — the most-repeated sound in the machine, and the one that sets the
-// floor. 4 ms is ~16 cycles at resonance: enough to hear, too short for the
-// diaphragm to reach full swing or for the ear to find a pitch in it, which is
-// what makes it read as a mechanical click rather than a note. A pitched beep
-// heard forty times in a session acquires a personality; this does not.
+// floor. Three steps, 27 ms end to end, which the ear takes as one event.
+//
+// A click's authority is not its level, it is its shape. The first step is BODY:
+// 1400 Hz for 3 ms is barely four cycles, far too few to be a pitch, and well off
+// resonance where the diaphragm is inefficient — so it lands as a broadband thump
+// rather than a tone, and it is what keeps the click from sounding thin. The
+// second is the TIP, at resonance, where the diaphragm actually speaks and where
+// the click gets its definition. The third is the RELEASE: cutting a driven coil
+// square produces a turn-off transient of its own, so a click that ended flat
+// would be two clicks. Decaying out of it leaves one.
+//
+// The duties look high against the rest of this table, and are not, because the
+// ear integrates energy over 100-200 ms and none of this lasts 30. A 27 ms burst
+// at duty 26 carries roughly the weight of a sustained tone 9 dB below it, which
+// is what keeps the most-repeated sound in the machine underneath the alarm while
+// still being something you can feel under a finger.
 //
 // It means "I registered your touch", NOT "that worked". If success were the
 // only thing that sounded, silence would mean both "you missed the glass" and
@@ -28,7 +40,9 @@ static const float PIf = 3.14159265f;
 // on touch-down for every registered press leaves silence one meaning: the
 // glass did not see you.
 static const ToneStep kTick[] = {
-    {SOUND_RESONANCE_HZ, 0, 6, TONE_FLAT, 4},
+    {1400,               0, 22, TONE_FLAT,   3},   // body — four cycles, a thump with no pitch in it
+    {SOUND_RESONANCE_HZ, 0, 26, TONE_FLAT,   8},   // tip — at resonance, where it speaks
+    {SOUND_RESONANCE_HZ, 0, 26, TONE_DECAY, 16},   // release — so the end is not a second click
 };
 
 // SND_ACK — a thing was committed. Two notes up, which is the shape that reads
@@ -60,24 +74,42 @@ static const ToneStep kRefuse[] = {
 // they power the thing on, and the only one whose whole job is to be liked.
 //
 // A square wave cannot play a chord, so the chord is arpeggiated and the ear
-// fuses it: C7-E7-G7-C8, a major triad rising into its own octave. Major because
-// it resolves upward and reads as an opening; fast because a square wave gets
-// harsh if you let it sit.
+// fuses it into one: a C major triad, rising. Major because it resolves upward
+// and reads as an opening.
 //
-// The last note is the point. C8 is 4186 Hz — within 5% of where this diaphragm
-// is loudest — so the arpeggio climbs INTO the resonance and the swell at the top
-// is the transducer's own, not something the duty numbers have to fake. The
-// duties below actually fall as the pitch rises, compensating for the diaphragm
-// getting more efficient on the way up, so the four notes read as even and the
-// bloom belongs entirely to the last one. Then it is let go rather than stopped:
-// the decay is what makes it a chime instead of four beeps.
+// It is said twice. C7-E7-G7 leaves off on the fifth, which is unfinished; a
+// breath; then the same three-note shape a third higher, E7-G7-C8, which lands on
+// the octave and finishes it. A motif restated at a new pitch is what makes a
+// short melody memorable rather than merely pleasant, and memorable is the whole
+// job of the one sound a customer hears every time they turn the machine on. It
+// is also where the length comes from — a square wave grows harsh if you simply
+// hold the notes longer, so the time is spent on structure instead.
 //
-// Consecutive FLAT steps never drop the duty between them, so this slurs.
+// The arrival is the point. C8 is 4186 Hz — within 5% of where this diaphragm is
+// loudest — so the phrase climbs INTO the resonance and the bloom at the top is
+// the transducer's own, not something the duty numbers have to fake. Those duties
+// fall as the pitch rises, compensating for the diaphragm getting more efficient
+// on the way up, so the notes read as even and the bloom belongs to the last one
+// alone. The second phrase sits a little above the first, so the restatement
+// arrives as a lift.
+//
+// Then it is held a moment at full and let go rather than stopped: the sustain is
+// what makes the arrival sound certain, and the decay is what makes the whole
+// thing a chime instead of six beeps. Consecutive FLAT steps never drop the duty
+// between them, so each phrase slurs.
+//
+// Roughly 2 kHz to 5 kHz is the whole of the range worth writing in: below it the
+// diaphragm is inefficient, above it the resonance is behind you. Both phrases
+// live inside that, which is why the melody moves rather than the register.
 static const ToneStep kWelcome[] = {
-    {2093, 0, 28, TONE_FLAT,   58},   // C7
-    {2637, 0, 25, TONE_FLAT,   58},   // E7
-    {3136, 0, 23, TONE_FLAT,   58},   // G7
-    {4186, 0, 26, TONE_DECAY, 430},   // C8 — the resonance itself, rung and let go
+    {2093, 0, 26, TONE_FLAT,   62},   // C7  ┐
+    {2637, 0, 24, TONE_FLAT,   62},   // E7  │ the motif, left open on the fifth
+    {3136, 0, 22, TONE_FLAT,   62},   // G7  ┘
+    {0,    0,  0, TONE_REST,   26},   // a breath, so what follows lands as a restatement
+    {2637, 0, 27, TONE_FLAT,   62},   // E7  ┐
+    {3136, 0, 25, TONE_FLAT,   62},   // G7  │ the same shape a third higher, and it closes
+    {4186, 0, 28, TONE_FLAT,   90},   // C8  ┘ the arrival, held a moment at full
+    {4186, 0, 28, TONE_DECAY, 640},   // and released into the resonance
 };
 
 // SND_FAULT — needs attention, nothing is leaking. Twice, then a long gap, and
