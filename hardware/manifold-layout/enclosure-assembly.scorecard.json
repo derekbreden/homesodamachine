@@ -624,7 +624,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "5/5 hold",
-   "target": "a stack of 3 + 2 = 5 mm",
+   "target": "a stack of the wall at its own station plus 2 mm of ring",
    "detail": [],
    "active": true
   },

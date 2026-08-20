@@ -3005,14 +3005,22 @@ _stated.state(
 # AND THE CLAMPED STACK IS WALL PLUS RING, at every station on this wall. Each fitting states how
 # much of its own barrel stands bare between flange and nut, and that is the whole of what the
 # stack may take — the one figure a thicker wall or a thicker ring spends.
+#
+# AND THE WALL IS NOT ONE FIGURE ANY MORE. back-top carries `enclosure.back_top_wall_t` and the
+# CO2's own station is relieved back to `enclosure.wall` for exactly this reason, so what a
+# fitting spends is the section at ITS station and not the box's thinnest or its thickest.
+# `enclosure.back_wall_t_at` is that reading; `check_wall_clamped` takes it again at the placed
+# station, which is what catches a relief that has drifted off the hole it was cut for.
 _port_stack = _stated.bound(
     "port-clamp-stack", "Every fitting's bare barrel takes the wall and its ring",
-    f"a stack of {_enc.wall:g} + {_ring.THICK:g} = {_enc.wall + _ring.THICK:g} mm")
+    f"a stack of the wall at its own station plus {_ring.THICK:g} mm of ring")
 for _n, (_fit, _r, _w, _f) in BACK_WALL_FITTINGS.items():
     _bare = getattr(_fit, "PANEL_THREAD", None) or _fit.THREAD_LEN
-    _port_stack(_enc.wall + _ring.THICK <= _bare + 1e-9,
-                f"{_n} offers {_bare:.2f} mm of bare barrel and the wall and its ring stack "
-                f"{_enc.wall + _ring.THICK:g} mm, leaving the nut none of it")
+    _relieved = {_r[0] for _r in _enc.back_top_wall_reliefs}
+    _t = _enc.wall if _n in _relieved else _enc.back_top_wall_t
+    _port_stack(_t + _ring.THICK <= _bare + 1e-9,
+                f"{_n} offers {_bare:.2f} mm of bare barrel and the wall it passes and its ring "
+                f"stack {_t + _ring.THICK:g} mm, leaving the nut none of it")
 def west_interior_face():
     """The −X wall's own inner face, off the stated width — the same face `enclosure._dims`
     builds the box on."""
@@ -3220,7 +3228,9 @@ def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
     wall = pieces.get("back-top")
     want = PORT_HOLE_SLIP / 2.0
     rows, worst_bear, tight = [], 0.0, want
-    for name, (_fitting, _ring, which, _fluid) in BACK_WALL_FITTINGS.items():
+    # `_kind` and not `_ring`: the module of that name is what `THICK` is read off below,
+    # and a loop target shadows it for the whole function.
+    for name, (_fitting, _kind, which, _fluid) in BACK_WALL_FITTINGS.items():
         body, ring = bodies.get(name), rings.get(ring_name(which))
         if body is None or ring is None or wall is None:
             rows.append(f"{name}: no {'fitting' if body is None else 'ring'} to read")
@@ -3245,6 +3255,19 @@ def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
                 f"bore is struck one `PORT_HOLE_SLIP` over it — {want:.3f} on the radius. Either "
                 f"the bore is no longer the barrel's, or the fitting is off the column "
                 f"`wall_stations` bored on.")
+        # AND THE SECTION IT ACTUALLY PASSES, read where the pack put it. `port-clamp-stack`
+        # states this off the relief's own figures; this takes it again at the placed station,
+        # so a relief that has drifted off the hole it was cut for reads here rather than
+        # nowhere — the wall would simply be thicker than the barrel can clamp.
+        bare = getattr(_fitting, "PANEL_THREAD", None) or _fitting.THREAD_LEN
+        stack = _enc.back_wall_t_at(x, z) + _ring.THICK
+        if stack > bare + 1e-9:
+            rows.append(
+                f"{name} passes {_enc.back_wall_t_at(x, z):.2f} mm of wall at its own station "
+                f"(x {x:.2f}, z {z:.2f}) and stacks {stack:.2f} mm with its ring, against "
+                f"{bare:.2f} mm of bare barrel — the nut has none of it. Either the wall is "
+                f"thicker here than this fitting can clamp, or `enclosure.back_top_wall_relief` "
+                f"no longer stands on this hole.")
     return record_bound(Bound(
         "wall-clamped", "Every rear-wall fitting is clamped through the wall it passes", not rows,
         f"{len(BACK_WALL_FITTINGS)} clamped, furthest off its ring {worst_bear:.3f} mm, "
