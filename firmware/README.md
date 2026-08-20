@@ -222,6 +222,14 @@ Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -
 
 **With more than one board on USB, name the port.** PlatformIO picks one otherwise, and it picks the S3 — esptool opens that port, drops the display into download mode, and only then fails on the chip id, leaving the panel dark until it is reflashed ([`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md)).
 
+[`tools/boards.py`](/tools/boards.py) says which board is on which port and prints the commands with the ports already filled in. It only enumerates — it never opens a port, because opening one drives the PCBA's Q2/Q3 auto-reset lattice and reboots the board.
+
+```bash
+~/.platformio/penv/bin/python tools/boards.py
+```
+
+**A display reconnected to USB does not come back until the BOARD is power-cycled.** J9 is `[B, A, GND, V12]`: the display is fed 12 V from the PCBA over the same connector as the RS485 pair, so a display on USB has two supplies, and reconnecting one while the other stands leaves it enumerated on neither. `J9.V12` runs straight to the V12 island with no relay in it — nothing in firmware can drop it, and resetting the ESP32 is not enough. Unplug the 12 V at J10 (or at the wall), wait a moment, plug it back in. `tools/boards.py` says so too when it finds a controller and no S3.
+
 ```bash
 PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-10 pio run -e appliance -t upload
 ```

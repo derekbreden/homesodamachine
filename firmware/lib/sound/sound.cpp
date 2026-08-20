@@ -56,12 +56,28 @@ static const ToneStep kRefuse[] = {
     {260, 0, 40, TONE_FLAT, 240},
 };
 
-// SND_READY — the controller booted and parked. One rise, quiet. On a line this
-// is how an operator hears a board come up without looking at it.
-static const ToneStep kReady[] = {
-    {2000, 0, 16, TONE_FLAT,  70},
-    {3000, 0, 16, TONE_FLAT,  70},
-    {4000, 0, 22, TONE_DECAY, 200},
+// SND_WELCOME — the machine waking up. The one sound a customer hears every time
+// they power the thing on, and the only one whose whole job is to be liked.
+//
+// A square wave cannot play a chord, so the chord is arpeggiated and the ear
+// fuses it: C7-E7-G7-C8, a major triad rising into its own octave. Major because
+// it resolves upward and reads as an opening; fast because a square wave gets
+// harsh if you let it sit.
+//
+// The last note is the point. C8 is 4186 Hz — within 5% of where this diaphragm
+// is loudest — so the arpeggio climbs INTO the resonance and the swell at the top
+// is the transducer's own, not something the duty numbers have to fake. The
+// duties below actually fall as the pitch rises, compensating for the diaphragm
+// getting more efficient on the way up, so the four notes read as even and the
+// bloom belongs entirely to the last one. Then it is let go rather than stopped:
+// the decay is what makes it a chime instead of four beeps.
+//
+// Consecutive FLAT steps never drop the duty between them, so this slurs.
+static const ToneStep kWelcome[] = {
+    {2093, 0, 28, TONE_FLAT,   58},   // C7
+    {2637, 0, 25, TONE_FLAT,   58},   // E7
+    {3136, 0, 23, TONE_FLAT,   58},   // G7
+    {4186, 0, 26, TONE_DECAY, 430},   // C8 — the resonance itself, rung and let go
 };
 
 // SND_FAULT — needs attention, nothing is leaking. Twice, then a long gap, and
@@ -97,7 +113,7 @@ static const Sound kSound[SND_COUNT] = {
     {"ack",    SND(kAck),           PRIO_EVENT, 0,             0},
     {"chime",  SND(kChime),         PRIO_EVENT, 0,             0},
     {"refuse", SND(kRefuse),        PRIO_EVENT, 0,             0},
-    {"ready",  SND(kReady),         PRIO_EVENT, 0,             0},
+    {"welcome",SND(kWelcome),       PRIO_EVENT, 0,             0},
     {"fault",  SND(kFault),         PRIO_FAULT, 4,             0},
     {"alarm",  SND(kAlarm),         PRIO_ALARM, SOUND_FOREVER, SND_F_UNSILENCEABLE},
     {"probe",  SND(kProbe),         PRIO_EVENT, 0,             0},

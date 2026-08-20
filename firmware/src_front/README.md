@@ -282,6 +282,18 @@ high-water mark and clears it.
   it; the level reads `--` until a reservoir is sensed.
 - **Dispense and carbonation state** on HOME.
 
+## Power, and why USB alone is not enough
+
+J9 is `[B, A, GND, V12]` — this panel takes 12 V from the controller PCBA over the same
+connector that carries the RS485 pair. With its own USB also plugged in it has two supplies,
+and reconnecting the USB while the board stays powered leaves it enumerated on neither host.
+`J9.V12` runs straight to the board's V12 island with no relay in it, so nothing in firmware
+can drop it and resetting either ESP32 will not do it either: the 12 V has to physically go
+away. Unplug at J10 or at the wall, then plug back in.
+
+[`/tools/boards.py`](/tools/boards.py) says which board is on which port, and says this when
+it finds a controller and no S3.
+
 ## Sound
 
 This panel has no sounder. The machine's one voice is U8 on the controller PCBA, so a finger

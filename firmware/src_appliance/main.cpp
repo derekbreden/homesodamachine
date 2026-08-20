@@ -74,10 +74,11 @@ void setup() {
     Serial.println("type 'help' for what this build answers to\n");
     Serial.print("> ");
 
-    // The board came up and parked. On a line this is how an assembler hears a
-    // unit boot without watching it, and it is the last thing acceptance step 1
-    // waits for.
-    soundPlay(SND_READY);
+    // The machine waking up. Every actuator is already parked by the time this
+    // sounds, so it says the controller reached the end of setup() and nothing
+    // else — which on a line is how a unit is heard coming up without being
+    // watched, and in a kitchen is just the machine saying hello.
+    soundPlay(SND_WELCOME);
 }
 
 void loop() {
