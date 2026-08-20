@@ -16,12 +16,9 @@ constant across sizes, not the cell size: every size then samples finer than the
 the nozzle draws — so none loses a feature the printer could have made — and the triangle
 budget, and the file, stay put as the tile grows.
 
-WARPING IS A SHEAR ON THE SAMPLING COORDINATE, not new geometry: CHEVRON and WAVE ask
-`_groove` about `x + warp(y)` instead of `x`. Every flute shifts by the same amount at a
-given y, so they stay exactly parallel and cannot collide — but their spacing measured
-ACROSS the flute closes by the cosine of the limb angle, so a warped flute reads tighter
-on its steep runs than on its turns. That is what a sheared chevron does, and it is the
-one visible cost of getting the warp for free.
+The flute vocabulary — the grooves and the warps that bend them — is
+`../../cadlib/reeding.py`, shared with the standing-wall coupon in `../texture-corner/`
+so both provably lay down the SAME texture.
 
 A PATTERN'S SCALE IS ABSOLUTE. `flute_pitch` is 5 mm on every tile. A bigger swatch is
 more repeats of the same texture, not the same texture enlarged, which is the only way
@@ -62,6 +59,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from docgen import substitute_md
+import reeding
 from perlin import fbm
 
 # --- The tile every swatch is cut from ---------------------------------------------
@@ -83,12 +81,6 @@ def _grid_step(side):
     return side / grid_cells
 
 
-def _groove(u, pitch, width):
-    """Half-round grooves `width` across on `pitch` centres, as a 0…1 depth fraction."""
-    offset = (u + pitch / 2.0) % pitch - pitch / 2.0
-    return np.sqrt(np.clip(1.0 - (offset / (width / 2.0)) ** 2, 0.0, None))
-
-
 def _sites(spacing, jitter, seed, side):
     """Lattice points covering the tile and a margin around it, so cells at the edge are
     bounded by neighbours that exist rather than running out to infinity. `jitter` 0
@@ -108,20 +100,6 @@ def _sites(spacing, jitter, seed, side):
 
 # --- The five ----------------------------------------------------------------------
 
-flute_pitch = 5.0
-flute_width = 4.0
-
-# The warp CHEVRON and WAVE lay on the flute path. Amplitude is one full pitch, so a
-# flute swings into its neighbour's station and back. A sine of a given amplitude is
-# steeper than a triangle of the same amplitude — pi/2 times — so the wavelength is
-# sized off the SINE: at `warp_wavelength` >= 2*pi*`warp_amplitude` its steepest limb
-# stays inside the 45 deg every relief in this box is struck at, and on a vertical wall
-# that limb angle is the groove's own side surface tilting off vertical.
-warp_amplitude = 5.0
-warp_wavelength = 34.0
-chevron_sharpness = 0.97         # 1 is a true triangle apex, 0 is a sine; between them
-                                 # it is the radius the apex turns on
-
 cross_pitch = 6.0
 cross_width = 3.4
 
@@ -139,40 +117,20 @@ perlin_persistence = 0.5
 perlin_seed = 20260819
 
 
-def _warp_phase(y):
-    return 2.0 * np.pi * y / warp_wavelength
-
-
-def _rounded_triangle(y):
-    """A triangle wave of amplitude 1 whose apex turns on a radius. `arcsin` of a sine
-    scaled short of 1 never reaches the corner, and `chevron_sharpness` is how close it
-    gets: 1 gives the sharp triangle, 0 gives back the sine."""
-    return (np.arcsin(chevron_sharpness * np.sin(_warp_phase(y)))
-            / math.asin(chevron_sharpness))
-
-
-def _limb_angle_deg(slope_factor):
-    """The steepest angle a warped flute's path makes with its own axis — and so, on a
-    vertical wall, how far the groove's side surface tilts off vertical."""
-    return math.degrees(math.atan(
-        slope_factor * 2.0 * math.pi * warp_amplitude / warp_wavelength))
-
-
 def _flute(x, y, side):
-    return _groove(x, flute_pitch, flute_width)
+    return reeding.straight(x, y)
 
 
 def _chevron(x, y, side):
-    return _groove(x + warp_amplitude * _rounded_triangle(y), flute_pitch, flute_width)
+    return reeding.chevron(x, y)
 
 
 def _wave(x, y, side):
-    return _groove(x + warp_amplitude * np.sin(_warp_phase(y)), flute_pitch, flute_width)
+    return reeding.wave(x, y)
 
 
 def _cross(x, y, side):
-    return np.maximum(_groove((x + y) / _ROOT2, cross_pitch, cross_width),
-                      _groove((x - y) / _ROOT2, cross_pitch, cross_width))
+    return reeding.cross(x, y, cross_pitch, cross_width)
 
 
 def _hex(x, y, side):
@@ -323,11 +281,11 @@ def main():
         "GRID_CELLS": f"{grid_cells}",
         "GRID_STEP_50": f"{_grid_step(50.0):.4g} mm",
         "GRID_STEP_100": f"{_grid_step(100.0):.4g} mm",
-        "FLUTE_PITCH": f"{flute_pitch:.4g} mm",
-        "WARP_AMPLITUDE": f"{warp_amplitude:.4g} mm",
-        "WARP_WAVELENGTH": f"{warp_wavelength:.4g} mm",
-        "CHEVRON_LIMB": f"{_limb_angle_deg(chevron_sharpness / math.asin(chevron_sharpness)):.3g}°",
-        "WAVE_LIMB": f"{_limb_angle_deg(1.0):.3g}°",
+        "FLUTE_PITCH": f"{reeding.flute_pitch:.4g} mm",
+        "WARP_AMPLITUDE": f"{reeding.warp_amplitude:.4g} mm",
+        "WARP_WAVELENGTH": f"{reeding.warp_wavelength:.4g} mm",
+        "CHEVRON_LIMB": f"{reeding.chevron_limb_deg():.3g}°",
+        "WAVE_LIMB": f"{reeding.wave_limb_deg():.3g}°",
         "CROSS_PITCH": f"{cross_pitch:.4g} mm",
         "HEX_CELL": f"{hex_cell:.4g} mm",
         "HEX_GROOVE": f"{hex_groove:.4g} mm",
