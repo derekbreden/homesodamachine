@@ -347,7 +347,11 @@ socket_cap = wall            # one wall capping the insert's deep end
 # outboard is the length of insert the wall itself cannot hold, plus the cap over its blind
 # end. One wall of material around the bore is the section.
 c14_boss_dia = heatset_dia + 2.0 * wall
-c14_boss_proud = heatset_depth - wall + socket_cap
+def c14_proud(wall_t=None):
+    """How far a C14 boss stands proud OUTBOARD of the back wall: the insert's own depth and
+    the cap over its blind end, less whatever section that wall already holds. A wall thick
+    enough for both stands the boss down to nothing; this one is not, quite."""
+    return heatset_depth + socket_cap - (wall if wall_t is None else wall_t)
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
@@ -623,6 +627,31 @@ def interior_x():
     return (-(appliance_width / 2.0 - wall), appliance_width / 2.0 - wall)
 
 
+def back_top_wall_face():
+    """back-top's own interior rear plane — `back_top_wall_t` in from the exterior, where the
+    box's own is one `wall` in.
+
+    `rear_plane_y` is still the interior of the machine and every body is packed to it; this is
+    the plane back-top's own back wall and its furniture stand on. back-bottom needs no such
+    figure: its wall is the lip's own skin carried to the slab and already measures the same."""
+    return rear_plane_y - (back_top_wall_t - wall)
+
+
+def back_wall_t_at(x, z):
+    """The section the back wall carries at one station — what a fitting's clamped stack spends
+    there, and the one figure `enclosure_assembly.port-clamp-stack` reads.
+
+    A RELIEF IS A FACT ABOUT THE WALL, not a note beside it. The CO2 station's barrel cannot take
+    `back_top_wall_t`, so the wall is thinner there and this says so by measuring the same figure
+    the solid is cut on rather than by naming an exception."""
+    if z < z_seam:
+        return 2.0 * wall              # back-bottom: the wall and its lip's own skin
+    for _who, rx, rz, wx, wz in back_top_wall_reliefs:
+        if abs(x - rx) <= wx / 2.0 and abs(z - rz) <= wz / 2.0:
+            return wall
+    return back_top_wall_t
+
+
 def front_top_flank_face():
     """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where
     every other piece's is one `wall` in.
@@ -649,6 +678,38 @@ def lip_face_x():
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
 rear_plane_y = 464.0
+# --- back-top's own +Y section ------------------------------------------------
+#
+# THE BACK WALL IS ALREADY TWO WALLS THICK WHERE IT IS A BOTTOM PIECE. `_lip_underwall` carries
+# the lip's own skin from the floor slab to the rim on all three of back-bottom's sides, so that
+# wall measures `2 * wall` from the slab up. Above the rim it is back-top's, one `wall`, and this
+# is what makes the two agree: one section for the whole back of the machine.
+#
+# IT IS TAKEN INWARD, off `rear_plane_y`, and 6 is the whole of what there is. The cold core and
+# the water pump both end at y 461.00 and the PSU at 460.50, so the room behind them is exactly
+# `rear_seam_clear` — which is the standoff this wall was given in the first place, and which
+# back-bottom already spends. A seventh millimetre is a wall drawn through the core.
+back_top_wall_t = 6.0
+# AND ONE STATION CANNOT HAVE IT. What clamps a rear-wall fitting is its own bare barrel between
+# flange and nut, and the stack it must take is the wall plus the port ring
+# (`enclosure_assembly.port-clamp-stack`). The four umbilical unions offer 15.29 mm of barrel and
+# do not care; the CO2 neoFit offers 7.90, which a 6 mm wall and a 2 mm ring would leave the nut
+# none of. So the wall gives that one station back to `rear_plane_y` — the plane it is struck off
+# — and the nut lands on it with the section it always had.
+#
+# AND THE C14 IS THE SAME BARGAIN FOR A DIFFERENT REASON. Its receptacle is fastened from inside
+# and its FLANGE bears on this wall's inner face, so the section behind that flange is not the
+# wall's to take either: thickened through, the wall stands where the flange has to sit.
+#
+# THE RULE UNDER BOTH: what clamps on the inner face keeps the plane it clamped on. Stated as
+# (station, x, z, across_x, across_z) — whose relief it is, where it stands, and the rectangle it
+# takes. The name is carried because a relief that drifts off the thing it was cut for is a
+# relief for nothing, and `back_wall_t_at` read at the placed station is what says whether it
+# still lands on it (`enclosure_assembly.check_wall_clamped`).
+back_top_wall_reliefs = (
+    ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
+    ("c14-inlet", 69.0, 336.21, 53.0, 35.0),      # the receptacle's flange and its two bosses
+)
 # And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
 # the face a user hauls the pump cartridge out by, so it carries section the way the facet
 # does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
@@ -2150,7 +2211,7 @@ def _port_chip(px, pz, width, rise, y0, y1):
             .fuse(_ybox(px - r, px + r, y0, y1, pz, pz + rise)))
 
 
-def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
+def _port_field(solid, field, ports, outer, y_outer, zlo, zhi, wall_at=None):
     """The pocket each port chip lies in, cut INTO a ±Y wall's outer face, and the boss standing
     behind it on the inner one — one pair per station.
 
@@ -2172,10 +2233,22 @@ def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
         return solid
     ox0, ox1, _oy0, _oy1, _oz0, _oz1 = outer
     silhouette = _rounded_outer(outer)
-    y_inner = y_outer - wall
-    boss_y0 = y_inner - field.proud
-    band = _ybox(ox0 - 1.0, ox1 + 1.0, boss_y0, y_inner, zlo, zhi)
+    at = (lambda _x, _z: wall) if wall_at is None else wall_at
+    deep = y_outer
     for px, pz, width, rise in field.pockets:
+        # THE BOSS MAKES BACK WHAT THE POCKET TOOK, AND NO MORE. `proud` is what a chip's pocket
+        # costs a `wall`-thick face; a wall carrying more section than that has already made it
+        # back, and a boss standing proud of THAT is a boss standing in the room — which is
+        # where the water pump and the cold core are. Read at the station, because this wall is
+        # not one thickness (`back_wall_t_at`).
+        t = at(px, pz)
+        y_inner = y_outer - t
+        proud = max(0.0, field.proud - (t - wall))
+        deep = min(deep, y_inner - proud)
+        if proud <= 1e-9:
+            continue
+        boss_y0 = y_inner - proud
+        band = _ybox(ox0 - 1.0, ox1 + 1.0, boss_y0, y_inner, zlo, zhi)
         boss = _port_chip(px, pz, width + 2.0 * field.rim, rise + field.rim, boss_y0, y_inner)
         # The boss is a D below its bore's axis, on a 45° web run down the wall — squared
         # and webbed the way every boss on this box is, so its underside prints off the
@@ -2185,12 +2258,12 @@ def _port_field(solid, field, ports, outer, y_outer, zlo, zhi):
         boss = boss.fuse(_ybox(px - w2, px + w2, boss_y0, y_inner, zb, pz))
         boss = boss.fuse(_yz_prism(px - w2, px + w2,
                                    [(y_inner, zb), (boss_y0, zb),
-                                    (y_inner, zb - field.proud)]))
+                                    (y_inner, zb - proud)]))
         solid = solid.fuse(boss.intersect(silhouette).intersect(band))
     for px, pz, width, rise in field.pockets:
         solid = solid.cut(_port_chip(px, pz, width, rise,
                                      y_outer - field.proud, y_outer + 1.0))
-    for cutter in _port_cuts(ports, boss_y0 - 1.0, y_inner + 1.0):
+    for cutter in _port_cuts(ports, deep - 1.0, y_outer + 1.0):
         solid = solid.cut(cutter)
     return solid
 
@@ -3121,6 +3194,44 @@ def _front_top_flank_relief_cut():
     box_ = _ybox(min(face, floor), max(face, floor), y0, y1, z0, z1 - depth)
     ramp = _xz_prism(y0, y1, [(face, z1 - depth), (floor, z1 - depth), (face, z1)])
     return box_.fuse(ramp)
+
+
+def _back_top_wall(inner, outer, box, zj):
+    """THE SECTION BACK-TOP'S +Y WALL CARRIES BEYOND `wall`, standing inboard of `rear_plane_y`
+    (`back_top_wall_t`). Fused before this piece's own back-wall work, so the port field's
+    pockets, the C14's bores and the nameplate's seat are all cut out of the whole of it.
+
+    IT BEGINS AT THE RIM AND NOT AT THE MOUTH. What stands in this wall below the rim is
+    back-bottom's own tongue, and the lane it rises into is exactly the section this would add —
+    so there is nothing to add there. Below the rim that wall is already `2 * wall`, carried to
+    the slab as the lip's own skin (`_lip_underwall`); above it, this. One section, top to
+    bottom, and the rim is where the two meet rather than a step in either."""
+    ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
+    band = _ybox(ix0, ix1, back_top_wall_face(), iy1, zj + lip_len, iz1)
+    # The wall's own holes, bored in `build_back_half` before this stood here.
+    for cutter in _port_cuts(box.back_ports, iy1 - 5.0, outer[3] + 5.0):
+        band = band.cut(cutter)
+    return band.cut(_back_top_wall_relief_cut())
+
+
+def _back_top_wall_relief_cut():
+    """Every station's relief, floored on `rear_plane_y` with its roof rising at
+    `relief_chamfer` to the mouth — what clamps on this face lands on the section it always had.
+
+    THE ROOF IS THE ONLY FACE THAT NEEDS THE ANGLE, the same way the pump reliefs' ceilings do:
+    back-top prints mouth-down on its seam rim and builds in +Z, so the pocket's floor is printed
+    on and its two sides are vertical, and what would be laid over air is the run at the top."""
+    face, floor = back_top_wall_face(), rear_plane_y
+    depth = floor - face
+    out = None
+    for _who, rx, rz, wx, wz in back_top_wall_reliefs:
+        hx, hz = wx / 2.0, wz / 2.0
+        cut = _ybox(rx - hx, rx + hx, face, floor, rz - hz, rz + hz - depth)
+        cut = cut.fuse(_yz_prism(rx - hx, rx + hx,
+                                 [(face, rz + hz - depth), (floor, rz + hz - depth),
+                                  (face, rz + hz)]))
+        out = cut if out is None else out.fuse(cut)
+    return out
 
 
 def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
@@ -4133,7 +4244,7 @@ def _core_stops(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
-def _core_holds(solid, inner, stations, y0, y1, z0, z1):
+def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
     """The cold core's two hold-down brackets added to a PIECE, for the stations inside the
     depth and height band that piece owns.
 
@@ -4151,10 +4262,11 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1):
     THE BEARING FACE HANGS. It is flat and it is the lowest thing on the bracket, so printed
     Z−-down it is a soffit `core_hold_reach + rear_seam_clear` off the wall and it takes print
     support, the way the tap-water trough on this same wall does."""
+    face = inner[3] if face is None else face
     for sx0, sx1, aft, crown in stations:
         if not (y0 <= aft <= y1 and z0 <= crown <= z1):
             continue
-        tip, back = aft - core_hold_reach, inner[3]
+        tip, back = aft - core_hold_reach, face
         solid = solid.fuse(_yz_prism(sx0, sx1, (
             (tip, crown), (back, crown), (back, crown + core_hold_rise),
             (tip, crown + core_hold_land))))
@@ -4713,20 +4825,26 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
-def _c14_bosses(solid, inner, outer, stations, z0, z1):
+def _c14_bosses(solid, inner, outer, stations, z0, z1, face=None):
     """The C14's two heat-set bosses added to a back wall, for the stations whose Z lies in
     `z0..z1`.
 
     That receptacle is fastened from INSIDE — its flange bears on this wall's inner face —
     so its insert enters flush with that face and the length of it the wall cannot hold
     stands proud OUTWARD, past the print silhouette. The bore is cut after the boss, so it
-    runs the insert's whole depth from the inner face."""
+    runs the insert's whole depth from the inner face.
+
+    `face` IS THAT INNER FACE, and it is passed rather than struck off `inner` because the piece
+    holding these stations carries `back_top_wall_t` and not `wall` — a boss rooted on the box's
+    own rear plane would start its bore a section INSIDE the wall, with no way for the screw to
+    reach it."""
     for sx, sz in stations:
         if z0 <= sz <= z1:
+            f = inner[3] if face is None else outer[3] - back_wall_t_at(sx, sz)
             solid = solid.fuse(_ycyl(c14_boss_dia / 2.0, sx, sz,
-                                     inner[3], outer[3] + c14_boss_proud))
+                                     f, outer[3] + c14_proud(outer[3] - f)))
             solid = solid.cut(_ycyl(heatset_dia / 2.0, sx, sz,
-                                    inner[3], inner[3] + heatset_depth))
+                                    f, f + heatset_depth))
     return solid
 
 
@@ -4796,6 +4914,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
         for _x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
+        if y_side == "back":
+            # BACK-TOP'S OWN +Y SECTION, first of everything this piece does to that wall — so
+            # the port field, the C14's bores and the nameplate's seat are cut out of the
+            # section rather than out of the skin it replaced.
+            piece = piece.fuse(_back_top_wall(inner, outer, box, zj))
         for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
             x_ext = x_in - sx * wall
             if y_side == "front":
@@ -4813,12 +4936,14 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # from inside, so the insert enters flush with the inner face and the length the
         # wall cannot hold stands outboard. They go on after the clip, on whichever piece
         # holds their Z.
-        piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi)
+        rear = back_top_wall_face() if z_side == "top" else None
+        piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi, rear)
         # The port field goes on here too, but INSIDE that silhouette: its pockets are cut into
         # the wall's outer face and its bosses stand off the inner one, so the face the customer
         # meets is flush. The bosses carry the face's own through-holes across their depth, so a
         # bore that crosses the wall crosses them too.
-        piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi)
+        piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi,
+                            None if rear is None else back_wall_t_at)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
@@ -4842,7 +4967,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # the hold-down brackets a storey up on the back wall. The blocks carry a bore, so they go on
     # with the other pockets — after everything that could fuse material back into one.
     piece = _core_stops(piece, inner, box.core_stops, ylo, yhi, zlo, zhi)
-    piece = _core_holds(piece, inner, box.core_holds, ylo, yhi, zlo, zhi)
+    piece = _core_holds(piece, inner, box.core_holds, ylo, yhi, zlo, zhi,
+                        back_top_wall_face() if (y_side, z_side) == ("back", "top") else None)
     # And the core's relief, which leaves it by a flank and needs somewhere to go: the rib is
     # fused before the channel is cut out of it, which is the same order the card slot takes.
     piece = _vent_chase(piece, inner, outer, box.vent_chase, ylo, yhi, zlo, zhi)
