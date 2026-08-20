@@ -792,13 +792,24 @@ plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor
 # front wall never relieved — and it is the one column of this piece with no pump, no barb
 # tube and no fitting in it at any height. The cap gives up its fill there and keeps
 # `cap_web_t`, so a screw crosses one web into a heat-set in the block above it and the
-# driver comes up the lane the fill gave up. ITS WALL IS THE RELIEF'S OWN JAMB and not a
+# driver comes up the lane the fill gave up.
+#
+# AND THAT WEB CARRIES ITS HEADS DOWN IN COUNTERBORES, like every other cap screw on this
+# box. A head standing proud stands in the one lane a driver has to come up, and the section
+# drawing these two pieces together was the four millimetres the screw pulled through and
+# nothing else. Sinking the head adds its own `head_cbore_depth` to the web and takes none of
+# it off the screw — `screw_len` is stated UNDER the head, so the same M3×10 crosses the same
+# `cap_web_land` and lands the same depth in the same insert. The lane keeps a flat ceiling
+# and the joint gets twice the section.
+#
+# ITS WALL IS THE RELIEF'S OWN JAMB and not a
 # figure struck off anything: that jamb is already a step in this piece's fore face, and a
 # lane walled anywhere outboard of it leaves the strip between the two standing alone —
 # 1.3 mm of rib at one figure, six tenths of web at another. On the jamb the two are one
 # plane, nothing thin is left, and what stands against a pump's room is the relief's own slip.
 cap_pump_air = 0.4           # air round a pump body where the block closes on it
-cap_web_t = 4.0              # the cap's section across that lane — what a screw crosses
+cap_web_land = 4.0           # what a screw pulls through, over its own head's counterbore
+cap_web_t = head_cbore_depth + cap_web_land   # the cap's whole section across that lane
 cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and aft
 
 
@@ -3384,17 +3395,23 @@ def _cap_screws(inner, plate, pump_trays):
     """The two screws that draw the cap up onto the block, on the lane's own centreline —
     as (clearance bores, heat-set bores).
 
-    Each crosses one `cap_web_t` of cap and lands in a ruthex M3 heat-set in the block over
-    it, so the run is the `screw_len` every other joint on this box takes and the head sits
-    in the lane the fill gave up, where a driver reaches it. The heat-set's bore carries the
-    thread past the insert, because the screw is longer than web and insert together."""
+    THE HEAD IS DOWN IN A COUNTERBORE and the lane keeps a flat ceiling. `head_cbore_dia` by
+    `head_cbore_depth` is the seat every cap screw on this box takes, and `screw_len` is
+    stated UNDER the head — so the counterbore costs the screw nothing: it pulls through
+    `cap_web_land` of cap either way and lands the same depth in a ruthex M3 heat-set in the
+    block above it. What the sinking buys is the web, which is the land AND the counterbore's
+    own walls where it was the land alone.
+
+    The heat-set's bore carries the thread past the insert, because the screw is longer than
+    land and insert together."""
     split = cap_split_z(pump_trays)
+    under, seat = split - cap_web_t, split - cap_web_land
     clear, sets = [], []
     for y in cap_screw_ys(inner, plate):
-        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y,
-                           split - cap_web_t - 1.0, split + 0.1))
+        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, under - 1.0, split + 0.1)
+                     .fuse(_zcyl(head_cbore_dia / 2.0, 0.0, y, under - 1.0, seat)))
         sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, split - 0.1,
-                          split + screw_len - cap_web_t + 0.5))
+                          split + screw_len - cap_web_land + 0.5))
     return clear, sets
 
 
@@ -3415,7 +3432,7 @@ def build_pump_cap(box, halves_cache=None):
     gives up the storey over them so the tubes can come down it.
 
     IT GIVES UP THE LANE BETWEEN THE PUMPS and keeps `cap_web_t` over it, so the screws are
-    short and their heads are reachable. Printed face-down on its own share of the face, the
+    short and their heads are down in counterbores with a flat ceiling round them. Printed face-down on its own share of the face, the
     same pose the cartridge takes."""
     inner, plate = box.inner, box.collet_plate
     solid = _cartridge_gross(box, halves_cache).intersect(_cap_room(box))
