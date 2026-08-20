@@ -58,6 +58,16 @@ cold core and stops there, taking nothing the pack was using. Under the pocket i
 this wall vertical on the bed, and a plateau's underside is the plate's whole width of ceiling
 otherwise.
 
+**And the pocket is cut to the plate's whole silhouette, chamfer included** — its floor
+[3 mm](PLATE_BEVEL) in from the outline all round, opening out to full size at 45°. This is the
+same wall standing vertical on the bed, so the pocket's own head is a down-facing ceiling: cut
+square it hangs the pocket's whole [4.5 mm](NAMEPLATE_T) depth, which measures
+[443.4 mm²](POCKET_SOFFIT_SQUARE) of flat. Ramped it hangs [1.5 mm](POCKET_RIM), or
+[147.8 mm²](POCKET_SOFFIT) — less than the [2 mm](PORT_RING_T) pocket hung before the plate ever
+thickened. The last [1.5 mm](POCKET_RIM) stays square deliberately: 45° carried out to the face
+would read as a V-groove round the plate instead of a flush inlay. The angle is
+`enclosure.relief_chamfer`, what every relief ceiling on this box rises at.
+
 **Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the
 SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall — so
 a boss anywhere else on this field is a boss in the core or in the pump. Between them the room
@@ -78,7 +88,8 @@ A separate print from the enclosure, with its own settings.
   round and the outline grows out to full size over three millimetres. No elephant's foot on the
   rim the customer can see, and no arris to catch the pocket's inside corner on the way in. At
   [3 mm](PLATE_BEVEL) the corner rounds come to nothing on the bed, so the first layer is a plain
-  rectangle.
+  rectangle. **The pocket is cut to that chamfer too** — see below; it is the wall's relief as
+  much as the plate's.
 - **Nozzle:** [0.2 mm](NAMEPLATE_NOZZLE_D) (bulk enclosure parts use [0.4 mm](BULK_NOZZLE_D))
 - **Layer height:** [0.08](LAYER_H_MIN)–[0.12 mm](LAYER_H_MAX)
 - **Two colours:** the plate in PETG Basic Black 30105 and the lettering in White 30106, a
