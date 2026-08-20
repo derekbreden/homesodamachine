@@ -25,6 +25,20 @@ Neither display carries a sounder, so every sound the machine makes is made on t
 
 `src_pcba_bench/` is the bench rig for a **bare** board, one board per fab batch, and goes no further than the bench. It answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector. It also carries the buzzer's range — `ladder`, `duty`, `palette`, played once at boot — which is where the machine's alarms and acks get designed ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
 
+## J9 is one pair, and both ends take turns
+
+The display link is a single differential pair — J9 is `[B, A, GND, V12]` — carrying half-duplex RS485 between the controller PCBA and the 4.3B. **Nothing arbitrates it.** U7 on the PCBA is an auto-direction transceiver with `/RE` tied to GND, so the controller's receiver runs while its driver does and it hears every byte it sends; [`lib/proto_link/rs485_echo.h`](lib/proto_link/rs485_echo.h) exists to strip that echo before the framer sees it.
+
+That echo cancellation is only sound while the two ends do not talk at once. If the glass sends while the controller is replying, the two collide, the controller reads back something other than what it wrote, and the echo it is waiting for never arrives. A canceller that merely counted bytes would stay in deficit from that moment and swallow real traffic as its own echo — the board goes quietly deaf, and the frame that gets lost is whichever one arrived next. That failure looks exactly like latency, because the sender's retry eventually gets through.
+
+So the rule, and it is a rule rather than an optimisation:
+
+- **The controller answers; it never interrupts.** Every frame it puts on the pair goes out inside the window immediately after one arrives. Anything the machine wants to volunteer — a prime that timed out, a bounded run that finished — is queued in [`src_appliance/link.cpp`](src_appliance/link.cpp) and flushed in that window. `linkPing` is the one deliberate exception, and it is a bench command.
+- **The glass sends one frame at a time.** Nothing calls `j9.send()` directly; everything posts to the outbound queue in [`src_front/main.cpp`](src_front/main.cpp), and the next frame waits for the answer or for the turnaround window to lapse. One press is one frame — a button that already speaks for itself sends no separate click, and the controller makes the tick off the command it received.
+- **The glass polls on an interval,** because the controller no longer speaks unprompted. That poll is the ceiling on how stale news from the base can be.
+
+`link` on the controller console reports `desyncs`: collisions that reached the wire in spite of all that. On a healthy pair it stays at zero. Rising under load means the discipline is being violated somewhere, and the place to look is whatever recently learned to transmit.
+
 ## What the appliance firmware must hold
 
 Three constraints the board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
