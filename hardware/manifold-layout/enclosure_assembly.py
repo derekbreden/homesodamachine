@@ -5908,9 +5908,10 @@ COVER_ORIGIN = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
 def build_display_cover(box):
     """The printed border that fills the display inset and closes the 45° face flat.
 
-    Its top face lies IN that face, its underside one `display_inset_depth` below on the inset
-    floor, and a pad under each screw stands one `display_screw_pad_depth` further into the
-    pocket bored for it. Two DIN 912 M3s come down through those pads into ruthex inserts in
+    Its top face lies IN that face, and its back is one plane either side of a single step: the
+    lap, one `display_inset_depth` down where the glass is under it, and the seat, one
+    `display_cover_seat` down everywhere else, bearing on the land `_display_cuts` sinks to meet
+    it. No pad stands off it. Two DIN 912 M3s come down through that seat into ruthex inserts in
     `enclosure-front-top`, each head landing in a flat counterbore under the 45° plane, so the
     glass under the border is captured between the bezel it sits in and the plate over it."""
     plane = _enc.display_plane(box.outer)
