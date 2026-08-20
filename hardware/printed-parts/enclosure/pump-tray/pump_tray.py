@@ -79,6 +79,12 @@ can_half = _pc.cylinder_id / 2.0
 # pump lifting off the flank seats `head_seats` cuts for it.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
+# The fall the head's outlet side takes under its barbs, and how far up off its front face it
+# holds it — `kamoer_kphm400` states both. NOTHING OF THE PART IS IN THAT ROOM, so a cap can
+# stand a wall in it and reach in behind the head: the wall's own section is what the fall
+# leaves between the room and whatever closes the cap aft, and its height is the run.
+outlet_relief = _kp.outlet_relief
+outlet_relief_run = _kp.outlet_relief_run
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
 # And that base plate's own thickness. It is the band a tray meets its neighbours in: every web
@@ -147,7 +153,14 @@ def head_room(air: float, depth: float):
     flank would stop short of the room's own end and leave the aft wall standing on nothing
     for the last few millimetres. So the room carries the case's flat on to its ends rather
     than either — the same section it has at the straight run, held to the corner — and a
-    flank runs the room's whole depth into the wall that closes it."""
+    flank runs the room's whole depth into the wall that closes it.
+
+    AND IT GIVES UP THE OUTLET RELIEF WHOLE, WITH NO AIR IN IT. Under the barbs the part
+    falls back off the face they stand on (`outlet_relief`) and holds that fall for
+    `outlet_relief_run` up from its front face, so the room stops on the part's own line there
+    rather than `air` off it. What the block puts in the room it gives up is a wall that
+    reaches in behind the head — the fall is barely what the wall needs, and air taken out of
+    it comes off the wall's section."""
     half = head_half + air
     room = cq.Solid.makeBox(2 * half, 2 * half, depth, cq.Vector(-half, -half, -depth))
     cavity = _pc.cavity().val().translate(cq.Vector(-_pc.center_x, -_pc.center_y, 0.0))
@@ -165,7 +178,11 @@ def head_room(air: float, depth: float):
     whole = open_to[0]
     for part in open_to[1:]:
         whole = whole.fuse(part)
-    return room.intersect(whole)
+    room = room.intersect(whole)
+    relief = cq.Solid.makeBox(2 * half, half - (head_half - outlet_relief),
+                              depth - head_depth + outlet_relief_run,
+                              cq.Vector(-half, head_half - outlet_relief, -depth))
+    return room.cut(relief)
 
 
 def _case_base():

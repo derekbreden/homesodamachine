@@ -2071,6 +2071,14 @@ void loop() {
 
   if (displayReady) lv_timer_handler();
 
+  // Again, on the far side of the render. lv_timer_handler() is the long pole in
+  // this loop — a touch is dispatched inside it, and a frame posted from there
+  // would otherwise wait out the rest of the pass before the top of the next one
+  // ever looked at the queue. Servicing here as well halves that wait, and costs
+  // nothing when the queue is empty.
+  j9Pump();
+  j9.service();
+
   unsigned long loopMs = millis() - loopStart;
   if (loopMs > maxLoopMs) maxLoopMs = loopMs;
 
