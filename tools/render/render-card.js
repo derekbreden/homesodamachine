@@ -295,10 +295,17 @@ async function main() {
   let overflowed = 0;
   const unrendered = [];
   try {
+    // A BROWSER THAT ANSWERED NONE OF THREE BLANK 8x8 CAPTURES ANSWERS NO CARD EITHER, so what
+    // is left to decide is how long the deck takes to say so and which name it says it under.
+    // Drawn anyway, each page spends `protocolTimeout` and the deck ends short regardless —
+    // 1224 s of it in derive 32483451585, reported against the card that happened to be first.
+    // The capture is what did not return, and it is what this reports.
     if (!(await warmUp(browser))) {
-      console.error("render-card: no capture returned on a cold browser");
+      unrendered.push(`no capture returned on a cold browser — ${WARM_TRIES} blank ${WARM_MS} ms `
+                      + "attempts, so every card behind it would time out in turn");
+      jobs.length = 0;
     }
-    let page = await newCardPage(browser, opts);
+    let page = jobs.length ? await newCardPage(browser, opts) : null;
     // THE FIRST CARD IN A DECK PAYS FOR ALL OF THEM AND IT IS THE ONE THAT DOES NOT COME BACK.
     // One browser draws a whole deck, so the first capture is the one that starts the
     // compositor, takes the first shared-memory frame, and fetches and parses the ten vendored
@@ -308,8 +315,10 @@ async function main() {
     //
     // So the deck's first page is drawn onto a throwaway. It is the same visit a card gets —
     // the fonts, a capture at the same size — and what it costs is one page nobody keeps.
-    await renderPage(page, jobs[0].htmlAbs, path.join(os.tmpdir(), `hsm-warm.${process.pid}.png`), opts)
-      .catch(() => { /* a warm-up that fails is a card that is about to fail out loud */ });
+    if (page) {
+      await renderPage(page, jobs[0].htmlAbs, path.join(os.tmpdir(), `hsm-warm.${process.pid}.png`), opts)
+        .catch(() => { /* a warm-up that fails is a card that is about to fail out loud */ });
+    }
     for (const job of jobs) {
       let overflow;
       try {
