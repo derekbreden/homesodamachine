@@ -9,11 +9,10 @@
 import { state } from "./state.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
 // edit runs fresh code; thumbnail renderers stay from the modules (static).
-import { openMmdDetail, openDrawingDetail, openPcbDetail, openCardDetail } from "./detail-shims.js";
+import { openMmdDetail, openDrawingDetail, openPcbDetail } from "./detail-shims.js";
 import { buildPartsSection } from "./parts.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { renderDrawingThumbnail } from "./drawings.js";
-import { mountCardThumbnail, unmountCardThumbnail } from "./cards.js";
 import { windowContent, markupThumb, imageThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail } from "./step.js";
@@ -111,60 +110,54 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
   }
 }
 
-// Assembly cards — the printable 4×6 deck (hardware/assembly/cards). Arrives
-// deck-ordered from /api/cards with each card's own printed identity, so the
-// grid groups by subsystem in arrival order rather than re-deriving the build
-// sequence. The subheader takes the subsystem's own accent colour, which is the
-// same colour the card prints its code chip in — a scan down the page reads as
-// the deck reads.
+// Documents — the PDFs this site hands over whole (/api/documents,
+// web/contracts/documents.js). The deck a bench builds from is a hundred and
+// three pages meant to be read in order on paper; the site's job is to hand
+// over the file, not to re-implement a reader for it. So a document is one
+// card: its own cover, what it is, and a click that opens the PDF in a tab —
+// where the browser's reader is already better at this than anything here.
 //
-// The thumbnail is the card itself in a scaled iframe, mounted lazily by the
-// observer at the bottom of buildGrid. There is no separate thumbnail artifact:
-// the card you see in the grid is the file that goes to the printer.
-//
-// Cards get their own nested grid rather than sharing the page's track sizing.
-// The page tracks are sized for part thumbnails; a card scaled into one is a
-// coloured smudge you have to open to identify. Its own grid can ask for the
-// width a card needs to stay readable in place, and packs cleanly instead of
-// stranding a spare track at the end of every row.
-function buildCardSection() {
+// The cover is a committed PNG beside the PDF, served by the same `/thumbs/`
+// route every other picture under hardware/ comes through, so there is no
+// thumbnail to render and nothing to mount lazily.
+function readableBytes(n) {
+  return n >= 1024 * 1024 ? `${(n / (1024 * 1024)).toFixed(1)} MB` : `${Math.round(n / 1024)} KB`;
+}
+
+function buildDocumentsSection() {
   const header = document.createElement("div");
   header.className = "section-header";
-  header.textContent = "Assembly cards";
+  header.textContent = "Documents";
   state.gridEl.appendChild(header);
 
-  if (!state.cards || state.cards.length === 0) {
+  if (!state.documents || state.documents.length === 0) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = "No cards yet.";
+    empty.textContent = "No documents yet.";
     state.gridEl.appendChild(empty);
     return;
   }
 
-  const deck = document.createElement("div");
-  deck.className = "deck-grid";
-  state.gridEl.appendChild(deck);
+  const shelf = document.createElement("div");
+  shelf.className = "doc-shelf";
+  state.gridEl.appendChild(shelf);
 
-  let group = null;
-  for (const card of state.cards) {
-    if (card.subsystemLabel !== group) {
-      group = card.subsystemLabel;
-      const sub = document.createElement("div");
-      sub.className = "subsection-header deck-header";
-      sub.textContent = group;
-      if (card.accent) sub.style.setProperty("--card-accent", card.accent);
-      deck.appendChild(sub);
-    }
-    const el = document.createElement("div");
-    el.className = "card card-deck";
-    el.dataset.file = card.path;
-    el.dataset.type = "card";
-    const code = card.code ? `<span class="dir">${card.code}</span>` : "";
-    el.innerHTML = `<div class="card-thumb" data-file="${card.path}"><div class="placeholder">loading...</div></div>` +
-      `<div class="label">${code}${card.title}</div>`;
-    if (card.accent) el.style.setProperty("--card-accent", card.accent);
-    el.addEventListener("click", () => openCardDetail(card.path));
-    deck.appendChild(el);
+  for (const doc of state.documents) {
+    // An anchor, not a click handler: a document is a file at a URL, so
+    // middle-click, cmd-click and "copy link" all mean what they look like.
+    const el = document.createElement("a");
+    el.className = "card card-doc";
+    el.href = `/docs/${doc.path}`;
+    el.target = "_blank";
+    el.rel = "noopener";
+    const cover = doc.cover
+      ? `<img class="doc-cover" src="/thumbs/${doc.cover}" alt="${doc.title} cover" loading="lazy">`
+      : `<div class="doc-cover placeholder">no cover</div>`;
+    const scale = doc.pages ? `${doc.pages} pages · ${readableBytes(doc.bytes)}` : readableBytes(doc.bytes);
+    el.innerHTML = cover +
+      `<div class="label"><span class="name-row"><span class="name">${doc.title}</span></span>` +
+      `<span class="dir">${doc.subtitle || ""}</span><span class="doc-scale">${scale}</span></div>`;
+    shelf.appendChild(el);
   }
 }
 
@@ -247,7 +240,7 @@ export function buildGrid() {
       }
     }
 
-    buildCardSection();
+    buildDocumentsSection();
   }
 
   if (section === "pcb") {
@@ -312,12 +305,6 @@ export function buildGrid() {
     mmd: markupThumb({ hostSelector: ".mmd-thumb", render: renderMmdThumbnail }),
     drawing: markupThumb({ hostSelector: ".drawing-thumb", render: renderDrawingThumbnail }),
     pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
-    // Assembly cards: a mounted card is a live document, so this is the kind
-    // where releasing matters most.
-    card: {
-      mount: (card) => mountCardThumbnail(card.querySelector(".card-thumb"), card.dataset.file),
-      unmount: (card) => unmountCardThumbnail(card.querySelector(".card-thumb")),
-    },
   };
 
   const windows = [];

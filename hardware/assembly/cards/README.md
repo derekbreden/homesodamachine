@@ -32,12 +32,17 @@ the reason a step is shaped the way it is. See [The gate](#the-gate).
   [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js). Each carries a
   `.scene.json` naming the geometry it was drawn of, so a picture and the part it pictures
   cannot drift apart quietly. A file here with no sidecar is one nothing draws.
-- `out/` — the printable deck: one PNG per card plus `deck.pdf` (6 × 4 in pages). Built rather
-  than carried: `.gitignore` holds it out, and a checkout has this directory after `_build.py`
-  below and not before.
+- `out/` — one PNG and one PDF per card, both 6 × 4 in: the PNG is what a printer is handed
+  a card at a time, the PDF is a page of the bound deck. Built rather than carried:
+  `.gitignore` holds the directory out, and a checkout has it after `_build.py` below and not
+  before.
+- `deck.pdf` — the whole deck as one file, and `deck.cover.png` + `deck.pdf.json` beside it, which
+  are how the site lists it (`web/contracts/documents.js`). These three ARE carried: the pages are
+  printed off the browser's layout rather than captured off it, so the deck is vector and a
+  fifteenth the size of the same pages as pixels.
 - [`_build.py`](_build.py) — runs the gate, renders every card HTML to `out/`
   via [`tools/render/render-card.js`](/tools/render/render-card.js), and
-  assembles `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
+  binds the pages into `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
 - [`_cards_sync.py`](_cards_sync.py) — the doc-sync driver: every figure the
   cards state that the machine owns, derived from `enclosure_assembly.machine()`, plus
   which card carries which. [`_cardgen.py`](_cardgen.py) — the marker syntax and

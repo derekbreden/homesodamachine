@@ -575,7 +575,11 @@ function maybeBroadcastCard(absPath) {
     absPath,
     setTimeout(() => {
       debounce.delete(absPath);
-      const single = isCardPath(relFile);
+      // A card page names itself; so does the bound deck, which is a document
+      // rather than a card and moves the /drawings listing rather than a tile.
+      // Anything else in the deck directory — the shared stylesheet, a render a
+      // card embeds — could be on any card, so the whole deck refreshes.
+      const single = isCardPath(relFile) || relFile.endsWith(".pdf");
       const files = single ? [relFile] : walkAssemblyCards(HARDWARE_DIR).map((c) => c.path);
       if (files.length === 0) return;
       console.log(`Card changed: ${relFile}${single ? "" : ` -> refresh ${files.length} card(s)`}`);

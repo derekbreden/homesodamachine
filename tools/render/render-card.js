@@ -11,6 +11,12 @@
 //   --size WxH   viewport = output pixels at DPR 1. Default 1800x1200 (6x4in @ 300dpi)
 //   --dpr f      deviceScaleFactor; output = size · dpr. Default 1
 //                (1.2 → 2160x1440 = 360dpi, the EcoTank's native grid)
+//   --pdf WxHin  also write <output>.pdf at this page size in inches (e.g. 6x4).
+//                The same page visit, printed rather than captured: type stays
+//                type and the rules stay rules, so the deck a person reads on a
+//                screen is a tenth the size of the same pages as pixels and is
+//                sharper than the printer's own grid. The PNG is still what the
+//                printer is handed, and it is still what the checks below read.
 //
 // Batch mode renders every *.html in <dir> (sorted) to <out-dir>/<name>.png in
 // one browser session, and reports any card whose content overflows the
@@ -20,20 +26,20 @@
 import path from "path";
 import fs from "fs";
 import { pathToFileURL } from "url";
-import { closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 function usage(msg) {
   if (msg) console.error(`render-card: ${msg}`);
   console.error(
-    "usage: node tools/render/render-card.js <input.html> <output-png> [--size WxH] [--dpr f]\n" +
-      "       node tools/render/render-card.js --batch <dir> <out-dir> [--size WxH] [--dpr f]",
+    "usage: node tools/render/render-card.js <input.html> <output-png> [--size WxH] [--dpr f] [--pdf WxHin]\n" +
+      "       node tools/render/render-card.js --batch <dir> <out-dir> [--size WxH] [--dpr f] [--pdf WxHin]",
   );
   process.exit(1);
 }
 
 function parseArgs(argv) {
   const positional = [];
-  const opts = { width: 1800, height: 1200, dpr: 1, batch: false };
+  const opts = { width: 1800, height: 1200, dpr: 1, batch: false, pdf: null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const val = () => (a.includes("=") ? a.split("=").slice(1).join("=") : argv[++i]);
@@ -43,7 +49,11 @@ function parseArgs(argv) {
       opts.width = Number(m[1]);
       opts.height = Number(m[2]);
     } else if (a.startsWith("--dpr")) opts.dpr = Number(val());
-    else if (a === "--batch") opts.batch = true;
+    else if (a.startsWith("--pdf")) {
+      const m = String(val()).match(/^([\d.]+)x([\d.]+)(in)?$/);
+      if (!m) usage("bad --pdf");
+      opts.pdf = { width: `${m[1]}in`, height: `${m[2]}in` };
+    } else if (a === "--batch") opts.batch = true;
     else positional.push(a);
   }
   if (!Number.isFinite(opts.dpr) || opts.dpr <= 0) usage("bad --dpr");
@@ -191,6 +201,20 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
     type: "png",
     clip: { x: 0, y: 0, width: opts.width, height: opts.height },
   });
+  // The print path, off the same laid-out page. `pageRanges: "1"` is the guard
+  // that keeps this a page and not a document: a card whose content outgrew the
+  // canvas paginates, and the overflow report above is where that is said out
+  // loud — a second page here would only hide it.
+  if (opts.pdf) {
+    await page.pdf({
+      path: outAbs.replace(/\.png$/, ".pdf"),
+      width: opts.pdf.width,
+      height: opts.pdf.height,
+      printBackground: true,
+      pageRanges: "1",
+      preferCSSPageSize: false,
+    });
+  }
   return { ...overflow, spills, clipped, squeezed };
 }
 
@@ -223,12 +247,31 @@ async function main() {
 
   await sweepAbandonedBrowsers("render-card");
   const browser = await launchBrowser({
-    // A card is a local HTML file with local images and no script — it draws in
-    // about a second, and puppeteer's 180 s default is a ceiling nothing here
-    // can reach on purpose. Held down so a card that has stopped answering
-    // costs the deck a fifth of a minute rather than three, ninety-five times:
-    // this is the budget for a page that never comes back, not for a slow one.
-    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 60000),
+    // THIS IS THE BUDGET FOR A PAGE THAT NEVER COMES BACK, AND A PAGE COMPETING FOR A
+    // CORE IS NOT THAT PAGE. A card draws in about a second on an idle machine, which
+    // is not the machine it draws on: this runs inside a bazel action with three more
+    // beside it and `_cadq_export` drawing thumbnails alongside, and a 3300x2550 page
+    // at dpr 1.2 under that load takes wall clock a lone render never sees.
+    // `bs-band-saw` passed 60 s on a runner while `//:cards-build` was 117 s into its
+    // own render, and one card that did not come back is a red target, which is a
+    // carry that does not happen, which is every derived output describing the commit
+    // before. The other two renderers carry `PARSE_TIMEOUT + 60000` for the same reason.
+    //
+    // AND THE ENVIRONMENT CANNOT RAISE IT WHERE IT MATTERS. A genrule sees only what
+    // `.bazelrc` hands it with `--action_env` — PATH, PUPPETEER_CACHE_DIR,
+    // BLENDER_USER_RESOURCES and two flags — so `HSM_CARD_TIMEOUT` set in a workflow
+    // reaches nothing at all. It is here for a hand run. The default is what CI gets.
+    //
+    // SO IT IS THE SIBLINGS' NUMBER. The paragraph above set 240 s and `bs-band-saw`
+    // passed that too, on the first screenshot after a cold launch, in both runs there
+    // are logs for — the same card, systematically, with `//:cards-build` 92 s into its
+    // own browser beside it. A number reasoned from how long a card takes is a number
+    // that will be passed again the next time the runner is busier, because the thing
+    // being measured is the runner and not the card. `PARSE_TIMEOUT + 60000` is what
+    // render-thumbnails.js and render-step-posed.js carry, for the reason this comment
+    // already gives, and the cost of it is only ever paid by a page that never comes
+    // back — which is the one case it exists for.
+    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || PARSE_TIMEOUT + 60000),
   });
   let overflowed = 0;
   const unrendered = [];
@@ -250,6 +293,7 @@ async function main() {
         // failure nothing downstream can see. Removing it turns a silent stale
         // page into a named missing one.
         try { fs.rmSync(job.outAbs, { force: true }); } catch { /* nothing to drop */ }
+        try { fs.rmSync(job.outAbs.replace(/\.png$/, ".pdf"), { force: true }); } catch { /* nor this */ }
         // Whatever wedged the page — a capture that never came back, a load
         // that never settled — is still wedging it. A fresh tab is what makes
         // the next card an independent attempt rather than the same failure
