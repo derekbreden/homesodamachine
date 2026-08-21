@@ -6,9 +6,10 @@
 //      themselves from, so the grid's subsystem order, labels, and accents can
 //      never drift from the paper deck — and a subsystem added to the deck
 //      needs no second edit to appear in the right place on the site.
-//   2. /cards/* serves the pages and what they embed, and nothing else. The
-//      deck directory also holds build machinery (_build.py) and the rendered
-//      output (out/deck.pdf); neither is reachable through the route.
+//   2. /cards/* serves the pages, what they embed, and the printed deck those
+//      pages are bound into (deck.pdf) — and nothing else. The build machinery
+//      sharing the directory (_build.py, the READMEs) stays unreachable through
+//      the route.
 //
 // Built against a fake deck in a tmpdir so the assertions don't move every time
 // the real deck grows a card.
@@ -20,7 +21,9 @@ import os from "node:os";
 import path from "node:path";
 
 import { walkAssemblyCards } from "../lib/walk.js";
-import { isCardAssetPath, isCardPath, cardAssetUrl, CARDS_DIR_REL } from "../contracts/cards.js";
+import {
+  isCardAssetPath, isCardPath, cardAssetUrl, CARDS_DIR_REL, DECK_PDF_REL,
+} from "../contracts/cards.js";
 
 // A deck whose style.css declares subsystems in a deliberately non-alphabetical
 // build order, so a result that merely sorted by name would fail.
@@ -144,12 +147,25 @@ test("/cards/* serves the deck's pages and their assets, and nothing else", () =
   assert.ok(isCardAssetPath("assembly/cards/img/coil-mandrel.png"));
   assert.ok(isCardAssetPath("assembly/cards/img/en01-shell.svg"));
 
+  // And the printed deck — the same pages bound in build order, which is the
+  // one artifact of this directory a reader takes away whole.
+  assert.ok(isCardAssetPath(DECK_PDF_REL));
+  assert.equal(DECK_PDF_REL, "assembly/cards/deck.pdf");
+
   // Not servable: build machinery, escapes, and anything outside the deck.
   assert.ok(!isCardAssetPath("assembly/cards/_build.py"));
   assert.ok(!isCardAssetPath("assembly/cards/README.md"));
   assert.ok(!isCardAssetPath("assembly/cards/../../../etc/passwd.html"));
+  assert.ok(!isCardAssetPath("assembly/cards/../../../etc/deck.pdf"));
   assert.ok(!isCardAssetPath("assembly/pressure-vessel.md"));
   assert.ok(!isCardAssetPath("printed-parts/enclosure/enclosure.step"));
+});
+
+test("the deck is a page of the deck directory, not a card", () => {
+  // It sits among the cards and is served like one, but it is the whole run
+  // bound together — never an id the broadcast, the deep link or the `card:`
+  // hash may carry, all of which mean one page.
+  assert.ok(!isCardPath(DECK_PDF_REL));
 });
 
 test("a card is a page directly in the deck, not any .html under it", () => {
