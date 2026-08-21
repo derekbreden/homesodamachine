@@ -21,8 +21,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # NOTHING HERE IS THE BUILD'S CHOICE — it is what the build already reaches for by name.
-# `_blender_render.py` resolves `blender` off PATH, `sieve.py` and `appliance_quickstart.py`
-# call `rsvg-convert`, and `actions/cache` needs tar and zstd to unpack into a container.
+# `_blender_render.py` resolves `blender` off PATH, `sieve.py` calls `rsvg-convert`, and
+# `actions/cache` needs tar and zstd to unpack into a container.
 # python3.13 is not in noble, so deadsnakes carries it; the venv's own pin does the rest.
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates curl gnupg git tar zstd unzip xz-utils sudo \
