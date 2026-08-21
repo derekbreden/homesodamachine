@@ -5,7 +5,7 @@
 // Modeled on mermaid.js. The two viewer surfaces look the same from the
 // outside — a 2D SVG opened in ContentViewer with PanZoom — so the
 // open/close + transform-persistence + re-render-swap logic mirrors mermaid's.
-// What differs: the SVG is generated upstream (tools/line-art/line_art.py)
+// What differs: the SVG is generated upstream by the sheet's own generator
 // and served whole by the server, so there's no per-page render step;
 // fetch -> parse to <svg> element -> wrap.
 
@@ -36,9 +36,9 @@ function parseSvgString(svgText) {
   if (!svgEl) throw new Error("Drawing content has no <svg> element");
   // Import the parsed node into the live document so it can be mounted.
   const adopted = document.importNode(svgEl, true);
-  // The line_art generator writes width/height in mm and a matching
-  // viewBox. PanZoom needs the natural size to compute its initial fit,
-  // so make sure both are present.
+  // A sheet generator writes width/height in mm and a matching viewBox.
+  // PanZoom needs the natural size to compute its initial fit, so make
+  // sure both are present.
   const vb = adopted.viewBox?.baseVal;
   if (vb && vb.width && vb.height) {
     adopted.setAttribute("width", vb.width);
