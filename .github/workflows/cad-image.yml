@@ -51,7 +51,7 @@ jobs:
         run: |
           sha=$(cat tools/ci-image/Dockerfile tools/cad-requirements.txt \
                     tools/render/package-lock.json web/package-lock.json .bazelversion \
-                | shasum -a 256 | cut -c1-16)
+                | sha256sum | cut -c1-16)
           echo "sha=$sha" >> "$GITHUB_OUTPUT"
           echo "image=ghcr.io/${GITHUB_REPOSITORY,,}-cad" >> "$GITHUB_OUTPUT"
           echo "cad-$sha" >> "$GITHUB_STEP_SUMMARY"
