@@ -121,8 +121,14 @@ async function capture(url) {
 
     // Wait for Montserrat (and any other webfonts) to actually load. Without
     // this the first paint can use the system fallback and the screenshot
-    // looks wrong.
-    await page.evaluate(() => document.fonts.ready);
+    // looks wrong. `document.fonts.ready` settles only the loads something has
+    // already demanded, so a face no glyph has reached yet stays `unloaded`
+    // under a status that reads `loaded`; demand them all, then settle again.
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await Promise.all([...document.fonts].map((f) => f.load().catch(() => {})));
+      await document.fonts.ready;
+    });
 
     // Give Canvas2D loops (the landing page's GlassAnimation) and any
     // client-side-rendered grids (the viewer pages' card grid) a beat to
