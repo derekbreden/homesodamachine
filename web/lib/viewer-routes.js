@@ -2,8 +2,9 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 
-import { walkFiles, walkFilesUnderDir, walkPcbBoards, walkAssemblyCards } from "./walk.js";
+import { walkFiles, walkFilesUnderDir, walkPcbBoards, walkDocuments } from "./walk.js";
 import { isCardAssetPath } from "../contracts/cards.js";
+import { DOC_SIDECAR_SUFFIX } from "../contracts/documents.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
@@ -69,14 +70,13 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     res.json(walkPcbBoards(hardwareDir));
   });
 
-  // Assembly instruction cards: the printable 4×6 deck under assembly/cards/,
-  // in deck order, each with the code / title / subsystem it prints on itself
-  // (see walkAssemblyCards). The cards are authored HTML, not a generated
-  // artifact, so this list is exactly what's on disk right now — a card added
-  // to the deck appears on the next list with no build step.
-  app.get("/api/cards", (req, res) => {
+  // Documents: the PDFs the site hands over whole — the assembly deck, the
+  // owner's manual (see walkDocuments and web/contracts/documents.js). Each
+  // entry carries what it is called, how many pages it runs to, how big the
+  // file is, and the cover to show for it.
+  app.get("/api/documents", (req, res) => {
     res.set("Cache-Control", "no-cache");
-    res.json(walkAssemblyCards(hardwareDir));
+    res.json(walkDocuments(hardwareDir));
   });
 
   // Card assets — the page itself plus the shared stylesheet and the renders it
@@ -257,5 +257,29 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
+  });
+
+  // A document, opened in a tab rather than downloaded — the deck a bench
+  // builds from, the manual that ships in the carton. What makes a `.pdf` here
+  // reachable is its `<name>.pdf.json` sidecar, which is the same thing that
+  // puts it in the listing above; every other PDF under hardware/ belongs to
+  // whatever wrote it and is not offered. `inline` so a click reads it instead
+  // of filling a downloads folder, and no-cache so a rebuilt document is not
+  // served stale off a tab opened before it.
+  app.get("/docs/*splat", (req, res) => {
+    const rel = relOf(req);
+    const abs = safeFile(hardwareDir, rel, ".pdf");
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!fs.existsSync(path.join(hardwareDir, rel.slice(0, -4) + DOC_SIDECAR_SUFFIX))) {
+      return res.status(400).send("Not a document");
+    }
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    res.set("Cache-Control", "no-cache");
+    res.set("Content-Disposition", `inline; filename="${path.basename(abs)}"`);
+    res.type("application/pdf").sendFile(abs, SEND_OPTS, (err) => {
+      if (!err || res.headersSent) return;
+      if (err.code === "ENOENT" || err.status === 404) return res.status(404).send("Not found");
+      res.status(500).send("File send error");
+    });
   });
 }

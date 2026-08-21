@@ -77,7 +77,7 @@ const routes = [
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/mermaid",         expect: 200, ct: "application/json" },
   { path: "/api/drawings",        expect: 200, ct: "application/json" },
-  { path: "/api/cards",           expect: 200, ct: "application/json" },
+  { path: "/api/documents",       expect: 200, ct: "application/json" },
   { path: "/api/firebase-config", expect: 200, ct: "application/json" },
 
   // Service worker variants — same body, three URLs (root, /3d, legacy /dev)
@@ -242,17 +242,44 @@ async function firstDrawingPath(rootDir) {
   return null;
 }
 
-// The deck's own pages, served for the viewer's iframes. Skipped on a checkout
-// with no cards. A card page must come back as HTML (the iframe parses it as a
-// document); build machinery in the same directory must not come back at all.
+// The deck's own pages, served for the card links on /build. Skipped on a
+// checkout with no cards. A card page must come back as HTML (the browser
+// parses it as a document); build machinery in the same directory must not come
+// back at all.
 test("GET /cards/* serves a card page but not the deck's build machinery", async (t) => {
-  const cards = await fetch(`${baseUrl}/api/cards`).then((r) => r.json());
-  if (cards.length === 0) return t.skip("no assembly cards under hardware/");
-  const res = await fetch(`${baseUrl}/cards/${cards[0].path}`);
+  const dir = path.join(REPO_ROOT, "hardware", "assembly", "cards");
+  const card = fs.existsSync(dir)
+    ? fs.readdirSync(dir).sort().find((f) => f.endsWith(".html") && !f.startsWith("_"))
+    : null;
+  if (!card) return t.skip("no assembly cards under hardware/");
+  const res = await fetch(`${baseUrl}/cards/assembly/cards/${card}`);
   assert.equal(res.status, 200);
   assert.match(res.headers.get("content-type") || "", /^text\/html/);
 
   const blocked = await fetch(`${baseUrl}/cards/assembly/cards/_build.py`);
+  assert.equal(blocked.status, 400);
+});
+
+// A document is a PDF the site hands over whole, and what makes one reachable
+// is its sidecar — /docs refuses a PDF that has none, whatever else it is.
+// Skipped on a checkout that has built no document.
+test("GET /docs/* serves a document but not a PDF with no sidecar", async (t) => {
+  const docs = await fetch(`${baseUrl}/api/documents`).then((r) => r.json());
+  if (docs.length === 0) return t.skip("no documents under hardware/");
+  const res = await fetch(`${baseUrl}/docs/${docs[0].path}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^application\/pdf/);
+  assert.match(res.headers.get("content-disposition") || "", /^inline/);
+
+  // Its cover comes through the same route every other picture under hardware/
+  // does, so a listing that names one is a listing whose covers load.
+  if (docs[0].cover) {
+    const cover = await fetch(`${baseUrl}/thumbs/${docs[0].cover}`);
+    assert.equal(cover.status, 200);
+    assert.match(cover.headers.get("content-type") || "", /^image\/png/);
+  }
+
+  const blocked = await fetch(`${baseUrl}/docs/assembly/cards/nothing-here.pdf`);
   assert.equal(blocked.status, 400);
 });
 

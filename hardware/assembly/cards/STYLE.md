@@ -97,7 +97,7 @@ Fix the card, not the check. Then look at the PNG.
 ## Printing
 
 Epson EcoTank, 4 × 6 premium glossy, **borderless**, photo quality, one card
-per sheet from `out/*.png` (or print the whole run from `out/deck.pdf`, page
+per sheet from `out/*.png` (or print the whole run from `deck.pdf`, page
 size 6 × 4 in). `_build.py` writes both; a checkout carries neither.
 Colors are sRGB; no color management surprises at draft
 settings — use the printer's photo-paper profile.

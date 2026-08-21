@@ -1,14 +1,14 @@
 {
   "/hardware/scripts/_build_time.py": {
     "BT_BAND": "10",
-    "BT_BUILD": "120",
+    "BT_BUILD": "176",
     "BT_ENCLOSURE": "44",
     "BT_ENCLOSURE_ASSEMBLY": "52",
     "BT_FAUCET_ASSEMBLY": "12",
     "BT_FOAM_ASSEMBLY": "2.8",
     "BT_FUSE_CLAMP": "0.1",
     "BT_MANIFOLD_LAYOUT": "8.1",
-    "BT_RENDER_SCENES": "47",
+    "BT_RENDER_SCENES": "14",
     "BT_RESERVOIR": "2.8",
     "BT_WINDOW": "5"
   }

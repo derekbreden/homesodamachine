@@ -15,6 +15,7 @@ import path from "path";
 import fs from "fs";
 
 import { viewFile, picksFile, innerViewRe } from "../contracts/pcb-out.js";
+import { DOC_SIDECAR_SUFFIX, coverPathFor } from "../contracts/documents.js";
 import { holdsRetiredMarker } from "./retired.js";
 
 export function walkFiles(rootDir, exts) {
@@ -63,6 +64,39 @@ export function walkFilesUnderDir(rootDir, exts, parentDirName) {
   }
   walk(rootDir, "", false);
   return out;
+}
+
+// Documents: the PDFs the site hands over whole — the assembly deck, the
+// owner's manual. A `.pdf` is one when a `<name>.pdf.json` sidecar stands
+// beside it (web/contracts/documents.js); the sidecar names it and counts its
+// pages, and its cover is the picture the grid shows. Every other `.pdf` under
+// the root belongs to whatever wrote it.
+//
+// The byte count is read here rather than carried in the sidecar: it is a fact
+// about the file on this disk, and a sidecar that stated it would be one more
+// thing that can disagree with the file it sits next to.
+export function walkDocuments(rootDir) {
+  const out = [];
+  for (const rel of walkFiles(rootDir, DOC_SIDECAR_SUFFIX)) {
+    const pdfRel = rel.slice(0, -DOC_SIDECAR_SUFFIX.length) + ".pdf";
+    const abs = path.join(rootDir, pdfRel);
+    if (!fs.existsSync(abs)) continue;   // a sidecar whose document has not been built
+    let meta;
+    try {
+      meta = JSON.parse(fs.readFileSync(path.join(rootDir, rel), "utf-8"));
+    } catch {
+      continue;                          // a sidecar that does not parse names nothing
+    }
+    out.push({
+      path: pdfRel,
+      title: meta.title || path.basename(pdfRel, ".pdf"),
+      subtitle: meta.subtitle || "",
+      pages: meta.pages || 0,
+      cover: meta.cover ? coverPathFor(pdfRel, meta.cover) : null,
+      bytes: fs.statSync(abs).size,
+    });
+  }
+  return out.sort((a, b) => a.title.localeCompare(b.title));
 }
 
 // Assembly instruction cards: the print-ready 4×6 HTML deck under
