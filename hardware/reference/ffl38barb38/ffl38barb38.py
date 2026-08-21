@@ -24,7 +24,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_assembly
-from _materials import M_BRASS, one_body
+from _materials import M_STAINLESS, one_body
 
 NUT_ACROSS_CORNERS = 22.0   # 3/4" swivel nut hex (19.05 across flats)
 NUT_LENGTH = 14.0           # nut body along the flow axis — the flare it draws up
@@ -78,7 +78,7 @@ def main():
     print(f"  Nut {NUT_ACROSS_CORNERS} across corners × {NUT_LENGTH:g}; "
           f"{BARB_RIDGES} ridges Ø{BARB_D} at {RIDGE_PITCH:g} pitch; total {LENGTH:g} mm")
     out = _here.parent / "ffl38barb38.step"
-    export_assembly(one_body(part, out.stem, M_BRASS), str(out))
+    export_assembly(one_body(part, out.stem, M_STAINLESS), str(out))
     print(f"-> {out.name}")
 
 

@@ -1013,15 +1013,20 @@ def build_assembly():
 
     # The donor faucet is matte black (`ledger/bom.md` §9, Westbrass A2031-NL-62) and the printed
     # stack around it is PET-CF; what a hand meets above the counter is one colour end to end.
-    donor_black = cq.Color(0.13, 0.13, 0.14)
+    # Every one of these is `_materials`, so a body here and its own card are one colour.
+    donor_black = _mat.M_DONOR_BLACK
     petcf_black = _mat.C_PETCF_BLACK
-    tpu_black = _mat.C_TPU_BLACK
-    display_slate = cq.Color(0.12, 0.13, 0.18)  # dark display module
-    display_glass = cq.Color(0.20, 0.55, 0.85)  # lit-screen blue
-    steel = cq.Color(0.72, 0.74, 0.78)  # 316 SS cut plate
-    stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab, not a part
-    foam_black = cq.Color(0.18, 0.18, 0.19)  # CARGEN nitrile, on the blue tube only
-    sleeve_black = cq.Color(0.10, 0.10, 0.11, 0.55)  # PET braid, over the lot
+    tpu_black = _mat.M_TPU_BLACK
+    # The gooseneck's 1.47" Waveshare (`ledger/bom.md` §1) — the same maker's blue solder mask as
+    # the 4.3B in the front facet, under the same cover glass. THE GLASS IS DRAWN DARK BECAUSE
+    # GLASS IS DARK: a screen is lit only while the machine is dispensing, and a render that
+    # paints it lit is drawing a state rather than a part.
+    display_slate = _mat.C_DISPLAY
+    display_glass = _mat.C_DISPLAY_GLASS
+    steel = _mat.M_STAINLESS  # the 316 SS under-counter cut plate
+    stone = cq.Color(0.55, 0.55, 0.58, 0.25)  # the kitchen's slab — context, not a part
+    foam_black = _mat.M_NITRILE_BLACK  # CARGEN nitrile, on the blue tube only
+    sleeve_black = _mat.M_PET_BRAID    # PET braid, over the lot
 
     assy = cq.Assembly(name="faucet-assembly")
     assy.add(body, name="valve_body", color=donor_black)

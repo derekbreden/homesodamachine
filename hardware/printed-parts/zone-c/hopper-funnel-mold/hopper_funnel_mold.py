@@ -40,7 +40,7 @@ sys.path.insert(0, str(_tools))
 _FUNNEL = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"
 sys.path.insert(0, str(_FUNNEL))
 from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, one_body
+from _materials import M_PETG_BLACK, M_SILICONE_BLACK, one_body
 from docgen import substitute_md
 import hopper_funnel as HF
 
@@ -156,9 +156,11 @@ def main():
     # Exploded assembly (cavity → silicone funnel → core, stacked up) so the
     # thumbnail shows how the three nest.
     assy = cq.Assembly()
-    assy.add(cavity, name="cavity", color=cq.Color(0.72, 0.72, 0.74, 1.0))
-    assy.add(info["funnel"].translate((0, 0, 45)), name="funnel", color=cq.Color(0.27, 0.73, 0.35, 1.0))
-    assy.add(core.translate((0, 0, 100)), name="core", color=cq.Color(0.42, 0.70, 0.97, 1.0))
+    # Two printed halves off the black spool and the black silicone they cast between them —
+    # what tells the three apart in this picture is the 45 mm of air each is lifted by.
+    assy.add(cavity, name="cavity", color=M_PETG_BLACK)
+    assy.add(info["funnel"].translate((0, 0, 45)), name="funnel", color=M_SILICONE_BLACK)
+    assy.add(core.translate((0, 0, 100)), name="core", color=M_PETG_BLACK)
     export_assembly(assy, str(here / "hopper-funnel-mold-assembly.step"))
     print("-> hopper-funnel-mold-assembly.step")
 

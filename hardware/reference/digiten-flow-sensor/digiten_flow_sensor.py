@@ -52,6 +52,7 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly
+from _materials import C_DIGITEN, M_EPOXY_BLACK
 from docgen import substitute_md, substitute_py_comments
 
 
@@ -130,10 +131,13 @@ def build_wire_boss():
 
 
 _PARTS = [
-    ("body", build_body_disk, cq.Color(0.92, 0.92, 0.94)),        # white housing
-    ("port-a", lambda: build_port(+1), cq.Color(0.85, 0.87, 0.90)),
-    ("port-b", lambda: build_port(-1), cq.Color(0.85, 0.87, 0.90)),
-    ("wire-boss", build_wire_boss, cq.Color(0.20, 0.20, 0.22)),
+    # ONE MOULDING, ONE COLOUR. The disk and its two G1/4" ports are the same white housing —
+    # they came out of the same tool — so the step between them is what shows the port, not a
+    # second shade of the same plastic. The wire boss is the moulded-on lead exit, in black.
+    ("body", build_body_disk, C_DIGITEN),
+    ("port-a", lambda: build_port(+1), C_DIGITEN),
+    ("port-b", lambda: build_port(-1), C_DIGITEN),
+    ("wire-boss", build_wire_boss, M_EPOXY_BLACK),
 ]
 
 

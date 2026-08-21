@@ -18,6 +18,8 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 
+from _materials import C_PCBA, M_PETG_BLACK       # noqa: E402
+
 floor_t = 3.0           # base-plate thickness
 margin = 8.0            # part-to-plate-edge margin
 board_standoff = 5.0    # boss height — stands every board off so its pins clear
@@ -112,10 +114,13 @@ def build_module_tray(mounts):
     return tray
 
 
-TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)
+# The tray prints off the same black spool every other printed body on this machine does — it
+# is bench geometry rather than a shipped part (`pcba-tray/README.md`), which changes what it
+# costs and not what it is made of.
+TRAY_COLOR = M_PETG_BLACK
 _COLORS = {
     # Black mask, white silk — what `pcb/pcba/order.md` places the board at.
-    "pcba": cq.Color(0.11, 0.11, 0.12),
+    "pcba": C_PCBA,
 }
 
 
@@ -128,5 +133,5 @@ def build_module_assembly(mounts, name):
         s = (m.ref.build().val().rotate((0, 0, 0), (0, 0, 1), m.rot)
              .translate((m.c[0], m.c[1], floor_t + board_standoff)))
         assy.add(s, name="%s%d" % (m.ref.name, i),
-                 color=_COLORS.get(m.ref.name, cq.Color(0.5, 0.5, 0.5)))
+                 color=_COLORS.get(m.ref.name, C_PCBA))
     return assy

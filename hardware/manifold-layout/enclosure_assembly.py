@@ -294,11 +294,11 @@ FUNNEL_ROT = 0.0
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
-                        C_DISPLAY, C_GND, C_MQ6, C_PLATE,
+                        C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY, C_SEAFLO, C_STEEL_PLATE,
                         M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_SILICONE_BLACK,
-                        M_STAINLESS, M_TINNED_STEEL)
+                        M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
 # carries the fan on ONE body — so the fin face is what the pair is drawn as, the fan with it.
@@ -316,11 +316,10 @@ C_WORM = M_STAINLESS
 # drawn as the metal that is most of it.
 C_SUCT = M_STAINLESS
 # The border over that glass, in the enclosure's own black stock.
-C_COVER = cq.Color(0.14, 0.14, 0.15)
+C_COVER = M_PETG_BLACK
 # And the soft ring under its lap, in the same TPU 90A as every other seal here.
-C_DGASKET = cq.Color(0.24, 0.22, 0.26)
+C_DGASKET = M_TPU_BLACK
 # `pcb/pcba/order.md` places the board at "black mask / white silk".
-C_PCBA = cq.Color(0.11, 0.11, 0.12)
 # The Teyleten board itself, which is green; the SRD can standing on it is the blue, and the
 # module is drawn as one envelope.
 # WAGO 221 lever nuts, and the levers are the orange (`reference/wago-221`).
@@ -5987,8 +5986,8 @@ def check_through_wall_headroom(a, shell) -> Bound:
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
 # THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETG_BLACK` — the black the flavour chips are cut
-# off too. Four values on a tight spread either side of it, so a seam between two pieces is
-# tellable from a fold in one. The pack behind them is read through x-ray, not through the walls.
+# off too. Every piece takes that one value, so the standing box is the one colour it is; a seam
+# is told by the geometry that makes one, and the pack behind the walls is read through x-ray.
 from _materials import WALL_COLORS                     # noqa: E402
 
 
@@ -6399,7 +6398,13 @@ def build_enclosure_assembly() -> cq.Assembly:
             note_room("hopper-funnel", "the drop off the elbow `fluid-4` reaches V-B on",
                       _elbow.TUBE_D, r.pts[0][2] - r.pts[-1][2])
     display = build_display(box)
-    a.add(display, name="display", color=C_DISPLAY)
+    # THE MODULE IS ONE BODY HERE AND TWO MATERIALS IN ITS OWN CARD. `waveshare_43b_display`
+    # draws the board in its own blue solder mask and the cover glass over it, and this
+    # assembly compounds the pair into the one body every name-keyed reading downstream calls
+    # `display` — a scene member, a scorecard pair, a probe tag. So it takes the colour of the
+    # face the appliance shows: the glass in the facet, which is the whole of what a customer
+    # ever sees of this part.
+    a.add(display, name="display", color=C_DISPLAY_GLASS)
     # The bay's lintel against the display standing over it — the bay top rides the cans,
     # and this is the reading that says the opening stopped under the wall the display owns.
     check_bay_lintel(box, display.val() if hasattr(display, "val") else display)
