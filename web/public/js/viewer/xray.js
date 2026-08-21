@@ -121,6 +121,12 @@ function edgeMaterial(color) {
   return m;
 }
 
+// The edge lines' half of step.js's `forgetMaterials` — see the note there.
+// LineSegments2 is a Mesh, so its draw is ordered by material id like any other.
+export function forgetEdgeMaterials() {
+  _edgeMatCache.clear();
+}
+
 function removeXrayEdges(group) {
   for (let i = group.children.length - 1; i >= 0; i--) {
     const c = group.children[i];

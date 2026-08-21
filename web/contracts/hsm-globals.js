@@ -15,6 +15,11 @@
  * @property {*} currentGroup             mounted model group (getter)
  * @property {string|null} mountedStepFile (getter)
  * @property {string|null} mountedDxfFile  (getter)
+ * @property {*} [__baseCamera]           the page's own camera, stashed by
+ *                                        tools/render/render-step-posed.js: an --ortho picture
+ *                                        replaces `camera` with one of its own, and a page
+ *                                        drawing many pictures has to mount the next one
+ *                                        against the camera scene.js keeps.
  */
 
 // Two flags other modules set on window, read by boot.js:

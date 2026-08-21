@@ -14,6 +14,10 @@ tree is the PNG and a fingerprint beside it; the scene STEPs go to `out/`, which
 holds, because they are a rendering intermediate and a 20 MB artifact that churns on every move
 of any body is exactly what this must not add to a commit.
 
+AND THE BROWSER IS STOOD ONCE, for however many pictures the run has to draw. Every cut queues
+its picture into one `Batch`, and the whole list goes to `render-step-posed.js --jobs` at the
+end — one server, one Chromium, one page re-pointed at each subject in turn. See `Batch`.
+
 `//:render-scenes` is what runs it: the build hands this the assembly's STEP and takes the
 pictures back, and it runs when that STEP moves.
 """
@@ -188,7 +192,55 @@ def bare_subject(step, name) -> Path:
     return bare
 
 
-def draw(scene, assembly, force=False) -> Path:
+# --- what the run hands the browser ----------------------------------------
+
+
+class Batch:
+    """Every picture a run has decided to draw, and the record each one leaves behind.
+
+    ONE BROWSER FOR THE RUN. `render-step-posed.js` stands a web server, launches Chromium,
+    navigates and waits for the page's whole module graph — three.js, the viewer, occt-import-js
+    in wasm — before it draws anything, and that is ~1.6 s on this machine against a render of
+    ~0.3 s. Called once a picture it was 34 boots for 34 pictures. `--jobs` takes the whole run
+    as a JSON array on stdin and re-points ONE page at each subject in turn, so the boot is paid
+    once however many pictures come out.
+
+    THE SIDECAR IS WRITTEN AFTER THE PICTURE, because `image` is the fingerprint of the file the
+    renderer just wrote. So a record is held here with everything the run already knows and
+    finished when the browser hands the picture back — and a run whose renderer fails writes no
+    record at all, which is what makes the next run redraw rather than trust a picture that was
+    never taken."""
+
+    def __init__(self):
+        self.jobs = []
+        self.records = []
+
+    def queue(self, step: Path, png: Path, **flags):
+        """One picture: `step` (repo-relative to `hardware/`) posed by `flags`, into `png`."""
+        job = {"step": step.relative_to(_HW).as_posix(), "out": str(png), **flags}
+        self.jobs.append(job)
+        print("   " + json.dumps(job, sort_keys=True))
+
+    def record(self, png: Path, held: dict):
+        self.records.append((png, held))
+
+    def run(self):
+        """Draw everything queued, then write every record.
+
+        A JOB LIST GOES OVER STDIN rather than into a file. The renderer's own path is what the
+        tracer sees on node's command line and what the build graph declares as an input; a
+        manifest written to disk would be a second one, named nowhere and belonging to nobody."""
+        if self.jobs:
+            print(f"\ndrawing {len(self.jobs)} picture(s) on one browser…")
+            subprocess.run(["node", str(RENDERER), "--jobs", "-"], cwd=str(_ROOT),
+                           input=json.dumps(self.jobs), text=True, check=True)
+        for png, held in self.records:
+            _scenes.sidecar_path(png).write_text(json.dumps(
+                {**held, "image": _scenes.image_fingerprint(png)},
+                indent=2, sort_keys=True) + "\n")
+
+
+def draw(scene, assembly, batch, force=False) -> Path:
     # THE RENDERER IS READ WHETHER OR NOT THIS RUN STARTS IT. A scene whose geometry and camera
     # both stand skips the browser, and a trace of that run would not see node's command line
     # at all — so the file that draws every picture here would go undeclared, and the action
@@ -260,33 +312,33 @@ def draw(scene, assembly, force=False) -> Path:
     if unchanged:
         print(f"   (geometry unchanged — {png.name} stands)")
     else:
-        rel = step.relative_to(_HW).as_posix()      # the renderer takes a content-root path
-        cmd = [
-            "node", str(RENDERER), rel, str(png),
-            "--cam", ",".join(str(v) for v in scene.cam),
-            "--target", ",".join(f"{v:.3f}" for v in target),
-            "--up", ",".join(str(v) for v in scene.up),
-            "--zoom", str(scene.zoom),
-            "--size", SIZE,
+        batch.queue(
+            step, png,
+            cam=list(scene.cam),
+            # Three decimals, the way this reached node as a command line — a look-at point is
+            # a millimetre station on a body, and the digits past it are the float's, not the
+            # machine's.
+            target=[float(f"{v:.3f}") for v in target],
+            up=list(scene.up),
+            zoom=scene.zoom,
+            size=SIZE,
             # Trimmed to the subject. A box seen at an angle projects to a parallelogram and
             # leaves a corner of any rectangle empty; the card wants the picture, not the corner.
-            "--trim",
+            trim=True,
             # A unit as a hand meets it: opaque walls, and what is seen of the inside seen
             # through the mouth the unit leaves open. The viewer ghosts an assembly otherwise.
-            "--solid",
-        ]
-        print("   " + " ".join(cmd[1:]))
-        subprocess.run(cmd, cwd=str(_ROOT), check=True)
+            solid=True,
+        )
 
     # What the picture is OF: the scene's own tuple hashed, the digest of the payload it was
     # drawn from, the picture that came out, and the bodies that went into it — the machine's
     # answer at the moment of the render. Committed beside the PNG, which the payload is not.
-    _scenes.sidecar_path(png).write_text(json.dumps({
+    # `image` is filled in when the browser hands the picture back — see `Batch`.
+    batch.record(png, {
         "scene": _scenes.scene_digest(scene),
         "geometry": geometry,
         "drawn": sorted(c.name for c in scene_assembly.children),
-        "image": _scenes.image_fingerprint(png),
-    }, indent=2, sort_keys=True) + "\n")
+    })
     return png
 
 
@@ -294,7 +346,7 @@ def part_png(part) -> Path:
     return IMG_DIR / f"{part.id}.png"
 
 
-def draw_part(part, force=False) -> Path:
+def draw_part(part, batch, force=False) -> Path:
     """One part shot: the STEP the tree already keeps for that part, posed, with the same
     sidecar a scene gets.
 
@@ -333,24 +385,21 @@ def draw_part(part, force=False) -> Path:
         # bytes, and `.step.mesh` is `.gitignore`d and in no action's `srcs` — so the picture is
         # drawn through a link with no payload beside it, and a fresh checkout, a sandbox and
         # this tree all hand the page the same triangles.
-        rel = bare_subject(step, f"part-{part.id}").relative_to(_HW).as_posix()
-        cmd = [
-            "node", str(RENDERER), rel, str(png),
-            "--cam", ",".join(str(v) for v in part.cam),
-            "--up", ",".join(str(v) for v in part.up),
-            "--zoom", str(part.zoom),
-            "--size", PART_SIZE,
-            "--trim",
-        ] + (["--solid"] if part.solid else [])
-        print("   " + " ".join(cmd[1:]))
-        subprocess.run(cmd, cwd=str(_ROOT), check=True)
+        batch.queue(
+            bare_subject(step, f"part-{part.id}"), png,
+            cam=list(part.cam),
+            up=list(part.up),
+            zoom=part.zoom,
+            size=PART_SIZE,
+            trim=True,
+            solid=bool(part.solid),
+        )
 
-    _scenes.sidecar_path(png).write_text(json.dumps({
+    batch.record(png, {
         "part": _scenes.part_digest(part),
         "geometry": geometry,
         "drawn": [part.step],
-        "image": _scenes.image_fingerprint(png),
-    }, indent=2, sort_keys=True) + "\n")
+    })
     return png
 
 
@@ -369,19 +418,26 @@ def main():
     scenes = [_scenes.SCENE_BY_ID[s] for s in wanted if s in _scenes.SCENE_BY_ID]
     parts = [_scenes.PART_BY_ID[s] for s in wanted if s in _scenes.PART_BY_ID]
 
-    # THE PART SHOTS GO FIRST because they cost no appliance. A run asked for nothing but part
-    # shots never stands the machine at all.
+    # EVERY PICTURE IN THIS RUN GOES INTO ONE BATCH, cut and posed here and drawn in one
+    # browser at the end — see `Batch`. What is queued is only what the guards above did not
+    # stand down, so a run that moved nothing still starts no browser at all.
+    batch = Batch()
+
+    # THE PART SHOTS ARE CUT FIRST because they cost no appliance. A run asked for nothing but
+    # part shots never stands the machine at all.
     for part in parts:
         print(f"\n{part.id} — {part.title}: {part.step}")
-        print(f"-> {draw_part(part, force=args.force).relative_to(_ROOT)}")
+        print(f"-> {draw_part(part, batch, force=args.force).relative_to(_ROOT)}")
 
     if scenes:
         print(f"\nbuilding the machine once for {len(scenes)} scene(s)…")
         import enclosure_assembly as ea
-        draw_all(scenes, ea.build_enclosure_assembly(), force=args.force)
+        draw_all(scenes, ea.build_enclosure_assembly(), batch, force=args.force)
+
+    batch.run()
 
 
-def draw_all(scenes, assembly, force=False) -> list:
+def draw_all(scenes, assembly, batch, force=False) -> list:
     """Every scene in `scenes`, off a machine somebody already stood.
 
     The assembly's own run has one in hand when it writes the STEP, so the pictures cost the
@@ -391,7 +447,7 @@ def draw_all(scenes, assembly, force=False) -> list:
         names = _scenes.members(scene, assembly)
         print(f"\n{scene.id} — {scene.title}: {len(names)} bodies")
         print("   " + ", ".join(names))
-        out.append(draw(scene, assembly, force=force))
+        out.append(draw(scene, assembly, batch, force=force))
         print(f"-> {out[-1].relative_to(_ROOT)}")
     return out
 

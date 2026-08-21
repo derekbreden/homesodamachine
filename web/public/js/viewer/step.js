@@ -116,10 +116,20 @@ export function darkenBackFaces(shader) {
 
 // Materials are shared across meshes (and across loads) by color, so an
 // assembly with N same-colored solids makes one material, not N.
+//
+// THE KEY IS THE COLOUR ITSELF, not a rounding of it. occt hands each solid a
+// float triple and the material is built from those floats, so a key that
+// quantised them to a byte let two colours a byte apart share one material —
+// and the one they shared carried whichever arrived first. Within a model that
+// is a solid drawn in its neighbour's shade; across loads, which is what this
+// cache is for, it is one model's colour turning up in the next model's
+// picture. Near black the sRGB curve is steep enough that a byte of linear
+// carries a couple of display steps: `1a1a1c` and `1c1c1f` are two such colours,
+// and the faucet took the manifold's when they were drawn in that order.
 const _matCache = new Map();
 
 function materialFor(color) {
-  const key = color ? color.map((c) => Math.round(c * 255)).join(",") : "default";
+  const key = color ? color.join(",") : "default";
   let mat = _matCache.get(key);
   if (!mat) {
     // Surfaces sit a depth-unit back, so the feature edges xray.js draws on
@@ -135,6 +145,23 @@ function materialFor(color) {
     _matCache.set(key, mat);
   }
   return mat;
+}
+
+// Drop the shared materials, so the next mount builds its own.
+//
+// WHICH SOLID IS DRAWN OVER WHICH IS SET BY THE ORDER THESE WERE MADE IN.
+// three.js sorts an opaque draw by `material.id` before it looks at depth, and
+// ids are handed out in creation order — so on a page that has already mounted
+// another model, this model's solids are drawn in an order it did not choose,
+// and two faces sharing a plane swap which one survives. It is invisible while a
+// person clicks from part to part and it is not invisible in a PNG: the faucet
+// assembly, drawn after the packed machine on one page, differed from its own
+// fresh render on 2.5% of its pixels by as much as 92 counts.
+//
+// tools/render/render-step-posed.js draws many pictures on one page and calls
+// this between them, so each one is the picture a fresh page would draw.
+export function forgetMaterials() {
+  _matCache.clear();
 }
 
 // A body of several disjoint solids — the cold core, a reference sub-assembly, a
