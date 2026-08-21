@@ -2,13 +2,13 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-efc6a15c6855d91f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-efc6a15c6855d91f.tar.gz"
+    "asset": "cad-70bd533d3505ae6e.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-70bd533d3505ae6e.tar.gz"
   },
   "bundle": {
-    "sha256": "efc6a15c6855d91fd30a2b8138c2e190e2d9ecf281fa620391d7119a3e79cbde",
-    "bytes": 56472812,
-    "solids": 103
+    "sha256": "70bd533d3505ae6e92560c83e91ac1774a4bcb643c76946cc41b72617934f15d",
+    "bytes": 63650861,
+    "solids": 105
   },
   "solids": {
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
@@ -43,11 +43,13 @@
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "0943e1ccd60890a07601c3a53056dc1a180eae29e84c286babb50dd0e66efde7",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "7df79e752237e00ad1809a7fd7ce4be750dc82d3fdaac413157c237340c709d8",
     "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "daac242aef30ecfe48661b607cca972418134167b1a33ca77421d5c5e3ec983a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "4d841b43b223a4ef066614bf9da42482707fcee1311be04e0ac660fd36ca7757",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "f8f6e574f5ca5738219654cf8edce7009cd10244b1f811c7a8a67bca0ef796c8",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "6d3ac883e34110a5e5588bee1615ba5dc6c043ed190b93507fc13b6866d0a976",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "e746ef6245ca84f0c4c9196ae65a4698abaf58a34354158002856dca0c6868b1",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1241e899699c08f053f9249646c02655f3e1ecfe57a66a8e644e81e49643fb8c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a1d9480c01f749e41c8eb3c4f54597f820692f906a36da334f145e81f6d0f115",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "b2240826d857419d6574c9e761ea8a09be669258d04a9d6af009269aa1823cf2",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "5e3b6e65446276bbee66dfbbfee65d043ba2342667311b1315105789dfeebd3b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "aa74957607d1050ab405c5337228de2a191480f341edfa351900b92dc3a51a27",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "2852658bdb8fdf6c4b48faa14a4662734e9f4992950332f4a817bdf428b46846",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "a3f2cfe2018c30bb079cf11246193f6ee1eea941898ef610fa41030c6d307a21",
     "hardware/printed-parts/enclosure/enclosure/enclosure.step": "8139845ee89fcc7160cdc6ab3dd176c9ee503bf68b7c361386b3e568c16398de",
