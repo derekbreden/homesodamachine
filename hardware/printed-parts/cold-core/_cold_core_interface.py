@@ -1091,10 +1091,15 @@ cap_anchors = {
     "suction-chain":   CapAnchor((37.600,  65.050), 8.700),
     # Reservoir A's own fill, which comes down onto this face at V-A's forward end and runs the
     # rest of the way aft on it. The station is the one that splits that run's two unheld spans
-    # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading. It reaches
-    # `_lines._fill_a_cap_z` — the plane the run holds over the pump's bracket, which is higher
-    # than this seat's own three layers.
-    "fluid-14":        CapAnchor(( 68.500,  43.500), 3.375, 15.175),
+    # evenly, and it is behind the valve cradles by `cap_anchor_room`'s own reading.
+    #
+    # It reaches `_lines._fill_a_cap_z` — the plane the run holds over the pump's bracket and
+    # over the side post this lid stands for `fluid-18`'s crossing, which is higher than this
+    # seat's own three layers. THE RIB IS BUILT UP TO THE RUN, so this figure follows that plane
+    # rather than setting it, and `enclosure_assembly.check_run_seated` is what holds the two
+    # together — it reads the placed solids and wants the rib within `TUBE_ANCHOR_SLIP` of the
+    # tube.
+    "fluid-14":        CapAnchor(( 68.500,  43.500), 3.375, 21.894),
 }
 
 # What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same

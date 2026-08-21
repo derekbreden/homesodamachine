@@ -1187,6 +1187,18 @@ both ends — a millimetre into the field at its mouth, its own depth into the b
 wall at its blind end — because a groove ending exactly on either plane leaves the
 strip and the thing it runs out on meeting along a line.
 
+**The ramp is the field's, and the last `depth` is a run-out.** Beside the field the
+dado's roof rises to the show face at the mouth, and both the rise and the millimetre
+of overrun past it are the panel's own lane — this piece has no top wall inboard of
+that plane to carry either. Aft of the field it has one: the blind end runs its own
+depth into the back wall, where the section is continuous across the mouth plane, so
+there is no free-standing lip to feather and nothing to stand a ramp under. A ramp cut
+there lands its apex in the middle of the show face rather than on its edge, which is
+three faces on one line and a mesh a slicer refuses; an overrun cut there opens a slot
+straight through the top wall. So the last `depth` is **the groove's run-out**, and it
+takes the blind end's own section carried square through — floor to roof, with the rest
+of the top wall bridging the mouth plane over it.
+
 **Two bosses** stand under the panel's own screw stations, taking ruthex M3
 heat-sets, and each is reached straight down through the throat with the funnel
 out. The panel's pad lands tangent to the strip's inboard face, so nothing joins a

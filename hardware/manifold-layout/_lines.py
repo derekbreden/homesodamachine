@@ -1210,14 +1210,24 @@ def _fill_a_lane_y(solids) -> float:
     return solids["vk-solenoid"].BoundingBox().ymin - _split.TUBE_D - LANE_CLEAR
 
 
-def _fill_a_cap_z(solids) -> float:
-    """The plane the run holds over the cap: one `LANE_CLEAR` over the pump's own foot pad.
+#: What the lane stands over the pump's pad, past the pad's own `LANE_CLEAR`. The lid carries a
+#: side post for `fluid-18` fore of the pump (`_cold_core_interface.cap_side_anchors`), and that
+#: post — not the pad — is what stands highest under this run.
+#: `probe.py reroute fluid-14 4-5 z+` walks the run up through `foam-assembly` and says where the
+#: air starts; this is that reach and one `LANE_CLEAR` over it.
+FILL_A_POST_CLEAR = 6.719
 
-    THE LANE IS THE PUMP'S BRACKET AND NOT THE LID. West of the SeaFlo's barrel its foot pad is
-    what the run passes over, `seaflo_22_pump.FOOT_T` up from the face both of them stand on, and
-    the pad reaches further west than anything else the pocket carries."""
+
+def _fill_a_cap_z(solids) -> float:
+    """The plane the run holds over the cap: one `LANE_CLEAR` over the pump's own foot pad, and
+    `FILL_A_POST_CLEAR` over the side post the lid stands beside it.
+
+    THE LANE IS THE PUMP'S BRACKET AND THE LID'S POST. West of the SeaFlo's barrel its foot pad
+    is what the run passes over, `seaflo_22_pump.FOOT_T` up from the face both of them stand on.
+    The post the lid stands for `fluid-18`'s crossing reaches higher than that pad, and the run
+    crosses over it on the way aft."""
     return (solids["seaflo-pump"].BoundingBox().zmin + _pump.FOOT_T
-            + _split.TUBE_D / 2.0 + LANE_CLEAR)
+            + _split.TUBE_D / 2.0 + LANE_CLEAR + FILL_A_POST_CLEAR)
 
 
 def _fill_a_turn_y(F) -> float:
