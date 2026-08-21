@@ -56,7 +56,7 @@ either one and the manifold sorts them, so nothing on that face tells A from B.
 A second solid in a second colour, lying in a recess [1](WORD_DEPTH) mm into the chip's outboard
 face and filling it flush. [Helvetica](WORD_FONT) [bold](WORD_KIND) at a [4.951](WORD_CAP) mm cap,
 set in the band between the flange's edge and the top of the chip — the face the build deck and the
-customer's quick-start sheet are already set in, so a customer holding that sheet beside the
+customer's owner's manual are already set in, so a customer holding that book beside the
 machine reads one typeface and not two.
 
 The letters are loose — six solids for FLAVOR, nothing joining them. Nothing needs to: the chip

@@ -117,9 +117,9 @@ FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
           "flavor-a": "flavor", "flavor-b": "flavor"}
 
 # THE FACE THE REST OF THE MACHINE'S PAPER IS SET IN. `assembly/cards/style.css` sets the build
-# deck's `--sans` to it and `quickstart/appliance_quickstart.py` sets the customer's sheet in it at
-# weight 600–700 — and that sheet is the page whose arrows point at these very ports. A customer
-# holding it beside the machine reads one typeface, not two. (The web surface's Montserrat is a
+# deck's `--sans` to it and `manual/style.css` sets the customer's book in it — and that book is
+# where the arrows point at these very ports. A customer holding it beside the machine reads one
+# typeface, not two. (The web surface's Montserrat is a
 # webfont, not installed, and nothing physical is set in it.)
 #   Bold is what the nozzle asks for. Every stroke is an extrusion of the word's own colour and
 # every counter and gap is an extrusion of the chip's, so both are held over the nozzle's width.

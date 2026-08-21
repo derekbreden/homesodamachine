@@ -1,9 +1,7 @@
 // The document convention, shared by the server's walker and its file route.
 //
-// A DOCUMENT IS A PDF A PERSON IS HANDED WHOLE. The deck a bench builds from,
-// the manual that ships in the carton: pages meant to be read in order, on
-// paper, off one file. The site does not re-implement a reader for them — it
-// shows the cover and opens the PDF.
+// A document is a PDF a person is handed whole — the deck a bench builds from,
+// the manual that ships in the carton. The site shows its cover and opens it.
 //
 // Three files stand together, named off the PDF:
 //
@@ -12,9 +10,9 @@
 //   <name>.pdf.json    what it is called and how big it is — {title, subtitle,
 //                      pages, cover}
 //
-// The sidecar is what makes a PDF a document. Every other `.pdf` under
-// `hardware/` is a generator's own output — a print sheet, a datasheet a board
-// vendored — and stays out of the listing and out of `/docs`.
+// The sidecar is what makes a PDF a document. A `.pdf` under `hardware/` with
+// none — a datasheet a board vendored, a generator's own output — is not in the
+// listing and is not reachable through `/docs`.
 export const DOC_SIDECAR_SUFFIX = ".pdf.json";
 
 // The cover beside a document, as a path relative to the same root. Covers are

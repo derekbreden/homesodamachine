@@ -30,13 +30,13 @@ ac_inlet_recess_depth_max = 5.0
 # blue names carbonated water and nothing else on this wall. That leaves the
 # customer's teed-in tap-water station as the WHITE-marked one and the CO2
 # inlet as the RED one, which is the scheme §"Umbilical port — tube
-# identification" states and the quick-start sheet aims arrows by.
+# identification" states and the owner's manual names its ports by.
 #
-# Both the iso line-art that paints these rings onto the wall
-# (`../drawings/line-art/_appliance_model.py`) and the quick-start sheet that
-# points at them (`/hardware/quickstart/appliance_quickstart.py`) read them
-# from here, so the face a customer looks at and the sheet in their hand
-# cannot disagree about which colour is which line.
+# The iso line-art that paints these rings onto the wall
+# (`../drawings/line-art/_appliance_model.py`) reads them from here, and the
+# owner's manual (`/hardware/manual/`) states the same four in its own
+# stylesheet against this file — so the face a customer looks at and the book in
+# their hand cannot disagree about which colour is which line.
 # FOUR TUBE COLOURS AND FOUR CHIP COLOURS, and they are the same four: a chip
 # is the colour of the tube that goes into it. Black is not the absence of a
 # marking on this wall — it is the FLAVOUR colour, the stock `_routing.SPOOLS`
