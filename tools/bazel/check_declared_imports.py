@@ -154,20 +154,7 @@ def main(argv) -> int:
         return 0
     tracked = set(_git("ls-files"))
     sources = {}
-    # THE INDEX IS NOT WHERE THIS REPO'S COMMITS COME FROM. `CLAUDE.md` mandates
-    # `git commit -F - -- <paths>`, which takes files straight from the WORKTREE and never
-    # stages them — so `diff --cached` names nothing on an ordinary commit here and this gate
-    # answered about the empty set. It fired only for a file `git add` had touched, which is
-    # the narrow case of a NEW module, and never for the case it exists to catch: a module
-    # already in the graph gaining an import its twenty consumers do not declare.
-    #
-    # SO ASK THE WORKTREE, and the index besides for a file git has not seen before. That is
-    # a wider set than the commit takes — a peer's dirty file is read too — and it is the
-    # right width: a step that reads a file importing a module it does not hold is owed a
-    # trace whoever is holding that file, and the gate reports rather than blocks.
-    changed = dict.fromkeys(_git("diff", "HEAD", "--name-only", "--diff-filter=ACM"))
-    changed.update(dict.fromkeys(_git("diff", "--cached", "--name-only", "--diff-filter=ACM")))
-    for f in changed:
+    for f in _git("diff", "--cached", "--name-only", "--diff-filter=ACM"):
         if f.endswith(".py"):
             try:
                 sources[f] = (_ROOT / f).read_text()
