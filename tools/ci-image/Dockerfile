@@ -48,7 +48,7 @@ RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*
     && mv "/opt/blender-${BLENDER_VERSION}-linux-x64" /opt/blender \
     && ln -s /opt/blender/blender /usr/local/bin/blender
 
-# THE EXPORTER IS AN EXTENSION AND BLENDER DOES NOT SHIP IT. `_blender_scene.py:124` sets
+# THE EXPORTER IS AN EXTENSION AND BLENDER DOES NOT SHIP IT. `_blender_scene.py:205` sets
 # `linestyle.use_export_strokes`, an attribute the Freestyle SVG exporter ADDS to
 # FreestyleLineStyle when it registers — so a Blender without it does not fail at import, it
 # fails on a missing attribute several steps later. The Mac that draws these has it from
@@ -67,13 +67,22 @@ RUN mkdir -p "$BLENDER_USER_RESOURCES" \
     && blender --background --online-mode --command extension install -s -e freestyle_svg_exporter \
     && find "$BLENDER_USER_RESOURCES" -maxdepth 5 -name "*freestyle_svg_exporter*" -print | grep .
 
-# AND THE PROPERTY IS ASSERTED, in its own layer, because the whole point of the extension is
-# one attribute. `_blender_scene.py:124` sets `linestyle.use_export_strokes`, which exists only
+# AND THE PROPERTY IS ASKED FOR, in its own layer, because the whole point of the extension is
+# one attribute. `_blender_scene.py:205` sets `linestyle.use_export_strokes`, which exists only
 # once the exporter has registered — so this makes a linestyle and asks. A failure here costs
 # one image layer; the same failure at graph time costs a 774 s full-graph run and reads as
 # "blender render failed (rc=0)", naming neither blender's exit code nor the missing extension.
+#
+# `sys.exit`, NOT `assert`, AND THAT IS THE WHOLE DIFFERENCE. Blender exits 0 on an uncaught
+# script exception — measured on 5.1.2, a failing assert and a raised RuntimeError both leave
+# it 0, and only `sys.exit(1)` reaches the shell. A `RUN` layer reads an exit code, so a probe
+# written as an assert passes whatever it finds and guarantees nothing.
+#
+# AND IT ENABLES THE EXTENSION THE WAY THE BUILD DOES. Installing with `-e` leaves it enabled
+# in `userpref.blend` so it auto-loads, but `_blender_scene.py` calls `addon_utils.enable`
+# itself; a probe that only reads the auto-loaded state tests the neighbouring path.
 RUN blender --background --python-expr \
-      "import bpy; ls=bpy.data.linestyles.new('probe'); assert hasattr(ls,'use_export_strokes'), 'exporter did not register'; print('use_export_strokes: present')"
+      "import sys, bpy, addon_utils; m = addon_utils.enable('bl_ext.blender_org.freestyle_svg_exporter'); ls = bpy.data.linestyles.new('probe'); ok = m is not None and hasattr(ls, 'use_export_strokes'); print('use_export_strokes:', 'present' if ok else 'MISSING'); sys.exit(0 if ok else 1)"
 
 # NODE 22, WHICH IS WHAT THE LOCKFILES ACTUALLY ASK FOR. `tools/render/package.json` says
 # `>=20`, but its own lock pins puppeteer, puppeteer-core and @puppeteer/browsers at
