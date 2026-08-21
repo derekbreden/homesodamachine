@@ -81,6 +81,14 @@ jobs:
           key: bazel-${{ hashFiles('BUILD.bazel', 'tools/bazel/graph.json') }}
           restore-keys: bazel-
 
+      # `.bazelrc` mounts /opt/homebrew into the sandbox, and bazel refuses a mount pair whose
+      # source is absent — which it is on any runner. An empty directory satisfies it, and the
+      # tools that path exists for resolve from /usr/bin, which the same `--action_env=PATH`
+      # already carries. Done here rather than in `.bazelrc`, which other work is holding.
+      # (`cad-runner-bench` found this; its Linux lane does the same.)
+      - name: A mount point for the sandbox
+        run: sudo mkdir -p /opt/homebrew /usr/local
+
       - name: Build everything this tree makes
         continue-on-error: true
         run: bazel --output_user_root=/tmp/bzl build --disk_cache="$HOME/.cache/bazel-disk" //:everything
