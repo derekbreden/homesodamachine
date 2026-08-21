@@ -65,6 +65,46 @@ def _sha256(path) -> str:
     return h.hexdigest()
 
 
+def _facets(path) -> int:
+    """The triangle count a binary STL declares, or -1 where nothing declares one.
+
+    A binary STL is an 80-byte header and then a uint32 count, so this is four bytes at a known
+    offset. An ASCII one opens `solid` and states no count; a STEP states none either."""
+    if Path(path).suffix != ".stl":
+        return -1
+    with open(path, "rb") as fh:
+        head = fh.read(84)
+    if len(head) < 84 or head[:5] == b"solid":
+        return -1
+    return int.from_bytes(head[80:84], "little")
+
+
+def barren(root: Path, solid_hashes: dict) -> list:
+    """Members carrying no geometry, and members whose bytes are already another member's.
+
+    A SHA256 OF AN EMPTY FILE IS A PERFECTLY GOOD SHA256. `fetch-cad-artifacts.mjs` holds every
+    member to its hash on the way in, so a mesh that lost its faces between the build and the pack
+    arrives verified, and the site, the card decks and every clean clone then trust it. Verified
+    and non-empty are different questions and the fetch only ever asks the first.
+
+    Both readings are free beside the hash this file already takes of every member. A binary STL
+    declares its own triangle count and no part of this machine is nought facets — an empty one is
+    84 bytes and its count reads zero. And two distinct parts sharing a sha256 are two files with
+    the same bytes, which for geometry means neither holds any; empties collide with each other
+    precisely because there is nothing in them to differ."""
+    out = []
+    for rel in sorted(solid_hashes):
+        if _facets(root / rel) == 0:
+            out.append(f"{rel} declares 0 facets — {(root / rel).stat().st_size} bytes, an empty solid")
+    seen = {}
+    for rel, sha in sorted(solid_hashes.items()):
+        if sha in seen:
+            out.append(f"{rel} carries the bytes {seen[sha]} carries — sha256 {sha[:16]}")
+        else:
+            seen[sha] = rel
+    return out
+
+
 # WHERE A MESH IS CARRIED TOO. STEP is the solid a reader models from, and everywhere else on
 # this machine it is the whole of the part. The enclosure is the exception: its show surface is
 # fluted in the MESH and not in the solid, because the fade that stops the flutes is a field
@@ -264,6 +304,15 @@ def main(argv) -> int:
             print(f"    {rel}")
 
     now = hashes(_ROOT, rels)
+
+    hollow = barren(_ROOT, now)
+    if hollow:
+        print(f"{len(hollow)} member(s) carry no geometry, so nothing here is packed:")
+        for line in hollow:
+            print(f"    {line}")
+        print("  Rebuild the part.")
+        return 1
+
     held = read_lock()
     if held.get("solids") == now:
         print(f"lock names this tree — {held['release']['asset']}")
