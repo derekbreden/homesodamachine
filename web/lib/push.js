@@ -486,20 +486,21 @@ export async function notifyFilesChanged({ files }) {
 
   const { title, body } = describeFilesUpdate(files);
   // STEP and DXF files both live on /3d (Prints + Cuts sections), mermaid
-  // files on /charts, cards on /build, PCB boards on /pcb. Pick the deep link
-  // based on the first file's extension so a single-file notification lands the
-  // user on the right page; mixed batches are rare enough that we just send
-  // them to /3d (the "default" parts page).
+  // files on /charts, PCB boards on /pcb. Pick the deep link based on the first
+  // file's extension so a single-file notification lands the user on the right
+  // page; mixed batches are rare enough that we just send them to /3d (the
+  // "default" parts page).
   const firstFile = files[0];
   let basePath;
   if (firstFile.endsWith(".mmd")) basePath = "/charts";
-  // A card is browsed on /build, which lays the deck out against the procedure
-  // steps its cards render. /drawings carries the bound deck as one PDF and has
-  // no surface that opens a single card.
-  else if (isCardPath(firstFile)) basePath = "/build";
   else if (isPcbPath(firstFile)) basePath = "/pcb";
   else basePath = "/3d";
-  const link = `${basePath}?file=${encodeURIComponent(firstFile)}`;
+  // A card is one page of the deck, and the deck is what /drawings hands over —
+  // one bound PDF, not a hundred tiles. So a card notification lands on that
+  // shelf rather than deep-linking a page no surface opens on its own.
+  const link = isCardPath(firstFile)
+    ? "/drawings"
+    : `${basePath}?file=${encodeURIComponent(firstFile)}`;
   // Pick a kind for the notifications-list icon. Pure step / mermaid /
   // dxf / pcb / (mixed → "files"); inferred from the file list
   // rather than passed separately so callers don't have to think about it.
