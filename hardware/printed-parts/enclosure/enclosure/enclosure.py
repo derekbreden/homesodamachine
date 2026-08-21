@@ -1303,18 +1303,33 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 # jamb to jamb, as the tell-tale for four barb tubes home in their collets.
 #
 # WHAT THE HAND GETS IS A +Y FACE. The pocket's FORE WALL is the ledge four fingers hook
-# forward onto, standing on the same plane the corner post's aft face does, with the block
-# from `pump_relief_floor` to that plane behind it and the face beyond that.
+# forward onto, with the block from `pump_relief_floor` to that plane behind it.
 #
-# AND IT GOES AS DEEP AS THE PUMP LEAVES IT, STOREY BY STOREY (`_grip_storeys`). Over the
-# boss the room the pump takes reaches `pump_tray.boss_half` off its axis; over the can it
+# A LEDGE IS A TRAVEL. What a hand draws this piece by is the distance from the ledge to the
+# post's own aft plane — the pocket travels FORE as the piece comes out, and past that plane
+# it is in the post's shadow with the hand that was in it standing on the post. So the pocket
+# is set down against the block's AFT face, one `grip_aft` off it, and the ledge follows from
+# `grip_run`. `GRIP_TRAVEL` is the figure that comes out.
+#
+# AND IT GOES AS DEEP AS THE PUMP LEAVES IT, STOREY BY STOREY (`_grip_storeys`). Under the
+# split the room the pump takes is the head's own square, `pump_tray.head_half` and one
+# `cap_pump_air` off the axis; over it the boss reaches `boss_half`; over the crown the can
 # reaches `can_half` and one `cap_pump_air`, a whole octagon-to-bore step further inboard. So
-# the pocket walks out at `relief_chamfer` off the boss's own crown, and the count of reeds
-# standing on the ledge at a height is what that height's depth comes to.
+# the pocket walks out at `relief_chamfer` at each of those two lines, and it is the SAME
+# pocket in both pieces: the deck keeps what is over `cap_split_z` and the cap what is under
+# it, the way every other figure this block is cut from parts on that plane.
 grip_run = 24.0              # a grip's opening fore and aft — a finger's width and its curl
 grip_sill = 7.0              # block left under a grip, over the rail its edge strip bears on
 grip_head = 8.0              # and over it, under the ceiling the motor cans open through
 grip_back = 2.0 * wall       # section left between a grip's own floor and the pump's room
+grip_aft = wall              # and between its aft wall and the face that lands on the steel
+# THE LEDGE IS RAKED IN PLAN, ONE IN FIVE. It stands further FORE the further INBOARD it
+# runs, so the normal it presents to a fingertip carries a fifth of itself INBOARD: the
+# harder a hand pulls, the harder it is drawn toward the centre of the piece and down into
+# the pocket. The one edge this pocket has no wall on is the open flank, and inboard is the
+# way away from it. It costs `grip_rake` times the pocket's own reach of block fore of the
+# ledge, out of the forty millimetres standing there.
+grip_rake = 0.2              # the ledge's fall in Y per millimetre it runs inboard
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from:
@@ -1501,6 +1516,20 @@ def _xz_prism(y0, y1, section):
         .extrude(-(y1 - y0))
         .val()
         .translate((0.0, y0, 0.0))
+    )
+
+
+def _xy_prism(z0, z1, section):
+    """A prism along Z from z0 to z1, whose `section` is a closed `(x, y)` polygon.
+
+    The third of the trio, and the one a feature drawn IN PLAN wants — a wall raked about a
+    standing vertical is one line in this section and a fitted surface in either other."""
+    return (
+        cq.Workplane("XY")
+        .polyline(list(section)).close()
+        .extrude(abs(z1 - z0))
+        .val()
+        .translate((0.0, 0.0, min(z0, z1)))
     )
 
 
@@ -4289,6 +4318,12 @@ def _pump_voids(pump_trays, z_top):
     return out
 
 
+def _block_aft(plate):
+    """The plane BOTH storeys of this block present to the steel — `cap_kiss` fore of the
+    collet plate's own face, and the same figure for the deck and the cap."""
+    return plate["fore_y"] - cap_kiss
+
+
 def _cap_x_span(bay):
     """The cap's own two edges — the deck's own, since nothing of the box stands inside the
     jambs at this storey."""
@@ -4297,14 +4332,25 @@ def _cap_x_span(bay):
     return -edge, edge
 
 
-def _grip_storeys(pump_trays, z_top):
+def _grip_storeys(pump_trays, z_floor, z_top):
     """The storeys a flank grip is struck through, ascending, as (z0, z1, x_room) — the plane
     the pump's own room reaches OUTBOARD at that height, taken on the outboard pump's station.
 
-    THE BOSS'S CROWN IS WHERE THEY PART. Under it the room is the octagon `_pump_voids` takes
-    out on `pump_tray.boss_room` and the tray's own bore wall gives back, so what stands
-    against a pocket there is the case's own line, `boss_half` off the axis. Over it the room
-    is the can's bore alone, `cap_pump_air` off `can_half`.
+    THREE, AND THE SPLIT IS NOT ONE OF THEM. What sets a pocket's depth is the pump behind it,
+    and the pump does not know where the two pieces part: the head storey runs from the cap's
+    own floor to `cap_split_z` and the boss storey up from that same plane, so a pocket struck
+    across both is one figure with a step in it and each piece keeps its own share.
+
+    THE HEAD IS THE SHALLOW ONE. `pump_tray.head_room` closes back in wherever the case closed
+    on the part, but its outboard extreme is the head's own square struck `cap_pump_air` off —
+    `head_half` and that air, which stands a whole `boss_half - head_half` further OUTBOARD
+    than the storey over it. There are barely nine millimetres of flank there and this is what
+    they come to.
+
+    THE BOSS'S CROWN IS WHERE THE OTHER TWO PART. Under it the room is the octagon
+    `_pump_voids` takes out on `pump_tray.boss_room` and the tray's own bore wall gives back,
+    so what stands against a pocket there is the case's own line, `boss_half` off the axis.
+    Over it the room is the can's bore alone, `cap_pump_air` off `can_half`.
 
     AN OCTAGON'S FLAT IS ITS OWN OUTBOARD EXTREME. Its two neighbouring vertices stand on that
     same plane and every other one inboard of it, so `boss_half` bounds the figure and not just
@@ -4312,7 +4358,8 @@ def _grip_storeys(pump_trays, z_top):
     cz = min(cz for _cx, _cy, cz in pump_trays)
     station = max(abs(cx) for cx, _cy, _cz in pump_trays)
     crown = cz + _tray.boss_depth
-    return ((cz, crown, station + _tray.boss_half),
+    return ((z_floor, cz, station + _tray.head_half + cap_pump_air),
+            (cz, crown, station + _tray.boss_half),
             (crown, z_top, station + _tray.can_half + cap_pump_air))
 
 
@@ -4353,7 +4400,7 @@ def _grip_back(edge, zf, zc, storeys):
     return pts
 
 
-def _grip_section(edge, zf, zc, storeys):
+def _grip_section(edge, zf, zc, storeys, roofed):
     """One grip's own (x, z) section on the +X flank: the sill, the back (`_grip_back`), the
     ceiling, and the mouth.
 
@@ -4362,11 +4409,19 @@ def _grip_section(edge, zf, zc, storeys):
     down; swung up 45 degrees to the flank face, every layer over the pocket lands on the one
     below. The Y ends and the floor are drawn in XY and stand as they are.
 
+    UNLESS THE POCKET'S OWN TOP IS THE PIECE'S TOP, which is what `roofed` says. The cap's
+    band ends on `cap_split_z`, the plane where the cap stops being material at all, and there
+    the section runs straight out past the band — the pocket opens through that face the way
+    it opens through the flank.
+
     The section runs one millimetre past the flank at both ends, so the cut opens through the
     face rather than landing on it."""
     over = 1.0
     back = _grip_back(edge, zf, zc, storeys)
     x_top, z_top = back[-1]
+    if not roofed:
+        return ([(edge + over, zf)] + back
+                + [(x_top, zc + over), (edge + over, zc + over)])
     ceiling = zc - (edge - x_top)
     if ceiling < z_top:
         raise ValueError(
@@ -4377,112 +4432,97 @@ def _grip_section(edge, zf, zc, storeys):
             + [(x_top, ceiling), (edge + over, zc + over)])
 
 
-def _grip_reach_z(back, x_need):
-    """Where a grip's back first stands at `x_need` or deeper, walked up its own polyline —
-    the height a reed of that reach can begin at. None when it never gets there."""
-    prev = None
-    for x, z in back:
-        if x <= x_need + 1e-9:
-            if prev is None or prev[0] <= x_need + 1e-9:
-                return z
-            px, pz = prev
-            return pz + (px - x_need) / (px - x) * (z - pz)
-        prev = (x, z)
-    return None
+def _grip_bands(bay, pump_trays):
+    """The band each piece's own share of the pocket is struck in, as (zf, zc, roofed).
+
+    ONE POCKET, TWO PIECES, AND THE BLOCK BETWEEN THEM IS THE DECK'S BEARING STRIP. The deck's
+    edge strips ride the bay's rails in the tray plate's own band over `cap_split_z`, so
+    `grip_sill` of block stands there and the pocket picks up again above it. Under the split
+    the cap's share runs to the FLANK OPENING'S OWN FLOOR: below that plane the box's side
+    wall closes back in and a hand reaching into the opening cannot get to the piece at all.
+
+    THE CAP'S BAND ENDS ON THE SPLIT, WHICH IS THE CAP'S OWN TOP FACE, so it takes no roof.
+    The deck's ends one `grip_head` under the ceiling the motor cans open through, with the
+    piece standing on above it, and takes one."""
+    split = cap_split_z(pump_trays)
+    return ((bay_storey_z(bay)[0], split, False),
+            (split + grip_sill, bay[2] - face_reveal - grip_head, True))
 
 
-def _grip_reed_stations(edge, back):
-    """The ledge's reeds, as (x, radius, the z each begins at) — one array datumed on the
-    flank face, on the pitch `flute_depth` as a half-round and the exterior field's own land
-    come to, running until the pocket's back never reaches deep enough to hold a whole one."""
-    r = flute_depth
-    pitch = 2.0 * r + (reeding.flute_pitch - reeding.flute_width)
-    out, k = [], 0
-    while True:
-        x = edge - k * pitch
-        z_bot = _grip_reach_z(back, x - r)
-        if z_bot is None:
-            return out
-        out.append((x, r, z_bot))
-        k += 1
-
-
-def _grip_reeds(edge, y0, zf, zc, storeys, section, sx):
-    """THE LEDGE'S REEDING — `reeding.groove`'s own profile cut as a TRUE half-round, struck
-    down the ledge in Z so a finger pulling FORE crosses every one of them and a finger
-    sliding OUTBOARD off the pocket crosses all of them at once.
-
-    ITS DEPTH IS `flute_depth`, the one the coupon printed, which as a half-round is its own
-    half-width — and the land between two of them is the exterior field's own
-    (`reeding.flute_pitch - reeding.flute_width`), so the pitch follows from the two.
-
-    ONE ARRAY, DATUMED ON THE FLANK FACE, and each reed begins where the pocket's own back has
-    walked in far enough to hold its WHOLE width (`_grip_reach_z`) — so a reed runs the height
-    its own reach is there and the count of them standing at any height is what the pocket's
-    depth comes to. The reed on the face itself is a quarter round, and it is the lead-in the
-    fingers come in over.
-
-    AND THE ARRAY IS TRIMMED TO THE LEDGE, so a reed runs out on the ceiling's own 45 degrees
-    rather than crossing it into the roof."""
-    out, r = None, flute_depth
-    for x, r, z_bot in _grip_reed_stations(edge, _grip_back(edge, zf, zc, storeys)):
-        cut = _zcyl(r, sx * x, y0, z_bot, zc + r + 1.0)
-        out = cut if out is None else out.fuse(cut)
-    return out.intersect(_xz_prism(y0 - r - 0.1, y0 + 0.1, section))
-
-
-def _flank_grip(inner, bay, pump_trays, z_top):
-    """THE HAND'S OWN POCKET IN EACH ±X FLANK — one solid per side, to cut out of the block.
+def _flank_grip(bay, pump_trays, plate, band):
+    """THE HAND'S OWN POCKET IN EACH ±X FLANK over one `_grip_bands` band — one solid per
+    side, to cut out of the piece that band belongs to.
 
     ITS FORE WALL IS THE LEDGE. Four fingers reach in through the flank opening, curl inboard
-    into the pocket and pull FORE on that face, whose outward normal is +Y and which stands on
-    the same plane the corner post's aft face does — `_column_along` aft of the front plane, so
-    a hand sliding fore along the open flank arrives on it and can go no further.
+    into the pocket and pull FORE on that face, whose outward normal is +Y and whose rake is
+    `grip_rake` — struck at the same two Y planes in both bands, so the two pieces present one
+    ledge and one aft wall to the hand that takes them out together.
 
-    ITS OPENING IS THE STOREY LESS WHAT THE BLOCK KEEPS. `grip_sill` of block stands under it
-    on the rails its edge strips bear on and `grip_head` over it under the ceiling the motor
-    cans open through; everything between is the hand's. Fore and aft it is `grip_run`, and
-    inboard it is `_grip_section` — as deep as the pump leaves it at every height.
+    ITS OPENING IS THE BAND, and inboard it is `_grip_section` — as deep as the pump leaves it
+    at every height. Fore and aft it is `grip_run`, set down one `grip_aft` off the block's own
+    aft face.
 
-    The ledge is reeded (`_grip_reeds`), and both flanks carry the same pocket mirrored.
+    IT IS THE Y-PRISM OF THE SECTION MET BY THE Z-PRISM OF THE PLAN. The section says how deep
+    the pocket is at each height and carries the 45 degree ceiling; the plan says where the
+    raked ledge stands at each depth. Neither is a fitted surface and their intersection is
+    the pocket.
 
     WHAT IT HANDS BACK IS CUT AND NEVER FUSED. A grip is depth taken out of the block, so
-    nothing of this piece moves fore of the plane its face already stands on — the plane the
+    nothing of either piece moves fore of the plane its face already stands on — the plane the
     bench reads flush for four barb tubes home in their collets."""
+    zf, zc, roofed = band
+    over = 1.0
     edge = _cap_x_span(bay)[1]
-    storeys = _grip_storeys(pump_trays, z_top)
-    y0 = inner[2] + _column_along()
-    zf, zc = storeys[0][0] + grip_sill, z_top - grip_head
+    storeys = _grip_storeys(pump_trays, bay_floor_z(pump_trays)[1],
+                            bay[2] - face_reveal)
+    y1 = _block_aft(plate) - grip_aft
+    y0 = y1 - grip_run
+    section = _grip_section(edge, zf, zc, storeys, roofed)
+    x_deep = min(x for x, _z in section) - over
+    reach = edge - x_deep
+    if y0 - grip_rake * reach <= pump_relief_floor:
+        raise ValueError(
+            f"a flank grip's raked ledge reaches y {y0 - grip_rake * reach:g} at its deepest, "
+            f"through the block's own fore face at {pump_relief_floor:g} — the rake has eaten "
+            "the run, and what is left is a hole out the front of the piece")
     out = []
     for sx in (+1.0, -1.0):
-        section = [(sx * x, z) for x, z in _grip_section(edge, zf, zc, storeys)]
-        pocket = _xz_prism(y0, y0 + grip_run, section)
-        out.append(pocket.fuse(
-            _grip_reeds(edge, y0, zf, zc, storeys, section, sx)))
+        prism = _xz_prism(y0 - grip_rake * reach, y1,
+                          [(sx * x, z) for x, z in section])
+        plan = _xy_prism(zf - over, zc + 2.0 * over, (
+            (sx * (edge + over), y0 + grip_rake * over),
+            (sx * x_deep, y0 - grip_rake * reach),
+            (sx * x_deep, y1),
+            (sx * (edge + over), y1)))
+        out.append(prism.intersect(plan))
     return out
 
 
 def grip_figures(box):
-    """What a flank grip comes to on this box, for the docs to read — its opening at the
-    mouth, its run, and the depth it reaches at each of the pump's own storeys. Empty on a
-    box with no bay, which is a box with no cartridge to carry a grip."""
+    """What a flank grip comes to on this box, for the docs to read — its two bands, the
+    depth it reaches at each of the pump's own storeys, and the travel its ledge buys. Empty
+    on a box with no bay, which is a box with no cartridge to carry a grip."""
     if not (box.pump_bay and box.pump_trays):
         return {}
-    z_top = box.pump_bay[2] - face_reveal
-    storeys = _grip_storeys(box.pump_trays, z_top)
-    edge = _cap_x_span(box.pump_bay)[1]
-    zf, zc = storeys[0][0] + grip_sill, z_top - grip_head
-    back = _grip_back(edge, zf, zc, storeys)
-    reeds = _grip_reed_stations(edge, back)
+    bay, trays, plate = box.pump_bay, box.pump_trays, box.collet_plate
+    edge = _cap_x_span(bay)[1]
+    storeys = _grip_storeys(trays, bay_floor_z(trays)[1], bay[2] - face_reveal)
+    cap_band, deck_band = _grip_bands(bay, trays)
+    y1 = _block_aft(plate) - grip_aft
+    y0 = y1 - grip_run
+    deep = edge - (storeys[-1][2] + grip_back)
     return {
-        "GRIP_RISE": f"{zc - zf:.4g} mm",
+        "GRIP_RISE": f"{deck_band[1] - deck_band[0]:.4g} mm",
+        "GRIP_CAP_RISE": f"{cap_band[1] - cap_band[0]:.4g} mm",
         "GRIP_RUN": f"{grip_run:.4g} mm",
-        "GRIP_DEEP": f"{edge - (storeys[-1][2] + grip_back):.4g} mm",
-        "GRIP_SHALLOW": f"{edge - (storeys[0][2] + grip_back):.4g} mm",
+        "GRIP_DEEP": f"{deep:.4g} mm",
+        "GRIP_SHALLOW": f"{edge - (storeys[1][2] + grip_back):.4g} mm",
+        "GRIP_CAP_DEEP": f"{edge - (storeys[0][2] + grip_back):.4g} mm",
         "GRIP_BACK": f"{grip_back:.4g} mm",
-        "GRIP_REED": f"{2.0 * flute_depth:.4g} mm",
-        "GRIP_REEDS": f"{len(reeds)}",
-        "GRIP_REEDS_LOW": f"{sum(1 for _x, _r, z in reeds if z <= zf + 1e-9)}",
+        "GRIP_LEDGE": f"{y0:.4g} mm",
+        "GRIP_TRAVEL": f"{y0 - (box.inner[2] + _column_along()):.4g} mm",
+        "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
+        "GRIP_RAKE_FORE": f"{grip_rake * deep:.4g} mm",
     }
 
 
@@ -4765,7 +4805,8 @@ def build_cartridge(box, halves_cache=None):
     WHAT A HAND PULLS ON IS ITS TWO FLANKS. Front-top's own flanks are cut away over this
     storey, so the piece's sides stand in the open and each carries a grip (`_flank_grip`) —
     a pocket struck inboard out of the block, as deep as the pump behind it leaves it, whose
-    fore wall is the reeded ledge four fingers hook forward onto.
+    fore wall is the raked ledge four fingers hook forward onto. This piece carries the band
+    over `cap_split_z` and the cap the band under it, one ledge across the two.
 
     WHAT STOPS IT ON THE STEEL IS THE CAP'S OWN AFT FACE, one storey down — this piece owns
     no feature below `cap_split_z`. Printed on its Z− face, the pose every piece of this box
@@ -4784,8 +4825,8 @@ def build_cartridge(box, halves_cache=None):
     floor_top = bay_floor_z(box.pump_trays)[1]
     solid = solid.cut(_ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
                             outer[4] - 1.0, floor_top + face_reveal))
-    for grip in _flank_grip(inner, box.pump_bay, box.pump_trays,
-                            box.pump_bay[2] - face_reveal):
+    for grip in _flank_grip(box.pump_bay, box.pump_trays, plate,
+                            _grip_bands(box.pump_bay, box.pump_trays)[1]):
         solid = solid.cut(grip)
     for bore in _cap_screws(inner, plate, box.pump_trays)[1]:
         solid = solid.cut(bore)
@@ -4829,7 +4870,7 @@ def _cartridge_gross(box, halves_cache=None):
     # BOTH STOREYS PRESENT THAT SAME FACE. The deck stood further fore than the cap for no
     # stated reason, which put a step across the block's whole back and a ledge at the split
     # to carry it. One plane for both is one face against the steel and no ledge at all.
-    deck_aft = cap_aft = plate["fore_y"] - cap_kiss
+    deck_aft = cap_aft = _block_aft(plate)
     split = cap_split_z(box.pump_trays)
     floor_top = bay_floor_z(box.pump_trays)[1]
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
@@ -4916,8 +4957,13 @@ def build_pump_cap(box, halves_cache=None):
     gives up the storey over them so the tubes can come down it.
 
     IT GIVES UP THE LANE BETWEEN THE PUMPS and keeps `cap_web_t` over it, so the screws are
-    short and their heads are down in counterbores with a flat ceiling round them. Printed on
-    its Z− face, the same pose the cartridge takes."""
+    short and their heads are down in counterbores with a flat ceiling round them.
+
+    AND ITS TWO FLANKS CARRY THE LOWER BAND OF THE HAND'S OWN POCKET (`_flank_grip`), on the
+    same ledge and the same aft wall the deck's band stands on. What the head leaves out there
+    is nine millimetres of flank and the pocket takes what `grip_back` does not: the piece
+    comes out screwed to the cartridge and a hand pulling the assembly finds relief at both
+    storeys. Printed on its Z− face, the same pose the cartridge takes."""
     inner, plate = box.inner, box.collet_plate
     solid = _cartridge_gross(box, halves_cache).intersect(_cap_room(box))
     split = cap_split_z(box.pump_trays)
@@ -4950,6 +4996,9 @@ def build_pump_cap(box, halves_cache=None):
         sill = cz - _tray.head_depth + _tray.outlet_relief_run
         solid = solid.cut(_ybox(cx - half, cx + half, cy + half, plate["fore_y"] + 1.0,
                                 sill, cz + 0.1))
+    for grip in _flank_grip(box.pump_bay, box.pump_trays, plate,
+                            _grip_bands(box.pump_bay, box.pump_trays)[0]):
+        solid = solid.cut(grip)
     for bore in _cap_screws(inner, plate, box.pump_trays)[0]:
         solid = solid.cut(bore)
     return _unified(solid)
