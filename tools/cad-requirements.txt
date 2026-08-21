@@ -37,6 +37,7 @@ cycler==0.12.1
 Cython==3.2.9
 defusedxml==0.7.1
 ezdxf==1.4.3
+fast_simplification==0.2.0
 fonttools==4.62.1
 frozenlist==1.8.0
 idna==3.13
@@ -62,6 +63,7 @@ python-fcl==0.7.0.11
 PyYAML==6.0.3
 qrcode==8.2
 reportlab==4.5.1
+rtree==1.4.1
 runtype==0.5.3
 scipy==1.18.0
 six==1.17.0
