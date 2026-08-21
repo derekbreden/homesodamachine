@@ -57,11 +57,11 @@ where they pass each other is the thinnest material in the plate: [1.115](PANEL_
 above the socket's own top, so arithmetic answers for a cylinder that is not there.
 
 **Read that against the nozzle, not against zero.** These plates are `enclosure-front-top`'s
-material and that piece prints on a 0.8 ([`machine-time.md`](/hardware/ledger/machine-time.md),
-the bulk-PETG group), so one bead of this plate is [0.8](PANEL_EXTRUSION) mm and the web is
-[139](PANEL_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is absent, and a
-solid states material at any width — so `panel-web` is the one check on this plate that reads
-what the machine can lay rather than what the model draws.
+material, so they come off the enclosure exterior's own bead of [0.8](PANEL_EXTRUSION) mm
+([`enclosure/print-log.md`](/hardware/printed-parts/enclosure/enclosure/print-log.md)), and the
+web is [139](PANEL_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is
+absent, and a solid states material at any width — so `panel-web` is the one check on this
+plate that reads what the machine can lay rather than what the model draws.
 
 ## Where the two go
 
@@ -95,8 +95,8 @@ row).
 1. **`panel-web` is the only bound on this plate that reads what a nozzle can lay.** Everything
    else about it — the sockets' clearance, the channel's floor, the seats' pitch, the margin past
    the last seat — is read against a solid, and a solid states material at any width. The plate
-   comes off a 0.8 bead, so a feature the model draws thinner than one reads green in every check
-   but that one. `EXTRUSION_W` is named once in the whole tree.
+   comes off one [0.8](PANEL_EXTRUSION) mm bead, so a feature the model draws thinner than one
+   reads green in every check but that one. `EXTRUSION_W` is named once in the whole tree.
 
 ## Files
 

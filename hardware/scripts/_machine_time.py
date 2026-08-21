@@ -11,7 +11,7 @@ that changes shape moves its mass, its print hours, the bottleneck's wall clock
 and the units-per-year ceiling — all of it, without anyone remembering to.
 
   * Print hours = each §7 row's mass × its GROUP's hours-per-kg. Groups are the
-    four print configurations the build uses; GROUP_OF assigns every row by
+    five print configurations the build uses; GROUP_OF assigns every row by
     name. --check fails on an unassigned row, so a new printed part cannot
     silently escape the estimate.
   * The §2/§3/§4 process tables are read, not computed — those are datasheet and
@@ -42,16 +42,24 @@ PRINTERS = 2          # Bambu Lab H2C, tools.md
 DUTY = 0.65           # machine duty — failed prints, plate changes, maintenance
 HOURS_PER_YEAR = 24 * 365
 
-# The one measured slice the whole print estimate stands on: the cold-core inner
-# shell, 1142.47 g in 14h22m on an H2C (0.8 nozzle, 0.4 layer, PETG, 21 mm³/s),
-# against its 1.325 kg geometry mass in bom.md §7.
+# The two measured slices the print estimate stands on, each one its own
+# configuration's rate. Neither is scaled from the other.
+#
+#   bulk — the cold-core inner shell, 1142.47 g in 14h22m on an H2C (0.8 nozzle,
+#          0.4 layer, PETG, 21 mm³/s), against its 1.325 kg geometry mass in §7.
+#   ext  — the enclosure front-top, 16 h on an H2C (0.4 High Flow nozzle, 0.24
+#          layer, PETG, 21 mm³/s), against its 1.751 kg of STEP geometry — the
+#          §7 "front bottom + front top" row less the front-bottom's 1.095.
+#          printed-parts/enclosure/enclosure/print-log.md holds the profile.
 MEASURED = ("14 h 22 m", 1.325, 14 + 22 / 60)
+MEASURED_EXT = ("16 h", 1.751, 16.0)
 
-# Hours per geometry-kg, by print configuration. Only `bulk` is measured; the
-# other three are that rate scaled for a slower setup and are labelled est. in
-# the ledger. See machine-time.md "Open items" for what would measure them.
+# Hours per geometry-kg, by print configuration. `bulk` and `ext` are measured;
+# the other three are the bulk rate scaled for a slower setup and are labelled
+# est. in the ledger. See machine-time.md "Open items" for what would measure them.
 RATES = {
-    "bulk":  round(MEASURED[2] / MEASURED[1], 1),   # 10.8 — measured
+    "bulk":  round(MEASURED[2] / MEASURED[1], 1),           # 10.8 — measured
+    "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),   #  9.1 — measured
     "tight": 22,    # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
     "small": 30,    # travel + layer-change overhead dominates a small part
     "petcf": 60,    # 0.4 nozzle, fine layers, 50 °C chamber
@@ -61,7 +69,7 @@ RATES = {
 GROUP_OF = [
     ("Cold-core inner shell",  "bulk"),
     ("Cold-core foam cap",     "bulk"),
-    ("Enclosure —",            "bulk"),
+    ("Enclosure —",            "ext"),
     ("Flavor reservoir",       "tight"),
     ("Faucet touch-flo shell", "petcf"),
     ("Faucet mounting plate",  "petcf"),
@@ -76,7 +84,8 @@ GROUP_OF = [
     ("Nameplate",              "small"),
 ]
 
-GROUP_MARKER = {"bulk": "BULK", "tight": "TIGHT", "small": "SMALL", "petcf": "PETCF"}
+GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
+                "small": "SMALL", "petcf": "PETCF"}
 
 
 # The turnaround table's one computed cell. Named here because two readers want it:
@@ -205,6 +214,8 @@ def main():
         "MT_PRINTERS": PRINTERS,
         "MT_MEASURED": MEASURED[0],
         "MT_MEASURED_KG": f"{MEASURED[1]:.3f}",
+        "MT_MEASURED_EXT": MEASURED_EXT[0],
+        "MT_MEASURED_EXT_KG": f"{MEASURED_EXT[1]:.3f}",
         "MT_PETCF_DRY": "10 h at 100 °C",
         "MT_DUTY": f"{DUTY * 100:.0f} %",
         "MT_KG": f"{sum(kg.values()):.3f}",
@@ -248,7 +259,7 @@ def main():
         return 0
 
     substitute_md(MT, variables)
-    for g in ("bulk", "tight", "small", "petcf"):
+    for g in ("bulk", "ext", "tight", "small", "petcf"):
         print(f"  {g:<6} {kg[g]:6.3f} kg × {RATES[g]:>4} h/kg = {hours[g]:6.1f} h")
     print(f"  {'PRINT':<6} {sum(kg.values()):6.3f} kg{'':14} {h_print:6.1f} h"
           f"   → {wall:.1f} h on {PRINTERS} printers")

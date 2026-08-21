@@ -25,8 +25,11 @@ Geometry source: [`texture_coupons.py`](texture_coupons.py).
 Half-round flutes running **along** the fold — up the wall, over the arris, across the
 facet, over the second arris, and back along the top. Three lateral zones of
 [40 mm](ZONE_X), at pitches [4 / 6 / 9 mm](FLUTE_PITCHES), all [1 mm](FLUTE_DEPTH) deep.
-Depth stays inside the 3 mm wall's two-perimeter budget, so what the coupon shows is
-what the real wall can take.
+Depth stays inside what the 3 mm wall can give up, so what the coupon shows is what the
+real wall can take: the enclosure profile lays 0.87 mm of shell per face — two loops,
+0.42 outer and 0.45 inner — and a 1 mm flute leaves 2 mm of wall standing under it, so
+both faces still get all four loops with 0.26 mm between them. The wall under the
+deepest flute is full section, not a bridged skin.
 
 Every cut surface on the wall is vertical, so the wall's flutes carry no layer
 quantisation at all — they are as clean as the nozzle draws. On the top they are a
@@ -74,9 +77,10 @@ Mesh only. There is no STEP of this one.
 `texture-coupon-*.stl` files are there to reprint one on its own, and
 `texture-coupon-*.step` feeds the same pipeline the enclosure pieces use.
 
-Slice on the enclosure's own profile — 0.8 mm nozzle, 0.4 mm layers, PETG — so the
-coupons and the box are quantised the same. Drop `sparse_infill_density` for the
-coupons; nothing here is structural.
+Slice on the enclosure's own profile — 0.4 mm High Flow nozzle, 0.24 mm layers, PETG
+([enclosure/print-log.md](../enclosure/print-log.md)) — so the coupons and the box are
+quantised the same. Drop `sparse_infill_density` for the coupons; nothing here is
+structural.
 
 Set `fuzzy_skin` to `none`. Every coupon's texture is in the geometry, and a slicer
 texture on top of it measures neither one.

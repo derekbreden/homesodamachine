@@ -143,9 +143,9 @@ def web() -> float:
     figure struck off the radii answers for a cylinder that is not there. This reads the solids.
 
     Compare what comes back against the nozzle that lays it, not against zero: these plates are
-    `enclosure-front-top`'s material and that piece prints on a 0.8 (`ledger/machine-time.md`,
-    the bulk-PETG group). A web under one extrusion wide is a web the slicer does not lay, and
-    the socket opens into the channel over the stretch it does not."""
+    `enclosure-front-top`'s material, so the bead they come off is the enclosure exterior's own
+    and `extrusion()` is where it is read. A web under one extrusion wide is a web the slicer
+    does not lay, and the socket opens into the channel over the stretch it does not."""
     sockets = _seat.build_sockets().val()
     channel = build_port_channel(height() + 2.0).val()
     d = BRepExtrema_DistShapeShape(sockets.wrapped, channel.wrapped)
