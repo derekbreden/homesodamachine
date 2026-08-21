@@ -17,9 +17,26 @@
 
 name: derive
 
+# ON DEMAND, NOT ON PUSH, AND THE REASON IS MEASURED. Running on every push put a remote in
+# the inner loop of a tree several agents edit at once, and the twelve hours after this file
+# landed cost 57 commits about the pipeline against 16 about geometry — the twelve hours before
+# it cost 9 commits and none about a pipeline. The derive did not become slower than the local
+# loop; it replaced the local loop with work about itself.
+#
+# THE DISCARD RATE WAS NEVER THE COMPLAINT AND FIXING IT WOULD NOT HAVE HELPED. 71 of 100 runs
+# were cancelled out of the pending slot by the next push, the median completed run took 27
+# minutes against a 2.5 minute median gap between pushes, and GitHub's SSH front end throttled
+# this host — which broke `git fetch` SILENTLY for every session, freezing `origin/main` at
+# each one's last successful fetch. A pipeline whose feedback lands 27 minutes after the commit
+# lands on whoever is still around, not on the agent that caused it, and that is what makes a
+# found problem cost twice: once to find, once to hand back.
+#
+# WHAT IT IS STILL FOR. The derive is the only thing that computes the ledger, the docs, the
+# deck and the solids bundle off the machine that cut the geometry, and this box is 8 GB — a
+# full build sits in 3.4-4.2 GB of swap. That is worth having when you WANT it, which is what
+# `workflow_dispatch` is: run it before a deploy, or when the derived artifacts are the thing
+# you actually need. Restoring the old behaviour is the four lines below this comment.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -286,8 +303,11 @@ jobs:
       # this run just packed and the comparison would be against itself again.
       - name: The solids this container cut, against the lock
         continue-on-error: true
-        run: tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py --annotate \
-               --failed "${{ steps.build.outputs.failed }}"
+        # A BLOCK SCALAR, for the reason the carry above carries: folded, the trailing `\`
+        # reaches the shell as a literal argument instead of a continuation.
+        run: |
+          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py --annotate \
+            --failed "${{ steps.build.outputs.failed }}"
 
       # The ledger, in the order the modules document: masses price the totals, and the
       # totals' §7 feeds the print hours.
