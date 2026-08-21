@@ -26,7 +26,7 @@ Sixty-two generators cut solids, and two more draw what the rest of them made â€
 
 ## What a figure moves
 
-A generator's seconds are its own code plus everything it imports, so a change to the shared machinery moves every row at once. `_cadq_export`'s STEP canonicalization is the largest single piece of that: it renumbers entity IDs into a content-derived order on every `.step` written, and on the enclosure assembly's 382,000 entities it is most of the run.
+A generator's seconds are its own code plus everything it imports, so a change to the shared machinery moves every row at once. `_cadq_export`'s STEP canonicalization renumbers the styling records on every `.step` written â€” the chain a colour hangs on, which is the only part of a file OpenCASCADE seats differently between runs. On the enclosure assembly that is 2,408 records of 858,725, found by reading the file once.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -96,16 +96,18 @@ _STEP_UUID_RE = re.compile(
 )
 _STEP_CANONICAL_UUID = b"00000000-0000-0000-0000-000000000000"
 
-# OpenCASCADE also assigns entity IDs (`#1`, `#2`, …) in non-deterministic
-# order. Two runs producing the same geometry can interleave the IDs
-# differently, again churning bytes for a non-change. We canonicalize by
-# computing a Merkle-style hash per entity (recursive over its downstream
-# refs) plus an iteratively-refined reverse hash that captures the upstream
-# referrer pattern, then renumber 1..N in (rev_hash, original_position)
-# order and rewrite every `#K` reference. The forward+iterated-reverse
-# combination disambiguates entities that share content but live in
-# different positions of the graph (very common for OCCT's redundant
-# SURFACE_STYLE_USAGE / FILL_AREA_STYLE_COLOUR chains).
+# OpenCASCADE hands out its entity IDs (`#1`, `#2`, …) in the order it emits records, and
+# for geometry that order is the same every run — two processes cutting the same solid write
+# the same bytes once the header above is scrubbed. The styling records are the exception:
+# the colour map they come off iterates in heap order, so which body each chain decorates
+# moves between runs while the ID slots stay put. That is a permutation, and it is the whole
+# of what is left to canonicalize.
+#
+# So the pass below hashes the styling records only — a Merkle-style hash per record over its
+# downstream refs, plus an iteratively-refined reverse hash carrying the upstream referrer
+# pattern — and seats them in their own slots in that order. The forward+iterated-reverse
+# combination is what tells apart chains that carry the same colour and hang off different
+# bodies, which is every chain in an assembly whose parts share a material.
 _STEP_RECORD_RE = re.compile(r"^#(\d+)\s*=\s*(.*?);\s*$", re.DOTALL)
 _STEP_REF_RE = re.compile(r"#(\d+)")
 _STEP_DATA_MARKER = "\nDATA;\n"
@@ -183,11 +185,40 @@ _PDF_CANONICAL_ID = (
 )
 
 
+# The only records OpenCASCADE emits in an order that moves between runs are the styling ones:
+# the chain a colour hangs on, and the presentation representation that roots it. Every point,
+# curve, face and solid comes out in the same order every run — measured across processes, not
+# assumed. So the renumbering has to reach the styling chain and nothing else. On the enclosure
+# assembly that is a few thousand records out of 858,000, and the difference between those two
+# numbers is most of what a generator spends.
+#
+# MEMBERSHIP IS STRUCTURAL AND NOT A LIST OF TYPE NAMES. A list is the failure that does not
+# announce itself: miss a type and it stays a "geometry" record holding a reference this pass
+# just renumbered, which is a broken file that still parses. The rule instead is a peel from
+# the top — a record joins the set only when EVERY record that references it has already
+# joined. The presentation roots are referenced by nothing, so they open it; the chain beneath
+# them is reachable only through presentation, so it follows; and the solid a STYLED_ITEM
+# colours is referenced by the shape representation too, so it never joins. Nothing outside
+# the set can reference into it, which is the one precondition renumbering the set alone
+# needs, and the peel gives that by construction rather than by inspection.
+_STEP_TYPE_RE = re.compile(r"^\s*([A-Z_0-9]+)\s*\(")
+#: Only picks which unreferenced records open the peel. It never decides membership.
+_STEP_PRESENTATION_ROOTS = (
+    "MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION",
+    "DRAUGHTING_MODEL",
+    "PRESENTATION_LAYER_ASSIGNMENT",
+)
+
+
+class _StepParseError(Exception):
+    """A body that does not read the way STEP is written. The caller keeps the file."""
+
+
 def _canonicalize_step_entity_ids(text):
-    """Renumber entity IDs in the DATA section so the file is byte-stable
-    across runs with identical source. Returns None on parse failure so
-    the caller can fall back to leaving IDs alone (which is the prior
-    behavior). Pure-stdlib, no STEP parser dependency."""
+    """Renumber the styling records in the DATA section so the file is
+    byte-stable across runs with identical source. Returns None where the
+    body will not parse or carries no styling, and the caller then keeps
+    the file as written. Pure-stdlib, no STEP parser dependency."""
     try:
         data_start = text.index(_STEP_DATA_MARKER)
         data_end = text.index(_STEP_ENDSEC_MARKER, data_start)
@@ -195,155 +226,220 @@ def _canonicalize_step_entity_ids(text):
         return None
     header = text[: data_start + len(_STEP_DATA_MARKER)]
     body = text[data_start + len(_STEP_DATA_MARKER) : data_end]
-    footer = text[data_end + 1 :]
 
-    # Records can span multiple lines; assemble until a line ends with `;`.
-    records = {}
-    order = []
-    buf = []
-    for line in body.splitlines(keepends=True):
-        buf.append(line)
-        if line.rstrip().endswith(";"):
-            joined = "".join(buf).strip()
-            match = _STEP_RECORD_RE.match(joined)
-            if match:
-                eid = int(match.group(1))
-                records[eid] = match.group(2)
-                order.append(eid)
-            buf = []
-    if not records:
+    # ONE SWEEP over the body does both jobs, and doing them in one is the difference between
+    # this pass costing what the file costs and costing what the styling costs. It locates
+    # every record, and it counts how many times each id is referenced by something that is
+    # not that record's own definition. The two are told apart by the character in front of
+    # the match: a definition is the only `#` that opens a line, because OCCT indents every
+    # continuation. COUNTS, NOT REFERRER LISTS — a list per record is several million tuples
+    # built to answer a question about two thousand of them.
+    starts = []
+    ref_count = defaultdict(int)
+    for match in _STEP_REF_RE.finditer(body):
+        at = match.start()
+        if (at == 0 or body[at - 1] == "\n") and body[match.end() : match.end() + 2].lstrip()[:1] == "=":
+            starts.append((int(match.group(1)), at))
+        else:
+            ref_count[int(match.group(1))] += 1
+    if not starts:
         return None
 
-    # Recursion is bounded by entity-graph depth; raise the limit just for
-    # the forward-hash walk and restore on the way out.
-    prev_limit = sys.getrecursionlimit()
-    sys.setrecursionlimit(max(prev_limit, len(records) + 1000))
+    span = {}
+    orig_pos = {}
+    for i, (eid, at) in enumerate(starts):
+        span[eid] = (at, starts[i + 1][1] if i + 1 < len(starts) else len(body))
+        orig_pos[eid] = i
+
+    rhs_cache = {}
+
+    def _rhs(eid):
+        """The record's right-hand side, sliced out of the body the first time it is asked
+        for. Most records are never asked for."""
+        cached = rhs_cache.get(eid)
+        if cached is None:
+            at, end = span[eid]
+            match = _STEP_RECORD_RE.match(body[at:end].strip())
+            if match is None:
+                raise _StepParseError
+            cached = match.group(2)
+            rhs_cache[eid] = cached
+        return cached
+
     try:
-        fwd_hash = {}
-        in_progress = set()
+        # The peel: a record joins the styling set only when every reference to it has come
+        # from inside the set. `remaining` counts the references still outstanding, so a
+        # record becomes admissible exactly when its count reaches zero, and the solid a
+        # STYLED_ITEM colours never does — the shape representation holds one of its
+        # references and that one is never spent. Nothing outside the set can point into it,
+        # which is the precondition for renumbering the set alone, and it holds by
+        # construction rather than by inspection.
+        remaining = dict(ref_count)
+        queue = []
+        for eid, _ in starts:
+            if ref_count.get(eid):
+                continue                 # a root is what nothing points at
+            match = _STEP_TYPE_RE.match(_rhs(eid))
+            if match and match.group(1).startswith(_STEP_PRESENTATION_ROOTS):
+                queue.append(eid)
 
-        def _fwd(eid):
-            cached = fwd_hash.get(eid)
-            if cached is not None:
-                return cached
-            if eid not in records:
-                # External ref (shouldn't happen in well-formed STEP, but
-                # we tolerate it by treating the id as an opaque token).
-                return "EXT%d" % eid
-            if eid in in_progress:
-                # Cycles aren't expected in STEP, but break safely.
-                return "CYC%d" % eid
-            in_progress.add(eid)
-            normalized = _STEP_REF_RE.sub(
-                lambda m: "<%s>" % _fwd(int(m.group(1))),
-                records[eid],
-            )
-            h = hashlib.sha256(normalized.encode("utf-8")).hexdigest()
-            in_progress.discard(eid)
-            fwd_hash[eid] = h
-            return h
+        styling = set()
+        refs_all = {}
+        while queue:
+            eid = queue.pop()
+            if eid in styling:
+                continue
+            styling.add(eid)
+            outgoing = [int(m.group(1)) for m in _STEP_REF_RE.finditer(_rhs(eid))]
+            refs_all[eid] = outgoing
+            for target in outgoing:
+                if target not in span:
+                    continue
+                remaining[target] = remaining.get(target, 0) - 1
+                if remaining[target] == 0:
+                    queue.append(target)
+        if not styling:
+            return None
 
-        for eid in records:
-            _fwd(eid)
-    finally:
-        sys.setrecursionlimit(prev_limit)
+        # THE INVARIANT THE NARROWING RESTS ON, checked on every file rather than argued once
+        # on one: every reference to a styling record comes from a styling record. The peel's
+        # admission rule already implies it, so a mismatch here means the sweep miscounted —
+        # a `#` inside a string literal read as a reference, or a continuation line that
+        # opened with one — and not that the file is unusual. The file is then left exactly as
+        # OCCT wrote it, which costs determinism and says so, rather than shuffling the
+        # colours of a solid that would still open fine.
+        inbound = Counter()
+        for eid in styling:
+            for target in refs_all[eid]:
+                if target in styling:
+                    inbound[target] += 1
+        for eid in styling:
+            if inbound[eid] != ref_count.get(eid, 0):
+                return None
 
-    # Build (target -> [(referrer, arg_position)]) so we can capture the
-    # upstream pattern that distinguishes structurally-identical entities
-    # plugged into structurally-different sites in the graph.
-    referrers = defaultdict(list)
-    refs_of = {}
-    for eid, rhs in records.items():
-        outgoing = []
-        for arg_pos, match in enumerate(_STEP_REF_RE.finditer(rhs)):
-            target = int(match.group(1))
-            if target in records:
-                referrers[target].append((eid, arg_pos))
-                outgoing.append(target)
-        refs_of[eid] = outgoing
+        # Forward hash over the styling records alone. A reference OUT of the set — the solid
+        # a STYLED_ITEM colours — is hashed as the id itself, because those ids do not move
+        # between runs; that makes a chain's hash carry the identity of the body it decorates,
+        # which is what tells two chains apart when they carry the same colour.
+        prev_limit = sys.getrecursionlimit()
+        sys.setrecursionlimit(max(prev_limit, len(styling) + 1000))
+        try:
+            fwd_hash = {}
+            in_progress = set()
 
-    # Iteratively refine: each round, an entity's rev hash mixes in the
-    # rev hashes of who references it. After enough rounds the rev hash
-    # captures the entire upstream subgraph signature.
-    #
-    # An entity is recomputed in a round only when one of ITS referrers moved in
-    # the round before, since nothing else can change what it hashes; and the
-    # entities a moved one refers to are exactly the ones to look at next. A
-    # round reads only the previous round's hashes and writes after it closes,
-    # so the sequence of rounds is the one a full sweep produces.
-    #
-    # Two populations never need the sort: an entity nothing refers to has a
-    # constant signature and is taken once, before the rounds; an entity one
-    # thing refers to has a one-element list, which is already in order. They
-    # are 93% of the file.
-    no_ref, one_ref, many_ref = [], {}, {}
-    for eid in records:
-        refs = referrers.get(eid)
-        if not refs:
-            no_ref.append(eid)
-        elif len(refs) == 1:
-            one_ref[eid] = refs[0]
-        else:
-            many_ref[eid] = refs
+            def _fwd(eid):
+                cached = fwd_hash.get(eid)
+                if cached is not None:
+                    return cached
+                if eid in in_progress:
+                    return "CYC%d" % eid  # cycles aren't expected in STEP, but break safely
+                in_progress.add(eid)
+                normalized = _STEP_REF_RE.sub(
+                    lambda m: "<%s>" % (
+                        _fwd(int(m.group(1))) if int(m.group(1)) in styling
+                        else "#%s" % m.group(1)
+                    ),
+                    _rhs(eid),
+                )
+                digest = hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+                in_progress.discard(eid)
+                fwd_hash[eid] = digest
+                return digest
 
-    rev_hash = dict(fwd_hash)
-    for eid in no_ref:
-        rev_hash[eid] = hashlib.sha256(
-            (fwd_hash[eid] + "|[]").encode("utf-8")
-        ).hexdigest()
+            for eid in styling:
+                _fwd(eid)
+        finally:
+            sys.setrecursionlimit(prev_limit)
 
-    # A ROUND ONLY EVER TELLS ENTITIES APART, so an entity whose forward hash is shared by no
-    # other is already as far apart as it can get and its name is settled before the first
-    # round. Two thirds of this file is the other kind — interchangeable points and directions
-    # that carry the same hash by the thousand and are told apart only by what points at them.
-    # The rounds carry those.
-    _fwd_count = Counter(fwd_hash[eid] for eid in records)
-    settled = {eid for eid in records if _fwd_count[fwd_hash[eid]] == 1}
+        # Iteratively refine: each round, a record's rev hash mixes in the rev hashes of who
+        # references it, so after enough rounds it carries its whole upstream signature. Every
+        # referrer of a styling record is itself styling — that is what the peel established —
+        # so these rounds never read outside the set.
+        referrers = defaultdict(list)
+        for eid in styling:
+            for arg_pos, target in enumerate(refs_all[eid]):
+                if target in styling:
+                    referrers[target].append((eid, arg_pos))
 
-    stale = (set(one_ref) | set(many_ref)) - settled
-    for _ in range(_STEP_REV_HASH_ITERATIONS):
-        moved = {}
-        for eid in stale:
-            solo = one_ref.get(eid)
-            if solo is not None:
-                ref_eid, arg_pos = solo
-                sig_text = "[('%s', %d)]" % (rev_hash[ref_eid], arg_pos)
+        no_ref, one_ref, many_ref = [], {}, {}
+        for eid in styling:
+            refs = referrers.get(eid)
+            if not refs:
+                no_ref.append(eid)
+            elif len(refs) == 1:
+                one_ref[eid] = refs[0]
             else:
-                sig_text = str(sorted(
-                    (rev_hash[ref_eid], arg_pos)
-                    for ref_eid, arg_pos in many_ref[eid]
-                ))
-            h = hashlib.sha256(
-                (fwd_hash[eid] + "|" + sig_text).encode("utf-8")
+                many_ref[eid] = refs
+
+        rev_hash = dict(fwd_hash)
+        for eid in no_ref:
+            rev_hash[eid] = hashlib.sha256(
+                (fwd_hash[eid] + "|[]").encode("utf-8")
             ).hexdigest()
-            if h != rev_hash[eid]:
-                moved[eid] = h
-        if not moved:
-            break
-        rev_hash.update(moved)
-        stale = set()
-        for eid in moved:
-            stale.update(r for r in refs_of[eid] if r not in settled)
 
-    # Stable canonical order: by rev hash, with original position as a
-    # final tiebreaker for the (rare) cases where two entities are truly
-    # indistinguishable in the graph.
-    orig_pos = {eid: i for i, eid in enumerate(order)}
-    sorted_ids = sorted(records, key=lambda e: (rev_hash[e], orig_pos[e]))
-    new_id = {old: i + 1 for i, old in enumerate(sorted_ids)}
+        # A ROUND ONLY EVER TELLS RECORDS APART, so one whose forward hash is shared by no
+        # other is already as far apart as it can get and is settled before the first round.
+        fwd_count = Counter(fwd_hash[eid] for eid in styling)
+        settled = {eid for eid in styling if fwd_count[fwd_hash[eid]] == 1}
 
-    out = [header]
-    for canonical_id, old_id in enumerate(sorted_ids, start=1):
-        rhs = records[old_id]
-        new_rhs = _STEP_REF_RE.sub(
-            lambda m: "#%d" % new_id[int(m.group(1))]
-            if int(m.group(1)) in new_id
-            else m.group(0),
-            rhs,
-        )
-        out.append("#%d = %s;\n" % (canonical_id, new_rhs))
-    out.append(footer)
-    return "".join(out)
+        stale = (set(one_ref) | set(many_ref)) - settled
+        for _ in range(_STEP_REV_HASH_ITERATIONS):
+            moved = {}
+            for eid in stale:
+                solo = one_ref.get(eid)
+                if solo is not None:
+                    ref_eid, arg_pos = solo
+                    sig_text = "[('%s', %d)]" % (rev_hash[ref_eid], arg_pos)
+                else:
+                    sig_text = str(sorted(
+                        (rev_hash[ref_eid], arg_pos)
+                        for ref_eid, arg_pos in many_ref[eid]
+                    ))
+                digest = hashlib.sha256(
+                    (fwd_hash[eid] + "|" + sig_text).encode("utf-8")
+                ).hexdigest()
+                if digest != rev_hash[eid]:
+                    moved[eid] = digest
+            if not moved:
+                break
+            rev_hash.update(moved)
+            stale = set()
+            for eid in moved:
+                stale.update(
+                    r for r in refs_all[eid] if r in styling and r not in settled
+                )
+
+        # The styling records go back into the id slots they already occupy, in canonical
+        # order. The slots are the same set every run — it is which chain lands in which that
+        # moves — so sorting the records against the sorted slots pins each chain to one name.
+        # Original position breaks the tie for records the graph cannot tell apart.
+        seating = dict(zip(
+            sorted(styling, key=lambda e: (rev_hash[e], orig_pos[e])),
+            sorted(styling),
+        ))
+        reseated = {}
+        for old, slot in seating.items():
+            reseated[slot] = _STEP_REF_RE.sub(
+                lambda m: "#%d" % seating[int(m.group(1))]
+                if int(m.group(1)) in seating
+                else m.group(0),
+                _rhs(old),
+            )
+
+        # Only the styling spans are rewritten. Every other byte of the body is the one OCCT
+        # wrote, which is why this costs the styling and not the file.
+        pieces = []
+        cut = 0
+        for eid in sorted(styling, key=lambda e: span[e][0]):
+            at, end = span[eid]
+            pieces.append(body[cut:at])
+            pieces.append("#%d = %s;\n" % (eid, reseated[eid]))
+            cut = end
+        pieces.append(body[cut:])
+    except _StepParseError:
+        return None
+
+    return header + "".join(pieces) + text[data_end:]
 
 
 def _canonicalize_step(step_path):
@@ -807,8 +903,9 @@ def export_step(model, target_path):
 #: `_per_solid_color` mints. `bodyName` in web/public/js/viewer/step.js strips it
 #: back off, so the index reaches the STEP and never reaches a reader.
 #:
-#: `_canonicalize_step_entity_ids` above rewrites every `#<digits>` in a record as
-#: an entity reference, string literals included.
+#: `_canonicalize_step_entity_ids` above rewrites `#<digits>` as an entity reference,
+#: string literals included, in the styling records and only those. The names minted here
+#: reach PRODUCT, which it leaves as written.
 SOLID_INDEX_SEP = "/"
 
 
