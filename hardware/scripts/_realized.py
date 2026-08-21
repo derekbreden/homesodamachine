@@ -44,6 +44,8 @@ always safe.
 
 import ast
 import hashlib
+import re
+import shutil
 import importlib.util
 import io
 import json
@@ -59,6 +61,42 @@ DISABLED = bool(os.environ.get("HSM_NO_REALIZED_CACHE"))
 
 _SOURCES: dict = {}
 _TOOLCHAIN: str | None = None
+
+
+def generation() -> Path:
+    """Where this kernel's entries live: one directory per toolchain under the store.
+
+    AN ENTRY OUTLIVES THE KERNEL THAT WROTE IT AND CANNOT BE READ AGAIN. `key` names the
+    toolchain, so every entry here is unreachable the moment a version moves — not replaced,
+    stranded, because the new key is a new name and nothing collides with the old one. A flat
+    store cannot tell a live entry from a stranded one: the name is a hash and holds nothing
+    to sort by. A directory per toolchain is what makes the dead generation nameable, and
+    `sweep` is what removes it.
+
+    The cost of not doing this is a copy of the whole store per kernel: 793 MB across 1,682
+    entries as it stands, beside `.cache/meshes`, which forks only for the shapes a kernel
+    actually draws differently while this one forks for all of them."""
+    return _DIR / re.sub(r"[^A-Za-z0-9._-]+", "-", toolchain())
+
+
+def sweep() -> tuple[int, int]:
+    """Drop every generation but this kernel's; answer what went, in entries and bytes.
+
+    SAFE AT ANY MOMENT AND FROM ANYWHERE. What it removes is unreadable by construction — a
+    key naming another toolchain is a key nothing running will ask for — and a miss costs
+    exactly what the build always cost. A run reading the current generation while this walks
+    the others touches nothing it holds."""
+    gone = held = 0
+    keep = generation()
+    for child in _DIR.iterdir() if _DIR.is_dir() else ():
+        if child == keep:
+            continue
+        for f in child.rglob("*") if child.is_dir() else (child,):
+            if f.is_file():
+                gone += 1
+                held += f.stat().st_size
+        shutil.rmtree(child, ignore_errors=True) if child.is_dir() else child.unlink()
+    return gone, held
 
 
 def toolchain() -> str:
@@ -262,7 +300,7 @@ def realized(name: str, build):
         BRepTools.Read_s(shape, text, builder)
         return cq.Workplane(obj=cq.Shape.cast(shape))
 
-    path = _DIR / f"{name}.brep"
+    path = generation() / f"{name}.brep"
     if not DISABLED and path.is_file():
         try:
             return off_brep(io.BytesIO(path.read_bytes()))
@@ -274,7 +312,7 @@ def realized(name: str, build):
     BRepTools.Write_s(solid.wrapped, text)
     if not DISABLED:
         try:
-            _DIR.mkdir(parents=True, exist_ok=True)
+            path.parent.mkdir(parents=True, exist_ok=True)
             tmp = path.with_suffix(f".{os.getpid()}.tmp")
             tmp.write_bytes(text.getvalue())
             os.replace(tmp, path)                # a reader never sees a half-written entry
@@ -334,6 +372,22 @@ def selftest():
                                  "upgrade would be served the old kernel's geometry")
         yield f"a kernel this tree does not run does not share its key ({toolchain()})"
 
+        # A GENERATION NOTHING CAN READ IS ONE `sweep` REMOVES, and the live one is what it
+        # must not. Both halves, because a sweep that takes everything passes the first.
+        stranded = _DIR / "cadquery-0-cadquery-ocp-0"
+        stranded.mkdir(parents=True, exist_ok=True)
+        (stranded / "old.brep").write_bytes(b"x" * 64)
+        live = generation() / f"{k}.brep"
+        if not live.exists():
+            raise AssertionError("the kept entry is not under this kernel's generation — "
+                                 "`realized` and `generation` disagree about where entries go")
+        gone, freed = sweep()
+        if stranded.exists():
+            raise AssertionError("a generation this kernel cannot read survived the sweep")
+        if not live.exists():
+            raise AssertionError("the sweep took the generation this kernel is reading")
+        yield f"a sweep drops the stranded generation and keeps the live one ({gone} entry, {freed} B)"
+
         # A module this one reads a constant through, and an edit to that constant's file.
         dep_dir = Path(tempfile.mkdtemp(prefix="hsm-realized-dep-", dir=_ROOT))
         try:
@@ -371,14 +425,16 @@ def selftest():
     finally:
         # The entries this run wrote go with the directory it wrote them to: a selftest cache is
         # one run's, and a machine that runs this often keeps one per run otherwise.
-        for f in _DIR.iterdir() if _DIR.is_dir() else ():
-            f.unlink()
-        if _DIR.is_dir():
-            _DIR.rmdir()
+        shutil.rmtree(_DIR, ignore_errors=True)
         _DIR = held
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "sweep":
+        n, b = sweep()
+        print(f"dropped {n} entr{'y' if n == 1 else 'ies'}, {b / 1e6:.1f} MB — "
+              f"kept {generation().name}")
+        sys.exit(0)
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         for line in selftest():
             print(" ", line)
