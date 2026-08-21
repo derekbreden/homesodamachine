@@ -73,6 +73,13 @@ jobs:
     # keeps working whichever way that setting goes.
     container:
       image: ghcr.io/derekbreden/homesodamachine-cad:latest
+      # A CONTAINER'S /dev/shm IS 64 MB AND A CARD IS BIGGER THAN THAT. The tools deck captures
+      # 3300x2550 at dpr 1.2 — 12.1 MP, ~48 MB raw before compositing — and Chrome puts its
+      # frames in shared memory. At the default size it falls back to `/tmp`, which here is the
+      # overlay filesystem, so the capture becomes disk I/O and the page stops answering.
+      # The decks that fail are the big ones and only the big ones: main captures 2.2 MP and
+      # renders all 103, the manual's cover 6.1 MP and the tools deck 12.1 MP both time out.
+      options: --shm-size=2g
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
@@ -174,19 +181,11 @@ jobs:
         # invocation never sees — it analysed an empty one and answered "not up to date",
         # which is the carry refusing on a build that had in fact just run. The two have to
         # be the same bazel or the guard reads the wrong tree.
-        # `--jobs 2` BECAUSE BAZEL COUNTS ACTIONS AND THESE ACTIONS ARE NOT ONE PROCESS EACH.
-        # A card deck, a scene render and a thumbnail each start their own Chrome, and a
-        # generator starts its own OCC; bazel schedules four of those onto a four-core runner
-        # and calls it four jobs. `bs-band-saw.html` renders in 4.5 s alone on a Mac and timed
-        # out past 240 s here in three runs running, always that card, while `//:tools-build`
-        # showed `270s ... (4 actions running)` beside `//:render-scenes` and four thumbnail
-        # draws. It is not the card: its three images are 480x320, and a neighbour with seven
-        # of them renders fine.
-        #
-        # AND FEWER IS FASTER FOR THIS GRAPH, WHICH IS WHY THIS IS NOT A TRADE. The same 23
-        # pictures took 56 s as one invocation against 108 s as two in parallel — 1.9x worse
-        # on eight cores, and a four-core runner is further past that line, not nearer it.
-        run: bazel build --keep_going --jobs 2 --disk_cache="$HOME/.cache/bazel-disk" //:everything
+        # NOT `--jobs`. Capping parallelism was measured and did not move this: `//:tools-build`
+        # took 270 s and 1926 s at four concurrent actions and 1905 s at two, and at two the
+        # failure SPREAD to a second card and to the manual's cover. What decides it is the size
+        # of the capture, not how many run at once, which is what `--shm-size` above addresses.
+        run: bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
 
       # BAZEL CUTS INTO `bazel-bin` AND THIS REPO COMMITS ITS TREE, and `sync_tree.py` is the
       # only thing that carries one to the other — `hardware/README.md` names it as the step
