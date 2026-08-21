@@ -104,6 +104,17 @@ jobs:
           node web/scripts/fetch-cad-artifacts.mjs
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
+      # `//:cards-build` DRIVES A REAL CHROME. `tools/render/browser.js` imports puppeteer, so
+      # the card deck needs `tools/render/node_modules` and the Chromium puppeteer downloads on
+      # install — neither in the tree, both assumed present by every local build. This is the
+      # second thing a clean checkout turned out to need that no machine holding it can notice.
+      - name: Time the card renderer toolchain
+        id: cards
+        run: |
+          start=$(date +%s)
+          npm --prefix tools/render ci
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+
       # `.bazelrc.paths` carries this checkout's absolute paths and no other's, so a fresh
       # clone builds nothing until gen_build.py writes one. On a runner that is every run.
       - name: Time gen_build
@@ -117,6 +128,11 @@ jobs:
       # THE NUMBER. No bazel cache, no .cache/realized — the figure to hold against the local
       # cold 269 s, and what a runner without a persistent disk pays EVERY run.
       #
+      # `--keep_going` BECAUSE THE CARD DECK IS A STANDING RED. Bazel's default is to stop the
+      # build at the first failed action, which truncates the elapsed figure at whatever the
+      # deck happened to fail at and measures nothing. Keeping going times the whole graph and
+      # still returns non-zero, which the verdict step below reads.
+      #
       # A TIMING STEP MUST NOT REPORT GREEN ON A BUILD THAT FAILED. The exit code is captured
       # so the elapsed figure survives a failure, and carried to the verdict step, which fails
       # the job. Run 32439389331 passed two lanes on a build that never started; that is what
@@ -125,7 +141,7 @@ jobs:
         id: build
         run: |
           start=$(date +%s)
-          set +e; bazel build //:everything 2>&1 | tail -40; code=${PIPESTATUS[0]}; set -e
+          set +e; bazel build --keep_going //:everything 2>&1 | tail -40; code=${PIPESTATUS[0]}; set -e
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
           echo "exit=$code" >> "$GITHUB_OUTPUT"
 
@@ -136,7 +152,7 @@ jobs:
         if: always()
         run: |
           start=$(date +%s)
-          set +e; bazel build //:everything 2>&1 | tail -8; set -e
+          set +e; bazel build --keep_going //:everything 2>&1 | tail -8; set -e
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
       - name: Cache sizes the warm lane would have to carry
@@ -153,6 +169,7 @@ jobs:
             echo "|---|---:|"
             echo "| system toolchain (blender) | ${{ steps.sys.outputs.seconds }} |"
             echo "| CadQuery install (${{ steps.pip.outputs.venv }}) | ${{ steps.pip.outputs.seconds }} |"
+            echo "| card renderer (puppeteer + chromium) | ${{ steps.cards.outputs.seconds }} |"
             echo "| locked-solid fetch | ${{ steps.fetch.outputs.seconds }} |"
             echo "| gen_build | ${{ steps.gen.outputs.seconds }} |"
             echo "| **cold \`//:everything\`** | **${{ steps.build.outputs.seconds }}** |"
