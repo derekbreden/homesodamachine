@@ -1,0 +1,144 @@
+# WHICH CLOUD RUNNER CUTS THIS GEOMETRY FASTEST, measured rather than reasoned about.
+#
+# A local cold `bazel build //:everything` is 269 s wall, 259 s critical path — 96% of the
+# build is ONE SERIAL CHAIN. So a runner with more cores is not a faster runner here; the
+# only two things that move the number are single-core speed and whether the caches are warm.
+# This workflow measures the first and holds the second at zero, so the lanes are comparable.
+#
+# IT IS `workflow_dispatch` ON PURPOSE. It is an instrument, not a gate — nothing should be
+# waiting on it, and it should not fire on every push while we are still choosing a lane.
+#
+# WHY THESE THREE LANES AND NOT MORE. `tools/cad-requirements.txt` pins cadquery-ocp
+# 7.8.1.1.post1 and cadquery-vtk 9.3.1, and at those versions the cp313 wheels published are
+# macosx_11_0_arm64, macosx_11_0_x86_64, manylinux_2_31_x86_64 and win_amd64. There is no
+# linux aarch64 wheel, so `ubuntu-24.04-arm` — free, 4 vCPU, 16 GB — cannot install this
+# toolchain at all. It is absent because it is impossible, not because it was not considered.
+#
+# The repo is public, so every label below is a standard GitHub-hosted runner and free and
+# unlimited. Larger runners are not an option (they need Team or Enterprise Cloud) and would
+# buy the 4% of the build that is not critical path.
+
+name: cad-runner-bench
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bench:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Apple Silicon. The platform the build is already written for: `.bazelrc` mounts
+          # /opt/homebrew, the sandbox is darwin-sandbox, the wheels are macosx_11_0_arm64.
+          - runner: macos-latest
+            label: macos-arm64-m1
+          # Same OS, other silicon. Isolates "M1 vs x86" with everything else held still.
+          - runner: macos-15-intel
+            label: macos-x64-intel
+          # The free 4 vCPU / 16 GB Linux lane. Needs an empty /opt/homebrew to satisfy the
+          # mount pair in `.bazelrc`; blender and node come from the image or apt.
+          - runner: ubuntu-latest
+            label: ubuntu-x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report the silicon
+        run: |
+          echo "::group::cpu"
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize
+          else
+            grep -m1 'model name' /proc/cpuinfo || true
+            nproc; free -g | head -2
+          fi
+          echo "::endgroup::"
+
+      # THE SANDBOX MOUNT PAIR IS THE ONLY THING THAT IS NOT PORTABLE. `.bazelrc` names
+      # /opt/homebrew so an action can reach the brew prefix, and bazel refuses a mount pair
+      # whose source is absent. An empty directory satisfies it; blender resolves from
+      # /usr/bin, which that same PATH already carries.
+      - name: Satisfy the brew mount pair (Linux)
+        if: runner.os == 'Linux'
+        run: sudo mkdir -p /opt/homebrew/bin
+
+      - name: Time the system toolchain
+        id: sys
+        run: |
+          start=$(date +%s)
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            brew install --cask blender || brew install --cask --force blender
+          else
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq blender
+          fi
+          command -v blender || ls -d /Applications/Blender.app 2>/dev/null
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Time the CadQuery install
+        id: pip
+        run: |
+          start=$(date +%s)
+          python -m venv tools/cad-venv
+          tools/cad-venv/bin/pip install -q --upgrade pip
+          tools/cad-venv/bin/pip install -q -r tools/cad-requirements.txt
+          tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+          du -sh tools/cad-venv
+
+      # `.bazelrc.paths` carries this checkout's absolute paths and no other's, so a fresh
+      # clone builds nothing until gen_build.py writes one. On a runner that is every run.
+      - name: Time gen_build
+        id: gen
+        run: |
+          start=$(date +%s)
+          tools/cad-venv/bin/python tools/bazel/gen_build.py
+          cat .bazelrc.paths
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+
+      # THE NUMBER. No bazel cache, no .cache/realized — this is the figure to hold against
+      # the local cold 269 s, and it is what a runner without a persistent disk pays EVERY run.
+      - name: Time a cold full build
+        id: build
+        run: |
+          start=$(date +%s)
+          bazel build //:everything 2>&1 | tail -40 || echo "BUILD FAILED — timing still valid"
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+
+      # What a runner WITH a persistent disk pays instead: the caches are on disk now, so a
+      # second build with nothing changed is the floor a sticky disk or actions/cache buys.
+      - name: Time a warm no-op build
+        id: warm
+        run: |
+          start=$(date +%s)
+          bazel build //:everything 2>&1 | tail -8 || true
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+
+      - name: Cache sizes the warm lane would have to carry
+        run: du -sh .cache/* 2>/dev/null || true
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### ${{ matrix.label }} (\`${{ matrix.runner }}\`)"
+            echo ""
+            echo "| step | seconds |"
+            echo "|---|---:|"
+            echo "| system toolchain (blender) | ${{ steps.sys.outputs.seconds }} |"
+            echo "| CadQuery install | ${{ steps.pip.outputs.seconds }} |"
+            echo "| gen_build | ${{ steps.gen.outputs.seconds }} |"
+            echo "| **cold \`//:everything\`** | **${{ steps.build.outputs.seconds }}** |"
+            echo "| warm no-op | ${{ steps.warm.outputs.seconds }} |"
+            echo ""
+            echo "Local reference: cold 269 s wall / 259 s critical path, 8-core Apple Silicon."
+          } >> "$GITHUB_STEP_SUMMARY"
