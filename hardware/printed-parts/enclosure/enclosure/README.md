@@ -260,6 +260,71 @@ whole way out — but the bearing face under it is flat and is the lowest thing 
 it is a soffit off the back wall and takes support, the way the tap-water trough on that same
 wall does.
 
+## The reeded skin
+
+Every standing wall is **fluted** — half-round grooves [4 mm](FLUTE_WIDTH) across and
+[1.2 mm](FLUTE_DEPTH) deep, the profile `cadlib/reeding.py` carries and
+[`../texture-corner/`](../texture-corner/) was printed on. That coupon is this box's own corner
+at this box's own `wall` and `corner_round`, so what printed there is what prints here, and
+neither can drift from the other while they read one function.
+
+**It is in the MESH and not in the solid**, and that is a decision rather than a shortcut. The
+fade is what makes the texture look made rather than applied, and the fade is a FIELD OVER THE
+SURFACE — how far a station stands from the nearest place the show face ends. A boundary
+representation can carry a fade that runs level, because a level fade is a loft; it cannot carry
+one that follows an opening's rim, a pocket's edge and the display facet's diagonal arris all at
+once. So the STEP is a plain box and [flute_skin.py](flute_skin.py) cuts the flutes into the
+mesh on the way to the bed. `tools/cad-artifacts/pack.py` carries these pieces' `.stl` in the
+release bundle for exactly this reason — everywhere else on the machine the STEP is the whole
+of the part, and here it is not.
+
+**Nothing tells it where an edge is.** At every station it asks the piece whether it has
+material AT the nominal plan — by level cut, not by naming features — and takes a distance
+transform of the answer. A flank opening, a port chip's seat, the nameplate's pocket, the bay's
+own mouth, the seam a piece simply ends on, the bed, the top arris and the facet's 45° arris are
+one fact to it, and every one of them gets the same ramp over [5 mm](FLUTE_RISE), on the same
+smoothstep the coupon fades on. There is no list of edges anywhere, because there is nothing to
+list.
+
+A rim that runs WITH the flutes is not one of them: a groove ending along its own length has
+nothing to stop. The Y seam is one, and so is every jamb.
+
+**The field closes on itself.** [260](FLUTE_COUNT) grooves go round [1333.4 mm](FLUTE_PERIM) of
+plan, struck by ARC LENGTH from a datum on the front wall's centreline — which is what carries a
+flute across a [12 mm](COLUMN_ARC) corner turn at exactly the spacing it keeps on the flat. No
+station restarts the array and no two arrays meet anywhere. The pitch is what that count lands
+on, [5.1285 mm](FLUTE_PITCH) against the coupon's [5 mm](COUPON_PITCH), and three bounds spend
+the choice:
+
+- **`flute-closes`** holds the pitch to the coupon's.
+- **`flute-hides-seam`** puts the **Y seam inside a groove** — the one straight line running the
+  full height of both side walls, landing [0.1 mm](FLUTE_SEAM_MISS) off a groove's centre, in
+  the shadow that is already there rather than on a land.
+- **`flute-clears-jamb`** is the opposite ask and the right one for the bay: its jamb and the
+  cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
+  nothing on the groove's floor, and a wedge that fine at a 0.42 mm bead prints ragged — on the
+  one line the user looks straight at.
+
+The datum is a groove centre on **x = 0**, the plane the whole machine is struck about, so the
+field is symmetric in x whatever its pitch.
+
+**Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
+profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
+`wall` is 1.74 mm of solid perimeter and a groove floor still has all four of them, with 0.06 mm
+to spare. Take more out of the far side and the two pairs of loops meet: the slicer stops laying
+four walls, and the change in what it lays under the groove reads THROUGH to the show face as a
+mark you can find with a fingertip. What a groove leaves is [1.8 mm](FLUTE_LEFT), and
+**`flute-backed`** reads every stated section on a fluted face against the rule — with two of
+them computed rather than typed, because the survey that measured this found them and the file
+had not stated them: `facet-arris-backed` for the ligament under the display facet's arris, and
+`east_boss_bore_end` for an insert bore behind a corner round, where the turn carries the
+surface inboard of the plane the bore was struck on.
+
+**It is free to print.** Every groove runs down the build axis, so its own side surfaces are
+drawn by the nozzle in XY, carry no layer quantisation at all, and hang over nothing. The ramps
+are `flute_depth` of relief over `flute_rise` of height — [19.8°](FLUTE_RAMP) off the wall at the
+smoothstep's steepest, against the 45° every relief on this box is struck at.
+
 ## Print orientation + corner relief
 
 Every piece prints on its **Z− face** — the bottom pieces floor-down on the
@@ -303,6 +368,23 @@ quadrant prints the two its own two exterior arrises stand behind.
 A wall's inner face is **flat only past that landing**, so anything BEARING on it answers to
 `enclosure.wall_flat_from_corner` rather than to the relief's own tangent — the C14 inlet's
 flange is the one that does.
+
+**Across the pump bay the turn is swung from the jamb** (`_column_fairing`), because there the
+two faces the arc has to land on are not the inner faces. The jamb stands one `post_along`
+inboard of the interior corner and the flank opening ends [12 mm](COLUMN_ALONG) aft of
+`front_plane_y`, and a turn swung from the corner reaches neither: it leaves a ledge of
+`post_along` less the radius standing on the front wall's inner face, runs sixty degrees of its
+own quarter, and is cut off by the flank's section — five surfaces and four creases across the
+one face a hand meets reaching into the bay. Swung from the jamb the same radius is **tangent at
+both ends**, and neither end is fitted: the lower lands on the front wall's inner plane and the
+upper on the flank opening's own end face, because the opening ends one radius aft of the front
+plane. The face is one surface, and the post reads round inside the way it reads round out.
+
+The disc's inboard extreme **is** `bay_x_span`, so the cartridge keeps its running fit at the
+single station the two touch and more of it at every other — the opening is never narrowed by
+this. Where the turn lands on the flank it leaves [5.676 mm](COLUMN_FACE_LAND) of section, which
+is the thinnest station on that face and has a flute on the other side of it
+(`column-face-backed`).
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
@@ -745,7 +827,7 @@ silhouette, so that corner is unpackable at any width — and the geometry gets
 simpler for it. There is no end wall closing a recess, no shoulder where a window
 stops, and no bed relief on the arris a shoulder would raise. The window's lateral
 size is the box's; `display_facet_x` is what the *glass plus its buffer* needs —
-[157.3 mm](DISPLAY_FACET_X) × [86.8 mm](DISPLAY_FACET_SLOPE) up the slope — which is
+[158 mm](DISPLAY_FACET_X) × [87.5 mm](DISPLAY_FACET_SLOPE) up the slope — which is
 what `main()` prints beside the measured face.
 
 The facet is thickened into a 19 mm housing (the display's overall depth) with

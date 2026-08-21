@@ -22,7 +22,7 @@ four to a plane. Each plane gets a panel: [2](PANEL_COUNT) per machine.
 | post over the mounting plane | [6](PANEL_POST) mm — the whole of what a socket can hold |
 | post in the plate | [6.000](PANEL_GRIP) mm, all of it |
 | air round the port | [1](PANEL_PORT_SLIP) mm, the box's own figure for air round a body |
-| socket to port channel | [1.115](PANEL_WEB) mm — **measured**, [139](PANEL_WEB_PCT)% of a [0.8](PANEL_EXTRUSION) mm bead |
+| socket to port channel | [1.115](PANEL_WEB) mm — **measured**, [265](PANEL_WEB_PCT)% of a [0.42](PANEL_EXTRUSION) mm bead |
 | material, both panels | [162.79](PANEL_VOL) cm³ of `enclosure-front-top` |
 
 ## What holds a valve
@@ -57,9 +57,9 @@ where they pass each other is the thinnest material in the plate: [1.115](PANEL_
 above the socket's own top, so arithmetic answers for a cylinder that is not there.
 
 **Read that against the nozzle, not against zero.** These plates are `enclosure-front-top`'s
-material, so they come off the enclosure exterior's own bead of [0.8](PANEL_EXTRUSION) mm
+material, so they come off the enclosure exterior's own bead of [0.42](PANEL_EXTRUSION) mm
 ([`enclosure/print-log.md`](/hardware/printed-parts/enclosure/enclosure/print-log.md)), and the
-web is [139](PANEL_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is
+web is [265](PANEL_WEB_PCT)% of one. A wall thinner than a bead is not a thin wall, it is
 absent, and a solid states material at any width — so `panel-web` is the one check on this
 plate that reads what the machine can lay rather than what the model draws.
 
@@ -95,7 +95,7 @@ row).
 1. **`panel-web` is the only bound on this plate that reads what a nozzle can lay.** Everything
    else about it — the sockets' clearance, the channel's floor, the seats' pitch, the margin past
    the last seat — is read against a solid, and a solid states material at any width. The plate
-   comes off one [0.8](PANEL_EXTRUSION) mm bead, so a feature the model draws thinner than one
+   comes off one [0.42](PANEL_EXTRUSION) mm bead, so a feature the model draws thinner than one
    reads green in every check but that one. `EXTRUSION_W` is named once in the whole tree.
 
 ## Files

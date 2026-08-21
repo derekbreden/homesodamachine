@@ -1,0 +1,3 @@
+# The pieces themselves arrive in the release asset the artifact lock names; the meshes a
+# slicer reads are drawn from them on demand and are large.
+*.stl

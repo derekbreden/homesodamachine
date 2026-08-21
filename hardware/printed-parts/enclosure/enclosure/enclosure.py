@@ -115,6 +115,7 @@ seams intact (mirrors `touch_flo_shell.py`). All five come through the same
 code from a `Box`.
 """
 
+import functools
 import math
 import sys
 from collections import namedtuple
@@ -130,6 +131,7 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
@@ -141,6 +143,9 @@ from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _realized
+import reeding
+import trimesh
+import flute_skin as _flute_skin
 import hopper_funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
@@ -189,6 +194,108 @@ column_round = corner_round
 # The corners that carry one, as the (x, y) signs of the interior corner each stands in.
 column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 
+# --- the reeded skin --------------------------------------------------------
+#
+# THE FOUR STANDING WALLS ARE FLUTED, and it is ONE field, not four. Half-round grooves are
+# struck by ARC LENGTH round the whole outer plan from a datum on the front wall's centreline,
+# and arc length is what makes them one field: it does not know where a face ends, so a flute
+# crosses `corner_round`'s quarter turn at exactly the spacing it keeps on the flat, and the
+# four pieces cut their own z bands out of the same plan — which is why the grooves register
+# across the Z seam without either piece being told the other exists.
+#
+# THE PROFILE IS `reeding.groove`, shared with `../texture-corner/`. That coupon is the box's
+# own corner at the box's own `wall` and `corner_round`, so what printed there is what prints
+# here, and neither can drift from the other while they read one function.
+#
+# THE FIELD CLOSES ON ITSELF. `flute_count` is a whole number of grooves round the whole
+# perimeter, so no station restarts the array and no two arrays meet anywhere — but which
+# whole number is not free, because the pitch is what it lands on and WHERE THE FIELD LANDS
+# DECIDES WHAT THE BOX'S OWN LINES ARE MADE OF. Three bounds spend it:
+#
+#   `flute-closes`       the pitch stays within a hair of the coupon's
+#   `flute-hides-seam`   the Y seam — the one straight line running the full height of both
+#                        side walls — falls in a groove's own shadow rather than on a land
+#   `flute-clears-jamb`  the bay's jamb and the cartridge edge inside it fall on a LAND, which
+#                        is the opposite ask and the right one for them: a rim that lands in a
+#                        groove is an arris tapering to nothing on the groove's floor, and a
+#                        wedge that fine at a 0.42 mm bead prints ragged on the one line the
+#                        user looks straight at
+#
+# AND THE FIELD IS SYMMETRIC IN X, because the datum is a groove centre on x = 0, the plane
+# the whole machine is struck about. Whatever `flute_count` is, the half-perimeter carries
+# the same grooves the other way round.
+flute_count = 260
+# THE DEPTH IS THE COUPON'S. `../texture-corner/` cut this into a `wall`-thick standing wall
+# and printed it; going deeper is a new question, not a free one.
+flute_depth = 1.2
+# THE SOLID A FLUTE MUST HAVE BEHIND IT — the whole `wall`, not what is left after something
+# else has taken its share. A groove cut where less than this stands behind it telegraphs
+# through to the show face; the coupon proved it on the 0.6 mm its engraved label took out of
+# the far side, which read on the outside as a mark you could find. So nothing may relieve
+# into the outermost `flute_backing` of a fluted face, and `flute-backed` reads every stated
+# section on those faces against it.
+flute_backing = wall
+# How many stations the groove's own curve is drawn through, half-width to half-width. The
+# spline through them measures 1.1986 of the stated 1.2 at its deepest, which is a hundredth
+# of the 0.42 mm the nozzle draws.
+flute_samples = 13
+# THE FIELD STOPS SHORT OF AN EDGE, and this is how far short — `../texture-corner/`'s own
+# `texture_rise`, ramped on the same smoothstep, so the box stops its flutes the way the
+# coupon stopped its. WHICH edges is not a list: `flute_skin.py` measures, over the whole
+# surface at once, how far every station stands from the nearest place the show face ends,
+# and ramps on that. A seam, an opening's rim, a pocket's edge and the facet's own diagonal
+# arris are the same fact to it, which is why none of them is named anywhere.
+flute_rise = 5.0
+# Stations the ramp is drawn through, and the loft between them is RULED — a straight taper
+# from each station to the next, which is the only kind of loft a 2 * `flute_count`-edge
+# section survives being booleaned against afterwards. So the smoothstep is a polyline, and
+# what matters is how far that polyline departs from the curve: at `flute_depth` over
+# `flute_rise` the worst gap is about 0.9 / steps^2 mm, which at four steps is 56 microns and
+# reads across a room as bands. Twelve is 6 microns — a seventieth of the bead the wall is
+# drawn with — and the kink between two facets is 6.8°, against the 60° the groove's own arc
+# turns through. Past that the sections cost more than anything they buy: the skin is
+# 2 * `flute_count` edges and every station is that many ruled faces again.
+flute_fade_steps = 12
+# How far the pitch `flute_count` lands on may sit from the coupon's, and how far off a
+# groove's centre the Y seam may fall. Both are what picks one count out of the several that
+# close near 5 mm; `flute-closes` and `flute-hides-seam` are where they are read.
+flute_pitch_drift = 0.15
+flute_seam_miss = 0.5
+
+
+def flute_backed_sections():
+    """Every stated section a FLUTED face stands on, as (what, mm) — what a groove is cut into,
+    read by `flute-backed` against `flute_backing`.
+
+    A SURVEY IS NOT A GATE. Every one of these was measured on the built solids, by ray sweep
+    and again by boolean, and measuring is also what found the three the file did not state:
+    the front face under the display facet's arris, the east bosses' bores where the corner
+    round carries the surface inboard, and a port pocket running off that same tangent. The
+    first two became figures of their own — `facet-arris-backed` and `east_boss_bore_end` —
+    because they are computed rather than typed. This is the rest, stated so that a section
+    thinned in the file goes red here instead of on the next print."""
+    return (
+        ("a seam lane, where the mating lip owns the inboard section", wall),
+        ("front-top's own ±X flank", front_top_flank_t),
+        # AND THE SAME FLANK WHERE THE CORNER'S FAIRING TAKES IT BACK — the turn is swung from
+        # the jamb over the cartridge's storey, so what stands behind the face there is the post
+        # less the radius, and it is not `front_top_flank_t`. `column-face-backed` reads the
+        # fairing's own geometry; this is the row that keeps the list honest about it.
+        ("front-top's ±X flank at the corner fairing",
+         wall + post_along - column_round),
+        ("back-top's own ±X flank", back_top_flank_t),
+        ("back-top's own +Y wall", back_top_wall_t),
+        ("a bottom piece's lipped side, the lip's skin carried to the slab", 2.0 * wall),
+        ("the front wall", front_wall),
+        ("the back wall inside a stated relief", wall),
+        ("behind a Wago well, which bottoms on `interior_x`", wall),
+        ("front-top's collet-plate lift lane", wall),
+        ("the cartridge's face over a pump's own relief",
+         pump_relief_floor - (front_plane_y - front_wall)),
+        ("the front face under the display facet's arris",
+         display_facet_buffer * math.sqrt(2.0)),
+    )
+
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
@@ -206,7 +313,7 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # arris a shoulder would raise. The window's lateral size is therefore the box's,
 # not a parameter; `display_facet_x` is the display FEATURE's own footprint — the
 # inset the cover plate fills plus a buffer all around,
-# [157.3 mm](DISPLAY_FACET_X) × [86.8 mm](DISPLAY_FACET_SLOPE) up the slope — which is
+# [158 mm](DISPLAY_FACET_X) × [87.5 mm](DISPLAY_FACET_SLOPE) up the slope — which is
 # what `_report_facet` prints beside the measured face.
 display_bezel_x = 113.5           # bezel glass, lateral (X)
 display_bezel_slope = 77.0        # bezel glass, up the slope
@@ -240,9 +347,16 @@ display_inset_slope = display_bezel_slope + 2 * display_inset_lap # [83 mm](DISP
 # Every millimetre of plain face down the slope carries the facet √2 further aft along Y, and
 # with it the seats let into it — which is what `display-housing-seats` reads the housing's
 # own back cut against.
-display_facet_buffer = 1.9       # plain 45° face kept outside the inset, all around
-display_facet_x = display_inset_x + 2 * display_facet_buffer          # [157.3 mm](DISPLAY_FACET_X)
-display_facet_slope = display_inset_slope + 2 * display_facet_buffer  # [86.8 mm](DISPLAY_FACET_SLOPE)
+# The plain 45° face kept outside the inset, all around — and WHAT SETS IT is not how wide a
+# border looks right. The inset is sunk normal to the facet, so its own down-slope END WALL is
+# a 45° plane the other way, and where that plane and the front wall's arris come together is
+# the thinnest the front face ever gets. Work it out and the ligament there is exactly this
+# buffer times root two, wherever the facet stands and however big it is — so the border's
+# width IS the wall behind the top of the front face. Under `flute_backing` a flute cut into
+# that face has less than one `wall` behind it and telegraphs; `facet-arris-backed` reads it.
+display_facet_buffer = 2.25      # >= flute_backing / sqrt(2)
+display_facet_x = display_inset_x + 2 * display_facet_buffer          # [158 mm](DISPLAY_FACET_X)
+display_facet_slope = display_inset_slope + 2 * display_facet_buffer  # [87.5 mm](DISPLAY_FACET_SLOPE)
 display_facet_angle_deg = 45.0
 # The facet is a display housing this deep (the wall behind it, set to the
 # display's overall depth) with the display let into it: a bezel counterbore on
@@ -315,12 +429,14 @@ display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 m
 # deburring tool rather than a fit.
 hopper_chain_gap = 1.0
 # The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE HOPPER IS WHERE THE
-# USER POURS, so it stands as far forward as the top wall lets it — this is `housing_back_y` for
-# this box, the plane the display housing's slab stops on, and what stops THAT is the brim rather
-# than the throat: the flange overhangs the collar by `hopper_funnel.brim_overhang` and has to
-# land on top wall, which begins at the display facet's own arris. `funnel-brim-lands` is that
-# reading.
-funnel_front_y = 76.38
+# USER POURS, so it stands as far forward as the top wall lets it — and what stops it is the
+# BRIM rather than the throat: the flange overhangs the collar by `hopper_funnel.brim_overhang`
+# and has to land on top wall, which begins at the display facet's own arris. So the figure is
+# that arris, one `wall` of landing, and the overhang — 66.87 + 3 + 7 — and it stands aft of
+# `housing_back_y`, which is the other plane that could have stopped it. `funnel-brim-lands`
+# reads it back against the facet the box actually cuts, which is what catches it when the
+# facet's own size moves.
+funnel_front_y = 77.0
 # The top wall between the display housing's back plane and the throat, read on
 # `funnel-collar-frame`. The brim's overhang lands on the housing slab at zero.
 hopper_front_ledge = 0.0
@@ -876,6 +992,12 @@ corner_core_reach = corner_boss_in - boss_in
 # there. Its floor is the Z-seam rim: under that plane the side wall is the outer register
 # front-bottom's lip telescopes into.
 #
+# AND ACROSS THAT STOREY A POST'S FACE IS SWUNG FROM THE JAMB (`_column_fairing`), not from the
+# interior corner every other column's is. The two faces the turn has to land on here are the
+# jamb and the opening's own end, and swung from the jamb one turn of `column_round` is tangent
+# to both — the face is a single surface from the front wall's inner plane to the flank, the
+# same quarter turn the corner relief outside it is.
+#
 # THE CARTRIDGE STAYS BETWEEN THE JAMBS. It is the flat span and what stands behind it, out
 # to `bay_x_span` and no further at any height, so the posts it slides between are untouched
 # and the front of the box outboard of the bay is theirs.
@@ -886,8 +1008,21 @@ bay_face_slip = 0.4          # cartridge face inside the opening, per side — i
 # outboard of the opening. It is carried past the column's own arc — which lands one
 # `column_round` in — far enough that the cartridge's face clears front-bottom's Z-seam wrap
 # without stepping in under the rim.
+#
+# IT IS ALSO WHERE THE FACE ACROSS THE BAY IS SWUNG FROM, so what it carries past that radius
+# is what stands behind the face where the turn lands on the flank — `column-face-backed` reads
+# it, against the section a flute wants under it.
 post_along = 14.676
 face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
+# THE MOUTH'S OWN STANDING CORNERS, rounded the way the box's are — and smaller, because a
+# panel set inside a frame reads as a panel by carrying less radius than the frame does.
+#
+# WHAT CAPS IT IS THE PUMPS. Each head's own relief reaches `_pump_relief_regions`' outboard
+# edge, and that edge lands at the cartridge's bottom, where the relief's z0 IS the bay
+# floor. A round bigger than the air between the two takes the corner off the relief instead
+# of off the face, and opens a pocket 3.9 mm deep onto the outside of the drawer front.
+# `bay-round-clears-pumps` reads that air on the placed trays rather than trusting this.
+bay_corner_round = 4.5
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
 # THE CARTRIDGE HAS ONE OUTLINE AND NOT TWO. Face, deck and cap all stand `bay_face_slip`
 # inside the jambs and `face_reveal` under the lintel, because they are one printed block and
@@ -1849,6 +1984,119 @@ def _dims(pack):
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
+    # NOTHING RELIEVES INTO THE OUTERMOST `flute_backing` OF A FLUTED FACE. This is the rule the
+    # whole skin stands on and the one a reader would otherwise have to take on trust.
+    sections = flute_backed_sections()
+    thin = [(what, mm) for what, mm in sections if mm < flute_backing - stated_bound_tol]
+    record_bound(Bound(
+        "flute-backed", "Every fluted face keeps a whole wall behind its grooves", not thin,
+        f"thinnest of {len(sections)} stated sections is "
+        f"{min(mm for _what, mm in sections):.4f} mm",
+        f"at least {flute_backing:g} mm",
+        [f"{what} carries {mm:.4f} mm, so a {flute_depth:g} mm groove leaves "
+         f"{mm - flute_depth:.4f} behind it" for what, mm in thin]))
+    # AND WHAT BACKS THE TOP OF THE FRONT FACE is the display's own plain border, because the
+    # inset's down-slope end wall and the facet's arris close on each other at 45°. This is the
+    # thinnest station on a fluted face that is not a stated relief, so it is read rather than
+    # assumed.
+    arris_back = display_facet_buffer * math.sqrt(2.0)
+    record_bound(Bound(
+        "facet-arris-backed", "The front face keeps a wall behind it at the facet's arris",
+        arris_back >= flute_backing - stated_bound_tol,
+        f"{arris_back:.4f} mm of ligament, from a {display_facet_buffer:g} mm plain border",
+        f"at least {flute_backing:g} mm",
+        ([] if arris_back >= flute_backing - stated_bound_tol else [
+            f"the front face closes to {arris_back:.4f} mm under the facet's arris, where a "
+            f"{flute_depth:g} mm flute would leave {arris_back - flute_depth:.4f}. "
+            f"`display_facet_buffer` wants at least "
+            f"{flute_backing / math.sqrt(2.0):.4f}"])))
+    # THE REEDED SKIN CLOSES ON THE BOX. `flute_count` is a whole number of grooves round the
+    # whole outer plan, so the field has no station where it restarts and no seam where two
+    # arrays meet — but the pitch that count lands on is a CONSEQUENCE and not a choice, and it
+    # has to stay the coupon's or this box is not carrying the texture that was settled on.
+    pitch = flute_pitch(outer)
+    drift = abs(pitch - reeding.flute_pitch)
+    record_bound(Bound(
+        "flute-closes", "The reeded field closes on the box at the coupon's own pitch",
+        drift <= flute_pitch_drift,
+        f"{flute_count} grooves round {plan_perimeter(outer):.2f} mm, {pitch:.4f} mm centres",
+        f"within {flute_pitch_drift:g} mm of the coupon's {reeding.flute_pitch:g}",
+        ([] if drift <= flute_pitch_drift else [
+            f"the field lands on {pitch:.4f} mm centres, {drift:.4f} off the coupon's "
+            f"{reeding.flute_pitch:g}. `flute_count` wants to be near "
+            f"{plan_perimeter(outer) / reeding.flute_pitch:.1f}"])))
+    # AND IT PUTS THE Y SEAM IN A GROOVE. That seam is the one straight line running the full
+    # height of both side walls, and it runs ALONG the flutes rather than across them — so it
+    # can be put where a joint reads as the shadow already there instead of a line on a flat.
+    # This is what picks one `flute_count` out of the several that close near the coupon's
+    # pitch, and without it the choice would be arbitrary.
+    segments = _plan_segments(outer)
+    seam_arc = segments[0][1] + segments[1][1] + (y_joint - (outer[2] + corner_round))
+    miss = min(seam_arc % pitch, pitch - seam_arc % pitch)
+    record_bound(Bound(
+        "flute-hides-seam", "The Y seam runs down a groove, not across a land",
+        miss <= flute_seam_miss,
+        f"{miss:.4f} mm off a groove centre, in a groove {reeding.flute_width:g} mm wide",
+        f"within {flute_seam_miss:g} mm of a centre",
+        ([] if miss <= flute_seam_miss else [
+            f"the Y seam lands {miss:.4f} mm off the nearest groove centre, which puts the "
+            f"joint on a land where it is a line on a flat. Retune `flute_count`"])))
+    # AND WHAT BACKS THE COLUMN'S FACE WHERE IT LANDS ON THE FLANK. The face across the bay is
+    # one turn of `column_round` swung from the jamb (`_column_fairing`), so it meets the flank
+    # opening's end face one radius outboard of that jamb — and what stands between it and the
+    # side wall's outer surface there is the wall's own stock plus whatever `post_along` carries
+    # past the radius. It is the thinnest station on that face and a flute runs behind it.
+    face_land = _column_face_land(inner, outer)
+    face_back = face_land - flute_depth
+    record_bound(Bound(
+        "column-face-backed", "The column's face keeps a wall where its turn lands on the flank",
+        face_back >= flute_backing - stated_bound_tol,
+        f"{face_land:.4f} mm of section, {face_back:.4f} under a flute",
+        f"at least {flute_backing:g} mm",
+        ([] if face_back >= flute_backing - stated_bound_tol else [
+            f"the column's face lands {face_land:.4f} mm off the side wall's outer surface, "
+            f"which leaves {face_back:.4f} under a {flute_depth:g} mm groove. `post_along` "
+            f"wants at least {flute_backing + flute_depth + column_round - (inner[0] - outer[0]):.4f}"])))
+    # THE MOUTH'S ROUND IS CAPPED BY THE PUMPS. Each head's relief reaches its own outboard
+    # edge and its z0 IS the bay floor, so the relief's corner sits at the cartridge's own
+    # bottom corner. A round bigger than the air between the two takes its bite out of the
+    # relief instead of the face and opens a `pump_relief_floor`-deep pocket onto the outside
+    # of the drawer front. Read on the placed trays, not assumed.
+    if pack.pump_trays:
+        _jx0, jx1 = bay_x_span(inner)
+        reach = max(x1 for _x0, x1, *_rest in _pump_relief_regions(pack.pump_trays))
+        room = (jx1 - bay_corner_round) - reach
+        record_bound(Bound(
+            "bay-round-clears-pumps", "The bay mouth's round stays outboard of every pump's relief",
+            room >= -stated_bound_tol,
+            f"{room:.4f} mm between the round's reach and the outer relief",
+            f"a round of at most {jx1 - reach:.4f} mm",
+            ([] if room >= -stated_bound_tol else [
+                f"`bay_corner_round` of {bay_corner_round:g} mm reaches x {jx1 - bay_corner_round:.4f} "
+                f"and the outer pump relief starts at {reach:.4f} — the round would breach a "
+                f"pocket {pump_relief_floor - (outer[2]):.2f} mm behind the face. Take it to "
+                f"{jx1 - reach:.4f} or less"])))
+    # AND IT KEEPS THE BAY'S OWN ARRISES OFF A GROOVE FLOOR. Both run WITH the flutes, so
+    # neither is stopped — but where they LAND across the field decides what they are made of.
+    # On a land each is a square arris with the whole wall behind it; in a groove each is a
+    # wedge tapering to nothing at nearly the full `flute_depth`, on the one line the user
+    # looks straight at. This is the second thing `flute_count` is chosen for.
+    clear = []
+    if pack.pump_trays:
+        _bx0, bx1 = bay_x_span(inner)
+        for what, station in (("the bay's jamb", bx1),
+                              ("the cartridge's own edge", bx1 - bay_face_slip)):
+            off = station % pitch
+            clear.append((what, min(off, pitch - off) - reeding.flute_width / 2.0))
+    least = min((room for _what, room in clear), default=None)
+    record_bound(Bound(
+        "flute-clears-jamb", "The bay's arrises stand on plain wall, not in a groove",
+        least is None or least >= -stated_bound_tol,
+        ("no bay on this pack" if least is None else f"least clearance {least:.4f} mm"),
+        "clear of every groove",
+        [f"{what} lands {-room:.4f} mm inside a groove, so its arris is a wedge tapering to "
+         f"nothing on the groove's floor rather than a square edge on a land. Retune "
+         f"`flute_count`" for what, room in clear if room < -stated_bound_tol]))
     facet_back = housing_back_y(outer)
     record_bound(Bound(
         "y-seam-clears-facet", "The Y seam stands behind the display housing",
@@ -2046,11 +2294,107 @@ def _facet_wedge(outer):
     return _halfspace(origin, normal, extent)
 
 
+def flank_x_at(y, outer):
+    """The ±X exterior SURFACE's own distance from x = 0 at depth `y` — the wall's plane down
+    the flat, and `corner_round`'s arc wherever the turn has begun.
+
+    A BORE STRUCK ON A PLANE LEAVES LESS BEHIND A TURN. `interior_x` stands one `wall` in from
+    the flat, so anything run to it leaves exactly `wall` down the middle of a face and less
+    than that anywhere the round has carried the surface inboard. What has to leave a stated
+    section behind the surface — `flute_backing` above all, since a flute is cut into that
+    same surface — reads this and not the plane."""
+    ox1, oy0, oy1 = outer[1], outer[2], outer[3]
+    if oy0 + corner_round <= y <= oy1 - corner_round:
+        return ox1
+    off = min(abs(y - (oy0 + corner_round)), abs(y - (oy1 - corner_round)), corner_round)
+    return (ox1 - corner_round) + math.sqrt(corner_round ** 2 - off ** 2)
+
+
+def _plan_segments(outer):
+    """The outer plan boundary as (kind, length, data), walked from the FRONT WALL'S
+    CENTRELINE heading +X — four straight runs and the four `corner_round` quarter turns
+    between them, in order, each carrying its own length so a walk is an arc-length walk.
+
+    THE DATUM IS x = 0 ON THE FRONT WALL, which is the plane the whole machine is struck
+    about. A field whose datum sits there is symmetric in x whatever its pitch, because the
+    half-perimeter either way round is the same walk mirrored.
+
+    There is no turn at the Y seam and none is wanted: that arris is a telescoping mating
+    face, square by construction (`_round_z`), and the two pieces that meet on it present one
+    continuous plan between them."""
+    ox0, ox1, oy0, oy1 = outer[0], outer[1], outer[2], outer[3]
+    r = corner_round
+    run_x = (ox1 - ox0) - 2.0 * r
+    run_y = (oy1 - oy0) - 2.0 * r
+    turn = math.pi * r / 2.0
+    return (
+        ("line", run_x / 2.0, ((0.0, oy0), (1.0, 0.0), (0.0, -1.0))),
+        ("arc", turn, ((ox1 - r, oy0 + r), -math.pi / 2.0)),
+        ("line", run_y, ((ox1, oy0 + r), (0.0, 1.0), (1.0, 0.0))),
+        ("arc", turn, ((ox1 - r, oy1 - r), 0.0)),
+        ("line", run_x, ((ox1 - r, oy1), (-1.0, 0.0), (0.0, 1.0))),
+        ("arc", turn, ((ox0 + r, oy1 - r), math.pi / 2.0)),
+        ("line", run_y, ((ox0, oy1 - r), (0.0, -1.0), (-1.0, 0.0))),
+        ("arc", turn, ((ox0 + r, oy0 + r), math.pi)),
+        ("line", run_x / 2.0, ((ox0 + r, oy0), (1.0, 0.0), (0.0, -1.0))),
+    )
+
+
+def plan_perimeter(outer):
+    """How far it is round the box's outer plan once — what `flute_count` divides."""
+    return sum(length for _kind, length, _data in _plan_segments(outer))
+
+
+def flute_pitch(outer):
+    """The spacing the field actually lands on. It is a CONSEQUENCE of `flute_count`, not a
+    figure of its own, because a stated pitch would leave the perimeter with a remainder and
+    the remainder has to go somewhere — one wrong land, at whichever station the array
+    happened to close on. `flute-closes` is what holds it near the coupon's."""
+    return plan_perimeter(outer) / flute_count
+
+
+def plan_at(s, outer):
+    """The outer plan boundary's point and OUTWARD normal at arc length `s` from the datum.
+
+    Everything the field knows about the box is here. A groove is struck at `s` and drawn
+    through the stations either side of it, so the box's corners cost the field nothing to
+    know about: the walk hands back a normal that has already turned."""
+    segments = _plan_segments(outer)
+    s = s % sum(length for _k, length, _d in segments)
+    for kind, length, data in segments:
+        if s <= length:
+            if kind == "line":
+                (px, py), (tx, ty), (nx, ny) = data
+                return (px + tx * s, py + ty * s), (nx, ny)
+            (cx, cy), a0 = data
+            a = a0 + (math.pi / 2.0) * (s / length)
+            n = (math.cos(a), math.sin(a))
+            return (cx + corner_round * n[0], cy + corner_round * n[1]), n
+        s -= length
+    raise AssertionError("arc length walked off the end of a closed plan")
+
+
+def flute_centres(outer):
+    """Every groove's arc length, the datum's first. `flute_count` of them, closing on the
+    perimeter exactly."""
+    pitch = flute_pitch(outer)
+    return tuple(k * pitch for k in range(flute_count))
+
+
+@functools.lru_cache(maxsize=8)
 def _rounded_outer(outer):
-    """The outer box with rounded standing-vertical corners and the facet
-    chamfered in — the print silhouette the half is clipped to so nothing
-    pokes past it. A full-width facet raises no new standing vertical: it runs
-    out into the ±X walls' own rounds, which are already relieved."""
+    """The outer box with rounded standing-vertical corners and the facet chamfered in — the
+    print silhouette the half is clipped to so nothing pokes past it. A full-width facet raises
+    no new standing vertical: it runs out into the ±X walls' own rounds, which are already
+    relieved.
+
+    IT IS A PLAIN BOX AND THE SHOW SURFACE IS NOT. The flutes are cut into the MESH the printer
+    reads (`flute_skin.py`), not into this solid, because the fade that stops them is a field
+    over the whole surface and not a figure a prism can carry: it has to follow an opening's
+    rim, a diagonal arris and a level seam with one rule. What this shape is, then, is the
+    surface the flutes are measured FROM — every station in that field is struck on the plan
+    this returns.
+    """
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
     return box.cut(_facet_wedge(outer))
@@ -2867,8 +3211,8 @@ def _lip_underwall(inner, y_joint, zj):
     `wall` short, and what stands between the two is nothing: a `z_lip_y_margin`-wide,
     one-`wall`-deep channel running the flank's whole height, blind on the slab and open
     only at the rim. That is not a gap for anything, it is a slit down the piece's most
-    loaded corner, and it is narrower than two extrusions of the nozzle this box prints
-    with."""
+    loaded corner — a blind channel down the one place the piece is asked to hold, and the
+    slicer would draw its two faces as separate walls with nothing tying them."""
     return _lip_ring(inner, (y_joint, y_joint + lip_len + z_lip_y_margin),
                      inner[4], zj)
 
@@ -3117,8 +3461,7 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
     line."""
     bx0, bx1, top = bay
     c = _soffit_c(outer)
-    wall_box = _ybox(bx0, bx1, outer[2] - 1.0, inner[2] + 0.5,
-                     bay_floor_z(pump_trays)[1], top)
+    wall_box = _bay_mouth(inner, outer, bay, pump_trays, 0.0)
     wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
                       inner[2] + c - 1.5, top)
     return wall_box.fuse(wedge_box).fuse(
@@ -3188,6 +3531,69 @@ def _flank_opening(inner, y_aft, z0, z1):
                     inner[2] + _column_along(), y_aft, z0, z1)
         out = box if out is None else out.fuse(box)
     return out
+
+
+def _column_fairing(piece, inner, outer, bay, z):
+    """THE FRONT COLUMNS' FACE ACROSS THE BAY — ONE TURN OF `column_round`, SWUNG FROM THE JAMB.
+
+    A column's face is swung from the INTERIOR CORNER (`_column_arc`) because away from the bay
+    that is where the two faces its ends land on meet. ACROSS THE BAY THEY ARE NOT THOSE FACES:
+    the jamb stands one `post_along` inboard of that corner, and the flank opening ends one
+    `column_round` aft of the front plane. A turn swung from the corner lands on neither — it
+    leaves `post_along - column_round` of the front wall's inner face standing as a ledge, runs
+    sixty degrees of its own quarter, and is cut off by the flank's section, so the face a hand
+    meets reaching into the bay is five surfaces where everywhere else it is one.
+
+    SWUNG FROM THE JAMB the same turn is TANGENT AT BOTH ENDS. Its lower end lands on the front
+    wall's inner plane and its upper on the flank opening's own end face, and neither is fitted:
+    the opening ends at `front_plane_y + _column_along()`, `_column_along()` is `column_round`,
+    and a quarter turn of that radius spans exactly that.
+
+    AND IT STANDS ON THE JAMB PLANE. The disc's inboard extreme IS `bay_x_span` — the cartridge
+    keeps `bay_face_slip` at the single station the two touch and more of it at every other, so
+    the opening is never narrowed by this and the block that passes it is never told.
+
+    ITS STOREY IS THE FLANK OPENING'S. Under the opening's floor the lip's own skin wraps the
+    column a whole `wall` further inboard than this does (`_column_pillar`), and over the bay's
+    top the corner is solid wall; this is the run where the column stands as a post and its face
+    is the surface in the room.
+
+    Struck as the DISC and fused, not laid on as a face: the bay's own cut and the flank opening
+    take their edges off it the way they take them off any other section this piece carries.
+
+    AND THEN TRIMMED TO, because the turn has section on BOTH sides of it. Front-top's flanks
+    carry `front_top_flank_t` and that face (`front_top_flank_face`) stands INBOARD of where the
+    turn lands, so left standing it cuts the arc short of its own tangent and leaves a land
+    between the two about one extrusion wide — a land that fine is not a face, it is a line the
+    slicer lays one bead into. The trim takes the corner outboard of the jamb, aft of the front
+    wall's inner plane, less the disc. It starts ON that plane because that is where the disc is
+    tangent to the jamb, so it takes nothing from the wall the bay's opening is cut through, and
+    it ends on the opening's own end face where the turn lands.
+
+    THE TRIM REACHES THE TURN'S OWN CENTRE AND NO FURTHER. A disc has two sides and only one of
+    them is the face: between the centre and the jamb the circle is single-valued and everything
+    outside it is inboard of the arc, which is what this takes. Carried past the centre the same
+    box would start taking what is OUTBOARD of the arc — the side wall itself, which is the one
+    thing standing between this corner and the outside of the machine."""
+    bx0, bx1, _top = bay
+    z0, z1 = z
+    for cx, bx in ((bx0 - column_round, bx0), (bx1 + column_round, bx1)):
+        disc = _zcyl(column_round, cx, inner[2], z0, z1)
+        piece = piece.fuse(disc.intersect(_rounded_outer(outer)))
+        corner = _ybox(min(bx, cx), max(bx, cx),
+                       inner[2], inner[2] + _column_along(), z0, z1)
+        piece = piece.cut(corner.cut(_zcyl(column_round, cx, inner[2], z0 - 1.0, z1 + 1.0)))
+    return piece
+
+
+def _column_face_land(inner, outer):
+    """The section standing behind the column's face where its turn lands on the flank.
+
+    The turn is swung from the jamb, so it meets the flank opening's end face one
+    `column_round` outboard of it, and what is left there is the wall's own stock plus
+    whatever the jamb stands inboard of `interior_x` beyond that radius. This is the
+    thinnest station on the face, and a flute runs on the other side of it."""
+    return (inner[0] - outer[0]) + post_along - column_round
 
 
 def _front_top_flanks(inner, outer, box, y_joint, zj):
@@ -3359,14 +3765,37 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     return band
 
 
+def _bay_mouth(inner, outer, bay, pump_trays, inset):
+    """The bay's opening as one prism through the front wall, `inset` inside the jamb on every
+    edge, its four standing corners rounded `bay_corner_round` less that same inset.
+
+    ONE FIGURE CUTS THE OPENING AND SHAPES WHAT FILLS IT. The jamb takes `inset` 0 and the
+    cartridge's face takes `bay_face_slip`, which is also `face_reveal`, so the drawer front
+    is this outline offset a uniform four tenths — the reveal is the same width round the
+    corner as it is down the jamb, which a square corner and a rounded one could not both be.
+
+    THE ROUND STOPS AT `pump_relief_floor`. That is where the block behind the face begins,
+    and behind it the mouth is square: a rounded jamb carried deeper would have the deck's own
+    square corner standing in it. Four millimetres of rounded jamb is all a mouth shows —
+    the rest is behind a drawer front, in its own shadow."""
+    bx0, bx1, top = bay
+    x0, x1 = bx0 + inset, bx1 - inset
+    z0, z1 = bay_floor_z(pump_trays)[1] + inset, top - inset
+    radius = bay_corner_round - inset
+    face = _ybox(x0, x1, outer[2] - 1.0, pump_relief_floor, z0, z1)
+    if radius > 0.0:
+        face = cq.Workplane(obj=face).edges("|Y").fillet(radius).val()
+    return face.fuse(_ybox(x0, x1, pump_relief_floor, inner[2] + 0.5, z0, z1))
+
+
 def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
     """The bay region the cartridge's face keeps: the same figures one slip and one reveal
     smaller, so the face rides its opening on stated air."""
     bx0, bx1, top = bay
     fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
-    z0, z1 = bay_floor_z(pump_trays)[1] + face_reveal, top - face_reveal
+    z1 = top - face_reveal
     c = _soffit_c(outer)
-    return (_ybox(fx0, fx1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
+    return (_bay_mouth(inner, outer, bay, pump_trays, bay_face_slip)
             .fuse(_ybox(fx0, fx1, inner[2] + 0.4, z1 - c + 1.5, inner[2] + c - 1.5, z1)))
 
 
@@ -4032,7 +4461,7 @@ def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
-def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
+def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
     and no piece grows a column standing in another's air.
@@ -4066,9 +4495,24 @@ def _east_bosses(solid, inner, stations, y0, y1, z0, z1):
         solid = solid.fuse(_xz_prism(sy - r, sy + r,
                                      [(inner[1], sz - r), (stop, sz - r),
                                       (inner[1], sz - r - drop)]))
+        # AND THE BORE STOPS WHERE THE SURFACE SAYS, not where the plane does. Run its full
+        # relief it ends on `interior_x`, which is one `wall` behind the flat and less than
+        # that behind a corner round — and a flute is cut into that same surface, so a station
+        # standing on the turn would put a groove over an insert with too little between them.
+        # It gives up relief before it gives up `flute_backing`; `boss-bore-seats` reads what
+        # is left against the insert's own depth.
         solid = solid.cut(_xcyl(heatset_dia / 2.0, sy, sz, tip,
-                                tip + heatset_depth + mount_bore_relief))
+                                east_boss_bore_end(sy, tip, outer)))
     return solid
+
+
+def east_boss_bore_end(sy, tip, outer):
+    """How far out a +X mounting boss's insert bore may run — its full relief, or as far as
+    `flute_backing` behind the shallowest surface over the bore's own footprint, whichever
+    stops first."""
+    edge = min(flank_x_at(sy - heatset_dia / 2.0, outer),
+               flank_x_at(sy + heatset_dia / 2.0, outer))
+    return min(tip + heatset_depth + mount_bore_relief, edge - flute_backing)
 
 
 def _side_wells(solid, inner, stations, y0, y1, z0, z1):
@@ -5077,7 +5521,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
-    piece = _east_bosses(piece, inner, box.east_bosses, ylo, yhi, zlo, zhi)
+    piece = _east_bosses(piece, inner, outer, box.east_bosses, ylo, yhi, zlo, zhi)
     # The +X wall's Wago wells, on whichever piece holds each one's station. After the
     # bosses for the same reason those go after the seam's own bosses: a pocket cut here is a
     # pocket nothing later fuses back in.
@@ -5148,6 +5592,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # The seam's ceiling first: the opening's floor is this slab's top, so it has to be
         # standing before the opening is cut or the cut would take the plane it stands on.
         piece = piece.fuse(_rim_cap(inner, outer, box.collet_plate, z_seam))
+        # And the columns' own face across the bay — one turn of `column_round` swung from the
+        # jamb (`_column_fairing`), over the storey the flank opening leaves them standing in.
+        # Before the bay's cut, which takes the jamb off the disc's own tangent.
+        piece = _column_fairing(piece, inner, outer, box.pump_bay,
+                                (z_seam + lip_len + wall, box.pump_bay[2]))
         piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays,
                                    box.collet_plate))
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
@@ -5248,6 +5697,7 @@ def build_pieces(box):
     keep them: a build that moves a body inside the walls moves neither the box, which is its
     stated size, nor the code that cuts it, and a station moves only when the body carrying it
     does."""
+    _last_outer[0] = box.outer
     cache = {}
 
     def _product(n):
@@ -5271,11 +5721,52 @@ def build_pieces(box):
     return pieces, assy
 
 
+# HOW FINELY A PIECE IS TESSELLATED FOR THE BED. The show surface is fluted now, so the mesh a
+# slicer reads has to hold a curve the nozzle can draw: the deviation allowed is a fraction of
+# the 0.42 mm bead, and the angle is tight enough that a groove's own arc does not come back as
+# a few flats. It costs file size and nothing else — a slicer reads the triangles once.
+piece_mesh_tol = 0.02
+piece_mesh_angle = 0.15
+
+
+# The box the pieces were last drawn from, so `_export_pieces` can strike the flute field on the
+# same plan they were clipped to without being handed it through three call sites.
+_last_outer = [None]
+
+
 def _export_pieces(pieces, assy):
     for name, piece in pieces.items():
         export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
                         str(_here.parent / f"enclosure-{name}.step"))
         print(f"-> enclosure-{name}.step")
+        # AND THE SHOW SURFACE IS FLUTED HERE, in the mesh, on the way to the bed. See
+        # `flute_skin.py` for why it is not in the solid.
+        #
+        # TESSELLATED, NOT ROUND-TRIPPED THROUGH STL. An STL is a triangle soup with no shared
+        # vertices, and what comes back from re-merging one is a surface with edges that hold
+        # one face where they should hold two — which a mesh boolean rightly refuses to treat
+        # as a volume. `tessellate` hands back the indices directly.
+        outer = _last_outer[0]
+        points, tris = piece.val().tessellate(piece_mesh_tol, piece_mesh_angle)
+        mesh = trimesh.Trimesh(vertices=[(p.x, p.y, p.z) for p in points],
+                               faces=tris, process=True)
+        mesh.merge_vertices()
+        mesh = _flute_skin.flute(mesh, outer, plan_at, plan_perimeter(outer),
+                                 flute_pitch(outer), flute_depth, flute_rise)
+        # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
+        # carrying four faces rather than two — the solid touching itself along a line, which is
+        # a fact about the solid — and refusing the cut for it would refuse every piece. The
+        # engine takes that and repairs it; a mesh that is still not closed after it is one no
+        # slicer should be handed.
+        if not mesh.is_watertight:
+            raise ValueError(
+                f"enclosure-{name} comes back from the flute cut with an open surface "
+                f"(winding {mesh.is_winding_consistent}, {len(mesh.faces)} facets) — a slicer "
+                f"handed this would guess at what is solid")
+        stl = _here.parent / f"enclosure-{name}.stl"
+        mesh.export(str(stl))
+        print(f"-> enclosure-{name}.stl  ({len(mesh.faces)} facets, "
+              f"{'watertight' if mesh.is_watertight else 'NOT WATERTIGHT'})")
     export_assembly(assy, str(_here.parent / "enclosure.step"))
     print("-> enclosure.step (assembled pieces)")
 
@@ -5391,11 +5882,28 @@ def main():
         # open behind it, off the exterior side face.
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
+        # And what stands behind that face across the bay, where its turn lands on the flank.
+        "COLUMN_FACE_LAND": f"{_column_face_land(box.inner, box.outer):.4g} mm",
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
         # The walls on this box that are not `wall`, and the piece each belongs to. Every one
         # grows INWARD off the plane the box states, so the silhouette and `interior_x` both
         # stand still and only the piece carrying the section knows about it.
         "WALL_T": f"{wall:.4g} mm",
+        "FLUTE_COUNT": f"{flute_count:d}",
+        "FLUTE_PERIM": f"{plan_perimeter(bo):.5g} mm",
+        "FLUTE_PITCH": f"{flute_pitch(bo):.5g} mm",
+        "COUPON_PITCH": f"{reeding.flute_pitch:.4g} mm",
+        "FLUTE_WIDTH": f"{reeding.flute_width:.4g} mm",
+        "FLUTE_DEPTH": f"{flute_depth:.4g} mm",
+        "FLUTE_BACKING": f"{flute_backing:.4g} mm",
+        "FLUTE_LEFT": f"{flute_backing - flute_depth:.4g} mm",
+        "FLUTE_RISE": f"{flute_rise:.4g} mm",
+        "FLUTE_STEPS": f"{flute_fade_steps:d}",
+        "FLUTE_RAMP": f"{math.degrees(math.atan(1.5 * flute_depth / flute_rise)):.3g}°",
+        "FLUTE_SEAM_MISS": (
+            lambda arc, pitch: f"{min(arc % pitch, pitch - arc % pitch):.2g} mm")(
+                _plan_segments(bo)[0][1] + _plan_segments(bo)[1][1]
+                + (y_seam - (bo[2] + corner_round)), flute_pitch(bo)),
         "FRONT_TOP_FLANK": f"{front_top_flank_t:.4g} mm",
         "BACK_TOP_FLANK": f"{back_top_flank_t:.4g} mm",
         "BACK_TOP_WALL": f"{back_top_wall_t:.4g} mm",
