@@ -305,12 +305,24 @@ def main() -> int:
             else:
                 t.write_text(want)
         print(f"{len(differs)} carried into the tree")
-    else:
-        print(f"{len(pairs) - len(differs) - len(missing) - len(unknown)}/{len(pairs)} artifacts "
-              f"in the tree are the ones the build cut"
-              + (f", {len(missing)} not built" if missing else "")
-              + (f", {len(unknown)} with no splice" if unknown else ""))
-    return 0 if not differs and not unknown else 1
+        # AND CARRYING IS NOT A FAULT. `differs` is the work this mode exists to do, so by the
+        # line above it is the work DONE. Sharing `--check`'s exit with it meant `--write`
+        # could only ever report success on a run with nothing to carry: derive 32480943980
+        # moved 53 files and came back 1, and `derive.yml` reads that as
+        # `sync_tree carried nothing` and warns that every step below it read the fetch.
+        # What is left undone is `unknown` — read back over, no splice for its suffix, still
+        # standing where the tree had it — and that is the only thing here a caller cannot see
+        # from the count.
+        return 0 if not unknown else 1
+    print(f"{len(pairs) - len(differs) - len(missing) - len(unknown)}/{len(pairs)} artifacts "
+          f"in the tree are the ones the build cut"
+          + (f", {len(missing)} not built" if missing else "")
+          + (f", {len(unknown)} with no splice" if unknown else ""))
+    # A CARRY THAT HAPPENED IS NOT A DIFFERENCE THAT REMAINS. `differs` is what the tree was
+    # missing when the comparison ran; under `--write` those files have just been written into
+    # it, so the tree now holds what the build cut. What is still owed either way is `unknown`
+    # — a rewritten medium with no carry in the table, which nothing here can hand over.
+    return 0 if not unknown and (args.write or not differs) else 1
 
 
 def selftest() -> int:
