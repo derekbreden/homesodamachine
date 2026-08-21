@@ -61,6 +61,18 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
+# `gh`, BECAUSE `pack.py` UPLOADS WITH IT. `upload()` shells out to `gh release view` and
+# `gh release upload`, and a hosted runner has the CLI preinstalled while a container has
+# whatever it was given. Same family as blender and rsvg-convert: a tool the build reaches
+# for by name, present on one machine by accident of its image.
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+      -o /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+      > /etc/apt/sources.list.d/github-cli.list \
+    && apt-get update && apt-get install -y --no-install-recommends gh \
+    && rm -rf /var/lib/apt/lists/*
+
 # THE PUPPETEER LIBS ARE A LIST NOBODY CAN DERIVE, so let puppeteer name them. Its own
 # `--no-install-recommends` set is what a headless Chromium links against; the deck drives a
 # real Chrome and dies on a missing one of these with an error that names none of them.
@@ -110,7 +122,7 @@ ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
     HSM_WEB_MODULES=/opt/hsm/web/node_modules
 
 RUN blender --version | head -1 && rsvg-convert --version && node --version \
-    && /opt/hsm/cad-venv/bin/python --version
+    && gh --version | head -1 && /opt/hsm/cad-venv/bin/python --version
 
 # THE DIGEST OF THE FILES THIS IMAGE WAS MADE OF, carried in the image. `derive` recomputes
 # it from its own checkout and compares — an image lagging the tree that pulled it is a run
