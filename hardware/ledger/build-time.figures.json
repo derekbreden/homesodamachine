@@ -2,8 +2,8 @@
   "/hardware/scripts/_build_time.py": {
     "BT_BAND": "10",
     "BT_BUILD": "120",
-    "BT_ENCLOSURE": "107",
-    "BT_ENCLOSURE_ASSEMBLY": "168",
+    "BT_ENCLOSURE": "67",
+    "BT_ENCLOSURE_ASSEMBLY": "59",
     "BT_FAUCET_ASSEMBLY": "12",
     "BT_FOAM_ASSEMBLY": "2.8",
     "BT_FUSE_CLAMP": "0.1",

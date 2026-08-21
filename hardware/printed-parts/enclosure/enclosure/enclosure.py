@@ -298,7 +298,7 @@ def flute_backed_sections():
         # AND THE MULLION THE CONDENSER'S VENTS LEAVE, which is the one row here a SLOT sets
         # rather than a wall does. The jamb stands `reeding.pierce_width / 2` off the groove's
         # own centre, out on the half-ellipse where the groove is shallower than at its floor —
-        # so a WIDER slot thickens this and only ever thins the mullion (`_record_vent_bound`).
+        # so a WIDER slot thickens this and only ever thins the mullion (`enclosure_assembly.check_flank_vents`).
         # The depth at an offset is the profile's and not the pitch's, every offset here being
         # well inside one groove, so this reads the same whatever `flute_count` lands on.
         ("the flank behind a vent slot's jamb",
@@ -1264,10 +1264,10 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 # it is the corner post, which stops one `_column_along` aft of the front plane — so aft of
 # that plane the flank is open to the room and a grip is struck into it (`_flank_grip`).
 #
-# A GRIP IS REMOVED MATERIAL AND NEVER A HANDLE LAID ON. Nothing of this piece stands proud
-# of `front_plane_y - front_wall`: a face proud of the wall is how the bench reads a barb
-# tube that has not gone home in its collet (`hardware/assembly/acceptance-and-burn-in.md`),
-# and a grip that stood proud would spend the machine's one tell-tale on itself.
+# A GRIP IS REMOVED MATERIAL. Nothing of this piece stands proud of
+# `front_plane_y - front_wall`, and the bench reads that plane: the pre-test inspection in
+# `hardware/assembly/acceptance-and-burn-in.md` takes this face standing flush in its bay,
+# jamb to jamb, as the tell-tale for four barb tubes home in their collets.
 #
 # WHAT THE HAND GETS IS A +Y FACE. The pocket's FORE WALL is the ledge four fingers hook
 # forward onto, standing on the same plane the corner post's aft face does, with the block
@@ -1945,10 +1945,6 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
 # Which columns' Z seams run THROUGH their own bodies rather than land in a band those
 # bodies leave open. Filled by `_z_joints`, printed by main().
 _z_seam_passes = {}
-# What the condenser's vents came out as, per flank sign — read off the piece they were cut in
-# (`_record_vent_bound`) and quoted by `main()`, so the figures on the page are the ones the
-# bound was graded on rather than a second derivation of the same intent.
-_vent_reads = {}
 
 
 def _z_joints(placed, inner, stated, plate, y_joint):
@@ -4204,11 +4200,9 @@ def _grip_back(edge, zf, zc, storeys):
     is as deep as that height allows and no deeper.
 
     AND IT WALKS OUT TO IT AT `relief_chamfer`. What stands between the pocket and the pump is
-    a rib, and over a crown that rib moves inboard by the whole octagon-to-bore step — so a
-    square step there would put the first layer over the crown entirely inboard of the rim the
-    layer under it keeps, with nothing at all beneath it. Ramped, that first layer still lands
-    on the rim and the pocket takes its extra depth over the next few, every one landing on the
-    one below."""
+    a rib, and over a crown that rib moves inboard by the whole octagon-to-bore step. Ramped,
+    the first layer over the crown still lands on the rim the layer under it keeps, and the
+    pocket takes its extra depth over the next few, every one landing on the one below."""
     pts, prev = [], None
     for z0, z1, x_room in storeys:
         z_start, z_end = max(z0, zf), min(z1, zc)
@@ -4274,6 +4268,22 @@ def _grip_reach_z(back, x_need):
     return None
 
 
+def _grip_reed_stations(edge, back):
+    """The ledge's reeds, as (x, radius, the z each begins at) — one array datumed on the
+    flank face, on the pitch `flute_depth` as a half-round and the exterior field's own land
+    come to, running until the pocket's back never reaches deep enough to hold a whole one."""
+    r = flute_depth
+    pitch = 2.0 * r + (reeding.flute_pitch - reeding.flute_width)
+    out, k = [], 0
+    while True:
+        x = edge - k * pitch
+        z_bot = _grip_reach_z(back, x - r)
+        if z_bot is None:
+            return out
+        out.append((x, r, z_bot))
+        k += 1
+
+
 def _grip_reeds(edge, y0, zf, zc, storeys, section, sx):
     """THE LEDGE'S REEDING — `reeding.groove`'s own profile cut as a TRUE half-round, struck
     down the ledge in Z so a finger pulling FORE crosses every one of them and a finger
@@ -4291,16 +4301,8 @@ def _grip_reeds(edge, y0, zf, zc, storeys, section, sx):
 
     AND THE ARRAY IS TRIMMED TO THE LEDGE, so a reed runs out on the ceiling's own 45 degrees
     rather than crossing it into the roof."""
-    r = flute_depth
-    pitch = 2.0 * r + (reeding.flute_pitch - reeding.flute_width)
-    back = _grip_back(edge, zf, zc, storeys)
-    out, k = None, 0
-    while True:
-        x = edge - k * pitch
-        z_bot = _grip_reach_z(back, x - r)
-        k += 1
-        if z_bot is None:
-            break
+    out, r = None, flute_depth
+    for x, r, z_bot in _grip_reed_stations(edge, _grip_back(edge, zf, zc, storeys)):
         cut = _zcyl(r, sx * x, y0, z_bot, zc + r + 1.0)
         out = cut if out is None else out.fuse(cut)
     return out.intersect(_xz_prism(y0 - r - 0.1, y0 + 0.1, section))
@@ -4319,7 +4321,11 @@ def _flank_grip(inner, bay, pump_trays, z_top):
     cans open through; everything between is the hand's. Fore and aft it is `grip_run`, and
     inboard it is `_grip_section` — as deep as the pump leaves it at every height.
 
-    The ledge is reeded (`_grip_reeds`), and both flanks carry the same pocket mirrored."""
+    The ledge is reeded (`_grip_reeds`), and both flanks carry the same pocket mirrored.
+
+    WHAT IT HANDS BACK IS CUT AND NEVER FUSED. A grip is depth taken out of the block, so
+    nothing of this piece moves fore of the plane its face already stands on — the plane the
+    bench reads flush for four barb tubes home in their collets."""
     edge = _cap_x_span(bay)[1]
     storeys = _grip_storeys(pump_trays, z_top)
     y0 = inner[2] + _column_along()
@@ -4331,6 +4337,30 @@ def _flank_grip(inner, bay, pump_trays, z_top):
         out.append(pocket.fuse(
             _grip_reeds(edge, y0, zf, zc, storeys, section, sx)))
     return out
+
+
+def grip_figures(box):
+    """What a flank grip comes to on this box, for the docs to read — its opening at the
+    mouth, its run, and the depth it reaches at each of the pump's own storeys. Empty on a
+    box with no bay, which is a box with no cartridge to carry a grip."""
+    if not (box.pump_bay and box.pump_trays):
+        return {}
+    z_top = box.pump_bay[2] - face_reveal
+    storeys = _grip_storeys(box.pump_trays, z_top)
+    edge = _cap_x_span(box.pump_bay)[1]
+    zf, zc = storeys[0][0] + grip_sill, z_top - grip_head
+    back = _grip_back(edge, zf, zc, storeys)
+    reeds = _grip_reed_stations(edge, back)
+    return {
+        "GRIP_RISE": f"{zc - zf:.4g} mm",
+        "GRIP_RUN": f"{grip_run:.4g} mm",
+        "GRIP_DEEP": f"{edge - (storeys[-1][2] + grip_back):.4g} mm",
+        "GRIP_SHALLOW": f"{edge - (storeys[0][2] + grip_back):.4g} mm",
+        "GRIP_BACK": f"{grip_back:.4g} mm",
+        "GRIP_REED": f"{2.0 * flute_depth:.4g} mm",
+        "GRIP_REEDS": f"{len(reeds)}",
+        "GRIP_REEDS_LOW": f"{sum(1 for _x, _r, z in reeds if z <= zf + 1e-9)}",
+    }
 
 
 def bay_floor_z(pump_trays):
@@ -5322,9 +5352,15 @@ def _vent_cutter(outer, sx, y, z0, z1):
                       (y - half, z1 - hip), (y - half, z0 + hip)))
 
 
-def _vent_measure(solid, outer, airway, sx):
-    """One flank's vent, read off the BUILT PIECE at the band's own mid-height: every island the
+def vent_measure(solid, outer, airway, sx):
+    """One flank's vent, read off a BUILT PIECE at the band's own mid-height: every island the
     wall keeps between two slots, and the free area the whole window opens.
+
+    A READING, AND NOT PART OF THE DRAWING. `_realized` keeps a piece between builds, so a
+    reading taken while cutting is a reading the second build never takes and no row says so —
+    `build_pieces` draws and measures nothing. This is asked of the piece afterwards, by
+    `enclosure_assembly.check_flank_vents` for the ledger and by `main` for the page, off one
+    derivation either way.
 
     THE ISLANDS ARE THE MULLIONS. A slab through the flank's section over the airway's window
     comes back as the material left standing, so what a gap between two of them measures is a
@@ -5383,50 +5419,27 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
         cutters.extend(_vent_cutter(outer, sx, y, rz0, rz1) for rz0, rz1 in got)
     if not cutters:
         return solid
-    solid = solid.cut(*cutters)
-    _record_vent_bound(solid, outer, airway, runs)
-    return solid
+    return solid.cut(*cutters)
 
 
-def _record_vent_bound(solid, outer, airway, runs):
-    """What the vents owe, read off the piece they were cut in.
+def vent_readings(pieces, box):
+    """What the condenser's vents came out as, per flank sign, off the piece that carries them.
 
-    THE MULLION IS THE GOVERNING NUMBER and the section behind the groove floor is not. A slot
-    takes its width out of the pitch, and the exterior profile lays `reeding.pierce_shell` of
-    loops across what is left — 2 x 0.42 outer + 2 x 0.45 inner, the four this wall already
-    carries (`print-log.md`). The section moves the OTHER way with slot width: a wider slot puts
-    its jamb further out on the groove's own half-ellipse, where the groove is shallower and the
-    wall behind it thicker, so widening a slot never thins the wall and only ever thins the
-    mullion.
-
-    Read at the flank's mid-section off the built piece, so a mullion is what the wall came out
-    holding and not what the field was asked for."""
-    pitch = flute_pitch(outer)
-    reads = {sx: _vent_measure(solid, outer, airway, sx) for sx in sorted(runs)}
-    _vent_reads.clear()
-    _vent_reads.update(reads)
-    least = min((min(r["mullions"]) for r in reads.values() if r["mullions"]), default=None)
-    jamb = flute_depth * float(reeding.groove(reeding.pierce_width / 2.0, pitch,
-                                              reeding.flute_width))
-    ok = least is not None and least >= reeding.pierce_shell - stated_bound_tol
-    record_bound(Bound(
-        "flank-vent-mullions",
-        "Every mullion the condenser's vents leave carries the exterior's four wall loops",
-        ok,
-        ("no vent on this pack" if least is None
-         else f"thinnest of {sum(len(r['mullions']) for r in reads.values())} mullions is "
-              f"{least:.4f} mm across, on a {2.0 * wall - jamb:.4f} mm section"),
-        f"at least {reeding.pierce_shell:g} mm across, the loops the profile lays",
-        ([f"{'+X exhaust' if sx > 0 else '-X intake':10s} "
-          f"{len(r['slots']):2d} slots {min(r['slots']):.4f}-{max(r['slots']):.4f} mm, "
-          f"{len(r['mullions'])} mullions {min(r['mullions']):.4f}-{max(r['mullions']):.4f} mm, "
-          f"{r['open_mm2'] / 100.0:.2f} cm2 free"
-          for sx, r in sorted(reads.items()) if r["slots"] and r["mullions"]]
-         + ([] if ok else [
-             f"a {reeding.pierce_width:g} mm slot on {pitch:.4f} mm centres leaves "
-             f"{reeding.mullion(pitch, reeding.pierce_width, 1):.4f} mm of mullion, and the "
-             f"widest this field carries is {reeding.pierce_max(reeding.pierce_shell, pitch):.4f}"
-             ]))))
+    THE PIECE IS FOUND THE WAY THE CUT FOUND IT — by whose own bands hold the block's airway
+    (`_piece_bands`), which is the same test `build_piece` makes when it hands a station to the
+    feature that cuts it. So this asks the piece that was cut and not a piece named here."""
+    if not box.cond_airway:
+        return {}
+    ay0, ay1, az0, az1 = box.cond_airway
+    for name, piece in pieces.items():
+        if name.count("-") != 1:
+            continue
+        y0, y1, z0, z1 = _piece_bands(box, name)
+        if y0 <= (ay0 + ay1) / 2.0 <= y1 and z0 <= (az0 + az1) / 2.0 <= z1:
+            solid = piece.val() if hasattr(piece, "val") else piece
+            return {sx: vent_measure(solid, box.outer, box.cond_airway, sx)
+                    for sx in (-1.0, 1.0)}
+    return {}
 
 
 def _core_stops(solid, inner, stations, y0, y1, z0, z1):
@@ -6129,6 +6142,20 @@ def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
     return solid
 
 
+def _piece_bands(box, name):
+    """The Y and Z bands one quadrant owns, as `(y0, y1, z0, z1)` — what every station is tested
+    against before the piece grows or cuts it. Each band runs a millimetre past the shell at its
+    outer end and stops on the seam at its inner one, so a station on a seam plane belongs to
+    exactly one piece."""
+    y_side, z_side = name.split("-")
+    zj = box.splits[0] if y_side == "front" else box.splits[1]
+    y0, y1 = ((box.outer[2] - 1.0, box.y_joint) if y_side == "front"
+              else (box.y_joint, box.outer[3] + 1.0))
+    z0, z1 = ((box.outer[4] - 1.0, zj) if z_side == "bottom"
+              else (zj, box.outer[5] + 1.0))
+    return y0, y1, z0, z1
+
+
 def build_piece(box, y_side, z_side, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
     its seam (`box.splits` — the one stated plane, both columns), the bottom
@@ -6221,7 +6248,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_screw_cut(x_ext, sx, z_seam, _y_boss(y_joint),
                                          corner_screw_len))
     piece = piece.intersect(_rounded_outer(outer))
-    zlo, zhi = (oz0 - 1.0, zj) if z_side == "bottom" else (zj, oz1 + 1.0)
+    zlo, zhi = _piece_bands(box, f"{y_side}-{z_side}")[2:]
     if y_side == "back":
         rear = back_top_wall_face() if z_side == "top" else None
         # The port field, INSIDE the print silhouette: its pockets are cut into the wall's outer
@@ -6236,7 +6263,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _c14_tunnel(piece, inner, outer, box.c14, box.back_ports, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
-    ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
+    ylo, yhi = _piece_bands(box, f"{y_side}-{z_side}")[:2]
     piece = _east_bosses(piece, inner, outer, box.east_bosses, ylo, yhi, zlo, zhi)
     # The +X wall's Wago wells, on whichever piece holds each one's station. After the
     # bosses for the same reason those go after the seam's own bosses: a pocket cut here is a
@@ -6592,6 +6619,9 @@ def main():
         raise ValueError(
             "the box bores no tube anchor at all, and the strap table quotes a loop for them. "
             "Either the pack stands a rib again or the table stops reading one.")
+    # The vents as the piece came out, for the page — the same reading `flank-vent-mullions` is
+    # graded on, asked of the same solid after it was drawn.
+    vent_read = vent_readings(pieces, box)
     variables = {
         "LOOP_CARB_1": f"{tube_anchor_strap_loop(seats[0]):.3g} mm",
         "LOOP_WR1110": f"{tube_anchor_strap_loop(seats[-1]):.3g} mm",
@@ -6641,8 +6671,8 @@ def main():
         "FLUTE_STEPS": f"{flute_fade_steps:d}",
         "FLUTE_RAMP": f"{math.degrees(math.atan(1.5 * flute_depth / flute_rise)):.3g}°",
         # The condenser's own two vents, pierced down the flutes those flanks already carry.
-        # Every one of these is READ OFF THE BUILT PIECE (`_vent_reads`) or off the field the
-        # slot was struck on, so the page and the bound quote one derivation.
+        # Every one of these is READ OFF THE BUILT PIECE (`vent_readings`) or off the field
+        # the slot was struck on, so the page and `flank-vent-mullions` quote one derivation.
         "VENT_SLOT": f"{reeding.pierce_width:.4g} mm",
         "VENT_MULLION": f"{reeding.mullion(flute_pitch(bo), reeding.pierce_width, 1):.4f} mm",
         "VENT_CEILING": f"{reeding.pierce_max(reeding.pierce_shell, flute_pitch(bo)):.4f} mm",
@@ -6661,15 +6691,15 @@ def main():
             if box.cond_airway else "no block"),
         "VENT_GROOVES": (f"{sum(1 for sx, _y in vent_grooves(bo, box.cond_airway) if sx > 0):g}"
                          if box.cond_airway else "0"),
-        "VENT_SLOTS_IN": (f"{len(_vent_reads[-1.0]['slots']):g}" if -1.0 in _vent_reads else "0"),
-        "VENT_SLOTS_OUT": (f"{len(_vent_reads[1.0]['slots']):g}" if 1.0 in _vent_reads else "0"),
+        "VENT_SLOTS_IN": (f"{len(vent_read[-1.0]['slots']):g}" if -1.0 in vent_read else "0"),
+        "VENT_SLOTS_OUT": (f"{len(vent_read[1.0]['slots']):g}" if 1.0 in vent_read else "0"),
         "VENT_MEAS_MULLION": (
-            f"{min(min(r['mullions']) for r in _vent_reads.values()):.4f} mm"
-            if _vent_reads else "no vent"),
-        "VENT_OPEN_IN": (f"{_vent_reads[-1.0]['open_mm2'] / 100.0:.1f} cm²"
-                         if -1.0 in _vent_reads else "no vent"),
-        "VENT_OPEN_OUT": (f"{_vent_reads[1.0]['open_mm2'] / 100.0:.1f} cm²"
-                          if 1.0 in _vent_reads else "no vent"),
+            f"{min(min(r['mullions']) for r in vent_read.values()):.4f} mm"
+            if vent_read else "no vent"),
+        "VENT_OPEN_IN": (f"{vent_read[-1.0]['open_mm2'] / 100.0:.1f} cm²"
+                         if -1.0 in vent_read else "no vent"),
+        "VENT_OPEN_OUT": (f"{vent_read[1.0]['open_mm2'] / 100.0:.1f} cm²"
+                          if 1.0 in vent_read else "no vent"),
         "FLUTE_SEAM_MISS": (
             lambda arc, pitch: f"{min(arc % pitch, pitch - arc % pitch):.2g} mm")(
                 _plan_segments(bo)[0][1] + _plan_segments(bo)[1][1]
@@ -6699,6 +6729,7 @@ def main():
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "
                      f"{bo[5] - bo[4]:.0f} mm"),
+        **grip_figures(box),
     }
     substitute_py_comments(
         Path(__file__),
