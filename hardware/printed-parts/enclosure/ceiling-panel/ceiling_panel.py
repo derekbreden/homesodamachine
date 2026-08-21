@@ -175,7 +175,8 @@ def _post(r, cx, cy, z0, z1):
 # --- the panel --------------------------------------------------------------
 
 def build():
-    """The panel as one solid, plus the figures main() reads back off it."""
+    """The panel as one solid: the field, a tongue down each long edge, and the two screw
+    pads sunk for their heads."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
     # The tongues, one down each long edge, at the panel's own underside.
     for sx in (-1.0, 1.0):
