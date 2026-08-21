@@ -23,10 +23,11 @@ Run:  tools/cad-venv/bin/python hardware/scripts/_bom_masses.py            # wri
 
 Then `_bom_totals.py` to carry the new line costs into the section + grand totals.
 """
+import hashlib
+import json
 import re
 import sys
 from pathlib import Path
-from _cadq_export import import_step
 
 REPO = next(p for p in Path(__file__).resolve().parents if (p / "hardware").is_dir())
 sys.path.insert(0, str(REPO / "tools"))
@@ -34,6 +35,9 @@ from docgen import cells                                        # noqa: E402
 
 BOM = REPO / "hardware" / "ledger" / "bom.md"
 PARTS_DIR = REPO / "hardware" / "printed-parts"
+
+# A volume is a function of the solid's bytes, and is held under a hash of them.
+_VOL_CACHE = REPO / ".cache" / "bom-volumes.json"
 
 # Density (g/cm³) and price ($/kg), both as §7's own prose states them. Colour
 # changes what a part looks like, not what it costs, so translucent PETG is PETG.
@@ -137,15 +141,31 @@ PRINTED = "<!--@printed-->"
 _VOLUMES: dict[str, float] = {}
 
 
+def _held():
+    """What the cache holds: sha256 of a STEP -> its volume in cm³."""
+    try:
+        return json.loads(_VOL_CACHE.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
 def volume_cm3(rel):
     """The solid's volume in cm³, memoized — a piece may appear in more than one row."""
     if rel not in _VOLUMES:
-        import cadquery as cq
-
         path = PARTS_DIR / rel
         if not path.exists():
             sys.exit(f"_bom_masses: {rel} has no STEP at {path}")
-        _VOLUMES[rel] = import_step(str(path)).val().Volume() / 1000.0
+        key = hashlib.sha256(path.read_bytes()).hexdigest()
+        held = _held()
+        if key in held:
+            _VOLUMES[rel] = held[key]
+        else:
+            from _cadq_export import import_step
+
+            _VOLUMES[rel] = import_step(str(path)).val().Volume() / 1000.0
+            held[key] = _VOLUMES[rel]
+            _VOL_CACHE.parent.mkdir(parents=True, exist_ok=True)
+            _VOL_CACHE.write_text(json.dumps(held, indent=1, sort_keys=True))
     return _VOLUMES[rel]
 
 
