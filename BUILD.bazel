@@ -3837,11 +3837,17 @@ genrule(
     ],
     outs = [
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md",
@@ -3851,15 +3857,21 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
-O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
-O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
-O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
-O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
-O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
-O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
+O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
+O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
+O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
+O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
+O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
+O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
+O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
+O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl)
+O10=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
+O11=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl)
+O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -3873,15 +3885,21 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O0
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O1
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O2
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O3
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O4
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O5
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O6
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O7
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O8
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O9
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl $$O1
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O2
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl $$O3
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O4
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl $$O5
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O6
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O7
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O8
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl $$O9
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O10
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl $$O11
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O12
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O13
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O14
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O15
 """,
 )
 
@@ -6896,6 +6914,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7096,6 +7120,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7296,6 +7326,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7496,6 +7532,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7696,6 +7738,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7896,6 +7944,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8096,6 +8150,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8296,6 +8356,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8496,6 +8562,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8696,6 +8768,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8922,6 +9000,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9122,6 +9206,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9449,6 +9539,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9684,6 +9780,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9963,6 +10065,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -10165,6 +10273,12 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
+        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
