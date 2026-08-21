@@ -223,7 +223,10 @@ def carried(built: str, tracked: str, suffix: str) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--write", action="store_true", help="copy what differs into the tree")
+    ap.add_argument("--failed", default="", metavar="TARGET[,TARGET…]",
+                    help="targets that failed this run; their outputs are not carried")
     args = ap.parse_args()
+    failed = {t.strip().lstrip("/").lstrip(":") for t in args.failed.split(",") if t.strip()}
 
     # A BUILD THAT DID NOT FINISH LEAVES THE LAST ONE'S OUTPUTS STANDING. Bazel keeps what a
     # target cut the last time it succeeded, so a failed build's `bazel-bin` is a mix of what
@@ -262,6 +265,18 @@ def main() -> int:
     if not pairs:
         print("  nothing built — run `bazel build //...` first")
         return 1
+
+    # A TARGET THAT FAILED THIS RUN STILL HAS THE OUTPUTS OF THE LAST RUN THAT DID NOT. Bazel
+    # keeps those, and `--check_up_to_date` answers about inputs rather than about whether an
+    # action ran, so it calls them current — a red build reads up to date and its stale bytes
+    # are carryable. The path names the target it came from (`/bin/out/<target>/…`), so what
+    # is held back is those outputs and nothing else: every green target still owes its own.
+    if failed:
+        held = {b: t for b, t in pairs.items()
+                if (m := re.search(r"/bin/out/([^/]+)/", b)) and m.group(1) in failed}
+        pairs = {b: t for b, t in pairs.items() if b not in held}
+        print(f"  {len(held)} output(s) held back, cut by {len(failed)} target(s) that failed "
+              f"this run: {', '.join(sorted(failed))}")
 
     back = _rewritten()
     differs, missing, unknown = [], [], []
