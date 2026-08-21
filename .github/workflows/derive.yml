@@ -136,12 +136,33 @@ jobs:
         # the next commit's work; everything that does not depend on it still owes its output.
         run: bazel --output_user_root=/tmp/bzl build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
 
+      # BAZEL CUTS INTO `bazel-bin` AND THIS REPO COMMITS ITS TREE, and `sync_tree.py` is the
+      # only thing that carries one to the other — `hardware/README.md` names it as the step
+      # after a build. Without it the sequence is: the fetch puts the LOCKED solids in the
+      # tree, bazel cuts fresh ones into `bazel-bin`, nothing moves them across, and the
+      # ledger, the docs, the deck and `pack.py` all read what the fetch put there. Every
+      # layer agrees with every other and all of them describe the commit BEFORE this one.
+      #
+      # IT REFUSES ON A BUILD THAT DID NOT FINISH, and that is its own doctrine, not a bug
+      # to route around: bazel keeps what a target cut the last time it succeeded, so a red
+      # build's `bazel-bin` is this run's bytes mixed with some earlier run's, and carrying
+      # that writes stale bytes over correct ones — the one move here that cannot be taken
+      # back. So while any target is red this carries nothing, and the step below says what
+      # that means instead of letting the greens under it read as confirmation.
+      - name: Carry what the build cut into the tree
+        id: sync
+        continue-on-error: true
+        run: tools/cad-venv/bin/python tools/bazel/sync_tree.py --write
+
       # A RED BUILD DOES NOT HOLD THIS, but it must not be silent either: `continue-on-error`
       # reports the step as a success, so a build that cut no solids reached the ledger and
       # died there naming a missing STEP instead of naming itself. This says which happened.
       - name: What the build said
         run: |
           echo "full-tree build: ${{ steps.build.outcome }}"
+          echo "carry into the tree: ${{ steps.sync.outcome }}"
+          [ "${{ steps.sync.outcome }}" = "success" ] || \
+            echo "::warning title=derived from the commit before this one::sync_tree carried nothing, so everything below reads the solids the fetch put in the tree — this commit's geometry is in bazel-bin and no step above reaches it. A lock that reads clean here is comparing the fetch to the lock it came from."
           [ "${{ steps.build.outcome }}" = "success" ] || \
             echo "::warning title=full-tree build::did not complete — what follows derives from the solids it did cut, and a lock reading clean off a build that cut none is reading only what the fetch sha256-verified on the way in"
 
@@ -185,6 +206,14 @@ jobs:
           tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write 2>&1 | tee /tmp/pack.log
           if grep -q "lock is behind" /tmp/pack.log; then
             echo "::warning title=lock::the commit that triggered this run did not carry its own lock — the site served the previous bundle until now, and the derived commit below is a second deploy"
+          elif [ "${{ steps.sync.outcome }}" != "success" ]; then
+            # AND `lock names this tree` MEANS NOTHING WHEN THE CARRY DID NOT HAPPEN. The
+            # solids on this disk are the ones `fetch-cad-artifacts.mjs` put there, each
+            # already held to its own sha256 on the way in, so pack is comparing the fetch
+            # to the lock the fetch came from. The one question this job exists to settle —
+            # whether a linux OCC writes the bytes a macOS OCC writes — is answered by this
+            # line only on a run whose build finished and whose carry ran.
+            echo "::notice title=lock::circular — pack read the fetched solids, not built ones. The byte question is still open."
           fi
 
       - name: Commit what moved
