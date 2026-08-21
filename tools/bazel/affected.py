@@ -18,6 +18,7 @@ target's inputs or newly added to a graph that has not been regenerated.
 """
 
 import argparse
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -100,6 +101,16 @@ def selftest() -> int:
          str(paths_in('?? "has space.py"')))
     hold("an ordinary line is one path",
          paths_in(' M hardware/scripts/lanes.py') == ("hardware/scripts/lanes.py",))
+    # BAZEL IS THE ONE THING THIS CANNOT ASK FOR ITSELF. `known` and `targets` shell out to
+    # `bazel query`, and a test bazel is running holds the server lock this workspace shares —
+    # a query under it waits for the build that started it. The holds above stand on their own;
+    # the three below are taken where a shell can reach bazel.
+    if os.environ.get("TEST_SRCDIR"):
+        print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
+              "server. Run `affected.py selftest` from a shell for them.")
+        print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
+        return 0 if holds == 3 else 1
+
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
     hold("a tracked source is a label bazel knows", hit == src, f"{hit!r} {miss!r}")

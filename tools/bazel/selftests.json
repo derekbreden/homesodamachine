@@ -837,6 +837,9 @@
     "hardware/scripts/probe.py",
     "tools/docgen/__init__.py"
   ],
+  "tools/bazel/affected.py": [
+    "tools/bazel/affected.py"
+  ],
   "tools/bazel/check_declared_imports.py": [
     "tools/bazel/check_declared_imports.py"
   ],

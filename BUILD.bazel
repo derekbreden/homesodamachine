@@ -11305,6 +11305,17 @@ sh_test(
 )
 
 sh_test(
+    name = "affected-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "tools/bazel/affected.py",
+    ],
+    args = ["tools/bazel/affected.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "check-declared-imports-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
