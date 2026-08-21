@@ -20,6 +20,8 @@ pictures back, and it runs when that STEP moves.
 
 import argparse
 import json
+import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -34,11 +36,10 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
+import _mesh_payload                                    # noqa: E402
 import _scenes                                          # noqa: E402
 from docgen import note_rewritten                       # noqa: E402
-from _cadq_export import (export_assembly, import_step, note_read,   # noqa: E402
-                          note_write, _payload_current, _per_solid_color,
-                          _write_mesh_payload)
+from _cadq_export import note_read, note_write, _per_solid_color   # noqa: E402
 
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
@@ -136,6 +137,57 @@ def cut(assembly, scene):
     return out, tuple(mid)
 
 
+# --- what the picture is drawn FROM ----------------------------------------
+#
+# `loadStepFile` reads `/meshes/<file>.mesh`, and parses `/steps/<file>` where there is no
+# payload of the version it decodes — `web/public/js/viewer/step.js`. A scene is drawn from the
+# payload `draw` writes beside its STEP; a part shot is drawn from the B-rep, through a link
+# that has no payload beside it. Each sidecar's `geometry` is the digest of that file.
+
+
+def write_payload(step, source) -> Path:
+    """Tessellate `source` into `<step>.mesh`.
+
+    `_mesh_payload` is deterministic: one shape, one set of bytes. The digest of this file
+    names the shape it was made from. Bytes that match what is already there are dropped, so a
+    payload that did not move keeps its mtime and the page keeps its ETag."""
+    mesh = Path(str(step) + ".mesh")
+    meshes = (_mesh_payload.from_assembly(source) if hasattr(source, "toCompound")
+              else _mesh_payload.from_shape(source))
+    tmp = mesh.with_name(mesh.name + ".tmp")
+    _mesh_payload.write(meshes, str(tmp))
+    if mesh.is_file() and mesh.read_bytes() == tmp.read_bytes():
+        tmp.unlink()
+    else:
+        os.replace(tmp, mesh)
+    return mesh
+
+
+def payload_stands(mesh) -> bool:
+    """Whether `mesh` is a payload of the version `web/public/js/viewer/step.js` decodes."""
+    try:
+        return _mesh_payload.read_version(mesh) == _mesh_payload.VERSION
+    except Exception:
+        return False
+
+
+def bare_subject(step, name) -> Path:
+    """`step` hard-linked at `OUT_DIR/<name>.step`, with no payload beside it.
+
+    `_atomic_write` replaces a STEP by rename, so a link stands for the inode it was made from.
+    This one is remade on every render, and the digest the sidecar records is taken from `step`."""
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    bare = OUT_DIR / f"{name}.step"
+    for stray in (bare, Path(str(bare) + ".mesh")):
+        if stray.exists():
+            stray.unlink()
+    try:
+        os.link(step, bare)
+    except OSError:
+        shutil.copyfile(step, bare)
+    return bare
+
+
 def draw(scene, assembly, force=False) -> Path:
     # THE RENDERER IS READ WHETHER OR NOT THIS RUN STARTS IT. A scene whose geometry and camera
     # both stand skips the browser, and a trace of that run would not see node's command line
@@ -146,17 +198,21 @@ def draw(scene, assembly, force=False) -> Path:
     GLB_DIR.mkdir(parents=True, exist_ok=True)
     step = OUT_DIR / f"{scene.id}.step"
     scene_assembly, target = cut(assembly, scene)
-    export_assembly(scene_assembly, str(step))
 
-    # AND A MESH BESIDE IT, THE WAY A PART SHOT MAKES ITS OWN. `HSM_SKIP_MESH_PAYLOAD` is set on
-    # every build action, so `export_assembly` queues none; the renderer below opens this STEP in
-    # the viewer, where `loadStepFile` PREFERS a payload to the B-rep beside it, and a scene's
-    # B-rep through occt in wasm holds the page's own main thread for seconds.
-    #
-    # Tessellated from the per-solid-color restatement — the STEP above is written from that.
-    mesh = step.with_name(step.name + ".mesh")
-    if not _payload_current(step, mesh):
-        _write_mesh_payload(step, _per_solid_color(scene_assembly))
+    # THE SCENE'S GEOMETRY, ONCE, IN THE FORM occt-import-js READS A COLOUR OFF. The payload the
+    # picture is drawn from and the STEP it is fetched under are both this restatement.
+    colored = _per_solid_color(scene_assembly)
+
+    # THE STEP IS THE NAME THE PAYLOAD IS FETCHED UNDER. `render-step-posed.js` stats it and the
+    # page asks for `<file>.mesh`. `.gitignore:91` holds this directory, and `pack.py:49`,
+    # `parts-tree.js:45` and `BUILD.bazel` each name it as one they do not carry — so it is
+    # written straight, the way the `.glb` below is.
+    colored.export(str(step))
+    mesh = write_payload(step, colored)
+    if not payload_stands(mesh):
+        raise RuntimeError(
+            f"scene {scene.id!r} has no v{_mesh_payload.VERSION} payload at {mesh}, which is the "
+            f"file its picture is drawn from.")
 
     # AND THE VIEWER'S OWN ARTIFACT. A scene's B-rep is 2–10 MB and would churn on every move of
     # any body in it; a mesh at viewer tolerance is a third of that, and /3d reads a `.glb` the
@@ -187,11 +243,11 @@ def draw(scene, assembly, force=False) -> Path:
     note_rewritten(png)
     note_rewritten(_scenes.sidecar_path(png))
 
-    # WHAT THE PICTURE IS OF IS THIS FILE. The scene's STEP is the exact geometry the renderer is
-    # handed, and the scene's own tuple is the camera it is handed with — so two runs agreeing on
-    # both would hand the browser the same job. A source moving is what makes a scene worth
+    # WHAT THE PICTURE IS OF IS THIS FILE. The payload holds the exact triangles the page builds
+    # the scene out of, and the scene's own tuple is the camera they are drawn with — so two runs
+    # agreeing on both hand the browser the same job. A source moving is what makes a scene worth
     # doubting; these two are what answer the doubt, and most edits in this tree move neither.
-    geometry = _scenes.digest_of(step)
+    geometry = _scenes.digest_of(mesh)
     held = _scenes.held_record(png)
     # WHAT THE SIDECAR WATCHES IS THIS TREE. The flags below are node's and move no file this
     # record hashes; `--force` redraws against a renderer that has moved under a standing scene.
@@ -222,9 +278,9 @@ def draw(scene, assembly, force=False) -> Path:
         print("   " + " ".join(cmd[1:]))
         subprocess.run(cmd, cwd=str(_ROOT), check=True)
 
-    # What the picture is OF: the scene's own tuple hashed, the geometry it was drawn of, the
-    # picture that came out, and the bodies that went into it — the machine's answer at the
-    # moment of the render. Committed beside the PNG, which the scene STEP is not.
+    # What the picture is OF: the scene's own tuple hashed, the digest of the payload it was
+    # drawn from, the picture that came out, and the bodies that went into it — the machine's
+    # answer at the moment of the render. Committed beside the PNG, which the payload is not.
     _scenes.sidecar_path(png).write_text(json.dumps({
         "scene": _scenes.scene_digest(scene),
         "geometry": geometry,
@@ -251,15 +307,6 @@ def draw_part(part, force=False) -> Path:
     note_read(RENDERER)
     step = _ROOT / part.step
     note_read(step)
-    # AND A MESH BESIDE IT, WRITTEN HERE IF THERE IS NOT ONE. `loadStepFile` PREFERS a payload to
-    # the STEP it stands for, and a subject of this size parsed from raw B-rep does not reach the
-    # viewer inside the renderer's own wait — a missing payload is not a slower render, it is
-    # `ERR_TIMED_OUT`. A payload is `.gitignore`d, so it is never staged and a sandbox always
-    # starts without one; a scene cuts its own the same way in `draw`, and this is that bargain
-    # for a STEP somebody else cut.
-    mesh = step.with_name(step.name + ".mesh")
-    if not _payload_current(step, mesh):
-        _write_mesh_payload(step, import_step(str(step)))
     png = part_png(part)
     note_write(png)
     # Read back for the same reason `draw` reads its own: see there.
@@ -282,7 +329,11 @@ def draw_part(part, force=False) -> Path:
     if unchanged:
         print(f"   (geometry unchanged — {png.name} stands)")
     else:
-        rel = step.relative_to(_HW).as_posix()      # the renderer takes a content-root path
+        # THE B-REP IS THE SUBJECT. The colour occt-import-js reads off a component is in these
+        # bytes, and `.step.mesh` is `.gitignore`d and in no action's `srcs` — so the picture is
+        # drawn through a link with no payload beside it, and a fresh checkout, a sandbox and
+        # this tree all hand the page the same triangles.
+        rel = bare_subject(step, f"part-{part.id}").relative_to(_HW).as_posix()
         cmd = [
             "node", str(RENDERER), rel, str(png),
             "--cam", ",".join(str(v) for v in part.cam),
