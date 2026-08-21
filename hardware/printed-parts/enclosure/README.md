@@ -59,6 +59,7 @@ The arrangement above is the current pack — a working layout. It is free to re
 ## Sub-folders
 
 - [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — the rear wall's connection inventory. Not a separate part: the rear face is a wall of `enclosure-back-top`.
+- [`ceiling-panel/`](/hardware/printed-parts/enclosure/ceiling-panel/) — `enclosure-back-top`'s ceiling, printed flat on the bed and slid into a dado down each side of that piece. A separate part because back-top prints mouth-down on its seam rim, so a ceiling printed in it is a roof laid down over the open service bay.
 - [`drip-pan/`](/hardware/printed-parts/enclosure/drip-pan/) — internal catch basin under the ASSE 1022 chain's atmospheric vent.
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the serialized plate the machine is named and rated on, lying flush in a pocket of the rear wall beside the port chips, held by two M3 cap screws.
 - [`port-ring/`](/hardware/printed-parts/enclosure/port-ring/) — the flat chip inset into the wall under each rear-wall fitting's flange, in the colour of the tube that goes into it and lettered with that port's name.
