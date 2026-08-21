@@ -26,7 +26,7 @@
 import path from "path";
 import fs from "fs";
 import { pathToFileURL } from "url";
-import { PARSE_TIMEOUT, closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 function usage(msg) {
   if (msg) console.error(`render-card: ${msg}`);
@@ -262,23 +262,27 @@ async function main() {
     // `bs-band-saw` passed 60 s on a runner while `//:cards-build` was 117 s into its
     // own render, and one card that did not come back is a red target, which is a
     // carry that does not happen, which is every derived output describing the commit
-    // before. The other two renderers carry `PARSE_TIMEOUT + 60000` for the same reason.
+    // before.
     //
     // AND THE ENVIRONMENT CANNOT RAISE IT WHERE IT MATTERS. A genrule sees only what
     // `.bazelrc` hands it with `--action_env` — PATH, PUPPETEER_CACHE_DIR,
     // BLENDER_USER_RESOURCES and two flags — so `HSM_CARD_TIMEOUT` set in a workflow
     // reaches nothing at all. It is here for a hand run. The default is what CI gets.
     //
-    // SO IT IS THE SIBLINGS' NUMBER. The paragraph above set 240 s and `bs-band-saw`
-    // passed that too, on the first screenshot after a cold launch, in both runs there
-    // are logs for — the same card, systematically, with `//:cards-build` 92 s into its
-    // own browser beside it. A number reasoned from how long a card takes is a number
-    // that will be passed again the next time the runner is busier, because the thing
-    // being measured is the runner and not the card. `PARSE_TIMEOUT + 60000` is what
-    // render-thumbnails.js and render-step-posed.js carry, for the reason this comment
-    // already gives, and the cost of it is only ever paid by a page that never comes
-    // back — which is the one case it exists for.
-    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || PARSE_TIMEOUT + 60000),
+    // AND `bs-band-saw` IS A PAGE THAT NEVER COMES BACK, WHICH IS WHY THIS NUMBER IS
+    // SMALL. It was raised to `PARSE_TIMEOUT + 60000` — 960 s, what the other two
+    // renderers carry — on the reading that contention was eating a budget sized for a
+    // hung page. Derive 32463988242 measured it: `//:tools-build` went 270 s -> 1926 s,
+    // the build's critical path 452 s -> 1949.8 s, and a SECOND card reached the same
+    // hang instead of the run ending at the first. 2 x 960 s is the 1926 s. A capture
+    // that never returns does not finish given longer; it costs longer.
+    //
+    // So the budget is back where it caps that failure at four minutes a card. What
+    // hangs is still open: `//:tools-build` captures 3300x2550 at dpr 1.2 — 12.1
+    // megapixels in one `Page.captureScreenshot`, seven times the main deck's, which
+    // passes — and it is always the first cards alphabetically, while Chromium is still
+    // faulting in pages after a cold launch. That is a capture-side fix, not a clock one.
+    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 240000),
   });
   let overflowed = 0;
   const unrendered = [];
