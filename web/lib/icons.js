@@ -12,7 +12,6 @@ export const CHARTS_SVG    = iconSvg("chart");
 export const DRAWINGS_SVG  = iconSvg("pencil");
 export const PCB_SVG       = iconSvg("cpu");
 export const DOLLAR_SVG    = iconSvg("dollar");
-export const TREE_SVG      = iconSvg("tree");
 export const UPDATES_SVG   = iconSvg("book");
 export const GEAR_SVG      = iconSvg("gear");
 export const BELL_SVG      = iconSvg("bell");

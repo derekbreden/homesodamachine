@@ -20,7 +20,7 @@ same file the server does — Node by path, the browser by URL, one source eithe
   pinned by `web/tests/sidecar.test.js`.
 - **cards.js** — the assembly deck: where cards live (`assembly/cards/<code>-<slug>.html`), the
   1800 × 1200 canvas they're authored against, and which of the deck's files `/cards/*` will serve.
-  Authored in `hardware/assembly/cards/`; read by `web/lib/{walk,viewer-routes,build-tree,push}.js`
+  Authored in `hardware/assembly/cards/`; read by `web/lib/{walk,viewer-routes,push}.js`
   and `web/dev-server/server.js`; pinned by `web/tests/cards.test.js`.
 - **documents.js** — a PDF the site hands over whole: the `<name>.pdf.json` sidecar that makes one
   a document and the `<name>.cover.png` beside it. Written by whatever builds the document
@@ -29,18 +29,14 @@ same file the server does — Node by path, the browser by URL, one source eithe
 
 ## The shape of the machine
 
-The two trees a page is a browse of. Each states the one thing the repository's own files do not —
-where a directory or a bench stands relative to the others — and reads everything else off disk, so
-a part or a card added on the tree appears with no edit here and anything unseated is reported on
-the page.
+The tree a page is a browse of. It states the one thing the repository's own files do not — where a
+directory stands relative to the others — and reads everything else off disk, so a part added on the
+tree appears with no edit here and anything unseated is reported on the page.
 
 - **parts-tree.js** — the three assemblies `/3d` browses (enclosure assembly, cold core, faucet), the
   groups inside each, and the reference shelf under them; plus `seatParts`, which folds a part's
   `.step` / `.dxf` / `.glb` into one card. Read from `/api/{steps,dxf,glbs}` by
   `web/public/js/viewer/parts.js`; pinned by `web/tests/parts-tree.test.js`.
-- **build-tree.js** — the bands `/build` groups benches into, and the parsers that read a procedure
-  (`hardware/assembly/<name>.md`) and a card's `.src` footer. Read by `web/lib/build-tree.js`;
-  pinned by `web/tests/build-tree.test.js`.
 - **component-sources.js** — which file a named solid inside an assembly was modelled in, for the
   ones whose name is not its file's stem; plus `sourceFileFor`, which answers null for the bodies an
   assembly builds and keeps. Read by `web/public/js/viewer/component-picker.js` for the drill-down

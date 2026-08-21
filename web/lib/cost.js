@@ -19,10 +19,20 @@
 import path from "path";
 import fs from "fs";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
-// The ledgers are markdown, and every cell this page shows is prose off a
-// markdown table — link markers, backticks and emphasis come off the same way
-// the build tree takes them off.
-import { plainMarkdown } from "../contracts/build-tree.js";
+
+// Every cell this page shows is prose off a markdown table, and the ledgers
+// write their numbers as docgen markers — `[value](NAME)`, so a figure has one
+// authored home and every reader takes the same value. Strip the marker syntax
+// back to the value, and the emphasis around it, so a cell reads as prose here.
+function plainMarkdown(text) {
+  return String(text)
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/`([^`]*)`/g, "$1")
+    .replace(/\*\*([^*]*)\*\*/g, "$1")
+    .replace(/~~([^~]*)~~/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 // Display names mirror hardware/scripts/_bom_categories.py CATEGORIES, the
 // source of truth for the taxonomy. An unknown tag falls back to a prettified

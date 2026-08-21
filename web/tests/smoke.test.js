@@ -217,10 +217,10 @@ test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => 
   assert.match(res.headers.get("content-type") || "", /^text\/plain/);
 });
 
-// The deck's own pages, served for the card links on /build. Skipped on a
-// checkout with no cards. A card page must come back as HTML (the browser
-// parses it as a document); build machinery in the same directory must not come
-// back at all.
+// The deck's own pages, served so a card's relative style.css and img/… resolve
+// when the printed deck is assembled off them. Skipped on a checkout with no
+// cards. A card page must come back as HTML (the browser parses it as a
+// document); build machinery in the same directory must not come back at all.
 test("GET /cards/* serves a card page but not the deck's build machinery", async (t) => {
   const dir = path.join(REPO_ROOT, "hardware", "assembly", "cards");
   const card = fs.existsSync(dir)
