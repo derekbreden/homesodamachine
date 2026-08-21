@@ -653,23 +653,6 @@ function onContentChange(absPath) {
     return;
   }
 
-  // Line-art SVG inside a drawings/ directory changed — broadcast update.
-  // Drawings are produced by their own .py script (run on edit below);
-  // here we just notice the resulting SVG and forward to the viewer.
-  if (absPath.endsWith(".svg") && absPath.split(path.sep).includes("drawings")) {
-    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
-    debounce.set(
-      absPath,
-      setTimeout(() => {
-        debounce.delete(absPath);
-        const relFile = relForBroadcast(absPath);
-        console.log(`Drawing changed: ${relFile}`);
-        broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
-      }, 300),
-    );
-    return;
-  }
-
   // Assembly card changed — broadcast update (see maybeBroadcastCard).
   if (maybeBroadcastCard(absPath)) return;
 
@@ -763,7 +746,7 @@ function onContentChange(absPath) {
 //
 // The hot set is the render modules the client knows how to re-import: the CAD
 // leaf loaders (glb/step/dxf — loaders.js) and the self-contained PanZoom detail
-// modules (mermaid/drawings/pcb — detail-shims.js). Scoped to those on purpose:
+// modules (mermaid/pcb — detail-shims.js). Scoped to those on purpose:
 // a change to shared infra (scene.js, state.js), a detail sub-module
 // (pcb-pick.js, pcb-edit.js), or the shell (main.js, grid.js, cad-detail.js)
 // can't be swapped without rebuilding, so we don't pretend — those still need a
@@ -771,7 +754,7 @@ function onContentChange(absPath) {
 // request, so no server restart is involved for client JS.
 const VIEWER_JS_DIR = path.resolve(__dirname, "../public/js/viewer");
 // keep in sync with loaders.js (CAD leaves) + detail-shims.js (PanZoom kinds)
-const HOT_LEAVES = new Set(["glb.js", "step.js", "dxf.js", "mermaid.js", "drawings.js", "pcb.js"]);
+const HOT_LEAVES = new Set(["glb.js", "step.js", "dxf.js", "mermaid.js", "pcb.js"]);
 const codeDebounce = new Map();
 
 function onViewerCodeChange(absPath) {

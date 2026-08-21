@@ -4765,26 +4765,6 @@
       "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step"
     ]
   },
-  "hardware/quickstart/appliance_quickstart.py": {
-    "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
-      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
-      "hardware/quickstart/appliance_quickstart.py",
-      "hardware/quickstart/drawings/prints-and-guides/appliance.svg",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/quickstart/appliance_quickstart.py"
-    ],
-    "writes": [
-      "hardware/quickstart/appliance_quickstart.py",
-      "hardware/quickstart/drawings/prints-and-guides/appliance.pdf",
-      "hardware/quickstart/drawings/prints-and-guides/appliance.svg"
-    ]
-  },
   "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
     "reads": [
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",

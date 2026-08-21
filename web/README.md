@@ -65,7 +65,7 @@ The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page goes 
 | [`server.js`](/web/server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
 | [`lib/shell.js`](/web/lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
 | [`lib/landing.js`](/web/lib/landing.js) | `/` | Marketing landing + email signup form. |
-| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, drawings + the documents shelf, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts`, `/drawings`, `/pcb` | The viewer pages — parts, charts, the documents shelf, boards. All render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid,documents}`, `/steps/*`, `/dxfs/*`, `/cards/*`, `/docs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
 | [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
 | [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed` broadcasts. |

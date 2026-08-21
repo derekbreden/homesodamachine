@@ -11,7 +11,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "../lib/walk.js";
+import { walkFiles, walkPcbBoards, walkDocuments } from "../lib/walk.js";
 import { findGenerateScripts } from "../dev-server/deps.js";
 
 // Write a .tsx source plus a rendered overlay (the "is rendered" tell) for a
@@ -75,6 +75,48 @@ function retiredTree(t, prefix) {
   return { root, retired };
 }
 
+// The sidecar is what makes a PDF a document (web/contracts/documents.js), and
+// it is the only thing that does — so a PDF a generator wrote for its own
+// reasons stays out of the listing and out of `/docs`.
+test("walkDocuments lists a PDF its sidecar names, and no other", (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "walk-docs-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+
+  fs.mkdirSync(path.join(root, "assembly", "cards"), { recursive: true });
+  fs.writeFileSync(path.join(root, "assembly", "cards", "deck.pdf"), "%PDF-1.4\n");
+  fs.writeFileSync(path.join(root, "assembly", "cards", "deck.cover.png"), "png");
+  fs.writeFileSync(
+    path.join(root, "assembly", "cards", "deck.pdf.json"),
+    JSON.stringify({ title: "Assembly card deck", subtitle: "6 × 4 in", pages: 103, cover: "deck.cover.png" }),
+  );
+  // A datasheet a board vendored: a PDF under the same root with no sidecar.
+  fs.mkdirSync(path.join(root, "pcb"), { recursive: true });
+  fs.writeFileSync(path.join(root, "pcb", "wroom.pdf"), "%PDF-1.4\n");
+
+  const docs = walkDocuments(root);
+  assert.deepEqual(docs.map((d) => d.path), ["assembly/cards/deck.pdf"]);
+  assert.equal(docs[0].title, "Assembly card deck");
+  assert.equal(docs[0].pages, 103);
+  // The cover comes back root-relative, because that is what /thumbs/ takes.
+  assert.equal(docs[0].cover, "assembly/cards/deck.cover.png");
+  assert.equal(docs[0].bytes, fs.statSync(path.join(root, "assembly", "cards", "deck.pdf")).size);
+});
+
+// A sidecar whose document has not been built yet names nothing, and neither
+// does one that does not parse. Either way the listing is what is on disk.
+test("walkDocuments skips a sidecar with no document and one that will not parse", (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "walk-docs-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+
+  fs.mkdirSync(path.join(root, "manual"), { recursive: true });
+  fs.writeFileSync(path.join(root, "manual", "manual.pdf.json"), JSON.stringify({ title: "Manual" }));
+  fs.mkdirSync(path.join(root, "other"), { recursive: true });
+  fs.writeFileSync(path.join(root, "other", "thing.pdf"), "%PDF-1.4\n");
+  fs.writeFileSync(path.join(root, "other", "thing.pdf.json"), "{ not json");
+
+  assert.deepEqual(walkDocuments(root), []);
+});
+
 test("walkFiles skips a retired directory and everything under it", (t) => {
   const { root, retired } = retiredTree(t, "walk-retired-");
 
@@ -90,7 +132,6 @@ test("walkFiles skips a retired directory and everything under it", (t) => {
   // The sidecar beside a retired model goes with it — the viewer must not draw a
   // requirements bar off a card no build refreshes.
   assert.deepEqual(walkFiles(root, ".scorecard.json"), ["live/widget.scorecard.json"]);
-  assert.deepEqual(walkFilesUnderDir(root, ".svg", "drawings"), ["live/drawings/widget-iso.svg"]);
 });
 
 test("the walkers and the build graph agree on what is retired", (t) => {

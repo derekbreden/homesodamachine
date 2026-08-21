@@ -1,6 +1,8 @@
 // Card grid for the four viewer pages. Path drives which section renders. Each
 // card lazy-loads its thumbnail via IntersectionObserver and opens its detail
-// surface (CAD modal or Mermaid modal) on click.
+// surface (CAD modal or Mermaid modal) on click. /drawings is the exception —
+// its cards are documents, which are files rather than things this page draws,
+// so they are anchors with a committed cover and nothing to mount.
 //
 // /3d's parts stand in the machine's three assemblies — contracts/parts-tree.js
 // states the tree, parts.js renders it. The other three pages group by a path
@@ -9,10 +11,9 @@
 import { state } from "./state.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
 // edit runs fresh code; thumbnail renderers stay from the modules (static).
-import { openMmdDetail, openDrawingDetail, openPcbDetail } from "./detail-shims.js";
+import { openMmdDetail, openPcbDetail } from "./detail-shims.js";
 import { buildPartsSection } from "./parts.js";
 import { renderMmdThumbnail } from "./mermaid.js";
-import { renderDrawingThumbnail } from "./drawings.js";
 import { windowContent, markupThumb, imageThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail } from "./step.js";
@@ -209,37 +210,6 @@ export function buildGrid() {
   }
 
   if (section === "drawings") {
-    // Prints & Guides — the customer-facing print artifacts. Files live in
-    // `<root>/drawings/prints-and-guides/*.svg` and render as flat cards; a
-    // print sheet has no part to bucket under. The SVG is the on-site
-    // display artifact; a sibling .pdf carries the print version.
-    // The header always renders so the structure is explicit even when the
-    // section is empty.
-    const drawingThumb = (file) => `<div class="drawing-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
-
-    const printsHeader = document.createElement("div");
-    printsHeader.className = "section-header";
-    printsHeader.textContent = "Prints & Guides";
-    state.gridEl.appendChild(printsHeader);
-    if (state.drawingFiles.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No prints yet.";
-      state.gridEl.appendChild(empty);
-    } else {
-      for (const file of state.drawingFiles) {
-        const parts = file.split("/");
-        const name = parts[parts.length - 1].replace(".svg", "");
-        const card = document.createElement("div");
-        card.className = "card";
-        card.dataset.file = file;
-        card.dataset.type = "drawing";
-        card.innerHTML = `${drawingThumb(file)}<div class="label">${name}</div>`;
-        card.addEventListener("click", () => openDrawingDetail(file));
-        state.gridEl.appendChild(card);
-      }
-    }
-
     buildDocumentsSection();
   }
 
@@ -303,7 +273,6 @@ export function buildGrid() {
     dxf: imageThumb(renderDxfThumbnail),
     glb: imageThumb(renderGlbThumbnail),
     mmd: markupThumb({ hostSelector: ".mmd-thumb", render: renderMmdThumbnail }),
-    drawing: markupThumb({ hostSelector: ".drawing-thumb", render: renderDrawingThumbnail }),
     pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
   };
 
