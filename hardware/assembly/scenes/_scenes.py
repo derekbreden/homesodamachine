@@ -3,8 +3,10 @@
 TWO KINDS OF SUBJECT, ONE MECHANISM. A SCENE is a set of bodies the machine places — a finished
 sub-assembly, or a group a card names together. A PART SHOT is one STEP the tree already keeps.
 Both are drawn by `render_scenes.py` through `tools/render/render-step-posed.js`, and both leave
-a `.scene.json` beside the PNG holding the digest of the exact geometry drawn — so a part moving
-under its own picture is a fact the tree holds rather than something a reader has to notice.
+a `.scene.json` beside the PNG holding the digest of the exact geometry drawn — the file the page
+built its triangles from, which is the scene's mesh payload and the part shot's STEP. So a part
+moving under its own picture is a fact the tree holds rather than something a reader has to
+notice.
 
 A SCENE IS A SUBSET OF THE MACHINE, NOT A FILE. `enclosure-back-top` with everything bolted,
 pressed and strapped to it is a real thing a person holds on the bench, and no STEP in this repo
