@@ -100,16 +100,14 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     && apt-get update && apt-get install -y --no-install-recommends gh \
     && rm -rf /var/lib/apt/lists/*
 
-# A DECK LAID OUT AGAINST ONE MACHINE'S FONTS DOES NOT FIT ON ANOTHER, which is the same
-# argument as the OCC pin and the Blender pin one layer up: a different renderer is different
-# pixels, and here the pixels are a card that overflows its canvas. `cards/style.css` asks for
-#   --sans: "Helvetica Neue", "Helvetica", Arial, sans-serif
-#   --mono: "Menlo", "SF Mono", monospace
-# all four of which are macOS system faces. The substitutes are metric-compatible rather than
-# similar-looking, which is the property that decides whether a line wraps in the same place:
-# Liberation Sans matches Arial, and so Helvetica; and Menlo is Apple's derivative of Bitstream
-# Vera Sans Mono, so DejaVu Sans Mono — the other derivative of that face — is its width match,
-# where Liberation Mono is Courier New's and is a different width entirely.
+# A SANE SANS AND MONO, FOR WHATEVER RENDERS TEXT WITHOUT CARRYING ITS OWN FACE. The card deck
+# no longer needs this: `cards/style.css` vendors IBM Plex under `cards/fonts/` and declares it
+# with `@font-face`, so the deck resolves nothing from the system and lays out identically on
+# any machine — which is the right shape, and the same argument as the OCC and Blender pins.
+# What is left here is the fallback the scene renders and anything else HTML get, and the two
+# packages are metric matches rather than lookalikes: Liberation Sans for Arial and so for
+# Helvetica, DejaVu Sans Mono for Menlo — both derive from Bitstream Vera Sans Mono, where
+# Liberation Mono is Courier New's match and a different width entirely.
 #
 # THE PUPPETEER LIBS ARE A LIST NOBODY CAN DERIVE, so let puppeteer name them. Its own
 # `--no-install-recommends` set is what a headless Chromium links against; the deck drives a
