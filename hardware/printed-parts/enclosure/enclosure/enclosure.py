@@ -625,6 +625,43 @@ def cond_slot_half(sheet: float) -> float:
     return max(cond_slot_press, (cond_slot_open - sheet) / 2.0)
 
 
+# --- the condenser's two vents ----------------------------------------------
+#
+# THE VENT IS THE FLUTES, PIERCED. The block's fan draws through one flank and blows out the
+# other, and both flanks already carry the reeded field — so a slot narrower than the groove is
+# struck down the groove's own FLOOR, on the same centres, clean through the section under it.
+# Both jambs run WITH the flute and the groove carries on past both ends of the slot at full
+# depth, so nothing crosses a flute anywhere in this feature and no `_flute_stop` treatment is
+# owed at any edge it makes — the skin's own rule, that a rim running with the flutes is not one
+# of them. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
+#
+# EVERY GROOVE, NOT ALTERNATE. `../texture-coupon-vent/` printed the three schemes side by side
+# on a section of this same flank at this same pitch, and the widest slot down every groove is
+# both the more open of the two and the thicker at its thinnest: what a slot is measured against
+# is the MULLION left between two of them (`reeding.mullion`, `reeding.pierce_max`) and not the
+# section behind the groove floor, and the two move OPPOSITE ways. A wider slot puts its jamb
+# further out on the half-ellipse, where the groove is shallower and the wall behind it thicker.
+#
+# THE STATIONS ARE THE FIELD'S OWN. A slot is struck at a groove centre found by walking arc
+# length (`flute_centres`, `plan_at`), not at a Y typed here, so the vent follows the field if
+# `flute_count` is ever retuned and a jamb can never land off a groove's floor.
+#
+# AND THE BAND IS THE BLOCK'S OWN AIRWAY (`cond_airway`), one `cond_vent_clear` inside each end,
+# less whatever the flank carries behind that particular groove. Nothing is listed: the piece is
+# asked, groove by groove, what stands rooted on its inner face there, and a slot stops
+# `cond_vent_clear` short of it and picks up again the same distance past. That is what breaks
+# two of the intake's slots round the MQ-6 cradle's upper rail and what would break any of them
+# round anything else the pack ever stands on these flanks.
+cond_vent_clear = wall       # the root the vent leaves round anything standing on the flank,
+                             # and the air it keeps off the airway's own two ends
+cond_vent_probe = wall       # how far inboard the flank is read for what stands on it. A rail,
+                             # a fin or a pod web is ROOTED on the inner face, so its first
+                             # `wall` is what a slot behind it would break out of; a body
+                             # standing free of that face is not the vent's to answer for
+cond_vent_run_min = 3.0 * reeding.pierce_width   # a slot three times as tall as it is wide.
+                             # Shorter than that is a nick in a groove floor and not a vent
+
+
 # --- what holds the cold core ------------------------------------------------
 #
 # THE CORE HAS NO HOLE IN IT. It is a foamed cup with a screwed cap at each end and a plain
@@ -1204,6 +1241,34 @@ cap_web_land = 4.0           # what a screw pulls through, over its own head's c
 cap_web_t = head_cbore_depth + cap_web_land   # the cap's whole section across that lane
 cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and aft
 
+# --- AND THE HAND PULLS ON ITS TWO FLANKS -----------------------------------
+#
+# BOTH ±X FLANKS ARE THE HAND'S, AND NOTHING ELSE IS. The face carries the flute field and
+# the bay's own reveal; the flanks carry no field at all, and front-top's own flank is cut
+# away over this whole storey (`_flank_opening`), so what stands in that opening is the
+# cartridge's side with the room in front of it. The one thing standing between a hand and
+# it is the corner post, which stops one `_column_along` aft of the front plane — so aft of
+# that plane the flank is open to the room and a grip is struck into it (`_flank_grip`).
+#
+# A GRIP IS REMOVED MATERIAL AND NEVER A HANDLE LAID ON. Nothing of this piece stands proud
+# of `front_plane_y - front_wall`: a face proud of the wall is how the bench reads a barb
+# tube that has not gone home in its collet (`hardware/assembly/acceptance-and-burn-in.md`),
+# and a grip that stood proud would spend the machine's one tell-tale on itself.
+#
+# WHAT THE HAND GETS IS A +Y FACE. The pocket's FORE WALL is the ledge four fingers hook
+# forward onto, standing on the same plane the corner post's aft face does, with the block
+# from `pump_relief_floor` to that plane behind it and the face beyond that.
+#
+# AND IT GOES AS DEEP AS THE PUMP LEAVES IT, STOREY BY STOREY (`_grip_storeys`). Over the
+# boss the room the pump takes reaches `pump_tray.boss_half` off its axis; over the can it
+# reaches `can_half` and one `cap_pump_air`, a whole octagon-to-bore step further inboard. So
+# the pocket steps out on the boss's own crown, and the count of reeds standing on the ledge
+# is what reads that step.
+grip_run = 24.0              # a grip's opening fore and aft — a finger's width and its curl
+grip_sill = 7.0              # block left under a grip, over the rail its edge strip bears on
+grip_head = 8.0              # and over it, under the ceiling the motor cans open through
+grip_back = 2.0 * wall       # section left between a grip's own floor and the pump's room
+
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from:
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
@@ -1227,6 +1292,10 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 #                 two faces in height, and how far the rail runs down under it
 #   cond_mount    the condenser's aft mount, (flank, y0, y1, bosses) — the fin's own west face,
 #                 the Y band it stands in, and one (x, y, the flange face it reaches) per hole
+#   cond_airway   the condenser's own airway, (y0, y1, z0, z1) — the finstack's footprint on
+#                 either flank, which is the band the ±X vents are pierced over. The recesses
+#                 at each Y end are not in it: they are the sheet the box holds the block by
+#                 and the fan draws through neither
 #   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties, reach_down) — the
 #                 axis the trough is struck on, one (y0, y1, apex_x) per section of the chain,
 #                 the Y of each tie band, and how far under the axis its flanks run
@@ -1287,7 +1356,7 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
-           "cond_mount asse_cradle digiten_saddles tube_anchors port_field nameplate "
+           "cond_mount cond_airway asse_cradle digiten_saddles tube_anchors port_field nameplate "
            "valve_panels pump_trays core_stops core_holds vent_chase column_reliefs "
            "collet_plate pump_bay")
 
@@ -1299,10 +1368,10 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
-            "asse_cradle digiten_saddles tube_anchors port_field nameplate valve_panels "
-            "pump_trays core_stops core_holds vent_chase collet_plate")
+            "cond_airway asse_cradle digiten_saddles tube_anchors port_field nameplate "
+            "valve_panels pump_trays core_stops core_holds vent_chase collet_plate")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
-                             (), (), (), (), None, (), (), (), (), (), None)
+                             None, (), (), (), (), None, (), (), (), (), (), None)
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -2324,7 +2393,7 @@ def _dims(pack):
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
-               pack.cond_mount, pack.asse_cradle,
+               pack.cond_mount, pack.cond_airway, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.nameplate,
                pack.valve_panels, pack.pump_trays, pack.core_stops, pack.core_holds,
                pack.vent_chase, tuple(reliefs), pack.collet_plate, pump_bay)
@@ -3941,7 +4010,7 @@ def _back_top_ceiling(solid, inner, y_joint):
                     f"_back_top_ceiling: the {who} relief keeps {keep:g} mm of a strip that is "
                     f"{deep:g} mm wide. A relief takes the OUTBOARD run and leaves the inboard, "
                     f"so what it keeps is between nothing and `ceiling_panel.rail_run`.")
-            kept, out = sx * (half + keep), sx * (wall_x + 1.0)
+            kept, out = sx * (half + keep), sx * (abs(wall_x) + 1.0)
             corbel = corbel.cut(_ybox(min(kept, out), max(kept, out), y0, y1,
                                       iz1 - deep - 1.0, iz1 + 1.0))
         solid = solid.fuse(corbel)
@@ -3988,18 +4057,19 @@ def _bay_mouth(inner, outer, bay, pump_trays, inset):
     is this outline offset a uniform four tenths — the reveal is the same width round the
     corner as it is down the jamb, which a square corner and a rounded one could not both be.
 
-    THE ROUND STOPS AT `pump_relief_floor`. That is where the block behind the face begins,
-    and behind it the mouth is square: a rounded jamb carried deeper would have the deck's own
-    square corner standing in it. Four millimetres of rounded jamb is all a mouth shows —
-    the rest is behind a drawer front, in its own shadow."""
+    AND THE CORNERS ARE THE STANDING ONES — the four vertical arrises at the block's own XY
+    corners, the same four `corner_round` relieves on the box. Not the outline's corners seen
+    face-on: those run front-to-back, and rounding them softens a picture frame rather than a
+    block. What the cartridge is meant to read as is the box at a smaller radius, and a box is
+    a thing you can put a hand round."""
     bx0, bx1, top = bay
     x0, x1 = bx0 + inset, bx1 - inset
     z0, z1 = bay_floor_z(pump_trays)[1] + inset, top - inset
     radius = bay_corner_round - inset
-    face = _ybox(x0, x1, outer[2] - 1.0, pump_relief_floor, z0, z1)
+    mouth = _ybox(x0, x1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
     if radius > 0.0:
-        face = cq.Workplane(obj=face).edges("|Y").fillet(radius).val()
-    return face.fuse(_ybox(x0, x1, pump_relief_floor, inner[2] + 0.5, z0, z1))
+        mouth = cq.Workplane(obj=mouth).edges("|Z").fillet(radius).val()
+    return mouth
 
 
 def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
@@ -4084,6 +4154,121 @@ def _cap_x_span(bay):
     _bx0, bx1, _top = bay
     edge = bx1 - bay_face_slip
     return -edge, edge
+
+
+def _grip_storeys(pump_trays, z_top):
+    """The storeys a flank grip is struck through, ascending, as (z0, z1, x_room) — the plane
+    the pump's own room reaches OUTBOARD at that height, taken on the outboard pump's station.
+
+    THE BOSS'S CROWN IS WHERE THEY PART. Under it the room is the octagon `_pump_voids` takes
+    out on `pump_tray.boss_room` and the tray's own bore wall gives back, so what stands
+    against a pocket there is the case's own line, `boss_half` off the axis. Over it the room
+    is the can's bore alone, `cap_pump_air` off `can_half`.
+
+    AN OCTAGON'S FLAT IS ITS OWN OUTBOARD EXTREME. Its two neighbouring vertices stand on that
+    same plane and every other one inboard of it, so `boss_half` bounds the figure and not just
+    its four faces — the corners come no nearer than the flats."""
+    cz = min(cz for _cx, _cy, cz in pump_trays)
+    station = max(abs(cx) for cx, _cy, _cz in pump_trays)
+    crown = cz + _tray.boss_depth
+    return ((cz, crown, station + _tray.boss_half),
+            (crown, z_top, station + _tray.can_half + cap_pump_air))
+
+
+def _grip_section(edge, zf, zc, storeys):
+    """One grip's own (x, z) section on the +X flank, drawn from the mouth's own sill.
+
+    IT STEPS OUT AT EVERY STOREY. Each band's floor stands one `grip_back` off the room the
+    pump takes there, so the pocket is as deep as that height allows and no deeper, and the
+    step at a crown is the pocket getting DEEPER going up — what is over the step is a subset
+    of what is under it, which wants no treatment at all.
+
+    ITS CEILING RISES AT `relief_chamfer` TO THE MOUTH, the way every relief cut in a standing
+    wall on this box does. The piece prints bottom-down, so that ceiling is a span looking
+    down; swung up 45 degrees to the flank face, every layer over the pocket lands on the one
+    below. The Y ends and the floor are drawn in XY and stand as they are.
+
+    The section runs one millimetre past the flank at both ends, so the cut opens through the
+    face rather than landing on it."""
+    over = 1.0
+    pts = [(edge + over, zf)]
+    z_low, back = zf, None
+    for z0, z1, x_room in storeys:
+        if z1 <= zf:
+            continue
+        back = x_room + grip_back
+        pts.append((back, z_low))
+        if z1 >= zc:
+            break
+        pts.append((back, z1))
+        z_low = z1
+    if back is None:
+        raise ValueError(
+            "a flank grip found no storey of the block to stand in — the pump's own trays "
+            "are what say where its floor steps, and this box states none over the grip's "
+            "own band")
+    pts.append((back, zc - (edge - back)))
+    pts.append((edge + over, zc + over))
+    return pts
+
+
+def _grip_reeds(edge, y0, zf, zc, storeys, section, sx):
+    """THE LEDGE'S REEDING — `reeding.groove`'s own profile cut as a TRUE half-round, struck
+    down the ledge in Z so a finger pulling FORE crosses every one of them and a finger
+    sliding OUTBOARD off the pocket crosses all of them at once.
+
+    ITS DEPTH IS `flute_depth`, the one the coupon printed, which as a half-round is its own
+    half-width — and the land between two of them is the exterior field's own
+    (`reeding.flute_pitch - reeding.flute_width`), so the pitch follows from the two.
+
+    ONE ARRAY, DATUMED ON THE FLANK FACE, and a reed is cut over a storey only where its WHOLE
+    width stands in that storey's own depth. The reed on the face itself is a quarter round and
+    is the lead-in the fingers come in over; the rest are whole grooves, and how many of them a
+    storey carries is what that storey's depth comes to.
+
+    AND THE ARRAY IS TRIMMED TO THE LEDGE, so a reed runs out on the ceiling's own 45 degrees
+    rather than crossing it into the roof."""
+    r = flute_depth
+    pitch = 2.0 * r + (reeding.flute_pitch - reeding.flute_width)
+    deepest = min(x_room + grip_back for _z0, _z1, x_room in storeys)
+    out, k = None, 0
+    while edge - k * pitch - r >= deepest:
+        x = edge - k * pitch
+        for z0, z1, x_room in storeys:
+            b0, b1 = max(z0, zf), min(z1, zc)
+            if b1 <= b0 or x - r < x_room + grip_back:
+                continue
+            cut = _zcyl(r, sx * x, y0, b0, b1 + r + 1.0)
+            out = cut if out is None else out.fuse(cut)
+        k += 1
+    return out.intersect(_xz_prism(y0 - r - 0.1, y0 + 0.1, section))
+
+
+def _flank_grip(inner, bay, pump_trays, z_top):
+    """THE HAND'S OWN POCKET IN EACH ±X FLANK — one solid per side, to cut out of the block.
+
+    ITS FORE WALL IS THE LEDGE. Four fingers reach in through the flank opening, curl inboard
+    into the pocket and pull FORE on that face, whose outward normal is +Y and which stands on
+    the same plane the corner post's aft face does — `_column_along` aft of the front plane, so
+    a hand sliding fore along the open flank arrives on it and can go no further.
+
+    ITS OPENING IS THE STOREY LESS WHAT THE BLOCK KEEPS. `grip_sill` of block stands under it
+    on the rails its edge strips bear on and `grip_head` over it under the ceiling the motor
+    cans open through; everything between is the hand's. Fore and aft it is `grip_run`, and
+    inboard it is `_grip_section` — as deep as the pump leaves it at every height.
+
+    The ledge is reeded (`_grip_reeds`), and both flanks carry the same pocket mirrored."""
+    edge = _cap_x_span(bay)[1]
+    storeys = _grip_storeys(pump_trays, z_top)
+    y0 = inner[2] + _column_along()
+    zf, zc = storeys[0][0] + grip_sill, z_top - grip_head
+    out = []
+    for sx in (+1.0, -1.0):
+        section = [(sx * x, z) for x, z in _grip_section(edge, zf, zc, storeys)]
+        pocket = _xz_prism(y0, y0 + grip_run, section)
+        out.append(pocket.fuse(
+            _grip_reeds(edge, y0, zf, zc, storeys, section, sx)))
+    return out
 
 
 def bay_floor_z(pump_trays):
@@ -4362,6 +4547,11 @@ def build_cartridge(box, halves_cache=None):
     withdrawal path, and nothing of it reaches their x. The deck is the two pump trays rooted
     on the reliefs' floor, webbed across by `_tray_webs`' own boxes.
 
+    WHAT A HAND PULLS ON IS ITS TWO FLANKS. Front-top's own flanks are cut away over this
+    storey, so the piece's sides stand in the open and each carries a grip (`_flank_grip`) —
+    a pocket struck inboard out of the block, as deep as the pump behind it leaves it, whose
+    fore wall is the reeded ledge four fingers hook forward onto.
+
     WHAT STOPS IT ON THE STEEL IS THE CAP'S OWN AFT FACE, one storey down — this piece owns
     no feature below `cap_split_z`. Printed face-down: the outer skin is the bed, the block
     stands off it, and every pocket rises as a plateau's absence with nothing hanging."""
@@ -4427,10 +4617,15 @@ def _cartridge_gross(box, halves_cache=None):
     # across the whole of both pockets. Under the split it beds on the bay floor's own top,
     # because the piece that comes out of it there is the cap and the cap is what rides
     # that plane; `build_cartridge` takes its own share back to the face's sill reveal.
-    solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split,
-                             top - face_reveal))
-    solid = solid.fuse(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
-                             split))
+    # THE BLOCK CARRIES THE SAME STANDING ROUND ITS FACE DOES. The face's own outline comes
+    # out of `_bay_mouth` already relieved; the fill behind it would otherwise stand a square
+    # vertical arris inside a rounded jamb, and the drawer would foul the opening it rides.
+    solid = solid.fuse(_round_z(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split,
+                                      top - face_reveal),
+                                bay_corner_round - bay_face_slip))
+    solid = solid.fuse(_round_z(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
+                                      split),
+                                bay_corner_round - bay_face_slip))
     for void in _pump_voids(box.pump_trays, top):
         solid = solid.cut(void)
     for cx, cy, cz in box.pump_trays:
@@ -4988,6 +5183,184 @@ def _cond_mount(solid, inner, station, y0, y1, z0, z1):
     for bx, by, tip in bosses:
         solid = solid.cut(_zcyl(heatset_dia / 2.0, bx, by, tip - cond_bore_depth, tip))
     return solid
+
+
+def vent_grooves(outer, airway):
+    """Every groove the condenser's vents pierce, as `((sx, y), ...)` — the flank's own sign and
+    the groove's station on it, WALKED OFF ARC LENGTH and not counted off a wall.
+
+    `flute_centres` is the field's own list and `plan_at` is what puts each one somewhere; a
+    groove is on a flank when the plan's outward normal there is ±X. So the vent lands on groove
+    centres by construction and follows the field if `flute_count` is ever retuned — there is no
+    Y station typed anywhere in this feature.
+
+    A GROOVE IS IN WHEN ITS WHOLE SLOT IS. The block's airway stops where its two recesses begin
+    (`cond_airway`), and a slot running past that line opens on the sheet the box holds the block
+    by rather than on the finstack."""
+    if not airway:
+        return ()
+    ay0, ay1 = airway[0], airway[1]
+    half = reeding.pierce_width / 2.0
+    out = []
+    for arc in flute_centres(outer):
+        (_px, py), (nx, _ny) = plan_at(arc, outer)
+        if abs(abs(nx) - 1.0) > 1e-9:
+            continue
+        if ay0 - stated_bound_tol <= py - half and py + half <= ay1 + stated_bound_tol:
+            out.append((1.0 if nx > 0.0 else -1.0, py))
+    return tuple(sorted(out))
+
+
+def _vent_runs(solid, outer, airway, sx, y):
+    """One groove's slot on one flank, as the (z0, z1) runs it comes out as.
+
+    THE PIECE IS ASKED, not told. What the slot is cut out of is the flank, and what it must not
+    break out of is anything ROOTED on the flank's inner face behind that same groove — so the
+    reading is one probe `cond_vent_probe` deep on the slot's own footprint, and whatever it
+    finds takes its own height plus `cond_vent_clear` of root either side out of the band. A
+    body standing free of that face is not in it and is not the vent's to answer for."""
+    band = [airway[2] + cond_vent_clear, airway[3] - cond_vent_clear]
+    face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
+    half = reeding.pierce_width / 2.0
+    xs = sorted((face - sx * cond_vent_probe, face - sx * stated_bound_tol))
+    probe = _ybox(xs[0], xs[1], y - half, y + half,
+                  band[0] - cond_vent_clear, band[1] + cond_vent_clear)
+    taken = sorted((b.zmin - cond_vent_clear, b.zmax + cond_vent_clear)
+                   for b in (s.BoundingBox() for s in probe.intersect(solid).Solids()))
+    runs, lo = [], band[0]
+    for tz0, tz1 in taken:
+        if tz0 > lo:
+            runs.append((lo, min(tz0, band[1])))
+        lo = max(lo, tz1)
+        if lo >= band[1]:
+            break
+    if lo < band[1]:
+        runs.append((lo, band[1]))
+    return tuple((a, b) for a, b in runs if b - a >= cond_vent_run_min)
+
+
+def _vent_cutter(outer, sx, y, z0, z1):
+    """One run, as the prism that cuts it: `reeding.pierce_width` across, struck down the
+    groove's own centre, carried clean through the flank, and CLOSED AT BOTH ENDS BY A 45° HIP.
+
+    The hip is `relief_chamfer`, the angle every relief on this box rises at, and it costs the
+    show face nothing — a slot is narrower than the groove it lies in, so both hips sit down
+    inside the groove's own shadow. It is also what makes the piece printable at either end: the
+    piece stands on its floor and the build axis runs up this wall, so the sill only takes
+    material away as the print climbs and the ceiling closes at exactly the angle the box
+    supports nothing steeper than."""
+    face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
+    skin = outer[1] if sx > 0.0 else outer[0]
+    half = reeding.pierce_width / 2.0
+    hip = half * math.tan(math.radians(relief_chamfer))
+    return _yz_prism(face - sx * 1.0, skin + sx * 1.0,
+                     ((y, z0), (y + half, z0 + hip), (y + half, z1 - hip), (y, z1),
+                      (y - half, z1 - hip), (y - half, z0 + hip)))
+
+
+def _vent_measure(solid, outer, airway, sx):
+    """One flank's vent, read off the BUILT PIECE at the band's own mid-height: every island the
+    wall keeps between two slots, and the free area the whole window opens.
+
+    THE ISLANDS ARE THE MULLIONS. A slab through the flank's section over the airway's window
+    comes back as the material left standing, so what a gap between two of them measures is a
+    slot and what an island measures is the mullion beside it. The two at the window's ends run
+    off to the wall and are not mullions; the ones strictly between the first and last slot are.
+
+    Free area is read the same way and in the same plane: the window's own area less what the
+    wall still holds in it, at the flank's mid-section, which is where a slot is a slot the whole
+    way through."""
+    ay0, ay1 = airway[0], airway[1]
+    z = (airway[2] + airway[3]) / 2.0
+    face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
+    skin = outer[1] if sx > 0.0 else outer[0]
+    xs = sorted(((face + skin) / 2.0 - 0.1, (face + skin) / 2.0 + 0.1))
+    slab = _ybox(xs[0], xs[1], ay0, ay1, z - 0.1, z + 0.1)
+    kept = slab.intersect(solid)
+    bounds = sorted((b.ymin, b.ymax) for b in (i.BoundingBox() for i in kept.Solids()))
+    slots = [lo1 - hi0 for (_lo0, hi0), (lo1, _hi1) in zip(bounds, bounds[1:])]
+    mullions = [hi - lo for lo, hi in bounds[1:-1]]
+    window = _ybox(xs[0], xs[1], ay0, ay1, airway[2] + cond_vent_clear,
+                   airway[3] - cond_vent_clear)
+    open_mm2 = (window.Volume() - window.intersect(solid).Volume()) / (xs[1] - xs[0])
+    return {"slots": slots, "mullions": mullions, "open_mm2": open_mm2, "z": z}
+
+
+def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
+    """The condenser's INTAKE and EXHAUST cut into a piece's ±X flanks, for the piece whose
+    bands hold the block's airway.
+
+    THE VENT IS THE FLUTES, PIERCED — one slot down the floor of every groove standing over the
+    finstack, `reeding.pierce_width` across on the field's own centres, clean through the
+    `2 * wall` a bottom piece's lipped flank carries (`_lip_underwall`). Both jambs run WITH the
+    flute and the groove carries on past both ends of the slot at full depth, so nothing crosses
+    a flute anywhere here and no edge this makes is one the skin stops on — which is a fact
+    `flute_skin` reads for itself off the run's own two ends rather than being told.
+
+    EVERY GROOVE AND NOT ALTERNATE. What a slot is measured against is the MULLION between two
+    of them, and `../texture-coupon-vent/` printed the schemes side by side: at this pitch a
+    3.1 mm slot down every groove leaves `reeding.mullion` of material carrying the exterior's
+    four wall loops with `reeding.pierce_max` still overhead, and it is both more open and
+    thicker at its thinnest than the same field pierced down alternate grooves at the full groove
+    width.
+
+    LAST OF THE FLANK'S WORK, after every rail, fin, pod and pocket either wall carries — because
+    a slot is air, air a later step fuses back in is not a slot, and because what decides where
+    each slot stops is what the piece has standing on that face when the cut is made."""
+    if not airway:
+        return solid
+    ay0, ay1, az0, az1 = airway
+    if not (y0 <= (ay0 + ay1) / 2.0 <= y1 and z0 <= (az0 + az1) / 2.0 <= z1):
+        return solid
+    cutters, runs = [], {}
+    for sx, y in vent_grooves(outer, airway):
+        got = _vent_runs(solid, outer, airway, sx, y)
+        runs.setdefault(sx, []).append((y, got))
+        cutters.extend(_vent_cutter(outer, sx, y, rz0, rz1) for rz0, rz1 in got)
+    if not cutters:
+        return solid
+    solid = solid.cut(*cutters)
+    _record_vent_bound(solid, outer, airway, runs)
+    return solid
+
+
+def _record_vent_bound(solid, outer, airway, runs):
+    """What the vents owe, read off the piece they were cut in.
+
+    THE MULLION IS THE GOVERNING NUMBER and the section behind the groove floor is not. A slot
+    takes its width out of the pitch, and the exterior profile lays `reeding.pierce_shell` of
+    loops across what is left — 2 x 0.42 outer + 2 x 0.45 inner, the four this wall already
+    carries (`print-log.md`). The section moves the OTHER way with slot width: a wider slot puts
+    its jamb further out on the groove's own half-ellipse, where the groove is shallower and the
+    wall behind it thicker, so widening a slot never thins the wall and only ever thins the
+    mullion.
+
+    Read at the flank's mid-section off the built piece, so a mullion is what the wall came out
+    holding and not what the field was asked for."""
+    pitch = flute_pitch(outer)
+    reads = {sx: _vent_measure(solid, outer, airway, sx) for sx in sorted(runs)}
+    least = min((min(r["mullions"]) for r in reads.values() if r["mullions"]), default=None)
+    jamb = flute_depth * float(reeding.groove(reeding.pierce_width / 2.0, pitch,
+                                              reeding.flute_width))
+    ok = least is not None and least >= reeding.pierce_shell - stated_bound_tol
+    record_bound(Bound(
+        "flank-vent-mullions",
+        "Every mullion the condenser's vents leave carries the exterior's four wall loops",
+        ok,
+        ("no vent on this pack" if least is None
+         else f"thinnest of {sum(len(r['mullions']) for r in reads.values())} mullions is "
+              f"{least:.4f} mm across, on a {2.0 * wall - jamb:.4f} mm section"),
+        f"at least {reeding.pierce_shell:g} mm across, the loops the profile lays",
+        ([f"{'+X exhaust' if sx > 0 else '-X intake':10s} "
+          f"{len(r['slots']):2d} slots {min(r['slots']):.4f}-{max(r['slots']):.4f} mm, "
+          f"{len(r['mullions'])} mullions {min(r['mullions']):.4f}-{max(r['mullions']):.4f} mm, "
+          f"{r['open_mm2'] / 100.0:.2f} cm2 free"
+          for sx, r in sorted(reads.items()) if r["slots"] and r["mullions"]]
+         + ([] if ok else [
+             f"a {reeding.pierce_width:g} mm slot on {pitch:.4f} mm centres leaves "
+             f"{reeding.mullion(pitch, reeding.pierce_width, 1):.4f} mm of mullion, and the "
+             f"widest this field carries is {reeding.pierce_max(reeding.pierce_shell, pitch):.4f}"
+             ]))))
 
 
 def _core_stops(solid, inner, stations, y0, y1, z0, z1):
@@ -5889,6 +6262,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     for sx, sy, _name, room in box.column_reliefs:
         pillar = _column_pillar(inner, sx, sy, box.splits[0] if sy < 0 else box.splits[1])
         piece = piece.cut(_ybox(*room).intersect(pillar))
+    # And the condenser's two vents, which are the last cut this piece takes for the same reason
+    # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
+    # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
+    # relief on those two flanks already in it.
+    piece = _flank_vents(piece, inner, outer, box.cond_airway, ylo, yhi, zlo, zhi)
     return _unified(piece)
 
 
@@ -6203,6 +6581,12 @@ def main():
         "FRONT_TOP_FLANK": f"{front_top_flank_t:.4g} mm",
         "BACK_TOP_FLANK": f"{back_top_flank_t:.4g} mm",
         "BACK_TOP_WALL": f"{back_top_wall_t:.4g} mm",
+        # And back-top's own ceiling: what the piece keeps of it either side of the slide-in
+        # panel, the channel the panel fills, and the most any relief still leaves corbelled.
+        "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
+        "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
+        "CEILING_KEEP": f"{max(k for *_r, k in back_top_ceiling_reliefs):.4g} mm",
+        "PIECE_H": f"{_ceiling().piece_h:.4g} mm",
         # And the section a bottom piece's three lipped sides carry for free — the lip's own
         # skin carried to the slab (`_lip_underwall`), which is what the two flanks above are
         # brought level with.
