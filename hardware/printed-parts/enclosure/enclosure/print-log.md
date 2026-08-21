@@ -8,6 +8,42 @@ Geometry: the six-piece box from
 the pump cartridge and the cap screwed under it, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 
+## The exterior profile (settings per [`enclosure-front-top-0.4mm-16hours.3mf`](enclosure-front-top-0.4mm-16hours.3mf))
+
+Every exterior piece slices on this — the four quadrants, the pump cartridge, and the cap
+screwed under it. The front-top, the largest of them, takes **16 hours** on it. That
+figure is the slice's own, carried in the file's name; the archive holds no g-code to read
+it back off. Against the front-top's geometry mass in [bom.md](/hardware/ledger/bom.md)
+§7, it is the hours-per-kg [machine-time.md](/hardware/ledger/machine-time.md) §1 prices
+the whole exterior at.
+
+Settings:
+- Printer: Bambu Lab H2C, 0.4 mm nozzle, **High Flow** hotend on the left extruder;
+  printer profile `Bambu Lab H2C 0.4 nozzle`, print profile `0.24mm Standard @BBL H2C`
+- Filament `Bambu PETG Basic @BBL H2C 0.4 nozzle`, textured PEI plate
+- `layer_height` 0.24 mm (initial 0.2)
+- Line widths: outer wall **0.42 mm**, inner wall 0.45, top surface 0.45, sparse infill
+  0.45, internal solid infill 0.42, initial layer 0.5, support 0.42
+- `wall_loops` 2, `wall_generator` classic — **0.87 mm of shell per face** (0.42 + 0.45),
+  so the box's 3 mm wall is four loops totalling 1.74 mm with 1.26 mm of fill between them
+- top/bottom shells 4/3; `sparse_infill_density` 15 % grid
+- `nozzle_temperature` 250 °C (initial 245); `hot_plate_temp` / `textured_plate_temp`
+  70 °C; `chamber_temperatures` 0 (passive)
+- `filament_flow_ratio` 0.97; `filament_max_volumetric_speed` **21 mm³/s** — the High Flow
+  variant's cap, and what sets the wall speed the profile actually reaches
+- `filament_retraction_length` 0.4 mm
+- Fan min/max 20 / 30 %, overhang 50 %, `close_fan_the_first_x_layers` 3
+- `outer_wall_speed` 200, `inner_wall_speed` 300, `travel_speed` 1000 mm/s
+- Supports tree(auto), `support_threshold_angle` 35°, top/bottom Z distance 0.2 mm, XY
+  0.35 mm
+- `brim_type` auto_brim, `brim_width` 5 mm; `elefant_foot_compensation` 0.15 mm;
+  `seam_position` aligned; `fuzzy_skin` none
+- Slicer 02.08.02.60; first-layer time 1153 s
+
+The model sits on the plate at scale 1.0 and identity rotation, so the piece stands in the
+box's own frame with +Z up — the orientation [README.md](README.md) "Print orientation +
+corner relief" strikes every 45° relief on.
+
 ## PET-GF15 print of the front-top (settings per [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf))
 
 **Running as this is written, 2026-08-15.** The first print of an enclosure piece in
@@ -36,22 +72,24 @@ Settings:
 - `filament_retraction_length` nil
 - Slicer 02.07.01.62; first-layer time 1124 s
 
-### What the material swap changed, and only that
+### What the PET-GF15 preset asks for
 
-The same object sliced in PETG is committed beside it as
-[`enclosure-front-top.3mf`](enclosure-front-top.3mf). Every geometric and print-profile
-setting is identical between the two — layer height, line width, wall count, shells,
-infill, supports, brim, seam. The whole diff is the filament:
+Wall count, shells, infill, support style, brim and seam are the exterior profile's — the
+only structural figure that differs is `support_threshold_angle`, 30° here against 35°.
+What the filament moves, read off the two committed slices:
 
-| | PETG (`Bambu PETG Basic High Temp`) | PET-GF15 (`Polymaker PET-GF`) |
+| | PETG (`Bambu PETG Basic`) | PET-GF15 (`Polymaker PET-GF`) |
 |---|---|---|
 | Nozzle | 250 °C (initial 245) | **290 °C** (initial 290) |
-| Bed, textured | 85 °C | **100 °C** |
+| Bed, textured | 70 °C | **100 °C** |
 | Chamber | 0 (passive) | **50 °C** |
-| Fan min / max / overhang | 20 / 40 / 90 % | **0 / 0 / 0 %** |
+| Fan min / max / overhang | 20 / 30 / 50 % | **0 / 0 / 0 %** |
 | Max volumetric speed | 21 mm³/s | **5 mm³/s** |
 | Flow ratio | 0.97 | **1.0** |
 | Retraction length | 0.4 mm | **nil** |
+
+The volumetric cap is the row that costs time: at 5 mm³/s the PET-GF15 slice cannot reach
+the wall speeds the PETG profile runs at, whatever nozzle it is taken on.
 
 ### Two things carried in from the PET-CF preset, unchanged
 

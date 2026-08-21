@@ -124,7 +124,9 @@ def build_label_cut(label):
 
 # --- FLUTE -------------------------------------------------------------------------
 
-flute_depth = 1.0                # inside the 3 mm wall's two-perimeter budget
+flute_depth = 1.0                # leaves 2 mm of the 3 mm wall, and the enclosure profile
+                                 # wants 1.74 of that for its four loops — full section
+                                 # under the deepest flute, 0.26 mm to spare
 flute_land = 0.25                # share of the pitch left flat between two flutes
 flute_pitches = (4.0, 6.0, 9.0)
 
