@@ -69,5 +69,8 @@ if [ "${_behind:-0}" -gt 0 ] && ! git -C "$root" diff --quiet 2>/dev/null; then
   echo "post-commit:   git fetch origin main && git worktree add --detach .git/push-wt origin/main" >&2
   echo "post-commit:   git -C .git/push-wt cherry-pick $(git -C "$root" rev-parse --short HEAD) && git -C .git/push-wt push origin HEAD:main" >&2
   echo "post-commit:   git worktree remove --force .git/push-wt" >&2
+  echo "post-commit: THE CHERRY-PICK MERGES. A path that moved on main since you branched stops it" >&2
+  echo "post-commit: and says so. Writing a blob into a temporary index and commit-tree-ing it onto" >&2
+  echo "post-commit: origin/main skips that — it takes your file whole and the other version is gone." >&2
 fi
 exit 0
