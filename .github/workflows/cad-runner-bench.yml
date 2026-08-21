@@ -8,15 +8,17 @@
 # IT IS `workflow_dispatch` ON PURPOSE. It is an instrument, not a gate — nothing should be
 # waiting on it, and it should not fire on every push while we are still choosing a lane.
 #
-# WHY THESE THREE LANES AND NOT MORE. `tools/cad-requirements.txt` pins cadquery-ocp
-# 7.8.1.1.post1 and cadquery-vtk 9.3.1, and at those versions the cp313 wheels published are
-# macosx_11_0_arm64, macosx_11_0_x86_64, manylinux_2_31_x86_64 and win_amd64. There is no
-# linux aarch64 wheel, so `ubuntu-24.04-arm` — free, 4 vCPU, 16 GB — cannot install this
-# toolchain at all. It is absent because it is impossible, not because it was not considered.
+# TWO LANES, BECAUSE THE PIN LEAVES TWO. `tools/cad-requirements.txt` names the cp313 wheels
+# that have to exist, and between them they rule out both of the runners you would otherwise
+# reach for:
 #
-# The repo is public, so every label below is a standard GitHub-hosted runner and free and
-# unlimited. Larger runners are not an option (they need Team or Enterprise Cloud) and would
-# buy the 4% of the build that is not critical path.
+#   ubuntu-24.04-arm  free, 4 vCPU, 16 GB — cadquery-ocp 7.8.1.1.post1 publishes no
+#                     linux aarch64 wheel, so the toolchain cannot be installed at all.
+#   macos-*-intel     free, 4 vCPU, 14 GB — nlopt 2.10.0 publishes macosx arm64,
+#                     manylinux x86_64 and win_amd64, and no macosx x86_64.
+#
+# Both were tried in run 32439389331 and both failed on exactly that. What remains is Apple
+# Silicon and Linux x86_64, and the repo is public, so both are free and unlimited.
 
 name: cad-runner-bench
 
@@ -32,13 +34,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Apple Silicon. The platform the build is already written for: `.bazelrc` mounts
-          # /opt/homebrew, the sandbox is darwin-sandbox, the wheels are macosx_11_0_arm64.
+          # The platform the build is already written for: `.bazelrc` mounts /opt/homebrew,
+          # the sandbox is darwin-sandbox, the wheels are macosx_11_0_arm64. Nothing to port.
           - runner: macos-latest
             label: macos-arm64-m1
-          # Same OS, other silicon. Isolates "M1 vs x86" with everything else held still.
-          - runner: macos-15-intel
-            label: macos-x64-intel
           # The free 4 vCPU / 16 GB Linux lane. Needs an empty /opt/homebrew to satisfy the
           # mount pair in `.bazelrc`; blender and node come from the image or apt.
           - runner: ubuntu-latest
@@ -50,19 +49,17 @@ jobs:
 
       - name: Report the silicon
         run: |
-          echo "::group::cpu"
           if [ "$RUNNER_OS" = "macOS" ]; then
             sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize
           else
             grep -m1 'model name' /proc/cpuinfo || true
             nproc; free -g | head -2
           fi
-          echo "::endgroup::"
 
-      # THE SANDBOX MOUNT PAIR IS THE ONLY THING THAT IS NOT PORTABLE. `.bazelrc` names
-      # /opt/homebrew so an action can reach the brew prefix, and bazel refuses a mount pair
-      # whose source is absent. An empty directory satisfies it; blender resolves from
-      # /usr/bin, which that same PATH already carries.
+      # THE SANDBOX MOUNT PAIR IS THE ONLY THING IN THE TREE THAT IS NOT PORTABLE. `.bazelrc`
+      # names /opt/homebrew so an action can reach the brew prefix, and bazel refuses a mount
+      # pair whose source is absent. An empty directory satisfies it; blender resolves from
+      # /usr/bin, which that same action PATH already carries.
       - name: Satisfy the brew mount pair (Linux)
         if: runner.os == 'Linux'
         run: sudo mkdir -p /opt/homebrew/bin
@@ -72,12 +69,11 @@ jobs:
         run: |
           start=$(date +%s)
           if [ "$RUNNER_OS" = "macOS" ]; then
-            brew install --cask blender || brew install --cask --force blender
+            brew install --cask blender
           else
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq blender
+            sudo apt-get update -qq && sudo apt-get install -y -qq blender
           fi
-          command -v blender || ls -d /Applications/Blender.app 2>/dev/null
+          command -v blender || ls -d /Applications/Blender.app
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-python@v5
@@ -93,7 +89,20 @@ jobs:
           tools/cad-venv/bin/pip install -q -r tools/cad-requirements.txt
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
-          du -sh tools/cad-venv
+          echo "venv=$(du -sh tools/cad-venv | cut -f1)" >> "$GITHUB_OUTPUT"
+
+      # A CLONE HAS NO SOLIDS. `.gitignore` holds `*.step` out of the tree, so what a checkout
+      # carries is `cad-artifacts.lock.json` and not the geometry it names — and the graph
+      # declares solids it does not produce, the reference parts among them. Bazel calls that
+      # a missing input file and stops before it starts. This is the step Render already runs
+      # for the same reason (render.yaml `buildCommand`), and the script imports node builtins
+      # only, so it needs no `npm ci` ahead of it.
+      - name: Time the locked-solid fetch
+        id: fetch
+        run: |
+          start=$(date +%s)
+          node web/scripts/fetch-cad-artifacts.mjs
+          echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
       # `.bazelrc.paths` carries this checkout's absolute paths and no other's, so a fresh
       # clone builds nothing until gen_build.py writes one. On a runner that is every run.
@@ -105,25 +114,33 @@ jobs:
           cat .bazelrc.paths
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
-      # THE NUMBER. No bazel cache, no .cache/realized — this is the figure to hold against
-      # the local cold 269 s, and it is what a runner without a persistent disk pays EVERY run.
+      # THE NUMBER. No bazel cache, no .cache/realized — the figure to hold against the local
+      # cold 269 s, and what a runner without a persistent disk pays EVERY run.
+      #
+      # A TIMING STEP MUST NOT REPORT GREEN ON A BUILD THAT FAILED. The exit code is captured
+      # so the elapsed figure survives a failure, and carried to the verdict step, which fails
+      # the job. Run 32439389331 passed two lanes on a build that never started; that is what
+      # this shape exists to prevent.
       - name: Time a cold full build
         id: build
         run: |
           start=$(date +%s)
-          bazel build //:everything 2>&1 | tail -40 || echo "BUILD FAILED — timing still valid"
+          set +e; bazel build //:everything 2>&1 | tail -40; code=${PIPESTATUS[0]}; set -e
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
+          echo "exit=$code" >> "$GITHUB_OUTPUT"
 
       # What a runner WITH a persistent disk pays instead: the caches are on disk now, so a
       # second build with nothing changed is the floor a sticky disk or actions/cache buys.
       - name: Time a warm no-op build
         id: warm
+        if: always()
         run: |
           start=$(date +%s)
-          bazel build //:everything 2>&1 | tail -8 || true
+          set +e; bazel build //:everything 2>&1 | tail -8; set -e
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
       - name: Cache sizes the warm lane would have to carry
+        if: always()
         run: du -sh .cache/* 2>/dev/null || true
 
       - name: Summary
@@ -135,10 +152,19 @@ jobs:
             echo "| step | seconds |"
             echo "|---|---:|"
             echo "| system toolchain (blender) | ${{ steps.sys.outputs.seconds }} |"
-            echo "| CadQuery install | ${{ steps.pip.outputs.seconds }} |"
+            echo "| CadQuery install (${{ steps.pip.outputs.venv }}) | ${{ steps.pip.outputs.seconds }} |"
+            echo "| locked-solid fetch | ${{ steps.fetch.outputs.seconds }} |"
             echo "| gen_build | ${{ steps.gen.outputs.seconds }} |"
             echo "| **cold \`//:everything\`** | **${{ steps.build.outputs.seconds }}** |"
             echo "| warm no-op | ${{ steps.warm.outputs.seconds }} |"
             echo ""
+            echo "Build exit code: \`${{ steps.build.outputs.exit }}\`"
+            echo ""
             echo "Local reference: cold 269 s wall / 259 s critical path, 8-core Apple Silicon."
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verdict
+        if: always()
+        run: |
+          test "${{ steps.build.outputs.exit }}" = "0" \
+            || { echo "::error::cold build exited ${{ steps.build.outputs.exit }}"; exit 1; }
