@@ -18,6 +18,7 @@ target's inputs or newly added to a graph that has not been regenerated.
 """
 
 import argparse
+import importlib.util
 import os
 import subprocess
 import sys
@@ -124,6 +125,42 @@ def selftest() -> int:
     return 0 if holds == 8 else 1
 
 
+def say_if_unshimmed() -> None:
+    """Name it on stderr when this interpreter has no import shim.
+
+    THE COST OF NOT HAVING IT LANDS ON A BUILD AND NOTHING ELSE SAYS SO. Every CAD action
+    reaches `tools/cad-venv/bin/python` by absolute path, outside the sandbox, so the
+    interpreter is not a declared input to any of them — bazel cannot see the shim, and a
+    checkout that never installed it builds the same solids while paying VTK's 12 s and
+    145 MB in each of 85 processes. Green, correct, and slow, with nothing to read.
+
+    An advisory and not a gate: the solids are byte-identical either way, so a tree without
+    the shim is slow and not wrong, and a red step would be claiming otherwise.
+
+    Only asked when this IS the CAD venv's python — `install.py` answers for whatever
+    interpreter imports it, so any other one would be answering about itself.
+
+    BY `sys.prefix` AND NOT BY `sys.executable`. The venv's `bin/python` is a symlink to the
+    interpreter it was built from, so resolving it lands in homebrew's cellar and no venv is
+    ever recognised — a guard that reads as careful and returns early every time, leaving the
+    advisory silent on exactly the tree that needs it. `sys.prefix` is the venv itself."""
+    venv = _ROOT / "tools" / "cad-venv"
+    try:
+        if Path(sys.prefix).resolve() != venv.resolve():
+            return
+        spec = importlib.util.spec_from_file_location(
+            "_hsm_shim_install", venv.parent / "cad-venv-site" / "install.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        gone = mod.missing()
+    except Exception:
+        return
+    if gone:
+        print("this interpreter has no import shim — every CAD action will load VTK, which "
+              "nothing here draws with, for 12 s and 145 MB apiece:", file=sys.stderr)
+        print(f"    {sys.executable} tools/cad-venv-site/install.py", file=sys.stderr)
+
+
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("cmd", nargs="?", help="selftest")
@@ -131,6 +168,8 @@ def main(argv) -> int:
     args = ap.parse_args(argv)
     if args.cmd == "selftest":
         return selftest()
+
+    say_if_unshimmed()
 
     moved = changed()
     if not moved:
