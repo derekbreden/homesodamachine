@@ -112,15 +112,12 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
 }
 
 // Documents — the PDFs this site hands over whole (/api/documents,
-// web/contracts/documents.js). The deck a bench builds from is a hundred and
-// three pages meant to be read in order on paper; the site's job is to hand
-// over the file, not to re-implement a reader for it. So a document is one
-// card: its own cover, what it is, and a click that opens the PDF in a tab —
-// where the browser's reader is already better at this than anything here.
+// web/contracts/documents.js). One card each: the cover, the title, the page
+// and byte count, and an href that opens the PDF in a tab.
 //
 // The cover is a committed PNG beside the PDF, served by the same `/thumbs/`
-// route every other picture under hardware/ comes through, so there is no
-// thumbnail to render and nothing to mount lazily.
+// route every other picture under hardware/ comes through — no thumbnail to
+// render, nothing to mount lazily.
 function readableBytes(n) {
   return n >= 1024 * 1024 ? `${(n / (1024 * 1024)).toFixed(1)} MB` : `${Math.round(n / 1024)} KB`;
 }

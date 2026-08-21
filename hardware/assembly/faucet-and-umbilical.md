@@ -10,7 +10,7 @@ In: one shell + plate + Touch-Flo body sub-assembly (output of [`/hardware/print
 
 Out: a complete above-counter fixture stack permanently attached to its umbilical — Westbrass body clamped into the touch-flo-shell with the carbonated-water LLDPE tube push-connected at the body's upstream compression port; two flavor LLDPE tubes routed through the shell's pill slot up into the printed gooseneck's dispense channel and terminating at the printed tip; three sleeved tubes terminated bare and push-to-connect-ready at the rear-wall end, each wearing its own printed collar on the bare stretch below the braid; foam insulation only on the cold (carbonated-water) tube; signal cable + tube bundle co-sleeved below the countertop. Bagged together with the install kit (one SS under-counter keyhole plate, factory shank nut + washer, Mudder tube cutter — the TPU gasket is already on the shank from this bench and is not in the install kit), drop-shipped inside the appliance carton.
 
-Not in scope: countertop drilling itself; the customer-side install steps — drop-through from above, slide the keyhole under-counter plate laterally onto the dangling umbilical from below, washer + nut tighten, push-into-PP1208E at the rear wall — covered on the printed quick-start sheet that ships with the appliance (design intent: [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)). Signal-cable termination at the electronics shelf — that's `wiring.md`.
+Not in scope: countertop drilling itself; the customer-side install steps — drop-through from above, slide the keyhole under-counter plate laterally onto the dangling umbilical from below, washer + nut tighten, push-into-PP1208E at the rear wall — covered in the owner's manual that ships with the appliance ([`/hardware/manual/`](/hardware/manual/README.md); design intent: [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)). Signal-cable termination at the electronics shelf — that's `wiring.md`.
 
 ## Inputs per appliance
 
@@ -135,7 +135,7 @@ The TPU gasket is already on the shank from step 2 and is not in the install kit
 - One Mudder PEX/PE tube cutter (the per-appliance install-kit tool from [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14, same SKU as the bench-side cutter)
 - **Two printed tube collars — `tube-collar-water` and `tube-collar-co2`** ([`/hardware/printed-parts/faucet/tube-collar/`](/hardware/printed-parts/faucet/tube-collar/README.md)). The other two rear-wall stations take a tube the customer cuts in their own kitchen: the tap-water run to their angle stop and the tether to their cylinder's regulator. Each collar threads onto its run and carries the station's word — `TAP`, `CO2` — to the end that has no ring on it
 
-The customer-facing install instructions live on the printed quick-start sheet that ships at the top of the appliance carton; design intent for the sheet is [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
+The customer-facing install instructions live in the owner's manual that ships at the top of the appliance carton ([`/hardware/manual/`](/hardware/manual/README.md)); design intent for it is [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
 
 Bag, seal, label with build number and the part identifier `FAUCET-UMBILICAL-SUBASSEMBLY`, set aside for [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) (TBD).
 

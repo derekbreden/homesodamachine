@@ -3003,6 +3003,53 @@
       "hardware/manifold-layout/manifold-layout.step"
     ]
   },
+  "hardware/manual/_build.py": {
+    "reads": [
+      "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
+      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
+      "hardware/assembly/cards/fonts/OFL.txt",
+      "hardware/manual/00-cover.html",
+      "hardware/manual/01-contents.html",
+      "hardware/manual/02-where-it-goes.html",
+      "hardware/manual/03-water.html",
+      "hardware/manual/04-co2.html",
+      "hardware/manual/05-faucet.html",
+      "hardware/manual/06-umbilical.html",
+      "hardware/manual/07-power.html",
+      "hardware/manual/08-first-pour.html",
+      "hardware/manual/09-every-day.html",
+      "hardware/manual/10-care.html",
+      "hardware/manual/11-back.html",
+      "hardware/manual/README.md",
+      "hardware/manual/STYLE.md",
+      "hardware/manual/_build.py",
+      "hardware/manual/manual-print.pdf",
+      "hardware/manual/manual.cover.png",
+      "hardware/manual/manual.pdf",
+      "hardware/manual/manual.pdf.json",
+      "hardware/manual/style.css",
+      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
+      "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/render/render-card.js"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/manual/manual-print.pdf",
+      "hardware/manual/manual.cover.png",
+      "hardware/manual/manual.pdf",
+      "hardware/manual/manual.pdf.json"
+    ]
+  },
   "hardware/printed-parts/cold-core/_cold_core_interface.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",

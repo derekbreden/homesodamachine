@@ -93,15 +93,15 @@ def _postprocess_svg(svg_path: Path) -> None:
     # Strip inkscape: namespace attributes and declarations. The exporter
     # decorates groups with inkscape:groupmode / inkscape:label for the
     # benefit of Inkscape's layer panel — purely informational. When the
-    # SVG gets embedded inside another <svg> (e.g. the quickstart sheet),
+    # SVG gets embedded inside another <svg> (e.g. a page of the manual),
     # the inner inkscape: attributes are stranded without a namespace
     # declaration and rsvg-convert's PDF backend rejects the whole file.
     text = re.sub(r'\s+xmlns:inkscape="[^"]+"', "", text)
     text = re.sub(r'\s+inkscape:[\w-]+="[^"]+"', "", text)
 
     # Set stroke on the strokes group so that `stroke: inherit !important`
-    # (applied by the quickstart sheet's CSS to undo the site's dark-mode
-    # recolor) resolves to a real color. Per-path `stroke="rgb(0,0,0)"`
+    # — the way a page that embeds this undoes a dark-mode recolor — resolves
+    # to a real color. Per-path `stroke="rgb(0,0,0)"`
     # attributes get overridden by the !important rule, and with no
     # stroke set anywhere up the inheritance chain the computed value
     # falls back to `none` — strokes disappear in the PDF. Putting the
