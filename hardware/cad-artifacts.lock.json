@@ -2,16 +2,16 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-b27ae9fd9dc0fc0d.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-b27ae9fd9dc0fc0d.tar.gz"
+    "asset": "cad-6d6e173e9236feee.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6d6e173e9236feee.tar.gz"
   },
   "bundle": {
-    "sha256": "b27ae9fd9dc0fc0d0417024a3fa7d8e86024b3aea804a0b4ba21c96aa1efc01c",
-    "bytes": 61268128,
+    "sha256": "6d6e173e9236feeea83a95da45e75669f79f93dce62d307260b45c9de1728464",
+    "bytes": 61249777,
     "solids": 119
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb": "1ba23aa8d1b3f814f597e5395bd25f65be33315ac7bdf69245e8b3070e0fa4c2",
+    "hardware/assembly/scenes/glb/back-half.glb": "b4b9e71feb239bfd2146a76791852b96e0838cb173657c1a4532022a69d42988",
     "hardware/assembly/scenes/glb/back-top.glb": "d82ad161e6f2c5bdaae1a3a45deaf2cbd70275df1ed4088a664727b9137b6124",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "ebb27294147034bbffe48c731d409b73eec2f19450a52980c93ca2c5a5b00115",
     "hardware/assembly/scenes/glb/cap-lid.glb": "7eae9807ef597c2699c4ae1238104baf622efe079e02caa479e3f9e14d62155c",
@@ -19,9 +19,9 @@
     "hardware/assembly/scenes/glb/cold-core.glb": "b372ddfaa35988653446d1847ae16eb9f37069a15e56d6efa4843a3942637372",
     "hardware/assembly/scenes/glb/en04-stratum.glb": "c049f1f9d68e0dd284bf772ca3b2dd7307f4fe0b7e47e6cc0558f93381ad36fa",
     "hardware/assembly/scenes/glb/en06-column.glb": "113db5117bede9d31834f7577c7980b08705bebd6a28ec14c6e3ee41d9bf0091",
-    "hardware/assembly/scenes/glb/front-top.glb": "9ff116bec6ee5c404565665306022ab0f07442209aca19077e56918be677705d",
+    "hardware/assembly/scenes/glb/front-top.glb": "fd8074a33bf25bee96b23b4cc74856d4a50175859997a4d7adbf6d884df2b95e",
     "hardware/assembly/scenes/glb/hopper-drain.glb": "067a7bba0ec421027d3c119736934bf2483946e21b4b27ecf410339adb6d43a9",
-    "hardware/assembly/scenes/glb/pump-cartridge.glb": "3549c9cb684d60594446de5cf249b0993a0b9b8150938a35cd371bdbc75c7ba2",
+    "hardware/assembly/scenes/glb/pump-cartridge.glb": "d3f2e443252bf61e9593301283ad023e40bd1df2cb6edbe6bbe574e20b0a39e8",
     "hardware/cold-core-layout/cold-core-assembly.step": "aaa30c6e4fa6e7116d006ed07363dc701d4b4f5f451f8f3b43f4040386cd18d4",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "16f7a93bd006104b23d9a2ad01b7a6da2c103eb9f36ea451004279f7bb44df9a",
