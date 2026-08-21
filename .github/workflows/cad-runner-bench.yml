@@ -13,10 +13,10 @@
 # easy to conclude cores are free. On a 3-core runner the same work stands 200 s clear of the
 # chain. "96% critical path" is a fact about an 8-core machine, not about this build.
 #
-# AND THE EARLIER FIGURES OF THIS BENCH WERE OF A GRAPH THAT SKIPPED WORK. Runs before
-# 1b7230fb had no rsvg-convert, and appliance_quickstart.py catches that binary missing and
-# skips PDF generation rather than failing — 446/247 on macOS became 526/315 once it was there.
-# A timing is only of the graph that actually executed.
+# AND A FIGURE FROM THIS BENCH IS OF THE GRAPH THAT ACTUALLY EXECUTED. A generator that
+# catches a missing binary and skips its output rather than failing leaves a run that is
+# green, short, and of less work than the name suggests — a runner without `rsvg-convert`
+# once cost this bench 80 s on macOS that way. Read the action count beside any wall time.
 #
 # WHAT THIS BENCH DOES NOT MEASURE, and neither number should be read as though it does:
 #
