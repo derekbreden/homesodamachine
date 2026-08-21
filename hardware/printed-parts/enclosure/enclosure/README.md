@@ -783,6 +783,12 @@ hangs off anything to reach it — and `cap_kiss` is the air left at that face w
 cartridge is home. `pump-cap-stops-on-plate` reads the area standing against the plate's band
 and that the kiss itself is air.
 
+**Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
+the same aft wall the cartridge's band stands on — [3.149 mm](GRIP_CAP_DEEP) of relief
+over [40.65 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
+piece comes out screwed to the cartridge and a hand on the assembly finds relief at both
+storeys; the whole figure is under [Pump trays](#pump-trays) below.
+
 ## The flank openings
 
 **Both flanks open across the cartridge's own storey** (`_flank_opening`), and the corner
@@ -928,30 +934,44 @@ millimetres short of the collet plate, and the cap's aft face one storey down is
 own flanks are cut away over this whole storey, so the cartridge's sides stand in the
 open with only the corner posts in front of them — and a post stops
 [12 mm](COLUMN_ALONG) aft of the front plane. A grip is a **pocket struck inboard out of
-the block** from there: [24 mm](GRIP_RUN) fore-and-aft, [48.85 mm](GRIP_RISE) tall at
-its mouth, `grip_sill` of block under it on the rail its edge strip bears on and
-`grip_head` over it under the ceiling the motor cans open through. **Its fore wall is
-the ledge** — a +Y face on the post's own aft plane, which is where a hand sliding fore
-along the open flank arrives and can go no further, with the block from
-`pump_relief_floor` to that plane behind it.
+the block**, [24 mm](GRIP_RUN) fore-and-aft, set down one `grip_aft` off the block's own
+aft face so its ledge stands at [48.54 mm](GRIP_LEDGE). **Its fore wall is that ledge** —
+a +Y face four fingers hook forward onto, with the block from `pump_relief_floor` to it
+behind them.
 
-**It goes as deep as the pump leaves it, storey by storey.** Over the boss the pump's
-octagon reaches `pump_tray.boss_half` off its axis and the pocket is
-[8.354 mm](GRIP_SHALLOW) deep; over the can the bore reaches `can_half` and one
-`cap_pump_air`, and the pocket is [15.95 mm](GRIP_DEEP) — one [6 mm](GRIP_BACK) rib
-standing between its floor and the pump's room either way. Between the two it **walks
-out at `relief_chamfer`**: over a crown that rib moves inboard by the whole
+**A ledge is a travel.** The pocket rides fore with the piece as it comes out, and past
+the post's own aft plane it is in the post's shadow with the hand that was in it standing
+on the post. Ledge to that plane is [22.54 mm](GRIP_TRAVEL), which is what one pull
+draws the assembly.
+
+**It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
+`cap_split_z` — [48.85 mm](GRIP_RISE) tall at its mouth, `grip_sill` of block under it on
+the rail its edge strip bears on and `grip_head` over it under the ceiling the motor cans
+open through. The cap keeps the band under that plane, [40.65 mm](GRIP_CAP_RISE) up from
+the flank opening's own floor, below which the box's side wall closes back in and a hand
+reaching through the opening cannot get to the piece at all. That band is not roofed: it
+ends on the split, which is where the cap stops being material. Same ledge and same aft
+wall in both, so the two pieces a hand takes out together present it one face.
+
+**It goes as deep as the pump leaves it, storey by storey.** Under the split the head's
+own square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis, and the
+cap's pocket is [3.149 mm](GRIP_CAP_DEEP) — nine millimetres of flank stand out there and
+that is what they come to. Over the split the boss's octagon reaches `boss_half` and the
+pocket is [8.354 mm](GRIP_SHALLOW); over the crown the bore reaches `can_half` and one
+`cap_pump_air`, and it is [15.95 mm](GRIP_DEEP). One [6 mm](GRIP_BACK) rib stands between
+a pocket's floor and the pump's room at every one of the three. Between the boss and the
+can it **walks out at `relief_chamfer`**: over a crown that rib moves inboard by the whole
 octagon-to-bore step, and ramped, the first layer over the crown still lands on the rim
 the layer under it keeps.
 
-**The ledge is reeded** (`_grip_reeds`) — `reeding.groove`'s own profile cut as a true
-half-round [2.4 mm](GRIP_REED) across, struck down the ledge in **Z** so a finger
-pulling fore crosses every one and a finger sliding outboard off the pocket crosses all
-of them at once. One array datumed on the flank face, each reed beginning where the
-pocket's back has walked in far enough to hold its whole width: [5](GRIP_REEDS) of them
-at full depth and [3](GRIP_REEDS_LOW) over the boss, so the count standing at a height
-is what that height's depth comes to. The one on the face itself is a quarter round, and
-it is the lead-in the fingers come in over.
+**The ledge is raked in plan, [1 in 5](GRIP_RAKE)** (`grip_rake`) — standing further fore
+the further inboard it runs, [3.191 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
+The normal it presents to a fingertip carries a fifth of itself inboard, so the harder a
+hand pulls the harder it is drawn toward the centre of the piece and down into the pocket.
+The one edge this pocket has no wall on is the open flank, and inboard is the way away
+from it. The solid is the **Y-prism of `_grip_section` met by the Z-prism of its plan**:
+the section says how deep the pocket is at each height and carries the 45 degree ceiling,
+the plan says where the raked ledge stands at each depth, and neither is a fitted surface.
 
 **Every grip is removed material.** Nothing of this piece stands proud of the front
 wall's own exterior plane, so the bench keeps its reading: the pre-test inspection in
