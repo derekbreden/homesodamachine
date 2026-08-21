@@ -206,6 +206,7 @@ def build_pdf() -> int:
         "subtitle": f"{len(pages) - 1} cards + cover · 6 × 4 in, borderless gloss",
         "pages": len(pages),
         "cover": DECK_COVER.name,
+        "cover_size": [COVER_W, COVER_W * PAGE_H // PAGE_W],
     }
     text = json.dumps(sidecar, indent=2, ensure_ascii=False) + "\n"
     if not DECK_SIDECAR.exists() or DECK_SIDECAR.read_text() != text:
