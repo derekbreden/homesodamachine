@@ -6031,6 +6031,7 @@ genrule(
         "pysrc/hardware/printed-parts/electronics/module_tray.py",
         "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
         "pysrc/hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
         "hardware/printed-parts/enclosure/display-cover/display-cover.step",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
