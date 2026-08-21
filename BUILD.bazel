@@ -915,6 +915,17 @@ genrule(
         "hardware/assembly/cards/fc-03-sensor-health.html",
         "hardware/assembly/cards/fc-04-valve-pump-self-test.html",
         "hardware/assembly/cards/fc-05-compressor-smoke-test.html",
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/OFL.txt",
         "hardware/assembly/cards/fs-01-wipe-down-inspect.html",
         "hardware/assembly/cards/fs-02-drain-dry-nameplate.html",
         "hardware/assembly/cards/fs-03-cap-photograph.html",
@@ -1453,6 +1464,16 @@ cp hardware/assembly/cards/wr-05-signal-looms.html $$O65
 genrule(
     name = "tools-build",
     srcs = [
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
         "hardware/assembly/cards/tools/README.md",
         "pysrc/hardware/assembly/cards/tools/_build.py",
         "pysrc/hardware/assembly/cards/tools/_index.py",
@@ -2135,12 +2156,15 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         "out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.step",
         "out/cold-core-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json)
@@ -2240,11 +2264,14 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
         "out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step)
@@ -2284,6 +2311,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
@@ -2299,6 +2328,7 @@ genrule(
         "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
         "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf)
@@ -2367,11 +2397,14 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
         "out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
@@ -2513,6 +2546,8 @@ genrule(
         "pysrc/hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/enclosure-assembly/hardware/manifold-layout/collet-plate.dxf",
@@ -2520,6 +2555,7 @@ genrule(
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/collet-plate.dxf)
@@ -2573,12 +2609,15 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/manifold-layout/hardware/manifold-layout/manifold-layout.step",
         "out/manifold-layout/hardware/manifold-layout/README.figures.json",
         "out/manifold-layout/hardware/manifold-layout/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/manifold-layout/hardware/manifold-layout/manifold-layout.step)
@@ -2645,11 +2684,14 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
         "out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/coil-mandrel/hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step)
@@ -2684,12 +2726,15 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
         "out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
         "out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step)
@@ -2747,11 +2792,14 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
         "out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/foam-assembly/hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step)
@@ -2790,6 +2838,8 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -2799,6 +2849,7 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step)
@@ -2872,6 +2923,8 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
@@ -2899,6 +2952,7 @@ genrule(
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.figures.json",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step)
@@ -2979,6 +3033,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -2986,6 +3042,7 @@ genrule(
         "out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/README.md",
         "out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/prv-shroud/hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step)
@@ -3024,11 +3081,14 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step",
         "out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/pcba-assembly/hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step)
@@ -3349,6 +3409,8 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step",
@@ -3356,6 +3418,7 @@ genrule(
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/README.md",
         "out/display-cover/hardware/printed-parts/enclosure/display-cover/display_cover.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/display-cover/hardware/printed-parts/enclosure/display-cover/display-cover.step)
@@ -3411,6 +3474,8 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
@@ -3418,6 +3483,7 @@ genrule(
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/README.md",
         "out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/display-gasket/hardware/printed-parts/enclosure/display-gasket/display-gasket.step)
@@ -3612,6 +3678,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/drip-pan/hardware/printed-parts/enclosure/drip-pan/drip-pan.step",
@@ -3619,6 +3687,7 @@ genrule(
         "out/drip-pan/hardware/printed-parts/enclosure/drip-pan/README.md",
         "out/drip-pan/hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/drip-pan/hardware/printed-parts/enclosure/drip-pan/drip-pan.step)
@@ -3763,43 +3832,34 @@ genrule(
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step)
-O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl)
-O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
-O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl)
-O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
-O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl)
-O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
-O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
-O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl)
-O10=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
-O11=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl)
-O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O1=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step)
+O2=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step)
+O3=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
+O4=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
+O5=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
+O6=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O7=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -3813,21 +3873,15 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py > /dev/null
 cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step $$O0
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl $$O1
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O2
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl $$O3
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O4
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl $$O5
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O6
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O7
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O8
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl $$O9
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O10
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl $$O11
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O12
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O13
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O14
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O15
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step $$O1
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step $$O2
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O3
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O4
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O5
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O6
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O7
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O8
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O9
 """,
 )
 
@@ -3866,12 +3920,15 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step)
@@ -3913,6 +3970,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/port-ring/hardware/printed-parts/enclosure/port-ring/port-ring-carb.step",
@@ -3923,6 +3982,7 @@ genrule(
         "out/port-ring/hardware/printed-parts/enclosure/port-ring/README.figures.json",
         "out/port-ring/hardware/printed-parts/enclosure/port-ring/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/port-ring/hardware/printed-parts/enclosure/port-ring/port-ring-carb.step)
@@ -4235,11 +4295,14 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
         "out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step)
@@ -4277,6 +4340,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
@@ -4284,6 +4349,7 @@ genrule(
         "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
         "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step)
@@ -4323,6 +4389,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step",
@@ -4330,6 +4398,7 @@ genrule(
         "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
         "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step)
@@ -4373,6 +4442,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
@@ -4383,6 +4454,7 @@ genrule(
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "out/tube-collar/hardware/printed-parts/faucet/tube-collar/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step)
@@ -4432,6 +4504,8 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
@@ -4439,6 +4513,7 @@ genrule(
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/README.md",
         "out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/fuse-clamp/hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step)
@@ -4519,6 +4594,8 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/hopper-funnel-mold/hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-assembly.step",
@@ -4527,6 +4604,7 @@ genrule(
         "out/hopper-funnel-mold/hardware/printed-parts/zone-c/hopper-funnel-mold/README.figures.json",
         "out/hopper-funnel-mold/hardware/printed-parts/zone-c/hopper-funnel-mold/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/hopper-funnel-mold/hardware/printed-parts/zone-c/hopper-funnel-mold/hopper-funnel-mold-assembly.step)
@@ -4569,12 +4647,15 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/hopper-funnel/hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step",
         "out/hopper-funnel/hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
         "out/hopper-funnel/hardware/printed-parts/zone-c/hopper-funnel/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/hopper-funnel/hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step)
@@ -4655,12 +4736,15 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/asse1022-assembly/hardware/reference/asse1022-assembly/asse1022-assembly.step",
         "out/asse1022-assembly/hardware/reference/asse1022-assembly/README.figures.json",
         "out/asse1022-assembly/hardware/reference/asse1022-assembly/README.md",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/asse1022-assembly/hardware/reference/asse1022-assembly/asse1022-assembly.step)
@@ -4694,10 +4778,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/basics-mtb-0606wp/hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/basics-mtb-0606wp/hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step)
@@ -4730,6 +4817,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan-solenoid.step",
@@ -4737,6 +4826,7 @@ genrule(
         "out/beduan-solenoid/hardware/reference/beduan-solenoid/README.md",
         "out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan_solenoid.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/beduan-solenoid/hardware/reference/beduan-solenoid/beduan-solenoid.step)
@@ -4775,6 +4865,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/compressor/hardware/reference/compressor/compressor.step",
@@ -4782,6 +4874,7 @@ genrule(
         "out/compressor/hardware/reference/compressor/README.md",
         "out/compressor/hardware/reference/compressor/compressor.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/compressor/hardware/reference/compressor/compressor.step)
@@ -4818,6 +4911,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
@@ -4825,6 +4920,7 @@ genrule(
         "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/README.md",
         "out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/digiten-flow-sensor/hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step)
@@ -4860,10 +4956,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/ffl38barb38/hardware/reference/ffl38barb38/ffl38barb38.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/ffl38barb38/hardware/reference/ffl38barb38/ffl38barb38.step)
@@ -4893,10 +4992,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/flare38-14ptc/hardware/reference/flare38-14ptc/flare38-14ptc.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/flare38-14ptc/hardware/reference/flare38-14ptc/flare38-14ptc.step)
@@ -4926,10 +5028,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/gagira-reducing-coupling/hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/gagira-reducing-coupling/hardware/reference/gagira-reducing-coupling/gagira-reducing-coupling.step)
@@ -4959,10 +5064,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/gasher-check-valve/hardware/reference/gasher-check-valve/gasher-check-valve.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/gasher-check-valve/hardware/reference/gasher-check-valve/gasher-check-valve.step)
@@ -4992,10 +5100,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step)
@@ -5026,10 +5137,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step)
@@ -5061,10 +5175,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step)
@@ -5094,10 +5211,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/jg-pp010822e/hardware/reference/jg-pp010822e/jg-pp010822e.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/jg-pp010822e/hardware/reference/jg-pp010822e/jg-pp010822e.step)
@@ -5127,10 +5247,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step)
@@ -5160,10 +5283,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/jg-pp061208w/hardware/reference/jg-pp061208w/jg-pp061208w.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/jg-pp061208w/hardware/reference/jg-pp061208w/jg-pp061208w.step)
@@ -5193,10 +5319,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/jg-pp451223w/hardware/reference/jg-pp451223w/jg-pp451223w.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/jg-pp451223w/hardware/reference/jg-pp451223w/jg-pp451223w.step)
@@ -5228,10 +5357,13 @@ genrule(
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step)
@@ -5261,10 +5393,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/meanwell-irm90/hardware/reference/meanwell-irm90/meanwell-irm90.step)
@@ -5294,10 +5429,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step)
@@ -5327,10 +5465,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/multiplex-asse1022/hardware/reference/multiplex-asse1022/multiplex-asse1022.step)
@@ -5362,10 +5503,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step)
@@ -5395,10 +5539,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/neofit-flow-control/hardware/reference/neofit-flow-control/neofit-flow-control.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/neofit-flow-control/hardware/reference/neofit-flow-control/neofit-flow-control.step)
@@ -5428,10 +5575,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/seaflo-22-pump/hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/seaflo-22-pump/hardware/reference/seaflo-22-pump/seaflo-22-pump.step)
@@ -5462,10 +5612,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/seaflo-discharge-chain/hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/seaflo-discharge-chain/hardware/reference/seaflo-discharge-chain/seaflo-discharge-chain.step)
@@ -5497,10 +5650,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/seaflo-suction-chain/hardware/reference/seaflo-suction-chain/seaflo-suction-chain.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/seaflo-suction-chain/hardware/reference/seaflo-suction-chain/seaflo-suction-chain.step)
@@ -5530,10 +5686,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/sf76e-thermal-fuse/hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/sf76e-thermal-fuse/hardware/reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step)
@@ -5563,10 +5722,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/shutao-moisture-plate/hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/shutao-moisture-plate/hardware/reference/shutao-moisture-plate/shutao-moisture-plate.step)
@@ -5596,10 +5758,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/teyleten-relay/hardware/reference/teyleten-relay/teyleten-relay.step)
@@ -5630,11 +5795,14 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/valve-body-reference/hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
         "out/valve-body-reference/hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/valve-body-reference/hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step)
@@ -5666,12 +5834,15 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/wago-221/hardware/reference/wago-221/wago-221-413.step",
         "out/wago-221/hardware/reference/wago-221/wago-221-415.step",
         "out/wago-221/hardware/reference/wago-221/wago-221-420.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/wago-221/hardware/reference/wago-221/wago-221-413.step)
@@ -5706,6 +5877,8 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/waveshare-43b-display/hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
@@ -5713,6 +5886,7 @@ genrule(
         "out/waveshare-43b-display/hardware/reference/waveshare-43b-display/README.md",
         "out/waveshare-43b-display/hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/waveshare-43b-display/hardware/reference/waveshare-43b-display/waveshare-43b-display.step)
@@ -5748,10 +5922,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/worm-clamp/hardware/reference/worm-clamp/worm-clamp.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/worm-clamp/hardware/reference/worm-clamp/worm-clamp.step)
@@ -5781,10 +5958,13 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
+        ":node-packages",
     ],
     outs = [
         "out/wr1110-regulator/hardware/reference/wr1110-regulator/wr1110-regulator.step",
     ],
+    tags = ["requires-network"],
     cmd = """
 set -e
 O0=$$PWD/$(location out/wr1110-regulator/hardware/reference/wr1110-regulator/wr1110-regulator.step)
@@ -6715,12 +6895,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -6838,6 +7012,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/manifold-layout/_scorecard.py"],
     size = "large",
@@ -6920,12 +7095,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7043,6 +7212,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/manifold-layout/enclosure_assembly.py"],
     size = "large",
@@ -7125,12 +7295,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7248,6 +7412,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/enclosure/display-cover/display_cover.py"],
     size = "large",
@@ -7330,12 +7495,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7453,6 +7612,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/enclosure/nameplate/nameplate.py"],
     size = "large",
@@ -7535,12 +7695,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7658,6 +7812,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/enclosure/port-ring/port_ring.py"],
     size = "large",
@@ -7740,12 +7895,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -7863,6 +8012,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/enclosure/pump-tray/pump_tray.py"],
     size = "large",
@@ -7945,12 +8095,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8068,6 +8212,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/enclosure/valve-panel/valve_panel.py"],
     size = "large",
@@ -8150,12 +8295,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8273,6 +8412,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/faucet/tube-collar/tube_collar.py"],
     size = "large",
@@ -8355,12 +8495,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8478,6 +8612,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py"],
     size = "large",
@@ -8560,12 +8695,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8683,6 +8812,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/reference/compressor/compressor.py"],
     size = "large",
@@ -8791,12 +8921,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -8914,6 +9038,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/reference/hopper-drain-stub/hopper_drain_stub.py"],
     size = "large",
@@ -8996,12 +9121,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9119,6 +9238,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/reference/neofit-bulkhead/neofit_bulkhead.py"],
     size = "large",
@@ -9328,12 +9448,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9452,6 +9566,7 @@ sh_test(
         "hardware/scripts/_stated_bounds.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/scripts/_overlap.py"],
     size = "large",
@@ -9568,12 +9683,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9770,6 +9879,7 @@ sh_test(
         "hardware/scripts/probe.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/scripts/fit.py"],
     size = "large",
@@ -9852,12 +9962,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -9977,6 +10081,7 @@ sh_test(
         "hardware/topology/fluid-topology.md",
         "tools/bazel/graph.json",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/scripts/lanes.py"],
     size = "large",
@@ -10059,12 +10164,6 @@ sh_test(
         "hardware/printed-parts/enclosure/drip-pan/drip_pan.py",
         "hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -10183,6 +10282,7 @@ sh_test(
         "hardware/scripts/probe.py",
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
+        "tools/render/render-thumbnails.js",
     ],
     args = ["hardware/scripts/probe.py"],
     size = "large",
