@@ -693,7 +693,7 @@ in the feature support has to reach.
 One pattern wherever a wall comes near enough to reach something round
 (`_tube_anchors`): a **bore concentric with the body**, half a cylinder at
 `seat_r`, and the strap's channel behind it. Three of these hold a length of tube
-(`enclosure_assembly.TUBE_ANCHOR_SITES`) and one holds a fitting
+(`enclosure_assembly.TUBE_ANCHOR_SITES`) and three hold a fitting
 (`enclosure_assembly.BODY_ANCHOR_SITES`) — the same rib either way, since what the
 builder is handed is an axis, a direction along it and a radius.
 
@@ -709,6 +709,34 @@ up to one `wall` over the bore's crown, its two ends carried on up to the face i
 roots on, and one bore through all of it — so the channel has no floor to draw and no
 cut to make it, and the face the rib roots on is its roof. A strap therefore goes in
 **before** the body does.
+
+**And the face is the piece's own** (`piece_root_faces`), not the box's interior. A
+station is struck in the box's frame because that is the frame the body is in; the
+plane a rib STOPS on is whatever the piece carrying it presents, and on the two
+pieces with a grown flank those two stand [3 mm](BACK_TOP_FLANK_GROWN) and
+[6 mm](FRONT_TOP_FLANK_GROWN) apart. Measured to the wrong one, the channel is
+drawn inside the wall's own stock and the rib arrives buried to its crown.
+
+**Where the piece's face leaves no channel, the wall gives the rib its lane back.**
+The box's interior is one `wall` inside the exterior, and a piece carrying stock
+inboard of it carries stock the rib was drawn to use — so it gives that up over
+the rib's footprint and the rib roots on the box's plane, which is
+`front_top_flank_relief`'s bargain read off the station rather than stated. The
+relief is **wider than the rib, and by the strap**: what the loop runs down is the
+rib's two flanks, from the channel's floor to the body's axis plane, so it is
+carried `tie_strap_t + tie_cav_buffer` past each flank and those two lobes are
+what the loop comes down. The flavour tap's two ribs are the pair that take it —
+back-top's 6 mm flank leaves the `water-split` and `flow-regulator` barrels
+2.44 mm of room where a rib needs 4.
+
+**And the channel is read back** (`enclosure_assembly.check_strap_channels`,
+`strap-channels` on the card). A remainder cannot fail loudly: a wall standing in
+one arrives as a rib with a bore and nothing else wrong — the seat still closes on
+its body at the slip, the piece is still one watertight solid, the pack still
+stands clear. Nothing else on that card measures a hole. So this reading asks for
+the strap and not the channel: `tie_strap_t` off the bore's own crown, the
+cavity's width along the body, the rib's full reach across it, struck off the
+station with no root face in it, and it has to come back air.
 
 **The regulator's rib** is the one bored for a fitting. The WR1110 lies fore and aft
 on the panel deck one column east of the carb union, and the section under the rib is
@@ -1143,10 +1171,26 @@ strip and the thing it runs out on meeting along a line.
 heat-sets, and each is reached straight down through the throat with the funnel
 out. The panel's pad lands tangent to the strip's inboard face, so nothing joins a
 boss to this piece across that plane: the join is a **pier** from the boss's axis
-out to where the corbel carries one `wall` over it, its top face on the ceiling
-plane and the pad's own travel struck back out of it. Its underside is a soffit
-and hangs — the tap-water trough's bargain one storey down — and takes print
-support.
+out to where the strip itself stops (`ceiling_pier_run`), its top face on the
+ceiling plane and the pad's own travel struck back out of it. Its underside is a
+soffit and hangs — the tap-water trough's bargain one storey down — and takes
+print support.
+
+**The strip's stop is what makes the root.** The corbel is a wedge whose thin end
+is at the panel's edge, so how much section a pier roots in is how far out it
+carries: a block ending a `wall` past that edge ends in **3.10 mm** of corbel,
+and one carried to the stop roots in **14.25 mm** — the whole storey between the
+screw's counterbore and the ceiling. The −X pier reaches the flank; the +X pier
+stops on its band's own measured run of [4 mm](CEILING_PIER_KEEP), because the
+ground bar's stack stands under that strip.
+
+And that run is **not** the corbel's. `keep` is the strip's figure and the strip
+is shallow at its outboard edge — 5 mm of it over the ground stack hangs 5 mm
+under the ceiling and the stack's crown stands 5.61 mm under that, so the two
+never meet. A pier descends the whole storey, and at that depth the stack stands
+in to |x| 84.45. `back_top_ceiling_pier_runs` is that second measurement, one row
+per band, and `ceiling_pier_run` **refuses** a band nobody has measured for a pier
+rather than borrowing the corbel's figure and descending into a body.
 
 **Everything that used to hang off the ceiling over that field now hangs off the
 panel**: the flow meter's two saddles and the three ribs bored for `carb-1`,

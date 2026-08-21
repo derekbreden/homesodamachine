@@ -221,10 +221,15 @@ def build(box=None):
     if box is None:
         return solid
     saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
+    # THE CEILING THESE ROOT ON IS THIS PANEL'S UNDERSIDE. A rib's two ends climb to the face it
+    # stops on and the strap's channel is the room they leave between them, so what the builders
+    # are handed is the plane this part puts there — `enclosure.piece_root_faces` is the same
+    # substitution for a wall, on the pieces that carry one thicker than the box's own.
+    roots = box.inner[:5] + (underside_z,)
     body = solid.val()
-    body = _enc._digiten_saddles(body, box.inner, saddles,
+    body = _enc._digiten_saddles(body, roots, saddles,
                                  fore_y, aft_y, box.inner[4], show_z)
-    body = _enc._tube_anchors(body, box.inner, ribs,
+    body = _enc._tube_anchors(body, roots, box.inner, ribs,
                               fore_y, aft_y, box.inner[4], show_z)
     return cq.Workplane(obj=body)
 

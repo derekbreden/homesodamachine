@@ -872,6 +872,35 @@ def lip_face_x():
     what holds the card in X."""
     ix0, ix1 = interior_x()
     return (ix0 + wall, ix1 - wall)
+
+
+def piece_root_faces(inner, y_side, z_side):
+    """The six interior planes a feature built on THIS PIECE actually roots on — `inner` with
+    each face that piece carries thicker than the box's own standing where that piece puts it.
+
+    `inner` IS THE BOX'S INTERIOR and every seated body is packed to it, which is what makes it
+    the right frame for a station: a run's lane, a saddle's band and a boss's plan are all struck
+    against the plane the pack stands in. IT IS NOT THE FRAME A RIB STOPS IN. Four faces on this
+    box stand inboard of it on the piece that carries them — back-top's two flanks
+    (`back_top_flank_face`), front-top's (`front_top_flank_face`), back-top's back wall
+    (`back_top_wall_face`), and a bottom piece's flanks, which are the lip's own underwall
+    (`lip_face_x`) — so a feature drawn to the box's plane on one of those is drawn to a plane
+    that piece has already filled in.
+
+    WHAT THAT COSTS IS THE STRAP'S CHANNEL. A rib's two ends climb from the bore's crown to the
+    face it roots on and the channel is the room LEFT between them (`_tube_anchors`): measured to
+    a plane the wall stands inboard of, the whole of it comes out inside that wall's own stock,
+    and the rib arrives buried to its crown with nowhere for a tie to pass."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    if z_side == "top":
+        ix0, ix1 = front_top_flank_face() if y_side == "front" else back_top_flank_face()
+        if y_side == "back":
+            iy1 = back_top_wall_face()
+    else:
+        ix0, ix1 = lip_face_x()
+        if y_side == "back":
+            iy1 = rear_plane_y - wall      # the lip's own skin, already `2 * wall` of section
+    return (ix0, ix1, iy0, iy1, iz0, iz1)
 # The interior REAR PLANE — the inner face of the back wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
@@ -1007,6 +1036,15 @@ back_top_ceiling_reliefs = (
     ("asse1022-chain", -1.0, 354.0, 425.0, 0.0),   # the chain, its trough and both tie straps
     ("c14-inlet",      +1.0, 454.0, 461.0, 0.0),   # the receptacle's rim, hard against the back wall
 )
+# AND HOW FAR A FULL-DEPTH BLOCK MAY STAND ON A RELIEVED BAND, WHICH IS NOT `keep`. `keep` is the
+# corbel's own run, and a corbel is SHALLOW at its outboard edge: the 5 mm of strip left over the
+# ground stack hangs 5 mm under the ceiling, the stack's crown stands 5.61 mm under that, and the
+# two never meet. A boss's pier descends the whole way to its screw's counterbore
+# (`_back_top_ceiling`), and at THAT storey the stack stands in to |x| 84.45 — so what a pier may
+# keep of the band is its own figure, measured on the same solids the rows above were.
+# Stated as {station: run}. A pier crossing a relieved band nobody has measured for it is what
+# `ceiling_pier_run` refuses, rather than borrowing the corbel's figure and descending into a body.
+back_top_ceiling_pier_runs = {"ground-stack": 4.0}   # 0.95 mm off the stack, at a pier's depth
 
 
 @functools.lru_cache(maxsize=1)
@@ -1037,6 +1075,33 @@ def ceiling_corbel_at(x, y):
     return run
 
 
+def ceiling_pier_run(sx, y0, y1):
+    """How far outboard a FULL-DEPTH block may stand on back-top's ceiling strip over a band of
+    it — `ceiling_corbel_at`'s figure for something that spans a band rather than standing at one
+    station, and takes the whole storey under the strip rather than the corbel's own wedge.
+
+    The strip's full run is the panel's rail (`ceiling_panel.rail_run`), the same figure
+    `_back_top_ceiling` corbels. A relief takes the outboard run of it over its own band, so what
+    a block crossing several bands may stand on is the smallest run any of them leaves — and on a
+    relieved band that is `back_top_ceiling_pier_runs`, not `keep`, because the body a relief was
+    cut for stands nearer to something descending the whole storey than to the corbel's thin edge.
+    A band measured for the corbel and not for a pier is REFUSED: borrowing the one figure for the
+    other is how a block ends up inside the body its own relief was cut to clear."""
+    run = _ceiling().rail_run
+    for who, rsx, ry0, ry1, _keep in back_top_ceiling_reliefs:
+        if not (rsx == sx and ry0 < y1 and y0 < ry1):
+            continue
+        if who not in back_top_ceiling_pier_runs:
+            raise ValueError(
+                f"ceiling_pier_run: a full-depth block spans y {y0:.2f}..{y1:.2f} on the "
+                f"{'+' if sx > 0 else '-'}X strip, which is the {who} relief's band, and no run "
+                f"has been measured for a pier there. `keep` is the CORBEL's run and a corbel "
+                f"stops short of the storey a pier takes: measure this band against the placed "
+                f"solid and add it to `back_top_ceiling_pier_runs`.")
+        run = min(run, back_top_ceiling_pier_runs[who])
+    return run
+
+
 def ceiling_stations(digiten, anchors, panel: bool):
     """Which of the ceiling's own stations each side of that joint builds — the slide-in panel's
     when `panel`, back-top's otherwise.
@@ -1044,7 +1109,14 @@ def ceiling_stations(digiten, anchors, panel: bool):
     A rib roots on the face it is handed, and back-top's ceiling over the panel's field IS the
     panel, so a station standing there is the panel's to build and this piece's to leave alone.
     BOTH SIDES READ THIS ONE CALL, so neither can grow a rib the other grew too and no station can
-    fall between them. A rib rooted on a WALL is never the panel's, whatever its plan."""
+    fall between them. A rib rooted on a WALL is never the panel's, whatever its plan.
+
+    AND WHAT BACK-TOP KEEPS OF ITS CEILING IS CORBELLED. Outboard of the panel's edge the strip
+    hangs `ceiling_corbel_at` below the ceiling plane, so a station out there roots on a slope and
+    not on the plane its rib would be drawn to — and a rib drawn to the plane arrives buried, the
+    strap's channel filled with the corbel's own stock. There is no such station and this is what
+    keeps it that way: a ceiling rib either stands over the field, where the panel takes it, or on
+    a run of strip the corbel has left flat."""
     cp = _ceiling()
 
     def over_field(x, y):
@@ -1058,6 +1130,20 @@ def ceiling_stations(digiten, anchors, panel: bool):
     ribs = tuple(s for s in (anchors or ())
                  if (tuple(int(round(c)) for c in s[2]) == (0, 0, 1)
                      and over_field(s[0][0], s[0][1])) == panel)
+    if not panel:
+        plans = [(s[0][0], s[0][1]) for s in ribs
+                 if tuple(int(round(c)) for c in s[2]) == (0, 0, 1)]
+        if saddles:
+            plans.append((saddles[0], (saddles[3][0][0] + saddles[3][-1][1]) / 2.0))
+        for station in plans:
+            deep = ceiling_corbel_at(*station)
+            if deep > 0.0:
+                raise ValueError(
+                    f"ceiling_stations: a rib rooted on the ceiling stands at x {station[0]:.2f}, "
+                    f"y {station[1]:.2f}, where back-top's strip hangs {deep:.2f} mm below the "
+                    f"ceiling plane. What that rib would stop on is the corbel's slope, and the "
+                    f"channel its ends leave under the plane is inside the corbel's own stock. "
+                    f"Move the station over the panel's field or onto a wall.")
     return saddles, ribs
 
 
@@ -4150,10 +4236,20 @@ def _back_top_ceiling(solid, inner, y_joint):
 
     THE BOSSES STAND ON PIERS AND THE PIERS HANG OFF THE STRIP. The panel's pad lands tangent to
     the strip's inboard face (`ceiling_panel.screw_x`), so nothing joins a boss to this piece
-    across that plane — the pier is the join: a block from the boss's own axis out to where the
-    corbel carries one `wall` over it, its top face ON the ceiling plane, and the pad's travel
-    struck back out of it. Its underside is a soffit and hangs, the way the tap-water trough's
-    block does one storey down, and takes print support."""
+    across that plane — the pier is the join: a block from the boss's own axis out to WHERE THE
+    STRIP ITSELF STOPS (`ceiling_pier_run`), its top face ON the ceiling plane, and the pad's
+    travel struck back out of it.
+
+    AND THE STRIP'S STOP IS WHAT MAKES THE ROOT. The corbel is a wedge whose thin end is at the
+    panel's edge, so how much section a pier roots in is how far out it carries: a block ending a
+    `wall` past that edge ends in three millimetres of corbel, and one carried to the flank roots
+    in the whole of it. Where a relief has taken the strip's outboard run the pier stops short of
+    the body that relief was cut for, on that band's OWN measured run and not the corbel's
+    (`ceiling_pier_run`) — a pier takes the whole storey under the strip where the corbel takes a
+    wedge of it, and a body is nearer to the one than to the other.
+
+    Its underside is a soffit and hangs, the way the tap-water trough's block does one storey
+    down, and takes print support."""
     cp = _ceiling()
     iz1 = inner[5]
     half, flanks = cp.panel_half_w, back_top_flank_face()
@@ -4197,12 +4293,13 @@ def _back_top_ceiling(solid, inner, y_joint):
             (sx * (mouth_x - over), roof_z + (depth + over) * slope)]))
 
     # THE TWO BOSSES, and the lane the panel's pads travel to reach them.
-    reach = wall                           # out to where the corbel carries one `wall` over it
     r, floor = cp.screw_pad_r, cp.screw_bore_z - socket_cap
     plan = _ybox(-half - 1.0, half + 1.0, cp.fore_y, cp.aft_y, floor - 1.0, cp.show_z)
     for cx, cy in cp.screw_stations():
         sx = 1.0 if cx > 0 else -1.0
-        out = sx * (half + reach)
+        # The pier's own band is the block's, fore edge to the pad's aft face, and it stands out
+        # to wherever the strip over that band does.
+        out = sx * (half + ceiling_pier_run(sx, cp.fore_y, cy + r))
         solid = solid.fuse(_ybox(min(cx, out), max(cx, out), cp.fore_y, cy + r, floor, iz1))
         solid = solid.fuse(_zcyl(r, cx, cy, floor, cp.screw_seat_z).intersect(plan))
         # THE PAD TRAVELS THIS LANE and nothing of this piece stands in it: the panel's own web
@@ -6090,8 +6187,12 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     return solid
 
 
-def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
+def _digiten_saddles(solid, roots, station, y0, y1, z0, z1):
     """The flow meter's two saddles hung off the top wall, for the piece that owns the ceiling.
+
+    `roots` IS THE PIECE'S OWN INTERIOR AND NOT THE BOX'S (`piece_root_faces`). The rib's two
+    ends climb to the face it roots on and the strap's channel is the room left between them, so
+    the plane handed in here is the one that piece actually presents.
 
     ONE PER ARM AND NONE OVER THE BODY. The round body reaches to within a hair of the top wall
     and the two collet barrels leave the best part of a centimetre under it, so the arms are the
@@ -6111,7 +6212,7 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
     `digiten_saddle_wall` strip either side of the bore, the saddle's whole length, with nothing
     under them. Everything over those lips is the arc closing inward on itself, so the hood
     carries its own crown and the lips are the only thing in it support has to reach."""
-    if not station or z1 < inner[5] - 1e-6:
+    if not station or z1 < roots[5] - 1e-6:
         return solid
     x_axis, z_axis, seat_r, bands = station
     reach = seat_r + digiten_saddle_wall
@@ -6127,9 +6228,9 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
         mid = (by0 + by1) / 2.0
         sy0, sy1 = mid - digiten_saddle_len / 2.0, mid + digiten_saddle_len / 2.0
         z_crown = z_axis + seat_r + wall          # one `wall` over the bore's own crown
-        if inner[5] - z_crown < tie_strap_t + 1e-6:
+        if roots[5] - z_crown < tie_strap_t + 1e-6:
             raise ValueError(
-                f"_digiten_saddles: a `wall` off the bore's crown leaves {inner[5] - z_crown:.3f} "
+                f"_digiten_saddles: a `wall` off the bore's crown leaves {roots[5] - z_crown:.3f} "
                 f"mm under the top wall's inner face, and the strap is {tie_strap_t:.3g} thick. The "
                 f"storey the meter stands on is what gives way here "
                 f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the wall.")
@@ -6145,7 +6246,7 @@ def _digiten_saddles(solid, inner, station, y0, y1, z0, z1):
         cy0, cy1 = mid - tie_cav_w / 2.0, mid + tie_cav_w / 2.0
         rib = _ybox(x_axis - reach, x_axis + reach, sy0, sy1, z_axis, z_crown)
         for ry0, ry1 in ((sy0, cy0), (cy1, sy1)):
-            rib = rib.fuse(_ybox(x_axis - reach, x_axis + reach, ry0, ry1, z_crown, inner[5]))
+            rib = rib.fuse(_ybox(x_axis - reach, x_axis + reach, ry0, ry1, z_crown, roots[5]))
         rib = rib.cut(_digiten_bore(x_axis, z_axis, seat_r, sy0, sy1, reach))
         solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
     return solid
@@ -6227,13 +6328,32 @@ def _anchor_rib(origin, u, n, length, reach, b0, b1):
     )
 
 
-def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
+def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
     """Every tube anchor whose whole rib this piece owns.
 
     A station carries the tube and only the tube — where its axis runs, which way it points, what
     it seats on — and the box carries the face. So an anchor moves when its run moves and stops
     where the wall stops. A piece that owns only part of a rib builds none of it, the way every
     other station on these walls behaves.
+
+    AND THE FACE IS THE PIECE'S OWN (`piece_root_faces`), not the box's interior. A station is
+    struck in the box's frame because that is the frame the run is in; the plane its rib STOPS on
+    is whatever the piece carrying it presents, and on the two pieces with a grown flank those two
+    stand three and six millimetres apart. Measured to the wrong one the channel below is drawn
+    inside the wall's own stock, which is a rib with no cavity in it at all.
+
+    AND WHERE THAT FACE LEAVES NO CHANNEL, THE WALL GIVES THE RIB ITS LANE BACK. `lane` is the
+    box's own interior — one `wall` inside the exterior, the plane every station was struck
+    against — and a piece carrying stock inboard of it carries stock the rib was drawn to use. So
+    that piece gives it up and the rib roots on `lane` instead, which is `front_top_flank_relief`'s
+    bargain read off the station rather than stated: the wall keeps its full section everywhere the
+    rib does not need it, and one `wall` stands behind the relief because `lane` is one `wall` in.
+
+    THE RELIEF IS WIDER THAN THE RIB, and by the strap. What the loop runs down is the rib's two
+    FLANKS, from the channel's floor to the tube's own axis plane (`tube_anchor_strap_loop`), so a
+    relief cut to the rib's own reach would hand the strap a channel it could not leave. It is
+    carried `tie_strap_t + tie_cav_buffer` past each flank instead — the same room over the strap
+    every cavity on this box carries — and those two lobes are what the loop comes down.
 
     THE CAVITY IS A REMAINDER: the rib stands one `wall` over the bore's crown down its whole
     length and only its two ends carry on up to the face it roots on, so the strap's channel is
@@ -6251,9 +6371,14 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
             raise ValueError(
                 f"_tube_anchors: root direction {n} names no interior face. An anchor stands on "
                 f"one of the box's six faces, and that face is what its rib stops on.")
-        b_root = (inner[face] - mid[face // 2]) * (1.0 if face % 2 else -1.0)
+        sign = 1.0 if face % 2 else -1.0
+        b_face = (roots[face] - mid[face // 2]) * sign      # the face this piece presents
+        b_lane = (lane[face] - mid[face // 2]) * sign       # and the box's own, at or outboard of it
         reach = seat_r + wall              # the lip's outer edge
         b_crown = seat_r + wall            # one `wall` over the bore's own crown
+        b_root, relief = b_face, b_face < b_lane - 1e-9 and b_face - b_crown < tie_strap_t
+        if relief:
+            b_root = b_lane                # the wall gives this rib its lane back
         if b_root - b_crown < tie_strap_t:
             raise ValueError(
                 f"_tube_anchors: a `wall` off the bore's crown leaves {b_root - b_crown:.3f} mm "
@@ -6281,6 +6406,12 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
         # is UNIFIED before it joins the piece. A fuse imprints the seam of every solid that went
         # into it, so a rib fused straight onto the wall carries its lip in as many pieces as it
         # was laid down in — three here — and its bore in as many again.
+        if relief:
+            # THE RELIEF, cut before the rib is fused so the rib is what fills it. Its floor is
+            # `lane`, so what stands behind it is the one `wall` this box carries everywhere, and
+            # its two lobes past the rib's flanks are where the strap comes down.
+            solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
+                                          reach + tie_strap_t + tie_cav_buffer, b_face, b_lane))
         rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
         for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
             end = tuple(origin[k] + u[k] * s0 for k in range(3))
@@ -6527,8 +6658,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the flow meter's two saddles off the same piece's ceiling — the stations `ceiling_stations`
     # leaves this piece, because back-top's ceiling over the panel's field is the PANEL and a rib
     # rooted there roots on it (`../ceiling-panel/ceiling_panel.py`).
+    #
+    # BOTH BUILDERS ROOT ON THIS PIECE'S OWN INTERIOR and not on the box's. A rib's cavity is the
+    # room its two ends leave under the face it stops on, so the plane they are drawn to has to be
+    # the plane this piece puts there (`piece_root_faces`).
+    roots = piece_root_faces(inner, y_side, z_side)
     saddles, ribs = ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=False)
-    piece = _digiten_saddles(piece, inner, saddles, ylo, yhi, zlo, zhi)
+    piece = _digiten_saddles(piece, roots, saddles, ylo, yhi, zlo, zhi)
     # And the flavour manifold's valve panels, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
@@ -6549,7 +6685,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(_bay_floor(inner, y_joint, box.collet_plate, box.pump_trays))
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
-    piece = _tube_anchors(piece, inner, ribs, ylo, yhi, zlo, zhi)
+    piece = _tube_anchors(piece, roots, inner, ribs, ylo, yhi, zlo, zhi)
     # And the nameplate — the pocket on the back wall's outer face, the plateau that floors it on
     # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
     # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,
@@ -7007,6 +7143,11 @@ def main():
         "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
         "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
         "CEILING_KEEP": f"{max(k for *_r, k in back_top_ceiling_reliefs):.4g} mm",
+        "CEILING_PIER_KEEP": f"{min(back_top_ceiling_pier_runs.values()):.4g} mm",
+        # How much stock each grown flank stands INBOARD of the box's own interior — the room a
+        # rib rooted on that piece loses, and the room its relief gives back.
+        "BACK_TOP_FLANK_GROWN": f"{back_top_flank_t - wall:.4g} mm",
+        "FRONT_TOP_FLANK_GROWN": f"{front_top_flank_t - wall:.4g} mm",
         "PIECE_H": f"{_ceiling().piece_h:.4g} mm",
         # And the section a bottom piece's three lipped sides carry for free — the lip's own
         # skin carried to the slab (`_lip_underwall`), which is what the two flanks above are
