@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="tools.css">
+<style>
+  /* Four printers in the rack and a four-line panel caption, against a text
+     column that runs 59px past its own bottom — the rack's figure captions
+     print across the footer rule. The captions are two lines by construction
+     (name over description), so the rack cannot get shorter by wrapping; the
+     gap between the three bands is what gives. */
+  main { gap: 20px; }
+</style>
 </head>
 <body class="pr">
 <div class="card">
@@ -123,12 +131,12 @@
             .dead  { stroke: #a49d90; stroke-width: 4; fill: none;
                      stroke-dasharray: 14 10; }
             .head  { fill: #1d1d26; }
-            .ttl   { font: 600 34px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .lbl   { font: 700 33px Menlo, monospace; fill: #1d1d26; }
-            .inv   { font: 600 32px "Helvetica Neue", sans-serif; fill: #ffffff; }
-            .invs  { font: 400 29px "Helvetica Neue", sans-serif; fill: #cfd8d2; }
-            .rigt  { font: 700 40px Menlo, monospace; fill: #1d1d26; }
-            .sub   { font: 400 30px "Helvetica Neue", sans-serif; fill: #70707c; }
+            .ttl   { font: 600 34px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+            .lbl   { font: 700 33px 'IBM Plex Mono',Menlo,monospace; fill: #1d1d26; }
+            .inv   { font: 600 32px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #ffffff; }
+            .invs  { font: 400 29px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #cfd8d2; }
+            .rigt  { font: 700 40px 'IBM Plex Mono',Menlo,monospace; fill: #1d1d26; }
+            .sub   { font: 400 30px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
           </style>
 
           <text class="ttl" x="26" y="48">THE THREE HOMES &#8212; what turns the spool is what feeds the print</text>

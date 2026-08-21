@@ -3,6 +3,15 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="tools.css">
+<style>
+  /* The fullest card in the deck: five operations, a five-line lede that runs
+     to the last pixel of its gutter, and six tools in the rack. The text
+     column ends up 87px past its own bottom and the rack prints across the
+     footer rule. Nothing above it can wrap shorter — the lede's longest line
+     clears its box by 1px and the critical's by 2 — so the five table rows
+     each give back 12px of the padding they carry twice. */
+  .ops td { padding: 18px; }
+</style>
 </head>
 <body class="tb">
 <div class="card">
@@ -113,16 +122,20 @@
 
     <div class="col" style="flex:none; width:1300px">
       <div class="panel light">
-        <svg viewBox="0 0 1800 800" xmlns="http://www.w3.org/2000/svg">
+        <!-- 820, not 800: the tail captions end on a baseline at y=788 and an
+             svg clips at its viewBox, so at 800 the arrows to RL-04 and RL-05
+             cleared it by 5 units. The 32 past that baseline is the descent
+             plus the 26 of margin the drawing already keeps at its left edge. -->
+        <svg viewBox="0 0 1800 820" xmlns="http://www.w3.org/2000/svg">
           <style>
             .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 4; }
             .cu    { fill: #b8722c; stroke: #1d1d26; stroke-width: 3; }
             .dimln { stroke: #b8722c; stroke-width: 2.5; }
             .tick  { stroke: #b8722c; stroke-width: 2.5; }
-            .dtx   { font: 700 30px Menlo, monospace; fill: #b8722c; }
-            .dsm   { font: 700 26px Menlo, monospace; fill: #b8722c; }
-            .ttl   { font: 600 30px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .sub   { font: 400 27px "Helvetica Neue", sans-serif; fill: #70707c; }
+            .dtx   { font: 700 30px 'IBM Plex Mono',Menlo,monospace; fill: #b8722c; }
+            .dsm   { font: 700 26px 'IBM Plex Mono',Menlo,monospace; fill: #b8722c; }
+            .ttl   { font: 600 30px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+            .sub   { font: 400 27px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
             .brk   { stroke: #1d1d26; stroke-width: 3; fill: none; }
           </style>
 

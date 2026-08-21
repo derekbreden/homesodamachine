@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="tools.css">
+<style>
+  /* A five-line lede over four operations leaves this card the shallowest
+     content band in the deck, and the section drawing is what pays for it —
+     it carries 90% of its own aspect height while the rack sits 14px off the
+     footer rule. The gap between the three bands is what gives; the drawing
+     gets the height back and the rack gets its clearance. */
+  main { gap: 20px; }
+</style>
 </head>
 <body class="lw">
 <div class="card">
@@ -100,15 +108,20 @@
 
     <div class="col" style="flex:none; width:1300px">
       <div class="panel light">
-        <svg viewBox="0 0 1800 700" xmlns="http://www.w3.org/2000/svg">
+        <!-- 730, not 700: the interior label's baseline is the bottom of the
+             drawing at y=700, and an svg clips at its viewBox — so at 700 the
+             box ended on the baseline and the descenders of "points up" printed
+             as nothing at all. The 30 past the last baseline is that descent
+             plus the 26 of margin the drawing already keeps at its left edge. -->
+        <svg viewBox="0 0 1800 730" xmlns="http://www.w3.org/2000/svg">
           <style>
             .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 4; }
             .weld  { fill: #f0b429; stroke: #1d1d26; stroke-width: 3; }
             .dimln { stroke: #b3341f; stroke-width: 2.5; }
             .tick  { stroke: #b3341f; stroke-width: 2.5; }
-            .dtx   { font: 700 30px Menlo, monospace; fill: #b3341f; }
-            .ttl   { font: 600 30px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .sub   { font: 400 27px "Helvetica Neue", sans-serif; fill: #70707c; }
+            .dtx   { font: 700 30px 'IBM Plex Mono',Menlo,monospace; fill: #b3341f; }
+            .ttl   { font: 600 30px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+            .sub   { font: 400 27px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
             .beam  { stroke: #b3341f; stroke-width: 5; stroke-dasharray: 15 10; }
           </style>
 
