@@ -507,14 +507,18 @@ export async function notifyFilesChanged({ files }) {
 
   const { title, body } = describeFilesUpdate(files);
   // STEP and DXF files both live on /3d (Prints + Cuts sections), mermaid
-  // files on /charts, drawing SVGs on /drawings, PCB boards on /pcb. Pick the
-  // deep link based on the first file's extension so a single-file
-  // notification lands the user on the right page; mixed batches are rare
-  // enough that we just send them to /3d (the "default" parts page).
+  // files on /charts, drawing SVGs on /drawings, cards on /build, PCB boards on
+  // /pcb. Pick the deep link based on the first file's extension so a
+  // single-file notification lands the user on the right page; mixed batches
+  // are rare enough that we just send them to /3d (the "default" parts page).
   const firstFile = files[0];
   let basePath;
   if (firstFile.endsWith(".mmd")) basePath = "/charts";
-  else if (isDrawingPath(firstFile) || isCardPath(firstFile)) basePath = "/drawings";
+  else if (isDrawingPath(firstFile)) basePath = "/drawings";
+  // A card is browsed on /build, which lays the deck out against the procedure
+  // steps its cards render. /drawings carries the bound deck as one PDF and has
+  // no surface that opens a single card.
+  else if (isCardPath(firstFile)) basePath = "/build";
   else if (isPcbPath(firstFile)) basePath = "/pcb";
   else basePath = "/3d";
   const link = `${basePath}?file=${encodeURIComponent(firstFile)}`;
