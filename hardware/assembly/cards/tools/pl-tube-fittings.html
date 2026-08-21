@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="tools.css">
+<style>
+  /* Three notes and the rack overrun the text column by 49px, which put the
+     rack's bottom edge 2px above the footer rule — inside the tolerance that
+     calls a band collision, and one glyph's growth from crossing it. The gap
+     between the three bands is what gives, and it also unsqueezes the collet
+     section, which was carrying 88% of its own aspect height. */
+  main { gap: 20px; }
+</style>
 </head>
 <body class="pl">
 <div class="card">
@@ -116,11 +124,11 @@
             .tape  { stroke: #f0b429; stroke-width: 9; }
             .thr   { stroke: #1d1d26; stroke-width: 2.5; }
             .dimln { stroke: #2f7f6f; stroke-width: 2.5; }
-            .dtx   { font: 700 31px Menlo, monospace; fill: #2f7f6f; }
-            .ttl   { font: 600 32px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .sub   { font: 400 28px "Helvetica Neue", sans-serif; fill: #70707c; }
-            .ok    { font: 700 30px Menlo, monospace; fill: #2e8540; }
-            .no    { font: 700 30px Menlo, monospace; fill: #c8481d; }
+            .dtx   { font: 700 31px 'IBM Plex Mono',Menlo,monospace; fill: #2f7f6f; }
+            .ttl   { font: 600 32px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+            .sub   { font: 400 28px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
+            .ok    { font: 700 30px 'IBM Plex Mono',Menlo,monospace; fill: #2e8540; }
+            .no    { font: 700 30px 'IBM Plex Mono',Menlo,monospace; fill: #c8481d; }
           </style>
 
           <text class="ttl" x="24" y="42">SECTION &#183; the collet joint</text>

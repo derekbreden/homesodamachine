@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="tools.css">
+<style>
+  /* The text column is the tight one: a three-line safety, a three-line note,
+     a two-line note and the rack, and at the deck's 32px band gap the rack's
+     photographs print across the footer rule. No block in the column is one
+     wrap from shorter — each one's longest line already runs to its box — so
+     the gap between the three bands is what gives. */
+  main { gap: 20px; }
+</style>
 </head>
 <body class="el">
 <div class="card">
@@ -105,17 +113,23 @@
 
     <div class="col" style="flex:none; width:1330px">
       <div class="panel light">
-        <svg viewBox="0 0 1560 830" xmlns="http://www.w3.org/2000/svg">
+        <!-- 850, not 830: the stage captions end on a baseline at y=820 and an
+             svg clips at its viewBox, so at 830 the descenders of "ways, cold"
+             and "dielectric sweep" hung 1.7 units outside the box that carries
+             them — the width of one glyph from printing as nothing. The 30 past
+             that baseline is the descent plus the 26 of margin the drawing
+             already keeps at its left edge. -->
+        <svg viewBox="0 0 1560 850" xmlns="http://www.w3.org/2000/svg">
           <style>
             .tread { fill: #eef0f3; stroke: #1d1d26; stroke-width: 4; }
             .riser { stroke: #1d1d26; stroke-width: 4; fill: none; }
             .gate  { stroke: #5b6acb; stroke-width: 6; }
             .dimln { stroke: #5b6acb; stroke-width: 2.5; }
-            .dtx   { font: 700 30px Menlo, monospace; fill: #5b6acb; }
-            .ttl   { font: 600 32px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .stg   { font: 700 31px Menlo, monospace; fill: #1d1d26; }
-            .sub   { font: 400 28px "Helvetica Neue", sans-serif; fill: #70707c; }
-            .lvl   { font: 700 27px Menlo, monospace; fill: #70707c; }
+            .dtx   { font: 700 30px 'IBM Plex Mono',Menlo,monospace; fill: #5b6acb; }
+            .ttl   { font: 600 32px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+            .stg   { font: 700 31px 'IBM Plex Mono',Menlo,monospace; fill: #1d1d26; }
+            .sub   { font: 400 28px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
+            .lvl   { font: 700 27px 'IBM Plex Mono',Menlo,monospace; fill: #70707c; }
             .base  { stroke: #c4bfb2; stroke-width: 3; stroke-dasharray: 14 12; }
           </style>
 
