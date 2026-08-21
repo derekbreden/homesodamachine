@@ -105,20 +105,13 @@ def barren(root: Path, solid_hashes: dict) -> list:
     return out
 
 
-# WHERE A MESH IS CARRIED TOO. STEP is the solid a reader models from, and everywhere else on
-# this machine it is the whole of the part. The enclosure is the exception: its show surface is
-# fluted in the MESH and not in the solid, because the fade that stops the flutes is a field
-# over the surface rather than a figure a prism can hold
-# (`printed-parts/enclosure/enclosure/flute_skin.py`). A bundle of STEP alone would hand a fresh
-# clone, the website and the card decks an unfluted box while the one artifact with the texture
-# on it sat on whichever laptop last ran the build.
-#
-# IT IS NOT EVERY MESH ON THE DISK, and the difference is not small. The texture coupons, tiles
-# and vent coupons are PRINT TESTS — 303 MB of them against 772 KB of parts — and nothing
-# downstream serves their surface. `fetch-cad-artifacts.mjs` runs in the deploy's build command
-# and sha256s every member on the way in, so a blanket suffix would put about 45 MB of gzipped
-# print tests into a fetch that happens on every deploy, forever.
-BUNDLED_MESH_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
+# WHERE A MESH IS CARRIED TOO. A directory named here has its `.stl` bundled beside the solids.
+# It is empty, and what the bundle reaches is what says whether a name belongs in it:
+# `fetch-cad-artifacts.mjs` runs in the deploy's build command, fills a clone's disk from the
+# lock and sha256s every member, and the viewer it fills serves `.step`. `render_scenes.py` and
+# the card decks read `.step` through `import_step`. What reads the enclosure's piece meshes is
+# the build graph, on a machine that has just cut them.
+BUNDLED_MESH_DIRS = ()
 
 
 def solids(root: Path) -> list:
