@@ -147,6 +147,7 @@ import copper_plugs as _plugs                         # noqa: E402
 import display_cover as _cover                        # noqa: E402
 import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
+import reeding as _reeding                            # noqa: E402
 import ceiling_panel as _cpanel                       # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import hopper_drain_stub as _stub                     # noqa: E402
@@ -1975,6 +1976,47 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
         "a groove standing open at each fore flange and a bored boss under each aft one",
         [f"{what:44s} {'standing' if ok else bad_msg}"
          f"   ({got * 100:.1f}% of the probe)" for what, got, ok, bad_msg in rows]))
+
+
+def check_flank_vents(box, pieces: dict) -> Bound:
+    """What the condenser's vents owe, read off the piece they were cut in.
+
+    THE MULLION IS THE GOVERNING NUMBER and the section behind the groove floor is not. A slot
+    takes its width out of the pitch, and the exterior profile lays `reeding.pierce_shell` of
+    loops across what is left — 2 × 0.42 outer + 2 × 0.45 inner, the four that wall already
+    carries (`enclosure/print-log.md`). The section moves the OTHER way with slot width: a wider
+    slot puts its jamb further out on the groove's own half-ellipse, where the groove is
+    shallower and the wall behind it thicker, so widening a slot never thins the wall and only
+    ever thins the mullion.
+
+    Read HERE and not while the piece is cut, because `_realized` keeps a piece between builds
+    and a reading taken while drawing is one the second build never takes. `enclosure.build_pieces`
+    draws and measures nothing; every reading off a built piece is asked of it afterwards, the way
+    `check_cond_mount` asks after the block's four flanges."""
+    reads = _enc.vent_readings(pieces, box)
+    rows = {sx: r for sx, r in reads.items() if r["slots"] and r["mullions"]}
+    least = min((min(r["mullions"]) for r in rows.values()), default=None)
+    jamb = _enc.flute_depth * float(_reeding.groove(_reeding.pierce_width / 2.0))
+    ok = least is not None and least >= _reeding.pierce_shell - _enc.stated_bound_tol
+    pitch = _enc.flute_pitch(box.outer)
+    return record_bound(Bound(
+        "flank-vent-mullions",
+        "Every mullion the condenser's vents leave carries the exterior's four wall loops",
+        ok,
+        ("no vent on this pack" if least is None
+         else f"thinnest of {sum(len(r['mullions']) for r in rows.values())} mullions is "
+              f"{least:.4f} mm across, on a {2.0 * _enc.wall - jamb:.4f} mm section"),
+        f"at least {_reeding.pierce_shell:g} mm across, the loops the profile lays",
+        ([f"{'+X exhaust' if sx > 0 else '−X intake':10s} "
+          f"{len(r['slots']):2d} slots {min(r['slots']):.4f}–{max(r['slots']):.4f} mm, "
+          f"{len(r['mullions'])} mullions {min(r['mullions']):.4f}–{max(r['mullions']):.4f} mm, "
+          f"{r['open_mm2'] / 100.0:.2f} cm² free over the airway's window"
+          for sx, r in sorted(rows.items())]
+         + ([] if ok else [
+             f"a {_reeding.pierce_width:g} mm slot on {pitch:.4f} mm centres leaves "
+             f"{_reeding.mullion(pitch, _reeding.pierce_width, 1):.4f} mm of mullion, and the "
+             f"widest this field carries is "
+             f"{_reeding.pierce_max(_reeding.pierce_shell, pitch):.4f}"]))))
 
 
 def check_pack_over_core(stood, foam) -> Bound:
@@ -6368,6 +6410,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the condenser's own four, which are a groove at one end of the block and a bored boss
     # at the other — the same question asked of a body with no hole to boss and one with two.
     check_cond_mount(a.cond_cradle, a.cond_mount, pieces)
+    # And the two vents opposite that same block, which are its flanks' own flutes pierced —
+    # read for the mullion between two slots, which is what a slot is measured against.
+    check_flank_vents(box, pieces)
     # And the cold core's four, which are the same question asked of a body with no hole at all:
     # two blocks on one piece's slab and two brackets off another's back wall, each read inside
     # the room it stands in.
