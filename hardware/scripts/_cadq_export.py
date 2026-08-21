@@ -634,8 +634,12 @@ def _atomic_write(target_path, write_fn):
 # question. `tools/docgen` is the sentinel every other shared-machinery anchor uses.
 # A RUN THAT CANNOT FIND IT DRAWS NO THUMBNAIL AND EXPORTS ANYWAY. The anchor's only
 # consumer is best-effort, so not finding one is the same event as not finding the tool
-# beside it — `_render_pending_thumbnails` already says so and skips. An action holding
-# only what it declared has no `tools/` at all, and a solid is still what it came for.
+# beside it — `_render_pending_thumbnails` already says so and skips.
+# AN ACTION HOLDS ONLY WHAT IT DECLARED, so the tool is declared: `graph.json` names it in
+# the reads of every generator that cuts a `.step`, which is what puts `tools/render/` and
+# the `tools/docgen` this anchor looks for into the sandbox. No watch of any length finds
+# that edge on its own — the batch below goes to node at interpreter exit, after the tracer
+# has written its record — so it is named by hand and stays named.
 _TOOLS_ROOT = next((p for p in Path(__file__).resolve().parents
                     if (p / "tools" / "docgen").is_dir()), None)
 _THUMBNAIL_TOOL = _TOOLS_ROOT and _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"

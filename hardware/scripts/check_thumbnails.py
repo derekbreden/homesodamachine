@@ -4,10 +4,11 @@
 `/3d` serves `<file>.step.png` for the catalog grid and docs embed the same file, so a
 thumbnail is what a reader sees when they do not open the model. It is drawn beside the STEP
 by whatever run exported it — `_cadq_export` queues one and `tools/render/render-thumbnails.js`
-draws the batch at process exit — and a bazel action draws none, because it holds no `tools/`
-and the picture is in no step's `outs`.
+draws the batch at process exit. A bazel action holds the render tool, which `graph.json`
+declares for every step that cuts a `.step`, and draws the picture inside its sandbox; the
+picture is in no step's `outs`, so nothing carries it out and the tree keeps the one it had.
 
-So a STEP that reaches the tree by any other road arrives with the picture it had before. The
+So a STEP that reaches the tree by any road arrives with the picture it had before. The
 comparison is the one `_cadq_export._current` makes: a picture older than the solid beside it
 was made from bytes that have since moved. A solid the deploy fetched reads as older than every
 picture — the bundle carries no mtime — which is the answer, the picture in the index having been

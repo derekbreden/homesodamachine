@@ -395,11 +395,12 @@ if staged "BUILD.bazel" "tools/bazel/graph.json" "tools/bazel/selftests.json" ||
   fi
 fi
 
-# A THUMBNAIL IS DRAWN BESIDE A STEP BY THE RUN THAT EXPORTED IT, and a bazel action draws
-# none — it holds no `tools/` and the picture is in no step's `outs`. So a solid arriving by
-# any other road brings the picture it had before, and `/3d`'s grid and every doc that embeds
-# one show a part that has moved. A stat per tracked solid names them; drawing them costs a
-# browser, which is the follow-up commit's work rather than this commit's.
+# A THUMBNAIL IS DRAWN BESIDE A STEP BY THE RUN THAT EXPORTED IT. A bazel action draws one
+# too — the graph declares the render tool for every step that cuts a `.step` — but the
+# picture is in no step's `outs`, so it goes with the sandbox and nothing carries it over. So
+# a solid arriving by any road brings the picture it had before, and `/3d`'s grid and every
+# doc that embeds one show a part that has moved. A stat per tracked solid names them;
+# drawing them into the tree costs a browser, which is the follow-up commit's work.
 if git diff --cached --name-only | grep -qE '\.step$|cad-artifacts\.lock\.json$'; then
   gate "a solid's picture is the solid as it stands" \
        python3 "$root/hardware/scripts/check_thumbnails.py"
