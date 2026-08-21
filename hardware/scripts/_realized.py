@@ -8,7 +8,7 @@ body rebuilds the four printed pieces, whose shape is decided by the box descrip
 code that cuts it, neither of which moved. `realized` reads such a part back off disk instead.
 
 WHAT THE KEY MUST COVER IS EVERYTHING THAT DECIDES THE SHAPE, and a key that misses one is a
-build that ships last run's geometry. Two things decide it, and the key takes both:
+build that ships last run's geometry. Three things decide it, and the key takes all three:
 
   - THE CODE. Not one file: the module that draws, and every module of this repo it imports,
     transitively. `enclosure` cuts its throat at `hopper_funnel.collar_w` and its wells at
@@ -21,6 +21,13 @@ build that ships last run's geometry. Two things decide it, and the key takes bo
   - THE DESCRIPTION, by `repr`. A description that does not repr completely is a key that
     cannot see part of its own input: `enclosure.Box` is a namedtuple of numbers and station
     tuples and repr's whole, which is what makes it usable here.
+
+  - THE KERNEL. The code says `cut` and `fuse`; OCCT is what performs them, so the same source
+    and the same description hand back a different solid under a different kernel. Nothing in
+    this repo's text moves when `cadquery-ocp` does, and a key taken from the text alone stands
+    for a shape the installed kernel no longer draws. `toolchain` reads the versions out of the
+    running interpreter rather than off a file recording them, so there is no second step that
+    can be skipped and leave the name unchanged while the kernel underneath it moved.
 
 WHAT THE KEY CANNOT COVER IS A READING TAKEN WHILE DRAWING. A part that records into a ledger as
 it cuts is a part whose second call does something its first call did — hand back the kept solid
@@ -48,6 +55,38 @@ _DIR = _ROOT / ".cache" / "realized"
 DISABLED = bool(os.environ.get("HSM_NO_REALIZED_CACHE"))
 
 _SOURCES: dict = {}
+_TOOLCHAIN: str | None = None
+
+
+def toolchain() -> str:
+    """The kernel this process draws with, named by the versions installed under it.
+
+    READ ONCE PER PROCESS AND ONLY WHEN A KEY IS TAKEN. `importlib.metadata` costs 80 ms on this
+    tree, which is a price per generator and not per shape. A distribution that is not installed
+    is named as absent rather than skipped, so a kernel going missing moves the name it is part
+    of instead of leaving it where the present one put it.
+
+    IT NAMES VERSIONS, SO IT HOLDS EXACTLY AS WELL AS A VERSION STRING DOES. A `cadquery-ocp`
+    rebuilt from source under the version it already carried is a different kernel wearing the
+    same name, and every key here stands still across it.
+
+    WHAT IT DELIBERATELY DOES NOT READ IS site-packages. `tools/cad-venv-site` keeps VTK out of
+    the interpreter, which changes what a process IMPORTS and not what it COMPUTES — the solids
+    are byte-identical with the shim and without it. Reaching for the installed set here would
+    put that difference in every key and buy a whole-graph invalidation for a change no solid
+    can see."""
+    global _TOOLCHAIN
+    if _TOOLCHAIN is None:
+        from importlib.metadata import PackageNotFoundError, version
+
+        held = []
+        for dist in ("cadquery", "cadquery-ocp"):
+            try:
+                held.append(f"{dist}=={version(dist)}")
+            except PackageNotFoundError:
+                held.append(f"{dist}==absent")
+        _TOOLCHAIN = " ".join(held)
+    return _TOOLCHAIN
 
 
 def _repo_file(name: str):
@@ -193,6 +232,7 @@ def key(module_name: str, *inputs) -> str:
     the walk alone stands for a shape after a solid it was cut against has moved."""
     h = hashlib.blake2b(digest_size=16)
     h.update(os.environ.get("HSM_INPUT_DIGEST", "").encode())
+    h.update(toolchain().encode())
     h.update(digest(sources(module_name)).encode())
     for i in inputs:
         h.update(repr(i).encode())
@@ -275,6 +315,21 @@ def selftest():
             raise AssertionError("two descriptions share a key — a change to one would be "
                                  "served the other's geometry")
         yield "two descriptions do not share a key"
+
+        # THE KERNEL MOVES WITHOUT ANY FILE OF THIS REPO MOVING, which is the one input the
+        # source walk cannot reach. Named here rather than upgraded here: the reading is what
+        # `toolchain` returns, so standing a different answer in its place is the whole test.
+        global _TOOLCHAIN
+        under = _TOOLCHAIN
+        try:
+            _TOOLCHAIN = "cadquery==0 cadquery-ocp==0"
+            other = key(__name__, ("selftest", 3.0))
+        finally:
+            _TOOLCHAIN = under
+        if other == key(__name__, ("selftest", 3.0)):
+            raise AssertionError("one description keeps its key across two kernels — an OCCT "
+                                 "upgrade would be served the old kernel's geometry")
+        yield f"a kernel this tree does not run does not share its key ({toolchain()})"
 
         # A module this one reads a constant through, and an edit to that constant's file.
         dep_dir = Path(tempfile.mkdtemp(prefix="hsm-realized-dep-", dir=_ROOT))
