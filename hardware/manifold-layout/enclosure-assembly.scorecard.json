@@ -1247,7 +1247,7 @@
    "label": "A tie still reaches through every cavity cut for one",
    "kind": "gate",
    "status": "pass",
-   "value": "8 read, worst 0% filled",
+   "value": "10 read, worst 0% filled",
    "target": "0% filled",
    "detail": [],
    "active": true
