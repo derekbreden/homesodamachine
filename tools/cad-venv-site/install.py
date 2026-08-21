@@ -23,25 +23,32 @@ _HERE = Path(__file__).resolve().parent
 _FILES = ("_hsm_novtk.py", "_hsm_novtk.pth")
 
 
+def missing(executable=None):
+    """The shim files THIS interpreter does not read, by name.
+
+    Empty for an interpreter that reads them all. `sysconfig` answers for the interpreter
+    running this module, so a caller asking on another one gets its own answer instead —
+    which is why `affected.py` asks only when it is itself the CAD venv's python."""
+    site = Path(sysconfig.get_paths()["purelib"])
+    return [n for n in _FILES
+            if not (site / n).exists()
+            or (site / n).read_bytes() != (_HERE / n).read_bytes()]
+
+
 def main(argv):
     site = Path(sysconfig.get_paths()["purelib"])
-    check = "--check" in argv
-    missing = []
-    for name in _FILES:
-        src, dst = _HERE / name, site / name
-        if check:
-            if not dst.exists() or dst.read_bytes() != src.read_bytes():
-                missing.append(name)
-        else:
-            shutil.copy2(src, dst)
-            print(f"  {dst}")
-    if check:
-        if missing:
+    if "--check" in argv:
+        gone = missing()
+        if gone:
             print("the CAD interpreter is missing this tree's import shim: "
-                  + ", ".join(missing), file=sys.stderr)
+                  + ", ".join(gone), file=sys.stderr)
             print(f"  {sys.executable} {Path(__file__)}", file=sys.stderr)
             return 1
         print("the interpreter reads this tree's shim")
+        return 0
+    for name in _FILES:
+        shutil.copy2(_HERE / name, site / name)
+        print(f"  {site / name}")
     return 0
 
 
