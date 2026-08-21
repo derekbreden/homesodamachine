@@ -24,14 +24,12 @@ BT1 reads 2.49 mm.
     tools/cad-venv/bin/python part-orientation-audit.py [board]   # default: this dir's board
 Reads out/<board>.circuit.json (run a render first). Exit code 1 if anything is flagged.
 """
-import json, math, sys, urllib.request
+import hashlib, json, math, sys, urllib.request
 from pathlib import Path
-from OCP.STEPControl import STEPControl_Reader
-from OCP.Bnd import Bnd_Box
-from OCP.BRepBndLib import BRepBndLib
 
 HERE = Path(__file__).resolve().parent
 CACHE = HERE / ".cad-cache"
+BBOX_CACHE = next(q for q in HERE.parents if (q / "tools" / "docgen").is_dir()) / ".cache" / "pcba-part-bboxes.json"
 CDN_UA = "homesodamachine-board-3d/1.0"
 CENTER_FLAG_MM = 1.0   # model-vs-footprint centre offset that flags a likely 180°/mirror
 ASPECT_MIN = 1.25      # how non-square a part must be before a long-axis swap is meaningful
@@ -65,11 +63,47 @@ def ensure_cached(url):
     with urllib.request.urlopen(req, timeout=60) as r: dest.write_bytes(r.read())
     return dest
 
+def _held():
+    """What the cache holds: sha256 of a vendor STEP -> the six floats of its raw bounding box."""
+    try:
+        return json.loads(BBOX_CACHE.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def _hold(held):
+    """Keep what the cache learned, where there is somewhere to keep it.
+
+    A checkout that cannot write one is a slower run and not a wrong one: the bbox is read off
+    the STEP either way, and the memo only saves reading it again."""
+    try:
+        BBOX_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        BBOX_CACHE.write_text(json.dumps(held, indent=1, sort_keys=True))
+    except OSError:
+        pass
+
+
 _bb = {}
 def raw_bbox(path):
+    """The STEP's untransformed bounding box, memoized on the file's own bytes.
+
+    THE KERNEL IS IMPORTED AT THE MISS, not at the top of the file. A vendor STEP is a download
+    that never changes under its own hash, so a warm checkout answers every part from the memo
+    and never loads OCCT at all — which is the whole of what this costs when nothing has moved."""
     if path not in _bb:
-        r = STEPControl_Reader(); r.ReadFile(str(path)); r.TransferRoots()
-        b = Bnd_Box(); BRepBndLib.Add_s(r.OneShape(), b); _bb[path] = b.Get()
+        key = hashlib.sha256(path.read_bytes()).hexdigest()
+        held = _held()
+        if key in held:
+            _bb[path] = tuple(held[key])
+        else:
+            from OCP.STEPControl import STEPControl_Reader
+            from OCP.Bnd import Bnd_Box
+            from OCP.BRepBndLib import BRepBndLib
+
+            r = STEPControl_Reader(); r.ReadFile(str(path)); r.TransferRoots()
+            b = Bnd_Box(); BRepBndLib.Add_s(r.OneShape(), b); _bb[path] = b.Get()
+            held[key] = list(_bb[path])
+            _hold(held)
     return _bb[path]
 
 # --- load ------------------------------------------------------------------------------------
