@@ -61,6 +61,14 @@ function parseArgs(argv) {
   return { positional, opts };
 }
 
+function capture(page, opts) {
+  return page.screenshot({
+    type: "png",
+    clip: { x: 0, y: 0, width: opts.width, height: opts.height },
+  });
+}
+
+
 async function renderPage(page, htmlAbs, outAbs, opts) {
   await page.goto(pathToFileURL(htmlAbs).href, {
     waitUntil: "networkidle0",
@@ -207,11 +215,20 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
     return out.slice(0, 3);
   });
 
-  await page.screenshot({
-    path: outAbs,
-    type: "png",
-    clip: { x: 0, y: 0, width: opts.width, height: opts.height },
-  });
+  // TWO CAPTURES OF ONE LAID-OUT PAGE AGREE OR THE PAGE IS ASKED AGAIN. About one capture in
+  // forty of this deck comes back with a horizontal rule rasterised a sub-pixel off — 40 renders
+  // of `vc-vacuum-charge` gave 39 of one image and one of another, the odd one sitting alone
+  // rather than in a run. A lone draw is the one nobody can tell from the other thirty-nine, so
+  // the picture kept here is the one two captures made twice.
+  let shot = await capture(page, opts);
+  for (let attempt = 2; attempt <= 3; attempt++) {
+    const again = await capture(page, opts);
+    if (again.equals(shot)) break;
+    console.log(`render-card: capture ${attempt - 1} and ${attempt} of `
+      + `${path.basename(outAbs)} differ — asking again`);
+    shot = again;
+  }
+  fs.writeFileSync(outAbs, shot);
   // The print path, off the same laid-out page.
   //
   // CHROME PRINTS IN CSS PIXELS AT 96 TO THE INCH, and a card is authored at

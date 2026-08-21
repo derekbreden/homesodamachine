@@ -65,7 +65,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "digiten-flow-sensor"):
     sys.path.insert(0, str(_p))
 import _routing as R                                   # noqa: E402
-import enclosure as _enc                               # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
 import hopper_funnel as _funnel                        # noqa: E402
