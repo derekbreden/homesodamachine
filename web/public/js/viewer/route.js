@@ -24,15 +24,13 @@ import {
   openMmdDetail, closeMmdDetail,
   openDrawingDetail, closeDrawingDetail,
   openPcbDetail, closePcbDetail,
-  openCardDetail, closeCardDetail,
 } from "./detail-shims.js";
 import { routeToStep } from "./step-nav.js";
-import { isCardPath } from "/contracts/cards.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
-const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "svg:": "drawing", "pcb:": "pcb", "card:": "card" };
-const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, drawing: openDrawingDetail, pcb: openPcbDetail, card: openCardDetail };
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "svg:": "drawing", "pcb:": "pcb" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, drawing: openDrawingDetail, pcb: openPcbDetail };
 
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
@@ -61,24 +59,20 @@ window.addEventListener("popstate", () => {
     if (state.currentDetail.type === "mmd") closeMmdDetail(false);
     else if (state.currentDetail.type === "drawing") closeDrawingDetail(false);
     else if (state.currentDetail.type === "pcb") closePcbDetail(false);
-    else if (state.currentDetail.type === "card") closeCardDetail(false);
     else closeCadDetail(false);
   }
   if (want.type) OPENERS[want.type](want.file, false);
 });
 
 // --- Initial route ---
-// Prefer ?file=<step|dxf|mmd|svg|card> (notification deep link), fall back to
-// hash. Extension drives which detail surface opens — except the assembly deck,
-// whose cards are .html and are recognized by their path (contracts/cards.js).
-// occtPromise is needed for STEP only; every other kind can open immediately.
+// Prefer ?file=<step|dxf|mmd|svg> (notification deep link), fall back to hash.
+// The file's extension drives which detail surface opens; occtPromise is needed
+// for STEP only, and every other kind can open immediately.
 export function applyInitialRoute(occtPromise) {
   const initialParams = new URLSearchParams(location.search);
   const initialFile = initialParams.get("file");
   if (initialFile) {
-    if (isCardPath(initialFile)) {
-      setTimeout(() => openCardDetail(initialFile, true), 100);
-    } else if (initialFile.endsWith(".mmd")) {
+    if (initialFile.endsWith(".mmd")) {
       setTimeout(() => openMmdDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".dxf")) {
       setTimeout(() => openDxfDetail(initialFile, true), 100);
@@ -111,9 +105,6 @@ export function applyInitialRoute(occtPromise) {
     } else if (hash.startsWith("pcb:")) {
       const file = hash.slice(4);
       setTimeout(() => openPcbDetail(file, false), 100);
-    } else if (hash.startsWith("card:")) {
-      const file = hash.slice(5);
-      setTimeout(() => openCardDetail(file, false), 100);
     } else {
       // Legacy hash format (just a step file path)
       occtPromise.then(() => setTimeout(() => openDetail(hash, false), 100));
