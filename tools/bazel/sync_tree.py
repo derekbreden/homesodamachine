@@ -237,15 +237,25 @@ def main() -> int:
     if args.write:
         q = subprocess.run(["bazel", "build", "--check_up_to_date", "//:everything"],
                            cwd=str(_ROOT), capture_output=True, text=True)
-        if q.returncode != 0:
-            owed = [ln for ln in q.stderr.splitlines() if "not up-to-date" in ln]
+        owed = [ln for ln in q.stderr.splitlines() if "not up-to-date" in ln]
+        # THE WORKSPACE STATUS ACTION IS NEVER UP TO DATE AND NEVER CAN BE. Bazel re-runs
+        # `BazelWorkspaceStatusAction` on every invocation because it is what captures the
+        # volatile facts a build could stamp, so `--check_up_to_date` names it whether or not
+        # anything else moved. It writes `stable-status.txt` and nothing in `graph.json`
+        # declares it, so it is not a file this carries and its staleness says nothing about
+        # the outputs that are. Held out by name, and everything else still refuses.
+        stale = [ln for ln in owed if "BazelWorkspaceStatusAction" not in ln]
+        # AND A NON-ZERO EXIT THAT NAMED NOTHING IS STILL A REFUSAL. `--check_up_to_date` runs
+        # no action, so a failure carrying no `not up-to-date` line is bazel unable to answer —
+        # a broken graph, a missing input — which is not permission to carry.
+        if q.returncode != 0 and (stale or not owed):
             print("  the build is not up to date, so what is in bazel-bin is not what these\n"
                   "  sources make — carrying it into the tree would write stale bytes over\n"
                   "  whatever is there. Run `bazel build //:everything` first.")
-            for ln in owed[:5]:
+            for ln in (stale or owed)[:5]:
                 print(f"  {ln.strip()}")
-            if len(owed) > 5:
-                print(f"  …and {len(owed) - 5} more")
+            if len(stale or owed) > 5:
+                print(f"  …and {len(stale or owed) - 5} more")
             return 1
 
     pairs = _targets()
