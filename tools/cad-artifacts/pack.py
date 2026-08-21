@@ -107,12 +107,12 @@ def barren(root: Path, solid_hashes: dict) -> list:
 
 
 # WHERE A MESH IS CARRIED TOO. A directory named here has its `.stl` bundled beside the solids.
-# It is empty, and what the bundle reaches is what says whether a name belongs in it:
-# `fetch-cad-artifacts.mjs` runs in the deploy's build command, fills a clone's disk from the
-# lock and sha256s every member, and the viewer it fills serves `.step`. `render_scenes.py` and
-# the card decks read `.step` through `import_step`. What reads the enclosure's piece meshes is
-# the build graph, on a machine that has just cut them.
-BUNDLED_MESH_DIRS = ()
+# The enclosure's six pieces are what a slicer is handed, and their flutes are in the MESH and not
+# in the solid, so the STEP beside them does not carry the surface that gets printed
+# (`printed-parts/enclosure/enclosure/flute_skin.py`). They are gitignored, so the bundle is the
+# route by which they leave the machine that cut them — for a reader with a printer, not for the
+# viewer, which serves `.step`.
+BUNDLED_MESH_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
 #: a build directory and hands one to `openGlbDetail`, so a deploy that cannot find them serves a
