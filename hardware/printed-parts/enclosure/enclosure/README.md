@@ -325,6 +325,64 @@ drawn by the nozzle in XY, carry no layer quantisation at all, and hang over not
 are `flute_depth` of relief over `flute_rise` of height — [19.8°](FLUTE_RAMP) off the wall at the
 smoothstep's steepest, against the 45° every relief on this box is struck at.
 
+## The condenser's vents
+
+**The vent is the flutes, pierced.** The condenser's fan draws through one flank of the block
+and blows out the other, and both flanks of the box already carry the reeded field — so a slot
+[3.1 mm](VENT_SLOT) across is struck down the FLOOR of every groove standing over the finstack,
+on the field's own centres, clean through the [6 mm](VENT_FLANK_T) a bottom piece's lipped flank
+carries. Both jambs run WITH the flute and the groove carries on past both ends of the slot at
+full depth, so nothing crosses a flute anywhere here and no edge it makes is one the skin stops
+on. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
+
+**The mullion is the governing number, not the section behind the groove.** A slot takes its
+width out of the pitch, and what is left between two of them is [2.0285 mm](VENT_MULLION) at
+[5.1285 mm](FLUTE_PITCH) centres — against the [1.74 mm](VENT_SHELL) of loops the exterior
+profile lays (2 × 0.42 outer + 2 × 0.45 inner, [print-log.md](print-log.md)), which leaves
+[0.2885 mm](VENT_SPARE) and ceilings a slot down every groove at [3.3885 mm](VENT_CEILING). The
+two figures move OPPOSITE ways: the jamb stands half a slot off the groove's centre, out on the
+half-ellipse where the groove is shallower, so the flank behind a jamb is
+[5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
+thins the wall and only ever thins the mullion.
+[`../texture-coupon-vent/`](../texture-coupon-vent/) printed this scheme beside the ceiling slot
+and a full-groove-width slot down alternate grooves, on a section of this same flank at this
+same pitch. **`flank-vent-mullions`** reads every mullion off the built piece.
+
+**Every groove, and the stations are the field's own.** `vent_grooves` walks `flute_centres` and
+asks `plan_at` where each one landed, so a slot is struck at a groove centre by construction and
+the vent follows the field if `flute_count` is ever retuned — there is no Y station typed
+anywhere in the feature. A groove is in when its whole slot lies inside the block's AIRWAY: the
+[34..148 mm](VENT_WINDOW) between the block's two recesses, which is finstack. The 20 mm at
+either end is the sheet the box holds the block by, and the fan draws through neither.
+[22](VENT_GROOVES) grooves stand in that window on each flank.
+
+**The band is the airway, one [3 mm](VENT_CLEAR) inside each end** — [12..143 mm](VENT_BAND) —
+**less whatever the flank carries behind that particular groove.** Nothing is listed: the piece
+is asked, groove by groove, what stands ROOTED on its inner face there, and a slot stops one
+`cond_vent_clear` short of it and picks up again the same distance past. That is what breaks two
+of the intake's slots around the MQ-6 cradle's upper rail, and it is what would break any of
+them around anything else the pack ever stands on these flanks. Every end a run makes is closed
+by a 45° hip, the angle every relief on this box rises at: both hips sit down inside the groove's
+own shadow, the sill only takes material away as the print climbs, and the ceiling closes at
+exactly the angle the box supports nothing steeper than.
+
+| | slots | thinnest mullion | free area |
+|---|---|---|---|
+| −X intake | [22](VENT_SLOTS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [87.3 cm²](VENT_OPEN_IN) |
+| +X exhaust | [22](VENT_SLOTS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [88.3 cm²](VENT_OPEN_OUT) |
+
+Both read off the built piece at the flank's mid-section, over the airway's own window. A pierced
+field is [60.4 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the
+window came out at with the hips and the intake's two breaks in it.
+
+**Two things this does not answer.** There is **no thermal spec anywhere in this repo** — no CFM,
+no free-area requirement, no ΔT budget — and the fan is documented only as a 12 V brushless axial
+drawing ~0.35 A, so the areas above are what the flanks give and not what anything has asked for.
+And **the intake path is obstructed**: the compressor stands 110 mm wide across the west half of
+the same bay, x −76.1 to 33.9 and up to z 135, and the condenser's intake face is at x 44.5 — so
+air drawn through the −X flank reaches the finstack through a 10.6 mm slot between the two
+bodies. Neither is a question the vent geometry settles.
+
 ## Print orientation + corner relief
 
 Every piece prints on its **Z− face** — the bottom pieces floor-down on the
@@ -926,6 +984,70 @@ leaves the throat is read back as a bound on the frame above. The basin reaches 
 capacity needs — which puts it **across the Y seam**. Both halves take their share
 of the cut and the collar bridges it; what the seam gives up there is its top-wall
 lip over the hole's span, which the mouth shelf's own relief already accounts for.
+
+## back-top's ceiling
+
+back-top has no throat, so its ceiling would be a flat slab — the whole width of
+the machine by the whole depth of the back half — laid [195 mm](PIECE_H) up over
+the open service bay on a piece that prints mouth-down. It is not printed in this
+piece at all. What back-top keeps is **two side strips**, [22 mm](CEILING_STRIP)
+wide, and between them the [159 mm](CEILING_PANEL_W) channel the
+[ceiling panel](/hardware/printed-parts/enclosure/ceiling-panel/README.md) fills
+— a separate part, printed flat on the bed and **slid in** through the Y-seam
+mouth before back-top meets another quadrant.
+
+Each strip is **corbelled** the way front-top's two are either side of the throat
+(`_ceiling_corbels`): a 45° underside rising off the flank face to nothing at the
+panel's edge, so every ceiling layer lands on the one below it. The corbel is
+therefore **deepest at the wall and thinnest at the panel's edge** — which is the
+wrong way round for the rear storey, because the wall is exactly where that
+storey's furniture stands.
+
+So the strip carries **reliefs**, stated as `back_top_ceiling_reliefs` and read
+back by `ceiling_corbel_at(x, y)` — the same shape `back_top_wall_reliefs` and
+`back_wall_t_at` take one storey down, keyed on (x, y) rather than (x, z). A row
+names the fitting, the flank, the band and how much of the strip's run the corbel
+still **keeps** there; outboard of that the strip is the top wall's own section
+alone and takes print support. A relief takes the **outboard** run and leaves the
+inboard, which is the only way round that helps: what a body standing a millimetre
+under the ceiling leaves room for is the wedge's thin end.
+
+The four rows are measured against the placed solids and not against their boxes,
+and the difference is most of what they say — a strip read off boxes is a strip
+with no corbel left in it. The ground bar's stack and the relay hold the +X strip
+to [5 mm](CEILING_KEEP) of run over their own bands, standing 2.45 and 2.00 mm off
+the crown under them. The tap-water chain holds the −X strip to none over its: the
+barrel would leave the corbel 1.5 mm in any case, and the trough's own block, its
+V and its tie cavity stand in the rest. And the C14 is the sharpest of the four —
+its box says the receptacle is under this strip for the last 31 mm of it, and the
+casting is in the corbel for **two**, the moulded rim round the aperture and
+nothing else on the part.
+
+The chain's row is also the one that is **stated rather than measured**: its two
+ties are closed loops crossing the chain's top flat in the `DECK_CEILING_CLEAR`
+lane out to the wall, and `_asse_cradle` says outright that the wall is never cut
+for them.
+
+**The dado** is cut in each strip's inboard face on the section the panel states
+(`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid
+the length of the piece with its tongues in these two grooves. It is cut open at
+both ends — a millimetre into the field at its mouth, its own depth into the back
+wall at its blind end — because a groove ending exactly on either plane leaves the
+strip and the thing it runs out on meeting along a line.
+
+**Two bosses** stand under the panel's own screw stations, taking ruthex M3
+heat-sets, and each is reached straight down through the throat with the funnel
+out. The panel's pad lands tangent to the strip's inboard face, so nothing joins a
+boss to this piece across that plane: the join is a **pier** from the boss's axis
+out to where the corbel carries one `wall` over it, its top face on the ceiling
+plane and the pad's own travel struck back out of it. Its underside is a soffit
+and hangs — the tap-water trough's bargain one storey down — and takes print
+support.
+
+**Everything that used to hang off the ceiling over that field now hangs off the
+panel**: the flow meter's two saddles and the three ribs bored for `carb-1`,
+`co2-2` and the WR1110's barrel. `ceiling_stations` is the one call that splits
+them, and both parts read it, so neither can grow a rib the other grew too.
 
 ## Regenerate
 
