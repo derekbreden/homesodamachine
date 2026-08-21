@@ -55,6 +55,7 @@ pillow==12.2.0
 propcache==0.4.1
 py3dbp==1.1.2
 pycparser==3.0
+pypdf==6.16.1
 pyparsing==3.3.2
 python-dateutil==2.9.0.post0
 python-fcl==0.7.0.11
