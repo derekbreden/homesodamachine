@@ -6740,6 +6740,19 @@ def main():
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(a, str(out))
     print(f"-> {out.name}")
+    # AND THE FLUTED SURFACES BACK INTO THE PAYLOAD THE VIEWER READS. The export above writes
+    # `<out>.mesh` off this B-rep, and the six enclosure pieces in it are smooth prisms there —
+    # their show surfaces are in the printed mesh and not in the solid
+    # (`printed-parts/enclosure/enclosure/flute_skin.py`). `loadStepFile` prefers that payload to
+    # the STEP, so this is what the appliance looks like on /3d and in every picture posed off it.
+    #
+    # IMPORTED HERE AND NOT AT THE TOP. This module is imported by most of the generators in the
+    # tree, and `flute_payload` pulls in a decimator and a proximity index that only the run
+    # which cuts the appliance ever uses. The read is still traced, so the graph declares it.
+    import flute_payload                                                # noqa: E402
+    grafted = flute_payload.graft(Path(str(out) + ".mesh"), flute_payload.surfaces())
+    if grafted:
+        print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     # The waterjet's file for the one steel piece, off the same spec the pockets and the
     # cartridge's stops were struck from.
     dxf = _here.parent / "collet-plate.dxf"
