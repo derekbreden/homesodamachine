@@ -19,6 +19,13 @@ build --action_env=PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
 # on one is a flag that makes every action read not-up-to-date to the run that carries them.
 build --action_env=PUPPETEER_CACHE_DIR
 
+# AND THE LINE ART'S EXPORTER IS REACHED THE SAME WAY. `use_export_strokes` is a property the
+# Freestyle SVG exporter ADDS to FreestyleLineStyle when it registers, so a Blender that cannot
+# find the extension does not fail at import — it fails on a missing attribute several steps
+# later, with blender itself exiting zero. Unset on a machine whose extensions are already
+# under the default user path, so this passes through rather than states one.
+build --action_env=BLENDER_USER_RESOURCES
+
 # The kept work is not a declared input and not an output: `_boxes` and `_meshes` name an entry
 # by the serialized shape it came off, and `_realized` by that plus the digest of everything the
 # action holds. An action that finds one has been given the same thing twice.

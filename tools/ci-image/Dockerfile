@@ -48,6 +48,21 @@ RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*
     && mv "/opt/blender-${BLENDER_VERSION}-linux-x64" /opt/blender \
     && ln -s /opt/blender/blender /usr/local/bin/blender
 
+# THE EXPORTER IS AN EXTENSION AND BLENDER DOES NOT SHIP IT. `_blender_scene.py:124` sets
+# `linestyle.use_export_strokes`, an attribute the Freestyle SVG exporter ADDS to
+# FreestyleLineStyle when it registers — so a Blender without it does not fail at import, it
+# fails on a missing attribute several steps later. The Mac that draws these has it from
+# extensions.blender.org under `blender_org`, so the image takes it from the same place.
+#
+# `BLENDER_USER_RESOURCES` for the same reason `BAZELISK_HOME` is here: the default lives
+# under $HOME, and this image is built as root and run as /github/home.
+ENV BLENDER_USER_RESOURCES=/opt/hsm/blender
+RUN mkdir -p "$BLENDER_USER_RESOURCES" \
+    && blender --background --command extension repo-sync --repo blender_org \
+    && blender --background --command extension install \
+         --repo blender_org --enable freestyle_svg_exporter \
+    && find "$BLENDER_USER_RESOURCES" -maxdepth 4 -name "freestyle_svg_exporter*" -print | grep .
+
 # NODE 22, WHICH IS WHAT THE LOCKFILES ACTUALLY ASK FOR. `tools/render/package.json` says
 # `>=20`, but its own lock pins puppeteer, puppeteer-core and @puppeteer/browsers at
 # `>=22.12.0`, and `web/package.json` is `>=22` outright — so 20 installs with EBADENGINE
@@ -89,11 +104,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /opt/homebrew/bin /usr/local/bin
 
 # Bazel at the tree's own pin, downloaded now rather than on the first build.
+# `BAZELISK_HOME` IS NAMED BECAUSE THE TWO HOMES DIFFER. bazelisk caches the real bazel under
+# $HOME, which is /root while this image is built and /github/home when Actions runs it — so a
+# prefetch into the default location is one the job never finds, and every run re-downloaded
+# and re-extracted a 9.2.0 release before it could start. Fixed path, baked and then filled.
+ENV BAZELISK_HOME=/opt/hsm/bazelisk
 COPY .bazelversion /tmp/.bazelversion
 RUN curl -fsSL -o /usr/local/bin/bazel \
       https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64 \
     && chmod +x /usr/local/bin/bazel \
-    && cd /tmp && USE_BAZEL_VERSION="$(cat /tmp/.bazelversion)" bazel version
+    && cd /tmp && USE_BAZEL_VERSION="$(cat /tmp/.bazelversion)" bazel version \
+    && test -d "$BAZELISK_HOME"
 
 # THE 840 MB. Built at /opt/hsm so it survives `actions/checkout` writing the workspace, and
 # symlinked into `tools/cad-venv` by the job — a venv follows a symlink to itself fine, and
