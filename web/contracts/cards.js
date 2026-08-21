@@ -22,7 +22,7 @@ export const CARD_H = 1200;
 // What /cards/* will serve out of the deck directory: the card pages, the shared
 // stylesheet, and the renders + line art they embed. Anything else in there
 // (_build.py, out/, the READMEs) is build machinery and stays unreachable.
-export const CARD_ASSET_TYPES = [".html", ".css", ".png", ".jpg", ".jpeg", ".svg", ".webp"];
+export const CARD_ASSET_TYPES = [".html", ".css", ".png", ".jpg", ".jpeg", ".svg", ".webp", ".woff2"];
 
 // True for a root-relative path naming a servable asset inside the deck.
 export function isCardAssetPath(rel) {
