@@ -4307,15 +4307,30 @@ def _back_top_ceiling(solid, inner, y_joint):
     # and its blind end its own depth INTO the back wall, which is the panel's stop. A groove
     # ending exactly on either plane would leave the strip and the thing it runs out on meeting
     # along a line, which is a knife edge in the solid and a non-manifold edge in the mesh.
+    #
+    # THE RAMP IS THE FIELD'S AND THE LAST `depth` IS A RUN-OUT. Beside the field the groove's
+    # roof rises to the show face at the mouth, and both the rise and the millimetre of overrun
+    # past the mouth are the panel's own lane: this piece has no top wall inboard of that plane
+    # to carry either. AFT OF THE FIELD IT HAS ONE. The blind end runs its own depth INTO the
+    # back wall, and there the section is continuous across the mouth plane — there is no free
+    # standing lip to feather and nothing to stand a ramp under. A ramp cut there lands its apex
+    # in the MIDDLE of the show face rather than on its edge, which is three faces on one line
+    # and a mesh a slicer refuses, and an overrun cut there opens a slot straight through the top
+    # wall. So the last `depth` is the groove's RUN-OUT and takes the blind end's own section
+    # carried square through it — floor to `roof_z`, with the rest of the top wall bridging the
+    # mouth plane over it — a `depth`-wide bridge from the strip to the wall, `wall - lip_t`
+    # thick, where beside the field that same section is the lip that feathers to nothing.
     mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()
     slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
     over = 1.0
     for sx in (+1.0, -1.0):
-        solid = solid.cut(_xz_prism(y_joint, cp.aft_y + depth, [
+        solid = solid.cut(_xz_prism(y_joint, cp.aft_y, [
             (sx * (mouth_x - over), floor_z),
             (sx * blind_x, floor_z),
             (sx * blind_x, roof_z),
             (sx * (mouth_x - over), roof_z + (depth + over) * slope)]))
+        solid = solid.cut(_ybox(min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
+                                cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
 
     # THE TWO BOSSES, and the lane the panel's pads travel to reach them.
     r, floor = cp.screw_pad_r, cp.screw_bore_z - socket_cap
