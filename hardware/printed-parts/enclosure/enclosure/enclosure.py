@@ -3558,13 +3558,23 @@ def _front_flat_lip_drop(inner, zj):
     one `front_wall` section, slab to mouth. The corner columns keep their wraps — the front
     Z-joint is their pillar telescopes and the butt at the seam."""
     bx0, bx1 = bay_x_span(inner)
-    # THE AFT FACE IS THE SKIN'S OWN, not a hair past it. The skin stands exactly one `wall`
-    # proud of the cavity face, so a cut to `inner[2] + wall` takes all of it and stops; the
-    # tenth that used to be added reached into the cavity beyond, and where that overshoot
-    # ran out at the jamb it left faces of no width at all — six edges under a micron.
+    # EVERY FACE OF THIS CUT IS THE SKIN'S OWN, not a hair past it. The skin (`_lip_band`)
+    # stands exactly one `wall` proud of the cavity face and bears on the slab, so a cut struck
+    # on `inner[2]`, `inner[2] + wall` and `inner[4]` takes all of it and stops. Each of those
+    # three planes is a face of a body this has no business in — the front wall fore, the
+    # cavity aft, the floor slab below — and two of them are datums the box stands things ON.
+    # `_cond_cradle`'s fore rail stands on both: it roots on `front_plane_y`, which IS
+    # `inner[2]`, and its base runs down to `inner[4]`. Reaching past either leaves that rail
+    # bearing on air over the whole bay span — a tenth of a millimetre clear of the wall it is
+    # the datum off, bridging a millimetre notch in the slab — and joined to the piece along
+    # the one line y = inner[2] + wall, z = inner[4]. That line is an edge with four faces:
+    # rail and slab meeting along an arris with no volume between them, which is a
+    # non-manifold edge and what a slicer refuses the file for. Aft the same rule reads off
+    # the cavity — an overshoot there runs out at the jamb, where the wall has already turned,
+    # and leaves faces of no width at all, six edges under a micron.
     return _ybox(bx0, bx1,
-                 inner[2] - 0.1, inner[2] + wall,
-                 inner[4] - 1.0, zj + lip_len + 1.0)
+                 inner[2], inner[2] + wall,
+                 inner[4], zj + lip_len + 1.0)
 
 
 def _sill_wash(inner, outer, z_sill):
