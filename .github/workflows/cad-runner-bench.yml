@@ -1,9 +1,41 @@
 # WHICH CLOUD RUNNER CUTS THIS GEOMETRY FASTEST, measured rather than reasoned about.
 #
-# A local cold `bazel build //:everything` is 269 s wall, 259 s critical path — 96% of the
-# build is ONE SERIAL CHAIN. So a runner with more cores is not a faster runner here; the
-# only two things that move the number are single-core speed and whether the caches are warm.
-# This workflow measures the first and holds the second at zero, so the lanes are comparable.
+# MEASURED, run 32441067918, both lanes carrying the whole toolchain:
+#
+#   local Mac      8 cores               269 s wall   259 s critical path
+#   macos-latest   M1, 3 cores           526 s wall   315 s critical path
+#   ubuntu-latest  EPYC 7763, 4 cores    766 s wall   454 s critical path
+#
+# macOS wins on both figures. Two things those numbers teach that no single one of them does:
+#
+# CORE COUNT AND CLOCK BOTH MATTER, AND WHICH ONE DOMINATES DEPENDS ON THE BOX. On this Mac
+# wall and critical path are 269 and 259, so the parallel work hides under the chain and it is
+# easy to conclude cores are free. On a 3-core runner the same work stands 200 s clear of the
+# chain. "96% critical path" is a fact about an 8-core machine, not about this build.
+#
+# AND THE EARLIER FIGURES OF THIS BENCH WERE OF A GRAPH THAT SKIPPED WORK. Runs before
+# 1b7230fb had no rsvg-convert, and appliance_quickstart.py catches that binary missing and
+# skips PDF generation rather than failing — 446/247 on macOS became 526/315 once it was there.
+# A timing is only of the graph that actually executed.
+#
+# WHAT THIS BENCH DOES NOT MEASURE, and neither number should be read as though it does:
+#
+#   A QUEUE. This times one lane alone. `derive` runs the same lane behind
+#   `concurrency: group: derive`, and a run there has sat sixteen minutes waiting. The queued
+#   figure is the one anybody waiting on the site actually feels.
+#
+#   WHETHER A TARGET IS GREEN ANYWHERE ELSE. This lane installs its toolchain; `derive` pulls
+#   an image; this Mac has had both for months. A target can be red in one and green in the
+#   other for reasons that touch no line of the code it builds — //:cards-build failed on a
+#   runner with `Could not find Chrome` while rendering every card cleanly here, because a
+#   bazel action sees only the environment `.bazelrc` names and PUPPETEER_CACHE_DIR was not
+#   in it. A green here is evidence about here.
+#
+#   BYTES. This asserts on seconds only. It cannot tell whether a linux OCC writes the STEP
+#   bytes a macOS OCC writes, and an assertion added here would not either without
+#   `tools/bazel/sync_tree.py` between the build and the assertion — bazel cuts into
+#   `bazel-bin` and this repo commits its tree, so without the carry every check reads the
+#   solids `fetch-cad-artifacts.mjs` put there and compares the lock against the lock.
 #
 # IT IS `workflow_dispatch` ON PURPOSE. It is an instrument, not a gate — nothing should be
 # waiting on it, and it should not fire on every push while we are still choosing a lane.
@@ -189,7 +221,7 @@ jobs:
             echo ""
             echo "Build exit code: \`${{ steps.build.outputs.exit }}\`"
             echo ""
-            echo "Local reference: cold 269 s wall / 259 s critical path, 8-core Apple Silicon."
+            echo "Reference, run 32441067918: local 269/259 · macos-latest 526/315 · ubuntu-latest 766/454 (wall/critical path)."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Verdict
