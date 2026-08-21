@@ -12,7 +12,13 @@ machine's OpenCASCADE cut, which nothing else in the pipeline ever hashes.
 
 Two kernels on two operating systems either write the same STEP for the same model or they do
 not. `_cadq_export` canonicalizes each one so that they can; whether they do is measurable and
-has never been measured. That is all this answers.
+has never been measured. That is the first thing this answers.
+
+THE SECOND IS WHETHER THE TREE HOLDS WHAT THIS MACHINE CUTS, and it is free once the bytes are
+in hand. A `.step` reaches the tree from `fetch-cad-artifacts.mjs` or from a hand run and never
+from a build — bazel writes `bazel-bin`, `sync_tree` moves tracked paths, and `*.step` is
+neither — so the solid every scorecard, mass and picture is read off can be one an older source
+cut, under a build that went green. Nothing else in the pipeline compares those two.
 
 IT NEEDS NO CARRY, WHICH IS WHY IT EXISTS SEPARATELY. `sync_tree` moves TRACKED paths, `*.step`
 is gitignored (`.gitignore:72`), and the solids reach a machine through the bundle by design —
@@ -145,13 +151,22 @@ def main() -> int:
             continue
         cut.setdefault(m.group(2), []).append(p)
 
-    same, differ, twice = [], [], []
+    # AND WHAT THE TREE HOLDS, which is a different question from the lock's and free to ask
+    # here. A `.step` reaches the tree from `fetch-cad-artifacts.mjs` or from a hand run, never
+    # from a build: bazel writes into `bazel-bin` and `sync_tree` moves tracked paths only. So
+    # the solid every check reads off the tree can be the one an older source cut, and a green
+    # build says nothing about it. `stale` is that gap, measured.
+    same, differ, twice, stale = [], [], [], []
     for tree_path, paths in sorted(cut.items()):
         digests = {_sha256(p) for p in paths}
         if len(digests) > 1:
             twice.append(tree_path)
             continue
-        (same if digests.pop() == lock[tree_path] else differ).append(tree_path)
+        here = digests.pop()
+        in_tree = _ROOT / tree_path
+        if in_tree.exists() and _sha256(in_tree) != here:
+            stale.append(tree_path)
+        (same if here == lock[tree_path] else differ).append(tree_path)
 
     compared = len(same) + len(differ)
     steps = sum(1 for k in same + differ if k.endswith(".step"))
@@ -207,6 +222,7 @@ def main() -> int:
         note("warning", "cut-vs-lock",
              f"{len(differ)} of {compared} solids differ from the lock "
              f"— compare against the other machine's cut hashes to read it")
+        _tree_verdict(stale, compared, note)
         return 1
 
     print()
@@ -215,7 +231,36 @@ def main() -> int:
     print("  rather than about the machine that packed it.")
     note("notice", "cut-vs-lock",
          f"{compared} solids cut here match the lock byte for byte ({steps} .step)")
-    return 0
+    return _tree_verdict(stale, compared, note)
+
+
+def _tree_verdict(stale, compared, note) -> int:
+    """What the tree holds against what this machine cuts, said after the lock's verdict.
+
+    A SOLID IN THE TREE IS NOT EVIDENCE OF THE SOURCE THAT NAMES IT. Every scorecard, mass and
+    picture is read off the tree's copy, so one cut for an older source is a whole card's worth
+    of confident readings about a shape the generator no longer makes — and mtime answers
+    neither direction: older than the commit naming its source and still right, newer and still
+    wrong."""
+    if not stale:
+        print()
+        print(f"  THE TREE HOLDS WHAT THIS BUILD CUT for all {compared}, so every card, mass")
+        print("  and picture read off it describes the shape the generators now make.")
+        return 0
+    print()
+    print(f"  BUT {len(stale)} OF THEM ARE NOT WHAT THE TREE HOLDS:")
+    for k in stale[:20]:
+        print(f"      {k}")
+    if len(stale) > 20:
+        print(f"      …and {len(stale) - 20} more")
+    print()
+    print("  Every check that reads a solid reads the tree's copy, so those are cut for an")
+    print("  older source than the one this build just ran. `node dev-server/build-all.js`")
+    print("  is what cuts a solid into the tree; a bazel build writes `bazel-bin` and")
+    print("  `sync_tree` carries tracked paths, and `*.step` is neither.")
+    note("warning", "cut-vs-lock",
+         f"{len(stale)} solids in the tree differ from what this build cut")
+    return 1
 
 
 if __name__ == "__main__":
