@@ -38,6 +38,13 @@ permissions:
 jobs:
   derive:
     runs-on: ubuntu-latest
+    # A CONTAINER JOB'S DEFAULT SHELL IS `sh -e`, NOT BASH. GitHub picks bash on a hosted
+    # runner and drops to sh inside a container, because it cannot assume the image has one —
+    # and noble's sh is dash, which has no `pipefail`. Every `run:` here was written against
+    # bash, so name it rather than write to the smaller shell.
+    defaults:
+      run:
+        shell: bash
     # THE ENVIRONMENT IS PULLED, NOT INSTALLED. `cad-image` bakes the CadQuery pin, the
     # renderers with the Chromium the deck drives, `web`'s runtime deps for the scene
     # server, bazel at `.bazelversion`, and blender and rsvg-convert — which a stock runner
