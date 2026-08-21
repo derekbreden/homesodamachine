@@ -8,7 +8,7 @@
 //   <name>.pdf         the document
 //   <name>.cover.png   its first page, small enough to be a picture on a page
 //   <name>.pdf.json    what it is called and how big it is — {title, subtitle,
-//                      pages, cover}
+//                      pages, cover, cover_size}
 //
 // The sidecar is what makes a PDF a document. A `.pdf` under `hardware/` with
 // none — a datasheet a board vendored, a generator's own output — is not in the

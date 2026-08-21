@@ -1,49 +1,62 @@
 # Unboxing and Quick-Start
 
-The appliance ships in a carton with its quick-start sheet across the interior under the top flap. The faucet ships in a smaller box inside the appliance carton, with its own quick-start sheet across its interior. Everything the appliance dispenses leaves by the umbilical, so the faucet is what puts a glass under the machine.
+The appliance ships in a carton with the owner's manual across the interior under the top
+flap — a twelve-page booklet at 5.5 × 8.5 in, built in
+[`/hardware/manual/`](/hardware/manual/README.md). The faucet ships in a smaller box inside
+the appliance carton. Everything the appliance dispenses leaves by the umbilical, so the
+faucet is what puts a glass under the machine.
 
-## Appliance quick-start sheet — 4 drawings
+## The book
 
-**Drawing 1: Connect the CO2 line.**
-- View: rear-3/4 of the appliance, CO2 cylinder in the foreground beside it, regulator on top, hose extending around to the CO2 inlet on the rear wall.
-- Arrows: one red at the rear-wall CO2 inlet.
-- Caption: "Connect the CO2."
+Twelve pages, in this order. The install is five numbered steps, one to a page, each with the
+step's numeral set larger than its title.
 
-**Drawing 2: Tee into the water line.**
-- View: under-counter. The customer's angle stop comes out of the wall with its outlet now empty. The customer's existing supply line is shown disconnected, its end dangling beside the angle stop. The tee floats in the gap between them, with the 3/8" tube pre-attached to one of its outlets and extending across the drawing. The free end of the tube sits next to the appliance, which is shown at the edge of the frame with its rear-wall water inlet visible.
-- Arrows: rotation arrow on the angle stop showing the shut-off action; two white stub-arrows pointing inward at the tee's two open outlets, marking where the angle-stop connection and the existing-supply connection attach; white arrow at the appliance water inlet showing where the free end of the tube goes.
-- Caption: "Tee into the water. Run the tube to the device."
+| Page | |
+|---|---|
+| 1 | Cover — the machine in white line art on navy |
+| 2 | What is in the carton, what the customer supplies, and the contents |
+| 3 | Where it goes — the cabinet, the slot, the three clearances |
+| 4 | **1** · Tee into the water |
+| 5 | **2** · Connect the CO₂ |
+| 6 | **3** · Mount the faucet |
+| 7 | **4** · Connect the umbilical — the four ports and their rings |
+| 8 | **5** · Power up and fill |
+| 9 | The first pour — fill the hopper, prime, pour |
+| 10 | Every day — the lever, and the five pages on the display |
+| 11 | Keeping it running — flavor, cylinder, clean cycle, filter |
+| 12 | If something is wrong, and the machine in numbers |
 
-**Drawing 3: Open the CO2 valve and the water shutoff.**
-- View: two foreground subjects in one drawing — the CO2 cylinder with its top valve handle, and the angle stop with the tee on it and its shutoff handle. Both at roughly the same scale.
-- Arrows: red rotation arrow at the CO2 cylinder valve; white rotation arrow at the angle stop handle.
-- Caption: "Open the CO2. Open the water."
+The two iso views are the enclosure's own line art
+([`/hardware/printed-parts/enclosure/drawings/line-art/`](/hardware/printed-parts/enclosure/drawings/line-art/)):
+the front three-quarter on the cover and on page 3, the rear on page 7 with the port rings it
+carries. Everything else a page draws is inline SVG.
 
-**Drawing 4: Fill the hopper.**
-- View: 3/4 top of the appliance, the top door open and the silicone funnel visible. One SodaStream concentrate bottle inverted over the funnel.
-- Arrows: one motion arrow on the bottle (plain line work).
-- Caption: "Empty a flavor into the hopper."
+## What the customer meets, in order
 
-## Faucet quick-start sheet — 2 drawings
-
-**Drawing 1: Slide the plate. Tighten the nut.**
-- View: cutaway perspective from below the countertop, slab seen in cross-section across the top of the frame. The faucet body is mostly cut off above the slab; the shank drops through the hole, and the three umbilical tubes hang beneath the shank (blue tube at the top of the bundle, two black tubes below). The keyhole plate is shown in its seated position under the slab, with the shank and tube bundle nested in their channel-end pockets. The washer and nut are drawn in their threaded positions on the shank above the plate. No hand, no scene.
-- Arrows: one motion arrow showing the lateral slide direction of the plate (plain line work).
-- Caption: "Slide the plate. Tighten the nut."
-
-**Drawing 2: Connect the tubes to the device.**
-- View: rear wall of the appliance, umbilical bundle approaching from above (hanging down from the installed faucet).
-- Arrows: three at the rear wall — the three bulkheads stand in one row, blue at the union on the end of it, two black on the rest.
-- Caption: "Connect the tubes."
+1. **Where it goes.** A sink base cabinet that is not empty. The disposal takes the middle;
+   the machine and the customer's CO₂ cylinder take the slot beside it.
+2. **The water.** Shut the angle stop, break the supply line once, fit a tee — the kit carries
+   one for a 3/8" stop with a braided supply and one for a line already running 1/4" tubing —
+   filter inline, tube into the **white-ringed** union.
+3. **The gas.** Cylinder upright beside the machine, the shipped CGA-320 regulator on it, red
+   tube into the **red-ringed** bulkhead, primary set anywhere in 70–100 PSI.
+4. **The faucet.** Drop it through the countertop hole from above, slide the keyhole plate in
+   laterally from below onto the dangling umbilical, washer and nut.
+5. **The umbilical.** Blue tube into the **blue-ringed** union; the two black tubes into the
+   two black FLAVOR ports, either into either.
+6. **Power.** Cord into the recessed inlet, then the wall. The machine fills, chills, and
+   carbonates on its own; the first chill is tens of minutes.
+7. **Flavor and the first pour.** A 440 mL concentrate bottle inverted over the funnel in the
+   top wall, per side. Prime the channel from the display, then open the lever.
 
 ## Color system
 
-Three colors: **blue = carbonated water**, **red = CO2**, **white = tap water**. All three do wayfinding — they match an arrow on the sheet to a marker on the appliance or on the customer's supply.
+Three colors: **blue = carbonated water**, **red = CO2**, **white = tap water**. All three do wayfinding — they match a word on the page to a marker on the appliance or on the customer's supply.
 
-Blue is the one that fixes the other two. The carbonated-water line is bought as blue tube and the union that receives it is bought wearing a blue ring ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §8), so blue names that union and nothing else on the rear wall — which leaves white for the tap-water station the customer tees into. A blue arrow on a tap-water step would send them to the faucet's own union three stations up the same wall. The rear face states the scheme once, in [`/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py), and the sheets and the line-art rings both paint from it.
+Blue is the one that fixes the other two. The carbonated-water line is bought as blue tube and the union that receives it is bought wearing a blue ring ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §8), so blue names that union and nothing else on the rear wall — which leaves white for the tap-water station the customer tees into. A blue arrow on a tap-water step would send them to the faucet's own union three stations up the same wall. The rear face states the scheme once, in [`/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py), and the book's stylesheet and the line-art rings both paint from it.
 
-White arrows carry a black outline, at the same hairline the step borders and the step numerals are drawn at. That is what white is on white paper, and it is what the white ring on the wall reads as in line art.
+White is drawn as its outline. That is what white is on white paper, and it is what the white ring on the wall reads as in line art.
 
 Motion arrows (the keyhole plate sliding, bottles pouring) are plain line work, no color. They show direction of motion, not a connection to color-coded hardware.
 
-Rotation arrows on valves and shutoffs are colored by the fluid they actuate — red rotation arrow on the CO2 cylinder valve, white rotation arrow on the water angle stop — because the rotation arrows double as wayfinding for which valve is which.
+A valve or shutoff drawn on a page is colored by the fluid it actuates — red at the CO2 cylinder valve, white at the water angle stop — because that doubles as wayfinding for which valve is which.

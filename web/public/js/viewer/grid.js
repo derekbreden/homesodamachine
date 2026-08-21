@@ -148,8 +148,11 @@ function buildDocumentsSection() {
     el.href = `/docs/${doc.path}`;
     el.target = "_blank";
     el.rel = "noopener";
+    // The cover's own pixel size, off the sidecar, so the card reserves its box
+    // before the picture lands and the shelf does not jump under the reader.
+    const size = doc.coverSize ? ` width="${doc.coverSize[0]}" height="${doc.coverSize[1]}"` : "";
     const cover = doc.cover
-      ? `<img class="doc-cover" src="/thumbs/${doc.cover}" alt="${doc.title} cover" loading="lazy">`
+      ? `<img class="doc-cover" src="/thumbs/${doc.cover}" alt="${doc.title} cover"${size}>`
       : `<div class="doc-cover placeholder">no cover</div>`;
     const scale = doc.pages ? `${doc.pages} pages · ${readableBytes(doc.bytes)}` : readableBytes(doc.bytes);
     el.innerHTML = cover +

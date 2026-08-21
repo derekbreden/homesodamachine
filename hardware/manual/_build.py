@@ -169,6 +169,7 @@ def bind() -> int:
                     f"{len(order) // 4 + (1 if len(order) % 4 else 0)} letter sheets folded",
         "pages": len(order),
         "cover": "manual.cover.png",
+        "cover_size": [COVER_W, COVER_W * CANVAS_H // CANVAS_W],
     }
     text = json.dumps(sidecar, indent=2, ensure_ascii=False) + "\n"
     sc = MANUAL_DIR / "manual.pdf.json"

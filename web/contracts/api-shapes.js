@@ -36,6 +36,7 @@
  * @property {string} subtitle  what it is and what it prints on, from the same sidecar
  * @property {number} pages     page count, from the same sidecar
  * @property {string|null} cover  <dir>/<name>.cover.png, root-relative — served at /thumbs/<cover>
+ * @property {number[]|null} coverSize  [w, h] of the cover in px, so the card reserves its box
  * @property {number} bytes     the PDF's size on this disk
  */
 

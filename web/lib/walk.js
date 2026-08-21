@@ -66,6 +66,7 @@ export function walkDocuments(rootDir) {
       subtitle: meta.subtitle || "",
       pages: meta.pages || 0,
       cover: meta.cover ? coverPathFor(pdfRel, meta.cover) : null,
+      coverSize: Array.isArray(meta.cover_size) ? meta.cover_size : null,
       bytes: fs.statSync(abs).size,
     });
   }
