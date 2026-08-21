@@ -258,6 +258,31 @@ jobs:
           [ "${{ steps.build.outcome }}" = "success" ] || \
             echo "::warning title=full-tree build::did not complete — what follows derives from the solids it did cut, and a lock reading clean off a build that cut none is reading only what the fetch sha256-verified on the way in"
 
+      # THE ONE MEASUREMENT THIS PIPELINE EXISTS FOR, AND IT NEEDS NO CARRY. Everything else
+      # here hashes the TREE, and on a runner the tree's solids came from the bundle the lock
+      # names — so `pack.py` below compares the lock against its own bundle and agrees with
+      # itself. That is the circularity every green has carried. This reads `bazel-bin`: the
+      # bytes this container's OpenCASCADE cut minutes ago, which nothing else ever hashes.
+      #
+      # WAITING FOR A CARRIED `.step` WAS WAITING FOREVER. `sync_tree` moves TRACKED paths and
+      # `*.step` is gitignored, because solids reach a machine through the bundle by design. A
+      # green run with `//:enclosure` executed still carries zero solids — not a failure, a
+      # construction — so the comparison had to stop depending on the carry, and does.
+      #
+      # IT REFUSES RATHER THAN GUESSES. A difference has three causes: the kernels disagree,
+      # the lock is behind the source, or `bazel-bin` holds a target's older output. The script
+      # asks `--check_up_to_date` to exclude the third and takes `--failed` for the targets
+      # whose outputs are last run's, and where it cannot separate the first two it says so
+      # instead of picking. `continue-on-error` because a difference is this job's finding, not
+      # its failure — exit 1 means it measured and they differ, which is a result to read.
+      #
+      # BEFORE `pack.py --write`, WHICH REPINS. Run after it, the lock would name the bytes
+      # this run just packed and the comparison would be against itself again.
+      - name: The solids this container cut, against the lock
+        continue-on-error: true
+        run: tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py --annotate \
+               --failed "${{ steps.build.outputs.failed }}"
+
       # The ledger, in the order the modules document: masses price the totals, and the
       # totals' §7 feeds the print hours.
       - name: The ledger
