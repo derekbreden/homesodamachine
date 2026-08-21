@@ -191,8 +191,11 @@ def render_build(only: str = None) -> tuple:
     for gens, made in sorted(inv.items()):
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
-        # A solid the run cut is only ever handed back.
-        srcs = (set(made["reads"]) | set(made["docs"]) | set(gens)) - set(made["solids"])
+        # A solid the run cut is only ever handed back. A SOLID THE RUN READS IS ON BOTH SIDES
+        # TOO: `flute_payload.py` grafts its fluted surfaces into `enclosure.step.mesh` in place,
+        # so the payload it opens has to be in the sandbox for it to have one to graft into.
+        srcs = ((set(made["reads"]) | set(made["docs"]) | set(gens))
+                - (set(made["solids"]) - set(made["reads"])))
         srcs = sorted(s for s in srcs if s in held)
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
         comments_out |= {s for s in srcs if comments_come_out(s, rewritten)}
