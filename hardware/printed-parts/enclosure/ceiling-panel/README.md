@@ -91,13 +91,34 @@ reaching into it could not travel the dado. So each station stands as far
 outboard as a full ligament round its counterbore allows, which lands the pad
 tangent to the mouth.
 
+## What hangs off it
+
+The ceiling over this field is this part, so every rib rooted on it is this part's
+too — the two saddles the DIGITEN flow meter hangs in, and three of the anchors
+bored for a round body: `carb-1`, `co2-2` and the WR1110 regulator's barrel. They
+were `enclosure-back-top`'s while that piece still printed a ceiling here.
+`enclosure.ceiling_stations` is the one call that splits the ceiling's stations
+between the two parts, and both read it, so neither can grow a rib the other grew.
+
+Each is built by `enclosure`'s own builder on the box's own frame
+(`_digiten_saddles`, `_tube_anchors`), so a saddle here is the same saddle it was
+on the piece: a bore concentric with the body it takes, its arc stopped on that
+body's own axis plane, and the strap's channel behind it with this panel's
+underside as its roof.
+
+The bench sequence follows from it: a seat that hangs off the top wall is an
+upward-opening cradle the moment the part is inverted, and this part inverted is a
+flat plate.
+
 ## Fitting it
 
 1. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
    until its aft edge lands on the back wall.
 2. Drive the two screws down through the pads into the rails' bosses, reaching
    through the open throat.
-3. Drop the funnel in. Its collar fills the throat immediately ahead of the
+3. Turn back-top ceiling-down, lay the meter into its two saddles and each run
+   into its rib, and strap them. Then lower the piece onto the machine.
+4. Drop the funnel in. Its collar fills the throat immediately ahead of the
    panel and its brim covers the screw heads.
 
 ## Regenerate
