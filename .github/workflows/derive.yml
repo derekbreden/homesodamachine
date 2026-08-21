@@ -62,6 +62,12 @@ jobs:
       - name: The renderers
         run: npm ci --prefix tools/render
 
+      # `//:render-scenes` boots `web/server.js` to draw against, and that imports express.
+      # `--omit=dev` is what render.yaml installs for the deploy, and it is enough here for
+      # the same reason: nothing in the scene render reaches a dev dependency.
+      - name: What the scene renderer serves from
+        run: npm ci --omit=dev --prefix web
+
       # The two caches that decide what this costs. `.cache/realized` is keyed on each part's
       # description plus the full text of every module it transitively imports, so a run that
       # moved one generator redraws only what that generator's shape depends on — exactly the
