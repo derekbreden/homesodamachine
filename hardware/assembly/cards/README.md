@@ -32,7 +32,9 @@ the reason a step is shaped the way it is. See [The gate](#the-gate).
   [`tools/render/render-step-posed.js`](/tools/render/render-step-posed.js). Each carries a
   `.scene.json` naming the geometry it was drawn of, so a picture and the part it pictures
   cannot drift apart quietly. A file here with no sidecar is one nothing draws.
-- `out/` — the printable deck: one PNG per card plus `deck.pdf` (6 × 4 in pages).
+- `out/` — the printable deck: one PNG per card plus `deck.pdf` (6 × 4 in pages). Built rather
+  than carried: `.gitignore` holds it out, and a checkout has this directory after `_build.py`
+  below and not before.
 - [`_build.py`](_build.py) — runs the gate, renders every card HTML to `out/`
   via [`tools/render/render-card.js`](/tools/render/render-card.js), and
   assembles `deck.pdf`. Underscore-prefixed: the dev-server never runs it.
