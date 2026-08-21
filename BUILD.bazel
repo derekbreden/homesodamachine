@@ -6433,7 +6433,6 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-        "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.png",
         "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
@@ -6449,6 +6448,7 @@ genrule(
         "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
         "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+        "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
     ],
     cmd = """
 set -e
@@ -6458,6 +6458,7 @@ O2=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure
 O3=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
 O4=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
 O5=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
+O6=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
 for f in $(SRCS); do
   case $$f in */node_modules/*) continue;; esac
   t=$${f##*/pysrc/}
@@ -6476,6 +6477,7 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh $
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O3
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O4
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O5
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O6
 """,
 )
 
