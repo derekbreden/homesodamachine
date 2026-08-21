@@ -23,6 +23,7 @@
 // true. It runs at the top of a tool, so a machine already carrying a leak
 // renders on the cores it should have had.
 
+import fs from "fs";
 import { execFileSync } from "child_process";
 import puppeteer from "puppeteer";
 
@@ -246,10 +247,25 @@ const DETERMINISTIC = [
   "--hide-scrollbars",
 ];
 
+// `--disable-dev-shm-usage` MOVES CHROME'S FRAMES OFF SHARED MEMORY AND ONTO `/tmp`, which is
+// the right trade only when `/dev/shm` is too small to hold them — a container's default is
+// 64 MB and a 12.1 MP capture is ~48 MB raw. Where `/tmp` is a real disk, as it is under an
+// overlay filesystem, that trade turns a capture into disk I/O and a large page stops
+// answering. So ask the mount instead of assuming: 256 MB is past the largest frame this repo
+// draws, and a host without `/dev/shm` at all (macOS) needs no flag either way.
+const SHM_ARGS = (() => {
+  try {
+    const { bsize, blocks } = fs.statfsSync("/dev/shm");
+    return bsize * blocks >= 256 * 1024 * 1024 ? [] : ["--disable-dev-shm-usage"];
+  } catch {
+    return [];
+  }
+})();
+
 export async function launchBrowser({ args = [], ...rest } = {}) {
   const browser = await puppeteer.launch({
     headless: true,
-    args: ["--no-sandbox", "--disable-dev-shm-usage", ...DETERMINISTIC, ...args],
+    args: ["--no-sandbox", ...SHM_ARGS, ...DETERMINISTIC, ...args],
     // Ties Chrome's life to this process's — see the block at the top.
     pipe: true,
     // Puppeteer's own signal handling closes over CDP, which is the slow path
