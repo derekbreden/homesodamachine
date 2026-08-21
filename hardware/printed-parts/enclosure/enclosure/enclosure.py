@@ -996,15 +996,17 @@ back_top_flank_t = 6.0
 # every millimetre it runs outboard, so it is DEEPEST AT THE WALL — which is exactly where the rear
 # storey's own furniture stands, and shallowest at the panel's edge, where nothing does. A RELIEF
 # IS A FACT ABOUT THE STRIP, not a note beside it, and `ceiling_corbel_at` measures the same figure
-# the solid is cut on. Stated as (station, sx, y0, y1, keep): whose relief it is, which flank it
-# stands on, the band it takes, and how much of the strip's run the corbel still KEEPS over that
-# band. Outboard of `keep` the strip is the top wall's own section alone and takes print support.
+# the solid is cut on. Stated as (station, sx, y0, y1, keep, out): whose relief it is, which flank
+# it stands on, the band it takes, and THE RUN BAND IT GIVES UP — everything from `keep` out to
+# `out`. Inboard of `keep` and outboard of `out` the strip keeps its corbel; between them it is
+# the top wall's own section alone and takes print support.
 #
-# SO A RELIEF TAKES THE OUTBOARD RUN AND LEAVES THE INBOARD, which is the only way round that
-# helps: the corbel is a wedge whose thin end is at the panel's edge, so what a body a millimetre
-# under the ceiling leaves room for is the thin end. The kept run gives up its root on the flank
-# and comes out of the full corbel at each end of the band instead, which is one bridged line at
-# the band's own depth and nothing else.
+# A RELIEF IS A BAND AND NOT A CUT-OFF because a body is a band. Where a fitting stands hard
+# against the panel's edge the two are the same thing — `out` is the strip's whole run and what is
+# left is the wedge's thin end, which is what a body a millimetre under the ceiling leaves room
+# for. Where a body stands in the MIDDLE of the strip, taking everything outboard of it as well
+# throws away the one part of the corbel that is rooted on the flank and self-supporting, and
+# leaves the whole strip's width hanging. So a row gives up what its body occupies and no more.
 #
 # THE FOUR ROWS ARE MEASURED AGAINST THE PLACED SOLIDS AND NOT AGAINST THEIR BOXES, and the
 # difference is most of what they say. A bounding box on this pack stands well inside its own
@@ -1012,29 +1014,48 @@ back_top_flank_t = 6.0
 # reach — the y band the metal is actually in, how far inboard it comes, and the clearance the
 # kept run then stands off it — against the box each row would have been read off:
 #
-#   ground-stack   y 236.00..247.32, in to |x| 86.45, keeps 5 -> 2.45 mm  (box y 232..250, x 84.45)
-#   relay-1        y 252.50..322.50, in to |x| 86.50, keeps 5 -> 2.00 mm  (box y 252.5..322.5)
-#   asse1022       y 355.21..423.71, in to |x| 81.00, keeps 0             (box y 302.2..442.2)
-#   c14-inlet      y 456.75..458.75, in to |x| 80.71, keeps 0             (box y 429.8..467.8)
+#   ground-stack   y 236.00..247.32, in to |x| 86.45, gives up 5..22    (box y 232..250, x 84.45)
+#   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 5..22    (box y 252.5..322.5)
+#   c14-inlet      y 456.75..458.75, in to |x| 80.71, gives up 0..22    (box y 429.8..467.8)
 #
-# The C14 is the sharpest of the four: its box says the receptacle is under this strip for the
+# The C14 is the sharpest of the three: its box says the receptacle is under this strip for the
 # last 31 mm of it, and the casting is in the corbel for TWO — the moulded rim round the
 # aperture, and nothing else on the part.
 #
-# AND ONE ROW IS STATED RATHER THAN MEASURED. The tap-water chain's two ties are closed loops that
-# cross its top flat in the `DECK_CEILING_CLEAR` lane under this ceiling, out to the −X wall, and
-# `_asse_cradle` says outright that the wall itself is never cut for them. So the chain's relief
-# keeps NONE of the strip over its band: the barrel leaves the corbel 1.5 mm of it in any case,
-# and the trough's own block, its V and its tie cavity stand in the rest.
+# THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes four rows because what
+# it occupies is four different things. Read off the placed chain against the full wedge, the
+# metal inside the corbel is:
+#
+#   y 354..394     run  1.50..14.09      the Multiplex barrel, its crown one
+#                                        `DECK_CEILING_CLEAR` under the ceiling
+#   y 394..424     run  4.67.. 5.42      the ASSE body aft of the trough — three quarters of a
+#                                        millimetre of run, in a strip 22 wide
+#   y 424..425     nothing
+#
+# 1275 mm3 of a 17182 mm3 corbel, and NONE of it outboard of run 14.09. So the outboard run is
+# given back: it is the half of the wedge that roots on the flank and carries itself, and taking
+# it left the strip's whole width hanging over the rear storey for 71 mm of depth.
+#
+# WHAT STILL TAKES THE WHOLE RUN IS THE TWO TIE BANDS. Each strap is a closed loop that comes west
+# over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops into the cavity through the
+# trough's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a corbel
+# standing over the outboard run would roof the one opening the strap has. `_asse_cradle` reads
+# these two rows back against the ties it was handed, so a band that moves off its strap says so.
+_RAIL = 22.0                # `ceiling_panel.rail_run`, restated here so the rows can read it
 back_top_ceiling_reliefs = (
-    ("ground-stack",   +1.0, 236.0, 248.5, 5.0),   # the +X ground bar's stack, at the fore end
+    ("ground-stack",   +1.0, 236.0, 248.5, 5.0, _RAIL),   # the +X ground bar's stack, fore end
     # THE BAND STANDS OFF THE BOSSES AT ITS OWN ENDS. The relay's two upper mounting bosses are
     # `mount_boss_dia` cylinders centred y 254.5 and 320.5, so their end faces lie ON y 251 and
     # 324 — and a relief ending there would put the cut's own face on a boss's, which is four
     # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face.
-    ("relay-1",        +1.0, 250.0, 325.0, 5.0),   # the relay's crown, mid-strip
-    ("asse1022-chain", -1.0, 354.0, 425.0, 0.0),   # the chain, its trough and both tie straps
-    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0),   # the receptacle's rim, hard against the back wall
+    ("relay-1",        +1.0, 250.0, 325.0, 5.0, _RAIL),   # the relay's crown, mid-strip
+    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, _RAIL),   # the receptacle's rim, on the back wall
+    # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
+    # bands give up the whole run, so the strap's cavity opens on air out to the wall.
+    ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
+    ("asse1022-body",     -1.0, 394.0, 424.5, 0.0,  7.0),
+    ("asse1022-tie-fore", -1.0, 358.0, 364.5, 0.0, _RAIL),
+    ("asse1022-tie-aft",  -1.0, 384.0, 390.5, 0.0, _RAIL),
 )
 # AND HOW FAR A FULL-DEPTH BLOCK MAY STAND ON A RELIEVED BAND, WHICH IS NOT `keep`. `keep` is the
 # corbel's own run, and a corbel is SHALLOW at its outboard edge: the 5 mm of strip left over the
@@ -1069,8 +1090,8 @@ def ceiling_corbel_at(x, y):
     run = abs(x) - _ceiling().panel_half_w
     if run <= 0.0:
         return 0.0                         # the panel's own field — no strip, and no corbel
-    for _who, sx, y0, y1, keep in back_top_ceiling_reliefs:
-        if sx * x > 0.0 and y0 <= y <= y1 and run > keep:
+    for _who, sx, y0, y1, keep, out in back_top_ceiling_reliefs:
+        if sx * x > 0.0 and y0 <= y <= y1 and keep < run <= out:
             return 0.0
     return run
 
@@ -1088,7 +1109,7 @@ def ceiling_pier_run(sx, y0, y1):
     A band measured for the corbel and not for a pier is REFUSED: borrowing the one figure for the
     other is how a block ends up inside the body its own relief was cut to clear."""
     run = _ceiling().rail_run
-    for who, rsx, ry0, ry1, _keep in back_top_ceiling_reliefs:
+    for who, rsx, ry0, ry1, _keep, _out in back_top_ceiling_reliefs:
         if not (rsx == sx and ry0 < y1 and y0 < ry1):
             continue
         if who not in back_top_ceiling_pier_runs:
@@ -4264,16 +4285,20 @@ def _back_top_ceiling(solid, inner, y_joint):
         edge, deep = sx * half, abs(wall_x) - half
         corbel = _xz_prism(cp.fore_y, cp.aft_y,
                            [(edge, iz1), (wall_x, iz1), (wall_x, iz1 - deep)])
-        for who, rsx, y0, y1, keep in back_top_ceiling_reliefs:
+        for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs:
             if rsx != sx:
                 continue
-            if not 0.0 <= keep <= deep + 1e-9:
+            if not 0.0 <= keep <= out <= deep + 1e-9:
                 raise ValueError(
-                    f"_back_top_ceiling: the {who} relief keeps {keep:g} mm of a strip that is "
-                    f"{deep:g} mm wide. A relief takes the OUTBOARD run and leaves the inboard, "
-                    f"so what it keeps is between nothing and `ceiling_panel.rail_run`.")
-            kept, out = sx * (half + keep), sx * (abs(wall_x) + 1.0)
-            corbel = corbel.cut(_ybox(min(kept, out), max(kept, out), y0, y1,
+                    f"_back_top_ceiling: the {who} relief gives up the run band {keep:g}..{out:g} "
+                    f"of a strip that is {deep:g} mm wide. A relief takes a BAND of the run and "
+                    f"leaves the strip either side of it, so both figures stand between nothing "
+                    f"and `ceiling_panel.rail_run` and the inboard one comes first.")
+            # A band reaching the strip's own edge is cut a millimetre past it, so the corbel and
+            # the wall it roots on never meet along a coincident plane.
+            kept = sx * (half + keep)
+            outb = sx * (abs(wall_x) + 1.0 if out >= deep - 1e-9 else half + out)
+            corbel = corbel.cut(_ybox(min(kept, outb), max(kept, outb), y0, y1,
                                       iz1 - deep - 1.0, iz1 + 1.0))
         solid = solid.fuse(corbel)
 
@@ -5854,9 +5879,11 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # `wall / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
 # leaves a strap pushed through the room to turn the vertex by cutting its corner.
 #
-# It is ONE opening from the first tie band to the last, half a cavity past each. The two bands
-# are what it has to serve, so the block's back is solid fore and aft of them, and what is left in
-# the one opening draws out end to end.
+# ONE CHANNEL PER STRAP, `tie_cav_wide_w` long and centred on its own tie band. Two straps go
+# through this block, so what it owes them is two holes: the back stands solid fore and aft of
+# each and between them, and the ceiling over the run keeps whatever corbel the strip has
+# (`back_top_ceiling_reliefs`). A single opening spanning the pair would give up all of that for
+# thirty millimetres of block nothing passes through.
 #
 # ITS TWO FLANKS ARE BOTH ONE `wall`. The cavity is what is LEFT between them — a `wall` off the
 # trough on the east and a `wall` off the side wall's own inner face on the west — so its width is
@@ -5931,14 +5958,14 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     through that channel, and back into the cavity. So it closes round the chain and the trough's
     own back together, and what it pulls is the chain into the V.
 
-    THE CAVITY IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of the apex with
-    one `wall` of PETG between it and the trough, so at no station is it anything but a hole
-    through solid material, and a strap in it stays where it was put.
+    ONE CHANNEL PER STRAP, AND EACH IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of
+    the apex with one `wall` of PETG between it and the trough, so at no station is it anything
+    but a hole through solid material, and a strap in it stays where it was put. Two straps, two
+    holes: the block's back is solid fore and aft of each and between them.
 
     THE BLOCK'S UNDERSIDE HANGS. Printed Z−-down that face is a horizontal soffit under the
     lane, and it takes print support the way the drip tray's rails do — the V's own two flanks
-    stand 30° off vertical and carry themselves. The cavity is one opening from the first tie
-    band to the last, and what is left in it draws out end to end.
+    stand 30° off vertical and carry themselves.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -5965,10 +5992,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         # east face at a right angle.
         solid = solid.fuse(_ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, z_axis + up))
         solid = solid.cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1))
-    # THE STRAP'S CAVITY, cut after every section is fused so a neighbour's block cannot fill it
-    # back in. Struck on the DEEPEST section's apex, which is the barrel's: that V stands furthest
-    # west, so a cavity clear of it by one `wall` is clear of the other two by more and the
-    # web comes out no thinner than stated at any station.
+    # THE STRAPS' CHANNELS, ONE EACH, cut after every section is fused so a neighbour's block
+    # cannot fill one back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
+    # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
+    # and the web comes out no thinner than stated at any station.
     #
     # IT IS THE WIDE STRAP'S CAVITY. The barrel and this trough make a 100 mm loop, past what a 4"
     # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
@@ -5977,11 +6004,14 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
                 f"_asse_cradle: tie band {ty:.2f} falls outside the trough's run "
-                f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. The cavity a strap passes through "
-                f"is the trough's whole length, so a band off either end has no cavity at all.")
-    return solid.cut(_asse_tie_cavity(min(w for _y0, _y1, w, _r, _a in sections), inner[0], z_axis,
-                                      min(ties) - tie_cav_wide_w / 2.0,
-                                      max(ties) + tie_cav_wide_w / 2.0, up, dn))
+                f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. A strap's channel is cut through "
+                f"the block at its own band, so a band off either end has no channel at all.")
+    apex = min(w for _y0, _y1, w, _r, _a in sections)
+    for ty in ties:
+        solid = solid.cut(_asse_tie_cavity(apex, inner[0], z_axis,
+                                           ty - tie_cav_wide_w / 2.0,
+                                           ty + tie_cav_wide_w / 2.0, up, dn))
+    return solid
 
 
 def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
@@ -7142,7 +7172,7 @@ def main():
         # panel, the channel the panel fills, and the most any relief still leaves corbelled.
         "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
         "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
-        "CEILING_KEEP": f"{max(k for *_r, k in back_top_ceiling_reliefs):.4g} mm",
+        "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
         "CEILING_PIER_KEEP": f"{min(back_top_ceiling_pier_runs.values()):.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.

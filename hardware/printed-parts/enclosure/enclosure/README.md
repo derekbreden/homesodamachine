@@ -550,8 +550,9 @@ tray's rim plus a wall either way, in the band above the tray's slot.
 
 The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
 stand 30° off vertical and are free; its **underside is flat**, a soffit off the wall
-under the lane, and that face hangs. The strap's cavity behind the trough is one
-opening the trough's whole length, and the support in it draws out end to end.
+under the lane, and that face hangs. Behind the trough are the two straps' channels,
+one per tie band and `tie_cav_wide_w` long, and the support in each draws out its
+own end.
 
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
@@ -618,9 +619,11 @@ inlet collet butts the tap-water union's, and that joint takes the length up.
 Two **zip ties** shut the trough's mouth, one in each band the vent leaves clear on
 the barrel — the brass, which is the only section a tie may close on.
 
-Both run in **one cavity through the trough's back** (`asse_tie_*`), closed on every
-side but its two mouths and spanning the trough's whole length. It is **straight on
-the west and the trough's own V on the east**, so it is narrowest at the axis and
+Each runs in **its own channel through the trough's back** (`asse_tie_*`), closed on
+every side but its two mouths and `tie_cav_wide_w` long — centred on the tie band it
+serves, so the block's back stands solid fore and aft of each and between the pair,
+and the ceiling over that run keeps whatever corbel the strip has. It is **straight
+on the west and the trough's own V on the east**, so it is narrowest at the axis and
 flares to both mouths: each mouth opens `asse_tie_back / sin 60°` off its lip's own
 arris, on the block's face where a hand reaches it, and at the axis the flare leaves
 a strap pushed through the room to turn the vertex by cutting its corner. It stands
@@ -628,8 +631,8 @@ one `wall` west of the apex at every station, struck on the deepest section's ap
 the web is no thinner than that anywhere, and one `wall` off the side wall behind it —
 so its width is a remainder between the two rather than a number.
 
-A tie is a closed loop, so its strap also has to cross the chain's top flat — and
-**the top wall is never cut for it.** The storey the chain lies on is struck to leave
+A tie is a closed loop, so its strap also has to cross the chain's top flat, come west
+in that lane and drop into its channel — and **the top wall is never cut for it.** The storey the chain lies on is struck to leave
 that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the strap's own section
 plus its clearance), so `wall` stays whole across the whole ceiling and the deck pays
 the millimetre out of its own headroom. That leg is **laid, not pulled**: this piece
@@ -638,7 +641,10 @@ ceiling's inner face and the chain comes down onto it.
 
 Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
 closed on the barrel, measured off the two placed solids, because every other
-reading on the card is satisfied by a chain floating in air.
+reading on the card is satisfied by a chain floating in air. And `check_strap_channels`
+is the row that reads the **route**: the column between each channel's top mouth and
+the ceiling, which is the room the loop comes down and what a corbel on the strip's
+outboard run would close over.
 
 ## Flow-meter saddles
 
@@ -1138,27 +1144,41 @@ storey's furniture stands.
 So the strip carries **reliefs**, stated as `back_top_ceiling_reliefs` and read
 back by `ceiling_corbel_at(x, y)` — the same shape `back_top_wall_reliefs` and
 `back_wall_t_at` take one storey down, keyed on (x, y) rather than (x, z). A row
-names the fitting, the flank, the band and how much of the strip's run the corbel
-still **keeps** there; outboard of that the strip is the top wall's own section
-alone and takes print support. A relief takes the **outboard** run and leaves the
-inboard, which is the only way round that helps: what a body standing a millimetre
-under the ceiling leaves room for is the wedge's thin end.
+names the fitting, the flank, the depth band it covers, and **the run band it
+gives up** — everything from `keep` out to `out`. Inboard of `keep` and outboard
+of `out` the strip keeps its corbel; between them it is the top wall's own section
+alone and takes print support.
 
-The four rows are measured against the placed solids and not against their boxes,
-and the difference is most of what they say — a strip read off boxes is a strip
-with no corbel left in it. The ground bar's stack and the relay hold the +X strip
-to [5 mm](CEILING_KEEP) of run over their own bands, standing 2.45 and 2.00 mm off
-the crown under them. The tap-water chain holds the −X strip to none over its: the
-barrel would leave the corbel 1.5 mm in any case, and the trough's own block, its
-V and its tie cavity stand in the rest. And the C14 is the sharpest of the four —
-its box says the receptacle is under this strip for the last 31 mm of it, and the
-casting is in the corbel for **two**, the moulded rim round the aperture and
-nothing else on the part.
+**A relief is a band because a body is a band.** Where a fitting stands hard
+against the panel's edge the two are the same thing: `out` is the strip's whole
+run, and what is left is the wedge's thin end — which is exactly what a body a
+millimetre under the ceiling leaves room for. Where a body stands in the **middle**
+of the strip, taking everything outboard of it as well throws away the one part of
+the corbel that roots on the flank and carries itself, and leaves the strip's whole
+width hanging.
 
-The chain's row is also the one that is **stated rather than measured**: its two
-ties are closed loops crossing the chain's top flat in the `DECK_CEILING_CLEAR`
-lane out to the wall, and `_asse_cradle` says outright that the wall is never cut
-for them.
+The rows are measured against the placed solids and not against their boxes, and
+the difference is most of what they say — a strip read off boxes is a strip with no
+corbel left in it. The ground bar's stack and the relay give up the +X strip from
+[5 mm](CEILING_KEEP) of run outward over their own bands, standing 2.45 and 2.00 mm
+off the crown under them. The C14 is the sharpest of them — its box says the
+receptacle is under this strip for the last 31 mm of it, and the casting is in the
+corbel for **two**, the moulded rim round the aperture and nothing else on the part.
+
+**The tap-water chain takes four rows**, because what it occupies is four different
+things. Against the full wedge, the metal inside the corbel is run 1.50…14.09 over
+y 354…394 — the Multiplex barrel, its crown one `DECK_CEILING_CLEAR` under the
+ceiling — and run 4.67…5.42 over y 394…424, three quarters of a millimetre of run
+in a strip 22 wide. **1,275 mm³ of a 17,182 mm³ corbel, and none of it outboard of
+run 14.09.** So the outboard run goes back, and those two rows give up 0…16 and 0…7.
+
+What still gives up the whole run is **the two tie bands**. Each strap is a closed
+loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and
+drops into the cavity through the trough's back — and that cavity's top mouth is out
+at the wall (`_asse_tie_cavity`), so a corbel standing on the outboard run would roof
+the one opening the strap has. `_asse_cradle` reads those two rows back against the
+ties it was handed, so a band that moves off its strap says so instead of closing
+over it.
 
 **The dado** is cut in each strip's inboard face on the section the panel states
 (`ceiling_panel.dado`), and it runs from the open Y− mouth aft: the panel is slid

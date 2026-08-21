@@ -4987,7 +4987,7 @@ def check_tube_seated(tubes, pieces) -> Bound:
         f"{want:.3f} mm at most", rows))
 
 
-def check_strap_channels(anchors, saddles, pieces) -> Bound:
+def check_strap_channels(anchors, saddles, cradle, pieces) -> Bound:
     """Whether a tie can still reach through every cavity the box cuts one for.
 
     THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_digiten_saddles`): the
@@ -5002,7 +5002,13 @@ def check_strap_channels(anchors, saddles, pieces) -> Bound:
     needs — `tie_strap_t` off the bore's own crown, the cavity's width along the body, the rib's
     full reach across it — and that volume is struck off the STATION, with no root face in it at
     all. A rib buried in a wall and a rib standing proud of one are the same arithmetic; what
-    differs is whether the answer is air."""
+    differs is whether the answer is air.
+
+    THE TAP-WATER TROUGH'S TWO ARE A CUT AND CANNOT FILL, so what is read there is the ROUTE
+    INSTEAD: each strap comes west over the chain's top flat and drops into its channel through
+    the block's back, and that channel's mouth is out at the −X wall. So the column between the
+    mouth and the ceiling is the room the loop comes down, and it is what a ceiling corbel
+    standing on the strip's outboard run would close (`enclosure.back_top_ceiling_reliefs`)."""
     def solid(x):
         x = x.toCompound() if hasattr(x, "toCompound") else x
         return x.val() if hasattr(x, "val") else x
@@ -5012,17 +5018,25 @@ def check_strap_channels(anchors, saddles, pieces) -> Bound:
     def read(what, vol):
         nonlocal seen, worst
         seen += 1
-        want = vol.Volume()
+        want, box = vol.Volume(), _boxes.boxed(vol)
         for name, part in parts.items():
+            # A seat is a few tens of mm3 and a piece is a quadrant of the machine, so the box
+            # settles all but one or two of these without meshing anything.
+            pb = _boxes.boxed(part)
+            if (pb.xmax < box.xmin or box.xmax < pb.xmin
+                    or pb.ymax < box.ymin or box.ymax < pb.ymin
+                    or pb.zmax < box.zmin or box.zmax < pb.zmin):
+                continue
             got = _overlap.volume(vol, part)
             if got <= 1e-6:
                 continue
             worst = max(worst, 100.0 * got / want)
             rows.append(
-                f"{what}: {100.0 * got / want:.0f}% of the strap's own seat is inside {name} — "
-                f"{got:.1f} of {want:.1f} mm3. The rib's ends are drawn to a plane that piece "
-                f"stands inboard of, so the room between them is in its stock "
-                f"(`enclosure.piece_root_faces`), or something fused into it afterwards.")
+                f"{what}: {100.0 * got / want:.0f}% of the room a strap needs is inside {name} — "
+                f"{got:.1f} of {want:.1f} mm3. On a rib, the two ends are drawn to a plane that "
+                f"piece stands inboard of, so what is left between them is in its stock "
+                f"(`enclosure.piece_root_faces`); on the trough, a corbel has closed over the "
+                f"channel's mouth (`enclosure.back_top_ceiling_reliefs`).")
 
     for mid, u, n, seat_r in anchors:
         # The strap's seat in the anchor's own frame: one `tie_strap_t` slab off the bore's crown,
@@ -5042,6 +5056,20 @@ def check_strap_channels(anchors, saddles, pieces) -> Bound:
             read(f"saddle at y {m:.1f}",
                  _enc._ybox(x_axis - reach, x_axis + reach, m - _enc.tie_cav_w / 2.0,
                             m + _enc.tie_cav_w / 2.0, crown, crown + _enc.tie_strap_t))
+    if cradle:
+        z_ax, sections, ties, _dn = cradle
+        run = 1.0 / math.tan(math.radians(_enc.asse_v_half))
+        apex = min(w for _y0, _y1, w, _r, _a in sections)
+        # The channel's own top mouth (`enclosure._asse_tie_cavity`): west face on the box's
+        # interior plus a `wall`, east edge where the flare meets the block's crown.
+        x_w = _enc.interior_x()[0] + _enc.wall
+        x_e = apex - _enc.wall / math.sin(math.radians(_enc.asse_v_half)) \
+            + (_enc.asse_cradle_up + 1.0) * run
+        top = z_ax + _enc.asse_cradle_up + 1.0
+        for ty in ties:
+            read(f"tap-water strap at y {ty:.1f}",
+                 _enc._ybox(x_w, x_e, ty - _enc.tie_strap_wide_w / 2.0,
+                            ty + _enc.tie_strap_wide_w / 2.0, top, interior_ceiling()))
     return record_bound(Bound(
         "strap-channels", "A tie still reaches through every cavity cut for one", not rows,
         f"{seen} read, worst {worst:.0f}% filled", "0% filled", rows))
@@ -6566,7 +6594,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_body_seated(a.pack_solids, pieces)
     # And every one of those ribs' strap channels, against the piece that built it. A seat that
     # reads closed on its body says nothing about whether a tie can reach round it.
-    check_strap_channels(a.tube_anchors + a.body_anchors, a.digiten_saddles, pieces)
+    check_strap_channels(a.tube_anchors + a.body_anchors, a.digiten_saddles,
+                         a.asse_cradle, pieces)
     # And every run the COLD CORE's cap is bored for, against the cap it lies on.
     check_run_seated(tubes, a.pack_solids["foam-assembly"])
     # And every body against the material it is made of, now that the box's own four stand among
