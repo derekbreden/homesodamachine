@@ -10,6 +10,15 @@ build --sandbox_add_mount_pair=/opt/homebrew
 build --sandbox_add_mount_pair=/usr/local
 build --action_env=PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
 
+# AN ACTION SEES THE ENVIRONMENT THIS FILE NAMES AND NO OTHER, which is the point — and the
+# card deck's Chromium is reached by one variable. Unset on a machine whose browser is already
+# where puppeteer looks by default, so this passes through rather than states a path: nothing
+# changes here, and a runner whose Chromium was baked somewhere else can say where. Without
+# it the deck dies on `Could not find Chrome` with the browser on the disk the whole time.
+# `--check_up_to_date` re-invokes bazel with no command line of its own, so a flag that lives
+# on one is a flag that makes every action read not-up-to-date to the run that carries them.
+build --action_env=PUPPETEER_CACHE_DIR
+
 # The kept work is not a declared input and not an output: `_boxes` and `_meshes` name an entry
 # by the serialized shape it came off, and `_realized` by that plus the digest of everything the
 # action holds. An action that finds one has been given the same thing twice.
