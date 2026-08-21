@@ -57,8 +57,12 @@ tools/flavor_preview.png
 tools/cad-venv
 
 # Tessellation written beside each STEP for the viewer to read instead of parsing it
-# (hardware/scripts/_cadq_export.py). Rebuilt by every export; the page parses the STEP
-# when one is absent.
+# (hardware/scripts/_cadq_export.py). `loadStepFile` prefers it and parses the STEP where there
+# is none — and on the enclosure the payload is where the show surface is, the solid beside it a
+# smooth prism (hardware/printed-parts/enclosure/enclosure/flute_skin.py), so that parse draws a
+# box with no flutes on it. A deploy is served the payloads the bundle carries
+# (tools/cad-artifacts/pack.py); hardware/scripts/check_payloads.py names one absent or older
+# than the solid it stands for.
 *.step.mesh
 
 # The solids arrive in a release asset. hardware/cad-artifacts.lock.json names that asset and
