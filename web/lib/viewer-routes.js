@@ -10,6 +10,13 @@ import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
+// WHAT `hardwareDir` IS ALLOWED TO BE. `send` refuses any path with a dot-prefixed component,
+// and `start({ hardwareDir })` exists so the render tools can point this at a git worktree's
+// own `hardware/` — a worktree that lives under `.claude/worktrees/…` and is therefore exactly
+// such a path. The traversal guard is `safeFile`, which resolves under `hardwareDir` and
+// nowhere else; this only stops `send` from second-guessing the root it was handed.
+const SEND_OPTS = { dotfiles: "allow" };
+
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
   const abs = path.join(rootDir, rel);
@@ -86,7 +93,7 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     // reload never shows a stale card (same reasoning as the drawing and PCB
     // content routes above).
     res.set("Cache-Control", "no-cache");
-    res.type(path.extname(abs)).sendFile(abs, (err) => {
+    res.type(path.extname(abs)).sendFile(abs, SEND_OPTS, (err) => {
       if (!err || res.headersSent) return;
       if (err.code === "ENOENT" || err.status === 404) return res.status(404).send("Not found");
       res.status(500).send("File send error");
@@ -188,7 +195,7 @@ export function mountViewerRoutes(app, { hardwareDir }) {
   // Pass a callback so we own the error path and just send a 404 / 503
   // instead.
   function streamFile(res, abs) {
-    res.type("application/octet-stream").sendFile(abs, (err) => {
+    res.type("application/octet-stream").sendFile(abs, SEND_OPTS, (err) => {
       if (!err) return;
       if (res.headersSent) return; // already streaming; the client will see a truncated body
       if (err.code === "ENOENT" || err.status === 404) {
@@ -235,7 +242,7 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
-    res.type("image/png").sendFile(abs, (err) => {
+    res.type("image/png").sendFile(abs, SEND_OPTS, (err) => {
       if (!err || res.headersSent) return;
       if (err.code === "ENOENT" || err.status === 404) return res.status(404).send("Not found");
       res.status(500).send("File send error");
