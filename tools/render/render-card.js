@@ -254,15 +254,10 @@ async function main() {
 
   await sweepAbandonedBrowsers("render-card");
   const browser = await launchBrowser({
-    // THIS IS THE BUDGET FOR A PAGE THAT NEVER COMES BACK, AND A PAGE COMPETING FOR A
-    // CORE IS NOT THAT PAGE. A card draws in about a second on an idle machine, which
-    // is not the machine it draws on: this runs inside a bazel action with three more
-    // beside it and `_cadq_export` drawing thumbnails alongside, and a 3300x2550 page
-    // at dpr 1.2 under that load takes wall clock a lone render never sees.
-    // `bs-band-saw` passed 60 s on a runner while `//:cards-build` was 117 s into its
-    // own render, and one card that did not come back is a red target, which is a
-    // carry that does not happen, which is every derived output describing the commit
-    // before.
+    // THIS IS THE BUDGET FOR A PAGE THAT NEVER COMES BACK, AND IT IS SIZED TO CAP WHAT
+    // ONE COSTS. `bs-band-saw` is such a page on a runner: `Page.captureScreenshot` does
+    // not return, and one card that did not come back is a red target, which is a carry
+    // that does not happen, which is every derived output describing the commit before.
     //
     // AND THE ENVIRONMENT CANNOT RAISE IT WHERE IT MATTERS. A genrule sees only what
     // `.bazelrc` hands it with `--action_env` — PATH, PUPPETEER_CACHE_DIR,
@@ -277,11 +272,21 @@ async function main() {
     // hang instead of the run ending at the first. 2 x 960 s is the 1926 s. A capture
     // that never returns does not finish given longer; it costs longer.
     //
-    // So the budget is back where it caps that failure at four minutes a card. What
-    // hangs is still open: `//:tools-build` captures 3300x2550 at dpr 1.2 — 12.1
-    // megapixels in one `Page.captureScreenshot`, seven times the main deck's, which
-    // passes — and it is always the first cards alphabetically, while Chromium is still
-    // faulting in pages after a cold launch. That is a capture-side fix, not a clock one.
+    // So the budget is back where it caps that failure at four minutes a card. WHAT
+    // HANGS IS OPEN, and two measurements narrow it by ruling their own answers out.
+    //
+    // CONTENTION IS NOT IT. In 32463988242 `//:cards-build` began 08:39:37 and ran
+    // 198 s, `//:tools-build` began 08:43:38 and ran 1926 s, and `//:render-scenes` was
+    // a disk-cache hit that never executed — so the target that hung had the runner to
+    // itself for half an hour.
+    //
+    // SIZE ALONE IS NOT IT. `//:tools-build` captures 3300x2550 at dpr 1.2 — 12.1
+    // megapixels a capture, seven times the main deck's, which passes. The same thirteen
+    // cards at that size render on the authoring Mac in 15.9 s all told, exit 0, taken
+    // with 80 MB free and 3.7 GB of swap in use.
+    //
+    // What is left is the container: the capture returns here and does not there, on the
+    // first cards of a cold browser. That is where to look, and it is not the clock.
     protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 240000),
   });
   let overflowed = 0;
