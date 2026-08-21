@@ -225,6 +225,15 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # AND THE FIELD IS SYMMETRIC IN X, because the datum is a groove centre on x = 0, the plane
 # the whole machine is struck about. Whatever `flute_count` is, the half-perimeter carries
 # the same grooves the other way round.
+#
+# AND THE BOX HAS A SECOND RUN, INDOORS. The bay's storey shows two of its own surfaces once
+# the drawer is in it: each corner post's face across the bay, which is the corner relief's
+# congruent twin (`_column_fairing`) and takes the flutes the same way it does, and the tee
+# wall behind the drawer out where the drawer does not reach it. That run is walked by
+# `_bay_storey_segments` and it does not close, because a storey open at its mouth is not a
+# loop. It is struck at THIS pitch from a datum on the same x = 0, so a groove lands on the
+# machine's plane of symmetry inside as it does outside. `flute_rails` is where the box says
+# which runs it has, and `flute_skin.py` reads nothing else about either of them.
 flute_count = 260
 # THE DEPTH IS THE COUPON'S. `../texture-corner/` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
@@ -280,10 +289,13 @@ def flute_backed_sections():
         ("front-top's own ±X flank", front_top_flank_t),
         # AND THE SAME FLANK WHERE THE CORNER'S FAIRING TAKES IT BACK — the turn is swung from
         # the jamb over the cartridge's storey, so what stands behind the face there is the post
-        # less the radius, and it is not `front_top_flank_t`. `column-face-backed` reads the
-        # fairing's own geometry; this is the row that keeps the list honest about it.
-        ("front-top's ±X flank at the corner fairing",
-         wall + post_along - column_round),
+        # less the radius, and it is not `front_top_flank_t`. THE POST IS FLUTED ON BOTH SIDES
+        # of that section: the exterior relief outside, and the turn's own face inside, where
+        # the bay's storey shows it (`_bay_storey_segments`). So what the inner groove stands
+        # on is that section with the outer one already taken out of it. `column-face-backed`
+        # reads the fairing's own geometry; this is the row that keeps the list honest about it.
+        ("front-top's ±X flank at the corner fairing, under the outer groove",
+         wall + post_along - column_round - flute_depth),
         ("back-top's own ±X flank", back_top_flank_t),
         ("back-top's own +Y wall", back_top_wall_t),
         ("a bottom piece's lipped side, the lip's skin carried to the slab", 2.0 * wall),
@@ -654,20 +666,41 @@ def cond_slot_half(sheet: float) -> float:
 # length (`flute_centres`, `plan_at`), not at a Y typed here, so the vent follows the field if
 # `flute_count` is ever retuned and a jamb can never land off a groove's floor.
 #
-# AND THE BAND IS THE BLOCK'S OWN AIRWAY (`cond_airway`), one `cond_vent_clear` inside each end,
-# less whatever the flank carries behind that particular groove. Nothing is listed: the piece is
+# IN HEIGHT THE BAND IS THE FAN, not the airway. What moves air through this wall is the axial
+# fan bolted to the block's own flank; the finstack either side of it is served by whatever that
+# fan pushes, and wall opened opposite it is opening on metal. So the band is the block's placed
+# extent (`cond_airway`) brought in `cond_fan_rise` at the base and `cond_fan_drop` at the crown
+# — the fan's own footprint on the flank and nothing wider (`vent_band`).
+#
+# LESS WHATEVER THE FLANK CARRIES BEHIND THAT PARTICULAR GROOVE. Nothing is listed: the piece is
 # asked, groove by groove, what stands rooted on its inner face there, and a slot stops
-# `cond_vent_clear` short of it and picks up again the same distance past. That is what breaks
-# two of the intake's slots round the MQ-6 cradle's upper rail and what would break any of them
-# round anything else the pack ever stands on these flanks.
-cond_vent_clear = wall       # the root the vent leaves round anything standing on the flank,
-                             # and the air it keeps off the airway's own two ends
+# `cond_vent_clear` short of it and picks up again the same distance past. That is what stands
+# the intake's slots off the MQ-6 cradle's upper rail and what would break any of them round
+# anything else the pack ever stands on these flanks.
+#
+# AND THE BAND IS CROSSED BY TRANSOMS, which is what makes it printable. A mullion is
+# `reeding.mullion` across on a `2 * wall` wall, so a slot run the whole height of the fan leaves
+# a picket fifty-odd times as tall as it is thick, with nothing tying its top to anything. The
+# brace is NOT a bar between two of them: at `cond_vent_transoms` heights the wall is simply NOT
+# PIERCED (`vent_transoms`), so every mullion and both jambs run into one full-section plate
+# `cond_vent_transom_h` tall. Nothing bridges, nothing stands at 45° across a groove, and nothing
+# grows out of a tower. The GROOVE runs through a transom unbroken — only the piercing stops —
+# so the field reads continuous down the flank and a transom is invisible off-normal.
+cond_vent_clear = wall       # the root the vent leaves round anything standing on the flank
 cond_vent_probe = wall       # how far inboard the flank is read for what stands on it. A rail,
                              # a fin or a pod web is ROOTED on the inner face, so its first
                              # `wall` is what a slot behind it would break out of; a body
                              # standing free of that face is not the vent's to answer for
 cond_vent_run_min = 3.0 * reeding.pierce_width   # a slot three times as tall as it is wide.
                              # Shorter than that is a nick in a groove floor and not a vent
+cond_fan_rise = 22.0         # the fan's own bottom over the block's, measured on the block
+cond_fan_drop = 5.0          # and its top under the block's crown. The two and the fan's 110 mm
+                             # close on `condenser_block.FACE_B`, which is what says they are a
+                             # reading of one face and not three numbers
+cond_vent_transoms = 3       # unpierced bands crossing the vent, each one tying all 22 mullions
+                             # and both jambs into a single plate of full section
+cond_vent_transom_h = 4.0    # how tall each one stands — more than an exterior loop pair either
+                             # side of the groove's own floor, so a transom is wall and not skin
 
 
 # --- what holds the cold core ------------------------------------------------
@@ -2244,18 +2277,21 @@ def _dims(pack):
     # one turn of `column_round` swung from the jamb (`_column_fairing`), so it meets the flank
     # opening's end face one radius outboard of that jamb — and what stands between it and the
     # side wall's outer surface there is the wall's own stock plus whatever `post_along` carries
-    # past the radius. It is the thinnest station on that face and a flute runs behind it.
+    # past the radius. It is the thinnest station on that face, and THE POST CARRIES A GROOVE
+    # ON EACH SIDE OF IT: the corner relief is fluted from the outer plan and the turn's own
+    # face from the bay storey's run, so what this reads is the ligament left between the two.
     face_land = _column_face_land(inner, outer)
-    face_back = face_land - flute_depth
+    face_back = face_land - 2.0 * flute_depth
+    want = flute_backing + 2.0 * flute_depth + column_round - (inner[0] - outer[0])
     record_bound(Bound(
         "column-face-backed", "The column's face keeps a wall where its turn lands on the flank",
         face_back >= flute_backing - stated_bound_tol,
-        f"{face_land:.4f} mm of section, {face_back:.4f} under a flute",
+        f"{face_land:.4f} mm of section, {face_back:.4f} between the two grooves",
         f"at least {flute_backing:g} mm",
         ([] if face_back >= flute_backing - stated_bound_tol else [
             f"the column's face lands {face_land:.4f} mm off the side wall's outer surface, "
-            f"which leaves {face_back:.4f} under a {flute_depth:g} mm groove. `post_along` "
-            f"wants at least {flute_backing + flute_depth + column_round - (inner[0] - outer[0]):.4f}"])))
+            f"and a {flute_depth:g} mm groove is cut into each of them, which leaves "
+            f"{face_back:.4f} between. `post_along` wants at least {want:.4f}"])))
     # THE MOUTH'S ROUND IS CAPPED BY THE PUMPS. Each head's relief reaches its own outboard
     # edge and its z0 IS the bay floor, so the relief's corner sits at the cartridge's own
     # bottom corner. A round bigger than the air between the two takes its bite out of the
@@ -2528,15 +2564,90 @@ def _plan_segments(outer):
     turn = math.pi * r / 2.0
     return (
         ("line", run_x / 2.0, ((0.0, oy0), (1.0, 0.0), (0.0, -1.0))),
-        ("arc", turn, ((ox1 - r, oy0 + r), -math.pi / 2.0)),
+        ("arc", turn, ((ox1 - r, oy0 + r), -math.pi / 2.0, r)),
         ("line", run_y, ((ox1, oy0 + r), (0.0, 1.0), (1.0, 0.0))),
-        ("arc", turn, ((ox1 - r, oy1 - r), 0.0)),
+        ("arc", turn, ((ox1 - r, oy1 - r), 0.0, r)),
         ("line", run_x, ((ox1 - r, oy1), (-1.0, 0.0), (0.0, 1.0))),
-        ("arc", turn, ((ox0 + r, oy1 - r), math.pi / 2.0)),
+        ("arc", turn, ((ox0 + r, oy1 - r), math.pi / 2.0, r)),
         ("line", run_y, ((ox0, oy1 - r), (0.0, -1.0), (-1.0, 0.0))),
-        ("arc", turn, ((ox0 + r, oy0 + r), math.pi)),
+        ("arc", turn, ((ox0 + r, oy0 + r), math.pi, r)),
         ("line", run_x / 2.0, ((ox0 + r, oy0), (1.0, 0.0), (0.0, -1.0))),
     )
+
+
+def _bay_storey_segments(inner, outer, bay, plate):
+    """The run round the INSIDE of the bay's storey, walked from the −X jamb to the +X one —
+    the surfaces that storey shows once the cartridge is in it.
+
+    IT IS THE BOX'S OWN PLAN WALKED INDOORS. Material on the left, so the normal it hands back
+    points into the room; two quarter turns of `column_round` and five straight runs, each
+    carrying its own length so a walk here is an arc-length walk like any other. The turns are
+    the corner posts' own faces, swung from the jamb (`_column_fairing`), and they are the
+    relief outside congruent — the same radius through the same quarter, so the field crosses
+    one the way it crosses the other.
+
+    ITS DATUM IS x = 0 ON THE TEE WALL — the plane the whole machine is struck about, and the
+    same plane the outer plan's datum stands on, so both fields put a groove there and each is
+    symmetric in x about it. It is walked from the middle out (`flute_rails`), which is why
+    the segments read from one jamb straight through to the other.
+
+    ITS TWO LONG OUTBOARD STRETCHES ARE AIR. Between the flank opening's fore end and the tee
+    wall the side wall is cut away over this whole storey (`_flank_opening`), so the walk
+    crosses the window rather than a surface and the piece simply answers that it has no
+    material there.
+
+    AND IT DOES NOT CLOSE. What lies between the two jambs is the drawer, not a surface; a run
+    stops at its own two ends and the field ramps out on them the way it ramps out on any edge,
+    which is what keeps the flutes off the jamb's arris (`flute-clears-jamb`)."""
+    bx0, bx1 = bay_x_span(inner)
+    r = column_round
+    fore = inner[2] + _column_along()      # the flank opening's own fore end, on the turn
+    aft = plate["aft_y"]                   # the tee wall's fore face, the storey's back
+    turn = math.pi * r / 2.0
+    ledge = (bx0 - r) - outer[0]           # that fore end face, exterior corner to the turn
+    window = aft - fore
+    return (
+        ("arc", turn, ((bx0 - r, inner[2]), 0.0, r)),
+        ("line", ledge, ((bx0 - r, fore), (-1.0, 0.0), (0.0, 1.0))),
+        ("line", window, ((outer[0], fore), (0.0, 1.0), (1.0, 0.0))),
+        ("line", outer[1] - outer[0], ((outer[0], aft), (1.0, 0.0), (0.0, -1.0))),
+        ("line", window, ((outer[1], aft), (0.0, -1.0), (-1.0, 0.0))),
+        ("line", ledge, ((outer[1], fore), (-1.0, 0.0), (0.0, 1.0))),
+        ("arc", turn, ((bx1 + r, inner[2]), math.pi / 2.0, r)),
+    )
+
+
+def bay_storey_z(bay):
+    """The storey the cartridge slides through — the seam's own ceiling (`_rim_cap`) up to the
+    bay's top.
+
+    Both flanks stand open across it (`_flank_opening`), each corner post's face is swung from
+    the jamb over it (`_column_fairing`), and it is the height band the storey's own run of
+    flutes exists over."""
+    return z_seam + lip_len + wall, bay[2]
+
+
+def _walk(segments, s):
+    """A run's point and OUTWARD normal at arc length `s` from where that walk begins.
+
+    Everything the field knows about a surface is here. A groove is struck at `s` and drawn
+    through the stations either side of it, so a corner costs the field nothing to know about:
+    the walk hands back a normal that has already turned."""
+    total = sum(length for _kind, length, _data in segments)
+    if not -1e-9 <= s <= total + 1e-9:
+        raise AssertionError("arc length walked off the end of a run")
+    s = min(max(s, 0.0), total)
+    for kind, length, data in segments:
+        if s <= length + 1e-9:
+            if kind == "line":
+                (px, py), (tx, ty), (nx, ny) = data
+                return (px + tx * s, py + ty * s), (nx, ny)
+            (cx, cy), a0, r = data
+            a = a0 + (math.pi / 2.0) * (s / length)
+            n = (math.cos(a), math.sin(a))
+            return (cx + r * n[0], cy + r * n[1]), n
+        s -= length
+    raise AssertionError("arc length walked off the end of a run")
 
 
 def plan_perimeter(outer):
@@ -2555,22 +2666,34 @@ def flute_pitch(outer):
 def plan_at(s, outer):
     """The outer plan boundary's point and OUTWARD normal at arc length `s` from the datum.
 
-    Everything the field knows about the box is here. A groove is struck at `s` and drawn
-    through the stations either side of it, so the box's corners cost the field nothing to
-    know about: the walk hands back a normal that has already turned."""
+    THE PLAN CLOSES, so any `s` is on it: the walk is taken modulo the perimeter and the box
+    has no station where the field restarts."""
     segments = _plan_segments(outer)
-    s = s % sum(length for _k, length, _d in segments)
-    for kind, length, data in segments:
-        if s <= length:
-            if kind == "line":
-                (px, py), (tx, ty), (nx, ny) = data
-                return (px + tx * s, py + ty * s), (nx, ny)
-            (cx, cy), a0 = data
-            a = a0 + (math.pi / 2.0) * (s / length)
-            n = (math.cos(a), math.sin(a))
-            return (cx + corner_round * n[0], cy + corner_round * n[1]), n
-        s -= length
-    raise AssertionError("arc length walked off the end of a closed plan")
+    return _walk(segments, s % sum(length for _k, length, _d in segments))
+
+
+def flute_rails(box, berthed=()):
+    """Every run this box's field is struck along.
+
+    THE OUTER PLAN IS ONE OF THEM, and the bay's storey is the other — the surfaces that
+    storey shows with the drawer in it (`_bay_storey_segments`). Both are struck at the same
+    `flute_pitch` from a datum on x = 0, so each puts a groove on the plane the machine is
+    struck about and neither is told the other exists.
+
+    `berthed` is what the assembly stands in that storey — the cartridge, its cap, the steel
+    plate. What a fitted body hides is not show face and gets no flutes
+    (`flute_skin._shadow_mask`); which of them hides what is measured, not listed."""
+    outer = box.outer
+    rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
+                              length=plan_perimeter(outer))]
+    if box.pump_bay and box.collet_plate:
+        segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.collet_plate)
+        run = sum(length for _kind, length, _data in segments)
+        rails.append(_flute_skin.Rail(
+            at=lambda s: _walk(segments, s + run / 2.0), length=run, start=-run / 2.0,
+            closed=False, band=bay_storey_z(box.pump_bay), berthed=tuple(berthed),
+            mouth=(0.0, -1.0)))
+    return rails
 
 
 def flute_centres(outer):
@@ -3682,7 +3805,7 @@ def _bay_cut(inner, outer, bay, pump_trays, plate):
     wedge_box = _ybox(bx0, bx1, inner[2] + 0.4, top - c + 1.5,
                       inner[2] + c - 1.5, top)
     return wall_box.fuse(wedge_box).fuse(
-        _flank_opening(inner, plate["aft_y"], z_seam + lip_len + wall, top))
+        _flank_opening(inner, plate["aft_y"], *bay_storey_z(bay)))
 
 
 def _rim_cap(inner, outer, plate, zj):
@@ -5279,6 +5402,44 @@ def _cond_mount(solid, inner, station, y0, y1, z0, z1):
     return solid
 
 
+def vent_band(airway):
+    """The height the condenser's vents are pierced over, as `(z0, z1)` — THE FAN'S FOOTPRINT
+    ON THE FLANK, taken off the block where it stands.
+
+    `cond_airway`'s last two figures are the placed block's own crown and base, so the fan's
+    two insets are read against metal that is already somewhere rather than against a station
+    typed here: raise the block and the vent rises with it. Everything else in the feature —
+    the transoms, the free area, the window a reading is taken over — is struck off this one
+    pair."""
+    return airway[2] + cond_fan_rise, airway[3] - cond_fan_drop
+
+
+def vent_transoms(airway):
+    """The unpierced bands crossing that vent, as `((z0, z1), ...)`.
+
+    THE LAYOUT IS THE BAND DIVIDED, not a list of stations. `cond_vent_transoms` transoms of
+    `cond_vent_transom_h` leave `cond_vent_transoms + 1` equal slot segments, so the band closes
+    on itself exactly and stays symmetric about its own mid-height whichever of the three figures
+    moves. The assertion is that closure: it is the one thing arithmetic here can get wrong."""
+    z0, z1 = vent_band(airway)
+    run = (z1 - z0 - cond_vent_transoms * cond_vent_transom_h) / (cond_vent_transoms + 1)
+    bands = tuple((z0 + (k + 1) * run + k * cond_vent_transom_h,
+                   z0 + (k + 1) * run + (k + 1) * cond_vent_transom_h)
+                  for k in range(cond_vent_transoms))
+    closed = (cond_vent_transoms + 1) * run + cond_vent_transoms * cond_vent_transom_h
+    assert abs(closed - (z1 - z0)) < 1e-9, "the vent's transoms do not close on its band"
+    assert all(abs(lo + hi - (z0 + z1)) < 1e-9
+               for (lo, _t), (_b, hi) in zip(bands, reversed(bands))), \
+        "the vent's transoms are not symmetric about the band"
+    return bands
+
+
+def vent_segment(airway):
+    """One slot segment — what a mullion stands free over between two transoms."""
+    z0, z1 = vent_band(airway)
+    return (z1 - z0 - cond_vent_transoms * cond_vent_transom_h) / (cond_vent_transoms + 1)
+
+
 def vent_grooves(outer, airway):
     """Every groove the condenser's vents pierce, as `((sx, y), ...)` — the flank's own sign and
     the groove's station on it, WALKED OFF ARC LENGTH and not counted off a wall.
@@ -5312,15 +5473,22 @@ def _vent_runs(solid, outer, airway, sx, y):
     break out of is anything ROOTED on the flank's inner face behind that same groove — so the
     reading is one probe `cond_vent_probe` deep on the slot's own footprint, and whatever it
     finds takes its own height plus `cond_vent_clear` of root either side out of the band. A
-    body standing free of that face is not in it and is not the vent's to answer for."""
-    band = [airway[2] + cond_vent_clear, airway[3] - cond_vent_clear]
+    body standing free of that face is not in it and is not the vent's to answer for.
+
+    AND THE TRANSOMS ARE TAKEN OUT OF THE SAME BAND, by the same sweep. A transom is height the
+    slot does not get, which is exactly what a rail rooted behind the groove is, so the two are
+    one sorted list and nothing here special-cases either. Where the MQ-6 cradle's upper rail
+    lands inside a segment the two simply compose, and what the slot comes out as is whatever the
+    sweep leaves — a run shorter than `cond_vent_run_min` is dropped rather than nicked in."""
+    band = list(vent_band(airway))
     face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
     half = reeding.pierce_width / 2.0
     xs = sorted((face - sx * cond_vent_probe, face - sx * stated_bound_tol))
     probe = _ybox(xs[0], xs[1], y - half, y + half,
                   band[0] - cond_vent_clear, band[1] + cond_vent_clear)
-    taken = sorted((b.zmin - cond_vent_clear, b.zmax + cond_vent_clear)
-                   for b in (s.BoundingBox() for s in probe.intersect(solid).Solids()))
+    taken = sorted([(b.zmin - cond_vent_clear, b.zmax + cond_vent_clear)
+                    for b in (s.BoundingBox() for s in probe.intersect(solid).Solids())]
+                   + list(vent_transoms(airway)))
     runs, lo = [], band[0]
     for tz0, tz1 in taken:
         if tz0 > lo:
@@ -5353,8 +5521,9 @@ def _vent_cutter(outer, sx, y, z0, z1):
 
 
 def vent_measure(solid, outer, airway, sx):
-    """One flank's vent, read off a BUILT PIECE at the band's own mid-height: every island the
-    wall keeps between two slots, and the free area the whole window opens.
+    """One flank's vent, read off a BUILT PIECE — every opening the wall actually came out with,
+    and from those the slots, the mullions between them, the height each mullion stands free
+    over, and the free area the whole window opens.
 
     A READING, AND NOT PART OF THE DRAWING. `_realized` keeps a piece between builds, so a
     reading taken while cutting is a reading the second build never takes and no row says so —
@@ -5362,28 +5531,41 @@ def vent_measure(solid, outer, airway, sx):
     `enclosure_assembly.check_flank_vents` for the ledger and by `main` for the page, off one
     derivation either way.
 
-    THE ISLANDS ARE THE MULLIONS. A slab through the flank's section over the airway's window
-    comes back as the material left standing, so what a gap between two of them measures is a
-    slot and what an island measures is the mullion beside it. The two at the window's ends run
-    off to the wall and are not mullions; the ones strictly between the first and last slot are.
+    ONE CUT, AND EVERY FIGURE OFF IT. The flank's own mid-section is taken as a slab over the
+    whole window and the whole band, and the piece is CUT OUT of it: what comes back is one solid
+    per OPENING, which is what the vent is. So a run's height is that solid's height and no
+    transom station is read back here, a slot's width is its width across the groove, a mullion is
+    the gap between two neighbouring slots, and the free area is what all of them come to. Read at
+    the mid-section because that is where a slot is a slot the whole way through.
 
-    Free area is read the same way and in the same plane: the window's own area less what the
-    wall still holds in it, at the flank's mid-section, which is where a slot is a slot the whole
-    way through."""
+    A MULLION STANDS FREE OVER THE OPENING BESIDE IT. Between two transoms the wall holds a
+    mullion at its two ends and nowhere in between, so the tallest opening on the flank IS the
+    tallest unbraced picket on it — the figure the transoms exist to set."""
     ay0, ay1 = airway[0], airway[1]
-    z = (airway[2] + airway[3]) / 2.0
+    bz0, bz1 = vent_band(airway)
     face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
     skin = outer[1] if sx > 0.0 else outer[0]
     xs = sorted(((face + skin) / 2.0 - 0.1, (face + skin) / 2.0 + 0.1))
-    slab = _ybox(xs[0], xs[1], ay0, ay1, z - 0.1, z + 0.1)
-    kept = slab.intersect(solid)
-    bounds = sorted((b.ymin, b.ymax) for b in (i.BoundingBox() for i in kept.Solids()))
-    slots = [lo1 - hi0 for (_lo0, hi0), (lo1, _hi1) in zip(bounds, bounds[1:])]
-    mullions = [hi - lo for lo, hi in bounds[1:-1]]
-    window = _ybox(xs[0], xs[1], ay0, ay1, airway[2] + cond_vent_clear,
-                   airway[3] - cond_vent_clear)
-    open_mm2 = (window.Volume() - window.intersect(solid).Volume()) / (xs[1] - xs[0])
-    return {"slots": slots, "mullions": mullions, "open_mm2": open_mm2, "z": z}
+    window = _ybox(xs[0], xs[1], ay0, ay1, bz0, bz1)
+    opened = window.cut(solid)
+    boxes = sorted((b.ymin, b.ymax, b.zmin, b.zmax)
+                   for b in (o.BoundingBox() for o in opened.Solids()))
+    # The openings gathered back into the slots they belong to: two runs of one slot share a Y
+    # span, and two slots never overlap in Y because a mullion stands between them.
+    columns = []
+    for ymin, ymax, zmin, zmax in boxes:
+        if columns and ymin < columns[-1][1] - stated_bound_tol:
+            columns[-1][1] = max(columns[-1][1], ymax)
+            columns[-1][2].append((zmin, zmax))
+        else:
+            columns.append([ymin, ymax, [(zmin, zmax)]])
+    slots = [hi - lo for lo, hi, _r in columns]
+    mullions = [lo1 - hi0 for (_l0, hi0, _r0), (lo1, _h1, _r1) in zip(columns, columns[1:])]
+    runs = [(hi - lo) for _l, _h, rs in columns for lo, hi in rs]
+    return {"slots": slots, "mullions": mullions, "runs": runs,
+            "tallest": max(runs, default=0.0),
+            "open_mm2": opened.Volume() / (xs[1] - xs[0]),
+            "band": (bz0, bz1)}
 
 
 def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
@@ -6342,7 +6524,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # jamb (`_column_fairing`), over the storey the flank opening leaves them standing in.
         # Before the bay's cut, which takes the jamb off the disc's own tangent.
         piece = _column_fairing(piece, inner, outer, box.pump_bay,
-                                (z_seam + lip_len + wall, box.pump_bay[2]))
+                                bay_storey_z(box.pump_bay))
         piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays,
                                    box.collet_plate))
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
@@ -6448,7 +6630,7 @@ def build_pieces(box):
     keep them: a build that moves a body inside the walls moves neither the box, which is its
     stated size, nor the code that cuts it, and a station moves only when the body carrying it
     does."""
-    _last_outer[0] = box.outer
+    _last_box[0] = box
     cache = {}
 
     def _product(n):
@@ -6481,29 +6663,52 @@ piece_mesh_angle = 0.15
 
 
 # The box the pieces were last drawn from, so `_export_pieces` can strike the flute field on the
-# same plan they were clipped to without being handed it through three call sites.
-_last_outer = [None]
+# same rails they were clipped to without being handed it through three call sites.
+_last_box = [None]
+
+
+def _piece_mesh(solid):
+    """One solid as the mesh that goes to a bed.
+
+    TESSELLATED, NOT ROUND-TRIPPED THROUGH STL. An STL is a triangle soup with no shared
+    vertices, and what comes back from re-merging one is a surface with edges that hold one
+    face where they should hold two — which a mesh boolean rightly refuses to treat as a
+    volume. `tessellate` hands back the indices directly."""
+    points, tris = solid.tessellate(piece_mesh_tol, piece_mesh_angle)
+    mesh = trimesh.Trimesh(vertices=[(p.x, p.y, p.z) for p in points],
+                           faces=tris, process=True)
+    mesh.merge_vertices()
+    return mesh
+
+
+def _collet_plate_body(plate):
+    """The steel that drops down in front of the tee wall, as the slab its own spec strikes.
+
+    IT IS THE ONE BODY IN THE BAY'S STOREY THIS MODULE DOES NOT PRINT — the plate is cut from
+    sheet (`enclosure_assembly.build_collet_plate`) — and the storey's run of flutes has to
+    know it stands there, because the wall behind it is a bearing face and not a show face."""
+    return _ybox(plate["x0"], plate["x1"], plate["fore_y"], plate["aft_y"],
+                 plate["z0"], plate["z1"])
 
 
 def _export_pieces(pieces, assy):
     refused = []
+    box = _last_box[0]
+    outer = box.outer
+    # EVERY BODY THE ASSEMBLY STANDS, MESHED ONCE. A piece is cut against the rails; the rest
+    # of them are what stands berthed in the room a rail runs round, and the steel is the one
+    # that is not a piece.
+    bodies = {name: _piece_mesh(piece.val()) for name, piece in pieces.items()}
+    steel = ([_piece_mesh(_collet_plate_body(box.collet_plate))]
+             if box.collet_plate else [])
     for name, piece in pieces.items():
         export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
                         str(_here.parent / f"enclosure-{name}.step"))
         print(f"-> enclosure-{name}.step")
-        # AND THE SHOW SURFACE IS FLUTED HERE, in the mesh, on the way to the bed. See
-        # `flute_skin.py` for why it is not in the solid.
-        #
-        # TESSELLATED, NOT ROUND-TRIPPED THROUGH STL. An STL is a triangle soup with no shared
-        # vertices, and what comes back from re-merging one is a surface with edges that hold
-        # one face where they should hold two — which a mesh boolean rightly refuses to treat
-        # as a volume. `tessellate` hands back the indices directly.
-        outer = _last_outer[0]
-        points, tris = piece.val().tessellate(piece_mesh_tol, piece_mesh_angle)
-        mesh = trimesh.Trimesh(vertices=[(p.x, p.y, p.z) for p in points],
-                               faces=tris, process=True)
-        mesh.merge_vertices()
-        mesh = _flute_skin.flute(mesh, outer, plan_at, plan_perimeter(outer),
+        # AND THE SHOW SURFACES ARE FLUTED HERE, in the mesh, on the way to the bed. See
+        # `flute_skin.py` for why they are not in the solid.
+        berthed = [m for other, m in bodies.items() if other != name] + steel
+        mesh = _flute_skin.flute(bodies[name], flute_rails(box, berthed),
                                  flute_pitch(outer), flute_depth, flute_rise)
         # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
         # carrying four faces rather than two — the solid touching itself along a line, which is
@@ -6652,8 +6857,12 @@ def main():
         # open behind it, off the exterior side face.
         "COLUMN_ALONG": f"{_column_along():.3g} mm",
         "COLUMN_DEPTH": f"{_column_depth():.3g} mm",
-        # And what stands behind that face across the bay, where its turn lands on the flank.
+        # And what stands behind that face across the bay, where its turn lands on the flank —
+        # with a groove cut into each side of it, so the second figure is the ligament between
+        # the two (`column-face-backed`).
         "COLUMN_FACE_LAND": f"{_column_face_land(box.inner, box.outer):.4g} mm",
+        "COLUMN_FACE_LIGAMENT": (
+            f"{_column_face_land(box.inner, box.outer) - 2.0 * flute_depth:.4g} mm"),
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
         # The walls on this box that are not `wall`, and the piece each belongs to. Every one
         # grows INWARD off the plane the box states, so the silhouette and `interior_x` both
@@ -6670,6 +6879,12 @@ def main():
         "FLUTE_RISE": f"{flute_rise:.4g} mm",
         "FLUTE_STEPS": f"{flute_fade_steps:d}",
         "FLUTE_RAMP": f"{math.degrees(math.atan(1.5 * flute_depth / flute_rise)):.3g}°",
+        # The box's second run of flutes, round the inside of the bay's storey.
+        "STOREY_RUN": (
+            f"{sum(l for _k, l, _d in _bay_storey_segments(box.inner, bo, box.pump_bay, box.collet_plate)):.5g} mm"
+            if box.pump_bay and box.collet_plate else "no bay on this pack"),
+        "STOREY_BAND": (f"{bay_storey_z(box.pump_bay)[0]:.4g}..{bay_storey_z(box.pump_bay)[1]:.4g} mm"
+                        if box.pump_bay else "no bay on this pack"),
         # The condenser's own two vents, pierced down the flutes those flanks already carry.
         # Every one of these is READ OFF THE BUILT PIECE (`vent_readings`) or off the field
         # the slot was struck on, so the page and `flank-vent-mullions` quote one derivation.
@@ -6686,13 +6901,44 @@ def main():
         "VENT_FLANK_T": f"{2.0 * wall:.4g} mm",
         "VENT_WINDOW": (f"{box.cond_airway[0]:.4g}..{box.cond_airway[1]:.4g} mm"
                         if box.cond_airway else "no block"),
-        "VENT_BAND": (
-            f"{box.cond_airway[2] + cond_vent_clear:.4g}..{box.cond_airway[3] - cond_vent_clear:.4g} mm"
-            if box.cond_airway else "no block"),
+        "VENT_BAND": (f"{vent_band(box.cond_airway)[0]:.4g}..{vent_band(box.cond_airway)[1]:.4g} mm"
+                      if box.cond_airway else "no block"),
+        "VENT_BAND_H": (f"{vent_band(box.cond_airway)[1] - vent_band(box.cond_airway)[0]:.4g} mm"
+                        if box.cond_airway else "no block"),
+        "VENT_FAN_RISE": f"{cond_fan_rise:.4g} mm",
+        "VENT_FAN_DROP": f"{cond_fan_drop:.4g} mm",
+        "VENT_TRANSOMS": f"{cond_vent_transoms:d}",
+        "VENT_TRANSOM_H": f"{cond_vent_transom_h:.4g} mm",
+        "VENT_TRANSOM_Z": (", ".join(f"{(a + b) / 2.0:.4g}" for a, b in
+                                     vent_transoms(box.cond_airway)) + " mm"
+                           if box.cond_airway else "no block"),
+        "VENT_SEGMENTS": f"{cond_vent_transoms + 1:d}",
+        "VENT_SEGMENT": (f"{vent_segment(box.cond_airway):.4g} mm"
+                         if box.cond_airway else "no block"),
         "VENT_GROOVES": (f"{sum(1 for sx, _y in vent_grooves(bo, box.cond_airway) if sx > 0):g}"
                          if box.cond_airway else "0"),
         "VENT_SLOTS_IN": (f"{len(vent_read[-1.0]['slots']):g}" if -1.0 in vent_read else "0"),
         "VENT_SLOTS_OUT": (f"{len(vent_read[1.0]['slots']):g}" if 1.0 in vent_read else "0"),
+        "VENT_RUNS_IN": (f"{len(vent_read[-1.0]['runs']):g}" if -1.0 in vent_read else "0"),
+        "VENT_RUNS_OUT": (f"{len(vent_read[1.0]['runs']):g}" if 1.0 in vent_read else "0"),
+        "VENT_TOWER": (f"{max(r['tallest'] for r in vent_read.values()):.4g} mm"
+                       if vent_read else "no vent"),
+        "VENT_TOWER_IN": (f"{vent_read[-1.0]['tallest']:.4g} mm" if -1.0 in vent_read else "no vent"),
+        "VENT_TOWER_OUT": (f"{vent_read[1.0]['tallest']:.4g} mm" if 1.0 in vent_read else "no vent"),
+        # And what the flank's own obstruction took out of that layout, read the same way: a run
+        # the sweep left SHORT of a full segment is a run something rooted on this wall stopped.
+        "VENT_SHORT": (f"{sum(1 for r in vent_read.values() for v in r['runs'] if v < vent_segment(box.cond_airway) - stated_bound_tol):g}"
+                       if vent_read and box.cond_airway else "0"),
+        "VENT_SHORTEST": ((lambda v: f"{v:.4g} mm")(
+            min(min(r["runs"]) for r in vent_read.values())) if vent_read else "no vent"),
+        "VENT_ASPECT": ((lambda tall, thin: f"{tall / thin:.3g}:1")(
+            max(r["tallest"] for r in vent_read.values()),
+            min(min(r["mullions"]) for r in vent_read.values()))
+            if vent_read else "no vent"),
+        "VENT_ASPECT_BARE": ((lambda tall, thin: f"{tall / thin:.3g}:1")(
+            vent_band(box.cond_airway)[1] - vent_band(box.cond_airway)[0],
+            min(min(r["mullions"]) for r in vent_read.values()))
+            if vent_read and box.cond_airway else "no vent"),
         "VENT_MEAS_MULLION": (
             f"{min(min(r['mullions']) for r in vent_read.values()):.4f} mm"
             if vent_read else "no vent"),

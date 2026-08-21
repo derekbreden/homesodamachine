@@ -1121,6 +1121,23 @@
    "active": true
   },
   {
+   "id": "flank-vent-towers",
+   "label": "No mullion the condenser's vents leave stands free for more than one slot segment",
+   "kind": "gate",
+   "status": "pass",
+   "value": "tallest of 176 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
+   "target": "at most 24.5000 mm, the segment 3 transoms leave in a 110 mm band",
+   "detail": [
+    "\u2212X intake  88 openings 14.5000\u201324.5000 mm tall in 22 slots",
+    "+X exhaust 88 openings 24.5000\u201324.5000 mm tall in 22 slots",
+    "the band is z 31..141 \u2014 the fan's own footprint, 22 mm up from the block's base and 5 down from its crown",
+    "transom 1 of 3: z 55.5..59.5, 4 mm of unpierced wall tying every mullion and both jambs",
+    "transom 2 of 3: z 84..88, 4 mm of unpierced wall tying every mullion and both jambs",
+    "transom 3 of 3: z 112.5..116.5, 4 mm of unpierced wall tying every mullion and both jambs"
+   ],
+   "active": true
+  },
+  {
    "id": "flank-vent-mullions",
    "label": "Every mullion the condenser's vents leave carries the exterior's four wall loops",
    "kind": "gate",
@@ -1128,8 +1145,8 @@
    "value": "thinnest of 42 mullions is 2.0285 mm across, on a 5.2416 mm section",
    "target": "at least 1.74 mm across, the loops the profile lays",
    "detail": [
-    "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 87.31 cm\u00b2 free over the airway's window",
-    "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 88.27 cm\u00b2 free over the airway's window"
+    "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 61.99 cm\u00b2 free over the fan's own band",
+    "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 62.61 cm\u00b2 free over the fan's own band"
    ],
    "active": true
   },
@@ -1388,7 +1405,7 @@
    "label": "The column's face keeps a wall where its turn lands on the flank",
    "kind": "gate",
    "status": "pass",
-   "value": "5.6760 mm of section, 4.4760 under a flute",
+   "value": "5.6760 mm of section, 3.2760 between the two grooves",
    "target": "at least 3 mm",
    "detail": [],
    "active": true
