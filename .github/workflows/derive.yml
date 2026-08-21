@@ -87,11 +87,35 @@ jobs:
       # already carries. Done here rather than in `.bazelrc`, which other work is holding.
       # (`cad-runner-bench` found this; its Linux lane does the same.)
       - name: A mount point for the sandbox
-        run: sudo mkdir -p /opt/homebrew /usr/local
+        run: |
+          sudo mkdir -p /opt/homebrew /usr/local
+          # `.bazelrc.paths` mounts the workspace's own .cache, and a mount pair whose source
+          # is absent is refused the same way. The cache action makes this on a hit; this
+          # makes it on a miss.
+          mkdir -p .cache
+
+      # `.bazelrc.paths` is THIS CHECKOUT'S OWN, gitignored by design, and it carries
+      # `HSM_WORKSPACE` — which every genrule's shell reads and which is unset in a checkout
+      # that has never had it written. A runner is exactly that checkout. `gen_build.py` is
+      # what writes it, and it rewrites BUILD.bazel from the traced graph at the same time:
+      # a no-op when the tree already names what it makes, and a real diff worth committing
+      # when it does not.
+      - name: This checkout's own paths
+        run: tools/cad-venv/bin/python tools/bazel/gen_build.py
 
       - name: Build everything this tree makes
+        id: build
         continue-on-error: true
         run: bazel --output_user_root=/tmp/bzl build --disk_cache="$HOME/.cache/bazel-disk" //:everything
+
+      # A RED BUILD DOES NOT HOLD THIS, but it must not be silent either: `continue-on-error`
+      # reports the step as a success, so a build that cut no solids reached the ledger and
+      # died there naming a missing STEP instead of naming itself. This says which happened.
+      - name: What the build said
+        run: |
+          echo "full-tree build: ${{ steps.build.outcome }}"
+          [ "${{ steps.build.outcome }}" = "success" ] || \
+            echo "::warning title=full-tree build::did not complete — what follows derives from the solids it did cut"
 
       # The ledger, in the order the modules document: masses price the totals, and the
       # totals' §7 feeds the print hours.
