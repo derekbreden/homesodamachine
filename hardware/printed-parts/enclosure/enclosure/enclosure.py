@@ -6927,8 +6927,8 @@ def main():
         "VENT_TOWER_OUT": (f"{vent_read[1.0]['tallest']:.4g} mm" if 1.0 in vent_read else "no vent"),
         # And what the flank's own obstruction took out of that layout, read the same way: a run
         # the sweep left SHORT of a full segment is a run something rooted on this wall stopped.
-        "VENT_SHORT": (f"{sum(1 for r in vent_read.values() for v in r['runs'] if v < vent_segment(box.cond_airway) - stated_bound_tol):g}"
-                       if vent_read and box.cond_airway else "0"),
+        "VENT_SHORT": ((lambda seg: f"{sum(1 for r in vent_read.values() for v in r['runs'] if v < seg - stated_bound_tol):g}")(
+            vent_segment(box.cond_airway)) if vent_read and box.cond_airway else "0"),
         "VENT_SHORTEST": ((lambda v: f"{v:.4g} mm")(
             min(min(r["runs"]) for r in vent_read.values())) if vent_read else "no vent"),
         "VENT_ASPECT": ((lambda tall, thin: f"{tall / thin:.3g}:1")(
