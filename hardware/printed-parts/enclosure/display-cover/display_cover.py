@@ -41,7 +41,7 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
 from _cadq_export import export_assembly
-from _materials import C_COVER, one_body
+from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 from enclosure import (
     display_bezel_depth,
@@ -274,7 +274,7 @@ def main():
     cover = build_display_cover()
 
     out = _here.parent / "display-cover.step"
-    export_assembly(one_body(cover, "display-cover", C_COVER), str(out))
+    export_assembly(one_body(cover, "display-cover", M_PETG_BLACK), str(out))
     print(f"-> {out.name}")
 
     bb = cover.val().BoundingBox()

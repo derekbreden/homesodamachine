@@ -244,12 +244,14 @@ _bounds.state(
     f"stand outboard of the barbs and this file only draws the step inward.")
 
 # --- Colours ---------------------------------------------------------------
-C_VALVE = cq.Color(0.93, 0.93, 0.91)
-C_COIL = cq.Color(0.20, 0.20, 0.23)
-C_TEE = cq.Color(0.12, 0.12, 0.14)
-C_HEAD = cq.Color(0.16, 0.16, 0.18)
-C_BOSS = cq.Color(0.30, 0.30, 0.33)
-C_MOTOR = cq.Color(0.74, 0.76, 0.80)
+# Every body here is bought, and each is drawn as the stock it is bought in — off `_materials`,
+# the same constants the reference generator beside each one bakes into its own STEP.
+from _materials import (C_COIL, C_PUMP_BOSS, C_PUMP_HEAD,  # noqa: E402
+                        C_PUMP_MOTOR, C_VALVE, M_JG_BLACK_PP)
+C_TEE = M_JG_BLACK_PP
+C_HEAD = C_PUMP_HEAD
+C_BOSS = C_PUMP_BOSS
+C_MOTOR = C_PUMP_MOTOR
 
 
 # --- Placement -------------------------------------------------------------

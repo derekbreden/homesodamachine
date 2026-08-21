@@ -2968,6 +2968,7 @@
     "reads": [
       "hardware/manifold-layout/README.figures.json",
       "hardware/manifold-layout/README.md",
+      "hardware/manifold-layout/manifold-layout.step.mesh",
       "hardware/manifold-layout/manifold_layout.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -3372,6 +3373,8 @@
     "reads": [
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/scripts/_materials.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -4911,10 +4914,12 @@
   },
   "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/digiten-flow-sensor/README.figures.json",
       "hardware/reference/digiten-flow-sensor/README.md",
       "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -5117,9 +5122,11 @@
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
@@ -5352,10 +5359,12 @@
   },
   "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {
     "reads": [
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/reference/waveshare-43b-display/README.figures.json",
       "hardware/reference/waveshare-43b-display/README.md",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
@@ -5711,7 +5720,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh"
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
     ]
   },
   "hardware/service/_pump_replacement_sync.py": {

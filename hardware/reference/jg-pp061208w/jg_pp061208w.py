@@ -32,7 +32,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_assembly
-from _materials import M_JG_BLACK_PP, one_body
+from _materials import M_JG_WHITE_PP, one_body
 
 STEM_D = 9.53               # 3/8" OD, JG tube tolerance +0.001/-0.004" (JG tech spec)
 STEM_LENGTH = 18.29         # JG 3/8" cavity F1 = 0.720", the length swallowed by the mating collet
@@ -167,7 +167,7 @@ def main():
               f"facing ({axis[0]:g}, {axis[1]:g}, {axis[2]:g})")
     print(f"  Solid valid: {part.isValid()}")
     out = _here.parent / "jg-pp061208w.step"
-    export_assembly(one_body(part, "jg-pp061208w", M_JG_BLACK_PP), str(out))
+    export_assembly(one_body(part, "jg-pp061208w", M_JG_WHITE_PP), str(out))
     print(f"-> {out.name}")
 
 

@@ -40,6 +40,7 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly
+from _materials import C_DISPLAY, C_DISPLAY_GLASS
 from docgen import substitute_md, substitute_py_comments
 
 # --- Main body: PCB + display module + rear components -----------------------
@@ -99,8 +100,8 @@ def build_bezel():
 
 
 _PARTS = [
-    ("body",  build_body,  cq.Color(0.10, 0.42, 0.22)),  # green PCB / module
-    ("bezel", build_bezel, cq.Color(0.12, 0.13, 0.16)),  # dark cover glass
+    ("body",  build_body,  C_DISPLAY),        # the module's own blue solder mask
+    ("bezel", build_bezel, C_DISPLAY_GLASS),  # the cover glass over the panel
 ]
 
 

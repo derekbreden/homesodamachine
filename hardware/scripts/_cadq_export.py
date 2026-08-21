@@ -707,6 +707,16 @@ def _queue_thumbnail(target_path, source=None):
     target = Path(target_path).resolve()
     if target.suffix != ".step":
         return
+    # THE TOOL IS READ WHETHER OR NOT THIS RUN STARTS IT, and both skips below are runs that do
+    # not. `trace_inputs.py` learns a tool's path from the `subprocess` that names it, and the
+    # spawn here is deferred to an `atexit` hook — which fires after the tracer has already
+    # written its reading, in a `finally:`. So nothing recorded this, and re-tracing any
+    # STEP-cutting generator DELETED `render-thumbnails.js` from its declared inputs: 60
+    # entries in `graph.json` named it, and re-tracing five left 55. A renderer no target
+    # declares is a renderer whose change invalidates nothing, and that goes red nowhere.
+    # `note_read` is the same answer the three deck builders already give for `render-card.js`.
+    if _THUMBNAIL_TOOL is not None:
+        note_read(_THUMBNAIL_TOOL)
     # The payload is what the PAGE reads, and it goes down whenever the STEP does. A thumbnail
     # already standing for these bytes is a thumbnail nobody has to render again — it is not a
     # reason to leave the page parsing the model it stands for.

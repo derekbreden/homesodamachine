@@ -60,14 +60,13 @@ import gagira_reducing_coupling as coupling
 import jg_pp010822e as ptc
 import multiplex_asse1022 as bfp
 
-# The viewer draws thumbnails in x-ray: a body is carried by its edges, in its own
-# color, against a #1a1a2e ground. Each fitting holds 3:1 or better on that ground and
-# a hue the chain uses once, so it reads as its own body beside the one it butts onto.
-BRASS = cq.Color(0.72, 0.58, 0.28)        # the Multiplex body — 5.98:1
-STAINLESS = cq.Color(0.72, 0.74, 0.78)    # 304 SS — the barb stem, 9.05:1
-COUPLING_SS = cq.Color(0.25, 0.78, 0.72)  # the 316L coupling, flat to the body's — 8.19:1
-BLACK_PP = cq.Color(0.42, 0.44, 0.48)     # John Guest polypropylene — 3.43:1
-CLEAR_PVC = cq.Color(0.85, 0.90, 0.92, 0.45)
+# EACH FITTING IS THE COLOUR OF ITS OWN STOCK, off `_materials` — the same constant its own
+# generator next door bakes into its own STEP, so a body in this chain and the picture of that
+# body alone are one colour. Two of the five are the same metal and are drawn the same metal:
+# what tells the GAGIRA coupling from the barrel it swallows is the step between their hexes,
+# which is what tells them apart on the bench.
+from _materials import (M_BRASS, M_JG_BLACK_PP, M_JG_GREY_ACETAL,  # noqa: E402
+                        M_PVC_CLEAR, M_STAINLESS)
 
 # The vent stub: Sealproof 1/4" ID × 3/8" OD clear PVC, bored to the barb it slips
 # over so the barb occupies the hose rather than its wall. It covers the barb to the
@@ -135,11 +134,11 @@ def flow_axis() -> tuple:
 # The chain, in the order the water meets it: what draws each station, the seat it takes,
 # and its hue. The ASSE 1022 is the frame the other four are seated in.
 STATIONS = {
-    "jg-pp010822e":       (ptc,      _along(PTC_X),      BLACK_PP),
-    "gagira-coupling":    (coupling, _along(COUPLING_X), COUPLING_SS),
-    "multiplex-asse1022": (bfp,      Seat(),             BRASS),
-    "flare38-14ptc":      (oadapt,   _along(OUTLET_X),   STAINLESS),
-    "vent-stub":          (_stub,    Seat(),             CLEAR_PVC),
+    "jg-pp010822e":       (ptc,      _along(PTC_X),      M_JG_BLACK_PP),
+    "gagira-coupling":    (coupling, _along(COUPLING_X), M_STAINLESS),
+    "multiplex-asse1022": (bfp,      Seat(),             M_BRASS),
+    "flare38-14ptc":      (oadapt,   _along(OUTLET_X),   M_JG_GREY_ACETAL),
+    "vent-stub":          (_stub,    Seat(),             M_PVC_CLEAR),
 }
 
 # This assembly's boundary: the two mouths the cabinet plumbs to, and the one it catches

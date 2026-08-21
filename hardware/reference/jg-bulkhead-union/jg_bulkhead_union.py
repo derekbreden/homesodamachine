@@ -38,7 +38,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
 from _cadq_export import export_assembly, import_step
-from _materials import M_JG_BLACK_PP, one_body
+from _materials import M_JG_GREY_ACETAL, one_body
 from _measuring import bores
 from world_workplane import xz_plane_y_up
 
@@ -202,7 +202,7 @@ def main():
 
     here = Path(__file__).resolve().parent
     out = here / "jg-bulkhead-union.step"
-    export_assembly(one_body(part, "jg-bulkhead-union", M_JG_BLACK_PP), str(out))
+    export_assembly(one_body(part, "jg-bulkhead-union", M_JG_GREY_ACETAL), str(out))
     print(f"-> {out.name}")
 
 

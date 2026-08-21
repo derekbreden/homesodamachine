@@ -32,7 +32,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_assembly
-from _materials import M_JG_BLACK_PP, one_body
+from _materials import M_JG_WHITE_PP, one_body
 
 RUN_LENGTH = 56.13          # barb tip to barb tip, 2.21" (TT3666 dim G, PP row)
 BARB_ROOT_D = 9.40          # run body Ø, and the root between ridges, .370" (dim A)
@@ -171,7 +171,7 @@ def main():
               f"out ({axis[0]:.0f}, {axis[1]:.0f}, {axis[2]:.0f})")
     print(f"  Solid valid: {part.isValid()}")
     out = _here.parent / "basics-mtb-0606wp.step"
-    export_assembly(one_body(part, out.stem, M_JG_BLACK_PP), str(out))
+    export_assembly(one_body(part, out.stem, M_JG_WHITE_PP), str(out))
     print(f"-> {out.name}")
 
 
