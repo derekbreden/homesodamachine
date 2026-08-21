@@ -1,0 +1,149 @@
+# Everything derived from the geometry, computed off the agent's machine.
+#
+# THE AGENT'S COMMIT CARRIES THE GEOMETRY. This carries what follows from it: the ledger's
+# masses, costs and hours, the docs' figures, the card deck, the full-tree build, and the
+# solids bundle the deploy fetches. None of it is a decision — every step is a number that
+# needs copying — and every one of them takes `_run_lock.py`'s global CAD lock, which is one
+# build at a time across the whole repo. Run here, three agents in one tree stop queueing
+# behind each other for work that informs none of their choices.
+#
+# A RED CHECK DOES NOT HOLD THIS, the same way it does not hold a commit. The full-tree build
+# reports and the derived commit lands anyway; a card that spills is the next commit's work,
+# not a reason for the ledger to go stale.
+#
+# THE PUSH-BACK DOES NOT RETRIGGER. GitHub does not start a workflow run for a push made with
+# the repository's own GITHUB_TOKEN, so the derived commit needs no `[skip ci]` marker and the
+# log keeps the voice the rest of the history has.
+
+name: derive
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  # One derive at a time, and a newer push wins — the tree it would pack is the one that
+  # matters. `cancel-in-progress` is safe here because nothing is committed until the end.
+  group: derive
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  derive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: tools/cad-requirements.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: The CAD environment, at its pin
+        run: |
+          python3 -m venv tools/cad-venv
+          tools/cad-venv/bin/pip install --quiet --upgrade pip
+          tools/cad-venv/bin/pip install --quiet -r tools/cad-requirements.txt
+          tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
+
+      - name: The renderers
+        run: npm ci --prefix tools/render
+
+      # The two caches that decide what this costs. `.cache/realized` is keyed on each part's
+      # description plus the full text of every module it transitively imports, so a run that
+      # moved one generator redraws only what that generator's shape depends on — exactly the
+      # property that makes the local loop fast. Keyed on the tree's own python so a source
+      # edit rolls the key forward and still restores the run before it.
+      - name: Restore the drawn solids
+        uses: actions/cache@v4
+        with:
+          path: .cache/realized
+          key: realized-${{ hashFiles('hardware/**/*.py') }}
+          restore-keys: realized-
+
+      - name: Restore the bazel disk cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/bazel-disk
+          key: bazel-${{ hashFiles('BUILD.bazel', 'tools/bazel/graph.json') }}
+          restore-keys: bazel-
+
+      - name: Build everything this tree makes
+        continue-on-error: true
+        run: bazel --output_user_root=/tmp/bzl build --disk_cache="$HOME/.cache/bazel-disk" //:everything
+
+      # The ledger, in the order the modules document: masses price the totals, and the
+      # totals' §7 feeds the print hours.
+      - name: The ledger
+        run: |
+          tools/cad-venv/bin/python hardware/scripts/_bom_masses.py
+          python3 hardware/scripts/_bom_totals.py
+          python3 hardware/scripts/_labor_totals.py
+          python3 hardware/scripts/_machine_time.py
+          python3 hardware/scripts/_build_time.py
+
+      - name: The docs
+        run: |
+          tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
+          tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
+
+      - name: The card deck
+        continue-on-error: true
+        run: tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py
+
+      # The solids, as one content-addressed release asset the deploy fetches. `--write` is a
+      # no-op on a tree whose geometry has not moved: it lands on the same asset name and the
+      # same bytes, and never rewrites one already on the release.
+      - name: The bundle, and the lock that names it
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write
+
+      - name: Commit what moved
+        run: |
+          git config user.name  "Derek Bredensteiner"
+          git config user.email "derekbreden@gmail.com"
+          # `git add -A` is forbidden on a working machine, where it sweeps a peer's
+          # half-finished edit into your commit. It is right HERE and only here: this is a
+          # clean clone that nothing else touches, so everything dirty in it is something
+          # this job put there — including a derived file that is new rather than moved,
+          # which `git diff` cannot see.
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "nothing derived moved — the tree already names what it makes"
+            exit 0
+          fi
+          git status --porcelain | sed 's/^/  /'
+          git add -A
+          git commit -F - <<'MSG'
+          the tree names what it makes
+
+          The ledger, the docs, the deck and the lock, re-derived off the geometry in the
+          commit before this one.
+
+          Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+          MSG
+          # Three agents share this branch, so the tip can move while this runs.
+          # A rebase that CONFLICTS is a derived file two runs disagree about, and the run
+          # that answers it is the next one — over the tree as it then stands, not over a
+          # merge of two halves. So abort and fail; the push that lands next re-derives.
+          for i in 1 2 3; do
+            if ! git pull --rebase origin main; then
+              git rebase --abort || true
+              echo "a derived file conflicts with main — the next push re-derives it" >&2
+              exit 1
+            fi
+            git push origin HEAD:main && exit 0
+            echo "main moved under the push — retrying"
+          done
+          echo "could not land the derived commit after three tries" >&2
+          exit 1
