@@ -23,11 +23,23 @@ on:
   workflow_dispatch:
 
 concurrency:
-  # One derive at a time, and they QUEUE rather than cancel. Cancelling reads better — only
-  # the newest tree matters — but three agents share this branch, and a push arriving inside
-  # a run would cancel it every time, so the lock would go stale for as long as they were
-  # working. A queued run costs minutes this repo does not pay for; a starved one costs the
-  # deploy its solids.
+  # ONE RUNNING, ONE WAITING, AND EVERYTHING ELSE DISCARDED. `cancel-in-progress: false` buys
+  # exactly one thing: a run already executing is not killed when a push lands behind it. It
+  # says nothing about pending runs — GitHub holds at most ONE per group and cancels it the
+  # moment another is queued. So under a burst of pushes most runs never execute at all, and
+  # eight of ten did not in the twenty-five minutes this was written in.
+  #
+  # THAT IS THE RIGHT OUTCOME AND THE WRONG WORD FOR IT. Only the newest tree is worth
+  # deriving, so discarding the ones overtaken costs nothing — while killing a RUNNING derive
+  # every time a push arrives would leave the lock stale for as long as the agents worked,
+  # which is what this setting exists to prevent. It is not a queue and it never was.
+  #
+  # AND A `workflow_dispatch` CANNOT JUMP IT. The group is a bare string with no event key,
+  # so a dispatched run competes for the same single pending slot as every push. Forcing a
+  # green run during a burst is not available; a lull is what delivers one.
+  #
+  # THE GROUP STAYS WHOLE. Splitting it by event or by SHA puts two derives in flight, and
+  # both reach `pack.py --write` and the commit-back — the race the single group prevents.
   group: derive
   cancel-in-progress: false
 
