@@ -94,6 +94,17 @@ tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top  # 
 tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force   # anyway
 ```
 
+The browser is stood **once** too, for however many pictures the run has to draw. Standing a web
+server, launching Chromium, navigating and waiting for the page's whole module graph — three.js,
+the viewer, `occt-import-js` in wasm — is ~1.6 s against a render of ~0.3 s, so paid per picture
+it was 34 boots for 34 pictures. Every cut queues its picture, and the list goes to
+`render-step-posed.js --jobs` as one JSON array over stdin; that re-points ONE page at each
+subject through the viewer's own `loadStepFile`. Measured over the deck as it stands, forced:
+**the 23 part shots take 91.4 s as 23 invocations and 40.0 s as one, the 11 scenes 26.8 s and
+4.0 s** — and every one of the 34 pictures comes out byte for byte the same either way. A job
+that fails is named and the rest still draw; the run then exits non-zero, so no sidecar is
+written and the next run redraws rather than trusting a picture nobody took.
+
 The machine is built **once** for however many scenes are asked for, then cut one way each. The
 scene STEPs land in `out/`, which `.gitignore` holds — a 22 MB intermediate that churns on every
 move of any body it contains is exactly the commit cost these pictures must not add. What is
