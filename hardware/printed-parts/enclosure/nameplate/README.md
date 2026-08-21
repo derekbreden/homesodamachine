@@ -31,8 +31,8 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 
 One face, `port_ring.WORD_FONT`, in two registers. The name and the block are set at
 [6.5](TITLE_EM) — `port_ring.WORD_SIZE`, the em the bulkhead chips beside this plate are
-lettered at. The link is set at [5.62](LINK_EM): the em that brings it out at
-[97.3 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
+lettered at. The link is set at [6.05](LINK_EM): the em that brings it out at
+[88.8 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
 marks that measure the same. Every serial is four digits and this face sets figures on one
 advance, so that holds from unit 0001 to 9999.
 
