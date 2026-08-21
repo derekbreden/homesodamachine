@@ -39,8 +39,10 @@ hardware/pcb/pcba/out/*.step
 .*.dxf.*.dxf
 .*.pdf.*.pdf
 
-# The internal tools' lock files. Both are installed by hand on one machine.
-tools/render/package-lock.json
+# Remotion's lock file — installed by hand on one machine, and nothing else reads it.
+# `tools/render`'s is NOT here: the derive workflow installs those renderers too, and what
+# they draw is committed. An unpinned puppeteer renders the same card to different pixels,
+# which is a diff on every run in files the tree holds.
 marketing/video/remotion/package-lock.json
 
 # Remotion channel foundation: render outputs and caches are regenerable
