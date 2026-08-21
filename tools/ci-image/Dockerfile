@@ -48,8 +48,16 @@ RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*
     && mv "/opt/blender-${BLENDER_VERSION}-linux-x64" /opt/blender \
     && ln -s /opt/blender/blender /usr/local/bin/blender
 
-# Node 20, because `tools/render/package.json` says `>=20` and the card deck is node.
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+# NODE 22, WHICH IS WHAT THE LOCKFILES ACTUALLY ASK FOR. `tools/render/package.json` says
+# `>=20`, but its own lock pins puppeteer, puppeteer-core and @puppeteer/browsers at
+# `>=22.12.0`, and `web/package.json` is `>=22` outright — so 20 installs with EBADENGINE
+# across both trees. The Mac that cuts these runs 22.16.0.
+#
+# AND THE VERSION HERE IS THE ONE THE BUILD ACTUALLY USES, which was not true before. Every
+# genrule's PATH is `.bazelrc`'s `--action_env`, so a bazel action reaches /usr/bin/node and
+# never the one `actions/setup-node` puts in the tool cache — the hosted runner's own node 22
+# is what every CI build has run on, whatever the workflow asked for.
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
