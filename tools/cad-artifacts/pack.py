@@ -17,9 +17,10 @@ uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carr
 pack over a tree whose geometry has not moved lands on the same asset name and the same bytes —
 the property `_cadq_export` gives each STEP it canonicalizes, kept at the bundle.
 
-The walk reaches every `.step` under `hardware/` on disk, and every `.stl` under
-`BUNDLED_MESH_DIRS` — the one place where the solid is not the whole of the part. What sits out is
-`NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk found against the outputs
+The walk reaches every `.step` under `hardware/` on disk, every `.stl` under `BUNDLED_MESH_DIRS`
+— the one place where the solid is not the whole of the part — and every `.glb` under
+`BUNDLED_GLB_DIRS`, which the parts viewer opens directly rather than through a STEP. What sits
+out is `NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk found against the outputs
 `tools/bazel/graph.json` declares, and names anything the graph does not carry.
 """
 
@@ -113,9 +114,15 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # the build graph, on a machine that has just cut them.
 BUNDLED_MESH_DIRS = ()
 
+#: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
+#: a build directory and hands one to `openGlbDetail`, so a deploy that cannot find them serves a
+#: catalog whose scenes do not open. `render_scenes.py` cuts them and `graph.json` declares all
+#: eleven, which is what `--check` holds them against.
+BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
+
 
 def solids(root: Path) -> list:
-    """Every generated `.step` and `.stl` under `hardware/`, repo-relative and sorted.
+    """Every generated `.step`, `.stl` and `.glb` under `hardware/`, repo-relative and sorted.
 
     Off the disk, tracked or not: an artifact the index does not hold is one a fresh clone still
     has to be sent, and it is the lock that carries it into the index."""
@@ -124,10 +131,13 @@ def solids(root: Path) -> list:
         return []
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
     meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
+    scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
     out = []
     walk = list(hw.rglob("*.step"))
     for d in BUNDLED_MESH_DIRS:
         walk += list((root / d).rglob("*.stl"))
+    for d in BUNDLED_GLB_DIRS:
+        walk += list((root / d).rglob("*.glb"))
     for p in walk:
         if not p.is_file() or p.is_symlink():
             continue
@@ -135,6 +145,8 @@ def solids(root: Path) -> list:
         if rel.startswith(skip) or rel in HARVESTED:
             continue
         if p.suffix == ".stl" and not rel.startswith(meshes):
+            continue
+        if p.suffix == ".glb" and not rel.startswith(scenes):
             continue
         # A dependency's own test fixtures are solids on this disk that no part of this machine
         # is made of. `occt-import-js` ships eight.
