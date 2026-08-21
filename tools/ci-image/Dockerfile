@@ -57,9 +57,14 @@ RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*
 # `BLENDER_USER_RESOURCES` for the same reason `BAZELISK_HOME` is here: the default lives
 # under $HOME, and this image is built as root and run as /github/home.
 ENV BLENDER_USER_RESOURCES=/opt/hsm/blender
+# `--online-mode` BECAUSE BLENDER SHIPS OFFLINE. Online access is a System preference that
+# defaults OFF, and both subcommands refuse without it — "Online access required to check for
+# updates", raised by the operator's poll rather than by the network. The flag is the
+# non-interactive way to say yes, and it is the whole of what the image needs it for: two
+# fetches at build time, none at run time.
 RUN mkdir -p "$BLENDER_USER_RESOURCES" \
-    && blender --background --command extension sync \
-    && blender --background --command extension install freestyle_svg_exporter \
+    && blender --background --online-mode --command extension sync \
+    && blender --background --online-mode --command extension install freestyle_svg_exporter \
          --repo blender_org \
     && find "$BLENDER_USER_RESOURCES" -maxdepth 5 -name "*freestyle_svg_exporter*" -print | grep .
 
