@@ -1491,15 +1491,16 @@ def check_collet_plate(spec, mcarry) -> None:
             f"`BARB_STANDOFF`, or thin the plate"])))
 
 
-EXTRUSION_W = 0.8            # `enclosure-front-top` prints on a 0.8 nozzle (`ledger/machine-time.md`)
+EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
+                             # (`printed-parts/enclosure/enclosure/print-log.md`)
 
 
 def check_panel_web() -> Bound:
     """The wall left between a valve seat's sockets and the port channel that runs past them.
 
-    A WALL THINNER THAN ONE EXTRUSION IS NOT A THIN WALL, IT IS NOTHING. This piece prints on a
-    0.8 nozzle, so a web the model draws at a quarter of that is a web the slicer lays no
-    material in at all: the socket opens into the channel and the post loses its inboard flank
+    A WALL THINNER THAN ONE EXTRUSION IS NOT A THIN WALL, IT IS NOTHING. A web the model draws
+    at a quarter of the bead this piece is printed with is a web the slicer lays no material in
+    at all: the socket opens into the channel and the post loses its inboard flank
     over that stretch. The solid says the post is surrounded; the bed says otherwise, and no
     clash check, no volume and no `post-engagement` reading can tell the difference — they all
     measure the model, and the model is right.

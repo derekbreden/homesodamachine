@@ -17,9 +17,10 @@ uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carr
 pack over a tree whose geometry has not moved lands on the same asset name and the same bytes —
 the property `_cadq_export` gives each STEP it canonicalizes, kept at the bundle.
 
-The walk reaches every `.step` under `hardware/` on disk. What sits out is `NOT_BUNDLED_DIRS` and
-`HARVESTED` below. `--check` holds what the walk found against the outputs `tools/bazel/graph.json`
-declares, and names any solid the graph does not carry.
+The walk reaches every `.step` under `hardware/` on disk, and every `.stl` under
+`BUNDLED_MESH_DIRS` — the one place where the solid is not the whole of the part. What sits out is
+`NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk found against the outputs
+`tools/bazel/graph.json` declares, and names anything the graph does not carry.
 """
 
 import argparse
@@ -64,27 +65,49 @@ def _sha256(path) -> str:
     return h.hexdigest()
 
 
-def solids(root: Path) -> list:
-    """Every generated `.step` under `hardware/`, repo-relative and sorted.
+# WHERE A MESH IS CARRIED TOO. STEP is the solid a reader models from, and everywhere else on
+# this machine it is the whole of the part. The enclosure is the exception: its show surface is
+# fluted in the MESH and not in the solid, because the fade that stops the flutes is a field
+# over the surface rather than a figure a prism can hold
+# (`printed-parts/enclosure/enclosure/flute_skin.py`). A bundle of STEP alone would hand a fresh
+# clone, the website and the card decks an unfluted box while the one artifact with the texture
+# on it sat on whichever laptop last ran the build.
+#
+# IT IS NOT EVERY MESH ON THE DISK, and the difference is not small. The texture coupons, tiles
+# and vent coupons are PRINT TESTS — 303 MB of them against 772 KB of parts — and nothing
+# downstream serves their surface. `fetch-cad-artifacts.mjs` runs in the deploy's build command
+# and sha256s every member on the way in, so a blanket suffix would put about 45 MB of gzipped
+# print tests into a fetch that happens on every deploy, forever.
+BUNDLED_MESH_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
 
-    Off the disk, tracked or not: a solid the index does not hold is one a fresh clone still has
-    to be sent, and it is the lock that carries it into the index."""
+
+def solids(root: Path) -> list:
+    """Every generated `.step` and `.stl` under `hardware/`, repo-relative and sorted.
+
+    Off the disk, tracked or not: an artifact the index does not hold is one a fresh clone still
+    has to be sent, and it is the lock that carries it into the index."""
     hw = root / "hardware"
     if not hw.is_dir():
         return []
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
+    meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
     out = []
-    for p in hw.rglob("*.step"):
+    walk = list(hw.rglob("*.step"))
+    for d in BUNDLED_MESH_DIRS:
+        walk += list((root / d).rglob("*.stl"))
+    for p in walk:
         if not p.is_file() or p.is_symlink():
             continue
         rel = p.relative_to(root).as_posix()
         if rel.startswith(skip) or rel in HARVESTED:
             continue
+        if p.suffix == ".stl" and not rel.startswith(meshes):
+            continue
         # A dependency's own test fixtures are solids on this disk that no part of this machine
         # is made of. `occt-import-js` ships eight.
         if "node_modules/" in rel:
             continue
-        # An atomic-export temp caught mid-write (`.NAME.step.PID.RAND.step`) is not a solid.
+        # An atomic-export temp caught mid-write (`.NAME.step.PID.RAND.step`) is not one.
         if p.name.startswith("."):
             continue
         out.append(rel)
@@ -165,7 +188,12 @@ def _undeclared(root: Path, rels: list) -> list:
     """Generated solids the walk reached that `graph.json` does not declare an output.
 
     Named, not excluded: the bundle carries a part whose generator has not been re-traced.
-    `HARVESTED` is already out of `rels`, so what is left is a fresh part or a stale graph."""
+    `HARVESTED` is already out of `rels`, so what is left is a fresh part or a stale graph.
+
+    A MESH IS DECLARED BY THE RULE THAT DECLARES ITS SOLID. Both come out of one generator in one
+    run — `enclosure.py` writes the STEP and then cuts the flutes into the mesh on the way to the
+    bed — so a graph that carries the solid carries the mesh, and naming the mesh separately
+    would report a part as untraced for having two outputs instead of one."""
     try:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
@@ -174,9 +202,11 @@ def _undeclared(root: Path, rels: list) -> list:
     for node in graph.values():
         for key in ("writes", "outs", "outputs"):
             for f in (node.get(key) or []):
-                if str(f).endswith(".step"):
+                if str(f).endswith((".step", ".stl")):
                     declared.add(str(f))
-    return [r for r in rels if r not in declared]
+    return [r for r in rels
+            if r not in declared
+            and not (r.endswith(".stl") and r[:-4] + ".step" in declared)]
 
 
 def _gh(root: Path, *args, **kw):
