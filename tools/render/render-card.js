@@ -285,13 +285,18 @@ async function main() {
     // cards at that size render on the authoring Mac in 15.9 s all told, exit 0, taken
     // with 80 MB free and 3.7 GB of swap in use.
     //
-    // What is left is the container: the capture returns here and does not there, on the
-    // first cards of a cold browser. That is where to look, and it is not the clock.
+    // What is left is the container, and it is POSITIONAL: sorted first in each deck is
+    // `bs-band-saw` and `00-cover`, and those are the two that hang, in both decks, every
+    // run. They share nothing but position — one is 9 KB with three images, the other is
+    // a cover. `warmUp` below is what stops a card ever being the first capture.
     protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 240000),
   });
   let overflowed = 0;
   const unrendered = [];
   try {
+    if (!(await warmUp(browser))) {
+      console.error("render-card: no capture returned on a cold browser");
+    }
     let page = await newCardPage(browser, opts);
     for (const job of jobs) {
       let overflow;
@@ -350,6 +355,49 @@ async function main() {
     console.error(parts.join("; "));
     process.exit(2);
   }
+}
+
+//: How long a throwaway capture gets before it is treated as the hung one, and how
+//: many pages get a turn. Three at ten seconds is thirty seconds spent in the worst
+//: case, against a target that fails.
+const WARM_MS = 10000;
+const WARM_TRIES = 3;
+
+// The first `Page.captureScreenshot` a cold browser is asked for in the CI container
+// does not return, and a fresh page clears it: after the sorted-first card hangs, the
+// `recycle` below draws every remaining card. So the run spends its first capture on
+// an 8x8 blank page nobody keeps.
+//
+// The wait is this function's own rather than `protocolTimeout`'s, because the point
+// is to find out cheaply. A capture that has not answered in ten seconds is the one
+// this exists for; the page it is stuck in is closed, which is what rejects it, and
+// the next attempt gets a page of its own. Returns false when none of them answered,
+// which is a browser the deck is not going to come out of.
+async function warmUp(browser) {
+  for (let attempt = 1; attempt <= WARM_TRIES; attempt++) {
+    let page;
+    try {
+      page = await browser.newPage();
+      await page.setViewport({ width: 8, height: 8, deviceScaleFactor: 1 });
+    } catch {
+      return false;                       // the browser itself is gone
+    }
+    const shot = page
+      .screenshot({ type: "png", clip: { x: 0, y: 0, width: 8, height: 8 } })
+      .then(() => true, () => false);
+    let timer;
+    const deadline = new Promise((done) => { timer = setTimeout(() => done(false), WARM_MS); });
+    const answered = await Promise.race([shot, deadline]);
+    clearTimeout(timer);
+    shot.catch(() => {});                 // the losing capture settles into nothing
+    try { await page.close(); } catch { /* it is already past closing */ }
+    if (answered) {
+      if (attempt > 1) console.log(`render-card: cold capture answered on attempt ${attempt}`);
+      return true;
+    }
+    console.log(`render-card: cold capture ${attempt} did not return in ${WARM_MS} ms`);
+  }
+  return false;
 }
 
 async function newCardPage(browser, opts) {
