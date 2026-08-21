@@ -100,3 +100,11 @@ bazel-*
 # `srcs`, no web route serves one and no doc embeds one. The build makes them, sync_tree
 # lands them on the disk, and nothing carries them into a commit.
 hardware/assembly/cards/out/
+
+# The scene meshes the parts viewer opens as themselves, cut by
+# hardware/assembly/scenes/render_scenes.py. `web/public/js/viewer/parts.js` names `glb` a build
+# directory and hands one to `openGlbDetail`. They arrive the road every solid takes:
+# `pack.py`'s BUNDLED_GLB_DIRS puts them in the release asset, hardware/cad-artifacts.lock.json
+# names each by sha256, and web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy
+# serves from. The lock is what git carries.
+hardware/assembly/scenes/glb/
