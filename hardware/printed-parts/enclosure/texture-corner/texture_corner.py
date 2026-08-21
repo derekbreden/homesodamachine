@@ -21,6 +21,15 @@ quarter turn without knowing the corner is there — no seam, no restart, consta
 can take: the deepest cut leaves `wall - texture_depth` behind, on the flat and round the
 turn alike.
 
+NOTHING ELSE MAY SPEND THAT SECTION. `wall - texture_depth` is 1.8 mm and the profile lays
+two loops a side — 0.42 out, 0.45 in — so a groove floor still has all four, with 0.06 mm
+to spare. Take anything more out of the far side and the two pairs of loops meet: the
+slicer stops laying four walls and lays whatever fits, and the change in what it lays under
+the groove reads THROUGH to the show face as a mark you can find with a fingertip. That is
+why the label below stands PROUD of the inner face instead of being sunk into it — an
+engraved one takes `label_depth` out of exactly the section the flute over it is standing
+on.
+
 Everything cut here is drawn in XY, so nothing overhangs — except as the warp tilts a
 groove's side surface off vertical, which `cadlib/reeding.py` sizes to stay inside 45°.
 
@@ -54,7 +63,7 @@ corner_r = 12.0                  # = enclosure.corner_round
 wall = 3.0                       # = enclosure.wall
 height = 50.0
 texture_depth = 1.2
-grid_step = 0.3                  # sampling pitch, well under the 0.82 mm the nozzle draws
+grid_step = 0.3                  # sampling pitch, well under the 0.42 mm bead the box lays
 
 foot = 5.0                       # inner ramp at the base, 45° since it is also its width
 texture_rise = 5.0               # = foot: plain wall exactly where the foot backs it
@@ -98,8 +107,8 @@ def _outer_path():
 
 def _label_mask(label, count, rows):
     """The label rasterised onto the inner face's own grid, centred on the north leg at
-    mid-height. Read from inside the box, arc length runs left to right, so the glyphs
-    go down unmirrored."""
+    mid-height, and STANDING PROUD of it. Read from inside the box, arc length runs left to
+    right, so the glyphs go down unmirrored."""
     supersample = 3
     image = Image.new("L", (count * supersample, rows * supersample), 0)
     font = None
@@ -129,8 +138,9 @@ def build_corner(field, label):
     cut *= _smoothstep(along / texture_rise)
 
     outer_in = texture_depth * cut
+    # The label stands INTO the room, never out of the wall — see the module docstring.
     inner_in = (wall + np.clip(foot - along, 0.0, None)
-                - label_depth * _label_mask(label, count, rows))
+                + label_depth * _label_mask(label, count, rows))
 
     def surface(inward):
         plan = base[:, None, :] - normal[:, None, :] * inward[:, :, None]
