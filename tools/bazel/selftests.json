@@ -601,6 +601,12 @@
     "hardware/scripts/probe.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/scripts/flute_payload.py": [
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/flute_payload.py"
+  ],
   "hardware/scripts/lanes.py": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
