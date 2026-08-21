@@ -22,6 +22,17 @@ See `marketing/target-market.md` for details.
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
+That venv is `.gitignore`d and one machine's own, so the import shim it reads at startup is
+tracked separately and copied in — the same way the venv is built rather than committed:
+
+```
+tools/cad-venv/bin/python tools/cad-venv-site/install.py
+```
+
+`--check` says whether this checkout's interpreter has it. Without it every CAD process loads
+VTK, which nothing here draws with, and pays 145 MB and two seconds for it; the solids are
+byte-identical either way, so a tree that has not run it is slow and not wrong.
+
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
 ## Firmware
