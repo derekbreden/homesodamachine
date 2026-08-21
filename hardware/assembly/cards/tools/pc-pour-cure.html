@@ -3,6 +3,13 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="tools.css">
+<style>
+  /* The operations table is the deepest in the deck — four pours and cures,
+     each with its own hold — and it leaves the text column 60px short of what
+     the safety, the two notes and the rack need, so the rack prints across the
+     footer rule. The gap between the three bands is what gives. */
+  main { gap: 20px; }
+</style>
 </head>
 <body class="pc">
 <div class="card">
@@ -118,9 +125,9 @@
             .lead  { stroke: #8a6d3b; stroke-width: 2.5; fill: none; }
             .rise  { stroke: #8a6d3b; stroke-width: 3.5; stroke-dasharray: 14 10; fill: none; }
             .hose  { stroke: #1d1d26; stroke-width: 9; fill: none; }
-            .dtx   { font: 700 30px Menlo, monospace; fill: #8a6d3b; }
-            .ttl   { font: 600 31px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .sub   { font: 400 27px "Helvetica Neue", sans-serif; fill: #70707c; }
+            .dtx   { font: 700 30px 'IBM Plex Mono',Menlo,monospace; fill: #8a6d3b; }
+            .ttl   { font: 600 31px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #1d1d26; }
+            .sub   { font: 400 27px 'IBM Plex Sans','Helvetica Neue',sans-serif; fill: #70707c; }
           </style>
 
           <text class="ttl" x="26" y="46">SECTION &#183; the degas, and the room the rise needs</text>
