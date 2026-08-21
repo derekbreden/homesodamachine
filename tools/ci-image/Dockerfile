@@ -31,10 +31,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && add-apt-repository -y ppa:deadsnakes/ppa \
     && apt-get update && apt-get install -y --no-install-recommends \
       python3.13 python3.13-venv python3.13-dev \
-      blender \
       librsvg2-bin \
-      libglu1-mesa libxi6 libxrender1 libxkbcommon0 libsm6 \
+      libglu1-mesa libgl1 libegl1 libxi6 libxxf86vm1 libxfixes3 libxrender1 \
+      libxkbcommon0 libsm6 libice6 libx11-6 \
     && rm -rf /var/lib/apt/lists/*
+
+# BLENDER IS A PIN, NOT A PACKAGE, for the same reason `cadquery-ocp` is. noble ships 4.0.2,
+# and `_blender_scene.py` enables the Freestyle SVG exporter through the extension namespace
+# 4.2 introduced — on 4.0.2 that is `ModuleNotFoundError: No module named 'bl_ext.blender_org'`
+# and a line-art target that cannot run whatever else is on the disk. The version here is the
+# one the Mac that draws these cuts them with, because a different Blender is different pixels
+# in files this repo commits.
+ARG BLENDER_VERSION=5.1.2
+RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*}/blender-${BLENDER_VERSION}-linux-x64.tar.xz" \
+      | tar -xJ -C /opt \
+    && mv "/opt/blender-${BLENDER_VERSION}-linux-x64" /opt/blender \
+    && ln -s /opt/blender/blender /usr/local/bin/blender
 
 # Node 20, because `tools/render/package.json` says `>=20` and the card deck is node.
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
