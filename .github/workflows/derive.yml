@@ -100,7 +100,10 @@ jobs:
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
           blender --version | head -1
           rsvg-convert --version
-          ls "$PUPPETEER_CACHE_DIR"/chrome* >/dev/null && echo "chromium: baked"
+          # NOT `ls … && echo`. A failing left side of `&&` does not trip `set -e`, so that
+          # form printed nothing and carried on — a check that reports only success.
+          ls -d "$PUPPETEER_CACHE_DIR"/chrome* >/dev/null
+          echo "chromium: baked"
           want=$(cat tools/ci-image/Dockerfile tools/cad-requirements.txt \
                      tools/render/package-lock.json web/package-lock.json .bazelversion \
                  | sha256sum | cut -c1-16)
