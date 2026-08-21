@@ -174,9 +174,21 @@ def _post(r, cx, cy, z0, z1):
 
 # --- the panel --------------------------------------------------------------
 
-def build():
-    """The panel as one solid: the field, a tongue down each long edge, and the two screw
-    pads sunk for their heads."""
+def build(box=None):
+    """The panel as one solid: the field, a tongue down each long edge, the two screw pads sunk
+    for their heads — and, when a `box` is handed in, THE CEILING'S OWN FURNITURE.
+
+    EVERY RIB ROOTED ON THE INTERIOR CEILING OVER THIS FIELD ROOTS ON THIS PART. The flow meter's
+    two saddles and the three anchors under the top wall used to hang off back-top; back-top has no
+    ceiling there any more, so they hang off this. `enclosure.ceiling_stations` is the one call
+    that splits them, and back-top reads the same call for its own half, so neither can grow a rib
+    the other grew too. The ribs are built by `enclosure`'s own two builders on the box's own
+    `inner`, which is what keeps a saddle here the same saddle it was on the piece.
+
+    AND IT IS A BETTER BENCH FOR THEM. A seat hanging off the top wall is an upward-opening cradle
+    with the piece inverted, and this panel inverted is a flat plate on the bench: the meter drops
+    into its two saddles and the runs into their three, straps go round, and the loaded panel then
+    slides into back-top's dados."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
     # The tongues, one down each long edge, at the panel's own underside.
     for sx in (-1.0, 1.0):
@@ -198,11 +210,30 @@ def build():
             _enc.head_cbore_dia / 2.0, cx, cy, show_z - _enc.head_cbore_depth, show_z + 1.0)))
         solid = solid.cut(cq.Workplane(obj=_post(
             _enc.screw_clear_dia / 2.0, cx, cy, screw_seat_z - 1.0, show_z + 1.0)))
-    return solid
+    if box is None:
+        return solid
+    saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
+    body = solid.val()
+    body = _enc._digiten_saddles(body, box.inner, saddles,
+                                 fore_y, aft_y, box.inner[4], show_z)
+    body = _enc._tube_anchors(body, box.inner, ribs,
+                              fore_y, aft_y, box.inner[4], show_z)
+    return cq.Workplane(obj=body)
+
+
+def machine_of():
+    """The machine's pack and the box around it — `enclosure.machine_of`, and the same deferred
+    import for the same reason: `enclosure_assembly` builds its assembly around these walls, so
+    reading it at module scope would have this file importing a module that imports it back."""
+    sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
+    import enclosure_assembly
+    _assy, _pack, box = enclosure_assembly.machine()
+    return box
 
 
 def main():
-    panel = build()
+    box = machine_of()
+    panel = build(box)
     body = panel.val()
     b = body.BoundingBox()
     solids, shells = len(body.Solids()), len(body.Shells())
@@ -240,6 +271,10 @@ def main():
           f"pad {screw_pad_t:g} thick, seat z {screw_seat_z:g}, boss bore to z {screw_bore_z:g}, "
           f"{screw_reach:.2f} of the {_enc.screw_len:g} under the head spent")
     print(f"  brim:    lands y {fore_y:g}..{fore_y + brim_seat:g} on the show face")
+    saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
+    print(f"  carries: {0 if saddles is None else len(saddles[3])} meter saddle(s), "
+          f"{len(ribs)} ceiling rib(s) — "
+          + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
     print(f"  piece:   back-top stands {piece_h:g} mm on its seam rim at z {_enc.z_seam:g}")
     print(f"  bed:     {b.xlen:.1f} x {b.ylen:.1f} on the H2C's {bed_x:g} x {bed_y:g}")
 
@@ -283,4 +318,9 @@ def main():
 
 
 if __name__ == "__main__":
+    # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY — `enclosure.py` carries the same
+    # line for the same reason. Run as a script this is `__main__`, and `enclosure._ceiling`
+    # would `import ceiling_panel` and get a SECOND copy of every figure in it.
+    sys.modules.setdefault(__name__ if __name__ != "__main__" else "ceiling_panel",
+                           sys.modules[__name__])
     main()
