@@ -1992,9 +1992,12 @@ def check_flank_vents(box, pieces: dict) -> Bound:
     Read HERE and not while the piece is cut, because `_realized` keeps a piece between builds
     and a reading taken while drawing is one the second build never takes. `enclosure.build_pieces`
     draws and measures nothing; every reading off a built piece is asked of it afterwards, the way
-    `check_cond_mount` asks after the block's four flanges."""
+    `check_cond_mount` asks after the block's four flanges. Both bounds this owes are recorded
+    here for that reason — a bound recorded inside a cached builder is absent from the card on
+    every build that does not redraw the piece."""
     reads = _enc.vent_readings(pieces, box)
     rows = {sx: r for sx, r in reads.items() if r["slots"] and r["mullions"]}
+    check_flank_vent_towers(box, rows)
     least = min((min(r["mullions"]) for r in rows.values()), default=None)
     jamb = _enc.flute_depth * float(_reeding.groove(_reeding.pierce_width / 2.0))
     ok = least is not None and least >= _reeding.pierce_shell - _enc.stated_bound_tol
@@ -2010,13 +2013,62 @@ def check_flank_vents(box, pieces: dict) -> Bound:
         ([f"{'+X exhaust' if sx > 0 else '−X intake':10s} "
           f"{len(r['slots']):2d} slots {min(r['slots']):.4f}–{max(r['slots']):.4f} mm, "
           f"{len(r['mullions'])} mullions {min(r['mullions']):.4f}–{max(r['mullions']):.4f} mm, "
-          f"{r['open_mm2'] / 100.0:.2f} cm² free over the airway's window"
+          f"{r['open_mm2'] / 100.0:.2f} cm² free over the fan's own band"
           for sx, r in sorted(rows.items())]
          + ([] if ok else [
              f"a {_reeding.pierce_width:g} mm slot on {pitch:.4f} mm centres leaves "
              f"{_reeding.mullion(pitch, _reeding.pierce_width, 1):.4f} mm of mullion, and the "
              f"widest this field carries is "
              f"{_reeding.pierce_max(_reeding.pierce_shell, pitch):.4f}"]))))
+
+
+def check_flank_vent_towers(box, rows: dict) -> Bound:
+    """No mullion the vents leave stands free of the wall for longer than one slot segment.
+
+    THIS IS WHAT THE TRANSOMS ARE FOR. A mullion is `reeding.mullion` across and the fan's band
+    is `enclosure.vent_band` tall, so a slot run the whole height leaves a picket fifty-odd times
+    as tall as it is thick. The brace is that the wall is NOT PIERCED at
+    `enclosure.cond_vent_transoms` heights (`enclosure.vent_transoms`): every mullion and both
+    jambs run into a full-section plate there, so what any of them stands free over is one
+    segment — `enclosure.vent_segment`, and nothing wider.
+
+    THE TARGET IS THE LAYOUT'S OWN SEGMENT, not a number typed here. The reading is the tallest
+    OPENING on either flank, taken off the built piece; the segment is what the band divided by
+    the transoms comes to. They agree when every transom landed and every slot was interrupted,
+    and the reading falls BELOW the segment wherever something rooted on the flank already broke
+    that slot — an obstruction and a transom compose, and neither is special-cased.
+
+    Recorded off `check_flank_vents`' one reading, and never from inside `build_piece`."""
+    tall = max((r["tallest"] for r in rows.values()), default=None)
+    thin = min((min(r["mullions"]) for r in rows.values()), default=None)
+    seg = _enc.vent_segment(box.cond_airway) if box.cond_airway else None
+    band = _enc.vent_band(box.cond_airway) if box.cond_airway else None
+    ok = tall is None or tall <= seg + _enc.stated_bound_tol
+    return record_bound(Bound(
+        "flank-vent-towers",
+        "No mullion the condenser's vents leave stands free for more than one slot segment",
+        ok,
+        ("no vent on this pack" if tall is None
+         else f"tallest of {sum(len(r['runs']) for r in rows.values())} openings is "
+              f"{tall:.4f} mm, on a {thin:.4f} mm mullion — {tall / thin:.3g}:1"),
+        ("no block on this pack" if seg is None
+         else f"at most {seg:.4f} mm, the segment "
+              f"{_enc.cond_vent_transoms} transoms leave in a {band[1] - band[0]:g} mm band"),
+        ([f"{'+X exhaust' if sx > 0 else '−X intake':10s} "
+          f"{len(r['runs']):2d} openings {min(r['runs']):.4f}–{max(r['runs']):.4f} mm tall "
+          f"in {len(r['slots'])} slots"
+          for sx, r in sorted(rows.items())]
+         + ([] if band is None else [
+             f"the band is z {band[0]:g}..{band[1]:g} — the fan's own footprint, "
+             f"{_enc.cond_fan_rise:g} mm up from the block's base and {_enc.cond_fan_drop:g} "
+             f"down from its crown"]
+             + [f"transom {i + 1} of {_enc.cond_vent_transoms}: z {a:g}..{b:g}, "
+                f"{b - a:g} mm of unpierced wall tying every mullion and both jambs"
+                for i, (a, b) in enumerate(_enc.vent_transoms(box.cond_airway))])
+         + ([] if ok else [
+             f"unpierced at {_enc.cond_vent_transoms} heights the band leaves {seg:.4f} mm "
+             f"segments, and something on this flank is open {tall:.4f} mm — a transom did not "
+             f"land in the band, or a slot was not interrupted"]))))
 
 
 def check_pack_over_core(stood, foam) -> Bound:
@@ -6410,8 +6462,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the condenser's own four, which are a groove at one end of the block and a bored boss
     # at the other — the same question asked of a body with no hole to boss and one with two.
     check_cond_mount(a.cond_cradle, a.cond_mount, pieces)
-    # And the two vents opposite that same block, which are its flanks' own flutes pierced —
-    # read for the mullion between two slots, which is what a slot is measured against.
+    # And the two vents opposite that same block, which are its flanks' own flutes pierced — read
+    # for the mullion between two slots, which is what a slot's width is measured against, and
+    # for the height any one of those mullions stands free, which is what the transoms set. Both
+    # bounds come off the one reading `check_flank_vents` takes.
     check_flank_vents(box, pieces)
     # And the cold core's four, which are the same question asked of a body with no hole at all:
     # two blocks on one piece's slab and two brackets off another's back wall, each read inside

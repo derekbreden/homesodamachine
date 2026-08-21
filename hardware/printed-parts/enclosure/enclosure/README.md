@@ -274,9 +274,8 @@ SURFACE — how far a station stands from the nearest place the show face ends. 
 representation can carry a fade that runs level, because a level fade is a loft; it cannot carry
 one that follows an opening's rim, a pocket's edge and the display facet's diagonal arris all at
 once. So the STEP is a plain box and [flute_skin.py](flute_skin.py) cuts the flutes into the
-mesh on the way to the bed. `tools/cad-artifacts/pack.py` carries these pieces' `.stl` in the
-release bundle for exactly this reason — everywhere else on the machine the STEP is the whole
-of the part, and here it is not.
+mesh on the way to the bed. Everywhere else on the machine the STEP is the whole of the part;
+here it is not, and the `.stl` beside it is.
 
 **Nothing tells it where an edge is.** At every station it asks the piece whether it has
 material AT the nominal plan — by level cut, not by naming features — and takes a distance
@@ -307,6 +306,26 @@ the choice:
 
 The datum is a groove centre on **x = 0**, the plane the whole machine is struck about, so the
 field is symmetric in x whatever its pitch.
+
+**The box has a second run, indoors.** What the field is struck along is a RAIL, and the outer
+plan is one of them; the bay's storey is the other. With the cartridge in, that storey still
+shows two of its own surfaces — each corner post's face across the bay, which is the corner
+relief's congruent twin (`_column_fairing`), and the **wings** of the tee wall behind the
+drawer, out where the drawer does not reach. `_bay_storey_segments` walks them: jamb to jamb,
+[369.67 mm](STOREY_RUN) over the storey at z [176.1..281 mm](STOREY_BAND), two quarter turns and
+five straight runs, with its own datum on **x = 0** at the tee wall and the same
+[5.1285 mm](FLUTE_PITCH) pitch — so a groove lands on the machine's plane of symmetry inside as
+it does outside. It does not close, because a storey open at its mouth is not a loop; a run's
+two ends are edges like any other and the field ramps out on them, which is what keeps the
+flutes off the jamb's own arris.
+
+**And a body berthed in the room is an edge too.** Inside a storey the piece has material at
+the rail in places the drawer and its steel stand in front of, and a face another body beds
+against is not one anybody finishes. `flute_skin._shadow_mask` asks, at every station, whether
+a berthed body stands between that face and the storey's mouth — the same question the show
+mask asks, asked of the other bodies — so the tee wall carries flutes only where the cartridge
+leaves it visible, and the plate's own bearing band is left plain. Nothing is listed: the
+cartridge, its cap and the collet plate are simply what the assembly stands there.
 
 **Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
@@ -356,24 +375,49 @@ anywhere in the feature. A groove is in when its whole slot lies inside the bloc
 either end is the sheet the box holds the block by, and the fan draws through neither.
 [22](VENT_GROOVES) grooves stand in that window on each flank.
 
-**The band is the airway, one [3 mm](VENT_CLEAR) inside each end** — [12..143 mm](VENT_BAND) —
-**less whatever the flank carries behind that particular groove.** Nothing is listed: the piece
+**In height the band is the FAN, not the airway.** What moves air through this wall is the axial
+fan bolted to the block's own flank; the finstack either side of it is served by whatever that fan
+pushes, and wall opened opposite it is opening on metal. So the band is the placed block brought
+in [22 mm](VENT_FAN_RISE) at its base and [5 mm](VENT_FAN_DROP) at its crown —
+[31..141 mm](VENT_BAND), a [110 mm](VENT_BAND_H) band, the fan's own footprint and nothing wider.
+Both insets are read against the block where it stands, so raising the block raises the vent.
+
+**Less whatever the flank carries behind that particular groove.** Nothing is listed: the piece
 is asked, groove by groove, what stands ROOTED on its inner face there, and a slot stops one
-`cond_vent_clear` short of it and picks up again the same distance past. That is what breaks two
-of the intake's slots around the MQ-6 cradle's upper rail, and it is what would break any of
-them around anything else the pack ever stands on these flanks. Every end a run makes is closed
-by a 45° hip, the angle every relief on this box rises at: both hips sit down inside the groove's
-own shadow, the sill only takes material away as the print climbs, and the ceiling closes at
-exactly the angle the box supports nothing steeper than.
+[3 mm](VENT_CLEAR) short of it and picks up again the same distance past. On the intake that is
+the MQ-6 cradle's upper rail, which stands [2](VENT_SHORT) runs off at [14.5 mm](VENT_SHORTEST)
+rather than a full segment; it is what would break any of them around anything else the pack ever
+stands on these flanks.
 
-| | slots | thinnest mullion | free area |
-|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [87.3 cm²](VENT_OPEN_IN) |
-| +X exhaust | [22](VENT_SLOTS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [88.3 cm²](VENT_OPEN_OUT) |
+**[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
+[2.0285 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
+[54.2:1](VENT_ASPECT_BARE) — a picket that tall with nothing tying its top to anything. The brace
+is **not** a bar between two mullions, and nothing stands at 45° across a groove: at
+[3](VENT_TRANSOMS) heights — [57.5, 86, 114.5 mm](VENT_TRANSOM_Z) — the wall is simply **not
+pierced**, so every mullion and both jambs run into one plate of full section
+[4 mm](VENT_TRANSOM_H) tall. Nothing bridges and nothing grows out of a tower. What is left is
+[4](VENT_SEGMENTS) slot segments of [24.5 mm](VENT_SEGMENT) apiece, and the four of them plus the
+three transoms close exactly on the band — `vent_transoms` divides the band rather than listing
+stations, and asserts that closure, so the layout stays symmetric about its own mid-height
+whichever of the three figures moves.
 
-Both read off the built piece at the flank's mid-section, over the airway's own window. A pierced
-field is [60.4 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the
-window came out at with the hips and the intake's two breaks in it.
+**The groove runs through a transom unbroken.** Only the piercing stops. The field is struck on
+the flank's whole plan, so a transom is invisible off-normal and the reeding reads continuous down
+the wall — head-on it is a grille in four courses. Both ends of every one of those
+[4](VENT_SEGMENTS) segments are closed by a 45° hip, the angle every relief on this box rises at:
+each hip sits down inside the groove's own shadow, the sill only takes material away as the print
+climbs, and the ceiling closes at exactly the angle the box supports nothing steeper than.
+
+| | slots | openings | thinnest mullion | tallest opening | free area |
+|---|---|---|---|---|---|
+| −X intake | [22](VENT_SLOTS_IN) | [88](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [62.0 cm²](VENT_OPEN_IN) |
+| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
+
+Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
+is [60.4 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came
+out at with the transoms, the hips and the intake's rail in it. **`flank-vent-towers`** is the
+reading the bed cares about: the tallest opening on either flank is [24.5 mm](VENT_TOWER) on a
+[2.0285 mm](VENT_MEAS_MULLION) mullion, which is [12.1:1](VENT_ASPECT).
 
 **Two things this does not answer.** There is **no thermal spec anywhere in this repo** — no CFM,
 no free-area requirement, no ΔT budget — and the fan is documented only as a 12 V brushless axial
@@ -441,9 +485,14 @@ plane. The face is one surface, and the post reads round inside the way it reads
 
 The disc's inboard extreme **is** `bay_x_span`, so the cartridge keeps its running fit at the
 single station the two touch and more of it at every other — the opening is never narrowed by
-this. Where the turn lands on the flank it leaves [5.676 mm](COLUMN_FACE_LAND) of section, which
-is the thinnest station on that face and has a flute on the other side of it
-(`column-face-backed`).
+this.
+
+**That face is fluted, the same way the relief outside it is** — the two are congruent quarter
+turns, so the field crosses one exactly as it crosses the other, and the post reads as one
+treatment wrapping it. Where the turn lands on the flank it leaves [5.676 mm](COLUMN_FACE_LAND)
+of section with a groove cut into each side of it, and what stands between the two is
+[3.276 mm](COLUMN_FACE_LIGAMENT) — the thinnest station on the post and what
+**`column-face-backed`** reads.
 
 A column is the cavity's own shape (`enclosure._cavity`), not a feature bolted into
 it, so everything held inside the cavity meets one the way it meets a wall: the
