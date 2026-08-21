@@ -684,10 +684,10 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 ## The pump cartridge and its bay
 
 **The pumps slide out of the front of the box.** The front wall's flat span — corner
-column to corner column, sill to lintel — a **return** down each flank, and the storey
-both pumps stand in come out of front-top as the **pump cartridge**
-(`build_cartridge`): the face, the two returns, the block behind them, both trays and
-both pumps, riding the bay's own floor.
+column to corner column, sill to lintel — and the storey both pumps stand in come out
+of front-top as the **pump cartridge** (`build_cartridge`): the face, the block behind
+it, both trays and both pumps, riding the bay's own floor. It stops at `bay_x_span` at
+every height, so the corner posts it slides between are untouched.
 
 **It is a block, and it parts on the pump's own bracket plane.** What the bay leaves
 between the face and the collet plate is filled — sparse infill under a printed skin —
@@ -875,11 +875,46 @@ rails. The webs to the side walls and the aft web onto a panel are not drawn her
 the rails standing on the floor carry the deck instead, and its aft edge stops two
 millimetres short of the collet plate, and the cap's aft face one storey down is what lands on the steel.
 
-Printed face-down the outer skin goes on the bed first, the deck and both flank
-returns stand as walls off it, and every pocket rises as a plateau's absence. The one
-hole in the piece is a flank grip, and its aft end is gabled at `relief_chamfer` so the
-return's section is laid over it — nothing on the cartridge hangs.
-`enclosure_assembly.check_trays_hold` reads each pump against the tray on it.
+**A hand pulls on the two flanks, and each carries a grip** (`_flank_grip`). Front-top's
+own flanks are cut away over this whole storey, so the cartridge's sides stand in the
+open with only the corner posts in front of them — and a post stops
+[12 mm](COLUMN_ALONG) aft of the front plane. A grip is a **pocket struck inboard out of
+the block** from there: [24 mm](GRIP_RUN) fore-and-aft, [48.85 mm](GRIP_RISE) tall at
+its mouth, `grip_sill` of block under it on the rail its edge strip bears on and
+`grip_head` over it under the ceiling the motor cans open through. **Its fore wall is
+the ledge** — a +Y face on the post's own aft plane, which is where a hand sliding fore
+along the open flank arrives and can go no further, with the block from
+`pump_relief_floor` to that plane behind it.
+
+**It goes as deep as the pump leaves it, storey by storey.** Over the boss the pump's
+octagon reaches `pump_tray.boss_half` off its axis and the pocket is
+[8.354 mm](GRIP_SHALLOW) deep; over the can the bore reaches `can_half` and one
+`cap_pump_air`, and the pocket is [15.95 mm](GRIP_DEEP) — one [6 mm](GRIP_BACK) rib
+standing between its floor and the pump's room either way. Between the two it **walks
+out at `relief_chamfer`**: over a crown that rib moves inboard by the whole
+octagon-to-bore step, and ramped, the first layer over the crown still lands on the rim
+the layer under it keeps.
+
+**The ledge is reeded** (`_grip_reeds`) — `reeding.groove`'s own profile cut as a true
+half-round [2.4 mm](GRIP_REED) across, struck down the ledge in **Z** so a finger
+pulling fore crosses every one and a finger sliding outboard off the pocket crosses all
+of them at once. One array datumed on the flank face, each reed beginning where the
+pocket's back has walked in far enough to hold its whole width: [5](GRIP_REEDS) of them
+at full depth and [3](GRIP_REEDS_LOW) over the boss, so the count standing at a height
+is what that height's depth comes to. The one on the face itself is a quarter round, and
+it is the lead-in the fingers come in over.
+
+**Every grip is removed material.** Nothing of this piece stands proud of the front
+wall's own exterior plane, so the bench keeps its reading: the pre-test inspection in
+[`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) §1 takes the
+cartridge's face standing flush in its bay, jamb to jamb, as the tell-tale for the four
+barb tubes home in their collets.
+
+Printed on its Z− face, the pose every piece of this box takes: the block's underside is
+one plane on the bed, the face stands up off it, and every pocket rises as a plateau's
+absence. What hangs is whatever looks DOWN — a grip's own ceiling, which rises at
+`relief_chamfer` to the flank, and the pump reliefs' ceilings, which rise the same way to
+theirs. `enclosure_assembly.check_trays_hold` reads each pump against the tray on it.
 
 ## Display housing
 

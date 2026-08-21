@@ -1121,6 +1121,19 @@
    "active": true
   },
   {
+   "id": "flank-vent-mullions",
+   "label": "Every mullion the condenser's vents leave carries the exterior's four wall loops",
+   "kind": "gate",
+   "status": "pass",
+   "value": "thinnest of 42 mullions is 2.0285 mm across, on a 5.2416 mm section",
+   "target": "at least 1.74 mm across, the loops the profile lays",
+   "detail": [
+    "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 87.31 cm\u00b2 free over the airway's window",
+    "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 88.27 cm\u00b2 free over the airway's window"
+   ],
+   "active": true
+  },
+  {
    "id": "core-held",
    "label": "Every grip on the cold core is closed on it",
    "kind": "gate",

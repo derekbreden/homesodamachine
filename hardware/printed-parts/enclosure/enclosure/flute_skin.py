@@ -20,6 +20,12 @@ an edge, whatever made it. A flank opening, a port chip's seat, the nameplate's 
 bay's own mouth, the seam a piece simply ends on, the facet's arris: one question, one answer,
 one ramp. `enclosure.plan_at` is the parameterisation, so ARC LENGTH is the across-coordinate
 and a flute crosses `corner_round`'s quarter turn without knowing the corner is there.
+
+AND ONE KIND OF EDGE IS NOT ONE. An opening whose two jambs both stand on ONE groove's own side
+surface runs WITH the flutes and stops nothing — the groove carries on past it at full depth.
+`_bridge_grooves` gives those runs back to the show face, read off the run's own two ends and
+not off any list of where an opening is. The condenser's vents are the whole of it on the box as
+it stands, and without it a field pierced down every groove ramps itself flat.
 """
 
 import math
@@ -113,6 +119,48 @@ def _show_mask(mesh, point, normal, rows):
         near = cKDTree(pts).query(point, distance_upper_bound=face_tol)[0]
         mask[:, j] = np.isfinite(near)
     return mask
+
+
+def _bridge_grooves(mask, s):
+    """Background runs lying INSIDE ONE GROOVE, given back to the show face.
+
+    THE FADE IS FOR AN EDGE THAT CROSSES A FLUTE. `_show_mask` asks only whether the piece has
+    material at the nominal surface, which is the right question for an opening's rim, a
+    pocket's edge and a seam alike — and it is the wrong answer for an opening whose two jambs
+    both stand on ONE groove's own side surface. Such a rim runs WITH the flutes and stops
+    nothing: the groove carries on past it at full depth, the box's own rule that a rim running
+    with the flutes is not one of them.
+
+    THE CONDENSER'S VENTS ARE THAT, all of it. A slot narrower than the groove is struck down
+    the groove's own floor down EVERY groove of a field (`enclosure._flank_vents`). Left as
+    background each one reads as an edge, every station on the wall then stands within a
+    millimetre of one, and the ramp takes the whole vent — grooves, mullions and all — down to a
+    flat panel with holes in it. Nothing about the vent is named here: what is read is the RUN's
+    own two ends, which is what the rule is about.
+
+    The ends are carried half a grid step outward, because the edge itself lies between the last
+    station that has material and the first that has none."""
+    out = mask.copy()
+    half = reeding.flute_width / 2.0
+    span = float(s[-1] + (s[1] - s[0]))
+    for j in range(mask.shape[1]):
+        col = mask[:, j]
+        idx = np.flatnonzero(~col)
+        if len(idx) == 0 or len(idx) == len(col):
+            continue
+        groups = np.split(idx, np.flatnonzero(np.diff(idx) > 1) + 1)
+        if len(groups) > 1 and groups[0][0] == 0 and groups[-1][-1] == len(col) - 1:
+            groups[0] = np.concatenate([groups[-1], groups[0]])
+            groups.pop()
+        for g in groups:
+            a = float(s[g[0]]) - grid_across / 2.0
+            b = float(s[g[-1]]) + grid_across / 2.0
+            if g[0] > g[-1]:
+                b += span
+            centre = round(a / flute_pitch) * flute_pitch
+            if abs(a - centre) <= half and abs(b - centre) <= half:
+                out[g, j] = True
+    return out
 
 
 def _depth_field(s, mask):
@@ -243,7 +291,7 @@ def flute(mesh, outer, plan_at, perimeter, pitch, depth_mm, rise_mm):
     if len(rows) < 4:
         return mesh
     s, point, normal = _plan_frames(plan_at, perimeter, outer)
-    mask = _show_mask(mesh, point, normal, rows)
+    mask = _bridge_grooves(_show_mask(mesh, point, normal, rows), s)
     if not mask.any():
         return mesh
     depth = _depth_field(s, mask)
