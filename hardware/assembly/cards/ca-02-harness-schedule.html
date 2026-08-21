@@ -7,10 +7,12 @@
   table.sched td { font-size: 23px; padding: 5px 14px; }
   table.sched th { font-size: 20px; padding: 5px 14px; }
   table.sched td.v { font-size: 22px; }
-  /* The critical carries two looms' worth of prose against the note's one, so
-     it takes the wider column — an even split wraps it four lines deeper. */
+  /* The critical's prose is what sets this row's height: the note stretches to
+     whatever the critical needs and still has lines to spare inside it. So the
+     split is set where the critical wraps to five lines — the whole height the
+     row has before it reaches the footer rule. */
   .tail { display: flex; gap: 26px; margin-top: 16px; align-items: stretch; }
-  .tail .critical { flex: 1.55; margin: 0; font-size: 27px; }
+  .tail .critical { flex: 2.5; margin: 0; font-size: 27px; }
   .tail .note { flex: 1; margin: 0; font-size: 25px; }
 </style>
 </head>
