@@ -365,9 +365,10 @@ surface at all: what the room meets at a standing vertical is **one arc, congrue
 one it meets outside**. All four verticals carry one (`enclosure.column_corners`), so each
 quadrant prints the two its own two exterior arrises stand behind.
 
-A wall's inner face is **flat only past that landing**, so anything BEARING on it answers to
+A wall's inner face is **flat only past that landing**, so anything ROOTED on it answers to
 `enclosure.wall_flat_from_corner` rather than to the relief's own tangent — the C14 inlet's
-flange is the one that does.
+tunnel is the one that does, and `enclosure_assembly.c14_flat_column` is the column that
+leaves it whole on the flat.
 
 **Across the pump bay the turn is swung from the jamb** (`_column_fairing`), because there the
 two faces the arc has to land on are not the inner faces. The jamb stands one `post_along`
@@ -459,6 +460,14 @@ own tangent points, 45° being the steepest the arc itself reaches before it tur
 so the hole is taken over from exactly where it stops being printable and nothing above
 it is laid on air. The three lower quarters the collar bears on are untouched, and the
 wall needs no support.
+
+The **AC inlet's tunnel** stands off the back wall's inner face in back-top and costs
+nothing either. Its two flanks are vertical to the bed and its crown runs out into the top
+wall; the soffit under it, the one face that would hang, is cut back to the wall at 45°
+(`enclosure._c14_tunnel`). What is left over air is the bore's own ceiling — a bridge the
+aperture's full width, carried between the tunnel's two flanks. Nothing on the piece stands
+outside the print silhouette: the receptacle's two heat-sets go into the tunnel's fore face,
+from inside the box, and the back of the machine is flat.
 
 ## Tap-water cradle
 

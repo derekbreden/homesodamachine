@@ -11,12 +11,12 @@
    ],
    "max": [
     107.5,
-    472.25,
+    467.0,
     355.0
    ],
    "mm": [
     215.0,
-    467.25,
+    462.0,
     358.0
    ]
   },
@@ -704,7 +704,7 @@
    "label": "The lever-nut row lies over the brick it stands on",
    "kind": "gate",
    "status": "pass",
-   "value": "row spans y 355.60..429.00, crown 351.50..460.50",
+   "value": "row spans y 351.50..424.90, crown 351.50..460.50, 4.85 mm of reach at the inlet",
    "target": "every lug over the crown",
    "detail": [],
    "active": true

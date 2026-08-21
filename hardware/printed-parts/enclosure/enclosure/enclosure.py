@@ -459,23 +459,14 @@ socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall aroun
 heatset_dia = 4.0            # ruthex M3 short heat-set
 heatset_depth = 5.25
 socket_cap = wall            # one wall capping the insert's deep end
-# The C14's two bosses. Its insert enters from the wall's INNER face, so what stands proud
-# outboard is the length of insert the wall itself cannot hold, plus the cap over its blind
-# end. One wall of material around the bore is the section.
-c14_boss_dia = heatset_dia + 2.0 * wall
-def c14_proud(wall_t=None):
-    """How far a C14 boss stands proud OUTBOARD of the back wall: the insert's own depth and
-    the cap over its blind end, less whatever section that wall already holds. A wall thick
-    enough for both stands the boss down to nothing; this one is not, quite."""
-    return heatset_depth + socket_cap - (wall if wall_t is None else wall_t)
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
 # body from the room, so nothing is driven from outside the machine.
 #
 # The section is the one `printed-parts/electronics/module_tray` gives every M3 board boss in
-# this machine, and it is not the C14's: these land on a board's own hole pattern, between its
-# pin fields, and a boss that carried a whole wall around its insert would foul them.
+# this machine: these land on a board's own hole pattern, between its pin fields, and a boss
+# that carried a whole wall around its insert would foul them.
 mount_boss_dia = 7.0
 # What that section keeps round its insert, which is the material any boss in this machine
 # stands a heat-set in.
@@ -826,19 +817,42 @@ back_top_wall_t = 6.0
 # none of. So the wall gives that one station back to `rear_plane_y` — the plane it is struck off
 # — and the nut lands on it with the section it always had.
 #
-# AND THE C14 IS THE SAME BARGAIN FOR A DIFFERENT REASON. Its receptacle is fastened from inside
-# and its FLANGE bears on this wall's inner face, so the section behind that flange is not the
-# wall's to take either: thickened through, the wall stands where the flange has to sit.
+# AND THE C14 IS THE SAME BARGAIN FOR A DIFFERENT REASON. Its receptacle bears on the fore face
+# of a TUNNEL standing off this wall (`c14_tunnel_len`) and not on the wall itself, and the two
+# M3 heat-sets holding it enter that fore face from inside the machine. Each one bottoms on this
+# wall's inner face, so what stands over its blind end is the wall — and `socket_cap` is what an
+# insert on this box is given over a blind end, which `wall` is and `back_top_wall_t` is not.
 #
-# THE RULE UNDER BOTH: what clamps on the inner face keeps the plane it clamped on. Stated as
+# THE RULE UNDER BOTH: what a fastening lands on keeps the plane it lands on. Stated as
 # (station, x, z, across_x, across_z) — whose relief it is, where it stands, and the rectangle it
 # takes. The name is carried because a relief that drifts off the thing it was cut for is a
 # relief for nothing, and `back_wall_t_at` read at the placed station is what says whether it
-# still lands on it (`enclosure_assembly.check_wall_clamped`).
+# still lands on it (`enclosure_assembly.check_wall_clamped`, `_c14_tunnel`).
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
-    ("c14-inlet", 69.0, 336.21, 53.0, 35.0),      # the receptacle's flange and its two bosses
+    ("c14-inlet", 69.0, 336.21, 47.0, 35.15),     # the tunnel's own footprint on the wall
 )
+
+# --- what stands on that relief: the C14's tunnel ------------------------------
+#
+# THE HOLE IN THIS WALL IS A TUNNEL AND NOT A BORE. `_c14_tunnel` wraps the cutout in material
+# on the wall's inner face and the receptacle screws to that block's FORE face, so what the
+# customer pushes the cord down is the aperture's own rectangle carried the whole depth of wall
+# and tunnel together, and what stands outboard of the back face is nothing.
+#
+# ITS LENGTH IS THE INSERT'S OWN DEPTH. Each of the two M3 heat-sets enters the fore face —
+# from inside, the way every insert on this box goes in — and bottoms on the wall's inner face
+# under `socket_cap` of wall.
+c14_tunnel_len = heatset_depth
+# THE SECTION IT KEEPS ROUND THE BORE, and it is the section this wall already carries: the
+# tunnel is the back wall made deep. What stands in it is the mouth a cord is pushed into a few
+# thousand times, and what a millimetre of it costs is infill.
+#
+# ACROSS X THE INSERTS ASK FOR MORE and the tunnel gives it: each stands off the axis at its own
+# station with `heatset_dia` of bore and `boss_ligament` round it, which reaches further than
+# this section does. `_c14_tunnel` takes whichever is further per axis, so the bore keeps its
+# own rectangle and both stations land in material.
+c14_tunnel_wall = back_top_wall_t
 
 # --- back-top's own ±X section ------------------------------------------------
 #
@@ -4402,7 +4416,6 @@ def build_back_half(box):
     # cold core; their bodies hang in the band's open rear half.
     for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
-    back = _c14_bosses(back, inner, outer, box.c14, outer[4] - 1.0, outer[5] + 1.0)
     # The drip tray's withdrawal slot through the −X wall, and the sleeve it lies in. The
     # sleeve's own cuts reach back through this wall, so the slot is opened here and reopened
     # there at the one shape.
@@ -5394,26 +5407,86 @@ def _tube_anchors(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
-def _c14_bosses(solid, inner, outer, stations, z0, z1, face=None):
-    """The C14's two heat-set bosses added to a back wall, for the stations whose Z lies in
-    `z0..z1`.
+def _c14_aperture(stations, ports):
+    """The rounded rectangle the C14's shroud reaches out through, picked out of a wall's own
+    port list by the two heat-set stations that straddle it — `(x, z, across_x, across_z, r)`.
 
-    That receptacle is fastened from INSIDE — its flange bears on this wall's inner face —
-    so its insert enters flush with that face and the length of it the wall cannot hold
-    stands proud OUTWARD, past the print silhouette. The bore is cut after the boss, so it
-    runs the insert's whole depth from the inner face.
+    THE HOLE AND THE STATIONS ARE ONE PLACEMENT: `enclosure_assembly.c14_cutout` and
+    `enclosure_assembly.c14_stations` are both struck on `C14_STATION`, and both screws sit ON
+    the mating axis, so the aperture is the rect port standing midway between them. A tunnel
+    built round a hole that is not cut is a plug, and this is where that reads."""
+    (x0, z0), (x1, z1) = stations[0], stations[-1]
+    cx, cz = (x0 + x1) / 2.0, (z0 + z1) / 2.0
+    for kind, hx, hz, *size in ports:
+        if kind == "rect" and abs(hx - cx) < 1e-6 and abs(hz - cz) < 1e-6:
+            wx, wz, *radius = size
+            return cx, cz, wx, wz, (radius[0] if radius else 0.0)
+    raise ValueError(
+        f"the C14's two stations straddle (x {cx:.4g}, z {cz:.4g}) and this wall's port list "
+        f"carries no rounded rectangle there. A tunnel built round a hole that is not cut is a "
+        f"plug, so the pack states one or the other and not both halves of a placement.")
 
-    `face` IS THAT INNER FACE, and it is passed rather than struck off `inner` because the piece
-    holding these stations carries `back_top_wall_t` and not `wall` — a boss rooted on the box's
-    own rear plane would start its bore a section INSIDE the wall, with no way for the screw to
-    reach it."""
+
+def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
+    """The C14's tunnel fused onto a back wall's INNER face, and its bore taken back out — for
+    the stations whose Z lies in `z0..z1`.
+
+    THE RECEPTACLE DOES NOT BEAR ON THIS WALL. It bears on the tunnel's FORE face, one
+    `c14_tunnel_len` inboard of the wall, and the customer's cord reaches it down a bore that is
+    the aperture itself and nothing else: the tunnel grows entirely OUTWARD of the hole, so
+    neither its section nor its two bores ever stand in the plug's way.
+
+    THE INSERTS ENTER THE FORE FACE, from inside the machine like every other insert on this box,
+    and bottom on the wall's own inner face. The station is relieved back to `wall`
+    (`back_top_wall_reliefs`), so what stands over each blind end is `socket_cap` of wall and the
+    tunnel is the whole of what is left.
+
+    ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece prints on its Z− face
+    with the back wall standing on the bed, so the tunnel's own soffit is `c14_tunnel_len` of
+    ceiling starting in air; run down the wall at 45° it is a ramp the wall reaches under. The
+    crown needs no such thing — it is clipped to the room, so above the aperture the section runs
+    out into the top wall the way the port field's top row of bosses does.
+
+    IT ROOTS ON `back_wall_t_at` AND NOT ON `inner`. The piece holding these stations carries
+    `back_top_wall_t` over most of this wall, so the plane the tunnel stands on is the section
+    read at the aperture — a tunnel rooted on the box's own rear plane would start a section
+    inside a wall that is thicker than that plane anywhere the relief does not reach."""
+    if not stations or not all(z0 <= sz <= z1 for _sx, sz in stations):
+        return solid
+    cx, cz, wx, wz, r = _c14_aperture(stations, ports)
+    cap = back_wall_t_at(cx, cz)
+    if abs(cap - socket_cap) > stated_bound_tol:
+        raise ValueError(
+            f"the C14's aperture passes {cap:.2f} mm of wall and the cap over an insert's blind "
+            f"end is {socket_cap:g}. The tunnel runs one `heatset_depth` off that wall, so at "
+            f"any other section it holds either half an insert or a cap and half a tunnel.")
     for sx, sz in stations:
-        if z0 <= sz <= z1:
-            f = inner[3] if face is None else outer[3] - back_wall_t_at(sx, sz)
-            solid = solid.fuse(_ycyl(c14_boss_dia / 2.0, sx, sz,
-                                     f, outer[3] + c14_proud(outer[3] - f)))
-            solid = solid.cut(_ycyl(heatset_dia / 2.0, sx, sz,
-                                    f, f + heatset_depth))
+        if abs(back_wall_t_at(sx, sz) - cap) > stated_bound_tol:
+            raise ValueError(
+                f"the C14's station at (x {sx:.4g}, z {sz:.4g}) stands on "
+                f"{back_wall_t_at(sx, sz):.2f} mm of wall and the aperture it straddles on "
+                f"{cap:.2f} — one relief no longer covers this tunnel's whole footprint, so an "
+                f"insert would bottom on a plane the tunnel does not root on.")
+    aft = outer[3] - cap
+    fore = aft - c14_tunnel_len
+    # THE OUTLINE, PER AXIS: the bore and one section either side, or what the two inserts take
+    # off the axis — whichever reaches further. Across X it is the inserts, and the figure they
+    # land on is the receptacle's own flange width to the tenth, so the face the flange bears on
+    # is the flange. Across Z it is the section.
+    hx = max(wx / 2.0 + c14_tunnel_wall,
+             max(abs(sx - cx) for sx, _sz in stations) + heatset_dia / 2.0 + boss_ligament)
+    hz = wz / 2.0 + c14_tunnel_wall
+    tunnel = _rect_cut_y(cx, cz, 2.0 * hx, 2.0 * hz, r, fore, aft)
+    tunnel = tunnel.fuse(_yz_prism(cx - hx, cx + hx,
+                                   [(aft, cz - hz), (fore, cz - hz),
+                                    (aft, cz - hz - c14_tunnel_len)]))
+    solid = solid.fuse(tunnel.intersect(
+        _ybox(inner[0], inner[1], fore, aft, inner[4], inner[5])))
+    # The bore, opened through everything standing round it. The wall's own cutters run to its
+    # inner face and this one runs to the tunnel's, so the hole is one rectangle end to end.
+    solid = solid.cut(_rect_cut_y(cx, cz, wx, wz, r, fore - 1.0, outer[3] + 1.0))
+    for sx, sz in stations:
+        solid = solid.cut(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth))
     return solid
 
 
@@ -5506,18 +5579,17 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = piece.intersect(_rounded_outer(outer))
     zlo, zhi = (oz0 - 1.0, zj) if z_side == "bottom" else (zj, oz1 + 1.0)
     if y_side == "back":
-        # The C14's bosses stand OUTSIDE the print silhouette — the receptacle is fastened
-        # from inside, so the insert enters flush with the inner face and the length the
-        # wall cannot hold stands outboard. They go on after the clip, on whichever piece
-        # holds their Z.
         rear = back_top_wall_face() if z_side == "top" else None
-        piece = _c14_bosses(piece, inner, outer, box.c14, zlo, zhi, rear)
-        # The port field goes on here too, but INSIDE that silhouette: its pockets are cut into
-        # the wall's outer face and its bosses stand off the inner one, so the face the customer
-        # meets is flush. The bosses carry the face's own through-holes across their depth, so a
-        # bore that crosses the wall crosses them too.
+        # The port field, INSIDE the print silhouette: its pockets are cut into the wall's outer
+        # face and its bosses stand off the inner one, so the face the customer meets is flush.
+        # The bosses carry the face's own through-holes across their depth, so a bore that
+        # crosses the wall crosses them too.
         piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi,
                             None if rear is None else back_wall_t_at)
+        # And the C14's tunnel, on whichever piece holds its two stations. Last on this wall
+        # because its bore reaches further inboard than the field's own cutters do — those run
+        # to the boss each stands behind, and this one runs the whole depth of the tunnel.
+        piece = _c14_tunnel(piece, inner, outer, box.c14, box.back_ports, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = ((oy0 - 1.0, y_joint) if y_side == "front" else (y_joint, oy1 + 1.0))
