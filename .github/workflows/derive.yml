@@ -33,40 +33,54 @@ concurrency:
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   derive:
     runs-on: ubuntu-latest
+    # THE ENVIRONMENT IS PULLED, NOT INSTALLED. `cad-image` bakes the CadQuery pin, the
+    # renderers with the Chromium the deck drives, `web`'s runtime deps for the scene
+    # server, bazel at `.bazelversion`, and blender and rsvg-convert — which a stock runner
+    # does not have AT ALL, so `//:appliance-model` and the freestyle sieve could never have
+    # built here. `sudo mkdir -p /opt/homebrew` satisfied `.bazelrc`'s mount pair with an
+    # empty directory and the binaries the pair exists to reach were never on the disk.
+    # `credentials` because a package published from a workflow starts private, and this
+    # keeps working whichever way that setting goes.
+    container:
+      image: ghcr.io/derekbreden/homesodamachine-cad:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      # DEPTH, NOT HISTORY. The pack is 2.08 GiB and a full clone was the largest step in
+      # the job; nothing under `tools/`, `hardware/scripts/` or `web/scripts/` reads a log,
+      # a tag or a rev-list. Twenty is what the commit-back's rebase needs a merge base in.
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 20
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-          cache: pip
-          cache-dependency-path: tools/cad-requirements.txt
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: The CAD environment, at its pin
+      # THE IMAGE IS THE ENVIRONMENT AND THE CHECKOUT IS THE TREE, and this is what ties
+      # them. The three baked trees are linked into the paths the build names — both are
+      # gitignored, so the links dirty nothing and `git add -A` below cannot sweep them —
+      # and `HSM_REQ_SHA`, the digest of the five files the image was built from, is held
+      # against the same digest recomputed here. They differ for exactly as long as
+      # `cad-image` takes to catch up with a pin bump, and a run inside the old environment
+      # should say so rather than derive quietly from the wrong CadQuery.
+      - name: The environment the image carries
         run: |
-          python3 -m venv tools/cad-venv
-          tools/cad-venv/bin/pip install --quiet --upgrade pip
-          tools/cad-venv/bin/pip install --quiet -r tools/cad-requirements.txt
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          ln -sfn "$HSM_CAD_VENV"       tools/cad-venv
+          ln -sfn "$HSM_RENDER_MODULES" tools/render/node_modules
+          ln -sfn "$HSM_WEB_MODULES"    web/node_modules
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
-
-      - name: The renderers
-        run: npm ci --prefix tools/render
-
-      # `//:render-scenes` boots `web/server.js` to draw against, and that imports express.
-      # `--omit=dev` is what render.yaml installs for the deploy, and it is enough here for
-      # the same reason: nothing in the scene render reaches a dev dependency.
-      - name: What the scene renderer serves from
-        run: npm ci --omit=dev --prefix web
+          blender --version | head -1
+          rsvg-convert --version
+          ls "$PUPPETEER_CACHE_DIR"/chrome* >/dev/null && echo "chromium: baked"
+          want=$(cat tools/ci-image/Dockerfile tools/cad-requirements.txt \
+                     tools/render/package-lock.json web/package-lock.json .bazelversion \
+                 | sha256sum | cut -c1-16)
+          echo "image cad-$HSM_REQ_SHA / tree cad-$want"
+          [ "$HSM_REQ_SHA" = "$want" ] || echo "::warning title=cad-image::the image lags this tree — this run holds the environment from before the change"
 
       # The two caches that decide what this costs. `.cache/realized` is keyed on each part's
       # description plus the full text of every module it transitively imports, so a run that
@@ -87,18 +101,12 @@ jobs:
           key: bazel-${{ hashFiles('BUILD.bazel', 'tools/bazel/graph.json') }}
           restore-keys: bazel-
 
-      # `.bazelrc` mounts /opt/homebrew into the sandbox, and bazel refuses a mount pair whose
-      # source is absent — which it is on any runner. An empty directory satisfies it, and the
-      # tools that path exists for resolve from /usr/bin, which the same `--action_env=PATH`
-      # already carries. Done here rather than in `.bazelrc`, which other work is holding.
-      # (`cad-runner-bench` found this; its Linux lane does the same.)
+      # `.bazelrc.paths` mounts the workspace's own .cache and bazel refuses a mount pair
+      # whose source is absent. The cache action makes this on a hit; this makes it on a
+      # miss. The other two pairs — /opt/homebrew and /usr/local — are directories the image
+      # carries, with blender and rsvg-convert actually in them.
       - name: A mount point for the sandbox
-        run: |
-          sudo mkdir -p /opt/homebrew /usr/local
-          # `.bazelrc.paths` mounts the workspace's own .cache, and a mount pair whose source
-          # is absent is refused the same way. The cache action makes this on a hit; this
-          # makes it on a miss.
-          mkdir -p .cache
+        run: mkdir -p .cache
 
       # `.bazelrc.paths` is THIS CHECKOUT'S OWN, gitignored by design, and it carries
       # `HSM_WORKSPACE` — which every genrule's shell reads and which is unset in a checkout
@@ -135,17 +143,17 @@ jobs:
         run: |
           echo "full-tree build: ${{ steps.build.outcome }}"
           [ "${{ steps.build.outcome }}" = "success" ] || \
-            echo "::warning title=full-tree build::did not complete — what follows derives from the solids it did cut"
+            echo "::warning title=full-tree build::did not complete — what follows derives from the solids it did cut, and a lock reading clean off a build that cut none is reading only what the fetch sha256-verified on the way in"
 
       # The ledger, in the order the modules document: masses price the totals, and the
       # totals' §7 feeds the print hours.
       - name: The ledger
         run: |
           tools/cad-venv/bin/python hardware/scripts/_bom_masses.py
-          python3 hardware/scripts/_bom_totals.py
-          python3 hardware/scripts/_labor_totals.py
-          python3 hardware/scripts/_machine_time.py
-          python3 hardware/scripts/_build_time.py
+          tools/cad-venv/bin/python hardware/scripts/_bom_totals.py
+          tools/cad-venv/bin/python hardware/scripts/_labor_totals.py
+          tools/cad-venv/bin/python hardware/scripts/_machine_time.py
+          tools/cad-venv/bin/python hardware/scripts/_build_time.py
 
       - name: The docs
         run: |
@@ -192,6 +200,9 @@ jobs:
           # that answers it is the next one — over the tree as it then stands, not over a
           # merge of two halves. So abort and fail; the push that lands next re-derives.
           for i in 1 2 3; do
+            # The clone is shallow, so deepen before rebasing — a merge base outside the
+            # boundary is a rebase that fails on history rather than on a derived file.
+            git fetch --deepen=50 origin main || true
             if ! git pull --rebase origin main; then
               git rebase --abort || true
               echo "a derived file conflicts with main — the next push re-derives it" >&2
