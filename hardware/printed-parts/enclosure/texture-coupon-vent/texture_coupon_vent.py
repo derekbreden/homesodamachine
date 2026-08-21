@@ -16,9 +16,9 @@ opening makes — the box's own rule, that a rim running with the flutes is not 
 THE SLOT IS MEASURED AGAINST THE MULLION. A slot takes its width out of the pitch, and
 the exterior profile lays [1.74 mm](PIERCE_SHELL) of loops across the mullion that is
 left — 2 × 0.42 outer + 2 × 0.45 inner, `enclosure/print-log.md`. At
-[4.9569 mm](FLUTE_PITCH) of pitch that ceilings a slot down every groove at
-[3.2169 mm](PIERCE_CEILING), which is `reeding.pierce_max`; the [3 mm](SLOT_A) zone
-leaves [1.9569 mm](MULLION_A) of mullion, [0.2169 mm](SPARE_A) over the loops. The groove
+[5.1285 mm](FLUTE_PITCH) of pitch that ceilings a slot down every groove at
+[3.3885 mm](PIERCE_CEILING), which is `reeding.pierce_max`; the [3.1 mm](SLOT_A) zone
+leaves [2.0285 mm](MULLION_A) of mullion, [0.2885 mm](SPARE_A) over the loops. The groove
 floor already shipping on the box runs on [0.06 mm](GROOVE_FLOOR_SPARE) of the same
 spare. Behind the groove floor stands the flank's whole [6 mm](FLANK_T), which is
 the depth the slot is cut through.
@@ -27,8 +27,8 @@ THREE ZONES ACROSS, so one print answers the question. They share one field: the
 the profile, the depth and the fade are the same the whole way across, and only the slot
 differs.
 
-  * [3 mm](SLOT_A) down EVERY groove — the scheme the box takes.
-  * [3.2 mm](SLOT_B) down EVERY groove — the ceiling, to see whether a mullion run down
+  * [3.1 mm](SLOT_A) down EVERY groove — the scheme the box takes.
+  * [3.388 mm](SLOT_B) down EVERY groove — the ceiling, to see whether a mullion run down
     to the loops alone telegraphs through to the show face.
   * [4 mm](SLOT_C) down ALTERNATE grooves — the full groove width, which puts the jamb
     on the land's own edge and reads as a balustrade rather than as a vent.
@@ -81,7 +81,7 @@ C_COUPON = WALL_COLORS["front-bottom"]
 # grooves close on `enclosure.plan_perimeter` exactly, and the spacing is whatever that
 # division lands on.
 plan_perimeter = 1333.398224     # = enclosure.plan_perimeter(outer), a 215 × 462 plan on
-flute_count = 269                #   `corner_round` 12
+flute_count = 260                #   `corner_round` 12
 pitch = plan_perimeter / flute_count
 
 flute_width = reeding.flute_width       # 4.0 — the groove, the land is the difference
@@ -101,10 +101,11 @@ foot = 5.0                       # inner ramp at the base, 45° since it is also
 
 # --- the three zones ---------------------------------------------------------------
 
-# (label, scheme, slot width, one slot every this many grooves)
-ZONES = (("3.00", "EVERY", 3.000, 1),
-         ("3.20", "EVERY", 3.200, 1),
-         ("4.00", "ALT", 4.000, 2))
+# (scheme, slot width, one slot every this many grooves). The label a zone wears is its own
+# slot width to two places, so the number on the part is the number the geometry was cut on.
+ZONES = ((reeding.pierce_width, "EVERY", 1),
+         (reeding.pierce_max(reeding.pierce_shell, pitch), "EVERY", 1),
+         (flute_width, "ALT", 2))
 zone_flutes = 8                  # grooves each zone spends
 pier_flutes = 1                  # unpierced grooves between two zones, and one at each end,
                                  # so every slot on the coupon has a whole mullion either
@@ -130,6 +131,11 @@ x1 = (flute_total - 0.5) * pitch
 coupon_x = x1 - x0
 
 
+def zone_label(slot):
+    """What a zone wears on its face — its own slot width, to two places."""
+    return f"{slot:.2f}"
+
+
 def zone_flute_range(index):
     """Which groove indices one zone spends, first and one past the last."""
     first = pier_flutes + index * (zone_flutes + pier_flutes)
@@ -147,7 +153,7 @@ def slots():
     is `reeding.pierce` read at each groove's own centre, with the zone's first groove as
     its datum, so `every` counts from the zone and not from the coupon's end."""
     out = []
-    for index, (_label, _scheme, slot, every) in enumerate(ZONES):
+    for index, (slot, _scheme, every) in enumerate(ZONES):
         first, last = zone_flute_range(index)
         datum = flute_centres[first]
         for centre in flute_centres[first:last]:
@@ -233,7 +239,8 @@ def build_labels():
     """Each zone named on the inner face, STANDING PROUD of it. Read from inside the box,
     across runs left to right, so the glyphs go down unmirrored."""
     glyphs = []
-    for index, (label, scheme, _slot, _every) in enumerate(ZONES):
+    for index, (slot, scheme, _every) in enumerate(ZONES):
+        label = zone_label(slot)
         span = zone_span(index)
         centre = (span[0] + span[1]) / 2.0
         for text, size, z in ((label, label_size, label_z), (scheme, scheme_size, scheme_z)):
@@ -286,8 +293,8 @@ def measure(solid):
             for (_lo0, hi0), (lo1, _hi1) in zip(bounds, bounds[1:])]
 
     out = []
-    for index, (label, scheme, slot, every) in enumerate(ZONES):
-        lo, hi = zone_span(index)
+    for index, (slot, scheme, every) in enumerate(ZONES):
+        label, (lo, hi) = zone_label(slot), zone_span(index)
         mine = [(w, at) for w, at in gaps if lo < at < hi]
         inside = [s for s in islands
                   if lo - 1e-6 <= s.BoundingBox().xmin and s.BoundingBox().xmax <= hi + 1e-6]
@@ -337,7 +344,7 @@ def main():
               f"{100.0 * z['open_fraction']:>7.2f}")
 
     ceiling = reeding.pierce_max(reeding.pierce_shell, pitch)
-    jamb = flute_depth * float(reeding.groove(ZONES[0][2] / 2.0, pitch, flute_width))
+    jamb = flute_depth * float(reeding.groove(ZONES[0][0] / 2.0, pitch, flute_width))
     figures = {
         "FLUTE_PITCH": f"{pitch:.4f} mm",
         "PLAN_PERIMETER": f"{plan_perimeter:.3f} mm",
@@ -360,17 +367,17 @@ def main():
         "PIERCE_SHELL": f"{reeding.pierce_shell:.4g} mm",
         "PIERCE_CEILING": f"{ceiling:.4f} mm",
         "GROOVE_FLOOR_SPARE": f"{box_wall - flute_depth - reeding.pierce_shell:.4g} mm",
-        "JAMB_OFFSET": f"{ZONES[0][2] / 2.0:.4g} mm",
+        "JAMB_OFFSET": f"{ZONES[0][0] / 2.0:.4g} mm",
         "JAMB_DEPTH": f"{jamb:.4f} mm",
         "JAMB_SECTION": f"{wall - jamb:.4f} mm",
-        "SLOT_A": f"{ZONES[0][2]:.4g} mm",
-        "SLOT_B": f"{ZONES[1][2]:.4g} mm",
-        "SLOT_C": f"{ZONES[2][2]:.4g} mm",
-        "MULLION_A": f"{reeding.mullion(pitch, ZONES[0][2], 1):.4f} mm",
-        "MULLION_B": f"{reeding.mullion(pitch, ZONES[1][2], 1):.4f} mm",
-        "MULLION_C": f"{reeding.mullion(pitch, ZONES[2][2], 2):.4f} mm",
-        "SPARE_A": f"{reeding.mullion(pitch, ZONES[0][2], 1) - reeding.pierce_shell:.4f} mm",
-        "SPARE_B": f"{reeding.mullion(pitch, ZONES[1][2], 1) - reeding.pierce_shell:.4f} mm",
+        "SLOT_A": f"{ZONES[0][0]:.4g} mm",
+        "SLOT_B": f"{ZONES[1][0]:.4g} mm",
+        "SLOT_C": f"{ZONES[2][0]:.4g} mm",
+        "MULLION_A": f"{reeding.mullion(pitch, ZONES[0][0], 1):.4f} mm",
+        "MULLION_B": f"{reeding.mullion(pitch, ZONES[1][0], 1):.4f} mm",
+        "MULLION_C": f"{reeding.mullion(pitch, ZONES[2][0], 2):.4f} mm",
+        "SPARE_A": f"{reeding.mullion(pitch, ZONES[0][0], 1) - reeding.pierce_shell:.4f} mm",
+        "SPARE_B": f"{reeding.mullion(pitch, ZONES[1][0], 1) - reeding.pierce_shell:.4f} mm",
         "THIN_A": f"{zones[0]['thinnest']:.4f} mm",
         "THIN_B": f"{zones[1]['thinnest']:.4f} mm",
         "THIN_C": f"{zones[2]['thinnest']:.4f} mm",
