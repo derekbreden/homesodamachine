@@ -23,7 +23,10 @@ build that ships last run's geometry. Three things decide it, and the key takes 
     tuples and repr's whole, which is what makes it usable here.
 
   - THE KERNEL. The code says `cut` and `fuse`; OCCT is what performs them, so the same source
-    and the same description hand back a different solid under a different kernel. Nothing in
+    and the same description hand back a different solid under a different kernel. This key
+    needs naming it because it stands for an INSTRUCTION: `_boxes` and `_meshes` key on the
+    serialized shape an entry came off, so a kernel computing a different shape moves their
+    keys without being named in them. A description does not move at all. Nothing in
     this repo's text moves when `cadquery-ocp` does, and a key taken from the text alone stands
     for a shape the installed kernel no longer draws. `toolchain` reads the versions out of the
     running interpreter rather than off a file recording them, so there is no second step that
