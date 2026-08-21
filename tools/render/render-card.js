@@ -223,12 +223,21 @@ async function main() {
 
   await sweepAbandonedBrowsers("render-card");
   const browser = await launchBrowser({
-    // A card is a local HTML file with local images and no script — it draws in
-    // about a second, and puppeteer's 180 s default is a ceiling nothing here
-    // can reach on purpose. Held down so a card that has stopped answering
-    // costs the deck a fifth of a minute rather than three, ninety-five times:
-    // this is the budget for a page that never comes back, not for a slow one.
-    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 60000),
+    // THIS IS THE BUDGET FOR A PAGE THAT NEVER COMES BACK, AND A PAGE COMPETING FOR A
+    // CORE IS NOT THAT PAGE. A card draws in about a second on an idle machine, which
+    // is not the machine it draws on: this runs inside a bazel action with three more
+    // beside it and `_cadq_export` drawing thumbnails alongside, and a 3300x2550 page
+    // at dpr 1.2 under that load takes wall clock a lone render never sees.
+    // `bs-band-saw` passed 60 s on a runner while `//:cards-build` was 117 s into its
+    // own render, and one card that did not come back is a red target, which is a
+    // carry that does not happen, which is every derived output describing the commit
+    // before. The other two renderers carry `PARSE_TIMEOUT + 60000` for the same reason.
+    //
+    // AND THE ENVIRONMENT CANNOT RAISE IT WHERE IT MATTERS. A genrule sees only what
+    // `.bazelrc` hands it with `--action_env` — PATH, PUPPETEER_CACHE_DIR,
+    // BLENDER_USER_RESOURCES and two flags — so `HSM_CARD_TIMEOUT` set in a workflow
+    // reaches nothing at all. It is here for a hand run. The default is what CI gets.
+    protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 240000),
   });
   let overflowed = 0;
   const unrendered = [];
