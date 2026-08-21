@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,12 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "foam-assembly \u2229 tube-fluid-14   12.6 mm\u00b3, x[   40.33,   41.29] y[  208.20,  238.63] z[  266.30,  269.02]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -175,8 +173,7 @@
     "fluid-4 \u2014 coil-v-b: 1.695 mm",
     "foam-assembly \u2014 wago-reeds-b: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
-    "fluid-14 \u2014 valve-v-a: 1.731 mm",
-    "fluid-14 \u2014 seaflo-pump: 1.757 mm",
+    "fluid-14 \u2014 valve-v-a: 1.710 mm",
     "hopper-drain-stub \u2014 hopper-drain-clamp: 1.999 mm"
    ],
    "active": true
@@ -188,36 +185,6 @@
    "status": "pass",
    "value": "7/7 on the bed",
    "target": "every piece on the bed",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "hopper-floor-grade",
-   "label": "The basin's floor takes its rise off the half-run the neck lengthens",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "the Y half-run at or under the X (75.17 mm)",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-boss-leaves-motor",
-   "label": "The case-derived seams leave the part a motor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a boss ending before the part's 62.55 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "kamoer-motor-clears-tower",
-   "label": "The case's tower bore is deep enough for the motor",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "a bore reaching 62.55 mm or past it",
    "detail": [],
    "active": true
   },
@@ -398,6 +365,36 @@
    "status": "pass",
    "value": "36/36 hold",
    "target": "the pour gap apart or a 2 mm neck",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "hopper-floor-grade",
+   "label": "The basin's floor takes its rise off the half-run the neck lengthens",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the Y half-run at or under the X (75.17 mm)",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-boss-leaves-motor",
+   "label": "The case-derived seams leave the part a motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a boss ending before the part's 62.55 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "kamoer-motor-clears-tower",
+   "label": "The case's tower bore is deep enough for the motor",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "a bore reaching 62.55 mm or past it",
    "detail": [],
    "active": true
   },
@@ -1257,7 +1254,7 @@
    "label": "Every run the cap is bored for lies in its rib",
    "kind": "gate",
    "status": "pass",
-   "value": "1 bored, furthest off 0.000 mm",
+   "value": "1 bored, furthest off 0.199 mm",
    "target": "0.200 mm at most",
    "detail": [],
    "active": true
