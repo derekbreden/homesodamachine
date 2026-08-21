@@ -71,6 +71,8 @@ Finish the cycle. Don't stop partway and hand me the rest.
 2. Sync the docs and the ledger for whatever you moved.
 3. Commit **by pathspec** — `git commit -F - -- <paths>` — never `git add -A`. One checkout, one
    `main`; the pathspec form takes files straight from the tree without touching the shared index.
+   It only takes files git already tracks, so a NEW file needs `git add <its path>` first — name
+   the paths, never `-A`, and commit straight after so nothing of yours sits in the index.
 4. `git push`.
 5. **If geometry moved, repin the artifact lock**, then commit the lock and push:
 
