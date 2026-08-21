@@ -9,7 +9,6 @@ import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
 import { mountCostRoutes } from "./lib/cost.js";
-import { mountBuildRoutes } from "./lib/build-tree.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountEvents } from "./lib/events.js";
@@ -268,7 +267,6 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountLandingRoutes(app);
   mountViewerPages(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
-  mountBuildRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
   attachSubscribe(app, pool);
