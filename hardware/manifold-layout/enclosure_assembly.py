@@ -1745,6 +1745,71 @@ def check_bay_floor(pieces, shell) -> Bound:
             f"over. The floor runs {z_bed:g} to {top:g}"])))
 
 
+def check_column_face(pieces, shell) -> Bound:
+    """Whether the front columns' face across the bay is the turn it is drawn as, and whether
+    the side wall behind it is still there.
+
+    A WALL THAT VANISHES MAKES NOTHING INTERSECT. Every other reading on this card asks
+    whether two things collide, and taking material AWAY passes all of them: the piece pairs
+    still read 0.0 mm3, the meshes still come back watertight, the bed still fits. So this
+    reads presence, not clearance, at the one station where the column's face is thinnest —
+    the plane the flank opening ends on, `front_plane_y + enclosure._column_along()`, which
+    the turn is tangent to.
+
+    Two readings on the one solid. FIRST, THE WALL: a probe slab just forward of that plane,
+    from the exterior face in to where the turn lands, is that piece's section between this
+    corner and the outside of the machine, and full means it stands. SECOND, THE LANDING: the
+    inboard-most material in the same slab is where the face is, and a turn of `column_round`
+    tangent to the plane sweeps `sqrt(2 * column_round * probe)` inboard over the slab's own
+    depth — so the expected station is the landing plus that sweep, and it is arithmetic off
+    the radius rather than a figure fitted to what came out. A face that stops short of its
+    landing reads inboard of it; a face swung from anywhere but the jamb does not obey the
+    sweep at all."""
+    bay = shell.pump_bay
+    if not bay:
+        return None
+    bx0, bx1, bay_top = bay
+    r = _enc.column_round
+    y_land = _enc.front_plane_y + _enc._column_along()
+    # BETWEEN the storey's own ends and not on them. The seam's cap closes this corner one
+    # `wall` under the opening's floor and the bay's soffit closes it at the top, and both
+    # stand full to the jamb — so a slab taken ON either plane reads the thing on the far side
+    # of it rather than the post, and one micron of that reaches the whole reading.
+    edge = 1.0
+    z0 = _enc.z_seam + _enc.lip_len + _enc.wall + edge
+    z1 = bay_top - edge
+    probe = 0.05
+    sweep = math.sqrt(2.0 * r * probe)
+    ft = pieces["front-top"]
+    ft = ft.val() if hasattr(ft, "val") else ft
+    rows = []
+    for label, bx, ex, sx in (("X-", bx0, shell.outer[0], -1.0),
+                              ("X+", bx1, shell.outer[1], +1.0)):
+        land = bx + sx * r                       # where the turn meets the opening's end plane
+        keep = _enc._ybox(min(land, ex), max(land, ex), y_land - probe, y_land, z0, z1)
+        full = keep.intersect(ft).Volume() / keep.Volume()
+        lane = _enc._ybox(min(land, bx), max(land, bx), y_land - probe, y_land, z0, z1)
+        got = lane.intersect(ft)
+        face = (got.BoundingBox().xmax if sx < 0 else got.BoundingBox().xmin) \
+            if got.Volume() > 1e-9 else land
+        rows.append((label, full, face, land - sx * sweep))
+    slip = 0.2
+    ok = all(f >= 1.0 - 1e-6 and abs(face - want) <= slip for _l, f, face, want in rows)
+    return record_bound(Bound(
+        "column-face-lands", "The column's turn lands on the flank opening, and the wall "
+        "behind it stands", ok,
+        "; ".join(f"{l} {f * 100:.1f}% solid, face at {face:.3f}" for l, f, face, _w in rows),
+        f"solid to the landing, face within {slip:g} mm of "
+        f"{rows[0][3]:.3f} / {rows[1][3]:.3f}",
+        ([] if ok else
+         [f"{l}: the wall outboard of the landing is {f * 100:.1f}% solid — material taken "
+          f"from it collides with nothing and shows on no other reading"
+          for l, f, _face, _w in rows if f < 1.0 - 1e-6]
+         + [f"{l}: the face stands at {face:.3f} where a turn of {r:g} tangent to "
+            f"y={y_land:g} puts it at {want:.3f}, {abs(face - want):.3f} off"
+            for l, _f, face, want in rows if abs(face - want) > slip])))
+
+
 def check_cap_stop(pieces, spec) -> Bound:
     """Whether the cap's aft face actually lands on the collet plate's fore face.
 
@@ -6204,6 +6269,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the floor that whole storey stands on, against the rim it stands on — then each
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
+    # And the two posts that storey leaves standing either side of it — a reading of whether
+    # section is PRESENT, which every clearance check on this card passes by definition.
+    check_column_face(pieces, box)
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.
     check_release_travel(pieces, a.pack_solids, box.collet_plate)
