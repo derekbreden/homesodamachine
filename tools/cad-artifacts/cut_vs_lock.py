@@ -254,10 +254,13 @@ def _tree_verdict(stale, compared, note) -> int:
     if len(stale) > 20:
         print(f"      …and {len(stale) - 20} more")
     print()
-    print("  Every check that reads a solid reads the tree's copy, so those are cut for an")
-    print("  older source than the one this build just ran. `node dev-server/build-all.js`")
-    print("  is what cuts a solid into the tree; a bazel build writes `bazel-bin` and")
-    print("  `sync_tree` carries tracked paths, and `*.step` is neither.")
+    print("  Every check that reads a solid reads the tree's copy, and these two disagree.")
+    print("  WHICH SIDE IS BEHIND IS NOT IN THE BYTES. The tree's is cut by")
+    print("  `node dev-server/build-all.js` — a bazel build writes `bazel-bin`, `sync_tree`")
+    print("  carries tracked paths, and `*.step` is neither — so the tree's copy is as old as")
+    print("  the last hand run. And `bazel-bin`'s is as good as the source that action read:")
+    print("  a generator or a module dirty in the worktree cuts bytes no commit reproduces.")
+    print("  `git status` over what the cutting run imports is what separates them.")
     note("warning", "cut-vs-lock",
          f"{len(stale)} solids in the tree differ from what this build cut")
     return 1
