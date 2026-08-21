@@ -335,6 +335,12 @@ def draw(scene, assembly, batch, force=False) -> Path:
     # graph that reads it.
     glb = GLB_DIR / f"{scene.id}.glb"
     scene_assembly.export(str(glb), tolerance=GLB_TOL, angularTolerance=GLB_TOL)
+    # AND THE SAME SUBSTITUTION THE PAYLOAD ABOVE TOOK. This mesh is cut from the B-rep too, and
+    # it is what /3d opens a scene AS — there is no STEP behind it to fall back to — so a piece
+    # left as exported is drawn smooth wherever a reader browses the bench.
+    in_glb = flute_payload.graft_glb(glb, fluted_pieces(surfaces=True))
+    if in_glb:
+        print(f"   ({in_glb} fluted piece(s) into {glb.name})")
     note_write(glb)
 
     png = png_for(scene)
