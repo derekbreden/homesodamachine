@@ -206,10 +206,16 @@ self.addEventListener("activate", (event) => {
   // we use elsewhere from the root paths iOS probes.
   const PWA_ICONS_DIR = path.join(LANDING_PUBLIC, "pwa-icons");
   const appleTouchIcon = path.join(PWA_ICONS_DIR, "apple-touch-icon-180.png");
-  app.get("/apple-touch-icon.png", (_req, res) => res.sendFile(appleTouchIcon));
-  app.get("/apple-touch-icon-precomposed.png", (_req, res) => res.sendFile(appleTouchIcon));
-  app.get("/favicon.ico", (_req, res) => res.sendFile(path.join(PWA_ICONS_DIR, "favicon-32.png")));
-  app.get("/favicon.png", (_req, res) => res.sendFile(path.join(PWA_ICONS_DIR, "favicon-64.png")));
+  // `send` refuses any path carrying a dot-prefixed component, and a git worktree lives under
+  // `.claude/worktrees/…` — so the artwork's own directory is one. All four of these paths are
+  // built here out of `LANDING_PUBLIC` and take nothing from a request.
+  const icon = { dotfiles: "allow" };
+  app.get("/apple-touch-icon.png", (_req, res) => res.sendFile(appleTouchIcon, icon));
+  app.get("/apple-touch-icon-precomposed.png", (_req, res) => res.sendFile(appleTouchIcon, icon));
+  app.get("/favicon.ico", (_req, res) =>
+    res.sendFile(path.join(PWA_ICONS_DIR, "favicon-32.png"), icon));
+  app.get("/favicon.png", (_req, res) =>
+    res.sendFile(path.join(PWA_ICONS_DIR, "favicon-64.png"), icon));
 }
 
 export async function start({ dev = false, port, hardwareDir } = {}) {
