@@ -422,8 +422,15 @@ fi
 # there. `trace_inputs.py` records what a run was WATCHED opening, so an import added since
 # that run is not in the graph until the run happens again. Ast plus a graph lookup; it starts
 # no interpreter of this repo's and reads no geometry.
-if git diff --cached --name-only --diff-filter=ACM | grep -q '\.py$'; then
-  gate "a staged module's imports are declared where it is read" \
+# AND ASKED OFF THE WORKTREE, NOT THE INDEX. `CLAUDE.md` mandates `git commit -F - -- <paths>`,
+# which takes files straight from the worktree and never stages them, so `--cached` names
+# nothing on an ordinary commit here and this gate has been answering about the empty set. It
+# fired only where `git add` had touched a file — a NEW module — and never for the case it
+# exists to catch: a module already in the graph gaining an import its consumers do not
+# declare. Asked the corrected way it reports 57 steps on this tree.
+if { git diff HEAD --name-only --diff-filter=ACM
+     git diff --cached --name-only --diff-filter=ACM; } | grep -q '\.py$'; then
+  gate "a changed module's imports are declared where it is read" \
        python3 "$root/tools/bazel/check_declared_imports.py"
 fi
 
