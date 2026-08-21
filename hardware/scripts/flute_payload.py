@@ -220,6 +220,62 @@ def surfaces(directory=PIECES_DIR):
     return out
 
 
+#: How far a grafted surface may stand from the bodies it replaces. A piece is cut where the
+#: assembly stands it, so the two agree to a tessellation's deflection and nothing more; a
+#: reading past this is a body landing somewhere its own solid does not.
+PLACEMENT_TOL = 0.5
+
+
+def graft_glb(path, fluted):
+    """Put the fluted surfaces into the scene mesh at `path`, in place. Returns how many landed.
+
+    A `.glb` IS WHAT /3d OPENS A BENCH SCENE AS — `parts.js` hands one to `openGlbDetail`, and
+    there is no STEP behind it to fall back to, so a scene mesh cut from the B-rep is the last
+    place a piece is still drawn smooth.
+
+    cadquery WRITES ONE MESH PER BREP FACE, so a piece arrives as hundreds of patches named
+    `<piece>`, `<piece>_1`, `<piece>_2` … under one node. All of them go and the payload's single
+    body stands in their place, keeping that node's transform and the material the patches were
+    painted with — the scene decides where a body stands and what colour it is, and swapping the
+    surface is not swapping which part it is.
+
+    THE TRIANGLES NEED NO TURNING. A glTF file holds its geometry in the model's own frame and
+    puts the Y-up convention in the node graph above it, so the payload's positions drop in as
+    they stand. `PLACEMENT_TOL` is what says so rather than this comment: the body that lands
+    has to occupy the box the bodies it replaced occupied."""
+    scene = trimesh.load(str(path))
+    landed = 0
+    for name, surface in fluted.items():
+        members = [k for k in scene.geometry if k == name or k.startswith(name + "_")]
+        if not members:
+            continue
+        node = scene.graph.geometry_nodes[members[0]][0]
+        transform = scene.graph.get(frame_to=node)[0]
+        material = getattr(scene.geometry[members[0]].visual, "material", None)
+        low = np.min([scene.geometry[k].bounds[0] for k in members], axis=0)
+        high = np.max([scene.geometry[k].bounds[1] for k in members], axis=0)
+        for k in members:
+            scene.delete_geometry(k)
+        pos = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
+        idx = np.asarray(surface["idx"], dtype=np.int64).reshape(-1, 3)
+        nrm = np.asarray(surface["nrm"], dtype=np.float64).reshape(-1, 3)
+        mesh = trimesh.Trimesh(pos, idx, vertex_normals=nrm, process=False)
+        if material is not None:
+            mesh.visual = trimesh.visual.TextureVisuals(material=material)
+        drift = max(float(np.abs(mesh.bounds[0] - low).max()),
+                    float(np.abs(mesh.bounds[1] - high).max()))
+        if drift > PLACEMENT_TOL:
+            raise ValueError(
+                f"{Path(path).name}: {name}'s surface stands {drift:.3f} mm from the "
+                f"{len(members)} bodies it replaces, past {PLACEMENT_TOL} mm — a piece drawn "
+                f"somewhere its own solid is not.")
+        scene.add_geometry(mesh, node_name=name, geom_name=name, transform=transform)
+        landed += 1
+    if landed:
+        scene.export(str(path))
+    return landed
+
+
 def cut(step: Path, stl: Path, verbose=True):
     """Write the payload beside `step` out of the printed mesh at `stl`. Returns the mesh."""
     printed = trimesh.load_mesh(str(stl))
@@ -504,6 +560,41 @@ def selftest():
         was = host.stat().st_mtime_ns
         graft(host, {"some-piece": surface})
         check("a graft that changes nothing leaves the mtime alone", host.stat().st_mtime_ns, was)
+
+        # AND THE SAME SUBSTITUTION IN A SCENE MESH. cadquery gives a piece one body per BREP
+        # face; the graft has to take every one of them and leave the bodies around it standing,
+        # at the place and in the frame the scene put them.
+        glb = Path(d) / "scene.glb"
+        patch = trimesh.creation.box(extents=(4, 4, 4))
+        neighbour = trimesh.creation.box(extents=(2, 2, 2))
+        neighbour.apply_translation([20, 0, 0])
+        built = trimesh.Scene()
+        built.add_geometry(patch, node_name="a-piece", geom_name="a-piece")
+        built.add_geometry(patch.copy(), node_name="a-piece_1", geom_name="a-piece_1")
+        built.add_geometry(neighbour, node_name="bystander", geom_name="bystander")
+        built.export(str(glb))
+        replacement = trimesh.creation.box(extents=(4, 4, 4))
+        piece = {"pos": replacement.vertices.ravel().tolist(),
+                 "nrm": replacement.vertex_normals.ravel().tolist(),
+                 "idx": replacement.faces.ravel().tolist(), "fac": [0, 11]}
+        check("a scene graft takes every patch of the piece", graft_glb(glb, {"a-piece": piece}), 1)
+        got = trimesh.load(str(glb))
+        check("the piece is one body and the bystander stands",
+              sorted(got.geometry), ["a-piece", "bystander"])
+
+        # AND IT REFUSES A SURFACE THAT WOULD LAND SOMEWHERE ELSE. A body drawn in the wrong
+        # place is worse than one drawn smooth, and nothing downstream would catch it.
+        built.export(str(glb))
+        adrift = replacement.copy()
+        adrift.apply_translation([50, 0, 0])
+        moved = {"pos": adrift.vertices.ravel().tolist(),
+                 "nrm": adrift.vertex_normals.ravel().tolist(),
+                 "idx": adrift.faces.ravel().tolist(), "fac": [0, 11]}
+        try:
+            graft_glb(glb, {"a-piece": moved})
+            check("a surface that lands elsewhere is refused", "accepted", "refused")
+        except ValueError:
+            check("a surface that lands elsewhere is refused", "refused", "refused")
 
     # THE CONTROL THAT SEES WHAT THIS FILE IS FOR: the groove has to survive the collapse. A
     # decimation that flattened the flutes passes every check above — the payload decodes, the
