@@ -2,17 +2,17 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-16b9699c46e36206.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-16b9699c46e36206.tar.gz"
+    "asset": "cad-3a2de5869aeac570.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-3a2de5869aeac570.tar.gz"
   },
   "bundle": {
-    "sha256": "16b9699c46e3620650f11e5558a91d2db6e6a829b2f8f93f8ac820cd5097eab6",
-    "bytes": 37033457,
+    "sha256": "3a2de5869aeac570c736b7855f2568488bb55be0c243e394d823bc14797bdc32",
+    "bytes": 37016747,
     "solids": 113
   },
   "solids": {
     "hardware/assembly/scenes/glb/back-half.glb": "1ba23aa8d1b3f814f597e5395bd25f65be33315ac7bdf69245e8b3070e0fa4c2",
-    "hardware/assembly/scenes/glb/back-top.glb": "9d3936ec735723e56269d041343b6529477a152bdf5111aeb3c4a1215e0060c0",
+    "hardware/assembly/scenes/glb/back-top.glb": "d82ad161e6f2c5bdaae1a3a45deaf2cbd70275df1ed4088a664727b9137b6124",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "ebb27294147034bbffe48c731d409b73eec2f19450a52980c93ca2c5a5b00115",
     "hardware/assembly/scenes/glb/cap-lid.glb": "7eae9807ef597c2699c4ae1238104baf622efe079e02caa479e3f9e14d62155c",
     "hardware/assembly/scenes/glb/cold-core-open.glb": "6f6d15e54bf232e2948ee7749cf9e65480d1fdc97ea97f865be679bdf04e48f5",
