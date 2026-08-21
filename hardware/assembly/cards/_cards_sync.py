@@ -292,7 +292,7 @@ def enclosure(m: Machine):
         # drives their screws and ES-01/ES-03 send the bench to them, and four
         # cards stating one wall's boss chain cannot be allowed to disagree.
         "WALL_BOSSES": f"{len(box.east_bosses)}",
-        "C14_BOSSES": f"{len(box.c14)}",
+        "C14_INSERTS": f"{len(box.c14)}",
         # The rear wall (EN-02). Arrangement, not stations.
         "BACK_BODIES": f"{len(box.back_ports)}",
         "PORT_COL_PITCH": f"{port_cols[1] - port_cols[0]:.4g} mm",
@@ -325,7 +325,7 @@ def enclosure(m: Machine):
     cards = {
         "en-01-stage-the-printed-pieces": {
             "BOX_SIZE", "BOX_PIECES", "WALL_T", "Y_SEAM", "Z_SEAM_FRONT",
-            "WALL_BOSSES", "C14_BOSSES"},
+            "WALL_BOSSES", "C14_INSERTS"},
         # UMBILICAL_DROP is the internal-plumbing subsystem's name for the gap between
         # the two storeys, and one namespace spans the deck: EN-02 states the same
         # rectangle IP-05 rides, so it reads the storey pitch off the same fact rather

@@ -3846,22 +3846,24 @@ def deck_z(placed, gate: float):
 
 # --- the mains inlet, through the back wall --------------------------------
 #
-# The C14 the customer's cord plugs into. It lands FROM INSIDE — the flange bears on the wall's
-# inner face and two screws hold it there — so its housing stands in the box and only the shroud
-# reaches out through the cutout. Its own frame already faces the mating axis down +Y with the
-# seating plane on Y = 0, which is what the back wall gives it, so it takes no turn either.
+# The C14 the customer's cord plugs into. It lands FROM INSIDE — two screws hold its flange
+# against the fore face of `enclosure._c14_tunnel`, the block of wall standing round the cutout
+# — so its housing stands in the box and only the shroud reaches back out through the hole. Its
+# own frame already faces the mating axis down +Y with the seating plane on Y = 0, which is what
+# that face gives it, so it takes no turn either.
 C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
 
 def c14_flat_column() -> float:
     """The eastmost column the inlet can stand on: the one that leaves its FLANGE — the widest
-    thing it has, and the face that bears — wholly on the wall's own flat rear face.
+    thing it has, and the outline the tunnel under it is drawn to — wholly on the wall's own flat
+    rear face.
 
     `enclosure.corner_round` relieves the box's standing verticals for the bed, so the rear face
     is flat only between the two tangents and rolls away to the side walls past them — and where
     a standing vertical carries a COLUMN the flat ends at its cusp instead, further in again.
-    `enclosure.wall_flat_from_corner` is whichever of those the wall actually presents. A flange
-    carried past it is a flange bearing on curve."""
+    `enclosure.wall_flat_from_corner` is whichever of those the wall actually presents. A tunnel
+    rooted past it is a tunnel rooted on curve."""
     return (_enc.interior_x()[1] - _enc.wall_flat_from_corner()) - _c14.FLANGE_W / 2.0
 
 
@@ -3877,27 +3879,42 @@ def c14_flat_column() -> float:
 # because a chip is Ø`port_ring.od` and this flange is `iec_c14_inlet.FLANGE_W` — the moulding is
 # wider than the chip and eats the difference. The face they both run out on is the shared figure.
 C14_STATION = (c14_flat_column(), deck_storey())
-# A printed cutout to the moulded shroud that passes it, on each side.
+# A printed cutout to the moulded shroud that passes it, on each side. It is what the CORD is
+# drawn to as well: the tunnel behind this hole is bored to the same rectangle, so the housing
+# on the end of the C13 cordset comes down the whole depth of it to reach the blades.
 C14_CUTOUT_SLIP = 0.5
 
 
+def c14_seat_y() -> float:
+    """The plane the receptacle's flange bears on — the FORE face of `enclosure._c14_tunnel`,
+    and not the back wall's inner face.
+
+    It is struck from the outside in, off the two things that have to stand between that flange
+    and the customer: `enclosure.heatset_depth` of insert entering this face from inside the
+    machine, and `enclosure.socket_cap` over its blind end. Where the boundary between tunnel and
+    wall falls inside that stack does not move the plane — the wall carries the cap and the
+    tunnel carries the insert, and the sum is what the receptacle sits behind."""
+    x, z = C14_STATION
+    return (_enc.rear_plane_y + _enc.wall) - _enc.back_wall_t_at(x, z) - _enc.c14_tunnel_len
+
+
 def build_c14():
-    """The receptacle seated on the back wall's INNER face, its shroud out through the cutout.
+    """The receptacle seated on the tunnel's fore face, its shroud back out through the cutout.
 
     `iec_c14_inlet` states the seating planes: the flange's outboard face is its own Y = 0 and
-    bears on that inner face, the housing hangs `BODY_DEPTH` inboard of it, and the shroud rises
-    `SHROUD_PROUD` the other way — through a wall of `enclosure.wall` and standing proud of the
-    outside by what is left."""
+    bears on `c14_seat_y`, the housing hangs `BODY_DEPTH` inboard of it, and the shroud rises
+    `SHROUD_PROUD` the other way — up the tunnel's whole bore and through the wall behind it."""
     body = import_step(str(C14_STEP)).val()
     return seat_body(body, (), seat="c14-inlet",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
-                              (C14_STATION[0], _enc.rear_plane_y, C14_STATION[1])))
+                              (C14_STATION[0], c14_seat_y(), C14_STATION[1])))
 
 
 def c14_stations():
-    """The two heat-set screw stations on the back wall, as `(x, z)` — `enclosure._c14_bosses`
-    stands a boss on each. Both sit ON the mating axis, so the pair follows the one station the
-    receptacle is placed at."""
+    """The two heat-set screw stations on the back wall, as `(x, z)` — `enclosure._c14_tunnel`
+    bores one into its fore face at each. Both sit ON the mating axis, so the pair follows the
+    one station the receptacle is placed at, and the tunnel's own width across X is struck to
+    reach them."""
     return tuple((C14_STATION[0] + dx, C14_STATION[1] + dz) for dx, dz in _c14.panel_screws())
 
 
@@ -4142,7 +4159,12 @@ def build_psu(foam, wall_seat):
     Three faces of the machine and not three numbers: EAST on the wall seat, FOOT on the cap's
     own lid, and AFT its own rear mount hole on `enclosure.wall_boss_aft_limit` — the brick
     answers to the corner with the hole pattern it has, so its aft face lands wherever that
-    puts it. The lane it lies in is what the SeaFlo leaves east of itself on that cap."""
+    puts it. The lane it lies in is what the SeaFlo leaves east of itself on that cap.
+
+    THE COLUMN AHEAD OF IT HAS NOTHING TO TAKE. Relay #2 and the board are packed one
+    `WIRED_CLEAR` at a time off this brick's own fore face and the board stands about a
+    millimetre off `carb-1` there, which `clearance-floor` reads — so this plane is the whole of
+    the brick's travel, and what gives to the row on its crown is the row (`build_wago_row`)."""
     return seat_body(import_step(str(PSU_STEP)).val(), PSU_TURN, seat="psu",
                      x1=wall_seat,
                      y1=_enc.wall_boss_aft_limit() + (_psu.length / 2.0 - _psu.hole_dy),
@@ -4235,17 +4257,25 @@ def wago_row_reach() -> float:
     return 4.0 * _enc.wago_pitch + _enc.wago_well_wall + _enc.wago_stand("413")[0]
 
 
-def check_wago_row(lugs, psu) -> Bound:
+def check_wago_row(lugs, psu, inlet) -> Bound:
     """The row against the crown it lies on. It is drawn forward off centre by the inlet, and
     what it may not do is walk off the brick: a lug hanging past the brick's own front face is a
-    body over air, and the wall's well is holding it there on its own."""
-    pb = box(psu)
+    body over air, and the wall's well is holding it there on its own.
+
+    AND THE GAP IT KEPT ON THE OTHER SIDE, which is what the brick's fore face is charged
+    against. `WIRED_CLEAR` is a hand's working reach at the receptacle's own terminals and the
+    row takes what is left of it once every lug is over the crown (`build_wago_row`), so the
+    figure is READ here rather than assumed: the row's aft end against the inlet's fore face,
+    on the card, every build."""
+    pb, ib = box(psu), box(inlet)
     lo = min(box(s).ymin for _n, s, _c in lugs)
     hi = max(box(s).ymax for _n, s, _c in lugs)
+    reach = ib.ymin - hi
     ok = lo >= pb.ymin - 1e-6 and hi <= pb.ymax + 1e-6
     return record_bound(Bound(
         "wago-row-on-brick", "The lever-nut row lies over the brick it stands on", ok,
-        f"row spans y {lo:.2f}..{hi:.2f}, crown {pb.ymin:.2f}..{pb.ymax:.2f}",
+        f"row spans y {lo:.2f}..{hi:.2f}, crown {pb.ymin:.2f}..{pb.ymax:.2f}, "
+        f"{reach:.2f} mm of reach at the inlet",
         "every lug over the crown",
         ([] if ok else [
             f"the row spans y {lo:.2f}..{hi:.2f} and the brick's crown runs {pb.ymin:.2f}.."
@@ -4263,10 +4293,18 @@ def build_wago_row(psu, wall_seat, inlet):
 
     WHERE ON THAT CROWN IS THE INLET'S TO SAY. Centred is where five wells sit squarest on the
     body under them, and that is where the row goes — unless the C14 reaches into the span, and
-    it does: the receptacle whose live, neutral and earth these lugs splice is 22 mm of housing
-    off a back wall the brick runs the whole way to. So the row is centred, or drawn forward
-    until its last lug stands one `WIRED_CLEAR` ahead of that housing, whichever is further
-    forward. `check_wago_row` reads the forward end back against the crown.
+    it does: the receptacle whose live, neutral and earth these lugs splice stands its housing
+    and its terminals off a back wall the brick runs the whole way to. So the row is centred, or
+    drawn forward until its last lug stands one `WIRED_CLEAR` ahead of those terminals, whichever
+    is further forward.
+
+    AND THE BRICK'S FORE FACE IS WHERE THAT DRAW STOPS. A lug's height is struck off the crown
+    (`WAGO_CLEAR` over it), so a lug past the brick's fore end is at a Z justified by nothing
+    under it — `check_wago_row` is that reading. The brick cannot give the ground back either:
+    the column ahead of it is packed one `WIRED_CLEAR` at a time onto a board that stands about a
+    millimetre off `carb-1` (`build_psu`). So the row lies over the crown whole and the working
+    reach at the terminals is what is left of `WIRED_CLEAR` once it does, which `check_wago_row`
+    reads onto the card rather than leaving to the reader.
 
     THEY SEAT ON THE WALL AND NOT ON `east_wall_seat`. Every other body on this flank stands its
     outer face on a boss TIP, one `mount_boss_out` inboard of the wall, because a boss is what
@@ -4275,8 +4313,9 @@ def build_wago_row(psu, wall_seat, inlet):
     floating that same `mount_boss_out` clear of the well built to receive it."""
     pb = box(psu)
     span = 5 * _enc.wago_pitch
-    y0 = min((pb.ymin + pb.ymax) / 2.0 - span / 2.0,
-             box(inlet).ymin - WIRED_CLEAR - wago_row_reach())
+    y0 = max(pb.ymin - _enc.wago_well_wall,
+             min((pb.ymin + pb.ymax) / 2.0 - span / 2.0,
+                 box(inlet).ymin - WIRED_CLEAR - wago_row_reach()))
     out = []
     for i, name in enumerate(WAGO_POLES):
         solid, carry = seat_body(import_step(str(wago_step("413"))).val(), WAGO_TURN,
@@ -4284,7 +4323,7 @@ def build_wago_row(psu, wall_seat, inlet):
                                  y0=y0 + i * _enc.wago_pitch + _enc.wago_well_wall,
                                  z0=pb.zmax + WAGO_CLEAR + _wago_skirt())
         out.append((name, solid, carry))
-    check_wago_row(out, psu)
+    check_wago_row(out, psu, inlet)
     return out
 
 

@@ -173,9 +173,9 @@ def pocket_soffit(hang: float) -> float:
 
 
 def boss_stem_d() -> float:
-    """And the boss under that pocket, round the insert alone — `enclosure.c14_boss_dia`, one
-    wall about a ruthex M3 short."""
-    return _enc.c14_boss_dia
+    """And the boss under that pocket, round the insert alone — one `enclosure.wall` about a
+    ruthex M3 short, which is the section anything on this box stands a bare insert in."""
+    return _enc.heatset_dia + 2.0 * _enc.wall
 
 
 def screw_stations() -> tuple:
