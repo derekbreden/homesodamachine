@@ -126,7 +126,8 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "display-cover",
            _hw / "printed-parts" / "enclosure" / "display-gasket",
-           _hw / "printed-parts" / "enclosure" / "enclosure"):
+           _hw / "printed-parts" / "enclosure" / "enclosure",
+           _hw / "printed-parts" / "enclosure" / "ceiling-panel"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly, export_dxf, import_step  # noqa: E402
 import _boxes                                         # noqa: E402
@@ -146,6 +147,7 @@ import copper_plugs as _plugs                         # noqa: E402
 import display_cover as _cover                        # noqa: E402
 import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
+import ceiling_panel as _cpanel                       # noqa: E402
 import hopper_funnel as _funnel                       # noqa: E402
 import hopper_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
@@ -3458,10 +3460,13 @@ TUBE_ANCHOR_SLIP = 0.2
 # solids, so a rib that lands in a different piece than its row names is a red row and not a
 # silent one.
 TUBE_ANCHOR_SITES = (
-    # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm.
-    ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # The carb-water line's crossing, under the top wall it runs 12.6 mm below for 123 mm. THE
+    # WALL THERE IS THE SLIDE-IN CEILING PANEL and not back-top: back-top keeps only the two side
+    # strips of its ceiling, so a rib rooted over the field between them roots on the panel
+    # (`enclosure.ceiling_stations`, which is what splits the stations between the two).
+    ("carb-1", 1, (0.0, 0.0, 1.0), "enclosure-ceiling-panel"),
     # And the gas line's, on that same deck and under that same wall, one cap conduit aft of it.
-    ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    ("co2-2", 1, (0.0, 0.0, 1.0), "enclosure-ceiling-panel"),
     # Nozzle B's cruise aft, off the −X wall it runs 26.4 mm inboard of. That leg is the run's
     # longest and it is dead straight, so the wall lies one distance down the whole of it — and
     # `_lines.GATE_B_STEP_Y` places its MIDDLE, which is where the rib goes, in the one band of
@@ -3518,8 +3523,9 @@ def tube_anchors(runs) -> tuple:
 # piece that owns that face. `check_body_seated` reads the last of those back off the two solids.
 BODY_ANCHOR_SLIP = 0.2
 BODY_ANCHOR_SITES = (
-    # The regulator's barrel, between its two wrench hexes.
-    ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
+    # The regulator's barrel, between its two wrench hexes — off the ceiling, which over this
+    # field is the slide-in panel's and not back-top's.
+    ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-ceiling-panel"),
     # THE FLAVOUR TAP'S OWN TWO, one over the other on one column off the −X wall. The split and
     # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
     # run between its hub and the collet the tap arrives by — the one round section on either body
@@ -4147,6 +4153,25 @@ def condenser_mount(cond, cond_carry) -> tuple:
     return (box(cond).xmax + clear, band[0], band[1], seats)
 
 
+def condenser_airway(cond, cond_carry) -> tuple:
+    """The block's own AIRWAY, as `enclosure._flank_vents` reads it — `(y0, y1, z0, z1)`, the
+    band on either flank that actually passes air.
+
+    THE RECESSES ARE NOT AIRWAY. Each Y face stands `condenser_block.RECESS_Y` back over the
+    block's whole width, and what that leaves at either end is the folded sheet the box holds
+    the block by — a groove at one end, a boss at the other. The fan draws through neither. The
+    band between them is the finstack, and it is the only part of the block's flank a vent cut
+    opposite it is opening onto.
+
+    IN HEIGHT IT IS THE WHOLE BLOCK, less nothing: the flanges the recesses leave are
+    `condenser_block.PLATE_T` of sheet at the crown and the base, which is four tenths of a
+    millimetre against 137, and the serpentine runs to both of them."""
+    fore, aft = _cond.recess_y()
+    ys = sorted(cond_carry(((0.0, y, 0.0), (0.0, 1.0, 0.0)))[0][1] for y in (fore[1], aft[0]))
+    b = box(cond)
+    return (ys[0], ys[1], b.zmin, b.zmax)
+
+
 # The brick lies on its side against that wall: a quarter about Y stands its 52 mm width up as
 # height and lays its 33.5 mm depth across the machine, so only that much of the lane reaches
 # inboard and its 109 mm long axis runs fore and aft down the flank.
@@ -4735,8 +4760,8 @@ def check_digiten_seated(meter, piece) -> Bound:
         "digiten-seated", "The flow meter hangs in its two printed saddles", ok,
         f"{got:.3f} mm off the ceiling's furniture", f"{want:.3f} mm at most",
         ([] if ok else [
-            f"the meter stands {got:.3f} mm off everything `enclosure-back-top` puts near it, and "
-            f"its saddles are drawn to close on the two barrels at {want:.3f}. Either "
+            f"the meter stands {got:.3f} mm off everything `enclosure-ceiling-panel` puts near "
+            f"it, and its saddles are drawn to close on the two barrels at {want:.3f}. Either "
             f"`digiten_saddles` no longer reads the meter's own ports, or the meter moved and the "
             f"station did not follow it."])))
 
@@ -5585,6 +5610,10 @@ def build_pack() -> cq.Assembly:
     # flanges: two in a groove off the front wall, two on a boss apiece off the +X one.
     a.cond_cradle = condenser_cradle(cond, cond_carry, box(comp).zmin)
     a.cond_mount = condenser_mount(cond, cond_carry)
+    # And the two flanks the air goes in and out by, which the block states the same way it
+    # states its flanges: the finstack's own footprint, and the box pierces the flutes opposite
+    # it (`enclosure._flank_vents`).
+    a.cond_airway = condenser_airway(cond, cond_carry)
     # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
     # well IS its mount, and that goes on the wall through `side_wells`.
     a.east_bosses = wall_mounts(
@@ -5820,7 +5849,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
-                     cond_mount=a.cond_mount, asse_cradle=a.asse_cradle,
+                     cond_mount=a.cond_mount, cond_airway=a.cond_airway,
+                     asse_cradle=a.asse_cradle,
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      port_field=back_wall_field(a.wall_stations),
@@ -6286,11 +6316,17 @@ def build_enclosure_assembly() -> cq.Assembly:
     pieces = _enc.build_pieces(box)[0]
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    # AND BACK-TOP'S CEILING, which is a part of its own. It is built here rather than in
+    # `build_pieces` because it is not one of the box's quadrants: `ceiling_panel` states the
+    # joint's mating figures and back-top is cut to them, and what the panel needs from this
+    # assembly is the two ceiling stations it carries.
+    pieces["ceiling-panel"] = _cpanel.build(box)
+    a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETG_BLACK)
     # The chain against the piece that cradles it, once that piece exists — the one reading on
     # this card that can tell a trough closed on the barrel from a trough drawn near it.
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
-    check_digiten_seated(a.pack_solids["digiten-flow"], pieces["back-top"])
+    check_digiten_seated(a.pack_solids["digiten-flow"], pieces["ceiling-panel"])
     # And every valve on a panel against the piece whose plate carries its four sockets — the
     # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
     # plate nothing on this card would otherwise name.
