@@ -137,6 +137,7 @@ sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-panel"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "ceiling-panel"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
 from _cadq_export import export_assembly
 from _materials import WALL_COLORS as PIECE_COLORS, one_body
@@ -874,6 +875,107 @@ back_top_flank_t = 6.0
 # `interior_x` as they always did, so a lever nut bottoms where it bottomed and simply sits in a
 # deeper pocket. And the drip tray's sleeve keeps its whole block: the tray withdraws through
 # this flank, so what stands round it is the sleeve's own section and not this one.
+
+# --- back-top's own ceiling ---------------------------------------------------
+#
+# WHAT THIS PIECE KEEPS OF ITS CEILING is the two side strips either side of the slide-in panel
+# (`../ceiling-panel/ceiling_panel.py`), `rail_run` wide, and each is CORBELLED the way front-top's
+# two are either side of the throat (`_ceiling_corbels`): a 45 degree underside rising off the
+# flank face to nothing at the panel's edge, so a piece that prints mouth-down lays every layer of
+# that strip on the one below it. The field between them is the panel's, and this piece takes it
+# away rather than printing a slab in mid air over the whole service bay.
+#
+# AND WHAT STANDS IN THE CORBEL KEEPS THE PLANE IT STANDS ON. The corbel descends a millimetre for
+# every millimetre it runs outboard, so it is DEEPEST AT THE WALL — which is exactly where the rear
+# storey's own furniture stands, and shallowest at the panel's edge, where nothing does. A RELIEF
+# IS A FACT ABOUT THE STRIP, not a note beside it, and `ceiling_corbel_at` measures the same figure
+# the solid is cut on. Stated as (station, sx, y0, y1, keep): whose relief it is, which flank it
+# stands on, the band it takes, and how much of the strip's run the corbel still KEEPS over that
+# band. Outboard of `keep` the strip is the top wall's own section alone and takes print support.
+#
+# SO A RELIEF TAKES THE OUTBOARD RUN AND LEAVES THE INBOARD, which is the only way round that
+# helps: the corbel is a wedge whose thin end is at the panel's edge, so what a body a millimetre
+# under the ceiling leaves room for is the thin end. The kept run gives up its root on the flank
+# and comes out of the full corbel at each end of the band instead, which is one bridged line at
+# the band's own depth and nothing else.
+#
+# THE THREE ROWS ARE MEASURED AGAINST THE PLACED SOLIDS AND NOT AGAINST THEIR BOXES, and the
+# difference decides two of them. A bounding box on this pack stands well inside its own metal:
+# the C14's reads x 45.5..92.5 and z 350.79, which puts it a millimetre under the ceiling right
+# across the strip — and its casting never enters the corbel at all, so it takes no row. What does,
+# with the exact metal's own reach inboard and the clearance the kept run then stands off it:
+#
+#   ground-stack   y 236.00..247.32, metal in to |x| 86.45, keeps 5 -> 2.45 mm   (box x 84.45..98.25)
+#   relay-1        y 252.50..322.50, metal in to |x| 86.50, keeps 5 -> 2.00 mm   (box x 79.25..98.25)
+#   asse1022       y 355.21..423.71, metal in to |x| 81.00, keeps 0              (box x to −94.57)
+#
+# AND ONE ROW IS STATED RATHER THAN MEASURED. The tap-water chain's two ties are closed loops that
+# cross its top flat in the `DECK_CEILING_CLEAR` lane under this ceiling, out to the −X wall, and
+# `_asse_cradle` says outright that the wall itself is never cut for them. So the chain's relief
+# keeps NONE of the strip over its band: the barrel leaves the corbel 1.5 mm of it in any case,
+# and the trough's own block, its V and its tie cavity stand in the rest.
+back_top_ceiling_reliefs = (
+    ("ground-stack",   +1.0, 236.0, 248.5, 5.0),   # the +X ground bar's stack, at the fore end
+    # THE BAND STANDS OFF THE BOSSES AT ITS OWN ENDS. The relay's two upper mounting bosses are
+    # `mount_boss_dia` cylinders centred y 254.5 and 320.5, so their end faces lie ON y 251 and
+    # 324 — and a relief ending there would put the cut's own face on a boss's, which is four
+    # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face.
+    ("relay-1",        +1.0, 250.0, 325.0, 5.0),   # the relay's crown, mid-strip
+    ("asse1022-chain", -1.0, 354.0, 425.0, 0.0),   # the chain, its trough and both tie straps
+)
+
+
+@functools.lru_cache(maxsize=1)
+def _ceiling():
+    """The slide-in ceiling panel, as a module — the part that STATES this joint's mating
+    figures, and the one this file reads them from rather than restating any of them.
+
+    Imported here rather than at module scope for `machine_of`'s reason: that module is drawn on
+    this one's planes, so reading it at import time would have it importing a module that is
+    importing it back."""
+    import ceiling_panel
+    return ceiling_panel
+
+
+def ceiling_corbel_at(x, y):
+    """How deep back-top's ceiling strip hangs below the ceiling plane at one station — the
+    corbel's own reach under the top wall's section.
+
+    `back_wall_t_at` one storey down, keyed on (x, y) rather than (x, z): it is the strip's run
+    outboard of the panel's edge where the strip is corbelled, and NOTHING where a body stands in
+    it or inboard of that edge, where the ceiling is the panel's and not this piece's."""
+    run = abs(x) - _ceiling().panel_half_w
+    if run <= 0.0:
+        return 0.0                         # the panel's own field — no strip, and no corbel
+    for _who, sx, y0, y1, keep in back_top_ceiling_reliefs:
+        if sx * x > 0.0 and y0 <= y <= y1 and run > keep:
+            return 0.0
+    return run
+
+
+def ceiling_stations(digiten, anchors, panel: bool):
+    """Which of the ceiling's own stations each side of that joint builds — the slide-in panel's
+    when `panel`, back-top's otherwise.
+
+    A rib roots on the face it is handed, and back-top's ceiling over the panel's field IS the
+    panel, so a station standing there is the panel's to build and this piece's to leave alone.
+    BOTH SIDES READ THIS ONE CALL, so neither can grow a rib the other grew too and no station can
+    fall between them. A rib rooted on a WALL is never the panel's, whatever its plan."""
+    cp = _ceiling()
+
+    def over_field(x, y):
+        return abs(x) <= cp.panel_half_w and cp.fore_y <= y <= cp.aft_y
+
+    saddles = None
+    if digiten:
+        bands = digiten[3]
+        if over_field(digiten[0], (bands[0][0] + bands[-1][1]) / 2.0) == panel:
+            saddles = digiten
+    ribs = tuple(s for s in (anchors or ())
+                 if (tuple(int(round(c)) for c in s[2]) == (0, 0, 1)
+                     and over_field(s[0][0], s[0][1])) == panel)
+    return saddles, ribs
+
 
 # And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
 # the face a user hauls the pump cartridge out by, so it carries section the way the facet
@@ -2784,7 +2886,15 @@ def with_funnel(box, centre):
         ([] if fits else [
             f"funnel brim overhang {_funnel.brim_overhang:.2f} exceeds its top-wall "
             f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame"])))
-    got = (x0 - lims[0], lims[1] - x1, lims[3] - y1)
+    # AND THE +Y EDGE IS THE CEILING PANEL'S, not the frame's. Aft of the throat the top surface
+    # is the slide-in panel (`../ceiling-panel/ceiling_panel.py`), whose fore edge IS the collar's
+    # own aft edge and whose show face carries the top wall's section back to the rear wall — so
+    # what the brim lands on there is that panel, and the margin is the panel's own depth. A panel
+    # whose fore edge stood AFT of the collar would leave the flange over the throat, and the
+    # reading comes back negative by however far it had drifted.
+    cp = _ceiling()
+    aft = (cp.aft_y - y1) if cp.fore_y <= y1 + tol else (y1 - cp.fore_y)
+    got = (x0 - lims[0], lims[1] - x1, aft)
     clear = not any(g < _funnel.brim_margin - 1e-6 for g in got)
     record_bound(Bound(
         "funnel-brim-margin", "The funnel collar keeps a brim margin at each free edge", clear,
@@ -3777,6 +3887,86 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
         band = band.cut(cutter)
     return band
+
+
+def _back_top_ceiling(solid, inner, y_joint):
+    """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
+    away between the two side strips, each strip corbelled and relieved where a body stands in it,
+    the panel's dado down each strip's inboard face, and a boss under each of its two screw
+    stations.
+
+    FUSED AND CUT BEFORE THIS PIECE'S OWN FURNITURE, the way its two sections are: the trough's V,
+    the chain's bores, the Wago wells and every bore below are cut AFTER this, so each is cut out
+    of whatever the corbel put there rather than filling a pocket back in.
+
+    THE DADO RUNS FROM THE OPEN Y− MOUTH AFT, and that is the whole of how the panel gets in: it
+    is slid the length of the piece with its tongues in these two grooves, before back-top meets
+    another quadrant. So the groove starts on the seam plane, not on the panel's own fore edge.
+
+    THE BOSSES STAND ON PIERS AND THE PIERS HANG OFF THE STRIP. The panel's pad lands tangent to
+    the strip's inboard face (`ceiling_panel.screw_x`), so nothing joins a boss to this piece
+    across that plane — the pier is the join: a block from the boss's own axis out to where the
+    corbel carries one `wall` over it, its top face ON the ceiling plane, and the pad's travel
+    struck back out of it. Its underside is a soffit and hangs, the way the tap-water trough's
+    block does one storey down, and takes print support."""
+    cp = _ceiling()
+    iz1 = inner[5]
+    half, flanks = cp.panel_half_w, back_top_flank_face()
+
+    # THE FIELD. The panel carries the top wall's own section over its whole footprint, so what
+    # this piece gives up is exactly that footprint and nothing under it.
+    solid = solid.cut(_ybox(-half, half, cp.fore_y, cp.aft_y, iz1, cp.show_z + 1.0))
+
+    # THE TWO STRIPS. Each corbel is cut to its reliefs BEFORE it is fused, so a relief takes the
+    # corbel and never the trough, the flank section or the wall standing behind it.
+    for sx, wall_x in ((+1.0, flanks[1]), (-1.0, flanks[0])):
+        edge, deep = sx * half, abs(wall_x) - half
+        corbel = _xz_prism(cp.fore_y, cp.aft_y,
+                           [(edge, iz1), (wall_x, iz1), (wall_x, iz1 - deep)])
+        for who, rsx, y0, y1, keep in back_top_ceiling_reliefs:
+            if rsx != sx:
+                continue
+            if not 0.0 <= keep <= deep + 1e-9:
+                raise ValueError(
+                    f"_back_top_ceiling: the {who} relief keeps {keep:g} mm of a strip that is "
+                    f"{deep:g} mm wide. A relief takes the OUTBOARD run and leaves the inboard, "
+                    f"so what it keeps is between nothing and `ceiling_panel.rail_run`.")
+            kept, out = sx * (half + keep), sx * (wall_x + 1.0)
+            corbel = corbel.cut(_ybox(min(kept, out), max(kept, out), y0, y1,
+                                      iz1 - deep - 1.0, iz1 + 1.0))
+        solid = solid.fuse(corbel)
+
+    # THE DADO, one down each strip's inboard face, on the section the panel states. It is cut
+    # OPEN at both ends: its mouth one millimetre into the field, which is the panel's own lane,
+    # and its blind end its own depth INTO the back wall, which is the panel's stop. A groove
+    # ending exactly on either plane would leave the strip and the thing it runs out on meeting
+    # along a line, which is a knife edge in the solid and a non-manifold edge in the mesh.
+    mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()
+    slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
+    over = 1.0
+    for sx in (+1.0, -1.0):
+        solid = solid.cut(_xz_prism(y_joint, cp.aft_y + depth, [
+            (sx * (mouth_x - over), floor_z),
+            (sx * blind_x, floor_z),
+            (sx * blind_x, roof_z),
+            (sx * (mouth_x - over), roof_z + (depth + over) * slope)]))
+
+    # THE TWO BOSSES, and the lane the panel's pads travel to reach them.
+    reach = wall                           # out to where the corbel carries one `wall` over it
+    r, floor = cp.screw_pad_r, cp.screw_bore_z - socket_cap
+    plan = _ybox(-half - 1.0, half + 1.0, cp.fore_y, cp.aft_y, floor - 1.0, cp.show_z)
+    for cx, cy in cp.screw_stations():
+        sx = 1.0 if cx > 0 else -1.0
+        out = sx * (half + reach)
+        solid = solid.fuse(_ybox(min(cx, out), max(cx, out), cp.fore_y, cy + r, floor, iz1))
+        solid = solid.fuse(_zcyl(r, cx, cy, floor, cp.screw_seat_z).intersect(plan))
+        # THE PAD TRAVELS THIS LANE and nothing of this piece stands in it: the panel's own web
+        # hangs a `cap_web_t` below its show face and rides in from the mouth on the seat plane.
+        solid = solid.cut(_ybox(min(cx - sx * r, cx + sx * r), max(cx - sx * r, cx + sx * r),
+                                y_joint, cy + r, cp.screw_seat_z, iz1))
+        solid = solid.cut(_zcyl(heatset_dia / 2.0, cx, cy,
+                                cp.screw_bore_z, cp.screw_seat_z + 1.0))
+    return solid
 
 
 def _bay_mouth(inner, outer, bay, pump_trays, inset):
@@ -5566,6 +5756,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # the port field, the C14's bores and the nameplate's seat are cut out of the
             # section rather than out of the skin it replaced.
             piece = piece.fuse(_back_top_wall(inner, outer, box, zj))
+            # AND ITS CEILING, which is two corbelled side strips with the slide-in panel
+            # between them. Here for the same reason the two sections above are: the trough's V,
+            # the chain's bores, the wells and every bore below are cut AFTER this, so each is
+            # cut out of what the corbel left rather than filling a pocket back in.
+            piece = _back_top_ceiling(piece, inner, y_joint)
         for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
             x_ext = x_in - sx * wall
             if y_side == "front":
@@ -5622,8 +5817,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
     # trough this fuses, so nothing may fuse into them afterwards.
     piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
-    # And the flow meter's two saddles off the same piece's ceiling.
-    piece = _digiten_saddles(piece, inner, box.digiten_saddles, ylo, yhi, zlo, zhi)
+    # And the flow meter's two saddles off the same piece's ceiling — the stations `ceiling_stations`
+    # leaves this piece, because back-top's ceiling over the panel's field is the PANEL and a rib
+    # rooted there roots on it (`../ceiling-panel/ceiling_panel.py`).
+    saddles, ribs = ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=False)
+    piece = _digiten_saddles(piece, inner, saddles, ylo, yhi, zlo, zhi)
     # And the flavour manifold's valve panels, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
@@ -5644,7 +5842,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(_bay_floor(inner, y_joint, box.collet_plate, box.pump_trays))
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the trough is: every one of these is a rib with a cavity cut through it.
-    piece = _tube_anchors(piece, inner, box.tube_anchors, ylo, yhi, zlo, zhi)
+    piece = _tube_anchors(piece, inner, ribs, ylo, yhi, zlo, zhi)
     # And the nameplate — the pocket on the back wall's outer face, the plateau that floors it on
     # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
     # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,
@@ -5807,6 +6005,7 @@ _last_outer = [None]
 
 
 def _export_pieces(pieces, assy):
+    refused = []
     for name, piece in pieces.items():
         export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
                         str(_here.parent / f"enclosure-{name}.step"))
@@ -5830,17 +6029,32 @@ def _export_pieces(pieces, assy):
         # a fact about the solid — and refusing the cut for it would refuse every piece. The
         # engine takes that and repairs it; a mesh that is still not closed after it is one no
         # slicer should be handed.
-        if not mesh.is_watertight:
-            raise ValueError(
-                f"enclosure-{name} comes back from the flute cut with an open surface "
-                f"(winding {mesh.is_winding_consistent}, {len(mesh.faces)} facets) — a slicer "
-                f"handed this would guess at what is solid")
+        # WHAT IS CHECKED IS WHAT A SLICER REFUSES. `is_watertight` is the easier question and
+        # a mesh can pass it while Bambu Studio rejects the file outright: winding can close
+        # over an edge that four faces share. This asks the harder one, because these meshes go
+        # in the release bundle and out to a bed.
         stl = _here.parent / f"enclosure-{name}.stl"
         mesh.export(str(stl))
+        # AND THE READING IS TAKEN OFF THE FILE, re-read the way a slicer reads it. Everything
+        # before this is in memory and in double precision; what goes to the bed is neither.
+        written = trimesh.load_mesh(str(stl))
+        loose = _flute_skin.non_manifold_edges(written)
+        if loose or not written.is_watertight:
+            # EVERY PIECE IS STILL WRITTEN, and the build still fails. A piece that comes back
+            # refusable says nothing about the five beside it, and raising on the first one
+            # withholds five good files over a sixth — including, on the day this was written,
+            # the one piece somebody was waiting to print.
+            refused.append(
+                f"enclosure-{name}.stl: {loose} non-manifold edge(s), watertight="
+                f"{written.is_watertight}, over {len(written.faces)} facets")
         print(f"-> enclosure-{name}.stl  ({len(mesh.faces)} facets, "
               f"{'watertight' if mesh.is_watertight else 'NOT WATERTIGHT'})")
     export_assembly(assy, str(_here.parent / "enclosure.step"))
     print("-> enclosure.step (assembled pieces)")
+    if refused:
+        raise ValueError(
+            "meshes a slicer refuses, read back off the file and merged by position the way a "
+            "slicer reads one:\n    " + "\n    ".join(refused))
 
 
 def stated_box(pack):
