@@ -185,7 +185,21 @@ jobs:
         # took 270 s and 1926 s at four concurrent actions and 1905 s at two, and at two the
         # failure SPREAD to a second card and to the manual's cover. What decides it is the size
         # of the capture, not how many run at once, which is what `--shm-size` above addresses.
-        run: bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
+        # WHICH TARGETS FAILED IS WRITTEN DOWN HERE BECAUSE THIS IS WHERE IT IS KNOWN. The carry
+        # below holds back the outputs of a target that failed, and nothing downstream of bazel
+        # can tell one from a target that simply did not need to run — `--check_up_to_date` asks
+        # about inputs, not about whether an action ran. `set +o pipefail` keeps the tee from
+        # deciding the step; bazel's own status does.
+        run: |
+          set +o pipefail
+          bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything 2>&1 \
+            | tee /tmp/bazel-build.log
+          rc=${PIPESTATUS[0]}
+          failed=$(grep -oE 'Executing genrule //[A-Za-z0-9_:.-]+ failed' /tmp/bazel-build.log \
+                   | grep -oE '//[A-Za-z0-9_:.-]+' | sed 's|^//:||' | sort -u | paste -sd, -)
+          echo "failed=$failed" >> "$GITHUB_OUTPUT"
+          echo "targets that failed: ${failed:-none}"
+          exit "$rc"
 
       # BAZEL CUTS INTO `bazel-bin` AND THIS REPO COMMITS ITS TREE, and `sync_tree.py` is the
       # only thing that carries one to the other — `hardware/README.md` names it as the step
@@ -194,16 +208,23 @@ jobs:
       # ledger, the docs, the deck and `pack.py` all read what the fetch put there. Every
       # layer agrees with every other and all of them describe the commit BEFORE this one.
       #
-      # IT REFUSES ON A BUILD THAT DID NOT FINISH, and that is its own doctrine, not a bug
-      # to route around: bazel keeps what a target cut the last time it succeeded, so a red
-      # build's `bazel-bin` is this run's bytes mixed with some earlier run's, and carrying
-      # that writes stale bytes over correct ones — the one move here that cannot be taken
-      # back. So while any target is red this carries nothing, and the step below says what
-      # that means instead of letting the greens under it read as confirmation.
+      # WHAT A FAILED TARGET CUT IS HELD BACK, AND ONLY THAT. Bazel keeps what a target cut the
+      # last time it succeeded, so a red target's `bazel-bin` is some earlier run's bytes and
+      # carrying them writes stale over correct — the one move here that cannot be taken back.
+      # `--check_up_to_date` does not see it: it asks whether an output matches its inputs, not
+      # whether the action ran, and it answers "up to date" for a target that failed minutes
+      # ago. So the build names its failures above and this holds those outputs back by name.
+      #
+      # A GREEN TARGET STILL OWES ITS OWN. Holding the whole carry on any red target is what
+      # kept every derived output a commit behind for a night — the ledger, the docs, the deck
+      # and `pack.py` all reading the solids the fetch put there, agreeing with each other and
+      # describing the commit before. One card that will not draw does not make the geometry
+      # unknowable, and the step below says which happened either way.
       - name: Carry what the build cut into the tree
         id: sync
         continue-on-error: true
-        run: tools/cad-venv/bin/python tools/bazel/sync_tree.py --write
+        run: tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+               --failed "${{ steps.build.outputs.failed }}"
 
       # A RED BUILD DOES NOT HOLD THIS, but it must not be silent either: `continue-on-error`
       # reports the step as a success, so a build that cut no solids reached the ledger and
