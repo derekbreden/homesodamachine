@@ -20,9 +20,19 @@ export const CARD_W = 1800;
 export const CARD_H = 1200;
 
 // What /cards/* will serve out of the deck directory: the card pages, the shared
-// stylesheet, and the renders + line art they embed. Anything else in there
-// (_build.py, out/, the READMEs) is build machinery and stays unreachable.
-export const CARD_ASSET_TYPES = [".html", ".css", ".png", ".jpg", ".jpeg", ".svg", ".webp", ".woff2"];
+// stylesheet, the renders + line art they embed, and the printed deck — one 6 × 4
+// in page per card, which is what a bench takes to a printer rather than clicking
+// through a hundred tiles. Source and prose (_build.py, the READMEs) are build
+// machinery and stay unreachable.
+export const CARD_ASSET_TYPES = [".html", ".css", ".png", ".jpg", ".jpeg", ".svg", ".webp", ".woff2", ".pdf"];
+
+// The printed deck, root-relative — every card as one file, bound in build order
+// by hardware/assembly/cards/_build.py. It sits beside the cards rather than in
+// their `out/`: the pages are printed off the browser's layout rather than
+// captured off it, so the deck is vector and small enough that git carries it and
+// a deploy needs to fetch nothing. Read off disk where it is used, so a checkout
+// that has not built one says so instead of linking at nothing.
+export const DECK_PDF_REL = `${CARDS_DIR_REL}/deck.pdf`;
 
 // True for a root-relative path naming a servable asset inside the deck.
 export function isCardAssetPath(rel) {
