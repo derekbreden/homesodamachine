@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -73,10 +73,13 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "2 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "c14-inlet \u2229 enclosure-back-top   136.2 mm\u00b3, x[   45.50,   92.50] y[  456.75,  458.75] z[  321.64,  350.79]",
+    "asse1022-assembly \u2229 enclosure-back-top   846.1 mm\u00b3, x[  -89.37,  -81.00] y[  355.21,  423.71] z[  345.21,  350.50]"
+   ],
    "active": true
   },
   {
@@ -137,8 +140,6 @@
     "hopper-drain-stub \u2014 hopper-drain-union: 0.000 mm \u2014 seated against it",
     "display \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
-    "carb-1 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
-    "co2-2 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
     "fluid-18 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
@@ -898,7 +899,7 @@
    "label": "The tap-water chain lies in its printed trough",
    "kind": "gate",
    "status": "pass",
-   "value": "0.196 mm off the wall's furniture",
+   "value": "0.000 mm off the wall's furniture",
    "target": "0.200 mm at most",
    "detail": [],
    "active": true
@@ -907,10 +908,12 @@
    "id": "digiten-seated",
    "label": "The flow meter hangs in its two printed saddles",
    "kind": "gate",
-   "status": "pass",
-   "value": "0.198 mm off the ceiling's furniture",
+   "status": "fail",
+   "value": "5.000 mm off the ceiling's furniture",
    "target": "0.200 mm at most",
-   "detail": [],
+   "detail": [
+    "the meter stands 5.000 mm off everything `enclosure-back-top` puts near it, and its saddles are drawn to close on the two barrels at 0.200. Either `digiten_saddles` no longer reads the meter's own ports, or the meter moved and the station did not follow it."
+   ],
    "active": true
   },
   {
@@ -1194,20 +1197,25 @@
    "id": "tube-seated",
    "label": "Every anchored run lies in its printed rib",
    "kind": "gate",
-   "status": "pass",
-   "value": "3 anchored, furthest off 0.199 mm",
+   "status": "fail",
+   "value": "3 anchored, furthest off 5.000 mm",
    "target": "0.200 mm at most",
-   "detail": [],
+   "detail": [
+    "carb-1 stands 5.000 mm off enclosure-back-top and its rib is drawn to close on the tube at 0.200. Either the route moved off the leg `TUBE_ANCHOR_SITES` names, or the rib landed in a piece that row does not name.",
+    "co2-2 stands 5.000 mm off enclosure-back-top and its rib is drawn to close on the tube at 0.200. Either the route moved off the leg `TUBE_ANCHOR_SITES` names, or the rib landed in a piece that row does not name."
+   ],
    "active": true
   },
   {
    "id": "body-seated",
    "label": "Every body-anchored fitting lies in its printed rib",
    "kind": "gate",
-   "status": "pass",
-   "value": "3 anchored, furthest off 0.198 mm",
+   "status": "fail",
+   "value": "3 anchored, furthest off 5.000 mm",
    "target": "0.200 mm at most",
-   "detail": [],
+   "detail": [
+    "wr1110 stands 5.000 mm off enclosure-back-top and its rib is drawn to close on the barrel at 0.200. Either the body moved off the storey the rib roots at, or the rib landed in a piece this row does not name."
+   ],
    "active": true
   },
   {

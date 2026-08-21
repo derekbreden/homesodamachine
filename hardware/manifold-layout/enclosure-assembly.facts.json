@@ -1846,7 +1846,7 @@
   ],
   "y_joint": 200.0
  },
- "card": "73a9219db08cafadf61d62878914c244",
+ "card": "12f13f6f9c7452af487beb306ee9e6a9",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2865,7 +2865,7 @@
   }
  ],
  "schema": 1,
- "step": "1079a039cc0a18a94814f3bef2060ffd",
+ "step": "642b884a6f6ae1b5806d330e2364dcea",
  "valve_panel_stations": [
   [
    171.08,
