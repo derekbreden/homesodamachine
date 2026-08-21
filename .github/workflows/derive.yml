@@ -50,6 +50,12 @@ permissions:
 jobs:
   derive:
     runs-on: ubuntu-latest
+    # A HUNG RUN HOLDS THE WHOLE LANE, and with no timeout it holds it for GitHub's default
+    # SIX HOURS. Only one run is pending at a time, so a build that never returns does not
+    # merely lose itself — every push behind it is cancelled out of the slot and nothing
+    # derives at all. One did exactly that for an hour and a half: `//:render-scenes` boots a
+    # server and drives a browser, and neither has a timeout of its own.
+    timeout-minutes: 75
     # A CONTAINER JOB'S DEFAULT SHELL IS `sh -e`, NOT BASH. GitHub picks bash on a hosted
     # runner and drops to sh inside a container, because it cannot assume the image has one —
     # and noble's sh is dash, which has no `pipefail`. Every `run:` here was written against
@@ -148,6 +154,12 @@ jobs:
       - name: Build everything this tree makes
         id: build
         continue-on-error: true
+        # BOUNDED SHORTER THAN THE JOB, on purpose. A build that runs out here is a FAILED
+        # STEP rather than a killed job, so `continue-on-error` carries it to the verdict
+        # below and the ledger, the docs and the deck still run off the solids it did cut —
+        # the same treatment a red target gets. A job-level timeout alone would take those
+        # with it and derive nothing.
+        timeout-minutes: 45
         # `--keep_going` IS THE DOCTRINE, NOT A LENIENCY. Bazel stops the whole build at the
         # first failing target, so a deck that spills two cards halts every generator behind
         # it and the solids never get cut — which is how three runs ended `lock names this
