@@ -94,3 +94,12 @@ bazel-*
 # Where this checkout is, which is not where any other checkout is. `gen_build.py` writes it
 # and `.bazelrc` takes it with `try-import`, so BUILD.bazel carries no machine's path.
 .bazelrc.paths
+
+# The printed deck and its cards, drawn from the HTML by a browser
+# (hardware/assembly/cards/_build.py). Every card build rewrites the whole set, and a PDF does
+# not delta-compress, so each one that landed added another entire 20-40 MB blob — eight copies
+# of deck.pdf are the largest objects in this repo's pack, ahead of every solid and every model.
+# Nothing here reads them back: `//:cards-build` names all 104 in `outs` and not one in `srcs`,
+# no web route serves them, and no doc embeds one. So the build makes them, sync_tree lands them
+# on the disk, and nothing carries them into a commit.
+hardware/assembly/cards/out/
