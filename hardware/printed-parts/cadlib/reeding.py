@@ -33,7 +33,10 @@ import math
 
 import numpy as np
 
-flute_pitch = 5.0
+flute_pitch = 5.0                # THE NOMINAL, which a flat tile and a coupon take as it
+                                 # stands. A field that has to CLOSE on something — the box's
+                                 # four walls close a whole number of grooves on one plan
+                                 # perimeter — lands on its own spacing and passes it in.
 flute_width = 4.0                # the land between two flutes is the difference
 
 warp_amplitude = 5.0             # one full pitch: a flute swings into its neighbour's
@@ -43,7 +46,8 @@ warp_wavelength = 34.0           # >= 2 * pi * warp_amplitude, so the sine — t
 chevron_sharpness = 0.97         # 1 is a true triangle apex, 0 is a sine; between them
                                  # it is the radius the apex turns on
 
-pierce_width = 3.0               # the slot struck down a groove's floor
+pierce_width = 3.1               # the slot struck down a groove's floor, sized on the
+                                 # spacing the BOX lands on and not on `flute_pitch`
 pierce_shell = 1.74              # the loops the exterior profile lays across a mullion —
                                  # 2 * 0.42 outer + 2 * 0.45 inner, the four the wall
                                  # already carries (enclosure/print-log.md)
@@ -108,6 +112,9 @@ def pierce(across, pitch=flute_pitch, slot=pierce_width, every=1, datum=0.0):
 
     `datum` is the centre of a pierced groove, which is all `every` needs to count from;
     at `every` = 1 it does not read.
+
+    `pitch` DEFAULTS TO THE NOMINAL and a caller whose field closes on something passes
+    the spacing it landed on — as `pierce_width` is itself sized against.
 
     The jambs stand `slot / 2` off the groove's own centre, so what is left over one is
     `groove(slot / 2)` of the depth — the section a mullion is thinnest at."""
