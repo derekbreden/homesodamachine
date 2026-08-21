@@ -100,11 +100,13 @@ were `enclosure-back-top`'s while that piece still printed a ceiling here.
 `enclosure.ceiling_stations` is the one call that splits the ceiling's stations
 between the two parts, and both read it, so neither can grow a rib the other grew.
 
-Each is built by `enclosure`'s own builder on the box's own frame
-(`_digiten_saddles`, `_tube_anchors`), so a saddle here is the same saddle it was
-on the piece: a bore concentric with the body it takes, its arc stopped on that
-body's own axis plane, and the strap's channel behind it with this panel's
-underside as its roof.
+Each is built by `enclosure`'s own builder (`_digiten_saddles`, `_tube_anchors`):
+a bore concentric with the body it takes, its arc stopped on that body's own axis
+plane, and the strap's channel behind it. The stations are struck in the box's
+frame, because that is the frame the bodies are in; the plane a rib STOPS on is
+this panel's underside, which is what the builders are handed — the same
+substitution `enclosure.piece_root_faces` makes for a wall on the pieces carrying
+one thicker than the box's own. That underside is the channel's roof.
 
 The bench sequence follows from it: a seat that hangs off the top wall is an
 upward-opening cradle the moment the part is inverted, and this part inverted is a

@@ -4987,6 +4987,66 @@ def check_tube_seated(tubes, pieces) -> Bound:
         f"{want:.3f} mm at most", rows))
 
 
+def check_strap_channels(anchors, saddles, pieces) -> Bound:
+    """Whether a tie can still reach through every cavity the box cuts one for.
+
+    THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_digiten_saddles`): the
+    rib's two ends climb to the face it roots on and what they do not span IS the strap's room.
+    Nothing is drawn for it, so nothing about it can fail loudly — a wall that grows inboard of
+    the plane the rib was measured against simply arrives standing in that room, and the rib comes
+    through as a lump with a bore in it. Every other reading on this card stays green: the seat
+    still closes on its body at the slip, the piece is still one watertight solid, the pack still
+    stands clear of the walls. Nothing here measures a hole, and this is a hole.
+
+    SO IT ASKS FOR THE STRAP AND NOT FOR THE CHANNEL. What is read is the seat a tie actually
+    needs — `tie_strap_t` off the bore's own crown, the cavity's width along the body, the rib's
+    full reach across it — and that volume is struck off the STATION, with no root face in it at
+    all. A rib buried in a wall and a rib standing proud of one are the same arithmetic; what
+    differs is whether the answer is air."""
+    def solid(x):
+        x = x.toCompound() if hasattr(x, "toCompound") else x
+        return x.val() if hasattr(x, "val") else x
+    parts = {n: solid(v) for n, v in pieces.items()}
+    rows, seen, worst = [], 0, 0.0
+
+    def read(what, vol):
+        nonlocal seen, worst
+        seen += 1
+        want = vol.Volume()
+        for name, part in parts.items():
+            got = _overlap.volume(vol, part)
+            if got <= 1e-6:
+                continue
+            worst = max(worst, 100.0 * got / want)
+            rows.append(
+                f"{what}: {100.0 * got / want:.0f}% of the strap's own seat is inside {name} — "
+                f"{got:.1f} of {want:.1f} mm3. The rib's ends are drawn to a plane that piece "
+                f"stands inboard of, so the room between them is in its stock "
+                f"(`enclosure.piece_root_faces`), or something fused into it afterwards.")
+
+    for mid, u, n, seat_r in anchors:
+        # The strap's seat in the anchor's own frame: one `tie_strap_t` slab off the bore's crown,
+        # spanning the cavity's length along the body and the rib's whole reach across it.
+        origin = tuple(mid[k] - u[k] * _enc.tube_anchor_len / 2.0 + u[k] * _enc.tie_cav_wall
+                       for k in range(3))
+        reach, crown = seat_r + _enc.wall, seat_r + _enc.wall
+        read(f"anchor at {tuple(round(c, 1) for c in mid)}",
+             _enc._anchor_rib(origin, u, n, _enc.tie_cav_w, reach, crown,
+                              crown + _enc.tie_strap_t))
+    if saddles:
+        x_axis, z_axis, seat_r, bands = saddles
+        reach = seat_r + _enc.digiten_saddle_wall
+        crown = z_axis + seat_r + _enc.wall
+        for by0, by1 in bands:
+            m = (by0 + by1) / 2.0
+            read(f"saddle at y {m:.1f}",
+                 _enc._ybox(x_axis - reach, x_axis + reach, m - _enc.tie_cav_w / 2.0,
+                            m + _enc.tie_cav_w / 2.0, crown, crown + _enc.tie_strap_t))
+    return record_bound(Bound(
+        "strap-channels", "A tie still reaches through every cavity cut for one", not rows,
+        f"{seen} read, worst {worst:.0f}% filled", "0% filled", rows))
+
+
 def check_run_seated(tubes, foam) -> Bound:
     """Whether every run the cap is bored for lies in its rib, read off the placed solids.
 
@@ -6504,6 +6564,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     check_tube_seated(tubes, pieces)
     # And every body the box stands a rib for, against the same pieces.
     check_body_seated(a.pack_solids, pieces)
+    # And every one of those ribs' strap channels, against the piece that built it. A seat that
+    # reads closed on its body says nothing about whether a tie can reach round it.
+    check_strap_channels(a.tube_anchors + a.body_anchors, a.digiten_saddles, pieces)
     # And every run the COLD CORE's cap is bored for, against the cap it lies on.
     check_run_seated(tubes, a.pack_solids["foam-assembly"])
     # And every body against the material it is made of, now that the box's own four stand among
