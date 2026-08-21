@@ -22,12 +22,52 @@ _ghosts=$(git -C "$root" diff --cached --name-only HEAD | while IFS= read -r f; 
   [ -n "$f" ] || continue
   git -C "$root" diff --quiet HEAD -- "$f" 2>/dev/null && printf '%s\n' "$f"
 done)
-[ -n "$_ghosts" ] || exit 0
-echo "post-commit: dropped $(printf '%s\n' "$_ghosts" | wc -l | tr -d ' ') stale index entry(ies) this commit left behind." >&2
-printf '%s\n' "$_ghosts" | while IFS= read -r f; do
-  _blob=$(git -C "$root" rev-parse ":$f" 2>/dev/null)
-  echo "      $f  was $_blob" >&2
-  git -C "$root" reset -q HEAD -- "$f" >/dev/null 2>&1
-done
-echo "post-commit:   no file changed. To read one back: git cat-file -p <hash>" >&2
+if [ -n "$_ghosts" ]; then
+  echo "post-commit: dropped $(printf '%s\n' "$_ghosts" | wc -l | tr -d ' ') stale index entry(ies) this commit left behind." >&2
+  printf '%s\n' "$_ghosts" | while IFS= read -r f; do
+    _blob=$(git -C "$root" rev-parse ":$f" 2>/dev/null)
+    echo "      $f  was $_blob" >&2
+    git -C "$root" reset -q HEAD -- "$f" >/dev/null 2>&1
+  done
+  echo "post-commit:   no file changed. To read one back: git cat-file -p <hash>" >&2
+fi
+
+# A REBASE REFUSES AGAINST A DIRTY WORKTREE — NOT FOR THE FILES IT TOUCHES, FOR ANY OF THEM.
+#
+# So the push you are about to make fails on `behind`, and the `git pull --rebase` that would
+# normally fix it stops at "cannot pull with rebase: You have unstaged changes". Several
+# sessions building at once keep this tree dirty in the artifacts they all rewrite, so that
+# state is not a moment to wait out — it is the resting state, and waiting is not a plan.
+#
+# WHAT CLEARS IT IS DROPPING WHAT CARRIES NO INFORMATION. Most of what is dirty here is what a
+# rebuild writes again from the sources beside it, so a copy differing from HEAD only says a
+# build ran. `drop_derived.py` restores exactly those and leaves anything authored — geometry
+# mid-edit, a landed trace, a thumbnail paired with a solid on the disk — for `--autostash` to
+# carry, which is the division: the stash then holds only work worth a conflict.
+#
+# AND A CONFLICT THERE IS STILL NOT A MERGE. Two builds of one picture are two binaries with
+# no combination, so git stops rather than inventing one. Whichever side you keep, the answer
+# is the same: the file is a function of the sources, so take what came in and let the next
+# build write it — `git checkout --ours -- <path>`, which during a stash pop is the incoming
+# tree and not your stash.
+#
+# THE OTHER ROUTE IS TO NOT TOUCH THE TREE AT ALL: push this commit from a detached worktree,
+# which shares no index and no checkout with the sessions building here. It leaves your commit
+# on the remote under a new hash while local HEAD keeps the old one, and the patch-ids match,
+# so the next real rebase drops the duplicate on its own.
+#
+# READ FROM THE REFS AS THEY STAND. No fetch — a network call on every commit is a tax on the
+# path this hook is trying to keep short, and a cached ref that reads zero costs nothing but
+# this paragraph going unprinted.
+_behind=$(git -C "$root" rev-list --count HEAD..origin/main 2>/dev/null) || _behind=0
+if [ "${_behind:-0}" -gt 0 ] && ! git -C "$root" diff --quiet 2>/dev/null; then
+  echo "post-commit: behind origin/main by $_behind, and the worktree is dirty — a rebase will refuse." >&2
+  echo "post-commit:   python3 tools/bazel/drop_derived.py --write   # restore what a rebuild rewrites" >&2
+  echo "post-commit:   git pull --rebase --autostash origin main     # what is left rides the stash" >&2
+  echo "post-commit:   git push" >&2
+  echo "post-commit: or leave the tree alone and push from a worktree of your own:" >&2
+  echo "post-commit:   git fetch origin main && git worktree add --detach .git/push-wt origin/main" >&2
+  echo "post-commit:   git -C .git/push-wt cherry-pick $(git -C "$root" rev-parse --short HEAD) && git -C .git/push-wt push origin HEAD:main" >&2
+  echo "post-commit:   git worktree remove --force .git/push-wt" >&2
+fi
 exit 0
