@@ -23,13 +23,18 @@
 // A card opens where the tree names it, in the deck's own modal — public/build.js
 // over the same ContentViewer + PanZoom surface /drawings opens a card in. The
 // anchors under it are links to the card pages themselves.
+//
+// Above the tree stands the one artifact that is not a part of it: the printed
+// deck, every card bound in build order at 6 × 4 in, served through /cards/* like
+// the pages it is made of. `_build.py` writes it and the row is read off the disk
+// — a link when the file is there, the command that makes it when it is not.
 
 import path from "path";
 import fs from "fs";
 
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 import { walkAssemblyCards } from "./walk.js";
-import { cardAssetUrl } from "../contracts/cards.js";
+import { cardAssetUrl, DECK_PDF_REL } from "../contracts/cards.js";
 import {
   BANDS, BAND_BY_SUBSYSTEM, UNCARDED_PROCEDURES, orderDrift,
   parseCardSource, parseProcedure, procedureForSubsystem,
@@ -166,7 +171,21 @@ export function buildTree(hardwareDir, rootDir) {
   }
 
   const cover = cards.filter((c) => !c.subsystem);
-  return { bands, cover, cards, procedures, unplaced, drift };
+  return { bands, cover, cards, procedures, unplaced, drift, deck: readDeck(rootDir) };
+}
+
+// The printed deck as this disk holds it, or null. `_build.py` renders every card
+// through a browser and binds the pages into one PDF. Read rather than assumed, so
+// the page below links at a file that is there and names the command when it is
+// not — the deck is a build output, and a checkout that has not run one has none.
+function readDeck(rootDir) {
+  try {
+    const st = fs.statSync(path.join(rootDir, ...DECK_PDF_REL.split("/")));
+    if (!st.isFile()) return null;
+    return { url: cardAssetUrl(DECK_PDF_REL), bytes: st.size };
+  } catch {
+    return null;
+  }
 }
 
 // --- rendering -------------------------------------------------------------
@@ -269,6 +288,19 @@ export function renderBuildBody(tree) {
   const warn = block("bt-warn", "Not seated:", tree.unplaced) +
     block("bt-drift", "Two orders disagree:", tree.drift || []);
 
+  // THE WHOLE DECK, as the one file a printer takes. Every card below opens on
+  // its own; this is the same ${nCards} pages bound in build order, 6 × 4 in,
+  // which is what a bench standing at the printer wants and what clicking a
+  // hundred tiles is not. The size is stated because it is tens of megabytes and
+  // a link that does not say so is a link a phone regrets.
+  const deck = tree.deck
+    ? `<p class="bt-deck"><a href="${tree.deck.url}">Printed deck</a>
+       <span>${nCards} pages, 6 &times; 4 in &middot;
+       ${(tree.deck.bytes / 1e6).toFixed(0)}&nbsp;MB PDF</span></p>`
+    : `<p class="bt-deck bt-deck-absent"><b>Printed deck</b>
+       <span>not on this disk &mdash;
+       <code>tools/cad-venv/bin/python hardware/assembly/cards/_build.py</code></span></p>`;
+
   // viewer.css dresses the open card: the paper stage, the minimap, the
   // reset button.
   return `<link rel="stylesheet" href="/css/viewer.css">
@@ -282,6 +314,7 @@ export function renderBuildBody(tree) {
   repository states today. Each bench declares the state it takes and the state it hands
   on; the steps inside it are a total order, and a card sits under the step its own
   <code>.src</code> footer names.</p>
+  ${deck}
   ${warn}
   ${tree.bands.map(renderBand).join("")}
 </main>
@@ -296,6 +329,18 @@ const BUILD_CSS = `
 .bt-lede { color: var(--text-2); line-height: 1.55; margin: 0 0 .6rem; font-size: .92rem; }
 .bt-lede-dim { font-size: .86rem; }
 .bt-wrap code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; }
+
+/* The whole deck, one row above the tree of its parts. Bordered rather than run
+   into the lede: it is the only thing on this page that leaves it. */
+.bt-deck { display: flex; gap: .6rem; align-items: baseline; flex-wrap: wrap;
+  border: 1px solid var(--border); border-radius: 6px; padding: .55rem .8rem;
+  margin: 1rem 0 0; font-size: .9rem; }
+.bt-deck a, .bt-deck b { font-weight: 600; color: var(--text); text-decoration: none; }
+.bt-deck a:hover { text-decoration: underline; }
+.bt-deck span { color: var(--text-2); font-size: .82rem; }
+/* Nothing to click, and the row says why rather than going quiet. */
+.bt-deck-absent { border-style: dashed; }
+.bt-deck-absent b { color: var(--text-2); }
 
 .bt-warn { border: 1px solid var(--err); background: rgba(217,112,112,.10);
   border-radius: 6px; padding: .6rem .8rem; margin: 1rem 0; font-size: .85rem; }
@@ -411,6 +456,7 @@ export function mountBuildRoutes(app, { hardwareDir }) {
       })),
       unplaced: tree.unplaced,
       drift: tree.drift,
+      deck: tree.deck,
     });
   });
 
