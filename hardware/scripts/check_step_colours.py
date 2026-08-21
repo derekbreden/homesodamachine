@@ -36,8 +36,13 @@ _CHUNK = 1 << 20
 
 
 def _tracked_steps() -> list:
-    """Every solid under `hardware/` this tree stands behind, repo-relative."""
-    return [p for p in _solids() if p.startswith("hardware/")]
+    """Every STEP under `hardware/` this tree stands behind, repo-relative.
+
+    A SOLID IS NOT ALWAYS A STEP. `_solids.solids()` names every generated solid the lock
+    carries, and a mesh among them is an STL — a triangle soup with no colour channel at
+    all, so there is no `COLOUR_RGB` for it to be missing. The reading is of the format
+    that has one."""
+    return [p for p in _solids() if p.startswith("hardware/") and p.endswith(".step")]
 
 
 def carries_colour(path) -> bool:
