@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* The text column is the tight one on this card: at the deck's 52px gutter
+     step 1 and the tools strip each wrap a line deeper, and the extra tools
+     line prints across the footer rule. The loop map keeps its full 800px
+     column — it is drawn 1:1 against its own viewBox, and its 22px subtext is
+     the smallest thing on the card — so the gutter is what gives. */
+  main { gap: 32px; }
+</style>
 </head>
 <body class="rl">
 <div class="card">
