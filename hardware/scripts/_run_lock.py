@@ -7,6 +7,11 @@ on the next save. `HSM_BUILD_SUPERSEDE=1` stops any holder: the build SIGTERMs i
 the lock, and the superseded build names who took it and exits 143. The lock is a pid file in
 the OS temp dir; a stale file whose pid is dead is ignored.
 
+SUPERSEDE HAS AN OFF POSITION AND IT IS THE OBVIOUS ONE. `0`, `false`, `no` and the empty
+string all mean queue, because two sessions have now each set it to `0` MEANING not to disturb
+the other and killed the other's build with it — a truthiness test on the raw value reads every
+one of those as yes. Anything else supersedes, and unset queues.
+
 `HSM_BUILD_LOCK_PROTECT` and `HSM_BUILD_SUPERSEDE` are the two ends of one question and are
 not the same flag: PROTECT is worn by the holder and stops others stopping IT; SUPERSEDE is
 carried by the caller and stops the holder. A build wearing PROTECT still stops others unless
@@ -55,6 +60,15 @@ from pathlib import Path
 LOCK_DIR = Path(tempfile.gettempdir()) / "hsm-cad-lock"
 LOCK = LOCK_DIR / "build.json"        # the single global holder
 BY = LOCK_DIR / "build.by.json"       # who superseded the victim, for its message
+
+
+def _asked(name: str) -> bool:
+    """Whether an environment flag was actually asked for.
+
+    NOT A TRUTHINESS TEST ON THE RAW VALUE. `HSM_BUILD_SUPERSEDE=0` reads as yes to `bool()`,
+    and what a caller means by writing `0` is no — twice now that has been one session killing
+    another's build while deliberately trying not to."""
+    return (os.environ.get(name) or "").strip().lower() not in ("", "0", "no", "false", "off")
 
 
 def _unlocked_of(pid: int) -> Path:
@@ -327,8 +341,8 @@ def acquire(script: str, source: str = None) -> None:
         _running_unlocked(script, source or os.environ.get("HSM_BUILD_SOURCE") or "manual")
         return
     source = source or os.environ.get("HSM_BUILD_SOURCE") or "manual"
-    protect = bool(os.environ.get("HSM_BUILD_LOCK_PROTECT"))
-    supersede = bool(os.environ.get("HSM_BUILD_SUPERSEDE"))
+    protect = _asked("HSM_BUILD_LOCK_PROTECT")
+    supersede = _asked("HSM_BUILD_SUPERSEDE")
     LOCK_DIR.mkdir(parents=True, exist_ok=True)
     _me = {"pid": os.getpid(), "source": source, "script": script,
            "started": time.time(), "protected": protect}
@@ -371,7 +385,7 @@ def acquire(script: str, source: str = None) -> None:
             and _deliberate(prev) and not supersede):
         print(f"[build] a {prev.get('source', '?')} build is already running (pid {prev['pid']}, "
               f"{Path(prev.get('script', '?')).name}) — waiting for it rather than stopping it. "
-              f"HSM_BUILD_SUPERSEDE=1 stops it instead.",
+              f"HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue).",
               file=sys.stderr, flush=True)
         # Wait on the LOCK, not the process: a finished build whose parent has not reaped it is a
         # zombie, and `os.kill(pid, 0)` still succeeds on one. The holder drops the lock and
@@ -392,7 +406,7 @@ def acquire(script: str, source: str = None) -> None:
             print(f"[build] the {prev.get('source', '?')} build (pid {prev['pid']}, "
                   f"{Path(prev.get('script', '?')).name}) is still running after "
                   f"{WAIT_S:.0f}s — running alongside it rather than stopping it. "
-                  f"HSM_BUILD_SUPERSEDE=1 stops it instead.", file=sys.stderr, flush=True)
+                  f"HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue).", file=sys.stderr, flush=True)
             _me = None
             return
         print(f"[build] superseding the active build (pid {prev['pid']}, {_who(prev)}) "
