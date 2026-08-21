@@ -67,7 +67,17 @@ rules. Read the two above before your first commit, not after I point you at the
 
 Finish the cycle. Don't stop partway and hand me the rest.
 
-1. Build and verify.
+1. Build and verify — **the targets your change reaches, not `//:everything`**:
+
+   ```
+   bazel build $(tools/cad-venv/bin/python tools/bazel/affected.py)
+   ```
+
+   A no-op build of this tree is under a second, one leaf part is ~28 s, and `//:everything`
+   is ~14 minutes that swaps 6.5 GB on an 8 GB box and slows every other session with it.
+   `affected.py` reads git's own list of what moved and names the targets it reaches. It
+   names on stderr any changed path no target holds — that list is then smaller than the tree
+   owes, and `//:everything` is what answers it.
 2. Sync the docs and the ledger for whatever you moved.
 3. Commit **by pathspec** — `git commit -F - -- <paths>` — never `git add -A`. One checkout, one
    `main`; the pathspec form takes files straight from the tree without touching the shared index.
