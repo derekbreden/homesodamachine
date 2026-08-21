@@ -42,6 +42,7 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
 
 import _mesh_payload                                    # noqa: E402
 import _scenes                                          # noqa: E402
+import flute_payload                                    # noqa: E402
 from docgen import note_rewritten                       # noqa: E402
 from _cadq_export import note_read, note_write, _per_solid_color   # noqa: E402
 
@@ -175,20 +176,66 @@ def payload_stands(mesh) -> bool:
         return False
 
 
+_FLUTED = {}
+
+
+def fluted_pieces(surfaces=False):
+    """The enclosure pieces whose show surface is in the mesh — names, or the surfaces too.
+
+    Read once per run: the names come off six payload headers, the surfaces decode six payloads,
+    and every scene and part shot in a run asks the same question."""
+    key = "surfaces" if surfaces else "names"
+    if key not in _FLUTED:
+        _FLUTED[key] = flute_payload.surfaces() if surfaces else flute_payload.piece_names()
+    return _FLUTED[key]
+
+
+def carried_payload(step) -> Path | None:
+    """`<step>.mesh` where it holds a surface the solid does not, else None.
+
+    THE ENCLOSURE'S PIECES CARRY THEIR SHOW SURFACES IN THE MESH, not in the B-rep
+    (`printed-parts/enclosure/enclosure/flute_skin.py`), so a picture drawn off those bytes is a
+    picture of a smooth prism. `hardware/scripts/flute_payload.py` cuts the payload that holds
+    the fluted surface, `pack.py`'s `BUNDLED_PAYLOAD_DIRS` bundles it and the lock names it — so
+    it is as answerable as the STEP is, and a fresh checkout has both.
+
+    WHICH SOLIDS THOSE ARE IS READ OFF THE PAYLOAD, not listed: any that names one of the pieces
+    is one whose picture the B-rep cannot draw, which reaches the piece itself, the box the six
+    of them make, and the appliance that places the box."""
+    payload = Path(str(step) + ".mesh")
+    if not payload.is_file():
+        return None
+    held = {n.replace("_", "-") for n in flute_payload.payload_names(payload)}
+    return payload if held & {n.replace("_", "-") for n in fluted_pieces()} else None
+
+
 def bare_subject(step, name) -> Path:
-    """`step` hard-linked at `OUT_DIR/<name>.step`, with no payload beside it.
+    """`step` hard-linked at `OUT_DIR/<name>.step`, carrying a payload only where the solid does
+    not hold the surface.
 
     `_atomic_write` replaces a STEP by rename, so a link stands for the inode it was made from.
-    This one is remade on every render, and the digest the sidecar records is taken from `step`."""
+    This one is remade on every render, and the digest the sidecar records is taken from `step`.
+
+    WHERE THE B-REP IS THE WHOLE PART IT IS ALSO THE SUBJECT, and the link stands bare: the
+    colour occt-import-js reads off a component is in those bytes, and a fresh checkout, a
+    sandbox and this tree then hand the page the same triangles. `carried_payload` names the
+    pieces that is not true of."""
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     bare = OUT_DIR / f"{name}.step"
-    for stray in (bare, Path(str(bare) + ".mesh")):
+    bare_mesh = Path(str(bare) + ".mesh")
+    for stray in (bare, bare_mesh):
         if stray.exists():
             stray.unlink()
     try:
         os.link(step, bare)
     except OSError:
         shutil.copyfile(step, bare)
+    payload = carried_payload(step)
+    if payload is not None:
+        try:
+            os.link(payload, bare_mesh)
+        except OSError:
+            shutil.copyfile(payload, bare_mesh)
     return bare
 
 
@@ -265,6 +312,14 @@ def draw(scene, assembly, batch, force=False) -> Path:
         raise RuntimeError(
             f"scene {scene.id!r} has no v{_mesh_payload.VERSION} payload at {mesh}, which is the "
             f"file its picture is drawn from.")
+
+    # AND THE FLUTED PIECES PUT BACK INTO IT. The payload above is a tessellation of the scene's
+    # B-rep, and for an enclosure piece that B-rep is a smooth prism — the show surfaces live in
+    # the printed mesh (`printed-parts/enclosure/enclosure/flute_skin.py`). A piece is cut where
+    # the assembly stands it, so its own surface drops into the scene's coordinates unchanged.
+    grafted = flute_payload.graft(mesh, fluted_pieces(surfaces=True))
+    if grafted:
+        print(f"   ({grafted} fluted piece(s) into {mesh.name})")
 
     # AND THE VIEWER'S OWN ARTIFACT. A scene's B-rep is 2–10 MB and would churn on every move of
     # any body in it; a mesh at viewer tolerance is a third of that, and /3d reads a `.glb` the
@@ -359,6 +414,12 @@ def draw_part(part, batch, force=False) -> Path:
     note_read(RENDERER)
     step = _ROOT / part.step
     note_read(step)
+    # AND THE SURFACE IT IS DRAWN FROM, WHERE THAT IS NOT THE SOLID. A payload re-cut against a
+    # piece whose STEP has not moved is a different picture, so it goes into the digest below;
+    # taken off the solid alone, the standing picture answers as current forever.
+    payload = carried_payload(step)
+    if payload is not None:
+        note_read(payload)
     png = part_png(part)
     note_write(png)
     # Read back for the same reason `draw` reads its own: see there.
@@ -366,6 +427,8 @@ def draw_part(part, batch, force=False) -> Path:
     note_rewritten(_scenes.sidecar_path(png))
 
     geometry = _scenes.digest_of(step)
+    if geometry is not None and payload is not None:
+        geometry = f"{geometry}+{_scenes.digest_of(payload)}"
     if geometry is None:
         raise FileNotFoundError(
             f"part shot {part.id!r} draws {part.step}, which is not in the tree. A part shot's "
@@ -398,7 +461,8 @@ def draw_part(part, batch, force=False) -> Path:
     batch.record(png, {
         "part": _scenes.part_digest(part),
         "geometry": geometry,
-        "drawn": [part.step],
+        "drawn": ([part.step] if payload is None
+                  else [part.step, str(payload.relative_to(_ROOT))]),
     })
     return png
 

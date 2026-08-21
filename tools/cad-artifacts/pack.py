@@ -133,7 +133,16 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # A DEPLOY WITH NO PAYLOAD SERVES A SMOOTH BOX. Elsewhere in the tree a missing payload costs a
 # wasm parse and nothing else — the STEP carries the same surface — which is why `.step.mesh` is
 # gitignored and why the route that serves one says a 404 there is normal.
-BUNDLED_PAYLOAD_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
+#
+# `manifold-layout/` IS HERE BECAUSE THE APPLIANCE IS. `enclosure-assembly.step` places all six
+# pieces and is what the /3d hero opens, so the flutes reach the machine itself by the same
+# route. Both payloads there are also the cheaper artifact by a wide margin — 13.97 and 2.46 MB
+# against solids of 49.64 and 8.29 — so a browser that finds them fetches a quarter of the bytes
+# and skips the parse.
+BUNDLED_PAYLOAD_DIRS = (
+    "hardware/printed-parts/enclosure/enclosure",
+    "hardware/manifold-layout",
+)
 
 
 def solids(root: Path) -> list:
