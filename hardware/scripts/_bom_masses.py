@@ -152,11 +152,12 @@ def _held():
 def _hold(held):
     """Keep what the cache learned, where there is somewhere to keep it.
 
-    A SANDBOX HAS NOWHERE. `.cache` is not a declared input of any step, so under bazel this
-    path is the read-only source tree and every lookup here is a miss — the run reads its
-    volumes off the STEPs it was handed and the memo has nothing to add to. What the cache
-    saves is a second OCC import on a warm tree, so a run that cannot write one is a slower
-    run and not a wrong one."""
+    A SANDBOX REACHES THE WORKSPACE'S OWN `.cache`. Ninety-five genrule commands symlink it in
+    — `ln -sfn $HSM_WORKSPACE/.cache .cache`, `//:bom-masses` among them — and it is a declared
+    input of none of them. So this is one mutable store shared by every sandboxed action and
+    named in no action key, and an entry in it is named by the sha256 of the STEP it was
+    measured from. `//:pysrc` stages this file without the symlink, and there the write is the
+    miss the `except` below carries."""
     try:
         _VOL_CACHE.parent.mkdir(parents=True, exist_ok=True)
         _VOL_CACHE.write_text(json.dumps(held, indent=1, sort_keys=True))
