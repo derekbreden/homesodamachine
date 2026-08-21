@@ -26,6 +26,7 @@ Args:
     use_culling: bool (optional)
 """
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -40,7 +41,28 @@ ISO = {
     "back": mathutils.Vector((1, 1, 1)).normalized(),
 }
 
-addon_utils.enable("bl_ext.blender_org.freestyle_svg_exporter")
+# THE EXPORTER IS AN EXTENSION AND A FAILED ENABLE IS SILENT. Everything this script asks the
+# Freestyle SVG exporter for is a property the exporter ADDS when it registers —
+# `linestyle.use_export_strokes`, and the whole `scene.svg_export` group — and
+# `addon_utils.enable` does not raise when the module is absent. It prints one line into
+# Blender's log and returns None, so a Blender that cannot find the extension runs on and dies
+# further down on `AttributeError: 'FreestyleLineStyle' object has no attribute
+# 'use_export_strokes'`, with Blender itself exiting 0. That reaches the caller as "blender
+# render failed (rc=0)", which names neither Blender's exit code nor the missing extension.
+# enable() hands back the module, so ask for it and fail HERE, where the cause is still in hand.
+_EXPORTER = "bl_ext.blender_org.freestyle_svg_exporter"
+if addon_utils.enable(_EXPORTER) is None:
+    sys.stderr.write(
+        f"ERROR: {_EXPORTER} did not enable.\n"
+        "  The Freestyle SVG exporter is a downloadable extension, not part of Blender.\n"
+        "  Install it with:\n"
+        "    blender --background --online-mode --command extension install"
+        " -s -e freestyle_svg_exporter\n"
+        f"  blender:                {bpy.app.version_string}\n"
+        f"  extensions path:        {bpy.utils.user_resource('EXTENSIONS')}\n"
+        f"  BLENDER_USER_RESOURCES: {os.environ.get('BLENDER_USER_RESOURCES') or '<unset>'}\n"
+    )
+    sys.exit(1)
 bpy.ops.object.select_all(action="SELECT")
 bpy.ops.object.delete()
 
