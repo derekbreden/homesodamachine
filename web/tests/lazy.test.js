@@ -27,7 +27,6 @@ const THUMB_HOSTS = [
   ".card .mmd-thumb",
   ".card .drawing-thumb",
   ".card .pcb-thumb",
-  ".card .card-thumb",
 ];
 
 // Pull one rule block's body out of a stylesheet by exact selector.
@@ -51,15 +50,6 @@ test("every thumbnail host holds its box with content released", () => {
       `${host} must declare an aspect-ratio — the grid empties it when content is released`,
     );
   }
-});
-
-test("the card-thumb host is positioned, so its frame can leave the flow", () => {
-  const css = read("css/viewer.css");
-  const body = ruleBody(css, ".card .card-thumb");
-  // cards.js absolutely positions the card iframe at its host's top-left, both
-  // to scale it and so its 1200px unscaled height can't push the host taller.
-  // That only works against a positioned ancestor.
-  assert.match(body, /position\s*:\s*relative/, ".card-thumb must be position: relative");
 });
 
 test("no grid kind reverts to mounting once and never releasing", () => {

@@ -20,9 +20,12 @@ same file the server does — Node by path, the browser by URL, one source eithe
   pinned by `web/tests/sidecar.test.js`.
 - **cards.js** — the assembly deck: where cards live (`assembly/cards/<code>-<slug>.html`), the
   1800 × 1200 canvas they're authored against, and which of the deck's files `/cards/*` will serve.
-  Authored in `hardware/assembly/cards/`; read by `web/lib/{walk,viewer-routes,push}.js`,
-  `web/dev-server/server.js`, and `web/public/js/viewer/{cards,live,route}.js`; pinned by
-  `web/tests/cards.test.js`.
+  Authored in `hardware/assembly/cards/`; read by `web/lib/{walk,viewer-routes,build-tree,push}.js`
+  and `web/dev-server/server.js`; pinned by `web/tests/cards.test.js`.
+- **documents.js** — a PDF the site hands over whole: the `<name>.pdf.json` sidecar that makes one
+  a document and the `<name>.cover.png` beside it. Written by whatever builds the document
+  (`hardware/assembly/cards/_build.py`); read by `web/lib/{walk,viewer-routes}.js` and
+  `web/public/js/viewer/grid.js`.
 
 ## The shape of the machine
 

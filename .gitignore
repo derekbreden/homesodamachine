@@ -95,10 +95,12 @@ bazel-*
 # and `.bazelrc` takes it with `try-import`, so BUILD.bazel carries no machine's path.
 .bazelrc.paths
 
-# The printed deck and its cards, drawn from the card HTML by a browser
-# (hardware/assembly/cards/_build.py). `//:cards-build` names all 104 in `outs` and none in
-# `srcs`, no web route serves one and no doc embeds one. The build makes them, sync_tree
-# lands them on the disk, and nothing carries them into a commit.
+# A card's own two renders — the PNG a printer is handed one card at a time, and the page it
+# contributes to the bound deck — drawn from the card HTML by a browser
+# (hardware/assembly/cards/_build.py). `//:cards-build` names them in `outs` and none in `srcs`,
+# no web route serves one and no doc embeds one. The build makes them, sync_tree lands them on
+# the disk, and nothing carries them into a commit. THE BOUND DECK IS NOT HERE: `deck.pdf` sits
+# beside the cards, in git, because the site serves it and a deploy fetches nothing.
 hardware/assembly/cards/out/
 
 # The scene meshes the parts viewer opens as themselves, cut by
