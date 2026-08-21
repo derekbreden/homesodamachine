@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -73,10 +73,12 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "foam-assembly \u2229 tube-fluid-14   12.6 mm\u00b3, x[   40.33,   41.29] y[  208.20,  238.63] z[  266.30,  269.02]"
+   ],
    "active": true
   },
   {
@@ -114,6 +116,8 @@
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
+    "valve-v-a \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
+    "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 seaflo-pump: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 psu: 0.000 mm \u2014 seated against it",
     "foam-assembly \u2014 vk-solenoid: 0.000 mm \u2014 seated against it",
@@ -146,8 +150,6 @@
     "foam-assembly \u2014 suction-chain: 0.200 mm \u2014 seated against it",
     "display \u2014 display-cover: 0.300 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
-    "valve-v-a \u2014 foam-assembly: 1.020 mm \u2014 seated against it",
-    "valve-v-b \u2014 foam-assembly: 1.020 mm \u2014 seated against it",
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "pump-a-head \u2014 collet-plate: 1.025 mm",
     "pump-b-head \u2014 collet-plate: 1.025 mm",
@@ -1245,7 +1247,7 @@
    "label": "Every run the cap is bored for lies in its rib",
    "kind": "gate",
    "status": "pass",
-   "value": "1 bored, furthest off 0.199 mm",
+   "value": "1 bored, furthest off 0.000 mm",
    "target": "0.200 mm at most",
    "detail": [],
    "active": true

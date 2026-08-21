@@ -38,6 +38,7 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts", _hw / "printed-parts" / "cadlib", _hw / "printed-parts" / "enclosure" / "pump-tray"):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly
+from _materials import C_PUMP_BOSS, C_PUMP_HEAD, C_PUMP_MOTOR
 import _stated_bounds as _bounds
 import pump_case as pc
 
@@ -169,9 +170,9 @@ def build_motor_body():
 # The pump's body sub-bodies as (name, builder, color). Public so the pump
 # assembly (pump + fittings) can seat the same body without redrawing it.
 BODY_PARTS = [
-    ("head",          build_head,          cq.Color(0.16, 0.16, 0.18)),  # black plastic
-    ("rotor_housing", build_rotor_housing, cq.Color(0.30, 0.30, 0.33)),  # dark plastic boss
-    ("motor_body",    build_motor_body,    cq.Color(0.74, 0.76, 0.80)),  # silver
+    ("head",          build_head,          C_PUMP_HEAD),   # black moulded head
+    ("rotor_housing", build_rotor_housing, C_PUMP_BOSS),   # the white bracket under it
+    ("motor_body",    build_motor_body,    C_PUMP_MOTOR),  # the bare steel can
 ]
 
 

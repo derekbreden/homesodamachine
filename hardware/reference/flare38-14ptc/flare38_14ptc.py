@@ -36,7 +36,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_assembly
-from _materials import M_BRASS, one_body
+from _materials import M_JG_GREY_ACETAL, one_body
 
 # --- PI4512F6S, 3/8" FFL swivel x 3/8" PTC -------------------------------
 NUT_ACROSS_CORNERS = 22.0   # 3/4" swivel nut hex, on the ASSE's 3/8" flare thread
@@ -95,7 +95,7 @@ def main():
           f"3/8\" collet Ø{COLLET38_D} x {COLLET38_LENGTH:g}; "
           f"1/4\" collet Ø{COLLET14_D} x {COLLET14_LENGTH:g}; total {LENGTH:g} mm")
     out = _here.parent / "flare38-14ptc.step"
-    export_assembly(one_body(part, out.stem, M_BRASS), str(out))
+    export_assembly(one_body(part, out.stem, M_JG_GREY_ACETAL), str(out))
     print(f"-> {out.name}")
 
 
