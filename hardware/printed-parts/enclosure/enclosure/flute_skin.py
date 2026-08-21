@@ -48,6 +48,16 @@ grid_along = 0.25
 # How far outboard the cutter stands before it turns inward. It is air out there; what this
 # buys is a boolean that never has to decide about two surfaces lying on each other.
 cut_margin = 0.4
+# How far the cutter runs PAST the piece at each end. It has to clear the piece's own top and
+# bottom faces outright: a cap that lands a fraction of a micron off one of them leaves the
+# boolean a sliver to resolve, and what it resolves it into is degenerate triangles, duplicate
+# faces and edges carrying four and six faces apiece. A slicer reads that as non-manifold and
+# refuses the part, and it refuses it while `is_watertight` still says yes.
+cut_overrun = 1.0
+# How far the cutter's own surface may stand off the plan where stations are dropped. A corner
+# keeps its stations at this; the flats collapse to their two ends regardless, because there the
+# chord and the plan are the same line.
+plan_tol = 0.01
 # A station counts as show face when the piece's own material reaches this close to the plan.
 # Bigger than the mesh's own deviation, far smaller than the shallowest recess that is not
 # meant to be fluted (a port chip's seat is 2.0 mm).
@@ -137,7 +147,19 @@ def _thin(depth, rows, s, point, normal):
     describe it as well as four hundred.
 
     A row or column is kept when it differs from the last one kept. Nothing is interpolated
-    away: every station where the field actually moves is still drawn."""
+    away: every station where the field actually moves is still drawn.
+
+    AND A COLUMN CARRIES THE PLAN AS WELL AS THE FIELD, which is the trap. Dropping a station
+    because the DEPTH there is unchanged leaves the cutter's own surface running straight from
+    the last kept station to the next — a chord across the plan. Down a flat wall that chord IS
+    the plan and costs nothing. Across a corner, or across the long stretch of perimeter a piece
+    does not carry, it cuts the corner off and the cutter runs through the INSIDE of the box,
+    slicing whatever it meets: a seam lip, an underwall, a boss. Every edge that leaves is one
+    four faces share, a slicer refuses the file, and nothing measured in memory can see it.
+
+    So a column is kept when the depth moves OR when dropping it would pull the cutter's surface
+    off the plan by more than `plan_tol`. The flats still collapse to their two ends, because
+    there a chord and the plan are the same line."""
     tol = 0.01
     keep_rows = [0]
     for j in range(1, depth.shape[1]):
@@ -149,14 +171,30 @@ def _thin(depth, rows, s, point, normal):
         keep_rows.append(depth.shape[1] - 1)
     keep_cols = [0]
     for i in range(1, depth.shape[0]):
-        if np.abs(depth[i] - depth[keep_cols[-1]]).max() > tol:
-            if i - 1 != keep_cols[-1]:
-                keep_cols.append(i - 1)
-            keep_cols.append(i)
+        moved = np.abs(depth[i] - depth[keep_cols[-1]]).max() > tol
+        if not moved and _chord_error(point, keep_cols[-1], i) <= plan_tol:
+            continue
+        if i - 1 != keep_cols[-1]:
+            keep_cols.append(i - 1)
+        keep_cols.append(i)
     rows_i = np.array(keep_rows)
     cols_i = np.array(sorted(set(keep_cols)))
     return (depth[np.ix_(cols_i, rows_i)], np.asarray(rows)[rows_i],
             point[cols_i], normal[cols_i])
+
+
+def _chord_error(point, first, last):
+    """How far the plan wanders off the straight line between two stations — what dropping
+    every station between them would cost the cutter's own surface."""
+    if last - first < 2:
+        return 0.0
+    a, b = point[first], point[last]
+    run = b - a
+    span = float(np.hypot(*run))
+    off = point[first + 1:last] - a
+    if span < 1e-12:
+        return float(np.hypot(*off.T).max())
+    return float(np.abs(off[:, 0] * run[1] - off[:, 1] * run[0]).max() / span)
 
 
 def _cutter(point, normal, rows, depth):
@@ -199,7 +237,9 @@ def flute(mesh, outer, plan_at, perimeter, pitch, depth_mm, rise_mm):
     global flute_pitch, flute_depth, flute_rise
     flute_pitch, flute_depth, flute_rise = pitch, depth_mm, rise_mm
     lo, hi = mesh.bounds[0][2], mesh.bounds[1][2]
-    rows = np.arange(lo + 1e-4, hi, grid_along)
+    # OFF THE PIECE'S OWN FACES BY A MARGIN THAT MEANS SOMETHING. A level cut taken ON the top
+    # or bottom face is degenerate, so the field's first and last rows stand clear of both.
+    rows = np.arange(lo + grid_along, hi - grid_along / 2.0, grid_along)
     if len(rows) < 4:
         return mesh
     s, point, normal = _plan_frames(plan_at, perimeter, outer)
@@ -210,10 +250,53 @@ def flute(mesh, outer, plan_at, perimeter, pitch, depth_mm, rise_mm):
     if depth.max() <= 0.0:
         return mesh
     depth, rows, point, normal = _thin(depth, rows, s, point, normal)
+    # AND THE CUTTER IS CAPPED IN AIR, past both ends of the piece. The field is already nothing
+    # at the piece's own edges, so these two rows take the same nothing further out and give the
+    # boolean two caps that lie on no face of anything.
+    rows = np.concatenate([[rows[0] - cut_overrun], rows, [rows[-1] + cut_overrun]])
+    depth = np.hstack([depth[:, :1] * 0.0, depth, depth[:, -1:] * 0.0])
     # `check_volume=False` because trimesh's own gate is stricter than the engine's. A piece
     # tessellates to a surface where a handful of edges out of twenty-odd thousand carry four
     # faces rather than two — the solid touching itself along a line, which is a fact about the
     # solid and not about this mesh — and trimesh refuses the whole boolean for it. Manifold
     # takes it, repairs it, and hands back a watertight result; the caller checks that.
-    return trimesh.boolean.difference(
+    cut = trimesh.boolean.difference(
         [mesh, _cutter(point, normal, rows, depth)], engine="manifold", check_volume=False)
+    # ONE MORE PASS THROUGH THE ENGINE, ON THE POSITIONS THE FILE WILL HOLD. A difference hands
+    # back a result whose own invariants hold in double precision, and the exporter then rounds
+    # it to float32 and makes coincidences the engine never saw. Quantising first and unioning
+    # after is what puts the engine's answer and the file's contents in the same space.
+    return trimesh.boolean.union([as_written(cut)], engine="manifold", check_volume=False)
+
+
+def non_manifold_edges(mesh) -> int:
+    """Edges the mesh gives to more than two faces — WHAT A SLICER ACTUALLY REFUSES.
+
+    TWO THINGS ABOUT THIS READING, and getting either wrong makes it agree with you instead of
+    with the machine.
+
+    `is_watertight` IS THE EASIER QUESTION. A mesh can pass it while a slicer rejects the file,
+    because winding can close over an edge that four faces share.
+
+    AND IT MUST BE READ ON A MESH MERGED BY POSITION. An STL carries every triangle's own
+    vertices, so on the soup almost no edge is shared and the count is near zero BY
+    CONSTRUCTION — it cannot find the fault it exists to find. A slicer merges on import; so
+    does `trimesh.load` unless told not to. Read it anywhere else and it will pass a file that
+    is refused at the bed."""
+    merged = mesh.copy()
+    merged.merge_vertices()
+    _u, counts = np.unique(merged.edges_sorted, axis=0, return_counts=True)
+    return int((counts > 2).sum())
+
+
+def as_written(mesh):
+    """`mesh` with its vertices moved to the positions an STL will actually store.
+
+    AN STL IS SINGLE PRECISION. Two vertices a double can tell apart land on the same float32,
+    and the file then holds a coincidence the solid never had — an edge four faces share,
+    invisible in memory and refused at the bed. Quantising BEFORE the last boolean lets the
+    engine resolve that coincidence properly instead of the exporter creating it afterwards."""
+    out = mesh.copy()
+    out.vertices = out.vertices.astype(np.float32).astype(np.float64)
+    out.merge_vertices()
+    return out
