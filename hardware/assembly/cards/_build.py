@@ -62,6 +62,8 @@ PAGE_W, PAGE_H = 6 * 72, 4 * 72  # points
 #: for a grid that has to fit more than one document across.
 DECK_TITLE = "Assembly card deck"
 COVER_W = 900
+IMAGE_QUALITY = 92
+IMAGE_RECOMPRESS_ABOVE = 48 * 1024
 
 
 def deck_key(render: Path):
@@ -171,6 +173,18 @@ def build_pdf() -> int:
         writer = PdfWriter()
         for page in pages:
             writer.append(str(page))
+        # A card's render comes back out of the browser as a Flate RGB bitmap
+        # about nine times the PNG it was drawn from. Re-encoded at 92 it costs
+        # a third of that and moves no pixel by more than 3 of 255 — measured on
+        # es-02, the largest. Type and rules are vector and untouched.
+        for page in writer.pages:
+            for img in page.images:
+                if len(img.data) > IMAGE_RECOMPRESS_ABOVE:
+                    img.replace(img.image, quality=IMAGE_QUALITY)
+        # Every appended document brought its own copy of the font subsets and
+        # the shared resources; one page of a hundred and three needs one of
+        # each. Held to: the deck goes 21.5 MB -> 8.8 MB and no page moves.
+        writer.compress_identical_objects()
         writer.add_metadata({"/Title": DECK_TITLE, "/Author": "", "/Producer": "", "/Creator": ""})
         with open(out_path, "wb") as fh:
             writer.write(fh)

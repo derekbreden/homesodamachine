@@ -2721,6 +2721,75 @@ cp hardware/manifold-layout/README.md $$O2
 )
 
 genrule(
+    name = "manual-build",
+    srcs = [
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/OFL.txt",
+        "hardware/manual/00-cover.html",
+        "hardware/manual/01-contents.html",
+        "hardware/manual/02-where-it-goes.html",
+        "hardware/manual/03-water.html",
+        "hardware/manual/04-co2.html",
+        "hardware/manual/05-faucet.html",
+        "hardware/manual/06-umbilical.html",
+        "hardware/manual/07-power.html",
+        "hardware/manual/08-first-pour.html",
+        "hardware/manual/09-every-day.html",
+        "hardware/manual/10-care.html",
+        "hardware/manual/11-back.html",
+        "hardware/manual/README.md",
+        "hardware/manual/STYLE.md",
+        "pysrc/hardware/manual/_build.py",
+        "hardware/manual/style.css",
+        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
+        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "tools/render/render-card.js",
+        ":node-packages",
+    ],
+    outs = [
+        "out/manual-build/hardware/manual/manual-print.pdf",
+        "out/manual-build/hardware/manual/manual.cover.png",
+        "out/manual-build/hardware/manual/manual.pdf",
+        "out/manual-build/hardware/manual/manual.pdf.json",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/manual-build/hardware/manual/manual-print.pdf)
+O1=$$PWD/$(location out/manual-build/hardware/manual/manual.cover.png)
+O2=$$PWD/$(location out/manual-build/hardware/manual/manual.pdf)
+O3=$$PWD/$(location out/manual-build/hardware/manual/manual.pdf.json)
+for f in $(SRCS); do
+  case $$f in */node_modules/*) continue;; esac
+  t=$${f##*/pysrc/}
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manual/_build.py > /dev/null
+cp hardware/manual/manual-print.pdf $$O0
+cp hardware/manual/manual.cover.png $$O1
+cp hardware/manual/manual.pdf $$O2
+cp hardware/manual/manual.pdf.json $$O3
+""",
+)
+
+genrule(
     name = "cold-core-interface",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -6678,6 +6747,7 @@ genrule(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
+        "hardware/manual/_build.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -6834,6 +6904,7 @@ genrule(
         "pysrc/hardware/manifold-layout/_scorecard.py",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
+        "pysrc/hardware/manual/_build.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -11318,6 +11389,7 @@ filegroup(
         ":faucet-assembly",
         ":enclosure-assembly",
         ":manifold-layout",
+        ":manual-build",
         ":cold-core-interface",
         ":coil-mandrel",
         ":copper-plugs",

@@ -1136,21 +1136,16 @@ details.branch > summary.branch-head:hover .branch-caret {
 
 /* --- /drawings: the documents shelf --------------------------------------
 
-   A document is a PDF handed over whole, so its card is a cover and a caption
-   and nothing else — the click leaves this page. Wide tracks, because the
-   cover is the only thing telling you which document this is: at the page's
-   own 220px part-thumbnail width a cover is a smudge and the title under it is
-   doing all the work.
-
-   The cover keeps its own proportion. A deck of 6 × 4 in cards and a booklet
-   of folded letter pages are not the same shape, and a fixed box would
-   letterbox one of them; `height: auto` lets each stand as what it is. The
-   lift and the shadow are what make it read as paper on a surface rather than
-   a picture in a tile. */
+   A cover, a caption, and a click that leaves this page. The tracks are 420px
+   against the page's own 220px, wide enough to read a cover's title where it
+   is printed. `height: auto` lets each cover keep its own proportion — a 6 × 4
+   in deck and a folded-letter booklet are not the same shape — and the lift
+   and shadow put it on the surface rather than in a tile. */
 .doc-shelf {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr));
+  align-items: start;
   gap: 20px;
 }
 .card.card-doc {
@@ -1171,8 +1166,7 @@ details.branch > summary.branch-head:hover .branch-caret {
 .card.card-doc:hover .doc-cover { transform: translateY(-2px); }
 .card.card-doc .label { padding: 14px 0 10px; white-space: normal; }
 .card.card-doc .label .name { font-size: 15px; font-weight: 600; }
-/* The scale line — pages and bytes — says what opening this costs before the
-   click does. Monospace so the two numbers line up down a shelf. */
+/* Pages and bytes, monospaced so the two line up down a shelf. */
 .card.card-doc .doc-scale {
   display: block;
   margin-top: 3px;

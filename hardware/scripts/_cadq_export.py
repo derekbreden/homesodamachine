@@ -155,11 +155,13 @@ _DXF_CLASS_NAME_RE = re.compile(rb"  1\n([^\n]+)\n")
 #   trailer /ID array as plain (uncompressed) bytes near end-of-file.
 #   The regex patterns below catch all three.
 #
-#   Cairo (rsvg-convert, weasyprint, etc.) writes the same fields but
-#   bundles them inside compressed object streams that the file-level
-#   regex can't reach. Cairo honors SOURCE_DATE_EPOCH instead — set it
-#   at the producer (see hardware/quickstart/appliance_quickstart.py),
-#   and _canonicalize_pdf becomes a harmless no-op on Cairo output.
+#   A PRODUCER THAT COMPRESSES ITS TRAILER IS OUT OF REACH HERE. Cairo
+#   (rsvg-convert, weasyprint) and Skia (a browser's `page.pdf`) write the
+#   same fields inside object streams the file-level regex cannot see.
+#   Cairo honors SOURCE_DATE_EPOCH, so a producer using it can set that
+#   and leave this a harmless no-op; a browser honors nothing, and what
+#   settles it there is the merge — pypdf drops each appended document's
+#   `/Info` (hardware/assembly/cards/_build.py).
 #
 # Entries:
 #   /CreationDate and /ModDate — PDF dates: D:YYYYMMDDHHMMSSOHH'MM'.

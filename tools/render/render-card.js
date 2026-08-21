@@ -201,15 +201,22 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
     type: "png",
     clip: { x: 0, y: 0, width: opts.width, height: opts.height },
   });
-  // The print path, off the same laid-out page. `pageRanges: "1"` is the guard
-  // that keeps this a page and not a document: a card whose content outgrew the
-  // canvas paginates, and the overflow report above is where that is said out
-  // loud — a second page here would only hide it.
+  // The print path, off the same laid-out page.
+  //
+  // CHROME PRINTS IN CSS PIXELS AT 96 TO THE INCH, and a card is authored at
+  // 300 — so an unscaled `page.pdf` at 6 x 4 in takes the top-left 576 x 384 of
+  // an 1800 x 1200 canvas and paginates the rest away. `scale` is the ratio
+  // between the two, read off the page size asked for and the canvas rendered.
+  //
+  // `pageRanges: "1"` is what keeps this a page and not a document: content
+  // that outgrew the canvas paginates, and the overflow report above is where
+  // that is said out loud.
   if (opts.pdf) {
     await page.pdf({
       path: outAbs.replace(/\.png$/, ".pdf"),
       width: opts.pdf.width,
       height: opts.pdf.height,
+      scale: (parseFloat(opts.pdf.width) * 96) / opts.width,
       printBackground: true,
       pageRanges: "1",
       preferCSSPageSize: false,
