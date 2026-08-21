@@ -5,9 +5,15 @@
 # renderers and the Chromium the card deck drives, express for the scene server, blender and
 # rsvg-convert for the two targets that shell out to them, and bazel at `.bazelversion`.
 #
-# IT REBUILDS ONLY WHEN ITS INPUTS MOVE. The trigger is the five files the image is made of,
-# and the content tag is their digest — so a geometry commit never rebuilds it, and a commit
-# that bumps the CadQuery pin rebuilds it exactly once. `:latest` moves with them; the
+# IT IS BUILT WHEN IT IS WANTED, like the derive it feeds. Nothing here starts on a push, so
+# the five files the image is made of can move on `main` without a remote taking a turn in
+# anyone's edit cycle — `tools/ci-image/Dockerfile`, `tools/cad-requirements.txt`, the two
+# package locks, and `.bazelversion`. Dispatch this before dispatching a derive that needs
+# what they changed. A derive run inside an image older than the tree says so on its own:
+# `derive.yml` compares `HSM_REQ_SHA` against the tree's and annotates the run, so an image
+# that lags is a named warning rather than a silent wrong environment.
+#
+# The content tag is the digest of those five files, so `:latest` moves with a build and the
 # content tag is what a run can be held against afterwards.
 #
 # THE LAYER CACHE IS THE POINT OF `type=gha`. The apt layers and the pip layer are the whole
@@ -17,15 +23,6 @@
 name: cad-image
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - tools/ci-image/Dockerfile
-      - tools/cad-requirements.txt
-      - tools/render/package-lock.json
-      - web/package-lock.json
-      - .bazelversion
-      - .github/workflows/cad-image.yml
   workflow_dispatch:
 
 concurrency:

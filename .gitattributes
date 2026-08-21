@@ -41,9 +41,6 @@ hardware/pcb/*/out/*.svg  -diff linguist-generated=true
 # Blender Freestyle stroke soup, cut by the _blender_render.py sitting beside it.
 hardware/**/drawings/line-art/*.svg  -diff linguist-generated=true
 
-# appliance_quickstart.py writes this sheet whole.
-hardware/quickstart/drawings/prints-and-guides/appliance.svg  -diff linguist-generated=true
-
 # gen_animation_frames.py, sixteen 360x360 frames as RGB565 hex, 28 MB of it. Keyed to the
 # images directory rather than to *.h, because every other header under firmware/ is typed.
 firmware/src_front/images/anim_*.h  -diff linguist-generated=true

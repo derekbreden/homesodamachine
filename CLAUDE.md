@@ -67,17 +67,23 @@ rules. Read the two above before your first commit, not after I point you at the
 
 Finish the cycle. Don't stop partway and hand me the rest.
 
-1. Build and verify — **the targets your change reaches, not `//:everything`**:
+1. Build and verify:
 
    ```
    bazel build $(tools/cad-venv/bin/python tools/bazel/affected.py)
    ```
 
-   A no-op build of this tree is under a second, one leaf part is ~28 s, and `//:everything`
-   is ~14 minutes that swaps 6.5 GB on an 8 GB box and slows every other session with it.
-   `affected.py` reads git's own list of what moved and names the targets it reaches. It
-   names on stderr any changed path no target holds — that list is then smaller than the tree
-   owes, and `//:everything` is what answers it.
+   `affected.py` reads git's own list of what moved and names the targets it reaches. **The
+   half to read is stderr**: a changed path no target holds means the list under it is smaller
+   than the tree owes, and `//:everything` is what answers that one.
+
+   **A WARM TREE IS ALREADY CHEAP, so read a build's action count and not its wall clock.**
+   Bazel runs the actions an edit reaches and no others, whether the command names one target
+   or `//:everything`. On this tree: a no-op is 0.2 s, and one part's geometry moving is 13 s
+   and **one** sandboxed action. Fourteen minutes is a different operation — a cold checkout,
+   a `sync_tree --write` carry, or a module the whole graph imports — and that one is 97–159
+   actions and swaps 6.5 GB on an 8 GB box. Three numbers have been quoted for "the build"
+   here as though they were one; the action count is what tells them apart.
 2. Sync the docs and the ledger for whatever you moved.
 3. Commit **by pathspec** — `git commit -F - -- <paths>` — never `git add -A`. One checkout, one
    `main`; the pathspec form takes files straight from the tree without touching the shared index.
