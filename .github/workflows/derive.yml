@@ -153,7 +153,13 @@ jobs:
         # it and the solids never get cut — which is how three runs ended `lock names this
         # tree` while reading nothing but what the fetch had put there. A red target here is
         # the next commit's work; everything that does not depend on it still owes its output.
-        run: bazel --output_user_root=/tmp/bzl build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
+        #
+        # NO `--output_user_root`. `sync_tree.py` re-invokes a bare `bazel` to ask
+        # `--check_up_to_date`, and an output base only this line knows about is a base that
+        # invocation never sees — it analysed an empty one and answered "not up to date",
+        # which is the carry refusing on a build that had in fact just run. The two have to
+        # be the same bazel or the guard reads the wrong tree.
+        run: bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
 
       # BAZEL CUTS INTO `bazel-bin` AND THIS REPO COMMITS ITS TREE, and `sync_tree.py` is the
       # only thing that carries one to the other — `hardware/README.md` names it as the step
