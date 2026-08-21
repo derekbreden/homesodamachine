@@ -129,11 +129,31 @@ jobs:
           key: realized-${{ hashFiles('hardware/**/*.py') }}
           restore-keys: realized-
 
+      # A KEY THAT HITS IS A KEY THAT NEVER SAVES, and this one hit on every run. `actions/cache`
+      # writes the cache back only when the PRIMARY key missed; a restore through `restore-keys`
+      # is a hit for that purpose too. Keyed on two files the tree rarely touches, the primary
+      # key matched every time and the post step said so in as many words — `Cache hit occurred
+      # on the primary key bazel-7411574b…, not saving cache` — so the disk cache was frozen at
+      # whatever the run that first wrote it had cut, and every derive since re-executed the
+      # rest from scratch and threw the result away. `159 processes: 34 disk cache hit` on run
+      # after run: a fifth of the graph restored, the other four fifths rebuilt every lap, which
+      # is the eleven to twenty-four minutes this step costs regardless of how small the commit.
+      #
+      # SO THE KEY ROLLS EVERY RUN AND THE PREFIX DOES THE RESTORING. `github.sha` cannot repeat,
+      # so the primary key always misses and the post step always saves; `restore-keys: bazel-`
+      # hands back the newest cache under the prefix, which is the run before this one. What a
+      # derive cuts is then available to the derive behind it — the property the disk cache was
+      # added for and has never once had.
+      #
+      # THE CONTENT DEPENDS ON THE WHOLE TREE, WHICH IS WHY NO hashFiles SET WAS EVER RIGHT. An
+      # action's inputs here are python, the renderers' javascript, scene files, fonts and the
+      # images themselves; a key naming two of them claims the other inputs cannot change, and
+      # they change most commits. A rolling key makes no such claim.
       - name: Restore the bazel disk cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/bazel-disk
-          key: bazel-${{ hashFiles('BUILD.bazel', 'tools/bazel/graph.json') }}
+          key: bazel-${{ github.sha }}
           restore-keys: bazel-
 
       # `.bazelrc.paths` mounts the workspace's own .cache and bazel refuses a mount pair
