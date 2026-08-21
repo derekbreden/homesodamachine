@@ -149,6 +149,21 @@ def _held():
         return {}
 
 
+def _hold(held):
+    """Keep what the cache learned, where there is somewhere to keep it.
+
+    A SANDBOX HAS NOWHERE. `.cache` is not a declared input of any step, so under bazel this
+    path is the read-only source tree and every lookup here is a miss — the run reads its
+    volumes off the STEPs it was handed and the memo has nothing to add to. What the cache
+    saves is a second OCC import on a warm tree, so a run that cannot write one is a slower
+    run and not a wrong one."""
+    try:
+        _VOL_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        _VOL_CACHE.write_text(json.dumps(held, indent=1, sort_keys=True))
+    except OSError:
+        pass
+
+
 def volume_cm3(rel):
     """The solid's volume in cm³, memoized — a piece may appear in more than one row."""
     if rel not in _VOLUMES:
@@ -164,8 +179,7 @@ def volume_cm3(rel):
 
             _VOLUMES[rel] = import_step(str(path)).val().Volume() / 1000.0
             held[key] = _VOLUMES[rel]
-            _VOL_CACHE.parent.mkdir(parents=True, exist_ok=True)
-            _VOL_CACHE.write_text(json.dumps(held, indent=1, sort_keys=True))
+            _hold(held)
     return _VOLUMES[rel]
 
 
