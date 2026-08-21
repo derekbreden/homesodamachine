@@ -19,6 +19,12 @@
 #
 # Both were tried in run 32439389331 and both failed on exactly that. What remains is Apple
 # Silicon and Linux x86_64, and the repo is public, so both are free and unlimited.
+#
+# THE TWO LANES ARE NOT EQUALLY IMPROVABLE, which matters when reading their seconds against
+# each other. GitHub Actions `container:` jobs are Linux-only, so the Linux lane can pull a
+# prebuilt image and delete its toolchain rows outright, while macos-latest must install the
+# toolchain on every run for as long as it is used. Compare cold-build seconds between the
+# lanes; compare the install rows only against zero.
 
 name: cad-runner-bench
 
@@ -64,16 +70,22 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo mkdir -p /opt/homebrew/bin
 
+      # rsvg-convert IS NOT AN OPTIONAL TOOL, IT IS A SILENT ONE. `appliance_quickstart.py`
+      # shells out to it for the PDF and catches the missing binary — "rsvg-convert not found
+      # on PATH; skipping PDF generation." So a runner without it does not fail, it produces
+      # less and reports green, which is the worse of the two. Neither lane had it before this.
       - name: Time the system toolchain
         id: sys
         run: |
           start=$(date +%s)
           if [ "$RUNNER_OS" = "macOS" ]; then
             brew install --cask blender
+            brew install librsvg
           else
-            sudo apt-get update -qq && sudo apt-get install -y -qq blender
+            sudo apt-get update -qq && sudo apt-get install -y -qq blender librsvg2-bin
           fi
           command -v blender || ls -d /Applications/Blender.app
+          command -v rsvg-convert
           echo "seconds=$(( $(date +%s) - start ))" >> "$GITHUB_OUTPUT"
 
       - uses: actions/setup-python@v5
