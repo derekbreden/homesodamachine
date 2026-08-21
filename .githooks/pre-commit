@@ -406,6 +406,18 @@ if git diff --cached --name-only | grep -qE '\.step$|cad-artifacts\.lock\.json$'
        python3 "$root/hardware/scripts/check_thumbnails.py"
 fi
 
+# AND THE TESSELLATION BESIDE IT IS WHAT THE PAGE ACTUALLY READS. `loadStepFile` prefers
+# `<file>.step.mesh` to the solid and parses the solid only where there is none — and on the
+# enclosure that payload is the only place the flutes are, the STEP beside them a smooth prism
+# (hardware/printed-parts/enclosure/enclosure/flute_skin.py). So a payload absent or older than
+# its solid is every picture in this repository drawn off a surface the part does not have, and
+# nothing above it is red: the page finds a solid and draws one. A stat per bundled payload names
+# them; writing one costs the generator's run, which is the follow-up commit's work.
+if git diff --cached --name-only | grep -qE '\.step$|cad-artifacts\.lock\.json$'; then
+  gate "a solid's payload is the solid as it stands" \
+       python3 "$root/hardware/scripts/check_payloads.py"
+fi
+
 # WHAT THE INDEX CARRIES OF THE GEOMETRY IS THE LOCK. A generator's run moves solids on this
 # disk and puts no `.step` in the index, so hardware/cad-artifacts.lock.json is where a move
 # shows — and a commit leaving it behind deploys a site serving the solids of the commit before.
