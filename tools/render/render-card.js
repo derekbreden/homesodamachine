@@ -24,6 +24,7 @@
 // neighbouring one — either is a layout bug, not a printable card.
 
 import path from "path";
+import os from "os";
 import fs from "fs";
 import { pathToFileURL } from "url";
 import { closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
@@ -298,6 +299,17 @@ async function main() {
       console.error("render-card: no capture returned on a cold browser");
     }
     let page = await newCardPage(browser, opts);
+    // THE FIRST CARD IN A DECK PAYS FOR ALL OF THEM AND IT IS THE ONE THAT DOES NOT COME BACK.
+    // One browser draws a whole deck, so the first capture is the one that starts the
+    // compositor, takes the first shared-memory frame, and fetches and parses the ten vendored
+    // `cards/fonts/*.woff2` every later card then already has. In a container that lands on
+    // card one: `00-cover.html` heads the main deck and `bs-band-saw.html` heads the tools
+    // deck, and those are the two that time out, every run, while the hundred behind them draw.
+    //
+    // So the deck's first page is drawn onto a throwaway. It is the same visit a card gets —
+    // the fonts, a capture at the same size — and what it costs is one page nobody keeps.
+    await renderPage(page, jobs[0].htmlAbs, path.join(os.tmpdir(), `hsm-warm.${process.pid}.png`), opts)
+      .catch(() => { /* a warm-up that fails is a card that is about to fail out loud */ });
     for (const job of jobs) {
       let overflow;
       try {
