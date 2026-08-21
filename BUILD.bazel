@@ -4777,45 +4777,6 @@ cp hardware/printed-parts/zone-c/hopper-funnel/README.md $$O2
 )
 
 genrule(
-    name = "appliance-quickstart",
-    srcs = [
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
-        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
-        "hardware/quickstart/appliance_quickstart.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ],
-    outs = [
-        "out/appliance-quickstart/hardware/quickstart/drawings/prints-and-guides/appliance.pdf",
-        "out/appliance-quickstart/hardware/quickstart/drawings/prints-and-guides/appliance.svg",
-        "out/appliance-quickstart/hardware/quickstart/appliance_quickstart.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/appliance-quickstart/hardware/quickstart/drawings/prints-and-guides/appliance.pdf)
-O1=$$PWD/$(location out/appliance-quickstart/hardware/quickstart/drawings/prints-and-guides/appliance.svg)
-O2=$$PWD/$(location out/appliance-quickstart/hardware/quickstart/appliance_quickstart.py)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py > /dev/null
-cp hardware/quickstart/drawings/prints-and-guides/appliance.pdf $$O0
-cp hardware/quickstart/drawings/prints-and-guides/appliance.svg $$O1
-cp hardware/quickstart/appliance_quickstart.py $$O2
-""",
-)
-
-genrule(
     name = "asse1022-assembly",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
@@ -11386,7 +11347,6 @@ filegroup(
         ":valve-seat",
         ":hopper-funnel-mold",
         ":hopper-funnel",
-        ":appliance-quickstart",
         ":asse1022-assembly",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",

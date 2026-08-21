@@ -22,15 +22,14 @@ import {
 // synchronous teardown — see detail-shims.js).
 import {
   openMmdDetail, closeMmdDetail,
-  openDrawingDetail, closeDrawingDetail,
   openPcbDetail, closePcbDetail,
 } from "./detail-shims.js";
 import { routeToStep } from "./step-nav.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
-const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "svg:": "drawing", "pcb:": "pcb" };
-const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, drawing: openDrawingDetail, pcb: openPcbDetail };
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "pcb:": "pcb" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, pcb: openPcbDetail };
 
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
@@ -52,12 +51,10 @@ window.addEventListener("popstate", () => {
     routeToStep(want.file);
     return;
   }
-  // Close whatever is currently open (cad / mmd / drawing close paths
-  // differ because mmd and drawing use PanZoom while step/dxf use the
-  // Three.js scene).
+  // Close whatever is currently open (cad / mmd / pcb close paths differ
+  // because mmd and pcb use PanZoom while step/dxf use the Three.js scene).
   if (state.currentDetail) {
     if (state.currentDetail.type === "mmd") closeMmdDetail(false);
-    else if (state.currentDetail.type === "drawing") closeDrawingDetail(false);
     else if (state.currentDetail.type === "pcb") closePcbDetail(false);
     else closeCadDetail(false);
   }
@@ -65,7 +62,7 @@ window.addEventListener("popstate", () => {
 });
 
 // --- Initial route ---
-// Prefer ?file=<step|dxf|mmd|svg> (notification deep link), fall back to hash.
+// Prefer ?file=<step|dxf|mmd> (notification deep link), fall back to hash.
 // The file's extension drives which detail surface opens; occtPromise is needed
 // for STEP only, and every other kind can open immediately.
 export function applyInitialRoute(occtPromise) {
@@ -78,8 +75,6 @@ export function applyInitialRoute(occtPromise) {
       setTimeout(() => openDxfDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".glb")) {
       setTimeout(() => openGlbDetail(initialFile, true), 100);
-    } else if (initialFile.endsWith(".svg")) {
-      setTimeout(() => openDrawingDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".tsx")) {
       setTimeout(() => openPcbDetail(initialFile, true), 100);
     } else {
@@ -99,9 +94,6 @@ export function applyInitialRoute(occtPromise) {
     } else if (hash.startsWith("mmd:")) {
       const file = hash.slice(4);
       setTimeout(() => openMmdDetail(file, false), 100);
-    } else if (hash.startsWith("svg:")) {
-      const file = hash.slice(4);
-      setTimeout(() => openDrawingDetail(file, false), 100);
     } else if (hash.startsWith("pcb:")) {
       const file = hash.slice(4);
       setTimeout(() => openPcbDetail(file, false), 100);

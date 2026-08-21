@@ -6,7 +6,7 @@
 // the file-scope `let` it replaces.
 //
 // At most one detail surface is open at a time (parts viewer is modal):
-//   currentDetail = { type: "step"|"dxf"|"mmd"|"drawing"|"pcb", file } | null
+//   currentDetail = { type: "step"|"dxf"|"mmd"|"pcb", file } | null
 //   mountedDetail = { type: "step"|"dxf",       file } | null
 // "current" tracks which file the modal is presenting; "mounted" tracks
 // which file is actually loaded into the shared Three.js scene (only
@@ -19,7 +19,6 @@ export const state = {
   mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files
   glbFiles: [],       // GLB assemblies (board 3D models)
-  drawingFiles: [],   // Line-art SVG files (drawings/ convention)
   pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay, inners, picks}
   documents: [],      // PDFs the site hands over whole: {path, title, subtitle, pages, cover, bytes} (contracts/documents.js)
   currentDetail: null,
@@ -28,10 +27,6 @@ export const state = {
   currentMmdWrapper: null,    // host div inside the modal (PanZoom container)
   currentMmdPz: null,         // PanZoom handle for currentMmdWrapper
   currentMmdMinimap: null,    // Minimap handle (pan-zoom-extras.makeMinimap)
-  currentDrawingContent: null,
-  currentDrawingWrapper: null,// host div inside the modal (PanZoom container)
-  currentDrawingPz: null,     // PanZoom handle for currentDrawingWrapper
-  currentDrawingMinimap: null,// Minimap handle
   currentPcbSource: null,     // source path of the open board
   currentPcbViews: null,      // {top,bottom,overlay,inner1,…} SVG text for the open board
   currentPcbView: null,       // which view is showing ("top"|"bottom"|"overlay"|"inner1"…)
@@ -51,7 +46,6 @@ export const state = {
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   dxfThumbCache: new Map(),   // DXF file -> dataURL
   glbThumbCache: new Map(),   // GLB file -> dataURL
-  drawingThumbCache: new Map(),// Drawing file -> svgText (used for both thumbnail and detail)
   pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag

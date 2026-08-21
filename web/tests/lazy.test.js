@@ -25,7 +25,6 @@ const THUMB_HOSTS = [
   ".card img",
   ".card .placeholder",
   ".card .mmd-thumb",
-  ".card .drawing-thumb",
   ".card .pcb-thumb",
 ];
 
@@ -69,8 +68,11 @@ test("live.js refuses to repaint a released card", () => {
   const live = read("js/viewer/live.js");
   // Painting a released card leaves content in a card the window is no longer
   // tracking, so nothing will ever free it. Every per-file refresh has to check.
+  // Five kinds draw a per-file thumbnail on this page: step, dxf, glb, mmd, pcb.
+  // A document is not one — its cover is a committed file the browser fetches,
+  // so there is nothing to release and nothing to repaint.
   const refreshes = live.match(/^function refresh\w+\(file\) \{[\s\S]*?^\}/gm) || [];
-  assert.ok(refreshes.length >= 6, `expected the per-kind refreshers, found ${refreshes.length}`);
+  assert.ok(refreshes.length >= 5, `expected the per-kind refreshers, found ${refreshes.length}`);
   for (const fn of refreshes) {
     const name = /^function (\w+)/.exec(fn)[1];
     assert.match(fn, /isMounted\(card\)/, `${name} must skip a released card`);

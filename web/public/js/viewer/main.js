@@ -51,11 +51,10 @@ function setupNav() {
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, drawingResp, pcbResp, glbResp, docResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, pcbResp, glbResp, docResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
-    fetch("/api/drawings"),
     fetch("/api/pcb"),
     fetch("/api/glbs"),
     fetch("/api/documents"),
@@ -74,7 +73,6 @@ export async function fetchFiles() {
   state.dxfMeta.clear();
   for (const d of dxfData) state.dxfMeta.set(d.path, d);
   state.dxfFiles = dxfData.map((d) => d.path).sort();
-  state.drawingFiles = (await drawingResp.json()).sort();
   buildGrid();
 }
 
