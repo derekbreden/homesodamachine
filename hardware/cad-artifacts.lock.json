@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-16ff17a8a656c553.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-16ff17a8a656c553.tar.gz"
+    "asset": "cad-fbb4f9698e0b0acf.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-fbb4f9698e0b0acf.tar.gz"
   },
   "bundle": {
-    "sha256": "16ff17a8a656c553cdeada06f68f4c8b6ae9a01f9eb2e09b4b920f500107ed5a",
-    "bytes": 73386424,
+    "sha256": "fbb4f9698e0b0acf8575e68362b370647fe7e1a44b8b892bd7e28c07fe1152ea",
+    "bytes": 73387978,
     "solids": 128
   },
   "solids": {
@@ -25,19 +25,19 @@
     "hardware/cold-core-layout/cold-core-assembly.step": "657c2f25430e07ccaf539b19d6ad7e75ed00a0c73920c638811945713b6e42a7",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "37e94eeae001e8c31b61ef64977d0c388ed34a24ea7a05bf3518fb3ad1b4be88",
     "hardware/faucet-layout/faucet-assembly.step": "217ca3f6cb5bf47d561f12712d1afb97d3a37534e735038983ade351fbca358c",
-    "hardware/manifold-layout/enclosure-assembly.step": "4850a3f520b9fba32e79f760f5a4111e84593264dca3c9eaaf1f06d2de706158",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "70f27468d4070d4ef0d685745e58958925e48e18416d657f084df5d3105bb4b5",
+    "hardware/manifold-layout/enclosure-assembly.step": "ff7cce85dce8ba3c90a0d0d7f269cd95bffff003a36cd6d7661602adb88c9c6d",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "ca51a83f6148051f30782a242e63903fae5906fb1704316ab2d146e589737f92",
     "hardware/manifold-layout/manifold-layout.step": "4d3be863a9edc34b2bd92b655bd11ec471072d9adba01b5c2cc269ca5d9db23a",
     "hardware/manifold-layout/manifold-layout.step.mesh": "de509228ee55a0de06c1ca910882d90d0e903479c430a08af5e152112fae6299",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "b5dd22a4ae77a02aec5a7a0764e55ea5d49ea81bc5d34e01da91486cd253f108",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step": "479235ca544e1ceccccbd726cc63c4d01d5628e6fb856a7087a95e06f2ce8cf5",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step": "d0148615c4a907664f6226884853b53f7ade770f1f59c9b7c2e5d62e8645155e",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "a0f0b497f56ea70d0eb190f3b550067c61465a7f6f00d1f017034512d800fcd6",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "e2ef026a81b869a56662c95d03dcf835d575c0c5eba3d186fdf32387de3cda7c",
     "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step": "c41b6da163437f3ddcdb932de65c8dc7a92c7c2522a2155bb0067048523ea862",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "f690bf2af1c76d6cf06b11d1a9ac0d25d5615ef79a73498ff1082d8a6704f27b",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "441dc08cbda670e9a201ffcd64cb6847637f86ad50e3407c76728d09b4c030a0",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "f820c2313b89fc2b2407c00701a498d7542a04d7ed4b1dd3b7fc4957c4623d45",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "4c6ef980915d39e09ff9916f641433fe7142a5320079af1d2cdaed1b257b291b",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "af7d531fefc9b408eb5395151d1e4129dfb7501e4490b6466fe61eea5ed0de32",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "9e539465407c079ddd51c4d2a16780b93b2b69b3905ed6dc05a1500aed738d95",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "8ba29d284078e95e7172db6151641146336b32ec267d07179d48eff465bc4f6e",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "7e403656f9aeabbe6e310183641b8686db21dc8adb81fb8e436466bf0455a503",
