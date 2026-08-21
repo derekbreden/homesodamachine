@@ -1,0 +1,99 @@
+# THE ENVIRONMENT A RUNNER CANNOT BE ASKED TO ASSEMBLE, assembled once.
+#
+# Six things broke the first six CI runs and every one of them was state one laptop had and
+# no clean machine does — the CadQuery pin, the renderer lockfile, the sandbox mount pairs,
+# the reference solids, puppeteer's Chromium, express. This image is where the ones that are
+# INSTALLS rather than fetches now live: they are paid at image-build time, keyed on the
+# files that name them, and a derive run pulls the answer instead of computing it.
+#
+# IT IS ALSO THE ONLY WAY THE FULL GRAPH BUILDS AT ALL. `//:appliance-model` shells out to
+# blender for the line-art SVGs and `freestyle-sieve` shells out to rsvg-convert; a stock
+# `ubuntu-latest` has neither, so those targets fail on a runner however long you give them.
+# The image is a correctness fix that happens to also be a speed fix.
+#
+# manylinux_2_31 IS THE FLOOR THE WHEELS SET. `cadquery-ocp 7.8.1.1.post1` publishes cp313
+# for macosx arm64, macosx x86_64, manylinux_2_31_x86_64 and win_amd64 — no linux aarch64 —
+# so this image is x86_64 and its base needs glibc >= 2.31. Noble is 2.39.
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# NOTHING HERE IS THE BUILD'S CHOICE — it is what the build already reaches for by name.
+# `_blender_render.py` resolves `blender` off PATH, `sieve.py` and `appliance_quickstart.py`
+# call `rsvg-convert`, and `actions/cache` needs tar and zstd to unpack into a container.
+# python3.13 is not in noble, so deadsnakes carries it; the venv's own pin does the rest.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      ca-certificates curl gnupg git tar zstd unzip xz-utils sudo \
+      build-essential \
+      software-properties-common \
+    && add-apt-repository -y ppa:deadsnakes/ppa \
+    && apt-get update && apt-get install -y --no-install-recommends \
+      python3.13 python3.13-venv python3.13-dev \
+      blender \
+      librsvg2-bin \
+      libglu1-mesa libxi6 libxrender1 libxkbcommon0 libsm6 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Node 20, because `tools/render/package.json` says `>=20` and the card deck is node.
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# THE PUPPETEER LIBS ARE A LIST NOBODY CAN DERIVE, so let puppeteer name them. Its own
+# `--no-install-recommends` set is what a headless Chromium links against; the deck drives a
+# real Chrome and dies on a missing one of these with an error that names none of them.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      libasound2t64 libatk-bridge2.0-0t64 libatk1.0-0t64 libatspi2.0-0t64 libcairo2 \
+      libcups2t64 libdbus-1-3 libdrm2 libgbm1 libglib2.0-0t64 libnspr4 libnss3 \
+      libpango-1.0-0 libpangocairo-1.0-0 libx11-6 libxcb1 libxcomposite1 libxdamage1 \
+      libxext6 libxfixes3 libxrandr2 libxss1 libxtst6 fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
+
+# `.bazelrc` NAMES TWO MOUNT PAIRS AND BAZEL REFUSES ONE WHOSE SOURCE IS ABSENT. The tools
+# those paths exist for resolve from /usr/bin here, which the same `--action_env=PATH`
+# already carries; the directories only have to exist.
+RUN mkdir -p /opt/homebrew/bin /usr/local/bin
+
+# Bazel at the tree's own pin, downloaded now rather than on the first build.
+COPY .bazelversion /tmp/.bazelversion
+RUN curl -fsSL -o /usr/local/bin/bazel \
+      https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64 \
+    && chmod +x /usr/local/bin/bazel \
+    && cd /tmp && USE_BAZEL_VERSION="$(cat /tmp/.bazelversion)" bazel version
+
+# THE 840 MB. Built at /opt/hsm so it survives `actions/checkout` writing the workspace, and
+# symlinked into `tools/cad-venv` by the job — a venv follows a symlink to itself fine, and
+# `.gitignore` already holds that path out of the tree, so the link dirties nothing.
+COPY tools/cad-requirements.txt /tmp/cad-requirements.txt
+RUN python3.13 -m venv /opt/hsm/cad-venv \
+    && /opt/hsm/cad-venv/bin/pip install --quiet --upgrade pip \
+    && /opt/hsm/cad-venv/bin/pip install --quiet -r /tmp/cad-requirements.txt \
+    && /opt/hsm/cad-venv/bin/python -c "import cadquery, OCP; print('cadquery', cadquery.__version__)"
+
+# The renderers, and the Chromium they download on install. `PUPPETEER_CACHE_DIR` is set for
+# every later shell so the browser the job launches is the one baked here.
+ENV PUPPETEER_CACHE_DIR=/opt/hsm/puppeteer
+COPY tools/render/package.json tools/render/package-lock.json /opt/hsm/render/
+RUN cd /opt/hsm/render && npm ci --no-audit --no-fund
+
+# `//:render-scenes` BOOTS `web/server.js` TO DRAW AGAINST, and that imports express.
+# `--omit=dev` is what render.yaml installs for the deploy and it is enough for the same
+# reason: nothing in the scene render reaches a dev dependency.
+COPY web/package.json web/package-lock.json /opt/hsm/web/
+RUN cd /opt/hsm/web && npm ci --omit=dev --no-audit --no-fund
+
+# What the job needs to know to wire the three baked trees into a fresh checkout.
+ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
+    HSM_RENDER_MODULES=/opt/hsm/render/node_modules \
+    HSM_WEB_MODULES=/opt/hsm/web/node_modules
+
+RUN blender --version | head -1 && rsvg-convert --version && node --version \
+    && /opt/hsm/cad-venv/bin/python --version
+
+# THE DIGEST OF THE FILES THIS IMAGE WAS MADE OF, carried in the image. `derive` recomputes
+# it from its own checkout and compares — an image lagging the tree that pulled it is a run
+# whose environment is not the one the tree names, and it says so rather than guessing.
+ARG HSM_REQ_SHA=unknown
+ENV HSM_REQ_SHA=${HSM_REQ_SHA}
