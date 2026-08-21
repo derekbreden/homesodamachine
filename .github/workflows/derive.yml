@@ -121,7 +121,12 @@ jobs:
       - name: Build everything this tree makes
         id: build
         continue-on-error: true
-        run: bazel --output_user_root=/tmp/bzl build --disk_cache="$HOME/.cache/bazel-disk" //:everything
+        # `--keep_going` IS THE DOCTRINE, NOT A LENIENCY. Bazel stops the whole build at the
+        # first failing target, so a deck that spills two cards halts every generator behind
+        # it and the solids never get cut — which is how three runs ended `lock names this
+        # tree` while reading nothing but what the fetch had put there. A red target here is
+        # the next commit's work; everything that does not depend on it still owes its output.
+        run: bazel --output_user_root=/tmp/bzl build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
 
       # A RED BUILD DOES NOT HOLD THIS, but it must not be silent either: `continue-on-error`
       # reports the step as a success, so a build that cut no solids reached the ledger and
