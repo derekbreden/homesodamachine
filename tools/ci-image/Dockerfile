@@ -173,8 +173,16 @@ ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
     HSM_RENDER_MODULES=/opt/hsm/render/node_modules \
     HSM_WEB_MODULES=/opt/hsm/web/node_modules
 
-RUN blender --version | head -1 && rsvg-convert --version && node --version \
-    && gh --version | head -1 && /opt/hsm/cad-venv/bin/python --version
+# NO PIPES HERE, AND THAT IS THE POINT. A `RUN` layer runs under `/bin/sh` with no pipefail,
+# and `a | b` returns B's status — so `blender --version | head -1` reports whatever `head`
+# reports, which is 0 whether or not blender exists. This line was written to prove the image
+# carries its tools and proved nothing; every command now stands alone under `set -e`.
+RUN set -eu; \
+    blender --version; \
+    rsvg-convert --version; \
+    node --version; \
+    gh --version; \
+    /opt/hsm/cad-venv/bin/python --version
 
 # THE DIGEST OF THE FILES THIS IMAGE WAS MADE OF, carried in the image. `derive` recomputes
 # it from its own checkout and compares — an image lagging the tree that pulled it is a run
