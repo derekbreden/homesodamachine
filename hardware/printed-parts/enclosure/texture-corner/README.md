@@ -8,7 +8,9 @@ Each is [50 mm](LEG) of flat wall either side of a [12 mm](CORNER_R) rounded cor
 `enclosure.corner_round` — the anti-warp relief the box strikes on every standing
 vertical — and `wall` is `enclosure.wall`, so what the coupon shows is what the box can
 take: the deepest cut leaves [1.8 mm](WALL_LEFT) behind, on the flat and round the turn
-alike.
+alike. That is the tightest section in the texture set and it still carries full
+perimeters — the enclosure profile lays 0.87 mm of shell per face, so 1.74 of the 1.8 is
+the four loops and nothing in the groove floor is bridged.
 
 Geometry source: [`texture_corner.py`](texture_corner.py). The flute vocabulary is
 [`../../cadlib/reeding.py`](../../cadlib/reeding.py), shared with
@@ -67,9 +69,10 @@ wall, right there to read the textured wall against.
 `texture-corners-plate.stl` is all three, [206 mm](PLATE_X) × [62 mm](PLATE_Y) — drop it
 in as one object. About 14.6 cm³ each.
 
-Slice on the enclosure's own profile — 0.8 mm nozzle, 0.4 mm layers, PETG, textured PEI.
-Set `fuzzy_skin` to `none`; the texture is in the geometry. **No supports.** Keep the
-brim: the footprint is an L, not a slab.
+Slice on the enclosure's own profile — 0.4 mm High Flow nozzle, 0.24 mm layers, PETG,
+textured PEI ([enclosure/print-log.md](../enclosure/print-log.md)). Set `fuzzy_skin` to
+`none`; the texture is in the geometry. **No supports.** Keep the brim: the footprint is
+an L, not a slab.
 
 On the H2C, check the filament grouping before printing — with one filament on a
 two-nozzle machine the Auto grouping may hand it to the right extruder.

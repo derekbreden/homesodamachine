@@ -12,9 +12,10 @@ finish it is being judged against on opposite sides of the same 3 mm.
 Both faces are the same `grid_cells` × `grid_cells` grid with the sides stitched between
 them, so a tile is watertight by construction and the texture runs full-bleed to all four
 edges rather than sitting in a border like a plaque. The cell COUNT is what is held
-constant across sizes, not the cell size: every size then samples finer than the 0.82 mm
-the nozzle draws — so none loses a feature the printer could have made — and the triangle
-budget, and the file, stay put as the tile grows.
+constant across sizes, not the cell size, so the triangle budget — and the file — stay put
+as the tile grows. Against the 0.42 mm bead the enclosure profile lays, the 50 mm tile's
+0.25 mm step is well under one bead and the 100 mm tile's 0.5 mm step is about one and a
+fifth: the big swatch facets at the printer's own resolution limit rather than under it.
 
 The flute vocabulary — the grooves and the warps that bend them — is
 `../../cadlib/reeding.py`, shared with the standing-wall coupon in `../texture-corner/`
@@ -25,7 +26,7 @@ more repeats of the same texture, not the same texture enlarged, which is the on
 two sizes answer the same question.
 
 WHAT A FLAT TILE CAN AND CANNOT ANSWER. Everything here is a TOP surface, quantised in
-Z at the layer height — `texture_depth` is three layers at the enclosure's 0.4 mm. That
+Z at the layer height — `texture_depth` is five layers at the enclosure's 0.24 mm. That
 is the honest, hardest case, and the one the box's top and its 45° facet actually face.
 It is NOT what these patterns look like on a vertical wall, where a cut of the same
 shape is drawn by the nozzle in XY and carries no layer quantisation at all.
@@ -66,7 +67,7 @@ from perlin import fbm
 
 tile_sides = (50.0, 100.0)
 tile_z = 3.0
-texture_depth = 1.2              # three layers at the enclosure's 0.4 mm
+texture_depth = 1.2              # five layers at the enclosure's 0.24 mm
 grid_cells = 200                 # per side, per face — the step follows from the size
 
 label_height = 6.0
@@ -108,8 +109,10 @@ hex_groove = 2.2
 
 voronoi_cell = 7.0
 voronoi_jitter = 0.34            # share of the spacing each site wanders
-voronoi_levels = 4               # evenly spaced, so `texture_depth` puts each on a layer
-                                 # boundary and no two cells round together
+voronoi_levels = 4               # evenly spaced across `texture_depth`, a 0.4 mm step —
+                                 # which the enclosure's 0.24 mm layer does not divide, so
+                                 # the levels do not stand on layer boundaries. Six levels
+                                 # is the count that would: 1.2 / 5 is exactly one layer.
 
 perlin_feature = 7.0
 perlin_octaves = 4

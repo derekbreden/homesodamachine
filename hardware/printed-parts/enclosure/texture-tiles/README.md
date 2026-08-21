@@ -65,9 +65,12 @@ one to judge on: a soda machine's panels are 215 mm across, and a pattern reads
 differently over four times the area.
 
 Both faces are sampled on a [200](GRID_CELLS) × 200 grid whatever the size — [0.25 mm](GRID_STEP_50) cells at 50 mm, [0.5 mm](GRID_STEP_100) at 100 mm. The cell **count**
-is held constant, not the cell size: both sample finer than the 0.82 mm the nozzle
-draws, so neither loses a feature the printer could have made, and the triangle budget —
-and the file — stays put as the tile grows.
+is held constant, not the cell size, so the triangle budget — and the file — stays put as
+the tile grows. Read against the 0.42 mm bead the enclosure profile lays, the 50 mm tile
+samples comfortably under one bead and the 100 mm tile samples at about one and a fifth:
+the big swatch's facet edges are the size of the finest thing the printer can draw, so
+the pattern survives and the mesh's own faceting is at the resolution limit rather than
+under it.
 
 ## What a flat tile can and cannot tell you
 
@@ -98,10 +101,10 @@ all. That leaves no margin worth printing into, so the generator declines to bui
 plate rather than emit one that will not fit. Import the `texture-tile-100-*.stl` files
 you want and arrange, or print them in batches.
 
-Slice on the enclosure's own profile — 0.8 mm nozzle, 0.4 mm layers, PETG — so the tiles
-and the box quantise identically. Set `fuzzy_skin` to `none`; the texture is in the
-geometry, and a slicer texture on top measures neither. No supports: nothing here
-overhangs.
+Slice on the enclosure's own profile — 0.4 mm High Flow nozzle, 0.24 mm layers, PETG
+([enclosure/print-log.md](../enclosure/print-log.md)) — so the tiles and the box quantise
+identically. Set `fuzzy_skin` to `none`; the texture is in the geometry, and a slicer
+texture on top measures neither. No supports: nothing here overhangs.
 
 **On the H2C, check the filament grouping before you print.** With one filament on a
 two-nozzle machine the slicer's Auto grouping may assign it to the right extruder. If
@@ -109,15 +112,17 @@ the PETG is in the left AMS, drag it to the left extruder under *Filament groupi
 Custom*, or use Auto's *Convenience Mode*, which reads the printer's actual filament
 status.
 
-### The 3 mm / 0.4 mm layer note
+### The 3 mm / 0.24 mm layer note
 
-3.0 mm is not a whole number of 0.4 mm layers. The slicer keeps **7 layers, topping out
-at 2.80 mm**, and drops the last 0.20 mm. The deepest cut is still at 1.80 mm, so the
-relief that actually prints is **1.00 mm, not 1.20**.
+The enclosure profile lays a 0.2 mm first layer and 0.24 mm after it, so a tile's layer
+tops stand at 0.2 + 0.24 n and 3.0 mm is not one of them. The slicer keeps **12 layers,
+topping out at 2.84 mm**, and drops the last 0.16 mm. The deepest cut is still at 1.80 mm,
+so the relief that actually prints is **1.04 mm, not 1.20**.
 
 It is uniform across all seven patterns and both sizes, so the comparison stays fair —
-but if the full depth matters, `tile_z` at 3.2 mm is 8 whole layers and puts both the
-show face and the deepest cut on layer boundaries.
+but if the full depth matters, `tile_z` at 3.08 mm is 13 whole layers. The cut itself
+already lands square: [1.2 mm](TEXTURE_DEPTH) is exactly five 0.24 mm layers, so moving
+the show face onto a boundary puts the deepest cut on one too, at 1.88 mm.
 
 ## Sources
 [value](NAME) texts are updated by:
