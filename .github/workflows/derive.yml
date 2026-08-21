@@ -23,10 +23,13 @@ on:
   workflow_dispatch:
 
 concurrency:
-  # One derive at a time, and a newer push wins — the tree it would pack is the one that
-  # matters. `cancel-in-progress` is safe here because nothing is committed until the end.
+  # One derive at a time, and they QUEUE rather than cancel. Cancelling reads better — only
+  # the newest tree matters — but three agents share this branch, and a push arriving inside
+  # a run would cancel it every time, so the lock would go stale for as long as they were
+  # working. A queued run costs minutes this repo does not pay for; a starved one costs the
+  # deploy its solids.
   group: derive
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
