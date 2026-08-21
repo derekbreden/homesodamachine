@@ -1,6 +1,96 @@
 /* Assembly-card system — 1800 × 1200 px canvas = 6 × 4 in at 300 dpi,
    printed full-bleed on 4x6 gloss. Idioms in STYLE.md. */
 
+/* THE DECK IS LAID OUT AGAINST THESE FILES, NOT AGAINST A MACHINE'S FONTS. A face resolved
+   from the system is a different face on every machine, and a card fitted to one spills on
+   another — metric-compatible substitutes match widths approximately, which is not the
+   property that decides where a line wraps. These are IBM Plex, SIL OFL 1.1, in
+   `fonts/` beside this file with the licence: the same bytes for a Mac, a container, and
+   the site. The system names stay behind them so a face that fails to arrive degrades to
+   what this deck used to ask for rather than to whatever the renderer picks.
+   Sans is one variable file per style spanning 400-700; a rule asking 800 clamps to 700. */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(fonts/IBMPlexSans-400-700-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(fonts/IBMPlexSans-400-700-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(fonts/IBMPlexSans-400-700-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: block;
+  src: url(fonts/IBMPlexSans-400-700-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(fonts/IBMPlexMono-400-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(fonts/IBMPlexMono-400-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url(fonts/IBMPlexMono-600-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url(fonts/IBMPlexMono-600-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(fonts/IBMPlexMono-700-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(fonts/IBMPlexMono-700-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -13,8 +103,8 @@
   --warn-bg: #ffd94d;
   --accent: #46628a;      /* overridden per subsystem on <body> */
   --accent-ink: #ffffff;
-  --mono: "Menlo", "SF Mono", monospace;
-  --sans: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "Menlo", "SF Mono", monospace;
+  --sans: "IBM Plex Sans", "Helvetica Neue", "Helvetica", Arial, sans-serif;
 }
 
 body.pv { --accent: #46628a; }  /* pressure vessel — steel */
@@ -109,8 +199,8 @@ ol.steps b { font-weight: 700; }
 /* Tools / materials strip */
 .tools {
   border-top: 3px solid var(--line);
-  padding-top: 18px; margin-top: auto;
-  font-size: 27px; line-height: 1.45; color: var(--muted);
+  padding-top: 12px; margin-top: auto;
+  font-size: 27px; line-height: 1.36; color: var(--muted);
 }
 .tools .lbl {
   font-size: 23px; font-weight: 700; letter-spacing: 3px;
@@ -168,8 +258,8 @@ ol.steps b { font-weight: 700; }
 /* Small callout note */
 .note {
   border-left: 6px solid var(--accent);
-  padding: 6px 0 6px 20px;
-  font-size: 26px; line-height: 1.35; color: var(--muted);
+  padding: 2px 0 2px 20px;
+  font-size: 26px; line-height: 1.29; color: var(--muted);
 }
 .note b { color: var(--ink); }
 
@@ -177,7 +267,7 @@ ol.steps b { font-weight: 700; }
 table.spec { border-collapse: collapse; width: 100%; }
 table.spec td, table.spec th {
   font-size: 30px; text-align: left;
-  padding: 12px 18px;
+  padding: 9px 18px;
   border-bottom: 2px solid var(--line);
 }
 table.spec th {
