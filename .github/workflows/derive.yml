@@ -167,10 +167,25 @@ jobs:
       # The solids, as one content-addressed release asset the deploy fetches. `--write` is a
       # no-op on a tree whose geometry has not moved: it lands on the same asset name and the
       # same bytes, and never rewrites one already on the release.
+      #
+      # AND WHICH OF THE TWO HAPPENED IS THE SITE'S LATENCY, so it is worth saying out loud.
+      # `render.yaml`'s buildFilter carries `hardware/**`, and the lock lives there, so a
+      # geometry commit and a lock commit each fire their own deploy. A commit that carried
+      # its own lock — which `CLAUDE.md` requires and which costs 1.62 s on the machine that
+      # just cut the solids — deploys ONCE, with the geometry and the solids together, and
+      # this step is the no-op that confirms it. A commit that did not deploys twice: the
+      # first serving the previous bundle, and the site stays stale for as long as this whole
+      # run takes. `lock is behind` here is that, and it is the only line in the job that
+      # measures how long homesodamachine.com served the wrong solids.
       - name: The bundle, and the lock that names it
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write
+        run: |
+          set -o pipefail
+          tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write 2>&1 | tee /tmp/pack.log
+          if grep -q "lock is behind" /tmp/pack.log; then
+            echo "::warning title=lock::the commit that triggered this run did not carry its own lock — the site served the previous bundle until now, and the derived commit below is a second deploy"
+          fi
 
       - name: Commit what moved
         run: |
