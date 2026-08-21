@@ -18,8 +18,10 @@ pack over a tree whose geometry has not moved lands on the same asset name and t
 the property `_cadq_export` gives each STEP it canonicalizes, kept at the bundle.
 
 The walk reaches every `.step` under `hardware/` on disk, every `.stl` under `BUNDLED_MESH_DIRS`
-— the one place where the solid is not the whole of the part — and every `.glb` under
-`BUNDLED_GLB_DIRS`, which the parts viewer opens directly rather than through a STEP. What sits
+— the one place where the solid is not the whole of the part — every `<file>.step.mesh` under
+`BUNDLED_PAYLOAD_DIRS`, which is that same surface at the deflection a browser draws it at, and
+every `.glb` under `BUNDLED_GLB_DIRS`, which the parts viewer opens directly rather than through
+a STEP. What sits
 out is `NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk found against the outputs
 `tools/bazel/graph.json` declares, and names anything the graph does not carry.
 """
@@ -30,6 +32,7 @@ import hashlib
 import io
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -120,9 +123,22 @@ BUNDLED_MESH_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
 #: eleven, which is what `--check` holds them against.
 BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 
+# AND WHERE THE SURFACE A PIECE IS DRAWN FROM IS CARRIED. A directory named here has its
+# `<file>.step.mesh` bundled beside the solid it stands for. `loadStepFile` fetches that payload
+# before it will parse a STEP (`web/public/js/viewer/step.js`), so for the pieces above — whose
+# flutes are in the mesh and not in the solid — it is the only route by which the surface the
+# machine actually has reaches a browser. `hardware/scripts/flute_payload.py` cuts them out of
+# the printed mesh at the deflection occt-import-js would have meshed the STEP at.
+#
+# A DEPLOY WITH NO PAYLOAD SERVES A SMOOTH BOX. Elsewhere in the tree a missing payload costs a
+# wasm parse and nothing else — the STEP carries the same surface — which is why `.step.mesh` is
+# gitignored and why the route that serves one says a 404 there is normal.
+BUNDLED_PAYLOAD_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
+
 
 def solids(root: Path) -> list:
-    """Every generated `.step`, `.stl` and `.glb` under `hardware/`, repo-relative and sorted.
+    """Every generated `.step`, `.stl`, `.glb` and `.step.mesh` under `hardware/`, repo-relative
+    and sorted.
 
     Off the disk, tracked or not: an artifact the index does not hold is one a fresh clone still
     has to be sent, and it is the lock that carries it into the index."""
@@ -132,10 +148,13 @@ def solids(root: Path) -> list:
     skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
     meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
     scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
+    payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
     out = []
     walk = list(hw.rglob("*.step"))
     for d in BUNDLED_MESH_DIRS:
         walk += list((root / d).rglob("*.stl"))
+    for d in BUNDLED_PAYLOAD_DIRS:
+        walk += list((root / d).rglob("*.step.mesh"))
     for d in BUNDLED_GLB_DIRS:
         walk += list((root / d).rglob("*.glb"))
     for p in walk:
@@ -147,6 +166,8 @@ def solids(root: Path) -> list:
         if p.suffix == ".stl" and not rel.startswith(meshes):
             continue
         if p.suffix == ".glb" and not rel.startswith(scenes):
+            continue
+        if p.suffix == ".mesh" and not rel.startswith(payloads):
             continue
         # A dependency's own test fixtures are solids on this disk that no part of this machine
         # is made of. `occt-import-js` ships eight.
@@ -238,7 +259,15 @@ def _undeclared(root: Path, rels: list) -> list:
     A MESH IS DECLARED BY THE RULE THAT DECLARES ITS SOLID. Both come out of one generator in one
     run — `enclosure.py` writes the STEP and then cuts the flutes into the mesh on the way to the
     bed — so a graph that carries the solid carries the mesh, and naming the mesh separately
-    would report a part as untraced for having two outputs instead of one."""
+    would report a part as untraced for having two outputs instead of one.
+
+    AND SO IS THE PAYLOAD THAT STANDS FOR IT. `<file>.step.mesh` is that same surface at the
+    deflection a browser draws it at, and it answers to the solid's name for the same reason.
+
+    A SCENE MESH IS DECLARED IN ITS OWN RIGHT, because nothing else stands for it. There is no
+    solid beside `scenes/glb/back-top.glb` whose name it could answer to — `render_scenes.py`
+    cuts it and `graph.json` writes it under that name — so a reading that takes only `.step`
+    and `.stl` from the graph finds none of the eleven and calls every one untraced."""
     try:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
@@ -247,11 +276,12 @@ def _undeclared(root: Path, rels: list) -> list:
     for node in graph.values():
         for key in ("writes", "outs", "outputs"):
             for f in (node.get(key) or []):
-                if str(f).endswith((".step", ".stl")):
+                if str(f).endswith((".step", ".stl", ".glb")):
                     declared.add(str(f))
     return [r for r in rels
             if r not in declared
-            and not (r.endswith(".stl") and r[:-4] + ".step" in declared)]
+            and not (r.endswith(".stl") and r[:-4] + ".step" in declared)
+            and not (r.endswith(".step.mesh") and r[:-5] in declared)]
 
 
 def _gh(root: Path, *args, **kw):
@@ -380,6 +410,20 @@ def selftest() -> int:
         hold("what sits beside a solid is not a solid",
              solids(root), ["hardware/printed-parts/cap/cap.step"])
 
+        # EXCEPT WHERE THE SOLID IS NOT THE WHOLE OF THE PART. A payload under a named directory
+        # is the only copy of a fluted surface a browser can reach, so it travels; the one beside
+        # `cap.step` above is a tessellation of a solid the bundle already carries, and does not.
+        payload_dir = hw / "printed-parts" / "enclosure" / "enclosure"
+        payload_dir.mkdir(parents=True)
+        (payload_dir / "piece.step").write_text("ISO-10303-21;\n")
+        (payload_dir / "piece.step.mesh").write_text("payload")
+        (payload_dir / "piece.step.png").write_text("picture")
+        hold("a payload under a named directory travels with its solid",
+             solids(root), ["hardware/printed-parts/cap/cap.step",
+                            "hardware/printed-parts/enclosure/enclosure/piece.step",
+                            "hardware/printed-parts/enclosure/enclosure/piece.step.mesh"])
+        shutil.rmtree(hw / "printed-parts" / "enclosure")
+
         a, b = root / "a.tar.gz", root / "b.tar.gz"
         rels = solids(root)
         da = build(root, rels, a)
@@ -399,8 +443,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/7")
-    return 0 if holds == 7 else 1
+    print(f"pack selftest {holds}/8")
+    return 0 if holds == 8 else 1
 
 
 if __name__ == "__main__":
