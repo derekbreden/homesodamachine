@@ -58,10 +58,19 @@ RUN curl -fsSL "https://download.blender.org/release/Blender${BLENDER_VERSION%.*
 # under $HOME, and this image is built as root and run as /github/home.
 ENV BLENDER_USER_RESOURCES=/opt/hsm/blender
 RUN mkdir -p "$BLENDER_USER_RESOURCES" \
-    && blender --background --command extension repo-sync --repo blender_org \
-    && blender --background --command extension install \
-         --repo blender_org --enable freestyle_svg_exporter \
-    && find "$BLENDER_USER_RESOURCES" -maxdepth 4 -name "freestyle_svg_exporter*" -print | grep .
+    && blender --background --command extension sync \
+    && blender --background --command extension install freestyle_svg_exporter \
+         --repo blender_org \
+    && find "$BLENDER_USER_RESOURCES" -maxdepth 5 -name "*freestyle_svg_exporter*" -print | grep .
+
+# ENABLED AND SAVED, as its own layer so "installed but not on" is a different failure from
+# "not installed". `_blender_scene.py` calls `addon_utils.enable` itself, but it does that
+# inside the render and a preference saved here is what makes the property exist before the
+# script asks for it. The name is the extension's module path, not the add-on's old one.
+RUN blender --background --python-expr \
+      "import bpy, addon_utils; addon_utils.enable('bl_ext.blender_org.freestyle_svg_exporter', default_set=True, persistent=True); bpy.ops.wm.save_userpref()" \
+    && blender --background --python-expr \
+      "import bpy; ls=bpy.data.linestyles.new('probe'); assert hasattr(ls,'use_export_strokes'), 'exporter did not register'; print('use_export_strokes: present')"
 
 # NODE 22, WHICH IS WHAT THE LOCKFILES ACTUALLY ASK FOR. `tools/render/package.json` says
 # `>=20`, but its own lock pins puppeteer, puppeteer-core and @puppeteer/browsers at
