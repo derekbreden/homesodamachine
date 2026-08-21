@@ -345,10 +345,22 @@ export function renderMeshes(result) {
   return snapThumbnail(group);
 }
 
+// THE THUMBNAIL DRAWS WHAT THE DETAIL VIEW DRAWS. `loadStepFile` answers off the payload beside
+// a STEP and only parses the solid when there is none, so a thumbnail that went straight to the
+// solid would be a picture of a different model wherever the two carry different surfaces — the
+// enclosure's pieces, whose flutes are in the payload and not in the B-rep
+// (hardware/scripts/flute_payload.py). Where no payload stands, both read the STEP and this is
+// the same fetch it always was.
 export async function renderThumbnail(file) {
   if (state.thumbnailCache.has(file)) return state.thumbnailCache.get(file);
 
   try {
+    const meshed = await fetchMeshes(file, {});
+    if (meshed && meshed.result) {
+      const fromPayload = renderMeshes(meshed.result);
+      state.thumbnailCache.set(file, fromPayload);
+      return fromPayload;
+    }
     const resp = await fetch(`/steps/${file}`);
     if (!resp.ok) return null;
     const buf = new Uint8Array(await resp.arrayBuffer());
