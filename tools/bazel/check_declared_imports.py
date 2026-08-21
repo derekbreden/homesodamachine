@@ -7,8 +7,13 @@ tracked and committed. `trace_inputs.py` is what records a read, and it records 
 watched doing; an import added since that run is not in the graph until the run happens again.
 
 This reads a staged file's own `import` statements, resolves each to a tracked `.py` by module
-name, and holds the result against every step whose reads already include that file. Ast and a
+name, and holds the result against every step that reaches that file by importing it. Ast and a
 graph lookup: no venv, no cadquery, no bazel.
+
+A STEP READS A `.py` IT NEVER RUNS. Digesting a source is a read of it, and so is globbing the
+directory it sits in — `flute_payload.py` reads `enclosure.py` and imports `_mesh_payload`,
+numpy, trimesh and scipy. Nothing of `enclosure.py` executes in that run, so no module behind
+it is owed, and the walk in `reaches` is what tells the two apart.
 
 A name two tracked files share is left alone. Which of them an action reaches is what
 `trace_inputs.py` answers by watching, and a guess here would be the name rule this graph
@@ -62,20 +67,50 @@ def imports_of(text: str) -> set:
     return names
 
 
-def owed(graph: dict, tracked: set, sources: dict) -> list:
-    """Every (step, source, imported file) where a step reads a source and holds no module the
+def reaches(gen: str, src: str, by_name: dict, texts: dict) -> bool:
+    """Whether `gen` gets to `src` by importing, at any depth.
+
+    A STEP READS A `.py` IT NEVER RUNS. Digesting a source is a read of it, and so is globbing
+    the directory it sits in, and neither executes a line — `flute_payload.py` reads
+    `enclosure.py` and imports `_mesh_payload`, numpy, trimesh and scipy. What a file imports is
+    owed by whoever imports it, so the walk to `src` is what decides, not the read."""
+    seen, stack = set(), [gen]
+    while stack:
+        cur = stack.pop()
+        if cur in seen:
+            continue
+        seen.add(cur)
+        if cur == src:
+            return True
+        for name in imports_of(texts.get(cur, "")):
+            stack += [f for f in by_name.get(name, ()) if f not in seen]
+    return False
+
+
+def owed(graph: dict, tracked: set, sources: dict, texts: dict | None = None) -> list:
+    """Every (step, source, imported file) where a step imports a source and holds no module the
     source imports.
 
     THE SOURCE IS THE HALF THAT ANSWERS "WHY THIS STEP". Most steps named here import nothing
-    themselves — they read a file that does, so the module is theirs to hold and `from ... import`
-    appears nowhere in them. Reporting the pair is what makes that a fact rather than a hunt.
+    of the module directly — they import a file that does, so the module is theirs to hold and
+    `from ... import` appears nowhere in them. Reporting the pair is what makes that a fact
+    rather than a hunt.
 
-    `sources` is the staged text by path, so this is a pure reading of three records and can be
-    held against known answers."""
+    `sources` is the staged text by path and `texts` is every tracked source the walk reads, so
+    this is a pure reading of four records and can be held against known answers."""
     by_name = {}
     for f in tracked:
         if f.endswith(".py"):
             by_name.setdefault(Path(f).stem, []).append(f)
+    if texts is None:
+        texts = {}
+        for f in tracked:
+            if f.endswith(".py"):
+                try:
+                    texts[f] = (_ROOT / f).read_text()
+                except OSError:
+                    pass
+    texts = {**texts, **sources}
 
     out = []
     for src, text in sorted(sources.items()):
@@ -89,7 +124,7 @@ def owed(graph: dict, tracked: set, sources: dict) -> list:
         wants.discard(src)
         for gen, entry in sorted(graph.items()):
             reads = set(entry.get("reads", ()))
-            if src in reads:
+            if src in reads and reaches(gen, src, by_name, texts):
                 out += [(gen, src, w) for w in sorted(wants - reads)]
     return sorted(set(out))
 
@@ -97,6 +132,8 @@ def owed(graph: dict, tracked: set, sources: dict) -> list:
 def selftest() -> int:
     graph = {"gen.py": {"reads": ["gen.py", "src.py", "seen.py"]}}
     tracked = {"gen.py", "src.py", "seen.py", "unseen.py", "a/dup.py", "b/dup.py"}
+    # `gen.py` imports `src`, so what `src` imports is `gen`'s to hold.
+    texts = {"gen.py": "import src"}
 
     holds = 0
 
@@ -107,7 +144,7 @@ def selftest() -> int:
         print(f"  {'✓' if ok else '✗'} {label}" + ("" if ok else f" — {got!r} != {want!r}"))
 
     def named(text):
-        return [w for _g, _s, w in owed(graph, tracked, {"src.py": text})]
+        return [w for _g, _s, w in owed(graph, tracked, {"src.py": text}, texts)]
 
     hold("an import the step does not declare is named", named("import unseen"), ["unseen.py"])
     hold("an import the step declares is silent", named("import seen"), [])
@@ -119,13 +156,24 @@ def selftest() -> int:
     # A SOURCE NO STEP READS IS NOT THIS CHECK'S BUSINESS — nothing stages it either way.
     hold("a source no step reads is silent",
          [w for _g, _s, w in owed(graph, tracked | {"loose.py"},
-                                  {"loose.py": "import unseen"})], [])
+                                  {"loose.py": "import unseen"}, texts)], [])
     hold("a source that is not tracked is silent",
-         [w for _g, _s, w in owed(graph, tracked, {"untracked.py": "import unseen"})], [])
-    # THE STEP NAMED HERE IMPORTS NOTHING. It reads `src.py`, which is what imports the module,
-    # so the pair is what a reader needs and the step alone would send them hunting.
+         [w for _g, _s, w in owed(graph, tracked, {"untracked.py": "import unseen"}, texts)], [])
+    # THE STEP NAMED HERE IMPORTS THE MODULE THROUGH ANOTHER FILE. It imports `src.py`, which is
+    # what imports the module, so the pair is what a reader needs and the step alone would send
+    # them hunting.
     hold("the step is named with the file that imports",
-         owed(graph, tracked, {"src.py": "import unseen"}),
+         owed(graph, tracked, {"src.py": "import unseen"}, texts),
+         [("gen.py", "src.py", "unseen.py")])
+    # A `.py` A STEP READS WITHOUT IMPORTING IS NOT A MODULE IT LOADS. Digesting a source, or
+    # globbing the directory it sits in, reads it and runs none of it, so what it imports is
+    # nobody's to hold on its account.
+    hold("a source a step reads but never imports is silent",
+         owed(graph, tracked, {"src.py": "import unseen"}, {"gen.py": "import json"}), [])
+    hold("a step reaching the source at depth is named",
+         owed({"gen.py": {"reads": ["gen.py", "src.py", "seen.py"]}}, tracked | {"mid.py"},
+              {"src.py": "import unseen"},
+              {"gen.py": "import mid", "mid.py": "import src"}),
          [("gen.py", "src.py", "unseen.py")])
     # AN IMPORT A FUNCTION MAKES IS A RUN'S FACT, and the run is watched. A step that never
     # calls the function never loads the module, so the action owes no such file.
@@ -140,8 +188,8 @@ def selftest() -> int:
     hold("an import a module-level try guards runs at import",
          named("try:\n    import unseen\nexcept ImportError:\n    unseen = None\n"), ["unseen.py"])
 
-    print(f"check_declared_imports selftest {holds}/13")
-    return 0 if holds == 13 else 1
+    print(f"check_declared_imports selftest {holds}/15")
+    return 0 if holds == 15 else 1
 
 
 def main(argv) -> int:
