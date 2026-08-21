@@ -1243,6 +1243,16 @@
    "active": true
   },
   {
+   "id": "strap-channels",
+   "label": "A tie still reaches through every cavity cut for one",
+   "kind": "gate",
+   "status": "pass",
+   "value": "8 read, worst 0% filled",
+   "target": "0% filled",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "run-seated",
    "label": "Every run the cap is bored for lies in its rib",
    "kind": "gate",
