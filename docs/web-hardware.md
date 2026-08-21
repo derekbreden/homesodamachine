@@ -1,6 +1,6 @@
 # web-hardware
 
-This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`: the viewers for the design files (STEP, DXF, PCB, mermaid, line-art), the picker, editor, live reload, and phone-push it has today. Point the package at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout stay behind in the shell and a config the package takes; it carries none of them. Anyone can run it against their own hardware project.
+This is the scope for moving part of [`web/`](/web/) into a standalone package, `web-hardware`: the viewers for the design files (STEP, DXF, PCB, mermaid, print sheets), the picker, editor, live reload, and phone-push it has today. Point the package at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout stay behind in the shell and a config the package takes; it carries none of them. Anyone can run it against their own hardware project.
 
 `web/` runs on this package and keeps every behavior it has now.
 
