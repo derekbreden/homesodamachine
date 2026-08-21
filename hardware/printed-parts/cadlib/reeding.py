@@ -19,6 +19,14 @@ THE LIMB ANGLE IS THE CONSTRAINT. On a standing wall the warp tilts the groove's
 side surface off vertical by the steepest angle its path makes. A sine's steepest limb
 is 2πA/L and a rounded triangle's is less, so `warp_wavelength` is sized off the SINE at
 L ≥ 2πA — `limb_angle_deg` reports what a caller actually bought.
+
+PIERCING IS THE SAME FIELD READ AS A MASK. `pierce` is a predicate over `across` and not
+a depth: a slot narrower than the groove is struck down the groove's own floor, on the
+same centres, and the caller cuts through whatever section stands under it. BOTH JAMBS
+RUN WITH THE FLUTES and the groove carries on past both ends of the slot at full depth,
+so a pierced field crosses no flute anywhere and owes no stop treatment at any edge it
+makes. What the slot is measured against is the MULLION between two slots — `mullion`
+and `pierce_max` — and not the section behind the groove floor.
 """
 
 import math
@@ -34,6 +42,11 @@ warp_wavelength = 34.0           # >= 2 * pi * warp_amplitude, so the sine — t
                                  # of the two waveforms — keeps its limb inside 45°
 chevron_sharpness = 0.97         # 1 is a true triangle apex, 0 is a sine; between them
                                  # it is the radius the apex turns on
+
+pierce_width = 3.0               # the slot struck down a groove's floor
+pierce_shell = 1.74              # the loops the exterior profile lays across a mullion —
+                                 # 2 * 0.42 outer + 2 * 0.45 inner, the four the wall
+                                 # already carries (enclosure/print-log.md)
 
 _ROOT2 = math.sqrt(2.0)
 
@@ -51,7 +64,7 @@ def _phase(along):
 def rounded_triangle(along):
     """A triangle wave of amplitude 1 whose apex turns on a radius. `arcsin` of a sine
     scaled short of 1 never reaches the corner, and `chevron_sharpness` is how close it
-    gets — a sharp apex at a 0.8 mm nozzle reads as a blob, not a crease."""
+    gets — a sharp apex reads as a blob and not a crease at any bead the box lays."""
     return (np.arcsin(chevron_sharpness * np.sin(_phase(along)))
             / math.asin(chevron_sharpness))
 
@@ -87,3 +100,33 @@ def cross(across, along, pitch=6.0, width=3.4):
     """The same grooves on both diagonals, deeper winning — a diamond knurl."""
     return np.maximum(groove((across + along) / _ROOT2, pitch, width),
                       groove((across - along) / _ROOT2, pitch, width))
+
+
+def pierce(across, pitch=flute_pitch, slot=pierce_width, every=1, datum=0.0):
+    """Which `across` stations stand over open air — `slot` across, down the floor of
+    every `every`-th groove, on the same centres `groove` strikes.
+
+    `datum` is the centre of a pierced groove, which is all `every` needs to count from;
+    at `every` = 1 it does not read.
+
+    The jambs stand `slot / 2` off the groove's own centre, so what is left over one is
+    `groove(slot / 2)` of the depth — the section a mullion is thinnest at."""
+    offset = (across + pitch / 2.0) % pitch - pitch / 2.0
+    index = np.rint(across / pitch) - round(datum / pitch)
+    return (np.abs(offset) <= slot / 2.0) & (np.mod(index, every) == 0)
+
+
+def mullion(pitch=flute_pitch, slot=pierce_width, every=1):
+    """The solid standing between two slots, measured across."""
+    return every * pitch - slot
+
+
+def pierce_max(shell=pierce_shell, pitch=flute_pitch, every=1):
+    """The widest slot that still leaves `shell` of mullion between two of them."""
+    return every * pitch - shell
+
+
+def open_fraction(pitch=flute_pitch, slot=pierce_width, every=1):
+    """How much of a pierced field is open, as a fraction — free area per unit height
+    over the wall's own area per unit height."""
+    return slot / (every * pitch)
