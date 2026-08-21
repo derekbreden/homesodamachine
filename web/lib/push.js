@@ -28,6 +28,7 @@ import crypto from "crypto";
 import { insertNotification } from "./notifications.js";
 import { walkFiles, walkFilesUnderDir, walkPcbBoards, walkAssemblyCards } from "./walk.js";
 import { isCardPath } from "../contracts/cards.js";
+import { PRINTS_DIR } from "../contracts/prints.js";
 
 let pool = null;
 let adminApp = null;
@@ -36,7 +37,7 @@ let schemaReady = null;
 function walkStepFiles(rootDir) { return walkFiles(rootDir, ".step"); }
 function walkMermaidFiles(rootDir) { return walkFiles(rootDir, ".mmd"); }
 function walkDxfFiles(rootDir) { return walkFiles(rootDir, ".dxf"); }
-function walkDrawingFiles(rootDir) { return walkFilesUnderDir(rootDir, ".svg", "drawings"); }
+function walkDrawingFiles(rootDir) { return walkFilesUnderDir(rootDir, ".svg", PRINTS_DIR); }
 function walkCardFiles(rootDir) { return walkAssemblyCards(rootDir).map((c) => c.path); }
 
 function ensureSchema() {
@@ -447,7 +448,7 @@ async function fanOutToTokens(tokens, message, errorContext, link, kind) {
 // directory rarely tells the user anything they need at notification-
 // glance time.
 function isDrawingPath(p) {
-  return p.endsWith(".svg") && p.split("/").includes("drawings");
+  return p.endsWith(".svg") && p.split("/").includes(PRINTS_DIR);
 }
 
 function isPcbPath(p) {

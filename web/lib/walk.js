@@ -39,12 +39,10 @@ export function walkFiles(rootDir, exts) {
 }
 
 // Variant that only returns files inside a directory whose basename is
-// `parentDirName`. Used for line-art drawings: line_art.py writes its
-// SVGs into per-part `drawings/` folders (e.g.
-// hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg),
-// and the
-// walker filters out any other .svg files that happen to live elsewhere
-// in the tree (logos, hand-drawn diagrams, etc).
+// `parentDirName`. Used for the print sheets: a sheet generator writes its
+// `.svg` and `.pdf` into a `prints-and-guides/` folder beside the geometry
+// the sheet is drawn of, and the walker leaves every other `.svg` in the
+// tree alone — line art a sheet embeds, logos, hand-drawn diagrams.
 export function walkFilesUnderDir(rootDir, exts, parentDirName) {
   const extList = Array.isArray(exts) ? exts : [exts];
   const out = [];

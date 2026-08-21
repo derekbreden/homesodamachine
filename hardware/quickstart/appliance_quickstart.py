@@ -256,12 +256,12 @@ def cell_rect(col, row):
 def _read_svg_for_embed(svg_path):
     """Extract (viewBox, inner_xml) from a source SVG for embedding.
 
-    The line-art SVGs in this repo come from two generators with slightly
-    different output shapes:
-    - tools/line-art/line_art.py writes an explicit viewBox.
-    - The CadQuery HLR generator writes width/height in absolute units
-      with no viewBox; the inner content is pre-transformed to fit that
-      canvas, so a `0 0 W H` viewBox captures it correctly.
+    A source SVG carries its canvas in one of two shapes:
+    - an explicit viewBox, which states the coordinate system outright.
+    - width/height in absolute units and no viewBox, which is what the
+      Blender Freestyle line art writes; the inner content is
+      pre-transformed to fit that canvas, so a `0 0 W H` viewBox captures
+      it correctly.
 
     For embedding we wrap the source's inner XML in a nested <svg>
     element with the caller-chosen position/size and a viewBox derived

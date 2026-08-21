@@ -47,7 +47,7 @@ function shortName(file, ext = ".step") {
   return { name, dir };
 }
 
-// Subsystem grouping for the charts and line-art grids. Files under
+// Subsystem grouping for the charts grid. Files under
 // printed-parts/<subsystem>/... or cut-parts/<subsystem>/... bucket by
 // <subsystem>; anything else buckets by its top-level path segment
 // (charts live in topology/ and wiring/, so those are their groups).
@@ -216,36 +216,25 @@ export function buildGrid() {
   }
 
   if (section === "drawings") {
-    // Two top-level sections, in order:
-    //   Prints & Guides — customer-facing print artifacts (quick-start
-    //     sheets and similar). Files live in
-    //     `<root>/drawings/prints-and-guides/*.svg` and render as single
-    //     cards; no per-part subsystem grouping, since these aren't
-    //     per-part technical drawings. The SVG is the on-site display
-    //     artifact; a sibling .pdf carries the print version.
-    //   Line art — visible outlines only, the marketing/communication
-    //     view of individual parts. Files live in
-    //     `<part>/drawings/line-art/*.svg` and bucket by subsystem
-    //     (Cold Core, Faucet, Enclosure, ...) via categoryAndPartPath.
-    // The section headers always render so the structure is explicit even
-    // when a section is empty.
+    // Prints & Guides — the customer-facing print artifacts. Files live in
+    // `<root>/drawings/prints-and-guides/*.svg` and render as flat cards; a
+    // print sheet has no part to bucket under. The SVG is the on-site
+    // display artifact; a sibling .pdf carries the print version.
+    // The header always renders so the structure is explicit even when the
+    // section is empty.
     const drawingThumb = (file) => `<div class="drawing-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
-    const printsFiles = state.drawingFiles.filter((f) => f.split("/").includes("prints-and-guides"));
-    const lineArtFiles = state.drawingFiles.filter((f) => f.split("/").includes("line-art"));
 
-    // Prints & Guides — render first. Cards are flat (no subsystem
-    // sub-grouping); the label is just the filename minus extension.
     const printsHeader = document.createElement("div");
     printsHeader.className = "section-header";
     printsHeader.textContent = "Prints & Guides";
     state.gridEl.appendChild(printsHeader);
-    if (printsFiles.length === 0) {
+    if (state.drawingFiles.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
       empty.textContent = "No prints yet.";
       state.gridEl.appendChild(empty);
     } else {
-      for (const file of printsFiles) {
+      for (const file of state.drawingFiles) {
         const parts = file.split("/");
         const name = parts[parts.length - 1].replace(".svg", "");
         const card = document.createElement("div");
@@ -256,19 +245,6 @@ export function buildGrid() {
         card.addEventListener("click", () => openDrawingDetail(file));
         state.gridEl.appendChild(card);
       }
-    }
-
-    const lineArtHeader = document.createElement("div");
-    lineArtHeader.className = "section-header";
-    lineArtHeader.textContent = "Line art";
-    state.gridEl.appendChild(lineArtHeader);
-    if (lineArtFiles.length === 0) {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "No line art yet.";
-      state.gridEl.appendChild(empty);
-    } else {
-      renderGroupedCards({ files: lineArtFiles, ext: ".svg", type: "drawing", thumbnailHtml: drawingThumb, onClick: openDrawingDetail });
     }
 
     buildCardSection();

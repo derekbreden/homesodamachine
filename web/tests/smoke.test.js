@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { PRINTS_DIR } from "../contracts/prints.js";
 import { start } from "../server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -218,22 +219,22 @@ test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => 
   assert.match(res.headers.get("content-type") || "", /^text\/plain/);
 });
 
-// Line-art SVG passthrough. Walk hardware/ for a .svg inside any
-// drawings/ directory; skip if none exist (a stripped checkout). The
-// content-type is image/svg+xml so the browser inlines it correctly when
-// the modal injects it via DOMParser.
+// Print-sheet SVG passthrough. Walk hardware/ for a .svg inside any
+// prints-and-guides/ directory; skip if none exist (a stripped checkout).
+// The content-type is image/svg+xml so the browser inlines it correctly
+// when the modal injects it via DOMParser.
 async function firstDrawingPath(rootDir) {
   if (!fs.existsSync(rootDir)) return null;
-  const stack = [{ dir: rootDir, inDrawings: false }];
+  const stack = [{ dir: rootDir, inPrints: false }];
   while (stack.length) {
-    const { dir, inDrawings } = stack.pop();
+    const { dir, inPrints } = stack.pop();
     let entries;
     try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { continue; }
     for (const entry of entries) {
       const full = path.join(dir, entry.name);
-      const childInDrawings = inDrawings || entry.name === "drawings";
-      if (entry.isDirectory()) stack.push({ dir: full, inDrawings: childInDrawings });
-      else if (inDrawings && entry.name.endsWith(".svg")) {
+      const childInPrints = inPrints || entry.name === PRINTS_DIR;
+      if (entry.isDirectory()) stack.push({ dir: full, inPrints: childInPrints });
+      else if (inPrints && entry.name.endsWith(".svg")) {
         return path.relative(rootDir, full).split(path.sep).join("/");
       }
     }
@@ -257,7 +258,7 @@ test("GET /cards/* serves a card page but not the deck's build machinery", async
 
 test("GET /api/drawing-content/* returns SVG when a drawing exists", async (t) => {
   const rel = await firstDrawingPath(path.join(REPO_ROOT, "hardware"));
-  if (!rel) return t.skip("no drawings/ SVGs under hardware/");
+  if (!rel) return t.skip("no prints-and-guides/ SVGs under hardware/");
   const res = await fetch(`${baseUrl}/api/drawing-content/${rel}`);
   assert.equal(res.status, 200);
   assert.match(res.headers.get("content-type") || "", /^image\/svg\+xml/);

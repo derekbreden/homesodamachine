@@ -7,6 +7,7 @@ import { isCardAssetPath } from "../contracts/cards.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
+import { PRINTS_DIR } from "../contracts/prints.js";
 
 const relOf = (req) => req.params.splat.join("/");
 
@@ -55,11 +56,12 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     res.json(walkFiles(hardwareDir, ".mmd"));
   });
 
-  // Line-art drawings: SVGs that live in any directory named `drawings/`
-  // under the active root. The generator is tools/line-art/line_art.py; the
-  // drawing scripts and outputs colocate with the part they describe.
+  // Print sheets: SVGs that live in any directory named `prints-and-guides/`
+  // under the active root. A sheet's generator writes the .svg the site shows
+  // and the .pdf that goes to the printer side by side, next to the geometry
+  // the sheet is drawn of.
   app.get("/api/drawings", (req, res) => {
-    res.json(walkFilesUnderDir(hardwareDir, ".svg", "drawings"));
+    res.json(walkFilesUnderDir(hardwareDir, ".svg", PRINTS_DIR));
   });
 
   // PCB boards with their three rendered copper views (see walkPcbBoards).
@@ -115,21 +117,22 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
   });
 
-  // Line-art SVG content. The viewer inlines the SVG into the DOM so
+  // Print-sheet SVG content. The viewer inlines the SVG into the DOM so
   // PanZoom can wrap it directly (like mermaid does after render). Path
-  // must be inside a `drawings/` directory (we don't expose arbitrary
-  // SVGs that may live elsewhere in the tree).
+  // must be inside a `prints-and-guides/` directory (we don't expose
+  // arbitrary SVGs that may live elsewhere in the tree).
   app.get("/api/drawing-content/*splat", (req, res) => {
     const rel = relOf(req);
     const abs = safeFile(hardwareDir, rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
-    // Enforce the drawings/ directory convention so non-line-art SVGs
-    // (logos, hand-drawn diagrams) aren't reachable through this endpoint.
-    if (!rel.split("/").includes("drawings")) {
+    // Enforce the prints-and-guides/ directory convention so the SVGs a
+    // generator writes for its own use — line art a sheet embeds, logos,
+    // hand-drawn diagrams — aren't reachable through this endpoint.
+    if (!rel.split("/").includes(PRINTS_DIR)) {
       return res.status(400).send("Not a drawing");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
-    // Line-art is regenerated live too; revalidate so a reload never serves a
+    // A sheet is regenerated live too; revalidate so a reload never serves a
     // stale drawing (same reasoning as the PCB views below).
     res.set("Cache-Control", "no-cache");
     res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
