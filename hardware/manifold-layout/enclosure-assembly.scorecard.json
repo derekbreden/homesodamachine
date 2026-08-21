@@ -868,7 +868,7 @@
    "label": "The flavour tap runs under the hopper's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "10.366 mm to the basin",
+   "value": "10.266 mm to the basin",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -888,7 +888,7 @@
    "label": "The bay's lintel keeps a ligament under the display",
    "kind": "gate",
    "status": "pass",
-   "value": "3.37 mm between the bay top and the display's envelope",
+   "value": "3.12 mm between the bay top and the display's envelope",
    "target": "at least 2 mm of lintel",
    "detail": [],
    "active": true
@@ -970,8 +970,8 @@
    "label": "The ridge the display's through-hole leaves is laid on material",
    "kind": "gate",
    "status": "pass",
-   "value": "9/9 stations carried, furthest drop 0.0000 mm",
-   "target": "material within one 0.8 mm extrusion under every station",
+   "value": "9/9 stations carried, furthest drop -0.0000 mm",
+   "target": "material within one 0.42 mm extrusion under every station",
    "detail": [],
    "active": true
   },
@@ -992,6 +992,16 @@
    "status": "pass",
    "value": "bed 100.0% solid, seat 100.0% solid",
    "target": "the floor whole on the seam plane 160 and under the plate's foot 163.865",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "column-face-lands",
+   "label": "The column's turn lands on the flank opening, and the wall behind it stands",
+   "kind": "gate",
+   "status": "pass",
+   "value": "X- 100.0% solid, face at -100.730; X+ 100.0% solid, face at 100.730",
+   "target": "solid to the landing, face within 0.2 mm of -100.729 / 100.729",
    "detail": [],
    "active": true
   },
@@ -1049,10 +1059,10 @@
    "label": "A valve seat's sockets keep a printable wall to the port channel",
    "kind": "gate",
    "status": "pass",
-   "value": "1.1151 mm of wall, 139% of an extrusion",
-   "target": "at least one 0.8 mm extrusion of wall between socket and channel",
+   "value": "1.1151 mm of wall, 265% of an extrusion",
+   "target": "at least one 0.42 mm extrusion of wall between socket and channel",
    "detail": [
-    "socket to port channel   1.1151 mm   139% of an extrusion of 0.8"
+    "socket to port channel   1.1151 mm   265% of an extrusion of 0.42"
    ],
    "active": true
   },
@@ -1321,6 +1331,76 @@
    "active": true
   },
   {
+   "id": "flute-backed",
+   "label": "Every fluted face keeps a whole wall behind its grooves",
+   "kind": "gate",
+   "status": "pass",
+   "value": "thinnest of 12 stated sections is 3.0000 mm",
+   "target": "at least 3 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "facet-arris-backed",
+   "label": "The front face keeps a wall behind it at the facet's arris",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3.1820 mm of ligament, from a 2.25 mm plain border",
+   "target": "at least 3 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-closes",
+   "label": "The reeded field closes on the box at the coupon's own pitch",
+   "kind": "gate",
+   "status": "pass",
+   "value": "260 grooves round 1333.40 mm, 5.1285 mm centres",
+   "target": "within 0.15 mm of the coupon's 5",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-hides-seam",
+   "label": "The Y seam runs down a groove, not across a land",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.1008 mm off a groove centre, in a groove 4 mm wide",
+   "target": "within 0.5 mm of a centre",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "column-face-backed",
+   "label": "The column's face keeps a wall where its turn lands on the flank",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5.6760 mm of section, 4.4760 under a flute",
+   "target": "at least 3 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "bay-round-clears-pumps",
+   "label": "The bay mouth's round stays outboard of every pump's relief",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.7540 mm between the round's reach and the outer relief",
+   "target": "a round of at most 5.2540 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-clears-jamb",
+   "label": "The bay's arrises stand on plain wall, not in a groove",
+   "kind": "gate",
+   "status": "pass",
+   "value": "least clearance 0.2403 mm",
+   "target": "clear of every groove",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "y-seam-clears-facet",
    "label": "The Y seam stands behind the display housing",
    "kind": "gate",
@@ -1335,8 +1415,8 @@
    "label": "The housing's back cut keeps a wall behind the display's seats",
    "kind": "gate",
    "status": "pass",
-   "value": "cut at 71.38 aft of the front face, seats reach 61.45",
-   "target": "a 3 mm wall behind them, so aft of 64.45",
+   "value": "cut at 71.38 aft of the front face, seats reach 61.70",
+   "target": "a 3 mm wall behind them, so aft of 64.70",
    "detail": [],
    "active": true
   },
@@ -1355,7 +1435,7 @@
    "label": "The funnel collar stands in the frame the top wall has left",
    "kind": "gate",
    "status": "pass",
-   "value": "collar x -79.50..79.50, y 76.38..235.38",
+   "value": "collar x -79.50..79.50, y 77.00..236.00",
    "target": "frame x -89.50..89.50, y 76.38..461.00",
    "detail": [],
    "active": true
@@ -1375,7 +1455,7 @@
    "label": "The funnel collar keeps a brim margin at each free edge",
    "kind": "gate",
    "status": "pass",
-   "value": "\u2212X 10.00, +X 10.00, +Y 225.62 mm",
+   "value": "\u2212X 10.00, +X 10.00, +Y 225.00 mm",
    "target": "each at least brim_margin 10.00 mm",
    "detail": [],
    "active": true
@@ -1385,8 +1465,8 @@
    "label": "The funnel's brim lands on top wall ahead of the throat",
    "kind": "gate",
    "status": "pass",
-   "value": "brim front at y 69.38, facet arris at 66.38",
-   "target": "a 3 mm landing, so at or aft of 69.38",
+   "value": "brim front at y 70.00, facet arris at 66.87",
+   "target": "a 3 mm landing, so at or aft of 69.87",
    "detail": [],
    "active": true
   },
@@ -1500,7 +1580,7 @@
     "co2-2: 114.2 mm, held at its anchor",
     "fluid-28: 164.4 mm, held at its anchor",
     "fluid-18: 245.3 mm unheld \u2014 left loose; Nozzle A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the drip tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
-    "fluid-4: 199.9 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 199.3 mm unheld \u2014 left loose; The basin's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the hopper goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }
