@@ -243,8 +243,14 @@ jobs:
       - name: Carry what the build cut into the tree
         id: sync
         continue-on-error: true
-        run: tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
-               --failed "${{ steps.build.outputs.failed }}"
+        # A BLOCK SCALAR, BECAUSE THE BACKSLASH HAS TO REACH THE SHELL. As a plain scalar
+        # YAML folds the newline to a space and the trailing `\` survives as a literal
+        # argument — the shell saw `\` and then a bare `--failed`, and sync_tree exited 2 on
+        # "unrecognized arguments" before it read a single output. The carry reported failure
+        # on a build that was fully GREEN, which is the one case this step exists to serve.
+        run: |
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+            --failed "${{ steps.build.outputs.failed }}"
 
       # A RED BUILD DOES NOT HOLD THIS, but it must not be silent either: `continue-on-error`
       # reports the step as a success, so a build that cut no solids reached the ledger and
