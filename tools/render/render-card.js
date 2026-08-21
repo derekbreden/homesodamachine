@@ -66,8 +66,18 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
     waitUntil: "networkidle0",
     timeout: 60000,
   });
-  // Fonts can land after networkidle0; block on the font readiness promise.
-  await page.evaluate(() => document.fonts.ready);
+  // FONTS DECIDE LAYOUT, AND `document.fonts.ready` DOES NOT MEAN THEY ARE LOADED. It settles
+  // the loads something has already demanded, so a face nothing has drawn yet stays `unloaded`
+  // while `document.fonts.status` reads `loaded` — six of the tools deck's ten faces do, both
+  // subsets of IBM Plex Mono 600 among them. Text in an unloaded face is measured against a
+  // fallback, and which fallback a machine resolves is not the same machine to machine: a
+  // container has none of these families at all. One line measured wide enough to wrap moves
+  // every box below it. Demand every declared face, then settle again.
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.fonts].map((f) => f.load().catch(() => {})));
+    await document.fonts.ready;
+  });
 
   // An image is fetched before it is decoded, and the capture reads decoded pixels.
   await page.evaluate(() =>
