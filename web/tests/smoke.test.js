@@ -20,7 +20,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { PRINTS_DIR } from "../contracts/prints.js";
 import { start } from "../server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -76,7 +75,6 @@ const routes = [
   { path: "/api/steps",           expect: 200, ct: "application/json" },
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/mermaid",         expect: 200, ct: "application/json" },
-  { path: "/api/drawings",        expect: 200, ct: "application/json" },
   { path: "/api/documents",       expect: 200, ct: "application/json" },
   { path: "/api/firebase-config", expect: 200, ct: "application/json" },
 
@@ -219,29 +217,6 @@ test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => 
   assert.match(res.headers.get("content-type") || "", /^text\/plain/);
 });
 
-// Print-sheet SVG passthrough. Walk hardware/ for a .svg inside any
-// prints-and-guides/ directory; skip if none exist (a stripped checkout).
-// The content-type is image/svg+xml so the browser inlines it correctly
-// when the modal injects it via DOMParser.
-async function firstDrawingPath(rootDir) {
-  if (!fs.existsSync(rootDir)) return null;
-  const stack = [{ dir: rootDir, inPrints: false }];
-  while (stack.length) {
-    const { dir, inPrints } = stack.pop();
-    let entries;
-    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { continue; }
-    for (const entry of entries) {
-      const full = path.join(dir, entry.name);
-      const childInPrints = inPrints || entry.name === PRINTS_DIR;
-      if (entry.isDirectory()) stack.push({ dir: full, inPrints: childInPrints });
-      else if (inPrints && entry.name.endsWith(".svg")) {
-        return path.relative(rootDir, full).split(path.sep).join("/");
-      }
-    }
-  }
-  return null;
-}
-
 // The deck's own pages, served for the card links on /build. Skipped on a
 // checkout with no cards. A card page must come back as HTML (the browser
 // parses it as a document); build machinery in the same directory must not come
@@ -281,14 +256,6 @@ test("GET /docs/* serves a document but not a PDF with no sidecar", async (t) =>
 
   const blocked = await fetch(`${baseUrl}/docs/assembly/cards/nothing-here.pdf`);
   assert.equal(blocked.status, 400);
-});
-
-test("GET /api/drawing-content/* returns SVG when a drawing exists", async (t) => {
-  const rel = await firstDrawingPath(path.join(REPO_ROOT, "hardware"));
-  if (!rel) return t.skip("no prints-and-guides/ SVGs under hardware/");
-  const res = await fetch(`${baseUrl}/api/drawing-content/${rel}`);
-  assert.equal(res.status, 200);
-  assert.match(res.headers.get("content-type") || "", /^image\/svg\+xml/);
 });
 
 // Inner copper planes of a multi-layer board. /api/pcb advertises them in

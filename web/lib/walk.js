@@ -39,33 +39,6 @@ export function walkFiles(rootDir, exts) {
   return out;
 }
 
-// Variant that only returns files inside a directory whose basename is
-// `parentDirName`. Used for the print sheets: a sheet generator writes its
-// `.svg` and `.pdf` into a `prints-and-guides/` folder beside the geometry
-// the sheet is drawn of, and the walker leaves every other `.svg` in the
-// tree alone — line art a sheet embeds, logos, hand-drawn diagrams.
-export function walkFilesUnderDir(rootDir, exts, parentDirName) {
-  const extList = Array.isArray(exts) ? exts : [exts];
-  const out = [];
-  function walk(dir, rel, insideParent) {
-    if (!fs.existsSync(dir)) return;
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-    if (holdsRetiredMarker(entries)) return;
-    for (const entry of entries) {
-      if (entry.name.startsWith(".")) continue; // skip dotfiles (orphaned atomic-write temps, etc.)
-      const full = path.join(dir, entry.name);
-      const childInside = insideParent || entry.name === parentDirName;
-      if (entry.isDirectory()) {
-        walk(full, path.join(rel, entry.name), childInside);
-      } else if (insideParent && extList.some((e) => entry.name.endsWith(e))) {
-        out.push(path.join(rel, entry.name));
-      }
-    }
-  }
-  walk(rootDir, "", false);
-  return out;
-}
-
 // Documents: the PDFs the site hands over whole — the assembly deck, the
 // owner's manual. A `.pdf` is one when a `<name>.pdf.json` sidecar stands
 // beside it (web/contracts/documents.js); the sidecar names it and counts its

@@ -70,7 +70,6 @@
 .card > img,
 .card > .placeholder,
 .card > .mmd-thumb,
-.card > .drawing-thumb,
 .card > .pcb-thumb,
 .card > .doc-cover { flex: 0 0 auto; }
 .card .label {
@@ -876,7 +875,7 @@ summary.branch-head:focus-visible,
   }
 }
 
-/* Minimap for 2D PanZoom surfaces (mermaid + drawings). 2D equivalent
+/* Minimap for 2D PanZoom surfaces (mermaid + board views). 2D equivalent
    of the 3D ViewCube gizmo: outer box is the wrapper at the default
    (fit) view, inner box is what portion of that view is currently
    visible after pan/zoom. Pointer-events: none — the box is an
@@ -1133,47 +1132,6 @@ details.branch > summary.branch-head:hover .branch-caret {
 .card .mmd-thumb svg {
   max-width: 100%;
   max-height: 100%;
-}
-
-/* Line-art drawing thumbnail in card. SVGs from tools/line-art are
-   black-on-transparent; the card uses var(--bg) as background and we
-   recolor strokes to var(--text) so the line work reads against the
-   dark surface. */
-.card .drawing-thumb {
-  width: 100%;
-  aspect-ratio: 1;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  padding: 8px;
-}
-.card .drawing-thumb svg {
-  max-width: 100%;
-  max-height: 100%;
-}
-.card .drawing-thumb svg path,
-.card .drawing-thumb svg line {
-  stroke: var(--text);
-}
-
-/* Same recolor for the zoomed view inside the modal — the SVG is parsed
-   in drawings.js and tagged with .drawing-svg so the strokes read white
-   against the dark surface, matching the thumbnail. */
-.drawing-svg path,
-.drawing-svg line {
-  stroke: var(--text);
-}
-
-/* Engineering drawings: visible edges get full stroke weight (the
-   outer <g> sets stroke-width: 1.5), but the dashed hidden-line group
-   gets reduced weight so the dots don't compete with the solid lines
-   for attention. Applies to both the card thumbnail and the zoomed
-   modal view. */
-.card .drawing-thumb svg g[stroke-dasharray],
-.drawing-svg g[stroke-dasharray] {
-  stroke-width: 0.5;
 }
 
 /* --- /drawings: the documents shelf --------------------------------------

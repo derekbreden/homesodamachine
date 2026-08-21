@@ -76,9 +76,6 @@ the page.
 - **generator detection** — a `.py` is a live-rebuild generator when it calls
   `export_step` / `export_assembly` / `export_dxf` (from `_cadq_export`); STEP-load edges follow
   `importStep` / `_load`. `web/dev-server/deps.js`.
-- **print-sheet convention** — an `.svg` counts as a drawing only inside a `prints-and-guides/`
-  directory. `web/contracts/prints.js` names it; `web/lib/walk.js` (`walkFilesUnderDir`) lists on
-  it, `/api/drawing-content` is confined to it, and `web/lib/push.js` hashes the same set.
 - **deck subsystem order** — the card deck's subsystems, their display names, and their build order
   are read from the `body.xx { --accent }` block in `hardware/assembly/cards/style.css`, the same
   declaration the printed cards colour themselves from. `web/lib/walk.js` (`walkAssemblyCards`).
