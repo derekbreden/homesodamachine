@@ -255,8 +255,22 @@ jobs:
         run: |
           set -o pipefail
           tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write 2>&1 | tee /tmp/pack.log
+          # `lock is behind` HAS TWO CAUSES AND THEY ARE OPPOSITE READINGS. Before the carry
+          # ran, the solids on this disk are the ones the fetch put there, so a lock that
+          # disagrees with them is a commit that moved geometry without repinning — an agent's
+          # missed step, and the site served the old bundle until now.
+          #
+          # AFTER A CARRY THAT SUCCEEDED, THE SOLIDS ON THIS DISK ARE THE ONES LINUX JUST CUT.
+          # A lock that disagrees with THOSE is not a missed step by anybody: it is this
+          # pipeline's whole question answered no — a linux OCC does not write the bytes the
+          # machine that pinned them wrote. Which also means the repin below replaces a Mac's
+          # bytes with a Linux one's, and the next hand repin replaces them back.
           if grep -q "lock is behind" /tmp/pack.log; then
-            echo "::warning title=lock::the commit that triggered this run did not carry its own lock — the site served the previous bundle until now, and the derived commit below is a second deploy"
+            if [ "${{ steps.sync.outcome }}" = "success" ]; then
+              echo "::warning title=byte answer::THE BYTES DIFFER. The carry ran, so these are linux-cut solids, and the lock does not name them. This is not a missed repin — the kernel here writes a STEP the machine that pinned these did not. The repin below pins the linux bytes, and a repin on that machine will pin them back."
+            else
+              echo "::warning title=lock::the commit that triggered this run did not carry its own lock — the site served the previous bundle until now, and the derived commit below is a second deploy"
+            fi
           elif [ "${{ steps.sync.outcome }}" != "success" ]; then
             # AND `lock names this tree` MEANS NOTHING WHEN THE CARRY DID NOT HAPPEN. The
             # solids on this disk are the ones `fetch-cad-artifacts.mjs` put there, each
