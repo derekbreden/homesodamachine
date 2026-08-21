@@ -100,6 +100,15 @@ jobs:
       # what writes it, and it rewrites BUILD.bazel from the traced graph at the same time:
       # a no-op when the tree already names what it makes, and a real diff worth committing
       # when it does not.
+      # THE TREE DOES NOT CARRY EVERY SOLID IT BUILDS FROM. 35 of the lock's 100 are under
+      # `hardware/reference/` — a supplier's model, gitignored like every other `.step` — and
+      # a genrule that reads one wants it present as an INPUT, not as something to cut. The
+      # deploy already solves this: `fetch-cad-artifacts.mjs` puts every locked solid on the
+      # disk and holds each to its own sha256. Same script, same lock, one step earlier.
+      # Node builtins only, so it needs no install of its own.
+      - name: The solids the lock already names
+        run: node web/scripts/fetch-cad-artifacts.mjs
+
       - name: This checkout's own paths
         run: tools/cad-venv/bin/python tools/bazel/gen_build.py
 
