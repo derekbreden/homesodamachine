@@ -97,10 +97,23 @@ jobs:
                  --format '{{.Size}}' | awk '{printf "%.0f MB", $1/1048576}') |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # A toolchain-changing source push starts publication in parallel. Once the exact image
-      # exists, this explicit dispatch guarantees a fresh run even if the first was waiting or
-      # was canceled; a GITHUB_TOKEN push cannot be trusted to trigger another workflow.
+      # A toolchain-changing source push starts publication in parallel. That run waits for this
+      # exact image, so do not cancel its warm checkout/build just because the image is ready.
+      # Dispatch only when there is no publisher left to consume the image (for example, after
+      # the original run timed out while an unusually slow image was building).
       - name: Publish with this image
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run publish-cad.yml --ref main -f all=true
+        run: |
+          main=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          active=$(gh run list --workflow publish-cad.yml --branch main --limit 20 \
+            --json headSha,status \
+            --jq "[.[] | select(\
+              (.status == \"queued\" or .status == \"in_progress\" or .status == \"waiting\" or .status == \"pending\" or .status == \"requested\") and \
+              (.headSha == \"$GITHUB_SHA\" or .headSha == \"$main\")\
+            )] | length")
+          if (( active > 0 )); then
+            echo "$active publication run(s) already cover this image"
+            exit 0
+          fi
+          gh workflow run publish-cad.yml --ref main -f all=true
