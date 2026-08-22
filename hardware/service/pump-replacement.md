@@ -116,7 +116,8 @@ States"; this doc names the order they run in.
 **1. Run dry mode.** Vessel under the faucet — states 2 and 4 send a slug of air and residual
 syrup out the gooseneck.
 
-**2. Pull the cartridge.** One hand flat on the face, the other braced on the box. Draw it
+**2. Pull the cartridge.** Hook the pulling hand into either recessed flank grip and brace
+the box with the other hand. Pull on the grip's raked fore ledge and draw the cartridge
 straight forward along the bay floor it rides: the [4](JOINT_COUNT_2) joints let go
 against the plate in the first few millimetres, and the rest of the stroke is the deck coming
 out of the bay. Pull the two DC-5 spade pairs off the motor tabs and set the cartridge
