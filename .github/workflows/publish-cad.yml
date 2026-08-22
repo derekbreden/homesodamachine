@@ -5,7 +5,12 @@ on:
     branches: [main]
     paths:
       - hardware/**
+      - '!hardware/quickstart/studies/**'
+      - '!hardware/quickstart/quick-start.cover.png'
+      - '!hardware/quickstart/quick-start.pdf'
+      - '!hardware/quickstart/quick-start.pdf.json'
       - tools/bazel/**
+      - '!tools/bazel/affected.py'
       - tools/cad-artifacts/**
       - tools/cad-venv-site/**
       - tools/ci-image/**
@@ -148,12 +153,35 @@ jobs:
               sort -u > /tmp/cad-requested
           fi
 
+          quickstart=false
+          if grep -qx '//:quickstart-build' /tmp/cad-requested; then
+            quickstart=true
+            grep -vx '//:quickstart-build' /tmp/cad-requested \
+              > /tmp/cad-requested.without-quickstart || true
+            mv /tmp/cad-requested.without-quickstart /tmp/cad-requested
+          fi
+
           base=$(tools/cad-venv/bin/python -c \
             'import json; print(json.load(open("hardware/cad-artifacts.lock.json")).get("source", {}).get("commit", ""))')
           if [ -n "$base" ]; then
             git cat-file -e "$base^{commit}" 2>/dev/null || \
               git fetch --no-tags --depth=1 origin "$base"
             git cat-file -e "$base^{commit}"
+          fi
+          : > /tmp/quickstart-sources
+          if [ -n "$base" ]; then
+            git diff --name-only --no-renames "$base" "$GITHUB_SHA" | while IFS= read -r path; do
+              case "$path" in
+                hardware/quickstart/studies/*|hardware/quickstart/art/*|\
+                hardware/quickstart/quick-start.cover.png|\
+                hardware/quickstart/quick-start.pdf|\
+                hardware/quickstart/quick-start.pdf.json) ;;
+                hardware/quickstart/*) printf '%s\n' "$path" ;;
+              esac
+            done > /tmp/quickstart-sources
+            if [ -s /tmp/quickstart-sources ]; then
+              quickstart=true
+            fi
           fi
           if [ -z "$base" ] || [ "${{ inputs.all }}" = "true" ]; then
             tools/cad-venv/bin/python tools/bazel/affected.py --all-artifacts \
@@ -167,15 +195,20 @@ jobs:
           count=$(wc -l < /tmp/cad-targets | tr -d ' ')
           {
             echo "count=$count"
+            echo "quickstart=$quickstart"
             echo 'targets<<CAD_TARGETS'
             cat /tmp/cad-targets
             echo 'CAD_TARGETS'
           } >> "$GITHUB_OUTPUT"
           echo "$count artifact target(s)"
           sed 's/^/  /' /tmp/cad-targets
+          if [ "$quickstart" = true ]; then
+            echo "canonical Quick Start owed by:"
+            sed 's/^/  /' /tmp/quickstart-sources
+          fi
 
       - name: Restore the drawn solids
-        if: steps.scope.outputs.count != '0'
+        if: steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true'
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
@@ -184,7 +217,7 @@ jobs:
           restore-keys: realized-${{ needs.image.outputs.identity }}-
 
       - name: Restore the Bazel disk cache
-        if: steps.scope.outputs.count != '0'
+        if: steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true'
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
@@ -201,6 +234,10 @@ jobs:
           [ "${#targets[@]}" -gt 0 ] || exit 0
           bazel build --disk_cache="$HOME/.cache/bazel-disk" "${targets[@]}"
 
+      - name: Build the canonical Quick Start
+        if: steps.scope.outputs.quickstart == 'true'
+        run: bazel build --disk_cache="$HOME/.cache/bazel-disk" //:quickstart-build
+
       - name: Verify and carry the complete cut
         if: steps.scope.outputs.count != '0'
         env:
@@ -214,6 +251,19 @@ jobs:
           [ "$rc" -le 1 ]
           tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --solids-only \
             --targets "$TARGETS"
+
+      - name: Carry only the canonical Quick Start
+        if: steps.scope.outputs.quickstart == 'true'
+        run: |
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+            --targets //:quickstart-build
+          allowed='^(hardware/quickstart/quick-start\.cover\.png|hardware/quickstart/quick-start\.pdf|hardware/quickstart/quick-start\.pdf\.json)$'
+          unexpected=$(git diff --name-only -- hardware/quickstart | grep -Ev "$allowed" || true)
+          if [ -n "$unexpected" ]; then
+            echo "the Quick Start carry moved files outside its three declared outputs:" >&2
+            sed 's/^/  /' <<< "$unexpected" >&2
+            exit 1
+          fi
 
       # This also advances source.commit on a zero-artifact hardware change, so Render can
       # deploy served hardware only after the artifact lock covers its source.
@@ -229,19 +279,40 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          quickstart_outputs=(
+            hardware/quickstart/quick-start.cover.png
+            hardware/quickstart/quick-start.pdf
+            hardware/quickstart/quick-start.pdf.json
+          )
+
+          quickstart_sources_between() {
+            git diff --name-only --no-renames "$1" "$2" | while IFS= read -r path; do
+              case "$path" in
+                hardware/quickstart/studies/*|hardware/quickstart/art/*|\
+                hardware/quickstart/quick-start.cover.png|\
+                hardware/quickstart/quick-start.pdf|\
+                hardware/quickstart/quick-start.pdf.json) ;;
+                hardware/quickstart/*) printf '%s\n' "$path" ;;
+              esac
+            done
+          }
+
           queue_latest() {
             echo "queueing publication from the current main tip"
             gh workflow run publish-cad.yml --ref main
             echo "queued=true" >> "$GITHUB_OUTPUT"
           }
 
-          if git diff --quiet -- hardware/cad-artifacts.lock.json; then
-            echo "the lock already covers this source"
-            exit 0
-          fi
           git config user.name  "Derek Bredensteiner"
           git config user.email "derekbreden@gmail.com"
           git add hardware/cad-artifacts.lock.json
+          if [ "${{ steps.scope.outputs.quickstart }}" = true ]; then
+            git add -- "${quickstart_outputs[@]}"
+          fi
+          if git diff --cached --quiet; then
+            echo "the lock and canonical Quick Start already cover this source"
+            exit 0
+          fi
           git commit -m "Publish the CAD cut for ${GITHUB_SHA:0:8}"
           base="$GITHUB_SHA"
 
@@ -272,6 +343,14 @@ jobs:
                 exit 0
               fi
 
+              newer_quickstart=$(quickstart_sources_between "$base" "$tip")
+              if [ -n "$newer_quickstart" ]; then
+                echo "newer Quick Start sources reached main:"
+                sed 's/^/  /' <<< "$newer_quickstart"
+                queue_latest
+                exit 0
+              fi
+
               SOURCE_COMMIT="$tip" tools/cad-venv/bin/python -c \
                 'import json,os; from pathlib import Path; p=Path("hardware/cad-artifacts.lock.json"); d=json.loads(p.read_text()); d["source"]={"commit":os.environ["SOURCE_COMMIT"]}; p.write_text(json.dumps(d, indent=2)+"\n")'
               git add hardware/cad-artifacts.lock.json
@@ -290,7 +369,7 @@ jobs:
 
       # Persistence starts after the lock push, outside the public stale-window critical path.
       - name: Save the drawn solids
-        if: always() && steps.scope.outputs.count != '0'
+        if: always() && (steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true')
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
@@ -298,7 +377,7 @@ jobs:
           key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save the Bazel disk cache
-        if: always() && steps.scope.outputs.count != '0'
+        if: always() && (steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true')
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
@@ -310,10 +389,16 @@ jobs:
         env:
           EXPECTED: ${{ steps.commit.outputs.published }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERIFY_QUICKSTART: ${{ steps.scope.outputs.quickstart }}
         run: |
           published_mesh=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
             tools/cad-venv/bin/python -c \
               'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])')
+          published_quickstart=""
+          if [ "$VERIFY_QUICKSTART" = true ]; then
+            published_quickstart=$(git show \
+              "$EXPECTED:hardware/quickstart/quick-start.pdf" | sha256sum | awk '{print $1}')
+          fi
           for attempt in $(seq 1 90); do
             live=$(curl -fsS https://homesodamachine.com/api/version 2>/dev/null | \
               tools/cad-venv/bin/python -c \
@@ -329,12 +414,23 @@ jobs:
             fi
             if [ "$covered" = true ]; then
               expected_mesh="$published_mesh"
+              expected_quickstart="$published_quickstart"
               if [ "$live" != "$EXPECTED" ]; then
                 expected_mesh=$(gh api -H 'Accept: application/vnd.github.raw+json' \
                   "repos/$GITHUB_REPOSITORY/contents/hardware/cad-artifacts.lock.json?ref=$live" | \
                   tools/cad-venv/bin/python -c \
                     'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])' \
                   2>/dev/null || true)
+                if [ "$VERIFY_QUICKSTART" = true ]; then
+                  expected_quickstart=""
+                  if gh api -H \
+                    'Accept: application/vnd.github.raw+json' \
+                    "repos/$GITHUB_REPOSITORY/contents/hardware/quickstart/quick-start.pdf?ref=$live" \
+                    > /tmp/expected-quick-start.pdf 2>/dev/null; then
+                    expected_quickstart=$(sha256sum /tmp/expected-quick-start.pdf | \
+                      awk '{print $1}')
+                  fi
+                fi
               fi
               mesh=""
               if curl -fsS \
@@ -342,15 +438,35 @@ jobs:
                 -o /tmp/live-enclosure-assembly.step.mesh; then
                 mesh=$(sha256sum /tmp/live-enclosure-assembly.step.mesh | awk '{print $1}')
               fi
-              if [ -n "$expected_mesh" ] && [ "$mesh" = "$expected_mesh" ]; then
+              quickstart=""
+              quickstart_ok=true
+              if [ "$VERIFY_QUICKSTART" = true ]; then
+                quickstart_ok=false
+                if curl -fsS https://homesodamachine.com/docs/quickstart/quick-start.pdf \
+                  -o /tmp/live-quick-start.pdf; then
+                  quickstart=$(sha256sum /tmp/live-quick-start.pdf | awk '{print $1}')
+                fi
+                if [ -n "$expected_quickstart" ] && \
+                   [ "$quickstart" = "$expected_quickstart" ]; then
+                  quickstart_ok=true
+                fi
+              fi
+              if [ -n "$expected_mesh" ] && [ "$mesh" = "$expected_mesh" ] && \
+                 [ "$quickstart_ok" = true ]; then
                 echo "production serves $live with locked assembly mesh $mesh"
+                if [ "$VERIFY_QUICKSTART" = true ]; then
+                  echo "production serves canonical Quick Start PDF $quickstart"
+                fi
                 exit 0
               fi
               echo "production version is covered; waiting for assembly mesh (expected ${expected_mesh:-unavailable}; got ${mesh:-unavailable})"
+              if [ "$VERIFY_QUICKSTART" = true ]; then
+                echo "waiting for canonical Quick Start PDF (expected ${expected_quickstart:-unavailable}; got ${quickstart:-unavailable})"
+              fi
             else
               echo "waiting for Render ($attempt/90; live ${live:-unavailable})"
             fi
             sleep 10
           done
-          echo "Render did not serve the published lock and assembly mesh within 15 minutes" >&2
+          echo "Render did not serve the published lock and verified public assets within 15 minutes" >&2
           exit 1
