@@ -170,6 +170,7 @@ def main():
         "BARB_AIR":   f"{barb_air:.4g}",
         "REST_GAP":   f"{rest_gap:.4g}",
         "TUBE_OD":    f"{od:.4g} mm",
+        "PLATE_RETAINERS": f"{len(f.box.collet_plate['retainers'])}",
         # The socket the boss lifts out of, off the module that draws the tray. `internal-plumbing`
         # quotes the same figure for putting a pump in.
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
