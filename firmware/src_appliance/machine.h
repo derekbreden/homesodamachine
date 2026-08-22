@@ -11,8 +11,9 @@
 // and the three limits in main.cpp's header are held here.
 //
 // What is implemented today is one flavor pump turning — held from the glass,
-// or bounded from the console. Nothing touches the two MCP23017s, so the eleven
-// valves and the condenser fan stay high-Z, and neither relay is ever driven.
+// or bounded from the console. The two MCP23017s are initialized fail-closed:
+// every output is parked low and the reed inputs have internal pull-ups. No
+// operation opens a valve or runs the fan, and neither relay is ever driven.
 
 enum MachineState : uint8_t {
     ST_IDLE,     // nothing driven
@@ -49,6 +50,34 @@ void machineStop();      // whatever is running, end it and park
 // The MQ-6 comparator, debounced. U15 holds the compressor off it in hardware
 // with no firmware in the path; what the firmware adds is the alarm.
 bool machineGasTripped();
+
+// Read-only commissioning snapshot of the two MCP23017s and all ten reeds.
+// This is populated only when explicitly requested from the USB console; it is
+// not polled in the interaction loop or placed on J9.
+struct MachineIoStatus {
+    bool initialized;
+    bool configurationVerified;
+    bool outputsMatchPlan;
+    bool outputsKnownParked;
+    bool reedsValid;
+    uint8_t fault;
+    uint8_t faultAddress;
+    uint8_t faultRegister;
+    uint8_t outputLatchA20;
+    uint8_t outputLatchA21;
+    uint8_t pullupsB20;
+    uint8_t pullupsB21;
+    uint8_t rawReedsA;
+    uint8_t rawReedsB;
+    uint8_t reservoirAClosedMask;
+    uint8_t reservoirBClosedMask;
+    bool carbonatorLowClosed;
+    bool carbonatorHighClosed;
+};
+
+bool machineIoReady();
+bool machineReadIoStatus(MachineIoStatus &status);
+const char *machineIoFaultName(uint8_t fault);
 
 MachineState machineState();
 const char  *machineStateName();

@@ -640,6 +640,7 @@ static const unsigned TURNAROUND_MS = 30;   // a reply is ~2 ms; this is the giv
 
 static OutFrame      outQ[OUT_Q_DEPTH];
 static uint8_t       outHead = 0, outTail = 0, outCount = 0;
+static uint8_t       outHighWater = 0;
 static uint32_t      outDropped = 0;
 static unsigned long lastTxMs = 0;
 static bool          awaitingAnswer = false;
@@ -659,6 +660,7 @@ static void j9Post(uint8_t type, const void *data, uint8_t len) {
   if (len && data) memcpy(f.data, data, len);
   outHead = (uint8_t)((outHead + 1) % OUT_Q_DEPTH);
   outCount++;
+  if (outCount > outHighWater) outHighWater = outCount;
 }
 
 // Called every loop, before j9.service() drains the wire.
@@ -1741,7 +1743,7 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "GET_DIAG") == 0) {
     Serial.printf("DIAG:scrollTop=%d,scrollBot=%d,scrollY=%d,"
                   "page=%d,svc=%d,flv=%d,stage=%u,holding=%d,reinits=%lu,unanswered=%u,"
-                  "bridged=%lu,stale=%lu,sendErr=%d,"
+                  "bridged=%lu,stale=%lu,sendErr=%d,outQ=%u/%u,outDrop=%lu,"
                   "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
                   "frame=%u,flushes=%lu,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
                   "link=%s,maxLoopMs=%lu,uptime=%lus\n",
@@ -1752,6 +1754,7 @@ static void processTextLine(const char *line) {
                   holding ? 1 : 0,
                   (unsigned long)linkReinits, (unsigned)unanswered,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale, lastSendErr,
+                  (unsigned)outCount, (unsigned)outHighWater, (unsigned long)outDropped,
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)ESP.getPsramSize(),
@@ -2062,8 +2065,8 @@ void loop() {
     }
   }
 
-  // The status request is the only traffic this board starts on its own: every 2 s while
-  // STATUS is up, every 10 s otherwise, and never while a hold owns the pair. Three in a
+  // The status request is the only traffic this board starts on its own: every 500 ms while
+  // STATUS is up, every 1 s otherwise, and never while a hold owns the pair. Three in a
   // row with nothing back is the same failure, found before a finger meets the glass.
   if (uiReady && !screenIdle && !holding) {
     // The controller no longer speaks unprompted — a prime that timed out or a

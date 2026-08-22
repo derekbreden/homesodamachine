@@ -33,7 +33,8 @@
 //      the board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.
 //
-// machine.cpp holds all three, and owns every pin that reaches a load. The
+// machine.cpp and its pcba_expanders driver hold all three, and machine.cpp owns
+// every request that can reach a load. The
 // commissioning and service commands (firmware-and-commissioning.md §6, §7,
 // §9) ask it for a thing — `selftest valves` walks the census — and so does
 // the glass. The surface that writes a pin directly is src_pcba_bench, which
@@ -41,9 +42,10 @@
 //
 // ── What this build does ──────────────────────────────────────────────
 // One flavor pump turns, held from the glass or bounded from the console.
-// The two MCP23017s are untouched, so the eleven valves and the condenser
-// fan stay high-Z; neither relay is ever driven; no reed is read. A clean
-// cycle is answered MSG_ERR_UNSUPPORTED.
+// Both MCP23017s boot with every output verified low and every reed input on
+// its internal pull-up; status reads those inputs on explicit request. No
+// operation opens a valve or runs the fan, neither relay is ever driven, and
+// a clean cycle is answered MSG_ERR_UNSUPPORTED.
 
 static void console(const String &line);
 
@@ -67,10 +69,15 @@ void setup() {
                   soundQuietOn() ? "on" : "off",
                   soundInQuietHours() ? " — in force now" : "");
 
+    Serial.printf("U2/U3 MCP23017: %s\n",
+                  machineIoReady()
+                      ? "outputs parked low, reed pull-ups enabled"
+                      : "FAULT — outputs could not be verified parked");
+
     linkBegin();
     Serial.printf("J9 up on IO%d/IO%d @ %ld — the display's prime hold arrives here\n",
                   PIN_485_DI, PIN_485_RO, RS485_BAUD);
-    Serial.println("idle — actuators dark, valves and sensors unimplemented");
+    Serial.println("idle — actuators dark; valves have no runtime command");
     Serial.println("type 'help' for what this build answers to\n");
     Serial.print("> ");
 
@@ -78,7 +85,7 @@ void setup() {
     // sounds, so it says the controller reached the end of setup() and nothing
     // else — which on a line is how a unit is heard coming up without being
     // watched, and in a kitchen is just the machine saying hello.
-    soundPlay(SND_WELCOME);
+    soundPlay(machineIoReady() ? SND_WELCOME : SND_FAULT);
 }
 
 void loop() {
@@ -130,7 +137,25 @@ static void status() {
                       machineIsPriming() ? " (held from the glass)" : "");
     Serial.printf("\n  uptime   %lu s\n", millis() / 1000);
     Serial.printf("  heap     %lu bytes free\n", (unsigned long)ESP.getFreeHeap());
-    Serial.println("  valves   unimplemented — both MCP23017s untouched, manifold high-Z");
+    MachineIoStatus io;
+    const bool ioHealthy = machineReadIoStatus(io);
+    Serial.printf("  expanders %s — cfg=%s, plan=%s, parked=%s, OLATA=%02X/%02X, GPPUB=%02X/%02X\n",
+                  ioHealthy ? "healthy" : "FAULT",
+                  io.configurationVerified ? "ok" : "bad",
+                  io.outputsMatchPlan ? "ok" : "bad",
+                  io.outputsKnownParked ? "yes" : "NO",
+                  io.outputLatchA20, io.outputLatchA21, io.pullupsB20, io.pullupsB21);
+    if (io.reedsValid) {
+        Serial.printf("  reeds    raw=%02X/%02X, closed A=%X B=%X, carbonator low=%s high=%s\n",
+                      io.rawReedsA, io.rawReedsB,
+                      io.reservoirAClosedMask, io.reservoirBClosedMask,
+                      io.carbonatorLowClosed ? "yes" : "no",
+                      io.carbonatorHighClosed ? "yes" : "no");
+    } else {
+        Serial.printf("  io fault %s at 0x%02X register 0x%02X\n",
+                      machineIoFaultName(io.fault), io.faultAddress, io.faultRegister);
+    }
+    Serial.println("  valves   parked — no runtime valve/fan command in this image");
     Serial.println("  relays   unimplemented — IO2 and IO19 parked as inputs");
 
     char when[48];

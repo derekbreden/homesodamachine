@@ -204,8 +204,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The clean cycle runs the manifold, which hangs off the two MCP23017s this
-    // image leaves untouched.
+    // The clean cycle needs a sequenced manifold operation. This image safely
+    // initializes the MCP23017s, but exposes no runtime valve operation yet.
     if (type == MSG_CLEAN_START) {
         link->sendResponse(MSG_ERR_UNSUPPORTED, plen ? payload[0] : 0);
         Serial.println("\n[J9] MSG_CLEAN_START -> unsupported (no valve drive in this build)");

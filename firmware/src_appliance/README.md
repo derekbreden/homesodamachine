@@ -12,20 +12,24 @@ once per fab batch, with the manifold unplugged.
 
 ## What runs today
 
-One flavor pump. Everything else in the machine is unwritten.
+The glass-facing operation remains one flavor pump. The controller also establishes and
+reports the safe I/O foundation the next connected bench uses.
 
 - **A prime held from the glass.** Service → Prime → a flavor → hold the pad on the 4.3B
   front-face display. `MSG_PRIME_START` arrives on J9, the pump turns, a tick every 500 ms
   keeps it turning, and the head stops on the lift, on a tick that runs 2 s late, or at the
   60 s ceiling. Every state change goes back as `MSG_RESP_PRIME`.
 - **A bounded run from the console.** `pump <a|b> [ms]`.
-- **Status.** `MSG_STATUS_REQ` is answered with uptime, heap, J9 frame counts, the MQ-6
-  divider and whether a prime is live.
+- **Status.** `MSG_STATUS_REQ` is answered from cached controller state with uptime, heap,
+  J9 frame counts, the MQ-6 divider and whether a prime is live. The USB `status` command
+  additionally verifies both expanders and reads all ten reed inputs on demand.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
   and the gas alarm that none of those settings can reach.
 
-Both MCP23017s are untouched, so the eleven valves and the condenser fan stay high-Z and no
-reed is read. Neither relay is ever driven. A clean cycle is answered `MSG_ERR_UNSUPPORTED`.
+At boot both MCP23017 output latches are cleared before Port A becomes output, their complete
+safety configuration is read back, and Port B gets the internal pull-ups the reed looms rely
+on. No runtime operation opens a valve or runs the condenser fan. Neither relay is ever
+driven. A clean cycle is answered `MSG_ERR_UNSUPPORTED`.
 
 ## The files
 
@@ -33,6 +37,7 @@ reed is read. Neither relay is ever driven. A clean cycle is answered `MSG_ERR_U
 |---|---|
 | `main.cpp` | setup, loop, the serial console |
 | `machine.cpp` | every pin that reaches a load, and the three limits |
+| `pcba_expanders.cpp` | U2/U3 register safety and the logical V-A–V-K / fan / reed map |
 | `link.cpp` | J9 frames in, machine announcements out |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
 | `pins.h` | what this image reaches on the board, off `pcba.tsx` |
@@ -54,7 +59,7 @@ pio device monitor -e appliance
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `stop` | end whatever is running |
-| `status` | machine state, uptime, heap |
+| `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
 | `link` | J9 frames, bytes, echo, time since the last frame |
 | `ping` | put a frame on the pair and read its echo back |
 | `display usb` | explicitly detach/wake the front display's USB PHY |
@@ -168,6 +173,12 @@ They are in `main.cpp`'s header, in
 the factory confirms them per unit, and in [`/firmware/README.md`](/firmware/README.md) with
 the part that pays for each. At most 3 solenoid valves energized at once; relay #2 off while
 a dispense is open; `GPPU` written on both MCP23017s.
+
+The canonical operation plans and timing policy live in
+[`/firmware/lib/machine_policy`](/firmware/lib/machine_policy/machine_policy.h). They have no
+Arduino dependency, so `pio test -e native` exhaustively checks every valve-mask transition,
+the physical MCP map and failure paths, and the prime deadlines without opening a USB port or
+touching a connected board.
 
 ## Build / flash
 

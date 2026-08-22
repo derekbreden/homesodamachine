@@ -36,8 +36,9 @@ static const int PIN_LED_RUN = 12;  // D3 green — heartbeat
 static const int PIN_LED_ACT = 14;  // D4 blue  — lit while the machine drives something
 
 // ── I2C — R19/R20 4.7k pull-ups to 3V3, out to J8 ─────────────────────────
-// U6 (DS3231 clock, 0x68) is what this build reaches. The two MCP23017s sit on
-// the same bus at 0x20/0x21 and stay untouched.
+// U6 (DS3231 clock, 0x68) shares this bus with the MCP23017s at 0x20/0x21.
+// machine.cpp parks their output banks and enables the reed-bank pull-ups at
+// boot; pcba_expanders.cpp owns their register and physical-output mapping.
 static const int PIN_SDA = 21;
 static const int PIN_SCL = 22;
 
