@@ -61,11 +61,11 @@ What the build this links against already does, and what it costs to find out ot
 **LCD_RST is the panel's own**, on CH422G `EXIO3`, the line `ch422gBringUp()` pulses at
 boot. Resetting the ST7262 makes it re-acquire the sync it is being sent and leaves the
 framebuffers bound. A wake runs it before it lights the screen — backlight off, `EXIO3` low
-20 ms, high, 120 ms recovery, backlight on, then `WAKE_QUIET_MS` before the animation moves
+20 ms, high, 120 ms recovery, backlight on, then `WAKE_QUIET_MS` before an active lock moves
 — which is the ~350 ms between a tap and a lit screen. `PANEL:KICK` runs the same sequence
 without waiting for a sleep.
 
-## Loading animation
+## Operation lock and animation
 
 The 16-frame glass/bubbles loop (the same animation the config display uses) is
 generated from the app-icon artwork at 360×360 by:
@@ -76,7 +76,14 @@ tools/cad-venv/bin/python tools/gen_animation_frames.py --size 360 \
 ```
 
 which writes `images/anim_00.h`..`anim_15.h` (RGB565 PROGMEM). LVGL cycles them
-at ~10 fps.
+at ~10 fps only on a full-screen operation lock: animation on the left, and a
+modal naming the operation on the right. The reusable lock is the surface for
+filling, cleaning and other periods in which the appliance intentionally
+withholds normal interaction.
+
+Boot opens with **Powering on · Getting everything ready.** for at least two
+complete animation cycles. It then opens onto the controller's flavor selection
+as soon as that state is known, with a six-second ceiling when J9 is absent.
 
 ## Build / flash
 
@@ -135,10 +142,11 @@ then write the output byte to `0x38` where `EXIO_n = bit n`.
 
 ## Idle backlight-off + touch
 
-After 90 s of no touch the screen sleeps — backlight off, animation paused — and
-the first touch turns it back on and resumes, on whatever the dark left up (see the
-ladder above). Same idle/wake behavior as the faucet display; the difference is the
-backlight itself:
+After 90 s of no touch the screen sleeps — backlight off — and the first touch
+turns it back on, on whatever the dark left up (see the ladder above). Normal
+pages are static, and an operation-lock animation never sleeps underneath an
+active operation. Same idle/wake behavior as the faucet display; the difference
+is the backlight itself:
 
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
   line on the CH422G (EXIO2) — on/off only, no PWM, and I²C is too slow to fake
@@ -153,20 +161,27 @@ backlight itself:
   state it last read, and a lift must be reported for 150 ms before it reaches a widget —
   a tap needs one PRESSED sample, a hold needs every poll it spans. `GET_DIAG` counts
   these as `stale=` and `bridged=`.
+- A genuinely different flavor arriving from the faucet takes the display to
+  HOME and wakes it. Repeated publication of the flavor already shown does not
+  reset the idle timer.
 
 ## USB-serial commands (bring-up / diagnostics)
 
 Newline-terminated, 115200 baud over the native USB CDC:
 
 - `GET_VERSION` → `VERSION:FRONT=<fw>`
-- `GET_DIAG` → SETUP's scroll extents / page, sub-view and idle rung / holding /
-  link reinits / unanswered polls / bridged touch polls / stale GT911 polls / last send
-  error / outbound queue depth, high-water and drops / heap / PSRAM / backlight / frame /
-  GT911 addr / touch count / last XY / idle state / loop high-water / uptime
+- `GET_STATE` → controller-owned flavor, synchronization / durability / pending
+  state, operation lock, idle and page
+- `GET_DIAG` → a packet-bounded `DIAG:` health line followed by `DIAG_UI:` and
+  `DIAG_SYS:` detail: page / sub-view / idle / lock, link and queue health,
+  render high-water, scroll extents, flavor replication, touch, memory,
+  backlight, animation frame and uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
-- `PAGE:0`..`PAGE:4` → show one page (HOME, FLAVOR, SERVICE, STATUS, SETUP)
-- `PANEL:KICK` → the wake sequence — dark, panel reset, light, quiet, animation
+- `PAGE:0`..`PAGE:4` → show one page (HOME, MIX, SERVICE, STATUS, SETUP)
+- `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
+- `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
+- `PANEL:KICK` → the wake sequence — dark, panel reset, light, quiet, then any active lock animation
 - `PANEL:REALIGN` → ask the RGB driver for the DMA restart it already does each VSYNC
 - `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
   the glass: same frames, same ticks, same readouts
@@ -206,16 +221,23 @@ The transport is `HdlcLink` — TinyProto's framing layer, CRC16, no connection 
 keepalives. `ProtoLink`/`Fd` is what the RP2040 and S3 UARTs run; on a shared pair its
 two ends collide on their own schedules and fall out of CONNECTED every 2 s.
 
+Flavor state follows J9's controller-answer-only rule. The display sends
+`MSG_FLAVOR_QUERY` every 250 ms while lit and every 500 ms while dark, with only
+one request outstanding. A local card press repaints first and queues a tokenized,
+absolute `MSG_FLAVOR_SELECT`; retries reuse the token and are silent. The controller
+answers every query or selection with its authoritative value and persistence flags.
+This polling turn also carries faucet-originated changes from J3 to this display.
+
 ## The interface
 
-A 190 px rail down the left carries five 82 px targets — **HOME · FLAVOR · SERVICE ·
+A 190 px rail down the left carries five 82 px targets — **HOME · MIX · SERVICE ·
 STATUS · SETUP** — each an icon over a word, with a J9 indicator in its foot. The
 remaining 610 px is the pane, and it takes a different shape on each page:
 
 | Page | Shape | Reads / writes |
 |---|---|---|
-| HOME | the loading animation, a headline, both ratios | display-local |
-| FLAVOR | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
+| HOME | two large flavor-art cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
+| MIX | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
 | SERVICE | PRIME \| CLEAN → a flavor → the hold pad or the confirm | **the base** |
 | STATUS | four tiles and a bar, polled every 500 ms | **the base** |
 | SETUP | a paged column of read-outs and one restart | display-local, plus the base's build |
@@ -228,7 +250,7 @@ goes dark, so changing how long it stays lit does not move them.
 
 | After | | Total absence |
 |---|---|---|
-| 90 s of no touch | backlight off, animation paused | 90 s |
+| 90 s of no touch | backlight off | 90 s |
 | 2 min dark | back to the root of the page you were on | 3.5 min |
 | 10 min dark | back to HOME | 11.5 min |
 
@@ -288,17 +310,17 @@ manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it a
 
 ### Frame rate
 
-The animation runs on HOME and is paused everywhere else. Measured on the panel with the
-rail up: **~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. FLAVOR,
-FLAVOR and SERVICE sit at `maxLoopMs=0` — nothing on them invalidates, so nothing repaints;
-STATUS and SETUP take one repaint a second for their read-outs. `GET_DIAG` reports the
-high-water mark and clears it.
+The animation runs only on the full-screen operation lock. Measured on the panel:
+**~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. HOME, MIX
+and SERVICE otherwise repaint only when their state changes; STATUS and SETUP
+take one repaint a second for their read-outs. `LOCK:SHOW` exposes the animation
+for a live check, and `GET_DIAG` reports the loop high-water mark and clears it.
 
 ## Integration seams (not implemented)
 
 - **Flavor ratio and level** — the ratio is this display's own until a controller stores
   it; the level reads `--` until a reservoir is sensed.
-- **Dispense and carbonation state** on HOME.
+- **Dispense and carbonation state** beyond the locked-operation messages.
 
 ## Power and USB reattachment
 

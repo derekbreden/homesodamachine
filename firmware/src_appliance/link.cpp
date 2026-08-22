@@ -1,6 +1,8 @@
 #include <Arduino.h>
 
 #include "link.h"
+#include "flavor.h"
+#include "flavor_link_policy.h"
 #include "machine.h"
 #include "pins.h"
 #include "rtc.h"
@@ -25,6 +27,20 @@ static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
 static bool displayUsbReattachAck = false;
+static flavor_link_policy::TokenLedger frontFlavorTokens;
+static uint32_t frontFlavorDuplicates = 0;
+static uint32_t frontFlavorInvalid = 0;
+
+static uint8_t flavorStateFlags() {
+    return (flavorEstablished()       ? FLAVOR_STATE_F_ESTABLISHED    : 0)
+         | (flavorPersisted()         ? FLAVOR_STATE_F_PERSISTED      : 0)
+         | (flavorPersistenceError()  ? FLAVOR_STATE_F_PERSIST_ERROR : 0);
+}
+
+static void sendFlavorState(HdlcLink *link, uint32_t token) {
+    FlavorStatePayload state{flavorSelected(), flavorStateFlags(), token};
+    link->send(MSG_RESP_FLAVOR_STATE, &state, sizeof(state));
+}
 
 // What the controller currently holds, as the glass reads it.
 static void fillSoundCfg(SoundCfgPayload &c) {
@@ -126,6 +142,39 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
     if (type == MSG_RESP_DISPLAY_USB_REATTACH) {
         displayUsbReattachAck = true;
+        return;
+    }
+
+    // The enclosure display has no authoritative flavor cache. It asks for
+    // controller truth at boot and on a short cadence, including while dark,
+    // which gives the controller a collision-free turn to publish a faucet
+    // selection. A selection is absolute and tokenized so an HDLC/application
+    // retry cannot turn one press into two sounds or state changes.
+    if (type == MSG_FLAVOR_QUERY) {
+        sendFlavorState(link, 0);
+        return;
+    }
+
+    if (type == MSG_FLAVOR_SELECT && plen >= sizeof(FlavorRequestPayload)) {
+        FlavorRequestPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (request.flavor > PUMP_CHANNEL_B || request.token == 0) {
+            frontFlavorInvalid++;
+            link->sendResponse(MSG_ERR_SLOT_INVALID, request.flavor);
+            return;
+        }
+
+        const bool duplicate = frontFlavorTokens.duplicateOrRemember(request.token);
+        if (duplicate) {
+            frontFlavorDuplicates++;
+        } else {
+            flavorSelect(request.flavor);
+            if (request.flags & FLAVOR_REQ_F_AUDIBLE) soundPlay(SND_TICK);
+            Serial.printf("\n[J9] enclosure selected flavor %u%s\n",
+                          flavorSelected() + 1,
+                          flavorPersisted() ? "" : " — persistence pending");
+        }
+        sendFlavorState(link, request.token);
         return;
     }
 
@@ -291,6 +340,9 @@ void linkReport() {
         Serial.println("    nothing has arrived — the display is unpowered, unflashed, or A/B is swapped");
     Serial.printf("    announcements held %u, dropped %lu\n",
                   (unsigned)annCount, (unsigned long)annDropped);
+    Serial.printf("    flavor duplicate requests %lu, invalid requests %lu\n",
+                  (unsigned long)frontFlavorDuplicates,
+                  (unsigned long)frontFlavorInvalid);
     Serial.printf("    echo swallowed %u, outstanding %u, high-water %u, desyncs %u\n",
                   (unsigned)j9Stream.echoSwallowed(), (unsigned)j9Stream.echoOutstanding(),
                   (unsigned)j9Stream.echoHighWater(), (unsigned)j9Stream.echoDesyncs());
