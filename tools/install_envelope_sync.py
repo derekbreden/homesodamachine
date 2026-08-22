@@ -44,10 +44,12 @@ sys.path.insert(0, str(Path(sys.argv[1]) / "port-ring"))
 sys.path.insert(0, str(Path(sys.argv[1]).parents[1] / "reference" / "jg-bulkhead-union"))
 import enclosure, port_ring, jg_bulkhead_union
 _pack, box = enclosure.machine_of()
+import enclosure_assembly
 o = box.outer
 cart = box.collet_plate["fore_y"] - enclosure.cap_kiss - o[2] if box.collet_plate else 0.0
 print(json.dumps({"field": port_ring.THICK,
                   "collet": jg_bulkhead_union.PROUD_LENGTH,
+                  "seat": enclosure_assembly.bulkhead_seat_y() - o[3],
                   "cart": cart}))
 """
 
@@ -60,8 +62,9 @@ TREE = "hardware"
 
 
 def measure(root):
-    """What the room around the box owes it, read off the placed pack in its own
-    interpreter: the collet's proud length, its port ring's field, and the cartridge draw."""
+    """What the room around the box owes it, read off the placed pack in its own interpreter:
+    the collet's proud length, the plane it bears on, its port ring's field, and the cartridge
+    draw."""
     enc = root / "printed-parts" / "enclosure"
     r = subprocess.run(
         [sys.executable, "-c", _PROBE, str(enc)],
@@ -82,12 +85,15 @@ def main():
     variables = {"CABINET_CLEAR_H": f"{CABINET_CLEAR_H:.4g} mm"}
     m = measure(REPO / TREE)
 
-    # What the wall owes a fitting BEHIND it, off the two parts that state it: the
-    # collet stands proud of the face it bears on, and that face is its port ring's
-    # rather than the wall's.
+    # WHAT THE WALL OWES A FITTING BEHIND IT, and it is the SEAT PLANE that says how much.
+    # The fitting stands `collet` proud of the face its flange bears on, and `enclosure_assembly`
+    # strikes that face on the back wall's own outer surface — the ring's pocket is cut one
+    # `field` INTO the wall and the ring fills it, so the two come out one plane and the chip
+    # buys the tube behind the wall nothing. `seat` is that plane read against the rear face, so
+    # a pocket cut to any other depth moves this figure instead of being assumed away.
     variables["COLLET_PROUD"] = f"{m['collet']:g} mm"
     variables["PORT_RING_THICK"] = f"{m['field']:g} mm"
-    variables["TURN_IN"] = f"{TURN_IN_LEAD_BEND + m['collet'] + m['field']:g} mm"
+    variables["TURN_IN"] = f"{TURN_IN_LEAD_BEND + m['collet'] + m['seat']:g} mm"
 
     # WHAT THE FRONT OWES. The pump cartridge draws straight out of the bay with both pumps
     # aboard, so what the room has to give it is its own depth — exterior face to the aft
