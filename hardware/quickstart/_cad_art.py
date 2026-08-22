@@ -187,6 +187,20 @@ def _build_steps(work: Path) -> dict[str, Path]:
     _add_child(drop, parts["countertop"])
     drop_step = _export_colored(drop, work / "mount-drop.step")
 
+    seated = cq.Assembly(name="faucet-mount-seated")
+    for part_name in drop_names:
+        child = parts[part_name]
+        obj = lever_rest if part_name == "lever" else child.obj
+        if part_name in {"flavor_tube_pos_x", "flavor_tube_neg_x", "carb_supply_tube"}:
+            obj = _clip_z(obj, -125.0, 260.0)
+        _add_child(seated, child, obj=obj)
+    _add_child(seated, parts["countertop"])
+    seated_step = _export_colored(seated, work / "mount-seated.step")
+
+    # This full, direct-front assembly is an intermediate for the exact rear-wall tail crop. The
+    # lever is outside that crop; every pictured tube, sleeve and word collar comes from source CAD.
+    faucet_full_step = _export_colored(faucet, work / "faucet-full.step")
+
     underside_names = (
         "valve_body",
         "flavor_tube_pos_x",
@@ -212,14 +226,15 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
     # Sampling the exported solid confirms both plate channels open on +X. The loose plate starts
     # on -X so the mouths face the hanging shank/tubes and it installs by moving +X.
-    plate_magenta = cq.Color(0.90, 0.08, 0.36, 1.0)
+    plate_steel = cq.Color(0.72, 0.74, 0.76, 1.0)
+    nut_steel = cq.Color(0.48, 0.50, 0.54, 1.0)
     slide = cq.Assembly(name="faucet-mount-slide-plate")
     add_underside(slide)
     _add_child(
         slide,
         parts["under_counter_plate"],
         obj=_moved(parts["under_counter_plate"].obj, (-38.0, 0.0, 0.0)),
-        color=plate_magenta,
+        color=plate_steel,
     )
     slide_step = _export_colored(slide, work / "mount-slide.step")
 
@@ -241,13 +256,15 @@ def _build_steps(work: Path) -> dict[str, Path]:
         .extrude(8.0)
     )
     tight.add(washer, name="washer-stand-in", color=cq.Color(0.72, 0.74, 0.76, 1.0))
-    tight.add(nut, name="nut-stand-in", color=plate_magenta)
+    tight.add(nut, name="nut-stand-in", color=nut_steel)
     tight_step = _export_colored(tight, work / "mount-tighten.step")
 
     return {
         "faucet-head": head_step,
         "faucet-head-pressed": pressed_step,
+        "faucet-full": faucet_full_step,
         "mount-drop": drop_step,
+        "mount-seated": seated_step,
         "mount-slide": slide_step,
         "mount-tighten": tight_step,
     }
@@ -359,7 +376,9 @@ def main() -> None:
             _job(steps["faucet-head"], "faucet-head.png", (0.18, -1.0, 0.18)),
             _job(steps["faucet-head"], "faucet-side.png", (1.0, -1.4, 0.75)),
             _job(steps["faucet-head-pressed"], "faucet-side-pressed.png", (1.0, -1.4, 0.75)),
+            _job(steps["faucet-full"], work / "faucet-full-front.png", (0.0, -1.0, 0.28)),
             _job(steps["mount-drop"], "mount-drop.png", (1.0, -1.35, 0.72)),
+            _job(steps["mount-seated"], "mount-seated.png", (1.0, -1.35, 0.72)),
             _job(steps["mount-slide"], "mount-slide.png", (1.0, -1.3, -0.8)),
             _job(steps["mount-tighten"], "mount-tighten.png", (1.0, -1.3, -0.8)),
             _job(MACHINE_STEP, "machine-front.png", (1.0, -1.25, 0.72)),
@@ -380,6 +399,8 @@ def main() -> None:
 
         _crop("machine-front.png", "960x660+0+100", "machine-hopper-close.png")
         _crop(work / "machine-back.png", "720x560+180+300", "machine-back-close.png")
+        _crop(work / "faucet-full-front.png", "410x540+0+1060", "faucet-tails-front.png")
+        _crop("mount-tighten.png", "800x650+400+450", "mount-tighten-close.png")
 
 
 if __name__ == "__main__":
