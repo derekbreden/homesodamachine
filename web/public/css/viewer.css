@@ -927,22 +927,43 @@ summary.branch-head:focus-visible,
   opacity: 0.65;
 }
 
-/* --- /3d: the machine's three assemblies, each a branch -------------------
+/* --- /3d: the machine's three assemblies, and the shelf under them --------
 
-   A branch spans the page grid and nests its own inside it, the way .doc-shelf
-   does: the page's tracks stop at the branch, and the cards lay out on tracks
-   of their own. Which directory stands in which branch is
+   The row and the shelf each span the page grid and nest their own inside it,
+   the way .doc-shelf does: the page's tracks stop at them, and the cards lay
+   out on tracks of their own. What stands where is
    web/contracts/parts-tree.js. */
+
+/* Three cards across a wide window, one per row on a phone. Each is the width
+   the note wants rather than the width a part thumbnail takes, so the row does
+   not read as the first row of a longer grid. */
+.assembly-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card-assembly .label {
+  padding: 12px 14px 14px;
+  white-space: normal;
+}
+.card-assembly .label .name { font-size: 16px; font-weight: 600; }
+.card-assembly .assembly-note {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
 /* A band that bleeds into the page's own gutter, so the head's hover ground
    has an inset to sit in while the text inside it still lands on the column
    the cards and captions stand on. */
 details.branch {
   grid-column: 1 / -1;
-  margin: 0 -12px;
+  margin: 8px -12px 0;
   border-top: 1px solid var(--border);
 }
-/* The nav's own rule is directly above the first one. */
-details.branch:first-of-type { border-top: none; }
 summary.branch-head {
   cursor: pointer;
   list-style: none;
@@ -1021,37 +1042,6 @@ details.branch > summary.branch-head:hover .branch-caret {
   gap: 16px;
   padding: 10px 12px 24px;
 }
-.branch-body .subsection-header { opacity: 1; padding-top: 14px; }
-.branch-body .subsection-header:first-child { padding-top: 0; }
-.subsection-header .group-note {
-  display: block;
-  margin-top: 3px;
-  max-width: 68ch;
-  font-size: 11px;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  line-height: 1.5;
-  color: var(--text-3);
-}
-/* A group whose directory holds no exported part. */
-.empty-state.empty-group {
-  padding: 10px 0 4px;
-  text-align: left;
-  font-size: 12px;
-  font-style: italic;
-}
-
-/* The branch's own assembly, riding in the header beside the title — where the
-   text column leaves the width free, and where a collapsed branch still shows
-   it. */
-.card-hero { flex: 0 0 auto; width: 195px; }
-/* The renders are square, and the box is too. */
-.card-hero img,
-.card-hero .placeholder { aspect-ratio: 1; }
-.card-hero .label { font-size: 14px; }
-.card-hero .label .name { font-weight: 600; }
-
 /* A part's extra representations, one chip each. `.name` takes the ellipsis and
    `.kinds` does not shrink, so the chips stay in the label at any name length. */
 .card .label .name-row {
@@ -1084,7 +1074,7 @@ details.branch > summary.branch-head:hover .branch-caret {
 .card .label .kind:hover,
 .card .label .kind:focus-visible { color: var(--text); border-color: var(--accent); }
 
-/* The directories parts-tree.js seated nothing from. */
+/* The directories parts-tree.js claims nothing from. */
 .grid-warn {
   grid-column: 1 / -1;
   border: 1px solid var(--err);
@@ -1101,14 +1091,6 @@ details.branch > summary.branch-head:hover .branch-caret {
   font-size: 11px;
 }
 
-/* Too narrow for a column beside the note: the assembly takes its own row under
-   the header text. */
-@media (max-width: 760px) {
-  summary.branch-head { flex-wrap: wrap; }
-  /* On its own row it takes the row, rather than standing in a column half
-     the width of the cards below it. */
-  .card-hero { width: 100%; }
-}
 @media (max-width: 600px) {
   .branch-body {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

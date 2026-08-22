@@ -1,146 +1,154 @@
-// The parts tree — what /3d is a browse of, and where each part stands in it.
+// The parts tree — what /3d is a browse of.
 //
-// THREE ASSEMBLIES ARE THE TOP LEVEL, and everything the repository fabricates
-// stands inside one of them:
+// THE PAGE IS THE MACHINE'S THREE ASSEMBLIES, one thumbnail each:
 //
-//   Enclosure assembly   manifold-layout/enclosure-assembly.step
-//   Cold core            cold-core-layout/cold-core-assembly.step
-//   Faucet               faucet-layout/faucet-assembly.step
+//   Enclosure assembly    manifold-layout/enclosure-assembly.step
+//   Cold core assembly    cold-core-layout/cold-core-assembly.step
+//   Faucet assembly       faucet-layout/faucet-assembly.step
 //
-// with purchased geometry on a shelf of its own below them — hardware/README.md
-// says what `reference/` is.
+// A PART INSIDE AN ASSEMBLY IS REACHED BY SELECTING IT THERE. Open the assembly,
+// arm Select → Component, click the solid: the panel names the component and
+// offers the file it was modelled in, which loads into the same modal with the
+// trail back (contracts/component-sources.js, viewer/component-picker.js,
+// viewer/step-nav.js). The page lists neither those parts nor the purchased
+// geometry the assemblies place.
 //
-// EACH OF THE FOUR IS HEADED BY ONE MODEL, its `model`, claimed ahead of what
-// stands under it so it leads rather than falling in among its own parts.
+// WHAT NO ASSEMBLY HANDS OVER STANDS ON A SHELF UNDER THE THREE — the moulds,
+// mandrels, gauges and print coupons a bench makes in order to make the machine;
+// the soft parts modelled beside their host without a seat in it; the bench
+// scenes, each a picture of a group of bodies rather than a body; and the two cut
+// plates, whose shape an assembly does place and whose file is a `.dxf` the
+// drill-down does not open.
 //
-// A BRANCH'S GROUPS ARE THE READING ITS OWN DOC TAKES. The cold core's are
-// hardware/future.md "Cold core (inside out)" — vessel, coil, shell, reservoirs,
-// sensing; the enclosure's are hardware/printed-parts/enclosure/README.md "Where
-// the pack stands"; the faucet's are the two halves of the stack `future.md`
-// names in one sentence under "User-facing surfaces". A group's `holds` is
-// directories, so a part added under one appears in it with no edit here — and
-// single files only where one directory's contents belong to more than one
-// assembly, which is `scenes/glb/` and nothing else. A directory no group claims
-// comes back in `unseated` and the page names it.
+// EVERY FILE THE WALKERS OFFER IS CLAIMED: `LOOSE.holds` takes the shelf,
+// `INSIDE_DIRS` names the directories an assembly places from, and a directory in
+// neither comes back in `unseated`, which the page names.
 //
-// A PART IS A NAME, NOT A FILE. `endcap-circular-2hole` is a `.step` solid and
-// the `.dxf` the laser reads, and it is one part with two representations —
+// A PART IS A NAME, NOT A FILE. `endcap-circular-2hole` is a `.step` solid and the
+// `.dxf` the laser reads, and it is one part with two representations —
 // `seatParts` folds files sharing a stem in a directory into one card carrying
 // both.
 //
 // Produced from web/lib/walk.js's file lists by way of /api/{steps,dxf,glbs};
 // consumed by web/public/js/viewer/parts.js; pinned by web/tests/parts-tree.test.js.
-
-// Scene GLBs stand under the assembly whose pieces they are a picture of.
-// hardware/assembly/scenes/_scenes.py states each scene's `roots`, and the
-// branch is which assembly those roots belong to. This is the one list here
-// naming files rather than directories, so a scene added there is a line owed
-// here — the pre-commit gate "every file /3d browses is seated" is what says so,
-// and web/tests/parts-tree.test.js is what it runs.
-const SCENES = "assembly/scenes/glb";
+//
+// EVERY PICTURE THIS REPOSITORY DRAWS COMES THROUGH THE PAGE THIS BUILDS. The
+// render family in tools/render/ — render-step.js, render-step-posed.js (which
+// hardware/assembly/scenes/render_scenes.py drives), render-dxf.js,
+// render-view.js, render-step-side-by-side.js, render-thumbnails.js,
+// screenshot-site.js — each stands the server and opens `/3d`, and `main.js`
+// runs `applyInitialRoute` only after `buildGrid`. So a throw in `seatParts` or
+// in `parts.js` never reaches a browser a person is looking at: it reaches a CAD
+// build, as a mount that never happens and a two-minute timeout on a scene.
 
 // `assembly/scenes/out/` is where render_scenes.py lays a scene down on its way
 // to the GLB beside it. .gitignore holds it; a machine that has rendered scenes
 // carries it and the repository does not.
 export const EXCLUDED_DIRS = ["assembly/scenes/out"];
 
-export const BRANCHES = [
+// Scene GLBs are named one by one rather than by their directory, so a scene added
+// in hardware/assembly/scenes/_scenes.py is a line owed here — that file says so,
+// and the unseated gate is what enforces it.
+const SCENES = "assembly/scenes/glb";
+
+export const ASSEMBLIES = [
   {
     id: "enclosure-assembly",
     label: "Enclosure assembly",
     model: "manifold-layout/enclosure-assembly.step",
     note: "The packed appliance — the refrigeration stratum, the flavor manifold standing " +
           "on it, and the printed box around them. It places the cold core as one solid; " +
-          "the core's own pieces are the branch below.",
-    groups: [
-      { id: "box", label: "Enclosure", holds: ["printed-parts/enclosure"],
-        note: "Four telescoping pieces, the faces let into them, and the ports through them." },
-      { id: "manifold", label: "Flavor manifold", holds: ["manifold-layout"],
-        note: "The valve-and-pump pack that sets down on the refrigeration stratum's crown." },
-      { id: "hopper", label: "Hopper", holds: ["printed-parts/zone-c"],
-        note: "The funnel concentrate is poured into, and the mold it is cast in." },
-      { id: "electronics", label: "Electronics", holds: ["printed-parts/electronics", "pcb"],
-        note: "The controller board, and the bench view of it seated on its tray." },
-      { id: "refrigeration", label: "Refrigeration", holds: ["printed-parts/refrigeration"],
-        note: "The clamp holding the thermal fuse on the compressor's AC primary." },
-      { id: "valve-seats", label: "Valve seats", holds: ["printed-parts/valve-seat"],
-        note: "How a valve is held on a printed face." },
-      { id: "scenes", label: "Bench scenes",
-        holds: [`${SCENES}/back-top.glb`, `${SCENES}/front-top.glb`,
-                `${SCENES}/pump-cartridge.glb`, `${SCENES}/back-half.glb`,
-                `${SCENES}/hopper-drain.glb`, `${SCENES}/en04-stratum.glb`,
-                `${SCENES}/en06-column.glb`],
-        note: "One unit per picture, as it stands on the bench that builds it — a printed " +
-              "piece carrying what fastens to it, or a group of bodies the bench names " +
-              "together." },
-    ],
+          "the core's own pieces are in the assembly below.",
   },
   {
     id: "cold-core",
-    label: "Cold core",
+    label: "Cold core assembly",
     model: "cold-core-layout/cold-core-assembly.step",
     note: "The core as the bench sees it — the vessel that fills it, the coil wound on that, " +
           "both reservoirs in their pockets, every fitting made up, and the lines among them.",
-    groups: [
-      { id: "vessel", label: "Vessel",
-        holds: ["cut-parts/carbonation", "printed-parts/cold-core/copper-plugs",
-                "printed-parts/cold-core/prv-shroud"],
-        note: "The carbonator: its cut end caps, the plugs in its ports, the relief shroud." },
-      { id: "coil", label: "Evaporator coil", holds: ["printed-parts/cold-core/coil-mandrel"],
-        note: "The mandrel the copper is wound on." },
-      { id: "shell", label: "Foam shell",
-        holds: ["printed-parts/cold-core/foam-shell", "printed-parts/cold-core/foam-cap",
-                "printed-parts/cold-core/foam-assembly"],
-        note: "The six printed pieces the pour goes into, and the outside faces the " +
-              "enclosure loads." },
-      { id: "reservoirs", label: "Reservoirs", holds: ["printed-parts/cold-core/reservoir"],
-        note: "Two vented printed vessels, nested in the foam where they pre-chill." },
-      { id: "sensing", label: "Level sensing", holds: ["printed-parts/cold-core/reed-bridge"],
-        note: "The reed carrier that reads a float through a wall, and its setting gauge." },
-      { id: "scenes", label: "Bench scenes",
-        holds: [`${SCENES}/cold-core.glb`, `${SCENES}/cold-core-open.glb`,
-                `${SCENES}/cap-lid.glb`, `${SCENES}/cap-lid-fill.glb`],
-        note: "The core at the stages its own bench hands on." },
-    ],
   },
   {
     id: "faucet",
-    label: "Faucet",
+    label: "Faucet assembly",
     model: "faucet-layout/faucet-assembly.step",
     note: "The column the counter is clamped in: the printed stack around the harvested " +
           "Westbrass body, the display on the tip, and the three tubes running down past " +
           "the cut plate into the umbilical.",
-    groups: [
-      { id: "shell", label: "Shell", holds: ["printed-parts/faucet/touch-flo-shell"],
-        note: "The dispense head, whole and in the three pieces it prints as." },
-      { id: "mount", label: "Mount",
-        holds: ["printed-parts/faucet/touch-flo-mounting-plate",
-                "printed-parts/faucet/touch-flo-mounting-gasket",
-                "printed-parts/faucet/touch-flo-tpu-o-ring", "cut-parts/faucet"],
-        note: "Plate, gasket and o-ring above the counter; the cut plate below it." },
-      { id: "collar", label: "Tube collars", holds: ["printed-parts/faucet/tube-collar"],
-        note: "One per rear-wall crossing, carrying that station's word and colour onto the " +
-              "tube itself. Three go on at the umbilical bench; the tap and CO2 pair ride in " +
-              "the install kit, for the runs the customer cuts." },
-    ],
   },
 ];
 
-// Purchased geometry, on its own shelf, ungrouped — each card carries its own
-// directory. hardware/README.md: imported / harvested reference STEPs.
-//
-// The shelf takes a `model` the way a branch does, and the ASSE 1022 backflow
-// chain is what stands in it: three purchased fittings made up into one body, so
-// it is the shelf's own subject matter in one picture. It does not contain the
-// rest of the shelf the way the three assemblies contain their branches.
-export const REFERENCE = {
-  id: "reference",
-  label: "Reference",
-  model: "reference/asse1022-assembly/asse1022-assembly.step",
-  holds: ["reference", "off-the-shelf-parts"],
-  note: "Purchased parts, modelled so the assemblies can place them. Nothing here is made " +
-        "by this project.",
+// The shelf. A mixed directory is named file by file:
+// `printed-parts/cold-core/reservoir` holds four parts the cold core seats and
+// three soft ones it does not.
+export const LOOSE = {
+  id: "loose",
+  label: "Not reachable from an assembly",
+  note: "What none of the three above hands over: the moulds, mandrels, gauges and print " +
+        "coupons a bench makes in order to make the machine; the gaskets, washers and rings " +
+        "modelled beside their host without a seat in it; the bench scenes, each a picture of " +
+        "a group of bodies rather than a body; and the two cut plates, which an assembly " +
+        "places as a shape and keeps as a drawing.",
+  holds: [
+    // Tooling and test prints — made to make the machine, never part of it.
+    "printed-parts/cold-core/coil-mandrel",
+    "printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
+    "printed-parts/enclosure/texture-coupon-vent",
+    "printed-parts/enclosure/texture-coupons",
+    "printed-parts/zone-c/hopper-funnel-mold",
+    // Modelled beside their host and seated in no assembly. The assemblies build
+    // their own washers and seals as primitives; the routes solid and the pcba
+    // tray stand beside the stacks rather than in them.
+    "printed-parts/cold-core/foam-assembly/internal-routes.step",
+    "printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+    "printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
+    "printed-parts/cold-core/reservoir/reservoir-gasket.step",
+    "printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
+    "printed-parts/electronics/pcba-tray/pcba-assembly.step",
+    // The cut plates. Their shape stands in an assembly — `collet-plate` in the
+    // enclosure, `under_counter_plate` in the faucet — and the file the laser
+    // reads is a `.dxf`, which the drill-down out of a STEP does not open.
+    "cut-parts/faucet/touch-flo-under-counter-plate",
+    "manifold-layout/collet-plate.dxf",
+    // Bench scenes — one unit per picture, as it stands on the bench that builds
+    // it. hardware/assembly/scenes/_scenes.py states each scene's roots.
+    `${SCENES}/back-half.glb`, `${SCENES}/back-top.glb`, `${SCENES}/cap-lid.glb`,
+    `${SCENES}/cap-lid-fill.glb`, `${SCENES}/cold-core.glb`, `${SCENES}/cold-core-open.glb`,
+    `${SCENES}/en04-stratum.glb`, `${SCENES}/en06-column.glb`, `${SCENES}/front-top.glb`,
+    `${SCENES}/hopper-drain.glb`, `${SCENES}/pump-cartridge.glb`,
+  ],
 };
+
+// The directories the three assemblies place from — the printed and cut parts,
+// the sub-layouts, the board, and the purchased geometry under `reference/` that
+// hardware/README.md describes. The page lists none of it; a part is reached by
+// selecting its solid in the assembly that stands it up. A directory nobody has
+// placed anywhere is in neither this list nor the shelf, and comes back unseated.
+export const INSIDE_DIRS = [
+  "cold-core-layout",
+  "cut-parts/carbonation",
+  "faucet-layout",
+  "manifold-layout",
+  "off-the-shelf-parts",
+  "pcb",
+  "printed-parts/cold-core/copper-plugs",
+  "printed-parts/cold-core/foam-assembly",
+  "printed-parts/cold-core/foam-cap",
+  "printed-parts/cold-core/foam-shell",
+  "printed-parts/cold-core/prv-shroud",
+  "printed-parts/cold-core/reed-bridge",
+  "printed-parts/cold-core/reservoir",
+  "printed-parts/electronics",
+  "printed-parts/enclosure",
+  "printed-parts/faucet/touch-flo-mounting-gasket",
+  "printed-parts/faucet/touch-flo-mounting-plate",
+  "printed-parts/faucet/touch-flo-shell",
+  "printed-parts/faucet/touch-flo-tpu-o-ring",
+  "printed-parts/faucet/tube-collar",
+  "printed-parts/refrigeration",
+  "printed-parts/valve-seat",
+  "printed-parts/zone-c",
+  "reference",
+];
 
 // --- reading a file list into the tree ---------------------------------------
 
@@ -200,9 +208,11 @@ function toParts(entries) {
  * Seat every file the walkers offer into the tree.
  *
  * @param {{steps: string[], dxfs: string[], glbs: string[]}} files root-relative paths
- * @returns {{branches: Object[], reference: Object, unseated: string[]}}
- *   `unseated` names every directory holding a file no group claims — a gap the
- *   page shows rather than swallows.
+ * @returns {{assemblies: Object[], loose: Object, inside: Object[], unseated: string[]}}
+ *   `assemblies` each carry the `model` part the page draws; `loose` carries the
+ *   shelf's `parts`; `inside` is what the assemblies place, which the page does
+ *   not draw and the gate counts. `unseated` names every directory holding a file
+ *   nothing claims — a gap the page shows rather than swallows.
  */
 export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
   const pool = [
@@ -218,22 +228,16 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
     return toParts(got);
   };
 
-  const branches = BRANCHES.map((b) => {
-    // The branch's own model is claimed before its groups, so the assembly
-    // leads the branch rather than falling into the group that shares its
-    // directory (`enclosure-assembly.step` sits beside `manifold-layout.step`).
-    const hero = b.model ? claim([b.model])[0] || null : null;
-    return { ...b, hero, groups: b.groups.map((g) => ({ ...g, parts: claim(g.holds) })) };
-  });
-
-  // Same order as a branch: the shelf's model is claimed first, so it heads the
-  // shelf instead of standing again among the parts alphabetically below it.
-  const referenceHero = REFERENCE.model ? claim([REFERENCE.model])[0] || null : null;
-  const reference = { ...REFERENCE, hero: referenceHero, parts: claim(REFERENCE.holds) };
+  // Order matters: each assembly's own model first, so it is the card and not one
+  // of the parts under the directory it shares; then the shelf, which names files
+  // inside directories the assemblies otherwise sweep whole.
+  const assemblies = ASSEMBLIES.map((a) => ({ ...a, model: claim([a.model])[0] || null }));
+  const loose = { ...LOOSE, parts: claim(LOOSE.holds) };
+  const inside = claim(INSIDE_DIRS);
 
   const unseated = [...new Set(
     pool.filter((e) => !taken.has(e.file)).map((e) => dirOf(e.file)),
   )].sort();
 
-  return { branches, reference, unseated };
+  return { assemblies, loose, inside, unseated };
 }

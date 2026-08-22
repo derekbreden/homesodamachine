@@ -56,6 +56,16 @@
 // that failed. A partial render that reports success is the one outcome this
 // must not have.
 //
+// AND A PAGE THAT THREW IS NOT A PICTURE. An uncaught exception in the viewer —
+// a `seatParts` that cannot read its tree, a module that fails to import — leaves
+// the page standing, the canvas mounted and `toDataURL` answering, so a run that
+// only watched its own awaits photographed whatever survived and exited 0. Every
+// `pageerror` is collected on the page and the job holding it fails by name.
+// `pageerror` IS THE UNCAUGHT-EXCEPTION EVENT and nothing else: the four misses a
+// clean run makes — `/api/step-editor/overrides`, `/api/step-scorecard/…`,
+// `/meshes/….step.mesh`, `/steps/….step` — arrive as console entries behind an
+// `onerror` fallback, and no 404 is read here.
+//
 // AND A PICTURE IS THE SAME PICTURE WHEREVER IN A RUN IT IS DRAWN. Everything
 // the viewer keeps between mounts — the shared shading materials, the edge
 // materials' pixel resolution, the scene fog scene.js's animate loop refits on
@@ -199,6 +209,19 @@ async function readJobs(where) {
   return parsed.map(job);
 }
 
+// Whatever the page threw since this was last asked, as one error. Draining is
+// what makes it per-job: a page carried across subjects reports each throw once,
+// against the picture that was being drawn when it happened.
+function throwIfPageErrored(page, when) {
+  const errs = page && page.__hsmPageErrors;
+  if (!errs || !errs.length) return;
+  page.__hsmPageErrors = [];
+  throw new Error(
+    `the viewer threw while ${when} — a page that threw is not a picture:\n    ` +
+    errs.join("\n    "),
+  );
+}
+
 // Stand the viewer on a fresh page with `stepRel` mounted. This is the whole of
 // what a one-picture invocation ever did, and it is what a job asking for a new
 // viewport gets.
@@ -210,7 +233,11 @@ async function openViewer(browser, port, stepRel, opts) {
     deviceScaleFactor: 1,
   });
 
-  page.on("pageerror", (err) => console.error("pageerror:", err.message));
+  page.__hsmPageErrors = [];
+  page.on("pageerror", (err) => {
+    console.error("pageerror:", err.message);
+    page.__hsmPageErrors.push(err.message || String(err));
+  });
   page.on("console", (msg) => {
     const t = msg.type();
     if (t === "error" || t === "warning") console.error(`console.${t}:`, msg.text());
@@ -233,11 +260,21 @@ async function openViewer(browser, port, stepRel, opts) {
   );
 
   console.log("waiting for STEP to mount (occt-import-js parse)...");
-  await page.waitForFunction(
-    (want) => window.__hsm && window.__hsm.mountedStepFile === want,
-    { timeout: 120000 },
-    stepRel,
-  );
+  // A THROW IS THE REASON THE WAIT NEVER COMES TRUE. `main.js` applies the route
+  // in `fetchFiles().then(…)`, so an exception anywhere in the grid rejects that
+  // chain and the mount this is waiting on never happens — reported, without
+  // this, as a two-minute deadline against a condition, with the cause a line of
+  // stdout somebody has to go and find.
+  try {
+    await page.waitForFunction(
+      (want) => window.__hsm && window.__hsm.mountedStepFile === want,
+      { timeout: 120000 },
+      stepRel,
+    );
+  } catch (err) {
+    throwIfPageErrored(page, "standing the viewer up");
+    throw err;
+  }
 
   return page;
 }
@@ -388,6 +425,9 @@ async function shoot(page, outAbs, opts) {
   }, { ...opts, __debug: !!process.env.HSM_POSE_DEBUG });
 
   console.log("reading the frame back...");
+  // Before the write, so a frame composed against a page that threw never
+  // reaches the tree as a picture.
+  throwIfPageErrored(page, "drawing the frame");
   if (shot.state) console.log("POSEDEBUG " + path.basename(outAbs) + " " + JSON.stringify(shot.state));
   const raw = frameBuffer(shot.png);
 
@@ -440,6 +480,9 @@ async function renderAll(jobs) {
           page = await openViewer(browser, port, stepRel, opts);
           pageSize = want;
         }
+        // Before the frame: a boot or a mount that threw has already left the
+        // page holding something other than this subject, drawn or not.
+        throwIfPageErrored(page, "standing the viewer up");
         await shoot(page, outAbs, opts);
       } catch (err) {
         const why = err.message || String(err);
