@@ -140,20 +140,21 @@ assert not _trays, (
     f"the machine places {len(_trays)} body(ies) under its valves and pumps ({_trays}) — a seat "
     f"is printed into the piece that carries it, and bom.md §7 bills no part standing under one")
 
-# NO SHEET-METAL COVER SHIPS OVER THE COMPRESSOR, and that too is read off the placed machine.
-# The compressor stands bare on the floor slab, bolted down through its own plate holes, with
-# its terminal block and clip-on PTC open to the cabinet — the fire-enclosure gap `regulatory.md`
-# carries against 60335-2-24. So §5 buys no cut cover, no pass-through gland and no bond stud for
-# one, and THAT ONE BODY appearing in the placed machine is what fails here.
+# NO ADDED SHEET-METAL COVER SHIPS OVER THE COMPRESSOR, and that too is read off the placed
+# machine. The terminal block and clip-on PTC remain under the R-600a donor's own moulded cover,
+# which is part of the harvested compressor assembly rather than a separately billed or placed
+# body. So §5 buys no cut cover, no pass-through gland and no bond stud for one, and THAT ONE
+# ADDED BODY appearing in the placed machine is what fails here.
 #
 # Named, not matched on a substring. `prv-shroud` (`printed-parts/cold-core/prv-shroud/`) is a
 # live printed part with a §7 row and a mass of its own, and the day it joins the pack a
 # substring test would fail here holding out §5's compressor rows for a part that is not the
 # compressor's.
-COMPRESSOR_COVER = "compressor-shroud"
-_cover = {COMPRESSOR_COVER} & _placed
+ADDED_COMPRESSOR_COVER = "compressor-shroud"
+_cover = {ADDED_COMPRESSOR_COVER} & _placed
 assert not _cover, (
-    f"the machine places `{COMPRESSOR_COVER}` and bom.md §5 bills no cover over the compressor "
+    f"the machine places `{ADDED_COMPRESSOR_COVER}` and bom.md §5 bills no added sheet-metal "
+    f"cover over the compressor "
     f"— add the cut-part row, its cable gland and its bond back with it")
 
 # And the cradles hold valves this machine actually has. A row for a body the pack does not

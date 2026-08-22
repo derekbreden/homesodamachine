@@ -100,7 +100,7 @@ A stainless-finger cold plate, purpose-built for ice-cube formation. **Discarded
 
 ### Powering and control (AC wiring)
 
-The compressor is a single-phase AC hermetic with a **combined PTC start relay + overload protector** clipped to its terminal block. External connection is **two wires (black + white) coming out of that module**, not directly from the compressor pins. Believed to be **110–120 VAC** based on US market origin and the 110 V rating on the hot-gas bypass solenoid — verify the compressor nameplate before energizing.
+The compressor is a single-phase AC hermetic with a **combined PTC start relay + overload protector** clipped to its terminal block. The module and terminal block sit under the donor's moulded power-box cover; retain that cover and its original retention intact. For Unit A, external connection is **two wires (black + white) coming out of that module**, not directly from the compressor pins, so bench wiring joins those leads outside the cover rather than opening it. Believed to be **110–120 VAC** based on US market origin and the 110 V rating on the hot-gas bypass solenoid — verify the compressor nameplate before energizing.
 
 For bench testing, plug into standard 120 VAC through an **inline fuse** (5 A fast-blow is comfortable for expected ~1 A running + LRA inrush). A Kill-A-Watt inline lets you observe the LRA spike, steady running draw, and confirm the compressor is doing real work rather than just humming.
 
@@ -148,3 +148,7 @@ This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge 
 - 115 V ~ 60 Hz, 1 PH, LRA 5.7 A
 - Hermetic reciprocating, thermally protected, UL / CSM listed
 - Body cast-stamp: **45** (mid-housing). **Not** a charge mass — factory charge is 23 g per the manual above. Most likely a compressor displacement or capacity-index code; not decoded.
+
+### Powering and control (teardown pending)
+
+Inspection confirms the compressor's moulded power-box cover over the terminal/PTC assembly; retain it and its original retention intact. Unit B's factory-external electrical interface, lead colors, connector family, polarity mapping, and retained harness length are not yet recorded. Do not inherit Unit A's black/white pigtail details. Close this at teardown before AC-4/5 production wiring; direct access to the terminal block under the cover is not a fallback.
