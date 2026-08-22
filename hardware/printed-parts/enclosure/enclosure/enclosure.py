@@ -1433,7 +1433,7 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 # it, the way every other figure this block is cut from parts on that plane.
 grip_run = 24.0              # a grip's opening fore and aft — a finger's width and its curl
 grip_sill = _tray.PLATE      # the whole tray/web plate left under the deck's grip
-grip_head = 8.0              # and over it, under the ceiling the motor cans open through
+grip_head = wall             # and over it, one whole wall under the open motor-can ceiling
 grip_back = 2.0 * wall       # deck section between the grip floor and the pump's room
 grip_cap_back = wall         # cap section between its grip floor and the pump head's room
 grip_aft = wall              # and between its aft wall and the face that lands on the steel
