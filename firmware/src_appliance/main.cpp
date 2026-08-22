@@ -110,6 +110,7 @@ static void help() {
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  link              J9 frames, bytes, echo");
     Serial.println("  ping              put a frame on the pair and read its echo back");
+    Serial.println("  display usb       make the externally-powered display reattach to USB");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -259,6 +260,7 @@ static void console(const String &line) {
     if (line == "status")      { status(); return; }
     if (line == "link")        { linkReport(); return; }
     if (line == "ping")        { linkPing(); return; }
+    if (line == "display usb") { linkDisplayUsbReattach(); return; }
     if (line == "stop")        { machineStop(); return; }
     if (line.startsWith("sound"))  { cmdSound(line);  return; }
     if (line.startsWith("volume")) { cmdVolume(line); return; }

@@ -24,6 +24,7 @@ static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 
 static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
+static bool displayUsbReattachAck = false;
 
 // What the controller currently holds, as the glass reads it.
 static void fillSoundCfg(SoundCfgPayload &c) {
@@ -122,6 +123,11 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // after whatever the command sets in motion. Anything the machine decides
     // next — a refusal, a chime — outranks PRIO_UI and pre-empts it.
     if (isUserAction(type)) soundPlay(SND_TICK);
+
+    if (type == MSG_RESP_DISPLAY_USB_REATTACH) {
+        displayUsbReattachAck = true;
+        return;
+    }
 
     // A hold: START on finger down, TICK every PRIME_TICK_MS while it stays down,
     // STOP on lift. The machine announces all three, and a refusal.
@@ -230,6 +236,166 @@ void linkBegin() {
 }
 
 void linkService() { j9.service(); }
+
+// ── Development USB recovery ─────────────────────────────────────────────
+//
+// The Waveshare puts RS485 on GPIO43/44. In the application those pads are UART1;
+// in the ESP32-S3 ROM download loader they are UART0. A USB upload aimed at the wrong
+// board can leave that ROM loader running, so the same J9 pair that normally carries
+// HDLC can safely ask it to run the existing flash image. The sequence is esptool's
+// ROM "soft reset": SYNC, zero-length FLASH_BEGIN, FLASH_END(run). A zero-length begin
+// erases and writes nothing.
+
+static size_t slipPacket(uint8_t *out, size_t cap, uint8_t op,
+                         const uint8_t *data, uint16_t len) {
+    uint8_t packet[64];
+    if ((size_t)len + 8 > sizeof(packet)) return 0;
+    packet[0] = 0x00;       // host -> ROM
+    packet[1] = op;
+    packet[2] = (uint8_t)(len & 0xff);
+    packet[3] = (uint8_t)(len >> 8);
+    memset(packet + 4, 0, 4);   // checksum; these commands use zero
+    if (len) memcpy(packet + 8, data, len);
+
+    size_t n = 0;
+    if (n < cap) out[n++] = 0xc0;
+    for (size_t i = 0; i < (size_t)len + 8; i++) {
+        uint8_t b = packet[i];
+        if (b == 0xc0 || b == 0xdb) {
+            if (n + 2 > cap) return 0;
+            out[n++] = 0xdb;
+            out[n++] = b == 0xc0 ? 0xdc : 0xdd;
+        } else {
+            if (n + 1 > cap) return 0;
+            out[n++] = b;
+        }
+    }
+    if (n + 1 > cap) return 0;
+    out[n++] = 0xc0;
+    return n;
+}
+
+static bool rawWrite(const uint8_t *bytes, size_t len) {
+    while (Serial1.available()) Serial1.read();
+    Serial1.write(bytes, len);
+    Serial1.flush();
+
+    // U7 receives while it drives, so its own packet comes back before the far end
+    // can answer. Remove only an exact echo; a mismatch is a collision, not a reply.
+    size_t echoed = 0;
+    unsigned long until = millis() + 100;
+    while (echoed < len && (long)(millis() - until) < 0) {
+        if (!Serial1.available()) { delay(1); continue; }
+        if ((uint8_t)Serial1.read() != bytes[echoed++]) return false;
+    }
+    return echoed == len;
+}
+
+static bool rawResponse(uint8_t wantedOp, unsigned long timeoutMs) {
+    uint8_t packet[64];
+    size_t n = 0;
+    bool inFrame = false, escaped = false;
+    unsigned long until = millis() + timeoutMs;
+
+    while ((long)(millis() - until) < 0) {
+        if (!Serial1.available()) { delay(1); continue; }
+        uint8_t b = (uint8_t)Serial1.read();
+        if (b == 0xc0) {
+            if (inFrame && n >= 10) {
+                // response, operation, payload length, value, then status. ESP32-S3
+                // ROM responses carry a zero status byte at packet[8]. Extra SYNC
+                // replies are expected and skipped while waiting for the next op.
+                uint16_t plen = (uint16_t)packet[2] | ((uint16_t)packet[3] << 8);
+                if (packet[0] == 0x01 && packet[1] == wantedOp &&
+                    plen <= n - 8 && plen >= 2 && packet[8] == 0) return true;
+            }
+            inFrame = true; escaped = false; n = 0;
+            continue;
+        }
+        if (!inFrame) continue;
+        if (escaped) {
+            if (b == 0xdc) b = 0xc0;
+            else if (b == 0xdd) b = 0xdb;
+            else { inFrame = false; n = 0; }
+            escaped = false;
+        } else if (b == 0xdb) {
+            escaped = true;
+            continue;
+        }
+        if (n < sizeof(packet)) packet[n++] = b;
+        else { inFrame = false; n = 0; }
+    }
+    return false;
+}
+
+static bool romCommand(uint8_t op, const uint8_t *data, uint16_t len,
+                       unsigned long timeoutMs) {
+    uint8_t framed[96];
+    size_t n = slipPacket(framed, sizeof(framed), op, data, len);
+    return n && rawWrite(framed, n) && rawResponse(op, timeoutMs);
+}
+
+static bool displayRomRun() {
+    // esptool loader.py: sync payload, then ESP32-S3's five-word FLASH_BEGIN.
+    uint8_t sync[36] = {0x07, 0x07, 0x12, 0x20};
+    memset(sync + 4, 0x55, 32);
+    const uint8_t flashBegin[20] = {
+        0,0,0,0,  0,0,0,0,  0x00,0x04,0,0,  0,0,0,0,  0,0,0,0
+    };
+    const uint8_t flashEnd[4] = {1, 0, 0, 0};   // run user code, do not reboot to loader
+
+    j9.end();
+    Serial1.end();
+    Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
+    while (Serial1.available()) Serial1.read();
+
+    bool synced = romCommand(0x08, sync, sizeof(sync), 500);
+    bool began = synced && romCommand(0x02, flashBegin, sizeof(flashBegin), 500);
+
+    bool finishSent = false;
+    if (began) {
+        uint8_t framed[32];
+        size_t n = slipPacket(framed, sizeof(framed), 0x04, flashEnd, sizeof(flashEnd));
+        // The ROM can jump before finishing its reply. Exact local echo proves the
+        // command reached U7 and the pair; SYNC + FLASH_BEGIN proved who was listening.
+        finishSent = n && rawWrite(framed, n);
+        delay(750);
+    }
+
+    Serial1.end();
+    Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
+    j9.onMessage = onMessage;
+    j9.begin(j9Stream, "J9");
+    return began && finishSent;
+}
+
+bool linkDisplayUsbReattach() {
+    displayUsbReattachAck = false;
+
+    // The current application gets first refusal. Retry because this explicit
+    // development request is the rare controller-originated frame and can meet a
+    // status poll on the half-duplex pair.
+    for (uint8_t attempt = 0; attempt < 3 && !displayUsbReattachAck; attempt++) {
+        j9.send(MSG_DISPLAY_USB_REATTACH, nullptr, 0);
+        unsigned long until = millis() + 200;
+        while ((long)(millis() - until) < 0 && !displayUsbReattachAck) {
+            j9.service();
+            delay(2);
+        }
+    }
+    if (displayUsbReattachAck) {
+        Serial.println("\nDISPLAY_USB:APP accepted — USB PHY will detach and timer-wake");
+        return true;
+    }
+
+    Serial.println("\nDISPLAY_USB: no application ack; probing the ROM loader on J9 UART0");
+    if (displayRomRun()) {
+        Serial.println("DISPLAY_USB:ROM run command sent — existing flash image is starting");
+        return true;
+    }
+    Serial.println("DISPLAY_USB:UNREACHABLE — neither the application nor ROM loader answered");
+    return false;
+}
 
 // The one thing here that speaks unprompted, and it is a bench command: it exists
 // to prove this board's half of the pair carries, with nobody expected to answer.

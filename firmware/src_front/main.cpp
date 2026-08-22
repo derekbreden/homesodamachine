@@ -9,6 +9,7 @@
 #include "fw_version.h"
 #include "proto_link.h"
 #include <driver/gpio.h>
+#include <esp_sleep.h>
 #include "soc/gpio_reg.h"
 #include "soc/io_mux_reg.h"
 
@@ -256,6 +257,8 @@ static uint8_t lastStatus = 0;
 static uint32_t maxLoopMs = 0;
 static bool backlightOn = false;
 static bool displayReady = false;  // false if the panel failed to init
+static bool usbReattachPending = false;
+static unsigned long usbReattachAt = 0;
 
 // ════════════════════════════════════════════════════════════
 //  CH422G expander
@@ -730,6 +733,19 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   char buf[64];
 
   unanswered = 0;   // anything arriving says the far end is still hearing us
+
+  if (type == MSG_DISPLAY_USB_REATTACH) {
+    // Answer while the pair is still ours, then leave enough time for the UART to
+    // put the frame on the wire. Deep sleep is intentional here rather than
+    // ESP.restart(): Espressif documents that deep sleep powers down the S3's USB
+    // Serial/JTAG PHY and drops D+, so timer wake presents a real detach/attach to
+    // a host even though J9 keeps VIN standing.
+    link->sendResponse(MSG_RESP_DISPLAY_USB_REATTACH, 0);
+    usbReattachPending = true;
+    usbReattachAt = millis() + 100;
+    Serial.println("[J9] USB reattach accepted — deep-sleep detach in 100 ms");
+    return;
+  }
 
   if (type == MSG_RESP_PUMP_DONE && plen >= sizeof(ResponsePayload)) {
     Serial.printf("[J9] MSG_RESP_PUMP_DONE ch=%u\n", payload[0]);
@@ -1992,6 +2008,14 @@ void loop() {
 
   j9Pump();      // at most one frame on the wire at a time
   j9.service();
+
+  if (usbReattachPending && (long)(millis() - usbReattachAt) >= 0) {
+    // 500 ms is long beside USB's detach debounce and short beside this panel's
+    // normal startup. The timer wake is a reset, so nothing below returns.
+    setBacklight(false);
+    esp_sleep_enable_timer_wakeup(500000);
+    esp_deep_sleep_start();
+  }
 
   // Panel reset, then the light, then the frames start moving again.
   if (kickStage) {

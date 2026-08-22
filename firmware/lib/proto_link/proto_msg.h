@@ -62,6 +62,16 @@ constexpr uint8_t MSG_SOUND_CFG_GET  = 0x21;  // no payload: answer with SoundCf
 constexpr uint8_t MSG_SOUND_CFG_SET  = 0x22;  // SoundCfgPayload: write volume / quiet hours
 constexpr uint8_t MSG_RESP_SOUND_CFG = 0x23;  // SoundCfgPayload, after a GET or a SET
 
+// Display development control (0x24..)
+//
+// The front board can remain powered from J9 while its USB cable is reconnected. A
+// normal ESP.restart() does not guarantee that the host sees a detach, but a brief
+// deep-sleep does: the S3 powers down its USB Serial/JTAG PHY and drops the D+ pull-up,
+// then timer-wakes into the application. This is sent only by an explicit controller
+// console command; no production boot path sends it.
+constexpr uint8_t MSG_DISPLAY_USB_REATTACH      = 0x24;  // no payload: detach USB PHY, then timer-wake
+constexpr uint8_t MSG_RESP_DISPLAY_USB_REATTACH = 0x25;  // ResponsePayload: accepted
+
 // Text wrapper
 constexpr uint8_t MSG_TEXT = 0xFE;
 
