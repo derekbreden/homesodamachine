@@ -14,11 +14,12 @@ Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/
 
 Two of them run on the controller PCBA, and only one of the two ships inside a machine.
 
-**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9. What runs today is one flavor pump: a prime held from the 4.3B's glass, and `pump <a|b> [ms]` bounded from the console. `machine.cpp` owns every pin that reaches a load and the three constraints below are held there; `link.cpp` turns a J9 frame into a call on it. The two MCP23017s are untouched, so the eleven valves and the condenser fan stay high-Z and no reed is read — a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9. What runs at the glass today is one flavor pump: a prime held from the 4.3B, and `pump <a|b> [ms]` bounded from the console. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds, but no runtime operation opens a valve or runs the fan, and a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
 
-Two shared libraries sit under `lib/`, compiled into whichever trees include them:
-[`lib/proto_link`](lib/proto_link/proto_msg.h) is the J9 wire contract, and
-[`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
+Three shared libraries sit under `lib/`, compiled into whichever trees include them:
+[`lib/proto_link`](lib/proto_link/proto_msg.h) is the J9 wire contract;
+[`lib/machine_policy`](lib/machine_policy/machine_policy.h) is the Arduino-free actuator-plan,
+safety-transition and pump-timing policy; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
 and the volume/quiet-hours settings behind it. The appliance and the bench share that one
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
 Neither display carries a sounder, so every sound the machine makes is made on the PCBA.
@@ -46,6 +47,10 @@ Three constraints the board and the supply impose, each carried by a part that p
 - **At most 3 solenoid valves energized at once.** Eight coils on MANIFOLD A draw 2.4–3.7 A through J1's `COM` contact, rated ~3 A, and dissipate it in one SOIC-18 (U4). The canonical valve states open at most three ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)); the ceiling is [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
 - **Relay #2 (`IO2`) off while a dispense is open.** The board peaks at 3.33 A and the SeaFlo diaphragm pump at 5 A on the same 12 V rail — 8.32 A together, against a 6.7 A supply. The carbonator's low reed asserts mid-pour, so the refill it queues waits for the dispense window to close ([`/hardware/assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5). Nothing in hardware enforces this.
 - **`GPPU` written on both MCP23017s.** No loom carries a resistor and the board pulls none of the reed inputs ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), U2 GPB4-7 / U3 GPB6-7), so every reed reads its expander's internal pull-up or floats.
+
+`pio test -e native` holds these policies off-board: it checks the canonical operation table,
+all logical valve transitions, the complete physical expander map and fault parking, and pump
+deadline boundaries without opening a serial port. See [`test/README.md`](test/README.md).
 
 ## Appliance displays
 

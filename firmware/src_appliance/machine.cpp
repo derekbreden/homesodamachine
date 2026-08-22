@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "machine.h"
+#include "pcba_expanders.h"
 #include "pins.h"
 #include "proto_msg.h"
 #include "sound.h"
@@ -127,6 +128,61 @@ static void gasService() {
 
 bool machineGasTripped() { return gasTrip; }
 
+bool machineIoReady() {
+    return pcba::expanders().initialized();
+}
+
+const char *machineIoFaultName(uint8_t fault) {
+    switch (static_cast<pcba::Fault>(fault)) {
+        case pcba::Fault::None:              return "none";
+        case pcba::Fault::NotInitialized:    return "not initialized";
+        case pcba::Fault::InvalidOutputPlan: return "invalid output plan";
+        case pcba::Fault::BusBeginFailed:    return "bus begin";
+        case pcba::Fault::BusWriteFailed:    return "bus write";
+        case pcba::Fault::BusReadFailed:     return "bus read";
+        case pcba::Fault::RegisterMismatch:  return "register mismatch";
+        default:                             return "unknown";
+    }
+}
+
+bool machineReadIoStatus(MachineIoStatus &status) {
+    status = {};
+
+    pcba::Health health;
+    const bool healthOk = pcba::expanders().readHealth(health);
+    status.initialized = health.initialized;
+    status.configurationVerified = health.configurationVerified;
+    status.outputsMatchPlan = health.outputsMatchPlan;
+    status.outputsKnownParked = health.outputsKnownParked;
+    status.fault = static_cast<uint8_t>(health.lastFault);
+    status.faultAddress = health.faultAddress;
+    status.faultRegister = health.faultRegister;
+    status.outputLatchA20 = health.devices[0].olatA;
+    status.outputLatchA21 = health.devices[1].olatA;
+    status.pullupsB20 = health.devices[0].gppuB;
+    status.pullupsB21 = health.devices[1].gppuB;
+    if (!healthOk) return false;
+
+    pcba::ReedSnapshot reeds;
+    if (!pcba::expanders().readReeds(reeds)) {
+        status.initialized = pcba::expanders().initialized();
+        status.outputsKnownParked = pcba::expanders().outputsKnownParked();
+        status.fault = static_cast<uint8_t>(pcba::expanders().lastFault());
+        status.faultAddress = pcba::expanders().lastFaultAddress();
+        status.faultRegister = pcba::expanders().lastFaultRegister();
+        return false;
+    }
+
+    status.reedsValid = true;
+    status.rawReedsA = reeds.rawReservoirAPortB;
+    status.rawReedsB = reeds.rawReservoirBPortB;
+    status.reservoirAClosedMask = reeds.reservoirAClosedMask;
+    status.reservoirBClosedMask = reeds.reservoirBClosedMask;
+    status.carbonatorLowClosed = reeds.carbonatorLowClosed;
+    status.carbonatorHighClosed = reeds.carbonatorHighClosed;
+    return true;
+}
+
 // ── The pump, driven from nowhere but here ────────────────────────────────
 static bool pumpDrive(uint8_t channel) {
     if (!ledcAttach(kPump[channel].pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
@@ -195,6 +251,14 @@ void machineBegin() {
     pinMode(PIN_LED_ACT, OUTPUT);
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
+
+    // The MCPs keep their register state across an ESP-only reset because
+    // their /RESET pins are tied high. Clear every latch and prove each output
+    // pin low before enabling reed pull-ups or allowing setup to finish.
+    if (!pcba::expanders().begin()) {
+        pinMode(PIN_LED_ERR, OUTPUT);
+        led(PIN_LED_ERR, true);
+    }
 }
 
 void machineService() {
