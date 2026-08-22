@@ -235,7 +235,7 @@ remaining 610 px is the pane, and it takes a different shape on each page:
 
 | Page | Shape | Reads / writes |
 |---|---|---|
-| HOME | two large flavor-art cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
+| HOME | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
 | MIX | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
 | SERVICE | PRIME \| CLEAN → a flavor → the hold pad or the confirm | **the base** |
 | STATUS | four tiles and a bar, polled every 500 ms | **the base** |
@@ -243,7 +243,7 @@ remaining 610 px is the pane, and it takes a different shape on each page:
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
 render. Every page is built at boot and switching hides one and shows another. On HOME,
-only the active artwork carries a selection badge. The synchronization label is likewise
+only the active card carries a selection badge. The synchronization label is likewise
 quiet when healthy and appears only while connecting, saving, or reporting a save error.
 
 **The dark gives your place up in stages.** The last two run from the moment the screen
