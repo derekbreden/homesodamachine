@@ -36,7 +36,7 @@ _ROOT = _HERE.parents[2]
 GRAPH = _HERE.parent / "graph.json"
 
 sys.path.insert(0, str(_HERE.parent))
-from inventory import tracked as _inventory_tracked   # noqa: E402
+from inventory import IMPLICIT_SOLIDS, tracked as _inventory_tracked   # noqa: E402
 
 RUNNER = r'''
 import json, os, sys, runpy
@@ -197,7 +197,8 @@ def _tracked(path=GRAPH, base=None) -> set:
     the next consumer trace keep the read, rather than erasing both sides merely because the
     handoff is intentionally absent from git. `inventory.inventory` admits these same graph
     writes when it composes actions, so tracing and action construction share the boundary."""
-    return set(_inventory_tracked() if base is None else base) | _graph_writes(path)
+    implicit = {f for paths in IMPLICIT_SOLIDS.values() for f in paths}
+    return set(_inventory_tracked() if base is None else base) | _graph_writes(path) | implicit
 
 
 def _filtered(seen: dict, files: set) -> dict:
@@ -351,8 +352,14 @@ def selftest() -> int:
         print(f"  {'✓' if survived else '✗'} an ignored JSON handoff keeps its producer and "
               "consumer edges")
 
-    print(f"trace_inputs selftest {holds}/8")
-    return 0 if holds == 8 else 1
+        core_mesh = "hardware/cold-core-layout/cold-core-assembly.step.mesh"
+        admitted = core_mesh in _tracked(path, {"producer.py", "consumer.py"})
+        holds += admitted
+        print(f"  {'✓' if admitted else '✗'} an implicit mesh is admitted before its first "
+              "trace writes graph.json")
+
+    print(f"trace_inputs selftest {holds}/9")
+    return 0 if holds == 9 else 1
 
 
 def main() -> int:

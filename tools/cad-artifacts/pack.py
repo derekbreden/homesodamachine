@@ -373,8 +373,9 @@ def _declared(root: Path) -> set:
     }
     if root.resolve() == _ROOT.resolve():
         sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
-        from inventory import IMPLICIT_SOLIDS
+        from inventory import ACTION_INTERMEDIATE, IMPLICIT_SOLIDS
         declared |= {path for paths in IMPLICIT_SOLIDS.values() for path in paths}
+        declared -= ACTION_INTERMEDIATE
     return declared
 
 
