@@ -159,7 +159,8 @@ jobs:
             tools/cad-venv/bin/python tools/bazel/affected.py \
               --base "$base" --head "$GITHUB_SHA" --artifacts > /tmp/cad-accumulated
           fi
-          cat /tmp/cad-accumulated /tmp/cad-requested | sort -u > /tmp/cad-targets
+          cat /tmp/cad-accumulated /tmp/cad-requested | \
+            sed '/^[[:space:]]*$/d' | sort -u > /tmp/cad-targets
           count=$(wc -l < /tmp/cad-targets | tr -d ' ')
           {
             echo "count=$count"
@@ -193,7 +194,8 @@ jobs:
         env:
           TARGETS: ${{ steps.scope.outputs.targets }}
         run: |
-          mapfile -t targets <<< "$TARGETS"
+          mapfile -t targets < <(printf '%s\n' "$TARGETS" | sed '/^[[:space:]]*$/d')
+          [ "${#targets[@]}" -gt 0 ] || exit 0
           bazel build --disk_cache="$HOME/.cache/bazel-disk" "${targets[@]}"
 
       - name: Verify and carry the complete cut

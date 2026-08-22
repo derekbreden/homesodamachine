@@ -19,6 +19,7 @@ target's inputs or newly added to a graph that has not been regenerated.
 """
 
 import argparse
+import io
 import importlib.util
 import json
 import os
@@ -150,6 +151,33 @@ def declared_outputs() -> set:
     return {path for node in graph.values() for path in node.get("writes", ())}
 
 
+def artifact_global(path: str) -> bool:
+    """Whether an edit changes how every artifact action is described or executed."""
+    if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
+                "MODULE.bazel.lock", "tools/cad-requirements.txt"}:
+        return True
+    return path.startswith(("tools/bazel/", "tools/cad-artifacts/",
+                            "tools/cad-venv-site/", "tools/ci-image/"))
+
+
+def unscoped_changes(paths: list, known_paths: list, artifacts_only: bool) -> list:
+    """Changes whose effect cannot be bounded by Bazel reverse dependencies."""
+    known_set = set(known_paths)
+    return sorted(
+        path for path in paths
+        if artifact_global(path)
+        or (path not in known_set and artifact_unknown(path, artifacts_only))
+    )
+
+
+def write_targets(found: list, stream=None) -> None:
+    """Write labels one per line, and exactly zero bytes for an empty slice."""
+    if stream is None:
+        stream = sys.stdout
+    if found:
+        stream.write("\n".join(found) + "\n")
+
+
 @lru_cache(maxsize=1)
 def _artifact_presentation_context() -> tuple:
     try:
@@ -204,9 +232,7 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
         if artifacts_only and artifact_presentation_only(path):
             return False
         return True
-    if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
-                "MODULE.bazel.lock",
-                "tools/cad-requirements.txt"}:
+    if artifact_global(path):
         return True
     return path.startswith(("tools/bazel/", "tools/cad-artifacts/",
                             "tools/cad-venv-site/", "tools/ci-image/",
@@ -243,6 +269,12 @@ def selftest() -> int:
              "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
     hold("a data-bearing document stays in the artifact slice",
          not artifact_presentation_only("hardware/ledger/bom.md"))
+    hold("a known global build input still widens the artifact slice",
+         unscoped_changes(["BUILD.bazel"], ["BUILD.bazel"], True) == ["BUILD.bazel"]
+         and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == [])
+    empty = io.StringIO()
+    write_targets([], empty)
+    hold("zero targets write zero bytes", empty.getvalue() == "", repr(empty.getvalue()))
     # BAZEL IS THE ONE THING THIS CANNOT ASK FOR ITSELF. `known` and `targets` shell out to
     # `bazel query`, and a test bazel is running holds the server lock this workspace shares —
     # a query under it waits for the build that started it. The holds above stand on their own;
@@ -251,7 +283,7 @@ def selftest() -> int:
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 7 else 1
+        return 0 if holds == 9 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
@@ -265,8 +297,8 @@ def selftest() -> int:
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
          "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
-    print(f"affected selftest {holds}/13")
-    return 0 if holds == 13 else 1
+    print(f"affected selftest {holds}/15")
+    return 0 if holds == 15 else 1
 
 
 def say_if_unshimmed() -> None:
@@ -319,7 +351,7 @@ def main(argv) -> int:
     if args.cmd == "selftest":
         return selftest()
     if args.all_artifacts:
-        print("\n".join(sorted(artifact_targets())))
+        write_targets(sorted(artifact_targets()))
         return 0
 
     say_if_unshimmed()
@@ -331,10 +363,10 @@ def main(argv) -> int:
         print("nothing has moved — a build of this tree holds nothing to do", file=sys.stderr)
         return 0
     hit, miss = known(moved)
-    risky = [p for p in miss if artifact_unknown(p, args.artifacts)]
+    risky = unscoped_changes(moved, hit, args.artifacts)
     if risky:
-        print(f"{len(risky)} changed CAD path(s) no target names — this slice widens to every "
-              f"artifact rule:", file=sys.stderr)
+        print(f"{len(risky)} changed CAD path(s) cannot be safely scoped — this slice widens "
+              f"to every artifact rule:", file=sys.stderr)
         for p in risky:
             print(f"    {p}", file=sys.stderr)
     found = targets(hit)
@@ -349,7 +381,7 @@ def main(argv) -> int:
             reach = [p for p in hit if t in targets([p])]
             print(f"{t}\n    " + "\n    ".join(reach))
     else:
-        print("\n".join(found))
+        write_targets(found)
     return 0
 
 
