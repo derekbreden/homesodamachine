@@ -4480,6 +4480,11 @@ def _back_top_ceiling(solid, inner, y_joint):
                                 floor - 1.0, cp.screw_head_seat_z))
         solid = solid.cut(_zcyl(screw_clear_dia / 2.0, cx, cy,
                                 cp.screw_head_seat_z, cp.screw_insert_open_z + 1.0))
+    # THE PIERS WERE FUSED AFTER THE DADOS, so their top inside corner otherwise fills the lower
+    # half of each wall-square rail. Carry the dado's blind-end clearance through every late
+    # feature over the whole slide. The piers keep their full section below this lane and remain
+    # rooted on the measured outboard run of the corbel.
+    solid = solid.cut(cp.rail_clearance(y_joint, cp.aft_y))
     return solid
 
 
@@ -6715,8 +6720,11 @@ def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
         return solid
     feature, bore, inserts = geometry
     # The upper cap belongs to the panel because the deeper field has to slide through this
-    # station. At the installed pose the two pieces' union is the uncut feature.
-    solid = solid.fuse(feature.cut(_ceiling().structural_stock()))
+    # station, and the +X rail passes the tunnel's fore corner. The field itself is transferred
+    # to the panel; the rail keeps its printed-fit lane through the fixed remainder. At the
+    # installed pose the panel fills the moving section and the clearance remains the joint.
+    moving = _ceiling().structural_stock().fuse(_ceiling().rail_clearance())
+    solid = solid.fuse(feature.cut(moving))
     # The bore, opened through everything standing round it. The wall's own cutters run to its
     # inner face and this one runs to the tunnel's, so the hole is one rectangle end to end.
     solid = solid.cut(bore)

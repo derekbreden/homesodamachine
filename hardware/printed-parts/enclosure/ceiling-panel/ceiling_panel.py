@@ -206,17 +206,40 @@ def structural_stock():
                  structural_under_z, underside_z)
 
 
+def rail_stock(y0=fore_y, y1=aft_y):
+    """Both exact wall-square rails over one Y band, without their printed-fit clearance."""
+    rails = None
+    for sx in (-1.0, 1.0):
+        edge = sx * panel_half_w
+        rail = _slab(min(edge, edge + sx * tongue_reach),
+                     max(edge, edge + sx * tongue_reach),
+                     y0, y1, tongue_floor_z, tongue_roof_z)
+        rails = rail if rails is None else rails.fuse(rail)
+    return rails
+
+
+def rail_clearance(y0=fore_y, y1=aft_y):
+    """The rectangular clearance both moving rails require through late fixed features.
+
+    The dado's self-supporting roof already opens farther than this toward its mouth. This is
+    the blind-end section alone, carried through a screw pier or tunnel fused after the dado was
+    cut so that no late feature fills the slide back in."""
+    lanes = None
+    for sx in (-1.0, 1.0):
+        inboard = sx * (panel_half_w - dado_slip)
+        outboard = sx * (panel_half_w + dado_depth)
+        lane = _slab(min(inboard, outboard), max(inboard, outboard),
+                     y0, y1, dado_floor_z, dado_roof_z)
+        lanes = lane if lanes is None else lanes.fuse(lane)
+    return lanes
+
+
 def insertion_sweep():
     """The structural field and both rails swept continuously through back-top's Y seam."""
     first_y = fore_y - (aft_y - _enc.y_seam)
     sweep = _slab(-panel_half_w, panel_half_w, first_y, aft_y,
                   structural_under_z, underside_z)
-    for sx in (-1.0, 1.0):
-        edge = sx * panel_half_w
-        sweep = sweep.fuse(_slab(min(edge, edge + sx * tongue_reach),
-                                 max(edge, edge + sx * tongue_reach),
-                                 first_y, aft_y, tongue_floor_z, tongue_roof_z))
-    return sweep
+    return sweep.fuse(rail_stock(first_y, aft_y))
 
 
 def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
@@ -253,8 +276,8 @@ def _strap_reliefs(box):
 
 
 def _relieved_stock(box):
-    """The broad field after body-derived headroom and strap approaches are opened below."""
-    stock = structural_stock()
+    """The broad field and rails after body headroom and strap approaches are opened below."""
+    stock = structural_stock().fuse(rail_stock())
     for _name, x0, x1, y0, y1, pocket_top_z in box.ceiling_reliefs:
         top = min(underside_z, pocket_top_z)
         if top <= structural_under_z:
@@ -288,14 +311,9 @@ def build(box=None):
     into its two saddles and the runs into their three, straps go round, and the loaded panel then
     slides into back-top's dados."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
-    field = field.fuse(_relieved_stock(box) if box is not None else structural_stock())
-    # One wall-square rail down each long edge, centred on the panel's interior-ceiling datum.
-    for sx in (-1.0, 1.0):
-        edge = sx * panel_half_w
-        field = field.fuse(_slab(min(edge, edge + sx * tongue_reach),
-                                 max(edge, edge + sx * tongue_reach),
-                                 fore_y, aft_y,
-                                 tongue_floor_z, tongue_roof_z))
+    stock = (_relieved_stock(box) if box is not None
+             else structural_stock().fuse(rail_stock()))
+    field = field.fuse(stock)
     # The insert sockets, clipped to the panel's plan — each one's fore face is the panel's
     # fore edge, which is the plane the brim bears on. Their mouths face Z−.
     plan = _slab(-panel_half_w - tongue_reach, panel_half_w + tongue_reach,

@@ -6143,10 +6143,11 @@ OUTBOARD = tuple(name(BACK_WALL_FITTINGS[station][2])
                  for name in (customer_tube_name, collar_name, collar_word_name))
 
 
-# The bodies intentionally admitted into the ceiling's deeper structural field. A relief is
-# derived from the exact purchased solid where it enters the raw stock; naming this population
-# keeps an unrelated future encroachment visible to `pack-closes` instead of silently pocketing
-# around it. Two millimetres in plan is assembly slip and one above the hit is the roof clearance.
+# The bodies intentionally admitted into the ceiling's deeper structural field and captured
+# rails. A relief is derived from the exact purchased solid where it enters that raw moving
+# envelope; naming this population keeps an unrelated future encroachment visible to
+# `pack-closes` instead of silently pocketing around it. Two millimetres in plan is assembly slip
+# and one above the hit is the roof clearance.
 CEILING_RELIEF_BODIES = (
     "c14-inlet", "asse1022-assembly", "co2-inlet",
     "bulkhead-water", "bulkhead-carb", "digiten-flow",
@@ -6156,8 +6157,8 @@ CEILING_RELIEF_Z_CLEAR = 1.0
 
 
 def ceiling_reliefs(placed: dict) -> tuple:
-    """Body-derived pockets in the ceiling panel's unrelieved structural stock."""
-    raw = _cpanel.structural_stock()
+    """Body-derived pockets in the ceiling panel's unrelieved field and rails."""
+    raw = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
     reliefs = []
     for name in CEILING_RELIEF_BODIES:
         if name not in placed:
@@ -6243,7 +6244,7 @@ def check_through_wall_headroom(a, shell) -> Bound:
 
 
 def check_ceiling_panel_insertion(back_top) -> Bound:
-    """Whether the ceiling's deeper field can slide aft through back-top's open Y seam.
+    """Whether the ceiling's deeper field and rails can slide through back-top's open Y seam.
 
     This is a continuous motion bound, represented conservatively by the whole prism swept
     from the first pose with the panel aft edge at the seam through the installed pose. The
@@ -6253,9 +6254,9 @@ def check_ceiling_panel_insertion(back_top) -> Bound:
     volume = _cpanel.insertion_sweep().intersect(fixed).Volume()
     ok = volume <= 1e-3
     return record_bound(Bound(
-        "ceiling-panel-slides-in", "The deep ceiling panel slides in through back-top's seam",
+        "ceiling-panel-slides-in", "The deep ceiling panel and rails slide through back-top",
         ok, f"{volume:.3f} mm³ of fixed back-top in its continuous sweep",
-        "no fixed back-top material in the structural field's complete Y sweep",
+        "no fixed back-top material in the field-and-rail complete Y sweep",
         ([] if ok else [
             f"{volume:.3f} mm³ of back-top stands in the panel's insertion prism — move that "
             f"feature onto the panel or open the fixed piece; a clear installed pose does not "
