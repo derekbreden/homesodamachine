@@ -351,13 +351,13 @@ html, body {
 }
 .orientation-crop {
   height: 620px;
-  background-position: -61.6px -32.7px;
-  background-size: 730px 686px;
+  background-position: center -40px;
+  background-size: auto 700px;
 }
 .detail-crop {
   height: 560px;
-  background-position: -157.8px -236.7px;
-  background-size: 949.3px 892.3px;
+  background-position: center -930px;
+  background-size: auto 1500px;
 }
 .beat-caption {
   height: 86px;
@@ -398,3 +398,256 @@ html, body {
 }
 .hand-shape path { vector-effect: non-scaling-stroke; }
 .hand-shape .hand-detail { fill: none; }
+
+/* Sheet 2 is one continuous faucet-to-machine route followed by three registered rear-port
+   close views. Product artwork does the locating; the drawn tubes, hands, cutter and motion cues
+   show only the field action that changes between frames. */
+.connect-sheet {
+  position: relative;
+  display: block;
+  padding: 0;
+}
+.connect-sheet .page-head {
+  position: absolute;
+  left: 58px;
+  top: 48px;
+  width: 2434px;
+  height: 104px;
+}
+.connect-sheet .page-head p b { color: var(--ink); }
+.connect-sheet .page-foot {
+  position: absolute;
+  left: 58px;
+  top: 1590px;
+  width: 2434px;
+  height: 26px;
+}
+.connect-lead {
+  position: absolute;
+  left: 58px;
+  top: 164px;
+  width: 2434px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border-bottom: 2px solid var(--rule);
+}
+.connect-lead strong {
+  color: var(--accent);
+  font: 700 20px/1 var(--mono);
+  letter-spacing: 1.2px;
+}
+.connect-lead span {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+}
+.route-hero {
+  position: absolute;
+  left: 58px;
+  top: 240px;
+  width: 2434px;
+  height: 528px;
+  overflow: hidden;
+}
+.route-hero > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero-label,
+.hero-micro,
+.hero-action,
+.collar-word,
+.zoom-number,
+.stop-word {
+  font-family: var(--mono);
+  font-weight: 700;
+}
+.hero-label { fill: var(--ink); font-size: 21px; }
+.hero-micro { fill: var(--muted); font-size: 16px; }
+.hero-action { fill: var(--accent); font-size: 19px; }
+.hero-motion {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 7px;
+  stroke-linecap: round;
+}
+.route-hero marker path {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3px;
+  paint-order: stroke fill;
+}
+.hero-tube,
+.action-tube,
+.action-tube-halo,
+.tube-blue,
+.tube-black {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hero-tube { stroke-width: 12px; }
+.tube-blue { stroke: var(--water); }
+.tube-black { stroke: var(--ink); }
+.collar-blue { fill: var(--water); stroke: #fff; stroke-width: 2px; }
+.collar-black { fill: var(--ink); stroke: #fff; stroke-width: 2px; }
+.collar-word { fill: #fff; font-size: 17px; letter-spacing: .2px; }
+.zoom-number { fill: #fff; font-size: 23px; }
+
+.connection-sequence {
+  position: absolute;
+  left: 58px;
+  top: 780px;
+  width: 2434px;
+  height: 798px;
+  display: grid;
+  grid-template-columns: 810px 2px 810px 2px 810px;
+  border-top: 2px solid var(--rule);
+}
+.connection-rule { background: var(--rule); }
+.connection-beat {
+  position: relative;
+  width: 810px;
+  height: 798px;
+  overflow: hidden;
+}
+.connect-beat-head {
+  height: 70px;
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  gap: 14px;
+}
+.connect-beat-head span {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: #fff;
+  font: 700 25px/1 var(--mono);
+}
+.connect-beat-head h2 {
+  padding-top: 4px;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -.4px;
+}
+.port-scene {
+  width: 810px;
+  height: 600px;
+  overflow: hidden;
+  background: #fff;
+}
+.port-scene > svg {
+  display: block;
+  width: 810px;
+  height: 600px;
+}
+.action-tube-halo {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 28px;
+}
+.action-tube { stroke-width: 17px; }
+.port-scene .collar-word { font-size: 18px; }
+.cut-mark,
+.repeat-cut {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 7px;
+  stroke-linecap: round;
+}
+.trim-repeat .tube-blue,
+.trim-repeat .tube-black {
+  fill: none;
+  stroke-width: 13px;
+  stroke-linecap: round;
+}
+.cutter-body {
+  fill: #2f3035;
+  stroke: #111216;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.cutter-handle {
+  fill: none;
+  stroke: #2f3035;
+  stroke-width: 18px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cutter-cradle {
+  fill: none;
+  stroke: #2f3035;
+  stroke-width: 14px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cutter-blade {
+  fill: #d8d9dc;
+  stroke: #767880;
+  stroke-width: 3px;
+}
+.cutter-pivot { fill: #81838a; stroke: #111216; stroke-width: 3px; }
+.action-hand {
+  fill: #ffd8ca;
+  stroke: #a65c52;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.action-hand path { vector-effect: non-scaling-stroke; }
+.action-hand .hand-detail { fill: none; }
+.connect-sheet .motion-halo,
+.connect-sheet .motion-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-sheet .motion-halo { stroke: #fff; stroke-width: 21px; }
+.connect-sheet .motion-line { stroke: var(--accent); stroke-width: 10px; }
+.connect-sheet marker path {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3px;
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+}
+.stop-dot { fill: var(--accent); stroke: #fff; stroke-width: 5px; }
+.stop-stem { fill: none; stroke: var(--accent); stroke-width: 5px; }
+.stop-word {
+  fill: var(--accent);
+  font-size: 17px;
+  paint-order: stroke fill;
+  stroke: #fff;
+  stroke-width: 8px;
+}
+.seated-ring {
+  fill: none;
+  stroke: var(--good);
+  stroke-width: 7px;
+}
+.connect-caption {
+  height: 128px;
+  padding: 16px 18px 0;
+  border-top: 2px solid var(--ink);
+  font-family: var(--mono);
+  line-height: 1.12;
+}
+.connect-caption b {
+  display: block;
+  color: var(--ink);
+  font-size: 19px;
+}
+.connect-caption span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 16px;
+}
