@@ -16,7 +16,7 @@ together — every body the outer model draws stands in this one.
 ## Frame
 
 The foam shell's own. Z up, the shell floor's outer face at z = 0, the shell's open top at
-[213.4](SHELL_TOP). ±Y is the vessel's port axis; +X is the register azimuth, which the float
+`foam_shell.foam_shell_outer_height`, which `foam-shell/README.md` states as `OUTER_H`. ±Y is the vessel's port axis; +X is the register azimuth, which the float
 rod and the reed bridge share. `foam_assembly.stack_floor_z` and `.cap_face_z` are the two
 planes the appliance reads off the stack.
 
