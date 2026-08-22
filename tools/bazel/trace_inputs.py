@@ -174,17 +174,36 @@ finally:
 '''
 
 
-def _tracked() -> set:
-    """Every file this tree stands behind — `inventory.tracked`, which is git's index plus the
-    solids `hardware/cad-artifacts.lock.json` names.
+def _graph_writes(path=GRAPH) -> set:
+    """Every output the existing graph declares, including ignored action intermediates."""
+    try:
+        graph = json.loads(Path(path).read_text())
+    except (OSError, ValueError):
+        return set()
+    return {f for seen in graph.values() for f in seen.get("writes", ())}
+
+
+def _tracked(path=GRAPH, base=None) -> set:
+    """Every file this tree stands behind: tracked inputs, locked solids and declared outputs.
 
     A GENERATED SOLID IS IN NO INDEX AND A GENERATOR STILL OPENS IT. `_pump_replacement_sync`
     loads `kamoer-kphm400.step` through `manifold_layout.build_pump`. A trace filtered by
     `git ls-files` drops that read, the graph stops naming it, and the action built from the
     graph holds no such file and dies on `STEP File could not be loaded` — a generator that
-    runs by hand and cannot run in the sandbox. `gen_build.py` reads the same function, so the
-    set a trace is filtered against and the set an action is filled from are one reading."""
-    return set(_inventory_tracked())
+    runs by hand and cannot run in the sandbox.
+
+    AN ACTION INTERMEDIATE CAN BE IGNORED TOO. Its producer's prior `writes` declaration is the
+    durable name: retaining graph writes here lets the next producer trace keep the write and
+    the next consumer trace keep the read, rather than erasing both sides merely because the
+    handoff is intentionally absent from git. `inventory.inventory` admits these same graph
+    writes when it composes actions, so tracing and action construction share the boundary."""
+    return set(_inventory_tracked() if base is None else base) | _graph_writes(path)
+
+
+def _filtered(seen: dict, files: set) -> dict:
+    """The recorded sides after paths outside the declared tree are removed."""
+    return {side: {p for p in seen.get(side, ()) if p in files}
+            for side in ("reads", "writes", "rewritten")}
 
 
 def trace(gen: str, files: set, argv=()) -> dict:
@@ -212,8 +231,7 @@ def trace(gen: str, files: set, argv=()) -> dict:
     except (OSError, ValueError):
         # The runner left no reading: killed, or stopped before its own `finally`.
         return {"reads": [], "writes": [], "raised": "no reading"}
-    out = {side: {p for p in seen.get(side, ()) if p in files}
-           for side in ("reads", "writes", "rewritten")}
+    out = _filtered(seen, files)
     # A SCANNED DIRECTORY IS AN INPUT AREA, and what it holds below the top counts. `_build.py`
     # globs its own directory for `*.html` and hands each card to a browser, which resolves
     # `tools.css` and `img/tool/*.png` against it — reads no scan and no `open` here sees.
@@ -260,7 +278,8 @@ def _selftests(files: set) -> list:
     different answer, and three modules under `tools/` are where the two differ: `sync_tree.py`
     holds ten, one of them that a card's authored text survives a build handed stale figures,
     `check_declared_imports.py` holds nine on the sources a step owes a declaration for, and
-    this module holds seven on `gave_up`, which reads two entries and no run at all.
+    this module holds the shrink cases on `gave_up` and the ignored-intermediate handoff, which
+    read small fixture graphs and no generator run at all.
     """
     out = []
     for f in sorted(files):
@@ -311,8 +330,29 @@ def selftest() -> int:
     hold("both sides grew", (5, 1), (9, 3), False)
     hold("neither side moved", (9, 3), (9, 3), False)
 
-    print(f"trace_inputs selftest {holds}/7")
-    return 0 if holds == 7 else 1
+    import tempfile
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "graph.json"
+        intermediate = "out/spec/enclosure-box.json"
+        result = "out/consumer/panel.step"
+        path.write_text(json.dumps({
+            "producer.py": {"reads": ["producer.py"], "writes": [intermediate]},
+            "consumer.py": {"reads": ["consumer.py", intermediate], "writes": [result]},
+        }))
+        files = _tracked(path, {"producer.py", "consumer.py"})
+        producer = _filtered(
+            {"reads": ["producer.py"], "writes": [intermediate], "rewritten": []}, files)
+        consumer = _filtered(
+            {"reads": ["consumer.py", intermediate], "writes": [result], "rewritten": []},
+            files)
+        survived = (producer["writes"] == {intermediate}
+                    and intermediate in consumer["reads"] and consumer["writes"] == {result})
+        holds += survived
+        print(f"  {'✓' if survived else '✗'} an ignored JSON handoff keeps its producer and "
+              "consumer edges")
+
+    print(f"trace_inputs selftest {holds}/8")
+    return 0 if holds == 8 else 1
 
 
 def main() -> int:

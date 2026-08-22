@@ -152,9 +152,11 @@ def _repo_file(name: str):
 
 
 #: The module-level functions a script runs from, and nothing a module draws is reached through
-#: them. `main` orchestrates a run — it exports, renders, re-checks — and `selftest` exercises
-#: one. What they import is what the RUN needs, so it is read as the run's and not the shape's.
-ENTRY_POINTS = ("main", "selftest")
+#: them. `main` orchestrates a run — it exports, renders, re-checks — `selftest` exercises one,
+#: and `machine_of` obtains an action's already-derived placement description or orchestrates the
+#: direct design run that derives it. What they import is what the RUN needs, so it is read as the
+#: run's and not the shape's. The start module itself is always read, including these functions.
+ENTRY_POINTS = ("main", "selftest", "machine_of")
 
 
 def _imported(path: Path) -> set:
