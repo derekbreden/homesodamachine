@@ -43,9 +43,24 @@ import sharp from "sharp";
 import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 import { start } from "../../web/server.js";
+import { ASSEMBLIES, LOOSE } from "../../web/contracts/parts-tree.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
+
+// A PICTURE IS WHAT A CARD SHOWS, and `/3d` is three assembly cards and a shelf under them.
+// `paintStepThumb` (web/public/js/viewer/grid.js) is the site's only fetch of
+// `/thumbs/<file>.step.png` and it runs on `.card[data-type="step"]`, which parts.js builds
+// from these two lists and from nothing else. What the assemblies place is `inside`: the page
+// lists none of it, and a part reached by selecting its solid opens in the modal, which renders
+// the model — so the picture beside such a solid has no reader anywhere. `KIND_RANK` puts
+// `step` first, so a shelf entry named as a directory is a card for every solid under it.
+const CARDS = [...ASSEMBLIES.map((a) => a.model), ...LOOSE.holds];
+
+function hasCard(rel) {
+  const p = rel.split(path.sep).join("/");
+  return CARDS.some((c) => p === c || p.startsWith(c + "/"));
+}
 
 // The content root the viewer serves. The viewer is booted with hardwareDir set
 // to it so /steps/<rel> resolves against it.
@@ -196,6 +211,15 @@ async function main() {
       if (isHidden(c.rel)) continue; // atomic-write temp or hidden path
       targets.push(c);
     }
+  }
+
+  // Every road in is filtered here rather than at any one caller: `--all`, the dev-server's
+  // background renderer (web/dev-server/server.js queueThumbnail), and the batch
+  // hardware/scripts/_cadq_export.py hands over at process exit all arrive as `targets`.
+  const noCard = targets.filter((t) => !hasCard(t.rel));
+  if (noCard.length) {
+    console.log(`skipping ${noCard.length} solid(s) with no card on /3d`);
+    targets = targets.filter((t) => hasCard(t.rel));
   }
 
   if (targets.length === 0) {

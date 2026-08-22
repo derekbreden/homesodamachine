@@ -137,7 +137,11 @@ TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
 
 - **A `.step.png` is not a declared output.** `_cadq_export` draws a thumbnail best-effort —
   "a thumbnail must never break export" — and a Bazel output is one the action must produce or
-  fail. The two are opposite promises. The thumbnails are still drawn by every run.
+  fail. The two are opposite promises. So no action draws one: `sync_tree` carries what a target
+  declares, the picture is in nothing's `outs`, and `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for
+  every action rather than paying a headless browser for a file the sandbox discards. A hand run
+  keeps the tree's pictures, and draws the ones the catalog has a card for — the three assemblies
+  and the shelf under them, which `web/contracts/parts-tree.js` states and `_page_paints` reads.
 - **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
   the viewer on loopback and photographs it with a headless browser, and that page loads
   `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this

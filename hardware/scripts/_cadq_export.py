@@ -701,22 +701,34 @@ def _atomic_write(target_path, write_fn):
 
 # --- Grid thumbnails ---------------------------------------------------------
 #
-# The viewer's grid shows a server-rendered PNG per STEP (web serves it at
+# The viewer's grid shows a server-rendered PNG per card (web serves it at
 # /thumbs/<file>.step.png) so browsing the catalog downloads small images
 # instead of fetching every STEP and rendering it in the browser. The PNG is a
 # pure function of the STEP, so it's regenerated here, right where the STEP is
 # produced — meaning a direct run that writes a STEP (an agent, by hand, a batch
 # build) refreshes its own thumbnail.
 #
+# A CARD IS WHAT READS ONE, and `/3d` is three assembly cards and a shelf.
+# `paintStepThumb` (web/public/js/viewer/grid.js) is the site's only fetch of
+# `/thumbs/<file>.step.png`, and it runs on `.card[data-type="step"]`, which
+# parts.js builds from `ASSEMBLIES[].model` and `LOOSE.holds` and from nothing
+# else. What the assemblies place is `inside`: the page lists none of it, and a
+# part reached by selecting its solid opens in the modal, which renders the
+# model. So the picture beside such a solid has no reader, and `_page_paints`
+# asks the page's own contract which solids have one: 19 against 105 `.step.png`
+# in the index.
+#
 # Rendering is deferred to one batch at process exit (tools/render/
 # render-thumbnails.js boots the viewer + a headless browser once per run, not
 # once per part) and gated on the thumbnail being absent or older than its
 # STEP — so no-op regenerations cost nothing. It's best-effort: a
 # missing Node/render toolchain logs a warning and is skipped, never failing
-# the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely (fast CAD
-# iteration / Python-only CI). The dev-server watcher sets it and rebuilds
-# thumbnails off its own critical path instead, so a live save never blocks on a
-# browser boot (web/dev-server/server.js).
+# the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely, browser
+# and contract both (fast CAD iteration / Python-only CI). Two runs set it and
+# neither keeps a picture: the dev-server watcher rebuilds thumbnails off its own
+# critical path instead, so a live save never blocks on a browser boot
+# (web/dev-server/server.js), and `.bazelrc` sets it for every action, whose
+# sandbox is thrown away with whatever was drawn in it.
 #
 # The shape is still in hand at this point, so its tessellation goes over with
 # it (_mesh_payload) and the page renders from that instead of reading the STEP
@@ -741,9 +753,79 @@ def _atomic_write(target_path, write_fn):
 _TOOLS_ROOT = next((p for p in Path(__file__).resolve().parents
                     if (p / "tools" / "docgen").is_dir()), None)
 _THUMBNAIL_TOOL = _TOOLS_ROOT and _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"
+#: The page's own statement of what it draws, and the root the paths in it are relative to —
+#: `render-thumbnails.js` serves the same viewer off `hardware/`, so `/thumbs/<rel>` is `<rel>`
+#: under here. READ AT INTERPRETER EXIT AND DECLARED BY NOBODY, which is the opposite of the
+#: tool above and for the opposite reason: `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for every
+#: action, so no sandbox reaches this file, and note_read-ing it would put a web contract into
+#: the inputs of sixty CAD targets that never open it.
+_PARTS_TREE = _TOOLS_ROOT and _TOOLS_ROOT / "web" / "contracts" / "parts-tree.js"
+_CONTENT_ROOT = _TOOLS_ROOT and _TOOLS_ROOT / "hardware"
 _pending_thumbnails = {}       # abs .step path -> abs payload path, or None
 _thumbnail_tmpdir = None
 _thumbnail_atexit_registered = False
+_UNASKED = object()
+_page_paints_answer = _UNASKED
+
+
+def _page_paints():
+    """Every `.step` `/3d` draws a card for, relative to the content root — or None.
+
+    Two lists in `web/contracts/parts-tree.js` say it. `ASSEMBLIES[].model` names the three
+    cards at the top; `LOOSE.holds` names the shelf under them, file by file or directory by
+    directory. `KIND_RANK` puts `step` first and `p.primary = p.kinds[0]`, so a shelf part
+    holding a `.step` draws from it and one holding only a `.dxf` or a `.glb` does not — which
+    is why a directory here is taken whole and a `.step` under it is a card.
+
+    None is "the contract did not answer", and the caller treats that the way it treats a
+    missing render tool: a run with no page to serve draws nothing and exports anyway."""
+    global _page_paints_answer
+    if _page_paints_answer is not _UNASKED:
+        return _page_paints_answer
+    _page_paints_answer = None
+    try:
+        text = _PARTS_TREE.read_text()
+    except (AttributeError, OSError):
+        return None
+
+    def _block(head):
+        """What stands inside the `[` that `head` ends on, to its match."""
+        i = text.find(head)
+        if i < 0:
+            return ""
+        i, depth, out = i + len(head), 1, []
+        while i < len(text) and depth:
+            c = text[i]
+            if c == "[":
+                depth += 1
+            elif c == "]":
+                depth -= 1
+            if depth:
+                out.append(c)
+            i += 1
+        return "".join(out)
+
+    models = re.findall(r'model:\s*"([^"]+)"', _block("export const ASSEMBLIES = ["))
+    # The `.glb` scenes are template literals against `SCENES` and no `.step` is ever one, so
+    # the quoted entries are the whole of what a solid can match.
+    holds = re.findall(r'"([^"]+)"', _block("holds: ["))
+    _page_paints_answer = (set(models) | set(holds)) or None
+    return _page_paints_answer
+
+
+def _has_a_card(target) -> bool:
+    """Whether `target` is one of the solids `_page_paints` names, or stands under one.
+
+    A path outside the content root is not this page's to answer for — `render-thumbnails.js`
+    classifies against the same root and declines the same files."""
+    paints = _page_paints()
+    if paints is None:
+        return False
+    try:
+        rel = target.relative_to(_CONTENT_ROOT).as_posix()
+    except (TypeError, ValueError):
+        return False
+    return any(rel == p or rel.startswith(p + "/") for p in paints)
 
 
 def _write_mesh_payload(target, source):
@@ -859,6 +941,25 @@ def _render_pending_thumbnails():
         return
     queued = dict(sorted(_pending_thumbnails.items()))
     _pending_thumbnails.clear()
+    # `render-thumbnails.js` DECIDES THIS TOO, off the same two lists, because every road into
+    # it has to be filtered and two of them are not this one — `--all` and the dev-server's
+    # background renderer. What asking again here buys is the spawn: booting that tool to be
+    # told it has nothing to draw is 7–21 s of `sharp` and puppeteer imports, and a generator
+    # that cut only solids the page places would pay it on every run.
+    #
+    # THE PAGE IS ASKED HERE AND NOT AT THE QUEUE, because this hook runs at interpreter exit —
+    # after `trace_inputs.py` has written its reading in a `finally:` — so the contract stays
+    # off the declared inputs of every generator that cuts a solid. The queue keeps
+    # `note_read(_THUMBNAIL_TOOL)`, which names a tool a run WOULD start whether or not it
+    # starts one, and dropping a picture here must not drop that edge.
+    dropped = {k for k in queued if not _has_a_card(Path(k))}
+    for k in dropped:
+        del queued[k]
+    if dropped and not queued:
+        print(f"[_cadq_export] {len(dropped)} solid(s) have no card on /3d; no thumbnail drawn",
+              file=sys.stderr)
+    if not queued:
+        return
     node = shutil.which("node")
     if node is None or _THUMBNAIL_TOOL is None or not _THUMBNAIL_TOOL.exists():
         reason = "node not found on PATH" if node is None else "render tool missing"

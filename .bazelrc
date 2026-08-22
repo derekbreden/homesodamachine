@@ -46,6 +46,13 @@ build --action_env=HSM_NO_BUILD_LOCK=1
 # writes its own: `render_scenes` calls `_write_mesh_payload` directly, for the viewer it stands.
 build --action_env=HSM_SKIP_MESH_PAYLOAD=1
 
+# A `.step.png` IS IN NO `outs` EITHER, and a picture costs a headless browser rather than a
+# tessellation. `sync_tree` carries what a target declares, so the one an action draws is
+# discarded with the sandbox and the tree keeps the picture it had — `check_thumbnails.py` and
+# `hardware/README.md` both say so. One target that cuts five solids: 37/45/45 s drawing five
+# pictures nothing carries out, 26/19/21 s not drawing them, at a load of 15–33.
+build --action_env=HSM_SKIP_THUMBNAILS=1
+
 # BAZEL IS ONE SCHEDULER AND `_run_lock` IS THE OTHER, and what keeps them off each other is
 # that everything outside bazel shares the lock: one CAD generator at a time, beside a build.
 # An action cannot take that lock — eight of them each taking a global single-flight mutex is
