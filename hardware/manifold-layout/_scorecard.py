@@ -1017,9 +1017,29 @@ def _bounds(a) -> list:
             for b in getattr(a, "bounds", ())]
 
 
-def _pack_closes(a) -> Check:
+_clash_cache: dict = {}
+
+
+def pack_clashes(a) -> tuple:
+    """The one exact pairwise-clash reading for an assembled machine.
+
+    The assembly report prints the detailed pairs and the scorecard publishes the same verdict.
+    Holding the result against the assembly keeps those two consumers from repeating every solid
+    boolean while pinning the object prevents a recycled ``id`` from receiving another machine's
+    answer.
+    """
     import manifold_layout as ml
-    bad, unanswered = ml.clashes(a)
+
+    hit = _clash_cache.get(id(a))
+    if hit is not None and hit[0] is a:
+        return hit[1]
+    result = ml.clashes(a)
+    _clash_cache[id(a)] = (a, result)
+    return result
+
+
+def _pack_closes(a) -> Check:
+    bad, unanswered = pack_clashes(a)
     detail = [f"{c.a} ∩ {c.b}   {c.volume:.1f} mm³, {c.where}" for c in bad]
     detail += [f"{ni} ? {nj}   {why}" for ni, nj, why in unanswered]
     return Check("pack-closes", "No two solids overlap (pack closes)", "gate",
@@ -1931,6 +1951,32 @@ def selftest() -> int:
     print("\nmade (the vocabulary this card and the charts share)")
 
     import manifold_layout as ml
+
+    # The terminal report and JSON card consume one expensive pairwise-solid reading.  This
+    # fixture has no geometry: it holds the ownership rule directly, including object identity.
+    class _Assembly:
+        pass
+
+    assembly = _Assembly()
+    calls = 0
+    real_clashes = ml.clashes
+
+    def counted_clashes(got):
+        nonlocal calls
+        calls += 1
+        return (["held"], [])
+
+    _clash_cache.clear()
+    ml.clashes = counted_clashes
+    try:
+        first = pack_clashes(assembly)
+        second = pack_clashes(assembly)
+    finally:
+        ml.clashes = real_clashes
+        _clash_cache.clear()
+    check("the report and card share one exact clash reading",
+          calls == 1 and first is second and first == (["held"], []),
+          f"{calls} calls, {first!r}, {second!r}")
 
     # Every `how` the pack states, through the card's own renaming, must land on a name in
     # `MADE_AS` — which is what `_fluid_topology_sync.Seg` labels its edges with. A pack that
