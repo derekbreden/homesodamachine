@@ -164,6 +164,7 @@ jobs:
           tools/cad-venv/bin/python tools/cad-venv-site/install.py --check
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
           blender --version | head -1
+          convert -version | head -1
           rsvg-convert --version
           # NOT `ls … && echo`. A failing left side of `&&` does not trip `set -e`, so that
           # form printed nothing and carried on — a check that reports only success.

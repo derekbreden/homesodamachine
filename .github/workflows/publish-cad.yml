@@ -123,6 +123,7 @@ jobs:
           ln -sfn "$HSM_WEB_MODULES"    web/node_modules
           tools/cad-venv/bin/python tools/cad-venv-site/install.py --check
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
+          convert -version | head -1
           mkdir -p .cache "$HOME/.cache/bazel-disk"
 
       - name: The locked inputs

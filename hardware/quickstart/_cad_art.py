@@ -278,7 +278,7 @@ def _canonicalize_png(path: Path) -> None:
 
 
 def _crop(source: str | Path, geometry: str, target: str | Path) -> None:
-    magick = shutil.which("magick")
+    magick = shutil.which("magick") or shutil.which("convert")
     if not magick:
         return
     source_path = Path(source)
@@ -311,9 +311,12 @@ def _clear_connected_background(path: Path) -> None:
     white parts such as the TAP collar.  Flood-filling alpha from a one-pixel white border clears
     only the connected background and leaves enclosed highlights and labels intact.
     """
-    magick = shutil.which("magick")
+    magick = shutil.which("magick") or shutil.which("convert")
     if not magick:
         raise RuntimeError("ImageMagick is required to clear CAD picture backgrounds")
+    # ImageMagick 7 renamed the IM6 ``matte`` drawing primitive to ``alpha``. macOS carries
+    # the v7 ``magick`` entry point; Ubuntu 24.04 carries the v6 ``convert`` entry point.
+    primitive = "alpha" if Path(magick).name == "magick" else "matte"
     subprocess.run(
         [
             magick,
@@ -331,7 +334,7 @@ def _clear_connected_background(path: Path) -> None:
             "-fill",
             "none",
             "-draw",
-            "alpha 0,0 floodfill",
+            f"{primitive} 0,0 floodfill",
             "-shave",
             "1x1",
             "-strip",

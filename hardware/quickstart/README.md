@@ -78,8 +78,19 @@ procedure.
 From the repository root:
 
 ```sh
+# Rebuild product-derived PNGs after CAD, firmware-screen or port-color changes.
+tools/cad-venv/bin/python hardware/quickstart/quickstart_art.py
+
+# Rebind the sheets after an HTML or CSS edit.
 tools/cad-venv/bin/python hardware/quickstart/_build.py
 ```
+
+The two steps are separate build targets. A page-layout iteration consumes the checked-in artwork
+and does not regenerate the appliance, faucet or mounting CAD.
+
+The pinned Linux CAD image is the byte authority for generated artwork and the bound PDF. Local
+macOS runs are visual previews: native OCCT tessellation differs by host even when the solid is
+the same, while the derive workflow always regenerates and commits one canonical Linux result.
 
 `out/` contains the full-resolution PNG and PDF render for each sheet. The bound PDF is two
 17 x 11 in pages at 150 px/in; the cover and `.pdf.json` sidecar beside this README are committed
