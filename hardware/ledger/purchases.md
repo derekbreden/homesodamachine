@@ -463,6 +463,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | 114-9662555-0662608 | 2026-04-05 | 2026-04-07 | ACQUIRED |
 | DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | 112-9688188-4729035 | 2026-05-08 | 2026-05-09 | ACQUIRED |
 | DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | 112-7749428-2806629 | 2026-05-08 | 2026-05-09 | ACQUIRED (used on touch-flo-shell PET-CF attempt 7) |
+| ENOMAKER high-flow hotends for Bambu Lab H2D / X2D / P2S, hardened-steel nozzle — 0.8 mm + 0.4 mm (one each; $111.98 item subtotal, −$5.60 promotion, $7.72 NE tax) | [0.8 mm B0FQPGLRQJ](https://www.amazon.com/dp/B0FQPGLRQJ) + [0.4 mm B0FQPGDD49](https://www.amazon.com/dp/B0FQPGDD49) | 1 bundle (2) | $114.10 | 112-7312343-0359412 | 2026-08-19 | 2026-08-20 | ACQUIRED |
 | DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $42.79 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
 | DUROZZLE 0.8mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/A1/A1 mini series). Ships with 2 silicone socks. The first of the two 0.8 PCD tips | [B0GWDL57FK](https://www.amazon.com/dp/B0GWDL57FK) | 1 | $48.16 | 114-8935189-9054653 | 2026-07-03 | 2026-07-06 | ACQUIRED |
 | Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg, Gray | [B0BTLNK74C](https://www.amazon.com/dp/B0BTLNK74C) | 2 | $75.06 | 112-3739807-8848229 | 2026-05-09 | 2026-05-09 | ACQUIRED |
@@ -549,7 +550,8 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
 | 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ACQUIRED (delivered Jun 20) |
 | 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ON-ORDER |
-| **§15 subtotal — 18 orders (17 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $8,677.34 + ON-ORDER $131.67** | |
+| 2026-08-19 | us766639627317551105 | H2C Induction Hotend (Right), 0.2 mm stainless ×2 + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm ×1 + NE tax | $182.29 | ON-ORDER (shipped Aug 19; delivery not yet confirmed) |
+| **§15 subtotal — 19 orders (17 ACQUIRED, 2 ON-ORDER)** | | | **ACQUIRED $8,677.34 + ON-ORDER $313.96** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -638,13 +640,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$31,772.14](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$31,886.24](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$37,209.68](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$548.83](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$37,323.78](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$731.12](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$37,801.40](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$38,097.79](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -662,7 +664,7 @@ ACQUIRED hardware by section:
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$1,153.07](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,532.80](LEDGER_SEC13) |
+| 13 | Printing consumables | [$1,646.90](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,677.34](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
