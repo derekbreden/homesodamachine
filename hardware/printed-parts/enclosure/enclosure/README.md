@@ -881,6 +881,10 @@ L-section guides (`_plate_fore_guides`) stand fore of the plate's outer tails an
 return around its ends into the fixed side-wall stock aft of the plate. The tee wall
 is the channel's aft face and the guides its fore face, so the steel cannot pitch
 forward when the four collet noses load it after the cartridge has begun moving.
+The wraparound continues [6 mm](PLATE_GUIDE_CROWN) above the steel's top edge, enough to mask
+that bright edge from ordinary oblique views without closing the upward service path. Its last
+millimetre is still the same support-free 45° insertion lead; the plate drops between two open
+L sections rather than under a bridge.
 More importantly, an M3×8 crosses each tail into a short heat-set in that tee wall. Each
 head bears directly on a full stainless land and is inset at least
 [0.8502 mm](PLATE_RETAINER_RECESS) behind the guide's Ø[6.15 mm](PLATE_RETAINER_TUNNEL) teardrop

@@ -137,7 +137,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PETG | 2.766 | $30.97 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PETG | 2.767 | $30.99 <!--@printed--> |
 | Enclosure — pump cartridge + cap (one set) | 1 set | PETG | 0.992 | $11.11 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two quadrants) | 1 set | PETG | 2.359 | $26.42 <!--@printed--> |
