@@ -77,7 +77,7 @@ def main():
         "PILL_L": f"{plate.pill_long_y:.4g} mm",
         "PILL_W": f"{plate.pill_short_x:.4g} mm",
         "FILLET_R": f"{plate.fillet_radius:.4g} mm",
-        # The countertop hole the faucet seats itself in — §1 and open item 4.
+        # The countertop hole the faucet seats itself in — installation summary + §1.
         # Source: `faucet-layout/faucet_assembly.py`.
         "COUNTERTOP_HOLE_D": f"{faucet.countertop_hole_diameter:.4g} mm",
         "GASKET_COVER": f"{faucet.gasket_hole_cover():.4g} mm",
@@ -90,7 +90,7 @@ def main():
         "COLLAR_BORE_PRINTED": f"{faucet.tube_collar.bore_printed():.4g}",
         "COLLAR_TUBE_OD": f"{faucet.tube_collar.TUBE_OD:.4g}",
         "COLLAR_SLEEVE_TAIL": f"{faucet.foam_bare_at_wall:.3g} mm",
-        # The braid over the pack — §3 and open item 2. It is bought by what it opens to.
+        # The braid over the pack — §3. It is bought by what it opens to.
         "SLEEVE_GIRTH": f"{faucet.bundle_girth():.4g} mm",
         "SLEEVE_BORE": f"{faucet.bundle_bore():.4g} mm",
         "SLEEVE_BORE_IN": f'{faucet.bundle_bore() / 25.4:.3g}"',

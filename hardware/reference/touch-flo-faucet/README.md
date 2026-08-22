@@ -19,11 +19,11 @@ The Touch-Flo faucet's self-closing spring-return poppet valve gives consumer-ap
 **Kept (harvested):**
 - Lever
 - Entire Touch-Flo body (see valve-body-reference folder)
+- Donor countertop-mount washer and nut
 
 **Discarded:**
 - Mounting plate
 
 ## Three-tube dispense head
 
-The dispense head is the printed PET-CF gooseneck of the touch-flo-shell, carrying three LLDPE tubes (1× carbonated water + 2× flavor) routed through its internal dispense channel and exiting at the printed tip. The wet path is LLDPE end to end; no metal tubing is involved in the dispense head, and the dispensed liquid never touches shell material — see [`/hardware/printed-parts/faucet/touch-flo-shell/`](/hardware/printed-parts/faucet/touch-flo-shell/) for the part and [`/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md`](/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md) for the no-food-contact boundary. Tube routing and the single Siptenk stiffener at the Westbrass upstream port are in [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2.
-
+The dispense head is the printed PET-CF gooseneck of the touch-flo-shell, carrying one 3/8" water-dispense tube and two 1/4" flavor tubes through its internal channel to the printed tip. The separate blue 1/4" water-supply tube ends at the Westbrass body's lower compression port. The wet path is LLDPE end to end; no metal tubing is involved in the dispense head, and the dispensed liquid never touches shell material — see [`/hardware/printed-parts/faucet/touch-flo-shell/`](/hardware/printed-parts/faucet/touch-flo-shell/) for the part and [`/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md`](/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md) for the no-food-contact boundary. Tube routing and the single Siptenk stiffener at the Westbrass upstream port are in [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2.

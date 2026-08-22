@@ -41,9 +41,9 @@ M3×12 black-oxide SHCS:
    - Length (X, lateral): [13.4 mm](PLATE_PILL_L)
    - Width (Y, depth): [7.05 mm](PLATE_PILL_W)
 
-The plate is held to the shell by the three pod screws, and to the
-countertop by the shank-nut clamp (body → plate → TPU gasket → countertop)
-once the under-counter install finishes.
+The three pod screws close the plate and shell around the fitted body.
+At field install, the retained donor washer and shank nut clamp the
+final body → plate → TPU gasket → countertop → keyhole-plate stack.
 
 ## Regenerate
 

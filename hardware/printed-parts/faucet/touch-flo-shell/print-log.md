@@ -384,7 +384,7 @@ Derek said about the dowel snap-off testing:
 - "The dowels snapped off easily as I tried inserting the mounting plate into the faucet shell bottom."
 - (after the Ø 3.9 retry) "they still don't fit, and they snap so easy because of the orientation of the layer lines. This is just not workable."
 
-Current joinery: **none**. Plate and shell have flat smooth mating surfaces in the rear-shoulder region; the shell sits on the plate by gravity during sub-assembly handling, with the body inside the shell bore providing lateral constraint via the snug shank nut on the plate side. Once the assembly is countertop-installed, the shank nut clamps the entire body → plate → TPU gasket → countertop stack. See `ASSEMBLY.md` joinery history for the full rationale.
+Attempt-16 joinery: **none**. In this attempt the plate and shell had flat smooth mating surfaces in the rear-shoulder region; the shell sat on the plate by gravity during sub-assembly handling, with the body inside the shell bore providing lateral constraint via the snug shank nut on the plate side. Attempt 19 replaced this arrangement with the current three-point screw-boss mount.
 
 **3mf file renamed and relocated** as of this attempt: `touch-flo-shell/touch-flo-shell-3-pieces.3mf` → `../touch-flo-pet-cf.3mf` (up one folder, into the faucet-level directory). The slice now contains all the PET-CF parts for the faucet (3 shell pieces + mounting plate), so the per-part naming was outgrown. A future `touch-flo-tpu.3mf` peer is anticipated for the TPU mounting gasket + any other TPU faucet parts.
 

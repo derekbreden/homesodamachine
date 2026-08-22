@@ -3,10 +3,10 @@
 Bench procedure for joining the printed `touch-flo-shell` to the printed
 `touch-flo-mounting-plate` with the harvested Touch-Flo valve body
 sandwiched between them — three M3×12 screws driven up through the
-plate's bosses into heat-set inserts in the shell's base pods. This is
-the sub-assembly that gets handed off to the countertop install step
-(gasket + under-counter nut against the deck) — it does not include the
-gasket or the deck nut.
+plate's bosses into heat-set inserts in the shell's base pods. This
+sub-assembly hands off to the faucet-and-umbilical bench, where the
+gasket, retained donor mounting hardware, tubes, and SIG-6 join it
+before the complete factory assembly reaches the countertop.
 
 ## Where this fits in the build
 
@@ -17,8 +17,8 @@ Upstream:
 2. Print `touch-flo-mounting-plate` (PET-CF, same H2C).
 3. Harvest the Touch-Flo valve body from the donor faucet per
    [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
-   Keep the lever, the body, and the factory shank nut. Discard the
-   factory mounting plate.
+   Keep the lever, body, donor washer, and factory shank nut. Discard
+   the factory mounting plate.
 
 Downstream (at the faucet-and-umbilical bench, see [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)):
 
@@ -27,29 +27,36 @@ Downstream (at the faucet-and-umbilical bench, see [`/hardware/assembly/faucet-a
    The gasket sits permanently between the plate's underside and where
    the countertop top surface will be at the customer's install. The
    customer never touches the gasket.
-5. Route the three LLDPE umbilical tubes up through the pill slot
-   (passing through both the printed mounting plate and the TPU
-   gasket) and clamp them to the Westbrass body's compression ports.
-   Tubes are permanently attached at this step — never separated
-   again. The sub-assembly + umbilical leaves the bench as one unit.
+5. Reinstall the retained donor washer and nut loosely on the bare
+   shank before making the blue-tube connection. They remain captive
+   on the shank from this point forward.
+6. Connect the blue carbonated-water tube to the Westbrass body's
+   lower upstream compression port. Seat the TPU thimble in the top
+   port and feed the separate 3/8" water-dispense tube through the
+   gooseneck. Bottom its lower end on the thimble cap, then square-cut
+   its outlet flush with the printed tip. Route only the two black
+   flavor tubes through the printed mounting plate and TPU gasket pill
+   slots, then up the gooseneck to the dispense tip. Fit SIG-6 in its
+   designed passage beside the tubes.
+   The sub-assembly + umbilical leaves the bench as one unit.
 
 Downstream (at the customer's countertop install, illustrated in the
 printed quick start in the appliance carton —
 [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)):
 
-6. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
+7. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
    from above. The TPU gasket (already on the shank, between the
    mounting plate and the countertop) compresses against the countertop
    top surface as the assembly seats. The three tubes + signal cable hang down
    through the hole.
-7. From below: orient the keyhole under-counter plate so its open-edge
+8. From below: orient the keyhole under-counter plate so its open-edge
    channels face the dangling umbilical, then slide the plate
-   laterally past the cylinders. The shank and the tube bundle enter
+   laterally into the gap above the captive donor washer. The shank and tube bundle enter
    through their respective channel mouths at the rim and seat in
    their terminal pockets; the cylinders in the channels keep the
    plate from drifting back out of alignment.
-8. From below: slip the washer onto the shank, then thread and tighten
-   the factory shank nut. The nut + washer clamp the keyhole plate up
+9. From below: hand-tighten the same already-threaded factory shank
+   nut. The captive nut + washer clamp the keyhole plate up
    against the countertop; the entire stack compresses along the
    shank from the body above to the nut below.
 
@@ -62,21 +69,21 @@ into a single rigid sub-assembly.
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
 |  1  | `touch-flo-shell` (printed, PET-CF) — three base-pod boss holes + insert pockets opening into the foot bottom | `touch_flo_shell.py` in this directory (BASE PODS section)        |
 |  1  | `touch-flo-mounting-plate` (printed, PET-CF) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
-|  1  | Touch-Flo valve body + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
+|  1  | Touch-Flo valve body + donor washer + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
 |  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.2 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
 |  3  | BNUOK M3 × 12 mm SHCS, black oxide                   | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
 
-The three pod screws are the entire shell retention: each M3×12 drives
-up from under the plate, through the counterbore and the boss, into a
-ruthex insert heat-set in the shell. The factory shank nut clamps the
-metal body to the plate only — not the shell. Once installed in the
-countertop, the under-counter nut compresses the stack (body → plate →
-TPU gasket → countertop) and carries the installed loads.
+The three pod screws close the printed shell and mounting plate around
+the metal body: each M3×12 drives up from under the plate, through the
+counterbore and the boss, into a ruthex insert heat-set in the shell.
+The retained donor washer and shank nut stay loose for the countertop
+mount. Once installed, that captive stack
+compresses body → plate → TPU gasket → countertop → keyhole plate.
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,
 which is easier with the shell + plate already joined and the body
-clamped.
+captured.
 
 ## Adjacent parts
 
@@ -111,20 +118,22 @@ laser-dross-prone, no help with alignment); the fillets dull them and
 give the cylinders a small lead-in funnel at each channel mouth.
 
 The faucet + umbilical leaves the faucet-and-umbilical build chain
-as one permanently-attached sub-assembly — the LLDPE tubes are
-clamped to the Westbrass body. At install, the keyhole's open-edge
+as one permanently-attached sub-assembly. The blue supply is clamped
+at the lower compression port; the 3/8" water-dispense tube is sealed
+into the top port by the TPU thimble; the flavor pair bypasses the body
+through the pill slot. At install, the keyhole's open-edge
 channels let the installer slide the plate laterally past the
 dangling cylinders; both the shank and the tube bundle enter through
 their channel mouths at the rim and seat in their terminal pockets.
 Once seated, the cylinders in the narrow channels keep the plate in
-alignment under gravity while the installer threads the shank nut
-one-handed.
+alignment under gravity while the installer hand-tightens the captive
+shank nut.
 
 Anti-rotation during nut tightening is provided by the cylinders
 themselves: any rotational drift of the plate presses the shank and
 tube bundle against the channel walls.
 
-Stack-up: between the countertop underside and the under-counter
+Stack-up: between the countertop underside and the retained donor
 shank nut. Distributes the nut's clamping force over a wide area so
 the nut doesn't dish or crush the countertop bottom — the printed
 mounting plate above the counter is too soft / too small for that
@@ -155,13 +164,13 @@ bosses register the plate; the screws clamp it. Dimensions live in
 What holds the parts together:
 
 - From this bench onward: the three **pod screws** clamp the plate up
-  against the shell foot — the sub-assembly is rigid and handles in
-  any orientation. The body, clamped to the plate by the **shank nut**
-  from Step 2, sits in the shell's bore with a [0.25 mm](BORE_CLEAR)/side
-  slip-fit.
-- Once installed in the countertop: the under-counter nut compresses
-  body → plate → TPU gasket → countertop, and that compression carries
-  the installed loads; the pod screws keep carrying the shell.
+  against the shell foot and capture the body in the shell's bore with
+  a [0.25 mm](BORE_CLEAR)/side slip-fit. The sub-assembly is rigid and
+  handles in any orientation.
+- Once installed in the countertop: the retained donor mount stack
+  compresses body → plate → TPU gasket → countertop → keyhole plate,
+  and that compression carries the installed loads; the pod screws
+  keep carrying the shell.
 
 Stack-up at the plate-to-shell interface (rear shoulder region):
 
@@ -182,9 +191,9 @@ the counterbores, above the bottom plane, so the plate presents an
 uninterrupted flat face to the gasket — the counterbore rims are the
 only openings.
 
-The factory shank nut clamps the body's [31.5 mm](BODY_OD) OD bottom
-face onto the plate's top face through the plate's Ø 12.6 shank hole.
-The shell sits over the body+plate stack, screwed to the plate through
+The body's [31.5 mm](BODY_OD) OD bottom face lands on the plate's top
+face while the threaded shank passes through the plate's Ø 12.6 hole.
+The shell sits over that body+plate stack and closes to the plate through
 the pods; the body inside the shell's bore adds lateral and rotational
 constraint (rectangular zone-2 cross-section + lever orientation).
 
@@ -220,14 +229,9 @@ constraint (rectangular zone-2 cross-section + lever orientation).
    plate's Ø 12.6 shank hole. The body's [31.5 mm](BODY_OD) OD landing face
    bottoms out on the plate's top face; the shank protrudes ~46 mm
    below the plate's bottom face.
-2. Thread the factory shank nut onto the protruding shank from below,
-   running it up by hand until it just contacts the plate's bottom
-   face.
-3. Tighten the nut snug with hand pressure plus a quarter turn with
-   pliers (or the factory wrench if it's still around). This is the
-   body-to-plate clamp; the gasket and under-counter nut at the deck
-   install step take over the long-term clamping load.
-4. Confirm the body is rotationally locked — the rectangular zone-2
+2. Keep the donor washer and shank nut together for the downstream
+   faucet-and-umbilical bench. They do not clamp this printed joint.
+3. Confirm the body is rotationally locked — the rectangular zone-2
    profile ([31.5 mm](BODY_RECT_LONG) × [17 mm](BODY_RECT_SHORT)) above [13 mm](BODY_CYL_TOP_Z) cannot rotate inside the
    shell's bore that's about to come down on it. The body's
    rotational orientation is set by which way the lever points;
@@ -290,8 +294,7 @@ Reverse order:
 
 1. Back the three M3×12 out from below the plate.
 2. Lift the shell straight up off the body + plate.
-3. Loosen and remove the factory shank nut; the body lifts up and out
-   of the plate's shank hole.
+3. The body lifts up and out of the plate's shank hole.
 
 The brass inserts take the thread wear — the joint re-mates
 indefinitely.
