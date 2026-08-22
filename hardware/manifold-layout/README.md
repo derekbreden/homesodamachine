@@ -160,15 +160,18 @@ part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it 
 `BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
 and it is [5.7](BARB_STANDOFF) mm — **the collet plate's berth**. Both pumps ride out of the box
 on their own cartridge and these four runs are what release. A waterjet 1/8" 304 flat stands on
-edge in the gap, one hole per tube: the holes pass the Ø6.35 tube and catch the collet noses, so
+edge in the gap, one large hole per tube plus two M3 clearance holes in its outer tails: the
+large holes pass the Ø6.35 tube and catch the collet noses, while the small pair positively
+retains the steel to the fixed tee wall. So
 pulling the cartridge draws the anchor tees forward against the steel and the tubes come out of
-their collets. Push the cartridge home and the four click back in. Nothing is unscrewed and no
-hand goes behind the deck.
+their collets. Push the cartridge home and the four click back in. Nothing is unscrewed for
+cartridge service and no hand goes behind the deck; the plate's own two screws are removed only
+when the plate itself has to lift out.
 
 `enclosure_assembly.py` strikes the plate off the placed barbs and writes `collet-plate.dxf`
 beside this file — the flat
 [`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) stages with the
-printed pieces and drops into the pump bay's own seat. The berth is steel and its two airs, so
+printed pieces, drops into the pump bay's own seat and fastens to its fixed wall. The berth is steel and its two airs, so
 the whole deck rides on it one millimetre for one: z [88.38](DECK_Z2) carries it, and so does
 every millimetre of `SOURCE_TRAVEL` the source runs have left to step in.
 
