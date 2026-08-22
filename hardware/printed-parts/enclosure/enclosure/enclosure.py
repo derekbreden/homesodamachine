@@ -1339,6 +1339,7 @@ plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor
                              # across it: the seat's ends are the side walls themselves, and
                              # what holds the steel off those is `PLATE_END_AIR` alone
 plate_guide_x_air = 1.0      # fixed guide cheeks outside the cartridge's whole X sweep
+plate_guide_crown = 6.0      # wraparound above the steel, hiding its top from oblique views
 plate_guide_top_lead = 1.0   # 45 degree lead into the plate's upward-open guide channel
 plate_guide_buttress = 3.0   # local fore fan round a retainer head, at the fixed outer wall
 plate_guide_head_land = 1.0  # full-depth fan beyond every point of the teardrop tunnel
@@ -3994,22 +3995,25 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     plate drops and lifts in Z, but its top cannot rotate fore about the seat in the floor.
 
     EACH CHEEK RETURNS ROUND THE PLATE'S END. Its baseline is one whole wall from floor to
-    crown, and the three-millimetre spine outside the plate's stated end runs one wall aft of
-    the plate into fixed side-wall stock beyond the flank opening. Round each retainer alone,
-    that L section fans `plate_guide_buttress` further fore at the outer wall. A 45° lower loft
-    grows the fan, a full-depth band surrounds the complete teardrop tunnel by
+    `plate_guide_crown` above the steel, and the three-millimetre spine outside the plate's
+    stated end runs one wall aft of the plate into fixed side-wall stock beyond the flank
+    opening. That raised wraparound masks the bright steel edge from ordinary oblique views;
+    it is not another plate retainer and carries no screw load. Round each retainer alone, the
+    L section fans `plate_guide_buttress` further fore at the outer wall. A 45° lower loft grows
+    the fan, a full-depth band surrounds the complete teardrop tunnel by
     `plate_guide_head_land`, and a 45° upper loft takes it away again. The head keeps the same
     inset without making the hand surrender three millimetres over the guide's whole height.
 
     THE TOP IS OPEN AND LED IN AT 45 DEGREES. Front-top prints from the Z-seam upward, so
-    cheek and return are vertical supported walls and the last millimetre steps fore one
-    layer at a time. No bridge closes over the steel and nothing has to flex for service.
+    cheek and return are vertical supported walls and the last millimetre at the raised crown
+    steps fore one layer at a time. No bridge closes over the steel and nothing has to flex
+    for service.
     """
     cart_x0, cart_x1 = _cap_x_span(bay)
     y_back = plate["fore_y"] - plate_slot_slip
     y_front = y_back - wall
     z0 = bay_floor_z(pump_trays)[1] - 1.0
-    z1 = plate["z1"]
+    z1 = plate["z1"] + plate_guide_crown
     z_lead = z1 - plate_guide_top_lead
     fan_z0, fan_full_z0, fan_full_z1, fan_z1 = _plate_guide_fan_z(plate)
     if not z0 < fan_z0 < fan_full_z0 < fan_full_z1 < fan_z1 < z_lead:
@@ -4805,6 +4809,7 @@ def grip_figures(box):
         "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
         "GRIP_RAKE_FORE": f"{grip_rake * deep:.4g} mm",
         "PLATE_GUIDE_FAN": f"{plate_guide_buttress:.4g} mm",
+        "PLATE_GUIDE_CROWN": f"{plate_guide_crown:.4g} mm",
         "PLATE_GRIP_BASE_OPEN": f"{guide_y_inner - y0:.4g} mm",
         "PLATE_GRIP_OPEN": f"{guide_y_inner - plate_guide_buttress - y0:.4g} mm",
         "PLATE_GUIDE_FULL_RISE": f"{fan_full_z1 - fan_full_z0:.4g} mm",
