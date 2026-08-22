@@ -3,7 +3,7 @@
 // Two rollups, two ledgers:
 //   * PARTS — hardware/ledger/bom.md, keyed by the hidden <!--@TAG--> category
 //     marker and the line cost on each data row (the same tags hardware/scripts/
-//     _bom_categories.py owns and the pre-commit gate enforces).
+//     _bom_categories.py owns and checks).
 //   * LABOR — hardware/ledger/labor.md, keyed by section, carrying an
 //     attended-minute estimate per operation and the hourly rate they're priced
 //     at. Section subtotals there are written by hardware/scripts/
@@ -137,7 +137,7 @@ export function readCostRollup(hardwareDir) {
     const first = cells[0].replace(/\*/g, "").trim().toLowerCase();
     if (first === "part" || first.includes("total")) continue; // header / totals row
     const tm = raw.match(TAG_RE);
-    if (!tm) continue; // untagged — shouldn't happen (pre-commit enforces coverage)
+    if (!tm) continue; // untagged rows are absent from this category rollup
     const tag = tm[1];
     const cost = parseMoney(cells[cells.length - 1]);
     const name = plainMarkdown(cells[0]);

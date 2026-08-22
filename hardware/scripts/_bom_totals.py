@@ -73,10 +73,7 @@ def main():
     variables = {f"BOM_SEC{n}": fmt(v) for n, v in sums.items()}
     variables["BOM_GRAND"] = fmt(grand)
 
-    # --check is the commit gate (.githooks/pre-commit, keyed on bom.md). It
-    # exists because the totals went stale twice inside two days: a row's cost
-    # moved, nobody reran this, and the ledger's printed total disagreed with
-    # the rows under it — which /cost sums itself and so quietly contradicted.
+    # --check compares the markers with the row sums without rewriting them.
     if "--check" in sys.argv:
         text = open(BOM, encoding="utf-8").read()
         stale = [f"  [{m.group(1)}]({name}) should be [{v}]({name})"

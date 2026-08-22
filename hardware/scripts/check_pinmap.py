@@ -24,8 +24,6 @@ This check reads the board, then FAILS (exit 1) if a derived artifact disagrees:
      with no pin/pad). New electrical parts must be added to CROSS below.
 
 Run:  python3 hardware/scripts/check_pinmap.py     (exit 0 = in sync, 1 = drift)
-This is the BOM<->pinout<->PCB reconciliation check; `.githooks/pre-commit` runs
-it on every commit that touches hardware/.
 """
 
 import re
