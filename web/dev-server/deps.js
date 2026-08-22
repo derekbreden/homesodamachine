@@ -25,6 +25,7 @@
 
 import fs from "fs";
 import path from "path";
+import { createHash } from "crypto";
 
 import { holdsRetiredMarker } from "../lib/retired.js";
 
@@ -127,33 +128,6 @@ export function prunedByTrace(dependents, modPath, traced = tracedReads()) {
   });
 }
 
-// The source scan deliberately follows a STEP filename through shared modules: a helper can
-// keep the path while its runnable importers perform the actual load.  A path constant is not
-// necessarily a load, though.  `_facts.STEP`, for example, identifies the assembly whose JSON
-// accompanies the facts card; readers of `_facts` do not open that STEP.  Treating every one
-// of them as a consumer invents reverse edges (enclosure -> assembly -> enclosure).
-//
-// A traced run resolves that ambiguity exactly.  Drop a shared-module candidate only when the
-// runnable has a trace entry and that run did not open this producer's exact output path.  No
-// trace, an untraced runnable, or an output outside this repository keeps the conservative
-// scanned edge.  Direct filename references in a runnable never come through this filter, so
-// a newly added load stands immediately even before the graph is retraced.
-export function prunedStepConsumersByTrace(
-  consumers, stepBasename, producer, traced = tracedReads(),
-) {
-  if (traced === null || producer == null) return consumers;
-  const output = path.relative(
-    REPO_ROOT,
-    path.join(path.dirname(path.resolve(producer)), stepBasename),
-  ).split(path.sep).join("/");
-  if (!output || output.startsWith("..")) return consumers;
-  return consumers.filter((consumer) => {
-    const rel = path.relative(REPO_ROOT, path.resolve(consumer)).split(path.sep).join("/");
-    const reads = traced.get(rel);
-    return reads === undefined || reads.has(output);
-  });
-}
-
 function readSource(file) {
   if (memo && memo.source.has(file)) return memo.source.get(file);
   let source;
@@ -164,6 +138,33 @@ function readSource(file) {
   }
   if (memo) memo.source.set(file, source);
   return source;
+}
+
+// `_facts.STEP` identifies the solid its JSON was measured from.  Importing `_facts` does not
+// itself load that solid, but the source scanner cannot see whether an importer later calls
+// `agrees_with_step()`.  The enclosure generator does not; treating it as a consumer closes a
+// false enclosure -> assembly -> enclosure ring after assembly begins consuming materialized
+// enclosure pieces.
+//
+// This one negative edge is pinned to the exact shared-module bytes that were traced.  Any edit
+// to `_facts.py` — including adding or activating a STEP load — misses the digest and restores
+// the conservative edge immediately.  Nothing else is pruned on a negative trace.
+const INERT_FACTS_EDGE = Object.freeze({
+  shared: "hardware/scripts/_facts.py",
+  step: "enclosure-assembly.step",
+  consumer: "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+  sha256: "fd98dab4edac3c0387f3df0e4183fe187cef39f8d3b429c2c6d9f9d5118f46d7",
+});
+
+export function isPinnedInertStepEdge(
+  sharedFile, stepBasename, consumer, source = readSource(sharedFile),
+) {
+  const rel = (p) => path.relative(REPO_ROOT, path.resolve(p)).split(path.sep).join("/");
+  if (rel(sharedFile) !== INERT_FACTS_EDGE.shared
+      || stepBasename !== INERT_FACTS_EDGE.step
+      || rel(consumer) !== INERT_FACTS_EDGE.consumer
+      || source == null) return false;
+  return createHash("sha256").update(source).digest("hex") === INERT_FACTS_EDGE.sha256;
 }
 
 // A FILENAME NAMED IN A COMMENT IS PROSE, NOT AN EDGE. Every match below — the STEP loads,
@@ -529,26 +530,24 @@ function consumersOfStep(stepBasename, roots, producerOf) {
   const shared = memo != null && producerOf === memo.producers.get(rootsKey(roots));
   if (shared && memo.consumers.has(key)) return memo.consumers.get(key);
   const producer = producerOf.get(stepBasename);
-  const directConsumers = new Set();
-  const sharedConsumers = new Set();
+  const consumers = new Set();
   for (const pyFile of walk(roots, ".py")) {
     if (pyFile === producer) continue;
     const source = readStrippedSource(pyFile);
     if (source == null || !referencesStep(source, stepBasename)) continue;
     if (isRunnableScript(pyFile)) {
-      directConsumers.add(pyFile);
+      consumers.add(pyFile);
     } else {
       // A shared module names the step; the real consumers are the runnable
       // scripts that import it, resolved from this file.
       for (const dep of findRunnableScriptsTransitivelyImporting(pyFile, roots)) {
-        if (dep !== producer) sharedConsumers.add(dep);
+        if (dep !== producer && !isPinnedInertStepEdge(pyFile, stepBasename, dep)) {
+          consumers.add(dep);
+        }
       }
     }
   }
-  const tracedShared = prunedStepConsumersByTrace(
-    Array.from(sharedConsumers), stepBasename, producer,
-  );
-  const out = Array.from(new Set([...directConsumers, ...tracedShared]));
+  const out = Array.from(consumers);
   if (shared) memo.consumers.set(key, out);
   return out;
 }
