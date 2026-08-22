@@ -141,8 +141,9 @@ zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 # the front (−Y) centerline, each hosting one plate-to-shell screw boss.
 # Mechanism: heat-set insert in the shell, screw up from under the plate (head
 # recessed in the plate bottom) through the plate boss, clamping the plate up
-# into the shell. These three anchors are the ENTIRE shell retention — the
-# shank nut only clamps the metal body to the plate, not the shell.
+# into the shell. These three anchors close the shell and plate around the
+# fitted metal body. The retained donor washer and shank nut remain loose
+# on the shank until they clamp the final countertop + keyhole-plate stack.
 #
 # Nested fastener chain (BNUOK M3 SHCS 304 SS, head ~5.43 mm measured; ruthex
 # M3 insert). Counterbore + boss are plate-side; the boss hole, insert pocket,
