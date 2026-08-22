@@ -548,6 +548,12 @@ be laid on air, and what stands over the lid is the vent gap (`drip_pan.VENT_GAP
 is air by construction. So the sleeve prints on support, one block 53 mm deep by the
 tray's rim plus a wall either way, in the band above the tray's slot.
 
+The exception in that lid is the moisture probe's **open-top lead notch** through the
+−X withdrawal wall. The leads rise in the basin's existing open mouth and turn west
+through this short notch, which is centred on their installed Y station. Because the
+notch opens upward it adds no bridge and traps no support; because it cuts the sleeve
+rather than the basin, the catch pan remains watertight.
+
 The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
 stand 30° off vertical and are free; its **underside is flat**, a soffit off the wall
 under the lane, and that face hangs. Behind the trough are the two straps' channels,
