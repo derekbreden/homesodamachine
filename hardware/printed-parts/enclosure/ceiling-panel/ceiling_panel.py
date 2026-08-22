@@ -16,9 +16,11 @@ telescopes in.
 
 WHAT THE PIECE KEEPS is the two side strips either side of this panel, `rail_run` wide,
 and it is those strips that carry the dado this panel's tongues run in — a drawer bottom
-in a dado. The strips' own section, the run of their corbels and the bosses under the two
-screw stations are back-top's; what this file states is the MATING FIGURES they are cut
-to (`dado`, `screw_stations`, `fore_y`, `aft_y`, `panel_half_w`, `underside_z`).
+in a dado. Each tongue is a wall-square rail centred on the interior ceiling datum, with
+half its section rooted in the structural field and half in the show skin. The strips' own
+section, the run of their corbels and the bosses under the two screw stations are back-top's;
+what this file states is the MATING FIGURES they are cut to (`dado`, `screw_stations`,
+`fore_y`, `aft_y`, `panel_half_w`, `underside_z`).
 
 Plan:
 
@@ -114,29 +116,35 @@ brim_seat = _funnel.brim_overhang
 
 # --- the tongue and the dado it runs in --------------------------------------
 #
-# THE WHOLE JOINT LIVES IN ONE `wall`, because the rail has one `wall` of section at the
-# dado's mouth: the strip's corbel grows below the ceiling going OUTBOARD and reaches
-# nothing at the panel's edge. So the tongue, its slip and the lip over it share the top
-# wall's own thickness, and what closes the section is the lip's roof:
+# THE RAIL STRADDLES THE INTERIOR CEILING DATUM. Half its wall-square section roots in the broad
+# structural field and half in the show skin, so the whole 3 x 3 section is joined to both parts
+# of the panel rather than hanging from the skin alone. Outboard, back-top's corbel grows one
+# millimetre deeper for every millimetre of run. At the dado's blind end that gives the captured
+# rail a lower ligament as well as the show-skin lip above it.
 #
 # THE DADO'S ROOF RISES AT `relief_chamfer` FROM THE BLIND END TO THE MOUTH, the way every
 # relief ceiling on this box does — a roof left flat would hang over the slot in a piece
 # that prints mouth-down. A 45 degree roof climbs one millimetre of section per millimetre
-# of reach, so the dado is exactly as DEEP as the lip over it is THICK, and the ramp lands
-# on the show face at the mouth with no flat anywhere.
+# of reach and runs clear of the show face at the open mouth. At the blind end, the slide
+# clearance is struck on all four faces of the square rail.
 dado_slip = 0.30        # printed-fit clearance on each face of the tongue — a slide fit
                         # down the whole `depth` of groove, not a press
-# With the roof at 45 degrees the section reads tongue + slip + lip = `wall` and
-# lip = reach + slip, which leaves the tongue SQUARE: as thick as it reaches.
-tongue_t = (_enc.wall - 2.0 * dado_slip) / 2.0
-tongue_reach = tongue_t
-lip_t = tongue_reach + dado_slip     # the rail's section over the dado, at the blind end
-dado_depth = lip_t                   # 45 degrees: the roof spends its whole reach climbing
+# One top-wall section in both directions makes the tongue a 9 mm2 rail. Its Z centre is the
+# ceiling datum, which puts half the root in the 8 mm field and half in the 3 mm show skin.
+tongue_t = _enc.wall
+tongue_reach = _enc.wall
+tongue_floor_z = underside_z - tongue_t / 2.0
+tongue_roof_z = underside_z + tongue_t / 2.0
+dado_depth = tongue_reach + dado_slip
 
-dado_floor_z = underside_z                            # the ceiling plane, both parts alike
-dado_roof_z = dado_floor_z + tongue_t + dado_slip     # at the blind end; it climbs inboard
-dado_mouth_x = panel_half_w                           # the rail's inboard face
+dado_floor_z = tongue_floor_z - dado_slip
+dado_roof_z = tongue_roof_z + dado_slip       # at the blind end; it climbs inboard
+dado_mouth_x = panel_half_w                    # the rail's inboard face
 dado_blind_x = panel_half_w + dado_depth
+# The fixed corbel's lower face at this run is `underside_z - dado_depth`; what remains below the
+# groove and above it are the two ligaments that capture the rail at the blind end.
+dado_lower_ligament = dado_floor_z - (underside_z - dado_depth)
+lip_t = show_z - dado_roof_z
 
 
 def dado():
@@ -199,10 +207,16 @@ def structural_stock():
 
 
 def insertion_sweep():
-    """A conservative continuous sweep of the deeper field through back-top's Y seam."""
+    """The structural field and both rails swept continuously through back-top's Y seam."""
     first_y = fore_y - (aft_y - _enc.y_seam)
-    return _slab(-panel_half_w, panel_half_w, first_y, aft_y,
-                 structural_under_z, underside_z)
+    sweep = _slab(-panel_half_w, panel_half_w, first_y, aft_y,
+                  structural_under_z, underside_z)
+    for sx in (-1.0, 1.0):
+        edge = sx * panel_half_w
+        sweep = sweep.fuse(_slab(min(edge, edge + sx * tongue_reach),
+                                 max(edge, edge + sx * tongue_reach),
+                                 first_y, aft_y, tongue_floor_z, tongue_roof_z))
+    return sweep
 
 
 def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
@@ -275,13 +289,13 @@ def build(box=None):
     slides into back-top's dados."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
     field = field.fuse(_relieved_stock(box) if box is not None else structural_stock())
-    # The tongues, one down each long edge, at the panel's own underside.
+    # One wall-square rail down each long edge, centred on the panel's interior-ceiling datum.
     for sx in (-1.0, 1.0):
         edge = sx * panel_half_w
         field = field.fuse(_slab(min(edge, edge + sx * tongue_reach),
                                  max(edge, edge + sx * tongue_reach),
                                  fore_y, aft_y,
-                                 underside_z, underside_z + tongue_t))
+                                 tongue_floor_z, tongue_roof_z))
     # The insert sockets, clipped to the panel's plan — each one's fore face is the panel's
     # fore edge, which is the plane the brim bears on. Their mouths face Z−.
     plan = _slab(-panel_half_w - tongue_reach, panel_half_w + tongue_reach,
@@ -358,6 +372,10 @@ def main():
         raise ValueError(
             "the ceiling screw stack is not ordered from its Z− head through the fixed land "
             "and upward panel insert to the blind show-face cap")
+    if min(dado_lower_ligament, lip_t) <= 0.0:
+        raise ValueError(
+            f"the ceiling rail's dado leaves {dado_lower_ligament:.2f} mm below and "
+            f"{lip_t:.2f} mm above its blind end; both capture ligaments must be positive")
     bed_x, bed_y = _enc.H2C_X, _enc.H2C_Y
     lies = min(b.xlen, b.ylen) <= min(bed_x, bed_y) and max(b.xlen, b.ylen) <= max(bed_x, bed_y)
     if not lies:
@@ -374,10 +392,12 @@ def main():
     print(f"  bbox:    {b.xlen:.1f} x {b.ylen:.1f} x {b.zlen:.1f} mm "
           f"(tongues out to +-{panel_half_w + tongue_reach:g}, field to {structural_under_z:g}, "
           f"insert sockets to {screw_insert_open_z:g}, ribs to {b.zmin:g})")
-    print(f"  tongue:  {tongue_t:.2f} thick x {tongue_reach:.2f} reach, "
+    print(f"  tongue:  {tongue_t:.2f} thick x {tongue_reach:.2f} reach "
+          f"({tongue_t * tongue_reach:.2f} mm2), z {tongue_floor_z:g}..{tongue_roof_z:g}, "
           f"{dado_slip:g} slip per face")
     print(f"  dado:    x {dado_mouth_x:g}..{dado_blind_x:g}, z {dado_floor_z:g}..{dado_roof_z:g}, "
-          f"roof at {_enc.relief_chamfer:g} deg to the mouth; lip {lip_t:.2f} at the blind end")
+          f"roof at {_enc.relief_chamfer:g} deg to the mouth; "
+          f"ligaments {dado_lower_ligament:.2f} below / {lip_t:.2f} above at the blind end")
     print(f"  rails:   {rail_run:g} mm side strip each side, "
           f"back-top flank face at +-{_enc.back_top_flank_face()[1]:g}")
     print(f"  screws:  M3x{_enc.screw_len:g} at x +-{screw_x:.3f}, y {screw_y:g} — "
@@ -415,9 +435,14 @@ def main():
             "RAIL_RUN": f"{rail_run:g} mm",
             "TONGUE_T": f"{tongue_t:g} mm",
             "TONGUE_REACH": f"{tongue_reach:g} mm",
+            "TONGUE_FLOOR": f"{tongue_floor_z:g}",
+            "TONGUE_ROOF": f"{tongue_roof_z:g}",
+            "RAIL_AREA": f"{tongue_t * tongue_reach:g} mm²",
             "DADO_SLIP": f"{dado_slip:g} mm",
             "DADO_DEPTH": f"{dado_depth:g} mm",
+            "DADO_FLOOR": f"{dado_floor_z:g}",
             "DADO_ROOF": f"{dado_roof_z:g}",
+            "DADO_LOWER_LIGAMENT": f"{dado_lower_ligament:g} mm",
             "LIP_T": f"{lip_t:g} mm",
             "CHAMFER": f"{_enc.relief_chamfer:g}°",
             "SCREW_X": f"{screw_x:g}",
