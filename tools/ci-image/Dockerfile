@@ -21,8 +21,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # NOTHING HERE IS THE BUILD'S CHOICE — it is what the build already reaches for by name.
-# `_blender_render.py` resolves `blender` off PATH, `sieve.py` calls `rsvg-convert`, and
-# `actions/cache` needs tar and zstd to unpack into a container.
+# `_blender_render.py` resolves `blender` off PATH, `sieve.py` calls `rsvg-convert`, the quick
+# start clears connected render backgrounds with ImageMagick, and `actions/cache` needs tar and
+# zstd to unpack into a container.
 # python3.13 is not in noble, so deadsnakes carries it; the venv's own pin does the rest.
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates curl gnupg git tar zstd unzip xz-utils sudo \
@@ -31,7 +32,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && add-apt-repository -y ppa:deadsnakes/ppa \
     && apt-get update && apt-get install -y --no-install-recommends \
       python3.13 python3.13-venv python3.13-dev \
-      librsvg2-bin \
+      imagemagick librsvg2-bin \
       libglu1-mesa libgl1 libegl1 libxi6 libxxf86vm1 libxfixes3 libxrender1 \
       libxkbcommon0 libsm6 libice6 libx11-6 \
     && rm -rf /var/lib/apt/lists/*
@@ -182,6 +183,7 @@ ENV HSM_CAD_VENV=/opt/hsm/cad-venv \
 # carries its tools and proved nothing; every command now stands alone under `set -e`.
 RUN set -eu; \
     blender --version; \
+    convert -version; \
     rsvg-convert --version; \
     node --version; \
     gh --version; \
