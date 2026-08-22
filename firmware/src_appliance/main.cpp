@@ -2,6 +2,8 @@
 
 #include "fw_version.h"
 #include "fw_build_time.h"   // churns every build; the banner is what reads it
+#include "faucet_link.h"
+#include "flavor.h"
 #include "link.h"
 #include "machine.h"
 #include "pins.h"
@@ -56,6 +58,8 @@ void setup() {
     while (!Serial && millis() < 2000) {}
     Serial.printf("\nhomesodamachine appliance  %s  (%s)\n", FW_VERSION, FW_BUILD_TIME);
 
+    flavorBegin();
+
     // The clock quiet hours reads. Without it soundInQuietHours() is false for
     // good — a machine that guessed the hour would go quiet at the wrong one.
     rtcBegin();
@@ -77,6 +81,9 @@ void setup() {
     linkBegin();
     Serial.printf("J9 up on IO%d/IO%d @ %ld — the display's prime hold arrives here\n",
                   PIN_485_DI, PIN_485_RO, RS485_BAUD);
+    faucetLinkBegin();
+    Serial.printf("J3 up on IO%d/IO%d @ %ld — faucet flavor selection\n",
+                  PIN_FAUCET_TX, PIN_FAUCET_RX, FAUCET_BAUD);
     Serial.println("idle — actuators dark; valves have no runtime command");
     Serial.println("type 'help' for what this build answers to\n");
     Serial.print("> ");
@@ -94,6 +101,11 @@ void loop() {
     soundService();     // U8's step boundaries — nothing here blocks, and it must
                         // run every pass: LEDC keeps oscillating on its own, so a
                         // sequencer that stops being serviced holds the coil on.
+    faucetLinkService();
+
+    // Preferences can occasionally compact a flash page. Keep that work out of
+    // every pump deadline and sound step; the logo already changed locally.
+    if (machineState() == ST_IDLE && !soundBusy()) flavorService();
 
     static String line;
     while (Serial.available()) {
@@ -115,7 +127,8 @@ static void help() {
     Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
-    Serial.println("  link              J9 frames, bytes, echo");
+    Serial.println("  flavor [a|b]      selected flavor (controller-owned and persisted)");
+    Serial.println("  link              J9 front display and J3 faucet links");
     Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  display usb       make the externally-powered display reattach to USB");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
@@ -137,6 +150,9 @@ static void status() {
                       machineIsPriming() ? " (held from the glass)" : "");
     Serial.printf("\n  uptime   %lu s\n", millis() / 1000);
     Serial.printf("  heap     %lu bytes free\n", (unsigned long)ESP.getFreeHeap());
+    Serial.printf("  flavor   %s — %s%s\n", machinePumpName(flavorSelected()),
+                  flavorEstablished() ? "controller-owned" : "awaiting first faucet sync",
+                  flavorPersisted() ? ", persisted" : ", persistence pending");
     MachineIoStatus io;
     const bool ioHealthy = machineReadIoStatus(io);
     Serial.printf("  expanders %s — cfg=%s, plan=%s, parked=%s, OLATA=%02X/%02X, GPPUB=%02X/%02X\n",
@@ -283,7 +299,7 @@ static void cmdRtc(const String &line) {
 static void console(const String &line) {
     if (line == "help")        { help(); return; }
     if (line == "status")      { status(); return; }
-    if (line == "link")        { linkReport(); return; }
+    if (line == "link")        { linkReport(); faucetLinkReport(); return; }
     if (line == "ping")        { linkPing(); return; }
     if (line == "display usb") { linkDisplayUsbReattach(); return; }
     if (line == "stop")        { machineStop(); return; }
@@ -291,6 +307,21 @@ static void console(const String &line) {
     if (line.startsWith("volume")) { cmdVolume(line); return; }
     if (line.startsWith("quiet"))  { cmdQuiet(line);  return; }
     if (line.startsWith("rtc"))    { cmdRtc(line);    return; }
+
+    if (line.startsWith("flavor")) {
+        String rest = line.substring(6); rest.trim();
+        if (rest.length()) {
+            char which = rest[0] | 0x20;
+            if (which != 'a' && which != 'b') {
+                Serial.println("\nusage: flavor [a|b]");
+                return;
+            }
+            flavorSelect(which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B);
+        }
+        Serial.printf("\nflavor %s%s\n", machinePumpName(flavorSelected()),
+                      flavorPersisted() ? " (persisted)" : " (persistence pending)");
+        return;
+    }
 
     if (line.startsWith("pump")) {
         String rest = line.substring(4); rest.trim();

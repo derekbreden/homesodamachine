@@ -14,12 +14,12 @@ Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/
 
 Two of them run on the controller PCBA, and only one of the two ships inside a machine.
 
-**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9. What runs at the glass today is one flavor pump: a prime held from the 4.3B, and `pump <a|b> [ms]` bounded from the console. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds, but no runtime operation opens a valve or runs the fan, and a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9 and J3. What runs at the glass today is one flavor pump: a prime held from the 4.3B, and `pump <a|b> [ms]` bounded from the console. The faucet selection crosses J3 immediately and is persisted by the controller for the future automatic-dispense path. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds, but no runtime operation opens a valve or runs the fan, and a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
 
-Three shared libraries sit under `lib/`, compiled into whichever trees include them:
-[`lib/proto_link`](lib/proto_link/proto_msg.h) is the J9 wire contract;
+Shared libraries sit under `lib/`, compiled into whichever trees include them:
+[`lib/proto_link`](lib/proto_link/proto_msg.h) is the inter-board wire contract;
 [`lib/machine_policy`](lib/machine_policy/machine_policy.h) is the Arduino-free actuator-plan,
-safety-transition and pump-timing policy; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
+safety-transition and pump-timing policy; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is controller authority and persistence policy; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
 and the volume/quiet-hours settings behind it. The appliance and the bench share that one
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
 Neither display carries a sounder, so every sound the machine makes is made on the PCBA.
@@ -40,6 +40,20 @@ So the rule, and it is a rule rather than an optimisation:
 
 `link` on the controller console reports `desyncs`: collisions that reached the wire in spite of all that. On a healthy pair it stays at zero. Rising under load means the discipline is being violated somewhere, and the place to look is whatever recently learned to transmit.
 
+## J3 is the faucet's direct UART
+
+J3/SIG-6 is a separate full-duplex 3.3 V TTL link to the 1.47-inch faucet display. The
+controller uses IO33 TX / IO35 RX; the faucet uses GPIO43 TX / GPIO44 RX, crossed TX to RX,
+at 115200 baud. TinyProto Fd supplies framing, CRC, acknowledgements and keepalives. J3 has
+independent TX and RX conductors, so none of J9's half-duplex turn-taking or echo cancellation
+belongs on this link.
+
+A faucet tap changes the local logo first, then queues `MSG_FLAVOR_SELECT` with an absolute
+flavor and request token. The controller acknowledges its authoritative value and persists it
+in NVS. Repeating a token cannot repeat the selection or its sound. At first installation only,
+a controller with no stored flavor adopts the faucet's cached selection; every established
+controller wins reconciliation. Both boards defer flash writes away from the touch path.
+
 ## What the appliance firmware must hold
 
 Three constraints the board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
@@ -55,7 +69,7 @@ deadline boundaries without opening a serial port. See [`test/README.md`](test/R
 ## Appliance displays
 
 - **ESP32-S3 front-face display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance front-face config + interaction surface: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. `src_front/` brings up the RGB panel (driven through esp_lcd with a double framebuffer + bounce buffer for tear-free output) + LVGL, runs the animated loading logo on the theme background, and carries the RS485 link to the base on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. The interaction UX is the seam that remains. See [`src_front/README.md`](src_front/README.md).
-- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head, on both machines. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere toggles between the two flavors, and the selection persists in NVS. After a minute idle the backlight fades to an ember level; the first touch wakes it without toggling. Standalone for now — the UART/TinyProto link to the base ESP32 (flavor-state sync, names/artwork push) is the integration seam marked in `src_faucet/main.cpp`.
+- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head, on both machines. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the controller. The controller owns and persists the selection; faucet NVS is the immediate boot-logo cache. After a minute idle the backlight fades to an ember level, and the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
 
 The config UX the 4.3B carries in the appliance is the prototype's rotary-display UX below, and porting it is a pending integration seam.
 
@@ -198,11 +212,17 @@ All pins are fixed by the board design.
 | Touch SCL | 41 | |
 | Touch INT | 48 | FALLING edge per touch report |
 | Touch RST | 47 | |
+| J3 UART TX | 43 | 115200 baud, TinyProto Fd to controller IO35 RX |
+| J3 UART RX | 44 | 115200 baud, TinyProto Fd from controller IO33 TX |
 | BOOT button | 0 | |
 
 ## Inter-Board Communication
 
-All inter-MCU communication uses [TinyProto](https://github.com/lexus2k/tinyproto) at 115200 baud with HDLC full-duplex framing. Text commands are sent inside `MSG_TEXT` messages; binary image uploads use a state-based protocol where TinyProto handles fragmentation, ACKs, and retransmission internally.
+Inter-MCU messages use [TinyProto](https://github.com/lexus2k/tinyproto) at 115200 baud.
+The appliance's J9 pair uses bare HDLC framing with explicit half-duplex turns; its J3 faucet
+link and the prototype's separate TX/RX UARTs use TinyProto Fd acknowledgements and
+retransmission. Text commands are sent inside `MSG_TEXT` messages; binary image uploads use a
+state-based protocol where TinyProto handles fragmentation internally.
 
 **ESP32 ↔ RP2040 (bidirectional, Serial2, GPIO 32 TX / GPIO 35 RX):**
 
@@ -311,7 +331,7 @@ The ESP32-S3 uses the [pioarduino platform](https://github.com/pioarduino/platfo
 pio run -e esp32s3_faucet -t upload
 ```
 
-Same platform and LVGL stack as the config display. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. The display renders 180° rotated — the USB connector points up on the faucet mount. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_DIAG`, `BL:n` (raw backlight duty), `GET_VERSION`.
+Same platform and LVGL stack as the config display. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. Rotation 0 puts the USB connector down on the faucet mount. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_DIAG`, `BL:n` (raw backlight duty), `GET_VERSION`.
 
 ### Adding a New Flavor Image
 

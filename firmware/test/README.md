@@ -6,6 +6,8 @@ The native suite holds machine policy that does not need, open, reset, or drive 
 pio test -e native
 ```
 
+`test_flavor_selection` checks first-install adoption, established-controller authority,
+absolute/idempotent selection, corrupt storage, and failed-write retry state.
 `test_machine_policy` checks the canonical V-A–V-K operation plans, the three-valve ceiling,
 the dispense/refill exclusion, every possible off-before-on valve-mask transition, and the
 prime/timed-pump deadlines shared with the J9 protocol. `test_pcba_expanders` checks the
@@ -35,4 +37,15 @@ through the same handlers the glass uses and always posts a stop request.
 ~/.platformio/penv/bin/python tools/firmware_live_check.py
 ~/.platformio/penv/bin/python tools/firmware_live_check.py --animation
 ~/.platformio/penv/bin/python tools/firmware_live_check.py --prime b
+```
+
+With the faucet display connected to J3 and its native USB connected, the faucet check never
+drives an actuator. Its default mode proves convergence, both persistence states, request
+latency and loop/link-service high-water marks. `--toggle` explicitly selects the other
+flavor, waits for both stores, and restores the original selection; the controller makes one
+tick for each of those two user-path selections.
+
+```bash
+~/.platformio/penv/bin/python tools/firmware_faucet_check.py
+~/.platformio/penv/bin/python tools/firmware_faucet_check.py --toggle
 ```
