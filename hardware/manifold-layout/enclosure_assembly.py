@@ -4734,6 +4734,11 @@ FOOT_CLEAR = 1.0
 #   IT CARRIES THE PROBE WITH IT. The plate rides the tray, so the vent's tip lands this far
 # east of the plate's own centre, and `check_drip_reads` takes that reading.
 PAN_PROUD = 6.0
+# The probe plate has two individual 22 AWG silicone leads soldered on 2.54 mm centres. They
+# rise in the open basin and turn WEST through one notch in the withdrawal wall. It is not a
+# close wire bore: the top is absent and this clear width takes the pair plus hand-routed slack.
+PAN_LEAD_RACE_W = 5.0
+PAN_LEAD_RACE_INNER_OVERLAP = 1.0
 
 
 def pan_rim_z(asse):
@@ -5614,14 +5619,18 @@ def pan_sleeve(pan, west_face):
     face and there is one continuous flat surface on each of its outsides. The basin lies on the
     block's floor the way a drawer lies in its carcase.
 
-    THREE CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
+    FOUR CUTS TAKE IT BACK, AND THEY REACH DIFFERENT DISTANCES WEST. The WELL and the REBATE are
     the tray's own two sections — the basin's body, and the rim over its shoulders — and both run
     west THROUGH the wall, because that is the silhouette the tray travels on. The MOUTH is the
     basin's opening carried up through the lid for the drip to fall in, and it stops at the wall's
     INNER face: the tray is nowhere near this tall, so an opening cut this high in the wall is a
-    hole nothing passes through.
+    hole nothing passes through. The LEAD RACE is the narrow open-top notch through the
+    withdrawal wall, on the Y of the plate's two solder holes. Inboard of it the leads rise in
+    the already-open basin mouth; at the wall they turn west through this one short notch. The
+    pan stays whole and watertight — this cuts only the roof that otherwise pinches the leads
+    over the tray's rim.
 
-    What none of the three reaches is solid: the block's floor under the basin, its flanks
+    What none of the four reaches is solid: the block's floor under the basin, its flanks
     outboard of the rim, its lid over the flange, and — east of where the tray's own outline ends
     — the BACKSTOP, full section from floor to lid, which is what the tray comes to rest
     against."""
@@ -5633,9 +5642,22 @@ def pan_sleeve(pan, west_face):
     # The berth's two cuts start west of the wall's own outer face, so the slot the wall carries
     # and the room behind it are opened by one geometry rather than two that have to agree.
     x0 = west_face - _enc.wall - 1.0
+    # The plate is centred on the pan and turned +90 degrees (`PLATE_YAW`), so both holes share
+    # one Y station near the basin's forward end. The basin mouth is already open above them;
+    # only the short run through the wall needs taking out. One millimetre of overlap makes the
+    # notch and mouth unambiguously continuous instead of leaving a zero-thickness knife edge.
+    lead_y = ((pan.ymin + pan.ymax) / 2.0
+              - (_plate.PLATE_X / 2.0 - _plate.HOLE_INSET))
+    lead_race = (
+        x0, west_face + PAN_LEAD_RACE_INNER_OVERLAP,
+        lead_y - PAN_LEAD_RACE_W / 2.0, lead_y + PAN_LEAD_RACE_W / 2.0,
+        # Its floor is the rim's own top and its roof is deliberately absent.
+        pan.zmax, z1 + 1.0,
+    )
     return [block], [(x0, wx1, wy0, wy1, wz0, wz1),
                      (x0, rx1, ry0, ry1, rz0, rz1),
-                     (west_face, wx1, wy0, wy1, rz1, z1)]
+                     (west_face, wx1, wy0, wy1, rz1, z1),
+                     lead_race]
 
 
 def west_wall_ports(pan):
