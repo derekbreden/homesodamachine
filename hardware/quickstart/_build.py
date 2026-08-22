@@ -1,4 +1,4 @@
-"""Build the single-sheet, 11 x 17 in Home Soda Machine installation reference.
+"""Build the single-sheet, 11 x 17 in Home Soda Machine installation planning map.
 
 Product-derived artwork is a separate build step in ``quickstart_art.py``. Keeping it separate means a
 layout or copy edit rerenders only these sheets; CAD and firmware changes rebuild the artwork
@@ -36,7 +36,7 @@ SIDECAR = HERE / "quick-start.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-TITLE = "Faucet mount + installation layout"
+TITLE = "Faucet + umbilical installation planning map"
 CANVAS_W, CANVAS_H = 2550, 1650
 COVER_W = 800
 
@@ -102,7 +102,7 @@ def bind() -> int:
     write_cover(OUT / f"{order[0]}.png")
     sidecar = {
         "title": TITLE,
-        "subtitle": "Visual installation reference - 11 x 17 in",
+        "subtitle": "Development planning reference - 11 x 17 in",
         "pages": len(order),
         "cover": COVER.name,
         "cover_size": [COVER_W, COVER_W * CANVAS_H // CANVAS_W],
