@@ -92,13 +92,10 @@ const rootsKey = (roots) => roots.join("\0");
 // for that generator, a module outside the tracked set — each of those keeps the scanned edge, because none of them is an observation. The one thing
 // that removes an edge is a watched run of that generator that did not open that file.
 //
-// WHAT GOES STALE HERE GOES RED AT THE COMMIT THAT STALES IT. `check_declared_imports.py`
-// runs from `.githooks/pre-commit` on any staged `.py`, parses its imports with `ast`, and
-// names every step whose graph entry does not hold them — static, so it does not need the
-// trace to have seen the import, which is what lets it catch the trace being old. It names
-// the generator that gained the import among the steps to re-trace, and prints the command.
-// It reports rather than holds the commit (`.githooks/pre-commit:4`), so the window is one
-// commit wide and closes when someone runs what it printed.
+// `tools/bazel/check_declared_imports.py` parses imports with `ast` and names every step whose
+// graph entry does not hold them — static, so it does not need the trace to have seen the
+// import, which is what lets it catch the trace being old. It names the generator that gained
+// the import among the steps to re-trace, and prints the command.
 const REPO_ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..", "..");
 const GRAPH_JSON = path.join(REPO_ROOT, "tools", "bazel", "graph.json");
 

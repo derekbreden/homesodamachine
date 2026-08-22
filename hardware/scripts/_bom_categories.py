@@ -9,8 +9,7 @@ each line is (a sensor, a fitting, a printed part), for cost analysis.
 Each data row in bom.md carries a hidden tag `<!--@TAG-->` in its last cell — it
 renders invisibly and travels with the row, so there is no second file to keep in
 sync. This script owns the category set, rolls the per-unit costs up by category,
-and validates that every data row is tagged (the pre-commit hook runs `--check`, so
-the tags cannot silently drift as rows are added or edited).
+and validates that every data row is tagged.
 
   python3 hardware/scripts/_bom_categories.py            # category subtotals
   python3 hardware/scripts/_bom_categories.py --list      # + every line under its category

@@ -23,7 +23,7 @@ npm run subscribers # the signup list; DATABASE_URL comes from Render's dashboar
 
 ## Dependencies
 
-`package-lock.json` is tracked, and is what the deployed site installs. `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and stops when the lockfile and `package.json` disagree; the pre-commit hook runs that same command with `--dry-run` whenever either file is staged.
+`package-lock.json` is tracked, and is what the deployed site installs. `render.yaml` installs it with `npm ci --omit=dev`, which resolves nothing and stops when the lockfile and `package.json` disagree.
 
 `overrides` pins `uuid` to `^11.1.1`. Below that it misses a buffer bounds check in its v3/v5/v6 generators. It arrives four levels down — `firebase-admin` → `@google-cloud/storage` → `retry-request`/`teeny-request` → `uuid` — and again through `gaxios`.
 
@@ -164,4 +164,4 @@ To verify dev/prod parity, the test in `tests/smoke.test.js` boots `start({ dev:
 - No bundler (esbuild/webpack/vite). Browser ES modules + the importmap in `lib/templates/viewer-body.html` is the whole story. If you reach for a bundler, ask why first — most "needs a bundler" arguments here are for problems we don't have.
 - No framework (React/Vue/Svelte). The viewer uses Three.js + plain DOM; the rest is server-rendered HTML + small client modules.
 - No auth, no sessions, no user accounts. The app identifies a user by their FCM token (when they enable notifications). Settings live in `localStorage`.
-- No browser in `npm test`. The suite holds what stays still — the server boots, the public route surface answers, the walkers and the contracts agree — and `.githooks/pre-commit` runs it on every commit that stages under `web/`. `npm run test:browser` is the browser pass, on demand. What the viewer renders moves with the hardware: which assemblies exist, which parts fill a branch, what a readout chip reads. If you reach for an assertion on one of those, ask why first.
+- No browser in `npm test`. The suite holds what stays still — the server boots, the public route surface answers, the walkers and the contracts agree. `npm run test:browser` is the browser pass, on demand. What the viewer renders moves with the hardware: which assemblies exist, which parts fill a branch, what a readout chip reads. If you reach for an assertion on one of those, ask why first.

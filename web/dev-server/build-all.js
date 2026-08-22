@@ -16,8 +16,7 @@
 // --check is the guard that would have caught the week-long enclosure staleness.
 //
 // It runs every generator in the tree, each as its own CadQuery process, so it
-// costs minutes; `--list` prints the count without building. The commit-time gate
-// is .githooks/pre-commit, which keys each check to the files actually staged.
+// costs minutes; `--list` prints the count without building.
 //
 // STDOUT IS THE ANSWER AND NOTHING ELSE — what failed, what was stale, and a final
 // line that stands alone as the verdict. The per-generator progress goes to stderr,
@@ -64,8 +63,8 @@ function run(script) {
 // import `docgen`, and most are the ledger chain — §7's masses feed the totals, the totals
 // feed the machine-hours — so running them in any order but that one leaves a doc stale
 // after a full run, which is a --check that reports the same file forever. The ones here
-// write a single doc apiece off the machine and settle in one pass; the ledger chain is
-// ordered by `.githooks/pre-commit`, which is where it already runs.
+// write a single doc apiece off the machine and settle in one pass. The ledger drivers
+// remain separate tools because their values flow through one another in their own order.
 const DOC_SYNCS = ["hardware/printed-parts/enclosure/_enclosure_dimensions.py"];
 
 function docSyncDrivers() {

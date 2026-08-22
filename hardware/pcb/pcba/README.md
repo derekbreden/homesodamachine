@@ -21,12 +21,8 @@ the BOM/CPL, and `picks.json`. It runs on every save and is meant to stay fast, 
 **not** build the 3D (CadQuery is ~14 s) — iterate freely without waiting on it.
 
 The 3D assembly (`out/pcba.glb` + the `top3d/bottom3d` face textures, composed by
-[`board-3d.py`](board-3d.py) → [`board-texture.ts`](board-texture.ts)) is reconciled at
-**commit** time: the [`.githooks/pre-commit`](/.githooks/pre-commit) hook rebuilds it once,
-only when it's behind the gerbers and only when the commit touches this board, then stages
-it — so the GLB never lands stale and no render ever waits on it. (New clones: point git at
-the committed hooks with `git config core.hooksPath .githooks`.) The dev-server also rebuilds
-the GLB in the background for the live `/3d` view; rebuild by hand anytime with
+[`board-3d.py`](board-3d.py) → [`board-texture.ts`](board-texture.ts)) is rebuilt in the
+background by the dev-server for the live `/3d` view, or directly with
 `tools/cad-venv/bin/python board-3d.py`. Gerber-injected silk (the LED knockout badges,
 [`led-knockout.ts`](led-knockout.ts)) reaches the 3D too, since the face textures are
 composed from those gerbers.
