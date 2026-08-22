@@ -20,23 +20,30 @@ Two jobs:
      fluid-topology.md's own tables name. In fluid-topology-limbs.mmd every limb box must hold
      exactly the bodies its limb chains.
 
-  2. WRITE. The measured length onto every labelled edge, the manifold chart's `linkStyle` index
-     lists off the parsed edge order, and the [value](NAME) markers in the charts' `%%` comments
-     and in fluid-topology.md. Every chart's `linkStyle` lines are held to a partition of its
-     edges, hand-written or not.
+  2. WRITE. What each labelled edge is — the segment's name, and how it is made where it carries
+     no tube — the manifold chart's `linkStyle` index lists off the parsed edge order, and the
+     [value](NAME) markers in the charts' `%%` comments and in fluid-topology.md. Every chart's
+     `linkStyle` lines are held to a partition of its edges, hand-written or not.
+
+     NO MEASUREMENT REACHES A DRAWN LABEL. The lengths are the stdout table a bare run prints,
+     and the aggregates are `[value](NAME)` markers in `%%` comments — both of which a reader
+     asks for. A figure standing in the drawn chart is one the site serves to anyone who opens
+     `/charts`, and this driver is not run on the way to that page.
 
 TWO NAMESPACES REACH ONE NODE. A run `_lines.py` draws anchors on `"<body>.<port>"` — the pack's
 own placed bodies. A segment `manifold_layout.py` makes anchors on the topology's own port names,
 `V-C-O` and `Y-C-1` and `P-B-I`; inside the manifold two collets meet with no body between them
 to hang a port on. `NODES` carries both namespaces per node.
 
-A mermaid file has two regions and a managed number takes a different form in each:
+A mermaid file has two regions and a managed value takes a different form in each:
 
   * `%%` COMMENT LINES never reach the renderer, so a docgen `[value](NAME)` marker sits there
-    invisible to the drawn chart. `substitute_mmd` writes them.
-  * EDGE LABELS render. The label is `<route-id><br/><what the segment is>`, and this driver
-    rewrites everything after the route id, keyed on the id. Same contract as a docgen marker:
-    the value is in the file for a reader, the script is authoritative.
+    invisible to the drawn chart. `substitute_mmd` writes them, and every figure this driver
+    measures that a chart carries at all is one of these.
+  * EDGE LABELS render. The label is `<route-id>`, or `<route-id><br/><how it is made>` where
+    the segment carries no tube, and this driver rewrites everything after the route id, keyed
+    on the id. Same contract as a docgen marker: the text is in the file for a reader, the
+    script is authoritative.
 
 Run:  tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py
       tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py --check
@@ -78,12 +85,12 @@ TOPOLOGY = _here / "fluid-topology.md"
 class Seg:
     """One fluid segment as the machine actually makes it.
 
-    `made` is what the chart's edge label says, and it is ONE OF `_scorecard.MADE_AS`'S NAMES.
+    `made` is ONE OF `_scorecard.MADE_AS`'S NAMES, and it is what an edge carrying no tube says.
     That table is the vocabulary: the card scores `routed` on it and this driver labels an edge
     with it, so a word spelt out again here is a word the chart and the card come to disagree
-    over. `__post_init__` holds every segment to it.
+    over. `__post_init__` holds every segment to it, drawn or not.
 
-    What these charts draw of it:
+    The kinds:
 
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
@@ -113,8 +120,12 @@ class Seg:
 
     @property
     def label(self) -> str:
-        return f"{self.id}<br/>{self.length:.1f} mm" if self.length else \
-            f"{self.id}<br/>{self.made}"
+        """What the edge says: the segment's name, and — where the segment carries NO tube —
+        `_scorecard.MADE_AS`'s word for how it is made instead. Two collets face to face and a
+        drawn run are the same arrow otherwise, so that word is the one thing about an edge the
+        chart cannot draw. The length of stock a segment cuts is this driver's own stdout table,
+        not the chart's."""
+        return self.id if self.length else f"{self.id}<br/>{self.made}"
 
 
 def _interior(cid: int, how: str) -> tuple:

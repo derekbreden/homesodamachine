@@ -7,9 +7,14 @@ flowchart LR
   %% Source of truth: `manifold-layout/enclosure_assembly.py` places the pack,
   %% `manifold-layout/_lines.py` authors every run BETWEEN placed bodies and `_routing.Run.length`
   %% measures it off the built centreline, and `manifold-layout/manifold_layout.py` makes the
-  %% manifold's own interior. `_fluid_topology_sync.py` writes every number below and gates every
+  %% manifold's own interior. `_fluid_topology_sync.py` writes every label below and gates every
   %% edge against the built segment — an edge whose two ends are not that segment's two ends fails
   %% the gate.
+
+  %% NO LENGTH IS DRAWN HERE. Segment by segment, the cut figures are what a bare run of
+  %% `_fluid_topology_sync.py` prints: every segment with its length, its corners and how it is
+  %% made, and the total under them. The aggregates below are `%%` markers, which the renderer
+  %% never reaches.
 
   %% [26](SEGMENT_COUNT) flavor segments. [7](BUTT_COUNT) are collet butted to collet and carry
   %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are the
@@ -118,11 +123,11 @@ flowchart LR
   %% select it feeds, with their branches meeting face to face across the mirror plane. V-A and
   %% V-B come off the folded deck's plane on a quarter turn of R14, then step 28 mm further along
   %% the run and 14 mm across it, toward the cold core's crown.
-  Split -->|"fluid-1<br/>46.9 mm"| FlowReg
-  FlowReg -->|"fluid-2<br/>154.9 mm"| VA
-  VA -->|"fluid-3<br/>43.4 mm"| YA
-  Hopper -->|"fluid-4<br/>199.3 mm"| VB
-  VB -->|"fluid-5<br/>43.2 mm"| YB
+  Split -->|"fluid-1"| FlowReg
+  FlowReg -->|"fluid-2"| VA
+  VA -->|"fluid-3"| YA
+  Hopper -->|"fluid-4"| VB
+  VB -->|"fluid-5"| YB
   YA <-->|"fluid-6<br/>butt"| YB
   YA -->|"fluid-7<br/>butt"| VC
   YB -->|"fluid-8<br/>butt"| VD
@@ -134,15 +139,15 @@ flowchart LR
   %% each tee's run lies across the head's face and IS the outboard half of a limb. fluid-9 and
   %% fluid-17 are the two hairpins that cross the hinge: a quarter of R14, 31.4 mm of straight,
   %% and a quarter back. Everything else along the limbs is butted.
-  VC -->|"fluid-9<br/>75.4 mm"| YC
+  VC -->|"fluid-9"| YC
   VE -->|"fluid-10<br/>butt"| YC
-  YC -->|"fluid-11<br/>5.7 mm"| PA
-  PA -->|"fluid-12<br/>5.7 mm"| YD
+  YC -->|"fluid-11"| PA
+  PA -->|"fluid-12"| YD
   YD -->|"fluid-13<br/>butt"| VF
-  VF -->|"fluid-14<br/>365.8 mm"| ResAFill
-  ResA -->|"fluid-16<br/>116.7 mm"| VE
-  YD -->|"fluid-17<br/>75.4 mm"| VG
-  VG -->|"fluid-18<br/>441.5 mm"| BhA
+  VF -->|"fluid-14"| ResAFill
+  ResA -->|"fluid-16"| VE
+  YD -->|"fluid-17"| VG
+  VG -->|"fluid-18"| BhA
 
   %% =========================
   %% Channel B — fluid-19 … fluid-28
@@ -150,15 +155,15 @@ flowchart LR
   %% Channel B mirrors channel A about x = 0. Y-F and Y-G sit on pump B's barbs, fluid-19 and
   %% fluid-27 are its two hairpins, and V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
-  VD -->|"fluid-19<br/>75.4 mm"| YF
+  VD -->|"fluid-19"| YF
   VH -->|"fluid-20<br/>butt"| YF
-  YF -->|"fluid-21<br/>5.7 mm"| PB
-  PB -->|"fluid-22<br/>5.7 mm"| YG
+  YF -->|"fluid-21"| PB
+  PB -->|"fluid-22"| YG
   YG -->|"fluid-23<br/>butt"| VI
-  VI -->|"fluid-24<br/>174.1 mm"| ResBFill
-  ResB -->|"fluid-26<br/>116.7 mm"| VH
-  YG -->|"fluid-27<br/>75.4 mm"| VJ
-  VJ -->|"fluid-28<br/>320.4 mm"| BhB
+  VI -->|"fluid-24"| ResBFill
+  ResB -->|"fluid-26"| VH
+  YG -->|"fluid-27"| VJ
+  VJ -->|"fluid-28"| BhB
 
   %% =========================
   %% V-K's own two runs — the carbonator circuit, through this bay
@@ -166,7 +171,7 @@ flowchart LR
   %% V-K gates the carbonator fill off the same split fluid-1 leaves. It stands on the cold core's
   %% crown, east of the SeaFlo, and water-3 is the one run in the assembly that crosses the whole
   %% machine — the split is in the west lane, V-K is on the east, and its inlet faces forward.
-  Split -->|"water-3<br/>254.9 mm"| VK
+  Split -->|"water-3"| VK
   %% V-K's outlet and the suction chain's collet meet face to face, so what joins them
   %% is the tube inside each grip and nothing between. There is no `water-4`.
   VK --> SuctChain

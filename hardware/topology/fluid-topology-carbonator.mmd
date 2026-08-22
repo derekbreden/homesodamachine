@@ -5,10 +5,15 @@ flowchart LR
   %% water split is fluid-topology-manifold.mmd.
 
   %% Source of truth: `manifold-layout/enclosure_assembly.py` places the pack and
-  %% `manifold-layout/_lines.py` authors each run port to port. `_fluid_topology_sync.py` writes
-  %% every measured length below and gates every labelled edge against the built run. An edge
-  %% with NO label is a joint that carries no line: a made-up NPT thread, two collets face to
-  %% face, a path inside the vessel, or a sensor link.
+  %% `manifold-layout/_lines.py` authors each run port to port. `_fluid_topology_sync.py` names
+  %% every labelled edge below and gates each one against the built run. An edge with NO label
+  %% is a joint that carries no line: a made-up NPT thread, two collets face to face, a path
+  %% inside the vessel, or a sensor link.
+
+  %% NO LENGTH IS DRAWN HERE. This lane's cut figures are the IP-01 and IP-02 build cards, off
+  %% these same runs: `assembly/cards/_cards_ip.py` writes CO2_1_LEN, CO2_2_LEN, WATER_2_LEN,
+  %% SUCTION_STUB_LEN and DISCHARGE_STUB_LEN into them and the deck prints them. This file
+  %% carries no managed marker of its own; its edges are labelled by the driver above.
 
   %% The customer's supply and the CO2 bottle both land on the BACK wall, and the three risers
   %% leave by it too — carbonated water, flavor A, flavor B, on one row of PP1208E unions under
@@ -103,26 +108,26 @@ flowchart LR
   %% reservoirs are filled and drawn the same way.
   Tap --> BhW
   BhW --> BFP
-  BFP -->|"water-2<br/>73.8 mm"| Split
+  BFP -->|"water-2"| Split
   BFP --> Vent
-  Split -->|"fluid-1<br/>46.9 mm"| FlowReg
-  FlowReg -->|"fluid-2<br/>154.9 mm"| VA
-  Split -->|"water-3<br/>254.9 mm"| VK
+  Split -->|"fluid-1"| FlowReg
+  FlowReg -->|"fluid-2"| VA
+  Split -->|"water-3"| VK
   %% V-K's outlet and the suction chain's collet meet face to face, so what joins them
   %% is the tube inside each grip and nothing between. There is no `water-4`.
   VK --> SuctChain
-  SuctChain -->|"water-7<br/>58.5 mm"| PW
-  PW -->|"water-6<br/>58.9 mm"| DischChain
-  DischChain -->|"water-5<br/>48.3 mm"| CapWater
+  SuctChain -->|"water-7"| PW
+  PW -->|"water-6"| DischChain
+  DischChain -->|"water-5"| CapWater
   CapWater --> P2
   CO2 --> CO2In
-  CO2In -->|"co2-0<br/>8.0 mm"| GasherCO2
-  GasherCO2 -->|"co2-1<br/>10.0 mm"| WR
-  WR -->|"co2-2<br/>162.3 mm"| CapCO2
+  CO2In -->|"co2-0"| GasherCO2
+  GasherCO2 -->|"co2-1"| WR
+  WR -->|"co2-2"| CapCO2
   CapCO2 --> P1
   P3 --> CapCarb
-  CapCarb -->|"carb-1<br/>278.9 mm"| FlowMeter
-  FlowMeter -->|"carb-2<br/>22.0 mm"| BhCarb
+  CapCarb -->|"carb-1"| FlowMeter
+  FlowMeter -->|"carb-2"| BhCarb
   BhCarb --> Faucet
   Faucet --> Nozzle
   P4 ==> PRVOut
