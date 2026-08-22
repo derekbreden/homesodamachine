@@ -22,9 +22,8 @@ Run:  python3 hardware/scripts/_ledger_totals.py           # rewrite + summary
       python3 hardware/scripts/_ledger_totals.py --audit   # + the rows and orders
                                                            #   that need a person
 
-.githooks/pre-commit runs the rewrite, staging what it moved. --check WRITES
-NOTHING and is hand-run. A driver that rewrites under --check cannot fail, so
-the one instrument that would catch a stale total would report success instead.
+--check writes nothing. A driver that rewrites under --check cannot fail, so the
+one instrument that catches a stale total would report success instead.
 """
 import datetime
 import json

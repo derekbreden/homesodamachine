@@ -9,8 +9,7 @@ the server boots, the public route surface answers, and the contracts under
     npm test              # this directory, no browser, no DB
     npm run test:browser  # tests/browser/, a Chromium launch
 
-Node's stdlib runner (`>=22`, per `package.json`), no extra deps. `.githooks/pre-commit`
-runs `npm test` on every commit that stages something under `web/`.
+Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
 
 ## What's covered
 

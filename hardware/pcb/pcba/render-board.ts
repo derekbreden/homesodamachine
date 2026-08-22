@@ -473,10 +473,8 @@ if (circuit) {
 }
 
 // NB: the render intentionally does NOT rebuild the 3D assembly (out/<board>.glb + face
-// textures) — CadQuery adds ~14 s and iteration must stay fast. The GLB therefore goes stale
-// during a work session; it is brought current at COMMIT time by the pre-commit hook
-// (.githooks/pre-commit), which rebuilds it only when it's behind the gerbers. Rebuild by hand
-// anytime with `tools/cad-venv/bin/python board-3d.py` (the dev-server also rebuilds it in the
-// background). See the README's Building section.
+// textures) — CadQuery adds ~14 s and iteration must stay fast. Rebuild it directly with
+// `tools/cad-venv/bin/python board-3d.py`; the dev-server also rebuilds it in the background.
+// See the README's Building section.
 
 lock.release()
