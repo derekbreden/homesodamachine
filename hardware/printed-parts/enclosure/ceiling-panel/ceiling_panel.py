@@ -351,9 +351,18 @@ def build(box=None):
 
 
 def machine_of():
-    """The machine's pack and the box around it — `enclosure.machine_of`, and the same deferred
-    import for the same reason: `enclosure_assembly` builds its assembly around these walls, so
-    reading it at module scope would have this file importing a module that imports it back."""
+    """The placement-derived box, shared with the enclosure producer.
+
+    An action reads the declared output of `enclosure_box.py`; a direct design run derives the
+    live placement. The deferred assembly import keeps the direct path free of the module cycle
+    created when the final assembly imports this part back."""
+    import _box_spec
+
+    if _box_spec.in_action():
+        box, bounds = _box_spec.read(
+            _enc.Box, _enc.Bound, (_enc.PortField, _enc.Nameplate))
+        _enc.BOUNDS[:] = bounds
+        return box
     sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
     import enclosure_assembly
     _assy, _pack, box = enclosure_assembly.machine()
