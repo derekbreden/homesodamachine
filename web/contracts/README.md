@@ -34,8 +34,8 @@ directory stands relative to the others — and reads everything else off disk, 
 tree appears with no edit here and anything unseated is reported on the page.
 
 - **parts-tree.js** — the three assemblies `/3d` browses (enclosure assembly, cold core, faucet), the
-  groups inside each, and the reference shelf under them; plus `seatParts`, which folds a part's
-  `.step` / `.dxf` / `.glb` into one card. Read from `/api/{steps,dxf,glbs}` by
+  shelf of what none of them hands over, and the directories they place from; plus `seatParts`, which
+  folds a part's `.step` / `.dxf` / `.glb` into one card. Read from `/api/{steps,dxf,glbs}` by
   `web/public/js/viewer/parts.js`; pinned by `web/tests/parts-tree.test.js`.
 - **component-sources.js** — which file a named solid inside an assembly was modelled in, for the
   ones whose name is not its file's stem; plus `sourceFileFor`, which answers null for the bodies an

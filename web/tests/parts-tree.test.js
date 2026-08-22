@@ -1,28 +1,28 @@
-// The seating /3d browses: every file the walkers offer stands in one of the
-// machine's three assemblies or on the reference shelf.
+// The seating /3d browses: three assemblies, a shelf of what none of them
+// places, and every other file claimed by the directory an assembly places from.
 //
 // Two halves. The first is `seatParts` as a pure function over path lists — the
 // folding of a part's representations, the whole leading its directory, the
-// branch model claimed ahead of the group sharing its directory. The second
-// walks the real hardware tree and asserts nothing in it comes back unseated,
-// which is what catches a new part directory the day it lands rather than when
-// someone notices it missing from the page.
+// assembly's model claimed ahead of the directory it shares, the shelf claimed
+// ahead of the sweep. The second walks the real hardware tree and asserts nothing
+// in it comes back unseated, which is what catches a new part directory the day it
+// lands rather than when someone notices it missing from the page.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { BRANCHES, REFERENCE, EXCLUDED_DIRS, isWhole, seatParts } from "../contracts/parts-tree.js";
+import {
+  ASSEMBLIES, LOOSE, INSIDE_DIRS, EXCLUDED_DIRS, isWhole, seatParts,
+} from "../contracts/parts-tree.js";
 import { walkFiles } from "../lib/walk.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HARDWARE = path.resolve(__dirname, "..", "..", "hardware");
 
-const groupIn = (tree, branchId, groupId) =>
-  tree.branches.find((b) => b.id === branchId).groups.find((g) => g.id === groupId);
-
-const names = (group) => group.parts.map((p) => p.name);
+const names = (parts) => parts.map((p) => p.name);
+const files = (parts) => parts.flatMap((p) => p.kinds.map((k) => k.file));
 
 test("a part's representations fold into one card", () => {
   const dir = "cut-parts/carbonation/endcaps-circular";
@@ -30,12 +30,11 @@ test("a part's representations fold into one card", () => {
     steps: [`${dir}/endcap-circular-2hole.step`],
     dxfs: [`${dir}/endcap-circular-2hole.dxf`],
   });
-  const parts = groupIn(tree, "cold-core", "vessel").parts;
-  assert.equal(parts.length, 1);
-  assert.equal(parts[0].name, "endcap-circular-2hole");
+  assert.equal(tree.inside.length, 1);
+  assert.equal(tree.inside[0].name, "endcap-circular-2hole");
   // The STEP is the richer representation, so it is what the card opens.
-  assert.equal(parts[0].primary.type, "step");
-  assert.deepEqual(parts[0].kinds.map((k) => k.type), ["step", "dxf"]);
+  assert.equal(tree.inside[0].primary.type, "step");
+  assert.deepEqual(tree.inside[0].kinds.map((k) => k.type), ["step", "dxf"]);
 });
 
 test("the whole of a directory leads it", () => {
@@ -48,54 +47,62 @@ test("the whole of a directory leads it", () => {
     steps: [`${d}/enclosure-front-top.step`, `${d}/enclosure.step`,
             `${d}/enclosure-back-top.step`],
   });
-  assert.deepEqual(names(groupIn(tree, "enclosure-assembly", "box")),
+  assert.deepEqual(names(tree.inside),
     ["enclosure", "enclosure-back-top", "enclosure-front-top"]);
 });
 
-test("a branch's own model leads the branch, not the group sharing its directory", () => {
+test("an assembly's own model is its card, not a part of the directory it shares", () => {
   const tree = seatParts({
     steps: ["manifold-layout/enclosure-assembly.step", "manifold-layout/manifold-layout.step"],
   });
-  const branch = tree.branches.find((b) => b.id === "enclosure-assembly");
-  assert.equal(branch.hero.name, "enclosure-assembly");
-  assert.deepEqual(names(groupIn(tree, "enclosure-assembly", "manifold")), ["manifold-layout"]);
+  const enclosure = tree.assemblies.find((a) => a.id === "enclosure-assembly");
+  assert.equal(enclosure.model.name, "enclosure-assembly");
+  // The sub-layout the assembly places is reached inside it, not listed.
+  assert.deepEqual(names(tree.inside), ["manifold-layout"]);
+  assert.deepEqual(tree.loose.parts, []);
 });
 
-test("the reference shelf's own model heads it and is not listed twice", () => {
+test("purchased geometry is reached inside an assembly, not listed", () => {
+  const tree = seatParts({ steps: ["reference/worm-clamp/worm-clamp.step"] });
+  assert.deepEqual(names(tree.inside), ["worm-clamp"]);
+  assert.deepEqual(tree.loose.parts, []);
+  assert.deepEqual(tree.unseated, []);
+});
+
+test("a soft part its host does not seat stands on the shelf; its neighbours do not", () => {
+  const d = "printed-parts/cold-core/reservoir";
   const tree = seatParts({
-    steps: [REFERENCE.model, "reference/worm-clamp/worm-clamp.step"],
+    steps: [`${d}/reservoir-left.step`, `${d}/reservoir-gasket.step`,
+            `${d}/reservoir-retaining-ring.step`, `${d}/reservoir-bulkhead-seal-dry.step`],
   });
-  assert.equal(tree.reference.hero.name, "asse1022-assembly");
-  assert.deepEqual(names(tree.reference), ["worm-clamp"]);
+  assert.deepEqual(names(tree.loose.parts),
+    ["reservoir-bulkhead-seal-dry", "reservoir-gasket", "reservoir-retaining-ring"]);
+  assert.deepEqual(names(tree.inside), ["reservoir-left"]);
 });
 
-test("a scene stands under the assembly its roots belong to", () => {
+test("a bench scene stands on the shelf", () => {
   const tree = seatParts({
     glbs: ["assembly/scenes/glb/back-top.glb", "assembly/scenes/glb/cold-core.glb"],
   });
-  assert.deepEqual(names(groupIn(tree, "enclosure-assembly", "scenes")), ["back-top"]);
-  assert.deepEqual(names(groupIn(tree, "cold-core", "scenes")), ["cold-core"]);
+  assert.deepEqual(names(tree.loose.parts), ["back-top", "cold-core"]);
 });
 
 test("an excluded directory is not browsed", () => {
   const tree = seatParts({ steps: ["assembly/scenes/out/cold-core.step"] });
   assert.deepEqual(tree.unseated, []);
-  const seated = tree.branches.flatMap((b) => b.groups.flatMap((g) => g.parts));
-  assert.deepEqual(seated, []);
+  assert.deepEqual(tree.loose.parts, []);
+  assert.deepEqual(tree.inside, []);
 });
 
-test("a directory no group claims comes back unseated", () => {
+test("a directory nothing claims comes back unseated", () => {
   const tree = seatParts({ steps: ["printed-parts/somewhere-new/widget/widget.step"] });
   assert.deepEqual(tree.unseated, ["printed-parts/somewhere-new/widget"]);
 });
 
-test("every group id is unique within its branch, and every branch id is unique", () => {
-  const ids = [...BRANCHES.map((b) => b.id), REFERENCE.id];
+test("every id is unique, and every assembly names a model", () => {
+  const ids = [...ASSEMBLIES.map((a) => a.id), LOOSE.id];
   assert.equal(new Set(ids).size, ids.length);
-  for (const b of BRANCHES) {
-    const gids = b.groups.map((g) => g.id);
-    assert.equal(new Set(gids).size, gids.length, `${b.id} repeats a group id`);
-  }
+  for (const a of ASSEMBLIES) assert.ok(a.model.endsWith(".step"), `${a.id} names no model`);
 });
 
 test("nothing in the hardware tree is unseated", (t) => {
@@ -106,20 +113,26 @@ test("nothing in the hardware tree is unseated", (t) => {
 
   const tree = seatParts({ steps, dxfs, glbs });
   assert.deepEqual(tree.unseated, [],
-    `add a group in contracts/parts-tree.js for: ${tree.unseated.join(", ")}`);
+    `place these in contracts/parts-tree.js: ${tree.unseated.join(", ")}`);
 
-  // Every file is either seated or named in EXCLUDED_DIRS — the two paths out of
-  // the pool, and nothing may take a third.
-  const seated = new Set([
-    ...tree.branches.flatMap((b) => [
-      ...(b.hero ? b.hero.kinds : []),
-      ...b.groups.flatMap((g) => g.parts.flatMap((p) => p.kinds)),
-    ]),
-    ...(tree.reference.hero ? tree.reference.hero.kinds : []),
-    ...tree.reference.parts.flatMap((p) => p.kinds),
-  ].map((k) => k.file));
+  // Every file is claimed by an assembly's model, by the shelf, by the sweep of
+  // the directories the assemblies place from, or by EXCLUDED_DIRS — the four
+  // paths out of the pool, and nothing may take a fifth.
+  const claimed = new Set([
+    ...tree.assemblies.flatMap((a) => (a.model ? a.model.kinds.map((k) => k.file) : [])),
+    ...files(tree.loose.parts),
+    ...files(tree.inside),
+  ]);
   const excluded = (f) => EXCLUDED_DIRS.some((d) => f === d || f.startsWith(d + "/"));
   for (const f of [...steps, ...dxfs, ...glbs]) {
-    assert.ok(seated.has(f) || excluded(f), `${f} is neither seated nor excluded`);
+    assert.ok(claimed.has(f) || excluded(f), `${f} is neither claimed nor excluded`);
   }
+
+  // Every assembly the page draws has its model on this disk.
+  for (const a of tree.assemblies) assert.ok(a.model, `${a.id} has no model to draw`);
+});
+
+test("the shelf and the sweep claim disjoint sets", () => {
+  const overlap = LOOSE.holds.filter((h) => INSIDE_DIRS.includes(h));
+  assert.deepEqual(overlap, []);
 });

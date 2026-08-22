@@ -18,9 +18,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const HW = path.join(REPO_ROOT, "hardware");
 
+// The three the page browses (contracts/parts-tree.js). An assembly left out
+// here is one whose drill-down nothing checks.
 const ASSEMBLIES = [
   "manifold-layout/enclosure-assembly.step",
   "cold-core-layout/cold-core-assembly.step",
+  "faucet-layout/faucet-assembly.step",
 ];
 
 function productNames(stepPath) {

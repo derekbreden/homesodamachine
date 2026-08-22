@@ -36,9 +36,10 @@ runs `npm test` on every commit that stages something under `web/`.
   under `web/contracts/` against the artifacts and the browser code that
   read it.
 - **Walkers and seating.** `walk` pins how a PCB board is discovered;
-  `parts-tree` pins that every file the walkers offer stands in an assembly
-  or on the reference shelf; `deps` pins the rebuild ordering the dev-server
-  and `build-all` walk.
+  `parts-tree` pins that every file the walkers offer is claimed — by an
+  assembly's model, by the shelf under them, or by a directory an assembly
+  places from; `deps` pins the rebuild ordering the dev-server and
+  `build-all` walk.
 - **Text-only readers.** `updates` parses the feed's frontmatter and order,
   `pick-format` the edge-picker's copy blobs.
 - **Dev-only editors.** `step-editor` and `pcb-editor` gate the write-back
