@@ -825,8 +825,9 @@ storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
 ## The flank openings
 
-**Both flanks open across the cartridge's own storey** (`_flank_opening`), and the corner
-posts are the only thing left standing in them. A column here is the whole of the box's
+**Both flanks open across the cartridge's own storey** (`_flank_opening`). The corner
+posts frame their fore ends; two narrow fixed plate guides occupy only the aft outer
+edges, beyond the cartridge's whole X sweep. A column here is the whole of the box's
 corner — the side wall's own section, the front wall's, and the quarter-round between
 them, one post. So the opening does not begin at the exterior: it begins where that post's
 arc lands on the side wall's inner face, [12 mm](COLUMN_ALONG) aft of `front_plane_y`, and
@@ -868,8 +869,13 @@ is untouched.
 
 The **collet plate's foot is sunk in a seat** cut one `wall` down the floor's top, so
 the steel is located fore, aft and across by printed material and carried on the
-seat's own bottom, and nothing over it is closed — with the cartridge out, the plate
-lifts straight up through the bay. Its Z band follows from that: the bottom is the
+seat's own bottom. It does not answer to that little seat alone: two stationary
+L-section guides (`_plate_fore_guides`) stand fore of the plate's outer tails and
+return around its ends into the fixed side-wall stock aft of the plate. The tee wall
+is the channel's aft face and the guides its fore face, so the steel cannot pitch
+forward when the four collet noses load it after the cartridge has begun moving.
+The channel remains open above; with the cartridge out, the plate lifts straight up
+through the bay. Its Z band follows from that: the bottom is the
 seat, and the top is whatever puts the four collet holes **centred** in the band
 (`plate-holes-centred`). Across, its ends stand `PLATE_END_AIR` off the side walls and
 the outline is whole between them: the one thing that ever stood proud of the floor
@@ -979,13 +985,14 @@ on the post. Ledge to that plane is [22.54 mm](GRIP_TRAVEL), which is what one p
 draws the assembly.
 
 **It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
-`cap_split_z` — [48.85 mm](GRIP_RISE) tall at its mouth, `grip_sill` of block under it on
-the rail its edge strip bears on and `grip_head` over it under the ceiling the motor cans
-open through. The cap keeps the band under that plane, [40.65 mm](GRIP_CAP_RISE) up from
-the flank opening's own floor, below which the box's side wall closes back in and a hand
-reaching through the opening cannot get to the piece at all. That band is not roofed: it
-ends on the split, which is where the cap stops being material. Same ledge and same aft
-wall in both, so the two pieces a hand takes out together present it one face.
+`cap_split_z` — [52.85 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
+plate under it on the rail its edge strip bears on and `grip_head` over it under the
+ceiling the motor cans open through. The cap keeps the band under that plane,
+[40.65 mm](GRIP_CAP_RISE) up from the flank opening's own floor, below which the box's
+side wall closes back in and a hand reaching through the opening cannot get to the piece
+at all. That band is not roofed: it ends on the split, which is where the cap stops being
+material. Same ledge and same aft wall in both, so the two pieces a hand takes out together
+present it one face.
 
 **It goes as deep as the pump leaves it, storey by storey.** Under the split the head's
 own square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis, and the
