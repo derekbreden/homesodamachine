@@ -32,7 +32,7 @@ def ports_with_id(hwid: tuple[int, int]):
     return [p for p in list_ports.comports() if (p.vid, p.pid) == hwid]
 
 
-def open_without_modem_reset(port: str, timeout: float = 0.05):
+def open_without_modem_reset(port: str, timeout: float = 0.05, *, dtr: bool = False):
     # Set the lines before open so pyserial does not pulse the PCBA's Q2/Q3
     # auto-reset lattice merely to ask its already-running console for a command.
     ser = serial.Serial()
@@ -40,7 +40,7 @@ def open_without_modem_reset(port: str, timeout: float = 0.05):
     ser.baudrate = 115200
     ser.timeout = timeout
     ser.write_timeout = 1
-    ser.dtr = False
+    ser.dtr = dtr
     ser.rts = False
     ser.open()
     return ser
@@ -78,7 +78,10 @@ def front_version(timeout_s: float = 18.0) -> tuple[str, str] | None:
     while time.monotonic() < until:
         for port in ports_with_id(ESP32_S3):
             try:
-                with open_without_modem_reset(port.device, timeout=0.1) as ser:
+                # USB Serial/JTAG requires host DTR before it transmits
+                # application data. RTS remains deasserted, so this does not
+                # request an S3 reset.
+                with open_without_modem_reset(port.device, timeout=0.1, dtr=True) as ser:
                     ser.reset_input_buffer()
                     for _ in range(3):
                         ser.write(b"GET_VERSION\n")
