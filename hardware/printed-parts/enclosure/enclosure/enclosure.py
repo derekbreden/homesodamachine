@@ -4299,8 +4299,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
 def _back_top_ceiling(solid, inner, y_joint):
     """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
     away between the two side strips, each strip corbelled and relieved where a body stands in it,
-    the panel's dado down each strip's inboard face, and a boss under each of its two screw
-    stations.
+    the panel's dado down each strip's inboard face, and an upward screw boss under each of its
+    two insert sockets.
 
     FUSED AND CUT BEFORE THIS PIECE'S OWN FURNITURE, the way its two sections are: the trough's V,
     the chain's bores, the Wago wells and every bore below are cut AFTER this, so each is cut out
@@ -4310,11 +4310,15 @@ def _back_top_ceiling(solid, inner, y_joint):
     is slid the length of the piece with its tongues in these two grooves, before back-top meets
     another quadrant. So the groove starts on the seam plane, not on the panel's own fore edge.
 
-    THE BOSSES STAND ON PIERS AND THE PIERS HANG OFF THE STRIP. The panel's pad lands tangent to
-    the strip's inboard face (`ceiling_panel.screw_x`), so nothing joins a boss to this piece
-    across that plane — the pier is the join: a block from the boss's own axis out to WHERE THE
-    STRIP ITSELF STOPS (`ceiling_pier_run`), its top face ON the ceiling plane, and the pad's
-    travel struck back out of it.
+    THE BOSSES STAND ON PIERS AND THE PIERS HANG OFF THE STRIP. The panel's insert socket lands
+    tangent to the strip's inboard face (`ceiling_panel.screw_x`), so nothing joins a boss to
+    this piece across that plane — the pier is the join: a block from the boss's own axis out to
+    WHERE THE STRIP ITSELF STOPS (`ceiling_pier_run`), with the socket's travel struck back out.
+
+    THE HEAD ENTERS FROM Z−. Each fixed boss carries the downward-open head counterbore and the
+    shank's clearance; its top bears on the panel socket's downward-facing mouth. The heat-set is
+    in the moving panel, so tightening upward pulls that socket down onto this boss without
+    piercing the appliance's show face.
 
     AND THE STRIP'S STOP IS WHAT MAKES THE ROOT. The corbel is a wedge whose thin end is at the
     panel's edge, so how much section a pier roots in is how far out it carries: a block ending a
@@ -4387,22 +4391,26 @@ def _back_top_ceiling(solid, inner, y_joint):
         solid = solid.cut(_ybox(min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
                                 cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
 
-    # THE TWO BOSSES, and the lane the panel's pads travel to reach them.
-    r, floor = cp.screw_pad_r, cp.screw_bore_z - socket_cap
+    # THE TWO UPWARD SCREW BOSSES, and the lane the panel's insert sockets travel through.
+    r, floor = cp.screw_pad_r, cp.screw_head_face_z
     plan = _ybox(-half - 1.0, half + 1.0, cp.fore_y, cp.aft_y, floor - 1.0, cp.show_z)
     for cx, cy in cp.screw_stations():
         sx = 1.0 if cx > 0 else -1.0
-        # The pier's own band is the block's, fore edge to the pad's aft face, and it stands out
+        # The pier's own band is the block's, fore edge to the socket's aft face, and it stands out
         # to wherever the strip over that band does.
         out = sx * (half + ceiling_pier_run(sx, cp.fore_y, cy + r))
         solid = solid.fuse(_ybox(min(cx, out), max(cx, out), cp.fore_y, cy + r, floor, iz1))
-        solid = solid.fuse(_zcyl(r, cx, cy, floor, cp.screw_seat_z).intersect(plan))
-        # THE PAD TRAVELS THIS LANE and nothing of this piece stands in it: the panel's own web
-        # hangs a `cap_web_t` below its show face and rides in from the mouth on the seat plane.
+        solid = solid.fuse(_zcyl(r, cx, cy, floor, cp.screw_insert_open_z).intersect(plan))
+        # THE SOCKET TRAVELS THIS LANE and nothing of this piece stands in it. At the final pose
+        # its mouth lands on the fixed boss's top face.
         solid = solid.cut(_ybox(min(cx - sx * r, cx + sx * r), max(cx - sx * r, cx + sx * r),
-                                y_joint, cy + r, cp.screw_seat_z, iz1))
-        solid = solid.cut(_zcyl(heatset_dia / 2.0, cx, cy,
-                                cp.screw_bore_z, cp.screw_seat_z + 1.0))
+                                y_joint, cy + r, cp.screw_insert_open_z, iz1))
+        # The head counterbore opens on Z− and the narrower clearance continues upward to the
+        # panel's insert. Both are cut after pier and boss are fused, so no root closes either.
+        solid = solid.cut(_zcyl(head_cbore_dia / 2.0, cx, cy,
+                                floor - 1.0, cp.screw_head_seat_z))
+        solid = solid.cut(_zcyl(screw_clear_dia / 2.0, cx, cy,
+                                cp.screw_head_seat_z, cp.screw_insert_open_z + 1.0))
     return solid
 
 

@@ -6126,6 +6126,41 @@ def check_ceiling_panel_insertion(back_top) -> Bound:
             f"show that the ceiling can reach it."])))
 
 
+def check_ceiling_fastener_direction() -> Bound:
+    """The complete ceiling fastener stack, read in its installation direction.
+
+    The assembly imports `ceiling_panel` without running that module's command-line assertions,
+    so this repeats the one order that matters at machine level: head and bearing seat in fixed
+    back-top first, panel insert and blind show-face cap above. A positive tip-air reading says
+    the standard M3x10 stops before the blind end rather than jacking against the cap.
+    """
+    stack = (
+        _cpanel.screw_head_face_z,
+        _cpanel.screw_head_seat_z,
+        _cpanel.screw_insert_open_z,
+        _cpanel.screw_insert_end_z,
+        _cpanel.screw_insert_bore_end_z,
+        _cpanel.show_z,
+    )
+    ordered = all(a < b for a, b in zip(stack, stack[1:]))
+    cap = _cpanel.show_z - _cpanel.screw_insert_bore_end_z
+    ok = (ordered
+          and _cpanel.screw_tip_air >= -1e-9
+          and abs(cap - _enc.socket_cap) <= 1e-9)
+    return record_bound(Bound(
+        "ceiling-screws-enter-from-below",
+        "Both ceiling screws enter from Z− and travel +Z into blind panel inserts",
+        ok,
+        (f"head z {_cpanel.screw_head_face_z:.2f}..{_cpanel.screw_head_seat_z:.2f}, "
+         f"insert z {_cpanel.screw_insert_open_z:.2f}..{_cpanel.screw_insert_end_z:.2f}, "
+         f"{_cpanel.screw_tip_air:.2f} mm tip air, {cap:.2f} mm blind cap"),
+        "head below fixed seat below panel insert below an unpierced show face",
+        ([] if ok else [
+            "The ceiling fastener stack is not strictly ordered from its Z− head through the "
+            "fixed boss and upward panel insert to a full blind cap, or M3x10 reaches the blind "
+            "end. Restore the below-driven stack in `ceiling_panel` and `_back_top_ceiling`."])))
+
+
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
 # THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETG_BLACK` — the black the flavour chips are cut
@@ -6568,6 +6603,9 @@ def build_enclosure_assembly() -> cq.Assembly:
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.
     check_ceiling_panel_insertion(pieces["back-top"])
+    # The fasteners answer to that same joint: both heads remain on fixed back-top's Z− face,
+    # and both threads travel upward into blind inserts carried by the moving panel.
+    check_ceiling_fastener_direction()
     # The chain against the piece that cradles it, once that piece exists — the one reading on
     # this card that can tell a trough closed on the barrel from a trough drawn near it.
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],

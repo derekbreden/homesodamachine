@@ -38,10 +38,10 @@ states about itself.
 ## The structural field
 
 The load path is a continuous [8 mm](STRUCTURAL_T) plate, not a thin lid with a
-single directional brace. Its envelope absorbs the two retention stations and
-the upper roots of the DIGITEN saddles and tube anchors. The existing print
-profile uses four top shells, three bottom shells and 15% grid infill, so the
-CAD envelope is not a solid 8 mm billet.
+single directional brace. Its envelope absorbs all but 1.25 mm of the two
+retention-insert sockets and the upper roots of the DIGITEN saddles and tube
+anchors. The existing print profile uses four top shells, three bottom shells
+and 15% grid infill, so the CAD envelope is not a solid 8 mm billet.
 
 There are [6](RELIEF_N) body pockets. Each starts from the purchased solid's
 exact intersection with the unrelieved field, adds 2 mm of plan slip and 1 mm
@@ -96,19 +96,23 @@ which is why the fore edge is load-bearing and why the fore [10 mm](BRIM_MARGIN)
 is not a place to put an opening.
 
 Two [M3x10](SCREW_LEN) socket caps pin the fore end against the slide, at x =
-±[74.925](SCREW_X), y = [239.5](SCREW_Y) — centred in the brim's landing, so
-each head is reached straight down through the throat with the funnel out and
-covered by the flange with it in. Aft of them the tongues hold the panel down
-and the back wall holds it in; nothing else is fastened.
+±[74.925](SCREW_X), y = [239.5](SCREW_Y). **Each screw is inserted from the Z−
+direction and travels +Z.** Its head is in a downward-open counterbore in
+back-top's fixed boss; its thread lands in a heat-set inserted upward into this
+panel from the same Z− face. Nothing pierces or counterbores the appliance's
+show face. Aft of them the tongues hold the panel down and the back wall holds
+it in; nothing else is fastened.
 
-A station uses the field's full [8 mm](SCREW_PAD_T) section, with the head down
-in the standard counterbore and [4 mm](SCREW_LAND) of land under it. The field's
-lower face is the station crown at z = [347](SCREW_SEAT), so no local pad hangs
-below the plate. The screw lands exactly: that land and a
-[5.25 mm](HEATSET) ruthex M3 short together spend
-[9.25 mm](SCREW_REACH) of the [M3x10](SCREW_LEN)'s under-head length and the
-bore relief takes the rest, so the rail's boss under each station reaches z =
-[340.75](SCREW_BORE).
+The fixed boss presents [4 mm](SCREW_LAND) of land from the head's bearing face
+at z = [341.75](SCREW_HEAD_SEAT) to the panel socket at z =
+[345.75](SCREW_INSERT_OPEN). Its recessed head face is flush at z =
+[337.75](SCREW_HEAD_FACE). The panel socket is [9.25 mm](SCREW_SOCKET_T) from
+its downward mouth to the show face: a [5.25 mm](HEATSET) ruthex M3 short ends
+at z = [351](SCREW_INSERT_END), the bore continues to z =
+[352](SCREW_INSERT_BORE_END), and a whole 3 mm wall caps it under the show
+surface. Land and insert spend [9.25 mm](SCREW_REACH) of the
+[M3x10](SCREW_LEN)'s under-head length, leaving [0.25 mm](SCREW_TIP_AIR) beyond
+the tip before the blind end.
 
 Each station stands as far outboard as a full ligament round its counterbore
 allows, tangent to the mouth and inside the panel's moving field.
@@ -135,14 +139,17 @@ flat plate.
 
 ## Fitting it
 
-1. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
+1. Set the panel show-face down and install both heat-sets upward from its Z−
+   face until each is flush in its downward-open socket.
+2. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
    until its aft edge lands on the back wall.
-2. Drive the two screws down through the counterbores into the rails' bosses,
-   reaching through the open throat.
-3. Turn back-top ceiling-down, lay the meter into its two saddles and each run
-   into its rib, and strap them. Then lower the piece onto the machine.
-4. Drop the funnel in. Its collar fills the throat immediately ahead of the
-   panel and its brim covers the screw heads.
+3. Keep back-top ceiling-down, with its Z− face upward. Insert both screws from
+   that face through the fixed bosses and drive them upward into the panel's
+   heat-sets.
+4. Lay the meter into its two saddles and each run into its rib, and strap them.
+   Then lower the populated piece onto the machine.
+5. Drop the funnel in. Its collar fills the throat immediately ahead of the
+   panel; the panel's show face remains uninterrupted behind it.
 
 ## Regenerate
 

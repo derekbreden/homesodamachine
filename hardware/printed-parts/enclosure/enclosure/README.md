@@ -1207,14 +1207,15 @@ straight through the top wall. So the last `depth` is **the groove's run-out**, 
 takes the blind end's own section carried square through — floor to roof, with the rest
 of the top wall bridging the mouth plane over it.
 
-**Two bosses** stand under the panel's own screw stations, taking ruthex M3
-heat-sets, and each is reached straight down through the throat with the funnel
-out. The panel's pad lands tangent to the strip's inboard face, so nothing joins a
+**Two upward bosses** stand under the panel's own screw stations. Each carries a
+downward-open head counterbore and the shank's clearance; the ruthex M3 heat-set
+is in the panel socket above it. The screw is inserted from Z− and driven +Z,
+pulling the panel socket down onto the fixed boss without opening the show face.
+The panel's socket lands tangent to the strip's inboard face, so nothing joins a
 boss to this piece across that plane: the join is a **pier** from the boss's axis
-out to where the strip itself stops (`ceiling_pier_run`), its top face on the
-ceiling plane and the pad's own travel struck back out of it. Its underside is a
-soffit and hangs — the tap-water trough's bargain one storey down — and takes
-print support.
+out to where the strip itself stops (`ceiling_pier_run`), with the socket's whole
+slide path struck back out of it. Its underside is a soffit and hangs — the
+tap-water trough's bargain one storey down — and takes print support.
 
 **The strip's stop is what makes the root.** The corbel is a wedge whose thin end
 is at the panel's edge, so how much section a pier roots in is how far out it
@@ -1232,8 +1233,8 @@ in to |x| 84.45. `back_top_ceiling_pier_runs` is that second measurement, one ro
 per band, and `ceiling_pier_run` **refuses** a band nobody has measured for a pier
 rather than borrowing the corbel's figure and descending into a body.
 
-**Everything that used to hang off the ceiling over that field now hangs off the
-panel**: the flow meter's two saddles and the three ribs bored for `carb-1`,
+**Everything rooted on the ceiling over that field hangs off the panel**: the
+flow meter's two saddles and the three ribs bored for `carb-1`,
 `co2-2` and the WR1110's barrel. `ceiling_stations` is the one call that splits
 them, and both parts read it, so neither can grow a rib the other grew too.
 

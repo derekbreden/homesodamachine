@@ -31,8 +31,8 @@ Plan:
     overhangs the collar by `hopper_funnel.brim_overhang` and lands on this panel's first
     `brim_overhang` of show face, inside the `brim_margin` of top wall that
     `enclosure_assembly`'s `funnel-brim-margin` asks at that free edge. The two screw
-    heads stand in that same landing — reached through the throat with the funnel out,
-    covered by the brim with it in.
+    axes stand in that same landing, but their heads are on back-top's Z− face and their
+    inserts enter this panel from below; the show face stays whole.
   * AFT EDGE is back-top's own back-wall face, which is the panel's stop. Rounded pockets
     preserve the C14, both upper umbilical unions, the CO2 neoFit and the tap-water chain;
     the field between them carries continuously to the wall.
@@ -80,7 +80,8 @@ underside_z = _enc.appliance_height - 2.0 * _enc.wall
 # The show face — the appliance's top surface. The panel carries the top wall's own
 # section, so this is one `wall` over the interior ceiling and the exterior top face both.
 show_z = underside_z + _enc.wall
-# The broad interior field absorbs the screw pads and the roots of the meter and tube furniture.
+# The broad interior field absorbs all but 1.25 mm of the screw-insert sockets and the roots of
+# the meter and tube furniture.
 # It is sparse infill rather than a solid billet in the stated print profile; the CAD states the
 # load path and the slicer states how that envelope is filled.
 structural_t = 8.0
@@ -107,8 +108,8 @@ depth = aft_y - fore_y
 # and its inboard face is where the dado is cut.
 rail_run = _enc.back_top_flank_face()[1] - panel_half_w
 
-# The funnel's brim lands on this much of the show face at the fore edge, and the screw
-# heads stand under it.
+# The funnel's brim lands on this much of the show face at the fore edge, and the two screw
+# axes stand in that full-section landing while their heads remain on the interior side.
 brim_seat = _funnel.brim_overhang
 
 # --- the tongue and the dado it runs in --------------------------------------
@@ -148,32 +149,36 @@ def dado():
 
 # --- the two screws that pin the fore end ------------------------------------
 #
-# The structural field is the box's own web at each station: `cap_web_t` of section, the head
-# down in the standard `head_cbore_dia` by `head_cbore_depth` seat with `cap_web_land` under it.
-# `screw_len` then lands exactly: the land and a ruthex M3 short spend
-# `screw_reach` of the under-head length and `mount_bore_relief` takes the rest, which
-# main() reads back against the box's own screw.
-screw_pad_t = _enc.cap_web_t
-screw_seat_z = show_z - screw_pad_t             # the pad's underside — the boss's crown
-screw_land = _enc.cap_web_land                  # what the screw pulls through
-screw_reach = screw_land + _enc.heatset_depth   # of the screw's own under-head length
+# THE SCREW ENTERS FROM Z− AND RUNS +Z. Its head belongs to the fixed back-top boss below the
+# moving panel, and its heat-set belongs to a short socket grown down from the panel's broad
+# field. This keeps the show face whole and makes the fastener answer to the part it retains:
+# the screw pulls the panel's insert down onto back-top's boss.
+screw_land = _enc.cap_web_land                  # fixed boss between head seat and panel socket
+screw_reach = screw_land + _enc.heatset_depth   # land plus full insert engagement
 screw_pad_r = _enc.head_cbore_dia / 2.0 + _enc.boss_ligament
-# THE PAD HANGS BELOW THE CEILING, AND ONLY THE PANEL'S OWN FIELD HAS ROOM FOR IT: outboard
-# of the mouth the rail's corbel is standing in that storey, and a pad reaching into it
-# could not travel the dado. So the station stands as far outboard as a full
-# `boss_ligament` round its counterbore allows, which lands the pad tangent to the mouth.
+# One wall caps the blind end under the show face. Below it are the insert and the standard
+# relief past the screw tip; their sum sets the panel socket's downward-facing mouth.
+screw_insert_bore_end_z = show_z - _enc.socket_cap
+screw_insert_open_z = (screw_insert_bore_end_z
+                       - _enc.heatset_depth - _enc.mount_bore_relief)
+screw_insert_end_z = screw_insert_open_z + _enc.heatset_depth
+# The fixed boss presents one `screw_land` between that mouth and the head's bearing face, then
+# the standard counterbore opens downward to a flush head face.
+screw_head_seat_z = screw_insert_open_z - screw_land
+screw_head_face_z = screw_head_seat_z - _enc.head_cbore_depth
+screw_tip_z = screw_head_seat_z + _enc.screw_len
+screw_tip_air = screw_insert_bore_end_z - screw_tip_z
+screw_socket_t = show_z - screw_insert_open_z
+# THE SOCKET HANGS ONLY 1.25 MM BELOW THE BROAD FIELD and travels in the boss lane back-top cuts.
+# The station stands as far outboard as a full ligament around it allows, tangent to the mouth.
 screw_x = panel_half_w - screw_pad_r
-# And centred in the brim's landing, the only `brim_overhang` of show face the flange
-# covers — so the head is hidden by the brim and open to the throat without it.
+# Centred in the brim's landing, where the fore edge has the full structural section it needs.
 screw_y = fore_y + brim_seat / 2.0
-# How far the rail's boss reaches under the pad's crown: the insert and the air past the
-# screw's tip, the section every M3 heat-set in this box stands in.
-screw_bore_z = screw_seat_z - (_enc.heatset_depth + _enc.mount_bore_relief)
 
 
 def screw_stations():
-    """The two retention screws as `((x, y), ...)` in the box's frame — the axes the pad's
-    bores and the rail's bosses are both struck on."""
+    """The two retention screws as `((x, y), ...)` in the box's frame — the axes the panel's
+    insert sockets and back-top's upward screw bosses are both struck on."""
     return ((-screw_x, screw_y), (screw_x, screw_y))
 
 
@@ -277,19 +282,20 @@ def build(box=None):
                                  max(edge, edge + sx * tongue_reach),
                                  fore_y, aft_y,
                                  underside_z, underside_z + tongue_t))
-    # The screw pads, clipped to the panel's plan — each one's fore face is the panel's
-    # fore edge, which is the plane the brim bears on.
+    # The insert sockets, clipped to the panel's plan — each one's fore face is the panel's
+    # fore edge, which is the plane the brim bears on. Their mouths face Z−.
     plan = _slab(-panel_half_w - tongue_reach, panel_half_w + tongue_reach,
-                 fore_y, aft_y, screw_seat_z - 1.0, show_z)
+                 fore_y, aft_y, screw_insert_open_z - 1.0, show_z)
     for cx, cy in screw_stations():
-        field = field.fuse(_post(screw_pad_r, cx, cy, screw_seat_z, show_z).intersect(plan))
+        field = field.fuse(_post(
+            screw_pad_r, cx, cy, screw_insert_open_z, show_z).intersect(plan))
     solid = cq.Workplane(obj=field)
-    # The head's seat, sunk from the show face, and the shank's clearance under it.
+    # The ruthex bore opens from the underside, through its full insertion depth and one
+    # `mount_bore_relief` past it. A whole `socket_cap` of show-face material remains blind.
     for cx, cy in screw_stations():
         solid = solid.cut(cq.Workplane(obj=_post(
-            _enc.head_cbore_dia / 2.0, cx, cy, show_z - _enc.head_cbore_depth, show_z + 1.0)))
-        solid = solid.cut(cq.Workplane(obj=_post(
-            _enc.screw_clear_dia / 2.0, cx, cy, screw_seat_z - 1.0, show_z + 1.0)))
+            _enc.heatset_dia / 2.0, cx, cy,
+            screw_insert_open_z - 1.0, screw_insert_bore_end_z)))
     if box is None:
         return solid
     # The C14 tunnel's crown occupies this field at the installed pose and therefore travels
@@ -331,13 +337,27 @@ def main():
     if solids != 1 or shells != 1:
         raise ValueError(
             f"the ceiling panel came through as {solids} solid(s) in {shells} shell(s) — a "
-            f"slide-in lid is one body, and a second one is a tongue or a pad that missed "
+            f"slide-in lid is one body, and a second one is a tongue or socket that missed "
             f"the field it was fused to")
     if screw_reach > _enc.screw_len + 1e-9:
         raise ValueError(
             f"the retention screw has to cross {screw_land:g} mm of land and land "
             f"{_enc.heatset_depth:g} mm in its insert — {screw_reach:.2f} mm under the head, "
-            f"and the box's own screw is {_enc.screw_len:g}. Thin the pad or lengthen it")
+            f"and the box's own screw is {_enc.screw_len:g}. Thin the land or lengthen it")
+    if screw_tip_air < -1e-9:
+        raise ValueError(
+            f"the Z−-inserted M3x{_enc.screw_len:g} tip reaches z {screw_tip_z:.2f}, past "
+            f"the socket bore's blind end at z {screw_insert_bore_end_z:.2f} by "
+            f"{-screw_tip_air:.2f} mm. Deepen the relief or shorten the screw")
+    if abs(show_z - screw_insert_bore_end_z - _enc.socket_cap) > 1e-9:
+        raise ValueError(
+            f"the panel's upward insert bore leaves {show_z - screw_insert_bore_end_z:.2f} "
+            f"mm under the show face, not the box's {_enc.socket_cap:g} mm socket cap")
+    if not (screw_head_face_z < screw_head_seat_z < screw_insert_open_z
+            < screw_insert_end_z < screw_insert_bore_end_z < show_z):
+        raise ValueError(
+            "the ceiling screw stack is not ordered from its Z− head through the fixed land "
+            "and upward panel insert to the blind show-face cap")
     bed_x, bed_y = _enc.H2C_X, _enc.H2C_Y
     lies = min(b.xlen, b.ylen) <= min(bed_x, bed_y) and max(b.xlen, b.ylen) <= max(bed_x, bed_y)
     if not lies:
@@ -352,8 +372,8 @@ def main():
           f"x +-{panel_half_w:g}, y {fore_y:g}..{aft_y:g}, "
           f"z {structural_under_z:g}..{show_z:g}")
     print(f"  bbox:    {b.xlen:.1f} x {b.ylen:.1f} x {b.zlen:.1f} mm "
-          f"(tongues out to +-{panel_half_w + tongue_reach:g}, field down to {screw_seat_z:g}, "
-          f"ribs to {b.zmin:g})")
+          f"(tongues out to +-{panel_half_w + tongue_reach:g}, field to {structural_under_z:g}, "
+          f"insert sockets to {screw_insert_open_z:g}, ribs to {b.zmin:g})")
     print(f"  tongue:  {tongue_t:.2f} thick x {tongue_reach:.2f} reach, "
           f"{dado_slip:g} slip per face")
     print(f"  dado:    x {dado_mouth_x:g}..{dado_blind_x:g}, z {dado_floor_z:g}..{dado_roof_z:g}, "
@@ -361,8 +381,9 @@ def main():
     print(f"  rails:   {rail_run:g} mm side strip each side, "
           f"back-top flank face at +-{_enc.back_top_flank_face()[1]:g}")
     print(f"  screws:  M3x{_enc.screw_len:g} at x +-{screw_x:.3f}, y {screw_y:g} — "
-          f"pad {screw_pad_t:g} thick, seat z {screw_seat_z:g}, boss bore to z {screw_bore_z:g}, "
-          f"{screw_reach:.2f} of the {_enc.screw_len:g} under the head spent")
+          f"inserted from Z-, head face {screw_head_face_z:g}, seat {screw_head_seat_z:g}, "
+          f"panel insert {screw_insert_open_z:g}..{screw_insert_end_z:g}; "
+          f"{screw_reach:.2f} of {_enc.screw_len:g} spent, {screw_tip_air:.2f} tip air")
     print(f"  brim:    lands y {fore_y:g}..{fore_y + brim_seat:g} on the show face")
     saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
     print(f"  carries: {0 if saddles is None else len(saddles[3])} meter saddle(s), "
@@ -401,11 +422,15 @@ def main():
             "CHAMFER": f"{_enc.relief_chamfer:g}°",
             "SCREW_X": f"{screw_x:g}",
             "SCREW_Y": f"{screw_y:g}",
-            "SCREW_PAD_T": f"{screw_pad_t:g} mm",
-            "SCREW_SEAT": f"{screw_seat_z:g}",
             "SCREW_LAND": f"{screw_land:g} mm",
             "SCREW_REACH": f"{screw_reach:g} mm",
-            "SCREW_BORE": f"{screw_bore_z:g}",
+            "SCREW_SOCKET_T": f"{screw_socket_t:g} mm",
+            "SCREW_INSERT_OPEN": f"{screw_insert_open_z:g}",
+            "SCREW_INSERT_END": f"{screw_insert_end_z:g}",
+            "SCREW_INSERT_BORE_END": f"{screw_insert_bore_end_z:g}",
+            "SCREW_HEAD_SEAT": f"{screw_head_seat_z:g}",
+            "SCREW_HEAD_FACE": f"{screw_head_face_z:g}",
+            "SCREW_TIP_AIR": f"{screw_tip_air:g} mm",
             "SCREW_LEN": f"M3x{_enc.screw_len:g}",
             "HEATSET": f"{_enc.heatset_depth:g} mm",
             "BRIM_SEAT": f"{brim_seat:g} mm",
