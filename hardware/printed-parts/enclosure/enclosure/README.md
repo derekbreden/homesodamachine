@@ -818,7 +818,7 @@ cartridge is home. `pump-cap-stops-on-plate` reads the area standing against the
 and that the kiss itself is air.
 
 **Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
-the same aft wall the cartridge's band stands on — [3.149 mm](GRIP_CAP_DEEP) of relief
+the same aft wall the cartridge's band stands on — [6.149 mm](GRIP_CAP_DEEP) of relief
 over [40.65 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
 piece comes out screwed to the cartridge and a hand on the assembly finds relief at both
 storeys; the whole figure is under [Pump trays](#pump-trays) below.
@@ -989,14 +989,15 @@ wall in both, so the two pieces a hand takes out together present it one face.
 
 **It goes as deep as the pump leaves it, storey by storey.** Under the split the head's
 own square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis, and the
-cap's pocket is [3.149 mm](GRIP_CAP_DEEP) — nine millimetres of flank stand out there and
+cap's pocket is [6.149 mm](GRIP_CAP_DEEP) — nine millimetres of flank stand out there and
 that is what they come to. Over the split the boss's octagon reaches `boss_half` and the
 pocket is [8.354 mm](GRIP_SHALLOW); over the crown the bore reaches `can_half` and one
-`cap_pump_air`, and it is [15.95 mm](GRIP_DEEP). One [6 mm](GRIP_BACK) rib stands between
-a pocket's floor and the pump's room at every one of the three. Between the boss and the
-can it **walks out at `relief_chamfer`**: over a crown that rib moves inboard by the whole
-octagon-to-bore step, and ramped, the first layer over the crown still lands on the rim
-the layer under it keeps.
+`cap_pump_air`, and it is [15.95 mm](GRIP_DEEP). The deck keeps a [6 mm](GRIP_BACK) rib
+between its pocket floor and the boss/can room. The cap keeps one [3 mm](GRIP_CAP_BACK)
+wall between its pocket floor and the head room, leaving the rest of that flank to the hand.
+Between the boss and the can the deck pocket **walks out at `relief_chamfer`**: over a crown
+that rib moves inboard by the whole octagon-to-bore step, and ramped, the first layer over
+the crown still lands on the rim the layer under it keeps.
 
 **The ledge is raked in plan, [1 in 5](GRIP_RAKE)** (`grip_rake`) — standing further fore
 the further inboard it runs, [3.191 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
