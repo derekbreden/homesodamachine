@@ -676,10 +676,11 @@ def cond_slot_half(sheet: float) -> float:
 # — the fan's own footprint on the flank and nothing wider (`vent_band`).
 #
 # LESS WHATEVER THE FLANK CARRIES BEHIND THAT PARTICULAR GROOVE. Nothing is listed: the piece is
-# asked, groove by groove, what stands rooted on its inner face there, and a slot stops
-# `cond_vent_clear` short of it and picks up again the same distance past. That is what stands
-# the intake's slots off the MQ-6 cradle's upper rail and what would break any of them round
-# anything else the pack ever stands on these flanks.
+# asked, groove by groove, what stands rooted on its inner face there, with `cond_vent_clear`
+# round the root in Y and Z. The transoms are the opening vocabulary, so a root touching part of
+# one segment leaves that whole segment as fluted wall; a lone opening beyond such a land stays
+# wall as well. The MQ-6 cradle therefore makes one clean stepped end in the intake's lowest
+# course, not a handful of one-off slot heights around its upper rail.
 #
 # AND THE BAND IS CROSSED BY TRANSOMS, which is what makes it printable. A mullion is
 # `reeding.mullion` across on a `2 * wall` wall, so a slot run the whole height of the fan leaves
@@ -694,8 +695,7 @@ cond_vent_probe = wall       # how far inboard the flank is read for what stands
                              # a fin or a pod web is ROOTED on the inner face, so its first
                              # `wall` is what a slot behind it would break out of; a body
                              # standing free of that face is not the vent's to answer for
-cond_vent_run_min = 3.0 * reeding.pierce_width   # a slot three times as tall as it is wide.
-                             # Shorter than that is a nick in a groove floor and not a vent
+cond_vent_island_min = 2     # one opening marooned past a solid land is a nick, not a grille
 cond_fan_rise = 22.0         # the fan's own bottom over the block's, measured on the block
 cond_fan_drop = 5.0          # and its top under the block's crown. The two and the fan's 110 mm
                              # close on `condenser_block.FACE_B`, which is what says they are a
@@ -5816,6 +5816,17 @@ def vent_segment(airway):
     return (z1 - z0 - cond_vent_transoms * cond_vent_transom_h) / (cond_vent_transoms + 1)
 
 
+def vent_segments(airway):
+    """The full-height opening courses between the transoms, bottom to top."""
+    z0, z1 = vent_band(airway)
+    out, lo = [], z0
+    for tz0, tz1 in vent_transoms(airway):
+        out.append((lo, tz0))
+        lo = tz1
+    out.append((lo, z1))
+    return tuple(out)
+
+
 def vent_grooves(outer, airway):
     """Every groove the condenser's vents pierce, as `((sx, y), ...)` — the flank's own sign and
     the groove's station on it, WALKED OFF ARC LENGTH and not counted off a wall.
@@ -5847,34 +5858,31 @@ def _vent_runs(solid, outer, airway, sx, y):
 
     THE PIECE IS ASKED, not told. What the slot is cut out of is the flank, and what it must not
     break out of is anything ROOTED on the flank's inner face behind that same groove — so the
-    reading is one probe `cond_vent_probe` deep on the slot's own footprint, and whatever it
-    finds takes its own height plus `cond_vent_clear` of root either side out of the band. A
+    reading is one probe `cond_vent_probe` deep and `cond_vent_clear` past both jambs. Whatever
+    it finds takes its own height plus that same clearance above and below out of the band. A
     body standing free of that face is not in it and is not the vent's to answer for.
 
-    AND THE TRANSOMS ARE TAKEN OUT OF THE SAME BAND, by the same sweep. A transom is height the
-    slot does not get, which is exactly what a rail rooted behind the groove is, so the two are
-    one sorted list and nothing here special-cases either. Where the MQ-6 cradle's upper rail
-    lands inside a segment the two simply compose, and what the slot comes out as is whatever the
-    sweep leaves — a run shorter than `cond_vent_run_min` is dropped rather than nicked in."""
+    THE TRANSOMS DIVIDE THE ONLY OPENING VOCABULARY. A rooted feature does not leave an odd short
+    slit above itself: if its clearance reaches into one of the four equal segments, that whole
+    segment stays solid. The outside therefore sees full segments or a deliberate fluted land,
+    while the feature gets a wall-height root instead of a thin remnant between its crown and a
+    one-off slot."""
     band = list(vent_band(airway))
     face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
     half = reeding.pierce_width / 2.0
     xs = sorted((face - sx * cond_vent_probe, face - sx * stated_bound_tol))
-    probe = _ybox(xs[0], xs[1], y - half, y + half,
+    probe = _ybox(xs[0], xs[1], y - half - cond_vent_clear, y + half + cond_vent_clear,
                   band[0] - cond_vent_clear, band[1] + cond_vent_clear)
-    taken = sorted([(b.zmin - cond_vent_clear, b.zmax + cond_vent_clear)
-                    for b in (s.BoundingBox() for s in probe.intersect(solid).Solids())]
-                   + list(vent_transoms(airway)))
-    runs, lo = [], band[0]
-    for tz0, tz1 in taken:
-        if tz0 > lo:
-            runs.append((lo, min(tz0, band[1])))
-        lo = max(lo, tz1)
-        if lo >= band[1]:
-            break
-    if lo < band[1]:
-        runs.append((lo, band[1]))
-    return tuple((a, b) for a, b in runs if b - a >= cond_vent_run_min)
+    occupied = tuple((b.zmin - cond_vent_clear, b.zmax + cond_vent_clear)
+                     for b in (s.BoundingBox() for s in probe.intersect(solid).Solids()))
+    segments = vent_segments(airway)
+
+    def clear(segment):
+        z0, z1 = segment
+        return not any(max(z0, oz0) < min(z1, oz1) - stated_bound_tol
+                       for oz0, oz1 in occupied)
+
+    return tuple(segment for segment in segments if clear(segment))
 
 
 def _vent_cutter(outer, sx, y, z0, z1):
@@ -5962,6 +5970,10 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
     thicker at its thinnest than the same field pierced down alternate grooves at the full groove
     width.
 
+    NO ORPHAN OPENING. If a rooted feature leaves a single aperture marooned beyond its solid
+    land in one course, that aperture stays fluted wall too. Two adjacent openings are a grille;
+    one isolated slit is the same accidental-looking nick the full-segment rule removes in Z.
+
     LAST OF THE FLANK'S WORK, after every rail, fin, pod and pocket either wall carries — because
     a slot is air, air a later step fuses back in is not a slot, and because what decides where
     each slot stops is what the piece has standing on that face when the cut is made."""
@@ -5970,11 +5982,22 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
     ay0, ay1, az0, az1 = airway
     if not (y0 <= (ay0 + ay1) / 2.0 <= y1 and z0 <= (az0 + az1) / 2.0 <= z1):
         return solid
-    cutters, runs = [], {}
+    runs = {}
     for sx, y in vent_grooves(outer, airway):
         got = _vent_runs(solid, outer, airway, sx, y)
         runs.setdefault(sx, []).append((y, got))
-        cutters.extend(_vent_cutter(outer, sx, y, rz0, rz1) for rz0, rz1 in got)
+    courses = vent_segments(airway)
+    for sx, columns in runs.items():
+        for course in courses:
+            present = [course in got for _y, got in columns]
+            for i, is_open in enumerate(present):
+                neighbours = ((i > 0 and present[i - 1])
+                              + (i + 1 < len(present) and present[i + 1]))
+                if is_open and neighbours < cond_vent_island_min - 1:
+                    y, got = columns[i]
+                    columns[i] = (y, tuple(run for run in got if run != course))
+    cutters = [_vent_cutter(outer, sx, y, rz0, rz1)
+               for sx, columns in runs.items() for y, got in columns for rz0, rz1 in got]
     if not cutters:
         return solid
     return solid.cut(*cutters)
