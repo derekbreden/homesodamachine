@@ -4,94 +4,71 @@
 its factory umbilical. It publishes as `quick-start.pdf` on `/drawings` and prints at actual size on
 the Epson for in-house review.
 
-This sheet is a planning and identity map, not a field procedure. Its three visual acts are:
+The sheet has three visual acts:
 
 1. Identify the complete factory assembly: one faucet, one braided sleeve, one blue `SODA` tube,
-   two black `FLAVOR` tubes, and one flat signal ribbon. The four tails stay with the faucet.
-2. Reserve a cabinet-space envelope around the current appliance: 60 mm behind the stored unit,
-   both side grilles unobstructed, 300 mm service depth to the cabinet face, and a broad detached
-   umbilical-clearance volume. No countertop origin, hole, exact route, or movement arrow is shown.
-3. Match future label identities without a physical path: detached `S` and `F` badges pair the blue
-   `SODA` collar and two black `FLAVOR` collars with the same rear labels. The signal ribbon has no
-   released appliance port. `TAP` and CO2 are explicitly excluded.
+   two black `FLAVOR` tubes, and one flat factory-assembled SIG-6 ribbon.
+2. Plan the cabinet envelope around the current appliance: 60 mm behind the stored unit, both side
+   grilles unobstructed, 300 mm service depth to the cabinet face, and an umbilical-clearance volume.
+3. Match physical labels without drawing a connection route: the blue `SODA` collar matches the
+   rear `SODA` label, either black `FLAVOR` collar matches either rear `FLAVOR` label, and SIG-6 is
+   already physically assembled and fitted.
 
-## Field boundary
+This planning reference is not the step-by-step installation sheet. It establishes product identity
+and space while the literal installation sequence is drawn in the same visual system.
 
-The sheet authorizes no field action. It must not be used to drill, mount, trim, connect, terminate,
-energize, pressure-test, or commission the machine. In particular, it does not authorize or depict:
+## Confirmed installation facts
 
-- a countertop opening location, thickness range, underside keep-out, or mounting procedure;
-- field handling of the factory faucet keeper, plate, washer, nut, blue tube joint, or signal ribbon;
-- tube cutting, insertion, or tug testing at `SODA` or `FLAVOR`;
-- `TAP` water, regulated CO2, cylinder restraint, or leak testing;
-- faucet-signal termination, protective-earth disposition, or AC power;
-- filling, priming, refrigeration, carbonation, or dispensing.
+The complete faucet and umbilical remain one factory assembly. The retained donor washer and nut
+fit the donor shank and its nominal deck range. They are factory-preloaded on the bare shank before
+the blue supply-tube connection. Field installation lowers that complete assembly through the
+prepared opening, slides the open keyhole under-counter plate laterally into the captive donor
+stack, and tightens the same retained donor nut. The washer and nut are never loose field parts.
 
-Installer mounting and connection instructions are not released pending measured donor and coupon
-facts. The donor washer and nut are factory-preloaded on the bare shank before the blue supply-tube
-connection. The intended field handoff slides the open keyhole under-counter plate into that captive
-stack. The retained donor hardware fits the donor shank and its nominal deck range. Release of the
-added-plate procedure requires a coupon showing that the 1.524 mm keyhole plate enters the actual
-donor stack without compromising washer/nut engagement, tightening-tool access, or the secure state
-after lever rocking and gasket creep. Signal-ribbon protection, underside hand/tool keep-out, and
-plate electrical classification also require physical acceptance.
+Current product geometry provides these visual inputs:
 
-Current CAD establishes only these mount-envelope inputs: the prepared opening is Ø34.93 mm; its
-intended seated center is 4.992 mm behind the shank axis; the rigid upper plate is 4.000 mm, the TPU
-gasket is 2.000 mm, and the current keyhole plate is 1.524 mm. Thread available below the keyhole
-plate is `42.476 mm - countertop thickness`. This simplified CAD relation does not requalify the
-retained donor hardware or its accepted deck range; it identifies the engagement consumed by the
-added plate for the physical coupon.
+- prepared opening Ø34.93 mm;
+- intended seated opening center 4.992 mm behind the shank axis;
+- rigid upper plate 4.000 mm and TPU gasket 2.000 mm;
+- open dual-channel stainless keyhole plate 1.524 mm thick and Ø54.45 mm;
+- thread below the keyhole plate represented by `42.476 mm - countertop thickness`;
+- one blue round tube, two black round tubes, and one flat factory-fitted SIG-6 ribbon in the
+  braided umbilical.
 
-The rear `SODA` and `FLAVOR` designs use JG PP1208E fittings. The manufacturer's `H` tube-insertion
-dimension is [15.7 mm / 0.62 in](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf),
-measured with the collet in its release position. That datum belongs to the future procedure
-evidence; it is not a cutting instruction. Release requires a receiving witness on an acquired
-fitting with the actual tube and collet state.
+The rear `SODA` and both `FLAVOR` stations use JG PP1208E fittings. The manufacturer's `H`
+tube-insertion dimension is
+[15.7 mm / 0.62 in](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf),
+measured with the collet in its release position. Either black tube can use either `FLAVOR` station.
 
-## Public-sequence evidence gates
+## Next visual sheet
 
-Every customer picture is unlocked by observed shipping-hardware behavior. A planned bench
-procedure, serial-only result, or recreated screen does not establish product truth.
+The mount sequence uses one fixed below-counter 3/4 camera and four large beats:
 
-| Gate | Observable evidence required | Picture unlocked | Owner / workstream |
-| --- | --- | --- | --- |
-| Installed mechanical, utility, and electrical handoff | Install one carton-state unit with the retained donor underside hardware and measured added-plate handoff. Coupon the actual A2031/S4177511/counter stack; verify the 1.524 mm keyhole plate slides into the factory-preloaded washer/nut stack without interfering with donor-range engagement, tightening-tool access, lever-rock/gasket-creep security, underside keep-out, or the protected signal-ribbon route. Resolve plate PE classification and test. Verify side-grille and service clearances, actual PP1208E insertion witnesses, `TAP` and restrained regulated-CO2 connections, leak tests, and a qualified power-last handoff. | Literal dry installation and installer handoff. | Faucet/umbilical, Steel Plate, wiring/electrical, installer validation |
-| Cold carbonated-water substrate | From shipped-dry state, the real fill path stops at the released level or faults safely; regulation holds; compressor and fan reach the released cold gate; a lever pour produces cold visibly carbonated water without sputter; refill waits while the lever is open. | Commissioned cold-carbonated-water handoff. No `READY` screen is implied. | Firmware, pressure/refrigeration hardware, wet commissioning |
-| One bottle reaches one chosen reservoir | A released initiation and destination action routes one 440 mL bottle through the correct valves and pump into only A or B. The hopper drains, transfer stops in a bounded way, and the product exposes a truthful completion observable. Pass both destinations without overflow, cross-fill, or leak. | Choose destination, pour one bottle, observe the literal completion state. | Firmware, hopper/level sensing, fluid hardware, wet commissioning |
-| Wet prime reaches the matching nozzle | Holding Prime opens the authoritative valve pair and matching pump. Concentrate exits only the selected nozzle tube; release, timeout, or link loss parks the pump and both valves without crossflow or leak. Pass A and B. | Cup under nozzle, hold Prime until flavor appears, release to stop. | Firmware, fluid topology, wet commissioning |
-| Lever flow meters the selected flavor | Real water flow starts only the selected flavor path at the committed production ratio. Lever close stops pump and valves without continued drip or crossflow; flavor never runs without water; queued refill waits until dispensing ends. Pass and log both channels. | Select flavor, lever down, three streams meet in the glass, lever closes and flow stops. | Firmware, flow calibration, wet commissioning |
+1. `STAYS ON` — washer and nut already captive above the blue tube joint.
+2. `LOWER` — the complete faucet, four tails, washer, and nut pass through the prepared opening as
+   one assembly.
+3. `SLIDE PLATE` — the exact dual-channel keyhole plate moves laterally above the captive washer.
+4. `TIGHTEN SAME NUT` — the retained nut draws the washer and plate into the final clamped stack.
 
-The verified boot, front-display selection, controller persistence, and faucet-art mirroring remain an
-internal dry study in `studies/first-power-link/`. They do not establish a power-safe installation,
-beverage readiness, or first-pour behavior.
-
-Evidence is anchored by the current-state sources in
-[`faucet-and-umbilical.md`](../assembly/faucet-and-umbilical.md),
-[`wiring.md`](../assembly/wiring.md),
-[`firmware/src_appliance/README.md`](../../firmware/src_appliance/README.md),
-[`fluid-topology.md`](../topology/fluid-topology.md),
-[`acceptance-and-burn-in.md`](../assembly/acceptance-and-burn-in.md), and
-[`finish-pack-ship.md`](../assembly/finish-pack-ship.md).
+The image alone must preserve this final order: faucet base, gasket, countertop, keyhole plate,
+donor washer, donor nut, remaining threaded shank, blue tube joint, blue tube. Both black tubes and
+the fitted SIG-6 ribbon remain individually traceable and unpinched.
 
 ## Picture contract
 
-Each visual must establish the object and spatial relationship before its caption is read. The
+Each visual establishes the object and spatial relationship before its caption is read. The current
 planning sheet uses:
 
-- exact product-derived artwork for the appliance, faucet, umbilical tails, and rear ports;
+- exact product-derived artwork for the appliance, faucet, umbilical tails, and rear labels;
 - crosshatching for the braided sleeve, with one blue tube, two black tubes, and the flat ribbon
   separated at the tail end;
 - detached matching badges with visible gaps between every factory tail and rear connector;
-- one lock boundary over the complete rear connector field, including `SODA` and both `FLAVOR`
-  ports, so identity matching cannot read as current connection permission;
-- coral only for unreleased boundaries and the complete locked rear connector field;
-- explicit stop language on the same visual plane as every potentially actionable scene;
-- no hand, tool, cut line, fastener stack, insertion depth, fictitious connector, or recreated UI.
+- a fitted-state check on the factory-assembled SIG-6 ribbon;
+- no hand, tool, cut line, fictitious connector, or recreated interface state.
 
 Cabinet and sink outlines are simplified spatial context. The broad hatched umbilical zone is a
-clearance envelope, not a field route. The 60 mm and 300 mm values are current design reservations,
-not validated installation acceptance dimensions.
+clearance envelope rather than a prescribed route. The 60 mm and 300 mm values are current design
+reservations.
 
 ## Build
 
