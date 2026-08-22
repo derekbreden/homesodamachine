@@ -93,8 +93,11 @@ def _labels(raw: str) -> list:
 
 
 def _targets(labels=()) -> dict:
-    """`{bazel output path: tree path}` for a target slice and all of its dependencies."""
-    query = (f"deps(set({' '.join(labels)}))" if labels else "deps(//:everything)")
+    """`{bazel output path: tree path}` for an explicit slice, or the complete build."""
+    # `affected.py` already returns every reached producer. Expanding those labels through
+    # deps asks for unrelated sibling outputs of dependency actions when the build consumed
+    # only one output-file label; Bazel correctly need not materialize those siblings.
+    query = (f"set({' '.join(labels)})" if labels else "deps(//:everything)")
     q = subprocess.run(["bazel", "cquery", query, "--output=files"],
                        cwd=str(_ROOT), capture_output=True, text=True)
     # A GRAPH THAT DOES NOT LOAD IS NOT A TREE THAT IS STALE. An unanswerable query and a
@@ -237,7 +240,7 @@ def main() -> int:
     ap.add_argument("--failed", default="", metavar="TARGET[,TARGET…]",
                     help="targets that failed this run; their outputs are not carried")
     ap.add_argument("--targets", default="", metavar="TARGET[,TARGET…]",
-                    help="carry this built slice and its dependencies; default: //:everything")
+                    help="carry these explicitly built producers; default: //:everything")
     ap.add_argument("--solids-only", action="store_true",
                     help="carry publishable CAD outputs, leaving derived docs in bazel-bin")
     args = ap.parse_args()

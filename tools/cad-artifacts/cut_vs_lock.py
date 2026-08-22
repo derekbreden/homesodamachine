@@ -90,8 +90,14 @@ def _labels(raw: str) -> list:
 
 
 def _expected(labels: list, failed: set) -> set:
-    """Publish outputs declared by a target slice, excluding failed writers."""
-    query = f"deps(set({' '.join(labels)}))" if labels else "deps(//:everything)"
+    """Publish outputs declared by a target slice, excluding failed writers.
+
+    An affected slice already names every reached artifact producer. Expanding its dependencies
+    here overstates what a scoped build materializes: Bazel may need one output-file label from
+    a dependency action without materializing that action's unrelated sibling outputs from the
+    disk cache. A full/default comparison still asks for the complete dependency closure.
+    """
+    query = f"set({' '.join(labels)})" if labels else "deps(//:everything)"
     q = _bazel("cquery", query, "--output=files", timeout=300)
     if q.returncode != 0:
         detail = next((line for line in q.stderr.splitlines() if line.startswith("ERROR")),
