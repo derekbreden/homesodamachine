@@ -36,6 +36,7 @@ import {
 import { WS } from "../contracts/ws-frames.js";
 import { isCardAssetPath, isCardPath } from "../contracts/cards.js";
 import { walkAssemblyCards } from "../lib/walk.js";
+import { runLocalServiceFirst } from "./local-service.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // dev-server lives at /web/dev-server; the cad-venv used to run
@@ -256,6 +257,81 @@ async function runScript(pyFilePath) {
   }
 
   return producedSteps;
+}
+
+// --- Local enclosure service view ---
+//
+// The production assembly and scene generators remain the exact artifact graph.  Before that
+// graph starts for an enclosure-source save, this one private producer stands the current pack,
+// realizes only back-top, and writes an ignored GLB of the bench unit around it.  Its output is
+// outside every production GLB directory and the watcher ignores out/, so this runner owns the
+// one broadcast that makes it visible at /3d.
+const localServiceRunning = new Map(); // script path -> { controller, superseded }
+
+function fileStamp(file) {
+  try {
+    const st = fs.statSync(file);
+    return `${st.ino}:${st.size}:${st.mtimeMs}`;
+  } catch {
+    return null;
+  }
+}
+
+async function runLocalService({ scriptPath, outputPath }) {
+  const previous = localServiceRunning.get(scriptPath);
+  if (previous) {
+    previous.superseded = true;
+    previous.controller.abort();
+  }
+  const slot = { controller: new AbortController(), superseded: false };
+  localServiceRunning.set(scriptPath, slot);
+
+  const before = fileStamp(outputPath);
+  console.log(`  ↪ local service first: ${relForLog(scriptPath)}`);
+  try {
+    const code = await new Promise((resolve, reject) => {
+      const proc = spawn(PYTHON_BIN, [scriptPath], {
+        cwd: path.dirname(scriptPath),
+        // The producer prints one concise output line; keep it with errors so the moment the
+        // fast view lands is visible in the dev log.
+        stdio: ["ignore", "inherit", "inherit"],
+        signal: slot.controller.signal,
+        killSignal: "SIGKILL",
+        env: {
+          ...process.env,
+          HSM_SKIP_THUMBNAILS: "1",
+          HSM_BUILD_SOURCE: "dev-server (local service)",
+        },
+      });
+      proc.on("close", resolve);
+      proc.on("error", reject);
+    });
+    if (slot.superseded) return "superseded";
+    if (code !== 0) {
+      console.log(`  ↪ local service failed: process exited ${code}`);
+      return "failed";
+    }
+
+    const after = fileStamp(outputPath);
+    if (after === null) {
+      console.log(`  ↪ local service failed: ${relForLog(outputPath)} was not written`);
+      return "failed";
+    }
+    if (after !== before) {
+      const relFile = relForBroadcast(outputPath);
+      console.log(`  -> ${relFile} (local service)`);
+      broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
+    } else {
+      console.log(`  ↪ local service current: ${relForLog(outputPath)}`);
+    }
+    return "done";
+  } catch (e) {
+    if (slot.superseded || e.name === "AbortError") return "superseded";
+    console.log(`  ↪ local service failed to spawn: ${e.message}`);
+    return "failed";
+  } finally {
+    if (localServiceRunning.get(scriptPath) === slot) localServiceRunning.delete(scriptPath);
+  }
 }
 
 // Rebuild one edit's wave: the SEED scripts (the edited file + every runnable
@@ -728,7 +804,12 @@ function onContentChange(absPath) {
         }
         if (seeds.length === 0) return;
         console.log(`Changed: ${relForLog(absPath)}`);
-        await queueWave(seeds);
+        await runLocalServiceFirst(
+          PROJECT_ROOT,
+          absPath,
+          runLocalService,
+          () => queueWave(seeds),
+        );
       }, 500),
     );
     return;
