@@ -7,8 +7,9 @@
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune    # remove retired locked outputs
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py selftest   # the bundle, on fixtures
 
-`hardware/cad-artifacts.lock.json` names the source commit, the asset by its own sha256 and every
-solid inside it by sha256, and it is committed. The asset is content-addressed
+`hardware/cad-artifacts.lock.json` names the source commit, the asset by its own sha256, every
+solid inside it, and each tracked scorecard the viewer reads by sha256; it is committed. The
+scorecards stay outside the geometry tar and move atomically with its lock. The asset is content-addressed
 (`cad-<sha16>.tar.gz`) and never
 rewritten, so a checkout resolves to the bundle its own commit was packed against.
 `web/scripts/fetch-cad-artifacts.mjs` reads the lock at deploy and holds the download to both
@@ -254,6 +255,10 @@ def _dirty_artifact_inputs(root: Path) -> list:
     moved = {path for line in status.stdout.splitlines()
              for path in affected.paths_in(line)}
     moved.discard("hardware/cad-artifacts.lock.json")
+    # These are generated outputs this very publication carries. A hand edit still cannot slip
+    # through: its changed hash maps back to the producer below and `_cut_is_fresh` refuses until
+    # the current Bazel output and tree agree.
+    moved -= set(sidecars(root))
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
         return []
@@ -291,7 +296,7 @@ def _cut_is_fresh(root: Path, targets: list) -> bool:
         return False
     sync = subprocess.run(
         [sys.executable, str(root / "tools" / "bazel" / "sync_tree.py"),
-         "--solids-only", "--targets", " ".join(targets)], cwd=str(root))
+         "--runtime-only", "--targets", " ".join(targets)], cwd=str(root))
     if sync.returncode != 0:
         print("the tree does not hold the complete cut in bazel-bin")
         return False
@@ -299,7 +304,7 @@ def _cut_is_fresh(root: Path, targets: list) -> bool:
 
 
 def _targets_for_members(root: Path, members: set) -> tuple:
-    """The artifact rules that own `members`, and any member no current rule owns.
+    """The artifact rules that own bundle members or scorecards, and any no rule owns.
 
     The lock source tells which rules the commit range owes. The bytes on disk can also have
     moved independently because generated solids are ignored; mapping every changed member
@@ -330,7 +335,8 @@ def _targets_for_members(root: Path, members: set) -> tuple:
     return sorted(targets), sorted(remaining)
 
 
-def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None) -> dict:
+def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
+             sidecar_hashes: dict = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
     return {
@@ -344,6 +350,8 @@ def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict 
         "source": {"commit": _head(root)},
         "bundle": {"sha256": digest, "bytes": size, "solids": len(rels)},
         "solids": solid_hashes if solid_hashes is not None else hashes(root, rels),
+        "sidecars": sidecar_hashes if sidecar_hashes is not None
+                    else hashes(root, sidecars(root)),
     }
 
 
@@ -377,6 +385,20 @@ def _declared(root: Path) -> set:
         declared |= {path for paths in IMPLICIT_SOLIDS.values() for path in paths}
         declared -= ACTION_INTERMEDIATE
     return declared
+
+
+def sidecars(root: Path) -> list:
+    """Graph-declared scorecards served directly from the committed tree, repo-relative."""
+    try:
+        graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
+    except (OSError, ValueError):
+        return []
+    return sorted({
+        str(path)
+        for node in graph.values()
+        for path in (node.get("writes") or [])
+        if str(path).endswith(".scorecard.json")
+    })
 
 
 def _graph_gaps(root: Path, rels: list) -> tuple:
@@ -538,6 +560,15 @@ def main(argv) -> int:
     total = sum((_ROOT / r).stat().st_size for r in rels)
     print(f"{len(rels)} generated solid(s), {total / 1e6:.1f} MB in the tree")
 
+    sidecar_rels = sidecars(_ROOT)
+    missing_sidecars = [rel for rel in sidecar_rels if not (_ROOT / rel).is_file()]
+    if missing_sidecars:
+        print("the build graph declares public scorecards absent from the tree:")
+        for rel in missing_sidecars:
+            print(f"  {rel}")
+        print("  Build and carry their producer before packing.")
+        return 2
+
     loose, missing = _graph_gaps(_ROOT, rels)
     if loose or missing:
         print("the publish inventory and build outputs do not agree, so no bundle is packed")
@@ -553,6 +584,7 @@ def main(argv) -> int:
         return 2
 
     now = hashes(_ROOT, rels)
+    sidecar_now = hashes(_ROOT, sidecar_rels)
 
     hollow = barren(_ROOT, now)
     if hollow:
@@ -565,7 +597,10 @@ def main(argv) -> int:
     held = read_lock()
     changed_members = {rel for rel, digest in now.items()
                        if held.get("solids", {}).get(rel) != digest}
-    changed_targets, unowned = _targets_for_members(_ROOT, changed_members)
+    changed_sidecars = {rel for rel, digest in sidecar_now.items()
+                        if held.get("sidecars", {}).get(rel) != digest}
+    changed_targets, unowned = _targets_for_members(
+        _ROOT, changed_members | changed_sidecars)
     if args.write:
         if unowned:
             print("refusing to publish changed bundle members with no current Bazel producer:")
@@ -576,7 +611,9 @@ def main(argv) -> int:
         if not _cut_is_fresh(_ROOT, verify_targets):
             print("  Build and carry every owed or changed artifact target before --write.")
             return 2
-    if held.get("solids") == now:
+    same_solids = held.get("solids") == now
+    same_sidecars = held.get("sidecars") == sidecar_now
+    if same_solids and same_sidecars:
         if args.write:
             release = held.get("release", {})
             bundle = held.get("bundle", {})
@@ -600,22 +637,49 @@ def main(argv) -> int:
     moved = sorted(k for k in now if k in was and was[k] != now[k])
     fresh = sorted(set(now) - set(was))
     gone = sorted(set(was) - set(now))
+    side_was = held.get("sidecars", {})
+    side_moved = sorted(k for k in sidecar_now
+                        if k in side_was and side_was[k] != sidecar_now[k])
+    side_fresh = sorted(set(sidecar_now) - set(side_was))
+    side_gone = sorted(set(side_was) - set(sidecar_now))
     if not held:
         print("no lock yet — `--write` makes one")
     else:
         print(f"lock is behind: {len(moved)} moved, {len(fresh)} new, {len(gone)} gone")
         for rel in (moved + fresh + gone)[:8]:
             print(f"    {rel}")
+        if side_moved or side_fresh or side_gone:
+            print(f"  scorecards: {len(side_moved)} moved, {len(side_fresh)} new, "
+                  f"{len(side_gone)} gone")
+            for rel in (side_moved + side_fresh + side_gone):
+                print(f"    {rel}")
     if not args.write:
-        print("  the bundle these belong in, on the release and pinned:")
+        print("  publish and pin the current viewer cut:")
         print("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write")
         return 1 if args.check else 0
+
+    if same_solids:
+        release = held.get("release", {})
+        bundle = held.get("bundle", {})
+        if not _release_asset_matches(_ROOT, release.get("asset", ""),
+                                      bundle.get("sha256", ""), bundle.get("bytes", -1)):
+            with tempfile.TemporaryDirectory() as d:
+                path = Path(d) / "bundle.tar.gz"
+                digest = build(_ROOT, rels, path)
+                if digest != bundle.get("sha256"):
+                    raise SystemExit("equal member hashes built a different bundle digest")
+                upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
+        held["source"] = {"commit": _head(_ROOT)}
+        held["sidecars"] = sidecar_now
+        _write_lock(held)
+        print(f"pinned current scorecards without rebuilding {release['asset']}")
+        return 0
 
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
-        data = lock_for(_ROOT, rels, digest, size, now)
+        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
@@ -671,8 +735,13 @@ def selftest() -> int:
         graph = {"piece.py": {"writes": [
             "hardware/printed-parts/cap/cap.step",
             "hardware/printed-parts/enclosure/enclosure/piece.step",
+            "hardware/printed-parts/cap/cap.scorecard.json",
         ]}}
+        scorecard = hw / "printed-parts" / "cap" / "cap.scorecard.json"
+        scorecard.write_text('{"gatesPass": true}\n')
         (graph_dir / "graph.json").write_text(json.dumps(graph))
+        hold("a declared scorecard is pinned outside the bundle",
+             sidecars(root), ["hardware/printed-parts/cap/cap.scorecard.json"])
         hold("a payload needs its own declared output",
              _undeclared(root, solids(root)),
              ["hardware/printed-parts/enclosure/enclosure/piece.step.mesh"])
@@ -691,6 +760,13 @@ def selftest() -> int:
         hold("an mtime does not move the bundle", da, db)
         hold("nor does it move the bytes", a.read_bytes(), b.read_bytes())
 
+        score_before = hashes(root, sidecars(root))
+        scorecard.write_text('{"gatesPass": false}\n')
+        score_after = hashes(root, sidecars(root))
+        score_bundle = build(root, rels, root / "scorecard-only.tar.gz")
+        hold("a scorecard moves its lock hash without moving the geometry bundle",
+             (score_before != score_after, score_bundle), (True, da))
+
         (hw / "printed-parts" / "cap" / "cap.step").write_text("ISO-10303-21;\nmoved\n")
         dc = build(root, rels, root / "c.tar.gz")
         hold("moved geometry moves the bundle", dc != da, True)
@@ -702,8 +778,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/10")
-    return 0 if holds == 10 else 1
+    print(f"pack selftest {holds}/12")
+    return 0 if holds == 12 else 1
 
 
 if __name__ == "__main__":
