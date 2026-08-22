@@ -22,6 +22,7 @@ from docgen import substitute_md  # noqa: E402
 ac_inlet_recess_depth_min = 3.0
 ac_inlet_recess_depth_max = 5.0
 
+
 # The rear face's identification colours, by the fluid each names — the one
 # statement of what a colour MEANS on this machine.
 #
@@ -102,27 +103,25 @@ def port_color_svg(fluid):
     return "rgb(%d, %d, %d)" % port_colors[fluid]
 
 
-def carb_union_end():
+def carb_union_end(panel_x):
     """Which end of the umbilical row the blue-ringed carbonated-water union
-    stands at — READ off `enclosure_assembly.PANEL_X`, the pitch the three unions are
-    placed on, so the user rule ("blue tube into the blue-ringed bulkhead, at
+    stands at — READ off the `enclosure_assembly.PANEL_X` mapping `main` hands in, so the user
+    rule ("blue tube into the blue-ringed bulkhead, at
     this end") cannot outlive the row it describes. +X is east."""
-    import enclosure_assembly as _ea
-    x = _ea.PANEL_X["bulkhead-carb"]
-    return "east" if x == max(_ea.PANEL_X.values()) else "west"
+    x = panel_x["bulkhead-carb"]
+    return "east" if x == max(panel_x.values()) else "west"
 
 
-def dropped_union_end():
+def dropped_union_end(panel_on_gate_lane, panel_x):
     """Which end of the umbilical row stands off the row's own storey — READ off
-    `enclosure_assembly.PANEL_ON_GATE_LANE` against `PANEL_X`, so the user rule ("the
+    `enclosure_assembly.PANEL_ON_GATE_LANE` mapping `main` hands in against `PANEL_X`, so the user rule ("the
     ones lower down are at this end") cannot outlive the arrangement it
     describes. +X is east."""
-    import enclosure_assembly as _ea
-    lo = [_ea.PANEL_X[n] for n in _ea.PANEL_ON_GATE_LANE]
-    return "east" if min(lo) > min(_ea.PANEL_X.values()) else "west"
+    lo = [panel_x[n] for n in panel_on_gate_lane]
+    return "east" if min(lo) > min(panel_x.values()) else "west"
 
 
-def panel_hole_diameters():
+def panel_hole_diameters(ports):
     """The two bores this panel carries: `(bulkhead, co2)`.
 
     Taken from the functions that STRIKE them, not from a second copy of their
@@ -134,15 +133,13 @@ def panel_hole_diameters():
 
     Both strike against a placed fitting, so both wanted the pack. `_facts` carries what
     those two calls returned when the machine was last stood, so the reading is the same
-    reading and no build is taken for it — which is why this stays a function and why
-    `_facts` is imported inside it: the drivers that import this module for the AC recess
-    or the port colours load nothing to get them.
+    reading and no build is taken for it. `main` imports that doc-only reading and hands the
+    ports in; drivers importing this module for the AC recess or colours load neither the facts
+    nor the assembled machine.
 
     All four PP1208E bulkheads on this panel — 1 water inlet + 3 umbilical-port unions —
     share one hole, which is the figure the README quotes.
     """
-    import _facts
-    ports = _facts.read().wall_ports
     diameters = {round(p[3], 6) for p in ports["union"]}
     if len(diameters) != 1:
         raise ValueError(
@@ -152,7 +149,11 @@ def panel_hole_diameters():
 
 
 def main():
-    bulkhead_panel_hole_diameter, co2_panel_hole_diameter = panel_hole_diameters()
+    import _facts
+    import enclosure_assembly as _ea
+
+    bulkhead_panel_hole_diameter, co2_panel_hole_diameter = panel_hole_diameters(
+        _facts.read().wall_ports)
     variables = {
         "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm",
         "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
@@ -162,8 +163,8 @@ def main():
         "WATER_COLOR": port_color_hex("water"),
         "CO2_COLOR": port_color_hex("co2"),
         "FLAVOR_COLOR": port_color_hex("flavor"),
-        "CARB_END": carb_union_end(),
-        "FLAVOR_B_END": dropped_union_end(),
+        "CARB_END": carb_union_end(_ea.PANEL_X),
+        "FLAVOR_B_END": dropped_union_end(_ea.PANEL_ON_GATE_LANE, _ea.PANEL_X),
     }
 
     substitute_md(
