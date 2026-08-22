@@ -191,8 +191,8 @@ That ratio `(known_mm / known_pixels)` is the **scale factor**. Compute it once 
 In rough order of preference:
 
 1. **An explicit dimension label on the same drawing.** Sometimes a drawing labels only one or two features but is otherwise to scale. Use the label.
-2. **A catalog spec value for a well-defined feature of the same part.** E.g., for John Guest 1/4" fittings, the tube ID is nominally [6.35 mm](QUARTER_INCH_MM) — find the tube-port circle on the drawing, measure its pixel diameter, derive the scale.
-3. **A standardized thread or fitting size.** G 1/2 BSPP threads have a nominal major diameter of [20.955 mm](G_HALF_MAJOR_MM). NPT, UNF, metric ISO — all have published nominal dimensions. If the drawing shows a threaded section, you have a calibration reference even without a label.
+2. **A catalog spec value for a well-defined feature of the same part.** E.g., for John Guest 1/4" fittings, the tube ID is nominally 6.35 mm (1/4") — find the tube-port circle on the drawing, measure its pixel diameter, derive the scale.
+3. **A standardized thread or fitting size.** G 1/2 BSPP threads have a nominal major diameter of 20.955 mm (ISO 228-1). NPT, UNF, metric ISO — all have published nominal dimensions. If the drawing shows a threaded section, you have a calibration reference even without a label.
 4. **A drawing-internal scale bar or grid.** Rare but unambiguous when present.
 
 ### 5.3 Multiple calibration references
@@ -259,7 +259,7 @@ Every drawing-derived value should be checked against at least one independent s
 | Outside envelope (W × D × H) | Manufacturer text spec (often elsewhere on the same product page) |
 | Thread sizes | Published nominal of the thread standard (G, NPT, UNF, metric ISO) |
 | Mounting hole patterns | Other distributors carrying the same part |
-| Tube/hose connector sizes | The mating tube/hose nominal (1/4" = [6.35 mm](QUARTER_INCH_MM), etc.) |
+| Tube/hose connector sizes | The mating tube/hose nominal (1/4" = 6.35 mm, etc.) |
 | Anything load-bearing | Eventual caliper measurement after the part arrives |
 
 Disagreements are not failures — they are signal. Record both, flag the discrepancy in `## Uncertainties and TODOs`, and choose the more authoritative source for the CAD-ready summary.
@@ -402,7 +402,3 @@ When in doubt, the JG union doc is the gold standard for what "CAD-ready" means 
 7. **Write `extracted-results/geometry-description.md`** following the template in §7. Put the CAD-ready summary at the top. Use HIGH/MEDIUM/LOW confidence consistently. List uncertainties.
 
 The output is ready to drive a CAD-generating agent the moment step 7 is committed. Refinement against the physical part happens later, when it arrives, and updates the same document in place.
-
-## Sources
-[value](NAME) texts are updated by:
-- `/tools/measure-from-drawings/_readme_sync.py`

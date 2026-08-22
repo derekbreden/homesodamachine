@@ -57,25 +57,6 @@ def _group(pick):
     return _F.group(pick)
 
 
-# Every authored run, by id, built ONCE — several figures below read a run's length.
-_RUNS = {r.id: r for r in _F.runs}
-
-
-def _run_len(cid: str) -> float:
-    """One authored run's developed length, by id.
-
-    A run this file names and `_lines` does not build is DRIFT and not a missing key: the
-    id was renamed or the segment was dropped, and the figure it feeds is describing a
-    route the machine no longer takes. Say which id and what is there, so that reads as
-    the rename it is rather than as a bare KeyError."""
-    if cid not in _RUNS:
-        raise KeyError(
-            f"{cid} is not among the {len(_RUNS)} runs the assembly carries — this file "
-            f"reads a run that has been renamed or dropped, and the README figure it feeds "
-            f"is stale. Have: {', '.join(sorted(_RUNS))}")
-    return _RUNS[cid].length
-
-
 # --- the silhouette --------------------------------------------------------
 # WIDTH and HEIGHT are STATED bounds — `enclosure.appliance_width` struck symmetric about
 # x = 0, `enclosure.appliance_height` off the floor slab's underside — and so is the BACK
@@ -158,25 +139,19 @@ PANEL_PITCH = ((_PANEL_COLUMNS[-1] - _PANEL_COLUMNS[0]) / (len(_PANEL_COLUMNS) -
                if len(_PANEL_COLUMNS) > 1 else 0.0)
 
 # --- the lines the cold core is reached on ---------------------------------
-# All four reservoir lines land on CAP CONDUITS — bores up the cap's own columns opening on
-# the lid, which is the service bay's floor — so none of them crosses the shell's wall.
-FILL_A_LEN = _run_len("fluid-14")
-DRAW_A_LEN = _run_len("fluid-16")
-FILL_B_LEN = _run_len("fluid-24")
-DRAW_B_LEN = _run_len("fluid-26")
-# The two lines that leave the machine, off the nozzle gates to their own rear unions.
-NOZZLE_A_LEN = _run_len("fluid-18")
-NOZZLE_B_LEN = _run_len("fluid-28")
-# The carb riser: the core's own outlet conduit to the meter inline ahead of its union.
-CARB_LEN = _run_len("carb-1")
+# NO RUN LENGTH IS WRITTEN FROM HERE. The README names the runs the cap is reached on by id
+# and draws no figure against any of them: a length read off the built assembly is correct
+# in the sandbox that read it and stale in the tree the moment a lane moves, and a page of
+# architectural orientation is not where anybody cuts tube.
+# `topology/_fluid_topology_sync.py` measures each run and prints the cut list, and the
+# IP-01/IP-02 build cards carry the figures a bench works to.
 
 # The routed axis, read off the same scorecard the assembly prints rather than kept by hand.
-# Both counts are named, because a percentage in prose is always read back as a count and
-# the count is the half that goes stale silently.
+# BOTH COUNTS AND NO PERCENTAGE: a percentage in prose is read back as a count anyway, and a
+# ratio of two figures printed beside it is a third thing that can be wrong on its own.
 _CONNS = _scorecard.load_connections(_F.runs)
 ROUTED_N = sum(1 for c in _CONNS if c.routed)
 CONNECTIONS_N = len(_CONNS)
-ROUTED_PCT = 100.0 * ROUTED_N / CONNECTIONS_N
 
 
 def main():
@@ -223,15 +198,6 @@ def main():
         "PORT_ROW_Z": f"{PORT_ROW_Z:.4g}",
         "WATER_PORT_Z": f"{WATER_PORT_Z:.4g}",
         "PANEL_PITCH": f"{PANEL_PITCH:.4g} mm",
-        # The lines.
-        "FILL_A_LEN": f"{FILL_A_LEN:.4g}",
-        "DRAW_A_LEN": f"{DRAW_A_LEN:.4g}",
-        "FILL_B_LEN": f"{FILL_B_LEN:.4g}",
-        "DRAW_B_LEN": f"{DRAW_B_LEN:.4g}",
-        "NOZZLE_A_LEN": f"{NOZZLE_A_LEN:.4g}",
-        "NOZZLE_B_LEN": f"{NOZZLE_B_LEN:.4g}",
-        "CARB_LEN": f"{CARB_LEN:.4g}",
-        "ROUTED_PCT": f"{ROUTED_PCT:.2g}",
         "ROUTED_N": f"{ROUTED_N:d}",
         "CONNECTIONS_N": f"{CONNECTIONS_N:d}",
     }
