@@ -53,8 +53,7 @@ def main():
 
     if pcba and not s3:
         # J9 carries V12 to the display alongside the A/B pair. A current display
-        # image can detach its USB PHY without dropping that unswitched rail; the
-        # controller also recovers an S3 left in its ROM loader by a wrong upload.
+        # image can detach its USB PHY without dropping that unswitched rail.
         print("  Ask the externally-powered front display to reattach its USB PHY:")
         print()
         print("    ~/.platformio/penv/bin/python tools/display_usb.py")

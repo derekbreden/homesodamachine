@@ -242,13 +242,13 @@ Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -
 ~/.platformio/penv/bin/python tools/boards.py
 ```
 
-**An externally-powered front display can explicitly reattach to USB without cycling the appliance.** J9 is `[B, A, GND, V12]`, and `J9.V12` does run straight to the V12 island with no relay, so firmware cannot drop display power. Instead, the development command below asks a running display to put its USB Serial/JTAG PHY into deep sleep for 500 ms; timer wake then presents a real USB detach/attach. If a wrong-port upload left the S3 ROM loader listening on its default GPIO43/44 UART0, the same command sends esptool's zero-length `FLASH_BEGIN` / `FLASH_END(run)` sequence over J9. That sequence writes and erases nothing; it only starts the existing flash image.
+**An externally-powered front display can explicitly reattach to USB without cycling the appliance.** J9 is `[B, A, GND, V12]`, and `J9.V12` runs straight to the V12 island with no relay, so firmware cannot drop display power. Instead, the development command below asks a running display to put its USB Serial/JTAG PHY into deep sleep for 500 ms; timer wake then presents a real USB detach/attach.
 
 ```bash
 ~/.platformio/penv/bin/python tools/display_usb.py
 ```
 
-The command is explicit development control and is never sent by a production boot path. It finishes by opening the re-enumerated display and requiring a `VERSION:FRONT=...` reply. If it reports `UNREACHABLE`, the installed display image is too old or the display is not answering on J9; that one boot still needs the physical RESET button or a V12 power cycle before the current image can be flashed.
+The command is explicit development control and is never sent by a production boot path. It finishes by observing the old USB attachment disappear, opening the re-enumerated display and requiring a `VERSION:FRONT=...` reply. If it reports `UNREACHABLE`, the installed display image is too old or the display is not answering on J9; that one boot still needs the physical RESET button or a V12 power cycle before the current image can be flashed.
 
 ```bash
 PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-10 pio run -e appliance -t upload

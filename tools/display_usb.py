@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 """Make the externally-powered 4.3B display reattach to this computer's USB.
 
-The command goes through the controller PCBA's CH340C and J9. It does not switch
-loads or the appliance's 12 V rail:
-
-* a running front-display application briefly deep-sleeps the S3 USB PHY;
-* an S3 ROM loader left behind by a wrong-port upload is told to run the existing
-  flash image, using UART0 on the same GPIO43/44 RS485 pair.
+The command goes through the controller PCBA's CH340C and J9. A running
+front-display application briefly deep-sleeps the S3 USB PHY; neither the
+appliance's 12 V rail nor any load is switched.
 
 Run with any Python that has pyserial; PlatformIO's always does:
 
@@ -28,7 +25,7 @@ except ImportError:
 
 CH340 = (0x1A86, 0x7523)
 ESP32_S3 = (0x303A, 0x1001)
-RESULTS = (b"DISPLAY_USB:APP", b"DISPLAY_USB:ROM", b"DISPLAY_USB:UNREACHABLE")
+RESULTS = (b"DISPLAY_USB:APP", b"DISPLAY_USB:UNREACHABLE")
 
 
 def ports_with_id(hwid: tuple[int, int]):
