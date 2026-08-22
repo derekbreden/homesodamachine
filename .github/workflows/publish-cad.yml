@@ -311,24 +311,46 @@ jobs:
           EXPECTED: ${{ steps.commit.outputs.published }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          published_mesh=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
+            tools/cad-venv/bin/python -c \
+              'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])')
           for attempt in $(seq 1 90); do
             live=$(curl -fsS https://homesodamachine.com/api/version 2>/dev/null | \
               tools/cad-venv/bin/python -c \
                 'import json,sys; print(json.load(sys.stdin).get("commit", ""))' 2>/dev/null || true)
-            if [ "$live" = "$EXPECTED" ]; then
-              echo "production serves $live"
-              exit 0
-            fi
+            covered=false
+            [ "$live" = "$EXPECTED" ] && covered=true
             if [ -n "$live" ]; then
               status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$EXPECTED...$live" \
                 --jq .status 2>/dev/null || true)
               if [ "$status" = "ahead" ] || [ "$status" = "identical" ]; then
-                echo "production serves newer covered commit $live"
-                exit 0
+                covered=true
               fi
             fi
-            echo "waiting for Render ($attempt/90; live ${live:-unavailable})"
+            if [ "$covered" = true ]; then
+              expected_mesh="$published_mesh"
+              if [ "$live" != "$EXPECTED" ]; then
+                expected_mesh=$(gh api -H 'Accept: application/vnd.github.raw+json' \
+                  "repos/$GITHUB_REPOSITORY/contents/hardware/cad-artifacts.lock.json?ref=$live" | \
+                  tools/cad-venv/bin/python -c \
+                    'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])' \
+                  2>/dev/null || true)
+              fi
+              mesh=""
+              if curl -fsS \
+                https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh \
+                -o /tmp/live-enclosure-assembly.step.mesh; then
+                mesh=$(sha256sum /tmp/live-enclosure-assembly.step.mesh | awk '{print $1}')
+              fi
+              if [ -n "$expected_mesh" ] && [ "$mesh" = "$expected_mesh" ]; then
+                echo "production serves $live with locked assembly mesh $mesh"
+                exit 0
+              fi
+              echo "production version is covered; waiting for assembly mesh (expected ${expected_mesh:-unavailable}; got ${mesh:-unavailable})"
+            else
+              echo "waiting for Render ($attempt/90; live ${live:-unavailable})"
+            fi
             sleep 10
           done
-          echo "Render did not serve the published lock within 15 minutes" >&2
+          echo "Render did not serve the published lock and assembly mesh within 15 minutes" >&2
           exit 1
