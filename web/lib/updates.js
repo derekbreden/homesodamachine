@@ -209,7 +209,6 @@ export function renderIndexBody(posts, imageSize = () => null) {
   <h1 class="up-h1">Updates</h1>
   <p class="up-lede-top">What changed in the machine, ${esc(fmtRange(first, last))}.
   Four-week entries cover a whole period; week entries cover the most recent one.</p>
-  ${FIGURES.timeline ? `<figure class="up-fig"><div class="up-fig-scroll">${FIGURES.timeline.svg}</div><figcaption>${esc(FIGURES.timeline.caption)}</figcaption></figure>` : ""}
   <ul class="up-list">
 ${posts.map((p) => renderCard(p, imageSize)).join("\n")}
   </ul>
