@@ -108,6 +108,13 @@ wall (`enclosure_assembly.west_wall_ports`, cut on the same two rectangles as th
 berth). The tray's west end stands `enclosure_assembly.PAN_PROUD` outside the
 machine's skin: thumb on the flange's top, fingertip under the floor, and it comes.
 
+The probe's two leads rise from their holes in the open basin and turn west through
+the sleeve's **open-top wall notch**. The notch is on the holes' Y station and crosses
+only the withdrawal wall; the basin mouth is already open everywhere inboard of it.
+The tray can therefore be drawn without pinching a lead under the lid or dragging a
+solder joint across an edge. The sleeve keeps nearly all of its flange lap, and the
+basin itself remains uncut and watertight.
+
 ## Regenerate
 
 ```
