@@ -69,23 +69,24 @@ half-width, and the one figure the whole ceiling is cut to. The dado is cut in
 each strip's inboard face and the panel's tongues run in it: a drawer bottom in
 a dado.
 
-- **Tongue** [1.2 mm](TONGUE_T) thick × [1.2 mm](TONGUE_REACH) reach, one down
-  each long edge at the panel's underside, taking the part's bounding width to
-  [161.4 mm](PANEL_BBOX_X). The show face stays [159 mm](PANEL_W), so the seam
-  line on the appliance's top surface runs on the throat's own edges.
-- **Dado** [1.5 mm](DADO_DEPTH) deep with its floor on the ceiling plane and its
-  roof struck at z = [353.5](DADO_ROOF) at the blind end — which is where the
-  roof is lowest, so that is where the [0.3 mm](DADO_SLIP) of printed-fit
-  clearance on each face of the tongue is struck. The panel rests on the dado's
-  floor, which is what puts its show face flush.
+- **Tongue** [3 mm](TONGUE_T) thick × [3 mm](TONGUE_REACH) reach, a
+  [9 mm²](RAIL_AREA) captured rail down each long edge. It is centred on the
+  interior ceiling datum, z = [350.5](TONGUE_FLOOR)..[353.5](TONGUE_ROOF), so
+  half its root merges into the structural field and half into the show skin.
+  The rails take the part's bounding width to [165 mm](PANEL_BBOX_X), while the
+  show face stays [159 mm](PANEL_W) and its seam lines stay on the throat's own
+  edges.
+- **Dado** [3.3 mm](DADO_DEPTH) deep, from z = [350.2](DADO_FLOOR) to
+  [353.8](DADO_ROOF) at the blind end. That end carries the
+  [0.3 mm](DADO_SLIP) printed-fit clearance on every face and leaves
+  [1.5 mm](DADO_LOWER_LIGAMENT) of the fixed corbel below the groove plus a
+  [1.2 mm](LIP_T) show-skin lip above it. Those are the two ligaments that
+  capture the rail and hold the panel on the ceiling datum.
 - **The dado's roof rises to the mouth at [45°](CHAMFER)**, the way every relief
   ceiling on this box does — a roof left flat would hang over the slot in a
-  piece that prints mouth-down. At that angle the roof climbs one millimetre of
-  section per millimetre of reach, which is what makes the dado exactly as deep
-  as the lip over it is thick ([1.5 mm](LIP_T)) and leaves the tongue square: as
-  thick as it reaches. The whole joint lives in one wall, because one wall is
-  all the rail has at the mouth — the strip's corbel grows below the ceiling
-  going outboard and reaches nothing at the panel's edge.
+  piece that prints mouth-down. The roof climbs one millimetre per millimetre of
+  run and clears the show face at the open mouth; the corbel grows downward in
+  the other direction, providing the lower capture section at the blind end.
 
 ## The brim, and the two screws
 
