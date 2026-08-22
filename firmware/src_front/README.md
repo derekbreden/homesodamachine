@@ -192,6 +192,11 @@ logs zero bytes across a window the base is transmitting in. `j9Begin()` calls
 `gpio_reset_pin()` on both pads first, and the same window then logs the whole frame:
 `7E 16 01 8F DF 7E` — flag, `MSG_RESP_PUMP_DONE`, channel 1, CRC16, flag.
 
+The ROM's fixed UART0 direction is opposite the board wiring: TX43 drives the
+transceiver's receiver output and RX44 samples its driver input. The ROM can neither hear
+nor answer through J9. A J9 development command therefore requires the display application;
+an unavailable application requires the physical RESET button or a V12 cycle.
+
 This board's transceiver keeps its receiver off while driving: with a pin that provably
 receives, `RS485:LOOP` still reads `no echo`. The base's U7 has `/RE` tied to GND and does
 hear itself, and cancels that a layer below its own HDLC.

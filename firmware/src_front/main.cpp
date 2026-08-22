@@ -123,11 +123,10 @@ static const uint16_t *animFrames[] = {
 // Onboard SP3485, automatic direction switching — no DE line. Its 120R termination is
 // a DIP switch, off as shipped; the base end carries R6 across the pair.
 //
-// GPIO43 and GPIO44 are U0TXD and U0RXD, so the ROM and the 2nd-stage bootloader print
-// on this bus at every reset.
-//
-// Waveshare's table reads GPIO43 RS485_RXD, GPIO44 RS485_TXD. `RS485:SWAP` exchanges
-// the two and reports which way round it is now running.
+// Waveshare wires GPIO43 to RS485_RXD and GPIO44 to RS485_TXD. Those are opposite
+// the ROM's fixed UART0 direction (43 TX, 44 RX), so the ROM neither receives from
+// nor transmits onto the A/B pair. `RS485:SWAP` exchanges the application mapping and
+// reports which way round it is now running.
 #define RS485_BAUD 115200
 static int rs485Rx = 43;
 static int rs485Tx = 44;
@@ -801,7 +800,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 }
 
 static void j9Begin() {
-  // GPIO43 is U0TXD and the bootloader leaves UART0 holding the pad, driving it. UART1
+  // GPIO43 is U0TXD and the bootloader leaves UART0 holding the RX pad, driving it. UART1
   // maps it as its RX all the same, and then reads the pad's own output instead of the
   // transceiver: measured as zero bytes arriving, below HDLC, while the base was
   // replying. gpio_reset_pin hands both pads back to the matrix first, and the same
