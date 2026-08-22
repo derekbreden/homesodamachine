@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="art/colors.css">
 </head>
 <body>
-<main class="sheet mount-sheet">
+<main class="sheet mount-sheet mount-camera-sheet">
   <header class="page-head">
     <div class="brand">HOME SODA MACHINE <span>/ INSTALLATION QUICK START</span></div>
     <div class="page-id">FAUCET MOUNT <b>01 / 02</b></div>
@@ -14,76 +14,87 @@
     <p>Same washer + nut in every picture. Nothing comes off.</p>
   </header>
 
-  <section class="sequence-lead" aria-label="Camera convention">
-    <strong>SAME VIEW FROM BELOW</strong>
-    <span>Countertop sectioned only to expose the hardware.</span>
+  <section class="mount-camera-lead" aria-label="Visual convention">
+    <strong>ONE VIEW FROM BELOW</strong>
+    <span>Every picture keeps the countertop, faucet, tubes, washer, and nut in the same physical view.</span>
   </section>
 
-  <section class="mount-sequence" aria-label="Four-step faucet mounting sequence">
-    <article class="mount-beat">
-      <header class="beat-head"><span>1</span><h2>STAYS ON</h2></header>
-      <figure class="mount-crop orientation-crop" role="img" aria-label="The complete faucet waits above the countertop opening with its washer and nut already retained on the shank above the connected blue tube." style="--mount-image: url('art/mount-drop.png')"></figure>
-      <figure class="mount-crop detail-crop" role="img" aria-label="Close view of the same retained washer and nut above the connected blue tube." style="--mount-image: url('art/mount-drop.png')"></figure>
-      <p class="beat-caption">WASHER + NUT ALREADY ON</p>
-    </article>
-
-    <div class="beat-rule" aria-hidden="true"></div>
-
-    <article class="mount-beat">
-      <header class="beat-head"><span>2</span><h2>LOWER</h2></header>
-      <figure class="mount-crop orientation-crop" role="img" aria-label="The whole connected faucet assembly lowers through the prepared countertop opening and seats on its gasket." style="--mount-image: url('art/mount-lowered-clean.png')">
-        <svg class="action-overlay lower-motion" viewBox="0 0 607 620" aria-hidden="true">
-          <defs><marker id="down-head" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
-          <path class="motion-halo" d="M100 126V272"/>
-          <path class="motion-line" d="M100 126V272" marker-end="url(#down-head)"/>
+  <section class="mount-camera-sequence" aria-label="Four connected pictures show how the complete factory faucet assembly mounts through the countertop.">
+    <article class="mount-camera-beat mount-drop-beat">
+      <header class="mount-camera-head"><span>1</span><h2>LOWER</h2></header>
+      <figure class="mount-camera-art" role="img" aria-label="The complete faucet assembly lowers through the prepared countertop opening. The faucet, three tubes, fitted ribbon, retained washer and retained nut remain together." style="--mount-image: url('art/mount-drop.png')">
+        <svg class="mount-camera-motion" viewBox="0 0 607 1152" aria-hidden="true">
+          <defs><marker id="lowerArrowHead" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
+          <path class="mount-camera-motion-halo" d="M112 146V382"/>
+          <path class="mount-camera-motion-line" d="M112 146V382" marker-end="url(#lowerArrowHead)"/>
         </svg>
       </figure>
-      <figure class="mount-crop detail-crop" role="img" aria-label="Close view of the seated gasket and the same retained washer and nut below the countertop." style="--mount-image: url('art/mount-lowered-clean.png')"></figure>
-      <p class="beat-caption">WHOLE ASSEMBLY THROUGH</p>
+      <p class="mount-camera-note">WHOLE FACTORY ASSEMBLY THROUGH</p>
     </article>
 
-    <div class="beat-rule" aria-hidden="true"></div>
+    <div class="mount-camera-rule" aria-hidden="true"></div>
 
-    <article class="mount-beat">
-      <header class="beat-head"><span>3</span><h2>SLIDE PLATE</h2></header>
-      <figure class="mount-crop orientation-crop" role="img" aria-label="The open stainless keyhole plate approaches laterally from the left, above the captive washer." style="--mount-image: url('art/mount-slide-clean.png')">
-        <svg class="action-overlay slide-motion" viewBox="0 0 607 620" aria-hidden="true">
-          <defs><marker id="slide-head" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
-          <path class="motion-halo" d="M63 388H220"/>
-          <path class="motion-line" d="M63 388H220" marker-end="url(#slide-head)"/>
+    <article class="mount-camera-beat mount-seat-beat">
+      <header class="mount-camera-head"><span>2</span><h2>SEAT BOTH BLACK TUBES</h2></header>
+      <figure class="mount-camera-art" role="img" aria-label="The same faucet now rests on the gasket. A small magnified plan-section through the countertop opening shows both black flavor tubes contacting the rear edge, which establishes the seated position." style="--mount-image: url('art/mount-lowered-clean.png')">
+        <svg class="mount-seat-register" viewBox="0 0 607 1152" aria-hidden="true">
+          <path d="M458 741C478 764 464 801 443 836" class="seat-register-halo"/>
+          <path d="M458 741C478 764 464 801 443 836" class="seat-register-line"/>
+          <circle cx="443" cy="836" r="10" class="seat-register-dot"/>
         </svg>
+        <div class="seat-lens" aria-hidden="true">
+          <span>DETAIL AT OPENING</span>
+          <svg viewBox="0 0 300 300">
+            <circle cx="150" cy="150" r="143" class="lens-rim"/>
+            <circle cx="150" cy="150" r="102" class="lens-hole"/>
+            <circle cx="131.82" cy="70.22" r="18.18" class="lens-tube"/>
+            <circle cx="168.18" cy="70.22" r="18.18" class="lens-tube"/>
+            <circle cx="127.78" cy="52.50" r="6" class="lens-contact"/>
+            <circle cx="172.22" cy="52.50" r="6" class="lens-contact"/>
+            <circle cx="150" cy="178.58" r="31.49" class="lens-shank"/>
+            <path d="M78 42L118 58M222 42L182 58" class="lens-callout"/>
+          </svg>
+        </div>
       </figure>
-      <figure class="mount-crop detail-crop" role="img" aria-label="Close view of a hand sliding both open plate channels around the shank and connected tube above the washer." style="--mount-image: url('art/mount-slide-clean.png')">
-        <svg class="action-overlay slide-hand" viewBox="0 0 607 560" aria-hidden="true">
-          <g class="hand-shape">
-            <path d="M2 276C35 280 66 289 95 302C113 310 120 324 112 337C105 348 91 350 76 343L38 326L38 378L78 387C97 391 108 403 104 417C100 431 85 437 66 432L2 415Z"/>
-            <path d="M38 326L97 311C115 306 130 313 134 327C138 341 127 353 109 358L61 371"/>
-            <path d="M38 378L96 395C114 400 124 412 120 426C116 440 101 446 83 441L38 428"/>
+      <p class="mount-camera-note">TUBES TOUCH THE REAR EDGE OF THE OPENING</p>
+    </article>
+
+    <div class="mount-camera-rule" aria-hidden="true"></div>
+
+    <article class="mount-camera-beat mount-slide-camera-beat">
+      <header class="mount-camera-head"><span>3</span><h2>SLIDE PLATE</h2></header>
+      <figure class="mount-camera-art" role="img" aria-label="In the same view, a hand slides the open stainless plate sideways around the shank and connected tube. The retained washer and nut remain below the plate." style="--mount-image: url('art/mount-slide-clean.png')">
+        <svg class="mount-camera-motion" viewBox="0 0 607 1152" aria-hidden="true">
+          <defs><marker id="slideArrowHead" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
+          <path class="mount-camera-motion-halo" d="M66 846H270"/>
+          <path class="mount-camera-motion-line" d="M66 846H270" marker-end="url(#slideArrowHead)"/>
+          <g class="mount-camera-hand" transform="translate(0 795) scale(.65)">
+            <path d="M3 54C39 54 77 61 112 78L144 94L140 170L112 181C79 196 40 206 3 209Z"/>
+            <path d="M112 78L240 82C260 83 274 95 273 109C272 124 255 133 234 131L126 124"/>
+            <path d="M126 143L239 147C259 148 272 160 270 174C268 188 251 197 231 193L112 181"/>
           </g>
         </svg>
       </figure>
-      <p class="beat-caption">ABOVE THE CAPTIVE WASHER</p>
+      <p class="mount-camera-note">OPEN CHANNELS GO AROUND SHANK + TUBE</p>
     </article>
 
-    <div class="beat-rule" aria-hidden="true"></div>
+    <div class="mount-camera-rule" aria-hidden="true"></div>
 
-    <article class="mount-beat">
-      <header class="beat-head"><span>4</span><h2>TIGHTEN SAME NUT</h2></header>
-      <figure class="mount-crop orientation-crop" role="img" aria-label="The same washer and nut finish directly below the seated keyhole plate, closing the countertop clamp stack." style="--mount-image: url('art/mount-final-clean.png')"></figure>
-      <figure class="mount-crop detail-crop" role="img" aria-label="Close view of a hand turning the same retained nut by hand until the washer and keyhole plate seat against the countertop." style="--mount-image: url('art/mount-final-clean.png')">
-        <svg class="action-overlay tighten-hand" viewBox="0 0 607 560" aria-hidden="true">
-          <defs><marker id="turn-head" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
-          <path class="motion-halo" d="M258 431A86 78 0 0 1 402 319"/>
-          <path class="motion-line" d="M258 431A86 78 0 0 1 402 319" marker-end="url(#turn-head)"/>
-          <g class="hand-shape">
-            <path d="M605 282C570 286 535 296 501 311L469 325L469 413L503 429C536 444 570 454 605 457Z"/>
-            <path d="M503 311L383 313C362 313 347 323 347 337C347 351 362 361 383 361L487 362"/>
-            <path d="M487 384L381 376C361 375 346 384 345 398C344 412 359 423 379 424L503 429"/>
-            <path d="M481 363C465 367 457 377 458 389" class="hand-detail"/>
+    <article class="mount-camera-beat mount-tighten-camera-beat">
+      <header class="mount-camera-head"><span>4</span><h2>TIGHTEN SAME NUT</h2></header>
+      <figure class="mount-camera-art" role="img" aria-label="A hand turns the same retained nut by hand until the inserted plate, washer and nut close against the countertop." style="--mount-image: url('art/mount-final-clean.png')">
+        <svg class="mount-camera-motion" viewBox="0 0 607 1152" aria-hidden="true">
+          <defs><marker id="turnArrowHead" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
+          <path class="mount-camera-motion-halo" d="M204 914A91 77 0 0 1 352 808"/>
+          <path class="mount-camera-motion-line" d="M204 914A91 77 0 0 1 352 808" marker-end="url(#turnArrowHead)"/>
+          <g class="mount-camera-hand" transform="translate(230 818)">
+            <path d="M181 29C151 33 120 42 92 57L58 73L58 159L94 177C122 192 152 203 181 207Z"/>
+            <path d="M94 57L0 62C-18 63-30 74-29 88C-27 102-12 110 6 108L84 108"/>
+            <path d="M84 128L5 123C-13 122-27 132-28 146C-29 160-14 170 4 171L94 177"/>
           </g>
         </svg>
       </figure>
-      <p class="beat-caption">HAND-TIGHT · NO TOOL</p>
+      <p class="mount-camera-note">HAND-TIGHT - PLATE, WASHER, NUT AGAINST COUNTER</p>
     </article>
   </section>
 
