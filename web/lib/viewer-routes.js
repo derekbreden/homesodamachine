@@ -61,8 +61,8 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     res.json(walkPcbBoards(hardwareDir));
   });
 
-  // Documents: the PDFs the site hands over whole — the assembly deck, the
-  // owner's manual (see walkDocuments and web/contracts/documents.js). Each
+  // Documents: the PDFs the site hands over whole (see walkDocuments and
+  // web/contracts/documents.js). Each
   // entry carries what it is called, how many pages it runs to, how big the
   // file is, and the cover to show for it.
   app.get("/api/documents", (req, res) => {

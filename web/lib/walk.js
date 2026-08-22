@@ -39,8 +39,8 @@ export function walkFiles(rootDir, exts) {
   return out;
 }
 
-// Documents: the PDFs the site hands over whole — the assembly deck, the
-// owner's manual. A `.pdf` is one when a `<name>.pdf.json` sidecar stands
+// Documents: the PDFs the site hands over whole. A `.pdf` is one when a
+// `<name>.pdf.json` sidecar stands
 // beside it (web/contracts/documents.js); the sidecar names it and counts its
 // pages, and its cover is the picture the grid shows. Every other `.pdf` under
 // the root belongs to whatever wrote it.
