@@ -28,18 +28,20 @@ energize, pressure-test, or commission the machine. In particular, it does not a
 - filling, priming, refrigeration, carbonation, or dispensing.
 
 Installer mounting and connection instructions are not released pending measured donor and coupon
-facts. The blue supply tube is compression-connected before shipment, and the current closed
-washer-and-nut abstraction does not establish a field handoff around that carton-state assembly.
-The acceptable keeper, lock, plate, and nut disposition remains unverified. Release requires the
-actual A2031 underside hardware, tightening tool and secure-state test, countertop envelope,
-signal-ribbon protection, hand/tool keep-out, and plate electrical classification to pass physical
-acceptance.
+facts. The donor washer and nut are factory-preloaded on the bare shank before the blue supply-tube
+connection. The intended field handoff slides the open keyhole under-counter plate into that captive
+stack. The retained donor hardware fits the donor shank and its nominal deck range. Release of the
+added-plate procedure requires a coupon showing that the 1.524 mm keyhole plate enters the actual
+donor stack without compromising washer/nut engagement, tightening-tool access, or the secure state
+after lever rocking and gasket creep. Signal-ribbon protection, underside hand/tool keep-out, and
+plate electrical classification also require physical acceptance.
 
 Current CAD establishes only these mount-envelope inputs: the prepared opening is Ø34.93 mm; its
 intended seated center is 4.992 mm behind the shank axis; the rigid upper plate is 4.000 mm, the TPU
 gasket is 2.000 mm, and the current keyhole plate is 1.524 mm. Thread available below the keyhole
-plate is `42.476 mm - countertop thickness`. These inputs do not establish a maximum countertop
-thickness or a field procedure.
+plate is `42.476 mm - countertop thickness`. This simplified CAD relation does not requalify the
+retained donor hardware or its accepted deck range; it identifies the engagement consumed by the
+added plate for the physical coupon.
 
 The rear `SODA` and `FLAVOR` designs use JG PP1208E fittings. The manufacturer's `H` tube-insertion
 dimension is [15.7 mm / 0.62 in](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf),
@@ -54,7 +56,7 @@ procedure, serial-only result, or recreated screen does not establish product tr
 
 | Gate | Observable evidence required | Picture unlocked | Owner / workstream |
 | --- | --- | --- | --- |
-| Installed mechanical, utility, and electrical handoff | Install one carton-state unit with the accepted underside hardware and measured handoff. Coupon the actual A2031/S4177511/counter stack; accept maximum countertop thickness, keeper/lock/plate/nut disposition, tightening tool, lever-rock/gasket-creep result, underside keep-out, and protected signal-ribbon route. Resolve plate PE classification and test. Verify side-grille and service clearances, actual PP1208E insertion witnesses, `TAP` and restrained regulated-CO2 connections, leak tests, and a qualified power-last handoff. | Literal dry installation and installer handoff. | Faucet/umbilical, Steel Plate, wiring/electrical, installer validation |
+| Installed mechanical, utility, and electrical handoff | Install one carton-state unit with the retained donor underside hardware and measured added-plate handoff. Coupon the actual A2031/S4177511/counter stack; verify the 1.524 mm keyhole plate slides into the factory-preloaded washer/nut stack without interfering with donor-range engagement, tightening-tool access, lever-rock/gasket-creep security, underside keep-out, or the protected signal-ribbon route. Resolve plate PE classification and test. Verify side-grille and service clearances, actual PP1208E insertion witnesses, `TAP` and restrained regulated-CO2 connections, leak tests, and a qualified power-last handoff. | Literal dry installation and installer handoff. | Faucet/umbilical, Steel Plate, wiring/electrical, installer validation |
 | Cold carbonated-water substrate | From shipped-dry state, the real fill path stops at the released level or faults safely; regulation holds; compressor and fan reach the released cold gate; a lever pour produces cold visibly carbonated water without sputter; refill waits while the lever is open. | Commissioned cold-carbonated-water handoff. No `READY` screen is implied. | Firmware, pressure/refrigeration hardware, wet commissioning |
 | One bottle reaches one chosen reservoir | A released initiation and destination action routes one 440 mL bottle through the correct valves and pump into only A or B. The hopper drains, transfer stops in a bounded way, and the product exposes a truthful completion observable. Pass both destinations without overflow, cross-fill, or leak. | Choose destination, pour one bottle, observe the literal completion state. | Firmware, hopper/level sensing, fluid hardware, wet commissioning |
 | Wet prime reaches the matching nozzle | Holding Prime opens the authoritative valve pair and matching pump. Concentrate exits only the selected nozzle tube; release, timeout, or link loss parks the pump and both valves without crossflow or leak. Pass A and B. | Cup under nozzle, hold Prime until flavor appears, release to stop. | Firmware, fluid topology, wet commissioning |
