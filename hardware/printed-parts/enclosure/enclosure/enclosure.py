@@ -1292,8 +1292,9 @@ corner_core_reach = corner_boss_in - boss_in
 # that band — so the front Z-joint is the corner columns' pillar telescopes and a butt at
 # the seam, and the wall keeps its single `front_wall` section from slab to seam.
 #
-# BOTH FLANKS OPEN ACROSS THE SAME STOREY (`_flank_opening`), and the CORNER COLUMNS ARE THE
-# ONLY THING LEFT STANDING IN THEM. A column here is the whole of the box's corner — the side
+# BOTH FLANKS OPEN ACROSS THE SAME STOREY (`_flank_opening`). The corner columns are what frame
+# their fore ends; at the aft outer edges, two narrow fixed plate guides stand wholly outside
+# the cartridge's X sweep (`_plate_fore_guides`). A column here is the whole of the box's corner — the side
 # wall's section, the front wall's, and the quarter-round between them, one post — so the
 # opening begins where that post's arc lands on the side wall's inner face and runs aft from
 # there. Its floor is the Z-seam rim: under that plane the side wall is the outer register
@@ -1341,6 +1342,8 @@ cap_kiss = 0.1               # the cap's aft face off the collet plate's, at ful
 plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor's seat. NOT
                              # across it: the seat's ends are the side walls themselves, and
                              # what holds the steel off those is `PLATE_END_AIR` alone
+plate_guide_x_air = 1.0      # fixed guide cheeks outside the cartridge's whole X sweep
+plate_guide_top_lead = 1.0   # 45 degree lead into the plate's upward-open guide channel
 
 # --- THE CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
 #
@@ -1426,7 +1429,7 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 # pocket in both pieces: the deck keeps what is over `cap_split_z` and the cap what is under
 # it, the way every other figure this block is cut from parts on that plane.
 grip_run = 24.0              # a grip's opening fore and aft — a finger's width and its curl
-grip_sill = 7.0              # block left under a grip, over the rail its edge strip bears on
+grip_sill = _tray.PLATE      # the whole tray/web plate left under the deck's grip
 grip_head = 8.0              # and over it, under the ceiling the motor cans open through
 grip_back = 2.0 * wall       # deck section between the grip floor and the pump's room
 grip_cap_back = wall         # cap section between its grip floor and the pump head's room
@@ -3974,9 +3977,53 @@ def _rim_cap(inner, outer, plate, zj):
     return out.intersect(_rounded_outer(outer))
 
 
+def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
+    """The fixed, upward-open guides that keep the collet plate from pitching fore.
+
+    THE RELEASE LOAD EXISTS AFTER THE CARTRIDGE HAS MOVED. Four tee noses press the steel
+    fore as their tubes draw out, so the plate cannot answer to a cartridge-mounted keeper:
+    what stays with the box is what must take that moment. Two fore cheeks stand on the
+    plate's outer tails, wholly outside the cartridge's X sweep, and leave `plate_slot_slip`
+    to the steel. Together with the tee wall behind it they make a vertical channel: the
+    plate drops and lifts in Z, but its top cannot rotate fore about the seat in the floor.
+
+    EACH CHEEK RETURNS ROUND THE PLATE'S END. The steel already keeps its stated end air off
+    `inner`; outside that lane a three-millimetre spine runs to `outer` and one wall aft of
+    the plate, overlapping the fixed side-wall stock beyond the flank opening. So the cheek
+    is an L section tied into the aft wall as well as buried one millimetre into the bay
+    floor — not a tall fin asking the little seat at its foot to take the same load again.
+
+    THE TOP IS OPEN AND LED IN AT 45 DEGREES. Front-top prints from the Z-seam upward, so
+    cheek and return are vertical supported walls and the last millimetre steps fore one
+    layer at a time. No bridge closes over the steel and nothing has to flex for service.
+    """
+    cart_x0, cart_x1 = _cap_x_span(bay)
+    y_back = plate["fore_y"] - plate_slot_slip
+    y_front = y_back - wall
+    z0 = bay_floor_z(pump_trays)[1] - 1.0
+    z1 = plate["z1"]
+    z_lead = z1 - plate_guide_top_lead
+    out = None
+    for x0, x1, spine_x0, spine_x1 in (
+            (outer[0], cart_x0 - plate_guide_x_air, outer[0], inner[0]),
+            (cart_x1 + plate_guide_x_air, outer[1], inner[1], outer[1])):
+        cheek = _yz_prism(
+            x0, x1,
+            ((y_front, z0), (y_back, z0), (y_back, z_lead),
+             (y_back - plate_guide_top_lead, z1), (y_front, z1)))
+        spine = _ybox(spine_x0, spine_x1, y_front, plate["aft_y"] + wall, z0, z1)
+        guide = cheek.fuse(spine)
+        out = guide if out is None else out.fuse(guide)
+    return out
+
+
 def _flank_opening(inner, y_aft, z0, z1):
-    """Front-top's ±X faces, open across the cartridge's own storey — and THE CORNER COLUMNS
-    ARE THE ONLY THING LEFT IN THEM.
+    """Front-top's ±X faces, open across the cartridge's own storey.
+
+    THIS CUT OPENS THEM WHOLE. After it, `_plate_fore_guides` puts back only two narrow
+    stationary cheeks at the aft outer edges, beyond the cartridge's X sweep, because those
+    answer the release plate and not the opening. At the fore end the corner columns remain
+    the only frame.
 
     IT IS CUT TO THE FACE THIS PIECE ACTUALLY LEAVES and not to `interior_x`: front-top's
     flanks carry `front_top_flank_t` (`front_top_flank_face`), so an opening struck on the
@@ -4656,6 +4703,7 @@ def grip_figures(box):
     return {
         "GRIP_RISE": f"{deck_band[1] - deck_band[0]:.4g} mm",
         "GRIP_CAP_RISE": f"{cap_band[1] - cap_band[0]:.4g} mm",
+        "GRIP_SILL": f"{grip_sill:.4g} mm",
         "GRIP_RUN": f"{grip_run:.4g} mm",
         "GRIP_DEEP": f"{deep:.4g} mm",
         "GRIP_SHALLOW": f"{edge - (storeys[1][2] + grip_back):.4g} mm",
@@ -6766,6 +6814,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
         # face and gets past the reveal runs back out the front.
         piece = piece.cut(_sill_wash(inner, outer, bay_floor_z(box.pump_trays)[1]))
+        # The plate's fore restraint must survive the release, so it belongs to front-top and
+        # stands OUTSIDE the cartridge sweep. Fused after the opening and its sill are cut:
+        # these cheeks intentionally stand at the opening's aft outer edges.
+        piece = piece.fuse(_plate_fore_guides(
+            inner, outer, box.pump_bay, box.collet_plate, box.pump_trays))
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
