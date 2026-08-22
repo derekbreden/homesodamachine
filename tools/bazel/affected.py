@@ -156,6 +156,12 @@ def artifact_global(path: str) -> bool:
     if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
                 "MODULE.bazel.lock", "tools/cad-requirements.txt"}:
         return True
+    # Selection code decides WHICH already-described actions run; it is not an input to any
+    # artifact action.  Making its own edits global forces the very full-tree build a scoping
+    # correction is meant to remove.  The selftest inventory likewise describes test runners,
+    # not published solids.
+    if path in {"tools/bazel/affected.py", "tools/bazel/selftests.json"}:
+        return False
     return path.startswith(("tools/bazel/", "tools/cad-artifacts/",
                             "tools/cad-venv-site/", "tools/ci-image/"))
 
@@ -224,6 +230,12 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
     """Whether an unlabelled path could define or feed a new CAD action."""
     if path == "hardware/cad-artifacts.lock.json":
         return False
+    # A study is deliberately outside the product graph.  If one of its files is promoted into
+    # a generator, that generator's changed, declared importer scopes the build; while it remains
+    # unlabelled, rebuilding every solid cannot answer anything about it.  Ignore files likewise
+    # change checkout bookkeeping rather than geometry.
+    if path.startswith("hardware/quickstart/studies/") or path.endswith("/.gitignore"):
+        return False
     if path in declared_outputs():
         return False
     if path.startswith("hardware/"):
@@ -261,6 +273,8 @@ def selftest() -> int:
          not artifact_unknown("firmware/src/main.cpp")
          and artifact_unknown("hardware/new_part.py")
          and not artifact_unknown("hardware/cad-artifacts.lock.json")
+         and not artifact_unknown("hardware/quickstart/studies/new/decode_art.py", True)
+         and not artifact_unknown("hardware/quickstart/studies/new/.gitignore", True)
          and artifact_unknown(".dockerignore")
          and artifact_unknown("hardware/new-image.png")
          and not artifact_unknown("hardware/new-image.png", artifacts_only=True))
@@ -271,7 +285,9 @@ def selftest() -> int:
          not artifact_presentation_only("hardware/ledger/bom.md"))
     hold("a known global build input still widens the artifact slice",
          unscoped_changes(["BUILD.bazel"], ["BUILD.bazel"], True) == ["BUILD.bazel"]
-         and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == [])
+         and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == []
+         and unscoped_changes(["tools/bazel/affected.py"],
+                              ["tools/bazel/affected.py"], True) == [])
     empty = io.StringIO()
     write_targets([], empty)
     hold("zero targets write zero bytes", empty.getvalue() == "", repr(empty.getvalue()))
