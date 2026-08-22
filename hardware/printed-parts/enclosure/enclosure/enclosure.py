@@ -5590,15 +5590,15 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 # outboard of it, so the flank is unbroken at that height. `vent_duct_drop` under the mouth the
 # skin opens, and the passage carries on as a three-walled groove.
 #
-# AND THE GROOVE ENDS BY RUNNING OUT. Its floor ramps back to the outer face over
-# `vent_ramp_rise`, so the recess grows shallower until it is gone, and the flow reaches the
-# face travelling away from it, well above the foot. CO2 is heavier than air and falls from
-# there on its own.
+# AND THE GROOVE ENDS BY RUNNING OUT. Its floor returns to the outer face on the same 45 degree
+# support-free slope used by every relief on this standing print. The ramp is therefore exactly
+# as tall as the chase is deep: enough to turn the flow west without dragging a long, accidental-
+# looking scar down the show face. CO2 is heavier than air and falls from there on its own.
 vent_channel_w = 12.0          # the channel, across — and the mouth, square on it
 vent_rib_wall = 2.0            # PETG either side of the channel, behind it, and over the mouth
 vent_duct_drop = 25.0          # the closed fall under the mouth, before the skin opens
 vent_groove_drop = 25.0        # the open groove under that, which the duct discharges into
-vent_ramp_rise = 40.0          # over which the floor runs back out and turns the flow west
+vent_ramp_angle = relief_chamfer  # support-free run-out from the channel floor to the show face
 
 
 def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
@@ -5625,22 +5625,24 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     Under that the ramp is cutting skin the wall already had, and the rib ends on the ramp's
     own slope."""
     for sx, sy, sz in stations:
-        vent = sz - vent_duct_drop - vent_groove_drop - vent_ramp_rise
-        if not (y0 <= sy <= y1 and z0 <= vent <= z1):
-            continue
         half = vent_channel_w / 2.0 + vent_rib_wall
         rib_x = sx                                  # the lip, on the core's own flank
         floor_x = rib_x - vent_rib_wall             # the channel's back face, all the way down
+        ramp_depth = floor_x - outer[0]
+        ramp_rise = ramp_depth / math.tan(math.radians(vent_ramp_angle))
+        vent = sz - vent_duct_drop - vent_groove_drop - ramp_rise
+        if not (y0 <= sy <= y1 and z0 <= vent <= z1):
+            continue
         mouth_top = sz + vent_channel_w / 2.0
         mouth_bot = sz - vent_channel_w / 2.0
         groove_top = sz - vent_duct_drop            # where the skin opens
         ramp_top = groove_top - vent_groove_drop
-        ramp_bot = ramp_top - vent_ramp_rise        # where the floor has met the outer face
+        ramp_bot = ramp_top - ramp_rise              # where the floor has met the outer face
         # The ramp is carried one more millimetre of DEPTH past that, out into air.
-        over = vent_ramp_rise / (floor_x - outer[0])
+        over = ramp_rise / ramp_depth
         # And the rib to where the skin alone stands `vent_rib_wall` behind the floor.
-        rib_end = ramp_top - vent_ramp_rise * ((floor_x - (inner[0] - vent_rib_wall))
-                                               / (floor_x - outer[0]))
+        rib_end = ramp_top - ramp_rise * ((floor_x - (inner[0] - vent_rib_wall))
+                                          / ramp_depth)
         solid = solid.fuse(_xz_prism(sy - half, sy + half,
                                      [(inner[0], sz + half), (rib_x, sz + half),
                                       (rib_x, ramp_top), (inner[0], rib_end)]))
