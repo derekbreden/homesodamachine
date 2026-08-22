@@ -1450,6 +1450,12 @@ grip_rake = 0.2              # the ledge's fall in Y per millimetre it runs inbo
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
 #   y_joint       the front↔back seam plane
 #   splits        the bottom↔top seam height per Y column, (front, back)
+#   y_bosses      the placement-cleared Y-seam fasteners, one
+#                 (inner_x, outer_x, inboard_sign, z) per screw. These are measured while the
+#                 placed solids are present and carried on the Box; rebuilding them later from
+#                 module state would make a serialized Box a different machine.
+#   z_seam_passes whether each (front, back) Z seam crosses its column rather than an open band;
+#                 a report reading taken with the placed solids, carried for the same reason
 #   front_ports   / back_ports   panel through-holes, in the pack's format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the drip tray's slot
@@ -1533,8 +1539,17 @@ grip_rake = 0.2              # the ledge's fall in Y per millimetre it runs inbo
 #   pump_bay      the cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
 #                 jamb between the corner columns' cusps, topped over the motor cans' crowns.
 #                 None when the pack stands no pumps
+# The two structured fields placement strikes for this description. They live with Box rather
+# than with the placement pass so a serialized Box can be restored without importing the whole
+# machine that produced it.
+PortField = namedtuple("PortField", "proud rim pockets")
+Nameplate = namedtuple(
+    "Nameplate", "x z width height corner bevel slip thick wall screws "
+                 "stem_d reach bore_d bore_depth")
+
 Box = namedtuple(
-    "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
+    "Box", "inner outer y_joint splits y_bosses z_seam_passes "
+           "front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
            "cond_mount cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
            "port_field nameplate "
@@ -2195,6 +2210,8 @@ def _dims(pack):
     `pack-closes` at the body that overran. This is the only function that reads the placed
     parts, so it is where the ledger starts: `BOUNDS` is cleared here and refilled."""
     BOUNDS.clear()
+    _wall_block.clear()
+    _z_seam_passes.clear()
     placed = pack.placed
     bbs = [_boxes.boxed(s) for s, _c in placed.values()]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
@@ -2569,7 +2586,12 @@ def _dims(pack):
     crowns = [b.zmax for name, b in zip(placed.keys(), bbs)
               if name.startswith("pump-") and name.endswith("-motor")]
     pump_bay = (bx0, bx1, max(crowns) + bay_crown_air) if crowns else None
-    return Box(inner, outer, y_joint, splits,
+    # The wall-block probes above are solids and deliberately do not escape this placement
+    # pass. What the drawing needs from them is the numeric ladder they admitted; carry that
+    # ladder on the Box so a downstream action can reproduce the same joint without the pack.
+    y_bosses = tuple(_bosses(inner, y_joint))
+    z_passes = tuple(_z_seam_passes[col] for col in ("front", "back"))
+    return Box(inner, outer, y_joint, splits, y_bosses, z_passes,
                pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
@@ -4256,7 +4278,7 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     # is fused rather than re-cut after it: the Y seam's bosses and the four-corner's, whose
     # cuts were made in `build_front_half`, and the panel holes through both faces.
     yb = _y_boss(y_joint)
-    for x_in, x_ext, sx, z_boss in _bosses(inner, y_joint):
+    for x_in, x_ext, sx, z_boss in box.y_bosses:
         band = band.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
         x_ext = x_in - sx * wall
@@ -5325,7 +5347,7 @@ def build_front_half(box):
     # cannot tongue proud like the walls). Lands in the bottom piece.
     front = front.fuse(_floor_scarf(inner, y_joint)[0])
     yb = _y_boss(y_joint)
-    bosses = _bosses(inner, y_joint)
+    bosses = box.y_bosses
     # One collar per level, each standing on the lip band the lip has already put
     # down that wall.
     for x_in, x_ext, sx, z_boss in bosses:
@@ -5367,7 +5389,7 @@ def build_back_half(box):
     if box.funnel:
         back = back.cut(_hopper_cut(inner, outer, box.funnel))
     yb = _y_boss(y_joint)
-    bosses = _bosses(inner, y_joint)
+    bosses = box.y_bosses
     # One plug per level, standing on the back mouth off the wall it drives through.
     # The corner ahead of that mouth is the front lip's, whole.
     for x_in, x_ext, sx, z_boss in bosses:
@@ -7057,8 +7079,8 @@ def _report_seams(box):
     """Each Z seam's height, whether it landed in a band its own column left open or
     runs through that column on a clear lip, and the band the bed allowed it."""
     lo, hi = _bed_band(box.inner)
-    for col, zj in zip(("front", "back"), box.splits):
-        how = "runs through its column" if _z_seam_passes.get(col) else "in an open band"
+    for col, zj, crosses in zip(("front", "back"), box.splits, box.z_seam_passes):
+        how = "runs through its column" if crosses else "in an open band"
         print(f"  Z seam {col + ':':7s} {zj:6.1f} mm  ({how}; the bed allows "
               f"{lo:.1f}..{hi:.1f})")
 
@@ -7067,7 +7089,7 @@ def _report_levels(box):
     """The Y-seam cross-pin heights each ±X wall ended up with. They are searched
     per wall against what stands against it, so the two can differ — printing
     them keeps a wall that had to give up a level visible instead of silent."""
-    bosses = _bosses(box.inner, box.y_joint)
+    bosses = box.y_bosses
     for sx, label in ((+1.0, "−X"), (-1.0, "+X")):
         zs = sorted(z for _xi, _xe, s, z in bosses if s == sx)
         print(f"  Y-seam levels {label} wall: {len(zs)} — "
@@ -7211,16 +7233,25 @@ def stated_box(pack):
 
 
 def machine_of():
-    """The machine's pack and the box around it.
-    `hardware/manifold-layout/enclosure_assembly.py` places the bodies and seats the wall
-    stations, so both come from there and the box this prints is the box that pack stands in.
+    """The cold core, when directly derived, and the box around the placed machine.
+
+    A build action receives the exact output of `enclosure_box.py`, which derives the pack once
+    for both enclosure producers. It needs no core: the standalone overlap report is diagnostic
+    output, not part of a wall's geometry. A direct design run derives the live pack and reports
+    against its placed core; it never accepts a potentially old description from the source tree.
 
     Imported here rather than at module scope so that enclosure_assembly, which builds its
     own assembly around these walls, is not importing a module that is importing it back."""
+    import _box_spec
+
+    if _box_spec.in_action():
+        box, bounds = _box_spec.read(Box, Bound, (PortField, Nameplate))
+        BOUNDS[:] = bounds
+        return None, box
     sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
     import enclosure_assembly
     _assy, pack, box = enclosure_assembly.machine()
-    return pack, box
+    return pack.placed["foam-assembly"][0], box
 
 
 def _report_columns(box):
@@ -7256,7 +7287,7 @@ def _report_bounds():
 
 
 def main():
-    machine, box = machine_of()
+    core, box = machine_of()
     pieces, assy = build_pieces(box)
     _report_bounds()          # the machine's, with its pieces cut and its throat measured
 
@@ -7267,7 +7298,7 @@ def main():
     _report_facet(pieces["front-top"], box)
     _report_seams(box)
     _report_levels(box)
-    _report_split(pieces, machine.placed["foam-assembly"][0])
+    _report_split(pieces, core)
 
     bo = box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
@@ -7275,7 +7306,7 @@ def main():
     # section that body offers, so the radii are as many as the pack has kinds of seat. The
     # smallest is the runs' own and the largest is the widest body's, and a strap cut to the
     # largest closes on every one of them — which is what the table quotes.
-    seats = sorted({round(r, 6) for *_s, r in (machine.tube_anchors or ())})
+    seats = sorted({round(r, 6) for *_s, r in (box.tube_anchors or ())})
     if not seats:
         raise ValueError(
             "the box bores no tube anchor at all, and the strap table quotes a loop for them. "
@@ -7295,19 +7326,19 @@ def main():
         "MQ6_CARD_T": f"{mq6_card_y:.4g} mm",
         "MQ6_SLOT_OPEN": f"{mq6_card_y + 2 * mq6_slot_press:.4g} mm",
         "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
-        "CORE_STOP_BORE": (f"{2.0 * (machine.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
-                           if machine.core_stops else "no station"),
+        "CORE_STOP_BORE": (f"{2.0 * (box.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
+                           if box.core_stops else "no station"),
         "CORE_STOP_WEB": f"{core_stop_web:.4g} mm",
         "CORE_STOP_RISE": f"{core_stop_rise:.4g} mm",
         # The block runs the wall inboard to one round past the tangent, and both are mirrored.
         "CORE_STOP_WIDE": (
-            f"{interior_x()[1] - (abs(machine.core_stops[0][0]) - machine.core_stops[0][2]):.4g} mm"
-            if machine.core_stops else "no station"),
+            f"{interior_x()[1] - (abs(box.core_stops[0][0]) - box.core_stops[0][2]):.4g} mm"
+            if box.core_stops else "no station"),
         "CORE_HOLD_LAND": f"{core_hold_land:.4g} mm",
         "CORE_HOLD_REACH": f"{core_hold_reach:.4g} mm",
         "CORE_HOLD_RISE": f"{core_hold_rise:.4g} mm",
-        "CORE_HOLD_WIDE": (f"{machine.core_holds[0][1] - machine.core_holds[0][0]:.4g} mm"
-                           if machine.core_holds else "no station"),
+        "CORE_HOLD_WIDE": (f"{box.core_holds[0][1] - box.core_holds[0][0]:.4g} mm"
+                           if box.core_holds else "no station"),
         "COLUMN_ARC": f"{column_round:.3g} mm",
         # What a hand gets on a flank: the return's own section and the lane the box keeps
         # open behind it, off the exterior side face.
@@ -7426,7 +7457,7 @@ def main():
         "LIP_UNDERWALL": f"{2.0 * wall:.4g} mm",
         # The Y-seam ladder as the walls came out — per wall, and one figure when they agree.
         "Y_LEVELS": "/".join(str(c) for c in sorted({
-            sum(1 for _xi, _xe, s, _z in _bosses(box.inner, box.y_joint)
+            sum(1 for _xi, _xe, s, _z in box.y_bosses
                 if s == sx) for sx in (+1.0, -1.0)})),
         "PLUG_DIA": f"{plug_dia:.4g} mm",
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
@@ -7450,16 +7481,9 @@ def main():
 
 
 if __name__ == "__main__":
-    # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY — the same line
-    # `enclosure_assembly` carries for itself, and for the same reason. Run as a script this
-    # is `__main__`, so `machine_of`'s `enclosure_assembly` does `import enclosure` and gets a
-    # SECOND copy: `_dims` fills that one's module state and `main()` builds the pieces out of
-    # this one's. `_wall_block` survives that because a missing key reads as "nothing known in
-    # the way"; `_z_seam_passes` did not — `main()` reads it with `.get`, so the empty copy
-    # answered None for every seam and the run printed the back one as landing "in an open
-    # band" when it runs through its column, which is what the README beside this file has
-    # said all along. A record that degrades quietly is the exception here and not the rule,
-    # and a REPORT that degrades quietly is what a person reads to decide the box is sound.
-    # One name, one module, one box.
+    # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. A direct run imports
+    # `enclosure_assembly` inside `machine_of`; that module imports `enclosure` back and must
+    # receive this same copy so the Box and the bounds ledger it fills come back to `main`.
+    # The ceiling joint makes the same round trip. One name, one module, one box.
     sys.modules.setdefault(__name__ if __name__ != "__main__" else "enclosure", sys.modules[__name__])
     main()

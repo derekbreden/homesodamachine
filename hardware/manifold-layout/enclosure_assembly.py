@@ -2981,11 +2981,6 @@ PORT_RING_RIM = 3.0
 # exactly what the pocket took out of the outer face. So the stock under every chip is the wall's
 # own full thickness and the clamped stack is the same at every station.
 PORT_BOSS_PROUD = _ring.THICK
-# The field's own shape, as `enclosure.Box.port_field`: how far the boss stands inboard, the wall
-# it keeps around each chip, and one pocket per station as `(x, z, width, rise)`.
-PortField = collections.namedtuple("PortField", "proud rim pockets")
-
-
 def port_pocket_d(ring: str = "union") -> float:
     """What one station's pocket measures ACROSS — the chip's own width and the slip it takes in
     it. The wall cuts it and `port-field-web` reads it against the pitch, off this one call."""
@@ -3026,9 +3021,9 @@ def back_wall_field(stations):
     """The pocket each chip lies in, as `enclosure.Box.port_field` — one per station, not one field
     across them. `enclosure._port_field` cuts each into the wall's outer face and stands a boss one
     `PORT_RING_RIM` larger on the inner one."""
-    return PortField(PORT_BOSS_PROUD, PORT_RING_RIM,
-                     tuple((x, z, port_pocket_d(ring), port_pocket_rise())
-                           for x, z, _fitting, ring, _which, _fluid in stations.values()))
+    return _enc.PortField(PORT_BOSS_PROUD, PORT_RING_RIM,
+                          tuple((x, z, port_pocket_d(ring), port_pocket_rise())
+                                for x, z, _fitting, ring, _which, _fluid in stations.values()))
 
 
 # TWO OF THE FIVE CROSSINGS TAKE A TUBE THE CUSTOMER CUTS, in their own kitchen and to their own
@@ -3142,13 +3137,6 @@ NAMEPLATE_BOSS_CLEAR = 1.5
 # The two bodies the plate goes into the assembly under — the part and the filament lying in it.
 NAMEPLATE = "nameplate"
 NAMEPLATE_INK = "nameplate-ink"
-# The field's own shape, as `enclosure.Box.nameplate`: the plate's centre and outline, what the
-# wall stands to behind it, the two screw stations on it, and the boss one screw needs.
-Nameplate = collections.namedtuple(
-    "Nameplate", "x z width height corner bevel slip thick wall screws "
-                 "stem_d reach bore_d bore_depth")
-
-
 def nameplate_field() -> tuple:
     """The rectangle the wall leaves the plate, as `(west, east, north)`.
 
@@ -3176,13 +3164,13 @@ def nameplate_station(foam) -> tuple:
     return ((west + east) / 2.0, nameplate_screw_line(foam))
 
 
-def nameplate_cut(foam) -> Nameplate:
+def nameplate_cut(foam) -> _enc.Nameplate:
     """Everything the wall does for the plate, as `enclosure.Box.nameplate`."""
     x, z = nameplate_station(foam)
-    return Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.BEVEL, _np.SLIP,
-                     _np.THICK, _np.WALL, _np.screw_stations(),
-                     _np.boss_stem_d(), _np.boss_reach(),
-                     _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
+    return _enc.Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.BEVEL, _np.SLIP,
+                          _np.THICK, _np.WALL, _np.screw_stations(),
+                          _np.boss_stem_d(), _np.boss_reach(),
+                          _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
 
 
 def build_nameplate(foam, unit: int = 1):
@@ -6700,16 +6688,14 @@ def machine():
     return a, p, box
 
 
-def _materialized_enclosure_pieces(box) -> dict:
-    """The enclosure producer's exact B-reps inside a traced or Bazel action.
+def _materialized_enclosure_pieces(box, materialized=False) -> dict:
+    """The enclosure producer's exact B-reps when the primary assembly action requests them.
 
-    A direct design run still cuts from source so it cannot silently pick up an old fetched
-    bundle. Build actions receive producer outputs on these paths, and importing them prevents
-    this consumer from spending minutes rebuilding the same walls.
+    Direct design and presentation runs cut from source. The primary assembly action explicitly
+    requests its declared producer outputs, preventing an ambient action environment from making
+    another caller reach for files it did not stage.
     """
-    action = bool(os.environ.get("HSM_INPUT_DIGEST")
-                  or os.environ.get("HSM_BUILD_SOURCE") == "trace")
-    if not action:
+    if not materialized:
         return _enc.build_pieces(box)[0]
     root = _hw / "printed-parts" / "enclosure" / "enclosure"
     return {
@@ -6719,19 +6705,30 @@ def _materialized_enclosure_pieces(box) -> dict:
     }
 
 
-def _materialized_ceiling_panel(box):
-    """The ceiling producer's exact B-rep in an action; source geometry in a direct run."""
-    action = bool(os.environ.get("HSM_INPUT_DIGEST")
-                  or os.environ.get("HSM_BUILD_SOURCE") == "trace")
-    if not action:
+def _materialized_ceiling_panel(box, materialized=False):
+    """The ceiling producer's exact B-rep when explicitly requested; otherwise source geometry."""
+    if not materialized:
         return _cpanel.build(box)
     return import_step(str(
         _hw / "printed-parts" / "enclosure" / "ceiling-panel" / "ceiling-panel.step"))
 
 
-def build_enclosure_assembly() -> cq.Assembly:
+def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
-    a, _p, box = machine()
+    a, _p, live_box = machine()
+    box = live_box
+    if require_box_spec:
+        import _box_spec
+
+        box, bounds = _box_spec.read(
+            _enc.Box, _enc.Bound, (_enc.PortField, _enc.Nameplate))
+        if _box_spec.document(live_box, _enc.BOUNDS) != _box_spec.document(box, bounds):
+            raise ValueError(
+                "the materialized enclosure Box differs from the freshly derived placement; "
+                "rebuild enclosure-box before composing the assembly")
+        # Every materialized wall below was cut from this instance. Carry it through the
+        # composition even when an equal live tuple happens to compare the same.
+        _enc.BOUNDS[:] = bounds
     funnel, funnel_carry = build_funnel(box)
     a.add(funnel, name="hopper-funnel", color=C_FUNNEL)
     # The basin is not in the pack — the box is sized on the pack and the funnel is seated in
@@ -6779,14 +6776,14 @@ def build_enclosure_assembly() -> cq.Assembly:
     a.add(cover, name="display-cover", color=C_COVER)
     dgasket, _dgasket_carry = build_display_gasket(box)
     a.add(dgasket, name="display-gasket", color=C_DGASKET)
-    pieces = _materialized_enclosure_pieces(box)
+    pieces = _materialized_enclosure_pieces(box, require_box_spec)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     # AND BACK-TOP'S CEILING, which is a part of its own. It is built here rather than in
     # `build_pieces` because it is not one of the box's quadrants: `ceiling_panel` states the
     # joint's mating figures and back-top is cut to them, and what the panel needs from this
     # assembly is the two ceiling stations it carries.
-    pieces["ceiling-panel"] = _materialized_ceiling_panel(box)
+    pieces["ceiling-panel"] = _materialized_ceiling_panel(box, require_box_spec)
     a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETG_BLACK)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
@@ -7122,7 +7119,9 @@ def main():
             print(" ", line)
         print("enclosure_assembly selftest OK")
         return
-    a = build_enclosure_assembly()
+    action = bool(os.environ.get("HSM_INPUT_DIGEST")
+                  or os.environ.get("HSM_BUILD_SOURCE") == "trace")
+    a = build_enclosure_assembly(require_box_spec=action)
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(a, str(out))
     print(f"-> {out.name}")
