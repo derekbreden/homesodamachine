@@ -1,4 +1,8 @@
 {
+  "hardware/assembly/scenes/_local_service.py": [
+    "hardware/assembly/scenes/_local_service.py",
+    "hardware/assembly/scenes/_scenes.py"
+  ],
   "hardware/manifold-layout/_scorecard.py": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",

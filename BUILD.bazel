@@ -9424,6 +9424,18 @@ genrule(
 )
 
 sh_test(
+    name = "local-service-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/assembly/scenes/_local_service.py",
+        "hardware/assembly/scenes/_scenes.py",
+    ],
+    args = ["hardware/assembly/scenes/_local_service.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "scorecard-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
