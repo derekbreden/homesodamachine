@@ -11,8 +11,15 @@
 // labelled group, so the figure reads the same to a deuteranope, for whom the
 // shell's --ok and --err are 2.8 ΔE apart.
 //
-// Dimensions in these drawings are to scale against a stated scale bar. The
-// numbers are the repository's, frozen at the post's date.
+// Every figure here is pulled into exactly one entry and renders beside that
+// entry's own date range. What a figure draws is that window's reading, and the
+// comment over each one names the window and the file in the repository the
+// numbers were read out of — so a figure is checkable against the tree at the
+// date it carries, and several of these numbers are ones the tree no longer
+// holds because the thing they record was fixed.
+//
+// TWO_MACHINES is drawn to a scale bar it carries. The rest are schematic:
+// position and weight mean what their own labels say they mean.
 
 const A = 'stroke-linecap="round" stroke-linejoin="round" fill="none"';
 
@@ -31,7 +38,11 @@ function dim(x1, y1, x2, y2, label, side = "top") {
 }
 
 // ── Two machines, to scale in plan ───────────────────────────────────────────
-// 0.46 px per mm. Kitchen 317 × 375, thin 223 × 481.
+// Jul 26 – Aug 1. Both silhouettes as `updates/2026-08-08-the-bench.md` states
+// them at the swap a week later: counter 317 × 375 × 337.7, thin 223 × 481 × 358.
+// The thin one is the box `hardware/assembly/cards/_cardgen.py` publishes today;
+// the counter tree it stands beside was deleted on 3 August.
+// 0.46 px per mm, drawn to the 200 mm bar.
 const TWO_MACHINES = `
 <svg viewBox="0 0 520 350" class="uf" role="img" aria-label="Plan view of both machines to scale, seen from above with the cabinet's back wall along the top: the counter machine 317 mm wide by 375 mm deep, the thin machine 223 mm wide by 481 mm deep.">
   <text x="60" y="22" class="uf-title">Counter</text>
@@ -59,6 +70,9 @@ const TWO_MACHINES = `
 </svg>`;
 
 // ── The water path, before and after ─────────────────────────────────────────
+// Jul 19 – 25. The run as `hardware/assembly/internal-plumbing.md` §2 lays it
+// out: 1/4 inch from the ASSE 1022's outlet on, stepping back up to 3/8 only at
+// the SeaFlo's own two moulded barbs.
 // Stroke weight is the bore: 3/8 inch runs heavy, 1/4 inch runs light.
 function waterNode(x, label, sub) {
   return `<circle cx="${x}" cy="70" r="5" fill="var(--bg)" stroke="var(--text-2)" stroke-width="2"/>
@@ -92,7 +106,12 @@ const WATER_PATH = `
 </svg>`;
 
 // ── The solder-paste gap ─────────────────────────────────────────────────────
-// 330 surface-mount lead pads, 22 across. A filled square has a paste opening;
+// Jun 21 – Jul 18. 148 of 330 top-side SMD lead pads with no paste aperture,
+// read from `hardware/snapshots/pcba-audit-2026-07-13.md` — the audit that found
+// it. The `circuit-json-to-gerber` fork closed it behind a `paste-coverage`
+// gate, so the count against today's tree is zero.
+//
+// 330 surface-mount lead pads, 30 across. A filled square has a paste opening;
 // a hollow one does not.
 function pasteGrid(total, missing, cols, x0, y0, s, gap) {
   let out = "";
@@ -120,6 +139,9 @@ const PASTE_PADS = `
 </svg>`;
 
 // ── Three boards and a phone ─────────────────────────────────────────────────
+// Mar 7 – 28. The under-counter prototype's three targets — `src_prototype`,
+// `src_config` and `src_display` in `firmware/README.md`, under "Prototype
+// architecture". The appliance's own trees are further up that table.
 function chip(x, y, w, h, title, sub, live) {
   const c = live ? "var(--accent)" : "var(--text-2)";
   return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" stroke="${c}" stroke-width="2" ${A}/>
@@ -143,6 +165,10 @@ const THREE_BOARDS = `
 </svg>`;
 
 // ── The flavor manifold, absorbed ────────────────────────────────────────────
+// Aug 9 – 15. Eight of the manifold's ten valves stand on the two panels —
+// `hardware/manifold-layout/enclosure_assembly.py`, "the manifold's eight
+// non-cap valves on two planes, four to a plane". V-A and V-B seat in the cap's
+// own cradles, and V-K is not on this manifold at all.
 const MANIFOLD_ABSORBED = `
 <svg viewBox="0 0 620 300" class="uf" role="img" aria-label="Six separate printed carriers become features of the enclosure's front-top piece: two valve panels and two pump trays printed in its own material.">
   <text x="30" y="22" class="uf-title">Before — six printed carriers</text>
@@ -181,6 +207,12 @@ const MANIFOLD_ABSORBED = `
 </svg>`;
 
 // ── What the vessel was, six times ───────────────────────────────────────────
+// Mar 29 – Apr 25. Six geometries in the order they were live, dated off
+// `updates/2026-04-25-the-whole-appliance.md`. The last is the vessel
+// `hardware/assembly/pressure-vessel.md` still builds — commodity 316L tube,
+// two laser-cut discs — so `kept` is the one mark here that has to be rechecked
+// rather than read.
+//
 // Silhouettes in the order they were live. Only the last one is still in the
 // build; the rest are drawn in the weight of things no longer here.
 function vesselCell(cx, name, when, shape, live) {
@@ -205,6 +237,11 @@ const VESSEL_SHAPES = `
 </svg>`;
 
 // ── The first hour on a bench ────────────────────────────────────────────────
+// Aug 2 – 8. Batch 1, from `hardware/pcb/pcba/bench-log.md`: the answered list,
+// the six things "Not exercised on batch 1" names behind the dead I²C bus, and
+// `drill.drl` carrying 135 holes at 0.3 mm against 152 vias. Batch 2 drills all
+// 152 behind `assertFullyDrilled`, so the shortfall is batch 1's alone.
+//
 // Two labelled groups, each row carrying its own glyph. Position and mark say
 // which side a row is on; colour only agrees with them.
 const TICK = `<path d="M0 4 L3 7.5 L9 -1" stroke="var(--ok)" stroke-width="2" ${A}/>`;
@@ -215,12 +252,12 @@ function benchRows(items, x, y, mark) {
      <text x="${x + 18}" y="${y + i * 22 + 8}" class="uf-lab">${t}</text>`).join("");
 }
 const BENCH = `
-<svg viewBox="0 0 620 300" class="uf" role="img" aria-label="Ten subsystems answered on the bench; five did not. Every one that did not is on the same I²C bus.">
+<svg viewBox="0 0 620 300" class="uf" role="img" aria-label="Ten subsystems answered on the bench; six did not. Every one that did not is on the same I²C bus.">
   <rect x="20" y="20" width="290" height="262" rx="8" stroke="var(--border)" stroke-width="1" fill="none"/>
   <rect x="326" y="20" width="274" height="262" rx="8" stroke="var(--border)" stroke-width="1" fill="none"/>
 
   <text x="40" y="44" class="uf-title">Answered — 10</text>
-  <text x="346" y="44" class="uf-title">Unreachable — 5</text>
+  <text x="346" y="44" class="uf-title">Unreachable — 6</text>
 
   ${benchRows([
     "power rails", "the microcontroller", "USB-C flashing",
@@ -231,74 +268,24 @@ const BENCH = `
 
   ${benchRows([
     "I/O expander 1", "I/O expander 2", "real-time clock",
-    "12 valve outputs", "10 reed inputs",
+    "12 valve outputs", "10 reed inputs", "condenser fan output",
   ], 346, 62, CROSS)}
 
   <path d="M346 190 L580 190" stroke="var(--border)" stroke-width="1"/>
-  <text x="346" y="212" class="uf-sub">All five sit on one I²C bus.</text>
+  <text x="346" y="212" class="uf-sub">All six sit on one I²C bus.</text>
   <text x="346" y="232" class="uf-sub">The drill file carried 135 holes</text>
   <text x="346" y="250" class="uf-sub">where the board had 152 vias —</text>
   <text x="346" y="268" class="uf-sub">partial-span vias were dropped.</text>
 </svg>`;
 
-// ── The whole span, in things that happened ──────────────────────────────────
-// Days from 2026-03-07, the first commit, to 2026-08-15, across 540px. Every
-// mark carries a <title>, so the ones without a drawn label are still readable
-// on hover; the seven carrying labels are the physical inflections.
-const T_X = (d) => +(40 + (d / 161) * 540).toFixed(1);
-const MARKS = [
-  [0, "The repo opens on a machine already pouring under the sink"],
-  [15, "Production printer, workbench and the domain", "Printer and workshop", "up"],
-  [37, "Handheld fiber laser welder arrives"],
-  [41, "An ice maker is torn down and its refrigerant circuit traced", "Ice maker opened", "down"],
-  [48, "The vessel settles on tube and discs; stock ordered"],
-  [53, "homesodamachine.com goes live"],
-  [57, "The first of forty NPT threads is hand-tapped", "First thread tapped", "up"],
-  [58, "First video published"],
-  [63, "First clean carbon-fibre faucet shell, on the ninth attempt"],
-  [68, "Ten laser-cut stainless under-counter plates delivered"],
-  [84, "The first flavor reservoir holds water with no weep", "Water stays in", "down"],
-  [102, "The enclosure is split in two to fit the print bed"],
-  [112, "The first PCB fab run is ordered", "First boards ordered", "up"],
-  [130, "Ten assembled controller boards ordered"],
-  [141, "The hardware tree is forked into a second machine"],
-  [149, "The board is powered up; one bus does not answer", "Board on the bench", "down"],
-  [159, "The CAD tree gets a build system"],
-  [161, "The first enclosure panel prints in glass-filled PET", "Glass fibre", "up"],
-];
-const MONTHS_T = [[0, "Mar"], [25, "Apr"], [55, "May"], [86, "Jun"], [116, "Jul"], [147, "Aug"]];
-
-const TIMELINE = `
-<svg viewBox="0 34 620 176" class="uf" role="img" aria-label="A timeline from 7 March to 15 August 2026 marking eighteen events, from the workshop purchase through the first hand-tapped thread, the first watertight reservoir, the first boards ordered, and the controller board's first hour on a bench.">
-  <path d="M40 98 L580 98" stroke="var(--text-3)" stroke-width="1.5" stroke-linecap="round"/>
-
-  ${/* The plain days go down first. Two of them fall within a few days of a
-        labelled one, close enough that the dots touch, and a grey circle laid
-        over an accented one leaves a wedge of itself showing. */""}
-  ${MARKS.filter(([, , label]) => !label).map(([d, title]) =>
-    `<g><title>${title}</title>
-      <circle cx="${T_X(d)}" cy="98" r="3" fill="var(--text-3)"/></g>`).join("")}
-
-  ${MARKS.filter(([, , label]) => label).map(([d, title, label, side]) => {
-    const x = T_X(d);
-    const dot = `<g><title>${title}</title>
-      <circle cx="${x}" cy="98" r="5" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/></g>`;
-    const anchor = x > 590 ? "end" : x < 40 ? "start" : "middle";
-    const tx = anchor === "end" ? x + 6 : x;
-    return side === "up"
-      ? `${dot}<path d="M${x} 91 L${x} 70" stroke="var(--accent)" stroke-width="1"/>
-         <text x="${tx}" y="62" class="uf-lab uf-live" text-anchor="${anchor}">${label}</text>`
-      : `${dot}<path d="M${x} 105 L${x} 128" stroke="var(--accent)" stroke-width="1"/>
-         <text x="${tx}" y="142" class="uf-lab uf-live" text-anchor="${anchor}">${label}</text>`;
-  }).join("")}
-
-  <path d="M40 172 L580 172" stroke="var(--border)" stroke-width="1"/>
-  ${MONTHS_T.map(([d, m]) =>
-    `<path d="M${T_X(d)} 168 L${T_X(d)} 176" stroke="var(--border)" stroke-width="1"/>
-     <text x="${T_X(d)}" y="190" class="uf-dim" text-anchor="middle">${m}</text>`).join("")}
-</svg>`;
-
 // ── Fifteen attempts at one part ─────────────────────────────────────────────
+// Apr 26 – May 23. The attempts that fall inside the window, each carrying the
+// outcome its own section closes on in
+// `hardware/printed-parts/faucet/touch-flo-shell/print-log.md`. Attempt 16
+// finishes 26 May, past the window's end, which is why the strip stops at 15.
+// Two of the fifteen — 6 and 15 — close there with no outcome recorded, and the
+// circle is that and not a verdict.
+//
 // Outcomes as the print log records them. Four states, each with its own glyph,
 // so the strip reads without colour.
 const PL_GLYPH = {
@@ -313,7 +300,7 @@ const PL = [
   "part", "part", "part", "part", "ok", "none",
 ];
 const PRINT_LOG = `
-<svg viewBox="0 0 620 170" class="uf" role="img" aria-label="Fifteen print attempts at the faucet shell. The first six produced no part, the seventh worked, the eighth failed when a support tower fused into the faucet, and attempts ten to fifteen printed while the joint clearances were tuned.">
+<svg viewBox="0 0 620 170" class="uf" role="img" aria-label="Fifteen print attempts at the faucet shell. Attempts one to four produced no part, the fifth finished full of air gaps, the sixth records no outcome, the seventh worked, the eighth failed when a support tower fused into the faucet, the ninth came out whole, attempts ten to thirteen printed while the joint clearances were tuned, the fourteenth closed that arc, and the fifteenth records no outcome.">
   ${PL.map((state, i) => {
     const x = 30 + i * 38, cx = x + 15;
     return `<rect x="${x}" y="50" width="30" height="30" rx="4"
@@ -335,12 +322,8 @@ const PRINT_LOG = `
 
 export const FIGURES = {
   "print-log": {
-    caption: "Every attempt at the faucet shell inside these four weeks, as the print log records it. Attempts ten to fifteen all produced parts; what was being tuned by then was the fit of the joints, not the printing.",
+    caption: "Every attempt at the faucet shell inside these four weeks, as the print log records it. Attempts ten to fourteen all produced parts; what was being tuned by then was the fit of the joints, not the printing.",
     svg: PRINT_LOG,
-  },
-  "timeline": {
-    caption: "Eighteen events across 2026, from the first commit on 7 March to 15 August. Hover a mark for the ones without a label.",
-    svg: TIMELINE,
   },
   "vessel-shapes": {
     caption: "What the pressure vessel was, in the order it was those things. The last is the one that was ordered.",
