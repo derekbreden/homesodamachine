@@ -52,17 +52,21 @@ def main():
     print()
 
     if pcba and not s3:
-        # J9 carries V12 to the display alongside the A/B pair, so a display on
-        # USB has two supplies. Reconnecting its USB while the board is powered
-        # leaves it enumerated on neither: it has to see V12 drop to come back.
-        print("  A display that is plugged in but not listed needs the BOARD power-cycled.")
+        # J9 carries V12 to the display alongside the A/B pair. A current display
+        # image can detach its USB PHY without dropping that unswitched rail; the
+        # controller also recovers an S3 left in its ROM loader by a wrong upload.
+        print("  Ask the externally-powered front display to reattach its USB PHY:")
+        print()
+        print("    ~/.platformio/penv/bin/python tools/display_usb.py")
+        print()
+        print("  This is an explicit development command; it never runs at production boot")
+        print("  and does not switch the 12 V rail or any load.")
+        print()
+        print("  If it reports UNREACHABLE, this display image is too old or is not answering")
+        print("  on J9. That one boot still needs a physical display reset or V12 power cycle.")
         print("  J9 is [B, A, GND, V12] — the display is fed 12 V from the PCBA over the")
         print("  same connector as the pair, and J9.V12 runs straight to the V12 island")
-        print("  with no relay in it. Nothing in firmware can drop it, and resetting the")
-        print("  ESP32 is not enough.")
-        print()
-        print("    Unplug the 12 V at J10 (or at the wall), wait a moment, plug it back in.")
-        print("    Then run this again.")
+        print("  with no relay in it, so firmware cannot remove display power.")
         print()
 
     if not pcba and not s3:

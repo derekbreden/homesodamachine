@@ -85,7 +85,19 @@ pio run -e esp32s3_front -t upload    # build + flash
 ```
 
 The board enumerates over its own native USB, independent of the base ESP32's
-UART bridge — flashing it does not disturb the rest of the system.
+UART bridge — flashing it does not disturb the rest of the system. If J9's V12 kept the
+display powered while its USB cable was reconnected, ask the controller to make the USB
+PHY detach and timer-wake:
+
+```
+~/.platformio/penv/bin/python tools/display_usb.py
+```
+
+This is only an explicit development request over J9; no boot path sends it. The 500 ms
+deep sleep powers down the ESP32-S3 USB Serial/JTAG PHY without pretending the unswitched
+V12 rail can be controlled. The host tool waits for a fresh `0x303A:0x1001` attachment and
+then requires `GET_VERSION` to answer. An old image that lacks the J9 request needs one
+physical RESET or V12 cycle before it can be upgraded.
 
 ## Pin map (fixed by the board)
 
