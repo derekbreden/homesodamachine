@@ -20,10 +20,12 @@ reports the safe I/O foundation the next connected bench uses.
   keeps it turning, and the head stops on the lift, on a tick that runs 2 s late, or at the
   60 s ceiling. Every state change goes back as `MSG_RESP_PRIME`.
 - **A bounded run from the console.** `pump <a|b> [ms]`.
-- **The faucet selection.** A tap reaches J3 as an absolute flavor and request token. The
-  controller acknowledges its authoritative selection, makes the UI tick once, and persists
-  namespace `selection`, key `flavor`. A controller with no stored value adopts the faucet's
-  saved boot-logo candidate on its first synchronization; an established controller wins.
+- **The shared flavor selection.** A faucet tap reaches J3, or an enclosure card tap reaches
+  J9, as an absolute flavor and request token. The controller acknowledges its authoritative
+  selection, makes the UI tick once, persists namespace `selection`, key `flavor`, and
+  publishes the revision to the other display. A controller with no stored value adopts the
+  faucet's saved boot-logo candidate on its first synchronization; an established controller
+  wins.
 - **Status.** `MSG_STATUS_REQ` is answered from cached controller state with uptime, heap,
   J9 frame counts, the MQ-6 divider and whether a prime is live. The USB `status` command
   additionally verifies both expanders and reads all ten reed inputs on demand.
@@ -100,6 +102,18 @@ deduplicates the controller-side tick as well as the state update. Controller Pr
 writes are serviced only while the machine is idle and the sound sequencer is quiet. The
 faucet keeps its own two-second-deferred cache so either boot order draws a logo immediately,
 but it never overwrites established controller state during reconnect.
+
+## Enclosure flavor link
+
+J9 is half duplex, so the controller does not interrupt the enclosure display when flavor
+changes on J3. The enclosure asks with `MSG_FLAVOR_QUERY` every 250 ms while lit and every
+500 ms while dark, and the controller answers with the current flavor and persistence flags.
+That bounded poll is also how a faucet selection wakes and updates a sleeping enclosure.
+
+An enclosure card press repaints locally and sends tokenized `MSG_FLAVOR_SELECT`. The first
+fresh request carries the audible flag; retries reuse the absolute value and token without
+repeating the tick. The resulting controller revision is published immediately over J3, so
+the faucet changes and wakes without waiting for another enclosure poll.
 
 ## Sound
 

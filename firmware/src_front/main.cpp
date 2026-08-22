@@ -34,6 +34,12 @@
 #include "images/anim_14.h"
 #include "images/anim_15.h"
 
+// The same square seed artwork shown by the round config display. At 240 px it
+// fits two honest side-by-side targets without another generated copy in this
+// firmware tree.
+#include "../src_config/images/flavor0_240.h"
+#include "../src_config/images/flavor1_240.h"
+
 static const uint16_t *animFrames[] = {
     anim_00, anim_01, anim_02, anim_03, anim_04, anim_05, anim_06, anim_07,
     anim_08, anim_09, anim_10, anim_11, anim_12, anim_13, anim_14, anim_15,
@@ -41,6 +47,7 @@ static const uint16_t *animFrames[] = {
 #define NUM_ANIM_FRAMES  16
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
 #define LOGO_SIZE        360
+#define FLAVOR_ART_SIZE  240
 
 // ════════════════════════════════════════════════════════════
 //  ESP32-S3 Front-Face Display — foundation
@@ -200,15 +207,28 @@ static void showFlavor(FlavorView v);
 static void showService(ServiceView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
+static void refreshHomeSelection();
+static void lockScreenShow(const char *kicker, const char *title, const char *body);
+static void lockScreenHide();
 
 // ── UI objects ──
-static lv_obj_t *logoImg;
+static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
 static lv_img_dsc_t frameDsc[NUM_ANIM_FRAMES];
 static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
+static bool lockActive = false;
+static bool bootLockActive = false;
+static unsigned long bootLockMinUntil = 0;
+static unsigned long bootLockMaxUntil = 0;
+
+static lv_img_dsc_t homeFlavorArt[2];
+static const uint16_t *homeFlavorPixels[2] = {flavor0_240, flavor1_240};
+static lv_obj_t *homeFlavorCard[2];
+static lv_obj_t *homeFlavorBadge[2];
+static lv_obj_t *homeFlavorBadgeText[2];
+static lv_obj_t *homeSyncLabel;
 
 static lv_obj_t *linkDot;          // rail foot — J9 heard from, or not
-static lv_obj_t *homeFlavorLine;   // HOME's two ratios
 static lv_obj_t *flvCardLbl[2];    // the two FLAVOR cards' ratio text
 static lv_obj_t *flvDetailName, *flvDetailRatio;
 static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
@@ -225,10 +245,36 @@ static uint8_t flavorRatio[2] = {20, 20};
 static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold pages act on
 static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 
+// The flavor used for dispensing is separate from flavorSel above, which is
+// only the target currently open in a service/configuration view. The
+// controller owns this value; the enclosure applies a press optimistically and
+// reconciles it from MSG_RESP_FLAVOR_STATE.
+static uint8_t activeFlavor = PUMP_CHANNEL_A;
+static bool flavorSynchronized = false;
+static bool flavorControllerPersisted = false;
+static bool flavorControllerPersistError = false;
+static bool flavorRequestPending = false;
+static bool flavorQueryOutstanding = false;
+static uint32_t flavorRequestToken = 0;
+static uint32_t flavorTokenState = 1;
+static unsigned long flavorRequestStartedMs = 0;
+static unsigned long flavorRequestLastQueuedMs = 0;
+static unsigned long flavorQueryQueuedMs = 0;
+static unsigned long flavorStateMs = 0;
+static uint32_t flavorRetries = 0;
+static uint32_t flavorStaleResponses = 0;
+
+#define FLAVOR_QUERY_ACTIVE_MS      250
+#define FLAVOR_QUERY_BACKGROUND_MS  500
+#define FLAVOR_RESPONSE_TIMEOUT_MS  600
+#define FLAVOR_AUDIBLE_FRESH_MS     300
+#define BOOT_LOCK_MIN_MS            (NUM_ANIM_FRAMES * ANIM_FRAME_MS * 2)
+#define BOOT_LOCK_MAX_MS            6000
+
 // ── Idle backlight-off (the faucet's idle behavior, adapted to this board) ──
 // The backlight is a digital line on the CH422G (on/off only — no PWM), so the
-// idle state is simply the backlight off and the animation paused. The first
-// touch turns it back on and resumes. Instant off / instant on.
+// idle state is simply the backlight off. Normal pages are static; an active
+// operation lock is deliberately exempt from idle. Instant off / instant on.
 // Three timers, and the last two run from the moment the screen goes dark so that changing
 // how long it stays lit does not move them.
 //
@@ -491,8 +537,8 @@ static void panelRealign() {
   Serial.printf("PANEL: restart=%d\n", (int)esp_lcd_rgb_panel_restart(panel));
 }
 
-// Turn the backlight back on (instant) and put the panel back on HOME. Always resets the
-// idle timer. A tap calls this — "tap to bring the backlight back on."
+// Turn the backlight back on and preserve whichever view the dark retained. Always resets
+// the idle timer. A tap calls this — "tap to bring the backlight back on."
 static void wake() {
   lastInputTime = millis();
   if (screenIdle || !backlightOn) {
@@ -605,7 +651,7 @@ static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *co
 static void animTimerCb(lv_timer_t *t) {
   (void)t;
   animFrameIdx = (animFrameIdx + 1) % NUM_ANIM_FRAMES;
-  lv_img_set_src(logoImg, &frameDsc[animFrameIdx]);
+  if (lockLogoImg) lv_img_set_src(lockLogoImg, &frameDsc[animFrameIdx]);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -644,6 +690,7 @@ static uint8_t       outHighWater = 0;
 static uint32_t      outDropped = 0;
 static unsigned long lastTxMs = 0;
 static bool          awaitingAnswer = false;
+static bool          holding = false;
 
 static void j9Post(uint8_t type, const void *data, uint8_t len) {
   if (len > sizeof(outQ[0].data)) len = sizeof(outQ[0].data);
@@ -674,6 +721,105 @@ static void j9Pump() {
   outCount--;
   lastTxMs = millis();
   awaitingAnswer = true;
+}
+
+static uint32_t nextFlavorToken() {
+  flavorTokenState += 0x9E3779B9u;
+  if (flavorTokenState == 0) ++flavorTokenState;
+  return flavorTokenState;
+}
+
+static void postFlavorSelection(bool audible) {
+  FlavorRequestPayload request{
+      activeFlavor,
+      static_cast<uint8_t>(audible ? FLAVOR_REQ_F_AUDIBLE : 0),
+      flavorRequestToken,
+  };
+  j9Post(MSG_FLAVOR_SELECT, &request, sizeof(request));
+  flavorRequestLastQueuedMs = millis();
+}
+
+// Local-first, just like the faucet: repaint before the pair is serviced. The
+// token and absolute value make the later retry harmless.
+static bool selectActiveFlavor(uint8_t flavor) {
+  if (flavor > PUMP_CHANNEL_B) return false;
+  if (flavorSynchronized && !flavorRequestPending && flavor == activeFlavor) return false;
+
+  activeFlavor = flavor;
+  flavorRequestPending = true;
+  flavorQueryOutstanding = false;
+  flavorRequestToken = nextFlavorToken();
+  flavorRequestStartedMs = millis();
+  postFlavorSelection(true);
+  refreshHomeSelection();
+  return true;
+}
+
+static void applyFlavorState(const FlavorStatePayload &state) {
+  if (state.flavor > PUMP_CHANNEL_B) return;
+
+  flavorControllerPersisted = (state.flags & FLAVOR_STATE_F_PERSISTED) != 0;
+  flavorControllerPersistError = (state.flags & FLAVOR_STATE_F_PERSIST_ERROR) != 0;
+  flavorStateMs = millis();
+  flavorQueryOutstanding = false;
+
+  if (state.token != 0) {
+    if (!flavorRequestPending || state.token != flavorRequestToken) {
+      ++flavorStaleResponses;
+      if (flavorRequestPending) return;
+    } else {
+      flavorRequestPending = false;
+    }
+  } else if (flavorRequestPending) {
+    // This may be the answer to a query already on the wire when the user
+    // pressed a card. The tokenized selection answer is the ordering point.
+    return;
+  }
+
+  if ((state.flags & FLAVOR_STATE_F_ESTABLISHED) == 0) {
+    flavorSynchronized = false;
+    refreshHomeSelection();
+    return;
+  }
+
+  const bool changed = !flavorSynchronized || activeFlavor != state.flavor;
+  activeFlavor = state.flavor;
+  flavorSynchronized = true;
+  refreshHomeSelection();
+
+  // A flavor chosen at the faucet is a real appliance interaction. If this
+  // panel was dark, wake it directly onto the mirrored home selection.
+  if (changed && screenIdle && !lockActive) {
+    showPage(PAGE_HOME);
+    wake();
+  }
+}
+
+static void flavorLinkService() {
+  if (holding) return;  // prime heartbeat owns J9 until the finger lifts
+  const unsigned long now = millis();
+
+  if (flavorRequestPending) {
+    if (now - flavorRequestLastQueuedMs >= FLAVOR_RESPONSE_TIMEOUT_MS) {
+      // A tick detached from its touch is not useful. Only the first, fresh
+      // transmission asks for sound; retries preserve state silently.
+      postFlavorSelection(now - flavorRequestStartedMs <= FLAVOR_AUDIBLE_FRESH_MS);
+      ++flavorRetries;
+    }
+    return;
+  }
+
+  if (flavorQueryOutstanding) {
+    if (now - flavorQueryQueuedMs < FLAVOR_RESPONSE_TIMEOUT_MS) return;
+    flavorQueryOutstanding = false;
+  }
+
+  const unsigned long interval = screenIdle ? FLAVOR_QUERY_BACKGROUND_MS
+                                             : FLAVOR_QUERY_ACTIVE_MS;
+  if (now - flavorQueryQueuedMs < interval || outCount >= OUT_Q_DEPTH / 2) return;
+  j9Post(MSG_FLAVOR_QUERY, nullptr, 0);
+  flavorQueryQueuedMs = now;
+  flavorQueryOutstanding = true;
 }
 
 // Fire and forget: an ack would double the traffic in order to acknowledge a
@@ -716,7 +862,6 @@ static uint32_t padMux[2] = {0, 0}, padOut[2] = {0, 0};
 // A prime hold: the finger is down on the pad and ticks are going out under it. holdAckMs
 // stays 0 until MSG_RESP_PRIME{RUNNING} lands, which is the difference between a motor
 // turning and a frame sent into a bus with nothing on it.
-static bool holding = false;
 static unsigned long holdStartMs = 0, holdTickMs = 0, holdAckMs = 0;
 
 static void setPrimeMsg(const char *s);
@@ -745,6 +890,22 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     usbReattachPending = true;
     usbReattachAt = millis() + 100;
     Serial.println("[J9] USB reattach accepted — deep-sleep detach in 100 ms");
+    return;
+  }
+
+  if (type == MSG_RESP_FLAVOR_STATE && plen >= sizeof(FlavorStatePayload)) {
+    FlavorStatePayload state;
+    memcpy(&state, payload, sizeof(state));
+    applyFlavorState(state);
+    // Queries arrive four times a second while lit. Their answers are routine
+    // state replication, not a serial event; logging all of them can crowd out
+    // an explicit USB diagnostic response. Tokenized selection answers remain
+    // useful and rare enough to report.
+    if (state.token != 0) {
+      Serial.printf("[J9] flavor=%u token=%08lX flags=%02X%s\n",
+                    state.flavor + 1, (unsigned long)state.token, state.flags,
+                    flavorRequestPending ? " pending" : "");
+    }
     return;
   }
 
@@ -1008,13 +1169,42 @@ static void refreshFlavorText() {
   snprintf(b, sizeof(b), "1:%u", flavorRatio[1]);
   if (flvCardLbl[0]) lv_label_set_text(flvCardLbl[0], a);
   if (flvCardLbl[1]) lv_label_set_text(flvCardLbl[1], b);
-  if (homeFlavorLine) {
-    char line[64];
-    snprintf(line, sizeof(line), "FLAVOR 1  %s        FLAVOR 2  %s", a, b);
-    lv_label_set_text(homeFlavorLine, line);
-  }
   if (flvDetailName)  lv_label_set_text(flvDetailName, kFlavorName[flavorSel]);
   if (flvDetailRatio) lv_label_set_text(flvDetailRatio, flavorSel ? b : a);
+}
+
+static void refreshHomeSelection() {
+  if (!homeSyncLabel) return;
+  const bool selectionKnown = flavorSynchronized || flavorRequestPending;
+  for (uint8_t i = 0; i < 2; ++i) {
+    const bool selected = selectionKnown && activeFlavor == i;
+    lv_obj_set_style_bg_color(homeFlavorCard[i],
+                              lv_color_hex(selected ? COL_CARD_ON : COL_CARD), 0);
+    lv_obj_set_style_border_width(homeFlavorCard[i], selected ? 4 : 1, 0);
+    lv_obj_set_style_border_color(homeFlavorCard[i],
+                                  lv_color_hex(selected ? COL_ACCENT : COL_OFF), 0);
+    lv_obj_set_style_bg_color(homeFlavorBadge[i],
+                              lv_color_hex(selected ? COL_ACCENT : COL_CARD_ON), 0);
+    lv_label_set_text(homeFlavorBadgeText[i],
+                      selected ? LV_SYMBOL_OK "  SELECTED" : "TAP TO SELECT");
+    lv_obj_set_style_text_color(homeFlavorBadgeText[i],
+                                lv_color_hex(selected ? COL_TEXT : COL_DIM), 0);
+  }
+
+  const bool stale = flavorStateMs && millis() - flavorStateMs > 2000;
+  if (flavorControllerPersistError) {
+    lv_label_set_text(homeSyncLabel, LV_SYMBOL_WARNING "  NOT SAVED");
+    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
+  } else if (flavorRequestPending || (flavorSynchronized && !flavorControllerPersisted)) {
+    lv_label_set_text(homeSyncLabel, "SAVING...");
+    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_ACCENT), 0);
+  } else if (!flavorSynchronized || stale) {
+    lv_label_set_text(homeSyncLabel, LV_SYMBOL_REFRESH "  CONNECTING");
+    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
+  } else {
+    lv_label_set_text(homeSyncLabel, LV_SYMBOL_OK "  SYNCED");
+    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_GOOD), 0);
+  }
 }
 
 // SETUP is read-outs, so it is repainted from here rather than from the widgets.
@@ -1133,6 +1323,20 @@ static void flavorPickCb(lv_event_t *e) {
   showFlavor(FLV_DETAIL);
 }
 
+static void homeFlavorPickCb(lv_event_t *e) {
+  const uint8_t flavor = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  if (selectActiveFlavor(flavor)) {
+    // MSG_FLAVOR_SELECT carries the fresh-touch audible bit. Suppress mkBtn's
+    // generic click frame so this one press remains one frame on J9.
+    clickPending = false;
+  } else {
+    // Pressing the already-selected card is still tactile feedback, but it is
+    // not a state request and therefore owns one ordinary click frame.
+    clickPending = false;
+    sendSound(SND_WIRE_TICK);
+  }
+}
+
 static void primePickCb(lv_event_t *e) {
   flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
   showService(SVC_PRIME_HOLD);
@@ -1166,10 +1370,76 @@ static void ratioStepCb(lv_event_t *e) {
 
 // ── Page builders ──
 
+// A full-screen appliance lock. The animation belongs here: it communicates
+// that the machine is deliberately busy while the modal names the reason. The
+// object is built once and reused by boot, filling, cleaning, and any future
+// operation that must withhold the rest of the UI.
+static void buildLockScreen(lv_obj_t *scr) {
+  lockScreen = lv_obj_create(scr);
+  lv_obj_set_size(lockScreen, SCREEN_W, SCREEN_H);
+  lv_obj_set_pos(lockScreen, 0, 0);
+  lv_obj_set_style_bg_color(lockScreen, THEME_BG, 0);
+  lv_obj_set_style_bg_opa(lockScreen, LV_OPA_COVER, 0);
+  lv_obj_set_style_border_width(lockScreen, 0, 0);
+  lv_obj_set_style_radius(lockScreen, 0, 0);
+  lv_obj_set_style_pad_all(lockScreen, 0, 0);
+  lv_obj_clear_flag(lockScreen, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_CLICKABLE);
+
+  lockLogoImg = lv_img_create(lockScreen);
+  lv_img_set_src(lockLogoImg, &frameDsc[0]);
+  lv_obj_align(lockLogoImg, LV_ALIGN_LEFT_MID, 18, 0);
+
+  lv_obj_t *modal = mkCard(lockScreen, 360, 238);
+  lv_obj_align(modal, LV_ALIGN_RIGHT_MID, -26, 0);
+  lv_obj_set_style_pad_left(modal, 32, 0);
+  lv_obj_set_style_pad_right(modal, 28, 0);
+  lv_obj_set_style_pad_top(modal, 30, 0);
+  lv_obj_set_style_pad_bottom(modal, 28, 0);
+
+  lv_obj_t *accent = lv_obj_create(modal);
+  lv_obj_set_size(accent, 6, 178);
+  lv_obj_align(accent, LV_ALIGN_LEFT_MID, -18, 0);
+  lv_obj_set_style_bg_color(accent, lv_color_hex(COL_ACCENT), 0);
+  lv_obj_set_style_border_width(accent, 0, 0);
+  lv_obj_set_style_radius(accent, 3, 0);
+  lv_obj_set_style_pad_all(accent, 0, 0);
+  lv_obj_clear_flag(accent, LV_OBJ_FLAG_SCROLLABLE);
+
+  lockKicker = mkText(modal, "HOME SODA MACHINE", &lv_font_montserrat_20, COL_ACCENT);
+  lv_obj_align(lockKicker, LV_ALIGN_TOP_LEFT, 0, 0);
+  lockTitle = mkText(modal, "Powering on", &lv_font_montserrat_40, COL_TEXT);
+  lv_obj_align(lockTitle, LV_ALIGN_LEFT_MID, 0, -8);
+  lockBody = mkText(modal, "Getting everything ready.", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(lockBody, LV_ALIGN_BOTTOM_LEFT, 0, 0);
+
+  lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
+}
+
+static void lockScreenShow(const char *kicker, const char *title, const char *body) {
+  if (!lockScreen) return;
+  lv_label_set_text(lockKicker, kicker);
+  lv_label_set_text(lockTitle, title);
+  lv_label_set_text(lockBody, body);
+  lv_obj_clear_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
+  lv_obj_move_foreground(lockScreen);
+  lockActive = true;
+  if (screenIdle) wake();
+  animRun(true);
+}
+
+static void lockScreenHide() {
+  if (!lockScreen) return;
+  lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
+  lockActive = false;
+  animRun(false);
+  lastInputTime = millis();
+}
+
 static void buildRail(lv_obj_t *scr) {
   static const struct { const char *icon; const char *label; } kRail[PAGE_COUNT] = {
       {LV_SYMBOL_HOME,     "HOME"},
-      {LV_SYMBOL_TINT,     "FLAVOR"},
+      {LV_SYMBOL_TINT,     "MIX"},
       {LV_SYMBOL_LOOP,     "SERVICE"},
       {LV_SYMBOL_CHARGE,   "STATUS"},
       {LV_SYMBOL_SETTINGS, "SETUP"},
@@ -1210,14 +1480,43 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
   return o;
 }
 
-// A picture and two numbers.
+// The appliance's default interaction: both brands are visible, and selection
+// is a large single press with an unmistakable retained state.
 static void buildHome(lv_obj_t *page) {
-  lv_obj_align(mkText(page, "READY", &lv_font_montserrat_40, COL_TEXT), LV_ALIGN_TOP_MID, 0, 0);
-  logoImg = lv_img_create(page);
-  lv_img_set_src(logoImg, &frameDsc[0]);
-  lv_obj_align(logoImg, LV_ALIGN_TOP_MID, 0, 50);
-  homeFlavorLine = mkText(page, "", &lv_font_montserrat_20, COL_DIM);
-  lv_obj_align(homeFlavorLine, LV_ALIGN_BOTTOM_MID, 0, 0);
+  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
+  lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_TEXT),
+               LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_t *hint = mkText(page, "Tap here or at the faucet", &lv_font_montserrat_20, COL_DIM);
+  lv_obj_align(hint, LV_ALIGN_TOP_LEFT, 0, 36);
+  homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
+                         &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT, 0, 4);
+
+  for (uint8_t i = 0; i < 2; ++i) {
+    lv_obj_t *card = mkBtn(page, cw, 366, COL_CARD);
+    lv_obj_align(card, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
+    lv_obj_set_style_pad_all(card, 12, 0);
+    lv_obj_add_event_cb(card, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
+
+    lv_obj_t *art = lv_img_create(card);
+    lv_img_set_src(art, &homeFlavorArt[i]);
+    lv_obj_align(art, LV_ALIGN_TOP_MID, 0, 2);
+
+    lv_obj_t *badge = lv_obj_create(card);
+    lv_obj_set_size(badge, cw - 28, 56);
+    lv_obj_align(badge, LV_ALIGN_BOTTOM_MID, 0, -2);
+    lv_obj_set_style_border_width(badge, 0, 0);
+    lv_obj_set_style_radius(badge, 28, 0);
+    lv_obj_set_style_pad_all(badge, 0, 0);
+    lv_obj_clear_flag(badge, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_clear_flag(badge, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_t *badgeText = mkText(badge, "TAP TO SELECT", &lv_font_montserrat_20, COL_DIM);
+    lv_obj_center(badgeText);
+
+    homeFlavorCard[i] = card;
+    homeFlavorBadge[i] = badge;
+    homeFlavorBadgeText[i] = badgeText;
+  }
 }
 
 // A split of two, and a drill-down behind each.
@@ -1686,9 +1985,9 @@ static void showPage(Page p) {
   for (int i = 0; i < PAGE_COUNT; i++)
     lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(i == p ? COL_ACCENT : COL_CARD), 0);
   activePage = p;
-  // Nothing repaints a page that is not on screen — the animation is the only thing on
-  // this panel that invalidates on its own.
-  animRun(p == PAGE_HOME && !screenIdle);
+  // The animation belongs only to the full-screen operation lock. Ordinary
+  // pages are entirely event-driven and never invalidate themselves.
+  animRun(lockActive && !screenIdle);
   if (p == PAGE_FLAVOR)  showFlavor(FLV_BOTH);
   if (p == PAGE_SERVICE) showService(SVC_MENU);
   if (p == PAGE_STATUS)  { statusAskedMs = 0; refreshStatusPage(); }
@@ -1710,6 +2009,14 @@ static void buildUi() {
     frameDsc[i].data_size = LOGO_SIZE * LOGO_SIZE * sizeof(uint16_t);
     frameDsc[i].data = (const uint8_t *)animFrames[i];
   }
+  for (uint8_t i = 0; i < 2; ++i) {
+    homeFlavorArt[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    homeFlavorArt[i].header.always_zero = 0;
+    homeFlavorArt[i].header.w = FLAVOR_ART_SIZE;
+    homeFlavorArt[i].header.h = FLAVOR_ART_SIZE;
+    homeFlavorArt[i].data_size = FLAVOR_ART_SIZE * FLAVOR_ART_SIZE * sizeof(uint16_t);
+    homeFlavorArt[i].data = (const uint8_t *)homeFlavorPixels[i];
+  }
 
   lv_obj_t *scr = lv_scr_act();
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
@@ -1722,15 +2029,18 @@ static void buildUi() {
   buildService(pageObj[PAGE_SERVICE]);
   buildStatusPage(pageObj[PAGE_STATUS]);
   buildSetup(pageObj[PAGE_SETUP]);
+  buildLockScreen(scr);
 
   uiReady = true;
   refreshFlavorText();
+  refreshHomeSelection();
   {
     char b[24];
     snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
     lv_label_set_text(setupLinkPins, b);
   }
   showPage(PAGE_HOME);
+  lockScreenShow("HOME SODA MACHINE", "Powering on", "Getting everything ready.");
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1740,36 +2050,62 @@ static void buildUi() {
 static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
+  } else if (strcmp(line, "GET_STATE") == 0) {
+    Serial.printf("STATE:FLAVOR=%u,SYNC=%d,PERSISTED=%d,PERSISTERR=%d,PENDING=%d,LOCK=%d,IDLE=%d,PAGE=%d\n",
+                  (unsigned)activeFlavor,
+                  flavorSynchronized ? 1 : 0,
+                  flavorControllerPersisted ? 1 : 0,
+                  flavorControllerPersistError ? 1 : 0,
+                  flavorRequestPending ? 1 : 0,
+                  lockActive ? 1 : 0,
+                  screenIdle ? 1 : 0,
+                  (int)activePage);
   } else if (strcmp(line, "GET_DIAG") == 0) {
-    Serial.printf("DIAG:scrollTop=%d,scrollBot=%d,scrollY=%d,"
-                  "page=%d,svc=%d,flv=%d,stage=%u,holding=%d,reinits=%lu,unanswered=%u,"
-                  "bridged=%lu,stale=%lu,sendErr=%d,outQ=%u/%u,outDrop=%lu,"
-                  "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
-                  "frame=%u,flushes=%lu,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
-                  "link=%s,maxLoopMs=%lu,uptime=%lus\n",
+    // HWCDC has a finite packet buffer. Keep the primary health record below
+    // one packet so a host can never mistake a partial line for a complete
+    // response; the less frequently used detail follows on bounded lines.
+    Serial.printf("DIAG:page=%d,svc=%d,flv=%d,lock=%d,stage=%u,idle=%d,holding=%d,"
+                  "gt911=0x%02X,reinits=%lu,sendErr=%d,outQ=%u/%u,outDrop=%lu,"
+                  "link=%s,flushes=%lu,maxLoopMs=%lu,heap=%lu,minHeap=%lu\n",
+                  (int)activePage, (int)activeSvc, (int)activeFlv,
+                  lockActive ? 1 : 0, (unsigned)idleStage, screenIdle ? 1 : 0,
+                  holding ? 1 : 0, gt911Addr, (unsigned long)linkReinits,
+                  lastSendErr, (unsigned)outCount, (unsigned)outHighWater,
+                  (unsigned long)outDropped, j9.framesRx ? "rx" : "silent",
+                  (unsigned long)flushCount, (unsigned long)maxLoopMs,
+                  (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
+    Serial.printf("DIAG_UI:scrollTop=%d,scrollBot=%d,scrollY=%d,selected=%u,"
+                  "flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
+                  "flavorStale=%lu,bridged=%lu,stale=%lu,touch=%lu,lastXY=%u/%u\n",
                   setupCol ? (int)lv_obj_get_scroll_top(setupCol) : -1,
                   setupCol ? (int)lv_obj_get_scroll_bottom(setupCol) : -1,
                   setupCol ? (int)lv_obj_get_scroll_y(setupCol) : -1,
-                  (int)activePage, (int)activeSvc, (int)activeFlv, (unsigned)idleStage,
-                  holding ? 1 : 0,
-                  (unsigned long)linkReinits, (unsigned)unanswered,
-                  (unsigned long)touchBridged, (unsigned long)gt911Stale, lastSendErr,
-                  (unsigned)outCount, (unsigned)outHighWater, (unsigned long)outDropped,
-                  (unsigned long)ESP.getFreeHeap(),
-                  (unsigned long)ESP.getMinFreeHeap(),
-                  (unsigned long)ESP.getPsramSize(),
-                  (unsigned long)ESP.getFreePsram(),
-                  backlightOn ? 1 : 0,
-                  (unsigned)animFrameIdx,
-                  (unsigned long)flushCount,
-                  gt911Addr,
-                  (unsigned long)touchCount,
-                  (unsigned)lastTouchX, (unsigned)lastTouchY,
-                  screenIdle ? 1 : 0,
-                  j9.framesRx ? "rx" : "silent",
-                  (unsigned long)maxLoopMs,
-                  millis() / 1000);
+                  (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
+                  flavorControllerPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
+                  (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
+                  (unsigned long)touchBridged, (unsigned long)gt911Stale,
+                  (unsigned long)touchCount, (unsigned)lastTouchX, (unsigned)lastTouchY);
+    Serial.printf("DIAG_SYS:unanswered=%u,psram=%lu,freePsram=%lu,bl=%d,frame=%u,uptime=%lus\n",
+                  (unsigned)unanswered, (unsigned long)ESP.getPsramSize(),
+                  (unsigned long)ESP.getFreePsram(), backlightOn ? 1 : 0,
+                  (unsigned)animFrameIdx, millis() / 1000);
     maxLoopMs = 0;  // high-water mark since last query
+  } else if (strncmp(line, "FLAVOR:", 7) == 0) {
+    if ((line[7] != '0' && line[7] != '1') || line[8] != '\0') {
+      Serial.println("ERR:FLAVOR expects 0 or 1");
+    } else {
+      const uint8_t flavor = (uint8_t)(line[7] - '0');
+      selectActiveFlavor(flavor);
+      Serial.printf("OK:FLAVOR=%u\n", (unsigned)activeFlavor);
+    }
+  } else if (strcmp(line, "LOCK:SHOW") == 0) {
+    bootLockActive = false;
+    lockScreenShow("HOME SODA MACHINE", "Powering on", "Getting everything ready.");
+    Serial.println("OK:LOCK=1");
+  } else if (strcmp(line, "LOCK:HIDE") == 0) {
+    bootLockActive = false;
+    lockScreenHide();
+    Serial.println("OK:LOCK=0");
   } else if (strncmp(line, "BL:", 3) == 0) {
     if (line[3] != '0' && line[3] != '1') {
       Serial.println("ERR:BL expects 0 or 1");
@@ -1972,12 +2308,19 @@ void setup() {
   lv_timer_handler();
   setBacklight(true);
 
-  // Start the loading animation (~10 fps).
+  // Start the lock-screen animation (~10 fps). The boot lock stays visible for
+  // two complete cycles and, when J9 is healthy, opens on authoritative flavor
+  // state rather than a guessed selection.
   animTimer = lv_timer_create(animTimerCb, ANIM_FRAME_MS, NULL);
+  bootLockActive = true;
+  bootLockMinUntil = millis() + BOOT_LOCK_MIN_MS;
+  bootLockMaxUntil = millis() + BOOT_LOCK_MAX_MS;
+  flavorTokenState = esp_random();
+  if (flavorTokenState == 0) flavorTokenState = 1;
 
   lastInputTime = millis();
   displayReady = true;
-  Serial.println("Ready — animated loading logo running.");
+  Serial.println("Ready — boot lock running; home is the synchronized flavor selector.");
 }
 
 void loop() {
@@ -2008,6 +2351,7 @@ void loop() {
     if (j9.framesTx == framesTxAtPress) sendSound(SND_WIRE_TICK);
   }
 
+  flavorLinkService();
   j9Pump();      // at most one frame on the wire at a time
   j9.service();
 
@@ -2038,7 +2382,16 @@ void loop() {
 
   if (animResumeDue && millis() >= animResumeDue) {
     animResumeDue = 0;
-    animRun(activePage == PAGE_HOME);
+    animRun(lockActive);
+  }
+
+  if (bootLockActive) {
+    const unsigned long now = millis();
+    if ((long)(now - bootLockMinUntil) >= 0 &&
+        (flavorSynchronized || (long)(now - bootLockMaxUntil) >= 0)) {
+      bootLockActive = false;
+      lockScreenHide();
+    }
   }
 
   // A held pad feeds the controller a tick under it, and moves its own readouts at 10 Hz.
@@ -2097,14 +2450,16 @@ void loop() {
       lastSlow = millis();
       padWatch();
       refreshLinkDot();
+      if (activePage == PAGE_HOME)   refreshHomeSelection();
       if (activePage == PAGE_STATUS) refreshStatusPage();
       if (activePage == PAGE_SETUP)  refreshSetupPage();
     }
   }
 
-  // Idle: after inactivity, turn the backlight off and pause the animation (no point
-  // repainting a dark screen). A touch wakes it — see wake().
-  if (displayReady && !screenIdle && !holding && millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
+  // Idle: after inactivity, turn the backlight off. An active operation lock is
+  // exempt; a touch wakes an ordinary page — see wake().
+  if (displayReady && !screenIdle && !holding && !lockActive &&
+      millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
     screenIdle = true;
     idleStage = 1;
     darkSince = millis();

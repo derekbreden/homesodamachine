@@ -72,9 +72,9 @@ constexpr uint8_t MSG_RESP_SOUND_CFG = 0x23;  // SoundCfgPayload, after a GET or
 constexpr uint8_t MSG_DISPLAY_USB_REATTACH      = 0x24;  // no payload: detach USB PHY, then timer-wake
 constexpr uint8_t MSG_RESP_DISPLAY_USB_REATTACH = 0x25;  // ResponsePayload: accepted
 
-// Faucet flavor selection (0x26..)
+// Controller-owned flavor selection (0x26..)
 //
-// The faucet sends an absolute selection, never a toggle. An application retry
+// A display sends an absolute selection, never a toggle. An application retry
 // can therefore be handled idempotently instead of turning one tap into two
 // flips. SYNC carries the faucet's saved choice as a migration candidate: a
 // controller with no saved selection adopts it; an established controller
@@ -82,6 +82,7 @@ constexpr uint8_t MSG_RESP_DISPLAY_USB_REATTACH = 0x25;  // ResponsePayload: acc
 constexpr uint8_t MSG_FLAVOR_SYNC        = 0x26;  // FlavorRequestPayload: boot/reconnect candidate
 constexpr uint8_t MSG_FLAVOR_SELECT      = 0x27;  // FlavorRequestPayload: a new absolute selection
 constexpr uint8_t MSG_RESP_FLAVOR_STATE  = 0x28;  // FlavorStatePayload: controller's resulting truth
+constexpr uint8_t MSG_FLAVOR_QUERY       = 0x29;  // enclosure poll: request controller truth
 
 // Text wrapper
 constexpr uint8_t MSG_TEXT = 0xFE;

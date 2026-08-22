@@ -28,14 +28,17 @@ Building does not open a serial port. Uploading and monitoring do; name the port
 more than one board is connected (`tools/boards.py` prints the exact commands).
 
 With the working controller and front display connected, the default live check only observes
-the display, touch controller, and J9 link through the display's native USB port. The optional
-checks are deliberately explicit: `--animation` wakes HOME long enough to measure it and
-restores the previous page/idle rung; `--prime a|b` actuates that pump for about one second
-through the same handlers the glass uses and always posts a stop request.
+the display, touch controller, J9 link, and synchronized/durable flavor state through the
+display's native USB port. The optional checks are deliberately explicit: `--animation`
+opens the reusable operation lock long enough to measure it; `--toggle` selects the other
+flavor, proves controller synchronization and persistence, and restores it; `--prime a|b`
+actuates that pump for about one second through the same handlers the glass uses and always
+posts a stop request. Each check restores the page, idle rung and lock state it found.
 
 ```bash
 ~/.platformio/penv/bin/python tools/firmware_live_check.py
 ~/.platformio/penv/bin/python tools/firmware_live_check.py --animation
+~/.platformio/penv/bin/python tools/firmware_live_check.py --toggle
 ~/.platformio/penv/bin/python tools/firmware_live_check.py --prime b
 ```
 

@@ -17,6 +17,10 @@ carries the audible flag; retries reuse the same token, so a lost response canno
 second tick. An offline or sufficiently delayed selection reconciles silently rather than
 playing feedback detached from the touch that caused it.
 
+A different controller selection, including one made on the enclosure display, changes the
+logo and wakes the backlight. Re-publication of the flavor already shown is a no-op and does
+not disturb idle behavior.
+
 ## State and persistence
 
 The controller owns flavor truth. This display keeps a cache only so boot can draw the last
