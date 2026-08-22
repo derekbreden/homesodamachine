@@ -127,6 +127,33 @@ export function prunedByTrace(dependents, modPath, traced = tracedReads()) {
   });
 }
 
+// The source scan deliberately follows a STEP filename through shared modules: a helper can
+// keep the path while its runnable importers perform the actual load.  A path constant is not
+// necessarily a load, though.  `_facts.STEP`, for example, identifies the assembly whose JSON
+// accompanies the facts card; readers of `_facts` do not open that STEP.  Treating every one
+// of them as a consumer invents reverse edges (enclosure -> assembly -> enclosure).
+//
+// A traced run resolves that ambiguity exactly.  Drop a shared-module candidate only when the
+// runnable has a trace entry and that run did not open this producer's exact output path.  No
+// trace, an untraced runnable, or an output outside this repository keeps the conservative
+// scanned edge.  Direct filename references in a runnable never come through this filter, so
+// a newly added load stands immediately even before the graph is retraced.
+export function prunedStepConsumersByTrace(
+  consumers, stepBasename, producer, traced = tracedReads(),
+) {
+  if (traced === null || producer == null) return consumers;
+  const output = path.relative(
+    REPO_ROOT,
+    path.join(path.dirname(path.resolve(producer)), stepBasename),
+  ).split(path.sep).join("/");
+  if (!output || output.startsWith("..")) return consumers;
+  return consumers.filter((consumer) => {
+    const rel = path.relative(REPO_ROOT, path.resolve(consumer)).split(path.sep).join("/");
+    const reads = traced.get(rel);
+    return reads === undefined || reads.has(output);
+  });
+}
+
 function readSource(file) {
   if (memo && memo.source.has(file)) return memo.source.get(file);
   let source;
@@ -502,22 +529,26 @@ function consumersOfStep(stepBasename, roots, producerOf) {
   const shared = memo != null && producerOf === memo.producers.get(rootsKey(roots));
   if (shared && memo.consumers.has(key)) return memo.consumers.get(key);
   const producer = producerOf.get(stepBasename);
-  const consumers = new Set();
+  const directConsumers = new Set();
+  const sharedConsumers = new Set();
   for (const pyFile of walk(roots, ".py")) {
     if (pyFile === producer) continue;
     const source = readStrippedSource(pyFile);
     if (source == null || !referencesStep(source, stepBasename)) continue;
     if (isRunnableScript(pyFile)) {
-      consumers.add(pyFile);
+      directConsumers.add(pyFile);
     } else {
       // A shared module names the step; the real consumers are the runnable
       // scripts that import it, resolved from this file.
       for (const dep of findRunnableScriptsTransitivelyImporting(pyFile, roots)) {
-        if (dep !== producer) consumers.add(dep);
+        if (dep !== producer) sharedConsumers.add(dep);
       }
     }
   }
-  const out = Array.from(consumers);
+  const tracedShared = prunedStepConsumersByTrace(
+    Array.from(sharedConsumers), stepBasename, producer,
+  );
+  const out = Array.from(new Set([...directConsumers, ...tracedShared]));
   if (shared) memo.consumers.set(key, out);
   return out;
 }

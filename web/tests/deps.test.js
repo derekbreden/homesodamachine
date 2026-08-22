@@ -18,6 +18,7 @@ import {
   contentRoots,
   isRunnableScript,
   prunedByTrace,
+  prunedStepConsumersByTrace,
   findGenerateScripts,
   findScriptsConsumingStep,
   findRunnableScriptsTransitivelyImporting,
@@ -72,6 +73,37 @@ test("an edge goes only where a watched run did not open the file", () => {
                   traced([["hardware/a/gen.py", new Set()], ["hardware/b/other.py", new Set()]])),
     scanned,
     "a module outside the repo is nothing the graph names, so nothing it can contradict",
+  );
+});
+
+test("a traced STEP read distinguishes a load from a shared path constant", () => {
+  const producer = path.join(REPO_ROOT, "hardware/a/part.py");
+  const reader = path.join(REPO_ROOT, "hardware/b/reader.py");
+  const metadataReader = path.join(REPO_ROOT, "hardware/c/metadata_reader.py");
+  const untraced = path.join(REPO_ROOT, "hardware/d/untraced.py");
+  const candidates = [reader, metadataReader, untraced];
+  const traced = new Map([
+    ["hardware/b/reader.py", new Set(["hardware/a/part.step"])],
+    ["hardware/c/metadata_reader.py", new Set(["hardware/a/part.json"])],
+  ]);
+
+  assert.deepEqual(
+    prunedStepConsumersByTrace(candidates, "part.step", producer, traced),
+    [reader, untraced],
+    "an observed file read stands, inert metadata does not, and no trace stays conservative",
+  );
+  assert.deepEqual(
+    prunedStepConsumersByTrace(candidates, "part.step", producer, null),
+    candidates,
+    "without a trace every scanned edge stands",
+  );
+});
+
+test("the facts card's STEP identity is not a reverse enclosure dependency", () => {
+  const consumers = findScriptsConsumingStep("enclosure-assembly.step", ROOTS);
+  assert.ok(
+    !consumers.some(ends("printed-parts/enclosure/enclosure/enclosure.py")),
+    "enclosure reads _facts metadata but never opens enclosure-assembly.step",
   );
 });
 
