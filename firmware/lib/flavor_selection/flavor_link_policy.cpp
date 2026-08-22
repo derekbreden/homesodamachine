@@ -24,15 +24,37 @@ EpochAction epochAction(bool connected,
                : EpochAction::Synchronize;
 }
 
+bool controllerStatePublicationDue(bool connected,
+                                   bool controllerEstablished,
+                                   bool revisionPending,
+                                   uint32_t nowMs,
+                                   uint32_t lastPublicationMs,
+                                   uint32_t heartbeatMs) {
+    if (!connected || !controllerEstablished) return false;
+    return revisionPending ||
+           static_cast<uint32_t>(nowMs - lastPublicationMs) >= heartbeatMs;
+}
+
+bool consumeConnectionEpoch(uint32_t observedGeneration,
+                            uint32_t &knownGeneration) {
+    if (observedGeneration == knownGeneration) return false;
+    knownGeneration = observedGeneration;
+    return true;
+}
+
 void TokenLedger::reset() {
-    have_ = false;
-    token_ = 0;
+    count_ = 0;
+    next_ = 0;
 }
 
 bool TokenLedger::duplicateOrRemember(uint32_t token) {
-    if (have_ && token_ == token) return true;
-    have_ = true;
-    token_ = token;
+    for (uint8_t i = 0; i < count_; ++i) {
+        if (tokens_[i] == token) return true;
+    }
+
+    tokens_[next_] = token;
+    next_ = static_cast<uint8_t>((next_ + 1) % kRecentTokenCapacity);
+    if (count_ < kRecentTokenCapacity) ++count_;
     return false;
 }
 

@@ -243,7 +243,9 @@ remaining 610 px is the pane, and it takes a different shape on each page:
 | SETUP | a paged column of read-outs and one restart | display-local, plus the base's build |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
-render. Every page is built at boot and switching hides one and shows another.
+render. Every page is built at boot and switching hides one and shows another. On HOME,
+only the active artwork carries a selection badge. The synchronization label is likewise
+quiet when healthy and appears only while connecting, saving, or reporting a save error.
 
 **The dark gives your place up in stages.** The last two run from the moment the screen
 goes dark, so changing how long it stays lit does not move them.
@@ -281,26 +283,36 @@ counters, memory, loop high-water, uptime, and a restart.
 
 ### Prime
 
-**SERVICE → PRIME → a flavor → hold the pad.** Three taps, then the finger stays down.
+**SERVICE → PRIME → a flavor opens one shared prime-ready session.** The controller owns
+its selected channel and complete `OFF` / `READY` / `RUNNING` state. The faucet wakes into
+the same mode, and either display can own one held run at a time.
 
 ```
-MSG_PRIME_START { channel }      finger down
-MSG_PRIME_TICK  { channel }      every 500 ms while it stays down
-MSG_PRIME_STOP  { channel }      lift, or the finger slides off the pad
+MSG_PRIME_SESSION_SET        { ACTIVATE|CANCEL, channel, sessionToken }
+MSG_PRIME_SESSION_QUERY      { sessionToken }
+MSG_PRIME_SESSION_HOLD_START { channel, sessionToken, holdToken }
+MSG_PRIME_SESSION_HOLD_TICK  { channel, sessionToken, holdToken }
+MSG_PRIME_SESSION_HOLD_STOP  { channel, sessionToken, holdToken }
+MSG_RESP_PRIME_SESSION       { phase, channel, owner, outcome, elapsed,
+                               revision, sessionToken, holdToken }
 ```
 
-The base drives the pump at full power and answers `MSG_RESP_PRIME { state, channel, ms }`
-on every state change — `RUNNING`, `STOPPED`, `TIMEOUT` when a tick runs later than 2 s,
-`LIMIT` at the 60 s ceiling, `REFUSED` when something else has the pump. The pad shows
-elapsed seconds against a bar scaled to that ceiling.
+The activation token names one visit to the hold screen; every physical press gets its own
+hold token. A duplicate frame is a no-op, a delayed START after its STOP cannot revive the
+pump, and source identity comes from J9 or J3 rather than from a payload. The base answers
+each enclosure turn with at most one complete state. `RUNNING`, `STOPPED`, `TIMEOUT`,
+`LIMIT`, `REFUSED`, `CANCELED`, and `SESSION LOST` therefore mean the same thing on both
+pieces of glass.
 
-A tick goes out every ~550 ms in practice: the hold view repaints its readout at 10 Hz and
-one repaint of this panel takes ~110 ms, so the 500 ms check lands a loop late.
+While held, a heartbeat goes out every 500 ms and the controller stops an unanswered hold
+after 2 s. The enclosure renews the ready session on its 250 ms active / 500 ms dark poll;
+the controller closes it after 5 s without that exact token. Elapsed text and its bar update
+at 10 Hz in small invalidated regions rather than repainting the panel.
 
-A `MSG_PRIME_START` with no answer inside 700 ms resets both pads, restarts `Serial1` and
-sends one more START — the pad reads "link reset — retrying" and the hold carries on under
-the finger. Three unanswered status polls do the same between holds. `GET_DIAG` counts
-them as `reinits=`.
+An unanswered START resets the J9 transport once and retries the same token. A lost STOP or
+CANCEL is retried until exact controller state, or a strictly newer state in that same
+session, proves it terminal. `GET_DIAG` reports those recovery counts and the controller's
+one-reply-per-turn audit.
 
 ### Clean
 

@@ -21,6 +21,17 @@ A different controller selection, including one made on the enclosure display, c
 logo and wakes the backlight. Re-publication of the flavor already shown is a no-op and does
 not disturb idle behavior.
 
+When the enclosure opens Service → Prime for one flavor, controller state replaces the logo
+with two exact half-screen targets: `EXIT PRIME` on top and `HOLD TO PRIME` below. The faucet
+does not create prime mode; it can end the existing mode or own a held run for its selected
+channel. A hold from either display is shown on both, and an entering, starting, or ending
+session wakes a dimmed faucet. The first touch while dimmed remains wake-only.
+
+Each faucet press retains its controller session and hold tokens across retries. Lift or
+`PRESS_LOST` queues an absolute STOP ahead of any unsent feed, and EXIT queues an absolute
+CANCEL. If J3 disconnects, the controller stops a faucet-owned run independently of the UI,
+while its 2 s hold-heartbeat and 60 s run limits remain in force.
+
 ## State and persistence
 
 The controller owns flavor truth. This display keeps a cache only so boot can draw the last

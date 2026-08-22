@@ -13,8 +13,15 @@ constexpr int kBaseRxPin = 44;  // P1 ESP_RXD, crossed from controller J3 IO33 T
 constexpr int kBaseTxPin = 43;  // P1 ESP_TXD, crossed to controller J3 IO35 RX
 constexpr long kBaseBaud = 115200;
 constexpr uint8_t kQueueDepth = 8;
+constexpr uint8_t kPrimeQueueDepth = PRIME_J3_APP_QUEUE_DEPTH;
+constexpr uint8_t kPrimePayloadMax = sizeof(PrimeHoldPayload);
 constexpr uint32_t kResponseTimeoutMs = 750;
 constexpr uint32_t kAudibleFreshMs = 300;
+static_assert(PROTOLINK_WINDOW == PRIME_PROTO_LINK_WINDOW_DEPTH,
+              "prime replay contract must follow the TinyProto window");
+static_assert(PRIME_HOLD_REPLAY_HISTORY >
+                  kPrimeQueueDepth + PROTOLINK_WINDOW,
+              "controller prime replay ledger must cover the complete J3 queue");
 
 struct Intent {
   uint8_t type;
@@ -25,12 +32,23 @@ struct Intent {
   bool sent;
 };
 
+struct PrimeIntent {
+  uint8_t type;
+  uint8_t len;
+  uint8_t data[kPrimePayloadMax];
+};
+
 ProtoLink base;
 BaseFlavorHandler flavorHandler = nullptr;
+BasePrimeHandler primeHandler = nullptr;
 Intent queue[kQueueDepth];
 uint8_t queueHead = 0;
 uint8_t queueTail = 0;
 uint8_t queueCount = 0;
+PrimeIntent primeQueue[kPrimeQueueDepth];
+uint8_t primeQueueHead = 0;
+uint8_t primeQueueTail = 0;
+uint8_t primeQueueCount = 0;
 uint8_t desiredFlavor = 0;
 uint8_t controllerFlavor = 0;
 bool synchronized = false;
@@ -44,6 +62,7 @@ uint32_t framesTx = 0;
 uint32_t retries = 0;
 uint32_t queueDrops = 0;
 uint32_t staleResponses = 0;
+uint32_t primeQueueDrops = 0;
 uint32_t lastAckMs = 0;
 uint32_t maxAckMs = 0;
 uint32_t maxServiceUs = 0;
@@ -57,6 +76,43 @@ uint32_t nextToken() {
 
 void clearQueue() {
   queueHead = queueTail = queueCount = 0;
+}
+
+void clearPrimeQueue() {
+  primeQueueHead = primeQueueTail = primeQueueCount = 0;
+}
+
+void enqueuePrime(uint8_t type, const void *payload, uint8_t len, bool safetyCritical) {
+  if (len > kPrimePayloadMax) return;
+
+  // A STOP or session CANCEL is the safe final word. It supersedes every
+  // queued START/TICK immediately, including across a release in the same UI
+  // frame; no actuator-on intent may remain behind a physical lift.
+  if (safetyCritical && primeQueueCount) clearPrimeQueue();
+
+  if (primeQueueCount >= kPrimeQueueDepth) {
+    ++primeQueueDrops;
+    if (!safetyCritical) return;
+    clearPrimeQueue();
+  }
+
+  PrimeIntent &intent = primeQueue[primeQueueTail];
+  intent.type = type;
+  intent.len = len;
+  if (len && payload) memcpy(intent.data, payload, len);
+  primeQueueTail = static_cast<uint8_t>((primeQueueTail + 1) % kPrimeQueueDepth);
+  ++primeQueueCount;
+}
+
+bool sendPrimeHead() {
+  if (primeQueueCount == 0 || !base.isConnected()) return false;
+  PrimeIntent &intent = primeQueue[primeQueueHead];
+  if (base.trySend(intent.type, intent.len ? intent.data : nullptr, intent.len) < 0)
+    return true;  // retain priority while TinyProto's window is full
+  primeQueueHead = static_cast<uint8_t>((primeQueueHead + 1) % kPrimeQueueDepth);
+  --primeQueueCount;
+  ++framesTx;
+  return true;
 }
 
 void enqueue(uint8_t type, uint8_t flavor, bool audible) {
@@ -135,6 +191,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
   const uint8_t *payload = msgPayload(frame);
   const uint16_t plen = msgPayloadLen(len);
 
+  if (type == MSG_RESP_PRIME_SESSION && plen >= sizeof(PrimeSessionStatePayload)) {
+    PrimeSessionStatePayload state;
+    memcpy(&state, payload, sizeof(state));
+    if (primeHandler) primeHandler(state, base.connectionGeneration());
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_STATE && plen >= sizeof(FlavorStatePayload)) {
     FlavorStatePayload state;
     memcpy(&state, payload, sizeof(state));
@@ -189,9 +252,11 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
 
 }  // namespace
 
-void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler handler) {
+void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler handler,
+                   BasePrimeHandler sessionHandler) {
   desiredFlavor = controllerFlavor = cachedFlavor <= PUMP_CHANNEL_B ? cachedFlavor : 0;
   flavorHandler = handler;
+  primeHandler = sessionHandler;
   tokenState = esp_random();
   if (tokenState == 0) tokenState = 1;
 
@@ -221,6 +286,34 @@ void baseLinkSelect(uint8_t flavor, bool audible) {
   enqueue(MSG_FLAVOR_SELECT, flavor, audible);
 }
 
+void baseLinkPrimeCancel(uint8_t channel, uint32_t sessionToken) {
+  if (channel > PUMP_CHANNEL_B || sessionToken == 0) return;
+  PrimeSessionRequestPayload request{PRIME_SESSION_CANCEL, channel, sessionToken};
+  enqueuePrime(MSG_PRIME_SESSION_SET, &request, sizeof(request), true);
+}
+
+void baseLinkPrimeHoldStart(uint8_t channel, uint32_t sessionToken, uint32_t holdToken) {
+  if (channel > PUMP_CHANNEL_B || sessionToken == 0 || holdToken == 0) return;
+  PrimeHoldPayload hold{channel, sessionToken, holdToken};
+  enqueuePrime(MSG_PRIME_SESSION_HOLD_START, &hold, sizeof(hold), false);
+}
+
+void baseLinkPrimeHoldTick(uint8_t channel, uint32_t sessionToken, uint32_t holdToken) {
+  if (channel > PUMP_CHANNEL_B || sessionToken == 0 || holdToken == 0) return;
+  PrimeHoldPayload hold{channel, sessionToken, holdToken};
+  enqueuePrime(MSG_PRIME_SESSION_HOLD_TICK, &hold, sizeof(hold), false);
+}
+
+void baseLinkPrimeHoldStop(uint8_t channel, uint32_t sessionToken, uint32_t holdToken) {
+  if (channel > PUMP_CHANNEL_B || sessionToken == 0 || holdToken == 0) return;
+  PrimeHoldPayload hold{channel, sessionToken, holdToken};
+  enqueuePrime(MSG_PRIME_SESSION_HOLD_STOP, &hold, sizeof(hold), true);
+}
+
+void baseLinkPrimeDiscard() {
+  clearPrimeQueue();
+}
+
 void baseLinkService() {
   const uint32_t startedUs = micros();
   base.service();
@@ -230,6 +323,10 @@ void baseLinkService() {
   if (generation != connectionGeneration) {
     connectionGeneration = generation;
     synchronized = false;
+    // A control accepted by the previous TinyProto epoch may or may not have
+    // reached the controller. Drop it here; the UI fails closed and reasserts
+    // any desired CANCEL/STOP with the same token after fresh truth.
+    clearPrimeQueue();
     const bool mustReassert = flavor_link_policy::needsReassert(
         offlineSelection, awaitingPersistence, queueHasSelection(),
         desiredFlavor, controllerFlavor);
@@ -254,7 +351,7 @@ void baseLinkService() {
     }
   }
 
-  if (connected) sendHead();
+  if (connected && !sendPrimeHead()) sendHead();
   base.service();
   const uint32_t elapsedUs = micros() - startedUs;
   if (elapsedUs > maxServiceUs) maxServiceUs = elapsedUs;
@@ -276,4 +373,7 @@ void baseLinkReadStatus(BaseLinkStatus &status) {
   status.lastAckMs = lastAckMs;
   status.maxAckMs = maxAckMs;
   status.maxServiceUs = maxServiceUs;
+  status.primePending = primeQueueCount;
+  status.primeQueueDrops = primeQueueDrops;
+  status.connectionGeneration = connectionGeneration;
 }

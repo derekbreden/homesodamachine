@@ -84,6 +84,27 @@ constexpr uint8_t MSG_FLAVOR_SELECT      = 0x27;  // FlavorRequestPayload: a new
 constexpr uint8_t MSG_RESP_FLAVOR_STATE  = 0x28;  // FlavorStatePayload: controller's resulting truth
 constexpr uint8_t MSG_FLAVOR_QUERY       = 0x29;  // enclosure poll: request controller truth
 
+// Controller-owned prime-ready session (0x2A..0x2F). The legacy 0x0B..0x0D
+// ChannelPayload contract remains intact for commissioning and older images;
+// session holds use distinct ids so their tokenized payload can never be
+// mistaken for that one-byte shape.
+constexpr uint8_t MSG_PRIME_SESSION_SET        = 0x2A;  // PrimeSessionRequestPayload
+constexpr uint8_t MSG_PRIME_SESSION_QUERY      = 0x2B;  // PrimeSessionQueryPayload
+constexpr uint8_t MSG_RESP_PRIME_SESSION       = 0x2C;  // PrimeSessionStatePayload
+constexpr uint8_t MSG_PRIME_SESSION_HOLD_START = 0x2D;  // PrimeHoldPayload: finger down
+constexpr uint8_t MSG_PRIME_SESSION_HOLD_TICK  = 0x2E;  // PrimeHoldPayload: still held
+constexpr uint8_t MSG_PRIME_SESSION_HOLD_STOP  = 0x2F;  // PrimeHoldPayload: lift/lost press
+
+// Fixed transport capacities are part of the replay contract. Keeping the
+// values beside the shared wire protocol lets each actual queue assert that a
+// future depth/window change still fits inside the controller's token ledger.
+constexpr uint8_t PRIME_J9_APP_QUEUE_DEPTH       = 8;
+constexpr uint8_t PRIME_J9_IN_FLIGHT_DEPTH       = 1;
+constexpr uint8_t PRIME_J3_APP_QUEUE_DEPTH       = 8;
+constexpr uint8_t PRIME_PROTO_LINK_WINDOW_DEPTH  = 4;
+constexpr uint8_t PRIME_SESSION_REPLAY_HISTORY   = 16;
+constexpr uint8_t PRIME_HOLD_REPLAY_HISTORY      = 16;
+
 // Text wrapper
 constexpr uint8_t MSG_TEXT = 0xFE;
 
@@ -154,6 +175,86 @@ constexpr uint8_t FLAVOR_STATE_F_ESTABLISHED   = 1 << 0;
 constexpr uint8_t FLAVOR_STATE_F_PERSISTED     = 1 << 1;
 constexpr uint8_t FLAVOR_STATE_F_PERSIST_ERROR = 1 << 2;
 
+// ── Controller-owned prime-ready session ────────────────────────────────
+// The enclosure creates a fresh nonzero sessionToken when it enters either
+// flavor's prime hold screen. The controller snapshots that valid service
+// channel as session truth. Either display may then own one physical hold;
+// holdToken is fresh for each press and is retained across that press's START
+// retry and ticks.
+// Source identity is never trusted from a payload: the controller infers FRONT
+// from J9 and FAUCET from J3.
+struct __attribute__((packed)) PrimeSessionRequestPayload {
+  uint8_t  action;        // PRIME_SESSION_ACTIVATE / PRIME_SESSION_CANCEL
+  uint8_t  channel;       // selected channel; CANCEL is matched by sessionToken
+  uint32_t sessionToken;
+};
+
+struct __attribute__((packed)) PrimeSessionQueryPayload {
+  uint32_t sessionToken;  // only the current token renews the enclosure lease
+};
+
+struct __attribute__((packed)) PrimeHoldPayload {
+  uint8_t  channel;
+  uint32_t sessionToken;
+  uint32_t holdToken;
+};
+
+constexpr uint8_t PRIME_SESSION_ACTIVATE = 0;
+constexpr uint8_t PRIME_SESSION_CANCEL   = 1;
+
+constexpr uint8_t PRIME_SESSION_OFF     = 0;
+constexpr uint8_t PRIME_SESSION_READY   = 1;
+constexpr uint8_t PRIME_SESSION_RUNNING = 2;
+
+constexpr uint8_t PRIME_OWNER_NONE   = 0;
+constexpr uint8_t PRIME_OWNER_FRONT  = 1;
+constexpr uint8_t PRIME_OWNER_FAUCET = 2;
+
+constexpr uint8_t PRIME_OUTCOME_NONE    = 0;
+constexpr uint8_t PRIME_OUTCOME_STOPPED = 1;
+constexpr uint8_t PRIME_OUTCOME_TIMEOUT = 2;
+constexpr uint8_t PRIME_OUTCOME_LIMIT   = 3;
+constexpr uint8_t PRIME_OUTCOME_REFUSED = 4;
+constexpr uint8_t PRIME_OUTCOME_CANCELED = 5;
+constexpr uint8_t PRIME_OUTCOME_LEASE_EXPIRED = 6;
+
+// The controller's complete truth. READY retains the last hold's outcome,
+// elapsed time, and holdToken for correlation. OFF retains the canceled
+// sessionToken, which makes a missed cancellation harmless on the next
+// absolute J3 heartbeat.
+struct __attribute__((packed)) PrimeSessionStatePayload {
+  uint8_t  phase;         // PRIME_SESSION_*
+  uint8_t  channel;       // pump selected when the session was activated
+  uint8_t  owner;         // PRIME_OWNER_*; NONE unless RUNNING
+  uint8_t  outcome;       // PRIME_OUTCOME_*; terminal detail while READY/OFF
+  uint32_t elapsedMs;
+  uint32_t revision;
+  uint32_t sessionToken;
+  uint32_t holdToken;
+};
+
+// A display may miss READY/H1 after sending STOP/H1 and next observe H2. A
+// newer revision in the same session proves H1 is terminal unless H1 itself is
+// still the authoritative RUNNING hold. Signed subtraction preserves ordering
+// across the controller's uint32_t revision wrap.
+inline bool primeStateSupersedesPendingStop(
+    const PrimeSessionStatePayload &state,
+    uint32_t sessionToken,
+    uint32_t holdToken,
+    uint8_t owner,
+    uint32_t revisionAtStop) {
+  const bool sameRun = state.phase == PRIME_SESSION_RUNNING &&
+                       state.owner == owner && state.holdToken == holdToken;
+  return sessionToken != 0 && state.sessionToken == sessionToken &&
+         static_cast<int32_t>(state.revision - revisionAtStop) > 0 &&
+         !sameRun;
+}
+
+static_assert(sizeof(PrimeSessionRequestPayload) == 6, "prime session request wire layout drift");
+static_assert(sizeof(PrimeSessionQueryPayload) == 4, "prime session query wire layout drift");
+static_assert(sizeof(PrimeHoldPayload) == 9, "prime hold wire layout drift");
+static_assert(sizeof(PrimeSessionStatePayload) == 20, "prime session state wire layout drift");
+
 // ── Prime ─────────────────────────────────────────────────────────────────
 // A hold is a heartbeat: MSG_PRIME_START on finger down, MSG_PRIME_TICK every
 // PRIME_TICK_MS while it stays down, MSG_PRIME_STOP on lift. The controller stops the
@@ -168,6 +269,11 @@ constexpr uint8_t PRIME_STOPPED = 1;  // MSG_PRIME_STOP arrived
 constexpr uint8_t PRIME_TIMEOUT = 2;  // ticks stopped coming
 constexpr uint8_t PRIME_LIMIT   = 3;  // PRIME_MAX_MS reached
 constexpr uint8_t PRIME_REFUSED = 4;  // bad channel, or something else was already running
+
+static_assert(PRIME_OUTCOME_STOPPED == PRIME_STOPPED, "prime stopped outcome drift");
+static_assert(PRIME_OUTCOME_TIMEOUT == PRIME_TIMEOUT, "prime timeout outcome drift");
+static_assert(PRIME_OUTCOME_LIMIT == PRIME_LIMIT, "prime limit outcome drift");
+static_assert(PRIME_OUTCOME_REFUSED == PRIME_REFUSED, "prime refused outcome drift");
 
 // Sent on every state change, not on a tick.
 struct __attribute__((packed)) PrimeStatePayload {
@@ -186,7 +292,11 @@ struct __attribute__((packed)) StatusPayload {
   uint8_t  flags;         // see STATUS_F_* below
   uint8_t  primeChannel;  // valid while STATUS_F_PRIMING
   char     version[16];   // the controller build these readings came from
+  uint8_t  j9ReplyHighWater;  // maximum replies emitted for one received J9 turn
+  uint32_t j9ReplyOverruns;   // turns that emitted more than one reply
 };
+
+static_assert(sizeof(StatusPayload) == 41, "controller status wire layout drift");
 
 constexpr uint8_t STATUS_F_GAS_TRIP = 1 << 0;  // the LM393 comparator has tripped
 constexpr uint8_t STATUS_F_PRIMING  = 1 << 1;  // a prime hold is live
