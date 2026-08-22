@@ -10,12 +10,9 @@ services:
     plan: starter
     region: oregon
     branch: main
-    # The web app lives in /web. Render scopes buildCommand and
-    # startCommand to this directory, so `npm install` and `npm start`
-    # see web/package.json. The hardware tree the server reads from
-    # stays at the repo root and is accessed via path.join("..",
-    # "hardware") in web/server.js.
-    rootDir: web
+    # The service stays rooted at the repository so the lock-only build filter is the sole
+    # deploy trigger. Commands enter /web explicitly; the server still reads the sibling
+    # hardware tree through path.join("..", "hardware") in web/server.js.
     # `npm ci` installs web/package-lock.json exactly, and stops when it disagrees with
     # package.json. That lockfile is what this build ships; web/README.md carries it.
     #
@@ -24,8 +21,8 @@ services:
     # viewer serves those off the tree at request time (web/lib/viewer-routes.js), so the
     # build is where they arrive. A hash that disagrees with the lock ends the build and
     # leaves the previous deploy serving.
-    buildCommand: npm ci --omit=dev && node scripts/fetch-cad-artifacts.mjs
-    startCommand: npm start
+    buildCommand: cd web && npm ci --omit=dev && node scripts/fetch-cad-artifacts.mjs
+    startCommand: cd web && npm start
     healthCheckPath: /
     autoDeploy: true
     # Hardware deploys at the publication boundary. A source push first runs
