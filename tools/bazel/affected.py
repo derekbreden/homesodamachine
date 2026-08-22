@@ -156,6 +156,11 @@ def artifact_global(path: str) -> bool:
     if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
                 "MODULE.bazel.lock", "tools/cad-requirements.txt"}:
         return True
+    # This publisher selects and carries already-described actions; it cannot move geometry.
+    # Other workflows are not assumed inert: image, derive and runner changes can change the
+    # machine or route an artifact action runs under, so an accumulated edit to one stays global.
+    if path.startswith(".github/workflows/"):
+        return path != ".github/workflows/publish-cad.yml"
     # Selection code decides WHICH already-described actions run; it is not an input to any
     # artifact action.  Making its own edits global forces the very full-tree build a scoping
     # correction is meant to remove.  The selftest inventory likewise describes test runners,
@@ -283,11 +288,17 @@ def selftest() -> int:
              "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
     hold("a data-bearing document stays in the artifact slice",
          not artifact_presentation_only("hardware/ledger/bom.md"))
-    hold("a known global build input still widens the artifact slice",
+    hold("only artifact inputs widen the artifact slice",
          unscoped_changes(["BUILD.bazel"], ["BUILD.bazel"], True) == ["BUILD.bazel"]
          and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == []
          and unscoped_changes(["tools/bazel/affected.py"],
-                              ["tools/bazel/affected.py"], True) == [])
+                              ["tools/bazel/affected.py"], True) == []
+         and unscoped_changes([".github/workflows/publish-cad.yml"], [], True) == []
+         and unscoped_changes([".github/workflows/publish-cad.yml",
+                               "tools/bazel/affected.py"],
+                              ["tools/bazel/affected.py"], True) == []
+         and unscoped_changes([".github/workflows/derive.yml"], [], True)
+             == [".github/workflows/derive.yml"])
     empty = io.StringIO()
     write_targets([], empty)
     hold("zero targets write zero bytes", empty.getvalue() == "", repr(empty.getvalue()))
