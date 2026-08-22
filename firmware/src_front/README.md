@@ -23,8 +23,9 @@ two defenses:
 - **Two framebuffers** (`num_fbs = 2`): LVGL renders the back buffer while the
   panel scans the front, and `esp_lcd` page-flips at the vertical blank — the
   DMA never reads a buffer being written, so there is no content tearing. LVGL
-  runs in `full_refresh` mode with its two draw buffers pointed straight at the
-  two panel framebuffers (zero-copy flush).
+  runs in `direct_mode` with its two draw buffers pointed straight at the two
+  panel framebuffers: flush is zero-copy, and repaint cost follows the invalidated
+  area instead of filling all 800×480 pixels for every small change.
 - **Bounce buffer** (`bounce_buffer_size_px = width × 10`): the scan-out DMA
   reads from a small internal-SRAM buffer refilled from PSRAM in the
   background, so PSRAM write bursts can't starve the live scanline — this is
@@ -160,8 +161,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `GET_VERSION` → `VERSION:FRONT=<fw>`
 - `GET_DIAG` → SETUP's scroll extents / page, sub-view and idle rung / holding /
   link reinits / unanswered polls / bridged touch polls / stale GT911 polls / last send
-  error / heap / PSRAM / backlight / frame / GT911 addr / touch count / last XY /
-  idle state / loop high-water / uptime
+  error / outbound queue depth, high-water and drops / heap / PSRAM / backlight / frame /
+  GT911 addr / touch count / last XY / idle state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:4` → show one page (HOME, FLAVOR, SERVICE, STATUS, SETUP)
@@ -216,7 +217,7 @@ remaining 610 px is the pane, and it takes a different shape on each page:
 | HOME | the loading animation, a headline, both ratios | display-local |
 | FLAVOR | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
 | SERVICE | PRIME \| CLEAN → a flavor → the hold pad or the confirm | **the base** |
-| STATUS | four tiles and a bar, polled every 2 s | **the base** |
+| STATUS | four tiles and a bar, polled every 500 ms | **the base** |
 | SETUP | a paged column of read-outs and one restart | display-local, plus the base's build |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
@@ -288,7 +289,7 @@ manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it a
 ### Frame rate
 
 The animation runs on HOME and is paused everywhere else. Measured on the panel with the
-rail up: **~9.4 fps against the 10 fps timer**, one full-screen repaint ~117 ms. FLAVOR,
+rail up: **~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. FLAVOR,
 FLAVOR and SERVICE sit at `maxLoopMs=0` — nothing on them invalidates, so nothing repaints;
 STATUS and SETUP take one repaint a second for their read-outs. `GET_DIAG` reports the
 high-water mark and clears it.
@@ -299,17 +300,23 @@ high-water mark and clears it.
   it; the level reads `--` until a reservoir is sensed.
 - **Dispense and carbonation state** on HOME.
 
-## Power, and why USB alone is not enough
+## Power and USB reattachment
 
 J9 is `[B, A, GND, V12]` — this panel takes 12 V from the controller PCBA over the same
 connector that carries the RS485 pair. With its own USB also plugged in it has two supplies,
-and reconnecting the USB while the board stays powered leaves it enumerated on neither host.
-`J9.V12` runs straight to the board's V12 island with no relay in it, so nothing in firmware
-can drop it and resetting either ESP32 will not do it either: the 12 V has to physically go
-away. Unplug at J10 or at the wall, then plug back in.
+and reconnecting the cable while J9 keeps the board powered can leave the USB device absent.
+`J9.V12` runs straight to the board's V12 island with no switched load in its path.
 
-[`/tools/boards.py`](/tools/boards.py) says which board is on which port, and says this when
-it finds a controller and no S3.
+[`/tools/display_usb.py`](/tools/display_usb.py) sends the explicit `display usb` development
+request through the controller. The display acknowledges it, enters 500 ms of timer-wake deep
+sleep, and therefore powers down the S3 USB PHY long enough for the host to observe a real
+detach and fresh attachment. It does not switch V12 and nothing sends this request during a
+production boot. [`/tools/boards.py`](/tools/boards.py) offers that command when it sees the
+controller but not the S3.
+
+The request requires the display application to be running and answering on J9. A missing,
+old, or wedged display application still needs the panel RESET button or a physical V12 power
+cycle for that boot.
 
 ## Sound
 
