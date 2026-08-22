@@ -215,7 +215,10 @@ jobs:
         continue-on-error: true
         uses: actions/cache/restore@v4
         with:
-          path: .cache/realized
+          path: |
+            .cache/realized
+            .cache/boxes
+            .cache/meshes
           key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: realized-${{ needs.image.outputs.identity }}-
 
@@ -377,7 +380,10 @@ jobs:
         continue-on-error: true
         uses: actions/cache/save@v4
         with:
-          path: .cache/realized
+          path: |
+            .cache/realized
+            .cache/boxes
+            .cache/meshes
           key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save the Bazel disk cache
