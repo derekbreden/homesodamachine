@@ -1,9 +1,8 @@
 # Install envelope
 
 The space the appliance installs into: a standard kitchen sink base cabinet, already
-occupied. This is the physical bound on the enclosure's silhouette, and it is stated once
-for every edition — the cabinet belongs to the customer and does not change with which
-machine goes into it.
+occupied. This is the physical bound on the enclosure's silhouette. The cabinet belongs to the
+customer and does not change with which machine goes into it, so it is stated once, here.
 
 Who that customer is, is in [`target-market.md`](/marketing/target-market.md); what they do
 on install day is in [`unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
@@ -66,15 +65,15 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   concentrate bottle over it
   ([`zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)).
 
-## The editions against it
+## The machine against it
 
-| | W × D × H | Footprint | Clear over the top wall |
-|---|---|---|---|
-| kitchen | [215 × 462 × 358 mm](KITCHEN_WDH) | [0.099 m²](KITCHEN_FOOTPRINT) | [397.7 mm](KITCHEN_CLEAR_TOP) |
-
-Each silhouette is read off that edition's own box, and clear-over-top is the
-[755.7 mm](CABINET_CLEAR_H) interior less the enclosure height. An edition with no row here
-fails the sync, and so does a row no edition stands behind.
+The appliance's own silhouette is stated where it is cut, on the box that sets it:
+[`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md), and the
+procedure that builds those walls,
+[`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1. Both are
+written by the run that places the pack, so both move the day the box does. No third copy is
+kept here: what this page owes the cabinet is the clearance list above, which is about the
+room around the machine rather than the machine.
 
 ## What comparable devices measure
 
