@@ -119,12 +119,73 @@ void test_final_connected_level_after_same_service_reconnect_still_gets_an_actio
         static_cast<int>(flavor_link_policy::epochAction(true, false, false, false, 0, 0)));
 }
 
-void test_request_token_is_idempotent_inside_one_controller_session() {
+void test_controller_revision_publishes_immediately() {
+    TEST_ASSERT_TRUE(flavor_link_policy::controllerStatePublicationDue(
+        true, true, true, 101, 100, 500));
+}
+
+void test_controller_heartbeat_republishes_absolute_state() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+        true, true, false, 599, 100, 500));
+    TEST_ASSERT_TRUE(flavor_link_policy::controllerStatePublicationDue(
+        true, true, false, 600, 100, 500));
+}
+
+void test_controller_heartbeat_is_safe_across_millis_rollover() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+        true, true, false, 0x00000010u, 0xFFFFFF00u, 500));
+    TEST_ASSERT_TRUE(flavor_link_policy::controllerStatePublicationDue(
+        true, true, false, 0x00000100u, 0xFFFFFF00u, 500));
+}
+
+void test_controller_never_publishes_unestablished_first_install_default() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+        true, false, true, 10000, 0, 500));
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+        true, false, false, 10000, 0, 500));
+}
+
+void test_controller_does_not_publish_while_transport_is_down() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+        false, true, true, 10000, 0, 500));
+}
+
+void test_callback_consumes_epoch_before_sync_survives_post_service_check() {
+    uint32_t knownGeneration = 7;
+    bool synchronized = false;
+
+    // TinyProto may announce CONNECTED and dispatch the first SYNC frame from
+    // one service call. Callback entry must consume the generation first.
+    if (flavor_link_policy::consumeConnectionEpoch(8, knownGeneration))
+        synchronized = false;
+    synchronized = true;  // The callback successfully applies SYNC.
+
+    // Cleanup after service sees the same generation and must not erase the
+    // synchronization established by that frame.
+    if (flavor_link_policy::consumeConnectionEpoch(8, knownGeneration))
+        synchronized = false;
+
+    TEST_ASSERT_TRUE(synchronized);
+    TEST_ASSERT_EQUAL_UINT32(8, knownGeneration);
+}
+
+void test_request_token_history_keeps_delayed_retries_idempotent() {
     flavor_link_policy::TokenLedger ledger;
     TEST_ASSERT_FALSE(ledger.duplicateOrRemember(0x12345678));
     TEST_ASSERT_TRUE(ledger.duplicateOrRemember(0x12345678));
     TEST_ASSERT_FALSE(ledger.duplicateOrRemember(0x87654321));
     TEST_ASSERT_TRUE(ledger.duplicateOrRemember(0x87654321));
+
+    for (uint32_t i = 0; i < flavor_link_policy::kRecentTokenCapacity - 2; ++i)
+        TEST_ASSERT_FALSE(ledger.duplicateOrRemember(0xA0000000u + i));
+
+    // The first request is still recognized after later maintenance traffic
+    // has replaced the ledger's most-recent token many times.
+    TEST_ASSERT_TRUE(ledger.duplicateOrRemember(0x12345678));
+
+    // One more new token evicts the oldest entry from the fixed history.
+    TEST_ASSERT_FALSE(ledger.duplicateOrRemember(0xB0000000u));
+    TEST_ASSERT_FALSE(ledger.duplicateOrRemember(0x12345678));
 
     ledger.reset();
     TEST_ASSERT_FALSE(ledger.duplicateOrRemember(0x87654321));
@@ -150,6 +211,12 @@ int main(int, char **) {
     RUN_TEST(test_even_number_of_unanswered_taps_reasserts_final_absolute_state);
     RUN_TEST(test_accepted_but_not_durable_state_reasserts_after_controller_reboot);
     RUN_TEST(test_final_connected_level_after_same_service_reconnect_still_gets_an_action);
-    RUN_TEST(test_request_token_is_idempotent_inside_one_controller_session);
+    RUN_TEST(test_controller_revision_publishes_immediately);
+    RUN_TEST(test_controller_heartbeat_republishes_absolute_state);
+    RUN_TEST(test_controller_heartbeat_is_safe_across_millis_rollover);
+    RUN_TEST(test_controller_never_publishes_unestablished_first_install_default);
+    RUN_TEST(test_controller_does_not_publish_while_transport_is_down);
+    RUN_TEST(test_callback_consumes_epoch_before_sync_survives_post_service_check);
+    RUN_TEST(test_request_token_history_keeps_delayed_retries_idempotent);
     return UNITY_END();
 }

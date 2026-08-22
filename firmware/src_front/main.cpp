@@ -208,6 +208,8 @@ static void showService(ServiceView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
 static void refreshHomeSelection();
+static bool primeLinkOwnsJ9();
+static void primeSessionService();
 static void lockScreenShow(const char *kicker, const char *title, const char *body);
 static void lockScreenHide();
 
@@ -228,10 +230,24 @@ static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
 static lv_obj_t *homeSyncLabel;
 
+// HOME receives the controller's flavor state four times a second while lit.
+// Keep the rendered model separate from the replicated model so a routine,
+// unchanged answer does not invalidate a large card and flip the RGB panel's
+// framebuffer. Negative sentinels guarantee one complete initial render.
+enum HomeSyncVisual : uint8_t {
+  HOME_SYNC_CONNECTING,
+  HOME_SYNC_SAVING,
+  HOME_SYNC_ERROR,
+  HOME_SYNC_HEALTHY,
+};
+static int8_t homeFlavorShown = -2;
+static int8_t homeSyncShown = -1;
+
 static lv_obj_t *linkDot;          // rail foot — J9 heard from, or not
 static lv_obj_t *flvCardLbl[2];    // the two FLAVOR cards' ratio text
 static lv_obj_t *flvDetailName, *flvDetailRatio;
 static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
+static lv_indev_t *touchInput = nullptr;
 static lv_obj_t *cleanTitle, *cleanMsg;
 static lv_obj_t *statUptime, *statHeap, *statGas, *statGasBar, *statFrames, *statFoot;
 static lv_obj_t *setupCtrlVer, *setupTouch, *setupLinkPins, *setupFrames, *setupReinits;
@@ -681,8 +697,11 @@ static HdlcLink j9;
 // preserved, and a burst — a stepper pushing config and asking for a beep in
 // the same breath — is spaced instead of stacked.
 struct OutFrame { uint8_t type; uint8_t len; uint8_t data[40]; };
-static const uint8_t  OUT_Q_DEPTH   = 8;
+static const uint8_t  OUT_Q_DEPTH   = PRIME_J9_APP_QUEUE_DEPTH;
 static const unsigned TURNAROUND_MS = 30;   // a reply is ~2 ms; this is the giving-up point
+static_assert(PRIME_HOLD_REPLAY_HISTORY >
+                  OUT_Q_DEPTH + PRIME_J9_IN_FLIGHT_DEPTH,
+              "controller prime replay ledger must cover the complete J9 queue");
 
 static OutFrame      outQ[OUT_Q_DEPTH];
 static uint8_t       outHead = 0, outTail = 0, outCount = 0;
@@ -708,6 +727,23 @@ static void j9Post(uint8_t type, const void *data, uint8_t len) {
   outHead = (uint8_t)((outHead + 1) % OUT_Q_DEPTH);
   outCount++;
   if (outCount > outHighWater) outHighWater = outCount;
+}
+
+static void j9DiscardQueuedPrimeFeeds(bool endingSession = false) {
+  OutFrame kept[OUT_Q_DEPTH];
+  uint8_t keptCount = 0;
+  for (uint8_t i = 0; i < outCount; ++i) {
+    const OutFrame &frame = outQ[(outTail + i) % OUT_Q_DEPTH];
+    if (frame.type == MSG_PRIME_SESSION_HOLD_START ||
+        frame.type == MSG_PRIME_SESSION_HOLD_TICK) continue;
+    if (endingSession && frame.type >= MSG_PRIME_SESSION_SET &&
+        frame.type <= MSG_PRIME_SESSION_HOLD_STOP) continue;
+    kept[keptCount++] = frame;
+  }
+  for (uint8_t i = 0; i < keptCount; ++i) outQ[i] = kept[i];
+  outTail = 0;
+  outHead = keptCount % OUT_Q_DEPTH;
+  outCount = keptCount;
 }
 
 // Called every loop, before j9.service() drains the wire.
@@ -796,7 +832,7 @@ static void applyFlavorState(const FlavorStatePayload &state) {
 }
 
 static void flavorLinkService() {
-  if (holding) return;  // prime heartbeat owns J9 until the finger lifts
+  if (primeLinkOwnsJ9()) return;  // prime-ready owns this half-duplex turn
   const unsigned long now = millis();
 
   if (flavorRequestPending) {
@@ -863,11 +899,45 @@ static uint32_t padMux[2] = {0, 0}, padOut[2] = {0, 0};
 // stays 0 until MSG_RESP_PRIME{RUNNING} lands, which is the difference between a motor
 // turning and a frame sent into a bus with nothing on it.
 static unsigned long holdStartMs = 0, holdTickMs = 0, holdAckMs = 0;
+static bool holdRetried = false;
+
+// Prime-ready is an appliance session, not a page-local pump command. The
+// controller owns this complete state and mirrors it to both pieces of glass.
+// This display owns only its desired session state and one physical press.
+static PrimeSessionStatePayload primeSession = {};
+static bool primeSessionKnown = false;
+static bool primeSessionDesired = false;
+static bool primeSessionCancelPending = false;
+static bool primeBootDiscovery = true;
+static bool primeStopPending = false;
+static bool primeAuthoritativeNavigation = false;
+static bool primeUsbStartPending = false;
+static bool primeLinkLost = false;
+static uint32_t primeTokenState = 1;
+static uint32_t primeSessionToken = 0;
+static uint32_t primeHoldToken = 0;
+static uint32_t primeStopRevision = 0;
+static bool primeStopRevisionKnown = false;
+static unsigned long primeControlQueuedMs = 0;
+static unsigned long primeStateMs = 0;
+static unsigned long primeElapsedAnchorAt = 0;
+static unsigned long primeLastUiMs = 0;
+static unsigned long primeLastReinitMs = 0;
+static uint32_t primeElapsedShown = 0;
+static uint32_t primeStaleReinits = 0;
+
+#define PRIME_SESSION_POLL_ACTIVE_MS 250
+#define PRIME_SESSION_POLL_DARK_MS   500
+#define PRIME_SESSION_RETRY_MS      600
+#define PRIME_BOOT_SNAPSHOT_RETRY_MS 500
+#define PRIME_SESSION_STALE_MS     1800
+#define PRIME_REINIT_BACKOFF_MS     2000
 
 static void setPrimeMsg(const char *s);
 static void setCleanMsg(const char *s);
 static void refreshStatusPage();
 static void refreshLinkDot();
+static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the controller has spoken; the wire is ours again
@@ -914,7 +984,17 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_RESP_PRIME_SESSION && plen >= sizeof(PrimeSessionStatePayload)) {
+    PrimeSessionStatePayload state;
+    memcpy(&state, payload, sizeof(state));
+    applyPrimeSessionState(state);
+    return;
+  }
+
+  // Legacy commissioning/pcba_bench prime responses remain understood even
+  // though the production service UI uses the controller-owned session above.
   if (type == MSG_RESP_PRIME && plen >= sizeof(PrimeStatePayload)) {
+    if (primeSessionDesired || primeSessionKnown) return;
     PrimeStatePayload st;
     memcpy(&st, payload, sizeof(st));
     Serial.printf("[J9] MSG_RESP_PRIME state=%u ch=%u ms=%lu\n",
@@ -1176,34 +1256,62 @@ static void refreshFlavorText() {
 static void refreshHomeSelection() {
   if (!homeSyncLabel) return;
   const bool selectionKnown = flavorSynchronized || flavorRequestPending;
-  for (uint8_t i = 0; i < 2; ++i) {
-    const bool selected = selectionKnown && activeFlavor == i;
-    lv_obj_set_style_bg_color(homeFlavorCard[i],
-                              lv_color_hex(selected ? COL_CARD_ON : COL_CARD), 0);
-    lv_obj_set_style_border_width(homeFlavorCard[i], selected ? 4 : 1, 0);
-    lv_obj_set_style_border_color(homeFlavorCard[i],
-                                  lv_color_hex(selected ? COL_ACCENT : COL_OFF), 0);
-    lv_obj_set_style_bg_color(homeFlavorBadge[i],
-                              lv_color_hex(selected ? COL_ACCENT : COL_CARD_ON), 0);
-    lv_label_set_text(homeFlavorBadgeText[i],
-                      selected ? LV_SYMBOL_OK "  SELECTED" : "TAP TO SELECT");
-    lv_obj_set_style_text_color(homeFlavorBadgeText[i],
-                                lv_color_hex(selected ? COL_TEXT : COL_DIM), 0);
+  const int8_t selectedFlavor = selectionKnown ? static_cast<int8_t>(activeFlavor) : -1;
+  if (selectedFlavor != homeFlavorShown) {
+    homeFlavorShown = selectedFlavor;
+    for (uint8_t i = 0; i < 2; ++i) {
+      const bool selected = selectedFlavor == static_cast<int8_t>(i);
+      lv_obj_set_style_bg_color(homeFlavorCard[i],
+                                lv_color_hex(selected ? COL_CARD_ON : COL_CARD), 0);
+      lv_obj_set_style_border_width(homeFlavorCard[i], selected ? 4 : 1, 0);
+      lv_obj_set_style_border_color(homeFlavorCard[i],
+                                    lv_color_hex(selected ? COL_ACCENT : COL_OFF), 0);
+
+      // The artwork and header already explain that both cards are choices.
+      // Keep only the retained selection badge; the inactive card stays calm.
+      if (selected) {
+        lv_obj_set_style_bg_color(homeFlavorBadge[i], lv_color_hex(COL_ACCENT), 0);
+        lv_label_set_text(homeFlavorBadgeText[i], LV_SYMBOL_OK "  SELECTED");
+        lv_obj_set_style_text_color(homeFlavorBadgeText[i], lv_color_hex(COL_TEXT), 0);
+        lv_obj_clear_flag(homeFlavorBadge[i], LV_OBJ_FLAG_HIDDEN);
+      } else {
+        lv_obj_add_flag(homeFlavorBadge[i], LV_OBJ_FLAG_HIDDEN);
+      }
+    }
   }
 
   const bool stale = flavorStateMs && millis() - flavorStateMs > 2000;
+  HomeSyncVisual syncVisual;
   if (flavorControllerPersistError) {
+    syncVisual = HOME_SYNC_ERROR;
+  } else if (flavorRequestPending || (flavorSynchronized && !flavorControllerPersisted)) {
+    syncVisual = HOME_SYNC_SAVING;
+  } else if (!flavorSynchronized || stale) {
+    syncVisual = HOME_SYNC_CONNECTING;
+  } else {
+    syncVisual = HOME_SYNC_HEALTHY;
+  }
+
+  if (static_cast<int8_t>(syncVisual) == homeSyncShown) return;
+  homeSyncShown = static_cast<int8_t>(syncVisual);
+
+  // Synchronization is infrastructure, not a standing user task. Say nothing
+  // when it is healthy; surface only a state that deserves attention or time.
+  if (syncVisual == HOME_SYNC_HEALTHY) {
+    lv_obj_add_flag(homeSyncLabel, LV_OBJ_FLAG_HIDDEN);
+    return;
+  }
+
+  lv_obj_clear_flag(homeSyncLabel, LV_OBJ_FLAG_HIDDEN);
+  if (syncVisual == HOME_SYNC_ERROR) {
     lv_label_set_text(homeSyncLabel, LV_SYMBOL_WARNING "  NOT SAVED");
     lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
-  } else if (flavorRequestPending || (flavorSynchronized && !flavorControllerPersisted)) {
+  } else if (syncVisual == HOME_SYNC_SAVING) {
     lv_label_set_text(homeSyncLabel, "SAVING...");
     lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_ACCENT), 0);
-  } else if (!flavorSynchronized || stale) {
+  } else {
     lv_label_set_text(homeSyncLabel, LV_SYMBOL_REFRESH "  CONNECTING");
     lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
-  } else {
-    lv_label_set_text(homeSyncLabel, LV_SYMBOL_OK "  SYNCED");
-    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_GOOD), 0);
   }
 }
 
@@ -1264,51 +1372,617 @@ static void refreshStatusPage() {
   if (setupCtrlVer) lv_label_set_text(setupCtrlVer, ctrlStatusMs ? ctrlStatus.version : "--");
 }
 
-// ── Prime — the hold, and the ticks under it ──
+// ── Prime-ready session — shared controller truth and one local hold ──
 
-static void primeSend(uint8_t type) {
-  ChannelPayload p{flavorSel};
-  int r = 0; j9Post(type, &p, sizeof(p));
-  if (r < 0) {
-    lastSendErr = r;
-    Serial.printf("[J9] send(type 0x%02X) = %d\n", type, r);
+static uint32_t nextPrimeToken() {
+  primeTokenState += 0x9E3779B9u;
+  if (primeTokenState == 0) ++primeTokenState;
+  return primeTokenState;
+}
+
+static bool primeStateActive() {
+  return primeSessionKnown && primeSession.phase != PRIME_SESSION_OFF;
+}
+
+static void primeMarkStopPending() {
+  if (primeStopPending) return;
+  primeStopPending = true;
+  primeStopRevisionKnown = primeSessionKnown && primeSessionToken != 0 &&
+                           primeSession.sessionToken == primeSessionToken;
+  primeStopRevision = primeStopRevisionKnown ? primeSession.revision : 0;
+}
+
+static void primeClearStopPending() {
+  primeStopPending = false;
+  primeStopRevisionKnown = false;
+  primeStopRevision = 0;
+}
+
+static bool primeLinkOwnsJ9() {
+  return primeSessionDesired || primeSessionCancelPending ||
+         (primeBootDiscovery && !primeSessionKnown);
+}
+
+static void primePostSession(uint8_t action) {
+  if (primeSessionToken == 0) return;
+  if (action == PRIME_SESSION_CANCEL) j9DiscardQueuedPrimeFeeds(true);
+  PrimeSessionRequestPayload request{action, flavorSel, primeSessionToken};
+  j9Post(MSG_PRIME_SESSION_SET, &request, sizeof(request));
+  primeControlQueuedMs = millis();
+}
+
+static void primePostQuery() {
+  if (primeSessionToken == 0) return;
+  PrimeSessionQueryPayload query{primeSessionToken};
+  j9Post(MSG_PRIME_SESSION_QUERY, &query, sizeof(query));
+  primeControlQueuedMs = millis();
+}
+
+static void primePostBootSnapshotQuery() {
+  PrimeSessionQueryPayload query{0};
+  j9Post(MSG_PRIME_SESSION_QUERY, &query, sizeof(query));
+  primeControlQueuedMs = millis();
+}
+
+static void primePostHold(uint8_t type) {
+  if (primeSessionToken == 0 || primeHoldToken == 0) return;
+  if (type == MSG_PRIME_SESSION_HOLD_STOP) j9DiscardQueuedPrimeFeeds();
+  PrimeHoldPayload hold{flavorSel, primeSessionToken, primeHoldToken};
+  j9Post(type, &hold, sizeof(hold));
+  primeControlQueuedMs = millis();
+}
+
+static uint32_t primeDisplayedElapsed() {
+  if (!primeSessionKnown || primeSessionToken == 0 ||
+      primeSession.sessionToken != primeSessionToken) return 0;
+  uint32_t elapsed = primeSession.elapsedMs;
+  if (primeSession.phase == PRIME_SESSION_RUNNING && !primeLinkLost) {
+    elapsed += millis() - primeElapsedAnchorAt;
+    if (elapsed < primeElapsedShown) elapsed = primeElapsedShown;
   }
+  if (elapsed > PRIME_MAX_MS) elapsed = PRIME_MAX_MS;
+  return elapsed;
+}
+
+static void primeRefreshElapsed(bool force = false) {
+  if (!primeElapsed || !primeBar) return;
+  const uint32_t elapsed = primeDisplayedElapsed();
+  if (!force && elapsed / 100 == primeElapsedShown / 100) return;
+  primeElapsedShown = elapsed;
+  char buf[16];
+  snprintf(buf, sizeof(buf), "%lu.%lu s", (unsigned long)elapsed / 1000,
+           ((unsigned long)elapsed % 1000) / 100);
+  lv_label_set_text(primeElapsed, buf);
+  lv_bar_set_value(primeBar, (int32_t)elapsed, LV_ANIM_OFF);
+}
+
+static const char *primeOutcomeText(uint8_t outcome) {
+  switch (outcome) {
+    case PRIME_OUTCOME_STOPPED:       return "hold released";
+    case PRIME_OUTCOME_TIMEOUT:       return "controller lost the hold";
+    case PRIME_OUTCOME_LIMIT:         return "60 second limit reached";
+    case PRIME_OUTCOME_REFUSED:       return "controller refused the hold";
+    case PRIME_OUTCOME_CANCELED:      return "prime mode exited";
+    case PRIME_OUTCOME_LEASE_EXPIRED: return "prime screen connection lost";
+    default:                          return "ready on either display";
+  }
+}
+
+static void primeRender(bool force = false) {
+  if (!primePad || !primePadLbl) return;
+
+  static uint8_t shownPhase = 0xFF;
+  static uint8_t shownOwner = 0xFF;
+  static uint8_t shownOutcome = 0xFF;
+  static uint8_t shownChannel = 0xFF;
+  static bool shownDesired = false;
+  static bool shownCancel = false;
+  static bool shownHolding = false;
+  static bool shownStop = false;
+  static bool shownLost = false;
+
+  const bool matching = primeSessionKnown &&
+                        primeSession.sessionToken == primeSessionToken;
+  const uint8_t phase = matching ? primeSession.phase : PRIME_SESSION_OFF;
+  const uint8_t owner = matching ? primeSession.owner : PRIME_OWNER_NONE;
+  const uint8_t outcome = matching ? primeSession.outcome : PRIME_OUTCOME_NONE;
+  const bool modelChanged = force || shownPhase != phase || shownOwner != owner ||
+                            shownOutcome != outcome || shownChannel != flavorSel ||
+                            shownDesired != primeSessionDesired ||
+                            shownCancel != primeSessionCancelPending ||
+                            shownHolding != holding || shownStop != primeStopPending ||
+                            shownLost != primeLinkLost;
+  if (!modelChanged) return;
+  shownPhase = phase;
+  shownOwner = owner;
+  shownOutcome = outcome;
+  shownChannel = flavorSel;
+  shownDesired = primeSessionDesired;
+  shownCancel = primeSessionCancelPending;
+  shownHolding = holding;
+  shownStop = primeStopPending;
+  shownLost = primeLinkLost;
+
+  char title[32];
+  snprintf(title, sizeof(title), "PRIME %s", kFlavorName[flavorSel]);
+  lv_label_set_text(primeTitle, title);
+
+  if (primeSessionCancelPending) {
+    lv_label_set_text(primePadLbl, "EXITING PRIME");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    setPrimeMsg("waiting for the controller");
+  } else if (primeLinkLost) {
+    lv_label_set_text(primePadLbl, "RECONNECTING");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    setPrimeMsg("prime connection lost");
+  } else if (primeStopPending) {
+    lv_label_set_text(primePadLbl, "STOPPING");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    setPrimeMsg("waiting for the controller");
+  } else if (!primeSessionDesired || !matching || phase == PRIME_SESSION_OFF) {
+    lv_label_set_text(primePadLbl, "CONNECTING");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
+    setPrimeMsg("opening prime mode on both displays");
+  } else if (phase == PRIME_SESSION_RUNNING) {
+    lv_label_set_text(primePadLbl, "PRIMING");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
+    setPrimeMsg(owner == PRIME_OWNER_FAUCET ? "held at the faucet" : "pump turning");
+  } else if (holding) {
+    lv_label_set_text(primePadLbl, "STARTING");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
+    setPrimeMsg("waiting for the controller");
+  } else {
+    lv_label_set_text(primePadLbl, "HOLD TO PRIME");
+    lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
+    setPrimeMsg(primeOutcomeText(outcome));
+  }
+  // The pressed-state style has greater specificity than the default color.
+  // Keep an acknowledged held run visibly green under the user's finger; a
+  // blocked control remains dark instead of flashing the generic button color.
+  const bool blocked = primeSessionCancelPending || primeLinkLost ||
+                       primeStopPending || !primeSessionDesired || !matching ||
+                       phase == PRIME_SESSION_OFF;
+  lv_obj_set_style_bg_color(
+      primePad,
+      lv_color_hex(blocked ? COL_OFF
+                   : phase == PRIME_SESSION_RUNNING ? COL_GOOD : COL_CARD_ON),
+      LV_PART_MAIN | LV_STATE_PRESSED);
+  primeRefreshElapsed(true);
+}
+
+static void primeSessionActivate() {
+  primeBootDiscovery = false;
+  primeSessionDesired = true;
+  primeSessionCancelPending = false;
+  primeClearStopPending();
+  primeLinkLost = false;
+  holding = false;
+  holdAckMs = 0;
+  primeHoldToken = 0;
+  primeElapsedShown = 0;
+  primeSessionToken = nextPrimeToken();
+  primeStateMs = millis();
+  primePostSession(PRIME_SESSION_ACTIVATE);
+  // The accepted ACTIVATE itself makes the controller's one entry tick.
+  clickPending = false;
+  primeRender(true);
+  Serial.printf("[J9] prime session activate ch=%u token=%08lX\n",
+                flavorSel, (unsigned long)primeSessionToken);
+}
+
+static void primeSessionCancel() {
+  if (primeSessionCancelPending) {
+    clickPending = false;
+    return;
+  }
+  if (!primeSessionDesired && !primeSessionCancelPending && !primeStateActive()) return;
+  if (primeStateActive() &&
+      (primeSessionToken == 0 ||
+       primeSessionToken != primeSession.sessionToken)) {
+    // If our attempted ACTIVATE lost a race with an older authoritative
+    // session, EXIT means exit that real session—not retry CANCEL forever for
+    // the token that never became controller truth.
+    primeSessionToken = primeSession.sessionToken;
+    flavorSel = primeSession.channel;
+  }
+  if (primeSessionToken == 0) return;
+
+  primeSessionDesired = false;
+  primeSessionCancelPending = true;
+  primeClearStopPending();
+  primeUsbStartPending = false;
+  holding = false;
+  // Give this absolute CANCEL its own response window. primeStateMs otherwise
+  // describes the last READY/RUNNING heartbeat, which may already be stale.
+  primeStateMs = millis();
+  primePostSession(PRIME_SESSION_CANCEL);
+  // The accepted CANCEL supplies this navigation press's one sound.
+  clickPending = false;
+  primeRender(true);
+  Serial.printf("[J9] prime session cancel token=%08lX\n",
+                (unsigned long)primeSessionToken);
 }
 
 static void primeHoldEnd() {
   if (!holding) return;
   holding = false;
-  primeSend(MSG_PRIME_STOP);
-  lv_label_set_text(primePadLbl, "HOLD TO PRIME");
-  lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
-  // MSG_RESP_PRIME{STOPPED} overwrites this with the length the controller measured.
-  if (!holdAckMs) setPrimeMsg("no answer from the controller");
-  else            setPrimeMsg("lifted");
-  Serial.printf("[J9] MSG_PRIME_STOP ch=%u after %lu ms\n",
-                flavorSel, millis() - holdStartMs);
+  primeMarkStopPending();
+  primePostHold(MSG_PRIME_SESSION_HOLD_STOP);
+  primeRender(true);
+  setPrimeMsg(holdAckMs ? "stopping" : "hold released");
+  Serial.printf("[J9] prime hold stop ch=%u token=%08lX after %lu ms\n",
+                flavorSel, (unsigned long)primeHoldToken, millis() - holdStartMs);
 }
 
-static bool holdRetried = false;
-
 static void primeHoldBegin() {
-  if (holding) return;
+  const bool ready = primeSessionDesired && !primeSessionCancelPending &&
+                     primeSessionKnown &&
+                     primeSession.sessionToken == primeSessionToken &&
+                     primeSession.phase == PRIME_SESSION_READY;
+  if (holding || primeStopPending || !ready || primeLinkLost) return;
+
   holding = true;
+  primeClearStopPending();
+  primeHoldToken = nextPrimeToken();
   holdStartMs = holdTickMs = millis();
   holdAckMs = 0;
   holdRetried = false;
-  primeSend(MSG_PRIME_START);
-  lv_label_set_text(primePadLbl, "PRIMING");
-  lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
-  setPrimeMsg("holding");
-  Serial.printf("[J9] MSG_PRIME_START ch=%u\n", flavorSel);
+  primePostHold(MSG_PRIME_SESSION_HOLD_START);
+  // START owns the engage/refuse sound, including idempotent retries.
+  clickPending = false;
+  primeRender(true);
+  Serial.printf("[J9] prime hold start ch=%u session=%08lX hold=%08lX\n",
+                flavorSel, (unsigned long)primeSessionToken,
+                (unsigned long)primeHoldToken);
+}
+
+static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
+  if (state.phase > PRIME_SESSION_RUNNING || state.channel > PUMP_CHANNEL_B ||
+      state.owner > PRIME_OWNER_FAUCET || state.outcome > PRIME_OUTCOME_LEASE_EXPIRED) return;
+
+  // This exact tuple is the controller's power-on epoch marker. J9 is an
+  // ordered, bounded single-sender link, so it is safe to accept even when a
+  // surviving display has cached a numerically higher pre-reset revision.
+  const bool controllerResetOff = state.phase == PRIME_SESSION_OFF &&
+                                  state.owner == PRIME_OWNER_NONE &&
+                                  state.revision == 0 &&
+                                  state.sessionToken == 0;
+  const bool cancelAnsweredOff = primeSessionCancelPending &&
+                                 primeSessionToken != 0 &&
+                                 state.phase == PRIME_SESSION_OFF &&
+                                 state.sessionToken == primeSessionToken;
+  if (primeSessionKnown) {
+    // A controller reboot restarts its revision counter. The fresh session
+    // token this display just chose is an epoch proof stronger than the cached
+    // number: only an accepted ACTIVATE can echo it, and no queued old state can.
+    const bool acceptedFreshEpoch = primeSessionDesired &&
+                                    state.sessionToken == primeSessionToken &&
+                                    state.sessionToken != 0 &&
+                                    state.sessionToken != primeSession.sessionToken;
+    const int32_t revisionDelta = (int32_t)(state.revision - primeSession.revision);
+    if (revisionDelta < 0 && !acceptedFreshEpoch && !controllerResetOff &&
+        !cancelAnsweredOff) {
+      Serial.printf("[J9] stale prime session rev=%lu < %lu\n",
+                    (unsigned long)state.revision,
+                    (unsigned long)primeSession.revision);
+      return;
+    }
+    if (revisionDelta == 0 && !acceptedFreshEpoch && !controllerResetOff &&
+        !cancelAnsweredOff) {
+      // A RUNNING heartbeat advances authoritative elapsed without advancing
+      // the state revision. Everything else at the same revision is a no-op.
+      primeStateMs = millis();
+      const bool recovered = primeLinkLost;
+      primeLinkLost = false;
+      if (state.phase != PRIME_SESSION_RUNNING ||
+          primeSession.phase != PRIME_SESSION_RUNNING ||
+          state.sessionToken != primeSession.sessionToken ||
+          state.holdToken != primeSession.holdToken ||
+          state.owner != primeSession.owner ||
+          state.elapsedMs < primeSession.elapsedMs) {
+        if (recovered) primeRender(true);
+        return;
+      }
+      primeSession.elapsedMs = state.elapsedMs;
+      primeElapsedAnchorAt = millis();
+      if (recovered) primeRender(true);
+      return;
+    }
+  }
+
+  const PrimeSessionStatePayload previous = primeSession;
+  const bool wasKnown = primeSessionKnown;
+  const bool wasBootDiscovery = primeBootDiscovery;
+  primeSession = state;
+  primeSessionKnown = true;
+  primeBootDiscovery = false;
+  primeStateMs = primeElapsedAnchorAt = millis();
+  primeLinkLost = false;
+
+  const bool authoritativeActive = state.phase != PRIME_SESSION_OFF &&
+                                   state.sessionToken != 0;
+  const bool differentToken = authoritativeActive &&
+                              state.sessionToken != primeSessionToken;
+  const bool retargetCancel = primeSessionCancelPending && differentToken;
+  const bool adoptActive = !primeSessionCancelPending && differentToken &&
+                           (wasBootDiscovery || primeSessionDesired ||
+                            state.phase == PRIME_SESSION_RUNNING);
+  if (retargetCancel || adoptActive) {
+    // Controller truth supersedes any unsent control for the local token. In
+    // particular, an old queued START must never trail a newly observed run.
+    j9DiscardQueuedPrimeFeeds(true);
+    holding = false;
+    primeClearStopPending();
+    primeUsbStartPending = false;
+    primeHoldToken = 0;
+    primeSessionToken = state.sessionToken;
+    flavorSel = state.channel;
+    if (retargetCancel) {
+      primeSessionDesired = false;
+      primeStateMs = millis();
+      primePostSession(PRIME_SESSION_CANCEL);
+    } else {
+      // Only the enclosure can have created this live session. A booting panel,
+      // a panel whose ACTIVATE met an existing session, or a real remote RUNNING
+      // transition resumes its lease without synthesizing a physical hold.
+      primeSessionDesired = true;
+    }
+  }
+
+  const bool tokenMatches = state.sessionToken != 0 &&
+                            state.sessionToken == primeSessionToken;
+
+  // A reset-OFF answer can arrive after an ACTIVATE has already left outQ and
+  // entered the ordered UART transport. Retain that exact local token and put
+  // CANCEL behind it: the cancel closes an accepted/in-flight activation and
+  // harmlessly no-ops when the activation was only queued and is purged here.
+  const bool resetNeedsCancel = controllerResetOff && primeSessionToken != 0 &&
+                                (primeSessionDesired || primeSessionCancelPending);
+  const bool completedOff = (!resetNeedsCancel && controllerResetOff) ||
+                            cancelAnsweredOff ||
+                            (state.phase == PRIME_SESSION_OFF && tokenMatches);
+  if (resetNeedsCancel) {
+    j9DiscardQueuedPrimeFeeds(true);
+    primeSessionDesired = false;
+    primeSessionCancelPending = true;
+    primeUsbStartPending = false;
+    holding = false;
+    primeClearStopPending();
+    primeHoldToken = 0;
+    primeStateMs = millis();
+    primePostSession(PRIME_SESSION_CANCEL);
+  } else if (completedOff) {
+    j9DiscardQueuedPrimeFeeds(true);
+    primeSessionDesired = false;
+    primeSessionCancelPending = false;
+    primeUsbStartPending = false;
+    holding = false;
+    primeClearStopPending();
+    primeSessionToken = 0;
+    primeHoldToken = 0;
+    if (activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD) {
+      if (touchInput) lv_indev_wait_release(touchInput);
+      primeAuthoritativeNavigation = true;
+      showService(SVC_PRIME_PICK);
+      primeAuthoritativeNavigation = false;
+    }
+  }
+  if (tokenMatches && state.phase != PRIME_SESSION_OFF &&
+      !primeSessionCancelPending) {
+    primeSessionDesired = true;
+    flavorSel = state.channel;
+  }
+
+  if (state.phase == PRIME_SESSION_RUNNING) {
+    const bool ourRun = state.owner == PRIME_OWNER_FRONT && tokenMatches &&
+                        state.holdToken == primeHoldToken;
+    if (ourRun && holding) {
+      holdAckMs = millis();
+    } else if (holding) {
+      // A racing hold from the other glass won. Purge the unsent local feed and
+      // put its causal STOP behind anything already in flight before dropping
+      // the physical press state.
+      holding = false;
+      primeMarkStopPending();
+      primePostHold(MSG_PRIME_SESSION_HOLD_STOP);
+    }
+
+    const bool remoteStarted = !wasKnown || previous.phase != PRIME_SESSION_RUNNING ||
+                               previous.sessionToken != state.sessionToken ||
+                               previous.holdToken != state.holdToken;
+    if (adoptActive || (remoteStarted && state.owner != PRIME_OWNER_FRONT)) {
+      if (touchInput) lv_indev_wait_release(touchInput);
+      primeAuthoritativeNavigation = true;
+      if (activePage != PAGE_SERVICE) showPage(PAGE_SERVICE);
+      if (activeSvc != SVC_PRIME_HOLD) showService(SVC_PRIME_HOLD);
+      primeAuthoritativeNavigation = false;
+      if (screenIdle) wake();
+    }
+  } else if (state.phase == PRIME_SESSION_READY) {
+    if (wasKnown && previous.phase == PRIME_SESSION_RUNNING) {
+      // Leave the terminal outcome readable for a normal idle interval after a
+      // remote or local run instead of sleeping in the same loop it arrives.
+      lastInputTime = millis();
+    }
+    if (holding && state.holdToken == primeHoldToken &&
+        state.outcome != PRIME_OUTCOME_NONE) holding = false;
+    if (state.holdToken == primeHoldToken && state.outcome != PRIME_OUTCOME_NONE)
+      primeClearStopPending();
+    if (tokenMatches && primeSessionDesired && activePage == PAGE_SERVICE &&
+        activeSvc == SVC_PRIME_HOLD) {
+      flavorSel = state.channel;
+    }
+    if (tokenMatches && primeUsbStartPending &&
+        state.outcome == PRIME_OUTCOME_NONE) {
+      primeUsbStartPending = false;
+      primeHoldBegin();
+    }
+    if (adoptActive) {
+      if (touchInput) lv_indev_wait_release(touchInput);
+      primeAuthoritativeNavigation = true;
+      if (activePage != PAGE_SERVICE) showPage(PAGE_SERVICE);
+      if (activeSvc != SVC_PRIME_HOLD) showService(SVC_PRIME_HOLD);
+      primeAuthoritativeNavigation = false;
+      if (screenIdle) wake();
+    }
+  }
+
+  primeElapsedShown = state.elapsedMs;
+  primeRender(true);
+  Serial.printf("[J9] prime session phase=%u owner=%u outcome=%u ch=%u "
+                "elapsed=%lu rev=%lu session=%08lX hold=%08lX\n",
+                state.phase, state.owner, state.outcome, state.channel,
+                (unsigned long)state.elapsedMs, (unsigned long)state.revision,
+                (unsigned long)state.sessionToken, (unsigned long)state.holdToken);
+}
+
+static void primeSessionService() {
+  if (!primeLinkOwnsJ9()) return;
+  const unsigned long now = millis();
+
+  if (primeBootDiscovery && !primeSessionKnown) {
+    if (now - primeControlQueuedMs >= PRIME_BOOT_SNAPSHOT_RETRY_MS)
+      primePostBootSnapshotQuery();
+    return;
+  }
+
+  if (primeSessionCancelPending) {
+    if (now - primeStateMs >= PRIME_SESSION_STALE_MS) {
+      if (!primeLinkLost) {
+        primeLinkLost = true;
+        lastInputTime = now;
+        primeRender(true);
+      }
+      if (now - primeLastReinitMs >= PRIME_REINIT_BACKOFF_MS) {
+        primeLastReinitMs = now;
+        ++primeStaleReinits;
+        j9Reinit("prime session cancel unanswered");
+        primePostSession(PRIME_SESSION_CANCEL);
+        return;
+      }
+    }
+    if (now - primeControlQueuedMs >= PRIME_SESSION_RETRY_MS) {
+      primePostSession(PRIME_SESSION_CANCEL);
+    }
+    return;
+  }
+
+  const bool matchingActive = primeSessionKnown &&
+                              primeSession.phase != PRIME_SESSION_OFF &&
+                              primeSession.sessionToken == primeSessionToken;
+  if (!matchingActive) {
+    if (now - primeStateMs >= PRIME_SESSION_STALE_MS) {
+      if (!primeLinkLost) {
+        primeLinkLost = true;
+        lastInputTime = now;
+        primeRender(true);
+      }
+      if (now - primeLastReinitMs >= PRIME_REINIT_BACKOFF_MS) {
+        primeLastReinitMs = now;
+        ++primeStaleReinits;
+        j9Reinit("prime session activate unanswered");
+        primePostSession(PRIME_SESSION_ACTIVATE);
+        return;
+      }
+    }
+    if (now - primeControlQueuedMs >= PRIME_SESSION_RETRY_MS) {
+      primePostSession(PRIME_SESSION_ACTIVATE);
+    }
+    return;
+  }
+
+  if (now - primeStateMs >= PRIME_SESSION_STALE_MS) {
+    if (holding) {
+      holding = false;
+      primeMarkStopPending();
+      primePostHold(MSG_PRIME_SESSION_HOLD_STOP);
+    }
+    if (!primeLinkLost) {
+      primeLinkLost = true;
+      lastInputTime = now;
+      primeRender(true);
+    }
+    if (now - primeLastReinitMs >= PRIME_REINIT_BACKOFF_MS) {
+      primeLastReinitMs = now;
+      ++primeStaleReinits;
+      j9Reinit("prime session responses stale");
+      if (primeStopPending) primePostHold(MSG_PRIME_SESSION_HOLD_STOP);
+      else                  primePostQuery();
+    }
+    if (!primeStopPending) return;
+  }
+
+  if (primeStopPending) {
+    const bool sameRun = primeSession.phase == PRIME_SESSION_RUNNING &&
+                         primeSession.owner == PRIME_OWNER_FRONT &&
+                         primeSession.holdToken == primeHoldToken;
+    const bool otherRun = primeSession.phase == PRIME_SESSION_RUNNING && !sameRun;
+    const bool terminalReady = primeSession.phase == PRIME_SESSION_READY &&
+                               primeSession.holdToken == primeHoldToken &&
+                               primeSession.outcome >= PRIME_OUTCOME_STOPPED &&
+                               primeSession.outcome <= PRIME_OUTCOME_REFUSED;
+    // If our exact H1 terminal reply was lost, READY/RUNNING for a later H2 in
+    // the same session is still authoritative proof that H1 is no longer live.
+    const bool superseded = primeStopRevisionKnown &&
+                            primeStateSupersedesPendingStop(
+                                primeSession, primeSessionToken, primeHoldToken,
+                                PRIME_OWNER_FRONT, primeStopRevision);
+    if (otherRun || terminalReady || superseded) {
+      primeClearStopPending();
+      primeRender(true);
+    } else if (now - primeControlQueuedMs >= PRIME_TICK_MS) {
+      primePostHold(MSG_PRIME_SESSION_HOLD_STOP);
+    }
+    return;
+  }
+
+  if (holding) {
+    const bool acknowledged = primeSession.phase == PRIME_SESSION_RUNNING &&
+                              primeSession.owner == PRIME_OWNER_FRONT &&
+                              primeSession.holdToken == primeHoldToken;
+    if (now - holdTickMs >= PRIME_TICK_MS) {
+      primePostHold(acknowledged ? MSG_PRIME_SESSION_HOLD_TICK
+                                 : MSG_PRIME_SESSION_HOLD_START);
+      holdTickMs = now;
+    }
+
+    const unsigned long heldMs = now - holdStartMs;
+    if (!acknowledged && heldMs > 700 && !holdRetried) {
+      holdRetried = true;
+      j9Reinit("prime session start unanswered");
+      primePostHold(MSG_PRIME_SESSION_HOLD_START);
+      holdTickMs = now;
+      setPrimeMsg("link reset — retrying");
+    }
+    if (!acknowledged && heldMs > PRIME_SESSION_STALE_MS) {
+      setPrimeMsg("no answer from the controller");
+    }
+    return;
+  }
+
+  const unsigned long pollMs = screenIdle ? PRIME_SESSION_POLL_DARK_MS
+                                           : PRIME_SESSION_POLL_ACTIVE_MS;
+  if (now - primeControlQueuedMs >= pollMs) primePostQuery();
 }
 
 // The pad answers the press and the lift, not the click. PRESS_LOST is the finger sliding
 // off the pad, which ends the hold the same way lifting it does.
 static void primePadCb(lv_event_t *e) {
   lv_event_code_t code = lv_event_get_code(e);
-  if (code == LV_EVENT_PRESSED)                                       primeHoldBegin();
-  else if (code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST)  primeHoldEnd();
+  if (code == LV_EVENT_PRESSED) {
+    primeHoldBegin();
+  } else if (code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) {
+    primeHoldEnd();
+    if (code == LV_EVENT_PRESS_LOST) {
+      // Abort this LVGL input pass after recording STOP. Without reset_query,
+      // the same still-pressed sample can target the adjacent Back control.
+      lv_indev_t *indev = lv_indev_get_act();
+      if (indev) {
+        lv_indev_wait_release(indev);
+        lv_indev_reset(indev, nullptr);
+      }
+    }
+  }
 }
 
 // ── Navigation ──
@@ -1486,8 +2160,6 @@ static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_TEXT),
                LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_t *hint = mkText(page, "Tap here or at the faucet", &lv_font_montserrat_20, COL_DIM);
-  lv_obj_align(hint, LV_ALIGN_TOP_LEFT, 0, 36);
   homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
                          &lv_font_montserrat_20, COL_WARN);
   lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT, 0, 4);
@@ -1510,7 +2182,8 @@ static void buildHome(lv_obj_t *page) {
     lv_obj_set_style_pad_all(badge, 0, 0);
     lv_obj_clear_flag(badge, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_clear_flag(badge, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_t *badgeText = mkText(badge, "TAP TO SELECT", &lv_font_montserrat_20, COL_DIM);
+    lv_obj_t *badgeText = mkText(badge, LV_SYMBOL_OK "  SELECTED",
+                                 &lv_font_montserrat_20, COL_TEXT);
     lv_obj_center(badgeText);
 
     homeFlavorCard[i] = card;
@@ -1603,6 +2276,9 @@ static void buildService(lv_obj_t *page) {
 
   primePad = mkBtn(hold, fw, 200, COL_ACCENT);
   lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, 78);
+  // A slide out of the large hold target is a lost press and must stop the
+  // pump just like a lift; ordinary navigation buttons keep PRESS_LOCK.
+  lv_obj_clear_flag(primePad, LV_OBJ_FLAG_PRESS_LOCK);
   lv_obj_add_event_cb(primePad, primePadCb, LV_EVENT_ALL, NULL);
   primePadLbl = mkText(primePad, "HOLD TO PRIME", &lv_font_montserrat_48, COL_TEXT);
   lv_obj_center(primePadLbl);
@@ -1948,16 +2624,18 @@ static void showFlavor(FlavorView v) {
 }
 
 static void showService(ServiceView v) {
-  if (v != SVC_PRIME_HOLD) primeHoldEnd();
+  const ServiceView previous = activeSvc;
+  if (previous == SVC_PRIME_HOLD && v != SVC_PRIME_HOLD &&
+      !primeAuthoritativeNavigation) {
+    primeSessionCancel();
+  }
   activeSvc = v;
   showOnly(svcView, SVC_COUNT, v);
   if (v == SVC_PRIME_HOLD) {
-    char b[32];
-    snprintf(b, sizeof(b), "PRIME %s", kFlavorName[flavorSel]);
-    lv_label_set_text(primeTitle, b);
-    lv_label_set_text(primeElapsed, "0.0 s");
-    lv_bar_set_value(primeBar, 0, LV_ANIM_OFF);
-    setPrimeMsg("idle");
+    if (previous != SVC_PRIME_HOLD && !primeAuthoritativeNavigation) {
+      primeSessionActivate();
+    }
+    primeRender(true);
   } else if (v == SVC_CLEAN_CONFIRM) {
     char b[32];
     snprintf(b, sizeof(b), "CLEAN %s", kFlavorName[flavorSel]);
@@ -1971,7 +2649,26 @@ static void showService(ServiceView v) {
 static void idleReset(uint8_t stage) {
   if (!uiReady) return;
   if (stage == 2) {
-    if (activePage == PAGE_SERVICE)     showService(SVC_MENU);
+    if (activePage == PAGE_SERVICE) {
+      if (activeSvc == SVC_PRIME_HOLD) {
+        // This is unattended housekeeping, not a glass press. Stop renewing
+        // the session and let the controller's short lease close it silently;
+        // sending CANCEL here would make the sleeping appliance tick.
+        primeSessionDesired = false;
+        primeSessionCancelPending = false;
+        primeUsbStartPending = false;
+        holding = false;
+        primeClearStopPending();
+        j9DiscardQueuedPrimeFeeds(true);
+        primeSessionToken = 0;
+        primeHoldToken = 0;
+        primeAuthoritativeNavigation = true;
+        showService(SVC_MENU);
+        primeAuthoritativeNavigation = false;
+      } else {
+        showService(SVC_MENU);
+      }
+    }
     else if (activePage == PAGE_FLAVOR) showFlavor(FLV_BOTH);
     else if (activePage == PAGE_SETUP)  { lv_obj_scroll_to_y(setupCol, 0, LV_ANIM_OFF); setupScrollRefresh(); }
   } else if (stage == 3) {
@@ -1980,14 +2677,18 @@ static void idleReset(uint8_t stage) {
 }
 
 static void showPage(Page p) {
-  primeHoldEnd();
+  if (activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD &&
+      !primeAuthoritativeNavigation) {
+    primeSessionCancel();
+  }
   showOnly(pageObj, PAGE_COUNT, p);
   for (int i = 0; i < PAGE_COUNT; i++)
     lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(i == p ? COL_ACCENT : COL_CARD), 0);
   activePage = p;
   // The animation belongs only to the full-screen operation lock. Ordinary
-  // pages are entirely event-driven and never invalidate themselves.
+  // pages invalidate only when their cached visible state actually changes.
   animRun(lockActive && !screenIdle);
+  if (p == PAGE_HOME)    refreshHomeSelection();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_BOTH);
   if (p == PAGE_SERVICE) showService(SVC_MENU);
   if (p == PAGE_STATUS)  { statusAskedMs = 0; refreshStatusPage(); }
@@ -2051,7 +2752,7 @@ static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_STATE") == 0) {
-    Serial.printf("STATE:FLAVOR=%u,SYNC=%d,PERSISTED=%d,PERSISTERR=%d,PENDING=%d,LOCK=%d,IDLE=%d,PAGE=%d\n",
+    Serial.printf("STATE:FLAVOR=%u,SYNC=%d,PERSISTED=%d,PERSISTERR=%d,PENDING=%d,LOCK=%d,IDLE=%d,PAGE=%d,PRIME=%u,PRIMECH=%u,OWNER=%u\n",
                   (unsigned)activeFlavor,
                   flavorSynchronized ? 1 : 0,
                   flavorControllerPersisted ? 1 : 0,
@@ -2059,19 +2760,26 @@ static void processTextLine(const char *line) {
                   flavorRequestPending ? 1 : 0,
                   lockActive ? 1 : 0,
                   screenIdle ? 1 : 0,
-                  (int)activePage);
+                  (int)activePage,
+                  primeSessionKnown ? (unsigned)primeSession.phase : 0,
+                  primeSessionKnown ? (unsigned)primeSession.channel : 0,
+                  primeSessionKnown ? (unsigned)primeSession.owner : 0);
   } else if (strcmp(line, "GET_DIAG") == 0) {
     // HWCDC has a finite packet buffer. Keep the primary health record below
     // one packet so a host can never mistake a partial line for a complete
     // response; the less frequently used detail follows on bounded lines.
     Serial.printf("DIAG:page=%d,svc=%d,flv=%d,lock=%d,stage=%u,idle=%d,holding=%d,"
                   "gt911=0x%02X,reinits=%lu,sendErr=%d,outQ=%u/%u,outDrop=%lu,"
-                  "link=%s,flushes=%lu,maxLoopMs=%lu,heap=%lu,minHeap=%lu\n",
+                  "link=%s,ctrlRx=%lu,ctrlTurnMax=%u,ctrlTurnOver=%lu,"
+                  "flushes=%lu,maxLoopMs=%lu,heap=%lu,minHeap=%lu\n",
                   (int)activePage, (int)activeSvc, (int)activeFlv,
                   lockActive ? 1 : 0, (unsigned)idleStage, screenIdle ? 1 : 0,
                   holding ? 1 : 0, gt911Addr, (unsigned long)linkReinits,
                   lastSendErr, (unsigned)outCount, (unsigned)outHighWater,
                   (unsigned long)outDropped, j9.framesRx ? "rx" : "silent",
+                  (unsigned long)ctrlStatus.framesRx,
+                  (unsigned)ctrlStatus.j9ReplyHighWater,
+                  (unsigned long)ctrlStatus.j9ReplyOverruns,
                   (unsigned long)flushCount, (unsigned long)maxLoopMs,
                   (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
     Serial.printf("DIAG_UI:scrollTop=%d,scrollBot=%d,scrollY=%d,selected=%u,"
@@ -2089,6 +2797,20 @@ static void processTextLine(const char *line) {
                   (unsigned)unanswered, (unsigned long)ESP.getPsramSize(),
                   (unsigned long)ESP.getFreePsram(), backlightOn ? 1 : 0,
                   (unsigned)animFrameIdx, millis() / 1000);
+    Serial.printf("DIAG_PRIME:known=%d,desired=%d,cancel=%d,stop=%d,lost=%d,phase=%u,owner=%u,outcome=%u,"
+                  "session=%08lX,hold=%08lX,revision=%lu,elapsed=%lu,stateAgeMs=%lu,staleReinits=%lu\n",
+                  primeSessionKnown ? 1 : 0, primeSessionDesired ? 1 : 0,
+                  primeSessionCancelPending ? 1 : 0,
+                  primeStopPending ? 1 : 0,
+                  primeLinkLost ? 1 : 0,
+                  primeSessionKnown ? (unsigned)primeSession.phase : 0,
+                  primeSessionKnown ? (unsigned)primeSession.owner : 0,
+                  primeSessionKnown ? (unsigned)primeSession.outcome : 0,
+                  (unsigned long)primeSessionToken, (unsigned long)primeHoldToken,
+                  primeSessionKnown ? (unsigned long)primeSession.revision : 0,
+                  primeSessionKnown ? (unsigned long)primeDisplayedElapsed() : 0,
+                  primeStateMs ? (unsigned long)(millis() - primeStateMs) : 0,
+                  (unsigned long)primeStaleReinits);
     maxLoopMs = 0;  // high-water mark since last query
   } else if (strncmp(line, "FLAVOR:", 7) == 0) {
     if ((line[7] != '0' && line[7] != '1') || line[8] != '\0') {
@@ -2151,19 +2873,25 @@ static void processTextLine(const char *line) {
     if (id < 1 || id > SND_WIRE_ALARM) Serial.printf("ERR:SOUND expects 1..%d\n", SND_WIRE_ALARM);
     else { sendSound((uint8_t)id); Serial.printf("OK:SOUND=%d\n", id); }
   } else if (strncmp(line, "PRIME:START:", 12) == 0) {
-    // The pad's own handlers, without a finger on the glass — same frames, same ticks.
+    // Enter the shared session, then start the same tokenized hold as soon as
+    // the controller's READY answer lands. PRIME:STOP releases that synthetic
+    // hold; PRIME:EXIT closes the ready session on both displays.
     int f = atoi(line + 12);
     if (f != 1 && f != 2) { Serial.println("ERR:PRIME:START expects 1 or 2"); }
     else {
       flavorSel = (uint8_t)(f - 1);
       showPage(PAGE_SERVICE);
       showService(SVC_PRIME_HOLD);
-      primeHoldBegin();
+      primeUsbStartPending = true;
       Serial.printf("OK:PRIME:START=%d\n", f);
     }
   } else if (strcmp(line, "PRIME:STOP") == 0) {
+    primeUsbStartPending = false;
     primeHoldEnd();
     Serial.println("OK:PRIME:STOP");
+  } else if (strcmp(line, "PRIME:EXIT") == 0) {
+    primeSessionCancel();
+    Serial.println("OK:PRIME:EXIT");
   } else if (strcmp(line, "PANEL:REALIGN") == 0) {
     panelRealign();
     Serial.println("OK:PANEL:REALIGN");
@@ -2300,7 +3028,7 @@ void setup() {
   lv_indev_drv_init(&indev_drv);
   indev_drv.type = LV_INDEV_TYPE_POINTER;
   indev_drv.read_cb = touchpadRead;
-  lv_indev_drv_register(&indev_drv);
+  touchInput = lv_indev_drv_register(&indev_drv);
 
   buildUi();
 
@@ -2317,6 +3045,8 @@ void setup() {
   bootLockMaxUntil = millis() + BOOT_LOCK_MAX_MS;
   flavorTokenState = esp_random();
   if (flavorTokenState == 0) flavorTokenState = 1;
+  primeTokenState = esp_random();
+  if (primeTokenState == 0) primeTokenState = 1;
 
   lastInputTime = millis();
   displayReady = true;
@@ -2351,6 +3081,7 @@ void loop() {
     if (j9.framesTx == framesTxAtPress) sendSound(SND_WIRE_TICK);
   }
 
+  primeSessionService();
   flavorLinkService();
   j9Pump();      // at most one frame on the wire at a time
   j9.service();
@@ -2394,34 +3125,21 @@ void loop() {
     }
   }
 
-  // A held pad feeds the controller a tick under it, and moves its own readouts at 10 Hz.
-  if (holding) {
-    unsigned long now = millis();
-    if (now - holdTickMs >= PRIME_TICK_MS) { primeSend(MSG_PRIME_TICK); holdTickMs = now; }
-    static unsigned long lastHoldUi = 0;
-    if (now - lastHoldUi >= 100) {
-      lastHoldUi = now;
-      unsigned long el = now - holdStartMs;
-      char b[16];
-      snprintf(b, sizeof(b), "%lu.%lu s", el / 1000, (el % 1000) / 100);
-      lv_label_set_text(primeElapsed, b);
-      lv_bar_set_value(primeBar, (int32_t)(el > PRIME_MAX_MS ? PRIME_MAX_MS : el), LV_ANIM_OFF);
-      // A START that goes unanswered is this board's TX having stopped reaching the wire.
-      // One reset of the pads, one more START, and the hold carries on under the finger.
-      if (!holdAckMs && el > 700 && !holdRetried) {
-        holdRetried = true;
-        j9Reinit("prime start unanswered");
-        primeSend(MSG_PRIME_START);
-        setPrimeMsg("link reset — retrying");
-      }
-      if (!holdAckMs && el > 1800) setPrimeMsg("no answer from the controller");
-    }
+  // RUNNING elapsed is anchored to the controller's heartbeat and smoothed
+  // locally between answers. Only the small readout and bar move at 10 Hz.
+  if (primeSessionKnown && primeSessionToken != 0 &&
+      primeSession.sessionToken == primeSessionToken &&
+      primeSession.phase == PRIME_SESSION_RUNNING &&
+      activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD &&
+      millis() - primeLastUiMs >= 100) {
+    primeLastUiMs = millis();
+    primeRefreshElapsed();
   }
 
   // The status request is the only traffic this board starts on its own: every 500 ms while
   // STATUS is up, every 1 s otherwise, and never while a hold owns the pair. Three in a
   // row with nothing back is the same failure, found before a finger meets the glass.
-  if (uiReady && !screenIdle && !holding) {
+  if (uiReady && !screenIdle && !primeLinkOwnsJ9()) {
     // The controller no longer speaks unprompted — a prime that timed out or a
     // pump that finished waits for a frame to answer. This poll is what collects
     // those, so it is the ceiling on how stale news from the base can be. A poll
@@ -2438,12 +3156,14 @@ void loop() {
   // The sound rows show "--" until the controller has answered once. A board that
   // came up before the controller, or a pair that dropped, gets asked again rather
   // than sitting on dashes.
-  if (uiReady && !screenIdle && !holding && activePage == PAGE_SETUP && !soundCfgOk &&
+  if (uiReady && !screenIdle && !primeLinkOwnsJ9() && activePage == PAGE_SETUP && !soundCfgOk &&
       millis() - soundCfgAskedMs >= 2000) {
     soundCfgAsk();
   }
 
   // Once a second: the rail's link indicator, and whichever page shows something live.
+  // HOME's cached refresh does no LVGL work while its selection/link state is unchanged;
+  // this timer remains so a lost link can cross the two-second stale boundary.
   if (uiReady && !screenIdle) {
     static unsigned long lastSlow = 0;
     if (millis() - lastSlow >= 1000) {
@@ -2458,7 +3178,9 @@ void loop() {
 
   // Idle: after inactivity, turn the backlight off. An active operation lock is
   // exempt; a touch wakes an ordinary page — see wake().
-  if (displayReady && !screenIdle && !holding && !lockActive &&
+  const bool primeRunning = primeSessionKnown && !primeLinkLost &&
+                            primeSession.phase == PRIME_SESSION_RUNNING;
+  if (displayReady && !screenIdle && !holding && !primeRunning && !lockActive &&
       millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
     screenIdle = true;
     idleStage = 1;

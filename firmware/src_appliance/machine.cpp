@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "machine.h"
+#include "machine_policy.h"
 #include "pcba_expanders.h"
 #include "pins.h"
 #include "proto_msg.h"
@@ -8,6 +9,31 @@
 
 void (*machineOnPrimeState)(uint8_t, uint8_t, uint32_t) = nullptr;
 void (*machineOnPumpDone)(uint8_t) = nullptr;
+
+static_assert(PRIME_TICK_MS == machine_policy::kPrimeTickPeriodMs,
+              "prime tick period must match machine policy");
+static_assert(PRIME_TICK_GRACE_MS == machine_policy::kPrimeTickGraceMs,
+              "prime tick grace must match machine policy");
+static_assert(PRIME_MAX_MS == machine_policy::kPumpRunCeilingMs,
+              "pump ceiling must match machine policy");
+static_assert(PRIME_SESSION_OFF == static_cast<uint8_t>(machine_policy::PrimeSessionPhase::Off),
+              "prime session phase drift: off");
+static_assert(PRIME_SESSION_READY == static_cast<uint8_t>(machine_policy::PrimeSessionPhase::Ready),
+              "prime session phase drift: ready");
+static_assert(PRIME_SESSION_RUNNING == static_cast<uint8_t>(machine_policy::PrimeSessionPhase::Running),
+              "prime session phase drift: running");
+static_assert(PRIME_OWNER_NONE == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::None),
+              "prime session owner drift: none");
+static_assert(PRIME_OWNER_FRONT == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Front),
+              "prime session owner drift: front");
+static_assert(PRIME_OWNER_FAUCET == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Faucet),
+              "prime session owner drift: faucet");
+static_assert(PRIME_OUTCOME_CANCELED ==
+                  static_cast<uint8_t>(machine_policy::PrimeSessionOutcome::Canceled),
+              "prime session outcome drift: canceled");
+static_assert(PRIME_OUTCOME_LEASE_EXPIRED ==
+                  static_cast<uint8_t>(machine_policy::PrimeSessionOutcome::LeaseExpired),
+              "prime session outcome drift: lease expired");
 
 // ── The two flavor pumps ──────────────────────────────────────────────────
 struct PumpChannel { const char *who; int pin; const char *driver; const char *j13; };
@@ -20,9 +46,10 @@ static const PumpChannel kPump[2] = {
 static MachineState  state       = ST_IDLE;
 static PumpHold      hold        = HOLD_PRIME;
 static uint8_t       channelNow  = 0;
-static unsigned long startedMs   = 0;
-static unsigned long lastTickMs  = 0;
-static unsigned long deadlineMs  = 0;
+static machine_policy::PumpTimer pumpTimer;
+static machine_policy::PrimeSession primeSession;
+static bool primeRunUsesSession = false;
+static bool primeEventUsesSession = false;
 
 // Everything that reaches a load. Parked as inputs, which is dark: a DRV8870
 // IN1 coasts on the driver's own pull-down and a Teyleten opto with no drive
@@ -209,24 +236,43 @@ static const char *primeStateName(uint8_t s) {
     }
 }
 
+static machine_policy::PrimeSessionOwner primeOwner(MachinePrimeSource source) {
+    return source == MACHINE_PRIME_FAUCET
+        ? machine_policy::PrimeSessionOwner::Faucet
+        : machine_policy::PrimeSessionOwner::Front;
+}
+
+static machine_policy::PrimeSessionOutcome primeOutcome(uint8_t state) {
+    switch (state) {
+        case PRIME_STOPPED: return machine_policy::PrimeSessionOutcome::Stopped;
+        case PRIME_TIMEOUT: return machine_policy::PrimeSessionOutcome::Timeout;
+        case PRIME_LIMIT:   return machine_policy::PrimeSessionOutcome::Limit;
+        default:            return machine_policy::PrimeSessionOutcome::Refused;
+    }
+}
+
 static void announce(uint8_t primeState, uint8_t channel, uint32_t ms) {
     Serial.printf("\n[machine] pump %s %s after %lu ms\n",
                   kPump[channel & 1].who, primeStateName(primeState), (unsigned long)ms);
     if (machineOnPrimeState) machineOnPrimeState(primeState, channel, ms);
 }
 
-// Every exit from ST_PUMPING runs through here.
-static void endPumping(uint8_t primeState) {
+// Every exit from ST_PUMPING runs through here. A timer service consumes its
+// terminal event, so that path supplies the elapsed time captured just before
+// service; an explicit stop captures it here.
+static void endPumping(uint8_t primeState, uint32_t ran) {
     if (state != ST_PUMPING) return;
-    uint32_t ran = millis() - startedMs;
     uint8_t  ch  = channelNow;
     PumpHold why = hold;
+    const bool sessionRun = primeRunUsesSession;
 
+    pumpTimer.stop();
     pumpPark(ch);
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
 
     if (why == HOLD_PRIME) {
+        primeSession.pumpStopped(primeOutcome(primeState), ran);
         // The mirror of the engage. A finger that MEANT to lift already knows, but
         // one that slid off the pad does not — PRESS_LOST ends a hold exactly as a
         // lift does, and a pump spinning down sounds the same either way. The two
@@ -235,12 +281,19 @@ static void endPumping(uint8_t primeState) {
         // ceiling arrived under a finger that was still holding.
         if (primeState == PRIME_TIMEOUT || primeState == PRIME_LIMIT) soundPlay(SND_FAULT);
         else                                                          soundPlay(SND_RELEASE);
+        primeEventUsesSession = sessionRun;
         announce(primeState, ch, ran);
+        primeEventUsesSession = false;
+        primeRunUsesSession = false;
     } else {
         Serial.printf("\n[machine] pump %s done after %lu ms\n", kPump[ch].who, (unsigned long)ran);
         soundPlay(SND_CHIME);
         if (machineOnPumpDone) machineOnPumpDone(ch);
     }
+}
+
+static void endPumping(uint8_t primeState) {
+    endPumping(primeState, pumpTimer.elapsedMs(millis()));
 }
 
 // ── Setup and service ─────────────────────────────────────────────────────
@@ -250,6 +303,10 @@ void machineBegin() {
     parkStraps();
     pinMode(PIN_LED_ACT, OUTPUT);
     led(PIN_LED_ACT, false);
+    pumpTimer.stop();
+    primeSession = machine_policy::PrimeSession();
+    primeRunUsesSession = false;
+    primeEventUsesSession = false;
     state = ST_IDLE;
 
     // The MCPs keep their register state across an ESP-only reset because
@@ -261,70 +318,224 @@ void machineBegin() {
     }
 }
 
+static void primeSessionLeaseService(uint32_t now) {
+    if (!primeSession.leaseExpired(now)) return;
+
+    const machine_policy::PrimeSessionSnapshot snapshot = primeSession.snapshot();
+    const uint32_t elapsed = snapshot.phase == machine_policy::PrimeSessionPhase::Running
+        ? pumpTimer.elapsedMs(now)
+        : snapshot.elapsed_ms;
+    if (!primeSession.cancel(snapshot.session_token,
+                             machine_policy::PrimeSessionOutcome::LeaseExpired,
+                             elapsed)) return;
+
+    // A ready session expiring drives nothing. If a source was holding, park it
+    // through the normal timeout path so the existing fault sound, response,
+    // callbacks, and release ordering remain intact while session truth stays OFF.
+    if (snapshot.phase == machine_policy::PrimeSessionPhase::Running &&
+        state == ST_PUMPING && hold == HOLD_PRIME) {
+        endPumping(PRIME_TIMEOUT, elapsed);
+    }
+}
+
 void machineService() {
     heartbeat();
     gasService();
+    const uint32_t now = millis();
+    primeSessionLeaseService(now);
     if (state != ST_PUMPING) return;
 
-    unsigned long now = millis();
+    const uint32_t elapsed = pumpTimer.elapsedMs(now);
     if (hold == HOLD_PRIME) {
         if (now - lastHoldNoteMs >= HOLD_NOTE_MS) {
             lastHoldNoteMs = now;
-            holdNote(now - startedMs);
+            holdNote(elapsed);
         }
-        // The hold is a heartbeat: a finger that lifts sends MSG_PRIME_STOP; a
-        // display that crashes, unplugs, or loses the pair sends nothing. The head
-        // stops either way.
-        if (now - lastTickMs > PRIME_TICK_GRACE_MS)  endPumping(PRIME_TIMEOUT);
-        else if (now - startedMs >= PRIME_MAX_MS)    endPumping(PRIME_LIMIT);
-    } else if (now >= deadlineMs) {
-        endPumping(PRIME_STOPPED);
+    }
+
+    // The hold is a heartbeat: a finger that lifts sends MSG_PRIME_STOP; a
+    // display that crashes, unplugs, or loses the pair sends nothing. The head
+    // stops either way. PumpTimer keeps these comparisons rollover-safe and
+    // deliberately gives a stale tick priority over the hard ceiling.
+    switch (pumpTimer.service(now)) {
+        case machine_policy::PumpStopReason::TickTimeout:
+            endPumping(PRIME_TIMEOUT, elapsed);
+            break;
+        case machine_policy::PumpStopReason::Ceiling:
+            endPumping(PRIME_LIMIT, elapsed);
+            break;
+        case machine_policy::PumpStopReason::BoundedComplete:
+            endPumping(PRIME_STOPPED, elapsed);
+            break;
+        case machine_policy::PumpStopReason::None:
+        case machine_policy::PumpStopReason::Requested:
+            break;
     }
 }
 
 // ── Intents ───────────────────────────────────────────────────────────────
-static bool claimPump(uint8_t channel, PumpHold why) {
+static bool claimPump(uint8_t channel, PumpHold why, uint32_t requestedMs = 0,
+                      uint32_t *acceptedMs = nullptr) {
     if (channel > 1)         return false;
     if (state != ST_IDLE)    return false;   // one operation at a time is the interlock
     if (!pumpDrive(channel)) return false;   // no LEDC channel free
 
+    const uint32_t now = millis();
+    if (why == HOLD_PRIME) {
+        pumpTimer.beginPrime(now);
+    } else {
+        const uint32_t accepted = pumpTimer.beginBounded(now, requestedMs);
+        if (acceptedMs) *acceptedMs = accepted;
+    }
     hold       = why;
     channelNow = channel;
-    startedMs  = millis();
-    lastTickMs = startedMs;
     state      = ST_PUMPING;
     led(PIN_LED_ACT, true);
     return true;
 }
 
-bool machinePrimeBegin(uint8_t channel) {
+static bool beginPrimePump(
+    uint8_t channel,
+    machine_policy::PrimeSessionOwner owner = machine_policy::PrimeSessionOwner::None,
+    uint32_t holdToken = 0) {
     if (!claimPump(channel, HOLD_PRIME)) {
+        if (owner != machine_policy::PrimeSessionOwner::None)
+            primeSession.pumpRefused(holdToken);
         soundPlay(SND_REFUSE);
+        primeEventUsesSession = owner != machine_policy::PrimeSessionOwner::None;
         announce(PRIME_REFUSED, channel, 0);
+        primeEventUsesSession = false;
         return false;
     }
+    primeRunUsesSession = owner != machine_policy::PrimeSessionOwner::None;
+    if (owner != machine_policy::PrimeSessionOwner::None)
+        primeSession.pumpStarted(owner, holdToken);
     soundPlay(SND_ENGAGE);           // the pad took — richer than a tick, and specific to a hold
     lastHoldNoteMs = millis();       // the first reading is a second in, not immediately
     Serial.printf("\n[machine] prime %s at full (IO%d -> %s.IN1 -> J13.%s)\n",
                   kPump[channel].who, kPump[channel].pin, kPump[channel].driver, kPump[channel].j13);
+    primeEventUsesSession = primeRunUsesSession;
     if (machineOnPrimeState) machineOnPrimeState(PRIME_RUNNING, channel, 0);
+    primeEventUsesSession = false;
     return true;
 }
 
+bool machinePrimeBegin(uint8_t channel) {
+    return beginPrimePump(channel);
+}
+
 void machinePrimeTick(uint8_t channel) {
-    if (state == ST_PUMPING && hold == HOLD_PRIME && channel == channelNow) lastTickMs = millis();
+    if (state == ST_PUMPING && hold == HOLD_PRIME && channel == channelNow) {
+        pumpTimer.primeTick(millis());
+    }
 }
 
 void machinePrimeEnd() {
     if (state == ST_PUMPING && hold == HOLD_PRIME) endPumping(PRIME_STOPPED);
 }
 
+bool machinePrimeSessionActivate(uint8_t channel, uint32_t sessionToken) {
+    return primeSession.activate(channel, sessionToken, millis());
+}
+
+bool machinePrimeSessionQuery(uint32_t sessionToken) {
+    return primeSession.query(sessionToken, millis());
+}
+
+bool machinePrimeSessionCancel(uint32_t sessionToken,
+                               bool tombstonePendingActivation) {
+    const machine_policy::PrimeSessionSnapshot snapshot = primeSession.snapshot();
+    const uint32_t elapsed = snapshot.phase == machine_policy::PrimeSessionPhase::Running
+        ? pumpTimer.elapsedMs(millis())
+        : snapshot.elapsed_ms;
+    if (!primeSession.cancel(sessionToken,
+                             machine_policy::PrimeSessionOutcome::Canceled,
+                             elapsed,
+                             tombstonePendingActivation)) return false;
+
+    if (snapshot.phase == machine_policy::PrimeSessionPhase::Running &&
+        state == ST_PUMPING && hold == HOLD_PRIME) {
+        endPumping(PRIME_STOPPED, elapsed);
+    }
+    return true;
+}
+
+bool machinePrimeSessionHoldBegin(MachinePrimeSource source,
+                                  uint8_t channel,
+                                  uint32_t sessionToken,
+                                  uint32_t holdToken) {
+    const machine_policy::PrimeSessionOwner owner = primeOwner(source);
+    switch (primeSession.holdStart(owner, channel, sessionToken, holdToken, millis())) {
+        case machine_policy::PrimeHoldDecision::StartPump:
+            return beginPrimePump(channel, owner, holdToken);
+        case machine_policy::PrimeHoldDecision::RefreshPump:
+            machinePrimeTick(channel);
+            return true;
+        case machine_policy::PrimeHoldDecision::Ignore:
+        case machine_policy::PrimeHoldDecision::StopPump:
+        case machine_policy::PrimeHoldDecision::RecordStopped:
+            return false;
+    }
+    return false;
+}
+
+bool machinePrimeSessionHoldTick(MachinePrimeSource source,
+                                 uint8_t channel,
+                                 uint32_t sessionToken,
+                                 uint32_t holdToken) {
+    if (primeSession.holdTick(primeOwner(source), channel, sessionToken,
+                              holdToken, millis()) !=
+        machine_policy::PrimeHoldDecision::RefreshPump) return false;
+    machinePrimeTick(channel);
+    return true;
+}
+
+bool machinePrimeSessionHoldEnd(MachinePrimeSource source,
+                                uint8_t channel,
+                                uint32_t sessionToken,
+                                uint32_t holdToken) {
+    const machine_policy::PrimeHoldDecision decision = primeSession.holdStop(
+        primeOwner(source), channel, sessionToken, holdToken, millis());
+    if (decision == machine_policy::PrimeHoldDecision::StopPump) {
+        machinePrimeEnd();
+        return true;
+    }
+    return decision == machine_policy::PrimeHoldDecision::RecordStopped;
+}
+
+void machinePrimeSessionSourceDisconnected(MachinePrimeSource source) {
+    if (!primeSession.runningOwnedBy(primeOwner(source))) return;
+    if (state == ST_PUMPING && hold == HOLD_PRIME) {
+        endPumping(PRIME_TIMEOUT);
+    } else {
+        primeSession.pumpStopped(machine_policy::PrimeSessionOutcome::Timeout, 0);
+    }
+}
+
+void machineReadPrimeSessionState(MachinePrimeSessionState &session) {
+    const machine_policy::PrimeSessionSnapshot &snapshot = primeSession.snapshot();
+    session.phase = static_cast<uint8_t>(snapshot.phase);
+    session.channel = snapshot.channel;
+    session.owner = static_cast<uint8_t>(snapshot.owner);
+    session.outcome = static_cast<uint8_t>(snapshot.outcome);
+    session.elapsedMs = snapshot.phase == machine_policy::PrimeSessionPhase::Running
+        ? pumpTimer.elapsedMs(millis())
+        : snapshot.elapsed_ms;
+    session.revision = snapshot.revision;
+    session.sessionToken = snapshot.session_token;
+    session.holdToken = snapshot.hold_token;
+}
+
+bool machinePrimeEventIsSessionOwned() { return primeEventUsesSession; }
+
 bool machinePumpRun(uint8_t channel, uint32_t ms) {
-    if (ms > PRIME_MAX_MS) ms = PRIME_MAX_MS;   // the same ceiling, whatever the caller asks for
-    if (!claimPump(channel, HOLD_TIMED)) { soundPlay(SND_REFUSE); return false; }
-    deadlineMs = startedMs + ms;
+    uint32_t acceptedMs = 0;
+    if (!claimPump(channel, HOLD_TIMED, ms, &acceptedMs)) {
+        soundPlay(SND_REFUSE);
+        return false;
+    }
     Serial.printf("\n[machine] pump %s at full for %lu ms (IO%d -> %s.IN1 -> J13.%s)\n",
-                  kPump[channel].who, (unsigned long)ms, kPump[channel].pin,
+                  kPump[channel].who, (unsigned long)acceptedMs, kPump[channel].pin,
                   kPump[channel].driver, kPump[channel].j13);
     return true;
 }
@@ -335,5 +546,7 @@ MachineState machineState()     { return state; }
 const char  *machineStateName() { return state == ST_PUMPING ? "pumping" : "idle"; }
 bool         machineIsPriming() { return state == ST_PUMPING && hold == HOLD_PRIME; }
 uint8_t      machinePumpChannel()   { return channelNow; }
-uint32_t     machinePumpElapsedMs() { return state == ST_PUMPING ? millis() - startedMs : 0; }
+uint32_t     machinePumpElapsedMs() {
+    return state == ST_PUMPING ? pumpTimer.elapsedMs(millis()) : 0;
+}
 const char  *machinePumpName(uint8_t channel) { return kPump[channel & 1].who; }

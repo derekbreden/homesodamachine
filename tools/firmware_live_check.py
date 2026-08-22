@@ -14,9 +14,10 @@ Optional checks are explicit and non-actuating unless ``--prime`` is named:
 restores the page/idle/lock state it found. --toggle selects the other flavor,
 proves controller synchronization and persistence, then restores it. --prime runs
 the selected flavor pump for one second through the display's real hold handlers
-and always posts PRIME:STOP in a finally block. The controller's own stale-tick and
-60-second ceilings remain the last line of defence if the host disappears during
-that check.
+and always posts PRIME:STOP and PRIME:EXIT in a finally block. It proves the run
+belongs to a newly opened session, checks the measured elapsed interval, and waits
+for authoritative OFF cleanup. The controller's own stale-tick and 60-second
+ceilings remain the last line of defence if the host disappears during that check.
 """
 
 from __future__ import annotations
@@ -37,6 +38,14 @@ ESP32_S3 = (0x303A, 0x1001)
 DEFAULT_ACK_LIMIT_MS = 250.0
 DEFAULT_LOOP_LIMIT_MS = 140
 DEFAULT_MIN_ANIMATION_FPS = 9.0
+
+# firmware/lib/proto_link/proto_msg.h wire values used by GET_STATE/GET_DIAG.
+PRIME_SESSION_READY = 1
+PRIME_SESSION_RUNNING = 2
+PRIME_SESSION_OFF = 0
+PRIME_OWNER_NONE = 0
+PRIME_OWNER_FRONT = 1
+PRIME_OUTCOME_STOPPED = 1
 
 
 def display_port(explicit: str | None) -> str:
@@ -115,9 +124,64 @@ def snapshot(front: Front) -> tuple[str, dict[str, str], dict[str, str], str]:
     return version, state, fields(diag_line, "DIAG:"), link
 
 
+def fresh_controller_diag(front: Front) -> dict[str, str]:
+    """Read status twice so the second snapshot includes the first turn's audit."""
+    diag = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+    controller_rx = int(diag.get("ctrlRx", "0"))
+    for _ in range(2):
+        deadline = time.monotonic() + 2.0
+        next_request = 0.0
+        while time.monotonic() < deadline:
+            now = time.monotonic()
+            # A controller-owned prime transition or queued announcement can
+            # legitimately consume this J9 turn. Re-request at a restrained
+            # cadence until an actual StatusPayload lands instead of treating
+            # that deferred response as a failed link audit.
+            if now >= next_request:
+                front.query_prefix("STATUS", "OK:STATUS requested")
+                next_request = now + 0.15
+            diag = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+            updated_rx = int(diag.get("ctrlRx", "0"))
+            if updated_rx != controller_rx:
+                controller_rx = updated_rx
+                break
+            time.sleep(0.02)
+        else:
+            raise RuntimeError(f"controller status did not refresh: {diag}")
+    return diag
+
+
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise RuntimeError(message)
+
+
+def require_transport_health_unchanged(
+    before: dict[str, str],
+    after: dict[str, str],
+    prime_before: dict[str, str],
+    prime_after: dict[str, str],
+) -> None:
+    require(after.get("sendErr") == "0",
+            f"front send error after check: {after.get('sendErr')}")
+    for field, label in (("reinits", "link reinitializations"),
+                         ("outDrop", "outbound queue drops")):
+        require(int(after.get(field, "0")) == int(before.get(field, "0")),
+                f"front {label} changed during check: "
+                f"{before.get(field, '0')} -> {after.get(field, '0')}")
+    require(
+        int(prime_after.get("staleReinits", "0")) ==
+        int(prime_before.get("staleReinits", "0")),
+        "prime session required a J9 stale-link reinitialization during check: "
+        f"{prime_before.get('staleReinits', '0')} -> "
+        f"{prime_after.get('staleReinits', '0')}",
+    )
+    require(int(after.get("ctrlTurnMax", "255")) <= 1,
+            f"controller emitted {after.get('ctrlTurnMax')} replies in one J9 turn")
+    require(int(after.get("ctrlTurnOver", "0")) ==
+            int(before.get("ctrlTurnOver", "0")),
+            "controller J9 multi-reply turns changed during check: "
+            f"{before.get('ctrlTurnOver', '0')} -> {after.get('ctrlTurnOver', '0')}")
 
 
 def restore_view(front: Front, initial: dict[str, str]) -> None:
@@ -203,43 +267,175 @@ def check_toggle(front: Front, initial_flavor: int, ack_limit_ms: float, loop_li
             print(f"restore    flavor {initial_flavor}, controller durable")
 
 
+def wait_prime_state(
+    front: Front,
+    phase: int,
+    owner: int,
+    timeout: float = 2.5,
+) -> tuple[dict[str, str], float]:
+    deadline = time.monotonic() + timeout
+    last: dict[str, str] = {}
+    while time.monotonic() < deadline:
+        line = front.query_prefix("GET_STATE", "STATE:", timeout=0.5)
+        last = fields(line, "STATE:")
+        if last.get("PRIME") == str(phase) and last.get("OWNER") == str(owner):
+            return last, time.monotonic()
+        time.sleep(0.01)
+    raise RuntimeError(
+        f"prime did not reach phase={phase}, owner={owner}: {last}"
+    )
+
+
+def read_prime_diag(front: Front) -> dict[str, str]:
+    return fields(
+        front.query_prefix("GET_DIAG", "DIAG_PRIME:"), "DIAG_PRIME:"
+    )
+
+
+def wait_prime_diag(front: Front, predicate, what: str, timeout: float = 3.0) -> dict[str, str]:
+    deadline = time.monotonic() + timeout
+    last: dict[str, str] = {}
+    while time.monotonic() < deadline:
+        last = read_prime_diag(front)
+        if predicate(last):
+            return last
+        time.sleep(0.02)
+    raise RuntimeError(f"timed out waiting for {what}: {last}")
+
+
+def prime_diag_is_authoritative_off(diag: dict[str, str]) -> bool:
+    return (
+        diag.get("known") == "1"
+        and diag.get("phase") == str(PRIME_SESSION_OFF)
+        and diag.get("owner") == str(PRIME_OWNER_NONE)
+        and diag.get("desired") == "0"
+        and diag.get("cancel") == "0"
+        and diag.get("stop") == "0"
+        and int(diag.get("session", "0"), 16) == 0
+        and int(diag.get("hold", "0"), 16) == 0
+    )
+
+
+def wait_prime_off(front: Front, timeout: float = 3.0) -> dict[str, str]:
+    return wait_prime_diag(
+        front,
+        prime_diag_is_authoritative_off,
+        "authoritative prime OFF",
+        timeout,
+    )
+
+
+def close_prime(front: Front) -> dict[str, str]:
+    front.query_prefix("PRIME:STOP", "OK:PRIME:STOP")
+    front.query_prefix("PRIME:EXIT", "OK:PRIME:EXIT")
+    return wait_prime_off(front)
+
+
+def best_effort_close_prime(front: Front) -> None:
+    errors: list[str] = []
+    for command, answer in (
+        ("PRIME:STOP", "OK:PRIME:STOP"),
+        ("PRIME:EXIT", "OK:PRIME:EXIT"),
+    ):
+        try:
+            front.query_prefix(command, answer)
+        except (OSError, serial.SerialException, RuntimeError, ValueError) as exc:
+            errors.append(f"{command}: {exc}")
+    try:
+        wait_prime_off(front)
+    except (OSError, serial.SerialException, RuntimeError, ValueError) as exc:
+        errors.append(f"OFF: {exc}")
+    if errors:
+        raise RuntimeError("; ".join(errors))
+
+
 def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_ms: float) -> None:
     flavor = 1 if channel == "a" else 2
-    start_sent = False
+    session_open = False
     try:
-        started = front.send(f"PRIME:START:{flavor}")
-        start_sent = True
-        line, answered = front.wait_line(
-            lambda value: "MSG_RESP_PRIME state=" in value,
-            2.5,
-            "MSG_RESP_PRIME RUNNING",
+        # phase=OFF is also the diagnostic placeholder while known=0. Wait for
+        # controller truth before deciding that it is safe to open a session.
+        before = wait_prime_diag(
+            front, lambda diag: diag.get("known") == "1",
+            "authoritative prime discovery")
+        if not prime_diag_is_authoritative_off(before):
+            close_prime(front)
+            before = read_prime_diag(front)
+        require(
+            prime_diag_is_authoritative_off(before),
+            f"prime precondition is not authoritative OFF: {before}",
         )
-        require("state=0" in line, f"prime was not accepted: {line}")
+
+        # Set the cleanup guard before writing. A short/failed host write can
+        # still have delivered a complete command to native USB.
+        session_open = True
+        started = front.send(f"PRIME:START:{flavor}")
+        running, answered = wait_prime_state(
+            front, phase=PRIME_SESSION_RUNNING, owner=PRIME_OWNER_FRONT
+        )
+        require(
+            running.get("PRIMECH") == str(flavor - 1),
+            f"prime ran the wrong channel: {running}",
+        )
         start_ms = (answered - started) * 1000.0
         require(start_ms <= ack_limit_ms,
                 f"prime start acknowledgement {start_ms:.1f} ms exceeds {ack_limit_ms:.1f} ms")
 
-        while time.monotonic() - started < 1.0:
+        running_diag = read_prime_diag(front)
+        session_token = int(running_diag.get("session", "0"), 16)
+        hold_token = int(running_diag.get("hold", "0"), 16)
+        require(session_token != 0 and hold_token != 0,
+                f"prime did not establish fresh nonzero tokens: {running_diag}")
+
+        # Measure the requested run only after authoritative RUNNING, not while
+        # waiting for ACTIVATE/START to cross J9.
+        while time.monotonic() - answered < 1.0:
             time.sleep(0.01)
 
         stopped = front.send("PRIME:STOP")
-        line, answered = front.wait_line(
-            lambda value: "MSG_RESP_PRIME state=" in value,
-            2.5,
-            "MSG_RESP_PRIME STOPPED",
+        _, answered = wait_prime_state(
+            front, phase=PRIME_SESSION_READY, owner=PRIME_OWNER_NONE
         )
-        require("state=1" in line, f"prime did not stop normally: {line}")
-        start_sent = False
+        prime_diag = read_prime_diag(front)
+        require(
+            prime_diag.get("outcome") == str(PRIME_OUTCOME_STOPPED),
+            f"prime did not stop normally: {prime_diag}",
+        )
+        require(int(prime_diag.get("session", "0"), 16) == session_token and
+                int(prime_diag.get("hold", "0"), 16) == hold_token,
+                f"prime terminal state belongs to another run: {prime_diag}")
+        elapsed_ms = int(prime_diag.get("elapsed", "0"))
+        require(850 <= elapsed_ms <= 1750,
+                f"prime elapsed {elapsed_ms} ms is outside the one-second run bound")
         stop_ms = (answered - stopped) * 1000.0
         require(stop_ms <= ack_limit_ms,
                 f"prime stop acknowledgement {stop_ms:.1f} ms exceeds {ack_limit_ms:.1f} ms")
-        print(f"prime {channel.upper()}     start ack {start_ms:.1f} ms, stop ack {stop_ms:.1f} ms")
+        off = close_prime(front)
+        session_open = False
+        require(prime_diag_is_authoritative_off(off),
+                f"front retained local prime state after exit: {off}")
+        print(f"prime {channel.upper()}     start ack {start_ms:.1f} ms, "
+              f"stop ack {stop_ms:.1f} ms, elapsed {elapsed_ms} ms, OFF")
     finally:
-        # Safe and idempotent even when START was accepted but its answer was lost.
-        if start_sent:
-            front.send("PRIME:STOP")
-            time.sleep(0.2)
-        restore_view(front, initial)
+        # Safe and idempotent even when START was accepted but its answer was
+        # lost. EXIT closes the ready session on both displays after the pump
+        # has been told to stop.
+        active_failure = sys.exc_info()[0] is not None
+        if session_open:
+            try:
+                best_effort_close_prime(front)
+            except (OSError, serial.SerialException, RuntimeError, ValueError) as cleanup_error:
+                if active_failure:
+                    print(f"prime cleanup also failed — {cleanup_error}", file=sys.stderr)
+                else:
+                    raise
+        try:
+            restore_view(front, initial)
+        except (OSError, serial.SerialException, RuntimeError, ValueError) as restore_error:
+            if active_failure:
+                print(f"view restoration also failed — {restore_error}", file=sys.stderr)
+            else:
+                raise
 
 
 def main() -> int:
@@ -283,6 +479,8 @@ def main() -> int:
             print(f"flavor     {state['FLAVOR']}, controller synchronized and durable")
 
             initial = dict(diag)
+            initial_controller_health = fresh_controller_diag(front)
+            initial_prime_health = read_prime_diag(front)
             if args.animation:
                 check_animation(front, initial, args.min_animation_fps, args.loop_limit_ms)
             if args.toggle:
@@ -290,6 +488,11 @@ def main() -> int:
                              args.loop_limit_ms)
             if args.prime:
                 check_prime(front, initial, args.prime, args.ack_limit_ms)
+            final_diag = fresh_controller_diag(front)
+            final_prime_health = read_prime_diag(front)
+            require_transport_health_unchanged(
+                initial_controller_health, final_diag,
+                initial_prime_health, final_prime_health)
         finally:
             front.close()
     except (OSError, serial.SerialException, RuntimeError, ValueError) as exc:

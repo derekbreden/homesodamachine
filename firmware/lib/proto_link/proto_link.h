@@ -25,8 +25,10 @@
 // getHandle() with the C API tiny_fd_send() which blocks until
 // all fragments are queued/sent.
 
-// Window: 4 frames allows pipelined transmission for throughput.
-#define PROTOLINK_WINDOW  4
+// Four frames allow pipelined transmission for throughput. The shared value
+// is also used to prove the controller's prime-token replay window covers
+// everything this transport can retain.
+#define PROTOLINK_WINDOW  PRIME_PROTO_LINK_WINDOW_DEPTH
 
 // Buffer size: generous estimate for Fd protocol internals.
 // ~4KB per window slot covers frame headers, CRC, and HDLC overhead.

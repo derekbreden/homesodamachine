@@ -30,6 +30,10 @@ static bool displayUsbReattachAck = false;
 static flavor_link_policy::TokenLedger frontFlavorTokens;
 static uint32_t frontFlavorDuplicates = 0;
 static uint32_t frontFlavorInvalid = 0;
+static uint32_t frontPrimeSessionLastSentRevision = 0;
+static bool frontPrimeSessionStateSent = false;
+static uint8_t j9TurnReplyHighWater = 0;
+static uint32_t j9TurnReplyOverruns = 0;
 
 static uint8_t flavorStateFlags() {
     return (flavorEstablished()       ? FLAVOR_STATE_F_ESTABLISHED    : 0)
@@ -40,6 +44,39 @@ static uint8_t flavorStateFlags() {
 static void sendFlavorState(HdlcLink *link, uint32_t token) {
     FlavorStatePayload state{flavorSelected(), flavorStateFlags(), token};
     link->send(MSG_RESP_FLAVOR_STATE, &state, sizeof(state));
+}
+
+static void sendPrimeSessionState(HdlcLink *link) {
+    MachinePrimeSessionState current;
+    machineReadPrimeSessionState(current);
+    PrimeSessionStatePayload state{
+        current.phase,
+        current.channel,
+        current.owner,
+        current.outcome,
+        current.elapsedMs,
+        current.revision,
+        current.sessionToken,
+        current.holdToken,
+    };
+    link->send(MSG_RESP_PRIME_SESSION, &state, sizeof(state));
+    frontPrimeSessionLastSentRevision = current.revision;
+    frontPrimeSessionStateSent = true;
+}
+
+// J9 cannot be driven asynchronously. Revisions therefore coalesce here: when
+// any front frame gives the controller a safe turn, only the newest complete
+// absolute state is sent. A query/action response calls sendPrimeSessionState()
+// directly and consumes the same revision, avoiding a duplicate snapshot.
+static void sendChangedPrimeSessionState(HdlcLink *link) {
+    MachinePrimeSessionState current;
+    machineReadPrimeSessionState(current);
+    // Revision zero is also the controller's authoritative OFF after boot. It
+    // still has to cross J9 once so a display that survived this controller's
+    // reset cannot retain an old READY/RUNNING snapshot indefinitely.
+    if (frontPrimeSessionStateSent &&
+        current.revision == frontPrimeSessionLastSentRevision) return;
+    sendPrimeSessionState(link);
 }
 
 // What the controller currently holds, as the glass reads it.
@@ -87,16 +124,16 @@ static void announceQueue(uint8_t type, const void *data, uint8_t len) {
 
 // Drained only from inside onMessage, which is the one moment the far end is
 // certainly not driving the pair.
-static void announceFlush() {
-    while (annCount) {
-        Announce &a = annQ[annTail];
-        j9.send(a.type, a.len ? a.data : nullptr, a.len);
-        annTail = (uint8_t)((annTail + 1) % ANN_DEPTH);
-        annCount--;
-    }
+static void announceFlushOne() {
+    if (!annCount) return;
+    Announce &a = annQ[annTail];
+    j9.send(a.type, a.len ? a.data : nullptr, a.len);
+    annTail = (uint8_t)((annTail + 1) % ANN_DEPTH);
+    annCount--;
 }
 
 static void onPrimeState(uint8_t state, uint8_t channel, uint32_t ms) {
+    if (machinePrimeEventIsSessionOwned()) return;
     PrimeStatePayload st{state, channel, ms};
     announceQueue(MSG_RESP_PRIME, &st, sizeof(st));
 }
@@ -121,12 +158,44 @@ static bool isUserAction(uint8_t type) {
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
 
 // The turn. A frame has landed, so the glass is listening rather than driving:
-// this is the only window in which this board puts anything on the pair. The
-// reply goes out from inside dispatch(), and anything the machine wanted to
-// volunteer since the last frame follows it here.
+// this is the only window in which this board puts anything on the pair.
+// Exactly one reply may leave in a turn. The enclosure releases its own
+// transmit guard after the first complete frame, so following that frame with
+// another would let its next request collide with our tail. Direct command
+// replies win; otherwise the latest prime truth wins; otherwise one queued
+// machine announcement gets the turn. Anything deferred remains eligible on
+// the next enclosure poll.
 static void onMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
+    const uint32_t framesBefore = link->framesTx;
+    struct TurnReplyAudit {
+        HdlcLink *link;
+        uint32_t before;
+        ~TurnReplyAudit() {
+            const uint32_t replies = link->framesTx - before;
+            if (replies > j9TurnReplyHighWater)
+                j9TurnReplyHighWater = replies > UINT8_MAX
+                    ? UINT8_MAX : static_cast<uint8_t>(replies);
+            if (replies > 1) ++j9TurnReplyOverruns;
+        }
+    } audit{link, framesBefore};
+
+    // Routine snapshots are also the glass's polling clock. If machine news is
+    // waiting, use this turn for that news and let the routine query retry on
+    // its normal cadence. Otherwise a status/flavor reply on every poll would
+    // starve an asynchronous pump completion or a prime transition forever.
+    const uint8_t type = msgType(frame);
+    if (type == MSG_FLAVOR_QUERY || type == MSG_STATUS_REQ) {
+        sendChangedPrimeSessionState(link);
+        if (link->framesTx != framesBefore) return;
+        announceFlushOne();
+        if (link->framesTx != framesBefore) return;
+    }
+
     dispatch(link, frame, len);
-    announceFlush();
+    if (link->framesTx != framesBefore) return;
+    sendChangedPrimeSessionState(link);
+    if (link->framesTx != framesBefore) return;
+    announceFlushOne();
 }
 
 // ── What arrives on the pair, becoming an intent ──────────────────────────
@@ -175,6 +244,84 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                           flavorPersisted() ? "" : " — persistence pending");
         }
         sendFlavorState(link, request.token);
+        return;
+    }
+
+    if (type == MSG_PRIME_SESSION_QUERY &&
+        plen >= sizeof(PrimeSessionQueryPayload)) {
+        PrimeSessionQueryPayload query;
+        memcpy(&query, payload, sizeof(query));
+        machinePrimeSessionQuery(query.sessionToken);
+        sendPrimeSessionState(link);
+        return;
+    }
+
+    if (type == MSG_PRIME_SESSION_SET &&
+        plen >= sizeof(PrimeSessionRequestPayload)) {
+        PrimeSessionRequestPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (request.channel > PUMP_CHANNEL_B || request.sessionToken == 0 ||
+            (request.action != PRIME_SESSION_ACTIVATE &&
+             request.action != PRIME_SESSION_CANCEL)) {
+            link->sendResponse(MSG_ERR_SLOT_INVALID, request.channel);
+            return;
+        }
+
+        bool accepted = false;
+        if (request.action == PRIME_SESSION_ACTIVATE) {
+            MachinePrimeSessionState before;
+            machineReadPrimeSessionState(before);
+            accepted = machinePrimeSessionActivate(
+                request.channel, request.sessionToken);
+            MachinePrimeSessionState after;
+            machineReadPrimeSessionState(after);
+            if (accepted && after.revision != before.revision)
+                soundPlay(SND_TICK);
+        } else {
+            MachinePrimeSessionState before;
+            machineReadPrimeSessionState(before);
+            accepted = machinePrimeSessionCancel(request.sessionToken, true);
+            MachinePrimeSessionState after;
+            machineReadPrimeSessionState(after);
+            // Only a physical exit of a live session clicks. An idempotent
+            // retry or an OFF-state tombstone used to retire an in-flight
+            // ACTIVATE is silent.
+            if (accepted && before.phase != PRIME_SESSION_OFF &&
+                after.revision != before.revision) soundPlay(SND_TICK);
+        }
+        sendPrimeSessionState(link);
+        return;
+    }
+
+    if ((type == MSG_PRIME_SESSION_HOLD_START ||
+         type == MSG_PRIME_SESSION_HOLD_TICK ||
+         type == MSG_PRIME_SESSION_HOLD_STOP) &&
+        plen >= sizeof(PrimeHoldPayload)) {
+        PrimeHoldPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (request.channel > PUMP_CHANNEL_B || request.sessionToken == 0 ||
+            request.holdToken == 0) {
+            link->sendResponse(MSG_ERR_SLOT_INVALID, request.channel);
+            return;
+        }
+
+        if (type == MSG_PRIME_SESSION_HOLD_START) {
+            machinePrimeSessionHoldBegin(MACHINE_PRIME_FRONT,
+                                         request.channel,
+                                         request.sessionToken,
+                                         request.holdToken);
+        } else if (type == MSG_PRIME_SESSION_HOLD_TICK) {
+            machinePrimeSessionHoldTick(MACHINE_PRIME_FRONT,
+                                        request.channel,
+                                        request.sessionToken,
+                                        request.holdToken);
+        } else {
+            machinePrimeSessionHoldEnd(MACHINE_PRIME_FRONT,
+                                       request.channel,
+                                       request.sessionToken,
+                                       request.holdToken);
+        }
+        sendPrimeSessionState(link);
         return;
     }
 
@@ -249,6 +396,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
                        | (machineIsPriming()   ? STATUS_F_PRIMING  : 0);
         s.primeChannel = machinePumpChannel();
         strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
+        s.j9ReplyHighWater = j9TurnReplyHighWater;
+        s.j9ReplyOverruns = j9TurnReplyOverruns;
         link->send(MSG_RESP_STATUS, &s, sizeof(s));
         return;
     }
@@ -340,6 +489,9 @@ void linkReport() {
         Serial.println("    nothing has arrived — the display is unpowered, unflashed, or A/B is swapped");
     Serial.printf("    announcements held %u, dropped %lu\n",
                   (unsigned)annCount, (unsigned long)annDropped);
+    Serial.printf("    replies per received turn high-water %u, overruns %lu\n",
+                  (unsigned)j9TurnReplyHighWater,
+                  (unsigned long)j9TurnReplyOverruns);
     Serial.printf("    flavor duplicate requests %lu, invalid requests %lu\n",
                   (unsigned long)frontFlavorDuplicates,
                   (unsigned long)frontFlavorInvalid);

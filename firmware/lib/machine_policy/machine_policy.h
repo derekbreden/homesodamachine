@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "proto_msg.h"
 
 namespace machine_policy {
 
@@ -150,6 +151,135 @@ private:
     uint32_t started_ms_;
     uint32_t last_tick_ms_;
     uint32_t bounded_duration_ms_;
+};
+
+// A prime-ready session is opened by the enclosure, then either display may
+// own one held run at a time. The pump timer above remains the independent
+// actuator failsafe; this policy owns only session/endpoint authority.
+constexpr uint32_t kPrimeSessionRenewPeriodMs = 500;
+constexpr uint32_t kPrimeSessionLeaseGraceMs  = 5000;
+// These ledgers cover every token that can still be delayed by the current
+// ordered transports: J9 has eight queued application frames plus one in
+// flight; J3 has eight queued application frames plus TinyProto's four-frame
+// window. They are replay windows, not claims about hostile captured traffic.
+constexpr uint8_t  kPrimeSessionTokenHistory  = PRIME_SESSION_REPLAY_HISTORY;
+constexpr uint8_t  kPrimeHoldTokenHistory     = PRIME_HOLD_REPLAY_HISTORY;
+constexpr uint8_t  kPrimeFrontDelayedTokenMax =
+    PRIME_J9_APP_QUEUE_DEPTH + PRIME_J9_IN_FLIGHT_DEPTH;
+constexpr uint8_t  kPrimeFaucetDelayedTokenMax =
+    PRIME_J3_APP_QUEUE_DEPTH + PRIME_PROTO_LINK_WINDOW_DEPTH;
+static_assert(kPrimeSessionTokenHistory > kPrimeFrontDelayedTokenMax,
+              "prime session replay ledger must cover J9");
+static_assert(kPrimeHoldTokenHistory > kPrimeFrontDelayedTokenMax,
+              "front hold replay ledger must cover J9");
+static_assert(kPrimeHoldTokenHistory > kPrimeFaucetDelayedTokenMax,
+              "faucet hold replay ledger must cover J3");
+
+enum class PrimeSessionPhase : uint8_t {
+    Off = 0,
+    Ready,
+    Running,
+};
+
+enum class PrimeSessionOwner : uint8_t {
+    None = 0,
+    Front,
+    Faucet,
+};
+
+enum class PrimeSessionOutcome : uint8_t {
+    None = 0,
+    Stopped,
+    Timeout,
+    Limit,
+    Refused,
+    Canceled,
+    LeaseExpired,
+};
+
+enum class PrimeHoldDecision : uint8_t {
+    Ignore = 0,
+    StartPump,
+    RefreshPump,
+    StopPump,
+    RecordStopped,
+};
+
+struct PrimeSessionSnapshot {
+    PrimeSessionPhase phase;
+    uint8_t channel;
+    PrimeSessionOwner owner;
+    PrimeSessionOutcome outcome;
+    uint32_t elapsed_ms;
+    uint32_t revision;
+    uint32_t session_token;
+    uint32_t hold_token;
+};
+
+class PrimeSession {
+public:
+    PrimeSession();
+
+    // Activation tokens are nonzero and identify one enclosure visit to the
+    // prime screen. Repeating the current activation is idempotent and renews
+    // its lease. A canceled token cannot reopen its own session.
+    bool activate(uint8_t channel, uint32_t session_token, uint32_t now_ms);
+    bool query(uint32_t session_token, uint32_t now_ms);
+
+    // Cancel succeeds for the current token. The sole session-creating
+    // endpoint may request an OFF-state tombstone so a delayed ACTIVATE cannot
+    // open an invisible session; non-activating endpoints leave that false.
+    // The caller supplies live elapsed time before it stops the pump so OFF
+    // remains authoritative while the physical stop is being completed.
+    bool cancel(uint32_t session_token,
+                PrimeSessionOutcome outcome,
+                uint32_t elapsed_ms,
+                bool tombstone_if_off = false);
+
+    PrimeHoldDecision holdStart(PrimeSessionOwner source,
+                                uint8_t channel,
+                                uint32_t session_token,
+                                uint32_t hold_token,
+                                uint32_t now_ms);
+    PrimeHoldDecision holdTick(PrimeSessionOwner source,
+                               uint8_t channel,
+                               uint32_t session_token,
+                               uint32_t hold_token,
+                               uint32_t now_ms);
+    PrimeHoldDecision holdStop(PrimeSessionOwner source,
+                               uint8_t channel,
+                               uint32_t session_token,
+                               uint32_t hold_token,
+                               uint32_t now_ms);
+
+    void pumpStarted(PrimeSessionOwner source, uint32_t hold_token);
+    void pumpRefused(uint32_t hold_token);
+    void pumpStopped(PrimeSessionOutcome outcome, uint32_t elapsed_ms);
+
+    bool leaseExpired(uint32_t now_ms) const;
+    bool runningOwnedBy(PrimeSessionOwner source) const;
+    bool matches(uint8_t channel, uint32_t session_token) const;
+    const PrimeSessionSnapshot &snapshot() const;
+
+private:
+    void renewFrom(PrimeSessionOwner source, uint32_t now_ms);
+    void bumpRevision();
+    bool sessionTokenSeen(uint32_t token) const;
+    void rememberSessionToken(uint32_t token);
+    bool holdTokenSeen(PrimeSessionOwner source, uint32_t token) const;
+    void rememberHoldToken(PrimeSessionOwner source, uint32_t token);
+    void resetHoldTokens();
+
+    PrimeSessionSnapshot state_;
+    uint32_t lease_renewed_ms_;
+    uint32_t session_tokens_[kPrimeSessionTokenHistory];
+    uint8_t session_token_count_;
+    uint8_t next_session_token_;
+    // A busy endpoint cannot evict the other endpoint's causal STOP/START
+    // evidence. Front and Faucet each receive their own bounded replay window.
+    uint32_t hold_tokens_[2][kPrimeHoldTokenHistory];
+    uint8_t hold_token_count_[2];
+    uint8_t next_hold_token_[2];
 };
 
 }  // namespace machine_policy

@@ -43,7 +43,8 @@
 // runs on a bare board with the manifold unplugged.
 //
 // ── What this build does ──────────────────────────────────────────────
-// One flavor pump turns, held from the glass or bounded from the console.
+// One flavor pump turns, held from either display inside an enclosure-opened
+// prime session or bounded from the console.
 // Both MCP23017s boot with every output verified low and every reed input on
 // its internal pull-up; status reads those inputs on explicit request. No
 // operation opens a valve or runs the fan, neither relay is ever driven, and
@@ -79,10 +80,10 @@ void setup() {
                       : "FAULT — outputs could not be verified parked");
 
     linkBegin();
-    Serial.printf("J9 up on IO%d/IO%d @ %ld — the display's prime hold arrives here\n",
+    Serial.printf("J9 up on IO%d/IO%d @ %ld — enclosure prime sessions arrive here\n",
                   PIN_485_DI, PIN_485_RO, RS485_BAUD);
     faucetLinkBegin();
-    Serial.printf("J3 up on IO%d/IO%d @ %ld — faucet flavor selection\n",
+    Serial.printf("J3 up on IO%d/IO%d @ %ld — faucet flavor and prime controls\n",
                   PIN_FAUCET_TX, PIN_FAUCET_RX, FAUCET_BAUD);
     Serial.println("idle — actuators dark; valves have no runtime command");
     Serial.println("type 'help' for what this build answers to\n");
@@ -96,12 +97,15 @@ void setup() {
 }
 
 void loop() {
-    linkService();      // frames in, replies out
+    // Expired heartbeat/session deadlines are terminal before either transport
+    // may apply buffered input. A tick that sat behind a >2 s scheduler stall
+    // cannot revive an already-overdue energized pump.
     machineService();   // the deadlines a held pump is measured against
+    linkService();      // J9 frames in, replies out
+    faucetLinkService();// J3 frames in, replies out
     soundService();     // U8's step boundaries — nothing here blocks, and it must
                         // run every pass: LEDC keeps oscillating on its own, so a
                         // sequencer that stops being serviced holds the coil on.
-    faucetLinkService();
 
     // Preferences can occasionally compact a flash page. Keep that work out of
     // every pump deadline and sound step; the logo already changed locally.
@@ -136,8 +140,8 @@ static void help() {
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
     Serial.println("  rtc [set <YYYY-MM-DD> <HH:MM:SS>]    the clock quiet hours reads");
     Serial.println("  help              this");
-    Serial.println("\n  A prime is the display's: hold the pad and the pump turns under it. It");
-    Serial.println("  arrives as MSG_PRIME_START and stops on the lift, on a stale tick, or at");
+    Serial.println("\n  The enclosure opens prime mode for one flavor. Either display can then");
+    Serial.println("  own the held pump; it stops on lift, a stale hold/session, disconnect, or at");
     Serial.printf("  the %lu s ceiling.\n", (unsigned long)(PRIME_MAX_MS / 1000));
 }
 

@@ -26,6 +26,24 @@ enum PumpHold : uint8_t {
     HOLD_TIMED,  // a bounded run — its own deadline ends it
 };
 
+// Physical link identity is supplied by link.cpp / faucet_link.cpp and never
+// accepted from a display payload.
+enum MachinePrimeSource : uint8_t {
+    MACHINE_PRIME_FRONT  = 1,
+    MACHINE_PRIME_FAUCET = 2,
+};
+
+struct MachinePrimeSessionState {
+    uint8_t phase;
+    uint8_t channel;
+    uint8_t owner;
+    uint8_t outcome;
+    uint32_t elapsedMs;
+    uint32_t revision;
+    uint32_t sessionToken;
+    uint32_t holdToken;
+};
+
 // ── What the machine announces ────────────────────────────────────────────
 // Every prime state change, in proto_msg.h's PRIME_* vocabulary. link.cpp turns
 // these into MSG_RESP_PRIME. Set before machineBegin().
@@ -44,6 +62,36 @@ void machineService();   // call every loop; the deadlines are read here
 bool machinePrimeBegin(uint8_t channel);
 void machinePrimeTick(uint8_t channel);
 void machinePrimeEnd();
+
+// Controller-owned prime-ready session. The enclosure activates and leases it;
+// either endpoint may own one tokenized hold, and either may cancel it. Every
+// command is absolute and stale source/session/hold tokens are harmless.
+bool machinePrimeSessionActivate(uint8_t channel, uint32_t sessionToken);
+bool machinePrimeSessionQuery(uint32_t sessionToken);
+// Only J9 may tombstone an activation token while OFF: the enclosure is the
+// sole endpoint permitted to create a prime session. Faucet CANCEL is limited
+// to the currently authoritative session.
+bool machinePrimeSessionCancel(uint32_t sessionToken,
+                               bool tombstonePendingActivation = false);
+bool machinePrimeSessionHoldBegin(MachinePrimeSource source,
+                                  uint8_t channel,
+                                  uint32_t sessionToken,
+                                  uint32_t holdToken);
+bool machinePrimeSessionHoldTick(MachinePrimeSource source,
+                                 uint8_t channel,
+                                 uint32_t sessionToken,
+                                 uint32_t holdToken);
+bool machinePrimeSessionHoldEnd(MachinePrimeSource source,
+                                uint8_t channel,
+                                uint32_t sessionToken,
+                                uint32_t holdToken);
+void machinePrimeSessionSourceDisconnected(MachinePrimeSource source);
+void machineReadPrimeSessionState(MachinePrimeSessionState &session);
+// Valid only while machineOnPrimeState is being invoked; lets the transport
+// retain legacy replies for legacy commands without double-answering a
+// tokenized session action that carries its own authoritative state.
+bool machinePrimeEventIsSessionOwned();
+
 bool machinePumpRun(uint8_t channel, uint32_t ms);
 void machineStop();      // whatever is running, end it and park
 

@@ -1,7 +1,7 @@
 # The appliance controller
 
 The firmware the machine runs. It is on the controller PCBA's own WROOM (U1), the board
-[`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes, flashed through that board's CH340C
+[`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes, flashed through that board's CH340B
 over USB-C at J14. The procedure it answers to is
 [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md); the
 state it boots to is the one
@@ -15,10 +15,12 @@ once per fab batch, with the manifold unplugged.
 The glass-facing operation remains one flavor pump. The controller also establishes and
 reports the safe I/O foundation the next connected bench uses.
 
-- **A prime held from the glass.** Service → Prime → a flavor → hold the pad on the 4.3B
-  front-face display. `MSG_PRIME_START` arrives on J9, the pump turns, a tick every 500 ms
-  keeps it turning, and the head stops on the lift, on a tick that runs 2 s late, or at the
-  60 s ceiling. Every state change goes back as `MSG_RESP_PRIME`.
+- **A shared prime-ready session.** Service → Prime → a flavor on the 4.3B enclosure display
+  opens a controller-owned session and wakes the faucet into the same mode. Either display
+  can hold its pad to run that selected pump; tokenized `MSG_PRIME_SESSION_*` controls keep
+  retries idempotent and the complete absolute state is mirrored to both displays. The pump
+  stops on lift, a hold heartbeat more than 2 s late, loss of its owning faucet connection,
+  expiry of the enclosure's 5 s session lease, or the 60 s ceiling.
 - **A bounded run from the console.** `pump <a|b> [ms]`.
 - **The shared flavor selection.** A faucet tap reaches J3, or an enclosure card tap reaches
   J9, as an absolute flavor and request token. The controller acknowledges its authoritative
@@ -45,7 +47,7 @@ driven. A clean cycle is answered `MSG_ERR_UNSUPPORTED`.
 | `machine.cpp` | every pin that reaches a load, and the three limits |
 | `pcba_expanders.cpp` | U2/U3 register safety and the logical V-A–V-K / fan / reed map |
 | `link.cpp` | J9 frames in, machine announcements out |
-| `faucet_link.cpp` | J3 full-duplex frames and idempotent flavor acknowledgements |
+| `faucet_link.cpp` | J3 full-duplex flavor acknowledgements and shared-prime controls/state |
 | `flavor.cpp` | controller-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
 | `pins.h` | what this image reaches on the board, off `pcba.tsx` |
@@ -69,7 +71,7 @@ pio device monitor -e appliance
 | `flavor [a\|b]` | read or set the controller-owned flavor selection |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
-| `link` | J9 frames/echo plus J3 connection, synchronization, duplicates and invalid frames |
+| `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
 | `ping` | put a frame on the pair and read its echo back |
 | `display usb` | explicitly detach/wake the front display's USB PHY |
 | `sound <name>` | play one of the machine's sounds; `sound list` names them and what each would play at |
@@ -102,6 +104,13 @@ deduplicates the controller-side tick as well as the state update. Controller Pr
 writes are serviced only while the machine is idle and the sound sequencer is quiet. The
 faucet keeps its own two-second-deferred cache so either boot order draws a logo immediately,
 but it never overwrites established controller state during reconnect.
+
+An established controller publishes every flavor or persistence revision immediately and repeats
+the complete absolute state every 500 ms while J3 is connected. The repeat closes the gap between
+transport acceptance and application of a single frame. A same-state publication is a no-op on the
+faucet, so it neither wakes the backlight nor resets the idle timer; a changed state updates and
+wakes it. Connection-epoch cleanup happens before the first application frame in that epoch, so a
+SYNC accepted during connection establishment cannot be erased afterward.
 
 ## Enclosure flavor link
 
