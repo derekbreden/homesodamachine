@@ -146,8 +146,6 @@ html, body {
 .svg-mini-white { font-size: 16px; fill: #fff; }
 .svg-mini-blue { font-size: 14px; fill: var(--water); }
 .dimension-line { fill: none; stroke: #74767d; stroke-width: 4; }
-.label-halo { paint-order: stroke fill; stroke: #fff; stroke-width: 9px; stroke-linejoin: round; }
-.signal-bracket { fill: none; stroke: #65676e; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
 
 .mount-sequence {
   position: absolute;
@@ -256,8 +254,8 @@ html, body {
 }
 .three-tail-route { border-right: 2px solid var(--rule); padding-right: 18px; }
 .three-tail-route svg, .connection-technique svg { width: 100%; height: 100%; }
-.stop-port circle { fill: rgba(255,255,255,.82); stroke: var(--accent); stroke-width: 7; }
-.stop-port path { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; }
+.stop-port circle { fill: rgba(255,255,255,.82); stroke: var(--accent); stroke-width: 8; }
+.stop-port path { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round; }
 
 .stop-band {
   min-height: 0;
