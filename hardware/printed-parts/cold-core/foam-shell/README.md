@@ -408,8 +408,9 @@ wide, so what keeps those three apart is the storey each takes, and
 
 Each reed cable crosses its bag-pocket wall and then the −X wall, and the two bores
 share neither an axis nor a height. The pocket-wall bore sits outboard of the bulkhead
-axis at x = ±[109 mm](CABLE_POCKET_X); reservoir A's draw comes about on the station
-inboard of it at x = ±[97 mm](FLAVOR_POCKET_X), and that step is what the cable costs.
+axis, on `_cold_core_interface.reed_cable_conduit_xy`'s own station; reservoir A's draw
+comes about inboard of it at x = ±[97 mm](FLAVOR_POCKET_X), and that step is what the cable
+costs.
 Both cross at the elbow's own exit Z. The cable's front bore is its station on the field,
 and between the two the run turns onto the lane and climbs to it — the lane is what lets
 them sit at different X *and* different Z.
