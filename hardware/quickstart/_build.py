@@ -1,4 +1,8 @@
-"""Build the two-sheet, 11 x 17 in Home Soda Machine quick start.
+"""Bind the two-sheet, 11 x 17 in Home Soda Machine quick start.
+
+Product-derived artwork is a separate build step in ``quickstart_art.py``. Keeping it separate means a
+layout or copy edit rerenders only these sheets; CAD and firmware changes rebuild the artwork
+first through the Bazel dependency graph.
 
     quick-start.pdf         two print-ready pages, one sheet per page
     quick-start.cover.png   the installation sheet for the drawings shelf
@@ -32,29 +36,10 @@ SIDECAR = HERE / "quick-start.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-import _art  # noqa: E402
-
-
 TITLE = "Quick start guide"
 CANVAS_W, CANVAS_H = 2550, 1650
 COVER_W = 800
 
-EXTERNAL_ART = (
-    HARDWARE
-    / "printed-parts"
-    / "enclosure"
-    / "drawings"
-    / "line-art"
-    / "enclosure-iso-front.svg",
-    HARDWARE
-    / "printed-parts"
-    / "enclosure"
-    / "drawings"
-    / "line-art"
-    / "enclosure-iso-back.svg",
-    REPO_ROOT / "web" / "public" / "update-images" / "2026-08-19-port-rings.png",
-    REPO_ROOT / "web" / "public" / "update-images" / "2026-08-19-tube-collars.png",
-)
 FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
 
 
@@ -63,10 +48,9 @@ def pages() -> list[Path]:
 
 
 def render_pages() -> int:
-    _art.main()
     renderer = REPO_ROOT / "tools" / "render" / "render-card.js"
     note_read(renderer)
-    for path in EXTERNAL_ART + FONTS:
+    for path in FONTS:
         note_read(path)
     for page in pages():
         note_write(OUT / f"{page.stem}.png")
