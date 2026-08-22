@@ -893,6 +893,16 @@
    "active": true
   },
   {
+   "id": "ceiling-panel-slides-in",
+   "label": "The deep ceiling panel slides in through back-top's seam",
+   "kind": "gate",
+   "status": "pass",
+   "value": "0.000 mm\u00b3 of fixed back-top in its continuous sweep",
+   "target": "no fixed back-top material in the structural field's complete Y sweep",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "asse-seated",
    "label": "The tap-water chain lies in its printed trough",
    "kind": "gate",

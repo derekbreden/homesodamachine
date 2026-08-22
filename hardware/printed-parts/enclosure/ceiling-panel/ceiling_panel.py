@@ -2,15 +2,17 @@
 
 In the BOX'S OWN FRAME, not a frame of its own: every plane this part stands on is a
 plane the box states about itself, and a second copy of any of them is a second machine.
-Its underside lies on the interior ceiling and its top face IS the appliance's top
-surface, so the part occupies the top wall's own section over its whole footprint.
+Its 3 mm show skin spans the interior ceiling datum and its top face IS the appliance's top
+surface. A broad 8 mm structural field descends into the room, relieved only where the placed
+bodies and a strap approach need that volume.
 
 WHY IT IS A SEPARATE PART. enclosure-back-top prints mouth-down on its seam rim with the
 build axis +Z (`enclosure.py`'s module docstring), so a ceiling printed in that piece is
 a roof laid down `piece_h` over the open service bay. front-top's ceiling is two
 corbelled side strips with the hopper throat as the void between them. back-top has no
-throat of its own, so its ceiling is this part instead: a flat slab on the bed, show face
-down, slid in through the Y-seam mouth before the front half telescopes in.
+throat of its own, so its ceiling is this part instead: a flat plate on the bed, show face
+down, all pockets opening upward, slid in through the Y-seam mouth before the front half
+telescopes in.
 
 WHAT THE PIECE KEEPS is the two side strips either side of this panel, `rail_run` wide,
 and it is those strips that carry the dado this panel's tongues run in — a drawer bottom
@@ -23,24 +25,24 @@ Plan:
   * WIDTH is `hopper_funnel.collar_w`, whole. The throat's opening is that wide and this
     panel's edges are collinear with it, so the ceiling reads as ONE channel down the
     machine — funnel in the front of it, panel filling the rest — rather than as a lid
-    with a hole beside it.
+    with a hole beside it. The visible skin grows into an 8 mm structural field on the
+    interior side; rounded pockets leave the exact headroom the purchased bodies need.
   * FORE EDGE is the collar's own aft edge, and it is load-bearing: the funnel's brim
     overhangs the collar by `hopper_funnel.brim_overhang` and lands on this panel's first
     `brim_overhang` of show face, inside the `brim_margin` of top wall that
     `enclosure_assembly`'s `funnel-brim-margin` asks at that free edge. The two screw
     heads stand in that same landing — reached through the throat with the funnel out,
     covered by the brim with it in.
-  * AFT EDGE is back-top's own back-wall face, which is the panel's stop. The pack stands
-    hard against the ceiling under that wall — the C14's flange, both umbilical unions,
-    the CO2 neoFit and the tap-water chain's crown — so the storey there holds nothing a
-    corbelled closure off the wall could descend into, and the panel takes the span whole.
+  * AFT EDGE is back-top's own back-wall face, which is the panel's stop. Rounded pockets
+    preserve the C14, both upper umbilical unions, the CO2 neoFit and the tap-water chain;
+    the field between them carries continuously to the wall.
 
 The two screw stations pin the fore end against the slide. Aft of them the tongues hold
 the panel down and the back wall holds it in, so nothing else is fastened.
 
 AND EVERY RIB ROOTED ON THE CEILING OVER THIS FIELD IS THIS PART'S. The flow meter's two
-saddles and the three anchors bored for `carb-1`, `co2-2` and the WR1110's barrel used to
-hang off back-top; back-top has no ceiling there any more, so they hang off this.
+saddles and the three anchors bored for `carb-1`, `co2-2` and the WR1110's barrel hang from
+this field.
 `enclosure.ceiling_stations` splits the stations and both parts read that one call, so
 neither can grow a rib the other grew too. It is also the better bench for them: a seat
 hanging off the top wall is an upward-opening cradle with the piece inverted, and this
@@ -78,6 +80,12 @@ underside_z = _enc.appliance_height - 2.0 * _enc.wall
 # The show face — the appliance's top surface. The panel carries the top wall's own
 # section, so this is one `wall` over the interior ceiling and the exterior top face both.
 show_z = underside_z + _enc.wall
+# The broad interior field absorbs the screw pads and the roots of the meter and tube furniture.
+# It is sparse infill rather than a solid billet in the stated print profile; the CAD states the
+# load path and the slicer states how that envelope is filled.
+structural_t = 8.0
+structural_under_z = show_z - structural_t
+relief_corner_r = 3.0
 # How tall enclosure-back-top stands on the bed: its Z-seam rim to this face. Everything
 # the piece closes over its bay is printed at that height, over open air.
 piece_h = show_z - _enc.z_seam
@@ -140,10 +148,9 @@ def dado():
 
 # --- the two screws that pin the fore end ------------------------------------
 #
-# A 3 mm lid cannot bury a socket cap, so the panel takes the box's own web at each
-# station: `cap_web_t` of section, the head down in the standard `head_cbore_dia` by
-# `head_cbore_depth` seat with `cap_web_land` under it, and the pad hanging into the bay
-# for the difference. `screw_len` then lands exactly: the land and a ruthex M3 short spend
+# The structural field is the box's own web at each station: `cap_web_t` of section, the head
+# down in the standard `head_cbore_dia` by `head_cbore_depth` seat with `cap_web_land` under it.
+# `screw_len` then lands exactly: the land and a ruthex M3 short spend
 # `screw_reach` of the under-head length and `mount_bore_relief` takes the rest, which
 # main() reads back against the box's own screw.
 screw_pad_t = _enc.cap_web_t
@@ -180,11 +187,75 @@ def _post(r, cx, cy, z0, z1):
     return cq.Solid.makeCylinder(r, z1 - z0, cq.Vector(cx, cy, z0), cq.Vector(0, 0, 1))
 
 
+def structural_stock():
+    """The ceiling's unrelieved 8 mm load field, inside the 3 mm show skin."""
+    return _slab(-panel_half_w, panel_half_w, fore_y, aft_y,
+                 structural_under_z, underside_z)
+
+
+def insertion_sweep():
+    """A conservative continuous sweep of the deeper field through back-top's Y seam."""
+    first_y = fore_y - (aft_y - _enc.y_seam)
+    return _slab(-panel_half_w, panel_half_w, first_y, aft_y,
+                 structural_under_z, underside_z)
+
+
+def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
+    solid = _slab(x0, x1, y0, y1, z0, z1)
+    radius = min(radius, (x1 - x0) / 3.0, (y1 - y0) / 3.0)
+    if radius <= 0.1:
+        return solid
+    return cq.Workplane(obj=solid).edges("|Z").fillet(radius).val()
+
+
+def _strap_reliefs(box):
+    """Full anchor footprints whose existing strap approach enters the deeper field."""
+    _saddles, ribs = _enc.ceiling_stations(
+        box.digiten_saddles, box.tube_anchors, panel=True)
+    raw = structural_stock()
+    pockets = []
+    for mid, u, n, seat_r in ribs:
+        origin = tuple(mid[k] - u[k] * _enc.tube_anchor_len / 2.0 for k in range(3))
+        crown = seat_r + _enc.wall
+        strap_origin = tuple(origin[k] + u[k] * _enc.tie_cav_wall for k in range(3))
+        strap = _enc._anchor_rib(strap_origin, u, n, _enc.tie_cav_w,
+                                  crown, crown, crown + _enc.tie_strap_t)
+        if raw.intersect(strap).Volume() <= 1e-6:
+            continue
+        if tuple(n) != (0, 0, 1):
+            raise ValueError(
+                f"a ceiling strap relief names root {n}; only a +Z root can be cut out of "
+                f"the panel's downward-open structural field")
+        b_face = underside_z - mid[2]
+        pockets.append(_enc._anchor_rib(
+            origin, u, n, _enc.tube_anchor_len,
+            crown + _enc.tie_strap_t + _enc.tie_cav_buffer, 0.0, b_face))
+    return tuple(pockets)
+
+
+def _relieved_stock(box):
+    """The broad field after body-derived headroom and strap approaches are opened below."""
+    stock = structural_stock()
+    for _name, x0, x1, y0, y1, pocket_top_z in box.ceiling_reliefs:
+        top = min(underside_z, pocket_top_z)
+        if top <= structural_under_z:
+            continue
+        stock = stock.cut(_rounded_slab(
+            x0, x1, y0, y1, structural_under_z - 0.1, top))
+    for pocket in _strap_reliefs(box):
+        stock = stock.cut(pocket)
+    return stock
+
+
 # --- the panel --------------------------------------------------------------
 
 def build(box=None):
-    """The panel as one solid: the field, a tongue down each long edge, the two screw pads sunk
-    for their heads — and, when a `box` is handed in, THE CEILING'S OWN FURNITURE.
+    """The panel as one solid: show skin, relieved structural field, tongues and furniture.
+
+    THE 8 MM FIELD IS THE STRUCTURE. Its downward-open pockets are struck from the purchased
+    bodies' intersections with the unrelieved stock, so the broad remainder carries load in two
+    dimensions while the screw stations and most furniture roots disappear into it. A box-less
+    build keeps the stock whole; the machine build hands in the exact relief stations.
 
     EVERY RIB ROOTED ON THE INTERIOR CEILING OVER THIS FIELD ROOTS ON THIS PART. The flow meter's
     two saddles and the three anchors under the top wall used to hang off back-top; back-top has no
@@ -198,6 +269,7 @@ def build(box=None):
     into its two saddles and the runs into their three, straps go round, and the loaded panel then
     slides into back-top's dados."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
+    field = field.fuse(_relieved_stock(box) if box is not None else structural_stock())
     # The tongues, one down each long edge, at the panel's own underside.
     for sx in (-1.0, 1.0):
         edge = sx * panel_half_w
@@ -220,6 +292,12 @@ def build(box=None):
             _enc.screw_clear_dia / 2.0, cx, cy, screw_seat_z - 1.0, show_z + 1.0)))
     if box is None:
         return solid
+    # The C14 tunnel's crown occupies this field at the installed pose and therefore travels
+    # with it. Back-top keeps the rest of the same feature; the union is unchanged when closed.
+    c14_cap = _enc.c14_ceiling_cap(
+        box.inner, box.outer, box.c14, box.back_ports, structural_stock())
+    if c14_cap is not None and c14_cap.Volume() > 1e-6:
+        solid = solid.union(c14_cap)
     saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
     # THE CEILING THESE ROOT ON IS THIS PANEL'S UNDERSIDE. A rib's two ends climb to the face it
     # stops on and the strap's channel is the room they leave between them, so what the builders
@@ -270,10 +348,11 @@ def main():
     out = _here.parent / "ceiling-panel.step"
     export_assembly(one_body(panel, "ceiling-panel", M_PETG_BLACK), str(out))
     print(f"-> {out.name}")
-    print(f"  field:   {panel_w:.1f} x {depth:.1f} x {_enc.wall:.1f} mm, "
-          f"x +-{panel_half_w:g}, y {fore_y:g}..{aft_y:g}, z {underside_z:g}..{show_z:g}")
+    print(f"  field:   {panel_w:.1f} x {depth:.1f} x {structural_t:.1f} mm structural, "
+          f"x +-{panel_half_w:g}, y {fore_y:g}..{aft_y:g}, "
+          f"z {structural_under_z:g}..{show_z:g}")
     print(f"  bbox:    {b.xlen:.1f} x {b.ylen:.1f} x {b.zlen:.1f} mm "
-          f"(tongues out to +-{panel_half_w + tongue_reach:g}, pads down to {screw_seat_z:g}, "
+          f"(tongues out to +-{panel_half_w + tongue_reach:g}, field down to {screw_seat_z:g}, "
           f"ribs to {b.zmin:g})")
     print(f"  tongue:  {tongue_t:.2f} thick x {tongue_reach:.2f} reach, "
           f"{dado_slip:g} slip per face")
@@ -289,6 +368,8 @@ def main():
     print(f"  carries: {0 if saddles is None else len(saddles[3])} meter saddle(s), "
           f"{len(ribs)} ceiling rib(s) — "
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
+    print(f"  reliefs: {len(box.ceiling_reliefs)} body pocket(s), "
+          f"{len(_strap_reliefs(box))} full strap approach pocket(s), rounded r{relief_corner_r:g}")
     print(f"  piece:   back-top stands {piece_h:g} mm on its seam rim at z {_enc.z_seam:g}")
     print(f"  bed:     {b.xlen:.1f} x {b.ylen:.1f} on the H2C's {bed_x:g} x {bed_y:g}")
 
@@ -299,6 +380,11 @@ def main():
             "PANEL_HALF_W": f"{panel_half_w:g}",
             "PANEL_D": f"{depth:g} mm",
             "PANEL_T": f"{_enc.wall:g} mm",
+            "STRUCTURAL_T": f"{structural_t:g} mm",
+            "STRUCTURAL_UNDER": f"{structural_under_z:g}",
+            "RELIEF_R": f"{relief_corner_r:g} mm",
+            "RELIEF_N": f"{len(box.ceiling_reliefs)}",
+            "STRAP_RELIEF_N": f"{len(_strap_reliefs(box))}",
             "PIECE_H": f"{piece_h:g} mm",
             "PANEL_FORE": f"{fore_y:g}",
             "PANEL_AFT": f"{aft_y:g}",

@@ -16,11 +16,12 @@
     "PANEL_FORE": "236",
     "PANEL_HALF_W": "79.5",
     "PANEL_SHOW": "355",
-    "PANEL_T": "3 mm",
     "PANEL_UNDER": "352",
     "PANEL_W": "159 mm",
     "PIECE_H": "195 mm",
     "RAIL_RUN": "22 mm",
+    "RELIEF_N": "6",
+    "RELIEF_R": "3 mm",
     "SCREW_BORE": "340.75",
     "SCREW_LAND": "4 mm",
     "SCREW_LEN": "M3x10",
@@ -29,6 +30,9 @@
     "SCREW_SEAT": "347",
     "SCREW_X": "74.925",
     "SCREW_Y": "239.5",
+    "STRAP_RELIEF_N": "1",
+    "STRUCTURAL_T": "8 mm",
+    "STRUCTURAL_UNDER": "347",
     "TONGUE_REACH": "1.2 mm",
     "TONGUE_T": "1.2 mm"
   }
