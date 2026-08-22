@@ -187,28 +187,6 @@ html, body {
   fill: #4b4d54;
 }
 
-.unreleased-banner rect {
-  fill: #fff;
-  stroke: var(--accent);
-  stroke-width: 4;
-  stroke-dasharray: 11 8;
-}
-.unreleased-banner circle {
-  fill: #fff;
-  stroke: var(--accent);
-  stroke-width: 4;
-}
-.unreleased-banner path {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 5;
-  stroke-linecap: round;
-}
-.unreleased-banner text {
-  font: 700 17px/1 var(--mono);
-  fill: var(--accent);
-}
-
 .identity-column-title {
   font: 700 17px/1 var(--mono);
   fill: #5f6168;
@@ -220,7 +198,14 @@ html, body {
 }
 .badge-soda { fill: var(--water); }
 .badge-flavor { fill: var(--ink); }
-.badge-stop { fill: var(--accent); }
+.badge-fitted { fill: var(--good); }
+.fitted-check {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .badge-letter {
   font: 700 21px/1 var(--mono);
   fill: #fff;
@@ -233,35 +218,7 @@ html, body {
   font: 400 16px/1 var(--mono);
   fill: #686a72;
 }
-.port-field-lock > rect {
-  fill-opacity: .24;
-  stroke: var(--accent);
-  stroke-width: 8;
-}
-.port-field-lock g path {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 9;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.port-field-lock g rect {
-  fill: var(--accent);
-  stroke: #fff;
-  stroke-width: 4;
-}
-.port-field-lock g circle {
-  fill: #fff;
-}
-.port-field-lock .lock-label rect {
-  fill: var(--accent);
-}
-.port-field-lock .lock-label text {
-  font: 700 18px/1 var(--mono);
-  fill: #fff;
-}
-
-.stop-band {
+.scope-band {
   min-height: 0;
   display: grid;
   grid-template-columns: 330px 1fr;
@@ -269,27 +226,27 @@ html, body {
   column-gap: 24px;
   align-items: center;
   padding: 13px 22px 11px;
-  background: var(--accent);
+  background: var(--ink);
   color: #fff;
 }
-.stop-band > strong {
+.scope-band > strong {
   grid-row: 1 / span 2;
   font-size: 39px;
   line-height: .95;
   letter-spacing: -1px;
 }
-.stop-band > div {
+.scope-band > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
-.stop-band > div b {
+.scope-band > div b {
   font: 700 18px/1 var(--mono);
   white-space: nowrap;
 }
-.stop-band > div b::before { content: "× "; font-size: 25px; }
-.stop-band > span { font-size: 16px; line-height: 1.1; opacity: .98; }
+.scope-band > div b::before { content: "• "; color: #aeb1b8; }
+.scope-band > span { font-size: 16px; line-height: 1.1; opacity: .98; }
 
 .page-foot {
   border-top: 3px solid var(--ink);
