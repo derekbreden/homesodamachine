@@ -7125,6 +7125,22 @@ def main():
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(a, str(out))
     print(f"-> {out.name}")
+    # `export_assembly` keeps the last good sidecar when tessellation fails so a drawing can
+    # still be made from the STEP. That fallback is not safe here: the service scenes below
+    # are composed from this payload, and grafting the flute skin would otherwise refresh an
+    # old sidecar's mtime and make stale machine geometry look current.
+    mesh = Path(str(out) + ".mesh")
+    import _mesh_payload                                            # noqa: E402
+    try:
+        mesh_mtime = mesh.stat().st_mtime_ns
+        step_mtime = out.stat().st_mtime_ns
+        mesh_version = _mesh_payload.read_version(mesh)
+    except Exception as exc:
+        raise RuntimeError(f"{out.name} did not produce a readable mesh payload") from exc
+    if mesh_version != _mesh_payload.VERSION or mesh_mtime < step_mtime:
+        raise RuntimeError(
+            f"{out.name} did not produce a current v{_mesh_payload.VERSION} mesh payload"
+        )
     # AND THE FLUTED SURFACES BACK INTO THE PAYLOAD THE VIEWER READS. The export above writes
     # `<out>.mesh` off this B-rep, and the six enclosure pieces in it are smooth prisms there —
     # their show surfaces are in the printed mesh and not in the solid
@@ -7135,7 +7151,7 @@ def main():
     # tree, and `flute_payload` pulls in a decimator and a proximity index that only the run
     # which cuts the appliance ever uses. The read is still traced, so the graph declares it.
     import flute_payload                                                # noqa: E402
-    grafted = flute_payload.graft(Path(str(out) + ".mesh"), flute_payload.surfaces())
+    grafted = flute_payload.graft(mesh, flute_payload.surfaces())
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     # The waterjet's file for the one steel piece, off the same spec the pockets and the
