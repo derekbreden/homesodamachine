@@ -27,13 +27,13 @@ energize, pressure-test, or commission the machine. In particular, it does not a
 - faucet-signal termination, protective-earth disposition, or AC power;
 - filling, priming, refrigeration, carbonation, or dispensing.
 
-The faucet mount is blocked on literal hardware acceptance. The blue supply tube is
-compression-connected before shipment, so an ordinary closed washer and nut cannot be added over
-the shank in the field. The released architecture requires the final keeper or lock hardware to be
-captive on the bare shank before that tube joint, with the open keyhole plate sliding into the
-accepted stack. The actual A2031 underside hardware, tightening tool and secure-state test,
-countertop envelope, signal-ribbon protection, hand/tool keep-out, and plate electrical
-classification all require physical acceptance.
+Installer mounting and connection instructions are not released pending measured donor and coupon
+facts. The blue supply tube is compression-connected before shipment, and the current closed
+washer-and-nut abstraction does not establish a field handoff around that carton-state assembly.
+The acceptable keeper, lock, plate, and nut disposition remains unverified. Release requires the
+actual A2031 underside hardware, tightening tool and secure-state test, countertop envelope,
+signal-ribbon protection, hand/tool keep-out, and plate electrical classification to pass physical
+acceptance.
 
 Current CAD establishes only these mount-envelope inputs: the prepared opening is Ø34.93 mm; its
 intended seated center is 4.992 mm behind the shank axis; the rigid upper plate is 4.000 mm, the TPU
@@ -54,7 +54,7 @@ procedure, serial-only result, or recreated screen does not establish product tr
 
 | Gate | Observable evidence required | Picture unlocked | Owner / workstream |
 | --- | --- | --- | --- |
-| Installed mechanical, utility, and electrical handoff | Install one carton-state unit with the released captive underside hardware. Coupon the actual A2031/S4177511/counter stack; accept maximum countertop thickness, keyhole slide, tightening tool, lever-rock/gasket-creep result, underside keep-out, and protected signal-ribbon route. Resolve plate PE classification and test. Verify side-grille and service clearances, actual PP1208E insertion witnesses, `TAP` and restrained regulated-CO2 connections, leak tests, and a qualified power-last handoff. | Literal dry installation and installer handoff. | Faucet/umbilical, Steel Plate, wiring/electrical, installer validation |
+| Installed mechanical, utility, and electrical handoff | Install one carton-state unit with the accepted underside hardware and measured handoff. Coupon the actual A2031/S4177511/counter stack; accept maximum countertop thickness, keeper/lock/plate/nut disposition, tightening tool, lever-rock/gasket-creep result, underside keep-out, and protected signal-ribbon route. Resolve plate PE classification and test. Verify side-grille and service clearances, actual PP1208E insertion witnesses, `TAP` and restrained regulated-CO2 connections, leak tests, and a qualified power-last handoff. | Literal dry installation and installer handoff. | Faucet/umbilical, Steel Plate, wiring/electrical, installer validation |
 | Cold carbonated-water substrate | From shipped-dry state, the real fill path stops at the released level or faults safely; regulation holds; compressor and fan reach the released cold gate; a lever pour produces cold visibly carbonated water without sputter; refill waits while the lever is open. | Commissioned cold-carbonated-water handoff. No `READY` screen is implied. | Firmware, pressure/refrigeration hardware, wet commissioning |
 | One bottle reaches one chosen reservoir | A released initiation and destination action routes one 440 mL bottle through the correct valves and pump into only A or B. The hopper drains, transfer stops in a bounded way, and the product exposes a truthful completion observable. Pass both destinations without overflow, cross-fill, or leak. | Choose destination, pour one bottle, observe the literal completion state. | Firmware, hopper/level sensing, fluid hardware, wet commissioning |
 | Wet prime reaches the matching nozzle | Holding Prime opens the authoritative valve pair and matching pump. Concentrate exits only the selected nozzle tube; release, timeout, or link loss parks the pump and both valves without crossflow or leak. Pass A and B. | Cup under nozzle, hold Prime until flavor appears, release to stop. | Firmware, fluid topology, wet commissioning |
