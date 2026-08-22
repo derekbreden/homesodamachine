@@ -106,7 +106,12 @@ above, each one slip off its own.
 Service is one motion — **draw the tray west**, out through the slot in that same
 wall (`enclosure_assembly.west_wall_ports`, cut on the same two rectangles as the
 berth). The tray's west end stands `enclosure_assembly.PAN_PROUD` outside the
-machine's skin: thumb on the flange's top, fingertip under the floor, and it comes.
+machine's skin. That exposed end is one full-height chamfered pull face over the
+basin's [84](PAN_RIM_DEPTH) mm rim width and [15](PAN_HEIGHT) mm height. It reaches
+[5.7](PULL_FACE_DEPTH) mm back from the outer plane, leaving one running-fit slip
+to the enclosure skin, so the face masks the two-level wall slot without becoming
+the insertion stop. Its [2.5](PULL_FACE_CHAMFER) mm corners rise at 45 degrees from
+the print bed. Thumb on the flange's top, fingertip under the floor, and it comes.
 
 The probe's two leads rise from their holes in the open basin and turn west through
 the sleeve's **open-top wall notch**. The notch is on the holes' Y station and crosses

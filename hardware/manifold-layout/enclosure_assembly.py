@@ -4717,12 +4717,13 @@ ASSE1022_YAW = -90.0
 # `check_pan_lane` holds the tray's SLEEVE off the casting's west flank by this, read over the
 # room the sleeve itself stands in.
 FOOT_CLEAR = 1.0
-# How far the tray's west end stands OUTSIDE the machine's own skin. The berth behind it closes
-# on the tray's silhouette one `drip_pan.PAN_SLIP` a side, so this tab is the whole of the tray
-# a hand meets: thumb on the flange's top, fingertip under the floor, draw west.
+# How far the tray's west end stands OUTSIDE the machine's own skin. The pull face extends back
+# from that outer plane and stops one running-fit slip before the wall, so it masks the berth
+# without becoming the tray's insertion stop. This is the whole of the tray a hand meets: thumb
+# on the flange's top, fingertip under the floor, draw west.
 #   IT CARRIES THE PROBE WITH IT. The plate rides the tray, so the vent's tip lands this far
 # east of the plate's own centre, and `check_drip_reads` takes that reading.
-PAN_PROUD = 6.0
+PAN_PROUD = _pan.PULL_FACE_DEPTH + _pan.PAN_SLIP
 # The probe plate has two individual 22 AWG silicone leads soldered on 2.54 mm centres. They
 # rise in the open basin and turn WEST through one notch in the withdrawal wall. It is not a
 # close wire bore: the top is absent and this clear width takes the pair plus hand-routed slack.

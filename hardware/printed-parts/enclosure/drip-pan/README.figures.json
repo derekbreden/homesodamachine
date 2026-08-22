@@ -16,6 +16,8 @@
     "PAN_WATER_DEPTH": "12",
     "PLATE_DEPTH": "40",
     "PLATE_LEN": "54",
-    "PLATE_SLIP_MM": "1"
+    "PLATE_SLIP_MM": "1",
+    "PULL_FACE_CHAMFER": "2.5",
+    "PULL_FACE_DEPTH": "5.7"
   }
 }
