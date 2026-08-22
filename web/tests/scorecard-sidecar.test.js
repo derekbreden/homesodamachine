@@ -8,6 +8,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -24,6 +25,24 @@ const SIDECAR = sidecarIn("hardware");
 // The cold core's own sidecar, written by hardware/cold-core-layout/cold_core_assembly.py.
 const COLD_SIDECAR = path.join(REPO_ROOT, "hardware", "cold-core-layout",
   "cold-core-assembly.scorecard.json");
+
+test("the artifact lock pins every committed viewer scorecard", (t) => {
+  const lock = JSON.parse(fs.readFileSync(
+    path.join(REPO_ROOT, "hardware", "cad-artifacts.lock.json"), "utf8"));
+  if (!lock.sidecars) return t.skip("this source commit predates scorecard pinning");
+  const entries = Object.entries(lock.sidecars);
+  assert.ok(entries.length, "the lock names at least one viewer scorecard");
+  for (const [rel, expected] of entries) {
+    assert.ok(rel.startsWith("hardware/") && rel.endsWith(".scorecard.json"),
+      `${rel} is a confined scorecard path`);
+    const full = path.resolve(REPO_ROOT, rel);
+    assert.ok(full.startsWith(path.join(REPO_ROOT, "hardware") + path.sep),
+      `${rel} stays under hardware/`);
+    assert.ok(fs.existsSync(full), `${rel} is committed beside its lock`);
+    const actual = createHash("sha256").update(fs.readFileSync(full)).digest("hex");
+    assert.equal(actual, expected, `${rel} matches the lock`);
+  }
+});
 
 test("enclosure scorecard sidecar conforms to the contract", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");

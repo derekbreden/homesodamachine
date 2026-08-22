@@ -45,6 +45,17 @@ from inventory import ACTION_INTERMEDIATE                 # noqa: E402
 #: inputs; this is what tells a declared output from one of those.
 _DECLARED = re.compile(r"/bin/out/[^/]+/(.+)$")
 
+#: The remote publisher carries only bytes the deployed viewer consumes. Geometry leaves through
+#: the artifact bundle; scorecards remain tracked beside it because the viewer reads them directly.
+#: Everything else stays in bazel-bin so a scoped CAD publish never grows into a docs, cards,
+#: ledger, facts, or thumbnail regeneration lane.
+_SOLID_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
+_PUBLIC_EVIDENCE = (".scorecard.json",)
+
+
+def _runtime_output(path: str) -> bool:
+    return path.endswith(_SOLID_OUTPUTS + _PUBLIC_EVIDENCE)
+
 #: HOW A REWRITTEN MEDIUM IS CARRIED. `_SPLICE` names the four whose text is partly their own,
 #: each with a scope a substituter writes in and everything outside it authored; `_WHOLE` names
 #: the two a writer composes every byte of — a `.figures.json` holds figures and nothing a
@@ -245,8 +256,10 @@ def main() -> int:
                     help="targets that failed this run; their outputs are not carried")
     ap.add_argument("--targets", default="", metavar="TARGET[,TARGET…]",
                     help="carry these explicitly built producers; default: //:everything")
-    ap.add_argument("--solids-only", action="store_true",
-                    help="carry publishable CAD outputs, leaving derived docs in bazel-bin")
+    scope = ap.add_mutually_exclusive_group()
+    scope.add_argument("--solids-only", "--runtime-only", dest="runtime_only",
+                       action="store_true",
+                       help="carry publishable viewer outputs, leaving derived work in bazel-bin")
     args = ap.parse_args()
     failed = {t.strip().lstrip("/").lstrip(":") for t in args.failed.split(",") if t.strip()}
     labels = _labels(args.targets)
@@ -286,9 +299,8 @@ def main() -> int:
             return 1
 
     pairs = _targets(labels)
-    if args.solids_only:
-        pairs = {built: tree for built, tree in pairs.items()
-                 if tree.endswith((".step", ".stl", ".glb", ".step.mesh"))}
+    if args.runtime_only:
+        pairs = {built: tree for built, tree in pairs.items() if _runtime_output(tree)}
     if not pairs:
         print("  nothing built — run the requested `bazel build` first")
         return 1
@@ -384,6 +396,16 @@ def selftest() -> int:
     match = _DECLARED.search(sample)
     holds(match.group(1) if match else None, "hardware/panel.step",
           "an ignored declared STEP was not mapped back into the tree")
+    holds([_runtime_output(path) for path in (
+              "hardware/panel.step",
+              "hardware/panel.step.mesh",
+              "hardware/panel.scorecard.json",
+              "hardware/panel.facts.json",
+              "hardware/panel.png",
+              "hardware/README.md",
+          )],
+          [True, True, True, False, False, False],
+          "the runtime carry either lost public evidence or admitted presentation work")
 
     # A MARKDOWN DOC. The build was handed the old sentence; the tree holds the new one and the
     # old figure. What comes back is the new sentence at the build's figure.

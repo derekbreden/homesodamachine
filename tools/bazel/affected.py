@@ -39,6 +39,16 @@ _BUILD = "BUILD.bazel"
 _GRAPH = "tools/bazel/graph.json"
 _CAD_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
 
+#: These two programs move or package an already-described cut; neither is an input to a CAD
+#: action.  A change still needs a real current cut to exercise, and the enclosure assembly is
+#: the deployed viewer's canonical producer.  Naming that one sentinel keeps publication-code
+#: work fail-closed on both scorecard producers without turning it into an unrelated
+#: sixty-two-rule geometry rebuild.
+_PUBLICATION_SENTINELS = {
+    "tools/bazel/sync_tree.py": ("//:cold-core-assembly", "//:enclosure-assembly"),
+    "tools/cad-artifacts/pack.py": ("//:cold-core-assembly", "//:enclosure-assembly"),
+}
+
 
 def _git(*args) -> list:
     run = subprocess.run(["git", "-C", str(_ROOT), *args],
@@ -275,6 +285,17 @@ def declared_outputs() -> set:
     return {path for node in graph.values() for path in node.get("writes", ())}
 
 
+def artifact_sidecar_output(path: str) -> bool:
+    """Whether `path` is generated viewer evidence, not an authored action input.
+
+    Sidecars are committed atomically with the lock, so every later source range crosses the
+    preceding publication commit. Treating that generated output as fresh input debt rebuilds
+    its producer after every unrelated source push. The source that makes it remains a normal
+    graph input and selects the producer; a sidecar-only race is handled at the lock boundary.
+    """
+    return path.endswith(".scorecard.json") and path in declared_outputs()
+
+
 def artifact_global(path: str) -> bool:
     """Whether an edit changes how every artifact action is described or executed."""
     if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
@@ -290,6 +311,8 @@ def artifact_global(path: str) -> bool:
     # correction is meant to remove.  The selftest inventory likewise describes test runners,
     # not published solids.
     if path in {"tools/bazel/affected.py", "tools/bazel/selftests.json"}:
+        return False
+    if path in _PUBLICATION_SENTINELS:
         return False
     return path.startswith(("tools/bazel/", "tools/cad-artifacts/",
                             "tools/cad-venv-site/", "tools/ci-image/"))
@@ -361,6 +384,8 @@ def artifact_presentation_only(path: str) -> bool:
 def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
     """Whether an unlabelled path could define or feed a new CAD action."""
     if path == "hardware/cad-artifacts.lock.json":
+        return False
+    if artifacts_only and path in _PUBLICATION_SENTINELS:
         return False
     # A study is deliberately outside the product graph.  If one of its files is promoted into
     # a generator, that generator's changed, declared importer scopes the build; while it remains
@@ -485,6 +510,13 @@ def selftest() -> int:
                               ["tools/bazel/affected.py"], True) == []
          and unscoped_changes([".github/workflows/derive.yml"], [], True)
              == [".github/workflows/derive.yml"])
+    hold("publication machinery exercises only the scorecard producers",
+         not artifact_global("tools/bazel/sync_tree.py")
+         and not artifact_unknown("tools/cad-artifacts/pack.py", True)
+         and set().union(*map(set, _PUBLICATION_SENTINELS.values()))
+             == {"//:cold-core-assembly", "//:enclosure-assembly"}
+         and artifact_sidecar_output(
+             "hardware/manifold-layout/enclosure-assembly.scorecard.json"))
     empty = io.StringIO()
     write_targets([], empty)
     hold("zero targets write zero bytes", empty.getvalue() == "", repr(empty.getvalue()))
@@ -496,7 +528,7 @@ def selftest() -> int:
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 12 else 1
+        return 0 if holds == 13 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
@@ -510,8 +542,8 @@ def selftest() -> int:
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
          "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
-    print(f"affected selftest {holds}/18")
-    return 0 if holds == 18 else 1
+    print(f"affected selftest {holds}/19")
+    return 0 if holds == 19 else 1
 
 
 def say_if_unshimmed() -> None:
@@ -572,7 +604,9 @@ def main(argv) -> int:
     moved = changed_between(args.base, args.head) if args.base else changed()
     scoped_metadata = safely_scoped_metadata(moved, args.artifacts, args.base, args.head)
     if args.artifacts:
-        moved = [path for path in moved if not artifact_presentation_only(path)]
+        moved = [path for path in moved
+                 if not artifact_presentation_only(path)
+                 and not artifact_sidecar_output(path)]
     if not moved:
         print("nothing has moved — a build of this tree holds nothing to do", file=sys.stderr)
         return 0
@@ -590,9 +624,16 @@ def main(argv) -> int:
         found = sorted(artifact_targets()) if args.artifacts else ["//:everything"]
     elif args.artifacts:
         found = sorted(set(found) & artifact_targets())
+    if args.artifacts:
+        found = sorted(set(found) | {
+            target
+            for path, targets_for_path in _PUBLICATION_SENTINELS.items() if path in moved
+            for target in targets_for_path
+        })
     if args.why:
         for t in found:
-            reach = [p for p in hit if t in targets([p])]
+            reach = [p for p in hit if (t in targets([p])
+                                        or t in _PUBLICATION_SENTINELS.get(p, ()))]
             print(f"{t}\n    " + "\n    ".join(reach))
     else:
         write_targets(found)

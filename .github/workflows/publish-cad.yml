@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - hardware/**
+      # Generated viewer verdicts move only in the same commit as their artifact lock.
+      - '!hardware/**/*.scorecard.json'
       - '!hardware/quickstart/studies/**'
       # The *.html scan declares this directory entry, but the renderer never opens its bytes.
       - '!hardware/quickstart/README.md'
@@ -255,7 +257,7 @@ jobs:
           rc=$?
           set -e
           [ "$rc" -le 1 ]
-          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --solids-only \
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --runtime-only \
             --targets "$TARGETS"
 
       - name: Carry only the canonical Quick Start
@@ -290,6 +292,11 @@ jobs:
             hardware/quickstart/quick-start.pdf
             hardware/quickstart/quick-start.pdf.json
           )
+          mapfile -t sidecar_outputs < <(
+            tools/cad-venv/bin/python -c \
+              'import json; [print(path) for path in json.load(open("hardware/cad-artifacts.lock.json")).get("sidecars", {})]'
+          )
+          sidecar_targets=(//:cold-core-assembly //:enclosure-assembly)
 
           quickstart_sources_between() {
             git diff --name-only --no-renames "$1" "$2" | while IFS= read -r path; do
@@ -306,13 +313,37 @@ jobs:
 
           queue_latest() {
             echo "queueing publication from the current main tip"
-            gh workflow run publish-cad.yml --ref main
+            if [ "$#" -gt 0 ]; then
+              requested=$(IFS=,; echo "$*")
+              gh workflow run publish-cad.yml --ref main -f targets="$requested"
+            else
+              gh workflow run publish-cad.yml --ref main
+            fi
             echo "queued=true" >> "$GITHUB_OUTPUT"
+          }
+
+          lock_sidecars_are_pinned() {
+            ref=$1
+            git show "$ref:hardware/cad-artifacts.lock.json" > /tmp/candidate-lock.json || \
+              return 1
+            for path in "${sidecar_outputs[@]}"; do
+              expected=$(PATH_IN_LOCK="$path" tools/cad-venv/bin/python -c \
+                'import json,os; print(json.load(open("/tmp/candidate-lock.json")).get("sidecars", {}).get(os.environ["PATH_IN_LOCK"], ""))')
+              [ -n "$expected" ] || return 1
+              git show "$ref:$path" > /tmp/candidate-sidecar.json 2>/dev/null || return 1
+              actual=$(sha256sum /tmp/candidate-sidecar.json | awk '{print $1}')
+              [ "$actual" = "$expected" ] || return 1
+            done
           }
 
           git config user.name  "Derek Bredensteiner"
           git config user.email "derekbreden@gmail.com"
           git add hardware/cad-artifacts.lock.json
+          # The lock says exactly which public scorecards belong to this cut. Stage no general
+          # JSON/docs output here; a scoped CAD publication stays a viewer-runtime lane.
+          if [ "${#sidecar_outputs[@]}" -gt 0 ]; then
+            git add -- "${sidecar_outputs[@]}"
+          fi
           if [ "${{ steps.scope.outputs.quickstart }}" = true ]; then
             git add -- "${quickstart_outputs[@]}"
           fi
@@ -331,7 +362,8 @@ jobs:
                 source=$(git show "$tip:hardware/cad-artifacts.lock.json" | \
                   tools/cad-venv/bin/python -c \
                     'import json,sys; print(json.load(sys.stdin).get("source", {}).get("commit", ""))')
-                if [ -n "$source" ] && git merge-base --is-ancestor "$GITHUB_SHA" "$source"; then
+                if [ -n "$source" ] && git merge-base --is-ancestor "$GITHUB_SHA" "$source" && \
+                   lock_sidecars_are_pinned "$tip"; then
                   echo "a newer artifact lock already covers this source"
                   lock_commit=$(git log -1 --format=%H "$base..$tip" -- \
                     hardware/cad-artifacts.lock.json)
@@ -339,6 +371,13 @@ jobs:
                   exit 0
                 fi
                 queue_latest
+                exit 0
+              fi
+
+              if [ "${#sidecar_outputs[@]}" -gt 0 ] && \
+                 ! git diff --quiet "$base" "$tip" -- "${sidecar_outputs[@]}"; then
+                echo "a generated scorecard moved outside this lock cut"
+                queue_latest "${sidecar_targets[@]}"
                 exit 0
               fi
 
@@ -404,6 +443,9 @@ jobs:
           published_mesh=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
             tools/cad-venv/bin/python -c \
               'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])')
+          published_scorecard=$(git show "$EXPECTED:hardware/cad-artifacts.lock.json" | \
+            tools/cad-venv/bin/python -c \
+              'import json,sys; print(json.load(sys.stdin)["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])')
           published_quickstart=""
           if [ "$VERIFY_QUICKSTART" = true ]; then
             published_quickstart=$(git show \
@@ -424,12 +466,20 @@ jobs:
             fi
             if [ "$covered" = true ]; then
               expected_mesh="$published_mesh"
+              expected_scorecard="$published_scorecard"
               expected_quickstart="$published_quickstart"
               if [ "$live" != "$EXPECTED" ]; then
-                expected_mesh=$(gh api -H 'Accept: application/vnd.github.raw+json' \
-                  "repos/$GITHUB_REPOSITORY/contents/hardware/cad-artifacts.lock.json?ref=$live" | \
+                rm -f /tmp/live-lock.json
+                gh api -H 'Accept: application/vnd.github.raw+json' \
+                  "repos/$GITHUB_REPOSITORY/contents/hardware/cad-artifacts.lock.json?ref=$live" \
+                  > /tmp/live-lock.json 2>/dev/null || true
+                expected_mesh=$( \
                   tools/cad-venv/bin/python -c \
-                    'import json,sys; print(json.load(sys.stdin)["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])' \
+                    'import json; print(json.load(open("/tmp/live-lock.json"))["solids"]["hardware/manifold-layout/enclosure-assembly.step.mesh"])' \
+                  2>/dev/null || true)
+                expected_scorecard=$( \
+                  tools/cad-venv/bin/python -c \
+                    'import json; print(json.load(open("/tmp/live-lock.json"))["sidecars"]["hardware/manifold-layout/enclosure-assembly.scorecard.json"])' \
                   2>/dev/null || true)
                 if [ "$VERIFY_QUICKSTART" = true ]; then
                   expected_quickstart=""
@@ -449,6 +499,13 @@ jobs:
                 mesh=$(sha256sum /tmp/live-enclosure-assembly.step.mesh | awk '{print $1}')
               fi
               quickstart=""
+              scorecard=""
+              if curl -fsS \
+                https://homesodamachine.com/api/step-scorecard/manifold-layout/enclosure-assembly.scorecard.json \
+                -o /tmp/live-enclosure-assembly.scorecard.json; then
+                scorecard=$(sha256sum /tmp/live-enclosure-assembly.scorecard.json | \
+                  awk '{print $1}')
+              fi
               quickstart_ok=true
               if [ "$VERIFY_QUICKSTART" = true ]; then
                 quickstart_ok=false
@@ -462,14 +519,16 @@ jobs:
                 fi
               fi
               if [ -n "$expected_mesh" ] && [ "$mesh" = "$expected_mesh" ] && \
+                 [ -n "$expected_scorecard" ] && [ "$scorecard" = "$expected_scorecard" ] && \
                  [ "$quickstart_ok" = true ]; then
-                echo "production serves $live with locked assembly mesh $mesh"
+                echo "production serves $live with locked assembly mesh $mesh and scorecard $scorecard"
                 if [ "$VERIFY_QUICKSTART" = true ]; then
                   echo "production serves canonical Quick Start PDF $quickstart"
                 fi
                 exit 0
               fi
               echo "production version is covered; waiting for assembly mesh (expected ${expected_mesh:-unavailable}; got ${mesh:-unavailable})"
+              echo "waiting for current assembly scorecard (expected ${expected_scorecard:-unavailable}; got ${scorecard:-unavailable})"
               if [ "$VERIFY_QUICKSTART" = true ]; then
                 echo "waiting for canonical Quick Start PDF (expected ${expected_quickstart:-unavailable}; got ${quickstart:-unavailable})"
               fi
