@@ -836,7 +836,7 @@ static void processTextLine(const char *line) {
     Serial.printf("DIAG:heap=%lu,minHeap=%lu,touchInts=%lu,toggles=%lu,"
                   "maxLoopMs=%lu,dim=%d,bl=%u,localPersistErr=%d,"
                   "base=%s,sync=%d,baseFlavor=%u,basePersisted=%d,basePersistErr=%d,durabilityPending=%d,"
-                  "pending=%u,linkRx=%lu,linkTx=%lu,retries=%lu,qDrop=%lu,staleResp=%lu,"
+                  "pending=%u,linkRx=%lu,linkTx=%lu,retries=%lu,qDrop=%lu,staleResp=%lu,truthSync=%lu,"
                   "lastAckMs=%lu,maxAckMs=%lu,maxLinkUs=%lu,primeQ=%u,primeDrop=%lu,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
@@ -853,6 +853,7 @@ static void processTextLine(const char *line) {
                   (unsigned long)link.framesRx, (unsigned long)link.framesTx,
                   (unsigned long)link.retries, (unsigned long)link.queueDrops,
                   (unsigned long)link.staleResponses,
+                  (unsigned long)link.authoritativeReconciliations,
                   (unsigned long)link.lastAckMs, (unsigned long)link.maxAckMs,
                   (unsigned long)link.maxServiceUs,
                   (unsigned)link.primePending, (unsigned long)link.primeQueueDrops,
