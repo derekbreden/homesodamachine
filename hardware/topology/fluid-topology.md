@@ -56,7 +56,7 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. On a b
 
 ## Tube Segments
 
-Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor connection inventory the enclosure assembly owes, and each one is made one of four ways: butted collet to collet, folded into a hairpin across the hinge, turned out of a deck plane, or drawn as a swept run by [`_lines.py`](/hardware/manifold-layout/_lines.py). The chart's edge labels carry which.
+Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor connection inventory the enclosure assembly owes, and each one is made one of four ways: butted collet to collet, folded into a hairpin across the hinge, turned out of a deck plane, or drawn as a swept run by [`_lines.py`](/hardware/manifold-layout/_lines.py). An edge that carries no tube says so on its label; the rest the chart names by segment id alone. How every one of them is made, what it measures and how many corners it turns is what a bare run of [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints — no length is drawn on a chart, so none of them can go stale where nothing reads it.
 
 Four of the seven conduits in the cold core's top cap are this circuit's: a fill and a draw for each reservoir.
 
