@@ -19,7 +19,7 @@
       <div class="owner-head"><span class="step-no">1</span><div><h2>CHOOSE RESERVOIR 1</h2><p>Choose before opening the bottle.</p></div></div>
       <div class="owner-visual choose-visual">
         <img class="choose-machine" src="art/machine-front.png" alt="Exact machine front and its physical display">
-        <svg class="screen-leader" viewBox="0 0 760 500" aria-hidden="true"><path d="M106 293 C218 278 318 190 398 145"/><circle cx="106" cy="293" r="13"/></svg>
+        <svg class="screen-leader" viewBox="0 0 760 500" aria-hidden="true"><path d="M96 270 C198 264 312 183 398 145"/><circle cx="96" cy="270" r="13"/></svg>
         <div class="front-ui fill-ui" aria-label="Reservoir selection on the machine display">
           <div class="ui-crumb">FLAVOR / FILL</div>
           <strong>WHERE SHOULD IT GO?</strong>
@@ -64,16 +64,16 @@
       <div class="owner-visual fill-done-visual">
         <img class="empty-hopper" src="art/machine-hopper-close.png" alt="Exact hopper after the bottle has drained">
         <div class="empty-hopper-ring" aria-hidden="true"></div>
-        <div class="fill-complete-ui" aria-label="Machine display confirms that the hopper is empty and Reservoir 1 is filled">
+        <div class="fill-complete-ui" aria-label="Machine display confirms that the hopper is drained and the bottle has transferred to Reservoir 1">
           <div class="ui-crumb">FLAVOR / FILL / 1</div>
-          <strong>FILL COMPLETE</strong>
-          <div><span>✓</span><b>HOPPER EMPTY</b></div>
-          <div><span>✓</span><b>RESERVOIR 1 FILLED</b></div>
+          <strong>TRANSFER COMPLETE</strong>
+          <div><span>✓</span><b>HOPPER DRAINED</b></div>
+          <div><span>✓</span><b>BOTTLE TRANSFERRED</b></div>
         </div>
-        <svg class="done-flow" viewBox="0 0 760 500" aria-hidden="true"><path d="M98 300 C190 290 290 245 398 226"/><circle cx="98" cy="300" r="12"/><path d="M375 211 L401 226 L379 247"/></svg>
+        <svg class="done-flow" viewBox="0 0 760 500" aria-hidden="true"><path d="M92 254 C190 248 292 220 398 210"/><circle cx="92" cy="254" r="12"/><path d="M374 197 L401 210 L380 232"/></svg>
         <div class="persistent-choice"><b>1</b><span>STILL RESERVOIR 1</span></div>
       </div>
-      <div class="owner-caption"><b>WAIT.</b><span>Continue only after the hopper is empty and Reservoir 1 is filled.</span></div>
+      <div class="owner-caption"><b>WAIT.</b><span>Continue only after both transfer checks appear.</span></div>
     </article>
 
     <article class="owner-step prime-step">
@@ -81,17 +81,18 @@
       <div class="owner-visual prime-visual">
         <div class="counter-section" aria-hidden="true"><div class="counter-top"></div><div class="cabinet-line"></div></div>
         <img class="prime-machine" src="art/machine-front.png" alt="Exact machine below the counter">
+        <svg class="prime-machine-leader" viewBox="0 0 760 500" aria-hidden="true"><path d="M76 365 C120 350 162 330 210 321"/><circle cx="76" cy="365" r="11"/></svg>
         <img class="prime-faucet" src="art/faucet-side.png" alt="Exact faucet above the counter">
         <div class="prime-glass" aria-hidden="true"></div>
         <div class="prime-drop" aria-hidden="true"></div>
-        <div class="front-ui prime-ui" aria-label="Prime Reservoir 1 control on the machine display">
-          <div class="prime-nav"><span>SERVICE</span><i>›</i><span>PRIME</span><i>›</i><span>1</span></div>
-          <strong>HOLD TO PRIME 1</strong>
+        <div class="front-ui prime-ui" aria-label="Prime Flavor 1 control on the machine display">
+          <div class="prime-nav"><span>SERVICE</span><i>›</i><span>PRIME</span><i>›</i><span>FLAVOR 1</span></div>
+          <strong>HOLD TO PRIME FLAVOR 1</strong>
           <div class="hold-bar">KEEP HOLDING</div>
         </div>
         <svg class="hold-finger" viewBox="0 0 180 220" aria-hidden="true"><path d="M91 196 C62 179 43 158 40 132 L37 91 C36 76 55 72 59 88 L66 116 L65 38 C65 21 87 21 88 39 L91 100 L96 55 C97 38 118 40 118 57 L116 105 L124 73 C128 58 147 64 145 78 L139 125 C136 154 121 182 91 196 Z"/></svg>
-        <div class="prime-outcome"><i></i><b>FLAVOR APPEARS</b><span>↑ RELEASE FINGER</span></div>
-        <div class="persistent-choice right"><b>1</b><span>PRIME 1</span></div>
+        <div class="prime-outcome"><b>FLAVOR REACHES CUP</b><span>THEN RELEASE</span></div>
+        <div class="persistent-choice right"><b>1</b><span>FLAVOR 1</span></div>
       </div>
       <div class="owner-caption"><b>HOLD, THEN RELEASE.</b><span>Stop the moment Flavor 1 reaches the cup.</span></div>
     </article>
@@ -100,13 +101,16 @@
       <div class="owner-head"><span class="step-no">5</span><div><h2>WAIT FOR READY. SHOW FLAVOR 1.</h2><p>Ready means the water is filled, cold and carbonated.</p></div></div>
       <div class="owner-visual ready-visual">
         <img class="ready-machine" src="art/machine-front.png" alt="Exact machine with a ready-state enlargement from its display">
-        <svg class="ready-machine-leader" viewBox="0 0 760 500" aria-hidden="true"><path d="M70 382 C115 338 146 273 180 226"/><circle cx="70" cy="382" r="11"/></svg>
+        <svg class="ready-machine-leader" viewBox="0 0 760 500" aria-hidden="true"><path d="M72 338 C112 320 136 278 164 245"/><circle cx="72" cy="338" r="11"/></svg>
         <div class="ready-ui" aria-label="Ready to pour state on the machine display">
           <span class="ready-check">✓</span>
           <strong>READY TO POUR</strong>
           <small>WATER FILLED · COLD · CARBONATED</small>
         </div>
-        <svg class="ready-arrow" viewBox="0 0 760 500" aria-hidden="true"><path d="M360 250 H438"/><path d="M416 226 L440 250 L416 274"/></svg>
+        <svg class="ready-arrow" viewBox="0 0 760 500" aria-hidden="true">
+          <defs><marker id="readyMove" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14 Z" fill="#ed5966"/></marker></defs>
+          <path d="M486 214 C528 205 558 179 582 158" marker-end="url(#readyMove)"/>
+        </svg>
         <img class="ready-faucet" src="art/faucet-head.png" alt="Exact faucet head and its glass display">
         <img class="ready-flavor" src="art/flavor-1.png" alt="Flavor 1 screen shown on the faucet">
         <div class="wake-sequence" aria-label="If the faucet display is dark, tap once to wake it, then tap only until Flavor 1 appears">
@@ -125,12 +129,16 @@
         <div class="pour-screen-fill" aria-hidden="true"></div>
         <div class="pour-glass"><div class="starting-fill"></div><div class="fizz"></div></div>
         <svg class="pour-streams" viewBox="0 0 760 500" role="img" aria-label="Carbonated water and Flavor 1 leave their exact nozzle openings and begin mixing in the glass">
-          <path d="M159 128 C145 180 141 280 139 405" fill="none" stroke="#3b82c4" stroke-width="16" stroke-linecap="round"/>
-          <path d="M149 122 C134 176 130 276 126 405" fill="none" stroke="#80233a" stroke-width="7" stroke-linecap="round"/>
+          <path d="M139 138 C139 210 139 310 139 405" fill="none" stroke="#1f6feb" stroke-width="11" stroke-linecap="round"/>
+          <path d="M127 132 C127 210 127 310 126 405" fill="none" stroke="#80233a" stroke-width="7" stroke-linecap="round"/>
         </svg>
         <svg class="lever-displacement" viewBox="0 0 760 500" aria-hidden="true">
           <defs><marker id="leverMove" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14 Z" fill="#ed5966"/></marker></defs>
-          <path d="M284 310 V370" marker-end="url(#leverMove)"/>
+          <path d="M258 330 V370" marker-end="url(#leverMove)"/>
+        </svg>
+        <svg class="mix-leader" viewBox="0 0 760 500" aria-hidden="true">
+          <defs><marker id="mixMove" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12 Z" fill="#696b73"/></marker></defs>
+          <path d="M430 232 C350 270 260 360 150 450" marker-end="url(#mixMove)"/>
         </svg>
         <div class="lever-target"><b>PRESS DOWN</b><span>RELEASE = STOP</span></div>
         <div class="mix-note"><i class="water-line"></i><i class="flavor-line"></i><b>MIXES IN YOUR GLASS</b></div>
