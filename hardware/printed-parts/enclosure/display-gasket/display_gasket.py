@@ -31,7 +31,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
 from _cadq_export import export_assembly
 from _materials import M_TPU_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
-from enclosure import (
+from _enclosure_interface import (
     display_bezel_depth,
     display_bezel_slope,
     display_bezel_x,

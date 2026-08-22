@@ -54,13 +54,11 @@ IMPLICIT_SOLIDS = {
     ),
 }
 
-# One traced run produces two independent media. The GLBs are public CAD bundle members; the
-# PNG/JSON set is a browser-driven card render. Keeping them in one action made every geometry
-# publication wait for Chromium. Both wrappers call the same traced implementation, and this
-# partitions only its outputs; the GLB half also drops browser-only inputs it never opens.
+# A direct scene-render run can produce both media. The enclosure-assembly producer owns the
+# public GLBs now, cutting them from the named machine it already has in memory. This synthetic
+# card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace.
 SPLIT_GENERATORS = {
     "hardware/assembly/scenes/render_scenes.py": (
-        "hardware/assembly/scenes/render_scene_glbs.py",
         "hardware/assembly/scenes/render_scene_cards.py",
     ),
 }
@@ -68,18 +66,11 @@ SPLIT_GENERATORS = {
 
 def _split_generators(graph: dict) -> dict:
     graph = dict(graph)
-    for source, (glbs, cards) in SPLIT_GENERATORS.items():
+    for source, (cards,) in SPLIT_GENERATORS.items():
         if source not in graph:
             continue
         seen = graph.pop(source)
         rewritten = set(seen.get("rewritten", ()))
-        graph[glbs] = {
-            "reads": [p for p in seen.get("reads", ())
-                      if p not in rewritten
-                      and not p.startswith(("tools/render/", "web/"))],
-            "writes": [p for p in seen.get("writes", ()) if p.endswith(".glb")],
-            "rewritten": [],
-        }
         graph[cards] = {
             "reads": list(seen.get("reads", ())),
             "writes": [p for p in seen.get("writes", ()) if not p.endswith(".glb")],

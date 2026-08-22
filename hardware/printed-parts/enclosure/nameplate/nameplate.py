@@ -66,7 +66,7 @@ from _materials import step_safe                      # noqa: E402
 from docgen import substitute_md                      # noqa: E402
 import _back_panel_dimensions as _rear                # noqa: E402
 import _nameplate_dimensions as _plan                 # noqa: E402
-import enclosure as _enc                              # noqa: E402
+import _enclosure_interface as _enc                   # noqa: E402
 import port_ring as _ring                             # noqa: E402
 
 
