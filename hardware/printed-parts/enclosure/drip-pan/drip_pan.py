@@ -12,7 +12,8 @@ ONE SILHOUETTE, ONE RADIUS. The plan outline is a single rounded rectangle at
 [6](PAN_CORNER_R) mm and everything else is that outline offset: the floor slab and
 the walls are the outline itself, the flange is the outline plus `FLANGE_W`, and
 the cavity is the outline less `WALL`. A corner is the same corner at every height,
-so a hand runs down one arris from the rim to the floor.
+so a hand runs down one arris from the rim to the floor. At the withdrawal end, one
+full-height chamfered pull face closes that raw section and stands over the wall slot.
 
 AND ONE FACE FROM THE FLOOR TO THE FLANGE. The wall's outside is a single vertical face
 for the whole of `PAN_Z` under the flange's own section, so the tray's section across the
@@ -96,6 +97,17 @@ FLANGE_T = WALL
 # Per side, tray to whatever holds it: the berth's flanks and its rebate's ceiling, and the
 # tray's silhouette to the wall slot it draws through.
 PAN_SLIP = 0.3
+
+# THE PART THE HAND SEES IS A FACE, not the open basin's raw end section. From the flange's
+# outermost west plane, this face runs back through the west wall and stops one `PAN_SLIP`
+# short of the enclosure skin when `enclosure_assembly` stands it in the machine. It therefore
+# masks the two-level wall slot without becoming an insertion stop, and the existing six
+# millimetres of exposed tray become one deliberate pull rather than a rim shelf over a
+# recessed wall. Its YZ outline uses printable 45 degree corners: it starts on the bed, grows
+# no unsupported ledge, and preserves both the top thumb surface and the floor edge a finger
+# hooks under.
+PULL_FACE_DEPTH = 5.7
+PULL_FACE_CHAMFER = WALL
 
 # The Shutao LM393 module's conductivity plate (bom.md §sensors, B0B2W76MB1), lying
 # flat on the basin floor with its long edge down the basin's Y — the withdrawal
@@ -181,9 +193,12 @@ def check_plate() -> Bound:
 
 
 def build():
-    """The one plan outline at three offsets: shell and rim flange fused, then the cavity cut
-    back out of the pair — cut LAST, so the flange that laps the rim does not roof the basin it
-    belongs to."""
+    """The one plan outline at three offsets, with one face closing the withdrawal end.
+
+    Shell, rim and pull face are fused before the cavity is cut. The pull stops inside the
+    west wall's own thickness, so the cavity remains the same watertight volume and the face
+    adds no obstruction to the moisture plate or its open-top lead route.
+    """
     # Floor slab and walls together, on the outline itself. One prism, so the base cannot
     # take a radius of its own, and its flank is one face the whole way up.
     outer = _rounded_prism(PAN_X, PAN_Y, PAN_Z, CORNER_R)
@@ -201,7 +216,20 @@ def build():
     flange = _rounded_prism(
         PAN_X + 2 * FLANGE_W, PAN_Y + 2 * FLANGE_W, FLANGE_T, CORNER_R + FLANGE_W
     ).translate((-FLANGE_W, -FLANGE_W, flange_z()))
-    return outer.union(flange).cut(cavity)
+    y0, y1 = -FLANGE_W, PAN_Y + FLANGE_W
+    c = PULL_FACE_CHAMFER
+    pull_section = (
+        (y0 + c, 0.0), (y1 - c, 0.0),
+        (y1, c), (y1, PAN_Z - c),
+        (y1 - c, PAN_Z), (y0 + c, PAN_Z),
+        (y0, PAN_Z - c), (y0, c),
+    )
+    pull = (
+        cq.Workplane("YZ", origin=(-FLANGE_W, 0.0, 0.0))
+        .polyline(pull_section).close()
+        .extrude(PULL_FACE_DEPTH)
+    )
+    return outer.union(flange).union(pull).cut(cavity)
 
 
 def capacity_ml():
@@ -229,6 +257,8 @@ def main():
     print(f"  Rim flange {FLANGE_W:g} all four ways at z {flange_z():g} — "
           f"{PAN_X + 2 * FLANGE_W:g} x {PAN_Y + 2 * FLANGE_W:g} over the rim, "
           f"r{CORNER_R + FLANGE_W:g}, {lap_w():.2f} of lap a side")
+    print(f"  Pull face {PAN_Y + 2 * FLANGE_W:g} x {PAN_Z:g}, "
+          f"{PULL_FACE_DEPTH:g} deep with {PULL_FACE_CHAMFER:g} mm 45 degree corners")
     print(f"  Withdraws −X: {PAN_X + 2 * FLANGE_W:g} mm long on that axis, so it draws its own "
           f"length plus the wall's section to come clear")
     for shape, name in ((pan, "drip-pan.step"),):
@@ -256,6 +286,8 @@ def main():
         "PAN_RIM_LEN": f"{PAN_X + 2 * FLANGE_W:g}",
         "PAN_RIM_DEPTH": f"{PAN_Y + 2 * FLANGE_W:g}",
         "PAN_RIM_CORNER_R": f"{CORNER_R + FLANGE_W:g}",
+        "PULL_FACE_DEPTH": f"{PULL_FACE_DEPTH:g}",
+        "PULL_FACE_CHAMFER": f"{PULL_FACE_CHAMFER:g}",
     }
     substitute_py_comments(
         Path(__file__),
