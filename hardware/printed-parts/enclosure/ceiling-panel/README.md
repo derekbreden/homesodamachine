@@ -44,11 +44,13 @@ anchors. The existing print profile uses four top shells, three bottom shells
 and 15% grid infill, so the CAD envelope is not a solid 8 mm billet.
 
 There are [6](RELIEF_N) body pockets. Each starts from the purchased solid's
-exact intersection with the unrelieved field, adds 2 mm of plan slip and 1 mm
-of vertical clearance, and rounds its plan corners to [3 mm](RELIEF_R). The
-pocket floor is therefore not a common guessed depth: shallow bodies leave a
-thicker roof and tall bodies keep the original ceiling section over them. Every
-pocket is open on the interior face, which is upward on the printer.
+exact intersection with the unrelieved field and rails, adds 2 mm of plan slip
+and 1 mm of vertical clearance, and rounds its plan corners to
+[3 mm](RELIEF_R). The pocket floor is therefore not a common guessed depth:
+shallow bodies leave a thicker roof and tall bodies keep the original ceiling
+section over them. At the C14, that same construction locally opens the lower
+face of the +X rail while its captured upper section continues to the back
+stop. Every pocket is open on the interior face, which is upward on the printer.
 
 One anchor's strap approach enters the new field. Its whole existing footprint
 is returned as the single [1](STRAP_RELIEF_N) strap pocket, so the loop still
@@ -56,10 +58,13 @@ descends on both sides of the WR1110 barrel. The other anchor channels and both
 meter channels remain open while their solid roots merge into the plate.
 
 The C14 tunnel reaches into the aft end of the field. Its intersecting upper cap
-belongs to this panel and travels with it; the rest stays on back-top. The union
-in the installed machine is the same tunnel, while no fixed cap blocks the
-panel's slide. `ceiling-panel-slides-in` checks the complete swept prism from the
-open Y seam to the installed stop rather than checking only the final pose.
+belongs to this panel and travels with it; the rest stays on back-top and gives
+up the +X rail's clearance. The two screw piers likewise keep their structural
+section below the rail while leaving its dado open above. The union in the
+installed machine is the same tunnel, while neither it nor a pier blocks the
+panel's slide. `ceiling-panel-slides-in` checks the complete field-and-rail sweep
+from the open Y seam to the installed stop rather than checking only the final
+pose.
 
 ## The rails
 
