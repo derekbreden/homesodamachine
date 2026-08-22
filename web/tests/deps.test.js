@@ -18,7 +18,7 @@ import {
   contentRoots,
   isRunnableScript,
   prunedByTrace,
-  prunedStepConsumersByTrace,
+  isPinnedInertStepEdge,
   findGenerateScripts,
   findScriptsConsumingStep,
   findRunnableScriptsTransitivelyImporting,
@@ -76,26 +76,23 @@ test("an edge goes only where a watched run did not open the file", () => {
   );
 });
 
-test("a traced STEP read distinguishes a load from a shared path constant", () => {
-  const producer = path.join(REPO_ROOT, "hardware/a/part.py");
-  const reader = path.join(REPO_ROOT, "hardware/b/reader.py");
-  const metadataReader = path.join(REPO_ROOT, "hardware/c/metadata_reader.py");
-  const untraced = path.join(REPO_ROOT, "hardware/d/untraced.py");
-  const candidates = [reader, metadataReader, untraced];
-  const traced = new Map([
-    ["hardware/b/reader.py", new Set(["hardware/a/part.step"])],
-    ["hardware/c/metadata_reader.py", new Set(["hardware/a/part.json"])],
-  ]);
-
-  assert.deepEqual(
-    prunedStepConsumersByTrace(candidates, "part.step", producer, traced),
-    [reader, untraced],
-    "an observed file read stands, inert metadata does not, and no trace stays conservative",
+test("the one inert shared STEP identity fails open on any source change", () => {
+  const shared = path.join(REPO_ROOT, "hardware/scripts/_facts.py");
+  const consumer = path.join(
+    REPO_ROOT, "hardware/printed-parts/enclosure/enclosure/enclosure.py",
   );
-  assert.deepEqual(
-    prunedStepConsumersByTrace(candidates, "part.step", producer, null),
-    candidates,
-    "without a trace every scanned edge stands",
+  const source = fs.readFileSync(shared, "utf-8");
+  assert.equal(isPinnedInertStepEdge(shared, "enclosure-assembly.step", consumer, source), true);
+  assert.equal(
+    isPinnedInertStepEdge(shared, "enclosure-assembly.step", consumer, source + "\nload(STEP)\n"),
+    false,
+    "an old negative trace cannot hide a load newly added to the shared module",
+  );
+  assert.equal(
+    isPinnedInertStepEdge(shared, "enclosure-assembly.step",
+                         path.join(REPO_ROOT, "hardware/other.py"), source),
+    false,
+    "the observed absence belongs only to the one runnable that was traced",
   );
 });
 
