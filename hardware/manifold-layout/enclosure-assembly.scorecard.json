@@ -920,11 +920,11 @@
   },
   {
    "id": "ceiling-panel-slides-in",
-   "label": "The deep ceiling panel slides in through back-top's seam",
+   "label": "The deep ceiling panel and rails slide through back-top",
    "kind": "gate",
    "status": "pass",
    "value": "0.000 mm\u00b3 of fixed back-top in its continuous sweep",
-   "target": "no fixed back-top material in the structural field's complete Y sweep",
+   "target": "no fixed back-top material in the field-and-rail complete Y sweep",
    "detail": [],
    "active": true
   },
