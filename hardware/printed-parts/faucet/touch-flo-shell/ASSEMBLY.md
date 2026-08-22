@@ -34,7 +34,7 @@ Downstream (at the faucet-and-umbilical bench, see [`/hardware/assembly/faucet-a
    again. The sub-assembly + umbilical leaves the bench as one unit.
 
 Downstream (at the customer's countertop install, illustrated in the
-printed owner's manual in the appliance carton —
+printed quick start in the appliance carton —
 [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)):
 
 6. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole

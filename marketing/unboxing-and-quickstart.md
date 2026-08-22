@@ -1,62 +1,77 @@
 # Unboxing and Quick-Start
 
-The appliance ships in a carton with the owner's manual across the interior under the top
-flap — a twelve-page booklet at 5.5 × 8.5 in, built in
-[`/hardware/manual/`](/hardware/manual/README.md). The faucet ships in a smaller box inside
-the appliance carton. Everything the appliance dispenses leaves by the umbilical, so the
-faucet is what puts a glass under the machine.
+The customer-documentation packet lies face-up at the top of the carton. Its working
+instructions are the two landscape 11 x 17 in sheets built in
+[`/hardware/quickstart/`](/hardware/quickstart/README.md). The faucet and its install-kit bag
+sit together inside the carton. Safety, electrical and refrigerant notices are a separate
+regulatory insert; the quick start stays on the actions a person must see and copy.
 
-## The book
+## The two sheets
 
-Twelve pages, in this order. The install is five numbered steps, one to a page, each with the
-step's numeral set larger than its title.
+**Sheet 1 - START HERE / INSTALL**
 
-| Page | |
-|---|---|
-| 1 | Cover — the machine in white line art on navy |
-| 2 | What is in the carton, what the customer supplies, and the contents |
-| 3 | Where it goes — the cabinet, the slot, the three clearances |
-| 4 | **1** · Tee into the water |
-| 5 | **2** · Connect the CO₂ |
-| 6 | **3** · Mount the faucet |
-| 7 | **4** · Connect the umbilical — the four ports and their rings |
-| 8 | **5** · Power up and fill |
-| 9 | The first pour — fill the hopper, prime, pour |
-| 10 | Every day — the lever, and the five pages on the display |
-| 11 | Keeping it running — flavor, cylinder, clean cycle, filter |
-| 12 | If something is wrong, and the machine in numbers |
+1. Mount the faucet through the 1 3/8 in countertop opening. The exact slide-on keyhole plate,
+   washer and nut are pictured in their installed order.
+2. Tee the cold-water line with whichever of the two supplied tee arrangements matches the
+   cabinet. Run the result through the filter to the white `TAP` station.
+3. Put the appliance and a secured upright CO2 cylinder beside the disposal. Leave 60 mm behind
+   the appliance and keep both side grilles clear.
+4. Leave a 300 mm service loop, square-cut the three faucet tubes below their collars, match blue
+   to `SODA` and either black tube to either `FLAVOR` station, then push and tug-check each one.
+5. Fit the cylinder regulator, connect its red tube to `CO2`, open it slowly and leak-test it.
+6. Open water, open CO2 and connect 120 V GFCI power. The screen's real `READY` state is the handoff
+   to the second sheet.
 
-The two iso views are the enclosure's own line art
-([`/hardware/printed-parts/enclosure/drawings/line-art/`](/hardware/printed-parts/enclosure/drawings/line-art/)):
-the front three-quarter on the cover and on page 3, the rear on page 7 with the port rings it
-carries. Everything else a page draws is inline SVG.
+**Sheet 2 - FIRST GLASS / FILL TO POUR**
 
-## What the customer meets, in order
+1. Choose Flavor 1 or Flavor 2 on the front display, then pour one 440 mL concentrate bottle into
+   the single shared hopper. Repeat for the other reservoir when filling both.
+2. On the front display choose `SERVICE` -> `PRIME` -> a flavor and hold `HOLD TO PRIME`, with a cup
+   below the nozzle, until concentrate reaches it. Repeat for the other flavor.
+3. Tap the faucet head to switch between the two flavor pictures on its display.
+4. Wait for `READY`, put a glass under the nozzle and lift the lever.
 
-1. **Where it goes.** A sink base cabinet that is not empty. The disposal takes the middle;
-   the machine and the customer's CO₂ cylinder take the slot beside it.
-2. **The water.** Shut the angle stop, break the supply line once, fit a tee — the kit carries
-   one for a 3/8" stop with a braided supply and one for a line already running 1/4" tubing —
-   filter inline, tube into the **white-ringed** union.
-3. **The gas.** Cylinder upright beside the machine, the shipped CGA-320 regulator on it, red
-   tube into the **red-ringed** bulkhead, primary set anywhere in 70–100 PSI.
-4. **The faucet.** Drop it through the countertop hole from above, slide the keyhole plate in
-   laterally from below onto the dangling umbilical, washer and nut.
-5. **The umbilical.** Blue tube into the **blue-ringed** union; the two black tubes into the
-   two black FLAVOR ports, either into either.
-6. **Power.** Cord into the recessed inlet, then the wall. The machine fills, chills, and
-   carbonates on its own; the first chill is tens of minutes.
-7. **Flavor and the first pour.** A 440 mL concentrate bottle inverted over the funnel in the
-   top wall, per side. Prime the channel from the display, then open the lever.
+## Picture sources
+
+The pictures stay tied to the objects the customer holds or sees:
+
+- faucet, counter stack and umbilical from
+  [`faucet-assembly.step`](/hardware/faucet-layout/faucet-assembly.step);
+- under-counter keyhole plate from its production
+  [`DXF`](/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf);
+- appliance faces from the enclosure's generated
+  [`line art`](/hardware/printed-parts/enclosure/drawings/line-art/);
+- tube collars and rear stations from the packed appliance renders;
+- Flavor 1 and Flavor 2 pictures from the RGB565 arrays compiled into the faucet firmware;
+- front-screen layouts and wording from the 800 x 480 front-display interface;
+- physical wayfinding colors from
+  [`_back_panel_dimensions.port_colors`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py).
+
+Hands, arrows, a sink cabinet, a cylinder and a glass are simple silhouettes. Product interfaces,
+connection geometry, words and colors are not approximated.
 
 ## Color system
 
-Three colors: **blue = carbonated water**, **red = CO2**, **white = tap water**. All three do wayfinding — they match a word on the page to a marker on the appliance or on the customer's supply.
+Connection color always means the fluid, never the motion:
 
-Blue is the one that fixes the other two. The carbonated-water line is bought as blue tube and the union that receives it is bought wearing a blue ring ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §8), so blue names that union and nothing else on the rear wall — which leaves white for the tap-water station the customer tees into. A blue arrow on a tap-water step would send them to the faucet's own union three stations up the same wall. The rear face states the scheme once, in [`/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py), and the book's stylesheet and the line-art rings both paint from it.
+| Color | Meaning |
+|---|---|
+| blue | carbonated water, `SODA` |
+| black | either flavor line, `FLAVOR` |
+| white with a black outline | tap water, `TAP` |
+| red | regulated CO2, `CO2` |
+| coral | a finger action or direction arrow on the page and display |
 
-White is drawn as its outline. That is what white is on white paper, and it is what the white ring on the wall reads as in line art.
+The rear face, the tube collars, the exact enclosure drawing and the quick-start stylesheet all
+read the same port-color table. A word and its color travel together in every connection picture.
 
-Motion arrows (the keyhole plate sliding, bottles pouring) are plain line work, no color. They show direction of motion, not a connection to color-coded hardware.
+## Print and packing
 
-A valve or shutoff drawn on a page is colored by the fluid it actuates — red at the CO2 cylinder valve, white at the water angle stop — because that doubles as wayfinding for which valve is which.
+`quick-start.pdf` contains the two sheets in packing order. Print landscape, 11 x 17 in, color,
+actual size. The sheets are single-sided so either can be revised and printed independently on the
+Epson; they can also be printed duplex as one physical leaf. Put Sheet 1 face-up on top of Sheet 2
+in the customer-documentation packet.
+
+The quick start does not carry specifications, product positioning, maintenance schedules,
+warranty text or regulatory copy. Ongoing care, support and unit-specific information live at the
+serialized URL on the rear nameplate.

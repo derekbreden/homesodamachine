@@ -107,10 +107,10 @@ bazel-*
 # beside the cards, in git, because the site serves it and a deploy fetches nothing.
 hardware/assembly/cards/out/
 
-# A manual page's own two renders, the same pair for the same reasons
-# (hardware/manual/_build.py). The bound book, the imposed sheets, the cover and the
-# sidecar sit beside the pages, in git.
-hardware/manual/out/
+# A quick-start sheet's own two renders, the same pair for the same reasons
+# (hardware/quickstart/_build.py). The bound sheets, cover and sidecar sit beside
+# the authored pages, in git.
+hardware/quickstart/out/
 
 # The scene meshes the parts viewer opens as themselves, cut by
 # hardware/assembly/scenes/render_scenes.py. `web/public/js/viewer/parts.js` names `glb` a build
