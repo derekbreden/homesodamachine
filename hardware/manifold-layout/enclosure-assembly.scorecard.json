@@ -903,6 +903,16 @@
    "active": true
   },
   {
+   "id": "ceiling-screws-enter-from-below",
+   "label": "Both ceiling screws enter from Z\u2212 and travel +Z into blind panel inserts",
+   "kind": "gate",
+   "status": "pass",
+   "value": "head z 337.75..341.75, insert z 345.75..351.00, 0.25 mm tip air, 3.00 mm blind cap",
+   "target": "head below fixed seat below panel insert below an unpierced show face",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "asse-seated",
    "label": "The tap-water chain lies in its printed trough",
    "kind": "gate",
