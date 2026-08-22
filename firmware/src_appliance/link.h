@@ -20,7 +20,5 @@ void linkReport();        // one console block: frames, bytes, echo, last rx
 void linkPing();
 
 // Make an externally-powered front display present a fresh USB attach. An application
-// that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY. If a mistaken
-// upload left the S3 in its ROM loader instead, the same GPIO43/44 pair is UART0 and
-// this asks the ROM to run the already-flashed application. No flash bytes are written.
+// that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY.
 bool linkDisplayUsbReattach();
