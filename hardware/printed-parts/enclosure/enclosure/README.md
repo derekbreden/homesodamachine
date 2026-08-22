@@ -1015,8 +1015,8 @@ on the post. Ledge to that plane is [22.54 mm](GRIP_TRAVEL), which is what one p
 draws the assembly.
 
 **It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
-`cap_split_z` — [52.85 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
-plate under it on the rail its edge strip bears on and `grip_head` over it under the
+`cap_split_z` — [57.85 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
+plate under it on the rail its edge strip bears on and one whole `wall` over it under the
 ceiling the motor cans open through. The cap keeps the band under that plane,
 [40.65 mm](GRIP_CAP_RISE) up from the flank opening's own floor, below which the box's
 side wall closes back in and a hand reaching through the opening cannot get to the piece
