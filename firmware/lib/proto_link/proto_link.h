@@ -48,6 +48,12 @@ struct ProtoLink {
   // The callback must handle both cases based on application state.
   void (*onMessage)(ProtoLink *link, const uint8_t *data, uint16_t len) = nullptr;
 
+  // TinyProto can report DISCONNECTED then CONNECTED while consuming one RX
+  // buffer (for example, when its peer reboots and sends SABM). Sampling only
+  // final getStatus() misses that epoch boundary, so adapters compare this
+  // generation after every service call and re-synchronize on any change.
+  uint32_t connectionGeneration() const { return connectionGeneration_; }
+
   void begin(Stream &ser, const char *linkName) {
     serial = &ser;
     name = linkName;
@@ -119,6 +125,21 @@ struct ProtoLink {
     return writeRetry(buf, len + 1, msgType);
   }
 
+  // One attempt only. State machines with their own fixed queue and retry
+  // clock use this so a dead ACK direction cannot spend SEND_RETRY_MS inside a
+  // display, pump-deadline, or sound-service loop.
+  int trySend(uint8_t msgType, const void *data, uint16_t len) {
+    uint8_t buf[len + 1];
+    buf[0] = msgType;
+    if (len > 0 && data) memcpy(buf + 1, data, len);
+    return proto.write((const char *)buf, len + 1);
+  }
+
+  int trySendResponse(uint8_t msgType, uint8_t value) {
+    ResponsePayload resp{value};
+    return trySend(msgType, &resp, sizeof(resp));
+  }
+
   // Send text as MSG_TEXT
   int sendText(const char *text) {
     uint16_t textLen = strlen(text);
@@ -185,8 +206,11 @@ private:
   // TinyProto connect/disconnect callback
   static void onConnectStatic(void *userData, uint8_t addr, bool connected) {
     ProtoLink *self = (ProtoLink *)userData;
+    ++self->connectionGeneration_;
     Serial.printf("[%s] %s\n", self->name, connected ? "CONNECTED" : "DISCONNECTED");
   }
+
+  uint32_t connectionGeneration_ = 0;
 };
 
 // ════════════════════════════════════════════════════════════

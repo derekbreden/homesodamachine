@@ -47,8 +47,16 @@ static const int PIN_GAS_AOUT = 39;  // analog level
 static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip
 
 // ── J9, the pair to the front-face display ────────────────────────────────
-// IO32 -> U7.DI -> the A/B pair and R6's 120R termination -> U7.RO -> IO34,
-// through D10/D11 on the way.
+// IO32 -> U7.DI -> the A/B pair and R6's 120R termination -> U7.RO -> IO34.
+// D1 clamps the exposed differential pair at J9.
 static const int PIN_485_DI  = 32;
 static const int PIN_485_RO  = 34;
 static const long RS485_BAUD = 115200;
+
+// ── J3, direct TTL UART up the faucet umbilical ──────────────────────────
+// Controller TX crosses to the faucet's P1 ESP_RXD (GPIO44); controller RX
+// crosses from faucet P1 ESP_TXD (GPIO43). R26/R27 provide series damping and
+// D10/D11 clamp the PCBA end of the exposed run.
+static const int PIN_FAUCET_TX = 33;
+static const int PIN_FAUCET_RX = 35;
+static const long FAUCET_BAUD  = 115200;
