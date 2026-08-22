@@ -2,15 +2,15 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-a37d98ad13a4adce.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-a37d98ad13a4adce.tar.gz"
+    "asset": "cad-8067238ccec42d19.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-8067238ccec42d19.tar.gz"
   },
   "source": {
-    "commit": "edcb79df5af49344d9394555b7a0ca0bfd8db7cc"
+    "commit": "2892c1a6cfea235d491794362607aa7e9cee568e"
   },
   "bundle": {
-    "sha256": "a37d98ad13a4adce36a3a5db79d1d25d598e3af40c0d076da8c11c5e28d21d41",
-    "bytes": 70950959,
+    "sha256": "8067238ccec42d1961f3cd4b5e329d750afd6a21d628a134c921ecb4b300c084",
+    "bytes": 70959228,
     "solids": 128
   },
   "solids": {
@@ -28,8 +28,8 @@
     "hardware/cold-core-layout/cold-core-assembly.step": "818f322861e771836955a9e7734eaaf3473ba73af4593e301e1cb47768beb0b0",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "1bfc19911dc5d65c0262a05dae9daf6e72438939a8e28c3750fcba6db902dd6a",
     "hardware/faucet-layout/faucet-assembly.step": "fc7b8de623a187f649c02619a94e0320a579b49f4028bf2944a5509665bca950",
-    "hardware/manifold-layout/enclosure-assembly.step": "3d2803e49ee5d32e0121a0cc9d2ab237f45486202e378d9e70caec70adfd297c",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "e6c19d7f7f290256c17f1e4cba6fc09a2f37296c2d1225003528152ecafd6996",
+    "hardware/manifold-layout/enclosure-assembly.step": "cdee97b418246480308b4f01eafc24543d2ad515f0dff57372c258d3f50b8181",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4aabc7f263c334ce63adb7eadbdbcff288db6a058cf67b91835994945814851f",
     "hardware/manifold-layout/manifold-layout.step": "a9b32d253f1de1b6b35673d66ce73817cbeb005a9b496380ff1eb37c87334172",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e6e32f58218e6d56a15d1e5b3b6eeb832d4e1983f4891e2bd01bdd903b7e5603",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "ec9e0fcc5fdd752d811766a41e34dfa92a487c6010c86029d4f16c4d369d0f50",
@@ -58,7 +58,7 @@
     "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step": "3f5bfd768b4a2c5444074c835e9a75aede818403c4301c496891955556c9449d",
     "hardware/printed-parts/enclosure/display-cover/display-cover.step": "fc58ffc77d1b9e8f7ad4f5bb8a6deeb5ebb80f7c760627beb37ce9918b245202",
     "hardware/printed-parts/enclosure/display-gasket/display-gasket.step": "266a5ecdc4df3ee81f60dab815e9a211baf14c22dec37d25cb3d3a9bb7d89b3d",
-    "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "26b7bc7e3b5a25d52b91600828958b85dc5d8ec75b67ab7259e18d3a48723409",
+    "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "4ef5f82ce9a890b1f2eb62f93d9515088c2e6e63e1f761e5694c8d49007b932c",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "526f623041f2d709eafa1e59e581cdb2d44bd18d5c7eb7c41296b8b767f9ce8d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "add70abcfdc27736bbef70e66171b4c9758488b1aabec41f0cfdf1addbf9f662",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "24c57c5b32b6fa27f84be1250e195b27cce3d0a3b40f76d329437c7ccb8f5606",
