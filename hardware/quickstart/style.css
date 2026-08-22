@@ -216,7 +216,7 @@ html, body {
   stroke-linejoin: round;
 }
 .drop-motion { width: 54px; height: 150px; right: 180px; top: 126px; }
-.slide-motion { width: 115px; height: 62px; left: 8px; top: 39%; }
+.slide-motion { width: 96px; height: 62px; left: 5px; top: 39%; }
 .tighten-motion { width: 82px; height: 82px; right: 3px; bottom: 48px; }
 .hold-inset {
   position: absolute;
@@ -573,7 +573,7 @@ html, body {
   background: #fff;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.15;
   text-align: center;
 }
