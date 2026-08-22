@@ -150,13 +150,15 @@ jobs:
 
           base=$(tools/cad-venv/bin/python -c \
             'import json; print(json.load(open("hardware/cad-artifacts.lock.json")).get("source", {}).get("commit", ""))')
+          if [ -n "$base" ]; then
+            git cat-file -e "$base^{commit}" 2>/dev/null || \
+              git fetch --no-tags --depth=1 origin "$base"
+            git cat-file -e "$base^{commit}"
+          fi
           if [ -z "$base" ] || [ "${{ inputs.all }}" = "true" ]; then
             tools/cad-venv/bin/python tools/bazel/affected.py --all-artifacts \
               > /tmp/cad-accumulated
           else
-            git cat-file -e "$base^{commit}" 2>/dev/null || \
-              git fetch --no-tags --depth=1 origin "$base"
-            git cat-file -e "$base^{commit}"
             tools/cad-venv/bin/python tools/bazel/affected.py \
               --base "$base" --head "$GITHUB_SHA" --artifacts > /tmp/cad-accumulated
           fi
