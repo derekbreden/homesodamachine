@@ -319,6 +319,8 @@
       "hardware/assembly/faucet-and-umbilical.md",
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
       "hardware/faucet-layout/faucet_assembly.py",
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/manifold-layout/enclosure-assembly.scorecard.json",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
@@ -331,10 +333,12 @@
       "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
       "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_facts.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
+      "marketing/_install_envelope_sync.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
@@ -5905,6 +5909,23 @@
     "writes": [
       "hardware/wiring/ac-wiring-schedule.figures.json",
       "hardware/wiring/ac-wiring-schedule.md"
+    ]
+  },
+  "marketing/_install_envelope_sync.py": {
+    "reads": [
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+      "hardware/scripts/_facts.py",
+      "hardware/scripts/_realized.py",
+      "marketing/_install_envelope_sync.py",
+      "marketing/install-envelope.md",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "marketing/install-envelope.md"
+    ],
+    "writes": [
+      "marketing/install-envelope.md"
     ]
   }
 }

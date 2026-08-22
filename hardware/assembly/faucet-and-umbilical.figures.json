@@ -20,10 +20,12 @@
     "PILL_L": "13.4 mm",
     "PILL_W": "7.05 mm",
     "PLATE_D": "54.45 mm",
+    "PLATE_GASKET": "6",
     "SHANK_HOLE_D": "12.6 mm",
     "SLEEVE_BORE": "31.66 mm",
     "SLEEVE_BORE_IN": "1.25\"",
     "SLEEVE_GIRTH": "99.47 mm",
-    "TOTAL_H": "15.6 mm"
+    "TOTAL_H": "15.6 mm",
+    "TURN_IN": "60"
   }
 }

@@ -39,6 +39,21 @@ def main():
         "_faucet_assembly_gen",
         hardware_root / "faucet-layout" / "faucet_assembly.py",
     )
+    # THE TURN-IN IS READ WHERE THE CUSTOMER'S COPY OF IT IS WRITTEN. `install-envelope.md`
+    # states the same figure to the person sizing the cabinet slot, off the placed unions and
+    # the wall's own outer face; §1 sums it into a cut length. One derivation, so the stack-up
+    # and the envelope cannot come apart.
+    envelope = load_module(
+        "_install_envelope_sync",
+        hardware_root.parent / "marketing" / "_install_envelope_sync.py",
+    )
+
+    collet, _chip = envelope.behind_the_rear_face()
+
+    # The column above the counter the shank clamps through: the two printed discs, whose own
+    # thicknesses are what §1's slab-to-shell-foot term is.
+    plate_gasket = (faucet.touch_flo_mounting_plate.plate_thickness
+                    + faucet.touch_flo_mounting_gasket.gasket_thickness)
 
     variables = {
         # TPU thimble (touch-flo-tpu-o-ring) — BOM row line 26.
@@ -79,6 +94,9 @@ def main():
         "SLEEVE_GIRTH": f"{faucet.bundle_girth():.4g} mm",
         "SLEEVE_BORE": f"{faucet.bundle_bore():.4g} mm",
         "SLEEVE_BORE_IN": f'{faucet.bundle_bore() / 25.4:.3g}"',
+        # The §1 stack-up's CAD terms, bare numbers in an mm column.
+        "TURN_IN": f"{envelope.TURN_IN_LEAD_BEND + collet:g}",
+        "PLATE_GASKET": f"{plate_gasket:g}",
     }
 
     substitute_md(
