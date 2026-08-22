@@ -57,7 +57,11 @@ The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/ha
 `collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
 on edge in a blind seat sunk one `wall` into the bay floor's top. Gravity holds it down, the
 seat takes it fore, aft and across at the foot, and the printed wall behind it takes the push
-across its whole face; it lifts out through the bay whenever the cartridge is out.
+across its whole face. The floor is not asked to keep the top from pitching: at the plate's
+two outer tails, stationary L-section cheeks stand just fore of the steel and return round
+its ends into front-top's fixed aft side-wall stock. They remain with the enclosure while
+the cartridge moves and the four collet noses load the plate. Their channel is open upward,
+so the plate still lifts straight out through the bay whenever the cartridge is out.
 
 Seated, the steel stands in the berth between the barbs and the collets, and that berth is
 spent three ways: [1.025](BARB_AIR) mm of air off the barb plane, the plate's own
