@@ -86,7 +86,7 @@ From the customer's vantage the module is *one more faucet, two more flavors*. T
 | SS under-counter plate | $4 |
 | RP2040 round display | $24 |
 | KRAUS air switch (or 4-button panel) | $40 |
-| Compressor shroud cut part (if compressor path) | $10 |
+| Retained donor terminal cover (if compressor path; included with donor) | included |
 | Umbilical — multi-conductor cable + tubing bundle + strain reliefs + connector at each end | $50 |
 | Wiring, fittings, fasteners, John Guest hardware | $30 |
 | **Module total** | **~$560** |
@@ -95,7 +95,7 @@ Pre-margin module cost around $560. A Founder Edition module price of **~$2,500*
 
 ## What makes this work cleanly
 
-**The hard part of the main unit doesn't get duplicated.** Carbonator vessel, 90 PSI pressure service, hydro-test, sparge stone, level reeds, PRV, WR1110 regulator, ASSE 1022 backflow preventer, diaphragm pump, hydrocarbon-refrigerant fire enclosure to UL 60335-2-89 — none of that lives in the module. The module is the easy half of the main unit, at smaller scale.
+**The pressure-service half of the main unit doesn't get duplicated.** Carbonator vessel, 90 PSI pressure service, hydro-test, sparge stone, level reeds, PRV, WR1110 regulator, ASSE 1022 backflow preventer, and diaphragm pump — none of that lives in the module. If the donor-compressor path is chosen, the module does carry its own smaller R-600a refrigeration loop; that compressor keeps its donor moulded terminal cover and carries the same outstanding enclosure qualification as the main unit.
 
 **The household keeps one CO2 tank, one water tap, one wall outlet.** The customer's install action is "plug umbilical from main into module, run module's faucet bundle up through the counter, mount the second faucet." No second CO2 regulator. No second water tee. No second AC outlet. The plumbing-and-electrical footprint of adding the module is the umbilical and the one new countertop penetration.
 

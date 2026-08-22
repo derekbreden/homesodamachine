@@ -46,9 +46,9 @@ The trays — the power, controller, and driver groups — are in [`/hardware/pr
 
 **Safety.**
 
-Three hazards are designed around independently. The hydrocarbon refrigerant is watched by a gas sensor low in the cabinet that gates the compressor relay, and backstopped by a thermal fuse in the compressor's own AC primary; the fire enclosure around the ignition-risk parts is an open gap. The carbonic-acid backflow path is held by a beverage backflow preventer whose vent weeps to a sensed drip pan as the mechanical telltale. The plumbed appliance's mains and ground-fault posture, the refrigerant charge limits, and the unit markings are consolidated in one place.
+Three hazards are designed around independently. The compressor's terminal block and clip-on PTC start relay remain under the R-600a donor's own moulded cover; the hydrocarbon refrigerant is watched by a gas sensor low in the cabinet that gates the remotely mounted compressor relay, and backstopped by a thermal fuse in the compressor's own AC primary. The carbonic-acid backflow path is held by a beverage backflow preventer whose vent weeps to a sensed drip pan as the mechanical telltale. The plumbed appliance's mains and ground-fault posture, the refrigerant charge limits, and the unit markings are consolidated in one place.
 
-The whole safety and regulatory posture is in [`/business/regulatory.md`](/business/regulatory.md), which carries the fire-enclosure gap; the refrigerant-handling and brazing safety in [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) under "Safety". An integrated ground-fault (GFCI) module is a deferred desire, captured in [`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md).
+The whole safety and regulatory posture is in [`/business/regulatory.md`](/business/regulatory.md), which carries the qualification still owed on the retained donor terminal cover; the refrigerant-handling and brazing safety in [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) under "Safety". An integrated ground-fault (GFCI) module is a deferred desire, captured in [`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md).
 
 **User-facing surfaces.**
 

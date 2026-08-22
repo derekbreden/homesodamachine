@@ -31,10 +31,10 @@ flowchart TD
   %%   top-back of the enclosure, behind the rear-wall C14 inlet.
   %% - The compressor sits middle-bottom, bolted down to the enclosure
   %%   floor slab on four printed posts. Its terminal block and its
-  %%   clip-on PTC start relay + overload module stand OPEN to the
-  %%   cabinet volume — nothing encloses them. `/business/regulatory.md`
-  %%   carries that as a live gap against 60335-2-24's fire-enclosure
-  %%   requirement, and closing it is a prerequisite for any claim.
+  %%   clip-on PTC start relay + overload module remain under the R-600a
+  %%   donor's own moulded power-box cover. The build adds no second
+  %%   sheet-metal shroud; `/business/regulatory.md` carries the
+  %%   qualification still owed on the retained donor cover.
   %% - Teyleten relay #1 stays on the SHELF, away from the refrigerant
   %%   compartment. Only switched AC reaches the compressor — one
   %%   jacketed SJOOW bundle, switched H + N + chassis G (AC-4/5/6),
@@ -65,7 +65,7 @@ flowchart TD
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
     RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: electronics shelf"]
-    COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: bolted to the enclosure floor slab, terminals open to the cabinet"]
+    COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: floor slab, terminals under retained donor cover"]
     COND_FAN["Condenser fan motor\n12 V DC brushless axial, ~0.35 A\n(donor PCB discarded; driven from 12 V bus)\nLOCATION: side of enclosure (side-to-side airflow path)"]
   end
 

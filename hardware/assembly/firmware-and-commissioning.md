@@ -27,7 +27,7 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 
 | Item | Source / spec | Notes |
 |---|---|---|
-| Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor bolted down and grounded. |
+| Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor bolted down and grounded; donor terminal cover intact, unmodified, and securely retained; factory lead exit undamaged. |
 | Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `appliance`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini) and [`/firmware/README.md`](/firmware/README.md)). The `appliance` tree is an Open item below. |
 | PlatformIO | On the build host | `pio run -e <env> -t upload` builds and flashes. One board on USB at a time, or name the port — PlatformIO picks the S3 otherwise and esptool leaves that panel dark. |
 | USB-C cable | Fits the PCBA's J14, the 4.3B, and the 1.47" faucet display | Build-bench stock; not per-unit consumable. |
@@ -41,7 +41,7 @@ Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outl
 
 ### 1. Verify wiring-out inputs
 
-Before any power, walk the chassis once against [`wiring.md`](/hardware/assembly/wiring.md) output condition: compressor bolted down and grounded, electronics shelf populated and fastened, ground bus continuous from C14 earth pin to every exposed-metal bond point, all JST XH looms seated on their labeled wafers (J4 vs J7 by loom label per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)), the J10 polarity verified (`V12` east / `GND` west).
+Before any power, walk the chassis once against [`wiring.md`](/hardware/assembly/wiring.md) output condition: compressor bolted down and grounded; donor moulded cover intact, unmodified, and securely retained over the terminal/PTC assembly; factory lead exit undamaged; electronics shelf populated and fastened; ground bus continuous from C14 earth pin to every exposed-metal bond point; all JST XH looms seated on their labeled wafers (J4 vs J7 by loom label per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)); the J10 polarity verified (`V12` east / `GND` west).
 
 This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `wiring.md` are not repeated here. If anything on the shelf has moved since `wiring.md` signed off, return the unit there before continuing.
 
@@ -132,7 +132,7 @@ Any failure here is loom wiring, a device fault, or a board fault. Resolve and r
 
 This is the only step that energizes the AC side. The carbonator is **empty** (no water, no CO2) — the run is brief and intentional, just enough to confirm the AC leg switches and the suction line cools.
 
-Trigger the firmware-override compressor-on command at the serial console. The firmware drops the [3-minute](MIN_OFF_TIME) minimum-off-time guard for this command only and asserts [GPIO 19](GPIO_RELAY1); the on-board gas→compressor interlock (U15) passes it to J5 only while the MQ-6 reads clear — a missing or cold gas sensor holds relay #1 open (step 6's warm-up is a prerequisite). The relay energizes and closes the AC leg into the compressor's terminal block.
+Trigger the firmware-override compressor-on command at the serial console. The firmware drops the [3-minute](MIN_OFF_TIME) minimum-off-time guard for this command only and asserts [GPIO 19](GPIO_RELAY1); the on-board gas→compressor interlock (U15) passes it to J5 only while the MQ-6 reads clear — a missing or cold gas sensor holds relay #1 open (step 6's warm-up is a prerequisite). The relay energizes and closes the AC leg through the SF76E into the verified hot side of the compressor assembly's factory-external electrical interface; the terminal/PTC assembly remains under the donor cover.
 
 Watch for, in order:
 
