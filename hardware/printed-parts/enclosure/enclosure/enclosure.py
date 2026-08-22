@@ -153,15 +153,16 @@ import mq6_gas_sensor as _mq6
 import valve_seat as _seat
 import valve_panel as _panel
 import pump_tray as _tray
+import _enclosure_interface as _interface
 
 # Shell parameters.
-wall = 3.0                  # PETG wall thickness
+wall = _interface.wall      # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
 # The back wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
 # lip's inner face rather than against the wall the lip hangs off. A body mounted
 # on the back wall seats on this same plane.
-rear_seam_clear = 3.0
+rear_seam_clear = _interface.rear_seam_clear
 # The same standoff at the front, so the front column's Z lip keeps a full-width
 # front segment behind the refrigeration stratum instead of giving it up.
 front_seam_clear = 3.0
@@ -336,14 +337,14 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # inset the cover plate fills plus a buffer all around,
 # [158 mm](DISPLAY_FACET_X) × [87.5 mm](DISPLAY_FACET_SLOPE) up the slope — which is
 # what `_report_facet` prints beside the measured face.
-display_bezel_x = 113.5           # bezel glass, lateral (X)
-display_bezel_slope = 77.0        # bezel glass, up the slope
+display_bezel_x = _interface.display_bezel_x           # bezel glass, lateral (X)
+display_bezel_slope = _interface.display_bezel_slope   # bezel glass, up the slope
 # The glass is the datum (centered on the facet); the PCB body sits offset behind
 # it because the glass overhangs the body unevenly (up-and-left). This is the
 # body's own offset from the centered glass.
 display_body_offset_x = 0.5      # PCB body offset from the centered glass, lateral (+X)
 display_body_offset_slope = -1.0 # PCB body offset, down-slope
-display_corner_r = 2.5           # corner rounding, matching the display bezel
+display_corner_r = _interface.display_corner_r         # corner rounding, matching the display bezel
 # THE FACE CLOSES FLAT. The display is let into the facet down TWO steps, and a printed
 # cover plate fills the outer one — so what a hand meets is one unbroken 45° plane with a
 # border let into it, and the two screws that hold the border are countersunk into their own
@@ -358,13 +359,13 @@ display_corner_r = 2.5           # corner rounding, matching the display bezel
 # The plate laps the glass by `display_inset_lap`, which is the same figure the inset stands
 # outside the glass up the slope — so the border is that lap twice over, and one number
 # states both halves of it.
-display_inset_lap = 3.0          # the plate's lap over the glass, and the inset's land past it
-display_inset_reach = 20.0       # how far the inset runs past the glass laterally — the land
+display_inset_lap = _interface.display_inset_lap       # the plate's lap over the glass, and the inset's land past it
+display_inset_reach = _interface.display_inset_reach   # how far the inset runs past the glass laterally — the land
                                  # the two cover screws stand in, since a countersunk M3 head
                                  # is wider than the border it would otherwise sit in
-display_inset_depth = 2.0        # inset floor, down from the 45° face — the plate's seat
-display_inset_x = display_bezel_x + 2 * display_inset_reach       # [153.5 mm](DISPLAY_INSET_X)
-display_inset_slope = display_bezel_slope + 2 * display_inset_lap # [83 mm](DISPLAY_INSET_SLOPE)
+display_inset_depth = _interface.display_inset_depth   # inset floor, down from the 45° face — the plate's seat
+display_inset_x = _interface.display_inset_x                       # [153.5 mm](DISPLAY_INSET_X)
+display_inset_slope = _interface.display_inset_slope               # [83 mm](DISPLAY_INSET_SLOPE)
 # Every millimetre of plain face down the slope carries the facet √2 further aft along Y, and
 # with it the seats let into it — which is what `display-housing-seats` reads the housing's
 # own back cut against.
@@ -391,7 +392,7 @@ display_facet_thickness = 19.0   # facet wall depth = display envelope depth
 # face carries: the inset and the bezel counterbore are the display's SEATS, and
 # `display-housing-seats` keeps a wall of slab behind the deeper of the two.
 display_housing_back = 71.38
-display_bezel_depth = 4.0        # bezel counterbore depth, user face
+display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a socket collar
@@ -424,18 +425,18 @@ cable_sleeve_open = 1.5 * cable_sleeve_nom   # a 50% expandable braid's ceiling 
 # everywhere else it is `display_cover_seat`, a whole screw seat, and the inset is sunk to that
 # over the same ground. So no pad stands off the plate's back and its own back is one plane
 # either side of the bezel's outline — see `_display_cuts` and `display_cover.py`.
-display_cover_thickness = 2.0    # the plate WHERE IT LAPS THE GLASS; = display_inset_depth, so
+display_cover_thickness = _interface.display_cover_thickness  # the plate WHERE IT LAPS THE GLASS; = display_inset_depth, so
                                  # the plate's top lies in the face
-display_cover_slip = 0.30        # per side, plate edge into the inset it drops in
-display_cover_head_h = 3.0       # DIN 912 M3 head, nominal
-display_cover_seat_recess = 0.2  # how far under the 45° face the head lands
-display_cover_cbore_depth = display_cover_head_h + display_cover_seat_recess
+display_cover_slip = _interface.display_cover_slip        # per side, plate edge into the inset it drops in
+display_cover_head_h = _interface.display_cover_head_h    # DIN 912 M3 head, nominal
+display_cover_seat_recess = _interface.display_cover_seat_recess  # how far under the 45° face the head lands
+display_cover_cbore_depth = _interface.display_cover_cbore_depth
 # The head's own counterbore and the lap's section under it — the plate everywhere the glass is
 # not beneath it, and the depth the inset's land is sunk to.
-display_cover_seat = display_cover_cbore_depth + display_cover_thickness
+display_cover_seat = _interface.display_cover_seat
 # Each screw stands in the middle of the lateral land, halfway between the glass's edge and
 # the inset's own — the widest material either has.
-display_screw_x = (display_bezel_x + display_inset_x) / 4.0           # [66.75 mm](DISPLAY_SCREW_X)
+display_screw_x = _interface.display_screw_x                         # [66.75 mm](DISPLAY_SCREW_X)
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
@@ -470,16 +471,16 @@ hopper_front_ledge = 0.0
 # side. The screw spans the head seat to the front heat-set, so the pin body is
 # screw_len − heatset_depth long.
 split_slip = 0.40            # diametral slide fit, plug into socket bore
-screw_clear_dia = 3.9        # M3 shank clearance
-head_cbore_dia = 6.15        # M3 SHCS head counterbore
+screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
+head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
 screw_len = 10.0             # M3 SHCS under-head length (M3x10), head seat → heat-set
 plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
 socket_bore_dia = plug_dia + split_slip          # 10.3 — slide fit over the plug
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
-heatset_dia = 4.0            # ruthex M3 short heat-set
+heatset_dia = _interface.heatset_dia  # ruthex M3 short heat-set
 heatset_len = 4.0            # ruthex RX-M3Sx4.0 brass body, set flush at its opening
-heatset_depth = 5.25
+heatset_depth = _interface.heatset_depth
 socket_cap = wall            # one wall capping the insert's deep end
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
@@ -489,13 +490,13 @@ socket_cap = wall            # one wall capping the insert's deep end
 # The section is the one `printed-parts/electronics/module_tray` gives every M3 board boss in
 # this machine: these land on a board's own hole pattern, between its pin fields, and a boss
 # that carried a whole wall around its insert would foul them.
-mount_boss_dia = 7.0
+mount_boss_dia = _interface.mount_boss_dia
 # What that section keeps round its insert, which is the material any boss in this machine
 # stands a heat-set in.
-boss_ligament = (mount_boss_dia - heatset_dia) / 2.0
+boss_ligament = _interface.boss_ligament
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
-mount_bore_relief = 1.0
+mount_bore_relief = _interface.mount_bore_relief
 
 # --- the floor slab's posts -------------------------------------------------
 #
@@ -1190,7 +1191,7 @@ fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
 # plane (`front_plane_y − front_wall`) of section, which is the thinnest the user-facing
 # surface gets anywhere.
 pump_relief_floor = 8.9
-relief_chamfer = 45.0        # every relief ceiling rises at this angle to the mouth
+relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this angle to the mouth
 
 # --- front-top's own ±X section ----------------------------------------------
 #

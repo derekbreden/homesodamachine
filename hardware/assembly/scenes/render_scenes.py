@@ -18,8 +18,9 @@ AND THE BROWSER IS STOOD ONCE, for however many pictures the run has to draw. Ev
 its picture into one `Batch`, and the whole list goes to `render-step-posed.js --jobs` at the
 end — one server, one Chromium, one page re-pointed at each subject in turn. See `Batch`.
 
-`//:render-scene-cards` draws the pictures and `//:render-scene-glbs` cuts the viewer meshes.
-They share this implementation but not an action, so publishing geometry never starts Chromium.
+`//:render-scene-cards` draws the pictures. The enclosure-assembly producer cuts the viewer
+meshes from the named machine it already built, through `write_glbs`, so publication neither
+rebuilds that machine nor starts Chromium.
 """
 
 import argparse
@@ -528,6 +529,16 @@ def draw_all(scenes, assembly, batch, force=False, images=True, glbs=True) -> li
         out.append(draw(scene, assembly, batch, force=force, images=images, glbs=glbs))
         print(f"-> {out[-1].relative_to(_ROOT)}")
     return out
+
+
+def write_glbs(assembly) -> list:
+    """Cut every viewer scene from an already-built named machine.
+
+    The enclosure-assembly producer calls this before releasing its in-memory assembly. A
+    batch is still passed through the shared drawing path, but images are disabled so it queues
+    no browser work.
+    """
+    return draw_all(_scenes.SCENES, assembly, Batch(), images=False, glbs=True)
 
 
 if __name__ == "__main__":
