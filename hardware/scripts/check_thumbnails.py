@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """Which tracked solids have a picture older than themselves.
 
-`/3d` serves `<file>.step.png` for the catalog grid and docs embed the same file, so a
+`/3d` serves `<file>.step.png` for the cards it draws and a README embeds the same file, so a
 thumbnail is what a reader sees when they do not open the model. It is drawn beside the STEP
 by whatever run exported it — `_cadq_export` queues one and `tools/render/render-thumbnails.js`
-draws the batch at process exit. A bazel action holds the render tool, which `graph.json`
-declares for every step that cuts a `.step`, and draws the picture inside its sandbox; the
-picture is in no step's `outs`, so nothing carries it out and the tree keeps the one it had.
+draws the batch at process exit. NO SOLID WITHOUT A CARD HAS ONE: the page is three assemblies
+and a shelf, `_cadq_export._page_paints` reads that off `web/contracts/parts-tree.js`, and what
+the assemblies place is reached by selecting the solid, which opens the model. A bazel action
+holds the render tool and draws nothing — `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for every one,
+because the picture is in no step's `outs` and nothing carries it out of the sandbox.
 
-So a STEP that reaches the tree by any road arrives with the picture it had before. The
-comparison is the one `_cadq_export._current` makes: a picture older than the solid beside it
-was made from bytes that have since moved. A solid the deploy fetched reads as older than every
-picture — the bundle carries no mtime — which is the answer, the picture in the index having been
-drawn against the bytes the lock names.
+So a STEP that reaches the tree by any road arrives with the picture it had before, if it has
+one. The comparison is the one `_cadq_export._current` makes: a picture older than the solid
+beside it was made from bytes that have since moved. A solid with no picture is a solid nothing
+draws, and is not named. A solid the deploy fetched reads as older than every picture — the
+bundle carries no mtime — which is the answer, the picture in the index having been drawn
+against the bytes the lock names.
 
 Naming them costs a stat each and nothing else. Drawing them costs a browser, which is a
 follow-up commit's work:
