@@ -679,6 +679,32 @@
    "active": true
   },
   {
+   "id": "plate-retainer-land",
+   "label": "Each retainer head bears on a full steel tail",
+   "kind": "gate",
+   "status": "pass",
+   "value": "least edge land 3.925 mm, least land to a tube hole 17.664 mm",
+   "target": "at least 3 mm of steel beyond the head footprint",
+   "detail": [
+    "retainer (-97.200, 202.625)   edge land 3.925 mm   tube-hole land 17.664 mm",
+    "retainer (97.200, 202.625)   edge land 3.925 mm   tube-hole land 17.664 mm"
+   ],
+   "active": true
+  },
+  {
+   "id": "plate-retainer-stack",
+   "label": "The plate retainers engage their inserts without bottoming",
+   "kind": "gate",
+   "status": "pass",
+   "value": "4.000 mm brass engagement, 0.425 mm tip air, 6.960 mm wall cap",
+   "target": "4 mm engagement, 0.25 mm tip air and 3 mm behind the insert",
+   "detail": [
+    "M3\u00d78 under-head length - 3.175 mm steel = 4.825 mm projection: 4 mm in brass and 0.825 mm past it",
+    "\u00d84 \u00d7 5.25 pocket leaves 0.425 mm ahead of the screw and 6.960 mm of printed wall behind it"
+   ],
+   "active": true
+  },
+  {
    "id": "pack-over-core",
    "label": "Every pack body reaching over the cold core clears its cap",
    "kind": "gate",
@@ -1096,6 +1122,26 @@
    "active": true
   },
   {
+   "id": "cartridge-sweep-out",
+   "label": "The complete cartridge and cap pass through the bay mouth",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2 pieces, most in the way 0.000 mm\u00b3",
+   "target": "no front-top material in either complete withdrawal envelope",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plate-retainer-side-drive",
+   "label": "An L-key reaches both plate retainers through the flanks",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2 \u00d86 L-routes, most in the way 0.000 mm\u00b3",
+   "target": "no front-top material in a 20 mm short-leg route",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "pump-cap-stops-on-plate",
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
@@ -1436,16 +1482,6 @@
    "status": "pass",
    "value": "5.6760 mm of section, 3.2760 between the two grooves",
    "target": "at least 3 mm",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "bay-round-clears-pumps",
-   "label": "The bay mouth's round stays outboard of every pump's relief",
-   "kind": "gate",
-   "status": "pass",
-   "value": "0.7540 mm between the round's reach and the outer relief",
-   "target": "a round of at most 5.2540 mm",
    "detail": [],
    "active": true
   },

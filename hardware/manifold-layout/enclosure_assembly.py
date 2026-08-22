@@ -1319,10 +1319,13 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # 304 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, its
 # foot sunk in the seat `enclosure._bay_floor` cuts down the bay floor's top — the seat takes
 # it fore, aft and across and carries it on its own bottom, and with the cartridge out it
-# lifts straight up through the bay. IT IS A PLAIN RECTANGLE: front-bottom's Z-seam lip is
-# given up over this whole run (`enclosure._flank_lip_drop`), so there is nothing standing
+# lifts straight up through the bay after its two retainers are removed. IT IS A RECTANGLE:
+# front-bottom's Z-seam lip is given up over this whole run (`enclosure._flank_lip_drop`),
+# so there is nothing standing
 # proud of the floor at either end for the steel to step around. Four holes pass the barb
-# tubes and nothing wider: pull the cartridge and the gripped tubes drag the tees forward
+# tubes and nothing wider; two smaller holes in the otherwise unused outer tails take M3
+# retainers into the fixed wall behind. Pull the cartridge and the gripped tubes drag the tees
+# forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
 # the grip opens, and the tubes draw out through the holes they entered by. Pushing the
 # cartridge home threads them back into the same collets, the cap's own aft face landing on
@@ -1334,6 +1337,12 @@ PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, cartrid
 PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
 PLATE_END_AIR = 0.3          # each end off the side wall
+PLATE_RETAINER_END_INSET = 7.0   # screw axis in from either free plate end
+PLATE_RETAINER_TOP_INSET = 10.0  # screw axis below the free top edge
+PLATE_RETAINER_HOLE_D = _enc.screw_clear_dia  # the box's M3 running-clearance bore
+PLATE_RETAINER_COUNT = 2
+PLATE_DRIVER_ENVELOPE_D = 6.0  # conservative swept room round a 2.5 mm L-key
+PLATE_DRIVER_SHORT_REACH = 20.0  # straight reach from flank elbow to the recessed socket
 TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
 TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
 TEE_WALL_ARM_SLIP = 0.10     # the aft bore's air on the ARM — what leaves the collar a ledge
@@ -1369,6 +1378,13 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             f"heights ({sorted(set(round(hz, 4) for _hx, hz in holes))}) — one band centres "
             f"one row")
     x1 = _enc.interior_x()[1] - PLATE_END_AIR
+    z1 = round(2.0 * hole_z - z0, 6)
+    retain_z = round(z1 - PLATE_RETAINER_TOP_INSET, 6)
+    retainers = tuple((round(sx * (x1 - PLATE_RETAINER_END_INSET), 6), retain_z)
+                      for sx in (-1.0, +1.0))
+    if len(retainers) != PLATE_RETAINER_COUNT:
+        raise ValueError(
+            f"the plate declares {PLATE_RETAINER_COUNT} retainers and struck {len(retainers)}")
     # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
     # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
     # the arm the tee carries through it. `CAP_NEAR` is where the collar the bore journals on
@@ -1405,10 +1421,11 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     tee = ml.tee
     branch_face = faces[0]
     stroke = PLATE_REST_GAP
-    return {"holes": tuple(sorted(holes)),
+    return {"holes": tuple(sorted(holes)), "retainers": retainers,
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
-            "z0": round(z0, 6), "z1": round(2.0 * hole_z - z0, 6),
+            "z0": round(z0, 6), "z1": z1,
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
+            "retainer_hole_d": PLATE_RETAINER_HOLE_D,
             "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
                                 - stroke - TEE_WALL_BODY_AIR, 6),
             "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
@@ -1420,7 +1437,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
 
 
 def build_collet_plate(spec):
-    """The steel itself: one rectangle and four bores."""
+    """The steel itself: one rectangle, four tube bores and two retainer bores."""
     plate = (cq.Workplane("XY")
              .box(spec["x1"] - spec["x0"], spec["aft_y"] - spec["fore_y"],
                   spec["z1"] - spec["z0"], centered=False)
@@ -1429,12 +1446,16 @@ def build_collet_plate(spec):
         plate = plate.cut(cq.Solid.makeCylinder(
             spec["hole_d"] / 2.0, PLATE_T + 2.0,
             cq.Vector(hx, spec["fore_y"] - 1.0, hz), cq.Vector(0, 1, 0)))
+    for hx, hz in spec["retainers"]:
+        plate = plate.cut(cq.Solid.makeCylinder(
+            spec["retainer_hole_d"] / 2.0, PLATE_T + 2.0,
+            cq.Vector(hx, spec["fore_y"] - 1.0, hz), cq.Vector(0, 1, 0)))
     return plate
 
 
 def export_collet_plate_dxf(spec, path):
-    """The waterjet's own file: the plate's outline and its four holes, flat — the section
-    of a unit slab cut the way the steel is, so the loops cannot disagree with the solid.
+    """The waterjet's own file: outline, four tube holes and two retainer holes, flat — the
+    section of a unit slab cut the way the steel is, so the loops cannot disagree with the solid.
 
     Written through `export_dxf`, so the header's save-time stamps and GUIDs come out
     canonical and a rebuild that moves no dimension leaves the file alone."""
@@ -1444,6 +1465,9 @@ def export_collet_plate_dxf(spec, path):
     for hx, hz in spec["holes"]:
         flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
                         .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
+    for hx, hz in spec["retainers"]:
+        flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
+                        .center(hx, hz).circle(spec["retainer_hole_d"] / 2.0).extrude(2.0))
     export_dxf(flat.section(0.5), str(path))
 
 
@@ -1491,6 +1515,51 @@ def check_collet_plate(spec, mcarry) -> None:
             f"the steel's fore face stands {air:.2f} mm off the barb plane — the standoff "
             f"is spent before the plate and its rest gap fit in it. Raise "
             f"`BARB_STANDOFF`, or thin the plate"])))
+
+    # THE RETAINERS LOAD STEEL, NOT A PRINTED LIP. Their heads bear directly on the plate's
+    # fore face; the guide in front carries only a clearance tunnel. Read the head footprint
+    # against every free edge because a screw placed merely by its shank can leave a crescent
+    # of steel under the head and tear the tail it was added to save.
+    head_r = _enc.head_cbore_dia / 2.0
+    edge_lands = []
+    tube_lands = []
+    for rx, rz in spec["retainers"]:
+        edge_lands.append(min(rx - spec["x0"], spec["x1"] - rx,
+                              rz - spec["z0"], spec["z1"] - rz) - head_r)
+        tube_lands.append(min(math.hypot(rx - hx, rz - hz)
+                              - head_r - spec["hole_d"] / 2.0
+                              for hx, hz in spec["holes"]))
+    least_edge = min(edge_lands)
+    least_tube = min(tube_lands)
+    retainer_land_floor = 3.0
+    record_bound(Bound(
+        "plate-retainer-land", "Each retainer head bears on a full steel tail",
+        least_edge >= retainer_land_floor - 1e-9 and least_tube >= retainer_land_floor - 1e-9,
+        f"least edge land {least_edge:.3f} mm, least land to a tube hole {least_tube:.3f} mm",
+        f"at least {retainer_land_floor:g} mm of steel beyond the head footprint",
+        [f"retainer ({rx:.3f}, {rz:.3f})   edge land {el:.3f} mm   tube-hole land {tl:.3f} mm"
+         for (rx, rz), el, tl in zip(spec["retainers"], edge_lands, tube_lands)]))
+
+    # M3×8 is measured under the head. It crosses the 1/8-inch steel and spends the rest in
+    # the standard short insert; the pocket is a little deeper than the screw so the tip
+    # cannot bottom, and the wall keeps a whole printed section behind the pocket.
+    projection = _enc.cond_screw_len - PLATE_T
+    engagement = min(projection, _enc.heatset_len)
+    past_insert = projection - _enc.heatset_len
+    tip_air = _enc.heatset_depth - projection
+    insert_cap = spec["wall_aft_y"] - (spec["aft_y"] + _enc.heatset_depth)
+    record_bound(Bound(
+        "plate-retainer-stack", "The plate retainers engage their inserts without bottoming",
+        engagement >= 4.0 - 1e-9 and tip_air >= 0.25 - 1e-9
+        and insert_cap >= _enc.socket_cap - 1e-9,
+        f"{engagement:.3f} mm brass engagement, {tip_air:.3f} mm tip air, "
+        f"{insert_cap:.3f} mm wall cap",
+        f"4 mm engagement, 0.25 mm tip air and {_enc.socket_cap:g} mm behind the insert",
+        [f"M3×{_enc.cond_screw_len:g} under-head length - {PLATE_T:g} mm steel = "
+         f"{projection:.3f} mm projection: {_enc.heatset_len:g} mm in brass and "
+         f"{past_insert:.3f} mm past it",
+         f"Ø{_enc.heatset_dia:g} × {_enc.heatset_depth:g} pocket leaves {tip_air:.3f} mm ahead "
+         f"of the screw and {insert_cap:.3f} mm of printed wall behind it"]))
 
 
 EXTRUSION_W = 0.42           # the outer-wall bead the box's own profile lays
@@ -1870,6 +1939,73 @@ def check_head_sweep(solids: dict, pieces) -> Bound:
          + ["the bay's sill is the bay floor's top, and the floor's top is the plane the "
             "cartridge's own pump reliefs floor on. A head in the way is a head hanging "
             "under that plane — raise it, or thin the floor"])))
+
+
+def check_cartridge_sweep(pieces) -> Bound:
+    """Whether the two printed cartridge pieces can pass bodily through the front mouth.
+
+    A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
+    carries it, and a mouth can clear both heads while a reveal, rounded plan corner or jamb
+    catches the block behind the face. Sweep each piece's complete bounding envelope from its
+    installed aft face through the exterior plane. This is intentionally conservative: every
+    bit of air cut inside the block is treated as material, because the opening owes clearance
+    to the block's outer envelope rather than to its pump voids.
+    """
+    front = pieces["front-top"]
+    front = front.val() if hasattr(front, "val") else front
+    y_out = _enc.front_plane_y - _enc.front_wall - 1.0
+    rows = []
+    for name in ("pump-cartridge", "pump-cap"):
+        body = pieces[name]
+        body = body.val() if hasattr(body, "val") else body
+        b = box(body)
+        sweep = _enc._ybox(b.xmin, b.xmax, y_out, b.ymax, b.zmin, b.zmax)
+        rows.append((name, sweep.intersect(front).Volume()))
+    worst = max(v for _name, v in rows)
+    ok = worst <= 1e-3
+    return record_bound(Bound(
+        "cartridge-sweep-out", "The complete cartridge and cap pass through the bay mouth",
+        ok,
+        f"{len(rows)} pieces, most in the way {worst:.3f} mm³",
+        "no front-top material in either complete withdrawal envelope",
+        ([] if ok else [
+            f"{name} meets {volume:.3f} mm³ of front-top between its installed aft face and "
+            "the exterior — the pump heads can clear while the filled drawer still binds"
+            for name, volume in rows if volume > 1e-3])))
+
+
+def check_plate_retainer_access(pieces, spec) -> Bound:
+    """Whether a conservative L-key envelope reaches each recessed plate screw from a flank.
+
+    A STRAIGHT FRONT DRIVER IS NOT THE SERVICE ROUTE. These axes stand behind the rounded
+    corner posts, so the tool enters through the open side: its short leg runs aft along Y into
+    the socket and its long leg exits outboard through the flank. Sweep a Ø6 envelope around
+    both legs — materially larger than a 2.5 mm key — with the cartridge absent, which is the
+    only state in which the plate itself is removed.
+    """
+    front = pieces["front-top"]
+    front = front.val() if hasattr(front, "val") else front
+    r = PLATE_DRIVER_ENVELOPE_D / 2.0
+    outer_x = _enc.appliance_width / 2.0
+    head_y = spec["fore_y"] - _enc.plate_retainer_head_h
+    elbow_y = head_y - PLATE_DRIVER_SHORT_REACH
+    rows = []
+    for sx, sz in spec["retainers"]:
+        axial = _enc._ycyl(r, sx, sz, elbow_y, head_y + 0.1)
+        exit_x = math.copysign(outer_x + 2.0 * r, sx)
+        lateral = _enc._xcyl(r, elbow_y, sz, min(sx, exit_x), max(sx, exit_x))
+        key = axial.fuse(lateral)
+        rows.append((sx, key.intersect(front).Volume()))
+    worst = max(v for _sx, v in rows)
+    ok = worst <= 1e-3
+    return record_bound(Bound(
+        "plate-retainer-side-drive", "An L-key reaches both plate retainers through the flanks",
+        ok,
+        f"{len(rows)} Ø{PLATE_DRIVER_ENVELOPE_D:g} L-routes, most in the way {worst:.3f} mm³",
+        f"no front-top material in a {PLATE_DRIVER_SHORT_REACH:g} mm short-leg route",
+        ([] if ok else [
+            f"retainer x {sx:.3f} meets {volume:.3f} mm³ of front-top in its side-drive route"
+            for sx, volume in rows if volume > 1e-3])))
 
 
 # What a standing post's annulus may read short by. A post is fused as one cylinder and bored
@@ -6643,6 +6779,8 @@ def build_enclosure_assembly() -> cq.Assembly:
     # the nozzle to lay anything in — the one reading here the solid itself cannot give.
     check_panel_web()
     check_head_sweep(a.pack_solids, pieces)
+    check_cartridge_sweep(pieces)
+    check_plate_retainer_access(pieces, box.collet_plate)
     # And the cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
     check_cap_stop(pieces, box.collet_plate)

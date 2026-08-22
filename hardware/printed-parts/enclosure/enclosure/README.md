@@ -785,19 +785,21 @@ with two M3 on the lane between the pumps drawing the cap up onto the block
 face through the cap's underside: the bay top stands `bay_crown_air` over the crowns and
 the sill one millimetre under the faces, so what the block covers is what there is room
 to cover. Nothing latches the cartridge. The four barb tubes
-gripped in the anchor tees' branch collets are the retention, and the **collet plate**
+gripped in the anchor tees' branch collets are the cartridge retention, and the **collet plate**
 is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
-fore of the four collets in the bay floor's own seat, four holes passing the tubes and
-nothing wider. Pull the cartridge and the gripped tubes drag the tees forward, each tee
+fore of the four collets in the bay floor's own seat. Four large holes pass the tubes and
+nothing wider; two M3 clearance holes in the unused outer tails positively fasten the steel
+to inserts in the fixed tee wall. Pull the cartridge and the gripped tubes drag the tees forward, each tee
 running in its own bore in the wall behind the steel and held across its collar while
 free along its axis, until each collet's nose lands on the steel — the body keeps
 coming, the nose is held, the grip opens, and the tubes draw out through the holes they
 entered by. Push it home and the tubes thread back into the same collets, the cap's own
 aft face landing on the plate's own fore face, the tees square in those same bores and
 braced by the valves their runs butt into, each of those in a panel seat. One hand
-pulls, the other braces the box; the box carries the brace to the steel through the
-floor.
+pulls, the other braces the box; the box carries the brace through its fixed wall and
+the two steel-bearing retainers rather than asking the plate's little floor seat to take the
+whole overturning moment.
 
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
 whole stroke and reports what it hits — a motion, where every other bound on that card
@@ -827,7 +829,12 @@ storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
 **Both flanks open across the cartridge's own storey** (`_flank_opening`). The corner
 posts frame their fore ends; two narrow fixed plate guides occupy only the aft outer
-edges, beyond the cartridge's whole X sweep. A column here is the whole of the box's
+edges, beyond the cartridge's whole X sweep. Each guide fans just [3 mm](PLATE_GUIDE_FAN)
+toward the front at the fixed side wall only around its recessed screw: the continuous
+baseline leaves [23.9 mm](PLATE_GRIP_BASE_OPEN) of the lower grip's [24 mm](GRIP_RUN)
+entrance open, and the full fan narrows that to [20.9 mm](PLATE_GRIP_OPEN) for just
+[9.424 mm](PLATE_GUIDE_FULL_RISE) of height. Including its two 45° transitions, any extra
+fan exists over [15.42 mm](PLATE_GUIDE_FAN_RISE). A column here is the whole of the box's
 corner — the side wall's own section, the front wall's, and the quarter-round between
 them, one post. So the opening does not begin at the exterior: it begins where that post's
 arc lands on the side wall's inner face, [12 mm](COLUMN_ALONG) aft of `front_plane_y`, and
@@ -874,8 +881,13 @@ L-section guides (`_plate_fore_guides`) stand fore of the plate's outer tails an
 return around its ends into the fixed side-wall stock aft of the plate. The tee wall
 is the channel's aft face and the guides its fore face, so the steel cannot pitch
 forward when the four collet noses load it after the cartridge has begun moving.
-The channel remains open above; with the cartridge out, the plate lifts straight up
-through the bay. Its Z band follows from that: the bottom is the
+More importantly, an M3×8 crosses each tail into a short heat-set in that tee wall. Each
+head bears directly on a full stainless land and is inset at least
+[0.8502 mm](PLATE_RETAINER_RECESS) behind the guide's Ø[6.15 mm](PLATE_RETAINER_TUNNEL) teardrop
+driver tunnel; the printed cheek is clearance around the head, not a thin counterbore seat.
+The 45° tunnel roof prints without support in front-top's Z-bed orientation. The channel
+remains open above; with the cartridge out and those two screws removed from the flanks,
+the plate lifts straight up through the bay. Its Z band follows from that: the bottom is the
 seat, and the top is whatever puts the four collet holes **centred** in the band
 (`plate-holes-centred`). Across, its ends stand `PLATE_END_AIR` off the side walls and
 the outline is whole between them: the one thing that ever stood proud of the floor
@@ -908,7 +920,10 @@ sill runs wall to wall, washed fore
 so what runs down the face drains out (`_sill_wash`); the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
-through. Front-bottom's front lip drops across the whole flat span
+through, and `cartridge-sweep-out` reads the complete cartridge and cap envelopes. The
+mouth is square in plan between the box's rounded outer columns: rounding only the fore
+mouth let the face seat at home but caught the square filled block behind it during
+withdrawal. Front-bottom's front lip drops across the whole flat span
 (`_front_flat_lip_drop`) — the floor stands in that band and the heads run down through
 it — and the front wall below keeps its single `front_wall` section from slab to seam.
 The face rides its opening on stated air, `bay_face_slip` at the jambs and

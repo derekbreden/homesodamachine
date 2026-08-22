@@ -55,21 +55,26 @@ is drawn on — the vessel under the faucet is the only vessel the procedure ask
 
 The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
 `collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
-on edge in a blind seat sunk one `wall` into the bay floor's top. Gravity holds it down, the
-seat takes it fore, aft and across at the foot, and the printed wall behind it takes the push
-across its whole face. The floor is not asked to keep the top from pitching: at the plate's
+on edge in a blind seat sunk one `wall` into the bay floor's top. The seat locates and carries
+the foot; the printed wall behind it takes the push across its whole face. The floor is not
+asked to keep the top from pitching: at the plate's
 two outer tails, stationary L-section cheeks stand just fore of the steel and return round
-its ends into front-top's fixed aft side-wall stock. They remain with the enclosure while
-the cartridge moves and the four collet noses load the plate. Their channel is open upward,
-so the plate still lifts straight out through the bay whenever the cartridge is out.
+its ends into front-top's fixed aft side-wall stock, and one of [2](PLATE_RETAINERS) M3×8 screws crosses each tail into a
+short heat-set in the fixed tee wall. The heads bear directly on full stainless lands and sit
+inset behind support-free teardrop driver tunnels in the cheeks; there is no thin printed
+counterbore floor in the load path. They remain with the enclosure while the cartridge moves
+and the four collet noses load the plate. Their channel is open upward, so after the cartridge
+is out and the [2](PLATE_RETAINERS) screws are removed sideways with a 2.5 mm L-key, the plate still lifts
+straight out through the bay.
 
 Seated, the steel stands in the berth between the barbs and the collets, and that berth is
 spent three ways: [1.025](BARB_AIR) mm of air off the barb plane, the plate's own
 [3.175](PLATE_T) mm, and [1.5](REST_GAP) mm of nose air under the four branch collet faces.
-Its four holes stand on the four branch collets' own axes and each is bored to two figures at
-once — wide enough to pass the Ø[6.35 mm](TUBE_OD) tube it has to let slide, narrow enough to
-leave land under the collet nose it has to stop. `enclosure_assembly.check_collet_plate` holds
-the bore to both at every build.
+Its four large holes stand on the four branch collets' own axes and each is bored to two figures
+at once — wide enough to pass the Ø[6.35 mm](TUBE_OD) tube it has to let slide, narrow enough
+to leave land under the collet nose it has to stop. [2](PLATE_RETAINERS) smaller holes at the outer tails carry
+the fixed retainers. `enclosure_assembly.check_collet_plate` holds the tube bores to both jobs,
+the full head footprint to at least 3 mm of steel, and the screw/insert stack clear of bottoming.
 
 **The wall behind the steel is what holds a tee square while that happens.**
 `enclosure-front-top` carries a section of its own material aft of the plate, wall to wall and
@@ -88,7 +93,8 @@ is held, the grip opens, and the tube draws out through the hole it entered by. 
 cartridge home and the same four tubes thread the same four holes back into the same collets,
 the cap's own aft face landing on the plate's fore face as the last one bottoms. **The user's two hands are the whole mechanism**:
 one pulls the cartridge, the other braces the box, and the box carries that brace to the plate
-through the floor. There is no lock and no tool.
+through its fixed wall and steel-bearing retainers. There is no cartridge lock and no tool in
+this pump-replacement motion; the plate-retainer screws stay installed.
 
 ## Dry mode
 
