@@ -31,8 +31,13 @@ from pathlib import Path
 _ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
 
-from gen_build import target_name  # noqa: E402
-from inventory import inventory, tracked  # noqa: E402
+from gen_build import render_build, target_name  # noqa: E402
+from inventory import IMPLICIT_SOLIDS, inventory, tracked  # noqa: E402
+
+
+_BUILD = "BUILD.bazel"
+_GRAPH = "tools/bazel/graph.json"
+_CAD_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
 
 
 def _git(*args) -> list:
@@ -72,6 +77,126 @@ def _diff_paths(lines: list[str]) -> list:
         elif len(fields) >= 2:
             out.add(fields[1])
     return sorted(p for p in out if p and not p.endswith("/"))
+
+
+def _normalized_graph(text: str):
+    """The graph's action-affecting fields, or ``None`` when its meaning is ambiguous."""
+    try:
+        raw = json.loads(text)
+    except (TypeError, ValueError):
+        return None
+    fields = {"reads", "writes", "rewritten"}
+    if not isinstance(raw, dict):
+        return None
+    out = {}
+    for gen, seen in raw.items():
+        if (not isinstance(gen, str) or not isinstance(seen, dict)
+                or set(seen) != fields):
+            return None
+        node = {}
+        for field in fields:
+            paths = seen[field]
+            if not isinstance(paths, list) or not all(isinstance(p, str) for p in paths):
+                return None
+            node[field] = frozenset(paths)
+        out[gen] = node
+    return out
+
+
+def _artifact_projection(graph: dict) -> tuple:
+    """The declarations which can feed or join a CAD action, plus its generated names."""
+    artifacts = {
+        gen for gen, seen in graph.items()
+        if gen in IMPLICIT_SOLIDS
+        or any(path.endswith(_CAD_OUTPUTS) for path in seen["writes"])
+    }
+    held = set(artifacts)
+    while True:
+        inputs = set().union(*(
+            graph[gen]["reads"] | graph[gen]["rewritten"] | graph[gen]["writes"]
+            for gen in held
+        )) if held else set()
+        more = {gen for gen, seen in graph.items() if seen["writes"] & inputs} - held
+        if not more:
+            break
+        held |= more
+
+    # An unrelated generator with the same stem changes an artifact rule's generated label.
+    stems = [Path(gen).stem.strip("_").replace("_", "-") for gen in graph]
+    shared = {stem for stem in stems if stems.count(stem) > 1}
+    names = tuple(sorted(target_name(gen, shared) for gen in artifacts))
+    return {gen: graph[gen] for gen in held}, names
+
+
+def nonartifact_graph_delta(before_text: str, after_text: str) -> bool:
+    """Whether a graph edit provably leaves every CAD-producing action unchanged.
+
+    This is deliberately semantic rather than path-based. A Quick Start producer may gain an
+    HTML input and PNG outputs without recutting sixty-two solids. A changed CAD node, a helper
+    feeding one, a co-writer grouped with one, a target-name collision, or a graph this reader
+    does not understand all fail closed.
+    """
+    before = _normalized_graph(before_text)
+    after = _normalized_graph(after_text)
+    if before is None or after is None:
+        return False
+    return _artifact_projection(before) == _artifact_projection(after)
+
+
+def _git_file(ref: str, path: str):
+    run = subprocess.run(["git", "-C", str(_ROOT), "show", f"{ref}:{path}"],
+                         capture_output=True, text=True)
+    return run.stdout if run.returncode == 0 else None
+
+
+def _git_tree(ref: str):
+    run = subprocess.run(["git", "-C", str(_ROOT), "rev-parse", f"{ref}^{{tree}}"],
+                         capture_output=True, text=True)
+    return run.stdout.strip() if run.returncode == 0 else None
+
+
+def _generated_build_matches(text: str) -> bool:
+    try:
+        return render_build()[0] == text
+    except (Exception, SystemExit):
+        return False
+
+
+def _safe_metadata_paths(paths: list, artifacts_only: bool, graph_safe: bool,
+                         build_generated: bool) -> set:
+    """Metadata paths a CAD-only slice may ignore after their semantics were proved."""
+    paths = set(paths)
+    if not artifacts_only or _GRAPH not in paths or not graph_safe:
+        return set()
+    safe = {_GRAPH}
+    if _BUILD in paths and build_generated:
+        safe.add(_BUILD)
+    return safe
+
+
+def safely_scoped_metadata(paths: list, artifacts_only: bool, base: str = None,
+                           head: str = "HEAD") -> set:
+    """Prove a graph/BUILD edit changes no CAD action; otherwise return no exemptions."""
+    if not artifacts_only or _GRAPH not in paths:
+        return set()
+    if base:
+        before = _git_file(base, _GRAPH)
+        after = _git_file(head, _GRAPH)
+        # `render_build` reads this checkout. It can prove a committed head only when that head
+        # is the checkout; race checks against a fetched future tip remain deliberately global.
+        at_head = _git_tree(head) is not None and _git_tree(head) == _git_tree("HEAD")
+        build_text = _git_file(head, _BUILD) if at_head else None
+    else:
+        before = _git_file("HEAD", _GRAPH)
+        try:
+            after = (_ROOT / _GRAPH).read_text()
+            build_text = (_ROOT / _BUILD).read_text()
+        except OSError:
+            after = build_text = None
+    graph_safe = (before is not None and after is not None
+                  and nonartifact_graph_delta(before, after))
+    build_generated = (build_text is not None and _generated_build_matches(build_text))
+    return _safe_metadata_paths(paths, artifacts_only, graph_safe, build_generated)
 
 
 def paths_in(line: str) -> tuple:
@@ -138,8 +263,7 @@ def artifact_targets() -> set:
     return {
         f"//:{target_name(gens[0], shared)}"
         for gens, made in inv.items()
-        if any(p.endswith((".step", ".stl", ".glb", ".step.mesh"))
-               for p in made["solids"])
+        if any(p.endswith(_CAD_OUTPUTS) for p in made["solids"])
     }
 
 
@@ -171,13 +295,16 @@ def artifact_global(path: str) -> bool:
                             "tools/cad-venv-site/", "tools/ci-image/"))
 
 
-def unscoped_changes(paths: list, known_paths: list, artifacts_only: bool) -> list:
+def unscoped_changes(paths: list, known_paths: list, artifacts_only: bool,
+                     safely_scoped: set = frozenset()) -> list:
     """Changes whose effect cannot be bounded by Bazel reverse dependencies."""
     known_set = set(known_paths)
     return sorted(
         path for path in paths
-        if artifact_global(path)
-        or (path not in known_set and artifact_unknown(path, artifacts_only))
+        if path not in safely_scoped and (
+            artifact_global(path)
+            or (path not in known_set and artifact_unknown(path, artifacts_only))
+        )
     )
 
 
@@ -274,6 +401,65 @@ def selftest() -> int:
          paths_in(' M hardware/scripts/lanes.py') == ("hardware/scripts/lanes.py",))
     hold("a diff rename names both sides",
          _diff_paths(["R100\told/a.py\tnew/b.py"]) == ["new/b.py", "old/a.py"])
+
+    def graph_node(reads=(), writes=(), rewritten=()):
+        return {"reads": list(reads), "writes": list(writes),
+                "rewritten": list(rewritten)}
+
+    quick_before = {
+        "hardware/cad/cut.py": graph_node(writes=("hardware/cad/part.step",)),
+        "hardware/quickstart/_build.py": graph_node(
+            reads=("hardware/quickstart/00-install.html",),
+            writes=("hardware/quickstart/quick-start.pdf",)),
+        "hardware/quickstart/quickstart_art.py": graph_node(
+            writes=("hardware/quickstart/art/mount-drop.png",)),
+    }
+    quick_after = json.loads(json.dumps(quick_before))
+    quick_after["hardware/quickstart/_build.py"]["reads"] += [
+        "hardware/quickstart/01-mount.html",
+        "hardware/quickstart/art/mount-final-clean.png",
+    ]
+    quick_after["hardware/quickstart/quickstart_art.py"]["writes"].append(
+        "hardware/quickstart/art/mount-final-clean.png")
+    quick_delta_safe = nonartifact_graph_delta(
+        json.dumps(quick_before), json.dumps(quick_after))
+    quick_metadata = _safe_metadata_paths(
+        [_BUILD, _GRAPH], True, quick_delta_safe, build_generated=True)
+    hold("a Quick Start-only graph delta reaches zero CAD rules",
+         quick_delta_safe
+         and unscoped_changes([_BUILD, _GRAPH], [_BUILD, _GRAPH], True,
+                              quick_metadata) == [])
+
+    cad_after = json.loads(json.dumps(quick_before))
+    cad_after["hardware/cad/cut.py"]["reads"].append("hardware/cad/new.dat")
+    upstream_before = {
+        "hardware/cad/input.py": graph_node(
+            reads=("hardware/cad/source-a.dat",),
+            writes=("hardware/cad/shape-input.json",)),
+        "hardware/cad/cut.py": graph_node(
+            reads=("hardware/cad/shape-input.json",),
+            writes=("hardware/cad/part.step",)),
+    }
+    upstream_after = json.loads(json.dumps(upstream_before))
+    upstream_after["hardware/cad/input.py"]["reads"] = ["hardware/cad/source-b.dat"]
+    collision_after = json.loads(json.dumps(quick_before))
+    collision_after["hardware/quickstart/cut.py"] = graph_node(
+        writes=("hardware/quickstart/sheet.pdf",))
+    hold("CAD, upstream, and artifact-name graph changes stay global",
+         not nonartifact_graph_delta(json.dumps(quick_before), json.dumps(cad_after))
+         and not nonartifact_graph_delta(json.dumps(upstream_before),
+                                         json.dumps(upstream_after))
+         and not nonartifact_graph_delta(json.dumps(quick_before),
+                                         json.dumps(collision_after)))
+
+    no_build_proof = _safe_metadata_paths(
+        [_BUILD, _GRAPH], True, quick_delta_safe, build_generated=False)
+    hold("ambiguous graph metadata still widens the CAD slice",
+         not nonartifact_graph_delta("{", json.dumps(quick_after))
+         and _safe_metadata_paths([_BUILD], True, True, True) == set()
+         and unscoped_changes([_BUILD, _GRAPH], [_BUILD, _GRAPH], True,
+                              no_build_proof) == [_BUILD])
+
     hold("firmware outside the graph does not widen the CAD slice",
          not artifact_unknown("firmware/src/main.cpp")
          and artifact_unknown("hardware/new_part.py")
@@ -310,7 +496,7 @@ def selftest() -> int:
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 9 else 1
+        return 0 if holds == 12 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
@@ -324,8 +510,8 @@ def selftest() -> int:
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
          "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
-    print(f"affected selftest {holds}/15")
-    return 0 if holds == 15 else 1
+    print(f"affected selftest {holds}/18")
+    return 0 if holds == 18 else 1
 
 
 def say_if_unshimmed() -> None:
@@ -384,13 +570,14 @@ def main(argv) -> int:
     say_if_unshimmed()
 
     moved = changed_between(args.base, args.head) if args.base else changed()
+    scoped_metadata = safely_scoped_metadata(moved, args.artifacts, args.base, args.head)
     if args.artifacts:
         moved = [path for path in moved if not artifact_presentation_only(path)]
     if not moved:
         print("nothing has moved — a build of this tree holds nothing to do", file=sys.stderr)
         return 0
     hit, miss = known(moved)
-    risky = unscoped_changes(moved, hit, args.artifacts)
+    risky = unscoped_changes(moved, hit, args.artifacts, scoped_metadata)
     if risky:
         print(f"{len(risky)} changed CAD path(s) cannot be safely scoped — this slice widens "
               f"to every artifact rule:", file=sys.stderr)
