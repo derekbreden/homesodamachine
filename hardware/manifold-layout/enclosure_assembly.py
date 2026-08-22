@@ -6901,7 +6901,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     return a
 
 
-def report(a: cq.Assembly) -> None:
+def report(a: cq.Assembly, clashes=None) -> None:
     placed = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
         cq.Location(c.loc.wrapped.Transformation()))) for c in a.children]
     named = dict(placed)
@@ -7008,7 +7008,7 @@ def report(a: cq.Assembly) -> None:
 
     _lines.report(getattr(a, "runs", []))
 
-    bad, unanswered = ml.clashes(a)
+    bad, unanswered = ml.clashes(a) if clashes is None else clashes
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
           f"{len(unanswered)} the boolean would not answer for")
     for c in bad:
@@ -7159,7 +7159,7 @@ def main():
     dxf = _here.parent / "collet-plate.dxf"
     export_collet_plate_dxf(a.collet_plate, dxf)
     print(f"-> {dxf.name}")
-    report(a)
+    report(a, _card.pack_clashes(a))
     _card.report(a)
     print(f"-> {_card.write(a, out).name}")
     # AND WHAT THE READERS READ, off this same machine. Eight doc drivers take their figures
