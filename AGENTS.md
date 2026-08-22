@@ -64,11 +64,10 @@ background reading. Two of its documents describe failures every fresh agent rep
   the one position on the page I never read, and produces the one output with no value: prose
   about a state that does not exist. **When the directive force of a sentence is ambiguous, the
   tie goes to acting.**
-- [`calibration/Traffic.md`](calibration/Traffic.md) — agents go read-only, narrow a commit, or
-  hold a step because they believe another session is live in the tree. Those boundaries do not
-  exist. A dirty file is just a dirty file, usually mine, often a slicer. Never say another
-  session is doing something, never defer anything to "whoever picks it up next" — nobody picks
-  it up — and never leave a gate red on that reasoning.
+- [`calibration/Traffic.md`](calibration/Traffic.md) — Codex tasks working in this tree are peers,
+  not ownership boundaries. When their work meets yours, read or message them and carry both tasks
+  through in this checkout. Never go read-only, narrow a commit, hold a step, or leave a gate red
+  merely because another task is live or a file is dirty.
 
 [`calibration/Fences.md`](calibration/Fences.md) is the same for limits you are about to report,
 and [`calibration/Principle.md`](calibration/Principle.md) for why these are examples and not
