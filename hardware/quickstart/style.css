@@ -23,7 +23,7 @@
   --soft: #eef0f2;
   --accent: #ed5966;
   --good: #2e9b6c;
-  --water: #3b82c4;
+  --water: #1f6feb;
   --flavor-liquid: #80233a;
   --ui: #191a2d;
   --ui-card: #2c2d4e;
@@ -215,7 +215,7 @@ html, body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.drop-motion { width: 54px; height: 92px; right: 10px; top: 28px; }
+.drop-motion { width: 54px; height: 150px; right: 180px; top: 126px; }
 .slide-motion { width: 115px; height: 62px; left: 8px; top: 39%; }
 .tighten-motion { width: 82px; height: 82px; right: 3px; bottom: 48px; }
 .hold-inset {
@@ -230,18 +230,7 @@ html, body {
   border-radius: 8px;
   background: #fff;
 }
-.tighten-card .tighten-motion { right: 112px; bottom: 73px; width: 72px; height: 72px; }
-.signal-ribbon {
-  position: absolute;
-  z-index: 5;
-  display: block;
-  width: 12px;
-  border-radius: 3px;
-  background: repeating-linear-gradient(90deg, #6d6f76 0 2px, #b4b6bc 2px 4px);
-  box-shadow: 0 0 0 2px #fff;
-}
-.ribbon-drop { left: 55%; bottom: 53px; height: 74px; transform: rotate(-2deg); }
-.ribbon-under { left: 55%; top: 42%; height: 78px; transform: rotate(2deg); }
+.tighten-card .tighten-motion { right: 200px; bottom: 160px; width: 72px; height: 72px; }
 
 .connect-actions {
   flex: 0 0 282px;
@@ -431,7 +420,7 @@ html, body {
 }
 .fill-choices span.selected { border-color: var(--accent); background: var(--ui-card); color: #fff; }
 .fill-choices b { display: block; font-size: 39px; line-height: .8; }
-.choose-visual .touch-hand { right: 142px; top: 172px; width: 126px; height: 165px; }
+.choose-visual .touch-hand { right: 217px; top: 162px; width: 126px; height: 165px; }
 
 /* 2 — uncapped bottle into exact hopper. */
 .fill-hopper {
@@ -460,13 +449,16 @@ html, body {
 .empty-hopper-ring {
   position: absolute;
   z-index: 5;
-  left: 176px;
-  top: 118px;
-  width: 102px;
-  height: 52px;
-  border: 7px solid var(--good);
+  left: 207px;
+  top: 151px;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  background: var(--good);
   border-radius: 50%;
 }
+.empty-hopper-ring::after { content: "✓"; color: #fff; font-size: 31px; font-weight: 700; line-height: 1; }
 .fill-complete-ui {
   position: absolute;
   z-index: 6;
@@ -492,11 +484,14 @@ html, body {
 .counter-top { position: absolute; left: 0; right: 0; top: 42%; height: 22px; background: #cfd1d5; border: 3px solid #7b7d84; }
 .cabinet-line { position: absolute; left: 8px; right: 8px; top: calc(42% + 22px); bottom: 0; border: 3px solid #d3d4d8; border-top: none; }
 .prime-machine { position: absolute; z-index: 2; left: 5px; bottom: 0; width: 225px; height: 235px; object-fit: contain; filter: brightness(1.08); }
+.prime-machine-leader { position: absolute; inset: 0; z-index: 5; width: 100%; height: 100%; }
+.prime-machine-leader path { fill: none; stroke: var(--accent); stroke-width: 6; stroke-dasharray: 10 8; }
+.prime-machine-leader circle { fill: var(--accent); }
 .prime-faucet { position: absolute; z-index: 3; right: 40px; top: 0; width: 180px; height: 180px; object-fit: contain; }
 .prime-glass {
   position: absolute;
   z-index: 5;
-  right: 145px;
+  right: 100px;
   top: 86px;
   width: 95px;
   height: 107px;
@@ -504,29 +499,33 @@ html, body {
   border-top: none;
 }
 .prime-glass::before { content: ""; position: absolute; left: -7px; right: -7px; top: -9px; height: 13px; border: 6px solid #6f7178; border-radius: 50%; }
-.prime-drop { position: absolute; z-index: 6; right: 205px; top: 54px; width: 10px; height: 52px; border-radius: 7px; background: var(--flavor-liquid); }
+.prime-drop { position: absolute; z-index: 6; right: 165px; top: 54px; width: 10px; height: 52px; border-radius: 7px; background: var(--flavor-liquid); }
 .prime-ui { left: 205px; bottom: 24px; width: 362px; height: 190px; padding: 16px; }
 .prime-ui > strong { font-size: 22px; }
 .prime-nav { display: flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 13px; font-weight: 700; }
 .prime-nav span { padding: 4px 7px; border: 2px solid #676985; border-radius: 6px; color: #d7d7e3; }
 .prime-nav span:last-child { border-color: var(--accent); color: #fff; }
 .prime-nav i { color: var(--accent); font-style: normal; font-size: 19px; }
-.hold-bar { margin-top: 15px; height: 58px; display: grid; place-items: center; border-radius: 10px; background: var(--accent); font-family: var(--mono); font-weight: 700; font-size: 17px; }
-.hold-finger { left: 407px; bottom: 4px; width: 102px; height: 135px; }
+.hold-bar { margin-top: 15px; height: 58px; display: flex; align-items: center; justify-content: flex-start; padding-left: 24px; border-radius: 10px; background: var(--accent); font-family: var(--mono); font-weight: 700; font-size: 17px; }
+.hold-finger { left: 439px; bottom: 4px; width: 102px; height: 135px; }
 .prime-outcome {
   position: absolute;
   z-index: 8;
-  right: 3px;
-  top: 220px;
+  right: 224px;
+  top: 70px;
   width: 190px;
-  display: grid;
-  grid-template-columns: 20px 1fr;
-  gap: 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
   color: var(--flavor-liquid);
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 13px;
+  line-height: 1.12;
+  text-align: right;
 }
-.prime-outcome i { grid-row: 1 / span 2; width: 14px; height: 54px; border-radius: 8px; background: var(--flavor-liquid); }
+.prime-outcome::before { content: ""; position: absolute; left: calc(100% + 4px); top: 8px; width: 53px; border-top: 3px solid var(--flavor-liquid); }
+.prime-outcome::after { content: ""; position: absolute; left: calc(100% + 53px); top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--flavor-liquid); }
 .prime-outcome span { color: var(--accent); font-weight: 700; }
 
 /* 5 — real readiness before selecting the same flavor. */
@@ -555,10 +554,10 @@ html, body {
 .ready-check { grid-row: 1 / span 2; width: 55px; height: 55px; display: grid; place-items: center; border-radius: 50%; background: var(--good); font-size: 36px; font-weight: 700; }
 .ready-ui strong { align-self: end; font-size: 24px; }
 .ready-ui small { font-family: var(--mono); font-size: 13px; line-height: 1.22; }
-.ready-arrow { position: absolute; inset: 0; z-index: 5; width: 100%; height: 100%; }
+.ready-arrow { position: absolute; inset: 0; z-index: 8; width: 100%; height: 100%; }
 .ready-arrow path { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
 .ready-faucet { position: absolute; z-index: 4; right: 10px; bottom: 0; width: 190px; height: 405px; object-fit: contain; }
-.ready-flavor { position: absolute; z-index: 7; right: 70px; top: 38px; width: 88px; height: 164px; object-fit: cover; border-radius: 12px; box-shadow: 0 0 0 5px #292a30; }
+.ready-flavor { position: absolute; z-index: 7; right: 124px; top: 133px; width: 37px; height: 52px; object-fit: cover; border-radius: 2px; clip-path: polygon(9% 0, 100% 4%, 90% 100%, 0 93%); transform: skewX(-7deg); }
 .wake-sequence {
   position: absolute;
   z-index: 10;
@@ -574,7 +573,7 @@ html, body {
   background: #fff;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.15;
   text-align: center;
 }
@@ -595,20 +594,21 @@ html, body {
 .pour-faucet { z-index: 3; }
 .pour-faucet-ghost {
   z-index: 4;
-  opacity: .34;
+  opacity: .24;
   filter: sepia(.5) saturate(3) hue-rotate(300deg);
-  clip-path: polygon(45% 57%, 86% 57%, 86% 84%, 45% 84%);
+  clip-path: polygon(50% 67%, 66% 67%, 66% 73%, 54% 79%, 50% 76%);
 }
 .pour-screen-fill {
   position: absolute;
   z-index: 5;
-  left: 94px;
-  top: 25px;
-  width: 78px;
-  height: 100px;
-  border-radius: 9px;
+  left: 122px;
+  top: 44px;
+  width: 43px;
+  height: 70px;
+  border-radius: 4px;
   background: url(art/flavor-1.png) center / cover no-repeat;
-  transform: rotate(14deg) skewY(-7deg);
+  transform: rotate(10deg) skewY(-4deg);
+  clip-path: polygon(10% 2%, 98% 9%, 84% 98%, 0 87%);
   opacity: .95;
 }
 .pour-glass {
@@ -625,14 +625,16 @@ html, body {
 .pour-glass::before { content: ""; position: absolute; left: -9px; right: -9px; top: -13px; height: 19px; border: 8px solid #6f7178; border-radius: 50%; }
 .starting-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 18%; background: rgba(55,130,196,.24); }
 .fizz { position: absolute; left: 12px; right: 12px; bottom: 8px; height: 55px; background: radial-gradient(circle at 15% 82%, #fff 0 4px, transparent 5px), radial-gradient(circle at 36% 51%, #fff 0 5px, transparent 6px), radial-gradient(circle at 70% 75%, #fff 0 3px, transparent 4px), radial-gradient(circle at 88% 40%, #fff 0 4px, transparent 5px); }
-.pour-streams, .lever-displacement { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pour-streams, .lever-displacement, .mix-leader { position: absolute; inset: 0; width: 100%; height: 100%; }
 .pour-streams { z-index: 4; }
 .lever-displacement { z-index: 7; }
 .lever-displacement path { fill: none; stroke: var(--accent); stroke-width: 8; stroke-linecap: round; }
+.mix-leader { z-index: 7; }
+.mix-leader path { fill: none; stroke: var(--muted); stroke-width: 4; stroke-linecap: round; }
 .lever-target { position: absolute; z-index: 8; left: 330px; bottom: 25px; display: flex; flex-direction: column; font-family: var(--mono); }
 .lever-target b { color: var(--accent); font-size: 22px; }
 .lever-target span { color: var(--muted); font-size: 16px; font-weight: 700; }
-.mix-note { position: absolute; z-index: 8; right: 18px; top: 156px; width: 260px; display: grid; grid-template-columns: 45px 45px 1fr; align-items: center; gap: 7px; font-family: var(--mono); font-size: 15px; }
+.mix-note { position: absolute; z-index: 8; left: 430px; top: 190px; width: 260px; display: grid; grid-template-columns: 45px 45px 1fr; align-items: center; gap: 7px; font-family: var(--mono); font-size: 15px; }
 .mix-note i { height: 9px; border-radius: 6px; }
 .water-line { background: var(--water); }
 .flavor-line { background: var(--flavor-liquid); }
