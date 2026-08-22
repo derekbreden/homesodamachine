@@ -18,8 +18,8 @@ AND THE BROWSER IS STOOD ONCE, for however many pictures the run has to draw. Ev
 its picture into one `Batch`, and the whole list goes to `render-step-posed.js --jobs` at the
 end — one server, one Chromium, one page re-pointed at each subject in turn. See `Batch`.
 
-`//:render-scenes` is what runs it: the build hands this the assembly's STEP and takes the
-pictures back, and it runs when that STEP moves.
+`//:render-scene-cards` draws the pictures and `//:render-scene-glbs` cuts the viewer meshes.
+They share this implementation but not an action, so publishing geometry never starts Chromium.
 """
 
 import argparse
@@ -287,12 +287,13 @@ class Batch:
                 indent=2, sort_keys=True) + "\n")
 
 
-def draw(scene, assembly, batch, force=False) -> Path:
+def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
     # THE RENDERER IS READ WHETHER OR NOT THIS RUN STARTS IT. A scene whose geometry and camera
     # both stand skips the browser, and a trace of that run would not see node's command line
     # at all — so the file that draws every picture here would go undeclared, and the action
     # that redraws one would not find it.
-    note_read(RENDERER)
+    if images:
+        note_read(RENDERER)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     GLB_DIR.mkdir(parents=True, exist_ok=True)
     step = OUT_DIR / f"{scene.id}.step"
@@ -333,15 +334,20 @@ def draw(scene, assembly, batch, force=False) -> Path:
     # thumbnail queue are for a repo artifact a page lists, and it is imported by nearly every
     # generator in the tree — a keyword added there for one mesh moves the hash of every build
     # graph that reads it.
-    glb = GLB_DIR / f"{scene.id}.glb"
-    scene_assembly.export(str(glb), tolerance=GLB_TOL, angularTolerance=GLB_TOL)
-    # AND THE SAME SUBSTITUTION THE PAYLOAD ABOVE TOOK. This mesh is cut from the B-rep too, and
-    # it is what /3d opens a scene AS — there is no STEP behind it to fall back to — so a piece
-    # left as exported is drawn smooth wherever a reader browses the bench.
-    in_glb = flute_payload.graft_glb(glb, fluted_pieces(surfaces=True))
-    if in_glb:
-        print(f"   ({in_glb} fluted piece(s) into {glb.name})")
-    note_write(glb)
+    if glbs:
+        glb = GLB_DIR / f"{scene.id}.glb"
+        scene_assembly.export(str(glb), tolerance=GLB_TOL, angularTolerance=GLB_TOL)
+        # AND THE SAME SUBSTITUTION THE PAYLOAD ABOVE TOOK. This mesh is cut from the B-rep too,
+        # and it is what /3d opens a scene AS — there is no STEP behind it to fall back to.
+        in_glb = flute_payload.graft_glb(glb, fluted_pieces(surfaces=True))
+        if in_glb:
+            print(f"   ({in_glb} fluted piece(s) into {glb.name})")
+        note_write(glb)
+
+    # Publication needs the viewer GLB but not a photograph of it. Keeping that action on this
+    # side of the return removes Chromium and all 68 card outputs from the CAD fast lane.
+    if not images:
+        return glb
 
     png = png_for(scene)
     # THE PICTURE IS DRAWN BY NODE, below Python, and the sidecar beside it is not. Both are
@@ -473,20 +479,21 @@ def draw_part(part, batch, force=False) -> Path:
     return png
 
 
-def main():
+def main(images=True, glbs=True):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("scenes", nargs="*", help="scene or part-shot ids; default every one")
     ap.add_argument("--force", action="store_true",
                     help="redraw even where the geometry and the camera both stand")
     args = ap.parse_args()
 
-    every = [s.id for s in _scenes.SCENES] + [p.id for p in _scenes.PARTS]
+    every = [s.id for s in _scenes.SCENES] + ([p.id for p in _scenes.PARTS] if images else [])
     wanted = args.scenes or every
     unknown = [s for s in wanted if s not in _scenes.SCENE_BY_ID and s not in _scenes.PART_BY_ID]
     if unknown:
         ap.error(f"no such picture: {', '.join(unknown)} — have {', '.join(every)}")
     scenes = [_scenes.SCENE_BY_ID[s] for s in wanted if s in _scenes.SCENE_BY_ID]
-    parts = [_scenes.PART_BY_ID[s] for s in wanted if s in _scenes.PART_BY_ID]
+    parts = ([_scenes.PART_BY_ID[s] for s in wanted if s in _scenes.PART_BY_ID]
+             if images else [])
 
     # EVERY PICTURE IN THIS RUN GOES INTO ONE BATCH, cut and posed here and drawn in one
     # browser at the end — see `Batch`. What is queued is only what the guards above did not
@@ -502,12 +509,13 @@ def main():
     if scenes:
         print(f"\nbuilding the machine once for {len(scenes)} scene(s)…")
         import enclosure_assembly as ea
-        draw_all(scenes, ea.build_enclosure_assembly(), batch, force=args.force)
+        draw_all(scenes, ea.build_enclosure_assembly(), batch, force=args.force,
+                 images=images, glbs=glbs)
 
     batch.run()
 
 
-def draw_all(scenes, assembly, batch, force=False) -> list:
+def draw_all(scenes, assembly, batch, force=False, images=True, glbs=True) -> list:
     """Every scene in `scenes`, off a machine somebody already stood.
 
     The assembly's own run has one in hand when it writes the STEP, so the pictures cost the
@@ -517,7 +525,7 @@ def draw_all(scenes, assembly, batch, force=False) -> list:
         names = _scenes.members(scene, assembly)
         print(f"\n{scene.id} — {scene.title}: {len(names)} bodies")
         print("   " + ", ".join(names))
-        out.append(draw(scene, assembly, batch, force=force))
+        out.append(draw(scene, assembly, batch, force=force, images=images, glbs=glbs))
         print(f"-> {out[-1].relative_to(_ROOT)}")
     return out
 

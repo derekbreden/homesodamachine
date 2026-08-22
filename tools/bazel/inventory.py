@@ -37,6 +37,56 @@ GRAPH = _HERE.parent / "graph.json"
 #: bundle carries, which is the reading a checkout that has cut nothing of its own still has.
 LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
 
+#: Outputs whose writer deliberately avoids touching them when the bytes beside its STEP are
+#: already current. A syscall trace therefore sees the read that proves they are current, not a
+#: write, even though a clean action must produce them. The enclosure payload is shared by its
+#: smooth writer and the fluting pass; declaring it for both groups those generators into one
+#: action, so the fluting pass never seeds itself from the fetched prior bundle.
+IMPLICIT_SOLIDS = {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": (
+        "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+    ),
+    "hardware/manifold-layout/enclosure_assembly.py": (
+        "hardware/manifold-layout/enclosure-assembly.step.mesh",
+    ),
+    "hardware/manifold-layout/manifold_layout.py": (
+        "hardware/manifold-layout/manifold-layout.step.mesh",
+    ),
+}
+
+# One traced run produces two independent media. The GLBs are public CAD bundle members; the
+# PNG/JSON set is a browser-driven card render. Keeping them in one action made every geometry
+# publication wait for Chromium. Both wrappers call the same traced implementation, and this
+# partitions only its outputs; the GLB half also drops browser-only inputs it never opens.
+SPLIT_GENERATORS = {
+    "hardware/assembly/scenes/render_scenes.py": (
+        "hardware/assembly/scenes/render_scene_glbs.py",
+        "hardware/assembly/scenes/render_scene_cards.py",
+    ),
+}
+
+
+def _split_generators(graph: dict) -> dict:
+    graph = dict(graph)
+    for source, (glbs, cards) in SPLIT_GENERATORS.items():
+        if source not in graph:
+            continue
+        seen = graph.pop(source)
+        rewritten = set(seen.get("rewritten", ()))
+        graph[glbs] = {
+            "reads": [p for p in seen.get("reads", ())
+                      if p not in rewritten
+                      and not p.startswith(("tools/render/", "web/"))],
+            "writes": [p for p in seen.get("writes", ()) if p.endswith(".glb")],
+            "rewritten": [],
+        }
+        graph[cards] = {
+            "reads": list(seen.get("reads", ())),
+            "writes": [p for p in seen.get("writes", ()) if not p.endswith(".glb")],
+            "rewritten": list(seen.get("rewritten", ())),
+        }
+    return graph
+
 #: ONE WALK ANSWERS WHICH `.step` ON THIS DISK IS A GENERATED SOLID, and `pack.py` is where it
 #: lives — `pack.py --check` holds that same walk against the outputs `graph.json` declares, so
 #: the solids a bundle ships and the solids an action is filled from are one reading. Its
@@ -98,6 +148,24 @@ def inventory(files=None) -> dict:
     except (OSError, ValueError):
         return {}
 
+    orphaned = sorted(set(graph) - files)
+    if orphaned:
+        raise SystemExit(
+            f"  {len(orphaned)} build-graph generator(s) are absent from the tree — "
+            f"{orphaned[0]} among them. Re-trace the renamed generator or remove its stale "
+            f"graph entry.")
+
+    graph = _split_generators(graph)
+    files |= {path for paths in SPLIT_GENERATORS.values() for path in paths}
+
+    # A NEW OUTPUT IS NOT IN GIT OR THE OLD BUNDLE YET. Filtering the trace through only the
+    # files already present made that output disappear from BUILD.bazel, so no clean action
+    # could ever create it and no publisher could ever add it. Writers declare their outputs;
+    # their paths therefore join the inventory before writes and downstream reads are sorted.
+    graph_writes = {f for seen in graph.values() for f in seen.get("writes", ())}
+    files |= graph_writes
+    files |= {f for paths in IMPLICIT_SOLIDS.values() for f in paths}
+
     # A READING TAKEN BEFORE THE WRITERS SAID WHICH KIND OF WRITE IT WAS cannot be sorted, and
     # sorting it wrong makes every doc an output its own action is not given. Named here rather
     # than built into a graph that fails one action at a time.
@@ -108,7 +176,7 @@ def inventory(files=None) -> dict:
             f"  read back — {Path(stale[0]).name} among them. Re-trace them:\n"
             f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py")
 
-    writes = {gen: {f for f in seen["writes"] if f in files}
+    writes = {gen: (set(seen["writes"]) | set(IMPLICIT_SOLIDS.get(gen, ())))
               for gen, seen in graph.items() if gen in files}
     writes = {gen: w for gen, w in writes.items() if w}
 

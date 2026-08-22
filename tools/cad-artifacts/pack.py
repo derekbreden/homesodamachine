@@ -4,10 +4,12 @@
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py            # what the bundle holds
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, pin it
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --check    # 0 = the lock names this tree
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune    # remove retired locked outputs
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py selftest   # the bundle, on fixtures
 
-`hardware/cad-artifacts.lock.json` names the asset by its own sha256 and every solid inside it by
-sha256, and it is committed. The asset is content-addressed (`cad-<sha16>.tar.gz`) and never
+`hardware/cad-artifacts.lock.json` names the source commit, the asset by its own sha256 and every
+solid inside it by sha256, and it is committed. The asset is content-addressed
+(`cad-<sha16>.tar.gz`) and never
 rewritten, so a checkout resolves to the bundle its own commit was packed against.
 `web/scripts/fetch-cad-artifacts.mjs` reads the lock at deploy and holds the download to both
 hashes before anything is extracted.
@@ -231,6 +233,103 @@ def hashes(root: Path, rels: list) -> dict:
     return {rel: _sha256(root / rel) for rel in rels}
 
 
+def _head(root: Path) -> str:
+    return subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"],
+                          capture_output=True, text=True, check=True).stdout.strip()
+
+
+def _dirty_artifact_inputs(root: Path) -> list:
+    """Tracked/untracked edits that can reach a published output.
+
+    Ignored generated solids are intentionally absent from git status; they are the bytes being
+    packed. Source provenance is only honest when every input that can cut those bytes belongs
+    to HEAD.
+    """
+    status = subprocess.run(
+        ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
+        capture_output=True, text=True, check=True)
+    sys.path.insert(0, str(root / "tools" / "bazel"))
+    import affected
+
+    moved = {path for line in status.stdout.splitlines()
+             for path in affected.paths_in(line)}
+    moved.discard("hardware/cad-artifacts.lock.json")
+    moved = {path for path in moved if not affected.artifact_presentation_only(path)}
+    if not moved:
+        return []
+    forced = sorted(p for p in moved if affected.artifact_unknown(p, artifacts_only=True))
+    hit, miss = affected.known(sorted(moved))
+    risky = [p for p in miss if affected.artifact_unknown(p, artifacts_only=True)]
+    reached = sorted(set(affected.targets(hit)) & affected.artifact_targets())
+    return sorted(set(forced) | set(risky) | set(reached))
+
+
+def _owed_artifact_targets(root: Path) -> list:
+    """Artifact rules changed since the source commit the lock proves."""
+    source = read_lock(root).get("source", {}).get("commit", "")
+    script = root / "tools" / "bazel" / "affected.py"
+    args = ([sys.executable, str(script), "--base", source, "--head", "HEAD", "--artifacts"]
+            if source else [sys.executable, str(script), "--all-artifacts"])
+    run = subprocess.run(args, cwd=str(root), capture_output=True, text=True)
+    if run.returncode != 0:
+        raise SystemExit(f"could not establish artifact debt:\n{run.stderr}")
+    return sorted({line for line in run.stdout.splitlines() if line.startswith("//:")})
+
+
+def _cut_is_fresh(root: Path, targets: list) -> bool:
+    """Whether Bazel and the tree both hold the outputs the owed rules make."""
+    if not targets:
+        return True
+    check = subprocess.run(["bazel", "build", "--check_up_to_date", *targets],
+                           cwd=str(root), capture_output=True, text=True)
+    owed = [line for line in check.stderr.splitlines() if "not up-to-date" in line]
+    stale = [line for line in owed if "BazelWorkspaceStatusAction" not in line]
+    if check.returncode != 0 and (stale or not owed):
+        print("the artifact targets have not been built from this source commit:")
+        for line in (stale or check.stderr.splitlines())[:10]:
+            print(f"  {line.strip()}")
+        return False
+    sync = subprocess.run(
+        [sys.executable, str(root / "tools" / "bazel" / "sync_tree.py"),
+         "--solids-only", "--targets", " ".join(targets)], cwd=str(root))
+    if sync.returncode != 0:
+        print("the tree does not hold the complete cut in bazel-bin")
+        return False
+    return True
+
+
+def _targets_for_members(root: Path, members: set) -> tuple:
+    """The artifact rules that own `members`, and any member no current rule owns.
+
+    The lock source tells which rules the commit range owes. The bytes on disk can also have
+    moved independently because generated solids are ignored; mapping every changed member
+    back to its producer makes `--write` prove those bytes came from a current Bazel output too.
+    """
+    if not members:
+        return [], []
+    if root.resolve() != _ROOT.resolve():
+        return [], sorted(members)
+    sys.path.insert(0, str(root / "tools" / "bazel"))
+    from gen_build import target_name
+    from inventory import inventory, tracked
+
+    inv = inventory(tracked())
+    seen, shared = set(), set()
+    for gens in inv:
+        for gen in gens:
+            stem = Path(gen).stem.strip("_").replace("_", "-")
+            (shared if stem in seen else seen).add(stem)
+
+    remaining = set(members)
+    targets = set()
+    for gens, made in inv.items():
+        owned = remaining & set(made["solids"])
+        if owned:
+            targets.add(f"//:{target_name(gens[0], shared)}")
+            remaining -= owned
+    return sorted(targets), sorted(remaining)
+
+
 def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
@@ -242,14 +341,15 @@ def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict 
             "asset": asset,
             "url": f"https://github.com/{slug}/releases/download/{TAG}/{asset}",
         },
+        "source": {"commit": _head(root)},
         "bundle": {"sha256": digest, "bytes": size, "solids": len(rels)},
         "solids": solid_hashes if solid_hashes is not None else hashes(root, rels),
     }
 
 
-def read_lock() -> dict:
+def read_lock(root: Path = _ROOT) -> dict:
     try:
-        return json.loads(LOCK.read_text())
+        return json.loads((root / "hardware" / "cad-artifacts.lock.json").read_text())
     except (OSError, ValueError):
         return {}
 
@@ -259,45 +359,116 @@ def _write_lock(data: dict) -> None:
     LOCK.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n")
 
 
-def _undeclared(root: Path, rels: list) -> list:
-    """Generated solids the walk reached that `graph.json` does not declare an output.
-
-    Named, not excluded: the bundle carries a part whose generator has not been re-traced.
-    `HARVESTED` is already out of `rels`, so what is left is a fresh part or a stale graph.
-
-    A MESH IS DECLARED BY THE RULE THAT DECLARES ITS SOLID. Both come out of one generator in one
-    run — `enclosure.py` writes the STEP and then cuts the flutes into the mesh on the way to the
-    bed — so a graph that carries the solid carries the mesh, and naming the mesh separately
-    would report a part as untraced for having two outputs instead of one.
-
-    AND SO IS THE PAYLOAD THAT STANDS FOR IT. `<file>.step.mesh` is that same surface at the
-    deflection a browser draws it at, and it answers to the solid's name for the same reason.
-
-    A SCENE MESH IS DECLARED IN ITS OWN RIGHT, because nothing else stands for it. There is no
-    solid beside `scenes/glb/back-top.glb` whose name it could answer to — `render_scenes.py`
-    cuts it and `graph.json` writes it under that name — so a reading that takes only `.step`
-    and `.stl` from the graph finds none of the eleven and calls every one untraced."""
+def _declared(root: Path) -> set:
+    """Every publishable output the build graph says a clean action produces."""
     try:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
-        return []
-    declared = set()
-    for node in graph.values():
-        for key in ("writes", "outs", "outputs"):
-            for f in (node.get(key) or []):
-                if str(f).endswith((".step", ".stl", ".glb")):
-                    declared.add(str(f))
-    return [r for r in rels
-            if r not in declared
-            and not (r.endswith(".stl") and r[:-4] + ".step" in declared)
-            and not (r.endswith(".step.mesh") and r[:-5] in declared)]
+        return set()
+    declared = {
+        str(f)
+        for node in graph.values()
+        for f in (node.get("writes") or [])
+        if str(f).endswith((".step", ".stl", ".glb", ".step.mesh"))
+    }
+    if root.resolve() == _ROOT.resolve():
+        sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
+        from inventory import IMPLICIT_SOLIDS
+        declared |= {path for paths in IMPLICIT_SOLIDS.values() for path in paths}
+    return declared
+
+
+def _graph_gaps(root: Path, rels: list) -> tuple:
+    """Bundled-but-undeclared and declared-but-absent publish outputs.
+
+    Equality is the gate. A sibling STEP is not a declaration for an STL or `.step.mesh`:
+    Bazel carries bytes, and every byte the release ships must be an output of the action that
+    makes it."""
+    declared = _declared(root)
+    present = set(rels)
+    return sorted(present - declared), sorted(declared - present)
+
+
+def _undeclared(root: Path, rels: list) -> list:
+    """Compatibility name for callers that only ask about the first half of `_graph_gaps`."""
+    return _graph_gaps(root, rels)[0]
+
+
+def _retirement_evidence(root: Path, retired: list) -> list:
+    """Retired paths whose producing source did not move since the published cut."""
+    source = read_lock(root).get("source", {}).get("commit", "")
+    if not source:
+        return list(retired)
+    old = subprocess.run(
+        ["git", "-C", str(root), "show", f"{source}:tools/bazel/graph.json"],
+        capture_output=True, text=True)
+    moved = subprocess.run(
+        ["git", "-C", str(root), "diff", "--name-only", source, "HEAD"],
+        capture_output=True, text=True)
+    if old.returncode != 0 or moved.returncode != 0:
+        return list(retired)
+    try:
+        graph = json.loads(old.stdout)
+    except ValueError:
+        return list(retired)
+    changed = set(moved.stdout.splitlines())
+    unexplained = []
+    for rel in retired:
+        producers = {gen for gen, seen in graph.items() if rel in seen.get("writes", ())}
+        if producers:
+            explained = bool(producers & changed)
+        else:
+            explained = "tools/bazel/inventory.py" in changed
+        if not explained:
+            unexplained.append(rel)
+    return unexplained
+
+
+def prune(root: Path, allow_retired: bool = False) -> int:
+    """Remove locked bundle members the current build graph has retired.
+
+    Explicit because these files are ignored and deletion is otherwise invisible to git. Every
+    target is recoverable from the still-committed lock until `--write` pins the replacement.
+    """
+    retired = sorted(set(read_lock(root).get("solids", {})) - _declared(root))
+    unexplained = [] if allow_retired else _retirement_evidence(root, retired)
+    if unexplained:
+        print("refusing to retire public outputs without a changed producing source:")
+        for rel in unexplained[:20]:
+            print(f"  {rel}")
+        print("  Correct the graph/source history, or review and pass --allow-retired.")
+        return 2
+    removed = 0
+    hardware = (root / "hardware").resolve()
+    for rel in retired:
+        path = root / rel
+        try:
+            path.resolve().relative_to(hardware)
+        except ValueError:
+            raise SystemExit(f"refusing to prune a lock path outside hardware/: {rel}")
+        if path.is_file() or path.is_symlink():
+            path.unlink()
+            removed += 1
+            print(f"  {rel}")
+    print(f"{removed} retired locked output(s) removed; recoverable from the committed lock")
+    return 0
 
 
 def _gh(root: Path, *args, **kw):
     return subprocess.run(["gh", *args], cwd=str(root), capture_output=True, text=True, **kw)
 
 
-def upload(root: Path, bundle: Path, asset: str) -> None:
+def _release_asset_matches(root: Path, asset: str, digest: str, size: int) -> bool:
+    listing = _gh(root, "release", "view", TAG, "--json", "assets")
+    if listing.returncode != 0:
+        return False
+    have = {a["name"]: a for a in json.loads(listing.stdout).get("assets", [])}
+    old = have.get(asset)
+    return bool(old and old.get("state") == "uploaded" and old.get("size") == size
+                and old.get("digest") == f"sha256:{digest}")
+
+
+def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None:
     """Put `bundle` on the release as `asset`, making the release if it is not there yet.
 
     The name carries the bundle's own hash, so a name already on the release holds these bytes
@@ -313,10 +484,14 @@ def upload(root: Path, bundle: Path, asset: str) -> None:
         if made.returncode != 0:
             raise SystemExit(f"gh release create failed:\n{made.stderr}")
     else:
-        have = {a["name"] for a in json.loads(listing.stdout).get("assets", [])}
-        if asset in have:
-            print(f"  {asset} is already on the release")
+        have = {a["name"]: a for a in json.loads(listing.stdout).get("assets", [])}
+        old = have.get(asset)
+        if (old and old.get("state") == "uploaded" and old.get("size") == size
+                and old.get("digest") == f"sha256:{digest}"):
+            print(f"  {asset} is already on the release at the verified size and digest")
             return
+        if old:
+            print(f"  {asset} exists without the expected size/digest — replacing it")
     with tempfile.TemporaryDirectory() as d:
         staged = Path(d) / asset
         staged.write_bytes(bundle.read_bytes())
@@ -331,21 +506,50 @@ def main(argv) -> int:
     ap.add_argument("mode", nargs="?", choices=["selftest"])
     ap.add_argument("--write", action="store_true", help="build, upload and pin")
     ap.add_argument("--check", action="store_true", help="1 if the lock does not name this tree")
+    ap.add_argument("--prune", action="store_true",
+                    help="remove locked members no longer declared by the build graph")
+    ap.add_argument("--allow-retired", action="store_true",
+                    help="with --prune, confirm graph retirements lacking source evidence")
     args = ap.parse_args(argv)
 
     if args.mode == "selftest":
         return selftest()
+    if args.prune:
+        if args.write or args.check:
+            ap.error("--prune is a separate explicit step")
+        return prune(_ROOT, args.allow_retired)
+    if args.allow_retired:
+        ap.error("--allow-retired is only valid with --prune")
+
+    if args.write:
+        dirty = _dirty_artifact_inputs(_ROOT)
+        if dirty:
+            print("refusing to stamp HEAD onto a bundle cut from dirty artifact inputs:")
+            for item in dirty[:20]:
+                print(f"  {item}")
+            print("  Commit the inputs, then pack from that clean source commit.")
+            return 2
+        owed = _owed_artifact_targets(_ROOT)
+    else:
+        owed = []
 
     rels = solids(_ROOT)
     total = sum((_ROOT / r).stat().st_size for r in rels)
     print(f"{len(rels)} generated solid(s), {total / 1e6:.1f} MB in the tree")
 
-    loose = _undeclared(_ROOT, rels)
+    loose, missing = _graph_gaps(_ROOT, rels)
+    if loose or missing:
+        print("the publish inventory and build outputs do not agree, so no bundle is packed")
     if loose:
-        print(f"  {len(loose)} not declared an output in graph.json (a fresh part, or a stale "
-              f"graph — the bundle carries them either way):")
+        print(f"  {len(loose)} bundled solid(s) are not declared outputs:")
         for rel in loose[:8]:
             print(f"    {rel}")
+    if missing:
+        print(f"  {len(missing)} declared publish output(s) are absent from the tree:")
+        for rel in missing[:8]:
+            print(f"    {rel}")
+    if loose or missing:
+        return 2
 
     now = hashes(_ROOT, rels)
 
@@ -358,7 +562,36 @@ def main(argv) -> int:
         return 1
 
     held = read_lock()
+    changed_members = {rel for rel, digest in now.items()
+                       if held.get("solids", {}).get(rel) != digest}
+    changed_targets, unowned = _targets_for_members(_ROOT, changed_members)
+    if args.write:
+        if unowned:
+            print("refusing to publish changed bundle members with no current Bazel producer:")
+            for rel in unowned[:20]:
+                print(f"  {rel}")
+            return 2
+        verify_targets = sorted(set(owed) | set(changed_targets))
+        if not _cut_is_fresh(_ROOT, verify_targets):
+            print("  Build and carry every owed or changed artifact target before --write.")
+            return 2
     if held.get("solids") == now:
+        if args.write:
+            release = held.get("release", {})
+            bundle = held.get("bundle", {})
+            if not _release_asset_matches(_ROOT, release.get("asset", ""),
+                                          bundle.get("sha256", ""), bundle.get("bytes", -1)):
+                with tempfile.TemporaryDirectory() as d:
+                    path = Path(d) / "bundle.tar.gz"
+                    digest = build(_ROOT, rels, path)
+                    if digest != bundle.get("sha256"):
+                        raise SystemExit("equal member hashes built a different bundle digest")
+                    upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
+            if held.get("source", {}).get("commit") != _head(_ROOT):
+                held["source"] = {"commit": _head(_ROOT)}
+                _write_lock(held)
+                print(f"lock names this tree — {held['release']['asset']}; source advanced")
+                return 0
         print(f"lock names this tree — {held['release']['asset']}")
         return 0
 
@@ -384,7 +617,7 @@ def main(argv) -> int:
         data = lock_for(_ROOT, rels, digest, size, now)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
-        upload(_ROOT, bundle, data["release"]["asset"])
+        upload(_ROOT, bundle, data["release"]["asset"], digest, size)
 
     _write_lock(data)
     print(f"pinned in {LOCK.relative_to(_ROOT)}")
@@ -431,6 +664,22 @@ def selftest() -> int:
              solids(root), ["hardware/printed-parts/cap/cap.step",
                             "hardware/printed-parts/enclosure/enclosure/piece.step",
                             "hardware/printed-parts/enclosure/enclosure/piece.step.mesh"])
+
+        graph_dir = root / "tools" / "bazel"
+        graph_dir.mkdir(parents=True)
+        graph = {"piece.py": {"writes": [
+            "hardware/printed-parts/cap/cap.step",
+            "hardware/printed-parts/enclosure/enclosure/piece.step",
+        ]}}
+        (graph_dir / "graph.json").write_text(json.dumps(graph))
+        hold("a payload needs its own declared output",
+             _undeclared(root, solids(root)),
+             ["hardware/printed-parts/enclosure/enclosure/piece.step.mesh"])
+        graph["piece.py"]["writes"].append(
+            "hardware/printed-parts/enclosure/enclosure/piece.step.mesh")
+        (graph_dir / "graph.json").write_text(json.dumps(graph))
+        hold("an exactly declared publish inventory passes",
+             _graph_gaps(root, solids(root)), ([], []))
         shutil.rmtree(hw / "printed-parts" / "enclosure")
 
         a, b = root / "a.tar.gz", root / "b.tar.gz"
@@ -452,8 +701,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/8")
-    return 0 if holds == 8 else 1
+    print(f"pack selftest {holds}/10")
+    return 0 if holds == 10 else 1
 
 
 if __name__ == "__main__":

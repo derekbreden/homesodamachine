@@ -3,6 +3,7 @@
 
     tools/cad-venv/bin/python tools/bazel/affected.py          # the targets, one per line
     tools/cad-venv/bin/python tools/bazel/affected.py --why    # each target, and what reaches it
+    tools/cad-venv/bin/python tools/bazel/affected.py --base HEAD^ --artifacts
     tools/cad-venv/bin/python tools/bazel/affected.py selftest
 
     bazel build $(tools/cad-venv/bin/python tools/bazel/affected.py)
@@ -19,18 +20,28 @@ target's inputs or newly added to a graph that has not been regenerated.
 
 import argparse
 import importlib.util
+import json
 import os
 import subprocess
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
+
+from gen_build import target_name  # noqa: E402
+from inventory import inventory, tracked  # noqa: E402
 
 
 def _git(*args) -> list:
-    out = subprocess.run(["git", "-C", str(_ROOT), *args],
-                         capture_output=True, text=True).stdout
-    return [l for l in out.splitlines() if l.strip()]
+    run = subprocess.run(["git", "-C", str(_ROOT), *args],
+                         capture_output=True, text=True)
+    if run.returncode != 0:
+        detail = next((line for line in run.stderr.splitlines() if line.strip()),
+                      f"exit {run.returncode}")
+        raise SystemExit(f"git {' '.join(args)} did not answer: {detail}")
+    return [line for line in run.stdout.splitlines() if line.strip()]
 
 
 def changed() -> list:
@@ -40,6 +51,25 @@ def changed() -> list:
     out = set()
     for line in _git("status", "--porcelain"):
         out.update(paths_in(line))
+    return sorted(p for p in out if p and not p.endswith("/"))
+
+
+def changed_between(base: str, head: str = "HEAD") -> list:
+    """Every old and new path changed between two commits."""
+    return _diff_paths(_git("diff", "--name-status", "--find-renames", base, head))
+
+
+def _diff_paths(lines: list[str]) -> list:
+    """Parse `git diff --name-status`, retaining both sides of a rename or copy."""
+    out = set()
+    for line in lines:
+        fields = line.split("\t")
+        if not fields:
+            continue
+        if fields[0].startswith(("R", "C")) and len(fields) >= 3:
+            out.update(fields[1:3])
+        elif len(fields) >= 2:
+            out.add(fields[1])
     return sorted(p for p in out if p and not p.endswith("/"))
 
 
@@ -60,8 +90,14 @@ def known(paths: list) -> tuple:
     if not paths:
         return [], []
     labels = [f"//:{p}" for p in paths]
-    q = subprocess.run(["bazel", "query", " + ".join(labels), "--keep_going"],
+    # Asking for the package's source-file universe keeps a genuinely unknown path from
+    # turning the query itself red. Every generated rule lives in this root package.
+    q = subprocess.run(["bazel", "query", 'kind("source file", //:*)'],
                        cwd=str(_ROOT), capture_output=True, text=True)
+    if q.returncode != 0:
+        detail = next((line for line in q.stderr.splitlines() if line.startswith("ERROR")),
+                      f"exit {q.returncode}")
+        raise SystemExit(f"bazel could not enumerate source inputs: {detail}")
     seen = {l.strip() for l in q.stdout.splitlines() if l.startswith("//:")}
     hit = [p for p, l in zip(paths, labels) if l in seen]
     return hit, [p for p in paths if p not in set(hit)]
@@ -74,6 +110,10 @@ def targets(paths: list) -> list:
     q = subprocess.run(
         ["bazel", "query", f"rdeps(//..., set({' '.join(f'//:{p}' for p in paths)}))"],
         cwd=str(_ROOT), capture_output=True, text=True)
+    if q.returncode != 0:
+        detail = next((line for line in q.stderr.splitlines() if line.startswith("ERROR")),
+                      f"exit {q.returncode}")
+        raise SystemExit(f"bazel could not compute the affected graph: {detail}")
     out = []
     for line in q.stdout.splitlines():
         line = line.strip()
@@ -84,6 +124,93 @@ def targets(paths: list) -> list:
                                                ".pdf", ".3mf", ".stl", ".ts", ".tsx", ".sh")):
             out.append(line)
     return sorted(set(out))
+
+
+def artifact_targets() -> set:
+    """Generator rules that publish at least one member of the CAD bundle."""
+    inv = inventory(tracked())
+    seen, shared = set(), set()
+    for gens in inv:
+        for gen in gens:
+            stem = Path(gen).stem.strip("_").replace("_", "-")
+            (shared if stem in seen else seen).add(stem)
+    return {
+        f"//:{target_name(gens[0], shared)}"
+        for gens, made in inv.items()
+        if any(p.endswith((".step", ".stl", ".glb", ".step.mesh"))
+               for p in made["solids"])
+    }
+
+
+def declared_outputs() -> set:
+    try:
+        graph = json.loads((_ROOT / "tools" / "bazel" / "graph.json").read_text())
+    except (OSError, ValueError):
+        return set()
+    return {path for node in graph.values() for path in node.get("writes", ())}
+
+
+@lru_cache(maxsize=1)
+def _artifact_presentation_context() -> tuple:
+    try:
+        graph = json.loads((_ROOT / "tools" / "bazel" / "graph.json").read_text())
+    except (OSError, ValueError):
+        return {}, set()
+    inv = inventory(tracked())
+    artifact_gens = {
+        gen for gens, made in inv.items()
+        if any(p.endswith((".step", ".stl", ".glb", ".step.mesh"))
+               for p in made["solids"])
+        for gen in gens
+    }
+    return graph, artifact_gens
+
+
+def artifact_presentation_only(path: str) -> bool:
+    """Whether `path` can change presentation but not a published solid.
+
+    Rewritten docs and media are source inputs to their combined generator action only so the
+    action can preserve authored text while updating figures. Their bytes do not define its
+    geometry. A path stops being presentation-only if another artifact generator reads it as a
+    normal input; that keeps real data-bearing documents such as the BOM and fluid topology in
+    the CAD slice while letting ordinary README/card edits advance the deployment lock without
+    recutting solids.
+    """
+    if not path.startswith("hardware/"):
+        return False
+    if not (path.endswith((".md", ".mmd", ".html", ".png", ".svg", ".pdf", ".css",
+                           ".figures.json", ".scene.json"))):
+        return False
+    graph, artifact_gens = _artifact_presentation_context()
+    if not graph:
+        return False
+
+    writers = {gen for gen, seen in graph.items()
+               if path in seen.get("rewritten", ())}
+    readers = {gen for gen, seen in graph.items()
+               if gen in artifact_gens and path in seen.get("reads", ())}
+    return readers <= writers
+
+
+def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
+    """Whether an unlabelled path could define or feed a new CAD action."""
+    if path == "hardware/cad-artifacts.lock.json":
+        return False
+    if path in declared_outputs():
+        return False
+    if path.startswith("hardware/"):
+        # Presentation outputs cannot alter a STEP/STL/GLB action. They still widen the full
+        # derive lane, where cards and docs are outputs in their own right.
+        if artifacts_only and artifact_presentation_only(path):
+            return False
+        return True
+    if path in {".bazelrc", ".bazelversion", ".dockerignore", "BUILD.bazel", "MODULE.bazel",
+                "MODULE.bazel.lock",
+                "tools/cad-requirements.txt"}:
+        return True
+    return path.startswith(("tools/bazel/", "tools/cad-artifacts/",
+                            "tools/cad-venv-site/", "tools/ci-image/",
+                            "tools/docgen/", "tools/render/", "web/"))
 
 
 def selftest() -> int:
@@ -102,6 +229,20 @@ def selftest() -> int:
          str(paths_in('?? "has space.py"')))
     hold("an ordinary line is one path",
          paths_in(' M hardware/scripts/lanes.py') == ("hardware/scripts/lanes.py",))
+    hold("a diff rename names both sides",
+         _diff_paths(["R100\told/a.py\tnew/b.py"]) == ["new/b.py", "old/a.py"])
+    hold("firmware outside the graph does not widen the CAD slice",
+         not artifact_unknown("firmware/src/main.cpp")
+         and artifact_unknown("hardware/new_part.py")
+         and not artifact_unknown("hardware/cad-artifacts.lock.json")
+         and artifact_unknown(".dockerignore")
+         and artifact_unknown("hardware/new-image.png")
+         and not artifact_unknown("hardware/new-image.png", artifacts_only=True))
+    hold("rewritten presentation is outside the artifact slice",
+         artifact_presentation_only(
+             "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
+    hold("a data-bearing document stays in the artifact slice",
+         not artifact_presentation_only("hardware/ledger/bom.md"))
     # BAZEL IS THE ONE THING THIS CANNOT ASK FOR ITSELF. `known` and `targets` shell out to
     # `bazel query`, and a test bazel is running holds the server lock this workspace shares —
     # a query under it waits for the build that started it. The holds above stand on their own;
@@ -110,19 +251,22 @@ def selftest() -> int:
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 3 else 1
+        return 0 if holds == 7 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
     hold("a tracked source is a label bazel knows", hit == src, f"{hit!r} {miss!r}")
     t = targets(src)
     hold("a leaf part reaches its own target", "//:foam-cap" in t, str(t))
-    hold("and not the whole graph", len(t) < 10, f"{len(t)} targets")
+    hold("and not an unrelated artifact branch", "//:texture-coupons" not in t,
+         f"{len(t)} targets")
     hold("a path bazel does not name is reported, not dropped",
          known(["no/such/file.py"]) == ([], ["no/such/file.py"]))
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
-    print(f"affected selftest {holds}/8")
-    return 0 if holds == 8 else 1
+    hold("artifact rules are a strict build slice",
+         "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
+    print(f"affected selftest {holds}/13")
+    return 0 if holds == 13 else 1
 
 
 def say_if_unshimmed() -> None:
@@ -165,23 +309,41 @@ def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("cmd", nargs="?", help="selftest")
     ap.add_argument("--why", action="store_true", help="name what reaches each target")
+    ap.add_argument("--base", help="read committed changes from BASE instead of the worktree")
+    ap.add_argument("--head", default="HEAD", help="range endpoint used with --base")
+    ap.add_argument("--artifacts", action="store_true",
+                    help="print only rules that publish members of the CAD bundle")
+    ap.add_argument("--all-artifacts", action="store_true",
+                    help="print every rule that publishes a CAD bundle member")
     args = ap.parse_args(argv)
     if args.cmd == "selftest":
         return selftest()
+    if args.all_artifacts:
+        print("\n".join(sorted(artifact_targets())))
+        return 0
 
     say_if_unshimmed()
 
-    moved = changed()
+    moved = changed_between(args.base, args.head) if args.base else changed()
+    if args.artifacts:
+        moved = [path for path in moved if not artifact_presentation_only(path)]
     if not moved:
         print("nothing has moved — a build of this tree holds nothing to do", file=sys.stderr)
         return 0
     hit, miss = known(moved)
-    if miss:
-        print(f"{len(miss)} changed path(s) no target names — the list below is smaller than "
-              f"this tree owes:", file=sys.stderr)
-        for p in miss:
+    risky = [p for p in miss if artifact_unknown(p, args.artifacts)]
+    if risky:
+        print(f"{len(risky)} changed CAD path(s) no target names — this slice widens to every "
+              f"artifact rule:", file=sys.stderr)
+        for p in risky:
             print(f"    {p}", file=sys.stderr)
     found = targets(hit)
+    if risky:
+        # Unknown changes cannot be scoped honestly. The artifact lane can still stay narrower
+        # than the docs/tests graph; an ordinary affected build takes the aggregate target.
+        found = sorted(artifact_targets()) if args.artifacts else ["//:everything"]
+    elif args.artifacts:
+        found = sorted(set(found) & artifact_targets())
     if args.why:
         for t in found:
             reach = [p for p in hit if t in targets([p])]
