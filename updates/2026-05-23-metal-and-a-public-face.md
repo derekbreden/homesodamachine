@@ -32,7 +32,7 @@ The faucet began as an unmodelled harvested valve body. It is now a measured 3D 
 
 ![The faucet shell as it stood on 23 May, x-rayed to show the two channels running the length of the neck.](/update-images/2026-05-23-faucet-shell.png)
 
-The print log carries fifteen attempts inside these four weeks. The first six did not produce a part: two clogs above the hot end, a run of nozzle-calibration failures, a print that began laying air at layer 15, and one that finished full of gaps. The seventh worked — "the most recent PET-CF print worked beautifully" — on a 0.6 mm tungsten-carbide nozzle delivered on 9 May, with the supports printed in the model's own material so they broke away clean. The eighth failed when a tall support tower leaned over and fused into the peak of the faucet. The ninth, with a 20 mm brim under every tower and supports rooted only in the build plate, came out whole.
+The print log carries fifteen attempts inside these four weeks. The first six produced no usable part: two clogs above the hot end, a run of nozzle-calibration failures, a print that began laying air at layer 15, one that finished full of gaps, and one the log leaves without an outcome. The seventh worked — "the most recent PET-CF print worked beautifully" — on a 0.6 mm tungsten-carbide nozzle delivered on 9 May, with the supports printed in the model's own material so they broke away clean. The eighth failed when a tall support tower leaned over and fused into the peak of the faucet. The ninth, with a 20 mm brim under every tower and supports rooted only in the build plate, came out whole.
 
 {{fig:print-log}}
 
