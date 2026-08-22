@@ -1,77 +1,66 @@
-# Unboxing and Quick-Start
+# Unboxing and quick start
 
-The customer-documentation packet lies face-up at the top of the carton. Its working
-instructions are the two landscape 11 x 17 in sheets built in
-[`/hardware/quickstart/`](/hardware/quickstart/README.md). The faucet and its install-kit bag
-sit together inside the carton. Safety, electrical and refrigerant notices are a separate
-regulatory insert; the quick start stays on the actions a person must see and copy.
+The customer-documentation packet lies face-up at the top of the carton. Its quick start is two
+single-sided landscape 11 x 17 in sheets built in
+[`hardware/quickstart/`](/hardware/quickstart/README.md). Safety, electrical, pressure-system and
+refrigerant notices remain in a separate regulatory insert.
 
-## The two sheets
+The two sheets separate two different moments: a qualified installer's physical work, then the
+owner's first drink. Both use large pictures, exact touched parts and short captions that confirm
+what the picture already says.
 
-**Sheet 1 - START HERE / INSTALL**
+## Sheet 1 — installer map
 
-1. Mount the faucet through the 1 3/8 in countertop opening. The exact slide-on keyhole plate,
-   washer and nut are pictured in their installed order.
-2. Tee the cold-water line with whichever of the two supplied tee arrangements matches the
-   cabinet. Run the result through the filter to the white `TAP` station.
-3. Put the appliance and a secured upright CO2 cylinder beside the disposal. Leave 60 mm behind
-   the appliance and keep both side grilles clear.
-4. Leave a 300 mm service loop, square-cut the three faucet tubes below their collars, match blue
-   to `SODA` and either black tube to either `FLAVOR` station, then push and tug-check each one.
-5. Fit the cylinder regulator, connect its red tube to `CO2`, open it slowly and leak-test it.
-6. Open water, open CO2 and connect 120 V GFCI power. The screen's real `READY` state is the handoff
-   to the second sheet.
+The first sheet begins with the finished system in one open-cabinet view. Five numbered objects
+locate the faucet, cold-supply filter, appliance, CO2 supply and GFCI receptacle.
 
-**Sheet 2 - FIRST GLASS / FILL TO POUR**
+The working area below it contains three visual instructions:
 
-1. Choose Flavor 1 or Flavor 2 on the front display, then pour one 440 mL concentrate bottle into
-   the single shared hopper. Repeat for the other reservoir when filling both.
-2. On the front display choose `SERVICE` -> `PRIME` -> a flavor and hold `HOLD TO PRIME`, with a cup
-   below the nozzle, until concentrate reaches it. Repeat for the other flavor.
-3. Tap the faucet head to switch between the two flavor pictures on its display.
-4. Wait for `READY`, put a glass under the nozzle and lift the lever.
+1. Drop the complete faucet assembly through a 1 3/8 in / 35 mm opening, push the faucet rearward
+   until both flavor tubes touch the opening, slide the keyhole plate on below, and keep the faucet
+   seated while the washer and nut are tightened.
+2. Preserve the 300 mm / 12 in connected service reach. Fit and square-cut the five round tubes —
+   `SODA`, two `FLAVOR`, `TAP` and `CO2` — one at a time at their ports. Push each tube to its hard
+   stop and tug-check it. The validated installer procedure completes the separate flat signal
+   cable.
+3. Match the same color and molded word at the exact rear face: blue `SODA`, either black tube to
+   either `FLAVOR`, filtered water to `TAP`, regulated gas to `CO2`, and GFCI power last.
 
-## Picture sources
+The overview carries the 60 mm rear connection space and open side grilles. Its bottom strip makes
+the remaining responsibility explicit: restrain the cylinder upright and have the qualified
+installer leak-test the completed water and gas system.
 
-The pictures stay tied to the objects the customer holds or sees:
+The sheet does not teach a sink tee, regulator, restraint or commissioning procedure until those
+procedures and supplied parts are validated. It orients the installer and provides the visual
+connection map those detailed procedures can reference.
 
-- faucet, counter stack and umbilical from
-  [`faucet-assembly.step`](/hardware/faucet-layout/faucet-assembly.step);
-- under-counter keyhole plate from its production
-  [`DXF`](/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf);
-- appliance faces from the enclosure's generated
-  [`line art`](/hardware/printed-parts/enclosure/drawings/line-art/);
-- tube collars and rear stations from the packed appliance renders;
-- Flavor 1 and Flavor 2 pictures from the RGB565 arrays compiled into the faucet firmware;
-- front-screen layouts and wording from the 800 x 480 front-display interface;
-- physical wayfinding colors from
-  [`_back_panel_dimensions.port_colors`](/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py).
+## Sheet 2 — first pour
 
-Hands, arrows, a sink cabinet, a cylinder and a glass are simple silhouettes. Product interfaces,
-connection geometry, words and colors are not approximated.
+The second sheet follows one bottle, one reservoir and one flavor without changing identifiers:
 
-## Color system
+1. Choose Reservoir 1 on the appliance display before opening the bottle.
+2. Remove the cap and empty one 440 mL Flavor 1 bottle into the exact open hopper.
+3. Wait for both visible checks: the hopper is empty and Reservoir 1 is filled.
+4. Put a cup under the nozzle, navigate to `Service › Prime › 1`, hold Prime 1 until concentrate
+   appears, then release.
+5. Wait for real water-filled, cold and carbonated readiness. If the faucet display is dark, tap
+   once to wake it; continue only until Flavor 1 is visibly selected.
+6. Center an empty glass under the three-tube nozzle, press the spring lever down to pour, and
+   release it to stop. Water and flavor remain separate until they meet in the glass.
 
-Connection color always means the fluid, never the motion:
-
-| Color | Meaning |
-|---|---|
-| blue | carbonated water, `SODA` |
-| black | either flavor line, `FLAVOR` |
-| white with a black outline | tap water, `TAP` |
-| red | regulated CO2, `CO2` |
-| coral | a finger action or direction arrow on the page and display |
-
-The rear face, the tube collars, the exact enclosure drawing and the quick-start stylesheet all
-read the same port-color table. A word and its color travel together in every connection picture.
+The physical appliance and faucet stay visible beside enlarged interface states, so each screen is
+anchored to the surface the owner actually touches.
 
 ## Print and packing
 
-`quick-start.pdf` contains the two sheets in packing order. Print landscape, 11 x 17 in, color,
-actual size. The sheets are single-sided so either can be revised and printed independently on the
-Epson; they can also be printed duplex as one physical leaf. Put Sheet 1 face-up on top of Sheet 2
-in the customer-documentation packet.
+`quick-start.pdf` contains the sheets in packing order. Print landscape, 11 x 17 in, color, actual
+size. Each sheet is single-sided for fast in-house Epson iteration. Put the installer map face-up
+above the first-pour sheet in the customer-documentation packet.
 
-The quick start does not carry specifications, product positioning, maintenance schedules,
-warranty text or regulatory copy. Ongoing care, support and unit-specific information live at the
-serialized URL on the rear nameplate.
+The essential sequence and connection identities must remain legible in grayscale. Specifications,
+maintenance, warranty, regulatory copy and validated field procedures live outside this quick
+start.
+
+The interface states on Sheet 2 are the acceptance contract described in the quick-start README.
+The sheet ships only after one complete installation and one complete first-pour validation can
+follow every frame exactly.

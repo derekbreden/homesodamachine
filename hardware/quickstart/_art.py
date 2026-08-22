@@ -1,9 +1,8 @@
-"""Build the quick-start's machine-derived artwork.
+"""Build the quick start's product-derived artwork.
 
-The faucet drawing is cut from the production STEP assembly with the same
-Blender Freestyle renderer as the enclosure drawings. The two faucet-screen
-images are decoded from the RGB565 arrays compiled into the faucet firmware.
-The port colors come from the rear-panel model's single source of truth.
+Focused customer views come from production CAD through ``_cad_art``. The two faucet-screen
+images are decoded from the RGB565 arrays compiled into faucet firmware, and port colors come
+from the rear-panel model's single source of truth.
 """
 
 from __future__ import annotations
@@ -23,6 +22,8 @@ ART = HERE / "art"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import note_read, note_write  # noqa: E402
+
+import _cad_art  # noqa: E402
 
 
 FAUCET_STEP = HARDWARE / "faucet-layout" / "faucet-assembly.step"
@@ -148,6 +149,7 @@ def write_colors() -> None:
 
 def main() -> None:
     ART.mkdir(parents=True, exist_ok=True)
+    _cad_art.main()
     render_faucet()
     render_under_counter_plate()
     decode_rgb565_header(SCREEN_HEADERS[0], ART / "flavor-1.png")

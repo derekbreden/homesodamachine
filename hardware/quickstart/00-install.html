@@ -1,149 +1,271 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="art/colors.css">
 </head>
 <body>
-<main class="sheet">
-  <header class="masthead">
-    <div>
-      <div class="eyebrow">HOME SODA MACHINE / QUICK START / SHEET 1 OF 2</div>
-      <h1>START HERE <span>/ INSTALL</span></h1>
-    </div>
-    <div class="route"><b>FAUCET</b><span class="arrow">&rarr;</span>WATER<span class="arrow">&rarr;</span>PLACE<span class="arrow">&rarr;</span>LINES<span class="arrow">&rarr;</span>CO2<span class="arrow">&rarr;</span>POWER</div>
+<main class="sheet install-sheet">
+  <header class="page-head">
+    <div class="brand">HOME SODA MACHINE <span>/ QUICK START</span></div>
+    <div class="page-id">PLACEMENT + PORT MAP <b>01 / 02</b></div>
+    <h1>PUT EVERY PART IN ITS PLACE</h1>
+    <p>Mount the faucet. Leave service reach. Match every line to the same word and color.</p>
   </header>
 
-  <section class="grid-six">
-    <article class="step">
-      <div class="step-head"><span class="num">1</span><h2>MOUNT THE FAUCET</h2></div>
-      <div class="visual mount-visual">
-        <img class="faucet-art" src="art/faucet-install.svg" alt="Exact faucet assembly through a countertop">
-        <svg class="mount-stack" viewBox="0 0 440 370" role="img" aria-label="Slide-on plate, washer and nut below the countertop">
-          <defs>
-            <marker id="mountArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#e94560"/></marker>
-          </defs>
-          <text x="220" y="28" text-anchor="middle" class="diagram-text">1 3/8 IN</text>
-          <rect x="18" y="64" width="404" height="56" rx="6" fill="#ded9cf" stroke="#17171d" stroke-width="7"/>
-          <rect x="202" y="47" width="36" height="208" fill="#fffefb" stroke="#17171d" stroke-width="7"/>
-          <path d="M92 190 H194 M92 190 L127 160 M92 190 L127 220" class="diagram-line diagram-accent" marker-end="url(#mountArrow)"/>
-          <image href="art/under-counter-plate.svg" x="148" y="128" width="144" height="144" preserveAspectRatio="xMidYMid meet"/>
-          <text x="306" y="172" class="diagram-text">PLATE</text>
-          <circle cx="220" cy="248" r="34" class="diagram-fill"/>
-          <text x="274" y="257" class="diagram-text">WASHER</text>
-          <path d="M184 302 L202 279 H238 L256 302 L238 327 H202 Z" class="diagram-fill"/>
-          <text x="274" y="313" class="diagram-text">NUT</text>
-          <text x="18" y="350" class="diagram-text diagram-muted">SLIDE ON FROM THE SIDE</text>
+  <section class="install-overview" aria-label="Placement and connection map">
+    <div class="overview-kicker"><b>WHERE CONNECTIONS GO</b><span>Water + CO2: use the validated qualified-installer procedures.</span></div>
+    <svg viewBox="0 0 2430 470" role="img" aria-label="Map locating the faucet, filtered cold water, appliance, restrained carbon dioxide supply, service reach and GFCI-protected power">
+      <defs>
+        <marker id="overviewArrow" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto"><path d="M0 0 L16 8 L0 16 Z" fill="#202126"/></marker>
+      </defs>
+
+      <path d="M12 142 H2418 V454 H12 Z" fill="#fff" stroke="#c8c9ce" stroke-width="6"/>
+      <path d="M10 142 H2420" stroke="#202126" stroke-width="16"/>
+      <path d="M470 142 C490 242 840 242 860 142" fill="#e8e9ec" stroke="#898b92" stroke-width="6"/>
+      <path d="M620 226 V270" stroke="#898b92" stroke-width="25"/>
+      <path d="M550 272 Q550 247 575 247 H690 Q715 247 715 272 V365 Q715 396 684 396 H581 Q550 396 550 365 Z" fill="#dadbe0" stroke="#6f7178" stroke-width="6"/>
+      <path d="M714 300 H815 Q846 300 846 331 V354" fill="none" stroke="#898b92" stroke-width="22"/>
+
+      <image href="art/faucet-side.png" x="605" y="7" width="112" height="155" preserveAspectRatio="xMidYMid meet"/>
+      <path d="M692 145 C765 212 850 309 1010 335 C1170 362 1280 292 1430 260" fill="none" stroke="#dfe1e4" stroke-width="30"/>
+      <path d="M692 145 C765 212 850 309 1010 335 C1170 362 1280 292 1430 260" fill="none" stroke="#202126" stroke-width="7"/>
+      <path d="M692 145 C770 214 858 299 1015 319 C1168 339 1282 278 1440 242" fill="none" stroke="#3b82c4" stroke-width="7"/>
+      <path d="M692 145 C770 222 866 319 1020 341 C1175 363 1290 305 1440 281" fill="none" stroke="#202126" stroke-width="7"/>
+
+      <path d="M24 342 H214" fill="none" stroke="#d5d7db" stroke-width="16"/>
+      <text x="118" y="302" class="svg-small" text-anchor="middle">COLD SUPPLY</text>
+      <rect x="214" y="309" width="244" height="67" rx="34" fill="#25262b"/>
+      <text x="336" y="337" class="svg-white" text-anchor="middle">FILTER</text>
+      <path d="M250 354 H420" stroke="#fff" stroke-width="5" marker-end="url(#overviewArrow)"/>
+      <path d="M458 342 C748 437 1138 437 1443 294" fill="none" stroke="#303138" stroke-width="25" opacity=".2"/>
+      <path d="M458 342 C748 437 1138 437 1443 294" fill="none" stroke="#fff" stroke-width="17"/>
+
+      <image href="art/machine-back-iso.png" x="1400" y="188" width="302" height="258" preserveAspectRatio="xMidYMid meet"/>
+
+      <g transform="translate(1065 176)">
+        <rect x="0" y="0" width="265" height="150" rx="8" fill="#fff" stroke="#c9cbd0" stroke-width="4"/>
+        <path d="M220 12 V138" stroke="#65676e" stroke-width="10"/>
+        <text x="220" y="147" class="svg-micro" text-anchor="middle">BACK WALL</text>
+        <rect x="68" y="37" width="104" height="76" rx="8" fill="#45464c"/>
+        <path d="M172 52 H220 M172 99 H220" stroke="#d5d6da" stroke-width="7"/>
+        <path d="M172 24 V10 M220 24 V10 M172 17 H220" class="dimension-line"/>
+        <text x="196" y="7" class="svg-small" text-anchor="middle">60 MM</text>
+        <path d="M56 57 H20 M184 57 H205" stroke="#202126" stroke-width="5" marker-end="url(#overviewArrow)"/>
+        <text x="116" y="136" class="svg-micro" text-anchor="middle">SIDE GRILLES OPEN</text>
+      </g>
+
+      <g transform="translate(1880 142)">
+        <rect x="18" y="116" width="152" height="188" rx="65" fill="#f1f2f3" stroke="#4b4d54" stroke-width="6"/>
+        <rect x="62" y="88" width="64" height="42" rx="7" fill="#7a7c83" stroke="#4b4d54" stroke-width="5"/>
+        <circle cx="54" cy="74" r="28" fill="#fff" stroke="#4b4d54" stroke-width="6"/>
+        <circle cx="104" cy="34" r="28" fill="#fff" stroke="#4b4d54" stroke-width="6"/>
+        <rect x="124" y="91" width="40" height="15" rx="5" fill="#777981"/>
+        <circle cx="159" cy="98" r="13" fill="#303138"/>
+        <path d="M86 111 V142" stroke="#6d6f76" stroke-width="12"/>
+        <rect x="75" y="136" width="22" height="23" rx="4" fill="#c5a15c"/>
+        <path d="M86 158 C30 186 4 228 -58 254" fill="none" stroke="#80233a" stroke-width="9"/>
+        <g transform="translate(-154 105)">
+          <rect width="172" height="49" rx="9" fill="#fff" stroke="#ed5966" stroke-width="4"/>
+          <circle cx="24" cy="24.5" r="15" fill="#ed5966"/>
+          <text x="24" y="31" class="svg-mini-white" text-anchor="middle">!</text>
+          <text x="102" y="31" class="svg-small" text-anchor="middle">RESTRAIN FIRST</text>
+        </g>
+      </g>
+      <path d="M1822 396 C1760 382 1698 315 1638 271" fill="none" stroke="#80233a" stroke-width="9"/>
+
+      <g transform="translate(2195 186)">
+        <rect x="0" y="0" width="128" height="180" rx="12" fill="#fff" stroke="#5f6168" stroke-width="7"/>
+        <path d="M36 38 v28 M91 38 v28 M64 119 v22" stroke="#5f6168" stroke-width="7" stroke-linecap="round"/>
+        <rect x="16" y="79" width="43" height="24" rx="4" fill="#d8d9dd"/><rect x="69" y="79" width="43" height="24" rx="4" fill="#d8d9dd"/>
+        <text x="37" y="96" class="svg-micro" text-anchor="middle">TEST</text><text x="91" y="96" class="svg-micro" text-anchor="middle">RESET</text>
+      </g>
+      <path d="M2195 348 C2050 420 1835 421 1648 348" fill="none" stroke="#393a40" stroke-width="10"/>
+
+      <g class="overview-badge" transform="translate(544 87)"><circle r="28"/><text y="9">1</text></g>
+      <g class="overview-badge" transform="translate(174 343)"><circle r="28"/><text y="9">2</text></g>
+      <g class="overview-badge" transform="translate(1375 240)"><circle r="28"/><text y="9">3</text></g>
+      <g class="overview-badge" transform="translate(1836 184)"><circle r="28"/><text y="9">4</text></g>
+      <g class="overview-badge" transform="translate(2171 205)"><circle r="28"/><text y="9">5</text></g>
+
+      <g class="overview-labels">
+        <text x="544" y="126">FAUCET</text>
+        <text x="174" y="382">FILTER</text>
+        <text x="1375" y="279">MACHINE</text>
+        <text x="1836" y="223">CO2</text>
+        <text x="2171" y="244">GFCI</text>
+      </g>
+    </svg>
+  </section>
+
+  <section class="install-details">
+    <article class="install-panel mount-panel">
+      <div class="panel-head"><span class="step-no">1</span><div><h2>MOUNT THE FAUCET</h2><p>Use a 1 3/8 in / 35 mm opening. Seat the faucet before the plate is tightened.</p></div></div>
+      <div class="mount-grid">
+        <figure class="mount-card drop-card">
+          <img src="art/mount-drop.png" alt="Exact faucet and attached bundle dropping through the countertop opening">
+          <span class="signal-ribbon ribbon-drop" aria-hidden="true"></span>
+          <svg class="card-motion drop-motion" viewBox="0 0 90 140" aria-hidden="true"><path d="M45 8 V112 M19 88 L45 116 L71 88"/></svg>
+          <figcaption><b>A</b><span>DROP THE WHOLE ASSEMBLY</span></figcaption>
+        </figure>
+
+        <figure class="mount-card seat-card">
+          <svg viewBox="0 0 440 270" role="img" aria-label="Top view of the faucet pushed away from the user until both flavor tubes touch the rear edge of the opening">
+            <defs><marker id="seatArrow" markerUnits="userSpaceOnUse" markerWidth="15" markerHeight="15" refX="13" refY="7.5" orient="auto"><path d="M0 0 L15 7.5 L0 15 Z" fill="#ed5966"/></marker></defs>
+            <rect x="18" y="20" width="404" height="218" rx="10" fill="#e5e6e9"/>
+            <circle cx="220" cy="125" r="72" fill="#fff" stroke="#73757c" stroke-width="7"/>
+            <circle cx="220" cy="148" r="31" fill="#4a4b51" stroke="#202126" stroke-width="5"/>
+            <circle cx="199" cy="61" r="16" fill="#202126"/><circle cx="241" cy="61" r="16" fill="#202126"/>
+            <path d="M220 208 V98" stroke="#ed5966" stroke-width="10" marker-end="url(#seatArrow)"/>
+            <text x="220" y="264" class="svg-small" text-anchor="middle">USER SIDE</text>
+            <text x="220" y="14" class="svg-small" text-anchor="middle">BOTH FLAVOR TUBES TOUCH</text>
+          </svg>
+          <figcaption><b>B</b><span>PUSH AWAY FROM USER</span></figcaption>
+        </figure>
+
+        <figure class="mount-card slide-card">
+          <img src="art/mount-slide.png" alt="Exact keyhole plate approaching the shank and bundle from below">
+          <span class="signal-ribbon ribbon-under" aria-hidden="true"></span>
+          <svg class="card-motion slide-motion" viewBox="0 0 150 80" aria-hidden="true"><path d="M12 40 H126 M102 16 L132 40 L102 64"/></svg>
+          <figcaption><b>C</b><span>SLIDE THE PLATE ON</span></figcaption>
+        </figure>
+
+        <figure class="mount-card tighten-card">
+          <img src="art/mount-tighten.png" alt="Exact keyhole plate seated while the washer and nut are tightened below it">
+          <span class="signal-ribbon ribbon-under" aria-hidden="true"></span>
+          <svg class="hold-inset" viewBox="0 0 130 100" role="img" aria-label="Keep pushing the faucet away from the user while tightening below">
+            <circle cx="66" cy="46" r="31" fill="#fff" stroke="#73757c" stroke-width="5"/>
+            <circle cx="66" cy="58" r="13" fill="#4a4b51"/>
+            <circle cx="57" cy="18" r="7" fill="#202126"/><circle cx="75" cy="18" r="7" fill="#202126"/>
+            <path d="M66 92 V44" stroke="#ed5966" stroke-width="7"/>
+            <path d="M54 57 L66 42 L78 57" fill="none" stroke="#ed5966" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="66" y="99" class="svg-micro" text-anchor="middle">KEEP SEATED</text>
+          </svg>
+          <svg class="card-motion tighten-motion" viewBox="0 0 120 120" aria-hidden="true"><path d="M26 77 A39 39 0 1 1 86 88 M86 88 L85 58 M86 88 L57 84"/></svg>
+          <figcaption><b>D</b><span>HOLD SEATED + TIGHTEN</span></figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="install-panel connect-panel">
+      <div class="panel-head"><span class="step-no">2</span><div><h2>ROUTE + MATCH THE BACK</h2><p>Size every round tube at its port. The installer procedure completes the flat signal cable.</p></div></div>
+
+      <div class="connect-actions">
+        <figure class="action-card service-card">
+          <svg viewBox="0 0 420 250" role="img" aria-label="Top view of the machine moving 300 millimeters from the back wall toward the cabinet opening while the umbilical stays connected">
+            <defs><marker id="serviceArrow" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14 Z" fill="#ed5966"/></marker></defs>
+            <path d="M383 28 V218" stroke="#666870" stroke-width="10"/>
+            <text x="383" y="233" class="svg-micro" text-anchor="middle">BACK WALL</text>
+            <rect x="250" y="62" width="102" height="110" rx="8" fill="#3f4046"/>
+            <rect x="62" y="62" width="102" height="110" rx="8" fill="#fff" stroke="#8b8d94" stroke-width="5" stroke-dasharray="11 8"/>
+            <path d="M246 117 H176" stroke="#ed5966" stroke-width="8" marker-end="url(#serviceArrow)"/>
+            <path d="M302 57 C302 24 198 24 198 57" fill="none" stroke="#202126" stroke-width="11"/>
+            <path d="M113 188 V216 M301 188 V216 M113 203 H301" class="dimension-line"/>
+            <text x="207" y="238" class="svg-small" text-anchor="middle">300 MM / 12 IN</text>
+            <text x="64" y="34" class="svg-micro">CABINET OPENING / YOU</text>
+          </svg>
+          <figcaption><b>PULL FORWARD</b><span>Keep the service reach.</span></figcaption>
+        </figure>
+
+        <figure class="action-card cut-card">
+          <svg viewBox="0 0 420 250" role="img" aria-label="One round tube is first routed with service reach to its matching SODA port, then its excess is cut square below the collar; the same action is repeated separately for all five round tubes">
+            <defs><marker id="cutNext" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0 0 L13 6.5 L0 13 Z" fill="#202126"/></marker></defs>
+            <text x="18" y="23" class="svg-micro">1 · FIT AT THE MATCHING PORT</text>
+            <rect x="22" y="43" width="78" height="36" rx="6" fill="#3b82c4"/>
+            <text x="61" y="67" class="svg-mini-white" text-anchor="middle">COLLAR</text>
+            <path d="M100 61 C188 61 232 82 302 64" fill="none" stroke="#3b82c4" stroke-width="15" stroke-linecap="round"/>
+            <path d="M274 69 H303" stroke="#202126" stroke-width="5" marker-end="url(#cutNext)"/>
+            <rect x="326" y="34" width="70" height="58" rx="11" fill="#383940"/>
+            <circle cx="326" cy="63" r="23" fill="#fff" stroke="#3b82c4" stroke-width="8"/>
+            <text x="361" y="111" class="svg-micro" text-anchor="middle">SODA</text>
+            <text x="174" y="106" class="svg-micro" text-anchor="middle">KEEP SERVICE REACH</text>
+            <path d="M16 122 H404" stroke="#d2d3d7" stroke-width="3"/>
+
+            <text x="18" y="146" class="svg-micro">2 · CUT THE EXCESS SQUARE</text>
+            <path d="M25 176 H225" stroke="#3b82c4" stroke-width="15" stroke-linecap="round"/>
+            <path d="M142 148 V205" stroke="#ed5966" stroke-width="5" stroke-dasharray="6 5"/>
+            <path d="M111 143 H136 V163 H111 Z M149 188 H174 V208 H149 Z" fill="#7a7c83" stroke="#3f4046" stroke-width="4"/>
+            <path d="M122 161 L162 199 M165 161 L126 199" stroke="#5f6168" stroke-width="8" stroke-linecap="round"/>
+            <path d="M143 211 v17 h18" fill="none" stroke="#202126" stroke-width="4"/>
+            <text x="168" y="229" class="svg-micro">90°</text>
+            <path d="M230 176 H273" stroke="#202126" stroke-width="5" marker-end="url(#cutNext)"/>
+            <path d="M300 151 V201" stroke="#3b82c4" stroke-width="23"/>
+            <path d="M311 151 V201" stroke="#fff" stroke-width="5"/>
+            <circle cx="344" cy="176" r="24" fill="#fff" stroke="#3b82c4" stroke-width="8"/>
+            <text x="349" y="225" class="svg-micro" text-anchor="middle">SQUARE END</text>
+          </svg>
+          <figcaption><b>FIT + CUT EACH ROUND TUBE</b><span>One at a time: SODA · FLAVOR ×2 · TAP · CO2.</span></figcaption>
+        </figure>
+
+        <figure class="action-card push-card">
+          <svg viewBox="0 0 420 250" role="img" aria-label="A tube is pushed fully into a matching push connector until it stops, then an outward tug leaves the tube retained">
+            <defs><marker id="pushIn" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto"><path d="M0 0 L14 7 L0 14 Z" fill="#ed5966"/></marker></defs>
+            <text x="102" y="30" class="svg-micro" text-anchor="middle">PUSH FULLY IN</text>
+            <path d="M24 89 H152" stroke="#3b82c4" stroke-width="16" stroke-linecap="round"/>
+            <path d="M150 89 H204" stroke="#ed5966" stroke-width="8" marker-end="url(#pushIn)"/>
+            <rect x="218" y="51" width="62" height="76" rx="14" fill="#383940"/>
+            <circle cx="218" cy="89" r="27" fill="#fff" stroke="#3b82c4" stroke-width="9"/>
+            <text x="210" y="159" class="svg-small" text-anchor="middle">HARD STOP — THEN</text>
+            <rect x="112" y="177" width="76" height="55" rx="13" fill="#383940"/>
+            <circle cx="112" cy="204" r="25" fill="#fff" stroke="#3b82c4" stroke-width="8"/>
+            <path d="M24 204 H150" stroke="#3b82c4" stroke-width="15" stroke-linecap="round"/>
+            <path d="M73 204 H34" stroke="#ed5966" stroke-width="7" marker-end="url(#pushIn)"/>
+            <circle cx="339" cy="202" r="33" fill="#2e9b6c"/>
+            <path d="M321 202 L334 216 L358 184" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="339" y="237" class="svg-micro" text-anchor="middle">TUG — IT HOLDS</text>
+          </svg>
+          <figcaption><b>PUSH TO STOP • THEN TUG</b><span>The tube stays fully seated in the matching port.</span></figcaption>
+        </figure>
+      </div>
+
+      <figure class="back-map">
+        <svg viewBox="0 0 1400 360" role="img" aria-label="A no-crossing match board beside the exact appliance rear face: blue SODA and two black FLAVOR tubes from the faucet, white TAP from the filter, red CO2 from the regulator and power from GFCI">
+          <defs><marker id="shortArrow" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto"><path d="M0 0 L13 6.5 L0 13 Z" fill="#202126"/></marker></defs>
+          <text x="24" y="29" class="svg-label">MATCH THE WORD + COLOR</text>
+          <text x="940" y="29" class="svg-label">EXACT REAR FACE</text>
+          <path d="M810 18 V342" stroke="#c9cbd0" stroke-width="4"/>
+
+          <text x="24" y="62" class="svg-small">FROM FAUCET</text>
+          <rect x="24" y="71" width="116" height="91" rx="30" fill="#24252a"/>
+          <path d="M136 88 H536" stroke="#3b82c4" stroke-width="11"/>
+          <path d="M136 116 H536 M136 144 H536" stroke="#202126" stroke-width="11"/>
+          <g class="endpoint-chip" transform="translate(548 71)"><rect width="116" height="34" rx="7" fill="#82b8e7"/><text x="58" y="24">SODA</text></g>
+          <g class="endpoint-chip dark" transform="translate(548 99)"><rect width="116" height="34" rx="7"/><text x="58" y="24">FLAVOR</text></g>
+          <g class="endpoint-chip dark" transform="translate(548 127)"><rect width="116" height="34" rx="7"/><text x="58" y="24">FLAVOR</text></g>
+          <text x="24" y="218" class="svg-small">FROM FILTER</text>
+          <path d="M168 211 H536" stroke="#303138" stroke-width="25" opacity=".2"/>
+          <path d="M168 211 H536" stroke="#fff" stroke-width="17"/>
+          <g class="endpoint-chip tap" transform="translate(548 194)"><rect width="116" height="34" rx="7"/><text x="58" y="24">TAP</text></g>
+
+          <text x="24" y="270" class="svg-small">FROM REGULATOR</text>
+          <path d="M306 263 H536" stroke="#80233a" stroke-width="11"/>
+          <g class="endpoint-chip" transform="translate(548 246)"><rect width="116" height="34" rx="7" fill="#ff907b"/><text x="58" y="24">CO2</text></g>
+
+          <text x="24" y="322" class="svg-small">FROM 120 V GFCI</text>
+          <path d="M208 315 H536" stroke="#34353a" stroke-width="11" marker-end="url(#shortArrow)"/>
+          <g class="endpoint-chip dark" transform="translate(548 298)"><rect width="116" height="34" rx="7"/><text x="58" y="24">POWER</text></g>
+
+          <image href="art/machine-back-close.png" x="845" y="33" width="480" height="312" preserveAspectRatio="xMidYMid meet"/>
+          <g class="endpoint-chip" transform="translate(1013 43)"><rect width="88" height="32" rx="6" fill="#ff907b"/><text x="44" y="23">CO2</text></g>
+          <g class="endpoint-chip" transform="translate(1105 43)"><rect width="88" height="32" rx="6" fill="#82b8e7"/><text x="44" y="23">SODA</text></g>
+          <g class="endpoint-chip tap" transform="translate(1197 43)"><rect width="88" height="32" rx="6"/><text x="44" y="23">TAP</text></g>
+          <g class="endpoint-chip dark" transform="translate(1105 286)"><rect width="88" height="32" rx="6"/><text x="44" y="23">FLAVOR</text></g>
+          <g class="endpoint-chip dark" transform="translate(1197 286)"><rect width="88" height="32" rx="6"/><text x="44" y="23">FLAVOR</text></g>
+          <path d="M845 147 H906" stroke="#202126" stroke-width="6" marker-end="url(#shortArrow)"/>
+          <text x="845" y="134" class="svg-small">POWER</text>
         </svg>
-      </div>
-      <p class="caption"><strong>1 3/8 in hole.</strong> Plate, washer and nut go on from below.</p>
-    </article>
+      </figure>
 
-    <article class="step">
-      <div class="step-head"><span class="num">2</span><h2>TEE THE COLD WATER</h2></div>
-      <div class="visual">
-        <svg class="water-diagram" viewBox="0 0 730 410" role="img" aria-label="Two supplied cold water tee options feeding the filter and TAP port">
-          <defs><marker id="waterArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#17171d"/></marker></defs>
-          <text x="55" y="38" class="diagram-text">OPTION A</text>
-          <path d="M120 72 V248 M120 132 H260" class="diagram-line"/>
-          <rect x="76" y="196" width="88" height="62" rx="9" class="diagram-fill"/>
-          <path d="M120 196 L92 170 M120 196 L148 170" class="diagram-line"/>
-          <text x="47" y="294" class="diagram-text diagram-muted">3/8 IN STOP</text>
-          <text x="180" y="111" class="diagram-text diagram-muted">TO SINK</text>
-          <text x="396" y="38" class="diagram-text">OPTION B</text>
-          <path d="M462 78 V248 M462 139 H582" class="diagram-line"/>
-          <circle cx="462" cy="139" r="17" class="diagram-fill"/>
-          <text x="401" y="294" class="diagram-text diagram-muted">1/4 IN TUBE</text>
-          <path d="M260 132 C305 132 290 344 345 344 M582 139 C625 139 610 344 560 344" class="diagram-line diagram-soft"/>
-          <rect x="318" y="316" width="270" height="58" rx="29" class="diagram-fill"/>
-          <text x="453" y="353" text-anchor="middle" class="diagram-text">FILTER</text>
-          <path d="M588 345 H684" class="diagram-line" marker-end="url(#waterArrow)"/>
-          <rect x="621" y="297" width="83" height="36" rx="7" fill="white" stroke="#17171d" stroke-width="4"/>
-          <text x="662" y="322" text-anchor="middle" class="diagram-text" style="font-size:22px">TAP</text>
-          <text x="32" y="381" class="diagram-text diagram-muted">CLOSE VALVE BEFORE OPENING THE LINE</text>
-        </svg>
+      <div class="installer-bar">
+        <div><span class="installer-icon">↥</span><b>CO2 CYLINDER</b><small>Secure upright before connection.</small></div>
+        <div><span class="installer-icon">◎</span><b>WATER + GAS</b><small>Use validated procedures; leak-test every joint.</small></div>
+        <div><span class="installer-icon">TEST</span><b>POWER LAST</b><small>Use GFCI protection after every line is connected.</small></div>
       </div>
-      <p class="caption"><strong>Cold only.</strong> Use the tee that matches. Filter &rarr; white <strong>TAP</strong> port.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-head"><span class="num">3</span><h2>PLACE THE MACHINE</h2></div>
-      <div class="visual cabinet">
-        <div class="cabinet-frame"></div>
-        <div class="disposal" aria-label="Garbage disposal"></div>
-        <img class="machine-front" src="../printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg" alt="Home Soda Machine front view">
-        <div class="cylinder" aria-label="CO2 cylinder"></div>
-        <span class="air-arrow air-left">&larr;</span><span class="air-arrow air-right">&rarr;</span>
-        <span class="label behind-tag">60 MM BEHIND</span>
-      </div>
-      <p class="caption"><strong>215 mm wide.</strong> Leave 60 mm behind and both side grilles clear.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-head"><span class="num">4</span><h2>TRIM + MATCH THE LINES</h2></div>
-      <div class="visual match-visual">
-        <div class="photo-tile collars">
-          <img src="../../web/public/update-images/2026-08-19-tube-collars.png" alt="Blue SODA line and black FLAVOR lines with labeled collars">
-          <span class="label photo-tag">12 IN / 300 MM LOOP</span>
-          <div class="cut-mark">SQUARE-CUT 3 TUBES ONLY</div>
-        </div>
-        <div class="photo-tile ports">
-          <img src="../../web/public/update-images/2026-08-19-port-rings.png" alt="Rear CO2, SODA, TAP and FLAVOR ports">
-          <span class="label soda photo-tag">MATCH WORD + COLOR</span>
-        </div>
-      </div>
-      <p class="caption"><strong>Blue &rarr; SODA. Black &rarr; either FLAVOR.</strong> Push fully, then tug.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-head"><span class="num">5</span><h2>CONNECT CO2</h2></div>
-      <div class="visual">
-        <div class="gas-cylinder" aria-label="Upright CO2 cylinder with regulator and retaining strap"><span class="valve"></span><span class="gauge"></span><span class="strap"></span></div>
-        <span class="red-hose"></span>
-        <span class="label co2 co2-tag">RED &rarr; CO2</span>
-        <img class="rear-machine" src="../printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg" alt="Home Soda Machine rear connection face">
-      </div>
-      <p class="caption"><strong>Secure upright.</strong> Fit the regulator, connect red to CO2, open slowly and leak-test.</p>
-    </article>
-
-    <article class="step">
-      <div class="step-head"><span class="num">6</span><h2>OPEN + POWER</h2></div>
-      <div class="visual">
-        <svg class="power-diagram" viewBox="0 0 730 410" role="img" aria-label="Open water, open carbon dioxide, then plug into a GFCI outlet">
-          <defs><marker id="powerArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#e94560"/></marker></defs>
-          <g transform="translate(20 70)">
-            <path d="M70 20 V205 M25 165 H115" class="diagram-line"/>
-            <path d="M38 110 L70 80 L102 110" class="diagram-line"/>
-            <path d="M70 80 V42" class="diagram-line"/>
-            <path d="M120 83 C160 83 160 25 205 25" class="diagram-line diagram-accent" marker-end="url(#powerArrow)"/>
-            <text x="70" y="250" text-anchor="middle" class="diagram-text">WATER</text>
-            <text x="70" y="280" text-anchor="middle" class="diagram-text diagram-muted">OPEN</text>
-          </g>
-          <path d="M250 204 H310" class="diagram-line diagram-accent" marker-end="url(#powerArrow)"/>
-          <g transform="translate(300 70)">
-            <path d="M63 26 V76" class="diagram-line"/>
-            <ellipse cx="63" cy="150" rx="63" ry="122" class="diagram-fill"/>
-            <path d="M28 31 H98 M63 31 V5" class="diagram-line"/>
-            <path d="M108 67 C155 62 154 11 197 11" class="diagram-line diagram-red" marker-end="url(#powerArrow)"/>
-            <text x="63" y="305" text-anchor="middle" class="diagram-text">CO2</text>
-            <text x="63" y="335" text-anchor="middle" class="diagram-text diagram-muted">OPEN</text>
-          </g>
-          <path d="M530 204 H590" class="diagram-line diagram-accent" marker-end="url(#powerArrow)"/>
-          <g transform="translate(575 76)">
-            <rect x="24" y="0" width="112" height="178" rx="15" class="diagram-fill"/>
-            <path d="M59 45 V75 M101 45 V75 M80 108 V132" class="diagram-line"/>
-            <path d="M80 178 V227 C80 248 109 248 109 274" class="diagram-line"/>
-            <text x="80" y="312" text-anchor="middle" class="diagram-text">120 V</text>
-            <text x="80" y="342" text-anchor="middle" class="diagram-text diagram-muted">GFCI</text>
-          </g>
-        </svg>
-        <div class="screen ready-screen"><div class="rail">&#9679;<span>&#9679;</span><span>&#9679;</span></div><div class="pane">READY</div></div>
-      </div>
-      <p class="caption"><strong>Open water, open CO2, plug in.</strong> Continue when the screen says READY.</p>
     </article>
   </section>
-  <div class="sheet-foot">homesodamachine.com</div>
+
+  <footer class="page-foot install-foot"><span>LEAK? CLOSE WATER + CO2 • UNPLUG IF SAFE</span><b>homesodamachine.com</b></footer>
 </main>
 </body>
 </html>
