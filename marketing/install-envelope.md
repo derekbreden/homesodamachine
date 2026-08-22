@@ -108,4 +108,4 @@ on the first of them
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/tools/install_envelope_sync.py`
+- `/marketing/_install_envelope_sync.py`
