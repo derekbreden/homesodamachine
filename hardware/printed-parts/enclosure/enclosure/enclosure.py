@@ -29,8 +29,8 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     the front pieces' rear walls telescope (a full-wall lip,
     nothing shaved) into the back pieces — a proud tongue on the side walls and
     ceiling, and on the floor, where the cold core rides the cavity side and a
-    proud tongue cannot, a shiplap within the slab (`_floor_lap`), so every seam
-    laps and none butts — and four interlocking screw
+    proud tongue cannot, a full-thickness tongue with a 45° scarf nose
+    (`_floor_scarf`), so every seam laps and none butts — and four interlocking screw
     bosses cross the seam — one per ±X side wall per level, the bottom pair
     standing just over the floor (so it pins the two bottom pieces), the top
     pair under the ceiling, and between them the two FOUR-CORNER screws, one
@@ -65,7 +65,8 @@ The cold core seats flush against the seams instead, and stands flat on the floo
 every cap screw is down in a counterbore, so nothing goes under it. The ±X bands'
 own seam furniture fences it sideways, the back Z seam's lip behind, and the floor's
 two core lugs (`_core_fence`) ahead. The floor that core stands on is flat: the
-Y seam's floor overlap is a shiplap within the slab, not a proud tongue.
+Y seam's floor tongue stays within the slab, with a 45° scarf nose rather than a
+feature standing proud of its cavity-side face.
 
 Every piece prints on its Z− FACE — the bottom pieces floor-down on the slab,
 the top pieces mouth-down on the seam rim. One bed plane for all four, read in
@@ -3501,12 +3502,12 @@ def _front_lip(inner, y_joint):
     or ceiling continuing one `wall` INTO the cavity, and on the free faces that
     space is empty; on the floor the cold core rides there, so a proud floor tongue
     would drive straight into it. The floor's overlap therefore lives inside the
-    slab as a shiplap (`_floor_lap`), not standing proud — the right lap for a
-    bearing face. So the lip proper stays three-sided, and the floor carries its
-    own lap. What that costs the ceiling segment — a cantilever that juts one
-    overlap past the body over the back piece's floor, wanting print support — the
-    floor shiplap shares (its front half runs one overlap aft over open air the
-    same way); the side-wall segments, vertical to the bed, are free."""
+    slab as a full-thickness tongue with a 45° scarf nose (`_floor_scarf`), not
+    standing proud — the right overlap for a bearing face. So the lip proper stays
+    three-sided, and the floor carries its own joint. The ceiling segment remains
+    a cantilever that juts one overlap past the body and wants print support; the
+    floor tongue lies on the bed, and only its scarf nose rises at 45°. The side-wall
+    segments, vertical to the bed, are free."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
     outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
@@ -3514,29 +3515,40 @@ def _front_lip(inner, y_joint):
     return outer.cut(inner_box)
 
 
-def _floor_lap(inner, y_joint):
-    """The Y seam's FLOOR overlap, as a shiplap within the floor slab.
+def _floor_scarf(inner, y_joint):
+    """The Y seam's FLOOR overlap: a bed-supported, full-thickness tongue with
+    a 45° scarf nose.
 
-    The floor is the one seam face whose inner side is not free — the cold core
-    rides on it — so it cannot carry the proud, cavity-side tongue the walls and
-    ceiling do (`_front_lip`): that tongue would stand up into the core. Instead
-    the two floors lap within the slab's own one-`wall` thickness. The FRONT
-    floor's upper (cavity-side) half runs one overlap aft past the seam; the BACK
-    floor keeps its lower (bed-side) half there and gives its upper half up to
-    receive the tongue. Assembled, the slab is one unbroken run across the seam
-    with no straight-through line, and the core still seats on a flush z=iz0 top —
-    the front tongue fills the top over the overlap, the back floor everywhere
-    else. This is the floor's answer to the wall shiplap: an overlap on every seam,
-    the form suited to the face.
+    The floor is the one seam face whose cavity side is occupied — the cold core
+    rides on it — so it cannot carry the proud tongue the walls and ceiling do
+    (`_front_lip`). Its overlap stays within the slab instead. The FRONT floor runs
+    aft at the slab's whole `wall` thickness, then tapers to the cavity-side datum
+    over one `wall`; the BACK floor gives up that envelope and keeps the matching
+    bed-side wedge under the nose. The tongue's broad underside is on the print bed
+    and the only rising face is 45°, so neither half asks support for the core's
+    bearing surface. Assembled, the top remains one plane at z=iz0.
 
-    Returns (tongue, relief): the solid the FRONT half fuses (its aft upper-half
-    tongue) and the solid the BACK half cuts (its upper half over the overlap,
-    plus a split_slip slide clearance so the tongue telescopes in freely)."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    zmid = iz0 - wall / 2.0                          # slab mid-plane (bed-side | cavity-side)
-    y0, y1 = y_joint, y_joint + lip_len
-    tongue = _ybox(ix0, ix1, y0, y1, zmid, iz0)
-    relief = _ybox(ix0, ix1, y0 - 1.0, y1 + split_slip, zmid - split_slip / 2.0, iz0)
+    `split_slip` is taken along the insertion axis: the tongue's nose is that much
+    shorter than the back relief. Its flanks are inset half that figure from each
+    side wall, giving the full-width tongue the same diametral running fit as a
+    plug in its socket.
+
+    Returns (tongue, relief): the solid the FRONT half fuses and the matching
+    envelope the BACK half cuts."""
+    ix0, ix1, _iy0, _iy1, iz0, _iz1 = inner
+    zbed = iz0 - wall
+    root = y_joint - 1.0                              # robust face overlap into front slab
+    tongue_tip = y_joint + lip_len - split_slip
+    tongue_flat = tongue_tip - wall
+    relief_tip = y_joint + lip_len
+    relief_flat = relief_tip - wall
+    tongue = _yz_prism(
+        ix0 + split_slip / 2.0, ix1 - split_slip / 2.0,
+        [(root, zbed), (tongue_flat, zbed), (tongue_tip, iz0), (root, iz0)])
+    relief = _yz_prism(
+        ix0, ix1,
+        [(root, zbed - 1.0), (relief_flat, zbed - 1.0),
+         (relief_flat, zbed), (relief_tip, iz0), (root, iz0)])
     return tongue, relief
 
 
@@ -5308,10 +5320,10 @@ def build_front_half(box):
     for cutter in _front_relief_cuts(inner, box.pump_trays):
         front = front.cut(cutter)
     front = front.fuse(_front_lip(inner, y_joint))
-    # The floor's overlap: the front's aft upper-half floor tongue, lapping the
-    # back half's slab within the slab (the core rides the cavity side, so the
-    # floor cannot tongue proud like the walls). Lands in the bottom piece.
-    front = front.fuse(_floor_lap(inner, y_joint)[0])
+    # The floor's overlap: a full-thickness tongue on the bed, ending in a 45°
+    # scarf nose within the slab (the core rides the cavity side, so the floor
+    # cannot tongue proud like the walls). Lands in the bottom piece.
+    front = front.fuse(_floor_scarf(inner, y_joint)[0])
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, y_joint)
     # One collar per level, each standing on the lip band the lip has already put
@@ -5349,10 +5361,9 @@ def build_back_half(box):
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
-    # Give up the slab's upper half over the overlap to receive the front floor
-    # tongue (the shiplap's other half); the back keeps its bed-side half, which
-    # the core still rides. Lands in the bottom piece.
-    back = back.cut(_floor_lap(inner, y_joint)[1])
+    # Give up the tongue envelope and keep the bed-side 45° wedge under its nose.
+    # The assembled top stays flat under the core. Lands in the bottom piece.
+    back = back.cut(_floor_scarf(inner, y_joint)[1])
     if box.funnel:
         back = back.cut(_hopper_cut(inner, outer, box.funnel))
     yb = _y_boss(y_joint)
