@@ -20,6 +20,10 @@ reports the safe I/O foundation the next connected bench uses.
   keeps it turning, and the head stops on the lift, on a tick that runs 2 s late, or at the
   60 s ceiling. Every state change goes back as `MSG_RESP_PRIME`.
 - **A bounded run from the console.** `pump <a|b> [ms]`.
+- **The faucet selection.** A tap reaches J3 as an absolute flavor and request token. The
+  controller acknowledges its authoritative selection, makes the UI tick once, and persists
+  namespace `selection`, key `flavor`. A controller with no stored value adopts the faucet's
+  saved boot-logo candidate on its first synchronization; an established controller wins.
 - **Status.** `MSG_STATUS_REQ` is answered from cached controller state with uptime, heap,
   J9 frame counts, the MQ-6 divider and whether a prime is live. The USB `status` command
   additionally verifies both expanders and reads all ten reed inputs on demand.
@@ -39,6 +43,8 @@ driven. A clean cycle is answered `MSG_ERR_UNSUPPORTED`.
 | `machine.cpp` | every pin that reaches a load, and the three limits |
 | `pcba_expanders.cpp` | U2/U3 register safety and the logical V-A–V-K / fan / reed map |
 | `link.cpp` | J9 frames in, machine announcements out |
+| `faucet_link.cpp` | J3 full-duplex frames and idempotent flavor acknowledgements |
+| `flavor.cpp` | controller-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
 | `pins.h` | what this image reaches on the board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
@@ -58,9 +64,10 @@ pio device monitor -e appliance
 | | |
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
+| `flavor [a\|b]` | read or set the controller-owned flavor selection |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
-| `link` | J9 frames, bytes, echo, time since the last frame |
+| `link` | J9 frames/echo plus J3 connection, synchronization, duplicates and invalid frames |
 | `ping` | put a frame on the pair and read its echo back |
 | `display usb` | explicitly detach/wake the front display's USB PHY |
 | `sound <name>` | play one of the machine's sounds; `sound list` names them and what each would play at |
@@ -79,6 +86,20 @@ PHY long enough for the host to see a detach. If the front application does not 
 the controller reports `UNREACHABLE` and does nothing further. `tools/display_usb.py`
 wraps the command and proves the result with a fresh USB attachment and the display's
 `GET_VERSION` response.
+
+## Faucet link
+
+J3 is not RS485. `Serial2` maps IO33 TX / IO35 RX to the faucet's GPIO44 RX / GPIO43 TX
+over separate 3.3 V logic conductors. `ProtoLink` therefore runs its full-duplex Fd transport
+at 115200 baud; ROM boot text from faucet GPIO43 is simply discarded until framed traffic
+passes CRC.
+
+The touch display changes its logo before it queues link work. Requests carry the resulting
+absolute flavor, never “toggle,” so transport or application retries are idempotent. A token
+deduplicates the controller-side tick as well as the state update. Controller Preferences
+writes are serviced only while the machine is idle and the sound sequencer is quiet. The
+faucet keeps its own two-second-deferred cache so either boot order draws a logo immediately,
+but it never overwrites established controller state during reconnect.
 
 ## Sound
 
