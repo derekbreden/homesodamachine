@@ -6007,6 +6007,40 @@ OUTBOARD = tuple(name(BACK_WALL_FITTINGS[station][2])
                  for name in (customer_tube_name, collar_name, collar_word_name))
 
 
+# The bodies intentionally admitted into the ceiling's deeper structural field. A relief is
+# derived from the exact purchased solid where it enters the raw stock; naming this population
+# keeps an unrelated future encroachment visible to `pack-closes` instead of silently pocketing
+# around it. Two millimetres in plan is assembly slip and one above the hit is the roof clearance.
+CEILING_RELIEF_BODIES = (
+    "c14-inlet", "asse1022-assembly", "co2-inlet",
+    "bulkhead-water", "bulkhead-carb", "digiten-flow",
+)
+CEILING_RELIEF_PLAN_SLIP = 2.0
+CEILING_RELIEF_Z_CLEAR = 1.0
+
+
+def ceiling_reliefs(placed: dict) -> tuple:
+    """Body-derived pockets in the ceiling panel's unrelieved structural stock."""
+    raw = _cpanel.structural_stock()
+    reliefs = []
+    for name in CEILING_RELIEF_BODIES:
+        if name not in placed:
+            continue
+        hit = raw.intersect(placed[name][0])
+        if hit.Volume() <= 1e-6:
+            continue
+        b = hit.BoundingBox()
+        reliefs.append((
+            name,
+            b.xmin - CEILING_RELIEF_PLAN_SLIP,
+            b.xmax + CEILING_RELIEF_PLAN_SLIP,
+            b.ymin - CEILING_RELIEF_PLAN_SLIP,
+            b.ymax + CEILING_RELIEF_PLAN_SLIP,
+            min(_cpanel.underside_z, b.zmax + CEILING_RELIEF_Z_CLEAR),
+        ))
+    return tuple(reliefs)
+
+
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
@@ -6034,6 +6068,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      asse_cradle=a.asse_cradle,
                      digiten_saddles=a.digiten_saddles,
                      tube_anchors=a.tube_anchors + a.body_anchors,
+                     ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=back_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
                      valve_panels=a.valve_panels, pump_trays=a.pump_trays,
@@ -6069,6 +6104,26 @@ def check_through_wall_headroom(a, shell) -> Bound:
             f"`enclosure._dims` sizes the box on, so raise `enclosure.appliance_height` or "
             f"drop the storey it stands on: "
             + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over))])))
+
+
+def check_ceiling_panel_insertion(back_top) -> Bound:
+    """Whether the ceiling's deeper field can slide aft through back-top's open Y seam.
+
+    This is a continuous motion bound, represented conservatively by the whole prism swept
+    from the first pose with the panel aft edge at the seam through the installed pose. The
+    C14 tunnel's upper cap travels on the panel; any fixed back-top material in this prism is
+    therefore a real obstruction, even when both pieces are disjoint after assembly."""
+    fixed = back_top.val() if hasattr(back_top, "val") else back_top
+    volume = _cpanel.insertion_sweep().intersect(fixed).Volume()
+    ok = volume <= 1e-3
+    return record_bound(Bound(
+        "ceiling-panel-slides-in", "The deep ceiling panel slides in through back-top's seam",
+        ok, f"{volume:.3f} mm³ of fixed back-top in its continuous sweep",
+        "no fixed back-top material in the structural field's complete Y sweep",
+        ([] if ok else [
+            f"{volume:.3f} mm³ of back-top stands in the panel's insertion prism — move that "
+            f"feature onto the panel or open the fixed piece; a clear installed pose does not "
+            f"show that the ceiling can reach it."])))
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
@@ -6509,6 +6564,10 @@ def build_enclosure_assembly() -> cq.Assembly:
     # assembly is the two ceiling stations it carries.
     pieces["ceiling-panel"] = _cpanel.build(box)
     a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETG_BLACK)
+    # Installed clearance is not insertion clearance: the panel traverses the whole rear
+    # column before it reaches this pose. Read the deeper field's continuous sweep against the
+    # fixed piece, including the C14 ownership split that makes the aft end pass.
+    check_ceiling_panel_insertion(pieces["back-top"])
     # The chain against the piece that cradles it, once that piece exists — the one reading on
     # this card that can tell a trough closed on the barrel from a trough drawn near it.
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],

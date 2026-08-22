@@ -1,9 +1,10 @@
 # Ceiling panel
 
 enclosure-back-top's ceiling, as a part of its own: a [159 mm](PANEL_W) ×
-[225 mm](PANEL_D) × [3 mm](PANEL_T) slab that prints flat on the bed, show face
-down, and slides into a dado down each side of the piece. Its top face is the
-appliance's top surface.
+[225 mm](PANEL_D) show skin that grows into an [8 mm](STRUCTURAL_T) structural
+field on the interior side. It prints flat on the bed, show face down, and slides
+into a dado down each side of the piece. Its top face is the appliance's top
+surface; all structural pockets open upward during printing.
 
 The piece it closes prints MOUTH-DOWN on its seam rim with the build axis +Z and
 stands [195 mm](PIECE_H) on that rim, so a ceiling printed in back-top is a roof
@@ -17,24 +18,48 @@ Box framing: [`../enclosure/README.md`](/hardware/printed-parts/enclosure/enclos
 Built in the box's own frame — every plane it stands on is a plane the box
 states about itself.
 
-- **Underside** on the interior ceiling, z = [352](PANEL_UNDER), and **show
-  face** one wall over it at z = [355](PANEL_SHOW). The panel carries the top
-  wall's own section, so the ceiling plane and the exterior top face are both
-  continuous across it. That underside is the plane the WHOLE rear storey hangs
-  from: `enclosure_assembly.deck_storey` is this less the tap-water chain's
-  crown and its tie clearance, and the four umbilical ports, the CO₂ neoFit,
-  both C14s, the DIGITEN axis and the three tube anchors are all placed off it.
+- **Ceiling datum** at z = [352](PANEL_UNDER), with the **show face** one wall
+  over it at z = [355](PANEL_SHOW). The [8 mm](STRUCTURAL_T) field descends to
+  z = [347](STRUCTURAL_UNDER) wherever a purchased body does not need that
+  volume. The rear storey's placements still read from the z =
+  [352](PANEL_UNDER) datum: `enclosure_assembly.deck_storey` is this less the
+  tap-water chain's crown and tie clearance, and the umbilical ports, CO₂
+  neoFit, C14, DIGITEN axis and tube anchors all remain in that one frame.
 - **Width** is `hopper_funnel.collar_w`, whole — x ±[79.5](PANEL_HALF_W). The
   throat's opening is that wide and the panel's edges are collinear with it, so
   the ceiling reads as one [159 mm](PANEL_W) channel down the machine, funnel in
   the front of it and panel filling the rest.
 - **Fore edge** at y = [236](PANEL_FORE), the collar's own aft edge.
 - **Aft edge** at y = [461](PANEL_AFT), back-top's own back-wall face, which is
-  the panel's stop. The pack stands hard against the ceiling under that wall —
-  the C14's flange, both umbilical unions, the CO₂ neoFit and the tap-water
-  chain's crown, all within a millimetre and change of it — so the storey there
-  holds nothing a corbelled closure off the wall could descend into, and the
-  panel takes the span whole.
+  the panel's stop. Rounded reliefs rise locally over the C14, both upper
+  umbilical unions, the CO₂ neoFit and the tap-water chain; the material between
+  those pockets remains one broad field to the stop.
+
+## The structural field
+
+The load path is a continuous [8 mm](STRUCTURAL_T) plate, not a thin lid with a
+single directional brace. Its envelope absorbs the two retention stations and
+the upper roots of the DIGITEN saddles and tube anchors. The existing print
+profile uses four top shells, three bottom shells and 15% grid infill, so the
+CAD envelope is not a solid 8 mm billet.
+
+There are [6](RELIEF_N) body pockets. Each starts from the purchased solid's
+exact intersection with the unrelieved field, adds 2 mm of plan slip and 1 mm
+of vertical clearance, and rounds its plan corners to [3 mm](RELIEF_R). The
+pocket floor is therefore not a common guessed depth: shallow bodies leave a
+thicker roof and tall bodies keep the original ceiling section over them. Every
+pocket is open on the interior face, which is upward on the printer.
+
+One anchor's strap approach enters the new field. Its whole existing footprint
+is returned as the single [1](STRAP_RELIEF_N) strap pocket, so the loop still
+descends on both sides of the WR1110 barrel. The other anchor channels and both
+meter channels remain open while their solid roots merge into the plate.
+
+The C14 tunnel reaches into the aft end of the field. Its intersecting upper cap
+belongs to this panel and travels with it; the rest stays on back-top. The union
+in the installed machine is the same tunnel, while no fixed cap blocks the
+panel's slide. `ceiling-panel-slides-in` checks the complete swept prism from the
+open Y seam to the installed stop rather than checking only the final pose.
 
 ## The rails
 
@@ -76,37 +101,33 @@ each head is reached straight down through the throat with the funnel out and
 covered by the flange with it in. Aft of them the tongues hold the panel down
 and the back wall holds it in; nothing else is fastened.
 
-A 3 mm lid cannot bury a socket cap, so the panel takes the box's own web at
-each station: [8 mm](SCREW_PAD_T) of section, the head down in the standard
-counterbore with [4 mm](SCREW_LAND) of land under it, and the pad hanging into
-the bay for the difference — crown at z = [347](SCREW_SEAT). The screw then
-lands exactly: that land and a [5.25 mm](HEATSET) ruthex M3 short together spend
+A station uses the field's full [8 mm](SCREW_PAD_T) section, with the head down
+in the standard counterbore and [4 mm](SCREW_LAND) of land under it. The field's
+lower face is the station crown at z = [347](SCREW_SEAT), so no local pad hangs
+below the plate. The screw lands exactly: that land and a
+[5.25 mm](HEATSET) ruthex M3 short together spend
 [9.25 mm](SCREW_REACH) of the [M3x10](SCREW_LEN)'s under-head length and the
 bore relief takes the rest, so the rail's boss under each station reaches z =
 [340.75](SCREW_BORE).
 
-The pad hangs below the ceiling and only the panel's own field has room for it —
-outboard of the mouth the rail's corbel is standing in that storey, and a pad
-reaching into it could not travel the dado. So each station stands as far
-outboard as a full ligament round its counterbore allows, which lands the pad
-tangent to the mouth.
+Each station stands as far outboard as a full ligament round its counterbore
+allows, tangent to the mouth and inside the panel's moving field.
 
 ## What hangs off it
 
 The ceiling over this field is this part, so every rib rooted on it is this part's
-too — the two saddles the DIGITEN flow meter hangs in, and three of the anchors
-bored for a round body: `carb-1`, `co2-2` and the WR1110 regulator's barrel. They
-were `enclosure-back-top`'s while that piece still printed a ceiling here.
-`enclosure.ceiling_stations` is the one call that splits the ceiling's stations
-between the two parts, and both read it, so neither can grow a rib the other grew.
+too — the two saddles the DIGITEN flow meter hangs in, and three anchors bored
+for a round body: `carb-1`, `co2-2` and the WR1110 regulator's barrel.
+`enclosure.ceiling_stations` is the one call that assigns the ceiling's stations,
+so each one is grown by exactly one part.
 
 Each is built by `enclosure`'s own builder (`_digiten_saddles`, `_tube_anchors`):
 a bore concentric with the body it takes, its arc stopped on that body's own axis
 plane, and the strap's channel behind it. The stations are struck in the box's
-frame, because that is the frame the bodies are in; the plane a rib STOPS on is
-this panel's underside, which is what the builders are handed — the same
-substitution `enclosure.piece_root_faces` makes for a wall on the pieces carrying
-one thicker than the box's own. That underside is the channel's roof.
+frame, because that is the frame the bodies are in; the z = [352](PANEL_UNDER)
+datum remains the plane each rib is constructed toward. The structural field
+then merges with the solid portions of those roots while leaving every strap
+channel open.
 
 The bench sequence follows from it: a seat that hangs off the top wall is an
 upward-opening cradle the moment the part is inverted, and this part inverted is a
@@ -116,8 +137,8 @@ flat plate.
 
 1. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
    until its aft edge lands on the back wall.
-2. Drive the two screws down through the pads into the rails' bosses, reaching
-   through the open throat.
+2. Drive the two screws down through the counterbores into the rails' bosses,
+   reaching through the open throat.
 3. Turn back-top ceiling-down, lay the meter into its two saddles and each run
    into its rib, and strap them. Then lower the piece onto the machine.
 4. Drop the funnel in. Its collar fills the throat immediately ahead of the
