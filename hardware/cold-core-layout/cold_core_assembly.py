@@ -48,6 +48,7 @@ import _internals as _I                                  # noqa: E402
 import _bom as _bom_check                                # noqa: E402
 import prv_shroud as _shroud                             # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
+import _cold_core_style as _style                        # noqa: E402
 from _card import Check, grade_of, verdict                # noqa: E402
 from _cold_scorecard import Scorecard                     # noqa: E402
 
@@ -58,47 +59,7 @@ STEP_OUT = _here.parent / "cold-core-assembly.step"
 # card below is written beside both STEPs and `one-core` is what keeps that honest.
 FOAM_STEP = _cold / "foam-assembly" / "foam-assembly.step"
 
-# --- colour, by what a body is ------------------------------------------------
-# THE FIVE FOAM BODIES ARE COLOURED WHERE THEY ARE CUT. `foam_assembly` bakes these into
-# `foam-assembly.step`, and both models place the same five, so both read them off it.
-C_FOAM_SHELL = _foam.SHELL_COLOR
-C_CAP = _foam.COLORS["foam-cap-top"]
-C_LID = _foam.COLORS["foam-cap-lid-top"]
-C_CAP_B = _foam.COLORS["foam-cap-bottom"]
-C_LID_B = _foam.COLORS["foam-cap-lid-bottom"]
-# The plug, the shroud and the reed bodies are cut by their own generators, which colour their
-# STEPs off `_materials` — the same constants this reads. Everything else in the stack is bought,
-# and `_bom.PARTS` is what says which row a body came off, so the material each takes below is
-# read off that row rather than picked.
-from _materials import (C_PLUG, C_REED, C_RES_CAP, C_RESERVOIR, C_SHROUD,  # noqa: E402
-                        C_SILICONE, M_BRASS, M_COPPER, M_EPOXY_BLACK,
-                        M_JG_BLACK_PP, M_JG_WHITE_PP, M_PETG_BLACK,
-                        M_PTFE_WHITE, M_SINTERED_SS, M_STAINLESS)
-# THE VESSEL AND EVERYTHING WELDED, THREADED OR SLID ONTO IT IS ONE ALLOY. The tube is 316 welded
-# SS, the endcaps are 1/4" laser-cut 316 plate, the four port elbows are TAISHER 316L barstock,
-# the CO2 barb is LTWFITTING 316, and the float rides a Tandefio 316 rod (`ledger/bom.md` §2,
-# §12). One stock, one colour — the joints between them read as joints, not as a change of metal.
-C_STEEL = M_STAINLESS
-C_PLATE = M_STAINLESS
-C_ROD = M_STAINLESS
-C_FLOAT = M_STAINLESS
-C_ELBOW = M_STAINLESS
-C_STONE = M_SINTERED_SS         # the FERRODAY sparge stone, sintered rather than bar
-C_PRV = M_BRASS                 # the Control Devices SV-125, which its listing states as brass
-C_BULKHEAD = M_JG_WHITE_PP      # the PureSec floor bulkhead, white polypropylene
-C_COLLET = M_JG_BLACK_PP        # the John Guest PP010822E collets on the vessel elbows
-C_MEMBRANE = M_PTFE_WHITE       # the LVDALAB vent filter in each reservoir cap
-C_BRIDGE = M_PETG_BLACK         # the printed reed bridge under the coil's crossing
-C_COPPER = M_COPPER
-C_PROBE = M_EPOXY_BLACK         # both 1-wire probes are bare TO-92
-
-FOAM_COLORS = {
-    "foam-shell": C_FOAM_SHELL,
-    "foam-cap-top": C_CAP,
-    "foam-cap-lid-top": C_LID,
-    "foam-cap-bottom": C_CAP_B,
-    "foam-cap-lid-bottom": C_LID_B,
-}
+FOAM_COLORS = _style.FOAM_COLORS
 
 # Which reservoir STEP fills which pocket, and what its cap is called.
 RESERVOIRS = {"reservoir-a": "reservoir-right", "reservoir-b": "reservoir-left"}
@@ -358,65 +319,13 @@ def build_assembly():
 
     a = cq.Assembly(name="cold-core-assembly")
     for name, solid in placed.items():
-        a.add(solid, name=name, color=_colour_for(name))
+        a.add(solid, name=name, color=_style.colour_for(name))
     for name in sorted(fitted):
-        a.add(fitted[name][1], name=f"line-{name}", color=_foam.ROUTE_COLORS[name])
+        a.add(fitted[name][1], name=f"line-{name}", color=_style.ROUTE_COLORS[name])
     a.placed = placed
     a.fitted = fitted
     a.points = trimmed_routes()
     return a
-
-
-def _colour_for(name: str):
-    """What `name` is made of, as a colour.
-
-    THE NARROWEST NAME IS TESTED FIRST. `reed-bridge` is a printed body standing among ten
-    glass reed ampoules whose names it shares a prefix with, and `bulkhead-seal-a` is a
-    silicone washer under a body called `bulkhead-reservoir-a` — so a prefix test placed above
-    the exact name it covers paints the wrong material and nothing goes red for it."""
-    if name in FOAM_COLORS:
-        return FOAM_COLORS[name]
-    if name == "reed-bridge":
-        return C_BRIDGE
-    if name == "prv-shroud":
-        return C_SHROUD
-    if name == "prv-sv125":
-        return C_PRV
-    if name.startswith("endcap"):
-        return C_PLATE
-    if name.startswith("vessel-elbow"):
-        return C_ELBOW
-    if name.startswith("collet-"):
-        return C_COLLET
-    if name.endswith("-cap"):
-        return C_RES_CAP
-    if name.startswith("reservoir"):
-        return C_RESERVOIR
-    if name.startswith("copper-plug"):
-        return C_PLUG
-    if name.startswith("evap-"):
-        return C_COPPER
-    if name.startswith("sparge-silicone"):
-        return C_SILICONE
-    if name.startswith("sparge-stone"):
-        return C_STONE
-    if name.startswith("sparge-"):
-        return C_ELBOW
-    if name.startswith("bulkhead-seal"):
-        return C_SILICONE
-    if name.startswith("bulkhead-"):
-        return C_BULKHEAD
-    if name.startswith("vent-membrane"):
-        return C_MEMBRANE
-    if name.startswith("float-rod"):
-        return C_ROD
-    if name.startswith("float-"):
-        return C_FLOAT
-    if name.startswith("reed-"):
-        return C_REED
-    if name.startswith("probe-"):
-        return C_PROBE
-    return C_STEEL
 
 
 # --- the card ----------------------------------------------------------------

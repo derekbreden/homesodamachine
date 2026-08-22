@@ -41,12 +41,14 @@ _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
 _ROOT = _HW.parent
 for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
-           _HW / "printed-parts" / "cold-core", _ROOT / "tools"):
+           _HW / "cold-core-layout", _HW / "printed-parts" / "cold-core",
+           _ROOT / "tools"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
 import _mesh_payload                                    # noqa: E402
 import _scenes                                          # noqa: E402
+import _cold_core_style                                 # noqa: E402
 import flute_payload                                    # noqa: E402
 from docgen import note_rewritten                       # noqa: E402
 from _cadq_export import note_read, note_write, _per_solid_color   # noqa: E402
@@ -55,6 +57,8 @@ OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
 GLB_DIR = _HERE.parent / "glb"
 ASSEMBLY_MESH = _HW / "manifold-layout" / "enclosure-assembly.step.mesh"
+CORE_MESH = _HW / "cold-core-layout" / "cold-core-assembly.step.mesh"
+CORE_SCORECARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 GLB_TOL = 0.5
 RENDERER = _ROOT / "tools" / "render" / "render-step-posed.js"
 SIZE = "1600x1200"
@@ -537,6 +541,7 @@ def draw_all(scenes, assembly, batch, force=False, images=True, glbs=True) -> li
 
 
 _SOLID_INDEX = re.compile(r"/\d+$")
+_LEAF_NAME = re.compile(r"^(.+?)(?:/([1-9]\d*))?$")
 _Z_UP_TO_Y_UP = np.array([
     [1.0, 0.0, 0.0, 0.0],
     [0.0, 0.0, 1.0, 0.0],
@@ -557,30 +562,125 @@ def _payload_geometry(path):
     The outer payload has just been written and fluted by `enclosure_assembly.main`; reading
     those triangles is what makes the scene use that exact current surface without standing a
     scene B-rep and tessellating it twice more."""
-    raw = Path(path).read_bytes()
+    path = Path(path)
+    raw = path.read_bytes()
     if len(raw) < 4:
         raise ValueError(f"{path}: not a mesh payload")
     head_len = struct.unpack("<I", raw[:4])[0]
+    if not head_len or head_len % 4 or 4 + head_len > len(raw):
+        raise ValueError(f"{path}: invalid mesh-payload header span")
     try:
         head = json.loads(raw[4:4 + head_len])
-    except (UnicodeDecodeError, ValueError) as exc:
+    except (UnicodeDecodeError, ValueError, TypeError) as exc:
         raise ValueError(f"{path}: malformed mesh-payload header") from exc
+    if not isinstance(head, dict) or not isinstance(head.get("meshes"), list):
+        raise ValueError(f"{path}: mesh-payload header has no meshes list")
     if head.get("v") != _mesh_payload.VERSION:
         raise ValueError(
             f"{path}: mesh payload v{head.get('v')!r}, expected v{_mesh_payload.VERSION}")
     blob = memoryview(raw)[4 + head_len:]
-    out = []
-    for held in head.get("meshes", ()):
-        entry = {"name": held["name"]}
-        for key, dtype in (("pos", "<f4"), ("nrm", "<f4"), ("idx", "<u4")):
-            offset, count = held[key]
+    if not head["meshes"]:
+        raise ValueError(f"{path}: mesh payload has no leaves")
+    out, spans, leaf_names = [], [], set()
+    for number, held in enumerate(head["meshes"], 1):
+        if not isinstance(held, dict):
+            raise ValueError(f"{path}: mesh leaf {number} is not an object")
+        name = held.get("name")
+        leaf = _LEAF_NAME.fullmatch(name) if isinstance(name, str) else None
+        if not name or leaf is None or "/" in leaf.group(1):
+            raise ValueError(f"{path}: mesh leaf {number} has an invalid name")
+        if name in leaf_names:
+            raise ValueError(f"{path}: duplicate mesh leaf {name!r}")
+        leaf_names.add(name)
+        color = held.get("color")
+        if color is not None and (
+                not isinstance(color, list) or len(color) != 3
+                or not all(isinstance(v, (int, float)) and np.isfinite(v) for v in color)):
+            raise ValueError(f"{path}: {name!r} has an invalid linear RGB")
+        entry = {"name": name, "color": color}
+        for key, dtype in (("pos", "<f4"), ("nrm", "<f4"),
+                           ("idx", "<u4"), ("fac", "<u4")):
+            span = held.get(key)
+            if (not isinstance(span, list) or len(span) != 2
+                    or any(not isinstance(v, int) or isinstance(v, bool) or v < 0 for v in span)):
+                raise ValueError(f"{path}: {name!r} has an invalid {key} span")
+            offset, count = span
+            end = offset + count * 4
+            if offset % 4 or end > len(blob):
+                raise ValueError(f"{path}: {name!r} has a truncated or unaligned {key} span")
             try:
                 entry[key] = np.frombuffer(blob, dtype=dtype, count=count, offset=offset)
             except (TypeError, ValueError) as exc:
                 raise ValueError(
-                    f"{path}: {held['name']!r} has an invalid {key} span") from exc
+                    f"{path}: {name!r} has an invalid {key} span") from exc
+            spans.append((offset, end, name, key))
+        if (not len(entry["pos"]) or len(entry["pos"]) % 3
+                or len(entry["nrm"]) != len(entry["pos"])
+                or not len(entry["idx"]) or len(entry["idx"]) % 3
+                or not len(entry["fac"]) or len(entry["fac"]) % 2):
+            raise ValueError(f"{path}: {name!r} has malformed vector or index counts")
+        if not np.isfinite(entry["pos"]).all() or not np.isfinite(entry["nrm"]).all():
+            raise ValueError(f"{path}: {name!r} has non-finite geometry")
+        vertices, triangles = len(entry["pos"]) // 3, len(entry["idx"]) // 3
+        if int(entry["idx"].max()) >= vertices:
+            raise ValueError(f"{path}: {name!r} indexes past its {vertices} vertices")
+        face_ranges = entry["fac"].reshape((-1, 2))
+        cursor = 0
+        for first, last in face_ranges:
+            if int(first) != cursor or int(last) < int(first) or int(last) >= triangles:
+                raise ValueError(f"{path}: {name!r} has invalid BREP-face triangle ranges")
+            cursor = int(last) + 1
+        if cursor != triangles:
+            raise ValueError(f"{path}: {name!r} does not assign every triangle to a face")
         out.append(entry)
+    cursor = 0
+    for start, end, name, key in sorted(spans):
+        if start != cursor:
+            kind = "overlapping" if start < cursor else "gapped"
+            raise ValueError(f"{path}: {name!r} has a {kind} {key} span")
+        cursor = end
+    if cursor != len(blob):
+        raise ValueError(f"{path}: mesh payload has {len(blob) - cursor} unclaimed trailing bytes")
     return out
+
+
+def _core_contract(entries):
+    """Validate the action-only core payload against its producing scorecard and style."""
+    try:
+        card = json.loads(CORE_SCORECARD.read_text())
+        bodies = card["bodies"]
+        bends = card["bends"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise ValueError(f"{CORE_SCORECARD}: malformed cold-core scorecard") from exc
+    if (not isinstance(bodies, list) or not all(isinstance(n, str) and n for n in bodies)
+            or not isinstance(bends, list)
+            or not all(isinstance(row, dict) and isinstance(row.get("id"), str)
+                       and row["id"] for row in bends)):
+        raise ValueError(f"{CORE_SCORECARD}: malformed body or bend census")
+    expected = tuple(sorted(bodies + [f"line-{row['id']}" for row in bends]))
+    if len(expected) != len(set(expected)):
+        raise ValueError(f"{CORE_SCORECARD}: duplicate cold-core body name")
+
+    by_body = _entries_by_body(entries)
+    missing, extra = sorted(set(expected) - set(by_body)), sorted(set(by_body) - set(expected))
+    if missing or extra:
+        raise ValueError(
+            f"{CORE_MESH}: body census differs from its scorecard"
+            f"; missing {', '.join(missing) or 'none'}; extra {', '.join(extra) or 'none'}")
+
+    rgba = {name: _linear_rgba(_cold_core_style.colour_for(name)) for name in expected}
+    for name, leaves in sorted(by_body.items()):
+        leaf_names = [entry["name"] for entry in leaves]
+        want = ([name] if len(leaves) == 1
+                else [f"{name}/{i}" for i in range(1, len(leaves) + 1)])
+        if sorted(leaf_names) != sorted(want):
+            raise ValueError(
+                f"{CORE_MESH}: {name!r} leaves are {leaf_names!r}, expected {want!r}")
+        for entry in leaves:
+            if entry["color"] is None or tuple(entry["color"]) != rgba[name][:3]:
+                raise ValueError(
+                    f"{CORE_MESH}: {entry['name']!r} linear RGB differs from its source style")
+    return rgba
 
 
 def _location_matrix(location):
@@ -718,7 +818,7 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
     return path
 
 
-def write_glbs(assembly) -> list:
+def write_glbs(assembly, require_core_payload=False) -> list:
     """Write every viewer scene from the current appliance mesh and one current core mesh.
 
     `enclosure_assembly.main` calls this after exporting and fluting the appliance payload, while
@@ -729,10 +829,19 @@ def write_glbs(assembly) -> list:
     outer_entries = _payload_geometry(ASSEMBLY_MESH)
     outer_rgba = _assembly_rgba(assembly)
 
-    import cold_core_assembly as cca
-    core = cca.build_assembly()
-    core_rgba = _assembly_rgba(core)
-    core_entries = _mesh_payload.from_assembly(_per_solid_color(core))
+    # The Bazel action receives the exact mesh and scorecard from //:cold-core-assembly. A
+    # missing, stale, or malformed handoff is an error, never permission to rebuild from some
+    # ambient checkout. A direct design/render run takes the other branch unconditionally and
+    # builds the live core, even when an ignored payload happens to be sitting beside its STEP.
+    note_read(CORE_MESH)
+    if require_core_payload:
+        core_entries = _payload_geometry(CORE_MESH)
+        core_rgba = _core_contract(core_entries)
+    else:
+        import cold_core_assembly as cca
+        core = cca.build_assembly()
+        core_rgba = _assembly_rgba(core)
+        core_entries = _mesh_payload.from_assembly(_per_solid_color(core))
     core_to_world = _location_matrix(assembly.carries[_scenes.INNER_ROOT].where)
     crossings = _scenes.crossings(assembly.runs)
 
@@ -755,7 +864,7 @@ def write_glbs(assembly) -> list:
 
 
 def payload_glb_selftest():
-    """Focused holds for RGBA, names, inner placement and scene flips in the mesh composer."""
+    """Focused holds for strict payload reads and exact scene composition."""
     import tempfile
 
     def tri(name, x):
@@ -777,6 +886,19 @@ def payload_glb_selftest():
     def check(label, held):
         checks.append((label, bool(held)))
         print(f"  {'ok  ' if held else 'FAIL'} {label}")
+
+    def payload_entry(name, x=0, color=(0.1, 0.2, 0.3), index=(0, 1, 2)):
+        return {"name": name, "color": list(color),
+                "pos": [x, 0, 0, x + 1, 0, 0, x, 1, 0],
+                "nrm": [0, 0, 1] * 3, "idx": list(index), "fac": [0, 0]}
+
+    def rejects(label, path):
+        try:
+            _payload_geometry(path)
+        except ValueError:
+            check(label, True)
+        else:
+            check(label, False)
 
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "scene.glb"
@@ -816,6 +938,93 @@ def payload_glb_selftest():
                               np.radians(90), (0, 0, 1), point=(0, 0, 0))))
         check("the GLB JSON chunk is first", kind == b"JSON")
 
+        # A valid payload first, then one mutation per class of silent corruption the strict
+        # action handoff refuses. These are byte-format tests; no CadQuery shape is built.
+        payload = Path(directory) / "valid.step.mesh"
+        _mesh_payload.write([payload_entry("one")], payload)
+        check("a complete v2 payload is admitted", len(_payload_geometry(payload)) == 1)
+
+        duplicate = Path(directory) / "duplicate.step.mesh"
+        _mesh_payload.write([payload_entry("one"), payload_entry("one", 2)], duplicate)
+        rejects("duplicate leaf names are rejected", duplicate)
+
+        truncated = Path(directory) / "truncated.step.mesh"
+        truncated.write_bytes(payload.read_bytes()[:-4])
+        rejects("truncated spans are rejected", truncated)
+
+        wrong_version = Path(directory) / "wrong-version.step.mesh"
+        raw = payload.read_bytes()
+        header_len = struct.unpack("<I", raw[:4])[0]
+        header = json.loads(raw[4:4 + header_len])
+        blob = raw[4 + header_len:]
+        header["v"] = _mesh_payload.VERSION + 1
+        encoded = json.dumps(header, separators=(",", ":")).encode()
+        encoded += b" " * (-(len(encoded) + 4) % 4)
+        wrong_version.write_bytes(struct.pack("<I", len(encoded)) + encoded + blob)
+        rejects("a payload of another version is rejected", wrong_version)
+
+        malformed = Path(directory) / "malformed.step.mesh"
+        malformed.write_bytes(struct.pack("<I", 4) + b"nope")
+        rejects("a malformed header is rejected", malformed)
+
+        bad_index = Path(directory) / "bad-index.step.mesh"
+        _mesh_payload.write([payload_entry("one", index=(0, 1, 3))], bad_index)
+        rejects("indices outside the vertex array are rejected", bad_index)
+
+        bad_face = Path(directory) / "bad-face.step.mesh"
+        _mesh_payload.write([payload_entry("one")], bad_face)
+        raw = bad_face.read_bytes()
+        header_len = struct.unpack("<I", raw[:4])[0]
+        header = json.loads(raw[4:4 + header_len])
+        blob = raw[4 + header_len:]
+        header["meshes"][0]["fac"][0] -= 4
+        encoded = json.dumps(header, separators=(",", ":")).encode()
+        encoded += b" " * (-(len(encoded) + 4) % 4)
+        bad_face.write_bytes(struct.pack("<I", len(encoded)) + encoded + blob)
+        rejects("overlapping or gapped spans are rejected", bad_face)
+
+        # The scorecard is the exact body census. Split one body into two properly indexed
+        # leaves to exercise the only legal many-solid spelling, and take alpha from the same
+        # source colour whose linear RGB every payload leaf must carry.
+        card = json.loads(CORE_SCORECARD.read_text())
+        expected = sorted(card["bodies"] + [f"line-{row['id']}" for row in card["bends"]])
+        entries = []
+        for i, name in enumerate(expected):
+            rgba = _linear_rgba(_cold_core_style.colour_for(name))
+            leaves = (f"{name}/1", f"{name}/2") if name == expected[0] else (name,)
+            entries.extend(payload_entry(leaf, i * 3 + j, rgba[:3])
+                           for j, leaf in enumerate(leaves))
+        contract_path = Path(directory) / "core.step.mesh"
+        _mesh_payload.write(entries, contract_path)
+        contract = _core_contract(_payload_geometry(contract_path))
+        check("scorecard membership and indexed leaves are exact",
+              set(contract) == set(expected))
+        check("source material alpha survives the mesh boundary",
+              contract["reservoir-a"][3]
+              == _linear_rgba(_cold_core_style.colour_for("reservoir-a"))[3])
+        parsed = _payload_geometry(contract_path)
+        parsed[0]["color"] = [0.0, 0.0, 0.0]
+        try:
+            _core_contract(parsed)
+        except ValueError:
+            check("a payload RGB that differs from source style is rejected", True)
+        else:
+            check("a payload RGB that differs from source style is rejected", False)
+        try:
+            _core_contract(_payload_geometry(contract_path)[1:])
+        except ValueError:
+            check("a missing scorecard body is rejected", True)
+        else:
+            check("a missing scorecard body is rejected", False)
+        extra = _payload_geometry(contract_path)
+        extra.append({**extra[-1], "name": "not-in-the-scorecard"})
+        try:
+            _core_contract(extra)
+        except ValueError:
+            check("a body outside the scorecard is rejected", True)
+        else:
+            check("a body outside the scorecard is rejected", False)
+
     bad = [label for label, ok in checks if not ok]
     print(f"\n{len(checks) - len(bad)}/{len(checks)} checks passed")
     return 1 if bad else 0
@@ -823,4 +1032,6 @@ def payload_glb_selftest():
 
 if __name__ == "__main__":
     sys.path.insert(0, str(_HW / "scripts"))
+    if sys.argv[1:] == ["selftest"]:
+        raise SystemExit(payload_glb_selftest())
     main()

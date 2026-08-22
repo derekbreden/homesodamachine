@@ -36,6 +36,8 @@ from pathlib import Path
 
 _HERE = Path(__file__).resolve()
 _ROOT = _HERE.parents[2]
+sys.path.insert(0, str(_HERE.parent))
+from inventory import ACTION_INTERMEDIATE                 # noqa: E402
 
 
 #: An output is `…/bin/out/<target>/<the path the tree keeps it under>`. The query answers with
@@ -113,6 +115,8 @@ def _targets(labels=()) -> dict:
         if not m:
             continue
         hit = m.group(1)
+        if hit in ACTION_INTERMEDIATE:
+            continue
         # TWO ACTIONS CUTTING ONE FILE is a graph that cannot be carried into a tree, because
         # the second copy decides and the first is lost. Named here rather than resolved.
         if hit in claimed:

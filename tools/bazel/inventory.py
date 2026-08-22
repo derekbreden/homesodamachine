@@ -43,6 +43,9 @@ LOCK = _ROOT / "hardware" / "cad-artifacts.lock.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    "hardware/cold-core-layout/cold_core_assembly.py": (
+        "hardware/cold-core-layout/cold-core-assembly.step.mesh",
+    ),
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
     ),
@@ -53,6 +56,14 @@ IMPLICIT_SOLIDS = {
         "hardware/manifold-layout/manifold-layout.step.mesh",
     ),
 }
+
+# Outputs whose bytes cross from one Bazel action to another and stop there. The cold-core mesh
+# saves the enclosure-assembly action from standing and tessellating the core a second time; the
+# public artifact remains the cold-core STEP, so neither sync_tree nor the release pack may carry
+# this ignored handoff into the source tree or the artifact lock.
+ACTION_INTERMEDIATE = frozenset({
+    "hardware/cold-core-layout/cold-core-assembly.step.mesh",
+})
 
 # A direct scene-render run can produce both media. The enclosure-assembly producer owns the
 # public GLBs now, cutting them from the named machine it already has in memory. This synthetic
@@ -99,6 +110,10 @@ def tracked() -> list:
         files += json.loads(LOCK.read_text()).get("solids", {})
     except (OSError, ValueError):
         pass
+    # The first trace happens before an ignored handoff can appear in graph.json or a release
+    # lock. Its producer write and consumer read still need to survive the trace filter so that
+    # this inventory can create the edge on that very first pass.
+    files += [path for paths in IMPLICIT_SOLIDS.values() for path in paths]
     return sorted(set(files))
 
 
