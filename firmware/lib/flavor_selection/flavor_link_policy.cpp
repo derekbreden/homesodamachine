@@ -35,6 +35,20 @@ bool controllerStatePublicationDue(bool connected,
            static_cast<uint32_t>(nowMs - lastPublicationMs) >= heartbeatMs;
 }
 
+bool controllerHeartbeatSettlesPendingSelection(bool offlineSelection,
+                                                 bool queuedSelection,
+                                                 bool headSent,
+                                                 uint8_t desiredFlavor,
+                                                 uint8_t controllerFlavor,
+                                                 uint32_t nowMs,
+                                                 uint32_t firstSentAtMs,
+                                                 uint32_t graceMs) {
+    if (offlineSelection || !queuedSelection) return false;
+    if (controllerFlavor == desiredFlavor) return true;
+    return headSent &&
+           static_cast<uint32_t>(nowMs - firstSentAtMs) >= graceMs;
+}
+
 bool consumeConnectionEpoch(uint32_t observedGeneration,
                             uint32_t &knownGeneration) {
     if (observedGeneration == knownGeneration) return false;

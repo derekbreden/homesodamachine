@@ -17,6 +17,11 @@ constexpr uint8_t kPrimeQueueDepth = PRIME_J3_APP_QUEUE_DEPTH;
 constexpr uint8_t kPrimePayloadMax = sizeof(PrimeHoldPayload);
 constexpr uint32_t kResponseTimeoutMs = 750;
 constexpr uint32_t kAudibleFreshMs = 300;
+// A tokenized reply normally arrives in milliseconds. A repeated controller
+// heartbeat with the requested value proves the same thing even when that one
+// reply was lost; a conflicting heartbeat is allowed a few application retry
+// windows before controller truth replaces an orphaned local intent.
+constexpr uint32_t kControllerTruthGraceMs = kResponseTimeoutMs * 3;
 static_assert(PROTOLINK_WINDOW == PRIME_PROTO_LINK_WINDOW_DEPTH,
               "prime replay contract must follow the TinyProto window");
 static_assert(PRIME_HOLD_REPLAY_HISTORY >
@@ -62,6 +67,7 @@ uint32_t framesTx = 0;
 uint32_t retries = 0;
 uint32_t queueDrops = 0;
 uint32_t staleResponses = 0;
+uint32_t authoritativeReconciliations = 0;
 uint32_t primeQueueDrops = 0;
 uint32_t lastAckMs = 0;
 uint32_t maxAckMs = 0;
@@ -184,6 +190,27 @@ void applyAuthoritative(uint8_t flavor) {
   if (flavorHandler) flavorHandler(flavor);
 }
 
+void settleFromControllerHeartbeat(const FlavorStatePayload &state) {
+  if (queueCount == 0 || offlineSelection) return;
+
+  // A token-zero state is sent periodically by the controller. If it already
+  // carries our final absolute choice, it is a valid acknowledgement even
+  // when the original tokenized response was lost. If it disagrees for several
+  // complete retry windows, retaining a local image indefinitely would leave
+  // the faucet showing something the controller has rejected or never heard.
+  const Intent &head = queue[queueHead];
+  if (!flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+          offlineSelection, queueCount != 0, head.sent, desiredFlavor,
+          state.flavor, millis(), head.firstSentAtMs,
+          kControllerTruthGraceMs)) return;
+
+  clearQueue();
+  applyAuthoritative(state.flavor);
+  synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
+  awaitingPersistence = !controllerPersisted;
+  ++authoritativeReconciliations;
+}
+
 void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
   (void)link;
   ++framesRx;
@@ -212,6 +239,8 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         applyAuthoritative(state.flavor);
         synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
         awaitingPersistence = !controllerPersisted;
+      } else {
+        settleFromControllerHeartbeat(state);
       }
       return;
     }
@@ -370,6 +399,7 @@ void baseLinkReadStatus(BaseLinkStatus &status) {
   status.retries = retries;
   status.queueDrops = queueDrops;
   status.staleResponses = staleResponses;
+  status.authoritativeReconciliations = authoritativeReconciliations;
   status.lastAckMs = lastAckMs;
   status.maxAckMs = maxAckMs;
   status.maxServiceUs = maxServiceUs;

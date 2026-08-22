@@ -16,6 +16,7 @@ struct BaseLinkStatus {
   uint32_t retries;
   uint32_t queueDrops;
   uint32_t staleResponses;
+  uint32_t authoritativeReconciliations;
   uint32_t lastAckMs;
   uint32_t maxAckMs;
   uint32_t maxServiceUs;

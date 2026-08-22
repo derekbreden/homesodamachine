@@ -150,6 +150,34 @@ void test_controller_does_not_publish_while_transport_is_down() {
         false, true, true, 10000, 0, 500));
 }
 
+void test_controller_heartbeat_confirms_a_lost_tokenized_reply_immediately() {
+    // The controller's repeated absolute B is enough to settle a faucet
+    // request for B even if the matching tokenized response was lost.
+    TEST_ASSERT_TRUE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        false, true, false, 1, 1, 100, 0, 2250));
+}
+
+void test_conflicting_heartbeat_waits_through_the_retry_grace() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        false, true, true, 1, 0, 2249, 0, 2250));
+    TEST_ASSERT_TRUE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        false, true, true, 1, 0, 2250, 0, 2250));
+}
+
+void test_conflicting_heartbeat_cannot_replace_unsent_or_offline_work() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        false, true, false, 1, 0, 10000, 0, 2250));
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        true, true, true, 1, 1, 10000, 0, 2250));
+}
+
+void test_controller_heartbeat_grace_is_rollover_safe() {
+    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        false, true, true, 1, 0, 0x00000010u, 0xFFFFFF00u, 300));
+    TEST_ASSERT_TRUE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+        false, true, true, 1, 0, 0x00000100u, 0xFFFFFF00u, 300));
+}
+
 void test_callback_consumes_epoch_before_sync_survives_post_service_check() {
     uint32_t knownGeneration = 7;
     bool synchronized = false;
@@ -216,6 +244,10 @@ int main(int, char **) {
     RUN_TEST(test_controller_heartbeat_is_safe_across_millis_rollover);
     RUN_TEST(test_controller_never_publishes_unestablished_first_install_default);
     RUN_TEST(test_controller_does_not_publish_while_transport_is_down);
+    RUN_TEST(test_controller_heartbeat_confirms_a_lost_tokenized_reply_immediately);
+    RUN_TEST(test_conflicting_heartbeat_waits_through_the_retry_grace);
+    RUN_TEST(test_conflicting_heartbeat_cannot_replace_unsent_or_offline_work);
+    RUN_TEST(test_controller_heartbeat_grace_is_rollover_safe);
     RUN_TEST(test_callback_consumes_epoch_before_sync_survives_post_service_check);
     RUN_TEST(test_request_token_history_keeps_delayed_retries_idempotent);
     return UNITY_END();
