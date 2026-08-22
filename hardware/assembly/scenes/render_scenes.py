@@ -26,12 +26,16 @@ rebuilds that machine nor starts Chromium.
 import argparse
 import json
 import os
+import re
 import shutil
+import struct
 import subprocess
 import sys
 from pathlib import Path
 
 import cadquery as cq
+import numpy as np
+import trimesh
 
 _HERE = Path(__file__).resolve()
 _HW = next(p for p in _HERE.parents if p.name == "hardware")
@@ -50,6 +54,7 @@ from _cadq_export import note_read, note_write, _per_solid_color   # noqa: E402
 OUT_DIR = _HERE.parent / "out"
 IMG_DIR = _HW / "assembly" / "cards" / "img"
 GLB_DIR = _HERE.parent / "glb"
+ASSEMBLY_MESH = _HW / "manifold-layout" / "enclosure-assembly.step.mesh"
 GLB_TOL = 0.5
 RENDERER = _ROOT / "tools" / "render" / "render-step-posed.js"
 SIZE = "1600x1200"
@@ -531,14 +536,289 @@ def draw_all(scenes, assembly, batch, force=False, images=True, glbs=True) -> li
     return out
 
 
-def write_glbs(assembly) -> list:
-    """Cut every viewer scene from an already-built named machine.
+_SOLID_INDEX = re.compile(r"/\d+$")
+_Z_UP_TO_Y_UP = np.array([
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [0.0, -1.0, 0.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0],
+])
 
-    The enclosure-assembly producer calls this before releasing its in-memory assembly. A
-    batch is still passed through the shared drawing path, but images are disabled so it queues
-    no browser work.
-    """
-    return draw_all(_scenes.SCENES, assembly, Batch(), images=False, glbs=True)
+
+def _body_name(name):
+    """The assembly body named by one per-solid payload entry."""
+    return _SOLID_INDEX.sub("", name)
+
+
+def _payload_geometry(path):
+    """The positions, normals and triangles in a v2 `.step.mesh`, as zero-copy arrays.
+
+    A GLB carries no BREP-face table, so `fac` stays in the payload rather than being decoded.
+    The outer payload has just been written and fluted by `enclosure_assembly.main`; reading
+    those triangles is what makes the scene use that exact current surface without standing a
+    scene B-rep and tessellating it twice more."""
+    raw = Path(path).read_bytes()
+    if len(raw) < 4:
+        raise ValueError(f"{path}: not a mesh payload")
+    head_len = struct.unpack("<I", raw[:4])[0]
+    try:
+        head = json.loads(raw[4:4 + head_len])
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise ValueError(f"{path}: malformed mesh-payload header") from exc
+    if head.get("v") != _mesh_payload.VERSION:
+        raise ValueError(
+            f"{path}: mesh payload v{head.get('v')!r}, expected v{_mesh_payload.VERSION}")
+    blob = memoryview(raw)[4 + head_len:]
+    out = []
+    for held in head.get("meshes", ()):
+        entry = {"name": held["name"]}
+        for key, dtype in (("pos", "<f4"), ("nrm", "<f4"), ("idx", "<u4")):
+            offset, count = held[key]
+            try:
+                entry[key] = np.frombuffer(blob, dtype=dtype, count=count, offset=offset)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(
+                    f"{path}: {held['name']!r} has an invalid {key} span") from exc
+        out.append(entry)
+    return out
+
+
+def _location_matrix(location):
+    """A CadQuery `Location` as a homogeneous matrix, without an Euler round trip."""
+    trsf = location.wrapped.Transformation()
+    out = np.eye(4)
+    for row in range(3):
+        for col in range(4):
+            out[row, col] = trsf.Value(row + 1, col + 1)
+    return out
+
+
+def _flip_matrix(flip):
+    if not flip:
+        return np.eye(4)
+    axis, degrees = flip
+    return trimesh.transformations.rotation_matrix(np.radians(degrees), axis)
+
+
+def _linear_rgba(color):
+    """The linear RGBA CadQuery's glTF exporter reads off `cq.Color`."""
+    from OCP.Quantity import Quantity_TypeOfColor
+
+    rgb = color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB)
+    return tuple(float(v) for v in (*rgb, color.wrapped.Alpha()))
+
+
+def _assembly_rgba(assembly):
+    """Every named body colour in a live flat assembly."""
+    out = {}
+    for child in assembly.children:
+        if child.color is None:
+            raise ValueError(f"{child.name!r}: scene body has no colour")
+        name = _body_name(child.name)
+        rgba = _linear_rgba(child.color)
+        if name in out and out[name] != rgba:
+            raise ValueError(f"{name!r}: its solids carry different scene colours")
+        out[name] = rgba
+    return out
+
+
+def _entries_by_body(entries):
+    out = {}
+    for entry in entries:
+        out.setdefault(_body_name(entry["name"]), []).append(entry)
+    return out
+
+
+def _scene_material(rgba, index, exact):
+    """One shared material per exact RGBA, and the name used to restore its float precision."""
+    rgba = tuple(float(v) for v in rgba)
+    if rgba in exact:
+        return exact[rgba][0]
+    name = f"hsm-rgba-{index}"
+    args = {"name": name, "baseColorFactor": rgba, "doubleSided": True}
+    if rgba[3] < 1.0:
+        args.update(alphaMode="BLEND", metallicFactor=0.0)
+    material = trimesh.visual.material.PBRMaterial(**args)
+    exact[rgba] = (material, name)
+    return material
+
+
+def _payload_mesh(entry, material):
+    pos = np.asarray(entry["pos"], dtype=np.float32).reshape((-1, 3))
+    nrm = np.asarray(entry["nrm"], dtype=np.float32).reshape((-1, 3))
+    idx = np.asarray(entry["idx"], dtype=np.uint32).reshape((-1, 3))
+    if len(pos) != len(nrm) or not len(idx):
+        raise ValueError(f"{entry['name']!r}: malformed positions, normals, or indices")
+    mesh = trimesh.Trimesh(pos, idx, vertex_normals=nrm, process=False, validate=False)
+    mesh.visual = trimesh.visual.TextureVisuals(material=material)
+    return mesh
+
+
+def _add_payload_body(scene, name, entries, transform, rgba, material_index, exact):
+    """One named body, with a child node per solid where `_per_solid_color` split it."""
+    material = _scene_material(rgba, material_index, exact)
+    if len(entries) == 1:
+        scene.add_geometry(_payload_mesh(entries[0], material),
+                           node_name=name, geom_name=entries[0]["name"], transform=transform)
+        return
+    scene.graph.update(frame_from=scene.graph.base_frame, frame_to=name, matrix=transform)
+    for entry in entries:
+        scene.add_geometry(_payload_mesh(entry, material), parent_node_name=name,
+                           node_name=entry["name"], geom_name=entry["name"])
+
+
+def _write_payload_glb(path, names, inner, outer_entries, core_entries,
+                       outer_rgba, core_rgba, flip, core_to_world, overrides):
+    """One scene composed from the two already-meshed named assemblies."""
+    outer, core = _entries_by_body(outer_entries), _entries_by_body(core_entries)
+    turn = _flip_matrix(flip)
+    outer_transform = _Z_UP_TO_Y_UP @ turn
+    core_transform = outer_transform @ core_to_world
+    scene = trimesh.Scene(base_frame="world")
+    exact_materials = {}
+    missing = []
+    for name in names:
+        inside = name in inner
+        entries = (core if inside else outer).get(name)
+        if not entries:
+            missing.append(name)
+            continue
+        colours = core_rgba if inside else outer_rgba
+        if name not in colours and name not in overrides:
+            raise ValueError(f"{name!r}: live assembly has no RGBA")
+        rgba = overrides.get(name, colours.get(name))
+        _add_payload_body(scene, name, entries,
+                          core_transform if inside else outer_transform,
+                          rgba, len(exact_materials), exact_materials)
+    if missing:
+        raise ValueError(f"scene payload is missing {', '.join(sorted(missing))}")
+
+    exact_by_name = {name: rgba for rgba, (_material, name) in exact_materials.items()}
+
+    def restore_material_precision(tree):
+        # `PBRMaterial` quantises a base factor to u8. RWGltf carries the live linear floats,
+        # including alpha, so put them back after trimesh has built the accessor/buffer tree.
+        for material in tree.get("materials", ()):
+            rgba = exact_by_name.get(material.get("name"))
+            if rgba is None:
+                continue
+            pbr = material.setdefault("pbrMetallicRoughness", {})
+            pbr["baseColorFactor"] = list(rgba)
+            material["doubleSided"] = True
+            if rgba[3] < 1.0:
+                material["alphaMode"] = "BLEND"
+                pbr["metallicFactor"] = 0.0
+            else:
+                material.pop("alphaMode", None)
+                pbr.pop("metallicFactor", None)
+
+    raw = trimesh.exchange.gltf.export_glb(
+        scene, include_normals=True, tree_postprocessor=restore_material_precision)
+    Path(path).write_bytes(raw)
+    return path
+
+
+def write_glbs(assembly) -> list:
+    """Write every viewer scene from the current appliance mesh and one current core mesh.
+
+    `enclosure_assembly.main` calls this after exporting and fluting the appliance payload, while
+    its named machine is still live. Scene membership and every material therefore come from
+    that machine. The inner model is stood and tessellated once; each scene after that is only a
+    named subset and two node transforms. No scene STEP, scene B-rep tessellation, or GLB graft
+    stands on the publication path."""
+    outer_entries = _payload_geometry(ASSEMBLY_MESH)
+    outer_rgba = _assembly_rgba(assembly)
+
+    import cold_core_assembly as cca
+    core = cca.build_assembly()
+    core_rgba = _assembly_rgba(core)
+    core_entries = _mesh_payload.from_assembly(_per_solid_color(core))
+    core_to_world = _location_matrix(assembly.carries[_scenes.INNER_ROOT].where)
+    crossings = _scenes.crossings(assembly.runs)
+
+    GLB_DIR.mkdir(parents=True, exist_ok=True)
+    out = []
+    for scene in _scenes.SCENES:
+        names = _scenes.members(scene, assembly)
+        inner = set(_scenes.inner_of(scene))
+        # One continuous tube keeps the outer model's full RGBA across the core boundary.
+        overrides = {line: outer_rgba[half]
+                     for line, half in crossings.items()
+                     if line in names and half in names}
+        glb = GLB_DIR / f"{scene.id}.glb"
+        _write_payload_glb(glb, names, inner, outer_entries, core_entries,
+                           outer_rgba, core_rgba, scene.flip, core_to_world, overrides)
+        note_write(glb)
+        print(f"-> {glb.relative_to(_ROOT)}")
+        out.append(glb)
+    return out
+
+
+def payload_glb_selftest():
+    """Focused holds for RGBA, names, inner placement and scene flips in the mesh composer."""
+    import tempfile
+
+    def tri(name, x):
+        return {"name": name,
+                "pos": np.array([x, 0, 0, x + 1, 0, 0, x, 1, 0], dtype=np.float32),
+                "nrm": np.array([0, 0, 1] * 3, dtype=np.float32),
+                "idx": np.array([0, 1, 2], dtype=np.uint32)}
+
+    outer = [tri("wall/1", 0), tri("wall/2", 2), tri("tube", 4)]
+    core = [tri("inside", 0), tri("line", 2)]
+    wall = (0.123456789, 0.2, 0.3, 1.0)
+    tube = (0.7, 0.8, 0.9, 0.6000000238418579)
+    inside = (0.4, 0.5, 0.6, 0.3499999940395355)
+    carry = np.eye(4)
+    carry[:3, 3] = (10, 20, 30)
+    flip = ((0, 1, 0), 180.0)
+    checks = []
+
+    def check(label, held):
+        checks.append((label, bool(held)))
+        print(f"  {'ok  ' if held else 'FAIL'} {label}")
+
+    with tempfile.TemporaryDirectory() as directory:
+        path = Path(directory) / "scene.glb"
+        _write_payload_glb(
+            path, ("wall", "tube", "inside", "line"), {"inside", "line"},
+            outer, core, {"wall": wall, "tube": tube},
+            {"inside": inside, "line": (0.1, 0.2, 0.3, 1.0)},
+            flip, carry, {"line": tube})
+        raw = path.read_bytes()
+        head_len, kind = struct.unpack_from("<I4s", raw, 12)
+        tree = json.loads(raw[20:20 + head_len])
+        materials = {tuple(m["pbrMetallicRoughness"]["baseColorFactor"]): m
+                     for m in tree["materials"]}
+        check("opaque linear floats are not quantised", wall in materials)
+        check("inner alpha is exact", inside in materials)
+        check("joined line takes the outer tube's full RGBA", tube in materials)
+        check("transparent material blends and is nonmetallic",
+              materials[tube].get("alphaMode") == "BLEND"
+              and materials[tube]["pbrMetallicRoughness"].get("metallicFactor") == 0.0)
+        check("every material is double-sided",
+              all(m.get("doubleSided") is True for m in tree["materials"]))
+        loaded = trimesh.load(path)
+        check("multi-solid body keeps its parent and indexed solids",
+              "wall" in loaded.graph.nodes
+              and {"wall/1", "wall/2"} <= set(loaded.graph.nodes_geometry))
+        outer_turn = _Z_UP_TO_Y_UP @ _flip_matrix(flip)
+        check("flip has RWGltf's transform semantics",
+              np.allclose(loaded.graph["wall"][0], outer_turn))
+        check("core carry composes before the scene flip",
+              np.allclose(loaded.graph["inside"][0], outer_turn @ carry))
+        held_location = cq.Location(cq.Vector(10, 20, 30), cq.Vector(0, 0, 1), 90)
+        check("CadQuery carry is read without Euler decomposition",
+              np.allclose(_location_matrix(held_location),
+                          np.array([[1, 0, 0, 10], [0, 1, 0, 20],
+                                    [0, 0, 1, 30], [0, 0, 0, 1]])
+                          @ trimesh.transformations.rotation_matrix(
+                              np.radians(90), (0, 0, 1), point=(0, 0, 0))))
+        check("the GLB JSON chunk is first", kind == b"JSON")
+
+    bad = [label for label, ok in checks if not ok]
+    print(f"\n{len(checks) - len(bad)}/{len(checks)} checks passed")
+    return 1 if bad else 0
 
 
 if __name__ == "__main__":
