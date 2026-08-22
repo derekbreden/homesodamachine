@@ -1,4 +1,4 @@
-"""Build the two-sheet, 11 x 17 in Home Soda Machine faucet installation reference.
+"""Build the two-sheet, 11 x 17 in Home Soda Machine installation quick start.
 
 Product-derived artwork is a separate build step in ``quickstart_art.py``. Keeping it separate means a
 layout or copy edit rerenders only these sheets; CAD and firmware changes rebuild the artwork
@@ -36,15 +36,27 @@ SIDECAR = HERE / "quick-start.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-TITLE = "Faucet + umbilical installation reference"
+TITLE = "Faucet + umbilical installation quick start"
 CANVAS_W, CANVAS_H = 2550, 1650
 COVER_W = 800
 
 FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
+PAGES = (HERE / "00-mount.html", HERE / "01-connect.html")
+PAGE_ASSETS = (
+    HERE / "style.css",
+    HERE / "art" / "colors.css",
+    HERE / "art" / "faucet-side.png",
+    HERE / "art" / "machine-back-iso.png",
+    HERE / "art" / "machine-ports-iso.png",
+    HERE / "art" / "mount-drop.png",
+    HERE / "art" / "mount-final-clean.png",
+    HERE / "art" / "mount-lowered-clean.png",
+    HERE / "art" / "mount-slide-clean.png",
+)
 
 
 def pages() -> list[Path]:
-    return sorted(HERE.glob("*.html"), key=lambda path: path.name)
+    return list(PAGES)
 
 
 def render_pages() -> int:
@@ -52,25 +64,29 @@ def render_pages() -> int:
     note_read(renderer)
     for path in FONTS:
         note_read(path)
+    for path in (*PAGES, *PAGE_ASSETS):
+        note_read(path)
+    status = 0
     for page in pages():
         note_write(OUT / f"{page.stem}.png")
         note_write(OUT / f"{page.stem}.pdf")
-    return subprocess.run(
-        [
-            "node",
-            str(renderer),
-            "--batch",
-            str(HERE),
-            str(OUT),
-            "--size",
-            f"{CANVAS_W}x{CANVAS_H}",
-            "--dpr",
-            "1",
-            "--pdf",
-            "17x11in",
-        ],
-        check=False,
-    ).returncode
+        result = subprocess.run(
+            [
+                "node",
+                str(renderer),
+                str(page),
+                str(OUT / f"{page.stem}.png"),
+                "--size",
+                f"{CANVAS_W}x{CANVAS_H}",
+                "--dpr",
+                "1",
+                "--pdf",
+                "17x11in",
+            ],
+            check=False,
+        )
+        status = status or result.returncode
+    return status
 
 
 def bind() -> int:
@@ -102,7 +118,7 @@ def bind() -> int:
     write_cover(OUT / f"{order[0]}.png")
     sidecar = {
         "title": TITLE,
-        "subtitle": "Development installation reference - two 11 x 17 in sheets",
+        "subtitle": "Owner installation quick start - two 11 x 17 in sheets",
         "pages": len(order),
         "cover": COVER.name,
         "cover_size": [COVER_W, COVER_W * CANVAS_H // CANVAS_W],

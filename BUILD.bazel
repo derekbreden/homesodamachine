@@ -5995,31 +5995,17 @@ genrule(
         "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
         "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
         "hardware/assembly/cards/fonts/OFL.txt",
-        "hardware/quickstart/00-install.html",
-        "hardware/quickstart/01-mount.html",
-        "hardware/quickstart/README.md",
+        "hardware/quickstart/00-mount.html",
+        "hardware/quickstart/01-connect.html",
         "pysrc/hardware/quickstart/_build.py",
-        "pysrc/hardware/quickstart/_cad_art.py",
         ":out/quickstart-art/hardware/quickstart/art/colors.css",
-        ":out/quickstart-art/hardware/quickstart/art/faucet-head.png",
-        ":out/quickstart-art/hardware/quickstart/art/faucet-side-pressed.png",
         ":out/quickstart-art/hardware/quickstart/art/faucet-side.png",
-        ":out/quickstart-art/hardware/quickstart/art/faucet-tails-front.png",
-        ":out/quickstart-art/hardware/quickstart/art/flavor-1.png",
-        ":out/quickstart-art/hardware/quickstart/art/flavor-2.png",
-        ":out/quickstart-art/hardware/quickstart/art/machine-back-close.png",
         ":out/quickstart-art/hardware/quickstart/art/machine-back-iso.png",
-        ":out/quickstart-art/hardware/quickstart/art/machine-front.png",
-        ":out/quickstart-art/hardware/quickstart/art/machine-hopper-close.png",
+        ":out/quickstart-art/hardware/quickstart/art/machine-ports-iso.png",
         ":out/quickstart-art/hardware/quickstart/art/mount-drop.png",
         ":out/quickstart-art/hardware/quickstart/art/mount-final-clean.png",
         ":out/quickstart-art/hardware/quickstart/art/mount-lowered-clean.png",
-        ":out/quickstart-art/hardware/quickstart/art/mount-seated.png",
         ":out/quickstart-art/hardware/quickstart/art/mount-slide-clean.png",
-        ":out/quickstart-art/hardware/quickstart/art/mount-slide.png",
-        ":out/quickstart-art/hardware/quickstart/art/mount-tighten-close.png",
-        ":out/quickstart-art/hardware/quickstart/art/mount-tighten.png",
-        "pysrc/hardware/quickstart/quickstart_art.py",
         "hardware/quickstart/style.css",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -6105,6 +6091,7 @@ genrule(
         "out/quickstart-art/hardware/quickstart/art/machine-back-iso.png",
         "out/quickstart-art/hardware/quickstart/art/machine-front.png",
         "out/quickstart-art/hardware/quickstart/art/machine-hopper-close.png",
+        "out/quickstart-art/hardware/quickstart/art/machine-ports-iso.png",
         "out/quickstart-art/hardware/quickstart/art/mount-drop.png",
         "out/quickstart-art/hardware/quickstart/art/mount-final-clean.png",
         "out/quickstart-art/hardware/quickstart/art/mount-lowered-clean.png",
@@ -6128,14 +6115,15 @@ O7=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/machine-back-clos
 O8=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/machine-back-iso.png)
 O9=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/machine-front.png)
 O10=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/machine-hopper-close.png)
-O11=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-drop.png)
-O12=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-final-clean.png)
-O13=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-lowered-clean.png)
-O14=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-seated.png)
-O15=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-slide-clean.png)
-O16=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-slide.png)
-O17=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-tighten-close.png)
-O18=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-tighten.png)
+O11=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/machine-ports-iso.png)
+O12=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-drop.png)
+O13=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-final-clean.png)
+O14=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-lowered-clean.png)
+O15=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-seated.png)
+O16=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-slide-clean.png)
+O17=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-slide.png)
+O18=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-tighten-close.png)
+O19=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-tighten.png)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6163,14 +6151,15 @@ cp hardware/quickstart/art/machine-back-close.png $$O7
 cp hardware/quickstart/art/machine-back-iso.png $$O8
 cp hardware/quickstart/art/machine-front.png $$O9
 cp hardware/quickstart/art/machine-hopper-close.png $$O10
-cp hardware/quickstart/art/mount-drop.png $$O11
-cp hardware/quickstart/art/mount-final-clean.png $$O12
-cp hardware/quickstart/art/mount-lowered-clean.png $$O13
-cp hardware/quickstart/art/mount-seated.png $$O14
-cp hardware/quickstart/art/mount-slide-clean.png $$O15
-cp hardware/quickstart/art/mount-slide.png $$O16
-cp hardware/quickstart/art/mount-tighten-close.png $$O17
-cp hardware/quickstart/art/mount-tighten.png $$O18
+cp hardware/quickstart/art/machine-ports-iso.png $$O11
+cp hardware/quickstart/art/mount-drop.png $$O12
+cp hardware/quickstart/art/mount-final-clean.png $$O13
+cp hardware/quickstart/art/mount-lowered-clean.png $$O14
+cp hardware/quickstart/art/mount-seated.png $$O15
+cp hardware/quickstart/art/mount-slide-clean.png $$O16
+cp hardware/quickstart/art/mount-slide.png $$O17
+cp hardware/quickstart/art/mount-tighten-close.png $$O18
+cp hardware/quickstart/art/mount-tighten.png $$O19
 """,
 )
 

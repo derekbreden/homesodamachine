@@ -6,8 +6,8 @@ exact touched parts and makes four deliberate presentation cuts:
 - the faucet's source lever is a union of rest + pressed states for collision checking, so the
   customer views reconstruct one physical state at a time from the same dimensions;
 - invisible tube tails are clipped at the countertop for the user-side faucet views;
-- the mount sequence uses one fixed section camera so the countertop, shank, tubes and plate never
-  change orientation between actions;
+- the mount sequence keeps the recognizable full faucet, countertop, shank, tubes and plate in one
+  fixed section camera, then crops those same registered pixels for the underside detail;
 - the retained donor washer and nut are plain visual stand-ins because the purchased hardware has
   no source CAD. Their family installation geometry is shown without using them as dimensional
   authority.
@@ -45,8 +45,10 @@ FAUCET_SOURCE = HARDWARE / "faucet-layout" / "faucet_assembly.py"
 MACHINE_STEP = HARDWARE / "manifold-layout" / "enclosure-assembly.step"
 MACHINE_MESH = HARDWARE / "manifold-layout" / "enclosure-assembly.step.mesh"
 MOUNT_CAM = (1.0, -1.45, -0.38)
-MOUNT_TARGET = (0.0, 0.0, -14.0)
+MOUNT_TARGET = (0.0, 0.0, 110.0)
 MOUNT_FRAME_SHAVE = 18
+MOUNT_FRAME_TRIM_TOP = 200
+MOUNT_FRAME_TRIM_BOTTOM = 40
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -188,6 +190,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
     mount_names = (
         "valve_body",
+        "water_dispense_tube",
+        "tpu_o_ring",
         "flavor_tube_pos_x",
         "flavor_tube_neg_x",
         "carb_supply_tube",
@@ -195,9 +199,13 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "mounting_plate",
         "mounting_gasket",
         "shell_bottom",
+        "shell_middle",
+        "shell_top",
+        "faucet_display",
+        "faucet_display_screen",
     )
     mount_tails = {"flavor_tube_pos_x", "flavor_tube_neg_x", "carb_supply_tube"}
-    mount_clip = (-88.0, 60.0)
+    mount_clip = (-88.0, 380.0)
     washer_thickness = 1.5
     nut_height = 8.0
     captive_washer_top_z = -39.8
@@ -320,8 +328,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
             ((-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)),
             start=1,
         ):
-            point = target.add(right.multiply(across * 102.0)).add(
-                screen_up.multiply(rise * 96.0)
+            point = target.add(right.multiply(across * 118.0)).add(
+                screen_up.multiply(rise * 235.0)
             )
             anchor = (
                 cq.Workplane("XY")
@@ -342,7 +350,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
             child = parts[part_name]
             obj = lever_rest if part_name == "lever" else child.obj
             obj = _moved(obj, move)
-            if part_name in mount_tails or part_name in {"valve_body", "lever", "shell_bottom"}:
+            if part_name in mount_tails:
                 obj = _clip_z(obj, *mount_clip)
             color = {
                 "flavor_tube_pos_x": flavor_black_a,
@@ -537,11 +545,13 @@ def _clear_connected_background(path: Path) -> None:
 
 
 def _shave_render_frame(path: Path, margin: int) -> None:
-    """Remove the four mount-only frame anchors after the renderer has fitted and trimmed."""
+    """Remove the frame anchors and their deliberately generous vertical review margin."""
     with Image.open(path) as image:
-        if image.width <= 2 * margin or image.height <= 2 * margin:
+        top = margin + MOUNT_FRAME_TRIM_TOP
+        bottom = image.height - margin - MOUNT_FRAME_TRIM_BOTTOM
+        if image.width <= 2 * margin or bottom <= top:
             raise ValueError(f"cannot shave {margin}px from {image.width}x{image.height}: {path}")
-        cropped = image.crop((margin, margin, image.width - margin, image.height - margin))
+        cropped = image.crop((margin, top, image.width - margin, bottom))
         cropped.save(path, format="PNG", compress_level=9, optimize=False)
     _canonicalize_png(path)
     note_write(path)
@@ -629,8 +639,9 @@ def main(*, mount_studies: bool = False) -> None:
         if not mount_studies:
             _crop("machine-front.png", "960x660+0+100", "machine-hopper-close.png")
             _crop(work / "machine-back.png", "720x560+180+300", "machine-back-close.png")
+            _crop("machine-back-iso.png", "617x720+850+220", "machine-ports-iso.png")
             _crop(work / "faucet-full-front.png", "410x540+0+1060", "faucet-tails-front.png")
-            _crop("mount-tighten.png", "800x650+400+450", "mount-tighten-close.png")
+            _crop("mount-tighten.png", "772x560+0+700", "mount-tighten-close.png")
 
 
 if __name__ == "__main__":
