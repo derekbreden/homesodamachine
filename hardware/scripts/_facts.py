@@ -142,7 +142,11 @@ def gather(whole=None, module=None):
         bb = _boxes.boxed(s)
         bodies[name] = [bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax]
 
-    pieces, _rest = _enc.build_pieces(box)
+    # The assembly producer carries the exact materialized walls it checked. Older callers that
+    # hand this collector an assembly without that field keep the direct-source fallback.
+    pieces = getattr(whole, "pieces", None)
+    if pieces is None:
+        pieces, _rest = _enc.build_pieces(box)
     piece_boxes = {}
     for name, wp in pieces.items():
         bb = _boxes.boxed(wp.val() if hasattr(wp, "val") else wp)

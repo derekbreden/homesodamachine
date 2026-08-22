@@ -73,6 +73,7 @@ Run it
 
 import collections
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -6699,6 +6700,35 @@ def machine():
     return a, p, box
 
 
+def _materialized_enclosure_pieces(box) -> dict:
+    """The enclosure producer's exact B-reps inside a traced or Bazel action.
+
+    A direct design run still cuts from source so it cannot silently pick up an old fetched
+    bundle. Build actions receive producer outputs on these paths, and importing them prevents
+    this consumer from spending minutes rebuilding the same walls.
+    """
+    action = bool(os.environ.get("HSM_INPUT_DIGEST")
+                  or os.environ.get("HSM_BUILD_SOURCE") == "trace")
+    if not action:
+        return _enc.build_pieces(box)[0]
+    root = _hw / "printed-parts" / "enclosure" / "enclosure"
+    return {
+        name: import_step(str(root / f"enclosure-{name}.step"))
+        for name in _enc.PIECE_COLORS
+        if name not in ("pump-cartridge", "pump-cap") or (box.pump_bay and box.collet_plate)
+    }
+
+
+def _materialized_ceiling_panel(box):
+    """The ceiling producer's exact B-rep in an action; source geometry in a direct run."""
+    action = bool(os.environ.get("HSM_INPUT_DIGEST")
+                  or os.environ.get("HSM_BUILD_SOURCE") == "trace")
+    if not action:
+        return _cpanel.build(box)
+    return import_step(str(
+        _hw / "printed-parts" / "enclosure" / "ceiling-panel" / "ceiling-panel.step"))
+
+
 def build_enclosure_assembly() -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, box = machine()
@@ -6749,14 +6779,14 @@ def build_enclosure_assembly() -> cq.Assembly:
     a.add(cover, name="display-cover", color=C_COVER)
     dgasket, _dgasket_carry = build_display_gasket(box)
     a.add(dgasket, name="display-gasket", color=C_DGASKET)
-    pieces = _enc.build_pieces(box)[0]
+    pieces = _materialized_enclosure_pieces(box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
     # AND BACK-TOP'S CEILING, which is a part of its own. It is built here rather than in
     # `build_pieces` because it is not one of the box's quadrants: `ceiling_panel` states the
     # joint's mating figures and back-top is cut to them, and what the panel needs from this
     # assembly is the two ceiling stations it carries.
-    pieces["ceiling-panel"] = _cpanel.build(box)
+    pieces["ceiling-panel"] = _materialized_ceiling_panel(box)
     a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETG_BLACK)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
@@ -6869,6 +6899,7 @@ def build_enclosure_assembly() -> cq.Assembly:
     # And the pack it was sized on, so a reader that wants both does not stand the
     # appliance a second time to get the half this one already has.
     a.pack = _p
+    a.pieces = pieces
     a.seats = dict(SEATS)
     return a
 
@@ -7121,8 +7152,14 @@ def main():
     # that one derivation instead of two.
     import _facts
     print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
-    # THE CARDS' PICTURES ARE `render_scenes.py`, which loads this assembly's STEP and draws
-    # every scene of it. One generator per artifact, and the build runs it when this moves.
+    # THE VIEWER SCENES COME OFF THIS NAMED MACHINE while it is still in memory. Rebuilding the
+    # same 296-solid appliance in a second action added minutes and could only restate what this
+    # producer already knows. Card photographs remain their own browser-driven action.
+    scene_dir = _hw / "assembly" / "scenes"
+    if str(scene_dir) not in sys.path:
+        sys.path.insert(0, str(scene_dir))
+    import render_scenes
+    render_scenes.write_glbs(a)
 
 
 if __name__ == "__main__":
