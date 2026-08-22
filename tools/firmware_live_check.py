@@ -7,17 +7,20 @@ It never opens the controller's CH340 port, whose DTR/RTS lines reset the PCBA.
 Optional checks are explicit and non-actuating unless ``--prime`` is named:
 
     ~/.platformio/penv/bin/python tools/firmware_live_check.py --animation
+    ~/.platformio/penv/bin/python tools/firmware_live_check.py --wake-cycles 20
     ~/.platformio/penv/bin/python tools/firmware_live_check.py --toggle
     ~/.platformio/penv/bin/python tools/firmware_live_check.py --prime b
 
 --animation opens the reusable operation lock, measures its logo animation, then
-restores the page/idle/lock state it found. --toggle selects the other flavor,
-proves controller synchronization and persistence, then restores it. --prime runs
-the selected flavor pump for one second through the display's real hold handlers
-and always posts PRIME:STOP and PRIME:EXIT in a finally block. It proves the run
-belongs to a newly opened session, checks the measured elapsed interval, and waits
-for authoritative OFF cleanup. The controller's own stale-tick and 60-second
-ceilings remain the last line of defence if the host disappears during that check.
+restores the page/idle/lock state it found. --wake-cycles repeatedly takes the
+actual dark-to-lit path and checks its frame/reset telemetry. --toggle selects the
+other flavor, proves controller synchronization and persistence, then restores it.
+--prime runs the selected flavor pump for one second through the display's real
+hold handlers and always posts PRIME:STOP and PRIME:EXIT in a finally block. It
+proves the run belongs to a newly opened session, checks the measured elapsed
+interval, and waits for authoritative OFF cleanup. The controller's own stale-tick
+and 60-second ceilings remain the last line of defence if the host disappears
+during that check.
 """
 
 from __future__ import annotations
@@ -38,6 +41,7 @@ ESP32_S3 = (0x303A, 0x1001)
 DEFAULT_ACK_LIMIT_MS = 250.0
 DEFAULT_LOOP_LIMIT_MS = 140
 DEFAULT_MIN_ANIMATION_FPS = 9.0
+WAKE_REQUIRED_FRAMES = 4
 
 # firmware/lib/proto_link/proto_msg.h wire values used by GET_STATE/GET_DIAG.
 PRIME_SESSION_READY = 1
@@ -124,6 +128,45 @@ def snapshot(front: Front) -> tuple[str, dict[str, str], dict[str, str], str]:
     return version, state, fields(diag_line, "DIAG:"), link
 
 
+def read_panel_diag(front: Front) -> dict[str, str]:
+    return fields(front.query_prefix("GET_PANEL", "PANEL:"), "PANEL:")
+
+
+def wake_once(front: Front, timeout: float = 1.5) -> tuple[dict[str, str], float]:
+    """Exercise a real dark wake and wait for the staged panel recovery."""
+    before = read_panel_diag(front)
+    require(before.get("kickStage") == "0", f"panel kick already active: {before}")
+    front.query_prefix("IDLE:1", "OK:IDLE=1")
+    time.sleep(0.05)
+    dark = read_panel_diag(front)
+    require(dark.get("bl") == "0", f"panel did not go dark: {dark}")
+    for key in ("drawErr", "frameTimeout", "kickTimeout", "exioErr"):
+        require(int(dark[key]) == int(before[key]),
+                f"panel {key} changed while going dark: {before[key]} -> {dark[key]}")
+    started = time.monotonic()
+    front.query_prefix("IDLE:0", "OK:IDLE=0")
+
+    deadline = time.monotonic() + timeout
+    after: dict[str, str] = {}
+    while time.monotonic() < deadline:
+        after = read_panel_diag(front)
+        if (int(after["kickStart"]) > int(before["kickStart"]) and
+                int(after["kickDone"]) > int(before["kickDone"]) and
+                after.get("kickStage") == "0" and after.get("bl") == "1"):
+            break
+        time.sleep(0.02)
+    else:
+        raise RuntimeError(f"panel wake did not complete: {after}")
+
+    for key in ("drawErr", "frameTimeout", "kickTimeout", "exioErr"):
+        require(int(after[key]) == int(before[key]),
+                f"panel {key} changed during wake: {before[key]} -> {after[key]}")
+    for key in ("vsync", "frameDone"):
+        require(int(after[key]) - int(before[key]) >= WAKE_REQUIRED_FRAMES,
+                f"wake crossed too few {key} events: {before} -> {after}")
+    return after, (time.monotonic() - started) * 1000.0
+
+
 def fresh_controller_diag(front: Front) -> dict[str, str]:
     """Read status twice so the second snapshot includes the first turn's audit."""
     diag = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
@@ -196,11 +239,26 @@ def restore_view(front: Front, initial: dict[str, str]) -> None:
         front.query_prefix("LOCK:HIDE", "OK:LOCK=0")
 
 
+def check_wake_cycles(front: Front, initial: dict[str, str], cycles: int) -> None:
+    if cycles < 1:
+        return
+    durations: list[float] = []
+    try:
+        for _ in range(cycles):
+            _, elapsed_ms = wake_once(front)
+            durations.append(elapsed_ms)
+            time.sleep(0.05)
+        print(f"wake        {cycles} cycles, {min(durations):.1f}–{max(durations):.1f} ms, "
+              "no panel/expander errors")
+    finally:
+        restore_view(front, initial)
+
+
 def check_animation(front: Front, initial: dict[str, str], min_fps: float, loop_limit: int) -> None:
     try:
-        front.query_prefix("IDLE:0", "OK:IDLE=0")
+        _, wake_ms = wake_once(front)
         front.query_prefix("LOCK:SHOW", "OK:LOCK=1")
-        time.sleep(0.5)  # panel reset/recovery + the 200 ms animation quiet window
+        time.sleep(0.3)  # finish the post-wake animation quiet window
 
         first = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
         flush0 = int(first["flushes"])
@@ -214,7 +272,8 @@ def check_animation(front: Front, initial: dict[str, str], min_fps: float, loop_
         require(fps >= min_fps, f"lock-screen animation only advanced at {fps:.2f} fps")
         require(max_loop <= loop_limit,
                 f"display loop high-water {max_loop} ms exceeds {loop_limit} ms")
-        print(f"animation  {fps:.2f} flushes/s, loop high-water {max_loop} ms")
+        print(f"animation  {fps:.2f} flushes/s, loop high-water {max_loop} ms, "
+              f"wake {wake_ms:.1f} ms")
     finally:
         front.query_prefix("LOCK:HIDE", "OK:LOCK=0")
         restore_view(front, initial)
@@ -443,6 +502,8 @@ def main() -> int:
     parser.add_argument("--display-port", help="front display native USB port")
     parser.add_argument("--animation", action="store_true",
                         help="show the operation lock, measure animation/loop speed, and restore")
+    parser.add_argument("--wake-cycles", type=int, default=0, metavar="N",
+                        help="repeat the real dark-to-lit panel wake N times")
     parser.add_argument("--toggle", action="store_true",
                         help="select the other flavor, prove persistence, and restore")
     parser.add_argument("--prime", choices=("a", "b"),
@@ -453,6 +514,7 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
+        require(args.wake_cycles >= 0, "--wake-cycles must be zero or greater")
         port = display_port(args.display_port)
         front = Front(port)
         try:
@@ -479,8 +541,15 @@ def main() -> int:
             print(f"flavor     {state['FLAVOR']}, controller synchronized and durable")
 
             initial = dict(diag)
+            panel = read_panel_diag(front)
+            for key in ("drawErr", "frameTimeout", "kickTimeout", "exioErr"):
+                require(panel.get(key) == "0", f"panel reports {key}={panel.get(key)}")
+            print(f"panel      {panel['frameDone']} complete frames, "
+                  f"{panel['flushes']} completed submissions")
             initial_controller_health = fresh_controller_diag(front)
             initial_prime_health = read_prime_diag(front)
+            if args.wake_cycles:
+                check_wake_cycles(front, initial, args.wake_cycles)
             if args.animation:
                 check_animation(front, initial, args.min_animation_fps, args.loop_limit_ms)
             if args.toggle:

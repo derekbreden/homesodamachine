@@ -160,20 +160,23 @@ static uint8_t exioState = 0;
 // The panel has no controller of its own — the ESP32-S3 streams pixels from a
 // PSRAM framebuffer by DMA. With a single framebuffer, writing it (the
 // animation) while the DMA scans it starves the DMA FIFO and shears the image.
-// Two framebuffers fix this structurally: LVGL renders the back buffer while
-// the panel scans the front, and esp_lcd flips them at the vertical blank, so
-// the DMA never reads a buffer being written. We drive esp_lcd directly because
-// Arduino_GFX's RGB display hardcodes a single framebuffer.
+// Two framebuffers fix this structurally: LVGL renders one while the bounce path
+// copies the other, then the full-frame completion swaps their roles. We drive
+// esp_lcd directly because Arduino_GFX's RGB display hardcodes one framebuffer.
 static esp_lcd_panel_handle_t panel = nullptr;
-static SemaphoreHandle_t vsyncSem = nullptr;
+static SemaphoreHandle_t frameDoneSem = nullptr;
 static void *fb0 = nullptr, *fb1 = nullptr;
 
 // ── LVGL display buffer ──
 // In full-refresh double-buffer mode LVGL's two draw buffers ARE the two panel
-// framebuffers (zero-copy: flush submits the just-drawn one and the panel flips
-// to it), so no separate draw buffer is allocated.
+// framebuffers (zero-copy: flush submits the just-drawn one), so no separate draw
+// buffer is allocated.
 static lv_disp_draw_buf_t draw_buf;
-static uint32_t flushCount = 0;   // frames actually pushed to the panel, per GET_DIAG
+static uint32_t flushCount = 0;   // frame submissions completed, per GET_DIAG
+static volatile uint32_t vsyncCount = 0;
+static volatile uint32_t frameDoneCount = 0;
+static uint32_t panelDrawErrors = 0;
+static uint32_t frameDoneTimeouts = 0;
 
 // ── Shell geometry ──
 // The rail holds five 82 px targets with a link indicator in its foot; the pane takes the
@@ -320,23 +323,27 @@ static bool backlightOn = false;
 static bool displayReady = false;  // false if the panel failed to init
 static bool usbReattachPending = false;
 static unsigned long usbReattachAt = 0;
+static uint32_t exioWriteErrors = 0;
 
 // ════════════════════════════════════════════════════════════
 //  CH422G expander
 // ════════════════════════════════════════════════════════════
 
-static void ch422gWrite(uint8_t addr, uint8_t val) {
+static bool ch422gWrite(uint8_t addr, uint8_t val) {
   Wire.beginTransmission(addr);  // addr is the 7-bit "register"/command address
   Wire.write(val);               // single data byte, no register pointer
-  Wire.endTransmission();
+  const uint8_t result = Wire.endTransmission();
+  if (result != 0) exioWriteErrors++;
+  return result == 0;
 }
 
-static void exioApply() { ch422gWrite(CH422G_WR_IO, exioState); }
+static bool exioApply() { return ch422gWrite(CH422G_WR_IO, exioState); }
 
-static void setBacklight(bool on) {
+static bool setBacklight(bool on) {
   if (on) exioState |= EXIO_BL; else exioState &= ~EXIO_BL;
-  exioApply();
+  if (!exioApply()) return false;
   backlightOn = on;
+  return true;
 }
 
 // Bring up the expander and pulse the panel + touch resets. Leaves the
@@ -359,21 +366,33 @@ static void ch422gBringUp() {
 //  RGB panel (esp_lcd)
 // ════════════════════════════════════════════════════════════
 
-// Fires when a framebuffer flip completes (VSYNC). Kept trivial and flash-
-// resident on purpose: CONFIG_LCD_RGB_ISR_IRAM_SAFE is off in this core, so
-// the only safe ISR work is signalling — no LVGL calls, no IRAM_ATTR.
-static bool onVsync(esp_lcd_panel_handle_t p,
-                                   const esp_lcd_rgb_panel_event_data_t *e, void *ctx) {
+// The driver's forced VSYNC restart runs after this callback. Keep it in IRAM and
+// limited to one counter so restart still owns essentially the whole blanking interval.
+static bool IRAM_ATTR onVsync(esp_lcd_panel_handle_t p,
+                              const esp_lcd_rgb_panel_event_data_t *e, void *ctx) {
+  (void)p; (void)e; (void)ctx;
+  __atomic_add_fetch(&vsyncCount, 1, __ATOMIC_RELAXED);
+  return false;
+}
+
+// With a bounce buffer, VSYNC is not the point at which the previous framebuffer
+// is safe for LVGL to reuse. The RGB driver raises this after it has copied one
+// complete framebuffer through the bounce buffers and selected the next one.
+// Keep the ISR callback to a counter and a semaphore; LVGL itself runs in loop().
+static bool onFrameDone(esp_lcd_panel_handle_t p,
+                        const esp_lcd_rgb_panel_event_data_t *e, void *ctx) {
+  (void)p; (void)e; (void)ctx;
+  __atomic_add_fetch(&frameDoneCount, 1, __ATOMIC_RELAXED);
   BaseType_t hp = pdFALSE;
-  xSemaphoreGiveFromISR(vsyncSem, &hp);
+  xSemaphoreGiveFromISR(frameDoneSem, &hp);
   return hp == pdTRUE;
 }
 
 // Returns false (never hangs/aborts) on any failure, so a panel problem leaves
 // the board responsive on serial rather than wedged.
 static bool panelInit() {
-  vsyncSem = xSemaphoreCreateBinary();
-  if (!vsyncSem) return false;
+  frameDoneSem = xSemaphoreCreateBinary();
+  if (!frameDoneSem) return false;
 
   esp_lcd_rgb_panel_config_t cfg = {};
   cfg.clk_src = LCD_CLK_SRC_DEFAULT;
@@ -421,7 +440,8 @@ static bool panelInit() {
 
   esp_lcd_rgb_panel_event_callbacks_t cbs = {};
   cbs.on_vsync = onVsync;
-  esp_lcd_rgb_panel_register_event_callbacks(panel, &cbs, nullptr);
+  cbs.on_frame_buf_complete = onFrameDone;
+  if (esp_lcd_rgb_panel_register_event_callbacks(panel, &cbs, nullptr) != ESP_OK) return false;
 
   if (esp_lcd_panel_reset(panel) != ESP_OK) return false;
   if (esp_lcd_panel_init(panel)  != ESP_OK) return false;
@@ -515,38 +535,41 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   return heldDown;
 }
 
-// When the scan-out DMA cannot keep up with the panel it does not recover its place: the
-// whole image sits shifted right and down by however far it fell behind, and stays there
-// until something resyncs it. The measured facts on this board:
-//
-//   CONFIG_LCD_RGB_RESTART_IN_VSYNC  1        (esp32s3/qio_opi/include/sdkconfig.h)
-//   CONFIG_LCD_RGB_ISR_IRAM_SAFE     not set
-//
-// The first means the driver already restarts the DMA in every VSYNC handler — the remedy
-// esp_lcd_rgb_panel_restart() exists for is in force, and the frame shifts anyway. The
-// second means that handler runs from flash, and this firmware reads ~4 MB of animation
-// frames out of flash while it renders.
-//
-// PANEL:REALIGN asks for the restart the driver already performs, which is the whole of
-// what this board can do to a shifted frame short of a reboot: esp_lcd_panel_reset() plus
-// esp_lcd_panel_init() both return ESP_OK and leave the panel scanning white, because the
-// framebuffers are bound at esp_lcd_new_rgb_panel() and init does not re-bind them.
+// This precompiled RGB driver restarts its DMA at each VSYNC. Its callback is only an
+// IRAM-resident counter; buffer reuse is synchronized from on_frame_buf_complete instead.
+// A panel wake is kept dark until both syncs and complete bounce-buffer frames have crossed.
 #define WAKE_QUIET_MS 200
+#define WAKE_RESET_LOW_MS 20
+#define WAKE_RESET_RECOVERY_MS 120
+#define WAKE_FRAME_COUNT 4
+#define WAKE_FRAME_WAIT_MS 500
 static unsigned long animResumeDue = 0;
 
-// A wake resets the panel before it lights it. Everything else tried here acts on the
-// ESP32's side of the wire — the driver's own every-VSYNC restart, a quiet bus, a slower
-// pixel clock — and the frame still comes up shifted. LCD_RST is the ST7262's, on CH422G
-// EXIO3, the same line ch422gBringUp() pulses at boot: it makes the panel re-acquire the
-// sync it is being sent, and leaves the framebuffers bound, which esp_lcd_panel_init() does
-// not. This panel takes no command sequence, so a reset costs only its recovery.
+// LCD_RST is the ST7262's, on CH422G EXIO3. A wake releases it just after VSYNC, lets the
+// glass re-acquire the continuously streamed timing, and phases EXIO2 (both DISP and the
+// LED driver) to later completed scan-outs. The esp_lcd framebuffers remain bound.
 //
 // Staged from loop() rather than run inline: wake() is reached from the indev read, inside
-// lv_timer_handler, which is no place to block for 140 ms.
+// lv_timer_handler, which is no place to block while the reset and full frames cross.
 static uint8_t kickStage = 0;
 static unsigned long kickAt = 0;
+static unsigned long kickDeadline = 0;
+static uint32_t kickVsyncBase = 0;
+static uint32_t kickFrameBase = 0;
+static uint32_t kickStarted = 0;
+static uint32_t kickCompleted = 0;
+static uint32_t kickFrameTimeouts = 0;
+static bool kickTimedOut = false;
 
-static void panelKick() { kickStage = 1; kickAt = millis(); }
+static void panelKick() {
+  if (kickStage) return;
+  kickStage = 1;
+  kickAt = millis();
+  kickStarted++;
+  kickTimedOut = false;
+  animResumeDue = 0;
+  animRun(false);
+}
 
 static void panelRealign() {
   if (!panel) return;
@@ -646,17 +669,24 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 // coordinates, and only inside the areas that actually changed. It calls this
 // once per such area, so most calls have nothing to do — the frame is not
 // finished and LVGL has not rotated the buffers yet. Only the last call in a
-// refresh submits: color_p is then the whole back framebuffer, the panel flips
-// to it at VSYNC, and waiting for that flip is what stops LVGL drawing into the
-// buffer still being scanned out.
+// refresh submits. In bounce-buffer mode, VSYNC does not prove the old source
+// buffer is reusable; on_frame_buf_complete does, after a whole frame has been
+// copied and the driver has selected color_p for the next one.
 //
-// The 100 ms timeout (not portMAX) means a missed VSYNC degrades, never deadlocks.
+// The 100 ms timeout (not portMAX) means a missed completion degrades, never deadlocks.
 static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p) {
   if (!lv_disp_flush_is_last(disp)) { lv_disp_flush_ready(disp); return; }
-  flushCount++;
-  esp_lcd_panel_draw_bitmap(panel, 0, 0, SCREEN_W, SCREEN_H, color_p);
-  xSemaphoreTake(vsyncSem, 0);                      // drop a stale token
-  xSemaphoreTake(vsyncSem, pdMS_TO_TICKS(100));     // wait for the flip
+  const esp_err_t drawn = esp_lcd_panel_draw_bitmap(panel, 0, 0, SCREEN_W, SCREEN_H, color_p);
+  if (drawn != ESP_OK) {
+    panelDrawErrors++;
+    lv_disp_flush_ready(disp);
+    return;
+  }
+  // Drain after submission. If completion raced the call, deliberately wait for
+  // one more complete frame; reusing a framebuffer late is safe, early is not.
+  xSemaphoreTake(frameDoneSem, 0);
+  if (xSemaphoreTake(frameDoneSem, pdMS_TO_TICKS(100)) == pdTRUE) flushCount++;
+  else frameDoneTimeouts++;
   lv_disp_flush_ready(disp);
 }
 
@@ -2614,7 +2644,10 @@ static void rs485Swap() {
 
 static void animRun(bool on) {
   if (!animTimer) return;
-  if (on) lv_timer_resume(animTimer); else lv_timer_pause(animTimer);
+  const bool wakeQuiet = kickStage ||
+                         (animResumeDue && (long)(millis() - animResumeDue) < 0);
+  if (on && !wakeQuiet) lv_timer_resume(animTimer);
+  else lv_timer_pause(animTimer);
 }
 
 static void showFlavor(FlavorView v) {
@@ -2812,6 +2845,16 @@ static void processTextLine(const char *line) {
                   primeStateMs ? (unsigned long)(millis() - primeStateMs) : 0,
                   (unsigned long)primeStaleReinits);
     maxLoopMs = 0;  // high-water mark since last query
+  } else if (strcmp(line, "GET_PANEL") == 0) {
+    Serial.printf("PANEL:vsync=%lu,frameDone=%lu,flushes=%lu,drawErr=%lu,frameTimeout=%lu,"
+                  "kickStart=%lu,kickDone=%lu,kickStage=%u,kickTimeout=%lu,"
+                  "exioErr=%lu,bl=%d\n",
+                  (unsigned long)vsyncCount, (unsigned long)frameDoneCount,
+                  (unsigned long)flushCount,
+                  (unsigned long)panelDrawErrors, (unsigned long)frameDoneTimeouts,
+                  (unsigned long)kickStarted, (unsigned long)kickCompleted,
+                  (unsigned)kickStage, (unsigned long)kickFrameTimeouts,
+                  (unsigned long)exioWriteErrors, backlightOn ? 1 : 0);
   } else if (strncmp(line, "FLAVOR:", 7) == 0) {
     if ((line[7] != '0' && line[7] != '1') || line[8] != '\0') {
       Serial.println("ERR:FLAVOR expects 0 or 1");
@@ -3094,20 +3137,56 @@ void loop() {
     esp_deep_sleep_start();
   }
 
-  // Panel reset, then the light, then the frames start moving again.
+  // Keep the panel dark through reset and complete scan-outs. LCD_RST is released
+  // just after VSYNC, then the glass sees four more syncs and complete bounce-buffer
+  // frames before EXIO2 reveals it.
   if (kickStage) {
     unsigned long now = millis();
-    if (kickStage == 1) {
-      setBacklight(false);
-      exioState &= ~EXIO_LCD_RST; exioApply();
-      kickAt = now + 20; kickStage = 2;
-    } else if (kickStage == 2 && now >= kickAt) {
-      exioState |= EXIO_LCD_RST; exioApply();
-      kickAt = now + 120; kickStage = 3;      // reset recovery, the same as at boot
-    } else if (kickStage == 3 && now >= kickAt) {
-      setBacklight(true);
-      animResumeDue = now + WAKE_QUIET_MS;
-      kickStage = 0;
+    if (kickStage == 1 && (long)(now - kickAt) >= 0) {
+      exioState &= ~(EXIO_BL | EXIO_LCD_RST);
+      if (exioApply()) {
+        backlightOn = false;
+        kickVsyncBase = vsyncCount;
+        kickFrameBase = frameDoneCount;
+        kickAt = now + WAKE_RESET_LOW_MS;
+        kickDeadline = now + WAKE_FRAME_WAIT_MS;
+        kickStage = 2;
+      } else kickAt = now + 10;
+    } else if (kickStage == 2 && (long)(now - kickAt) >= 0) {
+      const bool atFrameBoundary = (uint32_t)(vsyncCount - kickVsyncBase) >= 1;
+      const bool timedOut = (long)(now - kickDeadline) >= 0;
+      if (atFrameBoundary || timedOut) {
+        if (timedOut && !atFrameBoundary && !kickTimedOut) {
+          kickFrameTimeouts++;
+          kickTimedOut = true;
+        }
+        exioState |= EXIO_LCD_RST;
+        if (exioApply()) {
+          kickVsyncBase = vsyncCount;
+          kickFrameBase = frameDoneCount;
+          kickAt = now + WAKE_RESET_RECOVERY_MS;
+          kickDeadline = now + WAKE_FRAME_WAIT_MS;
+          kickTimedOut = false;
+          kickStage = 3;
+        } else kickAt = now + 10;
+      }
+    } else if (kickStage == 3) {
+      const bool recoveredForMinimum = (long)(now - kickAt) >= 0;
+      const bool crossedCleanFrames =
+          (uint32_t)(vsyncCount - kickVsyncBase) >= WAKE_FRAME_COUNT &&
+          (uint32_t)(frameDoneCount - kickFrameBase) >= WAKE_FRAME_COUNT;
+      const bool timedOut = (long)(now - kickDeadline) >= 0;
+      if ((recoveredForMinimum && crossedCleanFrames) || timedOut) {
+        if (timedOut && !crossedCleanFrames && !kickTimedOut) {
+          kickFrameTimeouts++;
+          kickTimedOut = true;
+        }
+        if (setBacklight(true)) {
+          animResumeDue = now + WAKE_QUIET_MS;
+          kickStage = 0;
+          kickCompleted++;
+        } else kickAt = now + 10;
+      }
     }
   }
 

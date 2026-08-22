@@ -20,9 +20,9 @@ shears (horizontal bands shift sideways). So the panel is driven through
 `esp_lcd` directly (not Arduino_GFX, which only does a single framebuffer) with
 two defenses:
 
-- **Two framebuffers** (`num_fbs = 2`): LVGL renders the back buffer while the
-  panel scans the front, and `esp_lcd` page-flips at the vertical blank — the
-  DMA never reads a buffer being written, so there is no content tearing. LVGL
+- **Two framebuffers** (`num_fbs = 2`): LVGL renders the buffer that the bounce
+  path is not reading. `on_frame_buf_complete` releases LVGL only after the
+  driver has copied one complete source frame and selected the next one. LVGL
   runs in `direct_mode` with its two draw buffers pointed straight at the two
   panel framebuffers: flush is zero-copy, and repaint cost follows the invalidated
   area instead of filling all 800×480 pixels for every small change.
@@ -40,30 +40,26 @@ app partition). The panel is initialized on a watchdog'd background task: if
 `esp_lcd` ever blocks, `setup()` times out and `loop()` keeps serial alive, so
 the board stays flashable without a manual BOOT-button recovery.
 
-### The shifted frame
+### Frame alignment at wake
 
-A frame sometimes comes up displaced right and down by ~100 px, the bottom-right corner off
-the glass, and stays there until something resyncs it. Backlight, LVGL and `maxLoopMs` all
-read healthy through it — they measure the ESP32's side of the wire and cannot see whether
-the glass locked.
+The linked RGB driver has `CONFIG_LCD_RGB_RESTART_IN_VSYNC=1`, so it already
+restarts scan-out during every vertical blank. The application callback ahead
+of that timing-sensitive restart is an IRAM-resident counter only. Bounce-buffer
+completion—not VSYNC—is the boundary that releases an LVGL framebuffer for reuse.
 
-What the build this links against already does, and what it costs to find out otherwise:
+**LCD_RST is the panel's own**, on CH422G `EXIO3`. A wake pauses the lock
+animation, turns the backlight off, and holds LCD_RST low for at least 20 ms. It
+releases reset immediately after VSYNC, allows the panel's 120 ms recovery and
+four more syncs and complete frames, and only then raises EXIO2 (both panel DISP
+and the LED driver). An active lock remains still for another 200 ms before its logo
+continues. This keeps blanking/sync acquisition off the visible glass without
+changing the 16 MHz pixel clock or the normal rendering path.
 
-| | |
-|---|---|
-| `CONFIG_LCD_RGB_RESTART_IN_VSYNC` | **1** — the driver restarts the scan-out DMA in every VSYNC handler already |
-| `CONFIG_LCD_RGB_ISR_IRAM_SAFE` | not set — that handler runs from flash, which this firmware reads ~4 MB of animation frames out of while it renders |
-| `esp_lcd_rgb_panel_restart()` | asks for the restart above; adds nothing |
-| `esp_lcd_panel_reset()` + `_init()` | both `ESP_OK`, and the panel scans white: the framebuffers bind at `esp_lcd_new_rgb_panel()` and `init` does not re-bind them |
-| `pclk_hz = 14 MHz` | repaint 105 ms instead of 117, and the panel does not lock to the porches below at that clock — lit backlight, LVGL cycling, nothing on the glass |
-| holding the render still at wake | no effect on its own |
-
-**LCD_RST is the panel's own**, on CH422G `EXIO3`, the line `ch422gBringUp()` pulses at
-boot. Resetting the ST7262 makes it re-acquire the sync it is being sent and leaves the
-framebuffers bound. A wake runs it before it lights the screen — backlight off, `EXIO3` low
-20 ms, high, 120 ms recovery, backlight on, then `WAKE_QUIET_MS` before an active lock moves
-— which is the ~350 ms between a tap and a lit screen. `PANEL:KICK` runs the same sequence
-without waiting for a sleep.
+`PANEL:KICK` runs that same non-blocking sequence without waiting for idle.
+`GET_PANEL` reports completed frames and submissions, wake start/completion/stage,
+frame wait timeouts, draw failures, and CH422G write failures. The live checker's
+`--wake-cycles N` option repeats the actual dark-to-lit path and requires those
+error counters to remain unchanged.
 
 ## Operation lock and animation
 
@@ -176,12 +172,15 @@ Newline-terminated, 115200 baud over the native USB CDC:
   `DIAG_SYS:` detail: page / sub-view / idle / lock, link and queue health,
   render high-water, scroll extents, flavor replication, touch, memory,
   backlight, animation frame and uptime
+- `GET_PANEL` → completed frame/submission counts, wake stage and completion,
+  draw/frame timeouts, and CH422G write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:4` → show one page (HOME, MIX, SERVICE, STATUS, SETUP)
 - `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
-- `PANEL:KICK` → the wake sequence — dark, panel reset, light, quiet, then any active lock animation
+- `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
+  frames, light, quiet, then any active lock animation
 - `PANEL:REALIGN` → ask the RGB driver for the DMA restart it already does each VSYNC
 - `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
   the glass: same frames, same ticks, same readouts
