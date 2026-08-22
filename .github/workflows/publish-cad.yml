@@ -6,6 +6,8 @@ on:
     paths:
       - hardware/**
       - '!hardware/quickstart/studies/**'
+      # The *.html scan declares this directory entry, but the renderer never opens its bytes.
+      - '!hardware/quickstart/README.md'
       - '!hardware/quickstart/quick-start.cover.png'
       - '!hardware/quickstart/quick-start.pdf'
       - '!hardware/quickstart/quick-start.pdf.json'
@@ -173,6 +175,7 @@ jobs:
             git diff --name-only --no-renames "$base" "$GITHUB_SHA" | while IFS= read -r path; do
               case "$path" in
                 hardware/quickstart/studies/*|hardware/quickstart/art/*|\
+                hardware/quickstart/README.md|\
                 hardware/quickstart/quick-start.cover.png|\
                 hardware/quickstart/quick-start.pdf|\
                 hardware/quickstart/quick-start.pdf.json) ;;
@@ -289,6 +292,7 @@ jobs:
             git diff --name-only --no-renames "$1" "$2" | while IFS= read -r path; do
               case "$path" in
                 hardware/quickstart/studies/*|hardware/quickstart/art/*|\
+                hardware/quickstart/README.md|\
                 hardware/quickstart/quick-start.cover.png|\
                 hardware/quickstart/quick-start.pdf|\
                 hardware/quickstart/quick-start.pdf.json) ;;
