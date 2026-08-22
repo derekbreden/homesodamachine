@@ -718,8 +718,11 @@ stops.
 
 **The strap's channel is what is never fused.** The rib is one box its whole length
 up to one `wall` over the bore's crown, its two ends carried on up to the face it
-roots on, and one bore through all of it — so the channel has no floor to draw and no
-cut to make it, and the face the rib roots on is its roof. A strap therefore goes in
+roots on, and one bore through all of it. Where a small tube stands far enough from
+its root face to put at least one routing buffer back into the load path, its central
+band is solid-backed from the wall until one `wall` of useful cavity remains. Compact
+fitting anchors keep their available clearance instead of acquiring a skin-thin roof.
+The two side mouths stay open and no cutter grazes them. A strap therefore goes in
 **before** the body does.
 
 **And the face is the piece's own** (`piece_root_faces`), not the box's interior. A

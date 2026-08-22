@@ -6467,10 +6467,11 @@ def _digiten_saddles(solid, roots, station, y0, y1, z0, z1):
 # there is what keeps the lip printable: an arc run past its widest point closes back on the tube
 # and ends in a feather, and an arc stopped on the axis plane ends in a flat face one `wall` wide.
 #
-# EVERY THICKNESS IN IT IS ONE `wall`. The rib reaches `seat_r + wall` off the axis, so the lip is
-# a wall-wide strip; the cavity's floor is the seat's own arc offset one `wall`, so the web is a
-# half-annulus of that thickness at every station of it; the roof stands one `wall` under the face
-# the rib roots on. Nothing between them is stated — the strap's channel is what is left.
+# EVERY WORKING SECTION IN IT IS ONE `wall`. The rib reaches `seat_r + wall` off the axis, so the
+# lip is a wall-wide strip; the cavity's floor is the seat's own arc offset one `wall`, so the web
+# is a half-annulus of that thickness at every station of it; and the strap gets one `wall` of
+# depth over that floor. If the body stands further from its root face, the rest is solid backing
+# into that face rather than a needlessly deep void hanging the seat from its two end webs.
 #
 # THESE PIECES ARE POPULATED INVERTED ON THE BENCH. A seat hanging off the top wall is an
 # upward-opening cradle at the moment a tube is laid in it and its strap threaded.
@@ -6478,6 +6479,13 @@ def _digiten_saddles(solid, roots, station, y0, y1, z0, z1):
 # ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `digiten_saddle_len` strikes: one strap
 # crosses one anchor, so the rib is that strap's cavity with `tie_cav_wall` of itself at each end.
 tube_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
+# A 1 mm strap needs its own thickness plus routing air, not every millimetre between a small tube
+# and a distant wall. One structural section leaves 2 mm beyond the strap and keeps a deep anchor
+# boxed back into its root; shallower fitting anchors keep all the air they actually have.
+tube_anchor_cavity_depth = wall
+# Do not add a skin-thin backing merely to shave a fraction from an already compact channel.
+# A capped channel must put at least the cavity's routing buffer back into the load path.
+tube_anchor_backing_min = tie_cav_buffer
 
 
 def tube_anchor_strap_loop(seat_r: float) -> float:
@@ -6557,9 +6565,11 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
     every cavity on this box carries — and those two lobes are what the loop comes down.
 
     THE CAVITY IS A REMAINDER: the rib stands one `wall` over the bore's crown down its whole
-    length and only its two ends carry on up to the face it roots on, so the strap's channel is
-    the room between those ends. That face is the channel's roof and the crown is its floor —
-    neither is drawn, and there is no cut anywhere in it to graze a face with.
+    length and its two ends carry on to the face it roots on. In the middle, the strap keeps at
+    most `tube_anchor_cavity_depth` once there is enough excess reach to add substantial backing;
+    that excess is filled from the root face. The crown is therefore always its floor and either
+    the root face or that backing is its roof — neither is cut, so there is no cutter face to
+    graze the opening.
 
     THE STRAP CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
@@ -6599,9 +6609,10 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
             continue
         # THE CAVITY IS WHAT IS NEVER FUSED, and nothing is cut for it. The rib is ONE box its
         # whole length up to `b_crown`, the two ends carried on up to the face it roots on, and
-        # ONE bore through all of it. What the ends do not span IS the strap's channel — so it has
-        # no floor to draw, no cut to make it, and no face for either to graze. The face the rib
-        # roots on is its roof, and a plate of our own under that face would be a second one.
+        # ONE bore through all of it. In the central strap band, material comes back from a remote
+        # root until only `tube_anchor_cavity_depth` remains, provided that backing itself is at
+        # least `tube_anchor_backing_min`. That boxes a small tube's long rib into the wall without
+        # changing either threading mouth or putting a fragile skin against them.
         #
         # The lower box runs the rib's whole length so the seat's own lip is ONE edge, and the rib
         # is UNIFIED before it joins the piece. A fuse imprints the seam of every solid that went
@@ -6617,6 +6628,11 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
         for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
             end = tuple(origin[k] + u[k] * s0 for k in range(3))
             rib = rib.fuse(_anchor_rib(end, u, n, s1 - s0, reach, b_crown, b_root))
+        if b_root - b_crown >= tube_anchor_cavity_depth + tube_anchor_backing_min:
+            middle = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
+            rib = rib.fuse(_anchor_rib(
+                middle, u, n, tie_cav_w, reach,
+                b_crown + tube_anchor_cavity_depth, b_root))
         rib = rib.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
         solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
     return solid
