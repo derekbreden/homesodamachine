@@ -258,7 +258,7 @@ def _dirty_artifact_inputs(root: Path) -> list:
     # These are generated outputs this very publication carries. A hand edit still cannot slip
     # through: its changed hash maps back to the producer below and `_cut_is_fresh` refuses until
     # the current Bazel output and tree agree.
-    moved -= set(sidecars(root))
+    moved -= set(sidecars(root)) | set(read_lock(root).get("sidecars", {}))
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
         return []
@@ -401,6 +401,20 @@ def sidecars(root: Path) -> list:
     })
 
 
+def sidecar_debt_targets(root: Path) -> list:
+    """Producer labels whose committed viewer scorecards do not match this lock."""
+    held = read_lock(root).get("sidecars", {})
+    owed = {
+        rel for rel in sidecars(root)
+        if not (root / rel).is_file() or held.get(rel) != _sha256(root / rel)
+    }
+    targets, unowned = _targets_for_members(root, owed)
+    if unowned:
+        raise SystemExit("scorecard output(s) have no current Bazel producer:\n  "
+                         + "\n  ".join(unowned))
+    return targets
+
+
 def _graph_gaps(root: Path, rels: list) -> tuple:
     """Bundled-but-undeclared and declared-but-absent publish outputs.
 
@@ -419,6 +433,8 @@ def _undeclared(root: Path, rels: list) -> list:
 
 def _retirement_evidence(root: Path, retired: list) -> list:
     """Retired paths whose producing source did not move since the published cut."""
+    if not retired:
+        return []
     source = read_lock(root).get("source", {}).get("commit", "")
     if not source:
         return list(retired)
@@ -447,13 +463,23 @@ def _retirement_evidence(root: Path, retired: list) -> list:
     return unexplained
 
 
-def prune(root: Path, allow_retired: bool = False) -> int:
-    """Remove locked bundle members the current build graph has retired.
+def retired_outputs(root: Path) -> list:
+    """Locked solids or scorecards no current producer declares."""
+    lock = read_lock(root)
+    return sorted(
+        (set(lock.get("solids", {})) - _declared(root))
+        | (set(lock.get("sidecars", {})) - set(sidecars(root)))
+    )
 
-    Explicit because these files are ignored and deletion is otherwise invisible to git. Every
-    target is recoverable from the still-committed lock until `--write` pins the replacement.
+
+def prune(root: Path, allow_retired: bool = False) -> int:
+    """Remove locked bundle members and scorecards the current graph has retired.
+
+    Explicit because solid deletion is otherwise invisible to git, while a retired tracked
+    scorecard must leave the public endpoint in the same commit that removes its lock pin. Every
+    target remains recoverable from the preceding published commit.
     """
-    retired = sorted(set(read_lock(root).get("solids", {})) - _declared(root))
+    retired = retired_outputs(root)
     unexplained = [] if allow_retired else _retirement_evidence(root, retired)
     if unexplained:
         print("refusing to retire public outputs without a changed producing source:")
@@ -473,7 +499,7 @@ def prune(root: Path, allow_retired: bool = False) -> int:
             path.unlink()
             removed += 1
             print(f"  {rel}")
-    print(f"{removed} retired locked output(s) removed; recoverable from the committed lock")
+    print(f"{removed} retired locked output(s) removed; recoverable from the prior commit")
     return 0
 
 
@@ -531,12 +557,20 @@ def main(argv) -> int:
     ap.add_argument("--check", action="store_true", help="1 if the lock does not name this tree")
     ap.add_argument("--prune", action="store_true",
                     help="remove locked members no longer declared by the build graph")
+    ap.add_argument("--sidecar-debt", action="store_true",
+                    help="print producers whose viewer scorecards do not match the lock")
     ap.add_argument("--allow-retired", action="store_true",
                     help="with --prune, confirm graph retirements lacking source evidence")
     args = ap.parse_args(argv)
 
     if args.mode == "selftest":
         return selftest()
+    if args.sidecar_debt:
+        if args.write or args.check or args.prune or args.allow_retired:
+            ap.error("--sidecar-debt is a separate read-only query")
+        for target in sidecar_debt_targets(_ROOT):
+            print(target)
+        return 0
     if args.prune:
         if args.write or args.check:
             ap.error("--prune is a separate explicit step")
@@ -595,6 +629,19 @@ def main(argv) -> int:
         return 1
 
     held = read_lock()
+    retired_sidecars = sorted(set(held.get("sidecars", {})) - set(sidecar_rels))
+    unexplained_sidecars = _retirement_evidence(_ROOT, retired_sidecars)
+    if unexplained_sidecars:
+        print("refusing to unpin scorecards without a changed producing source:")
+        for rel in unexplained_sidecars:
+            print(f"  {rel}")
+        return 2
+    unpruned_sidecars = [rel for rel in retired_sidecars if (_ROOT / rel).exists()]
+    if unpruned_sidecars:
+        print("retired scorecards are still publicly served; run --prune before packing:")
+        for rel in unpruned_sidecars:
+            print(f"  {rel}")
+        return 2
     changed_members = {rel for rel, digest in now.items()
                        if held.get("solids", {}).get(rel) != digest}
     changed_sidecars = {rel for rel, digest in sidecar_now.items()
@@ -750,6 +797,19 @@ def selftest() -> int:
         (graph_dir / "graph.json").write_text(json.dumps(graph))
         hold("an exactly declared publish inventory passes",
              _graph_gaps(root, solids(root)), ([], []))
+        (hw / "cad-artifacts.lock.json").write_text(json.dumps({
+            "solids": {
+                "hardware/printed-parts/cap/cap.step": "kept",
+                "hardware/retired/old.step": "gone",
+            },
+            "sidecars": {
+                "hardware/printed-parts/cap/cap.scorecard.json": "kept",
+                "hardware/retired/old.scorecard.json": "gone",
+            },
+        }))
+        hold("retired solids and scorecards leave the lock together",
+             retired_outputs(root), ["hardware/retired/old.scorecard.json",
+                                     "hardware/retired/old.step"])
         shutil.rmtree(hw / "printed-parts" / "enclosure")
 
         a, b = root / "a.tar.gz", root / "b.tar.gz"
@@ -778,8 +838,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/12")
-    return 0 if holds == 12 else 1
+    print(f"pack selftest {holds}/13")
+    return 0 if holds == 13 else 1
 
 
 if __name__ == "__main__":

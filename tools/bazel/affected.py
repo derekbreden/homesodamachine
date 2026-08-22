@@ -385,8 +385,6 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
     """Whether an unlabelled path could define or feed a new CAD action."""
     if path == "hardware/cad-artifacts.lock.json":
         return False
-    if artifacts_only and path in _PUBLICATION_SENTINELS:
-        return False
     # A study is deliberately outside the product graph.  If one of its files is promoted into
     # a generator, that generator's changed, declared importer scopes the build; while it remains
     # unlabelled, rebuilding every solid cannot answer anything about it.  Ignore files likewise
@@ -512,7 +510,7 @@ def selftest() -> int:
              == [".github/workflows/derive.yml"])
     hold("publication machinery exercises only the scorecard producers",
          not artifact_global("tools/bazel/sync_tree.py")
-         and not artifact_unknown("tools/cad-artifacts/pack.py", True)
+         and artifact_unknown("tools/cad-artifacts/pack.py", True)
          and set().union(*map(set, _PUBLICATION_SENTINELS.values()))
              == {"//:cold-core-assembly", "//:enclosure-assembly"}
          and artifact_sidecar_output(
