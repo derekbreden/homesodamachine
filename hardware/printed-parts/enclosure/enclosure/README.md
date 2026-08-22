@@ -1034,9 +1034,9 @@ Between the boss and the can the deck pocket **walks out at `relief_chamfer`**: 
 that rib moves inboard by the whole octagon-to-bore step, and ramped, the first layer over
 the crown still lands on the rim the layer under it keeps.
 
-**The ledge is raked in plan, [1 in 5](GRIP_RAKE)** (`grip_rake`) — standing further fore
-the further inboard it runs, [3.191 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
-The normal it presents to a fingertip carries a fifth of itself inboard, so the harder a
+**The ledge is raked in plan, [1 in 3](GRIP_RAKE)** (`grip_rake`) — standing further fore
+the further inboard it runs, [5.318 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
+The normal it presents to a fingertip carries a third of itself inboard, so the harder a
 hand pulls the harder it is drawn toward the centre of the piece and down into the pocket.
 The one edge this pocket has no wall on is the open flank, and inboard is the way away
 from it. The solid is the **Y-prism of `_grip_section` met by the Z-prism of its plan**:
