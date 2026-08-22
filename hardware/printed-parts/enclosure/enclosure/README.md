@@ -81,16 +81,16 @@ That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
 tongue is the wall continued one `wall` *into* the cavity, and on those faces the
 cavity is free; the floor's is not — the cold core rides on it — so a proud floor
 tongue would drive straight into the core. The floor laps anyway, but as a
-**shiplap within the slab** (`_floor_lap`): the front floor's cavity-side half
-runs one overlap aft, the back keeps its bed-side half and yields its cavity-side
-half to receive it, so the slab reads unbroken across the seam with no
-straight-through line and the core still seats on a flush floor. **Every seam
-laps, none butts** — the form suited to the face.
+**full-thickness tongue with a 45° scarf nose inside the slab** (`_floor_scarf`):
+the front floor runs one overlap aft on the print bed and tapers through the slab
+at its nose; the back keeps the matching bed-side wedge. The assembled top stays
+flat under the core, while both printed bearing faces remain support-free.
+**Every seam laps, none butts** — the form suited to the face.
 
 The core spans this seam. It is one body running the box's whole depth, so it goes
 in before the two halves close around it — which the standoffs are what make
 possible: the lip's side segments pass in the ±X chain bands, its ceiling segment
-under the top wall, and the floor's shiplap inside the slab, so none of the three
+under the top wall, and the floor's scarfed tongue inside the slab, so none of the three
 meets the core at all.
 
 That seam runs the box's whole height, so it is pinned at **[2](Y_LEVELS) levels** per
@@ -186,7 +186,7 @@ a rule about the wall: each boss is a pipe at its own station and its own height
 beside one — over or under one — the band is nothing but the wall's own air. Of the
 three bodies on the slab only the cold core meets the chain; the compressor stands
 under the front column's collars. Everything on the slab sits flat on it:
-the print-corner relief runs on the standing verticals and the Y-seam's floor lap
+the print-corner relief runs on the standing verticals and the Y-seam's floor joint
 stays inside the slab, so the seat is square and there is nothing standing there to
 clear.
 
@@ -531,11 +531,11 @@ mid-wall where there is no vertical arris, so it stays square.
 The Y-seam lip is the one joint the orientation costs something. Its ceiling
 tongue juts one overlap past the body into the space the back piece's ceiling
 occupies — a cantilever that cannot be buttressed without colliding with the back
-piece, and so wants print support. The floor **shiplap** costs the same, on the
-half that reaches: the front floor's cavity-side tongue runs one overlap aft over
-open air (the back's bed-side half fills under it only once assembled), so it
-prints on a thin support strip at the seam, the ceiling tongue's twin one slab
-down. The side-wall segments, vertical to the bed, are free.
+piece, and so wants print support. The floor does not share that cost: its tongue
+runs aft at the slab's full thickness with its underside on the bed, then ends in
+a one-wall-long 45° scarf nose. The back half's matching wedge also grows from the
+bed, so the cold-core bearing plane carries no supported surface. The side-wall
+segments, vertical to the bed, are free.
 
 The **drip tray's sleeve** in the back-top piece costs the same, and it is the
 first of two features in the box that do. The sleeve is a solid block off the −X wall
