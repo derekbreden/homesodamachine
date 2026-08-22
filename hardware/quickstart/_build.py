@@ -81,7 +81,7 @@ def render_pages() -> int:
             "--size",
             f"{CANVAS_W}x{CANVAS_H}",
             "--dpr",
-            "1.2",
+            "1",
             "--pdf",
             "17x11in",
         ],
