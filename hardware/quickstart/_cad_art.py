@@ -24,6 +24,7 @@ import tempfile
 from pathlib import Path
 
 import cadquery as cq
+from PIL import Image
 
 
 HERE = Path(__file__).resolve().parent
@@ -34,6 +35,7 @@ OUT = HERE / "out"
 RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 FAUCET_SOURCE = HARDWARE / "faucet-layout" / "faucet_assembly.py"
 MACHINE_STEP = HARDWARE / "manifold-layout" / "enclosure-assembly.step"
+MACHINE_MESH = HARDWARE / "manifold-layout" / "enclosure-assembly.step.mesh"
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -268,6 +270,13 @@ def _job(step: Path, out: str | Path, cam: tuple[float, float, float]) -> dict:
     }
 
 
+def _canonicalize_png(path: Path) -> None:
+    """Write one byte-stable PNG, without host or wall-clock metadata."""
+    with Image.open(path) as image:
+        pixels = image.convert("RGBA")
+        pixels.save(path, format="PNG", compress_level=9, optimize=False)
+
+
 def _crop(source: str | Path, geometry: str, target: str | Path) -> None:
     magick = shutil.which("magick")
     if not magick:
@@ -279,9 +288,18 @@ def _crop(source: str | Path, geometry: str, target: str | Path) -> None:
     if not target_path.is_absolute():
         target_path = ART / target_path
     subprocess.run(
-        [magick, str(source_path), "-crop", geometry, "+repage", str(target_path)],
+        [
+            magick,
+            str(source_path),
+            "-crop",
+            geometry,
+            "+repage",
+            "-strip",
+            str(target_path),
+        ],
         check=True,
     )
+    _canonicalize_png(target_path)
     note_write(target_path)
 
 
@@ -316,10 +334,12 @@ def _clear_connected_background(path: Path) -> None:
             "alpha 0,0 floodfill",
             "-shave",
             "1x1",
+            "-strip",
             str(path),
         ],
         check=True,
     )
+    _canonicalize_png(path)
     note_write(path)
 
 
@@ -328,6 +348,7 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     note_read(RENDERER)
     note_read(MACHINE_STEP)
+    note_read(MACHINE_MESH)
     with tempfile.TemporaryDirectory(prefix="quickstart-cad-", dir=OUT) as directory:
         work = Path(directory)
         steps = _build_steps(work)
