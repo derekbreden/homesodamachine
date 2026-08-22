@@ -118,15 +118,14 @@ def port_channel_depth() -> float:
     return port_drop() + PORT_SLIP
 
 
-def extrusion() -> float:
+def extrusion(width) -> float:
     """The width of one bead of this plate, which is what a web is read against.
 
     A WEB IS WIDE OR IT IS NOTHING, and the figure that decides which is the nozzle, not zero.
-    Taken from `enclosure_assembly.EXTRUSION_W` — the same constant `panel-web` holds `web()`
-    against — so the doc and the bound cannot come to differ about what one bead is."""
-    sys.path.insert(0, str(_hw / "manifold-layout"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415
-    return _ea.EXTRUSION_W
+    The doc-only `main` hands in `enclosure_assembly.EXTRUSION_W` — the same constant
+    `panel-web` holds `web()` against — so the doc and the bound cannot come to differ about
+    what one bead is."""
+    return width
 
 
 def web() -> float:
@@ -303,27 +302,24 @@ def selftest() -> int:
     return 1 if fails else 0
 
 
-def panels_of_machine():
+def panels_of_machine(facts):
     """The panels the enclosure stands, as `{name: (width, seats)}` in each plate's own frame.
 
     `enclosure_assembly` groups the valves no cap cradle holds by the plane each stands on and
     hands back one panel per plane, and the artifact carries what that grouping came to — so a
     plate is drawn off a machine the assembly's own run already stood.
 
-    BOTH IMPORTS ARE IN THE CALL. `enclosure_assembly` builds its box out of this module's
-    figures, so importing it at module scope closes a cycle through `enclosure`. And the import
-    is what the sidecar's walk needs: that walk resolves a module name against the `sys.path`
-    its driver stands on, and does not follow the one `_facts` makes inside `gather` — without
-    this the plate's doc watches 24 files instead of 73 and stops noticing the machine that
-    decides where its seats go."""
-    sys.path.insert(0, str(_hw / "manifold-layout"))
-    import enclosure_assembly as _ea                            # noqa: PLC0415,F401
-    import _facts                                               # noqa: PLC0415
-    return _facts.read().valve_panels
+    The doc-only `main` hands in the artifact and imports the assembly that decides it. Keeping
+    those run dependencies in `main` leaves the shape functions' source closure at this part."""
+    return facts.valve_panels
 
 
 def main():
-    panels = panels_of_machine()
+    sys.path.insert(0, str(_hw / "manifold-layout"))
+    import enclosure_assembly as _ea                            # noqa: PLC0415
+    import _facts                                               # noqa: PLC0415
+
+    panels = panels_of_machine(_facts.read())
     print(f"Valve panel — {len(panels)} stood in enclosure-front-top: "
           f"{', '.join(sorted(panels))}")
     total = 0.0
@@ -336,7 +332,7 @@ def main():
               f"{panel_volume(width, len(seats)) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
     width, seats = next(iter(sorted(panels.values())))
     print(f"  a post stands {grip():.3f} mm in the plate of {_seat.seat_top_z:g} mm")
-    _ext = extrusion()
+    _ext = extrusion(_ea.EXTRUSION_W)
     print(f"  socket to port channel: {web():.4f} mm — "
           f"{100.0 * web() / _ext:.0f}% of a {_ext:g} bead")
 
