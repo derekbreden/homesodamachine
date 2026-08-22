@@ -7119,6 +7119,8 @@ def main():
             print(" ", line)
         print("enclosure_assembly selftest OK")
         return
+    # A trace models the action, including its producer handoffs. Ordinary direct runs set
+    # neither variable and always rebuild the live Box and cold core from source.
     action = bool(os.environ.get("HSM_INPUT_DIGEST")
                   or os.environ.get("HSM_BUILD_SOURCE") == "trace")
     a = build_enclosure_assembly(require_box_spec=action)
@@ -7174,7 +7176,7 @@ def main():
     if str(scene_dir) not in sys.path:
         sys.path.insert(0, str(scene_dir))
     import render_scenes
-    render_scenes.write_glbs(a)
+    render_scenes.write_glbs(a, require_core_payload=action)
 
 
 if __name__ == "__main__":
