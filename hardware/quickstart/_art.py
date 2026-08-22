@@ -11,7 +11,6 @@ import re
 import sys
 from pathlib import Path
 
-import cadquery as cq
 from PIL import Image
 
 
@@ -26,10 +25,6 @@ from _cadq_export import note_read, note_write  # noqa: E402
 import _cad_art  # noqa: E402
 
 
-FAUCET_STEP = HARDWARE / "faucet-layout" / "faucet-assembly.step"
-FAUCET_RENDERER_DIR = (
-    HARDWARE / "printed-parts" / "enclosure" / "drawings" / "line-art"
-)
 SCREEN_HEADERS = (
     REPO_ROOT / "firmware" / "src_faucet" / "images" / "flavor0_faucet.h",
     REPO_ROOT / "firmware" / "src_faucet" / "images" / "flavor1_faucet.h",
@@ -41,39 +36,6 @@ PORT_DIMENSIONS = (
     / "back-panel"
     / "_back_panel_dimensions.py"
 )
-UNDER_COUNTER_PLATE = (
-    HARDWARE
-    / "cut-parts"
-    / "faucet"
-    / "touch-flo-under-counter-plate"
-    / "touch-flo-under-counter-plate.dxf"
-)
-
-
-def render_faucet() -> None:
-    """Render the exact faucet, counter, mounting stack and umbilical."""
-    sys.path.insert(0, str(FAUCET_RENDERER_DIR))
-    import _blender_render as blender  # noqa: E402
-
-    note_read(FAUCET_STEP)
-    note_read(FAUCET_RENDERER_DIR / "_blender_render.py")
-    note_read(FAUCET_RENDERER_DIR / "_blender_scene.py")
-    faucet = cq.importers.importStep(str(FAUCET_STEP))
-    target = ART / "faucet-install.svg"
-    blender.render_iso(
-        faucet,
-        [],
-        view="front",
-        out_svg=target,
-        image_height=800,
-        stroke_width=2.2,
-        margin=30,
-    )
-    text = target.read_text()
-    target.write_text("\n".join(line.rstrip() for line in text.splitlines()) + "\n")
-    note_write(target)
-
-
 def decode_rgb565_header(source: Path, target: Path) -> None:
     """Decode one 172 x 320 firmware image into a browser-ready PNG."""
     note_read(source)
@@ -93,37 +55,6 @@ def decode_rgb565_header(source: Path, target: Path) -> None:
     image = Image.new("RGB", (width, height))
     image.putdata(rgb)
     image.save(target, format="PNG", optimize=True)
-    note_write(target)
-
-
-def render_under_counter_plate() -> None:
-    """Render the exact laser-cut keyhole plate as clean top-view line art."""
-    import ezdxf
-    from ezdxf.addons.drawing import Frontend, RenderContext, config, layout, svg
-
-    note_read(UNDER_COUNTER_PLATE)
-    document = ezdxf.readfile(UNDER_COUNTER_PLATE)
-    backend = svg.SVGBackend()
-    drawing_config = config.Configuration(
-        color_policy=config.ColorPolicy.BLACK,
-        background_policy=config.BackgroundPolicy.OFF,
-        lineweight_policy=config.LineweightPolicy.RELATIVE,
-    )
-    Frontend(RenderContext(document), backend, drawing_config).draw_layout(
-        document.modelspace()
-    )
-    text = backend.get_string(
-        layout.Page(80, 80, units=layout.Units.mm),
-        settings=layout.Settings(
-            fit_page=True,
-            output_coordinate_space=800,
-            output_layers=False,
-        ),
-        xml_declaration=False,
-    )
-    text = text.replace("stroke-width: 0;", "stroke-width: 8;")
-    target = ART / "under-counter-plate.svg"
-    target.write_text(text)
     note_write(target)
 
 
@@ -150,8 +81,6 @@ def write_colors() -> None:
 def main() -> None:
     ART.mkdir(parents=True, exist_ok=True)
     _cad_art.main()
-    render_faucet()
-    render_under_counter_plate()
     decode_rgb565_header(SCREEN_HEADERS[0], ART / "flavor-1.png")
     decode_rgb565_header(SCREEN_HEADERS[1], ART / "flavor-2.png")
     write_colors()

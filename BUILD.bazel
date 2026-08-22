@@ -6194,32 +6194,58 @@ genrule(
         "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
         "hardware/assembly/cards/fonts/OFL.txt",
         ":out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
-        ":out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
+        "pysrc/hardware/faucet-layout/faucet_assembly.py",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
+        ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
-        "pysrc/hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
         ":out/appliance-model/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
         ":out/appliance-model/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
+        "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
+        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "hardware/quickstart/00-install.html",
         "hardware/quickstart/01-first-glass.html",
         "hardware/quickstart/README.md",
         "pysrc/hardware/quickstart/_art.py",
         "pysrc/hardware/quickstart/_build.py",
+        "pysrc/hardware/quickstart/_cad_art.py",
         "hardware/quickstart/style.css",
+        "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+        "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+        ":out/valve-body-reference/hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/render/render-card.js",
+        "tools/render/render-step-posed.js",
         "web/public/update-images/2026-08-19-port-rings.png",
         "web/public/update-images/2026-08-19-tube-collars.png",
         ":node-packages",
     ],
     outs = [
         "out/quickstart-build/hardware/quickstart/art/colors.css",
-        "out/quickstart-build/hardware/quickstart/art/faucet-install.svg",
+        "out/quickstart-build/hardware/quickstart/art/faucet-head.png",
+        "out/quickstart-build/hardware/quickstart/art/faucet-side-pressed.png",
+        "out/quickstart-build/hardware/quickstart/art/faucet-side.png",
         "out/quickstart-build/hardware/quickstart/art/flavor-1.png",
         "out/quickstart-build/hardware/quickstart/art/flavor-2.png",
-        "out/quickstart-build/hardware/quickstart/art/under-counter-plate.svg",
+        "out/quickstart-build/hardware/quickstart/art/machine-back-close.png",
+        "out/quickstart-build/hardware/quickstart/art/machine-back-iso.png",
+        "out/quickstart-build/hardware/quickstart/art/machine-front.png",
+        "out/quickstart-build/hardware/quickstart/art/machine-hopper-close.png",
+        "out/quickstart-build/hardware/quickstart/art/mount-drop.png",
+        "out/quickstart-build/hardware/quickstart/art/mount-slide.png",
+        "out/quickstart-build/hardware/quickstart/art/mount-tighten.png",
         "out/quickstart-build/hardware/quickstart/quick-start.cover.png",
         "out/quickstart-build/hardware/quickstart/quick-start.pdf",
         "out/quickstart-build/hardware/quickstart/quick-start.pdf.json",
@@ -6228,13 +6254,21 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/colors.css)
-O1=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/faucet-install.svg)
-O2=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/flavor-1.png)
-O3=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/flavor-2.png)
-O4=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/under-counter-plate.svg)
-O5=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.cover.png)
-O6=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf)
-O7=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf.json)
+O1=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/faucet-head.png)
+O2=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/faucet-side-pressed.png)
+O3=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/faucet-side.png)
+O4=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/flavor-1.png)
+O5=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/flavor-2.png)
+O6=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/machine-back-close.png)
+O7=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/machine-back-iso.png)
+O8=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/machine-front.png)
+O9=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/machine-hopper-close.png)
+O10=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/mount-drop.png)
+O11=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/mount-slide.png)
+O12=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/mount-tighten.png)
+O13=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.cover.png)
+O14=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf)
+O15=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf.json)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6252,13 +6286,21 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/_build.py > /dev/null
 cp hardware/quickstart/art/colors.css $$O0
-cp hardware/quickstart/art/faucet-install.svg $$O1
-cp hardware/quickstart/art/flavor-1.png $$O2
-cp hardware/quickstart/art/flavor-2.png $$O3
-cp hardware/quickstart/art/under-counter-plate.svg $$O4
-cp hardware/quickstart/quick-start.cover.png $$O5
-cp hardware/quickstart/quick-start.pdf $$O6
-cp hardware/quickstart/quick-start.pdf.json $$O7
+cp hardware/quickstart/art/faucet-head.png $$O1
+cp hardware/quickstart/art/faucet-side-pressed.png $$O2
+cp hardware/quickstart/art/faucet-side.png $$O3
+cp hardware/quickstart/art/flavor-1.png $$O4
+cp hardware/quickstart/art/flavor-2.png $$O5
+cp hardware/quickstart/art/machine-back-close.png $$O6
+cp hardware/quickstart/art/machine-back-iso.png $$O7
+cp hardware/quickstart/art/machine-front.png $$O8
+cp hardware/quickstart/art/machine-hopper-close.png $$O9
+cp hardware/quickstart/art/mount-drop.png $$O10
+cp hardware/quickstart/art/mount-slide.png $$O11
+cp hardware/quickstart/art/mount-tighten.png $$O12
+cp hardware/quickstart/quick-start.cover.png $$O13
+cp hardware/quickstart/quick-start.pdf $$O14
+cp hardware/quickstart/quick-start.pdf.json $$O15
 """,
 )
 
@@ -8948,6 +8990,14 @@ genrule(
     name = "pysrc-2ca0cb498e47",
     srcs = ["hardware/quickstart/_build.py"],
     outs = ["pysrc/hardware/quickstart/_build.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-2c464b11d1d4",
+    srcs = ["hardware/quickstart/_cad_art.py"],
+    outs = ["pysrc/hardware/quickstart/_cad_art.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
