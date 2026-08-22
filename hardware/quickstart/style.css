@@ -651,3 +651,160 @@ html, body {
   color: var(--muted);
   font-size: 16px;
 }
+
+/* Sheet 1 is one registered below-counter camera. The only second view is a small lens tethered
+   to the actual countertop opening in the seated frame, so it explains the physical stop without
+   competing with the faucet, mounting stack, or hand actions. */
+.mount-camera-sheet .page-head h1 { font-size: 46px; }
+.mount-camera-lead {
+  position: absolute;
+  left: 58px;
+  top: 164px;
+  width: 2434px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border-bottom: 2px solid var(--rule);
+}
+.mount-camera-lead strong {
+  color: var(--accent);
+  font: 700 20px/1 var(--mono);
+  letter-spacing: 1.2px;
+}
+.mount-camera-lead span {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+}
+.mount-camera-sequence {
+  position: absolute;
+  left: 58px;
+  top: 240px;
+  width: 2434px;
+  height: 1338px;
+  display: grid;
+  grid-template-columns: 607px 2px 607px 2px 607px 2px 607px;
+}
+.mount-camera-rule { background: var(--rule); }
+.mount-camera-beat {
+  position: relative;
+  width: 607px;
+  height: 1338px;
+  overflow: hidden;
+}
+.mount-camera-head {
+  height: 72px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 13px 16px;
+}
+.mount-camera-head span {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: #fff;
+  font: 700 25px/1 var(--mono);
+}
+.mount-camera-head h2 {
+  max-width: calc(100% - 60px);
+  padding-top: 4px;
+  font-size: 29px;
+  line-height: 1;
+  letter-spacing: -.5px;
+}
+.mount-camera-art {
+  position: relative;
+  width: 607px;
+  height: 1152px;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: var(--mount-image);
+  background-repeat: no-repeat;
+  background-position: center 0;
+  background-size: auto 1110px;
+}
+.mount-camera-motion,
+.mount-seat-register {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.mount-camera-motion-halo,
+.mount-camera-motion-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mount-camera-motion-halo { stroke: #fff; stroke-width: 21px; }
+.mount-camera-motion-line { stroke: var(--accent); stroke-width: 10px; }
+.mount-camera-motion marker path {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3px;
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+}
+.mount-camera-hand {
+  fill: #ffd8ca;
+  stroke: #a65c52;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mount-camera-hand path { vector-effect: non-scaling-stroke; }
+.mount-camera-note {
+  height: 114px;
+  padding: 17px 20px 0;
+  border-top: 2px solid var(--ink);
+  color: var(--ink);
+  font: 700 17px/1.13 var(--mono);
+  letter-spacing: .16px;
+}
+.seat-lens {
+  position: absolute;
+  z-index: 4;
+  left: 333px;
+  top: 490px;
+  width: 250px;
+  height: 250px;
+  filter: drop-shadow(0 7px 7px rgba(32, 33, 38, .16));
+}
+.seat-lens > span {
+  position: absolute;
+  z-index: 5;
+  top: -22px;
+  left: 0;
+  width: 100%;
+  color: var(--accent);
+  font: 700 14px/1 var(--mono);
+  letter-spacing: .35px;
+  text-align: center;
+}
+.seat-lens > svg { display: block; width: 100%; height: 100%; }
+.lens-rim { fill: #fff; stroke: #202126; stroke-width: 9; }
+.lens-hole { fill: #f3f4f5; stroke: #989ba2; stroke-width: 5; }
+.lens-tube { fill: #202126; }
+.lens-contact { fill: var(--accent); stroke: #fff; stroke-width: 4; }
+.lens-shank { fill: #3e4046; stroke: #202126; stroke-width: 5; }
+.lens-callout { fill: none; stroke: #6e7078; stroke-width: 3; stroke-linecap: round; }
+.lens-copy {
+  font: 700 12px/1 var(--mono);
+  fill: var(--ink);
+  letter-spacing: -.1px;
+}
+.seat-register-halo,
+.seat-register-line {
+  fill: none;
+  stroke-linecap: round;
+}
+.seat-register-halo { stroke: #fff; stroke-width: 15px; }
+.seat-register-line { stroke: #70727a; stroke-width: 4px; }
+.seat-register-dot { fill: var(--accent); stroke: #fff; stroke-width: 5px; }
