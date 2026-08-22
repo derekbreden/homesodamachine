@@ -28,21 +28,16 @@ services:
     startCommand: npm start
     healthCheckPath: /
     autoDeploy: true
-    # rootDir is web/, so Render's default auto-deploy only fires on
-    # commits that touch web/. The server also reads hardware/ at request
-    # time — the CAD parts the viewer serves — so commits to that tree must
-    # trigger a deploy too. buildFilter.paths is an allowlist: once any path
-    # is listed, Render auto-ignores every non-matching path, so a served
-    # tree that is missing here has its commits silently skipped — the site
-    # keeps serving that tree as of the last deploy some *other* tree
-    # happened to trigger. render.yaml always redeploys regardless, and is
-    # listed for completeness.
+    # Hardware deploys at the publication boundary. A source push first runs
+    # publish-cad, whose lock-only commit names the exact source and bundle; deploying the
+    # source commit itself would briefly serve its new pages with the preceding CAD bundle.
+    # Even a hardware-only change with no artifact targets advances the lock's source, so every
+    # served commit reaches Render through this one path. The publisher also advances the lock
+    # for web, update and Render-config changes, so a mixed source commit cannot bypass the
+    # boundary through a second matching path.
     buildFilter:
       paths:
-        - web/**
-        - hardware/**
-        - updates/**
-        - render.yaml
+        - hardware/cad-artifacts.lock.json
     envVars:
       - key: DATABASE_URL
         fromDatabase:

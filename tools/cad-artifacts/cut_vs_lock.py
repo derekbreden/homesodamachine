@@ -15,16 +15,12 @@ not. `_cadq_export` canonicalizes each one so that they can; whether they do is 
 has never been measured. That is the first thing this answers.
 
 THE SECOND IS WHETHER THE TREE HOLDS WHAT THIS MACHINE CUTS, and it is free once the bytes are
-in hand. A `.step` reaches the tree from `fetch-cad-artifacts.mjs` or from a hand run and never
-from a build — bazel writes `bazel-bin`, `sync_tree` moves tracked paths, and `*.step` is
-neither — so the solid every scorecard, mass and picture is read off can be one an older source
-cut, under a build that went green. Nothing else in the pipeline compares those two.
+in hand. The workflow runs this immediately after Bazel and before `sync_tree` carries declared
+outputs, so the comparison measures the fetched/hand-cut tree against this build's exact bytes.
 
-IT NEEDS NO CARRY, WHICH IS WHY IT EXISTS SEPARATELY. `sync_tree` moves TRACKED paths, `*.step`
-is gitignored (`.gitignore:72`), and the solids reach a machine through the bundle by design —
-so no carry can ever move an enclosure `.step`, and a criterion waiting for one waits forever.
-The bytes are on disk in `bazel-bin` the moment the build goes green; they need reading, not
-carrying.
+IT NEEDS NO CARRY, WHICH IS WHY IT EXISTS SEPARATELY. The bytes are on disk in `bazel-bin` the
+moment the build goes green; reading them there preserves the pre-carry measurement and lets an
+incomplete build fail before any tree file moves.
 
 A DIFFERENCE HAS THREE CAUSES AND ONLY ONE OF THEM IS THE ANSWER. The bytes cannot say which:
 
@@ -85,6 +81,31 @@ def _sha256(p: Path) -> str:
     return h.hexdigest()
 
 
+def _labels(raw: str) -> list:
+    out = []
+    for item in re.split(r"[\s,]+", raw.strip()):
+        if item:
+            out.append(item if item.startswith("//") else f"//:{item.lstrip(':')}")
+    return sorted(set(out))
+
+
+def _expected(labels: list, failed: set) -> set:
+    """Publish outputs declared by a target slice, excluding failed writers."""
+    query = f"deps(set({' '.join(labels)}))" if labels else "deps(//:everything)"
+    q = _bazel("cquery", query, "--output=files", timeout=300)
+    if q.returncode != 0:
+        detail = next((line for line in q.stderr.splitlines() if line.startswith("ERROR")),
+                      f"exit {q.returncode}")
+        raise SystemExit(f"  the build graph could not name the expected cut: {detail}")
+    out = set()
+    for line in q.stdout.split():
+        m = _DECLARED.search(line)
+        if (m and m.group(1) not in failed
+                and m.group(2).endswith((".step", ".stl", ".glb", ".step.mesh"))):
+            out.add(m.group(2))
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--annotate", action="store_true",
@@ -95,6 +116,8 @@ def main() -> int:
     ap.add_argument("--assume-fresh", action="store_true",
                     help="skip the up-to-date check and trust bazel-bin. Only honest straight "
                          "after a full build in a container that starts empty.")
+    ap.add_argument("--targets", default="",
+                    help="compare this built slice and its dependencies; default: //:everything")
     args = ap.parse_args()
 
     def note(kind: str, title: str, text: str) -> None:
@@ -109,6 +132,15 @@ def main() -> int:
         print("  the lock names no solids, so there is nothing to compare against")
         return 2
 
+    labels = _labels(args.targets)
+    failed = {t.strip().lstrip("/").lstrip(":")
+              for t in args.failed.split(",") if t.strip()}
+    expected = _expected(labels, failed)
+    if not expected:
+        print("  NOTHING DECLARED: the requested target slice has no publishable outputs")
+        note("warning", "cut-vs-lock", "nothing compared: target slice has no CAD outputs")
+        return 3
+
     out = _bazel_bin() / "out"
     if not out.is_dir():
         print(f"  NOTHING CUT: {out} does not exist, so this build cut no solids to compare.")
@@ -122,12 +154,13 @@ def main() -> int:
     # run of this script.
     fresh = args.assume_fresh
     if not fresh:
-        chk = _bazel("build", "--check_up_to_date", "//:everything")
+        chk = _bazel("build", "--check_up_to_date", *(labels or ["//:everything"]))
         fresh = chk.returncode == 0
         if not fresh:
             print("  BAZEL-BIN IS NOT UP TO DATE with this tree, so some of what is sitting")
             print("  there was cut for an older source and a difference would say nothing")
-            print("  about the kernels. Build //:everything first, or pass --assume-fresh if")
+            print("  about the kernels. Build the requested target slice first, or pass")
+            print("  --assume-fresh if")
             print("  you know this output tree was written by the build that just ran.")
             for line in (chk.stderr or "").splitlines():
                 if "not up to date" in line.lower():
@@ -136,27 +169,31 @@ def main() -> int:
                  "bazel-bin is not up to date — nothing compared")
             return 3
 
-    failed = {t.strip() for t in args.failed.split(",") if t.strip()}
-
     cut: dict[str, list[Path]] = {}
     skipped_failed = 0
     for p in out.rglob("*"):
         if not p.is_file():
             continue
         m = _DECLARED.search(p.as_posix())
-        if not m or m.group(2) not in lock:
+        if not m or m.group(2) not in expected:
             continue
         if m.group(1) in failed:
             skipped_failed += 1
             continue
         cut.setdefault(m.group(2), []).append(p)
 
+    absent = sorted(expected - set(cut))
+    if absent:
+        print(f"  INCOMPLETE CUT: {len(absent)} of {len(expected)} expected solid(s) are absent")
+        for path in absent[:20]:
+            print(f"      {path}")
+        note("error", "cut-vs-lock", "the build did not materialize every expected solid")
+        return 3
+
     # AND WHAT THE TREE HOLDS, which is a different question from the lock's and free to ask
-    # here. A `.step` reaches the tree from `fetch-cad-artifacts.mjs` or from a hand run, never
-    # from a build: bazel writes into `bazel-bin` and `sync_tree` moves tracked paths only. So
-    # the solid every check reads off the tree can be the one an older source cut, and a green
-    # build says nothing about it. `stale` is that gap, measured.
-    same, differ, twice, stale = [], [], [], []
+    # here. Before the carry, the tree holds the fetched bundle or a hand cut while bazel-bin
+    # holds this action's output. `stale` measures that gap directly.
+    same, differ, fresh, twice, stale = [], [], [], [], []
     for tree_path, paths in sorted(cut.items()):
         digests = {_sha256(p) for p in paths}
         if len(digests) > 1:
@@ -166,15 +203,19 @@ def main() -> int:
         in_tree = _ROOT / tree_path
         if in_tree.exists() and _sha256(in_tree) != here:
             stale.append(tree_path)
-        (same if here == lock[tree_path] else differ).append(tree_path)
+        if tree_path not in lock:
+            fresh.append(tree_path)
+        else:
+            (same if here == lock[tree_path] else differ).append(tree_path)
 
     compared = len(same) + len(differ)
-    steps = sum(1 for k in same + differ if k.endswith(".step"))
+    materialized = compared + len(fresh)
+    steps = sum(1 for k in same + differ + fresh if k.endswith(".step"))
 
     # THE ABSENCE CASE COMES FIRST AND HAS ITS OWN WORDS, because the failure this pipeline
     # keeps producing is a reassuring line printed over a measurement that never happened.
-    if compared == 0:
-        print(f"  NOTHING COMPARED — none of the {len(lock)} solids the lock names was found")
+    if materialized == 0:
+        print(f"  NOTHING COMPARED — none of the {len(expected)} expected solids was found")
         print("  in bazel-bin. This is the absence of a measurement, not agreement.")
         if skipped_failed:
             print(f"  ({skipped_failed} held back as outputs of failed targets: "
@@ -182,7 +223,7 @@ def main() -> int:
         note("warning", "cut-vs-lock", "nothing compared: no solid of the lock's was cut")
         return 3
 
-    print(f"  {compared} of the lock's {len(lock)} solids were cut here and hashed "
+    print(f"  {materialized} of {len(expected)} expected solids were cut here and hashed "
           f"({steps} of them .step)")
     if skipped_failed:
         print(f"  {skipped_failed} held back as outputs of failed targets: "
@@ -190,6 +231,18 @@ def main() -> int:
     if twice:
         print(f"  {len(twice)} cut by two targets that disagree with each other:")
         for k in twice[:10]:
+            print(f"      {k}")
+        note("error", "cut-vs-lock", "two actions produced disagreeing bytes for one output")
+        return 3
+
+    if materialized != len(expected):
+        print(f"  INCOMPLETE COMPARISON: {len(expected) - materialized} expected solid(s) were not hashed")
+        note("error", "cut-vs-lock", "not every expected solid was compared")
+        return 3
+
+    if fresh:
+        print(f"  {len(fresh)} are new outputs with no historical lock member:")
+        for k in fresh[:20]:
             print(f"      {k}")
 
     if differ:
@@ -225,13 +278,23 @@ def main() -> int:
         _tree_verdict(stale, compared, note)
         return 1
 
+    if fresh:
+        print()
+        if same:
+            print(f"  THE {len(same)} EXISTING SOLIDS MATCH THE LOCK; the {len(fresh)} new "
+                  "output(s) are ready to be pinned.")
+        else:
+            print("  EVERY OUTPUT IS NEW; there are no historical lock bytes to compare.")
+        _tree_verdict(stale, materialized, note)
+        return 1
+
     print()
     print("  EVERY SOLID CUT HERE MATCHES THE LOCK, byte for byte. This machine's OpenCASCADE")
     print("  and the one that packed the lock agree, so a lock is a fact about the geometry")
     print("  rather than about the machine that packed it.")
     note("notice", "cut-vs-lock",
          f"{compared} solids cut here match the lock byte for byte ({steps} .step)")
-    return _tree_verdict(stale, compared, note)
+    return _tree_verdict(stale, materialized, note)
 
 
 def _tree_verdict(stale, compared, note) -> int:
@@ -255,10 +318,9 @@ def _tree_verdict(stale, compared, note) -> int:
         print(f"      …and {len(stale) - 20} more")
     print()
     print("  Every check that reads a solid reads the tree's copy, and these two disagree.")
-    print("  WHICH SIDE IS BEHIND IS NOT IN THE BYTES. The tree's is cut by")
-    print("  `node dev-server/build-all.js` — a bazel build writes `bazel-bin`, `sync_tree`")
-    print("  carries tracked paths, and `*.step` is neither — so the tree's copy is as old as")
-    print("  the last hand run. And `bazel-bin`'s is as good as the source that action read:")
+    print("  WHICH SIDE IS BEHIND IS NOT IN THE BYTES. Before sync_tree runs, the tree holds")
+    print("  the fetched bundle or the last hand cut, while bazel-bin holds this build's cut.")
+    print("  The latter is only as good as the source that action read:")
     print("  a generator or a module dirty in the worktree cuts bytes no commit reproduces.")
     print("  `git status` over what the cutting run imports is what separates them.")
     note("warning", "cut-vs-lock",

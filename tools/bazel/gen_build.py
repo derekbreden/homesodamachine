@@ -13,6 +13,7 @@ target here can be wrong in exactly one direction, and the build says which.
 
 import argparse
 import difflib
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -40,7 +41,8 @@ CACHE = f"{_WS}/.cache"
 RC_PATHS = _ROOT / ".bazelrc.paths"
 
 #: See the tag it earns in `render`.
-NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",)
+NOT_HERMETIC = ("hardware/assembly/scenes/render_scenes.py",
+                "hardware/assembly/scenes/render_scene_cards.py")
 
 #: Where `pysrc.py` lays a Python file down with its comments taken out. A step reads its
 #: sources from under here, so a comment edit leaves every input it holds byte for byte the
@@ -53,6 +55,14 @@ SELFTESTS = _HERE.parent / "selftests.json"
 #: What tells a step that starts node: a script of this repo on node's command line, which
 #: the trace sees. The packages beside that script come with it.
 _NODE = ("tools/render/", "web/")
+
+# `_cadq_export` records this prospective tool even when a Bazel action cannot run it. Every
+# build action receives HSM_SKIP_THUMBNAILS=1 from .bazelrc because thumbnails are not outputs;
+# making the skipped tool a source of every solid rule tied an ordinary viewer edit to nearly
+# the entire CAD graph (and pulled the whole web tree through :node-packages). The direct/manual
+# thumbnail lane still reads the tool from the working tree; it is deliberately not a build
+# input for an action whose configured branch returns before spawning it.
+BAZEL_SKIPPED_READS = {"tools/render/render-thumbnails.js"}
 
 
 def _needs_node(srcs: list) -> bool:
@@ -84,25 +94,42 @@ def comments_come_out(src: str, rewritten: set) -> bool:
             and not src.startswith(_NODE))
 
 
-def read_from(src: str, rewritten: set) -> str:
-    """Where a step reads `src` from — under `pysrc/` once its comments are out of it."""
+def read_from(src: str, rewritten: set, producers: dict = None,
+              consumer: str = None) -> str:
+    """The label a step reads for `src`.
+
+    A generated artifact comes from its producer's output, not from the copy restored into the
+    source tree by the artifact lock. That edge makes a clean build topological: an assembly
+    cannot read yesterday's STEP while the target that cuts today's STEP runs beside it.
+    Rewritten docs stay source inputs; their generated figures are carried back separately and
+    some of those documents intentionally read one another.
+    """
+    producer = (producers or {}).get(src)
+    if producer and producer != consumer:
+        return f":out/{producer}/{src}"
     return f"{PYSRC}/{src}" if comments_come_out(src, rewritten) else src
 
 
-def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set,
-           name: str) -> str:
+def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewritten: set,
+           name: str, producers: dict) -> str:
     # THE OUTPUT KEEPS THE PATH THE TREE KEEPS IT UNDER, so `sync_tree` strips one prefix and
     # has the file to carry it back to. Twenty generators cut a `README.md`, and a basename is
     # not a name for any of them.
     outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
-    lines += [f'        "{read_from(s, rewritten)}",' for s in srcs]
+    lines += [f'        "{read_from(s, rewritten, producers, name)}",' for s in srcs]
     # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. A step that
     # hands node a script of this repo reads that script — the trace sees the path on the
     # command line — and the packages beside it come with it.
     if _needs_node(srcs):
         lines.append('        ":node-packages",')
-    lines += ["    ],", "    outs = ["]
+    if optional:
+        lines += ["    ] + glob(", "        ["]
+        lines += [f'            "{s}",' for s in optional]
+        lines += ["        ],", "        allow_empty = True,", "    ),"]
+    else:
+        lines += ["    ],"]
+    lines += ["    outs = ["]
     lines += [f'        "{o}",' for o in outs]
     lines += ["    ],"]
     # A THUMBNAIL IS A PHOTOGRAPH OF A PAGE. The renderer stands a server on loopback and
@@ -128,8 +155,14 @@ def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set,
         # A SOURCE LANDS ON THE PATH THE TREE KEEPS IT UNDER, comments taken out or not, so
         # `import` finds it and a traceback names it.
         "for f in $(SRCS); do",
-        "  case $$f in */node_modules/*) continue;; esac",
-        f"  t=$${{f##*/{PYSRC}/}}",
+        "  case $$f in",
+        "    */node_modules/*) continue;;",
+        # A producer output arrives as bazel-out/<cfg>/bin/out/<producer>/<repo path>.
+        # Strip both generated prefixes so the consumer sees the same path a direct run sees.
+        "    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;",
+        f"    */{PYSRC}/*) t=$${{f##*/{PYSRC}/}};;",
+        "    *) t=$$f;;",
+        "  esac",
         "  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t",
         "done",
         "for d in tools/render/node_modules web/node_modules "
@@ -154,7 +187,11 @@ def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set,
     # holding only what it declared does not have — without this the doc's figures are
     # rewritten and its `.figures.json` is not.
     for g in gens:
-        lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {VENV} {g} > /dev/null")
+        # The normal build skips payloads because they are not outputs. An action that declares
+        # one must make it; `env -u` overrides the global action environment for that action.
+        payload_env = "env -u HSM_SKIP_MESH_PAYLOAD " if any(
+            a.endswith(".step.mesh") for a in arts) else ""
+        lines.append(f"HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D {payload_env}{VENV} {g} > /dev/null")
     for i, made in enumerate((*arts, *docs)):
         lines.append(f"cp {made} $$O{i}")
     lines += ['""",', ")"]
@@ -164,25 +201,38 @@ def render(gens: tuple, arts: list, srcs: list, docs: list, rewritten: set,
 def render_build(only: str = None) -> tuple:
     """The whole of BUILD.bazel as text, and the steps it was rendered from."""
     files = tracked()
-    inv = inventory(files)
+    all_inv = inventory(files)
     try:
         selftests = json.loads(SELFTESTS.read_text())
     except (OSError, ValueError):
         selftests = {}
-    if only:
-        inv = {k: v for k, v in inv.items() if only in k}
-
     # WHICH STEMS ARE SHARED, before a name is handed to anything.
     seen, shared = set(), set()
-    for gens in inv:
+    for gens in all_inv:
         for g in gens:
             stem = Path(g).stem.strip("_").replace("_", "-")
             (shared if stem in seen else seen).add(stem)
 
-    # What each generator reads, by its own path, for widening a selftest's data below.
-    inv_by_gen = {g: set(made["reads"]) for gens, made in inv.items() for g in gens}
+    names = {gens: target_name(gens[0], shared) for gens in all_inv}
+    # Whole generated artifacts become producer edges. Rewritten authored files remain inputs
+    # to their own writer and are spliced back into the current tree by sync_tree; PNGs and
+    # JSON are composed whole, so a consumer must wait for this build's writer instead of
+    # racing it while reading the restored/committed prior copy.
+    producers = {artifact: names[gens]
+                 for gens, made in all_inv.items()
+                 for artifact in (*made["solids"],
+                                  *(d for d in made["docs"]
+                                    if d.endswith((".png", ".json"))))}
 
-    held = set(files)
+    inv = ({k: v for k, v in all_inv.items() if only in k} if only else all_inv)
+
+    # What each generator reads, by its own path, for widening a selftest's data below.
+    inv_by_gen = {g: set(made["reads"]) for gens, made in all_inv.items() for g in gens}
+
+    held = set(files) | {
+        path for made in all_inv.values() for kind in ("solids", "docs")
+        for path in made[kind]
+    } | {gen for gens in all_inv for gen in gens}
     if any(f"/{PYSRC}/" in f for f in held):
         raise SystemExit(f"  a tracked path holds /{PYSRC}/, which is where a stripped source"
                          f" lands — the staging loop cannot tell the two apart")
@@ -191,28 +241,34 @@ def render_build(only: str = None) -> tuple:
     for gens, made in sorted(inv.items()):
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
-        # A solid the run cut is only ever handed back. A SOLID THE RUN READS IS ON BOTH SIDES
-        # TOO: `flute_payload.py` grafts its fluted surfaces into `enclosure.step.mesh` in place,
-        # so the payload it opens has to be in the sandbox for it to have one to graft into.
+        # A solid the run cuts is only ever handed back. Atomic writers often open an old copy
+        # solely to avoid replacing equal bytes; that optional comparison must not make a new
+        # output into a required source. Whole rewritten PNG/JSON outputs are the same case.
         srcs = ((set(made["reads"]) | set(made["docs"]) | set(gens))
-                - (set(made["solids"]) - set(made["reads"])))
+                - set(made["solids"])
+                - {d for d in made["docs"] if d.endswith((".png", ".json"))}
+                - BAZEL_SKIPPED_READS)
         srcs = sorted(s for s in srcs if s in held)
+        optional = sorted(d for d in made["docs"] if d.endswith((".png", ".json")))
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
         comments_out |= {s for s in srcs if comments_come_out(s, rewritten)}
-        blocks.append(render(gens, made["solids"], srcs, made["docs"], rewritten,
-                             target_name(gens[0], shared)))
+        blocks.append(render(gens, made["solids"], srcs, optional, made["docs"], rewritten,
+                             names[gens], producers))
 
-    # ONE ACTION FOR THE WHOLE OF IT, so a comment edit is one short run and then a build that
-    # finds every input where it left it.
+    # ONE STRIPPED SOURCE PER ACTION. A single multi-output action made every Python edit an
+    # input to every consumer of any stripped source, so `rdeps(ceiling_panel.py)` became almost
+    # the whole graph. Each tiny action keeps the exact edge and lets an affected build stay a
+    # slice. The output path remains stable; only the rule that produces it is split.
     comments_out = sorted(comments_out)
-    blocks.append(
-        'genrule(\n    name = "%s",\n    srcs = [\n' % PYSRC
-        + "".join(f'        "{s}",\n' for s in comments_out)
-        + "    ],\n    outs = [\n"
-        + "".join(f'        "{PYSRC}/{s}",\n' for s in comments_out)
-        + '    ],\n    tools = ["tools/bazel/pysrc.py"],\n'
-        + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
-        + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
+    for source in comments_out:
+        digest = hashlib.sha256(source.encode()).hexdigest()[:12]
+        blocks.append(
+            f'genrule(\n    name = "{PYSRC}-{digest}",\n'
+            + f'    srcs = ["{source}"],\n'
+            + f'    outs = ["{PYSRC}/{source}"],\n'
+            + '    tools = ["tools/bazel/pysrc.py"],\n'
+            + f'    cmd = "{VENV} $(location tools/bazel/pysrc.py)'
+            + f' $(RULEDIR)/{PYSRC} $(SRCS)",\n)')
 
     # A MODULE THAT CARRIES A `selftest` IS ONE NOBODY RUNS. Twenty-five of them state their own
     # holds and every one is verified only when a person types the word — `sync_tree`'s ten

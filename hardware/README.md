@@ -29,13 +29,13 @@ The home soda machine's physical design — the integrated under-counter applian
 
     node web/scripts/fetch-cad-artifacts.mjs              # the solids the lock names, onto this disk
 
-A generated `.step` is on this disk and in no index. [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each one by sha256 along with the release asset carrying them, [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and pins one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
+A generated `.step` is on this disk and in no index. [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each one by sha256, the release asset carrying them, and the source commit the bundle represents. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and pins one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
 
 ## The design loop
 
     source → changed solid → local view → pinned artifact → /3d
 
-The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) opens a generated STEP from this disk through the same `/3d` viewer the headless renderers drive. [`pack.py --write`](/tools/cad-artifacts/pack.py) packages the generated solids on this disk; after its lock is committed and pushed, Render fetches that bundle and `/3d` serves it. The solid an agent judges locally is the solid that goes in front of Derek.
+The local render and the deployed viewer are two stops on one geometry path. [`tools/look.sh`](/tools/look.sh) opens a generated STEP from this disk through the same `/3d` viewer the headless renderers drive. [`pack.py --write`](/tools/cad-artifacts/pack.py) packages the generated solids on this disk; after its lock is committed and pushed, Render fetches that bundle and `/3d` serves it. A push to `main` runs `publish-cad.yml`, builds only the affected artifact rules and their dependencies, carries their ignored outputs, and publishes the lock separately from cards and PDFs. The solid an agent judges locally is the solid that goes in front of Derek.
 
 A repository-wide build is not a viewing boundary. A generator, focused Bazel target, [`probe.py`](/hardware/scripts/probe.py), or [`fit.py`](/hardware/scripts/fit.py) answers the current design question; the next local picture follows it immediately. Broader builds and checks answer broader questions when those questions arise. The iteration speed that matters is the time from an edit to the next informed look — first by the agent, then by Derek.
 
@@ -43,6 +43,12 @@ A repository-wide build is not a viewing boundary. A generator, focused Bazel ta
 
     bazelisk build //:everything                          # every generator whose inputs moved
     tools/cad-venv/bin/python tools/bazel/sync_tree.py    # what the tree does not carry yet
+
+For a focused dirty-tree build:
+
+    targets=$(tools/cad-venv/bin/python tools/bazel/affected.py --artifacts)
+    bazel build $targets
+    tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --solids-only --targets "$targets"
 
 ONE ACTION PER STEP, EACH HOLDING WHAT IT DECLARED AND NOTHING ELSE. What it declared is what
 a run of it was watched reading — `tools/bazel/trace_inputs.py` installs an audit hook, runs
@@ -56,10 +62,10 @@ doc's `[value](NAME)` figures, each managing its own names, so `touch_flo_shell.
 `touch_flo_under_counter_plate.py` both write `ASSEMBLY.md` and are one action. `bazel` needs
 one action per file, and `inventory._together` is what groups them.
 
-`bazel-bin/` is where a build lands and this repo commits its solids and its docs, because a
-reader at `/3d` and a shop printing a part both take them off the tree. `sync_tree.py` is what
-carries them over, and a tree it has nothing to say about is a tree holding the artifacts its
-sources make.
+`bazel-bin/` is where a build lands. The tree commits its docs and holds ignored solids long
+enough for the content-addressed bundle to publish them, because a reader at `/3d` and a shop
+printing a part both need the same bytes. `sync_tree.py` carries every declared output over;
+a tree it has nothing to say about is a tree holding the artifacts its sources make.
 
 WHAT AN EDIT COSTS IS THE STEPS THAT DECLARED THE FILE, and that is a count, not a guess.
 `_boxes.py` is declared by 95 of the 99 steps, so it is the worst case the tree has:
@@ -90,8 +96,11 @@ already built against, and nothing under it runs. What comes out parses to what 
 put where Bazel can see it.
 
 The 32 generators whose own docstrings hold `[value](NAME)` figures are handed their file raw,
-because the run rewrites what it was given and `sync_tree` carries that back into the tree. So
-is anything under `tools/render/` or `web/`, which `:node-packages` globs in whole.
+because the run rewrites what it was given and `sync_tree` carries that back into the tree. A
+step that actually starts Node is also handed `:node-packages`, which globs `tools/render/` and
+`web/` in whole. The STEP exporters' prospective `render-thumbnails.js` read is left out of the
+Bazel graph because `.bazelrc` fixes `HSM_SKIP_THUMBNAILS=1` and those actions return before
+starting it; a viewer edit therefore does not invalidate sixty-one unrelated solid actions.
 
 A line number in a sandbox traceback is that copy's, not the tree's. The line it names is in
 the tree, found by its text.
@@ -104,11 +113,10 @@ off disk is not an import, and `enclosure.py` makes no `import_step` call of its
 action declares 28 solids it reaches through what it imports.
 
 A SOLID ONE GENERATOR CUTS AND THE NEXT LOADS IS AN EDGE LIKE ANY OTHER HERE. `foam_assembly`
-reads `foam-cap-top.step` off the disk and `enclosure_assembly` reads `foam-assembly.step`;
-neither is an import, and OCCT opens the file below Python where no audit hook reaches.
-`_cadq_export.import_step` is the one loader and records what it loaded, so both edges are in
-the graph — and an action that names too little does not read a stale solid, it does not find
-the file at all.
+reads `foam-cap-top.step` from `//:foam-cap` and `enclosure_assembly` reads
+`foam-assembly.step` from `//:foam-assembly`; neither can fall back to the older copy fetched
+from the artifact lock. OCCT opens these below Python, so `_cadq_export.import_step` records the
+paths and `gen_build.py` resolves each one to its producer output.
 
 A picture is the same picture every run. Every renderer in `tools/render/` reads the frame
 back off the canvas in the task that drew it (`browser.js` `frameBuffer` carries why), so

@@ -1,0 +1,15 @@
+**
+!.bazelversion
+!.dockerignore
+!tools/
+!tools/cad-requirements.txt
+!tools/cad-venv-site/
+!tools/cad-venv-site/**
+!tools/ci-image/
+!tools/ci-image/Dockerfile
+!tools/render/
+!tools/render/package.json
+!tools/render/package-lock.json
+!web/
+!web/package.json
+!web/package-lock.json

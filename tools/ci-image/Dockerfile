@@ -151,9 +151,12 @@ RUN curl -fsSL -o /usr/local/bin/bazel \
 # symlinked into `tools/cad-venv` by the job — a venv follows a symlink to itself fine, and
 # `.gitignore` already holds that path out of the tree, so the link dirties nothing.
 COPY tools/cad-requirements.txt /tmp/cad-requirements.txt
+COPY tools/cad-venv-site /opt/hsm/cad-venv-site/
 RUN python3.13 -m venv /opt/hsm/cad-venv \
     && /opt/hsm/cad-venv/bin/pip install --quiet --upgrade pip \
     && /opt/hsm/cad-venv/bin/pip install --quiet -r /tmp/cad-requirements.txt \
+    && /opt/hsm/cad-venv/bin/python /opt/hsm/cad-venv-site/install.py \
+    && /opt/hsm/cad-venv/bin/python /opt/hsm/cad-venv-site/install.py --check \
     && /opt/hsm/cad-venv/bin/python -c "import cadquery, OCP; print('cadquery', cadquery.__version__)"
 
 # The renderers, and the Chromium they download on install. `PUPPETEER_CACHE_DIR` is set for
