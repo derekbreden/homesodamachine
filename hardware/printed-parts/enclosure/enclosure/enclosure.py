@@ -1478,6 +1478,10 @@ grip_rake = 0.2              # the ledge's fall in Y per millimetre it runs inbo
 #   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
 #                 leg a rib is centred on, which way the tube points there, which way the face
 #                 it stands on lies, and the section it seats
+#   ceiling_reliefs  the purchased bodies' pockets in the ceiling panel's structural field,
+#                 one `(name, x0, x1, y0, y1, pocket_top_z)` each. The plan is the body's exact
+#                 intersection with that field plus assembly slip; the last number is the roof
+#                 left over it. This is geometry struck by the pack, not another placement.
 #   port_field    the pockets the back wall's outer face carries and the bosses behind them,
 #                 (proud, rim, pockets) — how deep a pocket is cut and how far its boss stands
 #                 inboard, the wall the field keeps around each chip, and one (x, z, width,
@@ -1529,7 +1533,8 @@ grip_rake = 0.2              # the ledge's fall in Y per millimetre it runs inbo
 Box = namedtuple(
     "Box", "inner outer y_joint splits front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
-           "cond_mount cond_airway asse_cradle digiten_saddles tube_anchors port_field nameplate "
+           "cond_mount cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
+           "port_field nameplate "
            "valve_panels pump_trays core_stops core_holds vent_chase column_reliefs "
            "collet_plate pump_bay")
 
@@ -1541,10 +1546,11 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
-            "cond_airway asse_cradle digiten_saddles tube_anchors port_field nameplate "
+            "cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
+            "port_field nameplate "
             "valve_panels pump_trays core_stops core_holds vent_chase collet_plate")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
-                             None, (), (), (), (), None, (), (), (), (), (), None)
+                             None, (), (), (), (), (), None, (), (), (), (), (), None)
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -2584,7 +2590,8 @@ def _dims(pack):
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
                pack.cond_mount, pack.cond_airway, pack.asse_cradle,
-               pack.digiten_saddles, pack.tube_anchors, pack.port_field, pack.nameplate,
+               pack.digiten_saddles, pack.tube_anchors, pack.ceiling_reliefs,
+               pack.port_field, pack.nameplate,
                pack.valve_panels, pack.pump_trays, pack.core_stops, pack.core_holds,
                pack.vent_chase, tuple(reliefs), pack.collet_plate, pump_bay)
 
@@ -6540,9 +6547,8 @@ def _c14_aperture(stations, ports):
         f"plug, so the pack states one or the other and not both halves of a placement.")
 
 
-def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
-    """The C14's tunnel fused onto a back wall's INNER face, and its bore taken back out — for
-    the stations whose Z lies in `z0..z1`.
+def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
+    """The C14 tunnel's material and cutters — for the stations in `z0..z1`.
 
     THE RECEPTACLE DOES NOT BEAR ON THIS WALL. It bears on the tunnel's FORE face, one
     `c14_tunnel_len` inboard of the wall, and the customer's cord reaches it down a bore that is
@@ -6565,7 +6571,7 @@ def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
     read at the aperture — a tunnel rooted on the box's own rear plane would start a section
     inside a wall that is thicker than that plane anywhere the relief does not reach."""
     if not stations or not all(z0 <= sz <= z1 for _sx, sz in stations):
-        return solid
+        return None
     cx, cz, wx, wz, r = _c14_aperture(stations, ports)
     cap = back_wall_t_at(cx, cz)
     if abs(cap - socket_cap) > stated_bound_tol:
@@ -6593,13 +6599,44 @@ def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
     tunnel = tunnel.fuse(_yz_prism(cx - hx, cx + hx,
                                    [(aft, cz - hz), (fore, cz - hz),
                                     (aft, cz - hz - c14_tunnel_len)]))
-    solid = solid.fuse(tunnel.intersect(
-        _ybox(inner[0], inner[1], fore, aft, inner[4], inner[5])))
+    feature = tunnel.intersect(_ybox(inner[0], inner[1], fore, aft, inner[4], inner[5]))
+    bore = _rect_cut_y(cx, cz, wx, wz, r, fore - 1.0, outer[3] + 1.0)
+    inserts = tuple(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth)
+                    for sx, sz in stations)
+    return feature, bore, inserts
+
+
+def c14_ceiling_cap(inner, outer, stations, ports, stock):
+    """The part of the C14 tunnel owned by the sliding ceiling.
+
+    The tunnel's crown enters the ceiling's structural field. Keeping that crown on back-top
+    would leave a fixed stop across the panel's aft travel; owning exactly the intersection
+    here preserves the installed union while carrying the obstruction through the dado with
+    the panel. The same cutters are applied on both sides of the ownership split."""
+    geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
+    if geometry is None:
+        return None
+    feature, bore, inserts = geometry
+    cap = feature.intersect(stock).cut(bore)
+    for cutter in inserts:
+        cap = cap.cut(cutter)
+    return cap
+
+
+def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
+    """Fuse the fixed portion of the C14 tunnel to its back-wall piece and open its bores."""
+    geometry = _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1)
+    if geometry is None:
+        return solid
+    feature, bore, inserts = geometry
+    # The upper cap belongs to the panel because the deeper field has to slide through this
+    # station. At the installed pose the two pieces' union is the uncut feature.
+    solid = solid.fuse(feature.cut(_ceiling().structural_stock()))
     # The bore, opened through everything standing round it. The wall's own cutters run to its
     # inner face and this one runs to the tunnel's, so the hole is one rectangle end to end.
-    solid = solid.cut(_rect_cut_y(cx, cz, wx, wz, r, fore - 1.0, outer[3] + 1.0))
-    for sx, sz in stations:
-        solid = solid.cut(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth))
+    solid = solid.cut(bore)
+    for cutter in inserts:
+        solid = solid.cut(cutter)
     return solid
 
 
