@@ -1437,13 +1437,13 @@ grip_head = 8.0              # and over it, under the ceiling the motor cans ope
 grip_back = 2.0 * wall       # deck section between the grip floor and the pump's room
 grip_cap_back = wall         # cap section between its grip floor and the pump head's room
 grip_aft = wall              # and between its aft wall and the face that lands on the steel
-# THE LEDGE IS RAKED IN PLAN, ONE IN FIVE. It stands further FORE the further INBOARD it
-# runs, so the normal it presents to a fingertip carries a fifth of itself INBOARD: the
+# THE LEDGE IS RAKED IN PLAN, ONE IN THREE. It stands further FORE the further INBOARD it
+# runs, so the normal it presents to a fingertip carries a third of itself INBOARD: the
 # harder a hand pulls, the harder it is drawn toward the centre of the piece and down into
 # the pocket. The one edge this pocket has no wall on is the open flank, and inboard is the
 # way away from it. It costs `grip_rake` times the pocket's own reach of block fore of the
 # ledge, out of the forty millimetres standing there.
-grip_rake = 0.2              # the ledge's fall in Y per millimetre it runs inboard
+grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inboard
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from:
