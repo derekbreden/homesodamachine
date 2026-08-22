@@ -1,0 +1,329 @@
+name: publish CAD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - hardware/**
+      - tools/bazel/**
+      - tools/cad-artifacts/**
+      - tools/cad-venv-site/**
+      - tools/ci-image/**
+      - tools/docgen/**
+      - tools/render/**
+      - web/**
+      - updates/**
+      - render.yaml
+      - .dockerignore
+      - BUILD.bazel
+      - MODULE.bazel
+      - MODULE.bazel.lock
+      - .bazelrc
+      - .bazelversion
+      - tools/cad-requirements.txt
+      - '!hardware/cad-artifacts.lock.json'
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: Extra Bazel targets to union with unpublished source debt
+        required: false
+        type: string
+      all:
+        description: Rebuild every artifact rule (toolchain recovery or explicit audit)
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: publish-cad
+  cancel-in-progress: true
+
+permissions:
+  actions: write
+  contents: write
+  packages: read
+
+jobs:
+  # Resolve a content-tagged image before the container job starts. The OCI digest also
+  # namespaces caches because Bazel cannot see the external CAD interpreter as an action input.
+  image:
+    runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ steps.resolve.outputs.ref }}
+      identity: ${{ steps.resolve.outputs.identity }}
+      sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: The image inputs
+        id: source
+        run: |
+          echo "sha=$(python3 tools/ci-image/digest.py)" >> "$GITHUB_OUTPUT"
+          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}-cad" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: The exact published image
+        id: resolve
+        env:
+          IMAGE: ${{ steps.source.outputs.image }}
+          SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          tag="$IMAGE:cad-$SHA"
+          for attempt in $(seq 1 90); do
+            report=$(docker buildx imagetools inspect "$tag" 2>/dev/null || true)
+            digest=$(awk '$1 == "Digest:" {print $2; exit}' <<< "$report")
+            if [[ "$digest" == sha256:* ]]; then
+              ref="$IMAGE@$digest"
+              identity=$digest
+              identity=${identity/:/-}
+              echo "ref=$ref" >> "$GITHUB_OUTPUT"
+              echo "identity=$identity" >> "$GITHUB_OUTPUT"
+              echo "$ref"
+              exit 0
+            fi
+            echo "cad-$SHA is not published yet ($attempt/90)"
+            sleep 10
+          done
+          echo "the exact CAD image did not become available" >&2
+          exit 1
+
+  publish:
+    needs: image
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    container:
+      image: ${{ needs.image.outputs.ref }}
+      options: --shm-size=2g
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: The CAD environment
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          [ "$HSM_REQ_SHA" = "${{ needs.image.outputs.sha }}" ]
+          ln -sfn "$HSM_CAD_VENV"       tools/cad-venv
+          ln -sfn "$HSM_RENDER_MODULES" tools/render/node_modules
+          ln -sfn "$HSM_WEB_MODULES"    web/node_modules
+          tools/cad-venv/bin/python tools/cad-venv-site/install.py --check
+          tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
+          mkdir -p .cache "$HOME/.cache/bazel-disk"
+
+      - name: The locked inputs
+        run: node web/scripts/fetch-cad-artifacts.mjs
+
+      - name: The checked build graph
+        run: |
+          tools/cad-venv/bin/python tools/bazel/gen_build.py
+          git diff --exit-code -- BUILD.bazel
+
+      # The lock's source is the accumulation point. A canceled run loses no change: the next
+      # run builds the range from the last published source through its own checkout.
+      - name: The affected artifact rules
+        id: scope
+        env:
+          REQUESTED: ${{ inputs.targets }}
+        run: |
+          : > /tmp/cad-requested
+          if [ -n "$REQUESTED" ]; then
+            printf '%s\n' "$REQUESTED" | tr ', ' '\n\n' | sed '/^$/d' | \
+              awk '{ if ($0 ~ /^\/\//) print; else { sub(/^:/, ""); print "//:" $0 } }' | \
+              sort -u > /tmp/cad-requested
+          fi
+
+          base=$(tools/cad-venv/bin/python -c \
+            'import json; print(json.load(open("hardware/cad-artifacts.lock.json")).get("source", {}).get("commit", ""))')
+          if [ -z "$base" ] || [ "${{ inputs.all }}" = "true" ]; then
+            tools/cad-venv/bin/python tools/bazel/affected.py --all-artifacts \
+              > /tmp/cad-accumulated
+          else
+            git cat-file -e "$base^{commit}" 2>/dev/null || \
+              git fetch --no-tags --depth=1 origin "$base"
+            git cat-file -e "$base^{commit}"
+            tools/cad-venv/bin/python tools/bazel/affected.py \
+              --base "$base" --head "$GITHUB_SHA" --artifacts > /tmp/cad-accumulated
+          fi
+          cat /tmp/cad-accumulated /tmp/cad-requested | sort -u > /tmp/cad-targets
+          count=$(wc -l < /tmp/cad-targets | tr -d ' ')
+          {
+            echo "count=$count"
+            echo 'targets<<CAD_TARGETS'
+            cat /tmp/cad-targets
+            echo 'CAD_TARGETS'
+          } >> "$GITHUB_OUTPUT"
+          echo "$count artifact target(s)"
+          sed 's/^/  /' /tmp/cad-targets
+
+      - name: Restore the drawn solids
+        if: steps.scope.outputs.count != '0'
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache/realized
+          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: realized-${{ needs.image.outputs.identity }}-
+
+      - name: Restore the Bazel disk cache
+        if: steps.scope.outputs.count != '0'
+        continue-on-error: true
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/bazel-disk
+          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: bazel-${{ needs.image.outputs.identity }}-
+
+      - name: Build the affected artifact rules
+        if: steps.scope.outputs.count != '0'
+        env:
+          TARGETS: ${{ steps.scope.outputs.targets }}
+        run: |
+          mapfile -t targets <<< "$TARGETS"
+          bazel build --disk_cache="$HOME/.cache/bazel-disk" "${targets[@]}"
+
+      - name: Verify and carry the complete cut
+        if: steps.scope.outputs.count != '0'
+        env:
+          TARGETS: ${{ steps.scope.outputs.targets }}
+        run: |
+          set +e
+          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py \
+            --annotate --assume-fresh --targets "$TARGETS"
+          rc=$?
+          set -e
+          [ "$rc" -le 1 ]
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --solids-only \
+            --targets "$TARGETS"
+
+      # This also advances source.commit on a zero-artifact hardware change, so Render can
+      # deploy served hardware only after the artifact lock covers its source.
+      - name: Publish the bundle
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune
+          tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write
+
+      - name: Commit the artifact lock
+        id: commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          queue_latest() {
+            echo "queueing publication from the current main tip"
+            gh workflow run publish-cad.yml --ref main
+            echo "queued=true" >> "$GITHUB_OUTPUT"
+          }
+
+          if git diff --quiet -- hardware/cad-artifacts.lock.json; then
+            echo "the lock already covers this source"
+            exit 0
+          fi
+          git config user.name  "Derek Bredensteiner"
+          git config user.email "derekbreden@gmail.com"
+          git add hardware/cad-artifacts.lock.json
+          git commit -m "Publish the CAD cut for ${GITHUB_SHA:0:8}"
+          base="$GITHUB_SHA"
+
+          for attempt in 1 2 3; do
+            git fetch --deepen=100 origin main
+            tip=$(git rev-parse origin/main)
+            if [ "$tip" != "$base" ]; then
+              if ! git diff --quiet "$base" "$tip" -- hardware/cad-artifacts.lock.json; then
+                source=$(git show "$tip:hardware/cad-artifacts.lock.json" | \
+                  tools/cad-venv/bin/python -c \
+                    'import json,sys; print(json.load(sys.stdin).get("source", {}).get("commit", ""))')
+                if [ -n "$source" ] && git merge-base --is-ancestor "$GITHUB_SHA" "$source"; then
+                  echo "a newer artifact lock already covers this source"
+                  lock_commit=$(git log -1 --format=%H "$base..$tip" -- \
+                    hardware/cad-artifacts.lock.json)
+                  echo "published=$lock_commit" >> "$GITHUB_OUTPUT"
+                  exit 0
+                fi
+                queue_latest
+                exit 0
+              fi
+
+              newer=$(tools/cad-venv/bin/python tools/bazel/affected.py \
+                --base "$base" --head "$tip" --artifacts)
+              if [ -n "$newer" ]; then
+                echo "newer CAD inputs reached main"
+                queue_latest
+                exit 0
+              fi
+
+              SOURCE_COMMIT="$tip" tools/cad-venv/bin/python -c \
+                'import json,os; from pathlib import Path; p=Path("hardware/cad-artifacts.lock.json"); d=json.loads(p.read_text()); d["source"]={"commit":os.environ["SOURCE_COMMIT"]}; p.write_text(json.dumps(d, indent=2)+"\n")'
+              git add hardware/cad-artifacts.lock.json
+              git commit --amend --no-edit
+              git rebase origin/main
+              base="$tip"
+            fi
+            if git push origin HEAD:main; then
+              echo "published=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "main moved under the lock push — retrying ($attempt/3)"
+          done
+          echo "could not publish the artifact lock after three tries" >&2
+          exit 1
+
+      # Persistence starts after the lock push, outside the public stale-window critical path.
+      - name: Save the drawn solids
+        if: always() && steps.scope.outputs.count != '0'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/realized
+          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Save the Bazel disk cache
+        if: always() && steps.scope.outputs.count != '0'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/bazel-disk
+          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Verify the production deployment
+        if: steps.commit.outputs.published != ''
+        env:
+          EXPECTED: ${{ steps.commit.outputs.published }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for attempt in $(seq 1 90); do
+            live=$(curl -fsS https://homesodamachine.com/api/version 2>/dev/null | \
+              tools/cad-venv/bin/python -c \
+                'import json,sys; print(json.load(sys.stdin).get("commit", ""))' 2>/dev/null || true)
+            if [ "$live" = "$EXPECTED" ]; then
+              echo "production serves $live"
+              exit 0
+            fi
+            if [ -n "$live" ]; then
+              status=$(gh api "repos/$GITHUB_REPOSITORY/compare/$EXPECTED...$live" \
+                --jq .status 2>/dev/null || true)
+              if [ "$status" = "ahead" ] || [ "$status" = "identical" ]; then
+                echo "production serves newer covered commit $live"
+                exit 0
+              fi
+            fi
+            echo "waiting for Render ($attempt/90; live ${live:-unavailable})"
+            sleep 10
+          done
+          echo "Render did not serve the published lock within 15 minutes" >&2
+          exit 1

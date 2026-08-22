@@ -2,18 +2,16 @@
 #
 # THE AGENT'S COMMIT CARRIES THE GEOMETRY. This carries what follows from it: the ledger's
 # masses, costs and hours, the docs' figures, the card deck, the full-tree build, and the
-# solids bundle the deploy fetches. None of it is a decision — every step is a number that
+# derived documents. None of it is a decision — every step is a number that
 # needs copying — and every one of them takes `_run_lock.py`'s global CAD lock, which is one
 # build at a time across the whole repo. Run here, three agents in one tree stop queueing
 # behind each other for work that informs none of their choices.
 #
-# A RED CHECK DOES NOT HOLD THIS, the same way it does not hold a commit. The full-tree build
-# reports and the derived commit lands anyway; a card that spills is the next commit's work,
-# not a reason for the ledger to go stale.
+# THE FULL BUILD AND CARRY MUST BOTH BE GREEN. A partial bazel-bin contains prior-run outputs,
+# so it is useful for warming caches but is never committed as a current derivation.
 #
-# THE PUSH-BACK DOES NOT RETRIGGER. GitHub does not start a workflow run for a push made with
-# the repository's own GITHUB_TOKEN, so the derived commit needs no `[skip ci]` marker and the
-# log keeps the voice the rest of the history has.
+# THE PUSH-BACK EXPLICITLY DISPATCHES PUBLICATION. GitHub does not start another workflow from
+# its own token's push, so the successful commit step queues the lock boundary itself.
 
 name: derive
 
@@ -55,17 +53,59 @@ concurrency:
   # so a dispatched run competes for the same single pending slot as every push. Forcing a
   # green run during a burst is not available; a lull is what delivers one.
   #
-  # THE GROUP STAYS WHOLE. Splitting it by event or by SHA puts two derives in flight, and
-  # both reach `pack.py --write` and the commit-back — the race the single group prevents.
+  # THE GROUP STAYS WHOLE. Splitting it puts two full derives and two commit-backs in flight.
   group: derive
   cancel-in-progress: false
 
 permissions:
+  actions: write
   contents: write
   packages: read
 
 jobs:
+  image:
+    runs-on: ubuntu-latest
+    outputs:
+      ref: ${{ steps.resolve.outputs.ref }}
+      identity: ${{ steps.resolve.outputs.identity }}
+      sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: The image inputs
+        id: source
+        run: |
+          echo "sha=$(python3 tools/ci-image/digest.py)" >> "$GITHUB_OUTPUT"
+          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}-cad" >> "$GITHUB_OUTPUT"
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@v3
+      - name: The exact published image
+        id: resolve
+        env:
+          IMAGE: ${{ steps.source.outputs.image }}
+          SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          tag="$IMAGE:cad-$SHA"
+          for attempt in $(seq 1 90); do
+            report=$(docker buildx imagetools inspect "$tag" 2>/dev/null || true)
+            digest=$(awk '$1 == "Digest:" {print $2; exit}' <<< "$report")
+            if [[ "$digest" == sha256:* ]]; then
+              echo "ref=$IMAGE@$digest" >> "$GITHUB_OUTPUT"
+              echo "identity=${digest/:/-}" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "the exact CAD image did not become available" >&2
+          exit 1
+
   derive:
+    needs: image
     runs-on: ubuntu-latest
     # A HUNG RUN HOLDS THE WHOLE LANE, and with no timeout it holds it for GitHub's default
     # SIX HOURS. Only one run is pending at a time, so a build that never returns does not
@@ -89,7 +129,7 @@ jobs:
     # `credentials` because a package published from a workflow starts private, and this
     # keeps working whichever way that setting goes.
     container:
-      image: ghcr.io/derekbreden/homesodamachine-cad:latest
+      image: ${{ needs.image.outputs.ref }}
       # A CONTAINER'S /dev/shm IS 64 MB AND A CARD IS BIGGER THAN THAT. The tools deck captures
       # 3300x2550 at dpr 1.2 — 12.1 MP, ~48 MB raw before compositing — and Chrome puts its
       # frames in shared memory. At the default size it falls back to `/tmp`, which here is the
@@ -111,7 +151,7 @@ jobs:
       # THE IMAGE IS THE ENVIRONMENT AND THE CHECKOUT IS THE TREE, and this is what ties
       # them. The three baked trees are linked into the paths the build names — both are
       # gitignored, so the links dirty nothing and `git add -A` below cannot sweep them —
-      # and `HSM_REQ_SHA`, the digest of the five files the image was built from, is held
+      # and `HSM_REQ_SHA`, the digest of the files the image was built from, is held
       # against the same digest recomputed here. They differ for exactly as long as
       # `cad-image` takes to catch up with a pin bump, and a run inside the old environment
       # should say so rather than derive quietly from the wrong CadQuery.
@@ -121,6 +161,7 @@ jobs:
           ln -sfn "$HSM_CAD_VENV"       tools/cad-venv
           ln -sfn "$HSM_RENDER_MODULES" tools/render/node_modules
           ln -sfn "$HSM_WEB_MODULES"    web/node_modules
+          tools/cad-venv/bin/python tools/cad-venv-site/install.py --check
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
           blender --version | head -1
           rsvg-convert --version
@@ -128,11 +169,9 @@ jobs:
           # form printed nothing and carried on — a check that reports only success.
           ls -d "$PUPPETEER_CACHE_DIR"/chrome* >/dev/null
           echo "chromium: baked"
-          want=$(cat tools/ci-image/Dockerfile tools/cad-requirements.txt \
-                     tools/render/package-lock.json web/package-lock.json .bazelversion \
-                 | sha256sum | cut -c1-16)
+          want=$(tools/cad-venv/bin/python tools/ci-image/digest.py)
           echo "image cad-$HSM_REQ_SHA / tree cad-$want"
-          [ "$HSM_REQ_SHA" = "$want" ] || echo "::warning title=cad-image::the image lags this tree — this run holds the environment from before the change"
+          [ "$HSM_REQ_SHA" = "$want" ]
 
       # The two caches that decide what this costs. `.cache/realized` is keyed on each part's
       # description plus the full text of every module it transitively imports, so a run that
@@ -140,11 +179,12 @@ jobs:
       # property that makes the local loop fast. Keyed on the tree's own python so a source
       # edit rolls the key forward and still restores the run before it.
       - name: Restore the drawn solids
-        uses: actions/cache@v4
+        continue-on-error: true
+        uses: actions/cache/restore@v4
         with:
           path: .cache/realized
-          key: realized-${{ hashFiles('hardware/**/*.py') }}
-          restore-keys: realized-
+          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: realized-${{ needs.image.outputs.identity }}-
 
       # A KEY THAT HITS IS A KEY THAT NEVER SAVES, and this one hit on every run. `actions/cache`
       # writes the cache back only when the PRIMARY key missed; a restore through `restore-keys`
@@ -167,11 +207,12 @@ jobs:
       # images themselves; a key naming two of them claims the other inputs cannot change, and
       # they change most commits. A rolling key makes no such claim.
       - name: Restore the bazel disk cache
-        uses: actions/cache@v4
+        continue-on-error: true
+        uses: actions/cache/restore@v4
         with:
           path: ~/.cache/bazel-disk
-          key: bazel-${{ github.sha }}
-          restore-keys: bazel-
+          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: bazel-${{ needs.image.outputs.identity }}-
 
       # `.bazelrc.paths` mounts the workspace's own .cache and bazel refuses a mount pair
       # whose source is absent. The cache action makes this on a hit; this makes it on a
@@ -196,22 +237,14 @@ jobs:
         run: node web/scripts/fetch-cad-artifacts.mjs
 
       - name: This checkout's own paths
-        run: tools/cad-venv/bin/python tools/bazel/gen_build.py
+        run: |
+          tools/cad-venv/bin/python tools/bazel/gen_build.py
+          git diff --exit-code -- BUILD.bazel
 
       - name: Build everything this tree makes
-        id: build
-        continue-on-error: true
-        # BOUNDED SHORTER THAN THE JOB, on purpose. A build that runs out here is a FAILED
-        # STEP rather than a killed job, so `continue-on-error` carries it to the verdict
-        # below and the ledger, the docs and the deck still run off the solids it did cut —
-        # the same treatment a red target gets. A job-level timeout alone would take those
-        # with it and derive nothing.
         timeout-minutes: 45
-        # `--keep_going` IS THE DOCTRINE, NOT A LENIENCY. Bazel stops the whole build at the
-        # first failing target, so a deck that spills two cards halts every generator behind
-        # it and the solids never get cut — which is how three runs ended `lock names this
-        # tree` while reading nothing but what the fetch had put there. A red target here is
-        # the next commit's work; everything that does not depend on it still owes its output.
+        # `--keep_going` fills both caches with every independent success before returning a
+        # failure. The job stops on that nonzero result; nothing from a partial cut is carried.
         #
         # NO `--output_user_root`. `sync_tree.py` re-invokes a bare `bazel` to ask
         # `--check_up_to_date`, and an output base only this line knows about is a base that
@@ -222,92 +255,41 @@ jobs:
         # took 270 s and 1926 s at four concurrent actions and 1905 s at two, and at two the
         # failure SPREAD to a second card and to the manual's cover. What decides it is the size
         # of the capture, not how many run at once, which is what `--shm-size` above addresses.
-        # WHICH TARGETS FAILED IS WRITTEN DOWN HERE BECAUSE THIS IS WHERE IT IS KNOWN. The carry
-        # below holds back the outputs of a target that failed, and nothing downstream of bazel
-        # can tell one from a target that simply did not need to run — `--check_up_to_date` asks
-        # about inputs, not about whether an action ran. `set +o pipefail` keeps the tee from
-        # deciding the step; bazel's own status does.
-        run: |
-          set +o pipefail
-          bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything 2>&1 \
-            | tee /tmp/bazel-build.log
-          rc=${PIPESTATUS[0]}
-          failed=$(grep -oE 'Executing genrule //[A-Za-z0-9_:.-]+ failed' /tmp/bazel-build.log \
-                   | grep -oE '//[A-Za-z0-9_:.-]+' | sed 's|^//:||' | sort -u | paste -sd, -)
-          echo "failed=$failed" >> "$GITHUB_OUTPUT"
-          echo "targets that failed: ${failed:-none}"
-          exit "$rc"
+        # Keep going fills both caches with every independent success, but a nonzero final
+        # status stops the carry. A mixed old/new output tree is not a derivation to commit.
+        run: bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
 
-      # BAZEL CUTS INTO `bazel-bin` AND THIS REPO COMMITS ITS TREE, and `sync_tree.py` is the
-      # only thing that carries one to the other — `hardware/README.md` names it as the step
-      # after a build. Without it the sequence is: the fetch puts the LOCKED solids in the
-      # tree, bazel cuts fresh ones into `bazel-bin`, nothing moves them across, and the
-      # ledger, the docs, the deck and `pack.py` all read what the fetch put there. Every
-      # layer agrees with every other and all of them describe the commit BEFORE this one.
-      #
-      # WHAT A FAILED TARGET CUT IS HELD BACK, AND ONLY THAT. Bazel keeps what a target cut the
-      # last time it succeeded, so a red target's `bazel-bin` is some earlier run's bytes and
-      # carrying them writes stale over correct — the one move here that cannot be taken back.
-      # `--check_up_to_date` does not see it: it asks whether an output matches its inputs, not
-      # whether the action ran, and it answers "up to date" for a target that failed minutes
-      # ago. So the build names its failures above and this holds those outputs back by name.
-      #
-      # A GREEN TARGET STILL OWES ITS OWN. Holding the whole carry on any red target is what
-      # kept every derived output a commit behind for a night — the ledger, the docs, the deck
-      # and `pack.py` all reading the solids the fetch put there, agreeing with each other and
-      # describing the commit before. One card that will not draw does not make the geometry
-      # unknowable, and the step below says which happened either way.
+      - name: Save the drawn solids
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/realized
+          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Save the Bazel disk cache
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/bazel-disk
+          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      # Read bazel-bin before sync_tree changes tracked inputs. Exit 0 is byte agreement and
+      # exit 1 is a measured geometry difference; incomplete coverage (2+) stops the derive.
+      - name: The complete cut against the lock
+        run: |
+          set +e
+          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py \
+            --annotate --assume-fresh
+          rc=$?
+          set -e
+          [ "$rc" -le 1 ]
+
+      # Bazel cuts into bazel-bin; the ledger, docs, commit and artifact status read the tree.
+      # Carry only after the complete build and cut gates have both passed.
       - name: Carry what the build cut into the tree
-        id: sync
-        continue-on-error: true
-        # A BLOCK SCALAR, BECAUSE THE BACKSLASH HAS TO REACH THE SHELL. As a plain scalar
-        # YAML folds the newline to a space and the trailing `\` survives as a literal
-        # argument — the shell saw `\` and then a bare `--failed`, and sync_tree exited 2 on
-        # "unrecognized arguments" before it read a single output. The carry reported failure
-        # on a build that was fully GREEN, which is the one case this step exists to serve.
-        run: |
-          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
-            --failed "${{ steps.build.outputs.failed }}"
-
-      # A RED BUILD DOES NOT HOLD THIS, but it must not be silent either: `continue-on-error`
-      # reports the step as a success, so a build that cut no solids reached the ledger and
-      # died there naming a missing STEP instead of naming itself. This says which happened.
-      - name: What the build said
-        run: |
-          echo "full-tree build: ${{ steps.build.outcome }}"
-          echo "carry into the tree: ${{ steps.sync.outcome }}"
-          [ "${{ steps.sync.outcome }}" = "success" ] || \
-            echo "::warning title=derived from the commit before this one::sync_tree carried nothing, so everything below reads the solids the fetch put in the tree — this commit's geometry is in bazel-bin and no step above reaches it. A lock that reads clean here is comparing the fetch to the lock it came from."
-          [ "${{ steps.build.outcome }}" = "success" ] || \
-            echo "::warning title=full-tree build::did not complete — what follows derives from the solids it did cut, and a lock reading clean off a build that cut none is reading only what the fetch sha256-verified on the way in"
-
-      # THE ONE MEASUREMENT THIS PIPELINE EXISTS FOR, AND IT NEEDS NO CARRY. Everything else
-      # here hashes the TREE, and on a runner the tree's solids came from the bundle the lock
-      # names — so `pack.py` below compares the lock against its own bundle and agrees with
-      # itself. That is the circularity every green has carried. This reads `bazel-bin`: the
-      # bytes this container's OpenCASCADE cut minutes ago, which nothing else ever hashes.
-      #
-      # WAITING FOR A CARRIED `.step` WAS WAITING FOREVER. `sync_tree` moves TRACKED paths and
-      # `*.step` is gitignored, because solids reach a machine through the bundle by design. A
-      # green run with `//:enclosure` executed still carries zero solids — not a failure, a
-      # construction — so the comparison had to stop depending on the carry, and does.
-      #
-      # IT REFUSES RATHER THAN GUESSES. A difference has three causes: the kernels disagree,
-      # the lock is behind the source, or `bazel-bin` holds a target's older output. The script
-      # asks `--check_up_to_date` to exclude the third and takes `--failed` for the targets
-      # whose outputs are last run's, and where it cannot separate the first two it says so
-      # instead of picking. `continue-on-error` because a difference is this job's finding, not
-      # its failure — exit 1 means it measured and they differ, which is a result to read.
-      #
-      # BEFORE `pack.py --write`, WHICH REPINS. Run after it, the lock would name the bytes
-      # this run just packed and the comparison would be against itself again.
-      - name: The solids this container cut, against the lock
-        continue-on-error: true
-        # A BLOCK SCALAR, for the reason the carry above carries: folded, the trailing `\`
-        # reaches the shell as a literal argument instead of a continuation.
-        run: |
-          tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py --annotate \
-            --failed "${{ steps.build.outputs.failed }}"
+        run: tools/cad-venv/bin/python tools/bazel/sync_tree.py --write
 
       # The ledger, in the order the modules document: masses price the totals, and the
       # totals' §7 feeds the print hours.
@@ -325,53 +307,17 @@ jobs:
           tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
 
       - name: The card deck
-        continue-on-error: true
         run: tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py
 
-      # The solids, as one content-addressed release asset the deploy fetches. `--write` is a
-      # no-op on a tree whose geometry has not moved: it lands on the same asset name and the
-      # same bytes, and never rewrites one already on the release.
-      #
-      # AND WHICH OF THE TWO HAPPENED IS THE SITE'S LATENCY, so it is worth saying out loud.
-      # `render.yaml`'s buildFilter carries `hardware/**`, and the lock lives there, so a
-      # geometry commit and a lock commit each fire their own deploy. A commit that carried
-      # its own lock — which `CLAUDE.md` requires and which costs 1.62 s on the machine that
-      # just cut the solids — deploys ONCE, with the geometry and the solids together, and
-      # this step is the no-op that confirms it. A commit that did not deploys twice: the
-      # first serving the previous bundle, and the site stays stale for as long as this whole
-      # run takes. `lock is behind` here is that, and it is the only line in the job that
-      # measures how long homesodamachine.com served the wrong solids.
-      - name: The bundle, and the lock that names it
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Bundle publication is isolated in `publish-cad.yml`. This full derive verifies that
+      # its carried tree is complete and reports a behind lock without competing to repin it.
+      - name: Artifact publication status
         run: |
-          set -o pipefail
-          tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write 2>&1 | tee /tmp/pack.log
-          # `lock is behind` HAS TWO CAUSES AND THEY ARE OPPOSITE READINGS. Before the carry
-          # ran, the solids on this disk are the ones the fetch put there, so a lock that
-          # disagrees with them is a commit that moved geometry without repinning — an agent's
-          # missed step, and the site served the old bundle until now.
-          #
-          # AFTER A CARRY THAT SUCCEEDED, THE SOLIDS ON THIS DISK ARE THE ONES LINUX JUST CUT.
-          # A lock that disagrees with THOSE is not a missed step by anybody: it is this
-          # pipeline's whole question answered no — a linux OCC does not write the bytes the
-          # machine that pinned them wrote. Which also means the repin below replaces a Mac's
-          # bytes with a Linux one's, and the next hand repin replaces them back.
-          if grep -q "lock is behind" /tmp/pack.log; then
-            if [ "${{ steps.sync.outcome }}" = "success" ]; then
-              echo "::warning title=byte answer::THE BYTES DIFFER. The carry ran, so these are linux-cut solids, and the lock does not name them. This is not a missed repin — the kernel here writes a STEP the machine that pinned these did not. The repin below pins the linux bytes, and a repin on that machine will pin them back."
-            else
-              echo "::warning title=lock::the commit that triggered this run did not carry its own lock — the site served the previous bundle until now, and the derived commit below is a second deploy"
-            fi
-          elif [ "${{ steps.sync.outcome }}" != "success" ]; then
-            # AND `lock names this tree` MEANS NOTHING WHEN THE CARRY DID NOT HAPPEN. The
-            # solids on this disk are the ones `fetch-cad-artifacts.mjs` put there, each
-            # already held to its own sha256 on the way in, so pack is comparing the fetch
-            # to the lock the fetch came from. The one question this job exists to settle —
-            # whether a linux OCC writes the bytes a macOS OCC writes — is answered by this
-            # line only on a run whose build finished and whose carry ran.
-            echo "::notice title=lock::circular — pack read the fetched solids, not built ones. The byte question is still open."
-          fi
+          set +e
+          tools/cad-venv/bin/python tools/cad-artifacts/pack.py --check
+          rc=$?
+          set -e
+          [ "$rc" -le 1 ]
 
       - name: Commit what moved
         run: |
@@ -391,25 +337,43 @@ jobs:
           git commit -F - <<'MSG'
           the tree names what it makes
 
-          The ledger, the docs, the deck and the lock, re-derived off the geometry in the
+          The ledger, the docs and the deck, re-derived off the geometry in the
           commit before this one.
 
           Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
           MSG
-          # Three agents share this branch, so the tip can move while this runs.
-          # A rebase that CONFLICTS is a derived file two runs disagree about, and the run
-          # that answers it is the next one — over the tree as it then stands, not over a
-          # merge of two halves. So abort and fail; the push that lands next re-derives.
+          base="$GITHUB_SHA"
           for i in 1 2 3; do
-            # The clone is shallow, so deepen before rebasing — a merge base outside the
-            # boundary is a rebase that fails on history rather than on a derived file.
-            git fetch --deepen=50 origin main || true
-            if ! git pull --rebase origin main; then
-              git rebase --abort || true
-              echo "a derived file conflicts with main — the next push re-derives it" >&2
-              exit 1
+            git fetch --deepen=50 origin main
+            tip=$(git rev-parse origin/main)
+            if [ "$tip" != "$base" ]; then
+              newer=$(tools/cad-venv/bin/python tools/bazel/affected.py \
+                --base "$base" --head "$tip")
+              if [ -n "$newer" ]; then
+                echo "main has newer build inputs; queueing a derive at its tip"
+                GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+                  gh workflow run derive.yml --ref main
+                exit 0
+              fi
+              if ! git rebase origin/main; then
+                mapfile -t conflicts < <(git diff --name-only --diff-filter=U)
+                if [ "${#conflicts[@]}" -eq 0 ]; then
+                  git rebase --abort || true
+                  exit 1
+                fi
+                # Both sides are generated. Main is newer for a conflicting file; retain it
+                # and land every non-conflicting result from this run.
+                git checkout --ours -- "${conflicts[@]}"
+                git add -- "${conflicts[@]}"
+                GIT_EDITOR=true git rebase --continue
+              fi
+              base="$tip"
             fi
-            git push origin HEAD:main && exit 0
+            if git push origin HEAD:main; then
+              GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+                gh workflow run publish-cad.yml --ref main
+              exit 0
+            fi
             echo "main moved under the push — retrying"
           done
           echo "could not land the derived commit after three tries" >&2

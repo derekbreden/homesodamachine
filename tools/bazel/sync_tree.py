@@ -3,11 +3,13 @@
 
     tools/cad-venv/bin/python tools/bazel/sync_tree.py            # what differs
     tools/cad-venv/bin/python tools/bazel/sync_tree.py --write    # and copy it in
+    tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+        --targets //:ceiling-panel                                # one built slice
     tools/cad-venv/bin/python tools/bazel/sync_tree.py selftest   # the carry, on fixtures
 
-Bazel cuts into `bazel-bin/`, and this repo commits its solids and its docs, because a reader
-at `/3d` and a shop printing a part both take them off the tree rather than off a build. So the
-two live side by side: the build is what decides the bytes, and this is what hands them over.
+Bazel cuts into `bazel-bin/`, while the artifact packer and derived-doc tools read the tree.
+The build is what decides the bytes, and this is what hands every declared output over — tracked
+docs as well as ignored solids that leave the checkout through the content-addressed bundle.
 
 WHAT DIFFERS IS THE READING. A tree that comes back with nothing to copy is a tree holding the
 artifacts its sources make — asked here for the cost of a comparison, because the build ran.
@@ -80,9 +82,20 @@ def _rewritten() -> set:
     return {f for seen in graph.values() for f in seen.get("rewritten", ())}
 
 
-def _targets() -> dict:
-    """`{bazel output path: tracked path}` — read off the BUILD file's own outs."""
-    q = subprocess.run(["bazel", "cquery", "//...", "--output=files"],
+def _labels(raw: str) -> list:
+    """Canonical labels in a comma- or whitespace-separated command-line slice."""
+    out = []
+    for item in re.split(r"[\s,]+", raw.strip()):
+        if not item:
+            continue
+        out.append(item if item.startswith("//") else f"//:{item.lstrip(':')}")
+    return sorted(set(out))
+
+
+def _targets(labels=()) -> dict:
+    """`{bazel output path: tree path}` for a target slice and all of its dependencies."""
+    query = (f"deps(set({' '.join(labels)}))" if labels else "deps(//:everything)")
+    q = subprocess.run(["bazel", "cquery", query, "--output=files"],
                        cwd=str(_ROOT), capture_output=True, text=True)
     # A GRAPH THAT DOES NOT LOAD IS NOT A TREE THAT IS STALE. An unanswerable query and a
     # tree nobody has built for come back the same way — no outputs — and reporting the
@@ -91,12 +104,10 @@ def _targets() -> dict:
         first = next((ln for ln in q.stderr.splitlines() if ln.startswith("ERROR")), "")
         raise SystemExit(f"  the build graph does not load, so nothing here can be read\n"
                          f"  {first}")
-    tracked = set(subprocess.run(["git", "-C", str(_ROOT), "ls-files"],
-                                 capture_output=True, text=True, check=True).stdout.split())
     out, claimed = {}, {}
     for line in q.stdout.split():
         m = _DECLARED.search(line)
-        if not m or m.group(1) not in tracked:
+        if not m:
             continue
         hit = m.group(1)
         # TWO ACTIONS CUTTING ONE FILE is a graph that cannot be carried into a tree, because
@@ -225,8 +236,13 @@ def main() -> int:
     ap.add_argument("--write", action="store_true", help="copy what differs into the tree")
     ap.add_argument("--failed", default="", metavar="TARGET[,TARGET…]",
                     help="targets that failed this run; their outputs are not carried")
+    ap.add_argument("--targets", default="", metavar="TARGET[,TARGET…]",
+                    help="carry this built slice and its dependencies; default: //:everything")
+    ap.add_argument("--solids-only", action="store_true",
+                    help="carry publishable CAD outputs, leaving derived docs in bazel-bin")
     args = ap.parse_args()
     failed = {t.strip().lstrip("/").lstrip(":") for t in args.failed.split(",") if t.strip()}
+    labels = _labels(args.targets)
 
     # A BUILD THAT DID NOT FINISH LEAVES THE LAST ONE'S OUTPUTS STANDING. Bazel keeps what a
     # target cut the last time it succeeded, so a failed build's `bazel-bin` is a mix of what
@@ -238,7 +254,8 @@ def main() -> int:
     # runs no action, and costs a graph read. Only `--write` is held: reporting what differs
     # against a half-built tree is still worth reading, and it changes nothing.
     if args.write:
-        q = subprocess.run(["bazel", "build", "--check_up_to_date", "//:everything"],
+        q = subprocess.run(["bazel", "build", "--check_up_to_date",
+                            *(labels or ["//:everything"])],
                            cwd=str(_ROOT), capture_output=True, text=True)
         owed = [ln for ln in q.stderr.splitlines() if "not up-to-date" in ln]
         # THE WORKSPACE STATUS ACTION IS NEVER UP TO DATE AND NEVER CAN BE. Bazel re-runs
@@ -254,16 +271,19 @@ def main() -> int:
         if q.returncode != 0 and (stale or not owed):
             print("  the build is not up to date, so what is in bazel-bin is not what these\n"
                   "  sources make — carrying it into the tree would write stale bytes over\n"
-                  "  whatever is there. Run `bazel build //:everything` first.")
+                  "  whatever is there. Build the requested target slice first.")
             for ln in (stale or owed)[:5]:
                 print(f"  {ln.strip()}")
             if len(stale or owed) > 5:
                 print(f"  …and {len(stale or owed) - 5} more")
             return 1
 
-    pairs = _targets()
+    pairs = _targets(labels)
+    if args.solids_only:
+        pairs = {built: tree for built, tree in pairs.items()
+                 if tree.endswith((".step", ".stl", ".glb", ".step.mesh"))}
     if not pairs:
-        print("  nothing built — run `bazel build //...` first")
+        print("  nothing built — run the requested `bazel build` first")
         return 1
 
     # A TARGET THAT FAILED THIS RUN STILL HAS THE OUTPUTS OF THE LAST RUN THAT DID NOT. Bazel
@@ -311,6 +331,7 @@ def main() -> int:
 
     if args.write:
         for b, t, _rel, want in differs:
+            t.parent.mkdir(parents=True, exist_ok=True)
             if want is None:
                 # THE BYTES AND NOT THE MODE. Bazel leaves an output read-only and executable,
                 # and a copy that carries that over hands the tree a file its own generator
@@ -319,16 +340,16 @@ def main() -> int:
                 shutil.copyfile(b, t)
             else:
                 t.write_text(want)
-        print(f"{len(differs)} carried into the tree")
+        print(f"{len(differs)} carried into the tree"
+              + (f", {len(missing)} declared output(s) absent" if missing else ""))
         # AND CARRYING IS NOT A FAULT. `differs` is the work this mode exists to do, so by the
         # line above it is the work DONE. Sharing `--check`'s exit with it meant `--write`
         # could only ever report success on a run with nothing to carry: derive 32480943980
         # moved 53 files and came back 1, and `derive.yml` reads that as
         # `sync_tree carried nothing` and warns that every step below it read the fetch.
-        # What is left undone is `unknown` — read back over, no splice for its suffix, still
-        # standing where the tree had it — and that is the only thing here a caller cannot see
-        # from the count.
-        return 0 if not unknown else 1
+        # What is left undone is `unknown`, or an output the requested build never produced.
+        # Either makes the carry incomplete even when every available difference was copied.
+        return 0 if not unknown and not missing else 1
     print(f"{len(pairs) - len(differs) - len(missing) - len(unknown)}/{len(pairs)} artifacts "
           f"in the tree are the ones the build cut"
           + (f", {len(missing)} not built" if missing else "")
@@ -337,7 +358,7 @@ def main() -> int:
     # missing when the comparison ran; under `--write` those files have just been written into
     # it, so the tree now holds what the build cut. What is still owed either way is `unknown`
     # — a rewritten medium with no carry in the table, which nothing here can hand over.
-    return 0 if not unknown and (args.write or not differs) else 1
+    return 0 if not unknown and not missing and (args.write or not differs) else 1
 
 
 def selftest() -> int:
@@ -348,6 +369,14 @@ def selftest() -> int:
 
     sources = ("## Sources\n[value](NAME) texts are updated by:\n"
                "- `/hardware/assembly/_a_sync.py`\n")
+
+    holds(_labels("ceiling-panel, //:enclosure"),
+          ["//:ceiling-panel", "//:enclosure"],
+          "a scoped target list was not canonicalized")
+    sample = "/tmp/bazel-out/darwin/bin/out/ceiling-panel/hardware/panel.step"
+    match = _DECLARED.search(sample)
+    holds(match.group(1) if match else None, "hardware/panel.step",
+          "an ignored declared STEP was not mapped back into the tree")
 
     # A MARKDOWN DOC. The build was handed the old sentence; the tree holds the new one and the
     # old figure. What comes back is the new sentence at the build's figure.
@@ -432,7 +461,7 @@ def selftest() -> int:
         raise ValueError(f"read back over and carried by nothing here: "
                          f"{', '.join(f'{k} ({kinds[k]})' for k in astray)}")
 
-    print(f"  sync_tree selftest: 11 holds, the build's figures and the tree's own text; "
+    print(f"  sync_tree selftest: 13 holds, the build's figures and the tree's own text; "
           f"{sum(kinds.values())} files read back over, every medium carried")
     return 0
 
