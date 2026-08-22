@@ -1,7 +1,7 @@
 // The document convention, shared by the server's walker and its file route.
 //
-// A document is a PDF a person is handed whole — the deck a bench builds from,
-// the manual that ships in the carton. The site shows its cover and opens it.
+// A document is a PDF a person is handed whole — a deck, a drawing set, or a
+// customer instruction sheet. The site shows its cover and opens it.
 //
 // Three files stand together, named off the PDF:
 //

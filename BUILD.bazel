@@ -2728,79 +2728,6 @@ cp hardware/manifold-layout/README.md $$O2
 )
 
 genrule(
-    name = "manual-build",
-    srcs = [
-        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
-        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
-        "hardware/assembly/cards/fonts/OFL.txt",
-        "hardware/manual/00-cover.html",
-        "hardware/manual/01-contents.html",
-        "hardware/manual/02-where-it-goes.html",
-        "hardware/manual/03-water.html",
-        "hardware/manual/04-co2.html",
-        "hardware/manual/05-faucet.html",
-        "hardware/manual/06-umbilical.html",
-        "hardware/manual/07-power.html",
-        "hardware/manual/08-first-pour.html",
-        "hardware/manual/09-every-day.html",
-        "hardware/manual/10-care.html",
-        "hardware/manual/11-back.html",
-        "hardware/manual/README.md",
-        "hardware/manual/STYLE.md",
-        "pysrc/hardware/manual/_build.py",
-        "hardware/manual/manual-print.pdf",
-        "hardware/manual/manual.cover.png",
-        "hardware/manual/manual.pdf",
-        "hardware/manual/manual.pdf.json",
-        "hardware/manual/style.css",
-        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
-        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "tools/render/render-card.js",
-        ":node-packages",
-    ],
-    outs = [
-        "out/manual-build/hardware/manual/manual-print.pdf",
-        "out/manual-build/hardware/manual/manual.cover.png",
-        "out/manual-build/hardware/manual/manual.pdf",
-        "out/manual-build/hardware/manual/manual.pdf.json",
-    ],
-    tags = ["requires-network"],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/manual-build/hardware/manual/manual-print.pdf)
-O1=$$PWD/$(location out/manual-build/hardware/manual/manual.cover.png)
-O2=$$PWD/$(location out/manual-build/hardware/manual/manual.pdf)
-O3=$$PWD/$(location out/manual-build/hardware/manual/manual.pdf.json)
-for f in $(SRCS); do
-  case $$f in */node_modules/*) continue;; esac
-  t=$${f##*/pysrc/}
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/manual/_build.py > /dev/null
-cp hardware/manual/manual-print.pdf $$O0
-cp hardware/manual/manual.cover.png $$O1
-cp hardware/manual/manual.pdf $$O2
-cp hardware/manual/manual.pdf.json $$O3
-""",
-)
-
-genrule(
     name = "cold-core-interface",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -4867,6 +4794,95 @@ cp hardware/printed-parts/zone-c/hopper-funnel/README.md $$O2
 )
 
 genrule(
+    name = "quickstart-build",
+    srcs = [
+        "firmware/src_faucet/images/flavor0_faucet.h",
+        "firmware/src_faucet/images/flavor1_faucet.h",
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
+        "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
+        "hardware/assembly/cards/fonts/OFL.txt",
+        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+        "hardware/faucet-layout/faucet-assembly.step",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "pysrc/hardware/printed-parts/enclosure/drawings/line-art/_blender_render.py",
+        "pysrc/hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
+        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.svg",
+        "hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.svg",
+        "hardware/quickstart/00-install.html",
+        "hardware/quickstart/01-first-glass.html",
+        "hardware/quickstart/README.md",
+        "pysrc/hardware/quickstart/_art.py",
+        "pysrc/hardware/quickstart/_build.py",
+        "hardware/quickstart/art/colors.css",
+        "hardware/quickstart/art/faucet-install.svg",
+        "hardware/quickstart/art/flavor-1.png",
+        "hardware/quickstart/art/flavor-2.png",
+        "hardware/quickstart/art/under-counter-plate.svg",
+        "hardware/quickstart/quick-start.cover.png",
+        "hardware/quickstart/quick-start.pdf",
+        "hardware/quickstart/quick-start.pdf.json",
+        "hardware/quickstart/style.css",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+        "tools/render/render-card.js",
+        "web/public/update-images/2026-08-19-port-rings.png",
+        "web/public/update-images/2026-08-19-tube-collars.png",
+        ":node-packages",
+    ],
+    outs = [
+        "out/quickstart-build/hardware/quickstart/art/colors.css",
+        "out/quickstart-build/hardware/quickstart/art/faucet-install.svg",
+        "out/quickstart-build/hardware/quickstart/art/flavor-1.png",
+        "out/quickstart-build/hardware/quickstart/art/flavor-2.png",
+        "out/quickstart-build/hardware/quickstart/art/under-counter-plate.svg",
+        "out/quickstart-build/hardware/quickstart/quick-start.cover.png",
+        "out/quickstart-build/hardware/quickstart/quick-start.pdf",
+        "out/quickstart-build/hardware/quickstart/quick-start.pdf.json",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/colors.css)
+O1=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/faucet-install.svg)
+O2=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/flavor-1.png)
+O3=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/flavor-2.png)
+O4=$$PWD/$(location out/quickstart-build/hardware/quickstart/art/under-counter-plate.svg)
+O5=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.cover.png)
+O6=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf)
+O7=$$PWD/$(location out/quickstart-build/hardware/quickstart/quick-start.pdf.json)
+for f in $(SRCS); do
+  case $$f in */node_modules/*) continue;; esac
+  t=$${f##*/pysrc/}
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/_build.py > /dev/null
+cp hardware/quickstart/art/colors.css $$O0
+cp hardware/quickstart/art/faucet-install.svg $$O1
+cp hardware/quickstart/art/flavor-1.png $$O2
+cp hardware/quickstart/art/flavor-2.png $$O3
+cp hardware/quickstart/art/under-counter-plate.svg $$O4
+cp hardware/quickstart/quick-start.cover.png $$O5
+cp hardware/quickstart/quick-start.pdf $$O6
+cp hardware/quickstart/quick-start.pdf.json $$O7
+""",
+)
+
+genrule(
     name = "asse1022-assembly",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
@@ -6810,7 +6826,6 @@ genrule(
         "hardware/manifold-layout/_scorecard.py",
         "hardware/manifold-layout/enclosure_assembly.py",
         "hardware/manifold-layout/manifold_layout.py",
-        "hardware/manual/_build.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -6862,6 +6877,8 @@ genrule(
         "hardware/printed-parts/valve-seat/valve_seat.py",
         "hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
         "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+        "hardware/quickstart/_art.py",
+        "hardware/quickstart/_build.py",
         "hardware/reference/asse1022-assembly/asse1022_assembly.py",
         "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
         "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -6968,7 +6985,6 @@ genrule(
         "pysrc/hardware/manifold-layout/_scorecard.py",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
-        "pysrc/hardware/manual/_build.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -7020,6 +7036,8 @@ genrule(
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
+        "pysrc/hardware/quickstart/_art.py",
+        "pysrc/hardware/quickstart/_build.py",
         "pysrc/hardware/reference/asse1022-assembly/asse1022_assembly.py",
         "pysrc/hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -11337,7 +11355,6 @@ filegroup(
         ":faucet-assembly",
         ":enclosure-assembly",
         ":manifold-layout",
-        ":manual-build",
         ":cold-core-interface",
         ":coil-mandrel",
         ":copper-plugs",
@@ -11367,6 +11384,7 @@ filegroup(
         ":valve-seat",
         ":hopper-funnel-mold",
         ":hopper-funnel",
+        ":quickstart-build",
         ":asse1022-assembly",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",
