@@ -18,8 +18,11 @@
 // It increments only when an actual bounce-buffer shortfall requires scan
 // recovery; normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
-// Two customer-rail icons: an exploded ratio pie and an upright pointing hand.
+// Static Font Awesome icons keep the customer rail and full-card actions crisp
+// without asking LVGL to transform text at runtime.
 extern "C" const lv_font_t rail_icons_36;
+extern "C" const lv_font_t clean_icon_36;
+extern "C" const lv_font_t front_action_icons_48;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -1442,11 +1445,11 @@ static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg
 
 // A card-sized target with an icon over a word.
 static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
-                           const char *icon, const char *label,
-                           lv_event_cb_t cb, void *user) {
+                           const char *icon, const lv_font_t *iconFont,
+                           const char *label, lv_event_cb_t cb, void *user) {
   lv_obj_t *b = mkBtn(parent, w, h, COL_CARD);
   lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
-  lv_obj_t *ic = mkText(b, icon, &lv_font_montserrat_48, COL_ACCENT);
+  lv_obj_t *ic = mkText(b, icon, iconFont, COL_ACCENT);
   lv_obj_align(ic, LV_ALIGN_CENTER, 0, -34);
   lv_obj_t *lb = mkText(b, label, &lv_font_montserrat_28, COL_TEXT);
   lv_obj_align(lb, LV_ALIGN_CENTER, 0, 26);
@@ -1468,7 +1471,7 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
                    LV_ALIGN_TOP_MID, 0, 2);
       break;
     case RAIL_CLEAN:
-      lv_obj_align(mkText(parent, LV_SYMBOL_LOOP, &lv_font_montserrat_28, COL_TEXT),
+      lv_obj_align(mkText(parent, "\xEF\x94\x9A", &clean_icon_36, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, 2);
       break;
     case RAIL_SETTINGS:
@@ -2205,8 +2208,6 @@ static void primePadCb(lv_event_t *e) {
 static void railCb(lv_event_t *e)     { showRail((RailPage)(intptr_t)lv_event_get_user_data(e)); }
 
 static void flvViewCb(lv_event_t *e)  { showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e)); }
-static void svcViewCb(lv_event_t *e)  { showService((ServiceView)(intptr_t)lv_event_get_user_data(e)); }
-static void choosePageCb(lv_event_t *e) { (void)e; showRail(RAIL_CHOOSE); }
 
 static void flavorPickCb(lv_event_t *e) {
   flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
@@ -2238,17 +2239,11 @@ static void cleanPickCb(lv_event_t *e) {
   showService(SVC_CLEAN_CONFIRM);
 }
 
-static void flavorToPrimeCb(lv_event_t *e) {
-  (void)e;
-  showRail(RAIL_PRIME);
-  showService(SVC_PRIME_HOLD);
-}
-
 static void cleanStartCb(lv_event_t *e) {
   (void)e;
   ChannelPayload p{flavorSel};
   j9Post(MSG_CLEAN_START, &p, sizeof(p));
-  setCleanMsg("asked the controller ...");
+  setCleanMsg("Starting clean cycle...");
 }
 
 static void ratioStepCb(lv_event_t *e) {
@@ -2380,7 +2375,7 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
 // objects do not redraw during routine controller heartbeats.
 static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-  lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_TEXT),
+  lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
   homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
                          &lv_font_montserrat_20, COL_WARN);
@@ -2426,7 +2421,8 @@ static void buildFlavor(lv_obj_t *page) {
     lv_obj_t *b = mkBtn(both, cw, 360, COL_CARD);
     lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
     lv_obj_add_event_cb(b, flavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
-    lv_obj_align(mkText(b, LV_SYMBOL_TINT, &lv_font_montserrat_48, COL_ACCENT), LV_ALIGN_TOP_MID, 0, 20);
+    lv_obj_align(mkText(b, "\xEF\x88\x80", &front_action_icons_48, COL_ACCENT),
+                 LV_ALIGN_TOP_MID, 0, 20);
     lv_obj_align(mkText(b, kFlavorName[i], &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_CENTER, 0, -10);
     flvCardLbl[i] = mkText(b, "1:12", &lv_font_montserrat_48, COL_TEXT);
     lv_obj_align(flvCardLbl[i], LV_ALIGN_CENTER, 0, 60);
@@ -2436,11 +2432,11 @@ static void buildFlavor(lv_obj_t *page) {
 
   lv_obj_t *det = mkView(page);
   mkBack(det, flvViewCb, (void *)(intptr_t)FLV_BOTH);
-  flvDetailName = mkText(det, "FLAVOR 2", &lv_font_montserrat_40, COL_TEXT);
+  flvDetailName = mkText(det, "FLAVOR 2", &lv_font_montserrat_40, COL_DIM);
   lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, 8);
 
   lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, 130);
-  lv_obj_align(row, LV_ALIGN_TOP_MID, 0, 90);
+  lv_obj_align(row, LV_ALIGN_CENTER, 0, 20);
   lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
   lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
   lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
@@ -2453,24 +2449,18 @@ static void buildFlavor(lv_obj_t *page) {
   flvDetailRatio = mkText(row, "1:12", &lv_font_montserrat_48, COL_TEXT);
   lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
 
-  lv_obj_t *lvl = mkCard(det, PANE_W - 2 * PANE_PAD, 92);
-  lv_obj_align(lvl, LV_ALIGN_TOP_MID, 0, 234);
-  lv_obj_align(mkText(lvl, "LEVEL", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_align(mkText(lvl, "--", &lv_font_montserrat_40, COL_DIM), LV_ALIGN_BOTTOM_LEFT, 0, 0);
-
-  lv_obj_t *pr = mkBtn(det, PANE_W - 2 * PANE_PAD, 82, COL_ACCENT);
-  lv_obj_align(pr, LV_ALIGN_BOTTOM_MID, 0, 0);
-  lv_obj_add_event_cb(pr, flavorToPrimeCb, ACT_EVENT, NULL);
-  lv_obj_center(mkText(pr, "PRIME THIS FLAVOR", &lv_font_montserrat_28, COL_TEXT));
   flvView[FLV_DETAIL] = det;
 }
 
 // Two flavor targets, side by side, under a title.
-static void buildFlavorPicker(lv_obj_t *view, const char *title, lv_event_cb_t cb) {
+static void buildFlavorPicker(lv_obj_t *view, const char *title,
+                              const char *icon, const lv_font_t *iconFont,
+                              lv_event_cb_t cb) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-  lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_RIGHT, 0, 14);
+  lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
   for (int i = 0; i < 2; i++) {
-    lv_obj_t *b = mkTapCard(view, cw, 300, LV_SYMBOL_TINT, kFlavorName[i], cb, (void *)(intptr_t)i);
+    lv_obj_t *b = mkTapCard(view, cw, 300, icon, iconFont, kFlavorName[i], cb,
+                             (void *)(intptr_t)i);
     lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
   }
 }
@@ -2479,15 +2469,14 @@ static void buildService(lv_obj_t *page) {
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
 
   lv_obj_t *pick = mkView(page);
-  mkBack(pick, choosePageCb, NULL);
-  buildFlavorPicker(pick, "CHOOSE A FLAVOR", primePickCb);
+  buildFlavorPicker(pick, "PRIME A FLAVOR", LV_SYMBOL_TINT, &lv_font_montserrat_48,
+                    primePickCb);
   svcView[SVC_PRIME_PICK] = pick;
 
   // The hold pad. It fills the pane because it is meant to be found without looking.
   lv_obj_t *hold = mkView(page);
-  mkBack(hold, svcViewCb, (void *)(intptr_t)SVC_PRIME_PICK);
   primeTitle = mkText(hold, "PRIME FLAVOR 2", &lv_font_montserrat_28, COL_DIM);
-  lv_obj_align(primeTitle, LV_ALIGN_TOP_RIGHT, 0, 14);
+  lv_obj_align(primeTitle, LV_ALIGN_TOP_LEFT, 0, 0);
 
   primePad = mkBtn(hold, fw, 200, COL_ACCENT);
   lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, 78);
@@ -2514,13 +2503,12 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_PRIME_HOLD] = hold;
 
   lv_obj_t *cpick = mkView(page);
-  mkBack(cpick, choosePageCb, NULL);
-  buildFlavorPicker(cpick, "CHOOSE A FLAVOR", cleanPickCb);
+  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEF\x94\x9A", &front_action_icons_48,
+                    cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
   lv_obj_t *conf = mkView(page);
-  mkBack(conf, svcViewCb, (void *)(intptr_t)SVC_CLEAN_PICK);
-  cleanTitle = mkText(conf, "CLEAN FLAVOR 2", &lv_font_montserrat_40, COL_TEXT);
+  cleanTitle = mkText(conf, "CLEAN FLAVOR 2", &lv_font_montserrat_40, COL_DIM);
   lv_obj_align(cleanTitle, LV_ALIGN_TOP_MID, 0, 84);
   lv_obj_t *body = mkText(conf, "Three rounds: fill the line with water,\n"
                                 "then pump it through to the nozzle.",
@@ -2538,7 +2526,7 @@ static void buildService(lv_obj_t *page) {
 }
 
 static void buildSettings(lv_obj_t *page) {
-  lv_obj_align(mkText(page, "SETTINGS", &lv_font_montserrat_28, COL_TEXT),
+  lv_obj_align(mkText(page, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
 
   // Customer controls earn their place here when there is a clear reason to
