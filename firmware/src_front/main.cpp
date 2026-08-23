@@ -203,8 +203,8 @@ static uint32_t frameDoneTimeouts = 0;
 // pane takes the remaining 76% of the width.
 #define RAIL_W          190
 #define RAIL_INSET_Y      8
-#define RAIL_ITEM_GAP     6
-#define RAIL_ITEM_H      88
+#define RAIL_ITEM_GAP     8
+#define RAIL_ITEM_H     110
 #define PANE_W    (SCREEN_W - RAIL_W)
 
 // Choose gives each card a settings target under it, and the flavor's own page
@@ -224,18 +224,20 @@ static uint32_t frameDoneTimeouts = 0;
 // shows another. Sub-views inside a page work the same way.
 enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
 
-enum FlavorView  { FLV_BOTH, FLV_DETAIL, FLV_COUNT };
+enum FlavorView  { FLV_DETAIL, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
                    SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
 
-// The left rail names the customer-facing destinations. Choose and Ratio are
-// about the drink; Fill, Prime and Clean are a flavor's life in the machine, in
-// the order it is lived — pour concentrate into the hopper, push it out to the
-// nozzle, and eventually flush it back out. The three share their
-// controller/session machinery beneath the glass, but each is its own place in
-// the interaction, asking for the flavor it acts on.
-enum RailPage { RAIL_CHOOSE, RAIL_RATIO, RAIL_FILL, RAIL_PRIME,
-                RAIL_CLEAN, RAIL_PAGE_COUNT };
+// The left rail names the customer-facing destinations. Choose is the drink;
+// Fill, Prime and Clean are a flavor's life in the machine, in the order it is
+// lived — pour concentrate into the hopper, push it out to the nozzle, and
+// eventually flush it back out. The three share their controller/session
+// machinery beneath the glass, but each is its own place in the interaction,
+// asking for the flavor it acts on. What one flavor pours at, and which logo it
+// wears, belong to that flavor rather than to the machine, and are reached from
+// its own card on Choose.
+enum RailPage { RAIL_CHOOSE, RAIL_FILL, RAIL_PRIME, RAIL_CLEAN,
+                RAIL_PAGE_COUNT };
 
 static_assert(2 * RAIL_INSET_Y + RAIL_PAGE_COUNT * RAIL_ITEM_H +
                   (RAIL_PAGE_COUNT - 1) * RAIL_ITEM_GAP == SCREEN_H,
@@ -247,7 +249,7 @@ static lv_obj_t *flvView[FLV_COUNT];
 static lv_obj_t *svcView[SVC_COUNT];
 static Page activePage = PAGE_HOME;
 static ServiceView activeSvc = SVC_PRIME_PICK;
-static FlavorView  activeFlv = FLV_BOTH;
+static FlavorView  activeFlv = FLV_DETAIL;
 static RailPage activeRail = RAIL_CHOOSE;
 static bool uiReady = false;
 
@@ -311,7 +313,6 @@ enum HomeSyncVisual : uint8_t {
 static int8_t homeFlavorShown = -2;
 static int8_t homeSyncShown = -1;
 
-static lv_obj_t *flvCardLbl[2];    // the two FLAVOR cards' ratio text
 static lv_obj_t *flvDetailName, *flvDetailRatio;
 static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
@@ -1511,10 +1512,6 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
       lv_obj_align(mkText(parent, "\xEF\x89\x9A", &rail_icons_36, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, -3);
       break;
-    case RAIL_RATIO:
-      lv_obj_align(mkText(parent, "\xEF\x88\x80", &rail_icons_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, -3);
-      break;
     case RAIL_FILL:
       lv_obj_align(mkText(parent, "\xEF\x82\xB0", &rail_icons_36, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, -3);
@@ -1580,8 +1577,6 @@ static void refreshFlavorText() {
   char a[16], b[16];
   snprintf(a, sizeof(a), "1:%u", flavorRatio[0]);
   snprintf(b, sizeof(b), "1:%u", flavorRatio[1]);
-  if (flvCardLbl[0]) lv_label_set_text(flvCardLbl[0], a);
-  if (flvCardLbl[1]) lv_label_set_text(flvCardLbl[1], b);
   if (flvDetailName)  lv_label_set_text(flvDetailName, kFlavorName[flavorSel]);
   if (flvDetailRatio) lv_label_set_text(flvDetailRatio, flavorSel ? b : a);
 }
@@ -2271,13 +2266,7 @@ static void primePadCb(lv_event_t *e) {
 // ── Navigation ──
 static void railCb(lv_event_t *e)     { showRail((RailPage)(intptr_t)lv_event_get_user_data(e)); }
 
-static void flvViewCb(lv_event_t *e)  { showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e)); }
-
-static void flavorPickCb(lv_event_t *e) {
-  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
-  refreshFlavorText();
-  showFlavor(FLV_DETAIL);
-}
+static void flavorBackCb(lv_event_t *e) { (void)e; showPage(PAGE_HOME); }
 
 static void homeFlavorPickCb(lv_event_t *e) {
   const uint8_t flavor = (uint8_t)(intptr_t)lv_event_get_user_data(e);
@@ -2416,7 +2405,6 @@ static void lockScreenHide() {
 static void buildRail(lv_obj_t *scr) {
   static const char *kRail[RAIL_PAGE_COUNT] = {
       "CHOOSE",
-      "RATIO",
       "FILL",
       "PRIME",
       "CLEAN",
@@ -2543,27 +2531,11 @@ static void buildHome(lv_obj_t *page) {
   }
 }
 
-// A split of two, and a drill-down behind each.
+// One flavor's own page: what it pours at, and which logo it wears. Reached from
+// that flavor's card on Choose, which is where Back returns to.
 static void buildFlavor(lv_obj_t *page) {
-  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-
-  lv_obj_t *both = mkView(page);
-  lv_obj_align(mkText(both, "FLAVOR RATIO", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, 0);
-  for (int i = 0; i < 2; i++) {
-    lv_obj_t *b = mkBtn(both, cw, 360, COL_CARD);
-    lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
-    lv_obj_add_event_cb(b, flavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
-    lv_obj_align(mkText(b, "\xEF\x88\x80", &front_action_icons_48, COL_ACCENT),
-                 LV_ALIGN_TOP_MID, 0, 20);
-    lv_obj_align(mkText(b, kFlavorName[i], &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_CENTER, 0, -10);
-    flvCardLbl[i] = mkText(b, "1:12", &lv_font_montserrat_48, COL_TEXT);
-    lv_obj_align(flvCardLbl[i], LV_ALIGN_CENTER, 0, 60);
-  }
-  flvView[FLV_BOTH] = both;
-
   lv_obj_t *det = mkView(page);
-  mkBack(det, flvViewCb, (void *)(intptr_t)FLV_BOTH);
+  mkBack(det, flavorBackCb, NULL);
   flvDetailName = mkText(det, "FLAVOR 2", &lv_font_montserrat_40, COL_DIM);
   lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, 8);
 
@@ -2818,7 +2790,7 @@ static void idleReset(uint8_t stage) {
         showService(pickViewForRail());
       }
     }
-    else if (activePage == PAGE_FLAVOR) showFlavor(FLV_BOTH);
+    else if (activePage == PAGE_FLAVOR) showPage(PAGE_HOME);
   } else if (stage == 3) {
     showPage(PAGE_HOME);
   }
@@ -2827,7 +2799,7 @@ static void idleReset(uint8_t stage) {
 static RailPage railForPage(Page p) {
   switch (p) {
     case PAGE_HOME:    return RAIL_CHOOSE;
-    case PAGE_FLAVOR:  return RAIL_RATIO;
+    case PAGE_FLAVOR:  return RAIL_CHOOSE;
     case PAGE_SERVICE: return RAIL_PRIME;
     case PAGE_SETUP:   return RAIL_PAGE_COUNT;   // the corner, not the rail
     default:           return RAIL_CHOOSE;
@@ -2846,7 +2818,7 @@ static void showPage(Page p) {
   // pages invalidate only when their cached visible state actually changes.
   animRun(lockActive && !screenIdle);
   if (p == PAGE_HOME)    refreshHomeSelection();
-  if (p == PAGE_FLAVOR)  showFlavor(FLV_BOTH);
+  if (p == PAGE_FLAVOR)  showFlavor(FLV_DETAIL);
   if (p == PAGE_SERVICE) showService(SVC_PRIME_PICK);
 }
 
@@ -2854,9 +2826,6 @@ static void showRail(RailPage p) {
   switch (p) {
     case RAIL_CHOOSE:
       showPage(PAGE_HOME);
-      break;
-    case RAIL_RATIO:
-      showPage(PAGE_FLAVOR);
       break;
     case RAIL_FILL:
       showPage(PAGE_SERVICE);
@@ -3070,11 +3039,11 @@ static void processTextLine(const char *line) {
     sendPumpRun(PUMP_CHANNEL_B, 1000);
     Serial.println("OK:PUMP");
   } else if (strncmp(line, "PAGE:", 5) == 0) {
-    // 0..4 are the rail, in rail order. Settings left the rail for the corner
+    // 0..3 are the rail, in rail order. Settings left the rail for the corner
     // and keeps a number here anyway, so a bring-up script can still reach it.
     int p = atoi(line + 5);
     if (p == RAIL_PAGE_COUNT) { showPage(PAGE_SETUP); Serial.printf("OK:PAGE=%d\n", p); }
-    else if (p < 0 || p > RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..5");
+    else if (p < 0 || p > RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
     else { showRail((RailPage)p); Serial.printf("OK:PAGE=%d\n", p); }
   } else if (strncmp(line, "CLICK:", 6) == 0) {
     if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");

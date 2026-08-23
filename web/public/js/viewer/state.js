@@ -42,7 +42,7 @@ export const state = {
   currentGroup: null,         // Three.js group currently in scene
   hiddenComponents: new Set(), // component-picker.js: names hidden in the local view (per open file);
                               // repopulated from localStorage on each STEP load, applied to mesh.visible
-  thumbnailCache: new Map(),  // STEP file -> dataURL
+  thumbnailCache: new Map(),  // "<STEP file>@<square px>" -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   dxfThumbCache: new Map(),   // DXF file -> dataURL
   glbThumbCache: new Map(),   // GLB file -> dataURL

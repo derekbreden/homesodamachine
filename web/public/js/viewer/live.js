@@ -24,6 +24,7 @@
 import { state } from "./state.js";
 import { getLoader } from "./loaders.js";
 import { paintStepThumb } from "./grid.js";
+import { forgetThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
 import { renderGlbThumbnail } from "./glb.js";
 // Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
@@ -41,12 +42,9 @@ import { isMounted } from "./lazy.js";
 function refreshStepCard(file) {
   // Re-fetch the committed PNG past the browser cache. On a real deploy the
   // thumbnail ships committed alongside the STEP, so it's fresh immediately. On
-  // the dev watcher the STEP broadcast races ahead of its background thumbnail
-  // render (dev-server/server.js flushThumbnails), so the card may briefly show
-  // the prior PNG, then repaints when the render re-broadcasts this same file.
-  // Drop the client-render cache too, in case this card is on the missing-
-  // thumbnail fallback path.
-  state.thumbnailCache.delete(file);
+  // The card draws the model, so a STEP that moved is a card that has to redraw:
+  // drop every picture of it and let `paintStepThumb` read the fresh one.
+  forgetThumbnail(file);
   const card = state.gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
   if (!isMounted(card)) return;
