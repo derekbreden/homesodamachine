@@ -181,7 +181,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
   write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
-- `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIOS, PRIME, CLEAN,
+- `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIO, PRIME, CLEAN,
   SETTINGS)
 - `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
@@ -235,15 +235,15 @@ This polling turn also carries faucet-originated changes from J3 to this display
 
 ## The interface
 
-A 190 px rail down the left carries five 82 px targets — **CHOOSE · RATIOS · PRIME ·
-CLEAN · SETTINGS** — each an icon over a word. Choose uses a single pointing hand and
-Ratios a pie chart; connection state appears only when it affects saving a flavor. The
+A 190 px rail down the left carries five 82 px targets — **CHOOSE · RATIO · PRIME ·
+CLEAN · SETTINGS** — each an icon over a word. Choose uses a single hand pointing up-left
+and Ratio a single pie slice; connection state appears only when it affects saving a flavor. The
 remaining 610 px is the pane, and it takes a different shape at each destination:
 
 | Page | Shape | Reads / writes |
 |---|---|---|
 | Choose | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
-| Ratios | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
+| Ratio | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
 | Settings | a deliberately quiet surface until a useful preference is ready | — |
@@ -317,7 +317,7 @@ manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it a
 
 The animation runs only on the full-screen operation lock. Measured on the panel:
 **~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. Choose,
-Ratios, Prime, Clean, and Settings otherwise repaint only when their state changes.
+Ratio, Prime, Clean, and Settings otherwise repaint only when their state changes.
 `LOCK:SHOW` exposes the animation for a live check, and `GET_DIAG` reports the loop
 high-water mark and clears it.
 
