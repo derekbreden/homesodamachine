@@ -1531,7 +1531,7 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 module state would make a serialized Box a different machine.
 #   z_seam_passes whether each (front, back) Z seam crosses its column rather than an open band;
 #                 a report reading taken with the placed solids, carried for the same reason
-#   front_ports   / back_ports   panel through-holes, in the pack's format
+#   front_ports   / back_ports   wall through-holes, in the pack's format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the ASSE drip pan's slot
 #   funnel        the placed funnel's plan centre, or None for no throat
@@ -3061,10 +3061,10 @@ def _display_cuts(outer):
     return cut
 
 
-# --- panel through-holes ----------------------------------------------------
+# --- wall through-holes -----------------------------------------------------
 
 def _port_cuts(ports, y0, y1):
-    """The through-holes of one panel's port list, as cutters spanning y0..y1
+    """The through-holes of one wall's port list, as cutters spanning y0..y1
     (a wall's thickness with a margin either side). The pack owns both layouts,
     since it places the bodies the bands are measured from
     (../y-wall-of-back-top/README.md); the two walls differ only in which list and
@@ -4278,7 +4278,7 @@ def _column_face_land(inner, outer):
 def _front_top_flanks(inner, outer, box, y_joint, zj):
     """THE SECTION FRONT-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`front_top_flank_t`). Fused before any of this piece's flank furniture, so a well, a
-    panel or a port cut afterwards is cut out of the whole of it.
+    well or a port cut afterwards is cut out of the whole of it.
 
     IT BEGINS AT THE RIM, and under the rim this flank is the box's own `wall`. Front-bottom's
     Z-seam tongue LAPS that wall's inner face over `lip_len` and stands open inboard — the
@@ -5158,7 +5158,7 @@ def build_pump_cartridge(box, halves_cache=None):
     reliefs and all — so the opening and the thing that fills it come out of one figure. It
     stops at `bay_x_span` at every height: the corner posts stand in this piece's own
     withdrawal path, and nothing of it reaches their x. The deck is the two pump trays rooted
-    on the reliefs' floor, webbed across by `_tray_webs`' own boxes.
+    on the reliefs' floor, webbed across by `_pump_tray_webs`' own boxes.
 
     WHAT A HAND PULLS ON IS ITS TWO FLANKS. Front-top's own flanks are cut away over this
     storey, so the piece's sides stand in the open and each carries a grip (`_flank_grip`) —
@@ -5247,7 +5247,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
     for cx, cy, cz in box.pump_trays:
         tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
         solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
-    solid = _tray_webs(solid, inner, box.pump_trays, (), 0.0, 1e4, -1e4, 1e4)
+    solid = _pump_tray_webs(solid, inner, box.pump_trays, (), 0.0, 1e4, -1e4, 1e4)
     solid = solid.intersect(
         face.fuse(_ybox(dx0, dx1, outer[2], cap_aft, floor_top, top)))
     if halves_cache is not None:
@@ -5395,7 +5395,7 @@ def build_front_half(box):
     # Punch the funnel's throat through the top wall, behind the display.
     if box.funnel:
         front = front.cut(_funnel_cut(inner, outer, box.funnel))
-    # Front-panel through-holes.
+    # The front wall's through-holes.
     for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         front = front.cut(cutter)
     # East side-wall through-holes — the CO2 inlet's, low in the machine corridor.
@@ -5430,7 +5430,7 @@ def build_back_half(box):
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
-    # Panel through-holes for the appliance's external connections — the
+    # Wall through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the +Y wall of back-top in the band above the
     # cold core; their bodies hang in the band's open rear half.
@@ -6425,14 +6425,14 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
 # trays and the across-runs to the deck's own edges are what it meets. Each is the trays' own
 # plate — `pump_tray.PLATE` thick, in that plate's own band — so the storey comes out one plate,
 # and its edge strips ride the bay's rails. The webs to the side walls and the aft web onto a
-# panel are not drawn: the rails carry the deck instead, and its aft edge stops short of the
+# valve tray are not drawn: the rails carry the deck instead, and its aft edge stops short of the
 # collet plate, and the cap's own aft face one storey down is what lands on the steel.
-def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
+def _pump_tray_webs(solid, inner, stations, valve_trays, y0, y1, z0, z1):
     """The webs that tie every pump tray in this piece's band to what stands beside it.
 
     The trays stand their plates on ONE storey — they are the same pump on one deck — so the
     band is theirs and every web is a box in it. Across, the gaps are what the plates leave
-    between the two interior faces; aft, it is what one leaves in front of the nearest panel
+    between the two interior faces; aft, it is what one leaves in front of the nearest valve tray
     plate crossing that same band."""
     live = [(cx, cy, cz) for cx, cy, cz in stations
             if (y0 <= inner[2] and cy + _tray.far_reach() <= y1
@@ -6442,7 +6442,7 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     storey = {(round(cy, 6), round(cz, 6)) for _cx, cy, cz in live}
     if len(storey) != 1:
         raise ValueError(
-            f"_tray_webs: the trays in this piece stand on {len(storey)} storeys ({storey}). A "
+            f"_pump_tray_webs: the trays in this piece stand on {len(storey)} storeys ({storey}). A "
             f"web is one box in one band, so trays on their own decks each want their own.")
     cy, cz = storey.pop()
     zb0, zb1 = cz, cz + _tray.PLATE
@@ -6461,14 +6461,14 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     for a, b in zip(edges[0::2], edges[1::2]):
         if b - a > 1e-9:
             solid = solid.fuse(_ybox(a, b, inner[2], far, zb0, zb1).intersect(cavity))
-    # AND AFT onto the nearest panel plate that crosses this same band — its own near face, so
+    # AND AFT onto the nearest valve tray that crosses this same band — its own near face, so
     # the two meet plane to plane and the web is the gap and not a millimetre more.
     reach = None
-    for plane, sign, seats in panels:
+    for plane, sign, seats in valve_trays:
         zs = [z for _x, z in seats]
         mid_z, half = (min(zs) + max(zs)) / 2.0, _valve_tray.height() / 2.0
         if mid_z + half <= zb0 or mid_z - half >= zb1:
-            continue                       # a panel on another storey is not this web's
+            continue                       # a tray on another storey is not this web's
         face = plane - sign * _valve_tray.SEAT
         near = min(face, face - sign * _valve_tray.THICK)
         if near >= far - 1e-9 and (reach is None or near < reach):
@@ -6924,7 +6924,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
         # FRONT-TOP'S OWN ±X SECTION, first of everything this piece does to its flanks. The
-        # wells, the panels and every bore below are struck on `interior_x` and cut AFTER this,
+        # wells, the trays and every bore below are struck on `interior_x` and cut AFTER this,
         # so each one is cut out of the whole section rather than out of the skin it replaced —
         # which is what leaves a lever nut bottoming exactly where it bottomed before.
         if y_side == "front" and box.collet_plate:
@@ -7017,8 +7017,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
-    # The wall the anchor tees stand in, behind the collet plate — BEFORE the panels, because
-    # a panel's seats are cut out of whatever stands on that plane and this stands on it.
+    # The wall the anchor tees stand in, behind the collet plate — BEFORE the valve trays,
+    # because a tray's seats are cut out of whatever stands on that plane and this stands on it.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
         piece = piece.fuse(_tee_wall(inner, y_joint, box.collet_plate, box.pump_bay))
         # And the rib that stands on that wall's crown, carrying the ridge the display's
