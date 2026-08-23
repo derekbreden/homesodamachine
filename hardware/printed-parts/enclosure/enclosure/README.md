@@ -812,6 +812,13 @@ pulls, the other braces the box; the box carries the brace through its fixed wal
 the two steel-bearing retainers rather than asking the plate's little floor seat to take the
 whole overturning moment.
 
+**The cap's aft face is open for the four made-up tubes.** One straight slot per pump rises
+from the head's outlet-relief sill to the split, so the cap can come up onto a pump whose
+tubes are already attached. The slot follows the head room fore and aft, but its two outer
+edges carry [1 mm](CAP_TUBE_RELIEF) past that room. That leaves at least one millimetre of
+printed running clearance at every Ø6.35 tube. The reliefs are narrow extensions of the one
+slot; the wall below its sill and the pump's flank seats remain whole.
+
 **THE TEE TRAVELS AND THE VALVE DOES NOT.** `release-travel` offers each anchor tee the
 whole stroke and reports what it hits — a motion, where every other bound on that card
 reads where a body stands — and all four clear it. The stroke is the rest gap and nothing
