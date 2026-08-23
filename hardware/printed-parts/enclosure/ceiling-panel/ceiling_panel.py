@@ -24,13 +24,13 @@ what this file states is the MATING FIGURES they are cut to (`dado`, `screw_stat
 
 Plan:
 
-  * WIDTH is `hopper_funnel.collar_w`, whole. The throat's opening is that wide and this
+  * WIDTH is `funnel.collar_w`, whole. The throat's opening is that wide and this
     panel's edges are collinear with it, so the ceiling reads as ONE channel down the
     machine — funnel in the front of it, panel filling the rest — rather than as a lid
     with a hole beside it. The visible skin grows into an 8 mm structural field on the
     interior side; rounded pockets leave the exact headroom the purchased bodies need.
   * FORE EDGE is the collar's own aft edge, and it is load-bearing: the funnel's brim
-    overhangs the collar by `hopper_funnel.brim_overhang` and lands on this panel's first
+    overhangs the collar by `funnel.brim_overhang` and lands on this panel's first
     `brim_overhang` of show face, inside the `brim_margin` of top wall that
     `enclosure_assembly`'s `funnel-brim-margin` asks at that free edge. The two screw
     axes stand in that same landing, but their heads are on back-top's Z− face and their
@@ -63,13 +63,13 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"))
-sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md
 import enclosure as _enc
-import hopper_funnel as _funnel
+import funnel as _funnel
 
 # --- the planes the box states, and the panel that fills them ----------------
 

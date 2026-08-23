@@ -96,12 +96,12 @@ def main():
             f"so either they go back on one diameter or the rows read out separately.")
     _co2_hole_d = _F.wall_ports["co2"][3]
 
-    # Hopper corridor — `fluid-4` falls from the funnel's spout to V-B's own inlet, passing
+    # Funnel corridor — `fluid-4` falls from the funnel's spout to V-B's own inlet, passing
     # between the two source coils on the way. That run exists only once the funnel is placed
     # and its lines drawn, past what `build_pack` reaches.
-    _hopper_runs = list(_F.runs)
-    _hopper_run = next((r for r in _hopper_runs if r.id == "fluid-4"), None)
-    if _hopper_run is None:
+    _funnel_runs = list(_F.runs)
+    _funnel_run = next((r for r in _funnel_runs if r.id == "fluid-4"), None)
+    if _funnel_run is None:
         raise ValueError(
             "no `fluid-4` is drawn — the hopper-corridor paragraph in enclosure-mechanical.md "
             "describes a tube the machine no longer has, so it needs rewriting, not resyncing.")
@@ -109,9 +109,9 @@ def main():
     # `clearance-floor` grades — `lane_notes`' own reading of a lane, without its floor. The two
     # are read here and named into the paragraph, so a fall that changes lanes rewrites its own
     # sentence rather than needing one.
-    _hopper_near = [(g, other) for other, g in _F.near("fluid-4")]
-    (_side_a, _coil_a), (_side_b, _coil_b) = _hopper_near[:2]
-    _hopper_gate = _F.check("clearance-floor")
+    _funnel_near = [(g, other) for other, g in _F.near("fluid-4")]
+    (_side_a, _coil_a), (_side_b, _coil_b) = _funnel_near[:2]
+    _funnel_gate = _F.check("clearance-floor")
 
     _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box["outer"]
     # WHAT EACH OF THE CORE'S GRIPS STANDS CLEAR OF, off the placed bodies rather than typed
@@ -240,13 +240,13 @@ def main():
         # in the box takes, recessed the way the cold core's cap lids recess theirs.
         "DISPLAY_CBORE_D": f"{_enc.head_cbore_dia:g}",
         "DISPLAY_SEAT_RECESS": f"{_enc.display_cover_seat_recess:g} mm",
-        # The hopper corridor `fluid-4` falls down, and the gate it stands in.
-        "HOPPER_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm",
-        "HOPPER_NEAR_A": _coil_a,
-        "HOPPER_NEAR_B": _coil_b,
-        "HOPPER_TUBE_D": f"Ø{_hopper_run.diam:g}",
-        "HOPPER_GATE_STATUS": (
-            "currently reports red" if _hopper_gate.status == "fail" else "currently passes"),
+        # The funnel corridor `fluid-4` falls down, and the gate it stands in.
+        "FUNNEL_LANE_SIDE": f"{min(_side_a, _side_b):.3f} mm",
+        "FUNNEL_NEAR_A": _coil_a,
+        "FUNNEL_NEAR_B": _coil_b,
+        "FUNNEL_TUBE_D": f"Ø{_funnel_run.diam:g}",
+        "FUNNEL_GATE_STATUS": (
+            "currently reports red" if _funnel_gate.status == "fail" else "currently passes"),
     }
 
     substitute_md(

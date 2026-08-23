@@ -25,17 +25,17 @@ bay in the front wall
 
 ## The funnel
 
-A wide silicone funnel that drops into the opening as the hopper — its flat
-brim resting on the enclosure top is the only visible edge. One shared basin,
+A wide silicone funnel that drops into the opening — its flat
+brim resting on the enclosure top is the only visible edge. One shared funnel,
 sized to take a full 440 mL SodaStream concentrate bottle dumped in one pour.
 Silicone, removable, dishwasher-safe; cast in the two-piece printed mold
-([`hopper-funnel-mold/`](/hardware/printed-parts/zone-c/hopper-funnel-mold/)).
+([`funnel-mold/`](/hardware/printed-parts/zone-c/funnel-mold/)).
 Its drain collet releases with the 1/4" jaw of a JG collet quick-connect tool
 and it lifts out by hand for the dishwasher — flavor concentrate is sticky, so
 the cleanable interface has to come all the way out. Weekly-touch item.
-Detail: [`hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/).
+Detail: [`funnel/`](/hardware/printed-parts/zone-c/funnel/).
 
-Its spout feeds the V-B hopper gate on the V-A/V-B tray; the valve
+Its spout feeds the V-B funnel gate on the V-A/V-B tray; the valve
 manifold, not the funnel, picks the channel, so one funnel serves both
 flavors. Valve states:
 [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md).

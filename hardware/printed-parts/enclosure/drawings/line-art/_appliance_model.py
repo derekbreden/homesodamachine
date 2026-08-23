@@ -85,7 +85,7 @@ FITTINGS = _ea.THROUGH_WALL
 # the top wall's throat, and the display let into the 45° facet. Each is drawn
 # because a customer sees it — the funnel down the hopper, the screen on the
 # facet — and neither is a feature this file draws.
-SEATED = ("hopper-funnel", "display")
+SEATED = ("funnel", "display")
 
 
 def _outer_solid() -> cq.Shape:

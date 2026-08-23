@@ -1605,7 +1605,7 @@ def _source(name: str) -> str:
         return PIECE
     if name.startswith("tube-"):
         return "run"
-    return {"display": "display", "hopper-funnel": "funnel"}.get(name, "component")
+    return {"display": "display", "funnel": "funnel"}.get(name, "component")
 
 
 def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World:

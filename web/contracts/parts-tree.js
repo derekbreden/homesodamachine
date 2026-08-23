@@ -121,7 +121,7 @@ export const PURCHASED = [
 export const TOOLING = [
   "assembly/scenes/glb",
   "printed-parts/cold-core/coil-mandrel",
-  "printed-parts/zone-c/hopper-funnel-mold",
+  "printed-parts/zone-c/funnel-mold",
 ];
 
 // --- reading a file list into the tree ---------------------------------------

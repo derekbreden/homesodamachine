@@ -51,8 +51,8 @@ for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
            "printed-parts/enclosure/back-panel", "printed-parts/enclosure/enclosure",
            "printed-parts/enclosure/pump-tray", "reference/compressor",
            "reference/jg-bulkhead-union", "reference/iec-c14-inlet",
-           "printed-parts/zone-c/hopper-funnel", "reference/worm-clamp",
-           "reference/jg-pp0408w", "reference/hopper-drain-stub"):
+           "printed-parts/zone-c/funnel", "reference/worm-clamp",
+           "reference/jg-pp0408w", "reference/funnel-drain-stub"):
     sys.path.insert(0, str(_hw / _p.replace("/", os.sep)))
 
 sys.path.insert(0, str(CARDS_DIR))
@@ -255,12 +255,12 @@ def enclosure(m: Machine):
     assert len({s[4] for s in z_stations}) == 2, (
         "the Z seams no longer pin per Y column and EN-07 closes them one column at a time")
 
-    # The hopper opening's own rectangle against the seam it may cross.
+    # The funnel opening's own rectangle against the seam it may cross.
     hx0, hx1, hy0, hy1 = m.a.hopper_hole
-    hopper_pieces = ("both top pieces" if hy1 > box.y_joint
+    funnel_pieces = ("both top pieces" if hy1 > box.y_joint
                      else "`enclosure-front-top`")
     assert abs((hx0 + hx1) / 2.0 - (ox0 + ox1) / 2.0) < 1e-6, (
-        "the hopper opening is off centre across the box and EN-09 sends the bench "
+        "the funnel opening is off centre across the box and EN-09 sends the bench "
         "straight down it — say where it is instead")
 
     # The refrigeration stratum's own width across the pair as it stands, and the cold
@@ -321,7 +321,7 @@ def enclosure(m: Machine):
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
         # The hopper (EN-09).
-        "HOPPER_PIECES": hopper_pieces,
+        "FUNNEL_PIECES": funnel_pieces,
         # What the closed chassis reads as (EN-07).
         "BODY_COUNT": f"{len(_card.mounts())}",
     }
@@ -348,7 +348,7 @@ def enclosure(m: Machine):
         "en-07-close-the-box": {
             "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT", "SEAM_SCREWS_Z",
             "BODY_COUNT"},
-        "en-09-display-and-hopper": {"HOPPER_PIECES"},
+        "en-09-display-and-hopper": {"FUNNEL_PIECES"},
     }
     return facts, cards
 
@@ -428,8 +428,8 @@ def sub_assemblies(m: Machine):
     import _scenes
     import _scorecard as _sc
     import _cold_core_interface as _cci
-    import hopper_drain_stub as _stub
-    import hopper_funnel as _funnel
+    import funnel_drain_stub as _stub
+    import funnel as _funnel
 
     import enclosure as _enc
     import pump_tray as _tray
@@ -465,7 +465,7 @@ def sub_assemblies(m: Machine):
     # one, the funnel and the steel plate in the other. The piece carries it in the
     # finished machine and the scene holds it back, which is the pair of readings
     # those two sentences stand on.
-    for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "hopper-funnel"),
+    for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "funnel"),
                              ("front-top", "collet-plate"),
                              ("hopper-drain", "hopper-drain-union"),
                              ("cap-lid", "tube-fluid-14")):

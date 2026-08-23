@@ -1264,7 +1264,7 @@ cap_side_anchors = {
     # is the height that axis stands over the lid's outer face.
     #   The post stands on the lid's front step inside the core's plan outline, its face two
     # lanes aft of the core's own front plane — the crossing walks with the hopper drain's
-    # berth (`hopper_funnel.neck_dy`), and the post follows it aft so the fall off the union
+    # berth (`funnel.neck_dy`), and the post follows it aft so the fall off the union
     # keeps its metre. The cap's Y is on the mirror line, between the two port stubs the
     # source pair leaves over this step. `axis_off` stands the pipe forward of the post's
     # face: the seat is the shallower wrap that leaves, and the tie is what holds.
@@ -1421,7 +1421,7 @@ corner_slot_depth = 2.4
 
 # THE HOPPER DRAIN'S BERTH. The union hangs on the funnel's spout between the folded deck's
 # crossbar barrels and this core's front face, and the barrels ride
-# `manifold_layout.BARB_STANDOFF` aft — the drain follows (`hopper_funnel.neck_dy`), and the
+# `manifold_layout.BARB_STANDOFF` aft — the drain follows (`funnel.neck_dy`), and the
 # top lid's fore edge is what gives: set back `drain_berth_depth` over the drain's column, in
 # the cap's own frame like `cap_side_anchors`. `water-3`'s crossing steps into the same
 # corner (`_lines.CROSS_DODGE_Y`). `pack-closes` and `clearance-floor` read the placed union

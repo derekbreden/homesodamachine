@@ -11,7 +11,7 @@ WHAT THE KEY MUST COVER IS EVERYTHING THAT DECIDES THE SHAPE, and a key that mis
 build that ships last run's geometry. Three things decide it, and the key takes all three:
 
   - THE CODE. Not one file: the module that draws, and every module of this repo it imports,
-    transitively. `enclosure` cuts its throat at `hopper_funnel.collar_w` and its wells at
+    transitively. `enclosure` cuts its throat at `funnel.collar_w` and its wells at
     `wago_221`'s body, so an edit to either is an edit to the wall — and neither shows in
     `enclosure.py`. `sources` walks that graph off the IMPORT STATEMENTS, which is the one
     reading that holds however a name was bound: `from _seating import seat_body` puts no

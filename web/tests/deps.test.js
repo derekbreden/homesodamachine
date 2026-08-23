@@ -295,7 +295,7 @@ test("the build order respects every STEP-load edge (producers before consumers)
 
 test("short basenames don't substring-match longer step names (collision regression)", () => {
   // The bare "assembly.step" token is a substring of "foam-assembly.step",
-  // "pcba-assembly.step", "hopper-funnel-mold-assembly.step" and the rest. Matching it
+  // "pcba-assembly.step", "funnel-mold-assembly.step" and the rest. Matching it
   // as a token must NOT pull in scripts that only reference those longer names — that
   // invented reverse edges and cycles.
   //
@@ -316,7 +316,7 @@ test("short basenames don't substring-match longer step names (collision regress
   for (const witness of [
     "cold-core/foam-assembly/foam_assembly.py",
     "electronics/pcba-tray/pcba_assembly.py",
-    "zone-c/hopper-funnel-mold/hopper_funnel_mold.py",
+    "zone-c/funnel-mold/funnel_mold.py",
   ]) {
     assert.ok(
       findGenerateScripts(ROOTS).some(ends(witness)),
