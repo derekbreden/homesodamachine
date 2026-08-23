@@ -81,7 +81,7 @@ function filenamePill(wrapper) {
   return card ? card.querySelector(".cv-filename") : null;
 }
 
-export function setFilename(file) {
+function setFilename(file) {
   const pill = filenamePill(state.currentCadWrapper);
   if (pill) pill.textContent = label(file);
 }
@@ -179,6 +179,9 @@ export async function routeToStep(files) {
 
 // A file swap that isn't a drill — the Find box jumping to where a pick lives.
 // The trail can't describe it, so it says nothing rather than something wrong.
+// `pushed` is left where it is on purpose: the jump replaces the entry it lands
+// on rather than adding one, so the entries the walk already pushed are still
+// under it and still have to come off when the modal closes.
 export async function jumpToStep(file) {
   trail = [];
   const moved = await showStep(file, false);
