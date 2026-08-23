@@ -4996,6 +4996,8 @@
       "hardware/quickstart/art/mount-final-clean.png",
       "hardware/quickstart/art/mount-lowered-clean.png",
       "hardware/quickstart/art/mount-slide-clean.png",
+      "hardware/quickstart/art/mount-under-slide-clean.png",
+      "hardware/quickstart/art/mount-under-tighten-clean.png",
       "hardware/quickstart/quick-start.cover.png",
       "hardware/quickstart/quick-start.pdf.json",
       "hardware/quickstart/style.css",
@@ -5051,6 +5053,8 @@
       "hardware/quickstart/art/mount-slide.png",
       "hardware/quickstart/art/mount-tighten-close.png",
       "hardware/quickstart/art/mount-tighten.png",
+      "hardware/quickstart/art/mount-under-slide-clean.png",
+      "hardware/quickstart/art/mount-under-tighten-clean.png",
       "hardware/quickstart/quickstart_art.py",
       "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -5083,7 +5087,9 @@
       "hardware/quickstart/art/mount-slide-clean.png",
       "hardware/quickstart/art/mount-slide.png",
       "hardware/quickstart/art/mount-tighten-close.png",
-      "hardware/quickstart/art/mount-tighten.png"
+      "hardware/quickstart/art/mount-tighten.png",
+      "hardware/quickstart/art/mount-under-slide-clean.png",
+      "hardware/quickstart/art/mount-under-tighten-clean.png"
     ]
   },
   "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
