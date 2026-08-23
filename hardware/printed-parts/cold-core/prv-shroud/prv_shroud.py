@@ -93,7 +93,7 @@ cavity_length = 44.0
 vent_hole_diameter = 6.35
 # [37.88 mm](VENT_STATION) along the barrel from the open end — where the radial vent
 # stands. The shroud seats on the PRV elbow's own lateral mouth and reaches along the
-# vessel's port axis from there, so this distance is the mouth-to-lane gap: the mouth stands
+# carbonator's port axis from there, so this distance is the mouth-to-lane gap: the mouth stands
 # at y +39.62 (one catalog elbow leg off the +Y port) and the foam shell's west lane runs at
 # y +77.5, so the hole lands on that lane's centreline and the tube falls it with no
 # corner at all. It sits inside the cavity by more than its own radius, so the bore opens

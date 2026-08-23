@@ -21,7 +21,7 @@ def build_full_shell():
     # WHAT GIVES WAY TO A LINE, named here because this is where the bodies are. A bag
     # pocket's ±Y wall is two millimetres of PETG a draw crosses on its way out and the CO2
     # crosses on its way in; the pocket corner posts stand under the reservoirs in the space
-    # the CO2's reach to the vessel runs through. Each is opened along the line's own
+    # the CO2's reach to the carbonator runs through. Each is opened along the line's own
     # corridor where it meets one (`_port_cuts.cut_line_corridors`). Nothing else in the
     # shell does — the outer shell, the tank support ring and the reed channels all fence a
     # line, and `_internal_routes.report_routes` reads what that costs at every build.

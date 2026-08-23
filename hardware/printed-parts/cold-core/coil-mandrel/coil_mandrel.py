@@ -2,7 +2,7 @@
 Coil winding mandrel.
 
 Hollow PETG cylinder for hand-winding 1/4" OD copper around the 5"
-round 316L pressure vessel. [5 mm](WALL) solid PETG wall, with a shallow
+round 316L carbonator. [5 mm](WALL) solid PETG wall, with a shallow
 helical guide groove [1 mm](GROOVE_DEPTH) deep that cradles the copper.
 
 The coil's inner radius after winding is net_undersize mm smaller than
@@ -90,7 +90,7 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 # side of x = 0, because the shell's front wall carries a lane on each side of it
 # and each tail takes its own — the inlet to the port lane, the outlet to the west
 # — and drops that lane's own slot to a station at the height the other's is at.
-#   These are the COIL's own heights — the elbow bands the vessel leaves clear
+#   These are the COIL's own heights — the elbow bands the carbonator leaves clear
 # above and below itself — and NOT the slot stations the copper ends up crossing
 # the wall at, so the wind length is set here and the crossing heights in
 # `copper-plugs/copper_plugs.py`. Pinning either to the other would put a bend
@@ -114,7 +114,7 @@ total_wraps = full_wraps + tail_ccw_delta / 360
 pitch = wind_length / total_wraps
 
 # Copper the wrap consumes ON THE MANDREL — the helix arc at the winding
-# centerline, [3.877 m](MANDREL_LEN) ([12.72 ft](MANDREL_FT)) per vessel. This is
+# centerline, [3.877 m](MANDREL_LEN) ([12.72 ft](MANDREL_FT)) per carbonator. This is
 # what the tool holds, NOT what the coil ends up being.
 mandrel_wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
 
@@ -176,7 +176,7 @@ stub_total = sum(stub_allowance.values())
 
 # How a roll is divided — [1/3](ROLL_SHARE) of one per build. What that leaves is
 # `_coil.roll_spare_ft`, struck on the laid wrap like the cut itself.
-vessels_per_roll = 3
+carbonators_per_roll = 3
 roll_length_ft = 50.0
 
 
@@ -262,9 +262,9 @@ def main():
     for end in ("inlet", "outlet"):
         print(f"Stub allowance ({end + '):':8} {stub_allowance[end]:.1f} mm  "
               f"({tail_in_shell[end]:.1f} in-shell + {stub_protrusion[end]:.0f} protruding)")
-    print(f"Cut per vessel:        the LAID wrap + {stub_total:.1f} mm of stub — struck in "
+    print(f"Cut per carbonator:        the LAID wrap + {stub_total:.1f} mm of stub — struck in "
           f"`cold-core-layout/_coil.cut_length`,\n"
-          f"                       {vessels_per_roll} per {roll_length_ft:.0f} ft roll")
+          f"                       {carbonators_per_roll} per {roll_length_ft:.0f} ft roll")
     print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
           f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
@@ -305,7 +305,7 @@ def main():
         "PROT_OUTLET": f"{stub_protrusion['outlet']:.4g} mm",
         "STUB_INLET": f"{stub_allowance['inlet']:.4g} mm",
         "STUB_OUTLET": f"{stub_allowance['outlet']:.4g} mm",
-        "ROLL_SHARE": f"1/{vessels_per_roll}",
+        "ROLL_SHARE": f"1/{carbonators_per_roll}",
         "HANDLE_LENGTH": f"{handle_length:.4g} mm",
         "TOTAL_LENGTH": f"{total_length:.4g} mm",
         "GROOVE_BOTTOM_OD": f"{groove_bottom_od:.4g} mm",

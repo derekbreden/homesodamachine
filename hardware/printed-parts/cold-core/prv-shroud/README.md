@@ -1,7 +1,7 @@
 # PRV shroud
 
 3D-printed PETG cup that surrounds the Control Devices SV-125
-pressure-relief valve on Port 4 of the carbonator pressure vessel
+pressure-relief valve on Port 4 of the carbonator
 during the cold-core body foam pour. The shroud preserves the air
 cavity the open-port pop-off PRV needs to function.
 
@@ -56,7 +56,7 @@ caulk. Built on the bench; shelves indefinitely after the caulk cures.
 The LLDPE vent tube and the foam-shell pass-through are not part of
 this subassembly — the LLDPE is press-fit into the shroud's barrel hole
 during cold-core build, after the subassembly is threaded into Port 4
-and the vessel is lowered into the foam shell.
+and the carbonator is lowered into the foam shell.
 
 1. Thread the SV-125 into the TAISHER M×F 90° street elbow's
    lateral F outlet with Millrose PTFE tape on the threads. Snug
@@ -83,10 +83,10 @@ and the vessel is lowered into the foam shell.
    foam takes over as the structural seal once it sets.
 5. Let the caulk cure at least 20–30 min for skin-over before
    handling, ≥24 h for full cure before the subassembly is
-   installed on a vessel.
+   installed on a carbonator.
 
 After cure, the subassembly is ready. It threads into Port 4 of a
-finished vessel at [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
+finished carbonator at [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9, replacing the elbow + PRV install on that port.
 
 The LLDPE press-fit and routing through the foam-shell slot happen
@@ -98,7 +98,7 @@ air; the spring sees ~atmospheric reference via the
 LLDPE-to-appliance-interior path, gas-exchanged with the cabinet
 via the condenser-fan path. During a relief event the shroud sees
 the brief discharge pressure peak (a few PSI at most through the
-1/4" LLDPE flow restriction), not vessel pressure. Once foam is
+1/4" LLDPE flow restriction), not carbonator pressure. Once foam is
 poured around the shroud, the SV-125 cannot be unscrewed without
 destroying the foam shell — if it ever needs replacement, the
 cold-core foam pour is the serviceable boundary.

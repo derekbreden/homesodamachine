@@ -1,12 +1,12 @@
 # Flavor Reservoir Level Sensing
 
-Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator vessel ([future.md](/hardware/future.md) "Level sensing" section), with **[4](REEDS_PER_RES) reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
+Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator ([future.md](/hardware/future.md) "Level sensing" section), with **[4](REEDS_PER_RES) reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
 
 ## Architecture
 
 **Inside the reservoir:**
 
-- A vertical **1/8" ([3.175 mm](ROD_DIAMETER)) 316L SS rod** (Tandefio B0CY4DWJFQ — same SKU as the carbonator vessel's float rod), separately supplied (not printed), cut to [175.4 mm (6.91 in)](RESERVOIR_ROD_LEN). The rod sits at `(x = ±[114.5](ROD_POSITION_X), y = [32.5](ROD_POSITION_Y))` — the +Y rear half of the reservoir, opposite the bulkhead exit (which faces the −Y front half at y=−28..−64). Bottom end drops into a blind bore in a standing printed **boss** rising from the reservoir BODY wet slope — the slope itself stays continuous and unbroken, no hole cut through it. Top end slips into the existing register **boss** hanging from the cap's underside (resized for the [3.175 mm](ROD_DIAMETER) rod). Specified in `reservoir.py` in this directory — `ROD_POSITION_X`, `ROD_POSITION_Y`, `ROD_DIAMETER`, `ROD_BORE`, `ROD_BOSS_OD`, `ROD_BOSS_HEIGHT`, `BODY_BOSS_HEIGHT`, `BODY_BOSS_FLOOR`. The cavity at y=+45 is ~38 mm wide (vs ~24 mm at y=0), holding the donor donut (27.75 mm measured OD); the rod sits near the far +X wall so the donut rides against it for the short magnet-to-reed path (see "Magnet–reed signal-path geometry" below).
+- A vertical **1/8" ([3.175 mm](ROD_DIAMETER)) 316L SS rod** (Tandefio B0CY4DWJFQ — same SKU as the carbonator's float rod), separately supplied (not printed), cut to [175.4 mm (6.91 in)](RESERVOIR_ROD_LEN). The rod sits at `(x = ±[114.5](ROD_POSITION_X), y = [32.5](ROD_POSITION_Y))` — the +Y rear half of the reservoir, opposite the bulkhead exit (which faces the −Y front half at y=−28..−64). Bottom end drops into a blind bore in a standing printed **boss** rising from the reservoir BODY wet slope — the slope itself stays continuous and unbroken, no hole cut through it. Top end slips into the existing register **boss** hanging from the cap's underside (resized for the [3.175 mm](ROD_DIAMETER) rod). Specified in `reservoir.py` in this directory — `ROD_POSITION_X`, `ROD_POSITION_Y`, `ROD_DIAMETER`, `ROD_BORE`, `ROD_BOSS_OD`, `ROD_BOSS_HEIGHT`, `BODY_BOSS_HEIGHT`, `BODY_BOSS_FLOOR`. The cavity at y=+45 is ~38 mm wide (vs ~24 mm at y=0), holding the donor donut (27.75 mm measured OD); the rod sits near the far +X wall so the donut rides against it for the short magnet-to-reed path (see "Magnet–reed signal-path geometry" below).
 - A small **magnetic float** sliding on the rod. Donor is the YXQ 45 mm float switch (Amazon B08HWRMRQR) in the BOM for the carbonator — a crimped stainless-steel capsule (the commodity ⌀~28 mm SS float common to nearly every SS float switch) with a ferrite ring magnet sealed inside. SS float on the SS rod — same metal, no galvanic couple, no sticky contact.
 
 **Outside the reservoir:**
@@ -55,7 +55,7 @@ The carbonator's own reed mount, its two heights, and what they mean in dispense
 
 [4](REEDS_PER_RES) reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing. Allocation:
 
-- **Reservoir A's [4](REEDS_PER_RES) reeds** → MCP23017 0x20 PB[0:3] (Port B inputs beside the chip's 8 valve outputs on Port A). Both expanders are on the controller PCBA; the reeds reach them on the J6 / J7 looms.
+- **Reservoir A's [4](REEDS_PER_RES) reeds** → MCP23017 0x20 PB[0:3] (Port B inputs beside the chip's 8 valve outputs on Port A). Both expanders are on the main board; the reeds reach them on the J6 / J7 looms.
 - **Reservoir B's [4](REEDS_PER_RES) reeds** → MCP23017 0x21 PB[0:3]. The chip also carries the 4 MANIFOLD-B valve outputs (PA[4:7]), the condenser-fan bit (PA3), and the 2 carbonator reeds (PB[4:5]), leaving 5 spare bits. Map in [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd).
 
 ## Parts (per build)
@@ -66,7 +66,7 @@ Per-build additions for the flavor-reservoir level sensing are tracked in [`/har
 - **2 YXQ floats** (B08HWRMRQR) — one per flavor reservoir. Donor float ball + its ferrite magnet kept; switch body / cable discarded. With the reed column inside the foam-shell channel (~6 mm magnet-to-reed path), no neodymium upgrade needed. The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
 - **Reed-column wire** — 5 × 22 AWG black silicone conductors per reservoir (4 reed signals + 1 common return), cut from the same BNTECHGO 22 AWG stock as every other reed/sensor run ([bom.md](/hardware/ledger/bom.md) §11); the reed runs land at J6 / J7 as 22 AWG per [`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). No jacketed cable — silicone stays flexible and survives thermal cycling in the cold core, where a PVC-jacketed multiconductor would stiffen. Every low-voltage run in the appliance is cut from this one 22 AWG stock; the jacketed cable in the build is only what leaves the cabinet or the shroud.
 
-The reed inputs land on the controller PCBA's MCP23017s (bom.md §1) via the J6 / J7 looms — no expander hardware in this subsystem.
+The reed inputs land on the main board's MCP23017s (bom.md §1) via the J6 / J7 looms — no expander hardware in this subsystem.
 
 ## Calibration
 

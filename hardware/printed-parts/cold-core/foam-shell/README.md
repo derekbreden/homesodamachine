@@ -1,7 +1,7 @@
 # Foam shell
 
 3D-printed PETG enclosure for the soda machine's "cold core" — the
-back-of-enclosure subsystem that holds the carbonator pressure vessel, the
+back-of-enclosure subsystem that holds the carbonator, the
 copper evaporator coil wrapped around it, and two flavor reservoirs in
 pockets on opposite sides. Pour-in-place polyurethane foam fills the
 cavities around the wetted/cold parts for thermal insulation.
@@ -18,13 +18,13 @@ The CadQuery script uses an explicit XY plane with +Z normal
 
 ## Physical inputs
 
-- **Pressure vessel** — 5.000" OD × 0.065" wall × 6.000" cut length 316 SS
+- **Carbonator** — 5.000" OD × 0.065" wall × 6.000" cut length 316 SS
   welded tube (OnlineMetals #12498). Two 1/4"-thick 316 SS endcap plates
   laser-welded internally, recessed flush with the tube ends. Hand-tapped
   1/4" NPT, four ports total — two top plate (water inlet, PRV), two
   bottom plate (CO2 inlet, water outlet). Both plates are clocked so the
   port pairs stand on the shell's **±Y** axis
-  (`_cold_core_interface.vessel_port_offset`); the float rod's register, at
+  (`_cold_core_interface.carbonator_port_offset`); the float rod's register, at
   right angles to each plate's own pair, is what holds the two together. Vessel assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
@@ -39,7 +39,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
   and internal features live at [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
-  hand-wound helically around the vessel exterior, bonded with 3M 425
+  hand-wound helically around the carbonator exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted
   at [7 mm](COIL_GAP). The coil is embedded in the inner slice of the
   cylinder's foam blanket; pour foam fills the helical gaps between wraps
@@ -49,8 +49,8 @@ The CadQuery script uses an explicit XY plane with +Z normal
   and below the tank. Each is clocked to the line it feeds, which is what lets
   a run leave straight. The bottom-plate CO2 port's elbow carries a
   **PP010822E 1/4" PTC × 1/4" NPT M adapter** on its outlet; that pair is made
-  up on the vessel at the bench and hangs inboard of the support ring's bore,
-  so it descends in open space as the vessel seats. Its collet faces the CO2
+  up on the carbonator at the bench and hangs inboard of the support ring's bore,
+  so it descends in open space as the carbonator seats. Its collet faces the CO2
   bore at y = [-19.05](CO2_BORE_Y), and the 1/4" OD line arrives on that axis
   from the port lane — laid down the lane from the top cap before the cap goes
   on, not pushed in from outside.
@@ -315,7 +315,7 @@ nothing else.
 | 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | west-lane slot | 1/4" OD LLDPE from the prv-shroud's barrel into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
-| 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the vessel's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
+| 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the carbonator's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the tank, out through the ring's 225° slot and up beside the coil |
 | 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the WR1110 regulator — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which feeds the **sparge stone below the liquid** |
 | 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | off A's floor bulkhead at the **bottom of its wet V**, out the pocket's −Y wall, forward along the port lane's own floor, up the forward strip |
@@ -323,9 +323,9 @@ nothing else.
 | 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | straight down onto the fill bore in reservoir A's own cap, **above its liquid** |
 | 12 | Reservoir B fill | **top-cap conduit** `reservoir-b-fill` | the same onto reservoir B's cap |
 
-**Every vessel is filled high and drawn low** — the carbonator at its two plates, each
-reservoir at its cap and its trough. Nothing that enters can leave without crossing the
-vessel, which is what the air-purge and clean-flush service modes run on.
+**The carbonator and both reservoirs are filled high and drawn low** — the carbonator at
+its two plates, each reservoir at its cap and its trough. Nothing that enters one can leave
+without crossing it, which is what the air-purge and clean-flush service modes run on.
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
 1/4" OD before reaching the shell — transition fittings (3/8"
@@ -527,13 +527,13 @@ the body pour into the shell's open +Z top.
 
 Every internal component is installed first:
 
-- Pressure vessel lowered into the centerward arc envelope, seated
+- Carbonator lowered into the centerward arc envelope, seated
   on the `tank_support_ring`. Its four port elbows are already made up and clocked
   to the lines they feed — the bottom-plate CO2 elbow onto the leaning bore, the
   bottom-plate outlet elbow toward −X, the top-plate inlet elbow toward +Y — with
   the PP010822E collets on them hanging inboard of the ring, and the sparge stone
   and its silicone stub already inside.
-- Copper evaporator coil hand-wound around the vessel exterior and
+- Copper evaporator coil hand-wound around the carbonator exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
 - Copper evaporator inlet routed along the port lane and out through its slot; copper
@@ -542,8 +542,8 @@ Every internal component is installed first:
   lane, and each of the two coppers lands on the pick of the body standing against its
   own lane's face — the condenser's outlet east, the compressor's suction west.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
-  lateral FNPT of the vessel's top-plate −Y elbow, collet clocked onto the diagonal
-  the line leaves on, and a length of 1/4" OD LLDPE from that collet across the vessel's
+  lateral FNPT of the carbonator's top-plate −Y elbow, collet clocked onto the diagonal
+  the line leaves on, and a length of 1/4" OD LLDPE from that collet across the carbonator's
   own top in the band between the top plate and the cap floor — the tank has ended by
   this height — onto the +Y band, forward, then into the forward strip and up
   the top cap's `water-in` conduit. Every corner on it is potted where it turns, and
@@ -553,8 +553,8 @@ Every internal component is installed first:
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs — `lower` and `middle` on the west lane, `top` on the port.
 - PRV shroud subassembly (`../prv-shroud/`) — already built and
-  cured ahead of time, threaded into Port 4 at vessel install — is
-  here as part of the vessel by the time the body pour happens.
+  cured ahead of time, threaded into Port 4 at carbonator install — is
+  here as part of the carbonator by the time the body pour happens.
   Press-fit a length of 1/4" OD LLDPE into the bore in the shroud's barrel and
   route it down the west lane and out through its slot to the appliance interior.
 - Reservoir A's draw off its floor bulkhead, out through the pocket's −Y wall
