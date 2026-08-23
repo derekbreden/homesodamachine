@@ -17,9 +17,19 @@ this file. Board pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), canonical
 
 Everything in this RFQ is 22 AWG or 28 AWG.
 
+### The WAGO fan-outs are built in-house
+
+The five branch nodes in the table below are **excluded from the quote**. A vendor supplies each
+affected assembly as its trunk only — every board-side conductor run to its full length and
+terminated at the device end — and the lever nut and its branch legs are made off here. A 221 lever
+nut takes no crimp and no tooling, and on the one assembly priced both ways the fan-out was 45 % of
+the assembled cost.
+
+So: quote the wire lists below as written, and ignore the `— … branch` rows.
+
 ## Build quantity
 
-Quote **1, 5, and 25 sets** (a set = all ten assemblies).
+Quote **25, 50, and 100 sets** (a set = all ten assemblies).
 
 ## Workmanship standard
 
