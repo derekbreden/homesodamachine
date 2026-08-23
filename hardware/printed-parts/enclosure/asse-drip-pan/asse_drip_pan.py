@@ -1,12 +1,12 @@
-"""Drip pan — the printed catch basin under the Multiplex atmospheric-vent stub.
+"""ASSE drip pan — the printed catch pan under the Multiplex atmospheric-vent stub.
 The Shutao moisture plate lies flat in it; any vent drip, condensate, or overflow
-pools in the basin and wets the plate, tripping the moisture alarm. Watertight
-(no drain) — the basin is emptied on service.
+pools in the pan and wets the plate, tripping the moisture alarm. Watertight
+(no drain) — the pan is emptied on service.
 
-One printed part: the BASIN — an open-top rounded-corner box, [51](PAN_LEN) x
+One printed part: the PAN — an open-top rounded-corner box, [51](PAN_LEN) x
 [76](PAN_DEPTH) outer x [15](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a
 [3](PAN_FLOOR) mm floor, floor-to-wall coved, with a [4](PAN_FLANGE) mm RIM
-FLANGE turned out all four ways at the top — a baking tray, at tray scale.
+FLANGE turned out all four ways at the top — a baking tray, at that scale.
 
 ONE SILHOUETTE, ONE RADIUS. The plan outline is a single rounded rectangle at
 [6](PAN_CORNER_R) mm and everything else is that outline offset: the floor slab and
@@ -16,22 +16,22 @@ so a hand runs down one arris from the rim to the floor. At the withdrawal end, 
 full-height chamfered pull face closes that raw section and stands over the wall slot.
 
 AND ONE FACE FROM THE FLOOR TO THE FLANGE. The wall's outside is a single vertical face
-for the whole of `PAN_Z` under the flange's own section, so the tray's section across the
+for the whole of `PAN_Z` under the flange's own section, so the pan's section across the
 withdrawal axis is two rectangles: the body, and the rim standing out either side of it.
 
 THE SLEEVE CARRIES IT, THE RIM KEEPS IT DOWN. `enclosure_assembly.pan_sleeve` stands a
 solid block off the −X wall's inner face and cuts those same two rectangles out of it, one
-`PAN_SLIP` larger all round. The basin lies on that block's floor the way a drawer lies in
+`PAN_SLIP` larger all round. The pan lies on that block's floor the way a drawer lies in
 its carcase, and the lid over the berth laps the flange, [3.70](PAN_LAP) mm of it a side
 (`lap_w()`). West through the wall's slot is the one way the berth opens.
 
-Frame: +X long axis (the withdrawal direction — the tray draws WEST through
-`enclosure_assembly.west_wall_ports`'s slot), +Y depth, +Z up; origin at the basin's
+Frame: +X long axis (the withdrawal direction — the pan draws WEST through
+`enclosure_assembly.west_wall_ports`'s slot), +Y depth, +Z up; origin at the pan's
 lower-front-left outer corner of the WALLS, so the flange reaches −`FLANGE_W` of
 it on both plan axes. Open top (+Z).
 
 Run:
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py
 """
 
 import sys
@@ -51,24 +51,24 @@ from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 import shutao_moisture_plate as plate
 
-# The basin is narrow across the strip and deep down it. X is the loft's
-# contested axis — east of the basin the west column's crossing ladder climbs
-# rung over rung (`manifold-layout/_lines`), and the basin's east rim is that
-# ladder's lid: every millimetre the basin gives back in X is
+# The pan is narrow across the strip and deep down it. X is the loft's
+# contested axis — east of the pan the west column's crossing ladder climbs
+# rung over rung (`manifold-layout/_lines`), and the pan's east rim is that
+# ladder's lid: every millimetre the pan gives back in X is
 # ceiling a rung buys radius from. Y is the axis with room to spare: the run
 # between the SeaFlo's back face and the foam cap's rear edge is deeper than
-# the basin needs. So the width is the LANE, and the floor the moisture plate needs is
+# the pan needs. So the width is the LANE, and the floor the moisture plate needs is
 # what the lane has to leave: the plate turned down the depth wants
 # `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = [51](PAN_PLATE_MIN) of outer width, and
-# `check_plate()` reports a basin that gives back more than that.
+# `check_plate()` reports a pan that gives back more than that.
 #
-# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the tray hangs off
+# THE LANE IS THE MACHINE'S, so this figure is stated here and gated there: the pan hangs off
 # the −X wall's own outer face (`enclosure_assembly.pan_west_x`) and the sleeve behind it has
 # to stop short of the pump's casting (`enclosure_assembly.check_pan_lane`), which is what
-# fixes the rim at [59](PAN_RIM_LEN) over the [51](PAN_LEN) of basin. [76](PAN_DEPTH) down, the
-# basin hung on the atmospheric vent's own tip in both plan axes.
+# fixes the rim at [59](PAN_RIM_LEN) over the [51](PAN_LEN) of pan. [76](PAN_DEPTH) down, the
+# pan hung on the atmospheric vent's own tip in both plan axes.
 #
-# [15](PAN_HEIGHT) TALL STANDS [12](PAN_WATER_DEPTH) mm OF WALL OVER THE WATER, and THE BASIN
+# [15](PAN_HEIGHT) TALL STANDS [12](PAN_WATER_DEPTH) mm OF WALL OVER THE WATER, and THE PAN
 # COMES OUT FULL: drawn west down its slot, clear of the wall, then carried at arm's length to
 # be poured out. The plate reads a pool a millimetre deep, so the alarm has been out since the
 # first few mL and what these millimetres hold is the pool on that trip. They are dug DOWN —
@@ -85,24 +85,24 @@ CORNER_R = 6.0
 FLOOR_COVE = 2.0
 
 # The rim flange's reach past each wall, ALL FOUR WAYS, at the rim plane. THE LAP IS WHAT
-# CLOSES ON IT: the sleeve's floor takes the tray's weight and the sleeve's lid comes back over
-# this band, `lap_w()` of it once the fit's `PAN_SLIP` is off. The tray's west end, which stands
+# CLOSES ON IT: the sleeve's floor takes the pan's weight and the sleeve's lid comes back over
+# this band, `lap_w()` of it once the fit's `PAN_SLIP` is off. The pan's west end, which stands
 # `enclosure_assembly.PAN_PROUD` outside the machine's skin, is where a hand goes.
-#   IT IS ON THE WITHDRAWAL AXIS TWICE, so the rim runs [59](PAN_RIM_LEN) down a lane the basin
+#   IT IS ON THE WITHDRAWAL AXIS TWICE, so the rim runs [59](PAN_RIM_LEN) down a lane the pan
 # takes [51](PAN_LEN) of — and that 51 is the plate's own minimum. One rim runs all four sides
 # at the one figure.
 FLANGE_W = 4.0
-# The flange's own section — the wall turned out, so the rim is the gauge the tray is.
+# The flange's own section — the wall turned out, so the rim is the gauge the pan is.
 FLANGE_T = WALL
-# Per side, tray to whatever holds it: the berth's flanks and its rebate's ceiling, and the
-# tray's silhouette to the wall slot it draws through.
+# Per side, pan to whatever holds it: the berth's flanks and its rebate's ceiling, and the
+# pan's silhouette to the wall slot it draws through.
 PAN_SLIP = 0.3
 
-# THE PART THE HAND SEES IS A FACE, not the open basin's raw end section. From the flange's
+# THE PART THE HAND SEES IS A FACE, not the open pan's raw end section. From the flange's
 # outermost west plane, this face runs back through the west wall and stops one `PAN_SLIP`
 # short of the enclosure skin when `enclosure_assembly` stands it in the machine. It therefore
 # masks the two-level wall slot without becoming an insertion stop, and the existing six
-# millimetres of exposed tray become one deliberate pull rather than a rim shelf over a
+# millimetres of exposed pan become one deliberate pull rather than a rim shelf over a
 # recessed wall. Its YZ outline uses printable 45 degree corners: it starts on the bed, grows
 # no unsupported ledge, and preserves both the top thumb surface and the floor edge a finger
 # hooks under.
@@ -110,19 +110,19 @@ PULL_FACE_DEPTH = 5.7
 PULL_FACE_CHAMFER = WALL
 
 # The Shutao LM393 module's conductivity plate (bom.md §sensors, B0B2W76MB1), lying
-# flat on the basin floor with its long edge down the basin's Y — the withdrawal
+# flat on the pan floor with its long edge down the pan's Y — the withdrawal
 # axis, the one the strip has depth to spare on. The floor's flat area inside the
 # coves is what it lands on; `check_plate()` is that check.
 #   READ OFF THE PLATE'S OWN MODEL, not copied from it. The body that lands in this
-# basin in the assemblies is `reference/shutao-moisture-plate`, so the figure the
+# pan in the assemblies is `reference/shutao-moisture-plate`, so the figure the
 # floor is sized against and the figure the solid is built from are one figure —
-# a basin cannot be gated on a plate a millimetre off the one it receives.
+# a pan cannot be gated on a plate a millimetre off the one it receives.
 PLATE_X, PLATE_Y = plate.PLATE_X, plate.PLATE_Y
 PLATE_SLIP = 1.0      # per side, plate edge to where the cove starts rising
 
 # The least clear air the SLEEVE'S LID keeps under the ASSE chain's underside — which is the
 # vent stub's tip when the chain hangs unrolled, and a body corner when it does not, the stub
-# then standing above it. The lid is the topmost thing the tray's column carries, so it is
+# then standing above it. The lid is the topmost thing the pan's column carries, so it is
 # what this gap is struck on, and the rim takes station one lid and one `PAN_SLIP` below it
 # (`enclosure_assembly.pan_rim_z`).
 VENT_GAP = 4.0
@@ -152,19 +152,19 @@ def lap_w():
     """The band of flange the sleeve's lid closes over, per side.
 
     The whole reach less a `PAN_SLIP`, so the lid's own flank never becomes the thing that
-    stops the tray. The tray lies on the sleeve's floor, so what closes here holds it down and
+    stops the pan. The pan lies on the sleeve's floor, so what closes here holds it down and
     carries nothing."""
     return FLANGE_W - PAN_SLIP
 
 
-# --- the bound this basin states --------------------------------------------
+# --- the bound this pan states --------------------------------------------
 #
-# The floor taking the moisture plate is a BOUND the basin states about itself, measured at
+# The floor taking the moisture plate is a BOUND the pan states about itself, measured at
 # every build off the plate's own model.
 #
 # A VIOLATED BOUND IS A THING TO LOOK AT, and what a reader looks at is the STEP, the three
 # elevations and the scorecard a run writes. So it does not stop the build: `check_plate` hands
-# back a `Bound` whether it holds or not, THE BASIN COMES OUT AT ITS STATED SIZE — too small for
+# back a `Bound` whether it holds or not, THE PAN COMES OUT AT ITS STATED SIZE — too small for
 # the plate that overran it — and `enclosure_assembly.build_pan` enters the reading in that
 # module's own ledger, where `_scorecard` renders it as the `plate-lies-flat` gate row carrying the
 # message written here. A raise would have destroyed every artifact a reader could see the fault
@@ -174,18 +174,18 @@ Bound = namedtuple("Bound", "id label ok value target detail")
 
 def check_plate() -> Bound:
     """Whether the flat floor takes the plate with its slip on every side. The
-    plate lies turned — its long edge down the basin's Y — so the width it asks of the
-    basin comes out of the axis the strip has to give. A plate wider than the flat
+    plate lies turned — its long edge down the pan's Y — so the width it asks of the
+    pan comes out of the axis the strip has to give. A plate wider than the flat
     rides up on the coves instead of lying down, and the water has to stand that much
     deeper before it reads."""
     fx, fy = flat_floor()
     need_x, need_y = PLATE_Y + 2 * PLATE_SLIP, PLATE_X + 2 * PLATE_SLIP
     ok = fx >= need_x and fy >= need_y
     return Bound(
-        "plate-lies-flat", "The moisture plate lies flat on the basin's floor", ok,
+        "plate-lies-flat", "The moisture plate lies flat on the pan's floor", ok,
         f"flat floor {fx:.2f} x {fy:.2f}", f"{need_x:.2f} x {need_y:.2f}",
         ([] if ok else [
-            f"drip-pan floor {fx:.2f} x {fy:.2f} flat inside the r{FLOOR_COVE:g} coves; "
+            f"ASSE drip pan floor {fx:.2f} x {fy:.2f} flat inside the r{FLOOR_COVE:g} coves; "
             f"the {PLATE_X:g} x {PLATE_Y:g} plate turned down the depth, with "
             f"{PLATE_SLIP:g} slip a side, needs {need_x:.2f} x {need_y:.2f}. Grow PAN_Y, "
             f"shrink FLOOR_COVE, or move the SeaFlo forward — the strip behind it is "
@@ -210,7 +210,7 @@ def build():
         .translate((WALL, WALL, FLOOR))
     )
     # The RIM FLANGE — the outline plus `FLANGE_W`, one section thick, its top face flush
-    # with the rim so the flange costs the column nothing above the basin. Its underside is
+    # with the rim so the flange costs the column nothing above the pan. Its underside is
     # the only overhang on the part, and it reaches `FLANGE_W` off a face the printer has
     # been laying down since the first layer.
     flange = _rounded_prism(
@@ -233,7 +233,7 @@ def build():
 
 
 def capacity_ml():
-    """The basin holds this before it overflows the rim — no drain, emptied on
+    """The pan holds this before it overflows the rim — no drain, emptied on
     service, so it is the interval the vent's weep buys."""
     return (PAN_X - 2 * WALL) * (PAN_Y - 2 * WALL) * (PAN_Z - FLOOR) / 1000.0
 
@@ -241,8 +241,8 @@ def capacity_ml():
 def main():
     pan = build()
     bb = pan.val().BoundingBox()
-    print("Drip pan — printed catch basin")
-    print(f"  Basin bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
+    print("ASSE drip pan — printed catch pan")
+    print(f"  Pan bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  {PAN_X:g}x{PAN_Y:g}x{PAN_Z:g} outer, {WALL:g} wall, {FLOOR:g} floor, "
           f"r{CORNER_R:g} corners, r{FLOOR_COVE:g} floor cove, {capacity_ml():.1f} mL to the rim")
@@ -261,7 +261,7 @@ def main():
           f"{PULL_FACE_DEPTH:g} deep with {PULL_FACE_CHAMFER:g} mm 45 degree corners")
     print(f"  Withdraws −X: {PAN_X + 2 * FLANGE_W:g} mm long on that axis, so it draws its own "
           f"length plus the wall's section to come clear")
-    for shape, name in ((pan, "drip-pan.step"),):
+    for shape, name in ((pan, "asse-drip-pan.step"),):
         out = _here.parent / name
         export_assembly(one_body(shape, out.stem, M_PETG_BLACK), str(out))
         print(f"-> {out.name}")

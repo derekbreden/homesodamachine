@@ -120,7 +120,7 @@ PARTS = {
         "enclosure/nameplate/nameplate-001.step",
     ],
     "Drip pan": [
-        "enclosure/drip-pan/drip-pan.step",
+        "enclosure/asse-drip-pan/asse-drip-pan.step",
     ],
     "Fuse clamp": ["refrigeration/fuse-clamp/fuse-clamp.step"],
     # NO VALVE PANEL ROW AND NO TRAY ROW. Every valve in the machine stands in four bosses
