@@ -43,22 +43,25 @@ they became.
 | **soda faucet tube** | the black 3/8" tube, Westbrass's top port out to the gooseneck exit | dispense tube, water tube |
 | **above-counter plate** | the printed disc between the faucet shell and the countertop | mounting plate |
 | **above-counter gasket** | the TPU disc between the above-counter plate and the countertop | mounting gasket |
-| **ASSE drip pan** | the printed catch basin in the service bay, under the ASSE 1022 chain | drip pan |
+| **ASSE drip pan** | the printed basin under the ASSE 1022 vent tip, moisture probe lying flat in it | drip pan, drip tray, basin |
 | **nameplate** | the plate the machine is named and rated on | |
 | **ceiling panel** | the enclosure's ceiling, printed as its own piece | |
 | **foam shell** | the printed PETG shell around the cold core | |
 | **PRV shroud** | the printed cup over the pressure-relief valve, keeping the pour off it | |
-| **funnel** | the part flavor concentrate is poured into, with its own spout | |
+| **funnel** | the part flavor concentrate is poured into, with its own spout | hopper |
 | **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
 | **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
 | **pump tray** | either of the two fused beds in the quadrant that a peristaltic pump sits in | |
-| **flow-meter saddle** | the fused cradles holding the flow meter's barrel | |
+| **flow-meter anchor** | either of the two anchors off the top wall that the flow meter's barrel seats in | flow-meter saddle, saddle |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
 | **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the controller, controller PCBA, the PCBA |
 | **foam cap** | the printed piece closing one end of the foam shell — one per end, two per machine | |
 | **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
-| **boss** | a printed post with a screw hole or heat-set insert that a part fastens to | |
+| **boss** | material round a socket that a part fastens into — a post, or a plate one socket thick | |
+| **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
+| **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | electronics shelf |
+| **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the cut 304 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
@@ -73,4 +76,3 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | --- | --- | --- |
 | **anchor** | a printed feature a body seats in and a strap closes over | anchor point |
 | **strap** | the zip tie that closes over an anchor | zip tie |
-| **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
