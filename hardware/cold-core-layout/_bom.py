@@ -28,27 +28,27 @@ BOM = _hw / "ledger" / "bom.md"
 
 # label, the text that finds the row in bom.md, the bodies that realize it.
 PARTS = (
-    # §2 — the carbonator vessel
+    # §2 — the carbonator
     ("316 tube", "OnlineMetals #12498", ("carbonator-tube",)),
     ("endcap plates", "SendCutSend 1/4\"-thick 316 SS circular endcap plate",
      ("endcap-bottom", "endcap-top")),
     ("sparge barb", "LTWFITTING 1/4\" hose barb", ("sparge-barb",)),
-    ("vessel elbows", "TAISHER 2PCS 316L SS 90° Barstock Street Elbow",
-     ("vessel-elbow-co2-in", "vessel-elbow-carb-water-out",
-      "vessel-elbow-water-in", "vessel-elbow-prv")),
+    ("carbonator elbows", "TAISHER 2PCS 316L SS 90° Barstock Street Elbow",
+     ("carbonator-elbow-co2-in", "carbonator-elbow-carb-water-out",
+      "carbonator-elbow-water-in", "carbonator-elbow-prv")),
     ("sparge stone", "FERRODAY 0.5 µm sintered", ("sparge-stone",)),
     ("silicone stub", "Food-grade silicone tube stub", ("sparge-silicone-stub",)),
     ("PRV", "Control Devices SV-125", ("prv-sv125",)),
     ("PTFE thread tape", "Millrose 70894 Nickel Guard", ()),
 
-    # §3 / §4 / §9 — the collets that land on vessel elbows
+    # §3 / §4 / §9 — the collets that land on carbonator elbows
     ("PTC collets", "John Guest PP010822E",
      ("collet-co2-in", "collet-carb-water-out", "collet-water-in")),
 
     # §5 — refrigeration
     ("evaporator coil", "GOORY 1/4\" OD × 50 ft ACR copper coil",
      ("evap-coil", "evap-tail-inlet", "evap-tail-outlet")),
-    ("tank probe", "TIEXYE DS18B20", ("probe-tank-ds18b20",)),
+    ("carbonator probe", "TIEXYE DS18B20", ("probe-carbonator-ds18b20",)),
     ("coil probe", "DS18S20+ TO-92", ("probe-coil-ds18s20",)),
 
     # §6 — what fills the shell

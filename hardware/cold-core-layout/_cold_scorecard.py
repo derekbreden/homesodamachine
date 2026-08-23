@@ -2,7 +2,7 @@
 
 Same sidecar the enclosure's card writes ([`web/contracts/scorecard-sidecar.js`]
 (/web/contracts/scorecard-sidecar.js)), so the 3D viewer draws this card with the machinery it
-already has. The checks are this assembly's own — a vessel, a wound coil, two reservoirs, and
+already has. The checks are this assembly's own — a carbonator, a wound coil, two reservoirs, and
 the lines potted among them.
 
 REPORTING, NOT GATING. `main` never exits nonzero on a finding — every row lands in the card

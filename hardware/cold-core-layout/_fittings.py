@@ -50,14 +50,14 @@ def _orient(solid, axis):
 
 # --- TAISHER 316L 90° barstock street elbow, 1/4" NPT M × F -------------------
 #
-# `bom.md` §2 — all four vessel-port elbows. Male on one leg, female on the other: the male
+# `bom.md` §2 — all four carbonator-port elbows. Male on one leg, female on the other: the male
 # threads into the plate's own tapped 1/4"-18 NPT and the female socket turns the line 90° onto
 # its lateral axis, where a PP010822E collet, the SV-125 or the sparge barb makes up on it.
 #
 # The hex is sized by the ⌀19 mm bore of `prv-shroud`, which the README there
 # states the elbow seat enters: across corners has to clear it, so across flats stops at 5/8".
-# `_vessel.ELBOW_AXIS_OFFSET` is the male leg's standoff read off the shell's own storeys, and
-# `_vessel` passes it in rather than taking the catalog reach below.
+# `_carbonator.ELBOW_AXIS_OFFSET` is the male leg's standoff read off the shell's own storeys, and
+# `_carbonator` passes it in rather than taking the catalog reach below.
 ELBOW_HEX_AF = 0.625 * IN                 # 5/8" across flats — 18.33 across corners in a ⌀19 bore
 ELBOW_LEG = 0.81 * IN                     # centre of the body to either face
 ELBOW_BORE = 0.25 * IN                    # the 1/4" run through it
@@ -79,7 +79,7 @@ def street_elbow(*, corner, up=(0, 0, 1), out, up_leg=None, out_leg=None,
 
     The male leg runs `up` and threads into the plate its hex boss reaches; the female socket
     faces `out`. Each leg reaches `ELBOW_LEG` unless given its own: a male leg is as long as
-    the face it lands on leaves, and `_vessel` passes the standoff the shell's storeys strike.
+    the face it lands on leaves, and `_carbonator` passes the standoff the shell's storeys strike.
     Hands back the solid and the mouth the next fitting makes up on."""
     up = cq.Vector(*up).normalized()
     out = cq.Vector(*out).normalized()
@@ -133,7 +133,7 @@ def sv125_reach() -> float:
 # --- LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS ---------------------------
 #
 # `bom.md` §2, port 1. Threads into the bottom plate's lane-side elbow with the barb facing
-# INWARD, into the vessel: the silicone stub hangs off it and the sparge stone hangs off that.
+# INWARD, into the carbonator: the silicone stub hangs off it and the sparge stone hangs off that.
 # The barb and the port's own elbow are two male fittings in ONE through-tapped hole, one from
 # each face, so each reaches half the plate.
 BARB_STUB_LEN = 0.125 * IN
