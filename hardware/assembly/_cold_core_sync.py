@@ -139,7 +139,7 @@ def main():
         # Generic small-feature port hole (water outlet, reservoir
         # bulkheads, CO2 tube clearance through cap+lid).
         "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
-        # CO2 inlet Y — the vessel's own port axis. The bore, the vessel
+        # CO2 inlet Y — the carbonator's own port axis. The bore, the carbonator
         # elbow and the tube all stand on it.
         "COTWO_INLET_Y": f"{co2_inlet_y:.4g}",
         # The band the water inlet's line turns and runs in — the top plate's

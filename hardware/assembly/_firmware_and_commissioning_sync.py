@@ -18,7 +18,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cold-core" / "reservoir"))
 sys.path.insert(0, str(_hw / "wiring"))
 
 import manifold_layout as _ml  # noqa: E402  — the manifold's own station census
-from reservoir import reservoir_count  # noqa: E402  — the physical vessel count is that part's, not this file's
+from reservoir import reservoir_count  # noqa: E402  — the physical reservoir count is that part's, not this file's
 import _ac_wiring_schedule_sync as _ac  # noqa: E402  — the 12 V loads and the supply, where the run table states them
 from docgen import substitute_md  # noqa: E402
 

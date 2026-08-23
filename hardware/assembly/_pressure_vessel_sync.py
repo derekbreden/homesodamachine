@@ -35,9 +35,9 @@ from docgen import substitute_md
 
 MM_PER_IN = 25.4
 
-# The vessel's working pressure, and the only thing that sets it: the in-appliance
+# The carbonator's working pressure, and the only thing that sets it: the in-appliance
 # Interstate Pneumatics WR1110 fixed secondary regulator standing between the
-# customer's CGA-320 primary and the vessel's CO2 port (bom.md §4). Every pressure
+# customer's CGA-320 primary and the carbonator's CO2 port (bom.md §4). Every pressure
 # figure this procedure is sized against — the PRV margin, the hoop stress, the
 # hydro hold — is measured off this one number, and the benches downstream read it
 # from here: `_acceptance_and_burn_in_sync` centres its CO2 rig on it and

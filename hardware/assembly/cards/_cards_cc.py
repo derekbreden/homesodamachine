@@ -16,7 +16,7 @@ WHAT THE CC CARDS STAND ON, and therefore what is asserted rather than measured:
   a relief vent is made up on nothing, it ends open, and tube length on a relief
   path is discharge taken off the valve's rating — so it takes the shortest way
   out, one corner and through the +Y flank. One line, one opening, no second door.
-- EVERY VESSEL IS FILLED HIGH AND DRAWN LOW — the carbonator at its top plate and
+- EVERY TANK IS FILLED HIGH AND DRAWN LOW — the carbonator at its top plate and
   its bottom, each reservoir at its cap and at its floor bulkhead. That is what
   the air-purge and clean-flush service modes run on, and it is a pairing of
   conduits rather than a figure, so it is an assertion too.
@@ -143,12 +143,12 @@ def cold_core(m):
         and len(routes.routes["prv-vent"]) == 3, (
         f"the PRV vent runs {routes.routes['prv-vent']} — CC-12 lets this one line out the "
         f"+Y flank on one corner and nothing else through the skin")
-    # Filled high, drawn low. Each of the three vessels is entered once and drawn
-    # once, and the pairs are named: two ends per vessel, never two of a kind.
+    # Filled high, drawn low. Each of the three tanks is entered once and drawn
+    # once, and the pairs are named: two ends per tank, never two of a kind.
     entries = {"water-in", "co2-in", "reservoir-a-fill", "reservoir-b-fill"}
     draws = {"carb-water-out", "reservoir-a", "reservoir-b"}
     assert set(cci.cap_fluid_conduits) == entries | draws, (
-        f"the cap carries {sorted(cci.cap_fluid_conduits)} — CC-12 walks three vessels, each "
+        f"the cap carries {sorted(cci.cap_fluid_conduits)} — CC-12 walks three tanks, each "
         f"entered above its liquid and drawn at its lowest point, and every fluid conduit on "
         f"the cap is one end of one of those")
     pair = {+cci.vessel_port_offset, -cci.vessel_port_offset}
@@ -156,7 +156,7 @@ def cold_core(m):
         and abs(cci.co2_inlet_y) == cci.vessel_port_offset, (
         f"the top plate carries the water inlet at {cci.water_inlet_port_y:g} and the PRV at "
         f"{cci.prv_port_y:g} and the bottom plate the CO2 at {cci.co2_inlet_y:g} — CC-12 says "
-        f"the vessel is filled above the liquid and gassed below it, and a plate drills two "
+        f"the carbonator is filled above the liquid and gassed below it, and a plate drills two "
         f"holes {sorted(pair)} that two fittings take one each")
     # The evaporator's two coppers leave by opposite lanes (CC-03, CC-10, CC-12).
     tails = {name: plugs.columns[spec.column].lane_y
@@ -219,7 +219,7 @@ def cold_core(m):
             f"reads which way the cup goes on off it, and a pattern that looks the same "
             f"both ways tells the bench nothing")
 
-    # The vessel's own bottom rim, where it lands on the support ring's plateau —
+    # The carbonator's own bottom rim, where it lands on the support ring's plateau —
     # what CC-03 measures the coil's bare band up from.
     band_floor_z = cci.wall_and_floor_thickness + cci.tank_support_ring_height
     plug_count = len(plugs.plug_specs)
@@ -240,7 +240,7 @@ def cold_core(m):
         "CORE_CAPPED": f"{cci.outer_shell_x_length:.4g} {X} "
                        f"{cci.outer_shell_y_length:.4g} {X} {capped_h:.4g} mm",
         "SHELL_INSERTS": f"{2 * face_bosses}",
-        # The wind band on the vessel (CC-03) — bare steel under the coil's low
+        # The wind band on the carbonator (CC-03) — bare steel under the coil's low
         # tail, and over its high one, read off the tails the mandrel is wound to.
         "WIND_LENGTH": f"{cci.evap_tail_high_z - cci.evap_tail_low_z:.4g}",
         "WIND_BAND_LOW": f"{cci.evap_tail_low_z - band_floor_z:.4g}",
