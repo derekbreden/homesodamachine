@@ -1293,9 +1293,16 @@ static void refreshHomeSelection() {
       const bool selected = selectedFlavor == static_cast<int8_t>(i);
       lv_obj_set_style_bg_color(homeFlavorCard[i],
                                 lv_color_hex(selected ? COL_CARD_ON : COL_CARD), 0);
-      lv_obj_set_style_border_width(homeFlavorCard[i], selected ? 4 : 1, 0);
+      // A border consumes a button's inner box. Keep its 1 px layout edge
+      // constant and put the retained-selection emphasis outside it, so the
+      // artwork and badge never jump when selection changes.
+      lv_obj_set_style_border_width(homeFlavorCard[i], 1, 0);
       lv_obj_set_style_border_color(homeFlavorCard[i],
                                     lv_color_hex(selected ? COL_ACCENT : COL_OFF), 0);
+      lv_obj_set_style_outline_width(homeFlavorCard[i], selected ? 3 : 0, 0);
+      lv_obj_set_style_outline_color(homeFlavorCard[i], lv_color_hex(COL_ACCENT), 0);
+      lv_obj_set_style_outline_opa(homeFlavorCard[i], LV_OPA_COVER, 0);
+      lv_obj_set_style_outline_pad(homeFlavorCard[i], 0, 0);
 
       // The card marks and header already explain that both cards are choices.
       // Keep only the retained selection badge; the inactive card stays calm.
