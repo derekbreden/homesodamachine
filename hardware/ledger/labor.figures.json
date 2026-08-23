@@ -6,15 +6,14 @@
     "FOAM_CLAMP_INSERTS": "12",
     "FOAM_SCREWS": "12",
     "NAMEPLATE_SCREWS": "2",
-    "PLATE_RETAINER_SCREWS": "2",
     "PUMP_MOUNT_SCREWS": "4",
     "RES_SCREWS": "12",
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "60",
-    "TOTAL_M3_INSERTS": "56",
-    "TOTAL_SCREWS": "60",
+    "TOTAL_INSERTS": "58",
+    "TOTAL_M3_INSERTS": "54",
+    "TOTAL_SCREWS": "58",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {
