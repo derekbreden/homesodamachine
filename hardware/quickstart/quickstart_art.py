@@ -33,8 +33,8 @@ PORT_DIMENSIONS = (
     HARDWARE
     / "printed-parts"
     / "enclosure"
-    / "back-panel"
-    / "_back_panel_dimensions.py"
+    / "y-wall-of-back-top"
+    / "_y_wall_dimensions.py"
 )
 def decode_rgb565_header(source: Path, target: Path) -> None:
     """Decode one 172 x 320 firmware image into a browser-ready PNG."""
@@ -62,7 +62,7 @@ def write_colors() -> None:
     """Carry the physical port colors straight into the printed sheet."""
     note_read(PORT_DIMENSIONS)
     sys.path.insert(0, str(PORT_DIMENSIONS.parent))
-    from _back_panel_dimensions import port_color_hex  # noqa: E402
+    from _y_wall_dimensions import port_color_hex  # noqa: E402
 
     text = ":root {\n" + "".join(
         f"  --{name}: {port_color_hex(fluid)};\n"
