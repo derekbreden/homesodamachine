@@ -153,7 +153,7 @@ def main():
         # What rides out of the bay and what the box keeps. All four counts come off the same
         # fastening rows the card reads, so a body that moves seat moves one and the rest.
         "CART_PUMPS":   f"{len(decked)}",
-        "PANEL_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
+        "TRAY_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
         "CAP_VALVES":   f"{len(cap_cradles)}",
         "BOX_TEES":     f"{sum(1 for n in _sc.TEE_BUTTS if holder(n, decked) != RIDES_OUT)}",
         # The doc names this count in four places — the opening, the heading, the pull and the
@@ -184,7 +184,7 @@ def main():
     print("-> pump-replacement.md")
     print(f"   {len(found)} joints part: {', '.join(found)}")
     print(f"   {variables['CART_PUMPS']} pumps ride {RIDES_OUT}; "
-          f"{variables['PANEL_VALVES']} valves + {variables['BOX_TEES']} tees stay on {BAY}, "
+          f"{variables['TRAY_VALVES']} valves + {variables['BOX_TEES']} tees stay on {BAY}, "
           f"{variables['CAP_VALVES']} valves on the core's lid")
 
 

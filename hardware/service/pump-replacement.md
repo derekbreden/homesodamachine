@@ -19,7 +19,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 
 | Rides out on `enclosure-pump-cartridge` | Stays |
 |---|---|
-| Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](PANEL_VALVES) valves — V-C…V-J, on the two printed panels ([`valve-panel/`](/hardware/printed-parts/enclosure/valve-panel/README.md)) |
+| Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
 | | The collet plate, in the blind seat sunk in the bay floor's top, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
