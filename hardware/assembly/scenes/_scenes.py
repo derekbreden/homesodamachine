@@ -282,7 +282,7 @@ SCENES = (
              "proud of this rim is the cap's own thickness and the cap comes down over it.",
     ),
     Scene(
-        "hopper-drain", "Funnel drain stub",
+        "funnel-drain", "Funnel drain stub",
         roots=("funnel",), inner=(), flip=((1, 0, 0), 180.0), also=(),
         # The union is on the far end of the stub and is the joint that PARTS: it stays in the
         # machine when the funnel comes out, so it is not on the bench with this one.
@@ -378,7 +378,7 @@ PARTS = (
          "hardware/printed-parts/enclosure/enclosure/enclosure.step",
          cam=(0.75, -1.0, 0.55)),
     # The bare wall from OUTSIDE — the union bores in a rectangle, the C14 window under them.
-    Part("en02-rearwall", "Enclosure back top, +Y wall",
+    Part("en02-y-wall", "Enclosure back top, +Y wall",
          "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
          cam=(0.35, 1.0, 0.3)),
     Part("en03-compressor", "Compressor",
@@ -386,10 +386,10 @@ PARTS = (
     Part("en05-coldcore", "Cold core",
          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
          cam=(0.8, -1.0, 0.5)),
-    Part("en08-drippan", "ASSE drip pan",
+    Part("en08-asse-drip-pan", "ASSE drip pan",
          "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
          cam=(0.75, -1.0, 0.55)),
-    Part("en09-hopper", "Funnel",
+    Part("en09-funnel", "Funnel",
          "hardware/printed-parts/zone-c/funnel/funnel.step"),
     # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera
     # stands across the box, and the walls between it and them are drawn through.

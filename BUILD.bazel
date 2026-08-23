@@ -991,7 +991,7 @@ genrule(
         "hardware/assembly/cards/ca-01-build-harness.html",
         "hardware/assembly/cards/ca-02-harness-schedule.html",
         "hardware/assembly/cards/cc-01-wind-coil.html",
-        "hardware/assembly/cards/cc-02-dress-the-vessel-wall.html",
+        "hardware/assembly/cards/cc-02-dress-the-carbonator-wall.html",
         "hardware/assembly/cards/cc-03-transfer-the-coil.html",
         "hardware/assembly/cards/cc-04-bond-coil-probe.html",
         "hardware/assembly/cards/cc-05-press-shell-inserts.html",
@@ -999,21 +999,21 @@ genrule(
         "hardware/assembly/cards/cc-07-build-reed-columns.html",
         "hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
         "hardware/assembly/cards/cc-09-close-reservoirs.html",
-        "hardware/assembly/cards/cc-10-lower-the-vessel.html",
+        "hardware/assembly/cards/cc-10-lower-the-carbonator.html",
         "hardware/assembly/cards/cc-11-seat-reservoirs.html",
         "hardware/assembly/cards/cc-12-route-penetrations.html",
         "hardware/assembly/cards/cc-13-stack-copper-plugs.html",
         "hardware/assembly/cards/cc-14-pour-body-foam.html",
         "hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
         "hardware/assembly/cards/en-01-stage-the-printed-pieces.html",
-        "hardware/assembly/cards/en-02-rear-wall-bodies.html",
+        "hardware/assembly/cards/en-02-y-wall-bodies.html",
         "hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
         "hardware/assembly/cards/en-04-stand-the-stratum.html",
         "hardware/assembly/cards/en-05-seat-cold-core.html",
         "hardware/assembly/cards/en-06-power-column.html",
         "hardware/assembly/cards/en-07-close-the-box.html",
-        "hardware/assembly/cards/en-08-drip-tray.html",
-        "hardware/assembly/cards/en-09-display-and-hopper.html",
+        "hardware/assembly/cards/en-08-asse-drip-pan.html",
+        "hardware/assembly/cards/en-09-display-and-funnel.html",
         "hardware/assembly/cards/pc-01-prepare-the-wall.html",
         "hardware/assembly/cards/pc-02-stage-ac-distribution.html",
         "hardware/assembly/cards/pc-03-stage-psu-relays-board.html",
@@ -1059,8 +1059,8 @@ genrule(
         ":out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en02-rearwall.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en02-rearwall.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png",
@@ -1069,10 +1069,10 @@ genrule(
         ":out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/en06-column.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/en06-column.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en08-drippan.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en08-drippan.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png",
@@ -1111,8 +1111,8 @@ genrule(
         ":out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/scene-hopper-drain.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/wago-column.png",
@@ -1133,7 +1133,7 @@ genrule(
         "hardware/assembly/cards/pv-06-tack-float-rod.html",
         "hardware/assembly/cards/pv-07-deburr-and-prep.html",
         "hardware/assembly/cards/pv-08-weld-bottom-plate.html",
-        "hardware/assembly/cards/pv-09-close-the-vessel.html",
+        "hardware/assembly/cards/pv-09-close-the-carbonator.html",
         "hardware/assembly/cards/pv-10-dye-penetrant.html",
         "hardware/assembly/cards/pv-11-hydro-test.html",
         "hardware/assembly/cards/pv-12-citric-passivation.html",
@@ -1152,7 +1152,7 @@ genrule(
         "hardware/assembly/cards/sa-03-cap-lid-fill.html",
         "hardware/assembly/cards/sa-04-cap-lid.html",
         "hardware/assembly/cards/sa-05-back-half.html",
-        "hardware/assembly/cards/sa-06-hopper-drain.html",
+        "hardware/assembly/cards/sa-06-funnel-drain.html",
         "hardware/assembly/cards/sa-07-cold-core.html",
         "hardware/assembly/cards/sa-08-cold-core-open.html",
         "hardware/assembly/cards/sa-09-pump-cartridge.html",
@@ -1383,8 +1383,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/ca-02-harness-schedule.png",
         "out/cards-build/hardware/assembly/cards/out/cc-01-wind-coil.pdf",
         "out/cards-build/hardware/assembly/cards/out/cc-01-wind-coil.png",
-        "out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.pdf",
-        "out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.png",
+        "out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-carbonator-wall.pdf",
+        "out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-carbonator-wall.png",
         "out/cards-build/hardware/assembly/cards/out/cc-03-transfer-the-coil.pdf",
         "out/cards-build/hardware/assembly/cards/out/cc-03-transfer-the-coil.png",
         "out/cards-build/hardware/assembly/cards/out/cc-04-bond-coil-probe.pdf",
@@ -1399,8 +1399,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/cc-08-seat-reservoir-rods.png",
         "out/cards-build/hardware/assembly/cards/out/cc-09-close-reservoirs.pdf",
         "out/cards-build/hardware/assembly/cards/out/cc-09-close-reservoirs.png",
-        "out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-vessel.pdf",
-        "out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-vessel.png",
+        "out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-carbonator.pdf",
+        "out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-carbonator.png",
         "out/cards-build/hardware/assembly/cards/out/cc-11-seat-reservoirs.pdf",
         "out/cards-build/hardware/assembly/cards/out/cc-11-seat-reservoirs.png",
         "out/cards-build/hardware/assembly/cards/out/cc-12-route-penetrations.pdf",
@@ -1413,8 +1413,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/cc-15-columns-gaskets-caps.png",
         "out/cards-build/hardware/assembly/cards/out/en-01-stage-the-printed-pieces.pdf",
         "out/cards-build/hardware/assembly/cards/out/en-01-stage-the-printed-pieces.png",
-        "out/cards-build/hardware/assembly/cards/out/en-02-rear-wall-bodies.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-02-rear-wall-bodies.png",
+        "out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bodies.pdf",
+        "out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bodies.png",
         "out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.pdf",
         "out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png",
         "out/cards-build/hardware/assembly/cards/out/en-04-stand-the-stratum.pdf",
@@ -1425,10 +1425,10 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/en-06-power-column.png",
         "out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.pdf",
         "out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.png",
-        "out/cards-build/hardware/assembly/cards/out/en-08-drip-tray.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-08-drip-tray.png",
-        "out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.pdf",
-        "out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.png",
+        "out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.pdf",
+        "out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.png",
+        "out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.pdf",
+        "out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.png",
         "out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf",
         "out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.png",
         "out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf",
@@ -1509,8 +1509,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/pv-07-deburr-and-prep.png",
         "out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf",
         "out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.png",
-        "out/cards-build/hardware/assembly/cards/out/pv-09-close-the-vessel.pdf",
-        "out/cards-build/hardware/assembly/cards/out/pv-09-close-the-vessel.png",
+        "out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.png",
         "out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.pdf",
         "out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.png",
         "out/cards-build/hardware/assembly/cards/out/pv-11-hydro-test.pdf",
@@ -1547,8 +1547,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.png",
         "out/cards-build/hardware/assembly/cards/out/sa-05-back-half.pdf",
         "out/cards-build/hardware/assembly/cards/out/sa-05-back-half.png",
-        "out/cards-build/hardware/assembly/cards/out/sa-06-hopper-drain.pdf",
-        "out/cards-build/hardware/assembly/cards/out/sa-06-hopper-drain.png",
+        "out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.pdf",
+        "out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.png",
         "out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.pdf",
         "out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.png",
         "out/cards-build/hardware/assembly/cards/out/sa-08-cold-core-open.pdf",
@@ -1577,20 +1577,20 @@ genrule(
         "out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html",
         "out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html",
         "out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html",
-        "out/cards-build/hardware/assembly/cards/cc-10-lower-the-vessel.html",
+        "out/cards-build/hardware/assembly/cards/cc-10-lower-the-carbonator.html",
         "out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html",
         "out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html",
         "out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html",
         "out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html",
         "out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html",
         "out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html",
-        "out/cards-build/hardware/assembly/cards/en-02-rear-wall-bodies.html",
+        "out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html",
         "out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html",
         "out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html",
         "out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html",
         "out/cards-build/hardware/assembly/cards/en-06-power-column.html",
         "out/cards-build/hardware/assembly/cards/en-07-close-the-box.html",
-        "out/cards-build/hardware/assembly/cards/en-09-display-and-hopper.html",
+        "out/cards-build/hardware/assembly/cards/en-09-display-and-funnel.html",
         "out/cards-build/hardware/assembly/cards/pc-01-prepare-the-wall.html",
         "out/cards-build/hardware/assembly/cards/pc-03-stage-psu-relays-board.html",
         "out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html",
@@ -1616,7 +1616,7 @@ genrule(
         "out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html",
         "out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html",
         "out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html",
-        "out/cards-build/hardware/assembly/cards/pv-09-close-the-vessel.html",
+        "out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html",
         "out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html",
         "out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html",
         "out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html",
@@ -1627,7 +1627,7 @@ genrule(
         "out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html",
         "out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html",
         "out/cards-build/hardware/assembly/cards/sa-05-back-half.html",
-        "out/cards-build/hardware/assembly/cards/sa-06-hopper-drain.html",
+        "out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html",
         "out/cards-build/hardware/assembly/cards/sa-07-cold-core.html",
         "out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html",
         "out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html",
@@ -1662,8 +1662,8 @@ O21=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ca-02-harness-s
 O22=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/ca-02-harness-schedule.png)
 O23=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-01-wind-coil.pdf)
 O24=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-01-wind-coil.png)
-O25=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.pdf)
-O26=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.png)
+O25=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-carbonator-wall.pdf)
+O26=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-02-dress-the-carbonator-wall.png)
 O27=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-03-transfer-the-coil.pdf)
 O28=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-03-transfer-the-coil.png)
 O29=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-04-bond-coil-probe.pdf)
@@ -1678,8 +1678,8 @@ O37=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-08-seat-rese
 O38=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-08-seat-reservoir-rods.png)
 O39=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-09-close-reservoirs.pdf)
 O40=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-09-close-reservoirs.png)
-O41=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-vessel.pdf)
-O42=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-vessel.png)
+O41=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-carbonator.pdf)
+O42=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-10-lower-the-carbonator.png)
 O43=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-11-seat-reservoirs.pdf)
 O44=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-11-seat-reservoirs.png)
 O45=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-12-route-penetrations.pdf)
@@ -1692,8 +1692,8 @@ O51=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-15-columns-g
 O52=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/cc-15-columns-gaskets-caps.png)
 O53=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-01-stage-the-printed-pieces.pdf)
 O54=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-01-stage-the-printed-pieces.png)
-O55=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-02-rear-wall-bodies.pdf)
-O56=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-02-rear-wall-bodies.png)
+O55=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bodies.pdf)
+O56=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-02-y-wall-bodies.png)
 O57=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.pdf)
 O58=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png)
 O59=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-04-stand-the-stratum.pdf)
@@ -1704,10 +1704,10 @@ O63=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-06-power-col
 O64=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-06-power-column.png)
 O65=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.pdf)
 O66=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-07-close-the-box.png)
-O67=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-drip-tray.pdf)
-O68=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-drip-tray.png)
-O69=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.pdf)
-O70=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.png)
+O67=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.pdf)
+O68=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-asse-drip-pan.png)
+O69=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.pdf)
+O70=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-funnel.png)
 O71=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf)
 O72=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.png)
 O73=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf)
@@ -1788,8 +1788,8 @@ O147=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-07-deburr-a
 O148=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-07-deburr-and-prep.png)
 O149=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf)
 O150=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-08-weld-bottom-plate.png)
-O151=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-vessel.pdf)
-O152=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-vessel.png)
+O151=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf)
+O152=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-09-close-the-carbonator.png)
 O153=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.pdf)
 O154=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-10-dye-penetrant.png)
 O155=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pv-11-hydro-test.pdf)
@@ -1826,8 +1826,8 @@ O185=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.
 O186=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-04-cap-lid.png)
 O187=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-05-back-half.pdf)
 O188=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-05-back-half.png)
-O189=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-hopper-drain.pdf)
-O190=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-hopper-drain.png)
+O189=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.pdf)
+O190=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-06-funnel-drain.png)
 O191=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.pdf)
 O192=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-07-cold-core.png)
 O193=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/sa-08-cold-core-open.pdf)
@@ -1856,20 +1856,20 @@ O215=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-03-transfer-the
 O216=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-05-press-shell-inserts.html)
 O217=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-06-pour-cap-foam.html)
 O218=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-08-seat-reservoir-rods.html)
-O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-vessel.html)
+O219=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-10-lower-the-carbonator.html)
 O220=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-11-seat-reservoirs.html)
 O221=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-12-route-penetrations.html)
 O222=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-13-stack-copper-plugs.html)
 O223=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-14-pour-body-foam.html)
 O224=$$PWD/$(location out/cards-build/hardware/assembly/cards/cc-15-columns-gaskets-caps.html)
 O225=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-01-stage-the-printed-pieces.html)
-O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-rear-wall-bodies.html)
+O226=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-02-y-wall-bodies.html)
 O227=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-03-bolt-the-compressor-down.html)
 O228=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-04-stand-the-stratum.html)
 O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-core.html)
 O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
 O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
-O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-hopper.html)
+O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-funnel.html)
 O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pc-01-prepare-the-wall.html)
 O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/pc-03-stage-psu-relays-board.html)
 O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
@@ -1895,7 +1895,7 @@ O254=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-04-break-plate-
 O255=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-05-cut-level-rods.html)
 O256=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-06-tack-float-rod.html)
 O257=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-07-deburr-and-prep.html)
-O258=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-vessel.html)
+O258=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-09-close-the-carbonator.html)
 O259=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-11-hydro-test.html)
 O260=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-13-prv-shroud-subassembly.html)
 O261=$$PWD/$(location out/cards-build/hardware/assembly/cards/pv-14-port-fittings.html)
@@ -1906,7 +1906,7 @@ O265=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-02-front-top.ht
 O266=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-03-cap-lid-fill.html)
 O267=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-04-cap-lid.html)
 O268=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-05-back-half.html)
-O269=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-hopper-drain.html)
+O269=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-06-funnel-drain.html)
 O270=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-07-cold-core.html)
 O271=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-08-cold-core-open.html)
 O272=$$PWD/$(location out/cards-build/hardware/assembly/cards/sa-09-pump-cartridge.html)
@@ -1954,8 +1954,8 @@ cp hardware/assembly/cards/out/ca-02-harness-schedule.pdf $$O21
 cp hardware/assembly/cards/out/ca-02-harness-schedule.png $$O22
 cp hardware/assembly/cards/out/cc-01-wind-coil.pdf $$O23
 cp hardware/assembly/cards/out/cc-01-wind-coil.png $$O24
-cp hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.pdf $$O25
-cp hardware/assembly/cards/out/cc-02-dress-the-vessel-wall.png $$O26
+cp hardware/assembly/cards/out/cc-02-dress-the-carbonator-wall.pdf $$O25
+cp hardware/assembly/cards/out/cc-02-dress-the-carbonator-wall.png $$O26
 cp hardware/assembly/cards/out/cc-03-transfer-the-coil.pdf $$O27
 cp hardware/assembly/cards/out/cc-03-transfer-the-coil.png $$O28
 cp hardware/assembly/cards/out/cc-04-bond-coil-probe.pdf $$O29
@@ -1970,8 +1970,8 @@ cp hardware/assembly/cards/out/cc-08-seat-reservoir-rods.pdf $$O37
 cp hardware/assembly/cards/out/cc-08-seat-reservoir-rods.png $$O38
 cp hardware/assembly/cards/out/cc-09-close-reservoirs.pdf $$O39
 cp hardware/assembly/cards/out/cc-09-close-reservoirs.png $$O40
-cp hardware/assembly/cards/out/cc-10-lower-the-vessel.pdf $$O41
-cp hardware/assembly/cards/out/cc-10-lower-the-vessel.png $$O42
+cp hardware/assembly/cards/out/cc-10-lower-the-carbonator.pdf $$O41
+cp hardware/assembly/cards/out/cc-10-lower-the-carbonator.png $$O42
 cp hardware/assembly/cards/out/cc-11-seat-reservoirs.pdf $$O43
 cp hardware/assembly/cards/out/cc-11-seat-reservoirs.png $$O44
 cp hardware/assembly/cards/out/cc-12-route-penetrations.pdf $$O45
@@ -1984,8 +1984,8 @@ cp hardware/assembly/cards/out/cc-15-columns-gaskets-caps.pdf $$O51
 cp hardware/assembly/cards/out/cc-15-columns-gaskets-caps.png $$O52
 cp hardware/assembly/cards/out/en-01-stage-the-printed-pieces.pdf $$O53
 cp hardware/assembly/cards/out/en-01-stage-the-printed-pieces.png $$O54
-cp hardware/assembly/cards/out/en-02-rear-wall-bodies.pdf $$O55
-cp hardware/assembly/cards/out/en-02-rear-wall-bodies.png $$O56
+cp hardware/assembly/cards/out/en-02-y-wall-bodies.pdf $$O55
+cp hardware/assembly/cards/out/en-02-y-wall-bodies.png $$O56
 cp hardware/assembly/cards/out/en-03-bolt-the-compressor-down.pdf $$O57
 cp hardware/assembly/cards/out/en-03-bolt-the-compressor-down.png $$O58
 cp hardware/assembly/cards/out/en-04-stand-the-stratum.pdf $$O59
@@ -1996,10 +1996,10 @@ cp hardware/assembly/cards/out/en-06-power-column.pdf $$O63
 cp hardware/assembly/cards/out/en-06-power-column.png $$O64
 cp hardware/assembly/cards/out/en-07-close-the-box.pdf $$O65
 cp hardware/assembly/cards/out/en-07-close-the-box.png $$O66
-cp hardware/assembly/cards/out/en-08-drip-tray.pdf $$O67
-cp hardware/assembly/cards/out/en-08-drip-tray.png $$O68
-cp hardware/assembly/cards/out/en-09-display-and-hopper.pdf $$O69
-cp hardware/assembly/cards/out/en-09-display-and-hopper.png $$O70
+cp hardware/assembly/cards/out/en-08-asse-drip-pan.pdf $$O67
+cp hardware/assembly/cards/out/en-08-asse-drip-pan.png $$O68
+cp hardware/assembly/cards/out/en-09-display-and-funnel.pdf $$O69
+cp hardware/assembly/cards/out/en-09-display-and-funnel.png $$O70
 cp hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf $$O71
 cp hardware/assembly/cards/out/pc-01-prepare-the-wall.png $$O72
 cp hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf $$O73
@@ -2080,8 +2080,8 @@ cp hardware/assembly/cards/out/pv-07-deburr-and-prep.pdf $$O147
 cp hardware/assembly/cards/out/pv-07-deburr-and-prep.png $$O148
 cp hardware/assembly/cards/out/pv-08-weld-bottom-plate.pdf $$O149
 cp hardware/assembly/cards/out/pv-08-weld-bottom-plate.png $$O150
-cp hardware/assembly/cards/out/pv-09-close-the-vessel.pdf $$O151
-cp hardware/assembly/cards/out/pv-09-close-the-vessel.png $$O152
+cp hardware/assembly/cards/out/pv-09-close-the-carbonator.pdf $$O151
+cp hardware/assembly/cards/out/pv-09-close-the-carbonator.png $$O152
 cp hardware/assembly/cards/out/pv-10-dye-penetrant.pdf $$O153
 cp hardware/assembly/cards/out/pv-10-dye-penetrant.png $$O154
 cp hardware/assembly/cards/out/pv-11-hydro-test.pdf $$O155
@@ -2118,8 +2118,8 @@ cp hardware/assembly/cards/out/sa-04-cap-lid.pdf $$O185
 cp hardware/assembly/cards/out/sa-04-cap-lid.png $$O186
 cp hardware/assembly/cards/out/sa-05-back-half.pdf $$O187
 cp hardware/assembly/cards/out/sa-05-back-half.png $$O188
-cp hardware/assembly/cards/out/sa-06-hopper-drain.pdf $$O189
-cp hardware/assembly/cards/out/sa-06-hopper-drain.png $$O190
+cp hardware/assembly/cards/out/sa-06-funnel-drain.pdf $$O189
+cp hardware/assembly/cards/out/sa-06-funnel-drain.png $$O190
 cp hardware/assembly/cards/out/sa-07-cold-core.pdf $$O191
 cp hardware/assembly/cards/out/sa-07-cold-core.png $$O192
 cp hardware/assembly/cards/out/sa-08-cold-core-open.pdf $$O193
@@ -2148,20 +2148,20 @@ cp hardware/assembly/cards/cc-03-transfer-the-coil.html $$O215
 cp hardware/assembly/cards/cc-05-press-shell-inserts.html $$O216
 cp hardware/assembly/cards/cc-06-pour-cap-foam.html $$O217
 cp hardware/assembly/cards/cc-08-seat-reservoir-rods.html $$O218
-cp hardware/assembly/cards/cc-10-lower-the-vessel.html $$O219
+cp hardware/assembly/cards/cc-10-lower-the-carbonator.html $$O219
 cp hardware/assembly/cards/cc-11-seat-reservoirs.html $$O220
 cp hardware/assembly/cards/cc-12-route-penetrations.html $$O221
 cp hardware/assembly/cards/cc-13-stack-copper-plugs.html $$O222
 cp hardware/assembly/cards/cc-14-pour-body-foam.html $$O223
 cp hardware/assembly/cards/cc-15-columns-gaskets-caps.html $$O224
 cp hardware/assembly/cards/en-01-stage-the-printed-pieces.html $$O225
-cp hardware/assembly/cards/en-02-rear-wall-bodies.html $$O226
+cp hardware/assembly/cards/en-02-y-wall-bodies.html $$O226
 cp hardware/assembly/cards/en-03-bolt-the-compressor-down.html $$O227
 cp hardware/assembly/cards/en-04-stand-the-stratum.html $$O228
 cp hardware/assembly/cards/en-05-seat-cold-core.html $$O229
 cp hardware/assembly/cards/en-06-power-column.html $$O230
 cp hardware/assembly/cards/en-07-close-the-box.html $$O231
-cp hardware/assembly/cards/en-09-display-and-hopper.html $$O232
+cp hardware/assembly/cards/en-09-display-and-funnel.html $$O232
 cp hardware/assembly/cards/pc-01-prepare-the-wall.html $$O233
 cp hardware/assembly/cards/pc-03-stage-psu-relays-board.html $$O234
 cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O235
@@ -2187,7 +2187,7 @@ cp hardware/assembly/cards/pv-04-break-plate-edges.html $$O254
 cp hardware/assembly/cards/pv-05-cut-level-rods.html $$O255
 cp hardware/assembly/cards/pv-06-tack-float-rod.html $$O256
 cp hardware/assembly/cards/pv-07-deburr-and-prep.html $$O257
-cp hardware/assembly/cards/pv-09-close-the-vessel.html $$O258
+cp hardware/assembly/cards/pv-09-close-the-carbonator.html $$O258
 cp hardware/assembly/cards/pv-11-hydro-test.html $$O259
 cp hardware/assembly/cards/pv-13-prv-shroud-subassembly.html $$O260
 cp hardware/assembly/cards/pv-14-port-fittings.html $$O261
@@ -2198,7 +2198,7 @@ cp hardware/assembly/cards/sa-02-front-top.html $$O265
 cp hardware/assembly/cards/sa-03-cap-lid-fill.html $$O266
 cp hardware/assembly/cards/sa-04-cap-lid.html $$O267
 cp hardware/assembly/cards/sa-05-back-half.html $$O268
-cp hardware/assembly/cards/sa-06-hopper-drain.html $$O269
+cp hardware/assembly/cards/sa-06-funnel-drain.html $$O269
 cp hardware/assembly/cards/sa-07-cold-core.html $$O270
 cp hardware/assembly/cards/sa-08-cold-core-open.html $$O271
 cp hardware/assembly/cards/sa-09-pump-cartridge.html $$O272
@@ -2572,8 +2572,8 @@ genrule(
             "hardware/assembly/cards/img/copper-plug.png.scene.json",
             "hardware/assembly/cards/img/en01-shell.png",
             "hardware/assembly/cards/img/en01-shell.png.scene.json",
-            "hardware/assembly/cards/img/en02-rearwall.png",
-            "hardware/assembly/cards/img/en02-rearwall.png.scene.json",
+            "hardware/assembly/cards/img/en02-y-wall.png",
+            "hardware/assembly/cards/img/en02-y-wall.png.scene.json",
             "hardware/assembly/cards/img/en03-compressor.png",
             "hardware/assembly/cards/img/en03-compressor.png.scene.json",
             "hardware/assembly/cards/img/en04-stratum.png",
@@ -2582,10 +2582,10 @@ genrule(
             "hardware/assembly/cards/img/en05-coldcore.png.scene.json",
             "hardware/assembly/cards/img/en06-column.png",
             "hardware/assembly/cards/img/en06-column.png.scene.json",
-            "hardware/assembly/cards/img/en08-drippan.png",
-            "hardware/assembly/cards/img/en08-drippan.png.scene.json",
-            "hardware/assembly/cards/img/en09-hopper.png",
-            "hardware/assembly/cards/img/en09-hopper.png.scene.json",
+            "hardware/assembly/cards/img/en08-asse-drip-pan.png",
+            "hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json",
+            "hardware/assembly/cards/img/en09-funnel.png",
+            "hardware/assembly/cards/img/en09-funnel.png.scene.json",
             "hardware/assembly/cards/img/enclosure-assembly.png",
             "hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
             "hardware/assembly/cards/img/pc01-wall-bosses.png",
@@ -2624,8 +2624,8 @@ genrule(
             "hardware/assembly/cards/img/scene-cold-core.png.scene.json",
             "hardware/assembly/cards/img/scene-front-top.png",
             "hardware/assembly/cards/img/scene-front-top.png.scene.json",
-            "hardware/assembly/cards/img/scene-hopper-drain.png",
-            "hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+            "hardware/assembly/cards/img/scene-funnel-drain.png",
+            "hardware/assembly/cards/img/scene-funnel-drain.png.scene.json",
             "hardware/assembly/cards/img/scene-pump-cartridge.png",
             "hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json",
             "hardware/assembly/cards/img/wago-column.png",
@@ -2644,8 +2644,8 @@ genrule(
         "out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png",
         "out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en02-rearwall.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en02-rearwall.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png",
         "out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png",
@@ -2654,10 +2654,10 @@ genrule(
         "out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/en06-column.png",
         "out/render-scene-cards/hardware/assembly/cards/img/en06-column.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en08-drippan.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en08-drippan.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png",
         "out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png",
@@ -2696,8 +2696,8 @@ genrule(
         "out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png",
         "out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/scene-hopper-drain.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png",
         "out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/wago-column.png",
@@ -2716,8 +2716,8 @@ O4=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/copper-pl
 O5=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/copper-plug.png.scene.json)
 O6=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png)
 O7=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en01-shell.png.scene.json)
-O8=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-rearwall.png)
-O9=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-rearwall.png.scene.json)
+O8=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png)
+O9=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en02-y-wall.png.scene.json)
 O10=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png)
 O11=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en03-compressor.png.scene.json)
 O12=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en04-stratum.png)
@@ -2726,10 +2726,10 @@ O14=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en05-col
 O15=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en05-coldcore.png.scene.json)
 O16=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en06-column.png)
 O17=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en06-column.png.scene.json)
-O18=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en08-drippan.png)
-O19=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en08-drippan.png.scene.json)
-O20=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png)
-O21=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png.scene.json)
+O18=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png)
+O19=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json)
+O20=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png)
+O21=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-funnel.png.scene.json)
 O22=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png)
 O23=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json)
 O24=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png)
@@ -2768,8 +2768,8 @@ O56=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-co
 O57=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-cold-core.png.scene.json)
 O58=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png)
 O59=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-front-top.png.scene.json)
-O60=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-hopper-drain.png)
-O61=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-hopper-drain.png.scene.json)
+O60=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png)
+O61=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-funnel-drain.png.scene.json)
 O62=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png)
 O63=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json)
 O64=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/wago-column.png)
@@ -2800,8 +2800,8 @@ cp hardware/assembly/cards/img/copper-plug.png $$O4
 cp hardware/assembly/cards/img/copper-plug.png.scene.json $$O5
 cp hardware/assembly/cards/img/en01-shell.png $$O6
 cp hardware/assembly/cards/img/en01-shell.png.scene.json $$O7
-cp hardware/assembly/cards/img/en02-rearwall.png $$O8
-cp hardware/assembly/cards/img/en02-rearwall.png.scene.json $$O9
+cp hardware/assembly/cards/img/en02-y-wall.png $$O8
+cp hardware/assembly/cards/img/en02-y-wall.png.scene.json $$O9
 cp hardware/assembly/cards/img/en03-compressor.png $$O10
 cp hardware/assembly/cards/img/en03-compressor.png.scene.json $$O11
 cp hardware/assembly/cards/img/en04-stratum.png $$O12
@@ -2810,10 +2810,10 @@ cp hardware/assembly/cards/img/en05-coldcore.png $$O14
 cp hardware/assembly/cards/img/en05-coldcore.png.scene.json $$O15
 cp hardware/assembly/cards/img/en06-column.png $$O16
 cp hardware/assembly/cards/img/en06-column.png.scene.json $$O17
-cp hardware/assembly/cards/img/en08-drippan.png $$O18
-cp hardware/assembly/cards/img/en08-drippan.png.scene.json $$O19
-cp hardware/assembly/cards/img/en09-hopper.png $$O20
-cp hardware/assembly/cards/img/en09-hopper.png.scene.json $$O21
+cp hardware/assembly/cards/img/en08-asse-drip-pan.png $$O18
+cp hardware/assembly/cards/img/en08-asse-drip-pan.png.scene.json $$O19
+cp hardware/assembly/cards/img/en09-funnel.png $$O20
+cp hardware/assembly/cards/img/en09-funnel.png.scene.json $$O21
 cp hardware/assembly/cards/img/enclosure-assembly.png $$O22
 cp hardware/assembly/cards/img/enclosure-assembly.png.scene.json $$O23
 cp hardware/assembly/cards/img/pc01-wall-bosses.png $$O24
@@ -2852,8 +2852,8 @@ cp hardware/assembly/cards/img/scene-cold-core.png $$O56
 cp hardware/assembly/cards/img/scene-cold-core.png.scene.json $$O57
 cp hardware/assembly/cards/img/scene-front-top.png $$O58
 cp hardware/assembly/cards/img/scene-front-top.png.scene.json $$O59
-cp hardware/assembly/cards/img/scene-hopper-drain.png $$O60
-cp hardware/assembly/cards/img/scene-hopper-drain.png.scene.json $$O61
+cp hardware/assembly/cards/img/scene-funnel-drain.png $$O60
+cp hardware/assembly/cards/img/scene-funnel-drain.png.scene.json $$O61
 cp hardware/assembly/cards/img/scene-pump-cartridge.png $$O62
 cp hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json $$O63
 cp hardware/assembly/cards/img/wago-column.png $$O64

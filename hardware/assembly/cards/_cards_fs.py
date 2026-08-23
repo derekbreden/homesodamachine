@@ -335,7 +335,7 @@ def _figures():
             "REGISTER_D", "CARB_ROD_LEN", "CARB_ROD_MM", "ROD_CLEARANCE",
             "TANK_H", "PLATE_RECESS", "PLATE_THK", "REGISTER_DEPTH"},
         "pv-07-deburr-and-prep": {"PLATE_SLIP", "PLATE_THK"},
-        "pv-09-close-the-vessel": {"PLATE_RECESS"},
+        "pv-09-close-the-carbonator": {"PLATE_RECESS"},
         "pv-11-hydro-test": {"REG_PSI"},
         "pv-13-prv-shroud-subassembly": {
             "PRV_SHROUD_SIZE", "PRV_SHROUD_WALL", "PRV_SEAT_SLIP"},

@@ -334,7 +334,7 @@ def enclosure(m: Machine):
         # the two storeys, and one namespace spans the deck: EN-02 states the same
         # rectangle IP-05 rides, so it reads the storey pitch off the same fact rather
         # than deriving a second one that could drift from it.
-        "en-02-rear-wall-bodies": {
+        "en-02-y-wall-bodies": {
             "BACK_BODIES", "PORT_COL_PITCH", "UMBILICAL_DROP", "CARB_END",
             "PORT_HOLE_D", "CO2_HOLE_D",
             "PORT_NUT_D", "PORT_CHAIN_3", "C14_FLANGE_W", "AC_RECESS"},
@@ -348,7 +348,7 @@ def enclosure(m: Machine):
         "en-07-close-the-box": {
             "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT", "SEAM_SCREWS_Z",
             "BODY_COUNT"},
-        "en-09-display-and-hopper": {"FUNNEL_PIECES"},
+        "en-09-display-and-funnel": {"FUNNEL_PIECES"},
     }
     return facts, cards
 
@@ -467,7 +467,7 @@ def sub_assemblies(m: Machine):
     # those two sentences stand on.
     for scene_id, absent in (("back-top", "asse-drip-pan"), ("front-top", "funnel"),
                              ("front-top", "collet-plate"),
-                             ("hopper-drain", "funnel-drain-union"),
+                             ("funnel-drain", "funnel-drain-union"),
                              ("cap-lid", "tube-fluid-14")):
         scene = _scenes.SCENE_BY_ID[scene_id]
         assert holder.get(absent) in scene.roots and absent in scene.later, (
@@ -623,7 +623,7 @@ def sub_assemblies(m: Machine):
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
                           "SA04_RIB_EMPTY"},
         "sa-05-back-half": {"SEAM_SCREWS_Z", "SA05_HANGING"},
-        "sa-06-hopper-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
+        "sa-06-funnel-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
         "sa-08-cold-core-open": {"CAP_CONDUITS", "SA08_LINES"},
