@@ -245,10 +245,10 @@ def trace(gen: str, files: set, argv=()) -> dict:
     return answer
 
 
-#: WHAT THE BOARD READS IS NOT IN THIS REPO. `hardware/pcb/pcba/package.json` pins seven
+#: WHAT THE MAIN BOARD READS IS NOT IN THIS REPO. `hardware/pcb/pcba/package.json` pins seven
 #: `@tscircuit/*` packages to commits of `github:derekbreden/*`, resolved at install from
 #: outside the tree, and `board-3d.py` runs `tsci` through them. An action cannot hold what
-#: it reads, so the board is built by `bun render-board.ts` and its GLB carried by the hook.
+#: it reads, so the main board is built by `bun render-board.ts` and its GLB carried by the hook.
 #: Vendoring the forks is what would let it join the graph.
 ELSEWHERE = ("tools/", "hardware/pcb/pcba/")
 

@@ -107,7 +107,7 @@ test("the facts card's STEP identity is not a reverse enclosure dependency", () 
 test("the pruning holds on the tree it runs against", () => {
   // A scan cannot tell `import enclosure_assembly` inside a function body that runs on every
   // build (enclosure.py's machine_of) from one that breaks a cycle and rarely runs
-  // (_back_panel_dimensions:113). Read as source, both make every generator reaching
+  // (_y_wall_dimensions:113). Read as source, both make every generator reaching
   // `_materials` an importer of every bought part. graph.json is the other reading.
   //
   // Live against the tree and the real graph, because the thing under test is agreement

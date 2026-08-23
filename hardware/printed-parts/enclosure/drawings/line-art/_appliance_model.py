@@ -35,14 +35,14 @@ _HW = next(p for p in _HERE.parents if p.name == "hardware")
 for _p in (next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) / "tools",
            _HW / "scripts",
            _HW / "manifold-layout",
-           _HW / "printed-parts" / "enclosure" / "back-panel",
+           _HW / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _HW / "printed-parts" / "enclosure" / "bulkhead-ring"):
     sys.path.insert(0, str(_p))
 
 from docgen import substitute_py_comments               # noqa: E402
 import _boxes                                           # noqa: E402
 import enclosure_assembly as _ea                                # noqa: E402
-import _back_panel_dimensions as _rear                  # noqa: E402
+import _y_wall_dimensions as _rear                  # noqa: E402
 import bulkhead_ring as _ring                               # noqa: E402
 
 
@@ -136,7 +136,7 @@ def build_appliance() -> cq.Workplane:
 # from the port it marks, and a port that moves takes its ring with it.
 #
 # WHICH colour goes on which port is the rear face's, not the drawing's:
-# `_back_panel_dimensions.port_colors` is the one table, and the quick-start
+# `_y_wall_dimensions.port_colors` is the one table, and the quick-start
 # sheet aims its arrows off the same one. White is a colour here like any
 # other — on the page it reads as the black outline this path draws around it.
 

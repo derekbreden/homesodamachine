@@ -938,7 +938,7 @@ sill runs wall to wall, washed fore
 so what runs down the face drains out (`_sill_wash`); the lintel over the opening
 carries the facet and the display on a stated ligament (`bay-under-display`).
 `heads-sweep-out` reads each head's path to the front against the piece it passes
-through, and `cartridge-sweep-out` reads the complete cartridge and cap envelopes. The
+through, and `pump-cartridge-sweep-out` reads the complete pump cartridge and cap envelopes. The
 mouth is square in plan between the box's rounded outer columns: rounding only the fore
 mouth let the face seat at home but caught the square filled block behind it during
 withdrawal. Front-bottom's front lip drops across the whole flat span

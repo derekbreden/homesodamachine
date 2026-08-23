@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Live regression checks through the front display's native USB port.
+"""Live regression checks through the enclosure display's native USB port.
 
 The default check is observational: version, touch/display health, and J9 link.
-It never opens the controller's CH340 port, whose DTR/RTS lines reset the PCBA.
+It never opens the main board's CH340 port, whose DTR/RTS lines reset it.
 
 Optional checks are explicit and non-actuating unless ``--prime`` is named:
 
@@ -14,11 +14,11 @@ Optional checks are explicit and non-actuating unless ``--prime`` is named:
 --animation opens the reusable operation lock, measures its logo animation, then
 restores the page/idle/lock state it found. --wake-cycles repeatedly takes the
 actual dark-to-lit path and checks its frame/reset telemetry. --toggle selects the
-other flavor, proves controller synchronization and persistence, then restores it.
+other flavor, proves main board synchronization and persistence, then restores it.
 --prime runs the selected flavor pump for one second through the display's real
 hold handlers and always posts PRIME:STOP and PRIME:EXIT in a finally block. It
 proves the run belongs to a newly opened session, checks the measured elapsed
-interval, and waits for authoritative OFF cleanup. The controller's own stale-tick
+interval, and waits for authoritative OFF cleanup. The main board's own stale-tick
 and 60-second ceilings remain the last line of defence if the host disappears
 during that check.
 """
@@ -59,8 +59,8 @@ def display_port(explicit: str | None) -> str:
     if len(ports) == 1:
         return ports[0]
     if not ports:
-        raise RuntimeError("front display not found (expected native USB 303a:1001)")
-    raise RuntimeError("more than one S3 is connected; name the front with --display-port")
+        raise RuntimeError("enclosure display not found (expected native USB 303a:1001)")
+    raise RuntimeError("more than one S3 is connected; name it with --display-port")
 
 
 def fields(line: str, prefix: str) -> dict[str, str]:
@@ -74,7 +74,7 @@ def fields(line: str, prefix: str) -> dict[str, str]:
     return out
 
 
-class Front:
+class EnclosureDisplay:
     def __init__(self, port: str):
         self.serial = serial.Serial()
         self.serial.port = port
@@ -120,36 +120,36 @@ class Front:
         return line
 
 
-def snapshot(front: Front) -> tuple[str, dict[str, str], dict[str, str], str]:
-    version = front.query_prefix("GET_VERSION", "VERSION:ENCLOSURE=")
-    state = fields(front.query_prefix("GET_STATE", "STATE:"), "STATE:")
-    diag_line = front.query_prefix("GET_DIAG", "DIAG:")
-    link = front.query_prefix("LINK", "LINK:")
+def snapshot(display: EnclosureDisplay) -> tuple[str, dict[str, str], dict[str, str], str]:
+    version = display.query_prefix("GET_VERSION", "VERSION:ENCLOSURE=")
+    state = fields(display.query_prefix("GET_STATE", "STATE:"), "STATE:")
+    diag_line = display.query_prefix("GET_DIAG", "DIAG:")
+    link = display.query_prefix("LINK", "LINK:")
     return version, state, fields(diag_line, "DIAG:"), link
 
 
-def read_panel_diag(front: Front) -> dict[str, str]:
-    return fields(front.query_prefix("GET_PANEL", "PANEL:"), "PANEL:")
+def read_panel_diag(display: EnclosureDisplay) -> dict[str, str]:
+    return fields(display.query_prefix("GET_PANEL", "PANEL:"), "PANEL:")
 
 
-def wake_once(front: Front, timeout: float = 1.5) -> tuple[dict[str, str], float]:
+def wake_once(display: EnclosureDisplay, timeout: float = 1.5) -> tuple[dict[str, str], float]:
     """Exercise a real dark wake and wait for the staged panel recovery."""
-    before = read_panel_diag(front)
+    before = read_panel_diag(display)
     require(before.get("kickStage") == "0", f"panel kick already active: {before}")
-    front.query_prefix("IDLE:1", "OK:IDLE=1")
+    display.query_prefix("IDLE:1", "OK:IDLE=1")
     time.sleep(0.05)
-    dark = read_panel_diag(front)
+    dark = read_panel_diag(display)
     require(dark.get("bl") == "0", f"panel did not go dark: {dark}")
     for key in ("drawErr", "frameTimeout", "kickTimeout", "phaseErr", "scanRecover", "exioErr"):
         require(int(dark[key]) == int(before[key]),
                 f"panel {key} changed while going dark: {before[key]} -> {dark[key]}")
     started = time.monotonic()
-    front.query_prefix("IDLE:0", "OK:IDLE=0")
+    display.query_prefix("IDLE:0", "OK:IDLE=0")
 
     deadline = time.monotonic() + timeout
     after: dict[str, str] = {}
     while time.monotonic() < deadline:
-        after = read_panel_diag(front)
+        after = read_panel_diag(display)
         if (int(after["kickStart"]) > int(before["kickStart"]) and
                 int(after["kickDone"]) > int(before["kickDone"]) and
                 after.get("kickStage") == "0" and after.get("bl") == "1"):
@@ -169,30 +169,30 @@ def wake_once(front: Front, timeout: float = 1.5) -> tuple[dict[str, str], float
     return after, (time.monotonic() - started) * 1000.0
 
 
-def fresh_controller_diag(front: Front) -> dict[str, str]:
+def fresh_main_board_diag(display: EnclosureDisplay) -> dict[str, str]:
     """Read status twice so the second snapshot includes the first turn's audit."""
-    diag = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
-    controller_rx = int(diag.get("ctrlRx", "0"))
+    diag = fields(display.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+    main_board_rx = int(diag.get("ctrlRx", "0"))
     for _ in range(2):
         deadline = time.monotonic() + 2.0
         next_request = 0.0
         while time.monotonic() < deadline:
             now = time.monotonic()
-            # A controller-owned prime transition or queued announcement can
+            # A main-board-owned prime transition or queued announcement can
             # legitimately consume this J9 turn. Re-request at a restrained
             # cadence until an actual StatusPayload lands instead of treating
             # that deferred response as a failed link audit.
             if now >= next_request:
-                front.query_prefix("STATUS", "OK:STATUS requested")
+                display.query_prefix("STATUS", "OK:STATUS requested")
                 next_request = now + 0.15
-            diag = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+            diag = fields(display.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
             updated_rx = int(diag.get("ctrlRx", "0"))
-            if updated_rx != controller_rx:
-                controller_rx = updated_rx
+            if updated_rx != main_board_rx:
+                main_board_rx = updated_rx
                 break
             time.sleep(0.02)
         else:
-            raise RuntimeError(f"controller status did not refresh: {diag}")
+            raise RuntimeError(f"main board status did not refresh: {diag}")
     return diag
 
 
@@ -208,11 +208,11 @@ def require_transport_health_unchanged(
     prime_after: dict[str, str],
 ) -> None:
     require(after.get("sendErr") == "0",
-            f"front send error after check: {after.get('sendErr')}")
+            f"enclosure display send error after check: {after.get('sendErr')}")
     for field, label in (("reinits", "link reinitializations"),
                          ("outDrop", "outbound queue drops")):
         require(int(after.get(field, "0")) == int(before.get(field, "0")),
-                f"front {label} changed during check: "
+                f"enclosure display {label} changed during check: "
                 f"{before.get(field, '0')} -> {after.get(field, '0')}")
     require(
         int(prime_after.get("staleReinits", "0")) ==
@@ -222,51 +222,51 @@ def require_transport_health_unchanged(
         f"{prime_after.get('staleReinits', '0')}",
     )
     require(int(after.get("ctrlTurnMax", "255")) <= 1,
-            f"controller emitted {after.get('ctrlTurnMax')} replies in one J9 turn")
+            f"main board emitted {after.get('ctrlTurnMax')} replies in one J9 turn")
     require(int(after.get("ctrlTurnOver", "0")) ==
             int(before.get("ctrlTurnOver", "0")),
-            "controller J9 multi-reply turns changed during check: "
+            "main board J9 multi-reply turns changed during check: "
             f"{before.get('ctrlTurnOver', '0')} -> {after.get('ctrlTurnOver', '0')}")
 
 
-def restore_view(front: Front, initial: dict[str, str]) -> None:
+def restore_view(display: EnclosureDisplay, initial: dict[str, str]) -> None:
     page = int(initial.get("page", "0"))
     stage = int(initial.get("stage", "0"))
-    front.query_prefix(f"PAGE:{page}", "OK:PAGE=")
+    display.query_prefix(f"PAGE:{page}", "OK:PAGE=")
     if initial.get("idle") == "1" or stage > 0:
-        front.query_prefix(f"IDLE:{max(1, min(stage, 3))}", "OK:IDLE=")
+        display.query_prefix(f"IDLE:{max(1, min(stage, 3))}", "OK:IDLE=")
     if initial.get("lock") == "1":
-        front.query_prefix("LOCK:SHOW", "OK:LOCK=1")
+        display.query_prefix("LOCK:SHOW", "OK:LOCK=1")
     else:
-        front.query_prefix("LOCK:HIDE", "OK:LOCK=0")
+        display.query_prefix("LOCK:HIDE", "OK:LOCK=0")
 
 
-def check_wake_cycles(front: Front, initial: dict[str, str], cycles: int) -> None:
+def check_wake_cycles(display: EnclosureDisplay, initial: dict[str, str], cycles: int) -> None:
     if cycles < 1:
         return
     durations: list[float] = []
     try:
         for _ in range(cycles):
-            _, elapsed_ms = wake_once(front)
+            _, elapsed_ms = wake_once(display)
             durations.append(elapsed_ms)
             time.sleep(0.05)
         print(f"wake        {cycles} cycles, {min(durations):.1f}–{max(durations):.1f} ms, "
               "no panel/expander errors")
     finally:
-        restore_view(front, initial)
+        restore_view(display, initial)
 
 
-def check_animation(front: Front, initial: dict[str, str], min_fps: float, loop_limit: int) -> None:
+def check_animation(display: EnclosureDisplay, initial: dict[str, str], min_fps: float, loop_limit: int) -> None:
     try:
-        _, wake_ms = wake_once(front)
-        front.query_prefix("LOCK:SHOW", "OK:LOCK=1")
+        _, wake_ms = wake_once(display)
+        display.query_prefix("LOCK:SHOW", "OK:LOCK=1")
         time.sleep(0.3)  # finish the post-wake animation quiet window
 
-        first = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+        first = fields(display.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
         flush0 = int(first["flushes"])
         started = time.monotonic()
         time.sleep(2.0)
-        second = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+        second = fields(display.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
         elapsed = time.monotonic() - started
         fps = (int(second["flushes"]) - flush0) / elapsed
         max_loop = int(second["maxLoopMs"])
@@ -277,18 +277,18 @@ def check_animation(front: Front, initial: dict[str, str], min_fps: float, loop_
         print(f"animation  {fps:.2f} flushes/s, loop high-water {max_loop} ms, "
               f"wake {wake_ms:.1f} ms")
     finally:
-        front.query_prefix("LOCK:HIDE", "OK:LOCK=0")
-        restore_view(front, initial)
+        display.query_prefix("LOCK:HIDE", "OK:LOCK=0")
+        restore_view(display, initial)
         # LOCK:HIDE invalidates the whole 800x480 surface. Let that one-time
         # restoration render before a following latency check starts its clock.
         time.sleep(0.35)
 
 
-def wait_flavor(front: Front, flavor: int, durable: bool, timeout: float = 4.0) -> dict[str, str]:
+def wait_flavor(display: EnclosureDisplay, flavor: int, durable: bool, timeout: float = 4.0) -> dict[str, str]:
     deadline = time.monotonic() + timeout
     last: dict[str, str] = {}
     while time.monotonic() < deadline:
-        last = fields(front.query_prefix("GET_STATE", "STATE:"), "STATE:")
+        last = fields(display.query_prefix("GET_STATE", "STATE:"), "STATE:")
         ready = (
             last.get("FLAVOR") == str(flavor)
             and last.get("SYNC") == "1"
@@ -301,35 +301,35 @@ def wait_flavor(front: Front, flavor: int, durable: bool, timeout: float = 4.0) 
     raise RuntimeError(f"flavor {flavor} did not {'persist' if durable else 'synchronize'}: {last}")
 
 
-def check_toggle(front: Front, initial_flavor: int, ack_limit_ms: float, loop_limit: int) -> None:
+def check_toggle(display: EnclosureDisplay, initial_flavor: int, ack_limit_ms: float, loop_limit: int) -> None:
     target = initial_flavor ^ 1
     restore_needed = False
     try:
         restore_needed = True
-        started = front.send(f"FLAVOR:{target}")
-        line, _ = front.wait_line(lambda value: value.startswith("OK:FLAVOR="),
+        started = display.send(f"FLAVOR:{target}")
+        line, _ = display.wait_line(lambda value: value.startswith("OK:FLAVOR="),
                                   1.5, "OK:FLAVOR")
         require(line == f"OK:FLAVOR={target}", f"unexpected selection answer: {line}")
-        wait_flavor(front, target, durable=False)
+        wait_flavor(display, target, durable=False)
         ack_ms = (time.monotonic() - started) * 1000.0
         require(ack_ms <= ack_limit_ms,
                 f"flavor synchronization {ack_ms:.1f} ms exceeds {ack_limit_ms:.1f} ms")
-        wait_flavor(front, target, durable=True)
-        diag = fields(front.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
+        wait_flavor(display, target, durable=True)
+        diag = fields(display.query_prefix("GET_DIAG", "DIAG:"), "DIAG:")
         max_loop = int(diag["maxLoopMs"])
         require(max_loop <= loop_limit,
                 f"flavor repaint loop high-water {max_loop} ms exceeds {loop_limit} ms")
-        print(f"flavor     selected {target}, controller ack {ack_ms:.1f} ms, "
+        print(f"flavor     selected {target}, main board ack {ack_ms:.1f} ms, "
               f"repaint loop {max_loop} ms, durable")
     finally:
         if restore_needed:
-            front.query_prefix(f"FLAVOR:{initial_flavor}", "OK:FLAVOR=")
-            wait_flavor(front, initial_flavor, durable=True)
-            print(f"restore    flavor {initial_flavor}, controller durable")
+            display.query_prefix(f"FLAVOR:{initial_flavor}", "OK:FLAVOR=")
+            wait_flavor(display, initial_flavor, durable=True)
+            print(f"restore    flavor {initial_flavor}, main board durable")
 
 
 def wait_prime_state(
-    front: Front,
+    display: EnclosureDisplay,
     phase: int,
     owner: int,
     timeout: float = 2.5,
@@ -337,7 +337,7 @@ def wait_prime_state(
     deadline = time.monotonic() + timeout
     last: dict[str, str] = {}
     while time.monotonic() < deadline:
-        line = front.query_prefix("GET_STATE", "STATE:", timeout=0.5)
+        line = display.query_prefix("GET_STATE", "STATE:", timeout=0.5)
         last = fields(line, "STATE:")
         if last.get("PRIME") == str(phase) and last.get("OWNER") == str(owner):
             return last, time.monotonic()
@@ -347,17 +347,17 @@ def wait_prime_state(
     )
 
 
-def read_prime_diag(front: Front) -> dict[str, str]:
+def read_prime_diag(display: EnclosureDisplay) -> dict[str, str]:
     return fields(
-        front.query_prefix("GET_DIAG", "DIAG_PRIME:"), "DIAG_PRIME:"
+        display.query_prefix("GET_DIAG", "DIAG_PRIME:"), "DIAG_PRIME:"
     )
 
 
-def wait_prime_diag(front: Front, predicate, what: str, timeout: float = 3.0) -> dict[str, str]:
+def wait_prime_diag(display: EnclosureDisplay, predicate, what: str, timeout: float = 3.0) -> dict[str, str]:
     deadline = time.monotonic() + timeout
     last: dict[str, str] = {}
     while time.monotonic() < deadline:
-        last = read_prime_diag(front)
+        last = read_prime_diag(display)
         if predicate(last):
             return last
         time.sleep(0.02)
@@ -377,51 +377,51 @@ def prime_diag_is_authoritative_off(diag: dict[str, str]) -> bool:
     )
 
 
-def wait_prime_off(front: Front, timeout: float = 3.0) -> dict[str, str]:
+def wait_prime_off(display: EnclosureDisplay, timeout: float = 3.0) -> dict[str, str]:
     return wait_prime_diag(
-        front,
+        display,
         prime_diag_is_authoritative_off,
         "authoritative prime OFF",
         timeout,
     )
 
 
-def close_prime(front: Front) -> dict[str, str]:
-    front.query_prefix("PRIME:STOP", "OK:PRIME:STOP")
-    front.query_prefix("PRIME:EXIT", "OK:PRIME:EXIT")
-    return wait_prime_off(front)
+def close_prime(display: EnclosureDisplay) -> dict[str, str]:
+    display.query_prefix("PRIME:STOP", "OK:PRIME:STOP")
+    display.query_prefix("PRIME:EXIT", "OK:PRIME:EXIT")
+    return wait_prime_off(display)
 
 
-def best_effort_close_prime(front: Front) -> None:
+def best_effort_close_prime(display: EnclosureDisplay) -> None:
     errors: list[str] = []
     for command, answer in (
         ("PRIME:STOP", "OK:PRIME:STOP"),
         ("PRIME:EXIT", "OK:PRIME:EXIT"),
     ):
         try:
-            front.query_prefix(command, answer)
+            display.query_prefix(command, answer)
         except (OSError, serial.SerialException, RuntimeError, ValueError) as exc:
             errors.append(f"{command}: {exc}")
     try:
-        wait_prime_off(front)
+        wait_prime_off(display)
     except (OSError, serial.SerialException, RuntimeError, ValueError) as exc:
         errors.append(f"OFF: {exc}")
     if errors:
         raise RuntimeError("; ".join(errors))
 
 
-def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_ms: float) -> None:
+def check_prime(display: EnclosureDisplay, initial: dict[str, str], channel: str, ack_limit_ms: float) -> None:
     flavor = 1 if channel == "a" else 2
     session_open = False
     try:
         # phase=OFF is also the diagnostic placeholder while known=0. Wait for
-        # controller truth before deciding that it is safe to open a session.
+        # main board truth before deciding that it is safe to open a session.
         before = wait_prime_diag(
-            front, lambda diag: diag.get("known") == "1",
+            display, lambda diag: diag.get("known") == "1",
             "authoritative prime discovery")
         if not prime_diag_is_authoritative_off(before):
-            close_prime(front)
-            before = read_prime_diag(front)
+            close_prime(display)
+            before = read_prime_diag(display)
         require(
             prime_diag_is_authoritative_off(before),
             f"prime precondition is not authoritative OFF: {before}",
@@ -430,9 +430,9 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
         # Set the cleanup guard before writing. A short/failed host write can
         # still have delivered a complete command to native USB.
         session_open = True
-        started = front.send(f"PRIME:START:{flavor}")
+        started = display.send(f"PRIME:START:{flavor}")
         running, answered = wait_prime_state(
-            front, phase=PRIME_SESSION_RUNNING, owner=PRIME_OWNER_ENCLOSURE
+            display, phase=PRIME_SESSION_RUNNING, owner=PRIME_OWNER_ENCLOSURE
         )
         require(
             running.get("PRIMECH") == str(flavor - 1),
@@ -442,7 +442,7 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
         require(start_ms <= ack_limit_ms,
                 f"prime start acknowledgement {start_ms:.1f} ms exceeds {ack_limit_ms:.1f} ms")
 
-        running_diag = read_prime_diag(front)
+        running_diag = read_prime_diag(display)
         session_token = int(running_diag.get("session", "0"), 16)
         hold_token = int(running_diag.get("hold", "0"), 16)
         require(session_token != 0 and hold_token != 0,
@@ -453,11 +453,11 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
         while time.monotonic() - answered < 1.0:
             time.sleep(0.01)
 
-        stopped = front.send("PRIME:STOP")
+        stopped = display.send("PRIME:STOP")
         _, answered = wait_prime_state(
-            front, phase=PRIME_SESSION_READY, owner=PRIME_OWNER_NONE
+            display, phase=PRIME_SESSION_READY, owner=PRIME_OWNER_NONE
         )
-        prime_diag = read_prime_diag(front)
+        prime_diag = read_prime_diag(display)
         require(
             prime_diag.get("outcome") == str(PRIME_OUTCOME_STOPPED),
             f"prime did not stop normally: {prime_diag}",
@@ -471,10 +471,10 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
         stop_ms = (answered - stopped) * 1000.0
         require(stop_ms <= ack_limit_ms,
                 f"prime stop acknowledgement {stop_ms:.1f} ms exceeds {ack_limit_ms:.1f} ms")
-        off = close_prime(front)
+        off = close_prime(display)
         session_open = False
         require(prime_diag_is_authoritative_off(off),
-                f"front retained local prime state after exit: {off}")
+                f"enclosure display retained local prime state after exit: {off}")
         print(f"prime {channel.upper()}     start ack {start_ms:.1f} ms, "
               f"stop ack {stop_ms:.1f} ms, elapsed {elapsed_ms} ms, OFF")
     finally:
@@ -484,14 +484,14 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
         active_failure = sys.exc_info()[0] is not None
         if session_open:
             try:
-                best_effort_close_prime(front)
+                best_effort_close_prime(display)
             except (OSError, serial.SerialException, RuntimeError, ValueError) as cleanup_error:
                 if active_failure:
                     print(f"prime cleanup also failed — {cleanup_error}", file=sys.stderr)
                 else:
                     raise
         try:
-            restore_view(front, initial)
+            restore_view(display, initial)
         except (OSError, serial.SerialException, RuntimeError, ValueError) as restore_error:
             if active_failure:
                 print(f"view restoration also failed — {restore_error}", file=sys.stderr)
@@ -501,7 +501,7 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--display-port", help="front display native USB port")
+    parser.add_argument("--display-port", help="enclosure display native USB port")
     parser.add_argument("--animation", action="store_true",
                         help="show the operation lock, measure animation/loop speed, and restore")
     parser.add_argument("--wake-cycles", type=int, default=0, metavar="N",
@@ -518,21 +518,21 @@ def main() -> int:
     try:
         require(args.wake_cycles >= 0, "--wake-cycles must be zero or greater")
         port = display_port(args.display_port)
-        front = Front(port)
+        display = EnclosureDisplay(port)
         try:
-            version, state, diag, link = snapshot(front)
+            version, state, diag, link = snapshot(display)
             require(diag.get("gt911") not in (None, "0x00"), "GT911 touch controller absent")
             require(diag.get("reinits") == "0",
-                    f"front link reinitialized {diag.get('reinits')} times")
-            require(diag.get("sendErr") == "0", f"front send error {diag.get('sendErr')}")
+                    f"enclosure display link reinitialized {diag.get('reinits')} times")
+            require(diag.get("sendErr") == "0", f"enclosure display send error {diag.get('sendErr')}")
             if "outDrop" in diag:
                 require(diag["outDrop"] == "0",
-                        f"front outbound queue dropped {diag['outDrop']} frames")
-            require(diag.get("link") == "rx", "front has received no J9 frame")
-            require(state.get("SYNC") == "1", "front flavor is not synchronized")
-            require(state.get("PERSISTED") == "1", "controller flavor is not persisted")
-            require(state.get("PERSISTERR") == "0", "controller flavor persistence failed")
-            require(state.get("PENDING") == "0", "front flavor request remains pending")
+                        f"enclosure display outbound queue dropped {diag['outDrop']} frames")
+            require(diag.get("link") == "rx", "enclosure display has received no J9 frame")
+            require(state.get("SYNC") == "1", "enclosure display flavor is not synchronized")
+            require(state.get("PERSISTED") == "1", "main board flavor is not persisted")
+            require(state.get("PERSISTERR") == "0", "main board flavor persistence failed")
+            require(state.get("PENDING") == "0", "enclosure display flavor request remains pending")
             match = re.search(r"framesRx=(\d+),framesTx=(\d+)", link)
             require(match is not None and int(match.group(1)) > 0, f"unhealthy J9 report: {link}")
 
@@ -540,32 +540,32 @@ def main() -> int:
             print(f"display    GT911 {diag['gt911']}, heap {diag.get('heap')}, "
                   f"min {diag.get('minHeap')}, idle stage {diag.get('stage')}")
             print(f"link       rx {match.group(1)}, tx {match.group(2)}, reinits {diag.get('reinits')}")
-            print(f"flavor     {state['FLAVOR']}, controller synchronized and durable")
+            print(f"flavor     {state['FLAVOR']}, main board synchronized and durable")
 
             initial = dict(diag)
-            panel = read_panel_diag(front)
+            panel = read_panel_diag(display)
             for key in ("drawErr", "frameTimeout", "kickTimeout", "exioErr"):
                 require(panel.get(key) == "0", f"panel reports {key}={panel.get(key)}")
             print(f"panel      {panel['frameDone']} complete frames, "
                   f"{panel['flushes']} completed submissions")
-            initial_controller_health = fresh_controller_diag(front)
-            initial_prime_health = read_prime_diag(front)
+            initial_main_board_health = fresh_main_board_diag(display)
+            initial_prime_health = read_prime_diag(display)
             if args.wake_cycles:
-                check_wake_cycles(front, initial, args.wake_cycles)
+                check_wake_cycles(display, initial, args.wake_cycles)
             if args.animation:
-                check_animation(front, initial, args.min_animation_fps, args.loop_limit_ms)
+                check_animation(display, initial, args.min_animation_fps, args.loop_limit_ms)
             if args.toggle:
-                check_toggle(front, int(state["FLAVOR"]), args.ack_limit_ms,
+                check_toggle(display, int(state["FLAVOR"]), args.ack_limit_ms,
                              args.loop_limit_ms)
             if args.prime:
-                check_prime(front, initial, args.prime, args.ack_limit_ms)
-            final_diag = fresh_controller_diag(front)
-            final_prime_health = read_prime_diag(front)
+                check_prime(display, initial, args.prime, args.ack_limit_ms)
+            final_diag = fresh_main_board_diag(display)
+            final_prime_health = read_prime_diag(display)
             require_transport_health_unchanged(
-                initial_controller_health, final_diag,
+                initial_main_board_health, final_diag,
                 initial_prime_health, final_prime_health)
         finally:
-            front.close()
+            display.close()
     except (OSError, serial.SerialException, RuntimeError, ValueError) as exc:
         print(f"firmware live check: FAIL — {exc}", file=sys.stderr)
         return 1
