@@ -43,8 +43,12 @@ COVER_W = 800
 FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
 PAGES = (HERE / "00-mount.html", HERE / "01-connect.html")
 RENDER_PAGE_TIMEOUT_SECONDS = 180
-# Three 10 s cold-browser probes, one page budget per sheet, and bounded browser teardown.
-RENDER_ACTION_TIMEOUT_SECONDS = 30 + len(PAGES) * RENDER_PAGE_TIMEOUT_SECONDS + 30
+# Three 10 s cold-browser probes, one bounded full-size warm render, one page budget per
+# kept sheet, and bounded browser teardown. Keep the outer process alive long enough for the
+# renderer to name every failed phase rather than preempting its final page diagnostic.
+RENDER_ACTION_TIMEOUT_SECONDS = (
+    30 + (len(PAGES) + 1) * RENDER_PAGE_TIMEOUT_SECONDS + 30
+)
 PAGE_ASSETS = (
     HERE / "style.css",
     HERE / "art" / "colors.css",
