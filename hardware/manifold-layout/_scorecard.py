@@ -512,8 +512,9 @@ NEVER = {
     # in a rib off the top one, so both ends of the chain are the box's and the check is the span
     # between them.
     "gasher-co2":
-        "Both its hops land on held bodies — `co2-0` back to the ABU44 clamped through the rear "
-        "wall, `co2-1` on to the WR1110 strapped into its rib off the top one — and each is ten "
+        "Both its hops land on held bodies — `co2-0` back to the ABU44 clamped through the +Y "
+        "wall of back-top, `co2-1` on to the WR1110 strapped into its rib off the top one — and "
+        "each is ten "
         "millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's "
         "own axis with nothing printed closing on it. A seat under the middle body of three "
         "made-up ones would fight the two either side of it for where the chain stands.",
@@ -699,7 +700,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # weep this watches for is a drip at a time. `enclosure_assembly.build_moisture_plate` seats
     # its underside on that floor and `asse_drip_pan.check_plate` holds the floor wide enough to take
     # it, so the pair reads 0 and it is the sensor working.
-    ("drip-pan", "moisture-plate"),
+    ("asse-drip-pan", "moisture-plate"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
@@ -1646,8 +1647,8 @@ LOOSE = {
     "fluid-18":
         "Flavor A's line to its rear union. The cold core's side post grips its crossing fore "
         "of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is "
-        "the fall and the union column's own straight — a column whose overhead is the drip "
-        "tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the "
+        "the fall and the union column's own straight — a column whose overhead is the ASSE "
+        "drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the "
         "pump's casting and the moisture plate's lane: nothing printed stands within a rib's "
         "reach of it. The slack sags toward the cap's open air below, away from every line "
         "beside it.",
