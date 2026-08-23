@@ -17,22 +17,22 @@ bool needsReassert(bool offlineSelection,
                    bool durabilityPending,
                    bool queuedSelection,
                    uint8_t desiredFlavor,
-                   uint8_t controllerFlavor);
+                   uint8_t mainBoardFlavor);
 
 EpochAction epochAction(bool connected,
                         bool offlineSelection,
                         bool durabilityPending,
                         bool queuedSelection,
                         uint8_t desiredFlavor,
-                        uint8_t controllerFlavor);
+                        uint8_t mainBoardFlavor);
 
 // Controller truth is normally published as soon as its revision changes.
 // The periodic publication is the application-level backstop for a frame that
 // TinyProto accepted into its TX window but the faucet never applied. An
 // unestablished first-install controller must still wait for the faucet's
 // cached candidate instead of publishing its arbitrary in-memory default.
-bool controllerStatePublicationDue(bool connected,
-                                   bool controllerEstablished,
+bool mainBoardStatePublicationDue(bool connected,
+                                   bool mainBoardEstablished,
                                    bool revisionPending,
                                    uint32_t nowMs,
                                    uint32_t lastPublicationMs,
@@ -42,11 +42,11 @@ bool controllerStatePublicationDue(bool connected,
 // settle an outstanding local selection immediately when it names the desired
 // flavor, or resolve a conflicting request after the bounded retry window.
 // Offline work remains local until the next connection epoch reasserts it.
-bool controllerHeartbeatSettlesPendingSelection(bool offlineSelection,
+bool mainBoardHeartbeatSettlesPendingSelection(bool offlineSelection,
                                                  bool queuedSelection,
                                                  bool headSent,
                                                  uint8_t desiredFlavor,
-                                                 uint8_t controllerFlavor,
+                                                 uint8_t mainBoardFlavor,
                                                  uint32_t nowMs,
                                                  uint32_t firstSentAtMs,
                                                  uint32_t graceMs);

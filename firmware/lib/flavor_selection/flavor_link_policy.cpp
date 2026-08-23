@@ -6,9 +6,9 @@ bool needsReassert(bool offlineSelection,
                    bool durabilityPending,
                    bool queuedSelection,
                    uint8_t desiredFlavor,
-                   uint8_t controllerFlavor) {
+                   uint8_t mainBoardFlavor) {
     return offlineSelection || durabilityPending || queuedSelection ||
-           desiredFlavor != controllerFlavor;
+           desiredFlavor != mainBoardFlavor;
 }
 
 EpochAction epochAction(bool connected,
@@ -16,35 +16,35 @@ EpochAction epochAction(bool connected,
                         bool durabilityPending,
                         bool queuedSelection,
                         uint8_t desiredFlavor,
-                        uint8_t controllerFlavor) {
+                        uint8_t mainBoardFlavor) {
     if (!connected) return EpochAction::Disconnected;
     return needsReassert(offlineSelection, durabilityPending, queuedSelection,
-                         desiredFlavor, controllerFlavor)
+                         desiredFlavor, mainBoardFlavor)
                ? EpochAction::Reassert
                : EpochAction::Synchronize;
 }
 
-bool controllerStatePublicationDue(bool connected,
-                                   bool controllerEstablished,
+bool mainBoardStatePublicationDue(bool connected,
+                                   bool mainBoardEstablished,
                                    bool revisionPending,
                                    uint32_t nowMs,
                                    uint32_t lastPublicationMs,
                                    uint32_t heartbeatMs) {
-    if (!connected || !controllerEstablished) return false;
+    if (!connected || !mainBoardEstablished) return false;
     return revisionPending ||
            static_cast<uint32_t>(nowMs - lastPublicationMs) >= heartbeatMs;
 }
 
-bool controllerHeartbeatSettlesPendingSelection(bool offlineSelection,
+bool mainBoardHeartbeatSettlesPendingSelection(bool offlineSelection,
                                                  bool queuedSelection,
                                                  bool headSent,
                                                  uint8_t desiredFlavor,
-                                                 uint8_t controllerFlavor,
+                                                 uint8_t mainBoardFlavor,
                                                  uint32_t nowMs,
                                                  uint32_t firstSentAtMs,
                                                  uint32_t graceMs) {
     if (offlineSelection || !queuedSelection) return false;
-    if (controllerFlavor == desiredFlavor) return true;
+    if (mainBoardFlavor == desiredFlavor) return true;
     return headSent &&
            static_cast<uint32_t>(nowMs - firstSentAtMs) >= graceMs;
 }

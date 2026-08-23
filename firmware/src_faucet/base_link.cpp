@@ -21,7 +21,7 @@ constexpr uint32_t kAudibleFreshMs = 300;
 // heartbeat with the requested value proves the same thing even when that one
 // reply was lost; a conflicting heartbeat is allowed a few application retry
 // windows before controller truth replaces an orphaned local intent.
-constexpr uint32_t kControllerTruthGraceMs = kResponseTimeoutMs * 3;
+constexpr uint32_t kMainBoardTruthGraceMs = kResponseTimeoutMs * 3;
 static_assert(PROTOLINK_WINDOW == PRIME_PROTO_LINK_WINDOW_DEPTH,
               "prime replay contract must follow the TinyProto window");
 static_assert(PRIME_HOLD_REPLAY_HISTORY >
@@ -55,12 +55,12 @@ uint8_t primeQueueHead = 0;
 uint8_t primeQueueTail = 0;
 uint8_t primeQueueCount = 0;
 uint8_t desiredFlavor = 0;
-uint8_t controllerFlavor = 0;
+uint8_t mainBoardFlavor = 0;
 bool synchronized = false;
 bool offlineSelection = false;
 bool awaitingPersistence = false;
-bool controllerPersisted = false;
-bool controllerPersistError = false;
+bool mainBoardPersisted = false;
+bool mainBoardPersistError = false;
 uint32_t tokenState = 1;
 uint32_t framesRx = 0;
 uint32_t framesTx = 0;
@@ -185,12 +185,12 @@ void sendHead() {
 }
 
 void applyAuthoritative(uint8_t flavor) {
-  controllerFlavor = flavor;
+  mainBoardFlavor = flavor;
   desiredFlavor = flavor;
   if (flavorHandler) flavorHandler(flavor);
 }
 
-void settleFromControllerHeartbeat(const FlavorStatePayload &state) {
+void settleFromMainBoardHeartbeat(const FlavorStatePayload &state) {
   if (queueCount == 0 || offlineSelection) return;
 
   // A token-zero state is sent periodically by the controller. If it already
@@ -199,15 +199,15 @@ void settleFromControllerHeartbeat(const FlavorStatePayload &state) {
   // complete retry windows, retaining a local image indefinitely would leave
   // the faucet showing something the controller has rejected or never heard.
   const Intent &head = queue[queueHead];
-  if (!flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+  if (!flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
           offlineSelection, queueCount != 0, head.sent, desiredFlavor,
           state.flavor, millis(), head.firstSentAtMs,
-          kControllerTruthGraceMs)) return;
+          kMainBoardTruthGraceMs)) return;
 
   clearQueue();
   applyAuthoritative(state.flavor);
   synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
-  awaitingPersistence = !controllerPersisted;
+  awaitingPersistence = !mainBoardPersisted;
   ++authoritativeReconciliations;
 }
 
@@ -237,17 +237,17 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     memcpy(&state, payload, sizeof(state));
     if (state.flavor > PUMP_CHANNEL_B) return;
 
-    controllerFlavor = state.flavor;
-    controllerPersisted = (state.flags & FLAVOR_STATE_F_PERSISTED) != 0;
-    controllerPersistError = (state.flags & FLAVOR_STATE_F_PERSIST_ERROR) != 0;
+    mainBoardFlavor = state.flavor;
+    mainBoardPersisted = (state.flags & FLAVOR_STATE_F_PERSISTED) != 0;
+    mainBoardPersistError = (state.flags & FLAVOR_STATE_F_PERSIST_ERROR) != 0;
 
     if (state.token == 0) {
       if (queueCount == 0 && !offlineSelection) {
         applyAuthoritative(state.flavor);
         synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
-        awaitingPersistence = !controllerPersisted;
+        awaitingPersistence = !mainBoardPersisted;
       } else {
-        settleFromControllerHeartbeat(state);
+        settleFromMainBoardHeartbeat(state);
       }
       return;
     }
@@ -261,7 +261,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
       if (queueCount == 0 && !offlineSelection) {
         applyAuthoritative(state.flavor);
         synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
-        awaitingPersistence = !controllerPersisted;
+        awaitingPersistence = !mainBoardPersisted;
       }
       return;
     }
@@ -274,7 +274,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (queueCount == 0 && !offlineSelection) {
       applyAuthoritative(state.flavor);
       synchronized = (state.flags & FLAVOR_STATE_F_ESTABLISHED) != 0;
-      awaitingPersistence = !controllerPersisted;
+      awaitingPersistence = !mainBoardPersisted;
     }
     return;
   }
@@ -290,7 +290,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
 
 void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler handler,
                    BasePrimeHandler sessionHandler) {
-  desiredFlavor = controllerFlavor = cachedFlavor <= PUMP_CHANNEL_B ? cachedFlavor : 0;
+  desiredFlavor = mainBoardFlavor = cachedFlavor <= PUMP_CHANNEL_B ? cachedFlavor : 0;
   flavorHandler = handler;
   primeHandler = sessionHandler;
   tokenState = esp_random();
@@ -365,10 +365,10 @@ void baseLinkService() {
     clearPrimeQueue();
     const bool mustReassert = flavor_link_policy::needsReassert(
         offlineSelection, awaitingPersistence, queueHasSelection(),
-        desiredFlavor, controllerFlavor);
+        desiredFlavor, mainBoardFlavor);
     const flavor_link_policy::EpochAction action = flavor_link_policy::epochAction(
         connected, offlineSelection, awaitingPersistence, queueHasSelection(),
-        desiredFlavor, controllerFlavor);
+        desiredFlavor, mainBoardFlavor);
     clearQueue();
     if (action == flavor_link_policy::EpochAction::Disconnected) {
       // Any unacknowledged intent remains represented by desiredFlavor and is
@@ -396,10 +396,10 @@ void baseLinkService() {
 void baseLinkReadStatus(BaseLinkStatus &status) {
   status.connected = base.isConnected();
   status.synchronized = synchronized;
-  status.controllerPersisted = controllerPersisted;
-  status.controllerPersistError = controllerPersistError;
+  status.mainBoardPersisted = mainBoardPersisted;
+  status.mainBoardPersistError = mainBoardPersistError;
   status.durabilityPending = awaitingPersistence;
-  status.controllerFlavor = controllerFlavor;
+  status.mainBoardFlavor = mainBoardFlavor;
   status.pending = static_cast<uint8_t>(queueCount + (offlineSelection ? 1 : 0));
   status.framesRx = framesRx;
   status.framesTx = framesTx;

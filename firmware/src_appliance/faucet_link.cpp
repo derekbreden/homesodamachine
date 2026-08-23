@@ -236,7 +236,7 @@ void faucetLinkBegin() {
     lastSentRevision = flavorRevision();
     // Make established persisted truth eligible as soon as the transport
     // connects. A factory-blank controller remains protected by the
-    // controllerEstablished gate until it adopts the faucet cache.
+    // mainBoardEstablished gate until it adopts the faucet cache.
     lastStatePublicationMs = millis() - kStateHeartbeatMs;
     MachinePrimeSessionState prime;
     machineReadPrimeSessionState(prime);
@@ -277,7 +277,7 @@ void faucetLinkService() {
     faucet.service();
 
     const bool revisionPending = flavorRevision() != lastSentRevision;
-    if (flavor_link_policy::controllerStatePublicationDue(
+    if (flavor_link_policy::mainBoardStatePublicationDue(
             connected, flavorEstablished(), revisionPending,
             now, lastStatePublicationMs, kStateHeartbeatMs)) {
         if (sendState(0) && !revisionPending) ++heartbeatPublications;
