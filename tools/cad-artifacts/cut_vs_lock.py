@@ -273,11 +273,21 @@ def main() -> int:
         else:
             print("  bazel-bin is up to date, so a stale cut is excluded — but a lock older")
             print("  than the geometry is not.")
-        print("  What separates the readings: run this on BOTH machines at the")
-        print("  same commit. Same `cut here` hashes on both means the lock is behind and the")
-        print("  kernels agree; different ones means the kernels disagree, and then the lock")
-        print("  belongs to whichever machine packs it — a repin here pins these bytes and the")
-        print("  next repin there pins them back, every lap.")
+        # A BYTE DIFFERENCE IS EVIDENCE ABOUT THE WRITERS AND NOT ABOUT THE SOLIDS, so the
+        # reading that separates the causes is a geometric one and never a second hash.
+        # Measured on this repo: the ubuntu runner and a developer Mac write different STEP
+        # bytes for solids whose geometry agrees to the last digit — same face count, same
+        # areas, same bounding boxes, same edges. Two machines disagreeing on `cut here`
+        # therefore says nothing about whether their kernels disagree, and a reader who
+        # takes it for an answer has been told the opposite of the truth.
+        print("  WHAT SEPARATES THE READINGS IS GEOMETRY AND NOT ANOTHER HASH. Load the two")
+        print("  cuts and read face count, areas, bounding boxes and edges off them. This")
+        print("  repo's two machines are known to write different bytes for solids whose")
+        print("  geometry is identical, so `cut here` disagreeing across machines does NOT")
+        print("  establish that the kernels disagree.")
+        print("  Geometry agrees: the lock is simply behind, and a repin here settles it.")
+        print("  Geometry disagrees: the lock belongs to whichever machine packs it — a repin")
+        print("  here pins these bytes and the next repin there pins them back, every lap.")
         note("warning", "cut-vs-lock",
              f"{len(differ)} of {compared} solids differ from the lock "
              f"— compare against the other machine's cut hashes to read it")
