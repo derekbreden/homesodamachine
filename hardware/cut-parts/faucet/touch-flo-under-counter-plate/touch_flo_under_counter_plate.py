@@ -1,7 +1,7 @@
 """
 Touch-Flo under-counter plate — sheet-metal plate that sits beneath
 the countertop, between the countertop's underside and the
-under-counter nut/washer that clamps the entire faucet stack from
+under-counter nut/washer that clamps the entire faucet from
 below.
 
 Disc with two open-edge channels — one for the shank, one for the
@@ -13,9 +13,9 @@ Washer and nut then clamp the plate flat against the countertop.
 See `../../../assembly/faucet-and-umbilical.md` for the full install
 motion.
 
-HOLE POSITIONS MATCH THE TPU GASKET AND UPPER MOUNTING PLATE
-============================================================
-The mounting plate, TPU gasket, and under-counter plate share the
+HOLE POSITIONS MATCH THE ABOVE-COUNTER GASKET AND PLATE
+=======================================================
+The above-counter plate, above-counter gasket, and under-counter plate share the
 shank-hole position and pill-slot position. This plate's disc centers
 on the midpoint of its two reach constraints — the body-bore front
 edge and the pill pocket's far edge — landing within 0.05 mm of the
@@ -41,8 +41,8 @@ Each of the four wall-meets-rim corners is rounded with a tangent
 arc of the fillet radius.
 
 STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
-- Mounting plate (PETG-CF), Z = [-4, 0]
-- TPU gasket (90A black),    Z = [-6, -4]
+- Above-counter plate (PETG-CF),   Z = [-4, 0]
+- Above-counter gasket (90A black), Z = [-6, -4]
 - Countertop                  (varies — laminate ~32 mm, granite ~38 mm)
 - Under-counter plate (this part)
 - Washer + factory shank nut on the threaded Touch-Flo shank
@@ -86,13 +86,13 @@ from _touch_flo_interface import (
 from touch_flo_shell import body_bore_diameter
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
-# Hole positions match the TPU gasket and the upper mounting plate; the
+# Hole positions match the above-counter gasket and plate; the
 # disc center and OD are derived from those holes below.
 
 shank_cx = 0.0
 shank_cy = 0.0
-# [12.6 mm](SHANK_HOLE_D) shank pocket — matches the gasket / mounting
-# plate (the threaded shank passes through all three discs).
+# [12.6 mm](SHANK_HOLE_D) shank pocket — matches the above-counter
+# gasket / plate (the threaded shank passes through all three discs).
 shank_diameter = shank_hole_diameter
 shank_radius = shank_diameter / 2.0
 
@@ -103,7 +103,7 @@ shank_radius = shank_diameter / 2.0
 # at world +Y relative to the body axis); this DXF Y is the lateral
 # (world X) axis. Channels open in DXF -Y (lateral).
 # [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of pill center from the shank
-# (= depth magnitude shared with the shell / gasket / mounting plate).
+# (= depth magnitude shared with the shell / above-counter gasket / plate).
 pill_cx = flavor_tube_depth
 pill_cy = 0.0
 # [13.4 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —

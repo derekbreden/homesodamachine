@@ -21,7 +21,7 @@ diameter — the vendor taps 1/4"-18 NPT per the drawing callout.
                    (0, −[50.97 mm](REG_Y)) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
                    (0.150") of plate as intact pressure boundary.
 
-The register sits on the +Z face = the vessel INSIDE face; the −Z face is the
+The register sits on the +Z face = the carbonator INSIDE face; the −Z face is the
 plain outside face. STEP is exported in millimetres (CadQuery / CNC default).
 
 Units: millimetres.
