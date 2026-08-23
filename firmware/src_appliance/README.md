@@ -1,7 +1,7 @@
 # The appliance controller
 
-The firmware the machine runs. It is on the controller PCBA's own WROOM (U1), the board
-[`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes, flashed through that board's CH340B
+The firmware the machine runs. It is on the main board's own WROOM (U1) — the board
+[`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — flashed through its CH340B
 over USB-C at J14. The procedure it answers to is
 [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md); the
 state it boots to is the one
@@ -12,23 +12,23 @@ once per fab batch, with the manifold unplugged.
 
 ## What runs today
 
-The glass-facing operation remains one flavor pump. The controller also establishes and
+The glass-facing operation remains one flavor pump. The main board also establishes and
 reports the safe I/O foundation the next connected bench uses.
 
 - **A shared prime-ready session.** Service → Prime → a flavor on the 4.3B enclosure display
-  opens a controller-owned session and wakes the faucet into the same mode. Either display
+  opens a main-board-owned session and wakes the faucet into the same mode. Either display
   can hold its pad to run that selected pump; tokenized `MSG_PRIME_SESSION_*` controls keep
   retries idempotent and the complete absolute state is mirrored to both displays. The pump
   stops on lift, a hold heartbeat more than 2 s late, loss of its owning faucet connection,
   expiry of the enclosure's 5 s session lease, or the 60 s ceiling.
 - **A bounded run from the console.** `pump <a|b> [ms]`.
 - **The shared flavor selection.** A faucet tap reaches J3, or an enclosure card tap reaches
-  J9, as an absolute flavor and request token. The controller acknowledges its authoritative
+  J9, as an absolute flavor and request token. The main board acknowledges its authoritative
   selection, makes the UI tick once, persists namespace `selection`, key `flavor`, and
-  publishes the revision to the other display. A controller with no stored value adopts the
-  faucet's saved boot-logo candidate on its first synchronization; an established controller
+  publishes the revision to the other display. A main board with no stored value adopts the
+  faucet's saved boot-logo candidate on its first synchronization; an established main board
   wins.
-- **Status.** `MSG_STATUS_REQ` is answered from cached controller state with uptime, heap,
+- **Status.** `MSG_STATUS_REQ` is answered from cached main board state with uptime, heap,
   J9 frame counts, the MQ-6 divider and whether a prime is live. The USB `status` command
   additionally verifies both expanders and reads all ten reed inputs on demand.
 - **Sound.** The whole vocabulary below, the volume and quiet-hours settings behind it,
@@ -48,9 +48,9 @@ driven. A clean cycle is answered `MSG_ERR_UNSUPPORTED`.
 | `pcba_expanders.cpp` | U2/U3 register safety and the logical V-A–V-K / fan / reed map |
 | `link.cpp` | J9 frames in, machine announcements out |
 | `faucet_link.cpp` | J3 full-duplex flavor acknowledgements and shared-prime controls/state |
-| `flavor.cpp` | controller-owned flavor state and deferred NVS persistence |
+| `flavor.cpp` | main-board-owned flavor state and deferred NVS persistence |
 | `rtc.cpp` | U6 DS3231 — what hour it is, and whether that answer can be believed |
-| `pins.h` | what this image reaches on the board, off `pcba.tsx` |
+| `pins.h` | what this image reaches on the main board, off `pcba.tsx` |
 | [`/firmware/lib/sound`](/firmware/lib/sound/sound.h) | U8, IO13, and the machine's sounds — shared with the bench |
 
 `machine.cpp` is the only file that drives an actuator pin. The glass, the console, and the
@@ -68,7 +68,7 @@ pio device monitor -e appliance
 | | |
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
-| `flavor [a\|b]` | read or set the controller-owned flavor selection, and the logo pair beside it |
+| `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
@@ -80,7 +80,7 @@ pio device monitor -e appliance
 | `quiet [on\|off] [start] [end] [pct]` | quiet hours, read off the DS3231, persisted |
 | `rtc [set <YYYY-MM-DD> <HH:MM:SS>]` | the clock quiet hours reads |
 
-`ping` separates this board's half of J9 from the far end. U7's `/RE` is tied to GND, so a
+`ping` separates the main board's half of J9 from the far end. U7's `/RE` is tied to GND, so a
 frame sent here returns to IO34 through the transceiver whether or not anything is on the
 other end of the pair — bytes back mean IO32, U7 and R6 carry; a frame back means the
 display answered.
@@ -88,7 +88,7 @@ display answered.
 `display usb` does not switch a load or the unswitched J9 V12 rail. A current enclosure display
 image acknowledges it and enters 500 ms of timer-wake deep sleep, which powers down the S3
 USB PHY long enough for the host to see a detach. If that application does not answer,
-the controller reports `UNREACHABLE` and does nothing further. `tools/display_usb.py`
+the main board reports `UNREACHABLE` and does nothing further. `tools/display_usb.py`
 wraps the command and proves the result with a fresh USB attachment and the display's
 `GET_VERSION` response.
 
@@ -101,12 +101,12 @@ passes CRC.
 
 The touch display changes its logo before it queues link work. Requests carry the resulting
 absolute flavor, never “toggle,” so transport or application retries are idempotent. A token
-deduplicates the controller-side tick as well as the state update. Controller Preferences
+deduplicates the main-board-side tick as well as the state update. Main board Preferences
 writes are serviced only while the machine is idle and the sound sequencer is quiet. The
 faucet keeps its own two-second-deferred cache so either boot order draws a logo immediately,
-but it never overwrites established controller state during reconnect.
+but it never overwrites established main board state during reconnect.
 
-An established controller publishes every flavor or persistence revision immediately and repeats
+An established main board publishes every flavor or persistence revision immediately and repeats
 the complete absolute state every 500 ms while J3 is connected. The repeat closes the gap between
 transport acceptance and application of a single frame. A same-state publication is a no-op on the
 faucet, so it neither wakes the backlight nor resets the idle timer; a changed state updates and
@@ -115,14 +115,14 @@ SYNC accepted during connection establishment cannot be erased afterward.
 
 ## Enclosure flavor link
 
-J9 is half duplex, so the controller does not interrupt the enclosure display when flavor
+J9 is half duplex, so the main board does not interrupt the enclosure display when flavor
 changes on J3. The enclosure asks with `MSG_FLAVOR_QUERY` every 250 ms while lit and every
-500 ms while dark, and the controller answers with the current flavor and persistence flags.
+500 ms while dark, and the main board answers with the current flavor and persistence flags.
 That bounded poll is also how a faucet selection wakes and updates a sleeping enclosure.
 
 An enclosure card press repaints locally and sends tokenized `MSG_FLAVOR_SELECT`. The first
 fresh request carries the audible flag; retries reuse the absolute value and token without
-repeating the tick. The resulting controller revision is published immediately over J3, so
+repeating the tick. The resulting main board revision is published immediately over J3, so
 the faucet changes and wakes without waiting for another enclosure poll.
 
 ## Sound
@@ -200,7 +200,7 @@ Volume is linear in acoustic **amplitude**, not in duty: amplitude goes as `sin(
 control that scaled duty directly would barely move across the top half of its travel.
 
 Quiet hours need a clock. Without a believable one — no DS3231, or OSF latched because BT1
-is dead or the board is fresh — `soundInQuietHours()` is false and they never engage. A
+is dead or the main board is fresh — `soundInQuietHours()` is false and they never engage. A
 machine that guessed at the hour in order to go quiet would go quiet at the wrong one.
 
 ### The gas alarm

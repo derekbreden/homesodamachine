@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 // ════════════════════════════════════════════════════════════
-//  The machine — every actuator on the board, behind one door
+//  The machine — every actuator on the main board, behind one door
 // ════════════════════════════════════════════════════════════
 //
 // machine.cpp is the only file that drives a pin reaching a load. The glass,
@@ -63,7 +63,7 @@ bool machinePrimeBegin(uint8_t channel);
 void machinePrimeTick(uint8_t channel);
 void machinePrimeEnd();
 
-// Controller-owned prime-ready session. The enclosure activates and leases it;
+// Main-board-owned prime-ready session. The enclosure activates and leases it;
 // either endpoint may own one tokenized hold, and either may cancel it. Every
 // command is absolute and stale source/session/hold tokens are harmless.
 bool machinePrimeSessionActivate(uint8_t channel, uint32_t sessionToken);

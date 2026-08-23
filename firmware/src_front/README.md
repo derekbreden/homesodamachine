@@ -82,7 +82,7 @@ filling, cleaning and other periods in which the appliance intentionally
 withholds normal interaction.
 
 Boot opens with **Powering on · Getting everything ready.** for at least two
-complete animation cycles. It then opens onto the controller's flavor selection
+complete animation cycles. It then opens onto the main board's flavor selection
 as soon as that state is known, with a six-second ceiling when J9 is absent.
 
 ## Build / flash
@@ -94,7 +94,7 @@ pio run -e esp32s3_front -t upload    # build + flash
 
 The board enumerates over its own native USB, independent of the base ESP32's
 UART bridge — flashing it does not disturb the rest of the system. If J9's V12 kept the
-display powered while its USB cable was reconnected, ask the controller to make the USB
+display powered while its USB cable was reconnected, ask the main board to make the USB
 PHY detach and timer-wake:
 
 ```
@@ -153,7 +153,7 @@ is the backlight itself:
   reached through, so the DMA refilling its bounce buffer faults on the next line —
   `Cache disabled but cached memory region accessed`, and the panic takes the USB PHY
   down with it (`tools/display_usb.py` brings it back). A ratio and a flavor's chosen
-  logo are therefore display-local, and the durable home for both is the controller,
+  logo are therefore display-local, and the durable home for both is the main board,
   where the faucet's own selection already lives.
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
   line on the CH422G (EXIO2) — on/off only, no PWM, and I²C is too slow to fake
@@ -177,7 +177,7 @@ is the backlight itself:
 Newline-terminated, 115200 baud over the native USB CDC:
 
 - `GET_VERSION` → `VERSION:ENCLOSURE=<fw>`
-- `GET_STATE` → controller-owned flavor, synchronization / durability / pending
+- `GET_STATE` → main-board-owned flavor, synchronization / durability / pending
   state, operation lock, idle and page
 - `GET_DIAG` → a packet-bounded `DIAG:` health line followed by `DIAG_UI:` and
   `DIAG_SYS:` detail: page / sub-view / idle / lock, link and queue health,
@@ -190,7 +190,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:3` → show one rail destination (CHOOSE, PRIME, FILL, CLEAN);
   `PAGE:4` → Settings, which is the corner rather than a rail slot
-- `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
+- `FLAVOR:0` / `FLAVOR:1` → select through the same main-board-owned path as a card tap
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
   the handlers the Choose gear and a thumbnail tap reach, without a finger on the glass
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
@@ -210,7 +210,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 
 ## RS485 link to the base ESP32 (J9 / SIG-7)
 
-The onboard SP3485 is on **GPIO43/44** at 115200 8N1, wired to the pcba's **J9**
+The onboard SP3485 is on **GPIO43/44** at 115200 8N1, wired to the main board's **J9**
 (`B · A · GND · V12`) — the same 4-wire loom carries the pair and the 7–36 V input.
 Direction switching is automatic at both ends, so there is no DE line; the board's own
 120 Ω termination is a DIP switch, off as shipped, and the base carries R6 across the
@@ -238,7 +238,7 @@ two ends collide on their own schedules and fall out of CONNECTED every 2 s.
 Flavor state follows J9's controller-answer-only rule. The display sends
 `MSG_FLAVOR_QUERY` every 250 ms while lit and every 500 ms while dark, with only
 one request outstanding. A local card press repaints first and queues a tokenized,
-absolute `MSG_FLAVOR_SELECT`; retries reuse the token and are silent. The controller
+absolute `MSG_FLAVOR_SELECT`; retries reuse the token and are silent. The main board
 answers every query or selection with its authoritative value and persistence flags.
 This polling turn also carries faucet-originated changes from J3 to this display.
 
@@ -259,7 +259,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 
 | Page | Shape | Reads / writes |
 |---|---|---|
-| Choose | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
+| Choose | two large, quiet flavor cards with an unmistakable retained selection | **the main board**, mirrored with the faucet |
 | A flavor's own page | `−`/`+` on the ratio, and every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Fill | flavor choice → confirmation | **the base** |
@@ -305,7 +305,7 @@ is an intentional commit.
 
 ### Prime
 
-**PRIME → a flavor opens one shared prime-ready session.** The controller owns
+**PRIME → a flavor opens one shared prime-ready session.** The main board owns
 its selected channel and complete `OFF` / `READY` / `RUNNING` state. The faucet wakes into
 the same mode, and either display can own one held run at a time.
 
@@ -326,14 +326,14 @@ each enclosure turn with at most one complete state. `RUNNING`, `STOPPED`, `TIME
 `LIMIT`, `REFUSED`, `CANCELED`, and `SESSION LOST` therefore mean the same thing on both
 pieces of glass.
 
-While held, a heartbeat goes out every 500 ms and the controller stops an unanswered hold
+While held, a heartbeat goes out every 500 ms and the main board stops an unanswered hold
 after 2 s. The enclosure renews the ready session on its 250 ms active / 500 ms dark poll;
-the controller closes it after 5 s without that exact token. Elapsed text and its bar update
+the main board closes it after 5 s without that exact token. Elapsed text and its bar update
 at 10 Hz in small invalidated regions rather than repainting the panel.
 
 An unanswered START resets the J9 transport once and retries the same token. A lost STOP or
-CANCEL is retried until exact controller state, or a strictly newer state in that same
-session, proves it terminal. `GET_DIAG` reports those recovery counts and the controller's
+CANCEL is retried until exact main board state, or a strictly newer state in that same
+session, proves it terminal. `GET_DIAG` reports those recovery counts and the main board's
 one-reply-per-turn audit.
 
 ### Fill and clean
@@ -341,7 +341,7 @@ one-reply-per-turn audit.
 **FILL → a flavor → START** sends `MSG_FILL_START { channel }`, which draws that
 channel from the funnel on the enclosure's top face down into its chilled
 reservoir. **CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. Both
-are open-ended manifold operations the controller sequences. The valve manifold hangs
+are open-ended manifold operations the main board sequences. The valve manifold hangs
 off the MCP23017s, whose pins the bench rig holds high-Z, so both answer
 `MSG_ERR_UNSUPPORTED` and the pane says so.
 
@@ -355,23 +355,23 @@ high-water mark and clears it.
 
 ## Integration seams (not implemented)
 
-- **Flavor ratio and level** — the ratio is this display's own until a controller stores
+- **Flavor ratio and level** — the ratio is this display's own until a main board stores
   it; the level reads `--` until a reservoir is sensed.
 - **Dispense and carbonation state** beyond the locked-operation messages.
 
 ## Power and USB reattachment
 
-J9 is `[B, A, GND, V12]` — this panel takes 12 V from the controller PCBA over the same
+J9 is `[B, A, GND, V12]` — this panel takes 12 V from the main board over the same
 connector that carries the RS485 pair. With its own USB also plugged in it has two supplies,
 and reconnecting the cable while J9 keeps the board powered can leave the USB device absent.
 `J9.V12` runs straight to the board's V12 island with no switched load in its path.
 
 [`/tools/display_usb.py`](/tools/display_usb.py) sends the explicit `display usb` development
-request through the controller. The display acknowledges it, enters 500 ms of timer-wake deep
+request through the main board. The display acknowledges it, enters 500 ms of timer-wake deep
 sleep, and therefore powers down the S3 USB PHY long enough for the host to observe a real
 detach and fresh attachment. It does not switch V12 and nothing sends this request during a
 production boot. [`/tools/boards.py`](/tools/boards.py) offers that command when it sees the
-controller but not the S3.
+main board but not the S3.
 
 The request requires the display application to be running and answering on J9. A missing,
 old, or wedged display application still needs the panel RESET button or a physical V12 power
@@ -379,7 +379,7 @@ cycle for that boot.
 
 ## Sound
 
-This panel has no sounder. The machine's one voice is U8 on the controller PCBA, so a finger
+This panel has no sounder. The machine's one voice is U8 on the main board, so a finger
 landing on this glass becomes a sound only by crossing J9 as `MSG_SOUND_PLAY`.
 
 It is sent on `LV_EVENT_PRESSED`, not on the click, so the round trip hides inside the
@@ -389,7 +389,7 @@ Every button on this panel is made by `mkBtn()`, so the hook lives there and now
 one place, and any button added later gets it without anyone having to remember.
 
 The tick means **your touch registered**, not "that worked". Outcomes — refused, finished,
-faulted — are the controller's own sounds. A touch that begins on a dark screen is withheld
+faulted — are the main board's own sounds. A touch that begins on a dark screen is withheld
 from every widget by the wake latch, so waking the panel does not tick.
 
 None of it reaches the gas alarm. See [`../src_appliance/README.md`](../src_appliance/README.md).

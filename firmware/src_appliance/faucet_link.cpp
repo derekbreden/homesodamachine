@@ -30,8 +30,8 @@ uint32_t lastPrimeRevision = 0;
 uint32_t lastPrimeStatePublicationMs = 0;
 uint32_t primeStatePublications = 0;
 uint32_t primeHeartbeatPublications = 0;
-// A head that just came up renders from artwork it has not been told yet, so
-// the pair is published once per connection as well as on every change.
+// A faucet display that just came up renders from artwork it has not been told
+// yet, so the pair is published once per connection as well as on every change.
 bool artPublished = false;
 
 void observeConnectionEpoch() {
@@ -235,7 +235,7 @@ void faucetLinkBegin() {
     connectionKnownUp = faucet.isConnected();
     lastSentRevision = flavorRevision();
     // Make established persisted truth eligible as soon as the transport
-    // connects. A factory-blank controller remains protected by the
+    // connects. A factory-blank main board remains protected by the
     // mainBoardEstablished gate until it adopts the faucet cache.
     lastStatePublicationMs = millis() - kStateHeartbeatMs;
     MachinePrimeSessionState prime;

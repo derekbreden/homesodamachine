@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-// Controller-authoritative flavor selection. The faucet may render its cached
+// Main-board-authoritative flavor selection. The faucet may render its cached
 // value immediately at boot, but this state is what future dispense logic reads.
 void flavorBegin();
 
@@ -10,8 +10,8 @@ void flavorBegin();
 // main loop; returns true when persistence status changed.
 bool flavorService();
 
-// A first-ever controller adopts the faucet's saved candidate. Once a valid
-// controller value exists, synchronization never overwrites it.
+// A first-ever main board adopts the faucet's saved candidate. Once a valid
+// main board value exists, synchronization never overwrites it.
 bool flavorSynchronize(uint8_t candidate);
 
 // Absolute selection, never toggle. Returns false only for an invalid channel.

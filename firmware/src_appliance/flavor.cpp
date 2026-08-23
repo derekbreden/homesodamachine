@@ -18,7 +18,7 @@ uint32_t persistDueMs = 0;
 uint32_t revision = 0;
 
 // Which logo each channel wears. Held beside the selection because it is the
-// same kind of state — controller-authoritative, set from a glass, and read by
+// same kind of state — main-board-authoritative, set from a glass, and read by
 // every glass — and written under the same deferred, idle-only discipline.
 uint8_t art[2] = {0, 1};
 bool artDirty = false;
@@ -46,9 +46,9 @@ void flavorBegin() {
         }
     } else {
         // Storage failure is not a factory-blank namespace. Establish a
-        // deterministic controller default and report the durability fault;
+        // deterministic main board default and report the durability fault;
         // otherwise a faucet cache could silently become authority precisely
-        // when the controller cannot preserve the adopted value.
+        // when the main board cannot preserve the adopted value.
         authority.select(0);
         authority.persistenceFinished(false);
     }
@@ -93,7 +93,7 @@ bool flavorSynchronize(uint8_t candidate) {
     if (update == flavor_selection::Update::Rejected) return false;
     changed(update);
     if (update == flavor_selection::Update::Changed) {
-        Serial.printf("\n[flavor] first controller sync adopted faucet flavor %u\n",
+        Serial.printf("\n[flavor] first main board sync adopted faucet flavor %u\n",
                       authority.selected() + 1);
     }
     return true;
