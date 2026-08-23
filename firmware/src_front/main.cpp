@@ -18,6 +18,9 @@
 // It increments only when an actual bounce-buffer shortfall requires scan
 // recovery; normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
+// Two customer-rail icons from the same Font Awesome family as LVGL's built-in
+// symbols. The small project font contains only these missing glyphs.
+extern "C" const lv_font_t rail_icons_28;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -40,7 +43,7 @@ extern "C" uint32_t home_soda_rgb_restart_count(void);
 #include "images/anim_14.h"
 #include "images/anim_15.h"
 
-// The two flavor marks are deliberately static artwork. HOME's selection
+// The two flavor marks are deliberately static artwork. Choose's selection
 // refresh changes only on actual controller state transitions, so these do not
 // participate in the background link polling that formerly disturbed a card.
 #include "../src_config/images/flavor0_240.h"
@@ -64,10 +67,10 @@ static const uint16_t *animFrames[] = {
 // (16 MB flash / 8 MB octal PSRAM). Mounts in the appliance front face,
 // angled up toward a standing user.
 //
-// The screen is a rail of five icons down the left edge and a pane to their right. The
-// pane changes shape with the page: a picture and two numbers, a split of two cards, a
-// grid, a scrolling column. Service → Prime → a flavor → hold the pad, and the pump on
-// the base board turns for as long as the finger stays down.
+// The screen is a rail of five icons down the left edge and a pane to their right: Choose,
+// Ratios, Prime, Clean, and Settings. Flavor selection follows the controller; a Prime
+// flavor opens the shared hold pad, and the base board runs the selected pump only while
+// the finger stays down.
 
 // ── Theme (matches faucet display / config display / iOS app) ──
 #define THEME_BG  lv_color_hex(0x1a1a2e)
@@ -81,8 +84,7 @@ static const uint16_t *animFrames[] = {
 #define COL_WARN     0xf0a83c
 #define COL_OFF      0x3a3a55   // a control at the end of its travel
 
-// What a target answers to. START CLEAN CYCLE and RESTART DISPLAY answer to
-// LV_EVENT_CLICKED instead.
+// What a target answers to. START CLEAN CYCLE answers to LV_EVENT_CLICKED instead.
 #define ACT_EVENT LV_EVENT_PRESSED
 
 // ════════════════════════════════════════════════════════════
@@ -185,7 +187,7 @@ static uint32_t panelDrawErrors = 0;
 static uint32_t frameDoneTimeouts = 0;
 
 // ── Shell geometry ──
-// The rail holds five 82 px targets with a link indicator in its foot; the pane takes the
+// The rail holds five 82 px customer destinations; the pane takes the
 // remaining 76% of the width.
 #define RAIL_W    190
 #define RAIL_ITEM_H 82
@@ -195,23 +197,32 @@ static uint32_t frameDoneTimeouts = 0;
 // ── Pages ──
 // Every page is built once and lives for the life of the firmware; switching hides one and
 // shows another. Sub-views inside a page work the same way.
-enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_STATUS, PAGE_SETUP, PAGE_COUNT };
+enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
 
 enum FlavorView  { FLV_BOTH, FLV_DETAIL, FLV_COUNT };
-enum ServiceView { SVC_MENU, SVC_PRIME_PICK, SVC_PRIME_HOLD,
-                   SVC_CLEAN_PICK, SVC_CLEAN_CONFIRM, SVC_COUNT };
+enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
+                   SVC_CLEAN_CONFIRM, SVC_COUNT };
+
+// The left rail names the customer-facing destinations. Prime and Clean share
+// their controller/session machinery beneath the glass, but they are separate
+// places in the interaction: one asks for a flavor to prime, the other asks
+// for a flavor to clean.
+enum RailPage { RAIL_CHOOSE, RAIL_RATIOS, RAIL_PRIME, RAIL_CLEAN,
+                RAIL_SETTINGS, RAIL_PAGE_COUNT };
 
 static lv_obj_t *pageObj[PAGE_COUNT];
-static lv_obj_t *railBtn[PAGE_COUNT];
+static lv_obj_t *railBtn[RAIL_PAGE_COUNT];
 static lv_obj_t *flvView[FLV_COUNT];
 static lv_obj_t *svcView[SVC_COUNT];
 static Page activePage = PAGE_HOME;
-static ServiceView activeSvc = SVC_MENU;
+static ServiceView activeSvc = SVC_PRIME_PICK;
 static FlavorView  activeFlv = FLV_BOTH;
+static RailPage activeRail = RAIL_CHOOSE;
 static bool uiReady = false;
 
 static void showPage(Page p);
-static void refreshSoundRows();
+static void showRail(RailPage p);
+static void setRailSelection(RailPage p);
 static void showFlavor(FlavorView v);
 static void showService(ServiceView v);
 static void animRun(bool on);
@@ -239,7 +250,7 @@ static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
 static lv_obj_t *homeSyncLabel;
 
-// HOME receives the controller's flavor state four times a second while lit.
+// Choose receives the controller's flavor state four times a second while lit.
 // Keep the rendered model separate from the replicated model so a routine,
 // unchanged answer does not invalidate a large card and flip the RGB panel's
 // framebuffer. Negative sentinels guarantee one complete initial render.
@@ -252,17 +263,11 @@ enum HomeSyncVisual : uint8_t {
 static int8_t homeFlavorShown = -2;
 static int8_t homeSyncShown = -1;
 
-static lv_obj_t *linkDot;          // rail foot — J9 heard from, or not
 static lv_obj_t *flvCardLbl[2];    // the two FLAVOR cards' ratio text
 static lv_obj_t *flvDetailName, *flvDetailRatio;
 static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
 static lv_obj_t *cleanTitle, *cleanMsg;
-static lv_obj_t *statUptime, *statHeap, *statGas, *statGasBar, *statFrames, *statFoot;
-static lv_obj_t *setupCtrlVer, *setupTouch, *setupLinkPins, *setupFrames, *setupReinits;
-static lv_obj_t *setupTouchCnt, *setupHeap, *setupPsram, *setupLoop, *setupUptime;
-static lv_obj_t *setupCol, *setupUp, *setupDown, *setupTrack, *setupThumb;
-static lv_obj_t *setupUpLbl, *setupDownLbl;
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
 // changed here is this display's own until one sends it somewhere.
@@ -306,14 +311,14 @@ static uint32_t flavorStaleResponses = 0;
 // Someone who stepped away for the flavor bottle comes back to the pad they were holding.
 // Someone back after a few minutes comes back to the area they were working in, without
 // the view inside it that would have acted on a tap — a confirm, a hold pad, a stepper.
-// Someone back much later arrives at HOME, because by then they may not be the same person.
+// Someone back much later arrives at Choose, because by then they may not be the same person.
 #define IDLE_TIMEOUT_MS   90000   // touch -> dark
 #define KEEP_VIEW_MS     120000   // dark -> the root of the page you were on
-#define KEEP_AREA_MS     600000   // dark -> HOME
+#define KEEP_AREA_MS     600000   // dark -> Choose
 
 static unsigned long lastInputTime = 0;
 static unsigned long darkSince = 0;
-static uint8_t idleStage = 0;    // 0 lit · 1 dark · 2 at the page's root · 3 home
+static uint8_t idleStage = 0;    // 0 lit · 1 dark · 2 at the page's root · 3 Choose
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
 
 // ── Touch (GT911) ──
@@ -614,7 +619,7 @@ static bool panelInit() {
   // buffer (refilled from the PSRAM framebuffer in the background) instead of
   // straight from PSRAM. That's what stops the horizontal shearing: CPU writes
   // to PSRAM (the render) can no longer starve the live scanline. 10 lines: at 20
-  // the refill work costs 1.3 fps on HOME and 28 ms on SETUP's repaint, and a frame
+  // the refill work costs 1.3 fps on Choose and 28 ms on a full pane repaint, and a frame
   // the DMA has fallen behind on is what esp_lcd_rgb_panel_restart() is for.
   cfg.bounce_buffer_size_px = SCREEN_W * 10;
   cfg.dma_burst_size = 64;
@@ -1136,26 +1141,8 @@ static void sendSound(uint8_t id) {
   j9Post(MSG_SOUND_PLAY, &p, sizeof(p));
 }
 
-// The controller owns volume and quiet hours and persists them; this is a cache
-// of what it last said, and every edit is a round trip rather than a local write.
-static SoundCfgPayload soundCfg   = {70, 0, 22, 7, 25, 0};
-static bool            soundCfgOk = false;
-static unsigned long   soundCfgAskedMs = 0;
-
-static void soundCfgAsk() {
-  soundCfgAskedMs = millis();
-  j9Post(MSG_SOUND_CFG_GET, nullptr, 0);
-}
-
-static void soundCfgPush() {
-  SoundCfgPayload p = soundCfg;
-  p.flags = 0;                       // controller → glass only
-  j9Post(MSG_SOUND_CFG_SET, &p, sizeof(p));
-}
-
-
-// The base's last StatusPayload, and when it landed. Nothing else on this board knows the
-// controller's uptime or its build.
+// The base's last StatusPayload remains available to USB diagnostics. It is not
+// a standing customer-facing screen.
 static StatusPayload ctrlStatus = {};
 static unsigned long ctrlStatusMs = 0;
 static unsigned long statusAskedMs = 0;
@@ -1204,8 +1191,6 @@ static uint32_t primeStaleReinits = 0;
 
 static void setPrimeMsg(const char *s);
 static void setCleanMsg(const char *s);
-static void refreshStatusPage();
-static void refreshLinkDot();
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
@@ -1285,15 +1270,6 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     memcpy(&ctrlStatus, payload, sizeof(ctrlStatus));
     ctrlStatus.version[sizeof(ctrlStatus.version) - 1] = '\0';
     ctrlStatusMs = millis();
-    refreshStatusPage();
-    refreshLinkDot();
-    return;
-  }
-
-  if (type == MSG_RESP_SOUND_CFG && plen >= sizeof(SoundCfgPayload)) {
-    memcpy(&soundCfg, payload, sizeof(soundCfg));
-    soundCfgOk = true;
-    refreshSoundRows();
     return;
   }
 
@@ -1407,7 +1383,7 @@ static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
 // its target is lost — no click, and inside a scrollable parent the slide scrolls instead.
 // PRESS_LOCK stops the re-search: the press stays on the object it began on and a release
 // anywhere fires its click. Every button here takes it, and the two that commit something —
-// START CLEAN CYCLE and RESTART DISPLAY — give it back, so sliding off those still cancels.
+// START CLEAN CYCLE — give it back, so sliding off it still cancels.
 // ── The click ──
 // This panel has no sounder. The machine's one voice is U8 on the controller
 // PCBA, so a finger landing on this glass becomes a sound only by crossing J9 —
@@ -1472,6 +1448,39 @@ static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
   return b;
 }
 
+static void mkRailIcon(lv_obj_t *parent, RailPage page) {
+  switch (page) {
+    case RAIL_CHOOSE: {
+      // Font Awesome's hand pointer naturally faces up. Rotate the whole
+      // single-outline glyph 45° counter-clockwise so it points up-left.
+      lv_obj_t *hand = mkText(parent, "\xEF\x89\x9A", &rail_icons_28, COL_TEXT);
+      lv_obj_align(hand, LV_ALIGN_TOP_MID, 0, 2);
+      lv_obj_update_layout(hand);
+      lv_obj_set_style_transform_pivot_x(hand, lv_obj_get_width(hand) / 2, 0);
+      lv_obj_set_style_transform_pivot_y(hand, lv_obj_get_height(hand) / 2, 0);
+      lv_obj_set_style_transform_angle(hand, 3150, 0);
+      break;
+    }
+    case RAIL_RATIOS:
+      lv_obj_align(mkText(parent, "\xEF\x88\x80", &rail_icons_28, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, 2);
+      break;
+    case RAIL_PRIME:
+      lv_obj_align(mkText(parent, LV_SYMBOL_TINT, &lv_font_montserrat_28, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, 2);
+      break;
+    case RAIL_CLEAN:
+      lv_obj_align(mkText(parent, LV_SYMBOL_LOOP, &lv_font_montserrat_28, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, 2);
+      break;
+    case RAIL_SETTINGS:
+      lv_obj_align(mkText(parent, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, 2);
+      break;
+    default: break;
+  }
+}
+
 static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
   lv_obj_t *b = mkBtn(parent, 150, 58, COL_CARD);
   lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, 0);
@@ -1501,16 +1510,6 @@ static void showOnly(lv_obj_t **objs, int n, int which) {
 // ── Text the link writes into ──
 static void setPrimeMsg(const char *s) { if (primeMsg) lv_label_set_text(primeMsg, s); }
 static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMsg, s); }
-
-static void refreshLinkDot() {
-  static int shown = -1;
-  if (!linkDot) return;
-  int ok = (j9.framesRx > 0 && millis() - j9.lastRxMs < 30000) ? 1 : 0;
-  if (ok == shown) return;
-  shown = ok;
-  lv_label_set_text(linkDot, ok ? LV_SYMBOL_OK "  J9" : LV_SYMBOL_WARNING "  J9");
-  lv_obj_set_style_text_color(linkDot, lv_color_hex(ok ? COL_GOOD : COL_WARN), 0);
-}
 
 static void refreshFlavorText() {
   char a[16], b[16];
@@ -1589,63 +1588,6 @@ static void refreshHomeSelection() {
     lv_label_set_text(homeSyncLabel, LV_SYMBOL_REFRESH "  CONNECTING");
     lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
   }
-}
-
-// SETUP is read-outs, so it is repainted from here rather than from the widgets.
-static void refreshSetupPage() {
-  if (!setupFrames) return;
-  char b[40];
-  snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
-  lv_label_set_text(setupLinkPins, b);
-  snprintf(b, sizeof(b), "%lu / %lu", (unsigned long)j9.framesRx, (unsigned long)j9.framesTx);
-  lv_label_set_text(setupFrames, b);
-  snprintf(b, sizeof(b), "%lu", (unsigned long)linkReinits);
-  lv_label_set_text(setupReinits, b);
-  snprintf(b, sizeof(b), "%lu / %lu", (unsigned long)touchBridged, (unsigned long)gt911Stale);
-  lv_label_set_text(setupTouchCnt, b);
-  snprintf(b, sizeof(b), "%u / %u", lastTouchX, lastTouchY);
-  lv_label_set_text(setupTouch, b);
-  snprintf(b, sizeof(b), "%lu K", (unsigned long)ESP.getFreeHeap() / 1024);
-  lv_label_set_text(setupHeap, b);
-  snprintf(b, sizeof(b), "%lu K", (unsigned long)ESP.getFreePsram() / 1024);
-  lv_label_set_text(setupPsram, b);
-  snprintf(b, sizeof(b), "%lu ms", (unsigned long)maxLoopMs);
-  lv_label_set_text(setupLoop, b);
-  unsigned long up = millis() / 1000;
-  snprintf(b, sizeof(b), "%lu:%02lu", up / 60, up % 60);
-  lv_label_set_text(setupUptime, b);
-  lv_label_set_text(setupCtrlVer, ctrlStatusMs ? ctrlStatus.version : "--");
-}
-
-static void refreshStatusPage() {
-  if (!statUptime) return;
-  char buf[48];
-  unsigned long up = ctrlStatus.uptimeS;
-  if (up < 3600) snprintf(buf, sizeof(buf), "%lu:%02lu", up / 60, up % 60);
-  else           snprintf(buf, sizeof(buf), "%luh %lum", up / 3600, (up % 3600) / 60);
-  lv_label_set_text(statUptime, buf);
-
-  snprintf(buf, sizeof(buf), "%lu K", (unsigned long)ctrlStatus.freeHeap / 1024);
-  lv_label_set_text(statHeap, buf);
-
-  snprintf(buf, sizeof(buf), "%u mV", ctrlStatus.gasMv);
-  lv_label_set_text(statGas, buf);
-  lv_bar_set_value(statGasBar, ctrlStatus.gasMv, LV_ANIM_OFF);
-
-  snprintf(buf, sizeof(buf), "%lu / %lu", (unsigned long)ctrlStatus.framesRx,
-           (unsigned long)ctrlStatus.framesTx);
-  lv_label_set_text(statFrames, buf);
-
-  if (ctrlStatusMs == 0) {
-    lv_label_set_text(statFoot, "controller has not answered");
-    lv_obj_set_style_text_color(statFoot, lv_color_hex(COL_WARN), 0);
-  } else {
-    snprintf(buf, sizeof(buf), "build %s   ·   read %lu s ago", ctrlStatus.version,
-             (millis() - ctrlStatusMs) / 1000);
-    lv_label_set_text(statFoot, buf);
-    lv_obj_set_style_text_color(statFoot, lv_color_hex(COL_DIM), 0);
-  }
-  if (setupCtrlVer) lv_label_set_text(setupCtrlVer, ctrlStatusMs ? ctrlStatus.version : "--");
 }
 
 // ── Prime-ready session — shared controller truth and one local hold ──
@@ -2262,10 +2204,11 @@ static void primePadCb(lv_event_t *e) {
 }
 
 // ── Navigation ──
-static void railCb(lv_event_t *e)     { showPage((Page)(intptr_t)lv_event_get_user_data(e)); }
+static void railCb(lv_event_t *e)     { showRail((RailPage)(intptr_t)lv_event_get_user_data(e)); }
 
 static void flvViewCb(lv_event_t *e)  { showFlavor((FlavorView)(intptr_t)lv_event_get_user_data(e)); }
 static void svcViewCb(lv_event_t *e)  { showService((ServiceView)(intptr_t)lv_event_get_user_data(e)); }
+static void choosePageCb(lv_event_t *e) { (void)e; showRail(RAIL_CHOOSE); }
 
 static void flavorPickCb(lv_event_t *e) {
   flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
@@ -2299,7 +2242,7 @@ static void cleanPickCb(lv_event_t *e) {
 
 static void flavorToPrimeCb(lv_event_t *e) {
   (void)e;
-  showPage(PAGE_SERVICE);
+  showRail(RAIL_PRIME);
   showService(SVC_PRIME_HOLD);
 }
 
@@ -2387,14 +2330,14 @@ static void lockScreenHide() {
 }
 
 static void buildRail(lv_obj_t *scr) {
-  static const struct { const char *icon; const char *label; } kRail[PAGE_COUNT] = {
-      {LV_SYMBOL_HOME,     "HOME"},
-      {LV_SYMBOL_TINT,     "MIX"},
-      {LV_SYMBOL_LOOP,     "SERVICE"},
-      {LV_SYMBOL_CHARGE,   "STATUS"},
-      {LV_SYMBOL_SETTINGS, "SETUP"},
+  static const char *kRail[RAIL_PAGE_COUNT] = {
+      "CHOOSE",
+      "RATIOS",
+      "PRIME",
+      "CLEAN",
+      "SETTINGS",
   };
-  for (int i = 0; i < PAGE_COUNT; i++) {
+  for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
     lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
     lv_obj_set_pos(b, 6, 8 + i * (RAIL_ITEM_H + 6));
     lv_obj_set_style_pad_all(b, 6, 0);
@@ -2404,14 +2347,18 @@ static void buildRail(lv_obj_t *scr) {
     lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
     lv_obj_add_event_cb(b, railCb, ACT_EVENT, (void *)(intptr_t)i);
-    lv_obj_align(mkText(b, kRail[i].icon, &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_TOP_MID, 0, 2);
-    lv_obj_align(mkText(b, kRail[i].label, &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
+    mkRailIcon(b, (RailPage)i);
+    lv_obj_align(mkText(b, kRail[i], &lv_font_montserrat_20, COL_TEXT), LV_ALIGN_BOTTOM_MID, 0, 0);
     railBtn[i] = b;
   }
-  linkDot = mkText(scr, LV_SYMBOL_WARNING "  J9", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_set_width(linkDot, RAIL_W);
-  lv_obj_set_style_text_align(linkDot, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_set_pos(linkDot, 0, 8 + PAGE_COUNT * (RAIL_ITEM_H + 6) + 4);
+}
+
+static void setRailSelection(RailPage page) {
+  activeRail = page;
+  for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
+    lv_obj_set_style_bg_color(railBtn[i],
+                              lv_color_hex(i == page ? COL_ACCENT : COL_CARD), 0);
+  }
 }
 
 // The screen behind it is already THEME_BG, and a second opaque fill of the pane is
@@ -2435,7 +2382,7 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
 // objects do not redraw during routine controller heartbeats.
 static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-  lv_obj_align(mkText(page, "SELECT A FLAVOR", &lv_font_montserrat_28, COL_TEXT),
+  lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_TEXT),
                LV_ALIGN_TOP_LEFT, 0, 0);
   homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
                          &lv_font_montserrat_20, COL_WARN);
@@ -2475,7 +2422,8 @@ static void buildFlavor(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
 
   lv_obj_t *both = mkView(page);
-  lv_obj_align(mkText(both, "FLAVORS", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_align(mkText(both, "FLAVOR RATIOS", &lv_font_montserrat_28, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, 0);
   for (int i = 0; i < 2; i++) {
     lv_obj_t *b = mkBtn(both, cw, 360, COL_CARD);
     lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
@@ -2530,20 +2478,11 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title, lv_event_cb_t c
 }
 
 static void buildService(lv_obj_t *page) {
-  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
 
-  lv_obj_t *menu = mkView(page);
-  lv_obj_align(mkText(menu, "SERVICE", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_align(mkTapCard(menu, cw, 360, LV_SYMBOL_TINT, "PRIME", svcViewCb,
-                         (void *)(intptr_t)SVC_PRIME_PICK), LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  lv_obj_align(mkTapCard(menu, cw, 360, LV_SYMBOL_LOOP, "CLEAN", svcViewCb,
-                         (void *)(intptr_t)SVC_CLEAN_PICK), LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  svcView[SVC_MENU] = menu;
-
   lv_obj_t *pick = mkView(page);
-  mkBack(pick, svcViewCb, (void *)(intptr_t)SVC_MENU);
-  buildFlavorPicker(pick, "PRIME WHICH", primePickCb);
+  mkBack(pick, choosePageCb, NULL);
+  buildFlavorPicker(pick, "CHOOSE A FLAVOR", primePickCb);
   svcView[SVC_PRIME_PICK] = pick;
 
   // The hold pad. It fills the pane because it is meant to be found without looking.
@@ -2577,8 +2516,8 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_PRIME_HOLD] = hold;
 
   lv_obj_t *cpick = mkView(page);
-  mkBack(cpick, svcViewCb, (void *)(intptr_t)SVC_MENU);
-  buildFlavorPicker(cpick, "CLEAN WHICH", cleanPickCb);
+  mkBack(cpick, choosePageCb, NULL);
+  buildFlavorPicker(cpick, "CHOOSE A FLAVOR", cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
   lv_obj_t *conf = mkView(page);
@@ -2600,278 +2539,20 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_CLEAN_CONFIRM] = conf;
 }
 
-// Numbers and a bar, all of it read off the controller.
-static lv_obj_t *statTile(lv_obj_t *page, const char *cap, lv_coord_t w, lv_coord_t h,
-                          lv_coord_t x, lv_coord_t y, lv_obj_t **out) {
-  lv_obj_t *c = mkCard(page, w, h);
-  lv_obj_align(c, LV_ALIGN_TOP_LEFT, x, y);
-  lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  *out = mkText(c, "--", &lv_font_montserrat_40, COL_TEXT);
-  lv_obj_align(*out, LV_ALIGN_LEFT_MID, 0, 8);
-  return c;
-}
+static void buildSettings(lv_obj_t *page) {
+  lv_obj_align(mkText(page, "SETTINGS", &lv_font_montserrat_28, COL_TEXT),
+               LV_ALIGN_TOP_LEFT, 0, 0);
 
-static void buildStatusPage(lv_obj_t *page) {
-  const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 14) / 2;
-  lv_obj_align(mkText(page, "CONTROLLER", &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  statTile(page, "UPTIME",     cw, 150, 0,       46,  &statUptime);
-  statTile(page, "FREE HEAP",  cw, 150, cw + 14, 46,  &statHeap);
-  lv_obj_t *gas = statTile(page, "GAS SENSOR", cw, 150, 0, 210, &statGas);
-  statGasBar = lv_bar_create(gas);
-  lv_obj_set_size(statGasBar, cw - 28, 14);
-  lv_obj_align(statGasBar, LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  lv_bar_set_range(statGasBar, 0, 3300);
-  lv_obj_set_style_bg_color(statGasBar, lv_color_hex(COL_CARD_ON), LV_PART_MAIN);
-  lv_obj_set_style_bg_color(statGasBar, lv_color_hex(COL_GOOD), LV_PART_INDICATOR);
-  statTile(page, "J9 FRAMES RX / TX", cw, 150, cw + 14, 210, &statFrames);
-  statFoot = mkText(page, "controller has not answered", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(statFoot, LV_ALIGN_BOTTOM_LEFT, 0, 0);
-}
-
-// The one page tall enough to scroll. It is read-outs and one restart; a control that
-// changes how the appliance behaves belongs on the page for the thing it changes.
-#define SETUP_STRIP_W 92     // the scroll column: two targets with a track between them
-#define SETUP_BTN_H   104
-#define SETUP_PAGE_PX 340    // one press of UP or DOWN
-
-static lv_obj_t *setupRow(lv_obj_t *col, const char *cap, lv_obj_t **valueOut) {
-  lv_obj_t *c = mkCard(col, LV_PCT(100), 80);
-  lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_LEFT_MID, 0, 0);
-  if (valueOut) {
-    *valueOut = mkText(c, "--", &lv_font_montserrat_28, COL_TEXT);
-    lv_obj_align(*valueOut, LV_ALIGN_RIGHT_MID, 0, 0);
-  }
-  return c;
-}
-
-// ── Sound settings ──
-// The controller owns these; every control here is a round trip, and what the
-// rows show is always what came back rather than what was pressed.
-static lv_obj_t *setupVolume = nullptr, *setupQuiet = nullptr, *setupQuietFrom = nullptr,
-                *setupQuietTo = nullptr, *setupQuietVol = nullptr;
-
-// A caption, a value and a pair of steppers — the shape the ratio control uses.
-// PRESS_LOCK comes back off: these live in the scrolling column, and a drag that
-// starts on one should scroll it rather than being held as a press.
-static lv_obj_t *setupStepper(lv_obj_t *col, const char *cap, lv_event_cb_t cb,
-                              lv_obj_t **valueOut) {
-  lv_obj_t *c = mkCard(col, LV_PCT(100), 104);
-  lv_obj_align(mkText(c, cap, &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_t *minus = mkBtn(c, 76, 56, COL_CARD_ON);
-  lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
-  lv_obj_clear_flag(minus, LV_OBJ_FLAG_PRESS_LOCK);
-  lv_obj_add_event_cb(minus, cb, ACT_EVENT, (void *)(intptr_t)-1);
-  lv_obj_center(mkText(minus, LV_SYMBOL_MINUS, &lv_font_montserrat_28, COL_TEXT));
-  lv_obj_t *plus = mkBtn(c, 76, 56, COL_CARD_ON);
-  lv_obj_align(plus, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_clear_flag(plus, LV_OBJ_FLAG_PRESS_LOCK);
-  lv_obj_add_event_cb(plus, cb, ACT_EVENT, (void *)(intptr_t)1);
-  lv_obj_center(mkText(plus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT));
-  *valueOut = mkText(c, "--", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(*valueOut, LV_ALIGN_BOTTOM_MID, 0, -16);
-  return c;
-}
-
-static int stepDir(lv_event_t *e) { return (int)(intptr_t)lv_event_get_user_data(e); }
-
-static void volStepCb(lv_event_t *e) {
-  int v = (int)soundCfg.volume + stepDir(e) * 10;
-  soundCfg.volume = (uint8_t)(v < 0 ? 0 : v > 100 ? 100 : v);
-  soundCfgPush();
-  refreshSoundRows();
-  // Heard at the level just set, which is the only way a volume control can be read.
-  sendSound(SND_WIRE_ACK);
-}
-
-static void quietVolStepCb(lv_event_t *e) {
-  int v = (int)soundCfg.quietVolume + stepDir(e) * 5;
-  soundCfg.quietVolume = (uint8_t)(v < 0 ? 0 : v > 100 ? 100 : v);
-  soundCfgPush();
-  refreshSoundRows();
-}
-
-static uint8_t hourStep(uint8_t h, int dir) { return (uint8_t)((h + dir + 24) % 24); }
-
-static void quietFromCb(lv_event_t *e) {
-  soundCfg.quietStart = hourStep(soundCfg.quietStart, stepDir(e));
-  soundCfgPush();
-  refreshSoundRows();
-}
-
-static void quietToCb(lv_event_t *e) {
-  soundCfg.quietEnd = hourStep(soundCfg.quietEnd, stepDir(e));
-  soundCfgPush();
-  refreshSoundRows();
-}
-
-static void quietToggleCb(lv_event_t *e) {
-  (void)e;
-  soundCfg.quietOn = soundCfg.quietOn ? 0 : 1;
-  soundCfgPush();
-  refreshSoundRows();
-}
-
-static void refreshSoundRows() {
-  if (!setupVolume) return;
-  char buf[40];
-  if (!soundCfgOk) {
-    lv_label_set_text(setupVolume,   "--");
-    lv_label_set_text(setupQuiet,    "--");
-    lv_label_set_text(setupQuietFrom,"--");
-    lv_label_set_text(setupQuietTo,  "--");
-    lv_label_set_text(setupQuietVol, "--");
-    return;
-  }
-  // Muting is worth naming rather than showing as 0%: it changes what the machine
-  // will and will not tell you. The gas alarm is exempt and stays audible.
-  if (soundCfg.volume) { snprintf(buf, sizeof buf, "%u%%", soundCfg.volume); lv_label_set_text(setupVolume, buf); }
-  else                 { lv_label_set_text(setupVolume, "MUTED"); }
-  lv_obj_set_style_text_color(setupVolume,
-      lv_color_hex(soundCfg.volume ? COL_TEXT : COL_WARN), 0);
-
-  // Quiet hours with no clock never engage, and a row reading "ON" while nothing
-  // happens is worse than one that says why.
-  bool clockOk = soundCfg.flags & SOUND_CFG_F_CLOCK_OK;
-  if (!soundCfg.quietOn)      lv_label_set_text(setupQuiet, "OFF");
-  else if (!clockOk)          lv_label_set_text(setupQuiet, "NO CLOCK");
-  else if (soundCfg.flags & SOUND_CFG_F_QUIET_NOW) lv_label_set_text(setupQuiet, "IN FORCE");
-  else                        lv_label_set_text(setupQuiet, "ON");
-  lv_obj_set_style_text_color(setupQuiet,
-      lv_color_hex(soundCfg.quietOn && !clockOk ? COL_WARN : COL_TEXT), 0);
-
-  snprintf(buf, sizeof buf, "%02u:00", soundCfg.quietStart);
-  lv_label_set_text(setupQuietFrom, buf);
-  snprintf(buf, sizeof buf, "%02u:00", soundCfg.quietEnd);
-  lv_label_set_text(setupQuietTo, buf);
-  snprintf(buf, sizeof buf, "%u%%", soundCfg.quietVolume);
-  lv_label_set_text(setupQuietVol, buf);
-}
-
-static void restartCb(lv_event_t *e) { (void)e; ESP.restart(); }
-
-static void setupScrollRefresh() {
-  if (!setupCol) return;
-  lv_coord_t above = lv_obj_get_scroll_top(setupCol);
-  lv_coord_t below = lv_obj_get_scroll_bottom(setupCol);
-  lv_coord_t view  = lv_obj_get_height(setupCol);
-  lv_coord_t total = above + below + view;
-  if (total < view) total = view;
-
-  lv_coord_t trackH = lv_obj_get_height(setupTrack);
-  lv_coord_t thumbH = (lv_coord_t)((int32_t)trackH * view / total);
-  if (thumbH < 56) thumbH = 56;
-  if (thumbH > trackH) thumbH = trackH;
-  lv_coord_t span = trackH - thumbH;
-  lv_coord_t off = (above + below) > 0 ? (lv_coord_t)((int32_t)span * above / (above + below)) : 0;
-  lv_obj_set_height(setupThumb, thumbH);
-  lv_obj_align(setupThumb, LV_ALIGN_TOP_MID, 0, off);
-
-  // A target at the end of its travel sinks into the background and its arrow goes dark.
-  // Not LV_STATE_DISABLED: the default theme styles that state itself, at a higher state
-  // weight than a colour set here for LV_STATE_DEFAULT, so the theme's grey is what shows.
-  // Clearing CLICKABLE stops the press without handing the look to anyone else.
-  struct { lv_obj_t *b; lv_obj_t *l; bool on; } ends[2] =
-      {{setupUp, setupUpLbl, above > 0}, {setupDown, setupDownLbl, below > 0}};
-  for (auto &e : ends) {
-    if (e.on) lv_obj_add_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
-    else      lv_obj_clear_flag(e.b, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_set_style_bg_color(e.b, e.on ? lv_color_hex(COL_CARD_ON) : THEME_BG, LV_PART_MAIN);
-    lv_obj_set_style_text_color(e.l, lv_color_hex(e.on ? COL_TEXT : COL_OFF), LV_PART_MAIN);
-  }
-}
-
-// Bounded: lv_obj_scroll_by moves what it is asked to and keeps going past the ends, so a
-// page step taken with less than a page of travel left lands off the column.
-static void setupScrollCb(lv_event_t *e) {
-  int dir = (int)(intptr_t)lv_event_get_user_data(e);
-  lv_obj_scroll_by_bounded(setupCol, 0, -dir * SETUP_PAGE_PX, LV_ANIM_ON);
-}
-
-// The scroll animation moves the column without going through setupScrollCb, and a drag
-// does not go through it at all, so the track follows the scroll itself.
-static void setupScrolledCb(lv_event_t *e) { (void)e; setupScrollRefresh(); }
-
-static void buildSetup(lv_obj_t *page) {
-  const lv_coord_t paneW = PANE_W - 2 * PANE_PAD;
-  const lv_coord_t colW  = paneW - SETUP_STRIP_W - 14;
-
-  setupCol = lv_obj_create(page);
-  lv_obj_set_size(setupCol, colW, LV_PCT(100));
-  lv_obj_align(setupCol, LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_set_style_bg_opa(setupCol, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_border_width(setupCol, 0, 0);
-  lv_obj_set_style_pad_all(setupCol, 0, 0);
-  lv_obj_set_style_pad_row(setupCol, 12, 0);
-  lv_obj_set_flex_flow(setupCol, LV_FLEX_FLOW_COLUMN);
-  lv_obj_set_scroll_dir(setupCol, LV_DIR_VER);
-  lv_obj_set_scrollbar_mode(setupCol, LV_SCROLLBAR_MODE_OFF);
-  lv_obj_add_event_cb(setupCol, setupScrolledCb, LV_EVENT_SCROLL, NULL);
-
-  lv_obj_t *v;
-  setupRow(setupCol, "DISPLAY BUILD", &v);
-  lv_label_set_text(v, FW_VERSION);
-  setupRow(setupCol, "CONTROLLER BUILD", &setupCtrlVer);
-  setupRow(setupCol, "RS485 PINS", &setupLinkPins);
-  setupRow(setupCol, "J9 FRAMES RX / TX", &setupFrames);
-  setupRow(setupCol, "LINK REINITS", &setupReinits);
-  setupRow(setupCol, "TOUCH BRIDGED / STALE", &setupTouchCnt);
-  setupRow(setupCol, "LAST TOUCH", &setupTouch);
-  setupRow(setupCol, "FREE HEAP", &setupHeap);
-  setupRow(setupCol, "FREE PSRAM", &setupPsram);
-  setupRow(setupCol, "LOOP HIGH-WATER", &setupLoop);
-  setupRow(setupCol, "UPTIME", &setupUptime);
-
-  // Sound. The controller holds all of it; these are its values, edited.
-  setupStepper(setupCol, "SOUND VOLUME", volStepCb, &setupVolume);
-
-  lv_obj_t *q = mkCard(setupCol, LV_PCT(100), 96);
-  lv_obj_align(mkText(q, "QUIET HOURS", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
-  lv_obj_t *qb = mkBtn(q, 168, 56, COL_CARD_ON);
-  lv_obj_align(qb, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_clear_flag(qb, LV_OBJ_FLAG_PRESS_LOCK);
-  lv_obj_add_event_cb(qb, quietToggleCb, ACT_EVENT, NULL);
-  lv_obj_center(mkText(qb, "TOGGLE", &lv_font_montserrat_20, COL_TEXT));
-  setupQuiet = mkText(q, "--", &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(setupQuiet, LV_ALIGN_BOTTOM_LEFT, 0, -14);
-
-  setupStepper(setupCol, "QUIET FROM",      quietFromCb,    &setupQuietFrom);
-  setupStepper(setupCol, "QUIET UNTIL",     quietToCb,      &setupQuietTo);
-  setupStepper(setupCol, "QUIET VOLUME",    quietVolStepCb, &setupQuietVol);
-
-  lv_obj_t *r = mkBtn(setupCol, LV_PCT(100), 80, COL_CARD);
-  lv_obj_clear_flag(r, LV_OBJ_FLAG_PRESS_LOCK);   // a drag that started here scrolls, and
-  lv_obj_add_event_cb(r, restartCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(r, LV_SYMBOL_POWER "   RESTART DISPLAY", &lv_font_montserrat_28, COL_ACCENT));
-
-  // The scroll column, right of the rows: a page up, a track that shows where you are,
-  // a page down.
-  setupUp = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
-  lv_obj_align(setupUp, LV_ALIGN_TOP_RIGHT, 0, 0);
-  lv_obj_add_event_cb(setupUp, setupScrollCb, ACT_EVENT, (void *)(intptr_t)-1);
-  setupUpLbl = mkText(setupUp, LV_SYMBOL_UP, &lv_font_montserrat_40, COL_TEXT);
-  lv_obj_center(setupUpLbl);
-
-  setupDown = mkBtn(page, SETUP_STRIP_W, SETUP_BTN_H, COL_CARD_ON);
-  lv_obj_align(setupDown, LV_ALIGN_BOTTOM_RIGHT, 0, 0);
-  lv_obj_add_event_cb(setupDown, setupScrollCb, ACT_EVENT, (void *)(intptr_t)1);
-  setupDownLbl = mkText(setupDown, LV_SYMBOL_DOWN, &lv_font_montserrat_40, COL_TEXT);
-  lv_obj_center(setupDownLbl);
-
-  setupTrack = lv_obj_create(page);
-  lv_obj_set_size(setupTrack, 22, 448 - 2 * SETUP_BTN_H - 24);
-  lv_obj_align(setupTrack, LV_ALIGN_TOP_RIGHT, -(SETUP_STRIP_W - 22) / 2, SETUP_BTN_H + 12);
-  lv_obj_set_style_bg_color(setupTrack, lv_color_hex(COL_CARD), 0);
-  lv_obj_set_style_border_width(setupTrack, 0, 0);
-  lv_obj_set_style_radius(setupTrack, 11, 0);
-  lv_obj_set_style_pad_all(setupTrack, 0, 0);
-  lv_obj_clear_flag(setupTrack, LV_OBJ_FLAG_SCROLLABLE);
-
-  setupThumb = lv_obj_create(setupTrack);
-  lv_obj_set_width(setupThumb, 22);
-  lv_obj_set_style_bg_color(setupThumb, lv_color_hex(COL_ACCENT), 0);
-  lv_obj_set_style_border_width(setupThumb, 0, 0);
-  lv_obj_set_style_radius(setupThumb, 11, 0);
-  lv_obj_clear_flag(setupThumb, LV_OBJ_FLAG_SCROLLABLE);
+  // Customer controls earn their place here when there is a clear reason to
+  // change them. Keep the first shipping settings surface deliberately quiet
+  // instead of exposing build, transport, memory, or touch diagnostics.
+  lv_obj_t *card = mkCard(page, PANE_W - 2 * PANE_PAD, 156);
+  lv_obj_align(card, LV_ALIGN_TOP_MID, 0, 86);
+  lv_obj_align(mkText(card, "NOTHING TO ADJUST YET", &lv_font_montserrat_20, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_t *body = mkText(card, "Useful preferences will appear here\nwhen they are ready.",
+                           &lv_font_montserrat_28, COL_TEXT);
+  lv_obj_align(body, LV_ALIGN_LEFT_MID, 0, 28);
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -2881,11 +2562,6 @@ static void rs485Swap() {
   j9.end();
   Serial1.end();
   j9Begin();
-  if (setupLinkPins) {
-    char b[24];
-    snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
-    lv_label_set_text(setupLinkPins, b);
-  }
 }
 
 // ── Page switching ──
@@ -2911,6 +2587,8 @@ static void showService(ServiceView v) {
     primeSessionCancel();
   }
   activeSvc = v;
+  if (v == SVC_PRIME_PICK || v == SVC_PRIME_HOLD) setRailSelection(RAIL_PRIME);
+  if (v == SVC_CLEAN_PICK || v == SVC_CLEAN_CONFIRM) setRailSelection(RAIL_CLEAN);
   showOnly(svcView, SVC_COUNT, v);
   if (v == SVC_PRIME_HOLD) {
     if (previous != SVC_PRIME_HOLD && !primeAuthoritativeNavigation) {
@@ -2944,16 +2622,25 @@ static void idleReset(uint8_t stage) {
         primeSessionToken = 0;
         primeHoldToken = 0;
         primeAuthoritativeNavigation = true;
-        showService(SVC_MENU);
+        showService(activeRail == RAIL_CLEAN ? SVC_CLEAN_PICK : SVC_PRIME_PICK);
         primeAuthoritativeNavigation = false;
       } else {
-        showService(SVC_MENU);
+        showService(activeRail == RAIL_CLEAN ? SVC_CLEAN_PICK : SVC_PRIME_PICK);
       }
     }
     else if (activePage == PAGE_FLAVOR) showFlavor(FLV_BOTH);
-    else if (activePage == PAGE_SETUP)  { lv_obj_scroll_to_y(setupCol, 0, LV_ANIM_OFF); setupScrollRefresh(); }
   } else if (stage == 3) {
     showPage(PAGE_HOME);
+  }
+}
+
+static RailPage railForPage(Page p) {
+  switch (p) {
+    case PAGE_HOME:    return RAIL_CHOOSE;
+    case PAGE_FLAVOR:  return RAIL_RATIOS;
+    case PAGE_SERVICE: return RAIL_PRIME;
+    case PAGE_SETUP:   return RAIL_SETTINGS;
+    default:           return RAIL_CHOOSE;
   }
 }
 
@@ -2963,22 +2650,38 @@ static void showPage(Page p) {
     primeSessionCancel();
   }
   showOnly(pageObj, PAGE_COUNT, p);
-  for (int i = 0; i < PAGE_COUNT; i++)
-    lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(i == p ? COL_ACCENT : COL_CARD), 0);
   activePage = p;
+  setRailSelection(railForPage(p));
   // The animation belongs only to the full-screen operation lock. Ordinary
   // pages invalidate only when their cached visible state actually changes.
   animRun(lockActive && !screenIdle);
   if (p == PAGE_HOME)    refreshHomeSelection();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_BOTH);
-  if (p == PAGE_SERVICE) showService(SVC_MENU);
-  if (p == PAGE_STATUS)  { statusAskedMs = 0; refreshStatusPage(); }
-  if (p == PAGE_SETUP) {
-    refreshSetupPage();
-    refreshSoundRows();
-    soundCfgAsk();                    // the controller's values, not this board's guess
-    lv_obj_update_layout(setupCol);   // the scroll extents are only real once laid out
-    setupScrollRefresh();
+  if (p == PAGE_SERVICE) showService(SVC_PRIME_PICK);
+}
+
+static void showRail(RailPage p) {
+  switch (p) {
+    case RAIL_CHOOSE:
+      showPage(PAGE_HOME);
+      break;
+    case RAIL_RATIOS:
+      showPage(PAGE_FLAVOR);
+      break;
+    case RAIL_PRIME:
+      showPage(PAGE_SERVICE);
+      showService(SVC_PRIME_PICK);
+      break;
+    case RAIL_CLEAN:
+      showPage(PAGE_SERVICE);
+      showService(SVC_CLEAN_PICK);
+      break;
+    case RAIL_SETTINGS:
+      showPage(PAGE_SETUP);
+      break;
+    default:
+      showPage(PAGE_HOME);
+      break;
   }
 }
 
@@ -3008,18 +2711,12 @@ static void buildUi() {
   buildHome(pageObj[PAGE_HOME]);
   buildFlavor(pageObj[PAGE_FLAVOR]);
   buildService(pageObj[PAGE_SERVICE]);
-  buildStatusPage(pageObj[PAGE_STATUS]);
-  buildSetup(pageObj[PAGE_SETUP]);
+  buildSettings(pageObj[PAGE_SETUP]);
   buildLockScreen(scr);
 
   uiReady = true;
   refreshFlavorText();
   refreshHomeSelection();
-  {
-    char b[24];
-    snprintf(b, sizeof(b), "%d / %d", rs485Rx, rs485Tx);
-    lv_label_set_text(setupLinkPins, b);
-  }
   showPage(PAGE_HOME);
   lockScreenShow("HOME SODA MACHINE", "Powering on", "Getting everything ready.");
 }
@@ -3040,7 +2737,7 @@ static void processTextLine(const char *line) {
                   flavorRequestPending ? 1 : 0,
                   lockActive ? 1 : 0,
                   screenIdle ? 1 : 0,
-                  (int)activePage,
+                  (int)activeRail,
                   primeSessionKnown ? (unsigned)primeSession.phase : 0,
                   primeSessionKnown ? (unsigned)primeSession.channel : 0,
                   primeSessionKnown ? (unsigned)primeSession.owner : 0);
@@ -3052,7 +2749,7 @@ static void processTextLine(const char *line) {
                   "gt911=0x%02X,reinits=%lu,sendErr=%d,outQ=%u/%u,outDrop=%lu,"
                   "link=%s,ctrlRx=%lu,ctrlTurnMax=%u,ctrlTurnOver=%lu,"
                   "flushes=%lu,maxLoopMs=%lu,heap=%lu,minHeap=%lu\n",
-                  (int)activePage, (int)activeSvc, (int)activeFlv,
+                  (int)activeRail, (int)activeSvc, (int)activeFlv,
                   lockActive ? 1 : 0, (unsigned)idleStage, screenIdle ? 1 : 0,
                   holding ? 1 : 0, gt911Addr, (unsigned long)linkReinits,
                   lastSendErr, (unsigned)outCount, (unsigned)outHighWater,
@@ -3062,12 +2759,8 @@ static void processTextLine(const char *line) {
                   (unsigned long)ctrlStatus.j9ReplyOverruns,
                   (unsigned long)flushCount, (unsigned long)maxLoopMs,
                   (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
-    Serial.printf("DIAG_UI:scrollTop=%d,scrollBot=%d,scrollY=%d,selected=%u,"
-                  "flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
+    Serial.printf("DIAG_UI:selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
                   "flavorStale=%lu,bridged=%lu,stale=%lu,touch=%lu,lastXY=%u/%u\n",
-                  setupCol ? (int)lv_obj_get_scroll_top(setupCol) : -1,
-                  setupCol ? (int)lv_obj_get_scroll_bottom(setupCol) : -1,
-                  setupCol ? (int)lv_obj_get_scroll_y(setupCol) : -1,
                   (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
                   flavorControllerPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
                   (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
@@ -3147,7 +2840,7 @@ static void processTextLine(const char *line) {
       if (animTimer) lv_timer_pause(animTimer);
       if (idleStage >= 2) idleReset(2);
       if (idleStage >= 3) idleReset(3);
-      Serial.printf("OK:IDLE=%c page=%d\n", s, (int)activePage);
+      Serial.printf("OK:IDLE=%c page=%d\n", s, (int)activeRail);
     } else {
       Serial.println("ERR:IDLE expects 0..3");
     }
@@ -3156,8 +2849,8 @@ static void processTextLine(const char *line) {
     Serial.println("OK:PUMP");
   } else if (strncmp(line, "PAGE:", 5) == 0) {
     int p = atoi(line + 5);
-    if (p < 0 || p >= PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
-    else { showPage((Page)p); Serial.printf("OK:PAGE=%d\n", p); }
+    if (p < 0 || p >= RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
+    else { showRail((RailPage)p); Serial.printf("OK:PAGE=%d\n", p); }
   } else if (strncmp(line, "CLICK:", 6) == 0) {
     if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");
     else { clickSend = (line[6] == '1'); Serial.printf("OK:CLICK=%d\n", clickSend ? 1 : 0); }
@@ -3177,7 +2870,7 @@ static void processTextLine(const char *line) {
     if (f != 1 && f != 2) { Serial.println("ERR:PRIME:START expects 1 or 2"); }
     else {
       flavorSel = (uint8_t)(f - 1);
-      showPage(PAGE_SERVICE);
+      showRail(RAIL_PRIME);
       showService(SVC_PRIME_HOLD);
       primeUsbStartPending = true;
       Serial.printf("OK:PRIME:START=%d\n", f);
@@ -3357,7 +3050,7 @@ void setup() {
 
   lastInputTime = millis();
   displayReady = true;
-  Serial.println("Ready — boot lock running; home is the synchronized flavor selector.");
+  Serial.println("Ready — boot lock running; Choose is the synchronized flavor selector.");
 }
 
 void loop() {
@@ -3486,16 +3179,15 @@ void loop() {
     primeRefreshElapsed();
   }
 
-  // The status request is the only traffic this board starts on its own: every 500 ms while
-  // STATUS is up, every 1 s otherwise, and never while a hold owns the pair. Three in a
-  // row with nothing back is the same failure, found before a finger meets the glass.
+  // The status request keeps controller truth fresh once a second whenever a
+  // shared prime hold does not own the pair. Three unanswered turns recover the
+  // transport before the next customer action depends on it.
   if (uiReady && !screenIdle && !primeLinkOwnsJ9()) {
     // The controller no longer speaks unprompted — a prime that timed out or a
     // pump that finished waits for a frame to answer. This poll is what collects
     // those, so it is the ceiling on how stale news from the base can be. A poll
     // pair is ~50 bytes; at 115200 that is 1% of the pair at this interval.
-    uint32_t every = (activePage == PAGE_STATUS) ? 500 : 1000;
-    if (millis() - statusAskedMs >= every) {
+    if (millis() - statusAskedMs >= 1000) {
       statusAskedMs = millis();
       if (unanswered >= 3) j9Reinit("3 status polls unanswered");
       else                 unanswered++;
@@ -3503,26 +3195,15 @@ void loop() {
     }
   }
 
-  // The sound rows show "--" until the controller has answered once. A board that
-  // came up before the controller, or a pair that dropped, gets asked again rather
-  // than sitting on dashes.
-  if (uiReady && !screenIdle && !primeLinkOwnsJ9() && activePage == PAGE_SETUP && !soundCfgOk &&
-      millis() - soundCfgAskedMs >= 2000) {
-    soundCfgAsk();
-  }
-
-  // Once a second: the rail's link indicator, and whichever page shows something live.
-  // HOME's cached refresh does no LVGL work while its selection/link state is unchanged;
-  // this timer remains so a lost link can cross the two-second stale boundary.
+  // Choose's cached refresh does no LVGL work while the controller's selection
+  // and persistence state are unchanged; this timer lets a stale link cross
+  // the two-second threshold without a standing diagnostic on the glass.
   if (uiReady && !screenIdle) {
     static unsigned long lastSlow = 0;
     if (millis() - lastSlow >= 1000) {
       lastSlow = millis();
       padWatch();
-      refreshLinkDot();
       if (activePage == PAGE_HOME)   refreshHomeSelection();
-      if (activePage == PAGE_STATUS) refreshStatusPage();
-      if (activePage == PAGE_SETUP)  refreshSetupPage();
     }
   }
 
