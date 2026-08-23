@@ -1397,6 +1397,12 @@ plate_retainer_head_inset = 0.75  # least recess over the tunnel's whole circula
 # 1.3 mm of rib at one figure, six tenths of web at another. On the jamb the two are one
 # plane, nothing thin is left, and what stands against a pump's room is the relief's own slip.
 cap_pump_air = 0.4           # air round a pump body where the block closes on it
+# THE TUBE DOES NOT SHARE THE BODY'S RUNNING FIT. The slot carries past the head room at each
+# outer edge so a nominal tube has a printable running gap there. Its fore line stays on the
+# head room: what comes out is two narrow aft-face strips, not another opening through the
+# flank seats.
+cap_tube_relief = 1.0        # extra X room at the two tube edges of each aft-face slot
+cap_slot_half = _tray.head_half + cap_pump_air + cap_tube_relief
 cap_web_land = 4.0           # what a screw pulls through, over its own head's counterbore
 cap_web_t = head_cbore_depth + cap_web_land   # the cap's whole section across that lane
 cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and aft
@@ -4839,6 +4845,7 @@ def grip_figures(box):
         "GRIP_CAP_DEEP": f"{cap_deep:.4g} mm",
         "GRIP_BACK": f"{grip_back:.4g} mm",
         "GRIP_CAP_BACK": f"{grip_cap_back:.4g} mm",
+        "CAP_TUBE_RELIEF": f"{cap_tube_relief:.4g} mm",
         "GRIP_LEDGE": f"{y0:.4g} mm",
         "GRIP_TRAVEL": f"{y0 - (box.inner[2] + _column_along()):.4g} mm",
         "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
@@ -5313,17 +5320,18 @@ def build_pump_cap(box, halves_cache=None):
     # comes back out to the face its barbs stand on. Under that line the block has section to
     # stand a wall in and does; over it there is none, and the tube wants the room anyway. It
     # clears the lowest tube by 4.6 mm, which is the fall's own doing and not a figure struck
-    # for it. ACROSS, IT IS THE HEAD'S SQUARE EXACTLY: aft of the case's straight
-    # run the room has already opened to that square (`pump_tray.head_room`), so the cut lands
-    # on the room's own walls and adds no face there, and both tubes stand inside it —
-    # `enclosure_assembly.check_cap_passes_tubes` reads that clearance off the placed barbs.
-    # This piece therefore bores nothing for them: a bore lapped the room's wall by a fifth of
-    # its radius and left the web feathering to nothing at the two levels it grazed.
+    # for it. Aft of the case's straight run the room has already opened to the head's square
+    # (`pump_tray.head_room`), so the cut lands on the room's own aft wall and adds no face
+    # there. Across, two `cap_tube_relief` edge strips carry it past that square and give the
+    # nominal tubes a printable running gap. The strips keep the slot one opening and keep the
+    # wall below its sill; a round bore here would lap the room's wall and leave the web
+    # feathering to nothing at the two levels it grazes.
+    # `enclosure_assembly.check_cap_passes_tubes` reads the resulting air off the placed barbs.
     for cx, cy, cz in box.pump_trays:
-        half = _tray.head_half + cap_pump_air
+        room_half = _tray.head_half + cap_pump_air
         sill = cz - _tray.head_depth + _tray.outlet_relief_run
-        solid = solid.cut(_ybox(cx - half, cx + half, cy + half, plate["fore_y"] + 1.0,
-                                sill, cz + 0.1))
+        solid = solid.cut(_ybox(cx - cap_slot_half, cx + cap_slot_half,
+                                cy + room_half, plate["fore_y"] + 1.0, sill, cz + 0.1))
     for grip in _flank_grip(box.pump_bay, box.pump_trays, plate,
                             _grip_bands(box.pump_bay, box.pump_trays)[0]):
         solid = solid.cut(grip)
