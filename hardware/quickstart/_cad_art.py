@@ -50,7 +50,8 @@ MOUNT_FRAME_SHAVE = 18
 MOUNT_FRAME_TRIM_TOP = 200
 MOUNT_FRAME_TRIM_BOTTOM = 40
 UNDER_MOUNT_CAM = (0.58, -1.60, -0.72)
-UNDER_MOUNT_TARGET = (0.0, 5.0, -45.0)
+# Centred on the stack the two frames are about, not on the slab that surrounds it.
+UNDER_MOUNT_TARGET = (0.0, 0.0, -34.0)
 UNDER_MOUNT_FRAME_SHAVE = 18
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
@@ -360,8 +361,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
             ((-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)),
             start=1,
         ):
-            point = target.add(right.multiply(across * 190.0)).add(
-                screen_up.multiply(rise * 76.0)
+            point = target.add(right.multiply(across * 137.0)).add(
+                screen_up.multiply(rise * 58.0)
             )
             anchor = (
                 cq.Workplane("XY")
@@ -411,7 +412,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
     def add_under_mount_product(out: cq.Assembly, *, washer_top_z: float):
         """Show only the real shank, three attached tubes and captive donor pair below the slab."""
-        under_clip = (-112.0, -2.0)
+        under_clip = (-86.0, -2.0)
         for part_name in (
             "valve_body",
             "flavor_tube_pos_x",
