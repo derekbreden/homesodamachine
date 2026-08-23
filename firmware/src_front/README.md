@@ -162,7 +162,7 @@ is the backlight itself:
   a tap needs one PRESSED sample, a hold needs every poll it spans. `GET_DIAG` counts
   these as `stale=` and `bridged=`.
 - A genuinely different flavor arriving from the faucet takes the display to
-  HOME and wakes it. Repeated publication of the flavor already shown does not
+  **Choose** and wakes it. Repeated publication of the flavor already shown does not
   reset the idle timer.
 
 ## USB-serial commands (bring-up / diagnostics)
@@ -174,14 +174,15 @@ Newline-terminated, 115200 baud over the native USB CDC:
   state, operation lock, idle and page
 - `GET_DIAG` → a packet-bounded `DIAG:` health line followed by `DIAG_UI:` and
   `DIAG_SYS:` detail: page / sub-view / idle / lock, link and queue health,
-  render high-water, scroll extents, flavor replication, touch, memory,
+  render high-water, flavor replication, touch, memory,
   backlight, animation frame and uptime
 - `GET_PANEL` → completed frame/submission counts, wake stage and completion,
   VSYNC-phased panel-control actions, scan recovery, draw/frame timeouts, and CH422G
   write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
-- `PAGE:0`..`PAGE:4` → show one page (HOME, MIX, SERVICE, STATUS, SETUP)
+- `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIOS, PRIME, CLEAN,
+  SETTINGS)
 - `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
 - `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
@@ -234,20 +235,21 @@ This polling turn also carries faucet-originated changes from J3 to this display
 
 ## The interface
 
-A 190 px rail down the left carries five 82 px targets — **HOME · MIX · SERVICE ·
-STATUS · SETUP** — each an icon over a word, with a J9 indicator in its foot. The
-remaining 610 px is the pane, and it takes a different shape on each page:
+A 190 px rail down the left carries five 82 px targets — **CHOOSE · RATIOS · PRIME ·
+CLEAN · SETTINGS** — each an icon over a word. Choose uses a single pointing hand and
+Ratios a pie chart; connection state appears only when it affects saving a flavor. The
+remaining 610 px is the pane, and it takes a different shape at each destination:
 
 | Page | Shape | Reads / writes |
 |---|---|---|
-| HOME | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
-| MIX | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
-| SERVICE | PRIME \| CLEAN → a flavor → the hold pad or the confirm | **the base** |
-| STATUS | four tiles and a bar, polled every 500 ms | **the base** |
-| SETUP | a paged column of read-outs and one restart | display-local, plus the base's build |
+| Choose | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
+| Ratios | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
+| Prime | flavor choice → shared hold pad | **the base** |
+| Clean | flavor choice → confirmation | **the base** |
+| Settings | a deliberately quiet surface until a useful preference is ready | — |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
-render. Every page is built at boot and switching hides one and shows another. On HOME,
+render. Every page is built at boot and switching hides one and shows another. On Choose,
 only the active card carries a selection badge. The synchronization label is likewise
 quiet when healthy and appears only while connecting, saving, or reporting a save error.
 
@@ -258,36 +260,23 @@ goes dark, so changing how long it stays lit does not move them.
 |---|---|---|
 | 90 s of no touch | backlight off | 90 s |
 | 2 min dark | back to the root of the page you were on | 3.5 min |
-| 10 min dark | back to HOME | 11.5 min |
+| 10 min dark | back to Choose | 11.5 min |
 
-The middle rung is what discards the views that would act on a tap — a confirm, a hold pad,
-a stepper mid-adjustment — while keeping which area you were working in. It also returns
-SETUP to the top of its column. Each rung runs while the screen is dark, so a wake shows
-the answer rather than jumping to it. `IDLE:0`..`IDLE:3` walk the ladder without waiting,
-and `GET_DIAG` reports `page=`, `svc=`, `flv=` and `stage=`.
+The middle rung discards the views that would act on a tap — a confirm or a hold pad —
+while keeping which area you were working in. Each rung runs while the screen is dark, so a
+wake shows the answer rather than jumping to it. `IDLE:0`..`IDLE:3` walk the ladder without
+waiting, and `GET_DIAG` reports `page=`, `svc=`, `flv=` and `stage=`.
 
 **A button holds a press that slides off it.** LVGL acts on the release and re-searches
 under the finger on every poll while pressed, so a press that wanders is lost — no click,
 and inside a scrollable parent the wander scrolls instead. `LV_OBJ_FLAG_PRESS_LOCK` stops
 the re-search per object: `mkBtn()` sets it, so put a finger on a target, slide anywhere,
-lift, and that target fires. `START CLEAN CYCLE` and `RESTART DISPLAY` clear it — they
-commit something, and RESTART sits inside the scrolling column where locking it would turn
-a drag into a reboot.
-
-**SETUP scrolls by finger or by page.** A track between an UP and a DOWN target, each
-92×104; a spent one takes the background colour with its arrow at `0x3a3a55` — not
-`LV_STATE_DISABLED`, whose theme styling outweighs a colour set for the default state, but
-`LV_OBJ_FLAG_CLICKABLE` cleared. The thumb sizes itself to the viewport's share of the whole
-and follows `LV_EVENT_SCROLL`, so a drag moves it too. A press pages 340 px through
-`lv_obj_scroll_by_bounded` — the unbounded call travels what it is asked and does not stop
-at the ends.
-
-Nothing on SETUP changes how the appliance behaves. It carries builds, link and touch
-counters, memory, loop high-water, uptime, and a restart.
+lift, and that target fires. `START CLEAN CYCLE` clears it, because beginning a clean cycle
+is an intentional commit.
 
 ### Prime
 
-**SERVICE → PRIME → a flavor opens one shared prime-ready session.** The controller owns
+**PRIME → a flavor opens one shared prime-ready session.** The controller owns
 its selected channel and complete `OFF` / `READY` / `RUNNING` state. The faucet wakes into
 the same mode, and either display can own one held run at a time.
 
@@ -320,17 +309,17 @@ one-reply-per-turn audit.
 
 ### Clean
 
-**SERVICE → CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. The valve
+**CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. The valve
 manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it answers
 `MSG_ERR_UNSUPPORTED` and the pane says so.
 
 ### Frame rate
 
 The animation runs only on the full-screen operation lock. Measured on the panel:
-**~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. HOME, MIX
-and SERVICE otherwise repaint only when their state changes; STATUS and SETUP
-take one repaint a second for their read-outs. `LOCK:SHOW` exposes the animation
-for a live check, and `GET_DIAG` reports the loop high-water mark and clears it.
+**~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. Choose,
+Ratios, Prime, Clean, and Settings otherwise repaint only when their state changes.
+`LOCK:SHOW` exposes the animation for a live check, and `GET_DIAG` reports the loop
+high-water mark and clears it.
 
 ## Integration seams (not implemented)
 
@@ -370,11 +359,5 @@ one place, and any button added later gets it without anyone having to remember.
 The tick means **your touch registered**, not "that worked". Outcomes — refused, finished,
 faulted — are the controller's own sounds. A touch that begins on a dark screen is withheld
 from every widget by the wake latch, so waking the panel does not tick.
-
-SETUP carries the settings, which the controller owns and persists: volume, quiet hours on
-or off, the window, and the volume inside it. Every control is a round trip — `MSG_SOUND_CFG_SET`
-out, `MSG_RESP_SOUND_CFG` back — and the rows show what came back rather than what was
-pressed, so a value the controller clamped is displayed clamped. Quiet hours with no
-believable clock read `NO CLOCK` rather than `ON`, because that is what they will do.
 
 None of it reaches the gas alarm. See [`../src_appliance/README.md`](../src_appliance/README.md).
