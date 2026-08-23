@@ -3,38 +3,38 @@ through, and the three tubes running down past it into the umbilical.
 
 `printed-parts/faucet/` holds the four printed pieces one at a time and
 `cut-parts/faucet/` the plate under the slab; this is the column they stack into,
-with the harvested Westbrass body they are built around
+with the harvested Westbrass they are built around
 (`reference/touch-flo-faucet/valve-body-reference/`) and the display on the tip.
 
-FRAME: the repo's +Z-up. +Z is height and the body axis, +X is lateral (the two
-flavor tubes mirror across X = 0), -Y is the front — the gooseneck dispenses
+FRAME: the repo's +Z-up. +Z is height and the Westbrass's axis, +X is lateral (the
+two flavor tubes mirror across X = 0), -Y is the front — the gooseneck dispenses
 toward -Y and the lever points toward -Y, so the water port and the flavor-tube
-pill sit BEHIND the body axis at +Y. Z = 0 is the mounting plate's underside;
-the countertop's top face is at Z = -6, under the TPU gasket.
+pill sit BEHIND the Westbrass's axis at +Y. Z = 0 is the above-counter plate's
+underside; the countertop's top face is at Z = -6, under the above-counter gasket.
 
-TWO WATER PORTS, and the tube in each is a different size. The blue 1/4" supply
-lands on the compression port at the BOTTOM of the shank (Z = -50, 44 mm below
-the countertop's top face) and water rises inside the shank; the 3/8" dispense
-tube leaves the body's Ø10 top port and runs up the gooseneck, sealed into that
-port by the printed TPU thimble. `assembly/faucet-and-umbilical.md` is the bench
+TWO WATER PORTS, and the tube in each is a different size. The blue 1/4" soda
+umbilical tube lands on the compression port at the BOTTOM of the shank (Z = -50,
+44 mm below the countertop's top face) and water rises inside the shank; the 3/8"
+soda faucet tube leaves the Westbrass's Ø10 top port and runs up the gooseneck,
+sealed into that port by the printed TPU thimble. `assembly/faucet-and-umbilical.md` is the bench
 that makes both up.
 
 The column, top to bottom:
 
-    display          Waveshare ESP32-S3-Touch-LCD-1.47, on the dispense tip
-    shell            three printed pieces, as printed — joint voids and all
-    dispense tubes   3/8" water up the middle, two 1/4" flavor behind it
-    lever            rest and pressed, as one swing-clearance blob
-    valve body       harvested Westbrass R2031-NL
-    o-ring           printed TPU thimble in the body's top water port
-    mounting plate   Ø54.35 × 4 printed disc,       Z = [-4, 0]
-    mounting gasket  Ø54.35 × 2 printed TPU disc,   Z = [-6, -4]
-    countertop       30 mm slab,                    Z = [-36, -6]
-    under-counter    Ø54.45 × 1.524 cut 316 SS,     Z = [-37.524, -36]
-    supply tube      1/4" blue, on the shank's own compression port
+    display               Waveshare ESP32-S3-Touch-LCD-1.47, on the dispense tip
+    shell                 three printed pieces, as printed — joint voids and all
+    tubes                 3/8" soda faucet tube up the middle, two 1/4" flavor behind it
+    lever                 rest and pressed, as one swing-clearance blob
+    Westbrass             the harvested R2031-NL
+    o-ring                printed TPU thimble in the Westbrass's top water port
+    above-counter plate   Ø54.35 × 4 printed disc,       Z = [-4, 0]
+    above-counter gasket  Ø54.35 × 2 printed TPU disc,   Z = [-6, -4]
+    countertop            30 mm slab,                    Z = [-36, -6]
+    under-counter plate   Ø54.45 × 1.524 cut 316 SS,     Z = [-37.524, -36]
+    soda umbilical tube   1/4" blue, on the shank's own compression port
 
 AND BELOW THE PLATE, THE UMBILICAL — the same three tubes gathered into the pack a sleeve makes of
-them, down to the end the installer pushes into the rear wall:
+them, down to the end the installer pushes into the +Y wall of back-top:
 
     foam             CARGEN nitrile on the blue tube only, five 1-ft segments butted
     sleeve           PET braid over the pack, a segment to each of the foam's, on the
@@ -75,7 +75,7 @@ _repo_hardware_dir = _assembly_dir.parent
 _faucet_printed_dir = _repo_hardware_dir / "printed-parts" / "faucet"
 _faucet_cut_dir = _repo_hardware_dir / "cut-parts" / "faucet"
 
-ref_body_step = (_repo_hardware_dir / "reference" / "touch-flo-faucet"
+ref_westbrass_step = (_repo_hardware_dir / "reference" / "touch-flo-faucet"
                  / "valve-body-reference" / "touch-flo-valve-body-reference.step")
 under_counter_dxf = (_faucet_cut_dir / "touch-flo-under-counter-plate"
                      / "touch-flo-under-counter-plate.dxf")
@@ -84,22 +84,22 @@ sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "cadlib"))
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 # Each printed part's build_*() returns +Z-up.
-sys.path.insert(0, str(_faucet_printed_dir))  # for _touch_flo_interface
-sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-plate"))
-sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-gasket"))
-sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-tpu-o-ring"))
-sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
+sys.path.insert(0, str(_faucet_printed_dir))  # for _faucet_interface
+sys.path.insert(0, str(_faucet_printed_dir / "above-counter-plate"))
+sys.path.insert(0, str(_faucet_printed_dir / "above-counter-gasket"))
+sys.path.insert(0, str(_faucet_printed_dir / "tpu-o-ring"))
+sys.path.insert(0, str(_faucet_printed_dir / "faucet-shell"))
 # The identification the tubes carry below the counter, and the filaments it prints in — one part
-# and one colour table, shared with the chips on the rear wall.
+# and one colour table, shared with the chips on the +Y wall of back-top.
 sys.path.insert(0, str(_faucet_printed_dir / "tube-collar"))
 sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "back-panel"))
 import tube_collar
 import _back_panel_dimensions as _rear
-import touch_flo_mounting_plate
-import touch_flo_mounting_gasket
-import touch_flo_tpu_o_ring
-import touch_flo_shell
-from _touch_flo_interface import (
+import above_counter_plate
+import above_counter_gasket
+import tpu_o_ring
+import faucet_shell
+from _faucet_interface import (
     display_housing_width,
     display_housing_length,
     display_pcb_width,
@@ -112,49 +112,49 @@ from _touch_flo_interface import (
 )
 
 
-# Reference body geometry, shared with
-# `../valve-body-reference/valve_body_reference.py`. The Westbrass body's
-# water port sits at depth Y = +port_center_depth (BEHIND the body axis,
-# toward the back); +Z is the body's vertical axis.
+# Reference Westbrass geometry, shared with
+# `../valve-body-reference/valve_body_reference.py`. The Westbrass's
+# water port sits at depth Y = +port_center_depth (BEHIND its own axis,
+# toward the back); +Z is the Westbrass's vertical axis.
 port_center_depth = 8.875
 plateau_z = 39.0
-body_od = 31.50  # cylinder OD = rectangle long dim
-body_r = body_od / 2
+westbrass_od = 31.50  # cylinder OD = rectangle long dim
+westbrass_r = westbrass_od / 2
 shank_od = 11.0
 shank_length = 50.0  # shank runs from Z=0 down to Z=-shank_length
 countertop_hole_diameter = 34.93  # 1-3/8", the standard the shank is sized for
 
 
-# Water dispense tube — ⌀[9.525 mm](WATER_TUBE_OD) (3/8" LLDPE) — seated in the
-# body's 10.0 mm water port and running up through the gooseneck. The
+# Soda faucet tube — ⌀[9.525 mm](SODA_FAUCET_TUBE_OD) (3/8" LLDPE) — seated in the
+# Westbrass's 10.0 mm water port and running up through the gooseneck. The
 # 0.475 mm diametric (0.2375 mm radial) gap is sealed by a printed TPU
 # bushing on the real tube (not modeled).
-# [9.525 mm](WATER_TUBE_OD) — 3/8" LLDPE in millimeters.
-water_tube_od = 0.375 * 25.4
-water_tube_r = water_tube_od / 2.0
-water_tube_above_plateau = 40.0
-water_tube_into_port = 15.0
-water_tube_z_bottom = plateau_z - water_tube_into_port  # [24 mm](WATER_TUBE_Z_BOTTOM)
-water_tube_z_top = plateau_z + water_tube_above_plateau  # [79 mm](WATER_TUBE_Z_TOP)
+# [9.525 mm](SODA_FAUCET_TUBE_OD) — 3/8" LLDPE in millimeters.
+soda_faucet_tube_od = 0.375 * 25.4
+soda_faucet_tube_r = soda_faucet_tube_od / 2.0
+soda_faucet_tube_above_plateau = 40.0
+soda_faucet_tube_into_port = 15.0
+soda_faucet_tube_z_bottom = plateau_z - soda_faucet_tube_into_port  # [24 mm](SODA_FAUCET_TUBE_Z_BOTTOM)
+soda_faucet_tube_z_top = plateau_z + soda_faucet_tube_above_plateau  # [79 mm](SODA_FAUCET_TUBE_Z_TOP)
 
 
-# Flavor dispense tubes — Ø 1/4" — sit BEHIND the water tube. Not
-# inserted into the body. At their lower (deeper) depth, each tube is
+# Flavor tubes — Ø 1/4" — sit BEHIND the soda faucet tube. Not
+# inserted into the Westbrass. At their lower (deeper) depth, each tube is
 # tangent to
-#   - the back face of the body (Y = -body_r)
+#   - the back face of the Westbrass (Y = -westbrass_r)
 #   - the other flavor tube (so both touch at X = 0)
 # Mirror across X = 0: one at +X, one at -X. Z span runs from the
-# bottom of the shank up to the top of the water tube.
+# bottom of the shank up to the top of the soda faucet tube.
 # [6.35 mm](FLAVOR_TUBE_OD) — 1/4" LLDPE in millimeters.
 flavor_tube_od = 1.0 / 4.0 * 25.4
 flavor_tube_r = flavor_tube_od / 2.0
-# [18.93 mm](FLAVOR_TUBE_DEPTH_LOWER) — tangent to body +Y (back) face.
-flavor_tube_depth_lower = body_r + flavor_tube_r
+# [18.93 mm](FLAVOR_TUBE_DEPTH_LOWER) — tangent to the Westbrass's +Y (back) face.
+flavor_tube_depth_lower = westbrass_r + flavor_tube_r
 flavor_tube_x_offset = flavor_tube_r  # ± — tangent to other tube at X=0
 
 # Below the plate the three tubes leave on the faucet's own spacing and are gathered into the
 # triangular dense pack a sleeve makes of them (`faucet-and-umbilical.md` §3). The pack is struck on
-# tangency, and the flavour pair keeps the X it has carried since the body — `flavor_tube_x_offset`,
+# tangency, and the flavour pair keeps the X it has carried since the Westbrass — `flavor_tube_x_offset`,
 # the two tangent to each other at X = 0 — so the gather is a move in DEPTH and nothing else, over
 # the run `umbilical_stub` gives it.
 umbilical_stub = 30.0
@@ -197,34 +197,34 @@ flavor_cut_length = 1900.0
 umbilical_drawn = 200.0
 
 # Carbonated water arrives at the OTHER port: the compression fitting on the
-# bottom of the shank, [44 mm](SUPPLY_BELOW_COUNTER) below the countertop's top
-# face, and rises inside the shank to the body. So the blue tube is 1/4" and is
-# entirely below the counter, where the 3/8" dispense tube above is not. The
-# harvested body models no shank bore and no fitting, so this butts on the
+# bottom of the shank, [44 mm](SODA_UMBILICAL_BELOW_COUNTER) below the countertop's top
+# face, and rises inside the shank to it. So the blue tube is 1/4" and is
+# entirely below the counter, where the 3/8" soda faucet tube above is not. The
+# harvested Westbrass models no shank bore and no fitting, so this butts on the
 # shank's own bottom face.
-supply_tube_od = flavor_tube_od
-supply_tube_r = supply_tube_od / 2.0
-supply_tube_z_top = -shank_length
+soda_umbilical_tube_od = flavor_tube_od
+soda_umbilical_tube_r = soda_umbilical_tube_od / 2.0
+soda_umbilical_tube_z_top = -shank_length
 # All three tails on one plane, which is what the bench's two cut figures are chosen to give.
 # [-280 mm](UMBILICAL_TAIL_Z) — the square-cut end, as drawn.
 umbilical_tail_z = umbilical_z_bottom - umbilical_drawn
-supply_tube_z_bottom = umbilical_tail_z
+soda_umbilical_tube_z_bottom = umbilical_tail_z
 
 # The foam's own run on that tube (`faucet-and-umbilical.md` §3): five 1-ft segments butted, bare
 # at the compression end and bare again at the wall. `foam_length` is what the five come to; what is
 # drawn is the two bare ends and the run between them.
-foam_bare_at_body = 40.0
+foam_bare_at_westbrass = 40.0
 foam_bare_at_wall = 75.0
 foam_length = 1425.0
-foam_z_top = supply_tube_z_top - foam_bare_at_body
+foam_z_top = soda_umbilical_tube_z_top - foam_bare_at_westbrass
 foam_z_bottom = umbilical_tail_z + foam_bare_at_wall   # [-205 mm](FOAM_Z_BOTTOM)
 
-# Upper depth is set by tangency to the water tube at the same X:
-#   (depth_upper - port_center_depth)² + x_offset² = (water_tube_r + flavor_tube_r)²
+# Upper depth is set by tangency to the soda faucet tube at the same X:
+#   (depth_upper - port_center_depth)² + x_offset² = (soda_faucet_tube_r + flavor_tube_r)²
 # with X constant through both bends.
-# [16.1498 mm](FLAVOR_TUBE_DEPTH_UPPER) — Pythagorean tangency to water tube.
+# [16.1498 mm](FLAVOR_TUBE_DEPTH_UPPER) — Pythagorean tangency to the soda faucet tube.
 flavor_tube_depth_upper = port_center_depth + math.sqrt(
-    (water_tube_r + flavor_tube_r) ** 2 - flavor_tube_x_offset ** 2
+    (soda_faucet_tube_r + flavor_tube_r) ** 2 - flavor_tube_x_offset ** 2
 )
 
 # S-bend absorbs the depth offset between lower and upper positions.
@@ -260,7 +260,7 @@ gn_bend1_start_z = gn_bend1_mid_z - gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2
 gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
 
-# Flavor tubes sit further +Y than the water tube (deeper, behind it).
+# Flavor tubes sit further +Y than the soda faucet tube (deeper, behind it).
 # The gooseneck bends toward -Y, so the flavor tubes are on the OUTSIDE
 # of every bend: they trace parallel-offset arcs sharing each bend's
 # center of curvature with water, at the larger radius water_r +
@@ -274,29 +274,29 @@ gn_flavor_bend1_r = gn_bend1_r + _gn_flavor_depth_offset
 gn_flavor_bend2_r = gn_bend2_r + _gn_flavor_depth_offset
 
 
-def load_valve_body():
-    """Harvested valve body, authored Z-up in the repo frame."""
-    return import_step(str(ref_body_step))
+def load_westbrass():
+    """The harvested Westbrass, authored Z-up in the repo frame."""
+    return import_step(str(ref_westbrass_step))
 
 
-def load_mounting_plate():
-    """Printed mounting plate, +Z-up."""
-    return touch_flo_mounting_plate.build_mounting_plate()
+def load_above_counter_plate():
+    """The printed above-counter plate, +Z-up."""
+    return above_counter_plate.build_above_counter_plate()
 
 
-def load_mounting_gasket():
-    """Printed-TPU mounting gasket, +Z-up."""
-    return touch_flo_mounting_gasket.build_mounting_gasket()
+def load_above_counter_gasket():
+    """The printed-TPU above-counter gasket, +Z-up."""
+    return above_counter_gasket.build_above_counter_gasket()
 
 
 def load_shell_pieces():
-    """The three printed shell pieces, +Z-up, in assembled position —
+    """The three faucet-shell pieces, +Z-up, in assembled position —
     as printed, joint voids and all."""
-    full = touch_flo_shell.build_shell()
+    full = faucet_shell.build_shell()
     return (
-        touch_flo_shell.build_shell_bottom(full),
-        touch_flo_shell.build_shell_middle(full),
-        touch_flo_shell.build_shell_top(full),
+        faucet_shell.build_shell_bottom(full),
+        faucet_shell.build_shell_middle(full),
+        faucet_shell.build_shell_top(full),
     )
 
 
@@ -350,11 +350,11 @@ def _gooseneck_segments(start, tangent, bend1_r, bend2_r):
 tube_path_plane = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
 
 
-def build_water_dispense_tube():
-    """Ø water_tube_od tube — vertical from inside the body's port up to
-    the gooseneck, then bend 1, mid straight, bend 2, tip straight."""
+def build_soda_faucet_tube():
+    """Ø soda_faucet_tube_od tube — vertical from inside the Westbrass's port up
+    to the gooseneck, then bend 1, mid straight, bend 2, tip straight."""
     p_bottom = (0.0, 0.0)
-    p_gn_start = (0.0, gn_bend1_start_z - water_tube_z_bottom)
+    p_gn_start = (0.0, gn_bend1_start_z - soda_faucet_tube_z_bottom)
 
     arc1, mid_end, arc2, tip_end = _gooseneck_segments(
         p_gn_start, (0.0, 1.0), gn_bend1_r, gn_bend2_r
@@ -370,9 +370,9 @@ def build_water_dispense_tube():
         .lineTo(*tip_end)
     )
     # Circular cross-section perpendicular to the path's starting +Z tangent.
-    profile = cq.Workplane(xy_plane_z_up).circle(water_tube_r)
+    profile = cq.Workplane(xy_plane_z_up).circle(soda_faucet_tube_r)
     tube = profile.sweep(path, transition="round")
-    return tube.translate((0, +port_center_depth, water_tube_z_bottom))
+    return tube.translate((0, +port_center_depth, soda_faucet_tube_z_bottom))
 
 
 def _flavor_path(bottom_z):
@@ -386,13 +386,13 @@ def _flavor_path(bottom_z):
       3. Vertical to the S-bend start (pre_bend_z)
       4. S-bend (CCW + CW pair) shifting depth by
          flavor_tube_depth_lower − flavor_tube_depth_upper toward the
-         water tube, ending tangent to +Z
+         soda faucet tube, ending tangent to +Z
       5. Vertical from S-bend end up to the gooseneck start
          (Z = gn_bend1_start_z, in tube-local coords)
       6. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
          toward -Y. Each bend uses its own parallel-offset radius
          (gn_flavor_bend1_r / gn_flavor_bend2_r) on the outside of the
-         gooseneck bend, staying tangent to the water tube.
+         gooseneck bend, staying tangent to the soda faucet tube.
     """
     dx_pack = _flavor_path_start_depth
     p_bottom = (dx_pack, 0.0)
@@ -456,9 +456,9 @@ def flavor_path_above_pack():
 # all three tails on one plane, and this is how far apart they actually put them.
 # [20.68 mm](TAILS_APART) — between the two cuts.
 tails_apart = abs((umbilical_z_bottom - (flavor_cut_length - flavor_path_above_pack()))
-                  - (supply_tube_z_top - blue_cut_length))
+                  - (soda_umbilical_tube_z_top - blue_cut_length))
 flavor_tube_z_bottom = umbilical_tail_z
-flavor_tube_z_top = water_tube_z_top
+flavor_tube_z_top = soda_faucet_tube_z_top
 
 
 # The lane the SIG-6 ribbon rides in, between the tube pack and the braid's inner face. The braid
@@ -504,7 +504,7 @@ def bundle_bore() -> float:
     return bundle_girth() / math.pi
 
 
-# [2.4541 mm](SLEEVE_CENTER_Y) behind the body axis — the pack's own centre of area, which is what
+# [2.4541 mm](SLEEVE_CENTER_Y) behind the Westbrass's axis — the pack's own centre of area, which is what
 # a collar's flag is turned away from. Ø[31.66 mm](SLEEVE_BORE) is what the braid opens to over it
 # — a 1" nominal PET braid that expands 50% (`ledger/bom.md` §11; the wall above is the figure the
 # assembly draws it at).
@@ -515,7 +515,7 @@ sleeve_center_y = _hull_face(cable_lane).Center().y
 # where the installer flexes the three apart and pushes each into its own union.
 sleeve_z_top = foam_z_top
 sleeve_z_bottom = foam_z_bottom
-# THE TAILS COME APART BEFORE THE COLLARS GO ON. The rear wall does not take this bundle as a
+# THE TAILS COME APART BEFORE THE COLLARS GO ON. The +Y wall of back-top does not take this
 # triangle — the installer flexes the three apart in the un-sleeved stretch and pushes each into its
 # own union (`faucet-and-umbilical.md` §3) — and the collars need the same room: two of them clear
 # when their tubes' axes stand further apart than the two reach. The flavour pair splays in X until
@@ -523,7 +523,7 @@ sleeve_z_bottom = foam_z_bottom
 # forward of them, not the two flavours against each other.
 collar_air = 2.0
 _tails_clear = 2.0 * tube_collar.reach() + collar_air
-# [13.372 mm](TAIL_HALF_X) — each flavour tail's own X, off the body axis.
+# [13.372 mm](TAIL_HALF_X) — each flavour tail's own X, off the Westbrass's axis.
 tail_half_x = max(_tails_clear / 2.0,
                   math.sqrt(max(0.0, _tails_clear ** 2 - pack_flavor_depth ** 2)))
 # The splay, as the gather and the S-bend are: two arcs of one radius sharing an angle.
@@ -567,7 +567,7 @@ def _splay_path(x_sign):
 
 
 def build_flavor_tube(x_sign, bottom_z=None):
-    """One Ø 1/4" flavor tube at +Y behind the body axis, tip to square-cut tail. x_sign ∈ {±1}
+    """One Ø 1/4" flavor tube at +Y behind the Westbrass's axis, tip to square-cut tail. x_sign ∈ {±1}
     selects the lateral side; the two tubes mirror across the X = 0 plane.
 
     TWO SWEEPS, FUSED ON ONE TANGENT. Everything above the sleeve's end works in depth and nothing
@@ -605,7 +605,7 @@ def build_lever():
     Geometry:
       - The lever's body is a 13 (X) × 15 (Y) × 12 (Z) box,
         centered laterally on X = 0, spanning depth Y = [-6, +9]
-        (back end at +Y abutting the body, front face at Y = -6 where
+        (back end at +Y abutting the Westbrass, front face at Y = -6 where
         the user presses), at height Z = [plateau_z+1, plateau_z+13].
       - From the front face it tapers forward as a 13 × shrinking-Z
         tongue out to Y = -42 — the handle toward the user.
@@ -613,14 +613,14 @@ def build_lever():
         (X = 0, Y = +1.5, Z = plateau_z + 7), so the lever rotates in
         the Y-Z plane (no lateral motion).
     """
-    # Water-tube clearance through the lever. The water tube sits at
+    # Soda-faucet-tube clearance through the lever. That tube sits at
     # world Y = +port_center_depth; this cut is 0.125 mm further +Y for
     # margin, vertical along +Z, 50 mm tall to span both lever positions.
     cut_cylinder = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=plateau_z + 1)
         .moveTo((0, +(port_center_depth + 0.125)))
-        .circle(water_tube_r + 1)
+        .circle(soda_faucet_tube_r + 1)
         .extrude(50)
         .unwrap()
     )
@@ -670,17 +670,17 @@ def build_lever():
 
     lever_rest = base_lever.cut(cut_cylinder)
 
-    # The water-tube cut is vertical in world +Z, so it clears the
-    # upright water tube in the pressed (tilted) position too.
+    # The soda-faucet-tube cut is vertical in world +Z, so it clears the
+    # upright tube in the pressed (tilted) position too.
     lever_pressed = lever_rest.rotate(pivot_a, pivot_b, +lever_press_angle_deg).cut(cut_cylinder)
     lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, -lever_press_angle_deg)
 
     return lever_rest_final.union(lever_pressed)
 
 
-# Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (BOM §1),
+# Faucet display — Waveshare ESP32-S3-Touch-LCD-1.47 (BOM §1),
 # modeled as a dimensioned stand-in. Device dims live in
-# _touch_flo_interface, shared with the shell's display cradle (table in
+# _faucet_interface, shared with the shell's display cradle (table in
 # display-reference/README.md). The under-PCB zone is a full-footprint
 # bounding block down to the feet plane — it shares the PCB's outline,
 # so the PCB underside (display_pcb_bottom_z) has no edge in the solid.
@@ -692,7 +692,7 @@ def build_lever():
 # display_pocket_inset below the shell's outer face above the flavor
 # pill — the inset, the web it leaves over the pill bore, and the end
 # wall are the shell's display-cradle constants.
-display_pocket_inset = touch_flo_shell.display_pocket_inset
+display_pocket_inset = faucet_shell.display_pocket_inset
 # Active (lit) display area, on the front face.
 display_screen_width = 17.75
 display_screen_length = 32.93
@@ -700,13 +700,13 @@ display_screen_depth = 0.4
 
 
 def _tip_centerline_world():
-    """(tip_start, tip_end) of the water-tube dispense-tip straight in world coords."""
-    p_gn_start = (0.0, gn_bend1_start_z - water_tube_z_bottom)
+    """(tip_start, tip_end) of the soda faucet tube's dispense-tip straight in world coords."""
+    p_gn_start = (0.0, gn_bend1_start_z - soda_faucet_tube_z_bottom)
     _, _, arc2, tip_end = _gooseneck_segments(
         p_gn_start, (0.0, 1.0), gn_bend1_r, gn_bend2_r
     )
     def to_world(p):
-        return cq.Vector(0.0, p[0] + port_center_depth, p[1] + water_tube_z_bottom)
+        return cq.Vector(0.0, p[0] + port_center_depth, p[1] + soda_faucet_tube_z_bottom)
     return to_world(arc2[1]), to_world(tip_end)
 
 
@@ -718,8 +718,8 @@ def _seat_on_tip(part):
     gooseneck and turns its screen (+Z) up toward the user. It is then
     offset out along the tip's top normal so the feet plane sits
     display_pocket_inset below the shell's outer face above the flavor
-    pill (the two flavor tubes stack above the water tube here, so they
-    set the skin). The housing's lower edge is anchored one end-wall
+    pill (the two flavor tubes stack above the soda faucet tube here, so
+    they set the skin). The housing's lower edge is anchored one end-wall
     thickness up the tip from the tip end — behind the shell's PCB
     cover; it extends up the tip from there (the far end is
     unconstrained)."""
@@ -730,26 +730,26 @@ def _seat_on_tip(part):
     tip_start, tip_end = _tip_centerline_world()
     tip_axis = tip_end - tip_start
     tip_axis = tip_axis.multiply(1.0 / tip_axis.Length)
-    # The display sits over the FLAVOR pill, not the water tube: the two
-    # flavor tubes stack above the water tube on the user-facing side, so
-    # they set the outer skin here. Distance from the water-tube
+    # The display sits over the FLAVOR pill, not the soda faucet tube: the
+    # two flavor tubes stack above it on the user-facing side, so they set
+    # the outer skin here. Distance from the soda-faucet-tube
     # centerline out along top_normal to the shell's outer face above the
     # flavor pill = flavor-pill center offset + half the pill's short (Y)
     # axis + the tube-shell wall. This is exactly the +Y outer edge of the
-    # flavor-pill slot in touch_flo_shell._tube_shell_outer_sketch.
-    flavor_pill_outer_from_water = (
-        touch_flo_shell.flavor_offset_y_from_water
-        + touch_flo_shell.pill_width_y / 2.0
-        + touch_flo_shell.zone5_wall
+    # flavor-pill slot in faucet_shell._tube_shell_outer_sketch.
+    flavor_pill_outer_from_soda = (
+        faucet_shell.flavor_offset_y_from_water
+        + faucet_shell.pill_width_y / 2.0
+        + faucet_shell.zone5_wall
     )
-    # Anchor the housing's lower (nozzle-end) edge one end-wall thickness
+    # Anchor the housing's lower (gooseneck-end) edge one end-wall thickness
     # up the tip from the tip end (behind the shell's PCB cover), at the
     # flavor-pill outer face minus the inset; it extends up the tip.
     seat = (
         tip_end
-        + top_normal.multiply(flavor_pill_outer_from_water - display_pocket_inset)
+        + top_normal.multiply(flavor_pill_outer_from_soda - display_pocket_inset)
         - tip_axis.multiply(
-            display_housing_length / 2.0 + touch_flo_shell.display_line_width
+            display_housing_length / 2.0 + faucet_shell.display_line_width
         )
     )
     return (
@@ -809,7 +809,7 @@ def build_display_screen():
 # slab around a Ø54.45 plate.
 countertop_thickness = 30.0
 countertop_slab_xy = 120.0
-countertop_top_z = touch_flo_mounting_gasket.gasket_z_range[0]      # [-6 mm](COUNTERTOP_TOP_Z)
+countertop_top_z = above_counter_gasket.gasket_z_range[0]      # [-6 mm](COUNTERTOP_TOP_Z)
 countertop_bottom_z = countertop_top_z - countertop_thickness       # [-36 mm](COUNTERTOP_BOTTOM_Z)
 
 under_counter_plate_thickness = 1.524  # 0.060" 316 SS, the DXF's own sidecar
@@ -818,8 +818,8 @@ hole_radius = countertop_hole_diameter / 2.0
 
 
 def shank_hole_margin(center_y):
-    """Slab left between the drilled hole and the shank, at a hole on the body
-    axis' own X and `center_y` in depth."""
+    """Slab left between the drilled hole and the shank, at a hole on the
+    Westbrass's axis' own X and `center_y` in depth."""
     return hole_radius - (abs(center_y) + shank_od / 2.0)
 
 
@@ -835,7 +835,7 @@ def seated_hole_center_y():
     The hole is not ours to place — 1-3/8" is the standard the shank is sized
     for, and it is already in the counter, cut for whatever accessory was there
     before. What the install chooses is where the faucet stands in it, and the
-    flavor pair chooses that: it reaches further from the body axis than the
+    flavor pair chooses that: it reaches further from the Westbrass's axis than the
     Ø11 shank does, so the faucet goes back until those two tubes meet the
     hole's wall and stops against it. Nothing is measured and nothing is
     aimed at — back until it stops is the whole of it.
@@ -848,7 +848,7 @@ def seated_hole_center_y():
     return flavor_tube_depth_lower - math.sqrt(to_wall**2 - flavor_tube_x_offset**2)
 
 
-# [4.992 mm](HOLE_CENTER_Y) behind the body axis, once it is back against the wall.
+# [4.992 mm](HOLE_CENTER_Y) behind the Westbrass's axis, once it is back against the wall.
 countertop_hole_center_y = seated_hole_center_y()
 # [6.973 mm](HOLE_MARGIN) of slab forward of the shank — the play the faucet has
 # left to give, which is what lets the gasket cover the hole behind it.
@@ -863,9 +863,9 @@ def gasket_hole_cover():
     outline. Seating the faucet carries the hole backwards under that outline,
     so this is the figure that says the seat is a real one — positive is stone
     under seal the whole way round, and it is what would go negative first if
-    the flavor pair ever moved further off the body's back face.
+    the flavor pair ever moved further off the Westbrass's back face.
     """
-    back = touch_flo_mounting_gasket.build_mounting_gasket().val().BoundingBox().ymax
+    back = above_counter_gasket.build_above_counter_gasket().val().BoundingBox().ymax
     return back - (countertop_hole_center_y + hole_radius)
 
 
@@ -902,25 +902,25 @@ def build_under_counter_plate():
 
 
 def build_o_ring():
-    """The printed TPU thimble sealing the dispense tube into the body's Ø10 top
-    port. Its Z = 0 face is the port floor and the tube bottoms on its cap, so
-    the cap's top face is where the water tube starts."""
-    return touch_flo_tpu_o_ring.build_o_ring().translate((
+    """The printed TPU thimble sealing the soda faucet tube into the Westbrass's
+    Ø10 top port. Its Z = 0 face is the port floor and the tube bottoms on its
+    cap, so the cap's top face is where the soda faucet tube starts."""
+    return tpu_o_ring.build_o_ring().translate((
         0,
         +port_center_depth,
-        water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness,
+        soda_faucet_tube_z_bottom - tpu_o_ring.cap_thickness,
     ))
 
 
-def build_supply_tube(bottom_z=None):
-    """The blue 1/4" carbonated-water supply, butted on the shank's bottom face and running down.
-    It is on the body's own axis the whole way, so it takes no part in the gather — the flavour
-    pair comes to IT."""
+def build_soda_umbilical_tube(bottom_z=None):
+    """The blue 1/4" soda umbilical tube, butted on the shank's bottom face and running down.
+    It is on the Westbrass's own axis the whole way, so it takes no part in the gather — the
+    flavour pair comes to IT."""
     bottom_z = umbilical_tail_z if bottom_z is None else bottom_z
     return (
         cq.Workplane("XY").workplane(offset=bottom_z)
-        .circle(supply_tube_r)
-        .extrude(supply_tube_z_top - bottom_z)
+        .circle(soda_umbilical_tube_r)
+        .extrude(soda_umbilical_tube_z_top - bottom_z)
     )
 
 
@@ -928,11 +928,11 @@ def build_foam():
     """The CARGEN segments on the blue tube, drawn as the one sleeve their butts make.
 
     Five 1-ft lengths butted end to end (`faucet-and-umbilical.md` §3), bare at the compression end
-    where the tube lands on the Westbrass body and bare again at the wall, where the installer's
+    where the tube lands on the Westbrass and bare again at the wall, where the installer's
     trim takes a whole segment off in a nominal kitchen."""
     return (
         cq.Workplane("XY").workplane(offset=foam_z_bottom)
-        .circle(foam_r).circle(supply_tube_r)
+        .circle(foam_r).circle(soda_umbilical_tube_r)
         .extrude(foam_z_top - foam_z_bottom)
     )
 
@@ -972,7 +972,7 @@ def build_collar(which, x, y):
 
 def umbilical_collars():
     """The three collars the bench threads on, as `(name, solid, colour)` — one per tail, each in
-    the filament its chip on the rear wall prints in."""
+    the filament its chip on the +Y wall of back-top prints in."""
     out = []
     for which, x, y in (("carb", 0.0, 0.0),
                         ("flavor-a", +tail_half_x, pack_flavor_depth),
@@ -989,23 +989,23 @@ def umbilical_collars():
 def build_assembly():
     """The faucet and its umbilical in the repo's +Z-up frame — the sub-assembly the bench bags,
     from the display on the tip down to the three square-cut tails and the collar on each."""
-    body = load_valve_body()
-    water_tube = build_water_dispense_tube()
+    westbrass = load_westbrass()
+    soda_faucet_tube = build_soda_faucet_tube()
     flavor_tube_pos_x = build_flavor_tube(+1)
     flavor_tube_neg_x = build_flavor_tube(-1)
     lever = build_lever()
-    mounting_plate = load_mounting_plate()
-    mounting_gasket = load_mounting_gasket()
+    above_counter_plate = load_above_counter_plate()
+    above_counter_gasket = load_above_counter_gasket()
     o_ring = build_o_ring()
     shell_bottom, shell_middle, shell_top = load_shell_pieces()
     display_body = build_display_body()
     display_screen = build_display_screen()
     countertop = build_countertop()
     under_counter_plate = build_under_counter_plate()
-    supply_tube = build_supply_tube()
+    soda_umbilical_tube = build_soda_umbilical_tube()
 
     # EVERY TUBE IS THE COLOUR OF WHAT IT CARRIES, off the one table that says what a colour means
-    # on this machine — `_back_panel_dimensions.port_colors`, the same read the rear wall's rings,
+    # on this machine — `_back_panel_dimensions.port_colors`, the same read the bulkhead rings,
     # the runs inside the cabinet and the collars on these three tails all take. So the blue in
     # this picture is the blue of the union at the other end of it.
     def spool(fluid):
@@ -1029,15 +1029,15 @@ def build_assembly():
     sleeve_black = _mat.M_PET_BRAID    # PET braid, over the lot
 
     assy = cq.Assembly(name="faucet-assembly")
-    assy.add(body, name="valve_body", color=donor_black)
-    assy.add(water_tube, name="water_dispense_tube", color=spool("carb"))
+    assy.add(westbrass, name="westbrass", color=donor_black)
+    assy.add(soda_faucet_tube, name="soda_faucet_tube", color=spool("carb"))
     assy.add(o_ring, name="tpu_o_ring", color=tpu_black)
     assy.add(flavor_tube_pos_x, name="flavor_tube_pos_x", color=spool("flavor"))
     assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=spool("flavor"))
-    assy.add(supply_tube, name="carb_supply_tube", color=spool("carb"))
+    assy.add(soda_umbilical_tube, name="soda_umbilical_tube", color=spool("carb"))
     assy.add(lever, name="lever", color=donor_black)
-    assy.add(mounting_plate, name="mounting_plate", color=petcf_black)
-    assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
+    assy.add(above_counter_plate, name="above_counter_plate", color=petcf_black)
+    assy.add(above_counter_gasket, name="above_counter_gasket", color=tpu_black)
     assy.add(shell_bottom, name="shell_bottom", color=petcf_black)
     assy.add(shell_middle, name="shell_middle", color=petcf_black)
     assy.add(shell_top, name="shell_top", color=petcf_black)
@@ -1060,18 +1060,18 @@ def main():
     bend2_deg = math.degrees(gn_bend2_sweep_rad)
     tip_below_horiz = (bend1_deg + bend2_deg) - 90.0
     print("Touch-Flo faucet assembly")
-    print(f"  Reference body:        {ref_body_step.name}")
-    print(f"  Water dispense tube:   Ø{water_tube_od:.3f} mm")
-    print(f"                         Z_bottom = {water_tube_z_bottom:.2f} mm "
-          f"({water_tube_into_port} mm into port)")
+    print(f"  Reference Westbrass:   {ref_westbrass_step.name}")
+    print(f"  Soda faucet tube:      Ø{soda_faucet_tube_od:.3f} mm")
+    print(f"                         Z_bottom = {soda_faucet_tube_z_bottom:.2f} mm "
+          f"({soda_faucet_tube_into_port} mm into port)")
     print(f"                         vertical → gooseneck")
     print(f"                         center at X=0, Y={+port_center_depth:.3f} mm")
     print(f"  Flavor tubes (×2):     Ø{flavor_tube_od:.3f} mm")
     print(f"                         Z_bottom = {flavor_tube_z_bottom:.1f} mm")
     print(f"                         lower depth = {flavor_tube_depth_lower:.4f} mm "
-          f"(tangent to body back face + to each other)")
+          f"(tangent to the Westbrass's back face + to each other)")
     print(f"                         upper depth = {flavor_tube_depth_upper:.4f} mm "
-          f"(tangent to water tube + to each other)")
+          f"(tangent to the soda faucet tube + to each other)")
     print(f"                         X = ±{flavor_tube_x_offset:.4f} mm (constant)")
     print(f"                         S-bend: 2 × R{flavor_bend_radius:.1f} mm "
           f"@ {math.degrees(flavor_bend_theta_rad):.2f}° starting at Z = {pre_bend_z:.1f}")
@@ -1085,8 +1085,8 @@ def main():
           f"@ {bend1_deg:.0f}° from vertical")
     print(f"                         {gn_tip_straight_len} mm tip "
           f"({tip_below_horiz:.0f}° below horizontal)")
-    print(f"  Carb supply tube:      Ø{supply_tube_od:.3f} mm, "
-          f"Z = {supply_tube_z_bottom:.1f} → {supply_tube_z_top:.1f} "
+    print(f"  Soda umbilical tube:   Ø{soda_umbilical_tube_od:.3f} mm, "
+          f"Z = {soda_umbilical_tube_z_bottom:.1f} → {soda_umbilical_tube_z_top:.1f} "
           f"(on the shank's bottom face)")
     print(f"  Umbilical:             gather over {umbilical_stub:g} mm to Z = "
           f"{umbilical_z_bottom:.1f}, flavour pair coming to depth "
@@ -1099,7 +1099,7 @@ def main():
           f"§1 sums them to one plane")
     print(f"  Foam (blue only):      Ø{foam_od:g}, {foam_length:g} mm over five segments, drawn "
           f"Z = {foam_z_bottom:.1f} → {foam_z_top:.1f} "
-          f"({foam_bare_at_body:g} bare at the body, "
+          f"({foam_bare_at_westbrass:g} bare at the Westbrass, "
           f"{foam_bare_at_wall:g} bare at the wall)")
     print(f"  Sleeve:                {bundle_girth():.2f} mm of girth, Ø{bundle_bore():.2f} opened, "
           f"at Y = {sleeve_center_y:.4f}, "
@@ -1108,12 +1108,12 @@ def main():
     print(f"  Tube collars:          {tube_collar.OD:g} × {tube_collar.LENGTH:g}, "
           f"Z = {collar_top_z - tube_collar.LENGTH:.1f} → {collar_top_z:.1f} — "
           f"SODA on the blue, FLAVOR on each black")
-    print(f"  TPU o-ring:            in the Ø{touch_flo_tpu_o_ring.body_port_diameter:.1f} mm top port, "
-          f"Z = {water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness:.2f} → "
-          f"{water_tube_z_bottom - touch_flo_tpu_o_ring.cap_thickness + touch_flo_tpu_o_ring.total_height:.2f}")
-    print(f"  Mounting plate:        touch_flo_mounting_plate.build_mounting_plate()")
-    print(f"  Mounting gasket:       touch_flo_mounting_gasket.build_mounting_gasket()")
-    print(f"  Shell pieces:          touch_flo_shell.build_shell_bottom/middle/top()")
+    print(f"  TPU o-ring:            in the Ø{tpu_o_ring.body_port_diameter:.1f} mm top port, "
+          f"Z = {soda_faucet_tube_z_bottom - tpu_o_ring.cap_thickness:.2f} → "
+          f"{soda_faucet_tube_z_bottom - tpu_o_ring.cap_thickness + tpu_o_ring.total_height:.2f}")
+    print(f"  Above-counter plate:   above_counter_plate.build_above_counter_plate()")
+    print(f"  Above-counter gasket:  above_counter_gasket.build_above_counter_gasket()")
+    print(f"  Shell pieces:          faucet_shell.build_shell_bottom/middle/top()")
     print(f"  Countertop:            {countertop_thickness:.0f} mm slab, "
           f"Z = {countertop_bottom_z:.1f} → {countertop_top_z:.1f}")
     print(f"    standard hole:       Ø{countertop_hole_diameter:.2f} mm at Y = "
@@ -1130,9 +1130,9 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables={
-            "WATER_TUBE_OD": f"{water_tube_od:.4g} mm",
-            "WATER_TUBE_Z_BOTTOM": f"{water_tube_z_bottom:.4g} mm",
-            "WATER_TUBE_Z_TOP": f"{water_tube_z_top:.4g} mm",
+            "SODA_FAUCET_TUBE_OD": f"{soda_faucet_tube_od:.4g} mm",
+            "SODA_FAUCET_TUBE_Z_BOTTOM": f"{soda_faucet_tube_z_bottom:.4g} mm",
+            "SODA_FAUCET_TUBE_Z_TOP": f"{soda_faucet_tube_z_top:.4g} mm",
             "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
             "FLAVOR_TUBE_DEPTH_LOWER": f"{flavor_tube_depth_lower:.4g} mm",
             "FLAVOR_TUBE_DEPTH_UPPER": f"{flavor_tube_depth_upper:.4f} mm",
@@ -1152,7 +1152,7 @@ def main():
             "SLEEVE_CENTER_Y": f"{sleeve_center_y:.4f} mm",
             "SLEEVE_GIRTH": f"{bundle_girth():.4g} mm",
             "SLEEVE_BORE": f"{bundle_bore():.4g} mm",
-            "SUPPLY_BELOW_COUNTER": f"{countertop_top_z - supply_tube_z_top:.4g} mm",
+            "SODA_UMBILICAL_BELOW_COUNTER": f"{countertop_top_z - soda_umbilical_tube_z_top:.4g} mm",
             "COUNTERTOP_TOP_Z": f"{countertop_top_z:.4g} mm",
             "COUNTERTOP_BOTTOM_Z": f"{countertop_bottom_z:.4g} mm",
             "HOLE_CENTER_Y": f"{countertop_hole_center_y:.4g} mm",

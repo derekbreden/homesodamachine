@@ -147,14 +147,14 @@ def _build_steps(work: Path) -> dict[str, Path]:
     lever_rest, lever_pressed = _physical_levers(fa)
 
     head_names = (
-        "valve_body",
-        "water_dispense_tube",
+        "westbrass",
+        "soda_faucet_tube",
         "tpu_o_ring",
         "flavor_tube_pos_x",
         "flavor_tube_neg_x",
         "lever",
-        "mounting_plate",
-        "mounting_gasket",
+        "above_counter_plate",
+        "above_counter_gasket",
         "shell_bottom",
         "shell_middle",
         "shell_top",
@@ -167,7 +167,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
         for part_name in head_names:
             child = parts[part_name]
             obj = lever if part_name == "lever" else child.obj
-            if part_name in {"valve_body", "flavor_tube_pos_x", "flavor_tube_neg_x"}:
+            if part_name in {"westbrass", "flavor_tube_pos_x", "flavor_tube_neg_x"}:
                 obj = _clip_z(obj, fa.countertop_top_z, 260.0)
             _add_child(head, child, obj=obj)
         return head
@@ -193,22 +193,22 @@ def _build_steps(work: Path) -> dict[str, Path]:
     countertop_section = parts["countertop"].obj.cut(section_cutter)
 
     mount_names = (
-        "valve_body",
-        "water_dispense_tube",
+        "westbrass",
+        "soda_faucet_tube",
         "tpu_o_ring",
         "flavor_tube_pos_x",
         "flavor_tube_neg_x",
-        "carb_supply_tube",
+        "soda_umbilical_tube",
         "lever",
-        "mounting_plate",
-        "mounting_gasket",
+        "above_counter_plate",
+        "above_counter_gasket",
         "shell_bottom",
         "shell_middle",
         "shell_top",
         "faucet_display",
         "faucet_display_screen",
     )
-    mount_tails = {"flavor_tube_pos_x", "flavor_tube_neg_x", "carb_supply_tube"}
+    mount_tails = {"flavor_tube_pos_x", "flavor_tube_neg_x", "soda_umbilical_tube"}
     mount_clip = (-88.0, 380.0)
     washer_thickness = 1.5
     nut_height = 5.0
@@ -414,10 +414,10 @@ def _build_steps(work: Path) -> dict[str, Path]:
         """Show only the real shank, three attached tubes and captive donor pair below the slab."""
         under_clip = (-86.0, -2.0)
         for part_name in (
-            "valve_body",
+            "westbrass",
             "flavor_tube_pos_x",
             "flavor_tube_neg_x",
-            "carb_supply_tube",
+            "soda_umbilical_tube",
         ):
             child = parts[part_name]
             color = {
