@@ -2850,6 +2850,10 @@ static void showService(ServiceView v) {
       !primeAuthoritativeNavigation) {
     primeSessionCancel();
   }
+  // Every one of these views is reached by picking a channel, and each carries
+  // that channel's logo forward. The pick moves flavorSel, so the images it
+  // stands in front of are repointed here rather than in each caller.
+  if (uiReady) refreshFlavorImages();
   activeSvc = v;
   if (v == SVC_PRIME_PICK || v == SVC_PRIME_HOLD) setRailSelection(RAIL_PRIME);
   if (v == SVC_CLEAN_PICK || v == SVC_CLEAN_CONFIRM) setRailSelection(RAIL_CLEAN);
