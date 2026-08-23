@@ -59,6 +59,8 @@ PAGE_ASSETS = (
     HERE / "art" / "mount-final-clean.png",
     HERE / "art" / "mount-lowered-clean.png",
     HERE / "art" / "mount-slide-clean.png",
+    HERE / "art" / "mount-under-slide-clean.png",
+    HERE / "art" / "mount-under-tighten-clean.png",
 )
 
 
