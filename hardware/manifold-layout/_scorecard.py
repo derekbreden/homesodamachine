@@ -396,7 +396,7 @@ MOUNTS = (
     # AND THE OTHER EIGHT STAND ON TWO VALVE PANELS — a plate wall to wall on each plane the
     # fold left a deck on, carrying that same four-boss seat per valve. A panel is not a part:
     # it is `enclosure-front-top`'s own material, fused the way the tap-water trough and the
-    # meter's saddles are (`enclosure._valve_panels` off
+    # meter's saddles are (`enclosure._valve_trays` off
     # `enclosure_assembly.valve_panel_stations`, read by `panels-hold`).
     ("valve-v-c", "enclosure-front-top", "bosses"),
     ("valve-v-d", "enclosure-front-top", "bosses"),

@@ -1,12 +1,12 @@
-"""A VALVE PANEL IS A PLATE OF VALVE SEATS, and it is a wall of the enclosure.
+"""A VALVE TRAY IS A PLATE OF VALVE SEATS, and it is a wall of the enclosure.
 
 One `valve_seat` per valve — four blind sockets a corner post presses into — SUNK into a flat
 plate that runs from side wall to side wall of `enclosure-front-top`. The plate is one socket
 and one wall thick, so it is the boss: nothing stands off it, the valve lands on its face, and
 the only thing it opens for is each valve's own port, on a channel out both ends. It is
-that piece's own material, fused in the way the tap-water trough, the meter's saddles and every
-tube rib are: `enclosure._valve_panels` stands one per deck, off the stations
-`enclosure_assembly.valve_panel_stations` reads off the placed valves. NO PANEL SHIPS AS A PART,
+that piece's own material, fused in the way the ASSE anchor, the flow-meter anchors and every
+tube rib are: `enclosure._valve_trays` stands one per deck, off the stations
+`enclosure_assembly.valve_panel_stations` reads off the placed valves. NO TRAY SHIPS AS A PART,
 nothing bolts a valve to one and nothing is bonded — the posts in their sockets are the whole of
 the retention, the same bargain the cold core's cap lid strikes under its three valves
 (`_cold_core_interface.cap_cradles`).
@@ -17,7 +17,7 @@ the retention, the same bargain the cold core's cap lid strikes under its three 
             plate ends where the last boss does; the valves' collets and the tube butted into
             them hang past it
 
-This module states the panel's own figures and draws one in its own frame; `enclosure` turns it
+This module states the tray's own figures and draws one in its own frame; `enclosure` turns it
 onto a deck and fuses it. The frame is `valve_seat`'s carried onto a plate:
   Z = out of the valve-side face, the direction a valve's own +Z runs. `z = 0` IS THAT FACE, so
       the plate spans z = −`THICK` to 0 and every seat is sunk from zero. That face is the plane
@@ -35,8 +35,8 @@ out — which is what the thickness buys, a boss on a standing plate being a cyl
 into air.
 
 Run:
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py selftest
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-tray/valve_tray.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-tray/valve_tray.py selftest
 """
 
 import math
@@ -59,7 +59,7 @@ import valve_seat as _seat                                # noqa: E402
 from docgen import substitute_md                          # noqa: E402
 
 
-# --- what the panel adds over the seats it carries ---------------------------
+# --- what the tray adds over the seats it carries ---------------------------
 #
 # THE SEAT IS SUNK IN THE PLATE AND NOT STOOD ON IT. A boss is material round a socket, and a
 # plate thick enough to hold the socket is that material already — so this plate carries the
@@ -167,22 +167,22 @@ def build_port_channel(length: float):
     along the plate's own Y and open at both ends.
 
     A CYLINDER AND NOT A SLOT. The port is round and the channel closes on it all the way round
-    at one slip, the way the meter's saddles take a barrel — a square slot to the same width
+    at one slip, the way the flow-meter anchors take a barrel — a square slot to the same width
     would take the plate's whole depth at the corners for air the port is nowhere near."""
     return (cq.Workplane("XZ")
             .center(0.0, _valve.port_center_z)
             .circle(_valve.port_radius + PORT_SLIP)
             .extrude(length / 2.0, both=True))
 
-def build_valve_panel(width: float, seats):
-    """One panel: the plate, with one `valve_seat`'s sockets and one port channel sunk into it
+def build_valve_tray(width: float, seats):
+    """One tray: the plate, with one `valve_seat`'s sockets and one port channel sunk into it
     per station in `seats`.
 
     `seats` is `(x, y)` per valve in the plate's own frame — where that valve's footprint centre
     lands. A station carries no yaw and no height: the seat is square, and every valve on one
-    panel stands on one plane by construction."""
+    tray stands on one plane by construction."""
     if not seats:
-        raise ValueError("a valve panel with no seats is a plate, and this machine prints none")
+        raise ValueError("a valve tray with no seats is a plate, and this machine prints none")
     ys = [y for _x, y in seats]
     for i, (xa, ya) in enumerate(seats):
         for xb, yb in seats[i + 1:]:
@@ -195,15 +195,15 @@ def build_valve_panel(width: float, seats):
         raise ValueError(
             f"the seats span {max(ys) - min(ys):.3f} mm along the plate — `height` is struck on "
             f"one row of seats, and these stand on more than one")
-    panel = (cq.Workplane("XY")
+    tray = (cq.Workplane("XY")
              .workplane(offset=-THICK)
              .box(width, height(), THICK, centered=(True, True, False)))
     # A station is where the valve's own frame lands: `SEAT` under the face, which is where the
     # sockets and the channel are both struck from. Cut, not fused — the plate is the boss.
     for x, y in seats:
-        panel = panel.cut(_seat.build_sockets().translate((x, y, SEAT)))
-        panel = panel.cut(build_port_channel(height() + 2.0).translate((x, y, SEAT)))
-    return panel
+        tray = tray.cut(_seat.build_sockets().translate((x, y, SEAT)))
+        tray = tray.cut(build_port_channel(height() + 2.0).translate((x, y, SEAT)))
+    return tray
 
 
 def _segment_area(radius: float, over: float) -> float:
@@ -214,14 +214,14 @@ def _segment_area(radius: float, over: float) -> float:
             - over * math.sqrt(radius ** 2 - over ** 2))
 
 
-def panel_volume(width: float, n_seats: int) -> float:
-    """One panel's material, in closed form — the plate, less one seat's four sockets and one
+def tray_volume(width: float, n_seats: int) -> float:
+    """One tray's material, in closed form — the plate, less one seat's four sockets and one
     port channel apiece.
 
     Exact, and that is a reading and not a convenience: the four sockets stand clear of one
     another and clear of the channel between them (`selftest` measures both), the channel runs
     straight out of both ends of the plate, and neither reaches the plate's back. So every cut
-    is a whole prism of known section, and a panel that measures anything else has a socket in
+    is a whole prism of known section, and a tray that measures anything else has a socket in
     its channel or a channel out of its back."""
     socket = math.pi * _seat.socket_radius ** 2 * _seat.socket_depth()
     channel = height() * _segment_area(_valve.port_radius + PORT_SLIP,
@@ -243,7 +243,7 @@ def depth() -> float:
 
 
 def selftest() -> int:
-    """The panel against the valve it holds and the seat it carries."""
+    """The tray against the valve it holds and the seat it carries."""
     fails = []
     if THICK - _seat.socket_depth() < _seat.wall - 1e-9:
         fails.append(f"a plate {THICK:g} mm thick keeps "
@@ -272,15 +272,15 @@ def selftest() -> int:
     seats = tuple((i * pitch, 0.0) for i in (-1.5, -0.5, 0.5, 1.5))
     width = pitch * 4.0
     try:
-        built = build_valve_panel(width, seats).val()
-        closed = panel_volume(width, len(seats))
+        built = build_valve_tray(width, seats).val()
+        closed = tray_volume(width, len(seats))
         if abs(built.Volume() - closed) > 1e-6 * closed:
-            fails.append(f"a four-seat panel measures {built.Volume():.3f} mm^3 against the "
+            fails.append(f"a four-seat tray measures {built.Volume():.3f} mm^3 against the "
                          f"{closed:.3f} its closed form says — a boss has met its neighbour or "
                          f"run off the plate")
         bb = built.BoundingBox()
         if abs(bb.ylen - height()) > 1e-6:
-            fails.append(f"a panel stands {bb.ylen:.4f} mm high against the {height():.4f} "
+            fails.append(f"a tray stands {bb.ylen:.4f} mm high against the {height():.4f} "
                          f"`height` declares")
     except Exception as exc:                                     # noqa: BLE001
         fails.append(str(exc))
@@ -289,24 +289,24 @@ def selftest() -> int:
                       ("two rows of seats on one plate",
                        ((0.0, 0.0), (0.0, seat_pitch_floor() + 1.0)))):
         try:
-            build_valve_panel(100.0, bad)
+            build_valve_tray(100.0, bad)
             fails.append(f"{what} were accepted")
         except ValueError:
             pass
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print(f"ok  valve-panel  {height():g} mm high x {THICK:g} thick, seat {SEAT:g} (sunk), "
+        print(f"ok  valve-tray  {height():g} mm high x {THICK:g} thick, seat {SEAT:g} (sunk), "
               f"reach {reach():g}, port channel {port_channel_depth():.3f} deep on "
               f"{channel_floor():.3f} of floor")
     return 1 if fails else 0
 
 
-def panels_of_machine(facts):
-    """The panels the enclosure stands, as `{name: (width, seats)}` in each plate's own frame.
+def trays_of_machine(facts):
+    """The trays the enclosure stands, as `{name: (width, seats)}` in each plate's own frame.
 
     `enclosure_assembly` groups the valves no cap cradle holds by the plane each stands on and
-    hands back one panel per plane, and the artifact carries what that grouping came to — so a
+    hands back one tray per plane, and the artifact carries what that grouping came to — so a
     plate is drawn off a machine the assembly's own run already stood.
 
     The doc-only `main` hands in the artifact and imports the assembly that decides it. Keeping
@@ -319,18 +319,18 @@ def main():
     import enclosure_assembly as _ea                            # noqa: PLC0415
     import _facts                                               # noqa: PLC0415
 
-    panels = panels_of_machine(_facts.read())
-    print(f"Valve panel — {len(panels)} stood in enclosure-front-top: "
-          f"{', '.join(sorted(panels))}")
+    trays = trays_of_machine(_facts.read())
+    print(f"Valve tray — {len(trays)} stood in enclosure-front-top: "
+          f"{', '.join(sorted(trays))}")
     total = 0.0
-    for name, (width, seats) in sorted(panels.items()):
-        solid = build_valve_panel(width, seats).val()
+    for name, (width, seats) in sorted(trays.items()):
+        solid = build_valve_tray(width, seats).val()
         total += solid.Volume()
         print(f"  {name}: {width:g} x {height():g} x {THICK:g}, {len(seats)} seats at "
               + ", ".join(f"({x:.3f}, {y:.3f})" for x, y in seats))
         print(f"    material {solid.Volume() / 1000.0:.2f} cm^3, closed form "
-              f"{panel_volume(width, len(seats)) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
-    width, seats = next(iter(sorted(panels.values())))
+              f"{tray_volume(width, len(seats)) / 1000.0:.2f} cm^3, valid {solid.isValid()}")
+    width, seats = next(iter(sorted(trays.values())))
     print(f"  a post stands {grip():.3f} mm in the plate of {_seat.seat_top_z:g} mm")
     _ext = extrusion(_ea.EXTRUSION_W)
     print(f"  socket to port channel: {web():.4f} mm — "
@@ -339,16 +339,16 @@ def main():
     substitute_md(
         _here.parent / "README.md",
         variables={
-            "PANEL_W": f"{width:g}",
-            "PANEL_H": f"{height():g}",
-            "PANEL_T": f"{THICK:g}",
-            "PANEL_D": f"{depth():g}",
-            "PANEL_SEAT": f"{SEAT:g}",
-            "PANEL_MARGIN": f"{MARGIN:g}",
-            "PANEL_REACH": f"{reach():g}",
-            "PANEL_SEATS": f"{len(seats)}",
-            "PANEL_COUNT": f"{len(panels)}",
-            "PANEL_VOL": f"{total / 1000.0:.2f}",
+            "TRAY_W": f"{width:g}",
+            "TRAY_H": f"{height():g}",
+            "TRAY_T": f"{THICK:g}",
+            "TRAY_D": f"{depth():g}",
+            "TRAY_SEAT": f"{SEAT:g}",
+            "TRAY_MARGIN": f"{MARGIN:g}",
+            "TRAY_REACH": f"{reach():g}",
+            "TRAY_SEATS": f"{len(seats)}",
+            "TRAY_COUNT": f"{len(trays)}",
+            "TRAY_VOL": f"{total / 1000.0:.2f}",
             "SOCKET_DIA": f"{2 * _seat.socket_radius:.4g}",
             "SOCKET_DEPTH": f"{_seat.socket_depth():g}",
             "SOCKET_FLOOR": f"{THICK - _seat.socket_depth():g}",
@@ -357,12 +357,12 @@ def main():
             "CHANNEL_FLOOR": f"{channel_floor():.2f}",
             "PORT_DROP": f"{port_drop():.2f}",
             "PORT_SLIP": f"{PORT_SLIP:g}",
-            "PANEL_POST": f"{_seat.seat_top_z:g}",
-            "PANEL_GRIP": f"{grip():.3f}",
-            "PANEL_WEB": f"{web():.3f}",
-            "PANEL_PORT_SLIP": f"{PORT_SLIP:g}",
-            "PANEL_EXTRUSION": f"{_ext:g}",
-            "PANEL_WEB_PCT": f"{100.0 * web() / _ext:.0f}",
+            "TRAY_POST": f"{_seat.seat_top_z:g}",
+            "TRAY_GRIP": f"{grip():.3f}",
+            "TRAY_WEB": f"{web():.3f}",
+            "TRAY_PORT_SLIP": f"{PORT_SLIP:g}",
+            "TRAY_EXTRUSION": f"{_ext:g}",
+            "TRAY_WEB_PCT": f"{100.0 * web() / _ext:.0f}",
         },
     )
     print("-> README.md")
