@@ -42,6 +42,9 @@ COVER_W = 800
 
 FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
 PAGES = (HERE / "00-mount.html", HERE / "01-connect.html")
+RENDER_PAGE_TIMEOUT_SECONDS = 180
+# Three 10 s cold-browser probes, one page budget per sheet, and bounded browser teardown.
+RENDER_ACTION_TIMEOUT_SECONDS = 30 + len(PAGES) * RENDER_PAGE_TIMEOUT_SECONDS + 30
 PAGE_ASSETS = (
     HERE / "style.css",
     HERE / "art" / "colors.css",
@@ -66,27 +69,40 @@ def render_pages() -> int:
         note_read(path)
     for path in (*PAGES, *PAGE_ASSETS):
         note_read(path)
-    status = 0
     for page in pages():
         note_write(OUT / f"{page.stem}.png")
         note_write(OUT / f"{page.stem}.pdf")
+        # A killed renderer cannot leave an earlier hand-build page looking current.
+        (OUT / f"{page.stem}.png").unlink(missing_ok=True)
+        (OUT / f"{page.stem}.pdf").unlink(missing_ok=True)
+    try:
         result = subprocess.run(
             [
                 "node",
                 str(renderer),
-                str(page),
-                str(OUT / f"{page.stem}.png"),
+                "--batch",
+                str(HERE),
+                str(OUT),
                 "--size",
                 f"{CANVAS_W}x{CANVAS_H}",
                 "--dpr",
                 "1",
                 "--pdf",
                 "17x11in",
+                "--page-timeout",
+                str(RENDER_PAGE_TIMEOUT_SECONDS * 1000),
             ],
             check=False,
+            timeout=RENDER_ACTION_TIMEOUT_SECONDS,
         )
-        status = status or result.returncode
-    return status
+    except subprocess.TimeoutExpired:
+        print(
+            "quick start renderer exceeded its "
+            f"{RENDER_ACTION_TIMEOUT_SECONDS} s two-sheet action deadline",
+            file=sys.stderr,
+        )
+        return 124
+    return result.returncode
 
 
 def bind() -> int:

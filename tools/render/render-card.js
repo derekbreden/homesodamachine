@@ -33,14 +33,22 @@ function usage(msg) {
   if (msg) console.error(`render-card: ${msg}`);
   console.error(
     "usage: node tools/render/render-card.js <input.html> <output-png> [--size WxH] [--dpr f] [--pdf WxHin]\n" +
-      "       node tools/render/render-card.js --batch <dir> <out-dir> [--size WxH] [--dpr f] [--pdf WxHin]",
+      "       node tools/render/render-card.js --batch <dir> <out-dir> [--size WxH] [--dpr f] [--pdf WxHin]\n" +
+      "       both forms accept [--page-timeout ms] (default 300000)",
   );
   process.exit(1);
 }
 
 function parseArgs(argv) {
   const positional = [];
-  const opts = { width: 1800, height: 1200, dpr: 1, batch: false, pdf: null };
+  const opts = {
+    width: 1800,
+    height: 1200,
+    dpr: 1,
+    batch: false,
+    pdf: null,
+    pageTimeout: 300000,
+  };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const val = () => (a.includes("=") ? a.split("=").slice(1).join("=") : argv[++i]);
@@ -50,6 +58,7 @@ function parseArgs(argv) {
       opts.width = Number(m[1]);
       opts.height = Number(m[2]);
     } else if (a.startsWith("--dpr")) opts.dpr = Number(val());
+    else if (a.startsWith("--page-timeout")) opts.pageTimeout = Number(val());
     else if (a.startsWith("--pdf")) {
       const m = String(val()).match(/^([\d.]+)x([\d.]+)(in)?$/);
       if (!m) usage("bad --pdf");
@@ -58,6 +67,7 @@ function parseArgs(argv) {
     else positional.push(a);
   }
   if (!Number.isFinite(opts.dpr) || opts.dpr <= 0) usage("bad --dpr");
+  if (!Number.isFinite(opts.pageTimeout) || opts.pageTimeout <= 0) usage("bad --page-timeout");
   return { positional, opts };
 }
 
@@ -69,7 +79,8 @@ function capture(page, opts) {
 }
 
 
-async function renderPage(page, htmlAbs, outAbs, opts) {
+async function renderPage(page, htmlAbs, outAbs, opts, progress) {
+  progress.phase("navigation");
   await page.goto(pathToFileURL(htmlAbs).href, {
     waitUntil: "networkidle0",
     timeout: 60000,
@@ -81,6 +92,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // fallback, and which fallback a machine resolves is not the same machine to machine: a
   // container has none of these families at all. One line measured wide enough to wrap moves
   // every box below it. Demand every declared face, then settle again.
+  progress.phase("font loading");
   await page.evaluate(async () => {
     await document.fonts.ready;
     await Promise.all([...document.fonts].map((f) => f.load().catch(() => {})));
@@ -88,6 +100,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   });
 
   // An image is fetched before it is decoded, and the capture reads decoded pixels.
+  progress.phase("image decoding");
   await page.evaluate(() =>
     Promise.all(
       Array.from(document.images).map((img) =>
@@ -106,6 +119,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // one whose flex/grid children get clipped inside an overflow:hidden root
   // without ever growing scrollWidth/Height. Catch both: scan every element's
   // border box against the canvas (2px grace for antialiased edges).
+  progress.phase("canvas overflow check");
   const overflow = await page.evaluate(() => {
     const W = document.documentElement.clientWidth;
     const H = document.documentElement.clientHeight;
@@ -135,6 +149,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // not belong to. The slack a band leaves inside itself (main's bottom padding,
   // the footer's top margin) is breathing room, not a second canvas: crossing it
   // is tight, entering the next band is a printed overlap.
+  progress.phase("band spill check");
   const spills = await page.evaluate(() => {
     const bands = [...document.querySelectorAll(".card > header, .card > main, .card > footer")].map(
       (el) => ({ el, name: el.tagName.toLowerCase(), box: el.getBoundingClientRect() }),
@@ -166,6 +181,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // The quiet twin of a spill: a panel is overflow:hidden, so content its own
   // box cannot hold is not printed over — it is not printed at all. A caption
   // eaten this way leaves no mark on the page to notice.
+  progress.phase("clipping check");
   const clipped = await page.evaluate(() => {
     const out = [];
     for (const el of document.querySelectorAll("body *")) {
@@ -194,6 +210,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // render pressed below its own aspect ratio. Nothing is lost, so nothing
   // looks wrong — but the picture the card was built around is shrinking, and
   // that is the column asking for a shorter card.
+  progress.phase("aspect check");
   const squeezed = await page.evaluate(() => {
     const out = [];
     for (const el of document.querySelectorAll(".panel img, .panel svg")) {
@@ -220,14 +237,17 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // of `vc-vacuum-charge` gave 39 of one image and one of another, the odd one sitting alone
   // rather than in a run. A lone draw is the one nobody can tell from the other thirty-nine, so
   // the picture kept here is the one two captures made twice.
+  progress.phase("PNG capture 1");
   let shot = await capture(page, opts);
   for (let attempt = 2; attempt <= 3; attempt++) {
+    progress.phase(`PNG capture ${attempt}`);
     const again = await capture(page, opts);
     if (again.equals(shot)) break;
     console.log(`render-card: capture ${attempt - 1} and ${attempt} of `
       + `${path.basename(outAbs)} differ — asking again`);
     shot = again;
   }
+  progress.guard();
   fs.writeFileSync(outAbs, shot);
   // The print path, off the same laid-out page.
   //
@@ -240,6 +260,7 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
   // that outgrew the canvas paginates, and the overflow report above is where
   // that is said out loud.
   if (opts.pdf) {
+    progress.phase("PDF print");
     await page.pdf({
       path: outAbs.replace(/\.png$/, ".pdf"),
       width: opts.pdf.width,
@@ -249,8 +270,58 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
       pageRanges: "1",
       preferCSSPageSize: false,
     });
+    progress.guard();
   }
   return { ...overflow, spills, clipped, squeezed };
+}
+
+// A protocol request has its own budget, but a page makes several of them. Bound the page as a
+// unit so a browser that answers one stage and wedges on the next cannot consume one full
+// protocol timeout per stage. The kept capture and PDF calls themselves are unchanged; the
+// deadline only closes a page that has stopped making progress. A delayed diagnostic names the
+// exact phase without making healthy decks noisy.
+const SLOW_PHASE_MS = 15000;
+
+async function renderPageBounded(page, htmlAbs, outAbs, opts) {
+  const label = path.basename(htmlAbs);
+  const started = Date.now();
+  let currentPhase = "starting";
+  let expired = false;
+  let phaseTimer;
+  let pageTimer;
+  const deadlineError = () =>
+    new Error(`${label} exceeded its ${opts.pageTimeout} ms page deadline during ${currentPhase}`);
+  const progress = {
+    phase(name) {
+      if (expired) throw deadlineError();
+      currentPhase = name;
+      clearTimeout(phaseTimer);
+      phaseTimer = setTimeout(() => {
+        console.error(
+          `render-card: ${label} still in ${currentPhase} after ${Date.now() - started} ms`,
+        );
+      }, SLOW_PHASE_MS);
+    },
+    guard() {
+      if (expired) throw deadlineError();
+    },
+  };
+  const work = renderPage(page, htmlAbs, outAbs, opts, progress);
+  const deadline = new Promise((_, reject) => {
+    pageTimer = setTimeout(() => {
+      expired = true;
+      // Closing the tab rejects the outstanding CDP call. Do not await it here: a wedged
+      // renderer can wedge Page.close too, and the deadline is the line that must still return.
+      page.close().catch(() => {});
+      reject(deadlineError());
+    }, opts.pageTimeout);
+  });
+  try {
+    return await Promise.race([work, deadline]);
+  } finally {
+    clearTimeout(phaseTimer);
+    clearTimeout(pageTimer);
+  }
 }
 
 async function main() {
@@ -333,23 +404,33 @@ async function main() {
       jobs.length = 0;
     }
     let page = jobs.length ? await newCardPage(browser, opts) : null;
-    // THE FIRST CARD IN A DECK PAYS FOR ALL OF THEM AND IT IS THE ONE THAT DOES NOT COME BACK.
-    // One browser draws a whole deck, so the first capture is the one that starts the
-    // compositor, takes the first shared-memory frame, and fetches and parses the ten vendored
-    // `cards/fonts/*.woff2` every later card then already has. In a container that lands on
-    // card one: `00-cover.html` heads the main deck and `bs-band-saw.html` heads the tools
-    // deck, and those are the two that time out, every run, while the hundred behind them draw.
-    //
-    // So the deck's first page is drawn onto a throwaway. It is the same visit a card gets —
-    // the fonts, a capture at the same size — and what it costs is one page nobody keeps.
+    // The first full-size capture is a real container boundary: a blank 8x8 frame can answer
+    // while the first deliverable-sized one wedges. Pay for that throwaway once per browser,
+    // not once per Quick Start sheet. A deadline closes the failed tab; continuing on that tab
+    // would turn the first kept sheet into a second, misleading failure, so recycle it explicitly.
     if (page) {
-      await renderPage(page, jobs[0].htmlAbs, path.join(os.tmpdir(), `hsm-warm.${process.pid}.png`), opts)
-        .catch(() => { /* a warm-up that fails is a card that is about to fail out loud */ });
+      try {
+        await renderPageBounded(
+          page,
+          jobs[0].htmlAbs,
+          path.join(os.tmpdir(), `hsm-warm.${process.pid}.png`),
+          opts,
+        );
+      } catch (err) {
+        console.error(`render-card: full-size warm-up failed: ${err.message || err}`);
+        page = await recycle(browser, page, opts);
+        if (!page) {
+          for (const job of jobs) {
+            unrendered.push(`${path.basename(job.htmlAbs)}: browser gone after full-size warm-up`);
+          }
+          jobs.length = 0;
+        }
+      }
     }
     for (const job of jobs) {
       let overflow;
       try {
-        overflow = await renderPage(page, job.htmlAbs, job.outAbs, opts);
+        overflow = await renderPageBounded(page, job.htmlAbs, job.outAbs, opts);
       } catch (err) {
         // A card the browser could not draw is one page short of a deck, and a
         // deck short a page is something to look at — not a reason to throw
@@ -410,6 +491,20 @@ async function main() {
 //: case, against a target that fails.
 const WARM_MS = 10000;
 const WARM_TRIES = 3;
+const PAGE_CLOSE_MS = 5000;
+
+async function closePageWithin(page) {
+  let timer;
+  const closed = page.close().then(() => true, () => true);
+  const deadline = new Promise((done) => {
+    timer = setTimeout(() => done(false), PAGE_CLOSE_MS);
+  });
+  try {
+    return await Promise.race([closed, deadline]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 // The first `Page.captureScreenshot` a cold browser is asked for in the CI container
 // does not return, and a fresh page clears it: after the sorted-first card hangs, the
@@ -438,12 +533,14 @@ async function warmUp(browser) {
     const answered = await Promise.race([shot, deadline]);
     clearTimeout(timer);
     shot.catch(() => {});                 // the losing capture settles into nothing
-    try { await page.close(); } catch { /* it is already past closing */ }
+    if (!(await closePageWithin(page))) {
+      console.error(`render-card: cold page did not close in ${PAGE_CLOSE_MS} ms`);
+    }
     if (answered) {
       if (attempt > 1) console.log(`render-card: cold capture answered on attempt ${attempt}`);
       return true;
     }
-    console.log(`render-card: cold capture ${attempt} did not return in ${WARM_MS} ms`);
+    console.error(`render-card: cold capture ${attempt} did not return in ${WARM_MS} ms`);
   }
   return false;
 }
@@ -461,7 +558,9 @@ async function newCardPage(browser, opts) {
 // Returns the replacement page, or null when the browser itself is the thing
 // that went — in which case there is no card left to attempt.
 async function recycle(browser, page, opts) {
-  try { await page.close(); } catch { /* it is already past closing */ }
+  if (!(await closePageWithin(page))) {
+    console.error(`render-card: failed page did not close in ${PAGE_CLOSE_MS} ms`);
+  }
   try {
     return await newCardPage(browser, opts);
   } catch {
