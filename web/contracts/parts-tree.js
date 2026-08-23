@@ -23,8 +23,8 @@
 // limit of the page. The page itself lists no part and no purchased geometry.
 //
 // EVERY FILE THE WALKERS OFFER IS CLAIMED. An assembly's `holds` names the
-// directories it places from, `SHARED` takes what more than one places, and
-// `TOOLING` takes what makes the machine without being part of it. A directory in
+// directories it places from, `PURCHASED` takes the bought bodies, and `TOOLING`
+// takes what makes the machine without being part of it. A directory in
 // none of them comes back in `unseated`, which the page names. Nothing below the
 // two cards is drawn, so what those three lists produce is read by the gate and
 // by nothing else.
@@ -62,6 +62,7 @@ export const ASSEMBLIES = [
     // The directories the enclosure alone places from.
     holds: [
       "manifold-layout",
+      "pcb",
       "printed-parts/electronics",
       "printed-parts/enclosure",
       "printed-parts/refrigeration",
@@ -114,14 +115,14 @@ export const CARD_MODELS = [
   "faucet-layout/faucet-assembly.step",
 ];
 
-// PURCHASED GEOMETRY, AND WHAT MORE THAN ONE UNIT PLACES. The display stands on
-// the faucet's tip and behind the enclosure's cover; a tube collar is made up at
-// both ends of the same tube. `reference/` is the bought bodies
-// hardware/README.md describes. A part here is reached by selecting its solid in
-// whichever assembly stands it up.
-export const SHARED = [
+// WHAT THIS PROJECT DOES NOT FABRICATE — the harvested and purchased bodies
+// hardware/README.md describes, standing under whichever unit needs one and
+// under both where both do: the Waveshare display is on the faucet's tip and
+// behind the enclosure's cover. Naming an owner would pick one of the two, so
+// this list owns them instead, and a part here is reached by selecting its solid
+// in whichever assembly stands it up.
+export const PURCHASED = [
   "off-the-shelf-parts",
-  "pcb",
   "reference",
 ];
 
@@ -203,10 +204,10 @@ export function walkAssemblies(nodes = ASSEMBLIES) {
  * Seat every file the walkers offer into the tree.
  *
  * @param {{steps: string[], dxfs: string[], glbs: string[]}} files root-relative paths
- * @returns {{assemblies: Object[], shared: Object[], tooling: Object[], unseated: string[]}}
+ * @returns {{assemblies: Object[], purchased: Object[], tooling: Object[], unseated: string[]}}
  *   `assemblies` is the nesting `ASSEMBLIES` states, each node carrying the
  *   `model` part the page draws, the `inside` its own `holds` claimed, and its
- *   `children` seated the same way. `shared` and `tooling` are what no one
+ *   `children` seated the same way. `purchased` and `tooling` are what no one
  *   assembly owns. None of the three is drawn — the page is the two roots.
  *   `unseated` names every directory holding a file nothing claims, which the
  *   page shows rather than swallows.
@@ -229,7 +230,7 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
   // an assembly's own file is its card and not a part of the directory it shares
   // with its parent; then the tooling, which stands inside directories an
   // assembly otherwise sweeps whole; then each assembly's own sweep, outermost
-  // first; and last the shared geometry, which is what is left.
+  // first; and last the bought geometry, which is what is left.
   const models = new Map();
   for (const a of walkAssemblies()) models.set(a.id, claim([a.model])[0] || null);
   const tooling = claim(TOOLING);
@@ -241,11 +242,11 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
     return { ...a, model: models.get(a.id), inside: claim(a.holds || []), children };
   });
   const assemblies = seat(ASSEMBLIES);
-  const shared = claim(SHARED);
+  const purchased = claim(PURCHASED);
 
   const unseated = [...new Set(
     pool.filter((e) => !taken.has(e.file)).map((e) => dirOf(e.file)),
   )].sort();
 
-  return { assemblies, shared, tooling, unseated };
+  return { assemblies, purchased, tooling, unseated };
 }
