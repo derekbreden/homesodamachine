@@ -7,7 +7,7 @@
 Silicone tubing is used only in three specific places:
 
 1. **Peristaltic pump heads** — mechanical requirement. Peristaltic pumps need flexible tubing to compress against the rollers.
-2. **Faucet cosmetic run** — 1/8" ID black silicone zip-tied to the matte black gooseneck faucet. This is the only user-visible tubing; the black silicone blends with the faucet finish.
+2. **Faucet cosmetic run** — 1/8" ID black silicone zip-tied to the matte black gooseneck. This is the only user-visible tubing; the black silicone blends with the faucet finish.
 3. **Short vibration-dampening segments near the pumps** (optional) — absorbs peristaltic pump pulsation to prevent transmitted vibration.
 
 ### Why Hard Tubing
@@ -47,7 +47,7 @@ Platypus bag
         → [dispensing solenoid valve, Beduan 12V NC, 1/4" push-connect]
           → 1/4" OD hard tubing
             → [peristaltic pump, Kamoer 400ml/min 12V] (1/4" OD LLDPE through pump head, zip-tied)
-              → 1/4" OD hard tubing → faucet gooseneck
+              → 1/4" OD hard tubing → gooseneck
                 → 1/8" ID black silicone (cosmetic run, zip-tied to faucet)
                   → dispensing point
 ```
@@ -121,7 +121,7 @@ A needle valve restricts *flow* by physically narrowing the passage with a screw
 1. **Fill bag with water**: Dispensing solenoid CLOSED, clean solenoid OPEN, pump OFF. Water flows through the needle valve, through the tee, into the bag. The bag fills with clean water, dissolving residual flavoring.
 2. **Flush**: Dispensing solenoid OPEN, clean solenoid CLOSED, pump ON. Pump pulls the water (plus dissolved flavoring residue) from the bag, through the dispensing point and out.
 3. **Repeat** steps 1-2 as many times as needed until water runs clear.
-4. User refills bag with new flavoring (manually now, via hopper system later).
+4. User refills bag with new flavoring (manually now, via the funnel later).
 
 Room-temperature tap water is preferred over chilled — dissolves sugar/flavoring residue faster and doesn't deplete the chiller reservoir.
 
