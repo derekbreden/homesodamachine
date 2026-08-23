@@ -1,5 +1,5 @@
 """Foam shell — the PETG enclosure for the cold core's pressure
-vessel + copper evaporator coil + flavor reservoir pockets. See
+carbonator + copper evaporator coil + flavor reservoir pockets. See
 README.md."""
 
 import sys
@@ -238,7 +238,7 @@ def main():
             "CAP_SCREW_REACH": f"{cap_screw_beyond_face:.4g} mm",
             "INSERT_LEN": f"{insert_length:.4g} mm",
             "TIP_CLEAR": f"{insert_pocket_depth - cap_screw_beyond_face:.4g} mm",
-            # CO2 inlet — the Y the bore starts at (the vessel bottom plate's own
+            # CO2 inlet — the Y the bore starts at (the carbonator bottom plate's own
             # port axis) and the Z it shares with the water outlet.
             "CO2_BORE_Y": f"{co2_inlet_xyz[1]:.4g}",
             "CO2_BORE_Z": f"{co2_inlet_xyz[2]:.4g}",

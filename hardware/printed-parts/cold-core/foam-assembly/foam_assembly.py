@@ -4,7 +4,7 @@ alignment can be checked before printing.
 
 THIS IS THE CORE AS THE MACHINE SEES IT — five printed pieces and the outside
 faces `enclosure_assembly` loads. `cold-core-layout/cold_core_assembly.py` is
-the same core one frame further in, with the vessel, the coil, both reservoirs
+the same core one frame further in, with the carbonator, the coil, both reservoirs
 and every line potted among them; it writes ITS card beside this STEP as well
 as its own, so `/3d` reads one verdict for the core wherever it is opened.
 
@@ -199,8 +199,8 @@ def build():
     # Top cap: floor (its zmin face) lands on the shell's top; lid on its
     # mouth. Both spin about Z, which is what stations the deck mounts.
     # The lid seats on the cap's MOUTH RIM, one cap height off its floor —
-    # not on the cap's highest point, which is the pcba deck mount's columns
-    # standing on through the lid to carry the board above it. The psu mount's
+    # not on the cap's highest point, which is the main board's deck-mount columns
+    # standing on through the lid to carry it above them. The psu mount's
     # columns stop at the rim itself, and the lid is what its module lands on.
     # A lid's plate seats on the cap's mouth rim and its head pads sink one
     # head_pad_height past it, into the relief the cap's boss columns leave

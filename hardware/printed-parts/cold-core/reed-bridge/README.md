@@ -1,9 +1,9 @@
 # Carbonator reed bridge
 
-The mount for the carbonator vessel's two external level reeds. A printed
+The mount for the carbonator's two external level reeds. A printed
 PETG interposer that holds each reed against bare 316L on the register
 azimuth and stands the evaporator coil off the glass where a wrap crosses
-it. One per vessel, plus a reusable setting gauge that places it.
+it. One per carbonator, plus a reusable setting gauge that places it.
 
 Geometry is owned by [`reed_bridge.py`](reed_bridge.py). The magnet-to-reed
 coupling it is sized against is in
@@ -24,7 +24,7 @@ any one azimuth. The glass envelope is [14 mm](REED_GLASS_L), so a reed
 standing vertical spans at least one wrap and at most two.
 
 Each reed lies in a pocket cut clear through the bridge to the wall — the
-pocket floor is the vessel's steel. The plateau around it stands
+pocket floor is the carbonator's steel. The plateau around it stands
 [3 mm](POCKET_DEPTH) proud, clearing a ⌀[2.5 mm](REED_GLASS_D) glass
 envelope by copper_clearance_over_glass. Nothing sits between the reed and
 the wall.
@@ -101,7 +101,7 @@ plateau, [0.8 mm](SKIRT_T) at the skirt.
 on the tube's bottom rim by an inward hook. Its top face is at
 [46.12 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
 [7.68 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
-vessels like the coil mandrel.
+carbonators like the coil mandrel.
 
 ## Bench procedure
 
@@ -114,7 +114,7 @@ vessels like the coil mandrel.
    over each pocket. Prove both reeds through the wall with the donor
    magnet, sliding it along the register line.
 4. Seat the bridge on the mark; a wrap of 3M 425 over each ramp end holds
-   it. Skin the vessel per [`cold-core.md`](/hardware/assembly/cold-core.md)
+   it. Skin the carbonator per [`cold-core.md`](/hardware/assembly/cold-core.md)
    §1 — the foil goes over the bridge, burnished down onto both ramps.
 5. Lead the three conductors up the register line, outboard of where the
    coil sits, to the +Z slot.

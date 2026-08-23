@@ -219,48 +219,48 @@ foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
 
-# --- The vessel's clocking --------------------------------------------------
+# --- The carbonator's clocking --------------------------------------------------
 #
-# Four 1/4" NPT ports, two per end plate, each pair [1.5"](VESSEL_PORT_PITCH) centre to
+# Four 1/4" NPT ports, two per end plate, each pair [1.5"](CARBONATOR_PORT_PITCH) centre to
 # centre on a diameter (`hole_offset` in cut-parts/carbonation/endcaps-circular). Both
 # plates carry the float rod's blind register on the axis at right angles to their own
 # pair, the rod is tack-welded into the bottom plate's register and enters the top plate's
-# at closure, so the plates are clocked together and the vessel has ONE port axis.
-#   That axis is the shell's ±Y. All four ports stand [19.05 mm](VESSEL_PORT_OFFSET) off
-# the shell's own axis on it, two under the vessel and two over it.
-vessel_port_offset = 0.750 * 25.4
+# at closure, so the plates are clocked together and the carbonator has ONE port axis.
+#   That axis is the shell's ±Y. All four ports stand [19.05 mm](CARBONATOR_PORT_OFFSET) off
+# the shell's own axis on it, two under the carbonator and two over it.
+carbonator_port_offset = 0.750 * 25.4
 
-# CO2 inlet — the bottom plate's LANE-SIDE port. Inside the vessel it feeds the
+# CO2 inlet — the bottom plate's LANE-SIDE port. Inside the carbonator it feeds the
 # barb adapter, the silicone stub and the 0.5 µm sintered sparge stone hanging in
 # the water column (`assembly/pressure-vessel.md`): the gas enters BELOW the
 # liquid and dissolves on the way up, which is what makes the carbonation the
 # CO2 supply pressure sets.
-#   Outside the vessel it is one bore on the shell's own centreline, level with the
+#   Outside the carbonator it is one bore on the shell's own centreline, level with the
 # bottom-plate elbows, run from the port out through the tank support ring to the
 # port lane. The port, its TAISHER elbow, the PP010822E collet made up on it and
 # the ring bore all stand on that one line, so the tube is the only thing that
 # crosses shell material and no bend is taken in-cavity. The line reaches the
 # bore's lane end from ABOVE — down the port lane from the cap's `co2-in`
 # conduit — so it is laid before the top cap goes on, not pushed in from outside.
-co2_inlet_y = -vessel_port_offset
+co2_inlet_y = -carbonator_port_offset
 co2_inlet_tube_radius = port_hole_radius
 
 # The top plate's two, by the same pair. Filtered tap water arrives at the top plate ABOVE the
 # liquid and falls into the headspace against the CO2 back-pressure; the carbonated draw leaves
-# at the bottom plate, below it. So the vessel is filled high and drawn low, the same way both
+# at the bottom plate, below it. So the carbonator is filled high and drawn low, the same way both
 # reservoirs are.
 #   WHICH HOLE THE PRV TAKES IS ITS VENT'S, and it is the only one of the four ports whose
-# choice is made outside the vessel. `prv-shroud` caps the valve for the pour and vents through
+# choice is made outside the carbonator. `prv-shroud` caps the valve for the pour and vents through
 # a bore in its BARREL, and the cup reaches along the port's own lateral axis — so the bore
 # lands one elbow leg plus one vent station out on that side, and there is exactly one station
 # on that reach a line can fall from, which is a ±Y lane's own centreline. The +Y hole puts it
 # on the WEST lane. The port lane is spoken for: the CO2's fall owns that column from the cap
 # to the floor (`co2_cap_x`), and a ⌀23 cup lying across it is the one body it cannot pass.
 #   The water inlet takes what is left, and pays for it in its run rather than its port: its
-# conduit stands over the +Y band, so the line crosses the vessel's own top in the band between
+# conduit stands over the +Y band, so the line crosses the carbonator's own top in the band between
 # this plate and the cap's floor (`_internal_routes.water_in_cross_x`).
-water_inlet_port_y = -vessel_port_offset
-prv_port_y = +vessel_port_offset
+water_inlet_port_y = -carbonator_port_offset
+prv_port_y = +carbonator_port_offset
 
 # Cap-to-outer-shell joinery: 6 attachment points per face × 2 faces =
 # 12 inserts / 12 M3×25 SHCS, each screw passing lid + cap into an insert
@@ -382,7 +382,7 @@ corner_round_radius = 12.0
 # rotational symmetry about Z (balanced gasket compression, and the top cap free to
 # install either way round).
 # The two mid bosses stand where the ±Y wall is otherwise free, and what is NOT free on
-# the +Y one is the PRV shroud: a ⌀23 cup lying on the vessel's own +Y port axis
+# the +Y one is the PRV shroud: a ⌀23 cup lying on the carbonator's own +Y port axis
 # (`prv-shroud/`) whose closed end reaches within ~3 mm of this wall, so its section
 # spans x ±11.5 where the boss would stand. The offset is that reach plus the boss's
 # own radius and a clearance. Both signs move together — the pattern is 180°
@@ -700,20 +700,20 @@ state(
 
 # Per conduit: its centre in the CAP'S OWN frame. The cap installs spun a half turn about
 # Z (`foam_assembly.spin_xy`), and a half turn is its own inverse — so a conduit that
-# stands over a vessel port at (x, y) in the shell's frame is authored at (−x, −y) here,
+# stands over a carbonator port at (x, y) in the shell's frame is authored at (−x, −y) here,
 # and `foam_assembly.cap_conduit_station` turns it back.
 #   A CONDUIT IS ONE END OF A LINE, and what the line does at the far end is what this table
 # is for; `_internal_routes` draws every one of them and measures it against the shell. Seven
-# stand here, and they answer to three vessels. TWO ENTER THE CARBONATOR (water at the top
-# plate, CO2 at the bottom) and one draws it; each reservoir is entered once at its cap and
-# drawn once at its floor. Every line that ENTERS a vessel arrives above that vessel's liquid
-# and every line that LEAVES takes its lowest point, so nothing can enter and leave without
-# crossing the vessel. That is what the air-purge and clean-flush service modes run on.
+# stand here, and they answer to the carbonator and the two reservoirs. TWO ENTER THE
+# CARBONATOR (water at the top plate, CO2 at the bottom) and one draws it; each reservoir is
+# entered once at its cap and drawn once at its floor. Every line that ENTERS one of the three
+# arrives above that one's liquid and every line that LEAVES takes its lowest point, so nothing
+# can enter and leave without crossing it. That is what the air-purge and clean-flush service modes run on.
 #
 #   water-in — the carbonator's TOP-PLATE −Y port, above the water line, where filtered tap
 # water is pumped in against the CO2 back-pressure and falls into the headspace. The port
-# carries one of the four TAISHER street elbows every vessel port takes (`ledger/bom.md`) with
-# a PTC adapter made up on its female end; the line leaves it laterally, crosses the vessel's
+# carries one of the four TAISHER street elbows every carbonator port takes (`ledger/bom.md`) with
+# a PTC adapter made up on its female end; the line leaves it laterally, crosses the carbonator's
 # own top on one diagonal in the band between that plate and the cap's floor
 # (`top_band_to_cap`), comes about in the +Y band and turns into
 # the FORWARD BAND, where this bore stands. The top band is [14](TOP_BAND) mm against the
@@ -751,7 +751,7 @@ state(
 # `reservoir_fill_conduit_xy` is the station, and `reservoir_fill_sides` is which reservoirs
 # have one.
 #   carb-water-out — the carbonator's BOTTOM-PLATE +Y port, under the liquid, which is the
-# vessel's own drain and the dispense line's source. The elbow turns it laterally, it crosses
+# carbonator's own drain and the dispense line's source. The elbow turns it laterally, it crosses
 # under the tank inboard of the support ring, leaves the ring through the ring's OWN SLOT on
 # this bore's column (`_port_cuts.water_outlet_ring_crossing_x` — no bore, and the four bearing
 # segments stay whole), and climbs beside the coil clear of the port lane until the tank's top
@@ -768,7 +768,7 @@ state(
 #   co2-in stands over the PORT LANE and its line runs DOWN it, the one conduit here that feeds
 # rather than drains. It falls the shell's whole height, turns along the lane's floor and leans
 # in to `_port_cuts.co2_inlet_xyz` — the one bore through the support ring — to land on the
-# collet made up under the bottom plate's lane-side port. Inside the vessel that port feeds the
+# collet made up under the bottom plate's lane-side port. Inside the carbonator that port feeds the
 # barb, the silicone stub and the sparge stone hanging in the water column, so the gas enters
 # BELOW the liquid and dissolves on the way up. Because the line arrives from above, it is laid
 # down the lane before the top cap goes on.
@@ -782,7 +782,7 @@ state(
 #   WHERE THE LEAN CROSSES is the TANK SUPPORT RING's business, not this file's. The reach in
 # from the lane to the bottom plate's port crosses the ring, and the ring is four bearing
 # segments with four slots between them (`_support_ring`); a reach that misses a slot would have
-# to be bored through a segment that carries the vessel. `_port_cuts.co2-inlet-slot` is that
+# to be bored through a segment that carries the carbonator. `_port_cuts.co2-inlet-slot` is that
 # fence, and `co2_lane_x` is the column whose lean lands inside slot four.
 co2_lane_x = 72.5
 # THE RING IS AT THE FLOOR AND THE CONDUIT IS IN THE CAP, so one column does not have to serve
@@ -841,7 +841,7 @@ cap_fluid_conduits = {
 # AND THE TWO THAT CARRY A CABLE. A bore in the cap over the mouth of a reed channel is the
 # same column with the same bore, so it stands in the same table and answers to the same
 # gates — `cap-conduit-room`, `cap-conduit-wall`, `cap-conduit-pair`, `entry-skew-ceiling`.
-# What it is not is one end of a line: a reader counting the vessels' plumbing counts
+# What it is not is one end of a line: a reader counting the plumbing counts
 # `cap_fluid_conduits`, and one counting holes in the lid counts these too.
 cap_cable_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
@@ -1218,7 +1218,7 @@ for _name in cap_anchors:
 # The ribs above open at the sky: a run is laid down into the trough and the strap comes up round
 # it. A run laid ACROSS this lid cannot be held that way. `water-3` crosses the machine along the
 # cap's own Y, one lane off the core's front face, and an upward trough on that line would open
-# its mouth at the hopper basin — a tube dropped into it would come down through the storey the
+# its mouth at the funnel — a tube dropped into it would come down through the storey the
 # source valves fill.
 #
 # SO THIS ONE STANDS ON THE STEP AND GRIPS THE RUN FROM BEHIND. A post, its FORWARD face the run's
@@ -1263,7 +1263,7 @@ cap_side_anchors = {
     # it crosses this post — the cap's (x, y), with the run along the cap's Y — and `over_face`
     # is the height that axis stands over the lid's outer face.
     #   The post stands on the lid's front step inside the core's plan outline, its face two
-    # lanes aft of the core's own front plane — the crossing walks with the hopper drain's
+    # lanes aft of the core's own front plane — the crossing walks with the funnel drain's
     # berth (`funnel.neck_dy`), and the post follows it aft so the fall off the union
     # keeps its metre. The cap's Y is on the mirror line, between the two port stubs the
     # source pair leaves over this step. `axis_off` stands the pipe forward of the post's
@@ -1419,7 +1419,7 @@ corner_slot_x = (-137.0, -106.0)
 corner_slot_z = (129.45, 148.55)
 corner_slot_depth = 2.4
 
-# THE HOPPER DRAIN'S BERTH. The union hangs on the funnel's spout between the folded deck's
+# THE FUNNEL DRAIN'S BERTH. The union hangs on the funnel's spout between the folded deck's
 # crossbar barrels and this core's front face, and the barrels ride
 # `manifold_layout.BARB_STANDOFF` aft — the drain follows (`funnel.neck_dy`), and the
 # top lid's fore edge is what gives: set back `drain_berth_depth` over the drain's column, in
@@ -1626,8 +1626,8 @@ if __name__ == "__main__":
         "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g} mm",
         "CAP_SCREW_L": f"{cap_screw_length:.4g}",
         "DECK_MOUNT_CAP_GAP": f"{deck_mount_cap_gap:.4g} mm",
-        "VESSEL_PORT_PITCH": f"{2 * vessel_port_offset / 25.4:.4g}\"",
-        "VESSEL_PORT_OFFSET": f"{vessel_port_offset:.4g} mm",
+        "CARBONATOR_PORT_PITCH": f"{2 * carbonator_port_offset / 25.4:.4g}\"",
+        "CARBONATOR_PORT_OFFSET": f"{carbonator_port_offset:.4g} mm",
         "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
         "FORWARD_BAND": f"{forward_band_width:.4g} mm",
         "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",

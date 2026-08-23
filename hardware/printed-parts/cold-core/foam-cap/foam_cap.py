@@ -353,7 +353,7 @@ def main():
             add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
             lid_total_height),
         lid_total_height)
-    # THE DRAIN'S BERTH: the fore edge set back over the hopper drain's column
+    # THE DRAIN'S BERTH: the fore edge set back over the funnel drain's column
     # (`_cold_core_interface.drain_berth_*`), the corner the union hangs in and `water-3`'s
     # crossing steps into. The plate alone stands there, so the cut is its own closed form.
     _by0, _by1 = drain_berth_span

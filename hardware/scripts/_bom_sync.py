@@ -375,7 +375,7 @@ def main():
         "MANDREL_FT": f"{_coil_mandrel_gen.mandrel_wrap_length / 304.8:.4g} ft",
         "STUB_INLET": f"{_coil_mandrel_gen.stub_allowance['inlet']:.4g} mm",
         "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
-        "ROLL_SHARE": f"1/{_coil_mandrel_gen.vessels_per_roll}",
+        "ROLL_SHARE": f"1/{_coil_mandrel_gen.carbonators_per_roll}",
         "CUT_FT": f"{_cut_mm / 304.8:.4g} ft",
         "ROLL_SPARE": f"{_roll_spare_ft:+.2f} ft",
         # The PRV vent line (§2), as `cold-core-layout` draws it inside the core.
