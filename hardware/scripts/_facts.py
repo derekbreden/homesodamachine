@@ -388,7 +388,7 @@ class Facts:
 
     @property
     def valve_panel_stations(self):
-        """`(plane, sign, ((x, z), …))` per deck, as `enclosure.Box.valve_panels` is.
+        """`(plane, sign, ((x, z), …))` per deck, as `enclosure.Box.valve_trays` is.
 
         What the plans cannot carry: the world plane a deck's valves stand their mounting
         faces on, and which way their own +Z runs off it. A valve seats the same way on
