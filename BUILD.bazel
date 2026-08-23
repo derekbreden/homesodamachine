@@ -1351,8 +1351,11 @@ genrule(
         "hardware/topology/fluid-topology.md",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/browser.js",
+        "tools/render/package-lock.json",
+        "tools/render/package.json",
         "tools/render/render-card.js",
-        ":node-packages",
+        ":render-card-runtime",
     ],
     outs = [
         "out/cards-build/hardware/assembly/cards/deck.cover.png",
@@ -2296,8 +2299,11 @@ genrule(
         "hardware/assembly/cards/tools/vc-vacuum-charge.html",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "tools/render/browser.js",
+        "tools/render/package-lock.json",
+        "tools/render/package.json",
         "tools/render/render-card.js",
-        ":node-packages",
+        ":render-card-runtime",
     ],
     outs = [
         "out/tools-build/hardware/assembly/cards/tools/out/bs-band-saw.png",
@@ -6015,7 +6021,7 @@ genrule(
         "tools/render/package-lock.json",
         "tools/render/package.json",
         "tools/render/render-card.js",
-        ":node-packages",
+        ":render-card-runtime",
     ],
     outs = [
         "out/quickstart-build/hardware/quickstart/quick-start.cover.png",
@@ -6081,8 +6087,14 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
+        "tools/render/browser.js",
+        "tools/render/package-lock.json",
+        "tools/render/package.json",
         "tools/render/render-step-posed.js",
-        ":node-packages",
+        "web/package-lock.json",
+        "web/package.json",
+        "web/server.js",
+        ":render-step-posed-runtime",
     ],
     outs = [
         "out/quickstart-art/hardware/quickstart/art/colors.css",
@@ -14116,6 +14128,30 @@ sh_test(
     args = ["tools/docgen/lint.py"],
     size = "large",
     tags = ["local"],
+)
+
+filegroup(
+    name = "render-card-runtime",
+    srcs = glob(
+        ["tools/render/node_modules/**"],
+        allow_empty = True,
+    ),
+)
+
+filegroup(
+    name = "render-step-posed-runtime",
+    srcs = glob(
+        [
+            "tools/render/node_modules/**",
+            "web/**",
+        ],
+        exclude = [
+            "web/package-lock.json",
+            "web/package.json",
+            "web/server.js",
+        ],
+        allow_empty = True,
+    ),
 )
 
 filegroup(

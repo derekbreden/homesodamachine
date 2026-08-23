@@ -1119,6 +1119,9 @@
       "hardware/topology/fluid-topology.md",
       "hardware/wiring/_ac_wiring_schedule_sync.py",
       "tools/docgen/__init__.py",
+      "tools/render/browser.js",
+      "tools/render/package-lock.json",
+      "tools/render/package.json",
       "tools/render/render-card.js"
     ],
     "rewritten": [
@@ -2200,6 +2203,9 @@
       "hardware/assembly/cards/tools/vc-vacuum-charge.html",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_run_lock.py",
+      "tools/render/browser.js",
+      "tools/render/package-lock.json",
+      "tools/render/package.json",
       "tools/render/render-card.js"
     ],
     "rewritten": [],
@@ -5064,7 +5070,13 @@
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py",
-      "tools/render/render-step-posed.js"
+      "tools/render/browser.js",
+      "tools/render/package-lock.json",
+      "tools/render/package.json",
+      "tools/render/render-step-posed.js",
+      "web/package-lock.json",
+      "web/package.json",
+      "web/server.js"
     ],
     "rewritten": [],
     "writes": [
