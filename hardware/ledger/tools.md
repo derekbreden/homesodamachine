@@ -8,14 +8,14 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ---
 
-## Vessel fabrication
+## Carbonator fabrication
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
 | **VEVOR Slip Roll Machine** | [B0DZP1VBZY](https://www.amazon.com/dp/B0DZP1VBZY), [purchases.md §1](/hardware/ledger/purchases.md) | 24" forming width, 16 ga capacity. Plan-B (racetrack) body forming; idle since plan A 316L round-tube pivot. | [$235.94](T_SLIP_ROLL) |
 | **VEVOR 12-ton Hydraulic Shop Press** | [B0BZ7YY3CP](https://www.amazon.com/dp/B0BZ7YY3CP), [purchases.md §1](/hardware/ledger/purchases.md) | For racetrack end-cap dishing dies (plan B); idle since pivot. | [$155.50](T_SHOP_PRESS) |
 | **WEN 4208T benchtop drill press** | [B08ZVT5JKC](https://www.amazon.com/dp/B08ZVT5JKC), [purchases.md §1](/hardware/ledger/purchases.md) | 2.3 A 8" 5-speed, drill + tap station for 316 SS end-cap plates. | [$111.54](T_DRILL_PRESS) |
-| **Drill America DWT adjustable tap wrench** | [B00DMEYTLW](https://www.amazon.com/dp/B00DMEYTLW), [purchases.md §1](/hardware/ledger/purchases.md) | 1/4"–1-1/8" tap capacity. Production tap driver for the 40-hole vessel batch. | [$33.02](T_TAP_WRENCH) |
+| **Drill America DWT adjustable tap wrench** | [B00DMEYTLW](https://www.amazon.com/dp/B00DMEYTLW), [purchases.md §1](/hardware/ledger/purchases.md) | 1/4"–1-1/8" tap capacity. Production tap driver for the 40-hole carbonator batch. | [$33.02](T_TAP_WRENCH) |
 | **LingGan 1/4-18 NPT M35 cobalt pipe tap** | [B0D7HM5R3C](https://www.amazon.com/dp/B0D7HM5R3C), [purchases.md §1](/hardware/ledger/purchases.md) | M35 (5% cobalt HSS-E), TiN-coated, 4-flute taper chamfer. Production tap for the 40-hole 316L SS end-cap run. Use with Tap Magic EP-Xtra cutting fluid. | [$13.93](T_M35_TAP) |
 | **Brown & Sharpe spring-loaded tap guide** | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC), [purchases.md §1](/hardware/ledger/purchases.md) | 1/2" hardened shank; keeps the pipe tap square while starting threads under the drill press. | [$27.45](T_TAP_GUIDE) |
 | **Mollom 124 mm bi-metal hole saw + arbor** | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1), [purchases.md §1](/hardware/ledger/purchases.md) | HSS M42, 4-7/8" cut; near-5" fixture pockets and end-cap disc cuts. | [$19.19](T_HOLE_SAW) |
@@ -30,17 +30,17 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **BEAMNOVA hydrostatic test pump** | [B07T45XTD1](https://www.amazon.com/dp/B07T45XTD1), [purchases.md §1](/hardware/ledger/purchases.md) | 0–726 PSI / 0–5 MPa, 3.17 gal reservoir, 4.43 ft × 1/4" hydraulic hose with 1/2" F gasket-swivel end. Copper pump body + check valve. 180 PSI vessel hydro test sits at ~25 % of scale. | [$93.30](T_HYDRO_PUMP) |
-| **SENCTRL 0–200 PSI glycerin-filled gauge** | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB), [purchases.md §1](/hardware/ledger/purchases.md) | 2.5" dial, 1/4" NPT lower mount, SS case. Leaves on a vessel port across hour-scale leak soaks for fine-resolution drift. | [$10.72](T_GAUGE) |
-| **ChillWaves brass 1/4" NPT outer-hex plugs** | [B0C4LP4B3D](https://www.amazon.com/dp/B0C4LP4B3D), [purchases.md §1](/hardware/ledger/purchases.md) | 12-pack, 1200 PSI rated. Dead-head plugs for unused vessel ports during pressure testing. | [$11.79](T_DEADHEAD_PLUGS) |
+| **BEAMNOVA hydrostatic test pump** | [B07T45XTD1](https://www.amazon.com/dp/B07T45XTD1), [purchases.md §1](/hardware/ledger/purchases.md) | 0–726 PSI / 0–5 MPa, 3.17 gal reservoir, 4.43 ft × 1/4" hydraulic hose with 1/2" F gasket-swivel end. Copper pump body + check valve. 180 PSI carbonator hydro test sits at ~25 % of scale. | [$93.30](T_HYDRO_PUMP) |
+| **SENCTRL 0–200 PSI glycerin-filled gauge** | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB), [purchases.md §1](/hardware/ledger/purchases.md) | 2.5" dial, 1/4" NPT lower mount, SS case. Leaves on a carbonator port across hour-scale leak soaks for fine-resolution drift. | [$10.72](T_GAUGE) |
+| **ChillWaves brass 1/4" NPT outer-hex plugs** | [B0C4LP4B3D](https://www.amazon.com/dp/B0C4LP4B3D), [purchases.md §1](/hardware/ledger/purchases.md) | 12-pack, 1200 PSI rated. Dead-head plugs for unused carbonator ports during pressure testing. | [$11.79](T_DEADHEAD_PLUGS) |
 | **Milton 727 M-STYLE 1/4" MNPT air plug** | [B000PDWI4S](https://www.amazon.com/dp/B000PDWI4S), [purchases.md §1](/hardware/ledger/purchases.md) | 10-pack, alloy steel. Post-validation pneumatic-leak-check rig for vessels that already passed hydro. Mates with the DeWalt DWFP55130 / Husky 41257HOM coupler at the hose end. | [$15.02](T_MSTYLE_PLUG) |
-| **KOOTANS 1/2" × 1/4" NPT hex nipple** | [B07P7ZRZMD](https://www.amazon.com/dp/B07P7ZRZMD), [purchases.md §1](/hardware/ledger/purchases.md) | 4-pack brass. Adapter mating the BEAMNOVA 1/2" F gasket-swivel hose end to a vessel's 1/4" NPT F port. | [$12.86](T_HEX_NIPPLE) |
+| **KOOTANS 1/2" × 1/4" NPT hex nipple** | [B07P7ZRZMD](https://www.amazon.com/dp/B07P7ZRZMD), [purchases.md §1](/hardware/ledger/purchases.md) | 4-pack brass. Adapter mating the BEAMNOVA 1/2" F gasket-swivel hose end to a carbonator's 1/4" NPT F port. | [$12.86](T_HEX_NIPPLE) |
 
 ## Welding
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **XLaserlab X1 Pro** | XLaserlab order #XLaserlab3271, [purchases.md §16](/hardware/ledger/purchases.md) | Handheld 3-in-1 laser welder / cleaner / cutter. Ultimate Pack with single wire feeder. Production weld station for 316L pressure-vessel end-cap-to-tube joins. Vendor: xlaserlab.com. | [$3,899.00](T_X1PRO) |
+| **XLaserlab X1 Pro** | XLaserlab order #XLaserlab3271, [purchases.md §16](/hardware/ledger/purchases.md) | Handheld 3-in-1 laser welder / cleaner / cutter. Ultimate Pack with single wire feeder. Production weld station for the carbonator's 316L end-cap-to-tube joins. Vendor: xlaserlab.com. | [$3,899.00](T_X1PRO) |
 | **Airgas argon size-80 cylinder + RHP400 regulator** | Airgas #8162013342, [purchases.md §1](/hardware/ledger/purchases.md), [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | Owned cylinder (not exchange/lease), CGA-580 fitting. Shielding gas for X1 Pro and braze-loop argon purge. Refill via Airgas Lincoln NE branch. | [$399.31](T_ARGON_CYL) |
 | **RX Weld argon regulator / flowmeter** | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX), [purchases.md §1](/hardware/ledger/purchases.md) | Argon delivery for welding (separate from the RHP400 used for refrigeration brazing purge). | [$31.09](T_RXWELD) |
 | **Weldpro 3-Tier Welding Cart** | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY), [purchases.md §1](/hardware/ledger/purchases.md) | Mobile cart for the X1 Pro welder + argon cylinder. | [$193.04](T_WELD_CART) |
@@ -62,7 +62,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Mastercool 70025 cap-tube cutter** | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE), [purchases.md §6](/hardware/ledger/purchases.md) | Severs 0.042"/0.050" capillary tubing without crushing the bore. The donor's tube is a hair bore, ~0.031" ID — confirm it seats in a groove before cutting the one that is brazed to the drier. | [$15.74](T_CAP_CUTTER) |
 | **RIDGID 31622 Model 150 tubing cutter** | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G), [purchases.md §6](/hardware/ledger/purchases.md) | 1/8"–1-1/8" constant-swing. Square cuts on 1/4" ACR before flaring/brazing. | [$34.31](T_TUBE_CUTTER) |
 | **RIDGID 23332 Model 345 flaring tool** | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO), [purchases.md §6](/hardware/ledger/purchases.md) | 45° SAE. Leak-tight flares on 1/4" ACR for manifold/Schrader connections. | [$107.24](T_FLARE_TOOL) |
-| **Klein Tools 51006 tube bender** | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM), [purchases.md §6](/hardware/ledger/purchases.md) | 3-in-1 (1/4 / 5/16 / 3/8 OD). Forming the evaporator coil around the carbonator tank. | [$23.57](T_TUBE_BENDER) |
+| **Klein Tools 51006 tube bender** | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM), [purchases.md §6](/hardware/ledger/purchases.md) | 3-in-1 (1/4 / 5/16 / 3/8 OD). Forming the evaporator coil around the carbonator. | [$23.57](T_TUBE_BENDER) |
 | **Wisscool 1/4" tube straightener** | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T), [purchases.md §6](/hardware/ledger/purchases.md) | Handheld; de-coils 1/4" ACR before bending. | [$26.80](T_STRAIGHTENER) |
 | **Knipex 86 01 180 Pliers Wrench** | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW), [purchases.md §6](/hardware/ledger/purchases.md) | 7.25" smooth parallel-jaw. Pinch-swages 1/4" ACR coil inlet down onto the cap tube (~0.031" bore) via progressive 60° rotation collapse. | [$57.06](T_PLIERS_WRENCH) |
 | **Uniweld RHP400 CGA-580 regulator** | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO), [purchases.md §6](/hardware/ledger/purchases.md) | 1/4" male flare, 0–400 psi delivery. Swaps onto the existing argon cylinder for the brazing-loop purge — no separate nitrogen cylinder needed. | [$96.76](T_RHP400) |

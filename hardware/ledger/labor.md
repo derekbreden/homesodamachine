@@ -4,7 +4,7 @@ Attended human minutes to build one finished appliance, one row per hand operati
 
 **Attended, not elapsed.** A row counts only the minutes a person is *on* the operation. The 30-minute hydro hold, the 15-minute vacuum hold, the silicone cure, the 8-hour burn-in, and the ~100 printer-hours are all real and none of them are in this file — the operator is elsewhere. What is counted is setup, the hands-on pass, the check, the tear-down, and the walk to the next stage. The hours a *machine* is busy are their own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which is what turnaround and throughput are read off.
 
-**An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per vessel), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
+**An operator who has done the operation before,** with the fixture built, the jig loaded, and a batch of [10](BATCH_SIZE) units in flight, so setup amortizes. That batch is not a hypothetical: it is the size the ledger already buys in — endcap plates 20 at a time (two per carbonator), tube 10 at a time, PCBAs at the qty-10 price. An operation whose setup is per-batch rather than per-unit carries a tenth of that setup here.
 
 **The pace is a line's, not a bench's.** Twenty units an hour — three minutes an operation — is a relaxed rate for the repetitive work, so an operation of that shape gets 5 minutes, not 10. A machine screw is seven seconds with a driver; a heat-set insert is fourteen seconds with a hot tip and a jig. Where a row is longer than that it is because the work does not repeat: a weld that has to be right the first time, a hand tap into 1/4" stainless, a foam pour with a cream time.
 
@@ -20,7 +20,7 @@ Cards cite [`assembly/cards/`](/hardware/assembly/cards/README.md); each card's 
 
 ## 1. Machining
 
-Drilling, tapping, chamfering, cutting and deburring — all of it on the pressure vessel, all of it before a single weld. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole that is part of the 90 PSI pressure boundary and must not break through.
+Drilling, tapping, chamfering, cutting and deburring — all of it on the carbonator, all of it before a single weld. The 316L plate work is the slowest metal in the build: four 1/4"-18 NPT ports hand-tapped into 1/4" plate, and a blind register hole that is part of the 90 PSI pressure boundary and must not break through.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
@@ -33,19 +33,19 @@ Drilling, tapping, chamfering, cutting and deburring — all of it on the pressu
 
 ## 2. Welding & brazing
 
-Three laser welds on the vessel and one brazed tie-in on the refrigerant loop. Both are argon-shielded, both are pressure joints.
+Three laser welds on the carbonator and one brazed tie-in on the refrigerant loop. Both are argon-shielded, both are pressure joints.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Tack the float rod into the bottom-plate register | PV-06 | Same welding session as the plate fillets — heat the welder once | 5 |
 | Weld the bottom-plate corner fillet under argon | PV-08 | ~15" of recessed corner fillet, handheld X1 Pro, keep heat moving | 10 |
-| Close the vessel — top-plate fillet, float captive | PV-09 | Same joint, one shot, nothing comes back out after this | 10 |
+| Close the carbonator — top-plate fillet, float captive | PV-09 | Same joint, one shot, nothing comes back out after this | 10 |
 | Cut the loop, tie in the suction line, pinch-swage the capillary | RL-03, RL-04, RL-05 | Brazing the harvested compressor path with argon flowing through the tube | 25 |
 | **Welding & brazing** | | | **[50](LAB_SEC2)** |
 
 ## 3. Pressure testing & leak checks
 
-Every pressure boundary in the unit gets proved before it is buried: the vessel by dye penetrant and hydro before it is foamed in, the refrigerant loop by vacuum decay before charge, the CO2 path by a witnessed hold at working pressure. The holds themselves are unattended — plugging, filling, pumping, reading and draining are not.
+Every pressure boundary in the unit gets proved before it is buried: the carbonator by dye penetrant and hydro before it is foamed in, the refrigerant loop by vacuum decay before charge, the CO2 path by a witnessed hold at working pressure. The holds themselves are unattended — plugging, filling, pumping, reading and draining are not.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
@@ -59,7 +59,7 @@ Every pressure boundary in the unit gets proved before it is buried: the vessel 
 
 ## 4. Silicone casting
 
-One cast part per unit: the hopper funnel, ~78 g of 1:1 platinum silicone poured into the two-piece printed mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
+One cast part per unit: the funnel, ~78 g of 1:1 platinum silicone poured into the two-piece printed mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
@@ -73,12 +73,12 @@ One cast part per unit: the hopper funnel, ~78 g of 1:1 platinum silicone poured
 
 ## 5. Foam pouring
 
-Three pour-in-place foam operations: both cold-core caps, the body foam around the vessel, and the insulating sleeve on the carbonated-water tube in the umbilical. Same operator motion as the silicone — mix, pour, walk away — but with a shorter cream time and a much bigger mess when a rim overflows.
+Three pour-in-place foam operations: both cold-core caps, the body foam around the carbonator, and the insulating sleeve on the soda umbilical tube. Same operator motion as the silicone — mix, pour, walk away — but with a shorter cream time and a much bigger mess when a rim overflows.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Mix and pour both cap foams, lids bolted down as the clamp | CC-06 | The cap lids are the pour clamp and stay in the product | 10 |
-| Mix and pour the body foam around the vessel | CC-14 | Around seven penetrations and the PRV shroud's protected air cavity | 15 |
+| Mix and pour the body foam around the carbonator | CC-14 | Around seven penetrations and the PRV shroud's protected air cavity | 15 |
 | Foam-sleeve the carbonated-water umbilical tube | FU-03 | Only the carbonated line is insulated | 5 |
 | Trim the overflow; clean rims, cups and sticks | CC-06, CC-14 | Foam does not wait for you to find a scraper | 5 |
 | **Foam pouring** | | | **[35](LAB_SEC5)** |
@@ -100,14 +100,14 @@ Twelve harness assemblies off the bench plus the in-cabinet runs — roughly six
 
 ## 7. Plumbing
 
-Every wetted and gas joint in the unit: the vessel's four elbow stacks, the seven cold-core penetrations, the CO2 and water paths from rear wall to core, the flavor manifold, and the risers to the umbilical bulkheads. Roughly sixteen taped NPT joints and a larger count of push-to-connect. PTC is fast; NPT into stainless is not.
+Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the seven cold-core penetrations, the CO2 and water paths from the +Y wall of back-top to the core, the flavor manifold, and the risers to the umbilical bulkheads. Roughly sixteen taped NPT joints and a larger count of push-to-connect. PTC is fast; NPT into stainless is not.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Install the four elbow stacks, sparge stone, PRV shroud subassembly | PV-13, PV-14 | Nickel-guard tape, SS into SS, every port taped twice across the build | 15 |
 | Route the seven cold-core penetrations; stack the copper plugs | CC-12, CC-13 | Done before the body foam locks them in | 10 |
-| CO2 path — rear wall to cold core | IP-01 | | 10 |
-| Water path — rear wall to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
+| CO2 path — +Y wall of back-top to cold core | IP-01 | | 10 |
+| Water path — +Y wall of back-top to cold core | IP-02 | Filter, backflow, pump, top-plate port | 10 |
 | Flavor manifold — valves, tees, pumps and channels | IP-03, IP-04 | [10](SOLENOIDS) valves butted collet to collet down the pack's limbs, two peristaltic pumps, two channels | 15 |
 | Risers to the umbilical bulkheads | IP-05 | | 5 |
 | Witness and tidy every joint | IP-06 | The pass that makes the next leak someone else's fault | 5 |
@@ -123,12 +123,12 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Press the [60](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the display plate's pair, the ceiling panel's pair, the nameplate's pair, floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [12](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [56](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
 | Drive the [60](TOTAL_SCREWS) machine screws that close the build | — | [12](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) touch-flo, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [2](DISPLAY_COVER_SCREWS) display plate, [2](CEILING_SCREWS) ceiling panel, [2](NAMEPLATE_SCREWS) nameplate, [4](FLOOR_SCREWS) floor | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
-| Dress the vessel wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
+| Dress the carbonator wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |
-| Lower the vessel; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
+| Lower the carbonator; seat the reservoirs in their pockets | CC-10, CC-11 | | 5 |
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
-| Stage the six printed pieces and the rear wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
-| Seat the cold core; condenser, power column, close the box, drip tray | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
+| Stage the six printed pieces and the +Y wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
+| Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Stage the collet plate and drop it into the bay floor's blind seat, holes forward | EN-01, EN-07 | In through the open pump bay once the box is closed; gravity holds it and the seat takes every other direction | 5 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, install-kit bag | 10 |
 | Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 5 |
@@ -141,7 +141,7 @@ The unit is fully built. Now it gets plugged in for the first time: load the fir
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Check the wiring is right; first DC power-on | FC-01 | | 5 |
-| Load the firmware onto the three ESP32s | FC-02 | Base, config display, faucet display | 5 |
+| Load the firmware onto the three ESP32s | FC-02 | Base, enclosure display, faucet display | 5 |
 | Read every sensor and confirm it reports | FC-03 | Both DS18x20s, flow, moisture, reeds, gas | 10 |
 | Fire every valve and pump; run the compressor and set its setpoints | FC-04, FC-05 | | 10 |
 | First dispenses — water, flavor A, flavor B | AB-03 | | 5 |
@@ -190,7 +190,7 @@ The target is 10 hours attended per unit. Bottom-up this says [10 h](LAB_HM). Wh
 - **Unattended process time** — every hour a machine is busy and nobody is on it. That is its own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which holds the print, the cures and bakes, the hydro and vacuum holds, the passivation soak, the chill-down and the burn-in, and derives turnaround and throughput from them. Nothing there is costed.
 - **Shipping and receiving** — unpacking orders, kitting, inventory.
 - **Design, CAD, firmware and documentation** — this file costs building a unit, not developing one.
-- **Contract labor already capitalized in dollars** — JLCPCB assembly of the controller board, SendCutSend's cutting. Those arrive as parts and are priced in [bom.md](/hardware/ledger/bom.md).
+- **Contract labor already capitalized in dollars** — JLCPCB assembly of the main board, SendCutSend's cutting. Those arrive as parts and are priced in [bom.md](/hardware/ledger/bom.md).
 
 ## Sources
 [value](NAME) texts are updated by:

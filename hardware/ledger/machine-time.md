@@ -82,7 +82,7 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 | Stage | Hours | |
 |---|---:|---|
 | Print every part | [57.1](MT_H_PRINT_WALL) | 2 printers, both on this unit |
-| Build the cold core; pour the foam and let it cure | 8.0 | vessel already done, in parallel with the prints |
+| Build the cold core; pour the foam and let it cure | 8.0 | carbonator already done, in parallel with the prints |
 | Assembly, plumbing, wiring | 8.0 | one working day |
 | Power-on and test | 2.0 | |
 | First fill and chill-down | 1.0 | |
@@ -90,7 +90,7 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 | Finish and pack | 1.0 | |
 | **Turnaround** | **[85.1](MT_H_TURN)** | **[3.5](MT_DAYS_TURN) days** |
 
-Runs in parallel with the print, and so costs no turnaround at all: the whole pressure-vessel chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
+Runs in parallel with the print, and so costs no turnaround at all: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
 A second unit behind the first does not cost another [3.5](MT_DAYS_TURN) days — it costs the bottleneck's [57.1](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 
@@ -103,7 +103,7 @@ A second unit behind the first does not cost another [3.5](MT_DAYS_TURN) days �
    [foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)), enclosure
    exterior 0.4 High Flow (measured,
    [enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)), watertight
-   0.6 (measured, three runs), PET-CF 0.4. The small-parts group — drip pan, plug stack, PRV
+   0.6 (measured, three runs), PET-CF 0.4. The small-parts group — ASSE drip pan, plug stack, PRV
    shroud, reed bridge, fuse clamp — has no print log and no chosen nozzle, so a bead width for
    those parts does not exist in this tree. Two constants stand on one anyway:
    `copper_plugs.min_printable_thickness` = 1.0, whose bound is labelled "Every plug leaves a
