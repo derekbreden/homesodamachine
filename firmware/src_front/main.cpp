@@ -186,10 +186,12 @@ static uint32_t panelDrawErrors = 0;
 static uint32_t frameDoneTimeouts = 0;
 
 // ── Shell geometry ──
-// The rail holds five 82 px customer destinations; the pane takes the
-// remaining 76% of the width.
-#define RAIL_W    190
-#define RAIL_ITEM_H 82
+// The rail fills the screen height between its 8 px top and bottom rims; the
+// pane takes the remaining 76% of the width.
+#define RAIL_W          190
+#define RAIL_INSET_Y      8
+#define RAIL_ITEM_GAP     6
+#define RAIL_ITEM_H      88
 #define PANE_W    (SCREEN_W - RAIL_W)
 #define PANE_PAD  16
 
@@ -208,6 +210,10 @@ enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
 // for a flavor to clean.
 enum RailPage { RAIL_CHOOSE, RAIL_RATIO, RAIL_PRIME, RAIL_CLEAN,
                 RAIL_SETTINGS, RAIL_PAGE_COUNT };
+
+static_assert(2 * RAIL_INSET_Y + RAIL_PAGE_COUNT * RAIL_ITEM_H +
+                  (RAIL_PAGE_COUNT - 1) * RAIL_ITEM_GAP == SCREEN_H,
+              "customer rail must fill the screen height");
 
 static lv_obj_t *pageObj[PAGE_COUNT];
 static lv_obj_t *railBtn[RAIL_PAGE_COUNT];
@@ -2331,7 +2337,7 @@ static void buildRail(lv_obj_t *scr) {
   };
   for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
     lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
-    lv_obj_set_pos(b, 6, 8 + i * (RAIL_ITEM_H + 6));
+    lv_obj_set_pos(b, 6, RAIL_INSET_Y + i * (RAIL_ITEM_H + RAIL_ITEM_GAP));
     lv_obj_set_style_pad_all(b, 6, 0);
     // These carry a selected colour, so a press goes straight to it. A shade in between
     // reads as a slow tween toward a colour the button is about to take anyway, rather
