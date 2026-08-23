@@ -168,6 +168,11 @@ jobs:
           quickstart=false
           quickstart_art=false
           source_only=${SOURCE_ONLY:-false}
+          # `everything` is the normal aggregate rdep beside concrete targets. The selector
+          # emits it alone only when a risky input cannot be scoped to a producer.
+          only_aggregate() {
+            [ "$(sed '/^[[:space:]]*$/d')" = '//:everything' ]
+          }
           if [ "$source_only" = true ] && \
              { [ -n "$REQUESTED" ] || [ "${{ inputs.all }}" = true ]; }; then
             echo "source_only cannot request build targets or a full rebuild" >&2
@@ -253,7 +258,7 @@ jobs:
               if grep -qx '//:quickstart-build' /tmp/quickstart-debt; then
                 quickstart=true
               fi
-              if grep -qx '//:everything' /tmp/quickstart-debt; then
+              if only_aggregate < /tmp/quickstart-debt; then
                 echo "ambiguous Quick Start dependency change; rebuilding both producers" >&2
                 quickstart=true
                 quickstart_art=true
@@ -269,7 +274,7 @@ jobs:
               if grep -qx '//:quickstart-art' /tmp/quickstart-art-debt; then
                 quickstart_art=true
               fi
-              if grep -qx '//:everything' /tmp/quickstart-art-debt; then
+              if only_aggregate < /tmp/quickstart-art-debt; then
                 echo "ambiguous Quick Start artwork dependency change; rebuilding art" >&2
                 quickstart_art=true
               fi
@@ -596,12 +601,20 @@ jobs:
                 exit 0
               fi
 
-              newer_quickstart=$(tools/cad-venv/bin/python tools/bazel/affected.py \
-                --base "$base" --head "$tip" | \
-                grep -E '^//:(quickstart-build|quickstart-art|everything)$' || true)
+              newer_affected=$(tools/cad-venv/bin/python tools/bazel/affected.py \
+                --base "$base" --head "$tip")
+              newer_quickstart=$(grep -E '^//:(quickstart-build|quickstart-art)$' \
+                <<< "$newer_affected" || true)
               if [ -n "$newer_quickstart" ]; then
                 echo "newer Quick Start producer inputs reached main"
-                queue_latest //:quickstart-build
+                mapfile -t newer_quickstart_targets <<< "$newer_quickstart"
+                queue_latest "${newer_quickstart_targets[@]}"
+                exit 0
+              fi
+              if [ "$(sed '/^[[:space:]]*$/d' <<< "$newer_affected")" = \
+                   '//:everything' ]; then
+                echo "newer inputs cannot be scoped to a concrete Quick Start producer"
+                queue_latest
                 exit 0
               fi
 
