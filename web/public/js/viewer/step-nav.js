@@ -25,6 +25,41 @@ function label(file) {
   return file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
 }
 
+// ── The path in the URL ─────────────────────────────────────────────────────
+// THE HASH CARRIES THE WHOLE WALK, outermost first, so a reload or a pasted link
+// lands where it says and with the way back out of it:
+//
+//   #step:manifold-layout%2Fenclosure-assembly.step/cold-core-layout%2Fcold-core-assembly.step
+//
+// Each step is percent-encoded, which takes the `/` out of a path and leaves the
+// separator as the only bare one. A one-step path is a file on its own, which is
+// what every link written before there were paths says and what the Find box and
+// a card still write.
+const STEP_PREFIX = "step:";
+
+export function stepHash(files) {
+  return STEP_PREFIX + files.map(encodeURIComponent).join("/");
+}
+
+const decode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
+
+/** The models a `step:` hash names, outermost first. `raw` is undecoded. */
+export function parseStepHash(raw) {
+  const body = raw.slice(STEP_PREFIX.length);
+  const parts = body.split("/").map(decode);
+  // A hand-typed path that never went through `stepHash` carries bare `/` and
+  // splits into pieces that are not models — it is one file, and it says so by
+  // having a piece that does not end in `.step`.
+  return parts.length > 1 && parts.every((p) => /\.step$/i.test(p)) ? parts : [decode(body)];
+}
+
+// The walk this file is the end of. `files` is outermost first and includes the
+// model being shown.
+export function setTrail(files) {
+  trail = files.slice(0, -1);
+  syncCrumb(files[files.length - 1]);
+}
+
 export function resetTrail(file) {
   trail = [];
   syncCrumb(file);
@@ -94,7 +129,7 @@ async function showStep(file, push) {
   if (!from || file === from) return false;
   saveCameraState(from);
   state.currentDetail = { type: "step", file };
-  if (push) location.hash = "step:" + encodeURIComponent(file);
+  if (push) location.hash = stepHash([...trail, file]);
 
   await loadStepFile(file);
   if (!state.mountedDetail || state.mountedDetail.file !== file) return false;
@@ -116,13 +151,14 @@ export async function drillTo(file) {
 }
 
 // popstate landed on another STEP with this modal already open. Same move, no
-// new history entry — and the trail follows the URL rather than leading it, so
-// forward/back and a hand-edited hash all leave it describing what is shown.
-export async function routeToStep(file) {
-  const at = trail.lastIndexOf(file);
-  if (at >= 0) trail = trail.slice(0, at);
-  else if (trail.length && file !== (state.mountedDetail && state.mountedDetail.file)) trail = [];
+// new history entry — and the trail is taken from the URL rather than guessed
+// against it, so forward, back and a pasted path all leave it describing what
+// is shown. `files` is the whole walk, outermost first.
+export async function routeToStep(files) {
+  const file = files[files.length - 1];
+  trail = files.slice(0, -1);
   await showStep(file, false);
+  syncCrumb(file);
 }
 
 // A file swap that isn't a drill — the Find box jumping to where a pick lives.
@@ -130,6 +166,6 @@ export async function routeToStep(file) {
 export async function jumpToStep(file) {
   trail = [];
   const moved = await showStep(file, false);
-  if (moved) history.replaceState(null, "", "#step:" + encodeURIComponent(file));
+  if (moved) history.replaceState(null, "", "#" + stepHash([file]));
   return moved;
 }
