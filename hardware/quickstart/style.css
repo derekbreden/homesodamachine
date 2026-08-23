@@ -816,6 +816,51 @@ html, body {
 .mount-seat-state .mount-event-state-note { right: 24px; text-align: right; justify-items: end; }
 .mount-event-state-note b { font-size: 20px; line-height: 1; }
 .mount-event-state-note span { color: var(--muted); font-size: 15px; line-height: 1; }
+.mount-seat-lens-leader {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.mount-seat-lens-halo,
+.mount-seat-lens-line {
+  fill: none;
+  stroke-linecap: round;
+}
+.mount-seat-lens-halo { stroke: #fff; stroke-width: 16px; }
+.mount-seat-lens-line { stroke: #70727a; stroke-width: 4px; }
+.mount-seat-lens-dot { fill: var(--accent); stroke: #fff; stroke-width: 5px; }
+.mount-seat-lens {
+  position: absolute;
+  z-index: 5;
+  left: 500px;
+  top: 205px;
+  width: 210px;
+  height: 210px;
+  filter: drop-shadow(0 7px 7px rgba(32, 33, 38, .16));
+  pointer-events: none;
+}
+.mount-seat-lens > span {
+  position: absolute;
+  z-index: 1;
+  top: -21px;
+  left: 0;
+  width: 100%;
+  color: var(--accent);
+  font: 700 14px/1 var(--mono);
+  letter-spacing: .35px;
+  text-align: center;
+}
+.mount-seat-lens > svg { display: block; width: 100%; height: 100%; }
+.lens-rim { fill: #fff; stroke: var(--ink); stroke-width: 9; }
+.lens-hole { fill: #f3f4f5; stroke: #989ba2; stroke-width: 5; }
+.lens-tube { fill: var(--ink); }
+.lens-contact { fill: var(--accent); stroke: #fff; stroke-width: 4; }
+.lens-shank { fill: #3e4046; stroke: var(--ink); stroke-width: 5; }
+.lens-callout { fill: none; stroke: #6e7078; stroke-width: 3; stroke-linecap: round; }
 .mount-event-motion-halo,
 .mount-event-motion-line,
 .mount-action-motion-halo,
