@@ -5987,7 +5987,7 @@ genrule(
     ],
     outs = [
         "out/quickstart-art/hardware/quickstart/art/colors.css",
-        "out/quickstart-art/hardware/quickstart/art/faucet-head.png",
+        "out/quickstart-art/hardware/quickstart/art/faucet-front.png",
         "out/quickstart-art/hardware/quickstart/art/faucet-side-pressed.png",
         "out/quickstart-art/hardware/quickstart/art/faucet-side.png",
         "out/quickstart-art/hardware/quickstart/art/faucet-tails-front.png",
@@ -6013,7 +6013,7 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/colors.css)
-O1=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/faucet-head.png)
+O1=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/faucet-front.png)
 O2=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/faucet-side-pressed.png)
 O3=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/faucet-side.png)
 O4=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/faucet-tails-front.png)
@@ -6051,7 +6051,7 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/quickstart_art.py > /dev/null
 cp hardware/quickstart/art/colors.css $$O0
-cp hardware/quickstart/art/faucet-head.png $$O1
+cp hardware/quickstart/art/faucet-front.png $$O1
 cp hardware/quickstart/art/faucet-side-pressed.png $$O2
 cp hardware/quickstart/art/faucet-side.png $$O3
 cp hardware/quickstart/art/faucet-tails-front.png $$O4
