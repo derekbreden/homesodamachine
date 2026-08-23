@@ -149,6 +149,7 @@ front-face display hangs. What arrives there:
 | `MSG_PRIME_STOP { channel }` | Parks the pin | `MSG_RESP_PRIME { STOPPED, ms }` |
 | `MSG_STATUS_REQ` | Reads uptime, heap, frames, the gas divider | `MSG_RESP_STATUS` |
 | `MSG_CLEAN_START { channel }` | — | `MSG_ERR_UNSUPPORTED` |
+| `MSG_FILL_START { channel }` | — | `MSG_ERR_UNSUPPORTED` |
 
 A prime is the one thing here that outlives the call that started it. `primeService()` runs
 from `loop()` and parks the pin when a tick runs later than `PRIME_TICK_GRACE_MS` (2 s) or
@@ -157,8 +158,8 @@ the hold reaches `PRIME_MAX_MS` (60 s), answering `MSG_RESP_PRIME { TIMEOUT }` o
 `link` names the channel and how long ago its last tick landed. What a run prints still
 goes to the USB console.
 
-`MSG_CLEAN_START` reaches valves the MCP23017 probe deliberately never drives, which is
-what `MSG_ERR_UNSUPPORTED` says.
+`MSG_CLEAN_START` and `MSG_FILL_START` reach valves the MCP23017 probe deliberately never
+drives, which is what `MSG_ERR_UNSUPPORTED` says.
 
 The transport is `HdlcLink` — TinyProto's framing layer with CRC16, no connection and no
 keepalives. `Fd` collides with itself here: two ends transmitting on their own schedules

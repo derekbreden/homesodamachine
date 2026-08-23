@@ -152,7 +152,8 @@ static void onPumpDone(uint8_t channel) {
 // both of which say more than a tick, and a tick underneath them would only be a
 // click getting cut off by the sweep that follows it.
 static bool isUserAction(uint8_t type) {
-    return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_SOUND_CFG_SET;
+    return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
+           type == MSG_SOUND_CFG_SET;
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
@@ -402,11 +403,13 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The clean cycle needs a sequenced manifold operation. This image safely
-    // initializes the MCP23017s, but exposes no runtime valve operation yet.
-    if (type == MSG_CLEAN_START) {
+    // The clean cycle and the hopper fill each need a sequenced manifold
+    // operation. This image safely initializes the MCP23017s, but exposes no
+    // runtime valve operation yet.
+    if (type == MSG_CLEAN_START || type == MSG_FILL_START) {
         link->sendResponse(MSG_ERR_UNSUPPORTED, plen ? payload[0] : 0);
-        Serial.println("\n[J9] MSG_CLEAN_START -> unsupported (no valve drive in this build)");
+        Serial.printf("\n[J9] %s -> unsupported (no valve drive in this build)\n",
+                      type == MSG_CLEAN_START ? "MSG_CLEAN_START" : "MSG_FILL_START");
         return;
     }
 
