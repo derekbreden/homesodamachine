@@ -954,3 +954,154 @@ html, body {
   font-size: 15px;
   line-height: 1;
 }
+
+/* Page 1 is two operations, not four cards. The first keeps the already-proven large lowering
+   pair; the second changes once to a wide, literal under-counter camera and stays there. */
+.mount-operation-head {
+  position: absolute;
+  z-index: 8;
+  left: 24px;
+  top: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.mount-operation-head > div { max-width: 610px; }
+.mount-operation-head > span,
+.mount-secure-head > span {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: #fff;
+  font: 700 25px/1 var(--mono);
+}
+.mount-operation-head h2,
+.mount-secure-head h2 {
+  padding-top: 3px;
+  font-size: 34px;
+  line-height: .98;
+  letter-spacing: -.8px;
+}
+.mount-operation-head h2 { font-size: 30px; }
+.mount-operation-head p,
+.mount-secure-head p {
+  margin-top: 8px;
+  color: var(--muted);
+  font: 700 16px/1 var(--mono);
+  letter-spacing: .35px;
+}
+.mount-event-state-label {
+  position: absolute;
+  z-index: 5;
+  top: 118px;
+  color: var(--muted);
+  font: 700 18px/1 var(--mono);
+  letter-spacing: .8px;
+}
+.mount-drop-state .mount-event-state-label { left: 24px; }
+.mount-seat-state .mount-event-state-label {
+  right: 24px;
+  text-align: right;
+}
+.mount-event-transition-halo,
+.mount-event-transition-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mount-event-transition-halo { stroke: #fff; stroke-width: 16px; }
+.mount-event-transition-line { stroke: #888b92; stroke-width: 5px; }
+.mount-event-transfer marker path {
+  fill: #888b92;
+  stroke: #fff;
+  stroke-width: 2px;
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+}
+
+.mount-secure-operation {
+  position: absolute;
+  left: 58px;
+  top: 812px;
+  width: 2434px;
+  height: 746px;
+  border-top: 2px solid var(--rule);
+}
+.mount-secure-head {
+  height: 94px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 14px 0;
+}
+.mount-secure-flow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 94px;
+  height: 638px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 42px;
+}
+.mount-under-state {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 60px 510px 68px;
+}
+.mount-under-state-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 5px 14px 0;
+}
+.mount-under-state-head > span {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--rule);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background: var(--soft);
+  font: 700 20px/1 var(--mono);
+}
+.mount-under-state-head h3 {
+  padding-top: 5px;
+  font-size: 29px;
+  line-height: .98;
+  letter-spacing: -.55px;
+}
+.mount-under-art {
+  position: relative;
+  overflow: visible;
+  background-color: #fff;
+  background-image: var(--under-image);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+.mount-under-state-note {
+  padding: 15px 14px 0;
+  border-top: 2px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--mono);
+  letter-spacing: .12px;
+}
+.mount-under-state-note b {
+  display: block;
+  font-size: 17px;
+  line-height: 1.1;
+}
+.mount-under-state-note span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
+}
