@@ -51,7 +51,7 @@ M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # reason a clear spool is bought. Neutral rather than blue: PETG's own clear pulls faintly warm.
 M_PETG_TRANSLUCENT = cq.Color(0.88, 0.88, 0.85, 0.35)
 # Bambu TPU 90A black, the one spool every soft seal on this machine prints off (`ledger/bom.md`
-# §8) — the display ring, the faucet's mounting gasket and its o-ring.
+# §8) — the display ring, the above-counter gasket and the faucet's o-ring.
 M_TPU_BLACK = cq.Color(0.15, 0.15, 0.15)
 # Platinum-cure silicone at BBDINO's carbon-black pigment, ≤2% by weight (`ledger/bom.md` §8).
 M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
@@ -167,8 +167,8 @@ C_PUMP_MOTOR = cq.Color(0.74, 0.76, 0.80)
 
 # --- the faucet's own bodies ---------------------------------------------------
 # `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them.
-# Polymaker Fiberon PET-CF17, the faucet stack's own stock (`ledger/bom.md` §7) — the shell's three
-# pieces and the mounting plate. Carbon fill takes the gloss off, so it stands a shade lighter than
+# Polymaker Fiberon PET-CF17, the faucet's own stock (`ledger/bom.md` §7) — the faucet shell's
+# three pieces and the above-counter plate. Carbon fill takes the gloss off, so it stands a shade lighter than
 # the PETG black the box is printed in and reads matte beside the donor's matte-black metal.
 C_PETCF_BLACK = cq.Color(0.19, 0.19, 0.20)
 # The Westbrass A2031-NL-62 / R2031-NL-62 donor body inside that shell, which the BOM buys in
