@@ -5,7 +5,7 @@ B07XGZSYJV), used **2× per appliance**: relay #1 switches the compressor's
 120 VAC hot leg, relay #2 gates 12 V to the SeaFlo diaphragm pump. Relay #1 bolts
 through its PCB's four holes to four printed bosses on the enclosure's +X wall,
 stacked over the PSU's crown; relay #2 has no station yet (see
-[`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) Open items).
+[`power-column.md`](/hardware/assembly/power-column.md) Open items).
 SRD-style SPDT relay, 10 A @ 250 VAC; 3.3 V coil.
 
 `teyleten-relay.step` is a generated stand-in. It's a generic reseller board with

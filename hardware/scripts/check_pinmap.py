@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """check_pinmap.py — drift guard for the canonical pin map.
 
-The controller PCB (`hardware/pcb/pcba/pcba.tsx`) is the canonical source of truth
+The main board (`hardware/pcb/pcba/pcba.tsx`) is the canonical source of truth
 for the ESP32 GPIO / MCP-bank pin map (see `hardware/pcb/README.md`). The pinout
 diagram, the assembly doc-sync drivers, and the BOM are DERIVED views. They are
 hand-maintained, so they drift — and that drift is exactly what left the piezo
@@ -9,9 +9,9 @@ buzzer and the MQ-6 gas sensor wired to nothing, the condenser fan unlabeled, th
 compressor relay documented on the 1-wire pin, and the carbonator reeds on the
 wrong MCP bits.
 
-This check reads the board, then FAILS (exit 1) if a derived artifact disagrees:
+This check reads the main board, then FAILS (exit 1) if a derived artifact disagrees:
 
-  1. PINOUT COVERAGE — every ESP32 GPIO the board actually uses is documented in
+  1. PINOUT COVERAGE — every ESP32 GPIO the main board actually uses is documented in
      esp32-pinout.mmd, and every non-"free" documented GPIO is actually on the
      board. (Catches the piezo/gas failure: a board pin absent from the docs, and
      phantom pins documented but unbuilt.)
@@ -19,7 +19,7 @@ This check reads the board, then FAILS (exit 1) if a derived artifact disagrees:
      the role the pinout assigns. (Catches `relay_compressor_gpio = 14`, i.e. the
      compressor relay pointed at the 1-wire pin.)
   3. BOM <-> BOARD CROSS-TABLE — every tracked electrical function is present in
-     BOTH the board and the BOM; and any electrical-looking BOM line not in the
+     BOTH the main board and the BOM; and any electrical-looking BOM line not in the
      cross-table is flagged as untracked (the piezo failure mode: a bought part
      with no pin/pad). New electrical parts must be added to CROSS below.
 
@@ -70,9 +70,9 @@ doc_gpios = set(doc_roles)
 free_gpios = {int(n) for n in re.findall(r"GPIO (\d+)\s*-\s*free", pinout)}
 
 for g in sorted(board_gpios - doc_gpios):
-    fail(f"GPIO{g}: used on the board (pcba.tsx) but NOT documented in esp32-pinout.mmd")
+    fail(f"GPIO{g}: used on the main board (pcba.tsx) but NOT documented in esp32-pinout.mmd")
 for g in sorted(doc_gpios - board_gpios - free_gpios):
-    fail(f"GPIO{g}: documented in esp32-pinout.mmd (role {doc_roles[g]!r}) but NOT used on the board")
+    fail(f"GPIO{g}: documented in esp32-pinout.mmd (role {doc_roles[g]!r}) but NOT used on the main board")
 
 # ── 2. Sync-driver role checks ────────────────────────────────────────────
 def pyval(text: str, var: str):
@@ -106,7 +106,7 @@ for text, var, kw in SYNC_CHECKS:
 
 # ── 3. BOM <-> board cross-table ──────────────────────────────────────────
 # Every controller-facing function: (name, pcba.tsx marker regex, bom.md marker
-# regex). The marker must be present in BOTH the board and the BOM. Add a new
+# regex). The marker must be present in BOTH the main board and the BOM. Add a new
 # pin-driven part here when you add it to the BOM.
 CROSS = [
     ("piezo buzzer",        r"U8\._NEG",         r"[Pp]iezo|[Bb]uzzer"),
@@ -126,7 +126,7 @@ CROSS = [
 ]
 for name, mk, bk in CROSS:
     if not re.search(mk, board):
-        fail(f"cross-table: {name!r} expected on the board (pcba.tsx /{mk}/) — not found")
+        fail(f"cross-table: {name!r} expected on the main board (pcba.tsx /{mk}/) — not found")
     if not re.search(bk, bom):
         fail(f"cross-table: {name!r} expected in the BOM (/{bk}/) — not found")
 
@@ -168,8 +168,8 @@ print(f"board GPIOs in use: {len(board_gpios)} | documented: {len(doc_gpios)} "
 for n in notes:
     print(f"  note: {n}")
 if failures:
-    print(f"\nDRIFT: {len(failures)} mismatch(es) between the board and a derived artifact:")
+    print(f"\nDRIFT: {len(failures)} mismatch(es) between the main board and a derived artifact:")
     for f in failures:
         print(f"  ✗ {f}")
     sys.exit(1)
-print("\n✓ pin map in sync: pinout, sync drivers, and BOM all agree with the board.")
+print("\n✓ pin map in sync: pinout, sync drivers, and BOM all agree with the main board.")

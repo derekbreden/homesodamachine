@@ -1,5 +1,5 @@
 {
-  "/hardware/assembly/_electronics_shelf_sync.py": {
+  "/hardware/assembly/_power_column_sync.py": {
     "COMP_LEAD_LEN": "~400 mm",
     "MAIN_BOARD_SIZE": "85 \u00d7 72.8 mm",
     "PIGTAIL_INLET": "~150 mm",

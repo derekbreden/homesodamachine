@@ -152,7 +152,7 @@ def gather(whole=None, module=None):
         bb = _boxes.boxed(wp.val() if hasattr(wp, "val") else wp)
         piece_boxes[name] = {"box": [bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax]}
 
-    union = ea.back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
+    union = ea.y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
     co2 = ea.co2_wall_port(a.co2_inlet_carry)
 
     gaps = {}
@@ -198,7 +198,7 @@ def gather(whole=None, module=None):
                         for n, (_pos, _ax, _d) in _fr.ports.items()}
 
     # The mouth a bulkhead presents, carried to where the machine stands it — the same station
-    # `back_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
+    # `y_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
     import jg_bulkhead_union as _jg
     mouths = {}
     if hasattr(a, "bulkhead_carry"):
@@ -236,7 +236,7 @@ def gather(whole=None, module=None):
 
     # WHAT A DRIVER WOULD IMPORT THE CAD TO READ. These are module-level and cost no build,
     # but reaching them means loading cadquery and the forty modules behind it — which is the
-    # whole of what `_electronics_shelf_sync` pays to learn how many poles a Wago row has.
+    # whole of what `_power_column_sync` pays to learn how many poles a Wago row has.
     constants = {
         "C14_STATION": _plain(ea.C14_STATION),
         "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),
@@ -253,7 +253,7 @@ def gather(whole=None, module=None):
     # Derived off the box, by the functions that derive them. A driver that recomputed any of
     # these would be keeping a second copy of the rule.
     z_stations = _plain(_enc._z_stations(box.inner, box.y_joint))
-    hopper_hole = _plain(_enc._hopper_hole(box.funnel))
+    hopper_hole = _plain(_enc._funnel_hole(box.funnel))
 
     return {
         "schema": SCHEMA,
@@ -270,11 +270,11 @@ def gather(whole=None, module=None):
         "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
         # What the two plate generators draw from. Both read their bodies out of a placed
         # machine by name, so they take this one rather than standing a second.
-        "valve_panels": _plain(ea.valve_panel_plans(whole)),
+        "valve_trays": _plain(ea.valve_tray_plans(whole)),
         # And the decks as the WALL is handed them — plane, which way the valves' own +Z runs
         # off it, and the seats. The plans above are what a plate is DRAWN from, in the plate's
         # own frame; these are where the box stands one.
-        "valve_panel_stations": _plain(ea.valve_panel_stations(whole.pack.placed)),
+        "valve_tray_stations": _plain(ea.valve_tray_stations(whole.pack.placed)),
         "pump_trays": _plain(ea.pump_tray_plans(whole, box)),
         "pack": {
             "placed": sorted(whole.pack.placed),
@@ -381,20 +381,20 @@ class Facts:
         return {k: _Row(v) for k, v in self._f["pieces"].items()}
 
     @property
-    def valve_panels(self):
-        """`name -> (width, ((u, v), …))`, as `enclosure_assembly.valve_panel_plans` reads it."""
+    def valve_trays(self):
+        """`name -> (width, ((u, v), …))`, as `enclosure_assembly.valve_tray_plans` reads it."""
         return {k: (w, tuple(tuple(s) for s in seats))
-                for k, (w, seats) in self._f["valve_panels"].items()}
+                for k, (w, seats) in self._f["valve_trays"].items()}
 
     @property
-    def valve_panel_stations(self):
+    def valve_tray_stations(self):
         """`(plane, sign, ((x, z), …))` per deck, as `enclosure.Box.valve_trays` is.
 
         What the plans cannot carry: the world plane a deck's valves stand their mounting
         faces on, and which way their own +Z runs off it. A valve seats the same way on
         either deck, so there is nothing per-deck beyond where it stands."""
         return tuple((p, g, tuple(tuple(t) for t in seats))
-                     for p, g, seats in self._f["valve_panel_stations"])
+                     for p, g, seats in self._f["valve_tray_stations"])
 
     @property
     def pump_trays(self):

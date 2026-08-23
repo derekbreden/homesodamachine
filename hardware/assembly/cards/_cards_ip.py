@@ -82,7 +82,7 @@ def internal_plumbing(m):
     for conduit in ("co2-in", "water-in", "carb-water-out"):
         assert port("foam-assembly", conduit)[1] == UP, (
             f"the core's `{conduit}` no longer opens upward — IP-01/IP-02/IP-05 lay a tube end "
-            f"into it from the deck the electronics shelf stands on")
+            f"into it from the deck the power column stands on")
 
     # ── the water path (IP-02) ─────────────────────────────────────────────
     # THERE IS NO `water-1`. The bulkhead's inboard collet and the ASSE chain's

@@ -189,10 +189,10 @@ cp hardware/printed-parts/cold-core/_port_cuts.py $$O2
 )
 
 genrule(
-    name = "electronics-shelf-sync",
+    name = "power-column-sync",
     srcs = [
-        "pysrc/hardware/assembly/_electronics_shelf_sync.py",
-        "hardware/assembly/electronics-shelf.md",
+        "pysrc/hardware/assembly/_power_column_sync.py",
+        "hardware/assembly/power-column.md",
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
@@ -285,18 +285,18 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
-            "hardware/assembly/electronics-shelf.figures.json",
+            "hardware/assembly/power-column.figures.json",
         ],
         allow_empty = True,
     ),
     outs = [
-        "out/electronics-shelf-sync/hardware/assembly/electronics-shelf.figures.json",
-        "out/electronics-shelf-sync/hardware/assembly/electronics-shelf.md",
+        "out/power-column-sync/hardware/assembly/power-column.figures.json",
+        "out/power-column-sync/hardware/assembly/power-column.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/electronics-shelf-sync/hardware/assembly/electronics-shelf.figures.json)
-O1=$$PWD/$(location out/electronics-shelf-sync/hardware/assembly/electronics-shelf.md)
+O0=$$PWD/$(location out/power-column-sync/hardware/assembly/power-column.figures.json)
+O1=$$PWD/$(location out/power-column-sync/hardware/assembly/power-column.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -312,9 +312,9 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_electronics_shelf_sync.py > /dev/null
-cp hardware/assembly/electronics-shelf.figures.json $$O0
-cp hardware/assembly/electronics-shelf.md $$O1
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_power_column_sync.py > /dev/null
+cp hardware/assembly/power-column.figures.json $$O0
+cp hardware/assembly/power-column.md $$O1
 """,
 )
 
@@ -1014,13 +1014,13 @@ genrule(
         "hardware/assembly/cards/en-07-close-the-box.html",
         "hardware/assembly/cards/en-08-drip-tray.html",
         "hardware/assembly/cards/en-09-display-and-hopper.html",
-        "hardware/assembly/cards/es-01-prepare-the-shelf.html",
-        "hardware/assembly/cards/es-02-stage-ac-distribution.html",
-        "hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
-        "hardware/assembly/cards/es-04-land-ac-pigtails.html",
-        "hardware/assembly/cards/es-05-stage-dc-distribution.html",
-        "hardware/assembly/cards/es-06-land-relays-j5-loom.html",
-        "hardware/assembly/cards/es-07-pre-power-checks.html",
+        "hardware/assembly/cards/pc-01-prepare-the-wall.html",
+        "hardware/assembly/cards/pc-02-stage-ac-distribution.html",
+        "hardware/assembly/cards/pc-03-stage-psu-relays-board.html",
+        "hardware/assembly/cards/pc-04-land-ac-pigtails.html",
+        "hardware/assembly/cards/pc-05-stage-dc-distribution.html",
+        "hardware/assembly/cards/pc-06-land-relays-j5-loom.html",
+        "hardware/assembly/cards/pc-07-pre-power-checks.html",
         "hardware/assembly/cards/fc-01-first-dc-power-on.html",
         "hardware/assembly/cards/fc-02-flash-three-esp32s.html",
         "hardware/assembly/cards/fc-03-sensor-health.html",
@@ -1075,8 +1075,8 @@ genrule(
         ":out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
-        ":out/render-scene-cards/hardware/assembly/cards/img/es01-wall-bosses.png",
-        ":out/render-scene-cards/hardware/assembly/cards/img/es01-wall-bosses.png.scene.json",
+        ":out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png",
+        ":out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png",
         ":out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json",
         ":out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png",
@@ -1429,20 +1429,20 @@ genrule(
         "out/cards-build/hardware/assembly/cards/out/en-08-drip-tray.png",
         "out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.pdf",
         "out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.png",
-        "out/cards-build/hardware/assembly/cards/out/es-01-prepare-the-shelf.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-01-prepare-the-shelf.png",
-        "out/cards-build/hardware/assembly/cards/out/es-02-stage-ac-distribution.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-02-stage-ac-distribution.png",
-        "out/cards-build/hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.png",
-        "out/cards-build/hardware/assembly/cards/out/es-04-land-ac-pigtails.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-04-land-ac-pigtails.png",
-        "out/cards-build/hardware/assembly/cards/out/es-05-stage-dc-distribution.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-05-stage-dc-distribution.png",
-        "out/cards-build/hardware/assembly/cards/out/es-06-land-relays-j5-loom.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-06-land-relays-j5-loom.png",
-        "out/cards-build/hardware/assembly/cards/out/es-07-pre-power-checks.pdf",
-        "out/cards-build/hardware/assembly/cards/out/es-07-pre-power-checks.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.png",
+        "out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.pdf",
+        "out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.png",
         "out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf",
         "out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.png",
         "out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf",
@@ -1591,8 +1591,8 @@ genrule(
         "out/cards-build/hardware/assembly/cards/en-06-power-column.html",
         "out/cards-build/hardware/assembly/cards/en-07-close-the-box.html",
         "out/cards-build/hardware/assembly/cards/en-09-display-and-hopper.html",
-        "out/cards-build/hardware/assembly/cards/es-01-prepare-the-shelf.html",
-        "out/cards-build/hardware/assembly/cards/es-03-stage-psu-relays-pcba.html",
+        "out/cards-build/hardware/assembly/cards/pc-01-prepare-the-wall.html",
+        "out/cards-build/hardware/assembly/cards/pc-03-stage-psu-relays-board.html",
         "out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html",
         "out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html",
         "out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html",
@@ -1708,20 +1708,20 @@ O67=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-drip-tray
 O68=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-08-drip-tray.png)
 O69=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.pdf)
 O70=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/en-09-display-and-hopper.png)
-O71=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-01-prepare-the-shelf.pdf)
-O72=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-01-prepare-the-shelf.png)
-O73=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-02-stage-ac-distribution.pdf)
-O74=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-02-stage-ac-distribution.png)
-O75=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.pdf)
-O76=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.png)
-O77=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-04-land-ac-pigtails.pdf)
-O78=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-04-land-ac-pigtails.png)
-O79=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-05-stage-dc-distribution.pdf)
-O80=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-05-stage-dc-distribution.png)
-O81=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-06-land-relays-j5-loom.pdf)
-O82=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-06-land-relays-j5-loom.png)
-O83=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-07-pre-power-checks.pdf)
-O84=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/es-07-pre-power-checks.png)
+O71=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf)
+O72=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-01-prepare-the-wall.png)
+O73=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf)
+O74=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-02-stage-ac-distribution.png)
+O75=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.pdf)
+O76=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-03-stage-psu-relays-board.png)
+O77=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.pdf)
+O78=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-04-land-ac-pigtails.png)
+O79=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.pdf)
+O80=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-05-stage-dc-distribution.png)
+O81=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.pdf)
+O82=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-06-land-relays-j5-loom.png)
+O83=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.pdf)
+O84=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/pc-07-pre-power-checks.png)
 O85=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf)
 O86=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-01-first-dc-power-on.png)
 O87=$$PWD/$(location out/cards-build/hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf)
@@ -1870,8 +1870,8 @@ O229=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-05-seat-cold-co
 O230=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-06-power-column.html)
 O231=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-07-close-the-box.html)
 O232=$$PWD/$(location out/cards-build/hardware/assembly/cards/en-09-display-and-hopper.html)
-O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/es-01-prepare-the-shelf.html)
-O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/es-03-stage-psu-relays-pcba.html)
+O233=$$PWD/$(location out/cards-build/hardware/assembly/cards/pc-01-prepare-the-wall.html)
+O234=$$PWD/$(location out/cards-build/hardware/assembly/cards/pc-03-stage-psu-relays-board.html)
 O235=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-01-first-dc-power-on.html)
 O236=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-03-sensor-health.html)
 O237=$$PWD/$(location out/cards-build/hardware/assembly/cards/fc-04-valve-pump-self-test.html)
@@ -2000,20 +2000,20 @@ cp hardware/assembly/cards/out/en-08-drip-tray.pdf $$O67
 cp hardware/assembly/cards/out/en-08-drip-tray.png $$O68
 cp hardware/assembly/cards/out/en-09-display-and-hopper.pdf $$O69
 cp hardware/assembly/cards/out/en-09-display-and-hopper.png $$O70
-cp hardware/assembly/cards/out/es-01-prepare-the-shelf.pdf $$O71
-cp hardware/assembly/cards/out/es-01-prepare-the-shelf.png $$O72
-cp hardware/assembly/cards/out/es-02-stage-ac-distribution.pdf $$O73
-cp hardware/assembly/cards/out/es-02-stage-ac-distribution.png $$O74
-cp hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.pdf $$O75
-cp hardware/assembly/cards/out/es-03-stage-psu-relays-pcba.png $$O76
-cp hardware/assembly/cards/out/es-04-land-ac-pigtails.pdf $$O77
-cp hardware/assembly/cards/out/es-04-land-ac-pigtails.png $$O78
-cp hardware/assembly/cards/out/es-05-stage-dc-distribution.pdf $$O79
-cp hardware/assembly/cards/out/es-05-stage-dc-distribution.png $$O80
-cp hardware/assembly/cards/out/es-06-land-relays-j5-loom.pdf $$O81
-cp hardware/assembly/cards/out/es-06-land-relays-j5-loom.png $$O82
-cp hardware/assembly/cards/out/es-07-pre-power-checks.pdf $$O83
-cp hardware/assembly/cards/out/es-07-pre-power-checks.png $$O84
+cp hardware/assembly/cards/out/pc-01-prepare-the-wall.pdf $$O71
+cp hardware/assembly/cards/out/pc-01-prepare-the-wall.png $$O72
+cp hardware/assembly/cards/out/pc-02-stage-ac-distribution.pdf $$O73
+cp hardware/assembly/cards/out/pc-02-stage-ac-distribution.png $$O74
+cp hardware/assembly/cards/out/pc-03-stage-psu-relays-board.pdf $$O75
+cp hardware/assembly/cards/out/pc-03-stage-psu-relays-board.png $$O76
+cp hardware/assembly/cards/out/pc-04-land-ac-pigtails.pdf $$O77
+cp hardware/assembly/cards/out/pc-04-land-ac-pigtails.png $$O78
+cp hardware/assembly/cards/out/pc-05-stage-dc-distribution.pdf $$O79
+cp hardware/assembly/cards/out/pc-05-stage-dc-distribution.png $$O80
+cp hardware/assembly/cards/out/pc-06-land-relays-j5-loom.pdf $$O81
+cp hardware/assembly/cards/out/pc-06-land-relays-j5-loom.png $$O82
+cp hardware/assembly/cards/out/pc-07-pre-power-checks.pdf $$O83
+cp hardware/assembly/cards/out/pc-07-pre-power-checks.png $$O84
 cp hardware/assembly/cards/out/fc-01-first-dc-power-on.pdf $$O85
 cp hardware/assembly/cards/out/fc-01-first-dc-power-on.png $$O86
 cp hardware/assembly/cards/out/fc-02-flash-three-esp32s.pdf $$O87
@@ -2162,8 +2162,8 @@ cp hardware/assembly/cards/en-05-seat-cold-core.html $$O229
 cp hardware/assembly/cards/en-06-power-column.html $$O230
 cp hardware/assembly/cards/en-07-close-the-box.html $$O231
 cp hardware/assembly/cards/en-09-display-and-hopper.html $$O232
-cp hardware/assembly/cards/es-01-prepare-the-shelf.html $$O233
-cp hardware/assembly/cards/es-03-stage-psu-relays-pcba.html $$O234
+cp hardware/assembly/cards/pc-01-prepare-the-wall.html $$O233
+cp hardware/assembly/cards/pc-03-stage-psu-relays-board.html $$O234
 cp hardware/assembly/cards/fc-01-first-dc-power-on.html $$O235
 cp hardware/assembly/cards/fc-03-sensor-health.html $$O236
 cp hardware/assembly/cards/fc-04-valve-pump-self-test.html $$O237
@@ -2588,8 +2588,8 @@ genrule(
             "hardware/assembly/cards/img/en09-hopper.png.scene.json",
             "hardware/assembly/cards/img/enclosure-assembly.png",
             "hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
-            "hardware/assembly/cards/img/es01-wall-bosses.png",
-            "hardware/assembly/cards/img/es01-wall-bosses.png.scene.json",
+            "hardware/assembly/cards/img/pc01-wall-bosses.png",
+            "hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json",
             "hardware/assembly/cards/img/foam-assembly-stack.png",
             "hardware/assembly/cards/img/foam-assembly-stack.png.scene.json",
             "hardware/assembly/cards/img/foam-cap-top.png",
@@ -2660,8 +2660,8 @@ genrule(
         "out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png",
         "out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json",
-        "out/render-scene-cards/hardware/assembly/cards/img/es01-wall-bosses.png",
-        "out/render-scene-cards/hardware/assembly/cards/img/es01-wall-bosses.png.scene.json",
+        "out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png",
+        "out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png",
         "out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json",
         "out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png",
@@ -2732,8 +2732,8 @@ O20=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-hop
 O21=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/en09-hopper.png.scene.json)
 O22=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png)
 O23=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/enclosure-assembly.png.scene.json)
-O24=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/es01-wall-bosses.png)
-O25=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/es01-wall-bosses.png.scene.json)
+O24=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png)
+O25=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json)
 O26=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png)
 O27=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-assembly-stack.png.scene.json)
 O28=$$PWD/$(location out/render-scene-cards/hardware/assembly/cards/img/foam-cap-top.png)
@@ -2816,8 +2816,8 @@ cp hardware/assembly/cards/img/en09-hopper.png $$O20
 cp hardware/assembly/cards/img/en09-hopper.png.scene.json $$O21
 cp hardware/assembly/cards/img/enclosure-assembly.png $$O22
 cp hardware/assembly/cards/img/enclosure-assembly.png.scene.json $$O23
-cp hardware/assembly/cards/img/es01-wall-bosses.png $$O24
-cp hardware/assembly/cards/img/es01-wall-bosses.png.scene.json $$O25
+cp hardware/assembly/cards/img/pc01-wall-bosses.png $$O24
+cp hardware/assembly/cards/img/pc01-wall-bosses.png.scene.json $$O25
 cp hardware/assembly/cards/img/foam-assembly-stack.png $$O26
 cp hardware/assembly/cards/img/foam-assembly-stack.png.scene.json $$O27
 cp hardware/assembly/cards/img/foam-cap-top.png $$O28
@@ -8042,8 +8042,8 @@ genrule(
 
 genrule(
     name = "pysrc-b354827e15b4",
-    srcs = ["hardware/assembly/_electronics_shelf_sync.py"],
-    outs = ["pysrc/hardware/assembly/_electronics_shelf_sync.py"],
+    srcs = ["hardware/assembly/_power_column_sync.py"],
+    outs = ["pysrc/hardware/assembly/_power_column_sync.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -14015,7 +14015,7 @@ filegroup(
         ":acceptance-and-burn-in-sync",
         ":cable-assemblies-sync",
         ":cold-core-sync",
-        ":electronics-shelf-sync",
+        ":power-column-sync",
         ":enclosure-mechanical-sync",
         ":faucet-and-umbilical-sync",
         ":finish-pack-ship-sync",
