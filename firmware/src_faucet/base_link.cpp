@@ -225,6 +225,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_RESP_FLAVOR_ART && plen >= sizeof(FlavorArtPayload)) {
+    FlavorArtPayload art;
+    memcpy(&art, payload, sizeof(art));
+    faucetApplyFlavorArt(art.art);
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_STATE && plen >= sizeof(FlavorStatePayload)) {
     FlavorStatePayload state;
     memcpy(&state, payload, sizeof(state));

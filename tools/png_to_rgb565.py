@@ -20,8 +20,9 @@ RP_DIR = PROJECT / "firmware" / "src_display"
 FAUCET_DIR = PROJECT / "firmware" / "src_faucet" / "images"
 FRONT_DIR = PROJECT / "firmware" / "src_front" / "images"
 
-# The front face picks a flavor's artwork from every logo here, so each one needs
-# both the 240 it shows on a Choose card and the 96 it shows in the picker grid.
+# A channel can be given any logo here, and all three glasses render whichever it
+# wears — so every logo needs the 240 a Choose card shows, the 96 the picker grid
+# shows, the 128x115 the round display shows, and the 172x320 the faucet shows.
 THUMB = 96
 
 # (source png, label, S3 var [240×240], RP2040 var [128×115], faucet var [172×320],
@@ -29,8 +30,8 @@ THUMB = 96
 FLAVORS = [
     ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet", "flavor0_thumb"),
     ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet", "flavor1_thumb"),
-    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", None, "flavor2_thumb"),
-    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", None, "flavor3_thumb"),
+    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", "flavor2_faucet", "flavor2_thumb"),
+    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", "flavor3_faucet", "flavor3_thumb"),
 ]
 
 

@@ -310,6 +310,7 @@ static unsigned long bootLockMaxUntil = 0;
 // home for the choice is the controller, which is where the faucet's own
 // selection already lives.
 static uint8_t flavorImage[2] = {0, 1};
+static bool flavorArtAsked = false;
 
 static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
@@ -1205,6 +1206,12 @@ static void flavorLinkService() {
                                              : FLAVOR_QUERY_ACTIVE_MS;
   if (now - flavorQueryQueuedMs < interval || outCount >= OUT_Q_DEPTH / 2) return;
   j9Post(MSG_FLAVOR_QUERY, nullptr, 0);
+  // Asked once per link session; the controller republishes on every change,
+  // so a second ask would only crowd a pair that is already telling us.
+  if (!flavorArtAsked) {
+    j9Post(MSG_FLAVOR_ART_QUERY, nullptr, 0);
+    flavorArtAsked = true;
+  }
   flavorQueryQueuedMs = now;
   flavorQueryOutstanding = true;
 }
@@ -1292,6 +1299,20 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     usbReattachPending = true;
     usbReattachAt = millis() + 100;
     Serial.println("[J9] USB reattach accepted — deep-sleep detach in 100 ms");
+    return;
+  }
+
+  if (type == MSG_RESP_FLAVOR_ART && plen >= sizeof(FlavorArtPayload)) {
+    FlavorArtPayload art;
+    memcpy(&art, payload, sizeof(art));
+    bool moved = false;
+    for (uint8_t i = 0; i < 2; i++) {
+      if (art.art[i] < FLAVOR_IMAGE_COUNT && flavorImage[i] != art.art[i]) {
+        flavorImage[i] = art.art[i];
+        moved = true;
+      }
+    }
+    if (moved && uiReady) refreshFlavorImages();
     return;
   }
 
@@ -1587,6 +1608,13 @@ static void setFillMsg(const char *s)  { if (fillMsg)  lv_label_set_text(fillMsg
 
 // Both surfaces a logo choice reaches: the Choose card that wears it, and the
 // grid marking which one this flavor is on.
+// The controller owns the pair and persists it; this states what the glass now
+// wants and takes back whatever the controller ends up holding.
+static void sendFlavorArt() {
+  FlavorArtPayload art{{flavorImage[0], flavorImage[1]}};
+  j9Post(MSG_FLAVOR_ART_SET, &art, sizeof(art));
+}
+
 static void refreshFlavorImages() {
   for (uint8_t i = 0; i < 2; i++) {
     if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], &flavorArt[flavorImage[i]]);
@@ -2326,6 +2354,7 @@ static void imagePickCb(lv_event_t *e) {
   if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return;
   flavorImage[flavorSel] = img;
   refreshFlavorImages();
+  sendFlavorArt();
 }
 
 static void cleanPickCb(lv_event_t *e) {
@@ -3023,6 +3052,7 @@ static void processTextLine(const char *line) {
         }
         flavorImage[flavorSel] = (uint8_t)img;
         refreshFlavorImages();
+        sendFlavorArt();
       }
       Serial.printf("OK:EDIT=%d,img=%u\n", f, flavorImage[flavorSel]);
     }
