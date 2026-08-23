@@ -2,7 +2,7 @@
 
 **The pump case with its cylinder cut off.** [`pump_case.py`](/hardware/printed-parts/enclosure/pump-tray/pump_case.py) draws a two-piece case for the Kamoer — the body this tray is cut from, and no part of its own; its base is a plate on the pump head's crown, a 45° ramp off that plate, an octagonal bore wall standing in the ramp, and a cylindrical tower over the bore that the motor can turns in. Cut the tower off above the bore, cut down to one [3](SHOULDER) mm shoulder over it, and what is left is the tray — the same four surfaces, conforming to the same pump.
 
-**It is not a part.** It is the pump cartridge's own material (`enclosure.build_cartridge`), fused onto the deck that slides out of the front bay — one per pump, off the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the cartridge face's own pump relief. Nothing ships under a pump and nothing is billed for one.
+**It is not a part.** It is the pump cartridge's own material (`enclosure.build_pump_cartridge`), fused onto the deck that slides out of the front bay — one per pump, off the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the cartridge face's own pump relief. Nothing ships under a pump and nothing is billed for one.
 
 The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Each gets a tray: [2](TRAY_COUNT) per machine.
 

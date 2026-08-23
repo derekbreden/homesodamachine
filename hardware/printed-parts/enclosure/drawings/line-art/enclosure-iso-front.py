@@ -7,7 +7,7 @@ face (+X), and top face (+Z) are all visible. The top face sits at the
 top of the image, with the front and right faces in the lower half.
 
 What this view carries: the 45° display facet across the top-front arris, the
-hopper throat through the top wall — and a FRONT FACE WITH NOTHING ON IT, which
+funnel's throat through the top wall — and a FRONT FACE WITH NOTHING ON IT, which
 is the whole of what the front of this machine has.
 
 Companion drawing: enclosure-iso-back.py — same geometry, view from (+Y).

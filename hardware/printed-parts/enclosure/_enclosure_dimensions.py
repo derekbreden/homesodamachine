@@ -127,7 +127,7 @@ BACK_Z_SEAM = _BOX["splits"][1]
 BACK_BOTTOM_H = _F.pieces["back-bottom"]["box"][5] - _F.pieces["back-bottom"]["box"][2]
 BED_Z = enclosure.H2C_Z
 
-# --- what crosses the back wall --------------------------------------------
+# --- what crosses the +Y wall of back-top ----------------------------------
 # Each read off the union's own inboard collet, which is the station `enclosure_assembly`'s
 # `y_wall_ports` strikes its bore on.
 PORT_ROW_Z = _bb("bulkhead-carb").zmin + (_bb("bulkhead-carb").zlen / 2.0)
@@ -194,7 +194,7 @@ def main():
         "BACK_Z_SEAM": f"{BACK_Z_SEAM:.4g}",
         "BACK_BOTTOM_H": f"{BACK_BOTTOM_H:.4g}",
         "BED_Z": f"{BED_Z:.4g}",
-        # The back wall's own row.
+        # The +Y wall of back-top's own row.
         "PORT_ROW_Z": f"{PORT_ROW_Z:.4g}",
         "WATER_PORT_Z": f"{WATER_PORT_Z:.4g}",
         "PANEL_PITCH": f"{PANEL_PITCH:.4g} mm",

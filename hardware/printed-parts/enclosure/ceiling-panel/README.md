@@ -9,7 +9,7 @@ surface; all structural pockets open upward during printing.
 The piece it closes prints MOUTH-DOWN on its seam rim with the build axis +Z and
 stands [195 mm](PIECE_H) on that rim, so a ceiling printed in back-top is a roof
 laid down the whole of that height over the open service bay. front-top's
-ceiling is two corbelled side strips with the hopper throat as the void between
+ceiling is two corbelled side strips with the funnel's throat as the void between
 them; back-top has no throat of its own, and this is what fills it.
 Box framing: [`../enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md).
 
@@ -39,7 +39,7 @@ states about itself.
 
 The load path is a continuous [8 mm](STRUCTURAL_T) plate, not a thin lid with a
 single directional brace. Its envelope absorbs all but 1.25 mm of the two
-retention-insert sockets and the upper roots of the DIGITEN saddles and tube
+retention-insert sockets and the upper roots of the flow-meter anchors and tube
 anchors. The existing print profile uses four top shells, three bottom shells
 and 15% grid infill, so the CAD envelope is not a solid 8 mm billet.
 
@@ -106,7 +106,7 @@ Two [M3x10](SCREW_LEN) socket caps pin the fore end against the slide, at x =
 direction and travels +Z.** Its head is in a downward-open counterbore in
 back-top's fixed boss; its thread lands in a heat-set inserted upward into this
 panel from the same Z− face. Nothing pierces or counterbores the appliance's
-show face. Aft of them the tongues hold the panel down and the back wall holds
+show face. Aft of them the tongues hold the panel down and the +Y wall holds
 it in; nothing else is fastened.
 
 The fixed boss presents [4 mm](SCREW_LAND) of land from the head's bearing face
@@ -126,12 +126,12 @@ allows, tangent to the mouth and inside the panel's moving field.
 ## What hangs off it
 
 The ceiling over this field is this part, so every rib rooted on it is this part's
-too — the two saddles the DIGITEN flow meter hangs in, and three anchors bored
+too — the two anchors the DIGITEN flow meter hangs in, and three anchors bored
 for a round body: `carb-1`, `co2-2` and the WR1110 regulator's barrel.
 `enclosure.ceiling_stations` is the one call that assigns the ceiling's stations,
 so each one is grown by exactly one part.
 
-Each is built by `enclosure`'s own builder (`_digiten_saddles`, `_tube_anchors`):
+Each is built by `enclosure`'s own builder (`_flow_meter_anchors`, `_tube_anchors`):
 a bore concentric with the body it takes, its arc stopped on that body's own axis
 plane, and the strap's channel behind it. The stations are struck in the box's
 frame, because that is the frame the bodies are in; the z = [352](PANEL_UNDER)
@@ -148,11 +148,11 @@ flat plate.
 1. Set the panel show-face down and install both heat-sets upward from its Z−
    face until each is flush in its downward-open socket.
 2. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
-   until its aft edge lands on the back wall.
+   until its aft edge lands on the +Y wall.
 3. Keep back-top ceiling-down, with its Z− face upward. Insert both screws from
    that face through the fixed bosses and drive them upward into the panel's
    heat-sets.
-4. Lay the meter into its two saddles and each run into its rib, and strap them.
+4. Lay the meter into its two anchors and each run into its rib, and strap them.
    Then lower the populated piece onto the machine.
 5. Drop the funnel in. Its collar fills the throat immediately ahead of the
    panel; the panel's show face remains uninterrupted behind it.

@@ -8,9 +8,9 @@ wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
 and `interior_x` both stand still: a bottom piece's three lipped sides get
 [6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
 flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [6 mm](BACK_TOP_FLANK) and its
-back wall [6 mm](BACK_TOP_WALL). **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
++Y wall [6 mm](BACK_TOP_WALL). **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
 telescope and screw together.
-It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the back wall
+It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -48,7 +48,7 @@ column solid; the cold core stands from the floor slab and the whole service bay
 stands on its lid in the back. So the seam runs **through** both columns, on the lane
 each lip needs — the cavity's own one-`wall` skin (`_lip_band`, the same shape `_z_lip`
 fuses onto a piece), held open at every height by the standoffs the pack is packed to,
-one wall off the front and back walls and one boss chain off the sides. Being the skin
+one wall off the front and +Y walls and one boss chain off the sides. Being the skin
 and not a box, it **wraps every column standing in a vertical**, and that wrap stands a
 whole `column_round` inboard of any wall segment — so a body clear of all four walls
 can still be in the lip's way there, as the PSU's aft corner is at the X+/Y+ column.
@@ -114,7 +114,7 @@ The Y seam's own collars keep the same shape: a D squared onto the slab at the f
 level, a D on its web with its crown squared into the ceiling at the top one
 (`_front_socket`).
 The head sits in the standard counterbore astride the visible seam line, and the screw
-clamps back wall and front lip against the pedestal's shoulder — all four pieces in
+clamps +Y wall and front lip against the pedestal's shoulder — all four pieces in
 one sandwich, the shank shear-locking them in Y and Z at the point. Its cap stands
 `corner_core_reach` past the boss chain, in a slot the cold core's flanks carry for it
 (`_cold_core_interface.corner_boss_slots`, read live by `corner-slot-lands`).
@@ -180,7 +180,7 @@ from. Between two levels the corner is the wall's own air.
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets one of the seam's bosses** — the
-boss chain's own reach — and the **back wall keeps one `rear_seam_clear`**, the rear
+boss chain's own reach — and the **+Y wall keeps one `rear_seam_clear`**, the rear
 Z-seam lip's own thickness. That is a requirement on the body where it meets one, not
 a rule about the wall: each boss is a pipe at its own station and its own height, and
 beside one — over or under one — the band is nothing but the wall's own air. Of the
@@ -198,7 +198,7 @@ rather than derived from them: which pieces the box comes apart into is a decisi
 about the pieces — what each has to carry, and what a hand reaches when the front
 assembly is off.
 
-`rear_seam_clear` is the single source for the back wall: `enclosure_assembly` seats the
+`rear_seam_clear` is the single source for the +Y wall: `enclosure_assembly` seats the
 rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
@@ -240,10 +240,10 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   [8 mm](CORE_HOLD_LAND) over the crown. The foot lands on the cap — 0 by intent, the way a seat
   in this box lands on the face it takes unless something else locates it — and that straight is
   what makes the foot a flange on a web instead of a cantilever. The lane is the one strip of the aft crown clear of
-  the water pump inboard, the power column outboard and the rear wall's two flavour unions in the
+  the water pump inboard, the power column outboard and the +Y wall's two flavour unions in the
   band, taken on both flanks so the pair is a mirror.
 
-The slab takes the weight and the back wall takes the aft, so the four between them close every
+The slab takes the weight and the +Y wall takes the aft, so the four between them close every
 direction the core could go. `enclosure_assembly.check_core_held` reads each inside its own
 window off the built pieces (`core-held`).
 
@@ -257,7 +257,7 @@ the four-corner bosses riding the flank slots the core carries for them
 aft bracket's bearing face does.** The straight from the head of the leg out to the foot's tip
 descends at 25° off vertical and is the bracket's upper face, laid on the section beneath it the
 whole way out — but the bearing face under it is flat and is the lowest thing on the bracket, so
-it is a soffit off the back wall and takes support, the way the tap-water trough on that same
+it is a soffit off the +Y wall and takes support, the way the ASSE anchor on that same
 wall does.
 
 ## The reeded skin
@@ -300,7 +300,7 @@ the choice:
   full height of both side walls, landing [0.1 mm](FLUTE_SEAM_MISS) off a groove's centre, in
   the shadow that is already there rather than on a land.
 - **`flute-clears-jamb`** is the opposite ask and the right one for the bay: its jamb and the
-  cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
+  pump cartridge edge inside it fall on a LAND. A rim landing in a groove is an arris tapering to
   nothing on the groove's floor, and a wedge that fine at a 0.42 mm bead prints ragged — on the
   one line the user looks straight at.
 
@@ -308,7 +308,7 @@ The datum is a groove centre on **x = 0**, the plane the whole machine is struck
 field is symmetric in x whatever its pitch.
 
 **The box has a second run, indoors.** What the field is struck along is a RAIL, and the outer
-plan is one of them; the bay's storey is the other. With the cartridge in, that storey still
+plan is one of them; the bay's storey is the other. With the pump cartridge in, that storey still
 shows two of its own surfaces — each corner post's face across the bay, which is the corner
 relief's congruent twin (`_column_fairing`), and the **wings** of the tee wall behind the
 drawer, out where the drawer does not reach. `_bay_storey_segments` walks them: jamb to jamb,
@@ -323,9 +323,9 @@ flutes off the jamb's own arris.
 the rail in places the drawer and its steel stand in front of, and a face another body beds
 against is not one anybody finishes. `flute_skin._shadow_mask` asks, at every station, whether
 a berthed body stands between that face and the storey's mouth — the same question the show
-mask asks, asked of the other bodies — so the tee wall carries flutes only where the cartridge
+mask asks, asked of the other bodies — so the tee wall carries flutes only where the pump cartridge
 leaves it visible, and the plate's own bearing band is left plain. Nothing is listed: the
-cartridge, its cap and the collet plate are simply what the assembly stands there.
+pump cartridge, its cap and the collet plate are simply what the assembly stands there.
 
 **Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
@@ -485,7 +485,7 @@ both ends**, and neither end is fitted: the lower lands on the front wall's inne
 upper on the flank opening's own end face, because the opening ends one radius aft of the front
 plane. The face is one surface, and the post reads round inside the way it reads round out.
 
-The disc's inboard extreme **is** `bay_x_span`, so the cartridge keeps its running fit at the
+The disc's inboard extreme **is** `bay_x_span`, so the pump cartridge keeps its running fit at the
 single station the two touch and more of it at every other — the opening is never narrowed by
 this.
 
@@ -516,7 +516,7 @@ every one so a hollowed column is never silent:
   the same material, and the rail's east end and the lens print as one body.
 - **X+/Y+** — the PSU's aft-east corner, over z 252.4–306.4, about a millimetre deep at its
   widest. The brick cannot give ground instead: its rear mount hole is on the aftmost boss
-  station, the relay and the controller board are packed one `WIRED_CLEAR` at a time ahead of
+  station, the relay and the main board are packed one `WIRED_CLEAR` at a time ahead of
   it, and the front of that stack stands ~1.3 mm off `carb-1`. What a column cannot absorb is a seam station:
 the lens runs along the wall to its cusp and would be a leaf-shaped hole through a socket
 collar's root, so a station landing there stands one collar radius clear of that cusp
@@ -539,33 +539,33 @@ a one-wall-long 45° scarf nose. The back half's matching wedge also grows from 
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free.
 
-The **drip tray's sleeve** in the back-top piece costs the same, and it is the
+The **ASSE drip pan's sleeve** in the back-top piece costs the same, and it is the
 first of two features in the box that do. The sleeve is a solid block off the −X wall
 running east on the withdrawal axis, and the rim rebate cut through it leaves a flat
-ceiling down either flank — the lid the tray's flange runs under, held at one height
+ceiling down either flank — the lid the pan's flange runs under, held at one height
 for the block's whole length, so it cannot be reached at 45° from the wall it grows out
-of. Its floor is the same case one storey down, and wider: a slab the tray's whole
+of. Its floor is the same case one storey down, and wider: a slab the pan's whole
 footprint, hanging off that wall. Both look down, so neither turns into a face that can
 be laid on air, and what stands over the lid is the vent gap (`asse_drip_pan.VENT_GAP`), which
 is air by construction. So the sleeve prints on support, one block 53 mm deep by the
-tray's rim plus a wall either way, in the band above the tray's slot.
+pan's rim plus a wall either way, in the band above the pan's slot.
 
 The exception in that lid is the moisture probe's **open-top lead notch** through the
-−X withdrawal wall. The leads rise in the basin's existing open mouth and turn west
+−X withdrawal wall. The leads rise in the pan's existing open mouth and turn west
 through this short notch, which is centred on their installed Y station. Because the
 notch opens upward it adds no bridge and traps no support; because it cuts the sleeve
-rather than the basin, the catch pan remains watertight.
+rather than the pan, the pan remains watertight.
 
-The **tap-water cradle** one storey above it costs the same. Its two 60° flanks
+The **ASSE anchor** one storey above it costs the same. Its two 60° flanks
 stand 30° off vertical and are free; its **underside is flat**, a soffit off the wall
-under the lane, and that face hangs. Behind the trough are the two straps' channels,
+under the lane, and that face hangs. Behind the anchor are the two straps' channels,
 one per tie band and `tie_cav_wide_w` long, and the support in each draws out its
 own end.
 
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
 no face under it to hang and no support in it to pick out. It is a solid slab across the
-whole front storey: the cartridge slides across it, and the collet plate's foot sits in a
+whole front storey: the pump cartridge slides across it, and the collet plate's foot sits in a
 blind seat sunk in its top.
 
 The **tee wall** behind that plate costs nothing standing up, and its four bores are the
@@ -577,7 +577,7 @@ so the hole is taken over from exactly where it stops being printable and nothin
 it is laid on air. The three lower quarters the collar bears on are untouched, and the
 wall needs no support.
 
-The **AC inlet's tunnel** stands off the back wall's inner face in back-top and costs
+The **AC inlet's tunnel** stands off the +Y wall's inner face in back-top and costs
 nothing either. Its two flanks are vertical to the bed and its crown runs out into the top
 wall; the soffit under it, the one face that would hang, is cut back to the wall at 45°
 (`enclosure._c14_tunnel`). What is left over air is the bore's own ceiling — a bridge the
@@ -585,13 +585,13 @@ aperture's full width, carried between the tunnel's two flanks. Nothing on the p
 outside the print silhouette: the receptacle's two heat-sets go into the tunnel's fore face,
 from inside the box, and the back of the machine is flat.
 
-## Tap-water cradle
+## ASSE anchor
 
-A stepped trough on the −X wall that the ASSE 1022 chain lies in
+A stepped anchor on the −X wall that the ASSE 1022 chain lies in
 (`_asse_cradle`). The chain is five fittings made up by hand on one axis, so
 neither the run's length nor the clock any one fitting lands at is a number this
 wall can know — but the **section** each one presents about that axis is the
-fitting's own. The trough is cut to each in turn, and the steps between sections
+fitting's own. The anchor is cut to each in turn, and the steps between sections
 fall out as faces square to the axis.
 
 | section | across | seated on |
@@ -602,7 +602,7 @@ fall out as faces square to the axis.
 
 The two end sections are there to make the barrel's steps and for nothing else, so
 each runs the **shorter of the two fittings' lengths** rather than its own: the
-coupling is more than twice the nut, and trough past a section already seated is PETG
+coupling is more than twice the nut, and anchor past a section already seated is PETG
 paid for in the deck's own headroom. The flanks reach under the axis exactly as far as
 the chain's own lowest arris — the barrel's apothem, `asse_reach_down` — and no
 further, for the same reason.
@@ -617,21 +617,21 @@ number chosen here.
 spin: a V cut to their flats would demand an angle the assembly does not control and
 bind on the build that landed 30° off. The Multiplex's hex does not spin — its
 atmospheric vent is machined into it — so keying that one section is what holds the
-drip over the tray, and it is the whole reason this is a trough and not a strap.
+drip over the pan, and it is the whole reason this is an anchor and not a strap.
 
 `asse_seat_slip` is the fit across the V and `ASSE_STEP_SLIP` the play along it, the
 deeper section taking the latter past both its ends so the barrel drops in and the
 steps stop it travelling rather than hold it still. Aft it needs neither: the chain's
 inlet collet butts the tap-water union's, and that joint takes the length up.
 
-Two **zip ties** shut the trough's mouth, one in each band the vent leaves clear on
+Two **straps** shut the anchor's mouth, one in each band the vent leaves clear on
 the barrel — the brass, which is the only section a tie may close on.
 
-Each runs in **its own channel through the trough's back** (`asse_tie_*`), closed on
+Each runs in **its own channel through the anchor's back** (`asse_tie_*`), closed on
 every side but its two mouths and `tie_cav_wide_w` long — centred on the tie band it
 serves, so the block's back stands solid fore and aft of each and between the pair,
 and the ceiling over that run keeps whatever corbel the strip has. It is **straight
-on the west and the trough's own V on the east**, so it is narrowest at the axis and
+on the west and the anchor's own V on the east**, so it is narrowest at the axis and
 flares to both mouths: each mouth opens `asse_tie_back / sin 60°` off its lip's own
 arris, on the block's face where a hand reaches it, and at the axis the flare leaves
 a strap pushed through the room to turn the vertex by cutting its corner. It stands
@@ -647,17 +647,17 @@ the millimetre out of its own headroom. That leg is **laid, not pulled**: this p
 is populated inverted on the bench — ceiling down — so the strap lies on the
 ceiling's inner face and the chain comes down onto it.
 
-Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the trough
+Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the anchor
 closed on the barrel, measured off the two placed solids, because every other
 reading on the card is satisfied by a chain floating in air. And `check_strap_channels`
 is the row that reads the **route**: the column between each channel's top mouth and
 the ceiling, which is the room the loop comes down and what a corbel on the strip's
 outboard run would close over.
 
-## Flow-meter saddles
+## Flow-meter anchors
 
-Two saddles off the **top wall**, one over each of the DIGITEN meter's collet
-barrels, and nothing over the round body between them (`_digiten_saddles`).
+Two anchors off the **top wall**, one over each of the DIGITEN meter's collet
+barrels, and nothing over the round body between them (`_flow_meter_anchors`).
 
 The meter is a ⌀26 body with a ⌀12 barrel out of each rim. The body reaches to
 within a hair of the top wall's inner face; the barrels leave the best part of a
@@ -667,24 +667,24 @@ down, so the seat and the barrel share a surface all the way round instead of
 touching on the two lines a V gives. The barrel comes straight up into it.
 
 **The arc stops on the barrel's own axis plane, and the rib carries one
-`digiten_saddle_wall` past that.** The axis plane is where the arc is widest, so
+`flow_meter_anchor_wall` past that.** The axis plane is where the arc is widest, so
 each lip comes out a **flat 3.000 mm strip**. Carried any further round, the arc
 runs out to nothing against the flank and leaves a feather.
 
-Each saddle runs the middle of its barrel: one `DIGITEN_BODY_CLEAR` off the body's
+Each anchor runs the middle of its barrel: one `DIGITEN_BODY_CLEAR` off the body's
 rim, and clear of the outer `DIGITEN_COLLET_FREE`, which is the push-fit ring the
 tube comes back out of. The rib's length is its cavity's — `tie_cav_w` of strap and
 buffer with `tie_cav_wall` of itself at each end, centred in the band the barrel
 allows.
 
 **The straps are the load path here.** A seat that opens downward carries nothing, so
-unlike the trough's two ties these hold the meter up — a purchased part of a few tens
+unlike the ASSE anchor's two straps these hold the meter up — a purchased part of a few tens
 of grams on two nylon straps. `enclosure_assembly.check_digiten_seated` reads the
 seats closed on the barrels at the slip itself, there being no angle in a bore to
 divide by; travel off the placed pack is 0.231 up into them, 0.400 either way across,
 and free downward.
 
-Each saddle's strap runs a cavity over its bore, and **nothing is cut for it.** The
+Each anchor's strap runs a cavity over its bore, and **nothing is cut for it.** The
 rib is one box its whole length up to one `wall` over the bore's crown, its two ends
 carried on up to the top wall, and one bore through all of it — so the channel is the
 length the ends do not span. It has no floor of its own to draw and no cut to make it.
@@ -697,7 +697,7 @@ as it was laid down in. Cleaned first, the built piece reads one cylindrical sea
 9.50 long, one channel floor of 64.40 mm², and each lip **one 9.500 edge**.
 
 Printed Z−-down the rib **hangs off the top wall** and starts on its two lips — one
-`digiten_saddle_wall` strip either side of the bore, the saddle's whole 9.50 length, with
+`flow_meter_anchor_wall` strip either side of the bore, the anchor's whole 9.50 length, with
 nothing under them. Everything over those lips is the arc closing inward on itself, so
 the hood carries its own crown, its flanks are vertical, and the lips are the only thing
 in the feature support has to reach.
@@ -712,7 +712,7 @@ One pattern wherever a wall comes near enough to reach something round
 builder is handed is an axis, a direction along it and a radius.
 
 **The arc stops on the body's own axis plane and the rib carries one `wall` past
-it**, so each lip is a flat strip rather than a feather — the saddles' bargain,
+it**, so each lip is a flat strip rather than a feather — the anchors' bargain,
 on the one body this machine has twenty of. The rib's length is its cavity's:
 `tie_cav_w` of strap and buffer with `tie_cav_wall` of itself at each end. It states
 no height of its own — it is handed the body, and the wall it stands on is where it
@@ -742,7 +742,7 @@ the rib's footprint and the rib roots on the box's plane, which is
 relief is **wider than the rib, and by the strap**: what the loop runs down is the
 rib's two flanks, from the channel's floor to the body's axis plane, so it is
 carried `tie_strap_t + tie_cav_buffer` past each flank and those two lobes are
-what the loop comes down. The flavour tap's two ribs are the pair that take it —
+what the loop comes down. The tap-water pair's two ribs are the pair that take it —
 back-top's 6 mm flank leaves the `water-split` and `flow-regulator` barrels
 2.44 mm of room where a rib needs 4.
 
@@ -769,7 +769,7 @@ face, the channel between them a true void 3.089 deep, the web under the bore fi
 the placed pack is 0.199 either way across, 0.197 up into the seat, and free
 downward — the mouth the strap shuts.
 
-**The strap is the load path here**, the same bargain the meter's saddles make: a
+**The strap is the load path here**, the same bargain the flow-meter anchors make: a
 seat that opens downward carries nothing. Barrel and rib make an [84.1 mm](LOOP_WR1110)
 loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
@@ -779,15 +779,15 @@ itself, and `check_tube_seated` reads the three run anchors the same way.
 
 **The pumps slide out of the front of the box.** The front wall's flat span — corner
 column to corner column, sill to lintel — and the storey both pumps stand in come out
-of front-top as the **pump cartridge** (`build_cartridge`): the face, the block behind
+of front-top as the **pump cartridge** (`build_pump_cartridge`): the face, the block behind
 it, both trays and both pumps, riding the bay's own floor. It stops at `bay_x_span` at
 every height, so the corner posts it slides between are untouched.
 
 **It is a block, and it parts on the pump's own bracket plane.** What the bay leaves
 between the face and the collet plate is filled — sparse infill under a printed skin —
 and the two Kamoers are voids in that fill. The split is `cap_split_z`, the head-to-boss
-junction the tray's plate already lands on: over it the block is the cartridge and each
-pump stands in the tray that bores its boss; under it the block is
+junction the pump tray's plate already lands on: over it the block is the pump cartridge and
+each pump stands in the pump tray that bores its boss; under it the block is
 **`enclosure-pump-cap`** (`build_pump_cap`), one piece closing on both heads. What
 carries a pump is the stamped bracket it holds in that plane — `bracket_w` across
 against a head of `head_w` — lapping the cap's top face all round the head's opening,
@@ -795,13 +795,13 @@ with two M3 on the lane between the pumps drawing the cap up onto the block
 (`_cap_screws`). The motor cans open through the block's ceiling and each head's front
 face through the cap's underside: the bay top stands `bay_crown_air` over the crowns and
 the sill one millimetre under the faces, so what the block covers is what there is room
-to cover. Nothing latches the cartridge. The four barb tubes
-gripped in the anchor tees' branch collets are the cartridge retention, and the **collet plate**
+to cover. Nothing latches the pump cartridge. The four barb tubes
+gripped in the anchor tees' branch collets are the pump cartridge retention, and the **collet plate**
 is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
 fore of the four collets in the bay floor's own seat. Four large holes pass the tubes and
 nothing wider; two M3 clearance holes in the unused outer tails positively fasten the steel
-to inserts in the fixed tee wall. Pull the cartridge and the gripped tubes drag the tees forward, each tee
+to inserts in the fixed tee wall. Pull the pump cartridge and the gripped tubes drag the tees forward, each tee
 running in its own bore in the wall behind the steel and held across its collar while
 free along its axis, until each collet's nose lands on the steel — the body keeps
 coming, the nose is held, the grip opens, and the tubes draw out through the holes they
@@ -834,20 +834,20 @@ derived** — no body in this model has any compliance in it, so no bound reache
 **What lands on the steel is the cap's own aft face.** The cap's whole storey stands
 under the plate's top, so the face it presents to the steel is the piece's own — nothing
 hangs off anything to reach it — and `cap_kiss` is the air left at that face when the
-cartridge is home. `pump-cap-stops-on-plate` reads the area standing against the plate's band
+pump cartridge is home. `pump-cap-stops-on-plate` reads the area standing against the plate's band
 and that the kiss itself is air.
 
 **Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
-the same aft wall the cartridge's band stands on — [6.149 mm](GRIP_CAP_DEEP) of relief
+the same aft wall the pump cartridge's band stands on — [6.149 mm](GRIP_CAP_DEEP) of relief
 over [40.65 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
-piece comes out screwed to the cartridge and a hand on the assembly finds relief at both
+piece comes out screwed to the pump cartridge and a hand on the assembly finds relief at both
 storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
 ## The flank openings
 
-**Both flanks open across the cartridge's own storey** (`_flank_opening`). The corner
+**Both flanks open across the pump cartridge's own storey** (`_flank_opening`). The corner
 posts frame their fore ends; two narrow fixed plate guides occupy only the aft outer
-edges, beyond the cartridge's whole X sweep. Each guide is a wedge in plan, standing
+edges, beyond the pump cartridge's whole X sweep. Each guide is a wedge in plan, standing
 [3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
 the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
 It leaves [23.9 mm](PLATE_GRIP_BASE_OPEN) of the lower grip's [24 mm](GRIP_RUN) entrance
@@ -869,7 +869,7 @@ there would be a seam that does not close; between the two planes stands the cap
 span's sill runs lower because the pump heads leave under it, and the two meet in a step at
 the post.
 
-**The cartridge stays between the jambs.** It is the flat span and what stands behind it,
+**The pump cartridge stays between the jambs.** It is the flat span and what stands behind it,
 out to `bay_x_span` and no further at any height. The posts stand in this piece's own
 withdrawal path, so nothing of it reaches their x, and the front of the box outboard of
 the bay is theirs.
@@ -880,7 +880,7 @@ the bay is theirs.
 interior face aft past the collet plate, and everything in this storey stands on it.
 **It is this piece's first layers.** Front-top beds on the seam plane, so a floor
 struck there lies on the bed with nothing under it to hang, and what sets its section
-is the only thing over it: the cartridge reaches down to the plane its own pump
+is the only thing over it: the pump cartridge reaches down to the plane its own pump
 reliefs floor on, one millimetre under the heads, and the floor's top is that plane
 (`bay_floor_z`). Sill, face reveal and head clearance are then one figure, not three.
 `bay-floor-bedded` reads the floor's whole plan solid on the bed.
@@ -899,12 +899,12 @@ seat's own bottom. It does not answer to that little seat alone: two stationary
 L-section guides (`_plate_fore_guides`) stand fore of the plate's outer tails and
 return around its ends into the fixed side-wall stock aft of the plate. The tee wall
 is the channel's aft face and the guides its fore face, so the steel cannot pitch
-forward when the four collet noses load it after the cartridge has begun moving.
+forward when the four collet noses load it after the pump cartridge has begun moving.
 The wraparound continues [6 mm](PLATE_GUIDE_CROWN) above the steel's top edge, enough to mask
 that bright edge from ordinary oblique views without closing the upward service path. Its last
 millimetre is still the same support-free 45° insertion lead; the plate drops between two open
 L sections rather than under a bridge.
-The channel remains open above; with the cartridge out, the plate lifts straight up
+The channel remains open above; with the pump cartridge out, the plate lifts straight up
 through the bay and no tool is needed to free it. Its Z band follows from that: the bottom is the
 seat, and the top is whatever puts the four collet holes **centred** in the band
 (`plate-holes-centred`). Across, its ends stand `PLATE_END_AIR` off the side walls and
@@ -927,7 +927,7 @@ still air behind the tee — depth past that plane is the tee's and not the wall
 the wall holds is the collar, across the bore; what stops the tee is the steel.
 
 **That wall is also the bay's back.** Over the plate's own band the steel closes the
-bay; above and below it this wall does, so what stands behind the berth the cartridge
+bay; above and below it this wall does, so what stands behind the berth the pump cartridge
 leaves is a wall rather than the cavity. The Z seam passes it the way it passes the
 floor, on `_z_seam_berth`'s own channels.
 
@@ -951,7 +951,7 @@ The face rides its opening on stated air, `bay_face_slip` at the jambs and
 the exterior and the facet standing where the appliance's stated depth put them. What
 noses into the section gets a 45°-chamfered relief (`_front_relief_cuts`): one stated
 pocket across the compressor, floored on its own kiss, and one pocket per pump in the
-cartridge's face, floored where the tray's own wrap rule puts its root
+pump cartridge's face, floored where the pump tray's own wrap rule puts its root
 (`pump_relief_floor`). The compressor is the only body in the refrigeration stratum
 standing fore of the wall's interior plane — the condenser bears on that plane through
 its rails and the fuse clamp stands clear behind it — so the wall keeps its full section
@@ -960,7 +960,7 @@ surface, region by region.
 
 ## Pump trays
 
-The cartridge's deck carries one per Kamoer (rooted on the pump reliefs' floor, off
+The pump cartridge's deck carries one per Kamoer (rooted on the pump reliefs' floor, off
 `enclosure_assembly.pump_tray_stations`), and it is **the two-piece pump case with its
 cylinder cut off**. `pump-tray/pump_case.py` draws that case; its base is a
 plate on the head's crown, a 45° ramp off the plate, an octagon bore wall standing in
@@ -986,7 +986,7 @@ either wall carries: a pump hangs UNDER its tray, so the tray on its own holds n
 plate at the head-to-motor junction, which stands proud of the head all the way round
 in the very plane the tray's plate lands on. `kamoer_kphm400` states that bracket and
 draws none of it; a strap here reaches under its lip rather than round the head, so the
-loop is a bracket wide and the 8" tie the tap-water trough takes closes it.
+loop is a bracket wide and the 8" strap the ASSE anchor takes closes it.
 
 **The four channels stand in two bands, one either side of the can.** They sit outside
 the head, so each run crosses the shoulder's own face: inboard of the can's radius a
@@ -995,7 +995,7 @@ off the lip they reach under. Unlike every other cavity on this box the channels
 **cut**, because there is no pair of end walls in a plate for a channel to be the gap
 between.
 
-**A tray is a cantilever off the cartridge's face, and `_tray_webs`' own boxes close
+**A tray is a cantilever off the pump cartridge's face, and `_tray_webs`' own boxes close
 the deck.** One web between the two trays and the across-runs to the deck's edges —
 each the trays' own plate thick and in that plate's own band, cropped to the jambs'
 sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
@@ -1004,7 +1004,7 @@ the rails standing on the floor carry the deck instead, and its aft edge stops t
 millimetres short of the collet plate, and the cap's aft face one storey down is what lands on the steel.
 
 **A hand pulls on the two flanks, and each carries a grip** (`_flank_grip`). Front-top's
-own flanks are cut away over this whole storey, so the cartridge's sides stand in the
+own flanks are cut away over this whole storey, so the pump cartridge's sides stand in the
 open with only the corner posts in front of them — and a post stops
 [12 mm](COLUMN_ALONG) aft of the front plane. A grip is a **pocket struck inboard out of
 the block**, [24 mm](GRIP_RUN) fore-and-aft, set down one `grip_aft` off the block's own
@@ -1051,7 +1051,7 @@ the plan says where the raked ledge stands at each depth, and neither is a fitte
 **Every grip is removed material.** Nothing of this piece stands proud of the front
 wall's own exterior plane, so the bench keeps its reading: the pre-test inspection in
 [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) §1 takes the
-cartridge's face standing flush in its bay, jamb to jamb, as the tell-tale for the four
+pump cartridge's face standing flush in its bay, jamb to jamb, as the tell-tale for the four
 barb tubes home in their collets.
 
 Printed on its Z− face, the pose every piece of this box takes: the block's underside is
@@ -1063,7 +1063,7 @@ theirs. `enclosure_assembly.check_trays_hold` reads each pump against the tray o
 ## Display housing
 
 A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries
-the [Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/)
+the [Waveshare ESP32-S3-Touch-LCD-4.3B enclosure display](/hardware/reference/waveshare-43b-display/)
 facing up-and-forward (−Y front / +Z up) toward the standing user. The display is
 **centred** on it: the box is 223 mm wide and the glass 113.5, so what is left is
 roughly 55 mm of flat 45° face either side of the window.
@@ -1113,13 +1113,13 @@ carried straight up off the crown, so the storey over the bay reads as the same 
 bay does; above it, the hole's own end wall carried on past the soffit, which is 45° and is
 the plane the display's body already lies against — the rib presents the part the surface
 its hole presents, and no new fit. Where the two meet is read, not chosen. The jog is also
-what keeps the rib clear: run straight up it would stand in the hopper's throat, and slanted
+what keeps the rib clear: run straight up it would stand in the funnel's throat, and slanted
 straight from crown to line it would run into the display's body where that stands proud
 of the soffit. `ridge-carried` reads the drop from the line to the material beneath it.
 
 **Running it to the flanks closes the storey, and one thing crosses.** The rib lands in the
 side walls rather than ending in free air over the tee wall's crown, which leaves it the only
-section between the bay's storey and the cavity behind it — so the config display's loom is
+section between the bay's storey and the cavity behind it — so the enclosure display's loom is
 bored through it. SIG-7 is four 22 AWG in the 1/2" PET expandable braid, and a braid of that
 kind is bought by its nominal and passes at what it *opens* to, so the bore is the opened
 figure — Ø[19.05 mm](CABLE_BORE) — and a loom never has to be squeezed through one. It locates
@@ -1129,7 +1129,7 @@ and where the loom leaves it, and it is teardropped for the reason every bore on
 piece is: the piece beds on Z, so a hole on Y lies horizontal and its crown would otherwise be
 laid across the chord under it.
 
-## Hopper opening
+## Funnel opening
 
 One rectangular opening spans the top wall **directly behind the display
 housing**, where the removable silicone funnel
@@ -1139,27 +1139,27 @@ ramp falling to the centred spout, its flat brim resting on the wall frame left
 around the cut.
 
 The funnel is a static placed part: the opening is cut at its collar
-(`_hopper_hole` reads the funnel's own dims at `enclosure_assembly.funnel_centre()`), so
+(`_funnel_hole` reads the funnel's own dims at `enclosure_assembly.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
 facet's own back plane ahead (the collar's front edge stands on it), the ±X
-boss chains either side, and the back wall behind — and the collar is measured
+boss chains either side, and the +Y wall of back-top behind — and the collar is measured
 one `brim_margin` inside it on all four sides at once, so a placement that crowds an
 edge is a red row naming the edge and the margin it is short. That margin
 is the brim's landing: it is wider than the flange's overhang, so a full
 overhang's width of wall remains outboard of the brim edge the whole way around.
 
-The basin stands on the box's own stated **`funnel_front_y`** and takes the top
+The funnel stands on the box's own stated **`funnel_front_y`** and takes the top
 wall's full width, because the facet in front of it spans the machine and there is
 nothing beside it to leave room for. The frame's two side strips on the front top are
 corbelled (`_ceiling_corbels`): a 45° underside off each ±X wall to nothing at the
 opening's edge, and over the seam's ceiling tongue off the top collar's own chain
 face, so the piece printing on its mouth lays every ceiling layer on the one below
-it. THE HOPPER IS WHERE THE USER POURS, so that
+it. THE FUNNEL IS WHERE THE USER POURS, so that
 plane stands as far forward as the wall lets it — which is the display housing's own
 back cut — and what fences THAT is the brim rather than the throat: the flange
 overhangs the collar and has to land on top wall, and the top wall begins at the
 facet's own arris. `funnel-brim-lands` is the reading, and the ledge the facet
-leaves the throat is read back as a bound on the frame above. The basin reaches aft for the plan area its
+leaves the throat is read back as a bound on the frame above. The funnel reaches aft for the plan area its
 capacity needs — which puts it **across the Y seam**. Both halves take their share
 of the cut and the collar bridges it; what the seam gives up there is its top-wall
 lip over the hole's span, which the mouth shelf's own relief already accounts for.
@@ -1215,7 +1215,7 @@ run 14.09.** So the outboard run goes back, and those two rows give up 0…16 an
 
 What still gives up the whole run is **the two tie bands**. Each strap is a closed
 loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and
-drops into the cavity through the trough's back — and that cavity's top mouth is out
+drops into the cavity through the anchor's back — and that cavity's top mouth is out
 at the wall (`_asse_tie_cavity`), so a corbel standing on the outboard run would roof
 the one opening the strap has. `_asse_cradle` reads those two rows back against the
 ties it was handed, so a band that moves off its strap says so instead of closing
@@ -1232,7 +1232,7 @@ strip and the thing it runs out on meeting along a line.
 dado's roof rises to the show face at the mouth, and both the rise and the millimetre
 of overrun past it are the panel's own lane — this piece has no top wall inboard of
 that plane to carry either. Aft of the field it has one: the blind end runs its own
-depth into the back wall, where the section is continuous across the mouth plane, so
+depth into the +Y wall, where the section is continuous across the mouth plane, so
 there is no free-standing lip to feather and nothing to stand a ramp under. A ramp cut
 there lands its apex in the middle of the show face rather than on its edge, which is
 three faces on one line and a mesh a slicer refuses; an overrun cut there opens a slot
@@ -1248,7 +1248,7 @@ The panel's socket lands tangent to the strip's inboard face, so nothing joins a
 boss to this piece across that plane: the join is a **pier** from the boss's axis
 out to where the strip itself stops (`ceiling_pier_run`), with the socket's whole
 slide path struck back out of it. Its underside is a soffit and hangs — the
-tap-water trough's bargain one storey down — and takes print support.
+ASSE anchor's bargain one storey down — and takes print support.
 
 **The strip's stop is what makes the root.** The corbel is a wedge whose thin end
 is at the panel's edge, so how much section a pier roots in is how far out it
@@ -1267,7 +1267,7 @@ per band, and `ceiling_pier_run` **refuses** a band nobody has measured for a pi
 rather than borrowing the corbel's figure and descending into a body.
 
 **Everything rooted on the ceiling over that field hangs off the panel**: the
-flow meter's two saddles and the three ribs bored for `carb-1`,
+flow meter's two anchors and the three ribs bored for `carb-1`,
 `co2-2` and the WR1110's barrel. `ceiling_stations` is the one call that splits
 them, and both parts read it, so neither can grow a rib the other grew too.
 

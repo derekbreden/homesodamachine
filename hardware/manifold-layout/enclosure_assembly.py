@@ -161,7 +161,7 @@ import seaflo_discharge_chain as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import flare38_14ptc as _oad                          # noqa: E402
-import asse_drip_pan as _pan                               # noqa: E402
+import asse_drip_pan as _pan                          # noqa: E402
 import shutao_moisture_plate as _plate                # noqa: E402
 import mq6_gas_sensor as _mq6                         # noqa: E402
 import sf76e_thermal_fuse as _fuse                    # noqa: E402
@@ -171,7 +171,7 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
-import bulkhead_ring as _ring                             # noqa: E402
+import bulkhead_ring as _ring                         # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
 import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
@@ -181,7 +181,7 @@ import pump_tray as _tray                             # noqa: E402
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
 # so the arrow points one way.
-import _y_wall_dimensions as _rear                # noqa: E402
+import _y_wall_dimensions as _rear                    # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 import neofit_bulkhead as _neofit                      # noqa: E402

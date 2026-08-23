@@ -169,7 +169,7 @@ cam_obj.location += cam_up * (v_center - v_centroid)
 # THE CAMERA IS PLACED, NEVER REFLECTED. A negative X scale on the camera
 # mirrors the image, and a mirrored drawing is a drawing of a machine that
 # does not exist — a customer reading it would look for the CO2 inlet on
-# the wrong side of the back wall. It costs the line art as well: the
+# the wrong side of the +Y wall of back-top. It costs the line art as well: the
 # reflection flips the handedness Freestyle's visibility test runs in, and
 # what it drops there is the silhouette of every rounded corner in the box,
 # leaving the outline open where the R12 print reliefs are.
@@ -337,7 +337,7 @@ for _mk in args["markings"]:
         f'clip-path="url(#{_clip_id})" d="{_disc_d}" />'
     )
 
-# Invisible anchor points (e.g. the hopper-door center): projected through
+# Invisible anchors (e.g. the funnel throat's centre): projected through
 # the same camera and emitted as zero-radius circles so a consumer can aim
 # at them.
 for _anchor in args.get("anchors", []):
