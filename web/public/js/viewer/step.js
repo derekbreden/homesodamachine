@@ -49,7 +49,7 @@ async function parseStep(buffer) {
 //
 // A payload whose version isn't MESH_PAYLOAD_VERSION decodes to null, and the
 // caller reads the STEP.
-const MESH_PAYLOAD_VERSION = 2; // keep in sync with VERSION in _mesh_payload.py
+const MESH_PAYLOAD_VERSION = 3; // keep in sync with VERSION in _mesh_payload.py
 
 export function decodeMeshPayload(bytes) {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
