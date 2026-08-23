@@ -22,3 +22,8 @@ bool     flavorEstablished();
 bool     flavorPersisted();
 bool     flavorPersistenceError();
 uint32_t flavorRevision();
+
+// Which logo a channel wears, and the pair as a whole. A set naming a logo no
+// image carries artwork for is refused rather than clamped.
+uint8_t flavorArt(uint8_t channel);
+bool    flavorArtSet(uint8_t a0, uint8_t a1);

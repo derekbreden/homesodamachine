@@ -33,6 +33,10 @@ void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler flavorHandler,
                    BasePrimeHandler primeHandler);
 void baseLinkService();
 
+// Which logo each channel wears, as the controller now holds it. Defined in
+// main.cpp, where the artwork and the image object live.
+void faucetApplyFlavorArt(const uint8_t art[2]);
+
 // Non-blocking touch-path call. The absolute selection enters a fixed queue;
 // TinyProto and any Preferences write happen later from baseLinkService().
 void baseLinkSelect(uint8_t flavor, bool audible);

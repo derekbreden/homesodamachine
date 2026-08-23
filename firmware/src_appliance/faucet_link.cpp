@@ -30,6 +30,9 @@ uint32_t lastPrimeRevision = 0;
 uint32_t lastPrimeStatePublicationMs = 0;
 uint32_t primeStatePublications = 0;
 uint32_t primeHeartbeatPublications = 0;
+// A head that just came up renders from artwork it has not been told yet, so
+// the pair is published once per connection as well as on every change.
+bool artPublished = false;
 
 void observeConnectionEpoch() {
     const uint32_t generation = faucet.connectionGeneration();
@@ -39,6 +42,7 @@ void observeConnectionEpoch() {
         machinePrimeSessionSourceDisconnected(MACHINE_PRIME_FAUCET);
     connectionKnownUp = faucet.isConnected();
     synchronized = false;
+    artPublished = false;
     handledTokens.reset();
 }
 
@@ -54,6 +58,17 @@ bool sendState(uint32_t token) {
         ++framesTx;
         lastSentRevision = flavorRevision();
         lastStatePublicationMs = millis();
+        return true;
+    }
+    return false;
+}
+
+// The pair travels on its own message, so the six-byte flavor state keeps its
+// wire layout and an older glass on either link is unaffected by it.
+bool sendArt() {
+    FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
+    if (faucet.trySend(MSG_RESP_FLAVOR_ART, &art, sizeof(art)) >= 0) {
+        ++framesTx;
         return true;
     }
     return false;
@@ -123,6 +138,23 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
                           flavorPersisted() ? "" : " — persistence pending");
         }
         sendState(request.token);
+        return;
+    }
+
+    if (type == MSG_FLAVOR_ART_QUERY) {
+        sendArt();
+        return;
+    }
+
+    if (type == MSG_FLAVOR_ART_SET && plen >= sizeof(FlavorArtPayload)) {
+        FlavorArtPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (!flavorArtSet(request.art[0], request.art[1])) {
+            ++invalidRequests;
+            if (faucet.trySendResponse(MSG_ERR_SLOT_INVALID, request.art[0]) >= 0) ++framesTx;
+            return;
+        }
+        sendArt();
         return;
     }
 
@@ -249,6 +281,11 @@ void faucetLinkService() {
             connected, flavorEstablished(), revisionPending,
             now, lastStatePublicationMs, kStateHeartbeatMs)) {
         if (sendState(0) && !revisionPending) ++heartbeatPublications;
+        // A revision moves for a selection or for the artwork; the faucet renders
+        // from both, so a bump publishes both rather than guessing which moved.
+        if (revisionPending || !artPublished) {
+            if (sendArt()) artPublished = true;
+        }
     }
 
     faucet.service();
