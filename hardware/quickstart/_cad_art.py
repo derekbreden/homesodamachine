@@ -109,7 +109,7 @@ def _physical_levers(fa):
         fa.WorldWorkplane(fa.xy_plane_z_up)
         .workplane(offset=fa.plateau_z + 1)
         .moveTo((0, +(fa.port_center_depth + 0.125)))
-        .circle(fa.water_tube_r + 1)
+        .circle(fa.soda_faucet_tube_r + 1)
         .extrude(50)
         .unwrap()
     )
