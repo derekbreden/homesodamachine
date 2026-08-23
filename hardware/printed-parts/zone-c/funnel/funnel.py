@@ -4,7 +4,7 @@ A static part in its own frame: origin at the collar-rectangle center, z = 0
 the brim underside — the plane that rests on the enclosure's top surface.
 The machine places it (`enclosure_assembly.build_funnel`, on `enclosure_assembly.funnel_centre`
 and the box's outer top), and the enclosure cuts its top-wall opening from this collar
-(`enclosure.py _hopper_hole`), asserting the placement clears the display
+(`enclosure.py _funnel_hole`), asserting the placement clears the display
 gusset, the ±X boss chains, and the Y-seam lip. The drain is defined here, in
 the funnel's frame, and rides the part wherever it is placed.
 
@@ -54,7 +54,7 @@ import worm_clamp as _clamp
 # The collar sits at least one `brim_margin` inside the zone-C top-wall frame on
 # every side. The margin is twice the overhang, so the brim edge lands on the
 # MIDDLE of that ring where the collar fills the frame, and a full overhang's
-# width of top wall remains beyond it in every case. enclosure.py `_hopper_hole`
+# width of top wall remains beyond it in every case. enclosure.py `_funnel_hole`
 # owns the frame and asserts it; the funnel takes the front of the Y span, and a
 # deeper box adds its top wall behind rather than growing the part.
 collar_w = 159.0        # collar footprint (X) — the frame's width less 2 × brim_margin. The
