@@ -4,9 +4,9 @@ Board `esp32dev` (ESP32-WROOM-32E), firmware `firmware/src_prototype/main.cpp`. 
 UART hub:
 
 - No WiFi, no BLE — the base firmware links no radio. BLE is on the separate ESP32-S3
-  config display (`firmware/src_config`); the faucet display is another S3. The base
-  ESP32 reaches both over wired UART (RS485 to the config display, TTL UART to the
-  faucet).
+  enclosure display (`firmware/src_config`); the faucet display is another S3. The base
+  ESP32 reaches both over wired UART (RS485 to the enclosure display, TTL UART to the
+  faucet display).
 - Flashed over serial (`pio run -e prototype -t upload`): UART0 + EN/IO0.
 
 ## Connected pins (`pcba.tsx`)
@@ -17,11 +17,11 @@ its pins instead of crossing the fan.
 
 - I²C: IO21 (SDA), IO22 (SCL) — 4.7k pull-ups to 3V3 on-board (R19/R20); bus serves the two
   MCP23017s and the DS3231, and breaks out at the I2C header (J8)
-- UART → RS485 config display: IO32 (TX), IO34 (RX, input-only) — south edge
+- UART → RS485 enclosure display: IO32 (TX), IO34 (RX, input-only) — south edge
 - UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
 - Pumps → on-board DRV8870 H-bridges, single-direction drive: IO17→A.IN1, IO4→B.IN1 (each IN2 is tied to the GND plane, so each bridge drives one way or coasts; IO16/IO18 are the reserved IN2 feeds a reversing respin takes)
 - Relays (off-board modules) → IO2, IO19 — IO19 (the compressor relay) does not reach J5 directly: it feeds U15 (74LVC1G08 AND gate), whose other input is the divided MQ-6 DOUT, so a hardware gas trip cuts the compressor regardless of firmware (interlock detail in the `pcba.tsx` GAS block; IO2 is boot-safe into an opto input: the module's LED load holds it low, which download mode also wants)
-- Sensors: IO26 (1-wire, 4.7k external pull-up to 3V3 — R9; two probes on the one bus, told apart by family code — DS18B20 `0x28` = tank-wall / compressor setpoint, DS18S20 `0x10` = evaporator-coil / freeze-protect cutout), IO25 (flow), IO27 (backflow signal) — three adjacent south-edge pins — plus IO23 (north edge): the moisture module's switched VCC, driven only while sampling so the drip-pan electrodes sit unpowered between samples
+- Sensors: IO26 (1-wire, 4.7k external pull-up to 3V3 — R9; two probes on the one bus, told apart by family code — DS18B20 `0x28` = tank-wall / compressor setpoint, DS18S20 `0x10` = evaporator-coil / freeze-protect cutout), IO25 (flow), IO27 (backflow signal) — three adjacent south-edge pins — plus IO23 (north edge): the moisture module's switched VCC, driven only while sampling so the ASSE drip pan's electrodes sit unpowered between samples
 - Status LEDs: IO15 (red/fault), IO12 (green/ready), IO14 (blue/activity) — on-board. IO12/IO14 are active-high to GND; **IO15 is active-low**, hanging off 3V3 through its LED, so the pin idles pulled up and firmware lights it by driving LOW
 - Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only; the divided DOUT node (R3/R4) also feeds the firmware-independent U15 compressor interlock through R25 (0Ω invert-select)
 - Buzzer: IO13 (the lone usable east-edge GPIO, not a strapping pin → silent at boot)

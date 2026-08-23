@@ -1,5 +1,5 @@
 /**
- * pcba — the controller board, ordered fully assembled from JLCPCB. Every active
+ * pcba — the main board, ordered fully assembled from JLCPCB. Every active
  * part is bare silicon on this board (no modules, nothing hand-soldered), and every
  * off-board interface lands on a labeled edge connector (J1-J14). Footprint geometry
  * lives in ./parts (the part wrappers) and ./routing (hand-routing geometry); placement + routing
@@ -403,7 +403,7 @@ export default () => (
     {C10El}
     {C11El}
     {R8El}
-    {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
+    {/* RS-485 to the enclosure display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
@@ -441,7 +441,7 @@ export default () => (
         drive: IN2 tied to GND, only IN1 PWM'd from the ESP. That halves the IN bus to one trace per
         pump and frees IO16/IO18. The head seals nothing at rest — a parked KPHM400 passes flow both
         ways, and the manifold's NC solenoids hold every line (fluid-topology.md) — so direction buys
-        operations, not sealing: reverse fill and nozzle suck-back are what IN2->IO16/IO18 is for. */}
+        operations, not sealing: reverse fill and suck-back at the gooseneck are what IN2->IO16/IO18 is for. */}
     {U11El}
     <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={22.75} rot={90} side="W" />
     <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.35} rot={180} side="N" />{/* nudged S so the N ref-des clears U11's GND pad */}

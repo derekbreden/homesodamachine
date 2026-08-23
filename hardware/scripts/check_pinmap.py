@@ -119,7 +119,7 @@ CROSS = [
     ("diaphragm pump relay",r"\.IO2\b",          r"SEAFLO|diaphragm"),
     ("pump driver",         r'label="PUMPS"',    r"Kamoer|DRV8870"),
     ("solenoid valves",     r"MANIFOLD",         r"Beduan|solenoid"),
-    ("config display",      r'label="DISPLAY"',  r"4\.3B|RS485|RS-485"),
+    ("enclosure display",   r'label="DISPLAY"',  r"4\.3B|RS485|RS-485"),
     ("faucet display",      r'label="FAUCET"',   r"1\.47"),
     ("reed switches",       r"REEDS",            r"[Rr]eed"),
     ("gas divider resistors",r'resistance="2.2k"',r"gas-sensor output divider"),
