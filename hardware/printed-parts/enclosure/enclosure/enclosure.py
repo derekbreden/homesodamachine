@@ -854,6 +854,19 @@ def back_top_flank_face():
     return (ix0 + grown, ix1 - grown)
 
 
+def back_bottom_flank_face():
+    """back-bottom's own ±X interior faces — `back_bottom_flank_t` in from the exterior, where
+    the box's own is one `wall` in and the lip's underwall is `2 * wall`.
+
+    NOTHING OUTSIDE THAT PIECE READS THIS. `interior_x` is still the box's interior and
+    `lip_face_x` is still what a body seated low on a flank meets; this is the plane
+    back-bottom's own flank stands on, and the plane `piece_root_faces` hands a feature built
+    on it."""
+    ix0, ix1 = interior_x()
+    grown = back_bottom_flank_t - wall
+    return (ix0 + grown, ix1 - grown)
+
+
 def front_top_flank_face():
     """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where
     every other piece's is one `wall` in.
@@ -900,7 +913,7 @@ def piece_root_faces(inner, y_side, z_side):
         if y_side == "back":
             iy1 = back_top_wall_face()
     else:
-        ix0, ix1 = lip_face_x()
+        ix0, ix1 = back_bottom_flank_face() if y_side == "back" else lip_face_x()
         if y_side == "back":
             iy1 = rear_plane_y - wall      # the lip's own skin, already `2 * wall` of section
     return (ix0, ix1, iy0, iy1, iz0, iz1)
@@ -978,6 +991,18 @@ c14_tunnel_wall = back_top_wall_t
 # wall. Six leaves 3.25 mm of that and nine would leave a quarter of a millimetre, which is not
 # a clearance. Six is also the figure the two bottom pieces already carry.
 back_top_flank_t = 6.0
+# --- back-bottom's own ±X section ---------------------------------------------
+#
+# AND THE STOREY UNDER IT CARRIES MORE, because down there nothing is in the way. The only
+# body on this floor is the cold core, and it packs `side_band_inset` off `interior_x` — so
+# where back-top's flank has the vent slots' mullions and the power column against it, this
+# one has 14 mm of air on both sides and spends 3 of it.
+#
+# IT IS TAKEN INWARD off `lip_face_x`, the face the lip's own underwall would otherwise leave,
+# and the LIP ITSELF DOES NOT MOVE: what back-top laps is still one `wall` standing on the
+# cavity face, so the seam is the seam it always was. What that leaves at the rim is a step
+# facing UP, on a piece that prints floor-down — the one direction a step costs nothing.
+back_bottom_flank_t = 9.0
 # AND IT OWES ITS ROOM TO THINGS THAT WERE ALREADY THERE. The front half's Y lip telescopes into
 # this piece on this wall surface and back-bottom's Z lip rises into it on the same one, and the
 # lane each rises into is exactly the `wall` this would add — so the section begins past the one
@@ -3718,6 +3743,25 @@ def _lip_underwall(inner, y_joint, zj):
     slicer would draw its two faces as separate walls with nothing tying them."""
     return _lip_ring(inner, (y_joint, y_joint + lip_len + z_lip_y_margin),
                      inner[4], zj)
+
+
+def _back_bottom_flank_skin(inner, y_joint, zj):
+    """The extra skin inboard of back-bottom's two flanks, slab to seam mouth.
+
+    IT IS TWO PLAIN STRIPS and not the cavity's own offset shell, because it is not a
+    telescope and it meets no corner: the lip above it still rides `lip_face_x` and still
+    wraps the standing verticals, and this stands under that, between the slab and the mouth,
+    where the piece is already `2 * wall` and simply becomes `back_bottom_flank_t`.
+
+    ITS Y RUN STARTS AFT OF THE OTHER PIECE'S Y LIP and runs to the rear wall's inner face, so
+    it fuses into that wall at one end and clears the telescope at the other. That start is the
+    same plane `_lip_underwall` opens its own gap to — front-bottom's tongue reaches `lip_len`
+    past the joint, and a skin struck on the joint itself is a skin drawn through it."""
+    lx0, lx1 = lip_face_x()
+    fx0, fx1 = back_bottom_flank_face()
+    y0 = y_joint + lip_len + z_lip_y_margin
+    return (_ybox(lx0, fx0, y0, inner[3], inner[4], zj)
+            .fuse(_ybox(fx1, lx1, y0, inner[3], inner[4], zj)))
 
 
 def _z_station_y(ys):
@@ -6782,6 +6826,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # and not in air. Fused here with the lip and before every pocket, so a
         # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
+        if y_side == "back":
+            # And back-bottom's own extra section inboard of that, on the two flanks only.
+            # Fused with them and before every pocket for the same reason: a well cut into
+            # this flank later is cut out of the whole `back_bottom_flank_t` of it.
+            piece = piece.fuse(_back_bottom_flank_skin(inner, y_joint, zj).intersect(col))
         if y_side == "front" and box.pump_bay:
             # The front flat's share of both skins goes to the bay's floor and the heads
             # that pass through its berth; the sill and its drain are front-top's.
