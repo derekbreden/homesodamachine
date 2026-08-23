@@ -13,8 +13,8 @@ The home soda machine's physical design — the integrated under-counter applian
 | [`ledger/`](/hardware/ledger/) | Bookkeeping. [`purchases.md`](/hardware/ledger/purchases.md) is the source-of-truth capex ledger; [`bom.md`](/hardware/ledger/bom.md) (per-unit parts), [`tools.md`](/hardware/ledger/tools.md) (active tooling), and [`inventory.md`](/hardware/ledger/inventory.md) (spares / abandoned / donor / diagnostic stock) are views over it. Three more price time rather than parts: [`labor.md`](/hardware/ledger/labor.md) (attended minutes per unit), [`machine-time.md`](/hardware/ledger/machine-time.md) (hours a machine is occupied per unit), and [`build-time.md`](/hardware/ledger/build-time.md) (seconds a generator run takes, which is what a change to this repo costs rather than what an appliance costs). |
 | [`assembly/`](/hardware/assembly/) | Production procedures, one doc per subsystem, plus [`handwork.md`](/hardware/assembly/handwork.md) (the skilled-hand task summary). |
 | [`service/`](/hardware/service/) | Procedures run on a finished appliance rather than a bench: [`pump-replacement.md`](/hardware/service/pump-replacement.md) and the dry cycle it runs first. |
-| [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `enclosure/`, `faucet/`, `flavor/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
-| [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, faucet plate). |
+| [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `electronics/`, `enclosure/`, `faucet/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
+| [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, under-counter plate). |
 | [`manifold-layout/`](/hardware/manifold-layout/), [`cold-core-layout/`](/hardware/cold-core-layout/), [`faucet-layout/`](/hardware/faucet-layout/) | The assemblies the parts above stand in, each written as one multi-solid STEP: the packed appliance, the core one frame further in, and the above-counter column. `/3d` browses the tree these head — the appliance and the faucet as its two cards, and the core reached by opening the appliance's own `foam-assembly`. |
 | [`off-the-shelf-parts/`](/hardware/off-the-shelf-parts/) | Reference geometry for purchased parts modelled into assemblies. |
 | [`reference/`](/hardware/reference/) | Imported / harvested reference STEPs (factory faucet, solenoid, ice-maker, fittings). Not fabricated by this project — no sidecars. |
@@ -22,7 +22,7 @@ The home soda machine's physical design — the integrated under-counter applian
 | [`wiring/`](/hardware/wiring/) | Wiring schedules, pinouts, and power topology diagrams. |
 | [`battery-backup/`](/hardware/battery-backup/) | Mains-outage dispense ride-through subsystem. |
 | [`quickstart/`](/hardware/quickstart/) | The two-sheet visual quick start that ships at the top of the carton. |
-| [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, first-tap plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
+| [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, tapping plan, fill-from-funnel plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
 | [`scripts/`](/hardware/scripts/) | Project Python tooling. The instruments: [`probe.py`](/hardware/scripts/probe.py) asks the placed machine a geometry question instead of reasoning about it — where a body is, how close two come, what a volume runs into, how far a line runs, where there is room for one, what a pick copied out of the viewer names, and where a piece of a routed line can stand; [`fit.py`](/hardware/scripts/fit.py) asks the same of a body that is not placed yet, carried to a candidate pose; [`lanes.py`](/hardware/scripts/lanes.py) enumerates every corridor a run could take between its two fixed mouths at a stated clearance floor, holding every body still, and reports each one's tube, corners, tightest clearance, lowest z and the sub-assembly its legs lie on without ranking them. Each carries a `selftest`. Then `_cadq_export.py` (the shared atomic STEP/DXF/PDF export helper imported tree-wide) and the doc-sync / totals generators that maintain the `ledger/` docs. |
 
 ## Where the solids are
@@ -219,7 +219,7 @@ Pull values from the part's generator-script docstring when one exists; otherwis
 
 ### Harvested reference parts
 
-[`reference/`](/hardware/reference/) holds imported reference STEPs (factory faucet body, valve internals) this project does not fabricate. These get no sidecars — they're multi-material, externally-spec'd parts kept only for spatial reference.
+[`reference/`](/hardware/reference/) holds imported reference STEPs (the harvested Westbrass, valve internals) this project does not fabricate. These get no sidecars — they're multi-material, externally-spec'd parts kept only for spatial reference.
 
 ### Where this is consumed
 
