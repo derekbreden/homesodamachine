@@ -4562,61 +4562,6 @@
       "hardware/printed-parts/enclosure/pump-tray/README.md"
     ]
   },
-  "hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/reeding.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/README.md",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
-    ],
-    "rewritten": [
-      "hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/README.md",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py"
-    ],
-    "writes": [
-      "hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/README.md",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/texture-coupon-vent.step",
-      "hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py"
-    ]
-  },
-  "hardware/printed-parts/enclosure/texture-coupons/texture_coupons.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/perlin.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/enclosure/texture-coupons/README.figures.json",
-      "hardware/printed-parts/enclosure/texture-coupons/README.md",
-      "hardware/printed-parts/enclosure/texture-coupons/texture_coupons.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
-    ],
-    "rewritten": [
-      "hardware/printed-parts/enclosure/texture-coupons/README.figures.json",
-      "hardware/printed-parts/enclosure/texture-coupons/README.md"
-    ],
-    "writes": [
-      "hardware/printed-parts/enclosure/texture-coupons/README.figures.json",
-      "hardware/printed-parts/enclosure/texture-coupons/README.md",
-      "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-facet.step",
-      "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-flute.step",
-      "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-vee.step",
-      "hardware/printed-parts/enclosure/texture-coupons/texture-coupons.step"
-    ]
-  },
   "hardware/printed-parts/enclosure/valve-panel/valve_panel.py": {
     "reads": [
       "hardware/manifold-layout/_lines.py",

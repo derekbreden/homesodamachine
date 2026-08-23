@@ -5310,120 +5310,6 @@ cp hardware/printed-parts/enclosure/pump-tray/README.md $$O1
 )
 
 genrule(
-    name = "texture-coupon-vent",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/reeding.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/enclosure/texture-coupon-vent/README.md",
-        "hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/texture-coupon-vent.step",
-        "out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json",
-        "out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/README.md",
-        "out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/texture-coupon-vent.step)
-O1=$$PWD/$(location out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json)
-O2=$$PWD/$(location out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/README.md)
-O3=$$PWD/$(location out/texture-coupon-vent/hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py > /dev/null
-cp hardware/printed-parts/enclosure/texture-coupon-vent/texture-coupon-vent.step $$O0
-cp hardware/printed-parts/enclosure/texture-coupon-vent/README.figures.json $$O1
-cp hardware/printed-parts/enclosure/texture-coupon-vent/README.md $$O2
-cp hardware/printed-parts/enclosure/texture-coupon-vent/texture_coupon_vent.py $$O3
-""",
-)
-
-genrule(
-    name = "texture-coupons",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/perlin.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/enclosure/texture-coupons/README.md",
-        "pysrc/hardware/printed-parts/enclosure/texture-coupons/texture_coupons.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/enclosure/texture-coupons/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupon-facet.step",
-        "out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupon-flute.step",
-        "out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupon-vee.step",
-        "out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupons.step",
-        "out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/README.figures.json",
-        "out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupon-facet.step)
-O1=$$PWD/$(location out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupon-flute.step)
-O2=$$PWD/$(location out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupon-vee.step)
-O3=$$PWD/$(location out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/texture-coupons.step)
-O4=$$PWD/$(location out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/README.figures.json)
-O5=$$PWD/$(location out/texture-coupons/hardware/printed-parts/enclosure/texture-coupons/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/texture-coupons/texture_coupons.py > /dev/null
-cp hardware/printed-parts/enclosure/texture-coupons/texture-coupon-facet.step $$O0
-cp hardware/printed-parts/enclosure/texture-coupons/texture-coupon-flute.step $$O1
-cp hardware/printed-parts/enclosure/texture-coupons/texture-coupon-vee.step $$O2
-cp hardware/printed-parts/enclosure/texture-coupons/texture-coupons.step $$O3
-cp hardware/printed-parts/enclosure/texture-coupons/README.figures.json $$O4
-cp hardware/printed-parts/enclosure/texture-coupons/README.md $$O5
-""",
-)
-
-genrule(
     name = "valve-panel",
     srcs = [
         "pysrc/hardware/manifold-layout/_lines.py",
@@ -8448,14 +8334,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-1463c667cbe9",
-    srcs = ["hardware/printed-parts/cadlib/perlin.py"],
-    outs = ["pysrc/hardware/printed-parts/cadlib/perlin.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-33bf54a48d01",
     srcs = ["hardware/printed-parts/cadlib/reeding.py"],
     outs = ["pysrc/hardware/printed-parts/cadlib/reeding.py"],
@@ -8779,14 +8657,6 @@ genrule(
     name = "pysrc-e0df39ad6bc2",
     srcs = ["hardware/printed-parts/enclosure/pump-tray/pump_tray.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-ceb5bafaae00",
-    srcs = ["hardware/printed-parts/enclosure/texture-coupons/texture_coupons.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/texture-coupons/texture_coupons.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -14214,8 +14084,6 @@ filegroup(
         ":port-ring",
         ":pump-case",
         ":pump-tray",
-        ":texture-coupon-vent",
-        ":texture-coupons",
         ":valve-panel",
         ":touch-flo-mounting-gasket",
         ":touch-flo-mounting-plate",
