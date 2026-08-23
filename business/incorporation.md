@@ -49,7 +49,7 @@ artifacts live alongside this file in `marketing/`, `hardware/`, and
 A meaningful share of the spend — prototype iteration, AI-assisted
 engineering labor (capitalized per
 [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md)), test fixtures,
-scrapped vessel revisions — looks like **IRC §174 research and
+scrapped carbonator revisions — looks like **IRC §174 research and
 experimentation.** TCJA changed §174 in 2022 to require 5-year domestic /
 15-year foreign amortization. The One Big Beautiful Bill Act (2025) is
 reported to have restored immediate expensing for domestic R&D for tax
