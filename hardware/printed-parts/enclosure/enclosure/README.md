@@ -546,7 +546,7 @@ ceiling down either flank — the lid the tray's flange runs under, held at one 
 for the block's whole length, so it cannot be reached at 45° from the wall it grows out
 of. Its floor is the same case one storey down, and wider: a slab the tray's whole
 footprint, hanging off that wall. Both look down, so neither turns into a face that can
-be laid on air, and what stands over the lid is the vent gap (`drip_pan.VENT_GAP`), which
+be laid on air, and what stands over the lid is the vent gap (`asse_drip_pan.VENT_GAP`), which
 is air by construction. So the sleeve prints on support, one block 53 mm deep by the
 tray's rim plus a wall either way, in the band above the tray's slot.
 

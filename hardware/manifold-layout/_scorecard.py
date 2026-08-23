@@ -144,7 +144,7 @@ REFRIGERANT_SEGMENTS = (
 # The tap water, from the rear-panel bulkhead through the backflow preventer, the split and the
 # V-K fill/shutoff to the carbonator's own water inlet — `assembly/internal-plumbing.md` §2. All
 # 1/4" LLDPE, stepping back up to 3/8" only at the SeaFlo's two moulded barbs. The ASSE 1022's
-# vent is not here: it terminates to atmosphere over the drip pan.
+# vent is not here: it terminates to atmosphere over the ASSE drip pan.
 #
 # THERE IS NO `water-1`. The rear bulkhead's inboard collet and the ASSE chain's inlet collet
 # meet face to face, so the first tube in the machine is a length of stock cut to the two grips
@@ -202,7 +202,7 @@ CARB_SEGMENTS = (
 #             So a chain that lands is a `NEVER` row naming what it lands on, and a chain that
 #             does not is an open joint under the name of the body it hangs from.
 #   `joint` — the CONSTRUCTION, which is a different question from whether it fastens. `bosses`,
-#             `well`, `cradle`, `saddle`, `tray`, `channel`, `wall-capture`, `seam-capture`,
+#             `well`, `cradle`, `anchor`, `tray`, `channel`, `wall-capture`, `seam-capture`,
 #             `plate-capture`, `tube-clamp`,
 #             `deck-mount`, `basin`, `gap-press`, `tube-hung`, `pack`. Not an axis and not a score —
 #             it is how the machine puts this body down, and it is what lets a card count the
@@ -233,7 +233,7 @@ MOUNTS = (
     # THE HEAVIEST BODY IN THE MACHINE, AND THE ONE WITH NO HOLE IN IT. The core is a foamed cup
     # under a screwed cap, plain skin the whole way round, so what closes on it is the box: a
     # block on the FRONT-BOTTOM's slab bored at each of its front corner rounds
-    # (`enclosure._core_stops`), and a bracket off the BACK-TOP's rear wall turning over the aft
+    # (`enclosure._core_stops`), and a bracket off the BACK-TOP's +Y wall of back-top turning over the aft
     # edge of its cap (`enclosure._core_holds`), read by `core-held`. The blocks take it forward,
     # in X and in yaw; the brackets take it up; the slab under it takes the weight and the back
     # wall the aft. Neither piece holds it alone and both are screwed to the back-bottom it
@@ -241,13 +241,13 @@ MOUNTS = (
     ("foam-assembly", ("enclosure-front-bottom", "enclosure-back-top"), "seam-capture"),
     ("seaflo-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
-    # THE BASIN'S DISCONNECT, THREE BODIES ON THE SPOUT'S OWN AXIS. The stub stands inside the
+    # THE FUNNEL'S DISCONNECT, THREE BODIES ON THE SPOUT'S OWN AXIS. The stub stands inside the
     # silicone under the clamp's band; the clamp closes silicone onto steel; the union takes the
     # stub in its upper collet and starts `fluid-4` at its lower one. The first two are made up
     # at the factory and never come apart; the third is the joint the customer opens.
-    ("hopper-drain-stub", None, "tube-clamp"),
-    ("hopper-drain-clamp", None, "tube-clamp"),
-    ("hopper-drain-union", None, "tube-hung"),
+    ("funnel-drain-stub", None, "tube-clamp"),
+    ("funnel-drain-clamp", None, "tube-clamp"),
+    ("funnel-drain-union", None, "tube-hung"),
     # THE ONE STEEL PIECE, SUNK IN A PRINTED SEAT. The collet plate's foot stands in the seat
     # `enclosure._bay_floor` cuts down the bay floor's top, one `wall` deep, its two bottom
     # corners notched round front-bottom's Z-seam lip — gravity onto the seat's own bottom, the
@@ -297,17 +297,17 @@ MOUNTS = (
     # a 120° V to each of the chain's own three sections, so the steps between them are faces
     # square to the axis and the brass barrel is trapped between two of them. What the V beds on
     # is that barrel's own two flats, which is the one section on the run whose clock the vent is
-    # machined into — so keying it is what holds the drip over the pan. Two zip ties through the
+    # machined into — so keying it is what holds the drip over the pan. Two straps through the
     # trough's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
     ("drip-pan", "enclosure-back-top", "channel"),
-    # The probe plate lies loose in the basin the way the basin rides loose in its rails: what
+    # The probe plate lies loose in the pan the way the pan rides loose in its rails: what
     # fastens it is the tray's own printed floor and coves, which fence it on four sides at
-    # `drip_pan.PLATE_SLIP`. Nothing screws down — a plate bolted flat could not be lifted out
+    # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — a plate bolted flat could not be lifted out
     # to wipe, and the tray is drawn and emptied on service with the plate still in it.
     ("moisture-plate", "drip-pan", "basin"),
     # The gas sensor slides into a slot printed on the −X wall of the bay it watches
-    # (`enclosure._west_cradle`) and bottoms on the wall itself. The board carries no mounting
+    # (`enclosure._west_cradle`) and bottoms on the wall itself. The main board carries no mounting
     # hole, so a slot is the only way it is ever held — the same bargain the lever nuts strike,
     # and the same wall-as-datum.
     ("mq6-sensor", "enclosure-front-bottom", "cradle"),
@@ -333,7 +333,7 @@ MOUNTS = (
     ("water-split", "enclosure-back-top", "cradle"),
     ("flow-regulator", "enclosure-back-top", "cradle"),
     ("vk-solenoid", "foam-assembly", "cradle"),
-    # EVERY FITTING ON THE REAR WALL IS CLAMPED THROUGH IT. The flange lands on the ring in its
+    # EVERY FITTING ON THE +Y WALL OF BACK-TOP IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
     # draws up on the inside — so the printed material is the clamped member and the joint is a
     # thread made up on it. `enclosure_assembly.check_wall_clamped` reads both faces of that off
@@ -353,7 +353,7 @@ MOUNTS = (
     ("bulkhead-flavor-a", "enclosure-back-top", "wall-capture"),
     ("bulkhead-flavor-b", "enclosure-back-top", "wall-capture"),
     ("bulkhead-carb", "enclosure-back-top", "wall-capture"),
-    # A CHIP LIES IN A POCKET CUT INTO THE BACK WALL'S OUTER FACE. `enclosure._port_field` sinks
+    # A CHIP LIES IN A POCKET CUT INTO THE +Y WALL OF BACK-TOP'S OUTER FACE. `enclosure._port_field` sinks
     # each one the chip's own thickness and stands the boss that backs it on the inboard face, and
     # the fitting's flange lands on the chip's outboard face — so the chip is fenced by wall on
     # every side its outline has and shut in by a flange whose bore is narrower than it is. What
@@ -381,22 +381,22 @@ MOUNTS = (
     # (`enclosure._nameplate`) — so the head, the plate and the wall come out one plane.
     ("nameplate", "enclosure-back-top", "screw"),
     ("nameplate-ink", "nameplate", "well"),
-    # THE METER HANGS IN TWO SADDLES OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
+    # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
-    # feature can reach. A strap through each saddle's own cavity closes it, and here the straps
+    # feature can reach. A strap through each anchor's own cavity closes it, and here the straps
     # are the load path: a V that opens downward carries nothing.
-    ("digiten-flow", "enclosure-back-top", "saddle"),
+    ("digiten-flow", "enclosure-back-top", "anchor"),
     # THE CAP LID PRINTS A CRADLE UNDER EACH VALVE THAT STANDS ON IT
     # (`_cold_core_interface.cap_cradles`) — four bosses, and the valve's own corner posts press
     # into their sockets. The cap is inside `foam-assembly`, which is the placed body the cradle
     # is a feature of, so that is what fastens them.
     ("valve-v-a", "foam-assembly", "cradle"),
     ("valve-v-b", "foam-assembly", "cradle"),
-    # AND THE OTHER EIGHT STAND ON TWO VALVE PANELS — a plate wall to wall on each plane the
+    # AND THE OTHER EIGHT STAND ON TWO VALVE TRAYS — a plate wall to wall on each plane the
     # fold left a deck on, carrying that same four-boss seat per valve. A panel is not a part:
-    # it is `enclosure-front-top`'s own material, fused the way the tap-water trough and the
-    # meter's saddles are (`enclosure._valve_trays` off
+    # it is `enclosure-front-top`'s own material, fused the way the ASSE anchor and the
+    # meter's anchors are (`enclosure._valve_trays` off
     # `enclosure_assembly.valve_panel_stations`, read by `panels-hold`).
     ("valve-v-c", "enclosure-front-top", "bosses"),
     ("valve-v-d", "enclosure-front-top", "bosses"),
@@ -485,30 +485,30 @@ def fastened_by(name: str):
 # machine stands on grommets to hold off itself. Its row's `by` is null and `never_holds` keeps
 # it null. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
-    # THE BASIN AND THE THREE BODIES ON ITS SPOUT'S COLUMN. The basin lifts out of the top wall
+    # THE FUNNEL AND THE THREE BODIES ON ITS SPOUT'S COLUMN. The funnel lifts out of the top wall
     # and goes into the dishwasher with the stub and the clamp still on it. Its brim bears on the
     # top wall's outer face and its collar fills the opening cut for it, and the union's collet
-    # grips the stub through the wall — thumb on the collet and the whole basin comes away. The
+    # grips the stub through the wall — thumb on the collet and the whole funnel comes away. The
     # union stays behind on its two collets. A printed feature closing on any of the four would be
-    # a feature the customer has to work past every time the basin is washed.
+    # a feature the customer has to work past every time the funnel is washed.
     "funnel":
         "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, "
-        "and the elbow's own collet grips the stub the spout carries — so the basin is held down by "
+        "and the elbow's own collet grips the stub the spout carries — so the funnel is held down by "
         "the joint it releases from. It is a dishwasher part and comes out by hand.",
-    "hopper-drain-stub":
-        "The worm clamp closes the basin's silicone spout onto it over the whole of the spout's "
+    "funnel-drain-stub":
+        "The worm clamp closes the funnel's silicone spout onto it over the whole of the spout's "
         "land, and the pair is made up at the factory. Nothing printed is in the path: the stub "
-        "leaves the machine with the basin every time it is washed.",
-    "hopper-drain-clamp":
+        "leaves the machine with the funnel every time it is washed.",
+    "funnel-drain-clamp":
         "A worm clamp closes on itself — the band draws through its own housing and the housing "
         "rides the band. What it lands on is silicone, and it goes to the dishwasher with it.",
-    "hopper-drain-union":
-        "Both its collets land on held bodies — the +Z leg takes the stub the basin carries, the "
+    "funnel-drain-union":
+        "Both its collets land on held bodies — the +Z leg takes the stub the funnel carries, the "
         "+Y leg hands `fluid-4` aft to V-B in its cradle on the cold core's cap — so the elbow "
         "hangs between two seats with nothing printed closing on it. It is the joint the customer "
         "opens, and a thumb on that collet is the whole of the motion.",
     # THE CHECK IN THE GAS CHAIN, the middle body of three standing on one axis at one height.
-    # The bulkhead ahead of it is clamped through the back wall and the regulator behind it lies
+    # The bulkhead ahead of it is clamped through the +Y wall of back-top and the regulator behind it lies
     # in a rib off the top one, so both ends of the chain are the box's and the check is the span
     # between them.
     "gasher-co2":
@@ -552,7 +552,7 @@ TEE_BUTTS = {"tee-y-a": "valve-v-c", "tee-y-b": "valve-v-d", "tee-y-c": "valve-v
 # off the machine. A body hung at both ends states a row per end: what makes it held is that
 # NEITHER of them lands on nothing.
 CHAIN_LANDS = (
-    ("hopper-drain-union", "outlet", "fluid-4", "valve-v-b"),
+    ("funnel-drain-union", "outlet", "fluid-4", "valve-v-b"),
     ("gasher-co2", "inlet", "co2-0", "co2-inlet"),
     ("gasher-co2", "outlet", "co2-1", "wr1110"),
 )
@@ -638,21 +638,21 @@ MADE_UP = (
     # brings the two faces together. The tube is cut to the two grips and swallowed whole by them,
     # which is why there is no `water-4` either.
     ("vk-solenoid.outlet", "suction-chain.tube-port"),
-    # The basin's stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
+    # The funnel's stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
     # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
     # filled by the thing it is a grip on.
-    ("hopper-drain-stub.spout", "hopper-drain-union.stub"),
-    # And the same stub in the basin's own spout, `funnel_drain_stub.FUNNEL_ENGAGEMENT` up the
-    # bore under the clamp's band. The basin drains THROUGH the stub, so the drain's lead is the
+    ("funnel-drain-stub.spout", "funnel-drain-union.stub"),
+    # And the same stub in the funnel's own spout, `funnel_drain_stub.FUNNEL_ENGAGEMENT` up the
+    # bore under the clamp's band. The funnel drains THROUGH the stub, so the drain's lead is the
     # stub's own bore and there is no length of anything else to leave room for.
-    ("funnel.drain", "hopper-drain-stub.funnel"),
+    ("funnel.drain", "funnel-drain-stub.funnel"),
     # The spout's exit face and the elbow's +Z collet face, which meet. That contact is what
     # leaves no stub standing in the room between the silicone and the fitting.
-    ("funnel.drain", "hopper-drain-union.stub"),
+    ("funnel.drain", "funnel-drain-union.stub"),
 )
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
-# radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the basin's
+# radius is the wrong thing to ask of it — what the vent owes is that its drip falls on the pan's
 # flat floor, and `enclosure_assembly.check_vent_lands` measures where it falls and reports it as
 # the `vent-lands` gate row.
 TERMINI = ("asse1022-assembly.vent-tip",)
@@ -685,7 +685,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The plate and the glass therefore stand one ring apart, which is a seat and not a gap:
     # `display_gasket.thickness` IS this distance, taken off the same two depths.
     ("display-cover", "display"),
-    # AND THE EIGHT IN THE TWO VALVE PANELS' — the same seat and the same press, on a plate the
+    # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid. `enclosure_assembly.check_panels_hold` is what
     # reads each valve against that plate.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
@@ -694,10 +694,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     # it, and `anchor-lands` holds each rib over the section it is bored for.
     ("foam-assembly", "discharge-chain"),
     ("foam-assembly", "suction-chain"),
-    # THE PROBE PLATE LIES ON THE BASIN'S FLOOR, which is the whole of what it does: a plate
+    # THE PROBE PLATE LIES ON THE PAN'S FLOOR, which is the whole of what it does: a plate
     # standing a millimetre off the floor reads only once the pool is a millimetre deep, and the
     # weep this watches for is a drip at a time. `enclosure_assembly.build_moisture_plate` seats
-    # its underside on that floor and `drip_pan.check_plate` holds the floor wide enough to take
+    # its underside on that floor and `asse_drip_pan.check_plate` holds the floor wide enough to take
     # it, so the pair reads 0 and it is the sensor working.
     ("drip-pan", "moisture-plate"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
@@ -731,7 +731,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
     ("nameplate", "nameplate-ink"),
-    # THE BASIN'S DISCONNECT, WHICH IS THREE CONTACTS ON ONE AXIS. The stub is inside the spout's
+    # THE FUNNEL'S DISCONNECT, WHICH IS THREE CONTACTS ON ONE AXIS. The stub is inside the spout's
     # bore for the whole of the spout's land; the band lies on the spout's outer face and closes
     # the silicone between the two; and the union's collet face meets that same spout's exit
     # face, which is what leaves no stub showing in the room between them.
@@ -740,9 +740,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # depth brings the two faces together, so what the run carries is the tube inside each
     # quick-connect and nothing between them.
     ("suction-chain", "vk-solenoid"),
-    ("funnel", "hopper-drain-stub"),
-    ("funnel", "hopper-drain-clamp"),
-    ("funnel", "hopper-drain-union"),
+    ("funnel", "funnel-drain-stub"),
+    ("funnel", "funnel-drain-clamp"),
+    ("funnel", "funnel-drain-union"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
@@ -988,9 +988,9 @@ def bend_radii(runs) -> list[dict]:
 def _bounds(a) -> list:
     """One gate per bound the machine states about itself — every
     leg of the refrigerant loop closing, the vent's drip landing on
-    the basin's flat, the drip tray's lip landing inside the −X wall, a through-wall body
+    the pan's flat, the ASSE drip pan's lip landing inside the −X wall, a through-wall body
     standing under the ceiling, a printed valve cradle standing under its valve, the drip
-    basin's own flat floor taking the moisture plate, and the
+    pan's own flat floor taking the moisture plate, and the
     enclosure's own: the pack inside the stated width, depth and height, the two seam planes
     clear of the display housing and on the print bed, the funnel throat inside the frame the
     top wall has left. `enclosure_assembly.carry_enclosure_bounds` brings that group over.
@@ -1638,13 +1638,13 @@ def _room_holds(a) -> Check:
 # out of the denominator, and its text goes out on the card.
 LOOSE = {
     "fluid-4":
-        "The basin's own drain, and the one line in the machine a customer handles. It parts at "
-        "the union under the spout every time the hopper goes to the dishwasher and is pushed "
+        "The funnel's own drain, and the one line in the machine a customer handles. It parts at "
+        "the union under the spout every time the funnel goes to the dishwasher and is pushed "
         "back at the same collet, so the length between that joint and V-B has to give: a rib "
         "strapped across it would be a fixed point the customer works against, and the run would "
         "take the load at the collet instead of along its own length.",
     "fluid-18":
-        "Nozzle A's line to its rear union. The cold core's side post grips its crossing fore "
+        "Flavor A's line to its rear union. The cold core's side post grips its crossing fore "
         "of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is "
         "the fall and the union column's own straight — a column whose overhead is the drip "
         "tray's sleeve, the flow meter and the meter's down-line, and whose flanks are the "

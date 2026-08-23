@@ -26,7 +26,7 @@ def internal_plumbing(m):
     import _lines
     import _scorecard as _card
     import digiten_flow_sensor as _digiten
-    import drip_pan as _pan
+    import asse_drip_pan as _pan
     from _cold_core_interface import cap_conduit_bore_radius, cap_cradles
 
     a, pack, box = m.a, m.pack, m.box
@@ -52,7 +52,7 @@ def internal_plumbing(m):
 
     # ── the CO2 path (IP-01) ───────────────────────────────────────────────
     # IP-01's title, its chain and its whole picture say the gas comes in at the
-    # BACK WALL. Nothing is cut in the front wall at all, and that has no number
+    # +Y WALL. Nothing is cut in the front wall at all, and that has no number
     # in it to drift — so this assertion is the only thing that can put the card
     # back if a front-face bore ever appears.
     assert not pack.front_ports and not box.front_ports, (
@@ -64,8 +64,8 @@ def internal_plumbing(m):
     # assertion checking the wall against a rule it no longer follows.
     co2_bore = a.wall_ports["co2"][3]
     assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
-        f"no {co2_bore:.4g} mm bore stands in the back wall — IP-01 threads the GASHER onto a "
-        f"bulkhead clamped through it, and the back wall is where the card sends the bench")
+        f"no {co2_bore:.4g} mm bore stands in the +Y wall of back-top — IP-01 threads the GASHER onto a "
+        f"bulkhead clamped through it, and the +Y wall is where the card sends the bench")
     # NOTHING ON THIS CHAIN THREADS ONTO ITS NEIGHBOUR: the bulkhead reaches the check by tube
     # and the check reaches the regulator by tube, which is the fitting count bom.md §4 buys and
     # the reason IP-01 draws all three standing apart.
@@ -96,7 +96,7 @@ def internal_plumbing(m):
     assert "water-4" not in runs, "`water-4` is drawn again — IP-02 seats V-K's outlet on the "\
         "suction chain's collet, face to face"
     assert port("bulkhead-water", "inboard")[0] == port("asse1022-assembly", "tube-in")[0], (
-        "the back-wall union's inboard collet and the ASSE chain's inlet no longer stand on one "
+        "the +Y wall union's inboard collet and the ASSE chain's inlet no longer stand on one "
         "point — IP-02 meets them face to face with nothing between them to turn")
     # The split's branch looks straight DOWN at the storey the pump stands on, so
     # `water-3` leaves the west lane by falling out of it. IP-02 and IP-04 both
@@ -215,7 +215,7 @@ def internal_plumbing(m):
     # ── V-K and the vent (WR-04, IP-06) ────────────────────────────────────
     # V-K is the one valve outside the manifold. It presses into a cradle the cold core's
     # cap lid prints for it — four corner posts into four sockets, nothing bolted — forward
-    # of the suction chain and firing aft. Not the back wall beside the water inlet, which
+    # of the suction chain and firing aft. Not the +Y wall beside the water inlet, which
     # is where a wiring card looking for it would otherwise send the bench.
     #   THE CORE'S BOX TOP IS NOT THE FACE IT STANDS ON. That same lid stands a taller pad
     # under each flavour valve, so the solid's `zmax` is one of THOSE seats and a body placed
@@ -277,7 +277,7 @@ def internal_plumbing(m):
         "MANIFOLD_HAIRPINS": f"{hairpins}",
         "BARB_TEES": f"{len(_ml.BARB_OF)}",
         "SPLIT_BRANCH": "down",
-        # The row on the back wall — IP-05, FU-04.
+        # The row on the +Y wall — IP-05, FU-04.
         "UMBILICAL_UNIONS": f"{len(a.constants["PANEL_X"])}",
         "UMBILICAL_DROP": f"{max(zs) - min(zs):.4g} mm",
         "FLAVOR_A_STATION": "middle",

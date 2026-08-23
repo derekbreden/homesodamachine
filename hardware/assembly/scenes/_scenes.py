@@ -300,7 +300,7 @@ SCENES = (
     Scene(
         "back-half", "Enclosure back half",
         roots=("enclosure-back-bottom", "enclosure-back-top"), inner=(), flip=None,
-        # The four that cross the Y seam: the flavour-A riser off the rear wall's own union,
+        # The four that cross the Y seam: the flavour-A riser off the +Y wall's own union,
         # and the three reservoir lines standing in the core's cap. All four are made up on
         # this half and all four leave it hanging, for the front half's valves to take.
         also=("tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
@@ -333,7 +333,7 @@ SCENES = (
         inner=(), flip=None, also=(), later=(),
         # Square on to the +X flank the column stands down, from inside the box.
         cam=(-1.0, -0.25, 0.35), up=(0, 0, 1), zoom=2.8, look="centre",
-        note="Down the +X flank — the PSU aft, the controller board forward of it, both relays "
+        note="Down the +X flank — the PSU aft, the main board forward of it, both relays "
              "and the ground stack, every mounting plane on the one seat.",
     ),
 )
@@ -378,7 +378,7 @@ PARTS = (
          "hardware/printed-parts/enclosure/enclosure/enclosure.step",
          cam=(0.75, -1.0, 0.55)),
     # The bare wall from OUTSIDE — the union bores in a rectangle, the C14 window under them.
-    Part("en02-rearwall", "Enclosure back top, rear wall",
+    Part("en02-rearwall", "Enclosure back top, +Y wall",
          "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
          cam=(0.35, 1.0, 0.3)),
     Part("en03-compressor", "Compressor",
@@ -387,7 +387,7 @@ PARTS = (
          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
          cam=(0.8, -1.0, 0.5)),
     Part("en08-drippan", "ASSE drip pan",
-         "hardware/printed-parts/enclosure/drip-pan/drip-pan.step",
+         "hardware/printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
          cam=(0.75, -1.0, 0.55)),
     Part("en09-hopper", "Funnel",
          "hardware/printed-parts/zone-c/funnel/funnel.step"),
@@ -476,7 +476,7 @@ BEARS_ON = {
     "compressor": "enclosure-front-bottom",
     "condenser+fan": "enclosure-front-bottom",
     # Clamped through a hole in that wall by their own nut, which is why no screw is billed for
-    # them. All five of the rear wall's crossings are above the back column's Z seam.
+    # them. All five of the +Y wall's crossings are above the back column's Z seam.
     "bulkhead-water": "enclosure-back-top",
     "bulkhead-carb": "enclosure-back-top",
     "bulkhead-flavor-a": "enclosure-back-top",
