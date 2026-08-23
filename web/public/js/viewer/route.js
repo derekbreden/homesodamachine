@@ -6,9 +6,13 @@
 //     the wrong thing and opens the right one.
 //
 //   - applyInitialRoute(occtPromise): on first load, deep-link via
-//     ?file=<step|dxf|mmd> (notification) or location.hash (bookmark).
-//     Extension drives which detail surface opens. STEP needs to wait
-//     on the occt-import-js loader; DXF and MMD don't.
+//     ?file=<path> (notification), where the extension names the surface,
+//     or location.hash (bookmark), where the prefix does. STEP waits on the
+//     occt-import-js loader; nothing else does.
+//
+// Both read the hash through `wantFromHash` and open through `OPENERS`, so the
+// prefixes are stated once and the two surfaces cannot come to disagree about
+// what a link means.
 
 import { state } from "./state.js";
 import {
@@ -33,22 +37,26 @@ const decodeHash = (s) => { try { return decodeURIComponent(s); } catch { return
 const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "pcb:": "pcb" };
 const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, pcb: openPcbDetail };
 
-window.addEventListener("popstate", () => {
-  // A `step:` hash carries the whole walk and is split before it is decoded —
-  // every other kind is one file and decodes whole (step-nav.js's parseStepHash).
-  const raw = location.hash ? location.hash.slice(1) : "";
-  const hash = decodeHash(raw);
-  let want = { type: null, file: null, path: null };
+// WHAT A HASH NAMES, read once for both surfaces below. A `step:` hash carries
+// the whole walk and is split before it is decoded; every other kind is one file
+// and decodes whole (step-nav.js's parseStepHash). A hash matching no prefix
+// names nothing here — popstate reads that as "close what is open", and the
+// initial route reads it as the bare STEP path a link written before the
+// prefixes says.
+function wantFromHash(raw) {
   for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
     if (!raw.startsWith(prefix)) continue;
     if (type === "step") {
       const path = parseStepHash(raw);
-      want = { type, file: path[path.length - 1], path };
-    } else {
-      want = { type, file: hash.slice(prefix.length), path: null };
+      return { type, file: path[path.length - 1], path };
     }
-    break;
+    return { type, file: decodeHash(raw).slice(prefix.length), path: null };
   }
+  return { type: null, file: null, path: null };
+}
+
+window.addEventListener("popstate", () => {
+  const want = wantFromHash(location.hash ? location.hash.slice(1) : "");
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
@@ -75,48 +83,30 @@ window.addEventListener("popstate", () => {
 });
 
 // --- Initial route ---
-// Prefer ?file=<step|dxf|mmd> (notification deep link), fall back to hash.
-// The file's extension drives which detail surface opens; occtPromise is needed
-// for STEP only, and every other kind can open immediately.
+// On first load: a `?file=` deep link (what a notification writes), else the
+// hash (what a bookmark or a pasted link carries).
+
+// Extension → the surface a `?file=` link opens. Anything the table does not
+// name is a STEP, which is what a hand-written link and every render tool pass.
+const FILE_KINDS = { ".mmd": "mmd", ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" };
+
 export function applyInitialRoute(occtPromise) {
-  const initialParams = new URLSearchParams(location.search);
-  const initialFile = initialParams.get("file");
-  if (initialFile) {
-    if (initialFile.endsWith(".mmd")) {
-      setTimeout(() => openMmdDetail(initialFile, true), 100);
-    } else if (initialFile.endsWith(".dxf")) {
-      setTimeout(() => openDxfDetail(initialFile, true), 100);
-    } else if (initialFile.endsWith(".glb")) {
-      setTimeout(() => openGlbDetail(initialFile, true), 100);
-    } else if (initialFile.endsWith(".tsx")) {
-      setTimeout(() => openPcbDetail(initialFile, true), 100);
-    } else {
-      occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
-    }
-  } else if (location.hash) {
-    const raw = location.hash.slice(1);
-    const hash = decodeHash(raw);
-    if (raw.startsWith("step:")) {
-      // The whole walk, so a link pasted cold opens where it says with the trail
-      // that leads back out of it.
-      const path = parseStepHash(raw);
-      occtPromise.then(() => setTimeout(
-        () => openDetail(path[path.length - 1], false, path), 100));
-    } else if (hash.startsWith("dxf:")) {
-      const file = hash.slice(4);
-      setTimeout(() => openDxfDetail(file, false), 100);
-    } else if (hash.startsWith("glb:")) {
-      const file = hash.slice(4);
-      setTimeout(() => openGlbDetail(file, false), 100);
-    } else if (hash.startsWith("mmd:")) {
-      const file = hash.slice(4);
-      setTimeout(() => openMmdDetail(file, false), 100);
-    } else if (hash.startsWith("pcb:")) {
-      const file = hash.slice(4);
-      setTimeout(() => openPcbDetail(file, false), 100);
-    } else {
-      // Legacy hash format (just a step file path)
-      occtPromise.then(() => setTimeout(() => openDetail(hash, false), 100));
-    }
+  // A STEP waits on the occt loader; every other kind can open at once. The
+  // timeout lets the grid finish laying out under the modal about to cover it.
+  const open = (type, file, push, path = null) => {
+    const go = () => setTimeout(
+      () => (type === "step" ? openDetail(file, push, path) : OPENERS[type](file, push)), 100);
+    if (type === "step") occtPromise.then(go); else go();
+  };
+
+  const linked = new URLSearchParams(location.search).get("file");
+  if (linked) {
+    open(FILE_KINDS[linked.slice(linked.lastIndexOf("."))] || "step", linked, true);
+    return;
   }
+  if (!location.hash) return;
+  const raw = location.hash.slice(1);
+  const want = wantFromHash(raw);
+  if (want.type) open(want.type, want.file, false, want.path);
+  else open("step", decodeHash(raw), false);
 }

@@ -92,44 +92,7 @@ export function windowContent({ elements, mount, unmount }) {
   };
 }
 
-export const PLACEHOLDER = `<div class="placeholder">loading...</div>`;
-
-// Hosts whose content is an offscreen render handed back as a data URL (DXF
-// cuts, GLB assemblies). The host holds either a placeholder or an <img>; both
-// declare the same aspect ratio, so swapping between them is invisible. The
-// URL stays in its per-kind cache — releasing gives back the decoded bitmap,
-// not the render, so returning costs a decode and never a re-render.
-export function imageThumb(render) {
-  return {
-    mount(card) {
-      const token = (card._mountToken = (card._mountToken || 0) + 1);
-      render(card.dataset.file).then((url) => {
-        if (card._mountToken !== token) return;
-        const host = card.firstElementChild;
-        if (!host) return;
-        if (!url) {
-          host.innerHTML = "";
-          host.className = "placeholder";
-          host.textContent = "error";
-          return;
-        }
-        const img = document.createElement("img");
-        img.src = url;
-        host.replaceWith(img);
-      });
-    },
-    unmount(card) {
-      card._mountToken = (card._mountToken || 0) + 1;
-      const img = card.querySelector("img");
-      if (!img) return;
-      const ph = document.createElement("div");
-      ph.className = "placeholder";
-      ph.dataset.file = card.dataset.file;
-      ph.textContent = "loading...";
-      img.replaceWith(ph);
-    },
-  };
-}
+const PLACEHOLDER = `<div class="placeholder">loading...</div>`;
 
 // Hosts whose content is markup dropped into a wrapper (mermaid, line art, PCB
 // views). Releasing means putting the placeholder back — the rendered string

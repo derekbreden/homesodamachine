@@ -22,7 +22,6 @@
 import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, controls, resizeRenderer, fitCameraDepth, fitFog } from "./scene.js";
-import { thumbRenderer, thumbScene, thumbCam } from "./step.js";
 
 const DXF_UNIT_TO_MM = {
   0: 1,        // unitless — treat as mm
@@ -462,49 +461,3 @@ export function resetDxfCamera(group, hasThickness) {
   controls.update();
 }
 
-export async function renderDxfThumbnail(file) {
-  if (state.dxfThumbCache.has(file)) return state.dxfThumbCache.get(file);
-
-  try {
-    const resp = await fetch(`/dxfs/${file}`);
-    if (!resp.ok) return null;
-    const text = await resp.text();
-    const parsed = parseDxf(text);
-    const meta = state.dxfMeta.get(file) || {};
-    const thickness = typeof meta.thickness_mm === "number" ? meta.thickness_mm : null;
-    const group = buildDxfMesh(parsed, thickness);
-    thumbScene.add(group);
-
-    const box = new THREE.Box3().setFromObject(group);
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const maxPlanar = Math.max(size.x, size.y, 1);
-    if (thickness) {
-      // Same iso framing as the detail view, so thumbs and the modal
-      // open look like the same part.
-      const dist = maxPlanar * 1.6;
-      const off = dist / Math.sqrt(3);
-      thumbCam.position.set(center.x + off, center.y + off, center.z + off + size.z);
-      thumbCam.up.set(0, 0, 1);
-      thumbCam.lookAt(center.x, center.y, center.z + size.z / 2);
-    } else {
-      // Wireframe → top-down, edge-on iso would show nothing.
-      thumbCam.position.set(center.x, center.y, center.z + maxPlanar * 1.4);
-      thumbCam.up.set(0, 1, 0);
-      thumbCam.lookAt(center);
-    }
-    fitCameraDepth(thumbCam, center, size.length() / 2);
-    fitFog(thumbScene, thumbCam.position.distanceTo(center), size.length() / 2);
-
-    thumbRenderer.render(thumbScene, thumbCam);
-    const dataURL = thumbRenderer.domElement.toDataURL();
-
-    thumbScene.remove(group);
-    group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
-
-    state.dxfThumbCache.set(file, dataURL);
-    return dataURL;
-  } catch {
-    return null;
-  }
-}

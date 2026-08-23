@@ -44,8 +44,6 @@ export const state = {
                               // repopulated from localStorage on each STEP load, applied to mesh.visible
   thumbnailCache: new Map(),  // "<STEP file>@<square px>" -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
-  dxfThumbCache: new Map(),   // DXF file -> dataURL
-  glbThumbCache: new Map(),   // GLB file -> dataURL
   pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag

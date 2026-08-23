@@ -288,8 +288,9 @@ export function closeCadDetail(pushHistory = true) {
   ContentViewer.close();
 }
 
-// Backward-compatible thin wrappers — call sites in grid/live/popstate
-// still use the old per-format names.
+// One name per kind, so a call site says which surface it wants and `OPENERS`
+// can hold them in a table. `path` is STEP's alone: it is the only kind a walk
+// goes through.
 export function openDetail(file, pushHistory = true, path = null) { openCadDetail("step", file, pushHistory, path); }
 export function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }
 export function openGlbDetail(file, pushHistory = true) { openCadDetail("glb",  file, pushHistory); }
