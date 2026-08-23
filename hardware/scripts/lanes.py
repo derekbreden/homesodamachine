@@ -131,7 +131,6 @@ sys.path.insert(0, str(_HW / "scripts"))
 # The env a read-only run wants, set BEFORE the build modules are imported. This scans and
 # exports nothing, so it must not take the global build lock: holding it makes every later
 # build follow this process instead of running.
-os.environ.setdefault("HSM_SKIP_THUMBNAILS", "1")
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 

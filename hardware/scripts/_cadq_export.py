@@ -31,10 +31,8 @@ Usage from any generator script:
 import atexit
 import filecmp
 import hashlib
-import json
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -699,107 +697,24 @@ def _atomic_write(target_path, write_fn):
         raise
 
 
-# --- Doc pictures ------------------------------------------------------------
+# --- The mesh payload --------------------------------------------------------
 #
-# A README that embeds `<name>.step.png` shows a picture of a solid to a reader who
-# never opens the site (web serves it at /thumbs/<file>.step.png). The PNG is a pure
-# function of the STEP, so it is regenerated here, right where the STEP is produced
-# — a direct run that writes a STEP (an agent, by hand, a batch build) refreshes the
-# picture of it.
+# The shape is still in hand when a STEP is written, so its tessellation goes over
+# with it and the page renders from that instead of reading the STEP back through
+# occt in wasm. `loadStepFile` PREFERS a payload to the STEP beside it, so a payload
+# older than the STEP is every reader — the page, the elevations, the scene shots —
+# drawing a model the STEP no longer holds.
 #
-# A DOC IS WHAT READS ONE. `/3d` draws the model itself — `paintStepThumb`
-# (web/public/js/viewer/grid.js) reads the same payload the modal reads and renders
-# it at the card's own size — so a solid on that page needs no picture beside it.
-# What is left is the reader who never opens the page: a README that embeds
-# `<name>.step.png`. `_has_a_reader` asks the docs, and only the docs.
+# EXCEPT WHERE NOBODY WILL EVER READ IT. An action holds a sandbox: `.step.mesh` is in
+# no `outs`, so the one written there is discarded when the sandbox goes, and no reader
+# in the tree is either helped or misled by it. That is a tessellation per exported
+# solid — 103 across a full build — bought for nothing. HSM_SKIP_MESH_PAYLOAD says so,
+# and the tree's payloads stay the business of the runs that keep them: a hand run and
+# the dev-server watcher, neither of which sets it.
 #
-# Rendering is deferred to one batch at process exit (tools/render/
-# render-thumbnails.js boots the viewer + a headless browser once per run, not
-# once per part) and gated on the thumbnail being absent or older than its
-# STEP — so no-op regenerations cost nothing. It's best-effort: a
-# missing Node/render toolchain logs a warning and is skipped, never failing
-# the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely, browser
-# and contract both (fast CAD iteration / Python-only CI). Two runs set it and
-# neither keeps a picture: the dev-server watcher rebuilds thumbnails off its own
-# critical path instead, so a live save never blocks on a browser boot
-# (web/dev-server/server.js), and `.bazelrc` sets it for every action, whose
-# sandbox is thrown away with whatever was drawn in it.
-#
-# The shape is still in hand at this point, so its tessellation goes over with
-# it (_mesh_payload) and the page renders from that instead of reading the STEP
-# back through occt in wasm — the expensive half of a thumbnail by an order of
-# magnitude. Tessellating is best-effort in the same way the render is: a shape
-# that won't mesh queues the STEP alone and the page falls back to parsing it.
-
-# `tools/` is shared machinery with ONE copy at the repo root, so it gets its own
-# anchor rather than a walk up from this file: an edition's copy of this module sits
-# the same distance below its own root, and a fixed walk would point the render tool
-# at a tools/ its edition does not have. The tool is already edition-aware — it
-# classifies each .step against the content roots itself — so only finding it is the
-# question. `tools/docgen` is the sentinel every other shared-machinery anchor uses.
-# A RUN THAT CANNOT FIND IT DRAWS NO THUMBNAIL AND EXPORTS ANYWAY. The anchor's only
-# consumer is best-effort, so not finding one is the same event as not finding the tool
-# beside it — `_render_pending_thumbnails` already says so and skips.
-# AN ACTION HOLDS ONLY WHAT IT DECLARED, so the tool is declared: `graph.json` names it in
-# the reads of every generator that cuts a `.step`, which is what puts `tools/render/` and
-# the `tools/docgen` this anchor looks for into the sandbox. No watch of any length finds
-# that edge on its own — the batch below goes to node at interpreter exit, after the tracer
-# has written its record — so it is named by hand and stays named.
-_TOOLS_ROOT = next((p for p in Path(__file__).resolve().parents
-                    if (p / "tools" / "docgen").is_dir()), None)
-_THUMBNAIL_TOOL = _TOOLS_ROOT and _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"
-#: The root a picture's path is relative to — `render-thumbnails.js` serves the same viewer off
-#: `hardware/`, so `/thumbs/<rel>` is `<rel>` under here. READ AT INTERPRETER EXIT AND DECLARED
-#: BY NOBODY, which is the opposite of the tool above and for the opposite reason: `.bazelrc`
-#: sets `HSM_SKIP_THUMBNAILS` for every action, so no sandbox reaches these files.
-_CONTENT_ROOT = _TOOLS_ROOT and _TOOLS_ROOT / "hardware"
-_pending_thumbnails = {}       # abs .step path -> abs payload path, or None
-_thumbnail_tmpdir = None
-_thumbnail_atexit_registered = False
-_UNASKED = object()
-_doc_paints_answer = _UNASKED
-
-
-def _doc_paints():
-    """Every `.step` under the content root whose `.step.png` a doc there embeds.
-
-    THIS IS THE WHOLE OF WHAT A PICTURE IS FOR. `/3d` draws the model itself — `paintStepThumb`
-    in web/public/js/viewer/grid.js reads the same payload the modal reads and renders it at the
-    card's own size — so a solid on that page needs no picture beside it and gets none. What is
-    left is the reader who never opens the page: a README that embeds `<name>.step.png`.
-
-    Read off the docs rather than listed, so a picture put into a README is drawn by having
-    been put there. A reference out of the content root belongs to whatever tree holds it."""
-    global _doc_paints_answer
-    if _doc_paints_answer is not _UNASKED:
-        return _doc_paints_answer
-    out = set()
-    for doc in sorted(_CONTENT_ROOT.rglob("*.md")):
-        try:
-            text = doc.read_text()
-        except OSError:
-            continue
-        for ref in re.findall(r"\(([^()\s]+\.step)\.png\)", text):
-            try:
-                out.add((doc.parent / ref).resolve().relative_to(_CONTENT_ROOT).as_posix())
-            except (OSError, ValueError):
-                continue
-    _doc_paints_answer = out
-    return out
-
-
-def _has_a_reader(target) -> bool:
-    """Whether any doc shows a picture of `target`.
-
-    A path outside the content root is not this tree's to answer for — `render-thumbnails.js`
-    reads the same docs against the same root and declines the same files."""
-    if _CONTENT_ROOT is None:
-        return False
-    try:
-        rel = target.relative_to(_CONTENT_ROOT).as_posix()
-    except (TypeError, ValueError):
-        return False
-    return rel in _doc_paints()
+# A run that needs a payload IN the action writes its own and does not come through
+# here — `render_scenes.draw_part` calls `_write_mesh_payload` directly, because the
+# viewer it stands really does read one.
 
 
 def _write_mesh_payload(target, source):
@@ -828,19 +743,6 @@ def _write_mesh_payload(target, source):
         return None
 
 
-def _current(target, beside):
-    """Whether `beside` was made from the STEP as it now stands — the thumbnail rendered from
-    it, or the mesh payload tessellated for it.
-
-    `_atomic_write` leaves an unchanged target's mtime alone, so a STEP newer than the file
-    beside it is one whose bytes have moved since that file was made — by this build or by one
-    that made nothing."""
-    try:
-        return beside.stat().st_mtime_ns >= target.stat().st_mtime_ns
-    except OSError:
-        return False
-
-
 def _payload_current(target, mesh):
     """Whether `mesh` describes the STEP as it now stands AND states the version the
     page reads. `_mesh_payload.VERSION` names what a mesh entry carries; the page decodes
@@ -864,123 +766,28 @@ def _payload_current(target, mesh):
         return False
 
 
-def _queue_thumbnail(target_path, source=None):
+def _write_payload_beside(target_path, source=None):
+    """Tessellate `source` beside the STEP just written, when a reader in the tree will
+    have it.
+
+    A payload no older than the STEP and of the version the page reads was made from these
+    bytes, so a build that moved nothing re-tessellates nothing. Tessellating is
+    best-effort: a shape that will not mesh leaves the STEP alone and the page parses it."""
     target = Path(target_path).resolve()
-    if target.suffix != ".step":
+    if target.suffix != ".step" or source is None:
         return
-    # THE TOOL IS READ WHETHER OR NOT THIS RUN STARTS IT, and both skips below are runs that do
-    # not. `trace_inputs.py` learns a tool's path from the `subprocess` that names it, and the
-    # spawn here is deferred to an `atexit` hook — which fires after the tracer has already
-    # written its reading, in a `finally:`. So nothing recorded this, and re-tracing any
-    # STEP-cutting generator DELETED `render-thumbnails.js` from its declared inputs: 60
-    # entries in `graph.json` named it, and re-tracing five left 55. A renderer no target
-    # declares is a renderer whose change invalidates nothing, and that goes red nowhere.
-    # `note_read` is the same answer the three deck builders already give for `render-card.js`.
-    if _THUMBNAIL_TOOL is not None:
-        note_read(_THUMBNAIL_TOOL)
-    # The payload is what the PAGE reads, and it goes down whenever the STEP does. A thumbnail
-    # already standing for these bytes is a thumbnail nobody has to render again — it is not a
-    # reason to leave the page parsing the model it stands for.
-    #
-    # IT IS WRITTEN BEFORE EITHER SKIP. `loadStepFile` PREFERS a payload to the STEP beside it,
-    # so a payload older than the STEP is every reader — the page, the elevations, the scene
-    # shots — drawing the model the STEP no longer holds. HSM_SKIP_THUMBNAILS asks for no
-    # browser, which is what a thumbnail costs; a shape the generator is still holding
-    # tessellates without one.
-    #
-    # A payload no older than the STEP, and of the version the page reads, was made from these
-    # bytes by this format — `_atomic_write` leaves an unchanged target's mtime alone — so a
-    # build that moved nothing re-tessellates nothing.
-    #
-    # EXCEPT WHERE NOBODY WILL EVER READ IT. All of the above is about the tree, where a payload
-    # older than its STEP is every reader drawing a model that has moved. An action holds a
-    # sandbox: `.step.mesh` is in no `outs`, so the one written here is discarded when the
-    # sandbox goes, and no reader in the tree is either helped or misled by it. That is a
-    # tessellation per exported solid — 103 of them across a full build — bought for nothing.
-    # HSM_SKIP_MESH_PAYLOAD says so. The tree's payloads stay the business of the runs that
-    # keep them: a hand run and the dev-server watcher, neither of which sets it.
-    #
-    # A run that needs a payload IN the action writes its own and does not come through here —
-    # `render_scenes.draw_part` calls `_write_mesh_payload` directly, because the viewer it
-    # stands really does read one.
+    if os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
+        return
     mesh = target.with_name(target.name + ".mesh")
-    payload = None
-    if source is not None and not os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
-        payload = str(mesh) if _payload_current(target, mesh) else _write_mesh_payload(target, source)
-    if os.environ.get("HSM_SKIP_THUMBNAILS"):
-        return
-    if _current(target, target.with_name(target.name + ".png")):
-        return
-    _pending_thumbnails[str(target)] = payload
-    global _thumbnail_atexit_registered
-    if not _thumbnail_atexit_registered:
-        atexit.register(_render_pending_thumbnails)
-        _thumbnail_atexit_registered = True
-
-
-def _render_pending_thumbnails():
-    global _thumbnail_tmpdir
-    if not _pending_thumbnails:
-        return
-    queued = dict(sorted(_pending_thumbnails.items()))
-    _pending_thumbnails.clear()
-    # `render-thumbnails.js` DECIDES THIS TOO, off the same two lists, because every road into
-    # it has to be filtered and two of them are not this one — `--all` and the dev-server's
-    # background renderer. What asking again here buys is the spawn: booting that tool to be
-    # told it has nothing to draw is 7–21 s of `sharp` and puppeteer imports, and a generator
-    # that cut only solids the page places would pay it on every run.
-    #
-    # THE PAGE IS ASKED HERE AND NOT AT THE QUEUE, because this hook runs at interpreter exit —
-    # after `trace_inputs.py` has written its reading in a `finally:` — so the contract stays
-    # off the declared inputs of every generator that cuts a solid. The queue keeps
-    # `note_read(_THUMBNAIL_TOOL)`, which names a tool a run WOULD start whether or not it
-    # starts one, and dropping a picture here must not drop that edge.
-    dropped = {k for k in queued if not _has_a_reader(Path(k))}
-    for k in dropped:
-        del queued[k]
-    if dropped and not queued:
-        print(f"[_cadq_export] {len(dropped)} solid(s) have no card on /3d; no thumbnail drawn",
-              file=sys.stderr)
-    if not queued:
-        return
-    node = shutil.which("node")
-    if node is None or _THUMBNAIL_TOOL is None or not _THUMBNAIL_TOOL.exists():
-        reason = "node not found on PATH" if node is None else "render tool missing"
-        print(
-            f"[_cadq_export] thumbnail render skipped for {len(queued)} part(s): {reason}",
-            file=sys.stderr,
-        )
-    else:
-        try:
-            print(f"[_cadq_export] rendering {len(queued)} thumbnail(s)...", file=sys.stderr)
-            handed = {k: v for k, v in queued.items() if v}
-            args = [k for k in queued if k not in handed]
-            if handed:
-                if _thumbnail_tmpdir is None:
-                    _thumbnail_tmpdir = tempfile.mkdtemp(prefix=f"hsm-mesh.{os.getpid()}.")
-                manifest = os.path.join(_thumbnail_tmpdir, "payloads.json")
-                with open(manifest, "w") as f:
-                    json.dump(handed, f)
-                args = ["--payloads", manifest, *args]
-            subprocess.run(
-                [node, str(_THUMBNAIL_TOOL), *args],
-                cwd=str(_TOOLS_ROOT),
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                timeout=600,
-                check=False,
-            )
-        except Exception as exc:  # best-effort: a thumbnail must never break export
-            print(f"[_cadq_export] thumbnail render failed: {exc}", file=sys.stderr)
-    if _thumbnail_tmpdir:
-        shutil.rmtree(_thumbnail_tmpdir, ignore_errors=True)
+    if not _payload_current(target, mesh):
+        _write_mesh_payload(target, source)
 
 
 def export_step(model, target_path):
     """cq.exporters.export with atomic write."""
     import cadquery as cq
     _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
-    _queue_thumbnail(target_path, model)
+    _write_payload_beside(target_path, model)
 
 
 #: What separates a body from the index of one of its solids, in the names
@@ -1036,7 +843,7 @@ def export_assembly(assembly, target_path):
     the viewer have to agree, and agreeing on the uncolored one is not the way."""
     colored = _per_solid_color(assembly)
     _atomic_write(target_path, lambda p: colored.export(p))
-    _queue_thumbnail(target_path, colored)
+    _write_payload_beside(target_path, colored)
 
 
 def export_dxf(source, target_path):

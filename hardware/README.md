@@ -98,9 +98,7 @@ put where Bazel can see it.
 The 32 generators whose own docstrings hold `[value](NAME)` figures are handed their file raw,
 because the run rewrites what it was given and `sync_tree` carries that back into the tree. A
 step that actually starts Node is also handed `:node-packages`, which globs `tools/render/` and
-`web/` in whole. The STEP exporters' prospective `render-thumbnails.js` read is left out of the
-Bazel graph because `.bazelrc` fixes `HSM_SKIP_THUMBNAILS=1` and those actions return before
-starting it; a viewer edit therefore does not invalidate sixty-one unrelated solid actions.
+`web/` in whole.
 
 A line number in a sandbox traceback is that copy's, not the tree's. The line it names is in
 the tree, found by its text.
@@ -151,13 +149,12 @@ later as an `AttributeError` with Blender itself exiting 0.
 
 TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
 
-- **A `.step.png` is not a declared output.** `_cadq_export` draws a thumbnail best-effort —
-  "a thumbnail must never break export" — and a Bazel output is one the action must produce or
-  fail. The two are opposite promises. So no action draws one: `sync_tree` carries what a target
-  declares, the picture is in nothing's `outs`, and `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for
-  every action rather than paying a headless browser for a file the sandbox discards. A hand run
-  keeps the tree's pictures, and draws the one kind anything still shows: a solid a README
-  embeds the picture of. `/3d` draws the model itself, so its cards ask for none.
+- **A `.step.mesh` is not a declared output.** `_cadq_export` tessellates best-effort — a
+  payload must never break an export — and a Bazel output is one the action must produce or
+  fail. The two are opposite promises. So no action writes one: `sync_tree` carries what a
+  target declares, the payload is in nothing's `outs`, and `.bazelrc` sets
+  `HSM_SKIP_MESH_PAYLOAD` for every action rather than tessellating a file the sandbox
+  discards. The runs that keep the tree's payloads are a hand run and the dev-server watcher.
 - **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
   the viewer on loopback and photographs it with a headless browser, and that page loads
   `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this

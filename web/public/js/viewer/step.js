@@ -34,9 +34,8 @@ async function parseStep(buffer) {
 }
 
 // The same `{ meshes: [...] }` occt hands back, decoded from the tessellation the
-// export wrote beside the STEP. Both the headless thumbnailer
-// (tools/render/render-thumbnails.js) and the live viewer answer off a model's
-// payload when it has one; a model without one is read from its STEP.
+// export wrote beside the STEP. The viewer answers off a model's payload when it
+// has one; a model without one is read from its STEP.
 //
 // Layout: u32 header length, that many bytes of JSON, then one blob every
 // array indexes into by [byteOffset, length] — positions and normals f32,
