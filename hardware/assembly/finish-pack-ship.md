@@ -113,7 +113,7 @@ Stand the empty carton up on its bottom face with the TOP arrow on the interior 
 
 Side voids — the carton is sized so the appliance + foam end-caps leave two flanking voids on the long sides of the carton, sized for the two satellite items:
 
-- **Faucet-and-umbilical bag** (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)) lays into one side void, coiled to its 8–12" loop diameter per that bench's bagging step. Orient the bag so the faucet body sits at the carton's TOP end — keeps the heavier faucet body away from the carton's bottom drop zone, which the foam end-caps already cover for the appliance itself.
+- **Faucet-and-umbilical bag** (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)) lays into one side void, coiled to its 8–12" loop diameter per that bench's bagging step. Orient the bag so the faucet sits at the carton's TOP end — keeps the heavier faucet away from the carton's bottom drop zone, which the foam end-caps already cover for the appliance itself.
 - **Install kit box** lays into the other side void, customer-documentation face up so the printed quick-start install guide is the first thing the customer sees when they open the kit.
 
 Wedge both items with foam corner-blocks so they don't shift during transit. Close the carton's top flaps in the standard short-flap-first / long-flap-second order. Seal with kraft tape across all three top seams (long center + both short ends), then the same on the bottom. The Founder Edition unit is a [$7,500](FOUNDER_EDITION_PRICE) D2C ship — the seal isn't load-bearing, but it telegraphs care to the customer at unboxing.

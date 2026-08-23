@@ -66,7 +66,7 @@ wago_count = len(_facts.read().constants["WAGO_POLES"])
 
 def main():
     variables = {
-        # The main board itself, off the outline `pcba_tray` reads out of the board file —
+        # The main board itself, off the outline `pcba_tray` reads out of the PCB source —
         # the same rectangle `enclosure_assembly` places on the wall and stands its
         # bosses under. The gerber plot frames it half an edge-cut aperture wider on
         # each side; this is the outline that gets cut and the one that gets mounted.
