@@ -94,6 +94,7 @@ signals are protected.
 
 1. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
 2. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW compressor lead.
+3. **22 AWG silicone into JST XH.** The XH contact (SXH-001T-P0.6) is rated 22–30 AWG on the conductor, and its insulation barrel is sized for the PVC and ETFE hookup wire that range is written against. Silicone's wall is thicker at every gauge, and 22 AWG silicone presents an OD the barrel does not close on. A harness contract manufacturer's crimp-selection data (MiniProto, `/api/v1/validations`) accepts 22 AWG into XH on UL 1007, UL 1015, UL 1061 and ThermoThin, and rejects Silicone at 22 and 23 AWG while accepting it from 24 AWG down. Every XH-terminated loom in the schedule above is 22 AWG silicone. Three ways out: 24 AWG silicone on the XH looms (the signal and reed runs carry no current; MANIFOLD A `COM` carries ≤ ~1.4 A over 300 mm), a thin-wall family at 22 AWG, or 22 AWG silicone kept only where the termination is a ferrule or a Faston.
 
 ## Sources
 [value](NAME) texts are updated by:

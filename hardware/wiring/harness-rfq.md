@@ -30,10 +30,10 @@ its wire list below, including the deliberate non-connection at J2 contact 3.
 
 | Item | Spec | Notes |
 |---|---|---|
-| Signal / actuator wire | 22 AWG stranded tinned-copper **silicone**, 600 V, **black** | all ten assemblies except J3 |
+| Signal / actuator wire | 22 AWG stranded tinned-copper **silicone**, 600 V, **black** | all ten assemblies except J3 — **see Open question 1, the gauge is not settled** |
 | Ribbon | 28 AWG 4-conductor jacketed ribbon, black | J3 only |
 | Board-end housings | JST **XH**, 2.5 mm pitch, female crimp housing + contacts | XHP-*n* per assembly; "XH2.54" is the series name, the pitch is 2.50 mm |
-| Device-end tabs | Female Faston disconnects, **6.3 mm and 4.8 mm** | per-device size map not yet recorded — see Open questions |
+| Device-end tabs | Female Faston disconnects, **6.3 mm and 4.8 mm** | at 20–24 AWG these are TE **2178438-1** (250 / 6.3 mm) and **170214-2** (187 / 4.8 mm); per-device size map not yet recorded |
 | Screw landings | Insulated bootlace ferrules, DIN, 22 AWG | J5 relay terminals, J9 display terminals |
 | Fan-out splices | **WAGO 221-420** (10-way) and **221-415** (5-way) | supplied loose or made off, see below |
 | Sleeve | Black PET expandable braided, 1/4" / 1/2" / 3/4" per assembly | both cut ends finished with black heat-shrink |
@@ -216,16 +216,24 @@ length must hold with the cartridge drawn fully out — do not shorten.
 
 ## Open questions for the vendor
 
-1. **Faston sizes.** `cable-assemblies.md` calls for both 6.3 mm and 4.8 mm disconnects; the
+1. **Wire gauge into the XH housings — open, and we want your read.** The schedule says 22 AWG
+   silicone. 22 AWG silicone does not pass crimp-compatibility checks into JST XH: the XH contact's
+   22–30 AWG rating is a conductor rating, and silicone's insulation OD at 22 AWG is over what the
+   barrel closes on. The same 22 AWG passes into XH in UL 1007, UL 1015, UL 1061 and ThermoThin, and
+   silicone passes into XH from 24 AWG down. **Please quote the option you would actually build**,
+   from: (a) 24 AWG silicone on the XH looms, (b) 22 AWG thin-wall (UL 1061 or similar), (c) 22 AWG
+   silicone with a different board-side connector family. Current draw on these looms is negligible
+   except MANIFOLD A `COM`, which carries ≤ ~1.4 A over ~300 mm.
+2. **Faston sizes.** `cable-assemblies.md` calls for both 6.3 mm and 4.8 mm disconnects; the
    per-device map is not yet recorded. Quote against a stated assumption and we will confirm before
    release.
-2. **WAGO nuts — supplied or made off?** Preference is made off as part of the assembly. If your
+3. **WAGO nuts — supplied or made off?** Preference is made off as part of the assembly. If your
    process cannot land a lever nut in-line, quote with the nut supplied loose and the branch
    conductors ferruled to length.
-3. **Device-end terminations on J3, J4, J11.** Sensor and display leads land per device rather than
+4. **Device-end terminations on J3, J4, J11.** Sensor and display leads land per device rather than
    on a standard terminal. Quote these as flying leads, tinned and ferruled, unless you would rather
    we specify a mating connector.
-4. **28 AWG ribbon.** Confirm you can crimp XH contacts onto 28 AWG, or propose the gauge you would
+5. **28 AWG ribbon.** Confirm you can crimp XH contacts onto 28 AWG, or propose the gauge you would
    rather run in the umbilical.
 
 ## Sources
