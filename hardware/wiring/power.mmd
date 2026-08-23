@@ -3,42 +3,42 @@ flowchart TD
   %% Power Distribution (current plan).
   %% 120 VAC mains in via C14 inlet; Mean Well 12 V PSU supplies the
   %% 12 V bus for everything except the compressor itself, which runs
-  %% on switched mains via Teyleten relay #1 (PCBA RELAYS J5, ESP32
+  %% on switched mains via Teyleten relay #1 (main board RELAYS J5, ESP32
   %% GPIO 19). The 12 V diaphragm pump is gated by Teyleten relay #2
-  %% (PCBA RELAYS J5, ESP32 GPIO 2) so firmware can keep refill off
+  %% (main board RELAYS J5, ESP32 GPIO 2) so firmware can keep refill off
   %% during an active dispense. Both relay modules take their coil/opto
   %% 5 V from RELAYS J5.
-  %% The 12 V bus feeds the controller PCBA at its screw inlet (J10).
+  %% The 12 V bus feeds the main board at its screw inlet (J10).
   %% The inlet is protected in series: a P-channel MOSFET (Q4, AO3407)
   %% in the high side blocks reverse polarity before the 12 V reaches the
-  %% island; and a 15 V TVS (D8, SMAJ15A) clamps input surges the board
+  %% island; and a 15 V TVS (D8, SMAJ15A) clamps input surges the main board
   %% sees to under C3's 25 V rating. Overcurrent is bounded by the Mean
   %% Well supply's own 6.7 A OCP.
-  %% The board makes its own logic rails — 5 V from the on-board K7805
+  %% The main board makes its own logic rails — 5 V from the on-board K7805
   %% buck (U10), 3.3 V from the on-board AMS1117 LDO (U9, off the 5 V
   %% rail) — and carries the WROOM, both MCP23017s, the RTC, both
   %% TBD62083s, and the two DRV8870 pump H-bridges. Off-board 12 V
-  %% loads draw through the board: solenoid valves + condenser fan
+  %% loads draw through the main board: solenoid valves + condenser fan
   %% through the TBD62083 channels (MANIFOLD A/B), peristaltic pumps through
-  %% the DRV8870s (PUMPS J13), and the 4.3B config display through its
+  %% the DRV8870s (PUMPS J13), and the enclosure display through its
   %% loom connector (DISPLAY J9 carries RS485 + 12 V). The faucet
   %% display takes 5 V up the umbilical (FAUCET J3); the sensor loom
   %% (SENSORS J4) and the MQ-6 heater (GAS J11) draw 5 V / 3.3 V off
   %% the same on-board rails.
   %% Physical placement:
   %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, and
-  %%   the controller PCBA sit on a single electronics shelf at the
-  %%   top-back of the enclosure, behind the rear-wall C14 inlet.
+  %%   the main board all stand on the +X wall of back-top, behind the
+  %%   C14 inlet's crossing in the +Y wall beside it.
   %% - The compressor sits middle-bottom, bolted down to the enclosure
   %%   floor slab on four printed posts. Its terminal block and its
   %%   clip-on PTC start relay + overload module remain under the R-600a
   %%   donor's own moulded power-box cover. The build adds no second
   %%   sheet-metal shroud; `/business/regulatory.md` carries the
   %%   qualification still owed on the retained donor cover.
-  %% - Teyleten relay #1 stays on the SHELF, away from the refrigerant
+  %% - Teyleten relay #1 stays on the +X WALL, away from the refrigerant
   %%   compartment. Only switched AC reaches the compressor — one
   %%   jacketed SJOOW bundle, switched H + N + chassis G (AC-4/5/6),
-  %%   unbroken from the shelf and its own strain relief. This keeps
+  %%   unbroken from that wall and its own strain relief. This keeps
   %%   the arcing contact out of the hydrocarbon-refrigerant volume,
   %%   which is the one placement rule that still holds there.
   %% - The condenser fan motor is on the side of the enclosure
@@ -64,7 +64,7 @@ flowchart TD
   end
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
-    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: electronics shelf"]
+    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: +X wall of back-top"]
     COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: floor slab, terminals under retained donor cover"]
     COND_FAN["Condenser fan motor\n12 V DC brushless axial, ~0.35 A\n(donor PCB discarded; driven from 12 V bus)\nLOCATION: side of enclosure (side-to-side airflow path)"]
   end
@@ -74,8 +74,8 @@ flowchart TD
     DIA_PUMP["SeaFlo diaphragm pump\n12 V, 100 PSI"]
   end
 
-  subgraph Board["Controller PCBA  (protected 12 V in at J10)"]
-    PCBA["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× TBD62083 + 2× DRV8870 on-board\nJ10 → Q4 reverse-polarity FET → 12 V island (D8 TVS clamps)\n12 V island feeds valves / pumps / display"]
+  subgraph Board["Main board  (protected 12 V in at J10)"]
+    MAIN["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× TBD62083 + 2× DRV8870 on-board\nJ10 → Q4 reverse-polarity FET → 12 V island (D8 TVS clamps)\n12 V island feeds valves / pumps / display"]
     REG_5V["5 V rail\nK7805 buck (U10, on-board)"]
     REG_3V3["3.3 V rail\nAMS1117 LDO (U9, on-board, off 5 V)"]
   end
@@ -86,7 +86,7 @@ flowchart TD
     PUMP_B["Kamoer Pump B\n12 V peristaltic"]
   end
 
-  CFG["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 12 V off DISPLAY J9)"]
+  CFG["ESP32-S3-Touch-LCD-4.3B\n(enclosure display + BLE,\n 12 V off DISPLAY J9)"]
 
   FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet display,\n 5 V up the umbilical)"]
 
@@ -96,17 +96,17 @@ flowchart TD
   RELAY ==>|"switched AC hot\n(unbroken SJOOW jacket)"| COMP_AC
 
   %% 12 V distribution
-  PSU ==>|"12 V trunk (J10 screw inlet)"| PCBA
+  PSU ==>|"12 V trunk (J10 screw inlet)"| MAIN
   PSU ==>|"12 V"| DIA_RELAY
   DIA_RELAY ==>|"switched 12 V"| DIA_PUMP
-  PCBA ==>|"MANIFOLD A/B\n(TBD62083 low-side)"| VALVES
-  PCBA ==>|"MANIFOLD B FAN\n(TBD62083 low-side)"| COND_FAN
-  PCBA ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_A
-  PCBA ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_B
-  PCBA ==>|"12 V\n(DISPLAY J9 loom)"| CFG
+  MAIN ==>|"MANIFOLD A/B\n(TBD62083 low-side)"| VALVES
+  MAIN ==>|"MANIFOLD B FAN\n(TBD62083 low-side)"| COND_FAN
+  MAIN ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_A
+  MAIN ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_B
+  MAIN ==>|"12 V\n(DISPLAY J9 loom)"| CFG
 
-  %% Logic rails (made on the PCBA)
-  PCBA -->|"K7805 buck"| REG_5V
+  %% Logic rails (made on the main board)
+  MAIN -->|"K7805 buck"| REG_5V
   REG_5V -->|"5 V (FAUCET J3,\n up umbilical)"| FAUCET
   REG_5V -->|"AMS1117 LDO"| REG_3V3
 
@@ -114,15 +114,15 @@ flowchart TD
   %% 0    = C14 -> relay #1 (AC mains)
   %% 1    = C14 -> PSU (AC mains)
   %% 2    = relay #1 -> compressor (switched AC, unbroken SJOOW jacket)
-  %% 3    = PSU 12 V trunk -> PCBA (J10)
+  %% 3    = PSU 12 V trunk -> MAIN (J10)
   %% 4    = PSU 12 V -> diaphragm relay #2
   %% 5    = relay #2 -> diaphragm pump (switched 12 V)
-  %% 6    = PCBA -> solenoid valves (TBD62083 low-side)
-  %% 7    = PCBA -> condenser fan (TBD62083 low-side)
-  %% 8-9  = PCBA -> peristaltic pumps (DRV8870)
-  %% 10   = PCBA -> 4.3B config display (12 V off J9)
+  %% 6    = MAIN -> solenoid valves (TBD62083 low-side)
+  %% 7    = MAIN -> condenser fan (TBD62083 low-side)
+  %% 8-9  = MAIN -> peristaltic pumps (DRV8870)
+  %% 10   = MAIN -> enclosure display (12 V off J9)
   linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#c44,stroke-width:3px
-  %% Logic rails (5 V, 3.3 V), made on the PCBA: white workhorse.
+  %% Logic rails (5 V, 3.3 V), made on the main board: white workhorse.
   %% 11 = K7805 buck -> 5 V rail
   %% 12 = 5 V rail -> faucet display (up umbilical)
   %% 13 = AMS1117 -> 3.3 V rail

@@ -1,10 +1,10 @@
 flowchart LR
 
   %% DERIVED VIEW — the canonical pin map is hardware/pcb/pcba/pcba.tsx
-  %% (PCB-canonical). Keep this in sync with the board; do not change a pin
+  %% (PCB-canonical). Keep this in sync with the main board; do not change a pin
   %% assignment here without changing pcba.tsx first.
 
-  %% ESP32-WROOM-32E GPIO assignments, mirroring the board's edge connectors.
+  %% ESP32-WROOM-32E GPIO assignments, mirroring the main board's edge connectors.
   %% Pumps run on two on-board DRV8870 H-bridges; the sensor loom and relays land
   %% on the SENSORS / RELAYS connectors. The six inputs sit on input-only /
   %% boot-safe pads.
@@ -42,7 +42,7 @@ flowchart LR
   %% The J8 I2C header (GND/3V3/SDA/SCL, all plane nets) breaks the bus out for
   %%   expansion; nothing lands on it today.
   %% Two display UARTs:
-  %%   GPIO 32/34 = Serial1 -> ALMOCN RS485 transceiver -> 4.3B config display
+  %%   GPIO 32/34 = Serial1 -> ALMOCN RS485 transceiver -> the enclosure display
   %%                (display facet, internal run; the 4.3B has no free TTL UART).
   %%   GPIO 33/35 = Serial2, direct TTL UART -> 1.47" faucet display
   %%                (up the umbilical; the 1.47" breaks out TTL UART).
@@ -109,9 +109,9 @@ flowchart LR
   end
 
   %% ── Destinations ──
-  S3["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 800×480 touch, GT911;\n fixed front-face, angled up)"]
+  S3["ESP32-S3-Touch-LCD-4.3B\n(enclosure display + BLE,\n 800×480 touch, GT911;\n fixed in the front face, angled up)"]
 
-  FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet flavor display + touch,\n 172×320; TTL UART up the umbilical)"]
+  FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet display + touch,\n 172×320; TTL UART up the umbilical)"]
 
   I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (8 valves on GPA; 4 reservoir reeds on GPB)\n  MCP23017    0x21  (3 valves + fan on GPA; 4 reservoir + 2 carbonator reeds on GPB)"]
 

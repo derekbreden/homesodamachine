@@ -46,8 +46,8 @@ psu_max_dc_a = 6.7      # rated output current
 diaphragm_peak_a = 5
 
 # Kamoer KPHM400-SW peristaltic pump peak current per pump (two pumps
-# on the board's DRV8870 H-bridges, PUMPS J13 / run DC-5). Matches the
-# board's ampacity declaration (`/hardware/pcb/pcba/pcba.tsx`).
+# on the main board's DRV8870 H-bridges, PUMPS J13 / run DC-5). Matches
+# the main board's ampacity declaration (`/hardware/pcb/pcba/pcba.tsx`).
 pump_peak_a = 0.8
 
 # Condenser fan motor (harvested from donor ice maker — 12 V DC
@@ -64,7 +64,7 @@ solenoid_coil_a = 5.5 / 12
 # opens at most three, and at most three on one manifold.
 max_simultaneous_valves = 3
 
-# DC-4's board tally and what parallels it on the rail. The board figure
+# DC-4's main-board tally and what parallels it on the rail. That figure
 # is both peristaltic pumps priming, `max_simultaneous_valves` coils and
 # the fan; the SeaFlo is DC-3, off relay #2 rather than through J10.
 board_peak_a = (
@@ -73,7 +73,7 @@ board_peak_a = (
 coincident_peak_a = board_peak_a + diaphragm_peak_a
 
 # ─── Logic rails ──────────────────────────────────────────────────────
-# Both logic rails are made on the PCBA off its J10 12 V inlet: 5 V from
+# Both logic rails are made on the main board off its J10 12 V inlet: 5 V from
 # the K7805 buck (U10), 3.3 V from the AMS1117 LDO (U9, off the 5 V
 # rail) per `power.mmd`. Off-board loads draw them through the loom
 # connectors (V5 / 3V3 pins).
@@ -88,33 +88,34 @@ ds18b20_pullup_kohm = 4.7
 # ─── Conductor counts down the cabinet trunks ────────────────────────
 # Three wires (switched H + N + chassis G) reach the compressor in the
 # SJOOW bundle. Five would reach it if Teyleten relay #1 stood beside it
-# rather than on the shelf (add the relay's #1 logic leg + opto return).
-compressor_wires_shelf_relay = 3
+# rather than on the +X wall of back-top (add the relay's #1 logic leg +
+# opto return).
+compressor_wires_wall_relay = 3
 compressor_wires_local_relay = 5
 
-# Beduan solenoid coils on the manifold. Cited in DC-4's board load
-# list, where V-K is the term beside it. The board carries 12 channels
+# Beduan solenoid coils on the manifold. Cited in DC-4's main-board load
+# list, where V-K is the term beside it. The main board carries 12 channels
 # (J1 ×8, J2 ×4): the manifold takes 10, V-K takes J2.OUT3 on run DC-9,
 # and J2.OUT4 is the spare.
 solenoid_count = 10
 
 # ─── Run-length design targets ────────────────────────────────────────
 # All values mm except where noted.
-len_short_mm = 50       # AC-3 (shelf hop)
+len_short_mm = 50       # AC-3 (a hop along the +X wall)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, DC-5 pigtail
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), LV-1/2/3, DC-4, DC-6/DC-7 valve fan-outs, SIG-4
 len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
 # DC-5 IS THE ONE RUN WHOSE DEVICE LEAVES THE BOX. Both peristaltics ride the pump cartridge
 # out of the front bay, and the spade pairs come off the motor tabs with the cartridge already
 # drawn clear — so this run is cut to the DRAWN-OUT reach, not the seated one. Straight line
-# from the board to the far motor's tab end is 215 mm seated and 275 mm with the cartridge
-# out; the rung above that carries the routed path and the service loop.
+# from the main board to the far motor's tab end is 215 mm seated and 275 mm with the pump
+# cartridge out; the rung above that carries the routed path and the service loop.
 len_cartridge_mm = 400  # DC-5 to the peristaltic pumps, measured with the cartridge drawn
-len_manifold_mm = 300   # DC-6/DC-7 (shelf → manifold trunks)
-len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor on the unbroken SJOOW jacket), DC-8 (shelf → side-wall fan)
-len_aft_strip_mm = 500  # DC-9 (shelf → V-K at the aft strip, past the water bulkhead)
-len_cold_core_mm = 600  # SIG-1/2/3/10/11 (shelf → cold core), SIG-9 (drip pan), SIG-12 (rear cabinet floor)
-len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (front-face 4.3B config display, internal)
+len_manifold_mm = 300   # DC-6/DC-7 (+X wall → manifold trunks)
+len_compressor_mm = 400 # AC-4, AC-5, AC-6 (+X wall → compressor on the unbroken SJOOW jacket), DC-8 (+X wall → side-wall fan)
+len_aft_strip_mm = 500  # DC-9 (+X wall → V-K at the aft strip, past the water bulkhead)
+len_cold_core_mm = 600  # SIG-1/2/3/10/11 (+X wall → cold core), SIG-9 (ASSE drip pan), SIG-12 (rear cabinet floor)
+len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (the 4.3B enclosure display, internal)
 
 # ─── Loom connector pitch ─────────────────────────────────────────────
 # JST XH 2.50 mm — every board loom connector (J1–J9, J11, J13); J10 is
@@ -157,7 +158,7 @@ def main():
         "V_IO": f"{v_rail_io:.4g} V",
         "DS18B20_PULLUP": f"{ds18b20_pullup_kohm:.4g} kΩ",
         # Conductor counts.
-        "COMP_WIRES": f"{compressor_wires_shelf_relay:.4g}",
+        "COMP_WIRES": f"{compressor_wires_wall_relay:.4g}",
         "COMP_WIRES_ALT": f"{compressor_wires_local_relay:.4g}",
         "SOLENOID_COUNT": f"{solenoid_count:.4g}",
         # Run-length design targets.

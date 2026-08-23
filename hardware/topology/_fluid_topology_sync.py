@@ -204,10 +204,10 @@ def _valve(v) -> frozenset:
 
 NODES = {
     # The funnel is SEATED IN THE BOX rather than placed in the pack, but it is placed: its
-    # drain is an anchor like any other. The node stands for the basin AND its disconnect — the
+    # drain is an anchor like any other. The node stands for the funnel AND its disconnect — the
     # spout, the stub clamped in it and the union under it are one source as far as this chart
     # is concerned, and `fluid-4` is drawn off the union's lower collet.
-    "Hopper":     (_body("funnel", "drain")
+    "Funnel":     (_body("funnel", "drain")
                    | _body("hopper-drain-union", "stub", "outlet")),
     "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
     "FlowReg":    _body("flow-regulator", "inlet", "outlet"),
@@ -241,11 +241,11 @@ NODES.update({f"Y{t[-1]}": frozenset(f"{t}-{i}" for i in (1, 2, 3))
 NODES.update({f"P{p[-1].upper()}": frozenset({f"P-{p[-1].upper()}-I", f"P-{p[-1].upper()}-O"})
               for p in ml.PUMPS})
 
-# Chart nodes that stand for nothing the pack places — the hopper's spout, the far side of the
-# rear wall, the customer's supply and their cylinder, and everything inside the carbonator
-# vessel. An edge to one of these carries a route id only if the segment it names has just one
+# Chart nodes that stand for nothing the pack places — the funnel's spout, the far side of the
+# +Y wall of back-top, the customer's supply and their cylinder, and everything inside the
+# carbonator. An edge to one of these carries a route id only if the segment it names has just one
 # end the machine knows, which is what a mouth with nothing on it yet is.
-UNPLACED = {"Faucet", "Nozzle", "Tap", "CO2", "Vent", "PRVOut", "LevelSense",
+UNPLACED = {"Faucet", "Gooseneck", "Tap", "CO2", "Vent", "PRVOut", "LevelSense",
             "P1", "P2", "P3", "P4", "SpargeStone", "Headspace", "Water", "Float"}
 
 # Which limb box in fluid-topology-limbs.mmd is which of the manifold's four lanes.
@@ -328,7 +328,7 @@ def check_graph(edges: list[Edge], segs: dict, owes_ids: bool) -> list[str]:
 
     `owes_ids` says every edge between two placed bodies names a segment. The flavor manifold is
     all tube; the carbonator spine also draws made-up threads, face-to-face collets and the
-    vessel's own interior as edges, and none of those is a run."""
+    carbonator's own interior as edges, and none of those is a run."""
     bad = []
     seen = {}
 
