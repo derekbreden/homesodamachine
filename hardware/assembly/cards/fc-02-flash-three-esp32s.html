@@ -19,7 +19,7 @@
     <strong>base controller first,</strong> then both display heads.</p>
 
     <ol class="steps">
-      <li><b>Base first — controller PCBA.</b> USB-C into J14 (west edge);
+      <li><b>Base first — main board.</b> USB-C into J14 (west edge);
         the CH340C auto-resets EN/IO0 into download mode.</li>
       <li><b>Watch it land</b> — build OK, upload 100&nbsp;%, boot banner
         + fw_version.h build ID at <span class="dim">115200</span> baud.</li>
@@ -43,7 +43,7 @@
 
   <div class="col" style="flex:none; width:780px">
     <div class="settings" style="grid-template-columns:1fr; gap:18px">
-      <div class="s"><div class="k">1 &#183; Controller PCBA &mdash; J14</div>
+      <div class="s"><div class="k">1 &#183; Main board &mdash; J14</div>
         <div class="v">./tools/flash.sh appliance</div></div>
       <div class="s"><div class="k">2 &#183; Enclosure display 4.3B</div>
         <div class="v">./tools/flash.sh esp32s3_front</div></div>
@@ -71,7 +71,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>All three MCUs run current main — boot banner + build ID on the controller, LVGL splash on the 4.3B, flavor UI on the 1.47&Prime;.</div>
+  <div class="done"><span class="lbl">Done when</span>All three MCUs run current main — boot banner + build ID on the main board, LVGL splash on the 4.3B, flavor UI on the 1.47&Prime;.</div>
   <div class="src">firmware-and-commissioning.md &#167;3&ndash;5 &#183; tools/flash.sh<br>rev 2026-07-23</div>
 </footer>
 

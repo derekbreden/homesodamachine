@@ -113,7 +113,7 @@ def main():
         "STUB_OUTLET": f"{_coil_mandrel_gen.stub_allowance['outlet']:.4g} mm",
         "PROT_INLET": f"{_coil_mandrel_gen.stub_protrusion['inlet']:.4g} mm",
         "PROT_OUTLET": f"{_coil_mandrel_gen.stub_protrusion['outlet']:.4g} mm",
-        "ROLL_SHARE": f"1/{_coil_mandrel_gen.vessels_per_roll}",
+        "ROLL_SHARE": f"1/{_coil_mandrel_gen.carbonators_per_roll}",
         "CUT_FT": f"{_coil_gen.cut_length() / 304.8:.4g} ft",
         "TAIL_INLET_Y": f"{_coil_mandrel_gen.tail_inlet_y:.4g}",
         "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",

@@ -19,7 +19,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "scripts"))
 
-import pcba_tray as _pcba  # noqa: E402  — the board outline the tray is built around
+import pcba_tray as _pcba  # noqa: E402  — the main board outline the tray is built around
 import _facts  # noqa: E402  — the +X wall's own Wago row, off the last build
 
 # WHAT THIS DOC WATCHES, WHICH IS NOT WHAT IT CALLS. Nothing here stands a machine; the
@@ -66,11 +66,11 @@ wago_count = len(_facts.read().constants["WAGO_POLES"])
 
 def main():
     variables = {
-        # The board itself, off the outline `pcba_tray` reads out of the board file —
+        # The main board itself, off the outline `pcba_tray` reads out of the board file —
         # the same rectangle `enclosure_assembly` places on the shelf and stands its wall
         # bosses under. The gerber plot frames it half an edge-cut aperture wider on
-        # each side; this is the board that gets cut and the board that gets mounted.
-        "PCBA_SIZE": f"{_pcba.board.length:.4g} × {_pcba.board.width:.4g} mm",
+        # each side; this is the outline that gets cut and the one that gets mounted.
+        "MAIN_BOARD_SIZE": f"{_pcba.board.length:.4g} × {_pcba.board.width:.4g} mm",
         # Board pins.
         "RELAY_COMPRESSOR_GPIO": f"IO{relay_compressor_gpio:.4g}",
         "RELAY_DIAPHRAGM_GPIO": f"IO{relay_diaphragm_gpio:.4g}",

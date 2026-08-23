@@ -19,7 +19,7 @@ WHAT THESE CARDS STAND ON, and is therefore asserted rather than measured:
   wall, so the bench rig AB-01 connects and the caps FS-03 fits are all on one
   face: water into the JG union's outboard collet, CO2 into the ABU44's outboard
   collet,
-  mains into the C14. "Both inlets are on the rear wall" holds no number, so
+  mains into the C14. "Both inlets are on the +Y wall of back-top" holds no number, so
   only `_rear_entry` can put those cards back.
 - NEITHER INLET IS A THREAD. Both are push-to-connect — the water a collet on
   the union's own barrel, the CO2 the ABU44's own — which is why
@@ -92,12 +92,12 @@ def _dec(inches: float, places: int = 3) -> str:
 
 
 def bench(m):
-    """The carbonator's own geometry, the harness the board's connectors size,
+    """The carbonator's own geometry, the harness the main board's connectors size,
     and the figures the commissioning, acceptance and finish benches work to.
 
     Structure first, then the figures. NONE of these figures needs the pack
     built — a carbonator plate is cut before anything is placed and a board's
-    pin count is the board's — so `_figures` stands on its own and what the
+    pin count is the main board's — so `_figures` stands on its own and what the
     assembly is read for here is the structure the cards' sentences rest on."""
     import enclosure_assembly as _ea
 
@@ -110,11 +110,11 @@ def bench(m):
     assert not pack.front_ports and not box.front_ports, (
         f"{len(box.front_ports)} station(s) are cut in the front wall — AB-01 brings water, "
         f"CO2 and mains to the BACK, and FS-03 caps both inlets on that one face")
-    # The three the bench rig plugs into, each on the back wall: the water
+    # The three the bench rig plugs into, each on the +Y wall: the water
     # union's bore, the ABU44's bore, the C14's opening. FS-03 fits a cap to
     # the first two and AB-01 lands a cord on the third.
     assert len(box.back_ports) >= 3 and box.c14, (
-        f"the back wall stands {len(box.back_ports)} station(s) and {len(box.c14)} C14 boss(es) "
+        f"the +Y wall stands {len(box.back_ports)} station(s) and {len(box.c14)} C14 boss(es) "
         f"— AB-01 connects water, CO2 and mains there and FS-03 caps the two fluid ones")
 
     # ── neither inlet is a thread (FS-03, GT-02) ──────────────────────────
@@ -140,7 +140,7 @@ def _figures():
     """Every figure these six benches state, and which card carries it.
 
     All of it is upstream of the pack: the end-cap cut file, the two rods'
-    seat-to-seat spans, the PRV shroud, the board's connector list, and the
+    seat-to-seat spans, the PRV shroud, the main board's connector list, and the
     setpoints the commissioning and acceptance benches load. `bench` holds the
     structure; this holds the numbers."""
     # ── the carbonator's two plates are one part (PV-01…PV-04, PV-09) ─────────
@@ -200,9 +200,9 @@ def _figures():
         f"the PRV shroud is {_prv.total_length} mm long over a {_prv.cavity_length} mm cavity — "
         f"PV-13 slips it past the hex and the discharge port to a seat, and caps the far end")
 
-    # ── the harness is the board's own connectors (CA-01, CA-02) ──────────
+    # ── the harness is the main board's own connectors (CA-01, CA-02) ──────────
     # Every conductor count in CA-02's schedule is a pin count on `pcba.tsx`, so
-    # the board is read rather than the schedule retyped. CA-02's own critical
+    # the main board is read rather than the schedule retyped. CA-02's own critical
     # rests on two housings being the same size, which is a comparison, not a
     # number.
     pins = _ca.connector_pins()
@@ -210,11 +210,11 @@ def _figures():
         f"J4 is {pins['J4']}P and J7 is {pins['J7']}P — CA-02's critical and GT-04's last step "
         f"are both that they share a shell, which is why the label is the guard")
     assert "J12" not in pins, (
-        "the board has grown a J12 — CA-02's note says there is none, and the schedule is the "
+        "the main board has grown a J12 — CA-02's note says there is none, and the schedule is the "
         "board's connector list")
     looms = len(pins) + 1  # every connector's loom, plus the AC mains set
     assert looms == 13, (
-        f"the board's connectors come to {looms - 1} looms and CA-02 counts {looms} assemblies "
+        f"the main board's connectors come to {looms - 1} looms and CA-02 counts {looms} assemblies "
         f"with the AC set — recount the schedule, not this line")
 
     # ── what the acceptance bench proves (AB-03, AB-05, FC-03, FC-04) ─────
@@ -280,7 +280,7 @@ def _figures():
         "CO2_PRIMARY_BAND": f"{_ab.co2_primary_min_psi:.4g}{NDASH}"
                             f"{_ab.co2_primary_max_psi:.4g} PSI",
         "PRV_HOLD": f"{_ab.prv_hold_min:.4g} min",
-        # ── CA — the board's connectors (CA-02) ──────────────────────────
+        # ── CA — the main board's connectors (CA-02) ──────────────────────────
         "ASSEMBLY_COUNT": f"{looms}",
         **{f"{j}_PINS": f"{n}" for j, n in pins.items()},
         # ── FC / AB — the census every bench walks ───────────────────────
@@ -340,7 +340,7 @@ def _figures():
         "pv-13-prv-shroud-subassembly": {
             "PRV_SHROUD_SIZE", "PRV_SHROUD_WALL", "PRV_SEAT_SLIP"},
         "pv-14-port-fittings": {"CARBONATOR_PORTS", "REG_PSI"},
-        # CA — the schedule is the board's connector list.
+        # CA — the schedule is the main board's connector list.
         "ca-02-harness-schedule": {
             "ASSEMBLY_COUNT", "J1_PINS", "J2_PINS", "J3_PINS", "J4_PINS", "J5_PINS",
             "J6_PINS", "J7_PINS", "J8_PINS", "J9_PINS", "J10_PINS", "J11_PINS",

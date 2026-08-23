@@ -171,7 +171,7 @@ SCENES = (
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
         also=("tube-fluid-18",),
-        later=("drip-pan",),
+        later=("asse-drip-pan",),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the shelf is seen from where a "
@@ -286,7 +286,7 @@ SCENES = (
         roots=("funnel",), inner=(), flip=((1, 0, 0), 180.0), also=(),
         # The union is on the far end of the stub and is the joint that PARTS: it stays in the
         # machine when the funnel comes out, so it is not on the bench with this one.
-        later=("hopper-drain-union",),
+        later=("funnel-drain-union",),
         # THE BRIM IS WHAT THE FRAME HAS TO HOLD, not the spout the card is about. Inverted, the
         # funnel is a 173 mm plate with a 20 mm joint standing on the middle of it, and `crown`
         # aims at the plate's own face — so the distance is set by the plate's diagonal and the
@@ -304,7 +304,7 @@ SCENES = (
         # and the three reservoir lines standing in the core's cap. All four are made up on
         # this half and all four leave it hanging, for the front half's valves to take.
         also=("tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
-        later=("drip-pan",),
+        later=("asse-drip-pan",),
         # High enough over the box to see down into the mouth AND across the top wall, which is
         # how the half is looked at with the front one still off the bench: the seam faces the
         # room and everything the front half must reach is under the eye at once.
@@ -487,9 +487,9 @@ BEARS_ON = {
     "funnel": "enclosure-front-top",         # brim on the top wall, collar forward
     # The funnel's disconnect, all of it on the spout the funnel carries: the stub and the clamp
     # go to the dishwasher with it, and the union is on the stub's far end.
-    "hopper-drain-stub": "funnel",
-    "hopper-drain-clamp": "funnel",
-    "hopper-drain-union": "funnel",
+    "funnel-drain-stub": "funnel",
+    "funnel-drain-clamp": "funnel",
+    "funnel-drain-union": "funnel",
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",

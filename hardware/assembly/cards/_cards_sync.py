@@ -48,7 +48,7 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 CARDS_DIR = Path(__file__).resolve().parent
 _hw = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 for _p in ("manifold-layout", "printed-parts/cadlib", "printed-parts/cold-core",
-           "printed-parts/enclosure/back-panel", "printed-parts/enclosure/enclosure",
+           "printed-parts/enclosure/y-wall-of-back-top", "printed-parts/enclosure/enclosure",
            "printed-parts/enclosure/pump-tray", "reference/compressor",
            "reference/jg-bulkhead-union", "reference/iec-c14-inlet",
            "printed-parts/zone-c/funnel", "reference/worm-clamp",
@@ -145,7 +145,7 @@ def enclosure(m: Machine):
     import _scorecard as _card
     import iec_c14_inlet as _c14
     import jg_bulkhead_union as _jg
-    from _back_panel_dimensions import (ac_inlet_recess_depth_max,
+    from _y_wall_dimensions import (ac_inlet_recess_depth_max,
                                         ac_inlet_recess_depth_min)
     from _cold_core_interface import (cap_conduits,
                                       outer_shell_x_length, outer_shell_y_length)
@@ -218,7 +218,7 @@ def enclosure(m: Machine):
     union_bores = m.a.wall_ports["union"]
     port_hole_ds = {round(p[3], 6) for p in union_bores}
     assert len(port_hole_ds) == 1, (
-        f"the back wall's four unions are bored at {sorted(port_hole_ds)} and EN-02/IP-02 "
+        f"the +Y wall's four unions are bored at {sorted(port_hole_ds)} and EN-02/IP-02 "
         f"quote one figure for all of them")
     port_hole_d = union_bores[0][3]
     co2_hole_d = m.a.wall_ports["co2"][3]
@@ -240,11 +240,11 @@ def enclosure(m: Machine):
     port_cols = sorted({x for x, _z in corners})
     port_storeys = sorted({z for _x, z in corners})
     assert len(port_cols) == 2 and len(port_storeys) == 2, (
-        f"the back wall's four unions stand on {len(port_cols)} column(s) and "
+        f"the +Y wall's four unions stand on {len(port_cols)} column(s) and "
         f"{len(port_storeys)} storey(s) — EN-02 seats them as a rectangle, so say what "
         f"they are instead: {sorted(corners)}")
     assert corners == {(x, z) for x in port_cols for z in port_storeys}, (
-        f"two unions share a corner of the back wall's rectangle and one corner is empty "
+        f"two unions share a corner of the +Y wall's rectangle and one corner is empty "
         f"— EN-02 has the bench seat one body per corner: {sorted(corners)}")
     carb_end = "east" if round(_ea.PANEL_X["bulkhead-carb"], 3) == port_cols[-1] else "west"
 
@@ -297,7 +297,7 @@ def enclosure(m: Machine):
         # cards stating one wall's boss chain cannot be allowed to disagree.
         "WALL_BOSSES": f"{len(box.east_bosses)}",
         "C14_INSERTS": f"{len(box.c14)}",
-        # The rear wall (EN-02). Arrangement, not stations.
+        # The +Y wall (EN-02). Arrangement, not stations.
         "BACK_BODIES": f"{len(box.back_ports)}",
         "PORT_COL_PITCH": f"{port_cols[1] - port_cols[0]:.4g} mm",
         "CARB_END": carb_end,
@@ -368,7 +368,7 @@ def electronics_shelf(m: Machine):
     # there is the check: if they disagree, a body is mounted by something other
     # than its own holes and ES-01's table is describing a different machine.
     column = {"PSU_BOSSES": len(_psu.holes),
-              "PCBA_BOSSES": len(_pcba.board.holes),
+              "MAIN_BOARD_BOSSES": len(_pcba.board.holes),
               "RELAY1_BOSSES": len(_relay.holes),
               "RELAY2_BOSSES": len(_relay.holes),
               "GND_BOSSES": len(_gnd.holes)}
@@ -384,10 +384,10 @@ def electronics_shelf(m: Machine):
     facts = {
         "SHELF_SCREWS_M3X8": f"{len(m.box.east_bosses) - long_screws}",
         "SHELF_SCREWS_M3X10": f"{long_screws}",
-        # The board's own cut outline (`pcba.tsx`'s Edge_Cuts path, in the pcb
+        # The main board's own cut outline (`pcba.tsx`'s Edge_Cuts path, in the pcb
         # frame the tray shares) — not the gerber's stroked/plotted edge, which
         # reads wider by the render aperture.
-        "PCBA_SIZE": f"{_pcba.board.length:.4g} {X} {_pcba.board.width:.4g} mm",
+        "MAIN_BOARD_SIZE": f"{_pcba.board.length:.4g} {X} {_pcba.board.width:.4g} mm",
         # No insert is pressed on this bench — every one is already in a wall boss.
         # Typed, because there is no insert census to read: none of the five bodies
         # declares inserts of its own, so nought is not a count of anything. What
@@ -406,7 +406,7 @@ def electronics_shelf(m: Machine):
             *column_names, "SHELF_SCREWS_M3X8", "SHELF_SCREWS_M3X10",
             "SHELF_INSERTS_HERE"},
         "es-03-stage-psu-relays-pcba": {
-            "WALL_BOSSES", "PCBA_BOSSES", "SHELF_INSERTS_HERE", "PCBA_SIZE"},
+            "WALL_BOSSES", "MAIN_BOARD_BOSSES", "SHELF_INSERTS_HERE", "MAIN_BOARD_SIZE"},
         "en-06-power-column": {
             *column_names, "SHELF_SCREWS_M3X8", "SHELF_SCREWS_M3X10"},
     }
@@ -455,7 +455,7 @@ def sub_assemblies(m: Machine):
     cap_cradled = [n for n in cap_chains if n.startswith("valve-") or n == "vk-solenoid"]
     cap_chain_bodies = [n for n in cap_chains if n.endswith("-chain")]
 
-    # The rear wall's crossings: the bodies on that piece that no screw fastens
+    # The +Y wall's crossings: the bodies on that piece that no screw fastens
     # because each is drawn up by its own nut on its own thread. The split-and-
     # regulator pair bears on the same piece and is NOT this — those hang off the
     # line they splice — so the joint is what selects, not the piece.
@@ -465,9 +465,9 @@ def sub_assemblies(m: Machine):
     # one, the funnel and the steel plate in the other. The piece carries it in the
     # finished machine and the scene holds it back, which is the pair of readings
     # those two sentences stand on.
-    for scene_id, absent in (("back-top", "drip-pan"), ("front-top", "funnel"),
+    for scene_id, absent in (("back-top", "asse-drip-pan"), ("front-top", "funnel"),
                              ("front-top", "collet-plate"),
-                             ("hopper-drain", "hopper-drain-union"),
+                             ("hopper-drain", "funnel-drain-union"),
                              ("cap-lid", "tube-fluid-14")):
         scene = _scenes.SCENE_BY_ID[scene_id]
         assert holder.get(absent) in scene.roots and absent in scene.later, (

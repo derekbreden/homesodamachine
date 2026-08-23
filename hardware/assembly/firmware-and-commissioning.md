@@ -8,11 +8,11 @@ Design intent and runtime behavior live in [`/hardware/future.md`](/hardware/fut
 
 ## Scope
 
-In: a fully wired chassis fresh out of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — a USB-C cable (the PCBA's J14 programming port and both displays present USB-C), PlatformIO on the build host, and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
+In: a fully wired chassis fresh out of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — a USB-C cable (the main board's J14 programming port and both displays present USB-C), PlatformIO on the build host, and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
 
 Out:
 
-- All three MCUs — the PCBA's ESP32-WROOM main controller, the 4.3" enclosure display, the 1.47" faucet display — flashed with the current firmware on `main`.
+- All three MCUs — the main board's ESP32-WROOM, the 4.3" enclosure display, the 1.47" faucet display — flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
 - Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (tank, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor in the refrigeration bay's -X wall slot has reached operating temperature and reads its clean-air baseline; the ASSE drip pan's moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at [0x20](MCP_VALVES) and [0x21](MCP_RESERVOIRS), with the DS3231 RTC at [0x68](RTC_ADDR) also responsive.
@@ -30,7 +30,7 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 | Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor bolted down and grounded; donor terminal cover intact, unmodified, and securely retained; factory lead exit undamaged. |
 | Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `appliance`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini) and [`/firmware/README.md`](/firmware/README.md)). The `appliance` tree is an Open item below. |
 | PlatformIO | On the build host | `pio run -e <env> -t upload` builds and flashes. One board on USB at a time, or name the port — PlatformIO picks the S3 otherwise and esptool leaves that panel dark. |
-| USB-C cable | Fits the PCBA's J14, the 4.3B, and the 1.47" faucet display | Build-bench stock; not per-unit consumable. |
+| USB-C cable | Fits the main board's J14, the 4.3B, and the 1.47" faucet display | Build-bench stock; not per-unit consumable. |
 | Multimeter | Build-bench stock | DC-rail spot checks at [12 V](RAIL_12V) (J10 clamps), [5 V](RAIL_5V) + [3.3 V](RAIL_33V) (connector pins). |
 | Serial monitor | `pio device monitor -e appliance` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
 | Commissioning-log template | TBD — see Open items | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
@@ -54,18 +54,18 @@ When mains reaches the C14 inlet, AC propagates directly through the distributio
 Bring up in this order, verifying each rail with the multimeter before the next:
 
 1. PSU output enabled — verify **[12 V](RAIL_12V)** at the distribution-block test point (PSU is the Mean Well IRM-90-12ST, see [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) run DC-1). Expected ~[12 V](RAIL_12V) [± 0.2 V](RAIL_12V_TOL) at no load.
-2. **[5 V](RAIL_5V) rail** at a `V5` connector pin (J4 or J5) — expected [5 V](RAIL_5V) [± 0.1 V](RAIL_5V_TOL). The rail is the board's K7805 buck (U10) off the J10 12 V inlet; it feeds the 3.3 V LDO, the relay-module VCC (via J5), the flow meter, and the MQ-6 heater. Power tree: [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd).
-3. **[3.3 V](RAIL_33V) rail** at a `3V3` connector pin (J4 or J8) — expected [3.3 V](RAIL_33V) [± 0.05 V](RAIL_33V_TOL). The rail is the board's AMS1117 LDO (U9) off the 5 V buck; it feeds the WROOM, both MCP23017s, the DS3231, the RS485 transceiver, and the on-board pull-ups.
+2. **[5 V](RAIL_5V) rail** at a `V5` connector pin (J4 or J5) — expected [5 V](RAIL_5V) [± 0.1 V](RAIL_5V_TOL). The rail is the main board's K7805 buck (U10) off the J10 12 V inlet; it feeds the 3.3 V LDO, the relay-module VCC (via J5), the flow meter, and the MQ-6 heater. Power tree: [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd).
+3. **[3.3 V](RAIL_33V) rail** at a `3V3` connector pin (J4 or J8) — expected [3.3 V](RAIL_33V) [± 0.05 V](RAIL_33V_TOL). The rail is the main board's AMS1117 LDO (U9) off the 5 V buck; it feeds the WROOM, both MCP23017s, the DS3231, the RS485 transceiver, and the on-board pull-ups.
 
 Under *full* logic load — all MCUs flashed and both display backlights on (revisit after step 6) — the 5 V rail holds tolerance.
 
 If any rail is out of tolerance, kill the PSU and return the unit to `wiring.md`. Do **not** energize the AC side (compressor + fan) at this step — relay #1 stays de-energized until step 8.
 
-Spot-check current draw at the PSU: cold idle sits low — the WROOM's boot-ROM idle, the board's rail LEDs, and the relay-module opto quiescent draw tens of mA; the relay coils are de-energized, no valves are driven, no pumps.
+Spot-check current draw at the PSU: cold idle sits low — the WROOM's boot-ROM idle, the main board's rail LEDs, and the relay-module opto quiescent draw tens of mA; the relay coils are de-energized, no valves are driven, no pumps.
 
-### 3. Flash the base ESP32 (controller PCBA)
+### 3. Flash the base ESP32 (main board)
 
-Plug the USB-C cable into the board's J14, flush on the west edge of the PCBA. The on-board CH340C (U13) enumerates as a USB CDC port on the build host, with auto-reset driving EN/IO0 into download mode.
+Plug the USB-C cable into the main board's J14, flush on the west edge of the main board. The on-board CH340C (U13) enumerates as a USB CDC port on the build host, with auto-reset driving EN/IO0 into download mode.
 
 From the repo root:
 
@@ -79,7 +79,7 @@ Per [`/platformio.ini`](/platformio.ini). Expected outcome: build succeeds, uplo
 
 ### 4. Flash the ESP32-S3 enclosure display
 
-Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the enclosure display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the enclosure display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the main board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
 
 ```
 pio run -e esp32s3_front -t upload
@@ -107,8 +107,8 @@ pio device monitor -e appliance
 
 The default firmware periodically prints a sensor-health frame. Step through each line:
 
-- **I²C scan** — expect ACKs at [0x20](MCP_VALVES) (MCP23017: 8 valves + Reservoir A reeds), [0x21](MCP_RESERVOIRS) (MCP23017: 3 valves + condenser-fan driver bit + Reservoir B reeds + carbonator reeds), and [0x68](RTC_ADDR) (DS3231 RTC). All three are on the PCBA, so a missing ACK is a board fault.
-- **1-wire temperature bus** — expect exactly two devices on the bus on [GPIO 26](GPIO_ONEWIRE): one DS18B20 (family `0x28`, tank-wall) and one DS18S20 (family `0x10`, suction-line). Firmware routes each reading by family code, so the `0x28`/`0x10` split is itself the pass criterion — two same-family devices, or a missing family, is a wrong-part or mounting error. Both should report within [±2 °C](AMBIENT_TOL) of room ambient with the compressor de-energized. If only one address enumerates, suspect a parasitic-power miswire in the J4 loom (the [4.7 kΩ](ONEWIRE_PULLUP) pull-up R9 is on the board).
+- **I²C scan** — expect ACKs at [0x20](MCP_VALVES) (MCP23017: 8 valves + Reservoir A reeds), [0x21](MCP_RESERVOIRS) (MCP23017: 3 valves + condenser-fan driver bit + Reservoir B reeds + carbonator reeds), and [0x68](RTC_ADDR) (DS3231 RTC). All three are on the main board, so a missing ACK is a main-board fault.
+- **1-wire temperature bus** — expect exactly two devices on the bus on [GPIO 26](GPIO_ONEWIRE): one DS18B20 (family `0x28`, tank-wall) and one DS18S20 (family `0x10`, suction-line). Firmware routes each reading by family code, so the `0x28`/`0x10` split is itself the pass criterion — two same-family devices, or a missing family, is a wrong-part or mounting error. Both should report within [±2 °C](AMBIENT_TOL) of room ambient with the compressor de-energized. If only one address enumerates, suspect a parasitic-power miswire in the J4 loom (the [4.7 kΩ](ONEWIRE_PULLUP) pull-up R9 is on the main board).
 - **Carbonator reeds** (MCP23017 [0x21 PB4](REED_LOW) low, [0x21 PB5](REED_HIGH) high) — both on the MCP internal pull-up, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
 - **Reservoir reeds** — all 8 (Reservoir A on MCP23017 [0x20](MCP_VALVES) PB[0:3], Reservoir B on [0x21](MCP_RESERVOIRS) PB[0:3]) reading their no-magnet baseline. Architecture and calibration in [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
 - **DIGITEN flow meter** ([GPIO 25](GPIO_FLOW)) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
@@ -155,15 +155,15 @@ Query the firmware over serial for its loaded setpoints. Expected:
 - Compressor minimum off-time: **[3 min](MIN_OFF_TIME_BARE)**
 - Carbonator refill threshold: low-level reed (MCP23017 [0x21 PB4](REED_LOW))
 - Backflow alarm: armed on the ASSE drip pan's moisture sensor
-- Sound volume: **70%**, quiet hours **off** (`volume` / `quiet` on the controller console)
+- Sound volume: **70%**, quiet hours **off** (`volume` / `quiet` on the main board's console)
 
 These are baked into the firmware on `main` as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
 
 Then query the three limits the hardware imposes. Each one is a part's rating, and the firmware is the only thing holding the machine inside it:
 
 - Valves energized at once: **at most [3](MAX_VALVES)**. Eight coils on MANIFOLD A cross J1's `COM` contact rating and land in one TBD62083 — [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
-- Refill gated on the dispense window: **relay #2 ([GPIO 2](GPIO_RELAY2)) de-energized while a dispense is open**. The board peaks at [3.33 A](BOARD_PEAK_A) and the SeaFlo at [5 A](DIAPHRAGM_A) on one [6.7 A](PSU_MAX_A) supply — [8.32 A](COINCIDENT_A) if they overlap. The low reed asserts mid-pour, so the refill it queues waits ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5).
-- Reed pull-ups: **`GPPU` written on both MCP23017s**. No loom carries a resistor and the board pulls none of these inputs ([`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)), so a reed with no pull-up floats and step 6's baselines are meaningless.
+- Refill gated on the dispense window: **relay #2 ([GPIO 2](GPIO_RELAY2)) de-energized while a dispense is open**. The main board peaks at [3.33 A](BOARD_PEAK_A) and the SeaFlo at [5 A](DIAPHRAGM_A) on one [6.7 A](PSU_MAX_A) supply — [8.32 A](COINCIDENT_A) if they overlap. The low reed asserts mid-pour, so the refill it queues waits ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5).
+- Reed pull-ups: **`GPPU` written on both MCP23017s**. No loom carries a resistor and the main board pulls none of these inputs ([`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)), so a reed with no pull-up floats and step 6's baselines are meaningless.
 
 A unit that walks step 7 and passes step 6 can still be failing all three — nothing here reads them off behavior. The query is the check, and step 7's own walk goes through the state machine holding them (Open item 3).
 
@@ -178,7 +178,7 @@ sound stop
 volume 70
 ```
 
-**Pass:** `sound tick` reports `silenced, so nothing will be heard` and the board stays silent; `sound alarm` reports `alarm at 100%` and the transducer sounds at full volume. **Fail:** either the tick is audible at volume 0, or the alarm is not — do not ship the unit; the exemption is `SND_F_UNSILENCEABLE` in [`/firmware/lib/sound/sound.h`](/firmware/lib/sound/sound.h).
+**Pass:** `sound tick` reports `silenced, so nothing will be heard` and the main board stays silent; `sound alarm` reports `alarm at 100%` and the transducer sounds at full volume. **Fail:** either the tick is audible at volume 0, or the alarm is not — do not ship the unit; the exemption is `SND_F_UNSILENCEABLE` in [`/firmware/lib/sound/sound.h`](/firmware/lib/sound/sound.h).
 
 `sound list` prints what every sound would play at right now, which is the fastest read on whether volume and quiet hours are where this step expects them. U15 holds the compressor off the same MQ-6 signal in hardware with no firmware in the path — that interlock is step 8's, and it is a different check from this one.
 
