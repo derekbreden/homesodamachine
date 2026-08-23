@@ -2,16 +2,16 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-018ed094bab49093.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-018ed094bab49093.tar.gz"
+    "asset": "cad-c647cfe0c3b16301.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c647cfe0c3b16301.tar.gz"
   },
   "source": {
-    "commit": "69459fea671848f6cdc576956c056176d0be50f4"
+    "commit": "a9b5bc4d7cb923aa32fde83c054736d84f7c85b5"
   },
   "bundle": {
-    "sha256": "018ed094bab49093f24155dc2b2bed1d12787f170204deb52b86c97d432c7bba",
-    "bytes": 70205768,
-    "solids": 128
+    "sha256": "c647cfe0c3b16301f4ab2374050848dc67bbd5b595d93daf325ed05d7ffd18aa",
+    "bytes": 67586682,
+    "solids": 123
   },
   "solids": {
     "hardware/assembly/scenes/glb/back-half.glb": "f81e93d65497c2a53e2cd33b251618589230c16a599d4288aed85b967c1d7543",
@@ -85,11 +85,6 @@
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step": "0840114a21670f0721d656194d534ed8a6842244505913bcf891cb8f4c77961a",
     "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-b.step": "90aa3b2275c52e054d8c845779ca8bb0e3b8ededa600475fe1482e932aa5e922",
     "hardware/printed-parts/enclosure/port-ring/port-ring-water.step": "50558d64f2a1be55a84163dbfda5cc765053640fbf8445dbc2a2380d27abd20b",
-    "hardware/printed-parts/enclosure/texture-coupon-vent/texture-coupon-vent.step": "5d36b5a90ae651e970e47cbabe4d3d1c8144d5789cb1064ac384d34bbe83ca5c",
-    "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-facet.step": "77091f061313f2c1a026ef313d37944801cbbbdb9f578747342c62f10b0e98e9",
-    "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-flute.step": "a3ece6da06d9fd911761c90323ab4a0e2227ae2d84e65820d098d8a47de6f95d",
-    "hardware/printed-parts/enclosure/texture-coupons/texture-coupon-vee.step": "2668ed29ba429082cc1dd59f3bb9a08450c6d91845e3cac82bc651f6cfe23f8f",
-    "hardware/printed-parts/enclosure/texture-coupons/texture-coupons.step": "7fc7bed516397b67a969b9fcc206e1261c94632753fd175e01ac20edba56294a",
     "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step": "62f37c07a91de5008989e591cde7da1bd1dd9b9d4beeea02a909f7f81c54ac40",
     "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step": "7468a9ef0c9bb89f2b4fe469c37da7c2365f7d031772869f7c5250fe4a828f28",
     "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step": "72417cda9db391d496a70d3e262c50769b545862ded7bd7d858333e7e7f5f6d4",
