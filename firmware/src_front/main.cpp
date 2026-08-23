@@ -1287,7 +1287,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   if (type == MSG_ERR_UNSUPPORTED) {
-    setCleanMsg("this controller drives no valves");
+    // Fill and Clean both reach the valve manifold and both can be refused. The
+    // refusal has to land on the pane the user is actually looking at.
+    if (activeSvc == SVC_FILL_PICK || activeSvc == SVC_FILL_CONFIRM) {
+      setFillMsg("this controller drives no valves");
+    } else {
+      setCleanMsg("this controller drives no valves");
+    }
     Serial.println("[J9] MSG_ERR_UNSUPPORTED");
     return;
   }
