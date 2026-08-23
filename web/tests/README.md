@@ -36,8 +36,8 @@ Node's stdlib runner (`>=22`, per `package.json`), no extra deps.
   read it.
 - **Walkers and seating.** `walk` pins how a PCB board is discovered;
   `parts-tree` pins that every file the walkers offer is claimed — by an
-  assembly's model, by the shelf under them, or by a directory an assembly
-  places from; `deps` pins the rebuild ordering the dev-server and
+  assembly's model, by a directory an assembly places from, by the bought
+  geometry more than one places, or by the tooling a bench works from; `deps` pins the rebuild ordering the dev-server and
   `build-all` walk.
 - **Text-only readers.** `updates` parses the feed's frontmatter and order,
   `pick-format` the edge-picker's copy blobs.

@@ -47,15 +47,20 @@ async function parseStep(buffer) {
 // indices, one pair per BREP face, restored to the shape occt reports it in.
 // edge-picker.js reconstructs every pickable edge from that grouping.
 //
-// A payload whose version isn't MESH_PAYLOAD_VERSION decodes to null, and the
-// caller reads the STEP.
-const MESH_PAYLOAD_VERSION = 3; // keep in sync with VERSION in _mesh_payload.py
+// A payload whose version isn't one of MESH_PAYLOAD_VERSIONS decodes to null,
+// and the caller reads the STEP. The set is every version whose arrays this
+// decoder can take, and it is WIDER than the one the writer stamps: 2 and 3 lay
+// their triangles out identically, 3 only adding `src` for the writer's own
+// staleness check. Turning 2 away would cost the surface — three payloads are in
+// no build step's outs, so a deploy carries whatever the tree had, and falling
+// back to the STEP for those serves the flute-less solid.
+const MESH_PAYLOAD_VERSIONS = [2, 3]; // keep in sync with DECODABLE in _mesh_payload.py
 
 export function decodeMeshPayload(bytes) {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   const headLen = view.getUint32(0, true);
   const head = JSON.parse(new TextDecoder().decode(bytes.subarray(4, 4 + headLen)));
-  if (head.v !== MESH_PAYLOAD_VERSION) return null;
+  if (!MESH_PAYLOAD_VERSIONS.includes(head.v)) return null;
   const blob = bytes.buffer.slice(bytes.byteOffset + 4 + headLen, bytes.byteOffset + bytes.byteLength);
   const meshes = head.meshes.map((m) => {
     const fac = new Uint32Array(blob, m.fac[0], m.fac[1]);

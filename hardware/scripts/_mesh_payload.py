@@ -55,10 +55,20 @@ from _cadq_export import _per_solid_color, import_step
 LINEAR_DEFLECTION_RATIO = 0.001
 ANGULAR_DEFLECTION = 0.5
 
-# Stated in the header, matched exactly by `decodeMeshPayload` in
-# web/public/js/viewer/step.js. 2 carries the per-face triangle ranges beside
-# the triangles. 3 carries `src` as well — see `write`.
+# Stated in the header. VERSION is what `write` stamps; DECODABLE is every
+# version whose arrays a reader can take, and `decodeMeshPayload` in
+# web/public/js/viewer/step.js holds the same set.
+#
+# THE PAGE'S SET IS WIDER THAN THE WRITER'S ON PURPOSE. 2 and 3 lay their
+# triangles out identically — 3 adds `src`, a header field only a WRITER reads,
+# to decide whether a payload on disk still answers to its solid. Refusing 2 on
+# the page would buy nothing and cost the surface: three of these payloads are
+# in no build step's `outs` (`hardware/scripts/check_payloads.py`), so a deploy
+# carries whatever the tree had, and a page that turned those away would fall
+# back to the STEP — which for `pack.BUNDLED_PAYLOAD_DIRS` is the flute-less
+# solid, and the appliance would render as a smooth box.
 VERSION = 3
+DECODABLE = (2, 3)
 
 
 def deflection(shape) -> float:

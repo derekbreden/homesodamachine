@@ -88,8 +88,7 @@ export function makePanelCollapse(panel, lsKey) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "edge-panel-collapse";
-  // The same chevron the /3d branches disclose with, turned by CSS off the
-  // aria-expanded this button already carries.
+  // A chevron, turned by CSS off the aria-expanded this button already carries.
   prependIcon(btn, "chevron");
   let collapsed = false;
   try { collapsed = localStorage.getItem(lsKey) === "1"; } catch {}

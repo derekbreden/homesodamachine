@@ -324,8 +324,8 @@
 .cad-crumb { touch-action: pan-x; }
 
 /* Keyboard focus, on every control on every surface this file dresses — the
-   rail, the crumb, the readout panels, the two checks cards, the board's own
-   chrome, and the branches and chips on the grid behind them. */
+   rail, the crumb, the readout panels, the two checks cards, and the board's
+   own chrome. */
 .tool-btn:focus-visible,
 .tool-seg-btn:focus-visible,
 .tool-chip:focus-visible,
@@ -346,9 +346,7 @@
 .pcb-edit-tool-btn:focus-visible,
 .pcb-checks:focus-visible,
 .pcb-checks-x:focus-visible,
-.pcb-checks-toggle:focus-visible,
-summary.branch-head:focus-visible,
-.card .label .kind:focus-visible {
+.pcb-checks-toggle:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -451,9 +449,9 @@ summary.branch-head:focus-visible,
   max-width: min(calc(100% - 32px), 430px);
 }
 .edge-panel.collapsed .edge-panel-head { margin-bottom: 0; }
-/* The panel's own disclosure, the same bordered chevron the /3d branches carry
-   (.branch-caret) at the scale of a panel head. It turns off its own
-   aria-expanded, so the mark and the state cannot disagree. */
+/* The panel's own disclosure: a bordered chevron at the scale of a panel head,
+   turned off its own aria-expanded, so the mark and the state cannot
+   disagree. */
 .edge-panel-collapse {
   flex: 0 0 auto;
   align-self: center;
@@ -927,14 +925,13 @@ summary.branch-head:focus-visible,
   opacity: 0.65;
 }
 
-/* --- /3d: the machine's three assemblies, and the shelf under them --------
+/* --- /3d: the machine's two units -----------------------------------------
 
-   The row and the shelf each span the page grid and nest their own inside it,
-   the way .doc-shelf does: the page's tracks stop at them, and the cards lay
-   out on tracks of their own. What stands where is
-   web/contracts/parts-tree.js. */
+   The row spans the page grid and nests its own inside it, the way .doc-shelf
+   does: the page's tracks stop at it, and the cards lay out on tracks of their
+   own. What stands where is web/contracts/parts-tree.js. */
 
-/* Three cards across a wide window, one per row on a phone. Each is the width
+/* Both cards across a wide window, one per row on a phone. Each is the width
    the note wants rather than the width a part thumbnail takes, so the row does
    not read as the first row of a longer grid. */
 .assembly-row {
@@ -956,94 +953,7 @@ summary.branch-head:focus-visible,
   color: var(--text-2);
 }
 
-/* A band that bleeds into the page's own gutter, so the head's hover ground
-   has an inset to sit in while the text inside it still lands on the column
-   the cards and captions stand on. */
-details.branch {
-  grid-column: 1 / -1;
-  margin: 8px -12px 0;
-  border-top: 1px solid var(--border);
-}
-summary.branch-head {
-  cursor: pointer;
-  list-style: none;
-  padding: 14px 12px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: background 0.12s;
-}
-summary.branch-head::-webkit-details-marker { display: none; }
-/* The row is the control, so it takes a hover the way a button does — one step
-   lighter than the cards standing on it, which are --surface and would
-   otherwise dissolve into it. */
-summary.branch-head:hover { background: var(--surface-2); }
-summary.branch-head:hover .branch-title { color: var(--accent); }
-.branch-text { flex: 1 1 auto; min-width: 0; }
-.branch-title {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  line-height: 22px;
-  color: var(--text);
-}
-/* One chevron that turns rather than two glyphs that swap: the turn is the
-   state, and it animates, so which way a branch stands reads at a glance and
-   from the corner of the eye while it moves. It rides with the title rather
-   than the row, so it stays beside the name whatever height the assembly
-   beside it gives the row. */
-.branch-caret {
-  display: inline-block;
-  box-sizing: border-box;
-  width: 22px;
-  height: 22px;
-  padding: 2px;
-  margin-right: 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text-2);
-  vertical-align: -5px;
-  transition: transform 0.15s ease, color 0.12s, border-color 0.12s, background 0.12s;
-}
-details.branch[open] > summary .branch-caret {
-  transform: rotate(90deg);
-  color: var(--text);
-  border-color: var(--text-3);
-}
-/* Over the open-state rule above, so an open branch answers the pointer the
-   same way a closed one does. */
-details.branch > summary.branch-head:hover .branch-caret {
-  color: var(--text);
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-}
-.branch-count {
-  margin-left: 10px;
-  color: var(--text-3);
-  font-size: 11px;
-  white-space: nowrap;
-}
-.branch-note {
-  display: block;
-  margin-top: 5px;
-  max-width: 68ch;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.55;
-  color: var(--text-2);
-}
-/* The head's hover ground fills the head's own box, so the body has to open
-   its own gap under it — otherwise the ground's lit edge lands on the first
-   group's caption while the pointer is on the row above. */
-.branch-body {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-  padding: 10px 12px 24px;
-}
-/* A part's extra representations, one chip each. `.name` takes the ellipsis and
-   `.kinds` does not shrink, so the chips stay in the label at any name length. */
+/* `.name` takes the ellipsis, so a long name stays inside its label. */
 .card .label .name-row {
   display: flex;
   align-items: center;
@@ -1057,23 +967,6 @@ details.branch > summary.branch-head:hover .branch-caret {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.card .label .kinds { flex: 0 0 auto; display: inline-flex; gap: 4px; }
-.card .label .kind {
-  font-family: inherit;
-  font-size: 9px;
-  line-height: 1.6;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-2);
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 0 4px;
-  cursor: pointer;
-}
-.card .label .kind:hover,
-.card .label .kind:focus-visible { color: var(--text); border-color: var(--accent); }
-
 /* The directories parts-tree.js claims nothing from. */
 .grid-warn {
   grid-column: 1 / -1;
@@ -1091,12 +984,6 @@ details.branch > summary.branch-head:hover .branch-caret {
   font-size: 11px;
 }
 
-@media (max-width: 600px) {
-  .branch-body {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
-}
 
 /* Mermaid thumbnail in card. A topology diagram is wide and short, and a
    square well shrinks it to a hairline across the middle of an empty box —
@@ -1492,9 +1379,6 @@ details.branch > summary.branch-head:hover .branch-caret {
   .edge-panel-faces input { width: 16px; height: 16px; }
   /* The way back up the trail. */
   .cad-crumb-step { min-height: 34px; display: inline-flex; align-items: center; }
-  /* A part's other representations, on the grid behind the modal. */
-  .card .label .kind { min-height: 32px; padding: 0 8px; }
-  .card .label .kinds { gap: 6px; }
   /* The board carries the same controls under different names. */
   .pcb-view-toggle { padding: 2px; }
   .pcb-view-btn { min-height: 36px; }
