@@ -203,7 +203,7 @@ prv_vent_cross_z = prv_vent_start[2] - (route_bend_radius + prv_vent_fall_margin
 # (`enclosure._vent_chase`).
 prv_vent_reach = route_bend_radius - (prv_vent_flank_y - prv_vent_lane_y) + 1.0
 
-# WHERE THE WATER INLET CROSSES THE VESSEL'S OWN TOP. Its port is the top plate's −Y hole and
+# WHERE THE WATER INLET CROSSES THE CARBONATOR'S OWN TOP. Its port is the top plate's −Y hole and
 # its conduit stands over the +Y band, so the line has to cross the axis somewhere in the band
 # between that plate and the cap's floor — where the tank has already ended and the space is
 # open. It crosses on ONE DIAGONAL from the port to the west lane, which is also what clocks
