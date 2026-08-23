@@ -4952,7 +4952,7 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/quickstart/_cad_art.py",
-      "hardware/quickstart/art/faucet-head.png",
+      "hardware/quickstart/art/faucet-front.png",
       "hardware/quickstart/art/faucet-side-pressed.png",
       "hardware/quickstart/art/faucet-side.png",
       "hardware/quickstart/art/faucet-tails-front.png",
@@ -4991,7 +4991,7 @@
     "rewritten": [],
     "writes": [
       "hardware/quickstart/art/colors.css",
-      "hardware/quickstart/art/faucet-head.png",
+      "hardware/quickstart/art/faucet-front.png",
       "hardware/quickstart/art/faucet-side-pressed.png",
       "hardware/quickstart/art/faucet-side.png",
       "hardware/quickstart/art/faucet-tails-front.png",
