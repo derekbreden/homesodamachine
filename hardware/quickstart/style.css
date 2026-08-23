@@ -580,8 +580,7 @@ html, body {
 .trim-offcut {
   stroke: #8fb9f7;
   stroke-width: 17px;
-  stroke-dasharray: 18 14;
-  opacity: .8;
+  opacity: .85;
 }
 .preinsert-tube {
   stroke: #98b7e7;
@@ -650,8 +649,8 @@ html, body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.connect-sheet .motion-halo { stroke: #fff; stroke-width: 21px; }
-.connect-sheet .motion-line { stroke: var(--accent); stroke-width: 10px; }
+.connect-sheet .motion-halo { stroke: #fff; stroke-width: 15px; }
+.connect-sheet .motion-line { stroke: var(--accent); stroke-width: 7px; stroke-linecap: butt; }
 .connect-sheet marker path {
   fill: var(--accent);
   stroke: #fff;
@@ -726,7 +725,6 @@ html, body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 126px minmax(0, 1fr);
   overflow: visible;
-  border-bottom: 2px solid var(--rule);
 }
 .mount-event-state {
   position: relative;
@@ -782,11 +780,11 @@ html, body {
 }
 .mount-event-drop-art {
   background-image: url('art/mount-drop.png');
-  background-position: right 64px top -58px;
+  background-position: right 64px top 0;
 }
 .mount-event-seat-art {
   background-image: url('art/mount-lowered-clean.png');
-  background-position: left 64px top -58px;
+  background-position: left 64px top 0;
 }
 .mount-event-transfer {
   position: relative;
@@ -803,19 +801,6 @@ html, body {
   height: 100%;
   overflow: visible;
 }
-.mount-event-state-note {
-  position: absolute;
-  z-index: 5;
-  bottom: 48px;
-  display: grid;
-  gap: 8px;
-  max-width: 390px;
-  font-family: var(--mono);
-}
-.mount-drop-state .mount-event-state-note { left: 24px; text-align: left; }
-.mount-seat-state .mount-event-state-note { right: 24px; text-align: right; justify-items: end; }
-.mount-event-state-note b { font-size: 20px; line-height: 1; }
-.mount-event-state-note span { color: var(--muted); font-size: 15px; line-height: 1; }
 .mount-seat-lens-leader {
   position: absolute;
   z-index: 4;
@@ -1061,15 +1046,14 @@ html, body {
 }
 .mount-under-state-head > span {
   flex: 0 0 auto;
-  width: 38px;
-  height: 38px;
-  border: 2px solid var(--rule);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: var(--ink);
-  background: var(--soft);
-  font: 700 20px/1 var(--mono);
+  color: #fff;
+  background: var(--ink);
+  font: 700 21px/1 var(--mono);
 }
 .mount-under-state-head h3 {
   padding-top: 5px;

@@ -310,7 +310,7 @@ jobs:
       - name: The card deck
         run: tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py
 
-      # Bundle publication is isolated in `publish-cad.yml`. This full derive verifies that
+      # Bundle publication is isolated in `publish.yml`. This full derive verifies that
       # its carried tree is complete and reports a behind lock without competing to repin it.
       - name: Artifact publication status
         run: |
@@ -372,7 +372,7 @@ jobs:
             fi
             if git push origin HEAD:main; then
               GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-                gh workflow run publish-cad.yml --ref main
+                gh workflow run publish.yml --ref main
               exit 0
             fi
             echo "main moved under the push — retrying"

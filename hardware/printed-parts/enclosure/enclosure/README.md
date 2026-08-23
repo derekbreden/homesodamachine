@@ -847,12 +847,13 @@ storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
 **Both flanks open across the cartridge's own storey** (`_flank_opening`). The corner
 posts frame their fore ends; two narrow fixed plate guides occupy only the aft outer
-edges, beyond the cartridge's whole X sweep. Each guide fans just [3 mm](PLATE_GUIDE_FAN)
-toward the front at the fixed side wall only around its recessed screw: the continuous
-baseline leaves [23.9 mm](PLATE_GRIP_BASE_OPEN) of the lower grip's [24 mm](GRIP_RUN)
-entrance open, and the full fan narrows that to [20.9 mm](PLATE_GRIP_OPEN) for just
-[9.424 mm](PLATE_GUIDE_FULL_RISE) of height. Including its two 45° transitions, any extra
-fan exists over [15.42 mm](PLATE_GUIDE_FAN_RISE). A column here is the whole of the box's
+edges, beyond the cartridge's whole X sweep. Each guide is a wedge in plan, standing
+[3 mm](PLATE_GUIDE_WEDGE) further fore at the fixed side wall than at its inboard face:
+the section carrying the plate's moment is deepest where the cheek is rooted in that wall.
+It leaves [23.9 mm](PLATE_GRIP_BASE_OPEN) of the lower grip's [24 mm](GRIP_RUN) entrance
+open at the inboard face and [20.9 mm](PLATE_GRIP_OPEN) at the outer wall. The rake is the
+guide's whole height, so the cheek is one prism — every face a plane, every wall vertical
+and supported, nothing anywhere in it overhanging. A column here is the whole of the box's
 corner — the side wall's own section, the front wall's, and the quarter-round between
 them, one post. So the opening does not begin at the exterior: it begins where that post's
 arc lands on the side wall's inner face, [12 mm](COLUMN_ALONG) aft of `front_plane_y`, and
@@ -903,13 +904,8 @@ The wraparound continues [6 mm](PLATE_GUIDE_CROWN) above the steel's top edge, e
 that bright edge from ordinary oblique views without closing the upward service path. Its last
 millimetre is still the same support-free 45° insertion lead; the plate drops between two open
 L sections rather than under a bridge.
-More importantly, an M3×8 crosses each tail into a short heat-set in that tee wall. Each
-head bears directly on a full stainless land and is inset at least
-[0.8502 mm](PLATE_RETAINER_RECESS) behind the guide's Ø[6.15 mm](PLATE_RETAINER_TUNNEL) teardrop
-driver tunnel; the printed cheek is clearance around the head, not a thin counterbore seat.
-The 45° tunnel roof prints without support in front-top's Z-bed orientation. The channel
-remains open above; with the cartridge out and those two screws removed from the flanks,
-the plate lifts straight up through the bay. Its Z band follows from that: the bottom is the
+The channel remains open above; with the cartridge out, the plate lifts straight up
+through the bay and no tool is needed to free it. Its Z band follows from that: the bottom is the
 seat, and the top is whatever puts the four collet holes **centred** in the band
 (`plate-holes-centred`). Across, its ends stand `PLATE_END_AIR` off the side walls and
 the outline is whole between them: the one thing that ever stood proud of the floor

@@ -244,13 +244,6 @@ display_cover_inserts_per_build = len(display_cover_stations)
 # nameplate's two are, reaching the land, the insert and the relief bored under it.
 display_cover_screws_per_build = display_cover_inserts_per_build
 
-# Collet-plate retention hardware (assembly/enclosure-mechanical.md §6). Two M3 × 8 heads
-# bear directly on the stainless plate's unused outer tails and thread into short inserts in
-# front-top's fixed tee wall. The guide cheeks around them are only recessed driver tunnels;
-# they are not printed head seats and do not carry the release load.
-plate_retainer_inserts_per_build = _ea.PLATE_RETAINER_COUNT
-plate_retainer_screws_per_build = plate_retainer_inserts_per_build
-
 # THE PLATE AND ITS RING ARE PRINTED PARTS AND §7 BILLS BOTH: the plate a row of its own, the
 # gasket a line in the soft-seal sentence that carries every TPU seal in the machine. A body
 # the machine places and the ledger does not buy is a part nobody prints.
@@ -259,11 +252,10 @@ assert not _display_stack, (
     f"the machine no longer stands {sorted(_display_stack)} — bom.md §7 bills the display's "
     f"cover plate and its gasket, and §13 bills the plate's two inserts and two M3 × 8")
 
-# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's,
-# the display cover plate's and the collet plate's two positive retainers.
+# Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's
+# and the display cover plate's.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
-                  + nameplate_screws_per_build + display_cover_screws_per_build
-                  + plate_retainer_screws_per_build)
+                  + nameplate_screws_per_build + display_cover_screws_per_build)
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
@@ -274,7 +266,6 @@ total_m3_inserts_per_build = (
     + cond_inserts_per_build
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
-    + plate_retainer_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
 
@@ -290,7 +281,6 @@ total_m3_screws_per_build = (
     + cond_screws_per_build
     + nameplate_screws_per_build
     + display_cover_screws_per_build
-    + plate_retainer_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -342,8 +332,6 @@ def main():
         "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
         "DISPLAY_COVER_INSERTS": f"{display_cover_inserts_per_build:.4g}",
         "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
-        "PLATE_RETAINER_INSERTS": f"{plate_retainer_inserts_per_build:.4g}",
-        "PLATE_RETAINER_SCREWS": f"{plate_retainer_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
@@ -405,7 +393,6 @@ def main():
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
-            "PLATE_RETAINER_SCREWS": f"{plate_retainer_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",

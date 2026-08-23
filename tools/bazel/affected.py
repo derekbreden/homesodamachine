@@ -379,7 +379,7 @@ def artifact_global(path: str) -> bool:
     # Other workflows are not assumed inert: image, derive and runner changes can change the
     # machine or route an artifact action runs under, so an accumulated edit to one stays global.
     if path.startswith(".github/workflows/"):
-        return path != ".github/workflows/publish-cad.yml"
+        return path != ".github/workflows/publish.yml"
     # Selection code decides WHICH already-described actions run; it is not an input to any
     # artifact action.  Making its own edits global forces the very full-tree build a scoping
     # correction is meant to remove.  The selftest inventory likewise describes test runners,
@@ -621,8 +621,8 @@ genrule(
          and unscoped_changes(["hardware/part.py"], ["hardware/part.py"], True) == []
          and unscoped_changes(["tools/bazel/affected.py"],
                               ["tools/bazel/affected.py"], True) == []
-         and unscoped_changes([".github/workflows/publish-cad.yml"], [], True) == []
-         and unscoped_changes([".github/workflows/publish-cad.yml",
+         and unscoped_changes([".github/workflows/publish.yml"], [], True) == []
+         and unscoped_changes([".github/workflows/publish.yml",
                                "tools/bazel/affected.py"],
                               ["tools/bazel/affected.py"], True) == []
          and unscoped_changes([".github/workflows/derive.yml"], [], True)

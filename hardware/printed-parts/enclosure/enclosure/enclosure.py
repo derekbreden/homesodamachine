@@ -1343,10 +1343,8 @@ plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor
 plate_guide_x_air = 1.0      # fixed guide cheeks outside the cartridge's whole X sweep
 plate_guide_crown = 6.0      # wraparound above the steel, hiding its top from oblique views
 plate_guide_top_lead = 1.0   # 45 degree lead into the plate's upward-open guide channel
-plate_guide_buttress = 3.0   # local fore fan round a retainer head, at the fixed outer wall
-plate_guide_head_land = 1.0  # full-depth fan beyond every point of the teardrop tunnel
-plate_retainer_head_h = display_cover_head_h  # the same DIN 912 M3 head, bearing on steel
-plate_retainer_head_inset = 0.75  # least recess over the tunnel's whole circular footprint
+plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
+                             # to nothing at its inboard face over the guide's whole height
 
 # --- THE CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
 #
@@ -4007,24 +4005,6 @@ def _rim_cap(inner, outer, plate, zj):
     return out.intersect(_rounded_outer(outer))
 
 
-def _plate_guide_fan_z(plate):
-    """The support-free Z profile of the extra fore fan round both retainer tunnels.
-
-    Both screws share one height. The full three-millimetre fan surrounds the round bore below,
-    the teardrop apex above and `plate_guide_head_land` beyond both. It grows and retreats one
-    millimetre in Y per millimetre in Z, so front-top's +Z print never begins a ledge on air.
-    """
-    zs = {round(sz, 6) for _sx, sz in plate["retainers"]}
-    if len(zs) != 1:
-        raise ValueError(f"the mirrored plate retainers no longer share one Z: {sorted(zs)}")
-    sz = next(iter(zs))
-    r = head_cbore_dia / 2.0
-    full_z0 = sz - r - plate_guide_head_land
-    full_z1 = sz + r * math.sqrt(2.0) + plate_guide_head_land
-    return (full_z0 - plate_guide_buttress, full_z0,
-            full_z1, full_z1 + plate_guide_buttress)
-
-
 def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     """The fixed, upward-open guides that keep the collet plate from pitching fore.
 
@@ -4035,15 +4015,19 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     to the steel. Together with the tee wall behind it they make a vertical channel: the
     plate drops and lifts in Z, but its top cannot rotate fore about the seat in the floor.
 
+    THE CHEEK IS A WEDGE IN PLAN, AND IT IS ONE PRISM. Its fore face stands
+    `plate_guide_wedge` further fore at the fixed outer wall than at its inboard face, so the
+    section taking that moment is deepest where the cheek is rooted in the side wall and
+    thinnest where it has the tee wall closest behind it. The rake is the guide's WHOLE
+    HEIGHT and not a band in it: a plan that never changes with Z extrudes, every face of it
+    is a plane, every wall is vertical and supported, and nothing anywhere in it overhangs.
+    A rake local to some Z has to grow and retreat again, and what pays for that is two
+    lofted surfaces and a ledge the printer starts on air.
+
     EACH CHEEK RETURNS ROUND THE PLATE'S END. Its baseline is one whole wall from floor to
     `plate_guide_crown` above the steel, and the three-millimetre spine outside the plate's
     stated end runs one wall aft of the plate into fixed side-wall stock beyond the flank
-    opening. That raised wraparound masks the bright steel edge from ordinary oblique views;
-    it is not another plate retainer and carries no screw load. Round each retainer alone, the
-    L section fans `plate_guide_buttress` further fore at the outer wall. A 45° lower loft grows
-    the fan, a full-depth band surrounds the complete teardrop tunnel by
-    `plate_guide_head_land`, and a 45° upper loft takes it away again. The head keeps the same
-    inset without making the hand surrender three millimetres over the guide's whole height.
+    opening. That raised wraparound masks the bright steel edge from ordinary oblique views.
 
     THE TOP IS OPEN AND LED IN AT 45 DEGREES. Front-top prints from the Z-seam upward, so
     cheek and return are vertical supported walls and the last millimetre at the raised crown
@@ -4056,34 +4040,17 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     z0 = bay_floor_z(pump_trays)[1] - 1.0
     z1 = plate["z1"] + plate_guide_crown
     z_lead = z1 - plate_guide_top_lead
-    fan_z0, fan_full_z0, fan_full_z1, fan_z1 = _plate_guide_fan_z(plate)
-    if not z0 < fan_z0 < fan_full_z0 < fan_full_z1 < fan_z1 < z_lead:
-        raise ValueError(
-            f"plate guide fan {fan_z0:g}..{fan_z1:g} does not fit below top lead {z_lead:g}")
-
-    def loft_plan(p0, za, p1, zb):
-        return (cq.Workplane("XY").workplane(offset=za).polyline(p0).close()
-                .workplane(offset=zb - za).polyline(p1).close().loft(combine=True).val())
-
     out = None
     for x_inner, x_outer, spine_inner in (
             (cart_x0 - plate_guide_x_air, outer[0], inner[0]),
             (cart_x1 + plate_guide_x_air, outer[1], inner[1])):
         spine_aft = plate["aft_y"] + wall
-
-        def plan(fan):
-            return ((x_inner, y_front), (x_inner, y_back),
-                    (spine_inner, y_back), (spine_inner, spine_aft),
-                    (x_outer, spine_aft), (x_outer, y_front - fan))
-
-        base_plan = plan(0.0)
-        full_plan = plan(plate_guide_buttress)
-        guide = _xy_prism(z0, z1, base_plan)
-        guide = guide.fuse(loft_plan(base_plan, fan_z0, full_plan, fan_full_z0))
-        guide = guide.fuse(_xy_prism(fan_full_z0, fan_full_z1, full_plan))
-        guide = guide.fuse(loft_plan(full_plan, fan_full_z1, base_plan, fan_z1))
-        # Preserve the same upward-open 45° lead on the plate side of the cheek. The cutter
-        # starts exactly at the old back/top arris and runs one millimetre fore by the top.
+        guide = _xy_prism(z0, z1, (
+            (x_inner, y_front), (x_inner, y_back),
+            (spine_inner, y_back), (spine_inner, spine_aft),
+            (x_outer, spine_aft), (x_outer, y_front - plate_guide_wedge)))
+        # Preserve the same upward-open 45 degree lead on the plate side of the cheek. The
+        # cutter starts exactly at the back/top arris and runs one millimetre fore by the top.
         lead = _yz_prism(
             min(x_inner, x_outer), max(x_inner, x_outer),
             ((y_back, z_lead), (y_back + 1.0, z_lead),
@@ -4092,50 +4059,6 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
         guide = guide.cut(lead)
         out = guide if out is None else out.fuse(guide)
     return out
-
-
-def _plate_retainer_cuts(outer, bay, plate):
-    """Head tunnels through the fixed cheeks and heat-set pockets in the tee wall.
-
-    THE HEAD BEARS ON STEEL. The Ø`head_cbore_dia` cut through each fore cheek is therefore
-    clearance for the DIN 912 head and its driver, not a printed seat; it runs to the plate's
-    fore face and leaves the head recessed behind the tapered guide surface. Behind the
-    plate, the standard short-insert pocket begins on the tee wall's fore face. With the
-    steel absent the two bores are one straight installation lane; with it installed, an M3×8
-    crosses the 1/8-inch plate and engages the insert without reaching the blind end.
-    """
-    _, cart_x1 = _cap_x_span(bay)
-    guide_inner = cart_x1 + plate_guide_x_air
-    y_inner = plate["fore_y"] - plate_slot_slip - wall
-    guide_slope = plate_guide_buttress / (outer[1] - guide_inner)
-    cutters = []
-    for sx, sz in plate["retainers"]:
-        u = (abs(sx) - guide_inner) / (outer[1] - guide_inner)
-        if not 0.0 <= u <= 1.0:
-            raise ValueError(
-                f"plate retainer x {sx:g} misses the fixed guide's {guide_inner:g}..{outer[1]:g}")
-        local_front = y_inner - plate_guide_buttress * u
-        # The inner edge of the round opening meets the least-forward part of the taper, so
-        # that edge — not merely the screw axis — is the shallowest head recess.
-        shallow_front = local_front + guide_slope * head_cbore_dia / 2.0
-        head_front = plate["fore_y"] - plate_retainer_head_h
-        if head_front - shallow_front < plate_retainer_head_inset:
-            raise ValueError(
-                f"plate retainer at x {sx:g} leaves its head only "
-                f"{head_front - shallow_front:.3f} mm behind the guide surface")
-        # Start ahead of the whole taper, not merely the axis' local surface: a cutter whose
-        # first plane falls inside the rake can leave a crescent over the head. The circular
-        # envelope remains whole and a 45° roof grows above it, because this Y bore prints
-        # horizontally in a piece bedded on Z.
-        head = _teardrop_y(head_cbore_dia / 2.0, sx, sz,
-                           y_inner - plate_guide_buttress - 1.0, plate["fore_y"] + 0.1)
-        insert = _ycyl(heatset_dia / 2.0, sx, sz,
-                       plate["aft_y"], plate["aft_y"] + heatset_depth)
-        # Keep the separated head and insert bores as separated cutters. Fusing disjoint
-        # cylinders can yield a compound that OCCT accepts yet does not subtract from a solid;
-        # explicit cuts make each manufactured opening answer for itself.
-        cutters.extend((head, insert))
-    return tuple(cutters)
 
 
 def _flank_opening(inner, y_aft, z0, z1):
@@ -4824,17 +4747,7 @@ def grip_figures(box):
     y0 = y1 - grip_run
     deep = edge - (storeys[-1][2] + grip_back)
     cap_deep = edge - (storeys[0][2] + grip_cap_back)
-    guide_inner = edge + plate_guide_x_air
-    guide_slope = plate_guide_buttress / (box.outer[1] - guide_inner)
     guide_y_inner = plate["fore_y"] - plate_slot_slip - wall
-    fan_z0, fan_full_z0, fan_full_z1, fan_z1 = _plate_guide_fan_z(plate)
-    retainer_recesses = []
-    for sx, _sz in plate["retainers"]:
-        u = (abs(sx) - guide_inner) / (box.outer[1] - guide_inner)
-        local_front = guide_y_inner - plate_guide_buttress * u
-        shallow_front = local_front + guide_slope * head_cbore_dia / 2.0
-        retainer_recesses.append(
-            plate["fore_y"] - plate_retainer_head_h - shallow_front)
     return {
         "GRIP_RISE": f"{deck_band[1] - deck_band[0]:.4g} mm",
         "GRIP_CAP_RISE": f"{cap_band[1] - cap_band[0]:.4g} mm",
@@ -4850,14 +4763,10 @@ def grip_figures(box):
         "GRIP_TRAVEL": f"{y0 - (box.inner[2] + _column_along()):.4g} mm",
         "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
         "GRIP_RAKE_FORE": f"{grip_rake * deep:.4g} mm",
-        "PLATE_GUIDE_FAN": f"{plate_guide_buttress:.4g} mm",
+        "PLATE_GUIDE_WEDGE": f"{plate_guide_wedge:.4g} mm",
         "PLATE_GUIDE_CROWN": f"{plate_guide_crown:.4g} mm",
         "PLATE_GRIP_BASE_OPEN": f"{guide_y_inner - y0:.4g} mm",
-        "PLATE_GRIP_OPEN": f"{guide_y_inner - plate_guide_buttress - y0:.4g} mm",
-        "PLATE_GUIDE_FULL_RISE": f"{fan_full_z1 - fan_full_z0:.4g} mm",
-        "PLATE_GUIDE_FAN_RISE": f"{fan_z1 - fan_z0:.4g} mm",
-        "PLATE_RETAINER_RECESS": f"{min(retainer_recesses):.4g} mm",
-        "PLATE_RETAINER_TUNNEL": f"{head_cbore_dia:.4g} mm",
+        "PLATE_GRIP_OPEN": f"{guide_y_inner - plate_guide_wedge - y0:.4g} mm",
     }
 
 
@@ -7037,10 +6946,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # these cheeks intentionally stand at the opening's aft outer edges.
         piece = piece.fuse(_plate_fore_guides(
             inner, outer, box.pump_bay, box.collet_plate, box.pump_trays))
-        # The two positive plate retainers pass through those cheeks and into the fixed tee
-        # wall. Cut after both guide and wall exist so one axis opens the complete service lane.
-        for cutter in _plate_retainer_cuts(outer, box.pump_bay, box.collet_plate):
-            piece = piece.cut(cutter)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
