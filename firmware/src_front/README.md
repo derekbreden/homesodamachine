@@ -235,7 +235,7 @@ This polling turn also carries faucet-originated changes from J3 to this display
 
 ## The interface
 
-A 190 px rail down the left carries five 82 px targets — **CHOOSE · RATIO · PRIME ·
+A 190 px rail down the left carries five 88 px targets — **CHOOSE · RATIO · PRIME ·
 CLEAN · SETTINGS** — each an icon over a word. Choose uses a hand pointing up and Ratio an
 exploded pie with one lifted slice; connection state appears only when it affects saving a flavor. The
 remaining 610 px is the pane, and it takes a different shape at each destination:
