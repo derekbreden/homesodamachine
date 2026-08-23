@@ -23,6 +23,7 @@ import io
 import importlib.util
 import json
 import os
+import re
 import subprocess
 import sys
 from functools import lru_cache
@@ -37,6 +38,7 @@ from inventory import IMPLICIT_SOLIDS, inventory, tracked  # noqa: E402
 
 _BUILD = "BUILD.bazel"
 _GRAPH = "tools/bazel/graph.json"
+_GEN_BUILD = "tools/bazel/gen_build.py"
 _CAD_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
 
 #: These two programs move or package an already-described cut; neither is an input to a CAD
@@ -153,6 +155,64 @@ def nonartifact_graph_delta(before_text: str, after_text: str) -> bool:
     return _artifact_projection(before) == _artifact_projection(after)
 
 
+def _build_projection(text: str, roots: tuple) -> dict | None:
+    """Generated BUILD blocks that can change one of ``roots``, including local deps."""
+    blocks = {}
+    outputs = {}
+    global_chunks = []
+    for block in text.split("\n\n"):
+        match = re.search(r'^\s*name = "([^"]+)",\s*$', block, re.MULTILINE)
+        if match:
+            name = match.group(1)
+            blocks[name] = block
+            outs = re.search(r'\bouts\s*=\s*\[(.*?)\]\s*,', block, re.DOTALL)
+            if outs:
+                for path in re.findall(r'"([^"]+)"', outs.group(1)):
+                    outputs[path] = name
+        else:
+            global_chunks.append(block)
+    held = {"__global__": "\n\n".join(global_chunks)}
+    pending = list(roots)
+    while pending:
+        name = pending.pop()
+        if name in held:
+            continue
+        block = blocks.get(name)
+        if block is None:
+            return None
+        held[name] = block
+        for label in re.findall(r'"([^"]+)"', block):
+            dep = label.removeprefix(":")
+            provider = dep if dep in blocks else outputs.get(dep)
+            if provider and provider not in held:
+                pending.append(provider)
+    return held
+
+
+def nonartifact_build_delta(before_text: str, after_text: str,
+                            artifact_names: tuple) -> bool:
+    """Whether every generated BUILD block in the CAD target closure is byte-identical."""
+    before = _build_projection(before_text, artifact_names)
+    after = _build_projection(after_text, artifact_names)
+    return before is not None and after is not None and before == after
+
+
+def _artifact_build_roots(graph: dict) -> tuple:
+    """Actual generated target names for every action in the CAD producer closure."""
+    held = set(_artifact_projection(graph)[0])
+    inv = inventory(tracked())
+    seen, shared = set(), set()
+    for gens in inv:
+        for gen in gens:
+            stem = Path(gen).stem.strip("_").replace("_", "-")
+            (shared if stem in seen else seen).add(stem)
+    names = set()
+    for gens in inv:
+        if held.intersection(gens):
+            names.add(target_name(gens[0], shared))
+    return tuple(sorted(names))
+
+
 def _git_file(ref: str, path: str):
     run = subprocess.run(["git", "-C", str(_ROOT), "show", f"{ref}:{path}"],
                          capture_output=True, text=True)
@@ -173,14 +233,16 @@ def _generated_build_matches(text: str) -> bool:
 
 
 def _safe_metadata_paths(paths: list, artifacts_only: bool, graph_safe: bool,
-                         build_generated: bool) -> set:
+                         build_generated: bool, build_safe: bool = True) -> set:
     """Metadata paths a CAD-only slice may ignore after their semantics were proved."""
     paths = set(paths)
     if not artifacts_only or _GRAPH not in paths or not graph_safe:
         return set()
     safe = {_GRAPH}
-    if _BUILD in paths and build_generated:
+    if _BUILD in paths and build_generated and build_safe:
         safe.add(_BUILD)
+    if _GEN_BUILD in paths and build_generated and build_safe:
+        safe.add(_GEN_BUILD)
     return safe
 
 
@@ -196,6 +258,7 @@ def safely_scoped_metadata(paths: list, artifacts_only: bool, base: str = None,
         # is the checkout; race checks against a fetched future tip remain deliberately global.
         at_head = _git_tree(head) is not None and _git_tree(head) == _git_tree("HEAD")
         build_text = _git_file(head, _BUILD) if at_head else None
+        before_build = _git_file(base, _BUILD)
     else:
         before = _git_file("HEAD", _GRAPH)
         try:
@@ -203,10 +266,21 @@ def safely_scoped_metadata(paths: list, artifacts_only: bool, base: str = None,
             build_text = (_ROOT / _BUILD).read_text()
         except OSError:
             after = build_text = None
+        before_build = _git_file("HEAD", _BUILD)
     graph_safe = (before is not None and after is not None
                   and nonartifact_graph_delta(before, after))
     build_generated = (build_text is not None and _generated_build_matches(build_text))
-    return _safe_metadata_paths(paths, artifacts_only, graph_safe, build_generated)
+    normalized = _normalized_graph(after)
+    artifact_names = _artifact_build_roots(normalized) if normalized is not None else ()
+    build_safe = (
+        before_build is not None
+        and build_text is not None
+        and bool(artifact_names)
+        and nonartifact_build_delta(before_build, build_text, artifact_names)
+    )
+    return _safe_metadata_paths(
+        paths, artifacts_only, graph_safe, build_generated, build_safe
+    )
 
 
 def paths_in(line: str) -> tuple:
@@ -453,6 +527,51 @@ def selftest() -> int:
          and unscoped_changes([_BUILD, _GRAPH], [_BUILD, _GRAPH], True,
                               quick_metadata) == [])
 
+    build_before = '''load("//:defs.bzl", "genrule")
+
+genrule(
+    name = "cad-runtime",
+    srcs = ["hardware/cad/tool.py"],
+    outs = ["out/cad-runtime/hardware/cad/runtime.json"],
+)
+
+genrule(
+    name = "cad-source",
+    srcs = ["hardware/cad/source.py"],
+    outs = ["pysrc/hardware/cad/source.py"],
+)
+
+genrule(
+    name = "cad-cut",
+    srcs = [
+        ":out/cad-runtime/hardware/cad/runtime.json",
+        "pysrc/hardware/cad/source.py",
+    ],
+)
+
+genrule(
+    name = "quickstart-build",
+    srcs = ["hardware/quickstart/old.html"],
+)'''
+    build_after = build_before.replace(
+        'hardware/quickstart/old.html', 'hardware/quickstart/new.html')
+    hold("a generated Quick Start BUILD delta leaves the CAD closure byte-identical",
+         nonartifact_build_delta(build_before, build_after, ("cad-cut",)))
+    hold("a CAD rule or its local runtime cannot use the metadata exemption",
+         not nonartifact_build_delta(
+             build_before,
+             build_after.replace('hardware/cad/tool.py', 'hardware/cad/new-tool.py'),
+             ("cad-cut",))
+         and not nonartifact_build_delta(
+             build_before,
+             build_after.replace('hardware/cad/source.py',
+                                 'hardware/cad/new-source.py', 1),
+             ("cad-cut",))
+         and _GEN_BUILD in _safe_metadata_paths(
+             [_BUILD, _GRAPH, _GEN_BUILD], True, True, True, True)
+         and _GEN_BUILD not in _safe_metadata_paths(
+             [_BUILD, _GRAPH, _GEN_BUILD], True, True, True, False))
+
     cad_after = json.loads(json.dumps(quick_before))
     cad_after["hardware/cad/cut.py"]["reads"].append("hardware/cad/new.dat")
     upstream_before = {
@@ -526,7 +645,7 @@ def selftest() -> int:
         print("  --   bazel query holds skipped: a query under `bazel test` waits on its own "
               "server. Run `affected.py selftest` from a shell for them.")
         print(f"affected selftest {holds}/{holds} (of the holds this run can take)")
-        return 0 if holds == 13 else 1
+        return 0 if holds == 15 else 1
 
     src = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"]
     hit, miss = known(src)
@@ -540,8 +659,8 @@ def selftest() -> int:
     hold("nothing changed is no targets", targets([]) == [] and changed() is not None)
     hold("artifact rules are a strict build slice",
          "//:ceiling-panel" in artifact_targets() and "//:everything" not in artifact_targets())
-    print(f"affected selftest {holds}/19")
-    return 0 if holds == 19 else 1
+    print(f"affected selftest {holds}/21")
+    return 0 if holds == 21 else 1
 
 
 def say_if_unshimmed() -> None:
