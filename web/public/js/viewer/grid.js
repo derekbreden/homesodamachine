@@ -4,9 +4,9 @@
 // its cards are documents, which are files rather than things this page draws,
 // so they are anchors with a committed cover and nothing to mount.
 //
-// /3d's parts stand in the machine's three assemblies — contracts/parts-tree.js
-// states the tree, parts.js renders it. The other three pages group by a path
-// segment.
+// /3d's parts stand in the machine's two units — contracts/parts-tree.js states
+// the tree, parts.js renders it, and everything below the two is reached by
+// opening one of them. The other three pages group by a path segment.
 
 import { state } from "./state.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
