@@ -72,7 +72,7 @@ Rows describing a different board state than `f9355cc7`:
 - `pcb/pcba/README.md:39`: "3V3 and 5 V both made on-board (K7803 / K7805 switching bucks)" — the board makes 3V3 with the AMS1117 LDO (U9) off the K7805's 5 V.
 - `pcb/pcba/jlcpcb-parts.md`: J9 listed as XH 3P `C5374805` (board: 4P `C5359632`, B/A/GND/V12); a "J12 — PROG" row (no J12 exists; programming is J14 USB-C); buzzer "tone on IO4" (IO13); U1 "placed rot 180" (rot 0); J10 described on the north edge at y=30.39 with pin1 east (east edge at (12.35, −24.4), pin1 south); a maze-router paragraph (every signal is pcbPath); no row for D2 (red KT-0603R, `C2286`).
 - `ledger/bom.md`: §1 lists the module-era electronics (DevKitC, DIN breakout, L298N-class stack); `:99` relays "GPIO 17"/"GPIO 16" (board: IO19/IO2); `:192` a DIYables piezo module "GPIO 4 … plugs into the carrier at U8" (board: MLT-5020 + Q1 on IO13, no carrier); `:59` backflow "GPIO 13" (board: IO27).
-- `assembly/electronics-shelf.md` + `assembly/firmware-and-commissioning.md`: `relay_diaphragm_gpio` / `gpio_relay2` = 23 (board: IO2).
+- `assembly/power-column.md` + `assembly/firmware-and-commissioning.md`: `relay_diaphragm_gpio` / `gpio_relay2` = 23 (board: IO2).
 - `pcb/pcba/esp32-scope.md:40`: J14 "north edge … opening flush to the board edge" — the opening is flush to the **west** edge (footprint rotation math and the render agree).
 
 ## Checks — what runs, what doesn't
