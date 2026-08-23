@@ -215,9 +215,8 @@ static uint32_t frameDoneTimeouts = 0;
 #define RAIL_ITEM_GAP     8
 #define RAIL_ITEM_H     110
 #define RAIL_ITEM_PAD     6
-// The word sits on the floor of the target; the icon centres in what is left,
-// so growing or shrinking a target keeps the pair together rather than pulling
-// it apart. Icon heights are the glyph box the font was built at.
+// The word sits on the floor of the target and the icon centres in what is
+// left. The height passed is the glyph box the font was built at.
 #define RAIL_ICON_TOP(h) ((RAIL_ITEM_H - 2 * RAIL_ITEM_PAD - TEXT_H_20 - (h)) / 2)
 #define PANE_W    (SCREEN_W - RAIL_W)
 #define PANE_H    (SCREEN_H - 2 * PANE_PAD)
@@ -239,9 +238,8 @@ static uint32_t frameDoneTimeouts = 0;
 #define TEXT_H_28   30
 #define TEXT_H_40   44
 
-// Choose gives each card a settings target under it. The badge only reports the
-// selection — the whole card is the target that changes it — so it takes the
-// height of its own text rather than a finger's.
+// Choose gives each card a settings target under it, and a badge that reports
+// the selection the card itself changes.
 // A chevron the width of its own glyph, in the title band ahead of the word.
 #define BACK_BTN       58
 #define BACK_GAP       14
@@ -268,15 +266,10 @@ enum FlavorView  { FLV_DETAIL, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
                    SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
 
-// The left rail names the customer-facing destinations. Choose is the drink;
-// Prime, Fill and Clean act on a channel and run down the rail from the least
-// destructive to the most — a prime spends a little concentrate out of the line
-// it already filled, a fill commits a hopper of it to a reservoir, and a clean
-// puts the whole channel back to water. The three share their controller and
-// session machinery beneath the glass, but each is its own place in the
-// interaction, asking for the flavor it acts on. What one flavor pours at, and
-// which logo it wears, belong to that flavor rather than to the machine, and are
-// reached from its own card on Choose.
+// The rail carries the customer-facing destinations, least destructive first.
+// Prime, Fill and Clean each ask for the flavor they act on. Settings is not
+// among them; a flavor's ratio and logo are not either, and are reached from
+// that flavor's card on Choose.
 enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
@@ -344,8 +337,7 @@ static const uint16_t *flavorMidPixels[FLAVOR_IMAGE_COUNT] = {
     flavor0_mid, flavor1_mid, flavor2_mid, flavor3_mid,
 };
 
-// A channel is named by its logo rather than by a number, so every surface that
-// used to print one registers the image standing in for it. Some always show one
+// A channel is named by the logo it wears. Some images always show one
 // particular channel; the rest follow whichever channel the screen is acting on.
 #define FLAVOR_IMG_SLOTS 8
 static lv_obj_t *chanImg[FLAVOR_IMG_SLOTS];
@@ -1277,9 +1269,8 @@ static bool primeBootDiscovery = true;
 static bool primeStopPending = false;
 static bool primeAuthoritativeNavigation = false;
 static bool primeUsbStartPending = false;
-// A press that arrives while the session is still opening. The controller's
-// gate does not move — no hold frame leaves until it answers READY — but the
-// pad no longer has to refuse the finger to wait for it.
+// A press that arrives while the session is still opening. No hold frame
+// leaves until the controller answers READY; this is the press that waits.
 static bool primeTouchStartPending = false;
 static bool primeLinkLost = false;
 static uint32_t primeTokenState = 1;
@@ -2661,9 +2652,8 @@ static void buildFlavor(lv_obj_t *page) {
   flvView[FLV_DETAIL] = det;
 }
 
-// Two flavor targets, side by side, under a title. A channel is named by the
-// logo it wears — the same artwork Choose shows, at the same size — over the
-// mark for what this screen is about to do to it.
+// Two flavor targets, side by side, under a title: the mark for what this
+// screen does, over the logo of the channel it would do it to.
 static void buildFlavorPicker(lv_obj_t *view, const char *title,
                               const char *icon, const lv_font_t *iconFont,
                               lv_event_cb_t cb) {
@@ -2682,9 +2672,7 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
   }
 }
 
-// A named flavor, what the machine is about to do to it, and one wide target to
-// say go. Fill and Clean are the same shape: both commit an open-ended manifold
-// operation the controller sequences, so both ask once, plainly, before sending.
+// The channel, what is about to happen to it, and one wide target to say go.
 static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body,
                               const char *action, lv_event_cb_t cb,
                               ServiceView back, lv_obj_t **msgOut) {

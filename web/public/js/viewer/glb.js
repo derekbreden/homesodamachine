@@ -1,15 +1,13 @@
 // GLB-format module. Loads a glTF-binary assembly (the board's 3D model,
 // board body + placed component meshes — see hardware/pcb/pcba/board-3d.py)
-// into the shared Three.js scene via GLTFLoader, lays the green-soldermask
-// face textures (board-texture.ts) over the board slab, and renders offscreen
-// thumbnails (through step.js's shared snapThumbnail). Materials + colors are baked in
-// the GLB; no occt parse.
+// into the shared Three.js scene via GLTFLoader and lays the green-soldermask
+// face textures (board-texture.ts) over the board slab. Materials + colors are
+// baked in the GLB; no occt parse.
 
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { state } from "./state.js";
 import { scene, resetCamera } from "./scene.js";
-import { snapThumbnail } from "./step.js";
 
 const loader = new GLTFLoader();
 const texLoader = new THREE.TextureLoader();
@@ -105,16 +103,3 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
   }
 }
 
-export async function renderGlbThumbnail(file) {
-  if (state.glbThumbCache.has(file)) return state.glbThumbCache.get(file);
-  try {
-    const resp = await fetch(`/models/${file}`);
-    if (!resp.ok) return null;
-    const gltf = await parseGlb(await resp.arrayBuffer());
-    const dataURL = snapThumbnail(toZupGroup(gltf));
-    state.glbThumbCache.set(file, dataURL);
-    return dataURL;
-  } catch {
-    return null;
-  }
-}
