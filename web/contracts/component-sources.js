@@ -58,7 +58,6 @@ export const ALIASES = {
   "digiten-flow": "reference/digiten-flow-sensor/digiten-flow-sensor.step",
   "discharge-chain": "reference/seaflo-discharge-chain/seaflo-discharge-chain.step",
   "display": "reference/waveshare-43b-display/waveshare-43b-display.step",
-  "asse-drip-pan": "printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
   "enclosure-ceiling-panel": "printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
   "endcap-bottom": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
   "endcap-top": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",

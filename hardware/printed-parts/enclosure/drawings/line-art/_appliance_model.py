@@ -66,7 +66,7 @@ APPLIANCE_D = OUTER[3] - OUTER[2]
 APPLIANCE_H = OUTER[5] - OUTER[4]
 
 # The pieces the enclosure comes apart into, by the name they go into the
-# assembly under. There is no panel among them — the front of this machine is
+# assembly under. None of them is a separate face — the front of this machine is
 # `enclosure-front-*`'s own skin, and it is BLANK: `enclosure_assembly.pack()` fills
 # `back_ports` with [6](BACK_PORT_N) stations and leaves `front_ports` at the
 # `Pack` default, so the front wall is cut [0](FRONT_PORT_N) times and the

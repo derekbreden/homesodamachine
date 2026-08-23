@@ -1,6 +1,6 @@
 # Enclosure
 
-The appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; panel-specific design lives in the sub-folders. The cabinet it installs into, and what is already in there, is [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
+The appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; part-specific design lives in the sub-folders. The cabinet it installs into, and what is already in there, is [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
 
 This is the **thin** machine: tall and narrow, [215 mm](APPLIANCE_WIDTH) wide × [462 mm](APPLIANCE_DEPTH) deep × [358 mm](APPLIANCE_HEIGHT) tall. All three are bounds rather than consequences. `enclosure._dims` measures the pack against each and enters the reading in `BOUNDS`; the box comes back at its stated size either way, so a pack that overruns one gets a wall drawn through it and a red row saying by how much.
 
