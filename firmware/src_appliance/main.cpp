@@ -132,7 +132,7 @@ static void help() {
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
     Serial.println("  flavor [a|b]      selected flavor (controller-owned and persisted)");
-    Serial.println("  link              J9 front display and J3 faucet links");
+    Serial.println("  link              J9 enclosure display and J3 faucet links");
     Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  display usb       make the externally-powered display reattach to USB");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");

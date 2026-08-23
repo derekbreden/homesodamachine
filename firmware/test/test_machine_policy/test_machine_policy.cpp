@@ -526,7 +526,7 @@ void test_other_endpoint_cannot_evict_delayed_hold_stop_evidence() {
             PrimeSessionOwner::Enclosure, 0, sessionToken, enclosureHold, 110));
 
     // Fill the faucet's complete replay window. With one shared ledger this
-    // churn evicted the front STOP and let its delayed START run; per-endpoint
+    // churn evicted the enclosure STOP and let its delayed START run; per-endpoint
     // ledgers preserve the causal evidence independently.
     for (uint32_t i = 0; i < kPrimeHoldTokenHistory; ++i) {
         TEST_ASSERT_EQUAL(

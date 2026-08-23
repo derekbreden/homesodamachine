@@ -396,7 +396,7 @@ static const int PIN_485_DI = 32;
 static const int PIN_485_RO = 34;
 
 // ── The J9 link ────────────────────────────────────────────────────────────
-// The same two pins the loopback bit-bangs carry a UART out to J9, where the front-face
+// The same two pins the loopback bit-bangs carry a UART out to J9, where the enclosure
 // display hangs. Serial1 holds them while the link is up, so `rs485` and `drive io32`
 // take the link down and put it back. EchoCancel (rs485_echo.h) wraps it — `RS485:LOOP`
 // on the 4.3B reads `no echo` in both pin orientations, and this end reads its own.

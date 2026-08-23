@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 // ════════════════════════════════════════════════════════════
-//  J9 — the pair to the front-face display
+//  J9 — the pair to the enclosure display
 // ════════════════════════════════════════════════════════════
 //
 // A finger on the display's glass arrives here as a message. Every frame this
@@ -19,6 +19,6 @@ void linkReport();        // one console block: frames, bytes, echo, last rx
 // termination -> U7 -> IO34 without the far end taking any part.
 void linkPing();
 
-// Make an externally-powered front display present a fresh USB attach. An application
+// Make an externally-powered enclosure display present a fresh USB attach. An application
 // that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY.
 bool linkDisplayUsbReattach();

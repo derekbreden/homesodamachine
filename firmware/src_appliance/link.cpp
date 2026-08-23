@@ -27,11 +27,11 @@ static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
 static bool displayUsbReattachAck = false;
-static flavor_link_policy::TokenLedger frontFlavorTokens;
-static uint32_t frontFlavorDuplicates = 0;
-static uint32_t frontFlavorInvalid = 0;
-static uint32_t frontPrimeSessionLastSentRevision = 0;
-static bool frontPrimeSessionStateSent = false;
+static flavor_link_policy::TokenLedger enclosureFlavorTokens;
+static uint32_t enclosureFlavorDuplicates = 0;
+static uint32_t enclosureFlavorInvalid = 0;
+static uint32_t enclosurePrimeSessionLastSentRevision = 0;
+static bool enclosurePrimeSessionStateSent = false;
 static uint8_t j9TurnReplyHighWater = 0;
 static uint32_t j9TurnReplyOverruns = 0;
 
@@ -60,12 +60,12 @@ static void sendPrimeSessionState(HdlcLink *link) {
         current.holdToken,
     };
     link->send(MSG_RESP_PRIME_SESSION, &state, sizeof(state));
-    frontPrimeSessionLastSentRevision = current.revision;
-    frontPrimeSessionStateSent = true;
+    enclosurePrimeSessionLastSentRevision = current.revision;
+    enclosurePrimeSessionStateSent = true;
 }
 
 // J9 cannot be driven asynchronously. Revisions therefore coalesce here: when
-// any front frame gives the controller a safe turn, only the newest complete
+// any enclosure display frame gives the controller a safe turn, only the newest
 // absolute state is sent. A query/action response calls sendPrimeSessionState()
 // directly and consumes the same revision, avoiding a duplicate snapshot.
 static void sendChangedPrimeSessionState(HdlcLink *link) {
@@ -74,8 +74,8 @@ static void sendChangedPrimeSessionState(HdlcLink *link) {
     // Revision zero is also the controller's authoritative OFF after boot. It
     // still has to cross J9 once so a display that survived this controller's
     // reset cannot retain an old READY/RUNNING snapshot indefinitely.
-    if (frontPrimeSessionStateSent &&
-        current.revision == frontPrimeSessionLastSentRevision) return;
+    if (enclosurePrimeSessionStateSent &&
+        current.revision == enclosurePrimeSessionLastSentRevision) return;
     sendPrimeSessionState(link);
 }
 
@@ -251,14 +251,14 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         FlavorRequestPayload request;
         memcpy(&request, payload, sizeof(request));
         if (request.flavor > PUMP_CHANNEL_B || request.token == 0) {
-            frontFlavorInvalid++;
+            enclosureFlavorInvalid++;
             link->sendResponse(MSG_ERR_SLOT_INVALID, request.flavor);
             return;
         }
 
-        const bool duplicate = frontFlavorTokens.duplicateOrRemember(request.token);
+        const bool duplicate = enclosureFlavorTokens.duplicateOrRemember(request.token);
         if (duplicate) {
-            frontFlavorDuplicates++;
+            enclosureFlavorDuplicates++;
         } else {
             flavorSelect(request.flavor);
             if (request.flags & FLAVOR_REQ_F_AUDIBLE) soundPlay(SND_TICK);
@@ -518,8 +518,8 @@ void linkReport() {
                   (unsigned)j9TurnReplyHighWater,
                   (unsigned long)j9TurnReplyOverruns);
     Serial.printf("    flavor duplicate requests %lu, invalid requests %lu\n",
-                  (unsigned long)frontFlavorDuplicates,
-                  (unsigned long)frontFlavorInvalid);
+                  (unsigned long)enclosureFlavorDuplicates,
+                  (unsigned long)enclosureFlavorInvalid);
     Serial.printf("    echo swallowed %u, outstanding %u, high-water %u, desyncs %u\n",
                   (unsigned)j9Stream.echoSwallowed(), (unsigned)j9Stream.echoOutstanding(),
                   (unsigned)j9Stream.echoHighWater(), (unsigned)j9Stream.echoDesyncs());

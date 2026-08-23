@@ -15,7 +15,7 @@
 // not reset GDMA unconditionally at every VSYNC. Espressif documents that an
 // automatic reset which reaches a panel late can itself shift a visible frame.
 // This translation unit is deliberately the only local override of the
-// ESP-IDF v5.5.4 RGB driver linked by the front-display environment.
+// ESP-IDF v5.5.4 RGB driver linked by the enclosure display's environment.
 #undef CONFIG_LCD_RGB_RESTART_IN_VSYNC
 #define CONFIG_LCD_RGB_RESTART_IN_VSYNC 0
 
@@ -91,7 +91,7 @@
 
 static const char *TAG = "lcd_panel.rgb";
 // The only state added to the ESP-IDF v5.5.4 driver copy: a small observable
-// counter for genuine recovery resets. The front's normal wake test requires
+// counter for genuine recovery resets. The enclosure display's wake test requires
 // it not to grow.
 static volatile uint32_t rgb_panel_restart_count = 0;
 
@@ -1137,7 +1137,7 @@ static IRAM_ATTR void lcd_rgb_panel_try_restart_transmission(esp_rgb_panel_t *pa
     if (!do_restart) {
         return;
     }
-    // Exposed below for the front's non-actuating wake-cycle check. A healthy
+    // Exposed below for the enclosure display's non-actuating wake-cycle check. A healthy
     // continuous stream does not need a reset; a change here means the driver
     // caught a real missed bounce-buffer EOF and recovered it.
     rgb_panel_restart_count++;

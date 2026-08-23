@@ -139,7 +139,7 @@ motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 ## The J9 link
 
 IO32 and IO34 carry a 115200 8N1 UART out to **J9** (`B · A · GND · V12`), where the
-front-face display hangs. What arrives there:
+enclosure display hangs. What arrives there:
 
 | Frame | What the rig does | What goes back |
 |---|---|---|

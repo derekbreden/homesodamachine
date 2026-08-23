@@ -27,7 +27,7 @@ pio run -e pcba_bench
 Building does not open a serial port. Uploading and monitoring do; name the port whenever
 more than one board is connected (`tools/boards.py` prints the exact commands).
 
-With the working controller and front display connected, the default live check only observes
+With the working controller and enclosure display connected, the default live check only observes
 the display, touch controller, J9 link, and synchronized/durable flavor state through the
 display's native USB port. The optional checks are deliberately explicit: `--animation`
 opens the reusable operation lock long enough to measure it; `--toggle` selects the other
