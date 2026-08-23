@@ -61,7 +61,7 @@ To re-run later: spawn a `general-purpose` Claude agent with the same prompt str
 Already covered, no order needed:
 
 - **§1 Controllers/electronics:** Waveshare RP2040 LCD (qty 2), L298N 4-pack, ULN2803 10-pack, Teyleten relays (5-pack + 1 = 6 on hand)
-- **§2 Vessel:** LTWFITTING 5-pack, FERRODAY sparge stone 2-set (1 left), Millrose PTFE tape, Tap Magic fluid, Cambro 6 QT (qty 2 across the ledger), 316L tube and endcap stock on order from OnlineMetals + SendCutSend
+- **§2 Carbonator:** LTWFITTING 5-pack, FERRODAY sparge stone 2-set (1 left), Millrose PTFE tape, Tap Magic fluid, Cambro 6 QT (qty 2 across the ledger), 316L tube and endcap stock on order from OnlineMetals + SendCutSend
 - **§3 Water inlet:** Hooshing 2-pack (1 left), Sealproof PVC, LOKMAN clamps 20-pack, MAACFLOW 4-pack, GASHER check valves (3 packs = 6 valves with the Apr 27 spares delivery), Lifevant tubing, John Guest bulkhead (qty 2, 1 left), Multiplex backflow preventers (5 on order across two vendors)
 - **§4 CO2:** 5/16" CO2 line + clamps, DERPIPE 5-pack (4 left, but see caveats)
 - **§5 Refrigeration:** GOORY 50 ft copper coil (1/2 roll left), DS18B20 5-pack (3 left), MXR C14 inlet 10-pack, Monoprice cord 6-pack, Enviro-Safe R-600a 3-pack (~12 charges), 3M 425 foil tape (12 builds per roll, on order)

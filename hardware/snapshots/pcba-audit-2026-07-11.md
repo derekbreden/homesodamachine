@@ -50,9 +50,9 @@ To re-run: `bun render-board.ts pcba.tsx`, `python3 silk-audit.py`, `tools/cad-v
 
 ## Power arithmetic
 
-- **12 V supply**: IRM-90-12ST, 6.7 A. DC-4 board tally ~3.3 A (pumps priming + 3 valves + fan). The SeaFlo diaphragm pump (~5 A, `ac-wiring-schedule.md:77`) parallels the board on relay #2 — coincident total ≈ 8.3 A. `power.mmd` carries the refill interlock (relay #2 off during dispense) that keeps the sum inside the supply; it is a firmware invariant with no hardware backstop. The 4.3B config display's 12 V draw (through J9) appears in no tally.
+- **12 V supply**: IRM-90-12ST, 6.7 A. DC-4 board tally ~3.3 A (pumps priming + 3 valves + fan). The SeaFlo diaphragm pump (~5 A, `ac-wiring-schedule.md:77`) parallels the board on relay #2 — coincident total ≈ 8.3 A. `power.mmd` carries the refill interlock (relay #2 off during dispense) that keeps the sum inside the supply; it is a firmware invariant with no hardware backstop. The 4.3B enclosure display's 12 V draw (through J9) appears in no tally.
 - **5 V rail** (K7805, 2 A): documented loads are the two relay coils (~140 mA); no repo figure exists for the MQ-6 heater or the faucet display, and the AMS1117's 3V3 load sits on top. Worth measuring both unknowns at bring-up and recording the rail budget in `power.mmd`.
-- **U4 during 3-valve states**: the truth-table maximum is 3 simultaneous valves, all on MANIFOLD A/U4 (fill-hopper, clean-water-fill, air-purge states). 3 × 0.46 A cold × Vce(sat) ≈ 1.2 V ≈ 1.7 W in one SOIC-18, settling toward ~0.9 W as coils warm to ~0.3 A; at θJA ≈ 60–70 °C/W that is a 55–115 °C rise while the state holds. Fill-state duration is not documented. Worth a U4 temperature measurement during a hopper fill at bring-up.
+- **U4 during 3-valve states**: the truth-table maximum is 3 simultaneous valves, all on MANIFOLD A/U4 (fill-from-funnel, clean-water-fill, air-purge states). 3 × 0.46 A cold × Vce(sat) ≈ 1.2 V ≈ 1.7 W in one SOIC-18, settling toward ~0.9 W as coils warm to ~0.3 A; at θJA ≈ 60–70 °C/W that is a 55–115 °C rise while the state holds. Fill-state duration is not documented. Worth a U4 temperature measurement during a funnel fill at bring-up.
 
 ## Firmware ↔ board
 

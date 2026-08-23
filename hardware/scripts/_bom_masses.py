@@ -70,7 +70,7 @@ PARTS = {
     ],
     # THE FIFTH PIECE OF THE BOX, and the one that leaves it loaded: the front wall's flat
     # span and the block behind it that both pumps stand in come off the plate as one solid
-    # (`enclosure.build_cartridge`), and the cap that closes on both heads comes off it as a
+    # (`enclosure.build_pump_cartridge`), and the cap that closes on both heads comes off it as a
     # second (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed
     # together on the bench and ride as one. A pump tray is the pump cartridge's own material,
     # so nothing stands under a pump that ships on its own — the valve trays' bargain below.

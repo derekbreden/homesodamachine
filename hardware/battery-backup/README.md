@@ -1,6 +1,6 @@
 # Battery Backup
 
-Keeps the dispense path running through a mains outage. The compressor stays off, so the carbonated water in the vessel warms over the outage; CO2 still drives the pour (no power moves the water), and the battery powers only the electronics that sense flow and meter flavor. Pour over ice if desired.
+Keeps the dispense path running through a mains outage. The compressor stays off, so the carbonated water in the carbonator warms over the outage; CO2 still drives the pour (no power moves the water), and the battery powers only the electronics that sense flow and meter flavor. Pour over ice if desired.
 
 ## What the battery carries
 
@@ -9,7 +9,7 @@ Only the dispense-critical subset runs from the battery:
 - ESP32 (main) + DIGITEN flow sensor — continuous idle
 - Per pour: two solenoid valves held open + one Kamoer peristaltic pump, a few seconds
 
-Shed on battery (not carried): the 120 VAC compressor, the SeaFlo diaphragm pump, the condenser fan, and the ESP32-S3 display. Peak carried load ~2 A; idle ~1.5 W, target ~0.4 W with ESP32 deep-sleep (wake on the flow pin).
+Shed on battery (not carried): the 120 VAC compressor, the SeaFlo diaphragm pump, the condenser fan, and the enclosure display. Peak carried load ~2 A; idle ~1.5 W, target ~0.4 W with ESP32 deep-sleep (wake on the flow pin).
 
 ## Architecture
 
@@ -22,7 +22,7 @@ Shed on battery (not carried): the 120 VAC compressor, the SeaFlo diaphragm pump
 
 ## Firmware (blackout mode)
 
-On loss of mains (via the sense input): skip the compressor and the refill-then-rechill interlock so warm pours are allowed; sleep the ESP32-S3 display; watch pack voltage for a low-battery warning and clean cutoff. Deep-sleep the ESP32 between pours (wake on the flow pin) to cut idle draw — every mW of idle removed is pack capacity, and volume, not carried. The DS3231 RTC keeps time on its own coin cell.
+On loss of mains (via the sense input): skip the compressor and the refill-then-rechill interlock so warm pours are allowed; sleep the enclosure display; watch pack voltage for a low-battery warning and clean cutoff. Deep-sleep the ESP32 between pours (wake on the flow pin) to cut idle draw — every mW of idle removed is pack capacity, and volume, not carried. The DS3231 RTC keeps time on its own coin cell.
 
 ## Energy
 

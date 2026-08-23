@@ -1,4 +1,4 @@
-# Fill from hopper — Snapshot 2026-08-19
+# Fill from the funnel — Snapshot 2026-08-19
 
 **This is a point-in-time snapshot, not a living document.** It captures the plan committed to
 on the eve of the first operation the appliance performs on valves. The pump prime is the only
@@ -8,7 +8,7 @@ condenser fan stand high-Z, no reed is read, and a clean cycle is answered `MSG_
 
 The operation: a customer lifts the silicone funnel's bottle-sized mouth, empties a 440 mL
 SodaStream concentrate bottle into it in one pour, and the machine draws it down into one of the
-two flavour reservoirs. `Fill from Hopper → Reservoir A` opens V-B, V-C and V-F with pump A
+two flavour reservoirs. `Fill from the funnel → Reservoir A` opens V-B, V-C and V-F with pump A
 running ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)); the
 funnel is shared and the manifold picks the channel
 ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)).
@@ -17,8 +17,8 @@ funnel is shared and the manifold picks the channel
 
 **A valve state does not name an operation.** In the canonical table, `Dispense A` and
 `Clean Flush A` are both V-E + V-G with pump A on — the table says so itself — and
-`Fill from Hopper → A` and `Air Purge In → Reservoir A` are both V-B + V-C + V-F with pump A on.
-What separates each pair is what is in the reservoir, or whether the hopper holds anything: facts
+`Fill from the funnel → A` and `Air Purge In → Reservoir A` are both V-B + V-C + V-F with pump A
+on. What separates each pair is what is in the reservoir, or whether the funnel holds anything: facts
 the machine has no way to read. The display renders from an intent the firmware holds, and an
 intent lost to a reset cannot be recovered from the valves. `/hardware/battery-backup/` makes
 mid-cycle interruption a designed-for case.
@@ -83,7 +83,7 @@ outer wall at the pitch above, with the float raised and lowered by hand.
 
 **7.** 1/4" LLDPE off the 100 ft roll; a bulkhead into the reservoir (neoFit ABU44-E, or one of
 the two JG PI1208S on hand) with its silicone face washer; the Kamoer already wired for prime;
-and anything standing in for the funnel — **the silicone hopper funnel is not cast yet.**
+and anything standing in for it — **the silicone funnel is not cast yet.**
 
 ## Firmware and decisions — mine
 
@@ -124,7 +124,7 @@ rising pitch. The end is detected, not elapsed. A reservoir already full refuses
 the pump cartridge exists to serve.
 
 **9. `/hardware/design-pressures.md` lists field service under Not optimised** and says the pump
-swap runs on the bench's own access "rather than on anything placed for it." The cartridge is the
+swap runs on the bench's own access "rather than on anything placed for it." The pump cartridge is the
 thing placed for it. That document is upstream of what gets built next.
 
 **10. The diff-scoped prose guard.** When a commit deletes a definition, check whether anything
@@ -137,6 +137,6 @@ its toggle, and the front glass is not in it.
 
 Unrelated to this operation and unchanged: the build-sequence decision at
 [`/hardware/assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) open
-item 4, which wants a stated motion per body; and the pressure vessel, whose four open items and
+item 4, which wants a stated motion per body; and the carbonator, whose four open items and
 the new coil's charge mass all resolve by making one. Every tool for that is ACQUIRED and nothing
 has been made.

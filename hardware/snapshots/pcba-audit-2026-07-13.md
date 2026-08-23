@@ -44,9 +44,9 @@ per `assembly/cable-assemblies.md`.)*
 - **Reverse-polarity block (J10 inlet).** `pcba.tsx:1532-1541`. J10.V12 → `net.V12IN` → Q4 **drain**; Q4 **source** → the V12 island; gate → R23 (100 k) → GND; D9 (15 V zener) cathode→source / anode→gate; D8 (SMAJ15A) island→GND. A P-channel body diode points drain→source, so with drain=inlet / source=load it conducts inlet→load in normal polarity (channel then enhances, Vgs ≈ −12 V within the AO3407 ±20 V rating) and blocks load→inlet under reverse polarity. The drain stub carries the ~3.3 A board peak on 1.6 mm copper (ampacity rule `pcba.tsx:312`, gate: 0 narrow). D8 clamps to 24.4 V, under C3's 25 V rating.
 - **Gas→compressor interlock.** `pcba.tsx:110-123, 939-961, 1120-1193`. U15 (74LVC1G08 AND). A ← U1.IO19 (firmware compressor command); B ← the divided MQ-6 DOUT node (the ~3.0 V node that also feeds IO36) through R25 (0 Ω invert-select), with R24 (100 k) pulldown **at the gate**; Y → J5.IO19. U1.IO19 and J5.IO19 are separate nets — the ESP reaches the relay only through the gate. Y = A·B → `(IO19, gas) → J5.IO19: (on, clear)→ON, (on, GAS)→OFF, (off, *)→OFF`. Fail-safe: R24 defaults B low, so a broken B-haul, an unpowered/unprogrammed ESP (A low), or an unpowered gate all leave the compressor off. Assumed bench-gated polarities: MQ-6 DOUT HIGH = clear, relay active-HIGH. Invert provisions carried: R25 (0 Ω) in series on B for DOUT polarity; a pin-identical 74LVC1G00 NAND (`C12508`) drops into the same SOT-353 land for an active-LOW relay.
 
-## Thermal (computed; inputs stated — worth bench-verifying at the 40–55 °C shelf ambient, not a 25 °C bench)
+## Thermal (computed; inputs stated — worth bench-verifying at the 40–55 °C ambient on the +X wall, not a 25 °C bench)
 
-- **ULN2803 U4/U5** are the hottest nodes. U4 at 3 simultaneous MANIFOLD-A valves: 3 × 0.46 A × 1.3 V ≈ 1.8 W cold-inrush, settling to ~1.0 W as coils warm; SO-18 θJA ≈ 57–73 °C/W → Tj ≈ 97–113 °C settled and ~140–170 °C during the first seconds of a fill (transiently over the 150 °C limit). U5 (2 valves + the condenser fan on ch5) ≈ 1.1 W settled but fan-warmed **whenever the compressor runs**. Neither part has thermal shutdown. Worth a U4/U5 temperature measurement during a hopper fill and during compressor-on. Fill-state duration is undocumented (`ac-wiring-schedule.md`).
+- **ULN2803 U4/U5** are the hottest nodes. U4 at 3 simultaneous MANIFOLD-A valves: 3 × 0.46 A × 1.3 V ≈ 1.8 W cold-inrush, settling to ~1.0 W as coils warm; SO-18 θJA ≈ 57–73 °C/W → Tj ≈ 97–113 °C settled and ~140–170 °C during the first seconds of a fill (transiently over the 150 °C limit). U5 (2 valves + the condenser fan on ch5) ≈ 1.1 W settled but fan-warmed **whenever the compressor runs**. Neither part has thermal shutdown. Worth a U4/U5 temperature measurement during a funnel fill and during compressor-on. Fill-state duration is undocumented (`ac-wiring-schedule.md`).
 - **DRV8870 U11/U12** exposed pad reaches the GND plane through a single 0.3 mm via (the inner planes are 3V3/5V, not GND; the top V12 island antipads the EP). ~0.5–0.7 W per driver during prime → Tj ~90–140 °C at 40 °C ambient. The part's own 150 °C thermal shutdown backstops it; prime is user-initiated and intermittent. Worth a prime-cycle temperature check.
 - **AMS1117 (U9)** 3V3 LDO: 3V3 tally ≈ 90–100 mA, drop 1.7 V → ~0.18 W typ / ~0.29 W at peak, tab θJA ~60–90 °C/W → ΔT ~13–20 °C. Comfortable.
 - **K7805** 5 V rail: typical ≈ 0.64 A, worst-case ≈ 1.3 A of its 2 A. Comfortable. The faucet-display 5 V current is the one unmeasured term (even 400 mA stays < 1.5 A).
@@ -74,7 +74,7 @@ per `assembly/cable-assemblies.md`.)*
 
 - MQ-6 DOUT trip polarity and relay-module trigger polarity (set the interlock's R25 / NAND-swap provisions).
 - Reverse-protection FET sustained current during a dual-pump prime (SOT-23 thermal; step to SOT-89/SOIC-8 — which needs +3 mm — only if it holds near 3.3 A for seconds).
-- U4/U5 junction temperature during a hopper fill and during compressor-on, at shelf ambient.
+- U4/U5 junction temperature during a funnel fill and during compressor-on, at the +X wall's ambient.
 - DRV8870 EP temperature at prime.
 - Relay-module 3.3 V drive margin (boot-safety assumes the opto LED load holds IO2 low); MQ-6 DOUT polarity into the interlock; COS13487 DI idle behaviour in ESP reset; solenoid hold current (`ac-wiring-schedule.md:84`, 0.3–0.46 A "measure at bring-up").
 - DIGITEN flow output stage: resolved from the datasheet as open-collector (`bom.md:184`), so IO25 swings 0–3.3 V on the ESP pull-up; R22 now pins it firmware-independently. No longer a pre-fab unknown.
@@ -122,7 +122,7 @@ output**), and added:
   capacity-autorouter fork is dormant (board is 100 % hand-routed).
 
 **Reaffirmed open (the one real fitness gate):** the **ULN2803 U4/U5 thermal** measurement on a
-first-article board, at the 40–55 °C shelf ambient (not a 25 °C bench) and at real fill durations — U4
+first-article board, at the 40–55 °C ambient on the +X wall (not a 25 °C bench) and at real fill durations — U4
 transiently exceeds Tj(max) at cold-inrush and U5 runs continuously fan-warmed, neither with thermal
 shutdown. Deferring it is acceptable **only if the measurement actually happens before committing to
 production**. Minor: the gas-interlock fail-safe covers a broken/unplugged sensor but not an MQ-6 drifted

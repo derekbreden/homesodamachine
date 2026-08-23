@@ -76,7 +76,7 @@ are blocked on the compressor's rotation and the condenser's undefined ports.**
   it. That maps the shroud's one copper-bearing face (native −X "left") to world −Y (front)
   and its AC face (native +Y "back") to world −X (left wall). So **both refrigerant stubs face
   the front wall**; the AC gland faces the left wall. The AC orientation is fine — the cable
-  drops from the shelf and enters from the left. The refrigerant orientation is the open
+  drops from the +X wall and enters from the left. The refrigerant orientation is the open
   question: the single copper face can only point one way, and it currently points at neither
   mate. If front access for brazing/service was the intent, keep it; otherwise rotating the
   compressor so copper faces +Y (serves the evaporator directly) or +X (serves the condenser)
