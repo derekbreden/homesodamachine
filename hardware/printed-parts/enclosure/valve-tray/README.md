@@ -67,7 +67,7 @@ plate that reads what the machine can lay rather than what the model draws.
 
 Read off the placed valves at every build, never stated — `manifold_layout` folds the pack and
 [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) stands it on the
-refrigeration base's crown, so where a deck lands is that stack's arithmetic. `valve_panel_decks`
+refrigeration base's crown, so where a deck lands is that stack's arithmetic. `valve_tray_decks`
 groups the valves no cap cradle holds by the plane each stands on and hands back one tray per
 plane, and the `valve-trays-hold` gate reads every valve against the plate under it.
 

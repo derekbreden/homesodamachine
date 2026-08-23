@@ -1,8 +1,8 @@
 """Manifold layout — the ten flavor valves, both KPHM400 pumps and the six junctions
 between them, placed with nothing else in the box.
 
-Nothing here is seated in the enclosure, no tray carries anything, and no reservoir, nozzle,
-hopper or carbonator is present: the eight mouths that reach them are drawn one stub long and
+Nothing here is seated in the enclosure, no tray carries anything, and no reservoir, gooseneck,
+funnel or carbonator is present: the eight mouths that reach them are drawn one stub long and
 stop. The connections are `../topology/fluid-topology.md`'s, segment for segment. What is free
 is where every body stands, how it is turned, and which of a junction's three ports takes its
 run.
@@ -10,7 +10,7 @@ run.
 Frame
 -----
 - X = width, mirrored about x = 0. Channel A west, channel B east, each over its own pump.
-- Y = depth. Six of the eight mouths leave out the back, +Y — the two nozzles and the
+- Y = depth. Six of the eight mouths leave out the back, +Y — the two flavour mouths and the
   reservoirs' four; the other two are turned onto +Z by the quarter turns below.
 - Z = height, 0 at the pumps' own floor. The valves stand on TWO decks above them, and the
   fold is what puts the second one there.
@@ -67,7 +67,7 @@ collet butted to collet.
 `BUTT` is the tube left OUTSIDE a pair of butted quick-connects, and it is 0 — there is still
 tube in both collets, there is none between them. `BARB_STANDOFF` is the same figure where a
 tee meets a pump barb, and it is the COLLET PLATE'S BERTH: a barb is not a quick-connect, the
-four runs off the barbs are what the cartridge releases against, and the steel that stops their
+four runs off the barbs are what the pump cartridge releases against, and the steel that stops their
 collets stands in this gap. The deck's height rides on it one for one, and so does what the two
 source runs have left to step in.
 
@@ -160,9 +160,9 @@ MOTOR_L = kp.motor_end_z - kp.octagon_top_z  # the can, boss's rear face to the 
 # --- The study's own figures, all four free --------------------------------
 BUTT = 0.0            # tube left outside a pair of butted quick-connects
 BARB_STANDOFF = 5.7   # exposed tube between each barb and its anchor tee's branch collet — the
-                      # collet plate's berth. The pumps ride the cartridge out of the box and
+                      # collet plate's berth. The pumps ride the pump cartridge out of the box and
                       # these four runs are what release: the plate stands in this gap, stops
-                      # the collets as the cartridge pulls the tees forward, and the tubes come
+                      # the collets as the pump cartridge pulls the tees forward, and the tubes come
                       # free. Steel and its two airs is what the figure is
                       # (`enclosure_assembly.PLATE_T + PLATE_REST_GAP`, and a millimetre off
                       # the barbs' own plane), and the deck rides on it one for one.
@@ -755,7 +755,7 @@ def branch_port(name: str):
 # bulkhead at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two
 # valves reach one directly and nothing stands between them. The four collets that would have
 # met a tee are mouths of this study instead, and every junction left in the pack joins two
-# VALVES rather than a valve and a vessel.
+# VALVES rather than a valve and a reservoir.
 JOINS = {}
 
 
@@ -930,9 +930,9 @@ SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
 # the straight its first corner needs before it can turn at all.
 MOUTHS = [(cid, p, what, port(body, end), port_axis(body, end)) for cid, p, what, body, end in (
     ("fluid-2", "V-A-I", "tap water in", "V-A", "front"),
-    ("fluid-4", "V-B-I", "hopper in", "V-B", "front"),
-    ("fluid-18", "V-G-O", "nozzle A", "V-G", "front"),
-    ("fluid-28", "V-J-O", "nozzle B", "V-J", "front"),
+    ("fluid-4", "V-B-I", "funnel in", "V-B", "front"),
+    ("fluid-18", "V-G-O", "flavor A", "V-G", "front"),
+    ("fluid-28", "V-J-O", "flavor B", "V-J", "front"),
     ("fluid-14", "V-F-O", "reservoir A fill", "V-F", "back"),
     ("fluid-16", "V-E-I", "reservoir A draw", "V-E", "back"),
     ("fluid-24", "V-I-O", "reservoir B fill", "V-I", "back"),
@@ -986,7 +986,7 @@ def build_assembly() -> cq.Assembly:
     # Only the segments that carry tube outside their collets get a solid; the rest are butts.
     # Each is drawn in the colour of the spool it is cut off (`_routing.SPOOLS`), which on this
     # deck is black everywhere but `fluid-3` — V-A's outlet into Y-A, the last of the tap water
-    # before the hopper's syrup meets it.
+    # before the funnel's syrup meets it.
     for cid, _f, _t, how in SEGMENTS:
         if how in RUNS and dist(*RUNS[how]) > 1e-9:
             a.add(straight(*RUNS[how]), name=f"tube-fluid-{cid}",

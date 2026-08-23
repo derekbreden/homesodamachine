@@ -170,19 +170,19 @@ STATIONS = {
     # moulding, and what pushes into it is the same 1/4" LLDPE the rest of the water side runs.
     "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
-    # The basin's gravity drain — the spout's exit annulus, on the collar centre, facing the
+    # The funnel's gravity drain — the spout's exit annulus, on the collar centre, facing the
     # floor. `funnel.drain_local` is in the part's own frame, so it rides the funnel
     # wherever the top wall carries it.
     "funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
                                 _funnel.spout_id)},
-    # The disconnect under that drain. Its upper collet takes the stub the basin carries and
+    # The disconnect under that drain. Its upper collet takes the stub the funnel carries and
     # its lower one starts `fluid-4`, so the two are named for the joint rather than for flow:
     # `stub` is the mouth a hand works and `outlet` is the mouth a run leaves by.
-    "hopper-drain-union": {"stub": (lambda: _elbow.port("z"), _elbow.TUBE_D),
+    "funnel-drain-union": {"stub": (lambda: _elbow.port("z"), _elbow.TUBE_D),
                            "outlet": (lambda: _elbow.port("y"), _elbow.TUBE_D)},
 }
 
-# The three unions the machine dispenses through, all on one row of the back wall. Each carries
+# The three unions the machine dispenses through, all on one row of the +Y wall of back-top. Each carries
 # the same two mouths the tap-water union does, under the names the topology gives them: the
 # INBOARD collet is what a run inside the box pushes into, the outboard one is what the
 # above-counter umbilical lands on.
@@ -300,7 +300,7 @@ def build_seated_runs(placed, carries):
     do."""
     F = frames(placed, carries)
     runs = []
-    if {"hopper-drain-union", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
+    if {"funnel-drain-union", "valve-v-a", "valve-v-b", "seaflo-pump"} <= set(F):
         runs.append(_fluid_4(F, placed))
     return runs
 
@@ -336,18 +336,18 @@ def _co2_1(F):
 
 # WHERE THE MACHINE IS CROSSABLE, and it is the cold core's own front step. The lid's outer face
 # runs forward at z 253.4 from the deck the valve cradles stand on, and the band over that face —
-# between the core's front and the hopper union's ring — is clear from wall to wall. The crossing
+# between the core's front and the funnel union's ring — is clear from wall to wall. The crossing
 # lies in it, one lane off the core it is assembled onto, and the core's cap prints the rib that
 # holds it there. Re-measure it by sweeping the cast in y —
 #
 #     w.cast((-78.0, y, z), (1, 0, 0), dia=6.35)
 #
-# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the hopper union's ring
+# WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the funnel union's ring
 # and the fall `fluid-4` drops off it; the union hangs on the funnel's drain, and the drain
 # stands `funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
 # `enclosure.funnel_front_y` and that offset, and with nothing else. The display housing's
 # back is its own stated cut (`enclosure.display_housing_back`), so the facet does not drag the
-# basin aft behind it.
+# funnel aft behind it.
 # The run is authored in `build_runs`, which draws the pack's own runs before the box seats the
 # funnel, so the union is not there to measure against and this is a Y rather than a standoff.
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
@@ -363,7 +363,7 @@ CROSS_Y = 176.5
 CROSS_DODGE_Y = 180.0
 CROSS_DODGE_SPAN = (-6.5, 10.0)
 CROSS_DODGE_RAMP = 8.0
-# And how far UNDER V-K's own inlet plane it runs. The hopper's disconnect hangs on the spout's
+# And how far UNDER V-K's own inlet plane it runs. The funnel's disconnect hangs on the spout's
 # column and its ring stands in the storey this run used to cross on, so the crossing drops
 # beneath the union's foot — and what it drops ONTO is the height the cap's rib holds it at over
 # the lid's face, which is what `_cold_core_interface.cap_anchors` states.
@@ -402,7 +402,7 @@ CHANNEL_X = -97.2
 #
 CROSS_RISE = 8.0
 # Where it starts leaning off the core again. The crossing hugs the core as far east as the
-# hopper union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
+# funnel union's ring, then leans forward and up in ONE leg onto V-K's column and inlet plane:
 # the collet needs its own straight, and a crossing that stayed against the core to the end would
 # leave a closing leg too short to turn a stock arc in.
 # WHERE THE RUN REACHES THE CHANNEL'S OWN COLUMN, and it is what carries the fall's belly out of
@@ -442,7 +442,7 @@ def _water_3(F):
     on that column and bellies over the cap lid. Leaving WEST swings the arc into the strip, where
     what is under the belly is the cabinet floor rather than the lid.
 
-    IT CROSSES UNDER THE HOPPER'S DISCONNECT. The union hangs on the basin's spout in the middle
+    IT CROSSES UNDER THE FUNNEL'S DISCONNECT. The union hangs on the funnel's spout in the middle
     of that window, so the crossing runs `CROSS_DROP` under the inlet's own plane, the whole width
     of the machine beneath the union's foot and against the cold core's front, and climbs back
     onto the inlet's plane on V-K'S OWN COLUMN — where the climb costs nothing, because the aft
@@ -468,7 +468,7 @@ def _water_3(F):
         "vk-solenoid.inlet",
         kind="water", lead=(None, _ml.STUB),
         note="tap water: split branch → V-K inlet, down into the west channel, across the window "
-             "under the hopper's union — stepping aft round the drain's fall — and up V-K's own "
+             "under the funnel's union — stepping aft round the drain's fall — and up V-K's own "
              "column into the mouth")
 
 
@@ -530,14 +530,14 @@ def _water_2(F):
     """water-2 — the ASSE 1022's outlet to the split's supply, and the tap's whole step off the
     panel deck.
 
-    ONE LEAN IN THE OPEN ROOM AFT OF THE HOPPER. The chain hands the water over facing forward
+    ONE LEAN IN THE OPEN ROOM AFT OF THE FUNNEL. The chain hands the water over facing forward
     down the west lane and the split's own run axis IS that lane, a storey lower — so the two
     collets face each other down the lane with `enclosure_assembly.FLAVOR_STEP` between them.
     The run leaves the chain on-axis off its own `WATER_2_LEAD` stub and arrives at the tee along
     `WATER_2_RUN`, the level leg stated aft of it; the whole fall is taken in the lean between,
     which lies in the room the bowl stops short of.
 
-    THE TWO ARE NOT ON ONE COLUMN. The chain's is the rear wall's `PORT_WEST_COLUMN` and the
+    THE TWO ARE NOT ON ONE COLUMN. The chain's is the +Y wall of back-top's `PORT_WEST_COLUMN` and the
     split's is `enclosure_assembly.SPLIT_COLUMN`, so the lean crosses as well as falls.
 
     ONE END IS A STUB AND THE OTHER IS A PLACE, and that is the whole shape of it. At the chain,
@@ -559,7 +559,7 @@ def _water_2(F):
         "water-split.supply",
         kind="water", bend=TUBE_BEND, lead=(WATER_2_LEAD, 0.0),
         note="tap water: ASSE outlet → split supply, one lean off the deck onto the lane the "
-             "hopper's bowl leaves")
+             "funnel's bowl leaves")
 
 
 def _water_7(F):
@@ -737,28 +737,28 @@ def _fluid_2(F, solids):
         "valve-v-a.inlet",
         kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
         note="tap water: flow regulator outlet → V-A inlet, aft off the regulator, level east "
-             "across the lane into the strip west of the nozzle-A line, forward and down that "
+             "across the lane into the strip west of the flavor-A line, forward and down that "
              "strip, and east through the window the drain leaves")
 
 
-# --- the hopper's gravity drain ---------------------------------------------
+# --- the funnel's gravity drain ---------------------------------------------
 #
-# `fluid-4` carries HEAD and not pressure. The basin's own column is what moves it: the brim
+# `fluid-4` carries HEAD and not pressure. The funnel's own column is what moves it: the brim
 # stands at the machine's ceiling and V-B's inlet is most of the box's height under it, so the
 # line runs full and climbs whatever it is given on the way. What it may not do is END high —
-# the last leg into the collet falls, and the basin empties to the collet's own plane.
+# the last leg into the collet falls, and the funnel empties to the collet's own plane.
 #
 # NOTHING ON THE LINE IS LOWER THAN ITS OWN END. The elbow hands the drain aft on the storey the
 # spout's exit face leaves it, and every leg from there stands over V-B's collet — so the run has
 # no dip to hold concentrate and no pocket for the pump's draw to pull air out of. The one thing
 # it does spend height on is the climb over the source pair, and that crest stands well under the
-# spout, so a full line still siphons the basin down to the collet's own plane.
+# spout, so a full line still siphons the funnel down to the collet's own plane.
 
 
 # The straight the drain leaves the elbow on, along the fitting's own +Y leg, before the run
 # starts to climb. It is one `TUBE_BEND`, which is what the first corner needs as tangent and
 # what `port-leads` reads the collet's own reach against — no more, because every millimetre of
-# it is spent aft in the bay between the basin's spout and the source pair's fore faces.
+# it is spent aft in the bay between the funnel's spout and the source pair's fore faces.
 FLUID_4_LEAD = TUBE_BEND
 # WHERE THE CLIMB TOPS OUT. The run comes up the column on the spout's own X — the slot the
 # source pair leaves between their coils — and it has to be ON the crossing storey before the
@@ -831,7 +831,7 @@ def _fluid_4_turn_y(F, solids) -> float:
 
 
 def _fluid_4(F, solids):
-    """fluid-4 — the hopper's disconnect to V-B's inlet, and the machine's only gravity feed.
+    """fluid-4 — the funnel's disconnect to V-B's inlet, and the machine's only gravity feed.
 
     IT LEAVES THE JOINT ALREADY POINTING WHERE IT IS GOING. The elbow turns the spout's fall aft
     inside its own envelope, so the run starts on the storey the drain stands at, heading down
@@ -850,15 +850,15 @@ def _fluid_4(F, solids):
     off the crossing storey while it steps east, so both of its corners seat R14 where a flat
     dogleg would seat less.
 
-    THE DROP FROM THE ELBOW TO THE COLLET IS WHAT THE BASIN'S DEPTH IS PAID FOR OUT OF —
-    `enclosure_assembly.build_enclosure_assembly` records it against the basin's own seat, and
+    THE DROP FROM THE ELBOW TO THE COLLET IS WHAT THE FUNNEL'S DEPTH IS PAID FOR OUT OF —
+    `enclosure_assembly.build_enclosure_assembly` records it against the funnel's own seat, and
     `room-holds` is where it reads."""
-    drain = F["hopper-drain-union"].at("outlet")
+    drain = F["funnel-drain-union"].at("outlet")
     inlet = F["valve-v-b"].at("inlet")
     lane = _fluid_4_lane_z(solids)
     turn = _fluid_4_turn_y(F, solids)
     return R.bent(
-        "fluid-4", "hopper-drain-union.outlet",
+        "fluid-4", "funnel-drain-union.outlet",
         (drain[0], FLUID_4_LANE_Y, lane),                     # up the pair's own slot, fore of them
         (drain[0], FLUID_4_CROSS_Y, lane),                    # aft on that storey, over both crowns
         (FLUID_4_LOOP_X, FLUID_4_CROSS_Y, lane),              # west across the bay, aft of both coils
@@ -866,12 +866,12 @@ def _fluid_4(F, solids):
         (inlet[0], turn, inlet[2]),                           # one lean east and down onto the collet's column
         "valve-v-b.inlet",                                    # and forward into the mouth
         kind="fluid", bend=TUBE_BEND, lead=(FLUID_4_LEAD, None),
-        note="hopper: the basin's disconnect → V-B inlet, aft off the elbow, up the slot between "
+        note="funnel: the funnel's disconnect → V-B inlet, aft off the elbow, up the slot between "
              "the source coils, level east to west over the pair's crowns, and one lean east and "
              "down onto V-B's own column under `fluid-2`'s crossing")
 
 
-# --- the carb-water riser, and the two nozzle gates' lines to the panel -----
+# --- the carb-water riser, and the two flavour gates' lines to the panel ----
 #
 # All three end on the panel deck (`enclosure_assembly.PANEL_X`), which is the band over the water
 # pump's crown, and all three reach it by a column that runs the machine's whole height.
@@ -933,7 +933,7 @@ GATE_STUB_CLEAR = 4.0
 # the whole height it crosses at. On the union's column the tube spans x[−81.2, −74.9] and the
 # strip outboard of it is the wall's.
 #
-# THE EAST FLANK IS NOT ITS TWIN. The board and its relay hang on the +X wall's own seat and take
+# THE EAST FLANK IS NOT ITS TWIN. The main board and its relay hang on the +X wall's own seat and take
 # that column from y 232 aft for the whole of the height a gate line would climb it in — so
 # `fluid-18` cannot come down its own flank at all and takes the crown lane over the core instead.
 # What follows is the west line's.
@@ -1005,7 +1005,7 @@ def _gate_a_desc_y(solids) -> float:
 # nothing between them is a lean.
 #
 # WHAT THAT DAYLIGHT IS BETWEEN. Under it the manifold's own crossings fill the band — `fluid-2`
-# and `fluid-4` reach 294.0 across the middle — and over it the hopper's bowl closes the ceiling
+# and `fluid-4` reach 294.0 across the middle — and over it the funnel's bowl closes the ceiling
 # at its own underside, 304.4. Both are hard and neither governs, so this stands in the MIDDLE of
 # the two rather than held off either: a run stood one clearance off one wall is the run that
 # starves when the other moves. That leaves a section and a half of daylight each way. Re-read
@@ -1023,13 +1023,13 @@ GATE_A_CROSS_Z = 299.2
 # column's overhead is the tray's sleeve, the flow meter and the meter's own down-line, and
 # its flanks are the pump's casting and the moisture plate's lane — nothing printed stands
 # within a rib's reach of it.
-# Where the line has come down onto its union's own storey: forward of the drip tray, whose
+# Where the line has come down onto its union's own storey: forward of the ASSE drip pan, whose
 # channel takes that column from y 346 aft.
 GATE_A_FALL_Y = 340.0
 
 
 def gate_cruise(v_i_outlet_z: float) -> float:
-    """The storey the WEST nozzle gate cruises aft at, off the collet of the valve whose own
+    """The storey the WEST flavour gate cruises aft at, off the collet of the valve whose own
     channel crosses that gate's column.
 
     The same figure struck on `RESERVOIR_CRUISE` instead of on a stub — what the west gate climbs
@@ -1038,11 +1038,11 @@ def gate_cruise(v_i_outlet_z: float) -> float:
 
     IT IS WHAT BOTH UNIONS ARE STOOD ON, or the least of it: the west line cruises this plane the
     whole way aft and the east line comes down its union's column onto it, so neither has a storey
-    to find at the end. What the unions actually take is `enclosure_assembly.nozzle_storey`, which
+    to find at the end. What the unions actually take is `enclosure_assembly.flavor_storey`, which
     carries this plane up to whatever passes their barrels over the pump's bracket.
 
     Takes the Z rather than the frames, so a body may be STOOD on this plane before any run is
-    drawn — `enclosure_assembly.panel_z` puts the nozzle-B union on it."""
+    drawn — `enclosure_assembly.panel_z` puts the flavor-B union on it."""
     return v_i_outlet_z + RESERVOIR_CRUISE - _split.TUBE_D - GATE_STUB_CLEAR
 
 
@@ -1057,10 +1057,10 @@ def _gate_climb_under_cruise(F) -> float:
 
 
 def _fluid_28(F, solids):
-    """fluid-28 — the nozzle-B gate to its rear union, and the line the manifold sends out of the
+    """fluid-28 — the flavor-B gate to its rear union, and the line the manifold sends out of the
     machine on the WEST side.
 
-    V-J-O faces UP off the west outboard valve, under the hopper's bowl and behind the reservoir
+    V-J-O faces UP off the west outboard valve, under the funnel's bowl and behind the reservoir
     stub that shares its column. So the run climbs what that stub leaves, comes about onto its
     UNION'S OWN COLUMN in one jog, and holds that column the rest of the way — the cold core's
     whole length, the panel deck, and into the collet on the collet's own axis.
@@ -1076,9 +1076,9 @@ def _fluid_28(F, solids):
     holds it, and `GATE_B_STEP_Y` stands that rib in the daylight between the two.
 
     THE STEP UP IS TAKEN LAST. The union stands a storey over the plane the gate climbs to,
-    because `enclosure_assembly.nozzle_storey` carries both barrels over the pump's bracket — so
+    because `enclosure_assembly.flavor_storey` carries both barrels over the pump's bracket — so
     the run cruises the gate's own plane the whole way aft and spends the rise in one short lean
-    behind the drip tray, where nothing is over it."""
+    behind the ASSE drip pan, where nothing is over it."""
     gate = F["valve-v-j"].at("outlet")
     tin = F["bulkhead-flavor-b"].at("tube-in")
     climb = _gate_climb_under_cruise(F)
@@ -1090,18 +1090,18 @@ def _fluid_28(F, solids):
         (tin[0], GATE_B_STEP_Y + GATE_B_RISE_RUN, tin[2]),  # one lean onto the union's own storey
         "bulkhead-flavor-b.tube-in",                        # and straight aft into the collet
         kind="fluid", bend=TUBE_BEND,
-        note="nozzle B: V-J-O → rear union, up the gate's own bay and one jog onto the union's "
+        note="flavor B: V-J-O → rear union, up the gate's own bay and one jog onto the union's "
              "own column, held to the wall")
 
 
 def _fluid_18(F, solids):
-    """fluid-18 — the nozzle-A gate to its rear union, and the line the manifold sends out of the
+    """fluid-18 — the flavor-A gate to its rear union, and the line the manifold sends out of the
     machine on the EAST side.
 
     IT CLIMBS ITS OWN BAY. Its union stands in the WEST pair, so where `fluid-28` closes on a
     column three fittings away this one has the machine to cross, and the column it crosses from is
     V-G's own: `fluid-14` crosses that column a storey higher than the stub and nothing else fences
-    it, so the bay stands open the whole way to the crown. The east outboard strip is the board's —
+    it, so the bay stands open the whole way to the crown. The east outboard strip is the main board's —
     `pcba` and `relay-1` hang on the +X wall's seat and take it from y 232 aft.
 
     THEN IT IS ON ONE STOREY THE WHOLE WAY. One diagonal west and aft puts it on `fluid-14`'s own
@@ -1118,7 +1118,7 @@ def _fluid_18(F, solids):
     the fall and the union column's straight run loose past it (`_scorecard.LOOSE`).
 
     IT CROSSES FORE OF THE PUMP AND FALLS BEHIND IT — west onto its union's column, and then down
-    that column to the union's storey, forward of the drip tray, which takes the same column from
+    that column to the union's storey, forward of the ASSE drip pan, which takes the same column from
     its own front rim aft."""
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
@@ -1133,12 +1133,12 @@ def _fluid_18(F, solids):
         (tin[0], GATE_A_FALL_Y, tin[2]),                  # down the column onto the union's storey
         "bulkhead-flavor-a.tube-in",                      # and straight aft into the collet
         kind="fluid", bend=TUBE_BEND,
-        note="nozzle A: V-G-O → rear union, up the gate's own bay onto the crown lane over "
+        note="flavor A: V-G-O → rear union, up the gate's own bay onto the crown lane over "
              "`fluid-14`, and west across the machine fore of the pump on that same storey — "
              "through the cold core's side post — and down its union's own column")
 
 
-# --- the four reservoir lines, gate to vessel and vessel to gate --------------
+# --- the four reservoir lines, gate to reservoir and reservoir to gate --------
 #
 # Neither reservoir has a junction: each carries two mouths of its own — the draw on the bulkhead
 # at the bottom of its wet V, the fill on a bore in its own cap — so each pair's two valves reach
@@ -1301,7 +1301,7 @@ def _fluid_16(F):
 def _fluid_24(F):
     """fluid-24 — the channel-B fill gate to the bore in reservoir B's own cap.
 
-    V-I-O opens up off the west outboard limb, on the same column the nozzle-B gate climbs and
+    V-I-O opens up off the west outboard limb, on the same column the flavor-B gate climbs and
     one storey under it. The run rises what a corner needs, holds that column aft the length of
     the manifold — the outboard lane is clear of everything the west flank stands — and leans
     inboard onto the bore only at `FILL_B_JOIN_Y`, behind the tap water's own descent."""
