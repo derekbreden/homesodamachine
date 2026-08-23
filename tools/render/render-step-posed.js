@@ -40,7 +40,7 @@
 //       "trim": true, "solid": true, "ortho": false}, ...]
 //
 // and only `step` and `out` are required — every other key defaults to the flag
-// of the same name. `render-thumbnails.js` takes its `--payloads` manifest the
+// of the same name. This takes its `--payloads` manifest the
 // same way and reuses one page across a root's files for the same reason.
 //
 // THE VIEWER IS RE-POINTED, NOT RELOADED. `window.__hsm.loadStepFile` is the

@@ -114,7 +114,7 @@ try {
 
   // The missing ones by name, so a drifted solid beside them keeps its bytes. Members are
   // repo-relative, so the tree is where they land, and they land at the epoch: the bundle carries
-  // no mtime. What reads one is `_cadq_export._current` and check_thumbnails.py, both asking
+  // no mtime. What reads one is `_cadq_export._payload_current`, asking
   // whether `<file>.step.png` was drawn from the solid beside it. That picture is in git,
   // committed against these exact bytes, so a solid arriving older than it is the true answer —
   // a solid stamped `now` would say every fetched picture wants redrawing.

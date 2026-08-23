@@ -204,11 +204,9 @@ export function mountViewerRoutes(app, { hardwareDir }) {
   });
 
   // Committed pictures, served beside the file they are of: a PDF's cover
-  // (`/drawings`), a scene's `.glb` still, and the `<file>.step.png` a README
-  // embeds (hardware/scripts/_cadq_export.py shells out to
-  // tools/render/render-thumbnails.js for that one). `/3d` fetches none of these
-  // — its cards draw the model. The 404 path is normal. no-cache so a live regen
-  // or deploy is picked up via ETag revalidation rather than a stale hit.
+  // (`/drawings`) and a scene's `.glb` still. `/3d` fetches neither — its cards
+  // draw the model. The 404 path is normal. no-cache so a live regen or deploy is
+  // picked up via ETag revalidation rather than a stale hit.
   app.get("/thumbs/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".png");
     if (!abs) return res.status(400).send("Invalid path");

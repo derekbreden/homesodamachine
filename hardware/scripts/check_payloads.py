@@ -3,7 +3,7 @@
 
 `loadStepFile` fetches `<file>.step.mesh` and parses the solid only where there is none
 (`web/public/js/viewer/step.js`), and every picture this repository draws goes through that one
-mount: `/3d` in a browser, `tools/render/render-thumbnails.js` for the grid,
+mount: `/3d` in a browser,
 `tools/render/render-step-posed.js` for the assembly cards. On the enclosure the payload is
 where the show surface is — `printed-parts/enclosure/enclosure/flute_skin.py` cuts the flutes
 into the printed mesh and `hardware/scripts/flute_payload.py` puts them into the payload at the

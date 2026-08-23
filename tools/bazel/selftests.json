@@ -404,10 +404,6 @@
     "hardware/scripts/check_payloads.py",
     "tools/cad-artifacts/pack.py"
   ],
-  "hardware/scripts/check_thumbnails.py": [
-    "hardware/scripts/_solids.py",
-    "hardware/scripts/check_thumbnails.py"
-  ],
   "hardware/scripts/fit.py": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",

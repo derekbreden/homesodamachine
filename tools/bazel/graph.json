@@ -2694,8 +2694,7 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -2742,8 +2741,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py"
@@ -2804,8 +2802,7 @@
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/faucet-layout/faucet_assembly.py"
@@ -3001,8 +2998,7 @@
       "hardware/scripts/_stated_bounds.py",
       "hardware/scripts/flute_payload.py",
       "hardware/topology/fluid-topology.md",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -3173,8 +3169,7 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/manifold-layout/README.figures.json",
@@ -3211,8 +3206,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py"
@@ -3233,8 +3227,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py"
@@ -3277,8 +3270,7 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -3301,8 +3293,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/cold-core/foam-cap/foam_cap.py"
@@ -3345,8 +3336,7 @@
       "hardware/scripts/_routing.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
@@ -3369,8 +3359,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
@@ -3402,8 +3391,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
@@ -3447,8 +3435,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
@@ -3495,8 +3482,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -3758,8 +3744,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/ceiling-panel/README.figures.json",
@@ -3799,8 +3784,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/display-cover/README.figures.json",
@@ -3842,8 +3826,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
@@ -4263,8 +4246,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/drip-pan/README.figures.json",
@@ -4323,8 +4305,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/enclosure/README.figures.json",
@@ -4400,8 +4381,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -4428,8 +4408,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/enclosure/port-ring/README.figures.json",
@@ -4676,8 +4655,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py"
@@ -4701,8 +4679,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
@@ -4731,8 +4708,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/_touch_flo_interface.py",
@@ -4767,8 +4743,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
@@ -4798,8 +4773,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/faucet/tube-collar/README.figures.json",
@@ -4831,8 +4805,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
@@ -4882,8 +4855,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/zone-c/hopper-funnel-mold/README.figures.json",
@@ -4910,8 +4882,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/printed-parts/zone-c/hopper-funnel/README.figures.json",
@@ -5065,8 +5036,7 @@
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_seating.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/reference/asse1022-assembly/README.figures.json",
@@ -5086,8 +5056,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5105,8 +5074,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/reference/beduan-solenoid/README.figures.json",
@@ -5131,8 +5099,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/reference/compressor/README.figures.json",
@@ -5157,8 +5124,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/reference/digiten-flow-sensor/README.figures.json",
@@ -5180,8 +5146,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5196,8 +5161,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5212,8 +5176,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5228,8 +5191,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5244,8 +5206,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5261,8 +5222,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5279,8 +5239,7 @@
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5295,8 +5254,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5312,8 +5270,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5328,8 +5285,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5344,8 +5300,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5364,8 +5319,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5380,8 +5334,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5396,8 +5349,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5412,8 +5364,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5430,8 +5381,7 @@
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5446,8 +5396,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5462,8 +5411,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5479,8 +5427,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5497,8 +5444,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5513,8 +5459,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5529,8 +5474,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5545,8 +5489,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5562,8 +5505,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py"
@@ -5581,8 +5523,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5602,8 +5543,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_realized.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [
       "hardware/reference/waveshare-43b-display/README.figures.json",
@@ -5625,8 +5565,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [
@@ -5641,8 +5580,7 @@
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py",
-      "tools/render/render-thumbnails.js"
+      "tools/docgen/__init__.py"
     ],
     "rewritten": [],
     "writes": [

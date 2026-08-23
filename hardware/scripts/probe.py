@@ -1583,7 +1583,6 @@ _WORLDS: dict = {}              # (runs, pieces) → World, see world()
 
 def _ensure_paths() -> None:
     """The machine's modules on sys.path, and the env a read-only run wants."""
-    os.environ.setdefault("HSM_SKIP_THUMBNAILS", "1")
     os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
     for d in (_ML, _BOX):
         if str(d) not in sys.path:
