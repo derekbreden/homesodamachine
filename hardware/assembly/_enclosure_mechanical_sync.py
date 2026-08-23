@@ -15,13 +15,13 @@ sys.path.insert(
 
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "manifold-layout"))
-sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "back-panel"))
+sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_hw / "reference" / "jg-bulkhead-union"))
 sys.path.insert(0, str(_hw / "reference" / "iec-c14-inlet"))
 
-from _back_panel_dimensions import (  # noqa: E402
+from _y_wall_dimensions import (  # noqa: E402
     ac_inlet_recess_depth_max,
     ac_inlet_recess_depth_min,
 )
@@ -91,7 +91,7 @@ def main():
     _hole_ds = {round(p[3], 6) for p in _union_bores}
     if len(_hole_ds) != 1:
         raise ValueError(
-            f"the back wall's four unions are bored at {sorted(_hole_ds)}. The table gives "
+            f"the +Y wall's four unions are bored at {sorted(_hole_ds)}. The table gives "
             f"the umbilical row and the tap-water union one opening apiece off one figure, "
             f"so either they go back on one diameter or the rows read out separately.")
     _co2_hole_d = _F.wall_ports["co2"][3]
@@ -151,7 +151,7 @@ def main():
         # And back-top's two, struck the same way and for the same reason: that piece is the
         # only one of the four whose walls were still one `wall`, the two bottom pieces having
         # carried `2 * wall` on three sides each all along (`_lip_underwall`). What the flank
-        # spends is the boss chain's room off `interior_x`; what the back wall spends is the
+        # spends is the boss chain's room off `interior_x`; what the +Y wall of back-top spends is the
         # standoff the pack already keeps off `rear_plane_y`.
         "BACK_TOP_FLANK": f"{_enc.back_top_flank_t:.4g} mm",
         "BACK_TOP_WALL": f"{_enc.back_top_wall_t:.4g} mm",
@@ -200,7 +200,7 @@ def main():
         "CORE_HOLD_REACH": f"{_enc.core_hold_reach:.4g} mm",
         "CORE_HOLD_CLEAR": f"{_core_hold_clear:.3g} mm",
         "REAR_SEAM_CLEAR": f"{_enc.rear_seam_clear:.4g} mm",
-        # The rear wall's six stations, its hardware, and what a chain of it occupies.
+        # The +Y wall's six stations, its hardware, and what a chain of it occupies.
         "PORT_HOLE_D": f"{_union_bores[0][3]:.4g}",
         "CO2_HOLE_D": f"{_co2_hole_d:.4g}",
         "PORT_NUT_D": f"{PORT_NUT_D:.4g}",

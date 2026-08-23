@@ -59,9 +59,9 @@ def main():
         # TPU thimble (tpu-o-ring) — BOM row line 26.
         # Source: `tpu-o-ring/tpu_o_ring.py`.
         "CAP_HOLE_D": f"{tpu.cap_hole_diameter:.4g} mm",
-        "BODY_PORT_D": f"{tpu.body_port_diameter:.4g} mm",
+        "WESTBRASS_PORT_D": f"{tpu.westbrass_port_diameter:.4g} mm",
         "ORING_OUTER_D": f"{tpu.outer_diameter:.4g} mm",
-        "BODY_SQUEEZE": f"{tpu.body_squeeze:.4g} mm",
+        "WESTBRASS_SQUEEZE": f"{tpu.westbrass_squeeze:.4g} mm",
         "ORING_INNER_D": f"{tpu.inner_diameter:.4g} mm",
         "LLDPE_INTERFERENCE": f"{tpu.lldpe_interference:.4g} mm",
         "TOTAL_H": f"{tpu.total_height:.4g} mm",

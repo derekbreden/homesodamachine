@@ -151,9 +151,9 @@ def cold_core(m):
         f"the cap carries {sorted(cci.cap_fluid_conduits)} — CC-12 walks three tanks, each "
         f"entered above its liquid and drawn at its lowest point, and every fluid conduit on "
         f"the cap is one end of one of those")
-    pair = {+cci.vessel_port_offset, -cci.vessel_port_offset}
+    pair = {+cci.carbonator_port_offset, -cci.carbonator_port_offset}
     assert {cci.water_inlet_port_y, cci.prv_port_y} == pair \
-        and abs(cci.co2_inlet_y) == cci.vessel_port_offset, (
+        and abs(cci.co2_inlet_y) == cci.carbonator_port_offset, (
         f"the top plate carries the water inlet at {cci.water_inlet_port_y:g} and the PRV at "
         f"{cci.prv_port_y:g} and the bottom plate the CO2 at {cci.co2_inlet_y:g} — CC-12 says "
         f"the carbonator is filled above the liquid and gassed below it, and a plate drills two "
