@@ -33,7 +33,7 @@ they became.
 | **enclosure display** | the 4.3" LCD on the enclosure's front face | config display, front-face display, front display |
 | **umbilical** | the sleeved run of three tubes and the signal cable, counter to rear wall | |
 | **flavor tube** | either of the two black 1/4" tubes, rear wall to the gooseneck exit | |
-| **flavor reservoir** | the printed translucent tank a flavor is poured into | |
+| **flavor reservoir** | the printed translucent PETG part that holds one flavor | |
 | **carbonator** | the steel pressure vessel that carbonates the water | vessel, carbonator vessel |
 | **peristaltic pump** | either of the two pumps that inject flavor | |
 | **diaphragm pump** | the pump that pushes water into the carbonator | |
