@@ -6,7 +6,7 @@ TAISHER street elbow made up on each of the four tapped 1/4" NPT ports.
 
   Z         the shell's own. The tube's bottom sits one floor slab and one support ring up
             (`carbonator_bottom_z`); every figure below is struck off that.
-  ±Y        the port axis. All four ports stand `vessel_port_offset` off the carbonator's axis
+  ±Y        the port axis. All four ports stand `carbonator_port_offset` off the carbonator's axis
             on it, two under the carbonator and two over it.
   +X        the register azimuth — the rod, and the reed bridge on the outside of the wall.
 
@@ -44,7 +44,7 @@ from _cold_core_interface import (                      # noqa: E402
     tank_outer_radius,
     tank_support_ring_height,
     tank_top_plate_z,
-    vessel_port_offset,
+    carbonator_port_offset,
     wall_and_floor_thickness,
     water_inlet_port_y,
 )

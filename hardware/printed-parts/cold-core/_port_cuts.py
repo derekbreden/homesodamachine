@@ -46,7 +46,7 @@ from _cold_core_interface import (
 )
 from _support_ring import slot_angular_width, slot_count
 
-# [17](FRONT_FACE_PORT_Z) — Z of the vessel's two bottom-plate lines where they
+# [17](FRONT_FACE_PORT_Z) — Z of the carbonator's two bottom-plate lines where they
 # leave their own fittings: the carbonated-water outlet and the CO2 inlet, both
 # hole_shift_from_edge in from the +Z outer face of the shell's floor. One band of the
 # shell's height carries both, one either side of the plate's own axis in Y, and both
@@ -160,7 +160,7 @@ co2_inlet_lane_xyz = (co2_lane_x, port_lane_mid_y, front_face_port_z)
 co2_bore_to_ring = abs(port_lane_mid_y) - support_ring_outer_radius
 
 # AND IT CROSSES THE RING IN A SLOT, like the water outlet does. The ring is four bearing
-# segments carrying the vessel with four pour slots between them, and the reach in leans
+# segments carrying the carbonator with four pour slots between them, and the reach in leans
 # across it; struck on a column whose lean lands inside one slot, the crossing costs no bore
 # and notches no segment. That column is `_cold_core_interface.co2_lane_x`, and this is what
 # holds it there when either the column or the ring moves.
@@ -175,7 +175,7 @@ state(
      f"the CO2 reach in from x {co2_inlet_lane_xyz[0]:g} crosses the tank support ring over "
      f"azimuths {_co2_crossing[0]:.1f}°..{_co2_crossing[1]:.1f}°, which no slot of "
      f"{ring_slot_spans()} holds — the line would have to be bored through a bearing "
-     f"segment that carries the vessel"))
+     f"segment that carries the carbonator"))
 # The fall and the lean now stand on their own columns, so what this holds is the CAP CONDUIT
 # on the lane — the end that is free to move, and the one whose drift would leave the line
 # falling somewhere the lane does not run.

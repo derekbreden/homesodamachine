@@ -1,5 +1,5 @@
 """Carbonator reed bridge — printed PETG interposer holding the two
-external level reeds against the vessel wall on the register azimuth,
+external level reeds against the carbonator wall on the register azimuth,
 standing the evaporator coil off the glass where a wrap crosses it.
 
 The donut is an axially-magnetised ferrite ring: radially outside it, on
@@ -10,13 +10,13 @@ at the wind's inter_wrap_clear.
 The plateau stands pocket_depth off the steel; each reed lies in a pocket
 cut clear through to the wall, so its glass rests on bare 316L. Ramps on
 all four sides are what each wrap rides over as the coil is dragged down
-the vessel. Copper hoop tension clamps the bridge to the wall; the foam
+the carbonator. Copper hoop tension clamps the bridge to the wall; the foam
 pour sets it.
 
 The setting gauge hangs on the tube's bottom rim and its top face is
 bridge_z_bottom.
 
-Frame: +Z is the vessel axis, Z=0 at the tube's bottom rim — the face
+Frame: +Z is the carbonator axis, Z=0 at the tube's bottom rim — the face
 that seats on the tank support ring. +X is the register azimuth, the line
 the wall-preloaded donut rides. The part is symmetric about the XZ plane
 apart from the lead groove.
@@ -62,7 +62,7 @@ from endcap_circular_dxf import (
 # THE WALL THE BRIDGE SITS ON
 # ═══════════════════════════════════════════════════════
 
-# The tube's bottom rim rests on the tank support ring, so the vessel's
+# The tube's bottom rim rests on the tank support ring, so the carbonator's
 # own Z=0 is that far up the foam shell.
 tube_bottom_z_in_shell = wall_and_floor_thickness + tank_support_ring_height
 
@@ -146,7 +146,7 @@ magnet_highest_z = interior_ceiling_z - float_height / 2
 # [3 mm](REGISTER_WALL_BIAS) — how far the plate's register parks the rod PAST
 # the bore wall. The donut is loose on the rod, so the wall takes the bias up
 # and that is what holds the magnet-to-wall gap at zero for the whole travel —
-# the reed is outside the vessel and reads through it.
+# the reed is outside the carbonator and reads through it.
 donut_wall_bias = (register_radius + donut_od / 2 - tube_id / 2) * 25.4
 
 
@@ -163,7 +163,7 @@ seat_clearance = 0.05
 inner_radius = tank_outer_radius + seat_clearance
 skirt_thickness = 0.8
 copper_clearance_over_glass = 0.5
-# [3 mm](POCKET_DEPTH) — plateau face to vessel wall; a wrap crossing the
+# [3 mm](POCKET_DEPTH) — plateau face to the carbonator wall; a wrap crossing the
 # plateau clears the glass by copper_clearance_over_glass.
 pocket_depth = reed_glass_diameter + copper_clearance_over_glass
 plateau_radius = tank_outer_radius + pocket_depth
@@ -175,7 +175,7 @@ pocket_end_wall = 3.0
 plateau_z_bottom = reed_low_z - pocket_length / 2 - pocket_end_wall
 plateau_z_top = reed_high_z + pocket_length / 2 + pocket_end_wall
 
-# Long enough that a wrap dragged down the vessel rides over the step
+# Long enough that a wrap dragged down the carbonator rides over the step
 # instead of catching it, and that the copper's bend radius over the
 # circumferential ramp stays well clear of the 1/4" tube's minimum.
 axial_ramp_length = 10.0

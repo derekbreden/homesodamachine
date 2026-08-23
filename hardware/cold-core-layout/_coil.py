@@ -321,8 +321,8 @@ def cut_length() -> float:
 
 
 def roll_spare_ft() -> float:
-    """What one roll has left after `coil_mandrel.vessels_per_roll` carbonators come off it."""
-    return _mandrel.roll_length_ft - _mandrel.vessels_per_roll * cut_length() / 304.8
+    """What one roll has left after `coil_mandrel.carbonators_per_roll` carbonators come off it."""
+    return _mandrel.roll_length_ft - _mandrel.carbonators_per_roll * cut_length() / 304.8
 
 
 def report() -> None:
@@ -348,7 +348,7 @@ def report() -> None:
               f"{_mandrel.stub_protrusion[end]:.0f} protruding")
     cut = cut_length()
     print(f"    cut per carb    {cut:.1f} mm ({cut / 304.8:.3f} ft); "
-          f"{_mandrel.vessels_per_roll} per {_mandrel.roll_length_ft:.0f} ft roll leaves "
+          f"{_mandrel.carbonators_per_roll} per {_mandrel.roll_length_ft:.0f} ft roll leaves "
           f"{roll_spare_ft():+.3f} ft ({roll_spare_ft() * 304.8:+.0f} mm)")
 
 

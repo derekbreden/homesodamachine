@@ -80,7 +80,7 @@ def carbonator_collets() -> dict:
 SILICONE_R = 0.5 * 6.35        # 1/4" ID silicone, drawn at the bore it carries
 SILICONE_BEND = 3.0 * SILICONE_R
 STONE_STANDOFF = 2.0
-# The stone is a ⌀2" disc and the port it feeds stands `vessel_port_offset` off the axis, so a
+# The stone is a ⌀2" disc and the port it feeds stands `carbonator_port_offset` off the axis, so a
 # stone centred on the axis reaches the barb. It sits across the axis from the port instead,
 # far enough that its rim clears the barb's own hex.
 STONE_Y = 18.0

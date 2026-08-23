@@ -1,12 +1,12 @@
 # Casting the reservoir in food-grade silicone
 
-Standing guidance for making the reservoir as a cast food-grade silicone vessel: an FDM-printed two-part mold, platinum-cure silicone cast in the gap, the cured rubber as the wetted part. Generic silicone-casting technique applied to this part's geometry and its food-contact + 10-year requirements. Companion to [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md) (the printed-PETG path) and [`floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md) (floor + bulkhead geometry).
+Standing guidance for casting the reservoir in food-grade silicone: an FDM-printed two-part mold, platinum-cure silicone cast in the gap, the cured rubber as the wetted part. Generic silicone-casting technique applied to this part's geometry and its food-contact + 10-year requirements. Companion to [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md) (the printed-PETG path) and [`floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md) (floor + bulkhead geometry).
 
 ## The part, for casting purposes
 
 - Open-top `[` cup: floor + four walls, ~2–4 mm wall, closed by a separate cap through a TPU gasket; vertical bulkhead through the V-floor trough.
 - **Vented, non-pressurized** — the only wall load is ~210 mm of syrup head, ≈ **0.3 psi**. The rubber trivially holds that; the failure mode is a **through-wall void or pinhole** left by trapped air during the cast, i.e. a leak, not a strength failure.
-- Silicone is **flexible**, so the foam-shell pocket carries the vessel's shape — it is not self-standing the way the rigid print is. The cap and the bulkhead are separate rigid parts.
+- Silicone is **flexible**, so the foam-shell pocket carries the reservoir's shape — it is not self-standing the way the rigid print is. The cap and the bulkhead are separate rigid parts.
 - Cold service (8–15 °C), food contact, mildly acidic concentrate. The wetted surface is the cured silicone.
 
 Two things make this geometry hard to cast: the wall is **thin and tall** (a deep narrow gap is the worst case for trapped air and complete fill), and the wetted volume must come out **void-free** because any pinhole is a leak.
@@ -24,7 +24,7 @@ Platinum/addition-cure, not tin/condensation-cure (tin shrinks and ages worse). 
 | SHORE RESIN 15A (2 gal, ~8 kg) | [B0DT99Y8SH](https://www.amazon.com/dp/B0DT99Y8SH) | $105.99 | ~$13 | 15A | 1:1 | "food safe once cured" (weak) |
 | Nicpro 20A (80 oz, ~2.3 kg) | [B08GHGM721](https://www.amazon.com/dp/B08GHGM721) | $34.99 | ~$15 | 20A | 1:1 | "non-toxic / food contact" (weakest) |
 
-For a wetted vessel, **Smooth-SIL 940** is the credible choice (Shore 40A is firm enough to hold form, and its food-grade claim is TDS-backed). Its 10:1-by-weight ratio needs a 0.1 g scale; the 1:1 grades pour easier but carry weaker claims.
+For a wetted part, **Smooth-SIL 940** is the credible choice (Shore 40A is firm enough to hold form, and its food-grade claim is TDS-backed). Its 10:1-by-weight ratio needs a 0.1 g scale; the 1:1 grades pour easier but carry weaker claims.
 
 **How much, per reservoir:** silicone forms only the walls. Wetted area ≈ 810 cm² (≈ 75 cm² floor + ≈ 750 cm² walls). At a 3 mm wall that is ≈ 245 cm³ ≈ **~280 g per reservoir** (2 mm ≈ 190 g, 4 mm ≈ 375 g; density ~1.1–1.16 g/cm³).
 
@@ -78,7 +78,7 @@ The failure mode is a **through-wall void or pinhole**, not strength, so test fo
 
 ## Open questions
 
-- **Flexibility** — the foam-shell pocket must fully support the vessel; it does not stand on its own.
+- **Flexibility** — the foam-shell pocket must fully support the reservoir; it does not stand on its own.
 - **Aroma / gas permeability** — flavor migration through the wall over a 10-year flavor reservoir is unquantified.
 - **Cert duty** — per [`/business/regulatory.md`](/business/regulatory.md) the D2C path follows a standard's *substance*, not its third-party *listing*, so an absent food/immersion listing is not the blocker. The substance for food contact is formulation-specific — whether *this* cured silicone leaches safely into pH-3.5 sweetened syrup — and the shop-castable food RTVs (incl. Smooth-SIL 940) carry only FDA 177.2600 with maker disclaimers against acidic/continuous use (177.2600 doesn't split intermittent from continuous; the limit is the disclaimer, not the cert). So meeting it means either a formulation whose extractables are *already* tested for liquid contact, or **our own extraction test** on the actual syrup ([`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)). Cleanest is the GFCI sourcing pattern ([`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md)): an off-the-shelf cert-carrying finished silicone carries the testing for an already-verified material. (Room-temp castable immersion grades stay out of reach — NSF-61 = Dow SILASTIC LSR at 200 °C cure, USP-VI = medical-not-food RTV — and NSF-61 is potable *water* anyway; for syrup the matched standard is NSF-51 / FDA food-contact.)
 - **Thin-wall fill** — whether a 2–3 mm wall fills void-free down a 200 mm gap, with venting + degas alone or only under pressure, is the make-or-break process question.
