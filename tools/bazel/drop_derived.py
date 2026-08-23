@@ -23,9 +23,7 @@ WHAT IS NEVER DROPPED IS ANYTHING AUTHORED, and the test is not the extension. `
 three cases that read as derived and are not. A `.py` under `hardware/` is somebody's geometry
 mid-edit whatever else writes figures into it. `graph.json` is where a trace lands, so a
 session partway through `trace_inputs.py` has its whole result sitting in a file this would
-otherwise call regenerable. And a `.step.png` is half of a pair whose other half is an ignored
-`.step` on the disk that nothing here restores — drop the picture alone and the solid it is
-held against by `check_thumbnails.py` is still the new one, so a clean tree becomes a red gate.
+otherwise call regenerable.
 
 Anything this cannot place stays too — a file it does not recognise is a file it does not
 touch. WHAT IS LEFT IS FOR `--autostash` TO CARRY, and that is the division: this drops what
@@ -44,7 +42,7 @@ _ROOT = Path(__file__).resolve().parents[2]
 _UNDECLARED = ("hardware/assembly/cards/out/*.png",)
 
 #: Authored, or holding a result no rebuild reproduces, whatever else writes into it.
-_KEEP = ("hardware/**/*.py", "tools/bazel/graph.json", "hardware/**/*.step.png")
+_KEEP = ("hardware/**/*.py", "tools/bazel/graph.json")
 
 
 def _git(*args: str) -> str:

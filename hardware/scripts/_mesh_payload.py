@@ -1,12 +1,10 @@
 """Hand the viewer the tessellation the generator already had.
 
-A grid thumbnail is the /3d viewer's own render of a part
-(tools/render/render-thumbnails.js drives it headlessly), and the viewer gets
-its geometry by reading the STEP through occt-import-js in wasm. That read is
-the whole cost of a thumbnail: on the enclosure assembly it is ~13 s against
-~1 s for the tessellation that produced the STEP in the first place. The
-generator is still holding the shape when it queues the thumbnail, so the
-parse buys nothing but a round trip through text.
+The /3d viewer gets a model's geometry by reading the STEP through
+occt-import-js in wasm. That read is the whole cost of opening one: on the
+enclosure assembly it is ~13 s against ~1 s for the tessellation that produced
+the STEP in the first place. The generator is still holding the shape when it
+writes the STEP, so the parse buys nothing but a round trip through text.
 
 This module tessellates that shape into the same `meshes[]` occt-import-js
 returns — one entry per solid, carrying its name, its color, positions,

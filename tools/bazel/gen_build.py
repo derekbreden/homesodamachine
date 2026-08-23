@@ -75,13 +75,10 @@ _NODE_RUNTIME_SUPPORT = {
     },
 }
 
-# `_cadq_export` records this prospective tool even when a Bazel action cannot run it. Every
-# build action receives HSM_SKIP_THUMBNAILS=1 from .bazelrc because thumbnails are not outputs;
-# making the skipped tool a source of every solid rule tied an ordinary viewer edit to nearly
-# the entire CAD graph (and pulled the whole web tree through :node-packages). The direct/manual
-# thumbnail lane still reads the tool from the working tree; it is deliberately not a build
-# input for an action whose configured branch returns before spawning it.
-BAZEL_SKIPPED_READS = {"tools/render/render-thumbnails.js"}
+# A read a generator records that no Bazel action can act on. Nothing is skipped today: making
+# a tool an action cannot run a source of every solid rule ties an ordinary edit of it to nearly
+# the entire CAD graph, so anything of that shape belongs here rather than in a rule's srcs.
+BAZEL_SKIPPED_READS = set()
 
 
 def _needs_node(srcs: list) -> bool:

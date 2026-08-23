@@ -40,8 +40,8 @@
 // EVERY PICTURE THIS REPOSITORY DRAWS COMES THROUGH THE PAGE THIS BUILDS. The
 // render family in tools/render/ — render-step.js, render-step-posed.js (which
 // hardware/assembly/scenes/render_scenes.py drives), render-dxf.js,
-// render-view.js, render-step-side-by-side.js, render-thumbnails.js,
-// screenshot-site.js — each stands the server and opens `/3d`, and `main.js`
+// render-view.js, render-step-side-by-side.js, screenshot-site.js — each stands
+// the server and opens `/3d`, and `main.js`
 // runs `applyInitialRoute` only after `buildGrid`. So a throw in `seatParts` or
 // in `parts.js` never reaches a browser a person is looking at: it reaches a CAD
 // build, as a mount that never happens and a two-minute timeout on a scene.

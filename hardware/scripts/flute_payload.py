@@ -9,7 +9,7 @@ THE VIEWER PREFERS A PAYLOAD TO THE STEP BESIDE IT. `loadStepFile` fetches `<fil
 first and only parses the solid when there is none (`web/public/js/viewer/step.js`), and every
 picture this repository draws goes through that one mount: `/3d` in a browser,
 `tools/render/render-step-posed.js` driving the same page headless for the assembly cards,
-`render-thumbnails.js` for the grid. So the flutes reach all of them by standing in the payload,
+So the flutes reach all of them by standing in the payload,
 and nothing above it is touched — same card, same part, same camera, same x-ray, same pickable
 edges.
 
