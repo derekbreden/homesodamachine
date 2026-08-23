@@ -26,7 +26,7 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     and no shoulder relief.
   * A front↔back split at the stated `y_seam`, so its machinery is aft of the
     front pack and a front-quadrant tray never has to be notched around it:
-    the front pieces' rear walls telescope (a full-wall lip,
+    the front pieces' aft walls telescope (a full-wall lip,
     nothing shaved) into the back pieces — a proud tongue on the side walls and
     ceiling, and on the floor, where the cold core rides the cavity side and a
     proud tongue cannot, a full-thickness tongue with a 45° scarf nose
@@ -159,10 +159,10 @@ import _enclosure_interface as _interface
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
-# The back wall stands one wall off the rearmost content — the cold core, the
+# The +Y wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
 # lip's inner face rather than against the wall the lip hangs off. A body mounted
-# on the back wall seats on this same plane.
+# on the +Y wall seats on this same plane.
 rear_seam_clear = _interface.rear_seam_clear
 # The same standoff at the front, so the front column's Z lip keeps a full-width
 # front segment behind the refrigeration stratum instead of giving it up.
@@ -218,7 +218,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 #   `flute-closes`       the pitch stays within a hair of the coupon's
 #   `flute-hides-seam`   the Y seam — the one straight line running the full height of both
 #                        side walls — falls in a groove's own shadow rather than on a land
-#   `flute-clears-jamb`  the bay's jamb and the cartridge edge inside it fall on a LAND, which
+#   `flute-clears-jamb`  the bay's jamb and the pump cartridge edge inside it fall on a LAND, which
 #                        is the opposite ask and the right one for them: a rim that lands in a
 #                        groove is an arris tapering to nothing on the groove's floor, and a
 #                        wedge that fine at a 0.42 mm bead prints ragged on the one line the
@@ -290,7 +290,7 @@ def flute_backed_sections():
         ("a top piece's seam lane, where the mating lip laps its inner face", wall),
         ("front-top's own ±X flank", front_top_flank_t),
         # AND THE SAME FLANK WHERE THE CORNER'S FAIRING TAKES IT BACK — the turn is swung from
-        # the jamb over the cartridge's storey, so what stands behind the face there is the post
+        # the jamb over the pump cartridge's storey, so what stands behind the face there is the post
         # less the radius, and it is not `front_top_flank_t`. THE POST IS FLUTED ON BOTH SIDES
         # of that section: the exterior relief outside, and the turn's own face inside, where
         # the bay's storey shows it (`_bay_storey_segments`). So what the inner groove stands
@@ -302,10 +302,10 @@ def flute_backed_sections():
         ("back-top's own +Y wall", back_top_wall_t),
         ("a bottom piece's lipped side, the lip's skin carried to the slab", 2.0 * wall),
         ("the front wall", front_wall),
-        ("the back wall inside a stated relief", wall),
+        ("the +Y wall inside a stated relief", wall),
         ("behind a Wago well, which bottoms on `interior_x`", wall),
         ("front-top's collet-plate lift lane", wall),
-        ("the cartridge's face over a pump's own relief",
+        ("the pump cartridge's face over a pump's own relief",
          pump_relief_floor - (front_plane_y - front_wall)),
         ("the front face under the display facet's arris",
          display_facet_buffer * math.sqrt(2.0)),
@@ -323,7 +323,7 @@ def flute_backed_sections():
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
 # Display-mounting facet — a flat 45° SOLID surface chamfered into the top-front
-# arris for the Waveshare ESP32-S3-Touch-LCD-4.3B config display
+# arris for the Waveshare ESP32-S3-Touch-LCD-4.3B enclosure display
 # (../../../reference/waveshare-43b-display/), facing up-and-forward (−Y front /
 # +Z up) toward the standing user.
 #
@@ -406,7 +406,7 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting a so
 # what it carries is one bead's start, not a load.
 ridge_wall_t = 3.0               # the rib under `pcb_ridge`, measured across it
 # THE RIB RUNS WALL TO WALL, so the loom that crosses it is bored through it. SIG-7 is the
-# config display's own run — four 22 AWG in the 1/2" PET expandable braid `ledger/bom.md` §11
+# enclosure display's own run — four 22 AWG in the 1/2" PET expandable braid `ledger/bom.md` §11
 # buys (`assembly/cable-assemblies.md`) — and a braid of that kind is BOUGHT by its nominal and
 # PASSES at what it opens to. The bore takes the opened figure, which is the braid's own ceiling,
 # so a loom never has to be squeezed through one. Nothing here is a fit: the bore locates
@@ -439,19 +439,19 @@ display_cover_seat = _interface.display_cover_seat
 # the inset's own — the widest material either has.
 display_screw_x = _interface.display_screw_x                         # [66.75 mm](DISPLAY_SCREW_X)
 
-# Hopper funnel opening (Zone C) — one rectangular opening through the top wall
+# Funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
 # static part (../../zone-c/funnel/, its own frame) placed at
 # the box's own `funnel` centre with its brim on the box top, and with_funnel
 # measures the top-wall frame against it (the housing's back cut ahead, the
-# ±X boss chains either side, the back wall behind). The collar stands on
+# ±X boss chains either side, the +Y wall of back-top behind). The collar stands on
 # `funnel_front_y` and reaches aft for its capacity, so it may CROSS the Y
 # seam — both halves take their share of the cut.
 # Air between the funnel's collar frame and the ±X boss chains it runs beside. CHOSEN, not
 # derived: the two are printed in the same piece, so this is clearance for the eye and the
 # deburring tool rather than a fit.
-hopper_chain_gap = 1.0
-# The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE HOPPER IS WHERE THE
+funnel_chain_gap = 1.0
+# The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE FUNNEL IS WHERE THE
 # USER POURS, so it stands as far forward as the top wall lets it — and what stops it is the
 # BRIM rather than the throat: the flange overhangs the collar by `funnel.brim_overhang`
 # and has to land on top wall, which begins at the display facet's own arris. So the figure is
@@ -462,7 +462,7 @@ hopper_chain_gap = 1.0
 funnel_front_y = 77.0
 # The top wall between the display housing's back plane and the throat, read on
 # `funnel-collar-frame`. The brim's overhang lands on the housing slab at zero.
-hopper_front_ledge = 0.0
+funnel_front_ledge = 0.0
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -584,7 +584,7 @@ wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear
 # sensor owes that layer is HEIGHT, and the floor of this bay is one connected pool — every
 # leak site the loop has feeds it. The card sits as low as a 32 mm card stands.
 #
-# The board carries no mounting hole, so what holds it is a SLOT ITS OWN EDGES SLIDE INTO —
+# The card carries no mounting hole, so what holds it is a SLOT ITS OWN EDGES SLIDE INTO —
 # the same bargain the Wago wells strike, for the same reason. Two rails reach inboard off
 # the wall, one under the card's bottom edge and one over its top, and the card goes in
 # sideways until its west edge meets the wall: THE WALL IS THE DATUM in X, the grooves in Y
@@ -600,7 +600,7 @@ mq6_grip = 5.0              # how much of the card's long edge each groove swall
 # The pins face the card's BACK and the loom lands on them there, so the cheek on that side
 # is cut away across the header — this is what the cut leaves either side of the pin field.
 mq6_header_relief = 2.0
-# The card's own axes in the wall's frame. It stands on edge, so the board's long side is its
+# The card's own axes in the wall's frame. It stands on edge, so the card's long side is its
 # height and its short side is the whole reach inboard off the wall.
 mq6_card_x = _mq6.PCB_Y     # 20 — reach inboard, the card's short side
 mq6_card_y = _mq6.PCB_T     # 1.6 — the card itself, what the groove grips
@@ -727,7 +727,7 @@ cond_vent_transom_h = 4.0    # how tall each one stands — more than an exterio
 #                  UP: the slab is under it, so a pad on the crown stands in the way of a
 #                  straight lift and of either tip, whose far end carries this pad with it.
 #
-# The floor takes the weight and the back wall the aft. `enclosure_assembly.check_core_held`
+# The floor takes the weight and the +Y wall the aft. `enclosure_assembly.check_core_held`
 # reads all four off the built pieces and the placed core.
 #
 # THE CORE ENTERS THE POCKET FROM AHEAD OR FROM ABOVE. The pocket is that outline carried
@@ -745,7 +745,7 @@ core_stop_web = 6.0           # material ahead of that outline, at every point o
 core_stop_rise = 40.0
 core_hold_reach = 12.0        # how far a bracket's foot runs onto the cap off the core's aft face
 core_hold_land = 8.0          # that foot's own thickness where it leaves the gusset
-# How far the bracket's leg carries UP the back wall behind the foot, standing in the band
+# How far the bracket's leg carries UP the +Y wall behind the foot, standing in the band
 # `rear_seam_clear` holds open. The foot's load arrives at the wall over the leg's whole height.
 #
 # THE SECTION IS A TRIANGLE AND NOT AN L. One face runs from the foot's own tip to the head of
@@ -821,13 +821,13 @@ def back_top_wall_face():
     box's own is one `wall` in.
 
     `rear_plane_y` is still the interior of the machine and every body is packed to it; this is
-    the plane back-top's own back wall and its furniture stand on. back-bottom needs no such
+    the plane back-top's own +Y wall and its furniture stand on. back-bottom needs no such
     figure: its wall is the lip's own skin carried to the slab and already measures the same."""
     return rear_plane_y - (back_top_wall_t - wall)
 
 
 def back_wall_t_at(x, z):
-    """The section the back wall carries at one station — what a fitting's clamped stack spends
+    """The section the +Y wall carries at one station — what a fitting's clamped stack spends
     there, and the one figure `enclosure_assembly.port-clamp-stack` reads.
 
     A RELIEF IS A FACT ABOUT THE WALL, not a note beside it. The CO2 station's barrel cannot take
@@ -920,10 +920,10 @@ def piece_root_faces(inner, y_side, z_side):
     each face that piece carries thicker than the box's own standing where that piece puts it.
 
     `inner` IS THE BOX'S INTERIOR and every seated body is packed to it, which is what makes it
-    the right frame for a station: a run's lane, a saddle's band and a boss's plan are all struck
+    the right frame for a station: a run's lane, an anchor's band and a boss's plan are all struck
     against the plane the pack stands in. IT IS NOT THE FRAME A RIB STOPS IN. Four faces on this
     box stand inboard of it on the piece that carries them — back-top's two flanks
-    (`back_top_flank_face`), front-top's (`front_top_flank_face`), back-top's back wall
+    (`back_top_flank_face`), front-top's (`front_top_flank_face`), back-top's +Y wall
     (`back_top_wall_face`), and a bottom piece's flanks, which are the lip's own underwall
     (`lip_face_x`) — so a feature drawn to the box's plane on one of those is drawn to a plane
     that piece has already filled in.
@@ -943,14 +943,14 @@ def piece_root_faces(inner, y_side, z_side):
         if y_side == "back":
             iy1 = rear_plane_y - wall      # the lip's own skin, already `2 * wall` of section
     return (ix0, ix1, iy0, iy1, iz0, iz1)
-# The interior REAR PLANE — the inner face of the back wall, stated the same way. A
+# The interior REAR PLANE — the inner face of the +Y wall, stated the same way. A
 # component dragged forward inside the machine does not make the machine shallower,
 # a pack that outgrows this plane reads red on `box-depth` instead of quietly resizing
 # the appliance.
 rear_plane_y = 464.0
 # --- back-top's own +Y section ------------------------------------------------
 #
-# THE BACK WALL IS ALREADY TWO WALLS THICK WHERE IT IS A BOTTOM PIECE. `_lip_underwall` carries
+# THE +Y WALL IS ALREADY TWO WALLS THICK WHERE IT IS A BOTTOM PIECE. `_lip_underwall` carries
 # the lip's own skin from the floor slab to the rim on all three of back-bottom's sides, so that
 # wall measures `2 * wall` from the slab up. Above the rim it is back-top's, one `wall`, and this
 # is what makes the two agree: one section for the whole back of the machine.
@@ -961,7 +961,7 @@ rear_plane_y = 464.0
 # back-bottom already spends. A seventh millimetre is a wall drawn through the core.
 back_top_wall_t = 6.0
 # AND ONE STATION CANNOT HAVE IT. What clamps a rear-wall fitting is its own bare barrel between
-# flange and nut, and the stack it must take is the wall plus the port ring
+# flange and nut, and the stack it must take is the wall plus the bulkhead ring
 # (`enclosure_assembly.port-clamp-stack`). The four umbilical unions offer 15.29 mm of barrel and
 # do not care; the CO2 neoFit offers 7.90, which a 6 mm wall and a 2 mm ring would leave the nut
 # none of. So the wall gives that one station back to `rear_plane_y` — the plane it is struck off
@@ -995,7 +995,7 @@ back_top_wall_reliefs = (
 # under `socket_cap` of wall.
 c14_tunnel_len = heatset_depth
 # THE SECTION IT KEEPS ROUND THE BORE, and it is the section this wall already carries: the
-# tunnel is the back wall made deep. What stands in it is the mouth a cord is pushed into a few
+# tunnel is the +Y wall of back-top made deep. What stands in it is the mouth a cord is pushed into a few
 # thousand times, and what a millimetre of it costs is infill.
 #
 # ACROSS X THE INSERTS ASK FOR MORE and the tunnel gives it: each stands off the axis at its own
@@ -1013,7 +1013,7 @@ c14_tunnel_wall = back_top_wall_t
 #
 # IT IS TAKEN INWARD, off `interior_x`, and what it spends is the boss chain's own room. A body
 # on this storey stands `side_band_inset` off both ±X walls; the nearest faces that are not a
-# Wago's are the PCBA's mounting plane and the PSU's flank, both at x 98.25 — 6.25 in from the
+# Wago's are the main board's mounting plane and the PSU's flank, both at x 98.25 — 6.25 in from the
 # wall. Six leaves 3.25 mm of that and nine would leave a quarter of a millimetre, which is not
 # a clearance. Six is also the figure the two bottom pieces already carry.
 back_top_flank_t = 6.0
@@ -1033,8 +1033,8 @@ back_bottom_flank_t = 9.0
 #
 # THE FRONT PIECE CARRIES THE SAME 9 DOWN BOTH FLANKS, and neither body against them moves the
 # way you would expect. The MQ-6 bottoms on `lip_face_x` and the suction lane is struck off that
-# same plane, so the WEST face cannot move without carrying the board inboard and the compressor
-# east with it — the section closes ROUND the board instead (`_front_bottom_flank_skin` wells it
+# same plane, so the WEST face cannot move without carrying the card inboard and the compressor
+# east with it — the section closes ROUND the card instead (`_front_bottom_flank_skin` wells it
 # off the station's own footprint). The condenser's block already answers to the EAST wall
 # (`enclosure_assembly.east_lane_free` stands it `cond_mount_clear` off this face), so that face
 # moving carries the block west into the lane it has always had off the compressor's tangent.
@@ -1048,7 +1048,7 @@ front_bottom_flank_t = 9.0
 # lane each rises into is exactly the `wall` this would add — so the section begins past the one
 # and above the other, and neither telescope is ever asked about. The Wago wells bore from
 # `interior_x` as they always did, so a lever nut bottoms where it bottomed and simply sits in a
-# deeper pocket. And the drip tray's sleeve keeps its whole block: the tray withdraws through
+# deeper pocket. And the ASSE drip pan's sleeve keeps its whole block: the pan withdraws through
 # this flank, so what stands round it is the sleeve's own section and not this one.
 
 # --- back-top's own ceiling ---------------------------------------------------
@@ -1096,7 +1096,7 @@ front_bottom_flank_t = 9.0
 #
 #   y 354..394     run  1.50..14.09      the Multiplex barrel, its crown one
 #                                        `DECK_CEILING_CLEAR` under the ceiling
-#   y 394..424     run  4.67.. 5.42      the ASSE body aft of the trough — three quarters of a
+#   y 394..424     run  4.67.. 5.42      the ASSE body aft of the anchor — three quarters of a
 #                                        millimetre of run, in a strip 22 wide
 #   y 424..425     nothing
 #
@@ -1106,7 +1106,7 @@ front_bottom_flank_t = 9.0
 #
 # WHAT STILL TAKES THE WHOLE RUN IS THE TWO TIE BANDS. Each strap is a closed loop that comes west
 # over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops into the cavity through the
-# trough's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a corbel
+# anchor's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a corbel
 # standing over the outboard run would roof the one opening the strap has. `_asse_cradle` reads
 # these two rows back against the ties it was handed, so a band that moves off its strap says so.
 _RAIL = 22.0                # `ceiling_panel.rail_run`, restated here so the rows can read it
@@ -1117,7 +1117,7 @@ back_top_ceiling_reliefs = (
     # 324 — and a relief ending there would put the cut's own face on a boss's, which is four
     # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face.
     ("relay-1",        +1.0, 250.0, 325.0, 5.0, _RAIL),   # the relay's crown, mid-strip
-    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, _RAIL),   # the receptacle's rim, on the back wall
+    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, _RAIL),   # the receptacle's rim, on the +Y wall
     # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
     # bands give up the whole run, so the strap's cavity opens on air out to the wall.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
@@ -1211,19 +1211,20 @@ def ceiling_stations(digiten, anchors, panel: bool):
     def over_field(x, y):
         return abs(x) <= cp.panel_half_w and cp.fore_y <= y <= cp.aft_y
 
-    saddles = None
+    meter_anchors = None
     if digiten:
         bands = digiten[3]
         if over_field(digiten[0], (bands[0][0] + bands[-1][1]) / 2.0) == panel:
-            saddles = digiten
+            meter_anchors = digiten
     ribs = tuple(s for s in (anchors or ())
                  if (tuple(int(round(c)) for c in s[2]) == (0, 0, 1)
                      and over_field(s[0][0], s[0][1])) == panel)
     if not panel:
         plans = [(s[0][0], s[0][1]) for s in ribs
                  if tuple(int(round(c)) for c in s[2]) == (0, 0, 1)]
-        if saddles:
-            plans.append((saddles[0], (saddles[3][0][0] + saddles[3][-1][1]) / 2.0))
+        if meter_anchors:
+            plans.append((meter_anchors[0],
+                          (meter_anchors[3][0][0] + meter_anchors[3][-1][1]) / 2.0))
         for station in plans:
             deep = ceiling_corbel_at(*station)
             if deep > 0.0:
@@ -1233,7 +1234,7 @@ def ceiling_stations(digiten, anchors, panel: bool):
                     f"ceiling plane. What that rib would stop on is the corbel's slope, and the "
                     f"channel its ends leave under the plane is inside the corbel's own stock. "
                     f"Move the station over the panel's field or onto a wall.")
-    return saddles, ribs
+    return meter_anchors, ribs
 
 
 # And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
@@ -1256,7 +1257,7 @@ front_plane_y = 14.0
 # between the two bodies, so a can packed back to `front_plane_y` lands its aft corner in it.
 # Stated as (x0, x1, z0, z1, floor).
 fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
-# And each pump's relief in the cartridge face, floored where the tray's own wrap rule wants
+# And each pump's relief in the pump cartridge face, floored where the tray's own wrap rule wants
 # its root: `pump_tray` demands root ≥ head_half + MARGIN off the pump's axis, and the floor
 # is what the root is struck to. The face over a pump keeps this floor less the exterior
 # plane (`front_plane_y − front_wall`) of section, which is the thinnest the user-facing
@@ -1267,8 +1268,8 @@ relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this
 # --- front-top's own ±X section ----------------------------------------------
 #
 # THE ONE WALL ON THIS BOX THAT IS NOT `wall`, and the only piece that carries it. front-top is
-# the piece a hand works: the cartridge is hauled out through its face, both its flanks are cut
-# away over that cartridge's whole storey (`_flank_opening`), and what is left stands 195 mm tall
+# the piece a hand works: the pump cartridge is hauled out through its face, both its flanks are cut
+# away over that pump cartridge's whole storey (`_flank_opening`), and what is left stands 195 mm tall
 # on a seam rim it prints mouth-down on. A 3 mm skin either side of that opening is the section
 # holding the two ends of the piece together.
 #
@@ -1305,7 +1306,7 @@ y_seam = 200.0
 # crown (`z-seam-front-lane`) and the rim under the forward valve tray's plate
 # (`z-seam-under-deck`). Across the bay the ring's front segment goes to the bay floor and
 # the pump heads over it (`_front_flat_lip_drop`), and the seam's own MOUTH is the plane
-# that floor lies on (`bay-floor-bedded`); the pumps ride behind the cartridge face's own
+# that floor lies on (`bay-floor-bedded`); the pumps ride behind the pump cartridge face's own
 # reliefs (`pumps-in-bay`, `enclosure_assembly.PACK_Y`) and sweep out over the floor's top
 # (`heads-sweep-out`).
 z_seam = 160.0
@@ -1336,14 +1337,14 @@ corner_screw_len = 12.0      # M3×12 SHCS — the corner's own length
 corner_boss_in = head_cbore_depth + corner_screw_len + socket_cap - wall
 corner_core_reach = corner_boss_in - boss_in
 
-# --- THE PUMP BAY AND ITS CARTRIDGE ------------------------------------------
+# --- THE PUMP BAY AND ITS PUMP CARTRIDGE ------------------------------------------
 #
 # THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
 # corner column — and the tray storey that hangs the pumps come out of front-top as one
 # piece, the PUMP CARTRIDGE: the face, the block, both trays, both pumps. It rides the floor
 # standing on the bay's floor and nothing latches it: the four barb tubes gripped in the
 # anchor tees' branch collets are the retention, and the collet plate
-# (`enclosure_assembly.build_collet_plate`) is the release — pull the cartridge and the tees
+# (`enclosure_assembly.build_collet_plate`) is the release — pull the pump cartridge and the tees
 # come with it until their collets press the plate, the tubes come free, and the pumps are
 # in your hand. Pushing it home threads the four tubes back through the plate's holes into
 # the same collets, the cap's own aft face landing on the plate's.
@@ -1352,7 +1353,7 @@ corner_core_reach = corner_boss_in - boss_in
 # slides across it, and the collet plate is sunk in its own seat.
 # THE FLOOR IS THIS PIECE'S FIRST LAYERS — front-top beds on the seam plane, so a floor
 # struck there lies on the bed with nothing under it to hang. Its thickness is the only
-# thing above it: the cartridge reaches down to the plane its pump reliefs floor on, and
+# thing above it: the pump cartridge reaches down to the plane its pump reliefs floor on, and
 # the floor's top is that plane. Front-bottom's side lip is given up over this whole run
 # (`_flank_lip_drop`), so the floor crosses it wall to wall and only the front boss's own
 # plinth still stands over the mouth here.
@@ -1367,7 +1368,7 @@ corner_core_reach = corner_boss_in - boss_in
 #
 # BOTH FLANKS OPEN ACROSS THE SAME STOREY (`_flank_opening`). The corner columns are what frame
 # their fore ends; at the aft outer edges, two narrow fixed plate guides stand wholly outside
-# the cartridge's X sweep (`_plate_fore_guides`). A column here is the whole of the box's corner — the side
+# the pump cartridge's X sweep (`_plate_fore_guides`). A column here is the whole of the box's corner — the side
 # wall's section, the front wall's, and the quarter-round between them, one post — so the
 # opening begins where that post's arc lands on the side wall's inner face and runs aft from
 # there. Its floor is the Z-seam rim: under that plane the side wall is the outer register
@@ -1379,15 +1380,15 @@ corner_core_reach = corner_boss_in - boss_in
 # to both — the face is a single surface from the front wall's inner plane to the flank, the
 # same quarter turn the corner relief outside it is.
 #
-# THE CARTRIDGE STAYS BETWEEN THE JAMBS. It is the flat span and what stands behind it, out
+# THE PUMP CARTRIDGE STAYS BETWEEN THE JAMBS. It is the flat span and what stands behind it, out
 # to `bay_x_span` and no further at any height, so the posts it slides between are untouched
 # and the front of the box outboard of the bay is theirs.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
-bay_face_slip = 0.4          # cartridge face inside the opening, per side — its running fit
+bay_face_slip = 0.4          # pump cartridge face inside the opening, per side — its running fit
 # HOW FAR A CORNER POST REACHES ALONG THE FRONT WALL'S INNER FACE. The post is the whole of
 # the box's corner and the bay stops on it, so this is what the front of the machine keeps
 # outboard of the opening. It is carried past the column's own arc — which lands one
-# `column_round` in — far enough that the cartridge's face clears front-bottom's Z-seam wrap
+# `column_round` in — far enough that the pump cartridge's face clears front-bottom's Z-seam wrap
 # without stepping in under the rim.
 #
 # IT IS ALSO WHERE THE FACE ACROSS THE BAY IS SWUNG FROM, so what it carries past that radius
@@ -1400,7 +1401,7 @@ face_reveal = 0.4            # the face's edge reveal at the sill and under the 
 # the drawer moves, the fill reaches the round and binds. The outside box keeps its rounded
 # columns; the opening between them is the straight guide a sliding block requires.
 sill_wash = 1.4              # the sill's top face falls this much fore, so the reveal drains
-# THE CARTRIDGE HAS ONE OUTLINE AND NOT TWO. Face, deck and cap all stand `bay_face_slip`
+# THE PUMP CARTRIDGE HAS ONE OUTLINE AND NOT TWO. Face, deck and cap all stand `bay_face_slip`
 # inside the jambs and `face_reveal` under the lintel, because they are one printed block and
 # the thing that has to pass the opening is the block. Giving the deck air of its own put the
 # face 0.6 proud of it down every flank and the deck 0.4 proud of the face along its top —
@@ -1410,15 +1411,15 @@ cap_kiss = 0.1               # the cap's aft face off the collet plate's, at ful
 plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor's seat. NOT
                              # across it: the seat's ends are the side walls themselves, and
                              # what holds the steel off those is `PLATE_END_AIR` alone
-plate_guide_x_air = 1.0      # fixed guide cheeks outside the cartridge's whole X sweep
+plate_guide_x_air = 1.0      # fixed guide cheeks outside the pump cartridge's whole X sweep
 plate_guide_crown = 6.0      # wraparound above the steel, hiding its top from oblique views
 plate_guide_top_lead = 1.0   # 45 degree lead into the plate's upward-open guide channel
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
 
-# --- THE CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
+# --- THE PUMP CARTRIDGE IS A BLOCK, AND IT PARTS ON THE BRACKET PLANE -------------
 #
-# THE CARTRIDGE IS SOLID AND THE PUMPS STAND IN IT. What the bay leaves between the face and
+# THE PUMP CARTRIDGE IS SOLID AND THE PUMPS STAND IN IT. What the bay leaves between the face and
 # the collet plate is filled, sparse infill under a printed skin, and the two Kamoers are
 # voids in that fill. A block reads and carries as one object in the hand, which is what a
 # part a user hauls on wants to be.
@@ -1480,7 +1481,7 @@ cap_screw_off = 18.0         # each screw off the lane's own mid-depth, fore and
 # BOTH ±X FLANKS ARE THE HAND'S, AND NOTHING ELSE IS. The face carries the flute field and
 # the bay's own reveal; the flanks carry no field at all, and front-top's own flank is cut
 # away over this whole storey (`_flank_opening`), so what stands in that opening is the
-# cartridge's side with the room in front of it. The one thing standing between a hand and
+# pump cartridge's side with the room in front of it. The one thing standing between a hand and
 # it is the corner post, which stops one `_column_along` aft of the front plane — so aft of
 # that plane the flank is open to the room and a grip is struck into it (`_flank_grip`).
 #
@@ -1532,18 +1533,18 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 a report reading taken with the placed solids, carried for the same reason
 #   front_ports   / back_ports   panel through-holes, in the pack's format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
-#   west_ports    −X side-wall through-holes, same shape — the drip tray's slot
-#   funnel        the placed hopper funnel's plan centre, or None for no throat
-#   pan_sleeve    the drip tray's carry, `(adds, cuts)` of world boxes — the solid block fused
+#   west_ports    −X side-wall through-holes, same shape — the ASSE drip pan's slot
+#   funnel        the placed funnel's plan centre, or None for no throat
+#   pan_sleeve    the ASSE drip pan's carry, `(adds, cuts)` of world boxes — the solid block fused
 #                 onto the −X wall, and the berth cut back out of it
-#   c14           the mains inlet's heat-set stations on the back wall, (x, z)
+#   c14           the mains inlet's heat-set stations on the +Y wall of back-top, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
 #   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z) — one press-fit pocket
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
 #   west_cradle   the −X wall's MQ-6 card slot, (y, z, y0, y1, z0, z1) — the card's plane
-#                 and its centre, then the board's own footprint, which is what the flank wells
+#                 and its centre, then the card's own footprint, which is what the flank wells
 #   cond_cradle   the front wall's condenser rails, one (face, x0, x1, fz0, fz1, root) per fore
 #                 flange — the plane the block's fore face rests on, that flange's width, its
 #                 two faces in height, and how far the rail runs down under it
@@ -1554,9 +1555,9 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 at each Y end are not in it: they are the sheet the box holds the block by
 #                 and the fan draws through neither
 #   asse_cradle   the −X wall's tap-water cradle, (axis_z, sections, ties, reach_down) — the
-#                 axis the trough is struck on, one (y0, y1, apex_x) per section of the chain,
+#                 axis the ASSE anchor is struck on, one (y0, y1, apex_x) per section of the chain,
 #                 the Y of each tie band, and how far under the axis its flanks run
-#   digiten_saddles  the top wall's two flow-meter saddles, (axis_x, axis_z, seat_r, bands) —
+#   flow_meter_anchors  the top wall's two flow-meter anchors, (axis_x, axis_z, seat_r, bands) —
 #                 the arm axis the Vs are struck on, the barrel they seat, and the run of
 #                 each arm one takes
 #   tube_anchors  the runs' own seats, one (mid, along, root, seat_r) each — the middle of the
@@ -1566,7 +1567,7 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 one `(name, x0, x1, y0, y1, pocket_top_z)` each. The plan is the body's exact
 #                 intersection with that field plus assembly slip; the last number is the roof
 #                 left over it. This is geometry struck by the pack, not another placement.
-#   port_field    the pockets the back wall's outer face carries and the bosses behind them,
+#   port_field    the pockets the +Y wall of back-top's outer face carries and the bosses behind them,
 #                 (proud, rim, pockets) — how deep a pocket is cut and how far its boss stands
 #                 inboard, the wall the field keeps around each chip, and one (x, z, width,
 #                 rise) per pocket. A pocket is a D on its back: a half circle below the bore's
@@ -1611,7 +1612,7 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. The bay floor's seat takes its foot (`_bay_floor`)
-#   pump_bay      the cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
+#   pump_bay      the pump cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
 #                 jamb between the corner columns' cusps, topped over the motor cans' crowns.
 #                 None when the pack stands no pumps
 # The two structured fields placement strikes for this description. They live with Box rather
@@ -1626,7 +1627,7 @@ Box = namedtuple(
     "Box", "inner outer y_joint splits y_bosses z_seam_passes "
            "front_ports back_ports east_ports west_ports "
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
-           "cond_mount cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
+           "cond_mount cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
            "port_field nameplate "
            "valve_trays pump_trays core_stops core_holds vent_chase column_reliefs "
            "collet_plate pump_bay")
@@ -1639,7 +1640,7 @@ Box = namedtuple(
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
-            "cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
+            "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
             "port_field nameplate "
             "valve_trays pump_trays core_stops core_holds vent_chase collet_plate")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
@@ -1926,7 +1927,7 @@ def wall_band_corner_y(reach):
     so at a back corner the wall leaves the body's plane along an arc. This is where the arc
     crosses that plane — and unlike a boss it is a bound at EVERY height, which makes it the
     aft end of what the band has to give. A body reaching further inboard than the radius is
-    clear of the arc entirely and answers to the rear wall itself.
+    clear of the arc entirely and answers to the +Y wall itself.
 
     WHERE THAT CORNER CARRIES A COLUMN the arc is no longer what a body meets first: the lens
     stands in the air the arc left open, and its room-facing side is swung from the corner. The
@@ -2172,7 +2173,7 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
 
     So this measures the ring: what reaches into it, and the seam heights that reach
     would put the lip on. What holds the rest of the ring open is the pack's own
-    standoffs — one `wall` at the front and back walls (`front_seam_clear`,
+    standoffs — one `wall` at the front and +Y walls (`front_seam_clear`,
     `rear_seam_clear`) and one boss chain at the sides (`side_band_inset`)."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     cy0, cy1 = y_span
@@ -2315,7 +2316,7 @@ def _dims(pack):
     # not pack, and a plate standing ON the rim is a touch with no volume in it. This reads
     # the wall-to-wall storeys off the same stations the pieces build them from. The bay's
     # floor is the one span that does stand on the rim and answers elsewhere
-    # (`enclosure_assembly.check_bay_floor`); the trays' storey roots on the cartridge, so
+    # (`enclosure_assembly.check_bay_floor`); the trays' storey roots on the pump cartridge, so
     # no wall of this box carries it.
     rim = max(splits) + lip_len
     decks = [mz - _valve_tray.height() / 2.0
@@ -2355,7 +2356,7 @@ def _dims(pack):
     # the appliance's width can still be standing in its wall — and `box-width` cannot see it,
     # because the width it reads is the box's own. What this section may stand in is what the
     # wall gives a LANE to and nothing else: a Wago in its own well, bored back to `interior_x`
-    # so the lug never moves, and whatever lies in the drip tray's sleeve. A body is matched to
+    # so the lug never moves, and whatever lies in the ASSE drip pan's sleeve. A body is matched to
     # a lane by its CENTRE, so a well that no longer covers the lug it was cut for stops
     # excusing it instead of excusing it by a hair.
     bt0, bt1 = back_top_flank_face()
@@ -2389,7 +2390,7 @@ def _dims(pack):
     # inside a relief answers to that relief's floor, and every other body to the plane
     # itself. The compressor's reading is its stated kiss on the refrigeration bay's floor.
     #
-    # The BACK wall is the stated `rear_plane_y`, for the same reason the ceiling is the
+    # The +Y wall is the stated `rear_plane_y`, for the same reason the ceiling is the
     # stated `appliance_height`: depth is a bound, not a consequence. Taken off the pack it
     # would follow whichever body reached furthest back, and anything seated on this plane
     # would follow that body too, holding every clearance between the two constant.
@@ -2411,10 +2412,10 @@ def _dims(pack):
     record_bound(Bound(
         "box-depth", "The pack stands inside the appliance's stated depth",
         rear_need <= iy1 + stated_bound_tol,
-        f"pack reaches y {rear_need:.2f}, back wall at {iy1:.2f}",
+        f"pack reaches y {rear_need:.2f}, +Y wall at {iy1:.2f}",
         f"ahead of `rear_plane_y` {rear_plane_y:g}",
         ([] if rear_need <= iy1 + stated_bound_tol else [
-            f"the pack reaches y {rear_need:.2f} but the back wall stands at {iy1:.2f} — "
+            f"the pack reaches y {rear_need:.2f} but the +Y wall stands at {iy1:.2f} — "
             f"{rear_need - iy1:.2f} mm over. Raise `rear_plane_y` or repack forward"])))
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor and the seam lip stay put). The CEILING is
@@ -2542,7 +2543,7 @@ def _dims(pack):
     if pack.pump_trays:
         _bx0, bx1 = bay_x_span(inner)
         for what, station in (("the bay's jamb", bx1),
-                              ("the cartridge's own edge", bx1 - bay_face_slip)):
+                              ("the pump cartridge's own edge", bx1 - bay_face_slip)):
             off = station % pitch
             clear.append((what, min(off, pitch - off) - reeding.flute_width / 2.0))
     least = min((room for _what, room in clear), default=None)
@@ -2655,7 +2656,7 @@ def _dims(pack):
                     b.zmin - column_relief_slip, b.zmax + column_relief_slip)))
 
     # THE PUMP BAY: the flat front span between the corner columns' cusps, topped one
-    # `bay_crown_air` over the tallest motor can's crown — what the cartridge leaves
+    # `bay_crown_air` over the tallest motor can's crown — what the pump cartridge leaves
     # through, struck off the placed cans the way every station is struck off its body.
     bx0, bx1 = bay_x_span(inner)
     crowns = [b.zmax for name, b in zip(placed.keys(), bbs)
@@ -2671,7 +2672,7 @@ def _dims(pack):
                pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
                pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
                pack.cond_mount, pack.cond_airway, pack.asse_cradle,
-               pack.digiten_saddles, pack.tube_anchors, pack.ceiling_reliefs,
+               pack.flow_meter_anchors, pack.tube_anchors, pack.ceiling_reliefs,
                pack.port_field, pack.nameplate,
                pack.valve_trays, pack.pump_trays, pack.core_stops, pack.core_holds,
                pack.vent_chase, tuple(reliefs), pack.collet_plate, pump_bay)
@@ -2805,7 +2806,7 @@ def _plan_segments(outer):
 
 def _bay_storey_segments(inner, outer, bay, plate):
     """The run round the INSIDE of the bay's storey, walked from the −X jamb to the +X one —
-    the surfaces that storey shows once the cartridge is in it.
+    the surfaces that storey shows once the pump cartridge is in it.
 
     IT IS THE BOX'S OWN PLAN WALKED INDOORS. Material on the left, so the normal it hands back
     points into the room; two quarter turns of `column_round` and five straight runs, each
@@ -2846,7 +2847,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
 
 
 def bay_storey_z(bay):
-    """The storey the cartridge slides through — the seam's own ceiling (`_rim_cap`) up to the
+    """The storey the pump cartridge slides through — the seam's own ceiling (`_rim_cap`) up to the
     bay's top.
 
     Both flanks stand open across it (`_flank_opening`), each corner post's face is swung from
@@ -2908,7 +2909,7 @@ def flute_rails(box, berthed=()):
     `flute_pitch` from a datum on x = 0, so each puts a groove on the plane the machine is
     struck about and neither is told the other exists.
 
-    `berthed` is what the assembly stands in that storey — the cartridge, its cap, the steel
+    `berthed` is what the assembly stands in that storey — the pump cartridge, its cap, the steel
     plate. What a fitted body hides is not show face and gets no flutes
     (`flute_skin._shadow_mask`); which of them hides what is measured, not listed."""
     outer = box.outer
@@ -3107,7 +3108,7 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     wall at each screw. Nothing then stands off the plate's own back, which is the face the plate
     prints on.
 
-    ITS UNDERSIDE IS STRUCK AT 45°. This piece prints on its Z− face with the back wall vertical
+    ITS UNDERSIDE IS STRUCK AT 45°. This piece prints on its Z− face with the +Y wall vertical
     on the bed, so a plateau's down-facing edge is the plate's whole width of ceiling starting in
     air. Cut back at 45° it is a ramp the wall reaches under instead — the relief every hanging
     face on this box gets.
@@ -3245,9 +3246,9 @@ def _x_port_cuts(ports, x0, x1):
     return out
 
 
-# --- hopper funnel opening (Zone C) -----------------------------------------
+# --- funnel opening (Zone C) ------------------------------------------------
 
-def _hopper_frame(inner, outer):
+def _funnel_frame(inner, outer):
     """What the top wall has left to give the collar, `(x_lo, x_hi, y_lo, y_hi)`: BEHIND the
     display facet's own back plane, inboard of the ±X boss chains, and ahead of the back
     wall.
@@ -3259,24 +3260,24 @@ def _hopper_frame(inner, outer):
     still remains outboard of the brim's edge. Forward the wall runs straight on into the
     display housing, whose back is the vertical `housing_back_y` — and the slab ahead of that
     cut is what the brim's front flange lands on. The front's requirement is
-    `hopper_front_ledge`, the top wall kept between that plane and the throat itself, and it
+    `funnel_front_ledge`, the top wall kept between that plane and the throat itself, and it
     stands in this frame. `with_funnel` asks the margin of the three free edges."""
     ix0, ix1, _iy0, iy1, _iz0, _iz1 = inner
-    return (ix0 + boss_in + hopper_chain_gap,           # clear of the −X chain's bosses
-            ix1 - boss_in - hopper_chain_gap,           # clear of the +X chain's bosses
-            housing_back_y(outer) + hopper_front_ledge, # behind the display housing
-            iy1 - wall)                                 # ahead of the back wall
+    return (ix0 + boss_in + funnel_chain_gap,           # clear of the −X chain's bosses
+            ix1 - boss_in - funnel_chain_gap,           # clear of the +X chain's bosses
+            housing_back_y(outer) + funnel_front_ledge, # behind the display housing
+            iy1 - wall)                                 # ahead of the +Y wall
 
 
-def _hopper_hole(centre):
+def _funnel_hole(centre):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the placed funnel's
     collar — funnel.py's own dims at the box's own `funnel` centre.
 
-    The funnel is pushed as far FORWARD as `_hopper_frame` allows, and reaches aft for
+    The funnel is pushed as far FORWARD as `_funnel_frame` allows, and reaches aft for
     whatever plan area its capacity needs — so the opening may cross the Y seam. Both halves
     take their share of the cut and the collar bridges it; what the seam gives up there is its
     top-wall lip over the hole's span, which the mouth shelf's own relief already accounts
-    for (`_hopper_cut`).
+    for (`_funnel_cut`).
 
     Plan arithmetic off one centre. `with_funnel` states what that collar owes its frame."""
     cx, cy = centre
@@ -3296,8 +3297,8 @@ def with_funnel(box, centre):
     THE COLLAR IS SEATED WHICHEVER WAY THEY READ. One outside its frame is cut where it stands,
     so the throat that runs into a pod or off the facet is in the pieces to look at, beside the
     row that names it."""
-    x0, x1, y0, y1 = _hopper_hole(centre)
-    lims = _hopper_frame(box.inner, box.outer)
+    x0, x1, y0, y1 = _funnel_hole(centre)
+    lims = _funnel_frame(box.inner, box.outer)
     tol = 1e-6
     inside = not (x0 < lims[0] - tol or x1 > lims[1] + tol
                   or y0 < lims[2] - tol or y1 > lims[3] + tol)
@@ -3322,7 +3323,7 @@ def with_funnel(box, centre):
             f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame"])))
     # AND THE +Y EDGE IS THE CEILING PANEL'S, not the frame's. Aft of the throat the top surface
     # is the slide-in panel (`../ceiling-panel/ceiling_panel.py`), whose fore edge IS the collar's
-    # own aft edge and whose show face carries the top wall's section back to the rear wall — so
+    # own aft edge and whose show face carries the top wall's section back to the +Y wall — so
     # what the brim lands on there is that panel, and the margin is the panel's own depth. A panel
     # whose fore edge stood AFT of the collar would leave the flange over the throat, and the
     # reading comes back negative by however far it had drifted.
@@ -3363,20 +3364,20 @@ def with_funnel(box, centre):
     return box._replace(funnel=centre)
 
 
-def _hopper_cut(inner, outer, centre):
+def _funnel_cut(inner, outer, centre):
     """The funnel throat punched clean through the top wall — one wall deeper
     than the ceiling, so the Y-seam's top-wall lip/mouth shelf (hanging one
     wall below it) is relieved across the hole span the seam crosses.
 
-    The opening is the collar, whole: the basin is a full rectangle and the wall carries
+    The opening is the collar, whole: the funnel is a full rectangle and the wall carries
     nothing over the tap-water sequence that the throat has to be cut around."""
-    x0, x1, y0, y1 = _hopper_hole(centre)
+    x0, x1, y0, y1 = _funnel_hole(centre)
     return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
 
 
 def _ceiling_corbels(solid, inner, outer, centre, y_joint):
     """The flat ceiling's two side strips on a top piece, corbelled: a 45° underside
-    rising off each ±X wall to nothing at the hopper opening's edge, so a top piece —
+    rising off each ±X wall to nothing at the funnel opening's edge, so a top piece —
     printing mouth-down — lays every ceiling layer on the one below it. The strip's own
     span is wall-rooted on one side and open over the opening on the other.
 
@@ -3421,7 +3422,7 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
 #   * FRONT lip = SOCKET: a collar round the bore — one `wall` of material and no
 #     more — bored to receive the round pin (slide fit) with the heat-set + cap at
 #     the deep inboard end.
-# The head seats in the back wall; the shank crosses the pin body into the front
+# The head seats in the +Y wall; the shank crosses the pin body into the front
 # heat-set, cross-pinning the two halves along X.
 #
 # Each stands on the joint's own overlap down its whole length: the plug in the back
@@ -3588,7 +3589,7 @@ def _front_lip(inner, y_joint):
     forward over the overlap to the rim. Printed Z-down the side segments are
     vertical bands and the −Y mouth is a vertical face, so it needs no frame
     bevel; corners stay square, concentric with the square seam mouth it
-    telescopes into (the box's rounded verticals are at the front/back walls, not
+    telescopes into (the box's rounded verticals are at the front and +Y walls, not
     the seam). The bore stays open its whole length — the fusion shoulder is the
     one-wall overlap where the band meets the body wall (out to y_joint), NOT a
     slab across the seam.
@@ -3697,7 +3698,7 @@ def _z_stations(inner, y_joint):
     on that wall. The stations ride the stated seam plane."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     yf = _z_front_station_y(iy0)                    # front column, front wall
-    ybr = _z_back_station_y(iy1)                    # back column, rear wall
+    ybr = _z_back_station_y(iy1)                    # back column, +Y wall
     out = []
     for ys, col in ((yf, "front"), (ybr, "back")):
         out.append((ix0, ix0 - wall, +1.0, ys, col))
@@ -3790,7 +3791,7 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, WELLED on the
     west where the MQ-6 stands.
 
-    The strips are struck like back-bottom's. The well is the board's own footprint off the
+    The strips are struck like back-bottom's. The well is the card's own footprint off the
     station (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, so the card
     still slides west onto `lip_face_x` and the can keeps the room it had. Cut here rather than
     left to the cradle, because what the cradle builds is rails standing on a face and this is
@@ -3814,7 +3815,7 @@ def _back_bottom_flank_skin(inner, y_joint, zj):
     wraps the standing verticals, and this stands under that, between the slab and the mouth,
     where the piece is already `2 * wall` and simply becomes `back_bottom_flank_t`.
 
-    ITS Y RUN STARTS AFT OF THE OTHER PIECE'S Y LIP and runs to the rear wall's inner face, so
+    ITS Y RUN STARTS AFT OF THE OTHER PIECE'S Y LIP and runs to the +Y wall's inner face, so
     it fuses into that wall at one end and clears the telescope at the other. That start is the
     same plane `_lip_underwall` opens its own gap to — front-bottom's tongue reaches `lip_len`
     past the joint, and a skin struck on the joint itself is a skin drawn through it."""
@@ -3976,7 +3977,7 @@ def _corner_cuts(x_in, x_ext, sx):
 def bay_x_span(inner):
     """The bay's two jambs: the flat front wall between the corner columns' along-wall
     posts' own reach (`post_along`). The columns ARE the jambs — nothing of the
-    front wall's flat span survives outside the cartridge's face."""
+    front wall's flat span survives outside the pump cartridge's face."""
     return inner[0] + post_along, inner[1] - post_along
 
 
@@ -3993,7 +3994,7 @@ def _pump_relief_regions(pump_trays):
     head's hang under the station to the tray's crown over it; floored on
     `pump_relief_floor`, the plane the tray's root is struck to.
 
-    ITS OWN Z0 IS THE LOWEST PLANE THE CARTRIDGE REACHES, so the bay floor's top is struck
+    ITS OWN Z0 IS THE LOWEST PLANE THE PUMP CARTRIDGE REACHES, so the bay floor's top is struck
     on it (`bay_floor_z`) and the sill and the face's bottom reveal come off one figure."""
     out = []
     for cx, _cy, cz in pump_trays:
@@ -4095,7 +4096,7 @@ def _rim_cap(inner, outer, plate, zj):
     (`plug_dia/2 + socket_r`) to land the boss's far face on the rim — so the cap beds on the
     whole of it at once rather than bridging anything.
 
-    IT STOPS ON THE JAMB. `bay_x_span` is the cartridge's own span and this is what stands
+    IT STOPS ON THE JAMB. `bay_x_span` is the pump cartridge's own span and this is what stands
     outboard of it, so nothing of the cap is ever in the withdrawal path. AFT IT STOPS ON THE
     PLATE'S FORE FACE, and not because the opening over it does — the opening runs on past to
     the tee wall. It stops there because the steel's own berth is what is aft of it: the cap
@@ -4118,10 +4119,10 @@ def _rim_cap(inner, outer, plate, zj):
 def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     """The fixed, upward-open guides that keep the collet plate from pitching fore.
 
-    THE RELEASE LOAD EXISTS AFTER THE CARTRIDGE HAS MOVED. Four tee noses press the steel
-    fore as their tubes draw out, so the plate cannot answer to a cartridge-mounted keeper:
+    THE RELEASE LOAD EXISTS AFTER THE PUMP CARTRIDGE HAS MOVED. Four tee noses press the steel
+    fore as their tubes draw out, so the plate cannot answer to a pump-cartridge-mounted keeper:
     what stays with the box is what must take that moment. Two fore cheeks stand on the
-    plate's outer tails, wholly outside the cartridge's X sweep, and leave `plate_slot_slip`
+    plate's outer tails, wholly outside the pump cartridge's X sweep, and leave `plate_slot_slip`
     to the steel. Together with the tee wall behind it they make a vertical channel: the
     plate drops and lifts in Z, but its top cannot rotate fore about the seat in the floor.
 
@@ -4172,10 +4173,10 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
 
 
 def _flank_opening(inner, y_aft, z0, z1):
-    """Front-top's ±X faces, open across the cartridge's own storey.
+    """Front-top's ±X faces, open across the pump cartridge's own storey.
 
     THIS CUT OPENS THEM WHOLE. After it, `_plate_fore_guides` puts back only two narrow
-    stationary cheeks at the aft outer edges, beyond the cartridge's X sweep, because those
+    stationary cheeks at the aft outer edges, beyond the pump cartridge's X sweep, because those
     answer the release plate and not the opening. At the fore end the corner columns remain
     the only frame.
 
@@ -4227,7 +4228,7 @@ def _column_fairing(piece, inner, outer, bay, z):
     the opening ends at `front_plane_y + _column_along()`, `_column_along()` is `column_round`,
     and a quarter turn of that radius spans exactly that.
 
-    AND IT STANDS ON THE JAMB PLANE. The disc's inboard extreme IS `bay_x_span` — the cartridge
+    AND IT STANDS ON THE JAMB PLANE. The disc's inboard extreme IS `bay_x_span` — the pump cartridge
     keeps `bay_face_slip` at the single station the two touch and more of it at every other, so
     the opening is never narrowed by this and the block that passes it is never told.
 
@@ -4293,7 +4294,7 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     at the fit of two printed walls, where one face and a slide fit is what closes.
 
     AND THE COLLET PLATE KEEPS ITS LANE. The steel lifts straight up through the bay with the
-    cartridge out, so what it needs is not its own seat but the column over it — its footprint
+    pump cartridge out, so what it needs is not its own seat but the column over it — its footprint
     carried to the ceiling. That is `PLATE_T` of depth out of this section and nothing else,
     which is why the plate is not a figure this reads: it is a lane cut through it."""
     ix0, ix1, _iy0, _iy1, _iz0, iz1 = inner
@@ -4404,7 +4405,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     does. Every seam screw on this piece stands fore of that Y and under that Z, so not one of
     them grows by a millimetre.
 
-    AND THE PAN'S SLEEVE KEEPS ITS BLOCK. The drip tray withdraws through this flank, and the
+    AND THE PAN'S SLEEVE KEEPS ITS BLOCK. The ASSE drip pan withdraws through this flank, and the
     pack states the sleeve as one box rooted on the wall's own inner face with the berth cut back
     out of it (`_pan_sleeve`). Struck out of this section rather than re-cut through it: the tray
     stays where it is and at the size it is, and what stands round it is the sleeve's own section
@@ -4452,7 +4453,7 @@ def _back_top_ceiling(solid, inner, y_joint):
     the panel's dado down each strip's inboard face, and an upward screw boss under each of its
     two insert sockets.
 
-    FUSED AND CUT BEFORE THIS PIECE'S OWN FURNITURE, the way its two sections are: the trough's V,
+    FUSED AND CUT BEFORE THIS PIECE'S OWN FURNITURE, the way its two sections are: the ASSE anchor's V,
     the chain's bores, the Wago wells and every bore below are cut AFTER this, so each is cut out
     of whatever the corbel put there rather than filling a pocket back in.
 
@@ -4478,7 +4479,7 @@ def _back_top_ceiling(solid, inner, y_joint):
     (`ceiling_pier_run`) — a pier takes the whole storey under the strip where the corbel takes a
     wedge of it, and a body is nearer to the one than to the other.
 
-    Its underside is a soffit and hangs, the way the tap-water trough's block does one storey
+    Its underside is a soffit and hangs, the way the ASSE anchor's block does one storey
     down, and takes print support."""
     cp = _ceiling()
     iz1 = inner[5]
@@ -4489,7 +4490,7 @@ def _back_top_ceiling(solid, inner, y_joint):
     solid = solid.cut(_ybox(-half, half, cp.fore_y, cp.aft_y, iz1, cp.show_z + 1.0))
 
     # THE TWO STRIPS. Each corbel is cut to its reliefs BEFORE it is fused, so a relief takes the
-    # corbel and never the trough, the flank section or the wall standing behind it.
+    # corbel and never the anchor, the flank section or the wall standing behind it.
     for sx, wall_x in ((+1.0, flanks[1]), (-1.0, flanks[0])):
         edge, deep = sx * half, abs(wall_x) - half
         corbel = _xz_prism(cp.fore_y, cp.aft_y,
@@ -4513,7 +4514,7 @@ def _back_top_ceiling(solid, inner, y_joint):
 
     # THE DADO, one down each strip's inboard face, on the section the panel states. It is cut
     # OPEN at both ends: its mouth one millimetre into the field, which is the panel's own lane,
-    # and its blind end its own depth INTO the back wall, which is the panel's stop. A groove
+    # and its blind end its own depth INTO the +Y wall, which is the panel's stop. A groove
     # ending exactly on either plane would leave the strip and the thing it runs out on meeting
     # along a line, which is a knife edge in the solid and a non-manifold edge in the mesh.
     #
@@ -4521,7 +4522,7 @@ def _back_top_ceiling(solid, inner, y_joint):
     # roof rises to the show face at the mouth, and both the rise and the millimetre of overrun
     # past the mouth are the panel's own lane: this piece has no top wall inboard of that plane
     # to carry either. AFT OF THE FIELD IT HAS ONE. The blind end runs its own depth INTO the
-    # back wall, and there the section is continuous across the mouth plane — there is no free
+    # +Y wall, and there the section is continuous across the mouth plane — there is no free
     # standing lip to feather and nothing to stand a ramp under. A ramp cut there lands its apex
     # in the MIDDLE of the show face rather than on its edge, which is three faces on one line
     # and a mesh a slicer refuses, and an overrun cut there opens a slot straight through the top
@@ -4574,7 +4575,7 @@ def _bay_mouth(inner, outer, bay, pump_trays, inset):
     jamb on every edge.
 
     ONE FIGURE CUTS THE OPENING AND SHAPES WHAT FILLS IT. The jamb takes `inset` 0 and the
-    cartridge takes `bay_face_slip`, which is also `face_reveal`, so face and fill are this
+    pump cartridge takes `bay_face_slip`, which is also `face_reveal`, so face and fill are this
     outline offset a uniform four tenths.
 
     THE PLAN CORNERS STAY SQUARE BECAUSE THIS IS A SLIDE PATH. Every Y station of the filled
@@ -4587,8 +4588,8 @@ def _bay_mouth(inner, outer, bay, pump_trays, inset):
     return _ybox(x0, x1, outer[2] - 1.0, inner[2] + 0.5, z0, z1)
 
 
-def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
-    """The bay region the cartridge's face keeps: the same figures one slip and one reveal
+def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
+    """The bay region the pump cartridge's face keeps: the same figures one slip and one reveal
     smaller, so the face rides its opening on stated air."""
     bx0, bx1, top = bay
     fx0, fx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
@@ -4599,7 +4600,7 @@ def _cartridge_face_region(inner, outer, bay, pump_trays, plate):
 
 
 def cap_split_z(pump_trays):
-    """The plane the cartridge parts on — the pump's own BRACKET plane.
+    """The plane the pump cartridge parts on — the pump's own BRACKET plane.
 
     `pump_tray` roots each tray's plate on the head's crown, which `kamoer_kphm400` calls
     `base_plane_z`: the head-to-boss junction, and the plane the part's stamped bracket sits
@@ -4613,7 +4614,7 @@ def cap_band_x(pump_trays):
     """The screw lane between the two heads, as (x0, x1) — the inboard jamb of each pump's
     own relief in the front wall, so the lane's wall and the fore face's step are one plane.
 
-    THIS IS THE ONE COLUMN OF THE CARTRIDGE WITH NOTHING IN IT AT ANY HEIGHT. No pump, no
+    THIS IS THE ONE COLUMN OF THE PUMP CARTRIDGE WITH NOTHING IN IT AT ANY HEIGHT. No pump, no
     barb tube, no fitting: the inboard barbs stand outboard of it and their tubes leave aft
     of the block entirely. So it is where the cap gives up its fill, where a screw crosses,
     and where a driver reaches the screw's head."""
@@ -4849,7 +4850,7 @@ def _flank_grip(bay, pump_trays, plate, band):
 def grip_figures(box):
     """What a flank grip comes to on this box, for the docs to read — its two bands, the
     depth it reaches at each of the pump's own storeys, and the travel its ledge buys. Empty
-    on a box with no bay, which is a box with no cartridge to carry a grip."""
+    on a box with no bay, which is a box with no pump cartridge to carry a grip."""
     if not (box.pump_bay and box.pump_trays):
         return {}
     bay, trays, plate = box.pump_bay, box.pump_trays, box.collet_plate
@@ -4885,11 +4886,11 @@ def grip_figures(box):
 
 def bay_floor_z(pump_trays):
     """The bay floor's two planes: its underside on front-top's own seam mouth, and its top
-    on the plane the cartridge reaches down to.
+    on the plane the pump cartridge reaches down to.
 
     THE FLOOR IS THIS PIECE'S FIRST LAYERS. Front-top beds on the seam plane, so a floor
     struck there lies on the bed and nothing under it hangs. What sets its section is the
-    only thing over it: the cartridge's own pump reliefs floor on
+    only thing over it: the pump cartridge's own pump reliefs floor on
     `_pump_relief_regions`' z0, one millimetre under the heads, and the floor's top is that
     plane — so the sill, the face's bottom reveal and the room the heads pass in are one
     figure and not three."""
@@ -4974,7 +4975,7 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
     The collet plate is SUNK IN IT: a blind seat down the floor's top takes the steel's
     foot, so the plate is located fore, aft and across by printed material and carried on
-    the seat's own bottom, and nothing over it is closed — with the cartridge out it lifts
+    the seat's own bottom, and nothing over it is closed — with the pump cartridge out it lifts
     straight up through the bay. The seat's floor is the plate's own z0, struck in
     `enclosure_assembly.collet_plate_spec`, so the steel and the pocket that takes it are
     one figure.
@@ -4984,7 +4985,7 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     whole instead of surrendering `wall` of itself down each flank — what still stands over
     the mouth here is the front boss on its own plinth, and the floor opens for that alone.
 
-    OUTBOARD OF THE BAY IT STANDS TO THE RIM. The cartridge sweeps the span between the
+    OUTBOARD OF THE BAY IT STANDS TO THE RIM. The pump cartridge sweeps the span between the
     posts and nothing else does, so either side of that span the floor carries on up to the
     Z-seam rim — and the seam's cap (`_rim_cap`) stands one `wall` on top of that, which is
     what the flank opening floors on. The opening then reads as one ledge from the exterior
@@ -5034,7 +5035,7 @@ def _tee_wall(inner, y_joint, plate, bay):
     holds is the collar, across the bore; what stops the tee is the steel, and nothing else.
 
     AND IT IS THE BAY'S BACK. Over the plate's own band the steel closes the bay; above and
-    below it nothing does, and the berth the cartridge leaves looks into the cavity. This
+    below it nothing does, and the berth the pump cartridge leaves looks into the cavity. This
     stands the whole storey, so what is behind the bay is a wall.
 
     AND THE Z SEAM DOES NOT PASS IT AT ALL, so this wall opens for nothing but its own bores.
@@ -5070,7 +5071,7 @@ def _ridge_wall(inner, outer, plate, bay):
     ITS AFT FACE IS THOSE TWO OFFSET ONE `ridge_wall_t`, and its top is the slab's own back —
     struck on that plane rather than into it, so the rib and the housing meet on one figure.
     The jog is what keeps it off the funnel: a rib of this section run straight up would stand
-    in the hopper's throat, and one slanted straight from crown to ridge would run into the
+    in the funnel's throat, and one slanted straight from crown to ridge would run into the
     display's own body where it stands proud of the slab.
 
     IT RUNS WALL TO WALL AND NOT THE RIDGE'S OWN LENGTH. What it carries is `display_pcb_x` of
@@ -5080,7 +5081,7 @@ def _ridge_wall(inner, outer, plate, bay):
     COST: this is now the only section between the bay's storey and the cavity aft of it, so
     anything crossing crosses through it.
 
-    ONE THING DOES. The bore is the config display's loom (`cable_sleeve_open`), teardropped
+    ONE THING DOES. The bore is the enclosure display's loom (`cable_sleeve_open`), teardropped
     (`_teardrop_y`) for the reason a tee's bore is: the rib beds on Z and a bore on Y lies
     horizontal in it.
     It stands at the middle of the rib's own straight run, on the box's centreline, which is
@@ -5149,10 +5150,10 @@ def _unified(solid):
     return cq.Workplane(obj=solid).clean()
 
 
-def build_cartridge(box, halves_cache=None):
+def build_pump_cartridge(box, halves_cache=None):
     """THE PUMP CARTRIDGE: the bay's face and the tray deck behind it, one printed piece.
 
-    The face is the front half's own material inside `_cartridge_face_region` — the flat
+    The face is the front half's own material inside `_pump_cartridge_face_region` — the flat
     span jamb to jamb, one slip inside the opening the bay cut removes from front-top, pump
     reliefs and all — so the opening and the thing that fills it come out of one figure. It
     stops at `bay_x_span` at every height: the corner posts stand in this piece's own
@@ -5171,7 +5172,7 @@ def build_cartridge(box, halves_cache=None):
     what hangs is whatever looks DOWN, and every ceiling cut into it rises at
     `relief_chamfer` to its own mouth."""
     inner, outer, plate = box.inner, box.outer, box.collet_plate
-    solid = _cartridge_gross(box, halves_cache).cut(_cap_room(box))
+    solid = _pump_cartridge_gross(box, halves_cache).cut(_cap_room(box))
     # ITS BOTTOM IS ONE PLANE, AND THAT PLANE IS THE FACE'S OWN SILL REVEAL. Where no head
     # noses in, the front wall's section runs back to `front_plane_y`, and that section is
     # still the face — but the fill under the split carried it down onto the bay floor while
@@ -5190,8 +5191,8 @@ def build_cartridge(box, halves_cache=None):
     return _unified(solid)
 
 
-def _cartridge_gross(box, halves_cache=None):
-    """THE CARTRIDGE AND ITS CAP AS ONE SOLID, before `cap_split_z` parts them.
+def _pump_cartridge_gross(box, halves_cache=None):
+    """THE PUMP CARTRIDGE AND ITS CAP AS ONE SOLID, before `cap_split_z` parts them.
 
     The bay's own room, FILLED. The face comes out of the front
     half's own material, the two trays root on the reliefs' floor and web across, and then
@@ -5199,7 +5200,7 @@ def _cartridge_gross(box, halves_cache=None):
     — the deck's own width, both sides of the split. `_pump_voids` cuts the pumps out last,
     so each can opens through the ceiling and each head through the underside.
 
-    ONE FIGURE, TWO PIECES. `build_cartridge` keeps what is over the split and
+    ONE FIGURE, TWO PIECES. `build_pump_cartridge` keeps what is over the split and
     `build_pump_cap` what is under it, so the joint is a plane through one solid rather than
     two solids drawn to meet on one."""
     inner, outer = box.inner, box.outer
@@ -5207,22 +5208,22 @@ def _cartridge_gross(box, halves_cache=None):
     if not bay or not plate:
         raise ValueError("a pump cartridge wants a bay and a collet plate, and this box "
                          "carries neither station — the pack has no pumps to pull")
-    if halves_cache is not None and "cartridge-gross" in halves_cache:
-        return halves_cache["cartridge-gross"]
+    if halves_cache is not None and "pump-cartridge-gross" in halves_cache:
+        return halves_cache["pump-cartridge-gross"]
     if halves_cache is not None and "front" in halves_cache:
         half = halves_cache["front"]
     else:
         half = build_front_half(box)
         if halves_cache is not None:
             halves_cache["front"] = half
-    face = _cartridge_face_region(inner, outer, bay, box.pump_trays, plate)
+    face = _pump_cartridge_face_region(inner, outer, bay, box.pump_trays, plate)
     solid = half.val().intersect(face)
     bx0, bx1, top = bay
     dx0, dx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
     cx0, cx1 = _cap_x_span(bay)
     # THE CAP'S OWN AFT FACE IS THE STOP. Its whole storey stands under the plate's top, so
     # the face it presents to the steel is the piece's own — no pad hangs off anything to
-    # reach it — and `cap_kiss` is the air left at that face when the cartridge is home.
+    # reach it — and `cap_kiss` is the air left at that face when the pump cartridge is home.
     #
     # BOTH STOREYS PRESENT THAT SAME FACE. The deck stood further fore than the cap for no
     # stated reason, which put a step across the block's whole back and a ledge at the split
@@ -5234,7 +5235,7 @@ def _cartridge_gross(box, halves_cache=None):
     # front wall presents wherever a head noses into it, and the surface the face carries
     # across the whole of both pockets. Under the split it beds on the bay floor's own top,
     # because the piece that comes out of it there is the cap and the cap is what rides
-    # that plane; `build_cartridge` takes its own share back to the face's sill reveal.
+    # that plane; `build_pump_cartridge` takes its own share back to the face's sill reveal.
     # THE FILL BEHIND THE FACE IS SQUARE, and so is the mouth by the time it reaches it: the
     # round is on the fore verticals only and has run out by `pump_relief_floor`.
     solid = solid.fuse(_ybox(dx0, dx1, pump_relief_floor, deck_aft, split,
@@ -5250,13 +5251,13 @@ def _cartridge_gross(box, halves_cache=None):
     solid = solid.intersect(
         face.fuse(_ybox(dx0, dx1, outer[2], cap_aft, floor_top, top)))
     if halves_cache is not None:
-        halves_cache["cartridge-gross"] = solid
+        halves_cache["pump-cartridge-gross"] = solid
     return solid
 
 
 def _cap_room(box):
     """Everything under the split AND BEHIND THE FACE — the volume `build_pump_cap` keeps and
-    `build_cartridge` gives up.
+    `build_pump_cartridge` gives up.
 
     THE FACE IS NEVER SPLIT. It is the front of the machine, sill to lintel, and it comes off
     the plate whole on the piece a hand pulls; what parts on `cap_split_z` is the block behind
@@ -5298,9 +5299,10 @@ def _cap_screws(inner, plate, pump_trays):
 
 
 def build_pump_cap(box, halves_cache=None):
-    """THE PUMP CAP: what closes on both heads and screws up onto the cartridge.
+    """THE PUMP CAP: what closes on both heads and screws up onto the pump cartridge.
 
-    It is the cartridge's own solid under `cap_split_z` — one piece for two pumps. WHAT HOLDS A PUMP UP IS THE FOUR WEDGES IT CLOSES INTO THAT HEAD'S FLANKS: the part
+    It is the pump cartridge's own solid under `cap_split_z` — one piece for two pumps. WHAT
+    HOLDS A PUMP UP IS THE FOUR WEDGES IT CLOSES INTO THAT HEAD'S FLANKS: the part
     ramps in on each side at each of `pump_case.flank_ramp_bands`, and this piece keeps the
     material under all four of those 45 degree faces, so the load stands on the flanks the
     case that printed this pump held it by. Its top face takes the rest: the stamped bracket
@@ -5319,10 +5321,10 @@ def build_pump_cap(box, halves_cache=None):
     AND ITS TWO FLANKS CARRY THE LOWER BAND OF THE HAND'S OWN POCKET (`_flank_grip`), on the
     same ledge and the same aft wall the deck's band stands on. What the head leaves out there
     is nine millimetres of flank and the pocket keeps one `grip_cap_back` wall round the head:
-    the piece comes out screwed to the cartridge and a hand pulling the assembly finds relief
-    at both storeys. Printed on its Z− face, the same pose the cartridge takes."""
+    the piece comes out screwed to the pump cartridge and a hand pulling the assembly finds relief
+    at both storeys. Printed on its Z− face, the same pose the pump cartridge takes."""
     inner, plate = box.inner, box.collet_plate
-    solid = _cartridge_gross(box, halves_cache).intersect(_cap_room(box))
+    solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_room(box))
     split = cap_split_z(box.pump_trays)
     bx0, bx1 = cap_band_x(box.pump_trays)
     solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
@@ -5390,9 +5392,9 @@ def build_front_half(box):
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
-    # Punch the hopper funnel throat through the top wall, behind the display.
+    # Punch the funnel's throat through the top wall, behind the display.
     if box.funnel:
-        front = front.cut(_hopper_cut(inner, outer, box.funnel))
+        front = front.cut(_funnel_cut(inner, outer, box.funnel))
     # Front-panel through-holes.
     for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         front = front.cut(cutter)
@@ -5408,7 +5410,7 @@ def build_front_half(box):
 
 def build_back_half(box):
     """The whole back column, both pieces still joined at its Z seam. The
-    hopper opening crosses the Y seam, so this half takes its share of the
+    funnel opening crosses the Y seam, so this half takes its share of the
     cut — the collar bridges the seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
@@ -5417,7 +5419,7 @@ def build_back_half(box):
     # The assembled top stays flat under the core. Lands in the bottom piece.
     back = back.cut(_floor_scarf(inner, y_joint)[1])
     if box.funnel:
-        back = back.cut(_hopper_cut(inner, outer, box.funnel))
+        back = back.cut(_funnel_cut(inner, outer, box.funnel))
     yb = _y_boss(y_joint)
     bosses = box.y_bosses
     # One plug per level, standing on the back mouth off the wall it drives through.
@@ -5430,11 +5432,11 @@ def build_back_half(box):
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
     # Panel through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
-    # the C14 mains inlet, all through the back wall in the band above the
+    # the C14 mains inlet, all through the +Y wall of back-top in the band above the
     # cold core; their bodies hang in the band's open rear half.
     for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
-    # The drip tray's withdrawal slot through the −X wall, and the sleeve it lies in. The
+    # The ASSE drip pan's withdrawal slot through the −X wall, and the sleeve it lies in. The
     # sleeve's own cuts reach back through this wall, so the slot is opened here and reopened
     # there at the one shape.
     for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, inner[0] + 5.0):
@@ -5444,7 +5446,7 @@ def build_back_half(box):
 
 
 def _pan_sleeve(solid, sleeve, z0, z1):
-    """The drip tray's sleeve fused onto a −X wall and its berth cut back out, for a piece whose
+    """The ASSE drip pan's sleeve fused onto a −X wall and its berth cut back out, for a piece whose
     Z band holds the block's own top.
 
     The pack states the block as one world box rooted on that wall's inner face, and the berth
@@ -5699,7 +5701,7 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     Two rails reach inboard off the wall's inner face, grooved on the faces they turn toward
     each other, and the card slides west between them until its west edge meets the wall.
     What stops it is the wall itself, the way a lever nut bottoms in its well — so the card's
-    reach into the room is the board's own short side and not a number typed here. The bottom
+    reach into the room is the card's own short side and not a number typed here. The bottom
     rail's underside is the slab, which is what makes this a corner bracket rather than a
     shelf: it is in one piece with both faces it stands on.
 
@@ -5711,7 +5713,7 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     THE WALL IT BOTTOMS ON IS THE ONE THAT IS THERE. The card stands as low as a 32 mm card
     stands, which is under a Z seam, and a flank under a seam carries its lip's own wall down
     to the slab — so the datum is `lip_face_x` and not `interior_x`, `2 * wall` of flank and
-    not one. `enclosure_assembly.build_mq6` seats the board on the same call."""
+    not one. `enclosure_assembly.build_mq6` seats the card on the same call."""
     span, _off = _mq6.header_span()
     for sy, sz, *_foot in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
@@ -6107,7 +6109,7 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
 
     THE BEARING FACE HANGS. It is flat and it is the lowest thing on the bracket, so printed
     Z−-down it is a soffit `core_hold_reach + rear_seam_clear` off the wall and it takes print
-    support, the way the tap-water trough on this same wall does."""
+    support, the way the ASSE anchor on this same wall does."""
     face = inner[3] if face is None else face
     for sx0, sx1, aft, crown in stations:
         if not (y0 <= aft <= y1 and z0 <= crown <= z1):
@@ -6121,19 +6123,19 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
 
 # --- the tap-water chain's cradle on the −X wall ---------------------------
 #
-# The trough's own section, and what it spends on either side of the chain's axis.
-# How far the trough's upper flank runs off the axis. It is SHORT: the chain's own top flat
+# The ASSE anchor's own section, and what it spends on either side of the chain's axis.
+# How far the anchor's upper flank runs off the axis. It is SHORT: the chain's own top flat
 # stands one `clearance-floor` under the ceiling, so a lip carried up to that flat's arris is a
 # lip standing in the only air a tie could have used, and the strap climbs past this lip on its
 # way over the chain. The lower flank's reach is not stated here at all — the station carries it,
-# struck on the chain's own lowest arris, because a trough deeper than the body it holds is PETG
+# struck on the chain's own lowest arris, because an anchor deeper than the body it holds is PETG
 # holding air.
 asse_cradle_up = 9.0
 asse_v_half = 60.0          # half the V's included angle, off the axis plane
 asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is never clipped
-# THE STRAP'S CAVITY THROUGH THE TROUGH'S BACK, closed on every side but its two mouths.
+# THE STRAP'S CAVITY THROUGH THE ANCHOR'S BACK, closed on every side but its two mouths.
 #
-# STRAIGHT ON THE WEST, THE TROUGH'S OWN V ON THE EAST. The V's apex stands closest to that
+# STRAIGHT ON THE WEST, THE ANCHOR'S OWN V ON THE EAST. The V's apex stands closest to that
 # straight, so the cavity is narrowest at the axis and flares to both mouths: each mouth opens
 # `wall / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
 # leaves a strap pushed through the room to turn the vertex by cutting its corner.
@@ -6145,7 +6147,7 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # thirty millimetres of block nothing passes through.
 #
 # ITS TWO FLANKS ARE BOTH ONE `wall`. The cavity is what is LEFT between them — a `wall` off the
-# trough on the east and a `wall` off the side wall's own inner face on the west — so its width is
+# anchor on the east and a `wall` off the side wall's own inner face on the west — so its width is
 # a remainder and not a number, and every face of it is the section the rest of this box is.
 
 # --- what a strap is, wherever one is cut for on this box --------------------
@@ -6158,13 +6160,13 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # perimeter of the pair, and not of the wall the rib stands on:
 #
 #     carb-1 tube in its rib      [40.1 mm](LOOP_CARB_1)
-#     DIGITEN arm in its saddle   55.2 mm
+#     DIGITEN arm in its anchor   55.2 mm
 #     WR1110 barrel in its rib    [84.1 mm](LOOP_WR1110)
-#     ASSE barrel in its trough  100.6 mm
+#     ASSE barrel in its anchor   100.6 mm
 #
 # A 4" tie closes about 69 mm of loop, which takes the first two; the regulator's takes the 6",
 # which closes about 110. The ASSE barrel's passes both and takes the 8", and an 8" tie is a 50 lb
-# tie at 0.19" where the rest are 18 lb at 0.1" — so that trough's cavity, alone on this box, is
+# tie at 0.19" where the rest are 18 lb at 0.1" — so that anchor's cavity, alone on this box, is
 # cut to the wider strap. Every other cavity here takes the same 0.1" section at any length.
 tie_strap_w = 2.5           # the 18 lb strap, across its width — 0.1"
 tie_strap_wide_w = 4.826    # and the 50 lb strap's — 0.19"
@@ -6205,7 +6207,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     THE CHAIN IS MADE UP BY HAND AND THIS IS WHAT THAT COSTS. Five fittings on one axis, each
     threaded to its neighbour "snug + 1 turn", so neither the length of the run nor the clock any
     one of them lands at is a number this wall can know. What the wall can know is the SECTION
-    each one presents about the axis, because that is the fitting's own — so the trough is cut to
+    each one presents about the axis, because that is the fitting's own — so the anchor is cut to
     each in turn, the steps between them catch the barrel fore and aft, and the fit across the V
     is a slip and not a socket.
 
@@ -6213,17 +6215,17 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     pass over its top flat — so the storey the chain lies on is struck to leave that channel under
     the top wall, and the wall itself is never cut for it
     (`enclosure_assembly.DECK_CEILING_CLEAR`). The loop runs down the CAVITY through the back of
-    this trough, out under the block, east beneath the barrel, up its east flank, over the top flat
-    through that channel, and back into the cavity. So it closes round the chain and the trough's
+    this anchor, out under the block, east beneath the barrel, up its east flank, over the top flat
+    through that channel, and back into the cavity. So it closes round the chain and the anchor's
     own back together, and what it pulls is the chain into the V.
 
     ONE CHANNEL PER STRAP, AND EACH IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of
-    the apex with one `wall` of PETG between it and the trough, so at no station is it anything
+    the apex with one `wall` of PETG between it and the anchor, so at no station is it anything
     but a hole through solid material, and a strap in it stays where it was put. Two straps, two
     holes: the block's back is solid fore and aft of each and between them.
 
     THE BLOCK'S UNDERSIDE HANGS. Printed Z−-down that face is a horizontal soffit under the
-    lane, and it takes print support the way the drip tray's rails do — the V's own two flanks
+    lane, and it takes print support the way the ASSE drip pan's rails do — the V's own two flanks
     stand 30° off vertical and carry themselves.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
@@ -6256,13 +6258,13 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
     # and the web comes out no thinner than stated at any station.
     #
-    # IT IS THE WIDE STRAP'S CAVITY. The barrel and this trough make a 100 mm loop, past what a 4"
+    # IT IS THE WIDE STRAP'S CAVITY. The barrel and this anchor make a 100 mm loop, past what a 4"
     # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
-    # 18 lb strap the meter's saddles and the runs' ribs take.
+    # 18 lb strap the flow-meter anchors and the runs' ribs take.
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
-                f"_asse_cradle: tie band {ty:.2f} falls outside the trough's run "
+                f"_asse_cradle: tie band {ty:.2f} falls outside the anchor's run "
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. A strap's channel is cut through "
                 f"the block at its own band, so a band off either end has no channel at all.")
     apex = min(w for _y0, _y1, w, _r, _a in sections)
@@ -6274,7 +6276,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
 
 
 def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
-    """The strap's cavity: STRAIGHT on the west, the trough's own V on the east.
+    """The strap's cavity: STRAIGHT on the west, the ASSE anchor's own V on the east.
 
     Five points and one cut. The V's apex stands closest to that straight, so the cavity comes out
     narrowest in the middle and flared at both mouths — which is the reach where a hand needs it
@@ -6284,7 +6286,7 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     Both ends run one millimetre past the block's faces, so each mouth is cut open rather than
     closed by a plane coincident with the face it opens on."""
     run = 1.0 / math.tan(math.radians(asse_v_half))
-    x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the trough
+    x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the anchor
     x_w = x_wall + wall                                          # and a `wall` off the side wall
     over_up, over_dn = up + 1.0, dn + 1.0
     return (
@@ -6301,7 +6303,7 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     )
 
 
-# --- the flow meter's two saddles, off the top wall -------------------------
+# --- the flow meter's two anchors, off the top wall ------------------------
 #
 # A BORE, CONCENTRIC WITH THE BARREL IT TAKES. The arms are round, so the seat is round: half a
 # cylinder on the arm's own axis, opening downward, and the arm comes straight up into it.
@@ -6310,12 +6312,12 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
 # That plane is where the arc is widest, so the rib's own flanks stand `seat_r + wall` off the axis
 # and each lip comes out a flat strip one `wall` across. An arc carried past its widest point runs
 # out to nothing against the flank and leaves a feather no nozzle can lay down.
-digiten_saddle_wall = 3.0
-# ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One strap crosses each saddle, so the rib is that
-# strap's cavity with `tie_cav_wall` of itself at each end of it, and the band `digiten_saddles`
+flow_meter_anchor_wall = 3.0
+# ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One strap crosses each anchor, so the rib is that
+# strap's cavity with `tie_cav_wall` of itself at each end of it, and the band `flow_meter_anchors`
 # reads off the barrel is what that rib is centred in.
-digiten_saddle_len = tie_cav_w + 2.0 * tie_cav_wall
-# The strap's cavity through each saddle, over the bore. Its floor is the SEAT'S OWN ARC offset out
+flow_meter_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
+# The strap's cavity through each anchor, over the bore. Its floor is the SEAT'S OWN ARC offset out
 # by one `wall` — concentric, so the web reads `wall` all the way round — and ITS CEILING IS THE
 # TOP WALL'S OWN INNER FACE. The channel is everything left between them, deepest over the crown
 # and flaring as the arc falls away to each mouth.
@@ -6326,7 +6328,7 @@ digiten_saddle_len = tie_cav_w + 2.0 * tie_cav_wall
 
 
 def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
-    """A saddle's own room: half a cylinder on the arm's axis, opening DOWNWARD, and the whole of
+    """An anchor's own room: half a cylinder on the arm's axis, opening DOWNWARD, and the whole of
     the room under it.
 
     The arc runs from one axis-plane lip round the crown to the other, and the box under it carries
@@ -6342,7 +6344,7 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 # A VALVE TRAY IS A PLATE WALL TO WALL, with one four-socket `valve_seat` SUNK into it per valve
 # on the deck it stands under. `valve_tray` states its thickness, its margin and its seat height
 # and draws one in its own frame; this turns that onto the deck's own plane and fuses the plate
-# into the piece, the way `_asse_cradle` fuses the ASSE anchor and `_digiten_saddles` the flow
+# into the piece, the way `_asse_cradle` fuses the ASSE anchor and `_flow_meter_anchors` the flow
 # meter's two Vs — and then cuts the seats and the ports' channels out of it.
 #
 # THE PLATE IS THE BOSS. A boss is material round a socket, and a plate one socket and one wall
@@ -6412,14 +6414,14 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
 #
 # A TRAY IS THE PUMP CASE WITH ITS CYLINDER CUT OFF — `pump_case`'s base plate, its ramp, its
 # octagon bore wall and one shoulder of its tower, so it wraps the head's crown AND the boss's.
-# `pump_tray` states what that cut adds and draws one in the pump's own frame; `build_cartridge`
-# roots it on the cartridge's face and fuses it into that piece.
+# `pump_tray` states what that cut adds and draws one in the pump's own frame; `build_pump_cartridge`
+# roots it on the pump cartridge's face and fuses it into that piece.
 #
 # THE STRAPS ARE WHAT HOLD A PUMP UP. It hangs under its tray, so two close round it and the
 # tray together through the plate's four channels, reaching under the bracket the part carries at
 # that crown — the meter's bargain, on the heaviest body either wall carries.
 #
-# A TRAY IS A CANTILEVER OFF THE CARTRIDGE'S FACE AND NOTHING ELSE, and one web between the two
+# A TRAY IS A CANTILEVER OFF THE PUMP CARTRIDGE'S FACE AND NOTHING ELSE, and one web between the two
 # trays and the across-runs to the deck's own edges are what it meets. Each is the trays' own
 # plate — `pump_tray.PLATE` thick, in that plate's own band — so the storey comes out one plate,
 # and its edge strips ride the bay's rails. The webs to the side walls and the aft web onto a
@@ -6476,8 +6478,8 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     return solid
 
 
-def _digiten_saddles(solid, roots, station, y0, y1, z0, z1):
-    """The flow meter's two saddles hung off the top wall, for the piece that owns the ceiling.
+def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
+    """The flow meter's two anchors hung off the top wall, for the piece that owns the ceiling.
 
     `roots` IS THE PIECE'S OWN INTERIOR AND NOT THE BOX'S (`piece_root_faces`). The rib's two
     ends climb to the face it roots on and the strap's channel is the room left between them, so
@@ -6490,36 +6492,36 @@ def _digiten_saddles(solid, roots, station, y0, y1, z0, z1):
     THE SEAT IS A BORE AND NOT A V, because the thing it takes is round. Half a cylinder on the
     barrel's own axis, `seat_r` across, so the seat and the barrel share a surface all the way round
     instead of touching on two lines. It stops on the barrel's own axis plane — the widest the arc
-    gets — and the rib carries `digiten_saddle_wall` past that, so each lip is a flat strip one wall
+    gets — and the rib carries `flow_meter_anchor_wall` past that, so each lip is a flat strip one wall
     across. Carried any further round, the arc would run out to nothing against the flank.
 
     THE STRAP IS THE LOAD PATH. A bore that opens downward carries nothing, so the two ties here
-    are not the trough's ties: cut them and the meter comes out of its saddles. What is hanging is
+    are not the ASSE anchor's ties: cut them and the meter comes out of its anchors. What is hanging is
     a purchased part of a few tens of grams on two nylon straps.
 
     Printed Z−-down the rib HANGS OFF THE TOP WALL and starts on its two lips — one
-    `digiten_saddle_wall` strip either side of the bore, the saddle's whole length, with nothing
+    `flow_meter_anchor_wall` strip either side of the bore, the anchor's whole length, with nothing
     under them. Everything over those lips is the arc closing inward on itself, so the hood
     carries its own crown and the lips are the only thing in it support has to reach."""
     if not station or z1 < roots[5] - 1e-6:
         return solid
     x_axis, z_axis, seat_r, bands = station
-    reach = seat_r + digiten_saddle_wall
+    reach = seat_r + flow_meter_anchor_wall
     for by0, by1 in bands:
         if not (y0 <= by0 and by1 <= y1):
             continue
-        if by1 - by0 < digiten_saddle_len - 1e-6:
+        if by1 - by0 < flow_meter_anchor_len - 1e-6:
             raise ValueError(
-                f"_digiten_saddles: the barrel leaves {by1 - by0:.2f} mm between the body's rim "
-                f"and the collet's ring, and a saddle is {digiten_saddle_len:.2f} — one strap's "
+                f"_flow_meter_anchors: the barrel leaves {by1 - by0:.2f} mm between the body's rim "
+                f"and the collet's ring, and an anchor is {flow_meter_anchor_len:.2f} — one strap's "
                 f"cavity with `tie_cav_wall` at each end of it. Either the band gives way "
                 f"(`DIGITEN_BODY_CLEAR`, `DIGITEN_COLLET_FREE`) or the rib does.")
         mid = (by0 + by1) / 2.0
-        sy0, sy1 = mid - digiten_saddle_len / 2.0, mid + digiten_saddle_len / 2.0
+        sy0, sy1 = mid - flow_meter_anchor_len / 2.0, mid + flow_meter_anchor_len / 2.0
         z_crown = z_axis + seat_r + wall          # one `wall` over the bore's own crown
         if roots[5] - z_crown < tie_strap_t + 1e-6:
             raise ValueError(
-                f"_digiten_saddles: a `wall` off the bore's crown leaves {roots[5] - z_crown:.3f} "
+                f"_flow_meter_anchors: a `wall` off the bore's crown leaves {roots[5] - z_crown:.3f} "
                 f"mm under the top wall's inner face, and the strap is {tie_strap_t:.3g} thick. The "
                 f"storey the meter stands on is what gives way here "
                 f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the wall.")
@@ -6564,7 +6566,7 @@ def _digiten_saddles(solid, roots, station, y0, y1, z0, z1):
 # THESE PIECES ARE POPULATED INVERTED ON THE BENCH. A seat hanging off the top wall is an
 # upward-opening cradle at the moment a tube is laid in it and its strap threaded.
 #
-# ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `digiten_saddle_len` strikes: one strap
+# ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `flow_meter_anchor_len` strikes: one strap
 # crosses one anchor, so the rib is that strap's cavity with `tie_cav_wall` of itself at each end.
 tube_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
 # A 1 mm strap needs its own thickness plus routing air, not every millimetre between a small tube
@@ -6760,7 +6762,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     tunnel is the whole of what is left.
 
     ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece prints on its Z− face
-    with the back wall standing on the bed, so the tunnel's own soffit is `c14_tunnel_len` of
+    with the +Y wall standing on the bed, so the tunnel's own soffit is `c14_tunnel_len` of
     ceiling starting in air; run down the wall at 45° it is a ramp the wall reaches under. The
     crown needs no such thing — it is clipped to the room, so above the aperture the section runs
     out into the top wall the way the port field's top row of bosses does.
@@ -6888,7 +6890,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
         if y_side == "front":
-            # And front-bottom's own extra section on the west flank, welled round the board.
+            # And front-bottom's own extra section on the west flank, welled round the card.
             piece = piece.fuse(_front_bottom_flank_skin(
                 inner, box.west_cradle, y_joint, zj).intersect(col))
         if y_side == "back":
@@ -6942,7 +6944,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # section rather than out of the skin it replaced.
             piece = piece.fuse(_back_top_wall(inner, outer, box, zj))
             # AND ITS CEILING, which is two corbelled side strips with the slide-in panel
-            # between them. Here for the same reason the two sections above are: the trough's V,
+            # between them. Here for the same reason the two sections above are: the ASSE anchor's V,
             # the chain's bores, the wells and every bore below are cut AFTER this, so each is
             # cut out of what the corbel left rather than filling a pocket back in.
             piece = _back_top_ceiling(piece, inner, y_joint)
@@ -6990,7 +6992,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = _cond_cradle(piece, inner, box.cond_cradle, ylo, yhi, zlo, zhi)
     piece = _cond_mount(piece, inner, box.cond_mount, ylo, yhi, zlo, zhi)
     # The cold core's own two: the front corner blocks on the same slab those rails root on, and
-    # the hold-down brackets a storey up on the back wall. The blocks carry a bore, so they go on
+    # the hold-down brackets a storey up on the +Y wall. The blocks carry a bore, so they go on
     # with the other pockets — after everything that could fuse material back into one.
     piece = _core_stops(piece, inner, box.core_stops, ylo, yhi, zlo, zhi)
     piece = _core_holds(piece, inner, box.core_holds, ylo, yhi, zlo, zhi,
@@ -7000,9 +7002,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     piece = _vent_chase(piece, inner, outer, box.vent_chase, ylo, yhi, zlo, zhi)
     # And the tap-water chain's, on the same wall a storey up. After the tray's rails, whose
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
-    # trough this fuses, so nothing may fuse into them afterwards.
+    # ASSE anchor this fuses, so nothing may fuse into them afterwards.
     piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
-    # And the flow meter's two saddles off the same piece's ceiling — the stations `ceiling_stations`
+    # And the flow meter's two anchors off the same piece's ceiling — the stations `ceiling_stations`
     # leaves this piece, because back-top's ceiling over the panel's field is the PANEL and a rib
     # rooted there roots on it (`../ceiling-panel/ceiling_panel.py`).
     #
@@ -7010,8 +7012,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # room its two ends leave under the face it stops on, so the plane they are drawn to has to be
     # the plane this piece puts there (`piece_root_faces`).
     roots = piece_root_faces(inner, y_side, z_side)
-    saddles, ribs = ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=False)
-    piece = _digiten_saddles(piece, roots, saddles, ylo, yhi, zlo, zhi)
+    meter_anchors, ribs = ceiling_stations(box.flow_meter_anchors, box.tube_anchors, panel=False)
+    piece = _flow_meter_anchors(piece, roots, meter_anchors, ylo, yhi, zlo, zhi)
     # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
@@ -7024,16 +7026,16 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(inner, outer, box.collet_plate, box.pump_bay))
     piece = _valve_trays(piece, inner, box.valve_trays, ylo, yhi, zlo, zhi)
-    # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
+    # The pump trays are the pump cartridge's (`build_pump_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
     # plate drops into — and then the opening itself, cut last of the wall's work.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
         tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
         piece = piece.fuse(_bay_floor(inner, y_joint, box.collet_plate, box.pump_trays))
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
-    # reason the trough is: every one of these is a rib with a cavity cut through it.
+    # reason the ASSE anchor is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, roots, inner, ribs, ylo, yhi, zlo, zhi)
-    # And the nameplate — the pocket on the back wall's outer face, the plateau that floors it on
+    # And the nameplate — the pocket on the +Y wall's outer face, the plateau that floors it on
     # the inner one, and the two screw bosses standing off that. LAST of this wall's work, like
     # every other pocket: it is cut a screw seat deep, which is deeper than the wall's own stock,
     # so anything fused onto this face afterwards would stand in the plate's own seat. The cold
@@ -7042,12 +7044,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # section, instead of poking through into the plate.
     if y_side == "back":
         piece = _nameplate(piece, box.nameplate, outer, oy1, zlo, zhi)
-    # And the flat ceiling's two strips over the hopper opening's flanks, on the front
+    # And the flat ceiling's two strips over the funnel opening's flanks, on the front
     # top alone — the piece whose ceiling is nothing but those strips.
     if y_side == "front" and z_side == "top" and box.funnel:
         piece = _ceiling_corbels(piece, inner, outer, box.funnel, y_joint)
     # The bay's opening, after every fuse that stands near it: what leaves through it is
-    # the cartridge, and what it takes from this piece is what `build_cartridge` keeps.
+    # the pump cartridge, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
         # The seam's ceiling first: the opening's floor is this slab's top, so it has to be
         # standing before the opening is cut or the cut would take the plane it stands on.
@@ -7063,7 +7065,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # face and gets past the reveal runs back out the front.
         piece = piece.cut(_sill_wash(inner, outer, bay_floor_z(box.pump_trays)[1]))
         # The plate's fore restraint must survive the release, so it belongs to front-top and
-        # stands OUTSIDE the cartridge sweep. Fused after the opening and its sill are cut:
+        # stands OUTSIDE the pump cartridge sweep. Fused after the opening and its sill are cut:
         # these cheeks intentionally stand at the opening's aft outer edges.
         piece = piece.fuse(_plate_fore_guides(
             inner, outer, box.pump_bay, box.collet_plate, box.pump_trays))
@@ -7157,7 +7159,7 @@ def _report_levels(box):
 
 def build_pieces(box):
     """The printable pieces of one box — the four quadrants and, when the pack stands
-    pumps, the cartridge that slides out of the front pair — and the assembly of them in
+    pumps, the pump cartridge that slides out of the front pair — and the assembly of them in
     place with the seams intact.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
@@ -7172,7 +7174,7 @@ def build_pieces(box):
 
     def _product(n):
         if n == "pump-cartridge":
-            return build_cartridge(box, halves_cache=cache)
+            return build_pump_cartridge(box, halves_cache=cache)
         if n == "pump-cap":
             return build_pump_cap(box, halves_cache=cache)
         return build_piece(box, *n.split("-"), halves_cache=cache)

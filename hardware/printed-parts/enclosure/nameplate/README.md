@@ -1,9 +1,9 @@
-# Rear-Wall Nameplate
+# Nameplate
 
 The plate the machine is named and rated on: [104.53 mm](PLATE_W) × [66.07 mm](PLATE_H) ×
 [4.5 mm](NAMEPLATE_T), corners r[3 mm](PLATE_CORNER) and its back edge chamfered
 [3 mm](PLATE_BEVEL) at 45°, lying flush in a pocket of `enclosure-back-top`'s outer face, in the
-field east of the flavour chips. One plate per unit, serialized. Visible after install.
+field east of the flavour rings. One plate per unit, serialized. Visible after install.
 
 Cut by [`nameplate.py`](nameplate.py) → `nameplate-NNN.step`; the pocket, the plateau the wall
 thickens to behind it, the two screw bosses and their heat-set bores are cut by
@@ -30,14 +30,14 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 ## The type
 
 One face, `bulkhead_ring.WORD_FONT`, in two registers. The name and the block are set at
-[6.5](TITLE_EM) — `bulkhead_ring.WORD_SIZE`, the em the bulkhead chips beside this plate are
+[6.5](TITLE_EM) — `bulkhead_ring.WORD_SIZE`, the em the bulkhead rings beside this plate are
 lettered at. The link is set at [6.05](LINK_EM): the em that brings it out at
 [88.8 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
 marks that measure the same. Every serial is four digits and this face sets figures on one
 advance, so that holds from unit 0001 to 9999.
 
 The lettering lies in a recess [1 mm](INK_DEPTH) into the plate's face and fills it flush — the
-port chip's construction at another size, printed in a second filament.
+bulkhead ring's construction at another size, printed in a second filament.
 
 ## The two screws
 

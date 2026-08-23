@@ -1,8 +1,9 @@
-"""Rear-wall nameplate — the plate the machine is named and rated on.
+"""Nameplate — the plate the machine is named and rated on.
 
-A flat plate lying in a pocket of the back wall's outer face, flush with it, in the field east
-of the flavour chips. Two M3 cap screws hold it; their heads land in counterbores sunk into the
-plate itself, so the face a customer meets is one plane of plate, head and wall.
+A flat plate lying in a pocket of the +Y wall of back-top's outer face, flush with it, in
+the field east of the flavour chips. Two M3 cap screws hold it; their heads land in
+counterbores sunk into the plate itself, so the face a customer meets is one plane of plate,
+head and wall.
 
     THICK     a screw seat's own section — the head's height and the land under it. The plate
               carries it EVERYWHERE, so nothing stands off its back
@@ -26,8 +27,8 @@ across the face — so its two screws stand at mid-height.
 THE TYPE IS A SECOND SOLID, as the chips' words are: it lies in a recess `INK_DEPTH` into the
 plate's outboard face and fills it flush, printed in the second filament.
 
-Coordinate frame — the wall's, as `bulkhead_ring` states it, so the assembly seats one with no turn
-of its own:
+Coordinate frame — the wall's, as `bulkhead_ring` states it, so the assembly seats one with no
+turn of its own:
   Y = out through the wall. +Y = outboard, toward the customer.
   Origin = the plate's INBOARD face at its own centre. The plate spans y = 0 to y = THICK and
       nothing reaches below y = 0 — that plane is the bed.
@@ -64,10 +65,10 @@ sys.path.insert(0, str(next(p for p in _here.parents
 from _cadq_export import export_assembly              # noqa: E402
 from _materials import step_safe                      # noqa: E402
 from docgen import substitute_md                      # noqa: E402
-import _y_wall_dimensions as _rear                # noqa: E402
+import _y_wall_dimensions as _rear                    # noqa: E402
 import _nameplate_dimensions as _plan                 # noqa: E402
 import _enclosure_interface as _enc                   # noqa: E402
-import bulkhead_ring as _ring                             # noqa: E402
+import bulkhead_ring as _ring                         # noqa: E402
 
 
 # --- the two screws --------------------------------------------------------
@@ -193,9 +194,9 @@ def seat() -> tuple:
 
 # --- the type --------------------------------------------------------------
 #
-# One face, `bulkhead_ring.WORD_FONT` — what the chips beside this plate are lettered in and what the
-# customer's sheet is set in — at three sizes. `FINE_EM` is the smallest, and the bridge and the
-# stroke it leaves are what `selftest` holds against the tip.
+# One face, `bulkhead_ring.WORD_FONT` — what the rings beside this plate are lettered in and
+# what the customer's sheet is set in — at three sizes. `FINE_EM` is the smallest, and the
+# bridge and the stroke it leaves are what `selftest` holds against the tip.
 FONT = _ring.WORD_FONT
 FONT_KIND = _ring.WORD_KIND
 TITLE_EM = _ring.WORD_SIZE
@@ -271,7 +272,7 @@ def line(s: str, em: float, x_start: float, z_mid: float):
 
 # --- the brand mark --------------------------------------------------------
 #
-# The soda glass the board silkscreens (`/hardware/pcb/pcba/logo.ts`) and the app icon draws
+# The soda glass the main board silkscreens (`/hardware/pcb/pcba/logo.ts`) and the app icon draws
 # (`/ios/AppIcon.svg`), as stroked outline: the glass, the liquid's surface, and four bubbles.
 # Coordinates are the icon's own 1024 viewBox, Y down.
 _GLASS_SVG_H = 530.0

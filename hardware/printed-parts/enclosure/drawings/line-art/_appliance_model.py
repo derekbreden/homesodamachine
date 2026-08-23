@@ -78,12 +78,12 @@ PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
 # drawing carries exactly the fittings the machine presents to the room — the
 # three umbilical unions on two columns at [40.36 mm](PANEL_PITCH) pitch, the tap-water
 # union on its own storey below them, the mains inlet, and the CO2 inlet under
-# it. All of them on the back wall, because that is where the machine puts them.
+# it. All of them on the +Y wall of back-top, because that is where the machine puts them.
 FITTINGS = _ea.THROUGH_WALL
 
 # Bodies seated in an OPENING rather than through a wall: the funnel standing in
 # the top wall's throat, and the display let into the 45° facet. Each is drawn
-# because a customer sees it — the funnel down the hopper, the screen on the
+# because a customer sees it — the funnel in the top wall, the screen on the
 # facet — and neither is a feature this file draws.
 SEATED = ("funnel", "display")
 
@@ -125,7 +125,7 @@ def build_appliance() -> cq.Workplane:
 # Printed port markings
 # ---------------------------------------------------------------------------
 #
-# The [3](MARKED_N) rings the rear wall wears: printed markings on the wall,
+# The [3](MARKED_N) rings that wall wears: printed markings on the wall,
 # not geometry. The renderer projects each circle to a filled, self-outlined
 # SVG path and clips it by the projected silhouette of the fitting standing in
 # it, so the visible remainder reads as a ring around the port.
@@ -199,10 +199,10 @@ MARKED_PORTS = (("co2-disc", "co2-inlet", CO2_DISC_COLOR),
                 ("water-disc", "bulkhead-water", WATER_DISC_COLOR),
                 ("carb-disc", "bulkhead-carb", CARB_DISC_COLOR))
 
-# The hopper throat carries no marking — it is an opening, not a port — so the
+# The funnel's throat carries no marking — it is an opening, not a port — so the
 # drawing hands out an aim point instead, on the funnel centre the top wall is
 # cut at. Its face is the TOP one, which is the wall the opening is in.
-THROAT_ANCHOR = "hopper-throat"
+THROAT_ANCHOR = "funnel-throat"
 
 
 # Iso camera directions (the camera sits along these from the scene centre).
@@ -236,7 +236,7 @@ def anchors(view: str) -> list:
     """Invisible aim points, projected through the same camera, so a consumer of
     the SVG can point at a feature that carries no marking of its own.
 
-    One so far: the hopper throat, at the funnel centre `enclosure._hopper_hole`
+    One so far: the funnel's throat, at the funnel centre `enclosure._funnel_hole`
     cuts the opening on, on the top wall's outer face."""
     if not _faces_camera((0.0, 0.0, 1.0), view):
         return []

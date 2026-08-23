@@ -9,7 +9,7 @@ bodies and a strap approach need that volume.
 WHY IT IS A SEPARATE PART. enclosure-back-top prints mouth-down on its seam rim with the
 build axis +Z (`enclosure.py`'s module docstring), so a ceiling printed in that piece is
 a roof laid down `piece_h` over the open service bay. front-top's ceiling is two
-corbelled side strips with the hopper throat as the void between them. back-top has no
+corbelled side strips with the funnel's throat as the void between them. back-top has no
 throat of its own, so its ceiling is this part instead: a flat plate on the bed, show face
 down, all pockets opening upward, slid in through the Y-seam mouth before the front half
 telescopes in.
@@ -40,10 +40,10 @@ Plan:
     the field between them carries continuously to the wall.
 
 The two screw stations pin the fore end against the slide. Aft of them the tongues hold
-the panel down and the back wall holds it in, so nothing else is fastened.
+the panel down and the +Y wall holds it in, so nothing else is fastened.
 
 AND EVERY RIB ROOTED ON THE CEILING OVER THIS FIELD IS THIS PART'S. The flow meter's two
-saddles and the three anchors bored for `carb-1`, `co2-2` and the WR1110's barrel hang from
+anchors and the three anchors bored for `carb-1`, `co2-2` and the WR1110's barrel hang from
 this field.
 `enclosure.ceiling_stations` splits the stations and both parts read that one call, so
 neither can grow a rib the other grew too. It is also the better bench for them: a seat
@@ -94,11 +94,11 @@ relief_corner_r = 3.0
 piece_h = show_z - _enc.z_seam
 
 # The throat's own width. The panel is exactly as wide as the funnel's collar so the two
-# edges of the ceiling channel run unbroken from the display facet to the back wall.
+# edges of the ceiling channel run unbroken from the display facet to the +Y wall.
 panel_w = _funnel.collar_w
 panel_half_w = panel_w / 2.0
 # The collar's aft edge — the box stands the collar's front on `funnel_front_y` and the
-# basin reaches aft for its capacity (`enclosure_assembly.funnel_centre`).
+# funnel reaches aft for its capacity (`enclosure_assembly.funnel_centre`).
 fore_y = _enc.funnel_front_y + _funnel.collar_d
 # back-top's own back-wall face. The box's interior rear plane is `rear_plane_y`; this
 # piece's wall stands `back_top_wall_t` in from the exterior and the panel butts it.
@@ -252,8 +252,8 @@ def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
 
 def _strap_reliefs(box):
     """Full anchor footprints whose existing strap approach enters the deeper field."""
-    _saddles, ribs = _enc.ceiling_stations(
-        box.digiten_saddles, box.tube_anchors, panel=True)
+    _meter_anchors, ribs = _enc.ceiling_stations(
+        box.flow_meter_anchors, box.tube_anchors, panel=True)
     raw = structural_stock()
     pockets = []
     for mid, u, n, seat_r in ribs:
@@ -300,15 +300,15 @@ def build(box=None):
     build keeps the stock whole; the machine build hands in the exact relief stations.
 
     EVERY RIB ROOTED ON THE INTERIOR CEILING OVER THIS FIELD ROOTS ON THIS PART. The flow meter's
-    two saddles and the three anchors under the top wall used to hang off back-top; back-top has no
+    two anchors and the three run anchors under the top wall used to hang off back-top; it has no
     ceiling there any more, so they hang off this. `enclosure.ceiling_stations` is the one call
     that splits them, and back-top reads the same call for its own half, so neither can grow a rib
     the other grew too. The ribs are built by `enclosure`'s own two builders on the box's own
-    `inner`, which is what keeps a saddle here the same saddle it was on the piece.
+    `inner`, which is what keeps an anchor here the same anchor it was on the piece.
 
     AND IT IS A BETTER BENCH FOR THEM. A seat hanging off the top wall is an upward-opening cradle
     with the piece inverted, and this panel inverted is a flat plate on the bench: the meter drops
-    into its two saddles and the runs into their three, straps go round, and the loaded panel then
+    into its two anchors and the runs into their three, straps go round, and the loaded panel then
     slides into back-top's dados."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
     stock = (_relieved_stock(box) if box is not None
@@ -336,14 +336,15 @@ def build(box=None):
         box.inner, box.outer, box.c14, box.back_ports, structural_stock())
     if c14_cap is not None and c14_cap.Volume() > 1e-6:
         solid = solid.union(c14_cap)
-    saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
+    meter_anchors, ribs = _enc.ceiling_stations(
+        box.flow_meter_anchors, box.tube_anchors, panel=True)
     # THE CEILING THESE ROOT ON IS THIS PANEL'S UNDERSIDE. A rib's two ends climb to the face it
     # stops on and the strap's channel is the room they leave between them, so what the builders
     # are handed is the plane this part puts there — `enclosure.piece_root_faces` is the same
     # substitution for a wall, on the pieces that carry one thicker than the box's own.
     roots = box.inner[:5] + (underside_z,)
     body = solid.val()
-    body = _enc._digiten_saddles(body, roots, saddles,
+    body = _enc._flow_meter_anchors(body, roots, meter_anchors,
                                  fore_y, aft_y, box.inner[4], show_z)
     body = _enc._tube_anchors(body, roots, box.inner, ribs,
                               fore_y, aft_y, box.inner[4], show_z)
@@ -432,8 +433,9 @@ def main():
           f"panel insert {screw_insert_open_z:g}..{screw_insert_end_z:g}; "
           f"{screw_reach:.2f} of {_enc.screw_len:g} spent, {screw_tip_air:.2f} tip air")
     print(f"  brim:    lands y {fore_y:g}..{fore_y + brim_seat:g} on the show face")
-    saddles, ribs = _enc.ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=True)
-    print(f"  carries: {0 if saddles is None else len(saddles[3])} meter saddle(s), "
+    meter_anchors, ribs = _enc.ceiling_stations(
+        box.flow_meter_anchors, box.tube_anchors, panel=True)
+    print(f"  carries: {0 if anchors is None else len(anchors[3])} meter anchor(s), "
           f"{len(ribs)} ceiling rib(s) — "
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
     print(f"  reliefs: {len(box.ceiling_reliefs)} body pocket(s), "

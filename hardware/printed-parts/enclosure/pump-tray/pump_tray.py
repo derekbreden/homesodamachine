@@ -12,8 +12,8 @@ takes the boss on each of its eight faces and both its ledges; and the shoulder 
 leaves lands on the boss's crown and wraps ITS top edge. The can rises out of the tower's own
 bore and the tray never touches it.
 
-It is the pump cartridge's own material (`enclosure.build_cartridge`), fused onto its deck the
-way the tap-water trough and the meter's saddles are fused onto their walls, one per pump off
+It is the pump cartridge's own material (`enclosure.build_pump_cartridge`), fused onto its deck the
+way the ASSE anchor and the flow-meter anchors are fused onto their walls, one per pump off
 the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the
 face's own pump relief. NO TRAY SHIPS AS A PART.
 
