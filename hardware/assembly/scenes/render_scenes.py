@@ -2,7 +2,7 @@
 
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py             # all
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py back-top    # one scene
-    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py en08-drippan # one part
+    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py en08-asse-drip-pan # one part
     tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py --force     # anyway
 
 A PART SHOT COSTS NO APPLIANCE — its subject is a STEP — so a run asked for nothing but part
@@ -429,7 +429,7 @@ def draw_part(part, batch, force=False) -> Path:
 
     NO MACHINE IS STOOD FOR THIS. The subject is a file, so the picture costs the render and
     the digest of the bytes it drew — which is also what makes a part shot answerable on its
-    own: `render_scenes.py en08-drippan` needs no appliance."""
+    own: `render_scenes.py en08-asse-drip-pan` needs no appliance."""
     # THE RENDERER IS READ WHETHER OR NOT THIS RUN STARTS IT, and so is the STEP. A part whose
     # geometry and pose both stand skips the browser, and a trace of that run would declare
     # neither the file that draws every picture here nor the file it draws.

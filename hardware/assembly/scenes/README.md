@@ -19,7 +19,7 @@ digest; its subject is a file rather than a set of bodies, and it costs no appli
 | `cold-core-open` | The core closed underneath and open at the top, every line standing out of the mouth, ready for its body pour |
 | `cold-core` | The whole core, its crown populated and a tube standing in each of its seven cap conduits |
 | `back-half` | The two back quadrants mated, through the Y-seam mouth they hand the front half |
-| `hopper-drain` | The funnel inverted, its drain stub and clamp on the spout |
+| `funnel-drain` | The funnel inverted, its drain stub and clamp on the spout |
 
 ## Which bodies
 
@@ -58,7 +58,7 @@ with it and the camera stays a camera.
 **`later` is what the piece holds and the unit has not got yet.** The ASSE drip pan rides channels
 printed on `enclosure-back-top` and the funnel sits in an opening `enclosure-front-top` takes its
 share of — the fastening table is right about both — and each arrives through a wall with the box
-already standing ([EN-08](/hardware/assembly/cards/en-08-drip-tray.html), FS). So neither is on
+already standing ([EN-08](/hardware/assembly/cards/en-08-asse-drip-pan.html), FS). So neither is on
 its bench unit and neither is in its picture, and whatever stands on one goes with it: the
 moisture plate lies in the tray. A name here the roots do not hold is reported.
 
