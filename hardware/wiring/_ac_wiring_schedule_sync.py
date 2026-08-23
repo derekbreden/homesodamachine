@@ -117,9 +117,11 @@ len_cold_core_mm = 600  # SIG-1/2/3/10/11 (shelf → cold core), SIG-9 (drip pan
 len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (front-face 4.3B config display, internal)
 
 # ─── Loom connector pitch ─────────────────────────────────────────────
-# JST XH 2.54 mm — every board loom connector (J1–J9, J11, J13); J10 is
-# the 5.0 mm screw block.
-jst_pitch_mm = 2.54
+# JST XH 2.50 mm — every board loom connector (J1–J9, J11, J13); J10 is
+# the 5.0 mm screw block. XH is a 2.50 mm series, not 2.54: across J1's
+# 9 ways the two differ by 0.36 mm, so a wafer laid out on 0.1" would
+# walk off the housing.
+jst_pitch_mm = 2.50
 
 
 def main():

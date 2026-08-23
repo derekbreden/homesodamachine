@@ -103,7 +103,7 @@ Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 / S
 
 ## Loom terminations
 
-Board end: every low-voltage loom lands in a JST XH [2.54 mm](JST_PITCH) crimp housing mating its labeled wafer — one housing per connector, pin labels on the silk, so a loom cannot seat shifted. J4 and J7 share the 7P housing, so those two land by loom label ([`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). The one exception is the [12 V](V_DC) inlet J10: ferrules under its 5.0 mm screw clamps.
+Board end: every low-voltage loom lands in a JST XH [2.5 mm](JST_PITCH) crimp housing mating its labeled wafer — one housing per connector, pin labels on the silk, so a loom cannot seat shifted. J4 and J7 share the 7P housing, so those two land by loom label ([`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). The one exception is the [12 V](V_DC) inlet J10: ferrules under its 5.0 mm screw clamps.
 
 Device end: female disconnects at valves, pumps, and fan; the current donor compressor uses its preserved factory-external electrical interface, whose connector and polarity mapping remain to be recorded; ring terminals land at ground studs; sensor and reed leads land per device. Shared-rail fan-outs happen at the device cluster, never at the board — one `COM` / `GND` conductor rides the trunk and explodes in a Wago lever nut at the manifold or reservoir (221-420 for the >5-conductor nodes, 221-415 for the rest). Each of the five stands in a press-fit well printed into the side wall its own cluster stands against, so the splice is held where the branches part:
 
