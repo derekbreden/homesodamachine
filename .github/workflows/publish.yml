@@ -50,8 +50,10 @@ on:
         type: boolean
 
 # ONE PUBLISH AT A TIME, AND EVERY ONE OF THEM FINISHES. A run ends by writing the lock — the
-# receipt naming the source commit and the bundle built from it — and `render.yaml`'s buildFilter
-# is that one file, so a run that does not finish is a change that never reaches the site.
+# receipt naming the source commit and the bundle built from it — and that receipt is how new
+# GEOMETRY reaches the site, so a run that does not finish is a solid that never arrives. The
+# site's own code does not come this way (`render.yaml`'s buildFilter names `web/**` too), so a
+# page waits on nobody here; what waits is the artwork this run redraws.
 # Several sessions commit into this checkout at once and a run takes minutes, so requests do pile
 # up behind the one building; GitHub holds a single request there and collapses the rest to the
 # newest, which is the one worth the runner.

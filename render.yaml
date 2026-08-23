@@ -10,8 +10,8 @@ services:
     plan: starter
     region: oregon
     branch: main
-    # The service stays rooted at the repository so the lock-only build filter is the sole
-    # deploy trigger. Commands enter /web explicitly; the server still reads the sibling
+    # The service stays rooted at the repository so the build filter below can name paths in
+    # either tree. Commands enter /web explicitly; the server still reads the sibling
     # hardware tree through path.join("..", "hardware") in web/server.js.
     # `npm ci` installs web/package-lock.json exactly, and stops when it disagrees with
     # package.json. That lockfile is what this build ships; web/README.md carries it.
@@ -25,16 +25,26 @@ services:
     startCommand: cd web && npm start
     healthCheckPath: /
     autoDeploy: true
-    # Hardware deploys at the publication boundary. A source push first runs
-    # publish, whose lock-only commit names the exact source and bundle; deploying the
-    # source commit itself would briefly serve its new pages with the preceding CAD bundle.
-    # Even a hardware-only change with no artifact targets advances the lock's source, so every
-    # served commit reaches Render through this one path. The publisher also advances the lock
-    # for web, update and Render-config changes, so a mixed source commit cannot bypass the
-    # boundary through a second matching path.
+    # TWO LANES, AND THE FAST ONE IS THE POINT. A push that changes the site itself — its code,
+    # its posts, this file — deploys on that push, serving whatever bundle the lock currently
+    # names. Nothing about it waits for CAD: the solids it stands on are the ones already
+    # published, and they are minutes old at worst.
+    #
+    # HARDWARE COMES THROUGH THE LOCK, because the bundle is where the solids are. `publish`
+    # cuts what a hardware push owes, uploads the bundle and commits the lock, and that
+    # lock-only commit is what deploys the new geometry.
+    #
+    # SO A WEB PUSH CAN LAND AHEAD OF THE ARTWORK IT CHANGES. `render-step-posed-runtime` and
+    # `quickstart-art` stand this same viewer to draw the assembly cards, so a viewer change is
+    # an input to those pictures — the page moves on the push, the pictures move when the
+    # publish that redraws them lands, and the site is briefly newer than them. That window is
+    # the price of the fast lane and it closes itself.
     buildFilter:
       paths:
         - hardware/cad-artifacts.lock.json
+        - web/**
+        - updates/**
+        - render.yaml
     envVars:
       - key: DATABASE_URL
         fromDatabase:
