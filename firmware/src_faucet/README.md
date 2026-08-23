@@ -4,6 +4,11 @@ The Waveshare ESP32-S3-Touch-LCD-1.47 in the dispense head. Its 172×320 logo is
 glass-facing flavor selector, and its P1 GPIO43 TX / GPIO44 RX pins cross to the controller
 PCBA's J3 IO35 RX / IO33 TX pins at 115200 baud.
 
+The head carries artwork for every logo a channel can be given and renders whichever one the
+controller says that channel wears — `MSG_RESP_FLAVOR_ART`, published on every change and
+once per connection, so a head that just woke shows the right face before anyone touches it.
+The assignment is set from the enclosure's Choose card and persisted by the controller.
+
 ## Interaction contract
 
 A bright-screen touch-down changes the logo immediately. The handler only updates LVGL state
@@ -58,7 +63,7 @@ The native USB console is 115200 baud:
 |---|---|
 | `GET_VERSION` | build identity |
 | `GET_STATE` | local/controller flavor, sync, pending and persistence state |
-| `GET_DIAG` | touch/UI high-water marks plus J3 frames, retries, queue drops and ack latency |
+| `GET_DIAG` | touch/UI high-water marks plus J3 frames, retries, queue drops, ack latency, and the logo pair (`art=`) with the one on screen (`showing=`) |
 | `TOGGLE` | exercise the local-first user path |
 | `FLAVOR:0` / `FLAVOR:1` | select an absolute flavor through the same path |
 | `BL:n` | development-only raw backlight duty |
