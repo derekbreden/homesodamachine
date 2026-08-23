@@ -210,8 +210,11 @@ def _build_steps(work: Path) -> dict[str, Path]:
     mount_tails = {"flavor_tube_pos_x", "flavor_tube_neg_x", "carb_supply_tube"}
     mount_clip = (-88.0, 380.0)
     washer_thickness = 1.5
-    nut_height = 8.0
-    captive_washer_top_z = -39.8
+    nut_height = 5.0
+    # Until the plate is in, the pair hangs on the shank's last thread. A 50 mm shank through a
+    # 30 mm slab leaves 14 mm of shank below the counter, and everything above the washer there
+    # is the gap the open plate slides through — so the pair is drawn at the bottom of it.
+    captive_washer_top_z = -fa.shank_length + nut_height + washer_thickness
     final_washer_top_z = fa.countertop_bottom_z - fa.under_counter_plate_thickness
     plate_steel = cq.Color(0.72, 0.74, 0.76, 1.0)
     washer_steel = cq.Color(0.82, 0.83, 0.84, 1.0)
