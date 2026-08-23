@@ -34,8 +34,8 @@ AND A BODY IN THE ROOM IS AN EDGE TOO. Inside a storey the piece has material at
 places a drawer stands in front of, and those are not show faces: what a fitted body hides is
 not a surface anyone finishes. `_shadow_mask` asks, at every station, whether a berthed body
 stands between that face and the storey's own mouth — the same question `_show_mask` asks,
-asked of the other bodies — and the ramp that stops the flutes at the cartridge's edge is the
-ramp that stops them at an opening's rim.
+asked of the other bodies — and the ramp that stops the flutes at the pump cartridge's edge
+is the ramp that stops them at an opening's rim.
 
 AND ONE KIND OF EDGE IS NOT ONE. An opening whose two jambs both stand on ONE groove's own side
 surface runs WITH the flutes and stops nothing — the groove carries on past it at full depth.
