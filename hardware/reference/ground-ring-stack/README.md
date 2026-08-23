@@ -19,7 +19,7 @@ barrel and routes off to its chassis-ground target.
 ## What lands here
 
 The single-point chassis ground per [`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md)
-step 1 and [`/hardware/assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)
+step 1 and [`/hardware/assembly/power-column.md`](/hardware/assembly/power-column.md)
 step 3 — one green ring-terminal bond per exposed-metal part:
 
 - Carbonator

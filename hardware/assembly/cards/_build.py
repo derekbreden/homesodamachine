@@ -53,7 +53,7 @@ from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 # procedure docs' own dependency chain, not their filename order. The three bench
 # subsystems (ca, es, fu) feed en; ip needs the chassis en closes up; wr needs the
 # lines ip lays in.
-SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ca", "es", "fu", "en", "ip", "wr", "fc", "ab", "fs",
+SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ca", "pc", "fu", "en", "ip", "wr", "fc", "ab", "fs",
                    "sa", "gt"]
 
 PAGE_W, PAGE_H = 6 * 72, 4 * 72  # points

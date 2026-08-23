@@ -174,7 +174,7 @@ SCENES = (
         later=("asse-drip-pan",),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
-             "looks up and the Y-seam mouth faces the room — the shelf is seen from where a "
+             "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
              "hand reaches it. Every body is on it before it goes back the other way, and the "
              "tray's sleeve stands empty.",
     ),
@@ -393,7 +393,7 @@ PARTS = (
          "hardware/printed-parts/zone-c/funnel/funnel.step"),
     # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera
     # stands across the box, and the walls between it and them are drawn through.
-    Part("es01-wall-bosses", "Enclosure back top, +X wall bosses",
+    Part("pc01-wall-bosses", "Enclosure back top, +X wall bosses",
          "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
          cam=(-1.0, -0.35, 0.3), zoom=2.6, solid=False),
     # The wells are pockets in the wall itself, seen from the box's own side of it.

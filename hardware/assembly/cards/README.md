@@ -176,17 +176,17 @@ accent colors are defined in `STYLE.md`.
 | CA-01 | Build a harness — cut, crimp, sleeve, test |
 | CA-02 | The harness schedule |
 
-### ES — Electronics shelf ([electronics-shelf.md](/hardware/assembly/electronics-shelf.md))
+### PC — Power column ([power-column.md](/hardware/assembly/power-column.md))
 
 | Card | Operation |
 |---|---|
-| ES-01 | Prepare the shelf |
-| ES-02 | Stage the AC distribution + ground bus |
-| ES-03 | Stage the PSU, relays, PCBA |
-| ES-04 | Land the AC pigtails |
-| ES-05 | Stage DC distribution + 12 V branches |
-| ES-06 | Land the RELAYS J5 loom |
-| ES-07 | Pre-power continuity + isolation check |
+| PC-01 | Prepare the wall |
+| PC-02 | Stage the AC distribution + ground bus |
+| PC-03 | Stage the PSU, relays, PCBA |
+| PC-04 | Land the AC pigtails |
+| PC-05 | Stage DC distribution + 12 V branches |
+| PC-06 | Land the RELAYS J5 loom |
+| PC-07 | Pre-power continuity + isolation check |
 
 ### FU — Faucet + umbilical ([faucet-and-umbilical.md](/hardware/assembly/faucet-and-umbilical.md))
 

@@ -1,6 +1,6 @@
-"""Doc-sync driver for hardware/assembly/electronics-shelf.md.
+"""Doc-sync driver for hardware/assembly/power-column.md.
 
-Run: tools/cad-venv/bin/python hardware/assembly/_electronics_shelf_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_power_column_sync.py
 """
 
 import sys
@@ -25,13 +25,13 @@ import _facts  # noqa: E402  — the +X wall's own Wago row, off the last build
 # WHAT THIS DOC WATCHES, WHICH IS NOT WHAT IT CALLS. Nothing here stands a machine; the
 # figure comes off `_facts`. But the sidecar records the files this driver READS, and that
 # walk resolves imports as they are WRITTEN here — it does not follow the one `_facts` makes
-# inside `gather`. Drop this and the closure falls from 75 files to 23, and the shelf stops
+# inside `gather`. Drop this and the closure falls from 75 files to 23, and the closure stops
 # watching the pack it describes.
 import enclosure_assembly as _ea  # noqa: E402,F401
 
 # Import from the AC schedule's sync driver — the schedule owns the
 # AC-4/5/6 SJOOW lead length. The lead is built and landed at
-# wiring.md §2; the shelf only leaves its landings open.
+# wiring.md §2; the column only leaves its landings open.
 sys.path.insert(
     0,
     str(_here.parents[0] / "wiring"),
@@ -67,7 +67,7 @@ wago_count = len(_facts.read().constants["WAGO_POLES"])
 def main():
     variables = {
         # The main board itself, off the outline `pcba_tray` reads out of the board file —
-        # the same rectangle `enclosure_assembly` places on the shelf and stands its wall
+        # the same rectangle `enclosure_assembly` places on the wall and stands its
         # bosses under. The gerber plot frames it half an edge-cut aperture wider on
         # each side; this is the outline that gets cut and the one that gets mounted.
         "MAIN_BOARD_SIZE": f"{_pcba.board.length:.4g} × {_pcba.board.width:.4g} mm",
@@ -89,10 +89,10 @@ def main():
     }
 
     substitute_md(
-        _here / "electronics-shelf.md",
+        _here / "power-column.md",
         variables=variables,
     )
-    print("-> electronics-shelf.md")
+    print("-> power-column.md")
 
 
 if __name__ == "__main__":
