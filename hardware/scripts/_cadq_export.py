@@ -771,14 +771,13 @@ _page_paints_answer = _UNASKED
 def _page_paints():
     """Every `.step` `/3d` draws a card for, relative to the content root — or None.
 
-    Two lists in `web/contracts/parts-tree.js` say it. `ASSEMBLIES[].model` names the three
-    cards at the top; `LOOSE.holds` names the shelf under them, file by file or directory by
-    directory. `KIND_RANK` puts `step` first and `p.primary = p.kinds[0]`, so a shelf part
-    holding a `.step` draws from it and one holding only a `.dxf` or a `.glb` does not — which
-    is why a directory here is taken whole and a `.step` under it is a card.
+    `CARD_MODELS` in `web/contracts/parts-tree.js` says it, and says only it: the page is the
+    two roots, one card each, and a solid reached by opening one of them is drawn by the modal
+    rather than shown as a picture. So a thumbnail beside anything else has no reader.
 
-    None is "the contract did not answer", and the caller treats that the way it treats a
-    missing render tool: a run with no page to serve draws nothing and exports anyway."""
+    NONE MEANS THE CONTRACT WAS NOT THERE TO ASK — a sandbox with no `web/` in it — and the
+    caller treats that the way it treats a missing render tool: a run with no page to serve
+    draws nothing and exports anyway. A contract that is there and states no list raises."""
     global _page_paints_answer
     if _page_paints_answer is not _UNASKED:
         return _page_paints_answer
@@ -788,28 +787,14 @@ def _page_paints():
     except (AttributeError, OSError):
         return None
 
-    def _block(head):
-        """What stands inside the `[` that `head` ends on, to its match."""
-        i = text.find(head)
-        if i < 0:
-            return ""
-        i, depth, out = i + len(head), 1, []
-        while i < len(text) and depth:
-            c = text[i]
-            if c == "[":
-                depth += 1
-            elif c == "]":
-                depth -= 1
-            if depth:
-                out.append(c)
-            i += 1
-        return "".join(out)
-
-    models = re.findall(r'model:\s*"([^"]+)"', _block("export const ASSEMBLIES = ["))
-    # The `.glb` scenes are template literals against `SCENES` and no `.step` is ever one, so
-    # the quoted entries are the whole of what a solid can match.
-    holds = re.findall(r'"([^"]+)"', _block("holds: ["))
-    _page_paints_answer = (set(models) | set(holds)) or None
+    block = re.search(r"export const CARD_MODELS = \[(.*?)\]", text, re.S)
+    models = re.findall(r'"([^"]+)"', block.group(1)) if block else []
+    if not models:
+        raise ValueError(
+            f"{_PARTS_TREE} states no CARD_MODELS. That list names the solids /3d draws a card "
+            f"for, and every thumbnail this repository writes is gated on it. It is a flat list "
+            f"of quoted paths under `export const CARD_MODELS = [`.")
+    _page_paints_answer = set(models)
     return _page_paints_answer
 
 
@@ -847,7 +832,7 @@ def _write_mesh_payload(target, source):
         if not meshes:
             return None
         path = str(target) + ".mesh"
-        _mesh_payload.write(meshes, path)
+        _mesh_payload.write(meshes, path, src=_mesh_payload.source_digest(target))
         return path
     except Exception as exc:
         print(f"[_cadq_export] tessellation for {target.name} skipped: {exc}", file=sys.stderr)
@@ -868,15 +853,23 @@ def _current(target, beside):
 
 
 def _payload_current(target, mesh):
-    """Whether `mesh` stands for the STEP as it now stands AND states the version the
+    """Whether `mesh` describes the STEP as it now stands AND states the version the
     page reads. `_mesh_payload.VERSION` names what a mesh entry carries; the page decodes
     that version and reads the STEP for any other, so a payload of an older one is a
-    payload to write again — the STEP's bytes need not have moved for that to be true."""
-    if not _current(target, mesh):
-        return False
+    payload to write again — the STEP's bytes need not have moved for that to be true.
+
+    WHETHER IT DESCRIBES THIS STEP IS READ OFF ITS BYTES AND NEVER OFF ITS MTIME. A cache
+    that restores outputs stamps what it restores with the time it restored it, so a stale
+    payload arrives NEWER than the STEP just cut beside it, and an mtime test calls it
+    current precisely when it is not. The page DRAWS the payload and the edge picker
+    reconstructs its geometry from it, while every pick blob cites the STEP — so a payload
+    that outlived its STEP makes the viewer report geometry the cited file does not contain,
+    with nothing on screen to show it. The digest `write` records is what settles it."""
     try:
         import _mesh_payload
-        return _mesh_payload.read_version(mesh) == _mesh_payload.VERSION
+        if _mesh_payload.read_version(mesh) != _mesh_payload.VERSION:
+            return False
+        return _mesh_payload.read_source(mesh) == _mesh_payload.source_digest(target)
     except Exception:
         return False
 
