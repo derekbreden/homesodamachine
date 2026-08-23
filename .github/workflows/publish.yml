@@ -49,9 +49,15 @@ on:
         default: false
         type: boolean
 
+# ONE PUBLISH AT A TIME, AND EVERY ONE OF THEM FINISHES. A run ends by writing the lock — the
+# receipt naming the source commit and the bundle built from it — and `render.yaml`'s buildFilter
+# is that one file, so a run that does not finish is a change that never reaches the site.
+# Several sessions commit into this checkout at once and a run takes minutes, so requests do pile
+# up behind the one building; GitHub holds a single request there and collapses the rest to the
+# newest, which is the one worth the runner.
 concurrency:
   group: publish
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   actions: write
