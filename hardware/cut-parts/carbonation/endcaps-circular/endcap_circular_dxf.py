@@ -1,8 +1,8 @@
 """
-Carbonator end-cap disc — circular vessel, 2 ports per cap.
+Carbonator end-cap disc — circular carbonator, 2 ports per cap.
 
-Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
-4 ports/vessel split 2+2 across both caps.
+Two identical discs per carbonator, each with 2x tap-drill holes for 1/4"-18 NPT.
+4 ports/carbonator split 2+2 across both caps.
 
 ── Dimensions ──
 
@@ -19,7 +19,7 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
   face. That register is a BLIND hole — it must not pierce the plate, because
   the plate is the 90 PSI pressure boundary (hydro 180 PSI). A laser DXF cuts
   THROUGH, so the register cannot live in this cut file without breaching the
-  vessel. It is drilled in-house on the WEN 4208T after the discs arrive; the
+  carbonator. It is drilled in-house on the WEN 4208T after the discs arrive; the
   laser geometry below is unchanged, so existing discs need no re-cut.
 
   Both discs are drilled identically (kept interchangeable): top plate captures
@@ -28,7 +28,7 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
   Register center:     (0, [-2.007](REGISTER_Y))"  on the −Y axis, clear of the two ports.
                        Radius [2.007 in](REGISTER_R) = tube-ID radius [2.435 in](TUBE_ID_R) − donut radius
                        [0.546 in](DONUT_R) (27.75 mm donor ferrite donut, DEVMO MINI) + a
-                       [3 mm](MAGNET_BIAS_MM) MAGNET BIAS. The reed is OUTSIDE the vessel and
+                       [3 mm](MAGNET_BIAS_MM) MAGNET BIAS. The reed is OUTSIDE the carbonator and
                        reads the donut through the 0.065" wall, and that coupling
                        falls off fast, so the register is deliberately parked PAST
                        where a centred float would touch the bore. The float is a
@@ -141,7 +141,7 @@ def main() -> None:
     print(f"  Hole diameter:   {hole_diameter}\"  (7/16\" tap drill for 1/4\"-18 NPT)")
     print(f"  Hole spacing:    {hole_spacing:.4g}\" center-to-center along one axis")
     print(f"  Material:        316 SS, laser-cut")
-    print(f"  Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")
+    print(f"  Per carbonator:  2 identical discs, each tapped 2x 1/4\"-18 NPT")
     print(f"  Rod register:    blind drill (NOT cut) at {register_position} in, "
           f"Ø{register_drill_diameter:.4g}\" x {register_depth:.3g}\" deep, from inside face")
 
