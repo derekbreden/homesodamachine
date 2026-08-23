@@ -251,7 +251,7 @@ def draw_title_block(c: canvas.Canvas) -> None:
         ("UNITS",     "INCHES"),
         ("TOLERANCE", "\u00b10.005 IN LINEAR, \u00b10.5\u00b0 ANGULAR (UNLESS NOTED)"),
         ("DATE",      revision_date),
-        ("PROJECT",   "SODA FLAVOR INJECTOR \u2014 CARBONATOR VESSEL"),
+        ("PROJECT",   "SODA FLAVOR INJECTOR \u2014 CARBONATOR"),
         ("DRAWN BY",  "derekbreden@gmail.com"),
     ]
     n = len(rows)
