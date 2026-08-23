@@ -264,6 +264,12 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Fill | flavor choice → confirmation | **the base** |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
+
+A channel is named by the logo it wears, never by a number. The three pick-a-flavor
+screens offer the same artwork Choose does, full size, under the mark for what is about to
+happen to it; the confirmation that follows shows it at half size, and Prime's hold pad and
+a flavor's own page carry it at a quarter in their title band. Picking a channel therefore
+never loses track of which one is committed.
 | Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
