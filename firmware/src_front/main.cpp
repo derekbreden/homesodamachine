@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <esp_system.h>
 #include <esp_heap_caps.h>
+#include <esp_cpu.h>
 #include <Wire.h>
 #include <lvgl.h>
 #include "esp_lcd_panel_rgb.h"
@@ -12,6 +13,11 @@
 #include <esp_sleep.h>
 #include "soc/gpio_reg.h"
 #include "soc/io_mux_reg.h"
+
+// Implemented by the front-local ESP-IDF v5.5.4 RGB driver configuration.
+// It increments only when an actual bounce-buffer shortfall requires scan
+// recovery; normal wake cycles must leave it unchanged.
+extern "C" uint32_t home_soda_rgb_restart_count(void);
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -154,7 +160,7 @@ static int rs485Tx = 44;
 
 // Shadow of the EXIO output byte so backlight toggles don't disturb the
 // reset / SD-CS lines.
-static uint8_t exioState = 0;
+static volatile uint8_t exioState = 0;
 
 // ── RGB panel (esp_lcd, double framebuffer) ──
 // The panel has no controller of its own — the ESP32-S3 streams pixels from a
@@ -319,17 +325,57 @@ static uint8_t lastStatus = 0;
 
 // ── Diagnostics (read via GET_DIAG) ──
 static uint32_t maxLoopMs = 0;
-static bool backlightOn = false;
+static volatile bool backlightOn = false;
 static bool displayReady = false;  // false if the panel failed to init
 static bool usbReattachPending = false;
 static unsigned long usbReattachAt = 0;
-static uint32_t exioWriteErrors = 0;
+static volatile uint32_t exioWriteErrors = 0;
+
+// The touch controller and CH422G share one I2C controller.  The panel's reset
+// and DISP lines must change during vertical blank, so the VSYNC task takes this
+// mutex only if the bus is idle; otherwise it waits for the next blank rather
+// than writing a display-control edge late in an active scan.
+static SemaphoreHandle_t i2cMutex = nullptr;
+
+enum PanelVsyncAction : uint8_t {
+  PANEL_VSYNC_NONE,
+  PANEL_VSYNC_RELEASE_RESET,
+  PANEL_VSYNC_ENABLE_DISPLAY,
+};
+
+static portMUX_TYPE panelVsyncActionMux = portMUX_INITIALIZER_UNLOCKED;
+static TaskHandle_t panelVsyncTaskHandle = nullptr;
+static volatile PanelVsyncAction panelVsyncAction = PANEL_VSYNC_NONE;
+static volatile bool panelVsyncActionDone = false;
+static volatile uint32_t panelVsyncCycleAt = 0;
+static volatile uint32_t panelVsyncActionsQueued = 0;
+static volatile uint32_t panelVsyncActionsDone = 0;
+static volatile uint32_t panelVsyncBusRetries = 0;
+static volatile uint32_t panelVsyncLateRetries = 0;
+static volatile uint32_t panelVsyncWriteErrors = 0;
+
+// The board runs at a fixed 240 MHz (PM is disabled in this firmware core).
+// VSYNC_END starts a 32-line back porch, about 1.95 ms at the panel timing.
+// Reserve its latter half for the 100-kHz CH422G transfer instead of gambling
+// that a task delayed by an interrupt can still finish before active pixels.
+#define PANEL_VSYNC_ACTION_WINDOW_US 900
+#define PANEL_CPU_CYCLES_PER_US       240
+#define PANEL_VSYNC_ACTION_WINDOW_CYCLES \
+  (PANEL_VSYNC_ACTION_WINDOW_US * PANEL_CPU_CYCLES_PER_US)
 
 // ════════════════════════════════════════════════════════════
 //  CH422G expander
 // ════════════════════════════════════════════════════════════
 
-static bool ch422gWrite(uint8_t addr, uint8_t val) {
+static bool i2cTake(TickType_t wait) {
+  return !i2cMutex || xSemaphoreTake(i2cMutex, wait) == pdTRUE;
+}
+
+static void i2cGive() {
+  if (i2cMutex) xSemaphoreGive(i2cMutex);
+}
+
+static bool ch422gWriteLocked(uint8_t addr, uint8_t val) {
   Wire.beginTransmission(addr);  // addr is the 7-bit "register"/command address
   Wire.write(val);               // single data byte, no register pointer
   const uint8_t result = Wire.endTransmission();
@@ -337,13 +383,53 @@ static bool ch422gWrite(uint8_t addr, uint8_t val) {
   return result == 0;
 }
 
-static bool exioApply() { return ch422gWrite(CH422G_WR_IO, exioState); }
+static bool ch422gWrite(uint8_t addr, uint8_t val) {
+  if (!i2cTake(portMAX_DELAY)) return false;
+  const bool ok = ch422gWriteLocked(addr, val);
+  i2cGive();
+  return ok;
+}
 
-static bool setBacklight(bool on) {
+static bool exioApplyLocked() { return ch422gWriteLocked(CH422G_WR_IO, exioState); }
+
+static bool exioApply() {
+  if (!i2cTake(portMAX_DELAY)) return false;
+  const bool ok = exioApplyLocked();
+  i2cGive();
+  return ok;
+}
+
+static bool setBacklightLocked(bool on) {
   if (on) exioState |= EXIO_BL; else exioState &= ~EXIO_BL;
-  if (!exioApply()) return false;
+  if (!exioApplyLocked()) return false;
   backlightOn = on;
   return true;
+}
+
+static bool setBacklight(bool on) {
+  if (!i2cTake(portMAX_DELAY)) return false;
+  const bool ok = setBacklightLocked(on);
+  i2cGive();
+  return ok;
+}
+
+static bool panelSetDarkAndReset() {
+  if (!i2cTake(portMAX_DELAY)) return false;
+  exioState &= ~(EXIO_BL | EXIO_LCD_RST);
+  const bool ok = exioApplyLocked();
+  if (ok) backlightOn = false;
+  i2cGive();
+  return ok;
+}
+
+// This is only the timeout fallback for a missing VSYNC task. Normal wakes use
+// panelVsyncTask(), which changes this line in the next vertical blank.
+static bool panelReleaseResetNow() {
+  if (!i2cTake(portMAX_DELAY)) return false;
+  exioState |= EXIO_LCD_RST;
+  const bool ok = exioApplyLocked();
+  i2cGive();
+  return ok;
 }
 
 // Bring up the expander and pulse the panel + touch resets. Leaves the
@@ -366,26 +452,136 @@ static void ch422gBringUp() {
 //  RGB panel (esp_lcd)
 // ════════════════════════════════════════════════════════════
 
-// The driver's forced VSYNC restart runs after this callback. Keep it in IRAM and
-// limited to one counter so restart still owns essentially the whole blanking interval.
+// The RGB driver performs an underflow-only scan recovery after this callback.
+// The only work done here is count the edge and wake the higher-priority task
+// that owns the CH422G transition; I2C itself is never touched from an ISR.
 static bool IRAM_ATTR onVsync(esp_lcd_panel_handle_t p,
                               const esp_lcd_rgb_panel_event_data_t *e, void *ctx) {
   (void)p; (void)e; (void)ctx;
+  panelVsyncCycleAt = esp_cpu_get_cycle_count();
   __atomic_add_fetch(&vsyncCount, 1, __ATOMIC_RELAXED);
-  return false;
+  BaseType_t hp = pdFALSE;
+  portENTER_CRITICAL_ISR(&panelVsyncActionMux);
+  if (panelVsyncAction != PANEL_VSYNC_NONE && panelVsyncTaskHandle) {
+    vTaskNotifyGiveFromISR(panelVsyncTaskHandle, &hp);
+  }
+  portEXIT_CRITICAL_ISR(&panelVsyncActionMux);
+  return hp == pdTRUE;
 }
 
 // With a bounce buffer, VSYNC is not the point at which the previous framebuffer
 // is safe for LVGL to reuse. The RGB driver raises this after it has copied one
 // complete framebuffer through the bounce buffers and selected the next one.
 // Keep the ISR callback to a counter and a semaphore; LVGL itself runs in loop().
-static bool onFrameDone(esp_lcd_panel_handle_t p,
+static bool IRAM_ATTR onFrameDone(esp_lcd_panel_handle_t p,
                         const esp_lcd_rgb_panel_event_data_t *e, void *ctx) {
   (void)p; (void)e; (void)ctx;
   __atomic_add_fetch(&frameDoneCount, 1, __ATOMIC_RELAXED);
   BaseType_t hp = pdFALSE;
   xSemaphoreGiveFromISR(frameDoneSem, &hp);
   return hp == pdTRUE;
+}
+
+// Queue exactly one panel-control transition for the next vertical blank. The
+// queue stays occupied until the write completed, so a contended I2C bus causes
+// a retry at a later blank rather than a late edge in the current visible frame.
+static bool panelQueueVsyncAction(PanelVsyncAction action) {
+  if (!panelVsyncTaskHandle) return false;
+  bool queued = false;
+  portENTER_CRITICAL(&panelVsyncActionMux);
+  if (panelVsyncAction == PANEL_VSYNC_NONE) {
+    panelVsyncAction = action;
+    panelVsyncActionDone = false;
+    panelVsyncActionsQueued++;
+    queued = true;
+  }
+  portEXIT_CRITICAL(&panelVsyncActionMux);
+  return queued;
+}
+
+static bool panelVsyncActionFinished() {
+  bool done;
+  portENTER_CRITICAL(&panelVsyncActionMux);
+  done = panelVsyncActionDone;
+  portEXIT_CRITICAL(&panelVsyncActionMux);
+  return done;
+}
+
+static void panelCancelVsyncAction() {
+  // Taking the I2C lock first makes cancellation wait for an in-flight
+  // expander transfer. Conversely, panelVsyncTask rechecks the action after
+  // acquiring that same lock, so a cancellation that wins the race cannot
+  // leave a stale DISP/reset write behind.
+  if (!i2cTake(portMAX_DELAY)) return;
+  portENTER_CRITICAL(&panelVsyncActionMux);
+  panelVsyncAction = PANEL_VSYNC_NONE;
+  panelVsyncActionDone = false;
+  portEXIT_CRITICAL(&panelVsyncActionMux);
+  i2cGive();
+}
+
+static void panelVsyncTask(void *arg) {
+  (void)arg;
+  for (;;) {
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+
+    PanelVsyncAction action;
+    portENTER_CRITICAL(&panelVsyncActionMux);
+    action = panelVsyncAction;
+    portEXIT_CRITICAL(&panelVsyncActionMux);
+    if (action == PANEL_VSYNC_NONE) continue;
+
+    if ((uint32_t)(esp_cpu_get_cycle_count() - panelVsyncCycleAt) >
+        PANEL_VSYNC_ACTION_WINDOW_CYCLES) {
+      panelVsyncLateRetries++;
+      continue;
+    }
+
+    // Waiting here would make an expander write land after the blank. Give the
+    // touch transaction the current frame, then retry at the next VSYNC.
+    if (!i2cTake(0)) {
+      panelVsyncBusRetries++;
+      continue;
+    }
+
+    bool stillPending;
+    portENTER_CRITICAL(&panelVsyncActionMux);
+    stillPending = panelVsyncAction == action;
+    portEXIT_CRITICAL(&panelVsyncActionMux);
+    if (!stillPending) {
+      i2cGive();
+      continue;
+    }
+
+    if ((uint32_t)(esp_cpu_get_cycle_count() - panelVsyncCycleAt) >
+        PANEL_VSYNC_ACTION_WINDOW_CYCLES) {
+      i2cGive();
+      panelVsyncLateRetries++;
+      continue;
+    }
+
+    bool ok = false;
+    if (action == PANEL_VSYNC_RELEASE_RESET) {
+      exioState |= EXIO_LCD_RST;
+      ok = exioApplyLocked();
+    } else if (action == PANEL_VSYNC_ENABLE_DISPLAY) {
+      ok = setBacklightLocked(true);
+    }
+    i2cGive();
+
+    if (!ok) {
+      panelVsyncWriteErrors++;
+      continue;
+    }
+
+    portENTER_CRITICAL(&panelVsyncActionMux);
+    if (panelVsyncAction == action) {
+      panelVsyncAction = PANEL_VSYNC_NONE;
+      panelVsyncActionDone = true;
+      panelVsyncActionsDone++;
+    }
+    portEXIT_CRITICAL(&panelVsyncActionMux);
+  }
 }
 
 // Returns false (never hangs/aborts) on any failure, so a panel problem leaves
@@ -469,6 +665,9 @@ static void panelInitTask(void *arg) {
 //  Touch (GT911) + idle dimming
 // ════════════════════════════════════════════════════════════
 
+// The three routines below are called with i2cMutex held. Keeping a GT911
+// status/read/ack sequence together also leaves the VSYNC task one clean place
+// to decide whether this frame's blank has enough bus time for EXIO.
 static bool gt911ReadBytes(uint16_t reg, uint8_t *buf, size_t len) {
   Wire.beginTransmission(gt911Addr);
   Wire.write(reg >> 8);
@@ -489,12 +688,18 @@ static void gt911WriteByte(uint16_t reg, uint8_t val) {
 
 // Probe the two possible GT911 addresses; returns the one that ACKs (0 = none).
 static uint8_t gt911Probe() {
+  if (!i2cTake(portMAX_DELAY)) return 0;
   const uint8_t addrs[2] = {GT911_ADDR_A, GT911_ADDR_B};
+  uint8_t found = 0;
   for (int i = 0; i < 2; i++) {
     Wire.beginTransmission(addrs[i]);
-    if (Wire.endTransmission() == 0) return addrs[i];
+    if (Wire.endTransmission() == 0) {
+      found = addrs[i];
+      break;
+    }
   }
-  return 0;
+  i2cGive();
+  return found;
 }
 
 // Reads the first touch point. Returns true if a finger is down; fills x,y.
@@ -511,9 +716,18 @@ static uint32_t gt911Stale = 0;   // polls that carried no new frame
 static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   *x = heldX; *y = heldY;
   if (!gt911Addr) return false;
+  if (!i2cTake(portMAX_DELAY)) { gt911Stale++; return heldDown; }
   uint8_t status;
-  if (!gt911ReadBytes(GT911_REG_STATUS, &status, 1)) { gt911Stale++; return heldDown; }
-  if (!(status & 0x80))                              { gt911Stale++; return heldDown; }
+  if (!gt911ReadBytes(GT911_REG_STATUS, &status, 1)) {
+    gt911Stale++;
+    i2cGive();
+    return heldDown;
+  }
+  if (!(status & 0x80)) {
+    gt911Stale++;
+    i2cGive();
+    return heldDown;
+  }
 
   if ((status & 0x0F) > 0) {
     uint8_t p[8];
@@ -532,12 +746,14 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
     heldDown = false;
   }
   gt911WriteByte(GT911_REG_STATUS, 0);  // clear buffer-ready for the next frame
+  i2cGive();
   return heldDown;
 }
 
-// This precompiled RGB driver restarts its DMA at each VSYNC. Its callback is only an
-// IRAM-resident counter; buffer reuse is synchronized from on_frame_buf_complete instead.
-// A panel wake is kept dark until both syncs and complete bounce-buffer frames have crossed.
+// The front-local RGB driver preserves DMA state through normal VSYNCs. Buffer
+// reuse is synchronized from on_frame_buf_complete instead. A panel wake stays
+// dark until reset and DISP have each crossed a real vertical blank and complete
+// frames have crossed while the panel re-acquires the stream.
 #define WAKE_QUIET_MS 200
 #define WAKE_RESET_LOW_MS 20
 #define WAKE_RESET_RECOVERY_MS 120
@@ -545,9 +761,10 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
 #define WAKE_FRAME_WAIT_MS 500
 static unsigned long animResumeDue = 0;
 
-// LCD_RST is the ST7262's, on CH422G EXIO3. A wake releases it just after VSYNC, lets the
-// glass re-acquire the continuously streamed timing, and phases EXIO2 (both DISP and the
-// LED driver) to later completed scan-outs. The esp_lcd framebuffers remain bound.
+// LCD_RST is the ST7262's, on CH422G EXIO3. EXIO2 is both panel DISP and the
+// LED driver. A wake releases reset and later asserts DISP from panelVsyncTask(),
+// so neither panel-control edge can land in an active RGB frame. The esp_lcd
+// framebuffers remain bound.
 //
 // Staged from loop() rather than run inline: wake() is reached from the indev read, inside
 // lv_timer_handler, which is no place to block while the reset and full frames cross.
@@ -560,13 +777,35 @@ static uint32_t kickStarted = 0;
 static uint32_t kickCompleted = 0;
 static uint32_t kickFrameTimeouts = 0;
 static bool kickTimedOut = false;
+static bool kickResetQueued = false;
+static bool kickDisplayQueued = false;
+
+static void panelKickEnterRecovery(unsigned long now) {
+  kickVsyncBase = vsyncCount;
+  kickFrameBase = frameDoneCount;
+  kickAt = now + WAKE_RESET_RECOVERY_MS;
+  kickDeadline = now + WAKE_FRAME_WAIT_MS;
+  kickTimedOut = false;
+  kickStage = 3;
+}
+
+static void panelKickComplete(unsigned long now) {
+  animResumeDue = now + WAKE_QUIET_MS;
+  kickStage = 0;
+  kickCompleted++;
+}
 
 static void panelKick() {
   if (kickStage) return;
+  // A tap can arrive during the short boot-DISP handoff. A wake owns the next
+  // panel transition, so discard that stale request before asserting reset.
+  panelCancelVsyncAction();
   kickStage = 1;
   kickAt = millis();
   kickStarted++;
   kickTimedOut = false;
+  kickResetQueued = false;
+  kickDisplayQueued = false;
   animResumeDue = 0;
   animRun(false);
 }
@@ -2856,12 +3095,19 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "GET_PANEL") == 0) {
     Serial.printf("PANEL:vsync=%lu,frameDone=%lu,flushes=%lu,drawErr=%lu,frameTimeout=%lu,"
                   "kickStart=%lu,kickDone=%lu,kickStage=%u,kickTimeout=%lu,"
-                  "exioErr=%lu,bl=%d\n",
+                  "phaseQ=%lu,phaseDone=%lu,phaseRetry=%lu,phaseLate=%lu,phaseErr=%lu,"
+                  "scanRecover=%lu,exioErr=%lu,bl=%d\n",
                   (unsigned long)vsyncCount, (unsigned long)frameDoneCount,
                   (unsigned long)flushCount,
                   (unsigned long)panelDrawErrors, (unsigned long)frameDoneTimeouts,
                   (unsigned long)kickStarted, (unsigned long)kickCompleted,
                   (unsigned)kickStage, (unsigned long)kickFrameTimeouts,
+                  (unsigned long)panelVsyncActionsQueued,
+                  (unsigned long)panelVsyncActionsDone,
+                  (unsigned long)panelVsyncBusRetries,
+                  (unsigned long)panelVsyncLateRetries,
+                  (unsigned long)panelVsyncWriteErrors,
+                  (unsigned long)home_soda_rgb_restart_count(),
                   (unsigned long)exioWriteErrors, backlightOn ? 1 : 0);
   } else if (strncmp(line, "FLAVOR:", 7) == 0) {
     if ((line[7] != '0' && line[7] != '1') || line[8] != '\0') {
@@ -3029,7 +3275,17 @@ void setup() {
   // and loop() keeps serial alive (board stays flashable, no BOOT-button dance).
   j9Begin();
 
+  i2cMutex = xSemaphoreCreateMutex();
+  if (!i2cMutex) {
+    Serial.println("I2C mutex allocation failed — panel wake falls back to timeout recovery");
+  }
   ch422gBringUp();
+  if (i2cMutex &&
+      xTaskCreatePinnedToCore(panelVsyncTask, "panelvsync", 4096, nullptr, 6,
+                              &panelVsyncTaskHandle, 1) != pdPASS) {
+    panelVsyncTaskHandle = nullptr;
+    Serial.println("panel VSYNC task allocation failed — panel wake falls back to timeout recovery");
+  }
   xTaskCreatePinnedToCore(panelInitTask, "panelinit", 8192, nullptr, 5, nullptr, 1);
   unsigned long initStart = millis();
   while (!panelInitDone && millis() - initStart < 6000) delay(50);
@@ -3083,9 +3339,9 @@ void setup() {
 
   buildUi();
 
-  // Render the first frame, then light the backlight (no boot flash).
+  // Render the first frame, then assert DISP/backlight in a vertical blank.
   lv_timer_handler();
-  setBacklight(true);
+  if (!panelQueueVsyncAction(PANEL_VSYNC_ENABLE_DISPLAY)) setBacklight(true);
 
   // Start the lock-screen animation (~10 fps). The boot lock stays visible for
   // two complete cycles and, when J9 is healthy, opens on authoritative flavor
@@ -3145,15 +3401,13 @@ void loop() {
     esp_deep_sleep_start();
   }
 
-  // Keep the panel dark through reset and complete scan-outs. LCD_RST is released
-  // just after VSYNC, then the glass sees four more syncs and complete bounce-buffer
-  // frames before EXIO2 reveals it.
+  // Keep the panel dark through reset and complete scan-outs. Both LCD_RST and
+  // EXIO2/DISP are changed by panelVsyncTask() in a vertical blank; the loop only
+  // advances the non-blocking state machine after those writes have completed.
   if (kickStage) {
     unsigned long now = millis();
     if (kickStage == 1 && (long)(now - kickAt) >= 0) {
-      exioState &= ~(EXIO_BL | EXIO_LCD_RST);
-      if (exioApply()) {
-        backlightOn = false;
+      if (panelSetDarkAndReset()) {
         kickVsyncBase = vsyncCount;
         kickFrameBase = frameDoneCount;
         kickAt = now + WAKE_RESET_LOW_MS;
@@ -3161,21 +3415,24 @@ void loop() {
         kickStage = 2;
       } else kickAt = now + 10;
     } else if (kickStage == 2 && (long)(now - kickAt) >= 0) {
-      const bool atFrameBoundary = (uint32_t)(vsyncCount - kickVsyncBase) >= 1;
       const bool timedOut = (long)(now - kickDeadline) >= 0;
-      if (atFrameBoundary || timedOut) {
-        if (timedOut && !atFrameBoundary && !kickTimedOut) {
+      if (!kickResetQueued && !timedOut) {
+        kickResetQueued = panelQueueVsyncAction(PANEL_VSYNC_RELEASE_RESET);
+      }
+      if (kickResetQueued && panelVsyncActionFinished()) {
+        panelKickEnterRecovery(now);
+      } else if (timedOut) {
+        if (!kickTimedOut) {
           kickFrameTimeouts++;
           kickTimedOut = true;
         }
-        exioState |= EXIO_LCD_RST;
-        if (exioApply()) {
-          kickVsyncBase = vsyncCount;
-          kickFrameBase = frameDoneCount;
-          kickAt = now + WAKE_RESET_RECOVERY_MS;
-          kickDeadline = now + WAKE_FRAME_WAIT_MS;
-          kickTimedOut = false;
-          kickStage = 3;
+        // Preserve a responsive display if the RGB clock itself has stopped.
+        // This is deliberately the last-resort path; a working panel takes the
+        // queued action at VSYNC above.
+        panelCancelVsyncAction();
+        kickResetQueued = false;
+        if (panelReleaseResetNow()) {
+          panelKickEnterRecovery(now);
         } else kickAt = now + 10;
       }
     } else if (kickStage == 3) {
@@ -3189,11 +3446,17 @@ void loop() {
           kickFrameTimeouts++;
           kickTimedOut = true;
         }
-        if (setBacklight(true)) {
-          animResumeDue = now + WAKE_QUIET_MS;
-          kickStage = 0;
-          kickCompleted++;
-        } else kickAt = now + 10;
+        if (!kickDisplayQueued && !timedOut) {
+          kickDisplayQueued = panelQueueVsyncAction(PANEL_VSYNC_ENABLE_DISPLAY);
+        }
+        if (kickDisplayQueued && panelVsyncActionFinished()) {
+          panelKickComplete(now);
+        } else if (timedOut) {
+          panelCancelVsyncAction();
+          kickDisplayQueued = false;
+          if (setBacklight(true)) panelKickComplete(now);
+          else kickAt = now + 10;
+        }
       }
     }
   }
