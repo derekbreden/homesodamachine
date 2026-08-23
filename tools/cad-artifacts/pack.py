@@ -145,6 +145,7 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/enclosure/enclosure",
     "hardware/manifold-layout",
+    "hardware/faucet-layout",
 )
 
 

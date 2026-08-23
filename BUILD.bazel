@@ -3179,12 +3179,14 @@ genrule(
     ],
     outs = [
         "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step",
+        "out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh",
         "out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step)
-O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py)
+O1=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet-assembly.step.mesh)
+O2=$$PWD/$(location out/faucet-assembly/hardware/faucet-layout/faucet_assembly.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3200,9 +3202,10 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/faucet-layout/faucet_assembly.py > /dev/null
 cp hardware/faucet-layout/faucet-assembly.step $$O0
-cp hardware/faucet-layout/faucet_assembly.py $$O1
+cp hardware/faucet-layout/faucet-assembly.step.mesh $$O1
+cp hardware/faucet-layout/faucet_assembly.py $$O2
 """,
 )
 
