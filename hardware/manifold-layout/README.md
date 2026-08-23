@@ -1,7 +1,7 @@
 # Manifold layout
 
 The ten flavor valves, both KPHM400 pumps and the [6](TEE_COUNT) junctions between them, placed
-with nothing else in the box — no enclosure, no tray, no reservoir, no nozzle, no hopper, no
+with nothing else in the box — no enclosure, no tray, no reservoir, no gooseneck, no funnel, no
 carbonator. The connections are
 [`topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)'s, with one difference:
 each reservoir carries TWO MOUTHS of its own — the draw on the bulkhead at the bottom of its
@@ -26,7 +26,7 @@ about the hinge the four barb tees' front collets stand on.
 ## Frame
 
 X is width, mirrored about x = 0 — channel A west, channel B east, each over its own pump. Y is
-depth; the two nozzle mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
+depth; the two flavour mouths leave out the back (+Y) and the other four are turned onto +Z. Z is
 height, 0 at the pumps' own floor; the valves stand on two decks above them, at z
 [88.38](DECK_Z) and [147.78](UPPER_Z).
 
@@ -121,7 +121,7 @@ nothing — one pair of arcs carries a valve toward the crown and outboard at th
 only the length of the step is solved for. V-A takes [2.42](STEP_SPREAD) mm of that: it steps
 [7.41](STEP_CROSS_A) mm across in the same [19.72](STEP_TRAVEL3) along, θ = [32.878](STEP_ANGLE_A)° either side of
 s = [5.38](STEP_STRAIGHT_A) mm, [21.45](STEP_LEN_A) mm of tube. What the spread buys is the slot
-on the mirror line — the pair stands a valve's half-width either side of x 0 and the hopper's
+on the mirror line — the pair stands a valve's half-width either side of x 0 and the funnel's
 gravity drain threads the gap between their coils, so a valve carried outboard widens that lane
 one for one.
 
@@ -130,7 +130,7 @@ inner limbs' own axes, one valve forward of the selects they feed, with their br
 face to face across the mirror plane — [0.00](CROSSBAR) mm of tube between them. **NEITHER
 RESERVOIR HAS A JUNCTION**: each carries two mouths of its own, so every one of the four gate
 collets is a mouth of this study and leaves on its own axis, and every junction left in the pack
-joins two VALVES rather than a valve and a vessel.
+joins two VALVES rather than a valve and a reservoir.
 
 Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF) mm.
 
@@ -143,8 +143,8 @@ turns and [2](QUARTER_COUNT2) are the quarter turns above. Every corner in the m
 [14](CORNER_COUNT) of them — sits on the stock's own floor of [14](MIN_BEND) mm.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
-the fold turns all of them to face the back: V-A-I (tap), V-B-I (hopper), V-G-O (nozzle A) and
-V-J-O (nozzle B) on the upper deck; and the four reservoir gates — V-F-O and V-E-I for A,
+the fold turns all of them to face the back: V-A-I (tap), V-B-I (funnel), V-G-O (flavor A) and
+V-J-O (flavor B) on the upper deck; and the four reservoir gates — V-F-O and V-E-I for A,
 V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
@@ -159,13 +159,13 @@ part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it 
 
 `BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
 and it is [5.7](BARB_STANDOFF) mm — **the collet plate's berth**. Both pumps ride out of the box
-on their own cartridge and these four runs are what release. A waterjet 1/8" 304 flat stands on
+on their own pump cartridge and these four runs are what release. A waterjet 1/8" 304 flat stands on
 edge in the gap, one large hole per tube plus two M3 clearance holes in its outer tails: the
 large holes pass the Ø6.35 tube and catch the collet noses, while the small pair positively
 retains the steel to the fixed tee wall. So
-pulling the cartridge draws the anchor tees forward against the steel and the tubes come out of
-their collets. Push the cartridge home and the four click back in. Nothing is unscrewed for
-cartridge service and no hand goes behind the deck; the plate's own two screws are removed only
+pulling the pump cartridge draws the anchor tees forward against the steel and the tubes come out of
+their collets. Push the pump cartridge home and the four click back in. Nothing is unscrewed for
+pump cartridge service and no hand goes behind the deck; the plate's own two screws are removed only
 when the plate itself has to lift out.
 
 `enclosure_assembly.py` strikes the plate off the placed barbs and writes `collet-plate.dxf`
@@ -179,7 +179,7 @@ every millimetre of `SOURCE_TRAVEL` the source runs have left to step in.
 
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, and the crown of the pair
-to this pack's spine hairpins. The cold core is not one of them — it is packed off the rear wall
+to this pack's spine hairpins. The cold core is not one of them — it is packed off the +Y wall of back-top
 instead, so a LANE stands between it and the stratum, and the two legs of the loop that cross it
 are drawn in copper.
 

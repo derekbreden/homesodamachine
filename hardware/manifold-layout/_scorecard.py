@@ -381,7 +381,7 @@ MOUNTS = (
     # (`enclosure._nameplate`) — so the head, the plate and the wall come out one plane.
     ("nameplate", "enclosure-back-top", "screw"),
     ("nameplate-ink", "nameplate", "well"),
-    # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._digiten_saddles` puts the
+    # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._flow_meter_anchors` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
     # feature can reach. A strap through each anchor's own cavity closes it, and here the straps
@@ -492,7 +492,7 @@ NEVER = {
     # union stays behind on its two collets. A printed feature closing on any of the four would be
     # a feature the customer has to work past every time the funnel is washed.
     "funnel":
-        "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, "
+        "The brim bears on the top wall's outer face, the collar fills `enclosure._funnel_hole`, "
         "and the elbow's own collet grips the stub the spout carries — so the funnel is held down by "
         "the joint it releases from. It is a dishwasher part and comes out by hand.",
     "funnel-drain-stub":

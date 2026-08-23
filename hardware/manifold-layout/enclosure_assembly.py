@@ -1203,7 +1203,7 @@ def pump_tray_stations(placed: dict) -> tuple:
         if (axis, sign) != (2, 1.0):
             raise ValueError(
                 f"{head} stands its can on {'+' if sign > 0 else '-'}{'xyz'[axis]} and "
-                f"`enclosure.build_cartridge` lays a plate on a Z face — a pump on another "
+                f"`enclosure.build_pump_cartridge` lays a plate on a Z face — a pump on another "
                 f"axis "
                 f"needs the builder to learn it, not this table.")
         out.append(centre)
@@ -3553,7 +3553,7 @@ DIGITEN_COLLET_FREE = 6.0
 
 
 def digiten_anchors(carry) -> tuple:
-    """The station `enclosure._digiten_saddles` builds from — `(axis_x, axis_z, seat_r, bands)`.
+    """The station `enclosure._flow_meter_anchors` builds from — `(axis_x, axis_z, seat_r, bands)`.
 
     `seat_r` is the barrel the V is struck on, one `DIGITEN_SEAT_SLIP` over its own radius, so the
     anchor stands off the arm by that slip on the V's own normal. `bands` is the run of each arm a
@@ -5038,7 +5038,7 @@ def check_tube_seated(tubes, pieces) -> Bound:
 def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
     """Whether a tie can still reach through every cavity the box cuts one for.
 
-    THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_digiten_saddles`): the
+    THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_flow_meter_anchors`): the
     rib's two ends climb to the face it roots on and what they do not span IS the strap's room.
     Nothing is drawn for it, so nothing about it can fail loudly — a wall that grows inboard of
     the plane the rib was measured against simply arrives standing in that room, and the rib comes
@@ -5097,7 +5097,7 @@ def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
                               crown + _enc.tie_strap_t))
     if meter_anchor:
         x_axis, z_axis, seat_r, bands = meter_anchor
-        reach = seat_r + _enc.digiten_saddle_wall
+        reach = seat_r + _enc.flow_meter_anchor_wall
         crown = z_axis + seat_r + _enc.wall
         for by0, by1 in bands:
             m = (by0 + by1) / 2.0
@@ -6132,7 +6132,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
                      cond_mount=a.cond_mount, cond_airway=a.cond_airway,
                      asse_cradle=a.asse_cradle,
-                     digiten_saddles=a.digiten_anchors,
+                     flow_meter_anchors=a.digiten_anchors,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
