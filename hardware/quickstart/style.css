@@ -692,9 +692,9 @@ html, body {
   font-size: 16px;
 }
 
-/* Sheet 1 is one registered below-counter camera. The only second view is a small lens tethered
-   to the actual countertop opening in the seated frame, so it explains the physical stop without
-   competing with the faucet, mounting stack, or hand actions. */
+/* Sheet 1 leads with the whole kitchen-scale event, then spends the remaining area on the only
+   three below-counter changes that the installer actually performs. Every close-up is the same
+   physical camera; no detached part becomes a separate instruction object. */
 .mount-camera-sheet .page-head h1 { font-size: 46px; }
 .mount-camera-lead {
   position: absolute;
@@ -717,33 +717,29 @@ html, body {
   font-size: 18px;
   line-height: 1;
 }
-.mount-camera-sequence {
+.mount-event-hero {
   position: absolute;
   left: 58px;
-  top: 240px;
+  top: 246px;
   width: 2434px;
-  height: 1338px;
-  display: grid;
-  grid-template-columns: 607px 2px 607px 2px 607px 2px 607px;
-}
-.mount-camera-rule { background: var(--rule); }
-.mount-camera-beat {
-  position: relative;
-  width: 607px;
-  height: 1338px;
+  height: 540px;
   overflow: hidden;
+  border-bottom: 2px solid var(--rule);
 }
-.mount-camera-head {
-  height: 72px;
+.mount-event-head {
+  position: absolute;
+  z-index: 5;
+  left: 24px;
+  top: 50px;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 13px 16px;
+  gap: 16px;
 }
-.mount-camera-head span {
+.mount-event-head > span,
+.mount-action-head > span {
   flex: 0 0 auto;
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -751,46 +747,130 @@ html, body {
   color: #fff;
   font: 700 25px/1 var(--mono);
 }
-.mount-camera-head h2 {
-  max-width: calc(100% - 60px);
-  padding-top: 4px;
-  font-size: 29px;
-  line-height: 1;
-  letter-spacing: -.5px;
+.mount-event-head h2 {
+  padding-top: 3px;
+  font-size: 34px;
+  line-height: .98;
+  letter-spacing: -.8px;
 }
-.mount-camera-art {
-  position: relative;
-  width: 607px;
-  height: 1152px;
-  overflow: hidden;
-  background-color: #fff;
-  background-image: var(--mount-image);
-  background-repeat: no-repeat;
-  background-position: center 0;
-  background-size: auto 1110px;
+.mount-event-head p {
+  margin-top: 9px;
+  color: var(--muted);
+  font: 700 17px/1 var(--mono);
+  letter-spacing: .5px;
 }
-.mount-camera-motion,
-.mount-seat-register {
+.mount-event-art {
   position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.mount-event-art > img {
+  position: absolute;
+  z-index: 1;
+  left: 912px;
+  top: -58px;
+  width: auto;
+  height: 700px;
+}
+.mount-event-art > svg {
+  position: absolute;
+  z-index: 3;
   inset: 0;
   width: 100%;
   height: 100%;
   overflow: visible;
 }
-.mount-camera-motion-halo,
-.mount-camera-motion-line {
+.mount-event-motion-halo,
+.mount-event-motion-line,
+.mount-action-motion-halo,
+.mount-action-motion-line {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.mount-camera-motion-halo { stroke: #fff; stroke-width: 21px; }
-.mount-camera-motion-line { stroke: var(--accent); stroke-width: 10px; }
-.mount-camera-motion marker path {
+.mount-event-motion-halo,
+.mount-action-motion-halo { stroke: #fff; stroke-width: 22px; }
+.mount-event-motion-line,
+.mount-action-motion-line { stroke: var(--accent); stroke-width: 10px; }
+.mount-event-art marker path,
+.mount-action-art marker path {
   fill: var(--accent);
   stroke: #fff;
   stroke-width: 3px;
   paint-order: stroke fill;
   stroke-linejoin: round;
+}
+.mount-event-hand {
+  position: absolute;
+  z-index: 4;
+  left: 1230px;
+  top: 250px;
+  width: 232px;
+  transform: rotate(7deg);
+  fill: #ffd8ca;
+  stroke: #a65c52;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hand-detail { fill: none; }
+.mount-event-result {
+  position: absolute;
+  z-index: 5;
+  right: 38px;
+  bottom: 52px;
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  text-align: right;
+  font-family: var(--mono);
+}
+.mount-event-result b { font-size: 21px; line-height: 1; }
+.mount-event-result span { color: var(--muted); font-size: 15px; line-height: 1; }
+.mount-action-strip {
+  position: absolute;
+  left: 58px;
+  top: 812px;
+  width: 2434px;
+  height: 752px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 42px;
+}
+.mount-action {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 70px 580px 92px;
+}
+.mount-action-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 7px 14px 0;
+}
+.mount-action-head h2 {
+  max-width: calc(100% - 64px);
+  padding-top: 4px;
+  font-size: 27px;
+  line-height: .98;
+  letter-spacing: -.6px;
+}
+.mount-action-art {
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: var(--action-image);
+  background-repeat: no-repeat;
+  background-position: center 72%;
+  background-size: auto 1280px;
+}
+.mount-action-motion,
+.mount-action-register {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 .mount-camera-hand {
   fill: #ffd8ca;
@@ -800,21 +880,32 @@ html, body {
   stroke-linejoin: round;
 }
 .mount-camera-hand path { vector-effect: non-scaling-stroke; }
-.mount-camera-note {
-  height: 114px;
-  padding: 17px 20px 0;
-  border-top: 2px solid var(--ink);
+.mount-action-note {
+  padding: 16px 14px 0;
+  border-top: 3px solid var(--ink);
   color: var(--ink);
-  font: 700 17px/1.13 var(--mono);
-  letter-spacing: .16px;
+  font-family: var(--mono);
+  letter-spacing: .12px;
+}
+.mount-action-note b {
+  display: block;
+  font-size: 17px;
+  line-height: 1.12;
+}
+.mount-action-note span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
 }
 .seat-lens {
   position: absolute;
   z-index: 4;
-  left: 333px;
-  top: 490px;
-  width: 250px;
-  height: 250px;
+  left: 486px;
+  top: 48px;
+  width: 236px;
+  height: 236px;
   filter: drop-shadow(0 7px 7px rgba(32, 33, 38, .16));
 }
 .seat-lens > span {
@@ -835,11 +926,6 @@ html, body {
 .lens-contact { fill: var(--accent); stroke: #fff; stroke-width: 4; }
 .lens-shank { fill: #3e4046; stroke: #202126; stroke-width: 5; }
 .lens-callout { fill: none; stroke: #6e7078; stroke-width: 3; stroke-linecap: round; }
-.lens-copy {
-  font: 700 12px/1 var(--mono);
-  fill: var(--ink);
-  letter-spacing: -.1px;
-}
 .seat-register-halo,
 .seat-register-line {
   fill: none;
