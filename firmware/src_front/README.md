@@ -188,8 +188,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
   write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
-- `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIO, FILL, PRIME,
-  CLEAN); `PAGE:5` → Settings, which is the corner rather than a rail slot
+- `PAGE:0`..`PAGE:3` → show one rail destination (CHOOSE, FILL, PRIME, CLEAN);
+  `PAGE:4` → Settings, which is the corner rather than a rail slot
 - `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
   the handlers the Choose gear and a thumbnail tap reach, without a finger on the glass
@@ -249,11 +249,10 @@ card, not a child, so no press reaches the card under it — opening that flavor
 with its ratio and a grid of every logo it could wear. Two rows of thumbnails fit
 before the grid scrolls.
 
-A 190 px rail down the left carries five 88 px targets — **CHOOSE · RATIO · FILL ·
-PRIME · CLEAN** — each an icon over a word. Choose and Ratio are about the drink; Fill,
-Prime and Clean are a flavor's life in the machine, in the order it is lived. Choose uses a
-hand pointing up, Ratio an exploded pie with one lifted slice, and Fill the hopper's own
-funnel; connection state appears only when it affects saving a flavor. Settings is not a
+A 190 px rail down the left carries four 110 px targets — **CHOOSE · FILL · PRIME ·
+CLEAN** — each an icon over a word. Choose is the drink; Fill, Prime and Clean are a
+flavor's life in the machine, in the order it is lived. Choose uses a hand pointing up
+and Fill the hopper's own funnel; connection state appears only when it affects saving a flavor. Settings is not a
 customer destination and holds no rail slot: it is a single square in the screen's top-right
 corner, over every page, which is free because each pane titles itself from the left. The
 remaining 610 px is the pane, and it takes a different shape at each destination:
@@ -261,7 +260,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Page | Shape | Reads / writes |
 |---|---|---|
 | Choose | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
-| Ratio | two cards → one flavor's own page: `−`/`+` on the ratio, and every logo it can wear | display-local |
+| A flavor's own page | `−`/`+` on the ratio, and every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
 | Fill | flavor choice → confirmation | **the base** |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
