@@ -20,7 +20,7 @@
 // ════════════════════════════════════════════════════════════
 //
 // Waveshare ESP32-S3-Touch-LCD-1.47 (172x320 IPS, JD9853 panel,
-// AXS5106L capacitive touch) mounted on the gooseneck dispense head.
+// AXS5106L capacitive touch) mounted at the end of the gooseneck.
 // The selected flavor's logo fills the screen; a tap anywhere toggles
 // it. The selection persists in NVS across power cycles.
 //

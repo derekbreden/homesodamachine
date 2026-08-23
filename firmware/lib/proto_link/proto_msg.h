@@ -101,7 +101,7 @@ constexpr uint8_t MSG_PRIME_SESSION_HOLD_STOP  = 0x2F;  // PrimeHoldPayload: lif
 constexpr uint8_t MSG_FILL_START       = 0x30;  // ChannelPayload: draw funnel → reservoir
 
 // ── Which logo a channel wears ────────────────────────────────────────────
-// The logo is a channel's identity on every glass: it fills the faucet head,
+// The logo is a channel's identity on every glass: it fills the faucet display,
 // the round display, and a Choose card. The controller owns the assignment and
 // persists it beside the selection, so a channel that changes contents changes
 // face everywhere rather than on the surface that happened to set it.

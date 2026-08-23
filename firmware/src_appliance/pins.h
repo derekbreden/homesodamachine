@@ -46,7 +46,7 @@ static const int PIN_SCL = 22;
 static const int PIN_GAS_AOUT = 39;  // analog level
 static const int PIN_GAS_DOUT = 36;  // LM393 comparator trip
 
-// ── J9, the pair to the front-face display ────────────────────────────────
+// ── J9, the pair to the enclosure display ─────────────────────────────────
 // IO32 -> U7.DI -> the A/B pair and R6's 120R termination -> U7.RO -> IO34.
 // D1 clamps the exposed differential pair at J9.
 static const int PIN_485_DI  = 32;

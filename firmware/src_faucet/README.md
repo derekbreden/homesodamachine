@@ -1,6 +1,6 @@
 # The faucet display
 
-The Waveshare ESP32-S3-Touch-LCD-1.47 in the dispense head. Its 172×320 logo is the
+The Waveshare ESP32-S3-Touch-LCD-1.47 at the end of the gooseneck. Its 172×320 logo is the
 glass-facing flavor selector, and its P1 GPIO43 TX / GPIO44 RX pins cross to the controller
 PCBA's J3 IO35 RX / IO33 TX pins at 115200 baud.
 

@@ -14,7 +14,7 @@
 #include "soc/gpio_reg.h"
 #include "soc/io_mux_reg.h"
 
-// Implemented by the front-local ESP-IDF v5.5.4 RGB driver configuration.
+// Implemented by this tree's local ESP-IDF v5.5.4 RGB driver configuration.
 // It increments only when an actual bounce-buffer shortfall requires scan
 // recovery; normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
@@ -80,12 +80,12 @@ static const uint16_t *animFrames[] = {
 #define FLAVOR_IMAGE_COUNT   4   // logos a channel can be given
 
 // ════════════════════════════════════════════════════════════
-//  ESP32-S3 Front-Face Display — foundation
+//  ESP32-S3 Enclosure Display — foundation
 // ════════════════════════════════════════════════════════════
 //
 // Waveshare ESP32-S3-Touch-LCD-4.3B: 800x480 IPS RGB parallel panel,
 // GT911 capacitive touch, CH422G I/O expander, ESP32-S3-WROOM-1-N16R8
-// (16 MB flash / 8 MB octal PSRAM). Mounts in the appliance front face,
+// (16 MB flash / 8 MB octal PSRAM). Mounts in the enclosure's front face,
 // angled up toward a standing user.
 //
 // The screen is a rail of five icons down the left edge and a pane to their right: Choose,
@@ -850,7 +850,7 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   return heldDown;
 }
 
-// The front-local RGB driver preserves DMA state through normal VSYNCs. Buffer
+// This tree's local RGB driver preserves DMA state through normal VSYNCs. Buffer
 // reuse is synchronized from on_frame_buf_complete instead. A panel wake stays
 // dark until reset and DISP have each crossed a real vertical blank and complete
 // frames have crossed while the panel re-acquires the stream.
@@ -2717,7 +2717,7 @@ static void buildService(lv_obj_t *page) {
   lv_obj_align(mkSelectedImg(hold, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
 
   lv_obj_t *ph = mkText(hold, "Hold the pad while the pump pushes\n"
-                              "concentrate out to the nozzle.",
+                              "concentrate out to the gooseneck.",
                         &lv_font_montserrat_20, COL_DIM);
   lv_obj_set_style_text_align(ph, LV_TEXT_ALIGN_CENTER, 0);
   lv_obj_align(ph, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + FLAVOR_MID_SIZE + 16);
@@ -2743,7 +2743,7 @@ static void buildService(lv_obj_t *page) {
 
   svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
       page, "CLEAN", "Three rounds: fill the line with water,\n"
-                     "then pump it through to the nozzle.",
+                     "then pump it through to the gooseneck.",
       "START CLEAN CYCLE", cleanStartCb, SVC_CLEAN_PICK, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
@@ -3236,7 +3236,7 @@ void setup() {
   // a host is reading. 0 = drop instead of stalling the loop.
   Serial.setTxTimeoutMs(0);
   delay(500);
-  Serial.println("ESP32-S3 Front-Face Display starting...");
+  Serial.println("ESP32-S3 Enclosure Display starting...");
 
   esp_reset_reason_t reason = esp_reset_reason();
   Serial.printf("Boot — firmware %s, heap=%lu, psram=%lu, reset=%d\n",
