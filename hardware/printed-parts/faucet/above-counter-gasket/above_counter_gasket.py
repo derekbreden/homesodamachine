@@ -1,12 +1,12 @@
-"""Touch-Flo mounting gasket — printed-TPU pad between the rigid
-mounting plate (above) and the kitchen countertop (below). Seals spills
+"""Above-counter gasket — printed-TPU pad between the rigid
+above-counter plate (above) and the kitchen countertop (below). Seals spills
 out of the deck hole, conforms to surface irregularities so the plate
 doesn't rock, anti-rotates under handle torque, and holds preload on the
 under-counter nut as the cabinet wood moves seasonally.
 
 Material: Bambu TPU 90A (black).
 
-Footprint and hole pattern match the mounting plate exactly (the shell
+Footprint and hole pattern match the above-counter plate exactly (the shell
 foot — foot circle + two lateral teardrops + front D-pod), reusing the
 shell's own geometry; the rigid plate locates the parts, the gasket seals
 around them.
@@ -46,22 +46,22 @@ from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
-# Footprint matches the mounting plate; [2 mm](GASKET_T) thick, compresses
+# Footprint matches the above-counter plate; [2 mm](GASKET_T) thick, compresses
 # under clamp load.
 gasket_thickness = 2.0
 # Center offset [3.175 mm](GASKET_Y) +Y (toward the appliance back); no
 # lateral offset.
 gasket_center = (0.0, +3.175)
 
-# Top face flush with the mounting plate's bottom face; bottom face on
+# Top face flush with the above-counter plate's bottom face; bottom face on
 # the countertop surface plane.
 plate_z_bottom = -4.0
 gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 
 
-# Hole pattern matches the mounting plate.
-# [12.6 mm](SHANK_HOLE_D) shank pocket — fits the body's threaded shank.
-# Centered on the body axis (world origin).
+# Hole pattern matches the above-counter plate.
+# [12.6 mm](SHANK_HOLE_D) shank pocket — fits the threaded shank.
+# Centered on the Westbrass's axis (world origin).
 shank_hole_center = (0.0, 0.0)
 
 # One rounded-rectangle slot covering both 1/4" flavor tubes, centered

@@ -1,5 +1,5 @@
-"""Touch-Flo mounting plate — printed PET-CF plate that supports the
-harvested Touch-Flo faucet body and the two flavor tubes beside it, and
+"""Above-counter plate — printed PET-CF plate that supports the
+harvested Westbrass and the two flavor tubes beside it, and
 carries the three screw bosses that bolt up into the shell. Its footprint
 matches the shell foot exactly (foot circle + two lateral teardrop pods +
 front D-pod), reusing the shell's own geometry. See README.md."""
@@ -43,11 +43,11 @@ from docgen import substitute_md, substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
-# [4 mm](MOUNTING_PLATE_T) thick.
+# [4 mm](PLATE_T) thick.
 plate_thickness = 4.0
 # Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
-# Footprint center at world (0, +[3.175 mm](PLATE_Y)); body axis at (0, 0).
+# Footprint center at world (0, +[3.175 mm](PLATE_Y)); the Westbrass's axis at (0, 0).
 plate_center = (0.0, +3.175)
 
 
@@ -139,7 +139,7 @@ def main():
     print(f"-> {out.name}")
 
     variables = {
-        "MOUNTING_PLATE_T": f"{plate_thickness:.4g} mm",
+        "PLATE_T": f"{plate_thickness:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
         "PLATE_Y": f"{plate_center[1]:.4g} mm",
         "PLATE_BOSS_D": f"{base_pod_boss_dia:.4g} mm",

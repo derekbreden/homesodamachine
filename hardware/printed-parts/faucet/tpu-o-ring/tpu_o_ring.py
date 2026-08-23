@@ -1,5 +1,5 @@
-"""Touch-Flo TPU O-ring — printed-TPU thimble that seals 3/8" OD LLDPE
-into the harvested Westbrass valve body's top water port. See README.md."""
+"""TPU o-ring — printed-TPU thimble that seals the 3/8" soda faucet tube
+into the harvested Westbrass's top water port. See README.md."""
 
 import sys
 from pathlib import Path
@@ -28,16 +28,16 @@ wall_thickness = (outer_diameter - inner_diameter) / 2.0  # [0.62 mm](ORING_WALL
 
 lldpe_od = 9.525                # 3/8" LLDPE tubing OD
 lldpe_id = 6.35                 # 1/4" LLDPE tubing ID
-body_port_diameter = 10.0       # Westbrass top water port ID
+westbrass_port_diameter = 10.0       # Westbrass top water port ID
 port_depth_min = 20.0           # Westbrass top water port depth
 
-body_squeeze = (outer_diameter - body_port_diameter) / 2.0
+westbrass_squeeze = (outer_diameter - westbrass_port_diameter) / 2.0
 lldpe_interference = (lldpe_od - inner_diameter) / 2.0
 
 
 def build_o_ring() -> cq.Workplane:
     """Thimble on axis +Z: a cap (Z=0 to cap_thickness, centered hole)
-    whose Z=0 face mates the valve body's port floor, and an open-top
+    whose Z=0 face mates the Westbrass's port floor, and an open-top
     cylindrical sleeve (Z=cap_thickness to total_height)."""
     body = (
         cq.Workplane(xy_plane_z_up)
@@ -75,9 +75,9 @@ def main():
         "ORING_WALL_T": f"{wall_thickness:.4g} mm",
         "LLDPE_OD": f"{lldpe_od:.4g} mm",
         "LLDPE_ID": f"{lldpe_id:.4g} mm",
-        "BODY_PORT_D": f"{body_port_diameter:.4g} mm",
+        "WESTBRASS_PORT_D": f"{westbrass_port_diameter:.4g} mm",
         "PORT_DEPTH_MIN": f"{port_depth_min:.4g} mm",
-        "BODY_SQUEEZE": f"{body_squeeze:.4g} mm",
+        "WESTBRASS_SQUEEZE": f"{westbrass_squeeze:.4g} mm",
         "LLDPE_INTERFERENCE": f"{lldpe_interference:.4g} mm",
     }
 

@@ -1,9 +1,9 @@
-# Touch-Flo mounting plate
+# Above-counter plate
 
-Printed PET-CF plate that supports the harvested Touch-Flo faucet body and
+Printed PET-CF plate that supports the harvested Westbrass and
 the two flavor tubes beside it, and carries the three screw bosses that
 bolt up into the shell. Mates against the countertop top surface via the
-TPU mounting gasket below it.
+above-counter gasket below it.
 
 ## Footprint
 
@@ -11,9 +11,9 @@ Matches the shell foot exactly — the foot circle plus the two lateral
 teardrop pods and the front D-pod — so the plate edge runs flush under the
 shell with no ledge. Built by reusing the shell's own outline geometry.
 
-- [4 mm](MOUNTING_PLATE_T) thick; spans Z from [-4](PLATE_Z_BOTTOM) to 0, top face
-  flush with the deck plane (= body bottom in the faucet-assembly).
-- Centered at world (0, +[3.175 mm](PLATE_Y)); body axis at world (0, 0).
+- [4 mm](PLATE_T) thick; spans Z from [-4](PLATE_Z_BOTTOM) to 0, top face
+  flush with the deck plane (= the Westbrass's bottom in the faucet-assembly).
+- Centered at world (0, +[3.175 mm](PLATE_Y)); the Westbrass's axis at world (0, 0).
 
 ## Screw bosses
 
@@ -41,9 +41,10 @@ M3×12 black-oxide SHCS:
    - Length (X, lateral): [13.4 mm](PLATE_PILL_L)
    - Width (Y, depth): [7.05 mm](PLATE_PILL_W)
 
-The three pod screws close the plate and shell around the fitted body.
+The three pod screws close the plate and shell around the fitted Westbrass.
 At field install, the retained donor washer and shank nut clamp the
-final body → plate → TPU gasket → countertop → keyhole-plate stack.
+final Westbrass → above-counter plate → above-counter gasket → countertop
+→ under-counter-plate stack.
 
 ## Regenerate
 

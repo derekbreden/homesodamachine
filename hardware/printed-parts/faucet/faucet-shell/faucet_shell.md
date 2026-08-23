@@ -12,7 +12,7 @@ fix this doc.
   name.
 - Derivations are written as derivations. A dimension that follows from others
   is the expression that produces it —
-  `shell_outer_r = max(_body_bore_farthest_from_shell_center,
+  `shell_outer_r = max(_westbrass_bore_farthest_from_shell_center,
   _pill_farthest_from_shell_center) + wall_thickness_min` — not a pre-computed
   number with its origin lost.
 - Named anchors carry the joints. Where solids meet, the meeting place has a

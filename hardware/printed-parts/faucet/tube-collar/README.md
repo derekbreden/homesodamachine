@@ -1,6 +1,6 @@
 # Tube collar
 
-A printed collar threaded onto a 1/4" line, carrying the word and the colour of the port ring that
+A printed collar threaded onto a 1/4" line, carrying the word and the colour of the bulkhead ring that
 line goes through. The chip in [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md) marks the wall; this marks
 the tube.
 
@@ -16,7 +16,7 @@ the line rather than across the face.
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
 | wall | [2.635](COLLAR_WALL) mm, with [1.635](COLLAR_BACKING) mm of it behind the lettering |
-| volume | [2.97](COLLAR_VOL) cm³ + [0.20](COLLAR_WORD_VOL) cm³ of word |
+| volume | [3.00](COLLAR_VOL) cm³ + [0.17](COLLAR_WORD_VOL) cm³ of word |
 
 ## Where each one goes
 
@@ -24,7 +24,7 @@ the line rather than across the face.
 |---|---|---|---|
 | `water` | TAP | white | the customer's tap-water run, up to their angle stop |
 | `carb` | SODA | blue | the umbilical's blue carbonated-water tail |
-| `co2` | CO2 | red | the customer's red tether, rear wall to regulator |
+| `co2` | CO2 | red | the customer's red tether, +Y wall of back-top to regulator |
 | `flavor-a` | FLAVOR | black | the umbilical's first black flavour tail |
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
 
@@ -32,7 +32,7 @@ One collar per chip, on the same five stations, off the same five words and four
 `bulkhead_ring.STATIONS` and `_back_panel_dimensions.chip_filaments` are what both read.
 
 The three on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
-§4, up to the braid's own end, and ride to the rear wall on the un-sleeved tail. The other
+§4, up to the braid's own end, and ride to the +Y wall of back-top on the un-sleeved tail. The other
 two go in the install kit, for the two runs the customer cuts in their own kitchen.
 
 ## The bore
