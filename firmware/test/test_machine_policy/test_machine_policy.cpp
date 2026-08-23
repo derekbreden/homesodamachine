@@ -335,7 +335,7 @@ void test_cancel_tombstones_an_activation_that_has_not_arrived() {
     const uint32_t tombstoneRevision = session.snapshot().revision;
 
     // An exact retry is idempotent, and the delayed ACTIVATE is permanently
-    // rejected even though CANCEL reached the controller first.
+    // rejected even though CANCEL reached the main board first.
     TEST_ASSERT_TRUE(session.cancel(
         pendingToken, PrimeSessionOutcome::Canceled, 0, true));
     TEST_ASSERT_EQUAL_UINT32(tombstoneRevision, session.snapshot().revision);
