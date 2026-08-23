@@ -1257,13 +1257,13 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
 def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
     """Whether each barb tube leaves the cap through the opening rather than through material.
 
-    `enclosure.build_pump_cap` opens its aft face over each head's own square and bores nothing
-    for the four tubes, because each stands inside that square. THAT IS A CLAIM ABOUT THE BARB
-    PITCH AND NOTHING ELSE HERE READS IT: the tubes are stationed off the placed pumps and the
-    opening is struck off `head_half`, so a wider pitch or a fatter tube walks one into the web
-    and nothing else on this card would say so — a bore struck to catch it would lap that web
-    by a fraction of its radius and feather the section to nothing at the two levels it grazed,
-    which is why there is no bore.
+    `enclosure.build_pump_cap` opens its aft face as one slot over each head and bores nothing
+    for the four tubes. THAT IS A CLAIM ABOUT THE BARB PITCH AND NOTHING ELSE HERE READS IT:
+    the tubes are stationed off the placed pumps, while the opening starts at `head_half` and
+    carries `cap_tube_relief` past the room at both edges. A wider pitch or a fatter tube can
+    therefore walk into the web without another card saying so. A bore struck to catch it
+    would lap that web by a fraction of its radius and feather the section to nothing at the
+    two levels it grazed, which is why there is no bore.
 
     Read as the tube's own outer wall against the opening's edge, per barb, on the axis the
     opening is struck on."""
@@ -1272,7 +1272,7 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
         return record_bound(Bound(
             "cap-passes-tubes", "Each barb tube leaves the cap through its opening", True,
             "no cap in this box", "every tube inside the opening it leaves by", []))
-    edge = _tray.head_half + _enc.cap_pump_air
+    edge = _enc.cap_slot_half
     r = ml.TUBE_D / 2.0
     rows, worst = [], None
     for cx, _cy, _cz in (c for _h, (_a, _s, c) in sorted(pump_tray_seats(placed).items())):
@@ -1282,15 +1282,15 @@ def check_cap_passes_tubes(pieces: dict, placed: dict, plate: dict) -> Bound:
             air = edge - (abs(hx - cx) + r)
             worst = air if worst is None else min(worst, air)
             rows.append((f"({cx:+.1f}) barb x {hx:+.2f}", air))
-    bad = [row for row in rows if row[1] < 0.0]
+    bad = [row for row in rows if row[1] < _enc.cap_tube_relief - 1e-9]
     return record_bound(Bound(
         "cap-passes-tubes", "Each barb tube leaves the cap through its opening", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} clear, least {worst:.3f} mm off the edge",
-        f"every Ø{ml.TUBE_D:g} tube inside the opening, which is the head's own square and "
-        f"{_enc.cap_pump_air:g} of air",
-        [f"{who}: the tube stands {-air:.2f} mm proud of the opening's edge and the cap bores "
-         f"nothing for it — move the barb inboard, or the cap has to open past the head's "
-         f"square and carry the step that leaves" for who, air in bad]))
+        f"at least {_enc.cap_tube_relief:g} mm round every Ø{ml.TUBE_D:g} tube at the "
+        "opening's two outer edges",
+        [f"{who}: the tube has {air:.2f} mm to the opening's edge, under the "
+         f"{_enc.cap_tube_relief:g} mm printed running clearance — carry the slot's edge "
+         "farther without opening the flank seat" for who, air in bad]))
 
 
 def check_trays_hold(pieces: dict, placed: dict) -> Bound:
