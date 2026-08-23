@@ -38,6 +38,11 @@ let enabled = (() => {
 let selection = null;   // selected component name, or null
 let hoverName = null;   // hovered component name, or null
 
+// The model on screen, and the bare name of a file the drill-down could reach.
+const mountedFile = () =>
+  (state.mountedDetail && state.mountedDetail.type === "step" ? state.mountedDetail.file : null);
+const stemOf = (file) => file.slice(file.lastIndexOf("/") + 1).replace(/\.step$/i, "");
+
 // --- hidden-set persistence (per open file, view-only) ---
 function hiddenKey(file) { return `step-hidden:${file}`; }
 
@@ -214,7 +219,7 @@ function buildPanel() {
   openBtn.textContent = "Open part";
   openBtn.addEventListener("click", () => {
     const file = selection && sourceFileFor(selection, state.allFiles);
-    if (file) drillTo(file);
+    if (file && file !== mountedFile()) drillTo(file);
   });
   actions.appendChild(openBtn);
   panel._openBtn = openBtn;
@@ -266,10 +271,18 @@ function showPanel() {
 
   // The assembly builds its own tubing and valve bodies, and there is nowhere
   // to go from one of those — so the offer is only on screen when it leads
-  // somewhere (contracts/component-sources.js).
+  // somewhere (contracts/component-sources.js). The file already on screen is
+  // nowhere too: an assembly's own root name resolves to the assembly.
   const source = selection ? sourceFileFor(selection, state.allFiles) : null;
-  panel._openBtn.style.display = source ? "block" : "none";
-  panel._openBtn.title = source ? `Open ${source}` : "";
+  const goes = source && source !== mountedFile() ? source : null;
+  panel._openBtn.style.display = goes ? "block" : "none";
+  // THE BUTTON NAMES ITS DESTINATION WHEN THAT IS NEWS. `foam-assembly` opens
+  // the cold core and `pump-a-motor` opens the Kamoer, and a drill worth taking
+  // is one you can see the end of first; a part that opens its own file is
+  // already named in the row above.
+  panel._openBtn.textContent = goes && stemOf(goes) !== selection
+    ? `Open ${stemOf(goes)}` : "Open part";
+  panel._openBtn.title = goes ? `Open ${goes}` : "";
 
   // Hidden list.
   const hidden = panel._hidden;
