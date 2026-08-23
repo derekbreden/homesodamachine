@@ -113,15 +113,13 @@ export const PURCHASED = [
 ];
 
 // MADE IN ORDER TO MAKE THE MACHINE, OR A PICTURE OF IT — never part of it. The
-// moulds, mandrels, gauges and print coupons a bench works from; the soft parts
-// modelled beside their host without a seat in it; and the bench scenes, each a
-// picture of a group of bodies rather than a body. Claimed ahead of the sweep, so
-// a tooling directory standing inside a part directory comes out of it.
+// moulds, mandrels and gauges a bench works from; the soft parts modelled beside
+// their host without a seat in it; and the bench scenes, each a picture of a group
+// of bodies rather than a body. Claimed ahead of the sweep, so a tooling directory
+// standing inside a part directory comes out of it.
 export const TOOLING = [
   "assembly/scenes/glb",
   "printed-parts/cold-core/coil-mandrel",
-  "printed-parts/enclosure/texture-coupon-vent",
-  "printed-parts/enclosure/texture-coupons",
   "printed-parts/zone-c/hopper-funnel-mold",
 ];
 

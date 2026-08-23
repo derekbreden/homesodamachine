@@ -652,7 +652,7 @@ genrule(
     hold("a tracked source is a label bazel knows", hit == src, f"{hit!r} {miss!r}")
     t = targets(src)
     hold("a leaf part reaches its own target", "//:foam-cap" in t, str(t))
-    hold("and not an unrelated artifact branch", "//:texture-coupons" not in t,
+    hold("and not an unrelated artifact branch", "//:hopper-funnel-mold" not in t,
          f"{len(t)} targets")
     hold("a path bazel does not name is reported, not dropped",
          known(["no/such/file.py"]) == ([], ["no/such/file.py"]))
