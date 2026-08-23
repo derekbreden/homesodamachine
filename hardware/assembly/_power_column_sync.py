@@ -19,7 +19,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "manifold-layout"))
 sys.path.insert(0, str(_hw / "scripts"))
 
-import pcba_tray as _pcba  # noqa: E402  — the main board outline the tray is built around
+import pcba_tray as _pcba  # noqa: E402  — the main board outline `pcba_tray` carries
 import _facts  # noqa: E402  — the +X wall's own Wago row, off the last build
 
 # WHAT THIS DOC WATCHES, WHICH IS NOT WHAT IT CALLS. Nothing here stands a machine; the
