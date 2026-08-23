@@ -24,7 +24,7 @@ static_assert(PRIME_SESSION_RUNNING == static_cast<uint8_t>(machine_policy::Prim
               "prime session phase drift: running");
 static_assert(PRIME_OWNER_NONE == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::None),
               "prime session owner drift: none");
-static_assert(PRIME_OWNER_FRONT == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Front),
+static_assert(PRIME_OWNER_ENCLOSURE == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Enclosure),
               "prime session owner drift: front");
 static_assert(PRIME_OWNER_FAUCET == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Faucet),
               "prime session owner drift: faucet");
@@ -239,7 +239,7 @@ static const char *primeStateName(uint8_t s) {
 static machine_policy::PrimeSessionOwner primeOwner(MachinePrimeSource source) {
     return source == MACHINE_PRIME_FAUCET
         ? machine_policy::PrimeSessionOwner::Faucet
-        : machine_policy::PrimeSessionOwner::Front;
+        : machine_policy::PrimeSessionOwner::Enclosure;
 }
 
 static machine_policy::PrimeSessionOutcome primeOutcome(uint8_t state) {

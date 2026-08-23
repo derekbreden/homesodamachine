@@ -29,8 +29,8 @@ enum PumpHold : uint8_t {
 // Physical link identity is supplied by link.cpp / faucet_link.cpp and never
 // accepted from a display payload.
 enum MachinePrimeSource : uint8_t {
-    MACHINE_PRIME_FRONT  = 1,
-    MACHINE_PRIME_FAUCET = 2,
+    MACHINE_PRIME_ENCLOSURE = 1,
+    MACHINE_PRIME_FAUCET    = 2,
 };
 
 struct MachinePrimeSessionState {

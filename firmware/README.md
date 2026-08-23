@@ -278,7 +278,7 @@ Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -
 ~/.platformio/penv/bin/python tools/display_usb.py
 ```
 
-The command is explicit development control and is never sent by a production boot path. It finishes by observing the old USB attachment disappear, opening the re-enumerated display and requiring a `VERSION:FRONT=...` reply. If it reports `UNREACHABLE`, the installed display image is too old or the display is not answering on J9; that one boot still needs the physical RESET button or a V12 power cycle before the current image can be flashed.
+The command is explicit development control and is never sent by a production boot path. It finishes by observing the old USB attachment disappear, opening the re-enumerated display and requiring a `VERSION:ENCLOSURE=...` reply. If it reports `UNREACHABLE`, the installed display image is too old or the display is not answering on J9; that one boot still needs the physical RESET button or a V12 power cycle before the current image can be flashed.
 
 ```bash
 PLATFORMIO_UPLOAD_PORT=/dev/cu.usbserial-10 pio run -e appliance -t upload

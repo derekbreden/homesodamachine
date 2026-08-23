@@ -329,17 +329,17 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         }
 
         if (type == MSG_PRIME_SESSION_HOLD_START) {
-            machinePrimeSessionHoldBegin(MACHINE_PRIME_FRONT,
+            machinePrimeSessionHoldBegin(MACHINE_PRIME_ENCLOSURE,
                                          request.channel,
                                          request.sessionToken,
                                          request.holdToken);
         } else if (type == MSG_PRIME_SESSION_HOLD_TICK) {
-            machinePrimeSessionHoldTick(MACHINE_PRIME_FRONT,
+            machinePrimeSessionHoldTick(MACHINE_PRIME_ENCLOSURE,
                                         request.channel,
                                         request.sessionToken,
                                         request.holdToken);
         } else {
-            machinePrimeSessionHoldEnd(MACHINE_PRIME_FRONT,
+            machinePrimeSessionHoldEnd(MACHINE_PRIME_ENCLOSURE,
                                        request.channel,
                                        request.sessionToken,
                                        request.holdToken);

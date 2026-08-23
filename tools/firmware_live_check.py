@@ -48,7 +48,7 @@ PRIME_SESSION_READY = 1
 PRIME_SESSION_RUNNING = 2
 PRIME_SESSION_OFF = 0
 PRIME_OWNER_NONE = 0
-PRIME_OWNER_FRONT = 1
+PRIME_OWNER_ENCLOSURE = 1
 PRIME_OUTCOME_STOPPED = 1
 
 
@@ -121,7 +121,7 @@ class Front:
 
 
 def snapshot(front: Front) -> tuple[str, dict[str, str], dict[str, str], str]:
-    version = front.query_prefix("GET_VERSION", "VERSION:FRONT=")
+    version = front.query_prefix("GET_VERSION", "VERSION:ENCLOSURE=")
     state = fields(front.query_prefix("GET_STATE", "STATE:"), "STATE:")
     diag_line = front.query_prefix("GET_DIAG", "DIAG:")
     link = front.query_prefix("LINK", "LINK:")
@@ -432,7 +432,7 @@ def check_prime(front: Front, initial: dict[str, str], channel: str, ack_limit_m
         session_open = True
         started = front.send(f"PRIME:START:{flavor}")
         running, answered = wait_prime_state(
-            front, phase=PRIME_SESSION_RUNNING, owner=PRIME_OWNER_FRONT
+            front, phase=PRIME_SESSION_RUNNING, owner=PRIME_OWNER_ENCLOSURE
         )
         require(
             running.get("PRIMECH") == str(flavor - 1),
