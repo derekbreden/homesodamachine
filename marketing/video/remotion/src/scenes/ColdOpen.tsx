@@ -7,7 +7,7 @@ import { drawOn, fadeIn } from "../motion/draw";
 import { ColdField } from "../components/cold/ColdField";
 import { Bubbles } from "../components/cold/Bubbles";
 
-/** Cold Press cold open: the board materializes as glowing teal linework out of
+/** Cold Press cold open: the main board materializes as glowing teal linework out of
  *  a chilled void full of rising carbonation, with a mono kicker + subtitle
  *  low-left. Atmosphere and tease — the title lands later, in Shop Notes. */
 export const ColdOpen: React.FC<{ kicker: string; sub: string }> = ({ kicker, sub }) => {
