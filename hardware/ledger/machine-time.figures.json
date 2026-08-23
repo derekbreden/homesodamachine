@@ -2,7 +2,7 @@
   "/hardware/scripts/_machine_time.py": {
     "MT_CEIL_BENCH": "973",
     "MT_CEIL_MOLD": "973",
-    "MT_CEIL_PRINT": "154",
+    "MT_CEIL_PRINT": "153",
     "MT_CEIL_VESSEL": "3,369",
     "MT_DAYS_TURN": "3.5",
     "MT_DUTY": "65 %",
@@ -10,18 +10,18 @@
     "MT_H_CURE": "41.0",
     "MT_H_EXT": "58.9",
     "MT_H_PETCF": "9.8",
-    "MT_H_PRINT": "114.1",
+    "MT_H_PRINT": "114.3",
     "MT_H_PRINT_WALL": "57.1",
     "MT_H_RUN": "9.0",
-    "MT_H_SMALL": "4.8",
+    "MT_H_SMALL": "5.0",
     "MT_H_SOAK": "2.6",
     "MT_H_TIGHT": "19.4",
     "MT_H_TURN": "85.1",
-    "MT_KG": "9.643",
+    "MT_KG": "9.649",
     "MT_KG_BULK": "1.963",
     "MT_KG_EXT": "6.476",
     "MT_KG_PETCF": "0.163",
-    "MT_KG_SMALL": "0.161",
+    "MT_KG_SMALL": "0.167",
     "MT_KG_TIGHT": "0.880",
     "MT_MEASURED": "14 h 22 m",
     "MT_MEASURED_EXT": "16 h",
@@ -37,7 +37,7 @@
     "MT_RATE_PETCF": "60",
     "MT_RATE_SMALL": "30",
     "MT_RATE_TIGHT": "22",
-    "MT_UNITS_YEAR": "~100",
-    "MT_UNITS_YEAR_3": "~150"
+    "MT_UNITS_YEAR": "~99",
+    "MT_UNITS_YEAR_3": "~149"
   }
 }
