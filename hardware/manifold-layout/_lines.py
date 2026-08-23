@@ -1379,8 +1379,8 @@ def _refrig_2(F):
     the block\'s own envelope, and what leaves it is this."""
     return R.bent(
         "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
-        kind="refrigerant", lead=2.0,
-        note="sealed loop: condenser outlet → evaporator inlet, one turn across the lane")
+        kind="refrigerant", lead=2.0, min_bend=8.0,
+        note="sealed loop: condenser outlet → evaporator inlet, hand-formed across the lane")
 
 
 def authored() -> frozenset:
