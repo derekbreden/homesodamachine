@@ -1,6 +1,6 @@
 """Tube collar — the port ring's word and colour, carried on the tube.
 
-`../../enclosure/port-ring/` marks the wall: a chip lying in a pocket of the back face, under a through-wall
+`../../enclosure/bulkhead-ring/` marks the wall: a chip lying in a pocket of the back face, under a through-wall
 fitting's flange, in the colour of the tube that goes into it. This is that chip bored for the tube
 instead of for the fitting's barrel, run along it, and turned a quarter so the word reads down the
 run. Same four colours, same five words, same two-filament print.
@@ -17,10 +17,10 @@ customer's own cuts, and their collars ride in the install kit.
 THE LENGTH IS THE BORE'S. `rock()` is the angle a collar can cock on its loosest tube — a bore of
 length L with diametral play c binds at two diagonal corners, leaving atan(c/L) — and `flag_sway()`
 carries that angle out to the word's face, the furthest anything on the collar stands from the line
-it would turn about. `selftest` reads both against `port_ring.THICK`, which is the same
+it would turn about. `selftest` reads both against `bulkhead_ring.THICK`, which is the same
 identification carried on a chip.
 
-Coordinate frame — THE TUBE'S, the same one `port_ring` gives the fitting:
+Coordinate frame — THE TUBE'S, the same one `bulkhead_ring` gives the fitting:
   Y = the tube's axis. +Y = outboard, toward the free end and the customer.
   Origin = the collar's INBOARD end face; it spans y = 0 to y = LENGTH.
   +Z = up, the way the flag stands. X completes the right-handed frame.
@@ -43,7 +43,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "enclosure" / "back-panel",
-           _hw / "printed-parts" / "enclosure" / "port-ring"):
+           _hw / "printed-parts" / "enclosure" / "bulkhead-ring"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
@@ -51,7 +51,7 @@ from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import step_safe  # noqa: E402
 from _measuring import bores  # noqa: E402
 import _back_panel_dimensions as _rear  # noqa: E402
-import port_ring as _ring  # noqa: E402
+import bulkhead_ring as _ring  # noqa: E402
 from docgen import substitute_md  # noqa: E402
 
 # THE ONE TUBE SIZE ON THIS MACHINE. Every line the customer meets is 1/4" OD LLDPE, off one of the
@@ -78,19 +78,19 @@ BORE = TUBE_OD + LLDPE_TOL + BORE_SHRINK + SLIP
 # colour between the bore and each of the three flats.
 OD = 12.0
 # HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, and so how tall the two side flats are. It is
-# `port_ring.RING_W` — the band a chip letters its own word in, between the flange's edge and the
+# `bulkhead_ring.RING_W` — the band a chip letters its own word in, between the flange's edge and the
 # top of the chip — so a word stands in one band whether it is read off the wall or off the tube.
 RISE = _ring.RING_W
 # THE RUN ALONG THE TUBE. It is the longest of the five words plus its margins, set at
-# `port_ring.WORD_SIZE` — the wall's lettering and the tube's are one size, and `selftest` holds
+# `bulkhead_ring.WORD_SIZE` — the wall's lettering and the tube's are one size, and `selftest` holds
 # this to it.
 LENGTH = 30.0
 # How deep the word's recess is cut into the flat, and what the flat keeps clear of it. Both are
-# `port_ring`'s.
+# `bulkhead_ring`'s.
 WORD_DEPTH = _ring.WORD_DEPTH
 WORD_MARGIN = _ring.WORD_MARGIN
 
-# ONE COLLAR PER CHIP. The five keys are `port_ring.STATIONS`' own, and each takes its word and its
+# ONE COLLAR PER CHIP. The five keys are `bulkhead_ring.STATIONS`' own, and each takes its word and its
 # spool from the chip at that station — a word changed on the wall is changed on the tube by the
 # same edit.
 #
@@ -106,7 +106,7 @@ STATIONS = {
         ("flavor-b", "the umbilical's second black flavour tail", "faucet bench"),
     )
 }
-# ONE FILE PER STATION, AND IT HOLDS BOTH BODIES — `port_ring.STEPS`' construction. The part is one
+# ONE FILE PER STATION, AND IT HOLDS BOTH BODIES — `bulkhead_ring.STEPS`' construction. The part is one
 # print in two filaments, a collar and the word lying in its recess, and the file is that pair.
 STEPS = {name: _here.parent / f"tube-collar-{name}.step" for name in STATIONS}
 
@@ -178,7 +178,7 @@ def word_band(face: str = "top") -> tuple:
 def _face_word(which: str, face: str):
     """One station's word on one of its flats, standing in the recess it fills.
 
-    THE LETTERS ARE LOOSE, one solid each — `port_ring.build_word`'s construction. The part opens as
+    THE LETTERS ARE LOOSE, one solid each — `bulkhead_ring.build_word`'s construction. The part opens as
     one file carrying both bodies and the lettering is assigned the second filament.
 
     `text` sets flat in XY with its advance on +X, its cap on +Y and its extrusion on +Z, and each
@@ -228,7 +228,7 @@ def build_blank():
     """The outline run along the tube and its bore, with no lettering taken out of it — what a
     station's own word is cut from, and what `letters_lie_in_it` weighs the cut against.
 
-    Struck from primitives the way `port_ring.build_outline` strikes the chip's — a cylinder with
+    Struck from primitives the way `bulkhead_ring.build_outline` strikes the chip's — a cylinder with
     everything above the axis taken off it, and a box standing on that same axis — so no plane's own
     chirality reaches the shape."""
     r = OD / 2.0
@@ -309,12 +309,12 @@ def stations_hold():
 
 
 def words_hold():
-    """Hold the lettering to `port_ring`'s figures, off the built solids.
+    """Hold the lettering to `bulkhead_ring`'s figures, off the built solids.
 
-    THE FACE IS THE SYSTEM'S. `port_ring.WORD_FONT` names one this repo does not ship, so a machine
+    THE FACE IS THE SYSTEM'S. `bulkhead_ring.WORD_FONT` names one this repo does not ship, so a machine
     that resolves it elsewhere letters a collar with a different word on it — same colour, same
     outline — and nothing about that shows up in a bore or an extent. The word is set at
-    `port_ring`'s own em, so the widths it carries are the widths these come out at."""
+    `bulkhead_ring`'s own em, so the widths it carries are the widths these come out at."""
     for which, step in STEPS.items():
         word = STATIONS[which].word
         _collar, solid = split(import_step(str(step)).val())
@@ -403,7 +403,7 @@ def selftest() -> int:
         fails.append(
             f"the longest of these words asks {needed:.3f} mm along the tube and `LENGTH` is "
             f"{LENGTH:g}")
-    # `port_ring.THICK` is the same identification carried on a chip, on the same tube's play.
+    # `bulkhead_ring.THICK` is the same identification carried on a chip, on the same tube's play.
     chip_rock = math.degrees(math.atan2(clearance(), _ring.THICK))
     if rock() >= chip_rock:
         fails.append(

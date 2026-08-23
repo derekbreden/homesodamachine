@@ -1,7 +1,7 @@
-# Port ring
+# Bulkhead ring
 
-A flat printed chip lying in a pocket cut into the back wall's outer face, under a through-wall
-fitting's own flange. The pocket is the chip's own thickness deep, so colour and wall come out one
+A flat printed chip lying in a pocket cut into the +Y wall of back-top's outer face, under a
+through-wall fitting's own flange. The pocket is the chip's own thickness deep, so colour and wall come out one
 plane; the fitting's nut draws flange, chip and wall together. One at every crossing the wall
 passes a tube through, and each carries a word.
 
@@ -15,12 +15,12 @@ other.
 | width | Ø[36.96](RING_OD) | Ø[36.04](CO2_RING_OD) |
 | bore | Ø[18](RING_BORE) | Ø[17.86](CO2_RING_BORE) |
 | height | [37.27](RING_TALL) mm | [36.81](CO2_RING_TALL) mm |
-| volume | [1.89](RING_VOL) cm³ | [1.84](CO2_RING_VOL) cm³ |
+| volume | [1.90](RING_VOL) cm³ | [1.84](CO2_RING_VOL) cm³ |
 
 | | |
 |---|---|
 | thickness | [2](RING_THICK) mm — the depth the pocket is cut to, so the two faces come out one plane, and how far the fitting's flange bears outboard of the wall's stock |
-| colour showing past the flange | [7.05](PORT_RING_W) mm |
+| colour showing past the flange | [7.05](RING_W) mm |
 | rectangle above the axis | [18.789](RING_RISE) mm at every station |
 
 The top row stands close enough to the ceiling that a rectangle stopped on its own radius would
@@ -46,7 +46,7 @@ The same outline bored for the tube instead of the fitting, and run along it, is
 A chip's colour is the colour of the tube that goes into it, and there are four of them. What a
 colour means on the rear face is stated in
 [`../back-panel/_back_panel_dimensions.py`](../back-panel/_back_panel_dimensions.py); which
-fitting stands where is [`../back-panel/README.md`](README.md) §"Bulkhead array arrangement".
+fitting stands where is [`../back-panel/README.md`](../back-panel/README.md) §"Bulkhead array arrangement".
 
 Both flavour stations wear the same black chip and the same word: a customer pushes black into
 either one and the manifold sorts them, so nothing on that face tells A from B.
@@ -80,7 +80,7 @@ Which of black and white a chip's word letters in is
 spool in `chip_filaments` beside it. The white chip takes **black**; the other three take
 **white**.
 
-`port_ring.WORD_WIDTHS` carries what each word measures across. The face is the system's, not this
+`bulkhead_ring.WORD_WIDTHS` carries what each word measures across. The face is the system's, not this
 repo's, so a machine that resolves it to something else letters a different part; `words_hold`
 reads the built solid back against those figures, and against being one solid.
 
@@ -88,10 +88,10 @@ reads the built solid back against those figures, and against being one solid.
 
 Flat on the bed, face up, two colours to a plate — the chips off one spool, the words off the
 other. PETG, the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7). The plate and
-the profile it slices on are [`port-ring-water.3mf`](port-ring-water.3mf).
+the profile it slices on are [`bulkhead-ring-water.3mf`](bulkhead-ring-water.3mf).
 
 The em, how far the word stands past the face, and how deep its recess is cut were each put to a
-plate of six chips, every one a port ring carrying a proposal against the chip either side of it.
+plate of six chips, every one a bulkhead ring carrying a proposal against the chip either side of it.
 Nothing on the printed plate read better than what this part stands at, so these are the figures
 it keeps and the word stays flush. The plate and the case each chip was cut to make stand at the
 `archive-port-ring-coupons` tag.
@@ -103,9 +103,9 @@ thickness under every chip.
 
 ## Files
 
-- `port_ring.py` — the part, and the figures the wall and the drawings read
-- `port-ring-<station>.step` — one station, both bodies: the chip and the word lying in its
-  recess, each carrying the colour of the spool it comes off. `port_ring.split` takes the pair
+- `bulkhead_ring.py` — the part, and the figures the wall and the drawings read
+- `bulkhead-ring-<station>.step` — one station, both bodies: the chip and the word lying in its
+  recess, each carrying the colour of the spool it comes off. `bulkhead_ring.split` takes the pair
   back apart for anything that places them one at a time.
 
 Run with `tools/cad-venv/bin/python` per the hardware context file. `selftest` reads each chip
@@ -113,4 +113,4 @@ against the fitting it rings, the band its word stands in, and the word's own bu
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/enclosure/port-ring/port_ring.py`
+- `/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py`

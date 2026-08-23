@@ -36,14 +36,14 @@ for _p in (next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) /
            _HW / "scripts",
            _HW / "manifold-layout",
            _HW / "printed-parts" / "enclosure" / "back-panel",
-           _HW / "printed-parts" / "enclosure" / "port-ring"):
+           _HW / "printed-parts" / "enclosure" / "bulkhead-ring"):
     sys.path.insert(0, str(_p))
 
 from docgen import substitute_py_comments               # noqa: E402
 import _boxes                                           # noqa: E402
 import enclosure_assembly as _ea                                # noqa: E402
 import _back_panel_dimensions as _rear                  # noqa: E402
-import port_ring as _ring                               # noqa: E402
+import bulkhead_ring as _ring                               # noqa: E402
 
 
 # ---------------------------------------------------------------------------

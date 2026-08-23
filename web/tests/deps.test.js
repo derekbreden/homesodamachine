@@ -127,7 +127,7 @@ test("the pruning holds on the tree it runs against", () => {
   // only where a watched run of that generator positively did not open that file.
   for (const relMod of [
     "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-    "hardware/printed-parts/enclosure/port-ring/port_ring.py",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
     "hardware/scripts/_materials.py",
   ]) {
     const kept = new Set(

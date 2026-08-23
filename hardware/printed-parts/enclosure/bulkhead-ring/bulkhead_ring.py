@@ -1,6 +1,7 @@
-"""Port ring — the colour and the word one of the rear wall's connections is read by.
+"""Bulkhead ring — the colour and the word one of the +Y wall of back-top's connections is
+read by.
 
-A flat chip lying in a pocket of the back wall's outer face, with a through-wall fitting's own
+A flat chip lying in a pocket of that wall's outer face, with a through-wall fitting's own
 flange landing on it. Nothing fastens it: the fitting's nut makes up on the inboard side and draws
 flange, chip and wall together, so the chip is in the clamped stack the way the wall is. The pocket
 is the chip's own thickness deep, so the two faces come out one plane.
@@ -39,8 +40,8 @@ no turn of its own:
 It prints flat, many to a bed, two colours to a plate.
 
 Run:
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/port_ring.py
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/port-ring/port_ring.py selftest
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py selftest
 """
 
 import collections
@@ -109,7 +110,7 @@ STATIONS = {
 # and the word lying in its recess — so the file is that pair, each body carrying the colour of the
 # spool it comes off. A reader opening a station sees the part a customer meets; a slicer opening
 # it gets the two bodies to assign. `split` is how the pair comes back apart.
-STEPS = {name: _here.parent / f"port-ring-{name}.step" for name in STATIONS}
+STEPS = {name: _here.parent / f"bulkhead-ring-{name}.step" for name in STATIONS}
 
 # The key each station reads its two filaments under in `_back_panel_dimensions` — both flavour
 # chips print off one spool and letter in one colour, so both answer to `flavor`.
@@ -134,7 +135,7 @@ WORD_SIZE = 6.5
 # behind the lettering is as thick as the lettering itself and neither side of the print is a skin.
 WORD_DEPTH = 1.0
 # The PROFILE these slice under — `0.08mm High Quality @BBL H2C 0.2 nozzle`, saved in the plate at
-# `port-ring-water.3mf` — and the bead it asks for. The ORIFICE is `WORD_NOZZLE`; this is the width
+# `bulkhead-ring-water.3mf` — and the bead it asks for. The ORIFICE is `WORD_NOZZLE`; this is the width
 # the profile lays at, and it is what a slicer divides a feature by to decide how many perimeters
 # fit in it. So it, and not the tip, is what a stroke and a bridge are counted in.
 WORD_LAYER = 0.08
@@ -270,9 +271,9 @@ def build_part(which: str) -> cq.Assembly:
     """One station as it prints: the chip, and the word lying in its recess, each in the filament
     it comes off. Two bodies of one part, in the frame `seat` places them by."""
     a = cq.Assembly()
-    a.add(build_ring(which), name=f"port-ring-{which}",
+    a.add(build_ring(which), name=f"bulkhead-ring-{which}",
           color=_filament(_rear.chip_color(FLUIDS[which])))
-    a.add(build_word(which), name=f"port-ring-{which}-word",
+    a.add(build_word(which), name=f"bulkhead-ring-{which}-word",
           color=_filament(_rear.word_color(FLUIDS[which])))
     return a
 
@@ -309,7 +310,7 @@ def stations_hold():
                                       ("chip thickness", THICK, bb.ylen)):
             if abs(claimed - actual) > 1e-6:
                 raise ValueError(
-                    f"port-ring {which} {what} is {claimed:g} and {step.name} carries "
+                    f"bulkhead-ring {which} {what} is {claimed:g} and {step.name} carries "
                     f"{actual:.4f} — a wall pocketed to the declared figure does not take the "
                     f"chip that is there.")
         radii = sorted({r for _axis, r in bores(solid)})
@@ -455,7 +456,7 @@ def selftest() -> int:
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print("ok  port-ring  " + ", ".join(
+        print("ok  bulkhead-ring  " + ", ".join(
             f"{w} {STATIONS[w].word} Ø{od(family(w)):g}×{tall(w):.3f}"
             for w in STATIONS)
             + f" × {THICK:g}, {RING_W:g} mm of colour past each flange")
@@ -470,7 +471,7 @@ def main():
         volumes[which] = chip.Volume() / 1000.0
         word_volumes[which] = word.Volume() / 1000.0
         bb = chip.BoundingBox()
-        print(f"Port ring — {which} station, '{STATIONS[which].word}'")
+        print(f"Bulkhead ring — {which} station, '{STATIONS[which].word}'")
         print(f"  Ø{diameter:g} wide × {diameter / 2.0 + top:.3f} tall / "
               f"bore Ø{bore_d(family(which)):g} / thickness {THICK:g}")
         print(f"  Colour showing past the flange: {RING_W:g} mm")
@@ -483,7 +484,7 @@ def main():
         print(f"-> {STEPS[which].name}")
 
     variables = {
-        "PORT_RING_W": f"{RING_W:g}",
+        "RING_W": f"{RING_W:g}",
         "RING_THICK": f"{THICK:g}",
         "RING_OD": f"{od('union'):g}",
         "RING_BORE": f"{bore_d('union'):g}",

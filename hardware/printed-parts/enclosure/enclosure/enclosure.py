@@ -133,7 +133,7 @@ _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
@@ -148,7 +148,7 @@ import _realized
 import reeding
 import trimesh
 import flute_skin as _flute_skin
-import hopper_funnel as _funnel
+import funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import valve_seat as _seat
@@ -441,7 +441,7 @@ display_screw_x = _interface.display_screw_x                         # [66.75 mm
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top wall
 # BEHIND the display facet, cut at the placed funnel's collar: the funnel is a
-# static part (../../zone-c/hopper-funnel/, its own frame) placed at
+# static part (../../zone-c/funnel/, its own frame) placed at
 # the box's own `funnel` centre with its brim on the box top, and with_funnel
 # measures the top-wall frame against it (the housing's back cut ahead, the
 # ±X boss chains either side, the back wall behind). The collar stands on
@@ -453,7 +453,7 @@ display_screw_x = _interface.display_screw_x                         # [66.75 mm
 hopper_chain_gap = 1.0
 # The collar's front edge, read by `enclosure_assembly.funnel_centre`. THE HOPPER IS WHERE THE
 # USER POURS, so it stands as far forward as the top wall lets it — and what stops it is the
-# BRIM rather than the throat: the flange overhangs the collar by `hopper_funnel.brim_overhang`
+# BRIM rather than the throat: the flange overhangs the collar by `funnel.brim_overhang`
 # and has to land on top wall, which begins at the display facet's own arris. So the figure is
 # that arris, one `wall` of landing, and the overhang — 66.87 + 3 + 7 — and it stands aft of
 # `housing_back_y`, which is the other plane that could have stopped it. `funnel-brim-lands`
@@ -3253,7 +3253,7 @@ def _hopper_frame(inner, outer):
     wall.
 
     THE FRONT IS A DIFFERENT KIND OF EDGE FROM THE OTHER THREE. On those three the frame runs
-    out into a free edge, and the collar stands one `hopper_funnel.brim_margin` inside it: the
+    out into a free edge, and the collar stands one `funnel.brim_margin` inside it: the
     flange overhangs the collar by `brim_overhang` to catch the wall and hold the funnel out of
     the box, and the margin is the wider of the two, so a full overhang's width of top wall
     still remains outboard of the brim's edge. Forward the wall runs straight on into the
@@ -3270,7 +3270,7 @@ def _hopper_frame(inner, outer):
 
 def _hopper_hole(centre):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the placed funnel's
-    collar — hopper_funnel.py's own dims at the box's own `funnel` centre.
+    collar — funnel.py's own dims at the box's own `funnel` centre.
 
     The funnel is pushed as far FORWARD as `_hopper_frame` allows, and reaches aft for
     whatever plan area its capacity needs — so the opening may cross the Y seam. Both halves

@@ -29,10 +29,10 @@ Not UL-listed or ETL-listed; the plate carries no UL or ETL mark.
 
 ## The type
 
-One face, `port_ring.WORD_FONT`, in two registers. The name and the block are set at
-[6.5](TITLE_EM) — `port_ring.WORD_SIZE`, the em the bulkhead chips beside this plate are
-lettered at. The link is set at [5.62](LINK_EM): the em that brings it out at
-[97.3 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
+One face, `bulkhead_ring.WORD_FONT`, in two registers. The name and the block are set at
+[6.5](TITLE_EM) — `bulkhead_ring.WORD_SIZE`, the em the bulkhead chips beside this plate are
+lettered at. The link is set at [6.05](LINK_EM): the em that brings it out at
+[88.8 mm](LOCKUP_W), the lockup's own width, so the plate is bracketed top and bottom by two
 marks that measure the same. Every serial is four digits and this face sets figures on one
 advance, so that holds from unit 0001 to 9999.
 
@@ -63,7 +63,7 @@ otherwise.
 same wall standing vertical on the bed, so the pocket's own head is a down-facing ceiling: cut
 square it hangs the pocket's whole [4.5 mm](NAMEPLATE_T) depth, which measures
 [443.4 mm²](POCKET_SOFFIT_SQUARE) of flat. Ramped it hangs [1.5 mm](POCKET_RIM), or
-[147.8 mm²](POCKET_SOFFIT) — less than the [2 mm](PORT_RING_T) pocket hung before the plate ever
+[147.8 mm²](POCKET_SOFFIT) — less than the [2 mm](RING_T) pocket hung before the plate ever
 thickened. The last [1.5 mm](POCKET_RIM) stays square deliberately: 45° carried out to the face
 would read as a V-groove round the plate instead of a flush inlay. The angle is
 `enclosure.relief_chamfer`, what every relief ceiling on this box rises at.

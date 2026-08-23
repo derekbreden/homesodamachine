@@ -13,8 +13,8 @@
     "CBORE_D": "6.15 mm",
     "INK_DEPTH": "1 mm",
     "INK_FLOOR": "3.5 mm",
-    "LINK_EM": "5.62",
-    "LOCKUP_W": "97.3 mm",
+    "LINK_EM": "6.05",
+    "LOCKUP_W": "88.8 mm",
     "NAMEPLATE_CBORE_DEPTH": "3 mm",
     "NAMEPLATE_FLOOR": "1.5 mm",
     "NAMEPLATE_LAND": "1.5 mm",
@@ -30,7 +30,7 @@
     "POCKET_RIM": "1.5 mm",
     "POCKET_SOFFIT": "147.8 mm\u00b2",
     "POCKET_SOFFIT_SQUARE": "443.4 mm\u00b2",
-    "PORT_RING_T": "2 mm",
+    "RING_T": "2 mm",
     "TITLE_EM": "6.5",
     "WALL_T": "3 mm"
   }

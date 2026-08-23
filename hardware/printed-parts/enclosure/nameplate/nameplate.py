@@ -26,7 +26,7 @@ across the face — so its two screws stand at mid-height.
 THE TYPE IS A SECOND SOLID, as the chips' words are: it lies in a recess `INK_DEPTH` into the
 plate's outboard face and fills it flush, printed in the second filament.
 
-Coordinate frame — the wall's, as `port_ring` states it, so the assembly seats one with no turn
+Coordinate frame — the wall's, as `bulkhead_ring` states it, so the assembly seats one with no turn
 of its own:
   Y = out through the wall. +Y = outboard, toward the customer.
   Origin = the plate's INBOARD face at its own centre. The plate spans y = 0 to y = THICK and
@@ -57,7 +57,7 @@ for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "enclosure",
-           _hw / "printed-parts" / "enclosure" / "port-ring"):
+           _hw / "printed-parts" / "enclosure" / "bulkhead-ring"):
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
@@ -67,7 +67,7 @@ from docgen import substitute_md                      # noqa: E402
 import _back_panel_dimensions as _rear                # noqa: E402
 import _nameplate_dimensions as _plan                 # noqa: E402
 import _enclosure_interface as _enc                   # noqa: E402
-import port_ring as _ring                             # noqa: E402
+import bulkhead_ring as _ring                             # noqa: E402
 
 
 # --- the two screws --------------------------------------------------------
@@ -93,7 +93,7 @@ SCREW_LEN = 8.0
 # --- the plate -------------------------------------------------------------
 
 # THE PLATE IS ONE SCREW SEAT THICK, everywhere — the head's own height and the land under it.
-# `port_ring.THICK` is what the rest of this face inlays at, and this plate is deeper than that,
+# `bulkhead_ring.THICK` is what the rest of this face inlays at, and this plate is deeper than that,
 # because what it has to bury is a screw and not a colour.
 THICK = CBORE_DEPTH + LAND
 # What the wall stands to behind it: its own stock, and the band the pack already stands off it.
@@ -193,7 +193,7 @@ def seat() -> tuple:
 
 # --- the type --------------------------------------------------------------
 #
-# One face, `port_ring.WORD_FONT` — what the chips beside this plate are lettered in and what the
+# One face, `bulkhead_ring.WORD_FONT` — what the chips beside this plate are lettered in and what the
 # customer's sheet is set in — at three sizes. `FINE_EM` is the smallest, and the bridge and the
 # stroke it leaves are what `selftest` holds against the tip.
 FONT = _ring.WORD_FONT
@@ -202,7 +202,7 @@ TITLE_EM = _ring.WORD_SIZE
 BODY_EM = _ring.WORD_SIZE
 # The link is the one register under the chips' em — 26 characters at `BODY_EM` set wider than
 # the plate — and `link_em` is what it comes out at.
-# How deep the type's recess is cut into the plate's face — `port_ring.WORD_DEPTH`, half the
+# How deep the type's recess is cut into the plate's face — `bulkhead_ring.WORD_DEPTH`, half the
 # plate, so the colour behind the lettering is as thick as the lettering.
 INK_DEPTH = _ring.WORD_DEPTH
 # The bead the 0.2 mm tip lays, and the tip itself.
@@ -602,7 +602,7 @@ def main(unit: int):
         "WALL_T": f"{_enc.wall:g} mm",
         "PLATE_CORNER": f"{CORNER_R:g} mm",
         "PLATE_BEVEL": f"{BEVEL:g} mm",
-        "PORT_RING_T": f"{_ring.THICK:g} mm",
+        "RING_T": f"{_ring.THICK:g} mm",
         "POCKET_RIM": f"{THICK - BEVEL:g} mm",
         "POCKET_SOFFIT": f"{pocket_soffit(THICK - BEVEL):.1f} mm\u00b2",
         "POCKET_SOFFIT_SQUARE": f"{pocket_soffit(THICK):.1f} mm\u00b2",

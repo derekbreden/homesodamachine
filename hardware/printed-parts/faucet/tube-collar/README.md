@@ -1,7 +1,7 @@
 # Tube collar
 
 A printed collar threaded onto a 1/4" line, carrying the word and the colour of the port ring that
-line goes through. The chip in [`../../enclosure/port-ring/`](../../enclosure/port-ring/README.md) marks the wall; this marks
+line goes through. The chip in [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md) marks the wall; this marks
 the tube.
 
 The outline is the chip's — a half circle below the bore's axis, a rectangle above it where the word
@@ -29,7 +29,7 @@ the line rather than across the face.
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
 
 One collar per chip, on the same five stations, off the same five words and four spools —
-`port_ring.STATIONS` and `_back_panel_dimensions.chip_filaments` are what both read.
+`bulkhead_ring.STATIONS` and `_back_panel_dimensions.chip_filaments` are what both read.
 
 The three on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
 §4, up to the braid's own end, and ride to the rear wall on the un-sleeved tail. The other
@@ -62,7 +62,7 @@ pair against each other.
 ## The word
 
 A second solid in a second colour, lying in a recess [1](COLLAR_WORD_DEPTH) mm into the flat and
-filling it flush — [`../../enclosure/port-ring/`](../../enclosure/port-ring/README.md)'s own construction, at its own em, in
+filling it flush — [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md)'s own construction, at its own em, in
 its own face. The advance runs along the tube and the cap stands across it, in a flat that leaves
 [28](COLLAR_BAND_ALONG) mm one way and [10](COLLAR_BAND_ACROSS) mm the other. FLAVOR is the longest
 of the five and what `LENGTH` is set from.
