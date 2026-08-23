@@ -24,7 +24,7 @@ they became.
 | **faucet shell** | the printed black cover wrapping the Westbrass and the flavor tubes | faucet body, printed shell |
 | **gooseneck** | the faucet shell's forward arc, out to where the tubes exit over the glass | dispense head, nozzle, spout |
 | **pill slot** | the two-tube slot where the flavor tubes enter the faucet shell | |
-| **Westbrass** | the harvested Westbrass R2031-NL valve inside the faucet shell | faucet body, valve body |
+| **Westbrass** | the harvested Westbrass 8" Touch-Flo dispenser inside the faucet shell | faucet body, valve body |
 | **shank** | the Westbrass's threaded stem, running down through the counter hole | |
 | **faucet lever** | the handle pushed to dispense | |
 | **faucet display** | the 1.47" LCD at the end of the gooseneck | flavor display |
@@ -76,3 +76,4 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | --- | --- | --- |
 | **anchor** | a printed feature a body seats in and a strap closes over | anchor point |
 | **strap** | the zip tie that closes over an anchor | zip tie |
+| **round rotary display** | the prototype's 1.28" Meshnology 240×240 touchscreen | config display |
