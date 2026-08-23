@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -1138,11 +1138,11 @@
    "value": "8/8 standing",
    "target": "a groove standing open at each fore flange and a bored boss under each aft one",
    "detail": [
-    "fore flange at z   9.000, under its groove   standing   (98.7% of the probe)",
-    "fore flange at z   9.000, over its groove    standing   (98.7% of the probe)",
+    "fore flange at z   9.000, under its groove   standing   (98.1% of the probe)",
+    "fore flange at z   9.000, over its groove    standing   (98.1% of the probe)",
     "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
-    "fore flange at z 145.600, under its groove   standing   (98.7% of the probe)",
-    "fore flange at z 145.600, over its groove    standing   (98.7% of the probe)",
+    "fore flange at z 145.600, under its groove   standing   (98.1% of the probe)",
+    "fore flange at z 145.600, over its groove    standing   (98.1% of the probe)",
     "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
@@ -1533,12 +1533,10 @@
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
-   "status": "fail",
-   "value": "21/22 as drawn",
+   "status": "pass",
+   "value": "22/22 as drawn",
    "target": "0 short",
-   "detail": [
-    "refrig-2: leaves condenser+fan.refrig-outlet 16.7\u00b0 off the port's axis (> 3.0\u00b0), and is drawn at it \u2014 move the first waypoint onto the port's normal, or pass `lead=` to plant one.; enters foam-assembly.evap-inlet 16.7\u00b0 off the port's axis (> 3.0\u00b0), and is drawn at it \u2014 move the last waypoint onto the port's normal, or pass `lead=` to plant one."
-   ],
+   "detail": [],
    "active": true
   },
   {
