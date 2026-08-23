@@ -844,8 +844,8 @@ static void processTextLine(const char *line) {
     BaseLinkStatus link;
     baseLinkReadStatus(link);
     Serial.printf("STATE:FLAVOR=%d,SYNC=%d,BASE=%d,PERSISTED=%d,PENDING=%u,DURABILITYPENDING=%d,CACHEPENDING=%d,PRIME=%u,OWNER=%u\n",
-                  activeFlavor, link.synchronized ? 1 : 0, link.controllerFlavor,
-                  link.controllerPersisted ? 1 : 0, (unsigned)link.pending,
+                  activeFlavor, link.synchronized ? 1 : 0, link.mainBoardFlavor,
+                  link.mainBoardPersisted ? 1 : 0, (unsigned)link.pending,
                   link.durabilityPending ? 1 : 0,
                   flavorDirty ? 1 : 0,
                   primeSessionKnown ? (unsigned)primeSession.phase : 0,
@@ -866,9 +866,9 @@ static void processTextLine(const char *line) {
                   (unsigned long)maxLoopMs, dimmed ? 1 : 0, blDuty,
                   flavorPersistError ? 1 : 0,
                   link.connected ? "up" : "down", link.synchronized ? 1 : 0,
-                  (unsigned)link.controllerFlavor,
-                  link.controllerPersisted ? 1 : 0,
-                  link.controllerPersistError ? 1 : 0,
+                  (unsigned)link.mainBoardFlavor,
+                  link.mainBoardPersisted ? 1 : 0,
+                  link.mainBoardPersistError ? 1 : 0,
                   link.durabilityPending ? 1 : 0,
                   (unsigned)link.pending,
                   (unsigned long)link.framesRx, (unsigned long)link.framesTx,

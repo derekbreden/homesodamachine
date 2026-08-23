@@ -376,8 +376,8 @@ static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold
 // reconciles it from MSG_RESP_FLAVOR_STATE.
 static uint8_t activeFlavor = PUMP_CHANNEL_A;
 static bool flavorSynchronized = false;
-static bool flavorControllerPersisted = false;
-static bool flavorControllerPersistError = false;
+static bool flavorMainBoardPersisted = false;
+static bool flavorMainBoardPersistError = false;
 static bool flavorRequestPending = false;
 static bool flavorQueryOutstanding = false;
 static uint32_t flavorRequestToken = 0;
@@ -1163,8 +1163,8 @@ static bool selectActiveFlavor(uint8_t flavor) {
 static void applyFlavorState(const FlavorStatePayload &state) {
   if (state.flavor > PUMP_CHANNEL_B) return;
 
-  flavorControllerPersisted = (state.flags & FLAVOR_STATE_F_PERSISTED) != 0;
-  flavorControllerPersistError = (state.flags & FLAVOR_STATE_F_PERSIST_ERROR) != 0;
+  flavorMainBoardPersisted = (state.flags & FLAVOR_STATE_F_PERSISTED) != 0;
+  flavorMainBoardPersistError = (state.flags & FLAVOR_STATE_F_PERSIST_ERROR) != 0;
   flavorStateMs = millis();
   flavorQueryOutstanding = false;
 
@@ -1979,7 +1979,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
   // This exact tuple is the controller's power-on epoch marker. J9 is an
   // ordered, bounded single-sender link, so it is safe to accept even when a
   // surviving display has cached a numerically higher pre-reset revision.
-  const bool controllerResetOff = state.phase == PRIME_SESSION_OFF &&
+  const bool mainBoardResetOff = state.phase == PRIME_SESSION_OFF &&
                                   state.owner == PRIME_OWNER_NONE &&
                                   state.revision == 0 &&
                                   state.sessionToken == 0;
@@ -1996,14 +1996,14 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
                                     state.sessionToken != 0 &&
                                     state.sessionToken != primeSession.sessionToken;
     const int32_t revisionDelta = (int32_t)(state.revision - primeSession.revision);
-    if (revisionDelta < 0 && !acceptedFreshEpoch && !controllerResetOff &&
+    if (revisionDelta < 0 && !acceptedFreshEpoch && !mainBoardResetOff &&
         !cancelAnsweredOff) {
       Serial.printf("[J9] stale prime session rev=%lu < %lu\n",
                     (unsigned long)state.revision,
                     (unsigned long)primeSession.revision);
       return;
     }
-    if (revisionDelta == 0 && !acceptedFreshEpoch && !controllerResetOff &&
+    if (revisionDelta == 0 && !acceptedFreshEpoch && !mainBoardResetOff &&
         !cancelAnsweredOff) {
       // A RUNNING heartbeat advances authoritative elapsed without advancing
       // the state revision. Everything else at the same revision is a no-op.
@@ -2072,9 +2072,9 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
   // entered the ordered UART transport. Retain that exact local token and put
   // CANCEL behind it: the cancel closes an accepted/in-flight activation and
   // harmlessly no-ops when the activation was only queued and is purged here.
-  const bool resetNeedsCancel = controllerResetOff && primeSessionToken != 0 &&
+  const bool resetNeedsCancel = mainBoardResetOff && primeSessionToken != 0 &&
                                 (primeSessionDesired || primeSessionCancelPending);
-  const bool completedOff = (!resetNeedsCancel && controllerResetOff) ||
+  const bool completedOff = (!resetNeedsCancel && mainBoardResetOff) ||
                             cancelAnsweredOff ||
                             (state.phase == PRIME_SESSION_OFF && tokenMatches);
   if (resetNeedsCancel) {
@@ -2986,8 +2986,8 @@ static void processTextLine(const char *line) {
     Serial.printf("STATE:FLAVOR=%u,SYNC=%d,PERSISTED=%d,PERSISTERR=%d,PENDING=%d,LOCK=%d,IDLE=%d,PAGE=%d,PRIME=%u,PRIMECH=%u,OWNER=%u\n",
                   (unsigned)activeFlavor,
                   flavorSynchronized ? 1 : 0,
-                  flavorControllerPersisted ? 1 : 0,
-                  flavorControllerPersistError ? 1 : 0,
+                  flavorMainBoardPersisted ? 1 : 0,
+                  flavorMainBoardPersistError ? 1 : 0,
                   flavorRequestPending ? 1 : 0,
                   lockActive ? 1 : 0,
                   screenIdle ? 1 : 0,
@@ -3016,7 +3016,7 @@ static void processTextLine(const char *line) {
     Serial.printf("DIAG_UI:selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
                   "flavorStale=%lu,bridged=%lu,stale=%lu,touch=%lu,lastXY=%u/%u\n",
                   (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
-                  flavorControllerPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
+                  flavorMainBoardPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
                   (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale,
                   (unsigned long)touchCount, (unsigned)lastTouchX, (unsigned)lastTouchY);
