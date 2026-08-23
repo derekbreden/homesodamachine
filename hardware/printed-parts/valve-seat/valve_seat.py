@@ -18,8 +18,8 @@ valve and does not turn the print.
 
 The seat's numbers are the valve's own (`hardware/reference/beduan-solenoid/`) plus two
 clearances and a wall. Two parts print these seats: the cold core's cap lid carries three
-(`_cold_core_interface.cap_cradles`, `foam_cap.add_cradles`) and the two valve panels carry
-four apiece (`printed-parts/enclosure/valve-panel/`) — one plate per deck of the flavour pack,
+(`_cold_core_interface.cap_cradles`, `foam_cap.add_cradles`) and the two valve trays carry
+four apiece (`printed-parts/enclosure/valve-tray/`) — one plate per deck of the flavour pack,
 wall to wall in `enclosure-front-top`.
 
     tools/cad-venv/bin/python hardware/printed-parts/valve-seat/valve_seat.py
@@ -80,7 +80,7 @@ def build_sockets():
     than on four boss tops.
 
     A consumer CUTS this where it would FUSE `build_seat` — the two are the same seat, sunk or
-    stood, and a face that can take one does not want the other. `valve_panel` sinks; the cold
+    stood, and a face that can take one does not want the other. `valve_tray` sinks; the cold
     core's cap lid, whose own lid is thinner than a socket is deep, stands."""
     sockets = None
     for sx in (-1.0, 1.0):
