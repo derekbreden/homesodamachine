@@ -53,7 +53,7 @@ Alternate titles considered: *Print It Face Up* · *No Screws*.
 - 21 PET-CF print attempts (`print-log.md`). The "beautiful everywhere…" line is
   Derek's, verbatim, at end of attempt 9 (`print-log.md:208`).
 - Three-piece split; the two slip-fit joints along the gooseneck are the
-  `split_*_socket_overlap_len` constants in `touch_flo_shell.py` (currently
+  `split_*_socket_overlap_len` constants in `faucet_shell.py` (currently
   20 mm each). On-screen value reads from the same figure — reconfirm against
   the source if the geometry changes. (There was never a true 4-piece shell —
   don't say "four.")

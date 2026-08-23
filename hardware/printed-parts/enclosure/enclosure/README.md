@@ -71,7 +71,7 @@ flat front carries no lip there at any height.
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`), the
 `enclosure-pump-cartridge` that slides out of the front pair, and
 `enclosure.step` — all of them as separate solids in assembled position, seams
-intact (mirrors `faucet/touch-flo-shell`).
+intact (mirrors `faucet/faucet-shell`).
 
 ## Seams + bosses
 

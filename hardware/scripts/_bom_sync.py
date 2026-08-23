@@ -11,7 +11,7 @@ sys.path.insert(0, str(_here.parent / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core" / "reservoir"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
-sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "touch-flo-shell"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "faucet-shell"))
 sys.path.insert(0, str(_here.parent / "reference" / "beduan-solenoid"))
 sys.path.insert(0, str(_here.parent / "manifold-layout"))
 sys.path.insert(
@@ -24,7 +24,7 @@ from _cold_core_interface import (attachment_xy_positions, cap_cradles, deck_mou
 from _reed_channels import reeds_per_reservoir
 from docgen import load_module, substitute_md
 from reservoir import insert_positions_for_side_plus_1
-from touch_flo_shell import base_pod_centers
+from faucet_shell import base_pod_centers
 
 import manifold_layout as ml
 import _facts
@@ -133,7 +133,7 @@ assert not ml.JOINS, (
 # EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
 # ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
 # the two valve panels, which are `enclosure-front-top`'s own material
-# (`enclosure._valve_panels`) — and both flavour pumps hang in a tray of that same piece's
+# (`enclosure._valve_trays`) — and both flavour pumps hang in a tray of that same piece's
 # material (`enclosure._pump_trays`). So §7 carries no seat row of its own, and a plate appearing
 # in the machine as a body rather than as a wall is what fails here.
 _trays = sorted(n for n in _placed if "tray" in n or n.startswith("valve-panel"))

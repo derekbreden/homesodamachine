@@ -6,7 +6,7 @@ same code shape regardless of which face. Two adjacent blocks of
 geometry — one on the top face, one on the back face — read
 identically: same constructor pattern, same chained methods,
 positive numbers meaning positive in the world direction the user
-expects. Read `../faucet/touch-flo-shell/touch_flo_shell.md` first for
+expects. Read `../faucet/faucet-shell/faucet_shell.md` first for
 the surrounding methodology.
 
 ## Box-face planes
@@ -165,5 +165,5 @@ Fix shape when any of these bite: add a named override that calls
   `WorldProfile`, pass it to `.profile(prof)`.
 - **Pure polyline (no arcs)**: use the canonical
   `.polyline([list of points])` — see the named profiles in
-  `../faucet/touch-flo-shell/touch_flo_shell.md` (e.g. the
+  `../faucet/faucet-shell/faucet_shell.md` (e.g. the
   `build_lever_clearance` polyline).

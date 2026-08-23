@@ -26,18 +26,18 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
-sys.path.insert(0, str(_here.parent.parent / "touch-flo-shell"))  # for the shared footprint
+sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
+sys.path.insert(0, str(_here.parent.parent / "faucet-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
 from _materials import M_TPU_BLACK, one_body
-from _touch_flo_interface import (
+from _faucet_interface import (
     flavor_tube_depth,
     pill_length_x,
     pill_width_y,
     shank_hole_diameter,
 )
-from touch_flo_shell import (
+from faucet_shell import (
     shell_outer_cyl,
     _base_pod_teardrops,
     _base_pod_front,
@@ -79,7 +79,7 @@ def gasket_workplane(center):
     )
 
 
-def build_mounting_gasket():
+def build_above_counter_gasket():
     """Shell-foot footprint (foot circle + two teardrops + front D-pod) as a
     gasket_thickness pad, with the shank hole and flavor-tube pill slot. Sharp
     edges, no fillets."""
@@ -106,8 +106,8 @@ def build_mounting_gasket():
 
 
 def main():
-    gasket = build_mounting_gasket()
-    out = Path(__file__).resolve().parent / "touch-flo-mounting-gasket.step"
+    gasket = build_above_counter_gasket()
+    out = Path(__file__).resolve().parent / "above-counter-gasket.step"
     export_assembly(one_body(gasket, out.stem, M_TPU_BLACK), str(out))
     print(f"-> {out.name}")
 

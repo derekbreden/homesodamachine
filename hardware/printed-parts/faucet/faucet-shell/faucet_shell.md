@@ -1,6 +1,6 @@
-# touch_flo_shell.py — naming and structure notes
+# faucet_shell.py — naming and structure notes
 
-Companion to `touch_flo_shell.py`. Names the idioms that file embodies, so a
+Companion to `faucet_shell.py`. Names the idioms that file embodies, so a
 reader told to "follow these patterns" knows what the patterns are. The code
 is the example; this is the gloss. When the two disagree, the code is right —
 fix this doc.

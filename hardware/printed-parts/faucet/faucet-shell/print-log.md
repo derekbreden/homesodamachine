@@ -1,4 +1,4 @@
-# touch-flo-shell print log
+# faucet-shell print log
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
@@ -132,7 +132,7 @@ Derek said:
 - "We finally got a 0.6 tungsten nozzle (off brand)."
 - "We did same material supports and they broke away cleanly." — supports printed in PET-CF (model material), broke away without contamination or fusion problems.
 
-Settings changes observed in `touch-flo-shell-4-pieces.3mf` (vs `0081e8f`):
+Settings changes observed in `faucet-shell-4-pieces.3mf` (vs `0081e8f`):
 - Printer profile: `Bambu Lab H2C` 0.4-nozzle → `Bambu Lab H2C 0.6 nozzle` (`printer_variant`: 0.4 → 0.6)
 - Print profile: → `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`
 - `nozzle_diameter` (both extruders): 0.4 → 0.6
@@ -162,7 +162,7 @@ Settings unchanged from `0081e8f`:
 - `enable_wrapping_detection`: 0
 
 Plate composition (per `Metadata/plate_1.json`):
-- 4 objects: `touch-flo-shell-base.step`, `touch-flo-shell-tube-half-neg-y.step`, `touch-flo-shell-tube-half-pos-y.step`, `touch-flo-mounting-plate.step`
+- 4 objects: `faucet-shell-base.step`, `faucet-shell-tube-half-neg-y.step`, `faucet-shell-tube-half-pos-y.step`, `above-counter-plate.step`
 - All objects assigned to `extruder=1` (left), `filament_maps` all = 1 (left nozzle), `first_extruder`: 0 (PET-CF slot)
 - Bed: textured plate
 
@@ -170,7 +170,7 @@ Plate composition (per `Metadata/plate_1.json`):
 
 Hardware: same as attempt 7 (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry change before this print: shell consolidated from 3 separate STEPs (base + 2 tube halves) into a single integrated `touch-flo-shell.step` per commit `41316ce` ("collapse back to a single piece, 3 mm wall throughout"), followed by `be92d9b` (drop zone-4.5 lid height to 3 mm on the back side) and `d7aa674` (heat-set retention geometry on shell + mounting plate). Plate now contains 2 objects instead of 4: `touch-flo-shell.step` (whole) + `touch-flo-mounting-plate.step`.
+Geometry change before this print: shell consolidated from 3 separate STEPs (base + 2 tube halves) into a single integrated `faucet-shell.step` per commit `41316ce` ("collapse back to a single piece, 3 mm wall throughout"), followed by `be92d9b` (drop zone-4.5 lid height to 3 mm on the back side) and `d7aa674` (heat-set retention geometry on shell + mounting plate). Plate now contains 2 objects instead of 4: `faucet-shell.step` (whole) + `above-counter-plate.step`.
 
 Derek said:
 - "Most recent print failed in an interesting way, the support tower fell over[;] it finally joined up with the peak of the faucet."
@@ -183,7 +183,7 @@ No `.3mf` saved for attempt 8 in isolation; the in-flight slice was re-saved wit
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: same as attempt 8 (`touch-flo-shell.step` whole + `touch-flo-mounting-plate.step`).
+Geometry: same as attempt 8 (`faucet-shell.step` whole + `above-counter-plate.step`).
 
 Derek said:
 - "I added a brim to it (this is 'initial layer expansion' in the interface, no idea how you will find it in 3mf)."
@@ -197,7 +197,7 @@ Two related observations:
 - All other settings — printer profile (`Bambu Lab H2C 0.6 nozzle`), print profile (`0.18mm Balanced Quality @BBL H2C 0.6 nozzle`), PET-CF temps (270 °C), wall/infill speeds (200 / 300 / 350 mm/s), same-material PET-CF supports (`support_filament: 0`, `support_interface_filament: 0`), `support_threshold_angle: 45`, fan settings (30 / 10 / 40 %), `line_width: 0.62`, `wall_loops: 50`, `layer_height: 0.18` — are unchanged from attempt 7.
 
 Plate composition (per `Metadata/plate_1.json`):
-- 2 objects: `touch-flo-shell.step`, `touch-flo-mounting-plate.step`
+- 2 objects: `faucet-shell.step`, `above-counter-plate.step`
 - Both objects assigned to `extruder=1` (left), `filament_maps` all = 1, `first_extruder`: 0 (PET-CF slot)
 - Bed: textured plate
 
@@ -210,11 +210,11 @@ Derek said:
 Observed in the attempt-9 settings:
 - `support_top_z_distance`: 0.3 mm with `layer_height`: 0.18 mm = 1.67 layers (not a clean multiple of layer height; the slicer rounds the z-gap to alternating 1- and 2-layer offsets across the interface footprint).
 
-## PET-CF print attempt 10 (3-piece shell, settings per `touch-flo-shell-3-pieces.3mf` pre-print snapshot)
+## PET-CF print attempt 10 (3-piece shell, settings per `faucet-shell-3-pieces.3mf` pre-print snapshot)
 
 Hardware: same as attempts 7–9 (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell — `touch-flo-shell-bottom.step`, `touch-flo-shell-middle.step`, `touch-flo-shell-top.step` — per commits `f42e631` (SPLIT A: angled-spout ↔ upper-bend, 20 mm slip-fit joint) and `2cf96fa` (SPLIT B: upper-bend ↔ dispense-tip, curved 20 mm slip-fit). Both joints cut at zero CAD clearance (male OD ≡ female ID).
+Geometry: 3-piece split shell — `faucet-shell-bottom.step`, `faucet-shell-middle.step`, `faucet-shell-top.step` — per commits `f42e631` (SPLIT A: angled-spout ↔ upper-bend, 20 mm slip-fit joint) and `2cf96fa` (SPLIT B: upper-bend ↔ dispense-tip, curved 20 mm slip-fit). Both joints cut at zero CAD clearance (male OD ≡ female ID).
 
 Print produced parts; Derek then did a test fit of the three pieces (2026-05-19).
 
@@ -223,7 +223,7 @@ Derek said:
 - "It very nearly worked for the straight male into straight female section, like just 2 mm short of being able to push it all the way in." — this is SPLIT A (angled-spout ↔ upper-bend; mating planes perpendicular to the mid-straight tangent).
 - "It did not work as well for the curved male into curved female. Although I did get it started, it got impossible to push further about 7 mm in (with 13 mm still remaining)." — this is SPLIT B (upper-bend ↔ dispense-tip; overlap follows bend 2's arc).
 
-Geometry response in commit `fb4ffd4` ("faucet/touch-flo-shell: loosen 3-piece joints after 2026-05-19 test fit"):
+Geometry response in commit `fb4ffd4` ("faucet/faucet-shell: loosen 3-piece joints after 2026-05-19 test fit"):
 - SPLIT A: female unchanged (2.0 mm wall, 20 mm deep). Male wall 2.0 → 1.5 mm (shrink 2.0 → 2.5, giving ~0.5 mm radial clearance to the female ID). Male depth 20 → 19 mm.
 - SPLIT B: female wall 2.0 → 1.5 mm and male wall 2.0 → 1.5 mm. With `zone5_wall = 4`, this is socket shrink 1.5 and plug shrink 2.5 — so plug OD sits 1.0 mm radial inside cavity ID (1.0 mm radial clearance). Female depth unchanged at 20 mm; male depth 20 → 18 mm.
 
@@ -231,9 +231,9 @@ Geometry response in commit `fb4ffd4` ("faucet/touch-flo-shell: loosen 3-piece j
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell with loosened joints per `fb4ffd4` (see attempt 10 notes above). All three STEPs regenerated; `touch-flo-shell-bottom.step` byte-identical (female-A unchanged), `middle.step` and `top.step` updated.
+Geometry: 3-piece split shell with loosened joints per `fb4ffd4` (see attempt 10 notes above). All three STEPs regenerated; `faucet-shell-bottom.step` byte-identical (female-A unchanged), `middle.step` and `top.step` updated.
 
-Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs the pre-print snapshot already documented for that filename (attempt-10 baseline):
+Settings deltas observed in `faucet-shell-3-pieces.3mf` vs the pre-print snapshot already documented for that filename (attempt-10 baseline):
 - `raft_first_layer_expansion`: 20 → **-1 mm** (support-tower brim turned OFF — the "Initial layer expansion" UI knob is back to disabled). Attempt-9 had introduced this 20 mm support-tower brim as the tip-over fix; with the 3-piece geometry the support towers no longer need to grow as tall, so the brim is no longer warranted here.
 - PET-CF `filament_scarf_seam_type` (slot 0): `none` → **`external`** (scarf seams enabled on external walls for PET-CF). First time scarf seams have appeared in any saved slice for this part.
 - Filament-slot project layout: 7 slots → 6 slots (`filament_nozzle_map` / `filament_volume_map` arrays shortened; slot 0 PET-CF active is unchanged).
@@ -252,7 +252,7 @@ Settings unchanged from the attempt-10 baseline (selected — full list in that 
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell with tightened joint walls per commit `67b4205` ("faucet/touch-flo-shell: tighten 3-piece joint walls after attempt 11"). Overlap depths unchanged from attempts 10–11; only the wall thicknesses changed.
+Geometry: 3-piece split shell with tightened joint walls per commit `67b4205` ("faucet/faucet-shell: tighten 3-piece joint walls after attempt 11"). Overlap depths unchanged from attempts 10–11; only the wall thicknesses changed.
 
 Derek said about attempt 11 (loosened joints):
 - "Your changes were successful in a way, it definitely made a difference, but far too much of one, lol."
@@ -262,13 +262,13 @@ Geometry response in `67b4205`:
 - SPLIT B: female socket wall 1.5 → 1.9 mm. Male plug wall 1.5 → 1.9 mm. Resulting radial clearance: ~0.2 mm (was ~1.0 mm at attempt 11).
 - Depths untouched from attempts 10–11: A male 19 / female 20 mm; B male 18 / female 20 mm.
 
-Settings deltas vs attempt 11: **none**. Same `touch-flo-shell-3-pieces.3mf` slice config — only the embedded STEP geometry changed (objects re-imported after the `67b4205` regeneration). Per-object positions on the plate shifted by ≤ 0.3 mm in X/Y; middle-piece footprint area 9.277 → 9.277 mm² (identical to 3 decimals); first-layer time 177.4 s → 178.3 s.
+Settings deltas vs attempt 11: **none**. Same `faucet-shell-3-pieces.3mf` slice config — only the embedded STEP geometry changed (objects re-imported after the `67b4205` regeneration). Per-object positions on the plate shifted by ≤ 0.3 mm in X/Y; middle-piece footprint area 9.277 → 9.277 mm² (identical to 3 decimals); first-layer time 177.4 s → 178.3 s.
 
 ## PET-CF print attempt 13 (joint-wall nudge + PET-CF scarf gap 10%)
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell with joint walls nudged per commit `d60d78d` ("faucet/touch-flo-shell: nudge joint walls after attempt 12 grip test"). Same overlap depths as attempts 10–12.
+Geometry: 3-piece split shell with joint walls nudged per commit `d60d78d` ("faucet/faucet-shell: nudge joint walls after attempt 12 grip test"). Same overlap depths as attempts 10–12.
 
 Derek said about attempt 12 (after pull-test by feel — "lbs of force" are relative, not measured):
 - "Both splits allow for complete insertion, and both splits 'hold'."
@@ -279,7 +279,7 @@ Geometry response in `d60d78d`:
 - SPLIT A: female unchanged at 2.0 mm. Male plug wall 1.9 → 1.95 mm. Radial clearance 0.1 → **0.05 mm**.
 - SPLIT B: female socket wall 1.9 → 2.0 mm; male plug wall unchanged at 1.9. Radial clearance 0.2 → **0.1 mm** — matches the clearance SPLIT A had at attempt 12 (the one that held at ~10 lbf).
 
-Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 12:
+Settings deltas observed in `faucet-shell-3-pieces.3mf` vs attempt 12:
 - PET-CF (slot 0, active) `filament_scarf_gap`: 0% → **10%**. The scarf-seam gap is what controls the overlap thinning where the scarf laps into the prior seam end; 10% widens that taper. Scarf seams themselves have been on for PET-CF external walls since attempt 11.
 - Filament-slot project layout reordered: slot 1 Generic PETG ↔ slot 2 PETG Basic swap (the active slot 0 PET-CF is unchanged, so no slice impact). Reflected across all per-slot arrays (`nozzle_temperature`, `filament_settings_id`, etc.).
 - First-layer time essentially unchanged: 178.29 s → 178.37 s.
@@ -290,7 +290,7 @@ Settings unchanged from attempt 12: everything else — print profile `0.30mm St
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell with SPLIT B plug wall matched to SPLIT A's per commit `76c2407` ("faucet/touch-flo-shell: match SPLIT B plug wall to SPLIT A (1.9 -> 1.95)"). Same overlap depths as attempts 10–13.
+Geometry: 3-piece split shell with SPLIT B plug wall matched to SPLIT A's per commit `76c2407` ("faucet/faucet-shell: match SPLIT B plug wall to SPLIT A (1.9 -> 1.95)"). Same overlap depths as attempts 10–13.
 
 Derek said about attempt 13 (after pull test):
 - "Pull test on SPLIT A is perfect."
@@ -301,13 +301,13 @@ Geometry response in `76c2407`:
 - SPLIT B: female socket wall unchanged at 2.0 mm. Male plug wall 1.9 → **1.95 mm**. Radial clearance 0.1 → **0.05 mm** — matches SPLIT A.
 - Depths untouched from attempts 10–13: A male 19 / female 20 mm; B male 18 / female 20 mm.
 
-Only `touch-flo-shell-top.step` regenerated; `bottom.step` and `middle.step` byte-identical to attempt 13.
+Only `faucet-shell-top.step` regenerated; `bottom.step` and `middle.step` byte-identical to attempt 13.
 
-Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 13:
+Settings deltas observed in `faucet-shell-3-pieces.3mf` vs attempt 13:
 - PET-CF (slot 0) `filament_scarf_gap`: 10% → **0%** (back to system default; no longer in `different_settings_to_system`).
 - PET-CF (slot 0) `filament_scarf_length`: 10 → **20** (now an explicit override; appears in `different_settings_to_system`).
 - PET-CF `filament_scarf_seam_type` unchanged at `external`; `filament_scarf_height` unchanged at 10%.
-- Per-object plate positions shifted ≤ 0.02 mm in X/Z after re-import of the regenerated `touch-flo-shell-top.step` (object IDs renumbered, source_offsets recomputed) — no slice impact. Per-object footprint areas unchanged (bottom 630.5 mm², middle 9.27 mm², top 290.0 mm²); first-layer time 178.37 s → 178.15 s.
+- Per-object plate positions shifted ≤ 0.02 mm in X/Z after re-import of the regenerated `faucet-shell-top.step` (object IDs renumbered, source_offsets recomputed) — no slice impact. Per-object footprint areas unchanged (bottom 630.5 mm², middle 9.27 mm², top 290.0 mm²); first-layer time 178.37 s → 178.15 s.
 
 Settings unchanged from attempt 13: everything else — print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, PET-CF temps / fans / flow, process settings, all support settings, brim settings.
 
@@ -330,7 +330,7 @@ Both joints converged on the same numbers SPLIT A had reached at attempt 13 (its
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell with tube bores widened a third time and SPLIT B plug nudged in between 1.9 and 1.95, per commit `2db9814` ("faucet/touch-flo-shell: tube bores +0.10 mm again + SPLIT B plug 1.95 → 1.92").
+Geometry: 3-piece split shell with tube bores widened a third time and SPLIT B plug nudged in between 1.9 and 1.95, per commit `2db9814` ("faucet/faucet-shell: tube bores +0.10 mm again + SPLIT B plug 1.95 → 1.92").
 
 Derek said about attempt 14 (after further fit-up testing in handling):
 - The 1.95 mm SPLIT B plug felt **too tight** in further handling — wanted something between 1.9 (the attempt-13 size that had been "still a little loose") and 1.95 (the attempt-14 size that turned out too tight on re-handling).
@@ -346,7 +346,7 @@ Geometry response in `2db9814`:
 
 All four shell STEPs regenerated (bottom + middle + top + full); bottom/middle/top all change from tube bore growth, top additionally from SPLIT B plug.
 
-Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 14:
+Settings deltas observed in `faucet-shell-3-pieces.3mf` vs attempt 14:
 
 Scarf-seam (PET-CF slot 0):
 - `filament_scarf_seam_type`: `external` → **`none`** (scarf seams disabled entirely for PET-CF this attempt).
@@ -360,7 +360,7 @@ Process settings:
 - `wall_loops`: 100 (unchanged).
 
 Plate composition:
-- Added a 4th object to the plate: `touch-flo-mounting-plate.step` (area 2054.51 mm²). The three shell pieces remain on the same plate. First-layer time 178.15 s → 322.77 s, roughly +1.8× as expected from the added disc.
+- Added a 4th object to the plate: `above-counter-plate.step` (area 2054.51 mm²). The three shell pieces remain on the same plate. First-layer time 178.15 s → 322.77 s, roughly +1.8× as expected from the added disc.
 - Per-object plate positions also shifted by the geometry growth (object IDs renumbered after re-import of the regenerated shell STEPs); shell footprint areas grew slightly per the bore + outer-radius changes (bottom 630.48 → 641.84 mm², middle 9.274 → 9.283 mm², top 289.99 → 292.36 mm²).
 
 Filament-slot bookkeeping:
@@ -368,7 +368,7 @@ Filament-slot bookkeeping:
 
 Settings unchanged from attempt 14: print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, PET-CF temps / fans / flow, all other process settings, brim settings.
 
-## PET-CF print attempt 16 (no joinery features — plate + 3-piece shell, slice renamed `touch-flo-pet-cf.3mf`)
+## PET-CF print attempt 16 (no joinery features — plate + 3-piece shell, slice renamed `faucet-pet-cf.3mf`)
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
@@ -386,13 +386,13 @@ Derek said about the dowel snap-off testing:
 
 Attempt-16 joinery: **none**. In this attempt the plate and shell had flat smooth mating surfaces in the rear-shoulder region; the shell sat on the plate by gravity during sub-assembly handling, with the body inside the shell bore providing lateral constraint via the snug shank nut on the plate side. Attempt 19 replaced this arrangement with the current three-point screw-boss mount.
 
-**3mf file renamed and relocated** as of this attempt: `touch-flo-shell/touch-flo-shell-3-pieces.3mf` → `../touch-flo-pet-cf.3mf` (up one folder, into the faucet-level directory). The slice now contains all the PET-CF parts for the faucet (3 shell pieces + mounting plate), so the per-part naming was outgrown. A future `touch-flo-tpu.3mf` peer is anticipated for the TPU mounting gasket + any other TPU faucet parts.
+**3mf file renamed and relocated** as of this attempt: `faucet-shell/faucet-shell-3-pieces.3mf` → `../faucet-pet-cf.3mf` (up one folder, into the faucet-level directory). The slice now contains all the PET-CF parts for the faucet (3 shell pieces + mounting plate), so the per-part naming was outgrown. A future `touch-flo-tpu.3mf` peer is anticipated for the TPU mounting gasket + any other TPU faucet parts.
 
 Also deleted in this commit (stale slice files from May 9–10 that had outlived their iteration):
-- `touch-flo-shell/touch-flo-shell-2-pieces.3mf` (attempt 9 slice)
-- `touch-flo-shell/touch-flo-shell-4-pieces.3mf` (attempt 7 slice)
+- `faucet-shell/faucet-shell-2-pieces.3mf` (attempt 9 slice)
+- `faucet-shell/faucet-shell-4-pieces.3mf` (attempt 7 slice)
 
-Settings deltas observed in `touch-flo-pet-cf.3mf` vs attempt 15's `touch-flo-shell-3-pieces.3mf`:
+Settings deltas observed in `faucet-pet-cf.3mf` vs attempt 15's `faucet-shell-3-pieces.3mf`:
 
 PET-CF (slot 0, active):
 - All settings unchanged (nozzle 270 °C, scarf seam disabled, fan / flow / temps identical).
@@ -446,7 +446,7 @@ If supports still fail after all three, thickening support pillars becomes the n
 
 Geometry: unchanged from attempt 16 (no joinery features; commit `a297a044`).
 
-Settings deltas observed in `touch-flo-pet-cf.3mf` vs attempt 16:
+Settings deltas observed in `faucet-pet-cf.3mf` vs attempt 16:
 
 **Process + printer profile flipped to 0.8-nozzle variants** (the big change):
 - `printer_settings_id`: "Bambu Lab H2C **0.6** nozzle" → "Bambu Lab H2C **0.8** nozzle"
@@ -489,7 +489,7 @@ Slice saved 2026-05-27. **Print outcome not yet recorded** at time of writing �
 
 **Nozzle is the DUROZZLE 0.6 mm Diamond PCD (standard flow) — FIRST PCD print of the campaign.** Derek confirmed 2026-05-27: the "0.6 standard flow off brand" he switched to for this attempt is the **Diamond PCD** ([B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G), purchased May 8, logged in `purchases.md` §13), NOT the tungsten carbide DUROZZLE (B0GWDDKG47) that carried attempts 7–17. His in-the-moment words: *"I switched back to the 0.6 standard flow off brand not sure if tungsten or that other magic material"* — later resolved to the Diamond PCD ("that other magic material" = polycrystalline diamond). Every prior attempt header reading "DUROZZLE TC" is correct for 7–17; attempt 18 is the first non-TC, the PCD's debut.
 
-Slice profile fully back on 0.6 standard, confirmed in Bambu Studio's UI (Left Nozzle: Diameter 0.6, Flow Standard) and in the saved `touch-flo-pet-cf.3mf`:
+Slice profile fully back on 0.6 standard, confirmed in Bambu Studio's UI (Left Nozzle: Diameter 0.6, Flow Standard) and in the saved `faucet-pet-cf.3mf`:
 - `printer_settings_id`: "Bambu Lab H2C 0.6 nozzle"
 - `print_settings_id`: "0.30mm Standard @BBL H2C 0.6 nozzle"
 - `nozzle_diameter`: 0.6 / 0.6; `layer_height`: 0.30; all line widths 0.62
@@ -534,7 +534,7 @@ Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **
 
 **Attribution remains confounded** (as flagged above): attempt 18 moved two variables vs the last clean comparison — TC → Diamond PCD nozzle AND flow-dynamics K 0.02 → 0.013. The improvement can't be cleanly assigned to either. Both plausibly helped (diamond tip = less CF-related disruption; correct K = less seam-start starvation), and the partial-not-total improvement is consistent with either or both. Not worth a dedicated isolation run unless the strands later regress past tolerance — the goal was a printable part, and we're plausibly there.
 
-**New finding — surface gloss (Polymaker vs Bambu).** Derek: the Polymaker PET-CF prints noticeably **glossier** than the **matte** of Bambu PET-CF. This is a filament-formulation property, not settings-tunable — nozzle temp is a weak lever (gloss rises with temp; dropping from 280 toward 270 might take a hair off) but cannot reach Bambu's matte. Since the touch-flo-shell is the visible above-counter faucet exterior, finish is a real application requirement that the "same material class" framing in `MATERIAL.md` (mechanical-envelope-only) didn't capture. Logged as an open Bambu-vs-Polymaker tradeoff in `MATERIAL.md`; decision deferred. Does not affect mechanical fitness — purely cosmetic.
+**New finding — surface gloss (Polymaker vs Bambu).** Derek: the Polymaker PET-CF prints noticeably **glossier** than the **matte** of Bambu PET-CF. This is a filament-formulation property, not settings-tunable — nozzle temp is a weak lever (gloss rises with temp; dropping from 280 toward 270 might take a hair off) but cannot reach Bambu's matte. Since the faucet-shell is the visible above-counter faucet exterior, finish is a real application requirement that the "same material class" framing in `MATERIAL.md` (mechanical-envelope-only) didn't capture. Logged as an open Bambu-vs-Polymaker tradeoff in `MATERIAL.md`; decision deferred. Does not affect mechanical fitness — purely cosmetic.
 
 ## PET-CF print attempt 19 (faucet redesign: three-point screw-boss mount + display cradle)
 
@@ -544,7 +544,7 @@ Slice saved 2026-06-10; print started (Derek: "saved a 3mf for the faucet after 
 
 **Geometry — the redesign.** Accumulated since attempt 18's `a297a044` (no-joinery) baseline through HEAD `6b449411`. Two functional additions to the printed parts (the rest of the ~76-commit range is docgen / comment-discipline / +Z-up-rebase / repo-reorg refactor that does not change printed geometry):
 
-1. **Three-point screw-boss mount (shell foot ↔ mounting plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the body bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from `_touch_flo_interface.py` / `touch_flo_shell.py`):
+1. **Three-point screw-boss mount (shell foot ↔ mounting plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the body bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from `_faucet_interface.py` / `faucet_shell.py`):
    - ruthex M3 short heat-set insert (⌀4.2 OD) in a ⌀4.0 pocket, 5.25 mm deep (4 mm engagement + 1.25 mm relief), seated opening-down above an 8 mm boss-engagement hole;
    - BNUOK M3 SHCS (304 SS, head ~5.43 mm measured) driven up from under the plate, through the plate boss, into the insert — clamping the plate up into the shell;
    - plate-side counterbore ⌀5.55 + boss OD 11.55 (5.55 + 2 × 3.0 wall); shell pocket ⌀11.65 (0.10 mm diametral slip).
@@ -565,10 +565,10 @@ Tracked settings confirmed unchanged from attempt 18 (all observed in the new 3m
 - Filament slots (3): Polymaker PET-CF, Bambu PETG Basic, Bambu ABS @BBL H2C 0.6 nozzle.
 
 **Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + mounting plate), all `extruder=1` (left) on PET-CF slot 0, `first_extruder` 0, textured plate. The redesign moved the per-object footprints substantially:
-- `touch-flo-shell-bottom.step`: 666.95 → **1033.34 mm²** (+366; base pods at the foot)
-- `touch-flo-shell-middle.step`: 9.28 → **3.35 mm²** (re-oriented more end-on)
-- `touch-flo-shell-top.step`: 292.36 → **501.04 mm²** (+209; display cradle at the dispense tip)
-- `touch-flo-mounting-plate.step`: 2111.40 → **1963.75 mm²** (−148; reworked to the three screw bosses)
+- `faucet-shell-bottom.step`: 666.95 → **1033.34 mm²** (+366; base pods at the foot)
+- `faucet-shell-middle.step`: 9.28 → **3.35 mm²** (re-oriented more end-on)
+- `faucet-shell-top.step`: 292.36 → **501.04 mm²** (+209; display cradle at the dispense tip)
+- `above-counter-plate.step`: 2111.40 → **1963.75 mm²** (−148; reworked to the three screw bosses)
 - First-layer time 313.51 → **384.48 s**.
 
 ## PET-CF print attempt 20 (fit convergence: boss + slip-joint + head clearances)
@@ -578,7 +578,7 @@ Derek said:
 
 **Outcome: success.** All fits acceptable — the mounting-plate-to-shell screw bosses seat, the two spout slip-joints (A spout↔bend, B bend↔tip) slide together, and the M3 SHCS heads clear their counterbores. This is the print that closes the fit iteration opened by attempt 19.
 
-**Geometry — clearances opened from attempt 19.** Same three-piece shell + mounting plate; only the mating clearances changed (each one knob in `touch_flo_shell.py` / `touch_flo_mounting_plate.py`, parts re-derive):
+**Geometry — clearances opened from attempt 19.** Same three-piece shell + mounting plate; only the mating clearances changed (each one knob in `faucet_shell.py` / `above_counter_plate.py`, parts re-derive):
 - Boss-to-hole slip 0.10 → **0.40 diametral** (`base_pod_slip`); pods + footprint re-derive, walls stay 3.0.
 - Boss seat gap 0.5 → **1.0** (`boss_seat_clearance`; boss 7.0 in the 8.0 hole) + **0.6 × 45° lead-in chamfer** on each boss top rim (`boss_chamfer`).
 - SHCS-head counterbore ⌀5.55 → **⌀6.15** (`base_pod_counterbore_dia`, ~0.72 diametral over the ~5.43 measured head); chain re-derives boss ⌀12.15, shell hole ⌀12.55, pod radius 9.275.
@@ -594,18 +594,18 @@ Convergence path (hand-iterated test prints between 19 and this slice, not separ
 Unchanged from attempt 19: printer `Bambu Lab H2C 0.6 nozzle`, print `0.30mm Standard`, `layer_height` 0.30, `initial_layer_print_height` 0.30, `line_width` 0.62, `top_shell_layers` 4 / `bottom_shell_layers` 3. PET-CF slot 0 = Polymaker PET-CF, `nozzle_temperature` 280 °C, `chamber_temperatures` 50 °C, `filament_max_volumetric_speed` 5 mm³/s. Supports tree(auto), `support_filament` / `support_interface_filament` PET-CF (slot 0), `support_threshold_angle` 30, `support_top_z_distance` 0.2, `support_on_build_plate_only` 1. Part brim auto_brim 5 mm. Filament slots (3): Polymaker PET-CF, Bambu PETG Basic, Bambu ABS @BBL H2C 0.6 nozzle.
 
 **Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + mounting plate), all `extruder=1` on PET-CF slot 0, textured plate. Per-object on-bed footprint (bbox, mm):
-- `touch-flo-shell-bottom.step`: area **1069.5**, 57.7 × 64.7 (foot-down, full ~201 mm tall)
-- `touch-flo-shell-middle.step`: area **8.8**, 31.6 × 33.8 (end-on, body cantilevered on tree supports)
-- `touch-flo-shell-top.step`: area **501.0**, 28.7 × 31.4 (cradle face-down)
-- `touch-flo-mounting-plate.step`: area **2034.7**, 59.9 × 68.6 (bosses-up)
+- `faucet-shell-bottom.step`: area **1069.5**, 57.7 × 64.7 (foot-down, full ~201 mm tall)
+- `faucet-shell-middle.step`: area **8.8**, 31.6 × 33.8 (end-on, body cantilevered on tree supports)
+- `faucet-shell-top.step`: area **501.0**, 28.7 × 31.4 (cradle face-down)
+- `above-counter-plate.step`: area **2034.7**, 59.9 × 68.6 (bosses-up)
 
 **Reprint scope from attempt 19:** bottom piece + mounting plate (pod chain grew with the counterbore) + TPU mounting gasket (footprint follows the pod outline); middle and top pieces unchanged by the boss/head work and only re-cut by the joint slips.
 
 ## PET-CF print attempt 21 (middle socket-mouth tip — layer-change G-code: feedrate / accel / fan)
 
-Slice saved 2026-06-14 (`touch-flo-pet-cf.3mf`). **Print outcome not yet recorded.**
+Slice saved 2026-06-14 (`faucet-pet-cf.3mf`). **Print outcome not yet recorded.**
 
-Geometry unchanged from attempt 20 (no geometry change this attempt). Plate is **2 objects** — `touch-flo-shell-middle.step` + `touch-flo-shell-top.step` (bottom piece and mounting plate are not on this plate). The middle prints end-on, base at Z 0, **107.1 mm** tall; the top piece tops out at **Z 46.8 mm**, so above ~Z 47 the nozzle works the middle only.
+Geometry unchanged from attempt 20 (no geometry change this attempt). Plate is **2 objects** — `faucet-shell-middle.step` + `faucet-shell-top.step` (bottom piece and mounting plate are not on this plate). The middle prints end-on, base at Z 0, **107.1 mm** tall; the top piece tops out at **Z 46.8 mm**, so above ~Z 47 the nozzle works the middle only.
 
 **Defect addressed** (Derek provided a photo, observed on the attempt-20 middle): drooping / pulled-over strands at the socket-mouth crown corner — the top ~5 mm of the middle (Z 102 → 107.1), the edge where the SPLIT-B junction plane meets the crown outer skin. At 0.30 mm layers, Z 102 = layer 340.
 
@@ -746,7 +746,7 @@ Process settings:
 - `enable_wrapping_detection`: 0 (clumping detection still disabled)
 - `close_fan_the_first_x_layers`: 3
 
-### `touch-flo-shell-4-pieces.3mf` — attempt 7
+### `faucet-shell-4-pieces.3mf` — attempt 7
 
 Filament profiles: stock `Bambu PET-CF @BBL H2C` (no "- Copy")
 Filament slots in project: PET-CF (slot 0), PLA, PET-CF, ABS, ABS, PETG, PETG, PETG (8 slots; only slot 0 active in slice)
@@ -807,7 +807,7 @@ Other:
 - `enable_wrapping_detection`: 0
 - `wrapping_detection_layers`: 20
 
-### `touch-flo-shell-2-pieces.3mf` — attempt 9
+### `faucet-shell-2-pieces.3mf` — attempt 9
 
 Filament profiles: stock `Bambu PET-CF @BBL H2C` (no "- Copy")
 Filament slots in project: PET-CF (slot 0), PLA, PET-CF, ABS, ABS, PETG, PETG, PETG (only slot 0 active in slice)
@@ -818,11 +818,11 @@ Printer profile: `Bambu Lab H2C 0.6 nozzle` (`printer_variant`: 0.6)
 Print profile: `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`
 
 Plate composition (per `Metadata/plate_1.json`):
-- 2 objects: `touch-flo-shell.step` (whole, single integrated piece per commit `41316ce` + `be92d9b` + `d7aa674`), `touch-flo-mounting-plate.step`
+- 2 objects: `faucet-shell.step` (whole, single integrated piece per commit `41316ce` + `be92d9b` + `d7aa674`), `above-counter-plate.step`
 - Both on `extruder=1` (left), `filament_maps` all = 1, `first_extruder`: 0
 - Bed: textured plate
 
-Settings deltas vs `touch-flo-shell-4-pieces.3mf` (attempt 7):
+Settings deltas vs `faucet-shell-4-pieces.3mf` (attempt 7):
 - `raft_first_layer_expansion`: -1 → 20 mm — Bambu Studio UI label "Initial layer expansion"; widens first layer of each support tower 20 mm outward at the bed
 - `support_on_build_plate_only`: 0 → 1 — supports root from the bed only; cannot grow on the model surface
 
@@ -834,11 +834,11 @@ Settings unchanged from attempt 7 (selected — full list in the attempt-7 snaps
 - Part brim (already on for attempt 7, unchanged here): `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
 - Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0
 
-### `touch-flo-shell-3-pieces.3mf` — attempt 10 baseline (was: pre-print snapshot, 3-piece geometry split)
+### `faucet-shell-3-pieces.3mf` — attempt 10 baseline (was: pre-print snapshot, 3-piece geometry split)
 
-This section was originally captured as a pre-print snapshot before any 3-piece print had been run; the print on this slice is now attempt 10 (above). The current committed `touch-flo-shell-3-pieces.3mf` is the attempt-11 re-slice — its deltas vs this baseline are documented in the attempt-11 section. The attempt-10 file content is preserved in git history.
+This section was originally captured as a pre-print snapshot before any 3-piece print had been run; the print on this slice is now attempt 10 (above). The current committed `faucet-shell-3-pieces.3mf` is the attempt-11 re-slice — its deltas vs this baseline are documented in the attempt-11 section. The attempt-10 file content is preserved in git history.
 
-Geometry: the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `touch-flo-shell-bottom.step`, `touch-flo-shell-middle.step`, `touch-flo-shell-top.step`. The previously-integrated `touch-flo-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Mounting plate is not on this plate.
+Geometry: the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `faucet-shell-bottom.step`, `faucet-shell-middle.step`, `faucet-shell-top.step`. The previously-integrated `faucet-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Mounting plate is not on this plate.
 
 Filament profiles: stock `Bambu PET-CF @BBL H2C`, `Generic PETG @BBL H2C`, `Bambu PETG Translucent @BBL H2C`, `Bambu PETG Basic @BBL H2C`, `Bambu ABS @BBL H2C 0.6 nozzle` ×2 (6 slot project; only slot 0 active in slice)
 Active in slice: PET-CF (left, slot 0)
@@ -853,11 +853,11 @@ Plate composition (per `Metadata/plate_1.json` + `Metadata/model_settings.config
 - Object `<part>` matrices all identity (rotation is baked into the source STEP geometry from CadQuery, not applied as a slicer transform)
 
 Per-object on-bed footprint (`area` field in `plate_1.json`) — this is what encodes Derek's orientation choices for supports-on-ugly / pristine-up. **The orientations in this 3mf are the deliberate physical arrangement Derek wants to use, with each part rotated to expose its OK-to-be-ugly faces downward (where supports will land) and its pristine surfaces upward / outward:**
-- `touch-flo-shell-bottom.step`: XY bbox 124.22, 189.03 → 168.57, 233.37 mm (44.35 × 44.35 mm); footprint area **630.5 mm²**. Largest bed contact patch; sits on its widest face.
-- `touch-flo-shell-middle.step`: XY bbox 89.33, 120.62 → 165.41, 175.62 mm (76.08 × 55.00 mm); footprint area **9.26 mm²**. Tiny contact patch despite a 76 × 55 mm bbox — the piece is standing nearly end-on, with the rest of its body cantilevered out within that bbox. This is what drives the support-strategy changes below (tree supports, `support_on_build_plate_only` 0, lower threshold angle).
-- `touch-flo-shell-top.step`: XY bbox 107.93, 86.62 → 131.64, 107.82 mm (23.71 × 21.20 mm); footprint area **290.0 mm²**. Medium contact patch; sits on a near-flat face.
+- `faucet-shell-bottom.step`: XY bbox 124.22, 189.03 → 168.57, 233.37 mm (44.35 × 44.35 mm); footprint area **630.5 mm²**. Largest bed contact patch; sits on its widest face.
+- `faucet-shell-middle.step`: XY bbox 89.33, 120.62 → 165.41, 175.62 mm (76.08 × 55.00 mm); footprint area **9.26 mm²**. Tiny contact patch despite a 76 × 55 mm bbox — the piece is standing nearly end-on, with the rest of its body cantilevered out within that bbox. This is what drives the support-strategy changes below (tree supports, `support_on_build_plate_only` 0, lower threshold angle).
+- `faucet-shell-top.step`: XY bbox 107.93, 86.62 → 131.64, 107.82 mm (23.71 × 21.20 mm); footprint area **290.0 mm²**. Medium contact patch; sits on a near-flat face.
 
-Settings deltas vs `touch-flo-shell-2-pieces.3mf` (attempt 9):
+Settings deltas vs `faucet-shell-2-pieces.3mf` (attempt 9):
 - Print profile: `0.18mm Balanced Quality @BBL H2C 0.6 nozzle` → `0.30mm Standard @BBL H2C 0.6 nozzle`
 - `layer_height`: 0.18 → **0.30 mm** (matches the new profile; thicker layers, faster print, weaker inter-layer bond)
 - `wall_loops`: 50 → **100** (doubled; effectively all-walls for any thickness ≤ 62 mm at line_width 0.62)

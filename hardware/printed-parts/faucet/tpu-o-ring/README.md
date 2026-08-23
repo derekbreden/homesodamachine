@@ -27,7 +27,7 @@ the dispense head's wet path:
   *up* from below with a Siptenk brass stiffener; factory ferrule +
   nut seal the joint. See [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2.
 - **Dispense (body's top water port):** 3/8" OD LLDPE descends from
-  the printed [`touch-flo-shell`](/hardware/printed-parts/faucet/touch-flo-shell/) gooseneck water
+  the printed [`faucet-shell`](/hardware/printed-parts/faucet/faucet-shell/) gooseneck water
   channel and enters the body's Ø [10 mm](BODY_PORT_D) top port. Water
   flows up out of the valve into the LLDPE; this TPU bushing seals
   around the outside of the tube where it enters the port.
@@ -74,9 +74,9 @@ replace on re-assembly.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python touch_flo_tpu_o_ring.py
+tools/cad-venv/bin/python tpu_o_ring.py
 ```
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py`
+- `/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py`

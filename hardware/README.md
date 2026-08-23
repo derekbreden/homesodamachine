@@ -58,7 +58,7 @@ six, and the assembly syncs that import the machine to reach its constants decla
 graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes `BUILD.bazel` from it.
 
 A step is usually one generator. Four are several: `docgen` lets more than one script keep a
-doc's `[value](NAME)` figures, each managing its own names, so `touch_flo_shell.py` and
+doc's `[value](NAME)` figures, each managing its own names, so `faucet_shell.py` and
 `touch_flo_under_counter_plate.py` both write `ASSEMBLY.md` and are one action. `bazel` needs
 one action per file, and `inventory._together` is what groups them.
 

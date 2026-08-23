@@ -126,7 +126,7 @@ a center axle turns 3 kg freely enough to feed a print — which is why TPU and
 the 3 kg Fiberon stock both print out of a PolyDryer, sized to the spool.
 
 What a spool of PET-CF17 has been through, and what changed when it was:
-[touch-flo-shell/print-log.md](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md).
+[faucet-shell/print-log.md](/hardware/printed-parts/faucet/faucet-shell/print-log.md).
 
 ### Which hotends fit an H2C
 

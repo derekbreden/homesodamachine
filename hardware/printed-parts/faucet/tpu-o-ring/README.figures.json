@@ -1,5 +1,5 @@
 {
-  "/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py": {
+  "/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": {
     "BODY_PORT_D": "10 mm",
     "BODY_SQUEEZE": "0.22 mm",
     "CAP_HOLE_D": "6.5 mm",

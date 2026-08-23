@@ -62,8 +62,8 @@ def build_o_ring() -> cq.Workplane:
 
 def main():
     o_ring = build_o_ring()
-    export_assembly(one_body(o_ring, "touch-flo-tpu-o-ring", M_TPU_BLACK), str(_here / "touch-flo-tpu-o-ring.step"))
-    print("-> touch-flo-tpu-o-ring.step")
+    export_assembly(one_body(o_ring, "tpu-o-ring", M_TPU_BLACK), str(_here / "tpu-o-ring.step"))
+    print("-> tpu-o-ring.step")
 
     variables = {
         "ORING_INNER_D": f"{inner_diameter:.4g} mm",

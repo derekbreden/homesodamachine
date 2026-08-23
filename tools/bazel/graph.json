@@ -143,7 +143,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -248,7 +248,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -326,11 +326,11 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -491,7 +491,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -611,8 +611,8 @@
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_realized.py",
@@ -1060,7 +1060,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -1900,7 +1900,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -2398,8 +2398,8 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -2747,10 +2747,10 @@
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_realized.py",
@@ -2759,14 +2759,14 @@
     ],
     "rewritten": [
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md"
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md"
     ],
     "writes": [
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md"
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md"
     ]
   },
   "hardware/faucet-layout/faucet_assembly.py": {
@@ -2778,11 +2778,11 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
@@ -2914,7 +2914,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -3058,7 +3058,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -3539,7 +3539,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -3643,7 +3643,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -3722,7 +3722,7 @@
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -3763,7 +3763,7 @@
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -3805,7 +3805,7 @@
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -3878,7 +3878,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -4010,7 +4010,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -4143,7 +4143,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -4282,7 +4282,7 @@
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4357,7 +4357,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4471,7 +4471,7 @@
       "hardware/printed-parts/enclosure/pump-tray/README.md",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -4535,7 +4535,7 @@
       "hardware/printed-parts/enclosure/pump-tray/README.md"
     ]
   },
-  "hardware/printed-parts/enclosure/valve-panel/valve_panel.py": {
+  "hardware/printed-parts/enclosure/valve-tray/valve_tray.py": {
     "reads": [
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
@@ -4572,9 +4572,9 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/valve-panel/README.md",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+      "hardware/printed-parts/enclosure/valve-tray/README.md",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -4630,21 +4630,21 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
-      "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/valve-panel/README.md"
+      "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+      "hardware/printed-parts/enclosure/valve-tray/README.md"
     ],
     "writes": [
-      "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/valve-panel/README.md"
+      "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+      "hardware/printed-parts/enclosure/valve-tray/README.md"
     ]
   },
-  "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py": {
+  "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -4652,51 +4652,22 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py"
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py"
     ],
     "writes": [
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py"
+      "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py"
     ]
   },
-  "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py": {
+  "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_run_lock.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py"
-    ],
-    "writes": [
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py"
-    ]
-  },
-  "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+      "hardware/printed-parts/faucet/above-counter-plate/README.md",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -4705,33 +4676,27 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
+      "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+      "hardware/printed-parts/faucet/above-counter-plate/README.md",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"
     ],
     "writes": [
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
+      "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+      "hardware/printed-parts/faucet/above-counter-plate/README.md",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"
     ]
   },
-  "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py": {
+  "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -4740,15 +4705,50 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py"
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py"
     ],
     "writes": [
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py"
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py"
+    ]
+  },
+  "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
+      "hardware/printed-parts/faucet/tpu-o-ring/README.md",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
+      "hardware/printed-parts/faucet/tpu-o-ring/README.md",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"
+    ],
+    "writes": [
+      "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
+      "hardware/printed-parts/faucet/tpu-o-ring/README.md",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"
     ]
   },
   "hardware/printed-parts/faucet/tube-collar/tube_collar.py": {
@@ -4942,11 +4942,11 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-      "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+      "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
@@ -5612,10 +5612,10 @@
       "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-a.step",
       "hardware/printed-parts/enclosure/port-ring/port-ring-flavor-b.step",
       "hardware/printed-parts/enclosure/port-ring/port-ring-water.step",
-      "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
@@ -5677,9 +5677,9 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-      "hardware/printed-parts/faucet/_touch_flo_interface.py",
-      "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -5901,7 +5901,7 @@
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -5977,7 +5977,7 @@
       "hardware/printed-parts/enclosure/port-ring/port_ring.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-      "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+      "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
       "hardware/printed-parts/faucet/tube-collar/tube_collar.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",

@@ -26,7 +26,7 @@ const F = {
   valvePrice: "≈ $32", // Westbrass A2031-NL-62, bom.md (current authoritative SKU)
   attempts: 21, // PET-CF print attempts 1–21, print-log.md
   quote: "beautiful everywhere except where the supports were", // Derek, print-log.md:208
-  joint: "20 mm slip-fit", // two 20 mm joints along the gooseneck, touch_flo_shell.py:305
+  joint: "20 mm slip-fit", // two 20 mm joints along the gooseneck, faucet_shell.py:305
   display: "1.47″ touchscreen", // Waveshare ESP32-S3-Touch-LCD-1.47, bom.md:18
   material: "PET-CF",
   lastPrint: "mid-June", // last print activity 2026-06-14

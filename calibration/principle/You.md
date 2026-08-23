@@ -407,7 +407,7 @@ You're right on both. The "principle" framing was me treating a label as a rule 
 
 ---
 
-Read the touch-flo-shell print log all the way through. Attempt 13 is the joint-clearance + scarf-gap nudge after attempt 12's hand-pull test — SPLIT A at 0.1 mm clearance held to ~10 lbf, SPLIT B at 0.2 mm held to ~5 lbf, so attempt 13 tightens A to 0.05 mm (aiming for ~20 lbf) and matches B to 0.1 mm. Parallel change: PET-CF scarf-gap from 0% to 10%. Two variables moving at once.
+Read the faucet-shell print log all the way through. Attempt 13 is the joint-clearance + scarf-gap nudge after attempt 12's hand-pull test — SPLIT A at 0.1 mm clearance held to ~10 lbf, SPLIT B at 0.2 mm held to ~5 lbf, so attempt 13 tightens A to 0.05 mm (aiming for ~20 lbf) and matches B to 0.1 mm. Parallel change: PET-CF scarf-gap from 0% to 10%. Two variables moving at once.
 
 A few things land:
 

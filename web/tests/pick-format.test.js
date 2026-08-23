@@ -330,8 +330,8 @@ test("pick_text.py composer output round-trips through the parser", (t) => {
 
 test("pickFileToViewerPath strips the content root", () => {
   assert.equal(
-    pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step"),
-    "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
+    pickFileToViewerPath("hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step"),
+    "printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
   );
   assert.equal(
     pickFileToViewerPath("hardware/manifold-layout/enclosure-assembly.step"),

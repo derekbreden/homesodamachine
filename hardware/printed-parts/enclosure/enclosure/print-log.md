@@ -97,7 +97,7 @@ the wall speeds the PETG profile runs at, whatever nozzle it is taken on.
   inherited `pressure_advance` of 0.02, so the slicer injects no PA and the run depends on
   whatever K the printer associates with the filament at send time. This is the same
   arrangement that produced the seam-clustered under-extrusion on PET-CF
-  ([touch-flo-shell/print-log.md](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md)
+  ([faucet-shell/print-log.md](/hardware/printed-parts/faucet/faucet-shell/print-log.md)
   attempt 18), where a measured K of 0.013 replaced the 0.02.
 - **The preset's own `filament_type` reads `PET-CF`**, and `filament_vendor` reads
   `Bambu Lab`, because it was cloned from the PET-CF preset and those fields were not

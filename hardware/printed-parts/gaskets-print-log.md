@@ -16,14 +16,14 @@ gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
 | `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
-| `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2065 mm² | TPU 90A |
+| `above-counter-gasket` | [`faucet/above-counter-gasket/above_counter_gasket.py`](/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py) | 2 | 2065 mm² | TPU 90A |
 | `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
 | `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
 
 Part roles (geometry authoritative in the sources above):
 - **reservoir-gasket** — 2.0 mm flat gasket, 5 mm-wide perimeter ring,
   between the reservoir body wall top and the cap base, clamped by six M3.
-- **touch-flo-mounting-gasket** — Ø54.35 mm × 2.0 mm disc between the
+- **above-counter-gasket** — Ø54.35 mm × 2.0 mm disc between the
   faucet mounting plate and the kitchen countertop; shank hole + flavor-tube
   pill slot.
 - **reservoir-bulkhead-seal-dry** — TPU face-seal washer under the elbow
@@ -34,7 +34,7 @@ Part roles (geometry authoritative in the sources above):
   into the Ø13.2 mm vent-filter pocket (0.1 mm interference/side).
 
 The CAD docstrings spec a mix of hardnesses (reservoir-gasket TPU 85A;
-touch-flo-mounting-gasket, retaining-ring TPU 90A; the dry
+above-counter-gasket, retaining-ring TPU 90A; the dry
 bulkhead washer unspecified). This plate prints all of them from the single
 loaded TPU 85A spool.
 
@@ -67,9 +67,9 @@ Settings observed in the 3mf:
   fields — i.e. arachne + 100 % zig-zag overrides over the stock Balanced
   Quality profile's defaults.
 
-Same TPU 85A profile the touch-flo-tpu-o-ring v3 printed on (H2C 0.6 nozzle,
+Same TPU 85A profile the tpu-o-ring v3 printed on (H2C 0.6 nozzle,
 0.18 mm Balanced Quality, 225 °C, textured plate, flow 1.0, 2.2 mm³/s — see
-[`faucet/touch-flo-tpu-o-ring/print-log.md`](/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/print-log.md)).
+[`faucet/tpu-o-ring/print-log.md`](/hardware/printed-parts/faucet/tpu-o-ring/print-log.md)).
 The difference is this plate runs solid seals — `wall_loops` 2 / arachne /
 100 % infill / 3+3 shells — versus the o-ring's single Arachne wall.
 
@@ -85,7 +85,7 @@ Second consolidated slice. Plate trimmed to 9 instances / 5 distinct parts:
 the two `reservoir-bulkhead-seal-wet` instances are off the plate (the wet-side
 bulkhead seal is a purchased silicone flat washer, not printed — see bom.md),
 and `reservoir-gasket` and `reservoir-retaining-ring` each drop from 3 to 2.
-`touch-flo-mounting-gasket` re-sliced from the 2026-06-09 "match the
+`above-counter-gasket` re-sliced from the 2026-06-09 "match the
 plate/shell-foot footprint" revision (961ffac7): footprint 2064.9 mm² (was
 2111). `first_layer_time` ≈ 1841 s (was 2215); plate bbox ≈ 283 × 270 mm.
 Still sliced in Bambu Studio 02.07.01.57.

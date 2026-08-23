@@ -300,7 +300,7 @@ def selftest():
     # importer of this module looks like it loads, and `_cadq_export` imports it to write the
     # `.step.mesh` beside every export in the tree.
     ref_step = (Path(__file__).resolve().parent.parent
-                / "printed-parts/faucet/touch-flo-shell/touch-flo-shell.step")
+                / "printed-parts/faucet/faucet-shell/faucet-shell.step")
     occt_pkg = (Path(__file__).resolve().parent.parent
                 / "pcb/pcba/node_modules/occt-import-js")
     occt_probe = """

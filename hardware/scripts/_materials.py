@@ -172,7 +172,7 @@ C_PUMP_MOTOR = cq.Color(0.74, 0.76, 0.80)
 # the PETG black the box is printed in and reads matte beside the donor's matte-black metal.
 C_PETCF_BLACK = cq.Color(0.19, 0.19, 0.20)
 # The Westbrass A2031-NL-62 / R2031-NL-62 donor body inside that shell, which the BOM buys in
-# MATTE BLACK (`reference/touch-flo-faucet/README.md`, `touch-flo-shell/ASSEMBLY.md`) — a
+# MATTE BLACK (`reference/touch-flo-faucet/README.md`, `faucet-shell/ASSEMBLY.md`) — a
 # finished metal, so it stands a shade under the print that wraps it rather than over it.
 M_DONOR_BLACK = cq.Color(0.13, 0.13, 0.14)
 
