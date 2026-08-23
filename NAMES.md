@@ -43,6 +43,7 @@ The cabinet under the counter.
 | --- | --- | --- |
 | **box** | the four quadrants and the panels that close them, as one thing | printed shell, enclosure shell |
 | **quadrant** | one of the box's four printed pieces — front-top, front-bottom, back-top, back-bottom | |
+| **wall** | a face of the box. Not a piece — the front wall spans two quadrants across the Z seam | |
 | **enclosure display** | the 4.3" LCD on the enclosure's front face | config display, front-face display, front display |
 
 ## Umbilical
