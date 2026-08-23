@@ -198,8 +198,8 @@
    "value": "52/54",
    "target": "a located joint per body",
    "detail": [
-    "probe-coil-ds18s20: foil tape",
-    "probe-tank-ds18b20: foil tape"
+    "probe-carbonator-ds18b20: foil tape",
+    "probe-coil-ds18s20: foil tape"
    ],
    "active": true
   }
@@ -209,6 +209,10 @@
   "bulkhead-reservoir-b",
   "bulkhead-seal-a",
   "bulkhead-seal-b",
+  "carbonator-elbow-carb-water-out",
+  "carbonator-elbow-co2-in",
+  "carbonator-elbow-prv",
+  "carbonator-elbow-water-in",
   "carbonator-tube",
   "collet-carb-water-out",
   "collet-co2-in",
@@ -231,8 +235,8 @@
   "foam-cap-lid-top",
   "foam-cap-top",
   "foam-shell",
+  "probe-carbonator-ds18b20",
   "probe-coil-ds18s20",
-  "probe-tank-ds18b20",
   "prv-shroud",
   "prv-sv125",
   "reed-a-1",
@@ -254,17 +258,13 @@
   "sparge-silicone-stub",
   "sparge-stone",
   "vent-membrane-a",
-  "vent-membrane-b",
-  "vessel-elbow-carb-water-out",
-  "vessel-elbow-co2-in",
-  "vessel-elbow-prv",
-  "vessel-elbow-water-in"
+  "vent-membrane-b"
  ],
  "bends": [
   {
    "id": "carb-water-out",
    "kind": "fluid",
-   "frm": "carbonator-vessel.carb-water-out",
+   "frm": "carbonator.carb-water-out",
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
@@ -311,7 +311,7 @@
    "id": "co2-in",
    "kind": "fluid",
    "frm": "co2-in.start",
-   "to": "carbonator-vessel.co2-in",
+   "to": "carbonator.co2-in",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
    "length": 312.09,
@@ -500,7 +500,7 @@
   {
    "id": "water-in",
    "kind": "fluid",
-   "frm": "carbonator-vessel.water-in",
+   "frm": "carbonator.water-in",
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,

@@ -1,16 +1,17 @@
-"""The evaporator coil, wound on the tank, with the two tails that leave it.
+"""The evaporator coil, wound on the carbonator, with the two tails that leave it.
 
 `coil-mandrel` is the tool the copper is wound ON — a cylinder undersized by `net_undersize` so
-the wrap springs out and clamps the tank when it comes off. This module is the copper AFTER
-that: at the radius it actually sits at, one tube radius off the tank's own OD, and lifted
+the wrap springs out and clamps the carbonator when it comes off. This module is the copper
+AFTER that: at the radius it actually sits at, one tube radius off the carbonator's own OD, and
+lifted
 again wherever the reed bridge carries it (`_ride_radius`). `wrap_length` is therefore the
 copper a build CONSUMES, which is the figure `bom.md` §5 bills — longer than either of the
 mandrel's two.
 
-    winding radius   `tank_outer_radius + tube_radius`, the copper's centreline on the tank
+    winding radius   `tank_outer_radius + tube_radius`, the copper's centreline on the carbonator
     wraps            `coil_mandrel.total_wraps` — 9 full plus the fraction the tails' azimuths
                      span, which is the mandrel's own figure and stays its own
-    z                `evap_tail_low_z` up to `evap_tail_high_z`, the bands the vessel's own
+    z                `evap_tail_low_z` up to `evap_tail_high_z`, the bands the carbonator's own
                      elbows leave clear above and below it
 
 FRAMES. The mandrel is authored lying down, its own Y the cylinder axis and (x, z) the radial
@@ -56,8 +57,8 @@ import _internal_routes as _R                            # noqa: E402
 import _stated_bounds as _bounds                         # noqa: E402
 
 TUBE_R = _mandrel.tube_radius                       # 3.175 — 1/4" ACR copper
-# The copper's centreline once it is off the mandrel and onto the tank: its inner surface on
-# the tank's OD.
+# The copper's centreline once it is off the mandrel and onto the carbonator: its inner surface
+# on the carbonator's OD.
 WIND_R = tank_outer_radius + TUBE_R
 TOTAL_WRAPS = _mandrel.total_wraps
 PITCH = _mandrel.pitch
@@ -75,7 +76,7 @@ def _map_azimuth(mandrel_x: float, mandrel_z: float) -> float:
     return math.degrees(math.atan2(mandrel_x, -mandrel_z))
 
 
-# HOW THE WOUND COIL IS CLOCKED ONTO THE TANK, degrees CCW. The mandrel says where the two
+# HOW THE WOUND COIL IS CLOCKED ONTO THE CARBONATOR, degrees CCW. The mandrel says where the two
 # tails sit RELATIVE TO EACH OTHER — `tail_ccw_delta` is its own figure and untouched here —
 # and nothing says where that pair sits relative to the shell. A helix is the same helix at
 # every roll, so this is one free turn, and it is the only thing that moves both tails without
@@ -108,7 +109,7 @@ def _at(azimuth_deg: float, z: float, radius: float = None) -> cq.Vector:
 WIND_HEIGHT = evap_tail_high_z - evap_tail_low_z
 
 
-# THE WRAP DOES NOT LIE ON THE TANK ALL THE WAY ROUND. The reed bridge stands on the register
+# THE WRAP DOES NOT LIE ON THE CARBONATOR ALL THE WAY ROUND. The reed bridge stands on the register
 # azimuth carrying the two carbonator reeds in pockets `reed_bridge.pocket_depth` proud of the
 # wall, and the copper crossing it rides the bridge's own plateau — which is what leaves the
 # glass its `copper_clearance_over_glass`. The lift, the arc it runs over and the ramps either
@@ -123,13 +124,13 @@ BRIDGE_RAMP = math.sqrt(COPPER_BEND * BRIDGE_LIFT * math.pi ** 2 / 2.0)
 BRIDGE_ARC_RUNOUT = math.degrees(BRIDGE_RAMP / _bridge.plateau_radius)
 # What the copper's INNER surface rides on, by azimuth off the register line. A bent tube
 # BRIDGES the bridge's own arc ramps rather than following them down, so it holds the plateau
-# all the way to the bridge's edge and comes back to the tank outside it.
+# all the way to the bridge's edge and comes back to the carbonator outside it.
 RIDE_RADII = ((math.degrees(_bridge.bridge_half_angle), _bridge.plateau_radius),
               (math.degrees(_bridge.bridge_half_angle) + BRIDGE_ARC_RUNOUT, tank_outer_radius))
-# The bridge is authored in the TANK's own frame, one floor slab and one support ring up.
-_tank_bottom_z = wall_and_floor_thickness + tank_support_ring_height
-BRIDGE_Z = (_bridge.bridge_z_bottom + _tank_bottom_z,
-            _bridge.bridge_z_top + _tank_bottom_z)
+# The bridge is authored in the CARBONATOR's own frame, one floor slab and one support ring up.
+_carbonator_bottom_z = wall_and_floor_thickness + tank_support_ring_height
+BRIDGE_Z = (_bridge.bridge_z_bottom + _carbonator_bottom_z,
+            _bridge.bridge_z_top + _carbonator_bottom_z)
 BRIDGE_AXIAL_RAMP = max(_bridge.axial_ramp_length, BRIDGE_RAMP)
 # How finely the wrap is sampled. Enough that the ramps read as ramps and the sampled circle
 # carries the tube's own surface (`wrap_points` swells for the rest), and no finer: every body
@@ -143,7 +144,7 @@ def _ease(t: float) -> float:
     """A 0→1 ramp with no corner at either end.
 
     A tube does not turn a corner, and a curve drawn THROUGH points that do overshoots at one:
-    the wrap would dip inside the tank just off the bridge's edge. Easing the ramp is what
+    the wrap would dip inside the carbonator just off the bridge's edge. Easing the ramp is what
     keeps the drawn surface where the copper is."""
     t = max(0.0, min(1.0, t))
     return 0.5 - 0.5 * math.cos(math.pi * t)
@@ -177,7 +178,7 @@ def wrap_points() -> list:
     n = max(2, int(round(TOTAL_WRAPS * WRAP_SAMPLES_PER_TURN)))
     # A curve THROUGH sampled points runs inside the circle those points sit on, by the
     # sagitta of one step. Sampling on a circle that much larger puts the drawn surface back
-    # on the tank instead of a hair inside it.
+    # on the carbonator instead of a hair inside it.
     swell = 1.0 / math.cos(math.pi * TOTAL_WRAPS / n)
     pts = []
     for i in range(n + 1):
@@ -227,7 +228,7 @@ def bridge_lift_length() -> float:
 def gap_z_near(azimuth_deg: float, target_z: float) -> float:
     """A Z at `azimuth_deg` midway between two wraps, as near `target_z` as the pitch allows.
 
-    What is taped to the tank sits against it, so it has to land in the copper's own gap."""
+    What is taped to the carbonator sits against it, so it has to land in the copper's own gap."""
     turns = (target_z - evap_tail_low_z) / PITCH - (azimuth_deg - AZ_IN) / 360.0
     wrap_z = evap_tail_low_z + (math.floor(turns) + (azimuth_deg - AZ_IN) / 360.0) * PITCH
     return wrap_z + PITCH / 2.0
@@ -312,7 +313,7 @@ for _end, _billed in _mandrel.tail_in_shell.items():
 
 
 def cut_length() -> float:
-    """What a build CUTS per vessel — the laid wrap plus each end's own tie-in allowance.
+    """What a build CUTS per carbonator — the laid wrap plus each end's own tie-in allowance.
 
     Struck here rather than in `coil_mandrel` because the wrap it stands on is the LAID one,
     and the reed bridge's lift is only visible from this module."""
@@ -320,7 +321,7 @@ def cut_length() -> float:
 
 
 def roll_spare_ft() -> float:
-    """What one roll has left after `coil_mandrel.vessels_per_roll` vessels come off it."""
+    """What one roll has left after `coil_mandrel.vessels_per_roll` carbonators come off it."""
     return _mandrel.roll_length_ft - _mandrel.vessels_per_roll * cut_length() / 304.8
 
 
@@ -329,14 +330,14 @@ def report() -> None:
     print("  evaporator coil")
     print(f"    stock           {COPPER_STOCK.name}, min bend {COPPER_BEND:.2f} — "
           f"{COPPER_STOCK.source}")
-    print(f"    wound at        r {WIND_R:.3f} (tank {tank_outer_radius:.1f} + tube "
+    print(f"    wound at        r {WIND_R:.3f} (carbonator {tank_outer_radius:.1f} + tube "
           f"{TUBE_R:.3f}); the mandrel winds at r {_mandrel.helix_path_radius:.3f}")
     print(f"    wraps           {TOTAL_WRAPS:.3f} at {PITCH:.4g} mm pitch, "
           f"z {evap_tail_low_z:.1f}..{evap_tail_high_z:.1f}")
     print(f"    azimuths        inlet {AZ_IN:+.2f}°, outlet {AZ_OUT:+.2f}°, "
           f"CCW delta {_mandrel.tail_ccw_delta:.2f}°")
     # Three readings of one length: what the mandrel holds, what the same wraps come to once
-    # sprung onto the tank, and what THIS module draws with the reed bridge's lift in it.
+    # sprung onto the carbonator, and what THIS module draws with the reed bridge's lift in it.
     print(f"    wrap laid       {wrap:.0f} mm ({wrap / 304.8:.2f} ft) — mandrel "
           f"{_mandrel.mandrel_wrap_length:.0f}, sprung {_mandrel.fitted_wrap_length:.0f}, "
           f"reed bridge {bridge_lift_length():+.0f}")
@@ -346,7 +347,7 @@ def report() -> None:
               f"({_mandrel.tail_in_shell[end]:.1f} billed) + "
               f"{_mandrel.stub_protrusion[end]:.0f} protruding")
     cut = cut_length()
-    print(f"    cut per vessel  {cut:.1f} mm ({cut / 304.8:.3f} ft); "
+    print(f"    cut per carb    {cut:.1f} mm ({cut / 304.8:.3f} ft); "
           f"{_mandrel.vessels_per_roll} per {_mandrel.roll_length_ft:.0f} ft roll leaves "
           f"{roll_spare_ft():+.3f} ft ({roll_spare_ft() * 304.8:+.0f} mm)")
 
