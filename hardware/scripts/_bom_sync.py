@@ -32,6 +32,7 @@ import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 import enclosure as _enc  # likewise
 import nameplate as _np  # likewise
+import ceiling_panel as _ceil  # likewise
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
@@ -244,6 +245,12 @@ display_cover_inserts_per_build = len(display_cover_stations)
 # nameplate's two are, reaching the land, the insert and the relief bored under it.
 display_cover_screws_per_build = display_cover_inserts_per_build
 
+# The ceiling panel's two, read off the panel's own stations. Each is driven UPWARD from the
+# Z- side into a heat-set in the panel, through a fixed land in back-top's boss, so it is the
+# box's M3 x 10 and not the M3 x 8 every other insert station takes.
+ceiling_panel_inserts_per_build = len(_ceil.screw_stations())
+ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
+
 # THE PLATE AND ITS RING ARE PRINTED PARTS AND §7 BILLS BOTH: the plate a row of its own, the
 # gasket a line in the soft-seal sentence that carries every TPU seal in the machine. A body
 # the machine places and the ledger does not buy is a part nobody prints.
@@ -257,6 +264,9 @@ assert not _display_stack, (
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build)
 
+# And every M3 x 10: the ground-stack clamp's one, and the ceiling panel's two.
+m3x10_per_build = shelf_long_screws_per_build + ceiling_panel_screws_per_build
+
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
     foam_cap_inserts_per_build
@@ -266,6 +276,7 @@ total_m3_inserts_per_build = (
     + cond_inserts_per_build
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
+    + ceiling_panel_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
 
@@ -281,6 +292,7 @@ total_m3_screws_per_build = (
     + cond_screws_per_build
     + nameplate_screws_per_build
     + display_cover_screws_per_build
+    + ceiling_panel_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
 for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_screws_per_build),
@@ -333,6 +345,9 @@ def main():
         "DISPLAY_COVER_INSERTS": f"{display_cover_inserts_per_build:.4g}",
         "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
+        "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
+        "CEILING_INSERTS": f"{ceiling_panel_inserts_per_build:.4g}",
+        "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "FLOOR_WASHERS": f"{floor_washers_per_build:.4g}",
@@ -393,6 +408,7 @@ def main():
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
+            "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",
