@@ -6,7 +6,7 @@ and one wall thick, so it is the boss: nothing stands off it, the valve lands on
 the only thing it opens for is each valve's own port, on a channel out both ends. It is
 that piece's own material, fused in the way the ASSE anchor, the flow-meter anchors and every
 tube rib are: `enclosure._valve_trays` stands one per deck, off the stations
-`enclosure_assembly.valve_panel_stations` reads off the placed valves. NO TRAY SHIPS AS A PART,
+`enclosure_assembly.valve_tray_stations` reads off the placed valves. NO TRAY SHIPS AS A PART,
 nothing bolts a valve to one and nothing is bonded — the posts in their sockets are the whole of
 the retention, the same bargain the cold core's cap lid strikes under its three valves
 (`_cold_core_interface.cap_cradles`).
@@ -123,7 +123,7 @@ def extrusion(width) -> float:
 
     A WEB IS WIDE OR IT IS NOTHING, and the figure that decides which is the nozzle, not zero.
     The doc-only `main` hands in `enclosure_assembly.EXTRUSION_W` — the same constant
-    `panel-web` holds `web()` against — so the doc and the bound cannot come to differ about
+    `tray-web` holds `web()` against — so the doc and the bound cannot come to differ about
     what one bead is."""
     return width
 
@@ -311,7 +311,7 @@ def trays_of_machine(facts):
 
     The doc-only `main` hands in the artifact and imports the assembly that decides it. Keeping
     those run dependencies in `main` leaves the shape functions' source closure at this part."""
-    return facts.valve_panels
+    return facts.valve_trays
 
 
 def main():

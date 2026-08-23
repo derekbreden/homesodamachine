@@ -41,7 +41,7 @@ the cabinet is. Height and depth are uncontested there. Width is the constraint.
 The CO2 cylinder stands in that same slot. It is customer-supplied (5 lb, per
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External"), stands beside the appliance
 on a short tether to the inlet in the +Y wall of back-top
-([`back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md)
+([`y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md)
 "Connections inventory"), and is Ø 133 × 457 mm before its CGA-320 regulator. Appliance width
 plus 133 mm plus a working gap is what the pair asks of the slot.
 

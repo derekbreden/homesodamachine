@@ -15,7 +15,7 @@
       "hardware/printed-parts/cold-core/_reed_channels.py",
       "hardware/printed-parts/cold-core/_support_ring.py",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
@@ -81,7 +81,7 @@
       "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
       "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_meshes.py",
@@ -130,7 +130,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -235,7 +235,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -324,7 +324,7 @@
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/manifold-layout/enclosure-assembly.scorecard.json",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
@@ -382,7 +382,7 @@
       "hardware/printed-parts/cold-core/_reed_channels.py",
       "hardware/printed-parts/cold-core/_support_ring.py",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
@@ -431,7 +431,7 @@
       "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
       "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_meshes.py",
@@ -478,7 +478,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -586,7 +586,7 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
       "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_realized.py",
@@ -610,7 +610,7 @@
       "hardware/assembly/wiring.md",
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
@@ -1047,7 +1047,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -1887,7 +1887,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -2350,7 +2350,7 @@
       "hardware/printed-parts/electronics/pcba-tray/pcba-assembly.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -2672,7 +2672,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
       "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-pp010822e/jg-pp010822e.step",
       "hardware/reference/jg-pp010822e/jg_pp010822e.py",
       "hardware/scripts/_cadq_export.py",
@@ -2727,7 +2727,7 @@
   "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py": {
     "reads": [
       "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -2746,7 +2746,7 @@
     "reads": [
       "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -2776,7 +2776,7 @@
       "hardware/faucet-layout/faucet-assembly.step.mesh",
       "hardware/faucet-layout/faucet_assembly.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
@@ -2866,7 +2866,7 @@
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
@@ -3039,7 +3039,7 @@
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -3144,7 +3144,7 @@
       "hardware/manifold-layout/manifold_layout.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
@@ -3194,7 +3194,7 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
       "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3215,7 +3215,7 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3254,7 +3254,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
       "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3279,7 +3279,7 @@
       "hardware/printed-parts/cold-core/_foam_cap.py",
       "hardware/printed-parts/cold-core/_outer_shell.py",
       "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/valve-seat/valve_seat.py",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
       "hardware/scripts/_cadq_export.py",
@@ -3320,7 +3320,7 @@
       "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
       "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3347,7 +3347,7 @@
       "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
       "hardware/printed-parts/cold-core/prv-shroud/README.md",
       "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3378,7 +3378,7 @@
       "hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py",
       "hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json",
       "hardware/printed-parts/cold-core/reservoir/level-sensing.md",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3422,7 +3422,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/cold-core/reservoir/vent.figures.json",
       "hardware/printed-parts/cold-core/reservoir/vent.md",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3471,7 +3471,7 @@
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_assembly.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_mesh_payload.py",
@@ -3488,7 +3488,7 @@
     "reads": [
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/scripts/_materials.py",
       "tools/docgen/__init__.py"
     ],
@@ -3526,7 +3526,7 @@
       "hardware/printed-parts/enclosure/README.figures.json",
       "hardware/printed-parts/enclosure/README.md",
       "hardware/printed-parts/enclosure/_enclosure_dimensions.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -3604,7 +3604,7 @@
       "hardware/printed-parts/enclosure/README.md"
     ]
   },
-  "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": {
+  "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
     "reads": [
       "hardware/manifold-layout/_lines.py",
       "hardware/manifold-layout/_scorecard.py",
@@ -3628,9 +3628,9 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/back-panel/README.md",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -3699,12 +3699,12 @@
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
-      "hardware/printed-parts/enclosure/back-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/back-panel/README.md"
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md"
     ],
     "writes": [
-      "hardware/printed-parts/enclosure/back-panel/README.figures.json",
-      "hardware/printed-parts/enclosure/back-panel/README.md"
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/README.figures.json",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md"
     ]
   },
   "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py": {
@@ -3713,7 +3713,7 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/README.figures.json",
       "hardware/printed-parts/enclosure/ceiling-panel/README.md",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
@@ -3755,7 +3755,7 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/display-cover/README.figures.json",
       "hardware/printed-parts/enclosure/display-cover/README.md",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
@@ -3797,7 +3797,7 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/display-gasket/README.figures.json",
       "hardware/printed-parts/enclosure/display-gasket/README.md",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -3858,7 +3858,7 @@
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -3986,7 +3986,7 @@
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -4119,7 +4119,7 @@
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba-board.step",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -4230,7 +4230,7 @@
   },
   "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.figures.json",
       "hardware/printed-parts/enclosure/asse-drip-pan/README.md",
       "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py",
@@ -4260,7 +4260,7 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/enclosure/README.figures.json",
       "hardware/printed-parts/enclosure/enclosure/README.md",
@@ -4347,7 +4347,7 @@
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
       "hardware/printed-parts/enclosure/nameplate/README.figures.json",
@@ -4390,7 +4390,7 @@
   "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/README.figures.json",
       "hardware/printed-parts/enclosure/bulkhead-ring/README.md",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
@@ -4456,7 +4456,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -4559,7 +4559,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -4641,7 +4641,7 @@
   "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
@@ -4662,7 +4662,7 @@
   "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
       "hardware/printed-parts/faucet/above-counter-plate/README.md",
@@ -4690,7 +4690,7 @@
   "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
@@ -4728,7 +4728,7 @@
   "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
       "hardware/printed-parts/faucet/tpu-o-ring/README.md",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
@@ -4754,7 +4754,7 @@
   "hardware/printed-parts/faucet/tube-collar/tube_collar.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
       "hardware/printed-parts/faucet/tube-collar/README.figures.json",
       "hardware/printed-parts/faucet/tube-collar/README.md",
@@ -4785,7 +4785,7 @@
   },
   "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.figures.json",
       "hardware/printed-parts/refrigeration/fuse-clamp/README.md",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
@@ -4815,7 +4815,7 @@
   },
   "hardware/printed-parts/valve-seat/valve_seat.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/valve-seat/README.figures.json",
       "hardware/printed-parts/valve-seat/README.md",
       "hardware/printed-parts/valve-seat/valve_seat.py",
@@ -4837,7 +4837,7 @@
   },
   "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel-mold/README.figures.json",
       "hardware/printed-parts/zone-c/funnel-mold/README.md",
       "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
@@ -4865,7 +4865,7 @@
   },
   "hardware/printed-parts/zone-c/funnel/funnel.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel/README.figures.json",
       "hardware/printed-parts/zone-c/funnel/README.md",
       "hardware/printed-parts/zone-c/funnel/funnel.py",
@@ -4940,7 +4940,7 @@
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
@@ -5016,7 +5016,7 @@
   },
   "hardware/reference/asse1022-assembly/asse1022_assembly.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/asse1022-assembly/README.figures.json",
       "hardware/reference/asse1022-assembly/README.md",
       "hardware/reference/asse1022-assembly/asse1022_assembly.py",
@@ -5044,7 +5044,7 @@
   },
   "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/basics-mtb-0606wp/basics_mtb_0606wp.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5059,7 +5059,7 @@
   },
   "hardware/reference/beduan-solenoid/beduan_solenoid.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/beduan-solenoid/README.figures.json",
       "hardware/reference/beduan-solenoid/README.md",
       "hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -5084,7 +5084,7 @@
   },
   "hardware/reference/compressor/compressor.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/compressor/README.figures.json",
       "hardware/reference/compressor/README.md",
       "hardware/reference/compressor/compressor.py",
@@ -5109,7 +5109,7 @@
   },
   "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/digiten-flow-sensor/README.figures.json",
       "hardware/reference/digiten-flow-sensor/README.md",
       "hardware/reference/digiten-flow-sensor/digiten_flow_sensor.py",
@@ -5134,7 +5134,7 @@
   },
   "hardware/reference/ffl38barb38/ffl38barb38.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/ffl38barb38/ffl38barb38.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5149,7 +5149,7 @@
   },
   "hardware/reference/flare38-14ptc/flare38_14ptc.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/flare38-14ptc/flare38_14ptc.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5164,7 +5164,7 @@
   },
   "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5179,7 +5179,7 @@
   },
   "hardware/reference/gasher-check-valve/gasher_check_valve.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/gasher-check-valve/gasher_check_valve.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5194,7 +5194,7 @@
   },
   "hardware/reference/ground-ring-stack/ground_ring_stack.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/ground-ring-stack/ground_ring_stack.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5210,7 +5210,7 @@
   "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5226,7 +5226,7 @@
   "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5242,7 +5242,7 @@
   },
   "hardware/reference/jg-pp010822e/jg_pp010822e.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-pp010822e/jg_pp010822e.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5257,7 +5257,7 @@
   },
   "hardware/reference/jg-pp0408w/jg_pp0408w.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-pp0408w/jg-pp0408w.step",
       "hardware/reference/jg-pp0408w/jg_pp0408w.py",
       "hardware/scripts/_cadq_export.py",
@@ -5273,7 +5273,7 @@
   },
   "hardware/reference/jg-pp061208w/jg_pp061208w.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-pp061208w/jg_pp061208w.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5288,7 +5288,7 @@
   },
   "hardware/reference/jg-pp451223w/jg_pp451223w.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/jg-pp451223w/jg_pp451223w.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5305,7 +5305,7 @@
     "reads": [
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
       "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
       "hardware/scripts/_cadq_export.py",
@@ -5322,7 +5322,7 @@
   },
   "hardware/reference/meanwell-irm90/meanwell_irm90.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/meanwell-irm90/meanwell_irm90.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5337,7 +5337,7 @@
   },
   "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5352,7 +5352,7 @@
   },
   "hardware/reference/multiplex-asse1022/multiplex_asse1022.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5368,7 +5368,7 @@
   "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5384,7 +5384,7 @@
   },
   "hardware/reference/neofit-flow-control/neofit_flow_control.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/neofit-flow-control/neofit_flow_control.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5399,7 +5399,7 @@
   },
   "hardware/reference/seaflo-22-pump/seaflo_22_pump.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5414,7 +5414,7 @@
   },
   "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/gasher-check-valve/gasher_check_valve.py",
       "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
       "hardware/scripts/_cadq_export.py",
@@ -5430,7 +5430,7 @@
   },
   "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/gasher-check-valve/gasher_check_valve.py",
       "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
       "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
@@ -5447,7 +5447,7 @@
   },
   "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5462,7 +5462,7 @@
   },
   "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/shutao-moisture-plate/shutao_moisture_plate.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5477,7 +5477,7 @@
   },
   "hardware/reference/teyleten-relay/teyleten_relay.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/teyleten-relay/teyleten_relay.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5493,7 +5493,7 @@
   "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/touch-flo-faucet/westbrass-reference/westbrass_reference.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5511,7 +5511,7 @@
   },
   "hardware/reference/wago-221/wago_221.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/wago-221/wago_221.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5528,7 +5528,7 @@
   },
   "hardware/reference/waveshare-43b-display/waveshare_43b_display.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/waveshare-43b-display/README.figures.json",
       "hardware/reference/waveshare-43b-display/README.md",
       "hardware/reference/waveshare-43b-display/waveshare_43b_display.py",
@@ -5553,7 +5553,7 @@
   },
   "hardware/reference/worm-clamp/worm_clamp.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/worm-clamp/worm_clamp.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5568,7 +5568,7 @@
   },
   "hardware/reference/wr1110-regulator/wr1110_regulator.py": {
     "reads": [
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/reference/wr1110-regulator/wr1110_regulator.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5664,7 +5664,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
@@ -5895,7 +5895,7 @@
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/cold-core/_cold_core_interface.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
@@ -5964,7 +5964,7 @@
       "hardware/printed-parts/cold-core/reservoir/reservoir.py",
       "hardware/printed-parts/electronics/module_tray.py",
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
-      "hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
       "hardware/printed-parts/enclosure/display-cover/display_cover.py",
       "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",

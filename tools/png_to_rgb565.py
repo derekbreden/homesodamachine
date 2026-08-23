@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Convert the flavor PNGs to RGB565 C headers compiled into the display firmware.
 
-Each source PNG produces headers for the S3 config display (240×240,
+Each source PNG produces headers for the S3 round rotary display (240×240,
 firmware/src_config/images/), the RP2040 round display (128×115,
 firmware/src_display/), and — for the two shipping flavors — the S3 faucet
 display (172×320 full-bleed center crop, firmware/src_faucet/images/).

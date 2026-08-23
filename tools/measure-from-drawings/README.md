@@ -334,7 +334,7 @@ A row per measurement with source image, method, and confidence. See the "Calipe
 A table comparing drawing/calculation-derived values against any text specs the manufacturer publishes. Disagreements get noted, with a chosen "controlling" value.
 
 ### 7.8 Critical design implications
-The "so what" — what does this geometry mean for the parts that interface with it? Bore sizes, mounting hole clearances, port axis offsets. See the John Guest doc's "Rear Wall Pocket Bore" section for the level of synthesis to aim for.
+The "so what" — what does this geometry mean for the parts that interface with it? Bore sizes, mounting hole clearances, port axis offsets. See the John Guest doc's section on the pocket bore in the +Y wall of back-top for the level of synthesis to aim for.
 
 ### 7.9 Geometry for 3D modeling agents
 A short, imperative section addressed directly to whatever agent or human will produce the CAD next. Numbered points, action-oriented. The John Guest doc ends with one of these; mimic it.

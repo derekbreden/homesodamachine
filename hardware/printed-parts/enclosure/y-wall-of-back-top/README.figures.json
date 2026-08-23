@@ -1,5 +1,5 @@
 {
-  "/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py": {
+  "/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py": {
     "AC_RECESS_DEPTH": "3\u20135 mm",
     "CARB_COLOR": "#1f6feb",
     "CARB_END": "east",

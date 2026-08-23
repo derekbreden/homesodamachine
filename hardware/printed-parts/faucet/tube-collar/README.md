@@ -29,7 +29,7 @@ the line rather than across the face.
 | `flavor-b` | FLAVOR | black | the umbilical's second black flavour tail |
 
 One collar per chip, on the same five stations, off the same five words and four spools —
-`bulkhead_ring.STATIONS` and `_back_panel_dimensions.chip_filaments` are what both read.
+`bulkhead_ring.STATIONS` and `_y_wall_dimensions.chip_filaments` are what both read.
 
 The three on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)
 §4, up to the braid's own end, and ride to the +Y wall of back-top on the un-sleeved tail. The other

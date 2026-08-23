@@ -45,8 +45,8 @@ The same outline bored for the tube instead of the fitting, and run along it, is
 
 A chip's colour is the colour of the tube that goes into it, and there are four of them. What a
 colour means on the rear face is stated in
-[`../back-panel/_back_panel_dimensions.py`](../back-panel/_back_panel_dimensions.py); which
-fitting stands where is [`../back-panel/README.md`](../back-panel/README.md) §"Bulkhead array arrangement".
+[`../y-wall-of-back-top/_y_wall_dimensions.py`](../y-wall-of-back-top/_y_wall_dimensions.py); which
+fitting stands where is [`../y-wall-of-back-top/README.md`](../y-wall-of-back-top/README.md) §"Bulkhead array arrangement".
 
 Both flavour stations wear the same black chip and the same word: a customer pushes black into
 either one and the manifold sorts them, so nothing on that face tells A from B.
@@ -76,7 +76,7 @@ with the margin. It scales with the em, which is what puts a floor under how sma
 be set.
 
 Which of black and white a chip's word letters in is
-[`_back_panel_dimensions.chip_word_colors`](../back-panel/_back_panel_dimensions.py), one entry per
+[`_y_wall_dimensions.chip_word_colors`](../y-wall-of-back-top/_y_wall_dimensions.py), one entry per
 spool in `chip_filaments` beside it. The white chip takes **black**; the other three take
 **white**.
 

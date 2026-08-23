@@ -79,7 +79,7 @@ const rootsKey = (roots) => roots.join("\0");
 // --- what a run was watched reading --------------------------------------
 //
 // A SCAN CANNOT TELL A CONDITIONAL IMPORT FROM AN UNCONDITIONAL ONE, and the tree turns on
-// that difference. `_back_panel_dimensions` imports `enclosure_assembly` inside two function
+// that difference. `_y_wall_dimensions` imports `enclosure_assembly` inside two function
 // bodies to break a cycle; `enclosure.py` imports it inside `machine_of()`, which runs on
 // every build. Read as source they are the same line. Read as source, the first one makes
 // every generator that reaches `_materials` — which is nearly all of them — an importer of
