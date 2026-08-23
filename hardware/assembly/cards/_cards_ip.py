@@ -118,7 +118,7 @@ def internal_plumbing(m):
     assert corners("fluid-1") == 2, (
         f"`fluid-1` turns {corners('fluid-1')} time(s) — IP-04 stands the flow regulator over "
         f"the split on one column, both mouths forward, and a hairpin is two quarter-turns")
-    # `water-2` is the tap's step off the panel deck onto the lane under the hopper's
+    # `water-2` is the tap's step off the panel deck onto the lane under the funnel's
     # bowl, so it is a route and IP-02 bends it. Its two corners are the one lean.
     assert corners("water-2") == 2, (
         f"`water-2` turns {corners('water-2')} time(s) — IP-02 leans it once off the deck, "
@@ -175,16 +175,16 @@ def internal_plumbing(m):
     hairpins = sum(1 for c in fluid if c.made == "fold")
 
     # ── the union rectangle and the risers (IP-05, FU-04, WR-05) ───────────
-    # Read as an ARRANGEMENT: two columns, two storeys, the two nozzle unions
+    # Read as an ARRANGEMENT: two columns, two storeys, the two flavor unions
     # sharing the lower one, and which corner each tube lands in. IP-05 and FU-04
     # both describe that arrangement.
     zs = {round(port(n, "tube-in")[0][2], 6) for n in a.constants["PANEL_X"]}
     assert len(zs) == 2, (
         f"the riser unions stand on {len(zs)} stratum/strata — IP-05 and FU-04 send the "
-        f"bundle to two, the nozzle pair under the storey the carb riser lands in")
+        f"bundle to two, the flavor pair under the storey the carb riser lands in")
     lower = {n for n in a.constants["PANEL_X"] if round(port(n, "tube-in")[0][2], 6) == round(min(zs), 6)}
     assert lower == {"bulkhead-flavor-a", "bulkhead-flavor-b"}, (
-        f"the lower storey carries {sorted(lower)} — IP-05 sends both nozzle risers there and "
+        f"the lower storey carries {sorted(lower)} — IP-05 sends both flavor risers there and "
         f"the carb riser alone to the storey over them")
     cols = {n: round(x, 3) for n, x in a.constants["PANEL_X"].items()}
     assert cols["bulkhead-carb"] == cols["bulkhead-flavor-a"] != cols["bulkhead-flavor-b"], (
@@ -249,7 +249,7 @@ def internal_plumbing(m):
     # the column straight down from its tip to the pan.
     assert port("asse1022-assembly", "vent-tip")[1] == DOWN, (
         "the ASSE vent no longer hangs straight down — IP-06 checks the fall's column clear from "
-        "the stub's tip to the drip pan")
+        "the stub's tip to the ASSE drip pan")
 
     facts = {
         # CO2 — IP-01.

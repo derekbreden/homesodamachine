@@ -140,8 +140,8 @@ def crossings(runs) -> dict:
 #
 # `later` IS WHAT THE PIECE HOLDS AND THE UNIT DOES NOT CARRY YET. A body named here goes with
 # its piece in the finished machine — the fastening table is right about it — and arrives after
-# the box is closed, through an opening in a wall: the drip tray slides east into its own
-# sleeve through the −X wall, and the funnel drops into the hopper on nothing but its own brim
+# the box is closed, through an opening in a wall: the ASSE drip pan slides east into its own
+# sleeve through the −X wall, and the funnel drops into its opening on nothing but its own brim
 # at final staging. Neither is on the bench unit, so neither is in its picture, and whatever
 # stands on one goes with it. A name here the roots do not hold is reported.
 #   A RUN CAN BE LATE. The cap's lid prints a rib for `fluid-14`, so the anchor table hands that
@@ -184,9 +184,9 @@ SCENES = (
         # BOTH OF THIS PIECE'S OPENINGS ARE FILLED FROM THE ROOM, so what arrives through
         # either is late. The collet plate stands on edge across the pump bay with its foot
         # down in the blind seat cut in that bay's floor, on nothing but gravity, and the
-        # funnel drops into the hopper on its own brim — neither is a joint a hand can make
+        # funnel drops into its opening on its own brim — neither is a joint a hand can make
         # with the piece upside down on a bench.
-        later=("collet-plate", "hopper-funnel"),
+        later=("collet-plate", "funnel"),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
         # they stand one behind the other on two Y planes, and a camera down the valves' own
@@ -199,7 +199,7 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material. Its two openings stand empty — the hopper takes the funnel and the "
+             "material. Its two openings stand empty — one takes the funnel and the "
              "front bay takes the cartridge both pumps ride, and each is filled with the box "
              "standing.",
     ),
@@ -282,17 +282,17 @@ SCENES = (
              "proud of this rim is the cap's own thickness and the cap comes down over it.",
     ),
     Scene(
-        "hopper-drain", "Hopper basin drain stub",
-        roots=("hopper-funnel",), inner=(), flip=((1, 0, 0), 180.0), also=(),
+        "hopper-drain", "Funnel drain stub",
+        roots=("funnel",), inner=(), flip=((1, 0, 0), 180.0), also=(),
         # The union is on the far end of the stub and is the joint that PARTS: it stays in the
-        # machine when the basin comes out, so it is not on the bench with this one.
+        # machine when the funnel comes out, so it is not on the bench with this one.
         later=("hopper-drain-union",),
         # THE BRIM IS WHAT THE FRAME HAS TO HOLD, not the spout the card is about. Inverted, the
-        # basin is a 173 mm plate with a 20 mm joint standing on the middle of it, and `crown`
+        # funnel is a 173 mm plate with a 20 mm joint standing on the middle of it, and `crown`
         # aims at the plate's own face — so the distance is set by the plate's diagonal and the
         # subject comes out small inside it. Fitted on the PNG's borders.
         cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=4.0, look="crown",
-        note="The basin inverted, which is how the joint is made: the brim is the bench and the "
+        note="The funnel inverted, which is how the joint is made: the brim is the bench and the "
              "spout stands up where two hands reach it. The stub is in as far as it goes and the "
              "band is on the land between its two shoulders — nothing of the stub shows below "
              "the spout's face, because what is below that face is the collet it pushes into.",
@@ -386,11 +386,11 @@ PARTS = (
     Part("en05-coldcore", "Cold core",
          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
          cam=(0.8, -1.0, 0.5)),
-    Part("en08-drippan", "Drip pan",
+    Part("en08-drippan", "ASSE drip pan",
          "hardware/printed-parts/enclosure/drip-pan/drip-pan.step",
          cam=(0.75, -1.0, 0.55)),
-    Part("en09-hopper", "Hopper funnel",
-         "hardware/printed-parts/zone-c/hopper-funnel/hopper-funnel.step"),
+    Part("en09-hopper", "Funnel",
+         "hardware/printed-parts/zone-c/funnel/funnel.step"),
     # Along the +X wall's INNER face, which is the face the bosses reach in off — so the camera
     # stands across the box, and the walls between it and them are drawn through.
     Part("es01-wall-bosses", "Enclosure back top, +X wall bosses",
@@ -484,12 +484,12 @@ BEARS_ON = {
     "co2-inlet": "enclosure-back-top",
     "display": "enclosure-front-top",               # let into that piece's own facet
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
-    "hopper-funnel": "enclosure-front-top",         # brim on the top wall, collar forward
-    # The basin's disconnect, all of it on the spout the basin carries: the stub and the clamp
+    "funnel": "enclosure-front-top",         # brim on the top wall, collar forward
+    # The funnel's disconnect, all of it on the spout the funnel carries: the stub and the clamp
     # go to the dishwasher with it, and the union is on the stub's far end.
-    "hopper-drain-stub": "hopper-funnel",
-    "hopper-drain-clamp": "hopper-funnel",
-    "hopper-drain-union": "hopper-funnel",
+    "hopper-drain-stub": "funnel",
+    "hopper-drain-clamp": "funnel",
+    "hopper-drain-union": "funnel",
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
@@ -556,7 +556,7 @@ def held_by(root, holder_map, stop=()):
     """Every body `root` carries, transitively, `root` itself included.
 
     A body in `stop` is not carried and neither is anything standing on it — the walk turns
-    round there. That is one reading and not two: the moisture plate lies in the drip tray, so
+    round there. That is one reading and not two: the moisture plate lies in the ASSE drip pan, so
     a unit the tray has not reached has no plate in it either."""
     out, queue, stop = set(), [root], set(stop)
     while queue:
