@@ -27,7 +27,7 @@ To re-run later: spawn a `general-purpose` Claude agent with the same prompt str
 | BOM § | Item | ASIN | Qty | $ | Notes |
 |---|---|---|---:|---:|---|
 | §1 | ESP32-DevKitC-32E | B09MQJWQN2 | 1 | $11.00 | Main controller board |
-| §1 | Meshnology ESP32-S3 1.28" rotary display | B0G5Q4LXVJ | 1 | $47.76 | UI display board |
+| §1 | Meshnology ESP32-S3 1.28" round rotary display | B0G5Q4LXVJ | 1 | $47.76 | UI display board |
 | §1 | ESP32 DIN-rail breakout | B0BW4SJ5X2 | 1 | $25.99 | |
 | §1 | MCP23017 I2C GPIO expander | B07P2H1NZG | 1 | $12.99 | |
 | §1 | Mean Well IRM-90-12ST PSU | B0CNRST18V | 1 | $31.66 | LRS-200-12 alternate already on hand if BOM swap considered |
