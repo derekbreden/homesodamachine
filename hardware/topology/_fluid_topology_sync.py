@@ -162,7 +162,7 @@ def segments() -> dict:
     THE WHOLE ASSEMBLY, NOT THE PACK. A run between two bodies the pack places is drawn by
     `_lines.build_runs`, but a run to a body SEATED IN THE BOX cannot be — the box is sized on the
     pack, so it does not exist until the pack does. `build_enclosure_assembly` seats the funnel and
-    then draws `_lines.build_seated_runs` off the same frames, and the hopper drain `fluid-4` is
+    then draws `_lines.build_seated_runs` off the same frames, and the funnel drain `fluid-4` is
     the one segment in this table that arrives that way. Read the pack alone and that run falls
     through to the `MOUTHS` loop and is labelled `not drawn` — a chart claiming an open mouth on a
     line the machine has already routed, and no gate here catches it, because this driver would be
