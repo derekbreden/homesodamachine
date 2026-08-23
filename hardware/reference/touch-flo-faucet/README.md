@@ -8,7 +8,7 @@ The Touch-Flo faucet's self-closing spring-return poppet valve gives consumer-ap
 
 ## Harvest donor (primary)
 
-**Westbrass R2031-NL Touch-Flo cold water dispenser faucet** — either R2031-NL-62 (matte black, ASIN `B07KH285GJ`, ~$31.28) or R2031-NL-12 (oil-rubbed bronze, ASIN `B01N5LVNQA`, ~$19.53). Same R2031-NL family with identical mechanism and the same black plastic handle; the finish is covered by the faucet-shell. Any Touch-Flo–class faucet with a spring-piston poppet cartridge and a 1/4" compression inlet is substitutable.
+**Westbrass R2031-NL Touch-Flo cold water dispenser faucet** — either R2031-NL-62 (matte black, ASIN `B07KH285GJ`, ~$31.28) or R2031-NL-12 (oil-rubbed bronze, ASIN `B01N5LVNQA`, ~$19.53). Same R2031-NL family with identical mechanism and the same black plastic handle; the finish is covered by the faucet shell. Any Touch-Flo–class faucet with a spring-piston poppet cartridge and a 1/4" compression inlet is substitutable.
 
 - Deck-mount, single-lever, self-closing.
 - Inlet: 1/4" compression — matches the project's existing 1/4" compression plumbing.

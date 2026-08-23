@@ -16,7 +16,7 @@ Coordinate frame
 WHAT AN ELBOW BUYS OVER A UNION IS THE CORNER. A straight union hands the line back on its own
 axis and the run turns after it, in the room past the fitting; this turns inside its own
 envelope, so the line leaves on an axis the run never had to spend a bend radius reaching. One
-hangs under the hopper basin's spout, taking the fall out of `hopper_funnel`'s drain on its +Z
+hangs under the funnel's spout, taking the fall out of the funnel's drain on its +Z
 leg and handing `fluid-4` aft off its +Y one.
 """
 
@@ -93,8 +93,8 @@ def stations_hold():
     Four of them are extents of the solid's own box, and each leg is also a 1/4" bore standing
     on the body's own centreline — which is what says the two axes cross at this origin and not
     merely near it. `INSERTION` is the fifth and is not an extent at all: it is where a tube
-    pushed into a leg meets the stop, bisected off the metal, and it is what the basin's drain
-    stub is cut to (`reference/hopper-drain-stub`). A stub cut to a deeper socket than the
+    pushed into a leg meets the stop, bisected off the metal, and it is what the funnel's drain
+    stub is cut to (`reference/funnel-drain-stub`). A stub cut to a deeper socket than the
     fitting has is a stub the collet never closes on."""
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()

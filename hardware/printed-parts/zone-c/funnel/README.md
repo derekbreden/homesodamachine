@@ -44,7 +44,7 @@ bottom:
   which is a worm clamp's band and a shoulder of silicone either side of it. A
   1/4" LLDPE stub runs up the whole of it and the band closes the silicone onto
   the stub — the joint is made at the factory and washes with the funnel
-  ([`reference/hopper-drain-stub`](/hardware/reference/hopper-drain-stub/), card
+  ([`reference/funnel-drain-stub`](/hardware/reference/funnel-drain-stub/), card
   SA-06). The stub is what the machine's push-fit collet grips, since a collet
   grips tube and this spout is silicone. Every millimetre of this land lowers the
   drain exactly as a millimetre of chute does, so the two come out of one budget.

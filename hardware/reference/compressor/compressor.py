@@ -57,7 +57,7 @@ from _materials import C_COMP, one_body  # noqa: E402
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 # --- Calipered off the donor ----------------------------------------------
-BASE_X = 96.0          # the stamped mounting plate, across the machine
+BASE_X = 96.0          # the stamped base plate, across the machine
 BASE_Y = 160.0         #   and along it — the plate is the longer body of the two
 BASE_Z = 15.0          # what the plate stands the shell off the mounting plane
 

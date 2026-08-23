@@ -2,7 +2,7 @@
 
 The appliance's 12 V supply (`hardware/ledger/bom.md` §1): an encapsulated
 **12 V / 6.7 A, ~80 W** AC-DC power module, screw-terminal ("ST") variant. It is
-the heaviest item on the [electronics shelf](/hardware/assembly/electronics-shelf.md)
+the heaviest item on the [+X wall of back-top](/hardware/assembly/electronics-shelf.md)
 and its AC→DC anchor — AC mains in on one end, the 12 V bus out the other. It is
 turned so its potted base — its own mounting plane, carrying its four holes — faces
 the enclosure's +X wall, and bolts to four printed bosses reaching in off it. Its

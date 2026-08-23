@@ -124,7 +124,7 @@ def build_port():
 
 
 def inlet():
-    """The −Y quick-connect collet the supply tube slips into: (position, outward
+    """The −Y quick-connect collet the upstream tube slips into: (position, outward
     axis). Flow enters here; the boss arrow points the other way, out the outlet."""
     return (0.0, -port_length / 2.0, port_center_z), (0.0, -1.0, 0.0)
 
