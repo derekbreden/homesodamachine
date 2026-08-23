@@ -56,3 +56,4 @@ they became.
 | **foam cap** | the printed piece closing one end of the foam shell — one per end, two per machine | |
 | **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
+| **boss** | a printed post with a screw hole or heat-set insert that a part fastens to | |
