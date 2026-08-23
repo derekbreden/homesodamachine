@@ -6,7 +6,7 @@ import { drawOn, fadeIn } from "../../motion/draw";
 
 type Pt = { x: number; y: number };
 
-/** A leader line that extends from a point on the board to a mono label. Set
+/** A leader line that extends from a point on the main board to a mono label. Set
  *  `accent` for the one weld-glow callout; `dot` rings the origin point. */
 export const LeaderCallout: React.FC<{
   from: Pt;

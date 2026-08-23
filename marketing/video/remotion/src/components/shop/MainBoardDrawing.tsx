@@ -1,33 +1,33 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { shop, VIDEO } from "../../style/tokens";
-import { board, holes, pads, traces } from "../../style/layout";
+import { mainBoard, holes, pads, traces } from "../../style/layout";
 import { drawOn, fadeIn } from "../../motion/draw";
 
-/** The board itself, drawing on like a pen on a drawing: panel → outline →
+/** The main board itself, drawing on like a pen on a drawing: panel → outline →
  *  mounting holes → traces → pads. Every stroke is frame-deterministic. */
-export const BoardDrawing: React.FC<{ at?: number }> = ({ at = 0 }) => {
+export const MainBoardDrawing: React.FC<{ at?: number }> = ({ at = 0 }) => {
   const frame = useCurrentFrame() - at;
   return (
     <AbsoluteFill>
       <svg width="100%" height="100%" viewBox={`0 0 ${VIDEO.width} ${VIDEO.height}`} preserveAspectRatio="none">
         {/* panel fill, fading in behind the outline */}
         <rect
-          x={board.x}
-          y={board.y}
-          width={board.w}
-          height={board.h}
-          rx={board.rx}
+          x={mainBoard.x}
+          y={mainBoard.y}
+          width={mainBoard.w}
+          height={mainBoard.h}
+          rx={mainBoard.rx}
           fill="rgba(12,27,44,0.6)"
           opacity={fadeIn(frame, 16, 12)}
         />
         {/* outline */}
         <rect
-          x={board.x}
-          y={board.y}
-          width={board.w}
-          height={board.h}
-          rx={board.rx}
+          x={mainBoard.x}
+          y={mainBoard.y}
+          width={mainBoard.w}
+          height={mainBoard.h}
+          rx={mainBoard.rx}
           fill="none"
           stroke={shop.ink}
           strokeWidth={3}
@@ -39,7 +39,7 @@ export const BoardDrawing: React.FC<{ at?: number }> = ({ at = 0 }) => {
             key={i}
             cx={h.x}
             cy={h.y}
-            r={board.holeR}
+            r={mainBoard.holeR}
             fill="none"
             stroke={shop.ink}
             strokeWidth={2.5}

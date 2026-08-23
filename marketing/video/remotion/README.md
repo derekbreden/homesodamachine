@@ -3,8 +3,8 @@
 The Home Soda Machine series has a house style, built as code so every episode
 inherits it. This is the sibling to the footage pipeline in
 [`../`](../workflow.md): that one **edits captured reality** (GoPro POV + lav
-narration); this one **builds video from the engineering** — the board, the CAD,
-the faucet — staged inside a designed world.
+narration); this one **builds video from the engineering** — the main board, the CAD, the
+faucet — staged inside a designed world.
 
 ## The look
 
@@ -20,7 +20,7 @@ Two worlds, one system (the direction chosen from the
   a glowing specimen.
 
 The demo composition **`ByHand`** shows the hybrid end to end: a Cold Press cold
-open cross-dissolving into the Shop Notes drawing of the board.
+open cross-dissolving into the Shop Notes drawing of the main board.
 
 ## Run it
 
@@ -43,14 +43,14 @@ src/
                   single source of truth. Change the look here.
     fonts.ts      typefaces via @remotion/google-fonts (Archivo / IBM Plex Mono
                   / Caveat). Swap for licensed brand faces in one file.
-    layout.ts     shared board geometry, so the board, its dimensions, and its
-                  leader callouts all reference the same coordinates.
+    layout.ts     shared main-board geometry, so the main board, its dimensions,
+                  and its leader callouts all reference the same coordinates.
   motion/
     easings.ts    the small, fixed set of channel eases.
     draw.ts       frame-deterministic helpers: drawOn (SVG stroke draws itself
                   on via the pathLength=1 trick), fadeIn/fadeInOut, countTo.
   components/
-    shop/         BlueprintGrid, BoardDrawing, DimensionLine, LeaderCallout,
+    shop/         BlueprintGrid, MainBoardDrawing, DimensionLine, LeaderCallout,
                   RevisionStamp, Title, HandNote — the Shop Notes kit.
     cold/         ColdField, Bubbles — the Cold Press kit.
   scenes/         ColdOpen, ShopNotesScene — reusable scene templates.
@@ -73,14 +73,14 @@ reason the render is deterministic.
 
 ## Roadmap — bringing the real engineering in
 
-The board here is a hand-authored stand-in ([`style/layout.ts`](src/style/layout.ts)).
+The main board here is a hand-authored stand-in ([`style/layout.ts`](src/style/layout.ts)).
 The asset bridges that replace it with the real thing:
 
-- **Board (2D)** — parse [`hardware/pcb/pcba/out/pcba.circuit.json`](../../../hardware/pcb/pcba/out/)
-  and drive `BoardDrawing` from real pads/traces, in the authored routing order
+- **Main board (2D)** — parse [`hardware/pcb/pcba/out/pcba.circuit.json`](../../../hardware/pcb/pcba/out/)
+  and drive `MainBoardDrawing` from real pads/traces, in the authored routing order
   (see [`hand-routing.md`](../../../hardware/pcb/pcba/hand-routing.md)) — the
   traces draw on in the sequence they were reasoned about.
-- **Board / faucet (3D)** — `@remotion/three` loading
+- **Main board / faucet (3D)** — `@remotion/three` loading
   [`out/pcba.glb`](../../../hardware/pcb/pcba/out/) and the faucet STEP→glTF for
   exploded-assembly reveals and cross-sections. (Not yet added — v1 is 2D.)
 - **Interop with footage** — a Remotion clip drops into

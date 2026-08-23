@@ -5,7 +5,7 @@
 import { Easing } from "remotion";
 
 export const eases = {
-  /** Linework drawing itself on — leader lines, dimensions, board outline. */
+  /** Linework drawing itself on — leader lines, dimensions, main board outline. */
   drawOn: Easing.inOut(Easing.cubic),
   /** A value or element coming to rest — dimension counts, title slide. */
   settle: Easing.out(Easing.cubic),

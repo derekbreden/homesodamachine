@@ -10,9 +10,9 @@ assembly.
 
 The step-by-step installation sheet uses the confirmed carton state: donor washer and nut retained
 and factory-preloaded before the blue tube connection, the complete assembly lowered through the
-prepared opening, the open keyhole plate slid laterally into the captive stack, and the same donor
-nut tightened. The finished customer quick start will combine that literal mount sequence with the
-remaining inspectable install and first-use scenes.
+prepared opening, the open under-counter plate slid laterally into the captive stack, and the
+same donor nut tightened. The finished customer quick start will combine that literal mount
+sequence with the remaining inspectable install and first-use scenes.
 
 ## Print review
 

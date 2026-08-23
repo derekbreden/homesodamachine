@@ -8,7 +8,7 @@ The video program has a narrative spine: six capability arcs, released in series
 2. Cold carbonated water
 3. Cold carbonated water with flavor
 4. Faucet — soda on tap
-5. Hopper — refill
+5. Funnel — refill
 6. Clean cycle — self-maintenance
 
 These track the real build roadmap over the coming months — the order the capabilities come online — minus the open-ended integration tail (every subsystem keeps getting tuned long after its arc closes). Arcs 1–3 prove the *drink*; arcs 4–6 make it a *livable appliance*. The end of arc 3 — cold flavored fizz in a glass — is the natural season break.
@@ -19,7 +19,7 @@ The unit of the series is a thing a viewer can watch *work* — fizz in a glass,
 
 ## The object accretes
 
-The arcs build on one physical core (see the cold-core layers in [`/hardware/future.md`](/hardware/future.md)). The bare welded vessel from the welding videos gains the evaporator coil and foam (arc 2), the flavor reservoirs and injection (arc 3), then the faucet, hopper, and enclosure (arcs 4–6). The bench looks more like an appliance every arc — continuous on-camera transformation, the engine of any serialized build.
+The arcs build on one physical core (see the cold-core layers in [`/hardware/future.md`](/hardware/future.md)). The bare welded carbonator from the welding videos gains the evaporator coil and foam (arc 2), the flavor reservoirs and injection (arc 3), then the faucet, funnel, and enclosure (arcs 4–6). The bench looks more like an appliance every arc — continuous on-camera transformation, the engine of any serialized build.
 
 ## Narrative decouples from roadmap
 
