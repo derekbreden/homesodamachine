@@ -73,8 +73,8 @@ _prv_vent_mm = _routes_gen.route_wire(
 # Pressure vessel geometry: two laser-welded SS endcap plates per
 # vessel, four 1/4" NPT ports tapped into the plates (water in, water
 # out, CO2 in, PRV).
-end_cap_plates_per_vessel = 2
-vessel_ports_per_vessel = 4
+end_cap_plates_per_carbonator = 2
+carbonator_ports = 4
 
 # Flavor reservoirs per appliance.
 reservoirs_per_build = 2
@@ -91,7 +91,7 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = sum(1 for n in ml.P if n.startswith("Y-"))
 
-# Rear-wall PP1208E bulkheads. Umbilical port: 3 on the rear wall
+# PP1208E bulkheads in the +Y wall of back-top. Umbilical port: 3 on that wall
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
 # panel hole (the customer-facing 1/4" QC potable-water inlet).
 panel_umbilical_bulkheads = 3
@@ -128,7 +128,7 @@ pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 # tee's branch, which is what puts that tee's run across the head's face.
 assert not ml.JOINS, (
     f"the manifold poses {len(ml.JOINS)} elbow(s) ({sorted(ml.JOINS)}) and bom.md §8 buys "
-    f"one, for the hopper drain — raise that row's count to cover these too")
+    f"one, for the funnel drain — raise that row's count to cover these too")
 
 # EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
 # ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
@@ -188,7 +188,7 @@ reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
-# Electronics-shelf hardware (Zone B, assembly/electronics-shelf.md). The power column
+# Electronics-shelf hardware (Zone B, assembly/power-column.md). The power column
 # bolts to `enclosure-back-top`'s +X wall: `enclosure_assembly.wall_mounts` stands ONE BOSS PER
 # HOLE in each body's own mounting pattern, and each boss is bored for a ruthex short.
 # So the count is the pack's, not a number typed here — a body that gains a hole gains a
@@ -308,9 +308,9 @@ vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 
 def main():
     variables = {
-        # Carbonator vessel.
-        "END_CAPS": f"{end_cap_plates_per_vessel:.4g}",
-        "VESSEL_PORTS": f"{vessel_ports_per_vessel:.4g}",
+        # Carbonator.
+        "END_CAPS": f"{end_cap_plates_per_carbonator:.4g}",
+        "CARBONATOR_PORTS": f"{carbonator_ports:.4g}",
         # Reservoirs.
         "RESERVOIRS": f"{reservoirs_per_build:.4g}",
         "RESERVOIR_CAP_COUNT": f"{reservoirs_per_build:.4g}",

@@ -34,7 +34,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BOARD = ROOT / "hardware/pcb/pcba/pcba.tsx"
 PINOUT = ROOT / "hardware/wiring/esp32-pinout.mmd"
 BOM = ROOT / "hardware/ledger/bom.md"
-SHELF_SYNC = ROOT / "hardware/assembly/_electronics_shelf_sync.py"
+SHELF_SYNC = ROOT / "hardware/assembly/_power_column_sync.py"
 FW_SYNC = ROOT / "hardware/assembly/_firmware_and_commissioning_sync.py"
 
 failures: list[str] = []

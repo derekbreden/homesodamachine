@@ -1,9 +1,9 @@
 {
   "/hardware/scripts/_machine_time.py": {
     "MT_CEIL_BENCH": "973",
+    "MT_CEIL_CARBONATOR": "3,369",
     "MT_CEIL_MOLD": "973",
     "MT_CEIL_PRINT": "153",
-    "MT_CEIL_VESSEL": "3,369",
     "MT_DAYS_TURN": "3.5",
     "MT_DUTY": "65 %",
     "MT_H_BULK": "21.2",
@@ -28,8 +28,8 @@
     "MT_MEASURED_EXT_KG": "1.751",
     "MT_MEASURED_KG": "1.325",
     "MT_OCC_BENCH": "9.0",
+    "MT_OCC_CARBONATOR": "2.6",
     "MT_OCC_MOLD": "9.0",
-    "MT_OCC_VESSEL": "2.6",
     "MT_PETCF_DRY": "10 h at 100 \u00b0C",
     "MT_PRINTERS": "2",
     "MT_RATE_BULK": "10.8",

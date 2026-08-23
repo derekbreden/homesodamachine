@@ -71,15 +71,15 @@ GROUP_OF = [
     ("Cold-core foam cap",     "bulk"),
     ("Enclosure —",            "ext"),
     ("Flavor reservoir",       "tight"),
-    ("Faucet touch-flo shell", "petcf"),
-    ("Faucet mounting plate",  "petcf"),
+    ("Faucet shell",           "petcf"),
+    ("Above-counter plate",    "petcf"),
     ("Copper-plug stack",      "small"),
     ("PRV shroud",             "small"),
     ("Carbonator reed bridge", "small"),
-    ("Drip pan",               "small"),
+    ("ASSE drip pan",          "small"),
     ("Fuse clamp",             "small"),
     ("Display cover plate",    "small"),
-    ("Port ring",              "small"),
+    ("Bulkhead ring",          "small"),
     ("Tube collar",            "small"),
     ("Nameplate",              "small"),
 ]
@@ -204,7 +204,7 @@ def main():
         "PRINT": wall,
         "BENCH": secs.get(4, 0),                    # chill-down + burn-in
         "MOLD": occupies("Silicone funnel", 2),     # room-temp cure + post-cure bake
-        "VESSEL": secs.get(3, 0),                   # hydro, passivation, vacuum
+        "CARBONATOR": secs.get(3, 0),               # hydro, passivation, vacuum
     }
 
     def ceiling(h):
@@ -226,11 +226,11 @@ def main():
         "MT_H_RUN": f"{secs.get(4, 0):.1f}",
         "MT_OCC_BENCH": f"{occ['BENCH']:.1f}",
         "MT_OCC_MOLD": f"{occ['MOLD']:.1f}",
-        "MT_OCC_VESSEL": f"{occ['VESSEL']:.1f}",
+        "MT_OCC_CARBONATOR": f"{occ['CARBONATOR']:.1f}",
         "MT_CEIL_PRINT": f"{ceiling(occ['PRINT']):,}",
         "MT_CEIL_BENCH": f"{ceiling(occ['BENCH']):,}",
         "MT_CEIL_MOLD": f"{ceiling(occ['MOLD']):,}",
-        "MT_CEIL_VESSEL": f"{ceiling(occ['VESSEL']):,}",
+        "MT_CEIL_CARBONATOR": f"{ceiling(occ['CARBONATOR']):,}",
         "MT_UNITS_YEAR": f"~{round(ceiling(wall) * DUTY):,}",
         "MT_UNITS_YEAR_3": f"~{round(HOURS_PER_YEAR / (h_print / (PRINTERS + 1)) * DUTY):,}",
         "MT_H_TURN": f"{turn:.1f}",

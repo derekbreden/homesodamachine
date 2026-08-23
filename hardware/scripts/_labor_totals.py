@@ -35,7 +35,7 @@ sys.path.insert(
 from docgen import cells, substitute_md  # noqa: E402
 
 # The build batch the estimates amortize per-batch setup across — the size the
-# ledger already buys in (endcap plates 20 at a time = 10 vessels, tube 10 at a
+# ledger already buys in (endcap plates 20 at a time = 10 carbonators, tube 10 at a
 # time, PCBAs at the qty-10 price).
 BATCH_SIZE = 10
 

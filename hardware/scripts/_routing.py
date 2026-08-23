@@ -606,7 +606,7 @@ SPOOLS = {
 #
 #   `fluid-1/2/3` are the flavour circuit's tap-water leg — the split's branch, the regulator
 #   that throttles it, and V-A's outlet into Y-A. `fluid-3` is the last of them; everything
-#   downstream of Y-A has met the hopper's syrup.
+#   downstream of Y-A has met the funnel's syrup.
 #
 #   `water-6/7` are the SeaFlo's two stubs, 3/8" reinforced PVC over a moulded barb under a
 #   clamp.

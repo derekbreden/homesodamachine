@@ -72,8 +72,8 @@ PARTS = {
     # span and the block behind it that both pumps stand in come off the plate as one solid
     # (`enclosure.build_cartridge`), and the cap that closes on both heads comes off it as a
     # second (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed
-    # together on the bench and ride as one. A tray is the cartridge's own material, so
-    # nothing stands under a pump that ships on its own — the valve panels' bargain below.
+    # together on the bench and ride as one. A pump tray is the pump cartridge's own material,
+    # so nothing stands under a pump that ships on its own — the valve trays' bargain below.
     "Enclosure — pump cartridge + cap (one set)": [
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
@@ -93,10 +93,10 @@ PARTS = {
     # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
     # fastening, so it ships on every unit the screen does.
     "Display cover plate": ["enclosure/display-cover/display-cover.step"],
-    # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one file per crossing the back wall
-    # passes a tube through, and each holds both bodies: the chip, and the word standing in the
+    # ONE ROW, FIVE CHIPS AND THE FIVE WORDS THEY CARRY — one file per crossing the +Y wall of
+    # back-top passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.
-    "Port ring — one per rear-wall crossing": [
+    "Bulkhead ring — one per +Y-wall crossing": [
         "enclosure/bulkhead-ring/bulkhead-ring-water.step",
         "enclosure/bulkhead-ring/bulkhead-ring-carb.step",
         "enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
@@ -106,35 +106,35 @@ PARTS = {
     # AND ONE COLLAR PER CHIP, on the same five stations and off the same two spools — the tube
     # carrying the word the ring it goes through carries. Three go on at the umbilical bench and
     # two in the install kit, and the row prices all five.
-    "Tube collar — one per rear-wall crossing": [
+    "Tube collar — one per +Y-wall crossing": [
         "faucet/tube-collar/tube-collar-water.step",
         "faucet/tube-collar/tube-collar-carb.step",
         "faucet/tube-collar/tube-collar-flavor-a.step",
         "faucet/tube-collar/tube-collar-flavor-b.step",
         "faucet/tube-collar/tube-collar-co2.step",
     ],
-    # ONE ROW AND ONE FILE, holding both bodies the way a port ring's does: the plate, and the
+    # ONE ROW AND ONE FILE, holding both bodies the way a bulkhead ring's does: the plate, and the
     # lettering standing in the recess cut into it. The file is unit 0001's; every unit's is the
     # same plate with four different figures in it, so one mass prices the run.
     "Nameplate — one per unit, serialized": [
         "enclosure/nameplate/nameplate-001.step",
     ],
-    "Drip pan": [
+    "ASSE drip pan": [
         "enclosure/asse-drip-pan/asse-drip-pan.step",
     ],
     "Fuse clamp": ["refrigeration/fuse-clamp/fuse-clamp.step"],
-    # NO VALVE PANEL ROW AND NO TRAY ROW. Every valve in the machine stands in four bosses
+    # NO VALVE TRAY ROW AND NO PUMP TRAY ROW. Every valve in the machine stands in four bosses
     # (`valve_seat`), and every set of them is printed into a part already billed: three on the
-    # cold core's cap lid (`_cold_core_interface.cap_cradles`) and eight on the two valve panels
+    # cold core's cap lid (`_cold_core_interface.cap_cradles`) and eight on the two valve trays
     # (`enclosure._valve_trays`), which are `enclosure-front-top`'s own material. So a valve's
     # seat is priced as part of the piece that carries it, and nothing stands under one that
     # ships on its own.
-    "Faucet touch-flo shell (3-piece: bottom + middle + top)": [
+    "Faucet shell (3-piece: bottom + middle + top)": [
         "faucet/faucet-shell/faucet-shell-bottom.step",
         "faucet/faucet-shell/faucet-shell-middle.step",
         "faucet/faucet-shell/faucet-shell-top.step",
     ],
-    "Faucet mounting plate": ["faucet/above-counter-plate/above-counter-plate.step"],
+    "Above-counter plate": ["faucet/above-counter-plate/above-counter-plate.step"],
 }
 
 PRINTED = "<!--@printed-->"

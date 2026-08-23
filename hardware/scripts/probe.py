@@ -1,7 +1,7 @@
 """Geometry probe — ask the placed solids a question instead of reasoning about them.
 
 The whole placed machine as one flat `{name: shape}` world — `enclosure_assembly`'s pack
-bodies, the display and hopper funnel seated in the walls, the four printed
+bodies, the enclosure display and the funnel seated in the walls, the four printed
 enclosure pieces and the routed tubes — with the queries that answer where a part
 is, how close two parts come, what a candidate volume runs into, how far a
 line can travel before it hits something, and where a piece of a routed line can stand.
@@ -68,7 +68,7 @@ the pockets that remain, each naming the bodies that fence it, and with `holds=(
 erodes those pockets by an envelope so what comes back is every place that body's centre can
 stand — in each of its six axis-aligned poses. A pocket fenced by exactly ONE body is that
 body's own cavity: a hollow body is a closed solid, so its inside survives the carve like any
-other pocket, and the hopper's basin is not somewhere to put anything. `around` is the same
+other pocket, and the funnel's own bowl is not somewhere to put anything. `around` is the same
 question at a point or a body: everything within a radius, nearest first, on exact distances.
 
 MOVING A PIECE OF A DRAWN LINE is `reroute`. It translates named waypoints of an authored run
@@ -697,7 +697,7 @@ class Void:
         """The one body fencing this pocket on every side, when there is one.
 
         A hollow body is a closed solid, so cutting it out of a region leaves its INSIDE as a
-        pocket like any other: the hopper's basin, a reservoir's cavity, a foam pocket. What
+        pocket like any other: the funnel's bowl, a reservoir's cavity, a foam pocket. What
         tells them apart is that nothing else bounds them."""
         return self.bounds[0] if len(self.bounds) == 1 else None
 
@@ -1610,8 +1610,8 @@ def _source(name: str) -> str:
 
 def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World:
     """The placed world — the same bodies `scorecard.pack_clashes` measures: the pack's
-    components, the bodies seated through the walls, the display in its facet
-    housing, the hopper funnel, the four printed enclosure pieces, and (unless
+    components, the bodies seated through the walls, the enclosure display in its
+    facet housing, the funnel, the four printed enclosure pieces, and (unless
     `runs=False`) the routed tubes.
 
     The pieces are IN by default, and the default is the whole point. Left out, every
