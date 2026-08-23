@@ -776,7 +776,7 @@ html, body {
   overflow: visible;
   background-color: #fff;
   background-repeat: no-repeat;
-  background-size: auto 700px;
+  background-size: auto 630px;
 }
 .mount-event-drop-art {
   background-image: url('art/mount-drop.png');
