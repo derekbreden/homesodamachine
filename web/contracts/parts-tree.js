@@ -101,20 +101,6 @@ export const ASSEMBLIES = [
   },
 ];
 
-// THE CARDS `/3d` DRAWS, and so the only solids a committed thumbnail has a
-// reader for. A nested assembly has no card — it is reached by opening the one
-// that holds it, and the modal renders the model rather than showing a picture of
-// it — so this is the two roots and nothing else.
-//
-// READ AS TEXT BY hardware/scripts/_cadq_export.py:_page_paints, which cannot run
-// JavaScript and gates every thumbnail this repository writes. Keep it a flat list
-// of one quoted path per line; `web/tests/parts-tree.test.js` holds it equal to
-// the roots of ASSEMBLIES so the two cannot drift.
-export const CARD_MODELS = [
-  "manifold-layout/enclosure-assembly.step",
-  "faucet-layout/faucet-assembly.step",
-];
-
 // WHAT THIS PROJECT DOES NOT FABRICATE — the harvested and purchased bodies
 // hardware/README.md describes, standing under whichever unit needs one and
 // under both where both do: the Waveshare display is on the faucet's tip and

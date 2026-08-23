@@ -940,6 +940,22 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
 }
+/* A card on its way. The model is read and drawn in the browser, so the picture
+   arrives a moment after the card does; this is the moment, not an empty card. */
+.card[data-drawing] {
+  background-image: linear-gradient(
+    100deg, transparent 20%, color-mix(in srgb, var(--text-3) 12%, transparent) 50%, transparent 80%);
+  background-size: 220% 100%;
+  animation: card-drawing 1.1s ease-in-out infinite;
+}
+@keyframes card-drawing {
+  from { background-position: 120% 0; }
+  to   { background-position: -120% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card[data-drawing] { animation: none; }
+}
+
 .card-assembly .label {
   padding: 12px 14px 14px;
   white-space: normal;

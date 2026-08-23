@@ -16,7 +16,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  ASSEMBLIES, CARD_MODELS, PURCHASED, TOOLING, EXCLUDED_DIRS,
+  ASSEMBLIES, PURCHASED, TOOLING, EXCLUDED_DIRS,
   isWhole, seatParts, walkAssemblies,
 } from "../contracts/parts-tree.js";
 import { walkFiles } from "../lib/walk.js";
@@ -139,16 +139,6 @@ test("every id is unique, and every assembly names a model", () => {
   assert.equal(new Set(ids).size, ids.length);
   for (const a of walkAssemblies()) {
     assert.ok(a.model.endsWith(".step"), `${a.id} names no model`);
-  }
-});
-
-test("the page's cards are the roots, and only the roots", () => {
-  // _cadq_export._page_paints reads CARD_MODELS as text and gates every thumbnail
-  // this repository writes on it. A nested assembly has no card.
-  assert.deepEqual(CARD_MODELS, ASSEMBLIES.map((a) => a.model));
-  const nested = walkAssemblies().filter((a) => !ASSEMBLIES.includes(a));
-  for (const a of nested) {
-    assert.ok(!CARD_MODELS.includes(a.model), `${a.id} is nested and needs no card`);
   }
 });
 
