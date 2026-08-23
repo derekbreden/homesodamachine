@@ -2110,7 +2110,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
   }
 
   if (state.phase == PRIME_SESSION_RUNNING) {
-    const bool ourRun = state.owner == PRIME_OWNER_FRONT && tokenMatches &&
+    const bool ourRun = state.owner == PRIME_OWNER_ENCLOSURE && tokenMatches &&
                         state.holdToken == primeHoldToken;
     if (ourRun && holding) {
       holdAckMs = millis();
@@ -2126,7 +2126,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
     const bool remoteStarted = !wasKnown || previous.phase != PRIME_SESSION_RUNNING ||
                                previous.sessionToken != state.sessionToken ||
                                previous.holdToken != state.holdToken;
-    if (adoptActive || (remoteStarted && state.owner != PRIME_OWNER_FRONT)) {
+    if (adoptActive || (remoteStarted && state.owner != PRIME_OWNER_ENCLOSURE)) {
       if (touchInput) lv_indev_wait_release(touchInput);
       primeAuthoritativeNavigation = true;
       if (activePage != PAGE_SERVICE) showPage(PAGE_SERVICE);
@@ -2255,7 +2255,7 @@ static void primeSessionService() {
 
   if (primeStopPending) {
     const bool sameRun = primeSession.phase == PRIME_SESSION_RUNNING &&
-                         primeSession.owner == PRIME_OWNER_FRONT &&
+                         primeSession.owner == PRIME_OWNER_ENCLOSURE &&
                          primeSession.holdToken == primeHoldToken;
     const bool otherRun = primeSession.phase == PRIME_SESSION_RUNNING && !sameRun;
     const bool terminalReady = primeSession.phase == PRIME_SESSION_READY &&
@@ -2267,7 +2267,7 @@ static void primeSessionService() {
     const bool superseded = primeStopRevisionKnown &&
                             primeStateSupersedesPendingStop(
                                 primeSession, primeSessionToken, primeHoldToken,
-                                PRIME_OWNER_FRONT, primeStopRevision);
+                                PRIME_OWNER_ENCLOSURE, primeStopRevision);
     if (otherRun || terminalReady || superseded) {
       primeClearStopPending();
       primeRender(true);
@@ -2279,7 +2279,7 @@ static void primeSessionService() {
 
   if (holding) {
     const bool acknowledged = primeSession.phase == PRIME_SESSION_RUNNING &&
-                              primeSession.owner == PRIME_OWNER_FRONT &&
+                              primeSession.owner == PRIME_OWNER_ENCLOSURE &&
                               primeSession.holdToken == primeHoldToken;
     if (now - holdTickMs >= PRIME_TICK_MS) {
       primePostHold(acknowledged ? MSG_PRIME_SESSION_HOLD_TICK
@@ -2981,7 +2981,7 @@ static void buildUi() {
 
 static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
-    Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
+    Serial.printf("VERSION:ENCLOSURE=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_STATE") == 0) {
     Serial.printf("STATE:FLAVOR=%u,SYNC=%d,PERSISTED=%d,PERSISTERR=%d,PENDING=%d,LOCK=%d,IDLE=%d,PAGE=%d,PRIME=%u,PRIMECH=%u,OWNER=%u\n",
                   (unsigned)activeFlavor,

@@ -90,9 +90,9 @@ def front_version(timeout_s: float = 18.0) -> tuple[str, str] | None:
                         reply = bytearray()
                         while time.monotonic() < wait:
                             reply.extend(ser.read(ser.in_waiting or 1))
-                            if b"VERSION:FRONT=" in reply:
+                            if b"VERSION:ENCLOSURE=" in reply:
                                 for line in reply.decode("utf-8", errors="replace").splitlines():
-                                    if line.startswith("VERSION:FRONT="):
+                                    if line.startswith("VERSION:ENCLOSURE="):
                                         return port.device, line
                             time.sleep(0.02)
             except (OSError, serial.SerialException):

@@ -64,7 +64,7 @@ constexpr uint8_t MSG_RESP_SOUND_CFG = 0x23;  // SoundCfgPayload, after a GET or
 
 // Display development control (0x24..)
 //
-// The front board can remain powered from J9 while its USB cable is reconnected. A
+// The enclosure display can remain powered from J9 while its USB cable is reconnected. A
 // normal ESP.restart() does not guarantee that the host sees a detach, but a brief
 // deep-sleep does: the S3 powers down its USB Serial/JTAG PHY and drops the D+ pull-up,
 // then timer-wakes into the application. This is sent only by an explicit controller
@@ -207,8 +207,8 @@ constexpr uint8_t FLAVOR_STATE_F_PERSIST_ERROR = 1 << 2;
 // channel as session truth. Either display may then own one physical hold;
 // holdToken is fresh for each press and is retained across that press's START
 // retry and ticks.
-// Source identity is never trusted from a payload: the controller infers FRONT
-// from J9 and FAUCET from J3.
+// Source identity is never trusted from a payload: the controller infers
+// ENCLOSURE from J9 and FAUCET from J3.
 struct __attribute__((packed)) PrimeSessionRequestPayload {
   uint8_t  action;        // PRIME_SESSION_ACTIVATE / PRIME_SESSION_CANCEL
   uint8_t  channel;       // selected channel; CANCEL is matched by sessionToken
@@ -232,9 +232,9 @@ constexpr uint8_t PRIME_SESSION_OFF     = 0;
 constexpr uint8_t PRIME_SESSION_READY   = 1;
 constexpr uint8_t PRIME_SESSION_RUNNING = 2;
 
-constexpr uint8_t PRIME_OWNER_NONE   = 0;
-constexpr uint8_t PRIME_OWNER_FRONT  = 1;
-constexpr uint8_t PRIME_OWNER_FAUCET = 2;
+constexpr uint8_t PRIME_OWNER_NONE      = 0;
+constexpr uint8_t PRIME_OWNER_ENCLOSURE = 1;
+constexpr uint8_t PRIME_OWNER_FAUCET    = 2;
 
 constexpr uint8_t PRIME_OUTCOME_NONE    = 0;
 constexpr uint8_t PRIME_OUTCOME_STOPPED = 1;
