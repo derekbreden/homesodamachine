@@ -86,7 +86,7 @@ def chip_color(fluid):
 
 def word_color(fluid):
     """The colour a chip's WORD is lettered in — the one of black and white that reads against the
-    filament that chip actually prints in. `port_ring` cuts the recess and this is what fills it."""
+    filament that chip actually prints in. `bulkhead_ring` cuts the recess and this is what fills it."""
     return chip_word_colors[fluid]
 
 

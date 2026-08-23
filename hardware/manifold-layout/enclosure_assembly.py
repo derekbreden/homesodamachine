@@ -119,7 +119,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
-           _hw / "printed-parts" / "enclosure" / "port-ring",
+           _hw / "printed-parts" / "enclosure" / "bulkhead-ring",
            _hw / "printed-parts" / "faucet" / "tube-collar",
            _hw / "printed-parts" / "enclosure" / "nameplate",
            _hw / "printed-parts" / "enclosure" / "valve-tray",
@@ -171,7 +171,7 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
-import port_ring as _ring                             # noqa: E402
+import bulkhead_ring as _ring                             # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
 import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
@@ -2817,7 +2817,7 @@ def bulkhead_seat_y():
     """The plane the union's flange bears on — the back wall's OWN OUTER FACE, and the face of the
     ring lying flush in it.
 
-    The pocket is cut one `port_ring.THICK` INTO that face and the ring fills it, so wall stock and
+    The pocket is cut one `bulkhead_ring.THICK` INTO that face and the ring fills it, so wall stock and
     colour come out one plane and a flange landing here lands on both at once."""
     return _enc.rear_plane_y + _enc.wall
 
@@ -2854,7 +2854,7 @@ def back_wall_ports(*bulkhead_carries):
 
 
 # EVERY CROSSING THE BACK WALL PASSES A TUBE THROUGH, as `station -> (the module that states
-# that fitting's own panel figures, the ring station in `port_ring.STATIONS`, that ring's own
+# that fitting's own panel figures, the ring station in `bulkhead_ring.STATIONS`, that ring's own
 # name, the fluid a colour names it by)`. Two families and one construction: each bears a flange
 # on a ring of its own, each is bored one `PORT_HOLE_SLIP` over its own barrel, and each
 # fitting's own nut clamps it from inboard.
@@ -3020,7 +3020,7 @@ def build_port_rings(stations):
 
     THE WORD RIDES THE CHIP IT IS CUT INTO, on that same seating: one station is ONE file holding
     both bodies in one frame, with the word already lying in its recess, so the pair cannot come
-    apart here. `port_ring.split` is what takes them out of it."""
+    apart here. `bulkhead_ring.split` is what takes them out of it."""
     floor = _enc.rear_plane_y + _enc.wall - _ring.THICK
     out = []
     for x, z, _fitting, _ring_family, which, fluid in stations.values():
@@ -3038,7 +3038,7 @@ def build_port_rings(stations):
 # --- the nameplate, in the field the port row leaves east of the flavour chips ---
 #
 # A plate lying flush in a pocket of this same wall, held by two M3 cap screws. The pocket and
-# the plate are `port_ring`'s construction at another size; what the screws need is depth behind
+# the plate are `bulkhead_ring`'s construction at another size; what the screws need is depth behind
 # the wall, and that is the one thing this face is short of.
 #
 # WHAT THE WALL LEAVES IT is a rectangle on three struck edges: the flavour pair's own pocket
@@ -3178,7 +3178,7 @@ PORT_FIELD_PITCH = port_pocket_d() + PORT_RING_RIM
 # The pitch two columns stand at.
 PORT_PITCH = max(PORT_HARDWARE_PITCH, PORT_FIELD_PITCH)
 # WHAT THE PITCH LEAVES BETWEEN TWO POCKETS IS STANDING WALL, and a pocket that runs into its
-# neighbour leaves one colour touching the next with nothing printed between them. `port_ring.RING_W`
+# neighbour leaves one colour touching the next with nothing printed between them. `bulkhead_ring.RING_W`
 # is what a chip spends the pitch on and `PORT_RING_RIM` is the wall the field keeps around it, so
 # the three are read against each other here rather than in any one module alone. The two union
 # columns are the tightest pair on the wall — both pockets take the same width — so the pitch is
@@ -3190,7 +3190,7 @@ _stated.state(
     PORT_FIELD_WEB >= PORT_RING_RIM - 1e-9,
     f"one PORT_PITCH of {PORT_PITCH:.2f} carries a pocket of {port_pocket_d():.2f} — a chip of "
     f"Ø{_ring.od('union'):.2f} and its {PORT_RING_SLIP:g} slip — and leaves "
-    f"{PORT_FIELD_WEB:.3f} mm of wall between two of them. `port_ring.RING_W` "
+    f"{PORT_FIELD_WEB:.3f} mm of wall between two of them. `bulkhead_ring.RING_W` "
     f"{_ring.RING_W:g} is what a chip shows past the fitting's own flange, and shrinking it is "
     f"what buys the web back.")
 # AND THE POCKET STOPS INSIDE THE WALL. It is cut the chip's own thickness into a face that has
@@ -3324,7 +3324,7 @@ def check_port_pair(placed, west_face, seaflo) -> Bound:
 def check_top_row(stations) -> Bound:
     """The top row's chips run out FLUSH with the box's own top face.
 
-    `port_ring.RISE` is how far a chip stands over its bore axis, and it is not a figure that
+    `bulkhead_ring.RISE` is how far a chip stands over its bore axis, and it is not a figure that
     module can derive: it is this row's own storey read against the ceiling, and the two modules
     cannot import each other. So it is stated there and read back here, off the stations the wall
     was actually bored on. Every chip takes it, and this is the row it answers to.
@@ -3340,7 +3340,7 @@ def check_top_row(stations) -> Bound:
         if abs(got - top) > 1e-3:
             rows.append(
                 f"{name}'s chip reaches z {got:.3f} and the box's top face is {top:.3f} — "
-                f"`port_ring.RISE` is {_ring.RISE:g} and this row is bored on {z:.3f}, so that "
+                f"`bulkhead_ring.RISE` is {_ring.RISE:g} and this row is bored on {z:.3f}, so that "
                 f"figure owes {top - z:.3f}.")
     return record_bound(Bound(
         "port-ring-top-row", "The top row's chips run out on the box's top face", not rows,
@@ -4015,7 +4015,7 @@ def c14_flat_column() -> float:
 # THE COLUMN IS THE END OF THE FLAT FACE. What the wall carries runs out on its own tangent at
 # each end: `PORT_WEST_COLUMN` puts the tap-water chip's edge on the west one, and this puts the
 # inlet's flange on the east one. The two ends are not the same distance from the side walls,
-# because a chip is Ø`port_ring.od` and this flange is `iec_c14_inlet.FLANGE_W` — the moulding is
+# because a chip is Ø`bulkhead_ring.od` and this flange is `iec_c14_inlet.FLANGE_W` — the moulding is
 # wider than the chip and eats the difference. The face they both run out on is the shared figure.
 C14_STATION = (c14_flat_column(), deck_storey())
 # A printed cutout to the moulded shroud that passes it, on each side. It is what the CORD is
@@ -6773,7 +6773,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_wall_clamped(a.pack_solids,
                        {n: s for n, (s, _c) in _solids(a).items()
                         if n.startswith("port-ring-")}, pieces, a.wall_stations)
-    # And the top row against the ceiling it runs out on, which is the one figure `port_ring`
+    # And the top row against the ceiling it runs out on, which is the one figure `bulkhead_ring`
     # cannot derive for itself.
     check_top_row(a.wall_stations)
     # And the nameplate against the field this wall leaves it — the one reading that can tell

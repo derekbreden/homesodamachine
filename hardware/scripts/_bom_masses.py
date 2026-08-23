@@ -97,11 +97,11 @@ PARTS = {
     # passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.
     "Port ring — one per rear-wall crossing": [
-        "enclosure/port-ring/port-ring-water.step",
-        "enclosure/port-ring/port-ring-carb.step",
-        "enclosure/port-ring/port-ring-flavor-a.step",
-        "enclosure/port-ring/port-ring-flavor-b.step",
-        "enclosure/port-ring/port-ring-co2.step",
+        "enclosure/bulkhead-ring/bulkhead-ring-water.step",
+        "enclosure/bulkhead-ring/bulkhead-ring-carb.step",
+        "enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+        "enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+        "enclosure/bulkhead-ring/bulkhead-ring-co2.step",
     ],
     # AND ONE COLLAR PER CHIP, on the same five stations and off the same two spools — the tube
     # carrying the word the ring it goes through carries. Three go on at the umbilical bench and
