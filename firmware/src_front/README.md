@@ -252,7 +252,7 @@ before the grid scrolls.
 A 190 px rail down the left carries four 110 px targets — **CHOOSE · PRIME · FILL ·
 CLEAN** — each an icon over a word. Choose is the drink; Prime, Fill and Clean act on a
 channel and run down the rail from the least destructive to the most. Choose uses a hand
-pointing up and Fill the hopper's own funnel. Settings is not a
+pointing up and Fill the funnel itself. Settings is not a
 customer destination and holds no rail slot: it is a single square in the screen's top-right
 corner, over every page, which is free because each pane titles itself from the left. The
 remaining 610 px is the pane, and it takes a different shape at each destination:
@@ -339,7 +339,7 @@ one-reply-per-turn audit.
 ### Fill and clean
 
 **FILL → a flavor → START** sends `MSG_FILL_START { channel }`, which draws that
-channel from the hopper funnel on the enclosure's top face down into its chilled
+channel from the funnel on the enclosure's top face down into its chilled
 reservoir. **CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. Both
 are open-ended manifold operations the controller sequences. The valve manifold hangs
 off the MCP23017s, whose pins the bench rig holds high-Z, so both answer

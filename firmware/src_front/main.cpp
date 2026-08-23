@@ -2398,7 +2398,7 @@ static void fillStartCb(lv_event_t *e) {
   (void)e;
   ChannelPayload p{flavorSel};
   j9Post(MSG_FILL_START, &p, sizeof(p));
-  setFillMsg("Drawing from the hopper...");
+  setFillMsg("Drawing from the funnel...");
 }
 
 static void ratioStepCb(lv_event_t *e) {

@@ -34,9 +34,9 @@ ActuatorPlan canonicalPlan(Operation operation) {
             return makePlan(operation, valves2(Valve::E, Valve::G), kPumpA, false, true);
         case Operation::DispenseB:
             return makePlan(operation, valves2(Valve::H, Valve::J), kPumpB, false, true);
-        case Operation::HopperFillA:
+        case Operation::FunnelFillA:
             return makePlan(operation, valves3(Valve::B, Valve::C, Valve::F), kPumpA, false, false);
-        case Operation::HopperFillB:
+        case Operation::FunnelFillB:
             return makePlan(operation, valves3(Valve::B, Valve::D, Valve::I), kPumpB, false, false);
         case Operation::CleanWaterFillA:
             return makePlan(

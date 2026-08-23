@@ -35,9 +35,9 @@ void test_canonical_flavor_topology_plans_match_documented_states() {
     expectPlan(Operation::Parked, 0, kPumpNone, false, false);
     expectPlan(Operation::DispenseA, bit(Valve::E) | bit(Valve::G), kPumpA, false, true);
     expectPlan(Operation::DispenseB, bit(Valve::H) | bit(Valve::J), kPumpB, false, true);
-    expectPlan(Operation::HopperFillA,
+    expectPlan(Operation::FunnelFillA,
                bit(Valve::B) | bit(Valve::C) | bit(Valve::F), kPumpA, false, false);
-    expectPlan(Operation::HopperFillB,
+    expectPlan(Operation::FunnelFillB,
                bit(Valve::B) | bit(Valve::D) | bit(Valve::I), kPumpB, false, false);
     expectPlan(Operation::CleanWaterFillA,
                bit(Valve::A) | bit(Valve::C) | bit(Valve::F), kPumpNone, false, false);
@@ -93,7 +93,7 @@ void test_one_plan_cannot_request_refill_and_open_a_dispense_window() {
 
 void test_transition_closes_outgoing_valves_before_opening_incoming_valves() {
     const ValveMask current = canonicalPlan(Operation::DispenseA).valves;
-    const ValveMask target = canonicalPlan(Operation::HopperFillA).valves;
+    const ValveMask target = canonicalPlan(Operation::FunnelFillA).valves;
     const ValveTransition transition = planValveTransition(current, target);
 
     TEST_ASSERT_EQUAL_UINT8(kSafetyOk, transition.target_violations);

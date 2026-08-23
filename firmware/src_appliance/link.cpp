@@ -425,7 +425,7 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The clean cycle and the hopper fill each need a sequenced manifold
+    // The clean cycle and the funnel fill each need a sequenced manifold
     // operation. This image safely initializes the MCP23017s, but exposes no
     // runtime valve operation yet.
     if (type == MSG_CLEAN_START || type == MSG_FILL_START) {
