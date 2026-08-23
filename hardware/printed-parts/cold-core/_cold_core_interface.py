@@ -459,8 +459,8 @@ deck_mount_cap_gap = 1.5
 # screw head clamps down onto the column, and the screw that does it. A pitch of zero
 # collapses the rectangle onto a line or a point, so a mount is however many DISTINCT
 # columns its pitches leave: the ground stud rides one.
-#   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the controller hang
-# on the enclosure's +X wall, one over the other; the relay lies on the lid in the band they
+#   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the main board hang
+# on the +X wall of back-top, one over the other; the relay lies on the lid in the band they
 # left and the Wago row stands on the brick's crown, and neither has a joint yet — a body resting on
 # another is not mounted, so neither carries a row here. `deck_mount_cap_room` holds each
 # column [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in the cup for the pour to reach
@@ -758,7 +758,7 @@ state(
 # plate is under it. Only there does it step out onto the lane and into this bore. That climb is
 # inboard because the CO2 owns the lane's own strip at the bottom of the shell.
 #   Its X answers to two things. THE DECK ABOVE: the +X flank stands a column of bodies on the
-# lid — V-K, the controller board, the power brick — and each leaves the lane a window rather
+# lid — V-K, the main board, the power brick — and each leaves the lane a window rather
 # than a lane, and this bore takes the widest of them. And THE COIL'S OWN TAIL: the climb runs
 # in the annulus between the wrapped coil and a reservoir pocket's centreward arc, which is
 # where the evaporator's inlet tail turns off its helix, and one bore of that annulus holds one

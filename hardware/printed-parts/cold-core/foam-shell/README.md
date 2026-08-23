@@ -25,7 +25,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   bottom plate (CO2 inlet, water outlet). Both plates are clocked so the
   port pairs stand on the shell's **±Y** axis
   (`_cold_core_interface.carbonator_port_offset`); the float rod's register, at
-  right angles to each plate's own pair, is what holds the two together. Vessel assembled height = tube
+  right angles to each plate's own pair, is what holds the two together. Carbonator assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core. **Two mouths, and they never share one.** The FILL is a

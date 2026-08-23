@@ -7,7 +7,7 @@ cavity the open-port pop-off PRV needs to function.
 
 The SV-125 (per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9) is installed via a TAISHER 316L 90° street elbow on Port 4
-with the valve body extending laterally inside the ~30 mm above-tank
+with the SV-125's body extending laterally inside the ~30 mm above-tank
 elbow envelope. The body foam pour ([`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/))
 fills the surrounding foam zone with closed-cell polyurethane.
 
@@ -38,7 +38,7 @@ the TAISHER M×F 90° elbow, no PTFE torque applied):
 ID is sized for a 0.1 mm radial slip-fit over the elbow's
 controlled-OD smooth cylinder at the seat end (the only good
 sealing surface in the stack). Above that, the shroud floats around
-the valve body with ~1.5 mm radial gap at the hex and larger gaps
+the SV-125's body with ~1.5 mm radial gap at the hex and larger gaps
 above.
 
 The [44 mm](CAVITY_L) cavity length matches the measured stack from the bottom

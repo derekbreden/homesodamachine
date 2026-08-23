@@ -1,12 +1,12 @@
-"""Shared interface for the Touch-Flo faucet's stacked geometry — the
+"""Shared interface for the faucet's stacked geometry — the
 small set of physical dimensions and derived pill / shank geometry that
-every part in the faucet column (shell, mounting plate, mounting gasket,
-under-counter plate) must agree on so the column stacks concentrically
+every part in the faucet column (shell, above-counter plate, above-counter
+gasket, under-counter plate) must agree on so the column stacks concentrically
 and the flavor tubes drop through together.
 
 Coordinates are in the repo's +Z-up frame: +Z is height, +X is lateral
 (width), +Y is depth — the gooseneck dispenses toward -Y (the user's
-side), so the flavor-tube pill sits at world +Y, behind the body axis
+side), so the flavor-tube pill sits at world +Y, behind the Westbrass's axis
 (toward the back of the appliance)."""
 
 
@@ -36,23 +36,22 @@ flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [7.05 mm](
 pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [13.4 mm](PILL_LENGTH_X)
 pill_width_y = flavor_tube_hole_dia                                # [7.05 mm](PILL_WIDTH_Y)
 
-# Depth magnitude of the flavor-tube pill center from the body / shank
-# axis at world origin. The pill sits at world Y = +flavor_tube_depth
-# (BEHIND the body, opposite the −Y gooseneck-dispense direction), tangent
-# to the body's back face. Derived from the Westbrass valve body's outer
-# cylinder radius (15.75) plus the flavor-tube radius — the pill is
-# tangent to the body's back face, so the flavor tubes butt up against
-# the body wall.
+# Depth magnitude of the flavor-tube pill center from the Westbrass /
+# shank axis at world origin. The pill sits at world Y = +flavor_tube_depth
+# (BEHIND the Westbrass, opposite the −Y gooseneck-dispense direction),
+# tangent to its back face. Derived from the Westbrass's outer cylinder
+# radius (15.75) plus the flavor-tube radius — the pill is tangent to that
+# back face, so the flavor tubes butt up against the Westbrass wall.
 flavor_tube_depth = 15.75 + flavor_tube_x_offset  # [18.925 mm](FLAVOR_TUBE_DEPTH)
 
-# Central pocket for the body's threaded shank. Ø12.6 matches the
-# factory mounting plate; the threaded shank is ~Ø11 nominal. Used by
-# all four parts in the column (shell uses it for the shank pocket
-# alongside its `westbrass_bore_diameter` for the body OD).
+# Central pocket for the shank. Ø12.6 matches the donor's own factory
+# plate; the threaded shank is ~Ø11 nominal. Used by all four parts in the
+# column (shell uses it for the shank pocket alongside its
+# `westbrass_bore_diameter` for the Westbrass OD).
 shank_hole_diameter = 12.6
 
 
-# Waveshare ESP32-S3-Touch-LCD-1.47 flavor display (faucet BOM §1) —
+# Waveshare ESP32-S3-Touch-LCD-1.47 faucet display (faucet BOM §1) —
 # caliper-measured device envelope, shared by the faucet-assembly
 # stand-in and the shell's display cradle. Front to back: the plastic
 # housing (screen glass flush in its front face) overhangs the PCB by
