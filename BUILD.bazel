@@ -6006,6 +6006,8 @@ genrule(
         ":out/quickstart-art/hardware/quickstart/art/mount-final-clean.png",
         ":out/quickstart-art/hardware/quickstart/art/mount-lowered-clean.png",
         ":out/quickstart-art/hardware/quickstart/art/mount-slide-clean.png",
+        ":out/quickstart-art/hardware/quickstart/art/mount-under-slide-clean.png",
+        ":out/quickstart-art/hardware/quickstart/art/mount-under-tighten-clean.png",
         "hardware/quickstart/style.css",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -6103,6 +6105,8 @@ genrule(
         "out/quickstart-art/hardware/quickstart/art/mount-slide.png",
         "out/quickstart-art/hardware/quickstart/art/mount-tighten-close.png",
         "out/quickstart-art/hardware/quickstart/art/mount-tighten.png",
+        "out/quickstart-art/hardware/quickstart/art/mount-under-slide-clean.png",
+        "out/quickstart-art/hardware/quickstart/art/mount-under-tighten-clean.png",
     ],
     tags = ["requires-network"],
     cmd = """
@@ -6127,6 +6131,8 @@ O16=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-slide-clea
 O17=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-slide.png)
 O18=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-tighten-close.png)
 O19=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-tighten.png)
+O20=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-under-slide-clean.png)
+O21=$$PWD/$(location out/quickstart-art/hardware/quickstart/art/mount-under-tighten-clean.png)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6163,6 +6169,8 @@ cp hardware/quickstart/art/mount-slide-clean.png $$O16
 cp hardware/quickstart/art/mount-slide.png $$O17
 cp hardware/quickstart/art/mount-tighten-close.png $$O18
 cp hardware/quickstart/art/mount-tighten.png $$O19
+cp hardware/quickstart/art/mount-under-slide-clean.png $$O20
+cp hardware/quickstart/art/mount-under-tighten-clean.png $$O21
 """,
 )
 
