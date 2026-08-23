@@ -2,15 +2,15 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-8067238ccec42d19.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-8067238ccec42d19.tar.gz"
+    "asset": "cad-93d214265933f7f7.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-93d214265933f7f7.tar.gz"
   },
   "source": {
-    "commit": "81eed8adcb284cc4efd535e4638b1b234778cdb3"
+    "commit": "85a2bab4a38eaef24ff871a4f4324f7af2775427"
   },
   "bundle": {
-    "sha256": "8067238ccec42d1961f3cd4b5e329d750afd6a21d628a134c921ecb4b300c084",
-    "bytes": 70959228,
+    "sha256": "93d214265933f7f7b5a3db0a93e69d445c361a9215a5537a37b2ad8ae00e969e",
+    "bytes": 70973972,
     "solids": 128
   },
   "solids": {
@@ -24,12 +24,12 @@
     "hardware/assembly/scenes/glb/en06-column.glb": "03915e849730d0c329dab0cfe3c5c07ea1d158022d7a53c39da241603fffcaa3",
     "hardware/assembly/scenes/glb/front-top.glb": "79091a6fcb8bcc4ad2b0a597f2f0fed9bce0ed30a4b23712667533576b9e4f04",
     "hardware/assembly/scenes/glb/hopper-drain.glb": "40e82ef7cf9962c4771aeab0b5f22c574e14be979d61730d84d27b4a9b41891c",
-    "hardware/assembly/scenes/glb/pump-cartridge.glb": "a3e651967b6b79d06340939b3bd280e20aa6b3239e1ed1df5ac7f96187251fe7",
+    "hardware/assembly/scenes/glb/pump-cartridge.glb": "35ee42b8a753eec325f439f5bdff1fcfb47a01407b9ac22ddbe3bebc6e4ea003",
     "hardware/cold-core-layout/cold-core-assembly.step": "818f322861e771836955a9e7734eaaf3473ba73af4593e301e1cb47768beb0b0",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "1bfc19911dc5d65c0262a05dae9daf6e72438939a8e28c3750fcba6db902dd6a",
     "hardware/faucet-layout/faucet-assembly.step": "fc7b8de623a187f649c02619a94e0320a579b49f4028bf2944a5509665bca950",
-    "hardware/manifold-layout/enclosure-assembly.step": "cdee97b418246480308b4f01eafc24543d2ad515f0dff57372c258d3f50b8181",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4aabc7f263c334ce63adb7eadbdbcff288db6a058cf67b91835994945814851f",
+    "hardware/manifold-layout/enclosure-assembly.step": "5ccc2c9faf6ab627fa84c432ce9b04b9a9fa99712488328b11a1e2237051630e",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "92595c8b4bde7c041e2171189b0d8ed9d04bb39f25e57c5856c8c98679fba5d0",
     "hardware/manifold-layout/manifold-layout.step": "a9b32d253f1de1b6b35673d66ce73817cbeb005a9b496380ff1eb37c87334172",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e6e32f58218e6d56a15d1e5b3b6eeb832d4e1983f4891e2bd01bdd903b7e5603",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "ec9e0fcc5fdd752d811766a41e34dfa92a487c6010c86029d4f16c4d369d0f50",
@@ -71,14 +71,14 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "f40c6f40fa05ec48c44a8e23693248130d79c4a28904b3ef98932febb21a3d73",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "c0759b7458c8ab7ba1a1bad58b7443bc282efd750212c68aaee785ce54abd538",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "f6f797fa81f97a9502fbb4b1e71aeeda757fe61e42adbf7233d4c541cdfc484c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "9d604c1fd61abf0f667e69f200c2c00c81445492f47ec103db83fa90e19e141c",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "714f46e59e26228effbce214355455211408e887f19b6dbc319fce54ef18eb5b",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "b7f4bd3287dab7b10aa3a6937dd981abf79e09cc2dc918dc8ff685ae3970c36b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "8567ae4b1a7a9115f4c00582c271bb2f5969ff36ab6b69e1243e1cd3b65d9591",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh": "37bfb4be31ccce65543302da8554456ca7de8007493dfd959f75c49a67df0bd6",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl": "72b68ff688d363e3bd40c1d7a160811ca2433d0ec3a92e1482de05307e007b1f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "4ad20878ff2ed0b90255808deea993f19f485c3aa7a9d3c16f5b40eeee708fc8",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "be1fd8690a11980214a930eeb9b2dd2939b8d904dae5fabd427872081dbb4512",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "535123be49c9a8484d1c01723e5fb8dd6750090c063e9a45cdd5c6914a7c454d",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "9a5591009d86ee105778b4726fec0270777d219de79b1d1a5cb93c3a6953d959",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "57106771f8c02811703d99fe57e7a7217ce0c5746a3dae2f61b033671dc8f8c3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "59cc7234a6a708486b7b162540ebf56fe2e1936992ed347e4db466b8415a2d0d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "1a81886ab8e4993e2f0ce97cf756c42442356df4a5c4270657ee92742d3a1101",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "dd6dd01a5e4dcd2305118f7b326b51c230baab1c79e5c5e39f3b7f0c2a62d07d",
     "hardware/printed-parts/enclosure/port-ring/port-ring-carb.step": "034f853dceaa7369d30904beb53d1468903f2207774e1e9b45403087da60a123",
     "hardware/printed-parts/enclosure/port-ring/port-ring-co2.step": "9261c1dc7b5ad940597b361df901f7a31b6eab5768f1d1373b28431d1913ae0f",
@@ -145,7 +145,7 @@
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "8219fb77abe9c17f0e223c629921149f869654b1265506e18122f0abbc080fa3",
-    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "dfd5fdebdc41987392bf155c1a44e2894804e2bb5059843dadd1650ed2cafa46",
+    "hardware/manifold-layout/enclosure-assembly.scorecard.json": "a47c7bef098d29d0d8cb959a5e39c66907718013d8a13fdf089f68e5da8a9846",
     "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "8219fb77abe9c17f0e223c629921149f869654b1265506e18122f0abbc080fa3"
   }
 }

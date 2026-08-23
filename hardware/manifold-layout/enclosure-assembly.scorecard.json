@@ -1005,8 +1005,8 @@
    "label": "Each barb tube leaves the cap through its opening",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 clear, least 0.030 mm off the edge",
-   "target": "every \u00d86.35 tube inside the opening, which is the head's own square and 0.4 of air",
+   "value": "4/4 clear, least 1.030 mm off the edge",
+   "target": "at least 1 mm round every \u00d86.35 tube at the opening's two outer edges",
    "detail": [],
    "active": true
   },
@@ -1146,7 +1146,7 @@
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "3050.8 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "2922.1 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
