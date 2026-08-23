@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <Preferences.h>
 #include <esp_system.h>
 #include <esp_heap_caps.h>
 #include <esp_cpu.h>
@@ -276,11 +275,13 @@ static bool bootLockActive = false;
 static unsigned long bootLockMinUntil = 0;
 static unsigned long bootLockMaxUntil = 0;
 
-// Which logo each channel wears. The choice is the channel's identity on this
-// panel, so it outlives a power cycle in the same NVS the faucet caches into.
+// Which logo each channel wears. Display-local, like the ratio beside it: this
+// panel scans an 800x480 framebuffer out of PSRAM, and a flash write suspends
+// the cache PSRAM is reached through, so the DMA refilling its bounce buffer
+// faults. Nothing on this board writes NVS while the panel runs. The durable
+// home for the choice is the controller, which is where the faucet's own
+// selection already lives.
 static uint8_t flavorImage[2] = {0, 1};
-static Preferences frontPrefs;
-static bool frontPrefsOpen = false;
 
 static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
@@ -2309,9 +2310,6 @@ static void imagePickCb(lv_event_t *e) {
   const uint8_t img = (uint8_t)(intptr_t)lv_event_get_user_data(e);
   if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return;
   flavorImage[flavorSel] = img;
-  if (frontPrefsOpen) {
-    frontPrefs.putUChar(flavorSel ? "img1" : "img0", img);
-  }
   refreshFlavorImages();
 }
 
@@ -3012,6 +3010,28 @@ static void processTextLine(const char *line) {
       selectActiveFlavor(flavor);
       Serial.printf("OK:FLAVOR=%u\n", (unsigned)activeFlavor);
     }
+  } else if (strncmp(line, "EDIT:", 5) == 0) {
+    // A flavor's own page, and the artwork it wears, without a finger on the
+    // glass: the same handlers the gear and a thumbnail tap reach.
+    int f = atoi(line + 5);
+    const char *comma = strchr(line + 5, ',');
+    if (f != 1 && f != 2) {
+      Serial.println("ERR:EDIT expects 1 or 2, optionally ,<image 0..3>");
+    } else {
+      flavorSel = (uint8_t)(f - 1);
+      showPage(PAGE_FLAVOR);
+      showFlavor(FLV_DETAIL);
+      if (comma) {
+        int img = atoi(comma + 1);
+        if (img < 0 || img >= FLAVOR_IMAGE_COUNT) {
+          Serial.printf("ERR:EDIT image expects 0..%d\n", FLAVOR_IMAGE_COUNT - 1);
+          return;
+        }
+        flavorImage[flavorSel] = (uint8_t)img;
+        refreshFlavorImages();
+      }
+      Serial.printf("OK:EDIT=%d,img=%u\n", f, flavorImage[flavorSel]);
+    }
   } else if (strcmp(line, "LOCK:SHOW") == 0) {
     bootLockActive = false;
     lockScreenShow("HOME SODA MACHINE", "Powering on", "Getting everything ready.");
@@ -3168,17 +3188,6 @@ void setup() {
                 FW_VERSION, (unsigned long)ESP.getFreeHeap(),
                 (unsigned long)ESP.getPsramSize(), (int)reason);
 
-  // The logo each channel wears is this panel's own, and it is read before the
-  // UI is built so the first frame already shows the right artwork.
-  frontPrefsOpen = frontPrefs.begin("front");
-  if (frontPrefsOpen) {
-    for (uint8_t i = 0; i < 2; i++) {
-      const uint8_t v = frontPrefs.getUChar(i ? "img1" : "img0", flavorImage[i]);
-      if (v < FLAVOR_IMAGE_COUNT) flavorImage[i] = v;
-    }
-  }
-  Serial.printf("Flavor artwork: 1=%u, 2=%u%s\n", flavorImage[0], flavorImage[1],
-                frontPrefsOpen ? "" : " (NVS unavailable)");
 
   // Expander + panel/touch resets, then the RGB panel itself — initialized on a
   // separate task with a timeout. If esp_lcd ever blocks, setup() still returns
