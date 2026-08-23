@@ -49,3 +49,5 @@ they became.
 | **funnel** | the part flavor concentrate is poured into, with its own spout | |
 | **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
 | **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
+| **pump tray** | either of the two fused beds in the quadrant that a peristaltic pump sits in | |
+| **flow-meter saddle** | the fused cradles holding the flow meter's barrel | |
