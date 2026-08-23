@@ -32,8 +32,9 @@ with the pump.
 
 A scene leaves three things in the tree: the PNG, its fingerprint, and the `.glb` /3d opens. The
 scene STEPs land in `out/`, which `.gitignore` holds. `//:render-scenes` runs the render when the
-assembly's STEP moves. `web/contracts/parts-tree.js` seats each `.glb` BY NAME, so a scene added
-here is a line added there.
+assembly's STEP moves. `web/contracts/parts-tree.js` claims this whole directory as tooling — a
+scene is a picture of a group of bodies rather than a body — so /3d draws no card for one and a
+scene added here is a scene added here alone.
 """
 
 import hashlib

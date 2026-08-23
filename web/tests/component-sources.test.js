@@ -13,18 +13,17 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ALIASES, sourceFileFor } from "../contracts/component-sources.js";
+import { walkAssemblies } from "../contracts/parts-tree.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 const HW = path.join(REPO_ROOT, "hardware");
 
-// The three the page browses (contracts/parts-tree.js). An assembly left out
-// here is one whose drill-down nothing checks.
-const ASSEMBLIES = [
-  "manifold-layout/enclosure-assembly.step",
-  "cold-core-layout/cold-core-assembly.step",
-  "faucet-layout/faucet-assembly.step",
-];
+// Every assembly the tree states, nested ones included — an assembly is reached
+// by opening the one that holds it, and its own drill-down is checked the same
+// way. Taken from the contract rather than restated, so a unit added there is
+// covered here without a second edit.
+const ASSEMBLIES = walkAssemblies().map((a) => a.model);
 
 function productNames(stepPath) {
   const names = new Set();
