@@ -12,7 +12,7 @@ In: a fully wired chassis fresh out of [`wiring.md`](/hardware/assembly/wiring.m
 
 Out:
 
-- All three MCUs — the PCBA's ESP32-WROOM main controller, the 4.3B front-face config display, the 1.47" faucet flavor display — flashed with the current firmware on `main`.
+- All three MCUs — the PCBA's ESP32-WROOM main controller, the 4.3" enclosure display, the 1.47" faucet display — flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
 - Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (tank, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor in the refrigeration bay's -X wall slot has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at [0x20](MCP_VALVES) and [0x21](MCP_RESERVOIRS), with the DS3231 RTC at [0x68](RTC_ADDR) also responsive.
@@ -77,9 +77,9 @@ Per [`/platformio.ini`](/platformio.ini). Expected outcome: build succeeds, uplo
 
 `src_appliance/` boots to that banner, parks every actuator dark and turns one flavor pump — the rest of this procedure is written against firmware that fills it in, and that is the Open item below.
 
-### 4. Flash the ESP32-S3 config display
+### 4. Flash the ESP32-S3 enclosure display
 
-Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the front-face config + interaction display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-Touch-LCD-4.3B (the enclosure display, let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris per [`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md); its SIG-7 RS485 link to the board's J9 lands at [`wiring.md`](/hardware/assembly/wiring.md)). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_front]` brings the CDC port up immediately on boot.
 
 ```
 pio run -e esp32s3_front -t upload
@@ -89,7 +89,7 @@ Confirm the LVGL splash renders on the 800×480 panel after reset.
 
 ### 5. Flash the ESP32-S3 faucet display
 
-Plug the USB-C cable into the 1.47" faucet flavor display on the gooseneck head. Same native USB-CDC boot as the 4.3B.
+Plug the USB-C cable into the 1.47" faucet display at the end of the gooseneck. Same native USB-CDC boot as the 4.3B.
 
 ```
 pio run -e esp32s3_faucet -t upload
@@ -210,7 +210,7 @@ The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/ac
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **`src_appliance/` runs one flavor pump and nothing else.** It boots to step 3's banner and idle state, brings up J9, and turns a pump — held from the front-face display's glass, or bounded from its own console ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). Steps 6, 7 and 9 are the specification the rest gets written against, and every figure in them is settled. Until it walks the valves, reads the reeds and answers the setpoint query, a unit reaching those steps gets `pio run -e pcba_bench -t upload` and a console session against [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md)'s command table — on a bare board, before the manifold is plugged in.
+1. **`src_appliance/` runs one flavor pump and nothing else.** It boots to step 3's banner and idle state, brings up J9, and turns a pump — held from the enclosure display's glass, or bounded from its own console ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). Steps 6, 7 and 9 are the specification the rest gets written against, and every figure in them is settled. Until it walks the valves, reads the reeds and answers the setpoint query, a unit reaching those steps gets `pio run -e pcba_bench -t upload` and a console session against [`/firmware/src_pcba_bench/README.md`](/firmware/src_pcba_bench/README.md)'s command table — on a bare board, before the manifold is plugged in.
 2. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
 3. **What the step-7 and step-9 commands are allowed to touch.** They run as serial commands against the one shipping image — there is no separate factory build. A command here asks the state machine to do a thing (`selftest valves` walks the census; `selftest pumps` turns both heads) and never writes a pin, because a command that writes a pin is outside the [3](MAX_VALVES)-valve ceiling and the refill interlock by construction, and step 9 is where those are confirmed held. `src_pcba_bench` is the surface that does write pins, and it runs on a bare board with the manifold unplugged.
 4. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.
