@@ -303,7 +303,7 @@ def cold_core(m):
         # The rods PV-05 cuts, seated here — same three figures, one bench later.
         "cc-08-seat-reservoir-rods": {
             "RSVR_ROD_MM", "RSVR_ROD_LEN", "RSVR_SEAT_TO_SEAT"},
-        "cc-10-lower-the-vessel": {
+        "cc-10-lower-the-carbonator": {
             "RING_H", "RING_SLOTS", "RING_SLOT_DEG", "TUBE_HOLE_D"},
         "cc-11-seat-reservoirs": {
             "RESERVOIR_GAP", "POCKET_FILLET", "BULKHEAD_CLEARANCE", "FLAVOR_HOLE_X"},
