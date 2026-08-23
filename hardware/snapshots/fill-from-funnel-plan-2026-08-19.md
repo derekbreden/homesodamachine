@@ -132,7 +132,7 @@ still names it, over comments and docstrings inside `.py` as well as `.md`.
 
 ## Not in scope here
 
-The pour. Turn the handle and soda comes out; the faucet head's display carries the flavour and
+The pour. Turn the handle and soda comes out; the faucet display carries the flavour and
 its toggle, and the front glass is not in it.
 
 Unrelated to this operation and unchanged: the build-sequence decision at

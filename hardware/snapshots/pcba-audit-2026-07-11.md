@@ -62,7 +62,7 @@ To re-run: `bun render-board.ts pcba.tsx`, `python3 silk-audit.py`, `tools/cad-v
 - Prototype outputs IO5/IO18 land on board-unconnected pins; board peripherals IO2, IO14, IO36, IO39 have no firmware.
 - Conflicting roles on 12 pins (board → firmware): IO33 faucet TX → pump PWM; IO25 flow → pump dir; IO26 1-wire → pump dir; IO27 backflow → clean solenoid; IO17/IO4 pump INs → solenoid/valve; IO19 relay → pump PWM; IO15/IO12 LEDs → flow input + config TX / valve PWM; IO13 buzzer → input; IO32/IO34/IO35 roles shifted.
 - Prototype-internal: GPIO 15 is defined as both `FLOW_PIN` (INPUT_PULLUP + ISR) and `CONFIG_TX_PIN` (Serial1 TX); both are configured in `setup()`. `firmware/README.md:81-82` lists both.
-- No firmware exists for: MCP23017 banks (valves, reeds, CLO/CHI — including the GPPU enables `pcba.tsx` requires on unused GPB inputs), DRV8870 single-IN drive, 1-wire family-code probes (0x28 tank / 0x10 coil), gas AOUT/DOUT, relays, status LEDs, MLT-5020 buzzer, backflow.
+- No firmware exists for: MCP23017 banks (valves, reeds, CLO/CHI — including the GPPU enables `pcba.tsx` requires on unused GPB inputs), DRV8870 single-IN drive, 1-wire family-code probes (0x28 carbonator / 0x10 coil), gas AOUT/DOUT, relays, status LEDs, MLT-5020 buzzer, backflow.
 - Constraints recorded only in prose that a port encodes: ≤3-valve simultaneity ("firmware must not drive a full manifold simultaneously", `ac-wiring-schedule.md:84`), the refill interlock (`power.mmd`), the GPPU requirement (`pcba.tsx` MCP block). The prototype's `analogWrite` (~1 kHz) is in the audible band on a motor; the DRV8870 accepts PWM to 100 kHz.
 
 ## Docs ↔ board

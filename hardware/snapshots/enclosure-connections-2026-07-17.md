@@ -51,7 +51,7 @@ The refrigerant loop, verified-by-disassembly in
 
 The cold core additionally terminates the beverage system (carb-water out, two reservoir/bag
 lines, CO2 in, water in from the SeaFlo, PRV vent) and the low-voltage sensing (reservoir
-reeds, carbonator reeds, tank/evap temperature) — its 10 modeled connectors below.
+reeds, carbonator reeds, carbonator/evap temperature) — its 10 modeled connectors below.
 
 ## Q1 — Can each connect to each other the way each needs?
 
@@ -90,7 +90,7 @@ are blocked on the compressor's rotation and the condenser's undefined ports.**
   foam-shell penetration table (carb-water out, reservoir A/B, CO2 in on the +Z top, the two
   evaporator stubs, water in, PRV vent) plus the two reed-cable exits on the −Y wall. Derived
   from the documented cut coordinates; added.
-  - *Sub-finding:* the two reed-cable holes carry the **reservoir** level reeds. The tank
+  - *Sub-finding:* the two reed-cable holes carry the **reservoir** level reeds. The carbonator
     sensors that also land at the cold core — the DS18B20/DS18S20 temperature bus (SIG-1) and
     the carbonator reeds (SIG-2/3) — have **no clearly dedicated exit** in the penetration
     record. They likely share the reed holes or the copper slot; worth pinning when the cold

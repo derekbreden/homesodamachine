@@ -63,7 +63,7 @@ M_PVC_CLEAR = cq.Color(0.85, 0.90, 0.92, 0.45)
 # LVDALAB's PTFE membrane, in each reservoir cap's vent pocket — an opaque sintered white.
 M_PTFE_WHITE = cq.Color(0.93, 0.93, 0.92)
 # A moulded epoxy package, which is the black both 1-wire probes arrive in: the TO-92 body of
-# the DS18B20 tank probe and the DS18S20 coil probe (`ledger/bom.md` §5).
+# the DS18B20 carbonator probe and the DS18S20 coil probe (`ledger/bom.md` §5).
 M_EPOXY_BLACK = cq.Color(0.10, 0.10, 0.10)
 # The Gebildet reed's 14 mm glass ampoule (`ledger/bom.md` §12) — soda-lime, and see-through
 # because a reed switch is see-through.

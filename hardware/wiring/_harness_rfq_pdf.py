@@ -23,7 +23,7 @@ OUT = HERE / "homesodamachine-harness-rfq.pdf"
 PREAMBLE = """# Harness RFQ
 
 Ten low-voltage cable assemblies for a domestic kitchen appliance (a countertop soda dispenser),
-currently at prototype. Every assembly lands on a controller PCB at one end and on a valve, motor,
+currently at prototype. Every assembly lands on the main board at one end and on a valve, motor,
 sensor or display at the other. This document is the complete build package: materials, workmanship,
 board-side contact order, and a pin-level wire list for each of the ten.
 
