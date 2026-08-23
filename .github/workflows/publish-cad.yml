@@ -208,6 +208,8 @@ jobs:
                 hardware/quickstart/quick-start.pdf)
             fi
             if [ -n "$quickstart_base" ]; then
+              git cat-file -e "$quickstart_base^{commit}" 2>/dev/null || \
+                git fetch --no-tags --depth=1 origin "$quickstart_base"
               git cat-file -e "$quickstart_base^{commit}"
             fi
             if [ -n "$quickstart_art_base" ]; then
