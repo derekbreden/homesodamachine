@@ -14,9 +14,9 @@ The picture tests one dry electrical behavior only:
 4. observe the faucet artwork change from Flavor 2 to Flavor 1;
 5. wait for HOME to show Flavor 1 selected and synchronized.
 
-That sequence exercises the front-display request, controller persistence, and
-controller-to-faucet publication path. It does not exercise the reciprocal faucet
-touch path and does not establish any beverage-ready state.
+That sequence exercises the enclosure display's request, the main board's
+persistence, and the main-board-to-faucet publication path. It does not exercise
+the reciprocal faucet touch path and does not establish any beverage-ready state.
 
 The sheet is not an installation or commissioning procedure. It may become a public
 second sheet only after signal termination, strain relief, and field power handoff

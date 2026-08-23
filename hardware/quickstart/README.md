@@ -16,16 +16,16 @@ and the changed physical state carry the instructions.
 ## Confirmed installation facts
 
 The faucet, three tubes, braided sleeve, and fitted SIG-6 ribbon remain one factory assembly. The
-retained donor washer and nut fit the donor shank and are factory-preloaded before the blue supply
-tube is connected. Field installation lowers that complete assembly through the prepared opening,
-slides the open keyhole under-counter plate laterally into the captive donor stack, and
+retained donor washer and nut fit the donor shank and are factory-preloaded before the blue soda
+umbilical tube is connected. Field installation lowers that complete assembly through the prepared opening,
+slides the open under-counter plate laterally into the captive donor stack, and
 hand-tightens the same retained nut.
 
 The registered mount pictures preserve this order:
 
 1. faucet base and gasket;
 2. countertop;
-3. open stainless keyhole plate;
+3. open stainless under-counter plate;
 4. retained donor washer;
 5. retained donor nut;
 6. threaded shank and the three tube tails.
@@ -49,7 +49,7 @@ three tubes being trimmed or pushed into the rear face.
 The mount sheet uses one below-counter three-quarter camera for all four states. The upper image
 locates the complete recognizable faucet in the kitchen-scale event. The lower image magnifies the
 same registered frame at the countertop stack. Only the complete assembly moves down, only the
-keyhole plate moves sideways, and the final hand turns the same retained nut.
+under-counter plate moves sideways, and the final hand turns the same retained nut.
 
 The connection sheet uses one continuous cabinet-scale scene from mounted faucet to appliance.
 Below it, three views repeat one fixed crop of the exact machine rear:
