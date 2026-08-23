@@ -15,7 +15,7 @@ The home soda machine's physical design — the integrated under-counter applian
 | [`service/`](/hardware/service/) | Procedures run on a finished appliance rather than a bench: [`pump-replacement.md`](/hardware/service/pump-replacement.md) and the dry cycle it runs first. |
 | [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `enclosure/`, `faucet/`, `flavor/`, `refrigeration/`, `valve-seat/`, `zone-c/`. |
 | [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, faucet plate). |
-| [`manifold-layout/`](/hardware/manifold-layout/), [`cold-core-layout/`](/hardware/cold-core-layout/), [`faucet-layout/`](/hardware/faucet-layout/) | The three assemblies the parts above stand in, each written as one multi-solid STEP: the packed appliance, the core one frame further in, and the above-counter column. `/3d` browses the tree these head. |
+| [`manifold-layout/`](/hardware/manifold-layout/), [`cold-core-layout/`](/hardware/cold-core-layout/), [`faucet-layout/`](/hardware/faucet-layout/) | The assemblies the parts above stand in, each written as one multi-solid STEP: the packed appliance, the core one frame further in, and the above-counter column. `/3d` browses the tree these head — the appliance and the faucet as its two cards, and the core reached by opening the appliance's own `foam-assembly`. |
 | [`off-the-shelf-parts/`](/hardware/off-the-shelf-parts/) | Reference geometry for purchased parts modelled into assemblies. |
 | [`reference/`](/hardware/reference/) | Imported / harvested reference STEPs (factory faucet, solenoid, ice-maker, fittings). Not fabricated by this project — no sidecars. |
 | [`topology/`](/hardware/topology/) | Fluid + valve topology, including the canonical valve-state truth table. |
@@ -156,8 +156,8 @@ TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
   fail. The two are opposite promises. So no action draws one: `sync_tree` carries what a target
   declares, the picture is in nothing's `outs`, and `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for
   every action rather than paying a headless browser for a file the sandbox discards. A hand run
-  keeps the tree's pictures, and draws the ones the catalog has a card for — the three assemblies
-  and the shelf under them, which `web/contracts/parts-tree.js` states and `_page_paints` reads.
+  keeps the tree's pictures, and draws the ones the catalog has a card for — the two units, which
+  `web/contracts/parts-tree.js` names in `CARD_MODELS` and `_page_paints` reads.
 - **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
   the viewer on loopback and photographs it with a headless browser, and that page loads
   `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this

@@ -313,7 +313,7 @@ def read_payload(path):
         head = json.loads(raw[4:4 + head_len])
     except (OSError, ValueError, struct.error):
         return None
-    if head.get("v") != _mesh_payload.VERSION:
+    if head.get("v") not in _mesh_payload.DECODABLE:
         return None
     blob = raw[4 + head_len:]
     out = []
@@ -337,7 +337,7 @@ def payload_names(path):
             head = json.loads(fh.read(head_len))
     except (OSError, ValueError, struct.error):
         return []
-    if head.get("v") != _mesh_payload.VERSION:
+    if head.get("v") not in _mesh_payload.DECODABLE:
         return []
     return [m["name"] for m in head["meshes"]]
 
@@ -370,6 +370,13 @@ def graft(path: Path, fluted: dict):
     STEP that need not be on this disk: what is grafted into is a payload, and the graft is
     the same operation whether or not its solid was carried along with it."""
     src = _mesh_payload.read_source(path) if path.is_file() else None
+    if src is None:
+        # A host written before `src` existed states none. Its solid is what it was cut from,
+        # so read it off the bytes beside it — and where there is no solid beside it, the
+        # payload simply keeps stating none rather than claiming a descent nobody can check.
+        solid = path.with_name(path.name[: -len(".mesh")])
+        if solid.is_file():
+            src = _mesh_payload.source_digest(solid)
     held = read_payload(path)
     if held is None:
         return 0
