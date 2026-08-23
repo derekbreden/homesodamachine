@@ -809,7 +809,7 @@ entered by. Push it home and the tubes thread back into the same collets, the ca
 aft face landing on the plate's own fore face, the tees square in those same bores and
 braced by the valves their runs butt into, each of those in a panel seat. One hand
 pulls, the other braces the box; the box carries the brace through its fixed wall and
-the two steel-bearing retainers rather than asking the plate's little floor seat to take the
+the two wedge cheeks rather than asking the plate's little floor seat to take the
 whole overturning moment.
 
 **The cap's aft face is open for the four made-up tubes.** One straight slot per pump rises
