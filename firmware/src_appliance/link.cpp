@@ -153,7 +153,8 @@ static void onPumpDone(uint8_t channel) {
 // click getting cut off by the sweep that follows it.
 static bool isUserAction(uint8_t type) {
     return type == MSG_PUMP_RUN || type == MSG_CLEAN_START || type == MSG_FILL_START ||
-           type == MSG_SOUND_CFG_SET;
+           type == MSG_SOUND_CFG_SET || type == MSG_FLAVOR_ART_SET ||
+           type == MSG_PRIME_SESSION_SET;
 }
 
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
