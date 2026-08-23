@@ -12,8 +12,8 @@ bay or on the cold core's own lid, so the carbonator stays full, stays under pre
 stays connected.
 
 The appliance runs **dry mode** first: a firmware cycle that fills the manifold with air. Air
-enters at the hopper funnel and both reservoir cap vents; what it displaces leaves at the
-faucet's gooseneck tip. The user's part is a vessel under the faucet.
+enters at the funnel and both reservoir cap vents; what it displaces leaves at the
+gooseneck's tip. The user's part is a container under the faucet.
 
 ## What the cartridge carries
 
@@ -24,11 +24,11 @@ faucet's gooseneck tip. The user's part is a vessel under the faucet.
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
 | | The collet plate, in the blind seat sunk in the bay floor's top, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
 | | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
-| | The hopper funnel, in its throat; the display; the SeaFlo and both its chains; the cold core itself |
+| | The funnel, in its throat; the enclosure display; the SeaFlo and both its chains; the cold core itself |
 
 **The manifold does not move.** Every valve, tee and tube in the pack stands on a seat the box
 keeps, so the only tube ends that cross the bay's mouth are the four the pumps carry out with
-them. The funnel stays in its throat, the display stays in its bezel, and the pack is never
+them. The funnel stays in its throat, the enclosure display stays in its bezel, and the pack is never
 handled.
 
 ## The [4](JOINT_COUNT_3) joints the plate opens
@@ -49,7 +49,7 @@ fails rather than letting it drift.
 **Every joint that parts is one the dry cycle sweeps.** Each of the four stands between a pump
 and a tee on that pump's own channel, so either state that runs a pump carries air across both
 of its joints. Nothing comes apart wet, nothing drains onto a body beneath it, and no reservoir
-is drawn on — the vessel under the faucet is the only vessel the procedure asks for.
+is drawn on — the container under the faucet is the only one the procedure asks for.
 
 ## How the plate lets go
 
@@ -100,12 +100,12 @@ Four states in order, both pumps forward, every valve inlet to outlet.
 
 | # | Canonical state | Open | Pump | Path |
 |---|---|---|---|---|
-| 1 | Air Purge In → Reservoir A | V-B, V-C, V-F | A | hopper → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump A** → Y-D → V-F → `fluid-14` → reservoir A |
+| 1 | Air Purge In → Reservoir A | V-B, V-C, V-F | A | funnel → crossbar → V-C → hairpin `fluid-9` → Y-C → **pump A** → Y-D → V-F → `fluid-14` → reservoir A |
 | 2 | Air Purge Through A | V-B, V-C, V-G | A | same head, then Y-D → hairpin `fluid-17` → V-G → `fluid-18` → out the tip |
 | 3 | Air Purge In → Reservoir B | V-B, V-D, V-I | B | mirror of 1, into reservoir B |
 | 4 | Air Purge Through B | V-B, V-D, V-J | B | mirror of 2, out the tip |
 
-States 2 and 4 are the ones that carry air to a nozzle without drawing on a reservoir, so a pump
+States 2 and 4 are the ones that carry air out the gooseneck without drawing on a reservoir, so a pump
 swap costs no concentrate. Three valves is the most any state opens, and states 1 and 2 sit entirely
 on MANIFOLD A — inside the shared-COM budget in
 [`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
@@ -121,7 +121,7 @@ States"; this doc names the order they run in.
 
 ## Procedure
 
-**1. Run dry mode.** Vessel under the faucet — states 2 and 4 send a slug of air and residual
+**1. Run dry mode.** A container under the faucet — states 2 and 4 send a slug of air and residual
 syrup out the gooseneck.
 
 **2. Pull the cartridge.** Hook the pulling hand into either recessed flank grip and brace
@@ -151,7 +151,7 @@ and into the branch collets, and a firm push on the face with one hand bracing t
 cap's face landing on the steel is the seat: a face standing proud of the wall is a tube that has
 not gone home.
 
-**6. Re-prime.** Both channels through the hopper-fill path, then a dispense on each until it
+**6. Re-prime.** Both channels through the funnel-fill path, then a dispense on each until it
 runs clean.
 
 ## Output condition

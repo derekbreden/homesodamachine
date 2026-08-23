@@ -46,10 +46,10 @@ import cadquery as cq
 
 # `port_colors`, for `SPOOLS` below. It reaches for `enclosure_assembly` inside its own
 # functions and never at import, so the arrow points one way.
-_bp = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "back-panel"
-if str(_bp) not in sys.path:
-    sys.path.insert(0, str(_bp))
-import _back_panel_dimensions as _rear                 # noqa: E402
+_yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
+if str(_yw) not in sys.path:
+    sys.path.insert(0, str(_yw))
+import _y_wall_dimensions as _rear                     # noqa: E402
 
 # A port's declared face → the outward normal the line must leave along.
 FACE_NORMAL = {
@@ -578,7 +578,7 @@ def stock_min(kind: str, diam: float) -> float:
 
 # The spool each run is cut off. A stock is a material at a diameter; a SPOOL is a stock in one
 # colour, keyed by that colour, and `names` is the fluid the colour identifies. White, blue and
-# red are `_back_panel_dimensions.port_colors` read through, so a tube, the ring around the hole
+# red are `_y_wall_dimensions.port_colors` read through, so a tube, the ring around the hole
 # it leaves by, and the customer's own tube outboard of that ring are one colour struck once.
 @dataclass(frozen=True)
 class Spool:
