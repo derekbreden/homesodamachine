@@ -1,4 +1,4 @@
-name: publish CAD
+name: publish
 
 on:
   push:
@@ -50,7 +50,7 @@ on:
         type: boolean
 
 concurrency:
-  group: publish-cad
+  group: publish
   cancel-in-progress: true
 
 permissions:
@@ -506,9 +506,9 @@ jobs:
             echo "queueing publication from the current main tip"
             if [ "$#" -gt 0 ]; then
               requested=$(IFS=,; echo "$*")
-              gh workflow run publish-cad.yml --ref main -f targets="$requested"
+              gh workflow run publish.yml --ref main -f targets="$requested"
             else
-              gh workflow run publish-cad.yml --ref main
+              gh workflow run publish.yml --ref main
             fi
             echo "queued=true" >> "$GITHUB_OUTPUT"
           }
@@ -555,7 +555,7 @@ jobs:
             echo "the lock and canonical Quick Start already cover this source"
             exit 0
           fi
-          git commit -m "Publish the CAD cut for ${GITHUB_SHA:0:8}"
+          git commit -m "Publish ${GITHUB_SHA:0:8}"
           base="$GITHUB_SHA"
 
           for attempt in 1 2 3; do
