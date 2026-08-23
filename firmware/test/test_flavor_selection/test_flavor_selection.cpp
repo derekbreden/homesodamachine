@@ -7,7 +7,7 @@ using namespace flavor_selection;
 
 namespace {
 
-void test_new_controller_is_unestablished_and_not_falsely_persisted() {
+void test_new_main_board_is_unestablished_and_not_falsely_persisted() {
     Authority authority;
     TEST_ASSERT_EQUAL_UINT8(0, authority.selected());
     TEST_ASSERT_FALSE(authority.established());
@@ -15,7 +15,7 @@ void test_new_controller_is_unestablished_and_not_falsely_persisted() {
     TEST_ASSERT_FALSE(authority.persisted());
 }
 
-void test_valid_persisted_selection_establishes_controller_authority() {
+void test_valid_persisted_selection_establishes_main_board_authority() {
     Authority authority;
     TEST_ASSERT_EQUAL(Update::Changed, authority.loadPersisted(1));
     TEST_ASSERT_EQUAL_UINT8(1, authority.selected());
@@ -40,7 +40,7 @@ void test_first_sync_adopts_the_faucet_saved_selection() {
     TEST_ASSERT_FALSE(authority.persisted());
 }
 
-void test_later_sync_cannot_overwrite_established_controller_state() {
+void test_later_sync_cannot_overwrite_established_main_board_state() {
     Authority authority;
     authority.loadPersisted(1);
     TEST_ASSERT_EQUAL(Update::Unchanged, authority.synchronize(0));
@@ -60,7 +60,7 @@ void test_absolute_selection_is_idempotent() {
     TEST_ASSERT_TRUE(authority.needsPersistence());
 }
 
-void test_selection_establishes_a_controller_without_saved_state() {
+void test_selection_establishes_a_main_board_without_saved_state() {
     Authority authority;
     TEST_ASSERT_EQUAL(Update::Changed, authority.select(0));
     TEST_ASSERT_TRUE(authority.established());
@@ -104,7 +104,7 @@ void test_even_number_of_unanswered_taps_reasserts_final_absolute_state() {
         static_cast<int>(flavor_link_policy::epochAction(true, false, false, true, 0, 0)));
 }
 
-void test_accepted_but_not_durable_state_reasserts_after_controller_reboot() {
+void test_accepted_but_not_durable_state_reasserts_after_main_board_reboot() {
     TEST_ASSERT_EQUAL(
         static_cast<int>(flavor_link_policy::EpochAction::Reassert),
         static_cast<int>(flavor_link_policy::epochAction(true, false, true, false, 1, 1)));
@@ -119,62 +119,62 @@ void test_final_connected_level_after_same_service_reconnect_still_gets_an_actio
         static_cast<int>(flavor_link_policy::epochAction(true, false, false, false, 0, 0)));
 }
 
-void test_controller_revision_publishes_immediately() {
-    TEST_ASSERT_TRUE(flavor_link_policy::controllerStatePublicationDue(
+void test_main_board_revision_publishes_immediately() {
+    TEST_ASSERT_TRUE(flavor_link_policy::mainBoardStatePublicationDue(
         true, true, true, 101, 100, 500));
 }
 
-void test_controller_heartbeat_republishes_absolute_state() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+void test_main_board_heartbeat_republishes_absolute_state() {
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardStatePublicationDue(
         true, true, false, 599, 100, 500));
-    TEST_ASSERT_TRUE(flavor_link_policy::controllerStatePublicationDue(
+    TEST_ASSERT_TRUE(flavor_link_policy::mainBoardStatePublicationDue(
         true, true, false, 600, 100, 500));
 }
 
-void test_controller_heartbeat_is_safe_across_millis_rollover() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+void test_main_board_heartbeat_is_safe_across_millis_rollover() {
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardStatePublicationDue(
         true, true, false, 0x00000010u, 0xFFFFFF00u, 500));
-    TEST_ASSERT_TRUE(flavor_link_policy::controllerStatePublicationDue(
+    TEST_ASSERT_TRUE(flavor_link_policy::mainBoardStatePublicationDue(
         true, true, false, 0x00000100u, 0xFFFFFF00u, 500));
 }
 
-void test_controller_never_publishes_unestablished_first_install_default() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+void test_main_board_never_publishes_unestablished_first_install_default() {
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardStatePublicationDue(
         true, false, true, 10000, 0, 500));
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardStatePublicationDue(
         true, false, false, 10000, 0, 500));
 }
 
-void test_controller_does_not_publish_while_transport_is_down() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerStatePublicationDue(
+void test_main_board_does_not_publish_while_transport_is_down() {
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardStatePublicationDue(
         false, true, true, 10000, 0, 500));
 }
 
-void test_controller_heartbeat_confirms_a_lost_tokenized_reply_immediately() {
+void test_main_board_heartbeat_confirms_a_lost_tokenized_reply_immediately() {
     // The controller's repeated absolute B is enough to settle a faucet
     // request for B even if the matching tokenized response was lost.
-    TEST_ASSERT_TRUE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+    TEST_ASSERT_TRUE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, false, 1, 1, 100, 0, 2250));
 }
 
 void test_conflicting_heartbeat_waits_through_the_retry_grace() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, true, 1, 0, 2249, 0, 2250));
-    TEST_ASSERT_TRUE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+    TEST_ASSERT_TRUE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, true, 1, 0, 2250, 0, 2250));
 }
 
 void test_conflicting_heartbeat_cannot_replace_unsent_or_offline_work() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, false, 1, 0, 10000, 0, 2250));
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         true, true, true, 1, 1, 10000, 0, 2250));
 }
 
-void test_controller_heartbeat_grace_is_rollover_safe() {
-    TEST_ASSERT_FALSE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+void test_main_board_heartbeat_grace_is_rollover_safe() {
+    TEST_ASSERT_FALSE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, true, 1, 0, 0x00000010u, 0xFFFFFF00u, 300));
-    TEST_ASSERT_TRUE(flavor_link_policy::controllerHeartbeatSettlesPendingSelection(
+    TEST_ASSERT_TRUE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, true, 1, 0, 0x00000100u, 0xFFFFFF00u, 300));
 }
 
@@ -226,28 +226,28 @@ void tearDown() {}
 
 int main(int, char **) {
     UNITY_BEGIN();
-    RUN_TEST(test_new_controller_is_unestablished_and_not_falsely_persisted);
-    RUN_TEST(test_valid_persisted_selection_establishes_controller_authority);
+    RUN_TEST(test_new_main_board_is_unestablished_and_not_falsely_persisted);
+    RUN_TEST(test_valid_persisted_selection_establishes_main_board_authority);
     RUN_TEST(test_corrupt_persisted_selection_is_treated_as_absent);
     RUN_TEST(test_first_sync_adopts_the_faucet_saved_selection);
-    RUN_TEST(test_later_sync_cannot_overwrite_established_controller_state);
+    RUN_TEST(test_later_sync_cannot_overwrite_established_main_board_state);
     RUN_TEST(test_absolute_selection_is_idempotent);
-    RUN_TEST(test_selection_establishes_a_controller_without_saved_state);
+    RUN_TEST(test_selection_establishes_a_main_board_without_saved_state);
     RUN_TEST(test_persistence_success_clears_dirty_and_error);
     RUN_TEST(test_invalid_wire_values_never_change_selection);
     RUN_TEST(test_clean_connected_epoch_synchronizes_cached_state);
     RUN_TEST(test_even_number_of_unanswered_taps_reasserts_final_absolute_state);
-    RUN_TEST(test_accepted_but_not_durable_state_reasserts_after_controller_reboot);
+    RUN_TEST(test_accepted_but_not_durable_state_reasserts_after_main_board_reboot);
     RUN_TEST(test_final_connected_level_after_same_service_reconnect_still_gets_an_action);
-    RUN_TEST(test_controller_revision_publishes_immediately);
-    RUN_TEST(test_controller_heartbeat_republishes_absolute_state);
-    RUN_TEST(test_controller_heartbeat_is_safe_across_millis_rollover);
-    RUN_TEST(test_controller_never_publishes_unestablished_first_install_default);
-    RUN_TEST(test_controller_does_not_publish_while_transport_is_down);
-    RUN_TEST(test_controller_heartbeat_confirms_a_lost_tokenized_reply_immediately);
+    RUN_TEST(test_main_board_revision_publishes_immediately);
+    RUN_TEST(test_main_board_heartbeat_republishes_absolute_state);
+    RUN_TEST(test_main_board_heartbeat_is_safe_across_millis_rollover);
+    RUN_TEST(test_main_board_never_publishes_unestablished_first_install_default);
+    RUN_TEST(test_main_board_does_not_publish_while_transport_is_down);
+    RUN_TEST(test_main_board_heartbeat_confirms_a_lost_tokenized_reply_immediately);
     RUN_TEST(test_conflicting_heartbeat_waits_through_the_retry_grace);
     RUN_TEST(test_conflicting_heartbeat_cannot_replace_unsent_or_offline_work);
-    RUN_TEST(test_controller_heartbeat_grace_is_rollover_safe);
+    RUN_TEST(test_main_board_heartbeat_grace_is_rollover_safe);
     RUN_TEST(test_callback_consumes_epoch_before_sync_survives_post_service_check);
     RUN_TEST(test_request_token_history_keeps_delayed_retries_idempotent);
     return UNITY_END();

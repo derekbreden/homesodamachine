@@ -6,10 +6,10 @@
 struct BaseLinkStatus {
   bool connected;
   bool synchronized;
-  bool controllerPersisted;
-  bool controllerPersistError;
+  bool mainBoardPersisted;
+  bool mainBoardPersistError;
   bool durabilityPending;
-  uint8_t controllerFlavor;
+  uint8_t mainBoardFlavor;
   uint8_t pending;
   uint32_t framesRx;
   uint32_t framesTx;
