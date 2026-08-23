@@ -19,8 +19,15 @@ other solid in the catalog is drawn from its STEP and owes nothing.
 
 WHETHER A PAYLOAD STANDS FOR ITS SOLID IS READ OFF ITS BYTES AND NEVER OFF ITS MTIME. The
 payload states `src`, the sha256 of the STEP it was cut from (`_mesh_payload.write`), and the
-reading here is that digest against the solid's own bytes. An mtime test cannot answer this
-across a cache boundary: a restore stamps what it restores with the time it restored it, so a
+reading here is that digest against the solid's own bytes.
+
+`src` RECORDS DESCENT AND NOT AGREEMENT. Under the directories above the payload carries surface
+the solid does not — that is the whole reason it is bundled — so the two are unequal by design
+and equality is not a thing there is to test. What the digest settles is which STEP's bytes the
+payload answers to; `flute_payload` grafting flutes into one carries the host's own `src`
+forward, because grafting a surface does not change which bytes it descends from.
+
+An mtime test cannot answer this across a cache boundary: a restore stamps what it restores with the time it restored it, so a
 stale payload arrives NEWER than the STEP just cut beside it, and the one ordering an mtime test
 calls current is exactly the one where it is not.
 
