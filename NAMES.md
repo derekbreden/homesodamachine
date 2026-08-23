@@ -51,3 +51,4 @@ they became.
 | **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
 | **pump tray** | either of the two fused beds in the quadrant that a peristaltic pump sits in | |
 | **flow-meter saddle** | the fused cradles holding the flow meter's barrel | |
+| **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
