@@ -229,7 +229,7 @@ SCENES = (
              "in.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
-    # down the lid's own normal, leaned just far enough onto the near edge that a valve body and
+    # down the lid's own normal, leaned just far enough onto the near edge that a valve and
     # the pump's can read as things standing up off the plate rather than as outlines. `up` is
     # what lays the plate across the frame instead of down it — the long axis runs to the
     # pump, and the pump goes to the top right corner, which is the whole diagonal.
@@ -408,7 +408,7 @@ PARTS = (
     Part("fu02-faucet", "Faucet, made up",
          "hardware/faucet-layout/faucet-assembly.step"),
     # Through the walls: the three pieces and the scarf seams between them.
-    Part("fu05-shell", "Touch-Flo shell, three pieces",
+    Part("fu05-shell", "Faucet shell, three pieces",
          "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step", solid=False),
     # The tee in the attitude the split stands in — the run fore-and-aft and the branch
     # rolled to look down. `water_split._TURNS` is that turn, so the camera is the default
