@@ -1,7 +1,7 @@
 {
   "/hardware/assembly/_electronics_shelf_sync.py": {
     "COMP_LEAD_LEN": "~400 mm",
-    "PCBA_SIZE": "85 \u00d7 72.8 mm",
+    "MAIN_BOARD_SIZE": "85 \u00d7 72.8 mm",
     "PIGTAIL_INLET": "~150 mm",
     "PIGTAIL_MEDIUM": "~100 mm",
     "PIGTAIL_SHORT": "~50 mm",

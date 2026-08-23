@@ -204,7 +204,7 @@ One card per procedure step, in the procedure's own order.
 | Card | Operation |
 |---|---|
 | EN-01 | Stage the printed pieces |
-| EN-02 | Seat the rear wall's connection bodies |
+| EN-02 | Seat the +Y wall's connection bodies |
 | EN-03 | Bolt the compressor down to the slab |
 | EN-04 | Stand the condenser on the compressor's tangent |
 | EN-05 | Seat the cold core behind the stratum |
@@ -217,8 +217,8 @@ One card per procedure step, in the procedure's own order.
 
 | Card | Operation |
 |---|---|
-| IP-01 | CO2 path — rear wall to cold core |
-| IP-02 | Water path — rear wall to cold core |
+| IP-01 | CO2 path — +Y wall to cold core |
+| IP-02 | Water path — +Y wall to cold core |
 | IP-03 | Flavor manifold — valves and tees |
 | IP-04 | Flavor manifold — pumps and channels |
 | IP-05 | Risers to the umbilical bulkheads |
