@@ -4,10 +4,9 @@
 `/3d` serves `<file>.step.png` for the cards it draws and a README embeds the same file, so a
 thumbnail is what a reader sees when they do not open the model. It is drawn beside the STEP
 by whatever run exported it — `_cadq_export` queues one and `tools/render/render-thumbnails.js`
-draws the batch at process exit. NO SOLID NOTHING SHOWS HAS ONE: the page is two units,
-`_cadq_export._page_paints` reads that off `CARD_MODELS` in `web/contracts/parts-tree.js`, a
-README that embeds a picture is the other reader, and everything else the two units place is
-reached by selecting the solid, which opens the model. A bazel action
+draws the batch at process exit. NO SOLID NOTHING SHOWS HAS ONE: `/3d` draws the model itself,
+so a card asks for no picture, and what is left is the README that embeds one —
+`_cadq_export._has_a_reader` reads the docs to find them. A bazel action
 holds the render tool and draws nothing — `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for every one,
 because the picture is in no step's `outs` and nothing carries it out of the sandbox.
 

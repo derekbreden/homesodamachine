@@ -203,13 +203,12 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     streamFile(res, abs);
   });
 
-  // Server-rendered STEP thumbnails: `<file>.step.png` siblings produced by
-  // the part's own export (hardware/scripts/_cadq_export.py shells out to
-  // tools/render/render-thumbnails.js). The grid downloads these instead of
-  // fetching the (often multi-MB) STEP and rendering it in the browser. The
-  // 404 path is normal — a STEP with no committed thumbnail yet falls back to
-  // a client render in the grid. no-cache so a live regen or deploy is picked
-  // up via ETag revalidation rather than a stale hit.
+  // Committed pictures, served beside the file they are of: a PDF's cover
+  // (`/drawings`), a scene's `.glb` still, and the `<file>.step.png` a README
+  // embeds (hardware/scripts/_cadq_export.py shells out to
+  // tools/render/render-thumbnails.js for that one). `/3d` fetches none of these
+  // — its cards draw the model. The 404 path is normal. no-cache so a live regen
+  // or deploy is picked up via ETag revalidation rather than a stale hit.
   app.get("/thumbs/*splat", (req, res) => {
     const abs = safeFile(hardwareDir, relOf(req), ".png");
     if (!abs) return res.status(400).send("Invalid path");

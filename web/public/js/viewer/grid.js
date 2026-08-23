@@ -41,12 +41,20 @@ function thumbSize(card) {
 }
 
 // `bust` drops the cached picture, so a live reload redraws from the fresh model.
+//
+// The card says it is drawing while it draws. Reading a model takes about as long
+// as opening one does, and a card that stands empty for that long reads as a card
+// with nothing in it rather than one on its way.
 export function paintStepThumb(card, { bust = false } = {}) {
   const img = card.querySelector("img");
   if (!img) return;
   const file = card.dataset.file;
   if (bust) forgetThumbnail(file);
-  renderThumbnail(file, thumbSize(card)).then((url) => { if (url) img.src = url; });
+  card.dataset.drawing = "1";
+  renderThumbnail(file, thumbSize(card)).then((url) => {
+    if (url) img.src = url;
+    delete card.dataset.drawing;
+  });
 }
 
 function shortName(file, ext = ".step") {

@@ -205,18 +205,46 @@ static uint32_t frameDoneTimeouts = 0;
 #define RAIL_INSET_Y      8
 #define RAIL_ITEM_GAP     8
 #define RAIL_ITEM_H     110
+#define RAIL_ITEM_PAD     6
+// The word sits on the floor of the target; the icon centres in what is left,
+// so growing or shrinking a target keeps the pair together rather than pulling
+// it apart. Icon heights are the glyph box the font was built at.
+#define RAIL_ICON_TOP(h) ((RAIL_ITEM_H - 2 * RAIL_ITEM_PAD - TEXT_H_20 - (h)) / 2)
 #define PANE_W    (SCREEN_W - RAIL_W)
+#define PANE_H    (SCREEN_H - 2 * PANE_PAD)
 
-// Choose gives each card a settings target under it, and the flavor's own page
-// shows every logo it could wear. Two rows of thumbnails fit before the grid
-// scrolls, which is what keeps the first row above the fold as logos are added.
-#define HOME_CARD_H     340
-#define HOME_GEAR_H      56
-#define HOME_GEAR_GAP    12
-#define THUMB_BTN       104
-#define THUMB_GAP        10
-#define THUMB_PER_ROW     5
-#define THUMB_ROWS        2
+// Settings is not a customer destination and holds no rail slot. It is one
+// square in the screen's top-right corner, over every page.
+#define SETTINGS_BTN  64
+#define SETTINGS_GAP  14
+
+// The settings square floats over every pane from the screen root, so it is not
+// in any pane's layout and every pane has to keep its own top band clear of it.
+// A pane titles itself in that band and starts its body below it.
+#define PANE_HEAD_H   SETTINGS_BTN
+#define PANE_BODY_Y   (PANE_HEAD_H + 12)
+
+// Heights LVGL actually renders these at, so a row can be centred against a
+// number rather than an estimate of one.
+#define TEXT_H_20   22
+#define TEXT_H_28   30
+#define TEXT_H_40   44
+
+// Choose gives each card a settings target under it. The badge only reports the
+// selection — the whole card is the target that changes it — so it takes the
+// height of its own text rather than a finger's.
+#define HOME_GEAR_H    48
+#define HOME_GEAR_GAP   8
+#define HOME_BADGE_H   36
+#define HOME_CARD_H    (PANE_H - PANE_BODY_Y - HOME_GEAR_H - HOME_GEAR_GAP)
+
+// The flavor's own page: ratio, then every logo it could wear.
+#define RATIO_CARD_H  130
+#define THUMB_BTN     104
+#define THUMB_GAP      10
+#define THUMB_PER_ROW   5
+#define IMAGE_LABEL_Y (PANE_BODY_Y + RATIO_CARD_H + 12)
+#define THUMB_GRID_Y  (IMAGE_LABEL_Y + TEXT_H_20 + 8)
 #define PANE_PAD  16
 
 // ── Pages ──
@@ -1510,19 +1538,19 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
   switch (page) {
     case RAIL_CHOOSE:
       lv_obj_align(mkText(parent, "\xEF\x89\x9A", &rail_icons_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, -3);
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(36));
       break;
     case RAIL_FILL:
       lv_obj_align(mkText(parent, "\xEF\x82\xB0", &rail_icons_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, -3);
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(36));
       break;
     case RAIL_PRIME:
       lv_obj_align(mkText(parent, LV_SYMBOL_TINT, &lv_font_montserrat_28, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, 2);
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(TEXT_H_28));
       break;
     case RAIL_CLEAN:
       lv_obj_align(mkText(parent, "\xEE\x81\xAD", &clean_icon_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, 2);
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(36));
       break;
     default: break;
   }
@@ -1530,7 +1558,7 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
 
 static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
   lv_obj_t *b = mkBtn(parent, 150, 58, COL_CARD);
-  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - 58) / 2);
   lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
   lv_obj_center(mkText(b, LV_SYMBOL_LEFT "  BACK", &lv_font_montserrat_20, COL_TEXT));
   return b;
@@ -2412,7 +2440,7 @@ static void buildRail(lv_obj_t *scr) {
   for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
     lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
     lv_obj_set_pos(b, 6, RAIL_INSET_Y + i * (RAIL_ITEM_H + RAIL_ITEM_GAP));
-    lv_obj_set_style_pad_all(b, 6, 0);
+    lv_obj_set_style_pad_all(b, RAIL_ITEM_PAD, 0);
     // These carry a selected colour, so a press goes straight to it. A shade in between
     // reads as a slow tween toward a colour the button is about to take anyway, rather
     // than as confirmation — the buttons with nothing to become keep mkBtn's press shade.
@@ -2431,9 +2459,6 @@ static void buildRail(lv_obj_t *scr) {
 // puts its title top-left and its content lower, which is what leaves this
 // corner free; Home's synchronization label is the one thing that shares the
 // band, and it is aligned to clear this square.
-#define SETTINGS_BTN     64
-#define SETTINGS_GAP     14
-
 static void settingsCb(lv_event_t *e) { (void)e; showPage(PAGE_SETUP); }
 
 static void buildSettingsButton(lv_obj_t *scr) {
@@ -2484,20 +2509,20 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
 static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, 0);
+               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
   homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
                          &lv_font_montserrat_20, COL_WARN);
   // Right-aligned but held clear of the settings square, which overlaps this
   // band from the screen root and is not part of the pane's own layout.
   lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT,
-               -(SETTINGS_BTN + SETTINGS_GAP - PANE_PAD), 4);
+               -(SETTINGS_BTN + SETTINGS_GAP - PANE_PAD),
+               (PANE_HEAD_H - TEXT_H_20) / 2);
 
   // The card is the whole selection target, so its settings live beside it
   // rather than inside it — a sibling, where no press can reach the card under it.
   for (uint8_t i = 0; i < 2; ++i) {
     lv_obj_t *card = mkBtn(page, cw, HOME_CARD_H, COL_CARD);
-    lv_obj_align(card, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16),
-                 -(HOME_GEAR_H + HOME_GEAR_GAP));
+    lv_obj_align(card, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
     lv_obj_set_style_pad_all(card, 12, 0);
     lv_obj_add_event_cb(card, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
 
@@ -2514,10 +2539,10 @@ static void buildHome(lv_obj_t *page) {
     homeFlavorArtObj[i] = art;
 
     lv_obj_t *badge = lv_obj_create(card);
-    lv_obj_set_size(badge, cw - 28, 56);
+    lv_obj_set_size(badge, cw - 80, HOME_BADGE_H);
     lv_obj_align(badge, LV_ALIGN_BOTTOM_MID, 0, -2);
     lv_obj_set_style_border_width(badge, 0, 0);
-    lv_obj_set_style_radius(badge, 28, 0);
+    lv_obj_set_style_radius(badge, HOME_BADGE_H / 2, 0);
     lv_obj_set_style_pad_all(badge, 0, 0);
     lv_obj_clear_flag(badge, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_clear_flag(badge, LV_OBJ_FLAG_CLICKABLE);
@@ -2537,10 +2562,10 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_t *det = mkView(page);
   mkBack(det, flavorBackCb, NULL);
   flvDetailName = mkText(det, "FLAVOR 2", &lv_font_montserrat_40, COL_DIM);
-  lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, 8);
+  lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, (PANE_HEAD_H - TEXT_H_40) / 2);
 
-  lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, 130);
-  lv_obj_align(row, LV_ALIGN_TOP_MID, 0, 60);
+  lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, RATIO_CARD_H);
+  lv_obj_align(row, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
   lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
   lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
   lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
@@ -2554,14 +2579,13 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
 
   lv_obj_align(mkText(det, "IMAGE", &lv_font_montserrat_20, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, 198);
+               LV_ALIGN_TOP_LEFT, 0, IMAGE_LABEL_Y);
 
   // A wrapping row of logos, two rows deep before it scrolls. Positions are set
   // here rather than by a layout, the way every other surface on this panel is.
   lv_obj_t *grid = lv_obj_create(det);
-  lv_obj_set_size(grid, PANE_W - 2 * PANE_PAD, THUMB_ROWS * THUMB_BTN +
-                                               (THUMB_ROWS - 1) * THUMB_GAP);
-  lv_obj_align(grid, LV_ALIGN_TOP_MID, 0, 228);
+  lv_obj_set_size(grid, PANE_W - 2 * PANE_PAD, PANE_H - THUMB_GRID_Y);
+  lv_obj_align(grid, LV_ALIGN_TOP_MID, 0, THUMB_GRID_Y);
   lv_obj_set_style_bg_opa(grid, LV_OPA_TRANSP, 0);
   lv_obj_set_style_border_width(grid, 0, 0);
   lv_obj_set_style_pad_all(grid, 0, 0);
@@ -2591,11 +2615,12 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
                               const char *icon, const lv_font_t *iconFont,
                               lv_event_cb_t cb) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
-  lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
   for (int i = 0; i < 2; i++) {
-    lv_obj_t *b = mkTapCard(view, cw, 300, icon, iconFont, kFlavorName[i], cb,
-                             (void *)(intptr_t)i);
-    lv_obj_align(b, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
+    lv_obj_t *b = mkTapCard(view, cw, PANE_H - PANE_BODY_Y, icon, iconFont,
+                            kFlavorName[i], cb, (void *)(intptr_t)i);
+    lv_obj_align(b, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
   }
 }
 
@@ -2609,14 +2634,14 @@ static lv_obj_t *buildConfirm(lv_obj_t *page, const char *title, const char *bod
   lv_obj_t *v = mkView(page);
 
   *titleOut = mkText(v, title, &lv_font_montserrat_40, COL_DIM);
-  lv_obj_align(*titleOut, LV_ALIGN_TOP_MID, 0, 84);
+  lv_obj_align(*titleOut, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
 
   lv_obj_t *b = mkText(v, body, &lv_font_montserrat_20, COL_DIM);
   lv_obj_set_style_text_align(b, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(b, LV_ALIGN_TOP_MID, 0, 150);
+  lv_obj_align(b, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + TEXT_H_40 + 16);
 
   lv_obj_t *go = mkBtn(v, fw, 96, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_TOP_MID, 0, 240);
+  lv_obj_align(go, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + TEXT_H_40 + 16 + 2 * TEXT_H_20 + 24);
   lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
   lv_obj_add_event_cb(go, cb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(go, action, &lv_font_montserrat_28, COL_TEXT));
@@ -2637,10 +2662,10 @@ static void buildService(lv_obj_t *page) {
   // The hold pad. It fills the pane because it is meant to be found without looking.
   lv_obj_t *hold = mkView(page);
   primeTitle = mkText(hold, "PRIME FLAVOR 2", &lv_font_montserrat_28, COL_DIM);
-  lv_obj_align(primeTitle, LV_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_align(primeTitle, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
   primePad = mkBtn(hold, fw, 200, COL_ACCENT);
-  lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, 78);
+  lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
   // A slide out of the large hold target is a lost press and must stop the
   // pump just like a lift; ordinary navigation buttons keep PRESS_LOCK.
   lv_obj_clear_flag(primePad, LV_OBJ_FLAG_PRESS_LOCK);
@@ -2649,11 +2674,11 @@ static void buildService(lv_obj_t *page) {
   lv_obj_center(primePadLbl);
 
   primeElapsed = mkText(hold, "0.0 s", &lv_font_montserrat_48, COL_TEXT);
-  lv_obj_align(primeElapsed, LV_ALIGN_TOP_MID, 0, 294);
+  lv_obj_align(primeElapsed, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + 218);
 
   primeBar = lv_bar_create(hold);
   lv_obj_set_size(primeBar, fw, 18);
-  lv_obj_align(primeBar, LV_ALIGN_TOP_MID, 0, 366);
+  lv_obj_align(primeBar, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + 290);
   lv_bar_set_range(primeBar, 0, (int32_t)PRIME_MAX_MS);
   lv_bar_set_value(primeBar, 0, LV_ANIM_OFF);
   lv_obj_set_style_bg_color(primeBar, lv_color_hex(COL_CARD), LV_PART_MAIN);
@@ -2686,13 +2711,13 @@ static void buildService(lv_obj_t *page) {
 
 static void buildSettings(lv_obj_t *page) {
   lv_obj_align(mkText(page, "SETTINGS", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, 0);
+               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
   // Customer controls earn their place here when there is a clear reason to
   // change them. Keep the first shipping settings surface deliberately quiet
   // instead of exposing build, transport, memory, or touch diagnostics.
   lv_obj_t *card = mkCard(page, PANE_W - 2 * PANE_PAD, 156);
-  lv_obj_align(card, LV_ALIGN_TOP_MID, 0, 86);
+  lv_obj_align(card, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
   lv_obj_align(mkText(card, "NOTHING TO ADJUST YET", &lv_font_montserrat_20, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
   lv_obj_t *body = mkText(card, "Useful preferences will appear here\nwhen they are ready.",
