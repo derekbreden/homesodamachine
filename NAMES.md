@@ -16,6 +16,8 @@ brand name means.
 The **Not** column is the routing rule: those forms are retired, and the name beside them is what
 they became.
 
+## Derek approved
+
 | Name | Point at | Not |
 | --- | --- | --- |
 | **faucet** | the whole fixture that clamps through the counter hole | tap, faucet head, faucet stack |
@@ -57,3 +59,18 @@ they became.
 | **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
 | **boss** | a printed post with a screw hole or heat-set insert that a part fastens to | |
+| **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
+| **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
+| **collet plate** | the cut 304 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
+
+## Agent approved
+
+Names an agent settled on where Derek has not ruled. One name beats several, so an agent picks
+from here rather than minting a fresh word each time it needs to say the thing. Entries move up
+to **Derek approved** when he recognises them, or are replaced when he doesn't.
+
+| Name | Point at | Not |
+| --- | --- | --- |
+| **anchor** | a printed feature a body seats in and a strap closes over | anchor point |
+| **strap** | the zip tie that closes over an anchor | zip tie |
+| **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
