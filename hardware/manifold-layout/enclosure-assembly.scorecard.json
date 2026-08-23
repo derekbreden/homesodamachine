@@ -1138,11 +1138,11 @@
    "value": "8/8 standing",
    "target": "a groove standing open at each fore flange and a bored boss under each aft one",
    "detail": [
-    "fore flange at z   9.000, under its groove   standing   (98.1% of the probe)",
-    "fore flange at z   9.000, over its groove    standing   (98.1% of the probe)",
+    "fore flange at z   9.000, under its groove   standing   (98.7% of the probe)",
+    "fore flange at z   9.000, over its groove    standing   (98.7% of the probe)",
     "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
-    "fore flange at z 145.600, under its groove   standing   (98.1% of the probe)",
-    "fore flange at z 145.600, over its groove    standing   (98.1% of the probe)",
+    "fore flange at z 145.600, under its groove   standing   (98.7% of the probe)",
+    "fore flange at z 145.600, over its groove    standing   (98.7% of the probe)",
     "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
@@ -1544,11 +1544,11 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 58/58 corners at spec",
+   "value": "B \u2014 60/60 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7; 3/8\" braided PVC R15.9",
-    "runs by grade: B:17",
+    "runs by grade: B:18",
     "each row ends with its need \u2014 path \u00f7 the span its own two ends stand at. Far above 1 is a run riding infrastructure its ends do not ask for, and there the move is the route rather than the corner. Near 1 is not health: a short run can be pinned at both ends and still red"
    ],
    "active": true

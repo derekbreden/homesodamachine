@@ -231,6 +231,10 @@ class Run:
     diam: float
     bend: float                     # the cap the author asked every corner to hold under
     note: str = ""
+    # A FLOOR THIS RUN STATES FOR ITSELF, when the stock's own is a figure about TOOLING rather
+    # than about the metal — `1/4" soft ACR copper`'s R12.7 is a lever bender's smallest common
+    # former, and a short jumper formed by hand is not made on one. None means the stock's.
+    min_bend: float | None = None
     bends: list = field(default_factory=list)   # (index, turn°, leg-in, leg-out) per corner
     radii: dict = field(default_factory=dict)   # corner index → the radius it turns at
     caps: dict = field(default_factory=dict)    # corner index → the ceiling it rose under
@@ -352,11 +356,12 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
     corners = _bends(pts, cid)
     caps = _caps(corners, bend, cid, d)
     radii = seat_radii(pts, corners, caps, cid, d)
-    return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii, caps)
+    return Run(cid, kind, frm, to, pts, d, nominal, note, None, corners, radii, caps)
 
 
 def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | None = None,
-         skew: float | None = None, lead=None, note: str = "") -> Run:
+         skew: float | None = None, lead=None, min_bend: float | None = None,
+         note: str = "") -> Run:
     """Author a run as a HAND-PLACED centreline: the source port, explicit interior 3-D waypoints,
     the destination port — joined by straight legs and rounded at each interior corner with a tangent
     arc of `bend` radius, at whatever angle the corner turns (not just square). This is the free-form
@@ -398,7 +403,7 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
     # seat — every constraint below is about a route that exists. The run is still the
     # connection, and still owes its row: it is drawn at nothing, which is its length.
     if math.dist(src, dst) <= BUTT_MAX:
-        return Run(cid, kind, frm, to, (src, dst), d, nominal, note, [], {}, {})
+        return Run(cid, kind, frm, to, (src, dst), d, nominal, note, None, [], {}, {})
     mids = [tuple(w) for w in rest[:-1]]
     if lead is not None:
         lead_out, lead_in = lead if isinstance(lead, (tuple, list)) else (lead, lead)
@@ -422,7 +427,7 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
     corners = _bends(pts, cid)
     caps = _caps(corners, bend, cid, d)
     radii = seat_radii(pts, corners, caps, cid, d)
-    return Run(cid, kind, frm, to, pts, d, nominal, note, corners, radii, caps)
+    return Run(cid, kind, frm, to, pts, d, nominal, note, min_bend, corners, radii, caps)
 
 
 def redrawn(run: Run, pts) -> Run:
@@ -461,7 +466,7 @@ def redrawn(run: Run, pts) -> Run:
         BLOCKED.clear()
         BLOCKED.update(kept)
     return Run(run.id, run.kind, run.frm, run.to, pts, run.diam, run.bend, run.note,
-               corners, radii, {i: cap for i, _t, _a, _b in corners})
+               run.min_bend, corners, radii, {i: cap for i, _t, _a, _b in corners})
 
 
 def meet(p, u, q, v, bias):

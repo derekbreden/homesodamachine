@@ -944,15 +944,19 @@ def bend_radii(runs) -> list[dict]:
                     "legs": [round(a, 2), round(b, 2)]}
                    for i, t, a, b in r.bends]
         tightest = min((c["radius"] for c in corners), default=r.bend)
-        ratio = tightest / st.min_bend
+        # THE FLOOR IS THE RUN'S OWN WHERE IT STATES ONE. A stock's figure is about the tool the
+        # stock is usually formed on; a leg that is formed by hand says so and is graded against
+        # what a hand does (`_routing.Run.min_bend`).
+        floor = r.min_bend if r.min_bend else st.min_bend
+        ratio = tightest / floor
         rows.append({
             "id": r.id, "kind": r.kind, "frm": r.frm, "to": r.to,
             "stock": st.name, "od": r.diam, "length": round(r.length, 2),
-            "radius": round(tightest, 3), "cap": round(r.bend, 3), "minBend": st.min_bend,
+            "radius": round(tightest, 3), "cap": round(r.bend, 3), "minBend": floor,
             "ratio": round(ratio, 4),
             "grade": grade_of(ratio) if turns else None,
             "corners": corners,
-            "atSpec": sum(1 for c in corners if c["radius"] >= st.min_bend - 1e-9),
+            "atSpec": sum(1 for c in corners if c["radius"] >= floor - 1e-9),
             "bends": len(turns), "worstTurn": round(max(turns), 1) if turns else None,
             "seat": None if seat == float("inf") else round(seat, 3),
             "reach": None if hold == float("inf") else round(hold, 3),
