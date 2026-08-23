@@ -363,15 +363,15 @@ two figures move OPPOSITE ways: the jamb stands half a slot off the groove's cen
 half-ellipse where the groove is shallower, so the flank behind a jamb is
 [5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
 thins the wall and only ever thins the mullion.
-[`../texture-coupon-vent/`](../texture-coupon-vent/) printed this scheme beside the ceiling slot
-and a full-groove-width slot down alternate grooves, on a section of this same flank at this
-same pitch. **`flank-vent-mullions`** reads every mullion off the built piece.
+The coupon at `69459fea6` printed this scheme beside the ceiling slot and a full-groove-width slot
+down alternate grooves, on a section of this same flank at this same pitch.
+**`flank-vent-mullions`** reads every mullion off the built piece.
 
 **Every groove, and the stations are the field's own.** `vent_grooves` walks `flute_centres` and
 asks `plan_at` where each one landed, so a slot is struck at a groove centre by construction and
 the vent follows the field if `flute_count` is ever retuned — there is no Y station typed
 anywhere in the feature. A groove is in when its whole slot lies inside the block's AIRWAY: the
-[34..148 mm](VENT_WINDOW) between the block's two recesses, which is finstack. The 20 mm at
+[37..151 mm](VENT_WINDOW) between the block's two recesses, which is finstack. The 20 mm at
 either end is the sheet the box holds the block by, and the fan draws through neither.
 [22](VENT_GROOVES) grooves stand in that window on each flank.
 
@@ -413,7 +413,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
 | −X intake | [22](VENT_SLOTS_IN) | [84](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [59.8 cm²](VENT_OPEN_IN) |
-| +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
+| +X exhaust | [22](VENT_SLOTS_OUT) | [87](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [61.9 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
 is [60.4 %](VENT_OPEN_PCT) open where every slot runs; the readings above are what the band came

@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -73,10 +73,12 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "compressor \u2229 enclosure-front-bottom   85.8 mm\u00b3, x[  -69.10,   26.90] y[   14.00,  174.00] z[    0.00,   15.00]"
+   ],
    "active": true
   },
   {
@@ -155,13 +157,13 @@
     "water-3 \u2014 enclosure-back-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
-    "bulkhead-carb \u2014 port-ring-carb-word: 1.317 mm",
-    "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.322 mm",
-    "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.322 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.337 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
-    "bulkhead-water \u2014 port-ring-water-word: 1.346 mm",
-    "co2-inlet \u2014 port-ring-co2-word: 1.455 mm",
+    "bulkhead-carb \u2014 port-ring-carb-word: 1.342 mm",
+    "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.366 mm",
+    "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.366 mm",
+    "bulkhead-water \u2014 port-ring-water-word: 1.387 mm",
+    "co2-inlet \u2014 port-ring-co2-word: 1.446 mm",
     "foam-assembly \u2014 nameplate: 1.500 mm",
     "seaflo-pump \u2014 nameplate: 1.500 mm",
     "tee-y-c \u2014 collet-plate: 1.504 mm",
@@ -693,7 +695,7 @@
    "label": "The floor ahead of the cold core stops short of it",
    "kind": "gate",
    "status": "pass",
-   "value": "core front at 178.00, nearest body 6.92 mm ahead of it",
+   "value": "core front at 178.00, nearest body 4.00 mm ahead of it",
    "target": "every body on the floor short of the core's front face",
    "detail": [],
    "active": true
@@ -1123,10 +1125,10 @@
    "value": "4/4 posts standing",
    "target": "a printed post at every hole the donor presents",
    "detail": [
-    "x  -54.600  y   25.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x  -54.600  y  156.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x   12.400  y   25.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
-    "x   12.400  y  156.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
+    "x  -54.600  y   28.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x  -54.600  y  159.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x   12.400  y   28.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)",
+    "x   12.400  y  159.500  \u00d812.0  to z  14.600   standing   (67.9% of the annulus)"
    ],
    "active": true
   },
@@ -1138,11 +1140,11 @@
    "value": "8/8 standing",
    "target": "a groove standing open at each fore flange and a bored boss under each aft one",
    "detail": [
-    "fore flange at z   9.000, under its groove   standing   (98.1% of the probe)",
-    "fore flange at z   9.000, over its groove    standing   (98.1% of the probe)",
+    "fore flange at z   9.000, under its groove   standing   (98.2% of the probe)",
+    "fore flange at z   9.000, over its groove    standing   (98.2% of the probe)",
     "fore flange at z   9.000, 1.00 mm open       standing   (100.0% of the probe)",
-    "fore flange at z 145.600, under its groove   standing   (98.1% of the probe)",
-    "fore flange at z 145.600, over its groove    standing   (98.1% of the probe)",
+    "fore flange at z 145.600, under its groove   standing   (98.2% of the probe)",
+    "fore flange at z 145.600, over its groove    standing   (98.2% of the probe)",
     "fore flange at z 145.600, 1.00 mm open       standing   (100.0% of the probe)",
     "aft boss under the hole at z   9.000         standing   (67.3% of the probe)",
     "aft boss under the hole at z 145.600         standing   (67.3% of the probe)"
@@ -1154,11 +1156,11 @@
    "label": "No mullion the condenser's vents leave stands free for more than one slot segment",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest of 172 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
+   "value": "tallest of 171 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
    "target": "at most 24.5000 mm, the segment 3 transoms leave in a 110 mm band",
    "detail": [
     "\u2212X intake  84 openings 24.5000\u201324.5000 mm tall in 22 slots",
-    "+X exhaust 88 openings 24.5000\u201324.5000 mm tall in 22 slots",
+    "+X exhaust 87 openings 24.5000\u201324.5000 mm tall in 22 slots",
     "the band is z 31..141 \u2014 the fan's own footprint, 22 mm up from the block's base and 5 down from its crown",
     "transom 1 of 3: z 55.5..59.5, 4 mm of unpierced wall tying every mullion and both jambs",
     "transom 2 of 3: z 84..88, 4 mm of unpierced wall tying every mullion and both jambs",
@@ -1175,7 +1177,7 @@
    "target": "at least 1.74 mm across, the loops the profile lays",
    "detail": [
     "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 59.76 cm\u00b2 free over the fan's own band",
-    "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 62.61 cm\u00b2 free over the fan's own band"
+    "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 61.90 cm\u00b2 free over the fan's own band"
    ],
    "active": true
   },

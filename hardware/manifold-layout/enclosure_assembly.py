@@ -518,9 +518,13 @@ def seat_body(shape, turns=(), station=None, seat=None, **planes):
 BASE_YAW = -90.0
 
 
-# The plane the compressor's plate stands on, stated the way `rear_plane_y` is, and level with
-# the pump heads. Every reach on this can is on its −X flank (`compressor.process_tube`).
-COMPRESSOR_FRONT = 11.0
+# The plane the compressor's plate stands on, and it is THE FRONT WALL'S OWN INTERIOR FACE —
+# the can packs to the wall the way the cold core packs to the one behind it, so the stratum
+# noses into no section and the wall carries one `front_wall` corner to corner. Every reach on
+# this can is on its −X flank (`compressor.process_tube`), which is what leaves its front face
+# flat enough to be the thing that bears. The condenser stands off the can (`place_base`), so
+# it rides this plane too and roots its fore rail on it.
+COMPRESSOR_FRONT = _enc.front_plane_y
 
 
 def suction_lane_x() -> float:
