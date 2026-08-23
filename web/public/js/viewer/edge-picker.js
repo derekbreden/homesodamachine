@@ -714,6 +714,20 @@ function repoPath(file) {
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
+// WHICH SURFACE THE NUMBERS ABOVE CAME OFF. The page draws the `.step.mesh` beside a STEP
+// whenever there is one and reads the STEP only when there is not (`step.js`), and for
+// `pack.BUNDLED_PAYLOAD_DIRS` those are deliberately different surfaces — the enclosure's
+// flutes are cut into the payload (`hardware/scripts/flute_payload.py`) and are in no solid.
+// So a blob naming only the STEP sends its reader to look for geometry in a file that does
+// not hold it, and the reader finds nothing and concludes the model is broken. It is the
+// picker's own reconstruction either way: edges here come off triangles, not off the BREP.
+function surfaceText(file) {
+  const name = file.split("/").pop();
+  return (state.mountedDetail && state.mountedDetail.surface) === "mesh"
+    ? `${name}.mesh — drawn from this, not the STEP above; it can carry surface the solid does not`
+    : `${name} — the STEP itself; no payload stood beside it`;
+}
+
 // The clicked component's name, or null when there's none worth showing. Only
 // assemblies carry real component names; single-solid STEPs get a generic occt
 // translator string, which is noise. One helper so the panel row and the copy
@@ -726,7 +740,10 @@ function solidName(sel) {
 function allText(sel) {
   const lines = [];
   const file = currentFile();
-  if (file) lines.push(`file: ${repoPath(file)}`);
+  if (file) {
+    lines.push(`file: ${repoPath(file)}`);
+    lines.push(`surface: ${surfaceText(file)}`);
+  }
   const solid = solidName(sel);
   if (solid) {
     lines.push(`solid: ${solid}`);

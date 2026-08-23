@@ -84,6 +84,44 @@ test("parses a whole copy-all blob with file, solid, faces, click", () => {
   assert.deepEqual(cyl.dir, { x: 0, y: 0.766, z: -0.643 });
 });
 
+test("a surface: line names which surface and parses to nothing", () => {
+  // The blob states whether the numbers came off the STEP or off the `.step.mesh`
+  // beside it, because under `pack.BUNDLED_PAYLOAD_DIRS` those are different
+  // surfaces — the enclosure's flutes are in the payload and in no solid. The line
+  // is for the reader; it holds no coordinates and must add no pick, and the picks
+  // around it must come out exactly as they do without it.
+  const withSurface = [
+    "file: hardware/manifold-layout/enclosure-assembly.step",
+    "surface: enclosure-assembly.step.mesh — drawn from this, not the STEP above; " +
+      "it can carry surface the solid does not",
+    "solid: enclosure-front-top",
+    STRAIGHT_LINE,
+    "click: x=-10.077 y=-141.662 z=187.102",
+  ].join("\n");
+  const bare = [
+    "file: hardware/manifold-layout/enclosure-assembly.step",
+    "solid: enclosure-front-top",
+    STRAIGHT_LINE,
+    "click: x=-10.077 y=-141.662 z=187.102",
+  ].join("\n");
+  const a = parsePicks(withSurface);
+  const b = parsePicks(bare);
+  assert.deepEqual(a.picks.map((p) => p.kind), ["edge", "point"]);
+  assert.deepEqual(a.picks, b.picks);
+  assert.deepEqual(a.files, b.files);
+  assert.deepEqual(a.solids, b.solids);
+});
+
+test("the STEP-side surface line is equally inert", () => {
+  const { picks, files } = parsePicks([
+    "file: hardware/faucet-layout/faucet-assembly.step",
+    "surface: faucet-assembly.step — the STEP itself; no payload stood beside it",
+    STRAIGHT_LINE,
+  ].join("\n"));
+  assert.deepEqual(picks.map((p) => p.kind), ["edge"]);
+  assert.equal(files.length, 1);
+});
+
 test("prose between pick lines parses to nothing", () => {
   const { picks, names } = parsePicks(
     "And so 14.300 - 10.682 = 3.618 is the distance to extend.\n" +

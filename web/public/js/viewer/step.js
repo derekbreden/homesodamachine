@@ -257,11 +257,16 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     }
 
     let result = null;
+    // WHICH OF THE TWO SURFACES THIS MODEL IS. They are not always the same one: under
+    // `pack.BUNDLED_PAYLOAD_DIRS` the payload carries flutes the solid does not, so a reader
+    // told only the STEP's name is told the wrong file. The edge picker states this.
+    let surface = "step";
     const meshed = await fetchMeshes(file, headers);
     if (meshed?.unchanged) { landed = true; return; }
     if (meshed) {
       if (meshed.etag) state.stepEtags.set(file, meshed.etag);
       result = meshed.result;
+      surface = "mesh";
     } else {
       const resp = await fetch(`/steps/${file}`, { headers });
       if (resp.status === 304) { landed = true; return; }
@@ -283,7 +288,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     clearHighlight(); // and a stale scorecard part-highlight does too
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
-    state.mountedDetail = { type: "step", file };
+    state.mountedDetail = { type: "step", file, surface };
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
