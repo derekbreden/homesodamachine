@@ -1,7 +1,7 @@
 """Above-counter gasket — printed-TPU pad between the rigid
 above-counter plate (above) and the kitchen countertop (below). Seals spills
 out of the deck hole, conforms to surface irregularities so the plate
-doesn't rock, anti-rotates under handle torque, and holds preload on the
+doesn't rock, anti-rotates under faucet-lever torque, and holds preload on the
 under-counter nut as the cabinet wood moves seasonally.
 
 Material: Bambu TPU 90A (black).

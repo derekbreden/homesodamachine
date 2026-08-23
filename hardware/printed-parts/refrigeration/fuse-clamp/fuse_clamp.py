@@ -12,7 +12,7 @@ carry no thermal load, and a case laid loose against a face reads cabinet air.
     NECK      one plank down the cover's own flank, from the head to the plate's crown,
               bearing on the cover the whole way
     LEAVES    two of them, reaching inboard off the neck into the [15](CLAMP_GAP) mm of air the
-              power box hangs over its own mounting plate — the upper on the box's underside,
+              power box hangs over its own base plate — the upper on the box's underside,
               the lower on the plate's crown
 
 THE LEAVES ARE THE MOUNT, and that gap is the only place on this donor a clamp can be held.
