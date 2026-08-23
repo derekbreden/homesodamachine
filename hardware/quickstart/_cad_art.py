@@ -217,7 +217,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     # is the gap the open plate slides through — so the pair is drawn at the bottom of it.
     captive_washer_top_z = -fa.shank_length + nut_height + washer_thickness
     final_washer_top_z = fa.countertop_bottom_z - fa.under_counter_plate_thickness
-    plate_steel = cq.Color(0.72, 0.74, 0.76, 1.0)
+    plate_steel = cq.Color(0.91, 0.92, 0.94, 1.0)
     washer_steel = cq.Color(0.82, 0.83, 0.84, 1.0)
     nut_steel = cq.Color(0.43, 0.45, 0.48, 1.0)
     countertop_stone = cq.Color(0.55, 0.55, 0.58, 1.0)
