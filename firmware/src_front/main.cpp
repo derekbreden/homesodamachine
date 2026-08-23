@@ -18,9 +18,8 @@
 // It increments only when an actual bounce-buffer shortfall requires scan
 // recovery; normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
-// Two customer-rail icons from the same Font Awesome family as LVGL's built-in
-// symbols. The small project font contains only these missing glyphs.
-extern "C" const lv_font_t rail_icons_28;
+// Two customer-rail icons: a single ratio slice and a hand pointing up-left.
+extern "C" const lv_font_t rail_icons_36;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -68,7 +67,7 @@ static const uint16_t *animFrames[] = {
 // angled up toward a standing user.
 //
 // The screen is a rail of five icons down the left edge and a pane to their right: Choose,
-// Ratios, Prime, Clean, and Settings. Flavor selection follows the controller; a Prime
+// Ratio, Prime, Clean, and Settings. Flavor selection follows the controller; a Prime
 // flavor opens the shared hold pad, and the base board runs the selected pump only while
 // the finger stays down.
 
@@ -207,7 +206,7 @@ enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
 // their controller/session machinery beneath the glass, but they are separate
 // places in the interaction: one asks for a flavor to prime, the other asks
 // for a flavor to clean.
-enum RailPage { RAIL_CHOOSE, RAIL_RATIOS, RAIL_PRIME, RAIL_CLEAN,
+enum RailPage { RAIL_CHOOSE, RAIL_RATIO, RAIL_PRIME, RAIL_CLEAN,
                 RAIL_SETTINGS, RAIL_PAGE_COUNT };
 
 static lv_obj_t *pageObj[PAGE_COUNT];
@@ -1450,20 +1449,13 @@ static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
 
 static void mkRailIcon(lv_obj_t *parent, RailPage page) {
   switch (page) {
-    case RAIL_CHOOSE: {
-      // Font Awesome's hand pointer naturally faces up. Rotate the whole
-      // single-outline glyph 45° counter-clockwise so it points up-left.
-      lv_obj_t *hand = mkText(parent, "\xEF\x89\x9A", &rail_icons_28, COL_TEXT);
-      lv_obj_align(hand, LV_ALIGN_TOP_MID, 0, 2);
-      lv_obj_update_layout(hand);
-      lv_obj_set_style_transform_pivot_x(hand, lv_obj_get_width(hand) / 2, 0);
-      lv_obj_set_style_transform_pivot_y(hand, lv_obj_get_height(hand) / 2, 0);
-      lv_obj_set_style_transform_angle(hand, 3150, 0);
+    case RAIL_CHOOSE:
+      lv_obj_align(mkText(parent, "\xEF\x89\x9A", &rail_icons_36, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, -3);
       break;
-    }
-    case RAIL_RATIOS:
-      lv_obj_align(mkText(parent, "\xEF\x88\x80", &rail_icons_28, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, 2);
+    case RAIL_RATIO:
+      lv_obj_align(mkText(parent, "\xEF\x88\x80", &rail_icons_36, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, -3);
       break;
     case RAIL_PRIME:
       lv_obj_align(mkText(parent, LV_SYMBOL_TINT, &lv_font_montserrat_28, COL_TEXT),
@@ -2332,7 +2324,7 @@ static void lockScreenHide() {
 static void buildRail(lv_obj_t *scr) {
   static const char *kRail[RAIL_PAGE_COUNT] = {
       "CHOOSE",
-      "RATIOS",
+      "RATIO",
       "PRIME",
       "CLEAN",
       "SETTINGS",
@@ -2422,7 +2414,7 @@ static void buildFlavor(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
 
   lv_obj_t *both = mkView(page);
-  lv_obj_align(mkText(both, "FLAVOR RATIOS", &lv_font_montserrat_28, COL_DIM),
+  lv_obj_align(mkText(both, "FLAVOR RATIO", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, 0);
   for (int i = 0; i < 2; i++) {
     lv_obj_t *b = mkBtn(both, cw, 360, COL_CARD);
@@ -2637,7 +2629,7 @@ static void idleReset(uint8_t stage) {
 static RailPage railForPage(Page p) {
   switch (p) {
     case PAGE_HOME:    return RAIL_CHOOSE;
-    case PAGE_FLAVOR:  return RAIL_RATIOS;
+    case PAGE_FLAVOR:  return RAIL_RATIO;
     case PAGE_SERVICE: return RAIL_PRIME;
     case PAGE_SETUP:   return RAIL_SETTINGS;
     default:           return RAIL_CHOOSE;
@@ -2665,7 +2657,7 @@ static void showRail(RailPage p) {
     case RAIL_CHOOSE:
       showPage(PAGE_HOME);
       break;
-    case RAIL_RATIOS:
+    case RAIL_RATIO:
       showPage(PAGE_FLAVOR);
       break;
     case RAIL_PRIME:
