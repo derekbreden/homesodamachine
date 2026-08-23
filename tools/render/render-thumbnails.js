@@ -43,19 +43,18 @@ import sharp from "sharp";
 import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 import { start } from "../../web/server.js";
-import { ASSEMBLIES, LOOSE } from "../../web/contracts/parts-tree.js";
+import { CARD_MODELS } from "../../web/contracts/parts-tree.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
-// A PICTURE IS WHAT A CARD SHOWS, and `/3d` is three assembly cards and a shelf under them.
+// A PICTURE IS WHAT A CARD SHOWS, and `/3d` is two assembly cards.
 // `paintStepThumb` (web/public/js/viewer/grid.js) is the site's only fetch of
 // `/thumbs/<file>.step.png` and it runs on `.card[data-type="step"]`, which parts.js builds
-// from these two lists and from nothing else. What the assemblies place is `inside`: the page
-// lists none of it, and a part reached by selecting its solid opens in the modal, which renders
-// the model — so the picture beside such a solid has no reader anywhere. `KIND_RANK` puts
-// `step` first, so a shelf entry named as a directory is a card for every solid under it.
-const CARDS = [...ASSEMBLIES.map((a) => a.model), ...LOOSE.holds];
+// from `CARD_MODELS` and from nothing else. Everything else the machine is made of — the cold
+// core included — is reached by opening the assembly that holds it, and opens in the modal,
+// which renders the model. The picture beside such a solid has no reader anywhere.
+const CARDS = CARD_MODELS;
 
 function hasCard(rel) {
   const p = rel.split(path.sep).join("/");

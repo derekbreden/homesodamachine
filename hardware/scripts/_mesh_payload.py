@@ -28,6 +28,7 @@ by an edge's width and nothing else. `selftest` holds the same-BREP agreement,
 which is the half that can regress.
 """
 
+import hashlib
 import json
 import os
 import struct
@@ -56,8 +57,8 @@ ANGULAR_DEFLECTION = 0.5
 
 # Stated in the header, matched exactly by `decodeMeshPayload` in
 # web/public/js/viewer/step.js. 2 carries the per-face triangle ranges beside
-# the triangles.
-VERSION = 2
+# the triangles. 3 carries `src` as well — see `write`.
+VERSION = 3
 
 
 def deflection(shape) -> float:
@@ -204,15 +205,36 @@ def from_shape(model):
     return [m for solid in meshed if (m := _mesh(solid, "", None))]
 
 
+def read_header(path):
+    """An existing payload's header dict. Raises on a file that is not one."""
+    with open(path, "rb") as f:
+        head_len = struct.unpack("<I", f.read(4))[0]
+        return json.loads(f.read(head_len))
+
+
 def read_version(path):
     """The VERSION stated in an existing payload's header. Raises on a file that is
     not one."""
-    with open(path, "rb") as f:
-        head_len = struct.unpack("<I", f.read(4))[0]
-        return json.loads(f.read(head_len)).get("v")
+    return read_header(path).get("v")
 
 
-def write(meshes, path):
+def read_source(path):
+    """The digest of the STEP this payload was written from, or None on a payload
+    that states none."""
+    return read_header(path).get("src")
+
+
+def source_digest(step_path):
+    """The digest a payload written from `step_path` states — sha256 over the file's
+    bytes, which is what `cad-artifacts` hashes the same file by."""
+    h = hashlib.sha256()
+    with open(step_path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def write(meshes, path, src=None):
     """u32 header length, that many bytes of JSON, then one blob every array
     indexes into by [byteOffset, length]. Typed-array offsets must be aligned
     to their element size, and every array here is 4 bytes wide, so the header
@@ -221,7 +243,17 @@ def write(meshes, path):
     The header states VERSION. These files are untracked and rewritten by the
     export that writes the STEP, so a tree holds whatever the last export left;
     `decodeMeshPayload` decodes the version it knows and reads the STEP for
-    anything else."""
+    anything else.
+
+    AND IT STATES `src`, THE DIGEST OF THE STEP IT DESCRIBES, because a payload
+    is only meaningful beside the bytes it was cut from and nothing else in the
+    file says which those were. A payload names the solid the page DRAWS and the
+    picker reconstructs edges from, while every pick blob names the STEP — so a
+    payload standing beside a STEP it does not describe makes the viewer report
+    geometry that is not in the file it cites, and the reader has no way to see
+    it. Mtime cannot carry this: a cache restore stamps the payload NOW and the
+    freshly cut STEP is older, which is exactly the order that reads as current.
+    Only the bytes say."""
     entries, blob = [], bytearray()
     for m in meshes:
         e = {"name": m["name"], "color": m["color"]}
@@ -230,7 +262,10 @@ def write(meshes, path):
             e[key] = [len(blob), len(arr)]
             blob += struct.pack(f"<{len(arr)}{fmt}", *arr)
         entries.append(e)
-    head = json.dumps({"v": VERSION, "meshes": entries}, separators=(",", ":")).encode()
+    header = {"v": VERSION, "meshes": entries}
+    if src is not None:
+        header["src"] = src
+    head = json.dumps(header, separators=(",", ":")).encode()
     head += b" " * (-(len(head) + 4) % 4)
     with open(path, "wb") as f:
         f.write(struct.pack("<I", len(head)))
