@@ -1108,7 +1108,7 @@ def main():
     print(f"  Tube collars:          {tube_collar.OD:g} × {tube_collar.LENGTH:g}, "
           f"Z = {collar_top_z - tube_collar.LENGTH:.1f} → {collar_top_z:.1f} — "
           f"SODA on the blue, FLAVOR on each black")
-    print(f"  TPU o-ring:            in the Ø{tpu_o_ring.body_port_diameter:.1f} mm top port, "
+    print(f"  TPU o-ring:            in the Ø{tpu_o_ring.westbrass_port_diameter:.1f} mm top port, "
           f"Z = {soda_faucet_tube_z_bottom - tpu_o_ring.cap_thickness:.2f} → "
           f"{soda_faucet_tube_z_bottom - tpu_o_ring.cap_thickness + tpu_o_ring.total_height:.2f}")
     print(f"  Above-counter plate:   above_counter_plate.build_above_counter_plate()")

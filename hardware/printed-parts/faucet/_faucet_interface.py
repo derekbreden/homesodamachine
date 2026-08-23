@@ -48,7 +48,7 @@ flavor_tube_depth = 15.75 + flavor_tube_x_offset  # [18.925 mm](FLAVOR_TUBE_DEPT
 # Central pocket for the body's threaded shank. Ø12.6 matches the
 # factory mounting plate; the threaded shank is ~Ø11 nominal. Used by
 # all four parts in the column (shell uses it for the shank pocket
-# alongside its `body_bore_diameter` for the body OD).
+# alongside its `westbrass_bore_diameter` for the body OD).
 shank_hole_diameter = 12.6
 
 

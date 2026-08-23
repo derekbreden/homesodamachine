@@ -1,4 +1,4 @@
-# Touch-Flo TPU O-ring print log
+# TPU o-ring print log
 
 Iteration record for the printed TPU sealing thimble. Captures what
 was printed, what happened, what was deduced, **and what's queued to
@@ -17,7 +17,7 @@ TPU SKU is loaded.
 
 Geometry: 8 mm tall, Outer Ø 10.20 mm, Inner Ø 9.45 mm, wall 0.375 mm.
 Open both ends — water flows through the LLDPE inside, TPU seals
-radially between LLDPE OD and body port ID.
+radially between LLDPE OD and the Westbrass's port ID.
 
 **Slicer rejection** in Bambu Studio:
 
@@ -92,7 +92,7 @@ to compress through that combined load. The dual-compression locks up.
 Derek said:
 - New print in 85A; "got it to successfully seat with the tube in the touch-flow metal body, like actually inserted with the TPU, for the first time."
 
-First successful dual-interface seat (LLDPE tube through the thimble **and** the thimble in the Westbrass body port, together) — the lockup diagnosed on the 95A v2 print. Confirms queued fix #1 (drop to 85A). The 85A spool was dried before this run (v2 notes had both 90A/85A undried).
+First successful dual-interface seat (LLDPE tube through the thimble **and** the thimble in the Westbrass's port, together) — the lockup diagnosed on the 95A v2 print. Confirms queued fix #1 (drop to 85A). The 85A spool was dried before this run (v2 notes had both 90A/85A undried).
 
 Geometry as printed (per the current `tpu_o_ring.py` / `README.md`): inner Ø 9.2 mm, outer Ø 10.44 mm, wall 0.62 mm, cap hole Ø 6.5 mm, cap 2.1 mm, cylinder 13.5 mm, total 15.6 mm. (Wall is up from the v2-logged 0.375 mm; the part is now a 0.62 mm single Arachne wall.)
 
@@ -123,9 +123,9 @@ available in one step.
 
 ### 2. If 85A alone doesn't go together, **reverse install order**
 
-Currently the assembly procedure is: thimble cap-down into body port
+Currently the assembly procedure is: thimble cap-down into the Westbrass's port
 first, then push LLDPE down through the open top. **Try instead:**
-slip the thimble onto the LLDPE tube *outside* the body (LLDPE
+slip the thimble onto the LLDPE tube *outside* the Westbrass (LLDPE
 through the cap from above, bottoms on the cap), then push the
 LLDPE+thimble assembly into the port as a single unit.
 
