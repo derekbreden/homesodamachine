@@ -53,10 +53,23 @@ export function parseStepHash(raw) {
   return parts.length > 1 && parts.every((p) => /\.step$/i.test(p)) ? parts : [decode(body)];
 }
 
+// HOW MANY HISTORY ENTRIES STAND BETWEEN THE PAGE AND THIS MODEL. Dismissing the
+// modal pops exactly these, so a walk three models deep closes in one go rather
+// than stepping back up through the models it was reached by, and a model opened
+// from a pasted link — which pushed nothing — closes without leaving the page.
+//
+// A drill adds one, and going back takes one off, so this counts where the walk
+// stands rather than how far it has been: back twice and then close pops two,
+// not four.
+let pushed = 0;
+
+export const walkDepth = () => pushed;
+
 // The walk this file is the end of. `files` is outermost first and includes the
 // model being shown, so a one-step walk is a model opened on its own.
-export function setTrail(files) {
+export function setTrail(files, pushedHistory = false) {
   trail = files.slice(0, -1);
+  pushed = pushedHistory ? 1 : 0;
   syncCrumb(files[files.length - 1]);
 }
 
@@ -126,7 +139,10 @@ async function showStep(file, push) {
   if (!from || file === from) return false;
   saveCameraState(from);
   state.currentDetail = { type: "step", file };
-  if (push) location.hash = stepHash([...trail, file]);
+  if (push) {
+    location.hash = stepHash([...trail, file]);
+    pushed += 1;
+  }
 
   await loadStepFile(file);
   if (!state.mountedDetail || state.mountedDetail.file !== file) return false;
@@ -153,6 +169,9 @@ export async function drillTo(file) {
 // is shown. `files` is the whole walk, outermost first.
 export async function routeToStep(files) {
   const file = files[files.length - 1];
+  // The move is one history entry per level, so the levels it crosses are the
+  // entries it crosses — forwards or back.
+  pushed = Math.max(0, pushed + (files.length - 1) - trail.length);
   trail = files.slice(0, -1);
   await showStep(file, false);
   syncCrumb(file);
