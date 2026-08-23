@@ -322,8 +322,26 @@ static void console(const String &line) {
             }
             flavorSelect(which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B);
         }
-        Serial.printf("\nflavor %s%s\n", machinePumpName(flavorSelected()),
-                      flavorPersisted() ? " (persisted)" : " (persistence pending)");
+        Serial.printf("\nflavor %s%s, artwork %u/%u\n", machinePumpName(flavorSelected()),
+                      flavorPersisted() ? " (persisted)" : " (persistence pending)",
+                      flavorArt(0), flavorArt(1));
+        return;
+    }
+
+    if (line.startsWith("art")) {
+        String rest = line.substring(3); rest.trim();
+        if (rest.length()) {
+            const int sp = rest.indexOf(' ');
+            if (sp < 0) { Serial.println("\nusage: art <a> <b>"); return; }
+            const int a = rest.substring(0, sp).toInt();
+            const int b = rest.substring(sp + 1).toInt();
+            if (!flavorArtSet((uint8_t)a, (uint8_t)b)) {
+                Serial.printf("\nusage: art <0..%d> <0..%d>\n",
+                              FLAVOR_ART_COUNT - 1, FLAVOR_ART_COUNT - 1);
+                return;
+            }
+        }
+        Serial.printf("\nartwork %u/%u\n", flavorArt(0), flavorArt(1));
         return;
     }
 

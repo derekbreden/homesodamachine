@@ -68,7 +68,8 @@ pio device monitor -e appliance
 | | |
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
-| `flavor [a\|b]` | read or set the controller-owned flavor selection |
+| `flavor [a\|b]` | read or set the controller-owned flavor selection, and the logo pair beside it |
+| `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
 | `stop` | end whatever is running |
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
