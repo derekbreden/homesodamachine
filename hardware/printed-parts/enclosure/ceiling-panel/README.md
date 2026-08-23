@@ -25,7 +25,7 @@ states about itself.
   [352](PANEL_UNDER) datum: `enclosure_assembly.deck_storey` is this less the
   tap-water chain's crown and tie clearance, and the umbilical ports, CO₂
   neoFit, C14, DIGITEN axis and tube anchors all remain in that one frame.
-- **Width** is `hopper_funnel.collar_w`, whole — x ±[79.5](PANEL_HALF_W). The
+- **Width** is `funnel.collar_w`, whole — x ±[79.5](PANEL_HALF_W). The
   throat's opening is that wide and the panel's edges are collinear with it, so
   the ceiling reads as one [159 mm](PANEL_W) channel down the machine, funnel in
   the front of it and panel filling the rest.

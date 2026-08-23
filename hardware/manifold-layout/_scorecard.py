@@ -240,7 +240,7 @@ MOUNTS = (
     # stands in, so the fastening is the three quadrants pinned together.
     ("foam-assembly", ("enclosure-front-bottom", "enclosure-back-top"), "seam-capture"),
     ("seaflo-pump", "foam-assembly", "deck-mount"),
-    ("hopper-funnel", None, "wall-capture"),
+    ("funnel", None, "wall-capture"),
     # THE BASIN'S DISCONNECT, THREE BODIES ON THE SPOUT'S OWN AXIS. The stub stands inside the
     # silicone under the clamp's band; the clamp closes silicone onto steel; the union takes the
     # stub in its upper collet and starts `fluid-4` at its lower one. The first two are made up
@@ -491,7 +491,7 @@ NEVER = {
     # grips the stub through the wall — thumb on the collet and the whole basin comes away. The
     # union stays behind on its two collets. A printed feature closing on any of the four would be
     # a feature the customer has to work past every time the basin is washed.
-    "hopper-funnel":
+    "funnel":
         "The brim bears on the top wall's outer face, the collar fills `enclosure._hopper_hole`, "
         "and the elbow's own collet grips the stub the spout carries — so the basin is held down by "
         "the joint it releases from. It is a dishwasher part and comes out by hand.",
@@ -639,16 +639,16 @@ MADE_UP = (
     # which is why there is no `water-4` either.
     ("vk-solenoid.outlet", "suction-chain.tube-port"),
     # The basin's stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
-    # `hopper_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
+    # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet's lead is
     # filled by the thing it is a grip on.
     ("hopper-drain-stub.spout", "hopper-drain-union.stub"),
-    # And the same stub in the basin's own spout, `hopper_drain_stub.FUNNEL_ENGAGEMENT` up the
+    # And the same stub in the basin's own spout, `funnel_drain_stub.FUNNEL_ENGAGEMENT` up the
     # bore under the clamp's band. The basin drains THROUGH the stub, so the drain's lead is the
     # stub's own bore and there is no length of anything else to leave room for.
-    ("hopper-funnel.drain", "hopper-drain-stub.funnel"),
+    ("funnel.drain", "hopper-drain-stub.funnel"),
     # The spout's exit face and the elbow's +Z collet face, which meet. That contact is what
     # leaves no stub standing in the room between the silicone and the fitting.
-    ("hopper-funnel.drain", "hopper-drain-union.stub"),
+    ("funnel.drain", "hopper-drain-union.stub"),
 )
 
 # Ports that open to ATMOSPHERE rather than onto a line. Nothing is ever bent onto one, so a bend
@@ -740,9 +740,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # depth brings the two faces together, so what the run carries is the tube inside each
     # quick-connect and nothing between them.
     ("suction-chain", "vk-solenoid"),
-    ("hopper-funnel", "hopper-drain-stub"),
-    ("hopper-funnel", "hopper-drain-clamp"),
-    ("hopper-funnel", "hopper-drain-union"),
+    ("funnel", "hopper-drain-stub"),
+    ("funnel", "hopper-drain-clamp"),
+    ("funnel", "hopper-drain-union"),
 )} | {frozenset((x.partition(".")[0], y.partition(".")[0])) for x, y in MADE_UP}
 
 
@@ -995,7 +995,7 @@ def _bounds(a) -> list:
     clear of the display housing and on the print bed, the funnel throat inside the frame the
     top wall has left. `enclosure_assembly.carry_enclosure_bounds` brings that group over.
 
-    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `hopper_funnel` and the
+    A THIRD GROUP WAS SETTLED BEFORE THE BUILD STARTED. `manifold_layout`, `funnel` and the
     cold core's modules state bounds about their own CONSTANTS, which are fixed the moment each
     file is read — the crossbar leaving Y-A and Y-B their own tube, the two limbs standing a valve
     body apart, the spine turn holding its stock's corner, a clamp screw reaching the whole of its

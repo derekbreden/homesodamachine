@@ -46,7 +46,7 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "cold-core",
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
-           _hw / "printed-parts" / "zone-c" / "hopper-funnel",
+           _hw / "printed-parts" / "zone-c" / "funnel",
            _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "reference" / "compressor",
            _hw / "reference" / "condenser-block",
@@ -67,7 +67,7 @@ for _p in (_hw / "scripts", _here.parent,
 import _routing as R                                   # noqa: E402
 import _cold_core_interface as _cc                     # noqa: E402
 import asse1022_assembly as _asse                      # noqa: E402
-import hopper_funnel as _funnel                        # noqa: E402
+import funnel as _funnel                        # noqa: E402
 import seaflo_22_pump as _pump                         # noqa: E402
 import seaflo_suction_chain as _suct                   # noqa: E402
 import seaflo_discharge_chain as _dis                  # noqa: E402
@@ -171,9 +171,9 @@ STATIONS = {
     "digiten-flow": {"inlet": (_digiten.inlet, _split.TUBE_D),
                      "outlet": (_digiten.outlet, _split.TUBE_D)},
     # The basin's gravity drain — the spout's exit annulus, on the collar centre, facing the
-    # floor. `hopper_funnel.drain_local` is in the part's own frame, so it rides the funnel
+    # floor. `funnel.drain_local` is in the part's own frame, so it rides the funnel
     # wherever the top wall carries it.
-    "hopper-funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
+    "funnel": {"drain": ((lambda: (_funnel.drain_local, (0.0, 0.0, -1.0))),
                                 _funnel.spout_id)},
     # The disconnect under that drain. Its upper collet takes the stub the basin carries and
     # its lower one starts `fluid-4`, so the two are named for the joint rather than for flow:
@@ -344,7 +344,7 @@ def _co2_1(F):
 #
 # WHAT MOVES IT IS THE FUNNEL'S OWN STATION. The band's forward bound is the hopper union's ring
 # and the fall `fluid-4` drops off it; the union hangs on the funnel's drain, and the drain
-# stands `hopper_funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
+# stands `funnel.neck_dy` aft of the collar's Y centre — so this crossing walks with
 # `enclosure.funnel_front_y` and that offset, and with nothing else. The display housing's
 # back is its own stated cut (`enclosure.display_housing_back`), so the facet does not drag the
 # basin aft behind it.
@@ -353,7 +353,7 @@ def _co2_1(F):
 # `clearance-floor` is what holds the two apart, and it is what caught the facet growing.
 CROSS_Y = 176.5
 # THE DODGE ROUND THE DRAIN'S FALL. `fluid-4` drops one straight column off the spout, and that
-# column rides `hopper_funnel.neck_dy` aft with the folded deck's own standoff — so where the
+# column rides `funnel.neck_dy` aft with the folded deck's own standoff — so where the
 # crossing passes it, the lane steps aft into the cap lid's notched fore corner and comes back,
 # two shallow plan corners each way. Everywhere else the lane holds `CROSS_Y`: the reservoir
 # draws and `water-5` cross this storey on their own columns west of here, and the lane at

@@ -207,7 +207,7 @@ NODES = {
     # drain is an anchor like any other. The node stands for the basin AND its disconnect — the
     # spout, the stub clamped in it and the union under it are one source as far as this chart
     # is concerned, and `fluid-4` is drawn off the union's lower collet.
-    "Hopper":     (_body("hopper-funnel", "drain")
+    "Hopper":     (_body("funnel", "drain")
                    | _body("hopper-drain-union", "stub", "outlet")),
     "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
     "FlowReg":    _body("flow-regulator", "inlet", "outlet"),

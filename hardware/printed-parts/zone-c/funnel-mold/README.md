@@ -1,11 +1,11 @@
-# Hopper-funnel silicone mold
+# Funnel silicone mold
 
-The two-piece printed mold that casts the Zone C [hopper funnel](/hardware/printed-parts/zone-c/hopper-funnel/README.md)
+The two-piece printed mold that casts the Zone C [funnel](/hardware/printed-parts/zone-c/funnel/README.md)
 in food-grade platinum silicone. The funnel is a hollow [3 mm](SIL_WALL) shell,
 so the silicone forms in the gap between an outer **cavity** and an inner
 **core** — it is injection-molding geometry, hand-poured.
 
-The mold is a parametric derivative of the funnel: `hopper_funnel.build_solids()`
+The mold is a parametric derivative of the funnel: `funnel.build_solids()`
 returns the funnel's exterior and bore as separate solids, and the two mold
 halves are those Booleaned out of blocks. Change the funnel and the mold follows.
 
@@ -147,10 +147,10 @@ and coupon test are mandatory).
 
 ## Regenerate
 
-`tools/cad-venv/bin/python hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py`
-→ `hopper-funnel-mold-cavity.step`, `hopper-funnel-mold-core.step`, and an
-exploded `hopper-funnel-mold-assembly.step`.
+`tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`
+→ `funnel-mold-cavity.step`, `funnel-mold-core.step`, and an
+exploded `funnel-mold-assembly.step`.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/zone-c/hopper-funnel-mold/hopper_funnel_mold.py`
+- `/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py`

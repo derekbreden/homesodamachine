@@ -1,4 +1,4 @@
-"""Zone C hopper funnel — the removable dishwasher-safe silicone insert.
+"""Zone C funnel — the removable dishwasher-safe silicone insert.
 
 A static part in its own frame: origin at the collar-rectangle center, z = 0
 the brim underside — the plane that rests on the enclosure's top surface.
@@ -16,7 +16,7 @@ Top to bottom:
     the 3 mm top wall at its top and hanging on down into the box;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout
     offset off the collar centre in X — the whole floor is the ramp, every
-    surface of it falling toward the spout, so the basin drains dry. One rise
+    surface of it falling toward the spout, so the funnel drains dry. One rise
     serves every run, so `ramp_angle` is struck on the LONGEST half-run to
     the neck — the X one, which the offset lengthens — and every other line
     on the floor lands steeper. The neck stands on the collar's Y CENTRE, so
@@ -58,7 +58,7 @@ import worm_clamp as _clamp
 # owns the frame and asserts it; the funnel takes the front of the Y span, and a
 # deeper box adds its top wall behind rather than growing the part.
 collar_w = 159.0        # collar footprint (X) — the frame's width less 2 × brim_margin. The
-                        # basin takes the top wall's FULL width: it stands behind the display
+                        # funnel takes the top wall's FULL width: it stands behind the display
                         # facet, which spans the machine, so there is nothing beside it to leave
                         # room for
 collar_d = collar_w     # collar footprint (Y) — as deep as it is wide. One rise serves every
@@ -71,9 +71,9 @@ brim_overhang = 7.0     # brim flange reach past the collar — what actually ca
                         # top wall and holds the funnel out of the box, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-# The basin is sized in bottles: a full one goes in dumped, not metered, and the
+# The funnel is sized in bottles: a full one goes in dumped, not metered, and the
 # margin is what keeps a miss off the counter. The ramp's depth is set by its grade
-# and the spout by its tube, so the straight section is the only height the basin's
+# and the spout by its tube, so the straight section is the only height the funnel's
 # volume is in — and it stands between two bounds. The FLOOR is that requirement,
 # asserted in `build`. The CEILING is the pack: the chute hangs the ramp, the spout
 # and the drain lower with every millimetre of itself, so what the chute may spend is
@@ -87,7 +87,7 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # millimetre of chute does. So the two are one budget, and the chute is the half of it that buys
 # capacity while the spout is the half that buys a joint.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
-capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
+capacity_bottles = 1.3  # funnel capacity to the brim, in bottles — the floor it must clear
 chute_h = 21.31        # straight rectangular chute height — brim top down to the ramp start,
                         # and what holds `drop` where the drain's elbow still stands over the
                         # folded deck: the ramp's rise rides its longest half-run, and every
@@ -107,23 +107,23 @@ neck_dx = 1.85          # neck (ramp foot + spout) off the collar centre. THE SP
                         # costs depth, since it lengthens the floor's long half-run and one
                         # rise serves every run, and what pays for it is the fall under the
                         # spout (`enclosure_assembly.build_funnel`, held by `room-holds`).
-neck_dy = 0.0           # neck off the collar centre IN Y, and it is 0: THE BASIN KEEPS ITS
+neck_dy = 0.0           # neck off the collar centre IN Y, and it is 0: THE FUNNEL KEEPS ITS
                         # OWN MIRROR PLANE ACROSS Y. Every feature of the part — brim, chute,
                         # ramp and spout — stands on one plane through the collar's X axis, so
                         # the depth axis of the mould, of the floor's grade and of the finished
-                        # basin is unhanded, and the Y offset costs no depth the X one does not
+                        # funnel is unhanded, and the Y offset costs no depth the X one does not
                         # already ask for. WHAT THE FITTING NEEDS IS A COLUMN, NOT A BERTH:
                         # the elbow under the spout turns the fall aft inside its own envelope
                         # (`reference/elbow-connector`) and stands one leg under the exit face,
-                        # so nothing below the basin asks the basin to lean.
+                        # so nothing below the funnel asks the funnel to lean.
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
-                        # sticky and the basin has to come out of the machine clean, so
+                        # sticky and the funnel has to come out of the machine clean, so
                         # this is graded to SHED, not merely to slope — a shallow floor
                         # holds a residue film that a rinse has to chase. Depth is what
                         # buys it: one rise serves every run, so the grade costs
                         # `_ramp_run × tan(angle)` of it, and the chute gives that back
-                        # by shortening (the basin's volume is the target, not its
+                        # by shortening (the funnel's volume is the target, not its
                         # depth). What caps it is the pack: the drain hangs lower with
                         # every degree, and the manifold's east elbow row and the lane
                         # its pump-discharge crossings use are directly under the spout.
@@ -155,12 +155,12 @@ drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
 # reading is what holds the part to that description, so a neck moved in Y is a floor whose
 # depth is being bought on an axis the part is not offset on.
 _bounds.state(
-    "hopper-floor-grade", "The basin's floor takes its rise off the half-run the neck lengthens",
+    "funnel-floor-grade", "The funnel's floor takes its rise off the half-run the neck lengthens",
     f"the Y half-run at or under the X ({_ramp_run:.2f} mm)",
     _y_run <= _ramp_run + 1e-9,
     f"the neck stands {neck_dy:g} mm off the collar's Y centre, which makes the Y half-run "
     f"{_y_run:.2f} mm against the X's {_ramp_run:.2f} — so the rise the whole floor is struck "
-    f"on rides the depth axis, and `neck_dx` buys the basin nothing.")
+    f"on rides the depth axis, and `neck_dx` buys the funnel nothing.")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.
@@ -200,7 +200,7 @@ def build_solids(drop=drop):
     metrics dict. This is the source the silicone-mold generator consumes: the
     mold cavity is the negative of `solid` and the mold core is `cavity`. Keeping
     it here, beside the funnel, keeps the mold in lockstep with the part.
-    See ../hopper-funnel-mold/."""
+    See ../funnel-mold/."""
     w, d = collar_w, collar_d
     cx = cy = 0.0
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
@@ -249,14 +249,14 @@ def build(drop=drop):
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
     ).Volume()
-    # The chute is what carries the basin past its floor. Capacity is LINEAR in
+    # The chute is what carries the funnel past its floor. Capacity is LINEAR in
     # chute_h (the cone spans the ramp rise, which the X half-run fixes, and the
     # spout tube is fixed), so a miss names the height that closes it.
     want = capacity_bottles * bottle_ml * 1000.0
     if fill < want - 1.0:
         bore_area = m["bore_w"] * m["bore_d"]
         raise ValueError(
-            f"hopper basin holds {fill / 1000.0:.1f} mL, short of the "
+            f"the funnel holds {fill / 1000.0:.1f} mL, short of the "
             f"{capacity_bottles:g} × {bottle_ml:g} mL = {want / 1000.0:.1f} mL target — "
             f"set chute_h to {chute_h + (want - fill) / bore_area:.2f} mm")
     return cq.Workplane(obj=solid.cut(cavity)), (
@@ -266,10 +266,10 @@ def build(drop=drop):
 
 def main():
     funnel, (w, d, total, end_z, fill) = build()
-    out = _here.parent / "hopper-funnel.step"
-    # The basin is cast in platinum-cure silicone, and the STEP says so — the card's own picture
+    out = _here.parent / "funnel.step"
+    # The funnel is cast in platinum-cure silicone, and the STEP says so — the card's own picture
     # of it is drawn off this file, the machine's picture off the same colour.
-    export_assembly(one_body(funnel, "hopper-funnel", M_SILICONE_BLACK), str(out))
+    export_assembly(one_body(funnel, "funnel", M_SILICONE_BLACK), str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
     print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f} (local; z 0 = brim underside)")
@@ -281,13 +281,13 @@ def main():
     substitute_md(
         _here.parent / "README.md",
         variables={
-            "HOPPER_SPOUT_ID": f"{spout_id:g} mm",
-            "HOPPER_CHUTE": f"{chute_h:g} mm",
-            "HOPPER_LAND": f"{spout_tube:g} mm",
-            "HOPPER_DROP": f"{total:.0f} mm",
-            "HOPPER_CAP": f"{fill / 1000.0:.0f} mL",
-            "HOPPER_HOLD": f"{brim_overhang:g} mm",
-            "HOPPER_MARGIN": f"{brim_margin:g} mm",
+            "FUNNEL_SPOUT_ID": f"{spout_id:g} mm",
+            "FUNNEL_CHUTE": f"{chute_h:g} mm",
+            "FUNNEL_LAND": f"{spout_tube:g} mm",
+            "FUNNEL_DROP": f"{total:.0f} mm",
+            "FUNNEL_CAP": f"{fill / 1000.0:.0f} mL",
+            "FUNNEL_HOLD": f"{brim_overhang:g} mm",
+            "FUNNEL_MARGIN": f"{brim_margin:g} mm",
         },
     )
     print("-> README.md")
