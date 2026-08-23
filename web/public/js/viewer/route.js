@@ -24,7 +24,9 @@ import {
   openMmdDetail, closeMmdDetail,
   openPcbDetail, closePcbDetail,
 } from "./detail-shims.js";
-import { routeToStep } from "./step-nav.js";
+import { routeToStep, parseStepHash } from "./step-nav.js";
+
+const decodeHash = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
@@ -92,10 +94,14 @@ export function applyInitialRoute(occtPromise) {
       occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
     }
   } else if (location.hash) {
-    const hash = decodeURIComponent(location.hash.slice(1));
-    if (hash.startsWith("step:")) {
-      const file = hash.slice(5);
-      occtPromise.then(() => setTimeout(() => openDetail(file, false), 100));
+    const raw = location.hash.slice(1);
+    const hash = decodeHash(raw);
+    if (raw.startsWith("step:")) {
+      // The whole walk, so a link pasted cold opens where it says with the trail
+      // that leads back out of it.
+      const path = parseStepHash(raw);
+      occtPromise.then(() => setTimeout(
+        () => openDetail(path[path.length - 1], false, path), 100));
     } else if (hash.startsWith("dxf:")) {
       const file = hash.slice(4);
       setTimeout(() => openDxfDetail(file, false), 100);

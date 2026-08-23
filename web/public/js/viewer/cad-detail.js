@@ -36,7 +36,7 @@ import { clearComponentEdit } from "./component-edit.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
 import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton } from "./tool-rail.js";
 import { makePickModeControl } from "./pick-mode.js";
-import { resetTrail } from "./step-nav.js";
+import { setTrail, stepHash } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { clearHighlight } from "./part-highlight.js";
 
@@ -122,7 +122,7 @@ const CAD_KINDS = {
   glb:  { ext: ".glb",  hashPrefix: "glb:"  },
 };
 
-export function openCadDetail(type, file, pushHistory = true) {
+export function openCadDetail(type, file, pushHistory = true, path = null) {
   const kind = CAD_KINDS[type];
   // Set currentDetail BEFORE touching location.hash. In Puppeteer (and
   // some browser configurations) setting location.hash can fire a
@@ -131,7 +131,13 @@ export function openCadDetail(type, file, pushHistory = true) {
   // reflect this open or we re-enter and end up with a duplicate
   // ContentViewer.
   state.currentDetail = { type, file };
-  if (pushHistory) location.hash = kind.hashPrefix + encodeURIComponent(file);
+  // A STEP opens at the end of a walk — one step long when it is a card being
+  // opened, longer when a link named the way in.
+  if (pushHistory) {
+    location.hash = type === "step"
+      ? stepHash(path && path.length ? path : [file])
+      : kind.hashPrefix + encodeURIComponent(file);
+  }
 
   // Build the modal wrapper. Renderer canvas + gizmo canvas get moved
   // out of the hidden host into here; on close they go back. The
@@ -169,9 +175,10 @@ export function openCadDetail(type, file, pushHistory = true) {
   if (type === "step") mountScorecard(wrapper, file);
 
   state.currentCadWrapper = wrapper;
-  // Whatever trail the last open left behind ends here: this file is the root
-  // of the one about to be walked.
-  resetTrail(file);
+  // Whatever trail the last open left behind ends here. A card names no walk and
+  // this file is the root of the one about to be taken; a link that carries a
+  // path opens partway down one already walked.
+  setTrail(path && path.length ? path : [file]);
 
   // Escape dismisses the innermost surface that is up. The <dialog> answers
   // Escape by closing the whole viewer, so a nested surface takes the key
@@ -277,6 +284,6 @@ export function closeCadDetail(pushHistory = true) {
 
 // Backward-compatible thin wrappers — call sites in grid/live/popstate
 // still use the old per-format names.
-export function openDetail(file, pushHistory = true)    { openCadDetail("step", file, pushHistory); }
+export function openDetail(file, pushHistory = true, path = null) { openCadDetail("step", file, pushHistory, path); }
 export function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }
 export function openGlbDetail(file, pushHistory = true) { openCadDetail("glb",  file, pushHistory); }

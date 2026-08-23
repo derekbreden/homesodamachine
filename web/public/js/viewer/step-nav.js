@@ -54,15 +54,10 @@ export function parseStepHash(raw) {
 }
 
 // The walk this file is the end of. `files` is outermost first and includes the
-// model being shown.
+// model being shown, so a one-step walk is a model opened on its own.
 export function setTrail(files) {
   trail = files.slice(0, -1);
   syncCrumb(files[files.length - 1]);
-}
-
-export function resetTrail(file) {
-  trail = [];
-  syncCrumb(file);
 }
 
 // ── Breadcrumb ──────────────────────────────────────────────────────────────
@@ -84,8 +79,10 @@ function syncCrumb(file) {
   let crumb = wrapper.querySelector(".cad-crumb");
   const pill = filenamePill(wrapper);
 
+  // Nothing above this model: the pill says its name on its own, and the crumb
+  // stands empty rather than hidden-but-still-reading as the last walk taken.
   if (!trail.length) {
-    if (crumb) crumb.classList.remove("show");
+    if (crumb) { crumb.classList.remove("show"); crumb.textContent = ""; }
     if (pill) pill.style.display = "";
     return;
   }

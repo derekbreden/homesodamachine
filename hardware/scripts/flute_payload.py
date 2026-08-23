@@ -288,7 +288,12 @@ def cut(step: Path, stl: Path, verbose=True):
             "pos": pos.ravel().tolist(), "nrm": nrm.ravel().tolist(),
             "idx": idx.ravel().tolist(), "fac": fac.tolist()}
     out = step.with_name(step.name + ".mesh")
-    _mesh_payload.write([mesh], str(out))
+    # THIS PAYLOAD CARRIES MORE SURFACE THAN THE SOLID AND IT STILL STANDS FOR IT. The flutes
+    # are in the mesh and not in the STEP, so the two are not the same surface — but the mesh
+    # is cut FROM this solid's print and is answerable to these bytes, and `_payload_current`
+    # asks exactly that. Written without `src` it would read as a payload of unknown descent,
+    # and the plain tessellation in `_cadq_export` would replace it — serving a smooth box.
+    _mesh_payload.write([mesh], str(out), src=_mesh_payload.source_digest(step))
     if verbose:
         print(f"-> {out.name}  {len(printed.faces)} -> {len(reduced.faces)} facets, "
               f"{len(pos)} vertices, {len(fac) // 2} regions, "
@@ -357,7 +362,14 @@ def graft(path: Path, fluted: dict):
     bench scene agree with the piece's own solid to within a tessellation's deflection.
 
     THE HOST KEEPS ITS OWN NAME AND COLOUR. A body is coloured by the assembly that places it,
-    and swapping the surface is not swapping which part it is."""
+    and swapping the surface is not swapping which part it is.
+
+    AND IT KEEPS ITS OWN DESCENT. `src` says which STEP's bytes this payload answers to
+    (`_mesh_payload.write`), and grafting a surface into it does not change that — the host
+    was cut from the solid it still sits beside. Recomputing it here would also ask for a
+    STEP that need not be on this disk: what is grafted into is a payload, and the graft is
+    the same operation whether or not its solid was carried along with it."""
+    src = _mesh_payload.read_source(path) if path.is_file() else None
     held = read_payload(path)
     if held is None:
         return 0
@@ -376,7 +388,7 @@ def graft(path: Path, fluted: dict):
     # not happen. `render_scenes.write_payload` holds the same property for the payload it cuts.
     path = Path(path)
     tmp = path.with_name(path.name + ".tmp")
-    _mesh_payload.write(held, str(tmp))
+    _mesh_payload.write(held, str(tmp), src=src)
     if path.is_file() and path.read_bytes() == tmp.read_bytes():
         tmp.unlink()
     else:
