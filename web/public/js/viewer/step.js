@@ -303,8 +303,13 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
 }
 
 // --- Thumbnail rendering ---
+// SIZED BY THE CALLER, because a picture drawn smaller than it is shown is a
+// picture nobody wants: the /3d cards take half the page each and a dense display
+// doubles that again (`thumbSize` in grid.js). This is the square it starts at,
+// and what a caller naming no size gets.
+const THUMB_SIZE = 400;
 const thumbRenderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-thumbRenderer.setSize(400, 400);
+thumbRenderer.setSize(THUMB_SIZE, THUMB_SIZE);
 thumbRenderer.setPixelRatio(1);
 thumbRenderer.setClearColor(BG_COLOR);
 thumbRenderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -315,7 +320,10 @@ addStudioLighting(thumbScene);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.
-export function snapThumbnail(group) {
+export function snapThumbnail(group, px = THUMB_SIZE) {
+  // The drawing buffer only, so the canvas keeps no style of its own — nothing
+  // puts this element on a page.
+  if (thumbRenderer.domElement.width !== px) thumbRenderer.setSize(px, px, false);
   thumbScene.add(group);
 
   const box = new THREE.Box3().setFromObject(group);
@@ -349,10 +357,10 @@ export function snapThumbnail(group) {
 
 // Build + shade + snap an occt-shaped result. Both thumbnail sources end here,
 // so where the meshes came from can't change how the part looks.
-export function renderMeshes(result) {
+export function renderMeshes(result, px) {
   const group = buildMesh(result);
   applyXray(group); // match the detail view's x-ray mode in the thumbnail
-  return snapThumbnail(group);
+  return snapThumbnail(group, px);
 }
 
 // THE THUMBNAIL DRAWS WHAT THE DETAIL VIEW DRAWS. `loadStepFile` answers off the payload beside
@@ -361,21 +369,33 @@ export function renderMeshes(result) {
 // enclosure's pieces, whose flutes are in the payload and not in the B-rep
 // (hardware/scripts/flute_payload.py). Where no payload stands, both read the STEP and this is
 // the same fetch it always was.
-export async function renderThumbnail(file) {
-  if (state.thumbnailCache.has(file)) return state.thumbnailCache.get(file);
+// Every picture of one model, whatever size it was asked at — what a live reload
+// drops so the next card redraws from the model that just changed.
+export function forgetThumbnail(file) {
+  for (const key of state.thumbnailCache.keys()) {
+    if (key.slice(0, key.lastIndexOf("@")) === file) state.thumbnailCache.delete(key);
+  }
+}
+
+export async function renderThumbnail(file, px = THUMB_SIZE) {
+  // THE SIZE IS PART OF WHAT IS CACHED. A card asks at its own width, and the
+  // same model shown at two widths is two pictures; keying on the file alone
+  // would hand the second one the first one's pixels.
+  const key = `${file}@${px}`;
+  if (state.thumbnailCache.has(key)) return state.thumbnailCache.get(key);
 
   try {
     const meshed = await fetchMeshes(file, {});
     if (meshed && meshed.result) {
-      const fromPayload = renderMeshes(meshed.result);
-      state.thumbnailCache.set(file, fromPayload);
+      const fromPayload = renderMeshes(meshed.result, px);
+      state.thumbnailCache.set(key, fromPayload);
       return fromPayload;
     }
     const resp = await fetch(`/steps/${file}`);
     if (!resp.ok) return null;
     const buf = new Uint8Array(await resp.arrayBuffer());
-    const dataURL = renderMeshes(await parseStep(buf));
-    state.thumbnailCache.set(file, dataURL);
+    const dataURL = renderMeshes(await parseStep(buf), px);
+    state.thumbnailCache.set(key, dataURL);
     return dataURL;
   } catch {
     return null;
