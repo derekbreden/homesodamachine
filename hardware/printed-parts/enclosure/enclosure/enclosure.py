@@ -1174,19 +1174,23 @@ def ceiling_stations(digiten, anchors, panel: bool):
 # And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
 # the face a user hauls the pump cartridge out by, so it carries section the way the facet
 # does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
-# and the interior face stands here.
-#
-# THE REFRIGERATION STRATUM PACKS TO THIS PLANE and noses into none of it. The compressor's
-# plate stands on it (`enclosure_assembly.COMPRESSOR_FRONT`), the condenser bears on it through
-# its rails, and the fuse clamp stands clear behind it — so across the whole of the lower storey
-# the wall keeps one `front_wall` section, corner to corner, with no pocket in it.
-#
-# WHAT STILL TAKES A RELIEF IS THE CARTRIDGE'S OWN PUMPS, 45°-chamfered like every pocket on
-# this box (`front_reliefs`), each tray rooting on a pocket floor struck by its own wrap rule.
-# Those are in the piece a hand pulls out, not in this wall. `box-front` reads the pack against
-# the relieved surface, region by region, not one plane.
+# and the interior face stands here. What noses into the section gets a RELIEF, 45°-chamfered
+# like every pocket on this box (`front_reliefs`): the refrigeration stratum keeps the face it
+# was packed against, and each pump tray roots on a pocket floor struck by its own wrap rule.
+# `box-front` reads the pack against the relieved surface, region by region, not one plane.
 front_wall = 9.0
 front_plane_y = 14.0
+# The refrigeration stratum's relief: one stated pocket across THE COMPRESSOR ALONE, floored on
+# the face it packs to. It is the only body in this stratum that stands fore of the front wall's
+# own interior plane — the condenser bears on that plane through its rails and the fuse clamp
+# stands clear behind it — so the wall keeps its full `front_wall` section everywhere else along
+# the front.
+#
+# WHAT KEEPS THE CAN OUT HERE is the −X core stop: `_core_stops` stands a floor block
+# `core_stop_web` ahead of the cold core's front face, which spends all but 0.9 mm of the room
+# between the two bodies, so a can packed back to `front_plane_y` lands its aft corner in it.
+# Stated as (x0, x1, z0, z1, floor).
+fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
 # And each pump's relief in the cartridge face, floored where the tray's own wrap rule wants
 # its root: `pump_tray` demands root ≥ head_half + MARGIN off the pump's axis, and the floor
 # is what the root is struck to. The face over a pump keeps this floor less the exterior
@@ -3895,13 +3899,9 @@ def _pump_relief_regions(pump_trays):
 
 
 def _front_relief_regions(pump_trays):
-    """Every region the front wall's section is relieved over, which is THE PUMPS' OWN POCKETS
-    AND NOTHING ELSE.
-
-    The refrigeration stratum packs to `front_plane_y` and takes no pocket, so a body standing
-    on the floor of this box faces the full `front_wall` section; only a tray in the cartridge
-    asks the face for room."""
-    return list(_pump_relief_regions(pump_trays))
+    """Every region the front wall's section is relieved over: the stated refrigeration
+    bay and the pumps' own pockets."""
+    return [fridge_relief] + _pump_relief_regions(pump_trays)
 
 
 def _front_relief_cuts(inner, pump_trays):
@@ -5650,10 +5650,11 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
         half = cond_slot_half(fz1 - fz0)
-        # The rail roots on the wall surface actually behind the block, and on this storey that
-        # is the front wall's own interior plane everywhere: the only pockets in the front are
-        # the cartridge's (`_front_relief_regions`), and no condenser station stands over one.
-        root_y = front_plane_y
+        # The rail roots on the wall surface actually behind the block, which is the front
+        # wall's own interior plane where no relief is struck over this station's span.
+        root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in (fridge_relief,)
+                                        if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
+                                        and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
         solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip,
                                  root, fz1 + half + cond_rail_wall))
         # The groove runs out past the rail's own aft end, so the flange enters from the bay.
