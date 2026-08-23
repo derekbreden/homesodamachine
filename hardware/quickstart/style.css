@@ -474,6 +474,21 @@ html, body {
   stroke-width: 7px;
   stroke-linecap: round;
 }
+.hero-parked-machine { opacity: .17; }
+.hero-free-end {
+  fill: #fff;
+  stroke-width: 5px;
+}
+.hero-free-blue { stroke: var(--water); }
+.hero-free-black { stroke: var(--ink); }
+.hero-machine-hand {
+  fill: #ffd8ca;
+  stroke: #a65c52;
+  stroke-width: 4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hero-machine-hand .hand-detail { fill: none; }
 .route-hero marker path {
   fill: var(--accent);
   stroke: #fff;
@@ -504,13 +519,13 @@ html, body {
   width: 2434px;
   height: 798px;
   display: grid;
-  grid-template-columns: 810px 2px 810px 2px 810px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 2px solid var(--rule);
 }
-.connection-rule { background: var(--rule); }
+.connection-rule { display: none; }
 .connection-beat {
   position: relative;
-  width: 810px;
+  width: auto;
   height: 798px;
   overflow: hidden;
 }
@@ -539,14 +554,14 @@ html, body {
   letter-spacing: -.4px;
 }
 .port-scene {
-  width: 810px;
+  width: 100%;
   height: 600px;
   overflow: hidden;
   background: #fff;
 }
 .port-scene > svg {
   display: block;
-  width: 810px;
+  width: 100%;
   height: 600px;
 }
 .action-tube-halo {
@@ -555,6 +570,31 @@ html, body {
   stroke-width: 28px;
 }
 .action-tube { stroke-width: 17px; }
+.trim-offcut,
+.preinsert-tube,
+.tug-ghost {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.trim-offcut {
+  stroke: #8fb9f7;
+  stroke-width: 17px;
+  stroke-dasharray: 18 14;
+  opacity: .8;
+}
+.preinsert-tube {
+  stroke: #98b7e7;
+  stroke-width: 17px;
+  stroke-dasharray: 18 14;
+  opacity: .82;
+}
+.tug-ghost {
+  stroke: #a8abb2;
+  stroke-width: 14px;
+  stroke-dasharray: 18 14;
+  opacity: .78;
+}
 .port-scene .collar-word { font-size: 18px; }
 .cut-mark,
 .repeat-cut {
