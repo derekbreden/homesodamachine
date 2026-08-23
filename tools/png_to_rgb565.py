@@ -18,12 +18,19 @@ IMAGES = PROJECT / "images"
 S3_DIR = PROJECT / "firmware" / "src_config" / "images"
 RP_DIR = PROJECT / "firmware" / "src_display"
 FAUCET_DIR = PROJECT / "firmware" / "src_faucet" / "images"
+FRONT_DIR = PROJECT / "firmware" / "src_front" / "images"
 
-# (source png, label, S3 var [240×240], RP2040 var [128×115], faucet var [172×320])
+# The front face picks a flavor's artwork from every logo here, so each one needs
+# both the 240 it shows on a Choose card and the 96 it shows in the picker grid.
+THUMB = 96
+
+# (source png, label, S3 var [240×240], RP2040 var [128×115], faucet var [172×320],
+#  front thumbnail var [96×96])
 FLAVORS = [
-    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet"),
-    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet"),
-    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", None),
+    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet", "flavor0_thumb"),
+    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet", "flavor1_thumb"),
+    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", None, "flavor2_thumb"),
+    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", None, "flavor3_thumb"),
 ]
 
 
@@ -55,14 +62,16 @@ def main():
     S3_DIR.mkdir(parents=True, exist_ok=True)
     RP_DIR.mkdir(parents=True, exist_ok=True)
     FAUCET_DIR.mkdir(parents=True, exist_ok=True)
+    FRONT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"Converting {len(FLAVORS)} flavors to RGB565 headers...")
-    for png, label, s3_var, rp_var, faucet_var in FLAVORS:
+    for png, label, s3_var, rp_var, faucet_var, thumb_var in FLAVORS:
         src = IMAGES / png
         if not src.exists():
             print(f"  SKIP {png} (missing)")
             continue
         write_header(src, s3_var, label, S3_DIR / f"{s3_var}.h", 240, 240)
         write_header(src, rp_var, label, RP_DIR / f"{rp_var}.h", 128, 115)
+        write_header(src, thumb_var, label, FRONT_DIR / f"{thumb_var}.h", THUMB, THUMB)
         if faucet_var:
             write_header(src, faucet_var, label, FAUCET_DIR / f"{faucet_var}.h",
                          172, 320, cover=True)
