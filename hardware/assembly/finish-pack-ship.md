@@ -29,7 +29,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14 
 | Archival pen (signature application) | TBD per Open items | Pigment-ink, fade-resistant, kitchen-wipe-resistant. Used if the signature is applied handwritten rather than laser-engraved (decision pending per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "Signature fidelity"). |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
 
-Tooling (per-appliance-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): microfiber wipe-down rag, isopropyl + lint-free wipes for fingerprint removal on stainless and printed surfaces, foam-tip swab for hopper/funnel interior, the laser-engraver (if the signature path lands on engrave) or the archival pen (if it lands on handwritten), kitchen scale or platform scale for the shipping-weight measurement.
+Tooling (per-appliance-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): microfiber wipe-down rag, isopropyl + lint-free wipes for fingerprint removal on stainless and printed surfaces, foam-tip swab for the funnel's interior, the laser-engraver (if the signature path lands on engrave) or the archival pen (if it lands on handwritten), kitchen scale or platform scale for the shipping-weight measurement.
 
 ## Procedure
 
@@ -39,7 +39,7 @@ Take the appliance fresh off the [`acceptance-and-burn-in.md`](/hardware/assembl
 
 Inspect every exposed surface against the following pass criteria:
 
-- Every visible printed surface clean of layer-line debris and stringing — particular attention to the hopper opening's collar seat, the pump cartridge's face and the bay jambs either side of it, and the rear wall's cutouts, where small printed features land near user sightlines.
+- Every visible printed surface clean of layer-line debris and stringing — particular attention to the funnel opening's collar seat, the pump cartridge's face and the bay jambs either side of it, and the rear wall's cutouts, where small printed features land near user sightlines.
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any wall cutout. Every cutout on the wall is a fitting's own
   flange or housing — the machine carries no cable gland.
@@ -53,11 +53,11 @@ Failures at this step: cosmetic blemishes are repaired in place where possible (
 
 ### 2. Confirm system fluid-drain dry
 
-The appliance ships **DRY**. Carbonator and both flavor reservoirs are emptied at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13, after the burn-in refill defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the nozzle until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first.
+The appliance ships **DRY**. Carbonator and both flavor reservoirs are emptied at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13, after the burn-in refill defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the gooseneck until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first.
 
 Carton-weight references: ~[20 kg](SLOSH_CARTON_W) full carton; emptied reservoirs save ~[~1.5 kg](WATER_DRAINED) water + ~[~1 kg](FLAVOR_DRAINED) flavor.
 
-Confirm dry at this bench by: (a) listening at the nozzle while gently tilting the appliance [~15°](TILT_ANGLE) side-to-side and front-to-back — no liquid splash, no pooled-water "thunk"; (b) opening each reservoir cap and visually inspecting the sump for residual flavor (must be zero — the air-purge sequence pumps the reservoirs dry, so any residual flavor at this bench means the purge cycle didn't complete); (c) opening the faucet lever with the system de-pressurized and the rear CO2 line disconnected — no liquid discharge at the spout, no audible CO2 vent (the system should already be at atmospheric pressure off the burn-in bench). Any wet finding sends the unit back to the burn-in bench for a re-purge cycle, not corrected at this bench.
+Confirm dry at this bench by: (a) listening at the gooseneck while gently tilting the appliance [~15°](TILT_ANGLE) side-to-side and front-to-back — no liquid splash, no pooled-water "thunk"; (b) opening each reservoir cap and visually inspecting the sump for residual flavor (must be zero — the air-purge sequence pumps the reservoirs dry, so any residual flavor at this bench means the purge cycle didn't complete); (c) opening the faucet lever with the system de-pressurized and the rear CO2 line disconnected — no liquid discharge at the gooseneck, no audible CO2 vent (the system should already be at atmospheric pressure off the burn-in bench). Any wet finding sends the unit back to the burn-in bench for a re-purge cycle, not corrected at this bench.
 
 ### 3. Apply the per-unit nameplate plate with signature
 

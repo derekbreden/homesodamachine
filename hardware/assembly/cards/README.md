@@ -210,8 +210,8 @@ One card per procedure step, in the procedure's own order.
 | EN-05 | Seat the cold core behind the stratum |
 | EN-06 | Stand the power column on the +X flank |
 | EN-07 | Close the box |
-| EN-08 | Slide the drip tray in through the −X wall |
-| EN-09 | Display into the facet, hopper opening clear |
+| EN-08 | Slide the ASSE drip pan in through the −X wall |
+| EN-09 | Display into the facet, funnel opening clear |
 
 ### IP — Internal plumbing ([internal-plumbing.md](/hardware/assembly/internal-plumbing.md))
 
@@ -272,8 +272,8 @@ One card per procedure step, in the procedure's own order.
 One card per finished unit rather than per operation: the picture is a cut of
 the built machine, posed, and the column beside it names each body and the joint
 that holds it. What a unit does **not** carry yet is held back in
-[`_scenes.py`](/hardware/assembly/scenes/_scenes.py) — the drip tray and the
-hopper funnel both come in through a wall long after their piece leaves the
+[`_scenes.py`](/hardware/assembly/scenes/_scenes.py) — the ASSE drip pan and the
+funnel both come in through a wall long after their piece leaves the
 bench, and the collet plate drops into the bay floor's seat through the open
 bay, all three with the box standing — and what it carries that the tables give
 to another piece is added there too: a run made up on one unit leaves it with
@@ -286,7 +286,7 @@ its far end hanging.
 | SA-03 | Foam shell top cap lid — fill |
 | SA-04 | Foam shell top cap lid assembly |
 | SA-05 | Enclosure back half |
-| SA-06 | Hopper basin drain stub |
+| SA-06 | Funnel drain stub |
 | SA-07 | Cold core, plumbed |
 | SA-08 | Cold core, ready to foam |
 | SA-09 | Pump cartridge |

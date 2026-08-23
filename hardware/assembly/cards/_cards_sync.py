@@ -320,7 +320,7 @@ def enclosure(m: Machine):
         # The cold core (EN-05).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
-        # The hopper (EN-09).
+        # The funnel opening (EN-09).
         "FUNNEL_PIECES": funnel_pieces,
         # What the closed chassis reads as (EN-07).
         "BODY_COUNT": f"{len(_card.mounts())}",
