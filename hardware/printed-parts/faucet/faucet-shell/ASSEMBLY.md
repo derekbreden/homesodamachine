@@ -1,7 +1,7 @@
 # Touch-Flo shell + mounting plate sub-assembly
 
-Bench procedure for joining the printed `touch-flo-shell` to the printed
-`touch-flo-mounting-plate` with the harvested Touch-Flo valve body
+Bench procedure for joining the printed `faucet-shell` to the printed
+`above-counter-plate` with the harvested Touch-Flo valve body
 sandwiched between them — three M3×12 screws driven up through the
 plate's bosses into heat-set inserts in the shell's base pods. This
 sub-assembly hands off to the faucet-and-umbilical bench, where the
@@ -12,9 +12,9 @@ before the complete factory assembly reaches the countertop.
 
 Upstream:
 
-1. Print `touch-flo-shell` (PET-CF, 0.6 mm DUROZZLE TC nozzle, settings in
-   [`print-log.md`](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md)).
-2. Print `touch-flo-mounting-plate` (PET-CF, same H2C).
+1. Print `faucet-shell` (PET-CF, 0.6 mm DUROZZLE TC nozzle, settings in
+   [`print-log.md`](/hardware/printed-parts/faucet/faucet-shell/print-log.md)).
+2. Print `above-counter-plate` (PET-CF, same H2C).
 3. Harvest the Touch-Flo valve body from the donor faucet per
    [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
    Keep the lever, body, donor washer, and factory shank nut. Discard
@@ -22,7 +22,7 @@ Upstream:
 
 Downstream (at the faucet-and-umbilical bench, see [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)):
 
-4. Slide the TPU `touch-flo-mounting-gasket` up the shank from below
+4. Slide the TPU `above-counter-gasket` up the shank from below
    the printed mounting plate, snug against the plate's bottom face.
    The gasket sits permanently between the plate's underside and where
    the countertop top surface will be at the customer's install. The
@@ -67,8 +67,8 @@ into a single rigid sub-assembly.
 
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
-|  1  | `touch-flo-shell` (printed, PET-CF) — three base-pod boss holes + insert pockets opening into the foot bottom | `touch_flo_shell.py` in this directory (BASE PODS section)        |
-|  1  | `touch-flo-mounting-plate` (printed, PET-CF) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
+|  1  | `faucet-shell` (printed, PET-CF) — three base-pod boss holes + insert pockets opening into the foot bottom | `faucet_shell.py` in this directory (BASE PODS section)        |
+|  1  | `above-counter-plate` (printed, PET-CF) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/above-counter-plate/`](/hardware/printed-parts/faucet/above-counter-plate/) |
 |  1  | Touch-Flo valve body + donor washer + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
 |  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.2 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
 |  3  | BNUOK M3 × 12 mm SHCS, black oxide                   | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
@@ -95,7 +95,7 @@ reference:
 interchangeable).** The BOM SKU is A2031-NL-62 (matte black, B0BXFW1J38).
 Any finish variant in the A2031-NL / R2031-NL series is interchangeable
 for this build because the finish is fully hidden by the printed
-touch-flo-shell — only the mechanism + shank are exposed. Pick whichever
+faucet-shell — only the mechanism + shank are exposed. Pick whichever
 is cheaper / Prime-available at order time.
 
 **Under-counter plate — SendCutSend 0.060" 316 SS, keyhole design
@@ -158,8 +158,8 @@ bosses rising from its top face, each tipped with a lead-in chamfer
 and bored through: a counterbore from the plate bottom (screw-head
 recess) and an M3 shank bore up through the boss to the insert. The
 bosses register the plate; the screws clamp it. Dimensions live in
-`touch_flo_shell.py` (BASE PODS section) and the
-[plate README](/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md).
+`faucet_shell.py` (BASE PODS section) and the
+[plate README](/hardware/printed-parts/faucet/above-counter-plate/README.md).
 
 What holds the parts together:
 
@@ -185,7 +185,7 @@ Stack-up at the plate-to-shell interface (rear shoulder region):
 **Plate bottom face must stay flat for the TPU gasket.** The
 mounting plate sits *above* the countertop — its top face mates with
 the shell bottom (this doc's joint), its bottom face mates with the
-TPU `touch-flo-mounting-gasket` that then seals against the
+TPU `above-counter-gasket` that then seals against the
 countertop's top surface. The three screw heads recess fully into
 the counterbores, above the bottom plane, so the plate presents an
 uninterrupted flat face to the gasket — the counterbore rims are the
@@ -311,4 +311,4 @@ indefinitely.
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py`
-- `/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`
+- `/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`

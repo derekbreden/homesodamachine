@@ -228,7 +228,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -358,7 +358,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -461,11 +461,11 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
@@ -726,7 +726,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -921,8 +921,8 @@ genrule(
         "pysrc/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_realized.py",
@@ -1293,7 +1293,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -2479,8 +2479,8 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -3073,10 +3073,10 @@ genrule(
         "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-        "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
-        "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+        "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -3085,39 +3085,39 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
-            "hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-            "hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
+            "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+            "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
         ],
         allow_empty = True,
     ),
     outs = [
         "out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf)
-O1=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step)
-O2=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step)
-O3=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step)
-O4=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step)
+O1=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step)
+O2=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step)
+O3=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step)
+O4=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
 O5=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py)
-O6=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/_touch_flo_interface.py)
-O7=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json)
-O8=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md)
-O9=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json)
-O10=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md)
-O11=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py)
+O6=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
+O7=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
+O8=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
+O9=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
+O10=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
+O11=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3134,19 +3134,19 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
 cp hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf $$O0
-cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step $$O1
-cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step $$O2
-cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step $$O3
-cp hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step $$O4
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step $$O1
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step $$O2
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step $$O3
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O4
 cp hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py $$O5
-cp hardware/printed-parts/faucet/_touch_flo_interface.py $$O6
-cp hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.figures.json $$O7
-cp hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md $$O8
-cp hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.figures.json $$O9
-cp hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md $$O10
-cp hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py $$O11
+cp hardware/printed-parts/faucet/_faucet_interface.py $$O6
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O7
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O8
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O9
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O10
+cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O11
 """,
 )
 
@@ -3158,11 +3158,11 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
@@ -3304,7 +3304,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -3500,7 +3500,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -4230,7 +4230,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -4359,7 +4359,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -4463,7 +4463,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4531,7 +4531,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4601,7 +4601,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -4707,7 +4707,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -4893,7 +4893,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -5026,7 +5026,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -5223,7 +5223,7 @@ genrule(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -5313,7 +5313,7 @@ cp hardware/printed-parts/enclosure/pump-tray/README.md $$O1
 )
 
 genrule(
-    name = "valve-panel",
+    name = "valve-tray",
     srcs = [
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
@@ -5350,8 +5350,8 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -5407,18 +5407,18 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
-            "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
+            "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
         ],
         allow_empty = True,
     ),
     outs = [
-        "out/valve-panel/hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "out/valve-panel/hardware/printed-parts/enclosure/valve-panel/README.md",
+        "out/valve-tray/hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "out/valve-tray/hardware/printed-parts/enclosure/valve-tray/README.md",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/valve-panel/hardware/printed-parts/enclosure/valve-panel/README.figures.json)
-O1=$$PWD/$(location out/valve-panel/hardware/printed-parts/enclosure/valve-panel/README.md)
+O0=$$PWD/$(location out/valve-tray/hardware/printed-parts/enclosure/valve-tray/README.figures.json)
+O1=$$PWD/$(location out/valve-tray/hardware/printed-parts/enclosure/valve-tray/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5434,20 +5434,20 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-panel/valve_panel.py > /dev/null
-cp hardware/printed-parts/enclosure/valve-panel/README.figures.json $$O0
-cp hardware/printed-parts/enclosure/valve-panel/README.md $$O1
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/valve-tray/valve_tray.py > /dev/null
+cp hardware/printed-parts/enclosure/valve-tray/README.figures.json $$O0
+cp hardware/printed-parts/enclosure/valve-tray/README.md $$O1
 """,
 )
 
 genrule(
-    name = "touch-flo-mounting-gasket",
+    name = "above-counter-gasket",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -5455,13 +5455,13 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
-        "out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
-        "out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
+        "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
+        "out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step)
-O1=$$PWD/$(location out/touch-flo-mounting-gasket/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py)
+O0=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step)
+O1=$$PWD/$(location out/above-counter-gasket/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5477,75 +5477,21 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py > /dev/null
-cp hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step $$O0
-cp hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py $$O1
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py > /dev/null
+cp hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step $$O0
+cp hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py $$O1
 """,
 )
 
 genrule(
-    name = "touch-flo-mounting-plate",
+    name = "above-counter-plate",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
-        "hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
-        "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json",
-        "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md",
-        "out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step)
-O1=$$PWD/$(location out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json)
-O2=$$PWD/$(location out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md)
-O3=$$PWD/$(location out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py > /dev/null
-cp hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step $$O0
-cp hardware/printed-parts/faucet/touch-flo-mounting-plate/README.figures.json $$O1
-cp hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md $$O2
-cp hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py $$O3
-""",
-)
-
-genrule(
-    name = "touch-flo-tpu-o-ring",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
-        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
-        "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
-        "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -5554,22 +5500,22 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
-            "hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
+            "hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
         ],
         allow_empty = True,
     ),
     outs = [
-        "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step",
-        "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json",
-        "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md",
-        "out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json",
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md",
+        "out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step)
-O1=$$PWD/$(location out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json)
-O2=$$PWD/$(location out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md)
-O3=$$PWD/$(location out/touch-flo-tpu-o-ring/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py)
+O0=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step)
+O1=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.figures.json)
+O2=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/README.md)
+O3=$$PWD/$(location out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5585,11 +5531,65 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py > /dev/null
-cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch-flo-tpu-o-ring.step $$O0
-cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.figures.json $$O1
-cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/README.md $$O2
-cp hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py $$O3
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py > /dev/null
+cp hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step $$O0
+cp hardware/printed-parts/faucet/above-counter-plate/README.figures.json $$O1
+cp hardware/printed-parts/faucet/above-counter-plate/README.md $$O2
+cp hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py $$O3
+""",
+)
+
+genrule(
+    name = "tpu-o-ring",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
+        "hardware/printed-parts/faucet/tpu-o-ring/README.md",
+        "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
+        "out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/README.figures.json",
+        "out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/README.md",
+        "out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step)
+O1=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/README.figures.json)
+O2=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/README.md)
+O3=$$PWD/$(location out/tpu-o-ring/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py > /dev/null
+cp hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step $$O0
+cp hardware/printed-parts/faucet/tpu-o-ring/README.figures.json $$O1
+cp hardware/printed-parts/faucet/tpu-o-ring/README.md $$O2
+cp hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py $$O3
 """,
 )
 
@@ -5957,11 +5957,11 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
+        "pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
@@ -7472,13 +7472,13 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
-        "pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py",
-        ":out/touch-flo-mounting-plate/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-bottom.step",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-middle.step",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell-top.step",
-        "pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
@@ -7733,7 +7733,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
         "pysrc/hardware/printed-parts/zone-c/hopper-funnel/hopper_funnel.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
@@ -7834,7 +7834,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/port-ring/port_ring.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py",
         "pysrc/hardware/printed-parts/valve-seat/valve_seat.py",
@@ -8666,48 +8666,48 @@ genrule(
 
 genrule(
     name = "pysrc-a9ae30562d10",
-    srcs = ["hardware/printed-parts/enclosure/valve-panel/valve_panel.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/valve-panel/valve_panel.py"],
+    srcs = ["hardware/printed-parts/enclosure/valve-tray/valve_tray.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
 
 genrule(
     name = "pysrc-3fcb926320ff",
-    srcs = ["hardware/printed-parts/faucet/_touch_flo_interface.py"],
-    outs = ["pysrc/hardware/printed-parts/faucet/_touch_flo_interface.py"],
+    srcs = ["hardware/printed-parts/faucet/_faucet_interface.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/_faucet_interface.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
 
 genrule(
     name = "pysrc-bcb9feb531f2",
-    srcs = ["hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py"],
-    outs = ["pysrc/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py"],
+    srcs = ["hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
 
 genrule(
     name = "pysrc-b0d5c00ff4a3",
-    srcs = ["hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py"],
-    outs = ["pysrc/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py"],
+    srcs = ["hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
 
 genrule(
     name = "pysrc-57aff9c97ce9",
-    srcs = ["hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"],
-    outs = ["pysrc/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"],
+    srcs = ["hardware/printed-parts/faucet/faucet-shell/faucet_shell.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
 
 genrule(
     name = "pysrc-1e2f7214c196",
-    srcs = ["hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py"],
-    outs = ["pysrc/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py"],
+    srcs = ["hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -9480,9 +9480,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -9735,9 +9735,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -9990,9 +9990,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -10245,9 +10245,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -10500,9 +10500,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -10755,9 +10755,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -10863,7 +10863,7 @@ sh_test(
 )
 
 sh_test(
-    name = "valve-panel-selftest",
+    name = "valve-tray-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
         "hardware/assembly/scenes/_scenes.py",
@@ -11010,9 +11010,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -11112,7 +11112,7 @@ sh_test(
         "hardware/topology/fluid-topology.md",
         "tools/docgen/__init__.py",
     ],
-    args = ["hardware/printed-parts/enclosure/valve-panel/valve_panel.py"],
+    args = ["hardware/printed-parts/enclosure/valve-tray/valve_tray.py"],
     size = "large",
     tags = ["local"],
 )
@@ -11265,9 +11265,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -11520,9 +11520,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -11775,9 +11775,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -12056,9 +12056,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -12311,9 +12311,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -12520,7 +12520,7 @@ sh_test(
     name = "mesh-payload-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [
-        "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "hardware/scripts/_cadq_export.py",
         "hardware/scripts/_mesh_payload.py",
         "hardware/scripts/_run_lock.py",
@@ -12700,9 +12700,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -12989,9 +12989,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -13284,9 +13284,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -13539,9 +13539,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -13796,9 +13796,9 @@ sh_test(
         "hardware/printed-parts/enclosure/pump-tray/README.md",
         "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
-        "hardware/printed-parts/enclosure/valve-panel/README.figures.json",
-        "hardware/printed-parts/enclosure/valve-panel/README.md",
-        "hardware/printed-parts/enclosure/valve-panel/valve_panel.py",
+        "hardware/printed-parts/enclosure/valve-tray/README.figures.json",
+        "hardware/printed-parts/enclosure/valve-tray/README.md",
+        "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "hardware/printed-parts/faucet/tube-collar/README.figures.json",
         "hardware/printed-parts/faucet/tube-collar/README.md",
         "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -14058,10 +14058,10 @@ filegroup(
         ":port-ring",
         ":pump-case",
         ":pump-tray",
-        ":valve-panel",
-        ":touch-flo-mounting-gasket",
-        ":touch-flo-mounting-plate",
-        ":touch-flo-tpu-o-ring",
+        ":valve-tray",
+        ":above-counter-gasket",
+        ":above-counter-plate",
+        ":tpu-o-ring",
         ":tube-collar",
         ":fuse-clamp",
         ":valve-seat",

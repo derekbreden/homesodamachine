@@ -265,7 +265,7 @@ M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
 oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665))
 threading into **six ruthex M3 short heat-set inserts**
 ([B0D39W228K](https://www.amazon.com/dp/B0D39W228K) — same insert
-spec as in `touch-flo-shell`; per-build insert counts in
+spec as in `faucet-shell`; per-build insert counts in
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13) pressed into the
 corresponding face of the outer_shell. **Twelve inserts and twelve screws
 total per outer_shell:** six on the top face accepting the top-cap screws
@@ -711,7 +711,7 @@ print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x
 
 ## Reference
 
-- [`/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`](/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py)
+- [`/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`](/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
   — gold standard for the printed-enclosure pattern in this repo.
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (cadquery is not
