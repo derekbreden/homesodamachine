@@ -315,8 +315,8 @@ def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
 
     # THE STEP IS THE NAME THE PAYLOAD IS FETCHED UNDER. `render-step-posed.js` stats it and the
     # page asks for `<file>.mesh`. `.gitignore:91` holds this directory, and `pack.py:49`,
-    # `parts-tree.js:38` and `BUILD.bazel` each name it as one they do not carry — so it is
-    # written straight, the way the `.glb` below is.
+    # `parts-tree.js`'s `EXCLUDED_DIRS` and `BUILD.bazel` each name it as one they do not carry —
+    # so it is written straight, the way the `.glb` below is.
     colored.export(str(step))
     mesh = write_payload(step, colored)
     if not payload_stands(mesh):
