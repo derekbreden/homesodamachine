@@ -56,6 +56,14 @@ extern "C" const lv_font_t front_icons_48;
 #include "images/flavor1_thumb.h"
 #include "images/flavor2_thumb.h"
 #include "images/flavor3_thumb.h"
+#include "images/flavor0_mid.h"
+#include "images/flavor1_mid.h"
+#include "images/flavor2_mid.h"
+#include "images/flavor3_mid.h"
+#include "images/flavor0_head.h"
+#include "images/flavor1_head.h"
+#include "images/flavor2_head.h"
+#include "images/flavor3_head.h"
 
 static const uint16_t *animFrames[] = {
     anim_00, anim_01, anim_02, anim_03, anim_04, anim_05, anim_06, anim_07,
@@ -66,6 +74,8 @@ static const uint16_t *animFrames[] = {
 #define LOGO_SIZE        360
 #define FLAVOR_ART_SIZE    240
 #define FLAVOR_THUMB_SIZE   96
+#define FLAVOR_HEAD_SIZE    60
+#define FLAVOR_MID_SIZE    120
 #define FLAVOR_IMAGE_COUNT   4   // logos a channel can be given
 
 // ════════════════════════════════════════════════════════════
@@ -314,12 +324,32 @@ static bool flavorArtAsked = false;
 
 static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorHead[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorMid[FLAVOR_IMAGE_COUNT];
 static const uint16_t *flavorArtPixels[FLAVOR_IMAGE_COUNT] = {
     flavor0_240, flavor1_240, flavor2_240, flavor3_240,
 };
 static const uint16_t *flavorThumbPixels[FLAVOR_IMAGE_COUNT] = {
     flavor0_thumb, flavor1_thumb, flavor2_thumb, flavor3_thumb,
 };
+static const uint16_t *flavorHeadPixels[FLAVOR_IMAGE_COUNT] = {
+    flavor0_head, flavor1_head, flavor2_head, flavor3_head,
+};
+static const uint16_t *flavorMidPixels[FLAVOR_IMAGE_COUNT] = {
+    flavor0_mid, flavor1_mid, flavor2_mid, flavor3_mid,
+};
+
+// A channel is named by its logo rather than by a number, so every surface that
+// used to print one registers the image standing in for it. Some always show one
+// particular channel; the rest follow whichever channel the screen is acting on.
+#define FLAVOR_IMG_SLOTS 8
+static lv_obj_t *chanImg[FLAVOR_IMG_SLOTS];
+static uint8_t   chanImgCh[FLAVOR_IMG_SLOTS];
+static const lv_img_dsc_t *chanImgSet[FLAVOR_IMG_SLOTS];
+static uint8_t   chanImgCount = 0;
+static lv_obj_t *selImg[FLAVOR_IMG_SLOTS];
+static const lv_img_dsc_t *selImgSet[FLAVOR_IMG_SLOTS];
+static uint8_t   selImgCount = 0;
 static lv_obj_t *homeFlavorArtObj[2];
 static lv_obj_t *flvThumbBtn[FLAVOR_IMAGE_COUNT];
 static lv_obj_t *homeFlavorCard[2];
@@ -340,18 +370,16 @@ enum HomeSyncVisual : uint8_t {
 static int8_t homeFlavorShown = -2;
 static int8_t homeSyncShown = -1;
 
-static lv_obj_t *flvDetailName, *flvDetailRatio;
-static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
+static lv_obj_t *flvDetailRatio;
+static lv_obj_t *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
-static lv_obj_t *cleanTitle, *cleanMsg;
-static lv_obj_t *fillTitle, *fillMsg;
+static lv_obj_t *cleanMsg, *fillMsg;
 static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
 // changed here is this display's own until one sends it somewhere.
 static uint8_t flavorRatio[2] = {20, 20};
 static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold pages act on
-static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 
 // The flavor used for dispensing is separate from flavorSel above, which is
 // only the target currently open in a service/configuration view. The
@@ -1541,18 +1569,6 @@ static lv_obj_t *mkBtn(lv_obj_t *parent, lv_coord_t w, lv_coord_t h, uint32_t bg
 }
 
 // A card-sized target with an icon over a word.
-static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
-                           const char *icon, const lv_font_t *iconFont,
-                           const char *label, lv_event_cb_t cb, void *user) {
-  lv_obj_t *b = mkBtn(parent, w, h, COL_CARD);
-  lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
-  lv_obj_t *ic = mkText(b, icon, iconFont, COL_ACCENT);
-  lv_obj_align(ic, LV_ALIGN_CENTER, 0, -34);
-  lv_obj_t *lb = mkText(b, label, &lv_font_montserrat_28, COL_TEXT);
-  lv_obj_align(lb, LV_ALIGN_CENTER, 0, 26);
-  return b;
-}
-
 static void mkRailIcon(lv_obj_t *parent, RailPage page) {
   switch (page) {
     case RAIL_CHOOSE:
@@ -1615,9 +1631,44 @@ static void sendFlavorArt() {
   j9Post(MSG_FLAVOR_ART_SET, &art, sizeof(art));
 }
 
+// An image standing for one particular channel, wherever that channel is offered.
+static lv_obj_t *mkChannelImg(lv_obj_t *parent, uint8_t channel,
+                              const lv_img_dsc_t *set) {
+  lv_obj_t *o = lv_img_create(parent);
+  lv_img_set_src(o, &set[flavorImage[channel]]);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+  if (chanImgCount < FLAVOR_IMG_SLOTS) {
+    chanImg[chanImgCount] = o;
+    chanImgCh[chanImgCount] = channel;
+    chanImgSet[chanImgCount] = set;
+    chanImgCount++;
+  }
+  return o;
+}
+
+// An image standing for whichever channel the screen is acting on — what carries
+// a selection forward once a flavor has been picked.
+static lv_obj_t *mkSelectedImg(lv_obj_t *parent, const lv_img_dsc_t *set) {
+  lv_obj_t *o = lv_img_create(parent);
+  lv_img_set_src(o, &set[flavorImage[flavorSel]]);
+  lv_obj_clear_flag(o, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+  if (selImgCount < FLAVOR_IMG_SLOTS) {
+    selImg[selImgCount] = o;
+    selImgSet[selImgCount] = set;
+    selImgCount++;
+  }
+  return o;
+}
+
 static void refreshFlavorImages() {
   for (uint8_t i = 0; i < 2; i++) {
     if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], &flavorArt[flavorImage[i]]);
+  }
+  for (uint8_t i = 0; i < chanImgCount; i++) {
+    lv_img_set_src(chanImg[i], &chanImgSet[i][flavorImage[chanImgCh[i]]]);
+  }
+  for (uint8_t i = 0; i < selImgCount; i++) {
+    lv_img_set_src(selImg[i], &selImgSet[i][flavorImage[flavorSel]]);
   }
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
     if (!flvThumbBtn[i]) continue;
@@ -1631,7 +1682,6 @@ static void refreshFlavorText() {
   char a[16], b[16];
   snprintf(a, sizeof(a), "1:%u", flavorRatio[0]);
   snprintf(b, sizeof(b), "1:%u", flavorRatio[1]);
-  if (flvDetailName)  lv_label_set_text(flvDetailName, kFlavorName[flavorSel]);
   if (flvDetailRatio) lv_label_set_text(flvDetailRatio, flavorSel ? b : a);
 }
 
@@ -1834,10 +1884,6 @@ static void primeRender(bool force = false) {
   shownHolding = holding;
   shownStop = primeStopPending;
   shownLost = primeLinkLost;
-
-  char title[32];
-  snprintf(title, sizeof(title), "PRIME %s", kFlavorName[flavorSel]);
-  lv_label_set_text(primeTitle, title);
 
   if (primeSessionCancelPending) {
     lv_label_set_text(primePadLbl, "EXITING PRIME");
@@ -2590,8 +2636,8 @@ static void buildHome(lv_obj_t *page) {
 static void buildFlavor(lv_obj_t *page) {
   lv_obj_t *det = mkView(page);
   mkBack(det, flavorBackCb, NULL);
-  flvDetailName = mkText(det, "FLAVOR 2", &lv_font_montserrat_40, COL_DIM);
-  lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, (PANE_HEAD_H - TEXT_H_40) / 2);
+  lv_obj_align(mkSelectedImg(det, flavorHead), LV_ALIGN_TOP_MID, 0,
+               (PANE_HEAD_H - FLAVOR_HEAD_SIZE) / 2);
 
   lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, RATIO_CARD_H);
   lv_obj_align(row, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
@@ -2639,38 +2685,57 @@ static void buildFlavor(lv_obj_t *page) {
   flvView[FLV_DETAIL] = det;
 }
 
-// Two flavor targets, side by side, under a title.
+// Two flavor targets, side by side, under a title. A channel is named by the
+// logo it wears — the same artwork Choose shows, at the same size — over the
+// mark for what this screen is about to do to it.
 static void buildFlavorPicker(lv_obj_t *view, const char *title,
                               const char *icon, const lv_font_t *iconFont,
                               lv_event_cb_t cb) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
+  const lv_coord_t ch = PANE_H - PANE_BODY_Y;
+  const lv_coord_t top = (ch - (48 + 16 + FLAVOR_ART_SIZE)) / 2;
   lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
   for (int i = 0; i < 2; i++) {
-    lv_obj_t *b = mkTapCard(view, cw, PANE_H - PANE_BODY_Y, icon, iconFont,
-                            kFlavorName[i], cb, (void *)(intptr_t)i);
+    lv_obj_t *b = mkBtn(view, cw, ch, COL_CARD);
     lv_obj_align(b, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
+    lv_obj_add_event_cb(b, cb, ACT_EVENT, (void *)(intptr_t)i);
+    lv_obj_align(mkText(b, icon, iconFont, COL_ACCENT), LV_ALIGN_TOP_MID, 0, top);
+    lv_obj_align(mkChannelImg(b, (uint8_t)i, flavorArt),
+                 LV_ALIGN_TOP_MID, 0, top + 48 + 16);
   }
 }
 
 // A named flavor, what the machine is about to do to it, and one wide target to
 // say go. Fill and Clean are the same shape: both commit an open-ended manifold
 // operation the controller sequences, so both ask once, plainly, before sending.
-static lv_obj_t *buildConfirm(lv_obj_t *page, const char *title, const char *body,
+// The word for what is about to happen, and the logo of the channel it happens
+// to — the same mark that was tapped to get here, carried forward so the screen
+// never has to be read to know which one is committed.
+static void mkFlavorHead(lv_obj_t *v, const char *word) {
+  lv_obj_t *w = mkText(v, word, &lv_font_montserrat_28, COL_DIM);
+  lv_obj_align(w, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
+  lv_obj_t *img = mkSelectedImg(v, flavorHead);
+  lv_obj_align_to(img, w, LV_ALIGN_OUT_RIGHT_MID, 16, 0);
+}
+
+static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body,
                               const char *action, lv_event_cb_t cb,
-                              lv_obj_t **titleOut, lv_obj_t **msgOut) {
+                              lv_obj_t **msgOut) {
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
   lv_obj_t *v = mkView(page);
+  lv_obj_align(mkText(v, word, &lv_font_montserrat_28, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
-  *titleOut = mkText(v, title, &lv_font_montserrat_40, COL_DIM);
-  lv_obj_align(*titleOut, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
+  lv_obj_align(mkSelectedImg(v, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
 
   lv_obj_t *b = mkText(v, body, &lv_font_montserrat_20, COL_DIM);
   lv_obj_set_style_text_align(b, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(b, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + TEXT_H_40 + 16);
+  lv_obj_align(b, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + FLAVOR_MID_SIZE + 16);
 
   lv_obj_t *go = mkBtn(v, fw, 96, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + TEXT_H_40 + 16 + 2 * TEXT_H_20 + 24);
+  lv_obj_align(go, LV_ALIGN_TOP_MID, 0,
+               PANE_BODY_Y + FLAVOR_MID_SIZE + 16 + 2 * TEXT_H_20 + 32);
   lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
   lv_obj_add_event_cb(go, cb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(go, action, &lv_font_montserrat_28, COL_TEXT));
@@ -2690,8 +2755,7 @@ static void buildService(lv_obj_t *page) {
 
   // The hold pad. It fills the pane because it is meant to be found without looking.
   lv_obj_t *hold = mkView(page);
-  primeTitle = mkText(hold, "PRIME FLAVOR 2", &lv_font_montserrat_28, COL_DIM);
-  lv_obj_align(primeTitle, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
+  mkFlavorHead(hold, "PRIME");
 
   primePad = mkBtn(hold, fw, 200, COL_ACCENT);
   lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
@@ -2723,9 +2787,9 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_CLEAN_PICK] = cpick;
 
   svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
-      page, "CLEAN FLAVOR 2", "Three rounds: fill the line with water,\n"
-                              "then pump it through to the nozzle.",
-      "START CLEAN CYCLE", cleanStartCb, &cleanTitle, &cleanMsg);
+      page, "CLEAN", "Three rounds: fill the line with water,\n"
+                     "then pump it through to the nozzle.",
+      "START CLEAN CYCLE", cleanStartCb, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
   buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_48,
@@ -2733,9 +2797,9 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_FILL_PICK] = fpick;
 
   svcView[SVC_FILL_CONFIRM] = buildConfirm(
-      page, "FILL FLAVOR 2", "Pour concentrate into the funnel on top,\n"
-                             "then this draws it down to the reservoir.",
-      "START FILL", fillStartCb, &fillTitle, &fillMsg);
+      page, "FILL", "Pour concentrate into the funnel on top,\n"
+                    "then this draws it down to the reservoir.",
+      "START FILL", fillStartCb, &fillMsg);
 }
 
 static void buildSettings(lv_obj_t *page) {
@@ -2797,14 +2861,8 @@ static void showService(ServiceView v) {
     }
     primeRender(true);
   } else if (v == SVC_CLEAN_CONFIRM) {
-    char b[32];
-    snprintf(b, sizeof(b), "CLEAN %s", kFlavorName[flavorSel]);
-    lv_label_set_text(cleanTitle, b);
     setCleanMsg("");
   } else if (v == SVC_FILL_CONFIRM) {
-    char b[32];
-    snprintf(b, sizeof(b), "FILL %s", kFlavorName[flavorSel]);
-    lv_label_set_text(fillTitle, b);
     setFillMsg("");
   }
 }
@@ -2922,6 +2980,20 @@ static void buildUi() {
     flavorThumb[i].header.h = FLAVOR_THUMB_SIZE;
     flavorThumb[i].data_size = FLAVOR_THUMB_SIZE * FLAVOR_THUMB_SIZE * sizeof(uint16_t);
     flavorThumb[i].data = (const uint8_t *)flavorThumbPixels[i];
+
+    flavorHead[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    flavorHead[i].header.always_zero = 0;
+    flavorHead[i].header.w = FLAVOR_HEAD_SIZE;
+    flavorHead[i].header.h = FLAVOR_HEAD_SIZE;
+    flavorHead[i].data_size = FLAVOR_HEAD_SIZE * FLAVOR_HEAD_SIZE * sizeof(uint16_t);
+    flavorHead[i].data = (const uint8_t *)flavorHeadPixels[i];
+
+    flavorMid[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    flavorMid[i].header.always_zero = 0;
+    flavorMid[i].header.w = FLAVOR_MID_SIZE;
+    flavorMid[i].header.h = FLAVOR_MID_SIZE;
+    flavorMid[i].data_size = FLAVOR_MID_SIZE * FLAVOR_MID_SIZE * sizeof(uint16_t);
+    flavorMid[i].data = (const uint8_t *)flavorMidPixels[i];
   }
   lv_obj_t *scr = lv_scr_act();
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
