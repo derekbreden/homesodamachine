@@ -21,10 +21,10 @@
 // mesh.userData.baseMaterial, to be restored on toggle off.
 //
 // step.js calls applyXray() on the group after every load (so switching
-// files keeps the mode) and inside renderThumbnail (so the server-baked grid
-// thumbnails match the detail view). The toggle re-applies to the live detail
-// group only — grid thumbnails are static server-rendered PNGs and always
-// show the x-ray look. Defaults to ON; an explicit toggle is remembered.
+// files keeps the mode) and inside renderThumbnail (so a grid card matches the
+// detail view it opens). The toggle re-applies to the live detail group only —
+// a card is drawn once and cached, and always shows the x-ray look. Defaults to
+// ON; an explicit toggle is remembered.
 
 import * as THREE from "three";
 import { LineSegments2 } from "three/addons/lines/LineSegments2.js";

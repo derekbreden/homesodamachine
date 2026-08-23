@@ -156,9 +156,8 @@ TWO THINGS THE BUILD DOES NOT GUARANTEE, both named where they stand:
   fail. The two are opposite promises. So no action draws one: `sync_tree` carries what a target
   declares, the picture is in nothing's `outs`, and `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for
   every action rather than paying a headless browser for a file the sandbox discards. A hand run
-  keeps the tree's pictures, and draws the ones something shows — the two units, which
-  `web/contracts/parts-tree.js` names in `CARD_MODELS`, and any solid a README embeds the
-  picture of. `_has_a_reader` asks both.
+  keeps the tree's pictures, and draws the one kind anything still shows: a solid a README
+  embeds the picture of. `/3d` draws the model itself, so its cards ask for none.
 - **`//:render-scenes` carries `local` and is not sandboxed.** `render-step-posed.js` stands
   the viewer on loopback and photographs it with a headless browser, and that page loads
   `occt-import-js` off a CDN — so drawing a scene reaches the public network for a library this

@@ -43,22 +43,41 @@ import sharp from "sharp";
 import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 import { start } from "../../web/server.js";
-import { CARD_MODELS } from "../../web/contracts/parts-tree.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
-// A PICTURE IS WHAT A CARD SHOWS, and `/3d` is two assembly cards.
-// `paintStepThumb` (web/public/js/viewer/grid.js) is the site's only fetch of
-// `/thumbs/<file>.step.png` and it runs on `.card[data-type="step"]`, which parts.js builds
-// from `CARD_MODELS` and from nothing else. Everything else the machine is made of — the cold
-// core included — is reached by opening the assembly that holds it, and opens in the modal,
-// which renders the model. The picture beside such a solid has no reader anywhere.
-const CARDS = CARD_MODELS;
+// A PICTURE IS WHAT A DOC SHOWS. `/3d` draws the model itself — `paintStepThumb`
+// (web/public/js/viewer/grid.js) reads the same payload the modal reads and renders it at the
+// card's own size — so no solid on that page needs a picture beside it. What is left is the
+// reader who never opens the page: a README that embeds `<name>.step.png`.
+//
+// Read off the docs, the same way and against the same root as
+// `_doc_paints` in hardware/scripts/_cadq_export.py, so the two gates cannot state different
+// sets: neither holds a list, and both answer to the docs themselves.
+const EMBED = /\(([^()\s]+\.step)\.png\)/g;
+
+function docPictures(dir, out = new Set()) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (e.name.startsWith(".") || e.name === "node_modules") continue;
+    const abs = path.join(dir, e.name);
+    if (e.isDirectory()) { docPictures(abs, out); continue; }
+    if (!e.name.endsWith(".md")) continue;
+    for (const m of fs.readFileSync(abs, "utf8").matchAll(EMBED)) {
+      const target = path.resolve(dir, m[1]);
+      const rel = path.relative(CONTENT_ROOT, target);
+      if (!rel.startsWith("..")) out.add(rel.split(path.sep).join("/"));
+    }
+  }
+  return out;
+}
+
+const CONTENT_ROOT = path.join(REPO_ROOT, "hardware");
+let _pictured = null;
 
 function hasCard(rel) {
-  const p = rel.split(path.sep).join("/");
-  return CARDS.some((c) => p === c || p.startsWith(c + "/"));
+  if (!_pictured) _pictured = fs.existsSync(CONTENT_ROOT) ? docPictures(CONTENT_ROOT) : new Set();
+  return _pictured.has(rel.split(path.sep).join("/"));
 }
 
 // The content root the viewer serves. The viewer is booted with hardwareDir set
@@ -217,7 +236,7 @@ async function main() {
   // hardware/scripts/_cadq_export.py hands over at process exit all arrive as `targets`.
   const noCard = targets.filter((t) => !hasCard(t.rel));
   if (noCard.length) {
-    console.log(`skipping ${noCard.length} solid(s) with no card on /3d`);
+    console.log(`skipping ${noCard.length} solid(s) no doc shows a picture of`);
     targets = targets.filter((t) => hasCard(t.rel));
   }
 

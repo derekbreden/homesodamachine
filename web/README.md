@@ -104,7 +104,7 @@ Served flat via `express.static(public/)`.
 | `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
 | `grid.js` | Card grid per page, `IntersectionObserver` for thumbnail lazy-load. `/3d` hands off to `parts.js`; charts and line art group by a path segment (`categoryAndPartPath`, `groupFilesByCategory`). |
-| `parts.js` | `/3d`'s page: the machine's two units as one thumbnail each, seated by [`contracts/parts-tree.js`](/web/contracts/parts-tree.js). Everything else — the cold core included — is reached by selecting its solid inside the assembly that holds it, which opens that file with the trail back. |
+| `parts.js` | `/3d`'s page: the machine's two units as one card each, seated by [`contracts/parts-tree.js`](/web/contracts/parts-tree.js). A card draws the model it opens, at the card's own size. Everything else — the cold core included — is reached by selecting its solid inside the assembly that holds it, which opens that file with the trail back. |
 | `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
 | `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
 | `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |

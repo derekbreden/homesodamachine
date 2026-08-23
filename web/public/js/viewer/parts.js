@@ -1,5 +1,8 @@
 // The /3d grid: the machine's two units, one thumbnail each.
 //
+// A card draws the model it opens (grid.js's paintStepThumb), so what is on the
+// card and what is behind it are one read of one file.
+//
 // contracts/parts-tree.js states the tree — imported here over the URL the server
 // serves it at and by path on the Node side, one file either way. Each root is one
 // card, and the card opens that assembly in the detail modal. EVERYTHING ELSE IS
@@ -34,7 +37,7 @@ function renderAssembly(assembly) {
   card.className = "card card-assembly";
   card.dataset.file = assembly.model.primary.file;
   card.dataset.type = assembly.model.primary.type;
-  card.innerHTML = `<img loading="lazy" alt="">` +
+  card.innerHTML = `<img alt="">` +
     `<div class="label"><span class="name-row">` +
     `<span class="name">${esc(assembly.label)}</span></span>` +
     `<span class="assembly-note">${esc(assembly.note)}</span></div>`;

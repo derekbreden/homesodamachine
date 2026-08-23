@@ -699,23 +699,19 @@ def _atomic_write(target_path, write_fn):
         raise
 
 
-# --- Grid thumbnails ---------------------------------------------------------
+# --- Doc pictures ------------------------------------------------------------
 #
-# The viewer's grid shows a server-rendered PNG per card (web serves it at
-# /thumbs/<file>.step.png) so browsing the catalog downloads small images
-# instead of fetching every STEP and rendering it in the browser. The PNG is a
-# pure function of the STEP, so it's regenerated here, right where the STEP is
-# produced — meaning a direct run that writes a STEP (an agent, by hand, a batch
-# build) refreshes its own thumbnail.
+# A README that embeds `<name>.step.png` shows a picture of a solid to a reader who
+# never opens the site (web serves it at /thumbs/<file>.step.png). The PNG is a pure
+# function of the STEP, so it is regenerated here, right where the STEP is produced
+# — a direct run that writes a STEP (an agent, by hand, a batch build) refreshes the
+# picture of it.
 #
-# A CARD IS WHAT READS ONE, and `/3d` is three assembly cards and a shelf.
-# `paintStepThumb` (web/public/js/viewer/grid.js) is the site's only fetch of
-# `/thumbs/<file>.step.png`, and it runs on `.card[data-type="step"]`, which
-# parts.js builds from `CARD_MODELS` and from nothing else. Everything the two
-# units place is reached by selecting its solid, which opens the model in the
-# modal — so the picture beside such a solid has no reader there. A DOC IS THE
-# OTHER READER: a README that embeds `<name>.step.png` shows one to anyone who
-# never opens the page at all. `_has_a_reader` asks both.
+# A DOC IS WHAT READS ONE. `/3d` draws the model itself — `paintStepThumb`
+# (web/public/js/viewer/grid.js) reads the same payload the modal reads and renders
+# it at the card's own size — so a solid on that page needs no picture beside it.
+# What is left is the reader who never opens the page: a README that embeds
+# `<name>.step.png`. `_has_a_reader` asks the docs, and only the docs.
 #
 # Rendering is deferred to one batch at process exit (tools/render/
 # render-thumbnails.js boots the viewer + a headless browser once per run, not
@@ -752,54 +748,25 @@ def _atomic_write(target_path, write_fn):
 _TOOLS_ROOT = next((p for p in Path(__file__).resolve().parents
                     if (p / "tools" / "docgen").is_dir()), None)
 _THUMBNAIL_TOOL = _TOOLS_ROOT and _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"
-#: The page's own statement of what it draws, and the root the paths in it are relative to —
-#: `render-thumbnails.js` serves the same viewer off `hardware/`, so `/thumbs/<rel>` is `<rel>`
-#: under here. READ AT INTERPRETER EXIT AND DECLARED BY NOBODY, which is the opposite of the
-#: tool above and for the opposite reason: `.bazelrc` sets `HSM_SKIP_THUMBNAILS` for every
-#: action, so no sandbox reaches this file, and note_read-ing it would put a web contract into
-#: the inputs of sixty CAD targets that never open it.
-_PARTS_TREE = _TOOLS_ROOT and _TOOLS_ROOT / "web" / "contracts" / "parts-tree.js"
+#: The root a picture's path is relative to — `render-thumbnails.js` serves the same viewer off
+#: `hardware/`, so `/thumbs/<rel>` is `<rel>` under here. READ AT INTERPRETER EXIT AND DECLARED
+#: BY NOBODY, which is the opposite of the tool above and for the opposite reason: `.bazelrc`
+#: sets `HSM_SKIP_THUMBNAILS` for every action, so no sandbox reaches these files.
 _CONTENT_ROOT = _TOOLS_ROOT and _TOOLS_ROOT / "hardware"
 _pending_thumbnails = {}       # abs .step path -> abs payload path, or None
 _thumbnail_tmpdir = None
 _thumbnail_atexit_registered = False
 _UNASKED = object()
-_page_paints_answer = _UNASKED
 _doc_paints_answer = _UNASKED
-
-
-def _page_paints():
-    """Every `.step` `/3d` draws a card for, relative to the content root — or None.
-
-    `CARD_MODELS` in `web/contracts/parts-tree.js` says it, and says only it: the page is the
-    two roots, one card each, and a solid reached by opening one of them is drawn by the modal
-    rather than shown as a picture. So a thumbnail beside anything else has no reader.
-
-    NONE MEANS THE CONTRACT WAS NOT THERE TO ASK — a sandbox with no `web/` in it — and the
-    caller treats that the way it treats a missing render tool: a run with no page to serve
-    draws nothing and exports anyway. A contract that is there and states no list raises."""
-    global _page_paints_answer
-    if _page_paints_answer is not _UNASKED:
-        return _page_paints_answer
-    _page_paints_answer = None
-    try:
-        text = _PARTS_TREE.read_text()
-    except (AttributeError, OSError):
-        return None
-
-    block = re.search(r"export const CARD_MODELS = \[(.*?)\]", text, re.S)
-    models = re.findall(r'"([^"]+)"', block.group(1)) if block else []
-    if not models:
-        raise ValueError(
-            f"{_PARTS_TREE} states no CARD_MODELS. That list names the solids /3d draws a card "
-            f"for, and every thumbnail this repository writes is gated on it. It is a flat list "
-            f"of quoted paths under `export const CARD_MODELS = [`.")
-    _page_paints_answer = set(models)
-    return _page_paints_answer
 
 
 def _doc_paints():
     """Every `.step` under the content root whose `.step.png` a doc there embeds.
+
+    THIS IS THE WHOLE OF WHAT A PICTURE IS FOR. `/3d` draws the model itself — `paintStepThumb`
+    in web/public/js/viewer/grid.js reads the same payload the modal reads and renders it at the
+    card's own size — so a solid on that page needs no picture beside it and gets none. What is
+    left is the reader who never opens the page: a README that embeds `<name>.step.png`.
 
     Read off the docs rather than listed, so a picture put into a README is drawn by having
     been put there. A reference out of the content root belongs to whatever tree holds it."""
@@ -822,19 +789,17 @@ def _doc_paints():
 
 
 def _has_a_reader(target) -> bool:
-    """Whether anything shows a picture of `target` — a card on `/3d`, or a doc that embeds it.
+    """Whether any doc shows a picture of `target`.
 
-    A path outside the content root is not this page's to answer for — `render-thumbnails.js`
-    classifies against the same root and declines the same files."""
-    paints = _page_paints()
-    if paints is None:
+    A path outside the content root is not this tree's to answer for — `render-thumbnails.js`
+    reads the same docs against the same root and declines the same files."""
+    if _CONTENT_ROOT is None:
         return False
     try:
         rel = target.relative_to(_CONTENT_ROOT).as_posix()
     except (TypeError, ValueError):
         return False
-    return (any(rel == p or rel.startswith(p + "/") for p in paints)
-            or rel in _doc_paints())
+    return rel in _doc_paints()
 
 
 def _write_mesh_payload(target, source):
