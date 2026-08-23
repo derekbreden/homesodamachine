@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Preferences.h>
 #include <esp_system.h>
 #include <esp_heap_caps.h>
 #include <esp_cpu.h>
@@ -45,11 +46,19 @@ extern "C" const lv_font_t front_action_icons_48;
 #include "images/anim_14.h"
 #include "images/anim_15.h"
 
-// The two flavor marks are deliberately static artwork. Choose's selection
-// refresh changes only on actual controller state transitions, so these do not
+// The flavor marks are deliberately static artwork. Choose's selection refresh
+// changes only on actual controller state transitions, so these do not
 // participate in the background link polling that formerly disturbed a card.
+// Every logo is carried at both sizes: the 240 a Choose card shows, and the 96
+// the picker grid shows, baked rather than scaled under LVGL at draw time.
 #include "../src_config/images/flavor0_240.h"
 #include "../src_config/images/flavor1_240.h"
+#include "../src_config/images/flavor2_240.h"
+#include "../src_config/images/flavor3_240.h"
+#include "images/flavor0_thumb.h"
+#include "images/flavor1_thumb.h"
+#include "images/flavor2_thumb.h"
+#include "images/flavor3_thumb.h"
 
 static const uint16_t *animFrames[] = {
     anim_00, anim_01, anim_02, anim_03, anim_04, anim_05, anim_06, anim_07,
@@ -58,7 +67,9 @@ static const uint16_t *animFrames[] = {
 #define NUM_ANIM_FRAMES  16
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
 #define LOGO_SIZE        360
-#define FLAVOR_ART_SIZE  240
+#define FLAVOR_ART_SIZE    240
+#define FLAVOR_THUMB_SIZE   96
+#define FLAVOR_IMAGE_COUNT   4   // logos a channel can be given
 
 // ════════════════════════════════════════════════════════════
 //  ESP32-S3 Front-Face Display — foundation
@@ -196,6 +207,17 @@ static uint32_t frameDoneTimeouts = 0;
 #define RAIL_ITEM_GAP     6
 #define RAIL_ITEM_H      88
 #define PANE_W    (SCREEN_W - RAIL_W)
+
+// Choose gives each card a settings target under it, and the flavor's own page
+// shows every logo it could wear. Two rows of thumbnails fit before the grid
+// scrolls, which is what keeps the first row above the fold as logos are added.
+#define HOME_CARD_H     340
+#define HOME_GEAR_H      56
+#define HOME_GEAR_GAP    12
+#define THUMB_BTN       104
+#define THUMB_GAP        10
+#define THUMB_PER_ROW     5
+#define THUMB_ROWS        2
 #define PANE_PAD  16
 
 // ── Pages ──
@@ -234,6 +256,7 @@ static void showPage(Page p);
 static void showRail(RailPage p);
 static void setRailSelection(RailPage p);
 static void showFlavor(FlavorView v);
+static void refreshFlavorImages();
 static void showService(ServiceView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
@@ -253,8 +276,22 @@ static bool bootLockActive = false;
 static unsigned long bootLockMinUntil = 0;
 static unsigned long bootLockMaxUntil = 0;
 
-static lv_img_dsc_t homeFlavorArt[2];
-static const uint16_t *homeFlavorPixels[2] = {flavor0_240, flavor1_240};
+// Which logo each channel wears. The choice is the channel's identity on this
+// panel, so it outlives a power cycle in the same NVS the faucet caches into.
+static uint8_t flavorImage[2] = {0, 1};
+static Preferences frontPrefs;
+static bool frontPrefsOpen = false;
+
+static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
+static const uint16_t *flavorArtPixels[FLAVOR_IMAGE_COUNT] = {
+    flavor0_240, flavor1_240, flavor2_240, flavor3_240,
+};
+static const uint16_t *flavorThumbPixels[FLAVOR_IMAGE_COUNT] = {
+    flavor0_thumb, flavor1_thumb, flavor2_thumb, flavor3_thumb,
+};
+static lv_obj_t *homeFlavorArtObj[2];
+static lv_obj_t *flvThumbBtn[FLAVOR_IMAGE_COUNT];
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
@@ -1524,6 +1561,20 @@ static void setPrimeMsg(const char *s) { if (primeMsg) lv_label_set_text(primeMs
 static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMsg, s); }
 static void setFillMsg(const char *s)  { if (fillMsg)  lv_label_set_text(fillMsg, s); }
 
+// Both surfaces a logo choice reaches: the Choose card that wears it, and the
+// grid marking which one this flavor is on.
+static void refreshFlavorImages() {
+  for (uint8_t i = 0; i < 2; i++) {
+    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], &flavorArt[flavorImage[i]]);
+  }
+  for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
+    if (!flvThumbBtn[i]) continue;
+    lv_obj_set_style_bg_color(
+        flvThumbBtn[i],
+        lv_color_hex(i == flavorImage[flavorSel] ? COL_ACCENT : COL_CARD), 0);
+  }
+}
+
 static void refreshFlavorText() {
   char a[16], b[16];
   snprintf(a, sizeof(a), "1:%u", flavorRatio[0]);
@@ -2246,6 +2297,24 @@ static void primePickCb(lv_event_t *e) {
   showService(SVC_PRIME_HOLD);
 }
 
+// Choose's per-card gear: the flavor it sits under becomes the one being
+// edited, and the page it opens is that flavor's own.
+static void homeSettingsCb(lv_event_t *e) {
+  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  showPage(PAGE_FLAVOR);
+  showFlavor(FLV_DETAIL);
+}
+
+static void imagePickCb(lv_event_t *e) {
+  const uint8_t img = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return;
+  flavorImage[flavorSel] = img;
+  if (frontPrefsOpen) {
+    frontPrefs.putUChar(flavorSel ? "img1" : "img0", img);
+  }
+  refreshFlavorImages();
+}
+
 static void cleanPickCb(lv_event_t *e) {
   flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
   showService(SVC_CLEAN_CONFIRM);
@@ -2437,16 +2506,26 @@ static void buildHome(lv_obj_t *page) {
   lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT,
                -(SETTINGS_BTN + SETTINGS_GAP - PANE_PAD), 4);
 
+  // The card is the whole selection target, so its settings live beside it
+  // rather than inside it — a sibling, where no press can reach the card under it.
   for (uint8_t i = 0; i < 2; ++i) {
-    lv_obj_t *card = mkBtn(page, cw, 366, COL_CARD);
-    lv_obj_align(card, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
+    lv_obj_t *card = mkBtn(page, cw, HOME_CARD_H, COL_CARD);
+    lv_obj_align(card, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16),
+                 -(HOME_GEAR_H + HOME_GEAR_GAP));
     lv_obj_set_style_pad_all(card, 12, 0);
     lv_obj_add_event_cb(card, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
 
+    lv_obj_t *gear = mkBtn(page, cw, HOME_GEAR_H, COL_CARD);
+    lv_obj_align(gear, LV_ALIGN_BOTTOM_LEFT, i * (cw + 16), 0);
+    lv_obj_add_event_cb(gear, homeSettingsCb, ACT_EVENT, (void *)(intptr_t)i);
+    lv_obj_center(mkText(gear, LV_SYMBOL_SETTINGS "  SETTINGS",
+                         &lv_font_montserrat_20, COL_DIM));
+
     lv_obj_t *art = lv_img_create(card);
-    lv_img_set_src(art, &homeFlavorArt[i]);
+    lv_img_set_src(art, &flavorArt[flavorImage[i]]);
     lv_obj_align(art, LV_ALIGN_TOP_MID, 0, 2);
     lv_obj_clear_flag(art, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+    homeFlavorArtObj[i] = art;
 
     lv_obj_t *badge = lv_obj_create(card);
     lv_obj_set_size(badge, cw - 28, 56);
@@ -2491,7 +2570,7 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_align(flvDetailName, LV_ALIGN_TOP_MID, 0, 8);
 
   lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, 130);
-  lv_obj_align(row, LV_ALIGN_CENTER, 0, 20);
+  lv_obj_align(row, LV_ALIGN_TOP_MID, 0, 60);
   lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
   lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
   lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
@@ -2503,6 +2582,36 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_center(mkText(plus, LV_SYMBOL_PLUS, &lv_font_montserrat_28, COL_TEXT));
   flvDetailRatio = mkText(row, "1:12", &lv_font_montserrat_48, COL_TEXT);
   lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
+
+  lv_obj_align(mkText(det, "IMAGE", &lv_font_montserrat_20, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, 198);
+
+  // A wrapping row of logos, two rows deep before it scrolls. Positions are set
+  // here rather than by a layout, the way every other surface on this panel is.
+  lv_obj_t *grid = lv_obj_create(det);
+  lv_obj_set_size(grid, PANE_W - 2 * PANE_PAD, THUMB_ROWS * THUMB_BTN +
+                                               (THUMB_ROWS - 1) * THUMB_GAP);
+  lv_obj_align(grid, LV_ALIGN_TOP_MID, 0, 228);
+  lv_obj_set_style_bg_opa(grid, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(grid, 0, 0);
+  lv_obj_set_style_pad_all(grid, 0, 0);
+  lv_obj_set_scroll_dir(grid, LV_DIR_VER);
+  lv_obj_set_scrollbar_mode(grid, LV_SCROLLBAR_MODE_AUTO);
+
+  const lv_coord_t rowW = THUMB_PER_ROW * THUMB_BTN + (THUMB_PER_ROW - 1) * THUMB_GAP;
+  const lv_coord_t x0 = (PANE_W - 2 * PANE_PAD - rowW) / 2;
+  for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
+    lv_obj_t *t = mkBtn(grid, THUMB_BTN, THUMB_BTN, COL_CARD);
+    lv_obj_set_pos(t, x0 + (i % THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP),
+                      (i / THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP));
+    lv_obj_set_style_pad_all(t, 4, 0);
+    lv_obj_add_event_cb(t, imagePickCb, ACT_EVENT, (void *)(intptr_t)i);
+    lv_obj_t *img = lv_img_create(t);
+    lv_img_set_src(img, &flavorThumb[i]);
+    lv_obj_center(img);
+    lv_obj_clear_flag(img, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
+    flvThumbBtn[i] = t;
+  }
 
   flvView[FLV_DETAIL] = det;
 }
@@ -2644,6 +2753,7 @@ static void showFlavor(FlavorView v) {
   activeFlv = v;
   showOnly(flvView, FLV_COUNT, v);
   refreshFlavorText();
+  refreshFlavorImages();
 }
 
 static void showService(ServiceView v) {
@@ -2777,13 +2887,20 @@ static void buildUi() {
     frameDsc[i].data_size = LOGO_SIZE * LOGO_SIZE * sizeof(uint16_t);
     frameDsc[i].data = (const uint8_t *)animFrames[i];
   }
-  for (uint8_t i = 0; i < 2; ++i) {
-    homeFlavorArt[i].header.cf = LV_IMG_CF_TRUE_COLOR;
-    homeFlavorArt[i].header.always_zero = 0;
-    homeFlavorArt[i].header.w = FLAVOR_ART_SIZE;
-    homeFlavorArt[i].header.h = FLAVOR_ART_SIZE;
-    homeFlavorArt[i].data_size = FLAVOR_ART_SIZE * FLAVOR_ART_SIZE * sizeof(uint16_t);
-    homeFlavorArt[i].data = (const uint8_t *)homeFlavorPixels[i];
+  for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
+    flavorArt[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    flavorArt[i].header.always_zero = 0;
+    flavorArt[i].header.w = FLAVOR_ART_SIZE;
+    flavorArt[i].header.h = FLAVOR_ART_SIZE;
+    flavorArt[i].data_size = FLAVOR_ART_SIZE * FLAVOR_ART_SIZE * sizeof(uint16_t);
+    flavorArt[i].data = (const uint8_t *)flavorArtPixels[i];
+
+    flavorThumb[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    flavorThumb[i].header.always_zero = 0;
+    flavorThumb[i].header.w = FLAVOR_THUMB_SIZE;
+    flavorThumb[i].header.h = FLAVOR_THUMB_SIZE;
+    flavorThumb[i].data_size = FLAVOR_THUMB_SIZE * FLAVOR_THUMB_SIZE * sizeof(uint16_t);
+    flavorThumb[i].data = (const uint8_t *)flavorThumbPixels[i];
   }
   lv_obj_t *scr = lv_scr_act();
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
@@ -3050,6 +3167,18 @@ void setup() {
   Serial.printf("Boot — firmware %s, heap=%lu, psram=%lu, reset=%d\n",
                 FW_VERSION, (unsigned long)ESP.getFreeHeap(),
                 (unsigned long)ESP.getPsramSize(), (int)reason);
+
+  // The logo each channel wears is this panel's own, and it is read before the
+  // UI is built so the first frame already shows the right artwork.
+  frontPrefsOpen = frontPrefs.begin("front");
+  if (frontPrefsOpen) {
+    for (uint8_t i = 0; i < 2; i++) {
+      const uint8_t v = frontPrefs.getUChar(i ? "img1" : "img0", flavorImage[i]);
+      if (v < FLAVOR_IMAGE_COUNT) flavorImage[i] = v;
+    }
+  }
+  Serial.printf("Flavor artwork: 1=%u, 2=%u%s\n", flavorImage[0], flavorImage[1],
+                frontPrefsOpen ? "" : " (NVS unavailable)");
 
   // Expander + panel/touch resets, then the RGB panel itself — initialized on a
   // separate task with a timeout. If esp_lcd ever blocks, setup() still returns
