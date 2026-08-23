@@ -264,7 +264,7 @@ wall does.
 
 Every standing wall is **fluted** — half-round grooves [4 mm](FLUTE_WIDTH) across and
 [1.2 mm](FLUTE_DEPTH) deep, the profile `cadlib/reeding.py` carries and
-[`../texture-corner/`](../texture-corner/) was printed on. That coupon is this box's own corner
+the corner coupon at `69459fea6` was printed on. That coupon is this box's own corner
 at this box's own `wall` and `corner_round`, so what printed there is what prints here, and
 neither can drift from the other while they read one function.
 
