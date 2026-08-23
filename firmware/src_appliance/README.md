@@ -1,6 +1,6 @@
 # The appliance controller
 
-The firmware the machine runs. It is on the main board's own WROOM (U1) — the board
+The firmware the machine runs. It is on the main board's own WROOM (U1) — the one
 [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — flashed through its CH340B
 over USB-C at J14. The procedure it answers to is
 [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md); the
