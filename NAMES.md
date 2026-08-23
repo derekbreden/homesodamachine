@@ -52,3 +52,7 @@ they became.
 | **pump tray** | either of the two fused beds in the quadrant that a peristaltic pump sits in | |
 | **flow-meter saddle** | the fused cradles holding the flow meter's barrel | |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
+| **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the controller, controller PCBA, the PCBA |
+| **foam cap** | the printed piece closing one end of the foam shell — one per end, two per machine | |
+| **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
+| **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
