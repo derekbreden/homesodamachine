@@ -140,7 +140,7 @@ def wake_once(front: Front, timeout: float = 1.5) -> tuple[dict[str, str], float
     time.sleep(0.05)
     dark = read_panel_diag(front)
     require(dark.get("bl") == "0", f"panel did not go dark: {dark}")
-    for key in ("drawErr", "frameTimeout", "kickTimeout", "exioErr"):
+    for key in ("drawErr", "frameTimeout", "kickTimeout", "phaseErr", "scanRecover", "exioErr"):
         require(int(dark[key]) == int(before[key]),
                 f"panel {key} changed while going dark: {before[key]} -> {dark[key]}")
     started = time.monotonic()
@@ -158,9 +158,11 @@ def wake_once(front: Front, timeout: float = 1.5) -> tuple[dict[str, str], float
     else:
         raise RuntimeError(f"panel wake did not complete: {after}")
 
-    for key in ("drawErr", "frameTimeout", "kickTimeout", "exioErr"):
+    for key in ("drawErr", "frameTimeout", "kickTimeout", "phaseErr", "scanRecover", "exioErr"):
         require(int(after[key]) == int(before[key]),
                 f"panel {key} changed during wake: {before[key]} -> {after[key]}")
+    require(int(after["phaseDone"]) - int(before["phaseDone"]) >= 2,
+            f"wake did not phase reset and DISP at VSYNC: {before} -> {after}")
     for key in ("vsync", "frameDone"):
         require(int(after[key]) - int(before[key]) >= WAKE_REQUIRED_FRAMES,
                 f"wake crossed too few {key} events: {before} -> {after}")
