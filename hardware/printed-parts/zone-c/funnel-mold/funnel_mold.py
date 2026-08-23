@@ -1,5 +1,5 @@
-"""Hopper-funnel silicone mold — the two-piece printed mold that casts the
-Zone C hopper funnel ([../hopper-funnel/](../hopper-funnel/README.md)) in
+"""Funnel silicone mold — the two-piece printed mold that casts the
+Zone C funnel ([../funnel/](../funnel/README.md)) in
 food-grade platinum silicone.
 
 The funnel is a hollow 3 mm shell, so the silicone forms in the gap between two
@@ -14,7 +14,7 @@ printed halves:
     thin spout wall concentric. Vents + a pour port pass through the plate.
 
 Both halves pull straight up — a funnel is its own draft. The geometry is read
-live from the funnel: `hopper_funnel.build_solids()` returns the exterior and
+live from the funnel: `funnel.build_solids()` returns the exterior and
 bore solids, and the mold is those Booleaned out of blocks, so the mold tracks
 the part. Forming surfaces carry no clearance (the mold face *is* the part face;
 platinum silicone shrinks ~0.1 %); release is by silicone flex + a mould-release
@@ -37,12 +37,12 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
-_FUNNEL = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"
+_FUNNEL = _repo / "hardware" / "printed-parts" / "zone-c" / "funnel"
 sys.path.insert(0, str(_FUNNEL))
 from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, M_SILICONE_BLACK, one_body
 from docgen import substitute_md
-import hopper_funnel as HF
+import funnel as HF
 
 # --- mold parameters --------------------------------------------------------
 mold_wall = 8.0       # cavity-block wall around the funnel exterior
@@ -53,7 +53,7 @@ lip_h = 10.0          # how far the skirt drops over the cavity (registration)
 lip_gap = 0.0         # slip between the skirt and the cavity outside
 pin_reg_clear = 0.0   # spout pin press-fits the cavity-floor register hole (PETG seals at zero)
 fill_port_id = 4.0    # pour port through the plate (fallback to the open-cavity pour)
-fill_port_csink = 5.0   # shallow pour basin countersunk on top of the fill port
+fill_port_csink = 5.0   # shallow pour dish countersunk on top of the fill port
 vent_id = 2.5         # vent holes through the plate, over the brim ring
 
 
@@ -146,12 +146,12 @@ def build():
 def main():
     cavity, core, info = build()
     here = _here.parent
-    export_assembly(one_body(cq.Workplane(obj=cavity), "hopper-funnel-mold-cavity",
-                             M_PETG_BLACK), str(here / "hopper-funnel-mold-cavity.step"))
-    print("-> hopper-funnel-mold-cavity.step")
-    export_assembly(one_body(cq.Workplane(obj=core), "hopper-funnel-mold-core",
-                             M_PETG_BLACK), str(here / "hopper-funnel-mold-core.step"))
-    print("-> hopper-funnel-mold-core.step")
+    export_assembly(one_body(cq.Workplane(obj=cavity), "funnel-mold-cavity",
+                             M_PETG_BLACK), str(here / "funnel-mold-cavity.step"))
+    print("-> funnel-mold-cavity.step")
+    export_assembly(one_body(cq.Workplane(obj=core), "funnel-mold-core",
+                             M_PETG_BLACK), str(here / "funnel-mold-core.step"))
+    print("-> funnel-mold-core.step")
 
     # Exploded assembly (cavity → silicone funnel → core, stacked up) so the
     # thumbnail shows how the three nest.
@@ -161,8 +161,8 @@ def main():
     assy.add(cavity, name="cavity", color=M_PETG_BLACK)
     assy.add(info["funnel"].translate((0, 0, 45)), name="funnel", color=M_SILICONE_BLACK)
     assy.add(core.translate((0, 0, 100)), name="core", color=M_PETG_BLACK)
-    export_assembly(assy, str(here / "hopper-funnel-mold-assembly.step"))
-    print("-> hopper-funnel-mold-assembly.step")
+    export_assembly(assy, str(here / "funnel-mold-assembly.step"))
+    print("-> funnel-mold-assembly.step")
 
     cbb, kbb = info["cavity_bb"], info["core_bb"]
     print(f"  cavity:  {cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm")

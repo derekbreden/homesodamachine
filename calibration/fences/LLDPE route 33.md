@@ -667,7 +667,7 @@ barb tip x 42.50 → -X interior wall -14.00 = 56.50 mm  (comment verified exact
 cast (42.5,341,305) dir (-1,0,0) Ø12.7 → 250 mm limit, no contact
 
 cast up from V-A-I               → Ø6.35 runs 90.51 mm, stopped by fluid-18 at z 289.27
-cast up from V-A-I, skip 18      → Ø6.35 runs 135.96 mm, stopped by hopper-funnel at z 334.72
+cast up from V-A-I, skip 18      → Ø6.35 runs 135.96 mm, stopped by funnel at z 334.72
 cast (289,172.3,331) dir (0,0,-1)→ 250 mm limit, NO CONTACT          ← the +X chimney
 cast (289,226.0,300) dir (0,0,-1)→ 120 mm limit, NO CONTACT
 cast (289,172.3,265) dir (-1,0,0)→ runs 38.86, stopped by nozzle-gate at x 250.14

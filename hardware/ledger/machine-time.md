@@ -37,7 +37,7 @@ Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the
 
 | Process | Machine | Notes | Hours |
 |---|---|---|---:|
-| Silicone funnel — room-temperature cure to demold | The mold | BBDINO 40A, per [hopper-funnel-mold](/hardware/printed-parts/zone-c/hopper-funnel-mold/README.md) | 5.0 |
+| Silicone funnel — room-temperature cure to demold | The mold | BBDINO 40A, per [funnel-mold](/hardware/printed-parts/zone-c/funnel-mold/README.md) | 5.0 |
 | Silicone funnel — food-contact post-cure bake | Oven at ~200 °C | The drive-off bake is the food-contact acceptance gate, not the room-temp cure | 4.0 |
 | Body foam — pour to trimmable | In the part | Cure time is an **open item** in [cold-core.md](/hardware/assembly/cold-core.md); 4 h is a placeholder for a 2 lb pour foam, not a datasheet figure | 4.0 |
 | Cap foams — pour to trimmable, both caps | In the part | Same open item; the two caps pour together | 4.0 |

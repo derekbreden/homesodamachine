@@ -1133,7 +1133,7 @@ laid across the chord under it.
 
 One rectangular opening spans the top wall **directly behind the display
 housing**, where the removable silicone funnel
-([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
+([`../../zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/))
 drops in — its straight chute press-fitting the opening, its whole floor one
 ramp falling to the centred spout, its flat brim resting on the wall frame left
 around the cut.

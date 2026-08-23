@@ -421,7 +421,7 @@ def _tag(name: str) -> str:
         return "piece"
     if name.startswith("tube-") or name.startswith("turn-") or name.startswith("step-"):
         return "run"
-    return {"display": "display", "hopper-funnel": "funnel"}.get(name, "component")
+    return {"display": "display", "funnel": "funnel"}.get(name, "component")
 
 
 def snapshot(reload: bool = False, build: bool = None, exact: bool = False) -> dict:
@@ -1020,7 +1020,7 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
         own = (a.split(".")[0], b.split(".")[0])
         hold = tuple(hold) + (run, f"tube-{run}")
     if nonrising is None:
-        nonrising = bool(spec) and spec["frm"].startswith("hopper-funnel")
+        nonrising = bool(spec) and spec["frm"].startswith("funnel")
     od = 6.35 if od is None else od
     radius = 14.0 if radius is None else radius
 
