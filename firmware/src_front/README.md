@@ -181,8 +181,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
   write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
-- `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIO, PRIME, CLEAN,
-  SETTINGS)
+- `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIO, FILL, PRIME,
+  CLEAN); `PAGE:5` → Settings, which is the corner rather than a rail slot
 - `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
 - `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
@@ -235,18 +235,23 @@ This polling turn also carries faucet-originated changes from J3 to this display
 
 ## The interface
 
-A 190 px rail down the left carries five 88 px targets — **CHOOSE · RATIO · PRIME ·
-CLEAN · SETTINGS** — each an icon over a word. Choose uses a hand pointing up and Ratio an
-exploded pie with one lifted slice; connection state appears only when it affects saving a flavor. The
+A 190 px rail down the left carries five 88 px targets — **CHOOSE · RATIO · FILL ·
+PRIME · CLEAN** — each an icon over a word. Choose and Ratio are about the drink; Fill,
+Prime and Clean are a flavor's life in the machine, in the order it is lived. Choose uses a
+hand pointing up, Ratio an exploded pie with one lifted slice, and Fill the hopper's own
+funnel; connection state appears only when it affects saving a flavor. Settings is not a
+customer destination and holds no rail slot: it is a single square in the screen's top-right
+corner, over every page, which is free because each pane titles itself from the left. The
 remaining 610 px is the pane, and it takes a different shape at each destination:
 
 | Page | Shape | Reads / writes |
 |---|---|---|
 | Choose | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
 | Ratio | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
+| Fill | flavor choice → confirmation | **the base** |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
-| Settings | a deliberately quiet surface until a useful preference is ready | — |
+| Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
 render. Every page is built at boot and switching hides one and shows another. On Choose,
@@ -307,17 +312,20 @@ CANCEL is retried until exact controller state, or a strictly newer state in tha
 session, proves it terminal. `GET_DIAG` reports those recovery counts and the controller's
 one-reply-per-turn audit.
 
-### Clean
+### Fill and clean
 
-**CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. The valve
-manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it answers
+**FILL → a flavor → START** sends `MSG_FILL_START { channel }`, which draws that
+channel from the hopper funnel on the enclosure's top face down into its chilled
+reservoir. **CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. Both
+are open-ended manifold operations the controller sequences. The valve manifold hangs
+off the MCP23017s, whose pins the bench rig holds high-Z, so both answer
 `MSG_ERR_UNSUPPORTED` and the pane says so.
 
 ### Frame rate
 
 The animation runs only on the full-screen operation lock. Measured on the panel:
 **~9.4 fps against the 10 fps timer**, one animation repaint ~117 ms. Choose,
-Ratio, Prime, Clean, and Settings otherwise repaint only when their state changes.
+Ratio, Fill, Prime, Clean, and Settings otherwise repaint only when their state changes.
 `LOCK:SHOW` exposes the animation for a live check, and `GET_DIAG` reports the loop
 high-water mark and clears it.
 
