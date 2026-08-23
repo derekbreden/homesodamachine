@@ -1,6 +1,6 @@
 // The seating /3d browses: two units, the cold core nested inside the enclosure,
 // and every other file claimed by the directory an assembly places from, by the
-// shared bought geometry, or by the tooling a bench works from.
+// bought geometry no one unit owns, or by the tooling a bench works from.
 //
 // Two halves. The first is `seatParts` as a pure function over path lists — the
 // folding of a part's representations, the whole leading its directory, every
@@ -16,7 +16,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  ASSEMBLIES, CARD_MODELS, SHARED, TOOLING, EXCLUDED_DIRS,
+  ASSEMBLIES, CARD_MODELS, PURCHASED, TOOLING, EXCLUDED_DIRS,
   isWhole, seatParts, walkAssemblies,
 } from "../contracts/parts-tree.js";
 import { walkFiles } from "../lib/walk.js";
@@ -96,7 +96,7 @@ test("a nested assembly is a card of its own, and its parts are its own", () => 
 
 test("purchased geometry is claimed by no one unit", () => {
   const tree = seatParts({ steps: ["reference/worm-clamp/worm-clamp.step"] });
-  assert.deepEqual(names(tree.shared), ["worm-clamp"]);
+  assert.deepEqual(names(tree.purchased), ["worm-clamp"]);
   assert.deepEqual(names(allInside(tree)), []);
   assert.deepEqual(tree.unseated, []);
 });
@@ -163,12 +163,12 @@ test("nothing in the hardware tree is unseated", (t) => {
     `place these in contracts/parts-tree.js: ${tree.unseated.join(", ")}`);
 
   // Every file is claimed by an assembly's model, by that assembly's own sweep,
-  // by the shared bought geometry, by the tooling, or by EXCLUDED_DIRS — the five
-  // paths out of the pool, and nothing may take a sixth.
+  // by the bought geometry, by the tooling, or by EXCLUDED_DIRS — the five paths
+  // out of the pool, and nothing may take a sixth.
   const claimed = new Set([
     ...flat(tree).flatMap((a) => (a.model ? a.model.kinds.map((k) => k.file) : [])),
     ...files(allInside(tree)),
-    ...files(tree.shared),
+    ...files(tree.purchased),
     ...files(tree.tooling),
   ]);
   const excluded = (f) => EXCLUDED_DIRS.some((d) => f === d || f.startsWith(d + "/"));
@@ -182,12 +182,12 @@ test("nothing in the hardware tree is unseated", (t) => {
 
 test("no two lists claim the same directory", () => {
   const held = walkAssemblies().flatMap((a) => a.holds || []);
-  const all = [...held, ...SHARED, ...TOOLING];
+  const all = [...held, ...PURCHASED, ...TOOLING];
   assert.equal(new Set(all).size, all.length, "a directory is named twice");
 
   // Tooling stands inside directories an assembly sweeps; nothing else may.
   const overlaps = (a, b) => a === b || a.startsWith(b + "/") || b.startsWith(a + "/");
-  for (const s of SHARED) {
+  for (const s of PURCHASED) {
     for (const h of held) {
       assert.ok(!overlaps(s, h), `${s} and ${h} overlap`);
     }
