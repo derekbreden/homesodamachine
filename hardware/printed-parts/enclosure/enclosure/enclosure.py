@@ -867,6 +867,28 @@ def back_bottom_flank_face():
     return (ix0 + grown, ix1 - grown)
 
 
+def front_bottom_west_flank_face():
+    """front-bottom's own −X interior face — `front_bottom_west_flank_t` in from the exterior.
+
+    NOTHING OUTSIDE THAT PIECE READS THIS, and `lip_face_x` in particular does not: the card
+    that bottoms on the flank and the copper lane struck off it both keep the plane they had,
+    which is what makes this a well and not a move."""
+    return interior_x()[0] + (front_bottom_west_flank_t - wall)
+
+
+def vent_flank_face(sx):
+    """The interior face a vent slot is struck from — the plane the cut has to start at for the
+    grille to come out the other side.
+
+    IT IS THE FACE THAT IS THERE AND NOT `lip_face_x`. The airway stands in front-bottom's own
+    bands, and that piece's west flank is `front_bottom_west_flank_t` while its east is the
+    lip's own `2 * wall` — so a slot struck on one plane for both sides is a slot that stops
+    short of the room on the side that carries more, and what it leaves is a blind pocket with
+    the wall still closed behind it. Read by the cutter, by the run finder and by the measure,
+    so all three agree about the same wall."""
+    return lip_face_x()[1] if sx > 0.0 else front_bottom_west_flank_face()
+
+
 def front_top_flank_face():
     """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where
     every other piece's is one `wall` in.
@@ -913,7 +935,8 @@ def piece_root_faces(inner, y_side, z_side):
         if y_side == "back":
             iy1 = back_top_wall_face()
     else:
-        ix0, ix1 = back_bottom_flank_face() if y_side == "back" else lip_face_x()
+        ix0, ix1 = (back_bottom_flank_face() if y_side == "back"
+                    else (front_bottom_west_flank_face(), lip_face_x()[1]))
         if y_side == "back":
             iy1 = rear_plane_y - wall      # the lip's own skin, already `2 * wall` of section
     return (ix0, ix1, iy0, iy1, iz0, iz1)
@@ -1003,6 +1026,23 @@ back_top_flank_t = 6.0
 # cavity face, so the seam is the seam it always was. What that leaves at the rim is a step
 # facing UP, on a piece that prints floor-down — the one direction a step costs nothing.
 back_bottom_flank_t = 9.0
+# --- front-bottom's own −X section --------------------------------------------
+#
+# THE WEST FLANK OF THE FRONT PIECE CARRIES THE SAME 9, and only the west one: the condenser's
+# block is packed to within a millimetre of the EAST flank over 154 mm of depth and 137 of
+# height, and it is seated off the compressor's own tangent rather than off that wall, so the
+# east flank keeps `2 * wall`.
+#
+# NEITHER THE CARD NOR THE COPPER MOVES FOR IT. The MQ-6 bottoms on `lip_face_x` and the
+# suction lane is struck off that same plane, so a face that moved would carry the board
+# inboard and the compressor east with it. The section closes ROUND the board instead
+# (`_front_bottom_west_skin` wells it off the station's own footprint) and the board sits where
+# the box's interior puts it with more wall behind it — the lever-nut rule from the far flank.
+#
+# AND THE VENT STILL GOES CLEAN THROUGH. A slot is struck from the face that is actually there
+# (`vent_flank_face`), so the grille pierces whatever this wall measures rather than a stated
+# `2 * wall`; what a deeper wall costs the intake is throat, which `VENT_ASPECT` reads.
+front_bottom_west_flank_t = 9.0
 # AND IT OWES ITS ROOM TO THINGS THAT WERE ALREADY THERE. The front half's Y lip telescopes into
 # this piece on this wall surface and back-bottom's Z lip rises into it on the same one, and the
 # lane each rises into is exactly the `wall` this would add — so the section begins past the one
@@ -1502,7 +1542,8 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
-#   west_cradle   the −X wall's MQ-6 card slot, (y, z) — the card's plane and its centre
+#   west_cradle   the −X wall's MQ-6 card slot, (y, z, y0, y1, z0, z1) — the card's plane
+#                 and its centre, then the board's own footprint, which is what the flank wells
 #   cond_cradle   the front wall's condenser rails, one (face, x0, x1, fz0, fz1, root) per fore
 #                 flange — the plane the block's fore face rests on, that flange's width, its
 #                 two faces in height, and how far the rail runs down under it
@@ -3745,6 +3786,25 @@ def _lip_underwall(inner, y_joint, zj):
                      inner[4], zj)
 
 
+def _front_bottom_west_skin(inner, west_cradle, y_joint, zj):
+    """The extra skin inboard of front-bottom's −X flank, slab to seam mouth, WELLED where the
+    MQ-6 stands.
+
+    The strip is struck like back-bottom's. The well is the board's own footprint off the
+    station (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, so the card
+    still slides west onto `lip_face_x` and the can keeps the room it had. Cut here rather than
+    left to the cradle, because what the cradle builds is rails standing on a face and this is
+    the face they stand on."""
+    lx0, _lx1 = lip_face_x()
+    fx0 = front_bottom_west_flank_face()
+    skin = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
+    for _sy, _sz, by0, by1, bz0, bz1 in west_cradle:
+        skin = skin.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
+                              by0 - mq6_slot_press, by1 + mq6_slot_press,
+                              bz0 - mq6_slot_press, bz1 + mq6_slot_press))
+    return skin
+
+
 def _back_bottom_flank_skin(inner, y_joint, zj):
     """The extra skin inboard of back-bottom's two flanks, slab to seam mouth.
 
@@ -5652,7 +5712,7 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     to the slab — so the datum is `lip_face_x` and not `interior_x`, `2 * wall` of flank and
     not one. `enclosure_assembly.build_mq6` seats the board on the same call."""
     span, _off = _mq6.header_span()
-    for sy, sz in stations:
+    for sy, sz, *_foot in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
         cx0, cx1 = lip_face_x()[0], lip_face_x()[0] + mq6_card_x
@@ -5839,7 +5899,7 @@ def _vent_runs(solid, outer, airway, sx, y):
     while the feature gets a wall-height root instead of a thin remnant between its crown and a
     one-off slot."""
     band = list(vent_band(airway))
-    face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
+    face = vent_flank_face(sx)
     half = reeding.pierce_width / 2.0
     xs = sorted((face - sx * cond_vent_probe, face - sx * stated_bound_tol))
     probe = _ybox(xs[0], xs[1], y - half - cond_vent_clear, y + half + cond_vent_clear,
@@ -5866,7 +5926,7 @@ def _vent_cutter(outer, sx, y, z0, z1):
     piece stands on its floor and the build axis runs up this wall, so the sill only takes
     material away as the print climbs and the ceiling closes at exactly the angle the box
     supports nothing steeper than."""
-    face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
+    face = vent_flank_face(sx)
     skin = outer[1] if sx > 0.0 else outer[0]
     half = reeding.pierce_width / 2.0
     hip = half * math.tan(math.radians(relief_chamfer))
@@ -5898,7 +5958,7 @@ def vent_measure(solid, outer, airway, sx):
     tallest unbraced picket on it — the figure the transoms exist to set."""
     ay0, ay1 = airway[0], airway[1]
     bz0, bz1 = vent_band(airway)
-    face = lip_face_x()[1] if sx > 0.0 else lip_face_x()[0]
+    face = vent_flank_face(sx)
     skin = outer[1] if sx > 0.0 else outer[0]
     xs = sorted(((face + skin) / 2.0 - 0.1, (face + skin) / 2.0 + 0.1))
     window = _ybox(xs[0], xs[1], ay0, ay1, bz0, bz1)
@@ -6826,6 +6886,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # and not in air. Fused here with the lip and before every pocket, so a
         # well or a groove cut into this flank later is cut out of the whole `2 * wall` of it.
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
+        if y_side == "front":
+            # And front-bottom's own extra section on the west flank, welled round the board.
+            piece = piece.fuse(_front_bottom_west_skin(
+                inner, box.west_cradle, y_joint, zj).intersect(col))
         if y_side == "back":
             # And back-bottom's own extra section inboard of that, on the two flanks only.
             # Fused with them and before every pocket for the same reason: a well cut into

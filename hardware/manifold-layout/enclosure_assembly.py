@@ -778,14 +778,22 @@ def build_mq6(comp, cond):
                      z0=box(comp).zmin + _enc.mq6_rail_wall)
 
 
-def mq6_cradle(carry):
-    """The wall's card-slot station, `(y, z)` — the card's own mid-plane and its centre,
-    carried out of the board's frame so the slot cannot land anywhere but on the card.
+def mq6_cradle(carry, body):
+    """The wall's card-slot station, `(y, z, y0, y1, z0, z1)` — the card's own mid-plane and
+    its centre, then the whole board's footprint against that wall.
 
-    Struck on `mq6_gas_sensor.card_plane` and not on the placed box, because the box is the
-    pins and the can as well, and its centre is behind the card they hang off."""
+    THE FIRST TWO ARE STRUCK ON `mq6_gas_sensor.card_plane` and not on the placed box, because
+    the box is the pins and the can as well, and its centre is behind the card they hang off.
+    The slot cannot land anywhere but on the card.
+
+    THE LAST FOUR ARE THAT BOX, and they are what the flank is WELLED to.
+    `front_bottom_west_flank_t` stands this wall inboard of the plane the card bottoms on, so
+    the board would be inside the section if the section did not open for it — and what has to
+    open is the can's silhouette, not the card's plane. A well struck on the card alone is a
+    well the can does not fit."""
     pos = carry(_mq6.card_plane())[0]
-    return ((pos[1], pos[2]),)
+    b = box(body)
+    return ((pos[1], pos[2], b.ymin, b.ymax, b.zmin, b.zmax),)
 
 
 # --- the bounds the machine states about itself -----------------------------
@@ -5717,7 +5725,7 @@ def build_pack() -> cq.Assembly:
     # lands, the way every well on the other flank is struck on its lug.
     mq6, mq6_carry = build_mq6(comp, cond)
     a.add(mq6, name="mq6-sensor", color=C_MQ6)
-    a.west_cradle = mq6_cradle(mq6_carry)
+    a.west_cradle = mq6_cradle(mq6_carry, mq6)
     # The cutoff goes down with the compressor too, and for the same reason the sensor does:
     # its whole job is a temperature, and the temperature it reads is the one at the face it
     # is lying on.

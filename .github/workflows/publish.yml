@@ -21,9 +21,11 @@ on:
       - tools/ci-image/**
       - tools/docgen/**
       - tools/render/**
+      # `web/**` stays: `render-step-posed-runtime` and `quickstart-art` stand this viewer to
+      # draw the assembly cards, so a change to it is a change to those pictures. `updates/**`
+      # and `render.yaml` are srcs of no rule in BUILD.bazel and reach the site on their own
+      # push, so a run here would cut nothing and deploy nothing.
       - web/**
-      - updates/**
-      - render.yaml
       - .dockerignore
       - BUILD.bazel
       - MODULE.bazel
