@@ -807,7 +807,7 @@ free along its axis, until each collet's nose lands on the steel — the body ke
 coming, the nose is held, the grip opens, and the tubes draw out through the holes they
 entered by. Push it home and the tubes thread back into the same collets, the cap's own
 aft face landing on the plate's own fore face, the tees square in those same bores and
-braced by the valves their runs butt into, each of those in a panel seat. One hand
+braced by the valves their runs butt into, each of those in a valve-tray seat. One hand
 pulls, the other braces the box; the box carries the brace through its fixed wall and
 the two wedge cheeks rather than asking the plate's little floor seat to take the
 whole overturning moment.
@@ -995,11 +995,11 @@ off the lip they reach under. Unlike every other cavity on this box the channels
 **cut**, because there is no pair of end walls in a plate for a channel to be the gap
 between.
 
-**A tray is a cantilever off the pump cartridge's face, and `_tray_webs`' own boxes close
+**A tray is a cantilever off the pump cartridge's face, and `_pump_tray_webs`' own boxes close
 the deck.** One web between the two trays and the across-runs to the deck's edges —
 each the trays' own plate thick and in that plate's own band, cropped to the jambs'
 sweep air, so the deck comes out **one plate** whose edge strips ride the bay's
-rails. The webs to the side walls and the aft web onto a panel are not drawn here:
+rails. The webs to the side walls and the aft web onto a valve tray are not drawn here:
 the rails standing on the floor carry the deck instead, and its aft edge stops two
 millimetres short of the collet plate, and the cap's aft face one storey down is what lands on the steel.
 
