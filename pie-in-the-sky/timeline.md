@@ -36,13 +36,13 @@ Today's marketing problem: how do we convince anyone that a $7,500 machine from 
 
 ## Manufacturing economics swing the other way
 
-HSM 1's BOM is mostly parts that ship in HSM 2 and HSM 3 as well — electronics shelf, peristaltic pumps, valve manifold, hopper, faucet, display, firmware. Volume on HSM 1 drops per-unit costs on every shared part. The "easy SKU subsidizes the harder SKUs through shared BOM" pattern is the historical norm for appliance brands at this scale. The current single-SKU plan does not have this lever.
+HSM 1's BOM is mostly parts that ship in HSM 2 and HSM 3 as well — main board, peristaltic pumps, valve manifold, funnel, faucet, display, firmware. Volume on HSM 1 drops per-unit costs on every shared part. The "easy SKU subsidizes the harder SKUs through shared BOM" pattern is the historical norm for appliance brands at this scale. The current single-SKU plan does not have this lever.
 
 The CGA-320 kit doesn't share BOM with the appliance line — it is a regulator + bottle + head, not electronics + pumps. So the kit doesn't pull appliance unit-cost down. What it drives down instead is *brand discovery cost*: shared traffic, shared SEO, shared trust capital. The economics of brand investment work the same way shared-BOM economics do — fixed cost amortized across more units.
 
 ## Risk profile inverts
 
-Current plan: spend the project budget betting that the hard engineering (custom 316L vessel, refrigerant teardown and recharge, hydrocarbon safety architecture) lands at the right time, then validate go-to-market against the finished machine.
+Current plan: spend the project budget betting that the hard engineering (custom 316L carbonator, refrigerant teardown and recharge, hydrocarbon safety architecture) lands at the right time, then validate go-to-market against the finished machine.
 
 HSM-1-first plan: ship something, validate everything that isn't engineering — does the video convert, does the install story work, does the syrup supply chain hold up, does the iOS app feel right, do real kitchens cooperate with the install pattern, does the brand mean anything yet, what's the real failure rate of a peristaltic pump in a customer's home. Then invest the HSM 2 carbonator and refrigeration R&D against a validated market.
 
