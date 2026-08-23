@@ -48,9 +48,9 @@ final body → plate → TPU gasket → countertop → keyhole-plate stack.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python touch_flo_mounting_plate.py
+tools/cad-venv/bin/python above_counter_plate.py
 ```
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`
+- `/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py`

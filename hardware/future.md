@@ -6,7 +6,7 @@ This is the **thin** machine: tall and narrow, built around one bound. The cold 
 
 Read the machine from its cold center outward and from its back wall forward. A **cold core** fills the back-bottom of the enclosure — a stainless carbonator vessel, an evaporator coil wound around it, and the two flavor reservoirs nested in foam around it, where they pre-chill. Forward of the core are the compressor and the pumps and valves; above it, the electronics and the water deck; over them the flavor funnel. The carbonated-water line runs straight up through the countertop to the faucet. The sections below take the cold core **inside out** and the enclosure **back to front**.
 
-This is the hardware narrative — one dimension of the project. The folder map and the part-metadata convention are in [`/hardware/README.md`](/hardware/README.md); the CAD idioms its generators follow are in [`touch_flo_shell.md`](/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.md) and [`cadlib/`](/hardware/printed-parts/cadlib/); point-in-time history is frozen in [`/hardware/snapshots/`](/hardware/snapshots/).
+This is the hardware narrative — one dimension of the project. The folder map and the part-metadata convention are in [`/hardware/README.md`](/hardware/README.md); the CAD idioms its generators follow are in [`faucet_shell.md`](/hardware/printed-parts/faucet/faucet-shell/faucet_shell.md) and [`cadlib/`](/hardware/printed-parts/cadlib/); point-in-time history is frozen in [`/hardware/snapshots/`](/hardware/snapshots/).
 
 **Carbonation.**
 

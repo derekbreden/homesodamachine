@@ -68,22 +68,22 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-# _touch_flo_interface — the shared pill / shank geometry — lives in
+# _faucet_interface — the shared pill / shank geometry — lives in
 # hardware/printed-parts/faucet/.
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
-sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet" / "touch-flo-shell"))
+sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet" / "faucet-shell"))
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hardware_dir / "scripts"))
 from docgen import substitute_md, substitute_py_comments
 from _cadq_export import export_dxf
-from _touch_flo_interface import (
+from _faucet_interface import (
     flavor_tube_depth,
     pill_length_x,
     pill_width_y,
     shank_hole_diameter,
 )
-from touch_flo_shell import body_bore_diameter
+from faucet_shell import body_bore_diameter
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
 # Hole positions match the above-counter gasket and plate; the
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     # The shell's ASSEMBLY.md carries this plate's spec as a one-stop
     # reference; the plate-derived values there are this generator's.
     substitute_md(
-        _hardware_dir / "printed-parts" / "faucet" / "touch-flo-shell" / "ASSEMBLY.md",
+        _hardware_dir / "printed-parts" / "faucet" / "faucet-shell" / "ASSEMBLY.md",
         variables=variables,
     )
     print("-> ASSEMBLY.md")

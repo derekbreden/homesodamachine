@@ -1,6 +1,6 @@
 """Touch-Flo shell — printed shroud that wraps the harvested faucet
 body, the flavor tubes, and the lever swing volume. Sits on top of
-the touch-flo-mounting-plate. The dispense tip carries the cradle for
+the above-counter-plate. The dispense tip carries the cradle for
 the flavor display (DISPLAY CRADLE section).
 
 Frame: world +Z is height (up), world ±X is lateral (symmetric across
@@ -23,12 +23,12 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
+sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
 from _materials import C_PETCF_BLACK, one_body
-import _touch_flo_interface
-from _touch_flo_interface import (
+import _faucet_interface
+from _faucet_interface import (
     flavor_tube_od,
     flavor_tube_x_offset,
     flavor_tube_hole_dia,
@@ -244,7 +244,7 @@ wing_outer_x = shell_rect_x_half  # [11.75 mm](SHELL_RECT_X_HALF)
 water_tube_y = +8.875
 # 3/8" LLDPE water tube, internal to the faucet head — sealed in the
 # body's 10.0 mm port via a printed TPU bushing (see
-# ../touch-flo-tpu-o-ring/).
+# ../tpu-o-ring/).
 water_tube_od = 0.375 * 25.4  # [9.525 mm](WATER_TUBE_OD)
 # [10.22 mm](WATER_HOLE_D) water bore.
 water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20
@@ -1655,20 +1655,20 @@ def main():
     bottom = build_shell_bottom(full)
     middle = build_shell_middle(full)
     top = build_shell_top(full)
-    # touch-flo-shell.step is the TRUE assembly — the three printed
+    # faucet-shell.step is the TRUE assembly — the three printed
     # pieces as separate solids in their assembled positions, joint
     # voids, seams and all — not the unsplit design solid the pieces
     # derive from. Separate solids, not a union: a boolean union fuses
     # the joints' nominal-contact faces and dissolves their seams.
-    assembled = cq.Assembly(name="touch-flo-shell")
+    assembled = cq.Assembly(name="faucet-shell")
     assembled.add(bottom, name="shell_bottom", color=C_PETCF_BLACK)
     assembled.add(middle, name="shell_middle", color=C_PETCF_BLACK)
     assembled.add(top, name="shell_top", color=C_PETCF_BLACK)
 
-    full_out = out_dir / "touch-flo-shell.step"
-    bottom_out = out_dir / "touch-flo-shell-bottom.step"
-    middle_out = out_dir / "touch-flo-shell-middle.step"
-    top_out = out_dir / "touch-flo-shell-top.step"
+    full_out = out_dir / "faucet-shell.step"
+    bottom_out = out_dir / "faucet-shell-bottom.step"
+    middle_out = out_dir / "faucet-shell-middle.step"
+    top_out = out_dir / "faucet-shell-top.step"
     export_assembly(assembled, str(full_out))
     for shape, out in ((bottom, bottom_out), (middle, middle_out), (top, top_out)):
         export_assembly(one_body(shape, out.stem, C_PETCF_BLACK), str(out))
@@ -1758,22 +1758,22 @@ def main():
 
     # Pinned dimensions living in the shared interface helper's prose.
     interface_variables = {
-        "FLAVOR_TUBE_X_OFFSET": f"{_touch_flo_interface.flavor_tube_x_offset:.4g} mm",
-        "FLAVOR_TUBE_HOLE_DIA": f"{_touch_flo_interface.flavor_tube_hole_dia:.4g} mm",
-        "PILL_LENGTH_X": f"{_touch_flo_interface.pill_length_x:.4g} mm",
-        "PILL_WIDTH_Y": f"{_touch_flo_interface.pill_width_y:.4g} mm",
-        "FLAVOR_TUBE_DEPTH": f"{_touch_flo_interface.flavor_tube_depth:.5g} mm",
+        "FLAVOR_TUBE_X_OFFSET": f"{_faucet_interface.flavor_tube_x_offset:.4g} mm",
+        "FLAVOR_TUBE_HOLE_DIA": f"{_faucet_interface.flavor_tube_hole_dia:.4g} mm",
+        "PILL_LENGTH_X": f"{_faucet_interface.pill_length_x:.4g} mm",
+        "PILL_WIDTH_Y": f"{_faucet_interface.pill_width_y:.4g} mm",
+        "FLAVOR_TUBE_DEPTH": f"{_faucet_interface.flavor_tube_depth:.5g} mm",
         "DISPLAY_HOUSING_OVERHANG": (
-            f"{(_touch_flo_interface.display_housing_width - _touch_flo_interface.display_pcb_width) / 2.0:.4g} mm"
+            f"{(_faucet_interface.display_housing_width - _faucet_interface.display_pcb_width) / 2.0:.4g} mm"
         ),
-        "DISPLAY_PCB_BOTTOM_Z": f"{_touch_flo_interface.display_pcb_bottom_z:.4g} mm",
-        "DISPLAY_PCB_TOP_Z": f"{_touch_flo_interface.display_pcb_top_z:.4g} mm",
+        "DISPLAY_PCB_BOTTOM_Z": f"{_faucet_interface.display_pcb_bottom_z:.4g} mm",
+        "DISPLAY_PCB_TOP_Z": f"{_faucet_interface.display_pcb_top_z:.4g} mm",
     }
     substitute_py_comments(
-        Path(_touch_flo_interface.__file__),
+        Path(_faucet_interface.__file__),
         variables=interface_variables,
     )
-    print(f"-> {Path(_touch_flo_interface.__file__).name} (interface)")
+    print(f"-> {Path(_faucet_interface.__file__).name} (interface)")
 
 
 if __name__ == "__main__":

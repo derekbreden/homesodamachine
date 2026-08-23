@@ -281,7 +281,7 @@ const BENCH = `
 // ── Fifteen attempts at one part ─────────────────────────────────────────────
 // Apr 26 – May 23. The attempts that fall inside the window, each carrying the
 // outcome its own section closes on in
-// `hardware/printed-parts/faucet/touch-flo-shell/print-log.md`. Attempt 16
+// `hardware/printed-parts/faucet/faucet-shell/print-log.md`. Attempt 16
 // finishes 26 May, past the window's end, which is why the strip stops at 15.
 // Two of the fifteen — 6 and 15 — close there with no outcome recorded, and the
 // circle is that and not a verdict.

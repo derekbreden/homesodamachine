@@ -6,7 +6,7 @@
     "PLATE_D": "54.45 mm",
     "SHANK_HOLE_D": "12.6 mm"
   },
-  "/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py": {
+  "/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "BODY_CYL_TOP_Z": "13 mm",
     "BODY_OD": "31.5 mm",
     "BODY_RECT_LONG": "31.5 mm",

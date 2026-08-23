@@ -111,7 +111,7 @@ A second unit behind the first does not cost another [3.5](MT_DAYS_TURN) days �
    1.5, whose comment says below it "the wall between two features stops being printable". Neither
    is wrong — both clear one bead on any nozzle this shop runs — but neither is held either, and a
    label that says printable reads as though it were. The figure to copy is
-   `touch_flo_shell.display_line_width` = 0.62, which is its own part's bead on a group that names
+   `faucet_shell.display_line_width` = 0.62, which is its own part's bead on a group that names
    its nozzle.
 4. **Print failure rate.** The [65 %](MT_DUTY) duty figure carries it implicitly. A measured scrap rate would separate "the printer was idle" from "the printer printed something that went in the bin".
 

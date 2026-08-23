@@ -126,15 +126,15 @@ PARTS = {
     # NO VALVE PANEL ROW AND NO TRAY ROW. Every valve in the machine stands in four bosses
     # (`valve_seat`), and every set of them is printed into a part already billed: three on the
     # cold core's cap lid (`_cold_core_interface.cap_cradles`) and eight on the two valve panels
-    # (`enclosure._valve_panels`), which are `enclosure-front-top`'s own material. So a valve's
+    # (`enclosure._valve_trays`), which are `enclosure-front-top`'s own material. So a valve's
     # seat is priced as part of the piece that carries it, and nothing stands under one that
     # ships on its own.
     "Faucet touch-flo shell (3-piece: bottom + middle + top)": [
-        "faucet/touch-flo-shell/touch-flo-shell-bottom.step",
-        "faucet/touch-flo-shell/touch-flo-shell-middle.step",
-        "faucet/touch-flo-shell/touch-flo-shell-top.step",
+        "faucet/faucet-shell/faucet-shell-bottom.step",
+        "faucet/faucet-shell/faucet-shell-middle.step",
+        "faucet/faucet-shell/faucet-shell-top.step",
     ],
-    "Faucet mounting plate": ["faucet/touch-flo-mounting-plate/touch-flo-mounting-plate.step"],
+    "Faucet mounting plate": ["faucet/above-counter-plate/above-counter-plate.step"],
 }
 
 PRINTED = "<!--@printed-->"

@@ -18,18 +18,18 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-sys.path.insert(0, str(_here.parent))  # for _touch_flo_interface
-sys.path.insert(0, str(_here.parent / "touch-flo-shell"))  # for the shared footprint
+sys.path.insert(0, str(_here.parent))  # for _faucet_interface
+sys.path.insert(0, str(_here.parent / "faucet-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
 from _materials import C_PETCF_BLACK, one_body
-from _touch_flo_interface import (
+from _faucet_interface import (
     flavor_tube_depth,
     pill_length_x,
     pill_width_y,
     shank_hole_diameter,
 )
-from touch_flo_shell import (
+from faucet_shell import (
     shell_outer_cyl,
     _base_pod_teardrops,
     _base_pod_front,
@@ -103,7 +103,7 @@ def vertical_x_slot(center, length_x, width_y, z_range):
     )
 
 
-def build_mounting_plate() -> cq.Workplane:
+def build_above_counter_plate() -> cq.Workplane:
     """Shell-foot footprint (foot circle + two teardrops + front D-pod) as a
     plate_thickness slab, three screw bosses rising from the top, each
     counterbored (full plate) and shank-bored, plus the shank hole and the
@@ -132,9 +132,9 @@ def build_mounting_plate() -> cq.Workplane:
 
 
 def main():
-    plate = build_mounting_plate()
+    plate = build_above_counter_plate()
 
-    out = _here / "touch-flo-mounting-plate.step"
+    out = _here / "above-counter-plate.step"
     export_assembly(one_body(plate, out.stem, C_PETCF_BLACK), str(out))
     print(f"-> {out.name}")
 
