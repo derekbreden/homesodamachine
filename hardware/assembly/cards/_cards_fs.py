@@ -1,4 +1,4 @@
-"""PV / CA / FC / AB / FS / GT — the vessel the bench builds by hand, and the
+"""PV / CA / FC / AB / FS / GT — the carbonator the bench builds by hand, and the
 five benches that prove, commission, accept and ship the finished machine.
 
 One subsystem function, registered in `_cards_sync.SUBSYSTEMS`. The rules it
@@ -7,8 +7,8 @@ structural reading to a coordinate, and assert the structure the sentence around
 it stands on.
 
 These six prefixes are one subsystem because they are one arc seen at six
-benches, and the same handful of things carry through all of it. The vessel PV
-welds is the vessel AB fills; the port the vessel is gassed through is the bore
+benches, and the same handful of things carry through all of it. The carbonator PV
+welds is the carbonator AB fills; the port the carbonator is gassed through is the bore
 FS caps; the row of unions FS inspects is the row IP lands the risers on. A
 figure stated at two of those benches is one fact, and the deck's one namespace
 is what stops them disagreeing.
@@ -143,17 +143,17 @@ def _figures():
     seat-to-seat spans, the PRV shroud, the board's connector list, and the
     setpoints the commissioning and acceptance benches load. `bench` holds the
     structure; this holds the numbers."""
-    # ── the vessel's two plates are one part (PV-01…PV-04, PV-09) ─────────
+    # ── the carbonator's two plates are one part (PV-01…PV-04, PV-09) ─────────
     # Every PV card up to closure says "both plates, identically": one cut file,
     # one register drill, interchangeable top and bottom. Two plate variants
     # would make PV-03's "drill both plates identically" a different step.
     assert len(_cap.hole_positions) == 2, (
         f"the end-cap cut carries {len(_cap.hole_positions)} holes — PV-01 breaks two per face "
-        f"and PV-02 taps two per plate, and the vessel's four ports are those two twice")
+        f"and PV-02 taps two per plate, and the carbonator's four ports are those two twice")
     ports_per_plate = len(_cap.hole_positions)
     plates = 2
     # The register is BLIND and must stay blind: PV-03's one critical is the
-    # plate left under it, and that plate is the pressure boundary the vessel is
+    # plate left under it, and that plate is the pressure boundary the carbonator is
     # hydro-tested to. A register drilled to the plate's own thickness is a hole.
     assert _cap.register_depth < _cap.disc_thickness, (
         f"the rod register is {_cap.register_depth}\" deep in a {_cap.disc_thickness}\" plate — "
@@ -178,10 +178,10 @@ def _figures():
         f"the carbonator's rod is cut {_pv.rod_clearance} mm under its span and a reservoir's "
         f"{_rsv.reservoir_rod_clearance} mm under its — PV-05 states one clearance for all three")
     rod_clearance = _pv.rod_clearance
-    # ONE carbonator, and therefore one carbonator rod. Typed, because the vessel is
+    # ONE carbonator, and therefore one carbonator rod. Typed, because the carbonator is
     # not a population the CAD counts — `_pressure_vessel_sync` carries a single
     # `carbonator_rod_len`, so there is no census to read and nothing that would move
-    # this figure without a second vessel appearing. Named once and spent twice, so
+    # this figure without a second carbonator appearing. Named once and spent twice, so
     # PV-05's total and its own line cannot disagree; the reservoirs beside it ARE a
     # population and are counted.
     carb_rods = 1
@@ -240,7 +240,7 @@ def _figures():
         "DISC_D": f"{DIA}{_dec(_cap.disc_diameter)}",
         "PORT_SPACING": _dec(_cap.hole_spacing),
         "PORTS_PER_PLATE": f"{ports_per_plate}",
-        "VESSEL_PORTS": f"{ports_per_plate * plates}",
+        "CARBONATOR_PORTS": f"{ports_per_plate * plates}",
         # Both faces of every hole, both plates — the count PV-01 flips for.
         "CHAMFER_PASSES": f"{ports_per_plate * 2 * plates}",
         "REGISTER_D": _frac(_cap.register_drill_diameter),
@@ -273,7 +273,7 @@ def _figures():
                            f"&#183; {DIA}{_prv.vent_hole_diameter:.4g} mm",
         "PRV_SEAT_SLIP": f"{_prv.overcut:.4g} mm",
         # ── the pressures (PV-03, PV-11, PV-14, AB-01, AB-02, GT-02) ─────
-        # One regulator setting, stated at six benches. The vessel is proved to
+        # One regulator setting, stated at six benches. The carbonator is proved to
         # twice it, so PV-11's "~2× working" is arithmetic on this number and
         # not a second figure to keep in step.
         "REG_PSI": f"{_pv.secondary_regulator_pressure_psi:.4g} PSI",
@@ -319,8 +319,8 @@ def _figures():
         # PV — the plates.
         "pv-01-chamfer-port-holes": {
             "TAP_DRILL", "TAP_DRILL_D", "PLATE_THK", "PORTS_PER_PLATE",
-            "CHAMFER_PASSES", "VESSEL_PORTS"},
-        "pv-02-tap-npt-ports": {"PORTS_PER_PLATE", "VESSEL_PORTS", "TAP_DRILL"},
+            "CHAMFER_PASSES", "CARBONATOR_PORTS"},
+        "pv-02-tap-npt-ports": {"PORTS_PER_PLATE", "CARBONATOR_PORTS", "TAP_DRILL"},
         "pv-03-rod-register": {
             "DISC_D", "PLATE_THK", "TAP_DRILL", "PORT_SPACING", "PORTS_PER_PLATE",
             "REGISTER_D", "REGISTER_Y", "REGISTER_DEPTH", "REGISTER_REMAINING",
@@ -339,7 +339,7 @@ def _figures():
         "pv-11-hydro-test": {"REG_PSI"},
         "pv-13-prv-shroud-subassembly": {
             "PRV_SHROUD_SIZE", "PRV_SHROUD_WALL", "PRV_SEAT_SLIP"},
-        "pv-14-port-fittings": {"VESSEL_PORTS", "REG_PSI"},
+        "pv-14-port-fittings": {"CARBONATOR_PORTS", "REG_PSI"},
         # CA — the schedule is the board's connector list.
         "ca-02-harness-schedule": {
             "ASSEMBLY_COUNT", "J1_PINS", "J2_PINS", "J3_PINS", "J4_PINS", "J5_PINS",

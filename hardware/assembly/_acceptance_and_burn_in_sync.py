@@ -16,7 +16,7 @@ from docgen import substitute_md
 
 # The refill pump's relay gate and the valve count this procedure takes in hand are
 # the commissioning driver's, and the appliance-side CO2 pressure is the pressure
-# vessel's working pressure — take each from the driver that owns it rather than
+# carbonator's working pressure — take each from the driver that owns it rather than
 # restating the number here.
 from _firmware_and_commissioning_sync import gpio_relay2 as _fc_gpio_relay2
 from _firmware_and_commissioning_sync import valve_count as _fc_valve_count
