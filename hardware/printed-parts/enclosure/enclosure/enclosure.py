@@ -4169,11 +4169,18 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     (`front_top_flank_t`). Fused before any of this piece's flank furniture, so a well, a
     panel or a port cut afterwards is cut out of the whole of it.
 
-    IT STOPS ONE `wall` SHORT UNDER THE RIM. Front-bottom's Z-seam tongue rises into this
-    flank over `lip_len` and the space it rises into is the `wall` inboard of `interior_x` —
-    so under the rim this takes what is left inboard of the tongue and not the tongue's own
-    lane. That holds whether the lip stands over a run or is given up on it
-    (`_flank_lip_drop`): the telescope is never asked about, it is simply left its room.
+    IT BEGINS AT THE RIM, and under the rim this flank is the box's own `wall`. Front-bottom's
+    Z-seam tongue LAPS that wall's inner face over `lip_len` and stands open inboard — the
+    same joint the back column makes (`_back_top_flanks`), on a piece that carries three
+    times the section. What locates the seam is the four pins that cross it: a half-round
+    nose in a bored socket at `split_slip`, one per flank at each end of the column's span
+    (`_z_pin`, `_z_pod`, `_corner_socket`). A lap bears; the pins register.
+
+    SECTION CARRIED PAST THE RIM WOULD STAND ON THE FAR SIDE OF THAT TONGUE, and the lane
+    would stop being a lane: `wall` wide, `lip_len` deep, blind, roofed flat and running the
+    length of the flank, on the one piece of this box that beds mouth-down. Nothing about
+    the seam asks for a second face there — a tongue held on both flanks at once is held
+    at the fit of two printed walls, where one face and a slide fit is what closes.
 
     AND THE COLLET PLATE KEEPS ITS LANE. The steel lifts straight up through the bay with the
     cartridge out, so what it needs is not its own seat but the column over it — its footprint
@@ -4184,11 +4191,17 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     plate = box.collet_plate
     y0, y1 = outer[2] - 1.0, y_joint + lip_len
     rim = zj + lip_len
+    depth = front_top_flank_t - wall
     band = None
-    for x_in, x_face, sx in ((ix0, fx0, +1.0), (ix1, fx1, -1.0)):
-        lip_in = x_in + sx * wall
+    for x_in, x_face in ((ix0, fx0), (ix1, fx1)):
         seg = _ybox(min(x_in, x_face), max(x_in, x_face), y0, y1, rim, iz1)
-        seg = seg.fuse(_ybox(min(lip_in, x_face), max(lip_in, x_face), y0, y1, zj, rim))
+        # AND ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece beds on
+        # its own seam rim and builds in +Z, so a section square at the rim would put a
+        # `depth`-wide ledge over the tongue's lane pointing straight at the plate — the
+        # soffit `_lip_underwall` exists one storey down to avoid. Taken back at 45° it is a
+        # wall the print grows into off the flank it stands on.
+        seg = seg.cut(_xz_prism(y0 - 1.0, y1 + 1.0,
+                                [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
         band = seg if band is None else band.fuse(seg)
     # The steel's own column, floor to ceiling — its lane out of the machine.
     band = band.cut(_ybox(ix0 - 1.0, ix1 + 1.0, plate["fore_y"], plate["aft_y"],

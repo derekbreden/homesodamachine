@@ -225,6 +225,27 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    // The logo a channel wears is controller-owned like the selection, so the
+    // enclosure states the pair and reads back what the controller now holds.
+    if (type == MSG_FLAVOR_ART_QUERY) {
+        FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
+        link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
+        return;
+    }
+
+    if (type == MSG_FLAVOR_ART_SET && plen >= sizeof(FlavorArtPayload)) {
+        FlavorArtPayload request;
+        memcpy(&request, payload, sizeof(request));
+        if (!flavorArtSet(request.art[0], request.art[1])) {
+            link->sendResponse(MSG_ERR_SLOT_INVALID, request.art[0]);
+            return;
+        }
+        Serial.printf("\n[J9] artwork %u/%u\n", flavorArt(0), flavorArt(1));
+        FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
+        link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
+        return;
+    }
+
     if (type == MSG_FLAVOR_SELECT && plen >= sizeof(FlavorRequestPayload)) {
         FlavorRequestPayload request;
         memcpy(&request, payload, sizeof(request));

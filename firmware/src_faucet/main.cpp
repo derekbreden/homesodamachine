@@ -12,6 +12,8 @@
 // tools/png_to_rgb565.py from images/flavor_N.png)
 #include "images/flavor0_faucet.h"
 #include "images/flavor1_faucet.h"
+#include "images/flavor2_faucet.h"
+#include "images/flavor3_faucet.h"
 
 // ════════════════════════════════════════════════════════════
 //  ESP32-S3 Faucet Display — Flavor Selector + Prime Control
@@ -40,8 +42,13 @@
 
 // ── Flavors ──
 static const char *FLAVOR_NAMES[2] = {"Flavor 1", "Flavor 2"};
-static const uint16_t *FLAVOR_BITMAPS[2] = {flavor0_faucet, flavor1_faucet};
-static lv_img_dsc_t flavorLogos[2];
+// Every logo a channel can be given. Which one each channel wears is the
+// controller's to say — this head renders whichever it publishes.
+static const uint16_t *FLAVOR_BITMAPS[FLAVOR_ART_COUNT] = {
+    flavor0_faucet, flavor1_faucet, flavor2_faucet, flavor3_faucet,
+};
+static uint8_t flavorArt[2] = {0, 1};
+static lv_img_dsc_t flavorLogos[FLAVOR_ART_COUNT];
 
 static uint8_t activeFlavor = 0;
 static Preferences prefs;
@@ -274,7 +281,20 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 // ════════════════════════════════════════════════════════════
 
 static void applyFlavorUi() {
-  lv_img_set_src(logoImg, &flavorLogos[activeFlavor]);
+  lv_img_set_src(logoImg, &flavorLogos[flavorArt[activeFlavor & 1]]);
+}
+
+// The controller's resulting truth for the pair. Rendered immediately when the
+// channel on screen is one whose logo moved.
+void faucetApplyFlavorArt(const uint8_t art[2]) {
+  bool moved = false;
+  for (uint8_t i = 0; i < 2; i++) {
+    if (art[i] < FLAVOR_ART_COUNT && flavorArt[i] != art[i]) {
+      flavorArt[i] = art[i];
+      moved = true;
+    }
+  }
+  if (moved && logoImg) applyFlavorUi();
 }
 
 static void wakeBacklight() {
@@ -730,7 +750,7 @@ static void primeService(const BaseLinkStatus &link) {
 // ════════════════════════════════════════════════════════════
 
 static void buildUi() {
-  for (uint8_t i = 0; i < 2; i++) {
+  for (uint8_t i = 0; i < FLAVOR_ART_COUNT; i++) {
     flavorLogos[i].header.cf = LV_IMG_CF_TRUE_COLOR;
     flavorLogos[i].header.always_zero = 0;
     flavorLogos[i].header.w = SCREEN_W;
