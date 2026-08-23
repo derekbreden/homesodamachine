@@ -1,5 +1,6 @@
 {
   "/hardware/scripts/_bom_sync.py": {
+    "CEILING_SCREWS": "2",
     "COND_SCREWS": "2",
     "DISPLAY_COVER_SCREWS": "2",
     "FLOOR_SCREWS": "4",
@@ -11,9 +12,9 @@
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "58",
-    "TOTAL_M3_INSERTS": "54",
-    "TOTAL_SCREWS": "58",
+    "TOTAL_INSERTS": "60",
+    "TOTAL_M3_INSERTS": "56",
+    "TOTAL_SCREWS": "60",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {
