@@ -113,7 +113,7 @@ CROSS = [
     ("gas sensor",          r'label="GAS"',      r"MQ-6|combustible gas"),
     ("moisture sensor",     r"backflow",         r"moisture|water sensor"),
     ("flow sensor",         r"\.IO25",           r"DIGITEN|flow sensor"),
-    ("DS18B20 tank temp",   r"\.IO26",           r"DS18B20"),
+    ("DS18B20 carbonator temp", r"\.IO26",       r"DS18B20"),
     ("DS18S20 coil temp",   r"\.IO26",           r"DS18S20"),
     ("compressor relay",    r"\.IO19",           r"[Tt]eyleten"),
     ("diaphragm pump relay",r"\.IO2\b",          r"SEAFLO|diaphragm"),
