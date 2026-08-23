@@ -148,6 +148,13 @@ pages are static, and an operation-lock animation never sleeps underneath an
 active operation. Same idle/wake behavior as the faucet display; the difference
 is the backlight itself:
 
+- **Nothing on this board writes NVS while the panel runs.** The 800×480 framebuffer
+  lives in PSRAM (`flags.fb_in_psram`), and a flash write suspends the cache PSRAM is
+  reached through, so the DMA refilling its bounce buffer faults on the next line —
+  `Cache disabled but cached memory region accessed`, and the panic takes the USB PHY
+  down with it (`tools/display_usb.py` brings it back). A ratio and a flavor's chosen
+  logo are therefore display-local, and the durable home for both is the controller,
+  where the faucet's own selection already lives.
 - The faucet fades its backlight with PWM. This board's backlight is a *digital*
   line on the CH422G (EXIO2) — on/off only, no PWM, and I²C is too slow to fake
   it. So the idle state is a clean backlight-off (which genuinely cuts panel
@@ -184,6 +191,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `PAGE:0`..`PAGE:4` → show one rail destination (CHOOSE, RATIO, FILL, PRIME,
   CLEAN); `PAGE:5` → Settings, which is the corner rather than a rail slot
 - `FLAVOR:0` / `FLAVOR:1` → select through the same controller-owned path as a card tap
+- `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
+  the handlers the Choose gear and a thumbnail tap reach, without a finger on the glass
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
 - `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
   frames, light, quiet, then any active lock animation
@@ -235,6 +244,11 @@ This polling turn also carries faucet-originated changes from J3 to this display
 
 ## The interface
 
+Each Choose card carries a settings target of its own beneath it — a sibling of the
+card, not a child, so no press reaches the card under it — opening that flavor's page
+with its ratio and a grid of every logo it could wear. Two rows of thumbnails fit
+before the grid scrolls.
+
 A 190 px rail down the left carries five 88 px targets — **CHOOSE · RATIO · FILL ·
 PRIME · CLEAN** — each an icon over a word. Choose and Ratio are about the drink; Fill,
 Prime and Clean are a flavor's life in the machine, in the order it is lived. Choose uses a
@@ -247,7 +261,7 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Page | Shape | Reads / writes |
 |---|---|---|
 | Choose | two large, quiet flavor cards with an unmistakable retained selection | **the controller**, mirrored with the faucet |
-| Ratio | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
+| Ratio | two cards → one flavor's own page: `−`/`+` on the ratio, and every logo it can wear | display-local |
 | Fill | flavor choice → confirmation | **the base** |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
