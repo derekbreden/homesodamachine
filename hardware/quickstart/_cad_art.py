@@ -6,8 +6,8 @@ exact touched parts and makes four deliberate presentation cuts:
 - the faucet's source lever is a union of rest + pressed states for collision checking, so the
   customer views reconstruct one physical state at a time from the same dimensions;
 - invisible tube tails are clipped at the countertop for the user-side faucet views;
-- the mount sequence keeps the recognizable full faucet, countertop, shank, tubes and plate in one
-  fixed section camera, then crops those same registered pixels for the underside detail;
+- the mount sequence keeps the recognizable full faucet for the lowering event, then changes once
+  to a fixed, literal below-counter camera for the plate and retained-nut actions;
 - the retained donor washer and nut are plain visual stand-ins because the purchased hardware has
   no source CAD. Their family installation geometry is shown without using them as dimensional
   authority.
@@ -49,6 +49,9 @@ MOUNT_TARGET = (0.0, 0.0, 110.0)
 MOUNT_FRAME_SHAVE = 18
 MOUNT_FRAME_TRIM_TOP = 200
 MOUNT_FRAME_TRIM_BOTTOM = 40
+UNDER_MOUNT_CAM = (0.58, -1.60, -0.72)
+UNDER_MOUNT_TARGET = (0.0, 5.0, -45.0)
+UNDER_MOUNT_FRAME_SHAVE = 18
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -177,9 +180,9 @@ def _build_steps(work: Path) -> dict[str, Path]:
     # lever is outside that crop; every pictured tube, sleeve and word collar comes from source CAD.
     faucet_full_step = _export_colored(faucet, work / "faucet-full.step")
 
-    # One literal mount story, seen from one camera. The slab is the source countertop with its
-    # front half sectioned away through the prepared opening's centre. The section exposes both
-    # faces of the stack without inventing a transparent countertop or changing the hole.
+    # The lowering event needs one cutaway view that keeps the recognizable faucet, countertop,
+    # shank and tails together. The two securing frames below deliberately use the intact source
+    # countertop from the installer’s below-counter viewpoint instead.
     section_cutter = (
         cq.Workplane("XY")
         .workplane(offset=-130.0)
@@ -213,6 +216,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     plate_steel = cq.Color(0.72, 0.74, 0.76, 1.0)
     washer_steel = cq.Color(0.82, 0.83, 0.84, 1.0)
     nut_steel = cq.Color(0.43, 0.45, 0.48, 1.0)
+    countertop_stone = cq.Color(0.55, 0.55, 0.58, 1.0)
     # Both flavor lines are physically black. Instruction-lighting tones keep their tangent round
     # bodies countable at print size; the much lighter flat SIG-6 remains a different silhouette.
     flavor_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
@@ -339,6 +343,35 @@ def _build_steps(work: Path) -> dict[str, Path]:
             )
             out.add(anchor, name=f"render-frame-anchor-{index}", color=frame_anchor_color)
 
+    def add_under_render_frame(out: cq.Assembly):
+        """Lock both below-counter actions to one deliberately wide installer camera."""
+        view = cq.Vector(*UNDER_MOUNT_CAM)
+        view = view.multiply(1.0 / view.Length)
+        world_up = cq.Vector(0.0, 0.0, 1.0)
+        right = view.cross(world_up)
+        right = right.multiply(1.0 / right.Length)
+        screen_up = right.cross(view)
+        screen_up = screen_up.multiply(1.0 / screen_up.Length)
+        target = cq.Vector(*UNDER_MOUNT_TARGET)
+        for index, (across, rise) in enumerate(
+            ((-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)),
+            start=1,
+        ):
+            point = target.add(right.multiply(across * 190.0)).add(
+                screen_up.multiply(rise * 76.0)
+            )
+            anchor = (
+                cq.Workplane("XY")
+                .workplane(offset=point.z - 0.75)
+                .center(point.x, point.y)
+                .box(1.5, 1.5, 1.5, centered=(True, True, False))
+            )
+            out.add(
+                anchor,
+                name=f"under-render-frame-anchor-{index}",
+                color=frame_anchor_color,
+            )
+
     def add_mount_product(
         out: cq.Assembly,
         lift_z: float,
@@ -368,6 +401,35 @@ def _build_steps(work: Path) -> dict[str, Path]:
 
     def add_countertop_section(out: cq.Assembly):
         _add_child(out, parts["countertop"], obj=countertop_section)
+
+    def add_under_countertop(out: cq.Assembly):
+        """Keep the complete source slab intact for the view the installer actually sees."""
+        _add_child(out, parts["countertop"], color=countertop_stone)
+
+    def add_under_mount_product(out: cq.Assembly, *, washer_top_z: float):
+        """Show only the real shank, three attached tubes and captive donor pair below the slab."""
+        under_clip = (-112.0, -2.0)
+        for part_name in (
+            "valve_body",
+            "flavor_tube_pos_x",
+            "flavor_tube_neg_x",
+            "carb_supply_tube",
+        ):
+            child = parts[part_name]
+            color = {
+                "flavor_tube_pos_x": flavor_black_a,
+                "flavor_tube_neg_x": flavor_black_b,
+            }.get(part_name)
+            _add_child(
+                out,
+                child,
+                name=f"under-{part_name}",
+                obj=_clip_z(child.obj, *under_clip),
+                color=color,
+            )
+        washer, nut = donor_hardware(washer_top_z)
+        out.add(washer, name="under-retained-donor-washer", color=washer_steel)
+        out.add(nut, name="under-retained-donor-nut", color=nut_steel)
 
     # 1 — received factory state. The donor pair was loaded onto the bare shank before the blue
     # connection was made; this connected assembly makes that captive ordering visible above the
@@ -428,6 +490,47 @@ def _build_steps(work: Path) -> dict[str, Path]:
     )
     tight_step = _export_colored(tight, work / "mount-tighten.step")
 
+    # 3A — once the faucet is seated, the installer is below the intact counter. The light steel
+    # plate is the actual source DXF solid, still displaced at -X; its two open channels face the
+    # attached shank/tube stack. The only red is its literal lateral movement.
+    under_slide = cq.Assembly(name="faucet-mount-under-slide")
+    add_under_countertop(under_slide)
+    add_under_mount_product(under_slide, washer_top_z=captive_washer_top_z)
+    _add_child(
+        under_slide,
+        parts["under_counter_plate"],
+        name="under-open-plate",
+        obj=_moved(parts["under_counter_plate"].obj, (-36.0, 0.0, 0.0)),
+        color=plate_steel,
+    )
+    under_slide.add(
+        motion_arrow((-62.0, -20.0, -51.0), (1.0, 0.0, 0.0), 40.0, 9.0),
+        name="under-slide-motion",
+        color=motion_red,
+    )
+    add_under_render_frame(under_slide)
+    under_slide_step = _export_colored(under_slide, work / "mount-under-slide-clean.step")
+
+    # 3B — identical counter, camera and hanging assembly. Only the source plate is seated and
+    # the captive donor washer/nut pair has closed into the real stack, so the rotation cue is
+    # unmistakably about that one hex nut.
+    under_tight = cq.Assembly(name="faucet-mount-under-tighten")
+    add_under_countertop(under_tight)
+    add_under_mount_product(under_tight, washer_top_z=final_washer_top_z)
+    _add_child(
+        under_tight,
+        parts["under_counter_plate"],
+        name="under-seated-plate",
+        color=plate_steel,
+    )
+    under_tight.add(
+        rotation_arrow((0.0, 0.0, -51.0), 18.0, 70.0, 280.0),
+        name="under-tighten-rotation",
+        color=motion_red,
+    )
+    add_under_render_frame(under_tight)
+    under_tight_step = _export_colored(under_tight, work / "mount-under-tighten-clean.step")
+
     return {
         "faucet-head": head_step,
         "faucet-head-pressed": pressed_step,
@@ -439,6 +542,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "mount-lowered-clean": lowered_clean_step,
         "mount-slide-clean": slide_clean_step,
         "mount-final-clean": final_clean_step,
+        "mount-under-slide-clean": under_slide_step,
+        "mount-under-tighten-clean": under_tight_step,
     }
 
 
@@ -557,6 +662,17 @@ def _shave_render_frame(path: Path, margin: int) -> None:
     note_write(path)
 
 
+def _shave_under_render_frame(path: Path, margin: int) -> None:
+    """Remove only the four wide-frame anchors, preserving the installer-scale slab."""
+    with Image.open(path) as image:
+        if image.width <= 2 * margin or image.height <= 2 * margin:
+            raise ValueError(f"cannot shave {margin}px from {image.width}x{image.height}: {path}")
+        cropped = image.crop((margin, margin, image.width - margin, image.height - margin))
+        cropped.save(path, format="PNG", compress_level=9, optimize=False)
+    _canonicalize_png(path)
+    note_write(path)
+
+
 def main(*, mount_studies: bool = False) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -593,16 +709,34 @@ def main(*, mount_studies: bool = False) -> None:
                 target=MOUNT_TARGET,
             ),
         ]
+        under_mount_jobs = [
+            _job(
+                steps["mount-under-slide-clean"],
+                "mount-under-slide-clean.png",
+                UNDER_MOUNT_CAM,
+                target=UNDER_MOUNT_TARGET,
+            ),
+            _job(
+                steps["mount-under-tighten-clean"],
+                "mount-under-tighten-clean.png",
+                UNDER_MOUNT_CAM,
+                target=UNDER_MOUNT_TARGET,
+            ),
+        ]
         mount_frame_jobs = [
             *mount_jobs,
             *mount_clean_jobs,
         ]
+        mount_render_jobs = [
+            *mount_frame_jobs,
+            *under_mount_jobs,
+        ]
         if mount_studies:
             study_dir = OUT / "mount-studies"
             study_dir.mkdir(parents=True, exist_ok=True)
-            for job in mount_frame_jobs:
+            for job in mount_render_jobs:
                 job["out"] = str(study_dir / Path(job["out"]).name)
-            jobs = mount_frame_jobs
+            jobs = mount_render_jobs
         else:
             jobs = [
                 _job(steps["faucet-head"], "faucet-head.png", (0.18, -1.0, 0.18)),
@@ -617,7 +751,7 @@ def main(*, mount_studies: bool = False) -> None:
                     work / "faucet-full-front.png",
                     (0.0, -1.0, 0.28),
                 ),
-                *mount_frame_jobs,
+                *mount_render_jobs,
                 _job(MACHINE_STEP, "machine-front.png", (1.0, -1.25, 0.72)),
                 _job(MACHINE_STEP, work / "machine-back.png", (0.12, 1.0, 0.32)),
                 _job(MACHINE_STEP, "machine-back-iso.png", (1.0, 1.0, 1.0)),
@@ -634,6 +768,8 @@ def main(*, mount_studies: bool = False) -> None:
             _clear_connected_background(output)
             if job in mount_frame_jobs:
                 _shave_render_frame(output, MOUNT_FRAME_SHAVE)
+            elif job in under_mount_jobs:
+                _shave_under_render_frame(output, UNDER_MOUNT_FRAME_SHAVE)
             note_write(output)
 
         if not mount_studies:
