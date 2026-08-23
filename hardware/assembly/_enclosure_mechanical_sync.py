@@ -64,7 +64,7 @@ def _span(facts, *names):
 
 def main():
     # The stations as PLACED, each read off the body's own mouth — the same station
-    # `enclosure_assembly.back_wall_ports` strikes its bore on, so prose and hole cannot land on
+    # `enclosure_assembly.y_wall_ports` strikes its bore on, so prose and hole cannot land on
     # two different columns — and the walls those stations are struck in, at `enclosure`'s own
     # stated size.
     _F = _facts.read()

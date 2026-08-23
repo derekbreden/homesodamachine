@@ -2,14 +2,14 @@
 """Prove the faucet display's J3 link without driving any actuator.
 
 The default check is observational: it identifies the 1.47-inch display over
-native USB, waits for controller-owned flavor state to converge and persist,
-then measures USB query and firmware-loop latency. It never opens the PCBA's
-CH340C port and never runs a pump, valve, relay, fan, or compressor.
+native USB, waits for main-board-owned flavor state to converge and persist,
+then measures USB query and firmware-loop latency. It never opens the main
+board's CH340C port and never runs a pump, valve, relay, fan, or compressor.
 
 The explicit ``--toggle`` check selects the other flavor through the faucet's
-normal local-first path, waits for both controller persistence and faucet-cache
+normal local-first path, waits for both main board persistence and faucet-cache
 persistence, and restores the original selection in a finally block. Two UI
-ticks from the controller are expected: one for the test selection and one for
+ticks from the main board are expected: one for the test selection and one for
 the restoration.
 
     ~/.platformio/penv/bin/python tools/firmware_faucet_check.py
@@ -150,10 +150,10 @@ def wait_ready(faucet: Faucet, flavor: int | None = None, timeout: float = 6.0) 
 
 def check_diag(diag: dict[str, str], loop_limit: int, link_limit: int) -> None:
     require(diag.get("base") == "up", "J3 link is down")
-    require(diag.get("sync") == "1", "controller flavor is not synchronized")
-    require(diag.get("basePersisted") == "1", "controller flavor is not persisted")
-    require(diag.get("basePersistErr") == "0", "controller flavor persistence failed")
-    require(diag.get("durabilityPending") == "0", "controller durability acknowledgement pending")
+    require(diag.get("sync") == "1", "main board flavor is not synchronized")
+    require(diag.get("basePersisted") == "1", "main board flavor is not persisted")
+    require(diag.get("basePersistErr") == "0", "main board flavor persistence failed")
+    require(diag.get("durabilityPending") == "0", "main board durability acknowledgement pending")
     require(diag.get("localPersistErr") == "0", "faucet flavor-cache persistence failed")
     require(diag.get("pending") == "0", f"{diag.get('pending')} flavor request(s) remain pending")
     require(diag.get("qDrop") == "0", f"faucet queue dropped {diag.get('qDrop')} request(s)")
@@ -189,13 +189,13 @@ def toggle_and_restore(faucet: Faucet, initial_flavor: int, ack_limit: int) -> N
         diag = faucet.diag()
         require(int(diag.get("lastAckMs", "999999")) <= ack_limit,
                 f"flavor acknowledgement {diag.get('lastAckMs')} ms exceeds {ack_limit} ms")
-        print(f"toggle      flavor {target}, controller ack {diag['lastAckMs']} ms, both stores durable")
+        print(f"toggle      flavor {target}, main board ack {diag['lastAckMs']} ms, both stores durable")
     finally:
         if restore_needed:
             line, _ = faucet.query(f"FLAVOR:{initial_flavor}", "OK:FLAVOR=")
             require(line == f"OK:FLAVOR={initial_flavor}", f"restore was not accepted: {line}")
             wait_ready(faucet, initial_flavor)
-            print(f"restore     flavor {initial_flavor}, controller and faucet cache durable")
+            print(f"restore     flavor {initial_flavor}, main board and faucet cache durable")
 
 
 def main() -> int:
@@ -224,7 +224,7 @@ def main() -> int:
             check_diag(diag, args.loop_limit_ms, args.link_service_limit_us)
 
             print(version)
-            print(f"selection   flavor {initial['FLAVOR']}, controller persisted, faucet cache persisted")
+            print(f"selection   flavor {initial['FLAVOR']}, main board persisted, faucet cache persisted")
             print(f"latency     USB median {median:.2f} ms, p95 {p95:.2f} ms; "
                   f"loop {diag['maxLoopMs']} ms, J3 service {diag['maxLinkUs']} us")
             print(f"link        rx {diag['linkRx']}, tx {diag['linkTx']}, retries {diag['retries']}")

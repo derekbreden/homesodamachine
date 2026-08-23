@@ -129,7 +129,7 @@ BED_Z = enclosure.H2C_Z
 
 # --- what crosses the back wall --------------------------------------------
 # Each read off the union's own inboard collet, which is the station `enclosure_assembly`'s
-# `back_wall_ports` strikes its bore on.
+# `y_wall_ports` strikes its bore on.
 PORT_ROW_Z = _bb("bulkhead-carb").zmin + (_bb("bulkhead-carb").zlen / 2.0)
 WATER_PORT_Z = _bb("bulkhead-water").zmin + (_bb("bulkhead-water").zlen / 2.0)
 # THE ROW STANDS ON COLUMNS AND TWO OF ITS UNIONS SHARE ONE, so the pitch is the gap between

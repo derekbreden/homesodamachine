@@ -124,7 +124,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "nameplate",
            _hw / "printed-parts" / "enclosure" / "valve-tray",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
-           _hw / "printed-parts" / "enclosure" / "back-panel",
+           _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "printed-parts" / "enclosure" / "display-cover",
            _hw / "printed-parts" / "enclosure" / "display-gasket",
            _hw / "printed-parts" / "enclosure" / "enclosure",
@@ -175,13 +175,13 @@ import bulkhead_ring as _ring                             # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
 import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
-import valve_tray as _panel                           # noqa: E402
+import valve_tray as _vtray                           # noqa: E402
 import pump_tray as _tray                             # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
 # so the arrow points one way.
-import _back_panel_dimensions as _rear                # noqa: E402
+import _y_wall_dimensions as _rear                # noqa: E402
 import neofit_flow_control as _flowreg                # noqa: E402
 import water_split as _split                          # noqa: E402
 import neofit_bulkhead as _neofit                      # noqa: E402
@@ -802,7 +802,7 @@ def mq6_cradle(carry, body):
 #
 # Several constructions in this module measure a bound the MACHINE STATES rather than a bound
 # its own construction meets: every printed valve cradle stands under its valve, every leg of
-# the refrigerant loop closes, the vent's drip lands on the pan's flat
+# the refrigerant loop closes, the vent's drip lands on the ASSE drip pan's flat
 # floor, the pan's west lip lands inside the −X wall, the power column stands in the depth the
 # +X wall runs free, and a body seated through a wall stands under the box's own ceiling.
 # A printed part may state one about itself too: `asse_drip_pan.check_plate` measures the pan's
@@ -990,22 +990,22 @@ def check_valve_row(placed: dict) -> Bound:
 
 # --- the flavour manifold's valve trays ------------------------------------
 #
-# TWO PLATES, ONE PER VALVE DECK (`valve_panel`). The fold stands the manifold's eight
+# TWO PLATES, ONE PER VALVE DECK (`valve_tray`). The fold stands the manifold's eight
 # non-cap valves on two planes, four to a plane, and each plate reaches the box's two side
 # walls carrying one `valve_seat` per valve — four bosses, sockets the corner posts press into.
 #
 # NOTHING BELOW IS A STATION. A valve's plane, the columns its seats stand on and the plate's
 # own extent are all read off the placed valves at every build: `manifold_layout` folds the pack
 # and this module stands it on the base's crown, so where a deck lands is that stack's
-# arithmetic. A panel table would be a second machine's.
+# arithmetic. A tray table would be a second machine's.
 #   Which face of a valve is its mounting plane is read off ITS OWN COIL. The Beduan's coil
 # stands on the body's crown, so the axis from the valve's centre to its coil's IS the valve's
 # own +Z, and the plane the four posts stand on is the box face at the other end of it.
 #
-# How far off contact a valve on a panel may read. It is the same figure every seat on this card
-# is held to — the trough's, the anchors' and both ribs' — and what it measures is the mesh the
+# How far off contact a valve on a tray may read. It is the same figure every seat on this card
+# is held to — the ASSE anchor's, the flow-meter anchors' and both ribs' — and what it measures
 # gap is taken across, so a valve resting on its boss tops reads just under it.
-PANEL_SEAT_SLIP = 0.2
+TRAY_SEAT_SLIP = 0.2
 
 
 def _valve_up(placed: dict, name: str) -> tuple:
@@ -1014,7 +1014,7 @@ def _valve_up(placed: dict, name: str) -> tuple:
     if coil not in placed:
         raise KeyError(
             f"{name} is placed and {coil} is not, so nothing says which way it faces — a "
-            f"Beduan's coil stands on its crown and that is what tells a panel which of the "
+            f"Beduan's coil stands on its crown and that is what tells a tray which of the "
             f"body's six faces its four posts stand on.")
     vb, cb = box(placed[name]), box(placed[coil])
     d = [(cb.xmin + cb.xmax - vb.xmin - vb.xmax) / 2.0,
@@ -1032,8 +1032,8 @@ def _bodies(placed: dict) -> dict:
     return {n: (b[0] if isinstance(b, tuple) else b) for n, b in placed.items()}
 
 
-def valve_panel_decks(placed: dict) -> dict:
-    """The valves a panel holds, grouped by the plane they stand on.
+def valve_tray_decks(placed: dict) -> dict:
+    """The valves a tray holds, grouped by the plane they stand on.
 
     `name -> (axis, sign, plane, ((valve, u, v), …))` — which world axis the valves' own +Z
     runs on, which way it points, the world coordinate of their shared mounting plane, and each
@@ -1059,33 +1059,33 @@ def valve_panel_decks(placed: dict) -> dict:
         across = 0 if axis != 0 else 1
         along = next(i for i in range(3) if i not in (axis, across))
         seats = tuple((n, c[across], c[along]) for n, c in sorted(members))
-        out[panel_name(axis, sign, plane, out)] = (axis, sign, plane, seats)
+        out[tray_name(axis, sign, plane, out)] = (axis, sign, plane, seats)
     return out
 
 
-def panel_name(axis: int, sign: float, plane: float, taken: dict) -> str:
-    """The body name one panel goes into the assembly under — where in the machine the plate
+def tray_name(axis: int, sign: float, plane: float, taken: dict) -> str:
+    """The body name one tray goes into the assembly under — where in the machine the plate
     itself stands, which is opposite the way its valves' coils point."""
     where = {(0, 1.0): "west", (0, -1.0): "east", (1, 1.0): "fore", (1, -1.0): "aft",
              (2, 1.0): "bottom", (2, -1.0): "top"}[(axis, sign)]
-    name = f"valve-panel-{where}"
+    name = f"valve-tray-{where}"
     return name if name not in taken else f"{name}-{plane:.0f}"
 
 
-def valve_panel_stations(placed: dict) -> tuple:
-    """Every deck as `enclosure.Box.valve_trays` — `(plane, sign, ((x, z), …))` per panel.
+def valve_tray_stations(placed: dict) -> tuple:
+    """Every deck as `enclosure.Box.valve_trays` — `(plane, sign, ((x, z), …))` per tray.
 
     The world Y a deck's valves stand their mounting faces on, which way their own +Z runs off
     it, and each valve's footprint centre. This is the whole of what the wall is handed: the
     plate's extent is the seats' own, and its thickness, margin and seat height are
-    `valve_panel`'s.
+    `valve_tray`'s.
 
     EVERY DECK IS STRUCK THE SAME AND NO VALVE MOVES. A valve seats its whole post in its
     socket and lands its body on its plate's face, on this deck as on every other — the
     release moves the TEE, and the millimetre it takes is absorbed by the tube stub between
     them, not by anything the plate does."""
     out = []
-    for _name, (axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
+    for _name, (axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
         if axis != 1:
             raise ValueError(
                 f"a valve deck stands its valves' own +Z on {'xyz'[axis]} and "
@@ -1096,8 +1096,8 @@ def valve_panel_stations(placed: dict) -> tuple:
     return tuple(out)
 
 
-def valve_panel_plans(a=None) -> dict:
-    """`name -> (width, seats)` in each plate's own frame — what `valve_panel` draws.
+def valve_tray_plans(a=None) -> dict:
+    """`name -> (width, seats)` in each plate's own frame — what `valve_tray` draws.
 
     The seats are centred on the plate: across, on the box's own centreline, because the plate
     runs wall to wall; along, on the row the valves stand in.
@@ -1108,15 +1108,15 @@ def valve_panel_plans(a=None) -> dict:
     placed = {n: s for n, (s, _c) in _solids(a).items()}
     x0, x1 = _enc.interior_x()
     out = {}
-    for name, (_axis, _sign, _plane, seats) in valve_panel_decks(placed).items():
+    for name, (_axis, _sign, _plane, seats) in valve_tray_decks(placed).items():
         mid_v = (min(v for _n, _u, v in seats) + max(v for _n, _u, v in seats)) / 2.0
         out[name] = (x1 - x0, tuple((round(u - (x0 + x1) / 2.0, 6), round(v - mid_v, 6))
                                     for _n, u, v in seats))
     return out
 
 
-def check_panels_hold(pieces: dict, placed: dict) -> Bound:
-    """Whether every valve on a panel is standing in the piece that carries its seats.
+def check_valve_trays_hold(pieces: dict, placed: dict) -> Bound:
+    """Whether every valve on a tray is standing in the piece that carries its seats.
 
     Read as the seat is: a valve's four corner posts hang in four sockets and its round body
     boss lands on the plate's face, so the valve and the printed piece TOUCH. Anything else is
@@ -1127,16 +1127,16 @@ def check_panels_hold(pieces: dict, placed: dict) -> Bound:
     The detail is the table, so a deck that has moved prints what it now is."""
     rows, worst = [], 0.0
     solids = [p.val() if hasattr(p, "val") else p for p in pieces.values()]
-    for name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
+    for name, (_axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
         for valve, _u, _v in seats:
             gap = min(_clearing.gap(placed[valve], piece, 1.0) for piece in solids)
             worst = max(worst, gap)
             rows.append((name, valve, plane, sign, gap))
-    bad = [r for r in rows if r[4] > PANEL_SEAT_SLIP]
+    bad = [r for r in rows if r[4] > TRAY_SEAT_SLIP]
     return record_bound(Bound(
-        "panels-hold", "Every valve on a printed panel is standing in its seats", not bad,
+        "valve-trays-hold", "Every valve on a printed valve tray is standing in its seats", not bad,
         f"{len(rows) - len(bad)}/{len(rows)} valves seated, furthest off {worst:.3f} mm",
-        f"every valve within {PANEL_SEAT_SLIP:g} mm of the plate under it",
+        f"every valve within {TRAY_SEAT_SLIP:g} mm of the plate under it",
         [f"{n:18} {v:12} y-plane {p:8.3f} {'+' if s > 0 else '-'}Z   off {g:.4f}"
          for n, v, p, s, g in rows]))
 
@@ -1154,7 +1154,7 @@ def check_panels_hold(pieces: dict, placed: dict) -> Bound:
 # depth axis, and the head's face at the far end of it is the face the plate lies on.
 #
 # How far off contact a pump under its tray may read — the same figure every seat on this card
-# is held to, the trough's, the anchors' and both panels'.
+# is held to, the ASSE anchor's, the flow-meter anchors' and both valve trays'.
 PUMP_TRAY_SLIP = 0.2
 
 
@@ -1219,7 +1219,7 @@ def pump_tray_plans(a=None, shell=None) -> dict:
     if a is None or shell is None:
         a, _p, shell = machine()
     placed = {n: s for n, (s, _c) in _solids(a).items()}
-    # A tray roots on the cartridge face's own pump relief, whose floor is the plane the
+    # A tray roots on the pump cartridge face's own pump relief, whose floor is the plane the
     # wrap rule struck (`enclosure.pump_relief_floor`), not on the interior wall plane.
     return {head: round(centre[1] - _enc.pump_relief_floor, 6)
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
@@ -1229,7 +1229,7 @@ def check_cap_laps_bracket(pieces: dict, placed: dict) -> Bound:
     """Whether the cap has material under every pump's bracket, on the three sides that close.
 
     The bracket steadies a pump: `bracket_w` across against a head of `head_w`, sitting in the
-    plane the cap parts from the cartridge on. What it bears on is the cap's own top face, in
+    plane the cap parts from the pump cartridge on. What it bears on is the cap's own top face, in
     the annulus between the head's void and the bracket's edge. `kamoer_kphm400` states that
     lip and draws none of it, so this reads the printed piece rather than the pump: one probe
     per side, a `wall` deep under the split, and a side with no material under it is a corner
@@ -1333,22 +1333,22 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 
 # --- the collet plate --------------------------------------------------------
 #
-# THE CARTRIDGE'S RELEASE, and the one piece of this machine that is steel. A flat of 1/8"
+# THE PUMP CARTRIDGE'S RELEASE, and the one piece of this machine that is steel. A flat of 1/8"
 # 304 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, its
 # foot sunk in the seat `enclosure._bay_floor` cuts down the bay floor's top — the seat takes
-# it fore, aft and across and carries it on its own bottom, and with the cartridge out it
+# it fore, aft and across and carries it on its own bottom, and with the pump cartridge out it
 # lifts straight up through the bay. IT IS A RECTANGLE: front-bottom's Z-seam lip is given up
 # over this whole run (`enclosure._flank_lip_drop`), so there is nothing standing proud of the
 # floor at either end for the steel to step around. Four holes pass the barb tubes and nothing
-# wider. Pull the cartridge and the gripped tubes drag the tees forward
+# wider. Pull the pump cartridge and the gripped tubes drag the tees forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
 # the grip opens, and the tubes draw out through the holes they entered by. Pushing the
-# cartridge home threads them back into the same collets, the cap's own aft face landing on
+# pump cartridge home threads them back into the same collets, the cap's own aft face landing on
 # the plate's fore face, the tees braced by the deck lattice their own butted valves hang
-# them from. The user's two hands are the whole mechanism: one pulls the cartridge, the
+# them from. The user's two hands are the whole mechanism: one pulls the pump cartridge, the
 # other braces the box, and the box carries the brace to this plate through the floor.
 PLATE_T = 3.175              # 1/8" 304, waterjet from `collet-plate.dxf`
-PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, cartridge seated
+PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, pump cartridge seated
 PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
 PLATE_END_AIR = 0.3          # each end off the side wall
@@ -1553,7 +1553,7 @@ def check_panel_web() -> Bound:
     figure to copy is `faucet_shell.display_line_width` — 0.62, its own part's bead, on the
     0.4 group `machine-time.md` does name."""
     a = _vseat.build_sockets()
-    b = _panel.build_port_channel(_panel.height() + 2.0)
+    b = _vtray.build_port_channel(_vtray.height() + 2.0)
     a = a.val() if hasattr(a, "val") else a
     b = b.val() if hasattr(b, "val") else b
     d = _BRepDist(a.wrapped, b.wrapped)
@@ -1561,7 +1561,7 @@ def check_panel_web() -> Bound:
     rows = [("seat", worst)]
     bad = [r for r in rows if r[1] < EXTRUSION_W - 1e-9]
     return record_bound(Bound(
-        "panel-web", "A valve seat's sockets keep a printable wall to the port channel",
+        "tray-web", "A valve seat's sockets keep a printable wall to the port channel",
         not bad,
         f"{worst:.4f} mm of wall, {100.0 * worst / EXTRUSION_W:.0f}% of an extrusion",
         f"at least one {EXTRUSION_W:g} mm extrusion of wall between socket and channel",
@@ -1575,7 +1575,7 @@ POST_GRIP_FLOOR = 3.0        # of a post inside its plate at rest — see `check
 def check_post_engagement(pieces, placed, spec) -> Bound:
     """How much of each valve's corner post is standing INSIDE its plate, at rest.
 
-    `panels-hold` reads whether a valve is near the plate that holds it. This reads how much
+    `valve-trays-hold` reads whether a valve is near the plate that holds it. This reads how much
     of it is HELD, which is a different quantity and the one `valve_seat`'s own headline turns
     on: the posts in their sockets are the whole of the retention. A post engaged half a
     millimetre sits at exactly the same radial clearance from its socket wall as one engaged
@@ -1588,7 +1588,7 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
     solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
     inset, r = _vseat.corner_inset, _vseat.socket_radius
     rows, bad = [], []
-    for _name, (_axis, sign, plane, seats) in sorted(valve_panel_decks(placed).items()):
+    for _name, (_axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
         for valve, u, v in seats:
             worst = None
             for du in (-inset, inset):
@@ -1624,7 +1624,7 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
 
 
 def check_release_travel(pieces, placed, spec) -> Bound:
-    """Whether the cartridge's release has ROOM TO HAPPEN.
+    """Whether the pump cartridge's release has ROOM TO HAPPEN.
 
     EVERY OTHER BOUND ON THIS CARD READS WHERE A BODY STANDS. This one reads whether one can
     MOVE, which is a different question, and the only one that can fail on a machine whose
@@ -1856,9 +1856,9 @@ def check_cap_stop(pieces, spec) -> Bound:
         f"the cap's face on the plate's and `cap_kiss` {_enc.cap_kiss:g} mm of air at it",
         ([] if ok else
          ([f"no pad stands against the plate's band z {spec['z0']:g}..{spec['z1']:g} — the "
-           f"cartridge has no aft stop against the steel and nothing but the anchor tees "
+           f"pump cartridge has no aft stop against the steel and nothing but the anchor tees "
            f"limits how far it pushes home"] if area <= 1e-6 else [])
-         + ([f"{bite:.2f} mm³ of the cartridge stands inside the kiss — the pad is through "
+         + ([f"{bite:.2f} mm³ of the pump cartridge stands inside the kiss — the pad is through "
              f"the steel, not on it"] if bite > 1e-6 else []))))
 
 
@@ -1887,12 +1887,12 @@ def check_head_sweep(solids: dict, pieces) -> Bound:
         ([] if ok else
          [f"{n} meets {v:.1f} mm³ of front-top on its way out" for n, v in rows if v > 1e-3]
          + ["the bay's sill is the bay floor's top, and the floor's top is the plane the "
-            "cartridge's own pump reliefs floor on. A head in the way is a head hanging "
+            "pump cartridge's own pump reliefs floor on. A head in the way is a head hanging "
             "under that plane — raise it, or thin the floor"])))
 
 
-def check_cartridge_sweep(pieces) -> Bound:
-    """Whether the two printed cartridge pieces can pass bodily through the front mouth.
+def check_pump_cartridge_sweep(pieces) -> Bound:
+    """Whether the two printed pump cartridge pieces can pass bodily through the front mouth.
 
     A PUMP-HEAD SWEEP IS NOT A DRAWER SWEEP. The head is smaller than the filled block that
     carries it, and a mouth can clear both heads while a reveal, rounded plan corner or jamb
@@ -1914,7 +1914,8 @@ def check_cartridge_sweep(pieces) -> Bound:
     worst = max(v for _name, v in rows)
     ok = worst <= 1e-3
     return record_bound(Bound(
-        "cartridge-sweep-out", "The complete cartridge and cap pass through the bay mouth",
+        "pump-cartridge-sweep-out",
+        "The complete pump cartridge and cap pass through the bay mouth",
         ok,
         f"{len(rows)} pieces, most in the way {worst:.3f} mm³",
         "no front-top material in either complete withdrawal envelope",
@@ -2241,8 +2242,9 @@ def core_holds(foam) -> tuple:
 
 
 # How far off contact a face of the core may read from the grip that takes it — the same figure
-# every seat on this card is held to, the trough's, the anchors' and both panels'.
-CORE_GRIP_SLIP = PANEL_SEAT_SLIP
+# every seat on this card is held to, the ASSE anchor's, the flow-meter anchors' and both
+# valve trays'.
+CORE_GRIP_SLIP = TRAY_SEAT_SLIP
 
 
 def _core_grip_windows(foam, shell) -> tuple:
@@ -2843,7 +2845,7 @@ def build_bulkhead(asse_carry):
                               (inlet[0], bulkhead_mouth_y(), inlet[2])))
 
 
-def back_wall_ports(*bulkhead_carries):
+def y_wall_ports(*bulkhead_carries):
     """Through-holes the +Y wall of back-top carries, as `(kind, x, z, *size)` on its own plane.
 
     One per union: the bore its threading passes. Each is struck on the fitting's own inboard
@@ -2860,18 +2862,18 @@ def back_wall_ports(*bulkhead_carries):
 # fitting's own nut clamps it from inboard.
 #
 # EVERY STATION WEARS A CHIP AND EVERY CHIP CARRIES A COLOUR — the colour of the tube that goes
-# into it. The fluid is the key into `_back_panel_dimensions.port_colors`, so the pocket, the chip
+# into it. The fluid is the key into `_y_wall_dimensions.port_colors`, so the pocket, the chip
 # lying in it, the tube it receives and the mark the drawing paints are one station struck once.
 # Both flavour ports take black because the flavour lines are black; what that pair does not do is
 # tell A from B, and the word they wear says so by being the same word.
-BACK_WALL_FITTINGS = {
+Y_WALL_FITTINGS = {
     "bulkhead-water": (_jg, "union", "water", "water"),
     "bulkhead-carb": (_jg, "union", "carb", "carb"),
     "bulkhead-flavor-a": (_jg, "union", "flavor-a", "flavor"),
     "bulkhead-flavor-b": (_jg, "union", "flavor-b", "flavor"),
     "co2-inlet": (_neofit, "neofit", "co2", "co2"),
 }
-MARKED_UNIONS = {n: fluid for n, (_m, _r, _nm, fluid) in BACK_WALL_FITTINGS.items() if fluid}
+MARKED_UNIONS = {n: fluid for n, (_m, _r, _nm, fluid) in Y_WALL_FITTINGS.items() if fluid}
 
 
 def ring_name(which: str) -> str:
@@ -2918,21 +2920,21 @@ def port_boss_d(ring: str = "union") -> float:
 
 
 def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
-    """Every `BACK_WALL_FITTINGS` station on the wall, as
+    """Every `Y_WALL_FITTINGS` station on the wall, as
     `name -> (x, z, fitting, ring, ring name, fluid)`.
 
-    Each column is read off the FITTING'S OWN INBOARD COLLET, which is what `back_wall_ports` and
+    Each column is read off the FITTING'S OWN INBOARD COLLET, which is what `y_wall_ports` and
     `co2_wall_port` bore from — so a pad, a ring and the hole through both cannot land on two
     different columns."""
     carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry}
     out = {}
-    for name, (fitting, ring, which, fluid) in BACK_WALL_FITTINGS.items():
+    for name, (fitting, ring, which, fluid) in Y_WALL_FITTINGS.items():
         x, _y, z = carries[name](fitting.port(-1.0))[0]
         out[name] = (x, z, fitting, ring, which, fluid)
     return out
 
 
-def back_wall_field(stations):
+def y_wall_field(stations):
     """The pocket each chip lies in, as `enclosure.Box.port_field` — one per station, not one field
     across them. `enclosure._port_field` cuts each into the wall's outer face and stands a boss one
     `PORT_RING_RIM` larger on the inner one."""
@@ -2992,7 +2994,7 @@ def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
     carries = {"bulkhead-water": bulkhead_carry, **panel_carries, "co2-inlet": co2_carry}
     out = []
     for name in CUSTOMER_TUBE_STATIONS:
-        fitting, _ring, which, fluid = BACK_WALL_FITTINGS[name]
+        fitting, _ring, which, fluid = Y_WALL_FITTINGS[name]
         x, y, z = carries[name](fitting.port(+1.0))[0]
         length = COLLAR_OFF_COLLET + _collar.LENGTH + COLLAR_TUBE_TAIL
         # The spool by its own colour, so a stub cut off a table that moved has no spool at all.
@@ -3215,7 +3217,7 @@ _stated.state(
 _port_stack = _stated.bound(
     "port-clamp-stack", "Every fitting's bare barrel takes the wall and its ring",
     f"a stack of the wall at its own station plus {_ring.THICK:g} mm of ring")
-for _n, (_fit, _r, _w, _f) in BACK_WALL_FITTINGS.items():
+for _n, (_fit, _r, _w, _f) in Y_WALL_FITTINGS.items():
     _bare = getattr(_fit, "PANEL_THREAD", None) or _fit.THREAD_LEN
     _relieved = {_r[0] for _r in _enc.back_top_wall_reliefs}
     _t = _enc.wall if _n in _relieved else _enc.back_top_wall_t
@@ -3431,7 +3433,7 @@ def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
     rows, worst_bear, tight = [], 0.0, want
     # `_kind` and not `_ring`: the module of that name is what `THICK` is read off below,
     # and a loop target shadows it for the whole function.
-    for name, (_fitting, _kind, which, _fluid) in BACK_WALL_FITTINGS.items():
+    for name, (_fitting, _kind, which, _fluid) in Y_WALL_FITTINGS.items():
         body, ring = bodies.get(name), rings.get(ring_name(which))
         if body is None or ring is None or wall is None:
             rows.append(f"{name}: no {'fitting' if body is None else 'ring'} to read")
@@ -3471,7 +3473,7 @@ def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
                 f"no longer stands on this hole.")
     return record_bound(Bound(
         "wall-clamped", "Every rear-wall fitting is clamped through the wall it passes", not rows,
-        f"{len(BACK_WALL_FITTINGS)} clamped, furthest off its ring {worst_bear:.3f} mm, "
+        f"{len(Y_WALL_FITTINGS)} clamped, furthest off its ring {worst_bear:.3f} mm, "
         f"tightest in its bore {tight:.3f} mm",
         f"bearing at 0.000 mm and {want:.3f} mm of bore", rows))
 
@@ -3521,7 +3523,7 @@ def build_digiten(carb_carry, seat: bool = True):
     land in the right place is the one the union is waiting on. Where the inlet ends up is
     `digiten_flow_sensor.port_face` ahead of the body centre, and that is where `carb-1` closes.
 
-    The two anchors it hangs in are `digiten_saddles`, printed off the top wall."""
+    The two anchors it hangs in are `digiten_anchors`, printed off the top wall."""
     pos, axis = carb_carry(_jg.port(-1.0))
     target = tuple(pos[i] + axis[i] * CARB_2 for i in range(3))
     body = import_step(str(DIGITEN_STEP)).val()
@@ -3538,7 +3540,7 @@ def build_digiten(carb_carry, seat: bool = True):
 # V the ASSE anchor takes, read off a round section's tangent — apex up, opening down.
 #
 # WHAT THE STRAP CARRIES HERE IS THE METER. A V that opens downward holds nothing on its own, so
-# unlike the trough's two ties these are the load path, and what they carry is a purchased part of
+# unlike the anchor's two ties these are the load path, and what they carry is a purchased part of
 # a few tens of grams on two nylon straps.
 DIGITEN_SEAT_SLIP = 0.2
 # Off the body's own rim. The rim is a circle in plan, so it stands closest to a anchor at the
@@ -3550,7 +3552,7 @@ DIGITEN_BODY_CLEAR = 1.0
 DIGITEN_COLLET_FREE = 6.0
 
 
-def digiten_saddles(carry) -> tuple:
+def digiten_anchors(carry) -> tuple:
     """The station `enclosure._digiten_saddles` builds from — `(axis_x, axis_z, seat_r, bands)`.
 
     `seat_r` is the barrel the V is struck on, one `DIGITEN_SEAT_SLIP` over its own radius, so the
@@ -3765,7 +3767,7 @@ def cap_tube_anchors(foam_carry, runs) -> tuple:
                 f"passes through it. `_cold_core_interface.cap_anchors[{name!r}].centre` is in "
                 f"the cap's own frame, and the run is where its two ports put it.")
     # AND THE POSTS THAT GRIP SIDEWAYS. Same reading, one axis over: the seat's root is the core
-    # behind it rather than the lid under it, so the station carries −Y where the troughs carry
+    # behind it rather than the lid under it, so the station carries −Y where the anchors carry
     # −Z, and the run has to pass through the pipe's own axis just the same.
     for name in _cci.cap_side_anchors:
         r = by_id.get(name)
@@ -3895,9 +3897,9 @@ def _would_land_on(b, placed):
 
 
 # The strap's own stock, and the room it needs to lie in. Two of them shut the mouth of the
-# trough the chain lies in (`asse_cradle`), and a tie is a closed loop: the strap has to cross
+# anchor the chain lies in (`asse_cradle`), and a tie is a closed loop: the strap has to cross
 # the chain's top flat, which is the highest thing on this storey. The strap is THREADED through
-# the trough's bore and then LAID across this channel — the piece is populated INVERTED on the
+# the anchor's bore and then LAID across this channel — the piece is populated INVERTED on the
 # bench, ceiling down, so the strap lies on the ceiling's inner face and the chain comes
 # down onto it. Nothing is pulled through here, which is why the room is a clearance and not a
 # working reach.
@@ -4153,7 +4155,7 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
               "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
               "display-gasket",
               "psu", "pcba",
-              "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
+              "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "asse-drip-pan",
               "moisture-plate", "mq6-sensor", "thermal-fuse", "fuse-clamp",
               ) + WAGO_POLES + tuple(CLUSTER_WAGOS) + (
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
@@ -4647,7 +4649,7 @@ PAN_LEAD_RACE_INNER_OVERLAP = 1.0
 
 
 def pan_rim_z(asse):
-    """The Z the pan's RIM stands at: the vent's own fall, less what stands over the rim.
+    """The Z the ASSE drip pan's RIM stands at: the vent's own fall, less what stands over the rim.
 
     THE TRAY HANGS OFF THE CHAIN. `build_asse` stands the chain on the panel deck and one
     `VENT_GAP` of splash-and-service air hangs under its underside — over the SLEEVE'S LID,
@@ -4710,13 +4712,13 @@ def build_asse(deck):
 #
 # A HALF-PIPE ON THE −X WALL, STEPPED TO THE CHAIN'S OWN SECTIONS. The chain is a made-up
 # assembly of five fittings on one axis, and every one of them is a different diameter about that
-# axis — so a trough cut at the widest of them holds nothing, and one cut at the narrowest takes
+# axis — so a anchor cut at the widest of them holds nothing, and one cut at the narrowest takes
 # only the narrowest. Cut at each section's own, the steps BETWEEN sections are faces square to
 # the axis, and the barrel is trapped between two of them.
 #
 # EVERY SECTION IS THE SAME 120° V AND ONLY ITS APEX MOVES, which is what makes those steps fall
 # out rather than be drawn: a V of this angle is the two flanks of a hex read off its corner, and
-# it is also the tangent seat of any circle. So the same trough beds a hex on two whole flats and
+# it is also the tangent seat of any circle. So the same anchor beds a hex on two whole flats and
 # a barrel on two lines, and the section that is deepest in the wall is the section that is
 # widest — the stair the chain lies in.
 #
@@ -4776,7 +4778,7 @@ def asse_sections(asse_carry) -> tuple:
     # and the millimetre either side of it belongs to the deeper of the two sections it divides —
     # so the deep section is longer than the fitting in it and the step is a stop that fitting
     # travels to.
-    # BOTH END SECTIONS RUN THE SHORTER OF THE TWO FITTINGS' LENGTHS. What the trough puts at each
+    # BOTH END SECTIONS RUN THE SHORTER OF THE TWO FITTINGS' LENGTHS. What the anchor puts at each
     # end of the barrel is a face square to the axis, and the fitting past that face is seated on
     # the section it presents rather than followed down its length.
     reach = min(r[1] - r[0] for r in (rows[0], rows[-1]))
@@ -4792,7 +4794,7 @@ def asse_sections(asse_carry) -> tuple:
 
 
 
-# Where the two ties close the trough's mouth. The barrel is the only section a tie may cinch on
+# Where the two ties close the anchor's mouth. The barrel is the only section a tie may cinch on
 # — the JG acetal nut and the PP reducer would take a collet out of round — and its vent stub
 # stands out of the middle of it, so `multiplex_asse1022.BARREL_LENGTH` offers exactly two bands.
 # One each side of the fall, struck on the stub's OD and not on the barb's.
@@ -4813,15 +4815,15 @@ def asse_ties(asse_carry) -> tuple:
 
 
 def asse_reach_down(asse_carry) -> float:
-    """How far under the axis the trough's flanks run — the chain's OWN lowest arris, and not a
+    """How far under the axis the anchor's flanks run — the chain's OWN lowest arris, and not a
     millimetre past it.
 
-    Every section's lowest point below the axis is its apothem if the trough reads its flats and
-    its radius if it reads its tangent, so the deepest of the three is what the trough has to
+    Every section's lowest point below the axis is its apothem if the anchor reads its flats and
+    its radius if it reads its tangent, so the deepest of the three is what the anchor has to
     reach and anything under that is PETG holding air. It is the barrel's, being both the widest
     section and the one seated on flats.
 
-    The vent stub hangs far below all of this and is not in it: the trough would have to be
+    The vent stub hangs far below all of this and is not in it: the anchor would have to be
     notched around the fall, and what stands under the barrel is the tray."""
     return max(axis_z_drop for axis_z_drop in _asse_section_drops(asse_carry))
 
@@ -4835,7 +4837,7 @@ def _asse_section_drops(asse_carry):
 
 
 def asse_cradle(asse_carry) -> tuple:
-    """The whole station `enclosure._asse_cradle` builds from: the axis the trough is struck on,
+    """The whole station `enclosure._asse_cradle` builds from: the axis the ASSE anchor is struck on,
     its sections, the two tie bands, and how far under the axis its flanks reach."""
     axis = asse_carry(_asse.flow_axis())[0]
     return (axis[2], asse_sections(asse_carry), asse_ties(asse_carry),
@@ -4843,7 +4845,7 @@ def asse_cradle(asse_carry) -> tuple:
 
 
 def check_asse_seated(chain, piece, asse_carry) -> Bound:
-    """Whether the chain is actually IN its trough, read off the two placed solids.
+    """Whether the chain is actually IN its anchor, read off the two placed solids.
 
     A body drawn beside a groove is not a body lying in one, and every reading this card takes of
     the tap-water chain is satisfied by a chain floating in air — `placed` sees a seat it holds,
@@ -4851,30 +4853,30 @@ def check_asse_seated(chain, piece, asse_carry) -> Bound:
     keeps. None of them can tell a cradle that closes on the barrel from one drawn a centimetre
     off it, because nothing about the pack changes.
 
-    So this reads the STACK ACROSS THE V, in the one direction the trough is meant to stop:
+    So this reads the STACK ACROSS THE V, in the one direction the anchor is meant to stop:
 
         seat   how far west the chain stands off the wall's own furniture — one
-               `ASSE_SEAT_SLIP` on the V's normal is the trough closed on the barrel's two
+               `ASSE_SEAT_SLIP` on the V's normal is the anchor closed on the barrel's two
                flats, and anything more is a chain resting on nothing
 
     Measured on the solids and not on the sections table, because the table is what DREW the
-    trough: a bound read back off its own inputs is a bound that cannot fail."""
+    anchor: a bound read back off its own inputs is a bound that cannot fail."""
     def solid(s):
         s = s.toCompound() if hasattr(s, "toCompound") else s
         return s.val() if hasattr(s, "val") else s
-    # `_clearing.gap` reports a floor past its reach, so ask it for more than the trough may
+    # `_clearing.gap` reports a floor past its reach, so ask it for more than the anchor may
     # have: a chain resting on nothing has to come back with the number, not with the reach.
     got = _clearing.gap(solid(chain), solid(piece), 5.0)
-    # The tightest of the trough's three seats: a bore stands off its section radially, so the two
+    # The tightest of the anchor's three seats: a bore stands off its section radially, so the two
     # round ones close on the slip itself while the barrel's V closes on it along the V's normal.
     want = ASSE_SEAT_SLIP
     ok = got <= want + 1e-3
     return record_bound(Bound(
-        "asse-seated", "The tap-water chain lies in its printed trough", ok,
+        "asse-seated", "The tap-water chain lies in its printed anchor", ok,
         f"{got:.3f} mm off the wall's furniture", f"{want:.3f} mm at most",
         ([] if ok else [
             f"the chain stands {got:.3f} mm off everything `enclosure-back-top` puts near it, "
-            f"and the trough is drawn to close on it at {want:.3f}. Either the cradle's sections "
+            f"and the anchor is drawn to close on it at {want:.3f}. Either the cradle's sections "
             f"no longer read the chain's own — `asse_sections` — or the chain moved and the "
             f"station did not follow it."])))
 
@@ -4885,7 +4887,7 @@ def check_digiten_seated(meter, piece) -> Bound:
     The same reading `check_asse_seated` takes and for the same reason: a anchor drawn near a
     barrel and a anchor closed on one are the same to every other row on this card. Two things
     differ. The seat here is a BORE, concentric with the barrel, so the gap it holds is the slip
-    itself — the trough's V holds its slip on the V's own normal and reads `slip / sin 60°` between
+    itself — the anchor's V holds its slip on the V's own normal and reads `slip / sin 60°` between
     two axis-aligned solids, and a bore has no such angle in it. And this seat opens DOWNWARD, so it
     is not carrying the meter: the two straps are, and this is the reading that says they have
     something to pull it up against."""
@@ -4901,7 +4903,7 @@ def check_digiten_seated(meter, piece) -> Bound:
         ([] if ok else [
             f"the meter stands {got:.3f} mm off everything `enclosure-ceiling-panel` puts near "
             f"it, and its anchors are drawn to close on the two barrels at {want:.3f}. Either "
-            f"`digiten_saddles` no longer reads the meter's own ports, or the meter moved and the "
+            f"`digiten_anchors` no longer reads the meter's own ports, or the meter moved and the "
             f"station did not follow it."])))
 
 
@@ -5033,7 +5035,7 @@ def check_tube_seated(tubes, pieces) -> Bound:
         f"{want:.3f} mm at most", rows))
 
 
-def check_strap_channels(anchors, anchors, cradle, pieces) -> Bound:
+def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
     """Whether a tie can still reach through every cavity the box cuts one for.
 
     THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_digiten_saddles`): the
@@ -5081,7 +5083,7 @@ def check_strap_channels(anchors, anchors, cradle, pieces) -> Bound:
                 f"{what}: {100.0 * got / want:.0f}% of the room a strap needs is inside {name} — "
                 f"{got:.1f} of {want:.1f} mm3. On a rib, the two ends are drawn to a plane that "
                 f"piece stands inboard of, so what is left between them is in its stock "
-                f"(`enclosure.piece_root_faces`); on the trough, a corbel has closed over the "
+                f"(`enclosure.piece_root_faces`); on the anchor, a corbel has closed over the "
                 f"channel's mouth (`enclosure.back_top_ceiling_reliefs`).")
 
     for mid, u, n, seat_r in anchors:
@@ -5093,8 +5095,8 @@ def check_strap_channels(anchors, anchors, cradle, pieces) -> Bound:
         read(f"anchor at {tuple(round(c, 1) for c in mid)}",
              _enc._anchor_rib(origin, u, n, _enc.tie_cav_w, reach, crown,
                               crown + _enc.tie_strap_t))
-    if anchors:
-        x_axis, z_axis, seat_r, bands = anchors
+    if meter_anchor:
+        x_axis, z_axis, seat_r, bands = meter_anchor
         reach = seat_r + _enc.digiten_saddle_wall
         crown = z_axis + seat_r + _enc.wall
         for by0, by1 in bands:
@@ -5182,7 +5184,7 @@ def check_vent_lands(pan, tip) -> Bound:
         f"drips at y {tip[1]:.2f}" + ("" if ok else f", {min(abs(tip[1] - y0), abs(tip[1] - y1)):.2f} mm outside"),
         f"y[{y0:.2f}, {y1:.2f}]",
         ([] if ok else [
-            f"drip-pan: the vent drips at y {tip[1]:.2f}, off the flat floor y[{y0:.2f}, "
+            f"asse-drip-pan: the vent drips at y {tip[1]:.2f}, off the flat floor y[{y0:.2f}, "
             f"{y1:.2f}]. The forward rim comes off the pump's discharge through "
             f"`PAN_PORT_CLEAR`; the vent's Y comes off the ASSE chain, which the bulkhead's "
             f"reach through the +Y wall of back-top fixes; the flat between them is `PAN_Y` less its "
@@ -5210,7 +5212,7 @@ def check_pan_lane(pan, seaflo) -> Bound:
         f"backstop at x {east:.2f}, casting at {casting:.2f} — {got:.2f} mm",
         f"≥ {FOOT_CLEAR:g} mm",
         ([] if ok else [
-            f"drip-pan: the sleeve's backstop reaches x {east:.2f} and the casting stands at "
+            f"asse-drip-pan: the sleeve's backstop reaches x {east:.2f} and the casting stands at "
             f"{casting:.2f} over the sleeve's own room — {got:.2f} mm, against the "
             f"{FOOT_CLEAR:g} the lane owes. The west lip is fixed at one PAN_PROUD = "
             f"{PAN_PROUD:g} outside the wall's skin, so what gives is `asse_drip_pan.PAN_X`, "
@@ -5218,7 +5220,7 @@ def check_pan_lane(pan, seaflo) -> Bound:
 
 
 def build_pan(asse, seaflo, seaflo_carry, asse_carry):
-    """The catch pan under the atmospheric vent, over the pump's casting.
+    """The ASSE drip pan, under the atmospheric vent and over the pump's casting.
 
     IN Y THE PUMP'S DISCHARGE BOUNDS IT AND THE VENT DOES NOT. The sleeve's forward face is
     `pan_front_y` and the pan's rim stands one sleeve section and one slip aft of it, and the
@@ -5240,14 +5242,14 @@ def build_pan(asse, seaflo, seaflo_carry, asse_carry):
     # the two this module states about where the pan stands.
     record_bound(Bound(*_pan.check_plate()))
     placed, carry = seat_body(
-        pan, (), seat="drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
+        pan, (), seat="asse-drip-pan", x0=pan_west_x(), z0=pan_floor(asse),
         y0=pan_front_y(seaflo_carry) + DRIP_SLEEVE_T + _pan.PAN_SLIP)
     check_vent_lands(placed, asse_carry(_asse.port("vent-tip"))[0])
     check_pan_lane(placed, seaflo)
     return placed, carry
 
 
-# --- the moisture plate, lying in the pan ---------------------------------
+# --- the moisture plate, lying in the ASSE drip pan ------------------------
 #
 # The Shutao module is two boards: the LM393 comparator, which mounts dry off elsewhere, and the
 # interdigitated probe plate, which is the half that has to be WET to read. This is that half.
@@ -5670,7 +5672,7 @@ def place_base(seated, names=()):
 # `manifold_layout.HAIRPIN_TILT` is the lane it spends doing it in.
 #
 # THE FIGURE: the pump heads ride ONE MILLIMETRE of air off `enclosure.pump_relief_floor`,
-# the pocket floor the cartridge's face carries them behind — the pass-by `pumps-in-bay`
+# the pocket floor the pump cartridge's face carries them behind — the pass-by `pumps-in-bay`
 # reads off the placed heads. The decks stand aft of the heads by
 # `manifold_layout.BARB_STANDOFF` on top of what the fold asks, which is the collet
 # plate's whole berth; this figure carries the pumps, and the standoff sets everything
@@ -5767,13 +5769,13 @@ def build_pack() -> cq.Assembly:
     # valves standing on. They are read straight off the pack: the deck a plate lands on and the
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
     # `enclosure._valve_trays` is what fuses each plate into the piece that owns its band.
-    a.valve_panels = valve_panel_stations({n: s for n, s, _c in stood})
+    a.valve_trays = valve_tray_stations({n: s for n, s, _c in stood})
     # AND THE TWO PUMP TRAYS' STATIONS, on the faces the fold left each Kamoer's head standing
     # its boss off. Read straight off the pack the same way: the point a plate lies on is the
     # placed pump's own, and how far it runs to the wall is the box's.
     a.pump_trays = pump_tray_stations({n: s for n, s, _c in stood})
     # AND THE COLLET PLATE, in the berth `BARB_STANDOFF` opened between the barbs and the
-    # anchor tees' branch collets — the steel the cartridge's four grips release against.
+    # anchor tees' branch collets — the steel the pump cartridge's four grips release against.
     a.collet_plate = collet_plate_spec(mcarry, a.pump_trays)
     plate_solid = build_collet_plate(a.collet_plate)
     a.add(plate_solid, name="collet-plate", color=C_STEEL_PLATE)
@@ -5896,7 +5898,7 @@ def build_pack() -> cq.Assembly:
     asse, asse_carry = build_asse(a.deck_z)
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     pan, pan_carry = build_pan(asse, seaflo, seaflo_carry, asse_carry)
-    a.add(pan, name="drip-pan", color=C_PAN)
+    a.add(pan, name="asse-drip-pan", color=C_PAN)
     mplate, _mplate_carry = build_moisture_plate(pan_carry, asse_carry)
     a.add(mplate, name="moisture-plate", color=C_PLATE)
     split, split_carry = build_split(asse_carry)
@@ -5927,8 +5929,8 @@ def build_pack() -> cq.Assembly:
                   PORT_FOOT_CLEAR if name in PANEL_ON_GATE_LANE else DECK_CLEAR,
                   deck_fall[name] if name in deck_fall
                   else descent(solid, _would_land_on(box(solid), under_deck)))
-    panels = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
-    check_port_pair(panels, west_seam_crown(), seaflo)
+    trays = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
+    check_port_pair(trays, west_seam_crown(), seaflo)
     meter = deck_solids["digiten-flow"]
     a.panel_carries = panel_carries
     # The wall's five crossings, all placed by here. The field, the rings and the bores are all
@@ -5963,7 +5965,7 @@ def build_pack() -> cq.Assembly:
               "asse1022-assembly": asse, "water-split": split,
               "flow-regulator": flowreg, "vk-solenoid": vk,
               "bulkhead-water": bulkhead, "co2-inlet": co2in, "gasher-co2": gasher,
-              "wr1110": wr1110, "digiten-flow": meter, **panels}
+              "wr1110": wr1110, "digiten-flow": meter, **trays}
     # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
     # in `manifold_layout`'s world and ride the pose this module stood them in.
     for name, solid, _colour in stood:
@@ -5972,7 +5974,7 @@ def build_pack() -> cq.Assembly:
             carries[name] = mcarry
     a.bulkhead_carry = bulkhead_carry
     a.asse_cradle = asse_cradle(asse_carry)
-    a.digiten_saddles = digiten_saddles(meter_carry)
+    a.digiten_anchors = digiten_anchors(meter_carry)
     a.runs = []
     # The bodies and their placements, carried on the assembly: a run whose other mouth is on
     # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
@@ -6049,14 +6051,14 @@ def _solids(a: cq.Assembly):
 # The funnel is the same case and is not listed, because it is added after the box exists
 # (`build_enclosure_assembly`) rather than to the pack.
 THROUGH_WALL = ("bulkhead-water", "c14-inlet", "co2-inlet",
-                "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "drip-pan")
+                "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb", "asse-drip-pan")
 # And the bodies seated IN a wall rather than inside the box. A chip and its word lie in a pocket
 # cut into the +Y wall of back-top's own outer face, so every millimetre of both is inside the wall's
 # thickness and none of it is in the room the pack stands in. They are left out of what the box is
 # sized on for the same reason as `THROUGH_WALL` and measured against the ceiling for none of them
 # — a body with nothing inside the skin is under no ceiling of the interior.
 IN_THE_WALL = tuple(name(which)
-                    for _m, _r, which, _fluid in BACK_WALL_FITTINGS.values()
+                    for _m, _r, which, _fluid in Y_WALL_FITTINGS.values()
                     for name in (ring_name, word_name))
 # And the bodies standing OUTBOARD of it: on two of the five crossings, the tube the customer cuts
 # in their own kitchen and the collar that carries the station's word out to the end they cut it
@@ -6065,7 +6067,7 @@ IN_THE_WALL = tuple(name(which)
 # (`build_customer_tubes`). Left out of what the box is SIZED on for that reason: sized on it, the
 # depth the appliance states would be the depth of the appliance plus a stub of someone's kitchen,
 # and the +Y wall of back-top would be drawn out to enclose a tube that has to leave the box to be any use.
-OUTBOARD = tuple(name(BACK_WALL_FITTINGS[station][2])
+OUTBOARD = tuple(name(Y_WALL_FITTINGS[station][2])
                  for station in CUSTOMER_TUBE_STATIONS
                  for name in (customer_tube_name, collar_name, collar_word_name))
 
@@ -6117,25 +6119,25 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     not unfinished."""
     a = build_pack() if a is None else a
     placed = _solids(a)
-    pan = box(placed["drip-pan"][0])
+    pan = box(placed["asse-drip-pan"][0])
     west = west_interior_face()
     outside = (set(THROUGH_WALL) | set(IN_THE_WALL) | set(OUTBOARD)
                | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
-                     back_ports=(back_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
+                     back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
                      cond_mount=a.cond_mount, cond_airway=a.cond_airway,
                      asse_cradle=a.asse_cradle,
-                     digiten_saddles=a.digiten_saddles,
+                     digiten_saddles=a.digiten_anchors,
                      tube_anchors=a.tube_anchors + a.body_anchors,
                      ceiling_reliefs=ceiling_reliefs(placed),
-                     port_field=back_wall_field(a.wall_stations),
+                     port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
-                     valve_trays=a.valve_panels, pump_trays=a.pump_trays,
+                     valve_trays=a.valve_trays, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
                      vent_chase=a.vent_chase, collet_plate=a.collet_plate)
 
@@ -6435,7 +6437,7 @@ def check_pumps_in_bay(placed: dict, shell) -> Bound:
     """Whether the pumps stand inside their bay's opening with air on the face they ride
     behind.
 
-    The heads face the cartridge's own pump reliefs — one millimetre of air off each
+    The heads face the pump cartridge's own pump reliefs — one millimetre of air off each
     pocket's floor — and everything of a pump sweeps out through the bay, so its whole
     footprint stands inside the jambs by the deck's own sweep air. A touch has no volume,
     so `pack-closes` cannot see one; this reads both off the placed pumps."""
@@ -6709,14 +6711,14 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # and both threads travel upward into blind inserts carried by the moving panel.
     check_ceiling_fastener_direction()
     # The chain against the piece that cradles it, once that piece exists — the one reading on
-    # this card that can tell a trough closed on the barrel from a trough drawn near it.
+    # this card that can tell a anchor closed on the barrel from a anchor drawn near it.
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
                       a.carries["asse1022-assembly"])
     check_digiten_seated(a.pack_solids["digiten-flow"], pieces["ceiling-panel"])
-    # And every valve on a panel against the piece whose plate carries its four sockets — the
+    # And every valve on a tray against the piece whose plate carries its four sockets — the
     # same reading, one storey forward: a plate drawn beside a valve rather than under it is a
     # plate nothing on this card would otherwise name.
-    check_panels_hold(pieces, a.pack_solids)
+    check_valve_trays_hold(pieces, a.pack_solids)
     # And each pump against the piece whose plate lies on its head, one storey up from those.
     check_trays_hold(pieces, a.pack_solids)
     check_cap_laps_bracket(pieces, a.pack_solids)
@@ -6739,14 +6741,14 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And the same question asked backwards — what takes the push that seats a tube in a tee.
     check_insertion_backing(pieces, a.pack_solids, box.collet_plate)
     # And how much of each valve's post the plate actually surrounds, which is what holds a
-    # valve — `panels-hold` reads that one is near its plate and cannot read that.
+    # valve — `valve-trays-hold` reads that one is near its plate and cannot read that.
     check_post_engagement(pieces, a.pack_solids, box.collet_plate)
     # And whether the wall between a seat's sockets and its port channel is thick enough for
     # the nozzle to lay anything in — the one reading here the solid itself cannot give.
     check_panel_web()
     check_head_sweep(a.pack_solids, pieces)
-    check_cartridge_sweep(pieces)
-    # And the cartridge's own joint with what it lands against: the cap's aft face on the
+    check_pump_cartridge_sweep(pieces)
+    # And the pump cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
     check_cap_stop(pieces, box.collet_plate)
     # And every floor post against the piece that grows it: a station outside every piece's
@@ -6794,7 +6796,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_body_seated(a.pack_solids, pieces)
     # And every one of those ribs' strap channels, against the piece that built it. A seat that
     # reads closed on its body says nothing about whether a tie can reach round it.
-    check_strap_channels(a.tube_anchors + a.body_anchors, a.digiten_saddles,
+    check_strap_channels(a.tube_anchors + a.body_anchors, a.digiten_anchors,
                          a.asse_cradle, pieces)
     # And every run the COLD CORE's cap is bored for, against the cap it lies on.
     check_run_seated(tubes, a.pack_solids["foam-assembly"])
@@ -6854,7 +6856,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (
-              "ground-stack", "asse1022-assembly", "drip-pan",
+              "ground-stack", "asse1022-assembly", "asse-drip-pan",
               "water-split", "flow-regulator", "vk-solenoid", "bulkhead-water",
               "c14-inlet", "discharge-chain", "co2-inlet", "gasher-co2", "wr1110",
               "bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb", "digiten-flow"):
@@ -7072,7 +7074,7 @@ def main():
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
     # The waterjet's file for the one steel piece, off the same spec the pockets and the
-    # cartridge's stops were struck from.
+    # pump cartridge's stops were struck from.
     dxf = _here.parent / "collet-plate.dxf"
     export_collet_plate_dxf(a.collet_plate, dxf)
     print(f"-> {dxf.name}")

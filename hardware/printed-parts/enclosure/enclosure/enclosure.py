@@ -3066,7 +3066,7 @@ def _port_cuts(ports, y0, y1):
     """The through-holes of one panel's port list, as cutters spanning y0..y1
     (a wall's thickness with a margin either side). The pack owns both layouts,
     since it places the bodies the bands are measured from
-    (../back-panel/README.md); the two walls differ only in which list and
+    (../y-wall-of-back-top/README.md); the two walls differ only in which list and
     which span, so they are cut by the same code."""
     out = []
     for kind, hx, hz, *size in ports:

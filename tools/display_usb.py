@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Make the externally-powered 4.3B display reattach to this computer's USB.
 
-The command goes through the controller PCBA's CH340C and J9. A running
-front-display application briefly deep-sleeps the S3 USB PHY; neither the
-appliance's 12 V rail nor any load is switched.
+The command goes through the main board's CH340C and J9. A running enclosure
+display application briefly deep-sleeps the S3 USB PHY; neither the appliance's
+12 V rail nor any load is switched.
 
 Run with any Python that has pyserial; PlatformIO's always does:
 
@@ -33,7 +33,7 @@ def ports_with_id(hwid: tuple[int, int]):
 
 
 def open_without_modem_reset(port: str, timeout: float = 0.05, *, dtr: bool = False):
-    # Set the lines before open so pyserial does not pulse the PCBA's Q2/Q3
+    # Set the lines before open so pyserial does not pulse the main board's Q2/Q3
     # auto-reset lattice merely to ask its already-running console for a command.
     ser = serial.Serial()
     ser.port = port
@@ -46,13 +46,13 @@ def open_without_modem_reset(port: str, timeout: float = 0.05, *, dtr: bool = Fa
     return ser
 
 
-def ask_controller(port: str) -> tuple[bytes | None, str]:
+def ask_main_board(port: str) -> tuple[bytes | None, str]:
     with open_without_modem_reset(port) as ser:
         ser.reset_input_buffer()
         seen = bytearray()
 
         # A driver can still reset a CH340 when the port first opens. Retrying the
-        # line also covers the controller finishing setup after that reset.
+        # line also covers the main board finishing setup after that reset.
         for _ in range(3):
             ser.write(b"\ndisplay usb\n")
             ser.flush()
@@ -73,7 +73,7 @@ def ask_controller(port: str) -> tuple[bytes | None, str]:
         return None, seen.decode("utf-8", errors="replace")
 
 
-def front_version(timeout_s: float = 18.0) -> tuple[str, str] | None:
+def enclosure_display_version(timeout_s: float = 18.0) -> tuple[str, str] | None:
     until = time.monotonic() + timeout_s
     while time.monotonic() < until:
         for port in ports_with_id(ESP32_S3):
@@ -101,7 +101,7 @@ def front_version(timeout_s: float = 18.0) -> tuple[str, str] | None:
     return None
 
 
-def wait_for_front(timeout_s: float = 12.0):
+def wait_for_enclosure_display(timeout_s: float = 12.0):
     until = time.monotonic() + timeout_s
     while time.monotonic() < until:
         found = ports_with_id(ESP32_S3)
@@ -124,46 +124,46 @@ def wait_until_absent(paths: set[str], timeout_s: float = 4.0) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--controller-port", help="PCBA CH340C port (auto-detected by default)")
+    parser.add_argument("--main-board-port", help="main board CH340C port (auto-detected by default)")
     args = parser.parse_args()
 
-    if args.controller_port:
-        controller = args.controller_port
+    if args.main_board_port:
+        main_board = args.main_board_port
     else:
         pcba = ports_with_id(CH340)
         if not pcba:
-            print("controller PCBA not found (expected CH340C 1a86:7523)", file=sys.stderr)
+            print("main board not found (expected CH340C 1a86:7523)", file=sys.stderr)
             return 2
         if len(pcba) > 1:
             choices = ", ".join(p.device for p in pcba)
-            print(f"more than one controller PCBA found: {choices}; use --controller-port", file=sys.stderr)
+            print(f"more than one main board found: {choices}; use --main-board-port", file=sys.stderr)
             return 2
-        controller = pcba[0].device
+        main_board = pcba[0].device
 
-    old_fronts = {p.device for p in ports_with_id(ESP32_S3)}
-    print(f"controller  {controller}")
-    result, transcript = ask_controller(controller)
+    old_displays = {p.device for p in ports_with_id(ESP32_S3)}
+    print(f"main board  {main_board}")
+    result, transcript = ask_main_board(main_board)
     for line in transcript.splitlines():
         if "DISPLAY_USB:" in line:
             print(line.strip())
     if result in (None, RESULTS[-1]):
         if "DISPLAY_USB:UNREACHABLE" not in transcript:
-            print("controller did not recognize or finish 'display usb'; flash env appliance first",
+            print("main board did not recognize or finish 'display usb'; flash env appliance first",
                   file=sys.stderr)
         return 1
 
-    if result == RESULTS[0] and old_fronts and not wait_until_absent(old_fronts):
+    if result == RESULTS[0] and old_displays and not wait_until_absent(old_displays):
         print("display accepted the command, but its previous USB attachment never detached",
               file=sys.stderr)
         return 1
 
-    if not wait_for_front():
+    if not wait_for_enclosure_display():
         print("display command succeeded, but no 303a:1001 USB device enumerated", file=sys.stderr)
         return 1
 
-    identified = front_version()
+    identified = enclosure_display_version()
     if not identified:
-        print("USB enumerated, but the front application did not answer GET_VERSION", file=sys.stderr)
+        print("USB enumerated, but the enclosure display did not answer GET_VERSION", file=sys.stderr)
         return 1
     port, version = identified
     print(f"display     {port}")

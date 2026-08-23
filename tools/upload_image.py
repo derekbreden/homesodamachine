@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Manage images on the RP2040 display and ESP32-S3 config display via ESP32 USB serial.
+"""Manage images on the RP2040 display and ESP32-S3 round rotary display via ESP32 USB serial.
 
 The ESP32 is the authoritative image store. Images are stored on ESP32's
 LittleFS (both resolutions + compressed PNG), then pushed to display devices
@@ -20,7 +20,7 @@ Usage:
 
 Target devices (for device-level queries):
     rp2040  - RP2040 round display (128x115, external)
-    s3      - ESP32-S3 config display (240x240, rotary)
+    s3      - ESP32-S3 round rotary display (240x240)
     both    - Both devices (default)
 
 Dependencies:

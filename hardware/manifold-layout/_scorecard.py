@@ -141,7 +141,7 @@ REFRIGERANT_SEGMENTS = (
     ("refrig-3", "foam-assembly evaporator outlet", "compressor suction"),
 )
 
-# The tap water, from the rear-panel bulkhead through the backflow preventer, the split and the
+# The tap water, from the +Y wall's bulkhead through the backflow preventer, the split and the
 # V-K fill/shutoff to the carbonator's own water inlet — `assembly/internal-plumbing.md` §2. All
 # 1/4" LLDPE, stepping back up to 3/8" only at the SeaFlo's two moulded barbs. The ASSE 1022's
 # vent is not here: it terminates to atmosphere over the ASSE drip pan.
@@ -162,7 +162,7 @@ WATER_SEGMENTS = (
     ("water-7", "seaflo-pump suction (3/8\" barb, moulded)", "suction-chain barb-tip"),
 )
 
-# The gas, from the back-panel ABU44 bulkhead through the GASHER check and the WR1110 secondary
+# The gas, from the +Y wall's ABU44 bulkhead through the GASHER check and the WR1110 secondary
 # regulator to the carbonator's bottom-plate CO2 port — `assembly/internal-plumbing.md` §1. Three
 # hops of 1/4" LLDPE, each fitting standing apart from its neighbour.
 CO2_SEGMENTS = (
@@ -233,7 +233,7 @@ MOUNTS = (
     # THE HEAVIEST BODY IN THE MACHINE, AND THE ONE WITH NO HOLE IN IT. The core is a foamed cup
     # under a screwed cap, plain skin the whole way round, so what closes on it is the box: a
     # block on the FRONT-BOTTOM's slab bored at each of its front corner rounds
-    # (`enclosure._core_stops`), and a bracket off the BACK-TOP's +Y wall of back-top turning over the aft
+    # (`enclosure._core_stops`), and a bracket off the BACK-TOP's +Y wall turning over the aft
     # edge of its cap (`enclosure._core_holds`), read by `core-held`. The blocks take it forward,
     # in X and in yaw; the brackets take it up; the slab under it takes the weight and the back
     # wall the aft. Neither piece holds it alone and both are screwed to the back-bottom it
@@ -252,10 +252,10 @@ MOUNTS = (
     # `enclosure._bay_floor` cuts down the bay floor's top, one `wall` deep, its two bottom
     # corners notched round front-bottom's Z-seam lip — gravity onto the seat's own bottom, the
     # seat's walls fore and aft, the side walls across, and open at the top. What loads it is the
-    # cartridge's own release: the four anchor-tee collets press its aft face as the cartridge is
+    # pump cartridge's own release: the four anchor-tee collets press its aft face as the pump cartridge is
     # pulled, the seat's fore wall carries that into a floor lying on the print bed, and the
     # user's aft brace on the box closes the loop. It lifts out through the bay with the
-    # cartridge removed.
+    # pump cartridge removed.
     ("collet-plate", "enclosure-front-top", "well"),
     # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
     # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
@@ -293,19 +293,19 @@ MOUNTS = (
     ("wago-reeds-b", "enclosure-back-top", "well"),
     ("wago-reeds-a", "enclosure-back-top", "well"),
     ("wago-sensors", "enclosure-back-top", "well"),
-    # THE TAP-WATER CHAIN LIES IN A TROUGH PRINTED ON THE −X WALL. `enclosure._asse_cradle` cuts
+    # THE TAP-WATER CHAIN LIES IN AN ANCHOR PRINTED ON THE −X WALL. `enclosure._asse_cradle` cuts
     # a 120° V to each of the chain's own three sections, so the steps between them are faces
     # square to the axis and the brass barrel is trapped between two of them. What the V beds on
     # is that barrel's own two flats, which is the one section on the run whose clock the vent is
     # machined into — so keying it is what holds the drip over the pan. Two straps through the
-    # trough's lips shut its mouth; nothing about the chain's weight is theirs to carry.
+    # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
-    ("drip-pan", "enclosure-back-top", "channel"),
+    ("asse-drip-pan", "enclosure-back-top", "channel"),
     # The probe plate lies loose in the pan the way the pan rides loose in its rails: what
     # fastens it is the tray's own printed floor and coves, which fence it on four sides at
     # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — a plate bolted flat could not be lifted out
     # to wipe, and the tray is drawn and emptied on service with the plate still in it.
-    ("moisture-plate", "drip-pan", "basin"),
+    ("moisture-plate", "asse-drip-pan", "basin"),
     # The gas sensor slides into a slot printed on the −X wall of the bay it watches
     # (`enclosure._west_cradle`) and bottoms on the wall itself. The main board carries no mounting
     # hole, so a slot is the only way it is ever held — the same bargain the lever nuts strike,
@@ -394,10 +394,10 @@ MOUNTS = (
     ("valve-v-a", "foam-assembly", "cradle"),
     ("valve-v-b", "foam-assembly", "cradle"),
     # AND THE OTHER EIGHT STAND ON TWO VALVE TRAYS — a plate wall to wall on each plane the
-    # fold left a deck on, carrying that same four-boss seat per valve. A panel is not a part:
+    # fold left a deck on, carrying that same four-boss seat per valve. A tray is not a part:
     # it is `enclosure-front-top`'s own material, fused the way the ASSE anchor and the
     # meter's anchors are (`enclosure._valve_trays` off
-    # `enclosure_assembly.valve_panel_stations`, read by `panels-hold`).
+    # `enclosure_assembly.valve_tray_stations`, read by `valve-trays-hold`).
     ("valve-v-c", "enclosure-front-top", "bosses"),
     ("valve-v-d", "enclosure-front-top", "bosses"),
     ("valve-v-g", "enclosure-front-top", "bosses"),
@@ -408,7 +408,7 @@ MOUNTS = (
     ("valve-v-i", "enclosure-front-top", "bosses"),
     # AND BOTH PUMPS STAND IN A CASE THAT IS TWO PRINTED PIECES — the pump cartridge and the
     # cap screwed under it, parting on the pump's own bracket plane
-    # (`enclosure.cap_split_z`). Above that plane the cartridge is a block the pump stands in,
+    # (`enclosure.cap_split_z`). Above that plane the pump cartridge is a block the pump stands in,
     # and its tray takes the boss on the octagon bore and the boss's crown on a shoulder of
     # tower; below it the cap closes on the head. What carries the pump is the stamped bracket
     # the part holds in that same plane, `bracket_w` across against a head of `head_w`: it laps
@@ -525,7 +525,7 @@ NEVER = {
     # THE SIX Y-TEES, EACH BUTTED ONTO A VALVE IN A PRINTED SEAT. A butt is two collet faces
     # meeting on one stub of tube with no tube between them (`manifold_layout.SEGMENTS`), so a
     # tee and the valve it butts are one made-up body. Every one of these six lands on a valve
-    # the two panels hold, which is what makes the chain worth something: `tees_butt_held` reads
+    # the two valve trays hold, which is what makes the chain worth something: `tees_butt_held` reads
     # each row's named partner back off the pack and off this table's own `by`, so a valve that
     # loses its seat takes its tee's exemption with it.
     **{tee: (f"Its collets make up onto {valve.upper()[len('VALVE-'):]}'s, face to face on one "
@@ -686,7 +686,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # `display_gasket.thickness` IS this distance, taken off the same two depths.
     ("display-cover", "display"),
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
-    # front-top piece carries instead of a lid. `enclosure_assembly.check_panels_hold` is what
+    # front-top piece carries instead of a lid. `enclosure_assembly.check_valve_trays_hold` is what
     # reads each valve against that plate.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),
     # BOTH MADE-UP CHAINS IN THE RIBS THAT LID STANDS. A bore closed on a section reads its own
@@ -989,8 +989,8 @@ def _bounds(a) -> list:
     """One gate per bound the machine states about itself — every
     leg of the refrigerant loop closing, the vent's drip landing on
     the pan's flat, the ASSE drip pan's lip landing inside the −X wall, a through-wall body
-    standing under the ceiling, a printed valve cradle standing under its valve, the drip
-    pan's own flat floor taking the moisture plate, and the
+    standing under the ceiling, a printed valve cradle standing under its valve, the pan's
+    own flat floor taking the moisture plate, and the
     enclosure's own: the pack inside the stated width, depth and height, the two seam planes
     clear of the display housing and on the print bed, the funnel throat inside the frame the
     top wall has left. `enclosure_assembly.carry_enclosure_bounds` brings that group over.
@@ -1713,11 +1713,11 @@ def _extent(solids) -> tuple:
 
 
 def size_rows(a) -> list[dict]:
-    """How big the machine is: the box the printed shells stand in, and the box everything
+    """How big the machine is: the box the enclosure quadrants stand in, and the box everything
     placed stands in. Width is x, depth is y, height is z — the axes `enclosure_assembly`
     packs on.
 
-    BOTH ROWS ARE THE OUTSIDE OF WHAT WAS DRAWN, off the placed solids. So a shell whose
+    BOTH ROWS ARE THE OUTSIDE OF WHAT WAS DRAWN, off the placed solids. So a quadrant whose
     corners round short reads here, and so does a body seated through a wall and standing
     proud of it: the assembly row standing past the enclosure row on an axis is what is
     outside the box on that axis, in millimetres. The three figures the box is DRAWN to —

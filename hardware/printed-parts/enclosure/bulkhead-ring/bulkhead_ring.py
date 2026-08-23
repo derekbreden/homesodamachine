@@ -18,13 +18,13 @@ It is not a shape that turns — a pocket takes it one way up and no other, whic
 word level without anything holding it there.
 
 At the rear face the customer meets identical black fittings in a black wall, one of which takes
-the blue tube — `../back-panel/README.md` §"Umbilical port — tube identification". A chip's colour
+the blue tube — `../y-wall-of-back-top/README.md` §"Umbilical port — tube identification". A chip's colour
 is its tube's colour and there are four of them; what a colour means is stated once, in
-`../back-panel/_back_panel_dimensions.py`.
+`../y-wall-of-back-top/_y_wall_dimensions.py`.
 
 THE WORD IS A SECOND SOLID. It lies in a recess `WORD_DEPTH` into the chip's outboard face and
 fills it flush, printed in the second colour that reads against the chip's own —
-`_back_panel_dimensions.word_color` is where light-on-dark or dark-on-light is decided.
+`_y_wall_dimensions.word_color` is where light-on-dark or dark-on-light is decided.
 
 The push a 1/4" push-to-connect takes to seat — past the collet's grabbers and an EPDM O-ring —
 lands on this chip, and the chip carries it to the pocket floor across its whole face.
@@ -55,7 +55,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "enclosure" / "back-panel",
+           _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "neofit-bulkhead"):
     sys.path.insert(0, str(_p))
@@ -64,7 +64,7 @@ sys.path.insert(0, str(next(p for p in _here.parents
 from _cadq_export import export_assembly, import_step  # noqa: E402
 from _materials import step_safe
 from _measuring import bores  # noqa: E402
-import _back_panel_dimensions as _rear  # noqa: E402
+import _y_wall_dimensions as _rear  # noqa: E402
 import jg_bulkhead_union as _jg  # noqa: E402
 import neofit_bulkhead as _neo  # noqa: E402
 from docgen import substitute_md  # noqa: E402
@@ -75,7 +75,7 @@ from docgen import substitute_md  # noqa: E402
 FAMILIES = {"union": _jg, "neofit": _neo}
 
 # How far the chip stands past the fitting's own panel footprint — the width of colour that shows
-# once the flange is on. `enclosure_assembly.back_wall_field` strikes its pockets from it and
+# once the flange is on. `enclosure_assembly.y_wall_field` strikes its pockets from it and
 # `drawings/line-art/_appliance_model` paints its marks from it. A pocket is this chip plus its
 # slip, and what one `enclosure_assembly.PORT_PITCH` leaves between two pockets is the web of wall
 # the field keeps between them. It is also the band the word is lettered in, top and bottom.
@@ -112,7 +112,7 @@ STATIONS = {
 # it gets the two bodies to assign. `split` is how the pair comes back apart.
 STEPS = {name: _here.parent / f"bulkhead-ring-{name}.step" for name in STATIONS}
 
-# The key each station reads its two filaments under in `_back_panel_dimensions` — both flavour
+# The key each station reads its two filaments under in `_y_wall_dimensions` — both flavour
 # chips print off one spool and letter in one colour, so both answer to `flavor`.
 FLUIDS = {"water": "water", "carb": "carb", "co2": "co2",
           "flavor-a": "flavor", "flavor-b": "flavor"}
@@ -190,7 +190,7 @@ def tall(which: str) -> float:
 
 def outline(which: str) -> tuple:
     """One station's chip as `(od, rise)` — the pair that strikes both the chip and the pocket it
-    drops into. `enclosure_assembly.back_wall_field` cuts its pockets from this."""
+    drops into. `enclosure_assembly.y_wall_field` cuts its pockets from this."""
     return (od(family(which)), RISE)
 
 

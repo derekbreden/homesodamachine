@@ -233,8 +233,8 @@ def render_frames(size):
     the theme background, and write the source SVGs + a GIF preview to OUT_DIR.
 
     Each display compiles these frames at its own size, so the render size is a
-    parameter: the 240px round config display and the 360px 4.3" front display
-    share one animation, rendered natively for each (no upscaling)."""
+    parameter: the 240px round rotary display and the 360px 4.3" enclosure
+    display share one animation, rendered natively for each (no upscaling)."""
     import io
 
     import cairosvg

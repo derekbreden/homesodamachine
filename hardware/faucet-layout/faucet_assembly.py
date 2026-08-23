@@ -92,9 +92,9 @@ sys.path.insert(0, str(_faucet_printed_dir / "faucet-shell"))
 # The identification the tubes carry below the counter, and the filaments it prints in — one part
 # and one colour table, shared with the chips on the +Y wall of back-top.
 sys.path.insert(0, str(_faucet_printed_dir / "tube-collar"))
-sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "back-panel"))
+sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
 import tube_collar
-import _back_panel_dimensions as _rear
+import _y_wall_dimensions as _rear
 import above_counter_plate
 import above_counter_gasket
 import tpu_o_ring
@@ -1005,7 +1005,7 @@ def build_assembly():
     soda_umbilical_tube = build_soda_umbilical_tube()
 
     # EVERY TUBE IS THE COLOUR OF WHAT IT CARRIES, off the one table that says what a colour means
-    # on this machine — `_back_panel_dimensions.port_colors`, the same read the bulkhead rings,
+    # on this machine — `_y_wall_dimensions.port_colors`, the same read the bulkhead rings,
     # the runs inside the cabinet and the collars on these three tails all take. So the blue in
     # this picture is the blue of the union at the other end of it.
     def spool(fluid):

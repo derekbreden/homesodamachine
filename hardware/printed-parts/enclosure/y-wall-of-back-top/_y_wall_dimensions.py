@@ -1,6 +1,6 @@
-"""Doc-sync driver for hardware/printed-parts/enclosure/back-panel/README.md.
+"""Doc-sync driver for hardware/printed-parts/enclosure/y-wall-of-back-top/README.md.
 
-Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py
+Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py
 """
 
 import sys
@@ -15,15 +15,15 @@ sys.path.insert(0, str(_hw / "scripts"))
 from docgen import substitute_md  # noqa: E402
 
 
-# AC inlet recess: an IEC 60320 C14 receptacle nests into the panel face,
-# the mating C13 cord housing ending flush with the panel surface. The
+# AC inlet recess: an IEC 60320 C14 receptacle nests into the wall's face,
+# the mating C13 cord housing ending flush with that face. The
 # depth range lets the C13 housing nest without bottoming on the bezel.
 # Typed, because the recess has no CAD — there is nothing yet to read it off.
 ac_inlet_recess_depth_min = 3.0
 ac_inlet_recess_depth_max = 5.0
 
 
-# The rear face's identification colours, by the fluid each names — the one
+# The wall's identification colours, by the fluid each names — the one
 # statement of what a colour MEANS on this machine.
 #
 # Blue is spent: `bom.md` §3 buys the carbonated-water umbilical riser in BLUE
@@ -48,7 +48,7 @@ port_colors = {
     "carb": (31, 111, 235),     # carbonated water — the umbilical riser
     "water": (255, 255, 255),   # tap water — the customer's teed-in supply
     "co2": (214, 58, 58),       # CO2 — the customer's regulator tether
-    "flavor": (38, 38, 41),     # flavour — both nozzle feeds, one colour
+    "flavor": (38, 38, 41),     # flavour — both flavor tubes, one colour
 }
 
 
@@ -122,10 +122,10 @@ def dropped_union_end(panel_on_gate_lane, panel_x):
 
 
 def panel_hole_diameters(ports):
-    """The two bores this panel carries: `(bulkhead, co2)`.
+    """The two bores this wall carries: `(bulkhead, co2)`.
 
     Taken from the functions that STRIKE them, not from a second copy of their
-    arithmetic. `enclosure_assembly.back_wall_ports` and `enclosure_assembly.co2_wall_port` are the
+    arithmetic. `enclosure_assembly.y_wall_ports` and `enclosure_assembly.co2_wall_port` are the
     calls `enclosure_assembly.pack` fills `back_ports` with, and `enclosure._port_cuts` bores
     that list — so these are the holes that get cut, and a change to HOW either is
     struck (a chamfer allowance, a different slip for gas than for water) arrives here
@@ -137,13 +137,13 @@ def panel_hole_diameters(ports):
     ports in; drivers importing this module for the AC recess or colours load neither the facts
     nor the assembled machine.
 
-    All four PP1208E bulkheads on this panel — 1 water inlet + 3 umbilical-port unions —
+    All four PP1208E bulkheads on this wall — 1 water inlet + 3 umbilical-port unions —
     share one hole, which is the figure the README quotes.
     """
     diameters = {round(p[3], 6) for p in ports["union"]}
     if len(diameters) != 1:
         raise ValueError(
-            f"the four panel unions are bored at {sorted(diameters)}. The README gives them "
+            f"the four wall unions are bored at {sorted(diameters)}. The README gives them "
             f"one hole, so either they go back on one diameter or it reads them out apiece.")
     return ports["union"][0][3], ports["co2"][3]
 

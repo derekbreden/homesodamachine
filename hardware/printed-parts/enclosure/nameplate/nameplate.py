@@ -55,7 +55,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "printed-parts" / "cadlib",
-           _hw / "printed-parts" / "enclosure" / "back-panel",
+           _hw / "printed-parts" / "enclosure" / "y-wall-of-back-top",
            _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "bulkhead-ring"):
     sys.path.insert(0, str(_p))
@@ -64,7 +64,7 @@ sys.path.insert(0, str(next(p for p in _here.parents
 from _cadq_export import export_assembly              # noqa: E402
 from _materials import step_safe                      # noqa: E402
 from docgen import substitute_md                      # noqa: E402
-import _back_panel_dimensions as _rear                # noqa: E402
+import _y_wall_dimensions as _rear                # noqa: E402
 import _nameplate_dimensions as _plan                 # noqa: E402
 import _enclosure_interface as _enc                   # noqa: E402
 import bulkhead_ring as _ring                             # noqa: E402
