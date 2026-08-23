@@ -146,7 +146,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     parts = _children_by_name(faucet)
     lever_rest, lever_pressed = _physical_levers(fa)
 
-    head_names = (
+    above_counter_names = (
         "westbrass",
         "soda_faucet_tube",
         "tpu_o_ring",
@@ -162,19 +162,19 @@ def _build_steps(work: Path) -> dict[str, Path]:
         "faucet_display_screen",
     )
 
-    def head_with(lever, name):
-        head = cq.Assembly(name=name)
-        for part_name in head_names:
+    def above_counter_with(lever, name):
+        above = cq.Assembly(name=name)
+        for part_name in above_counter_names:
             child = parts[part_name]
             obj = lever if part_name == "lever" else child.obj
             if part_name in {"westbrass", "flavor_tube_pos_x", "flavor_tube_neg_x"}:
                 obj = _clip_z(obj, fa.countertop_top_z, 260.0)
-            _add_child(head, child, obj=obj)
-        return head
+            _add_child(above, child, obj=obj)
+        return above
 
-    head_step = _export_colored(head_with(lever_rest, "faucet-user"), work / "faucet-user.step")
+    user_step = _export_colored(above_counter_with(lever_rest, "faucet-user"), work / "faucet-user.step")
     pressed_step = _export_colored(
-        head_with(lever_pressed, "faucet-user-pressed"), work / "faucet-user-pressed.step"
+        above_counter_with(lever_pressed, "faucet-user-pressed"), work / "faucet-user-pressed.step"
     )
 
     # This full, direct-front assembly is an intermediate for the exact rear-wall tail crop. The
@@ -536,8 +536,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
     under_tight_step = _export_colored(under_tight, work / "mount-under-tighten-clean.step")
 
     return {
-        "faucet-head": head_step,
-        "faucet-head-pressed": pressed_step,
+        "faucet-user": user_step,
+        "faucet-user-pressed": pressed_step,
         "faucet-full": faucet_full_step,
         "mount-drop": drop_step,
         "mount-seated": seated_step,
@@ -743,10 +743,10 @@ def main(*, mount_studies: bool = False) -> None:
             jobs = mount_render_jobs
         else:
             jobs = [
-                _job(steps["faucet-head"], "faucet-head.png", (0.18, -1.0, 0.18)),
-                _job(steps["faucet-head"], "faucet-side.png", (1.0, -1.4, 0.75)),
+                _job(steps["faucet-user"], "faucet-front.png", (0.18, -1.0, 0.18)),
+                _job(steps["faucet-user"], "faucet-side.png", (1.0, -1.4, 0.75)),
                 _job(
-                    steps["faucet-head-pressed"],
+                    steps["faucet-user-pressed"],
                     "faucet-side-pressed.png",
                     (1.0, -1.4, 0.75),
                 ),
