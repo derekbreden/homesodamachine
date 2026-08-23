@@ -252,7 +252,7 @@ before the grid scrolls.
 A 190 px rail down the left carries four 110 px targets — **CHOOSE · FILL · PRIME ·
 CLEAN** — each an icon over a word. Choose is the drink; Fill, Prime and Clean are a
 flavor's life in the machine, in the order it is lived. Choose uses a hand pointing up
-and Fill the hopper's own funnel; connection state appears only when it affects saving a flavor. Settings is not a
+and Fill the hopper's own funnel. Settings is not a
 customer destination and holds no rail slot: it is a single square in the screen's top-right
 corner, over every page, which is free because each pane titles itself from the left. The
 remaining 610 px is the pane, and it takes a different shape at each destination:
@@ -267,15 +267,20 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 
 A channel is named by the logo it wears, never by a number. The three pick-a-flavor
 screens offer the same artwork Choose does, full size, under the mark for what is about to
-happen to it; the confirmation that follows shows it at half size, and Prime's hold pad and
-a flavor's own page carry it at a quarter in their title band. Picking a channel therefore
-never loses track of which one is committed.
+happen to it; Fill, Clean and Prime then take the same
+shape behind that choice — the logo at half size, a line about what is about to happen, and
+one wide target — so a channel never loses track of which one is committed. A flavor's own
+page carries it at a quarter in its title band, where the ratio card and picker grid take
+the room.
 | Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
 render. Every page is built at boot and switching hides one and shows another. On Choose,
-only the active card carries a selection badge. The synchronization label is likewise
-quiet when healthy and appears only while connecting, saving, or reporting a save error.
+only the active card carries a selection badge.
+
+**Nothing on a page is there for the person building it.** No readout reports transport,
+timing or link health, and none is laid out around one — anything a bring-up needs is a
+`GET_DIAG` line over USB, where it costs the interface nothing.
 
 **The dark gives your place up in stages.** The last two run from the moment the screen
 goes dark, so changing how long it stays lit does not move them.
