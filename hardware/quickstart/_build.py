@@ -64,7 +64,13 @@ def pages() -> list[Path]:
 
 def render_pages() -> int:
     renderer = REPO_ROOT / "tools" / "render" / "render-card.js"
-    note_read(renderer)
+    for runtime in (
+        renderer.parent / "browser.js",
+        renderer.parent / "package-lock.json",
+        renderer.parent / "package.json",
+        renderer,
+    ):
+        note_read(runtime)
     for path in FONTS:
         note_read(path)
     for path in (*PAGES, *PAGE_ASSETS):

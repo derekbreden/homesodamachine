@@ -5001,6 +5001,9 @@
       "hardware/quickstart/style.css",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_run_lock.py",
+      "tools/render/browser.js",
+      "tools/render/package-lock.json",
+      "tools/render/package.json",
       "tools/render/render-card.js"
     ],
     "rewritten": [],
