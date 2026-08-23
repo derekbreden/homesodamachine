@@ -366,8 +366,8 @@ MOUNTS = (
     ("port-ring-flavor-a", "enclosure-back-top", "well"),
     ("port-ring-flavor-b", "enclosure-back-top", "well"),
     # AND THE WORD LIES IN A RECESS OF THE CHIP, by the same bargain one step in. A two-colour
-    # print is ONE part in two materials: `port_ring.build_ring` cuts the recess and
-    # `port_ring.build_word` fills it in the same layers, so nothing joins the pair but the print
+    # print is ONE part in two materials: `bulkhead_ring.build_ring` cuts the recess and
+    # `bulkhead_ring.build_word` fills it in the same layers, so nothing joins the pair but the print
     # that lays them both. `RIDES` is what keeps this from counting as a second joint.
     ("port-ring-water-word", "port-ring-water", "well"),
     ("port-ring-carb-word", "port-ring-carb", "well"),

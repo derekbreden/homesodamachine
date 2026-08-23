@@ -1,16 +1,16 @@
 {
-  "/hardware/printed-parts/enclosure/port-ring/port_ring.py": {
+  "/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": {
     "CO2_RING_BORE": "17.86",
     "CO2_RING_OD": "36.04",
     "CO2_RING_TALL": "36.81",
     "CO2_RING_VOL": "1.84",
-    "PORT_RING_W": "7.05",
     "RING_BORE": "18",
     "RING_OD": "36.96",
     "RING_RISE": "18.789",
     "RING_TALL": "37.27",
     "RING_THICK": "2",
-    "RING_VOL": "1.89",
+    "RING_VOL": "1.90",
+    "RING_W": "7.05",
     "WORD_BEAD": "0.22",
     "WORD_CAP": "4.951",
     "WORD_DEPTH": "1",
