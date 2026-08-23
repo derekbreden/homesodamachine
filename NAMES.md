@@ -10,6 +10,9 @@ in two places take the place: `faucet display`, `enclosure display`. There is on
 the entry says: `faucet shell` is the name, and `the shell` is correct inside
 `hardware/printed-parts/faucet/` and nowhere else.
 
+**`soda` in a part name means soda water** — carbonated and unflavored, not the flavored drink the
+brand name means.
+
 The **Not** column is the routing rule: those forms are retired, and the name beside them is what
 they became.
 
@@ -34,3 +37,8 @@ they became.
 | **diaphragm pump** | the pump that pushes water into the carbonator | |
 | **cold core** | the insulated block keeping the carbonator and reservoirs cold | |
 | **under-counter plate** | the cut SS disc that slides on from below and takes the nut | keyhole plate |
+| **soda umbilical tube** | the blue 1/4" tube, rear wall to the Westbrass's lower port | supply tube |
+| **soda faucet tube** | the black 3/8" tube, Westbrass's top port out to the gooseneck exit | dispense tube, water tube |
+| **above-counter plate** | the printed disc between the faucet shell and the countertop | mounting plate |
+| **above-counter gasket** | the TPU disc between the above-counter plate and the countertop | mounting gasket |
+| **ASSE drip pan** | the printed catch basin in the service bay, under the ASSE 1022 chain | drip pan |
