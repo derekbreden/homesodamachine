@@ -10,6 +10,7 @@ on:
       - '!hardware/quickstart/studies/**'
       # The *.html scan declares this directory entry, but the renderer never opens its bytes.
       - '!hardware/quickstart/README.md'
+      - '!hardware/quickstart/art/**'
       - '!hardware/quickstart/quick-start.cover.png'
       - '!hardware/quickstart/quick-start.pdf'
       - '!hardware/quickstart/quick-start.pdf.json'
@@ -158,11 +159,18 @@ jobs:
           fi
 
           quickstart=false
+          quickstart_art=false
           if grep -qx '//:quickstart-build' /tmp/cad-requested; then
             quickstart=true
             grep -vx '//:quickstart-build' /tmp/cad-requested \
               > /tmp/cad-requested.without-quickstart || true
             mv /tmp/cad-requested.without-quickstart /tmp/cad-requested
+          fi
+          if grep -qx '//:quickstart-art' /tmp/cad-requested; then
+            quickstart_art=true
+            grep -vx '//:quickstart-art' /tmp/cad-requested \
+              > /tmp/cad-requested.without-quickstart-art || true
+            mv /tmp/cad-requested.without-quickstart-art /tmp/cad-requested
           fi
 
           base=$(tools/cad-venv/bin/python -c \
@@ -188,6 +196,23 @@ jobs:
               quickstart=true
             fi
           fi
+          # The tracked artwork is the materialized boundary between product CAD and the
+          # sheets. Once the migration run refreshes it explicitly, this source range proves
+          # whether its real producer inputs moved. Layout-only work reaches quickstart-build,
+          # never quickstart-art, and therefore binds the current bytes without recutting CAD.
+          : > /tmp/quickstart-art-debt
+          if [ -z "$base" ]; then
+            quickstart_art=true
+          elif [ "$quickstart_art" != true ]; then
+            tools/cad-venv/bin/python tools/bazel/affected.py \
+              --base "$base" --head "$GITHUB_SHA" > /tmp/quickstart-art-debt
+            if grep -Eq '^//:(quickstart-art|everything)$' /tmp/quickstart-art-debt; then
+              quickstart_art=true
+            fi
+          fi
+          if [ "$quickstart_art" = true ]; then
+            quickstart=true
+          fi
           if [ -z "$base" ] || [ "${{ inputs.all }}" = "true" ]; then
             tools/cad-venv/bin/python tools/bazel/affected.py --all-artifacts \
               > /tmp/cad-accumulated
@@ -206,6 +231,7 @@ jobs:
           {
             echo "count=$count"
             echo "quickstart=$quickstart"
+            echo "quickstart_art=$quickstart_art"
             echo 'targets<<CAD_TARGETS'
             cat /tmp/cad-targets
             echo 'CAD_TARGETS'
@@ -215,6 +241,9 @@ jobs:
           if [ "$quickstart" = true ]; then
             echo "canonical Quick Start owed by:"
             sed 's/^/  /' /tmp/quickstart-sources
+          fi
+          if [ "$quickstart_art" = true ]; then
+            echo "canonical Quick Start artwork is owed"
           fi
 
       - name: Restore the drawn solids
@@ -247,9 +276,22 @@ jobs:
           [ "${#targets[@]}" -gt 0 ] || exit 0
           bazel build --disk_cache="$HOME/.cache/bazel-disk" "${targets[@]}"
 
-      - name: Build the canonical Quick Start
-        if: steps.scope.outputs.quickstart == 'true'
-        run: bazel build --disk_cache="$HOME/.cache/bazel-disk" //:quickstart-build
+      - name: Build the canonical Quick Start artwork
+        if: steps.scope.outputs.quickstart_art == 'true'
+        run: bazel build --disk_cache="$HOME/.cache/bazel-disk" //:quickstart-art
+
+      - name: Carry the canonical Quick Start artwork
+        if: steps.scope.outputs.quickstart_art == 'true'
+        run: |
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+            --targets //:quickstart-art
+          unexpected=$(git diff --name-only -- hardware/quickstart | \
+            grep -Ev '^hardware/quickstart/art/' || true)
+          if [ -n "$unexpected" ]; then
+            echo "the Quick Start artwork carry moved files outside its declared directory:" >&2
+            sed 's/^/  /' <<< "$unexpected" >&2
+            exit 1
+          fi
 
       - name: Verify and carry the complete cut
         if: steps.scope.outputs.count != '0'
@@ -265,15 +307,56 @@ jobs:
           tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --runtime-only \
             --targets "$TARGETS"
 
-      - name: Carry only the canonical Quick Start
+      - name: Bind only the canonical Quick Start
         if: steps.scope.outputs.quickstart == 'true'
         run: |
-          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
-            --targets //:quickstart-build
+          bind_root=$(mktemp -d)
+          trap 'rm -rf "$bind_root"' EXIT
+          HSM_BIND_ROOT="$bind_root" tools/cad-venv/bin/python - <<'PY'
+          import json
+          import os
+          import shutil
+          from pathlib import Path
+
+          source = Path.cwd()
+          target = Path(os.environ["HSM_BIND_ROOT"])
+          node = json.loads((source / "tools/bazel/graph.json").read_text())[
+              "hardware/quickstart/_build.py"
+          ]
+          outputs = set(node["writes"])
+          for rel in node["reads"]:
+              if rel in outputs:
+                  continue
+              src = source / rel
+              if not src.is_file():
+                  raise SystemExit(f"declared Quick Start input is absent: {rel}")
+              dst = target / rel
+              dst.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(src, dst)
+          PY
+          for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+            mkdir -p "$bind_root/$(dirname "$d")"
+            ln -sfn "$GITHUB_WORKSPACE/$d" "$bind_root/$d"
+          done
+          (
+            cd "$bind_root"
+            HSM_REPO_ROOT="$bind_root" HSM_NO_BUILD_LOCK=1 \
+              "$GITHUB_WORKSPACE/tools/cad-venv/bin/python" \
+              hardware/quickstart/_build.py
+          )
+          cp "$bind_root/hardware/quickstart/quick-start.cover.png" \
+            hardware/quickstart/quick-start.cover.png
+          cp "$bind_root/hardware/quickstart/quick-start.pdf" \
+            hardware/quickstart/quick-start.pdf
+          cp "$bind_root/hardware/quickstart/quick-start.pdf.json" \
+            hardware/quickstart/quick-start.pdf.json
           allowed='^(hardware/quickstart/quick-start\.cover\.png|hardware/quickstart/quick-start\.pdf|hardware/quickstart/quick-start\.pdf\.json)$'
+          if [ "${{ steps.scope.outputs.quickstart_art }}" = true ]; then
+            allowed='^(hardware/quickstart/art/.*|hardware/quickstart/quick-start\.cover\.png|hardware/quickstart/quick-start\.pdf|hardware/quickstart/quick-start\.pdf\.json)$'
+          fi
           unexpected=$(git diff --name-only -- hardware/quickstart | grep -Ev "$allowed" || true)
           if [ -n "$unexpected" ]; then
-            echo "the Quick Start carry moved files outside its three declared outputs:" >&2
+            echo "the Quick Start bind moved files outside its declared outputs:" >&2
             sed 's/^/  /' <<< "$unexpected" >&2
             exit 1
           fi
@@ -296,6 +379,10 @@ jobs:
             hardware/quickstart/quick-start.cover.png
             hardware/quickstart/quick-start.pdf
             hardware/quickstart/quick-start.pdf.json
+          )
+          mapfile -t quickstart_art_outputs < <(
+            tools/cad-venv/bin/python -c \
+              'import json; [print(path) for path in json.load(open("tools/bazel/graph.json"))["hardware/quickstart/quickstart_art.py"]["writes"]]'
           )
           mapfile -t sidecar_outputs < <(
             tools/cad-venv/bin/python -c \
@@ -362,6 +449,9 @@ jobs:
           if [ "${{ steps.scope.outputs.quickstart }}" = true ]; then
             git add -- "${quickstart_outputs[@]}"
           fi
+          if [ "${{ steps.scope.outputs.quickstart_art }}" = true ]; then
+            git add -- "${quickstart_art_outputs[@]}"
+          fi
           if git diff --cached --quiet; then
             echo "the lock and canonical Quick Start already cover this source"
             exit 0
@@ -409,6 +499,15 @@ jobs:
                 echo "newer Quick Start sources reached main:"
                 sed 's/^/  /' <<< "$newer_quickstart"
                 queue_latest
+                exit 0
+              fi
+
+              newer_quickstart_art=$(tools/cad-venv/bin/python tools/bazel/affected.py \
+                --base "$base" --head "$tip" | \
+                grep -E '^//:(quickstart-art|everything)$' || true)
+              if [ -n "$newer_quickstart_art" ]; then
+                echo "newer Quick Start artwork inputs reached main"
+                queue_latest //:quickstart-build
                 exit 0
               fi
 
