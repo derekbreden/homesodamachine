@@ -23,6 +23,10 @@ void AXS5106L::begin(TwoWire &wire, uint8_t rotation, uint16_t width, uint16_t h
   _rotation = rotation;
   _width = width;
   _height = height;
+  _intFlag = false;
+  _touchDown = false;
+  _lastSampleMs = 0;
+  _lastContactMs = 0;
 
   pinMode(_rst, OUTPUT);
   digitalWrite(_rst, LOW);
@@ -40,16 +44,7 @@ void AXS5106L::begin(TwoWire &wire, uint8_t rotation, uint16_t width, uint16_t h
   }
 }
 
-bool AXS5106L::getTouch(uint16_t *x, uint16_t *y) {
-  if (!_intFlag) return false;
-  _intFlag = false;
-
-  // Drain the full report: [?, count, then 6 bytes per point x2].
-  // We use the first point only.
-  uint8_t data[14] = {0};
-  if (!readReg(AXS5106L_TOUCH_DATA_REG, data, sizeof(data))) return false;
-  if (data[1] == 0) return false;
-
+void AXS5106L::mapPoint(const uint8_t *data, uint16_t *x, uint16_t *y) {
   uint16_t rawX = (((uint16_t)(data[2] & 0x0F)) << 8) | data[3];
   uint16_t rawY = (((uint16_t)(data[4] & 0x0F)) << 8) | data[5];
 
@@ -71,5 +66,40 @@ bool AXS5106L::getTouch(uint16_t *x, uint16_t *y) {
       *y = rawY;
       break;
   }
+}
+
+bool AXS5106L::getTouch(uint16_t *x, uint16_t *y) {
+  const uint32_t now = millis();
+  const bool reportPending = _intFlag;
+  if (reportPending) _intFlag = false;
+
+  // AXS5106L reports current touch state through the same registers after the
+  // initial interrupt. If we treated each quiet poll as a release, LVGL would
+  // turn a physical hold into rapid press/release pairs.
+  const bool refreshActive = _touchDown &&
+      static_cast<uint32_t>(now - _lastSampleMs) >= kActivePollMs;
+  if (reportPending || refreshActive) {
+    uint8_t data[14] = {0};  // [?, count, then 6 bytes per point x2]
+    if (readReg(AXS5106L_TOUCH_DATA_REG, data, sizeof(data))) {
+      _lastSampleMs = now;
+      if (data[1] == 0) {
+        // An explicit empty contact list is a release and stops prime now.
+        _touchDown = false;
+      } else {
+        mapPoint(data, &_lastX, &_lastY);
+        _lastContactMs = now;
+        _touchDown = true;
+      }
+    } else if (_touchDown &&
+               static_cast<uint32_t>(now - _lastContactMs) >= kReadFailureReleaseMs) {
+      // Never let a stale cached contact run the pump after the touch bus has
+      // stopped providing trustworthy state.
+      _touchDown = false;
+    }
+  }
+
+  if (!_touchDown) return false;
+  *x = _lastX;
+  *y = _lastY;
   return true;
 }
