@@ -9,8 +9,8 @@
 
 namespace {
 
-constexpr int kBaseRxPin = 44;  // P1 ESP_RXD, crossed from controller J3 IO33 TX
-constexpr int kBaseTxPin = 43;  // P1 ESP_TXD, crossed to controller J3 IO35 RX
+constexpr int kBaseRxPin = 44;  // P1 ESP_RXD, crossed from main board J3 IO33 TX
+constexpr int kBaseTxPin = 43;  // P1 ESP_TXD, crossed to main board J3 IO35 RX
 constexpr long kBaseBaud = 115200;
 constexpr uint8_t kQueueDepth = 8;
 constexpr uint8_t kPrimeQueueDepth = PRIME_J3_APP_QUEUE_DEPTH;
@@ -20,13 +20,13 @@ constexpr uint32_t kAudibleFreshMs = 300;
 // A tokenized reply normally arrives in milliseconds. A repeated controller
 // heartbeat with the requested value proves the same thing even when that one
 // reply was lost; a conflicting heartbeat is allowed a few application retry
-// windows before controller truth replaces an orphaned local intent.
+// windows before main board truth replaces an orphaned local intent.
 constexpr uint32_t kMainBoardTruthGraceMs = kResponseTimeoutMs * 3;
 static_assert(PROTOLINK_WINDOW == PRIME_PROTO_LINK_WINDOW_DEPTH,
               "prime replay contract must follow the TinyProto window");
 static_assert(PRIME_HOLD_REPLAY_HISTORY >
                   kPrimeQueueDepth + PROTOLINK_WINDOW,
-              "controller prime replay ledger must cover the complete J3 queue");
+              "main board prime replay ledger must cover the complete J3 queue");
 
 struct Intent {
   uint8_t type;
@@ -193,11 +193,11 @@ void applyAuthoritative(uint8_t flavor) {
 void settleFromMainBoardHeartbeat(const FlavorStatePayload &state) {
   if (queueCount == 0 || offlineSelection) return;
 
-  // A token-zero state is sent periodically by the controller. If it already
+  // A token-zero state is sent periodically by the main board. If it already
   // carries our final absolute choice, it is a valid acknowledgement even
   // when the original tokenized response was lost. If it disagrees for several
   // complete retry windows, retaining a local image indefinitely would leave
-  // the faucet showing something the controller has rejected or never heard.
+  // the faucet showing something the main board has rejected or never heard.
   const Intent &head = queue[queueHead];
   if (!flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
           offlineSelection, queueCount != 0, head.sent, desiredFlavor,
@@ -256,7 +256,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
       ++staleResponses;
       // A token can outlive its queue entry because TinyProto and the
       // application both retry. With no newer local intent, its payload is
-      // still the controller's current truth and may be the only successful
+      // still the main board's current truth and may be the only successful
       // publication of a persistence or console revision.
       if (queueCount == 0 && !offlineSelection) {
         applyAuthoritative(state.flavor);
@@ -360,7 +360,7 @@ void baseLinkService() {
     connectionGeneration = generation;
     synchronized = false;
     // A control accepted by the previous TinyProto epoch may or may not have
-    // reached the controller. Drop it here; the UI fails closed and reasserts
+    // reached the main board. Drop it here; the UI fails closed and reasserts
     // any desired CANCEL/STOP with the same token after fresh truth.
     clearPrimeQueue();
     const bool mustReassert = flavor_link_policy::needsReassert(

@@ -15,7 +15,7 @@
 //  Home Soda Machine — appliance controller
 // ════════════════════════════════════════════════════════════
 //
-// Runs on the controller PCBA's ESP32-WROOM-32E (U1). The board is
+// Runs on the main board's ESP32-WROOM-32E (U1). That board is
 // hardware/pcb/pcba/pcba.tsx, drawn as hardware/wiring/esp32-pinout.mmd,
 // and hardware/assembly/firmware-and-commissioning.md is the procedure
 // this answers to.
@@ -27,12 +27,12 @@
 //      MANIFOLD A draw past J1's COM contact rating and land in one
 //      TBD62083. hardware/wiring/ac-wiring-schedule.md, "Solenoid COM
 //      current budget".
-//   2. Relay #2 (IO2) de-energized while a dispense is open. The board
+//   2. Relay #2 (IO2) de-energized while a dispense is open. The main board
 //      peaks at 3.33 A and the SeaFlo at 5 A on one 6.7 A supply. The
 //      carbonator's low reed asserts mid-pour, so the refill it queues
 //      waits for the dispense window to close.
 //   3. GPPU written on both MCP23017s. No loom carries a resistor and
-//      the board pulls none of the reed inputs, so a reed with no
+//      the main board pulls none of the reed inputs, so a reed with no
 //      pull-up floats.
 //
 // machine.cpp and its pcba_expanders driver hold all three, and machine.cpp owns
@@ -90,7 +90,7 @@ void setup() {
     Serial.print("> ");
 
     // The machine waking up. Every actuator is already parked by the time this
-    // sounds, so it says the controller reached the end of setup() and nothing
+    // sounds, so it says the main board reached the end of setup() and nothing
     // else — which on a line is how a unit is heard coming up without being
     // watched, and in a kitchen is just the machine saying hello.
     soundPlay(machineIoReady() ? SND_WELCOME : SND_FAULT);
@@ -131,7 +131,7 @@ static void help() {
     Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
     Serial.println("  stop              end whatever is running");
     Serial.println("  status            machine state, uptime, heap");
-    Serial.println("  flavor [a|b]      selected flavor (controller-owned and persisted)");
+    Serial.println("  flavor [a|b]      selected flavor (main-board-owned and persisted)");
     Serial.println("  link              J9 enclosure display and J3 faucet links");
     Serial.println("  ping              put a frame on the pair and read its echo back");
     Serial.println("  display usb       make the externally-powered display reattach to USB");
@@ -155,7 +155,7 @@ static void status() {
     Serial.printf("\n  uptime   %lu s\n", millis() / 1000);
     Serial.printf("  heap     %lu bytes free\n", (unsigned long)ESP.getFreeHeap());
     Serial.printf("  flavor   %s — %s%s\n", machinePumpName(flavorSelected()),
-                  flavorEstablished() ? "controller-owned" : "awaiting first faucet sync",
+                  flavorEstablished() ? "main-board-owned" : "awaiting first faucet sync",
                   flavorPersisted() ? ", persisted" : ", persistence pending");
     MachineIoStatus io;
     const bool ioHealthy = machineReadIoStatus(io);

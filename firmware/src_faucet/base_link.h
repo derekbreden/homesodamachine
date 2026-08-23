@@ -33,7 +33,7 @@ void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler flavorHandler,
                    BasePrimeHandler primeHandler);
 void baseLinkService();
 
-// Which logo each channel wears, as the controller now holds it. Defined in
+// Which logo each channel wears, as the main board now holds it. Defined in
 // main.cpp, where the artwork and the image object live.
 void faucetApplyFlavorArt(const uint8_t art[2]);
 

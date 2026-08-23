@@ -1,4 +1,4 @@
-// pcba-bench — bring-up console for the JLCPCB-assembled controller board.
+// pcba-bench — bring-up console for the JLCPCB-assembled main board.
 //
 // The appliance's own firmware is firmware/src_appliance/. That is the one that
 // runs in a machine; this one runs a bare board on a bench, once per fab batch.
@@ -48,7 +48,7 @@ static const uint8_t ADDR_RTC   = 0x68;  // U6 DS3231SN
 //
 // U8 is an MLT-5020 passive magnetic transducer — a coil pulling on a ferrous
 // diaphragm, with no amplitude input of its own — and Q1 switches its low side
-// hard, so the coil sees 5 V or it sees nothing. Every sound the board can make
+// hard, so the coil sees 5 V or it sees nothing. Every sound the main board can make
 // is therefore made out of WHEN that switch closes, and out of nothing else:
 //
 //   PITCH   free. LEDC puts any frequency on IO13. Loudness is not flat across
@@ -234,7 +234,7 @@ static void cmdRtc() {
 // Vcc drops to Vbat; a set EOSC fails the test for a reason that is not the battery.
 //
 //   rtc set <YYYY-MM-DD> <HH:MM:SS>   from the wall clock
-//   pull 12 V and USB — the board dark, only BT1 on the DS3231
+//   pull 12 V and USB — the main board dark, only BT1 on the DS3231
 //   restore power, then `rtc`
 //
 // OSF=0 with the time advanced by the dark interval is the battery carrying it. OSF=1 is
@@ -390,7 +390,7 @@ static void cmdBus() {
 }
 
 // U7 (COS13487) switches direction on its own, so driving DI puts the bit on A/B and the
-// receiver hands it back on RO. The loop therefore closes on the board: DI -> U7 -> the
+// receiver hands it back on RO. The loop therefore closes on the main board: DI -> U7 -> the
 // differential pair and R6's 120R termination -> U7 -> RO, through D10/D11 on the way.
 static const int PIN_485_DI = 32;
 static const int PIN_485_RO = 34;
@@ -492,7 +492,7 @@ static int argInt(const String &line, int n, int def) {
 }
 
 // The continuity probe. It runs by itself from power-on and never needs starting:
-// touch a connector pin to another and hold until the board beeps. Every net answers
+// touch a connector pin to another and hold until the main board beeps. Every net answers
 // with the same note, so there is nothing to listen past — the serial log names which
 // one sounded. A reading has to hold 40 ms to count, which keeps a fumble from chattering.
 //

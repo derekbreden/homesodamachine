@@ -26,7 +26,7 @@
 // all fragments are queued/sent.
 
 // Four frames allow pipelined transmission for throughput. The shared value
-// is also used to prove the controller's prime-token replay window covers
+// is also used to prove the main board's prime-token replay window covers
 // everything this transport can retain.
 #define PROTOLINK_WINDOW  PRIME_PROTO_LINK_WINDOW_DEPTH
 

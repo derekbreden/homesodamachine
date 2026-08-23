@@ -14,19 +14,19 @@ enum class Update : uint8_t {
     Changed,
 };
 
-// Arduino-free controller authority. Storage and clocks stay outside this
+// Arduino-free main board authority. Storage and clocks stay outside this
 // class so first-boot adoption, validation, dirty state, and failed writes are
 // exact native-testable policy rather than Preferences side effects.
 class Authority {
 public:
     Authority();
 
-    // A valid stored value establishes controller authority. An absent/corrupt
+    // A valid stored value establishes main board authority. An absent/corrupt
     // value is represented by any value outside the two-flavor range.
     Update loadPersisted(uint8_t flavor);
 
-    // First sync adopts the faucet's saved candidate only while the controller
-    // is unestablished. Every later sync returns the controller's own value.
+    // First sync adopts the faucet's saved candidate only while the main board
+    // is unestablished. Every later sync returns the main board's own value.
     Update synchronize(uint8_t candidate);
 
     // A user or console selection always establishes authority and marks a

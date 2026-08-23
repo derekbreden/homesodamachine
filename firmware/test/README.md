@@ -6,7 +6,7 @@ The native suite holds machine policy that does not need, open, reset, or drive 
 pio test -e native
 ```
 
-`test_flavor_selection` checks first-install adoption, established-controller authority,
+`test_flavor_selection` checks first-install adoption, established-main-board authority,
 absolute/idempotent selection, corrupt storage, and failed-write retry state.
 `test_machine_policy` checks the canonical V-A–V-K operation plans, the three-valve ceiling,
 the dispense/refill exclusion, every possible off-before-on valve-mask transition, and the
@@ -27,11 +27,11 @@ pio run -e pcba_bench
 Building does not open a serial port. Uploading and monitoring do; name the port whenever
 more than one board is connected (`tools/boards.py` prints the exact commands).
 
-With the working controller and enclosure display connected, the default live check only observes
+With the working main board and enclosure display connected, the default live check only observes
 the display, touch controller, J9 link, and synchronized/durable flavor state through the
 display's native USB port. The optional checks are deliberately explicit: `--animation`
 opens the reusable operation lock long enough to measure it; `--toggle` selects the other
-flavor, proves controller synchronization and persistence, and restores it; `--prime a|b`
+flavor, proves main board synchronization and persistence, and restores it; `--prime a|b`
 actuates that pump for about one second through the same handlers the glass uses and always
 posts a stop request. Each check restores the page, idle rung and lock state it found.
 
@@ -45,7 +45,7 @@ posts a stop request. Each check restores the page, idle rung and lock state it 
 With the faucet display connected to J3 and its native USB connected, the faucet check never
 drives an actuator. Its default mode proves convergence, both persistence states, request
 latency and loop/link-service high-water marks. `--toggle` explicitly selects the other
-flavor, waits for both stores, and restores the original selection; the controller makes one
+flavor, waits for both stores, and restores the original selection; the main board makes one
 tick for each of those two user-path selections.
 
 ```bash
