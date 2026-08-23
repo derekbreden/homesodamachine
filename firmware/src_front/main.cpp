@@ -1471,7 +1471,7 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
                    LV_ALIGN_TOP_MID, 0, 2);
       break;
     case RAIL_CLEAN:
-      lv_obj_align(mkText(parent, "\xEF\x94\x9A", &clean_icon_36, COL_TEXT),
+      lv_obj_align(mkText(parent, "\xEE\x81\xAD", &clean_icon_36, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, 2);
       break;
     case RAIL_SETTINGS:
@@ -2502,7 +2502,7 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_PRIME_HOLD] = hold;
 
   lv_obj_t *cpick = mkView(page);
-  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEF\x94\x9A", &front_action_icons_48,
+  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_action_icons_48,
                     cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
