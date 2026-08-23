@@ -34,6 +34,12 @@
 #include "images/anim_14.h"
 #include "images/anim_15.h"
 
+// The two flavor marks are deliberately static artwork. HOME's selection
+// refresh changes only on actual controller state transitions, so these do not
+// participate in the background link polling that formerly disturbed a card.
+#include "../src_config/images/flavor0_240.h"
+#include "../src_config/images/flavor1_240.h"
+
 static const uint16_t *animFrames[] = {
     anim_00, anim_01, anim_02, anim_03, anim_04, anim_05, anim_06, anim_07,
     anim_08, anim_09, anim_10, anim_11, anim_12, anim_13, anim_14, anim_15,
@@ -41,6 +47,7 @@ static const uint16_t *animFrames[] = {
 #define NUM_ANIM_FRAMES  16
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
 #define LOGO_SIZE        360
+#define FLAVOR_ART_SIZE  240
 
 // ════════════════════════════════════════════════════════════
 //  ESP32-S3 Front-Face Display — foundation
@@ -219,6 +226,8 @@ static bool bootLockActive = false;
 static unsigned long bootLockMinUntil = 0;
 static unsigned long bootLockMaxUntil = 0;
 
+static lv_img_dsc_t homeFlavorArt[2];
+static const uint16_t *homeFlavorPixels[2] = {flavor0_240, flavor1_240};
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
@@ -2175,11 +2184,9 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
   return o;
 }
 
-// The appliance's default interaction: two deliberately quiet, whole-card
-// choices. The previous 240 px bitmap art made this pane visually busy and
-// exercised a much larger double-buffered repaint surface than a selection
-// needs. Keeping the identity in native LVGL objects means an unchanged
-// controller heartbeat has no image-cache or bitmap work to perturb.
+// The appliance's default interaction: two clear, whole-card choices. The
+// flavor marks make the cards recognizable at a glance; their static image
+// objects do not redraw during routine controller heartbeats.
 static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   lv_obj_align(mkText(page, "SELECT A FLAVOR", &lv_font_montserrat_28, COL_TEXT),
@@ -2194,26 +2201,10 @@ static void buildHome(lv_obj_t *page) {
     lv_obj_set_style_pad_all(card, 12, 0);
     lv_obj_add_event_cb(card, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
 
-    // The numbered mark makes the target legible from across the counter
-    // without trying to turn the entire screen into two product posters.
-    // It is fully opaque native geometry, so one card can never depend on an
-    // image decoder or an alternate framebuffer's bitmap cache.
-    lv_obj_t *mark = lv_obj_create(card);
-    lv_obj_remove_style_all(mark);
-    lv_obj_set_size(mark, 112, 112);
-    lv_obj_align(mark, LV_ALIGN_TOP_MID, 0, 38);
-    lv_obj_set_style_radius(mark, LV_RADIUS_CIRCLE, 0);
-    lv_obj_set_style_bg_color(mark, lv_color_hex(i == PUMP_CHANNEL_A ? COL_ACCENT : COL_GOOD), 0);
-    lv_obj_set_style_bg_opa(mark, LV_OPA_COVER, 0);
-    lv_obj_set_style_border_width(mark, 0, 0);
-    lv_obj_clear_flag(mark, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
-
-    char number[2] = {static_cast<char>('1' + i), '\0'};
-    lv_obj_t *numberLabel = mkText(mark, number, &lv_font_montserrat_48, COL_TEXT);
-    lv_obj_center(numberLabel);
-
-    lv_obj_t *name = mkText(card, kFlavorName[i], &lv_font_montserrat_28, COL_TEXT);
-    lv_obj_align(name, LV_ALIGN_TOP_MID, 0, 182);
+    lv_obj_t *art = lv_img_create(card);
+    lv_img_set_src(art, &homeFlavorArt[i]);
+    lv_obj_align(art, LV_ALIGN_TOP_MID, 0, 2);
+    lv_obj_clear_flag(art, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
 
     lv_obj_t *badge = lv_obj_create(card);
     lv_obj_set_size(badge, cw - 28, 56);
@@ -2753,6 +2744,14 @@ static void buildUi() {
     frameDsc[i].header.h = LOGO_SIZE;
     frameDsc[i].data_size = LOGO_SIZE * LOGO_SIZE * sizeof(uint16_t);
     frameDsc[i].data = (const uint8_t *)animFrames[i];
+  }
+  for (uint8_t i = 0; i < 2; ++i) {
+    homeFlavorArt[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    homeFlavorArt[i].header.always_zero = 0;
+    homeFlavorArt[i].header.w = FLAVOR_ART_SIZE;
+    homeFlavorArt[i].header.h = FLAVOR_ART_SIZE;
+    homeFlavorArt[i].data_size = FLAVOR_ART_SIZE * FLAVOR_ART_SIZE * sizeof(uint16_t);
+    homeFlavorArt[i].data = (const uint8_t *)homeFlavorPixels[i];
   }
   lv_obj_t *scr = lv_scr_act();
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
