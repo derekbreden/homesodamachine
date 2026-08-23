@@ -777,7 +777,7 @@ def main(*, mount_studies: bool = False) -> None:
             note_write(output)
 
         if not mount_studies:
-            _crop("machine-front.png", "960x660+0+100", "machine-hopper-close.png")
+            _crop("machine-front.png", "960x660+0+100", "machine-funnel-close.png")
             _crop(work / "machine-back.png", "720x560+180+300", "machine-back-close.png")
             _crop("machine-back-iso.png", "617x720+850+220", "machine-ports-iso.png")
             _crop(work / "faucet-full-front.png", "410x540+0+1060", "faucet-tails-front.png")
