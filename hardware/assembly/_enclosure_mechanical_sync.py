@@ -103,7 +103,7 @@ def main():
     _funnel_run = next((r for r in _funnel_runs if r.id == "fluid-4"), None)
     if _funnel_run is None:
         raise ValueError(
-            "no `fluid-4` is drawn — the hopper-corridor paragraph in enclosure-mechanical.md "
+            "no `fluid-4` is drawn — the funnel-corridor paragraph in enclosure-mechanical.md "
             "describes a tube the machine no longer has, so it needs rewriting, not resyncing.")
     # THE CORRIDOR'S TWO PINS ARE WHATEVER THE FALL RUNS NEAREST, off the same rows
     # `clearance-floor` grades — `lane_notes`' own reading of a lane, without its floor. The two
