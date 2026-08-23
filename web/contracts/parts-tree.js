@@ -229,7 +229,7 @@ export function seatParts({ steps = [], dxfs = [], glbs = [] } = {}) {
   // Order is the whole of the seating. Every model first, innermost included, so
   // an assembly's own file is its card and not a part of the directory it shares
   // with its parent; then the tooling, which stands inside directories an
-  // assembly otherwise sweeps whole; then each assembly's own sweep, outermost
+  // assembly otherwise sweeps whole; then each assembly's own sweep, innermost
   // first; and last the bought geometry, which is what is left.
   const models = new Map();
   for (const a of walkAssemblies()) models.set(a.id, claim([a.model])[0] || null);
