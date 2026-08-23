@@ -2383,7 +2383,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cold-core-layout/_internals.py",
-        "pysrc/hardware/cold-core-layout/_vessel.py",
+        "pysrc/hardware/cold-core-layout/_carbonator.py",
         ":out/cold-core-assembly/hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
@@ -2872,7 +2872,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/_cold_scorecard.py",
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cold-core-layout/_internals.py",
-        "pysrc/hardware/cold-core-layout/_vessel.py",
+        "pysrc/hardware/cold-core-layout/_carbonator.py",
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/ledger/bom.md",
@@ -8258,8 +8258,8 @@ genrule(
 
 genrule(
     name = "pysrc-c6351ce01a95",
-    srcs = ["hardware/cold-core-layout/_vessel.py"],
-    outs = ["pysrc/hardware/cold-core-layout/_vessel.py"],
+    srcs = ["hardware/cold-core-layout/_carbonator.py"],
+    outs = ["pysrc/hardware/cold-core-layout/_carbonator.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -12567,7 +12567,7 @@ sh_test(
         "hardware/cold-core-layout/_cold_scorecard.py",
         "hardware/cold-core-layout/_fittings.py",
         "hardware/cold-core-layout/_internals.py",
-        "hardware/cold-core-layout/_vessel.py",
+        "hardware/cold-core-layout/_carbonator.py",
         "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
         "hardware/cold-core-layout/cold-core-assembly.step.mesh",
         "hardware/cold-core-layout/cold_core_assembly.py",
