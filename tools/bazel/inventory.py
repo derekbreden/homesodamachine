@@ -55,6 +55,9 @@ IMPLICIT_SOLIDS = {
     "hardware/manifold-layout/manifold_layout.py": (
         "hardware/manifold-layout/manifold-layout.step.mesh",
     ),
+    "hardware/faucet-layout/faucet_assembly.py": (
+        "hardware/faucet-layout/faucet-assembly.step.mesh",
+    ),
 }
 
 # Outputs whose bytes cross from one Bazel action to another and stop there. The cold-core mesh

@@ -60,6 +60,13 @@ import pack  # noqa: E402
 
 GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
 
+sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
+from inventory import IMPLICIT_SOLIDS as _IMPLICIT_BY_GEN            # noqa: E402
+
+#: The payloads named by hand because no trace can see them — flattened, since what matters
+#: here is whether a path is produced and not which generator produces it.
+_IMPLICIT = {p for paths in _IMPLICIT_BY_GEN.values() for p in paths}
+
 
 def owed(root: Path) -> list:
     """Every solid the bundle carries a `.step.mesh` for, repo-relative and sorted."""
@@ -119,6 +126,32 @@ def graph() -> dict:
 def writers(seen: dict, path: str) -> list:
     """The generators a trace was watched writing `path`."""
     return sorted(gen for gen, step in seen.items() if path in step.get("writes", ()))
+
+
+def undeclared(seen: dict, root: Path) -> list:
+    """Every solid the bundle serves a payload for whose producer declares no payload.
+
+    A PAYLOAD THE PAGE ASKS FOR AND NO RULE PRODUCES IS INVISIBLE UNTIL SOMEONE WATCHES THE
+    NETWORK TAB. The sandbox writes what a rule's `outs` name and carries nothing else, so a
+    producer that does not declare `<solid>.mesh` ships none, `/meshes/<solid>.mesh` answers
+    404, and the page silently falls back to parsing the STEP — the right picture, seconds
+    later, and under these directories not even the right picture.
+
+    THE DECLARATION CANNOT BE LEARNED BY WATCHING. `trace_inputs._filtered` keeps a recorded
+    write only where the path is already tracked, already in the graph, or named in
+    `inventory.IMPLICIT_SOLIDS`; a `.step.mesh` is gitignored, so a payload absent from that
+    table is discarded by the very trace that watched it being written. The table is the road
+    in, and this is what says a solid has not taken it.
+
+    A RULE PRODUCES WHAT EITHER SOURCE NAMES. `inventory` composes an action's outputs from the
+    graph's writes AND that table, so both are asked here — a payload named in the table alone
+    is produced, and the trace catching up later changes nothing about that."""
+    out = []
+    for rel in owed(root):
+        mesh = rel + ".mesh"
+        if not writers(seen, mesh) and mesh not in _IMPLICIT:
+            out.append((rel, sorted(writers(seen, rel))))
+    return out
 
 
 def flute_dirs(seen: dict) -> tuple:
@@ -197,13 +230,23 @@ def selftest() -> int:
 def main(argv) -> int:
     if argv and argv[0] == "selftest":
         return selftest()
+    seen = graph()
+    missing = undeclared(seen, _ROOT)
+    if missing:
+        print(f"{len(missing)} solid(s) the bundle serves a payload for that no rule produces:")
+        for rel, cut_by in missing:
+            print(f"    {rel}.mesh — declared by nobody")
+            for gen in cut_by:
+                print(f"      name it in tools/bazel/inventory.py IMPLICIT_SOLIDS under {gen},")
+                print(f"      re-run tools/bazel/trace_inputs.py {gen}, then gen_build.py")
+        return 1
+
     named = behind(_ROOT)
     if not named:
         return 0
     print(f"{len(named)} solid(s) whose surface is not in the payload beside them:")
     for rel, which in named:
         print(f"    {rel}.mesh — {which}")
-    seen = graph()
     cut_by = sorted({gen for rel, _ in named for gen in writers(seen, rel)})
     if cut_by:
         print("  the run that cuts a solid writes the payload beside it:")
