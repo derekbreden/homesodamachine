@@ -85,6 +85,16 @@ function killBrowserNow(browser) {
   }
 }
 
+// A protocol request that missed its own deadline still occupies the browser's CDP pipe.
+// Asking that poisoned browser to close or open another page queues behind the original
+// 240-second protocol timeout. A caller that has already decided to discard every result from
+// that browser needs the process gone now, before it can make a genuinely independent retry.
+export function abortBrowser(browser) {
+  if (!browser) return;
+  LIVE_BROWSERS.delete(browser);
+  killBrowserNow(browser);
+}
+
 // How long a teardown negotiates before it stops asking. The render is over by the time either
 // of these runs — the PNG is written — so what is left is the process going away, and every
 // second past this one buys nothing a SIGKILL does not.
