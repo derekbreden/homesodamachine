@@ -15,7 +15,7 @@
     "COMP_LEAD_LEN": "~400 mm",
     "DC_BUS_V": "12 V",
     "FAN_RUN_LEN": "~400 mm",
-    "JST_PITCH": "2.54 mm",
+    "JST_PITCH": "2.5 mm",
     "LOGIC_V": "5 V",
     "MCU_V": "3.3 V",
     "PLATE_D": "54.45 mm",

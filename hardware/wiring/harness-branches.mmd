@@ -1,0 +1,82 @@
+flowchart LR
+
+  %% DERIVED VIEW — the canonical pin map is hardware/pcb/pcba/pcba.tsx
+  %% (PCB-canonical), and the wire lists are hardware/wiring/harness-rfq.md.
+  %% Keep this in sync with both; do not change a contact assignment here
+  %% without changing pcba.tsx first.
+
+  %% ═══════════════════════════════════════
+  %%  Harness branch geometry — vendor view
+  %%  Companion to harness-rfq.md; send both.
+  %% ═══════════════════════════════════════
+
+  %%  Edge labels are conductor run lengths in mm, board contact -> termination,
+  %%  service loop excluded. A [/WAGO/] node is an in-assembly lever-nut splice
+  %%  landed at the device end, not at the board.
+  %%
+  %%  Five assemblies branch: J1, J2, J4, J6, J7.
+  %%  Five run straight through: J3, J5, J9, J11, J13.
+
+  subgraph J1 ["J1 MANIFOLD A · XHP-9 · 3/4&quot; sleeve"]
+    direction LR
+    J1C(["contacts 1-8<br/>OUT8..OUT1"]) -- "450" --> J1V["8 valves V-H..V-A<br/>Faston, coil −"]
+    J1M(["contact 9<br/>COM"]) -- "300" --> J1W[/"WAGO 221-420<br/>9 of 10 ways"/]
+    J1W -- "150 × 8" --> J1P["8 valve coil +<br/>Faston"]
+  end
+
+  subgraph J2 ["J2 MANIFOLD B · XHP-6, 5 populated · 1/2&quot; sleeve"]
+    direction LR
+    J2M(["contact 1<br/>COM"]) -- "300" --> J2W[/"WAGO 221-415<br/>5 of 5 ways"/]
+    J2W -- "150" --> J2PI["V-I coil +"]
+    J2W -- "150" --> J2PJ["V-J coil +"]
+    J2W -- "100" --> J2PF["condenser fan +"]
+    J2W -- "200" --> J2PK["V-K coil +"]
+    J2F(["contact 2<br/>FAN"]) -- "400" --> J2NF["condenser fan −"]
+    J2X(["contact 3<br/>EMPTY — do not populate"])
+    J2O3(["contact 4<br/>OUT3"]) -- "500" --> J2NK["V-K coil − · aft strip"]
+    J2O2(["contact 5<br/>OUT2"]) -- "450" --> J2NJ["V-J coil −"]
+    J2O1(["contact 6<br/>OUT1"]) -- "450" --> J2NI["V-I coil −"]
+  end
+
+  subgraph J4 ["J4 SENSORS · XHP-7 · 1/4&quot; sleeve"]
+    direction LR
+    J4F(["contacts 3,4<br/>V5, IO25"]) -- "150" --> J4FM["DIGITEN flow meter"]
+    J4T(["contacts 1,5<br/>3V3, IO26"]) -- "600" --> J4TB["1-wire temp bus<br/>DS18B20 + DS18S20"]
+    J4M(["contacts 6,7<br/>IO27, IO23"]) -- "600" --> J4MS["moisture sensor<br/>DO + switched VCC"]
+    J4G(["contact 2<br/>GND"]) -- "600" --> J4W[/"WAGO 221-415<br/>4 of 5 ways · −X wall aft"/]
+    J4W -- "pigtail" --> J4TB
+    J4W -- "pigtail" --> J4FM
+    J4W -- "pigtail" --> J4MS
+  end
+
+  subgraph J6 ["J6 REEDS A · XHP-5 · 1/4&quot; sleeve"]
+    direction LR
+    J6R(["contacts 2-5<br/>RA4, RA3, RA2, RA1"]) -- "600" --> J6RD["reservoir A<br/>4 level reeds"]
+    J6G(["contact 1<br/>GND"]) -- "600" --> J6W[/"WAGO 221-415<br/>5 of 5 ways"/]
+    J6W -- "pigtail × 4" --> J6RD
+  end
+
+  subgraph J7 ["J7 REEDS B · XHP-7 · 1/4&quot; sleeve"]
+    direction LR
+    J7R(["contacts 1-4<br/>RB1..RB4"]) -- "600" --> J7RD["reservoir B<br/>4 level reeds"]
+    J7C(["contacts 5,6<br/>CLO, CHI"]) -- "600" --> J7CD["carbonator<br/>2 reeds"]
+    J7G(["contact 7<br/>GND"]) -- "600" --> J7W[/"WAGO 221-420<br/>7 of 10 ways"/]
+    J7W -- "pigtail × 4" --> J7RD
+    J7W -- "pigtail × 2" --> J7CD
+  end
+
+  %%  Straight-through assemblies, no branch:
+  %%    J3  FAUCET  · XHP-4 · 28 AWG 4-cond ribbon · ~1 m  -> faucet display
+  %%    J5  RELAYS  · XHP-4 · 1/4" · ~150 mm · V5/GND teed at the relay screws
+  %%    J9  DISPLAY · XHP-4 · 1/2" · ~1 m · A/B twisted pair
+  %%    J11 GAS     · XHP-4 · 1/4" · ~600 mm -> MQ-6
+  %%    J13 PUMPS   · XHP-4 · 1/2" · ~400 mm -> 4 motor tabs, unbroken
+
+  %%  A WAGO fan-out is an electrical tee — same palette the fluid tees carry
+  %%  in topology/fluid-topology-limbs.mmd. Spares are the grey valve-control.mmd
+  %%  gives an unused expander pin.
+  classDef wago fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
+  class J1W,J2W,J4W,J6W,J7W wago;
+
+  classDef spare fill:#333,stroke:#555,color:#777;
+  class J2X spare;

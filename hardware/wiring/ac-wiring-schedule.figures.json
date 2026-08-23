@@ -16,7 +16,7 @@
     "DIAPHRAGM_A": "5 A",
     "DS18B20_PULLUP": "4.7 k\u03a9",
     "FAN_A": "0.35 A",
-    "JST_PITCH": "2.54 mm",
+    "JST_PITCH": "2.5 mm",
     "LEN_AFT_STRIP": "~500 mm",
     "LEN_CARTRIDGE": "~400 mm",
     "LEN_COLD_CORE": "~600 mm",

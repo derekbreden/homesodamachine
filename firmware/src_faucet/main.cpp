@@ -857,7 +857,8 @@ static void processTextLine(const char *line) {
                   "maxLoopMs=%lu,dim=%d,bl=%u,localPersistErr=%d,"
                   "base=%s,sync=%d,baseFlavor=%u,basePersisted=%d,basePersistErr=%d,durabilityPending=%d,"
                   "pending=%u,linkRx=%lu,linkTx=%lu,retries=%lu,qDrop=%lu,staleResp=%lu,truthSync=%lu,"
-                  "lastAckMs=%lu,maxAckMs=%lu,maxLinkUs=%lu,primeQ=%u,primeDrop=%lu,uptime=%lus\n",
+                  "lastAckMs=%lu,maxAckMs=%lu,maxLinkUs=%lu,primeQ=%u,primeDrop=%lu,"
+                  "art=%u/%u,showing=%u,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)touch.intCount(),
@@ -877,6 +878,8 @@ static void processTextLine(const char *line) {
                   (unsigned long)link.lastAckMs, (unsigned long)link.maxAckMs,
                   (unsigned long)link.maxServiceUs,
                   (unsigned)link.primePending, (unsigned long)link.primeQueueDrops,
+                  (unsigned)flavorArt[0], (unsigned)flavorArt[1],
+                  (unsigned)flavorArt[activeFlavor & 1],
                   millis() / 1000);
     Serial.printf("DIAG_PRIME:visible=%d,known=%d,phase=%u,owner=%u,outcome=%u,"
                   "pressed=%d,stop=%d,cancel=%d,lost=%d,session=%08lX,hold=%08lX,"
