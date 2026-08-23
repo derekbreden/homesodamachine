@@ -53,7 +53,7 @@ Capacity to the brim is [662 mL](FUNNEL_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's
-placement (`enclosure.py` `_hopper_hole`), asserting the top-wall frame
+placement (`enclosure.py` `_funnel_hole`), asserting the top-wall frame
 accommodates it — funnel and hole cannot drift apart.
 
 ## Lifting it out
