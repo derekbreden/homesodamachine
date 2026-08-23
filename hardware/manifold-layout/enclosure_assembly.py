@@ -3833,8 +3833,9 @@ def _on_leg(pt, p, q, tol=1e-6) -> bool:
 # --- the storey those four stand on ----------------------------------------
 
 def build_deck(z: float, gate: float, seat: bool = False):
-    """The four bodies the deck carries off the storey `z`: the three unions across the back
-    wall, each on its own `panel_z`, and the meter inline one `CARB_2` ahead of the carb one.
+    """The four bodies the deck carries off the storey `z`: the three unions across the +Y
+    wall of back-top, each on its own `panel_z`, and the meter inline one `CARB_2` ahead of the
+    carb one.
 
     One function, called with a trial storey to strike the deck and again with the struck one to
     place it, so the bodies the strike measures are the bodies the machine gets. `seat` is what
@@ -5417,7 +5418,7 @@ def check_bowl_clear(flowreg, funnel) -> Bound:
         "bowl-clear", "The flavour tap runs under the funnel's bowl", ok,
         f"{got:.3f} mm to the funnel", f"{BOWL_CLEAR:g} mm",
         ([] if ok else [
-            f"flow-regulator: the tap's crown leaves {got:.3f} mm under the funnel's funnel, "
+            f"flow-regulator: the tap's crown leaves {got:.3f} mm under the funnel's bowl, "
             f"under the {BOWL_CLEAR:g} mm the lane is drawn for. `FLAVOR_STEP` is the step "
             f"`water-2` takes off the panel deck onto this lane; deepen it by what is short."])))
 
