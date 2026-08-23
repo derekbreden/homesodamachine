@@ -2,7 +2,7 @@
 """BOM cost-category taxonomy — the single source of truth for the part-TYPE
 categories that cut ACROSS the subsystem sections of bom.md.
 
-bom.md is organised by subsystem (§1 electronics, §2 vessel, …) because that's how
+bom.md is organised by subsystem (§1 electronics, §2 carbonator, …) because that's how
 the assembly docs navigate it. This file is the orthogonal view: what KIND of thing
 each line is (a sensor, a fitting, a printed part), for cost analysis.
 

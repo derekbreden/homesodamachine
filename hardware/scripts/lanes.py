@@ -337,9 +337,9 @@ def take() -> dict:
         room = span[0] * span[1] * span[2]
         fill = (solid.Volume() / room) if room > 1e-9 else 1.0
         bodies[name] = {"tag": tag, "box": box, "fill": round(fill, 4)}
-        # A BODY THAT DOES NOT FILL ITS BOX IS NOT ITS BOX. The hopper basin is a cone under a
+        # A BODY THAT DOES NOT FILL ITS BOX IS NOT ITS BOX. The funnel is a cone under a
         # brim and fills a fifth of the cuboid round it; a lane running under that brim reads
-        # blocked against the box and clear against the basin. Sliced across its own longest
+        # blocked against the box and clear against the funnel. Sliced across its own longest
         # axis, the staircase of slabs hugs it, and every one of them is still an
         # over-approximation — so the filter still only ever deletes lanes, never admits one.
         if fill < FILL_FLOOR:
@@ -373,7 +373,7 @@ def _slabs(solid, box) -> list:
     """A body cut into slices, each boxed on what is actually in it — on whichever of the three
     axes the slicing gains most.
 
-    WHICH AXIS IS NOT THE LONGEST ONE. The hopper basin is 173 mm across and 53 mm tall, and
+    WHICH AXIS IS NOT THE LONGEST ONE. The funnel is 173 mm across and 53 mm tall, and
     slicing its width leaves ten tall slabs each still holding the air under the brim; sliced
     across its own short axis the slabs follow the cone down. So all three are cut and the one
     whose slabs hold the least is kept — measured, not guessed, because which way a body tapers
@@ -1000,8 +1000,8 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
     ranking.
 
     `nonrising` bans a leg that climbs, which is what a gravity drain needs — `fluid-4` is the
-    basin's air-purge path as well as its drain, so a hump anywhere in it holds the air the
-    basin has to push out. Left unset it is read off the run: the hopper's drain takes it.
+    funnel's air-purge path as well as its drain, so a hump anywhere in it holds the air the
+    funnel has to push out. Left unset it is read off the run: the funnel's drain takes it.
 
     RAISES when the mouths are not axis-aligned, and returns EMPTY when nothing on the lattice
     joins them at that floor. Empty is a statement about the lattice and the floor, not a proof
@@ -1032,7 +1032,7 @@ def lanes(run: str, top: int = 6, floor: float = FLOOR, hold=(), snap: dict = No
 
     # A BODY A RUN LEAVES IS STILL A BODY THE RUN HAS TO MISS. The two the mouths are cut into
     # are held out only where holding them out is the only way to ask the question: if the lead
-    # end still stands inside the body's own box — the hopper basin is a cone and its box holds
+    # end still stands inside the body's own box — the funnel is a cone and its box holds
     # the whole spout — then every line off that mouth reads blocked and there is nothing to
     # search. Where the lead end stands clear of it, as it does at a valve whose collet is on the
     # face of its own box, the body stays IN, because a search that may tunnel through the
