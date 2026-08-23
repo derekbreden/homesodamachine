@@ -47,3 +47,5 @@ they became.
 | **foam shell** | the printed PETG shell around the cold core | |
 | **PRV shroud** | the printed cup over the pressure-relief valve, keeping the pour off it | |
 | **funnel** | the part flavor concentrate is poured into, with its own spout | |
+| **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
+| **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
