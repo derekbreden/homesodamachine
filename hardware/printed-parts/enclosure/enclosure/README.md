@@ -59,7 +59,7 @@ height carries the lip and the collars together. The cold core spans the seam in
 columns.
 
 The plane stands where the seam's own machinery fits the pack: the seam ring's foot
-over the condenser's fin crown, and the rim under the forward valve panel's
+over the condenser's fin crown, and the rim under the forward valve tray's
 wall-to-wall span (`z-seam-under-deck` — a plate roots on a wall only above the rim;
 its foot runs below, inset on the lip's own face). The ring's front segment across
 the flat span is the bay's (`_front_flat_lip_drop`): the bay floor stands in that band

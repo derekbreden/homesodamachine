@@ -112,7 +112,7 @@ each ended up with.
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
 plus enclosure.step — the four as separate solids in assembled position,
-seams intact (mirrors `touch_flo_shell.py`). All five come through the same
+seams intact (mirrors `faucet_shell.py`). All five come through the same
 code from a `Box`.
 """
 
@@ -137,7 +137,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
-sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-panel"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "ceiling-panel"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-tray"))
 from _cadq_export import export_assembly
@@ -152,7 +152,7 @@ import hopper_funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import valve_seat as _seat
-import valve_panel as _panel
+import valve_tray as _valve_tray
 import pump_tray as _tray
 import _enclosure_interface as _interface
 
@@ -1302,7 +1302,7 @@ y_seam = 200.0
 # The bottom↔top seam: ONE plane, both Y columns — the seam line runs level round the box
 # and the four pieces meet at a four-way corner on each side wall. The plane stands where
 # its own machinery fits the pack: the seam ring's foot over the condenser's fin
-# crown (`z-seam-front-lane`) and the rim under the forward valve panel's plate
+# crown (`z-seam-front-lane`) and the rim under the forward valve tray's plate
 # (`z-seam-under-deck`). Across the bay the ring's front segment goes to the bay floor and
 # the pump heads over it (`_front_flat_lip_drop`), and the seam's own MOUTH is the plane
 # that floor lies on (`bay-floor-bedded`); the pumps ride behind the cartridge face's own
@@ -1577,15 +1577,15 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 its station and outline, the two stations on it, and everything one screw
 #                 costs the wall: the pad's pocket, the collar round it, the stem under that and
 #                 the insert's bore through both
-#   valve_panels  the flavour manifold's decks, one (plane, sign, seats) each — the world Y a
+#   valve_trays   the flavour manifold's decks, one (plane, sign, seats) each — the world Y a
 #                 deck's valves stand their mounting faces on, which way their own +Z runs off
-#                 it, and one (x, z) per valve. A panel is a plate wall to wall carrying one
-#                 four-boss `valve_seat` per valve (`valve_panel`), and it is this piece's own
-#                 material the way the trough and the saddles are
+#                 it, and one (x, z) per valve. A valve tray is a plate wall to wall carrying one
+#                 four-boss `valve_seat` per valve (`valve_tray`), and it is this piece's own
+#                 material the way the ASSE anchor and the flow-meter anchors are
 #   pump_trays    the flavour manifold's two pumps, one world `centre` each — the point a pump's
 #                 own axis meets the +Z face of its head, which is `pump_case`'s own base plane.
-#                 A tray is that case with its cylinder cut off (`pump_tray`), run from the axis
-#                 to the front wall, and it is this piece's own material like a panel
+#                 A pump tray is that case with its cylinder cut off (`pump_tray`), run from the
+#                 axis to the front wall, and it is this piece's own material like a valve tray
 #   core_stops    the cold core's two front corners, one (cx, cy, r, tip) each — the centre and
 #                 radius of the core's own corner round, and the plane the block over it reaches
 #   core_holds    the cold core's two hold-downs, one (x0, x1, aft, crown) each — the lane on the
@@ -1628,7 +1628,7 @@ Box = namedtuple(
            "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
            "cond_mount cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
            "port_field nameplate "
-           "valve_panels pump_trays core_stops core_holds vent_chase column_reliefs "
+           "valve_trays pump_trays core_stops core_holds vent_chase column_reliefs "
            "collet_plate pump_bay")
 
 # What a box is built AROUND: the placed bodies, and every station they put on a wall.
@@ -1641,7 +1641,7 @@ Pack = namedtuple(
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle digiten_saddles tube_anchors ceiling_reliefs "
             "port_field nameplate "
-            "valve_panels pump_trays core_stops core_holds vent_chase collet_plate")
+            "valve_trays pump_trays core_stops core_holds vent_chase collet_plate")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
                              None, (), (), (), (), (), None, (), (), (), (), (), None)
 
@@ -2309,17 +2309,17 @@ def _dims(pack):
     y_joint = y_seam
     splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint)
     # THE RIM'S OWN CEILING. Wall-rooted furniture stands on a piece's wall, and below the
-    # rim the wall's inner face is the bottom piece's lip — so a valve panel's seat plate
+    # rim the wall's inner face is the bottom piece's lip — so a valve tray's seat plate
     # spans wall to wall whole above the rim, and its FOOT runs below it inset on the lip's
-    # own face (`_valve_panels`). The lip's ring cannot read one: it is printed material,
+    # own face (`_valve_trays`). The lip's ring cannot read one: it is printed material,
     # not pack, and a plate standing ON the rim is a touch with no volume in it. This reads
     # the wall-to-wall storeys off the same stations the pieces build them from. The bay's
     # floor is the one span that does stand on the rim and answers elsewhere
     # (`enclosure_assembly.check_bay_floor`); the trays' storey roots on the cartridge, so
     # no wall of this box carries it.
     rim = max(splits) + lip_len
-    decks = [mz - _panel.height() / 2.0
-             for _plane, _sign, seats in pack.valve_panels
+    decks = [mz - _valve_tray.height() / 2.0
+             for _plane, _sign, seats in pack.valve_trays
              for mz in [(min(z for _x, z in seats) + max(z for _x, z in seats)) / 2.0]]
     deck_floor = min(decks) if decks else iz1
     record_bound(Bound(
@@ -2673,7 +2673,7 @@ def _dims(pack):
                pack.cond_mount, pack.cond_airway, pack.asse_cradle,
                pack.digiten_saddles, pack.tube_anchors, pack.ceiling_reliefs,
                pack.port_field, pack.nameplate,
-               pack.valve_panels, pack.pump_trays, pack.core_stops, pack.core_holds,
+               pack.valve_trays, pack.pump_trays, pack.core_stops, pack.core_holds,
                pack.vent_chase, tuple(reliefs), pack.collet_plate, pump_bay)
 
 
@@ -6337,13 +6337,13 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
     return bore.fuse(under)
 
 
-# --- the flavour manifold's valve panels ------------------------------------
+# --- the flavour manifold's valve trays -------------------------------------
 #
-# A PANEL IS A PLATE WALL TO WALL, with one four-socket `valve_seat` SUNK into it per valve on
-# the deck it stands under. `valve_panel` states its thickness, its margin and its seat height
+# A VALVE TRAY IS A PLATE WALL TO WALL, with one four-socket `valve_seat` SUNK into it per valve
+# on the deck it stands under. `valve_tray` states its thickness, its margin and its seat height
 # and draws one in its own frame; this turns that onto the deck's own plane and fuses the plate
-# into the piece, the way `_asse_cradle` fuses the trough and `_digiten_saddles` the meter's two
-# Vs — and then cuts the seats and the ports' channels out of it.
+# into the piece, the way `_asse_cradle` fuses the ASSE anchor and `_digiten_saddles` the flow
+# meter's two Vs — and then cuts the seats and the ports' channels out of it.
 #
 # THE PLATE IS THE BOSS. A boss is material round a socket, and a plate one socket and one wall
 # thick is that material: a seat sunk into it leaves nothing standing off its face. Which is the
@@ -6356,16 +6356,16 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 # own round body boss lands on the plate's face, which is what sets its height — the same
 # bargain the cold core's cap lid strikes under its own three valves, whose thinner lid stands
 # the bosses instead.
-def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
-    """Every valve panel whose deck falls in the depth and height band this piece owns.
+def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
+    """Every valve tray whose deck falls in the depth and height band this piece owns.
 
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
     faces on, which way their own +Z runs off it, and one `(x, z)` per valve. The plate's own
-    extent is the seats' — wall to wall across, and one `valve_panel.reach` plus a margin either
+    extent is the seats' — wall to wall across, and one `valve_tray.reach` plus a margin either
     way along — so nothing here is a dimension this module chose.
 
     THE SEATS ARE SUNK AND SO IS THE PORT'S OWN CHANNEL. The plate is a socket and a wall thick
-    (`valve_panel.THICK`), which is the material a boss would have been, so nothing is fused onto
+    (`valve_tray.THICK`), which is the material a boss would have been, so nothing is fused onto
     its face: the sockets and the channel are CUT, and the face itself is the plane the valve's
     round body boss lands on. Everything is struck in the valve's own frame at `plane`, its
     mounting plane, and turned onto the deck — the plate's face follows from `SEAT` and is not
@@ -6373,13 +6373,13 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
-        half = _panel.height() / 2.0
+        half = _valve_tray.height() / 2.0
         if not (y0 <= plane <= y1 and z0 <= mid_z <= z1):
             continue
         # The plate: its valve-side face on the plane the valve lands on, its back one `THICK`
         # outboard of that.
-        face = plane - sign * _panel.SEAT
-        near, far = sorted((face, face - sign * _panel.THICK))
+        face = plane - sign * _valve_tray.SEAT
+        near, far = sorted((face, face - sign * _valve_tray.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
         # face, its valve-side face one plane with the plate's, so the plate prints as a
@@ -6387,7 +6387,7 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
         # the runs on them leave through the same channels the plate carries, run on down
         # to the foot's own bed edge. Inset one `wall` to the lip's own face — below the
         # rim that face is the bottom piece's lip, and the foot telescopes down it the way
-        # every interior face does. The fore-facing panel's alone: under an aft-facing
+        # every interior face does. The fore-facing tray's alone: under an aft-facing
         # plate the same band is the fold's own junction field, tees crossing every
         # section of it. The seats' wall-to-wall span stays above the rim
         # (`z-seam-under-deck`).
@@ -6401,9 +6401,9 @@ def _valve_panels(solid, inner, stations, y0, y1, z0, z1):
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
             solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
-            chan = _panel.height() if not footed else max(
-                _panel.height(), 2.0 * (sz - foot_z0))
-            solid = solid.cut(_panel.build_port_channel(chan + 2.0)
+            chan = _valve_tray.height() if not footed else max(
+                _valve_tray.height(), 2.0 * (sz - foot_z0))
+            solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))
     return solid
 
@@ -6464,11 +6464,11 @@ def _tray_webs(solid, inner, stations, panels, y0, y1, z0, z1):
     reach = None
     for plane, sign, seats in panels:
         zs = [z for _x, z in seats]
-        mid_z, half = (min(zs) + max(zs)) / 2.0, _panel.height() / 2.0
+        mid_z, half = (min(zs) + max(zs)) / 2.0, _valve_tray.height() / 2.0
         if mid_z + half <= zb0 or mid_z - half >= zb1:
             continue                       # a panel on another storey is not this web's
-        face = plane - sign * _panel.SEAT
-        near = min(face, face - sign * _panel.THICK)
+        face = plane - sign * _valve_tray.SEAT
+        near = min(face, face - sign * _valve_tray.THICK)
         if near >= far - 1e-9 and (reach is None or near < reach):
             reach = near
     if reach is not None and reach - far > 1e-9:
@@ -7012,7 +7012,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     roots = piece_root_faces(inner, y_side, z_side)
     saddles, ribs = ceiling_stations(box.digiten_saddles, box.tube_anchors, panel=False)
     piece = _digiten_saddles(piece, roots, saddles, ylo, yhi, zlo, zhi)
-    # And the flavour manifold's valve panels, on whichever piece owns each deck's band. A plate
+    # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
     # The wall the anchor tees stand in, behind the collet plate — BEFORE the panels, because
@@ -7023,7 +7023,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(inner, outer, box.collet_plate, box.pump_bay))
-    piece = _valve_panels(piece, inner, box.valve_panels, ylo, yhi, zlo, zhi)
+    piece = _valve_trays(piece, inner, box.valve_trays, ylo, yhi, zlo, zhi)
     # The pump trays are the cartridge's (`build_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
     # plate drops into — and then the opening itself, cut last of the wall's work.

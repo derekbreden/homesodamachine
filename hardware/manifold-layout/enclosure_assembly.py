@@ -122,7 +122,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "port-ring",
            _hw / "printed-parts" / "faucet" / "tube-collar",
            _hw / "printed-parts" / "enclosure" / "nameplate",
-           _hw / "printed-parts" / "enclosure" / "valve-panel",
+           _hw / "printed-parts" / "enclosure" / "valve-tray",
            _hw / "printed-parts" / "enclosure" / "pump-tray",
            _hw / "printed-parts" / "enclosure" / "back-panel",
            _hw / "printed-parts" / "enclosure" / "display-cover",
@@ -175,7 +175,7 @@ import port_ring as _ring                             # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
 import tube_collar as _collar                         # noqa: E402
 import nameplate as _np                               # noqa: E402
-import valve_panel as _panel                          # noqa: E402
+import valve_tray as _panel                           # noqa: E402
 import pump_tray as _tray                             # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
@@ -1073,7 +1073,7 @@ def panel_name(axis: int, sign: float, plane: float, taken: dict) -> str:
 
 
 def valve_panel_stations(placed: dict) -> tuple:
-    """Every deck as `enclosure.Box.valve_panels` — `(plane, sign, ((x, z), …))` per panel.
+    """Every deck as `enclosure.Box.valve_trays` — `(plane, sign, ((x, z), …))` per panel.
 
     The world Y a deck's valves stand their mounting faces on, which way their own +Z runs off
     it, and each valve's footprint centre. This is the whole of what the wall is handed: the
@@ -1089,7 +1089,7 @@ def valve_panel_stations(placed: dict) -> tuple:
         if axis != 1:
             raise ValueError(
                 f"a valve deck stands its valves' own +Z on {'xyz'[axis]} and "
-                f"`enclosure._valve_panels` fuses a plate across the box's width on a Y plane — "
+                f"`enclosure._valve_trays` fuses a plate across the box's width on a Y plane — "
                 f"a deck on another axis needs the builder to learn it, not this table.")
         out.append((plane, sign,
                     tuple((round(u, 6), round(v, 6)) for _n, u, v in seats)))
@@ -1550,7 +1550,7 @@ def check_panel_web() -> Bound:
     two of its four print groups, and the group the plug stack prints in is not one of them.
     It is not wrong today, because 1.0 is over one bead on anything this shop runs; it is
     unheld, which is a different thing and reads more confident for saying printable. The
-    figure to copy is `touch_flo_shell.display_line_width` — 0.62, its own part's bead, on the
+    figure to copy is `faucet_shell.display_line_width` — 0.62, its own part's bead, on the
     0.4 group `machine-time.md` does name."""
     a = _vseat.build_sockets()
     b = _panel.build_port_channel(_panel.height() + 2.0)
@@ -5766,7 +5766,7 @@ def build_pack() -> cq.Assembly:
     # THE TWO VALVE PANELS' STATIONS, on the planes the fold left the manifold's eight non-cap
     # valves standing on. They are read straight off the pack: the deck a plate lands on and the
     # columns its seats stand on are the placed valves', and nothing here is a chosen number.
-    # `enclosure._valve_panels` is what fuses each plate into the piece that owns its band.
+    # `enclosure._valve_trays` is what fuses each plate into the piece that owns its band.
     a.valve_panels = valve_panel_stations({n: s for n, s, _c in stood})
     # AND THE TWO PUMP TRAYS' STATIONS, on the faces the fold left each Kamoer's head standing
     # its boss off. Read straight off the pack the same way: the point a plate lies on is the
@@ -6135,7 +6135,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=back_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
-                     valve_panels=a.valve_panels, pump_trays=a.pump_trays,
+                     valve_trays=a.valve_panels, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
                      vent_chase=a.vent_chase, collet_plate=a.collet_plate)
 
