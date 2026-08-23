@@ -129,7 +129,7 @@ accent colors are defined in `STYLE.md`.
 | PV-06 | Tack-weld the float rod to the bottom plate |
 | PV-07 | Deburr the tube + prep the weld surfaces |
 | PV-08 | Weld the bottom plate to the tube |
-| PV-09 | Close the vessel — float in, top plate welded |
+| PV-09 | Close the carbonator — float in, top plate welded |
 | PV-10 | Dye-penetrant inspection of the closure welds |
 | PV-11 | Hydro test — 180 PSI, 30 minutes |
 | PV-12 | Citric-acid passivation |
@@ -141,7 +141,7 @@ accent colors are defined in `STYLE.md`.
 | Card | Operation |
 |---|---|
 | CC-01 | Wind the evaporator coil on the mandrel |
-| CC-02 | Dress the vessel wall — reeds, probe, foil |
+| CC-02 | Dress the carbonator wall — reeds, probe, foil |
 | CC-03 | Transfer the coil + set the band |
 | CC-04 | Bond the coil probe + close the foil over the coil |
 | CC-05 | Press the shell inserts — twelve |
@@ -149,7 +149,7 @@ accent colors are defined in `STYLE.md`.
 | CC-07 | Build the reed columns |
 | CC-08 | Seat the reservoir rods + floats |
 | CC-09 | Close the reservoirs — gasket, cap, vent |
-| CC-10 | Lower the vessel — elbow already on it |
+| CC-10 | Lower the carbonator — elbow already on it |
 | CC-11 | Seat the reservoirs in their pockets |
 | CC-12 | Route the seven penetrations |
 | CC-13 | Stack the copper plugs |

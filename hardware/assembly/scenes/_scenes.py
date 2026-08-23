@@ -64,7 +64,7 @@ Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom lo
 # TWO MODELS OF THE CORE, AND A SCENE MAY WANT EITHER. `manifold-layout/enclosure_assembly` is the
 # appliance and places the core as ONE solid with a port table — which is the right body for a
 # picture of the machine. `cold-core-layout/cold_core_assembly` is the same stack one frame in:
-# the six printed pieces AND the vessel, the coil, both reservoirs, every fitting, the sensing
+# the six printed pieces AND the carbonator, the coil, both reservoirs, every fitting, the sensing
 # and the eight lines among them, in the shell's own frame. Its `one-core` gate holds every body
 # the outer model draws standing in the inner one, so the two agree about what they share.
 #
@@ -276,7 +276,7 @@ SCENES = (
         # Over the open mouth, which is what there is to see: the cavities the shot has to find,
         # both reservoirs standing in their pockets, and every line standing out of the top.
         cam=(0.7, -0.9, 1.5), up=(0, 0, 1), zoom=3.2, look="centre",
-        note="The shell closed underneath, the vessel and both reservoirs standing in it, and "
+        note="The shell closed underneath, the carbonator and both reservoirs standing in it, and "
              "every line standing out of the open top. This is what the body pour goes into. "
              "Each line runs from the fitting it is made up on to the cap face, so what stands "
              "proud of this rim is the cap's own thickness and the cap comes down over it.",
@@ -409,7 +409,7 @@ PARTS = (
          "hardware/faucet-layout/faucet-assembly.step"),
     # Through the walls: the three pieces and the scarf seams between them.
     Part("fu05-shell", "Touch-Flo shell, three pieces",
-         "hardware/printed-parts/faucet/touch-flo-shell/touch-flo-shell.step", solid=False),
+         "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step", solid=False),
     # The tee in the attitude the split stands in — the run fore-and-aft and the branch
     # rolled to look down. `water_split._TURNS` is that turn, so the camera is the default
     # one carried back through it rather than a second copy of the fitting on disk.

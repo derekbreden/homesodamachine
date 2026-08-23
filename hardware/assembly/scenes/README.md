@@ -38,7 +38,7 @@ does not name is reported, not dropped.
 owns one thing. [`printed-parts/cold-core/foam-assembly`](/hardware/printed-parts/cold-core/foam-assembly/)
 owns the six printed pieces and the port table on their faces; it is the **interface**, and both
 larger models load it. [`cold-core-layout`](/hardware/cold-core-layout/) owns what stands inside
-the shell — the vessel, the coil, both reservoirs, the sensing, the eight internal lines — in the
+the shell — the carbonator, the coil, both reservoirs, the sensing, the eight internal lines — in the
 shell's own frame. [`manifold-layout`](/hardware/manifold-layout/) owns the machine, and imports
 the interface as **one solid** with that port table.
 

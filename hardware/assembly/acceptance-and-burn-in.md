@@ -2,7 +2,7 @@
 
 The production procedure for the bench acceptance test and multi-hour burn-in on a finished, commissioned appliance — the last sign-off step before the unit moves to [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), and the bench that empties it for transit. Inputs are a chassis that has come out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with sensors healthy and setpoints loaded; outputs are a per-serial test log and a unit cleared to ship.
 
-This is the first time the carbonator vessel sees water in service. The vessel was hydro-tested empty during [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) and integrated dry through [`cold-core.md`](/hardware/assembly/cold-core.md) and [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md); first water-fill is here. CO2 supply is first energized here against a wet vessel. The bench test rig stands in for customer-side plumbing — the appliance sees nothing different from what it will see at install.
+This is the first time the carbonator sees water in service. The carbonator was hydro-tested empty during [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) and integrated dry through [`cold-core.md`](/hardware/assembly/cold-core.md) and [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md); first water-fill is here. CO2 supply is first energized here against a wet carbonator. The bench test rig stands in for customer-side plumbing — the appliance sees nothing different from what it will see at install.
 
 ## Scope
 
@@ -53,15 +53,15 @@ A sound at boot is not an actuator energizing. U8 is a 100 mA coil and IO13 is p
 
 ### 3. First water fill of the carbonator
 
-Open the test-rig water-side valve. The carbonator low-level reed reads empty; with the faucet closed and the empty-reed asserted, firmware now permits a refill cycle. Operator commands "fill carbonator" from the bench-acceptance UI. The SeaFlo diaphragm pump energizes (relay #2, ESP32 [GPIO 2](GPIO_RELAY2)). Water flows from the bench tap through the Multiplex 19-0897 backflow → PI4512F6S + PP061208W → water-split → V-K → the suction stub → SeaFlo → the discharge stub → MAACFLOW → GASHER water-side check → PP450822E → the cold core's top-cap water-inlet conduit → TAISHER 90° elbow → vessel top-plate Port 2 → vessel headspace, against the not-yet-charged CO2 side (atmospheric).
+Open the test-rig water-side valve. The carbonator low-level reed reads empty; with the faucet closed and the empty-reed asserted, firmware now permits a refill cycle. Operator commands "fill carbonator" from the bench-acceptance UI. The SeaFlo diaphragm pump energizes (relay #2, ESP32 [GPIO 2](GPIO_RELAY2)). Water flows from the bench tap through the Multiplex 19-0897 backflow → PI4512F6S + PP061208W → water-split → V-K → the suction stub → SeaFlo → the discharge stub → MAACFLOW → GASHER water-side check → PP450822E → the cold core's top-cap water-inlet conduit → TAISHER 90° elbow → carbonator top-plate Port 2 → carbonator headspace, against the not-yet-charged CO2 side (atmospheric).
 
 Pump runs until the high-level reed asserts, then firmware closes the cycle and de-energizes the pump.
 
-**Pass:** the high-level reed asserts within the expected fill time (sized to vessel volume + SeaFlo flow rate; tens of seconds, not minutes); the pump stops; no leak at the ASSE 1022 outlet chain, no leak at the +Z slot transitions, no leak at the top-plate elbow joint, no water at the backflow vent (vent drip pan dry). **Fail:** pump runs past the expected fill window without high-reed assert (suggests reed fault, float stuck, or pump-pull short-circuit elsewhere); any leak observed at any joint.
+**Pass:** the high-level reed asserts within the expected fill time (sized to carbonator volume + SeaFlo flow rate; tens of seconds, not minutes); the pump stops; no leak at the ASSE 1022 outlet chain, no leak at the +Z slot transitions, no leak at the top-plate elbow joint, no water at the backflow vent (vent drip pan dry). **Fail:** pump runs past the expected fill window without high-reed assert (suggests reed fault, float stuck, or pump-pull short-circuit elsewhere); any leak observed at any joint.
 
 ### 4. CO2 supply on, leak-tight at [90 PSI](CO2_CENTERLINE)
 
-The CO2 cylinder valve was opened in step 1; the line is already pressurized up to the WR1110 secondary regulator's inlet. At this point the WR1110 holds the appliance-side at [90 PSI](CO2_CENTERLINE); the gas path is closed at the bottom-plate Port 1 against the sparge stone. With water now in the vessel, the sparge stone is wetted and CO2 begins to bubble through into the headspace.
+The CO2 cylinder valve was opened in step 1; the line is already pressurized up to the WR1110 secondary regulator's inlet. At this point the WR1110 holds the appliance-side at [90 PSI](CO2_CENTERLINE); the gas path is closed at the bottom-plate Port 1 against the sparge stone. With water now in the carbonator, the sparge stone is wetted and CO2 begins to bubble through into the headspace.
 
 Watch for two minutes. The WR1110 should reach and hold [90 PSI](CO2_CENTERLINE) on the appliance-side gauge (the customer-facing dual-gauge regulator above the cylinder is the primary; the WR1110 is internal and not directly readable — proxy is the audible cessation of in-rush hiss and steady-state silence). The SV-125 PRV does not weep audibly or visibly. The Multiplex 19-0897 atmospheric vent drip-pan moisture sensor stays dry (firmware should not have raised an alarm).
 

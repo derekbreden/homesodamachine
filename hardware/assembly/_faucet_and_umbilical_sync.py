@@ -24,8 +24,8 @@ def main():
         hardware_root
         / "printed-parts"
         / "faucet"
-        / "touch-flo-tpu-o-ring"
-        / "touch_flo_tpu_o_ring.py",
+        / "tpu-o-ring"
+        / "tpu_o_ring.py",
     )
     plate = load_module(
         "_under_counter_plate_gen",
@@ -52,12 +52,12 @@ def main():
 
     # The column above the counter the shank clamps through: the two printed discs, whose own
     # thicknesses are what §1's slab-to-shell-foot term is.
-    plate_gasket = (faucet.touch_flo_mounting_plate.plate_thickness
-                    + faucet.touch_flo_mounting_gasket.gasket_thickness)
+    plate_gasket = (faucet.above_counter_plate.plate_thickness
+                    + faucet.above_counter_gasket.gasket_thickness)
 
     variables = {
-        # TPU thimble (touch-flo-tpu-o-ring) — BOM row line 26.
-        # Source: `touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py`.
+        # TPU thimble (tpu-o-ring) — BOM row line 26.
+        # Source: `tpu-o-ring/tpu_o_ring.py`.
         "CAP_HOLE_D": f"{tpu.cap_hole_diameter:.4g} mm",
         "BODY_PORT_D": f"{tpu.body_port_diameter:.4g} mm",
         "ORING_OUTER_D": f"{tpu.outer_diameter:.4g} mm",
