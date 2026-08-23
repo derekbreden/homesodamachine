@@ -287,7 +287,7 @@ def flute_backed_sections():
     because they are computed rather than typed. This is the rest, stated so that a section
     thinned in the file goes red here instead of on the next print."""
     return (
-        ("a seam lane, where the mating lip owns the inboard section", wall),
+        ("a top piece's seam lane, where the mating lip laps its inner face", wall),
         ("front-top's own ±X flank", front_top_flank_t),
         # AND THE SAME FLANK WHERE THE CORNER'S FAIRING TAKES IT BACK — the turn is swung from
         # the jamb over the cartridge's storey, so what stands behind the face there is the post
@@ -1208,11 +1208,11 @@ relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this
 # where it stands too. What moves is this one piece's own inner face, and only this piece knows
 # about it (`front_top_flank_face`).
 #
-# WHAT IT OWES, IT OWES TO THINGS THAT WERE ALREADY THERE: the Z-seam lip rises into this flank
-# and keeps its own `wall` of it, the collet plate lifts straight up through it and keeps its
-# lane, the openings are cut to the face this leaves rather than the one it replaced, and the
-# Wago wells bore through it to bottom on `interior_x` exactly where they bottomed before — so
-# a lever nut sits where it sat and simply has more wall behind it.
+# WHAT IT OWES, IT OWES TO THINGS THAT WERE ALREADY THERE: it begins at the Z-seam rim and the
+# storey under it is the box's own `wall`, which is the face front-bottom's tongue laps; the
+# collet plate lifts straight up through it and keeps its lane; the openings are cut to the face
+# this leaves; and the Wago wells bore through it to bottom on `interior_x`, so a lever nut sits
+# where the box's own interior puts it and simply has more wall behind it.
 front_top_flank_t = 9.0
 # And its one relief. `tube-water-3` runs down the −X flank inside the section this adds, so the
 # wall gives that run its lane back over a stated band and keeps the rest. Floored on
@@ -4088,9 +4088,9 @@ def _flank_opening(inner, y_aft, z0, z1):
     of its own, and the plate's ends stand in the opening the way everything else in this
     storey does.
     ITS FLOOR IS THE SEAM'S CAP (`_rim_cap`), one `wall` over the rim. Under the rim
-    front-bottom's lip telescopes into this wall and an opening cut there is a seam that does
-    not close; between the two planes stands the cap, and cutting THAT would open the seam's
-    cavity to the storey it is meant to be shut off from."""
+    front-bottom's tongue laps this wall's inner face and an opening cut there is a seam that
+    does not close; between the two planes stands the cap, and cutting THAT would open the
+    seam's cavity to the storey it is meant to be shut off from."""
     out = None
     fx0, fx1 = front_top_flank_face()
     for x_in, x_face, sx in ((inner[0], fx0, +1.0), (inner[1], fx1, -1.0)):
@@ -4206,16 +4206,6 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     # The steel's own column, floor to ceiling — its lane out of the machine.
     band = band.cut(_ybox(ix0 - 1.0, ix1 + 1.0, plate["fore_y"], plate["aft_y"],
                           plate["z0"] - 1.0, iz1 + 1.0))
-    # AND THE REST OF WHAT COMES UP OUT OF FRONT-BOTTOM. The tongue is not the only thing
-    # standing proud into this piece: the Z seam's pods and the four-corner's pedestal both
-    # root on the lip's own face and reach inboard PAST it, `boss_in` and `corner_boss_in`
-    # deep, which is further in than this section stands. They are given their room the same
-    # way the tongue is — struck out of it, rather than reasoned about.
-    for x_in, x_ext, sx, ys, col in _z_stations(inner, y_joint):
-        if col == "front":
-            band = band.cut(_z_pod(x_in, x_ext, sx, ys, inner, zj))
-    for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
-        band = band.cut(_corner_socket(x_in, x_in - sx * wall, sx))
     # Everything this piece's own walls were already bored for, struck out before the section
     # is fused rather than re-cut after it: the Y seam's bosses and the four-corner's, whose
     # cuts were made in `build_front_half`, and the panel holes through both faces.
