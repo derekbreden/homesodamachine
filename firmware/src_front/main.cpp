@@ -269,14 +269,15 @@ enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
                    SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
 
 // The left rail names the customer-facing destinations. Choose is the drink;
-// Fill, Prime and Clean are a flavor's life in the machine, in the order it is
-// lived — pour concentrate into the hopper, push it out to the nozzle, and
-// eventually flush it back out. The three share their controller/session
-// machinery beneath the glass, but each is its own place in the interaction,
-// asking for the flavor it acts on. What one flavor pours at, and which logo it
-// wears, belong to that flavor rather than to the machine, and are reached from
-// its own card on Choose.
-enum RailPage { RAIL_CHOOSE, RAIL_FILL, RAIL_PRIME, RAIL_CLEAN,
+// Prime, Fill and Clean act on a channel and run down the rail from the least
+// destructive to the most — a prime spends a little concentrate out of the line
+// it already filled, a fill commits a hopper of it to a reservoir, and a clean
+// puts the whole channel back to water. The three share their controller and
+// session machinery beneath the glass, but each is its own place in the
+// interaction, asking for the flavor it acts on. What one flavor pours at, and
+// which logo it wears, belong to that flavor rather than to the machine, and are
+// reached from its own card on Choose.
+enum RailPage { RAIL_CHOOSE, RAIL_PRIME, RAIL_FILL, RAIL_CLEAN,
                 RAIL_PAGE_COUNT };
 
 static_assert(2 * RAIL_INSET_Y + RAIL_PAGE_COUNT * RAIL_ITEM_H +
@@ -1575,12 +1576,12 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
       lv_obj_align(mkText(parent, "\xEF\x89\x9A", &front_icons_48, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
       break;
-    case RAIL_FILL:
-      lv_obj_align(mkText(parent, "\xEF\x82\xB0", &front_icons_48, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
-      break;
     case RAIL_PRIME:
       lv_obj_align(mkText(parent, "\xEF\x81\x83", &front_icons_48, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
+      break;
+    case RAIL_FILL:
+      lv_obj_align(mkText(parent, "\xEF\x82\xB0", &front_icons_48, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
       break;
     case RAIL_CLEAN:
@@ -2488,8 +2489,8 @@ static void lockScreenHide() {
 static void buildRail(lv_obj_t *scr) {
   static const char *kRail[RAIL_PAGE_COUNT] = {
       "CHOOSE",
-      "FILL",
       "PRIME",
+      "FILL",
       "CLEAN",
   };
   for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
@@ -2909,13 +2910,13 @@ static void showRail(RailPage p) {
     case RAIL_CHOOSE:
       showPage(PAGE_HOME);
       break;
-    case RAIL_FILL:
-      showPage(PAGE_SERVICE);
-      showService(SVC_FILL_PICK);
-      break;
     case RAIL_PRIME:
       showPage(PAGE_SERVICE);
       showService(SVC_PRIME_PICK);
+      break;
+    case RAIL_FILL:
+      showPage(PAGE_SERVICE);
+      showService(SVC_FILL_PICK);
       break;
     case RAIL_CLEAN:
       showPage(PAGE_SERVICE);
