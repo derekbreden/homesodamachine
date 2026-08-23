@@ -18,7 +18,7 @@
 // It increments only when an actual bounce-buffer shortfall requires scan
 // recovery; normal wake cycles must leave it unchanged.
 extern "C" uint32_t home_soda_rgb_restart_count(void);
-// Two customer-rail icons: a single ratio slice and a hand pointing up-left.
+// Two customer-rail icons: an exploded ratio pie and an upright pointing hand.
 extern "C" const lv_font_t rail_icons_36;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
