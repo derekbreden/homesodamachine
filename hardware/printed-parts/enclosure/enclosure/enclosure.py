@@ -867,13 +867,16 @@ def back_bottom_flank_face():
     return (ix0 + grown, ix1 - grown)
 
 
-def front_bottom_west_flank_face():
-    """front-bottom's own −X interior face — `front_bottom_west_flank_t` in from the exterior.
+def front_bottom_flank_face():
+    """front-bottom's own ±X interior faces — `front_bottom_flank_t` in from the exterior.
 
-    NOTHING OUTSIDE THAT PIECE READS THIS, and `lip_face_x` in particular does not: the card
-    that bottoms on the flank and the copper lane struck off it both keep the plane they had,
-    which is what makes this a well and not a move."""
-    return interior_x()[0] + (front_bottom_west_flank_t - wall)
+    `lip_face_x` DOES NOT FOLLOW IT. The card that bottoms on the west flank and the copper lane
+    struck off that same plane both keep the face they had, which is what makes the west side a
+    well and not a move; the east side has only the condenser against it and that block reads
+    this plane, so it comes west with the wall."""
+    ix0, ix1 = interior_x()
+    grown = front_bottom_flank_t - wall
+    return (ix0 + grown, ix1 - grown)
 
 
 def vent_flank_face(sx):
@@ -881,12 +884,12 @@ def vent_flank_face(sx):
     grille to come out the other side.
 
     IT IS THE FACE THAT IS THERE AND NOT `lip_face_x`. The airway stands in front-bottom's own
-    bands, and that piece's west flank is `front_bottom_west_flank_t` while its east is the
-    lip's own `2 * wall` — so a slot struck on one plane for both sides is a slot that stops
-    short of the room on the side that carries more, and what it leaves is a blind pocket with
-    the wall still closed behind it. Read by the cutter, by the run finder and by the measure,
-    so all three agree about the same wall."""
-    return lip_face_x()[1] if sx > 0.0 else front_bottom_west_flank_face()
+    bands, and that piece carries `front_bottom_flank_t` down both flanks where the lip's own
+    underwall would leave `2 * wall` — so a slot struck on the lip's plane stops short of the
+    room, and what it leaves is a blind pocket with the wall still closed behind it. Read by
+    the cutter, by the run finder and by the measure, so all three agree about the same wall."""
+    ix0, ix1 = front_bottom_flank_face()
+    return ix1 if sx > 0.0 else ix0
 
 
 def front_top_flank_face():
@@ -936,7 +939,7 @@ def piece_root_faces(inner, y_side, z_side):
             iy1 = back_top_wall_face()
     else:
         ix0, ix1 = (back_bottom_flank_face() if y_side == "back"
-                    else (front_bottom_west_flank_face(), lip_face_x()[1]))
+                    else front_bottom_flank_face())
         if y_side == "back":
             iy1 = rear_plane_y - wall      # the lip's own skin, already `2 * wall` of section
     return (ix0, ix1, iy0, iy1, iz0, iz1)
@@ -1026,23 +1029,20 @@ back_top_flank_t = 6.0
 # cavity face, so the seam is the seam it always was. What that leaves at the rim is a step
 # facing UP, on a piece that prints floor-down — the one direction a step costs nothing.
 back_bottom_flank_t = 9.0
-# --- front-bottom's own −X section --------------------------------------------
+# --- front-bottom's own ±X section --------------------------------------------
 #
-# THE WEST FLANK OF THE FRONT PIECE CARRIES THE SAME 9, and only the west one: the condenser's
-# block is packed to within a millimetre of the EAST flank over 154 mm of depth and 137 of
-# height, and it is seated off the compressor's own tangent rather than off that wall, so the
-# east flank keeps `2 * wall`.
-#
-# NEITHER THE CARD NOR THE COPPER MOVES FOR IT. The MQ-6 bottoms on `lip_face_x` and the
-# suction lane is struck off that same plane, so a face that moved would carry the board
-# inboard and the compressor east with it. The section closes ROUND the board instead
-# (`_front_bottom_west_skin` wells it off the station's own footprint) and the board sits where
-# the box's interior puts it with more wall behind it — the lever-nut rule from the far flank.
+# THE FRONT PIECE CARRIES THE SAME 9 DOWN BOTH FLANKS, and neither body against them moves the
+# way you would expect. The MQ-6 bottoms on `lip_face_x` and the suction lane is struck off that
+# same plane, so the WEST face cannot move without carrying the board inboard and the compressor
+# east with it — the section closes ROUND the board instead (`_front_bottom_flank_skin` wells it
+# off the station's own footprint). The condenser's block already answers to the EAST wall
+# (`enclosure_assembly.east_lane_free` stands it `cond_mount_clear` off this face), so that face
+# moving carries the block west into the lane it has always had off the compressor's tangent.
 #
 # AND THE VENT STILL GOES CLEAN THROUGH. A slot is struck from the face that is actually there
 # (`vent_flank_face`), so the grille pierces whatever this wall measures rather than a stated
 # `2 * wall`; what a deeper wall costs the intake is throat, which `VENT_ASPECT` reads.
-front_bottom_west_flank_t = 9.0
+front_bottom_flank_t = 9.0
 # AND IT OWES ITS ROOM TO THINGS THAT WERE ALREADY THERE. The front half's Y lip telescopes into
 # this piece on this wall surface and back-bottom's Z lip rises into it on the same one, and the
 # lane each rises into is exactly the `wall` this would add — so the section begins past the one
@@ -3786,23 +3786,24 @@ def _lip_underwall(inner, y_joint, zj):
                      inner[4], zj)
 
 
-def _front_bottom_west_skin(inner, west_cradle, y_joint, zj):
-    """The extra skin inboard of front-bottom's −X flank, slab to seam mouth, WELLED where the
-    MQ-6 stands.
+def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
+    """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, WELLED on the
+    west where the MQ-6 stands.
 
-    The strip is struck like back-bottom's. The well is the board's own footprint off the
+    The strips are struck like back-bottom's. The well is the board's own footprint off the
     station (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, so the card
     still slides west onto `lip_face_x` and the can keeps the room it had. Cut here rather than
     left to the cradle, because what the cradle builds is rails standing on a face and this is
-    the face they stand on."""
-    lx0, _lx1 = lip_face_x()
-    fx0 = front_bottom_west_flank_face()
-    skin = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
+    the face they stand on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is
+    the condenser's block, and the block is stood off this very face."""
+    lx0, lx1 = lip_face_x()
+    fx0, fx1 = front_bottom_flank_face()
+    west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
     for _sy, _sz, by0, by1, bz0, bz1 in west_cradle:
-        skin = skin.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
+        west = west.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
                               by0 - mq6_slot_press, by1 + mq6_slot_press,
                               bz0 - mq6_slot_press, bz1 + mq6_slot_press))
-    return skin
+    return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
 def _back_bottom_flank_skin(inner, y_joint, zj):
@@ -6888,7 +6889,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(_lip_underwall(inner, y_joint, zj).intersect(col))
         if y_side == "front":
             # And front-bottom's own extra section on the west flank, welled round the board.
-            piece = piece.fuse(_front_bottom_west_skin(
+            piece = piece.fuse(_front_bottom_flank_skin(
                 inner, box.west_cradle, y_joint, zj).intersect(col))
         if y_side == "back":
             # And back-bottom's own extra section inboard of that, on the two flanks only.

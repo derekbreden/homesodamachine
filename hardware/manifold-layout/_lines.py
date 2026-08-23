@@ -1371,14 +1371,16 @@ def _refrig_1(F):
 def _refrig_2(F):
     """refrig-2 — the condenser's liquid line into the evaporator's inlet, in copper.
 
-    BOTH MOUTHS FACE EACH OTHER ON ONE LINE. The block's own header is re-dressed to the core's
-    evaporator-inlet station — same column, same plane — so what crosses the lane between them is
-    one length of tube with nothing to turn around. The drier stands inside the block's own
-    envelope, and what leaves it is this."""
+    BOTH MOUTHS OPEN ONTO THE SAME LANE but not onto the same axis: the block stands off the east
+    flank\'s own section (`enclosure_assembly.east_lane_free`) and the core is packed to the rear,
+    so the two ports sit a wall\'s thickness apart across the lane. `lead` is what makes that a
+    tube rather than a skew — it leaves the outlet and enters the inlet on their own normals and
+    turns in between, which is the bend a fitter puts in this leg anyway. The drier stands inside
+    the block\'s own envelope, and what leaves it is this."""
     return R.bent(
         "refrig-2", "condenser+fan.refrig-outlet", "foam-assembly.evap-inlet",
-        kind="refrigerant",
-        note="sealed loop: condenser outlet → evaporator inlet, one straight across the lane")
+        kind="refrigerant", lead=2.0,
+        note="sealed loop: condenser outlet → evaporator inlet, one turn across the lane")
 
 
 def authored() -> frozenset:
