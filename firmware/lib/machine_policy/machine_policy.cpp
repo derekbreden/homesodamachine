@@ -416,7 +416,7 @@ const PrimeSessionSnapshot &PrimeSession::snapshot() const {
 void PrimeSession::renewFrom(PrimeSessionOwner source, uint32_t now_ms) {
     // The enclosure owns the ready screen and its query/hold traffic leases the
     // session. Faucet traffic still has the pump timer's independent heartbeat.
-    if (source == PrimeSessionOwner::Front) lease_renewed_ms_ = now_ms;
+    if (source == PrimeSessionOwner::Enclosure) lease_renewed_ms_ = now_ms;
 }
 
 void PrimeSession::bumpRevision() {

@@ -164,14 +164,14 @@ constexpr uint32_t kPrimeSessionLeaseGraceMs  = 5000;
 // window. They are replay windows, not claims about hostile captured traffic.
 constexpr uint8_t  kPrimeSessionTokenHistory  = PRIME_SESSION_REPLAY_HISTORY;
 constexpr uint8_t  kPrimeHoldTokenHistory     = PRIME_HOLD_REPLAY_HISTORY;
-constexpr uint8_t  kPrimeFrontDelayedTokenMax =
+constexpr uint8_t  kPrimeEnclosureDelayedTokenMax =
     PRIME_J9_APP_QUEUE_DEPTH + PRIME_J9_IN_FLIGHT_DEPTH;
 constexpr uint8_t  kPrimeFaucetDelayedTokenMax =
     PRIME_J3_APP_QUEUE_DEPTH + PRIME_PROTO_LINK_WINDOW_DEPTH;
-static_assert(kPrimeSessionTokenHistory > kPrimeFrontDelayedTokenMax,
+static_assert(kPrimeSessionTokenHistory > kPrimeEnclosureDelayedTokenMax,
               "prime session replay ledger must cover J9");
-static_assert(kPrimeHoldTokenHistory > kPrimeFrontDelayedTokenMax,
-              "front hold replay ledger must cover J9");
+static_assert(kPrimeHoldTokenHistory > kPrimeEnclosureDelayedTokenMax,
+              "enclosure hold replay ledger must cover J9");
 static_assert(kPrimeHoldTokenHistory > kPrimeFaucetDelayedTokenMax,
               "faucet hold replay ledger must cover J3");
 
@@ -183,7 +183,7 @@ enum class PrimeSessionPhase : uint8_t {
 
 enum class PrimeSessionOwner : uint8_t {
     None = 0,
-    Front,
+    Enclosure,
     Faucet,
 };
 
@@ -276,7 +276,7 @@ private:
     uint8_t session_token_count_;
     uint8_t next_session_token_;
     // A busy endpoint cannot evict the other endpoint's causal STOP/START
-    // evidence. Front and Faucet each receive their own bounded replay window.
+    // evidence. Enclosure and Faucet each receive their own bounded replay window.
     uint32_t hold_tokens_[2][kPrimeHoldTokenHistory];
     uint8_t hold_token_count_[2];
     uint8_t next_hold_token_[2];

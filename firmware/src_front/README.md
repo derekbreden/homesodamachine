@@ -176,7 +176,7 @@ is the backlight itself:
 
 Newline-terminated, 115200 baud over the native USB CDC:
 
-- `GET_VERSION` → `VERSION:FRONT=<fw>`
+- `GET_VERSION` → `VERSION:ENCLOSURE=<fw>`
 - `GET_STATE` → controller-owned flavor, synchronization / durability / pending
   state, operation lock, idle and page
 - `GET_DIAG` → a packet-bounded `DIAG:` health line followed by `DIAG_UI:` and
