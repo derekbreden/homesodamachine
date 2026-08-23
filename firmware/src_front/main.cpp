@@ -242,6 +242,9 @@ static uint32_t frameDoneTimeouts = 0;
 // Choose gives each card a settings target under it. The badge only reports the
 // selection — the whole card is the target that changes it — so it takes the
 // height of its own text rather than a finger's.
+// A chevron the width of its own glyph, in the title band ahead of the word.
+#define BACK_BTN       58
+#define BACK_GAP       14
 #define HOME_GEAR_H    56
 #define HOME_GEAR_GAP  16
 #define HOME_BADGE_H   44
@@ -1273,6 +1276,10 @@ static bool primeBootDiscovery = true;
 static bool primeStopPending = false;
 static bool primeAuthoritativeNavigation = false;
 static bool primeUsbStartPending = false;
+// A press that arrives while the session is still opening. The controller's
+// gate does not move — no hold frame leaves until it answers READY — but the
+// pad no longer has to refuse the finger to wait for it.
+static bool primeTouchStartPending = false;
 static bool primeLinkLost = false;
 static uint32_t primeTokenState = 1;
 static uint32_t primeSessionToken = 0;
@@ -1584,6 +1591,15 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
   }
 }
 
+// A step back out of a chosen channel, into the picker it was chosen from.
+static lv_obj_t *mkChevronBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
+  lv_obj_t *b = mkBtn(parent, BACK_BTN, BACK_BTN, COL_CARD);
+  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - BACK_BTN) / 2);
+  lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
+  lv_obj_center(mkText(b, LV_SYMBOL_LEFT, &lv_font_montserrat_28, COL_TEXT));
+  return b;
+}
+
 static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
   lv_obj_t *b = mkBtn(parent, 150, 58, COL_CARD);
   lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - 58) / 2);
@@ -1794,7 +1810,7 @@ static const char *primeOutcomeText(uint8_t outcome) {
     case PRIME_OUTCOME_REFUSED:       return "controller refused the hold";
     case PRIME_OUTCOME_CANCELED:      return "prime mode exited";
     case PRIME_OUTCOME_LEASE_EXPIRED: return "prime screen connection lost";
-    default:                          return "ready on either display";
+    default:                          return "";
   }
 }
 
@@ -1810,6 +1826,7 @@ static void primeRender(bool force = false) {
   static bool shownHolding = false;
   static bool shownStop = false;
   static bool shownLost = false;
+  static bool shownPending = false;
 
   const bool matching = primeSessionKnown &&
                         primeSession.sessionToken == primeSessionToken;
@@ -1821,7 +1838,8 @@ static void primeRender(bool force = false) {
                             shownDesired != primeSessionDesired ||
                             shownCancel != primeSessionCancelPending ||
                             shownHolding != holding || shownStop != primeStopPending ||
-                            shownLost != primeLinkLost;
+                            shownLost != primeLinkLost ||
+                            shownPending != primeTouchStartPending;
   if (!modelChanged) return;
   shownPhase = phase;
   shownOwner = owner;
@@ -1832,6 +1850,7 @@ static void primeRender(bool force = false) {
   shownHolding = holding;
   shownStop = primeStopPending;
   shownLost = primeLinkLost;
+  shownPending = primeTouchStartPending;
 
   if (primeSessionCancelPending) {
     lv_label_set_text(primePadLbl, "EXITING PRIME");
@@ -1845,15 +1864,15 @@ static void primeRender(bool force = false) {
     lv_label_set_text(primePadLbl, "STOPPING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
     setPrimeMsg("waiting for the controller");
-  } else if (!primeSessionDesired || !matching || phase == PRIME_SESSION_OFF) {
+  } else if (!primeSessionDesired) {
     lv_label_set_text(primePadLbl, "CONNECTING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
-    setPrimeMsg("opening prime mode on both displays");
+    setPrimeMsg("");
   } else if (phase == PRIME_SESSION_RUNNING) {
     lv_label_set_text(primePadLbl, "PRIMING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
     setPrimeMsg(owner == PRIME_OWNER_FAUCET ? "held at the faucet" : "pump turning");
-  } else if (holding) {
+  } else if (holding || primeTouchStartPending) {
     lv_label_set_text(primePadLbl, "STARTING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
     setPrimeMsg("waiting for the controller");
@@ -1866,8 +1885,7 @@ static void primeRender(bool force = false) {
   // Keep an acknowledged held run visibly green under the user's finger; a
   // blocked control remains dark instead of flashing the generic button color.
   const bool blocked = primeSessionCancelPending || primeLinkLost ||
-                       primeStopPending || !primeSessionDesired || !matching ||
-                       phase == PRIME_SESSION_OFF;
+                       primeStopPending || !primeSessionDesired;
   lv_obj_set_style_bg_color(
       primePad,
       lv_color_hex(blocked ? COL_OFF
@@ -1939,12 +1957,12 @@ static void primeHoldEnd() {
                 flavorSel, (unsigned long)primeHoldToken, millis() - holdStartMs);
 }
 
-static void primeHoldBegin() {
+static bool primeHoldBegin() {
   const bool ready = primeSessionDesired && !primeSessionCancelPending &&
                      primeSessionKnown &&
                      primeSession.sessionToken == primeSessionToken &&
                      primeSession.phase == PRIME_SESSION_READY;
-  if (holding || primeStopPending || !ready || primeLinkLost) return;
+  if (holding || primeStopPending || !ready || primeLinkLost) return false;
 
   holding = true;
   primeClearStopPending();
@@ -1959,6 +1977,7 @@ static void primeHoldBegin() {
   Serial.printf("[J9] prime hold start ch=%u session=%08lX hold=%08lX\n",
                 flavorSel, (unsigned long)primeSessionToken,
                 (unsigned long)primeHoldToken);
+  return true;
 }
 
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
@@ -2137,10 +2156,15 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
         activeSvc == SVC_PRIME_HOLD) {
       flavorSel = state.channel;
     }
-    if (tokenMatches && primeUsbStartPending &&
+    if (tokenMatches && (primeUsbStartPending || primeTouchStartPending) &&
         state.outcome == PRIME_OUTCOME_NONE) {
       primeUsbStartPending = false;
+      primeTouchStartPending = false;
       primeHoldBegin();
+    }
+    // A session that comes back with an outcome is not going to take this hold.
+    if (tokenMatches && state.outcome != PRIME_OUTCOME_NONE) {
+      primeTouchStartPending = false;
     }
     if (adoptActive) {
       if (touchInput) lv_indev_wait_release(touchInput);
@@ -2295,9 +2319,16 @@ static void primeSessionService() {
 static void primePadCb(lv_event_t *e) {
   lv_event_code_t code = lv_event_get_code(e);
   if (code == LV_EVENT_PRESSED) {
-    primeHoldBegin();
+    if (!primeHoldBegin()) {
+      primeTouchStartPending = primeSessionDesired && !primeSessionCancelPending &&
+                               !primeStopPending && !primeLinkLost;
+      if (primeTouchStartPending) primeRender(true);
+    }
   } else if (code == LV_EVENT_RELEASED || code == LV_EVENT_PRESS_LOST) {
+    const bool wasPending = primeTouchStartPending;
+    primeTouchStartPending = false;
     primeHoldEnd();
+    if (wasPending) primeRender(true);
     if (code == LV_EVENT_PRESS_LOST) {
       // Abort this LVGL input pass after recording STOP. Without reset_query,
       // the same still-pressed sample can target the adjacent Back control.
@@ -2314,6 +2345,10 @@ static void primePadCb(lv_event_t *e) {
 static void railCb(lv_event_t *e)     { showRail((RailPage)(intptr_t)lv_event_get_user_data(e)); }
 
 static void flavorBackCb(lv_event_t *e) { (void)e; showPage(PAGE_HOME); }
+
+static void svcBackCb(lv_event_t *e) {
+  showService((ServiceView)(intptr_t)lv_event_get_user_data(e));
+}
 
 static void homeFlavorPickCb(lv_event_t *e) {
   const uint8_t flavor = (uint8_t)(intptr_t)lv_event_get_user_data(e);
@@ -2651,11 +2686,12 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
 // operation the controller sequences, so both ask once, plainly, before sending.
 static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body,
                               const char *action, lv_event_cb_t cb,
-                              lv_obj_t **msgOut) {
+                              ServiceView back, lv_obj_t **msgOut) {
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
   lv_obj_t *v = mkView(page);
+  mkChevronBack(v, svcBackCb, (void *)(intptr_t)back);
   lv_obj_align(mkText(v, word, &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
+               LV_ALIGN_TOP_LEFT, BACK_BTN + BACK_GAP, (PANE_HEAD_H - TEXT_H_28) / 2);
 
   lv_obj_align(mkSelectedImg(v, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
 
@@ -2685,8 +2721,9 @@ static void buildService(lv_obj_t *page) {
 
   // The hold pad. It fills the pane because it is meant to be found without looking.
   lv_obj_t *hold = mkView(page);
+  mkChevronBack(hold, svcBackCb, (void *)(intptr_t)SVC_PRIME_PICK);
   lv_obj_align(mkText(hold, "PRIME", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
+               LV_ALIGN_TOP_LEFT, BACK_BTN + BACK_GAP, (PANE_HEAD_H - TEXT_H_28) / 2);
 
   lv_obj_align(mkSelectedImg(hold, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
 
@@ -2718,7 +2755,7 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
       page, "CLEAN", "Three rounds: fill the line with water,\n"
                      "then pump it through to the nozzle.",
-      "START CLEAN CYCLE", cleanStartCb, &cleanMsg);
+      "START CLEAN CYCLE", cleanStartCb, SVC_CLEAN_PICK, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
   buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_96,
@@ -2728,7 +2765,7 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_FILL_CONFIRM] = buildConfirm(
       page, "FILL", "Pour concentrate into the funnel on top,\n"
                     "then this draws it down to the reservoir.",
-      "START FILL", fillStartCb, &fillMsg);
+      "START FILL", fillStartCb, SVC_FILL_PICK, &fillMsg);
 }
 
 static void buildSettings(lv_obj_t *page) {
