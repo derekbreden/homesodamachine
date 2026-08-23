@@ -27,10 +27,10 @@ from pathlib import Path
 import cadquery as cq
 
 # `chip_color`, for `M_PETG_BLACK` below — the same anchor `_routing` uses to reach it.
-_bp = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "back-panel"
-if str(_bp) not in sys.path:
-    sys.path.insert(0, str(_bp))
-import _back_panel_dimensions as _rear                 # noqa: E402
+_yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
+if str(_yw) not in sys.path:
+    sys.path.insert(0, str(_yw))
+import _y_wall_dimensions as _rear                     # noqa: E402
 
 # --- the plastics ------------------------------------------------------------
 M_JG_BLACK_PP = cq.Color(0.12, 0.12, 0.14)     # John Guest's black polypropylene PTC range
@@ -44,7 +44,7 @@ M_JG_GREY_ACETAL = cq.Color(0.55, 0.56, 0.57)
 M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
 # The one filament every black print on this machine comes off — the box, the pan, the clamp,
 # the cold core's five foam bodies and the plugs and shroud among them — MEASURED rather than
-# named: `_back_panel_dimensions.chip_filaments` holds the swatch the flavour chips are cut to.
+# named: `_y_wall_dimensions.chip_filaments` holds the swatch the flavour chips are cut to.
 M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
 # (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
