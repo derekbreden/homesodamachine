@@ -711,12 +711,11 @@ def _atomic_write(target_path, write_fn):
 # A CARD IS WHAT READS ONE, and `/3d` is three assembly cards and a shelf.
 # `paintStepThumb` (web/public/js/viewer/grid.js) is the site's only fetch of
 # `/thumbs/<file>.step.png`, and it runs on `.card[data-type="step"]`, which
-# parts.js builds from `ASSEMBLIES[].model` and `LOOSE.holds` and from nothing
-# else. What the assemblies place is `inside`: the page lists none of it, and a
-# part reached by selecting its solid opens in the modal, which renders the
-# model. So the picture beside such a solid has no reader, and `_page_paints`
-# asks the page's own contract which solids have one: 19 against 105 `.step.png`
-# in the index.
+# parts.js builds from `CARD_MODELS` and from nothing else. Everything the two
+# units place is reached by selecting its solid, which opens the model in the
+# modal — so the picture beside such a solid has no reader there. A DOC IS THE
+# OTHER READER: a README that embeds `<name>.step.png` shows one to anyone who
+# never opens the page at all. `_has_a_reader` asks both.
 #
 # Rendering is deferred to one batch at process exit (tools/render/
 # render-thumbnails.js boots the viewer + a headless browser once per run, not
@@ -766,6 +765,7 @@ _thumbnail_tmpdir = None
 _thumbnail_atexit_registered = False
 _UNASKED = object()
 _page_paints_answer = _UNASKED
+_doc_paints_answer = _UNASKED
 
 
 def _page_paints():
@@ -798,8 +798,31 @@ def _page_paints():
     return _page_paints_answer
 
 
-def _has_a_card(target) -> bool:
-    """Whether `target` is one of the solids `_page_paints` names, or stands under one.
+def _doc_paints():
+    """Every `.step` under the content root whose `.step.png` a doc there embeds.
+
+    Read off the docs rather than listed, so a picture put into a README is drawn by having
+    been put there. A reference out of the content root belongs to whatever tree holds it."""
+    global _doc_paints_answer
+    if _doc_paints_answer is not _UNASKED:
+        return _doc_paints_answer
+    out = set()
+    for doc in sorted(_CONTENT_ROOT.rglob("*.md")):
+        try:
+            text = doc.read_text()
+        except OSError:
+            continue
+        for ref in re.findall(r"\(([^()\s]+\.step)\.png\)", text):
+            try:
+                out.add((doc.parent / ref).resolve().relative_to(_CONTENT_ROOT).as_posix())
+            except (OSError, ValueError):
+                continue
+    _doc_paints_answer = out
+    return out
+
+
+def _has_a_reader(target) -> bool:
+    """Whether anything shows a picture of `target` — a card on `/3d`, or a doc that embeds it.
 
     A path outside the content root is not this page's to answer for — `render-thumbnails.js`
     classifies against the same root and declines the same files."""
@@ -810,7 +833,8 @@ def _has_a_card(target) -> bool:
         rel = target.relative_to(_CONTENT_ROOT).as_posix()
     except (TypeError, ValueError):
         return False
-    return any(rel == p or rel.startswith(p + "/") for p in paints)
+    return (any(rel == p or rel.startswith(p + "/") for p in paints)
+            or rel in _doc_paints())
 
 
 def _write_mesh_payload(target, source):
@@ -946,7 +970,7 @@ def _render_pending_thumbnails():
     # off the declared inputs of every generator that cuts a solid. The queue keeps
     # `note_read(_THUMBNAIL_TOOL)`, which names a tool a run WOULD start whether or not it
     # starts one, and dropping a picture here must not drop that edge.
-    dropped = {k for k in queued if not _has_a_card(Path(k))}
+    dropped = {k for k in queued if not _has_a_reader(Path(k))}
     for k in dropped:
         del queued[k]
     if dropped and not queued:
