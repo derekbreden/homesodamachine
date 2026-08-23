@@ -106,7 +106,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           main=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
-          active=$(gh run list --workflow publish-cad.yml --branch main --limit 20 \
+          active=$(gh run list --workflow publish.yml --branch main --limit 20 \
             --json headSha,status \
             --jq "[.[] | select(\
               (.status == \"queued\" or .status == \"in_progress\" or .status == \"waiting\" or .status == \"pending\" or .status == \"requested\") and \
@@ -116,4 +116,4 @@ jobs:
             echo "$active publication run(s) already cover this image"
             exit 0
           fi
-          gh workflow run publish-cad.yml --ref main -f all=true
+          gh workflow run publish.yml --ref main -f all=true

@@ -26,7 +26,7 @@ services:
     healthCheckPath: /
     autoDeploy: true
     # Hardware deploys at the publication boundary. A source push first runs
-    # publish-cad, whose lock-only commit names the exact source and bundle; deploying the
+    # publish, whose lock-only commit names the exact source and bundle; deploying the
     # source commit itself would briefly serve its new pages with the preceding CAD bundle.
     # Even a hardware-only change with no artifact targets advances the lock's source, so every
     # served commit reaches Render through this one path. The publisher also advances the lock

@@ -155,13 +155,13 @@
     "water-3 \u2014 enclosure-back-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
-    "bulkhead-carb \u2014 port-ring-carb-word: 1.317 mm",
-    "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.322 mm",
-    "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.322 mm",
     "hopper-drain-clamp \u2014 hopper-drain-union: 1.337 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
-    "bulkhead-water \u2014 port-ring-water-word: 1.346 mm",
-    "co2-inlet \u2014 port-ring-co2-word: 1.455 mm",
+    "bulkhead-carb \u2014 port-ring-carb-word: 1.342 mm",
+    "bulkhead-flavor-b \u2014 port-ring-flavor-b-word: 1.366 mm",
+    "bulkhead-flavor-a \u2014 port-ring-flavor-a-word: 1.366 mm",
+    "bulkhead-water \u2014 port-ring-water-word: 1.387 mm",
+    "co2-inlet \u2014 port-ring-co2-word: 1.446 mm",
     "foam-assembly \u2014 nameplate: 1.500 mm",
     "seaflo-pump \u2014 nameplate: 1.500 mm",
     "tee-y-c \u2014 collet-plate: 1.504 mm",
@@ -679,32 +679,6 @@
    "active": true
   },
   {
-   "id": "plate-retainer-land",
-   "label": "Each retainer head bears on a full steel tail",
-   "kind": "gate",
-   "status": "pass",
-   "value": "least edge land 3.925 mm, least land to a tube hole 17.664 mm",
-   "target": "at least 3 mm of steel beyond the head footprint",
-   "detail": [
-    "retainer (-97.200, 202.625)   edge land 3.925 mm   tube-hole land 17.664 mm",
-    "retainer (97.200, 202.625)   edge land 3.925 mm   tube-hole land 17.664 mm"
-   ],
-   "active": true
-  },
-  {
-   "id": "plate-retainer-stack",
-   "label": "The plate retainers engage their inserts without bottoming",
-   "kind": "gate",
-   "status": "pass",
-   "value": "4.000 mm brass engagement, 0.425 mm tip air, 6.960 mm wall cap",
-   "target": "4 mm engagement, 0.25 mm tip air and 3 mm behind the insert",
-   "detail": [
-    "M3\u00d78 under-head length - 3.175 mm steel = 4.825 mm projection: 4 mm in brass and 0.825 mm past it",
-    "\u00d84 \u00d7 5.25 pocket leaves 0.425 mm ahead of the screw and 6.960 mm of printed wall behind it"
-   ],
-   "active": true
-  },
-  {
    "id": "pack-over-core",
    "label": "Every pack body reaching over the cold core clears its cap",
    "kind": "gate",
@@ -1128,16 +1102,6 @@
    "status": "pass",
    "value": "2 pieces, most in the way 0.000 mm\u00b3",
    "target": "no front-top material in either complete withdrawal envelope",
-   "detail": [],
-   "active": true
-  },
-  {
-   "id": "plate-retainer-side-drive",
-   "label": "An L-key reaches both plate retainers through the flanks",
-   "kind": "gate",
-   "status": "pass",
-   "value": "2 \u00d86 L-routes, most in the way 0.000 mm\u00b3",
-   "target": "no front-top material in a 20 mm short-leg route",
    "detail": [],
    "active": true
   },
