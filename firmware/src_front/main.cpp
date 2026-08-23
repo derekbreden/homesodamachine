@@ -205,14 +205,16 @@ enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
 
 enum FlavorView  { FLV_BOTH, FLV_DETAIL, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
-                   SVC_CLEAN_CONFIRM, SVC_COUNT };
+                   SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
 
-// The left rail names the customer-facing destinations. Prime and Clean share
-// their controller/session machinery beneath the glass, but they are separate
-// places in the interaction: one asks for a flavor to prime, the other asks
-// for a flavor to clean.
-enum RailPage { RAIL_CHOOSE, RAIL_RATIO, RAIL_PRIME, RAIL_CLEAN,
-                RAIL_SETTINGS, RAIL_PAGE_COUNT };
+// The left rail names the customer-facing destinations. Choose and Ratio are
+// about the drink; Fill, Prime and Clean are a flavor's life in the machine, in
+// the order it is lived — pour concentrate into the hopper, push it out to the
+// nozzle, and eventually flush it back out. The three share their
+// controller/session machinery beneath the glass, but each is its own place in
+// the interaction, asking for the flavor it acts on.
+enum RailPage { RAIL_CHOOSE, RAIL_RATIO, RAIL_FILL, RAIL_PRIME,
+                RAIL_CLEAN, RAIL_PAGE_COUNT };
 
 static_assert(2 * RAIL_INSET_Y + RAIL_PAGE_COUNT * RAIL_ITEM_H +
                   (RAIL_PAGE_COUNT - 1) * RAIL_ITEM_GAP == SCREEN_H,
@@ -276,6 +278,8 @@ static lv_obj_t *flvDetailName, *flvDetailRatio;
 static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
 static lv_obj_t *cleanTitle, *cleanMsg;
+static lv_obj_t *fillTitle, *fillMsg;
+static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
 
 // Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
 // changed here is this display's own until one sends it somewhere.
@@ -1199,6 +1203,7 @@ static uint32_t primeStaleReinits = 0;
 
 static void setPrimeMsg(const char *s);
 static void setCleanMsg(const char *s);
+static void setFillMsg(const char *s);
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
@@ -1466,16 +1471,16 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
       lv_obj_align(mkText(parent, "\xEF\x88\x80", &rail_icons_36, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, -3);
       break;
+    case RAIL_FILL:
+      lv_obj_align(mkText(parent, "\xEF\x82\xB0", &rail_icons_36, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, -3);
+      break;
     case RAIL_PRIME:
       lv_obj_align(mkText(parent, LV_SYMBOL_TINT, &lv_font_montserrat_28, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, 2);
       break;
     case RAIL_CLEAN:
       lv_obj_align(mkText(parent, "\xEE\x81\xAD", &clean_icon_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, 2);
-      break;
-    case RAIL_SETTINGS:
-      lv_obj_align(mkText(parent, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, COL_TEXT),
                    LV_ALIGN_TOP_MID, 0, 2);
       break;
     default: break;
@@ -1511,6 +1516,7 @@ static void showOnly(lv_obj_t **objs, int n, int which) {
 // ── Text the link writes into ──
 static void setPrimeMsg(const char *s) { if (primeMsg) lv_label_set_text(primeMsg, s); }
 static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMsg, s); }
+static void setFillMsg(const char *s)  { if (fillMsg)  lv_label_set_text(fillMsg, s); }
 
 static void refreshFlavorText() {
   char a[16], b[16];
@@ -2246,6 +2252,18 @@ static void cleanStartCb(lv_event_t *e) {
   setCleanMsg("Starting clean cycle...");
 }
 
+static void fillPickCb(lv_event_t *e) {
+  flavorSel = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+  showService(SVC_FILL_CONFIRM);
+}
+
+static void fillStartCb(lv_event_t *e) {
+  (void)e;
+  ChannelPayload p{flavorSel};
+  j9Post(MSG_FILL_START, &p, sizeof(p));
+  setFillMsg("Drawing from the hopper...");
+}
+
 static void ratioStepCb(lv_event_t *e) {
   int r = flavorRatio[flavorSel] + (int)(intptr_t)lv_event_get_user_data(e);
   if (r < 6)  r = 6;    // the range the base's SET:Fn_RATIO accepts
@@ -2326,9 +2344,9 @@ static void buildRail(lv_obj_t *scr) {
   static const char *kRail[RAIL_PAGE_COUNT] = {
       "CHOOSE",
       "RATIO",
+      "FILL",
       "PRIME",
       "CLEAN",
-      "SETTINGS",
   };
   for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
     lv_obj_t *b = mkBtn(scr, RAIL_W - 12, RAIL_ITEM_H, COL_CARD);
@@ -2346,11 +2364,40 @@ static void buildRail(lv_obj_t *scr) {
   }
 }
 
+// Settings is not a customer destination and does not earn a rail slot beside
+// the five that are. It sits in the screen's top-right corner instead, on the
+// root rather than in any pane, so one object serves every page. Every pane
+// puts its title top-left and its content lower, which is what leaves this
+// corner free; Home's synchronization label is the one thing that shares the
+// band, and it is aligned to clear this square.
+#define SETTINGS_BTN     64
+#define SETTINGS_GAP     14
+
+static void settingsCb(lv_event_t *e) { (void)e; showPage(PAGE_SETUP); }
+
+static void buildSettingsButton(lv_obj_t *scr) {
+  lv_obj_t *b = mkBtn(scr, SETTINGS_BTN, SETTINGS_BTN, COL_CARD);
+  lv_obj_set_pos(b, SCREEN_W - PANE_PAD - SETTINGS_BTN, PANE_PAD);
+  lv_obj_set_style_pad_all(b, 0, 0);
+  lv_obj_set_style_bg_color(b, lv_color_hex(COL_ACCENT), LV_PART_MAIN | LV_STATE_PRESSED);
+  lv_obj_set_style_color_filter_opa(b, LV_OPA_TRANSP, LV_PART_MAIN | LV_STATE_PRESSED);
+  lv_obj_add_event_cb(b, settingsCb, ACT_EVENT, NULL);
+  lv_obj_center(mkText(b, LV_SYMBOL_SETTINGS, &lv_font_montserrat_28, COL_TEXT));
+  settingsBtn = b;
+}
+
+// RAIL_PAGE_COUNT means no rail destination is current — which is how Settings
+// reads, since it lives in the corner rather than on the rail. The loop then
+// matches nothing and the corner takes the selection instead.
 static void setRailSelection(RailPage page) {
   activeRail = page;
   for (int i = 0; i < RAIL_PAGE_COUNT; i++) {
     lv_obj_set_style_bg_color(railBtn[i],
                               lv_color_hex(i == page ? COL_ACCENT : COL_CARD), 0);
+  }
+  if (settingsBtn) {
+    lv_obj_set_style_bg_color(
+        settingsBtn, lv_color_hex(page == RAIL_PAGE_COUNT ? COL_ACCENT : COL_CARD), 0);
   }
 }
 
@@ -2379,7 +2426,10 @@ static void buildHome(lv_obj_t *page) {
                LV_ALIGN_TOP_LEFT, 0, 0);
   homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
                          &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT, 0, 4);
+  // Right-aligned but held clear of the settings square, which overlaps this
+  // band from the screen root and is not part of the pane's own layout.
+  lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT,
+               -(SETTINGS_BTN + SETTINGS_GAP - PANE_PAD), 4);
 
   for (uint8_t i = 0; i < 2; ++i) {
     lv_obj_t *card = mkBtn(page, cw, 366, COL_CARD);
@@ -2464,6 +2514,33 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
   }
 }
 
+// A named flavor, what the machine is about to do to it, and one wide target to
+// say go. Fill and Clean are the same shape: both commit an open-ended manifold
+// operation the controller sequences, so both ask once, plainly, before sending.
+static lv_obj_t *buildConfirm(lv_obj_t *page, const char *title, const char *body,
+                              const char *action, lv_event_cb_t cb,
+                              lv_obj_t **titleOut, lv_obj_t **msgOut) {
+  const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
+  lv_obj_t *v = mkView(page);
+
+  *titleOut = mkText(v, title, &lv_font_montserrat_40, COL_DIM);
+  lv_obj_align(*titleOut, LV_ALIGN_TOP_MID, 0, 84);
+
+  lv_obj_t *b = mkText(v, body, &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_style_text_align(b, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(b, LV_ALIGN_TOP_MID, 0, 150);
+
+  lv_obj_t *go = mkBtn(v, fw, 96, COL_ACCENT);
+  lv_obj_align(go, LV_ALIGN_TOP_MID, 0, 240);
+  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
+  lv_obj_add_event_cb(go, cb, LV_EVENT_CLICKED, NULL);
+  lv_obj_center(mkText(go, action, &lv_font_montserrat_28, COL_TEXT));
+
+  *msgOut = mkText(v, "", &lv_font_montserrat_20, COL_WARN);
+  lv_obj_align(*msgOut, LV_ALIGN_BOTTOM_MID, 0, 0);
+  return v;
+}
+
 static void buildService(lv_obj_t *page) {
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
 
@@ -2506,22 +2583,20 @@ static void buildService(lv_obj_t *page) {
                     cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
-  lv_obj_t *conf = mkView(page);
-  cleanTitle = mkText(conf, "CLEAN FLAVOR 2", &lv_font_montserrat_40, COL_DIM);
-  lv_obj_align(cleanTitle, LV_ALIGN_TOP_MID, 0, 84);
-  lv_obj_t *body = mkText(conf, "Three rounds: fill the line with water,\n"
-                                "then pump it through to the nozzle.",
-                          &lv_font_montserrat_20, COL_DIM);
-  lv_obj_set_style_text_align(body, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(body, LV_ALIGN_TOP_MID, 0, 150);
-  lv_obj_t *go = mkBtn(conf, fw, 96, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_TOP_MID, 0, 240);
-  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
-  lv_obj_add_event_cb(go, cleanStartCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(go, "START CLEAN CYCLE", &lv_font_montserrat_28, COL_TEXT));
-  cleanMsg = mkText(conf, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(cleanMsg, LV_ALIGN_BOTTOM_MID, 0, 0);
-  svcView[SVC_CLEAN_CONFIRM] = conf;
+  svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
+      page, "CLEAN FLAVOR 2", "Three rounds: fill the line with water,\n"
+                              "then pump it through to the nozzle.",
+      "START CLEAN CYCLE", cleanStartCb, &cleanTitle, &cleanMsg);
+
+  lv_obj_t *fpick = mkView(page);
+  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_action_icons_48,
+                    fillPickCb);
+  svcView[SVC_FILL_PICK] = fpick;
+
+  svcView[SVC_FILL_CONFIRM] = buildConfirm(
+      page, "FILL FLAVOR 2", "Pour concentrate into the funnel on top,\n"
+                             "then this draws it down to the reservoir.",
+      "START FILL", fillStartCb, &fillTitle, &fillMsg);
 }
 
 static void buildSettings(lv_obj_t *page) {
@@ -2574,6 +2649,7 @@ static void showService(ServiceView v) {
   activeSvc = v;
   if (v == SVC_PRIME_PICK || v == SVC_PRIME_HOLD) setRailSelection(RAIL_PRIME);
   if (v == SVC_CLEAN_PICK || v == SVC_CLEAN_CONFIRM) setRailSelection(RAIL_CLEAN);
+  if (v == SVC_FILL_PICK  || v == SVC_FILL_CONFIRM)  setRailSelection(RAIL_FILL);
   showOnly(svcView, SVC_COUNT, v);
   if (v == SVC_PRIME_HOLD) {
     if (previous != SVC_PRIME_HOLD && !primeAuthoritativeNavigation) {
@@ -2585,6 +2661,21 @@ static void showService(ServiceView v) {
     snprintf(b, sizeof(b), "CLEAN %s", kFlavorName[flavorSel]);
     lv_label_set_text(cleanTitle, b);
     setCleanMsg("");
+  } else if (v == SVC_FILL_CONFIRM) {
+    char b[32];
+    snprintf(b, sizeof(b), "FILL %s", kFlavorName[flavorSel]);
+    lv_label_set_text(fillTitle, b);
+    setFillMsg("");
+  }
+}
+
+// Where a service flow rests when it is sent back to its start: the pick page of
+// whichever rail destination the user is standing on.
+static ServiceView pickViewForRail() {
+  switch (activeRail) {
+    case RAIL_FILL:  return SVC_FILL_PICK;
+    case RAIL_CLEAN: return SVC_CLEAN_PICK;
+    default:         return SVC_PRIME_PICK;
   }
 }
 
@@ -2607,10 +2698,10 @@ static void idleReset(uint8_t stage) {
         primeSessionToken = 0;
         primeHoldToken = 0;
         primeAuthoritativeNavigation = true;
-        showService(activeRail == RAIL_CLEAN ? SVC_CLEAN_PICK : SVC_PRIME_PICK);
+        showService(pickViewForRail());
         primeAuthoritativeNavigation = false;
       } else {
-        showService(activeRail == RAIL_CLEAN ? SVC_CLEAN_PICK : SVC_PRIME_PICK);
+        showService(pickViewForRail());
       }
     }
     else if (activePage == PAGE_FLAVOR) showFlavor(FLV_BOTH);
@@ -2624,7 +2715,7 @@ static RailPage railForPage(Page p) {
     case PAGE_HOME:    return RAIL_CHOOSE;
     case PAGE_FLAVOR:  return RAIL_RATIO;
     case PAGE_SERVICE: return RAIL_PRIME;
-    case PAGE_SETUP:   return RAIL_SETTINGS;
+    case PAGE_SETUP:   return RAIL_PAGE_COUNT;   // the corner, not the rail
     default:           return RAIL_CHOOSE;
   }
 }
@@ -2653,6 +2744,10 @@ static void showRail(RailPage p) {
     case RAIL_RATIO:
       showPage(PAGE_FLAVOR);
       break;
+    case RAIL_FILL:
+      showPage(PAGE_SERVICE);
+      showService(SVC_FILL_PICK);
+      break;
     case RAIL_PRIME:
       showPage(PAGE_SERVICE);
       showService(SVC_PRIME_PICK);
@@ -2660,9 +2755,6 @@ static void showRail(RailPage p) {
     case RAIL_CLEAN:
       showPage(PAGE_SERVICE);
       showService(SVC_CLEAN_PICK);
-      break;
-    case RAIL_SETTINGS:
-      showPage(PAGE_SETUP);
       break;
     default:
       showPage(PAGE_HOME);
@@ -2697,6 +2789,8 @@ static void buildUi() {
   buildFlavor(pageObj[PAGE_FLAVOR]);
   buildService(pageObj[PAGE_SERVICE]);
   buildSettings(pageObj[PAGE_SETUP]);
+  // After the panes so it draws above them, before the lock so that still covers it.
+  buildSettingsButton(scr);
   buildLockScreen(scr);
 
   uiReady = true;
@@ -2833,8 +2927,11 @@ static void processTextLine(const char *line) {
     sendPumpRun(PUMP_CHANNEL_B, 1000);
     Serial.println("OK:PUMP");
   } else if (strncmp(line, "PAGE:", 5) == 0) {
+    // 0..4 are the rail, in rail order. Settings left the rail for the corner
+    // and keeps a number here anyway, so a bring-up script can still reach it.
     int p = atoi(line + 5);
-    if (p < 0 || p >= RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
+    if (p == RAIL_PAGE_COUNT) { showPage(PAGE_SETUP); Serial.printf("OK:PAGE=%d\n", p); }
+    else if (p < 0 || p > RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..5");
     else { showRail((RailPage)p); Serial.printf("OK:PAGE=%d\n", p); }
   } else if (strncmp(line, "CLICK:", 6) == 0) {
     if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");

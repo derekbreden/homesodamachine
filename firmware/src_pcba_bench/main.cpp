@@ -1398,9 +1398,10 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     }
 
     // The valve manifold hangs off the MCP23017s, whose pins this rig holds high-Z.
-    if (type == MSG_CLEAN_START) {
+    if (type == MSG_CLEAN_START || type == MSG_FILL_START) {
         link->sendResponse(MSG_ERR_UNSUPPORTED, plen ? payload[0] : 0);
-        Serial.printf("\n[J9] MSG_CLEAN_START -> unsupported\n\n> ");
+        Serial.printf("\n[J9] %s -> unsupported\n\n> ",
+                      type == MSG_CLEAN_START ? "MSG_CLEAN_START" : "MSG_FILL_START");
         return;
     }
 

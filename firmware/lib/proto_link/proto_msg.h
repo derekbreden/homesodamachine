@@ -95,6 +95,11 @@ constexpr uint8_t MSG_PRIME_SESSION_HOLD_START = 0x2D;  // PrimeHoldPayload: fin
 constexpr uint8_t MSG_PRIME_SESSION_HOLD_TICK  = 0x2E;  // PrimeHoldPayload: still held
 constexpr uint8_t MSG_PRIME_SESSION_HOLD_STOP  = 0x2F;  // PrimeHoldPayload: lift/lost press
 
+// Hopper fill (0x30). Concentrate is poured into the funnel on the enclosure's
+// top face; this draws it down the channel's own path into the chilled
+// reservoir. Open-ended like the clean cycle, and sequenced by the controller.
+constexpr uint8_t MSG_FILL_START       = 0x30;  // ChannelPayload: draw hopper → reservoir
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the controller's token ledger.
