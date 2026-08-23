@@ -54,3 +54,11 @@ Git keeps history. Code and docs in this repo describe current state. Don't writ
 Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work.
 
 Other Codex tasks in this checkout are collaborators, not ownership boundaries. If work overlaps, read their task or message them and carry both tasks through together in this working tree.
+
+## Reconciliation waits for silence
+
+Iterate fast while I'm responding: make the change, show me the result, show me on
+homesodamachine.com. Don't reconcile first. When I go quiet, that is when you reconcile — run the
+full derive, resync the ledger, the docs and the deck, close whatever is behind. The moment I ask
+for anything, stop reconciling and come back. A commit is a checkpoint, not a claim that
+everything downstream of it is current.
