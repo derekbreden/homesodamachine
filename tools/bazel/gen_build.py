@@ -53,8 +53,27 @@ PYSRC = "pysrc"
 SELFTESTS = _HERE.parent / "selftests.json"
 
 #: What tells a step that starts node: a script of this repo on node's command line, which
-#: the trace sees. The packages beside that script come with it.
+#: the trace sees. Node resolves that entrypoint's local imports and packages below Python's
+#: audit hook, so the matching runtime group supplies exactly that unseen portion. Unknown
+#: entrypoints retain the broad group and fail closed rather than losing an input edge.
 _NODE = ("tools/render/", "web/")
+_NODE_RUNTIME_CONSUMERS = {
+    "hardware/assembly/cards/_build.py": ":render-card-runtime",
+    "hardware/assembly/cards/tools/_build.py": ":render-card-runtime",
+    "hardware/quickstart/_build.py": ":render-card-runtime",
+    "hardware/quickstart/quickstart_art.py": ":render-step-posed-runtime",
+}
+_NODE_RUNTIME_SUPPORT = {
+    ":render-card-runtime": {
+        "tools/render/browser.js",
+        "tools/render/render-card.js",
+    },
+    ":render-step-posed-runtime": {
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+    },
+}
 
 # `_cadq_export` records this prospective tool even when a Bazel action cannot run it. Every
 # build action receives HSM_SKIP_THUMBNAILS=1 from .bazelrc because thumbnails are not outputs;
@@ -67,6 +86,38 @@ BAZEL_SKIPPED_READS = {"tools/render/render-thumbnails.js"}
 
 def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
+
+
+def _node_runtimes(gens: tuple, srcs: list) -> tuple[str, ...]:
+    labels = {_NODE_RUNTIME_CONSUMERS[gen] for gen in gens
+              if gen in _NODE_RUNTIME_CONSUMERS}
+    covered = set().union(*(_NODE_RUNTIME_SUPPORT[label] for label in labels)) \
+        if labels else set()
+    node_js = {path for path in srcs
+               if path.startswith(_NODE) and path.endswith((".js", ".mjs", ".cjs"))}
+    if (not labels and _needs_node(srcs)) or node_js - covered:
+        labels.add(":node-packages")
+    return tuple(sorted(labels))
+
+
+def _check_node_runtime_map() -> None:
+    cases = (
+        (("hardware/quickstart/_build.py",),
+         ["tools/render/browser.js", "tools/render/render-card.js"],
+         (":render-card-runtime",)),
+        (("hardware/quickstart/_build.py",),
+         ["tools/render/browser.js", "tools/render/render-card.js",
+          "tools/render/future-entrypoint.cjs"],
+         (":node-packages", ":render-card-runtime")),
+        (("hardware/unknown.py",), ["tools/render/future-entrypoint.js"],
+         (":node-packages",)),
+    )
+    for gens, srcs, expected in cases:
+        got = _node_runtimes(gens, srcs)
+        if got != expected:
+            raise SystemExit(
+                f"node runtime classification for {gens} is {got}, expected {expected}"
+            )
 
 
 def target_name(gen: str, taken=None) -> str:
@@ -88,8 +139,8 @@ def comments_come_out(src: str, rewritten: set) -> bool:
 
     A generator whose own docstring holds figures is handed its file raw: the run rewrites what
     it was given, and `sync_tree` carries that back into the tree. So is anything under a node
-    root — `:node-packages` globs those in whole, and a file arriving twice lands the second
-    copy on the first, which Bazel leaves read-only."""
+    root — its runtime group carries those bytes raw, and a file arriving twice lands the
+    second copy on the first, which Bazel leaves read-only."""
     return (src.endswith(".py") and src not in rewritten
             and not src.startswith(_NODE))
 
@@ -118,11 +169,10 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
     outs = [f"out/{name}/{a}" for a in (*arts, *docs)]
     lines = [f'genrule(', f'    name = "{name}",', "    srcs = ["]
     lines += [f'        "{read_from(s, rewritten, producers, name)}",' for s in srcs]
-    # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. A step that
-    # hands node a script of this repo reads that script — the trace sees the path on the
-    # command line — and the packages beside it come with it.
-    if _needs_node(srcs):
-        lines.append('        ":node-packages",')
+    # NODE RESOLVES ITS OWN IMPORTS, below Python and out of the tracer's sight. The trace sees
+    # the entrypoint on the command line; its runtime group carries the packages and served
+    # resources that entrypoint reaches. An unknown entrypoint gets the broad fallback.
+    lines += [f'        "{runtime}",' for runtime in _node_runtimes(gens, srcs)]
     if optional:
         lines += ["    ] + glob(", "        ["]
         lines += [f'            "{s}",' for s in optional]
@@ -200,6 +250,7 @@ def render(gens: tuple, arts: list, srcs: list, optional: list, docs: list, rewr
 
 def render_build(only: str = None) -> tuple:
     """The whole of BUILD.bazel as text, and the steps it was rendered from."""
+    _check_node_runtime_map()
     files = tracked()
     all_inv = inventory(files)
     try:
@@ -318,11 +369,33 @@ def render_build(only: str = None) -> tuple:
         "# nothing else is in the directory the run happens in. A solid one generator cuts and\n"
         "# the next loads is an edge like any other: unnamed, the reader does not find the file.\n"
     )
-    # A RENDERER STANDS THE VIEWER AND PHOTOGRAPHS IT, so what it reads is the whole served
-    # tree — `web/lib/templates/viewer-body.html` as much as the `.js` beside it — and the
-    # packages node resolves those imports through. Globbed rather than read off the index,
-    # because `.gitignore` holds `node_modules`, and named here rather than learned, because
-    # node resolves below Python where the trace cannot follow.
+    # `render-card` reads local HTML and never starts the product viewer. Give it Puppeteer's
+    # packages without tying every sheet to every viewer/server source. The tracked entrypoint,
+    # browser helper and package manifests remain ordinary action inputs above.
+    blocks.append(
+        'filegroup(\n    name = "render-card-runtime",\n    srcs = glob(\n'
+        '        ["tools/render/node_modules/**"],\n'
+        '        allow_empty = True,\n    ),\n)')
+
+    # `render-step-posed` does stand the viewer and photograph it. Its server can reach the
+    # whole web tree, so retain that safe boundary while excluding the three tracked files each
+    # consumer names directly. This separates card-renderer edits without lying about shared
+    # browser or viewer inputs.
+    blocks.append(
+        'filegroup(\n    name = "render-step-posed-runtime",\n    srcs = glob(\n'
+        '        [\n'
+        '            "tools/render/node_modules/**",\n'
+        '            "web/**",\n'
+        '        ],\n'
+        '        exclude = [\n'
+        '            "web/package-lock.json",\n'
+        '            "web/package.json",\n'
+        '            "web/server.js",\n'
+        '        ],\n'
+        '        allow_empty = True,\n    ),\n)')
+
+    # A renderer not yet classified above keeps the old whole-runtime boundary. A new tool can
+    # be slow, but never silently underdeclared; once measured, give it its own group.
     blocks.append(
         'filegroup(\n    name = "node-packages",\n    srcs = glob(\n'
         '        [\n'
