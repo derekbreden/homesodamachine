@@ -32,10 +32,20 @@ const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "
 const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, pcb: openPcbDetail };
 
 window.addEventListener("popstate", () => {
-  const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
-  let want = { type: null, file: null };
+  // A `step:` hash carries the whole walk and is split before it is decoded —
+  // every other kind is one file and decodes whole (step-nav.js's parseStepHash).
+  const raw = location.hash ? location.hash.slice(1) : "";
+  const hash = decodeHash(raw);
+  let want = { type: null, file: null, path: null };
   for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
-    if (hash.startsWith(prefix)) { want = { type, file: hash.slice(prefix.length) }; break; }
+    if (!raw.startsWith(prefix)) continue;
+    if (type === "step") {
+      const path = parseStepHash(raw);
+      want = { type, file: path[path.length - 1], path };
+    } else {
+      want = { type, file: hash.slice(prefix.length), path: null };
+    }
+    break;
   }
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
@@ -48,7 +58,7 @@ window.addEventListener("popstate", () => {
   // navigated, and ContentViewer.close defers its teardown past the reopen.
   if (want.type === "step" && state.currentDetail && state.currentDetail.type === "step"
       && ContentViewer.isOpen()) {
-    routeToStep(want.file);
+    routeToStep(want.path);
     return;
   }
   // Close whatever is currently open (cad / mmd / pcb close paths differ
@@ -58,7 +68,8 @@ window.addEventListener("popstate", () => {
     else if (state.currentDetail.type === "pcb") closePcbDetail(false);
     else closeCadDetail(false);
   }
-  if (want.type) OPENERS[want.type](want.file, false);
+  if (want.type === "step") openDetail(want.file, false, want.path);
+  else if (want.type) OPENERS[want.type](want.file, false);
 });
 
 // --- Initial route ---
