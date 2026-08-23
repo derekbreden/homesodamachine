@@ -36,7 +36,7 @@ import { clearComponentEdit } from "./component-edit.js";
 import { makePickFindToggle, closePickFind, closeTopPickFind } from "./pick-find.js";
 import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton } from "./tool-rail.js";
 import { makePickModeControl } from "./pick-mode.js";
-import { setTrail, stepHash } from "./step-nav.js";
+import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { clearHighlight } from "./part-highlight.js";
 
@@ -178,7 +178,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   // Whatever trail the last open left behind ends here. A card names no walk and
   // this file is the root of the one about to be taken; a link that carries a
   // path opens partway down one already walked.
-  setTrail(path && path.length ? path : [file]);
+  setTrail(path && path.length ? path : [file], pushHistory);
 
   // Escape dismisses the innermost surface that is up. The <dialog> answers
   // Escape by closing the whole viewer, so a nested surface takes the key
@@ -252,9 +252,15 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;
-      // Pop the hash if the user dismissed the modal directly. popstate
-      // already moved the URL, so don't double-pop.
-      if (wasUiDriven && location.hash) history.back();
+      // Undo the URL if the user dismissed the modal directly — popstate
+      // already moved it, so don't double-pop. A walk pops every entry it
+      // pushed, in one go; a model opened from a pasted link pushed none, and
+      // its hash comes off in place rather than by navigating off the page.
+      if (wasUiDriven && location.hash) {
+        const depth = walkDepth();
+        if (depth > 0) history.go(-depth);
+        else history.replaceState(null, "", location.pathname + location.search);
+      }
     },
   });
 
