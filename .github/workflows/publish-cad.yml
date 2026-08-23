@@ -251,6 +251,11 @@ jobs:
               if grep -qx '//:quickstart-build' /tmp/quickstart-debt; then
                 quickstart=true
               fi
+              if grep -qx '//:everything' /tmp/quickstart-debt; then
+                echo "ambiguous Quick Start dependency change; rebuilding both producers" >&2
+                quickstart=true
+                quickstart_art=true
+              fi
             fi
             if [ -z "$quickstart_art_base" ]; then
               # One migration refresh establishes the independently tracked artwork cut.
@@ -260,6 +265,10 @@ jobs:
                 --base "$quickstart_art_base" --head "$GITHUB_SHA" \
                 > /tmp/quickstart-art-debt
               if grep -qx '//:quickstart-art' /tmp/quickstart-art-debt; then
+                quickstart_art=true
+              fi
+              if grep -qx '//:everything' /tmp/quickstart-art-debt; then
+                echo "ambiguous Quick Start artwork dependency change; rebuilding art" >&2
                 quickstart_art=true
               fi
             fi
@@ -587,7 +596,7 @@ jobs:
 
               newer_quickstart=$(tools/cad-venv/bin/python tools/bazel/affected.py \
                 --base "$base" --head "$tip" | \
-                grep -E '^//:(quickstart-build|quickstart-art)$' || true)
+                grep -E '^//:(quickstart-build|quickstart-art|everything)$' || true)
               if [ -n "$newer_quickstart" ]; then
                 echo "newer Quick Start producer inputs reached main"
                 queue_latest //:quickstart-build
