@@ -6,7 +6,7 @@ fittings that make it reachable from 1/4" tube on both sides.
 
 ```
 1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → PI4512F6S + PP061208W → 1/4" LLDPE
-                                                 └ vent stub ↓ drip pan
+                                                 └ vent stub ↓ ASSE drip pan
 ```
 
 That is the chain `hardware/assembly/internal-plumbing.md` step 2 builds, in the
@@ -23,7 +23,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 ## The vent is the pose
 
 The assembly has an orientation rather than just an envelope because the
-atmospheric vent weeps to atmosphere and the internal drip pan over the moisture
+atmospheric vent weeps to atmosphere and the internal ASSE drip pan over the moisture
 sensor has to be under it. That weeping is the mechanical telltale for a
 cross-contamination event (`hardware/future.md` "Backflow vent monitoring"), and
 it drips — never plumbed into a drain. `port("vent-tip")` is the datum the pan
@@ -37,9 +37,9 @@ deck's own storey over the pump's casting
 cabinet's axes. The yaw turns the chain's flow onto the cabinet's −Y, its inlet aft
 at the tap-water bulkhead and its 1/4" PTC collet forward onto the 1/4" LLDPE run to
 the water-split; there is no roll, so the vent hangs as it is built, dropping its
-column straight into the drip tray under it. `enclosure_assembly.check_vent_lands` is where
-that landing is made: the tray's floor, rim and the chain's underside are struck on
-one set of numbers, so the drip falls exactly the gap the basin was drawn for, and a
+column straight into the ASSE drip pan under it. `enclosure_assembly.check_vent_lands` is where
+that landing is made: the pan's floor, rim and the chain's underside are struck on
+one set of numbers, so the drip falls exactly the gap the pan was drawn for, and a
 pose that put the tip outside the coves reds the `vent-lands` gate. The pack seats the chain and
 reads all three terminals off that seat, so a length changed in any of the five parts
 moves the machine's ports with it.
@@ -64,8 +64,8 @@ assembly's own, and `port(name)` reads one off its station's seat:
 Overall [140.0 × 33.0 × 43.3 mm](ASSE_ENVELOPE). The vent stub's reach past the barb tip is a cut
 length, not a fixed dimension — it is trimmed at the bench, and `VENT_STUB_REACH`
 holds the overhang the enclosure's placement leaves for it: the room in the
-service bay's aft strip between the electronics shelf's back edge and the chain,
-which is what stands the drip's fall clear of the shelf.
+service bay's aft strip between the +X wall of back-top's aft edge and the chain,
+which is what stands the drip's fall clear of that wall's furniture.
 
 Frame: the Multiplex's own — **+X = flow**, its inlet at X = 0, vent along −Z.
 The upstream fittings therefore sit at negative X.

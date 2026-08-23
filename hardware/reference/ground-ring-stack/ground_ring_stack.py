@@ -1,10 +1,10 @@
 """Reference solid for the chassis-ground ring-terminal stack — the physical
-realization of the single-point "ground bus" on the electronics shelf.
+realization of the single-point "ground bus" on the +X wall of back-top.
 
 This is not one SKU: it is the bolted stack that *is* the bus. An M3 × 10
 stainless SHCS through a tooth washer clamps a fan of insulated ring terminals —
-one green bond per exposed-metal part (pressure vessel, compressor body,
-faucet SS plate, PSU chassis, + the C14 earth feed) — down
+one green bond per exposed-metal part (carbonator, compressor body,
+under-counter plate, PSU chassis, + the C14 earth feed) — down
 onto the heat-set insert in its own column of the top foam cap. The lugs are
 bolted together, so they are equipotential to each other: the *stack* is the
 bus, and the plastic column it sits on is electrically irrelevant — it only
