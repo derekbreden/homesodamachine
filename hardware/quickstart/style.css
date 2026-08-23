@@ -692,9 +692,9 @@ html, body {
   font-size: 16px;
 }
 
-/* Sheet 1 leads with the whole kitchen-scale event, then spends the remaining area on the only
-   three below-counter changes that the installer actually performs. Every close-up is the same
-   physical camera; no detached part becomes a separate instruction object. */
+/* Sheet 1 leads with the two whole-assembly states, then spends the remaining area on the only
+   two below-counter actions the installer performs. Every close-up is the same physical camera;
+   no detached part becomes a separate instruction object. */
 .mount-camera-sheet .page-head h1 { font-size: 46px; }
 .mount-camera-lead {
   position: absolute;
@@ -723,8 +723,15 @@ html, body {
   top: 246px;
   width: 2434px;
   height: 540px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 126px minmax(0, 1fr);
   overflow: visible;
   border-bottom: 2px solid var(--rule);
+}
+.mount-event-state {
+  position: relative;
+  min-width: 0;
+  height: 540px;
 }
 .mount-event-head {
   position: absolute;
@@ -734,6 +741,12 @@ html, body {
   display: flex;
   align-items: flex-start;
   gap: 16px;
+}
+.mount-seat-state .mount-event-head {
+  left: auto;
+  right: 24px;
+  flex-direction: row-reverse;
+  text-align: right;
 }
 .mount-event-head > span,
 .mount-action-head > span {
@@ -764,10 +777,23 @@ html, body {
   inset: 0;
   overflow: visible;
   background-color: #fff;
-  background-image: url('art/mount-drop.png');
   background-repeat: no-repeat;
-  background-position: 912px -58px;
   background-size: auto 700px;
+}
+.mount-event-drop-art {
+  background-image: url('art/mount-drop.png');
+  background-position: right 64px top -58px;
+}
+.mount-event-seat-art {
+  background-image: url('art/mount-lowered-clean.png');
+  background-position: left 64px top -58px;
+}
+.mount-event-transfer {
+  position: relative;
+  z-index: 6;
+  width: 126px;
+  height: 540px;
+  overflow: visible;
 }
 .mount-event-art > svg {
   position: absolute;
@@ -777,6 +803,19 @@ html, body {
   height: 100%;
   overflow: visible;
 }
+.mount-event-state-note {
+  position: absolute;
+  z-index: 5;
+  bottom: 48px;
+  display: grid;
+  gap: 8px;
+  max-width: 390px;
+  font-family: var(--mono);
+}
+.mount-drop-state .mount-event-state-note { left: 24px; text-align: left; }
+.mount-seat-state .mount-event-state-note { right: 24px; text-align: right; justify-items: end; }
+.mount-event-state-note b { font-size: 20px; line-height: 1; }
+.mount-event-state-note span { color: var(--muted); font-size: 15px; line-height: 1; }
 .mount-event-motion-halo,
 .mount-event-motion-line,
 .mount-action-motion-halo,
@@ -790,6 +829,7 @@ html, body {
 .mount-event-motion-line,
 .mount-action-motion-line { stroke: var(--accent); stroke-width: 10px; }
 .mount-event-art marker path,
+.mount-event-transfer marker path,
 .mount-action-art marker path {
   fill: var(--accent);
   stroke: #fff;
@@ -797,33 +837,7 @@ html, body {
   paint-order: stroke fill;
   stroke-linejoin: round;
 }
-.mount-event-hand {
-  position: absolute;
-  z-index: 4;
-  left: 1230px;
-  top: 250px;
-  width: 232px;
-  transform: rotate(7deg);
-  fill: #ffd8ca;
-  stroke: #a65c52;
-  stroke-width: 4px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
 .hand-detail { fill: none; }
-.mount-event-result {
-  position: absolute;
-  z-index: 5;
-  right: 38px;
-  bottom: 52px;
-  display: grid;
-  justify-items: end;
-  gap: 8px;
-  text-align: right;
-  font-family: var(--mono);
-}
-.mount-event-result b { font-size: 21px; line-height: 1; }
-.mount-event-result span { color: var(--muted); font-size: 15px; line-height: 1; }
 .mount-action-strip {
   position: absolute;
   left: 58px;
@@ -831,7 +845,7 @@ html, body {
   width: 2434px;
   height: 752px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 42px;
 }
 .mount-action {
@@ -861,8 +875,7 @@ html, body {
   background-position: center 72%;
   background-size: auto 1280px;
 }
-.mount-action-motion,
-.mount-action-register {
+.mount-action-motion {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -896,38 +909,3 @@ html, body {
   font-size: 15px;
   line-height: 1;
 }
-.seat-lens {
-  position: absolute;
-  z-index: 4;
-  left: 486px;
-  top: 48px;
-  width: 236px;
-  height: 236px;
-  filter: drop-shadow(0 7px 7px rgba(32, 33, 38, .16));
-}
-.seat-lens > span {
-  position: absolute;
-  z-index: 5;
-  top: -22px;
-  left: 0;
-  width: 100%;
-  color: var(--accent);
-  font: 700 14px/1 var(--mono);
-  letter-spacing: .35px;
-  text-align: center;
-}
-.seat-lens > svg { display: block; width: 100%; height: 100%; }
-.lens-rim { fill: #fff; stroke: #202126; stroke-width: 9; }
-.lens-hole { fill: #f3f4f5; stroke: #989ba2; stroke-width: 5; }
-.lens-tube { fill: #202126; }
-.lens-contact { fill: var(--accent); stroke: #fff; stroke-width: 4; }
-.lens-shank { fill: #3e4046; stroke: #202126; stroke-width: 5; }
-.lens-callout { fill: none; stroke: #6e7078; stroke-width: 3; stroke-linecap: round; }
-.seat-register-halo,
-.seat-register-line {
-  fill: none;
-  stroke-linecap: round;
-}
-.seat-register-halo { stroke: #fff; stroke-width: 15px; }
-.seat-register-line { stroke: #70727a; stroke-width: 4px; }
-.seat-register-dot { fill: var(--accent); stroke: #fff; stroke-width: 5px; }
