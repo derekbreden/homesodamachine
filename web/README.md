@@ -100,7 +100,7 @@ Served flat via `express.static(public/)`.
 | `state.js` | Single exported `state` object holding all shared mutable refs (`allFiles`, `currentDetail`, `mountedDetail`, caches, etag maps, `gridEl`). Every other module reads/writes through `state.X`. |
 | `scene.js` | Three.js renderer/camera/controls/scene/lighting + ViewCube + animate loop + per-file camera persistence + canvas reparenting (canvases live in `#cad-canvas-host` between opens). |
 | `step.js` | STEP loader (occt-import-js), parser, mesher, thumbnail renderer. |
-| `dxf.js` | DXF loader, parser, extrusion mesher, thumbnail renderer. |
+| `dxf.js` | DXF loader, parser and extrusion mesher. No page draws a card for a cut, so a `.dxf` is reached by opening it. |
 | `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
 | `grid.js` | Card grid per page, `IntersectionObserver` for thumbnail lazy-load. `/3d` hands off to `parts.js`; charts and line art group by a path segment (`categoryAndPartPath`, `groupFilesByCategory`). |
@@ -154,7 +154,7 @@ To verify dev/prod parity, the test in `tests/smoke.test.js` boots `start({ dev:
 | Change something on the viewer | The relevant `public/js/viewer/<module>.js`. Don't put viewer-only things in `public/boot.js` — that loads on every page. |
 | Add a new feather glyph | `lib/icons.js`, then import and use in the consumer. Don't inline SVG strings elsewhere. |
 | Walk a directory by extension | `import { walkFiles } from "./walk.js"` (server-side). |
-| Open a CAD detail modal | `openCadDetail("step", file)` or `("dxf", file)` from `cad-detail.js`. Don't write a parallel modal flow. |
+| Open a CAD detail modal | `openDetail(file)`, `openDxfDetail(file)` or `openGlbDetail(file)` from `cad-detail.js` — one name per kind, which is what `route.js`'s `OPENERS` tables. They are the whole of `openCadDetail(type, …)`; don't write a parallel modal flow. |
 | Persist some viewer state across opens | Add to `state.js`'s exported `state` object. Don't introduce a fresh module-scope `let`. |
 | Add a live event type | Define on the server in `lib/events.js` + `lib/push.js`, dispatch on the client in `public/boot.js`'s WebSocket message handler. Page modules listen via `window.addEventListener("hsm:foo")`. |
 | Wake a user via FCM | `notifyFilesChanged` in `lib/push.js`. The boot-time diff in `server.js` shows the canonical wiring. |
