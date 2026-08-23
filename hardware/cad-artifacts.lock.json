@@ -2,16 +2,16 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-c647cfe0c3b16301.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c647cfe0c3b16301.tar.gz"
+    "asset": "cad-4faba0a7b1a0af4a.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-4faba0a7b1a0af4a.tar.gz"
   },
   "source": {
-    "commit": "a9b5bc4d7cb923aa32fde83c054736d84f7c85b5"
+    "commit": "28c1f1e4e37d26dac59dfe8d578d4c9f472b4b40"
   },
   "bundle": {
-    "sha256": "c647cfe0c3b16301f4ab2374050848dc67bbd5b595d93daf325ed05d7ffd18aa",
-    "bytes": 67586682,
-    "solids": 123
+    "sha256": "4faba0a7b1a0af4a073853d25a23c9aae06b8b2ebff0c4685f296d785e280e5d",
+    "bytes": 68002339,
+    "solids": 124
   },
   "solids": {
     "hardware/assembly/scenes/glb/back-half.glb": "f81e93d65497c2a53e2cd33b251618589230c16a599d4288aed85b967c1d7543",
@@ -28,6 +28,7 @@
     "hardware/cold-core-layout/cold-core-assembly.step": "818f322861e771836955a9e7734eaaf3473ba73af4593e301e1cb47768beb0b0",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "1bfc19911dc5d65c0262a05dae9daf6e72438939a8e28c3750fcba6db902dd6a",
     "hardware/faucet-layout/faucet-assembly.step": "fc7b8de623a187f649c02619a94e0320a579b49f4028bf2944a5509665bca950",
+    "hardware/faucet-layout/faucet-assembly.step.mesh": "fdeb4f092644b99ee51435616f179affbadb6f9e282cdb4b542b7411ac066910",
     "hardware/manifold-layout/enclosure-assembly.step": "738d6aa442c6ed106b596b8c770f60248df1b7811ad04bb9482c2eb99c4a100b",
     "hardware/manifold-layout/enclosure-assembly.step.mesh": "d1cb04576760f00dcc6855d4bf329e280b3d1e036467f0213a316963604e5a16",
     "hardware/manifold-layout/manifold-layout.step": "a9b32d253f1de1b6b35673d66ce73817cbeb005a9b496380ff1eb37c87334172",
