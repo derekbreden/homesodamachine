@@ -83,7 +83,7 @@ from _faucet_interface import (
     pill_width_y,
     shank_hole_diameter,
 )
-from faucet_shell import body_bore_diameter
+from faucet_shell import westbrass_bore_diameter
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
 # Hole positions match the above-counter gasket and plate; the
@@ -134,7 +134,7 @@ pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 # footprint. Bearing doesn't size it: the hand-tightened nut (~1-4 kN)
 # spreads to ~2 MPa here — ~5x under particleboard, ~100x under stone.
 # [54.45 mm](PLATE_D) disc centered at DXF ([3.225 mm](DISC_CX), 0).
-bore_front_x = -body_bore_diameter / 2.0   # [-16 mm](BORE_FRONT_X)
+bore_front_x = -westbrass_bore_diameter / 2.0   # [-16 mm](BORE_FRONT_X)
 disc_reach_margin = 8.0
 disc_cx = (pill_right_x + bore_front_x) / 2.0
 disc_cy = 0.0

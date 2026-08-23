@@ -170,7 +170,7 @@ Plate composition (per `Metadata/plate_1.json`):
 
 Hardware: same as attempt 7 (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry change before this print: shell consolidated from 3 separate STEPs (base + 2 tube halves) into a single integrated `faucet-shell.step` per commit `41316ce` ("collapse back to a single piece, 3 mm wall throughout"), followed by `be92d9b` (drop zone-4.5 lid height to 3 mm on the back side) and `d7aa674` (heat-set retention geometry on shell + mounting plate). Plate now contains 2 objects instead of 4: `faucet-shell.step` (whole) + `above-counter-plate.step`.
+Geometry change before this print: shell consolidated from 3 separate STEPs (base + 2 tube halves) into a single integrated `faucet-shell.step` per commit `41316ce` ("collapse back to a single piece, 3 mm wall throughout"), followed by `be92d9b` (drop zone-4.5 lid height to 3 mm on the back side) and `d7aa674` (heat-set retention geometry on shell + above-counter plate). Plate now contains 2 objects instead of 4: `faucet-shell.step` (whole) + `above-counter-plate.step`.
 
 Derek said:
 - "Most recent print failed in an interesting way, the support tower fell over[;] it finally joined up with the peak of the faucet."
@@ -338,7 +338,7 @@ Derek said about attempt 14 (after further fit-up testing in handling):
 
 Geometry response in `2db9814`:
 - Flavor tube bores: `flavor_tube_hole_dia` 6.95 → **7.05 mm** (both flavor tubes; 6.35 OD + 0.7 mm clearance). Pill cross-section grows correspondingly; `pill_length_y` and `pill_width_x` each +0.10 mm.
-- Water tube bore: `water_hole_diameter` 10.125 → **10.225 mm** (9.525 OD + 0.7 mm clearance).
+- Soda-faucet-tube bore: `soda_faucet_hole_diameter` 10.125 → **10.225 mm** (9.525 OD + 0.7 mm clearance).
 - `shell_outer_r`: 22.225 → 22.275 mm — driven up by 0.05 mm (radius) by the pill +X edge growth, maintaining `wall_thickness_min = 3.0 mm` on the pill side. All zone 1–4 outer dimensions shifted accordingly. Zone 5+ tube-shell outer profile also grows 0.05 mm/side on each tube-driven dimension.
 - SPLIT A: unchanged (female 2.0 mm, male 1.95 mm, ~0.05 mm clearance).
 - SPLIT B: female socket wall unchanged at 2.0 mm. Male plug wall 1.95 → **1.92 mm** — thinner plug wall means a larger `plug_shrink` (`zone5_wall − plug_wall`), so the plug's outer surface recedes inward by 0.03 mm. Radial clearance ~0.05 → **~0.08 mm** (looser, halfway between attempt 13's 0.10 mm and attempt 14's 0.05 mm).
@@ -372,7 +372,7 @@ Settings unchanged from attempt 14: print profile `0.30mm Standard @BBL H2C 0.6 
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
-Geometry: 3-piece split shell + mounting plate, both with the plate-to-shell joinery features fully removed per commit `a297a044` ("touch-flo: remove dowels and dowel pockets entirely"). The full intermediate journey since attempt 15 (none of which produced a printed PET-CF run):
+Geometry: 3-piece split shell + above-counter plate, both with the plate-to-shell joinery features fully removed per commit `a297a044` ("touch-flo: remove dowels and dowel pockets entirely"). The full intermediate journey since attempt 15 (none of which produced a printed PET-CF run):
 
 - `82ba95b` — pocket 5.5 → 7 mm, counterbore 5.7 → 6.2 mm (still on the heat-set + ULH-SHCS retention scheme).
 - `4677b88` — switched McMaster ULH from M3 × 8 (91223A413) to M3 × 6 (91223A412) so the screw shaft would clear the ruthex insert's closed top.
@@ -384,9 +384,9 @@ Derek said about the dowel snap-off testing:
 - "The dowels snapped off easily as I tried inserting the mounting plate into the faucet shell bottom."
 - (after the Ø 3.9 retry) "they still don't fit, and they snap so easy because of the orientation of the layer lines. This is just not workable."
 
-Attempt-16 joinery: **none**. In this attempt the plate and shell had flat smooth mating surfaces in the rear-shoulder region; the shell sat on the plate by gravity during sub-assembly handling, with the body inside the shell bore providing lateral constraint via the snug shank nut on the plate side. Attempt 19 replaced this arrangement with the current three-point screw-boss mount.
+Attempt-16 joinery: **none**. In this attempt the plate and shell had flat smooth mating surfaces in the rear-shoulder region; the shell sat on the plate by gravity during sub-assembly handling, with the Westbrass inside the shell bore providing lateral constraint via the snug shank nut on the plate side. Attempt 19 replaced this arrangement with the current three-point screw-boss mount.
 
-**3mf file renamed and relocated** as of this attempt: `faucet-shell/faucet-shell-3-pieces.3mf` → `../faucet-pet-cf.3mf` (up one folder, into the faucet-level directory). The slice now contains all the PET-CF parts for the faucet (3 shell pieces + mounting plate), so the per-part naming was outgrown. A future `touch-flo-tpu.3mf` peer is anticipated for the TPU mounting gasket + any other TPU faucet parts.
+**3mf file renamed and relocated** as of this attempt: `faucet-shell/faucet-shell-3-pieces.3mf` → `../faucet-pet-cf.3mf` (up one folder, into the faucet-level directory). The slice now contains all the PET-CF parts for the faucet (3 shell pieces + above-counter plate), so the per-part naming was outgrown. A future `faucet-tpu.3mf` peer is anticipated for the above-counter gasket + any other TPU faucet parts.
 
 Also deleted in this commit (stale slice files from May 9–10 that had outlived their iteration):
 - `faucet-shell/faucet-shell-2-pieces.3mf` (attempt 9 slice)
@@ -403,7 +403,7 @@ Filament-slot bookkeeping (does not affect this print):
 - Remaining PETG slot's `fan_max_speed` 40 → 90, `fan_min_speed` 20 → 40, `nozzle_temperature` 250 → 255 (both layers). Looks like a different PETG profile being loaded in the AMS slot; doesn't touch this PET-CF print.
 
 Process / plate composition:
-- Same 4-object plate (3 shell pieces + mounting plate). Object STEPs all regenerated by the geometry pivot, so:
+- Same 4-object plate (3 shell pieces + above-counter plate). Object STEPs all regenerated by the geometry pivot, so:
   - shell-bottom area 641.84 → **666.95 mm²** (+25 mm² ≈ the area the dowel pockets had been carving out)
   - shell-middle 9.28 mm² (unchanged)
   - shell-top 292.36 mm² (unchanged)
@@ -544,11 +544,11 @@ Slice saved 2026-06-10; print started (Derek: "saved a 3mf for the faucet after 
 
 **Geometry — the redesign.** Accumulated since attempt 18's `a297a044` (no-joinery) baseline through HEAD `6b449411`. Two functional additions to the printed parts (the rest of the ~76-commit range is docgen / comment-discipline / +Z-up-rebase / repo-reorg refactor that does not change printed geometry):
 
-1. **Three-point screw-boss mount (shell foot ↔ mounting plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the body bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from `_faucet_interface.py` / `faucet_shell.py`):
+1. **Three-point screw-boss mount (shell foot ↔ above-counter plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the Westbrass bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from `_faucet_interface.py` / `faucet_shell.py`):
    - ruthex M3 short heat-set insert (⌀4.2 OD) in a ⌀4.0 pocket, 5.25 mm deep (4 mm engagement + 1.25 mm relief), seated opening-down above an 8 mm boss-engagement hole;
    - BNUOK M3 SHCS (304 SS, head ~5.43 mm measured) driven up from under the plate, through the plate boss, into the insert — clamping the plate up into the shell;
    - plate-side counterbore ⌀5.55 + boss OD 11.55 (5.55 + 2 × 3.0 wall); shell pocket ⌀11.65 (0.10 mm diametral slip).
-   Mounting plate reworked to match the shell foot and carry the three screw bosses on the same centers (`dc8c9d1a`); gasket footprint matched (`961ffac7`); zone 2 clipped to cylinder + teardrops (`8adf3273`). Shell-side pod/insert commits: `dbcef1df` → `b5a02b09`.
+   Above-counter plate reworked to match the shell foot and carry the three screw bosses on the same centers (`dc8c9d1a`); gasket footprint matched (`961ffac7`); zone 2 clipped to cylinder + teardrops (`8adf3273`). Shell-side pod/insert commits: `dbcef1df` → `b5a02b09`.
 
 2. **Display cradle on the dispense tip** (top piece) — the spout open end now carries an open cradle for the Waveshare ESP32-S3-Touch-LCD-1.47 flavor display (housing 24.50 × 44.50 mm, ⌀5.75 corners, 10.35 mm deep). Open-faced (corners retain, nothing over the screen), head wall only (no lip/notch), open end squared so it prints from layer one, 45° skirt transition onto the spout, floor drain into the pill cusp, one-extrusion cover over the bare PCB at the open end; cradle walls at three slicer lines. Commits `42e5829d` → `6b449411`.
 
@@ -564,7 +564,7 @@ Tracked settings confirmed unchanged from attempt 18 (all observed in the new 3m
 - Part brim `auto_brim` 5 mm, `elefant_foot_compensation` 0.15; `enable_prime_tower` 1; `enable_pressure_advance` 0 (dormant `pressure_advance` 0.02); `enable_wrapping_detection` 0.
 - Filament slots (3): Polymaker PET-CF, Bambu PETG Basic, Bambu ABS @BBL H2C 0.6 nozzle.
 
-**Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + mounting plate), all `extruder=1` (left) on PET-CF slot 0, `first_extruder` 0, textured plate. The redesign moved the per-object footprints substantially:
+**Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + above-counter plate), all `extruder=1` (left) on PET-CF slot 0, `first_extruder` 0, textured plate. The redesign moved the per-object footprints substantially:
 - `faucet-shell-bottom.step`: 666.95 → **1033.34 mm²** (+366; base pods at the foot)
 - `faucet-shell-middle.step`: 9.28 → **3.35 mm²** (re-oriented more end-on)
 - `faucet-shell-top.step`: 292.36 → **501.04 mm²** (+209; display cradle at the dispense tip)
@@ -578,7 +578,7 @@ Derek said:
 
 **Outcome: success.** All fits acceptable — the mounting-plate-to-shell screw bosses seat, the two spout slip-joints (A spout↔bend, B bend↔tip) slide together, and the M3 SHCS heads clear their counterbores. This is the print that closes the fit iteration opened by attempt 19.
 
-**Geometry — clearances opened from attempt 19.** Same three-piece shell + mounting plate; only the mating clearances changed (each one knob in `faucet_shell.py` / `above_counter_plate.py`, parts re-derive):
+**Geometry — clearances opened from attempt 19.** Same three-piece shell + above-counter plate; only the mating clearances changed (each one knob in `faucet_shell.py` / `above_counter_plate.py`, parts re-derive):
 - Boss-to-hole slip 0.10 → **0.40 diametral** (`base_pod_slip`); pods + footprint re-derive, walls stay 3.0.
 - Boss seat gap 0.5 → **1.0** (`boss_seat_clearance`; boss 7.0 in the 8.0 hole) + **0.6 × 45° lead-in chamfer** on each boss top rim (`boss_chamfer`).
 - SHCS-head counterbore ⌀5.55 → **⌀6.15** (`base_pod_counterbore_dia`, ~0.72 diametral over the ~5.43 measured head); chain re-derives boss ⌀12.15, shell hole ⌀12.55, pod radius 9.275.
@@ -593,19 +593,19 @@ Convergence path (hand-iterated test prints between 19 and this slice, not separ
 
 Unchanged from attempt 19: printer `Bambu Lab H2C 0.6 nozzle`, print `0.30mm Standard`, `layer_height` 0.30, `initial_layer_print_height` 0.30, `line_width` 0.62, `top_shell_layers` 4 / `bottom_shell_layers` 3. PET-CF slot 0 = Polymaker PET-CF, `nozzle_temperature` 280 °C, `chamber_temperatures` 50 °C, `filament_max_volumetric_speed` 5 mm³/s. Supports tree(auto), `support_filament` / `support_interface_filament` PET-CF (slot 0), `support_threshold_angle` 30, `support_top_z_distance` 0.2, `support_on_build_plate_only` 1. Part brim auto_brim 5 mm. Filament slots (3): Polymaker PET-CF, Bambu PETG Basic, Bambu ABS @BBL H2C 0.6 nozzle.
 
-**Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + mounting plate), all `extruder=1` on PET-CF slot 0, textured plate. Per-object on-bed footprint (bbox, mm):
+**Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + above-counter plate), all `extruder=1` on PET-CF slot 0, textured plate. Per-object on-bed footprint (bbox, mm):
 - `faucet-shell-bottom.step`: area **1069.5**, 57.7 × 64.7 (foot-down, full ~201 mm tall)
 - `faucet-shell-middle.step`: area **8.8**, 31.6 × 33.8 (end-on, body cantilevered on tree supports)
 - `faucet-shell-top.step`: area **501.0**, 28.7 × 31.4 (cradle face-down)
 - `above-counter-plate.step`: area **2034.7**, 59.9 × 68.6 (bosses-up)
 
-**Reprint scope from attempt 19:** bottom piece + mounting plate (pod chain grew with the counterbore) + TPU mounting gasket (footprint follows the pod outline); middle and top pieces unchanged by the boss/head work and only re-cut by the joint slips.
+**Reprint scope from attempt 19:** bottom piece + above-counter plate (pod chain grew with the counterbore) + above-counter gasket (footprint follows the pod outline); middle and top pieces unchanged by the boss/head work and only re-cut by the joint slips.
 
 ## PET-CF print attempt 21 (middle socket-mouth tip — layer-change G-code: feedrate / accel / fan)
 
 Slice saved 2026-06-14 (`faucet-pet-cf.3mf`). **Print outcome not yet recorded.**
 
-Geometry unchanged from attempt 20 (no geometry change this attempt). Plate is **2 objects** — `faucet-shell-middle.step` + `faucet-shell-top.step` (bottom piece and mounting plate are not on this plate). The middle prints end-on, base at Z 0, **107.1 mm** tall; the top piece tops out at **Z 46.8 mm**, so above ~Z 47 the nozzle works the middle only.
+Geometry unchanged from attempt 20 (no geometry change this attempt). Plate is **2 objects** — `faucet-shell-middle.step` + `faucet-shell-top.step` (bottom piece and above-counter plate are not on this plate). The middle prints end-on, base at Z 0, **107.1 mm** tall; the top piece tops out at **Z 46.8 mm**, so above ~Z 47 the nozzle works the middle only.
 
 **Defect addressed** (Derek provided a photo, observed on the attempt-20 middle): drooping / pulled-over strands at the socket-mouth crown corner — the top ~5 mm of the middle (Z 102 → 107.1), the edge where the SPLIT-B junction plane meets the crown outer skin. At 0.30 mm layers, Z 102 = layer 340.
 
@@ -838,7 +838,7 @@ Settings unchanged from attempt 7 (selected — full list in the attempt-7 snaps
 
 This section was originally captured as a pre-print snapshot before any 3-piece print had been run; the print on this slice is now attempt 10 (above). The current committed `faucet-shell-3-pieces.3mf` is the attempt-11 re-slice — its deltas vs this baseline are documented in the attempt-11 section. The attempt-10 file content is preserved in git history.
 
-Geometry: the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `faucet-shell-bottom.step`, `faucet-shell-middle.step`, `faucet-shell-top.step`. The previously-integrated `faucet-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Mounting plate is not on this plate.
+Geometry: the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `faucet-shell-bottom.step`, `faucet-shell-middle.step`, `faucet-shell-top.step`. The previously-integrated `faucet-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Above-counter plate is not on this plate.
 
 Filament profiles: stock `Bambu PET-CF @BBL H2C`, `Generic PETG @BBL H2C`, `Bambu PETG Translucent @BBL H2C`, `Bambu PETG Basic @BBL H2C`, `Bambu ABS @BBL H2C 0.6 nozzle` ×2 (6 slot project; only slot 0 active in slice)
 Active in slice: PET-CF (left, slot 0)

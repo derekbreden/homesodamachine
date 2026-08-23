@@ -1,12 +1,12 @@
-# Touch-Flo TPU O-ring
+# TPU o-ring
 
 Printed-TPU **thimble** (closed bottom with a centered hole, open top,
-cylindrical wall) that seals the 3/8" OD LLDPE water tube into the
-harvested Westbrass R2031-NL valve body's top water port. Sits *in*
-the body port. Sealing happens on **two interfaces in series**:
+cylindrical wall) that seals the 3/8" OD LLDPE soda faucet tube into the
+harvested Westbrass R2031-NL's top water port. Sits *in*
+that port. Sealing happens on **two interfaces in series**:
 
 1. **Radial seal** — outer cylindrical face of the thimble compresses
-   against the port wall (Ø [10.44 mm](ORING_OUTER_D) vs Ø [10 mm](BODY_PORT_D) = [0.22 mm](BODY_SQUEEZE)/side squeeze);
+   against the port wall (Ø [10.44 mm](ORING_OUTER_D) vs Ø [10 mm](WESTBRASS_PORT_D) = [0.22 mm](WESTBRASS_SQUEEZE)/side squeeze);
    inner cylindrical face grips the LLDPE OD (Ø [9.2 mm](ORING_INNER_D) vs Ø [9.525 mm](LLDPE_OD) =
    [0.1625 mm](LLDPE_INTERFERENCE)/side interference).
 2. **Face seal** — the LLDPE tube's square-cut bottom end face
@@ -20,15 +20,15 @@ The LLDPE bottoms out on the cap.
 
 ## Where this lives in the wet path
 
-The Westbrass body acts as the **1/4" → 3/8" diameter adapter** in
-the dispense head's wet path:
+The Westbrass acts as the **1/4" → 3/8" diameter adapter** in
+the faucet's wet path:
 
-- **Supply (body's bottom compression port):** 1/4" OD LLDPE comes
+- **Supply (the Westbrass's bottom compression port):** 1/4" OD LLDPE comes
   *up* from below with a Siptenk brass stiffener; factory ferrule +
   nut seal the joint. See [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2.
-- **Dispense (body's top water port):** 3/8" OD LLDPE descends from
+- **Dispense (the Westbrass's top water port):** 3/8" OD LLDPE descends from
   the printed [`faucet-shell`](/hardware/printed-parts/faucet/faucet-shell/) gooseneck water
-  channel and enters the body's Ø [10 mm](BODY_PORT_D) top port. Water
+  channel and enters the Ø [10 mm](WESTBRASS_PORT_D) top port. Water
   flows up out of the valve into the LLDPE; this TPU bushing seals
   around the outside of the tube where it enters the port.
 
@@ -56,9 +56,9 @@ cylindrical wall extrudes upward via Arachne thin-wall.
 
 ## Assembly
 
-The thimble seats **cap-down** into the body's port first — drop it in
+The thimble seats **cap-down** into that port first — drop it in
 with the closed cap pointing toward the valve chamber below. The
-[0.22 mm](BODY_SQUEEZE) radial compression at the outer face engages
+[0.22 mm](WESTBRASS_SQUEEZE) radial compression at the outer face engages
 the port wall as it's pushed down. Total height [15.6 mm](TOTAL_H);
 port depth ≥ [20 mm](PORT_DEPTH_MIN).
 

@@ -1,4 +1,4 @@
-"""Tube collar — the port ring's word and colour, carried on the tube.
+"""Tube collar — the bulkhead ring's word and colour, carried on the tube.
 
 `../../enclosure/bulkhead-ring/` marks the wall: a chip lying in a pocket of the back face, under a through-wall
 fitting's flange, in the colour of the tube that goes into it. This is that chip bored for the tube
@@ -101,7 +101,7 @@ STATIONS = {
     for which, tube, fitted in (
         ("water", "the customer's tap-water run, up to their angle stop", "install kit"),
         ("carb", "the umbilical's blue carbonated-water tail", "faucet bench"),
-        ("co2", "the customer's red tether, rear wall to regulator", "install kit"),
+        ("co2", "the customer's red tether, +Y wall of back-top to regulator", "install kit"),
         ("flavor-a", "the umbilical's first black flavour tail", "faucet bench"),
         ("flavor-b", "the umbilical's second black flavour tail", "faucet bench"),
     )
