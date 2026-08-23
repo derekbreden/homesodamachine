@@ -77,3 +77,4 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **anchor** | a printed feature a body seats in and a strap closes over | anchor point |
 | **strap** | the zip tie that closes over an anchor | zip tie |
 | **round rotary display** | the prototype's 1.28" Meshnology 240×240 touchscreen | config display |
+| **power column** | the parts standing as one column down the +X wall of back-top — main board, PSU, both relay modules, the AC inlet | electronics shelf |
