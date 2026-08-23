@@ -1,7 +1,7 @@
 # pcba bring-up console
 
-The bench rig for a bare, JLCPCB-assembled controller board — one per fab batch. It runs on
-the board's **own** WROOM (U1) and answers one question — did the fab build what
+The bench rig for a bare, JLCPCB-assembled main board — one per fab batch. It runs on
+that board's **own** WROOM (U1) and answers one question — did the fab build what
 [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — by talking to every on-board
 device and printing what it finds.
 
@@ -80,7 +80,7 @@ plays all of it and is what boot plays.
 
 U8 is an MLT-5020 passive magnetic transducer — a coil pulling on a ferrous diaphragm, with
 no amplitude input of its own — and Q1 switches its low side hard, so the coil sees 5 V or it
-sees nothing. Every sound the board can make is made out of *when* that switch closes:
+sees nothing. Every sound the main board can make is made out of *when* that switch closes:
 
 - **Pitch is free.** LEDC puts any frequency on IO13. Loudness is not flat across it: the
   diaphragm is a resonator, loudest at its mechanical peak and falling away either side.
@@ -193,5 +193,5 @@ between beats finds MTDI already low, where the 3.3 V flash setting wants it.
 ## Tear-down
 
 Delete `firmware/src_pcba_bench/` and the `[env:pcba_bench]` block in
-[`platformio.ini`](/platformio.ini) once the board's real firmware exists and covers the
+[`platformio.ini`](/platformio.ini) once the main board's real firmware exists and covers the
 same ground. Nothing else references either.

@@ -25,24 +25,24 @@ EpochAction epochAction(bool connected,
 }
 
 bool mainBoardStatePublicationDue(bool connected,
-                                   bool mainBoardEstablished,
-                                   bool revisionPending,
-                                   uint32_t nowMs,
-                                   uint32_t lastPublicationMs,
-                                   uint32_t heartbeatMs) {
+                                  bool mainBoardEstablished,
+                                  bool revisionPending,
+                                  uint32_t nowMs,
+                                  uint32_t lastPublicationMs,
+                                  uint32_t heartbeatMs) {
     if (!connected || !mainBoardEstablished) return false;
     return revisionPending ||
            static_cast<uint32_t>(nowMs - lastPublicationMs) >= heartbeatMs;
 }
 
 bool mainBoardHeartbeatSettlesPendingSelection(bool offlineSelection,
-                                                 bool queuedSelection,
-                                                 bool headSent,
-                                                 uint8_t desiredFlavor,
-                                                 uint8_t mainBoardFlavor,
-                                                 uint32_t nowMs,
-                                                 uint32_t firstSentAtMs,
-                                                 uint32_t graceMs) {
+                                               bool queuedSelection,
+                                               bool headSent,
+                                               uint8_t desiredFlavor,
+                                               uint8_t mainBoardFlavor,
+                                               uint32_t nowMs,
+                                               uint32_t firstSentAtMs,
+                                               uint32_t graceMs) {
     if (offlineSelection || !queuedSelection) return false;
     if (mainBoardFlavor == desiredFlavor) return true;
     return headSent &&

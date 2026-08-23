@@ -1,12 +1,12 @@
 #pragma once
 
 // ════════════════════════════════════════════════════════════
-//  What this firmware reaches on the controller PCBA
+//  What this firmware reaches on the main board
 // ════════════════════════════════════════════════════════════
 //
 // Every number here is read off hardware/pcb/pcba/pcba.tsx, the canonical pin
 // map, and drawn as hardware/wiring/esp32-pinout.mmd. Only pins this image
-// actually drives or reads are named; the board carries more.
+// actually drives or reads are named; the main board carries more.
 
 // ── Outputs that reach an actuator ────────────────────────────────────────
 // machine.cpp is the only file that drives any of these.
@@ -54,9 +54,9 @@ static const int PIN_485_RO  = 34;
 static const long RS485_BAUD = 115200;
 
 // ── J3, direct TTL UART up the faucet umbilical ──────────────────────────
-// Controller TX crosses to the faucet's P1 ESP_RXD (GPIO44); controller RX
+// Main board TX crosses to the faucet's P1 ESP_RXD (GPIO44); main board RX
 // crosses from faucet P1 ESP_TXD (GPIO43). R26/R27 provide series damping and
-// D10/D11 clamp the PCBA end of the exposed run.
+// D10/D11 clamp the main board end of the exposed run.
 static const int PIN_FAUCET_TX = 33;
 static const int PIN_FAUCET_RX = 35;
 static const long FAUCET_BAUD  = 115200;

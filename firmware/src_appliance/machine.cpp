@@ -24,8 +24,9 @@ static_assert(PRIME_SESSION_RUNNING == static_cast<uint8_t>(machine_policy::Prim
               "prime session phase drift: running");
 static_assert(PRIME_OWNER_NONE == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::None),
               "prime session owner drift: none");
-static_assert(PRIME_OWNER_ENCLOSURE == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Enclosure),
-              "prime session owner drift: front");
+static_assert(PRIME_OWNER_ENCLOSURE ==
+                  static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Enclosure),
+              "prime session owner drift: enclosure");
 static_assert(PRIME_OWNER_FAUCET == static_cast<uint8_t>(machine_policy::PrimeSessionOwner::Faucet),
               "prime session owner drift: faucet");
 static_assert(PRIME_OUTCOME_CANCELED ==

@@ -3,11 +3,11 @@
 #include <Arduino.h>
 
 // ════════════════════════════════════════════════════════════
-//  EchoCancel — the pcba hears everything it says on J9
+//  EchoCancel — the main board hears everything it says on J9
 // ════════════════════════════════════════════════════════════
 //
 // U7's /RE is tied to GND on hardware/pcb/pcba/pcba.tsx, so the transceiver's
-// receiver runs while its driver does and every byte this board puts on the
+// receiver runs while its driver does and every byte the main board puts on the
 // pair comes straight back on its own RX. HDLC reads a stream, not lines, so
 // the echo is cancelled a layer below the protocol: this counts what it writes
 // and swallows that many bytes before anything reaches the framer.
@@ -19,9 +19,9 @@
 // Counting is only sound while every byte written comes back. Nothing in the
 // wiring arbitrates J9 — the pair is half-duplex and either end may start
 // talking at any moment — so a frame arriving on top of a reply collides, and
-// this board reads back fewer bytes, or different ones, than it wrote. A count
+// the main board reads back fewer bytes, or different ones, than it wrote. A count
 // has no way to notice: it swallows the wrong bytes, stays in deficit, and from
-// then on eats real traffic as though it were its own echo. The board goes
+// then on eats real traffic as though it were its own echo. The main board goes
 // quietly deaf, and the frame that gets lost is whichever one arrived next.
 //
 // So the echo is matched, not tallied. Every byte written is remembered, and a

@@ -4,8 +4,8 @@
 
 #include "machine_policy.h"
 
-// Production board support for U2/U3, the two MCP23017s on the controller
-// PCBA. This module owns the mapping between machine names (V-A..V-K) and
+// Production board support for U2/U3, the two MCP23017s on the main
+// board. This module owns the mapping between machine names (V-A..V-K) and
 // expander pins; callers deal only in logical outputs and closed reeds.
 //
 // Nothing in this file is an operation sequencer. The machine state machine

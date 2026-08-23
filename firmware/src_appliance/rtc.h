@@ -6,7 +6,7 @@
 //  U6 — DS3231SN, on the I2C bus at 0x68
 // ════════════════════════════════════════════════════════════
 //
-// The board carries a TCXO clock and a CR2032 (BT1) to run it through a power
+// The main board carries a TCXO clock and a CR2032 (BT1) to run it through a power
 // cut, which is what lets quiet hours mean anything. This is the whole of what
 // the appliance needs from it: what hour is it, and is that answer trustworthy.
 //

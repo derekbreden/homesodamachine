@@ -266,7 +266,7 @@ bool PrimeSession::cancel(uint32_t session_token,
 
     if (state_.phase == PrimeSessionPhase::Off) {
         // An absolute CANCEL may overtake or survive an ACTIVATE in the
-        // display/controller transport. Tombstone a fresh token while OFF so
+        // display/main-board transport. Tombstone a fresh token while OFF so
         // that any delayed ACTIVATE with that token remains permanently inert.
         if (!tombstone_if_off) return false;
         if (state_.session_token == session_token &&

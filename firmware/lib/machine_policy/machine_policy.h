@@ -131,7 +131,7 @@ public:
     // same 60-second pump ceiling used by prime are clamped.
     uint32_t beginBounded(uint32_t now_ms, uint32_t requested_ms);
 
-    // A tick refreshes only an active prime, matching the current controller.
+    // A tick refreshes only an active prime, matching the current owner.
     void primeTick(uint32_t now_ms);
 
     // Evaluates and consumes a terminal event. Tick timeout intentionally wins

@@ -25,9 +25,9 @@
 // it. The selection persists in NVS across power cycles.
 //
 // The logo changes locally on touch-down. J3 then carries that absolute
-// selection to the base controller, whose persisted value is authoritative;
+// selection to the main board, whose persisted value is authoritative;
 // this board's NVS value is the immediate boot-logo cache.
-// When the enclosure opens prime mode, controller state replaces the logo with
+// When the enclosure opens prime mode, main board state replaces the logo with
 // equal EXIT PRIME and HOLD TO PRIME targets until either display exits.
 
 // ── Theme (matches config display / iOS app) ──
@@ -43,7 +43,7 @@
 // ── Flavors ──
 static const char *FLAVOR_NAMES[2] = {"Flavor 1", "Flavor 2"};
 // Every logo a channel can be given. Which one each channel wears is the
-// controller's to say — this head renders whichever it publishes.
+// main board's to say — this display renders whichever it publishes.
 static const uint16_t *FLAVOR_BITMAPS[FLAVOR_ART_COUNT] = {
     flavor0_faucet, flavor1_faucet, flavor2_faucet, flavor3_faucet,
 };
@@ -66,7 +66,7 @@ static unsigned long flavorPersistAttemptAt = 0;
 static uint32_t maxLoopMs = 0;
 static uint32_t toggleCount = 0;
 
-// ── Controller-owned prime-ready session ──
+// ── Main-board-owned prime-ready session ──
 static PrimeSessionStatePayload primeSession = {};
 static bool primeSessionKnown = false;
 static bool primeVisible = false;
@@ -284,7 +284,7 @@ static void applyFlavorUi() {
   lv_img_set_src(logoImg, &flavorLogos[flavorArt[activeFlavor & 1]]);
 }
 
-// The controller's resulting truth for the pair. Rendered immediately when the
+// The main board's resulting truth for the pair. Rendered immediately when the
 // channel on screen is one whose logo moved.
 void faucetApplyFlavorArt(const uint8_t art[2]) {
   bool moved = false;
@@ -326,7 +326,7 @@ static void selectFlavorLocally(uint8_t f) {
 static void acceptBaseFlavor(uint8_t f) {
   if (f > 1 || f == activeFlavor) return;
   applyFlavor(f);
-  Serial.printf("Controller flavor -> %d (%s)\n",
+  Serial.printf("Main board flavor -> %d (%s)\n",
                 activeFlavor + 1, FLAVOR_NAMES[activeFlavor]);
 }
 
@@ -474,7 +474,7 @@ static void renderPrime(bool force = false) {
 
 static void setPrimeVisible(bool visible) {
   if (!primeLayer || visible == primeVisible) return;
-  // Controller state can replace or uncover the whole screen between two
+  // Main board state can replace or uncover the whole screen between two
   // touch samples. Keep an already-resting finger from becoming a fresh press
   // on whichever target just appeared underneath it.
   if (touchInput) lv_indev_wait_release(touchInput);
@@ -554,7 +554,7 @@ static void acceptBasePrime(const PrimeSessionStatePayload &state, uint32_t gene
 
   if (generation != primeBaseGeneration) {
     // TinyProto's connection epoch is the faucet's proof that a lower revision
-    // can belong to a rebooted controller rather than an out-of-order frame.
+    // can belong to a rebooted main board rather than an out-of-order frame.
     primeBaseGeneration = generation;
     if (primePressed) {
       primePressed = false;
@@ -589,7 +589,7 @@ static void acceptBasePrime(const PrimeSessionStatePayload &state, uint32_t gene
 
   // A retry belongs to the exact session in which the physical gesture began.
   // If OFF was coalesced and the next accepted snapshot is already a new
-  // session, never retarget an old EXIT/hold to that new controller token.
+  // session, never retarget an old EXIT/hold to that new main board token.
   const bool cancelRetargeted = primeCancelPending &&
                                 state.sessionToken != primeCancelSessionToken;
   const bool holdRetargeted = (primePressed || primeStopPending) &&
@@ -999,7 +999,7 @@ void setup() {
 
   buildUi();
 
-  // P1 is the official Waveshare pinout: GPIO43 TX / GPIO44 RX. The PCBA's
+  // P1 is the official Waveshare pinout: GPIO43 TX / GPIO44 RX. The main board's
   // J3 crosses them to IO35 RX / IO33 TX over the full-duplex TTL umbilical.
   primeTokenState = esp_random();
   if (primeTokenState == 0) primeTokenState = 1;
@@ -1029,7 +1029,7 @@ void loop() {
     }
   }
 
-  // RX before LVGL keeps controller reconciliation prompt. A second service
+  // RX before LVGL keeps main board reconciliation prompt. A second service
   // after LVGL transmits a touch-down selection without putting UART or NVS in
   // the touch callback itself.
   baseLinkService();
@@ -1044,10 +1044,10 @@ void loop() {
     if (flavorStoreOpen && prefs.putUChar("flavor", activeFlavor) == sizeof(uint8_t)) {
       flavorDirty = false;
       flavorPersistError = false;
-      Serial.printf("Cached controller flavor %d\n", activeFlavor + 1);
+      Serial.printf("Cached main board flavor %d\n", activeFlavor + 1);
     } else {
       flavorPersistError = true;
-      Serial.println("Faucet flavor cache write failed — controller remains authoritative");
+      Serial.println("Faucet flavor cache write failed — main board remains authoritative");
     }
   }
 

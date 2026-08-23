@@ -4,67 +4,67 @@ Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/
 
 | Tree | Env | Runs on | Machine |
 |---|---|---|---|
-| `src_appliance/` | `appliance` | the controller PCBA's WROOM (U1) | the appliance |
-| `src_pcba_bench/` | `pcba_bench` | the controller PCBA's WROOM (U1) | none — a bare board on the bench |
+| `src_appliance/` | `appliance` | the main board's WROOM (U1) | the appliance |
+| `src_pcba_bench/` | `pcba_bench` | the main board's WROOM (U1) | none — a bare board on the bench |
 | `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the appliance |
 | `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance, and the prototype |
 | `src_prototype/` | `prototype` | an ESP32 dev module on L298N drivers | the prototype under the counter |
 | `src_config/` | `esp32s3_config` | Meshnology 1.28" round rotary display | the prototype under the counter |
 | `src_display/` | `rp2040_display` | Waveshare RP2040-LCD-0.99 | the prototype under the counter |
 
-Two of them run on the controller PCBA, and only one of the two ships inside a machine.
+Two of them run on the main board, and only one of the two ships inside a machine.
 
-**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9 and J3. What runs at the glass today is one flavor pump: a prime held from the 4.3B, and `pump <a|b> [ms]` bounded from the console. Flavor selection from either display reaches and is persisted by the controller for the future automatic-dispense path, then mirrors to the other display. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds, but no runtime operation opens a valve or runs the fan, and a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+**`src_appliance/` is the appliance's own firmware** — the state machine, the thermal loop, the dispense, persistence, the links to both displays ([`src_appliance/README.md`](src_appliance/README.md)). It boots to the state [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) opens against — build ID printed, every actuator parked dark — and brings up J9 and J3. What runs at the glass today is one flavor pump: a prime held from the 4.3B, and `pump <a|b> [ms]` bounded from the console. Flavor selection from either display reaches and is persisted by the main board for the future automatic-dispense path, then mirrors to the other display. `machine.cpp` owns every actuator request; `pcba_expanders.cpp` clears and verifies both MCP23017 output banks, enables the reed pull-ups and owns the physical V-A–V-K map; `link.cpp` turns a J9 frame into a machine intent. The USB `status` command reads both expanders and all ten reeds, but no runtime operation opens a valve or runs the fan, and a clean cycle is answered `MSG_ERR_UNSUPPORTED`. The procedure it fills in is [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §3, §6, §7 and §9; the pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), drawn as [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
 
 Shared libraries sit under `lib/`, compiled into whichever trees include them:
 [`lib/proto_link`](lib/proto_link/proto_msg.h) is the inter-board wire contract;
 [`lib/machine_policy`](lib/machine_policy/machine_policy.h) is the Arduino-free actuator-plan,
-safety-transition and pump-timing policy; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is controller authority and persistence policy; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
+safety-transition and pump-timing policy; [`lib/flavor_selection`](lib/flavor_selection/flavor_selection.h) is main board authority and persistence policy; and [`lib/sound`](lib/sound/sound.h) is U8 — the drive on IO13, the machine's sound vocabulary,
 and the volume/quiet-hours settings behind it. The appliance and the bench share that one
 table on purpose: a board on the line makes exactly the sounds a customer's machine makes.
-Neither display carries a sounder, so every sound the machine makes is made on the PCBA.
+Neither display carries a sounder, so every sound the machine makes is made on the main board.
 
 `src_pcba_bench/` is the bench rig for a **bare** board, one board per fab batch, and goes no further than the bench. It answers whether the fab built what [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — it reads every device, and behind `arm` it drives both relays, both DRV8870 pumps and the buzzer, one output at a time for 120 s so each can be metered at its connector. It also carries the buzzer's range — `ladder`, `duty`, `palette`, played once at boot — which is where the machine's alarms and acks get designed ([`src_pcba_bench/README.md`](src_pcba_bench/README.md)). It never writes `IODIR` or `GPPU` on either MCP23017, so the ten manifold valves, V-K and the condenser fan — everything behind the two expanders — stay dark, and no reed is ever read on a pull-up. It answered batch 2 on the bench: [`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md).
 
 ## J9 is one pair, and both ends take turns
 
-The display link is a single differential pair — J9 is `[B, A, GND, V12]` — carrying half-duplex RS485 between the controller PCBA and the 4.3B. **Nothing arbitrates it.** U7 on the PCBA is an auto-direction transceiver with `/RE` tied to GND, so the controller's receiver runs while its driver does and it hears every byte it sends; [`lib/proto_link/rs485_echo.h`](lib/proto_link/rs485_echo.h) exists to strip that echo before the framer sees it.
+The display link is a single differential pair — J9 is `[B, A, GND, V12]` — carrying half-duplex RS485 between the main board and the 4.3B. **Nothing arbitrates it.** U7 on the main board is an auto-direction transceiver with `/RE` tied to GND, so the main board's receiver runs while its driver does and it hears every byte it sends; [`lib/proto_link/rs485_echo.h`](lib/proto_link/rs485_echo.h) exists to strip that echo before the framer sees it.
 
-That echo cancellation is only sound while the two ends do not talk at once. If the glass sends while the controller is replying, the two collide, the controller reads back something other than what it wrote, and the echo it is waiting for never arrives. A canceller that merely counted bytes would stay in deficit from that moment and swallow real traffic as its own echo — the board goes quietly deaf, and the frame that gets lost is whichever one arrived next. That failure looks exactly like latency, because the sender's retry eventually gets through.
+That echo cancellation is only sound while the two ends do not talk at once. If the glass sends while the main board is replying, the two collide, the main board reads back something other than what it wrote, and the echo it is waiting for never arrives. A canceller that merely counted bytes would stay in deficit from that moment and swallow real traffic as its own echo — the main board goes quietly deaf, and the frame that gets lost is whichever one arrived next. That failure looks exactly like latency, because the sender's retry eventually gets through.
 
 So the rule, and it is a rule rather than an optimisation:
 
-- **The controller answers; it never interrupts.** Every frame it puts on the pair goes out inside the window immediately after one arrives. Anything the machine wants to volunteer — a prime that timed out, a bounded run that finished — is queued in [`src_appliance/link.cpp`](src_appliance/link.cpp) and flushed in that window. `linkPing` is the one deliberate exception, and it is a bench command.
-- **The glass sends one frame at a time.** Nothing calls `j9.send()` directly; everything posts to the outbound queue in [`src_front/main.cpp`](src_front/main.cpp), and the next frame waits for the answer or for the turnaround window to lapse. One press is one frame — a button that already speaks for itself sends no separate click, and the controller makes the tick off the command it received.
-- **The glass polls on an interval,** because the controller no longer speaks unprompted. That poll is the ceiling on how stale news from the base can be.
+- **The main board answers; it never interrupts.** Every frame it puts on the pair goes out inside the window immediately after one arrives. Anything the machine wants to volunteer — a prime that timed out, a bounded run that finished — is queued in [`src_appliance/link.cpp`](src_appliance/link.cpp) and flushed in that window. `linkPing` is the one deliberate exception, and it is a bench command.
+- **The glass sends one frame at a time.** Nothing calls `j9.send()` directly; everything posts to the outbound queue in [`src_front/main.cpp`](src_front/main.cpp), and the next frame waits for the answer or for the turnaround window to lapse. One press is one frame — a button that already speaks for itself sends no separate click, and the main board makes the tick off the command it received.
+- **The glass polls on an interval,** because the main board no longer speaks unprompted. That poll is the ceiling on how stale news from the base can be.
 
 HOME's flavor query is one of those turns: 250 ms while lit and 500 ms while dark.
-It carries controller flavor truth and durability to the enclosure, including selections
+It carries main board flavor truth and durability to the enclosure, including selections
 that arrived from the faucet over J3. An enclosure selection is an absolute, tokenized J9
-request; controller revision publication carries the result to the faucet over full-duplex J3.
+request; main board revision publication carries the result to the faucet over full-duplex J3.
 
-`link` on the controller console reports `desyncs`: collisions that reached the wire in spite of all that. On a healthy pair it stays at zero. Rising under load means the discipline is being violated somewhere, and the place to look is whatever recently learned to transmit.
+`link` on the main board console reports `desyncs`: collisions that reached the wire in spite of all that. On a healthy pair it stays at zero. Rising under load means the discipline is being violated somewhere, and the place to look is whatever recently learned to transmit.
 
 ## J3 is the faucet's direct UART
 
 J3/SIG-6 is a separate full-duplex 3.3 V TTL link to the 1.47-inch faucet display. The
-controller uses IO33 TX / IO35 RX; the faucet uses GPIO43 TX / GPIO44 RX, crossed TX to RX,
+main board uses IO33 TX / IO35 RX; the faucet uses GPIO43 TX / GPIO44 RX, crossed TX to RX,
 at 115200 baud. TinyProto Fd supplies framing, CRC, acknowledgements and keepalives. J3 has
 independent TX and RX conductors, so none of J9's half-duplex turn-taking or echo cancellation
 belongs on this link.
 
 A faucet tap changes the local logo first, then queues `MSG_FLAVOR_SELECT` with an absolute
-flavor and request token. The controller acknowledges its authoritative value and persists it
+flavor and request token. The main board acknowledges its authoritative value and persists it
 in NVS. Repeating a token cannot repeat the selection or its sound. At first installation only,
-a controller with no stored flavor adopts the faucet's cached selection; every established
-controller wins reconciliation. Both boards defer flash writes away from the touch path.
+a main board with no stored flavor adopts the faucet's cached selection; every established
+main board wins reconciliation. Both boards defer flash writes away from the touch path.
 
 ## What the appliance firmware must hold
 
-Three constraints the board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
+Three constraints the main board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
 
 - **At most 3 solenoid valves energized at once.** Eight coils on MANIFOLD A draw 2.4–3.7 A through J1's `COM` contact, rated ~3 A, and dissipate it in one SOIC-18 (U4). The canonical valve states open at most three ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)); the ceiling is [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Solenoid COM current budget".
-- **Relay #2 (`IO2`) off while a dispense is open.** The board peaks at 3.33 A and the SeaFlo diaphragm pump at 5 A on the same 12 V rail — 8.32 A together, against a 6.7 A supply. The carbonator's low reed asserts mid-pour, so the refill it queues waits for the dispense window to close ([`/hardware/assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5). Nothing in hardware enforces this.
+- **Relay #2 (`IO2`) off while a dispense is open.** The main board peaks at 3.33 A and the SeaFlo diaphragm pump at 5 A on the same 12 V rail — 8.32 A together, against a 6.7 A supply. The carbonator's low reed asserts mid-pour, so the refill it queues waits for the dispense window to close ([`/hardware/assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5). Nothing in hardware enforces this.
 - **`GPPU` written on both MCP23017s.** No loom carries a resistor and the board pulls none of the reed inputs ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), U2 GPB4-7 / U3 GPB6-7), so every reed reads its expander's internal pull-up or floats.
 
 `pio test -e native` holds these policies off-board: it checks the canonical operation table,
@@ -73,8 +73,8 @@ deadline boundaries without opening a serial port. See [`test/README.md`](test/R
 
 ## Appliance displays
 
-- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance's config + interaction surface on the enclosure's front face: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. HOME presents both flavor cards and mirrors the controller-owned selection shared with the faucet. A reusable operation lock puts the animated logo on the left and a clear status modal on the right; boot exercises it for at least two cycles. `src_front/` drives the panel through esp_lcd with a double framebuffer + bounce buffer for tear-free output and carries the RS485 link on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. See [`src_front/README.md`](src_front/README.md).
-- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector at the end of the gooseneck, on both machines. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the controller. The controller owns and persists the selection; faucet NVS is the immediate boot-logo cache. After a minute idle the backlight fades to an ember level, and the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
+- **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance's config + interaction surface on the enclosure's front face: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. HOME presents both flavor cards and mirrors the main-board-owned selection shared with the faucet. A reusable operation lock puts the animated logo on the left and a clear status modal on the right; boot exercises it for at least two cycles. `src_front/` drives the panel through esp_lcd with a double framebuffer + bounce buffer for tear-free output and carries the RS485 link on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. See [`src_front/README.md`](src_front/README.md).
+- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector at the end of the gooseneck, on both machines. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the main board. The main board owns and persists the selection; faucet NVS is the immediate boot-logo cache. After a minute idle the backlight fades to an ember level, and the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
 
 The config UX the 4.3B carries in the appliance is the prototype's rotary-display UX below, and porting it is a pending integration seam.
 
@@ -217,8 +217,8 @@ All pins are fixed by the board design.
 | Touch SCL | 41 | |
 | Touch INT | 48 | FALLING edge per touch report |
 | Touch RST | 47 | |
-| J3 UART TX | 43 | 115200 baud, TinyProto Fd to controller IO35 RX |
-| J3 UART RX | 44 | 115200 baud, TinyProto Fd from controller IO33 TX |
+| J3 UART TX | 43 | 115200 baud, TinyProto Fd to main board IO35 RX |
+| J3 UART RX | 44 | 115200 baud, TinyProto Fd from main board IO33 TX |
 | BOOT button | 0 | |
 
 ## Inter-Board Communication
@@ -266,7 +266,7 @@ Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -
 
 **With more than one board on USB, name the port.** PlatformIO picks one otherwise, and it picks the S3 — esptool opens that port, drops the display into download mode, and only then fails on the chip id, leaving the panel dark until it is reflashed ([`/hardware/pcb/pcba/bench-log.md`](/hardware/pcb/pcba/bench-log.md)).
 
-[`tools/boards.py`](/tools/boards.py) says which board is on which port and prints the commands with the ports already filled in. It only enumerates — it never opens a port, because opening one drives the PCBA's Q2/Q3 auto-reset lattice and reboots the board.
+[`tools/boards.py`](/tools/boards.py) says which board is on which port and prints the commands with the ports already filled in. It only enumerates — it never opens a port, because opening one drives the main board's Q2/Q3 auto-reset lattice and reboots it.
 
 ```bash
 ~/.platformio/penv/bin/python tools/boards.py
@@ -292,13 +292,13 @@ pio run -e appliance -t upload
 
 See [`src_appliance/README.md`](src_appliance/README.md) for its console.
 
-### Flash that board's bring-up console instead
+### Flash the main board's bring-up console instead
 
 ```bash
 pio run -e pcba_bench -t upload
 ```
 
-For a bare board on the bench, not an assembled machine. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for its command table.
+For a bare main board on the bench, not an assembled machine. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for its command table.
 
 Both go over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3 auto-reset, so no button presses.
 

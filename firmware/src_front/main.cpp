@@ -45,7 +45,7 @@ extern "C" const lv_font_t front_icons_96;
 #include "images/anim_15.h"
 
 // The flavor marks are deliberately static artwork. Choose's selection refresh
-// changes only on actual controller state transitions, so these do not
+// changes only on actual main board state transitions, so these do not
 // participate in the background link polling that formerly disturbed a card.
 // Every logo is carried at both sizes: the 240 a Choose card shows, and the 96
 // the picker grid shows, baked rather than scaled under LVGL at draw time.
@@ -89,7 +89,7 @@ static const uint16_t *animFrames[] = {
 // angled up toward a standing user.
 //
 // The screen is a rail of five icons down the left edge and a pane to their right: Choose,
-// Ratio, Prime, Clean, and Settings. Flavor selection follows the controller; a Prime
+// Ratio, Prime, Clean, and Settings. Flavor selection follows the main board; a Prime
 // flavor opens the shared hold pad, and the base board runs the selected pump only while
 // the finger stays down.
 
@@ -315,7 +315,7 @@ static unsigned long bootLockMaxUntil = 0;
 // panel scans an 800x480 framebuffer out of PSRAM, and a flash write suspends
 // the cache PSRAM is reached through, so the DMA refilling its bounce buffer
 // faults. Nothing on this board writes NVS while the panel runs. The durable
-// home for the choice is the controller, which is where the faucet's own
+// home for the choice is the main board, which is where the faucet's own
 // selection already lives.
 static uint8_t flavorImage[2] = {0, 1};
 static bool flavorArtAsked = false;
@@ -353,7 +353,7 @@ static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
 
-// Choose receives the controller's flavor state four times a second while lit.
+// Choose receives the main board's flavor state four times a second while lit.
 // Keep the rendered model separate from the replicated model so a routine,
 // unchanged answer does not invalidate a large card and flip the RGB panel's
 // framebuffer. Negative sentinels guarantee one complete initial render.
@@ -372,7 +372,7 @@ static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold
 
 // The flavor used for dispensing is separate from flavorSel above, which is
 // only the target currently open in a service/configuration view. The
-// controller owns this value; the enclosure applies a press optimistically and
+// main board owns this value; the enclosure applies a press optimistically and
 // reconciles it from MSG_RESP_FLAVOR_STATE.
 static uint8_t activeFlavor = PUMP_CHANNEL_A;
 static bool flavorSynchronized = false;
@@ -1053,10 +1053,10 @@ static HdlcLink j9;
 
 // ── Taking turns on J9 ────────────────────────────────────────────────────
 // The pair is one differential pair, half-duplex, and nothing arbitrates it.
-// The controller answers a frame the instant it lands — from inside its receive
+// The main board answers a frame the instant it lands — from inside its receive
 // callback — so a second frame sent from here before that answer has come back
-// lands on top of it. The controller hears its own transmissions (U7's /RE is
-// grounded on the PCBA) and cancels them by matching the echo; a frame of ours
+// lands on top of it. The main board hears its own transmissions (U7's /RE is
+// grounded on the main board) and cancels them by matching the echo; a frame of ours
 // colliding with its reply destroys that echo, and the frame that gets lost is
 // ours. That is what a START that never arrives actually is.
 //
@@ -1070,7 +1070,7 @@ static const uint8_t  OUT_Q_DEPTH   = PRIME_J9_APP_QUEUE_DEPTH;
 static const unsigned TURNAROUND_MS = 30;   // a reply is ~2 ms; this is the giving-up point
 static_assert(PRIME_HOLD_REPLAY_HISTORY >
                   OUT_Q_DEPTH + PRIME_J9_IN_FLIGHT_DEPTH,
-              "controller prime replay ledger must cover the complete J9 queue");
+              "main board prime replay ledger must cover the complete J9 queue");
 
 static OutFrame      outQ[OUT_Q_DEPTH];
 static uint8_t       outHead = 0, outTail = 0, outCount = 0;
@@ -1223,7 +1223,7 @@ static void flavorLinkService() {
                                              : FLAVOR_QUERY_ACTIVE_MS;
   if (now - flavorQueryQueuedMs < interval || outCount >= OUT_Q_DEPTH / 2) return;
   j9Post(MSG_FLAVOR_QUERY, nullptr, 0);
-  // Asked once per link session; the controller republishes on every change,
+  // Asked once per link session; the main board republishes on every change,
   // so a second ask would only crowd a pair that is already telling us.
   if (!flavorArtAsked) {
     j9Post(MSG_FLAVOR_ART_QUERY, nullptr, 0);
@@ -1259,7 +1259,7 @@ static unsigned long holdStartMs = 0, holdTickMs = 0, holdAckMs = 0;
 static bool holdRetried = false;
 
 // Prime-ready is an appliance session, not a page-local pump command. The
-// controller owns this complete state and mirrors it to both pieces of glass.
+// main board owns this complete state and mirrors it to both pieces of glass.
 // This display owns only its desired session state and one physical press.
 static PrimeSessionStatePayload primeSession = {};
 static bool primeSessionKnown = false;
@@ -1270,7 +1270,7 @@ static bool primeStopPending = false;
 static bool primeAuthoritativeNavigation = false;
 static bool primeUsbStartPending = false;
 // A press that arrives while the session is still opening. No hold frame
-// leaves until the controller answers READY; this is the press that waits.
+// leaves until the main board answers READY; this is the press that waits.
 static bool primeTouchStartPending = false;
 static bool primeLinkLost = false;
 static uint32_t primeTokenState = 1;
@@ -1299,7 +1299,7 @@ static void setFillMsg(const char *s);
 static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
-  awaitingAnswer = false;   // the controller has spoken; the wire is ours again
+  awaitingAnswer = false;   // the main board has spoken; the wire is ours again
 
   (void)link;
   uint8_t type = msgType(frame);
@@ -1365,7 +1365,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   // Legacy commissioning/pcba_bench prime responses remain understood even
-  // though the production service UI uses the controller-owned session above.
+  // though the production service UI uses the main-board-owned session above.
   if (type == MSG_RESP_PRIME && plen >= sizeof(PrimeStatePayload)) {
     if (primeSessionDesired || primeSessionKnown) return;
     PrimeStatePayload st;
@@ -1376,10 +1376,10 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       case PRIME_RUNNING: holdAckMs = millis(); snprintf(buf, sizeof(buf), "pump turning"); break;
       case PRIME_STOPPED: snprintf(buf, sizeof(buf), "stopped after %lu.%lu s",
                                    (unsigned long)st.ms / 1000, ((unsigned long)st.ms % 1000) / 100); break;
-      case PRIME_TIMEOUT: snprintf(buf, sizeof(buf), "controller lost the hold"); break;
+      case PRIME_TIMEOUT: snprintf(buf, sizeof(buf), "main board lost the hold"); break;
       case PRIME_LIMIT:   snprintf(buf, sizeof(buf), "stopped at the %lu s ceiling",
                                    (unsigned long)(PRIME_MAX_MS / 1000)); break;
-      default:            snprintf(buf, sizeof(buf), "controller refused"); break;
+      default:            snprintf(buf, sizeof(buf), "main board refused"); break;
     }
     setPrimeMsg(buf);
     return;
@@ -1396,16 +1396,16 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // Fill and Clean both reach the valve manifold and both can be refused. The
     // refusal has to land on the pane the user is actually looking at.
     if (activeSvc == SVC_FILL_PICK || activeSvc == SVC_FILL_CONFIRM) {
-      setFillMsg("this controller drives no valves");
+      setFillMsg("this main board drives no valves");
     } else {
-      setCleanMsg("this controller drives no valves");
+      setCleanMsg("this main board drives no valves");
     }
     Serial.println("[J9] MSG_ERR_UNSUPPORTED");
     return;
   }
 
   if (type == MSG_ERR_BUSY) {
-    setPrimeMsg("controller busy");
+    setPrimeMsg("main board busy");
     return;
   }
 
@@ -1510,8 +1510,8 @@ static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
 // anywhere fires its click. Every button here takes it, and the two that commit something —
 // START CLEAN CYCLE — give it back, so sliding off it still cancels.
 // ── The click ──
-// This panel has no sounder. The machine's one voice is U8 on the controller
-// PCBA, so a finger landing on this glass becomes a sound only by crossing J9 —
+// This panel has no sounder. The machine's one voice is U8 on the main
+// board, so a finger landing on this glass becomes a sound only by crossing J9 —
 // which is why it is sent on PRESSED rather than on the click: the round trip
 // hides inside the finger's own dwell, and the tick lands where the finger did
 // rather than where it lifted.
@@ -1519,7 +1519,7 @@ static lv_obj_t *mkCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h) {
 // It says "your touch registered", NOT "that worked". If only success made a
 // sound, silence would mean both "you missed" and "the machine refused you", and
 // on a capacitive panel with no travel those are exactly the two a user cannot
-// otherwise tell apart. Outcomes get their own sounds, from the controller.
+// otherwise tell apart. Outcomes get their own sounds, from the main board.
 //
 // A touch that begins on a dark screen is withheld from every widget (see the
 // wake latch above), so waking the panel does not tick.
@@ -1625,8 +1625,8 @@ static void setFillMsg(const char *s)  { if (fillMsg)  lv_label_set_text(fillMsg
 
 // Both surfaces a logo choice reaches: the Choose card that wears it, and the
 // grid marking which one this flavor is on.
-// The controller owns the pair and persists it; this states what the glass now
-// wants and takes back whatever the controller ends up holding.
+// The main board owns the pair and persists it; this states what the glass now
+// wants and takes back whatever the main board ends up holding.
 static void sendFlavorArt() {
   FlavorArtPayload art{{flavorImage[0], flavorImage[1]}};
   j9Post(MSG_FLAVOR_ART_SET, &art, sizeof(art));
@@ -1722,7 +1722,7 @@ static void refreshHomeSelection() {
 
 }
 
-// ── Prime-ready session — shared controller truth and one local hold ──
+// ── Prime-ready session — shared main board truth and one local hold ──
 
 static uint32_t nextPrimeToken() {
   primeTokenState += 0x9E3779B9u;
@@ -1797,9 +1797,9 @@ static uint32_t primeDisplayedElapsed() {
 static const char *primeOutcomeText(uint8_t outcome) {
   switch (outcome) {
     case PRIME_OUTCOME_STOPPED:       return "hold released";
-    case PRIME_OUTCOME_TIMEOUT:       return "controller lost the hold";
+    case PRIME_OUTCOME_TIMEOUT:       return "main board lost the hold";
     case PRIME_OUTCOME_LIMIT:         return "60 second limit reached";
-    case PRIME_OUTCOME_REFUSED:       return "controller refused the hold";
+    case PRIME_OUTCOME_REFUSED:       return "main board refused the hold";
     case PRIME_OUTCOME_CANCELED:      return "prime mode exited";
     case PRIME_OUTCOME_LEASE_EXPIRED: return "prime screen connection lost";
     default:                          return "";
@@ -1847,7 +1847,7 @@ static void primeRender(bool force = false) {
   if (primeSessionCancelPending) {
     lv_label_set_text(primePadLbl, "EXITING PRIME");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
-    setPrimeMsg("waiting for the controller");
+    setPrimeMsg("waiting for the main board");
   } else if (primeLinkLost) {
     lv_label_set_text(primePadLbl, "RECONNECTING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
@@ -1855,7 +1855,7 @@ static void primeRender(bool force = false) {
   } else if (primeStopPending) {
     lv_label_set_text(primePadLbl, "STOPPING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
-    setPrimeMsg("waiting for the controller");
+    setPrimeMsg("waiting for the main board");
   } else if (!primeSessionDesired) {
     lv_label_set_text(primePadLbl, "CONNECTING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_OFF), 0);
@@ -1867,7 +1867,7 @@ static void primeRender(bool force = false) {
   } else if (holding || primeTouchStartPending) {
     lv_label_set_text(primePadLbl, "STARTING");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
-    setPrimeMsg("waiting for the controller");
+    setPrimeMsg("waiting for the main board");
   } else {
     lv_label_set_text(primePadLbl, "HOLD TO PRIME");
     lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
@@ -1898,7 +1898,7 @@ static void primeSessionActivate() {
   primeSessionToken = nextPrimeToken();
   primeStateMs = millis();
   primePostSession(PRIME_SESSION_ACTIVATE);
-  // The accepted ACTIVATE itself makes the controller's one entry tick.
+  // The accepted ACTIVATE itself makes the main board's one entry tick.
   clickPending = false;
   primeRender(true);
   Serial.printf("[J9] prime session activate ch=%u token=%08lX\n",
@@ -1916,7 +1916,7 @@ static void primeSessionCancel() {
        primeSessionToken != primeSession.sessionToken)) {
     // If our attempted ACTIVATE lost a race with an older authoritative
     // session, EXIT means exit that real session—not retry CANCEL forever for
-    // the token that never became controller truth.
+    // the token that never became main board truth.
     primeSessionToken = primeSession.sessionToken;
     flavorSel = primeSession.channel;
   }
@@ -1976,7 +1976,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
   if (state.phase > PRIME_SESSION_RUNNING || state.channel > PUMP_CHANNEL_B ||
       state.owner > PRIME_OWNER_FAUCET || state.outcome > PRIME_OUTCOME_LEASE_EXPIRED) return;
 
-  // This exact tuple is the controller's power-on epoch marker. J9 is an
+  // This exact tuple is the main board's power-on epoch marker. J9 is an
   // ordered, bounded single-sender link, so it is safe to accept even when a
   // surviving display has cached a numerically higher pre-reset revision.
   const bool mainBoardResetOff = state.phase == PRIME_SESSION_OFF &&
@@ -1988,7 +1988,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
                                  state.phase == PRIME_SESSION_OFF &&
                                  state.sessionToken == primeSessionToken;
   if (primeSessionKnown) {
-    // A controller reboot restarts its revision counter. The fresh session
+    // A main board reboot restarts its revision counter. The fresh session
     // token this display just chose is an epoch proof stronger than the cached
     // number: only an accepted ACTIVATE can echo it, and no queued old state can.
     const bool acceptedFreshEpoch = primeSessionDesired &&
@@ -2044,7 +2044,7 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state) {
                            (wasBootDiscovery || primeSessionDesired ||
                             state.phase == PRIME_SESSION_RUNNING);
   if (retargetCancel || adoptActive) {
-    // Controller truth supersedes any unsent control for the local token. In
+    // Main board truth supersedes any unsent control for the local token. In
     // particular, an old queued START must never trail a newly observed run.
     j9DiscardQueuedPrimeFeeds(true);
     holding = false;
@@ -2296,7 +2296,7 @@ static void primeSessionService() {
       setPrimeMsg("link reset — retrying");
     }
     if (!acknowledged && heldMs > PRIME_SESSION_STALE_MS) {
-      setPrimeMsg("no answer from the controller");
+      setPrimeMsg("no answer from the main board");
     }
     return;
   }
@@ -2552,7 +2552,7 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
 
 // The appliance's default interaction: two clear, whole-card choices. The
 // flavor marks make the cards recognizable at a glance; their static image
-// objects do not redraw during routine controller heartbeats.
+// objects do not redraw during routine main board heartbeats.
 static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_DIM),
@@ -2844,7 +2844,7 @@ static void idleReset(uint8_t stage) {
     if (activePage == PAGE_SERVICE) {
       if (activeSvc == SVC_PRIME_HOLD) {
         // This is unattended housekeeping, not a glass press. Stop renewing
-        // the session and let the controller's short lease close it silently;
+        // the session and let the main board's short lease close it silently;
         // sending CANCEL here would make the sleeping appliance tick.
         primeSessionDesired = false;
         primeSessionCancelPending = false;
@@ -3137,14 +3137,14 @@ static void processTextLine(const char *line) {
   } else if (strncmp(line, "SOUND:", 6) == 0) {
     // The click's whole path, without a finger on the glass. This panel has no
     // sounder, so anything heard after this is the frame having crossed J9 and
-    // reached U8 on the controller — which is the one direction a touch travels,
+    // reached U8 on the main board — which is the one direction a touch travels,
     // and the one a line test cannot otherwise exercise without an operator.
     int id = atoi(line + 6);
     if (id < 1 || id > SND_WIRE_ALARM) Serial.printf("ERR:SOUND expects 1..%d\n", SND_WIRE_ALARM);
     else { sendSound((uint8_t)id); Serial.printf("OK:SOUND=%d\n", id); }
   } else if (strncmp(line, "PRIME:START:", 12) == 0) {
     // Enter the shared session, then start the same tokenized hold as soon as
-    // the controller's READY answer lands. PRIME:STOP releases that synthetic
+    // the main board's READY answer lands. PRIME:STOP releases that synthetic
     // hold; PRIME:EXIT closes the ready session on both displays.
     int f = atoi(line + 12);
     if (f != 1 && f != 2) { Serial.println("ERR:PRIME:START expects 1 or 2"); }
@@ -3353,7 +3353,7 @@ void loop() {
     }
   }
 
-  // A press that spoke for itself needs no click frame: the controller ticks on
+  // A press that spoke for itself needs no click frame: the main board ticks on
   // the command it received. Only a press that said nothing else sends one, and
   // it goes out here rather than from inside the LVGL callback, so one press can
   // never put two frames on the pair back to back.
@@ -3449,7 +3449,7 @@ void loop() {
     }
   }
 
-  // RUNNING elapsed is anchored to the controller's heartbeat and smoothed
+  // RUNNING elapsed is anchored to the main board's heartbeat and smoothed
   // locally between answers. Only the small readout and bar move at 10 Hz.
   if (primeSessionKnown && primeSessionToken != 0 &&
       primeSession.sessionToken == primeSessionToken &&
@@ -3459,11 +3459,11 @@ void loop() {
     primeLastUiMs = millis();
   }
 
-  // The status request keeps controller truth fresh once a second whenever a
+  // The status request keeps main board truth fresh once a second whenever a
   // shared prime hold does not own the pair. Three unanswered turns recover the
   // transport before the next customer action depends on it.
   if (uiReady && !screenIdle && !primeLinkOwnsJ9()) {
-    // The controller no longer speaks unprompted — a prime that timed out or a
+    // The main board no longer speaks unprompted — a prime that timed out or a
     // pump that finished waits for a frame to answer. This poll is what collects
     // those, so it is the ceiling on how stale news from the base can be. A poll
     // pair is ~50 bytes; at 115200 that is 1% of the pair at this interval.
@@ -3475,7 +3475,7 @@ void loop() {
     }
   }
 
-  // Choose's cached refresh does no LVGL work while the controller's selection
+  // Choose's cached refresh does no LVGL work while the main board's selection
   // and persistence state are unchanged; this timer lets a stale link cross
   // the two-second threshold without a standing diagnostic on the glass.
   if (uiReady && !screenIdle) {

@@ -65,21 +65,21 @@ static void sendPrimeSessionState(HdlcLink *link) {
 }
 
 // J9 cannot be driven asynchronously. Revisions therefore coalesce here: when
-// any enclosure display frame gives the controller a safe turn, only the newest
+// any enclosure display frame gives the main board a safe turn, only the newest
 // absolute state is sent. A query/action response calls sendPrimeSessionState()
 // directly and consumes the same revision, avoiding a duplicate snapshot.
 static void sendChangedPrimeSessionState(HdlcLink *link) {
     MachinePrimeSessionState current;
     machineReadPrimeSessionState(current);
-    // Revision zero is also the controller's authoritative OFF after boot. It
-    // still has to cross J9 once so a display that survived this controller's
+    // Revision zero is also the main board's authoritative OFF after boot. It
+    // still has to cross J9 once so a display that survived this main board's
     // reset cannot retain an old READY/RUNNING snapshot indefinitely.
     if (enclosurePrimeSessionStateSent &&
         current.revision == enclosurePrimeSessionLastSentRevision) return;
     sendPrimeSessionState(link);
 }
 
-// What the controller currently holds, as the glass reads it.
+// What the main board currently holds, as the glass reads it.
 static void fillSoundCfg(SoundCfgPayload &c) {
     c.volume      = soundVolume();
     c.quietOn     = soundQuietOn() ? 1 : 0;
@@ -91,10 +91,10 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 }
 
 // ── What the machine announces, going out on the pair ─────────────────────
-// This board answers; it does not interrupt. A prime that timed out and a bounded
+// The main board answers; it does not interrupt. A prime that timed out and a bounded
 // run that finished both come from machineService(), on a clock of their own, and
 // putting them straight on the wire means driving it while the glass may already
-// be mid-frame — which collides, destroys this board's own echo, and costs
+// be mid-frame — which collides, destroys the main board's own echo, and costs
 // whichever frame the glass was sending (rs485_echo.h).
 //
 // So an announcement waits for a turn. It is held here and goes out inside the
@@ -160,7 +160,7 @@ static bool isUserAction(uint8_t type) {
 static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len);
 
 // The turn. A frame has landed, so the glass is listening rather than driving:
-// this is the only window in which this board puts anything on the pair.
+// this is the only window in which the main board puts anything on the pair.
 // Exactly one reply may leave in a turn. The enclosure releases its own
 // transmit guard after the first complete frame, so following that frame with
 // another would let its next request collide with our tail. Direct command
@@ -217,8 +217,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     }
 
     // The enclosure display has no authoritative flavor cache. It asks for
-    // controller truth at boot and on a short cadence, including while dark,
-    // which gives the controller a collision-free turn to publish a faucet
+    // main board truth at boot and on a short cadence, including while dark,
+    // which gives the main board a collision-free turn to publish a faucet
     // selection. A selection is absolute and tokenized so an HDLC/application
     // retry cannot turn one press into two sounds or state changes.
     if (type == MSG_FLAVOR_QUERY) {
@@ -226,8 +226,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The logo a channel wears is controller-owned like the selection, so the
-    // enclosure states the pair and reads back what the controller now holds.
+    // The logo a channel wears is main-board-owned like the selection, so the
+    // enclosure states the pair and reads back what the main board now holds.
     if (type == MSG_FLAVOR_ART_QUERY) {
         FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
         link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
@@ -391,7 +391,7 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    // The controller owns these and persists them; the answer is what it now
+    // The main board owns these and persists them; the answer is what it now
     // holds, not an echo of what was asked for, so a value it clamped comes back
     // clamped and the glass shows the truth.
     if (type == MSG_SOUND_CFG_SET && plen >= sizeof(SoundCfgPayload)) {
@@ -464,7 +464,7 @@ bool linkDisplayUsbReattach() {
     displayUsbReattachAck = false;
 
     // Retry because this explicit development request is the rare
-    // controller-originated frame and can meet a status poll on the half-duplex pair.
+    // main-board-originated frame and can meet a status poll on the half-duplex pair.
     for (uint8_t attempt = 0; attempt < 3 && !displayUsbReattachAck; attempt++) {
         j9.send(MSG_DISPLAY_USB_REATTACH, nullptr, 0);
         unsigned long until = millis() + 200;
@@ -483,7 +483,7 @@ bool linkDisplayUsbReattach() {
 }
 
 // The one thing here that speaks unprompted, and it is a bench command: it exists
-// to prove this board's half of the pair carries, with nobody expected to answer.
+// to prove the main board's half of the pair carries, with nobody expected to answer.
 void linkPing() {
     size_t before = j9Stream.echoSwallowed();
     uint32_t rxBefore = j9.framesRx;
@@ -500,7 +500,7 @@ void linkPing() {
     else if (j9.framesRx > rxBefore)
         Serial.println("  and the display answered");
     else
-        Serial.println("  this board's half carries; nothing answered from the far end");
+        Serial.println("  the main board's half carries; nothing answered from the far end");
 }
 
 void linkReport() {

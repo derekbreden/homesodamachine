@@ -122,7 +122,7 @@ static const ToneStep kFault[] = {
 };
 
 // SND_ALARM — the gas trip, and the reason every other sound is held below 50%.
-// Both pitches sit near resonance so both are as loud as this board gets, and
+// Both pitches sit near resonance so both are as loud as the main board gets, and
 // they alternate hard: a steady tone becomes room noise within a minute, an
 // alternating pair does not. Loops until soundStop(), and SND_F_UNSILENCEABLE
 // puts it outside volume, mute and quiet hours.
