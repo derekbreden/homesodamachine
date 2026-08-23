@@ -26,3 +26,11 @@ they became.
 | **enclosure** | the cabinet under the counter | |
 | **enclosure quadrant** | one of the four printed pieces the enclosure comes apart into — front-top, front-bottom, back-top, back-bottom | |
 | **enclosure display** | the 4.3" LCD on the enclosure's front face | config display, front-face display, front display |
+| **umbilical** | the sleeved run of three tubes and the signal cable, counter to rear wall | |
+| **flavor tube** | either of the two black 1/4" tubes, rear wall to the gooseneck exit | |
+| **flavor reservoir** | the printed translucent tank a flavor is poured into | |
+| **carbonator** | the steel pressure vessel that carbonates the water | vessel, carbonator vessel |
+| **peristaltic pump** | either of the two pumps that inject flavor | |
+| **diaphragm pump** | the pump that pushes water into the carbonator | |
+| **cold core** | the insulated block keeping the carbonator and reservoirs cold | |
+| **under-counter plate** | the cut SS disc that slides on from below and takes the nut | keyhole plate |
