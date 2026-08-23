@@ -175,6 +175,22 @@ def inventory(files=None) -> dict:
     files |= graph_writes
     files |= {f for paths in IMPLICIT_SOLIDS.values() for f in paths}
 
+    # A READ OF A FILE NOTHING HAS AND NOTHING WRITES IS A READ OF A GHOST. The sort below
+    # drops it — `if f in files` — so a generator can go on declaring it forever, and the
+    # declaration says the build depends on something it cannot depend on. That is how a
+    # deleted output leaves its readers behind: the pictures stop being drawn, the reads that
+    # named them stay, and nothing says so. Named here, where the drop happens.
+    ghosts = {g: sorted(f for f in seen.get("reads", ()) if f not in files)
+              for g, seen in graph.items()}
+    ghosts = {g: bad for g, bad in ghosts.items() if bad}
+    if ghosts:
+        gen, bad = sorted(ghosts.items())[0]
+        raise SystemExit(
+            f"  {sum(len(b) for b in ghosts.values())} declared read(s) across {len(ghosts)} "
+            f"generator(s) name a file\n  the tree does not hold and no rule writes — "
+            f"{bad[0]}, read by {Path(gen).name},\n  among them. Drop the read if what wrote it "
+            f"is gone, or declare the writer.")
+
     # A READING TAKEN BEFORE THE WRITERS SAID WHICH KIND OF WRITE IT WAS cannot be sorted, and
     # sorting it wrong makes every doc an output its own action is not given. Named here rather
     # than built into a graph that fails one action at a time.
