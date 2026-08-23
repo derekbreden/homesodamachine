@@ -14,11 +14,9 @@ import { state } from "./state.js";
 import { openMmdDetail, openPcbDetail } from "./detail-shims.js";
 import { buildPartsSection } from "./parts.js";
 import { renderMmdThumbnail } from "./mermaid.js";
-import { windowContent, markupThumb, imageThumb } from "./lazy.js";
+import { windowContent, markupThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail, forgetThumbnail } from "./step.js";
-import { renderDxfThumbnail } from "./dxf.js";
-import { renderGlbThumbnail } from "./glb.js";
 
 // A CARD DRAWS THE MODEL IT OPENS. `renderThumbnail` answers off the same mesh
 // payload `loadStepFile` does and falls back to the same STEP, so the picture on
@@ -55,13 +53,6 @@ export function paintStepThumb(card, { bust = false } = {}) {
     if (url) img.src = url;
     delete card.dataset.drawing;
   });
-}
-
-function shortName(file, ext = ".step") {
-  const parts = file.split("/");
-  const name = parts.pop().replace(ext, "");
-  const dir = parts.join("/");
-  return { name, dir };
 }
 
 // Subsystem grouping for the charts grid. Files under
@@ -104,9 +95,7 @@ function groupFilesByCategory(files) {
 
 // Append a sequence of [subsection-header, card, card, ...] groups to
 // gridEl, one group per category returned by groupFilesByCategory.
-// Caller supplies the thumbnail markup (it differs between STEP/DXF
-// "loading..." placeholders and the wrapped mmd-thumb structure) plus
-// the click handler.
+// Caller supplies the thumbnail markup and the click handler.
 function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
   for (const [category, group] of groupFilesByCategory(files)) {
     const sub = document.createElement("div");
@@ -194,10 +183,11 @@ export function buildGrid() {
   const section = currentSection();
 
   if (section === "parts") {
-    // parts.js does the whole build — the seating, the branches, the cards —
-    // and leaves the `.card[data-type][data-file]` shells the window below and
-    // live.js select on. STEP, DXF and GLB stand together in it, each under the
-    // assembly it is a part of.
+    // parts.js does the whole build: it seats every file the walkers offer, draws
+    // the two roots it seated them into, and leaves the `.card[data-type="step"]
+    // [data-file]` shells the window below and live.js select on. The seating that
+    // is not those two roots is read by the gate — a directory nothing claims is
+    // named above the cards — and is drawn nowhere.
     if (!state.allFiles.length && !state.dxfFiles.length && !state.glbFiles.length) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
@@ -278,8 +268,6 @@ export function buildGrid() {
       mount: (card) => paintStepThumb(card),
       unmount: (card) => card.querySelector("img")?.removeAttribute("src"),
     },
-    dxf: imageThumb(renderDxfThumbnail),
-    glb: imageThumb(renderGlbThumbnail),
     mmd: markupThumb({ hostSelector: ".mmd-thumb", render: renderMmdThumbnail }),
     pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
   };

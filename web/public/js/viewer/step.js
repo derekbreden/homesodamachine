@@ -319,7 +319,7 @@ addStudioLighting(thumbScene);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.
-export function snapThumbnail(group, px = THUMB_SIZE) {
+function snapThumbnail(group, px = THUMB_SIZE) {
   // The drawing buffer only, so the canvas keeps no style of its own — nothing
   // puts this element on a page.
   if (thumbRenderer.domElement.width !== px) thumbRenderer.setSize(px, px, false);
@@ -400,8 +400,3 @@ export async function renderThumbnail(file, px = THUMB_SIZE) {
     return null;
   }
 }
-
-// thumbScene is also reused by dxf.js's renderDxfThumbnail — same offscreen
-// renderer, just a different group producer. Re-exported so dxf.js doesn't
-// need its own duplicate setup.
-export { thumbRenderer, thumbScene, thumbCam };

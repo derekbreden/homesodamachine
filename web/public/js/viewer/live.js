@@ -25,11 +25,9 @@ import { state } from "./state.js";
 import { getLoader } from "./loaders.js";
 import { paintStepThumb } from "./grid.js";
 import { forgetThumbnail } from "./step.js";
-import { renderDxfThumbnail } from "./dxf.js";
-import { renderGlbThumbnail } from "./glb.js";
 // Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
 // stay static — a code edit rarely touches the tiny card render and re-importing
-// for it isn't worth it (matches the CAD kinds keeping renderGlbThumbnail static).
+// for it isn't worth it.
 import { refetchOpenMmd, refetchOpenPcb } from "./detail-shims.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { renderPcbThumbnail } from "./pcb.js";
@@ -40,8 +38,6 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { isMounted } from "./lazy.js";
 
 function refreshStepCard(file) {
-  // Re-fetch the committed PNG past the browser cache. On a real deploy the
-  // thumbnail ships committed alongside the STEP, so it's fresh immediately. On
   // The card draws the model, so a STEP that moved is a card that has to redraw:
   // drop every picture of it and let `paintStepThumb` read the fresh one.
   forgetThumbnail(file);
@@ -51,58 +47,13 @@ function refreshStepCard(file) {
   paintStepThumb(card, { bust: true });
 }
 
-function refreshDxfCard(file) {
-  state.dxfThumbCache.delete(file);
-  const card = state.gridEl.querySelector(`.card[data-type="dxf"][data-file="${CSS.escape(file)}"]`);
-  if (!card) { fetchFiles(); return; }
-  if (!isMounted(card)) return;
-  const img = card.querySelector("img");
-  if (img) {
-    const ph = document.createElement("div");
-    ph.className = "placeholder";
-    ph.dataset.file = file;
-    ph.textContent = "updating...";
-    img.replaceWith(ph);
-  }
-  renderDxfThumbnail(file).then((url) => {
-    if (!url) return;
-    const target = card.querySelector(".placeholder");
-    if (target) {
-      const newImg = document.createElement("img");
-      newImg.src = url;
-      target.replaceWith(newImg);
-    } else {
-      const existing = card.querySelector("img");
-      if (existing) existing.src = url;
-    }
-  });
-}
-
-function refreshGlbCard(file) {
-  state.glbThumbCache.delete(file);
-  const card = state.gridEl.querySelector(`.card[data-type="glb"][data-file="${CSS.escape(file)}"]`);
-  if (!card) { fetchFiles(); return; }
-  if (!isMounted(card)) return;
-  const img = card.querySelector("img");
-  if (img) {
-    const ph = document.createElement("div");
-    ph.className = "placeholder";
-    ph.dataset.file = file;
-    ph.textContent = "updating...";
-    img.replaceWith(ph);
-  }
-  renderGlbThumbnail(file).then((url) => {
-    if (!url) return;
-    const target = card.querySelector(".placeholder");
-    if (target) {
-      const newImg = document.createElement("img");
-      newImg.src = url;
-      target.replaceWith(newImg);
-    } else {
-      const existing = card.querySelector("img");
-      if (existing) existing.src = url;
-    }
-  });
+// NO PAGE DRAWS A CARD FOR A CUT OR A SCENE. /3d is the machine's two assemblies,
+// and a `.dxf` or a `.glb` is reached by opening one and taking what a pick offers,
+// or by a link straight to it — so a change to one is a list to re-take, which is
+// what puts a newly unclaimed directory in front of the reader. The modal showing
+// it reloads on its own, below.
+function refreshUncardedFile() {
+  fetchFiles();
 }
 
 function refreshMmdCard(file) {
@@ -183,10 +134,10 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
         });
       }
     } else if (file.endsWith(".dxf")) {
-      refreshDxfCard(file);
+      refreshUncardedFile();
       if (isOpenAs("dxf", file)) reloadCad("dxf", file);
     } else if (file.endsWith(".glb")) {
-      refreshGlbCard(file);
+      refreshUncardedFile();
       if (isOpenAs("glb", file)) reloadCad("glb", file);
     } else if (file.endsWith(".mmd")) {
       refreshMmdCard(file);
@@ -241,8 +192,6 @@ window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
     // not the code this tab loaded at boot.
     if (e.detail && e.detail.commit) state.codeVersion = String(e.detail.commit);
     state.thumbnailCache.clear();
-    state.dxfThumbCache.clear();
-    state.glbThumbCache.clear();
     state.mmdThumbCache.clear();
     state.pcbThumbCache.clear();
     // New build may carry new render code too, so force a full re-render (this
