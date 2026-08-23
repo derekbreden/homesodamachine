@@ -153,7 +153,7 @@ const INERT_FACTS_EDGE = Object.freeze({
   shared: "hardware/scripts/_facts.py",
   step: "enclosure-assembly.step",
   consumer: "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-  sha256: "fd98dab4edac3c0387f3df0e4183fe187cef39f8d3b429c2c6d9f9d5118f46d7",
+  sha256: "fd9c5cfed9d528a4bad69db4526f08d44e1699acb874642ec9957ff1fa1fa637",
 });
 
 export function isPinnedInertStepEdge(
