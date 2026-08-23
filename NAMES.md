@@ -42,3 +42,8 @@ they became.
 | **above-counter plate** | the printed disc between the faucet shell and the countertop | mounting plate |
 | **above-counter gasket** | the TPU disc between the above-counter plate and the countertop | mounting gasket |
 | **ASSE drip pan** | the printed catch basin in the service bay, under the ASSE 1022 chain | drip pan |
+| **nameplate** | the plate the machine is named and rated on | |
+| **ceiling panel** | the enclosure's ceiling, printed as its own piece | |
+| **foam shell** | the printed PETG shell around the cold core | |
+| **PRV shroud** | the printed cup over the pressure-relief valve, keeping the pour off it | |
+| **funnel** | the part flavor concentrate is poured into, with its own spout | |
