@@ -435,7 +435,7 @@ def main():
     print(f"  brim:    lands y {fore_y:g}..{fore_y + brim_seat:g} on the show face")
     meter_anchors, ribs = _enc.ceiling_stations(
         box.flow_meter_anchors, box.tube_anchors, panel=True)
-    print(f"  carries: {0 if anchors is None else len(anchors[3])} meter anchor(s), "
+    print(f"  carries: {0 if meter_anchors is None else len(meter_anchors[3])} meter anchor(s), "
           f"{len(ribs)} ceiling rib(s) — "
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
     print(f"  reliefs: {len(box.ceiling_reliefs)} body pocket(s), "
