@@ -24,7 +24,7 @@ Part roles (geometry authoritative in the sources above):
 - **reservoir-gasket** — 2.0 mm flat gasket, 5 mm-wide perimeter ring,
   between the reservoir body wall top and the cap base, clamped by six M3.
 - **above-counter-gasket** — Ø54.35 mm × 2.0 mm disc between the
-  faucet mounting plate and the kitchen countertop; shank hole + flavor-tube
+  above-counter plate and the kitchen countertop; shank hole + flavor-tube
   pill slot.
 - **reservoir-bulkhead-seal-dry** — TPU face-seal washer under the elbow
   flange on the dry side of the PureSec bulkhead, Ø16 mm ID × Ø18.5 mm OD
