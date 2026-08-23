@@ -21,6 +21,7 @@ extern "C" uint32_t home_soda_rgb_restart_count(void);
 // Static Font Awesome icons keep the customer rail and full-card actions crisp
 // without asking LVGL to transform text at runtime.
 extern "C" const lv_font_t front_icons_48;
+extern "C" const lv_font_t front_icons_96;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -355,23 +356,15 @@ static lv_obj_t *flvThumbBtn[FLAVOR_IMAGE_COUNT];
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
-static lv_obj_t *homeSyncLabel;
 
 // Choose receives the controller's flavor state four times a second while lit.
 // Keep the rendered model separate from the replicated model so a routine,
 // unchanged answer does not invalidate a large card and flip the RGB panel's
 // framebuffer. Negative sentinels guarantee one complete initial render.
-enum HomeSyncVisual : uint8_t {
-  HOME_SYNC_CONNECTING,
-  HOME_SYNC_SAVING,
-  HOME_SYNC_ERROR,
-  HOME_SYNC_HEALTHY,
-};
 static int8_t homeFlavorShown = -2;
-static int8_t homeSyncShown = -1;
 
 static lv_obj_t *flvDetailRatio;
-static lv_obj_t *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
+static lv_obj_t *primePad, *primePadLbl, *primeMsg;
 static lv_indev_t *touchInput = nullptr;
 static lv_obj_t *cleanMsg, *fillMsg;
 static lv_obj_t *settingsBtn;      // top-right of the screen, outside the pane
@@ -1686,7 +1679,7 @@ static void refreshFlavorText() {
 }
 
 static void refreshHomeSelection() {
-  if (!homeSyncLabel) return;
+  if (!homeFlavorCard[0]) return;
   const bool selectionKnown = flavorSynchronized || flavorRequestPending;
   const int8_t selectedFlavor = selectionKnown ? static_cast<int8_t>(activeFlavor) : -1;
   if (selectedFlavor != homeFlavorShown) {
@@ -1719,39 +1712,6 @@ static void refreshHomeSelection() {
     }
   }
 
-  const bool stale = flavorStateMs && millis() - flavorStateMs > 2000;
-  HomeSyncVisual syncVisual;
-  if (flavorControllerPersistError) {
-    syncVisual = HOME_SYNC_ERROR;
-  } else if (flavorRequestPending || (flavorSynchronized && !flavorControllerPersisted)) {
-    syncVisual = HOME_SYNC_SAVING;
-  } else if (!flavorSynchronized || stale) {
-    syncVisual = HOME_SYNC_CONNECTING;
-  } else {
-    syncVisual = HOME_SYNC_HEALTHY;
-  }
-
-  if (static_cast<int8_t>(syncVisual) == homeSyncShown) return;
-  homeSyncShown = static_cast<int8_t>(syncVisual);
-
-  // Synchronization is infrastructure, not a standing user task. Say nothing
-  // when it is healthy; surface only a state that deserves attention or time.
-  if (syncVisual == HOME_SYNC_HEALTHY) {
-    lv_obj_add_flag(homeSyncLabel, LV_OBJ_FLAG_HIDDEN);
-    return;
-  }
-
-  lv_obj_clear_flag(homeSyncLabel, LV_OBJ_FLAG_HIDDEN);
-  if (syncVisual == HOME_SYNC_ERROR) {
-    lv_label_set_text(homeSyncLabel, LV_SYMBOL_WARNING "  NOT SAVED");
-    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
-  } else if (syncVisual == HOME_SYNC_SAVING) {
-    lv_label_set_text(homeSyncLabel, "SAVING...");
-    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_ACCENT), 0);
-  } else {
-    lv_label_set_text(homeSyncLabel, LV_SYMBOL_REFRESH "  CONNECTING");
-    lv_obj_set_style_text_color(homeSyncLabel, lv_color_hex(COL_WARN), 0);
-  }
 }
 
 // ── Prime-ready session — shared controller truth and one local hold ──
@@ -1824,18 +1784,6 @@ static uint32_t primeDisplayedElapsed() {
   }
   if (elapsed > PRIME_MAX_MS) elapsed = PRIME_MAX_MS;
   return elapsed;
-}
-
-static void primeRefreshElapsed(bool force = false) {
-  if (!primeElapsed || !primeBar) return;
-  const uint32_t elapsed = primeDisplayedElapsed();
-  if (!force && elapsed / 100 == primeElapsedShown / 100) return;
-  primeElapsedShown = elapsed;
-  char buf[16];
-  snprintf(buf, sizeof(buf), "%lu.%lu s", (unsigned long)elapsed / 1000,
-           ((unsigned long)elapsed % 1000) / 100);
-  lv_label_set_text(primeElapsed, buf);
-  lv_bar_set_value(primeBar, (int32_t)elapsed, LV_ANIM_OFF);
 }
 
 static const char *primeOutcomeText(uint8_t outcome) {
@@ -1925,7 +1873,6 @@ static void primeRender(bool force = false) {
       lv_color_hex(blocked ? COL_OFF
                    : phase == PRIME_SESSION_RUNNING ? COL_GOOD : COL_CARD_ON),
       LV_PART_MAIN | LV_STATE_PRESSED);
-  primeRefreshElapsed(true);
 }
 
 static void primeSessionActivate() {
@@ -2583,13 +2530,6 @@ static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
-  homeSyncLabel = mkText(page, LV_SYMBOL_REFRESH "  CONNECTING",
-                         &lv_font_montserrat_20, COL_WARN);
-  // Right-aligned but held clear of the settings square, which overlaps this
-  // band from the screen root and is not part of the pane's own layout.
-  lv_obj_align(homeSyncLabel, LV_ALIGN_TOP_RIGHT,
-               -(SETTINGS_BTN + SETTINGS_GAP - PANE_PAD),
-               (PANE_HEAD_H - TEXT_H_20) / 2);
 
   // The card is the whole selection target, so its settings live beside it
   // rather than inside it — a sibling, where no press can reach the card under it.
@@ -2693,7 +2633,7 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
                               lv_event_cb_t cb) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   const lv_coord_t ch = PANE_H - PANE_BODY_Y;
-  const lv_coord_t top = (ch - (48 + 16 + FLAVOR_ART_SIZE)) / 2;
+  const lv_coord_t top = (ch - (96 + 20 + FLAVOR_MID_SIZE)) / 2;
   lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
   for (int i = 0; i < 2; i++) {
@@ -2701,24 +2641,14 @@ static void buildFlavorPicker(lv_obj_t *view, const char *title,
     lv_obj_align(b, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
     lv_obj_add_event_cb(b, cb, ACT_EVENT, (void *)(intptr_t)i);
     lv_obj_align(mkText(b, icon, iconFont, COL_ACCENT), LV_ALIGN_TOP_MID, 0, top);
-    lv_obj_align(mkChannelImg(b, (uint8_t)i, flavorArt),
-                 LV_ALIGN_TOP_MID, 0, top + 48 + 16);
+    lv_obj_align(mkChannelImg(b, (uint8_t)i, flavorMid),
+                 LV_ALIGN_TOP_MID, 0, top + 96 + 20);
   }
 }
 
 // A named flavor, what the machine is about to do to it, and one wide target to
 // say go. Fill and Clean are the same shape: both commit an open-ended manifold
 // operation the controller sequences, so both ask once, plainly, before sending.
-// The word for what is about to happen, and the logo of the channel it happens
-// to — the same mark that was tapped to get here, carried forward so the screen
-// never has to be read to know which one is committed.
-static void mkFlavorHead(lv_obj_t *v, const char *word) {
-  lv_obj_t *w = mkText(v, word, &lv_font_montserrat_28, COL_DIM);
-  lv_obj_align(w, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
-  lv_obj_t *img = mkSelectedImg(v, flavorHead);
-  lv_obj_align_to(img, w, LV_ALIGN_OUT_RIGHT_MID, 16, 0);
-}
-
 static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body,
                               const char *action, lv_event_cb_t cb,
                               lv_obj_t **msgOut) {
@@ -2749,40 +2679,39 @@ static void buildService(lv_obj_t *page) {
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
 
   lv_obj_t *pick = mkView(page);
-  buildFlavorPicker(pick, "PRIME A FLAVOR", "\xEF\x81\x83", &front_icons_48,
+  buildFlavorPicker(pick, "PRIME A FLAVOR", "\xEF\x81\x83", &front_icons_96,
                     primePickCb);
   svcView[SVC_PRIME_PICK] = pick;
 
   // The hold pad. It fills the pane because it is meant to be found without looking.
   lv_obj_t *hold = mkView(page);
-  mkFlavorHead(hold, "PRIME");
+  lv_obj_align(mkText(hold, "PRIME", &lv_font_montserrat_28, COL_DIM),
+               LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
-  primePad = mkBtn(hold, fw, 200, COL_ACCENT);
-  lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
-  // A slide out of the large hold target is a lost press and must stop the
-  // pump just like a lift; ordinary navigation buttons keep PRESS_LOCK.
+  lv_obj_align(mkSelectedImg(hold, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
+
+  lv_obj_t *ph = mkText(hold, "Hold the pad while the pump pushes\n"
+                              "concentrate out to the nozzle.",
+                        &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_style_text_align(ph, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(ph, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + FLAVOR_MID_SIZE + 16);
+
+  primePad = mkBtn(hold, fw, 96, COL_ACCENT);
+  lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0,
+               PANE_BODY_Y + FLAVOR_MID_SIZE + 16 + 2 * TEXT_H_20 + 32);
+  // A slide out of the hold target is a lost press and must stop the pump just
+  // like a lift; ordinary navigation buttons keep PRESS_LOCK.
   lv_obj_clear_flag(primePad, LV_OBJ_FLAG_PRESS_LOCK);
   lv_obj_add_event_cb(primePad, primePadCb, LV_EVENT_ALL, NULL);
-  primePadLbl = mkText(primePad, "HOLD TO PRIME", &lv_font_montserrat_48, COL_TEXT);
+  primePadLbl = mkText(primePad, "HOLD TO PRIME", &lv_font_montserrat_28, COL_TEXT);
   lv_obj_center(primePadLbl);
 
-  primeElapsed = mkText(hold, "0.0 s", &lv_font_montserrat_48, COL_TEXT);
-  lv_obj_align(primeElapsed, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + 218);
-
-  primeBar = lv_bar_create(hold);
-  lv_obj_set_size(primeBar, fw, 18);
-  lv_obj_align(primeBar, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + 290);
-  lv_bar_set_range(primeBar, 0, (int32_t)PRIME_MAX_MS);
-  lv_bar_set_value(primeBar, 0, LV_ANIM_OFF);
-  lv_obj_set_style_bg_color(primeBar, lv_color_hex(COL_CARD), LV_PART_MAIN);
-  lv_obj_set_style_bg_color(primeBar, lv_color_hex(COL_ACCENT), LV_PART_INDICATOR);
-
-  primeMsg = mkText(hold, "idle", &lv_font_montserrat_20, COL_DIM);
+  primeMsg = mkText(hold, "", &lv_font_montserrat_20, COL_WARN);
   lv_obj_align(primeMsg, LV_ALIGN_BOTTOM_MID, 0, 0);
   svcView[SVC_PRIME_HOLD] = hold;
 
   lv_obj_t *cpick = mkView(page);
-  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_icons_48,
+  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_icons_96,
                     cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
@@ -2792,7 +2721,7 @@ static void buildService(lv_obj_t *page) {
       "START CLEAN CYCLE", cleanStartCb, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
-  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_48,
+  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_96,
                     fillPickCb);
   svcView[SVC_FILL_PICK] = fpick;
 
@@ -3502,7 +3431,6 @@ void loop() {
       activePage == PAGE_SERVICE && activeSvc == SVC_PRIME_HOLD &&
       millis() - primeLastUiMs >= 100) {
     primeLastUiMs = millis();
-    primeRefreshElapsed();
   }
 
   // The status request keeps controller truth fresh once a second whenever a
