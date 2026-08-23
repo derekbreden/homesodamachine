@@ -2,12 +2,12 @@
 
 `printed-parts/cold-core/foam-assembly` is the core as the MACHINE sees it: five printed
 pieces, the outside faces the enclosure loads and stands its own bodies off. This is the core
-as the BENCH sees it, one frame further in — the vessel that fills it, the coil wound on that,
+as the BENCH sees it, one frame further in — the carbonator that fills it, the coil wound on that,
 both reservoirs in their pockets, the fittings made up on every port, and the lines drawn
 among all of them.
 
 FRAME: the foam shell's own. Z up, the shell floor's outer face at z = 0, the shell's open top
-at `foam_shell_outer_height`. ±Y is the vessel's port axis and +X the register azimuth.
+at `foam_shell_outer_height`. ±Y is the carbonator's port axis and +X the register azimuth.
 `foam_assembly.stack_floor_z` and `.cap_face_z` are the two planes the appliance reads.
 
     tools/cad-venv/bin/python hardware/cold-core-layout/cold_core_assembly.py
@@ -41,7 +41,7 @@ import foam_assembly as _foam                            # noqa: E402
 import _internal_routes as _routes                       # noqa: E402
 import copper_plugs as _plugs                            # noqa: E402
 from _cold_core_interface import foam_shell_outer_height  # noqa: E402
-import _vessel as _V                                     # noqa: E402
+import _carbonator as _V                                     # noqa: E402
 import _coil as _C                                       # noqa: E402
 import _fittings as _F                                   # noqa: E402
 import _internals as _I                                  # noqa: E402
@@ -86,12 +86,12 @@ HELD_BY = {
     "prv-shroud": "the PRV it caps",
     "prv-sv125": "elbow socket",
     "reed-bridge": "support ring",
-    "evap-coil": "the tank it clamps",
+    "evap-coil": "the carbonator it clamps",
     "evap-tail-inlet": "wall slot",
     "evap-tail-outlet": "wall slot",
 }
 for _n in _V.PORTS:
-    HELD_BY[f"vessel-elbow-{_n}"] = "plate thread"
+    HELD_BY[f"carbonator-elbow-{_n}"] = "plate thread"
 
 # What holds the bodies that come in families, by the name each family shares.
 HELD_BY_PREFIX = (
@@ -133,10 +133,10 @@ JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-outlet"),
 )}
 
-# Bodies the wrap RIDES ON rather than routes around. THE TANK IS THE ONE IT IS WOUND ON:
-# `_coil` stands the wrap's centreline one tube radius off the tank's OD, so the copper's inner
+# Bodies the wrap RIDES ON rather than routes around. THE CARBONATOR IS THE ONE IT IS WOUND ON:
+# `_coil` stands the wrap's centreline one tube radius off the carbonator's OD, so the copper's inner
 # surface and the cylinder's outer are the same surface, and the thermal tape is what lies in
-# `coil_radial_clearance` between them. The reed bridge stands on the tank on the register
+# `coil_radial_clearance` between them. The reed bridge stands on the carbonator on the register
 # azimuth and carries the two carbonator reeds in pockets `reed_bridge.pocket_depth` proud of
 # the wall; the copper crossing it lifts onto the bridge's own plateau, and that lift IS what
 # leaves the glass its `copper_clearance_over_glass`. `_coil.wrap_length` carries the length
@@ -150,7 +150,7 @@ RIDES_ON = {frozenset(p) for p in (
     ("evap-coil", "reed-carb-2"),
 )}
 
-# The copper that travels a lane. The wrap is fixed on the tank the moment it is wound, so a
+# The copper that travels a lane. The wrap is fixed on the carbonator the moment it is wound, so a
 # fluid line clears it the way it clears any body; the two tails run the same lanes the fluid
 # lines run, and `lines-apart` grades them together.
 TAIL_LINES = ("evap-tail-inlet", "evap-tail-outlet")
@@ -158,9 +158,9 @@ TAIL_LINES = ("evap-tail-inlet", "evap-tail-outlet")
 # The fitting each line is MADE UP ON at either end. A body a line lands on is not a body it
 # has to route around, so it is out of that line's own obstacle set — and only that line's.
 MADE_UP_ON = {
-    "co2-in": ("collet-co2-in", "vessel-elbow-co2-in"),
-    "carb-water-out": ("collet-carb-water-out", "vessel-elbow-carb-water-out"),
-    "water-in": ("collet-water-in", "vessel-elbow-water-in"),
+    "co2-in": ("collet-co2-in", "carbonator-elbow-co2-in"),
+    "carb-water-out": ("collet-carb-water-out", "carbonator-elbow-carb-water-out"),
+    "water-in": ("collet-water-in", "carbonator-elbow-water-in"),
     "reservoir-a": ("bulkhead-reservoir-a",),
     "reservoir-b": ("bulkhead-reservoir-b",),
     # The vent starts IN the shroud's own bore, so the cup it leaves is not a body it routes
@@ -208,7 +208,7 @@ def build_bodies() -> dict:
     placed.update(_I.bodies(placed))
     placed.update(_prv_stack())
     placed["reed-bridge"] = _load(_cold / "reed-bridge" / "reed-bridge.step").translate(
-        (0, 0, _V.tank_bottom_z))
+        (0, 0, _V.carbonator_bottom_z))
 
     return placed
 
@@ -280,7 +280,7 @@ def prv_vent_mouth() -> tuple:
 
 
 def trimmed_routes() -> dict:
-    """Every authored centreline, with each vessel end moved out to the mouth its own fitting
+    """Every authored centreline, with each carbonator end moved out to the mouth its own fitting
     presents.
 
     `_internal_routes` draws each line to the PORT — the point on the plate's own axis that the
@@ -541,7 +541,7 @@ def _one_core(placed: dict) -> Check:
 
     `printed-parts/cold-core/foam-assembly` is the core as the machine sees it — the five
     printed pieces, their outside faces, and the port table the appliance reads. This assembly
-    is the same stack one frame further in, with the vessel, the coil, both reservoirs and
+    is the same stack one frame further in, with the carbonator, the coil, both reservoirs and
     every line among them. Two models of one thing is right; two VERDICTS of one thing is not,
     so this card is written beside both STEPs — and what makes that honest is that every body
     the outer model draws is placed here."""
@@ -559,7 +559,7 @@ def _one_core(placed: dict) -> Check:
 def _floats_couple(placed: dict) -> Check:
     """Every float's magnet held against the wall its reed reads through.
 
-    A reed here is OUTSIDE the vessel it reads, so what the check is about is COUPLING, not
+    A reed here is OUTSIDE the carbonator it reads, so what the check is about is COUPLING, not
     clearance: the capsule is loose on its rod (`_internals.FLOAT_SLOP`) and each rod is parked
     outboard of where a concentric float would touch, so the wall pushes the magnet against
     itself for the whole travel. `standoff` is what is left of the slop — the most the magnet
@@ -646,7 +646,7 @@ def _endpoint_label(line: str, which: str) -> str:
     """Which body's mouth an end of this line lands on, where one is declared."""
     for port, (name, side) in _V.PORT_LINES.items():
         if name == line and side == which:
-            return f"carbonator-vessel.{port}"
+            return f"carbonator.{port}"
     return f"{line}.{which}"
 
 
@@ -657,7 +657,7 @@ def _goal(cid: str, label: str, done: int, total: int, target: str, detail=()) -
 
 def build_card(a) -> Scorecard:
     placed, fitted = a.placed, a.fitted
-    mouths = [("carbonator-vessel", n, m, n) for n, m in _V.mouths().items()]
+    mouths = [("carbonator", n, m, n) for n, m in _V.mouths().items()]
     mouths += [(f"bulkhead-{n}", "collet", m, n) for n, m in _I.mouths().items()]
     # `by` is what FASTENS a body and `joint` the construction it stands on. Here they are the
     # same feature wherever one exists, and `by` is None for the two the tape holds — which is

@@ -1,6 +1,6 @@
 # Cold core layout
 
-The cold core with everything inside it, in one frame: the carbonator vessel, the coil wound on
+The cold core with everything inside it, in one frame: the carbonator, the coil wound on
 it, both flavour reservoirs, every fitting made up on every port, and the lines drawn among
 them. Built by [`cold_core_assembly.py`](cold_core_assembly.py) →
 `cold-core-assembly.step`, with the `.scorecard.json` beside it that the 3D viewer's bottom bar
@@ -16,7 +16,7 @@ together — every body the outer model draws stands in this one.
 ## Frame
 
 The foam shell's own. Z up, the shell floor's outer face at z = 0, the shell's open top at
-`foam_shell.foam_shell_outer_height`, which `foam-shell/README.md` states as `OUTER_H`. ±Y is the vessel's port axis; +X is the register azimuth, which the float
+`foam_shell.foam_shell_outer_height`, which `foam-shell/README.md` states as `OUTER_H`. ±Y is the carbonator's port axis; +X is the register azimuth, which the float
 rod and the reed bridge share. `foam_assembly.stack_floor_z` and `.cap_face_z` are the two
 planes the appliance reads off the stack.
 
@@ -25,16 +25,16 @@ planes the appliance reads off the stack.
 | | |
 |---|---|
 | foam stack | shell, both caps, both lids — loaded from `foam-assembly` |
-| vessel | 5" × 0.065" 316 tube, two 1/4" endcap plates recessed one thickness in, the 1/8" 316L float rod between their blind registers |
-| vessel fittings | four TAISHER street elbows, one per tapped port; the SV-125 and its shroud on port 4 |
+| carbonator | 5" × 0.065" 316 tube, two 1/4" endcap plates recessed one thickness in, the 1/8" 316L float rod between their blind registers |
+| carbonator fittings | four TAISHER street elbows, one per tapped port; the SV-125 and its shroud on port 4 |
 | pockets | both reservoirs and their caps |
 | wall | the three copper plugs, in their own slots |
 | lines | the seven `_internal_routes` centrelines, each drawn at the arc its corridor leaves |
-| coil | the wrap as an exact helix on the tank's own radius, and both tails to their slot stations |
+| coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
 | sparge | the barb on the bottom plate, the silicone stub, and the stone low in the column |
 | pockets | both floor bulkheads with their wet-side seals, both rods, both floats, both cap vent membranes |
 | sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
-| collets | the three PP010822E that land on vessel elbows |
+| collets | the three PP010822E that land on carbonator elbows |
 
 ## The card
 

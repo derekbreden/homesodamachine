@@ -59,7 +59,7 @@ def colour_for(name: str):
         return _mat.M_BRASS
     if name.startswith("endcap"):
         return _mat.M_STAINLESS
-    if name.startswith("vessel-elbow"):
+    if name.startswith("carbonator-elbow"):
         return _mat.M_STAINLESS
     if name.startswith("collet-"):
         return _mat.M_JG_BLACK_PP

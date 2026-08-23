@@ -1,18 +1,18 @@
-"""The carbonator pressure vessel, in the foam shell's own frame.
+"""The carbonator, in the foam shell's own frame.
 
 A 5" OD × 0.065" wall 316 tube with a 1/4"-thick circular plate recessed into each end and
 fillet-welded there, the 1/8" 316L float rod welded between the plates' blind registers, and a
 TAISHER street elbow made up on each of the four tapped 1/4" NPT ports.
 
   Z         the shell's own. The tube's bottom sits one floor slab and one support ring up
-            (`tank_bottom_z`); every figure below is struck off that.
-  ±Y        the port axis. All four ports stand `vessel_port_offset` off the vessel's axis on
-            it, two under the vessel and two over it.
+            (`carbonator_bottom_z`); every figure below is struck off that.
+  ±Y        the port axis. All four ports stand `vessel_port_offset` off the carbonator's axis
+            on it, two under the carbonator and two over it.
   +X        the register azimuth — the rod, and the reed bridge on the outside of the wall.
 
 Each plate is set one plate thickness in from its tube end, and that recess is where the
 closure fillet is laid (`assembly/pressure-vessel.md`). So the interior runs
-`interior_floor_z` to `interior_ceiling_z` in the tube's own frame and the vessel's outside is
+`interior_floor_z` to `interior_ceiling_z` in the tube's own frame and the carbonator's outside is
 the tube, end to end.
 
 THE ELBOWS ARE PLACED BY THE STOREYS, NOT BY THEIR OWN REACH. `front_face_port_z` and
@@ -61,16 +61,16 @@ IN = 25.4
 TUBE_OD = 2 * tank_outer_radius                  # 127.0 — 5" OD
 TUBE_WALL = 0.065 * IN                           # 1.651
 TUBE_ID = TUBE_OD - 2 * TUBE_WALL
-tank_bottom_z = wall_and_floor_thickness + tank_support_ring_height
-tank_top_z = tank_top_plate_z                    # the tube's own top, `tank_height` above
+carbonator_bottom_z = wall_and_floor_thickness + tank_support_ring_height
+carbonator_top_z = tank_top_plate_z                    # the tube's own top, `tank_height` above
 
 # --- The plates ---------------------------------------------------------------
 PLATE_D = _endcap.disc_diameter * IN             # 4.860" — tube ID less a slip fit
 PLATE_T = _endcap.disc_thickness * IN            # 1/4"
 PLATE_RECESS = PLATE_T                           # the closure fillet's own room
 # Each plate's two faces, in the shell's frame.
-bottom_plate_z = (tank_bottom_z + PLATE_RECESS, tank_bottom_z + PLATE_RECESS + PLATE_T)
-top_plate_z = (tank_top_z - PLATE_RECESS - PLATE_T, tank_top_z - PLATE_RECESS)
+bottom_plate_z = (carbonator_bottom_z + PLATE_RECESS, carbonator_bottom_z + PLATE_RECESS + PLATE_T)
+top_plate_z = (carbonator_top_z - PLATE_RECESS - PLATE_T, carbonator_top_z - PLATE_RECESS)
 interior_z = (bottom_plate_z[1], top_plate_z[0])
 
 PORT_TAP_D = _endcap.hole_diameter * IN          # 7/16" tap drill for 1/4"-18 NPT
@@ -126,7 +126,7 @@ PORT_LINES = {
 # SHROUD is made up on that socket and the shroud is what carries the vent. So the elbow faces
 # OUTWARD along its own port's side of the axis, and the cup reaching that way lands its bore
 # on that side's lane (`prv_shroud.vent_station_z`). A socket turned the other way would put the
-# bore a leg short of the vessel's own centre, where there is no lane to fall down.
+# bore a leg short of the carbonator's own centre, where there is no lane to fall down.
 PRV_OUT = (0.0, 1.0 if prv_port_y > 0 else -1.0, 0.0)
 
 
@@ -143,9 +143,9 @@ def port_out(name: str) -> tuple:
 
 def build_tube() -> cq.Solid:
     outer = cq.Solid.makeCylinder(TUBE_OD / 2, tank_height,
-                                  cq.Vector(0, 0, tank_bottom_z), cq.Vector(0, 0, 1))
+                                  cq.Vector(0, 0, carbonator_bottom_z), cq.Vector(0, 0, 1))
     bore = cq.Solid.makeCylinder(TUBE_ID / 2, tank_height + 2,
-                                 cq.Vector(0, 0, tank_bottom_z - 1), cq.Vector(0, 0, 1))
+                                 cq.Vector(0, 0, carbonator_bottom_z - 1), cq.Vector(0, 0, 1))
     return outer.cut(bore)
 
 
@@ -200,7 +200,7 @@ def male_len(name: str) -> float:
 
 
 def bodies() -> dict:
-    """Every solid the vessel is, by the name it goes into the assembly under."""
+    """Every solid the carbonator is, by the name it goes into the assembly under."""
     out = {
         "carbonator-tube": build_tube(),
         "endcap-bottom": build_plate("bottom"),
@@ -208,7 +208,7 @@ def bodies() -> dict:
         "float-rod-carb": build_rod(),
     }
     for name, (solid, _mouth) in build_elbows().items():
-        out[f"vessel-elbow-{name}"] = solid
+        out[f"carbonator-elbow-{name}"] = solid
     return out
 
 
@@ -218,9 +218,9 @@ def mouths() -> dict:
 
 
 def report() -> None:
-    print("  carbonator vessel")
+    print("  carbonator")
     print(f"    tube            ⌀{TUBE_OD:.1f} × {TUBE_WALL:.3f} wall × {tank_height:.1f}, "
-          f"z {tank_bottom_z:.2f}..{tank_top_z:.2f}")
+          f"z {carbonator_bottom_z:.2f}..{carbonator_top_z:.2f}")
     print(f"    plates          ⌀{PLATE_D:.2f} × {PLATE_T:.2f}, bottom z "
           f"{bottom_plate_z[0]:.2f}..{bottom_plate_z[1]:.2f}, top z "
           f"{top_plate_z[0]:.2f}..{top_plate_z[1]:.2f}")

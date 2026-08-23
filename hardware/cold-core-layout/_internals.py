@@ -1,4 +1,4 @@
-"""What stands inside the vessel and inside each pocket: the sparge stack, both floor
+"""What stands inside the carbonator and inside each pocket: the sparge stack, both floor
 bulkheads, the level-sensing columns, and the two 1-wire probes.
 
 Every station here is read off the part that owns it. The reservoir rod is at `reservoir.py`'s
@@ -27,7 +27,7 @@ for _p in (_hw / "scripts", _cold, _cold / "reservoir", _cold / "reed-bridge", _
         sys.path.insert(0, str(_p))
 
 import _fittings as F                                    # noqa: E402
-import _vessel as _V                                     # noqa: E402
+import _carbonator as _V                                     # noqa: E402
 import _coil as _C                                       # noqa: E402
 import reservoir as _res                                 # noqa: E402
 import reed_bridge as _bridge                            # noqa: E402
@@ -48,9 +48,9 @@ import jg_pp010822e as _ptc                              # noqa: E402
 from _cadq_export import import_step
 
 
-# --- the three collets made up on vessel elbows ------------------------------
+# --- the three collets made up on carbonator elbows --------------------------
 #
-# `bom.md` §3, §4 and §9 each carry a PP010822E that lands on one of the vessel's own elbows.
+# `bom.md` §3, §4 and §9 each carry a PP010822E that lands on one of the carbonator's own elbows.
 # The shank threads the elbow's socket and the collet stands outside it, so a line that used to
 # start at the elbow's mouth starts at the collet's.
 PTC_STANDOFF = _ptc.COLLET_LENGTH + _ptc.HEX_LENGTH
@@ -66,15 +66,15 @@ def collet_on(mouth):
     return solid, F.Mouth(tuple(origin), tuple(out), _ptc.TUBE_D)
 
 
-def vessel_collets() -> dict:
-    """Each vessel port's collet, name → `(solid, mouth)`."""
+def carbonator_collets() -> dict:
+    """Each carbonator port's collet, name → `(solid, mouth)`."""
     vm = _V.mouths()
     return {name: collet_on(vm[name]) for name in PTC_PORTS}
 
-# --- the sparge stack, inside the vessel over the bottom plate ---------------
+# --- the sparge stack, inside the carbonator over the bottom plate -----------
 #
 # The barb threads the bottom plate's lane-side port from the INSIDE and faces up the column.
-# The stone sits on the vessel's own axis a `STONE_STANDOFF` off the plate, and the silicone
+# The stone sits on the carbonator's own axis a `STONE_STANDOFF` off the plate, and the silicone
 # stub arcs over from the barb to its stem — so the gas enters under the whole column and rises
 # the length of it, at every level the float reads.
 SILICONE_R = 0.5 * 6.35        # 1/4" ID silicone, drawn at the bore it carries
@@ -123,7 +123,7 @@ def sparge_stub_length() -> float:
 #
 # The PureSec barrel rises through the trough floor on the bulkhead axis and its integral
 # elbow turns the syrup line onto the run `_internal_routes` draws out of the pocket, so the
-# collet is clocked by that line the same way the vessel's sockets are.
+# collet is clocked by that line the same way the carbonator's sockets are.
 BULKHEAD_LINES = {"reservoir-a": "reservoir-a", "reservoir-b": "reservoir-b"}
 # The elbow's own half-height, read off the band `_cold_core_interface` gives it: the
 # lateral port's centre at `bulkhead_elbow_exit_z` over the lowest hardware at
@@ -177,7 +177,7 @@ def reservoir_bulkheads(reservoirs: dict = None) -> dict:
 
 # --- level sensing -----------------------------------------------------------
 #
-# The carbonator's float rides `_vessel`'s welded rod; each reservoir's rides the rod standing
+# The carbonator's float rides `_carbonator`'s welded rod; each reservoir's rides the rod standing
 # in its own printed boss. Every reed is vertical: a donut on a rod couples axially, and the
 # glass sits in a pocket cut on that axis.
 RES_ROD_X = _res.rod_position_x
@@ -217,12 +217,12 @@ def reservoir_reed_z() -> tuple:
 
 def carbonator_reed_z() -> tuple:
     """The bridge's own two pockets, carried into the shell's frame."""
-    return (_bridge.reed_low_z + _V.tank_bottom_z, _bridge.reed_high_z + _V.tank_bottom_z)
+    return (_bridge.reed_low_z + _V.carbonator_bottom_z, _bridge.reed_high_z + _V.carbonator_bottom_z)
 
 
 def carbonator_reed_x() -> float:
     """The reeds sit against bare 316L on the register azimuth, so their glass stands one
-    radius out from the tank wall inside the bridge that holds them."""
+    radius out from the carbonator wall inside the bridge that holds them."""
     return tank_outer_radius + F.REED_GLASS_R
 
 
@@ -279,7 +279,7 @@ def reservoir_wall_x(reservoir_solid, side: int) -> float:
 def float_seats(reservoirs: dict = None) -> dict:
     """Every float, and the wall it lies against: name → `(park, wall, centre, standoff)`.
 
-    One row per float, in the frame its own wall's origin is on — the tank's axis for the
+    One row per float, in the frame its own wall's origin is on — the carbonator's axis for the
     carbonator, the pocket's own centre plane for a reservoir. `cold_core_assembly` grades
     these; `report` prints them."""
     out = {}
@@ -302,7 +302,7 @@ def level_bodies(reservoirs: dict = None) -> dict:
     # The carbonator: one float on the welded rod, lying against the tube's bore on the
     # register azimuth, resting at the high threshold.
     out["float-carb"] = F.float_capsule(
-        centre=(seats["float-carb"][2], 0.0, _bridge.high_level_z + _V.tank_bottom_z))
+        centre=(seats["float-carb"][2], 0.0, _bridge.high_level_z + _V.carbonator_bottom_z))
     for i, z in enumerate(carbonator_reed_z(), start=1):
         out[f"reed-carb-{i}"] = F.reed(centre=(carbonator_reed_x(), 0.0, z))
 
@@ -344,7 +344,7 @@ def _cap_z() -> float:
 
 # --- the two 1-wire probes ---------------------------------------------------
 #
-# `bom.md` §5. The tank probe (family 0x28) is foil-taped to the vessel OD; the coil probe
+# `bom.md` §5. The carbonator probe (family 0x28) is foil-taped to the carbonator OD; the coil probe
 # (0x10) tucks under the tape at the wrap's suction end, which is the outlet tail's own.
 # A TO-92 is a rounded square, so what stands it off the wall it is taped to is its half
 # DIAGONAL rather than half its width.
@@ -352,20 +352,20 @@ PROBE_STANDOFF = F.TO92_W * 0.71
 
 
 def probes() -> dict:
-    tank_z = _C.gap_z_near(180.0, (_V.interior_z[0] + _V.interior_z[1]) / 2.0)
-    tank_at = (-(tank_outer_radius + PROBE_STANDOFF), 0.0, tank_z)
-    # One wrap back from the outlet tail, in the gap between two wraps and against the tank —
+    carbonator_z = _C.gap_z_near(180.0, (_V.interior_z[0] + _V.interior_z[1]) / 2.0)
+    carbonator_at = (-(tank_outer_radius + PROBE_STANDOFF), 0.0, carbonator_z)
+    # One wrap back from the outlet tail, in the gap between two wraps and against the carbonator —
     # which is where the tape that holds it can reach it.
     coil_at = _C._at(_C.AZ_OUT, _C.gap_z_near(_C.AZ_OUT, _C.evap_tail_high_z - _C.PITCH),
                      tank_outer_radius + PROBE_STANDOFF).toTuple()
-    return {"probe-tank-ds18b20": F.to92(centre=tank_at, axis=(0, 0, 1)),
+    return {"probe-carbonator-ds18b20": F.to92(centre=carbonator_at, axis=(0, 0, 1)),
             "probe-coil-ds18s20": F.to92(centre=coil_at, axis=(0, 0, 1))}
 
 
 def bodies(reservoirs: dict = None) -> dict:
     out = {}
     out.update(sparge_stack())
-    for name, (solid, _m) in vessel_collets().items():
+    for name, (solid, _m) in carbonator_collets().items():
         out[f"collet-{name}"] = solid
     for name, (solid, _m) in reservoir_bulkheads(reservoirs).items():
         out[f"bulkhead-{name}"] = solid
@@ -380,8 +380,8 @@ def mouths() -> dict:
 
 
 def report(reservoirs: dict = None) -> None:
-    hi = _bridge.high_level_z + _V.tank_bottom_z
-    lo = _bridge.low_level_z + _V.tank_bottom_z
+    hi = _bridge.high_level_z + _V.carbonator_bottom_z
+    lo = _bridge.low_level_z + _V.carbonator_bottom_z
     print("  internals")
     print(f"    sparge          barb on the bottom plate at y {_V.PORTS['co2-in']['y']:+.2f}; "
           f"stone crown z {sparge_top_z():.1f}, under the low line {lo:.1f} "
