@@ -245,15 +245,15 @@ def write(meshes, path, src=None):
     `decodeMeshPayload` decodes the version it knows and reads the STEP for
     anything else.
 
-    AND IT STATES `src`, THE DIGEST OF THE STEP IT DESCRIBES, because a payload
-    is only meaningful beside the bytes it was cut from and nothing else in the
-    file says which those were. A payload names the solid the page DRAWS and the
-    picker reconstructs edges from, while every pick blob names the STEP — so a
-    payload standing beside a STEP it does not describe makes the viewer report
-    geometry that is not in the file it cites, and the reader has no way to see
-    it. Mtime cannot carry this: a cache restore stamps the payload NOW and the
-    freshly cut STEP is older, which is exactly the order that reads as current.
-    Only the bytes say."""
+    AND IT STATES `src`, THE DIGEST OF THE STEP IT WAS CUT FROM. What is recorded
+    is DESCENT and not agreement: a payload may carry more surface than its solid
+    and still be the right one — under `pack.BUNDLED_PAYLOAD_DIRS` the flutes live
+    in the mesh and never in the STEP (`flute_payload`), so the two are not the
+    same surface by design. Which is exactly why equality cannot be the test and
+    descent has to be written down. Nothing else in the file says which bytes a
+    payload answers to, and mtime cannot carry it: a cache restore stamps the
+    payload NOW and the freshly cut STEP is older, which is the order an mtime
+    test reads as current. Only the digest says."""
     entries, blob = [], bytearray()
     for m in meshes:
         e = {"name": m["name"], "color": m["color"]}

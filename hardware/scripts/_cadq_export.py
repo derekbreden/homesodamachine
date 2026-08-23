@@ -858,13 +858,14 @@ def _payload_current(target, mesh):
     that version and reads the STEP for any other, so a payload of an older one is a
     payload to write again — the STEP's bytes need not have moved for that to be true.
 
-    WHETHER IT DESCRIBES THIS STEP IS READ OFF ITS BYTES AND NEVER OFF ITS MTIME. A cache
-    that restores outputs stamps what it restores with the time it restored it, so a stale
-    payload arrives NEWER than the STEP just cut beside it, and an mtime test calls it
-    current precisely when it is not. The page DRAWS the payload and the edge picker
-    reconstructs its geometry from it, while every pick blob cites the STEP — so a payload
-    that outlived its STEP makes the viewer report geometry the cited file does not contain,
-    with nothing on screen to show it. The digest `write` records is what settles it."""
+    WHETHER IT ANSWERS TO THIS STEP IS READ OFF ITS BYTES AND NEVER OFF ITS MTIME. A cache
+    that restores outputs stamps what it restores with the time it restored it, so a payload
+    of older descent arrives NEWER than the STEP just cut beside it, and an mtime test calls
+    it current precisely when it is not. What is asked is descent and not agreement — a
+    payload under `pack.BUNDLED_PAYLOAD_DIRS` carries flutes its STEP does not
+    (`flute_payload`), and replacing it with a plain tessellation because the two surfaces
+    differ would serve a smooth box. The digest `write` records is what settles it, and every
+    writer of a payload records one."""
     try:
         import _mesh_payload
         if _mesh_payload.read_version(mesh) != _mesh_payload.VERSION:
