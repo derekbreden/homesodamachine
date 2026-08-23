@@ -50,8 +50,8 @@ _coil_mandrel_gen = load_module(
     _here.parent / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
-# The evaporator wrap AS DRAWN ON THE TANK (§5) — `coil_mandrel` strikes the helix, and
-# `cold-core-layout/_coil` is where it is actually laid: sprung out to the tank's own radius
+# The evaporator wrap AS DRAWN ON THE CARBONATOR (§5) — `coil_mandrel` strikes the helix, and
+# `cold-core-layout/_coil` is where it is actually laid: sprung out to the carbonator's own radius
 # and lifted again over the reed bridge it crosses. That is the copper a build consumes, so it
 # is what the row bills; the mandrel's two shorter figures stay beside it in its own module.
 _coil_gen = load_module(

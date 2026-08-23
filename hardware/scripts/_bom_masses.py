@@ -89,7 +89,7 @@ PARTS = {
     # strips. Its own row because it is its own plate — and it carries the meter's two saddles and
     # three of the ceiling's ribs, which are the mass that left the row above.
     "Enclosure — ceiling panel": ["enclosure/ceiling-panel/ceiling-panel.step"],
-    # THE DISPLAY'S OWN PIECE OF THE BOX, printed apart from the piece it fills: the border that
+    # THE ENCLOSURE DISPLAY'S OWN PIECE OF THE BOX, printed apart from the piece it fills: the border that
     # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
     # fastening, so it ships on every unit the screen does.
     "Display cover plate": ["enclosure/display-cover/display-cover.step"],
