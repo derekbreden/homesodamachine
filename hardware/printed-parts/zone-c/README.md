@@ -9,7 +9,7 @@ rest of the pack stands, and what each face of the box carries:
 
 One rectangular opening spans the top wall behind the display facet
 ([`../enclosure/enclosure/`](/hardware/printed-parts/enclosure/enclosure/)
-`_hopper_hole`), cut from the placed funnel's own collar. It reaches aft
+`_funnel_hole`), cut from the placed funnel's own collar. It reaches aft
 across the Y seam, so both top pieces carry their share of the cut and the
 collar bridges it.
 
