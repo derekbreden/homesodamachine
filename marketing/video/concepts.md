@@ -107,7 +107,7 @@ One vector design that works as: the S3 screensaver (animated, looping), the iOS
 
 ### 8. Two Microcontrollers, One System (2-3 minutes)
 
-Lay out the two boards on a table. Explain what each one does and why they're separate. ESP32: brain, pump control, flow sensing, image storage, config authority. ESP32-S3: rotary touchscreen — the sole display and interaction surface; default state shows the selected flavor, rotary toggles flavors, a three-dot affordance reaches advanced settings, also serves as BLE bridge to iOS. Show them communicating over UART with HDLC. Show what happens when you rotate the S3 encoder — the flavor display changes, the pump reconfigures — all in under a second.
+Lay out the two boards on a table. Explain what each one does and why they're separate. ESP32: brain, pump control, flow sensing, image storage, config authority. ESP32-S3: rotary touchscreen — the sole display and interaction surface; default state shows the selected flavor, rotary toggles flavors, a three-dot affordance reaches advanced settings, also serves as BLE bridge to iOS. Show them communicating over UART with HDLC. Show what happens when you rotate the S3 encoder — the flavor on the display changes, the pump reconfigures — all in under a second.
 
 - **Audience:** Embedded systems people, electronics hobbyists, anyone who appreciates hardware architecture.
 - **Shareability:** Moderate-high. Multi-MCU architectures are inherently interesting to the right crowd.

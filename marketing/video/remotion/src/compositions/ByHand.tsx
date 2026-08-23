@@ -10,9 +10,9 @@ import { sfx } from "../sound/cues";
  * a Cold Press cold open cross-dissolving into the Shop Notes drawing world.
  *
  * Timeline (30fps):
- *   0–150    Cold open: glowing board + carbonation + kicker/subtitle
+ *   0–150    Cold open: glowing main board + carbonation + kicker/subtitle
  *   120–146  Cross-dissolve (Shop Notes fades up over the cold open)
- *   120–360  Shop Notes: board draws on, dimension, leader callouts, stamp
+ *   120–360  Shop Notes: main board draws on, dimension, leader callouts, stamp
  */
 export const ByHand: React.FC = () => {
   return (

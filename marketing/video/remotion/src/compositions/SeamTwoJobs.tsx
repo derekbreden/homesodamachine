@@ -95,7 +95,8 @@ const BeatValve: React.FC = () => {
       </div>
       <div style={{ position: "absolute", left: 1000, top: 690, width: 760, opacity: fadeIn(f, 52, 12) }}>
         <div style={{ fontFamily: grotesk, color: shop.ink, fontSize: T.h2, fontWeight: 700, lineHeight: 1.02, letterSpacing: -0.5 }}>
-          The shell has one job:
+          The faucet shell
+          <br /> has one job:
           <br /> make it look finished.
         </div>
       </div>
@@ -256,7 +257,7 @@ const BeatPivot: React.FC = () => {
 /* ---------------- B6 — CONVERGENCE (the payoff) ---------------- */
 const BeatConverge: React.FC = () => {
   const f = useCurrentFrame();
-  // two shell-wall brackets slide together around the screen
+  // two faucet-shell wall brackets slide together around the screen
   const gap = interpolate(f, [40, 110], [220, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: eases.settle });
   const seamGlow = fadeIn(f, 108, 16);
   const titleO = fadeIn(f, 150, 24);
@@ -274,7 +275,7 @@ const BeatConverge: React.FC = () => {
           <rect x={cx - 92} y={cy - 8} width={140} height={24} rx={6} fill={cold.teal} opacity={0.34} />
           <rect x={cx - 92} y={cy + 30} width={160} height={24} rx={6} fill={cold.teal} opacity={0.34} />
         </g>
-        {/* upper shell wall bracket, sliding down */}
+        {/* upper faucet shell wall bracket, sliding down */}
         <g transform={`translate(0 ${-gap})`}>
           <path
             d={`M ${cx - 220} ${cy - 150} L ${cx + 220} ${cy - 150} L ${cx + 220} ${cy - 96} L ${cx + 150} ${cy - 96} L ${cx + 150} ${cy - 110} L ${cx - 150} ${cy - 110} L ${cx - 150} ${cy - 96} L ${cx - 220} ${cy - 96} Z`}
@@ -283,7 +284,7 @@ const BeatConverge: React.FC = () => {
             strokeWidth={3}
           />
         </g>
-        {/* lower shell wall bracket, sliding up */}
+        {/* lower faucet shell wall bracket, sliding up */}
         <g transform={`translate(0 ${gap})`}>
           <path
             d={`M ${cx - 220} ${cy + 150} L ${cx + 220} ${cy + 150} L ${cx + 220} ${cy + 96} L ${cx + 150} ${cy + 96} L ${cx + 150} ${cy + 110} L ${cx - 150} ${cy + 110} L ${cx - 150} ${cy + 96} L ${cx - 220} ${cy + 96} Z`}

@@ -9,7 +9,7 @@ import { staticFile } from "remotion";
 export const sfx = {
   /** Under the Cold Press → Shop Notes dissolve. */
   sting: staticFile("sfx/sting.wav"),
-  /** A soft transient as the board resolves / a leader lands. */
+  /** A soft transient as the main board resolves / a leader lands. */
   ding: staticFile("sfx/ding.wav"),
   /** The revision stamp landing. */
   stampThud: staticFile("sfx/stamp-thud.wav"),

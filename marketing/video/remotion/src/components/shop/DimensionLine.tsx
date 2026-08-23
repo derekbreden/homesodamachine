@@ -1,11 +1,11 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { shop, tracking, type, VIDEO } from "../../style/tokens";
-import { board, dimension } from "../../style/layout";
+import { mainBoard, dimension } from "../../style/layout";
 import { mono } from "../../style/fonts";
 import { countTo, drawOn, fadeIn } from "../../motion/draw";
 
-/** The overall-width dimension above the board: extension lines, the dimension
+/** The overall-width dimension above the main board: extension lines, the dimension
  *  line drawing across, end ticks, and a value counting up to spec. */
 export const DimensionLine: React.FC<{ at?: number }> = ({ at = 0 }) => {
   const frame = useCurrentFrame() - at;
@@ -17,9 +17,9 @@ export const DimensionLine: React.FC<{ at?: number }> = ({ at = 0 }) => {
   return (
     <AbsoluteFill>
       <svg width="100%" height="100%" viewBox={`0 0 ${VIDEO.width} ${VIDEO.height}`} preserveAspectRatio="none">
-        {/* extension lines up from the board edges */}
-        <line x1={x1} y1={board.y - 8} x2={x1} y2={y - 6} stroke={shop.dim} strokeWidth={1.5} opacity={tickO} />
-        <line x1={x2} y1={board.y - 8} x2={x2} y2={y - 6} stroke={shop.dim} strokeWidth={1.5} opacity={tickO} />
+        {/* extension lines up from the main board edges */}
+        <line x1={x1} y1={mainBoard.y - 8} x2={x1} y2={y - 6} stroke={shop.dim} strokeWidth={1.5} opacity={tickO} />
+        <line x1={x2} y1={mainBoard.y - 8} x2={x2} y2={y - 6} stroke={shop.dim} strokeWidth={1.5} opacity={tickO} />
         {/* the dimension line, drawing across */}
         <line x1={x1} y1={y} x2={x2} y2={y} stroke={shop.dim} strokeWidth={2} {...drawOn(frame, { start: 0, duration: 22 })} />
         {/* end ticks */}

@@ -1,13 +1,13 @@
 /**
- * Shared drawing geometry for the "By Hand" board scene, authored in 1080p
- * space. Kept in one place so the board, its dimensions, and its leader
+ * Shared drawing geometry for the "By Hand" main-board scene, authored in 1080p
+ * space. Kept in one place so the main board, its dimensions, and its leader
  * callouts all reference the same coordinates (a leader that points 3px off the
- * pad is the exact "amateur" tell the board itself is engineered to avoid).
+ * pad is the exact "amateur" tell the main board itself is engineered to avoid).
  *
  * A later increment swaps this hand-authored stand-in for geometry parsed from
- * hardware/pcb/pcba/out/pcba.circuit.json — same components, real board.
+ * hardware/pcb/pcba/out/pcba.circuit.json — same components, the real main board.
  */
-export const board = {
+export const mainBoard = {
   x: 580,
   y: 372,
   w: 760,
@@ -34,11 +34,11 @@ export const traces = [
   "M 852 560 L 852 720 L 1092 720",
 ] as const;
 
-/** The horizontal overall-width dimension above the board. */
+/** The horizontal overall-width dimension above the main board. */
 export const dimension = {
-  y: board.y - 56,
-  x1: board.x,
-  x2: board.x + board.w,
+  y: mainBoard.y - 56,
+  x1: mainBoard.x,
+  x2: mainBoard.x + mainBoard.w,
   value: 84.0,
 } as const;
 

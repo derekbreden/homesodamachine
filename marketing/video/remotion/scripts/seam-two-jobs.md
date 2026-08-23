@@ -15,7 +15,7 @@ Alternate titles considered: *Print It Face Up* · *No Screws*.
 
 **B2 · The job (10–24 s)** — the harvested valve
 > "Underneath is a real self-closing valve, harvested for about thirty dollars.
-> The printed shell around it has one job: make the machine look finished — not
+> The faucet shell around it has one job: make the machine look finished — not
 > garage-built. Which means the plastic has to be clean."
 
 **B3 · The surface fight (24–46 s)** — 21 attempts, the quote
@@ -31,7 +31,7 @@ Alternate titles considered: *Print It Face Up* · *No Screws*.
 
 **B5 · Button → screen (58–72 s)**
 > "Meanwhile, choosing a flavor was going to be a button on the front. That got
-> cut — and about two weeks later, a small touchscreen went on the spout
+> cut — and about two weeks later, a small touchscreen went on the gooseneck
 > instead."
 
 **B6 · The payoff (72–86 s)** — the seam clamps the screen
@@ -55,10 +55,10 @@ Alternate titles considered: *Print It Face Up* · *No Screws*.
 - Three-piece split; the two slip-fit joints along the gooseneck are the
   `split_*_socket_overlap_len` constants in `faucet_shell.py` (currently
   20 mm each). On-screen value reads from the same figure — reconfirm against
-  the source if the geometry changes. (There was never a true 4-piece shell —
-  don't say "four.")
+  the source if the geometry changes. (There was never a true 4-piece faucet
+  shell — don't say "four.")
 - Display: Waveshare **ESP32-S3-Touch-LCD-1.47**, "no separate physical button"
   (`bom.md:18`). Button (KRAUS air switch) cut 2026-05-24; touchscreen mocked on
-  the spout 2026-06-08 (~2 weeks later).
+  the gooseneck 2026-06-08 (~2 weeks later).
 - Not finished: attempt-21 socket-mouth defect unresolved; last print activity
   2026-06-14. "Nothing printed since mid-June" holds as of writing.

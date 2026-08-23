@@ -101,7 +101,7 @@ This is not a price drop on the Founder Edition. It is a new tier that replaces 
 
 ### Why tier by scarcity and not by features
 
-The product is one configuration. Two flavors, one display, one install profile. There is no meaningful feature we would remove to justify a lower price, and there is no feature we would add to justify a higher one. The difference between the tiers is the founder's time and the number on the plaque. That is an honest story. Feature tiering would not be.
+The product is one configuration. Two flavors, two displays, one install profile. There is no meaningful feature we would remove to justify a lower price, and there is no feature we would add to justify a higher one. The difference between the tiers is the founder's time and the number on the plaque. That is an honest story. Feature tiering would not be.
 
 ---
 
@@ -273,7 +273,7 @@ By the time Standard opens, the brand carries more of the weight. At Founder Edi
 
 ### CO2 sits right at the appliance.
 
-The CO2 cylinder lives beside the appliance in the under-sink cabinet on a short tether to an inlet on the rear wall — the customer can see the connection and reach the cylinder valve without crawling. CO2 refills mean a trip to a local welding gas supplier or a delivered swap (per [`/pie-in-the-sky/co2-service.md`](/pie-in-the-sky/co2-service.md)); we message this honestly: "CO2 lasts months. When it runs out, a local supplier refills it, or we deliver."
+The CO2 cylinder lives beside the appliance in the under-sink cabinet on a short tether to the inlet in the +Y wall of back-top — the customer can see the connection and reach the cylinder valve without crawling. CO2 refills mean a trip to a local welding gas supplier or a delivered swap (per [`/pie-in-the-sky/co2-service.md`](/pie-in-the-sky/co2-service.md)); we message this honestly: "CO2 lasts months. When it runs out, a local supplier refills it, or we deliver."
 
 ---
 

@@ -40,7 +40,7 @@ the cabinet is. Height and depth are uncontested there. Width is the constraint.
 
 The CO2 cylinder stands in that same slot. It is customer-supplied (5 lb, per
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External"), stands beside the appliance
-on a short tether to the rear-wall inlet
+on a short tether to the inlet in the +Y wall of back-top
 ([`back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md)
 "Connections inventory"), and is Ø 133 × 457 mm before its CGA-320 regulator. Appliance width
 plus 133 mm plus a working gap is what the pair asks of the slot.
@@ -48,13 +48,13 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
 ## What the appliance needs beyond its own box
 
 - **[60 mm](TURN_IN) behind the rear face** — lead, 90° bend at R12, and collet. The collet
-  stands [9.5 mm](COLLET_PROUD) proud of the wall's own outer face, and the port ring it bears
-  on lies flush in that face — the pocket is cut to the ring's own [2 mm](PORT_RING_THICK), so
-  the chip buys the tube nothing
-  (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/port-ring/`).
-- **300 mm of pull-forward** — the umbilical's service loop, sized to bring the rear wall to
-  the cabinet face so its own connections can be reached.
-- **[70.53 mm](CART_DRAW) of draw at the FRONT face** — the pump cartridge comes straight
+  stands [9.5 mm](COLLET_PROUD) proud of the wall's own outer face, and the bulkhead ring it
+  bears on lies flush in that face — the pocket is cut to the ring's own
+  [2 mm](BULKHEAD_RING_THICK), so the ring buys the tube nothing
+  (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/bulkhead-ring/`).
+- **300 mm of pull-forward** — the umbilical's service loop, sized to bring the +Y wall of
+  back-top to the cabinet face so its own connections can be reached.
+- **[70.54 mm](CART_DRAW) of draw at the FRONT face** — the pump cartridge comes straight
   out of the bay with both peristaltic pumps and their tubing aboard, and that figure is its
   own depth, exterior face to the aft face that stops on the collet plate. A hand on the
   face and somewhere to set it down are on top of it. This is the one service access that
@@ -62,7 +62,7 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   ([`service/pump-replacement.md`](/hardware/service/pump-replacement.md)).
 - **A gap at each side face** — the condenser draws through the grille on one side and
   exhausts through the other.
-- **Headroom over the top wall** — the flavor funnel is filled by inverting a 440 mL
+- **Headroom over the top wall** — the funnel is filled by inverting a 440 mL
   concentrate bottle over it
   ([`zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)).
 
