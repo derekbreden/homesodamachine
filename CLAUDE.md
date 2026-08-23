@@ -52,3 +52,11 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
 Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work.
+
+## Reconciliation waits for silence
+
+Iterate fast while I'm responding: make the change, show me the result, show me on
+homesodamachine.com. Don't reconcile first. When I go quiet, that is when you reconcile — run the
+full derive, resync the ledger, the docs and the deck, close whatever is behind. The moment I ask
+for anything, stop reconciling and come back. A commit is a checkpoint, not a claim that
+everything downstream of it is current.
