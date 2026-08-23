@@ -20,9 +20,7 @@
 extern "C" uint32_t home_soda_rgb_restart_count(void);
 // Static Font Awesome icons keep the customer rail and full-card actions crisp
 // without asking LVGL to transform text at runtime.
-extern "C" const lv_font_t rail_icons_36;
-extern "C" const lv_font_t clean_icon_36;
-extern "C" const lv_font_t front_action_icons_48;
+extern "C" const lv_font_t front_icons_48;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -233,9 +231,9 @@ static uint32_t frameDoneTimeouts = 0;
 // Choose gives each card a settings target under it. The badge only reports the
 // selection — the whole card is the target that changes it — so it takes the
 // height of its own text rather than a finger's.
-#define HOME_GEAR_H    48
-#define HOME_GEAR_GAP   8
-#define HOME_BADGE_H   36
+#define HOME_GEAR_H    56
+#define HOME_GEAR_GAP  16
+#define HOME_BADGE_H   44
 #define HOME_CARD_H    (PANE_H - PANE_BODY_Y - HOME_GEAR_H - HOME_GEAR_GAP)
 
 // The flavor's own page: ratio, then every logo it could wear.
@@ -1537,20 +1535,20 @@ static lv_obj_t *mkTapCard(lv_obj_t *parent, lv_coord_t w, lv_coord_t h,
 static void mkRailIcon(lv_obj_t *parent, RailPage page) {
   switch (page) {
     case RAIL_CHOOSE:
-      lv_obj_align(mkText(parent, "\xEF\x89\x9A", &rail_icons_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(36));
+      lv_obj_align(mkText(parent, "\xEF\x89\x9A", &front_icons_48, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
       break;
     case RAIL_FILL:
-      lv_obj_align(mkText(parent, "\xEF\x82\xB0", &rail_icons_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(36));
+      lv_obj_align(mkText(parent, "\xEF\x82\xB0", &front_icons_48, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
       break;
     case RAIL_PRIME:
-      lv_obj_align(mkText(parent, LV_SYMBOL_TINT, &lv_font_montserrat_28, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(TEXT_H_28));
+      lv_obj_align(mkText(parent, "\xEF\x81\x83", &front_icons_48, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
       break;
     case RAIL_CLEAN:
-      lv_obj_align(mkText(parent, "\xEE\x81\xAD", &clean_icon_36, COL_TEXT),
-                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(36));
+      lv_obj_align(mkText(parent, "\xEE\x81\xAD", &front_icons_48, COL_TEXT),
+                   LV_ALIGN_TOP_MID, 0, RAIL_ICON_TOP(48));
       break;
     default: break;
   }
@@ -1634,7 +1632,7 @@ static void refreshHomeSelection() {
       // Keep only the retained selection badge; the inactive card stays calm.
       if (selected) {
         lv_obj_set_style_bg_color(homeFlavorBadge[i], lv_color_hex(COL_ACCENT), 0);
-        lv_label_set_text(homeFlavorBadgeText[i], LV_SYMBOL_OK "  SELECTED");
+        lv_label_set_text(homeFlavorBadgeText[i], LV_SYMBOL_OK);
         lv_obj_set_style_text_color(homeFlavorBadgeText[i], lv_color_hex(COL_TEXT), 0);
         lv_obj_clear_flag(homeFlavorBadge[i], LV_OBJ_FLAG_HIDDEN);
       } else {
@@ -2534,20 +2532,22 @@ static void buildHome(lv_obj_t *page) {
 
     lv_obj_t *art = lv_img_create(card);
     lv_img_set_src(art, &flavorArt[flavorImage[i]]);
-    lv_obj_align(art, LV_ALIGN_TOP_MID, 0, 2);
+    lv_obj_center(art);
     lv_obj_clear_flag(art, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
     homeFlavorArtObj[i] = art;
 
     lv_obj_t *badge = lv_obj_create(card);
-    lv_obj_set_size(badge, cw - 80, HOME_BADGE_H);
-    lv_obj_align(badge, LV_ALIGN_BOTTOM_MID, 0, -2);
+    // The card's own accent outline already carries the selection; this only
+    // has to name it. Riding the artwork's corner keeps it out of the column,
+    // which is what leaves the settings target under the card its full height.
+    lv_obj_set_size(badge, HOME_BADGE_H, HOME_BADGE_H);
+    lv_obj_align_to(badge, art, LV_ALIGN_TOP_RIGHT, -8, 8);
     lv_obj_set_style_border_width(badge, 0, 0);
     lv_obj_set_style_radius(badge, HOME_BADGE_H / 2, 0);
     lv_obj_set_style_pad_all(badge, 0, 0);
     lv_obj_clear_flag(badge, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_clear_flag(badge, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_t *badgeText = mkText(badge, LV_SYMBOL_OK "  SELECTED",
-                                 &lv_font_montserrat_20, COL_TEXT);
+    lv_obj_t *badgeText = mkText(badge, LV_SYMBOL_OK, &lv_font_montserrat_20, COL_TEXT);
     lv_obj_center(badgeText);
 
     homeFlavorCard[i] = card;
@@ -2655,7 +2655,7 @@ static void buildService(lv_obj_t *page) {
   const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
 
   lv_obj_t *pick = mkView(page);
-  buildFlavorPicker(pick, "PRIME A FLAVOR", LV_SYMBOL_TINT, &lv_font_montserrat_48,
+  buildFlavorPicker(pick, "PRIME A FLAVOR", "\xEF\x81\x83", &front_icons_48,
                     primePickCb);
   svcView[SVC_PRIME_PICK] = pick;
 
@@ -2689,7 +2689,7 @@ static void buildService(lv_obj_t *page) {
   svcView[SVC_PRIME_HOLD] = hold;
 
   lv_obj_t *cpick = mkView(page);
-  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_action_icons_48,
+  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_icons_48,
                     cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
@@ -2699,7 +2699,7 @@ static void buildService(lv_obj_t *page) {
       "START CLEAN CYCLE", cleanStartCb, &cleanTitle, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
-  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_action_icons_48,
+  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_48,
                     fillPickCb);
   svcView[SVC_FILL_PICK] = fpick;
 
