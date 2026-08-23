@@ -206,7 +206,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # four pieces cut their own z bands out of the same plan — which is why the grooves register
 # across the Z seam without either piece being told the other exists.
 #
-# THE PROFILE IS `reeding.groove`, shared with `../texture-corner/`. That coupon is the box's
+# THE PROFILE IS `reeding.groove`, shared with the corner coupon at `69459fea6`. That coupon is the box's
 # own corner at the box's own `wall` and `corner_round`, so what printed there is what prints
 # here, and neither can drift from the other while they read one function.
 #
@@ -237,7 +237,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # machine's plane of symmetry inside as it does outside. `flute_rails` is where the box says
 # which runs it has, and `flute_skin.py` reads nothing else about either of them.
 flute_count = 260
-# THE DEPTH IS THE COUPON'S. `../texture-corner/` cut this into a `wall`-thick standing wall
+# THE DEPTH IS THE COUPON'S. the corner coupon at `69459fea6` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
 flute_depth = 1.2
 # THE SOLID A FLUTE MUST HAVE BEHIND IT — the whole `wall`, not what is left after something
@@ -251,7 +251,7 @@ flute_backing = wall
 # spline through them measures 1.1986 of the stated 1.2 at its deepest, which is a hundredth
 # of the 0.42 mm the nozzle draws.
 flute_samples = 13
-# THE FIELD STOPS SHORT OF AN EDGE, and this is how far short — `../texture-corner/`'s own
+# THE FIELD STOPS SHORT OF AN EDGE, and this is how far short — the corner coupon at `69459fea6`'s own
 # `texture_rise`, ramped on the same smoothstep, so the box stops its flutes the way the
 # coupon stopped its. WHICH edges is not a list: `flute_skin.py` measures, over the whole
 # surface at once, how far every station stands from the nearest place the show face ends,

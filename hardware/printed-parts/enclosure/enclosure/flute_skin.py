@@ -1,6 +1,6 @@
 """The enclosure's fluted show surfaces, cut into the MESH a printer reads.
 
-`../texture-corner/` settled this texture, and it settled it as a heightfield: every station
+The corner coupon at `69459fea6` settled this texture, and settled it as a heightfield: every station
 on the wall is displaced inward by `texture_depth * groove(across) * smoothstep(along / rise)`,
 sampled finely enough that what comes back is the curve and not an approximation of it. That
 coupon is this box's own corner at this box's own `wall` and `corner_round`, and it printed.
@@ -58,7 +58,7 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 import reeding                                                          # noqa: E402
 
-# How finely the field is sampled ACROSS the flutes. `../texture-corner/` used 0.3 mm on the
+# How finely the field is sampled ACROSS the flutes. The corner coupon at `69459fea6` used 0.3 mm on the
 # same groove and printed clean; a 4 mm groove read at this step carries its arc to about 28
 # microns, a fifteenth of the 0.42 mm bead that draws it and well under what the machine can
 # repeat. IT IS NOT FREE: the mesh is what a slicer reads, so a step finer than the show
