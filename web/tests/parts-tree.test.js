@@ -3,9 +3,9 @@
 // bought geometry no one unit owns, or by the tooling a bench works from.
 //
 // Two halves. The first is `seatParts` as a pure function over path lists — the
-// folding of a part's representations, the whole leading its directory, every
-// model claimed ahead of the directories they share, the tooling claimed ahead of
-// the sweep, a child sweeping ahead of its parent. The second walks the real
+// folding of a part's representations, every model claimed ahead of the
+// directories they share, the tooling claimed ahead of the sweep, a child
+// sweeping ahead of its parent. The second walks the real
 // hardware tree and asserts nothing in it comes back unseated, which is what
 // catches a new part directory the day it lands rather than when someone notices
 // it missing from the page.
@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 
 import {
   ASSEMBLIES, PURCHASED, TOOLING, EXCLUDED_DIRS,
-  isWhole, seatParts, walkAssemblies,
+  seatParts, walkAssemblies,
 } from "../contracts/parts-tree.js";
 import { walkFiles } from "../lib/walk.js";
 
@@ -52,11 +52,7 @@ test("a part's representations fold into one card", () => {
   assert.deepEqual(inside[0].kinds.map((k) => k.type), ["step", "dxf"]);
 });
 
-test("the whole of a directory leads it", () => {
-  assert.ok(isWhole("printed-parts/cold-core/foam-shell/foam-shell.step"));
-  assert.ok(isWhole("printed-parts/electronics/pcba-tray/pcba-assembly.step"));
-  assert.ok(!isWhole("printed-parts/cold-core/foam-cap/foam-cap-top.step"));
-
+test("a directory's parts come back in one order on every machine", () => {
   const d = "printed-parts/enclosure/enclosure";
   const tree = seatParts({
     steps: [`${d}/enclosure-front-top.step`, `${d}/enclosure.step`,

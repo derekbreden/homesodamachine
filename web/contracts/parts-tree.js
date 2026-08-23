@@ -30,9 +30,10 @@
 // by nothing else.
 //
 // A PART IS A NAME, NOT A FILE. `endcap-circular-2hole` is a `.step` solid and the
-// `.dxf` the laser reads, and it is one part with two representations —
-// `seatParts` folds files sharing a stem in a directory into one card carrying
-// both.
+// `.dxf` the laser reads, and it is one part with two representations, so
+// `seatParts` folds files sharing a stem in a directory into one. That fold is
+// what lets the claim be stated as parts — the vocabulary the gate reads in, and
+// the two roots' own models.
 //
 // Produced from web/lib/walk.js's file lists by way of /api/{steps,dxf,glbs};
 // consumed by web/public/js/viewer/parts.js; pinned by web/tests/parts-tree.test.js.
@@ -140,25 +141,15 @@ function under(file, dir) {
   return file === dir || file.startsWith(dir + "/");
 }
 
-// THE WHOLE OF A DIRECTORY LEADS IT: the file named for its own directory
-// (`foam-shell/foam-shell.step`), or the one whose name ends in `-assembly`
-// (`pcba-tray/pcba-assembly.step`). The pieces follow it, alphabetically.
-export function isWhole(file) {
-  const stem = stemOf(file);
-  const dir = dirOf(file);
-  return stem.endsWith("-assembly") || stem === dir.slice(dir.lastIndexOf("/") + 1);
-}
-
+// Directory, then name. Nothing renders a seated part, so this is here to make
+// the claim the same on every machine and legible where the gate prints it.
 function partOrder(a, b) {
-  if (a.dir !== b.dir) return a.dir.localeCompare(b.dir);
-  const wa = isWhole(a.primary.file) ? 0 : 1;
-  const wb = isWhole(b.primary.file) ? 0 : 1;
-  return wa - wb || a.name.localeCompare(b.name);
+  return a.dir.localeCompare(b.dir) || a.name.localeCompare(b.name);
 }
 
 // Fold a flat list of `{file, type}` into parts: one per stem per directory,
-// carrying every representation that stem has. The richest representation is
-// what the card opens and draws its thumbnail from.
+// carrying every representation that stem has. `primary` is the richest of them,
+// and on an assembly's own model it is what the card opens and draws.
 function toParts(entries) {
   const byKey = new Map();
   for (const e of entries) {
@@ -177,9 +168,10 @@ function toParts(entries) {
   return parts.sort(partOrder);
 }
 
-// Every assembly of the tree, outermost first — the order `seatParts` claims in,
-// so a nested assembly's own model is taken before the parent sweeps the
-// directory they share.
+// Every assembly of the tree, flattened, outermost first. What keeps a nested
+// assembly's own model out of its parent's sweep is the PHASE it is claimed in —
+// `seatParts` takes every model before any `holds` — and not this order; each
+// claim here names one exact file, so nothing in the walk can collide.
 export function walkAssemblies(nodes = ASSEMBLIES) {
   return nodes.flatMap((a) => [a, ...walkAssemblies(a.children || [])]);
 }
