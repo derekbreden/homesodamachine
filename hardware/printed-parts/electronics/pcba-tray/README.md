@@ -1,7 +1,7 @@
-# PCBA tray (controller-board mount)
+# PCBA tray (the main board's bench mount)
 
-**This tray does not ship.** In the appliance the controller PCBA bolts straight
-to four printed bosses on the enclosure's +X wall — the same mount, one part
+**This tray does not ship.** In the appliance the main board bolts straight
+to four printed bosses on the +X wall of back-top — the same mount, one part
 earlier, with no floor between the board and the wall. The stations are struck off
 the board's own MH1–MH4 pattern and carried through its placement
 ([`enclosure_assembly.wall_mounts`](/hardware/manifold-layout/enclosure_assembly.py)), and
@@ -17,12 +17,12 @@ a **single convex-outline floor**, **no walls**, **heat-set M3 bosses**.
 
 ## What mounts here
 
-- **[Controller PCBA](/hardware/pcb/pcba/)** — the one board: ESP32-WROOM-32E,
+- **[Main board](/hardware/pcb/pcba/)** — the one board: ESP32-WROOM-32E,
   both MCP23017s, DS3231, both TBD62083 sink drivers, both DRV8870 pump
   H-bridges, RS485, the 5 V buck + 3.3 V LDO, and every field connector
   (J1–J14).
 
-Off this tray: AC lives across the strip aft of the board — the PSU, relay #1 and
+Off this tray: AC lives across the strip aft of the main board — the PSU, relay #1 and
 the ground ring-stack each on their own cap columns, the Wago AC distribution in
 the wall's own Wago wells; the looms land on the
 board's edge connectors per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
@@ -43,7 +43,7 @@ every boss centre is its MH coordinate verbatim. Board footprint
 **85 × 72.8 mm** as fabbed; the floor is that outline grown 0.5 mm on the
 south edge, where MH3/MH4 sit 3.0 mm from the edge against the M3 boss's
 3.5 mm radius (MH1/MH2, 3.5 mm from the north edge, are flush with no
-growth). Keep the west and east edges unobstructed on the shelf: the USB-C
+growth). Keep the west and east edges unobstructed on the wall: the USB-C
 programming port (J14) is flush on the west edge, and the J10 12 V screw
 throats face east.
 

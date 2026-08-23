@@ -1,6 +1,6 @@
-"""PCBA tray — the controller-board mount of the electronics shelf.
+"""PCBA tray — the main board's bench mount, off the +X wall of back-top.
 
-Carries the JLCPCB-assembled controller PCBA ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx),
+Carries the JLCPCB-assembled main board ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx),
 [85 × 72.8 mm](PCBA_SIZE) as fabbed): four M3 heat-set standoff bosses under the board's
 four electrically isolated plated mounting holes (MH1–MH4, 3.2 mm hole /
 4.0 mm pad, a 78.0 × 66.3 mm rectangle) — M3 SHCS down through the board into
@@ -11,7 +11,7 @@ built by the shared
 The 5 mm standoff clears the board's THT tails (XH wafers, the J10 screw
 block, U10, BT1, J14's shield legs).
 
-Local frame: the PCBA's own pcb frame (pcbX / pcbY exactly as in `pcba.tsx` —
+Local frame: the main board's own pcb frame (pcbX / pcbY exactly as in `pcba.tsx` —
 outline x[−68, 17], y[−36.3, 36.5]), Z up, floor underside at Z = 0, so the
 boss centres below are the MH1–MH4 coordinates verbatim. Connector openings
 face the board edges: USB-C (J14) flush on the west edge, the J10 12 V screw
@@ -89,7 +89,7 @@ def _glb_component_boxes():
 
 
 def _build_board():
-    """The controller board as a simplified populated model: the fabbed
+    """The main board as a simplified populated model: the fabbed
     outline slab + one box per component at the axis-aligned bounding box of
     its actual 3D model in `hardware/pcb/pcba/out/pcba.glb` (the full mesh
     detail stays in the glb; this carries every body's true footprint and

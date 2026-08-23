@@ -1,10 +1,10 @@
-"""Assembled PCBA tray (tray + board seated), and the BOARD ALONE.
+"""Assembled PCBA tray (tray + main board seated), and the MAIN BOARD ALONE.
 
-The board alone is what the appliance carries: it bolts to four printed bosses on
-the enclosure's +X wall, struck off its own MH1-MH4 pattern
+The main board alone is what the appliance carries: it bolts to four printed bosses
+on the +X wall of back-top, struck off its own MH1-MH4 pattern
 (`enclosure_assembly.wall_mounts`), and there is no tray floor under it.
-`pcba-assembly.step` remains the bench view of board-on-tray for the tray's own
-geometry checks."""
+`pcba-assembly.step` remains the bench view of main-board-on-tray for the tray's
+own geometry checks."""
 
 import sys
 from pathlib import Path
