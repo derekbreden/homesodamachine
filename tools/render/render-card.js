@@ -24,10 +24,9 @@
 // neighbouring one — either is a layout bug, not a printable card.
 
 import path from "path";
-import os from "os";
 import fs from "fs";
 import { pathToFileURL } from "url";
-import { closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { abortBrowser, closeBrowser, finish, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 function usage(msg) {
   if (msg) console.error(`render-card: ${msg}`);
@@ -352,7 +351,7 @@ async function main() {
   }
 
   await sweepAbandonedBrowsers("render-card");
-  const browser = await launchBrowser({
+  const browserOptions = {
     // THIS IS THE BUDGET FOR A PAGE THAT NEVER COMES BACK, AND IT IS SIZED TO CAP WHAT
     // ONE COSTS. `bs-band-saw` is such a page on a runner: `Page.captureScreenshot` does
     // not return, and one card that did not come back is a red target, which is a carry
@@ -388,44 +387,32 @@ async function main() {
     // `bs-band-saw` and `00-cover`, and those are the two that hang, in both decks, every
     // run. They share nothing but position — one is 9 KB with three images, the other is
     // a cover. `warmUp` below is what stops a card ever being the first capture.
+    timeout: 30000,
     protocolTimeout: Number(process.env.HSM_CARD_TIMEOUT || 240000),
-  });
+  };
+  let browser = await launchBrowser(browserOptions);
   let overflowed = 0;
   const unrendered = [];
   try {
-    // A BROWSER THAT ANSWERED NONE OF THREE BLANK 8x8 CAPTURES ANSWERS NO CARD EITHER, so what
-    // is left to decide is how long the deck takes to say so and which name it says it under.
-    // Drawn anyway, each page spends `protocolTimeout` and the deck ends short regardless —
-    // 1224 s of it in derive 32483451585, reported against the card that happened to be first.
-    // The capture is what did not return, and it is what this reports.
-    if (!(await warmUp(browser))) {
-      unrendered.push(`no capture returned on a cold browser — ${WARM_TRIES} blank ${WARM_MS} ms `
-                      + "attempts, so every card behind it would time out in turn");
+    // A BROWSER THAT ANSWERED NONE OF THREE BLANK FULL-FRAME CAPTURE + PDF PROBES ANSWERS NO
+    // CARD EITHER, so what is left to decide is how long the deck takes to say so. Probe the
+    // actual output dimensions: an 8x8 capture can answer while the first deliverable-sized
+    // one wedges. The probe is blank and discarded, so a healthy deck pays milliseconds rather
+    // than rendering and printing its first authored page twice.
+    browser = await warmUp(browser, opts, browserOptions);
+    if (!browser) {
+      unrendered.push(`no full-frame capture and PDF returned on a cold browser — `
+                      + `${WARM_TRIES} bounded attempts, so every card behind it would time out`);
       jobs.length = 0;
     }
-    let page = jobs.length ? await newCardPage(browser, opts) : null;
-    // The first full-size capture is a real container boundary: a blank 8x8 frame can answer
-    // while the first deliverable-sized one wedges. Pay for that throwaway once per browser,
-    // not once per Quick Start sheet. A deadline closes the failed tab; continuing on that tab
-    // would turn the first kept sheet into a second, misleading failure, so recycle it explicitly.
-    if (page) {
-      try {
-        await renderPageBounded(
-          page,
-          jobs[0].htmlAbs,
-          path.join(os.tmpdir(), `hsm-warm.${process.pid}.png`),
-          opts,
-        );
-      } catch (err) {
-        console.error(`render-card: full-size warm-up failed: ${err.message || err}`);
-        page = await recycle(browser, page, opts);
-        if (!page) {
-          for (const job of jobs) {
-            unrendered.push(`${path.basename(job.htmlAbs)}: browser gone after full-size warm-up`);
-          }
-          jobs.length = 0;
-        }
+    let page = browser && jobs.length ? await newCardPageWithin(browser, opts) : null;
+    if (browser && jobs.length && !page) {
+      abortBrowser(browser);
+      browser = null;
+      for (const job of jobs) {
+        unrendered.push(`${path.basename(job.htmlAbs)}: browser could not prepare the first page`);
       }
+      jobs.length = 0;
     }
     for (const job of jobs) {
       let overflow;
@@ -445,17 +432,15 @@ async function main() {
         try { fs.rmSync(job.outAbs, { force: true }); } catch { /* nothing to drop */ }
         try { fs.rmSync(job.outAbs.replace(/\.png$/, ".pdf"), { force: true }); } catch { /* nor this */ }
         // Whatever wedged the page — a capture that never came back, a load
-        // that never settled — is still wedging it. A fresh tab is what makes
-        // the next card an independent attempt rather than the same failure
-        // ninety-four more times.
-        page = await recycle(browser, page, opts);
-        if (!page) {
-          for (const rest of jobs.slice(jobs.indexOf(job) + 1)) {
-            unrendered.push(`${path.basename(rest.htmlAbs)}: browser gone`);
-          }
-          break;
+        // that never settled — is still occupying the browser's CDP pipe. The
+        // deck is already invalid, so stop immediately: a second browser can
+        // add diagnostics but cannot produce a publishable deck.
+        abortBrowser(browser);
+        browser = null;
+        for (const rest of jobs.slice(jobs.indexOf(job) + 1)) {
+          unrendered.push(`${path.basename(rest.htmlAbs)}: skipped after renderer failure`);
         }
-        continue;
+        break;
       }
       let flag =
         overflow.x > 0 || overflow.y > 0
@@ -486,12 +471,14 @@ async function main() {
   }
 }
 
-//: How long a throwaway capture gets before it is treated as the hung one, and how
-//: many pages get a turn. Three at ten seconds is thirty seconds spent in the worst
-//: case, against a target that fails.
+//: How long each half of a throwaway full-frame capture + PDF probe gets before it is
+//: treated as the hung one, and how many fresh browser processes get a turn. Healthy probes
+//: take milliseconds; a missed deadline aborts Chrome immediately so the next attempt cannot
+//: queue behind the poisoned process's 240-second protocol timeout.
 const WARM_MS = 10000;
 const WARM_TRIES = 3;
 const PAGE_CLOSE_MS = 5000;
+const PAGE_PREP_MS = 30000;
 
 async function closePageWithin(page) {
   let timer;
@@ -506,43 +493,103 @@ async function closePageWithin(page) {
   }
 }
 
-// The first `Page.captureScreenshot` a cold browser is asked for in the CI container
-// does not return, and a fresh page clears it: after the sorted-first card hangs, the
-// `recycle` below draws every remaining card. So the run spends its first capture on
-// an 8x8 blank page nobody keeps.
+// The first deliverable-sized `Page.captureScreenshot` a cold browser is asked for in
+// the CI container can fail to return, and a clean browser pipe clears it. A tiny 8x8 probe
+// is not the same boundary, so spend the first full-frame capture and blank PDF on a page
+// nobody keeps.
 //
 // The wait is this function's own rather than `protocolTimeout`'s, because the point
 // is to find out cheaply. A capture that has not answered in ten seconds is the one
-// this exists for; the page it is stuck in is closed, which is what rejects it, and
-// the next attempt gets a page of its own. Returns false when none of them answered,
-// which is a browser the deck is not going to come out of.
-async function warmUp(browser) {
+// this exists for. A page close cannot cancel that CDP request: run 32616776627 proved the next
+// `newPage` then waits the full 240-second protocol timeout. Abort the browser process instead,
+// and let the next attempt start on an independent pipe. Return the successfully probed browser,
+// or null when none answered.
+async function settlesWithin(work, timeoutMs) {
+  const settled = work.then(() => true, () => false);
+  let timer;
+  const deadline = new Promise((done) => { timer = setTimeout(() => done(false), timeoutMs); });
+  try {
+    return await Promise.race([settled, deadline]);
+  } finally {
+    clearTimeout(timer);
+    settled.catch(() => {});
+  }
+}
+
+async function newCardPageWithin(browser, opts) {
+  const prepared = newCardPage(browser, opts).then(
+    (page) => ({ page }),
+    () => ({ page: null }),
+  );
+  let timer;
+  const deadline = new Promise((done) => {
+    timer = setTimeout(() => done({ page: null }), PAGE_PREP_MS);
+  });
+  try {
+    const result = await Promise.race([prepared, deadline]);
+    return result.page;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function warmUp(browser, opts, browserOptions) {
   for (let attempt = 1; attempt <= WARM_TRIES; attempt++) {
     let page;
     try {
-      page = await browser.newPage();
-      await page.setViewport({ width: 8, height: 8, deviceScaleFactor: 1 });
+      page = await newCardPageWithin(browser, opts);
+      if (!page) throw new Error("page preparation timed out");
     } catch {
-      return false;                       // the browser itself is gone
+      console.error(`render-card: cold browser ${attempt} could not prepare a page`);
+      abortBrowser(browser);
+      if (attempt === WARM_TRIES) return null;
+      try {
+        browser = await launchBrowser(browserOptions);
+      } catch {
+        return null;
+      }
+      continue;
     }
-    const shot = page
-      .screenshot({ type: "png", clip: { x: 0, y: 0, width: 8, height: 8 } })
-      .then(() => true, () => false);
-    let timer;
-    const deadline = new Promise((done) => { timer = setTimeout(() => done(false), WARM_MS); });
-    const answered = await Promise.race([shot, deadline]);
-    clearTimeout(timer);
-    shot.catch(() => {});                 // the losing capture settles into nothing
-    if (!(await closePageWithin(page))) {
+    const captured = await settlesWithin(
+      page.screenshot({
+        type: "png",
+        clip: { x: 0, y: 0, width: opts.width, height: opts.height },
+      }),
+      WARM_MS,
+    );
+    let printed = captured;
+    if (captured && opts.pdf) {
+      printed = await settlesWithin(
+        page.pdf({
+          width: opts.pdf.width,
+          height: opts.pdf.height,
+          scale: (parseFloat(opts.pdf.width) * 96) / opts.width,
+          printBackground: true,
+          pageRanges: "1",
+          preferCSSPageSize: false,
+        }),
+        WARM_MS,
+      );
+    }
+    if (captured && printed) {
+      if (await closePageWithin(page)) {
+        if (attempt > 1) console.log(`render-card: cold full-frame probe answered on attempt ${attempt}`);
+        return browser;
+      }
       console.error(`render-card: cold page did not close in ${PAGE_CLOSE_MS} ms`);
+    } else {
+      const phase = captured ? "PDF" : "capture";
+      console.error(`render-card: cold full-frame ${phase} ${attempt} did not return in ${WARM_MS} ms`);
     }
-    if (answered) {
-      if (attempt > 1) console.log(`render-card: cold capture answered on attempt ${attempt}`);
-      return true;
+    abortBrowser(browser);
+    if (attempt === WARM_TRIES) return null;
+    try {
+      browser = await launchBrowser(browserOptions);
+    } catch {
+      return null;
     }
-    console.error(`render-card: cold capture ${attempt} did not return in ${WARM_MS} ms`);
   }
-  return false;
+  return null;
 }
 
 async function newCardPage(browser, opts) {
@@ -553,19 +600,6 @@ async function newCardPage(browser, opts) {
     deviceScaleFactor: opts.dpr,
   });
   return page;
-}
-
-// Returns the replacement page, or null when the browser itself is the thing
-// that went — in which case there is no card left to attempt.
-async function recycle(browser, page, opts) {
-  if (!(await closePageWithin(page))) {
-    console.error(`render-card: failed page did not close in ${PAGE_CLOSE_MS} ms`);
-  }
-  try {
-    return await newCardPage(browser, opts);
-  } catch {
-    return null;
-  }
 }
 
 main().then(
