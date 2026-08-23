@@ -658,12 +658,12 @@ def cond_slot_half(sheet: float) -> float:
 # owed at any edge it makes — the skin's own rule, that a rim running with the flutes is not one
 # of them. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 #
-# EVERY GROOVE, NOT ALTERNATE. `../texture-coupon-vent/` printed the three schemes side by side
-# on a section of this same flank at this same pitch, and the widest slot down every groove is
-# both the more open of the two and the thicker at its thinnest: what a slot is measured against
-# is the MULLION left between two of them (`reeding.mullion`, `reeding.pierce_max`) and not the
-# section behind the groove floor, and the two move OPPOSITE ways. A wider slot puts its jamb
-# further out on the half-ellipse, where the groove is shallower and the wall behind it thicker.
+# EVERY GROOVE, NOT ALTERNATE. The coupon at `69459fea6` printed the three schemes side by side on a
+# section of this same flank at this same pitch, and the widest slot down every groove is both the
+# more open of them and the thicker at its thinnest: what a slot is measured against is the MULLION
+# left between two of them (`reeding.mullion`, `reeding.pierce_max`) and not the section behind the
+# groove floor, and the two move OPPOSITE ways. A wider slot puts its jamb further out on the
+# half-ellipse, where the groove is shallower and the wall behind it thicker.
 #
 # THE STATIONS ARE THE FIELD'S OWN. A slot is struck at a groove centre found by walking arc
 # length (`flute_centres`, `plan_at`), not at a Y typed here, so the vent follows the field if
@@ -1174,18 +1174,19 @@ def ceiling_stations(digiten, anchors, panel: bool):
 # And the interior FRONT PLANE, holding the other end. The front wall is `front_wall` thick —
 # the face a user hauls the pump cartridge out by, so it carries section the way the facet
 # does — and it grows INWARD: the exterior stays where the appliance's stated depth put it
-# and the interior face stands here. What noses into the section gets a RELIEF, 45°-chamfered
-# like every pocket on this box (`front_reliefs`): the refrigeration stratum keeps the face it
-# was packed against, and each pump tray roots on a pocket floor struck by its own wrap rule.
-# `box-front` reads the pack against the relieved surface, region by region, not one plane.
+# and the interior face stands here.
+#
+# THE REFRIGERATION STRATUM PACKS TO THIS PLANE and noses into none of it. The compressor's
+# plate stands on it (`enclosure_assembly.COMPRESSOR_FRONT`), the condenser bears on it through
+# its rails, and the fuse clamp stands clear behind it — so across the whole of the lower storey
+# the wall keeps one `front_wall` section, corner to corner, with no pocket in it.
+#
+# WHAT STILL TAKES A RELIEF IS THE CARTRIDGE'S OWN PUMPS, 45°-chamfered like every pocket on
+# this box (`front_reliefs`), each tray rooting on a pocket floor struck by its own wrap rule.
+# Those are in the piece a hand pulls out, not in this wall. `box-front` reads the pack against
+# the relieved surface, region by region, not one plane.
 front_wall = 9.0
 front_plane_y = 14.0
-# The refrigeration stratum's relief: one stated pocket across THE COMPRESSOR ALONE, floored on
-# the face it packs to. It is the only body in this stratum that stands fore of the front wall's
-# own interior plane — the condenser bears on that plane through its rails and the fuse clamp
-# stands clear behind it — so the wall keeps its full `front_wall` section everywhere else along
-# the front. Stated as (x0, x1, z0, z1, floor).
-fridge_relief = (-78.0, 36.0, -1.0, 148.0, 11.0)
 # And each pump's relief in the cartridge face, floored where the tray's own wrap rule wants
 # its root: `pump_tray` demands root ≥ head_half + MARGIN off the pump's axis, and the floor
 # is what the root is struck to. The face over a pump keeps this floor less the exterior
@@ -3894,9 +3895,13 @@ def _pump_relief_regions(pump_trays):
 
 
 def _front_relief_regions(pump_trays):
-    """Every region the front wall's section is relieved over: the stated refrigeration
-    bay and the pumps' own pockets."""
-    return [fridge_relief] + _pump_relief_regions(pump_trays)
+    """Every region the front wall's section is relieved over, which is THE PUMPS' OWN POCKETS
+    AND NOTHING ELSE.
+
+    The refrigeration stratum packs to `front_plane_y` and takes no pocket, so a body standing
+    on the floor of this box faces the full `front_wall` section; only a tray in the cartridge
+    asks the face for room."""
+    return list(_pump_relief_regions(pump_trays))
 
 
 def _front_relief_cuts(inner, pump_trays):
@@ -5645,11 +5650,10 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
         half = cond_slot_half(fz1 - fz0)
-        # The rail roots on the wall surface actually behind the block, which is the front
-        # wall's own interior plane where no relief is struck over this station's span.
-        root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in (fridge_relief,)
-                                        if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
-                                        and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
+        # The rail roots on the wall surface actually behind the block, and on this storey that
+        # is the front wall's own interior plane everywhere: the only pockets in the front are
+        # the cartridge's (`_front_relief_regions`), and no condenser station stands over one.
+        root_y = front_plane_y
         solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip,
                                  root, fz1 + half + cond_rail_wall))
         # The groove runs out past the rail's own aft end, so the flange enters from the bay.
@@ -5886,11 +5890,10 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
     `flute_skin` reads for itself off the run's own two ends rather than being told.
 
     EVERY GROOVE AND NOT ALTERNATE. What a slot is measured against is the MULLION between two
-    of them, and `../texture-coupon-vent/` printed the schemes side by side: at this pitch a
-    3.1 mm slot down every groove leaves `reeding.mullion` of material carrying the exterior's
-    four wall loops with `reeding.pierce_max` still overhead, and it is both more open and
-    thicker at its thinnest than the same field pierced down alternate grooves at the full groove
-    width.
+    of them, and the coupon at `69459fea6` printed the schemes side by side: at this pitch a 3.1 mm
+    slot down every groove leaves `reeding.mullion` of material carrying the exterior's four wall
+    loops with `reeding.pierce_max` still overhead, and it is both more open and thicker at its
+    thinnest than the same field pierced down alternate grooves at the full groove width.
 
     NO ORPHAN OPENING. If a rooted feature leaves a single aperture marooned beyond its solid
     land in one course, that aperture stays fluted wall too. Two adjacent openings are a grille;
