@@ -1,10 +1,10 @@
-"""The hopper basin's drain stub, and the joint it is closed in — a length of
+"""The funnel's drain stub, and the joint it is closed in — a length of
 1/4" LLDPE run up inside the silicone spout and closed there under a worm clamp.
 
-The basin comes out of the machine and goes into the dishwasher. The stub goes
+The funnel comes out of the machine and goes into the dishwasher. The stub goes
 with it: it is worm-clamped to the spout at the factory and stays. What parts is
 the stub's free end and the John Guest union elbow under the top wall — thumb on
-the collet, basin lifts out; stub back into the collet, basin back in.
+the collet, funnel lifts out; stub back into the collet, funnel back in.
 
 The stub is hidden at both ends. `FUNNEL_ENGAGEMENT` of it stands inside the
 silicone and `UNION_INSERTION` inside the fitting, and the fitting's collet face
@@ -23,7 +23,7 @@ Frame:
       `+FUNNEL_ENGAGEMENT`; the fitting hangs at z ≤ 0.
 
 Run:
-    tools/cad-venv/bin/python hardware/reference/hopper-drain-stub/hopper_drain_stub.py selftest
+    tools/cad-venv/bin/python hardware/reference/funnel-drain-stub/funnel_drain_stub.py selftest
 """
 
 import sys
@@ -36,19 +36,19 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (_hw / "scripts",
            _hw / "reference" / "worm-clamp",
            _hw / "reference" / "elbow-connector",
-           _hw / "printed-parts" / "zone-c" / "hopper-funnel"):
+           _hw / "printed-parts" / "zone-c" / "funnel"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import worm_clamp as _clamp
 import elbow_connector as _union
-import hopper_funnel as _funnel
+import funnel as _funnel
 
 # --- the stub ---------------------------------------------------------------
 
 STUB_OD = 6.35          # 1/4" LLDPE, the same stock every water-side run is cut from
 STUB_ID = 4.32          # its bore
 # Up the spout's straight land as far as the ramp tip, which is where the bore stops being
-# round and starts opening into the basin's floor.
+# round and starts opening into the funnel's floor.
 FUNNEL_ENGAGEMENT = _funnel.spout_tube
 # What the stub owes the fitting it pushes into, read off that fitting: the elbow's socket
 # bottoms a 1/4" tube at its own stop, and a stub cut past that stop is a stub standing on metal
@@ -80,7 +80,7 @@ def joint_holds() -> None:
         raise ValueError(
             f"the spout's straight land is {FUNNEL_ENGAGEMENT:.2f} mm and the clamp's band is "
             f"{_clamp.BAND_W:g} mm wide — the band runs off the land and onto the ramp cone, "
-            f"where the spout is no longer round. Set `hopper_funnel.spout_tube` to at least "
+            f"where the spout is no longer round. Set `funnel.spout_tube` to at least "
             f"{_clamp.BAND_W:g} mm, or bill a narrower band.")
     _clamp.holds(CLAMP_D)
     lo, hi = _clamp.RANGE
@@ -120,6 +120,6 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         for line in selftest():
             print(line)
-        print("hopper_drain_stub selftest OK")
+        print("funnel_drain_stub selftest OK")
     else:
         print(__doc__)

@@ -4,7 +4,7 @@ through, and the three tubes running down past it into the umbilical.
 `printed-parts/faucet/` holds the four printed pieces one at a time and
 `cut-parts/faucet/` the plate under the slab; this is the column they stack into,
 with the harvested Westbrass they are built around
-(`reference/touch-flo-faucet/valve-body-reference/`) and the display on the tip.
+(`reference/touch-flo-faucet/westbrass-reference/`) and the display on the tip.
 
 FRAME: the repo's +Z-up. +Z is height and the Westbrass's axis, +X is lateral (the
 two flavor tubes mirror across X = 0), -Y is the front — the gooseneck dispenses
@@ -76,7 +76,7 @@ _faucet_printed_dir = _repo_hardware_dir / "printed-parts" / "faucet"
 _faucet_cut_dir = _repo_hardware_dir / "cut-parts" / "faucet"
 
 ref_westbrass_step = (_repo_hardware_dir / "reference" / "touch-flo-faucet"
-                 / "valve-body-reference" / "touch-flo-valve-body-reference.step")
+                 / "westbrass-reference" / "westbrass-reference.step")
 under_counter_dxf = (_faucet_cut_dir / "touch-flo-under-counter-plate"
                      / "touch-flo-under-counter-plate.dxf")
 
@@ -113,7 +113,7 @@ from _faucet_interface import (
 
 
 # Reference Westbrass geometry, shared with
-# `../valve-body-reference/valve_body_reference.py`. The Westbrass's
+# `../westbrass-reference/westbrass_reference.py`. The Westbrass's
 # water port sits at depth Y = +port_center_depth (BEHIND its own axis,
 # toward the back); +Z is the Westbrass's vertical axis.
 port_center_depth = 8.875

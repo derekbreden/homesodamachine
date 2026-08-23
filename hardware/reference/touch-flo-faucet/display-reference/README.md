@@ -1,6 +1,6 @@
 # Faucet display reference — Waveshare ESP32-S3-Touch-LCD-1.47
 
-The faucet's flavor display + touch toggle (BOM §1, ASIN
+The faucet display + touch toggle (BOM §1, ASIN
 [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3)). A 1.47" 172×320 IPS
 capacitive-touch LCD on an ESP32-S3R8 board (JD9853 display driver,
 AXS5106L touch chip).

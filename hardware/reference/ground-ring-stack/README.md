@@ -22,9 +22,9 @@ The single-point chassis ground per [`/hardware/assembly/wiring.md`](/hardware/a
 step 1 and [`/hardware/assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)
 step 3 — one green ring-terminal bond per exposed-metal part:
 
-- Pressure vessel
+- Carbonator
 - Compressor body (run AC-6, at the can's own terminal-box earth screw)
-- Faucet under-counter SS plate
+- Under-counter plate
 - PSU chassis (run AC-2 G)
 - the C14 inlet's earth feed (G Wago → bus)
 

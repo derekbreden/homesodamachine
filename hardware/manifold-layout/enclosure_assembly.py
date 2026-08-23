@@ -87,11 +87,11 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "condenser-block",
            _hw / "printed-parts" / "cadlib",
            _hw / "printed-parts" / "valve-seat",
-           _hw / "printed-parts" / "zone-c" / "hopper-funnel",
+           _hw / "printed-parts" / "zone-c" / "funnel",
            _hw / "reference" / "worm-clamp",
            _hw / "reference" / "jg-pp0408w",
            _hw / "reference" / "elbow-connector",
-           _hw / "reference" / "hopper-drain-stub",
+           _hw / "reference" / "funnel-drain-stub",
            _hw / "reference" / "seaflo-suction-chain",
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "waveshare-43b-display",
@@ -150,8 +150,8 @@ import display_gasket as _dgasket                     # noqa: E402
 import enclosure as _enc                              # noqa: E402
 import reeding as _reeding                            # noqa: E402
 import ceiling_panel as _cpanel                       # noqa: E402
-import hopper_funnel as _funnel                       # noqa: E402
-import hopper_drain_stub as _stub                     # noqa: E402
+import funnel as _funnel                       # noqa: E402
+import funnel_drain_stub as _stub                     # noqa: E402
 import elbow_connector as _elbow                      # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import jg_pp0408w as _jgu                             # noqa: E402
@@ -263,7 +263,7 @@ CLUSTER_WAGOS = {
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 SEAFLO_STEP = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
-FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
+FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "funnel" / "funnel.step"
 
 # The placement anchors. Each is a turn a body is installed at, and the machine holds
 # them rather than the bodies: two bodies mating face to face agree about one turn.
@@ -811,7 +811,7 @@ def mq6_cradle(carry, body):
 # its own ledger, which `carry_enclosure_bounds` reads into this one. Every one of them can be
 # opened by a move made somewhere else in the pack.
 #
-# A THIRD GROUP IS SETTLED BEFORE ANY OF THIS RUNS. `manifold_layout`, `hopper_funnel` and the
+# A THIRD GROUP IS SETTLED BEFORE ANY OF THIS RUNS. `manifold_layout`, `funnel` and the
 # cold core's own modules state bounds about their CONSTANTS — a screw long enough for its
 # insert, a lane wide enough for its bore, two limbs far enough apart for the valves on them —
 # and those are read as each file is, with no assembly yet to hang a reading on.
@@ -4150,7 +4150,7 @@ def co2_wall_port(inlet_carry):
 # body added to the assembly that is not part of that pack has to be named here or it
 # joins the box and moves every one of them.
 STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "seaflo-pump",
-              "hopper-funnel", "suction-chain", "discharge-chain", "display", "display-cover",
+              "funnel", "suction-chain", "discharge-chain", "display", "display-cover",
               "display-gasket",
               "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly", "drip-pan",
@@ -6254,13 +6254,13 @@ def funnel_centre(box):
 
 
 def build_funnel(box):
-    """The static funnel (`hopper_funnel.py`, its own frame: collar-centre origin, z 0 the
+    """The static funnel (`funnel.py`, its own frame: collar-centre origin, z 0 the
     brim underside) seated in the top-wall opening — turned `FUNNEL_ROT` about its own Z,
     then set at `funnel_centre` with that underside on the box's outer top. `enclosure.py`
     cuts the opening from the same centre, so funnel and hole cannot drift apart.
 
     THE BRIM RIDES THE CEILING, AND SO DOES THE DRAIN. The basin's underside bears on the top
-    wall's outer face and `hopper_funnel.drop` is fixed, so every millimetre off
+    wall's outer face and `funnel.drop` is fixed, so every millimetre off
     `enclosure.appliance_height` is a millimetre off the drain's own height — and what that comes
     out of is the HEAD the gravity feed runs on. The elbow turns the fall itself, so no corner of
     the run is waiting on that height; what is left of it is the drop from the elbow's own mouth
@@ -6271,7 +6271,7 @@ def build_funnel(box):
     through rides the basin."""
     cx, cy = funnel_centre(box)
     return seat_body(import_step(str(FUNNEL_STEP)).val(),
-                     (((0.0, 0.0, 1.0), FUNNEL_ROT),), seat="hopper-funnel",
+                     (((0.0, 0.0, 1.0), FUNNEL_ROT),), seat="funnel",
                      station=(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)),
                               (cx, cy, box.outer[5])))
 
@@ -6279,7 +6279,7 @@ def build_funnel(box):
 def build_drain_joint(funnel_carry):
     """The basin's disconnect, seated on the spout the funnel carries.
 
-    Three bodies on one column, all of them read off `reference/hopper-drain-stub`'s own frame —
+    Three bodies on one column, all of them read off `reference/funnel-drain-stub`'s own frame —
     origin the spout's exit face, +Z up into the basin — so the joint's stack is stated once
     beside the parts and placed here:
 
@@ -6303,7 +6303,7 @@ def build_drain_joint(funnel_carry):
     _stub.joint_holds()
     drain, _axis = funnel_carry((_funnel.drain_local, (0.0, 0.0, -1.0)))
     origin = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
-    stub, _ = seat_body(_stub.build_stub().val(), seat="hopper-drain-stub",
+    stub, _ = seat_body(_stub.build_stub().val(), seat="funnel-drain-stub",
                         station=(origin, drain))
     clamp, _ = seat_body(_stub.build_clamp().val(), seat="hopper-drain-clamp",
                          station=(origin, drain))
@@ -6346,7 +6346,7 @@ def check_drain_over_deck(joint, pack) -> Bound:
         f"at least {_card.CLEARANCE_FLOOR:g} mm under the fitting's foot",
         [f"{n} crowns {-g:.3f} mm INTO the joint's own envelope" if g < 0 else
          f"{n} leaves {g:.3f} mm under the joint, inside the {_card.CLEARANCE_FLOOR:g} the "
-         f"machine holds — `hopper_funnel.chute_h` and `ramp_angle` are what lower the drain, "
+         f"machine holds — `funnel.chute_h` and `ramp_angle` are what lower the drain, "
          f"and the fitting's own reach is `elbow_connector.LEG`"
          for n, g in sorted(under, key=lambda r: r[1])]))
 
@@ -6646,11 +6646,11 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         # composition even when an equal live tuple happens to compare the same.
         _enc.BOUNDS[:] = bounds
     funnel, funnel_carry = build_funnel(box)
-    a.add(funnel, name="hopper-funnel", color=C_FUNNEL)
+    a.add(funnel, name="funnel", color=C_FUNNEL)
     # The basin is not in the pack — the box is sized on the pack and the funnel is seated in
     # the box — so the line it drains through is drawn HERE, off the same frames the pack's own
     # runs anchor on, with the funnel's now among them.
-    a.pack_solids["hopper-funnel"], a.carries["hopper-funnel"] = funnel, funnel_carry
+    a.pack_solids["funnel"], a.carries["funnel"] = funnel, funnel_carry
     check_bowl_clear(a.pack_solids["flow-regulator"], funnel)
     # The disconnect, on the spout the basin carries. `fluid-4` starts at the union's lower
     # collet, so the joint goes in before the run is drawn.
@@ -6666,7 +6666,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # brim bears on the top wall, so the drain hangs a fixed drop under the ceiling and the elbow
     # hands the line aft one leg below that — and what is left is the HEAD the gravity feed runs
     # on, the drop from that mouth to V-B's own collet. Every millimetre off
-    # `enclosure.appliance_height`, and every millimetre `hopper_funnel.chute_h` takes for
+    # `enclosure.appliance_height`, and every millimetre `funnel.chute_h` takes for
     # capacity, comes out of this one.
     # THE DROP, AND NOT THE LENGTH. `fluid-4` carries head and is the basin's air-purge path, so
     # what it owes is a line that never ends higher than it starts. A run measured by distance
@@ -6675,7 +6675,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # grade left once the corners have taken their tangents, and the basin stops draining dry.
     for r in a.runs:
         if r.id == "fluid-4":
-            note_room("hopper-funnel", "the drop off the elbow `fluid-4` reaches V-B on",
+            note_room("funnel", "the drop off the elbow `fluid-4` reaches V-B on",
                       _elbow.TUBE_D, r.pts[0][2] - r.pts[-1][2])
     display = build_display(box)
     # THE MODULE IS ONE BODY HERE AND TWO MATERIALS IN ITS OWN CARD. `waveshare_43b_display`
@@ -6843,8 +6843,8 @@ def report(a: cq.Assembly, clashes=None) -> None:
     line("manifold-layout", pack)
     line("foam-assembly", fo)
     line("seaflo-pump", sf)
-    if "hopper-funnel" in named:
-        line("hopper-funnel", box(named["hopper-funnel"]))
+    if "funnel" in named:
+        line("funnel", box(named["funnel"]))
     if "suction-chain" in named:
         line("suction-chain", box(named["suction-chain"]))
     if "display" in named:

@@ -14,7 +14,7 @@ module carries the millimetres.
 
 The barrel is what the wall is bored for, and `enclosure_assembly.co2_wall_port` strikes that
 bore one `PORT_HOLE_SLIP` over `THREAD_D` — the same way the four PP1208E unions' bores are
-struck over theirs, so all five of the rear wall's tube crossings are one construction.
+struck over theirs, so all five of the +Y wall of back-top's tube crossings are one construction.
 
 Coordinate convention — jg_bulkhead_union's, so the two families seat the same way:
   Y = tube-flow axis. +Y = outward, toward the customer's tube.
@@ -63,7 +63,7 @@ NUT_AF = 0.827 * _IN              # H2 — 21.006 across flats
 BODY_LEN = 0.665 * _IN            # B1 = B2 — 16.891
 # A — 7.899, the BARE BARREL the sheet dimensions between the flange's face and the nut's. It is
 # what the panel is clamped in, so it is the panel this fitting takes, and
-# `enclosure_assembly.port-clamp-stack` holds the wall and its port ring inside it.
+# `enclosure_assembly.port-clamp-stack` holds the wall and its bulkhead ring inside it.
 PANEL_THREAD = 0.311 * _IN
 NUT_LEN = 0.276 * _IN             # E  — 7.010
 MASS_G = 9.4
@@ -99,7 +99,7 @@ def panel_footprint() -> tuple:
 
 
 def flange_footprint() -> float:
-    """What the OUTBOARD flange covers, and so what a port ring has to reach past to show."""
+    """What the OUTBOARD flange covers, and so what a bulkhead ring has to reach past to show."""
     return FLANGE_D
 
 

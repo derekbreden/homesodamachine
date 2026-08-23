@@ -77,7 +77,7 @@ and what the lane beside it is worth are the machine's —
 [`../../printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md).
 The mating on the compressor's own +X tangent is what PLACES it — the pair is struck
 there and centred as one — and it then goes EAST off that plane, as far as the +X wall's
-own furniture leaves free. The cold core is packed off the rear wall rather than butted
+own furniture leaves free. The cold core is packed off the +Y wall of back-bottom rather than butted
 against this block. So the block touches nothing: a lane stands on each of its three
 open faces, and the loop's first two legs cross two of them. It does **not** stand on
 the floor slab:

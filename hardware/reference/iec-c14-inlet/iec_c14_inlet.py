@@ -48,7 +48,7 @@ Matches jg_bulkhead_union.py.
       +Y). -Y = INWARD (the housing and spade terminals reach into the
       enclosure).
   Origin = the panel-seating plane = the front face of the flange, which
-      bears on the INSIDE of the rear wall. The shroud and its blades reach
+      bears on the INSIDE of the +Y wall of back-top. The shroud and its blades reach
       out through the cutout at y >= 0; the flange, the housing and the
       terminals sit at y < 0, inside the enclosure.
   +Z = up. X completes the right-handed frame. The cutout long axis

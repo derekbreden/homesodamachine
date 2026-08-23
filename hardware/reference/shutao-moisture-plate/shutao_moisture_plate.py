@@ -1,6 +1,6 @@
 """Shutao water/moisture sensor — the interdigitated FR-4 probe plate half of
 the two-board LM393 module, the appliance's `moisture-sensor`. It lies flat in
-the drip pan under the Multiplex atmospheric vent (which hovers ~0.4 mm above
+the ASSE drip pan under the Multiplex atmospheric vent (which hovers ~0.4 mm above
 it); the comparator board mounts off elsewhere.
 
 External envelope only. A flat FR-4 rectangle — the interdigitated comb is

@@ -87,7 +87,7 @@ def panel_footprint() -> tuple:
 
 
 def flange_footprint() -> float:
-    """What the OUTBOARD flange covers, and so what a port ring has to reach past to show.
+    """What the OUTBOARD flange covers, and so what a bulkhead ring has to reach past to show.
     The flange and the collet barrel are one diameter on this fitting."""
     return BODY_D
 

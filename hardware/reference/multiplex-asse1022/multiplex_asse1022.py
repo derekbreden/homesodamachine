@@ -1,6 +1,6 @@
 """Multiplex 19-0897 ASSE 1022 dual-check backflow preventer (= Anderson Brass
 ABF-1) — the appliance's `multiplex` in the enclosure pack, inline on the water
-path above the drip pan, its atmospheric-vent barb weeping into it.
+path above the ASSE drip pan, its atmospheric-vent barb weeping into it.
 
 External envelope only. A brass hex barrel along the flow axis with a radial
 atmospheric-vent barb, a 3/8" NPT male inlet at one end and a 3/8" SAE 45° male

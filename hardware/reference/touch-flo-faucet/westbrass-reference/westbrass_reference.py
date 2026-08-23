@@ -1,5 +1,5 @@
-"""Reference solid of the Westbrass R2031-NL-12 Touch-Flo metal valve
-body — the cavity/envelope reference the 3D-printed shell wraps around.
+"""Reference solid of the Westbrass — the harvested R2031-NL-12 Touch-Flo
+metal valve, the cavity/envelope reference the faucet shell wraps around.
 
 Coordinate convention — repo world frame, matching every other faucet
 part:
@@ -271,7 +271,7 @@ def main():
     print(f"  Shank:            Ø{shank_od} mm × {shank_length} mm long, Z = -{shank_length} → 0")
 
     here = Path(__file__).resolve().parent
-    out = here / "touch-flo-valve-body-reference.step"
+    out = here / "westbrass-reference.step"
     export_assembly(one_body(body, out.stem, M_DONOR_BLACK), str(out))
     print(f"-> {out.name}")
 
@@ -308,7 +308,7 @@ def main():
         Path(__file__),
         variables=variables,
     )
-    print(f"-> valve_body_reference.py (self)")
+    print(f"-> westbrass_reference.py (self)")
 
 
 if __name__ == "__main__":

@@ -9,9 +9,9 @@ photo-measured off the part in hand —
 `hardware/off-the-shelf-parts/john-guest-union/extracted-results/geometry-description.md`
 is the measurement, and this is the solid struck from it.
 
-One hangs under the hopper basin's spout, and the customer opens it every time
-the basin goes to the dishwasher. What pushes into its upper collet is
-`hardware/reference/hopper-drain-stub/`; `fluid-4` leaves the lower one.
+One hangs under the funnel's spout, and the customer opens it every time
+the funnel goes to the dishwasher. What pushes into its upper collet is
+`hardware/reference/funnel-drain-stub/`; `fluid-4` leaves the lower one.
 
 Coordinate convention:
   Z = tube-flow axis, +Z toward the near port.
@@ -84,7 +84,7 @@ def reach() -> float:
 
 def stations_hold():
     """Hold the envelope and both ports to `jg-pp0408w.step` — the file the machine spaces
-    the hopper's disconnect by, while it hangs the basin's stub in one end and starts a run
+    the funnel's disconnect by, while it hangs the funnel's stub in one end and starts a run
     at the other."""
     solid = import_step(str(STEP)).val()
     bb = solid.BoundingBox()

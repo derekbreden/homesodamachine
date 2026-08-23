@@ -124,7 +124,7 @@ export const ALIASES = {
   "valve-v-h": "reference/beduan-solenoid/beduan-solenoid.step",
   "valve-v-i": "reference/beduan-solenoid/beduan-solenoid.step",
   "valve-v-j": "reference/beduan-solenoid/beduan-solenoid.step",
-  "valve_body": "reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
+  "valve_body": "reference/touch-flo-faucet/westbrass-reference/westbrass-reference.step",
   "vk-solenoid": "reference/beduan-solenoid/beduan-solenoid.step",
   "wago-g": "reference/wago-221/wago-221-413.step",
   "wago-gnd": "reference/wago-221/wago-221-413.step",

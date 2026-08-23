@@ -13,7 +13,7 @@ for anyone measuring clearance against it.
 
 ## Geometry (calipered)
 
-Two bodies. A stamped mounting plate, and an oblong shell standing on it.
+Two bodies. A stamped base plate, and an oblong shell standing on it.
 
 | body | size | stands |
 |---|---|---|

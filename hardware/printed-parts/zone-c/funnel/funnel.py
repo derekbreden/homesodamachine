@@ -131,7 +131,7 @@ spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 clamp_shoulder = 2.0    # silicone left standing either side of the clamp's band
 # The straight spout tube below the ramp tip — the CLAMP LAND. The drain stub runs up the
-# whole of it (`reference/hopper-drain-stub`) and the worm clamp's band closes on the middle,
+# whole of it (`reference/funnel-drain-stub`) and the worm clamp's band closes on the middle,
 # between two shoulders. Above the tip the outer face is the ramp cone, and it is the ramp's
 # own grade over the collar's own half-run: a band that reaches it closes on nothing.
 spout_tube = _clamp.BAND_W + 2.0 * clamp_shoulder
