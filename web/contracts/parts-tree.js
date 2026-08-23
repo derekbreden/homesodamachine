@@ -9,7 +9,7 @@
 // made of stands inside one of them, and is reached by opening it.
 //
 // AN ASSEMBLY MAY HOLD AN ASSEMBLY. `children` is that nesting: the cold core is
-// one component of the enclosure, and opening that component is how its vessel,
+// one component of the enclosure, and opening that component is how its carbonator,
 // coil, reservoirs, fittings and lines are reached. The nesting is what the page
 // browses and what the drill-down walks, and the two agree because both read
 // this file.
@@ -75,7 +75,7 @@ export const ASSEMBLIES = [
         id: "cold-core-assembly",
         label: "Cold core assembly",
         model: "cold-core-layout/cold-core-assembly.step",
-        note: "One component of the enclosure, and a stack in its own right: the vessel that " +
+        note: "One component of the enclosure, and a stack in its own right: the carbonator that " +
               "fills it, the coil wound on that, both reservoirs in their pockets, every " +
               "fitting made up, and the lines among them. The machine places its foam; this " +
               "is the same body one frame in.",
