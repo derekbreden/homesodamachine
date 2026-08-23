@@ -24,14 +24,20 @@ FRONT_DIR = PROJECT / "firmware" / "src_front" / "images"
 # wears — so every logo needs the 240 a Choose card shows, the 96 the picker grid
 # shows, the 128x115 the round display shows, and the 172x320 the faucet shows.
 THUMB = 96
+# A quarter of the card art, small enough to ride a pane's title band and say
+# which channel the screen is acting on without a word for it.
+HEAD = 60
+# Half the card art: what a confirm screen shows, where the channel being
+# committed to is the subject rather than a reminder.
+MID = 120
 
 # (source png, label, S3 var [240×240], RP2040 var [128×115], faucet var [172×320],
-#  front thumbnail var [96×96])
+#  front thumbnail var [96×96], front title-band var [60×60], front confirm var [120×120])
 FLAVORS = [
-    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet", "flavor0_thumb"),
-    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet", "flavor1_thumb"),
-    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", "flavor2_faucet", "flavor2_thumb"),
-    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", "flavor3_faucet", "flavor3_thumb"),
+    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet", "flavor0_thumb", "flavor0_head", "flavor0_mid"),
+    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet", "flavor1_thumb", "flavor1_head", "flavor1_mid"),
+    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", "flavor2_faucet", "flavor2_thumb", "flavor2_head", "flavor2_mid"),
+    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", "flavor3_faucet", "flavor3_thumb", "flavor3_head", "flavor3_mid"),
 ]
 
 
@@ -65,7 +71,7 @@ def main():
     FAUCET_DIR.mkdir(parents=True, exist_ok=True)
     FRONT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"Converting {len(FLAVORS)} flavors to RGB565 headers...")
-    for png, label, s3_var, rp_var, faucet_var, thumb_var in FLAVORS:
+    for png, label, s3_var, rp_var, faucet_var, thumb_var, head_var, mid_var in FLAVORS:
         src = IMAGES / png
         if not src.exists():
             print(f"  SKIP {png} (missing)")
@@ -73,6 +79,8 @@ def main():
         write_header(src, s3_var, label, S3_DIR / f"{s3_var}.h", 240, 240)
         write_header(src, rp_var, label, RP_DIR / f"{rp_var}.h", 128, 115)
         write_header(src, thumb_var, label, FRONT_DIR / f"{thumb_var}.h", THUMB, THUMB)
+        write_header(src, head_var, label, FRONT_DIR / f"{head_var}.h", HEAD, HEAD)
+        write_header(src, mid_var, label, FRONT_DIR / f"{mid_var}.h", MID, MID)
         if faucet_var:
             write_header(src, faucet_var, label, FAUCET_DIR / f"{faucet_var}.h",
                          172, 320, cover=True)
