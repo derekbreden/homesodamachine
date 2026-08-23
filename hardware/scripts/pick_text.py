@@ -1,7 +1,7 @@
 """Pick-text composer — the CAD side of the step viewer's pick channel.
 
-The viewer's edge picker copies geometry as pick text (file / solid /
-edge / faceA / faceB / click lines), and its Find box accepts the same
+The viewer's edge picker copies geometry as pick text (file / surface /
+solid / edge / faceA / faceB / click lines), and its Find box accepts the same
 format pasted back: it opens the file a `file:` line names, highlights
 every recognizable pick, and frames the camera on them. This module
 composes those lines from CadQuery geometry, so an agent pointing a
@@ -20,9 +20,10 @@ Compose from geometry:
         0,
         str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware") / "scripts"),
     )
-    from pick_text import from_edge, from_face, file_line, click
+    from pick_text import from_edge, from_face, file_line, surface_line, click
 
     print(file_line(step_path))                      # which STEP to open
+    print(surface_line(step_path))                   # and which surface these are off
     print(from_edge(solid.edges(">Z").vals()[0]))    # edge: …
     print(from_face(solid.faces(">Z").vals()[0]))    # face: …
     print(click(cq.Vector(1, 2, 3)))                 # click: … (point marker)
@@ -102,6 +103,20 @@ def file_line(step_path) -> str:
         if (parent / ".git").exists():
             return f"file: {p.relative_to(parent)}"
     return f"file: {step_path}"
+
+
+def surface_line(step_path) -> str:
+    """The surface line for geometry composed HERE, which is always the solid's.
+
+    The viewer emits one too, and it does not always say the same thing: the page draws the
+    `.step.mesh` beside a STEP whenever there is one, and under `pack.BUNDLED_PAYLOAD_DIRS`
+    that payload carries flutes the solid does not (`flute_payload`). A pick composed off
+    CadQuery is off the B-rep by construction, so it says so — and a reader comparing an
+    agent's line against one copied out of the viewer can see at once whether the two are
+    even describing the same surface.
+
+    The line holds no coordinates, so the parser reads it as prose and it adds no pick."""
+    return f"surface: {Path(step_path).name} — the solid's own B-rep, composed off CadQuery"
 
 
 # --- CadQuery composers ---
