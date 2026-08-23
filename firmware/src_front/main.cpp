@@ -2426,7 +2426,6 @@ static void buildFlavor(lv_obj_t *page) {
     lv_obj_align(mkText(b, kFlavorName[i], &lv_font_montserrat_28, COL_TEXT), LV_ALIGN_CENTER, 0, -10);
     flvCardLbl[i] = mkText(b, "1:12", &lv_font_montserrat_48, COL_TEXT);
     lv_obj_align(flvCardLbl[i], LV_ALIGN_CENTER, 0, 60);
-    lv_obj_align(mkText(b, "LEVEL  --", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_BOTTOM_MID, 0, -8);
   }
   flvView[FLV_BOTH] = both;
 
