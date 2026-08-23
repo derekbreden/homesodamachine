@@ -42,22 +42,26 @@ the board stays flashable without a manual BOOT-button recovery.
 
 ### Frame alignment at wake
 
-The linked RGB driver has `CONFIG_LCD_RGB_RESTART_IN_VSYNC=1`, so it already
-restarts scan-out during every vertical blank. The application callback ahead
-of that timing-sensitive restart is an IRAM-resident counter only. Bounce-buffer
-completion—not VSYNC—is the boundary that releases an LVGL framebuffer for reuse.
+The front links its local ESP-IDF v5.5.4 RGB driver configuration. Its scan ISR
+is IRAM-safe and performs GDMA recovery only after an actual bounce-buffer EOF
+shortfall or an explicit `PANEL:REALIGN`, never as routine work at each VSYNC.
+The application callback wakes a high-priority task; that task writes the
+panel-control expander only when the shared I2C bus is free early enough in that
+blank, otherwise it retries on the next one. Bounce-buffer completion—not
+VSYNC—is the boundary that releases an LVGL framebuffer for reuse.
 
 **LCD_RST is the panel's own**, on CH422G `EXIO3`. A wake pauses the lock
 animation, turns the backlight off, and holds LCD_RST low for at least 20 ms. It
-releases reset immediately after VSYNC, allows the panel's 120 ms recovery and
-four more syncs and complete frames, and only then raises EXIO2 (both panel DISP
-and the LED driver). An active lock remains still for another 200 ms before its logo
-continues. This keeps blanking/sync acquisition off the visible glass without
-changing the 16 MHz pixel clock or the normal rendering path.
+releases reset in a vertical blank, allows the panel's 120 ms recovery and four
+more syncs and complete frames, then raises EXIO2 (both panel DISP and the LED
+driver) in a later blank. An active lock remains still for another 200 ms before
+its logo continues. This keeps panel-control edges out of the visible scan without
+changing the 16 MHz pixel clock or normal rendering path.
 
 `PANEL:KICK` runs that same non-blocking sequence without waiting for idle.
 `GET_PANEL` reports completed frames and submissions, wake start/completion/stage,
-frame wait timeouts, draw failures, and CH422G write failures. The live checker's
+VSYNC-phased action/retry counts, genuine RGB scan recoveries, frame wait
+timeouts, draw failures, and CH422G write failures. The live checker's
 `--wake-cycles N` option repeats the actual dark-to-lit path and requires those
 error counters to remain unchanged.
 
@@ -173,7 +177,8 @@ Newline-terminated, 115200 baud over the native USB CDC:
   render high-water, scroll extents, flavor replication, touch, memory,
   backlight, animation frame and uptime
 - `GET_PANEL` → completed frame/submission counts, wake stage and completion,
-  draw/frame timeouts, and CH422G write errors
+  VSYNC-phased panel-control actions, scan recovery, draw/frame timeouts, and CH422G
+  write errors
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:4` → show one page (HOME, MIX, SERVICE, STATUS, SETUP)
@@ -181,7 +186,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `LOCK:SHOW` / `LOCK:HIDE` → exercise the reusable operation lock
 - `PANEL:KICK` → the wake sequence — dark, reset at VSYNC, four clean
   frames, light, quiet, then any active lock animation
-- `PANEL:REALIGN` → ask the RGB driver for the DMA restart it already does each VSYNC
+- `PANEL:REALIGN` → request one RGB DMA recovery at the next VSYNC
 - `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
   the glass: same frames, same ticks, same readouts
 - `STATUS` → ask the base for one `StatusPayload`
