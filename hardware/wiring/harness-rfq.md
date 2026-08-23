@@ -12,7 +12,7 @@ this file. Board pin map is [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), canonical
 
 **In:** ten assemblies — J1, J2, J3, J4, J5, J6, J7, J9, J11, J13.
 
-**Out:** the J10 12 V inlet (2 × 16 AWG, ferrules, on-shelf) and every AC mains run (AC-1…6, 16 AWG
+**Out:** the J10 12 V inlet (2 × 16 AWG, ferrules, landed on the main board) and every AC mains run (AC-1…6, 16 AWG
 + 18 AWG SJOOW), built in place per [`wiring.md`](/hardware/assembly/wiring.md).
 
 Everything in this RFQ is 22 AWG or 28 AWG.
@@ -55,7 +55,7 @@ marker), not per-conductor. Do not substitute a color code.
 ### The WAGO fan-outs are in-assembly splices
 
 Five assemblies terminate a shared rail in a WAGO 221 lever nut at the **device end**, not at the
-board: one rail conductor rides the trunk and explodes at the manifold or reservoir. The nut body
+main board: one rail conductor rides the trunk and explodes at the manifold or reservoir. The nut body
 press-fits into a well printed in the enclosure wall. Do not substitute heat-shrink butt splices.
 
 | Assembly | Nut | Ways used | Feed | Branches |
@@ -100,7 +100,7 @@ housing.**
 
 ## Wire lists
 
-Lengths are conductor cut lengths from the board contact to the device termination, service loop
+Lengths are conductor cut lengths from the main-board contact to the device termination, service loop
 excluded — add your standard allowance. They are design targets from the enclosure layout, not yet
 measured against a built enclosure.
 
@@ -139,7 +139,7 @@ All four branches leave the 221-415 at the manifold, 300 mm along the trunk.
 | 4 | `IO33` | display RX | ~1 m | " |
 
 Straight-through 4-conductor ribbon up the umbilical, no branch. TTL UART; ESD clamping is on the
-board, so no cable-end component is required.
+main board, so no cable-end component is required.
 
 ### J4 — SENSORS · XHP-7 · 1/4" sleeve · three-way branch
 
@@ -220,9 +220,9 @@ Straight-through, no branch.
 | 3 | `BM2` | pump B motor tab 2 | ~400 mm | female Faston |
 | 4 | `BM1` | pump B motor tab 1 | ~400 mm | female Faston |
 
-Two differential H-bridge pairs, no shared rail and no fan-out. The pumps ride a cartridge that
-withdraws from the enclosure, so these four run **unbroken** from housing to motor tab, and the
-length must hold with the cartridge drawn fully out — do not shorten.
+Two differential H-bridge pairs, no shared rail and no fan-out. The pumps ride the pump cartridge,
+which withdraws from the enclosure, so these four run **unbroken** from housing to motor tab, and
+the length must hold with that cartridge drawn fully out — do not shorten.
 
 ## Open questions for the vendor
 

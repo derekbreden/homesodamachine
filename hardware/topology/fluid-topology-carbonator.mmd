@@ -1,6 +1,6 @@
 flowchart LR
 
-  %% The carbonator spine — everything upstream of the vessel and everything it dispenses
+  %% The carbonator spine — everything upstream of the carbonator and everything it dispenses
   %% through, on the bodies the enclosure assembly places. The flavor manifold hanging off the
   %% water split is fluid-topology-manifold.mmd.
 
@@ -8,14 +8,14 @@ flowchart LR
   %% `manifold-layout/_lines.py` authors each run port to port. `_fluid_topology_sync.py` names
   %% every labelled edge below and gates each one against the built run. An edge with NO label
   %% is a joint that carries no line: a made-up NPT thread, two collets face to face, a path
-  %% inside the vessel, or a sensor link.
+  %% inside the carbonator, or a sensor link.
 
   %% NO LENGTH IS DRAWN HERE. This lane's cut figures are the IP-01 and IP-02 build cards, off
   %% these same runs: `assembly/cards/_cards_ip.py` writes CO2_1_LEN, CO2_2_LEN, WATER_2_LEN,
   %% SUCTION_STUB_LEN and DISCHARGE_STUB_LEN into them and the deck prints them. This file
   %% carries no managed marker of its own; its edges are labelled by the driver above.
 
-  %% The customer's supply and the CO2 bottle both land on the BACK wall, and the three risers
+  %% The customer's supply and the CO2 bottle both land on the +Y wall of back-top, and the three risers
   %% leave by it too — carbonated water, flavor A, flavor B, on one row of PP1208E unions under
   %% the umbilical.
 
@@ -32,7 +32,7 @@ flowchart LR
   %% by them. There is no `water-1`.
   subgraph WaterSupply["Water Supply"]
     direction LR
-    BhW["bulkhead-water<br/>(PP1208E, rear wall)"]
+    BhW["bulkhead-water<br/>(PP1208E, +Y wall of back-top)"]
     BFP["asse1022-assembly<br/>(Multiplex 19-0897)"]
     Split["water-split<br/>(1/4&quot; union tee)"]
     VK["vk-solenoid<br/>(V-K, 12 V NC)"]
@@ -43,14 +43,14 @@ flowchart LR
   end
 
   %% =========================
-  %% CO2 supply — the east lane, off the back wall
+  %% CO2 supply — the east lane, off the +Y wall of back-top
   %% =========================
-  %% The ABU44 is clamped through the back wall by its own nut, a collet on each face. The
+  %% The ABU44 is clamped through the +Y wall of back-top by its own nut, a collet on each face. The
   %% customer's red tether lands on the outboard one; co2-0 leaves the inboard one for the
   %% check, whose arrow points away from the bulkhead.
   subgraph CO2Supply["CO2 Supply"]
     direction LR
-    CO2In["co2-inlet<br/>(neoFit ABU44 1/4&quot; bulkhead, rear wall)"]
+    CO2In["co2-inlet<br/>(neoFit ABU44 1/4&quot; bulkhead, +Y wall of back-top)"]
     GasherCO2["gasher-co2<br/>(1/4&quot; NPT check)"]
     WR["wr1110<br/>(secondary regulator, fixed 90 PSI)"]
   end
@@ -68,7 +68,7 @@ flowchart LR
     CapCarb["carb-water-out"]
   end
 
-  subgraph Tank["Carbonator Vessel<br/>316L SS, 5&quot; × 6&quot;, ~1.55 L"]
+  subgraph Tank["Carbonator<br/>316L SS, 5&quot; × 6&quot;, ~1.55 L"]
     direction TB
 
     P4["Port 4: PRV<br/>(top plate, &minus;Y)"]
@@ -92,17 +92,17 @@ flowchart LR
 
   subgraph Dispense["Dispense"]
     FlowMeter["digiten-flow<br/>(Hall turbine, F = 23&middot;Q)"]
-    BhCarb["bulkhead-carb<br/>(PP1208E, rear wall)"]
+    BhCarb["bulkhead-carb<br/>(PP1208E, +Y wall of back-top)"]
     Faucet["Faucet Lever"]
-    Nozzle["Nozzle"]
+    Gooseneck["Gooseneck"]
   end
 
-  Vent["ASSE 1022 vent<br/>— drip pan, over the moisture sensor"]
+  Vent["ASSE 1022 vent<br/>— ASSE drip pan, over the moisture sensor"]
   PRVOut["PRV Discharge"]
   LevelSense["Level Sense from reed switches"]
   VA["V-A<br/>— the flavor manifold's tap"]
 
-  %% The vessel is filled HIGH and drawn LOW: tap water arrives at the top plate above the
+  %% The carbonator is filled HIGH and drawn LOW: tap water arrives at the top plate above the
   %% liquid and falls into the headspace against the CO2 back-pressure, the gas enters below the
   %% liquid and dissolves on the way up, and the carbonated draw leaves at the bottom plate. Both
   %% reservoirs are filled and drawn the same way.
@@ -129,7 +129,7 @@ flowchart LR
   CapCarb -->|"carb-1"| FlowMeter
   FlowMeter -->|"carb-2"| BhCarb
   BhCarb --> Faucet
-  Faucet --> Nozzle
+  Faucet --> Gooseneck
   P4 ==> PRVOut
   Float --> LevelSense
   LevelSense -->|"interlock"| PW
@@ -140,7 +140,7 @@ flowchart LR
   class P4,PRVOut safety
   class BFP,Vent code
 
-  %% Fluid-flow workhorse edges: white. The vessel's own interior is 0,1,3,5; the water supply
+  %% Fluid-flow workhorse edges: white. The carbonator's own interior is 0,1,3,5; the water supply
   %% runs 7-18; CO2 19-23; dispense 24-28.
   linkStyle 0,1,3,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 stroke:#ccc,stroke-width:2px
   %% Sensor / interlock edges: blue.

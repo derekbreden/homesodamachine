@@ -24,10 +24,10 @@ import urllib.request
 
 API = "https://www.miniproto.com/api/v1/"
 
-XHP6 = "XHP-6"        # JST XH 6-way female housing, the MANIFOLD B board wafer
+XHP6 = "XHP-6"        # JST XH 6-way female housing, the MANIFOLD B main-board wafer
 FASTON_250 = "2178438-1"  # TE FASTON 250, 6.3 mm female receptacle, 20-24 AWG
 
-# J2 MANIFOLD B. Connector 0 is the board wafer; 1..8 are the eight device tabs, in the order
+# J2 MANIFOLD B. Connector 0 is the main-board wafer; 1..8 are the eight device tabs, in the order
 # below. Splice 0 is the WAGO 221-415 at the manifold. Contact 3 (OUT4) is never referenced.
 DEVICES = ["V-I +", "V-J +", "fan +", "V-K +", "fan -", "V-K -", "V-J -", "V-I -"]
 

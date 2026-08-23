@@ -21,7 +21,7 @@ flowchart LR
   %% hinge's four hairpins and the source pair's two quarter-and-step turns. What is cut comes to
   %% [2347.4 mm](FLUID_TOTAL) of 1/4" LLDPE over [50](FLUID_BENDS) corners, and the longest is
   %% [fluid-18](LONGEST_ID) at [441.5 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
-  %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The hopper's gravity
+  %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The funnel's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
 
@@ -43,13 +43,13 @@ flowchart LR
     FlowReg["flow-regulator"]
   end
 
-  %% The basin on the top-wall rim ledge behind the display facet, draining by gravity. The fold
-  %% turns V-B's inlet to face the back of the machine. One node covers the basin and the joint
+  %% The funnel on the top-wall rim ledge behind the display facet, draining by gravity. The fold
+  %% turns V-B's inlet to face the back of the machine. One node covers the funnel and the joint
   %% under it: the spout carries a clamped 1/4" stub and that stub pushes into the +Z leg of a
   %% PP0308E union elbow, which turns the fall aft on its own +Y leg. That +Z collet is the one
-  %% fitting on this chart the CUSTOMER opens — the basin comes out of the machine there and
+  %% fitting on this chart the CUSTOMER opens — the funnel comes out of the machine there and
   %% goes into the dishwasher.
-  Hopper["hopper-funnel<br/>+ PP0308E union elbow"]
+  Funnel["funnel<br/>+ PP0308E union elbow"]
 
   %% =========================
   %% The flavour manifold
@@ -94,7 +94,7 @@ flowchart LR
   end
 
   %% =========================
-  %% Cold core, rear wall, and what leaves the box
+  %% Cold core, +Y wall of back-top, and what leaves the box
   %% =========================
   %% Four of the seven conduits in the core's top cap are this circuit's. Each reservoir is
   %% FILLED ABOVE ITS LIQUID, through a bore in its own cap, and DRAWN FROM ITS TROUGH, off the
@@ -107,14 +107,14 @@ flowchart LR
     ResB[("reservoir-B<br/>draw")]
   end
 
-  subgraph Panel["Rear wall"]
+  subgraph Panel["+Y wall of back-top"]
     BhA["bulkhead-flavor-a"]
     BhB["bulkhead-flavor-b"]
   end
 
   VK["vk-solenoid<br/>V-K &middot; carbonator fill"]
   SuctChain["suction-chain"]
-  Faucet["Faucet — nozzles A &middot; B"]
+  Faucet["Faucet — flavor tubes A &middot; B"]
 
   %% =========================
   %% Shared source chain — fluid-1 … fluid-8
@@ -126,7 +126,7 @@ flowchart LR
   Split -->|"fluid-1"| FlowReg
   FlowReg -->|"fluid-2"| VA
   VA -->|"fluid-3"| YA
-  Hopper -->|"fluid-4"| VB
+  Funnel -->|"fluid-4"| VB
   VB -->|"fluid-5"| YB
   YA <-->|"fluid-6<br/>butt"| YB
   YA -->|"fluid-7<br/>butt"| VC
@@ -179,8 +179,8 @@ flowchart LR
   %% =========================
   %% Beyond the box
   %% =========================
-  %% The two flavor bulkheads are where this pack's runs END. The nozzles are out on the faucet,
-  %% down the umbilical, which no run here carries.
+  %% The two flavor bulkheads are where this pack's runs END. The flavor tubes' exits are out
+  %% on the faucet, down the umbilical, which no run here carries.
   BhA -.-> Faucet
   BhB -.-> Faucet
 
