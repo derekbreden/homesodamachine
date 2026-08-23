@@ -1,7 +1,7 @@
 flowchart LR
 
   %% DERIVED VIEW — the canonical pin map is hardware/pcb/pcba/pcba.tsx
-  %% (PCB-canonical). Keep this in sync with the board; do not change a pin
+  %% (PCB-canonical). Keep this in sync with the main board; do not change a pin
   %% assignment here without changing pcba.tsx first.
 
   %% ═══════════════════════════════════════
@@ -18,12 +18,12 @@ flowchart LR
   %%         -> MANIFOLD B; PA[0:2] and PA4 spare; 4 reservoir-B reed inputs on
   %%         Port B[0:3]; 2 carbonator reeds on PB[4:5]; PB[6:7] spare.
 
-  %%  The board carries 12 valve channels (J1 ×8, J2 ×4); the manifold uses 10,
+  %%  The main board carries 12 valve channels (J1 ×8, J2 ×4); the manifold uses 10,
   %%  and V-K (the water-supply fill/shutoff) takes an 11th: J2.OUT3 — driven from
   %%  0x21 PA[5] through U2 ch 3. J2.OUT4 (0x21 PA[4], U2 ch 4) remains fully
   %%  routed but lands on no valve — spare capacity, not a missing connection.
 
-  %%  Bit order: the board routes each GPA_k to IN_{8−k}, so GPA_k drives channel
+  %%  Bit order: the main board routes each GPA_k to IN_{8−k}, so GPA_k drives channel
   %%  (8-k) — the GPA bit
   %%  order runs OPPOSITE the channel/valve order (0x20 GPA0->V-H .. GPA7->V-A;
   %%  0x21 GPA7->V-I, GPA6->V-J, GPA5->V-K, GPA3->fan; GPA[0:2] and GPA4 spare).
@@ -139,21 +139,21 @@ flowchart LR
 
     subgraph Shared_Valves["Source Selection"]
       VA["V-A  Tap water gate"]
-      VB["V-B  Hopper gate"]
+      VB["V-B  Funnel gate"]
       VC["V-C  Channel A select"]
       VD["V-D  Channel B select"]
     end
 
     subgraph ChA_Valves["Channel A"]
-      VE["V-E  Bag A → Pump A"]
-      VF["V-F  Pump A → Bag A"]
-      VG["V-G  Pump A → Nozzle A"]
+      VE["V-E  Reservoir A → Pump A"]
+      VF["V-F  Pump A → Reservoir A"]
+      VG["V-G  Pump A → flavor tube A"]
     end
 
     subgraph ChB_Valves["Channel B"]
-      VH["V-H  Bag B → Pump B"]
-      VI["V-I  Pump B → Bag B"]
-      VJ["V-J  Pump B → Nozzle B"]
+      VH["V-H  Reservoir B → Pump B"]
+      VI["V-I  Pump B → Reservoir B"]
+      VJ["V-J  Pump B → flavor tube B"]
     end
 
     subgraph Water_Valves["Water Supply"]
@@ -180,7 +180,7 @@ flowchart LR
       RB4["Reed 4  FULL threshold"]
     end
 
-    subgraph Carb["Carbonator vessel — 2 reeds (threshold-only)"]
+    subgraph Carb["Carbonator — 2 reeds (threshold-only)"]
       direction TB
       CARB_LO["Reed LOW  refill threshold"]
       CARB_HI["Reed HIGH  full threshold"]
@@ -203,7 +203,7 @@ flowchart LR
   A0_GPA7 --> U1_1
 
   %% ── 0x21 Port A[6:7] → U2 ch1-2  (MANIFOLD B valves; GPA bit order reversed).
-  %%    PA[4:5] → U2 ch3-4 stay routed on the board but drive nothing.
+  %%    PA[4:5] → U2 ch3-4 stay routed on the main board but drive nothing.
   A1_GPA7 --> U2_1
   A1_GPA6 --> U2_2
   A1_GPA5 --> U2_3
