@@ -112,7 +112,7 @@ body.cc { --accent: #0f8bab; }  /* cold core — ice */
 body.rl { --accent: #c8481d; }  /* refrigerant loop — flame */
 body.ip { --accent: #2268c2; }  /* internal plumbing — water */
 body.ca { --accent: #7a5cc4; }  /* cable assemblies — signal */
-body.es { --accent: #b8860b; }  /* electronics shelf — power */
+body.pc { --accent: #b8860b; }  /* power column — power */
 body.wr { --accent: #a8352f; }  /* wiring — live copper */
 body.en { --accent: #4a5d52; }  /* enclosure — cabinet */
 body.fu { --accent: #2f7f6f; }  /* faucet + umbilical */

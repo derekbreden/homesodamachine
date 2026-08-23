@@ -10,7 +10,7 @@ In: one hydro-tested + passivated carbonator (output of [`pressure-vessel.md`](/
 
 Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the carbonator and its inlet/outlet stubs protruding through the foam-shell's copper-plug exits — [200 mm](PROT_INLET) of inlet stub, [175 mm](PROT_OUTLET) of outlet stub, measured from the plug face.
 
-Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics shelf, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
+Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (power column, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
 
 ## Inputs per appliance
 

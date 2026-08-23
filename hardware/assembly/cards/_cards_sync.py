@@ -293,7 +293,7 @@ def enclosure(m: Machine):
         "SIDE_BAND": f"{m.a.constants['side_band_inset']:.4g} mm",
         # Inserts set while the box is still open bench (EN-01). The +X wall's
         # count is one fact under one name: EN-01 presses those inserts, EN-06
-        # drives their screws and ES-01/ES-03 send the bench to them, and four
+        # drives their screws and PC-01/PC-03 send the bench to them, and four
         # cards stating one wall's boss chain cannot be allowed to disagree.
         "WALL_BOSSES": f"{len(box.east_bosses)}",
         "C14_INSERTS": f"{len(box.c14)}",
@@ -353,10 +353,10 @@ def enclosure(m: Machine):
     return facts, cards
 
 
-# ═══ ES — Electronics shelf ════════════════════════════════════════════════
+# ═══ ES — Power column ════════════════════════════════════════════════
 
-def electronics_shelf(m: Machine):
-    """`electronics-shelf.md`: the five bodies of the power column, and the +X wall
+def power_column(m: Machine):
+    """`power-column.md`: the five bodies of the power column, and the +X wall
     bosses each one's own hole pattern stands there."""
     import ground_ring_stack as _gnd
     import meanwell_irm90 as _psu
@@ -366,7 +366,7 @@ def electronics_shelf(m: Machine):
     # One boss per hole in each body's own pattern, carried through that body's own
     # placement (`enclosure_assembly.wall_mounts`). Counting the patterns here and the wall
     # there is the check: if they disagree, a body is mounted by something other
-    # than its own holes and ES-01's table is describing a different machine.
+    # than its own holes and PC-01's table is describing a different machine.
     column = {"PSU_BOSSES": len(_psu.holes),
               "MAIN_BOARD_BOSSES": len(_pcba.board.holes),
               "RELAY1_BOSSES": len(_relay.holes),
@@ -374,7 +374,7 @@ def electronics_shelf(m: Machine):
               "GND_BOSSES": len(_gnd.holes)}
     assert sum(column.values()) == len(m.box.east_bosses), (
         f"the five bodies' own patterns hold {sum(column.values())} holes and the +X wall "
-        f"stands {len(m.box.east_bosses)} bosses — ES-01's table is the wall's census, so "
+        f"stands {len(m.box.east_bosses)} bosses — PC-01's table is the wall's census, so "
         f"one of them has gained a station the other has not")
 
     # The screw schedule falls out of the same patterns: one M3 in through each
@@ -382,8 +382,8 @@ def electronics_shelf(m: Machine):
     # through a fan of ring terminals before it reaches its insert.
     long_screws = len(_gnd.holes)
     facts = {
-        "SHELF_SCREWS_M3X8": f"{len(m.box.east_bosses) - long_screws}",
-        "SHELF_SCREWS_M3X10": f"{long_screws}",
+        "COLUMN_SCREWS_M3X8": f"{len(m.box.east_bosses) - long_screws}",
+        "COLUMN_SCREWS_M3X10": f"{long_screws}",
         # The main board's own cut outline (`pcba.tsx`'s Edge_Cuts path, in the pcb
         # frame the tray shares) — not the gerber's stroked/plotted edge, which
         # reads wider by the render aperture.
@@ -393,22 +393,22 @@ def electronics_shelf(m: Machine):
         # declares inserts of its own, so nought is not a count of anything. What
         # holds it is the assertion above — every hole in every body's pattern lands
         # on a +X wall boss, so there is no boss anywhere else for this bench to set.
-        # A shelf part with an insert of its own would break that equality first.
-        "SHELF_INSERTS_HERE": "0",
+        # A carrier part with an insert of its own would break that equality first.
+        "COLUMN_INSERTS_HERE": "0",
         **{k: str(v) for k, v in column.items()},
     }
-    # EN-06 is an enclosure card and its figures are the shelf's — it drives the
+    # EN-06 is an enclosure card and its figures are the column's — it drives the
     # screws this bench stages for. A card is registered by whichever subsystem
     # derives what it says, and `collect` merges one namespace across the deck.
     column_names = {"WALL_BOSSES", *column}
     cards = {
-        "es-01-prepare-the-shelf": {
-            *column_names, "SHELF_SCREWS_M3X8", "SHELF_SCREWS_M3X10",
-            "SHELF_INSERTS_HERE"},
-        "es-03-stage-psu-relays-pcba": {
-            "WALL_BOSSES", "MAIN_BOARD_BOSSES", "SHELF_INSERTS_HERE", "MAIN_BOARD_SIZE"},
+        "pc-01-prepare-the-wall": {
+            *column_names, "COLUMN_SCREWS_M3X8", "COLUMN_SCREWS_M3X10",
+            "COLUMN_INSERTS_HERE"},
+        "pc-03-stage-psu-relays-board": {
+            "WALL_BOSSES", "MAIN_BOARD_BOSSES", "COLUMN_INSERTS_HERE", "MAIN_BOARD_SIZE"},
         "en-06-power-column": {
-            *column_names, "SHELF_SCREWS_M3X8", "SHELF_SCREWS_M3X10"},
+            *column_names, "COLUMN_SCREWS_M3X8", "COLUMN_SCREWS_M3X10"},
     }
     return facts, cards
 
@@ -634,7 +634,7 @@ def sub_assemblies(m: Machine):
     return facts, cards
 
 
-SUBSYSTEMS = (deck, enclosure, electronics_shelf, cold_core, refrigerant_loop,
+SUBSYSTEMS = (deck, enclosure, power_column, cold_core, refrigerant_loop,
               internal_plumbing, bench, sub_assemblies)
 
 
