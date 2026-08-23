@@ -54,7 +54,7 @@ const CATEGORY_NAMES = {
   faucet: "Faucet",
   fasteners: "Fasteners",
   consumables: "Fab consumables",
-  "funnel-casting": "Flavor-funnel casting",
+  "funnel-casting": "Funnel casting",
   "ac-mains": "AC-mains hardware",
   carbonation: "Carbonation (sparge stone)",
   "cable-mgmt": "Cable management",

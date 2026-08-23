@@ -17,12 +17,12 @@
 // drill-down goes on from there. `foam-assembly` is the machine's one handle on
 // the cold core — the name its port table, its scorecard rows and its plumbing
 // runs all speak — and `cold-core-layout/cold-core-assembly.step` is that same
-// body one frame in, foam and all, with the vessel, the coil, both reservoirs,
+// body one frame in, foam and all, with the carbonator, the coil, both reservoirs,
 // every fitting and the lines among them standing in it. Opening it is how they
 // are reached; contracts/parts-tree.js seats the two the same way.
 //
 // A name in neither is a body the assembly builds itself and keeps: the routed
-// `tube-*`, `turn-*` and `step-*` runs, the cold core's vessel primitives and
+// `tube-*`, `turn-*` and `step-*` runs, the cold core's `vessel-*` primitives and
 // its `line-*` runs, the condenser block. Those resolve to null, which is what
 // leaves the drill-down offer off a solid there is nowhere to go from.
 //
@@ -58,6 +58,7 @@ export const ALIASES = {
   "digiten-flow": "reference/digiten-flow-sensor/digiten-flow-sensor.step",
   "discharge-chain": "reference/seaflo-discharge-chain/seaflo-discharge-chain.step",
   "display": "reference/waveshare-43b-display/waveshare-43b-display.step",
+  "drip-pan": "printed-parts/enclosure/asse-drip-pan/asse-drip-pan.step",
   "enclosure-ceiling-panel": "printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
   "endcap-bottom": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
   "endcap-top": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",

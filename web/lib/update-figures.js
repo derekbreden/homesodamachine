@@ -149,10 +149,10 @@ function chip(x, y, w, h, title, sub, live) {
     ${sub ? `<text x="${x + w / 2}" y="${y + h / 2 + 14}" class="uf-sub" text-anchor="middle">${sub}</text>` : ""}`;
 }
 const THREE_BOARDS = `
-<svg viewBox="0 0 620 260" class="uf" role="img" aria-label="The main controller sits between a configuration touchscreen with a rotary knob, a small round flavor display, and an iPhone over Bluetooth.">
-  ${chip(230, 100, 160, 60, "main controller", "flow, pumps, valves", true)}
+<svg viewBox="0 0 620 260" class="uf" role="img" aria-label="The main board sits between a configuration touchscreen with a rotary knob, a small round faucet display, and an iPhone over Bluetooth.">
+  ${chip(230, 100, 160, 60, "main board", "flow, pumps, valves", true)}
   ${chip(30, 20, 150, 56, "config screen", "round, rotary knob")}
-  ${chip(440, 20, 150, 56, "flavor display", "round")}
+  ${chip(440, 20, 150, 56, "faucet display", "round")}
   ${chip(230, 200, 160, 48, "iPhone", "")}
 
   <path d="M180 48 L205 48 Q215 48 215 60 L215 118 Q215 130 228 130" stroke="var(--text-3)" stroke-width="1.5" ${A}/>
@@ -165,12 +165,12 @@ const THREE_BOARDS = `
 </svg>`;
 
 // ── The flavor manifold, absorbed ────────────────────────────────────────────
-// Aug 9 – 15. Eight of the manifold's ten valves stand on the two panels —
+// Aug 9 – 15. Eight of the manifold's ten valves stand on the two valve trays —
 // `hardware/manifold-layout/enclosure_assembly.py`, "the manifold's eight
 // non-cap valves on two planes, four to a plane". V-A and V-B seat in the cap's
 // own cradles, and V-K is not on this manifold at all.
 const MANIFOLD_ABSORBED = `
-<svg viewBox="0 0 620 300" class="uf" role="img" aria-label="Six separate printed carriers become features of the enclosure's front-top piece: two valve panels and two pump trays printed in its own material.">
+<svg viewBox="0 0 620 300" class="uf" role="img" aria-label="Six separate printed carriers become features of the enclosure's front-top piece: two valve trays and two pump trays printed in its own material.">
   <text x="30" y="22" class="uf-title">Before — six printed carriers</text>
   <g>
     <rect x="30" y="40" width="94" height="40" rx="4" stroke="var(--text-3)" stroke-width="2" ${A}/>
@@ -188,8 +188,8 @@ const MANIFOLD_ABSORBED = `
   <text x="493" y="60" class="uf-lab uf-live" text-anchor="middle">front-top</text>
   <rect x="412" y="72" width="78" height="46" rx="3" stroke="var(--accent)" stroke-width="1.2" ${A} opacity="0.75"/>
   <rect x="498" y="72" width="78" height="46" rx="3" stroke="var(--accent)" stroke-width="1.2" ${A} opacity="0.75"/>
-  <text x="451" y="99" class="uf-sub" text-anchor="middle">valve panel</text>
-  <text x="537" y="99" class="uf-sub" text-anchor="middle">valve panel</text>
+  <text x="451" y="99" class="uf-sub" text-anchor="middle">valve tray</text>
+  <text x="537" y="99" class="uf-sub" text-anchor="middle">valve tray</text>
   <rect x="412" y="128" width="78" height="44" rx="3" stroke="var(--accent)" stroke-width="1.2" ${A} opacity="0.75"/>
   <rect x="498" y="128" width="78" height="44" rx="3" stroke="var(--accent)" stroke-width="1.2" ${A} opacity="0.75"/>
   <text x="451" y="154" class="uf-sub" text-anchor="middle">pump tray</text>
@@ -206,30 +206,31 @@ const MANIFOLD_ABSORBED = `
   <text x="396" y="278" class="uf-sub">pressurised.</text>
 </svg>`;
 
-// ── What the vessel was, six times ───────────────────────────────────────────
+// ── What the carbonator was, six times ──────────────────────────────────────
 // Mar 29 – Apr 25. Six geometries in the order they were live, dated off
-// `updates/2026-04-25-the-whole-appliance.md`. The last is the vessel
+// `updates/2026-04-25-the-whole-appliance.md`, which is also what fixes the
+// `vessel-shapes` key below. The last is the carbonator
 // `hardware/assembly/pressure-vessel.md` still builds — commodity 316L tube,
 // two laser-cut discs — so `kept` is the one mark here that has to be rechecked
 // rather than read.
 //
 // Silhouettes in the order they were live. Only the last one is still in the
 // build; the rest are drawn in the weight of things no longer here.
-function vesselCell(cx, name, when, shape, live) {
+function carbonatorCell(cx, name, when, shape, live) {
   const c = live ? "var(--accent)" : "var(--text-3)";
   const nameCls = live ? "uf-lab uf-live" : "uf-sub";
   return `<g stroke="${c}" stroke-width="${live ? 2 : 1.5}" ${A}>${shape(cx, c)}</g>
     <text x="${cx}" y="152" class="${nameCls}" text-anchor="middle">${name}</text>
     <text x="${cx}" y="168" class="uf-dim" text-anchor="middle">${when}</text>`;
 }
-const VESSEL_SHAPES = `
-<svg viewBox="0 34 620 176" class="uf" role="img" aria-label="Six vessel geometries in the order they were live: a welded round cylinder, an off-the-shelf air tank, a racetrack body rolled from sheet, a printed plastic sphere, two press-formed half-shells, and finally a commodity stainless tube capped with two laser-cut discs.">
-  ${vesselCell(62, "welded tube", "March", (x) => `<rect x="${x - 20}" y="52" width="40" height="66" rx="4"/><path d="M${x - 20} 62 Q${x} 70 ${x + 20} 62"/>`)}
-  ${vesselCell(158, "air tank", "16 Apr", (x) => `<rect x="${x - 32}" y="68" width="64" height="34" rx="17"/><path d="M${x + 32} 85 L${x + 40} 85"/>`)}
-  ${vesselCell(254, "racetrack", "Apr", (x) => `<rect x="${x - 34}" y="65" width="68" height="40" rx="20"/><path d="M${x - 14} 65 L${x - 14} 105 M${x + 14} 65 L${x + 14} 105"/>`)}
-  ${vesselCell(350, "printed sphere", "17–23 Apr", (x) => `<circle cx="${x}" cy="85" r="30"/><path d="M${x - 8} 55 L${x + 8} 55"/>`)}
-  ${vesselCell(446, "half-shells", "Apr", (x) => `<path d="M${x} 55 A30 30 0 0 1 ${x} 115"/><path d="M${x - 3} 55 A30 30 0 0 0 ${x - 3} 115"/><path d="M${x - 1} 55 L${x - 1} 115"/>`)}
-  ${vesselCell(542, "tube + discs", "24 Apr", (x) => `<rect x="${x - 21}" y="60" width="42" height="50"/><rect x="${x - 26}" y="52" width="52" height="9" rx="2"/><rect x="${x - 26}" y="109" width="52" height="9" rx="2"/>`, true)}
+const CARBONATOR_SHAPES = `
+<svg viewBox="0 34 620 176" class="uf" role="img" aria-label="Six carbonator geometries in the order they were live: a welded round cylinder, an off-the-shelf air tank, a racetrack body rolled from sheet, a printed plastic sphere, two press-formed half-shells, and finally a commodity stainless tube capped with two laser-cut discs.">
+  ${carbonatorCell(62, "welded tube", "March", (x) => `<rect x="${x - 20}" y="52" width="40" height="66" rx="4"/><path d="M${x - 20} 62 Q${x} 70 ${x + 20} 62"/>`)}
+  ${carbonatorCell(158, "air tank", "16 Apr", (x) => `<rect x="${x - 32}" y="68" width="64" height="34" rx="17"/><path d="M${x + 32} 85 L${x + 40} 85"/>`)}
+  ${carbonatorCell(254, "racetrack", "Apr", (x) => `<rect x="${x - 34}" y="65" width="68" height="40" rx="20"/><path d="M${x - 14} 65 L${x - 14} 105 M${x + 14} 65 L${x + 14} 105"/>`)}
+  ${carbonatorCell(350, "printed sphere", "17–23 Apr", (x) => `<circle cx="${x}" cy="85" r="30"/><path d="M${x - 8} 55 L${x + 8} 55"/>`)}
+  ${carbonatorCell(446, "half-shells", "Apr", (x) => `<path d="M${x} 55 A30 30 0 0 1 ${x} 115"/><path d="M${x - 3} 55 A30 30 0 0 0 ${x - 3} 115"/><path d="M${x - 1} 55 L${x - 1} 115"/>`)}
+  ${carbonatorCell(542, "tube + discs", "24 Apr", (x) => `<rect x="${x - 21}" y="60" width="42" height="50"/><rect x="${x - 26}" y="52" width="52" height="9" rx="2"/><rect x="${x - 26}" y="109" width="52" height="9" rx="2"/>`, true)}
 
   <path d="M40 190 L560 190" stroke="var(--border)" stroke-width="1"/>
   <path d="M552 186 L560 190 L552 194" stroke="var(--border)" stroke-width="1" ${A}/>
@@ -326,11 +327,11 @@ export const FIGURES = {
     svg: PRINT_LOG,
   },
   "vessel-shapes": {
-    caption: "What the pressure vessel was, in the order it was those things. The last is the one that was ordered.",
-    svg: VESSEL_SHAPES,
+    caption: "What the carbonator was, in the order it was those things. The last is the one that was ordered.",
+    svg: CARBONATOR_SHAPES,
   },
   "bench": {
-    caption: "The controller board's first hour powered up. The fab drilled exactly what it was sent.",
+    caption: "The main board's first hour powered up. The fab drilled exactly what it was sent.",
     svg: BENCH,
   },
   "two-machines": {
