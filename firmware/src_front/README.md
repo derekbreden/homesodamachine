@@ -1,6 +1,6 @@
-# Front-Face Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
+# Enclosure Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
-The appliance's front-face display: an RGB panel under LVGL, showing a rail of five
+The appliance's enclosure display: an RGB panel under LVGL, showing a rail of five
 pages down the left edge and a pane to their right.
 
 ## Board
@@ -42,7 +42,7 @@ the board stays flashable without a manual BOOT-button recovery.
 
 ### Frame alignment at wake
 
-The front links its local ESP-IDF v5.5.4 RGB driver configuration. Its scan ISR
+The enclosure display links its local ESP-IDF v5.5.4 RGB driver configuration. Its scan ISR
 is IRAM-safe and performs GDMA recovery only after an actual bounce-buffer EOF
 shortfall or an explicit `PANEL:REALIGN`, never as routine work at each VSYNC.
 The application callback wakes a high-priority task; that task writes the

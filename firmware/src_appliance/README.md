@@ -74,7 +74,7 @@ pio device monitor -e appliance
 | `status` | machine state, uptime, heap, verified MCP configuration/output park, all ten reeds |
 | `link` | J9 frames/echo plus J3 connection, synchronization, state heartbeats, duplicates and invalid frames |
 | `ping` | put a frame on the pair and read its echo back |
-| `display usb` | explicitly detach/wake the front display's USB PHY |
+| `display usb` | explicitly detach/wake the enclosure display's USB PHY |
 | `sound <name>` | play one of the machine's sounds; `sound list` names them and what each would play at |
 | `volume [0-100]` | how loud everything but the alarm is, persisted in NVS |
 | `quiet [on\|off] [start] [end] [pct]` | quiet hours, read off the DS3231, persisted |
@@ -85,9 +85,9 @@ frame sent here returns to IO34 through the transceiver whether or not anything 
 other end of the pair — bytes back mean IO32, U7 and R6 carry; a frame back means the
 display answered.
 
-`display usb` does not switch a load or the unswitched J9 V12 rail. A current front image
-acknowledges it and enters 500 ms of timer-wake deep sleep, which powers down the S3 USB
-PHY long enough for the host to see a detach. If the front application does not answer,
+`display usb` does not switch a load or the unswitched J9 V12 rail. A current enclosure display
+image acknowledges it and enters 500 ms of timer-wake deep sleep, which powers down the S3
+USB PHY long enough for the host to see a detach. If that application does not answer,
 the controller reports `UNREACHABLE` and does nothing further. `tools/display_usb.py`
 wraps the command and proves the result with a fresh USB attachment and the display's
 `GET_VERSION` response.
@@ -129,7 +129,7 @@ the faucet changes and wakes without waiting for another enclosure poll.
 
 The machine has one voice: U8, an MLT-5020 magnetic transducer, low-side switched by Q1 off
 IO13. Neither display carries a sounder, so every sound the machine makes — including the
-click under a finger on the front glass — is made here. The drive, the vocabulary and the
+click under a finger on the enclosure display's glass — is made here. The drive, the vocabulary and the
 settings are [`/firmware/lib/sound`](/firmware/lib/sound/sound.h), shared with
 `src_pcba_bench` so the factory hears exactly what a customer hears.
 
