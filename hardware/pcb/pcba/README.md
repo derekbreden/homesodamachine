@@ -1,6 +1,6 @@
-# Controller PCB — full PCBA
+# Main board — full PCBA
 
-A JLCPCB-assembled SMD controller board: every active part is bare silicon JLCPCB
+A JLCPCB-assembled SMD board: every active part is bare silicon JLCPCB
 places, every field connector specified for JLCPCB through-hole assembly. Ordered
 fully assembled — no modules added, nothing hand-soldered.
 

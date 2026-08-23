@@ -1,6 +1,6 @@
-# Controller PCB
+# Main board
 
-The controller board is a **full PCBA**: JLCPCB-assembled SMD silicon with
+The main board is a **full PCBA**: JLCPCB-assembled SMD silicon with
 through-hole field connectors, no plug-in modules. It lives in
 [`pcba/`](/hardware/pcb/pcba/) — `pcba.tsx` is the board, built in
 [tscircuit](https://tscircuit.com); see
