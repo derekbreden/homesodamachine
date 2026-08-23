@@ -151,7 +151,7 @@ void test_main_board_does_not_publish_while_transport_is_down() {
 }
 
 void test_main_board_heartbeat_confirms_a_lost_tokenized_reply_immediately() {
-    // The controller's repeated absolute B is enough to settle a faucet
+    // The main board's repeated absolute B is enough to settle a faucet
     // request for B even if the matching tokenized response was lost.
     TEST_ASSERT_TRUE(flavor_link_policy::mainBoardHeartbeatSettlesPendingSelection(
         false, true, false, 1, 1, 100, 0, 2250));

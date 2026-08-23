@@ -448,8 +448,8 @@ public:
 
 Expanders &expanders() {
     static WireTransport wireTransport;
-    static Expanders controller(wireTransport);
-    return controller;
+    static Expanders instance(wireTransport);
+    return instance;
 }
 #endif
 
