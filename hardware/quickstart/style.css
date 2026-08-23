@@ -723,7 +723,7 @@ html, body {
   top: 246px;
   width: 2434px;
   height: 540px;
-  overflow: hidden;
+  overflow: visible;
   border-bottom: 2px solid var(--rule);
 }
 .mount-event-head {
@@ -762,7 +762,7 @@ html, body {
 .mount-event-art {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  overflow: visible;
   background-color: #fff;
   background-image: url('art/mount-drop.png');
   background-repeat: no-repeat;
@@ -854,7 +854,7 @@ html, body {
 }
 .mount-action-art {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background-color: #fff;
   background-image: var(--action-image);
   background-repeat: no-repeat;
