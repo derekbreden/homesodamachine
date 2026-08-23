@@ -154,17 +154,17 @@ def enclosure(m: Machine):
     pieces = sorted(m.a.pieces)
 
     # ── what the cards' sentences stand on ────────────────────────────────
-    # EN-01 stages four quadrants, the cartridge that rides out of their bay, the cap
+    # EN-01 stages four quadrants, the pump cartridge that rides out of their bay, the cap
     # screwed under it and the ceiling panel; EN-07 cross-pins the quadrants alone and
     # brings back-top down with its ceiling already in. THE FOUR ARE HELD FOUR
-    # DIFFERENT WAYS — a quadrant is cross-pinned, the cartridge slides and is pinned by
-    # nothing, the cap is screwed to the cartridge on the bench, the ceiling panel rides
+    # DIFFERENT WAYS — a quadrant is cross-pinned, the pump cartridge slides and is pinned by
+    # nothing, the cap is screwed to the pump cartridge on the bench, the ceiling panel rides
     # a dado down each of back-top's flanks and takes two M3 up from below — so a piece
     # added or renamed has no number in these sentences to drift, and this is the only
     # thing that can put them back.
     assert pieces == ["back-bottom", "back-top", "ceiling-panel", "front-bottom",
                       "front-top", "pump-cap", "pump-cartridge"], (
-        f"the box prints as {pieces} and EN-01 stages four quadrants, one cartridge, its "
+        f"the box prints as {pieces} and EN-01 stages four quadrants, one pump cartridge, its "
         f"cap and the ceiling panel, EN-07 cross-pins the quadrants alone — restate them, "
         f"or the deck ships a card for a part that is not made")
     # The panel is a piece of the box and not a quadrant: it is neither cross-pinned nor
@@ -178,13 +178,13 @@ def enclosure(m: Machine):
         f"the Z seams stand at {box.splits} — EN-01 tables one seam for both columns "
         f"and EN-07 draws them on one rule; say what they are instead")
     # EN-02: "no connection is cut in the front wall" — the pump bay is the one
-    # opening cut there and the cartridge's face closes it — which is why CO2 comes
+    # opening cut there and the pump cartridge's face closes it — which is why CO2 comes
     # in at the back. EN-04: the condenser's air still has no route through a side
     # face (enclosure-mechanical.md Open items 2) — the card says so, and stops
     # saying so the moment a grille is cut.
     assert not pack.front_ports and not box.front_ports, (
         f"{len(box.front_ports)} station(s) are cut in the front wall — EN-02 says no "
-        f"connection is, and EN-02's whole CO2 paragraph is about that. The cartridge is "
+        f"connection is, and EN-02's whole CO2 paragraph is about that. The pump cartridge is "
         f"a piece of that wall, not a station in it")
     # EN-06: "every one of those bosses is on `enclosure-back-top`", which is what
     # makes the power column bench work on that piece rather than work inside a
@@ -277,7 +277,7 @@ def enclosure(m: Machine):
         # The box.
         "BOX_SIZE": f"{ox1 - ox0:.0f} {X} {oy1 - oy0:.0f} {X} {oz1 - oz0:.0f} mm",
         "BOX_PIECES": f"{len(pieces)}",
-        # EN-07 pins the quadrants and nothing else: the cartridge is held by its
+        # EN-07 pins the quadrants and nothing else: the pump cartridge is held by its
         # rails and comes out in the user's hands, so it is not one of the pieces
         # a screw crosses.
         "BOX_QUADRANTS": f"{len(quadrants)}",
@@ -480,7 +480,7 @@ def sub_assemblies(m: Machine):
                        if n not in front_top.later]
 
     # No tray stands on the piece the bay is cut in. SA-02's note sends both pumps out of the
-    # front of the machine on the cartridge, and there is no number in that sentence.
+    # front of the machine on the pump cartridge, and there is no number in that sentence.
     assert not under("enclosure-front-top", "tray"), (
         f"{', '.join(under('enclosure-front-top', 'tray'))} hang(s) in a tray on "
         f"`enclosure-front-top` — SA-02 says the pumps ride out of the front bay on "
@@ -506,13 +506,13 @@ def sub_assemblies(m: Machine):
 
     # THE FOUR BARB TUBES THE UNIT LEAVES THE BENCH HOLDING IN THE AIR, off the pumps whose
     # barbs grip them. ONE STUB PER HOLE IN THE STEEL: the plate is bored one hole per barb tee
-    # and the tubes thread it as the cartridge goes home, so a stub with no hole in front of it
+    # and the tubes thread it as the pump cartridge goes home, so a stub with no hole in front of it
     # is one the first pull tears out. `_pump_replacement_sync` asks the service bench's half of
     # this same reading.
     cart_stubs = sorted(n for n, by in holder.items()
                         if by in set(cart_pumps) and n.startswith("tube-"))
     assert len(cart_stubs) == len(m.box.collet_plate["holes"]), (
-        f"the cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
+        f"the pump cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
         f"{len(m.box.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
     # WHAT EACH OF THEM STANDS PROUD OF ITS BARB, which is the berth the steel and its two airs
     # are spent in. One plate presses one plane, so the four are one figure or the card has no

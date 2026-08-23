@@ -200,13 +200,13 @@ SCENES = (
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
              "material. Its two openings stand empty — one takes the funnel and the "
-             "front bay takes the cartridge both pumps ride, and each is filled with the box "
+             "front bay takes the pump cartridge both pumps ride, and each is filled with the box "
              "standing.",
     ),
     # THE UNIT THAT FILLS THAT BAY, and the one scene here rooted on TWO printed pieces of one
-    # block: the cartridge over the pump's own bracket plane and the cap under it. Nothing in
+    # block: the pump cartridge over the pump's own bracket plane and the cap under it. Nothing in
     # the tables holds the cap — its two screws draw it up onto the block it was cut from — so
-    # it stands beside the cartridge as a root rather than as something the cartridge carries.
+    # it stands beside the pump cartridge as a root rather than as something the pump cartridge carries.
     #
     # A QUARTER TURN, NOT A HALF. Face-down is the pose this piece prints in and the pose it is
     # worked in, and a turn about X is what lays that face on the bench: the block's ceiling
@@ -536,8 +536,8 @@ def holders():
     # A TUBE PUSHED OVER A BARB GOES ON WITH THE PUMP AND COMES OFF WITH IT, and no table above
     # holds one: `manifold_layout` draws these four inside the pack, one per anchor tee, from the
     # barb's own collet plane to the tee's branch. `BARB_OF` names the pump each stands on. A
-    # stub is made up on the cartridge's own bench, threads the collet plate's hole as the
-    # cartridge goes home, and is drawn back out of the tee when the cartridge is pulled — so it
+    # stub is made up on the pump cartridge's own bench, threads the collet plate's hole as the
+    # pump cartridge goes home, and is drawn back out of the tee when the pump cartridge is pulled — so it
     # stands on the head whose barb grips it and goes wherever that head goes.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:
