@@ -20,6 +20,7 @@ A name two tracked files share is left alone. Which of them an action reaches is
 exists to stop making.
 """
 import ast
+import functools
 import json
 import subprocess
 import sys
@@ -35,8 +36,14 @@ def _git(*args) -> list:
                           capture_output=True, text=True).stdout.split()
 
 
+@functools.lru_cache(maxsize=None)
 def imports_of(text: str) -> set:
     """The module names a source imports AT IMPORT TIME.
+
+    HELD BY TEXT, BECAUSE THE WALK ASKS THE SAME FILE THOUSANDS OF TIMES. `reaches` runs once
+    per step per source and re-walks the imports under it each time; parsing them fresh made a
+    whole-tree pass minutes rather than seconds. A source's imports are a function of its bytes,
+    and the bytes are read once into `texts`, so the answer is the same every time it is asked.
 
     A FUNCTION-LOCAL IMPORT IS NOT AN IMPORT-TIME FACT, and this check's whole subject is the
     module that is missing when an action opens the file. `_facts.py` reaches five modules from
@@ -192,32 +199,79 @@ def selftest() -> int:
     return 0 if holds == 15 else 1
 
 
+def repair(graph: dict, missing: list) -> int:
+    """Write the owed reads into `graph`, and answer how many were new.
+
+    ONLY EVER ADDITIVE, AND THAT IS WHY IT IS SAFE TO WRITE WITHOUT WATCHING A RUN. The general
+    job of the tracer is to answer what a run opened, which no reading of the source can do —
+    a path built at runtime is invisible here. This answers a far narrower question: a module
+    named in an `import` at module scope IS opened, by the interpreter, before the first line
+    of the step runs. A re-trace would record exactly these edges and some others.
+
+    So the failure mode is a step carrying a file it turns out not to need, which costs it one
+    input and rebuilds it once more than it must. A re-trace is still what settles the whole
+    entry — this settles the import, which is the edge that fails an action outright."""
+    new = 0
+    for gen, _src, want in missing:
+        reads = graph[gen].setdefault("reads", [])
+        if want not in reads:
+            reads.append(want)
+            new += 1
+    for entry in graph.values():
+        if "reads" in entry:
+            entry["reads"] = sorted(set(entry["reads"]))
+    return new
+
+
 def main(argv) -> int:
     if argv and argv[0] == "selftest":
         return selftest()
+    fix = "--fix" in argv
+    # WHAT IS STAGED IS THE COMMIT'S OWN QUESTION, and the hook asks it there. A repair is asked
+    # of a tree that is already committed and already failing, so it reads every tracked source.
+    every = "--all" in argv or fix
     try:
         graph = json.loads(GRAPH.read_text())
     except (OSError, ValueError):
         print("check_declared_imports: no graph.json")
         return 0
     tracked = set(_git("ls-files"))
+    # A SOURCE NO STEP READS OWES NOTHING, and `owed` says so by looking — so the whole-tree
+    # pass asks only about the sources the graph already names, which is hundreds rather than
+    # thousands and is the same answer.
+    named = (f for f in sorted({r for e in graph.values() for r in e.get("reads", ())})
+             if f.endswith(".py")) if every else (
+        f for f in _git("diff", "--cached", "--name-only", "--diff-filter=ACM")
+        if f.endswith(".py"))
     sources = {}
-    for f in _git("diff", "--cached", "--name-only", "--diff-filter=ACM"):
-        if f.endswith(".py"):
-            try:
-                sources[f] = (_ROOT / f).read_text()
-            except OSError:
-                pass
+    for f in named:
+        try:
+            sources[f] = (_ROOT / f).read_text()
+        except OSError:
+            pass
     missing = owed(graph, tracked, sources)
     if not missing:
+        print("check_declared_imports: every step holds what it imports")
         return 0
     print(f"{len(missing)} step(s) read a file importing a module the step does not hold:")
     for gen, src, want in missing:
         print(f"    {gen}\n      reads {src}, which imports {want}")
+    if fix:
+        new = repair(graph, missing)
+        # THE SHAPE `trace_inputs` WRITES, so a repair is the lines it moved and not the file.
+        # Several sessions hold this tree and read each other's diffs; a reformat here is 13,000
+        # lines of noise over ten facts, and it collides with every re-trace in flight.
+        GRAPH.write_text(json.dumps(graph, indent=2, sort_keys=True) + "\n")
+        print(f"  wrote {new} read(s) into {GRAPH.name}. The graph states them; the file that")
+        print("  carries them to bazel is written by:")
+        print("    tools/cad-venv/bin/python tools/bazel/gen_build.py")
+        return 0
     gens = sorted({g for g, _s, _w in missing})
     print("  a read is recorded by watching a run:")
     print(f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py {' '.join(gens)}")
     print("    tools/cad-venv/bin/python tools/bazel/gen_build.py")
+    print("  or write just the import edges, which are read off the source:")
+    print("    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix")
     return 1
 
 

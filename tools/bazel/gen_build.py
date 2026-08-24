@@ -470,7 +470,19 @@ def main() -> int:
     ap.add_argument("--only", help="print one target, by generator path")
     ap.add_argument("--check", action="store_true",
                     help="say whether BUILD.bazel is what this would write")
+    ap.add_argument("--cycles", action="store_true",
+                    help="say only whether the graph's rules wait on each other")
     args = ap.parse_args()
+
+    # THE ONE FAULT THAT COSTS EVERY TARGET, ASKED WITHOUT ASKING ANYTHING ELSE. `--check` also
+    # holds BUILD.bazel to the graph, which several sessions share and one of them is always
+    # part-way through moving — so a gate that runs `--check` stops a commit over a file its
+    # author never touched. This renders and throws the text away: the cycle walk in
+    # `_no_cycles` is the whole of the answer.
+    if args.cycles:
+        render_build()
+        print("gen_build: no rule waits on another")
+        return 0
 
     if args.check:
         text, inv = render_build()
