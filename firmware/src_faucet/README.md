@@ -32,6 +32,13 @@ does not create prime mode; it can end the existing mode or own a held run for i
 channel. A hold from either display is shown on both, and an entering, starting, or ending
 session wakes a dimmed faucet. The first touch while dimmed remains wake-only.
 
+**The main board keeps the quiet stretch, across both glasses.** A finger on either is
+activity for both, so this head does not dim while a hand is at the enclosure, and the pair
+sleeps and wakes together. It runs no timer of its own and dims when it is told to; a press
+that already sent a command is presence the main board can see, and one that stayed silent —
+a wake tap, a tap on the flavor already showing — sends `MSG_TOUCH` so it counts too. A live
+hold still holds the dim off here regardless. A pair left lit is a link that stopped talking.
+
 Each faucet press retains its main board session and hold tokens across retries. Lift or
 `PRESS_LOST` queues an absolute STOP ahead of any unsent feed, and EXIT queues an absolute
 CANCEL. If J3 disconnects, the main board stops a faucet-owned run independently of the UI,

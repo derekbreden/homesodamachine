@@ -142,11 +142,16 @@ then write the output byte to `0x38` where `EXIO_n = bit n`.
 
 ## Idle backlight-off + touch
 
-After 90 s of no touch the screen sleeps — backlight off — and the first touch
-turns it back on, on whatever the dark left up (see the ladder above). Normal
-pages are static, and an operation-lock animation never sleeps underneath an
-active operation. Same idle/wake behavior as the faucet display; the difference
-is the backlight itself:
+**The main board keeps the quiet stretch, across both glasses.** A finger on either
+is activity for both, so they sleep and wake together; this panel runs no timer of its
+own and sleeps when it is told to. A press that already sent a command is presence the
+main board can see, and a press that stayed silent — a wake tap, a tap on nothing — sends
+`MSG_TOUCH` so it counts too. Waking is immediate; a live hold and an operation lock still
+hold the dark off here, which is this panel's own business. A pair left lit is a link that
+stopped talking, and is meant to read as exactly that.
+
+The first touch on a dark screen turns it back on, on whatever the dark left up (see the
+ladder above). The difference from the faucet display is the backlight itself:
 
 - **Nothing on this board writes NVS while the panel runs.** The 800×480 framebuffer
   lives in PSRAM (`flags.fb_in_psram`), and a flash write suspends the cache PSRAM is
@@ -287,9 +292,14 @@ goes dark, so changing how long it stays lit does not move them.
 
 | After | | Total absence |
 |---|---|---|
-| 90 s of no touch | backlight off | 90 s |
-| 2 min dark | back to the root of the page you were on | 3.5 min |
-| 10 min dark | back to Choose | 11.5 min |
+| 60 s quiet on both glasses | backlight off | 60 s |
+| 2 min dark | back to the root of the page you were on | 3 min |
+| 10 min dark | back to Choose | 11 min |
+
+The first rung is the main board's and is shared with the faucet; it widens to 3 min while
+a prime session is open, since the pad is offering something a hand may still be walking
+toward. The session is closed when that rung finally falls, so an offered action is
+withdrawn with the light rather than outliving it. The two rungs below are this panel's.
 
 The middle rung discards the views that would act on a tap — a confirm or a hold pad —
 while keeping which area you were working in. Each rung runs while the screen is dark, so a
