@@ -1055,6 +1055,31 @@ def extents(shape) -> Extents:
     return Extents(*bb.Get())
 
 
+def placed_leaves(assy: cq.Assembly):
+    """Every shape-bearing node of an assembly, world-placed, as `(name, shape, colour)`.
+
+    AN ASSEMBLY MAY HOLD AN ASSEMBLY, and a pass that reads `children` one level deep does not
+    see through one: a sub-assembly node carries no shape of its own, so such a pass either
+    skips everything inside it or raises on the shape it has not got. This descends, composing
+    each node's location down the branch, and hands back the leaves.
+
+    A LEAF IS NAMED WHERE IT IS ADDED, path and all — `cold-core/evap-coil` is one body of the
+    core. The name is the branch spelled out, stated once by whoever built the tree, so nothing
+    here recomposes it and nothing downstream has to take it apart.
+    """
+    def walk(node, loc):
+        here = loc * node.loc
+        if node.obj is not None:
+            shape = node.obj.val() if hasattr(node.obj, "val") else node.obj
+            yield (node.name, shape.moved(cq.Location(here.wrapped.Transformation())),
+                   node.color)
+        for child in node.children:
+            yield from walk(child, here)
+
+    for child in assy.children:
+        yield from walk(child, assy.loc)
+
+
 def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
     """Every pair of placed solids that shares more than `floor` mm³ — as `Clash(a, b, volume,
     where)`, `where` being the extents of the shared solid itself and not of either body — and
@@ -1069,8 +1094,7 @@ def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
     `bodies` names the placed solids to read INSTEAD of the assembly's own children — what a
     card hands in when the assembly exports a body some other card is what checks."""
     solids = (list(bodies.items()) if bodies is not None else
-              [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj)
-                .moved(cq.Location(c.loc.wrapped.Transformation()))) for c in assy.children])
+              [(name, shape) for name, shape, _colour in placed_leaves(assy)])
     boxes = [(n, s, _boxes.loose(s)) for n, s in solids]
     hits, unanswered = [], []
     for i in range(len(boxes)):
@@ -1098,11 +1122,10 @@ def envelope(assy: cq.Assembly, stubs: bool):
     be found room for. With them it adds one bend radius off each of the eight mouths, which is
     the straight whatever routes them next has to leave in."""
     box = None
-    for c in assy.children:
-        if not stubs and c.name.startswith("stub-"):
+    for name, shape, _colour in placed_leaves(assy):
+        if not stubs and name.startswith("stub-"):
             continue
-        s = c.obj.val() if hasattr(c.obj, "val") else c.obj
-        b = s.moved(cq.Location(c.loc.wrapped.Transformation())).BoundingBox()
+        b = shape.BoundingBox()
         box = b if box is None else box.add(b)
     return box
 

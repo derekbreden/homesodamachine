@@ -77,6 +77,13 @@ INNER_ALL = "*"
 # place. A scene naming it is a scene that has not said which of the core it wants.
 INNER_ROOT = "foam-assembly"
 
+#: WHERE THE MACHINE HANGS A BODY OF THE CORE. `enclosure_assembly` stands them in a `cold-core`
+#: sub-assembly, so a leaf of it is named for the branch it hangs on. THE TABLES BELOW NAME THE
+#: CORE'S BODIES AS THE CORE DOES — they are rows about the core — and `inner_of` is the one
+#: place that turns a row into the name the machine holds it under. One direction, one place:
+#: nothing anywhere takes a machine name apart again.
+INNER_ROOT_HELD = "cold-core/"
+
 # THE FOAM ITSELF, as the core names its five pieces. `foam-assembly.step` is a compound of
 # exactly these, so a scene drawing them draws the closed unit — with each piece under its own
 # name. A unit that carries the core without being a picture of its insides takes these: on a
@@ -98,10 +105,15 @@ def core_names() -> tuple:
 
 
 def inner_of(scene) -> tuple:
-    """The cold-core bodies this scene draws: every one it places, or the named few."""
+    """The cold-core bodies this scene draws, named the way the machine holds them.
+
+    The rows above name them as the core's own card does, because that is what they are rows
+    about. The machine hangs them under `INNER_ROOT_HELD`, and this is the one place a row's
+    name becomes the machine's — after it, nothing takes one apart again."""
     if not scene.inner:
         return ()
-    return core_names() if scene.inner == INNER_ALL else tuple(scene.inner)
+    named = core_names() if scene.inner == INNER_ALL else tuple(scene.inner)
+    return tuple(f"{INNER_ROOT_HELD}{n}" for n in named)
 
 
 def crossings(runs) -> dict:
@@ -663,7 +675,10 @@ def members(scene, assembly):
     # ONE MODEL PLACES EVERY ONE OF THEM. The machine stands the core's own bodies, so a name
     # this cannot find is a name nothing draws — including a body the core's card claims and
     # the machine does not stand, which is the divergence worth hearing about.
-    present = {c.name for c in assembly.children}
+    # THE MACHINE HOLDS AN ASSEMBLY, so what it places is its leaves and not its children —
+    # a pass one level deep would find the `cold-core` node and nothing inside it.
+    import manifold_layout as _ml
+    present = {name for name, _shape, _colour in _ml.placed_leaves(assembly)}
     missing = sorted(n for n in names if n not in present)
     if missing:
         raise ValueError(
