@@ -22,6 +22,15 @@
   transition: opacity 90ms linear;
 }
 
+/* THE PICKER'S PANEL IS NOT PART OF A WALKTHROUGH. Isolating a sub-assembly
+   puts bodies in `state.hiddenComponents`, and component-picker.js shows its
+   panel whenever that set is non-empty — reasonably, because on /3d a hidden
+   body needs a way back. Here the same rule opened a list of 137 hidden bodies
+   over the narration on the beat that enters the vessel. The panel is built and
+   parented as always; it is only not drawn, so nothing about the picker's own
+   surface changes and this cannot reach /3d. */
+#tour-stage > .component-panel { display: none; }
+
 /* The loader's scrim and pill stand ABOVE the dip. A model swap raises the
    veil and then waits for the next model, and on a cold cache that wait is
    seconds — a page holding a flat colour with nothing on it reads as broken
