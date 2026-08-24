@@ -33,6 +33,12 @@ on:
       - .bazelrc
       - .bazelversion
       - tools/cad-requirements.txt
+      # THIS FILE, BECAUSE A PUBLISH IS THE ONLY THING THAT RUNS IT AND IT DECIDES WHEN A
+      # PUBLISH RUNS. Without this line a commit that touches nothing else cannot start the
+      # run it changes — so a repair to this workflow sits in main, unexercised, and the next
+      # push to reach CI is the first that carries it. A mistake in this filter is the one
+      # kind that hides itself: it makes itself untestable.
+      - .github/workflows/publish.yml
       - '!hardware/cad-artifacts.lock.json'
   workflow_dispatch:
     inputs:
