@@ -2878,22 +2878,22 @@ MARKED_UNIONS = {n: fluid for n, (_m, _r, _nm, fluid) in Y_WALL_FITTINGS.items()
 
 def ring_name(which: str) -> str:
     """The body name one chip goes into the assembly under."""
-    return f"port-ring-{which}"
+    return f"bulkhead-ring-{which}"
 
 
 def word_name(which: str) -> str:
     """The body name that chip's lettering goes in under — a second solid in a second colour,
     lying in the recess the chip carries for it."""
-    return f"port-ring-{which}-word"
+    return f"bulkhead-ring-{which}-word"
 
 
 # The slip a pocket keeps around the chip that drops into it.
-PORT_RING_SLIP = 0.2
+BULKHEAD_RING_SLIP = 0.2
 # THE WALL THE FIELD KEEPS AROUND EVERY CHIP, and it is one figure read on BOTH faces of the wall.
 # Outboard it is the web of stock standing between two neighbouring pockets, which is the only
 # thing holding one colour off the next — `port-field-web` reads the pitch against it. Inboard it
 # is how far the boss reaches past the chip it backs.
-PORT_RING_RIM = 3.0
+BULKHEAD_RING_RIM = 3.0
 # How far the boss stands INBOARD off the wall's inner face, and it is the chip's own thickness:
 # exactly what the pocket took out of the outer face. So the stock under every chip is the wall's
 # own full thickness and the clamped stack is the same at every station.
@@ -2901,14 +2901,14 @@ PORT_BOSS_PROUD = _ring.THICK
 def port_pocket_d(ring: str = "union") -> float:
     """What one station's pocket measures ACROSS — the chip's own width and the slip it takes in
     it. The wall cuts it and `port-field-web` reads it against the pitch, off this one call."""
-    return _ring.od(ring) + 2.0 * PORT_RING_SLIP
+    return _ring.od(ring) + 2.0 * BULKHEAD_RING_SLIP
 
 
 def port_pocket_rise() -> float:
     """How far a pocket stands ABOVE the bore's axis — the chip's own rise and its slip. The top
     row runs out past the box's top face and is cut off by it, which is what leaves those three
     chips open at the top."""
-    return _ring.RISE + PORT_RING_SLIP
+    return _ring.RISE + BULKHEAD_RING_SLIP
 
 
 def port_boss_d(ring: str = "union") -> float:
@@ -2916,7 +2916,7 @@ def port_boss_d(ring: str = "union") -> float:
 
     It is wider than `PORT_PITCH`, so two neighbours on one row merge into one longer boss.
     `port-field-web` is the reading that keeps the POCKETS apart."""
-    return _ring.od(ring) + 2.0 * PORT_RING_RIM
+    return _ring.od(ring) + 2.0 * BULKHEAD_RING_RIM
 
 
 def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
@@ -2937,8 +2937,8 @@ def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
 def y_wall_field(stations):
     """The pocket each chip lies in, as `enclosure.Box.port_field` — one per station, not one field
     across them. `enclosure._port_field` cuts each into the wall's outer face and stands a boss one
-    `PORT_RING_RIM` larger on the inner one."""
-    return _enc.PortField(PORT_BOSS_PROUD, PORT_RING_RIM,
+    `BULKHEAD_RING_RIM` larger on the inner one."""
+    return _enc.PortField(PORT_BOSS_PROUD, BULKHEAD_RING_RIM,
                           tuple((x, z, port_pocket_d(ring), port_pocket_rise())
                                 for x, z, _fitting, ring, _which, _fluid in stations.values()))
 
@@ -3012,7 +3012,7 @@ def build_customer_tubes(bulkhead_carry, panel_carries, co2_carry):
     return out
 
 
-def build_port_rings(stations):
+def build_bulkhead_rings(stations):
     """The chips and their words, two solids per station, as `(name, solid, colour)`.
 
     Each is seated on the same column its pocket was struck on, with its own inboard face on that
@@ -3176,22 +3176,22 @@ PORT_DECK_EXTRA = 7.5
 PORT_HARDWARE_PITCH = _jg.panel_footprint()[0] + PORT_NUT_GAP + PORT_DECK_EXTRA
 # What the FIELD asks, read on the face the customer meets, where it is pockets cut side by side
 # in one wall and not nuts: a whole pocket, and one rim's width of standing wall past it.
-PORT_FIELD_PITCH = port_pocket_d() + PORT_RING_RIM
+PORT_FIELD_PITCH = port_pocket_d() + BULKHEAD_RING_RIM
 # The pitch two columns stand at.
 PORT_PITCH = max(PORT_HARDWARE_PITCH, PORT_FIELD_PITCH)
 # WHAT THE PITCH LEAVES BETWEEN TWO POCKETS IS STANDING WALL, and a pocket that runs into its
 # neighbour leaves one colour touching the next with nothing printed between them. `bulkhead_ring.RING_W`
-# is what a chip spends the pitch on and `PORT_RING_RIM` is the wall the field keeps around it, so
+# is what a chip spends the pitch on and `BULKHEAD_RING_RIM` is the wall the field keeps around it, so
 # the three are read against each other here rather than in any one module alone. The two union
 # columns are the tightest pair on the wall — both pockets take the same width — so the pitch is
 # read against that one.
 PORT_FIELD_WEB = PORT_PITCH - port_pocket_d()
 _stated.state(
     "port-field-web", "Two neighbouring pockets leave standing wall between them",
-    f"a web of {PORT_RING_RIM:g} mm or more, one rim's own width",
-    PORT_FIELD_WEB >= PORT_RING_RIM - 1e-9,
+    f"a web of {BULKHEAD_RING_RIM:g} mm or more, one rim's own width",
+    PORT_FIELD_WEB >= BULKHEAD_RING_RIM - 1e-9,
     f"one PORT_PITCH of {PORT_PITCH:.2f} carries a pocket of {port_pocket_d():.2f} — a chip of "
-    f"Ø{_ring.od('union'):.2f} and its {PORT_RING_SLIP:g} slip — and leaves "
+    f"Ø{_ring.od('union'):.2f} and its {BULKHEAD_RING_SLIP:g} slip — and leaves "
     f"{PORT_FIELD_WEB:.3f} mm of wall between two of them. `bulkhead_ring.RING_W` "
     f"{_ring.RING_W:g} is what a chip shows past the fitting's own flange, and shrinking it is "
     f"what buys the web back.")
@@ -3345,7 +3345,7 @@ def check_top_row(stations) -> Bound:
                 f"`bulkhead_ring.RISE` is {_ring.RISE:g} and this row is bored on {z:.3f}, so that "
                 f"figure owes {top - z:.3f}.")
     return record_bound(Bound(
-        "port-ring-top-row", "The top row's chips run out on the box's top face", not rows,
+        "bulkhead-ring-top-row", "The top row's chips run out on the box's top face", not rows,
         f"{sum(1 for _n, s in stations.items() if _ring.STATIONS[s[4]].top_row)} chips flush "
         f"at z {top:.3f}", "no wall standing over the colour", rows))
 
@@ -5939,7 +5939,7 @@ def build_pack() -> cq.Assembly:
     a.wall_stations = wall_stations(bulkhead_carry, panel_carries, co2in_carry)
     # The rings go down after the fittings that trap them, on the same columns their pockets were
     # struck on. They lie OUTBOARD of the +Y wall of back-top's outer face, in the field the wall raises.
-    for name, solid, colour in build_port_rings(a.wall_stations):
+    for name, solid, colour in build_bulkhead_rings(a.wall_stations):
         a.add(solid, name=name, color=colour)
     # And outboard of two of them, the tube the customer cuts and the collar that carries the
     # station's word out to the end they cut it at.
@@ -6775,7 +6775,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # come back off the placed children the way the runs do.
     check_wall_clamped(a.pack_solids,
                        {n: s for n, (s, _c) in _solids(a).items()
-                        if n.startswith("port-ring-")}, pieces, a.wall_stations)
+                        if n.startswith("bulkhead-ring-")}, pieces, a.wall_stations)
     # And the top row against the ceiling it runs out on, which is the one figure `bulkhead_ring`
     # cannot derive for itself.
     check_top_row(a.wall_stations)

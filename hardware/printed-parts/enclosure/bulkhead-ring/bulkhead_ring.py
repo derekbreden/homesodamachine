@@ -86,13 +86,13 @@ RING_W = 7.05
 THICK = 2.0
 # The slip a chip takes around the fitting's threading — the wall's own
 # `enclosure_assembly.PORT_HOLE_SLIP`. The two modules cannot import each other, so
-# `port-ring-bore` is what holds them equal.
+# `bulkhead-ring-bore` is what holds them equal.
 SLIP = 0.86
 # HOW FAR THE RECTANGLE STANDS ABOVE THE AXIS, on every chip. The figure is the top row's own
 # storey read to the box's top face, so those three run out FLUSH with it — fenced left, right and
 # below, open above. The bottom row rises the same, which is what makes a chip on one family one
 # height wherever it stands and puts every word in the same band over its own bore.
-# `port-ring-top-row` reads it back against the box, because the two modules cannot import each
+# `bulkhead-ring-top-row` reads it back against the box, because the two modules cannot import each
 # other.
 RISE = 18.789
 
