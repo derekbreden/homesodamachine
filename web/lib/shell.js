@@ -21,7 +21,7 @@
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
 //            <body content> + renderFooter());
 
-import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 function escape(s) {
   return String(s)
@@ -153,6 +153,7 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 /* Public nav hides Parts / Charts / Drawings / Boards / Cost unless
    html.dev-mode is set. The dev surface (.site-nav-dev) always shows them.
    Home is never gated. */
+.site-nav-public a[data-nav="tour"],
 .site-nav-public a[data-nav="parts"],
 .site-nav-public a[data-nav="charts"],
 .site-nav-public a[data-nav="drawings"],
@@ -160,6 +161,7 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
 .site-nav-public a[data-nav="cost"] {
   display: none;
 }
+html.dev-mode .site-nav-public a[data-nav="tour"],
 html.dev-mode .site-nav-public a[data-nav="parts"],
 html.dev-mode .site-nav-public a[data-nav="charts"],
 html.dev-mode .site-nav-public a[data-nav="drawings"],
@@ -370,6 +372,7 @@ export function renderNav({ surface = "public", active = null }) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: HOME_SVG },
     { href: "/updates", name: "updates", label: "Updates", svg: UPDATES_SVG },
+    { href: "/tour", name: "tour", label: "Walkthrough", svg: TOUR_SVG },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
