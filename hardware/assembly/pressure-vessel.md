@@ -22,9 +22,9 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | 1/4"-thick 316L SS circular end plate, 2-hole pattern | SendCutSend [`endcap-circular-2hole.dxf`](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf) | 2 per carbonator |
 | 1/8" 316L SS rod, [131.1 mm (5.16 in)](ROD_LEN) cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
 | Magnetic float | Harvested from YXQ float switch B08HWRMRQR | Slides on rod, captive after top weld (bom.md §12) |
-| 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
+| 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge. A baton — ⌀0.5" × 1" of sintered barrel under a 0.87" barb — and it does not pass a finished port, so it goes in at step 4. |
 | Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
-| 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb, installed at sparge step |
+| 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb — made up into the bottom plate's **inside** face at step 2, on the bench, while the plate is still loose |
 | **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per carbonator — all four ports.** Turns the line laterally within the ~[30 mm](ELBOW_ENV) vertical envelope around the carbonator — see [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** 125 PSI set pressure gives 1.39× margin over the [90 PSI](WORKING_PSI) working pressure. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
@@ -65,9 +65,13 @@ The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-202
 
 The register drilled above is what distinguishes the two faces, so each plate carries its own orientation from this step forward. Mark the outside face if the register is not obvious at a glance on the bench.
 
-### 2. Tack-weld float rod to bottom plate
+### 2. Prepare the bottom plate — tack the float rod, make up the sparge barb
 
 Cut the 1/8" 316L rod to [131.1 mm (5.16 in)](ROD_LEN) — tube length − both 1/4" recesses − both 1/4" plates + both 0.10" registers − [1 mm](ROD_CLEARANCE) clearance, with each plate recessed 1/4" below its tube end (`_pressure_vessel_sync.py`). Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the carbonator), seating its base in the bottom-plate register from step 1 — the register locates the rod on the donut-wall axis and holds it square for the tack. Set the final rod length so that, fully seated at the bottom, its top will enter the top-plate register at closure (step 5) **without** bottoming out and holding the top plate off its seated depth — the rod locates the plate, it must never hold the fillet root open. Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
+
+**Then make up the LTWFITTING barb adapter into Port 1 — from the INSIDE face, barb facing up into what will become the interior.** Millrose tape on the thread. Left any later it is made up blind or not at all: once step 3 welds this plate into the tube the port sits at the bottom of a 5" bore, and once step 5 closes the tube nothing reaches it. Do it here, in the vise, where a wrench has room and the engagement can be read off the fitting. Leave the outside half of that through-tapped hole empty — the SS elbow takes it at step 9, and how the tapped depth divides between the two is Open item 5.
+
+Rod first, barb second: the tack puts heat into a bare plate, and PTFE tape does not want to be near it.
 
 ### 3. Weld bottom plate to tube
 
@@ -81,13 +85,19 @@ Close one end of the tube with the bottom plate, float rod sticking up into what
 
 Yellow/brown coloration on the inside surface is acceptable at this stage — chromium oxide under partial argon protection, dissolves in the citric-acid passivation downstream (step 8). Black scale is not acceptable; if seen, increase argon coverage or add an internal back-purge.
 
-### 4. Install magnetic donut float
+### 4. Fit out the interior — donut float, silicone stub, sparge stone
 
-Slide the donut float over the rod through the still-open top of the tube. After step 5 it is captive between the rod tack at the bottom plate and the rod-end register on the top plate's inside face.
+Everything that lives inside the carbonator goes in here, through the still-open top, because this is the only window there ever is. A finished port is 1/4"-18 NPT cut into a [⌀11.13 mm (0.438")](PORT_BORE) tap drill through 1/4" plate, and the sparge stone's sintered barrel is [⌀12.7 mm (0.5")](STONE_BARREL). It does not pass. Neither does the barb's 9/16" hex, which is why step 2 put that fitting in already.
+
+**Donut float.** Slide it over the rod. After step 5 it is captive between the rod tack at the bottom plate and the rod-end register on the top plate's inside face.
+
+**Silicone stub + stone.** Push ~3" of 1/4" ID food-grade silicone onto the barb standing on the plate from step 2, arc it over the plate, and push the far end onto the stone's own 1/4" barb. The stone hangs stem-up on the carbonator's axis with its barrel standing ~2 mm off the plate, so the gas enters under the whole water column and rises the length of it at every level the float reads. The as-drawn geometry — stack height, stub length, the clearance the barrel keeps from the barb's hex — is owned by [`cold-core-layout/_internals.py`](/hardware/cold-core-layout/_internals.py).
+
+Tug both silicone ends before the top plate goes on. No later step reaches this joint, and no later step can tell you it failed except a carbonator that bubbles coarse.
 
 ### 5. Weld top plate to tube
 
-Close the open end with the top plate. The blind register drilled into its inside face (step 1) captures the rod's top end as the plate seats to its 1/4" recess — confirm the plate reaches its seated depth against the spacer / depth-stop (the rod must not hold it proud; see the rod-length note in step 2). If the register binds on the rod tip, open that one cap's pocket to 5/32" rather than forcing the plate down — the plate-to-tube joint here is a pressure weld. Same recessed corner fillet as step 3.
+Close the open end with the top plate. The sparge stack tops out ~68 mm below the top plate's inside face, so nothing from step 4 stands near the bead. The blind register drilled into its inside face (step 1) captures the rod's top end as the plate seats to its 1/4" recess — confirm the plate reaches its seated depth against the spacer / depth-stop (the rod must not hold it proud; see the rod-length note in step 2). If the register binds on the rod tip, open that one cap's pocket to 5/32" rather than forcing the plate down — the plate-to-tube joint here is a pressure weld. Same recessed corner fillet as step 3.
 
 ### 6. Dye-penetrant (PT) inspection of the closure welds
 
@@ -103,7 +113,7 @@ PT finds only surface-breaking defects; the **hydro test (step 7)** is the volum
 
 ### 7. Hydro test
 
-Hydro-test the fully welded + tapped carbonator — bare, on a bench, with NPT plugs in all four ports. No PRV, no fittings, no cold core, no refrigerant loop. The test is a pre-passivation, pre-assembly bench operation.
+Hydro-test the fully welded + tapped carbonator — bare on the outside, on a bench, with NPT plugs in all four ports. No PRV, no external fittings, no cold core, no refrigerant loop. Inside it carries the float and the sparge stack from step 4 and will for the rest of its life; Port 1's plug dead-ends the barb, so the stone sees the test water and nothing else. The test is a pre-passivation, pre-assembly bench operation.
 
 Hold pressure: **180 PSI for 30 minutes** (~2× the [90 PSI](WORKING_PSI) working pressure). Beyond the 30-minute minimum, the in-vessel SENCTRL gauge (below) supports hour-scale leak soaks for catching slow weep before passivation.
 
@@ -124,9 +134,11 @@ One-time soak in ~4 % food-grade citric acid solution, 30-60 minutes, in the reu
 
 Restores the chromium oxide layer at the weld zones — what makes 316L resistant to pitting from carbonic acid in long-life carbonated-water service. The yellow/brown weld coloration from step 3/5 dissolves out during this soak. Same treatment commercial brewery bright carbonator and commercial carbonators receive.
 
-Done after hydro because failures get re-welded (re-introducing oxide that the passivation needs to handle) and before sparge install because the silicone tube and sintered stone don't belong in a citric soak.
+Done after hydro because failures get re-welded, re-introducing oxide the passivation has to handle.
 
-### 9. Install elbows, sparge stone, PRV
+**The sparge stack soaks with the vessel.** It has been inside since step 4 and there is no taking it out. Dilute citric at room temperature is what the stone's own maker prescribes for unclogging it, and it is nothing to food-grade silicone, so the soak costs the stack nothing. What it demands is a **purge**: 0.5 µm pores hold liquid by capillarity and a gravity rinse does not clear them. After the water rinse, thread a Milton 727 air plug (step 7's list) into Port 1, put shop air on it at low pressure, and let it out through the stone — the direction the gas runs in service — until the stone stops spitting water and bubbles evenly across its whole surface. Then dry the vessel with all four ports open.
+
+### 9. Install elbows and PRV
 
 After passivation, the carbonator receives its permanent port fittings. Per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~[30 mm](ELBOW_ENV) vertical envelope above and below the carbonator.
 
@@ -137,7 +149,7 @@ All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose
 
 - **Port 4 (top-plate PRV):** The PRV must have an unobstructed path to the carbonator interior at all times — no tee, no shared line. A blockage, fitting failure, or maintenance disconnect on a shared line would compromise the safety relief path. The dedicated-elbow-on-dedicated-port architecture satisfies this. Thread the M-end of the **pre-built [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly** into Port 4 FNPT, PTFE tape on the threads. The subassembly = TAISHER M×F elbow + SV-125 + printed shroud + cured silicone caulk seal at the shroud-elbow joint, built independently per the prv-shroud README's "Subassembly procedure" before this step (no prerequisites; the subassembly can be built whenever and sits ready). PRV body extends horizontally inside the shroud, fitting within the cylindrical foam-shell's headroom. The shroud preserves the air cavity around the SV-125's discharge side port and bonnet windows during the body foam pour ([`cold-core.md`](/hardware/assembly/cold-core.md) step 6), so the valve remains a functional relief device after the cold-core is cast.
 
-- **Port 1 (bottom-plate CO2 inlet + internal sparge):** the LTWFITTING B017N4TTMA hose-barb × MNPT adapter handles the internal sparge — barb facing inward, food-grade silicone tube stub connecting it to the FERRODAY B091C5Y6L9 0.5 µm sintered SS sparge stone hanging in the water column. The SS 90° elbow handles the external CO2 line connection from the in-appliance WR1110 secondary regulator (see [`/hardware/future.md`](/hardware/future.md) "CO2 supply"). **The relative install order of LTWFITTING vs elbow on Port 1 is an open item** — see Open items below.
+- **Port 1 (bottom-plate CO2 inlet):** this port's inside half is already made up — the LTWFITTING barb went in at step 2 and the silicone stub and stone hung off it at step 4. What lands here is the SS 90° elbow, male into the **outside** face of that same through-tapped hole, carrying the external CO2 line from the in-appliance WR1110 secondary regulator (see [`/hardware/future.md`](/hardware/future.md) "CO2 supply"). Two male fittings, one hole, one from each face — **how the plate's tapped depth divides between them is an open item**, see below.
 
 Once the four elbow stacks are in, the carbonator is the input to [`cold-core.md`](/hardware/assembly/cold-core.md) step 1 (coil wind).
 
@@ -157,7 +169,7 @@ A finished carbonator is:
 - PT-inspected at the closure welds — no surface-breaking indications
 - Tapped with four clean 1/4" NPT ports
 - Citric-acid passivated, rinsed dry
-- Sparge stone + silicone tube installed via bottom CO2 port
+- Sparge stack — barb, silicone stub, stone — made up inside before closure, and purged clear after the citric rinse
 - Float rod welded into bottom plate; magnetic donut captive
 - PRV pull-ring tested free and snappy during prv-shroud subassembly build (per that part's README, step 2)
 - Externally clean — no scale, no flux, no oxide bloom
@@ -170,7 +182,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 2. **Hydro failure handling.** Re-weld vs. scrap decision tree, especially for marginal cases (faint weep, slow drift).
 3. **Weld inspection acceptance criteria.** The dye-penetrant method + materials are now defined (step 6); the accept/reject criteria for an indication are not — max acceptable porosity/pinhole size, linear-vs-rounded handling, and whether a post-hydro PT re-check is also required. Define against a written standard before unit 1.
 4. **X1 Pro weld recipe end-to-end validation.** The recipe in §3 is what we run on unit 1's carbonator — same 60 % / 12 mm/s / 8-tack pattern / Don't-Let-Go trigger handling — but it hasn't been run end-to-end on 316L production stock yet. The 304L practice fixtures were where the recipe was developed; first 316L production weld is unit 1.
-5. **Port 1 elbow + LTWFITTING install sequence.** [`/hardware/future.md`](/hardware/future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, SS elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) SS elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the elbows are in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
+5. **Port 1's split thread.** The barb is made up from the inside face (step 2) and the elbow from the outside face (step 9): two male 1/4" NPT fittings into one through-tapped hole in 1/4" plate. NPT is a tapered thread cut from one side, so the two do not meet the same form — one enters the tap's large end and one its small end — and how many turns each gets before it stands proud is not something the drawing settles. [`cold-core-layout/_fittings.py`](/hardware/cold-core-layout/_fittings.py) draws them as each reaching half the plate. Measure it against a real fitting and a tapped scrap before unit 1, and settle both the standoff each one lands at and which face step 1's tap enters from.
 
 6. ~~**Reed azimuth ↔ register azimuth.**~~ **CLOSED.** `register_position` stays on the cap's −Y axis, 90° from the port line — that is what keeps the rod, and the donut hanging on it, out from under the top-plate water-inlet jet and off the bottom-plate outlet's draw. In the shell that port line lies on the Y axis: the bottom-plate CO2 elbow descends the notch cut inward from +Y at x = 0, and the carbonated-water outlet exits the −Y wall at x = 0 (`_port_cuts.py`). So the register azimuth is the shell's **±X** line — the only quadrant pair on the carbonator OD carrying no penetration, no fitting and no notch, and the one place the reed bridge's 51 mm of arc × 70 mm of height actually exists. Clock it to the reservoir-B side so the carbonator reeds leave the cold core beside reservoir B's, both on J7; the two carbonator rotations 180° apart are indistinguishable at the plates, so the clocking is free. The donut's 3 mm wall preload makes azimuth forgiving — 0.7 mm of added gap at 5 mm of arc — while height is not. Mount, heights and tolerances: [`reed-bridge/README.md`](/hardware/printed-parts/cold-core/reed-bridge/README.md).
 7. **Production tapping fixture.** The rig in [`/hardware/tapping-plan-2026-05-03.md`](/hardware/snapshots/tapping-plan-2026-05-03.md), cited in step 1, is a single-use Baltic-birch + MDF snapshot of the first tap into a 316L plate. A fixture that holds a plate square and repeatable across the full 4-ports × 10-vessels batch — plate register, tap-axis guide, and whether it drives a hand tap or a machine tap — is still to be designed. Design it before the batch, not during it.
