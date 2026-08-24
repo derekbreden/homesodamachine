@@ -21,6 +21,7 @@ import argparse
 import json
 import urllib.error
 import urllib.request
+from pathlib import Path
 
 API = "https://www.miniproto.com/api/v1/"
 
@@ -89,13 +90,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--gauge", default="22 AWG")
     ap.add_argument("--price", action="store_true")
-    ap.add_argument("-o", default="j2-manifold-b.harness.json")
+    # BESIDE THIS FILE AND NOT WHEREVER IT WAS RUN FROM. A bare relative name lands the spec in
+    # the caller's directory, which is how one turned up at the top of the repository.
+    ap.add_argument("-o", type=Path,
+                    default=Path(__file__).resolve().parent / "j2-manifold-b.harness.json")
     args = ap.parse_args()
 
     s = spec(args.gauge)
     with open(args.o, "w") as f:
         json.dump(s, f, indent=2)
-    print(f"-> {args.o}  ({len(s['wires'])} wires, {len(s['connectors'])} connectors, 1 splice)")
+    print(f"-> {Path(args.o).name}  ({len(s['wires'])} wires, "
+          f"{len(s['connectors'])} connectors, 1 splice)")
 
     if not args.price:
         return

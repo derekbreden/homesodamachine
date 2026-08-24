@@ -77,43 +77,21 @@ def png_for(scene) -> Path:
     return IMG_DIR / _SCENE_PNG.get(scene.id, f"scene-{scene.id}.png")
 
 
-# The core's own bodies, placed, for however many scenes in one run ask for them. Standing the
-# cold core costs a fraction of standing the machine and nothing at all for a run that never
-# reaches inside it — `render_scenes.py back-top` builds what it always did.
-_CORE = {}
-
-
-def core_bodies(carry):
-    """Every body the cold core's own assembly places, stood where the machine stands the core.
-
-    `enclosure_assembly` imports `foam-assembly.step` as ONE solid, so the machine has no handle
-    on the top cap, on the carbonator, or on a line inside the shell — and those ARE what a bench
-    unit of the core is made of. `cold-core-layout/cold_core_assembly` has them, and it builds in
-    `foam-assembly`'s own frame: the same six printed pieces, and everything else around them.
-
-    `carry.where` is the placement the machine seats that stack under, so it is what stands
-    these."""
-    import cold_core_assembly as cca
-
-    where = carry.where
-    key = repr(where.toTuple())
-    if key not in _CORE:
-        core = cca.build_assembly()
-        _CORE[key] = {c.name: (c.obj.moved(where), c.color) for c in core.children}
-    return _CORE[key]
-
-
 def cut(assembly, scene):
     """The scene as its own assembly, and the point the camera looks at.
 
     Every named body, world-placed and keeping its own colour, so the picture is the model's own
-    geometry and not a redraw. A name `inner` claims comes from the cold core's frame and the
-    rest from the machine's. The look-at point is what is drawn OF the unit — the roots, or the
-    core's own bodies where a scene draws those instead. See `_scenes.SCENES`."""
+    geometry and not a redraw. A name `inner` claims is one of the core's bodies and the rest are
+    the machine's, and both come off the same assembly. The look-at point is what is drawn OF the
+    unit — the roots, or the core's own bodies where a scene draws those instead.
+    See `_scenes.SCENES`."""
     import enclosure_assembly as ea
     placed = ea._solids(assembly)
     inner = set(_scenes.inner_of(scene))
-    core = core_bodies(assembly.carries[_scenes.INNER_ROOT]) if inner else {}
+    # THE MACHINE STANDS THESE ITSELF. `ea._solids` reads the pack, where the core is one
+    # envelope; `ea._core_solids` is the other half of the same children — the core's bodies
+    # already placed, so nothing here stands the stack a second time or repeats its transform.
+    core = ea._core_solids(assembly) if inner else {}
     names = _scenes.members(scene, assembly)
     # ONE LENGTH OF TUBE, ONE COLOUR. Each model paints its own half — the core tells its eight
     # lines apart, the machine paints fluid — and a picture carrying both would break colour at
