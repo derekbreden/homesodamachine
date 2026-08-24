@@ -772,7 +772,7 @@ def import_assembly(path):
 
     bodies = {}
     for name, found in out.items():
-        base = name.rsplit(SOLID_INDEX_SEP, 1)[0] if SOLID_INDEX_SEP in name else name
+        base = _SOLID_INDEX_RE.sub("", name)
         bodies.setdefault(base, []).extend(found)
     placed = {}
     for name, found in bodies.items():
@@ -915,6 +915,14 @@ def export_step(model, target_path):
 #: string literals included, in the styling records and only those. The names minted here
 #: reach PRODUCT, which it leaves as written.
 SOLID_INDEX_SEP = "/"
+
+#: What `bodyName` in web/public/js/viewer/step.js strips, stated the same way here:
+#: `/` then DIGITS, at the end. The digits are the whole of the rule — a slash with a
+#: name after it is part of the name, and basing on it would compound every body under
+#: one prefix into a single shape, with correct-looking geometry and the rest of the
+#: names gone. Three places read this separator; `render_scenes` refuses a slash
+#: outright, the viewer anchors on digits, and so does this.
+_SOLID_INDEX_RE = re.compile(re.escape(SOLID_INDEX_SEP) + r"\d+$")
 
 
 def _per_solid_color(assembly):
