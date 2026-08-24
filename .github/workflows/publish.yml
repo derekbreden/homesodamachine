@@ -116,6 +116,32 @@ jobs:
         with:
           fetch-depth: 1
 
+      # macOS SHIPS BASH 3.2 AND THIS WORKFLOW IS WRITTEN IN BASH 4. `/bin/bash` here is
+      # 3.2.57 from 2007, held at the last GPLv2 release, and `mapfile` arrived in 4.0 — five
+      # steps use it and the first one is 300 lines down, so on 3.2 this lane walks all the way
+      # to "Commit the artifact lock" and dies there with `mapfile: command not found` and exit
+      # 127, having already uploaded a bundle. Measured, on run 32729516384.
+      #
+      # ITS OWN SHELL IS PINNED TO /bin/bash BECAUSE IT IS THE STEP THAT INSTALLS THE OTHER ONE,
+      # and it uses nothing 3.2 lacks. Everything after it takes `defaults.run.shell: bash`,
+      # which resolves through the PATH this prepends.
+      - name: A bash that has mapfile
+        shell: /bin/bash -e {0}
+        run: |
+          brew list bash >/dev/null 2>&1 || brew install bash
+          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+
+      # AND SAY SO IF IT IS STILL 3.2, rather than letting the run reach the publish and fail
+      # on a builtin. This is the first step under the resolved shell, so it is where the
+      # question can be asked at all.
+      - name: The shell is one this workflow is written for
+        run: |
+          echo "bash ${BASH_VERSION} at $(command -v bash)"
+          [ "${BASH_VERSINFO[0]}" -ge 4 ] || {
+            echo "::error title=bash::this lane resolved bash ${BASH_VERSION}; the workflow needs 4+ for mapfile"
+            exit 1
+          }
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
