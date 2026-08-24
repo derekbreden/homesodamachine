@@ -116,6 +116,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor",
+           _hw / "cold-core-layout",
            _hw / "printed-parts" / "cold-core",
            _hw / "printed-parts" / "cold-core" / "copper-plugs",
            _hw / "printed-parts" / "cold-core" / "foam-assembly",
@@ -167,6 +168,9 @@ import mq6_gas_sensor as _mq6                         # noqa: E402
 import sf76e_thermal_fuse as _fuse                    # noqa: E402
 import fuse_clamp as _clamp                           # noqa: E402
 import foam_assembly as _foam                         # noqa: E402
+# The bodies inside that foam. `foam_assembly` draws the envelope; this draws what the
+# envelope is the outside of, in the envelope's own frame — see `core_bodies`.
+import cold_core_assembly as _cca                     # noqa: E402
 import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
@@ -712,6 +716,28 @@ def build_foam(front_y: float):
     f = import_step(str(FOAM_STEP)).val()
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
                      cx=0.0, y0=front_y, z0=0.0)
+
+
+#: The core's own bodies are the same for every machine that seats the core alike, and building
+#: them costs about six seconds, so one placement is built once.
+_CORE_BODIES: dict = {}
+
+
+def core_bodies(carry):
+    """Every body the cold core places, stood where this machine stands the core.
+
+    `cold_core_assembly` builds in `foam-assembly`'s own frame — the same frame `build_foam`
+    imports the envelope in — and `carry.where` is where the machine stands that frame, so
+    moving each body by it is the whole of the transform.
+
+    IT IS THE CARRY AND NEVER THE CORE'S OWN BOX. Re-seating the stack the way `build_foam`
+    seats the envelope would shift it: the core measures 285.0 x 184.2 where the foam measures
+    283.0 x 181.0, and every clearance in the pack is struck off the foam's faces."""
+    key = repr(carry.where.toTuple())
+    if key not in _CORE_BODIES:
+        _CORE_BODIES[key] = [(c.name, c.obj.moved(carry.where), c.color)
+                             for c in _cca.build_assembly().children]
+    return _CORE_BODIES[key]
 
 
 def cap_face(foam):
@@ -5802,7 +5828,20 @@ def build_pack() -> cq.Assembly:
         box(foam).ymin,
         [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
         + [(n, box(s).ymax) for n, s, _c in stood if box(s).zmin < top])
-    a.add(foam, name="foam-assembly", color=C_FOAM)
+    # THE CORE STANDS IN THE MACHINE AS ITS OWN BODIES, so opening the appliance is how the
+    # vessel, the coil, both reservoirs, every fitting and the lines among them are reached —
+    # and a pick lands on the one it is over rather than on the block they are all inside.
+    #
+    # FLAT, as siblings of the machine's own. Every pass over `a.children` reads one level and
+    # moves `c.obj`, and a nested node carries no solid to move.
+    #
+    # THE ENVELOPE IS NOT ONE OF THEM. `solids["foam-assembly"]` below still holds it, and it is
+    # what every port, station, line-route and geometry gate measures against; but a body cannot
+    # be exported beside the bodies it is the outside of without sharing volume with all of them.
+    a.core_envelope = foam
+    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry))
+    for _name, _solid, _colour in core_bodies(foam_carry):
+        a.add(_solid, name=_name, color=_colour)
     # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
     # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
     # wall — both struck on the core's own faces here, and grown by `enclosure._core_stops` /
@@ -6037,10 +6076,23 @@ def check_bodies_colored(a: cq.Assembly) -> Bound:
 
 
 def _solids(a: cq.Assembly):
-    """The assembly's children as world-placed solids, keyed by name — the shape a box
-    reads a pack in."""
-    return {c.name: ((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-        cq.Location(c.loc.wrapped.Transformation())), c.color) for c in a.children}
+    """The bodies a box reads a pack in, world-placed and keyed by name.
+
+    THE CORE IS ONE BODY TO THE PACK. The assembly exports the core's own bodies so a reader
+    can open the machine and reach them, but nothing in this file is measured against them:
+    every lane, clearance, stop, hold and station is struck off `foam-assembly`'s faces, and
+    the core is a closed block of foam to all of them. So the core's bodies come out of this
+    reading and the envelope goes back in, and a pass over a machine reads what it always did.
+
+    What reads the bodies themselves is the STEP, and `manifold_layout.clashes`, which walks
+    `a.children` because a solid nobody can see is still a solid in the way."""
+    world = lambda c: (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+        cq.Location(c.loc.wrapped.Transformation()))
+    inside = getattr(a, "core_body_names", frozenset())
+    out = {c.name: (world(c), c.color) for c in a.children if c.name not in inside}
+    if getattr(a, "core_envelope", None) is not None:
+        out["foam-assembly"] = (a.core_envelope, C_FOAM)
+    return out
 
 
 # Bodies seated THROUGH a wall rather than standing inside it. Each one takes a hole in the skin
@@ -6820,9 +6872,11 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
 
 
 def report(a: cq.Assembly, clashes=None) -> None:
-    placed = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-        cq.Location(c.loc.wrapped.Transformation()))) for c in a.children]
-    named = dict(placed)
+    # THE PACK AND NOT THE EXPORT. `_solids` is where the two part company: the machine reports
+    # on the core as the one body it seats, stops and holds, and what is inside that body is
+    # reported by the core's own card beside `cold-core-assembly.step`.
+    named = {n: s for n, (s, _c) in _solids(a).items()}
+    placed = list(named.items())
     whole = None
     for _n, s in placed:
         b = box(s)
