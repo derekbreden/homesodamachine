@@ -52,7 +52,7 @@ they became.
 | **funnel** | the part flavor concentrate is poured into, with its own spout | hopper |
 | **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
 | **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
-| **pump tray** | either of the two fused beds in the quadrant that a peristaltic pump sits in | |
+| **pump tray** | either of the two fused beds on the pump cartridge's deck that a peristaltic pump sits in | |
 | **flow-meter anchor** | either of the two anchors off the top wall that the flow meter's barrel seats in | flow-meter saddle, saddle |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
 | **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the base, the controller, controller PCBA, the PCBA |
@@ -63,8 +63,10 @@ they became.
 | **anchor** | a printed feature a body seats in and a zip tie closes over | anchor point |
 | **zip tie** | the fastener that closes over an anchor | strap |
 | **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
-| **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | electronics shelf |
+| **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | |
 | **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
+| **compressor bay** | the volume in the enclosure's front-bottom the compressor and condenser stand in | refrigeration bay, refrigeration stratum, refrigeration compartment |
+| **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | power column, electronics shelf |
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
 | **collet plate** | the cut 304 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
@@ -77,4 +79,3 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 
 | Name | Point at | Not |
 | --- | --- | --- |
-| **power column** | the parts standing as one column down the +X wall of back-top — main board, PSU, both relay modules, the AC inlet | electronics shelf |
