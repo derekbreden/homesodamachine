@@ -44,4 +44,19 @@ fi
 _py="$root/tools/cad-venv/bin/python"
 [ -x "$_py" ] || _py=python3
 "$_py" "$root/tools/push.py" 2>&1 | sed 's/^/post-commit: /' >&2
+
+# AND A CAD CHANGE IS CUT HERE RATHER THAN WAITED FOR. Render deploys when the artifact lock
+# moves, so a solid reaches the site when someone pins it. Measured on 2026-08-24: a hardware
+# commit took 5.7 minutes to become visible, 4.2 of them between the commit and the runner
+# pushing the lock. `publish_now.py` does that from this machine, where the build cache and the
+# cut already are.
+#
+# DETACHED, BECAUSE IT IS NOT IN FRONT OF ANYTHING. The commit is made and the push is done by
+# the line above; this only moves the lock, so the agent's next tool call does not wait on a
+# minute of packing. It takes a single-flight lock and coalesces, so several sessions
+# committing at once produce one publish of the newest tree rather than a queue of stale ones,
+# and it reads what is owed before it builds — a commit that changed no solid stops there.
+mkdir -p "$root/.cache"
+nohup "$_py" "$root/tools/publish_now.py" \
+  >>"$root/.cache/publish-now.log" 2>&1 &
 exit 0
