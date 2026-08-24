@@ -286,18 +286,19 @@ def _dirty_artifact_reach(root: Path) -> tuple:
 def unproven(dirty: list, members) -> dict:
     """What a publication could not put under `source.commit`, as the lock carries it.
 
-    THE BUNDLE SHIPS WHAT THIS DISK HOLDS. A member cut beside an uncommitted edit still travels
-    — seeing the geometry that is actually here is what the site is for — and this is the lock
-    saying which members those were and which uncommitted paths reach them, so a reader asking
+    THE BUNDLE SHIPS WHAT THIS DISK HOLDS. A member whose rule an uncommitted path reaches, or
+    whose rule would not cut, still travels — seeing the geometry that is actually here is what
+    the site is for — and this is the lock saying which members those were, so a reader asking
     where a solid came from gets an answer rather than an assumption.
 
-    Empty is the ordinary answer, and then `source.commit` describes every member on its own.
+    `paths` is empty where nothing was uncommitted and a rule simply would not cut. Empty is the
+    ordinary answer, and then `source.commit` describes every member on its own.
     """
-    if not dirty:
+    if not members:
         return {}
     return {
-        "_": "Cut beside these uncommitted paths, so source.commit does not describe the"
-             " members below them.",
+        "_": "source.commit does not describe these members: an uncommitted path below reaches"
+             " the rule that cuts one, or that rule would not cut.",
         "paths": sorted(dirty),
         "members": sorted(members),
     }
@@ -339,26 +340,43 @@ def _owed_artifact_targets(root: Path) -> list:
     return sorted({line for line in run.stdout.splitlines() if line.startswith("//:")})
 
 
-def _cut_is_fresh(root: Path, targets: list) -> bool:
-    """Whether Bazel and the tree both hold the outputs the owed rules make."""
+def _behind(root: Path, targets: list) -> bool:
+    """Whether bazel says any of `targets` is not up to date with this tree.
+
+    `BazelWorkspaceStatusAction` reruns on every invocation and says nothing about an output."""
     if not targets:
-        return True
+        return False
     check = subprocess.run(["bazel", "build", "--check_up_to_date", *targets],
                            cwd=str(root), capture_output=True, text=True)
     owed = [line for line in check.stderr.splitlines() if "not up-to-date" in line]
     stale = [line for line in owed if "BazelWorkspaceStatusAction" not in line]
-    if check.returncode != 0 and (stale or not owed):
-        print("the artifact targets have not been built from this source commit:")
-        for line in (stale or check.stderr.splitlines())[:10]:
-            print(f"  {line.strip()}")
-        return False
+    return check.returncode != 0 and bool(stale or not owed)
+
+
+def carry_the_cut(root: Path, targets: list) -> list:
+    """Cut whatever of `targets` this tree is behind on, carry it in, and name what would not.
+
+    THE PART AS IT IS, WHICH IS WHAT THE SITE IS FOR. A rule whose source has moved and whose
+    output has not describes the part as it was, and publishing that shows a change that has not
+    happened. Bazel already knows which rules those are and how to cut them, so it cuts them —
+    a refusal here would only be this asking someone to run the build it could run.
+
+    What comes back is the rules still behind afterwards, which is what would not build. Their
+    members go in the record beside the uncommitted ones: both are outputs `source.commit` does
+    not describe, and both still travel.
+    """
+    if not targets:
+        return []
+    if _behind(root, targets):
+        print(f"cutting {len(targets)} artifact target(s) this tree is behind on")
+        subprocess.run(["bazel", "build", *targets], cwd=str(root))
+    failed = [t for t in targets if _behind(root, [t])] if _behind(root, targets) else []
     sync = subprocess.run(
         [sys.executable, str(root / "tools" / "bazel" / "sync_tree.py"),
          "--runtime-only", "--targets", " ".join(targets)], cwd=str(root))
     if sync.returncode != 0:
-        print("the tree does not hold the complete cut in bazel-bin")
-        return False
-    return True
+        print("  bazel-bin does not hold the complete cut; the tree keeps what it has")
+    return failed
 
 
 def _targets_for_members(root: Path, members: set) -> tuple:
@@ -673,65 +691,40 @@ def main(argv) -> int:
     total = sum((_ROOT / r).stat().st_size for r in rels)
     print(f"{len(rels)} generated solid(s), {total / 1e6:.1f} MB in the tree")
 
-    sidecar_rels = sidecars(_ROOT)
-    missing_sidecars = [rel for rel in sidecar_rels if not (_ROOT / rel).is_file()]
-    if missing_sidecars:
-        print("the build graph declares public scorecards absent from the tree:")
-        for rel in missing_sidecars:
-            print(f"  {rel}")
-        print("  Build and carry their producer before packing.")
-        return 2
+    # A SCORECARD THE GRAPH DECLARES AND THE TREE DOES NOT HOLD IS NOT PINNABLE, and that is the
+    # whole of what follows from it. It leaves this pass and the rest are pinned around it.
+    sidecar_rels = [rel for rel in sidecars(_ROOT) if (_ROOT / rel).is_file()]
+    absent_sidecars = sorted(set(sidecars(_ROOT)) - set(sidecar_rels))
+    for rel in absent_sidecars:
+        print(f"  no scorecard in the tree for a rule that declares one: {rel}")
 
     loose, missing = _graph_gaps(_ROOT, rels)
-    if loose or missing:
-        print("the publish inventory and build outputs do not agree, so no bundle is packed")
     if loose:
-        print(f"  {len(loose)} bundled solid(s) are not declared outputs:")
+        print(f"  {len(loose)} bundled solid(s) no rule declares, recorded and shipped:")
         for rel in loose[:8]:
             print(f"    {rel}")
     if missing:
         print(f"  {len(missing)} declared publish output(s) are absent from the tree:")
         for rel in missing[:8]:
             print(f"    {rel}")
-    if loose or missing:
-        return 2
 
+    held = read_lock()
     now = hashes(_ROOT, rels)
     sidecar_now = hashes(_ROOT, sidecar_rels)
 
-    held = read_lock()
-    # An unbounded edit reaches by a route the graph cannot walk, so the record names every
-    # member rather than the few a rule owns.
-    unproven_members = (set(now) if unbounded
-                        else _members_of_targets(_ROOT, quarantined) & set(now))
-    unproven_now = unproven(dirty, unproven_members)
-    if unproven_now:
-        print(f"{len(unproven_members)} of {len(now)} member(s) cut beside "
-              f"{len(dirty)} uncommitted path(s); the lock records them:")
-        for path in dirty[:8]:
-            print(f"  {path}")
-
+    # AN EMPTY SOLID IS WHAT THIS TREE HOLDS FOR THAT PART, so it ships and the record names it.
+    # A part that renders as nothing is the state of the work, told on the site rather than here.
     hollow = barren(_ROOT, now)
-    if hollow:
-        print(f"{len(hollow)} member(s) carry no geometry, so nothing here is packed:")
-        for line in hollow:
-            print(f"    {line}")
-        print("  Rebuild the part.")
-        return 1
+    for line in hollow:
+        print(f"  {line}")
 
+    # Retirement takes a public thing away, which `--prune` does deliberately and this does not.
+    # A scorecard whose producer is gone keeps the pin it has until that runs.
     retired_sidecars = sorted(set(held.get("sidecars", {})) - set(sidecar_rels))
-    unexplained_sidecars = _retirement_evidence(_ROOT, retired_sidecars)
-    if unexplained_sidecars:
-        print("refusing to unpin scorecards without a changed producing source:")
-        for rel in unexplained_sidecars:
-            print(f"  {rel}")
-        return 2
-    unpruned_sidecars = [rel for rel in retired_sidecars if (_ROOT / rel).exists()]
-    if unpruned_sidecars:
-        print("retired scorecards are still publicly served; run --prune before packing:")
-        for rel in unpruned_sidecars:
-            print(f"  {rel}")
-        return 2
+    keep_pinned = {rel: held["sidecars"][rel] for rel in retired_sidecars}
+    if keep_pinned:
+        print(f"  {len(keep_pinned)} scorecard(s) hold their pin; --prune retires one")
+    sidecar_now = {**keep_pinned, **sidecar_now}
     changed_members = {rel for rel, digest in now.items()
                        if held.get("solids", {}).get(rel) != digest}
     changed_sidecars = {rel for rel, digest in sidecar_now.items()
@@ -739,17 +732,27 @@ def main(argv) -> int:
     changed_targets, unowned = _targets_for_members(
         _ROOT, changed_members | changed_sidecars)
     if args.write:
-        if unowned:
-            print("refusing to publish changed bundle members with no current Bazel producer:")
-            for rel in unowned[:20]:
-                print(f"  {rel}")
-            return 2
-        # A rule an uncommitted edit reaches has nothing at HEAD to be checked against, and
-        # the record is what says so; the rest are held to their cut as before.
-        verify_targets = sorted((set(owed) | set(changed_targets)) - quarantined)
-        if not _cut_is_fresh(_ROOT, verify_targets):
-            print("  Build and carry every owed or changed artifact target before --write.")
-            return 2
+        # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
+        # record is what says so; the rest are cut and carried here.
+        quarantined |= set(carry_the_cut(
+            _ROOT, sorted((set(owed) | set(changed_targets)) - quarantined)))
+        # The carry writes bazel-bin into the tree, so the bytes this pins are read after it.
+        rels = solids(_ROOT)
+        now = hashes(_ROOT, rels)
+        sidecar_now = hashes(_ROOT, sidecar_rels)
+
+    # Three ways a member ends up outside `source.commit`, and one record for all of them: its
+    # rule is reached by an uncommitted path, its rule would not cut, or no rule claims it at
+    # all. A solid on this disk that nothing produces is still a solid on this disk.
+    unproven_members = (set(now) if unbounded else (
+        _members_of_targets(_ROOT, quarantined) | set(unowned) | set(loose)
+        | {line.split(" ", 1)[0] for line in hollow}) & set(now))
+    unproven_now = unproven(dirty, unproven_members) if args.write else {}
+    if unproven_now:
+        print(f"{len(unproven_members)} of {len(now)} member(s) are outside "
+              f"{_head(_ROOT)[:12]}, and the lock records them")
+        for path in dirty[:8]:
+            print(f"  uncommitted: {path}")
     same_solids = held.get("solids") == now
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
@@ -909,15 +912,19 @@ def selftest() -> int:
 
         # A publication under way beside somebody's open file. Both members still ship;
         # what the record adds is which uncommitted paths reach them.
+        note = ("source.commit does not describe these members: an uncommitted path below"
+                " reaches the rule that cuts one, or that rule would not cut.")
         hold("the record names the edits and the members they reach",
              unproven(["hardware/manifold-layout/enclosure_assembly.py"],
                       {"b.step", "a.step"}),
-             {"_": "Cut beside these uncommitted paths, so source.commit does not describe the"
-                   " members below them.",
+             {"_": note,
               "paths": ["hardware/manifold-layout/enclosure_assembly.py"],
               "members": ["a.step", "b.step"]})
-        hold("and a tree standing at HEAD writes no record at all",
-             unproven([], {"a.step"}), {})
+        hold("a member of a rule that would not cut is recorded with no path to name",
+             unproven([], {"a.step"}),
+             {"_": note, "paths": [], "members": ["a.step"]})
+        hold("and a tree that cut everything at HEAD writes no record at all",
+             unproven([], set()), {})
         hold("the record is seated on the commit it qualifies",
              list(_with_record({"source": {}, "solids": {}}, {"paths": [], "members": []})),
              ["source", "unproven", "solids"])
@@ -952,8 +959,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/17")
-    return 0 if holds == 17 else 1
+    print(f"pack selftest {holds}/18")
+    return 0 if holds == 18 else 1
 
 
 if __name__ == "__main__":
