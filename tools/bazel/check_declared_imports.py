@@ -285,7 +285,9 @@ def main(argv) -> int:
     gens = sorted({g for g, _s, _w in missing})
     print("  the import edges are read off the source and written in seconds:")
     print("    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix")
-    print("  a read this cannot see — a solid a lazy path loads — is recorded by watching a run:")
+    print("  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.")
+    print("  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a")
+    print("  step that cannot import yet is a step whose file loads were never reached.")
     print(f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py {' '.join(gens)}")
     print("    tools/cad-venv/bin/python tools/bazel/gen_build.py")
     return 1
