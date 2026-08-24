@@ -187,9 +187,21 @@ function focusBox(i) {
   return b.isEmpty() ? boxOfGroup(state.currentGroup) : b;
 }
 
+// THE SHOT A BEAT IS SEEN IN. A held beat states no direction because it is
+// whatever the beat before it left standing — which is nothing at all when it
+// is the first beat asked for. A link into the middle of a chapter is the
+// ordinary way to reach one while the words are being written, so it resolves
+// backwards to the nearest beat that does state a direction and takes that
+// beat's whole shot: the chapter's opening frame, which is the frame the held
+// beat was written to be read in.
+function anchorOf(i) {
+  for (let k = i; k >= 0; k--) if (STEPS[k].dir) return k;
+  return 0;
+}
+
 function poseOf(i) {
-  const s = STEPS[i];
-  return poseFor(focusBox(i), s.dir, s.pad || 1.6, camera);
+  const k = STEPS[i].dir ? i : anchorOf(i);
+  return poseFor(focusBox(k), STEPS[k].dir, STEPS[k].pad || 1.6, camera);
 }
 
 const livePose = () => ({
