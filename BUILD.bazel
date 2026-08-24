@@ -2602,6 +2602,7 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
+        "web/server.js",
         ":node-packages",
     ] + glob(
         [
@@ -6033,6 +6034,7 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
+        "web/server.js",
         ":render-step-posed-runtime",
     ],
     outs = [
