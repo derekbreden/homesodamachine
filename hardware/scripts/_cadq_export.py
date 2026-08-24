@@ -675,10 +675,8 @@ def import_assembly(path):
     the funnel gets the machine. This reads the same file through XCAF, which is where the
     names are, and hands back the bodies under the names `export_assembly` wrote.
 
-    WHY A CALLER WOULD RATHER READ THIS THAN BUILD IT. Standing the appliance is a hundred
-    seconds and reading this file is five, and the bodies are identical — the STEP is what the
-    build wrote. A drawing, a scene or a picture wants placed geometry and no more; deriving it
-    a second time buys a second chance to derive it differently.
+    Standing the appliance is a hundred seconds and reading this file is five. The bodies are
+    the same bodies: the STEP is what that build wrote.
 
     A BODY OF SEVERAL SOLIDS COMES BACK UNDER ITS OWN NAME. `_per_solid_color` splits one such
     body into a component per solid so the viewer's reader can find a colour on each, and names

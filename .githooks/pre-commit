@@ -1,47 +1,32 @@
 #!/bin/sh
-# WHAT HOLDS A COMMIT HERE IS "NOTHING SHIPS UNTIL THIS IS GONE", AND NOT WHETHER ANYTHING
-# IS RED. A gate that reports a failing check is a gate nobody reads. Both faults below stop
-# the publish outright, and the publish is the only road geometry takes to the site.
+# The faults that stop a publish, named on this disk instead of in a queued run.
 #
-# A CYCLE fails bazel's LOADING phase, before any target is built: every one of them fails at
-# once and none of the messages names the pair at fault.
+# Each gate below holds the commit, and each is keyed to the files that can carry its fault, so
+# a commit to `web/` or a doc runs none of them.
 #
-# AN UNDECLARED READ fails one action — and the publish cuts a SET, so one action that will not
-# run is a run that pins no lock, and no part ships, not just that one. The blast radius is the
-# same; only the message differs.
-#
-# EACH GATE IS KEYED TO WHAT THE COMMIT TOUCHED, so a commit to web/ or a doc pays nothing, and
-# a `.py` that no step reads reports nothing because no action holds it.
-#
-# THE IMPORT GATE NAMES A ONE-COMMAND CURE — `--fix` writes the edges it found, in seconds. What
-# it cannot see is a solid a lazy path loads at runtime, which is a reading of the run and only
-# `trace_inputs` takes it.
-#
-# HSM_SKIP_PRECOMMIT=1 skips both.
+# HSM_SKIP_PRECOMMIT=1 skips them all.
 [ -n "$HSM_SKIP_PRECOMMIT" ] && exit 0
 root=$(git rev-parse --show-toplevel) || exit 0
 py="$root/tools/cad-venv/bin/python"
 [ -x "$py" ] || py=python3
 staged=$(git diff --cached --name-only --diff-filter=ACM)
 
-# A GRAPH THAT COMES BACK AROUND. Three files decide the relation and no other can move it:
-# `graph.json` is the record a rule's reads come from, `gen_build.py` is what turns a read into
-# an edge, and BUILD.bazel is where the result lands.
+# A GRAPH THAT COMES BACK AROUND fails bazel's loading phase, before any target is built: every
+# one of them fails at once and none of the messages names the pair at fault. Three files carry
+# the relation — `graph.json` records a rule's reads, `gen_build.py` turns a read into an edge,
+# BUILD.bazel is where the result lands.
 case "$staged" in
   *tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*BUILD.bazel*)
     "$py" "$root/tools/bazel/gen_build.py" --cycles || exit 1 ;;
 esac
 
-# AND BUILD.bazel HOLDS WHAT ITS GENERATOR WRITES. `publish` regenerates and runs
-# `git diff --exit-code -- BUILD.bazel`, so a file that has drifted from the three inputs that
-# write it fails the run before a single target is built. Registering a selftest and not
-# regenerating is the whole of how that happens, and it costs a round trip to learn.
+# BUILD.bazel HOLDS WHAT ITS GENERATOR WRITES. `publish` regenerates it and runs
+# `git diff --exit-code -- BUILD.bazel`; a file drifted from the three inputs that write it
+# fails the run before a target is built. Registering a selftest without regenerating drifts it.
 #
-# KEYED, WHICH IS THE WHOLE OF WHY THIS IS SAFE TO HOLD A COMMIT WITH. `--check` compares the
-# file against the graph, several sessions share this checkout, and one of them is always
-# part-way through a re-trace — so run against a commit that touches none of these, it would
-# stop an author over somebody else's in-flight state. Against a commit that touches them, the
-# author is already in this area and is exactly who should be told.
+# `--check` compares the whole file against the graph, and several sessions share this checkout
+# with one of them part-way through a re-trace at any time. Keyed to these three, it asks only
+# an author already in that area.
 case "$staged" in
   *tools/bazel/selftests.json*|*tools/bazel/graph.json*|*BUILD.bazel*)
     "$py" "$root/tools/bazel/gen_build.py" --check || exit 1 ;;
@@ -53,14 +38,20 @@ case "$staged" in
   *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || exit 1 ;;
 esac
 
-# AND A WORKFLOW NAMES TARGETS THE GRAPH INVENTS. `gen_build` derives a rule's name from what
-# its step writes, so two generators that come to share an output merge into one rule under
-# the alphabetically first name — the rule renames itself and nobody decides it. The workflow
-# keeps the old label, the publish builds all the CAD, and dies ten minutes in on a target
-# bazel never heard of; the greps that MATCH on that label just go quiet instead.
+# A WORKFLOW NAMES TARGETS THE GRAPH INVENTS. `gen_build` derives a rule's name from what its
+# step writes, so two generators that come to share an output merge into one rule under the
+# alphabetically first name. The workflow keeps the old label: the run builds the CAD and dies
+# naming a target bazel does not have, and the greps that MATCH on that label go quiet.
 case "$staged" in
   *BUILD.bazel*|*tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*.github/workflows/*)
     "$py" "$root/tools/bazel/check_ci_targets.py" || exit 1 ;;
+esac
+
+# A SOURCE NO `paths:` PATTERN NAMES STARTS NO RUN. The push lands, nothing is cut, and the
+# tracked file that source feeds keeps yesterday's bytes.
+case "$staged" in
+  *tools/bazel/graph.json*|*.github/workflows/publish.yml*)
+    "$py" "$root/tools/bazel/check_publish_paths.py" || exit 1 ;;
 esac
 
 exit 0
