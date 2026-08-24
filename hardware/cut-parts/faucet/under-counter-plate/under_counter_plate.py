@@ -106,19 +106,19 @@ shank_radius = shank_diameter / 2.0
 # (= depth magnitude shared with the shell / above-counter gasket / plate).
 pill_cx = flavor_tube_depth
 pill_cy = 0.0
-# [13.4 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —
+# [13.6 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —
 # matches the gasket's pill.
 pill_long_y = pill_length_x
-# [7.05 mm](PILL_W) pill short axis in DXF X (= world-depth Y) —
+# [7.25 mm](PILL_W) pill short axis in DXF X (= world-depth Y) —
 # matches the gasket's pill.
 pill_short_x = pill_width_y
-pill_half_long = pill_long_y / 2.0       # [6.7 mm](PILL_HALF_LONG)
-pill_half_short = pill_short_x / 2.0     # [3.525 mm](PILL_HALF_SHORT)
-pill_cap_radius = pill_half_short        # [3.525 mm](PILL_CAP_R)
+pill_half_long = pill_long_y / 2.0       # [6.8 mm](PILL_HALF_LONG)
+pill_half_short = pill_short_x / 2.0     # [3.625 mm](PILL_HALF_SHORT)
+pill_cap_radius = pill_half_short        # [3.625 mm](PILL_CAP_R)
 pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [3.175 mm](PILL_TOP_CAP_CY)
 pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](PILL_BOT_CAP_CY)
-pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
-pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
+pill_left_x = pill_cx - pill_half_short     # [15.3 mm](PILL_LEFT_X)
+pill_right_x = pill_cx + pill_half_short    # [22.55 mm](PILL_RIGHT_X)
 
 # Disc span, in DXF X (world depth). Two reach constraints bound it: the
 # Westbrass-bore front edge (the shell's pods are bore-tangent, so a deck-hole
@@ -133,7 +133,7 @@ pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 # standard kitchen faucets ship (Delta RP49835), the proven under-sink
 # footprint. Bearing doesn't size it: the hand-tightened nut (~1-4 kN)
 # spreads to ~2 MPa here — ~5x under particleboard, ~100x under stone.
-# [54.45 mm](PLATE_D) disc centered at DXF ([3.225 mm](DISC_CX), 0).
+# [54.55 mm](PLATE_D) disc centered at DXF ([3.275 mm](DISC_CX), 0).
 bore_front_x = -westbrass_bore_diameter / 2.0   # [-16 mm](BORE_FRONT_X)
 disc_reach_margin = 8.0
 disc_cx = (pill_right_x + bore_front_x) / 2.0
@@ -188,7 +188,7 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.225 mm](DISC_CX), [27.23 mm](TOP_OF_DISC_Y))
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.275 mm](DISC_CX), [27.27 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
     # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
@@ -198,12 +198,12 @@ def make_dxf():
     shank_right_wall_top = (shank_right_wall_x, shank_cy)              # ([6.3 mm](SHANK_RIGHT_WALL_X), 0)
     # Pill channel — extends in -Y from the pill rectangle's bottom
     # edge (Y = pill_bot_cap_cy = [-3.175 mm](PILL_BOT_CAP_CY)) to the rim,
-    # width [7.05 mm](PILL_W) in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [-3.175 mm](PILL_BOT_CAP_CY))
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [-3.175 mm](PILL_BOT_CAP_CY))
+    # width [7.25 mm](PILL_W) in X.
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [-3.175 mm](PILL_BOT_CAP_CY))
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [-3.175 mm](PILL_BOT_CAP_CY))
 
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [3.175 mm](PILL_TOP_CAP_CY))
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [3.175 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.3 mm](PILL_LEFT_X), [3.175 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.55 mm](PILL_RIGHT_X), [3.175 mm](PILL_TOP_CAP_CY))
 
     disc_center = (disc_cx, disc_cy)
 

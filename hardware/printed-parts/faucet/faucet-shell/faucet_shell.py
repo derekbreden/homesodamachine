@@ -87,10 +87,10 @@ westbrass_bore_y = 0.0
 
 # Flavor-tube pill — 1/4" OD LLDPE tubes ([6.35 mm](FLAVOR_TUBE_OD) OD), tangent to the
 # Westbrass's +Y face (Y=+[15.75 mm](WESTBRASS_RECT_LONG_HALF)) and tangent to each other at X=0.
-# [13.4 mm](PILL_L) long axis (X), [7.05 mm](PILL_W) short axis (Y).
+# [13.6 mm](PILL_L) long axis (X), [7.25 mm](PILL_W) short axis (Y).
 flavor_pill_center = (0.0, +flavor_tube_depth)
 
-# [14.53 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
+# [14.48 mm](FLAVOR_PILL_Y_MINUS) — flat -Y edge of the flavor pill
 # cutout in zones 1-4, on the Westbrass-bore +Y wall at the cutout's X corners.
 flavor_pill_y_minus_edge = min(
     +flavor_tube_depth - pill_width_y / 2.0,
@@ -105,8 +105,8 @@ _westbrass_bore_farthest_from_shell_center = (
 )  # = [19.18 mm](WESTBRASS_BORE_FARTHEST)
 _pill_farthest_from_shell_center = (
     (+flavor_tube_depth + pill_width_y / 2.0) - shell_center_y
-)  # = [19.27 mm](PILL_FARTHEST)
-# [22.27 mm](SHELL_OUTER_R) outer-cylinder radius.
+)  # = [19.38 mm](PILL_FARTHEST)
+# [22.38 mm](SHELL_OUTER_R) outer-cylinder radius.
 shell_outer_r = (
     max(_westbrass_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + wall_thickness_min
@@ -202,14 +202,14 @@ lever_clearance_x_half = lever_x_half + bore_clearance  # [6.75 mm](LEVER_CLEAR_
 lever_ramp_depth = 1.0
 tangent_overshoot = 0.002
 
-shell_rect_y_half = shell_outer_r  # [22.27 mm](SHELL_OUTER_R)
+shell_rect_y_half = shell_outer_r  # [22.38 mm](SHELL_OUTER_R)
 shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + wall_thickness_min  # [11.75 mm](SHELL_RECT_X_HALF)
 shell_rect_y_width = 2.0 * shell_rect_y_half
 shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # [25.45 mm](SHELL_RECT_Y_MAX) (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-19.1 mm](SHELL_RECT_Y_MIN) (toward user)
+shell_rect_y_max = shell_center_y + shell_rect_y_half  # [25.55 mm](SHELL_RECT_Y_MAX) (toward back)
+shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-19.2 mm](SHELL_RECT_Y_MIN) (toward user)
 
-lever_ramp_y_min = shell_center_y - shell_outer_r  # [-19.1 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
+lever_ramp_y_min = shell_center_y - shell_outer_r  # [-19.2 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
 _bore_y_at_lever_x = math.sqrt(
     (westbrass_bore_diameter / 2.0) ** 2 - lever_clearance_x_half ** 2
 )  # ≈ [14.51 mm](BORE_Y_AT_LEVER_X) — bore-cyl tangent at the cut's X half-span
@@ -430,7 +430,7 @@ max_print_overhang_rad = _path_total_rot / 4.0  # [35°](MAX_PRINT_OVERHANG)
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
 # (zone3_z_bottom at the -Y end) up to zone4_z_top at Y=fill_y_min,
 # tangent-horizontal at the high end. Center is directly below the high end.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # [29.56 mm](BACK_ARCH_DY) (positive depth span)
+_back_arch_dy = fill_y_min - shell_rect_y_min  # [29.66 mm](BACK_ARCH_DY) (positive depth span)
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -458,7 +458,7 @@ zone45_front_y = _z5_y_min - (shell_rect_y_max - _z5_y_max)
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=[55.04 mm](ZONE45_Z_BOT_FRONT).
+# ≈ Z=[55.05 mm](ZONE45_Z_BOT_FRONT).
 zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
 zone45_z_bottom_at_front = (
     back_arch_center_z
@@ -1178,7 +1178,7 @@ cradle_back_slope_rad = math.pi / 2.0 - 2.0 * max_print_overhang_rad
 cradle_back_s = (
     display_s_top + display_cap_thickness
     + (display_wall_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
-)  # [53.58 mm](CRADLE_BACK_S)
+)  # [53.54 mm](CRADLE_BACK_S)
 
 
 def _tip_frame():

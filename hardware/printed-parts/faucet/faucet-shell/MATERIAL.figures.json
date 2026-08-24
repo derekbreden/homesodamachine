@@ -1,8 +1,8 @@
 {
   "/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
-    "BASE_PRINT_HEIGHT": "236.8 mm",
+    "BASE_PRINT_HEIGHT": "236.9 mm",
     "MAX_PRINT_OVERHANG": "35\u00b0",
     "PRINT_TILT": "35\u00b0",
-    "TIP_PRINT_HEIGHT": "102.1 mm"
+    "TIP_PRINT_HEIGHT": "102.3 mm"
   }
 }

@@ -59,7 +59,7 @@ shank_hole_center = (0.0, 0.0)
 
 # Flavor-tube pill slot — two 1/4" tubes [6.35 mm](TUBE_CENTER_X) apart,
 # combined into one X-oriented pill at world (0, +[18.93 mm](PLATE_FLAVOR_Y)):
-# [13.4 mm](PLATE_PILL_L) long (X) × [7.05 mm](PLATE_PILL_W) wide (Y).
+# [13.6 mm](PLATE_PILL_L) long (X) × [7.25 mm](PLATE_PILL_W) wide (Y).
 pill_slot_center = (0.0, +flavor_tube_depth)
 
 
