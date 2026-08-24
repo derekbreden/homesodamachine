@@ -28,6 +28,8 @@
 // Paths are root-relative to `hardware/`, the same form `/api/steps` returns.
 // web/tests/component-sources.test.js holds every path to a file that exists.
 
+import { leafOf } from "./body-path.js";
+
 export const ALIASES = {
   "bulkhead-carb": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
   "bulkhead-flavor-a": "reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -148,10 +150,6 @@ function stem(path) {
 // A BODY INSIDE A SUB-ASSEMBLY IS STILL THE BODY IT IS. The appliance stands the cold core's
 // bodies under `cold-core/<name>`, which says what holds them and changes nothing about what
 // each one was modelled in — so the name is asked for whole first, and then by its leaf.
-// The body's own name, out of the sub-assembly that holds it. `cold-core/evap-coil` is the
-// core's coil; a name with no slash in it is its own leaf.
-export const leafOf = (name) => String(name || "").slice(String(name || "").lastIndexOf("/") + 1);
-
 export function sourceFileFor(name, stepPaths) {
   if (!name || !Array.isArray(stepPaths)) return null;
   for (const key of [name, leafOf(name)]) {
