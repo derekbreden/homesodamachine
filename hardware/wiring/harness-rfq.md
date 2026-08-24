@@ -45,18 +45,22 @@ its wire list below, including the deliberate non-connection at J2 contact 3.
 | Board-end housings | JST **XH**, 2.5 mm pitch, female crimp housing + contacts | XHP-*n* per assembly; "XH2.54" is the series name, the pitch is 2.50 mm |
 | Device-end tabs | Female Faston disconnects, **6.3 mm and 4.8 mm** | at 20–24 AWG these are TE **2178438-1** (250 / 6.3 mm) and **170214-2** (187 / 4.8 mm); per-device size map not yet recorded |
 | Screw landings | Insulated bootlace ferrules, DIN, 22 AWG | J5 relay terminals, J9 display terminals |
-| Fan-out splices | **WAGO 221-420** (10-way) and **221-415** (5-way) | supplied loose or made off, see below |
+| Fan-out splices | **WAGO 221-420** (10-way) and **221-415** (5-way) | **not in scope — we buy and land these ourselves**, see below |
 | Sleeve | Black PET expandable braided, 1/4" / 1/2" / 3/4" per assembly | both cut ends finished with black heat-shrink |
 | Ties | Black UV-nylon, flush-cut, no proud tail | |
 
 Every conductor is black. Identification is **by assembly name at the housing** (heat-shrink
 marker), not per-conductor. Do not substitute a color code.
 
-### The WAGO fan-outs are in-assembly splices
+### Where the trunk ends on the five branched assemblies
 
 Five assemblies terminate a shared rail in a WAGO 221 lever nut at the **device end**, not at the
-main board: one rail conductor rides the trunk and explodes at the manifold or reservoir. The nut body
-press-fits into a well printed in the enclosure wall. Do not substitute heat-shrink butt splices.
+main board: one rail conductor rides the trunk and explodes at the manifold or reservoir. **None of
+that is in this quote** — you supply the rail conductor cut to the length in its wire list and
+ferruled, and it ends there. We buy the lever nuts, cut the branch legs, and land them here.
+
+The table is here only so the rail conductor's destination is unambiguous. It is not a build
+instruction.
 
 | Assembly | Nut | Ways used | Feed | Branches |
 |---|---|---|---|---|
@@ -65,6 +69,41 @@ press-fits into a well printed in the enclosure wall. Do not substitute heat-shr
 | J4 SENSORS | 221-415 | 4 of 5 | `GND` | 1-wire bus, flow meter, moisture plate |
 | J6 REEDS A | 221-415 | 5 of 5 | `GND` | 4 reeds |
 | J7 REEDS B | 221-420 | 7 of 10 | `GND` | 6 reeds |
+
+## Purchased parts, per set
+
+One set = all ten assemblies. Counts are derived from the wire lists below and exclude the fan-outs.
+Every conductor end appears exactly once: 16 Faston + 13 ferrule + 24 flying = 53, which is the
+contact count.
+
+| # | Part | Spec / MPN | Qty per set | Unit |
+|---|---|---|---|---|
+| 1 | XH housing, 4-way | JST **XHP-4**, female | 5 | ea |
+| 2 | XH housing, 5-way | JST **XHP-5**, female | 1 | ea |
+| 3 | XH housing, 6-way | JST **XHP-6**, female | 1 | ea |
+| 4 | XH housing, 7-way | JST **XHP-7**, female | 2 | ea |
+| 5 | XH housing, 9-way | JST **XHP-9**, female | 1 | ea |
+| 6 | XH crimp contact | JST **SXH-001T-P0.6** | 53 | ea |
+| 7 | Faston 250 receptacle | TE **2178438-1**, 6.3 mm, female, 20–24 AWG | 12 | ea |
+| 8 | Faston 187 receptacle | TE **170214-2**, 4.8 mm, female, 20–24 AWG | 4 | ea |
+| 9 | Bootlace ferrule, insulated | DIN 46228-4, to suit final gauge | 13 | ea |
+| 10 | Hook-up wire | black silicone 600 V, **gauge per Open question 1** | 25.1 | m |
+| 11 | Ribbon, 4-conductor | 28 AWG jacketed, black | 1.0 | m |
+| 12 | Braided sleeve, 3/4" | black PET expandable | 0.30 | m |
+| 13 | Braided sleeve, 1/2" | black PET expandable | 1.70 | m |
+| 14 | Braided sleeve, 1/4" | black PET expandable | 2.55 | m |
+| 15 | Heat-shrink, sleeve ends | black, sized to sleeve | 18 | ends |
+| 16 | Heat-shrink marker, label | black, one per assembly, printed with the assembly name | 10 | ea |
+
+**Wire length by assembly** (sum of conductor cut lengths, service loop excluded): J1 3900, J2 2100,
+J4 3300, J5 600, J6 3000, J7 4200, J9 4000, J11 2400, J13 1600 mm. J3 is the ribbon, quoted by the
+metre instead.
+
+Items 7 and 8 split on an assumption — see Open question 2. Item 9's barrel must suit whichever
+gauge answers Open question 1, so hold it until that is settled.
+
+Not purchased by you: the WAGO 221-415 / 221-420 lever nuts and every branch conductor downstream of
+them. Those are ours.
 
 ## Board-end contact order
 
@@ -237,13 +276,10 @@ the length must hold with that cartridge drawn fully out — do not shorten.
 2. **Faston sizes.** `cable-assemblies.md` calls for both 6.3 mm and 4.8 mm disconnects; the
    per-device map is not yet recorded. Quote against a stated assumption and we will confirm before
    release.
-3. **WAGO nuts — supplied or made off?** Preference is made off as part of the assembly. If your
-   process cannot land a lever nut in-line, quote with the nut supplied loose and the branch
-   conductors ferruled to length.
-4. **Device-end terminations on J3, J4, J11.** Sensor and display leads land per device rather than
+3. **Device-end terminations on J3, J4, J11.** Sensor and display leads land per device rather than
    on a standard terminal. Quote these as flying leads, tinned and ferruled, unless you would rather
    we specify a mating connector.
-5. **28 AWG ribbon.** Confirm you can crimp XH contacts onto 28 AWG, or propose the gauge you would
+4. **28 AWG ribbon.** Confirm you can crimp XH contacts onto 28 AWG, or propose the gauge you would
    rather run in the umbilical.
 
 ## Sources
