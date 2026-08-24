@@ -512,8 +512,22 @@ jobs:
           if [ "${{ steps.scope.outputs.quickstart_art }}" = true ]; then
             art_source="$GITHUB_SHA"
           fi
+          # RECOVERED FROM HISTORY BEFORE IT IS CALLED MISSING. The art commit accumulates in the
+          # tracked sidecar, and `_build.py` declares that sidecar among its writes — so a carry
+          # of a sandbox build, which has no git and writes no provenance, lands a copy without
+          # it. Anyone who then commits that has armed this step to stop the next publish over a
+          # fact still sitting in the previous commit. Read it from there instead.
           if [ -z "$art_source" ]; then
-            echo "the canonical Quick Start bind has no artwork provenance" >&2
+            art_source=$(git show HEAD:hardware/quickstart/quick-start.pdf.json 2>/dev/null | \
+              tools/cad-venv/bin/python -c \
+              'import json,sys; print(json.load(sys.stdin).get("provenance", {}).get("art", {}).get("commit", ""))' \
+              2>/dev/null || true)
+            if [ -n "$art_source" ]; then
+              echo "::warning title=quickstart-provenance::the working sidecar names no artwork provenance; recovered ${art_source} from HEAD"
+            fi
+          fi
+          if [ -z "$art_source" ]; then
+            echo "the canonical Quick Start bind has no artwork provenance, and HEAD names none either" >&2
             exit 1
           fi
           HSM_BIND_ROOT="$bind_root" HSM_SHEET_SOURCE="$GITHUB_SHA" \
