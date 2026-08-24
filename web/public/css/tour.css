@@ -66,12 +66,17 @@
 .tour-card.in { opacity: 1; transform: none; }
 
 .tour-kicker {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #35e0d0;
   margin-bottom: 6px;
 }
+.tour-kicker-name { color: #35e0d0; }
+.tour-kicker-count { color: var(--text-3); letter-spacing: 0.08em; flex: none; }
 .tour-title { margin: 0 0 6px; font-size: 20px; line-height: 1.25; font-weight: 600; }
 .tour-body { margin: 0; font-size: 14px; line-height: 1.55; color: #d6d6e4; }
 
@@ -121,10 +126,13 @@
 
 /* One dot per beat. `--fill` is how far through the beat the player is, so the
    rail is a progress bar and a table of contents at once. */
-.tour-rail { display: flex; align-items: center; gap: 5px; }
+/* Chapters, and the beats inside them. The gap between groups is what makes
+   thirty ticks readable as eight things. */
+.tour-rail { display: flex; align-items: center; gap: 9px; }
+.tour-chapter { display: flex; align-items: center; gap: 3px; }
 .tour-dot {
   position: relative;
-  width: 15px; height: 26px;
+  width: 8px; height: 26px;
   padding: 0;
   border: 0;
   background: transparent;
@@ -149,7 +157,7 @@
   transform: scaleX(0);
   transform-origin: left;
 }
-.tour-dot.now { width: 26px; }
+.tour-dot.now { width: 18px; }
 .tour-dot.now .tour-dot-fill { opacity: 1; transform: scaleX(var(--fill-x, 0)); }
 .tour-dot:hover::before { background: var(--text-2); }
 
@@ -226,8 +234,10 @@ html.dev-mode .tour-dev { display: inline-block; }
   .tour-title { font-size: 17px; }
   .tour-body { font-size: 13px; }
   .tour-bar { gap: 7px; padding: 7px 9px; bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); }
-  .tour-dot { width: 11px; }
-  .tour-dot.now { width: 18px; }
+  .tour-rail { gap: 6px; }
+  .tour-chapter { gap: 2px; }
+  .tour-dot { width: 5px; }
+  .tour-dot.now { width: 12px; }
   .tour-banner-sub { display: none; }
   .tour-chips { display: none; }
 }
@@ -236,6 +246,15 @@ html.dev-mode .tour-dev { display: inline-block; }
   color: var(--text-2);
   background: transparent;
   border-color: var(--border);
+}
+/* A beat naming a body this model does not carry. The tree renames solids and
+   the tour names them, so the chip says which name went stale rather than
+   leaving a beat that frames the whole machine and lights nothing. */
+.tour-chip-missing {
+  color: var(--err);
+  background: color-mix(in srgb, var(--err) 12%, transparent);
+  border-color: color-mix(in srgb, var(--err) 45%, transparent);
+  text-decoration: line-through;
 }
 
 /* ── the from/to pins ───────────────────────────────────────────────────── */

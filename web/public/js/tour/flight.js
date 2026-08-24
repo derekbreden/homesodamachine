@@ -96,7 +96,11 @@ export function durationFor(a, b, span) {
   const turn = Math.abs(wrap(B.az - A.az)) + Math.abs(B.el - A.el);
   const move = span > 0 ? A.t.distanceTo(B.t) / span : 0;
   const zoom = Math.abs(Math.log(B.r / A.r));
-  return THREE.MathUtils.clamp(950 + 1150 * turn + 1500 * move + 750 * zoom, 1500, 5400);
+  // The floor is low because a chapter's beats are neighbours: a step across
+  // one fitting to the next should read as an adjustment, not as a journey.
+  // What earns seconds is angle, distance and change of scale, and a move with
+  // none of those has nothing to explain.
+  return THREE.MathUtils.clamp(600 + 1150 * turn + 1500 * move + 750 * zoom, 900, 5000);
 }
 
 /**
