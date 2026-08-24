@@ -48,6 +48,11 @@
 //   hue     what is in the pipe from this beat on — `water`, `soda`, `co2`,
 //           `refrigerant`, `flavor`. Carried forward like `isolate`, so the
 //           tour changes colour once, where the water becomes soda.
+//   vertigo the field of view this beat and the ones after it are seen through.
+//           The move into it changes lens and distance together so the SUBJECT
+//           holds its size while the machine around it swells — the grammar for
+//           "this is inside that", which an arc can only imply. 45 is the
+//           page's own lens.
 //   solid   ms the machine is drawn SOLID at the top of the tour before it
 //           dissolves to the x-ray view. Only the opening beat reads it.
 //   flow    ms per body of a bright crest travelling the beat's own list, over
@@ -193,7 +198,7 @@ export const TOUR = {
     // ── Inside the vessel ───────────────────────────────────────────────────
     { chapter: "Inside the vessel", title: "The carbonator",
       body: "A 316L stainless tube, standing upright inside the foam.",
-      parts: ["cold-core/carbonator-tube"], isolate: "cold-core",
+      parts: ["cold-core/carbonator-tube"], isolate: "cold-core", vertigo: 68,
       dir: [0.85, -0.9, 0.3], pad: 1.7, dwell: 5000, drift: { az: 9, el: 2, dolly: -0.05 } },
     { chapter: "Inside the vessel", title: "The top cap",
       body: "Welded on. Water comes in here, and pressure leaves here.",
@@ -283,7 +288,7 @@ export const TOUR = {
     // ── Up and out ──────────────────────────────────────────────────────────
     { chapter: "Up and out", title: "The climb",
       body: "Back in the cabinet, 279 mm up the corridor.",
-      parts: ["tube-carb-1"], isolate: null,
+      parts: ["tube-carb-1"], isolate: null, vertigo: 45,
       dir: [-0.7, -0.75, 0.4], pad: 1.7, drift: { az: 10, el: 2, dolly: -0.06 } },
     { chapter: "Up and out", title: "Every pour passes here",
       body: "A flow sensor, in the line and not beside it.",
