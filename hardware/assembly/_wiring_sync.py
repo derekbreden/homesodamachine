@@ -22,8 +22,8 @@ from docgen import load_module, substitute_md
 _plate = load_module(
     "_under_counter_plate_gen",
     next(p for p in _here.parents if p.name == "hardware")
-    / "cut-parts" / "faucet" / "touch-flo-under-counter-plate"
-    / "touch_flo_under_counter_plate.py",
+    / "cut-parts" / "faucet" / "under-counter-plate"
+    / "under_counter_plate.py",
 )
 
 # Import from the AC schedule's sync driver — the schedule is the source

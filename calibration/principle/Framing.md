@@ -6,7 +6,7 @@
 
 I'd like you to get a sense of the level of polish we are putting into all of the user experience in this project, before we proceed.
 
-I'd like you to take a look at touch-flo-under-counter-plate and I'd like you to investigate why that part exists. I'd like you to understand why we are getting a cut part there at all, and why that cut part has the details it does.
+I'd like you to take a look at under-counter-plate and I'd like you to investigate why that part exists. I'd like you to understand why we are getting a cut part there at all, and why that cut part has the details it does.
 
 I'd like you to take a look at the iOS app, and see how the static launch screen is a pixel to pixel match for the first frame of the loading animation, the loading animation which is fired before absolutely anything else in the app is loaded or built, starting at the absolute soonest moment that the iOS frameworks will allow.
 
@@ -46,15 +46,15 @@ Let me verify a few of the agent's claims before reporting back, since the repor
 
 Here's what I found.
 
-## 1. `touch-flo-under-counter-plate` — why it exists, why these details
+## 1. `under-counter-plate` — why it exists, why these details
 
 The faucet body and the 3-tube umbilical (+ signal cable) are **permanently joined at the factory bench** ([faucet-and-umbilical.md:3](/hardware/assembly/faucet-and-umbilical.md:3)). At install, the customer drops the faucet through the 1-3/8" countertop hole from above, and the umbilical dangles down beneath the countertop. The faucet still needs a flat support plate beneath the slab to spread the clamp load of the under-counter nut.
 
 A normal donut washer/plate is impossible here: there is no free umbilical end to thread the plate onto — the tubes are already wired into the faucet body upstream, and unscrewing them would defeat the point of the factory sub-assembly.
 
-The keyhole solution: a Ø54.35 mm 316 SS disc with **two open-edge channels** cut to the rim — one for the shank, one for the pill-shaped flavor-tube bundle. The customer slides the plate **laterally onto the dangling umbilical from below**; both cylinders enter their channel mouths and seat in terminal pockets in a single motion ([touch_flo_under_counter_plate.py:5-14](/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py:5)). The shank and pill positions are imported from `_faucet_interface.py`, so they match the upper mounting plate and TPU gasket to within a derived dimension.
+The keyhole solution: a Ø54.35 mm 316 SS disc with **two open-edge channels** cut to the rim — one for the shank, one for the pill-shaped flavor-tube bundle. The customer slides the plate **laterally onto the dangling umbilical from below**; both cylinders enter their channel mouths and seat in terminal pockets in a single motion ([under_counter_plate.py:5-14](/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py:5)). The shank and pill positions are imported from `_faucet_interface.py`, so they match the upper mounting plate and TPU gasket to within a derived dimension.
 
-The four wall-meets-rim corners are filleted at R1.5 mm. The doc says exactly why ([touch_flo_under_counter_plate.py:36-39](/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py:36), [faucet-and-umbilical.md:27](/hardware/assembly/faucet-and-umbilical.md:27)): **handling safety** (laser-cut 316 SS edges cut hands) and **lead-in funneling** (the cylinders find the channel mouths even when the customer can't see what they're doing, which they can't — they're working under a cabinet, one-handed, holding the dangling faucet straight with the other hand). Once seated, "cylinders-in-channels hold the plate in alignment passively, letting the customer thread the nut one-handed."
+The four wall-meets-rim corners are filleted at R1.5 mm. The doc says exactly why ([under_counter_plate.py:36-39](/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py:36), [faucet-and-umbilical.md:27](/hardware/assembly/faucet-and-umbilical.md:27)): **handling safety** (laser-cut 316 SS edges cut hands) and **lead-in funneling** (the cylinders find the channel mouths even when the customer can't see what they're doing, which they can't — they're working under a cabinet, one-handed, holding the dangling faucet straight with the other hand). Once seated, "cylinders-in-channels hold the plate in alignment passively, letting the customer thread the nut one-handed."
 
 ## 2. iOS launch screen ↔ first animation frame
 
@@ -199,7 +199,7 @@ Sections 1–4 are mostly in the register the under-counter plate now is — mot
 
 **The History section is the compromise, and it knows it.** "The repo describes only what is" sits at the end as the fact version. The preceding sentences specify what that means as rules-against: "Don't write 'was X, now Y'... Don't defend the current choice against alternatives the reader hasn't asked about." By the You.md principle (any rule is better encoded as an example), those sentences should go. By the principle of an entire day's evidence (example alone has been tested across many agents and didn't hold), they earn their place. What hooks do mechanically — memory-write block, effort-estimate block — this section does textually: catch at the entrance what the example down the path failed to prevent.
 
-The move you might be tempted to make, but probably shouldn't: replace the History section with a pointer to the cleaned under-counter plate file. ("See `touch_flo_under_counter_plate.py` for the register.") That would be elegant. It would also let the next agent reach for the keyboard before chasing the pointer. The fence at the entrance is doing work the example down the path can't.
+The move you might be tempted to make, but probably shouldn't: replace the History section with a pointer to the cleaned under-counter plate file. ("See `under_counter_plate.py` for the register.") That would be elegant. It would also let the next agent reach for the keyboard before chasing the pointer. The fence at the entrance is doing work the example down the path can't.
 
 **Two sentences that wobble on a close read.**
 

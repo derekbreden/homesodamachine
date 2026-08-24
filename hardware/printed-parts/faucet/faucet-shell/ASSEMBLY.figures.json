@@ -1,5 +1,5 @@
 {
-  "/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py": {
+  "/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": {
     "FILLET_R": "1.5 mm",
     "PILL_L": "13.4 mm",
     "PILL_W": "7.05 mm",

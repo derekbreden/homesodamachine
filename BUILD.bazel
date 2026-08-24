@@ -324,7 +324,7 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_faucet_and_umbilical_sync.py",
         "hardware/assembly/faucet-and-umbilical.md",
-        "pysrc/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+        "pysrc/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
@@ -918,7 +918,7 @@ genrule(
     srcs = [
         "pysrc/hardware/assembly/_wiring_sync.py",
         "hardware/assembly/wiring.md",
-        "pysrc/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+        "pysrc/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
@@ -2480,7 +2480,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
@@ -3068,9 +3068,9 @@ cp hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_step.py $$O1
 )
 
 genrule(
-    name = "touch-flo-under-counter-plate",
+    name = "under-counter-plate",
     srcs = [
-        "hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
+        "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
@@ -3091,33 +3091,33 @@ genrule(
         allow_empty = True,
     ),
     outs = [
-        "out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
-        "out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
-        "out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+        "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
+        "out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf)
-O1=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step)
-O2=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step)
-O3=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step)
-O4=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
-O5=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py)
-O6=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
-O7=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
-O8=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
-O9=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
-O10=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
-O11=$$PWD/$(location out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
+O0=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf)
+O1=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step)
+O2=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step)
+O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step)
+O4=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
+O5=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
+O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
+O7=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
+O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
+O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
+O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
+O11=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3133,14 +3133,14 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
-cp hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf $$O0
+cp hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf $$O0
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step $$O1
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step $$O2
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step $$O3
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O4
-cp hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py $$O5
+cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O5
 cp hardware/printed-parts/faucet/_faucet_interface.py $$O6
 cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O7
 cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O8
@@ -3153,7 +3153,7 @@ cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O11
 genrule(
     name = "faucet-assembly",
     srcs = [
-        ":out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
@@ -5950,7 +5950,7 @@ genrule(
     srcs = [
         "firmware/src_faucet/images/flavor0_faucet.h",
         "firmware/src_faucet/images/flavor1_faucet.h",
-        ":out/touch-flo-under-counter-plate/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf",
+        ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "pysrc/hardware/faucet-layout/faucet_assembly.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -7475,9 +7475,9 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
-        ":out/touch-flo-under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
@@ -8282,8 +8282,8 @@ genrule(
 
 genrule(
     name = "pysrc-b1ea3065307c",
-    srcs = ["hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py"],
-    outs = ["pysrc/hardware/cut-parts/faucet/touch-flo-under-counter-plate/touch_flo_under_counter_plate.py"],
+    srcs = ["hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py"],
+    outs = ["pysrc/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -14032,7 +14032,7 @@ filegroup(
         ":endcap-circular-drawing",
         ":endcap-circular-dxf",
         ":endcap-circular-step",
-        ":touch-flo-under-counter-plate",
+        ":under-counter-plate",
         ":faucet-assembly",
         ":enclosure-assembly",
         ":enclosure-box",

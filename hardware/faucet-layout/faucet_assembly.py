@@ -77,8 +77,8 @@ _faucet_cut_dir = _repo_hardware_dir / "cut-parts" / "faucet"
 
 ref_westbrass_step = (_repo_hardware_dir / "reference" / "touch-flo-faucet"
                  / "westbrass-reference" / "westbrass-reference.step")
-under_counter_dxf = (_faucet_cut_dir / "touch-flo-under-counter-plate"
-                     / "touch-flo-under-counter-plate.dxf")
+under_counter_dxf = (_faucet_cut_dir / "under-counter-plate"
+                     / "under-counter-plate.dxf")
 
 sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "cadlib"))
 from world_workplane import WorldWorkplane, xy_plane_z_up

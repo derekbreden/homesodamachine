@@ -124,7 +124,7 @@ def _together(writes: dict) -> list:
     """Generators grouped so that every file has exactly one group writing it.
 
     `docgen` lets several scripts keep one doc's figures, each managing its own names:
-    `faucet_shell.py` and `touch_flo_under_counter_plate.py` both write `ASSEMBLY.md`, and
+    `faucet_shell.py` and `under_counter_plate.py` both write `ASSEMBLY.md`, and
     a run of either alone leaves the other's names standing at what they last were. So they
     are one step."""
     parent = {g: g for g in writes}

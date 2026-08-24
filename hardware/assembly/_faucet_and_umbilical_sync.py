@@ -32,8 +32,8 @@ def main():
         hardware_root
         / "cut-parts"
         / "faucet"
-        / "touch-flo-under-counter-plate"
-        / "touch_flo_under_counter_plate.py",
+        / "under-counter-plate"
+        / "under_counter_plate.py",
     )
     faucet = load_module(
         "_faucet_assembly_gen",
@@ -69,9 +69,9 @@ def main():
         "CYL_L": f"{tpu.cylinder_length:.4g} mm",
         "LLDPE_ID": f"{tpu.lldpe_id:.4g} mm",
         "LLDPE_OD": f"{tpu.lldpe_od:.4g} mm",
-        # Under-counter plate (touch-flo-under-counter-plate) —
+        # Under-counter plate (under-counter-plate) —
         # BOM row line 27.
-        # Source: `touch-flo-under-counter-plate/touch_flo_under_counter_plate.py`.
+        # Source: `under-counter-plate/under_counter_plate.py`.
         "PLATE_D": f"{plate.disc_diameter:.4g} mm",
         "SHANK_HOLE_D": f"{plate.shank_diameter:.4g} mm",
         "PILL_L": f"{plate.pill_long_y:.4g} mm",

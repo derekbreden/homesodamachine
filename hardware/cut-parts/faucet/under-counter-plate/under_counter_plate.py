@@ -1,5 +1,5 @@
 """
-Touch-Flo under-counter plate — sheet-metal plate that sits beneath
+Under-counter plate — sheet-metal plate that sits beneath
 the countertop, between the countertop's underside and the
 under-counter nut/washer that clamps the entire faucet from
 below.
@@ -17,7 +17,7 @@ HOLE POSITIONS MATCH THE ABOVE-COUNTER GASKET AND PLATE
 =======================================================
 The above-counter plate, above-counter gasket, and under-counter plate share the
 shank-hole position and pill-slot position. This plate's disc centers
-on the midpoint of its two reach constraints — the body-bore front
+on the midpoint of its two reach constraints — the Westbrass-bore front
 edge and the pill pocket's far edge — landing within 0.05 mm of the
 upper parts' disc center. It adds the two open-edge channels at those
 hole positions.
@@ -45,7 +45,7 @@ STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
 - Above-counter gasket (90A black), Z = [-6, -4]
 - Countertop                  (varies — laminate ~32 mm, granite ~38 mm)
 - Under-counter plate (this part)
-- Washer + factory shank nut on the threaded Touch-Flo shank
+- Washer + factory shank nut on the threaded shank
 
 THICKNESS / MATERIAL
 ====================
@@ -100,7 +100,7 @@ shank_radius = shank_diameter / 2.0
 # axis along X.
 # DXF axes are the plate's own laser-cut frame: this DXF X is the
 # depth-magnitude offset from the shank in world coords (the pill sits
-# at world +Y relative to the body axis); this DXF Y is the lateral
+# at world +Y relative to the Westbrass axis); this DXF Y is the lateral
 # (world X) axis. Channels open in DXF -Y (lateral).
 # [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of pill center from the shank
 # (= depth magnitude shared with the shell / above-counter gasket / plate).
@@ -121,7 +121,7 @@ pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
 pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 
 # Disc span, in DXF X (world depth). Two reach constraints bound it: the
-# body-bore front edge (the shell's pods are bore-tangent, so a deck-hole
+# Westbrass-bore front edge (the shell's pods are bore-tangent, so a deck-hole
 # edge past the bore line starts undermining their seats — the install's own
 # limit on any hole, and unreachable from the other side anyway: a hole
 # centered on the shank would need ~⌀47 before the tube pill could pass) and
@@ -245,7 +245,7 @@ def make_dxf():
     ccw_arc(msp, disc_center, disc_radius, pr_rt, top_of_disc)
 
     out_dir = Path(__file__).resolve().parent
-    out_name = "touch-flo-under-counter-plate"
+    out_name = "under-counter-plate"
     out = out_dir / f"{out_name}.dxf"
     export_dxf(doc, str(out))
     return out
@@ -253,7 +253,7 @@ def make_dxf():
 
 if __name__ == "__main__":
     out = make_dxf()
-    print("Touch-Flo under-counter plate")
+    print("Under-counter plate")
     print(f"  Outline:        Ø {disc_diameter} mm disc, centered at ({disc_cx}, {disc_cy})")
     print(f"  Shank pocket:   Ø {shank_diameter} mm at ({shank_cx}, {shank_cy})")
     print(f"  Shank channel:  {shank_diameter} mm wide in X, -Y to the rim")

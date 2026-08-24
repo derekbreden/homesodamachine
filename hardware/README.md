@@ -59,7 +59,7 @@ graph is `tools/bazel/graph.json`; `tools/bazel/gen_build.py` writes `BUILD.baze
 
 A step is usually one generator. Four are several: `docgen` lets more than one script keep a
 doc's `[value](NAME)` figures, each managing its own names, so `faucet_shell.py` and
-`touch_flo_under_counter_plate.py` both write `ASSEMBLY.md` and are one action. `bazel` needs
+`under_counter_plate.py` both write `ASSEMBLY.md` and are one action. `bazel` needs
 one action per file, and `inventory._together` is what groups them.
 
 `bazel-bin/` is where a build lands. The tree commits its docs and holds ignored solids long
