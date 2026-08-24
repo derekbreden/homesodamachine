@@ -67,9 +67,15 @@ everything downstream of it is current.
 autoDeploy is on. So a push that moves the lock deploys the site, and nothing about that waits
 for a workflow.
 
-`tools/cad-artifacts/pack.py --write` builds, uploads the bundle to the release, and pins the
-lock — from any machine. So the path from a CAD change to my seeing it is: build the changed
-target, `--write`, push the source and the lock. Render serves it minutes later.
+Committing is the whole of it. `.githooks/post-commit` runs `tools/push.py`, which lands the
+commit on main — dropping a duplicate whose patch is already there under another hash, replaying
+anything else in a worktree that shares no index with the sessions building here. Then it fires
+`tools/publish_now.py` detached, which reads whether the commit owes a cut and, if it does,
+builds it, uploads the bundle and pins the lock from this machine. Nothing waits on me and
+nothing waits on a runner.
+
+`tools/time_to_site.py` is what that costs, read off `/api/version` from outside: what is live,
+how long ago it was committed, and which commits past it touch a deploying path.
 
 The publish workflow does the same work in CI, and takes five to twelve minutes plus whatever is
 queued ahead of it. It is the reconciler — it catches what a laptop missed and rebuilds what
