@@ -120,6 +120,18 @@ def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
 
 
+#: The three files the `render-step-posed-runtime` glob below excludes, for each consumer to
+#: name directly. They are the whole of what that glob leaves behind.
+_RUNTIME_NAMED_DIRECTLY = ("web/package-lock.json", "web/package.json", "web/server.js")
+
+
+def _runtime_carries(path: str) -> bool:
+    """Whether a runtime filegroup below already globs `path` into every action that takes it."""
+    if path in _RUNTIME_NAMED_DIRECTLY:
+        return False
+    return path.startswith("tools/render/node_modules/") or path.startswith("web/")
+
+
 #: A relative import in a JS module — `from "./browser.js"`, `import("./x.js")`, `require`.
 _JS_LOCAL = re.compile(r"""(?:from|import|require)\s*\(?\s*["'](\.[^"']*)["']""")
 
@@ -136,9 +148,10 @@ def _js_closure(srcs: set) -> set:
     The specifiers are relative and resolved against the importer's own directory, which is
     what makes this answerable from the text.
 
-    THE RUNTIME GROUPS ALREADY CARRY `web/**` AND `tools/render/node_modules/**`, by glob. What
-    they leave is the renderer's own modules beside their entrypoint, so that is what this
-    adds — naming a file twice stages it twice."""
+    WHAT THE RUNTIME GROUPS CARRY BY GLOB IS NOT ADDED, because naming a file twice stages it
+    twice. `_runtime_carries` is that glob, and it is the same three `web/` files the group
+    excludes for its consumers to name — so `web/server.js` comes from here and `web/lib/*.js`
+    does not."""
     seen, stack = set(), [s for s in srcs if s.endswith((".js", ".mjs", ".cjs"))]
     while stack:
         current = stack.pop()
@@ -151,8 +164,7 @@ def _js_closure(srcs: set) -> set:
             if found not in seen and (_ROOT / found).is_file():
                 seen.add(found)
                 stack.append(found)
-    return {f for f in seen - set(srcs)
-            if f.startswith("tools/render/") and "/node_modules/" not in f}
+    return {f for f in seen - set(srcs) if not _runtime_carries(f)}
 
 
 def _node_runtimes(gens: tuple, srcs: list) -> tuple[str, ...]:
