@@ -108,7 +108,25 @@ SYSTEM_ROOTS = {"tmp", "Users", "home", "opt", "usr", "var", "private", "etc", "
                 "mnt", "proc", "root", "srv", "sys", "bin", "sbin", "lib", "Volumes"}
 
 SKIP_TREES = ("node_modules/", "tools/cad-venv/", "tools/pcb-venv/", "tools/video-venv/",
-              ".pio/", "bazel-", "calibration/sessions/")
+              ".pio/", "bazel-")
+
+
+def _is_transcript(rel: str) -> bool:
+    """A calibration transcript, which QUOTES a path rather than claiming one.
+
+    `calibration/` is a lesson beside the sessions that earned it: the top-level `.md` makes a
+    claim about this tree and is read like any other doc, and every subdirectory under it is
+    verbatim transcript. A transcript's links were right when the session ran, so a rotted one
+    is not a rotted reference — and the tag form this file documents cannot be the answer for
+    them, because writing one in would edit a record of what was said.
+
+    NAMED BY SHAPE, BECAUSE THE LIST ROTTED. This was `calibration/sessions/` alone, and
+    `fences/` and `traffic/` are the same thing under different names; `back-panel/` was
+    deleted on 2026-08-12 and five references to it inside those two directories have read as
+    rot ever since, which is a check calling a transcript wrong for quoting accurately. A rule
+    that says "a subdirectory of calibration" covers the next one nobody remembers to add.
+    """
+    return rel.startswith("calibration/") and "/" in rel[len("calibration/"):]
 
 # A SOURCE COMMENT MUST NAME A FILE KIND for its path to be read as a path. `the infill
 # pattern/density` and `the marketing/communication` are English, and `_materials.one_body`
@@ -376,6 +394,7 @@ def check(files: set, dirs: set, solids: set, tags: set) -> list[str]:
     for rel in sorted(f for f in files
                       if f.endswith((".md",) + SOURCE_SUFFIXES)
                       and not f.startswith(SKIP_TREES)
+                      and not _is_transcript(f)
                       and f != "tools/check_paths.py"):
         try:
             text = (ROOT / rel).read_text(encoding="utf-8")
