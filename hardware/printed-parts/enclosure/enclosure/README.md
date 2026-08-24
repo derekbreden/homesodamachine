@@ -3,7 +3,7 @@
 What the pieces have actually been printed in, and at what settings:
 [print-log.md](print-log.md).
 
-A PETG box. [3 mm](WALL_T) is the section a piece starts from and every exterior
+A PET-GF15 box. [3 mm](WALL_T) is the section a piece starts from and every exterior
 wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
 and `interior_x` both stand still: a bottom piece's three lipped sides get
 [6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
@@ -602,7 +602,7 @@ fall out as faces square to the axis.
 
 The two end sections are there to make the barrel's steps and for nothing else, so
 each runs the **shorter of the two fittings' lengths** rather than its own: the
-coupling is more than twice the nut, and anchor past a section already seated is PETG
+coupling is more than twice the nut, and anchor past a section already seated is filament
 paid for in the deck's own headroom. The flanks reach under the axis exactly as far as
 the chain's own lowest arris — the barrel's apothem, `asse_reach_down` — and no
 further, for the same reason.

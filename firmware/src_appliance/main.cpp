@@ -4,6 +4,7 @@
 #include "fw_build_time.h"   // churns every build; the banner is what reads it
 #include "faucet_link.h"
 #include "flavor.h"
+#include "idle.h"
 #include "link.h"
 #include "machine.h"
 #include "pins.h"
@@ -60,6 +61,7 @@ void setup() {
     Serial.printf("\nhomesodamachine appliance  %s  (%s)\n", FW_VERSION, FW_BUILD_TIME);
 
     flavorBegin();
+    idleBegin();
 
     // The clock quiet hours reads. Without it soundInQuietHours() is false for
     // good — a machine that guessed the hour would go quiet at the wrong one.
@@ -110,6 +112,22 @@ void loop() {
     // Preferences can occasionally compact a flash page. Keep that work out of
     // every pump deadline and sound step; the logo already changed locally.
     if (machineState() == ST_IDLE && !soundBusy()) flavorService();
+
+    // Presence crosses both links, so a change is published to whichever glass
+    // gives the main board its next turn.
+    if (idleService()) {
+        // An offered action is withdrawn with the light. Both glasses learn of
+        // the sleep and the closed session from the same pair of publications.
+        if (idleAsleep()) {
+            MachinePrimeSessionState prime;
+            machineReadPrimeSessionState(prime);
+            if (prime.phase != PRIME_SESSION_OFF)
+                machinePrimeSessionCancel(prime.sessionToken);
+        }
+        linkPublishIdle();
+        faucetLinkPublishIdle();
+        Serial.printf("\n[idle] %s\n", idleAsleep() ? "asleep" : "awake");
+    }
 
     static String line;
     while (Serial.available()) {
@@ -325,6 +343,14 @@ static void console(const String &line) {
         Serial.printf("\nflavor %s%s, artwork %u/%u\n", machinePumpName(flavorSelected()),
                       flavorPersisted() ? " (persisted)" : " (persistence pending)",
                       flavorArt(0), flavorArt(1));
+        return;
+    }
+
+    if (line == "idle") {
+        Serial.printf("\nidle %s — quiet %lus of %lus\n",
+                      idleAsleep() ? "asleep" : "awake",
+                      (unsigned long)(idleQuietMs() / 1000),
+                      (unsigned long)(idleWindowMs() / 1000));
         return;
     }
 

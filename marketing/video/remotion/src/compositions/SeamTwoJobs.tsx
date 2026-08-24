@@ -28,7 +28,7 @@ const F = {
   quote: "beautiful everywhere except where the supports were", // Derek, print-log.md:208
   joint: "20 mm slip-fit", // two 20 mm joints along the gooseneck, faucet_shell.py:305
   display: "1.47″ touchscreen", // Waveshare ESP32-S3-Touch-LCD-1.47, bom.md:18
-  material: "PET-CF",
+  material: "PET-GF15",
   lastPrint: "mid-June", // last print activity 2026-06-14
 };
 

@@ -46,6 +46,12 @@ M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead 
 # the cold core's five foam bodies and the plugs and shroud among them — MEASURED rather than
 # named: `_y_wall_dimensions.chip_filaments` holds the swatch the flavour chips are cut to.
 M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
+# Polymaker Fiberon PET-GF15 black, the stock every surface a customer sees prints in
+# (`ledger/bom.md` §7): the four quadrants, the pump cartridge and the cap under it, the ceiling
+# panel, the display cover plate, the faucet shell's three pieces and the above-counter plate.
+# Glass fill stands it a shade above the PETG black it closes on, and matte beside the donor's
+# matte-black metal.
+M_PETGF_BLACK = cq.Color(0.20, 0.20, 0.21)
 # Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
 # (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
 # reason a clear spool is bought. Neutral rather than blue: PETG's own clear pulls faintly warm.
@@ -128,7 +134,7 @@ C_REED = M_GLASS
 # `enclosure.flute-hides-seam` strikes the flute field so the Y seam falls in a groove's own
 # shadow. WHAT TELLS A PIECE FROM ITS NEIGHBOUR IN THE VIEWER is x-ray's feature edges and the
 # component picker, neither of which needs the paint to lie.
-WALL_COLORS = {name: M_PETG_BLACK
+WALL_COLORS = {name: M_PETGF_BLACK
                for name in ("front-bottom", "front-top", "back-bottom", "back-top",
                             "pump-cartridge", "pump-cap")}
 # The collet plate — the one piece of this box that is steel, waterjet from 1/8" 304.
@@ -166,11 +172,10 @@ C_PUMP_BOSS = cq.Color(0.90, 0.90, 0.88)
 C_PUMP_MOTOR = cq.Color(0.74, 0.76, 0.80)
 
 # --- the faucet's own bodies ---------------------------------------------------
-# `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them.
-# Polymaker Fiberon PET-CF17, the faucet's own stock (`ledger/bom.md` §7) — the faucet shell's
-# three pieces and the above-counter plate. Carbon fill takes the gloss off, so it stands a shade lighter than
-# the PETG black the box is printed in and reads matte beside the donor's matte-black metal.
-C_PETCF_BLACK = cq.Color(0.19, 0.19, 0.20)
+# `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them. The shell's
+# three pieces and the above-counter plate come off `M_PETGF_BLACK`, the same spool the box's
+# exterior does, so the two stand in one colour across the countertop between them.
+C_FAUCET_BLACK = M_PETGF_BLACK
 # The Westbrass A2031-NL-62 / R2031-NL-62 donor body inside that shell, which the BOM buys in
 # MATTE BLACK (`reference/touch-flo-faucet/README.md`, `faucet-shell/ASSEMBLY.md`) — a
 # finished metal, so it stands a shade under the print that wraps it rather than over it.

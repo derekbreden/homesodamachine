@@ -451,7 +451,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 ## 13. Printing consumables
 
-3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). PETG is the default per bom.md §7; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
+3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). Per bom.md §7 the exterior is Polymaker Fiberon PET-GF15 and everything it encloses is PETG; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -471,7 +471,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000) | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | 112-0610257-0936212 | 2026-05-11 | 2026-05-12 | ACQUIRED |
 | Polymaker Fiberon PET-CF17, 1.75 mm × 1 kg, Black | [B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8) | 2 | $96.50 | 114-0500457-4192257 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Polymaker Fiberon PET-CF17, 1.75 mm × 3 kg, Black | [B0DJNVQJX9](https://www.amazon.com/dp/B0DJNVQJX9) | 1 | $117.96 | 114-7618665-2979463 | 2026-06-13 | 2026-06-15 | ACQUIRED |
-| Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black. 15 % glass-fiber PET, $26.81/kg. Enclosure finish candidate against the PETG the box prints in now | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 1 | $80.43 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black. 15 % glass-fiber PET, $26.81/kg | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 1 | $80.43 | 112-1974343-4486643 | 2026-08-09 | 2026-08-11 | ACQUIRED |
+| Polymaker Fiberon PET-GF15, 1.75 mm × 3 kg, Black — **the exterior's production stock** ([bom.md §7](/hardware/ledger/bom.md)). 9 kg on one invoice: $69.99 ea × 3 + $15.21 NE tax, shipping waived, = **$25.02/kg**, the figure §7 prices every exterior row at | [B0FBWGTW9W](https://www.amazon.com/dp/B0FBWGTW9W) | 3 | $225.18 | 112-3920877-6075462 | 2026-08-23 | 2026-08-24 | ACQUIRED |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | 112-1471049-5385066 | 2026-05-17 | 2026-05-18 | ACQUIRED |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | 114-9764609-4555460 | 2026-03-22 | 2026-03-24 | ACQUIRED |
 | Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`) | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | 112-4209023-0725839 | 2026-07-24 | 2026-07-25 | ACQUIRED |
@@ -550,7 +551,7 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
 | 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ACQUIRED (delivered Jun 20) |
 | 2026-08-11 | us763714278409691137 | PETG Basic Black 30105 refill ×7 (bulk, $81.85) + PETG Basic on spool ×3 — White 30106, Navy Blue 30604, Red 30201 ($13.64 ea) (1 kg each) + NE tax $8.90 | $131.67 | ON-ORDER |
-| 2026-08-19 | us766639627317551105 | H2C Induction Hotend (Right), 0.2 mm stainless ×2 + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm ×1 + NE tax | $182.29 | ON-ORDER (shipped Aug 19; delivery not yet confirmed) |
+| 2026-08-19 | us766639627317551105 | H2C Induction Hotend (Right), 0.2 mm stainless ×2 + Tungsten Carbide Hotend (H2/P2S/X2D; H2C Left), 0.4 mm ×1 + NE tax | $182.29 | ACQUIRED (the 0.4 TC is the exterior's nozzle — [tools.md](/hardware/ledger/tools.md)) |
 | **§15 subtotal — 19 orders (17 ACQUIRED, 2 ON-ORDER)** | | | **ACQUIRED $8,677.34 + ON-ORDER $313.96** | |
 
 ## 16. Laser welding / cleaning / cutting
@@ -640,13 +641,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$31,886.24](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,293.71](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$37,323.78](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$731.12](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$37,731.25](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$548.83](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$38,097.79](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$38,322.97](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -664,9 +665,9 @@ ACQUIRED hardware by section:
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$199.15](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$1,153.07](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,646.90](LEDGER_SEC13) |
+| 13 | Printing consumables | [$1,872.08](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,677.34](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,859.63](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$732.18](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$139.69](LEDGER_SEC19) |

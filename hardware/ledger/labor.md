@@ -131,7 +131,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
 | Stage the collet plate and drop it into the bay floor's blind seat, holes forward | EN-01, EN-07 | In through the open pump bay once the box is closed; gravity holds it and the seat takes every other direction | 5 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, install-kit bag | 10 |
-| Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-CF shell, printed TPU seals | 5 |
+| Assemble the faucet — three-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |
 | **Assembly** | | | **[125](LAB_SEC8)** |
 
 ## 9. Power-on & testing

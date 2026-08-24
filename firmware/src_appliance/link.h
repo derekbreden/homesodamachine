@@ -11,6 +11,9 @@
 // something the machine announced.
 
 void linkBegin();
+
+// Publish the shared idle state to the enclosure at its next turn.
+void linkPublishIdle();
 void linkService();       // call every loop
 void linkReport();        // one console block: frames, bytes, echo, last rx
 
