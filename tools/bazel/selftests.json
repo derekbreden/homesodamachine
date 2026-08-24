@@ -817,6 +817,9 @@
     "tools/bazel/graph.json",
     ".github/workflows/publish.yml"
   ],
+  "tools/bazel/failed_targets.py": [
+    "tools/bazel/failed_targets.py"
+  ],
   "tools/bazel/sync_tree.py": [
     "hardware/assembly/cards/_cardgen.py",
     "tools/bazel/graph.json",
