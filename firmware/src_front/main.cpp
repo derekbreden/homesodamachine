@@ -3021,7 +3021,7 @@ static void processTextLine(const char *line) {
     // HWCDC has a finite packet buffer. Keep the primary health record below
     // one packet so a host can never mistake a partial line for a complete
     // response; the less frequently used detail follows on bounded lines.
-    Serial.printf("DIAG:page=%d,svc=%d,flv=%d,lock=%d,stage=%u,idle=%d,holding=%d,"
+    Serial.printf("DIAG:page=%d,svc=%d,flv=%d,lock=%d,stage=%u,idle=%d,told=%d,asleep=%d,window=%lu,holding=%d,"
                   "gt911=0x%02X,reinits=%lu,sendErr=%d,outQ=%u/%u,outDrop=%lu,"
                   "link=%s,ctrlRx=%lu,ctrlTurnMax=%u,ctrlTurnOver=%lu,"
                   "flushes=%lu,maxLoopMs=%lu,heap=%lu,minHeap=%lu\n",
