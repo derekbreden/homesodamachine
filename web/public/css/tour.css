@@ -299,3 +299,67 @@ html.dev-mode .tour-dev { display: inline-block; }
 @media (max-width: 720px) {
   .tour-tag { font-size: 11px; padding: 3px 9px; }
 }
+
+/* ── the chapter's name, when the chapter turns over ───────────────────────
+   Arrives over the shot and leaves again. Big enough to be read without being
+   looked at, and out of the narration card's way — it sits above it, so the
+   two never occupy the same line of sight. */
+.tour-chapter-card {
+  position: absolute;
+  left: calc(env(safe-area-inset-left, 0px) + 18px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 250px);
+  max-width: min(30rem, calc(100vw - 36px));
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 520ms ease, transform 520ms ease;
+  pointer-events: none;
+}
+.tour-chapter-card.in { opacity: 1; transform: none; }
+.tour-chapter-name {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #eaeaf4;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.85), 0 0 60px rgba(0, 0, 0, 0.6);
+}
+
+/* ── the title, over the machine while it is still closed ─────────────────
+   The tour opens on the appliance as an object; this is what stands on it for
+   those three seconds, and it leaves as the machine dissolves so the two
+   motions read as one. */
+.tour-title-card {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%) scale(0.985);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 900ms ease, transform 1400ms ease;
+  pointer-events: none;
+}
+.tour-title-card.in { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.tour-title-main {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
+}
+.tour-title-sub {
+  margin-top: 8px;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9aa0bd;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
+}
+
+/* The closing beat drops the words entirely: the last thing on screen is the
+   machine and the line through it. */
+.tour-card.gone { opacity: 0 !important; transform: translateY(8px); }
+
+@media (max-width: 720px) {
+  .tour-chapter-card { bottom: calc(env(safe-area-inset-bottom, 0px) + 232px); right: 10px; left: 10px; }
+  .tour-title-card { top: 38%; }
+}

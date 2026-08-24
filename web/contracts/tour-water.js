@@ -53,6 +53,8 @@
 //           holds its size while the machine around it swells — the grammar for
 //           "this is inside that", which an arc can only imply. 45 is the
 //           page's own lens.
+//   bare    the beat drops its own words partway through, so what is left on
+//           screen at the end is the machine and the line and nothing else.
 //   solid   ms the machine is drawn SOLID at the top of the tour before it
 //           dissolves to the x-ray view. Only the opening beat reads it.
 //   flow    ms per body of a bright crest travelling the beat's own list, over
@@ -319,6 +321,6 @@ export const TOUR = {
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
       dir: [-0.95, -1.0, 0.45], pad: 1.15, dwell: 9000, ignite: 130, quiet: 0.4,
-      flow: 120, drift: { az: 20, el: 4, dolly: -0.04 }, enter: 4200 },
+      flow: 120, bare: true, drift: { az: 20, el: 4, dolly: -0.04 }, enter: 4200 },
   ],
 };

@@ -35,6 +35,7 @@ import { flight, tween, driftAt, durationFor, midHeading, toOrbit, vertigoScale 
 import * as spotlight from "./spotlight.js";
 import { mountHud } from "./hud.js";
 import { mountTags } from "./tags.js";
+import { dissolve, restoreModel } from "./ghost.js";
 
 const STEPS = TOUR.steps;
 const N = STEPS.length;
@@ -124,10 +125,30 @@ let isolated = null;
 function applyIsolate(i) {
   const want = isolateOf(i);
   if (want === isolated) return;
-  isolateComponent(want, { persist: false });
   isolated = want;
-  spotlight.invalidate(); // the tiers are keyed by name, and names did not change
+  // THE MACHINE DISSOLVES AROUND THE CHANGE rather than blinking through it.
+  // The fade runs over the move that is starting, the visibility flips at the
+  // bottom of it, and the spotlight's own tiers never dim — so the box thins
+  // away and the core is read as having stood inside it the whole time.
+  ghosting = dissolve(state.currentGroup, () => {
+    isolateComponent(want, { persist: false });
+    spotlight.invalidate();
+  });
+  ghostClock = 0;
+  ghostSpan = GHOST_MS; // a move starting in the same breath overrides this
 }
+
+// The dissolve in flight, if there is one, and how far into it we are.
+//
+// IT RUNS OVER THE MOVE, NOT ON A CLOCK OF ITS OWN. The bottom of the dissolve
+// is where the machine is faintest, and the middle of a move is where the wide
+// shot is and where both the beat being left and the beat being arrived at are
+// lit. Landing those on each other means the picture is never dim and empty at
+// the same moment; running them on separate clocks means it is.
+let ghosting = null;
+let ghostClock = 0;
+let ghostSpan = 1100;
+const GHOST_MS = 1100;   // when nothing is moving — a held beat, or a link
 
 function seatBoxFor(file) {
   const spec = (TOUR.frames || {})[file];
@@ -177,7 +198,8 @@ async function ensureModel(file) {
   state.mountedDetail = null;
   state.hiddenComponents.clear();
   try { applyHiddenComponents(); } catch {}
-  isolated = null; // the fresh mount is the whole machine
+  isolated = null;   // the fresh mount is the whole machine
+  ghosting = null;   // and nothing is mid-dissolve on a group that is gone
   loadedModel = file;
   seatGroup(file, state.currentGroup);
   spotlight.attach(state.currentGroup);
@@ -261,7 +283,10 @@ function restoreXray() {
   dissolving = false;
   if (isXrayEnabled() !== readerXray) setXrayEnabled(readerXray);
 }
-window.addEventListener("pagehide", restoreXray);
+window.addEventListener("pagehide", () => {
+  restoreXray();
+  restoreModel(state.currentGroup);
+});
 
 function beginSolid() {
   if (readerXray === false) return; // already the way they like it
@@ -401,6 +426,7 @@ function startFlight(i, from) {
     toBox: focusBox(i), toText: STEPS[i].title,
   };
   poseAt = flight(from, mid, to);
+  if (ghosting) ghostSpan = span;   // the fade is this move's own length
   clock = 0;
   swinging = false;
   pendingIndex = i;
@@ -554,11 +580,25 @@ function step(dt) {
     haloWidth = THREE.MathUtils.clamp((r / d) * 3.2, 0.25, 1);
   }
 
-  // The opening dissolve: solid while the beat states it, x-ray once it is past.
+  if (ghosting) {
+    ghostClock += dt;
+    ghosting(ghostClock / ghostSpan);
+    if (ghostClock >= ghostSpan) ghosting = null;
+  }
+
+  // The opening dissolve: solid while the beat states it, x-ray once it is
+  // past — and the title leaves with it, so the machine opening and the words
+  // clearing are one motion rather than two.
   if (dissolving && (shown !== 0 || clock > (STEPS[0].solid || 0))) {
     restoreXray();
     spotlight.invalidate();
+    hud.showTitle(false);
   }
+
+  // THE LAST BEAT IS THE MACHINE AND THE LINE. Its words have been read by the
+  // time it is half over, and a walkthrough that ends on a paragraph ends on
+  // the paragraph. This one ends on the appliance.
+  hud.setCardVisible(!(STEPS[shown].bare && t > 0.45));
 
   spotlight.paint({
     paths: TOUR.paths,
@@ -704,7 +744,7 @@ hud.setSpeed(speed);
 hud.setPlaying(true);
 // Only the tour's own opening beat gets the solid machine. A link into the
 // middle of it is someone coming back to a beat, not meeting the appliance.
-if (STEPS[0].solid && initialIndex() === 0) beginSolid();
+if (STEPS[0].solid && initialIndex() === 0) { beginSolid(); hud.showTitle(true); }
 requestAnimationFrame(tick);
 go(initialIndex(), { instant: true });
 
