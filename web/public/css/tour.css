@@ -22,6 +22,12 @@
   transition: opacity 90ms linear;
 }
 
+/* The loader's scrim and pill stand ABOVE the dip. A model swap raises the
+   veil and then waits for the next model, and on a cold cache that wait is
+   seconds — a page holding a flat colour with nothing on it reads as broken
+   where the same page holding "Loading…" reads as working. */
+.tour-stage > .cad-loading { z-index: 13; }
+
 #tour-hud-host { position: absolute; inset: 0; pointer-events: none; z-index: 14; }
 .tour-hud { position: absolute; inset: 0; }
 .tour-hud > * { pointer-events: auto; }
