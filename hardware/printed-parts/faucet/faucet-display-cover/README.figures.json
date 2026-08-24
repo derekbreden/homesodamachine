@@ -1,0 +1,31 @@
+{
+  "/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": {
+    "BED_AREA": "740 mm\u00b2",
+    "BEZEL_N_BOTTOM": "22.35 mm",
+    "BEZEL_THICKNESS": "1.86 mm",
+    "CBORE_DEPTH": "3.2 mm",
+    "CBORE_DIA": "6.15 mm",
+    "CBORE_LEDGE": "1.125 mm",
+    "COVER_LAP": "2 mm",
+    "COVER_OVER_FACE": "0.1 mm",
+    "LAND_UNDER_HEAD": "3.81 mm",
+    "LAP_DEPTH": "1.24 mm",
+    "PLATE_N_BOTTOM": "17.2 mm",
+    "PLATE_N_TOP": "24.21 mm",
+    "PLATE_THICKNESS": "7.01 mm",
+    "PLATE_X": "28.72 mm",
+    "SCREW_LEN": "8 mm",
+    "SCREW_S": "50.72 mm",
+    "SHANK_DIA": "3.9 mm",
+    "SKIRT_DEPTH": "5.15 mm",
+    "SKIRT_HALF_X": "12.5 mm",
+    "THREAD_REACH": "4.19 mm",
+    "TONGUE_N_BOTTOM": "15.96 mm",
+    "TONGUE_W": "0.62 mm",
+    "WINDOW_CORNER_R": "3.75 mm",
+    "WINDOW_END_MARGIN": "3.785 mm",
+    "WINDOW_S": "40.5 mm",
+    "WINDOW_SIDE_MARGIN": "1.375 mm",
+    "WINDOW_X": "20.5 mm"
+  }
+}
