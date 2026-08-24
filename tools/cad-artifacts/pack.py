@@ -16,9 +16,11 @@ rewritten, so a checkout resolves to the bundle its own commit was packed agains
 hashes before anything is extracted.
 
 `source.commit` is the commit every member came from except the ones `held` names. A member
-whose producing rule an uncommitted edit reaches keeps the commit its bytes were last published
-under, and the rest of the tree publishes around it — so one session's working file bounds its
-own rules rather than the bundle. `held` is absent from a lock packed off a clean tree.
+whose producing rule an uncommitted edit reaches ships the bytes of its last publication, taken
+back out of that asset, and `held` carries the commit those bytes came from; the rest of the
+tree packs at HEAD around it. So one session's open file bounds its own rules and not the
+bundle, and every asset still carries every member the lock names. `held` is absent from a lock
+packed off a clean tree.
 
 THE BUNDLE CARRIES NO FACT ABOUT THE MACHINE THAT PACKED IT. Members go in sorted, and the mtime,
 uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carries no mtime. A
@@ -92,7 +94,7 @@ def _facets(path) -> int:
     return int.from_bytes(head[80:84], "little")
 
 
-def barren(root: Path, solid_hashes: dict) -> list:
+def barren(root: Path, solid_hashes: dict, source: dict = None) -> list:
     """Members carrying no geometry, and members whose bytes are already another member's.
 
     A SHA256 OF AN EMPTY FILE IS A PERFECTLY GOOD SHA256. `fetch-cad-artifacts.mjs` holds every
@@ -107,8 +109,9 @@ def barren(root: Path, solid_hashes: dict) -> list:
     precisely because there is nothing in them to differ."""
     out = []
     for rel in sorted(solid_hashes):
-        if _facets(root / rel) == 0:
-            out.append(f"{rel} declares 0 facets — {(root / rel).stat().st_size} bytes, an empty solid")
+        path = (source or {}).get(rel) or root / rel
+        if _facets(path) == 0:
+            out.append(f"{rel} declares 0 facets — {path.stat().st_size} bytes, an empty solid")
     seen = {}
     for rel, sha in sorted(solid_hashes.items()):
         if sha in seen:
@@ -199,13 +202,16 @@ def solids(root: Path) -> list:
     return sorted(out)
 
 
-def build(root: Path, rels: list, dest) -> str:
+def build(root: Path, rels: list, dest, source: dict = None) -> str:
     """Write the bundle at `dest` and return its sha256. A member carries its path and its
-    bytes; every other field a tar can hold is set flat."""
+    bytes; every other field a tar can hold is set flat.
+
+    `source` names where a member's bytes are read from when that is not this tree — the held
+    ones, which come out of the asset their commit published."""
     raw = io.BytesIO()
     with tarfile.open(fileobj=raw, mode="w", format=tarfile.GNU_FORMAT) as tar:
         for rel in rels:
-            src = root / rel
+            src = (source or {}).get(rel) or root / rel
             info = tarfile.TarInfo(rel)
             info.size = src.stat().st_size
             info.mtime = 0
@@ -280,14 +286,13 @@ def _dirty_artifact_reach(root: Path) -> tuple:
 def attribution(quarantined: set, now: dict, lock: dict) -> tuple:
     """`(commit per held member, members with no commit to hold)`, for a dirty-reached set.
 
-    THE BYTES SAY WHICH COMMIT THEY CAME FROM. A member a dirty source reaches whose sha256 is
-    the one already locked has not moved since that publication, so the commit that publication
-    named still describes it.
+    THE BYTES ON THIS DISK ARE NOT EVIDENCE OF ANYTHING HERE. A rule an uncommitted edit reaches
+    cuts from a source that is in no commit, and a cut older than the edit says which inputs it
+    saw and not which commit held them. Neither reading names a commit, so a held member ships
+    the bytes its last publication named — `_prior_members` takes those out of that asset — and
+    carries that publication's commit.
 
-    A member whose bytes have moved has no commit here to name. Its producer's source is outside
-    HEAD, and the bytes that publication did name are in the asset rather than on this disk. So
-    is a member the lock has never held: a first cut from an uncommitted generator stands on no
-    earlier publication.
+    A member the lock has never held has no such publication. `--write` names it and stops.
     """
     was = lock.get("solids", {})
     prior = lock.get("held", {})
@@ -296,11 +301,45 @@ def attribution(quarantined: set, now: dict, lock: dict) -> tuple:
     for rel in sorted(quarantined):
         if rel not in now:
             continue
-        if was.get(rel) != now[rel]:
-            orphan.append(rel)
-        else:
+        if rel in was:
             held[rel] = prior.get(rel, base)
+        else:
+            orphan.append(rel)
     return held, orphan
+
+
+def _prior_members(root: Path, lock: dict, rels: list, into: Path) -> dict:
+    """`{rel: path}` for `rels` taken out of the asset the lock names, held to their hashes.
+
+    The lock's asset carries every member it names, so one download reaches all of them."""
+    if not rels:
+        return {}
+    release, bundle = lock.get("release", {}), lock.get("bundle", {})
+    asset = release.get("asset", "")
+    got = _gh(root, "release", "download", TAG, "--pattern", asset,
+              "--dir", str(into), "--clobber")
+    if got.returncode != 0:
+        raise SystemExit(f"could not fetch {asset} for the held members:\n{got.stderr}")
+    tar = into / asset
+    digest = _sha256(tar)
+    if digest != bundle.get("sha256"):
+        raise SystemExit(f"{asset} is not the locked bundle\n  locked {bundle.get('sha256')}"
+                         f"\n  got    {digest}")
+    out = into / "members"
+    out.mkdir(parents=True, exist_ok=True)
+    with tarfile.open(tar, "r:gz") as archive:
+        for rel in rels:
+            member = archive.extractfile(rel)
+            if member is None:
+                raise SystemExit(f"{asset} does not carry {rel}")
+            dest = out / rel
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(member.read())
+    off = [rel for rel in rels if _sha256(out / rel) != lock["solids"][rel]]
+    if off:
+        raise SystemExit("the asset's bytes are not the ones it is locked at:\n  "
+                         + "\n  ".join(off))
+    return {rel: out / rel for rel in rels}
 
 
 def _members_of_targets(root: Path, labels: set) -> set:
@@ -709,7 +748,26 @@ def main(argv) -> int:
     now = hashes(_ROOT, rels)
     sidecar_now = hashes(_ROOT, sidecar_rels)
 
-    hollow = barren(_ROOT, now)
+    held = read_lock()
+    quarantined_members = _members_of_targets(_ROOT, quarantined) & set(now)
+    held_now, orphan = attribution(quarantined_members, now, held)
+    if orphan:
+        print("refusing to publish members no earlier bundle carries:")
+        for rel in orphan[:20]:
+            print(f"  {rel}")
+        print("  Commit the source that cuts them, then pack.")
+        return 2
+    # The held members' own bytes, out of the asset that named their commit. The directory
+    # stays referenced for the rest of this call and goes when the call does.
+    prior_dir = tempfile.TemporaryDirectory(prefix="cad-held.") if held_now else None
+    prior_source = (_prior_members(_ROOT, held, sorted(held_now), Path(prior_dir.name))
+                    if prior_dir else {})
+    # What this publication names each member at: HEAD's cut, or the held member's own.
+    pinned = dict(now)
+    for rel in held_now:
+        pinned[rel] = held["solids"][rel]
+
+    hollow = barren(_ROOT, pinned, prior_source)
     if hollow:
         print(f"{len(hollow)} member(s) carry no geometry, so nothing here is packed:")
         for line in hollow:
@@ -717,7 +775,6 @@ def main(argv) -> int:
         print("  Rebuild the part.")
         return 1
 
-    held = read_lock()
     retired_sidecars = sorted(set(held.get("sidecars", {})) - set(sidecar_rels))
     unexplained_sidecars = _retirement_evidence(_ROOT, retired_sidecars)
     if unexplained_sidecars:
@@ -731,27 +788,17 @@ def main(argv) -> int:
         for rel in unpruned_sidecars:
             print(f"  {rel}")
         return 2
-    changed_members = {rel for rel, digest in now.items()
+    changed_members = {rel for rel, digest in pinned.items()
                        if held.get("solids", {}).get(rel) != digest}
     changed_sidecars = {rel for rel, digest in sidecar_now.items()
                         if held.get("sidecars", {}).get(rel) != digest}
     changed_targets, unowned = _targets_for_members(
         _ROOT, changed_members | changed_sidecars)
-    quarantined_members = _members_of_targets(_ROOT, quarantined)
-    held_now, orphan = attribution(quarantined_members, now, held)
     if args.write:
         if unowned:
             print("refusing to publish changed bundle members with no current Bazel producer:")
             for rel in unowned[:20]:
                 print(f"  {rel}")
-            return 2
-        orphan += sorted(rel for rel in quarantined_members & set(sidecar_now)
-                         if held.get("sidecars", {}).get(rel) != sidecar_now[rel])
-        if orphan:
-            print("refusing to publish members cut from a source outside HEAD:")
-            for rel in orphan[:20]:
-                print(f"  {rel}")
-            print("  Commit the source that moved them, then pack.")
             return 2
         # A held member returns to HEAD when its own rule builds clean there, so the rules
         # holding one are verified alongside the owed and the changed.
@@ -761,7 +808,7 @@ def main(argv) -> int:
         if not _cut_is_fresh(_ROOT, verify_targets):
             print("  Build and carry every owed or changed artifact target before --write.")
             return 2
-    same_solids = held.get("solids") == now
+    same_solids = held.get("solids") == pinned
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
         if args.write:
@@ -771,7 +818,7 @@ def main(argv) -> int:
                                           bundle.get("sha256", ""), bundle.get("bytes", -1)):
                 with tempfile.TemporaryDirectory() as d:
                     path = Path(d) / "bundle.tar.gz"
-                    digest = build(_ROOT, rels, path)
+                    digest = build(_ROOT, rels, path, prior_source)
                     if digest != bundle.get("sha256"):
                         raise SystemExit("equal member hashes built a different bundle digest")
                     upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
@@ -786,9 +833,9 @@ def main(argv) -> int:
         return 0
 
     was = held.get("solids", {})
-    moved = sorted(k for k in now if k in was and was[k] != now[k])
-    fresh = sorted(set(now) - set(was))
-    gone = sorted(set(was) - set(now))
+    moved = sorted(k for k in pinned if k in was and was[k] != pinned[k])
+    fresh = sorted(set(pinned) - set(was))
+    gone = sorted(set(was) - set(pinned))
     side_was = held.get("sidecars", {})
     side_moved = sorted(k for k in sidecar_now
                         if k in side_was and side_was[k] != sidecar_now[k])
@@ -817,7 +864,7 @@ def main(argv) -> int:
                                       bundle.get("sha256", ""), bundle.get("bytes", -1)):
             with tempfile.TemporaryDirectory() as d:
                 path = Path(d) / "bundle.tar.gz"
-                digest = build(_ROOT, rels, path)
+                digest = build(_ROOT, rels, path, prior_source)
                 if digest != bundle.get("sha256"):
                     raise SystemExit("equal member hashes built a different bundle digest")
                 upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
@@ -829,9 +876,9 @@ def main(argv) -> int:
 
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
-        digest = build(_ROOT, rels, bundle)
+        digest = build(_ROOT, rels, bundle, prior_source)
         size = bundle.stat().st_size
-        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, held_now)
+        data = lock_for(_ROOT, rels, digest, size, pinned, sidecar_now, held_now)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
@@ -919,14 +966,14 @@ def selftest() -> int:
 
         # A publication under way beside somebody's open file. `a.step` has not moved since it
         # was packed, `b.step` was already standing on an older commit than the lock's, `c.step`
-        # has been recut, and `d.step` is a first cut nothing has published.
+        # has been recut on this disk, and `d.step` is a first cut nothing has published.
         packed = {"solids": {"a.step": "aa", "b.step": "bb", "c.step": "cc"},
                   "source": {"commit": "head1"},
                   "held": {"b.step": "head0"}}
         disk = {"a.step": "aa", "b.step": "bb", "c.step": "moved", "d.step": "new"}
-        hold("a member the dirty rule did not move keeps the commit that published it",
+        hold("a held member carries the commit that published it, recut or not",
              attribution({"a.step", "b.step", "c.step", "d.step"}, disk, packed),
-             ({"a.step": "head1", "b.step": "head0"}, ["c.step", "d.step"]))
+             ({"a.step": "head1", "b.step": "head0", "c.step": "head1"}, ["d.step"]))
         hold("a clean rule's members are nobody's exception",
              attribution(set(), disk, packed), ({}, []))
         hold("held is seated on the commit it is the exception to",
@@ -936,6 +983,19 @@ def selftest() -> int:
              _with_held({"source": {}, "held": {"b.step": "head0"}, "solids": {}}, {}),
              {"source": {}, "solids": {}})
         shutil.rmtree(hw / "printed-parts" / "enclosure")
+
+        # A held member's bytes come out of the asset its commit published, not off this disk.
+        elsewhere = root / "held" / "hardware" / "printed-parts" / "cap" / "cap.step"
+        elsewhere.parent.mkdir(parents=True)
+        elsewhere.write_text("ISO-10303-21;\nas published\n")
+        held_bundle = build(root, solids(root), root / "held.tar.gz",
+                            {"hardware/printed-parts/cap/cap.step": elsewhere})
+        with tarfile.open(root / "held.tar.gz", "r:gz") as tar:
+            carried = tar.extractfile("hardware/printed-parts/cap/cap.step").read()
+        hold("a held member is packed from where its bytes are, under its own path",
+             carried, b"ISO-10303-21;\nas published\n")
+        hold("and that is a different bundle from the one this disk would make",
+             held_bundle != build(root, solids(root), root / "ondisk.tar.gz"), True)
 
         a, b = root / "a.tar.gz", root / "b.tar.gz"
         rels = solids(root)
@@ -963,8 +1023,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/17")
-    return 0 if holds == 17 else 1
+    print(f"pack selftest {holds}/19")
+    return 0 if holds == 19 else 1
 
 
 if __name__ == "__main__":
