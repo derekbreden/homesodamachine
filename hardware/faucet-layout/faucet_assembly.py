@@ -89,6 +89,7 @@ sys.path.insert(0, str(_faucet_printed_dir / "above-counter-plate"))
 sys.path.insert(0, str(_faucet_printed_dir / "above-counter-gasket"))
 sys.path.insert(0, str(_faucet_printed_dir / "tpu-o-ring"))
 sys.path.insert(0, str(_faucet_printed_dir / "faucet-shell"))
+sys.path.insert(0, str(_faucet_printed_dir / "faucet-display-cover"))
 # The identification the tubes carry below the counter, and the filaments it prints in — one part
 # and one colour table, shared with the chips on the +Y wall of back-top.
 sys.path.insert(0, str(_faucet_printed_dir / "tube-collar"))
@@ -99,6 +100,7 @@ import above_counter_plate
 import above_counter_gasket
 import tpu_o_ring
 import faucet_shell
+import faucet_display_cover
 from _faucet_interface import (
     display_housing_width,
     display_housing_length,
@@ -287,6 +289,13 @@ def load_above_counter_plate():
 def load_above_counter_gasket():
     """The printed-TPU above-counter gasket, +Z-up."""
     return above_counter_gasket.build_above_counter_gasket()
+
+
+def load_display_cover():
+    """The printed face plate screwed down over the display, +Z-up, in
+    assembled position — it builds in the shell's tip frame, so it needs
+    no moving."""
+    return faucet_display_cover.build_display_cover()
 
 
 def load_shell_pieces():
@@ -719,8 +728,8 @@ def _seat_on_tip(part):
     display_pocket_inset below the shell's outer face above the flavor
     pill (the two flavor tubes stack above the soda faucet tube here, so
     they set the skin). The housing's lower edge is anchored one end-wall
-    thickness up the tip from the tip end — behind the shell's PCB
-    cover; it extends up the tip from there (the far end is
+    thickness up the tip from the tip end — behind the shell's south
+    wall; it extends up the tip from there (the far end is
     unconstrained)."""
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
     top_normal = cq.Vector(
@@ -741,14 +750,16 @@ def _seat_on_tip(part):
         + faucet_shell.pill_width_y / 2.0
         + faucet_shell.zone5_wall
     )
-    # Anchor the housing's lower (gooseneck-end) edge one end-wall thickness
-    # up the tip from the tip end (behind the shell's PCB cover), at the
-    # flavor-pill outer face minus the inset; it extends up the tip.
+    # Anchor the housing's lower (gooseneck-end) edge on the cavity's own
+    # south face plus its clearance — behind the shell's south wall, at
+    # the flavor-pill outer face minus the inset; it extends up the tip.
     seat = (
         tip_end
         + top_normal.multiply(flavor_pill_outer_from_soda - display_pocket_inset)
         - tip_axis.multiply(
-            display_housing_length / 2.0 + faucet_shell.display_line_width
+            display_housing_length / 2.0
+            + faucet_shell.display_s_bottom
+            + faucet_shell.display_cradle_clearance
         )
     )
     return (
@@ -997,6 +1008,7 @@ def build_assembly():
     above_counter_gasket = load_above_counter_gasket()
     o_ring = build_o_ring()
     shell_base, shell_tip = load_shell_pieces()
+    display_cover = load_display_cover()
     display_body = build_display_body()
     display_screen = build_display_screen()
     countertop = build_countertop()
@@ -1039,6 +1051,7 @@ def build_assembly():
     assy.add(above_counter_gasket, name="above_counter_gasket", color=tpu_black)
     assy.add(shell_base, name="shell_base", color=faucet_black)
     assy.add(shell_tip, name="shell_tip", color=faucet_black)
+    assy.add(display_cover, name="faucet-display-cover", color=faucet_black)
     assy.add(display_body, name="faucet_display", color=display_slate)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     assy.add(countertop, name="countertop", color=stone)
@@ -1112,6 +1125,7 @@ def main():
     print(f"  Above-counter plate:   above_counter_plate.build_above_counter_plate()")
     print(f"  Above-counter gasket:  above_counter_gasket.build_above_counter_gasket()")
     print(f"  Shell pieces:          faucet_shell.build_shell_base/tip()")
+    print(f"  Display cover:         faucet_display_cover.build_display_cover()")
     print(f"  Countertop:            {countertop_thickness:.0f} mm slab, "
           f"Z = {countertop_bottom_z:.1f} → {countertop_top_z:.1f}")
     print(f"    standard hole:       Ø{countertop_hole_diameter:.2f} mm at Y = "

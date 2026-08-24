@@ -42,6 +42,12 @@ from _faucet_interface import (
     display_pcb_corner_r,
     display_total_depth,
     display_pcb_top_z,
+    display_cover_wall,
+    display_cover_slip,
+    display_cover_lap,
+    display_cover_over_face,
+    display_cover_cbore_depth,
+    display_cover_screw_len,
 )
 from docgen import substitute_md, substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
@@ -1079,8 +1085,8 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # ============================================================
 # DISPLAY CRADLE — pocket + collar on the dispense tip
 # ============================================================
-# The faucet display lies along the tip, screen out the top skin, lower
-# edge flush with the tip end. Its bounding back (the metal feet under
+# The faucet display lies along the tip, screen out the top skin, walled
+# on all four edges. Its bounding back (the metal feet under
 # the PCB) sinks display_pocket_inset into the zone5_wall wall above the
 # flavor pill, leaving display_web_over_pill of web over the pill bore.
 #
@@ -1100,14 +1106,18 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # 55-degree overhang. It ramps instead, at cradle_back_slope_rad, over
 # stock added beyond the head wall so the pocket keeps its full length.
 #
-# Retention: nothing overhangs the display face — the walls and head
-# wall all stop just over the face plane. Axially the device's rounded
-# corners bear on the cavity's rounded corners (open end) and the head
-# wall (top end), whose face is square to the tip axis for its full
-# height — the ramp is stock behind it. At the open end the PCB band is closed by a
-# one-extrusion cover, so only the housing shows there — the bare PCB
-# and under-PCB components face stays hidden; the housing band remains
-# open. Lift is friction, gravity, and the wires.
+# Retention is the display cover plate, screwed down over the device.
+# The cradle parts at display_cover_land_n — the device's own
+# PCB-to-housing step — so the shell holds the board and the plate comes
+# down over the housing and finishes over the face. Nothing on the shell
+# reaches past that step, and the seam a hand finds around the cradle is
+# a step the device already has.
+#
+# The wall tops are rebated on their inner display_cover_tongue_w for
+# display_cover_lap_depth and the plate drops a matching tongue into it:
+# the joint locates the plate across the tip and along it, and takes the
+# seam's own tolerance out of sight. One M3 above the device's north
+# edge threads a ruthex insert set into the shell from the land.
 
 display_web_over_pill = 1.0
 display_pocket_inset = zone5_wall - display_web_over_pill
@@ -1128,29 +1138,56 @@ display_cradle_clearance = 0.25   # per side, cavity walls vs device
 display_line_width = 0.62
 display_collar_wall = 3.0 * display_line_width    # sides — three slicer lines
 display_cap_thickness = 3.0 * display_line_width  # head wall — the same three
-display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # drops through the pocket floor into the pill cusp
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
-# Drain at the floor's low corner, edge tangent to the PCB cover's back:
+# The cavity's south and north faces. The device's south edge is walled
+# by display_cover_wall of shell, the same three extrusions its sides
+# get, and the cavity clears the device by display_cradle_clearance at
+# each end the way it does at each side.
+display_s_bottom = display_cover_wall  # [1.86 mm](DISPLAY_S_BOTTOM)
+display_s_top = (
+    display_s_bottom + display_housing_length + 2.0 * display_cradle_clearance
+)  # [46.86 mm](DISPLAY_S_TOP)
+# Drain at the floor's south corner, edge tangent to the south wall:
 # splash that gets past the housing drops into the pill cusp and runs
 # out the gooseneck exit alongside the tubes.
-display_drain_s = display_line_width + display_drain_dia / 2.0
-
-# Head-wall face = the device's top end (the device starts one end-wall
-# thickness up from the open end face).
-display_s_top = display_line_width + display_housing_length
+display_drain_s = display_s_bottom + display_drain_dia / 2.0
 display_collar_half_x = (
     display_housing_width / 2.0 + display_cradle_clearance + display_collar_wall
 )
-display_wall_top_n = (
-    display_floor_n + display_total_depth + display_wall_top_above_face
-)
+# The device's face, and the plate's outer face over it.
+display_face_n = display_floor_n + display_total_depth  # [22.25 mm](DISPLAY_FACE_N)
+display_cover_top_n = display_face_n + display_cover_over_face + display_cover_wall
 _pcb_band_half_x = display_pcb_width / 2.0 + display_cradle_clearance
 # Step to the housing band 0.05 below the device's own PCB→housing step,
 # so the housing's overhang ledge never reaches the narrower PCB band.
 _pcb_band_n_top = display_floor_n + display_pcb_top_z - 0.05
 _housing_band_half_x = display_housing_width / 2.0 + display_cradle_clearance
+# THE CRADLE PARTS HERE. The shell stops at the step the device's own
+# board makes under its housing; everything above it is the cover plate.
+display_cover_land_n = _pcb_band_n_top  # [17.2 mm](DISPLAY_COVER_LAND_N)
+# Rebate in the wall tops, and the plate's tongue that drops into it —
+# the inner extrusion of the three the wall is, sunk two deep.
+display_cover_tongue_w = display_line_width
+display_cover_lap_depth = 2.0 * display_line_width  # [1.24 mm](DISPLAY_COVER_LAP_DEPTH)
+# The one screw, on the centreline north of the device. Same chain as the
+# base pods: a ruthex M3 short set opening-up into the shell from the
+# land, a clearance shank through the plate, and the head sunk in a
+# counterbore. ⌀4 pocket — the knurled ⌀4.2 OD melts into ⌀4.
+display_cover_insert_dia = base_pod_insert_dia
+display_cover_boss_wall = 1.5             # material round the insert
+display_cover_shank_dia = base_pod_shank_dia
+display_cover_cbore_dia = base_pod_counterbore_dia
+display_cover_insert_len = 4.0            # ruthex M3 short body
+display_cover_bore_relief = 1.25          # somewhere for a long screw to go
+display_cover_insert_depth = display_cover_insert_len + display_cover_bore_relief
+display_cover_boss_dia = display_cover_insert_dia + 2.0 * display_cover_boss_wall  # [7 mm](DISPLAY_COVER_BOSS_DIA)
+# Boss centre: clear of the cavity's north face by the head wall and its
+# own radius, so the pocket stands in solid shell.
+display_cover_screw_s = (
+    display_s_top + display_cap_thickness + display_cover_insert_dia / 2.0
+)  # [52.22 mm](DISPLAY_COVER_SCREW_S)
 _block_n_bottom = display_floor_n - 4.0
 # The collar's outer faces extend below _block_n_bottom by the width of
 # the bottom overhang beside the gooseneck there (collar half-width minus
@@ -1183,13 +1220,15 @@ _skirt_slab_n_bottom = -25.0
 # holding the ramp to the same max_print_overhang_rad the swept flanks
 # carry fixes it at [20°](CRADLE_BACK_SLOPE).
 cradle_back_slope_rad = math.pi / 2.0 - 2.0 * max_print_overhang_rad
-# Ramp origin, at the skirt bottom. Set so the slope reaches the head
-# wall's back face exactly at the collar top: the ramp is stock behind
-# the head wall, and the pocket keeps its full length.
+# Ramp origin, at the skirt bottom. Set so the slope clears the cover
+# plate's counterbore at the plate's own outer face: the cradle's back
+# end is one unbroken slope from the plate's top down onto the tube,
+# crossing the seam without stepping, and the screw stands in solid
+# material on both sides of it.
 cradle_back_s = (
-    display_s_top + display_cap_thickness
-    + (display_wall_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
-)  # [53.54 mm](CRADLE_BACK_S)
+    display_cover_screw_s + display_cover_cbore_dia / 2.0 + display_cover_boss_wall
+    + (display_cover_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
+)  # [62.54 mm](CRADLE_BACK_S)
 # The head wall is cut from stock reaching this far back, so the ramp —
 # not the prism's own square end — is what closes the cradle at every
 # depth of _cradle_stock_drop. Cut short, the stock the ramp has not
@@ -1255,46 +1294,61 @@ def _cradle_block() -> cq.Workplane:
     cavity bands carve the pocket out of this."""
     slab = _cradle_prism(
         display_collar_half_x, 0.0, display_s_top,
-        _cradle_prism_n_bottom, display_wall_top_n,
+        _cradle_prism_n_bottom, display_cover_land_n,
     )
     return slab.cut(_skirt_chamfer())
 
 
-def _end_throat(half_x: float, corner_r: float, n0: float, n1: float) -> cq.Workplane:
-    """Square-cornered opening for a band's first display_line_width of
-    depth. Its side lands exactly where the band's corner arc reaches one
-    extrusion width of end wall, so the wall starts at printable
-    thickness with no sliver left behind the step."""
-    reach = math.sqrt(corner_r ** 2 - (corner_r - display_line_width) ** 2)
-    return _cradle_prism(
-        half_x - corner_r + reach, -1.0, display_line_width, n0, n1,
-    )
-
-
 def _display_cavity() -> cq.Workplane:
     """Pocket cut, applied after the block is unioned: PCB band (feet +
-    components + board) starting behind the one-extrusion PCB cover, and
-    housing band open to the end face with its first extrusion of depth
-    squared off. The housing band runs past the wall top — the cavity is
-    open sky above the face; the rounded band corners are what stop the
-    device's down-tip slide."""
+    components + board) under a housing band, both walled on all four
+    edges and both clearing the device by display_cradle_clearance. The
+    housing band runs past the land — above it the cavity is open sky,
+    and the cover plate is what closes it; the rounded band corners are
+    what stop the device's slide along the tip."""
     pcb_r = display_pcb_corner_r + display_cradle_clearance
     housing_r = display_corner_r + display_cradle_clearance
     pcb_band = _cradle_prism(
-        _pcb_band_half_x, display_line_width, display_s_top,
+        _pcb_band_half_x, display_s_bottom, display_s_top,
         display_floor_n, _pcb_band_n_top,
         corner_r=pcb_r,
     )
     housing_band = _cradle_prism(
-        _housing_band_half_x, 0.0, display_s_top,
-        _pcb_band_n_top, display_wall_top_n + 5.0,
+        _housing_band_half_x, display_s_bottom, display_s_top,
+        _pcb_band_n_top, display_cover_land_n + 5.0,
         corner_r=housing_r,
     )
+    return pcb_band.union(housing_band)
+
+
+def _display_cover_rebate() -> cq.Workplane:
+    """Groove sunk into the cradle's wall tops for the cover plate's
+    tongue: the inner display_cover_tongue_w of the wall, taken
+    display_cover_lap_depth down from the land. It runs the cavity's
+    whole perimeter, so the joint locates the plate on both axes and the
+    seam's tolerance sits below the surface instead of on it."""
+    reach = display_cover_tongue_w + display_cover_slip
+    return _cradle_prism(
+        _housing_band_half_x + reach,
+        display_s_bottom - reach,
+        display_s_top + reach,
+        display_cover_land_n - display_cover_lap_depth,
+        display_cover_land_n + 1.0,
+        corner_r=display_corner_r + display_cradle_clearance + reach,
+    )
+
+
+def _display_cover_insert_bore() -> cq.Workplane:
+    """The ruthex M3 pocket, struck down the tip's own normal from the
+    land north of the device. Opening up: the cover plate's screw comes
+    down the same axis into it."""
+    tip_end, s_hat, n_hat = _tip_frame()
+    plane = cq.Plane(origin=tip_end, xDir=cq.Vector(1, 0, 0), normal=n_hat)
     return (
-        pcb_band
-        .union(housing_band)
-        .union(_end_throat(_housing_band_half_x, housing_r,
-                           _pcb_band_n_top, display_wall_top_n + 5.0))
+        cq.Workplane(plane).workplane(offset=display_cover_land_n)
+        .moveTo(0.0, display_cover_screw_s)
+        .circle(display_cover_insert_dia / 2.0)
+        .extrude(-display_cover_insert_depth)
     )
 
 
@@ -1339,17 +1393,17 @@ def _skirt_chamfer() -> cq.Workplane:
 
 
 def _display_head_wall() -> cq.Workplane:
-    """Head wall past the display's top end — closes the cradle's top end
-    and is the device's axial stop. Same bottom and top planes as the
-    collar block, so the cradle reads as one rectangle; runs back to
-    cradle_back_s and is then cut to the ramp, which leaves the wall's
-    face square for its full height and the stock behind it a slope.
-    Skirt chamfer cut before it joins the gooseneck (same rule as the
-    block)."""
+    """Head wall past the display's north end — the device's axial stop,
+    and the block the cover plate's insert is set into. Same bottom and
+    top planes as the collar block, so the cradle reads as one
+    rectangle; runs back past the screw boss and is then cut to the
+    ramp, which leaves the wall's face square for its full height and
+    the stock behind it a slope. Skirt chamfer cut before it joins the
+    gooseneck (same rule as the block)."""
     return (
         _cradle_prism(
             display_collar_half_x, display_s_top, _cradle_prism_back_s,
-            _cradle_prism_n_bottom, display_wall_top_n,
+            _cradle_prism_n_bottom, display_cover_land_n,
         )
         .cut(_skirt_chamfer())
         .cut(_cradle_back_slope())
@@ -1471,6 +1525,8 @@ def build_shell() -> cq.Workplane:
         build_zone6_inner_cut().val(),
         build_lever_clearance().val(),
         _display_cavity().val(),
+        _display_cover_rebate().val(),
+        _display_cover_insert_bore().val(),
         _display_wire_hole().val(),
         _display_drain_hole().val(),
     ]

@@ -70,3 +70,31 @@ display_pcb_bottom_from_front = 6.45  # housing front face → PCB underside
 # Native-frame boundary planes, z = 0 at the feet.
 display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # [3.9 mm](DISPLAY_PCB_BOTTOM_Z)
 display_pcb_top_z = display_total_depth - display_housing_depth             # [5.35 mm](DISPLAY_PCB_TOP_Z)
+
+
+# Display cover plate — the printed face plate screwed down over the
+# device, and the figures the shell's cradle and the plate both cut to.
+# The cradle parts at the device's own PCB-to-housing step: the shell
+# holds the board and the plate comes down over the housing, so the seam
+# a hand finds is a step the device already has rather than a height
+# chosen for it.
+#
+# The plate laps the shell rather than butting it — the shell's wall
+# steps in by display_cover_wall above the land and the plate's skirt
+# fills that step out to the same outer face, so the outside reads as
+# one surface and the joint is what locates the plate in X and along
+# the tip.
+display_cover_wall = 1.86       # skirt and bezel — three 0.62 extrusions, the cradle's wall
+display_cover_slip = 0.30       # per side, plate skirt over the shell's rib
+# How far the bezel laps the device's face on every edge. The screen is
+# 17.75 x 32.93 in a 24.5 x 44.5 housing, so 2 mm of lap stops 1.4 mm
+# short of the glass on the sides and 3.8 mm short on the ends.
+display_cover_lap = 2.0
+display_cover_over_face = 0.10  # the bezel clears the device's face by this
+# One M3 above the device's north edge. The plate's skirt bottoms on the
+# shell's land, so the screw pulls the plate down onto a hard stop and
+# the device is captured with clearance rather than clamped.
+display_cover_screw_len = 8.0   # M3 x 8 DIN 912 socket head cap, black oxide
+display_cover_head_h = 3.0
+display_cover_seat_recess = 0.2                                          # head sits this far under the face
+display_cover_cbore_depth = display_cover_head_h + display_cover_seat_recess  # [3.2 mm](DISPLAY_COVER_CBORE_DEPTH)
