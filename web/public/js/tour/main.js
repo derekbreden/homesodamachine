@@ -35,7 +35,7 @@ import { flight, tween, driftAt, durationFor, midHeading, toOrbit, vertigoScale 
 import * as spotlight from "./spotlight.js";
 import { mountHud } from "./hud.js";
 import { mountTags } from "./tags.js";
-import { dissolve, restoreModel } from "./ghost.js";
+import { dissolve, restoreModel, setSection } from "./ghost.js";
 
 const STEPS = TOUR.steps;
 const N = STEPS.length;
@@ -110,6 +110,14 @@ const hueOf = (i) => {
 // The sub-assembly the view currently stands isolated to.
 let isolated = null;
 
+// HOW A BEAT SHOWS SOMETHING BURIED. Two answers to the same question, and the
+// tour runs one of them: `isolate` deletes the context for the cleanest
+// possible subject, `section` keeps it and cuts it open so the subject is read
+// where it sits. `?reveal=section` swaps which, so they can be judged on the
+// same shot instead of from memory.
+const REVEAL = new URLSearchParams(location.search).get("reveal") === "section"
+  ? "section" : "isolate";
+
 // A BEAT SHOWS ITS SUBJECT ALONE BY TAKING THE REST OF THE MACHINE OUT OF THE
 // VIEW, not by loading a second model. The bodies are already there; this only
 // decides which of them are drawn (component-picker.js isolateComponent).
@@ -126,6 +134,9 @@ function applyIsolate(i) {
   const want = isolateOf(i);
   if (want === isolated) return;
   isolated = want;
+  // Sectioning needs no dissolve: the cut opens with the camera rather than
+  // switching, so there is nothing to fade around.
+  if (REVEAL === "section") { spotlight.invalidate(); return; }
   // THE MACHINE DISSOLVES AROUND THE CHANGE rather than blinking through it.
   // The fade runs over the move that is starting, the visibility flips at the
   // bottom of it, and the spotlight's own tiers never dim — so the box thins
@@ -284,7 +295,9 @@ function restoreXray() {
   if (isXrayEnabled() !== readerXray) setXrayEnabled(readerXray);
 }
 window.addEventListener("pagehide", () => {
-  restoreXray();
+  // Unconditional: section mode drives x-ray too, so "was there a dissolve" is
+  // no longer the whole of when it needs putting back.
+  if (isXrayEnabled() !== readerXray) setXrayEnabled(readerXray);
   restoreModel(state.currentGroup);
 });
 
@@ -580,6 +593,26 @@ function step(dt) {
     haloWidth = THREE.MathUtils.clamp((r / d) * 3.2, 0.25, 1);
   }
 
+  // The cut rides the camera, so it re-strikes every frame it is wanted.
+  //
+  // AND IT IS DRAWN SOLID. A cut-away through the x-ray ghost is not a section,
+  // it is a thicket: the plane takes the near wall away and every feature edge
+  // of everything behind it is still drawn, so what the cut opens onto is
+  // denser than what it removed. Solid shading is what makes a section read —
+  // the cut face is a face, and the first thing behind it is the thing you are
+  // being shown.
+  if (REVEAL === "section") {
+    const want = isolateOf(shown) ? focusBox(shown) : null;
+    setSection(state.currentGroup, want, camera, renderer);
+    // Stated against the mode the renderer is ACTUALLY in rather than against a
+    // flag of our own. The opening dissolve also drives x-ray, and two
+    // edge-triggered writers on one piece of state race on whichever frame they
+    // share — one sets solid, the other restores, and the second one wins
+    // forever because neither will fire again.
+    const target = want ? false : readerXray;
+    if (isXrayEnabled() !== target) { setXrayEnabled(target); spotlight.invalidate(); }
+  }
+
   if (ghosting) {
     ghostClock += dt;
     ghosting(ghostClock / ghostSpan);
@@ -731,7 +764,8 @@ window.__tour = {
   get group() { return state.currentGroup; },
   actions: ACTIONS,
   get state() {
-    return { idx, pendingIndex, phase, clock, span, playing, grabbed, speed, loadedModel };
+    return { idx, pendingIndex, phase, clock, span, playing, grabbed, speed,
+             loadedModel, reveal: REVEAL };
   },
   seek(i) { return go(i, { instant: true }); },
   // Advance the tour by hand. `advance(1000/30)` thirty times is one second of

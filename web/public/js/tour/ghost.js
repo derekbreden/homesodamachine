@@ -19,6 +19,8 @@
 // touched and restored exactly, so nothing about the reader's parts viewer is
 // different for having watched this.
 
+import * as THREE from "three";
+
 const base = new Map();   // material -> the opacity it had before we touched it
 
 function collect(group) {
@@ -80,3 +82,52 @@ export function dissolve(group, midpoint, floor = 0.26) {
     if (u >= 1) restoreModel(group);
   };
 }
+
+
+// ── THE OTHER WAY TO SEE INSIDE ─────────────────────────────────────────────
+// Isolating deletes the context: the cleanest possible subject, standing in
+// nothing. Sectioning keeps it and cuts it open — everything nearer to the
+// camera than the subject is not drawn, so the cabinet becomes a cut-away of
+// itself and the core is read where it sits, inside a machine that is still
+// there.
+//
+// They answer the same question and they answer it oppositely, which is why the
+// tour runs one or the other and never both. `?reveal=section` on the URL swaps
+// which, so the two can be judged on the same shot rather than from memory.
+//
+// The plane rides the camera: its normal is the direction of view and it stands
+// one subject-radius in front of the subject, so the cut opens as the camera
+// comes round and never slices the thing being looked at. It is set on the
+// MODEL's materials only — the spotlight's own materials get none, so a
+// highlight on a body the plane cuts is still drawn whole and the reader can
+// see what the cut went through.
+
+const plane = new THREE.Plane();
+let sectioning = false;
+
+/** Cut everything between the camera and `box`. `null` puts the machine back. */
+export function setSection(group, box, camera, renderer) {
+  if (!group) return;
+  if (!box) {
+    if (!sectioning) return;
+    sectioning = false;
+    for (const m of collect(group)) m.clippingPlanes = null;
+    return;
+  }
+  const centre = box.getCenter(new THREE.Vector3());
+  const radius = box.getBoundingSphere(new THREE.Sphere()).radius;
+  const toward = camera.position.clone().sub(centre).normalize();
+  // Keep what is BEHIND the plane, so the normal points back at the camera and
+  // the constant stands it a radius clear of the subject.
+  plane.setFromNormalAndCoplanarPoint(
+    toward.clone().negate(),
+    centre.clone().addScaledVector(toward, radius * 1.02),
+  );
+  if (!sectioning) {
+    sectioning = true;
+    renderer.localClippingEnabled = true;
+    for (const m of collect(group)) m.clippingPlanes = [plane];
+  }
+}
+
+export const isSectioning = () => sectioning;
