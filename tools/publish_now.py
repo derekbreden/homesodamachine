@@ -10,9 +10,11 @@ change that waits for CI to do that instead is measured at 5.7 minutes from comm
 4.2 of them spent between the commit and the runner's lock push; the same publish from here
 reaches the site in about two.
 
-OWED IS READ BEFORE ANYTHING IS BUILT. `affected.py --artifacts` from the commit the lock names
-to HEAD is the same reading CI takes. Empty means this commit changed no solid, and `--write`
-on that tree would re-hash 314 MB to arrive at the bundle already published.
+OWED IS READ BEFORE ANYTHING IS BUILT, AND IT IS TWO QUESTIONS. `affected.py --artifacts` from
+the commit the lock names to HEAD reads SOURCE, and is the only one that sees a change whose
+target has not been built yet. `pack.py --check` reads BYTES, and is the only one that sees a
+solid whose bytes moved with no commit behind them. Neither owing anything means `--write` would
+re-hash 314 MB to arrive at the bundle already published.
 
 ONE AT A TIME, AND THE LAST REQUEST WINS. Several sessions commit at once and a publish takes
 around a minute, so a second invocation while one is running does not queue behind it — it
@@ -46,7 +48,8 @@ def run(args: list, quiet: bool = False) -> subprocess.CompletedProcess:
                           capture_output=quiet)
 
 
-def owed() -> list:
+def source_owes() -> list:
+    """Artifact rules whose sources moved since the commit the lock names."""
     lock = ROOT / "hardware" / "cad-artifacts.lock.json"
     if not lock.exists():
         return ["//:everything"]
@@ -58,13 +61,36 @@ def owed() -> list:
     return [ln for ln in got.stdout.split() if ln.startswith("//")]
 
 
+def bytes_drifted() -> bool:
+    """Whether the solids on this disk are the ones the lock names. `--check` exits 1 when not."""
+    return run([str(PY), "tools/cad-artifacts/pack.py", "--check"],
+               quiet=True).returncode == 1
+
+
+def owed() -> tuple:
+    """`(reason, targets)` — why this tree owes a publish, and what moved.
+
+    TWO QUESTIONS, AND NEITHER ANSWERS THE OTHER. `affected` reads SOURCE: it names what a
+    commit changed, and it is the only one that sees a change whose target has not been built
+    yet. `pack.py --check` reads BYTES: it hashes the tree against the lock, and it is the only
+    one that sees a solid whose bytes moved with no commit behind them — a rebuild, a carry, or
+    a payload recut. Asking only the first is how a tree that had lost the enclosure's flutes
+    read as owing nothing while the site drew a smooth box."""
+    targets = source_owes()
+    if targets:
+        return (f"{len(targets)} artifact target(s) owed since the lock's source", targets)
+    if bytes_drifted():
+        return ("the solids on this disk are not the ones the lock names", [])
+    return ("", [])
+
+
 def publish() -> int:
     started = time.time()
-    targets = owed()
-    if not targets:
+    reason, targets = owed()
+    if not reason:
         print("  nothing owed — this tree's solids are the ones the lock names")
         return 0
-    print(f"  {len(targets)} artifact target(s) owed since the lock's source; cutting here")
+    print(f"  {reason}; cutting here")
     if run([str(PY), "tools/cad-artifacts/pack.py", "--write"]).returncode != 0:
         print("  --write did not finish; the runner still reconciles this", file=sys.stderr)
         return 1
@@ -91,8 +117,8 @@ def main(argv) -> int:
 
     LOCK.parent.mkdir(parents=True, exist_ok=True)
     if args.check:
-        t = owed()
-        print(f"  --check: {len(t)} target(s) owed" if t else "  --check: nothing owed")
+        reason, _ = owed()
+        print(f"  --check: {reason}" if reason else "  --check: nothing owed")
         return 0
 
     try:
