@@ -259,8 +259,12 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     packed. A member's bytes belong to HEAD only when no edit outside HEAD can cut them, so the
     rules on the left are the ones whose members `attribution` holds at an earlier commit.
 
-    An unlabelled path is one bazel names as a source of no rule, so nothing says which outputs
-    it reaches. A bundle cut beside one is unattributable whole rather than per member.
+    TWO KINDS OF EDIT HAVE NO RULES TO NAME, and they go on the right. An unlabelled path is one
+    bazel names as a source of no rule, so nothing says which outputs it reaches. An
+    `artifact_global` one is named — `.bazelrc`, `BUILD.bazel`, this directory — and reaches
+    every action by describing or executing it rather than by being read, which is reach an
+    rdeps walk over source labels does not show. A bundle cut beside either is unattributable
+    whole rather than per member.
     """
     status = subprocess.run(
         ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
@@ -276,11 +280,12 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
         return [], []
-    forced = {p for p in moved if affected.artifact_unknown(p, artifacts_only=True)}
     hit, miss = affected.known(sorted(moved))
-    risky = {p for p in miss if affected.artifact_unknown(p, artifacts_only=True)}
-    reached = set(affected.targets(hit)) & affected.artifact_targets()
-    return sorted(reached), sorted(forced | risky)
+    everywhere = {p for p in moved if affected.artifact_global(p)}
+    unlabelled = {p for p in miss if affected.artifact_unknown(p, artifacts_only=True)}
+    reached = ((set(affected.targets(hit)) & affected.artifact_targets())
+               | affected.sentinel_targets(moved))
+    return sorted(reached), sorted(everywhere | unlabelled)
 
 
 def attribution(quarantined: set, now: dict, lock: dict) -> tuple:
