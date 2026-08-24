@@ -278,10 +278,10 @@ jobs:
         run: |
           set +e
           bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" \
-            --build_event_json_file=bep.json //:everything
+            --build_event_json_file="$RUNNER_TEMP/bep.json" //:everything
           built=$?
           set -e
-          failed=$(tools/cad-venv/bin/python tools/bazel/failed_targets.py bep.json)
+          failed=$(tools/cad-venv/bin/python tools/bazel/failed_targets.py "$RUNNER_TEMP/bep.json")
           echo "failed=$failed" >> "$GITHUB_OUTPUT"
           if [ -n "$failed" ]; then
             echo "::warning title=build::$(tr ',' '\n' <<< "$failed" | wc -l | tr -d ' ') target(s) did not complete; the rest carry"
