@@ -33,6 +33,16 @@ on:
       - .bazelrc
       - .bazelversion
       - tools/cad-requirements.txt
+      # THE FLAVOUR ARTWORK IS THE FIRMWARE'S. `quickstart_art.py` reads these two headers and
+      # draws `art/flavor-1.png` and `art/flavor-2.png` from them, and both are tracked — so
+      # off this list a changed icon leaves twenty-two committed pictures standing, with no run
+      # to read and nothing red. Only the images: the rest of `firmware/**` cuts no CAD and
+      # pays nothing.
+      - firmware/src_faucet/images/**
+      # `_install_envelope_sync` writes its own page AND is read by
+      # `assembly/_faucet_and_umbilical_sync`, whose output is tracked hardware doc.
+      - marketing/_install_envelope_sync.py
+      - marketing/install-envelope.md
       # THIS FILE, BECAUSE A PUBLISH IS THE ONLY THING THAT RUNS IT AND IT DECIDES WHEN A
       # PUBLISH RUNS. Without this line a commit that touches nothing else cannot start the
       # run it changes — so a repair to this workflow sits in main, unexercised, and the next
