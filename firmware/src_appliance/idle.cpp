@@ -29,8 +29,9 @@ void idleBegin() {
 }
 
 void idleTouched() {
+    // Only the clock moves here. Whether that ends a sleep is idleService()'s
+    // to notice, because noticing is what publishes it to the glasses.
     lastTouchMs = millis();
-    asleep = false;
 }
 
 bool idleService() {
