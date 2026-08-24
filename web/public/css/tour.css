@@ -1,0 +1,233 @@
+/* /tour — the walkthrough page. The stage takes whatever the nav leaves and
+   everything else floats over it: the machine is the page, and the words are
+   a caption on it. */
+
+.tour-stage {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+/* The dip a model swap passes through — the background colour, brought up over
+   the picture while the next model lands and taken back down as it comes in.
+   The camera keeps moving underneath, so the move reads as passing through a
+   wall rather than as a cut. */
+.tour-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  background: var(--bg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 90ms linear;
+}
+
+#tour-hud-host { position: absolute; inset: 0; pointer-events: none; z-index: 14; }
+.tour-hud { position: absolute; inset: 0; }
+.tour-hud > * { pointer-events: auto; }
+
+/* ── the banner ─────────────────────────────────────────────────────────── */
+.tour-banner {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 18px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+.tour-banner-title { font-size: 15px; font-weight: 600; letter-spacing: 0.01em; }
+.tour-banner-sub { font-size: 12px; color: var(--text-2); }
+
+/* ── the narration card ─────────────────────────────────────────────────── */
+.tour-card {
+  position: absolute;
+  left: calc(env(safe-area-inset-left, 0px) + 18px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 92px);
+  width: min(30rem, calc(100vw - 36px));
+  padding: 16px 18px 14px;
+  background: rgba(35, 35, 66, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.tour-card.in { opacity: 1; transform: none; }
+
+.tour-kicker {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #35e0d0;
+  margin-bottom: 6px;
+}
+.tour-title { margin: 0 0 6px; font-size: 20px; line-height: 1.25; font-weight: 600; }
+.tour-body { margin: 0; font-size: 14px; line-height: 1.55; color: #d6d6e4; }
+
+.tour-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 11px; }
+.tour-chip {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px;
+  line-height: 1.6;
+  padding: 1px 7px;
+  border-radius: 999px;
+  color: #9fe9e0;
+  background: color-mix(in srgb, #35e0d0 14%, transparent);
+  border: 1px solid color-mix(in srgb, #35e0d0 34%, transparent);
+}
+
+/* ── transport ──────────────────────────────────────────────────────────── */
+.tour-bar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  max-width: calc(100vw - 24px);
+  background: rgba(26, 26, 46, 0.86);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.tour-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.tour-btn:hover { background: var(--surface-2); }
+.tour-play { background: var(--surface-2); border-color: var(--border); }
+
+/* One dot per beat. `--fill` is how far through the beat the player is, so the
+   rail is a progress bar and a table of contents at once. */
+.tour-rail { display: flex; align-items: center; gap: 5px; }
+.tour-dot {
+  position: relative;
+  width: 15px; height: 26px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.tour-dot::before {
+  content: "";
+  position: absolute;
+  left: 2px; right: 2px; top: 11px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+}
+.tour-dot.done::before { background: color-mix(in srgb, #4d8dff 60%, transparent); }
+.tour-dot-fill {
+  position: absolute;
+  left: 2px; top: 11px;
+  width: calc((100% - 4px) * 0);
+  height: 4px;
+  border-radius: 2px;
+  background: #35e0d0;
+  opacity: 0;
+}
+.tour-dot.now .tour-dot-fill { width: calc((100% - 4px) * 1); opacity: 1; transform-origin: left; }
+.tour-dot.now { width: 26px; }
+.tour-dot.now .tour-dot-fill { transform: scaleX(var(--fill-x, 1)); }
+.tour-dot:hover::before { background: var(--text-2); }
+
+.tour-chip-btn {
+  font-size: 11.5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tour-chip-btn:hover { color: var(--text); border-color: var(--text-3); }
+.tour-chip-btn.on {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+/* The pose readout is a tool for whoever is writing the tour, not for whoever
+   is watching it. */
+.tour-dev { display: none; }
+html.dev-mode .tour-dev { display: inline-block; }
+
+/* ── grabbed ────────────────────────────────────────────────────────────── */
+.tour-resume {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 8px 18px;
+  font-size: 13px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #35e0d0 50%, transparent);
+  background: color-mix(in srgb, #35e0d0 18%, rgba(26, 26, 46, 0.92));
+  color: var(--text);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.tour-hud.grabbed .tour-resume {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── the pose flash ─────────────────────────────────────────────────────── */
+.tour-flash {
+  position: absolute;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 72px);
+  transform: translateX(-50%) translateY(6px);
+  padding: 7px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  border-radius: 10px;
+  background: rgba(26, 26, 46, 0.95);
+  border: 1px solid var(--border);
+  opacity: 0;
+  transition: opacity 200ms ease, transform 200ms ease;
+  pointer-events: none;
+}
+.tour-flash.in { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── phone ──────────────────────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .tour-card {
+    left: 10px; right: 10px;
+    width: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+    padding: 13px 14px 12px;
+  }
+  .tour-title { font-size: 17px; }
+  .tour-body { font-size: 13px; }
+  .tour-bar { gap: 7px; padding: 7px 9px; bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); }
+  .tour-dot { width: 11px; }
+  .tour-dot.now { width: 18px; }
+  .tour-banner-sub { display: none; }
+  .tour-chips { display: none; }
+}
+
+.tour-chip-more {
+  color: var(--text-2);
+  background: transparent;
+  border-color: var(--border);
+}
