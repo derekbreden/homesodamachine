@@ -127,7 +127,7 @@ def bind() -> int:
         print(f"orphan render: {OUT / (stem + '.pdf')}")
     order = [stem for stem in authored if stem in rendered]
     if not order:
-        raise SystemExit("no rendered sheets")
+        sys.exit("no rendered sheets")
 
     def assemble(out_path: str) -> None:
         writer = PdfWriter()
@@ -149,6 +149,20 @@ def bind() -> int:
         "cover": COVER.name,
         "cover_size": [COVER_W, COVER_W * CANVAS_H // CANVAS_W],
     }
+    # `provenance` IS NOT THIS BUILD'S TO WRITE, AND SO NOT ITS TO DROP. The publish workflow
+    # puts it here after the bind, naming the commit each half came from, and the art half
+    # ACCUMULATES: a run that does not redraw the artwork reads the tracked file forward rather
+    # than restating it. Rebuilding the sidecar from scratch over a tracked copy therefore
+    # deletes a fact no build can recompute — the sandbox has no git and would not know the
+    # commit to write — and the next publish reads no art provenance and stops at the bind.
+    # Carried over whenever the file being replaced already had one.
+    if SIDECAR.exists():
+        try:
+            held = json.loads(SIDECAR.read_text()).get("provenance")
+        except (OSError, ValueError):
+            held = None
+        if held is not None:
+            sidecar["provenance"] = held
     text = json.dumps(sidecar, indent=2) + "\n"
     if not SIDECAR.exists() or SIDECAR.read_text() != text:
         SIDECAR.write_text(text)
@@ -178,6 +192,6 @@ if __name__ == "__main__":
     status = render_pages()
     missing = bind()
     if status or missing:
-        raise SystemExit(
+        sys.exit(
             f"quick start built with {missing} missing sheet(s); renderer exited {status}"
         )

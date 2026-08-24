@@ -1025,5 +1025,5 @@ def payload_glb_selftest():
 if __name__ == "__main__":
     sys.path.insert(0, str(_HW / "scripts"))
     if sys.argv[1:] == ["selftest"]:
-        raise SystemExit(payload_glb_selftest())
+        sys.exit(payload_glb_selftest())
     main()
