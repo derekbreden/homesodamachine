@@ -39,13 +39,14 @@ owns one thing. [`printed-parts/cold-core/foam-assembly`](/hardware/printed-part
 owns the six printed pieces and the port table on their faces; it is the **interface**, and both
 larger models load it. [`cold-core-layout`](/hardware/cold-core-layout/) owns what stands inside
 the shell — the carbonator, the coil, both reservoirs, the sensing, the eight internal lines — in the
-shell's own frame. [`manifold-layout`](/hardware/manifold-layout/) owns the machine, and imports
-the interface as **one solid** with that port table.
+shell's own frame. [`manifold-layout`](/hardware/manifold-layout/) owns the machine, and stands
+the core's own bodies in it — measuring the pack against the interface, whose port table is what
+its plumbing speaks to.
 
-So a picture of the machine wants the solid, and a picture of the core wants the inside. `inner`
-names bodies from the core's model, drawn instead of the one solid `roots` puts there;
-`INNER_ALL` takes every one, so no list of 63 names lives in the scene table. `one-core` gates
-that the two models agree about what they share.
+So a picture can want as much of the core as its bench step has reached. `inner` names which of
+its bodies a scene draws, in place of `INNER_ROOT`; `INNER_ALL` takes every one, so no list of 63
+names lives in the scene table, and `INNER_FOAM` takes the unit closed. `one-core` gates that the
+two models agree about what they share.
 
 **The seating is the bridge between the two frames.** The core's model builds in
 `foam-assembly`'s own frame, and the machine seats that body: `seat_body` hands the placement
