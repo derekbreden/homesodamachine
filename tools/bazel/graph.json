@@ -3434,6 +3434,7 @@
       "hardware/printed-parts/faucet/_faucet_interface.py",
       "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py",
       "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
