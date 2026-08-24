@@ -66,7 +66,7 @@ shank_hole_center = (0.0, 0.0)
 
 # One rounded-rectangle slot covering both 1/4" flavor tubes, centered
 # [18.93 mm](FLAVOR_TUBE_Y) +Y. Long axis LATERAL (world X):
-# [13.4 mm](PILL_L) long × [7.05 mm](PILL_W) wide.
+# [13.6 mm](PILL_L) long × [7.25 mm](PILL_W) wide.
 flavor_tube_center = (0.0, +flavor_tube_depth)
 
 

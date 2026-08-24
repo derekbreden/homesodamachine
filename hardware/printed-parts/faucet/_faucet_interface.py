@@ -21,20 +21,20 @@ flavor_tube_od = 6.35
 flavor_tube_x_offset = flavor_tube_od / 2.0  # [3.175 mm](FLAVOR_TUBE_X_OFFSET)
 
 # Diametric (total) clearance around each flavor tube through the pill
-# cutout — i.e. hole_dia − tube_od. Print-validated on fibre-filled PET; see
-# `faucet-shell/print-log.md`.
-flavor_tube_hole_clearance = 0.7
+# cutout — i.e. hole_dia − tube_od. Set from tube fitment on printed
+# fibre-filled PET; see `faucet-shell/print-log.md`.
+flavor_tube_hole_clearance = 0.9
 
 # Per-tube hole diameter, derived.
-flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [7.05 mm](FLAVOR_TUBE_HOLE_DIA)
+flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [7.25 mm](FLAVOR_TUBE_HOLE_DIA)
 
 # Pill cutout (rounded rectangle, X-oriented) that covers both flavor
 # tubes as a single opening. The two per-tube circles overlap by
 # (hole_dia − 2 × x_offset), so we model the combined opening as the
 # pill formed by sliding a circle of `flavor_tube_hole_dia` from
 # X = −x_offset to X = +x_offset.
-pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [13.4 mm](PILL_LENGTH_X)
-pill_width_y = flavor_tube_hole_dia                                # [7.05 mm](PILL_WIDTH_Y)
+pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [13.6 mm](PILL_LENGTH_X)
+pill_width_y = flavor_tube_hole_dia                                # [7.25 mm](PILL_WIDTH_Y)
 
 # Depth magnitude of the flavor-tube pill center from the Westbrass /
 # shank axis at world origin. The pill sits at world Y = +flavor_tube_depth

@@ -15,8 +15,8 @@ after annealing. Nothing here is annealed.
 prints upright. Each beds on the face at the far end of its own half of the gooseneck and
 tilts [35°](PRINT_TILT), which lands its build direction on that half's angular midpoint —
 and that is what holds every visible surface to [35°](MAX_PRINT_OVERHANG) of overhang, off
-supports. The base stands [236.8 mm](BASE_PRINT_HEIGHT) tall built that way and the tip
-[102.1 mm](TIP_PRINT_HEIGHT); the layer planes lie [35°](PRINT_TILT) off the shank axis
+supports. The base stands [236.9 mm](BASE_PRINT_HEIGHT) tall built that way and the tip
+[102.3 mm](TIP_PRINT_HEIGHT); the layer planes lie [35°](PRINT_TILT) off the shank axis
 rather than square to it, so the lever the customer pulls reacts across them at that angle.
 
 Drying: 100 °C × 10 h in the SUNLU E2, only if the spool has taken on moisture. The 3 kg

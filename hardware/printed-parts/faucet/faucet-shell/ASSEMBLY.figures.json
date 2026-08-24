@@ -1,17 +1,17 @@
 {
   "/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py": {
     "FILLET_R": "1.5 mm",
-    "PILL_L": "13.4 mm",
-    "PILL_W": "7.05 mm",
-    "PLATE_D": "54.45 mm",
+    "PILL_L": "13.6 mm",
+    "PILL_W": "7.25 mm",
+    "PLATE_D": "54.55 mm",
     "SHANK_HOLE_D": "12.6 mm"
   },
   "/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "BORE_CLEAR": "0.25 mm",
     "BORE_COVE_Z": "19.25 mm",
     "FLAVOR_TUBE_Y": "18.93 mm",
-    "PILL_L": "13.4 mm",
-    "PILL_W": "7.05 mm",
+    "PILL_L": "13.6 mm",
+    "PILL_W": "7.25 mm",
     "WESTBRASS_CYL_TOP_Z": "13 mm",
     "WESTBRASS_OD": "31.5 mm",
     "WESTBRASS_RECT_LONG": "31.5 mm",

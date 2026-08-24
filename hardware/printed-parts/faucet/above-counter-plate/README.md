@@ -38,8 +38,8 @@ M3×12 black-oxide SHCS:
 2. **Flavor-tube pill slot** — at world (0, +[18.93 mm](PLATE_FLAVOR_Y)),
    oriented along X. Two 1/4" tubes [6.35 mm](TUBE_CENTER_X) apart
    center-to-center (lateral), combined into a single rounded-rectangle:
-   - Length (X, lateral): [13.4 mm](PLATE_PILL_L)
-   - Width (Y, depth): [7.05 mm](PLATE_PILL_W)
+   - Length (X, lateral): [13.6 mm](PLATE_PILL_L)
+   - Width (Y, depth): [7.25 mm](PLATE_PILL_W)
 
 The three pod screws close the plate and shell around the fitted Westbrass.
 At field install, the retained donor washer and shank nut clamp the
