@@ -10,7 +10,7 @@ Where labor.md counts only the minutes a person is *on* an operation, this file 
 **The print rates are measured, not assumed.** Two slices carry the estimate, one per bulk configuration.
 
 - **Cold-core, 0.8 nozzle.** The inner shell sliced at **1142.47 g / [14 h 22 m](MT_MEASURED)** on an H2C — 0.4 layer, PETG, 21 mm³/s volumetric cap, 15 % infill ([foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)). Against that part's [1.325](MT_MEASURED_KG) kg geometry mass in [bom.md](/hardware/ledger/bom.md) §7 that is **[10.8](MT_RATE_BULK) hours per geometry-kg**.
-- **Enclosure exterior, 0.4 High Flow.** The front-top sliced at **[16 h](MT_MEASURED_EXT)** on an H2C — 0.24 layer, 0.42 mm outer wall, PETG, the same 21 mm³/s cap, 15 % infill ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)). Against that piece's [1.751](MT_MEASURED_EXT_KG) kg of geometry that is **[9.1](MT_RATE_EXT) hours per geometry-kg**. The finer nozzle costs nothing here because both profiles run into the same volumetric ceiling: the melt, not the orifice, is what sets the wall speed.
+- **Enclosure exterior, 0.4 nozzle.** The front-top sliced at **[16 h](MT_MEASURED_EXT)** on an H2C — 0.24 layer, 0.42 mm outer wall, PETG, the same 21 mm³/s cap, 15 % infill ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)). Against that piece's [1.751](MT_MEASURED_EXT_KG) kg of geometry that is 9.1 hours per PETG kg. The exterior runs PET-GF15 at the 18 mm³/s its own slice carries and 1.43 g/cm³; a nozzle lays grams at (cap × density), so the same measurement reads **[9.5](MT_RATE_EXT) hours per geometry-kg** there. The finer nozzle costs nothing either way — the melt, not the orifice, sets the wall speed.
 
 The other three rates below are the cold-core rate scaled for a slower configuration; they are estimates and are marked as such.
 
@@ -23,15 +23,15 @@ Masses come from bom.md §7, which is geometry-derived and commit-gated, so a pr
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
 | Bulk PETG, 0.8 nozzle | Cold-core shell, four foam-cap pieces | [10.8](MT_RATE_BULK) h/kg — **measured** | [1.963](MT_KG_BULK) kg | [21.2](MT_H_BULK) |
-| Enclosure exterior PETG, 0.4 High Flow | The four quadrants, the pump cartridge and its cap — the show surfaces, printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [9.1](MT_RATE_EXT) h/kg — **measured** | [6.897](MT_KG_EXT) kg | [62.8](MT_H_EXT) |
+| Enclosure exterior PET-GF, 0.4 TC | The four quadrants, the pump cartridge and its cap, the ceiling panel and the display cover plate — the show surfaces, printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [9.5](MT_RATE_EXT) h/kg — **measured** in PETG, carried onto PET-GF | [7.796](MT_KG_EXT) kg | [74.1](MT_H_EXT) |
 | Watertight translucent PETG, 0.6 nozzle | Both reservoir bodies + caps — 3 mm walls as 5 × 0.60 mm beads, Arachne, for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)); the nozzle is the one all three logged runs were made on ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) | [22](MT_RATE_TIGHT) h/kg — est., ~½ the bulk volumetric rate | [0.880](MT_KG_TIGHT) kg | [19.4](MT_H_TIGHT) |
-| Small PETG parts | ASSE drip pan, plug stack, PRV shroud, reed bridge, fuse clamp | [30](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.167](MT_KG_SMALL) kg | [5.0](MT_H_SMALL) |
-| PET-CF, 0.4 nozzle | Faucet shell + above-counter plate — fine layers, 50 °C chamber, hardened nozzle | [60](MT_RATE_PETCF) h/kg — est. | [0.163](MT_KG_PETCF) kg | [9.8](MT_H_PETCF) |
-| **Printer time per unit** | | | **[10.070](MT_KG)** kg | **[118.1](MT_H_PRINT)** |
+| Small PETG parts | ASSE drip pan, plug stack, PRV shroud, reed bridge, fuse clamp | [30](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.139](MT_KG_SMALL) kg | [4.2](MT_H_SMALL) |
+| Faucet PET-GF, 0.4 TC | Faucet shell + above-counter plate — fine layers, 50 °C chamber, supported the whole height ([faucet-shell/print-log.md](/hardware/printed-parts/faucet/faucet-shell/print-log.md)) | [60](MT_RATE_PETGF) h/kg — est. | [0.181](MT_KG_PETGF) kg | [10.9](MT_H_PETGF) |
+| **Printer time per unit** | | | **[10.959](MT_KG)** kg | **[129.7](MT_H_PRINT)** |
 
-Spread across [2](MT_PRINTERS) machines that is **[59.1](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
+Spread across [2](MT_PRINTERS) machines that is **[64.8](MT_H_PRINT_WALL) hours** of wall clock, and it is the longest pole in the build by an order of magnitude.
 
-Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the print from the same unit, so PETG costs no separate cycle. PET-CF is dried [10 h at 100 °C](MT_PETCF_DRY) per spool, not per build.
+Filament drying is not per-unit: the AMS 2 Pro dries PETG in place and feeds the print from the same unit, so PETG costs no separate cycle. PET-GF15 is dried [10 h at 100 °C](MT_PETGF_DRY) per spool, not per build, and feeds the print from a PolyDryer Box XL ([tools.md](/hardware/ledger/tools.md) "What dries where").
 
 ## 2. Curing and baking
 
@@ -68,12 +68,12 @@ The printers are the constraint and nothing else is close. Per unit:
 
 | Machine | Occupied per unit | Units/year at 100 % | |
 |---|---:|---:|---|
-| [2](MT_PRINTERS) × H2C | [59.1](MT_H_PRINT_WALL) h wall | [148](MT_CEIL_PRINT) | **the bottleneck** |
+| [2](MT_PRINTERS) × H2C | [64.8](MT_H_PRINT_WALL) h wall | [135](MT_CEIL_PRINT) | **the bottleneck** |
 | Test bench (burn-in + chill) | [9.0](MT_OCC_BENCH) h | [973](MT_CEIL_BENCH) | |
 | Funnel mold + oven | [9.0](MT_OCC_MOLD) h | [973](MT_CEIL_MOLD) | |
 | Hydro rig, passivation tub, vacuum pump | [2.6](MT_OCC_CARBONATOR) h | [3,369](MT_CEIL_CARBONATOR) | |
 
-At [65 %](MT_DUTY) machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the printers give **[~96](MT_UNITS_YEAR) units a year**. A third H2C moves that to [~145](MT_UNITS_YEAR_3); nothing else bought moves it at all.
+At [65 %](MT_DUTY) machine duty — failed prints, plate changes, filament swaps, maintenance, the hours nobody is in the shop to restart a plate — the printers give **[~88](MT_UNITS_YEAR) units a year**. A third H2C moves that to [~132](MT_UNITS_YEAR_3); nothing else bought moves it at all.
 
 ## Turnaround — one unit, cold start
 
@@ -81,29 +81,29 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 | Stage | Hours | |
 |---|---:|---|
-| Print every part | [59.1](MT_H_PRINT_WALL) | 2 printers, both on this unit |
+| Print every part | [64.8](MT_H_PRINT_WALL) | 2 printers, both on this unit |
 | Build the cold core; pour the foam and let it cure | 8.0 | carbonator already done, in parallel with the prints |
 | Assembly, plumbing, wiring | 8.0 | one working day |
 | Power-on and test | 2.0 | |
 | First fill and chill-down | 1.0 | |
 | Burn-in | 8.0 | |
 | Finish and pack | 1.0 | |
-| **Turnaround** | **[87.1](MT_H_TURN)** | **[3.6](MT_DAYS_TURN) days** |
+| **Turnaround** | **[92.8](MT_H_TURN)** | **[3.9](MT_DAYS_TURN) days** |
 
 Runs in parallel with the print, and so costs no turnaround at all: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
-A second unit behind the first does not cost another [3.6](MT_DAYS_TURN) days — it costs the bottleneck's [59.1](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
+A second unit behind the first does not cost another [3.9](MT_DAYS_TURN) days — it costs the bottleneck's [64.8](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 
 ## Open items
 
 1. **Foam cure time.** [cold-core.md](/hardware/assembly/cold-core.md) open item 2 — mix proportions, pot life, cure time and pour temperature window are all still unread from the datasheet. The 4 h rows in §2 are placeholders; the real figure changes the turnaround, not the throughput.
-2. **The three estimated print rates.** The two bulk rates are measured; the watertight, small-parts and PET-CF rates are not. The reservoir plate has been sliced twice ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) but Bambu Studio wrote no per-plate estimate into either 3MF, so the watertight rate is still inferred. Record the slicer's time on the next slice of each group and these become measurements.
+2. **The three estimated print rates.** The two bulk rates are measured; the watertight, small-parts and faucet rates are not. The reservoir plate has been sliced twice ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) but Bambu Studio wrote no per-plate estimate into either 3MF, so the watertight rate is still inferred. Record the slicer's time on the next slice of each group and these become measurements.
 3. **The small-parts group names no nozzle, and two bounds are held to a wall without one.**
    Every other group here names one: cold-core bulk 0.8 (measured,
    [foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)), enclosure
-   exterior 0.4 High Flow (measured,
+   exterior 0.4 TC (measured,
    [enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)), watertight
-   0.6 (measured, three runs), PET-CF 0.4. The small-parts group — ASSE drip pan, plug stack, PRV
+   0.6 (measured, three runs), faucet PET-GF 0.4. The small-parts group — ASSE drip pan, plug stack, PRV
    shroud, reed bridge, fuse clamp — has no print log and no chosen nozzle, so a bead width for
    those parts does not exist in this tree. Two constants stand on one anyway:
    `copper_plugs.min_printable_thickness` = 1.0, whose bound is labelled "Every plug leaves a

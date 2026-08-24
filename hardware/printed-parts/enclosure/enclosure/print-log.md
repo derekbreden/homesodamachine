@@ -8,12 +8,14 @@ Geometry: the six-piece box from
 the pump cartridge and the cap screwed under it, one piece per plate — sizes in
 [README.md](README.md), which the generator writes.
 
-## The exterior profile (settings per [`enclosure-front-top-0.4mm-16hours.3mf`](enclosure-front-top-0.4mm-16hours.3mf))
+## The PETG exterior profile (settings per [`enclosure-front-top-0.4mm-16hours.3mf`](enclosure-front-top-0.4mm-16hours.3mf))
 
-Every exterior piece slices on this — the four quadrants, the pump cartridge, and the cap
-screwed under it. The front-top, the largest of them, takes **16 hours** on it. That
-figure is the slice's own, carried in the file's name; the archive holds no g-code to read
-it back off. Against the front-top's geometry mass in [bom.md](/hardware/ledger/bom.md)
+The geometry every exterior piece is cut to, sliced in PETG — the four quadrants, the pump
+cartridge, and the cap screwed under it. The front-top, the largest of them, takes **16
+hours** on it. That figure is the slice's own, carried in the file's name; the archive holds
+no g-code to read it back off, and it is the one measured print rate
+[machine-time.md](/hardware/ledger/machine-time.md) §1 stands the exterior on. The stock the
+pieces ship in is the section below. Against the front-top's geometry mass in [bom.md](/hardware/ledger/bom.md)
 §7, it is the hours-per-kg [machine-time.md](/hardware/ledger/machine-time.md) §1 prices
 the whole exterior at.
 
@@ -44,14 +46,14 @@ The model sits on the plate at scale 1.0 and identity rotation, so the piece sta
 box's own frame with +Z up — the orientation [README.md](README.md) "Print orientation +
 corner relief" strikes every 45° relief on.
 
-## PET-GF15 print of the front-top (settings per [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf))
+## The PET-GF15 exterior (settings per [`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf))
 
-**Running as this is written, 2026-08-15.** The first print of an enclosure piece in
-Polymaker Fiberon PET-GF15, the finish candidate standing against the Bambu PETG Basic the
-box prints in now ([bom.md §7](/hardware/ledger/bom.md)).
+What every exterior piece ships on: Polymaker Fiberon PET-GF15 on the Bambu 0.4 mm tungsten
+carbide hotend, left side ([tools.md](/hardware/ledger/tools.md), [bom.md
+§7](/hardware/ledger/bom.md)).
 
-Derek, ~6 h in: *"working a treat so far"* — and on the result so far, *"very beautiful
-wall surface."*
+Derek, ~6 h into the front-top: *"working a treat so far"* — and on the wall it came off with,
+*"very beautiful wall surface."*
 
 **Filament path.** The 3 kg PET-GF15 spool feeds from a Polymaker PolyDryer Box XL, not
 from the SUNLU E2. A 3 kg spool turns too stiffly in the E2's chamber to feed a print;
@@ -59,24 +61,24 @@ the box carries it on a centre axle and it turns freely
 ([tools.md](/hardware/ledger/tools.md) "What dries where").
 
 Settings:
-- Printer: Bambu Lab H2C, 0.8 mm nozzle; profile `0.40mm Standard @BBL H2C 0.8 nozzle`
-- Filament preset `Polymaker PET-GF`, one slot, textured PEI plate
-- `layer_height` 0.4 mm (initial 0.4); `line_width` 0.82 mm
-- `wall_loops` 2; top/bottom shells 4/3; `sparse_infill_density` 15 % grid
+- Printer: Bambu Lab H2C, **0.4 mm nozzle**; printer profile `Bambu Lab H2C 0.4 nozzle`,
+  print profile `0.20mm Standard @BBL H2C`
+- Filament preset `Polymaker PET-GF @BBL H2C`, one slot, textured PEI plate
+- `layer_height` 0.2 mm (initial 0.2); `line_width` 0.42 mm, inner wall 0.45
+- `wall_loops` 2; top/bottom shells **5**/3; `sparse_infill_density` 15 % grid
 - `nozzle_temperature` **290 °C** (initial 290); `hot_plate_temp` / `textured_plate_temp`
   100 °C; `chamber_temperatures` 50 °C
-- `filament_flow_ratio` 1.0; `filament_max_volumetric_speed` 5 mm³/s
-- Fan **off** — min/max/overhang all 0 %, `close_fan_the_first_x_layers` 3
-- Supports tree(auto); `brim_type` auto_brim, `brim_width` 5 mm; `seam_position` aligned,
-  `filament_scarf_seam_type` none
+- `filament_flow_ratio` 0.9555; `filament_max_volumetric_speed` **18 mm³/s**
+- Fan **off** — min/max/overhang all 0 %
+- `support_threshold_angle` 30°; `brim_type` auto_brim, `brim_width` 5 mm;
+  `seam_position` aligned, `filament_scarf_seam_type` none
 - `filament_retraction_length` nil
-- Slicer 02.07.01.62; first-layer time 1124 s
 
-### What the PET-GF15 preset asks for
+### What the PET-GF15 slice asks for
 
-Wall count, shells, infill, support style, brim and seam are the exterior profile's — the
-only structural figure that differs is `support_threshold_angle`, 30° here against 35°.
-What the filament moves, read off the two committed slices:
+Wall count, infill, support style, brim and seam are the PETG exterior profile's above; top
+shells are 5 against 4 and `support_threshold_angle` is 30° against 35°. What the filament
+moves, read off the two committed slices:
 
 | | PETG (`Bambu PETG Basic`) | PET-GF15 (`Polymaker PET-GF`) |
 |---|---|---|
@@ -84,14 +86,17 @@ What the filament moves, read off the two committed slices:
 | Bed, textured | 70 °C | **100 °C** |
 | Chamber | 0 (passive) | **50 °C** |
 | Fan min / max / overhang | 20 / 30 / 50 % | **0 / 0 / 0 %** |
-| Max volumetric speed | 21 mm³/s | **5 mm³/s** |
-| Flow ratio | 0.97 | **1.0** |
+| Max volumetric speed | 21 mm³/s | **18 mm³/s** |
+| Flow ratio | 0.97 | **0.9555** |
 | Retraction length | 0.4 mm | **nil** |
+| Layer / outer wall | 0.24 / 0.42 mm | **0.20** / 0.42 mm |
 
-The volumetric cap is the row that costs time: at 5 mm³/s the PET-GF15 slice cannot reach
-the wall speeds the PETG profile runs at, whatever nozzle it is taken on.
+The volumetric cap is the row that costs time. It and the stock's density are what
+[machine-time.md](/hardware/ledger/machine-time.md) §1 carries the measured PETG rate across
+on: a nozzle lays grams at (cap × density), so 18 mm³/s of 1.43 g/cm³ stock is 9.5 h/kg
+against PETG's 9.1.
 
-### Two things carried in from the PET-CF preset, unchanged
+### Three things the slot carries from the PET-CF preset it was cloned from
 
 - **No PET-GF-specific flow calibration.** `enable_pressure_advance` is 0 with a dormant
   inherited `pressure_advance` of 0.02, so the slicer injects no PA and the run depends on
@@ -99,10 +104,15 @@ the wall speeds the PETG profile runs at, whatever nozzle it is taken on.
   arrangement that produced the seam-clustered under-extrusion on PET-CF
   ([faucet-shell/print-log.md](/hardware/printed-parts/faucet/faucet-shell/print-log.md)
   attempt 18), where a measured K of 0.013 replaced the 0.02.
-- **The preset's own `filament_type` reads `PET-CF`**, and `filament_vendor` reads
-  `Bambu Lab`, because it was cloned from the PET-CF preset and those fields were not
-  changed. The slot is named `Polymaker PET-GF`; the type the slicer reasons about is
-  PET-CF.
+- **`filament_type` reads `PET-CF`**, `filament_vendor` reads `Bambu Lab`, and
+  `filament_ids` reads `GFT01` — Bambu PET-CF's id. The slot is named `Polymaker PET-GF`;
+  the type the slicer reasons about is PET-CF.
+- **`filament_density` reads 1.29 and `filament_cost` 44.99**, which are Bambu PET-CF's
+  figures. PET-GF15 is 1.43 g/cm³ at $25.02/kg ([bom.md §7](/hardware/ledger/bom.md)), so
+  the grams and the dollars Bambu Studio prints for these plates are its own, not this
+  spool's.
 
-Both are inherited state, not observations of this print. Neither has produced a defect
-here so far.
+Polymaker publishes a `Fiberon PET-GF15 @BBL H2C` preset of their own — filament id PMPE08,
+`filament_density` 1.43, `required_nozzle_HRC` 40, `compatible_printers` `Bambu Lab H2C 0.4
+nozzle`, and 310 °C / bed 70 / chamber 0 / 8 mm³/s / fan 0-10-40. The slot on this machine is
+the cloned one, at the settings above.

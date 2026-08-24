@@ -1,1954 +1,1963 @@
 {
- "_meta": {
-  "source": "amazon.com order history, year-2026 filter, scraped 2026-08-15",
-  "orders": 318,
-  "ordered/total": "ordered present for all 318; total present for 315 \u2014 the three cancelled orders were never charged",
-  "delivered": "present only where Amazon still shows a shipment banner \u2014 orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
-  "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation; not scraped for the rest",
-  "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
-  "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
- },
- "orders": {
-  "112-7312343-0359412": {
-   "ordered": "2026-08-19",
-   "delivered": "2026-08-20",
-   "subtotal": 111.98,
-   "shipping": 0.0,
-   "promotion": -5.6,
-   "tax": 7.72,
-   "total": 114.1,
-   "project": true
-  },
-  "114-2335010-7091469": {
-   "ordered": "2026-08-15",
-   "total": 32.16,
-   "in_transit": true,
-   "project": false,
-   "why": "pet"
-  },
-  "114-8931415-0067401": {
-   "ordered": "2026-08-13",
-   "delivered": "2026-08-15",
-   "subtotal": 109.99,
-   "shipping": 1.99,
-   "tax": 8.11,
-   "total": 120.09,
-   "project": true
-  },
-  "112-6038990-5011450": {
-   "ordered": "2026-08-11",
-   "delivered": "2026-08-14",
-   "total": 29.46,
-   "project": true
-  },
-  "112-8079907-6555421": {
-   "ordered": "2026-08-10",
-   "delivered": "2026-08-11",
-   "total": 5.35,
-   "project": true
-  },
-  "112-5463509-3741018": {
-   "ordered": "2026-08-10",
-   "delivered": "2026-08-11",
-   "total": 4.28,
-   "project": true
-  },
-  "112-1974343-4486643": {
-   "ordered": "2026-08-09",
-   "delivered": "2026-08-11",
-   "subtotal": 114.89,
-   "shipping": 0.0,
-   "tax": 8.33,
-   "total": 123.22,
-   "project": true
-  },
-  "114-0076741-2012236": {
-   "ordered": "2026-08-04",
-   "delivered": "2026-08-05",
-   "total": 28.95,
-   "project": false,
-   "why": "pet"
-  },
-  "112-7384943-1126630": {
-   "ordered": "2026-07-27",
-   "delivered": "2026-07-28",
-   "total": 10.23,
-   "project": false,
-   "why": "household"
-  },
-  "112-5345892-2113837": {
-   "ordered": "2026-07-26",
-   "delivered": "2026-07-28",
-   "total": 85.78,
-   "project": false,
-   "why": "yard"
-  },
-  "112-6477165-1593824": {
-   "ordered": "2026-07-26",
-   "delivered": "2026-07-27",
-   "total": 32.16,
-   "project": false,
-   "why": "yard"
-  },
-  "112-3552935-4239455": {
-   "ordered": "2026-07-26",
-   "delivered": "2026-07-27",
-   "total": 28.99,
-   "project": true
-  },
-  "112-2287046-3621006": {
-   "ordered": "2026-07-26",
-   "delivered": "2026-07-27",
-   "total": 19.99,
-   "project": true
-  },
-  "112-7818515-5395414": {
-   "ordered": "2026-07-25",
-   "delivered": "2026-07-27",
-   "total": 36.44,
-   "project": true
-  },
-  "112-4209023-0725839": {
-   "ordered": "2026-07-24",
-   "delivered": "2026-07-25",
-   "total": 13.92,
-   "project": true
-  },
-  "112-1826837-9445804": {
-   "ordered": "2026-07-18",
-   "delivered": "2026-07-19",
-   "total": 22.95,
-   "project": true
-  },
-  "112-0844221-1512225": {
-   "ordered": "2026-07-18",
-   "delivered": "2026-07-22",
-   "total": 48.16,
-   "project": true
-  },
-  "112-8193263-0421020": {
-   "ordered": "2026-07-16",
-   "delivered": "2026-07-24",
-   "total": 30.0,
-   "project": true
-  },
-  "112-5082341-0132227": {
-   "ordered": "2026-07-16",
-   "delivered": "2026-07-19",
-   "total": 20.04,
-   "project": true
-  },
-  "112-6198023-2829830": {
-   "ordered": "2026-07-14",
-   "delivered": "2026-07-16",
-   "total": 7.71,
-   "project": true
-  },
-  "112-1487355-1949808": {
-   "ordered": "2026-07-11",
-   "delivered": "2026-07-14",
-   "total": 9.21,
-   "project": true
-  },
-  "114-5647520-8932223": {
-   "ordered": "2026-07-03",
-   "delivered": "2026-07-07",
-   "total": 44.54,
-   "project": false,
-   "why": "household"
-  },
-  "114-3480695-5757867": {
-   "ordered": "2026-07-03",
-   "delivered": "2026-07-07",
-   "total": 17.14,
-   "project": false,
-   "why": "household"
-  },
-  "114-4030723-1300257": {
-   "ordered": "2026-07-03",
-   "delivered": "2026-07-06",
-   "total": 12.84,
-   "project": false,
-   "why": "household"
-  },
-  "114-7573867-4873818": {
-   "ordered": "2026-07-03",
-   "delivered": "2026-07-07",
-   "total": 32.16,
-   "project": false,
-   "why": "pet"
-  },
-  "114-8935189-9054653": {
-   "ordered": "2026-07-03",
-   "delivered": "2026-07-06",
-   "subtotal": 44.9,
-   "shipping": 0.0,
-   "tax": 3.26,
-   "total": 48.16,
-   "project": true
-  },
-  "114-6014794-9636216": {
-   "ordered": "2026-07-02",
-   "delivered": "2026-07-03",
-   "total": 31.08,
-   "project": false,
-   "why": "pet"
-  },
-  "112-5404430-0862635": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 7.63,
-   "project": true
-  },
-  "112-9256032-0146608": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-30",
-   "total": 20.37,
-   "project": true
-  },
-  "112-4262778-1489854": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 48.25,
-   "project": true
-  },
-  "112-1902778-9631456": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 8.57,
-   "project": true
-  },
-  "112-9748313-5465028": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 22.51,
-   "project": true
-  },
-  "112-6043616-7501828": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 17.15,
-   "project": true
-  },
-  "112-7185180-0909846": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 13.38,
-   "project": true
-  },
-  "112-4343274-7898624": {
-   "ordered": "2026-06-28",
-   "delivered": "2026-06-29",
-   "total": 27.86,
-   "project": true
-  },
-  "112-4898292-1807408": {
-   "ordered": "2026-06-27",
-   "delivered": "2026-06-29",
-   "total": 27.83,
-   "project": true
-  },
-  "112-7409860-0021807": {
-   "ordered": "2026-06-27",
-   "delivered": "2026-06-30",
-   "total": 26.76,
-   "project": true
-  },
-  "112-1321519-4687432": {
-   "ordered": "2026-06-27",
-   "delivered": "2026-06-30",
-   "total": 28.9,
-   "project": true
-  },
-  "112-7067792-6289059": {
-   "ordered": "2026-06-27",
-   "delivered": "2026-06-30",
-   "subtotal": 77.5,
-   "shipping": 0.0,
-   "tax": 5.61,
-   "total": 83.11,
-   "project": true
-  },
-  "112-0861785-9553820": {
-   "ordered": "2026-06-27",
-   "delivered": "2026-06-29",
-   "subtotal": 17.98,
-   "shipping": 0.0,
-   "tax": 1.3,
-   "total": 19.28,
-   "project": true
-  },
-  "112-6701248-5105066": {
-   "ordered": "2026-06-25",
-   "delivered": "2026-06-30",
-   "subtotal": 10.98,
-   "shipping": 0.0,
-   "tax": 0.74,
-   "total": 11.06,
-   "project": true
-  },
-  "112-2621523-2281840": {
-   "ordered": "2026-06-25",
-   "delivered": "2026-06-26",
-   "total": 7.5,
-   "project": true
-  },
-  "114-0383277-7904251": {
-   "ordered": "2026-06-25",
-   "delivered": "2026-06-29",
-   "total": 102.93,
-   "project": false,
-   "why": "reviewed 2026-08-15 \u2014 left off the ledger"
-  },
-  "112-5591371-7092233": {
-   "ordered": "2026-06-23",
-   "delivered": "2026-06-25",
-   "subtotal": 9.89,
-   "shipping": 0.0,
-   "tax": 0.72,
-   "total": 10.61,
-   "project": true
-  },
-  "112-3515616-8230610": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-25",
-   "total": 7.28,
-   "project": true
-  },
-  "112-3443368-0402610": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 7.5,
-   "project": true
-  },
-  "112-1905695-2405047": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 18.22,
-   "project": true
-  },
-  "112-2773449-1292200": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 10.71,
-   "project": true
-  },
-  "112-4073443-1219450": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-25",
-   "total": 9.64,
-   "project": true
-  },
-  "112-7522816-0777851": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 6.42,
-   "project": true
-  },
-  "112-6542724-2528248": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 8.57,
-   "project": true
-  },
-  "112-8492724-3195462": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 14.99,
-   "project": true
-  },
-  "112-8448573-3185817": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "total": 38.29,
-   "project": true
-  },
-  "112-8121022-3791448": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-25",
-   "total": 49.32,
-   "project": true
-  },
-  "112-8255970-7923460": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-23",
-   "subtotal": 35.16,
-   "shipping": 0.0,
-   "tax": 2.55,
-   "total": 37.71,
-   "project": true
-  },
-  "112-7063184-8235469": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-24",
-   "subtotal": 244.95,
-   "shipping": 0.0,
-   "tax": 17.76,
-   "total": 262.71,
-   "project": true
-  },
-  "112-0411698-8891425": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-23",
-   "subtotal": 21.99,
-   "shipping": 0.0,
-   "tax": 1.59,
-   "total": 23.58,
-   "project": true
-  },
-  "112-0401256-3893007": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-22",
-   "subtotal": 27.51,
-   "shipping": 2.99,
-   "tax": 1.99,
-   "total": 29.5,
-   "project": true
-  },
-  "114-4609926-1663418": {
-   "ordered": "2026-06-22",
-   "delivered": "2026-06-22",
-   "total": 28.8,
-   "project": true
-  },
-  "112-9011989-8585847": {
-   "ordered": "2026-06-20",
-   "delivered": "2026-06-21",
-   "total": 34.31,
-   "project": false,
-   "why": "reviewed 2026-08-15 \u2014 left off the ledger"
-  },
-  "112-9276465-1199416": {
-   "ordered": "2026-06-20",
-   "delivered": "2026-06-22",
-   "total": 32.31,
-   "project": true
-  },
-  "112-4685860-9927453": {
-   "ordered": "2026-06-17",
-   "delivered": "2026-06-18",
-   "total": 13.93,
-   "project": true
-  },
-  "114-7801151-2777012": {
-   "ordered": "2026-06-17",
-   "delivered": "2026-06-21",
-   "total": 18.22,
-   "project": true
-  },
-  "114-2674264-1703446": {
-   "ordered": "2026-06-17",
-   "delivered": "2026-06-20",
-   "total": 17.78,
-   "project": true
-  },
-  "112-3334877-3267411": {
-   "ordered": "2026-06-17",
-   "delivered": "2026-06-21",
-   "total": 19.83,
-   "project": true
-  },
-  "112-0741371-9657825": {
-   "ordered": "2026-06-17",
-   "delivered": "2026-06-24",
-   "total": 362.73,
-   "project": true
-  },
-  "112-9519199-9509821": {
-   "ordered": "2026-06-16",
-   "delivered": "2026-06-17",
-   "total": 15.88,
-   "project": true
-  },
-  "112-1089976-3089830": {
-   "ordered": "2026-06-16",
-   "delivered": "2026-06-17",
-   "total": 41.6,
-   "project": true
-  },
-  "112-3161139-1981039": {
-   "ordered": "2026-06-15",
-   "delivered": "2026-06-17",
-   "total": 18.43,
-   "project": true
-  },
-  "112-3576572-8551422": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-17",
-   "total": 77.12,
-   "project": true
-  },
-  "112-7010270-8849812": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-17",
-   "total": 15.22,
-   "project": true
-  },
-  "112-7886483-1554622": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-17",
-   "total": 14.79,
-   "project": true
-  },
-  "112-6248060-3106636": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-15",
-   "total": 23.91,
-   "project": true
-  },
-  "112-8759475-1611456": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-15",
-   "total": 30.02,
-   "project": true
-  },
-  "112-8278354-1449064": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-15",
-   "total": 225.2,
-   "project": true
-  },
-  "112-7486016-3622668": {
-   "ordered": "2026-06-14",
-   "delivered": "2026-06-15",
-   "total": 20.37,
-   "project": true
-  },
-  "112-0250864-5897878": {
-   "ordered": "2026-06-14",
-   "total": null,
-   "cancelled": true,
-   "project": false,
-   "why": "cancelled"
-  },
-  "112-8498962-9414661": {
-   "ordered": "2026-06-13",
-   "delivered": "2026-06-16",
-   "total": 13.49,
-   "project": true
-  },
-  "112-5620567-3321809": {
-   "ordered": "2026-06-13",
-   "delivered": "2026-06-15",
-   "total": 46.11,
-   "project": true
-  },
-  "112-1916518-0515440": {
-   "ordered": "2026-06-13",
-   "delivered": "2026-06-14",
-   "total": 46.02,
-   "project": true
-  },
-  "114-7618665-2979463": {
-   "ordered": "2026-06-13",
-   "delivered": "2026-06-15",
-   "total": 117.96,
-   "project": true
-  },
-  "112-3574693-0507435": {
-   "ordered": "2026-06-11",
-   "delivered": "2026-06-13",
-   "total": 23.56,
-   "project": true
-  },
-  "112-3550632-8904259": {
-   "ordered": "2026-06-11",
-   "delivered": "2026-06-13",
-   "total": 24.81,
-   "project": true
-  },
-  "114-0222260-1355431": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 28.95,
-   "project": false,
-   "why": "pet"
-  },
-  "114-1254883-2326646": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 23.58,
-   "project": false,
-   "why": "pet"
-  },
-  "114-7816675-1960219": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 18.22,
-   "project": false,
-   "why": "pet"
-  },
-  "114-7016001-0433834": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 28.99,
-   "project": true
-  },
-  "112-9860351-3650618": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 21.43,
-   "project": true
-  },
-  "112-2746979-9145060": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 12.82,
-   "project": true
-  },
-  "112-0906598-6371411": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 10.71,
-   "project": true
-  },
-  "112-3079158-6326618": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 15.0,
-   "project": true
-  },
-  "112-6318240-4305018": {
-   "ordered": "2026-06-10",
-   "delivered": "2026-06-11",
-   "total": 10.71,
-   "project": true
-  },
-  "112-7687617-6094631": {
-   "ordered": "2026-06-07",
-   "delivered": "2026-06-09",
-   "total": 51.46,
-   "project": true
-  },
-  "112-2471492-3870616": {
-   "ordered": "2026-06-07",
-   "delivered": "2026-06-08",
-   "total": 23.6,
-   "project": true
-  },
-  "112-0981761-4377858": {
-   "ordered": "2026-06-07",
-   "delivered": "2026-06-09",
-   "total": 12.86,
-   "project": true
-  },
-  "112-9768778-8444265": {
-   "ordered": "2026-06-07",
-   "delivered": "2026-06-09",
-   "total": 9.64,
-   "project": true
-  },
-  "112-8819640-4433810": {
-   "ordered": "2026-06-07",
-   "delivered": "2026-06-08",
-   "total": 7.5,
-   "project": true
-  },
-  "114-8863563-6538656": {
-   "ordered": "2026-06-04",
-   "delivered": "2026-06-04",
-   "total": 58.84,
-   "project": false,
-   "why": "home-automation"
-  },
-  "114-8218136-0751449": {
-   "ordered": "2026-06-02",
-   "delivered": "2026-06-03",
-   "total": 50.87,
-   "project": false,
-   "why": "household"
-  },
-  "112-3709957-5726619": {
-   "ordered": "2026-06-02",
-   "delivered": "2026-06-03",
-   "total": 8.66,
-   "project": true
-  },
-  "112-1012254-8551456": {
-   "ordered": "2026-06-01",
-   "delivered": "2026-06-04",
-   "total": 38.23,
-   "project": true
-  },
-  "112-4375086-9926652": {
-   "ordered": "2026-05-30",
-   "delivered": "2026-06-01",
-   "total": 8.03,
-   "project": true
-  },
-  "112-4566389-9910625": {
-   "ordered": "2026-05-30",
-   "delivered": "2026-06-03",
-   "total": 51.24,
-   "project": true
-  },
-  "112-8801016-4362651": {
-   "ordered": "2026-05-28",
-   "delivered": "2026-05-29",
-   "total": 26.8,
-   "project": true
-  },
-  "112-0924482-7189013": {
-   "ordered": "2026-05-28",
-   "delivered": "2026-05-29",
-   "total": 11.79,
-   "project": true
-  },
-  "114-1568602-2724224": {
-   "ordered": "2026-05-27",
-   "delivered": "2026-05-28",
-   "total": 32.16,
-   "project": false,
-   "why": "pet"
-  },
-  "114-9960851-7517853": {
-   "ordered": "2026-05-27",
-   "delivered": "2026-05-29",
-   "total": 8.56,
-   "project": true
-  },
-  "114-6677442-9807460": {
-   "ordered": "2026-05-22",
-   "delivered": "2026-05-24",
-   "total": 18.22,
-   "project": true
-  },
-  "114-7008406-9190645": {
-   "ordered": "2026-05-21",
-   "delivered": "2026-05-22",
-   "total": 35.57,
-   "project": false,
-   "why": "pet"
-  },
-  "112-6714135-1147434": {
-   "ordered": "2026-05-20",
-   "delivered": "2026-05-21",
-   "total": 41.72,
-   "project": true
-  },
-  "112-8743279-3935456": {
-   "ordered": "2026-05-17",
-   "delivered": "2026-05-19",
-   "total": 13.93,
-   "project": true
-  },
-  "112-1471049-5385066": {
-   "ordered": "2026-05-17",
-   "delivered": "2026-05-18",
-   "total": 49.32,
-   "project": true
-  },
-  "114-0500457-4192257": {
-   "ordered": "2026-05-17",
-   "delivered": "2026-05-18",
-   "total": 96.5,
-   "project": true
-  },
-  "114-0366400-9456213": {
-   "ordered": "2026-05-17",
-   "delivered": "2026-05-18",
-   "total": 11.79,
-   "project": false,
-   "why": "pet"
-  },
-  "114-8568647-3028216": {
-   "ordered": "2026-05-17",
-   "delivered": "2026-05-18",
-   "total": 28.95,
-   "project": false,
-   "why": "pet"
-  },
-  "112-8598924-2300214": {
-   "ordered": "2026-05-17",
-   "delivered": "2026-05-18",
-   "total": 12.86,
-   "project": true
-  },
-  "114-1990143-8424226": {
-   "ordered": "2026-05-16",
-   "delivered": "2026-05-17",
-   "total": 28.99,
-   "project": true
-  },
-  "112-3935659-9563410": {
-   "ordered": "2026-05-15",
-   "delivered": "2026-05-16",
-   "total": 16.28,
-   "project": true
-  },
-  "112-5359790-0932202": {
-   "ordered": "2026-05-15",
-   "delivered": "2026-05-16",
-   "total": 42.89,
-   "project": true
-  },
-  "112-7723568-0091455": {
-   "ordered": "2026-05-15",
-   "delivered": "2026-05-16",
-   "total": 12.6,
-   "project": true
-  },
-  "114-2322598-9184256": {
-   "ordered": "2026-05-14",
-   "delivered": "2026-05-15",
-   "total": 25.73,
-   "project": true
-  },
-  "114-6517096-6242639": {
-   "ordered": "2026-05-13",
-   "delivered": "2026-05-15",
-   "total": 7.28,
-   "project": false,
-   "why": "household"
-  },
-  "112-2846745-4487464": {
-   "ordered": "2026-05-13",
-   "delivered": "2026-05-15",
-   "total": 22.51,
-   "project": true
-  },
-  "112-6323725-5423434": {
-   "ordered": "2026-05-13",
-   "delivered": "2026-05-17",
-   "total": 56.2,
-   "project": true
-  },
-  "112-8061650-4642611": {
-   "ordered": "2026-05-11",
-   "delivered": "2026-05-14",
-   "total": 6.42,
-   "project": true
-  },
-  "112-0089456-0822653": {
-   "ordered": "2026-05-11",
-   "delivered": "2026-05-13",
-   "total": 18.21,
-   "project": true
-  },
-  "112-0610257-0936212": {
-   "ordered": "2026-05-11",
-   "delivered": "2026-05-12",
-   "total": 10.71,
-   "project": true
-  },
-  "112-6407862-0653853": {
-   "ordered": "2026-05-11",
-   "delivered": "2026-05-12",
-   "total": 24.79,
-   "project": true
-  },
-  "112-4393734-6836206": {
-   "ordered": "2026-05-11",
-   "delivered": "2026-05-12",
-   "total": 13.23,
-   "project": true
-  },
-  "112-0144900-5988250": {
-   "ordered": "2026-05-10",
-   "delivered": "2026-05-11",
-   "total": 8.57,
-   "project": true
-  },
-  "112-2495614-5144234": {
-   "ordered": "2026-05-10",
-   "delivered": "2026-05-11",
-   "total": 8.57,
-   "project": true
-  },
-  "112-4234665-4274626": {
-   "ordered": "2026-05-10",
-   "delivered": "2026-05-11",
-   "subtotal": 22.98,
-   "shipping": 0.0,
-   "tax": 1.66,
-   "total": 24.64,
-   "project": true
-  },
-  "112-3739807-8848229": {
-   "ordered": "2026-05-09",
-   "delivered": "2026-05-09",
-   "total": 75.06,
-   "project": true
-  },
-  "112-5656837-1597066": {
-   "ordered": "2026-05-08",
-   "delivered": "2026-05-09",
-   "total": 7.5,
-   "project": true
-  },
-  "112-5503072-4357859": {
-   "ordered": "2026-05-08",
-   "delivered": "2026-05-10",
-   "total": 6.85,
-   "project": true
-  },
-  "112-5459082-8422662": {
-   "ordered": "2026-05-08",
-   "delivered": "2026-05-09",
-   "total": 10.29,
-   "project": true
-  },
-  "112-9688188-4729035": {
-   "ordered": "2026-05-08",
-   "delivered": "2026-05-09",
-   "total": 64.24,
-   "project": true
-  },
-  "112-7749428-2806629": {
-   "ordered": "2026-05-08",
-   "delivered": "2026-05-09",
-   "total": 37.43,
-   "project": true
-  },
-  "112-6571709-7582668": {
-   "ordered": "2026-05-08",
-   "delivered": "2026-05-12",
-   "total": 24.51,
-   "project": true
-  },
-  "112-1128563-6922646": {
-   "ordered": "2026-05-04",
-   "delivered": "2026-05-05",
-   "total": 12.86,
-   "project": true
-  },
-  "112-6990924-2823418": {
-   "ordered": "2026-05-04",
-   "delivered": "2026-05-05",
-   "total": 93.3,
-   "project": true
-  },
-  "112-2086169-3211445": {
-   "ordered": "2026-05-04",
-   "delivered": "2026-05-05",
-   "total": 37.53,
-   "project": true
-  },
-  "112-0147397-3280206": {
-   "ordered": "2026-05-02",
-   "delivered": "2026-05-04",
-   "total": 45.41,
-   "project": true
-  },
-  "112-3421913-9021801": {
-   "ordered": "2026-04-30",
-   "delivered": "2026-05-03",
-   "total": 19.29,
-   "project": true
-  },
-  "111-4630388-1572202": {
-   "ordered": "2026-04-29",
-   "delivered": "2026-05-01",
-   "total": 5.35,
-   "project": true
-  },
-  "112-2348373-7907448": {
-   "ordered": "2026-04-29",
-   "delivered": "2026-05-02",
-   "total": 264.96,
-   "project": true
-  },
-  "114-9634716-3126657": {
-   "ordered": "2026-04-29",
-   "delivered": "2026-04-30",
-   "total": 8.03,
-   "project": true
-  },
-  "112-6573046-7656255": {
-   "ordered": "2026-04-27",
-   "delivered": "2026-04-29",
-   "total": 28.85,
-   "project": true
-  },
-  "112-8110646-3335448": {
-   "ordered": "2026-04-27",
-   "delivered": "2026-04-29",
-   "total": 7.5,
-   "project": true
-  },
-  "112-8247392-7531444": {
-   "ordered": "2026-04-27",
-   "delivered": "2026-04-29",
-   "total": 7.49,
-   "project": true
-  },
-  "112-3159250-4061051": {
-   "ordered": "2026-04-27",
-   "total": null,
-   "cancelled": true,
-   "project": false,
-   "why": "cancelled"
-  },
-  "112-0326855-5540223": {
-   "ordered": "2026-04-27",
-   "delivered": "2026-04-29",
-   "total": 20.37,
-   "project": true
-  },
-  "114-0084687-6710639": {
-   "ordered": "2026-04-26",
-   "delivered": "2026-04-29",
-   "total": 21.74,
-   "project": true
-  },
-  "112-7245467-6557007": {
-   "ordered": "2026-04-26",
-   "delivered": "2026-04-27",
-   "subtotal": 81.92,
-   "shipping": 0.0,
-   "tax": 5.87,
-   "total": 86.69,
-   "project": true
-  },
-  "112-0915506-0821038": {
-   "ordered": "2026-04-26",
-   "delivered": "2026-04-27",
-   "total": 13.29,
-   "project": true
-  },
-  "112-7934476-0257818": {
-   "ordered": "2026-04-25",
-   "delivered": "2026-04-27",
-   "total": 30.0,
-   "project": true
-  },
-  "112-2295053-5101056": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-27",
-   "total": 129.5,
-   "project": true
-  },
-  "112-7391312-2980226": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-26",
-   "total": 8.57,
-   "project": true
-  },
-  "112-9584993-4999458": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 15.0,
-   "project": true
-  },
-  "112-3539135-2289004": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 17.01,
-   "project": true
-  },
-  "112-8579175-6021014": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-27",
-   "total": 9.64,
-   "project": true
-  },
-  "112-4706100-6171430": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 13.93,
-   "project": true
-  },
-  "112-8251187-7721036": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 8.56,
-   "project": true
-  },
-  "112-4347613-6452231": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 6.42,
-   "project": true
-  },
-  "112-4822227-6802649": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 13.65,
-   "project": true
-  },
-  "112-5893072-9403444": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 14.97,
-   "project": true
-  },
-  "112-0876134-8491423": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-26",
-   "total": 16.08,
-   "project": true
-  },
-  "112-2063260-0973008": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 7.39,
-   "project": true
-  },
-  "112-2843637-5886607": {
-   "ordered": "2026-04-24",
-   "delivered": "2026-04-25",
-   "total": 9.21,
-   "project": true
-  },
-  "112-5173995-8426610": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-25",
-   "total": 9.64,
-   "project": true
-  },
-  "112-4953236-4101019": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-24",
-   "total": 42.89,
-   "project": true
-  },
-  "112-3799575-6647414": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-26",
-   "total": 95.42,
-   "project": true
-  },
-  "112-5788053-3609032": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-27",
-   "total": 8.57,
-   "project": true
-  },
-  "112-1057208-2782602": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-24",
-   "total": 57.06,
-   "project": true
-  },
-  "112-0837919-8970627": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-24",
-   "total": 8.56,
-   "project": true
-  },
-  "112-5229510-7593833": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-24",
-   "total": 12.86,
-   "project": true
-  },
-  "112-0196430-3061828": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-24",
-   "total": 8.57,
-   "project": true
-  },
-  "112-4247013-3054647": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-24",
-   "total": 5.35,
-   "project": true
-  },
-  "112-7179212-4944250": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-25",
-   "total": 6.42,
-   "project": true
-  },
-  "112-5236199-6056258": {
-   "ordered": "2026-04-23",
-   "delivered": "2026-04-26",
-   "total": 20.95,
-   "project": true
-  },
-  "112-0066205-0960237": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 423.95,
-   "project": true
-  },
-  "112-4778025-6157043": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-28",
-   "total": 117.96,
-   "project": true
-  },
-  "112-4658706-3333801": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-24",
-   "total": 174.7,
-   "project": true
-  },
-  "112-1965509-6778648": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-25",
-   "total": 96.76,
-   "project": true
-  },
-  "112-5034335-5564260": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 15.74,
-   "project": true
-  },
-  "112-8685000-6226628": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 13.4,
-   "project": true
-  },
-  "112-6588057-9595403": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 13.93,
-   "project": true
-  },
-  "112-8776391-7335431": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 48.24,
-   "project": true
-  },
-  "112-0935480-2206657": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 42.89,
-   "project": true
-  },
-  "112-0442030-7315464": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-23",
-   "total": 11.95,
-   "project": true
-  },
-  "112-0223047-4718623": {
-   "ordered": "2026-04-22",
-   "delivered": "2026-04-24",
-   "total": 72.92,
-   "project": true
-  },
-  "112-1730165-6930661": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-23",
-   "total": 78.28,
-   "project": true
-  },
-  "112-9126137-7021848": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-23",
-   "total": 42.89,
-   "project": true
-  },
-  "112-7342242-5019446": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-23",
-   "total": 19.25,
-   "project": true
-  },
-  "112-0145136-7037809": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-23",
-   "total": 7.37,
-   "project": true
-  },
-  "112-9742741-7165035": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-23",
-   "total": 48.24,
-   "project": true
-  },
-  "114-6029405-6913037": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-22",
-   "total": 22.47,
-   "project": true
-  },
-  "112-4054778-9500227": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-22",
-   "total": 6.96,
-   "project": true
-  },
-  "112-9710760-9385027": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-24",
-   "total": 24.0,
-   "project": true
-  },
-  "112-8868344-2270629": {
-   "ordered": "2026-04-21",
-   "delivered": "2026-04-22",
-   "total": 11.79,
-   "project": true
-  },
-  "112-1500299-7944264": {
-   "ordered": "2026-04-21",
-   "total": 31.66,
-   "project": true
-  },
-  "112-8930099-2982664": {
-   "ordered": "2026-04-20",
-   "delivered": "2026-04-22",
-   "total": 13.93,
-   "project": true
-  },
-  "114-1978684-7068269": {
-   "ordered": "2026-04-20",
-   "delivered": "2026-04-27",
-   "total": 345.28,
-   "project": true
-  },
-  "114-8354589-7380236": {
-   "ordered": "2026-04-19",
-   "delivered": "2026-04-21",
-   "total": 85.53,
-   "project": true
-  },
-  "114-0933175-3371439": {
-   "ordered": "2026-04-19",
-   "delivered": "2026-04-20",
-   "total": 23.05,
-   "project": true
-  },
-  "114-5148466-4469057": {
-   "ordered": "2026-04-19",
-   "delivered": "2026-04-20",
-   "total": 64.34,
-   "project": true
-  },
-  "114-4402537-9406656": {
-   "ordered": "2026-04-19",
-   "delivered": "2026-04-20",
-   "total": 33.88,
-   "project": true
-  },
-  "114-6485602-3013015": {
-   "ordered": "2026-04-19",
-   "delivered": "2026-04-20",
-   "total": 90.68,
-   "project": true
-  },
-  "114-5627037-2176207": {
-   "ordered": "2026-04-19",
-   "total": null,
-   "cancelled": true,
-   "project": false,
-   "why": "cancelled"
-  },
-  "114-0466254-7942655": {
-   "ordered": "2026-04-19",
-   "delivered": "2026-04-20",
-   "total": 26.8,
-   "project": false,
-   "why": "pet"
-  },
-  "112-1533167-6762648": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-19",
-   "total": 10.71,
-   "project": true
-  },
-  "112-9091100-8229010": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-19",
-   "total": 30.03,
-   "project": true
-  },
-  "112-2763596-7866631": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-18",
-   "total": 3.26,
-   "project": true
-  },
-  "112-0118962-3725825": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-18",
-   "total": 34.31,
-   "project": true
-  },
-  "112-5222697-3918636": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-18",
-   "total": 12.86,
-   "project": true
-  },
-  "112-0680575-1213862": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-18",
-   "total": 13.92,
-   "project": true
-  },
-  "114-5597505-0433853": {
-   "ordered": "2026-04-17",
-   "delivered": "2026-04-18",
-   "total": 23.05,
-   "project": true
-  },
-  "112-9672770-7349862": {
-   "ordered": "2026-04-16",
-   "total": 8.46,
-   "project": true
-  },
-  "112-4601641-4469804": {
-   "ordered": "2026-04-16",
-   "total": 10.71,
-   "project": true
-  },
-  "112-4780540-1769027": {
-   "ordered": "2026-04-16",
-   "total": 235.94,
-   "project": true
-  },
-  "112-5187846-6776238": {
-   "ordered": "2026-04-16",
-   "total": 60.05,
-   "project": true
-  },
-  "112-4686467-7049865": {
-   "ordered": "2026-04-15",
-   "total": 68.63,
-   "project": true
-  },
-  "112-0852106-5758666": {
-   "ordered": "2026-04-15",
-   "total": 78.7,
-   "project": true
-  },
-  "112-1812715-8813859": {
-   "ordered": "2026-04-15",
-   "total": 63.8,
-   "project": true
-  },
-  "112-2110462-6265038": {
-   "ordered": "2026-04-15",
-   "subtotal": 26.57,
-   "shipping": 0.0,
-   "tax": 1.93,
-   "total": 28.5,
-   "project": true
-  },
-  "112-1627637-9419449": {
-   "ordered": "2026-04-14",
-   "delivered": "2026-04-22",
-   "total": 155.5,
-   "project": true
-  },
-  "114-6873937-4828260": {
-   "ordered": "2026-04-14",
-   "total": 49.21,
-   "project": false,
-   "why": "yard"
-  },
-  "114-3660701-1810624": {
-   "ordered": "2026-04-14",
-   "total": 94.36,
-   "project": false,
-   "why": "yard"
-  },
-  "112-7291284-7101059": {
-   "ordered": "2026-04-13",
-   "total": 48.26,
-   "project": true,
-   "subtotal": 45.0,
-   "shipping": 2.99,
-   "tax": 3.26
-  },
-  "112-6216768-3197856": {
-   "ordered": "2026-04-12",
-   "total": 31.08,
-   "project": true
-  },
-  "112-5291452-2765065": {
-   "ordered": "2026-04-12",
-   "total": 21.45,
-   "project": true
-  },
-  "112-6570032-9753837": {
-   "ordered": "2026-04-12",
-   "total": 18.22,
-   "project": true
-  },
-  "112-8083402-8740244": {
-   "ordered": "2026-04-12",
-   "total": 9.99,
-   "project": true
-  },
-  "112-7814251-3174665": {
-   "ordered": "2026-04-12",
-   "total": 16.06,
-   "project": true
-  },
-  "114-3158038-5993828": {
-   "ordered": "2026-04-12",
-   "total": 92.45,
-   "project": false,
-   "why": "household"
-  },
-  "112-8830635-1424267": {
-   "ordered": "2026-04-06",
-   "total": 289.51,
-   "project": true
-  },
-  "112-2273377-9628208": {
-   "ordered": "2026-04-06",
-   "total": 383.85,
-   "project": true,
-   "subtotal": 357.9,
-   "shipping": 0.0,
-   "tax": 25.95
-  },
-  "114-9662555-0662608": {
-   "ordered": "2026-04-05",
-   "total": 321.74,
-   "project": true
-  },
-  "112-0019658-3684217": {
-   "ordered": "2026-04-04",
-   "total": 139.81,
-   "project": true
-  },
-  "114-4512279-7485822": {
-   "ordered": "2026-04-01",
-   "total": 48.25,
-   "project": true
-  },
-  "114-9764609-4555460": {
-   "ordered": "2026-03-22",
-   "subtotal": 283.53,
-   "shipping": 0.0,
-   "tax": 20.55,
-   "total": 304.08,
-   "project": true,
-   "nonproject_amount": 17.15,
-   "why_mixed": "also carried $15.99 of HOMEXCEL microfiber cloths (household)"
-  },
-  "114-2214596-3435404": {
-   "ordered": "2026-03-22",
-   "total": 396.71,
-   "project": true,
-   "subtotal": 369.89,
-   "shipping": 0.0,
-   "tax": 26.82
-  },
-  "114-2813251-8225805": {
-   "ordered": "2026-03-16",
-   "total": 7.07,
-   "project": true
-  },
-  "114-5764473-1322614": {
-   "ordered": "2026-03-16",
-   "total": 16.08,
-   "project": true
-  },
-  "114-9074237-0264235": {
-   "ordered": "2026-03-16",
-   "total": 18.22,
-   "project": false,
-   "why": "pet"
-  },
-  "114-5604599-8333023": {
-   "ordered": "2026-03-16",
-   "total": 40.55,
-   "project": true
-  },
-  "114-5256389-4238639": {
-   "ordered": "2026-03-16",
-   "total": 41.65,
-   "project": true
-  },
-  "114-2734195-8455414": {
-   "ordered": "2026-03-15",
-   "total": 12.86,
-   "project": true
-  },
-  "112-2147768-5852208": {
-   "ordered": "2026-03-15",
-   "subtotal": 44.66,
-   "shipping": 0.0,
-   "tax": 3.24,
-   "total": 47.9,
-   "project": true
-  },
-  "112-2018641-1609045": {
-   "ordered": "2026-03-15",
-   "subtotal": 37.66,
-   "shipping": 0.0,
-   "tax": 2.73,
-   "total": 40.39,
-   "project": true
-  },
-  "112-9365343-6646655": {
-   "ordered": "2026-03-14",
-   "total": 19.28,
-   "project": true
-  },
-  "112-4838242-5164262": {
-   "ordered": "2026-03-14",
-   "total": 32.15,
-   "project": true
-  },
-  "114-3156932-8523447": {
-   "ordered": "2026-03-12",
-   "total": 91.11,
-   "project": false,
-   "why": "reviewed 2026-08-15 \u2014 left off the ledger"
-  },
-  "114-5318848-1169066": {
-   "ordered": "2026-03-10",
-   "total": 32.08,
-   "project": false,
-   "why": "garage"
-  },
-  "114-7373747-7178604": {
-   "ordered": "2026-03-09",
-   "total": 76.95,
-   "project": true
-  },
-  "114-5669081-7865863": {
-   "ordered": "2026-03-09",
-   "total": 14.95,
-   "project": false,
-   "why": "reviewed 2026-08-15 \u2014 left off the ledger"
-  },
-  "114-9018087-5473001": {
-   "ordered": "2026-03-08",
-   "total": 25.19,
-   "project": false,
-   "why": "household"
-  },
-  "114-9973455-6637052": {
-   "ordered": "2026-03-08",
-   "total": 25.73,
-   "project": true
-  },
-  "114-3163590-0127432": {
-   "ordered": "2026-03-08",
-   "total": 92.18,
-   "project": true
-  },
-  "114-4208465-6308263": {
-   "ordered": "2026-03-08",
-   "total": 16.08,
-   "project": false,
-   "why": "household"
-  },
-  "114-5313642-3221012": {
-   "ordered": "2026-03-08",
-   "total": 31.77,
-   "project": false,
-   "why": "pet"
-  },
-  "114-3717852-7039428": {
-   "ordered": "2026-03-07",
-   "total": 40.98,
-   "project": true
-  },
-  "114-5808971-1405845": {
-   "ordered": "2026-03-03",
-   "total": 42.88,
-   "project": false,
-   "why": "home-automation"
-  },
-  "114-4027030-3911436": {
-   "ordered": "2026-03-03",
-   "total": 47.18,
-   "project": false,
-   "why": "pet"
-  },
-  "114-4194868-8174607": {
-   "ordered": "2026-03-02",
-   "total": 39.65,
-   "project": true
-  },
-  "114-5450893-7108227": {
-   "ordered": "2026-02-27",
-   "total": 98.42,
-   "project": false,
-   "why": "yard"
-  },
-  "114-9796282-2864253": {
-   "ordered": "2026-02-27",
-   "total": 86.04,
-   "project": false,
-   "why": "yard"
-  },
-  "114-2582317-0018622": {
-   "ordered": "2026-02-26",
-   "total": 46.08,
-   "project": true
-  },
-  "114-7897645-5210617": {
-   "ordered": "2026-02-25",
-   "total": 6.42,
-   "project": true
-  },
-  "114-9620011-1329056": {
-   "ordered": "2026-02-25",
-   "total": 71.1,
-   "project": true,
-   "nonproject_amount": 40.37,
-   "why_mixed": "also carried $37.64 of Jonathan Green grass seed (yard)",
-   "subtotal": 66.3,
-   "shipping": 2.99,
-   "tax": 4.8
-  },
-  "114-0429960-0635402": {
-   "ordered": "2026-02-25",
-   "total": 29.79,
-   "project": false,
-   "why": "yard"
-  },
-  "114-0069643-1757059": {
-   "ordered": "2026-02-25",
-   "total": 28.99,
-   "project": true
-  },
-  "114-5534543-4435455": {
-   "ordered": "2026-02-24",
-   "total": 32.18,
-   "project": true
-  },
-  "114-0182432-7123463": {
-   "ordered": "2026-02-24",
-   "total": 8.25,
-   "project": true
-  },
-  "114-5322942-5213821": {
-   "ordered": "2026-02-24",
-   "total": 10.71,
-   "project": true
-  },
-  "114-0884594-8630623": {
-   "ordered": "2026-02-24",
-   "total": 9.64,
-   "project": true
-  },
-  "114-5649971-6455418": {
-   "ordered": "2026-02-24",
-   "total": 6.4,
-   "project": true
-  },
-  "114-0077226-6463477": {
-   "ordered": "2026-02-24",
-   "total": 7.49,
-   "project": true
-  },
-  "114-0749284-0433838": {
-   "ordered": "2026-02-24",
-   "total": 28.12,
-   "project": true
-  },
-  "112-9869315-7146643": {
-   "ordered": "2026-02-23",
-   "total": 34.66,
-   "project": true
-  },
-  "112-9633392-2520236": {
-   "ordered": "2026-02-23",
-   "total": 20.36,
-   "project": true
-  },
-  "112-9399398-0475445": {
-   "ordered": "2026-02-23",
-   "total": 27.86,
-   "project": true
-  },
-  "112-0933043-5526613": {
-   "ordered": "2026-02-23",
-   "total": 61.77,
-   "project": true
-  },
-  "112-0545074-9805025": {
-   "ordered": "2026-02-23",
-   "total": 251.89,
-   "project": true
-  },
-  "114-3476722-1893810": {
-   "ordered": "2026-02-22",
-   "total": 9.64,
-   "project": true
-  },
-  "114-3384762-6934634": {
-   "ordered": "2026-02-22",
-   "total": 35.58,
-   "project": true
-  },
-  "114-1015191-6799441": {
-   "ordered": "2026-02-18",
-   "total": 56.33,
-   "project": true
-  },
-  "114-5874013-6990635": {
-   "ordered": "2026-02-16",
-   "total": 41.27,
-   "project": false,
-   "why": "pet"
-  },
-  "114-2469196-8024255": {
-   "ordered": "2026-02-15",
-   "total": 42.89,
-   "project": true
-  },
-  "114-6677433-0745008": {
-   "ordered": "2026-02-14",
-   "total": 64.34,
-   "project": false,
-   "why": "garage"
-  },
-  "114-2491581-3257040": {
-   "ordered": "2026-02-14",
-   "total": 10.71,
-   "project": true
-  },
-  "114-7655402-1447440": {
-   "ordered": "2026-02-13",
-   "total": 13.5,
-   "project": true
-  },
-  "114-0170640-0334629": {
-   "ordered": "2026-02-13",
-   "total": 96.47,
-   "project": true
-  },
-  "114-5825243-4744249": {
-   "ordered": "2026-02-12",
-   "total": 58.93,
-   "project": true
-  },
-  "114-4838401-4353060": {
-   "ordered": "2026-02-12",
-   "total": 20.36,
-   "project": true
-  },
-  "114-7711911-5865013": {
-   "ordered": "2026-02-11",
-   "total": 151.18,
-   "project": true
-  },
-  "114-8406984-1532205": {
-   "ordered": "2026-02-11",
-   "total": 36.44,
-   "project": false,
-   "why": "household"
-  },
-  "114-1468362-6128231": {
-   "ordered": "2026-02-08",
-   "total": 19.28,
-   "project": true
-  },
-  "114-1207834-4699415": {
-   "ordered": "2026-02-08",
-   "total": 13.63,
-   "project": true
-  },
-  "114-8283262-7030641": {
-   "ordered": "2026-02-06",
-   "total": 21.64,
-   "project": true
-  },
-  "114-4987669-8550659": {
-   "ordered": "2026-02-06",
-   "total": 16.07,
-   "project": true
-  },
-  "114-6385083-8023407": {
-   "ordered": "2026-02-02",
-   "total": 23.58,
-   "project": true
-  },
-  "114-0818390-2733826": {
-   "ordered": "2026-02-02",
-   "total": 55.44,
-   "project": true
-  },
-  "114-7739695-9309821": {
-   "ordered": "2026-02-01",
-   "total": 17.62,
-   "project": true
-  },
-  "114-6740698-6945013": {
-   "ordered": "2026-02-01",
-   "total": 101.54,
-   "project": false,
-   "why": "pet"
-  },
-  "114-7822747-7253804": {
-   "ordered": "2026-01-29",
-   "total": 18.18,
-   "project": false,
-   "why": "pet"
-  },
-  "114-8784211-4965832": {
-   "ordered": "2026-01-25",
-   "total": 97.1,
-   "project": true
-  },
-  "114-8940379-3887419": {
-   "ordered": "2026-01-25",
-   "total": 29.65,
-   "project": false,
-   "why": "household"
-  },
-  "114-6692176-7865826": {
-   "ordered": "2026-01-25",
-   "total": 107.24,
-   "project": false,
-   "why": "household"
-  },
-  "114-6152001-8890662": {
-   "ordered": "2026-01-25",
-   "total": 9.09,
-   "project": false,
-   "why": "pet"
-  },
-  "114-5397767-1429056": {
-   "ordered": "2026-01-25",
-   "total": 62.77,
-   "project": false,
-   "why": "household"
-  },
-  "114-0289535-3320251": {
-   "ordered": "2026-01-17",
-   "total": 8.57,
-   "project": false,
-   "why": "household"
-  },
-  "114-5838987-7477846": {
-   "ordered": "2026-01-16",
-   "total": 9.09,
-   "project": false,
-   "why": "pet"
-  },
-  "114-4086617-9958608": {
-   "ordered": "2026-01-15",
-   "total": 32.16,
-   "project": false,
-   "why": "household"
-  },
-  "114-0919489-1054620": {
-   "ordered": "2026-01-15",
-   "total": 42.84,
-   "project": false,
-   "why": "household"
-  },
-  "114-8483183-7217840": {
-   "ordered": "2026-01-10",
-   "total": 18.22,
-   "project": false,
-   "why": "household"
-  },
-  "114-5472014-7629852": {
-   "ordered": "2026-01-07",
-   "total": 23.58,
-   "project": false,
-   "why": "pet"
-  },
-  "114-6389258-0576235": {
-   "ordered": "2026-01-04",
-   "total": 99.71,
-   "project": false,
-   "why": "pet"
-  },
-  "114-4984983-5587469": {
-   "ordered": "2026-01-01",
-   "total": 38.6,
-   "project": false,
-   "why": "household"
+  "_meta": {
+    "source": "amazon.com order history, year-2026 filter, scraped 2026-08-15",
+    "orders": 320,
+    "ordered/total": "ordered present for all 318; total present for 315 — the three cancelled orders were never charged",
+    "delivered": "present only where Amazon still shows a shipment banner — orders from roughly mid-April 2026 on; Amazon stops exposing it for older orders, and their detail pages do not carry it either",
+    "subtotal/shipping/tax": "present only for the 17 invoices opened during the 2026-08-15 reconciliation; not scraped for the rest",
+    "project": "true = a purchases.md row names this order. false = household/pet/yard/garage/cancelled, with `why`. null = flagged for a human call.",
+    "nonproject_amount": "on a mixed order, the dollars on the invoice that belong to no ledger row. Expected ledger sum = total - nonproject_amount."
+  },
+  "orders": {
+    "112-3920877-6075462": {
+      "ordered": "2026-08-23",
+      "delivered": "2026-08-24",
+      "subtotal": 209.97,
+      "shipping": 0.0,
+      "tax": 15.21,
+      "total": 225.18,
+      "project": true
+    },
+    "112-7312343-0359412": {
+      "ordered": "2026-08-19",
+      "delivered": "2026-08-20",
+      "subtotal": 111.98,
+      "shipping": 0.0,
+      "promotion": -5.6,
+      "tax": 7.72,
+      "total": 114.1,
+      "project": true
+    },
+    "114-2335010-7091469": {
+      "ordered": "2026-08-15",
+      "total": 32.16,
+      "in_transit": true,
+      "project": false,
+      "why": "pet"
+    },
+    "114-8931415-0067401": {
+      "ordered": "2026-08-13",
+      "delivered": "2026-08-15",
+      "subtotal": 109.99,
+      "shipping": 1.99,
+      "tax": 8.11,
+      "total": 120.09,
+      "project": true
+    },
+    "112-6038990-5011450": {
+      "ordered": "2026-08-11",
+      "delivered": "2026-08-14",
+      "total": 29.46,
+      "project": true
+    },
+    "112-8079907-6555421": {
+      "ordered": "2026-08-10",
+      "delivered": "2026-08-11",
+      "total": 5.35,
+      "project": true
+    },
+    "112-5463509-3741018": {
+      "ordered": "2026-08-10",
+      "delivered": "2026-08-11",
+      "total": 4.28,
+      "project": true
+    },
+    "112-1974343-4486643": {
+      "ordered": "2026-08-09",
+      "delivered": "2026-08-11",
+      "subtotal": 114.89,
+      "shipping": 0.0,
+      "tax": 8.33,
+      "total": 123.22,
+      "project": true
+    },
+    "114-0076741-2012236": {
+      "ordered": "2026-08-04",
+      "delivered": "2026-08-05",
+      "total": 28.95,
+      "project": false,
+      "why": "pet"
+    },
+    "112-7384943-1126630": {
+      "ordered": "2026-07-27",
+      "delivered": "2026-07-28",
+      "total": 10.23,
+      "project": false,
+      "why": "household"
+    },
+    "112-5345892-2113837": {
+      "ordered": "2026-07-26",
+      "delivered": "2026-07-28",
+      "total": 85.78,
+      "project": false,
+      "why": "yard"
+    },
+    "112-6477165-1593824": {
+      "ordered": "2026-07-26",
+      "delivered": "2026-07-27",
+      "total": 32.16,
+      "project": false,
+      "why": "yard"
+    },
+    "112-3552935-4239455": {
+      "ordered": "2026-07-26",
+      "delivered": "2026-07-27",
+      "total": 28.99,
+      "project": true
+    },
+    "112-2287046-3621006": {
+      "ordered": "2026-07-26",
+      "delivered": "2026-07-27",
+      "total": 19.99,
+      "project": true
+    },
+    "112-7818515-5395414": {
+      "ordered": "2026-07-25",
+      "delivered": "2026-07-27",
+      "total": 36.44,
+      "project": true
+    },
+    "112-4209023-0725839": {
+      "ordered": "2026-07-24",
+      "delivered": "2026-07-25",
+      "total": 13.92,
+      "project": true
+    },
+    "112-1826837-9445804": {
+      "ordered": "2026-07-18",
+      "delivered": "2026-07-19",
+      "total": 22.95,
+      "project": true
+    },
+    "112-0844221-1512225": {
+      "ordered": "2026-07-18",
+      "delivered": "2026-07-22",
+      "total": 48.16,
+      "project": true
+    },
+    "112-8193263-0421020": {
+      "ordered": "2026-07-16",
+      "delivered": "2026-07-24",
+      "total": 30.0,
+      "project": true
+    },
+    "112-5082341-0132227": {
+      "ordered": "2026-07-16",
+      "delivered": "2026-07-19",
+      "total": 20.04,
+      "project": true
+    },
+    "112-6198023-2829830": {
+      "ordered": "2026-07-14",
+      "delivered": "2026-07-16",
+      "total": 7.71,
+      "project": true
+    },
+    "112-1487355-1949808": {
+      "ordered": "2026-07-11",
+      "delivered": "2026-07-14",
+      "total": 9.21,
+      "project": true
+    },
+    "114-5647520-8932223": {
+      "ordered": "2026-07-03",
+      "delivered": "2026-07-07",
+      "total": 44.54,
+      "project": false,
+      "why": "household"
+    },
+    "114-3480695-5757867": {
+      "ordered": "2026-07-03",
+      "delivered": "2026-07-07",
+      "total": 17.14,
+      "project": false,
+      "why": "household"
+    },
+    "114-4030723-1300257": {
+      "ordered": "2026-07-03",
+      "delivered": "2026-07-06",
+      "total": 12.84,
+      "project": false,
+      "why": "household"
+    },
+    "114-7573867-4873818": {
+      "ordered": "2026-07-03",
+      "delivered": "2026-07-07",
+      "total": 32.16,
+      "project": false,
+      "why": "pet"
+    },
+    "114-8935189-9054653": {
+      "ordered": "2026-07-03",
+      "delivered": "2026-07-06",
+      "subtotal": 44.9,
+      "shipping": 0.0,
+      "tax": 3.26,
+      "total": 48.16,
+      "project": true
+    },
+    "114-6014794-9636216": {
+      "ordered": "2026-07-02",
+      "delivered": "2026-07-03",
+      "total": 31.08,
+      "project": false,
+      "why": "pet"
+    },
+    "112-5404430-0862635": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 7.63,
+      "project": true
+    },
+    "112-9256032-0146608": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-30",
+      "total": 20.37,
+      "project": true
+    },
+    "112-4262778-1489854": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 48.25,
+      "project": true
+    },
+    "112-1902778-9631456": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 8.57,
+      "project": true
+    },
+    "112-9748313-5465028": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 22.51,
+      "project": true
+    },
+    "112-6043616-7501828": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 17.15,
+      "project": true
+    },
+    "112-7185180-0909846": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 13.38,
+      "project": true
+    },
+    "112-4343274-7898624": {
+      "ordered": "2026-06-28",
+      "delivered": "2026-06-29",
+      "total": 27.86,
+      "project": true
+    },
+    "112-4898292-1807408": {
+      "ordered": "2026-06-27",
+      "delivered": "2026-06-29",
+      "total": 27.83,
+      "project": true
+    },
+    "112-7409860-0021807": {
+      "ordered": "2026-06-27",
+      "delivered": "2026-06-30",
+      "total": 26.76,
+      "project": true
+    },
+    "112-1321519-4687432": {
+      "ordered": "2026-06-27",
+      "delivered": "2026-06-30",
+      "total": 28.9,
+      "project": true
+    },
+    "112-7067792-6289059": {
+      "ordered": "2026-06-27",
+      "delivered": "2026-06-30",
+      "subtotal": 77.5,
+      "shipping": 0.0,
+      "tax": 5.61,
+      "total": 83.11,
+      "project": true
+    },
+    "112-0861785-9553820": {
+      "ordered": "2026-06-27",
+      "delivered": "2026-06-29",
+      "subtotal": 17.98,
+      "shipping": 0.0,
+      "tax": 1.3,
+      "total": 19.28,
+      "project": true
+    },
+    "112-6701248-5105066": {
+      "ordered": "2026-06-25",
+      "delivered": "2026-06-30",
+      "subtotal": 10.98,
+      "shipping": 0.0,
+      "tax": 0.74,
+      "total": 11.06,
+      "project": true
+    },
+    "112-2621523-2281840": {
+      "ordered": "2026-06-25",
+      "delivered": "2026-06-26",
+      "total": 7.5,
+      "project": true
+    },
+    "114-0383277-7904251": {
+      "ordered": "2026-06-25",
+      "delivered": "2026-06-29",
+      "total": 102.93,
+      "project": false,
+      "why": "reviewed 2026-08-15 — left off the ledger"
+    },
+    "112-5591371-7092233": {
+      "ordered": "2026-06-23",
+      "delivered": "2026-06-25",
+      "subtotal": 9.89,
+      "shipping": 0.0,
+      "tax": 0.72,
+      "total": 10.61,
+      "project": true
+    },
+    "112-3515616-8230610": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-25",
+      "total": 7.28,
+      "project": true
+    },
+    "112-3443368-0402610": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 7.5,
+      "project": true
+    },
+    "112-1905695-2405047": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 18.22,
+      "project": true
+    },
+    "112-2773449-1292200": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 10.71,
+      "project": true
+    },
+    "112-4073443-1219450": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-25",
+      "total": 9.64,
+      "project": true
+    },
+    "112-7522816-0777851": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 6.42,
+      "project": true
+    },
+    "112-6542724-2528248": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 8.57,
+      "project": true
+    },
+    "112-8492724-3195462": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 14.99,
+      "project": true
+    },
+    "112-8448573-3185817": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "total": 38.29,
+      "project": true
+    },
+    "112-8121022-3791448": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-25",
+      "total": 49.32,
+      "project": true
+    },
+    "112-8255970-7923460": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-23",
+      "subtotal": 35.16,
+      "shipping": 0.0,
+      "tax": 2.55,
+      "total": 37.71,
+      "project": true
+    },
+    "112-7063184-8235469": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-24",
+      "subtotal": 244.95,
+      "shipping": 0.0,
+      "tax": 17.76,
+      "total": 262.71,
+      "project": true
+    },
+    "112-0411698-8891425": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-23",
+      "subtotal": 21.99,
+      "shipping": 0.0,
+      "tax": 1.59,
+      "total": 23.58,
+      "project": true
+    },
+    "112-0401256-3893007": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-22",
+      "subtotal": 27.51,
+      "shipping": 2.99,
+      "tax": 1.99,
+      "total": 29.5,
+      "project": true
+    },
+    "114-4609926-1663418": {
+      "ordered": "2026-06-22",
+      "delivered": "2026-06-22",
+      "total": 28.8,
+      "project": true
+    },
+    "112-9011989-8585847": {
+      "ordered": "2026-06-20",
+      "delivered": "2026-06-21",
+      "total": 34.31,
+      "project": false,
+      "why": "reviewed 2026-08-15 — left off the ledger"
+    },
+    "112-9276465-1199416": {
+      "ordered": "2026-06-20",
+      "delivered": "2026-06-22",
+      "total": 32.31,
+      "project": true
+    },
+    "112-4685860-9927453": {
+      "ordered": "2026-06-17",
+      "delivered": "2026-06-18",
+      "total": 13.93,
+      "project": true
+    },
+    "114-7801151-2777012": {
+      "ordered": "2026-06-17",
+      "delivered": "2026-06-21",
+      "total": 18.22,
+      "project": true
+    },
+    "114-2674264-1703446": {
+      "ordered": "2026-06-17",
+      "delivered": "2026-06-20",
+      "total": 17.78,
+      "project": true
+    },
+    "112-3334877-3267411": {
+      "ordered": "2026-06-17",
+      "delivered": "2026-06-21",
+      "total": 19.83,
+      "project": true
+    },
+    "112-0741371-9657825": {
+      "ordered": "2026-06-17",
+      "delivered": "2026-06-24",
+      "total": 362.73,
+      "project": true
+    },
+    "112-9519199-9509821": {
+      "ordered": "2026-06-16",
+      "delivered": "2026-06-17",
+      "total": 15.88,
+      "project": true
+    },
+    "112-1089976-3089830": {
+      "ordered": "2026-06-16",
+      "delivered": "2026-06-17",
+      "total": 41.6,
+      "project": true
+    },
+    "112-3161139-1981039": {
+      "ordered": "2026-06-15",
+      "delivered": "2026-06-17",
+      "total": 18.43,
+      "project": true
+    },
+    "112-3576572-8551422": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-17",
+      "total": 77.12,
+      "project": true
+    },
+    "112-7010270-8849812": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-17",
+      "total": 15.22,
+      "project": true
+    },
+    "112-7886483-1554622": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-17",
+      "total": 14.79,
+      "project": true
+    },
+    "112-6248060-3106636": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-15",
+      "total": 23.91,
+      "project": true
+    },
+    "112-8759475-1611456": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-15",
+      "total": 30.02,
+      "project": true
+    },
+    "112-8278354-1449064": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-15",
+      "total": 225.2,
+      "project": true
+    },
+    "112-7486016-3622668": {
+      "ordered": "2026-06-14",
+      "delivered": "2026-06-15",
+      "total": 20.37,
+      "project": true
+    },
+    "112-0250864-5897878": {
+      "ordered": "2026-06-14",
+      "total": null,
+      "cancelled": true,
+      "project": false,
+      "why": "cancelled"
+    },
+    "112-8498962-9414661": {
+      "ordered": "2026-06-13",
+      "delivered": "2026-06-16",
+      "total": 13.49,
+      "project": true
+    },
+    "112-5620567-3321809": {
+      "ordered": "2026-06-13",
+      "delivered": "2026-06-15",
+      "total": 46.11,
+      "project": true
+    },
+    "112-1916518-0515440": {
+      "ordered": "2026-06-13",
+      "delivered": "2026-06-14",
+      "total": 46.02,
+      "project": true
+    },
+    "114-7618665-2979463": {
+      "ordered": "2026-06-13",
+      "delivered": "2026-06-15",
+      "total": 117.96,
+      "project": true
+    },
+    "112-3574693-0507435": {
+      "ordered": "2026-06-11",
+      "delivered": "2026-06-13",
+      "total": 23.56,
+      "project": true
+    },
+    "112-3550632-8904259": {
+      "ordered": "2026-06-11",
+      "delivered": "2026-06-13",
+      "total": 24.81,
+      "project": true
+    },
+    "114-0222260-1355431": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 28.95,
+      "project": false,
+      "why": "pet"
+    },
+    "114-1254883-2326646": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 23.58,
+      "project": false,
+      "why": "pet"
+    },
+    "114-7816675-1960219": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 18.22,
+      "project": false,
+      "why": "pet"
+    },
+    "114-7016001-0433834": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 28.99,
+      "project": true
+    },
+    "112-9860351-3650618": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 21.43,
+      "project": true
+    },
+    "112-2746979-9145060": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 12.82,
+      "project": true
+    },
+    "112-0906598-6371411": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 10.71,
+      "project": true
+    },
+    "112-3079158-6326618": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 15.0,
+      "project": true
+    },
+    "112-6318240-4305018": {
+      "ordered": "2026-06-10",
+      "delivered": "2026-06-11",
+      "total": 10.71,
+      "project": true
+    },
+    "112-7687617-6094631": {
+      "ordered": "2026-06-07",
+      "delivered": "2026-06-09",
+      "total": 51.46,
+      "project": true
+    },
+    "112-2471492-3870616": {
+      "ordered": "2026-06-07",
+      "delivered": "2026-06-08",
+      "total": 23.6,
+      "project": true
+    },
+    "112-0981761-4377858": {
+      "ordered": "2026-06-07",
+      "delivered": "2026-06-09",
+      "total": 12.86,
+      "project": true
+    },
+    "112-9768778-8444265": {
+      "ordered": "2026-06-07",
+      "delivered": "2026-06-09",
+      "total": 9.64,
+      "project": true
+    },
+    "112-8819640-4433810": {
+      "ordered": "2026-06-07",
+      "delivered": "2026-06-08",
+      "total": 7.5,
+      "project": true
+    },
+    "114-8863563-6538656": {
+      "ordered": "2026-06-04",
+      "delivered": "2026-06-04",
+      "total": 58.84,
+      "project": false,
+      "why": "home-automation"
+    },
+    "114-8218136-0751449": {
+      "ordered": "2026-06-02",
+      "delivered": "2026-06-03",
+      "total": 50.87,
+      "project": false,
+      "why": "household"
+    },
+    "112-3709957-5726619": {
+      "ordered": "2026-06-02",
+      "delivered": "2026-06-03",
+      "total": 8.66,
+      "project": true
+    },
+    "112-1012254-8551456": {
+      "ordered": "2026-06-01",
+      "delivered": "2026-06-04",
+      "total": 38.23,
+      "project": true
+    },
+    "112-4375086-9926652": {
+      "ordered": "2026-05-30",
+      "delivered": "2026-06-01",
+      "total": 8.03,
+      "project": true
+    },
+    "112-4566389-9910625": {
+      "ordered": "2026-05-30",
+      "delivered": "2026-06-03",
+      "total": 51.24,
+      "project": true
+    },
+    "112-8801016-4362651": {
+      "ordered": "2026-05-28",
+      "delivered": "2026-05-29",
+      "total": 26.8,
+      "project": true
+    },
+    "112-0924482-7189013": {
+      "ordered": "2026-05-28",
+      "delivered": "2026-05-29",
+      "total": 11.79,
+      "project": true
+    },
+    "114-1568602-2724224": {
+      "ordered": "2026-05-27",
+      "delivered": "2026-05-28",
+      "total": 32.16,
+      "project": false,
+      "why": "pet"
+    },
+    "114-9960851-7517853": {
+      "ordered": "2026-05-27",
+      "delivered": "2026-05-29",
+      "total": 8.56,
+      "project": true
+    },
+    "114-6677442-9807460": {
+      "ordered": "2026-05-22",
+      "delivered": "2026-05-24",
+      "total": 18.22,
+      "project": true
+    },
+    "114-7008406-9190645": {
+      "ordered": "2026-05-21",
+      "delivered": "2026-05-22",
+      "total": 35.57,
+      "project": false,
+      "why": "pet"
+    },
+    "112-6714135-1147434": {
+      "ordered": "2026-05-20",
+      "delivered": "2026-05-21",
+      "total": 41.72,
+      "project": true
+    },
+    "112-8743279-3935456": {
+      "ordered": "2026-05-17",
+      "delivered": "2026-05-19",
+      "total": 13.93,
+      "project": true
+    },
+    "112-1471049-5385066": {
+      "ordered": "2026-05-17",
+      "delivered": "2026-05-18",
+      "total": 49.32,
+      "project": true
+    },
+    "114-0500457-4192257": {
+      "ordered": "2026-05-17",
+      "delivered": "2026-05-18",
+      "total": 96.5,
+      "project": true
+    },
+    "114-0366400-9456213": {
+      "ordered": "2026-05-17",
+      "delivered": "2026-05-18",
+      "total": 11.79,
+      "project": false,
+      "why": "pet"
+    },
+    "114-8568647-3028216": {
+      "ordered": "2026-05-17",
+      "delivered": "2026-05-18",
+      "total": 28.95,
+      "project": false,
+      "why": "pet"
+    },
+    "112-8598924-2300214": {
+      "ordered": "2026-05-17",
+      "delivered": "2026-05-18",
+      "total": 12.86,
+      "project": true
+    },
+    "114-1990143-8424226": {
+      "ordered": "2026-05-16",
+      "delivered": "2026-05-17",
+      "total": 28.99,
+      "project": true
+    },
+    "112-3935659-9563410": {
+      "ordered": "2026-05-15",
+      "delivered": "2026-05-16",
+      "total": 16.28,
+      "project": true
+    },
+    "112-5359790-0932202": {
+      "ordered": "2026-05-15",
+      "delivered": "2026-05-16",
+      "total": 42.89,
+      "project": true
+    },
+    "112-7723568-0091455": {
+      "ordered": "2026-05-15",
+      "delivered": "2026-05-16",
+      "total": 12.6,
+      "project": true
+    },
+    "114-2322598-9184256": {
+      "ordered": "2026-05-14",
+      "delivered": "2026-05-15",
+      "total": 25.73,
+      "project": true
+    },
+    "114-6517096-6242639": {
+      "ordered": "2026-05-13",
+      "delivered": "2026-05-15",
+      "total": 7.28,
+      "project": false,
+      "why": "household"
+    },
+    "112-2846745-4487464": {
+      "ordered": "2026-05-13",
+      "delivered": "2026-05-15",
+      "total": 22.51,
+      "project": true
+    },
+    "112-6323725-5423434": {
+      "ordered": "2026-05-13",
+      "delivered": "2026-05-17",
+      "total": 56.2,
+      "project": true
+    },
+    "112-8061650-4642611": {
+      "ordered": "2026-05-11",
+      "delivered": "2026-05-14",
+      "total": 6.42,
+      "project": true
+    },
+    "112-0089456-0822653": {
+      "ordered": "2026-05-11",
+      "delivered": "2026-05-13",
+      "total": 18.21,
+      "project": true
+    },
+    "112-0610257-0936212": {
+      "ordered": "2026-05-11",
+      "delivered": "2026-05-12",
+      "total": 10.71,
+      "project": true
+    },
+    "112-6407862-0653853": {
+      "ordered": "2026-05-11",
+      "delivered": "2026-05-12",
+      "total": 24.79,
+      "project": true
+    },
+    "112-4393734-6836206": {
+      "ordered": "2026-05-11",
+      "delivered": "2026-05-12",
+      "total": 13.23,
+      "project": true
+    },
+    "112-0144900-5988250": {
+      "ordered": "2026-05-10",
+      "delivered": "2026-05-11",
+      "total": 8.57,
+      "project": true
+    },
+    "112-2495614-5144234": {
+      "ordered": "2026-05-10",
+      "delivered": "2026-05-11",
+      "total": 8.57,
+      "project": true
+    },
+    "112-4234665-4274626": {
+      "ordered": "2026-05-10",
+      "delivered": "2026-05-11",
+      "subtotal": 22.98,
+      "shipping": 0.0,
+      "tax": 1.66,
+      "total": 24.64,
+      "project": true
+    },
+    "112-3739807-8848229": {
+      "ordered": "2026-05-09",
+      "delivered": "2026-05-09",
+      "total": 75.06,
+      "project": true
+    },
+    "112-5656837-1597066": {
+      "ordered": "2026-05-08",
+      "delivered": "2026-05-09",
+      "total": 7.5,
+      "project": true
+    },
+    "112-5503072-4357859": {
+      "ordered": "2026-05-08",
+      "delivered": "2026-05-10",
+      "total": 6.85,
+      "project": true
+    },
+    "112-5459082-8422662": {
+      "ordered": "2026-05-08",
+      "delivered": "2026-05-09",
+      "total": 10.29,
+      "project": true
+    },
+    "112-9688188-4729035": {
+      "ordered": "2026-05-08",
+      "delivered": "2026-05-09",
+      "total": 64.24,
+      "project": true
+    },
+    "112-7749428-2806629": {
+      "ordered": "2026-05-08",
+      "delivered": "2026-05-09",
+      "total": 37.43,
+      "project": true
+    },
+    "112-6571709-7582668": {
+      "ordered": "2026-05-08",
+      "delivered": "2026-05-12",
+      "total": 24.51,
+      "project": true
+    },
+    "112-1128563-6922646": {
+      "ordered": "2026-05-04",
+      "delivered": "2026-05-05",
+      "total": 12.86,
+      "project": true
+    },
+    "112-6990924-2823418": {
+      "ordered": "2026-05-04",
+      "delivered": "2026-05-05",
+      "total": 93.3,
+      "project": true
+    },
+    "112-2086169-3211445": {
+      "ordered": "2026-05-04",
+      "delivered": "2026-05-05",
+      "total": 37.53,
+      "project": true
+    },
+    "112-0147397-3280206": {
+      "ordered": "2026-05-02",
+      "delivered": "2026-05-04",
+      "total": 45.41,
+      "project": true
+    },
+    "112-3421913-9021801": {
+      "ordered": "2026-04-30",
+      "delivered": "2026-05-03",
+      "total": 19.29,
+      "project": true
+    },
+    "111-4630388-1572202": {
+      "ordered": "2026-04-29",
+      "delivered": "2026-05-01",
+      "total": 5.35,
+      "project": true
+    },
+    "112-2348373-7907448": {
+      "ordered": "2026-04-29",
+      "delivered": "2026-05-02",
+      "total": 264.96,
+      "project": true
+    },
+    "114-9634716-3126657": {
+      "ordered": "2026-04-29",
+      "delivered": "2026-04-30",
+      "total": 8.03,
+      "project": true
+    },
+    "112-6573046-7656255": {
+      "ordered": "2026-04-27",
+      "delivered": "2026-04-29",
+      "total": 28.85,
+      "project": true
+    },
+    "112-8110646-3335448": {
+      "ordered": "2026-04-27",
+      "delivered": "2026-04-29",
+      "total": 7.5,
+      "project": true
+    },
+    "112-8247392-7531444": {
+      "ordered": "2026-04-27",
+      "delivered": "2026-04-29",
+      "total": 7.49,
+      "project": true
+    },
+    "112-3159250-4061051": {
+      "ordered": "2026-04-27",
+      "total": null,
+      "cancelled": true,
+      "project": false,
+      "why": "cancelled"
+    },
+    "112-0326855-5540223": {
+      "ordered": "2026-04-27",
+      "delivered": "2026-04-29",
+      "total": 20.37,
+      "project": true
+    },
+    "114-0084687-6710639": {
+      "ordered": "2026-04-26",
+      "delivered": "2026-04-29",
+      "total": 21.74,
+      "project": true
+    },
+    "112-7245467-6557007": {
+      "ordered": "2026-04-26",
+      "delivered": "2026-04-27",
+      "subtotal": 81.92,
+      "shipping": 0.0,
+      "tax": 5.87,
+      "total": 86.69,
+      "project": true
+    },
+    "112-0915506-0821038": {
+      "ordered": "2026-04-26",
+      "delivered": "2026-04-27",
+      "total": 13.29,
+      "project": true
+    },
+    "112-7934476-0257818": {
+      "ordered": "2026-04-25",
+      "delivered": "2026-04-27",
+      "total": 30.0,
+      "project": true
+    },
+    "112-2295053-5101056": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-27",
+      "total": 129.5,
+      "project": true
+    },
+    "112-7391312-2980226": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-26",
+      "total": 8.57,
+      "project": true
+    },
+    "112-9584993-4999458": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 15.0,
+      "project": true
+    },
+    "112-3539135-2289004": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 17.01,
+      "project": true
+    },
+    "112-8579175-6021014": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-27",
+      "total": 9.64,
+      "project": true
+    },
+    "112-4706100-6171430": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 13.93,
+      "project": true
+    },
+    "112-8251187-7721036": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 8.56,
+      "project": true
+    },
+    "112-4347613-6452231": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 6.42,
+      "project": true
+    },
+    "112-4822227-6802649": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 13.65,
+      "project": true
+    },
+    "112-5893072-9403444": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 14.97,
+      "project": true
+    },
+    "112-0876134-8491423": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-26",
+      "total": 16.08,
+      "project": true
+    },
+    "112-2063260-0973008": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 7.39,
+      "project": true
+    },
+    "112-2843637-5886607": {
+      "ordered": "2026-04-24",
+      "delivered": "2026-04-25",
+      "total": 9.21,
+      "project": true
+    },
+    "112-5173995-8426610": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-25",
+      "total": 9.64,
+      "project": true
+    },
+    "112-4953236-4101019": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-24",
+      "total": 42.89,
+      "project": true
+    },
+    "112-3799575-6647414": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-26",
+      "total": 95.42,
+      "project": true
+    },
+    "112-5788053-3609032": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-27",
+      "total": 8.57,
+      "project": true
+    },
+    "112-1057208-2782602": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-24",
+      "total": 57.06,
+      "project": true
+    },
+    "112-0837919-8970627": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-24",
+      "total": 8.56,
+      "project": true
+    },
+    "112-5229510-7593833": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-24",
+      "total": 12.86,
+      "project": true
+    },
+    "112-0196430-3061828": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-24",
+      "total": 8.57,
+      "project": true
+    },
+    "112-4247013-3054647": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-24",
+      "total": 5.35,
+      "project": true
+    },
+    "112-7179212-4944250": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-25",
+      "total": 6.42,
+      "project": true
+    },
+    "112-5236199-6056258": {
+      "ordered": "2026-04-23",
+      "delivered": "2026-04-26",
+      "total": 20.95,
+      "project": true
+    },
+    "112-0066205-0960237": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 423.95,
+      "project": true
+    },
+    "112-4778025-6157043": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-28",
+      "total": 117.96,
+      "project": true
+    },
+    "112-4658706-3333801": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-24",
+      "total": 174.7,
+      "project": true
+    },
+    "112-1965509-6778648": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-25",
+      "total": 96.76,
+      "project": true
+    },
+    "112-5034335-5564260": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 15.74,
+      "project": true
+    },
+    "112-8685000-6226628": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 13.4,
+      "project": true
+    },
+    "112-6588057-9595403": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 13.93,
+      "project": true
+    },
+    "112-8776391-7335431": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 48.24,
+      "project": true
+    },
+    "112-0935480-2206657": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 42.89,
+      "project": true
+    },
+    "112-0442030-7315464": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-23",
+      "total": 11.95,
+      "project": true
+    },
+    "112-0223047-4718623": {
+      "ordered": "2026-04-22",
+      "delivered": "2026-04-24",
+      "total": 72.92,
+      "project": true
+    },
+    "112-1730165-6930661": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-23",
+      "total": 78.28,
+      "project": true
+    },
+    "112-9126137-7021848": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-23",
+      "total": 42.89,
+      "project": true
+    },
+    "112-7342242-5019446": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-23",
+      "total": 19.25,
+      "project": true
+    },
+    "112-0145136-7037809": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-23",
+      "total": 7.37,
+      "project": true
+    },
+    "112-9742741-7165035": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-23",
+      "total": 48.24,
+      "project": true
+    },
+    "114-6029405-6913037": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-22",
+      "total": 22.47,
+      "project": true
+    },
+    "112-4054778-9500227": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-22",
+      "total": 6.96,
+      "project": true
+    },
+    "112-9710760-9385027": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-24",
+      "total": 24.0,
+      "project": true
+    },
+    "112-8868344-2270629": {
+      "ordered": "2026-04-21",
+      "delivered": "2026-04-22",
+      "total": 11.79,
+      "project": true
+    },
+    "112-1500299-7944264": {
+      "ordered": "2026-04-21",
+      "total": 31.66,
+      "project": true
+    },
+    "112-8930099-2982664": {
+      "ordered": "2026-04-20",
+      "delivered": "2026-04-22",
+      "total": 13.93,
+      "project": true
+    },
+    "114-1978684-7068269": {
+      "ordered": "2026-04-20",
+      "delivered": "2026-04-27",
+      "total": 345.28,
+      "project": true
+    },
+    "114-8354589-7380236": {
+      "ordered": "2026-04-19",
+      "delivered": "2026-04-21",
+      "total": 85.53,
+      "project": true
+    },
+    "114-0933175-3371439": {
+      "ordered": "2026-04-19",
+      "delivered": "2026-04-20",
+      "total": 23.05,
+      "project": true
+    },
+    "114-5148466-4469057": {
+      "ordered": "2026-04-19",
+      "delivered": "2026-04-20",
+      "total": 64.34,
+      "project": true
+    },
+    "114-4402537-9406656": {
+      "ordered": "2026-04-19",
+      "delivered": "2026-04-20",
+      "total": 33.88,
+      "project": true
+    },
+    "114-6485602-3013015": {
+      "ordered": "2026-04-19",
+      "delivered": "2026-04-20",
+      "total": 90.68,
+      "project": true
+    },
+    "114-5627037-2176207": {
+      "ordered": "2026-04-19",
+      "total": null,
+      "cancelled": true,
+      "project": false,
+      "why": "cancelled"
+    },
+    "114-0466254-7942655": {
+      "ordered": "2026-04-19",
+      "delivered": "2026-04-20",
+      "total": 26.8,
+      "project": false,
+      "why": "pet"
+    },
+    "112-1533167-6762648": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-19",
+      "total": 10.71,
+      "project": true
+    },
+    "112-9091100-8229010": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-19",
+      "total": 30.03,
+      "project": true
+    },
+    "112-2763596-7866631": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-18",
+      "total": 3.26,
+      "project": true
+    },
+    "112-0118962-3725825": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-18",
+      "total": 34.31,
+      "project": true
+    },
+    "112-5222697-3918636": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-18",
+      "total": 12.86,
+      "project": true
+    },
+    "112-0680575-1213862": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-18",
+      "total": 13.92,
+      "project": true
+    },
+    "114-5597505-0433853": {
+      "ordered": "2026-04-17",
+      "delivered": "2026-04-18",
+      "total": 23.05,
+      "project": true
+    },
+    "112-9672770-7349862": {
+      "ordered": "2026-04-16",
+      "total": 8.46,
+      "project": true
+    },
+    "112-4601641-4469804": {
+      "ordered": "2026-04-16",
+      "total": 10.71,
+      "project": true
+    },
+    "112-4780540-1769027": {
+      "ordered": "2026-04-16",
+      "total": 235.94,
+      "project": true
+    },
+    "112-5187846-6776238": {
+      "ordered": "2026-04-16",
+      "total": 60.05,
+      "project": true
+    },
+    "112-4686467-7049865": {
+      "ordered": "2026-04-15",
+      "total": 68.63,
+      "project": true
+    },
+    "112-0852106-5758666": {
+      "ordered": "2026-04-15",
+      "total": 78.7,
+      "project": true
+    },
+    "112-1812715-8813859": {
+      "ordered": "2026-04-15",
+      "total": 63.8,
+      "project": true
+    },
+    "112-2110462-6265038": {
+      "ordered": "2026-04-15",
+      "subtotal": 26.57,
+      "shipping": 0.0,
+      "tax": 1.93,
+      "total": 28.5,
+      "project": true
+    },
+    "112-1627637-9419449": {
+      "ordered": "2026-04-14",
+      "delivered": "2026-04-22",
+      "total": 155.5,
+      "project": true
+    },
+    "114-6873937-4828260": {
+      "ordered": "2026-04-14",
+      "total": 49.21,
+      "project": false,
+      "why": "yard"
+    },
+    "114-3660701-1810624": {
+      "ordered": "2026-04-14",
+      "total": 94.36,
+      "project": false,
+      "why": "yard"
+    },
+    "112-7291284-7101059": {
+      "ordered": "2026-04-13",
+      "total": 48.26,
+      "project": true,
+      "subtotal": 45.0,
+      "shipping": 2.99,
+      "tax": 3.26
+    },
+    "112-6216768-3197856": {
+      "ordered": "2026-04-12",
+      "total": 31.08,
+      "project": true
+    },
+    "112-5291452-2765065": {
+      "ordered": "2026-04-12",
+      "total": 21.45,
+      "project": true
+    },
+    "112-6570032-9753837": {
+      "ordered": "2026-04-12",
+      "total": 18.22,
+      "project": true
+    },
+    "112-8083402-8740244": {
+      "ordered": "2026-04-12",
+      "total": 9.99,
+      "project": true
+    },
+    "112-7814251-3174665": {
+      "ordered": "2026-04-12",
+      "total": 16.06,
+      "project": true
+    },
+    "114-3158038-5993828": {
+      "ordered": "2026-04-12",
+      "total": 92.45,
+      "project": false,
+      "why": "household"
+    },
+    "112-8830635-1424267": {
+      "ordered": "2026-04-06",
+      "total": 289.51,
+      "project": true
+    },
+    "112-2273377-9628208": {
+      "ordered": "2026-04-06",
+      "total": 383.85,
+      "project": true,
+      "subtotal": 357.9,
+      "shipping": 0.0,
+      "tax": 25.95
+    },
+    "114-9662555-0662608": {
+      "ordered": "2026-04-05",
+      "total": 321.74,
+      "project": true
+    },
+    "112-0019658-3684217": {
+      "ordered": "2026-04-04",
+      "total": 139.81,
+      "project": true
+    },
+    "114-4512279-7485822": {
+      "ordered": "2026-04-01",
+      "total": 48.25,
+      "project": true
+    },
+    "114-9764609-4555460": {
+      "ordered": "2026-03-22",
+      "subtotal": 283.53,
+      "shipping": 0.0,
+      "tax": 20.55,
+      "total": 304.08,
+      "project": true,
+      "nonproject_amount": 17.15,
+      "why_mixed": "also carried $15.99 of HOMEXCEL microfiber cloths (household)"
+    },
+    "114-2214596-3435404": {
+      "ordered": "2026-03-22",
+      "total": 396.71,
+      "project": true,
+      "subtotal": 369.89,
+      "shipping": 0.0,
+      "tax": 26.82
+    },
+    "114-2813251-8225805": {
+      "ordered": "2026-03-16",
+      "total": 7.07,
+      "project": true
+    },
+    "114-5764473-1322614": {
+      "ordered": "2026-03-16",
+      "total": 16.08,
+      "project": true
+    },
+    "114-9074237-0264235": {
+      "ordered": "2026-03-16",
+      "total": 18.22,
+      "project": false,
+      "why": "pet"
+    },
+    "114-5604599-8333023": {
+      "ordered": "2026-03-16",
+      "total": 40.55,
+      "project": true
+    },
+    "114-5256389-4238639": {
+      "ordered": "2026-03-16",
+      "total": 41.65,
+      "project": true
+    },
+    "114-2734195-8455414": {
+      "ordered": "2026-03-15",
+      "total": 12.86,
+      "project": true
+    },
+    "112-2147768-5852208": {
+      "ordered": "2026-03-15",
+      "subtotal": 44.66,
+      "shipping": 0.0,
+      "tax": 3.24,
+      "total": 47.9,
+      "project": true
+    },
+    "112-2018641-1609045": {
+      "ordered": "2026-03-15",
+      "subtotal": 37.66,
+      "shipping": 0.0,
+      "tax": 2.73,
+      "total": 40.39,
+      "project": true
+    },
+    "112-9365343-6646655": {
+      "ordered": "2026-03-14",
+      "total": 19.28,
+      "project": true
+    },
+    "112-4838242-5164262": {
+      "ordered": "2026-03-14",
+      "total": 32.15,
+      "project": true
+    },
+    "114-3156932-8523447": {
+      "ordered": "2026-03-12",
+      "total": 91.11,
+      "project": false,
+      "why": "reviewed 2026-08-15 — left off the ledger"
+    },
+    "114-5318848-1169066": {
+      "ordered": "2026-03-10",
+      "total": 32.08,
+      "project": false,
+      "why": "garage"
+    },
+    "114-7373747-7178604": {
+      "ordered": "2026-03-09",
+      "total": 76.95,
+      "project": true
+    },
+    "114-5669081-7865863": {
+      "ordered": "2026-03-09",
+      "total": 14.95,
+      "project": false,
+      "why": "reviewed 2026-08-15 — left off the ledger"
+    },
+    "114-9018087-5473001": {
+      "ordered": "2026-03-08",
+      "total": 25.19,
+      "project": false,
+      "why": "household"
+    },
+    "114-9973455-6637052": {
+      "ordered": "2026-03-08",
+      "total": 25.73,
+      "project": true
+    },
+    "114-3163590-0127432": {
+      "ordered": "2026-03-08",
+      "total": 92.18,
+      "project": true
+    },
+    "114-4208465-6308263": {
+      "ordered": "2026-03-08",
+      "total": 16.08,
+      "project": false,
+      "why": "household"
+    },
+    "114-5313642-3221012": {
+      "ordered": "2026-03-08",
+      "total": 31.77,
+      "project": false,
+      "why": "pet"
+    },
+    "114-3717852-7039428": {
+      "ordered": "2026-03-07",
+      "total": 40.98,
+      "project": true
+    },
+    "114-5808971-1405845": {
+      "ordered": "2026-03-03",
+      "total": 42.88,
+      "project": false,
+      "why": "home-automation"
+    },
+    "114-4027030-3911436": {
+      "ordered": "2026-03-03",
+      "total": 47.18,
+      "project": false,
+      "why": "pet"
+    },
+    "114-4194868-8174607": {
+      "ordered": "2026-03-02",
+      "total": 39.65,
+      "project": true
+    },
+    "114-5450893-7108227": {
+      "ordered": "2026-02-27",
+      "total": 98.42,
+      "project": false,
+      "why": "yard"
+    },
+    "114-9796282-2864253": {
+      "ordered": "2026-02-27",
+      "total": 86.04,
+      "project": false,
+      "why": "yard"
+    },
+    "114-2582317-0018622": {
+      "ordered": "2026-02-26",
+      "total": 46.08,
+      "project": true
+    },
+    "114-7897645-5210617": {
+      "ordered": "2026-02-25",
+      "total": 6.42,
+      "project": true
+    },
+    "114-9620011-1329056": {
+      "ordered": "2026-02-25",
+      "total": 71.1,
+      "project": true,
+      "nonproject_amount": 40.37,
+      "why_mixed": "also carried $37.64 of Jonathan Green grass seed (yard)",
+      "subtotal": 66.3,
+      "shipping": 2.99,
+      "tax": 4.8
+    },
+    "114-0429960-0635402": {
+      "ordered": "2026-02-25",
+      "total": 29.79,
+      "project": false,
+      "why": "yard"
+    },
+    "114-0069643-1757059": {
+      "ordered": "2026-02-25",
+      "total": 28.99,
+      "project": true
+    },
+    "114-5534543-4435455": {
+      "ordered": "2026-02-24",
+      "total": 32.18,
+      "project": true
+    },
+    "114-0182432-7123463": {
+      "ordered": "2026-02-24",
+      "total": 8.25,
+      "project": true
+    },
+    "114-5322942-5213821": {
+      "ordered": "2026-02-24",
+      "total": 10.71,
+      "project": true
+    },
+    "114-0884594-8630623": {
+      "ordered": "2026-02-24",
+      "total": 9.64,
+      "project": true
+    },
+    "114-5649971-6455418": {
+      "ordered": "2026-02-24",
+      "total": 6.4,
+      "project": true
+    },
+    "114-0077226-6463477": {
+      "ordered": "2026-02-24",
+      "total": 7.49,
+      "project": true
+    },
+    "114-0749284-0433838": {
+      "ordered": "2026-02-24",
+      "total": 28.12,
+      "project": true
+    },
+    "112-9869315-7146643": {
+      "ordered": "2026-02-23",
+      "total": 34.66,
+      "project": true
+    },
+    "112-9633392-2520236": {
+      "ordered": "2026-02-23",
+      "total": 20.36,
+      "project": true
+    },
+    "112-9399398-0475445": {
+      "ordered": "2026-02-23",
+      "total": 27.86,
+      "project": true
+    },
+    "112-0933043-5526613": {
+      "ordered": "2026-02-23",
+      "total": 61.77,
+      "project": true
+    },
+    "112-0545074-9805025": {
+      "ordered": "2026-02-23",
+      "total": 251.89,
+      "project": true
+    },
+    "114-3476722-1893810": {
+      "ordered": "2026-02-22",
+      "total": 9.64,
+      "project": true
+    },
+    "114-3384762-6934634": {
+      "ordered": "2026-02-22",
+      "total": 35.58,
+      "project": true
+    },
+    "114-1015191-6799441": {
+      "ordered": "2026-02-18",
+      "total": 56.33,
+      "project": true
+    },
+    "114-5874013-6990635": {
+      "ordered": "2026-02-16",
+      "total": 41.27,
+      "project": false,
+      "why": "pet"
+    },
+    "114-2469196-8024255": {
+      "ordered": "2026-02-15",
+      "total": 42.89,
+      "project": true
+    },
+    "114-6677433-0745008": {
+      "ordered": "2026-02-14",
+      "total": 64.34,
+      "project": false,
+      "why": "garage"
+    },
+    "114-2491581-3257040": {
+      "ordered": "2026-02-14",
+      "total": 10.71,
+      "project": true
+    },
+    "114-7655402-1447440": {
+      "ordered": "2026-02-13",
+      "total": 13.5,
+      "project": true
+    },
+    "114-0170640-0334629": {
+      "ordered": "2026-02-13",
+      "total": 96.47,
+      "project": true
+    },
+    "114-5825243-4744249": {
+      "ordered": "2026-02-12",
+      "total": 58.93,
+      "project": true
+    },
+    "114-4838401-4353060": {
+      "ordered": "2026-02-12",
+      "total": 20.36,
+      "project": true
+    },
+    "114-7711911-5865013": {
+      "ordered": "2026-02-11",
+      "total": 151.18,
+      "project": true
+    },
+    "114-8406984-1532205": {
+      "ordered": "2026-02-11",
+      "total": 36.44,
+      "project": false,
+      "why": "household"
+    },
+    "114-1468362-6128231": {
+      "ordered": "2026-02-08",
+      "total": 19.28,
+      "project": true
+    },
+    "114-1207834-4699415": {
+      "ordered": "2026-02-08",
+      "total": 13.63,
+      "project": true
+    },
+    "114-8283262-7030641": {
+      "ordered": "2026-02-06",
+      "total": 21.64,
+      "project": true
+    },
+    "114-4987669-8550659": {
+      "ordered": "2026-02-06",
+      "total": 16.07,
+      "project": true
+    },
+    "114-6385083-8023407": {
+      "ordered": "2026-02-02",
+      "total": 23.58,
+      "project": true
+    },
+    "114-0818390-2733826": {
+      "ordered": "2026-02-02",
+      "total": 55.44,
+      "project": true
+    },
+    "114-7739695-9309821": {
+      "ordered": "2026-02-01",
+      "total": 17.62,
+      "project": true
+    },
+    "114-6740698-6945013": {
+      "ordered": "2026-02-01",
+      "total": 101.54,
+      "project": false,
+      "why": "pet"
+    },
+    "114-7822747-7253804": {
+      "ordered": "2026-01-29",
+      "total": 18.18,
+      "project": false,
+      "why": "pet"
+    },
+    "114-8784211-4965832": {
+      "ordered": "2026-01-25",
+      "total": 97.1,
+      "project": true
+    },
+    "114-8940379-3887419": {
+      "ordered": "2026-01-25",
+      "total": 29.65,
+      "project": false,
+      "why": "household"
+    },
+    "114-6692176-7865826": {
+      "ordered": "2026-01-25",
+      "total": 107.24,
+      "project": false,
+      "why": "household"
+    },
+    "114-6152001-8890662": {
+      "ordered": "2026-01-25",
+      "total": 9.09,
+      "project": false,
+      "why": "pet"
+    },
+    "114-5397767-1429056": {
+      "ordered": "2026-01-25",
+      "total": 62.77,
+      "project": false,
+      "why": "household"
+    },
+    "114-0289535-3320251": {
+      "ordered": "2026-01-17",
+      "total": 8.57,
+      "project": false,
+      "why": "household"
+    },
+    "114-5838987-7477846": {
+      "ordered": "2026-01-16",
+      "total": 9.09,
+      "project": false,
+      "why": "pet"
+    },
+    "114-4086617-9958608": {
+      "ordered": "2026-01-15",
+      "total": 32.16,
+      "project": false,
+      "why": "household"
+    },
+    "114-0919489-1054620": {
+      "ordered": "2026-01-15",
+      "total": 42.84,
+      "project": false,
+      "why": "household"
+    },
+    "114-8483183-7217840": {
+      "ordered": "2026-01-10",
+      "total": 18.22,
+      "project": false,
+      "why": "household"
+    },
+    "114-5472014-7629852": {
+      "ordered": "2026-01-07",
+      "total": 23.58,
+      "project": false,
+      "why": "pet"
+    },
+    "114-6389258-0576235": {
+      "ordered": "2026-01-04",
+      "total": 99.71,
+      "project": false,
+      "why": "pet"
+    },
+    "114-4984983-5587469": {
+      "ordered": "2026-01-01",
+      "total": 38.6,
+      "project": false,
+      "why": "household"
+    }
   }
- }
 }

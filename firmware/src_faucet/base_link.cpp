@@ -225,6 +225,13 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_RESP_IDLE && plen >= sizeof(IdlePayload)) {
+    IdlePayload idle;
+    memcpy(&idle, payload, sizeof(idle));
+    faucetApplyIdle(idle.asleep != 0);
+    return;
+  }
+
   if (type == MSG_RESP_FLAVOR_ART && plen >= sizeof(FlavorArtPayload)) {
     FlavorArtPayload art;
     memcpy(&art, payload, sizeof(art));
@@ -305,6 +312,14 @@ void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler handler,
   base.onMessage = onMessage;
   base.begin(Serial1, "J3 base");
   connectionGeneration = base.connectionGeneration();
+}
+
+// A press that put nothing else on the pair. The main board keeps one clock for
+// both glasses and this is what it counts; a press that already sent a command
+// is presence it can see without being told twice.
+void baseLinkTouched() {
+  if (!base.isConnected()) return;
+  if (base.trySend(MSG_TOUCH, nullptr, 0) >= 0) ++framesTx;
 }
 
 void baseLinkSelect(uint8_t flavor, bool audible) {

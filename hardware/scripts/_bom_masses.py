@@ -43,7 +43,7 @@ _VOL_CACHE = REPO / ".cache" / "bom-volumes.json"
 # changes what a part looks like, not what it costs, so translucent PETG is PETG.
 MATERIALS = {
     "PETG": (1.27, 11.20),
-    "PET-CF": (1.30, 39.32),
+    "PET-GF": (1.43, 25.02),
 }
 
 # Row label in §7 -> the STEP solids that ship as that row. A row covering
@@ -234,12 +234,12 @@ def main():
                  + ", ".join(sorted(missing)))
 
     grand = sum(totals.values())
-    petg, petcf = totals.get("PETG", 0.0), totals.get("PET-CF", 0.0)
+    petg, petgf = totals.get("PETG", 0.0), totals.get("PET-GF", 0.0)
     summary = (
         f"By material: PETG ≈ {petg:.2f} kg / ${petg * MATERIALS['PETG'][1]:,.2f} — of which "
         f"the four translucent reservoir parts are ≈ {translucent:.2f} kg / "
-        f"${translucent * MATERIALS['PETG'][1]:,.2f} — and PET-CF ≈ {petcf:.2f} kg / "
-        f"${petcf * MATERIALS['PET-CF'][1]:,.2f}.")
+        f"${translucent * MATERIALS['PETG'][1]:,.2f} — and PET-GF ≈ {petgf:.2f} kg / "
+        f"${petgf * MATERIALS['PET-GF'][1]:,.2f}.")
 
     body = []
     for line in out:

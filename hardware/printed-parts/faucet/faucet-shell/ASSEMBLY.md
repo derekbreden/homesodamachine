@@ -12,9 +12,9 @@ before the complete factory assembly reaches the countertop.
 
 Upstream:
 
-1. Print `faucet-shell` (PET-CF, 0.6 mm DUROZZLE TC nozzle, settings in
+1. Print `faucet-shell` (PET-GF15, Bambu 0.4 mm TC nozzle, settings in
    [`print-log.md`](/hardware/printed-parts/faucet/faucet-shell/print-log.md)).
-2. Print `above-counter-plate` (PET-CF, same H2C).
+2. Print `above-counter-plate` (PET-GF15, same H2C).
 3. Harvest the Westbrass from the donor faucet per
    [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
    Keep the lever, the Westbrass, the donor washer and the factory shank
@@ -67,8 +67,8 @@ into a single rigid sub-assembly.
 
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
-|  1  | `faucet-shell` (printed, PET-CF) — three base-pod boss holes + insert pockets opening into the foot bottom | `faucet_shell.py` in this directory (BASE PODS section)        |
-|  1  | `above-counter-plate` (printed, PET-CF) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/above-counter-plate/`](/hardware/printed-parts/faucet/above-counter-plate/) |
+|  1  | `faucet-shell` (printed, PET-GF15) — three base-pod boss holes + insert pockets opening into the foot bottom | `faucet_shell.py` in this directory (BASE PODS section)        |
+|  1  | `above-counter-plate` (printed, PET-GF15) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/above-counter-plate/`](/hardware/printed-parts/faucet/above-counter-plate/) |
 |  1  | Westbrass + donor washer + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
 |  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.2 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
 |  3  | BNUOK M3 × 12 mm SHCS, black oxide                   | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
@@ -176,7 +176,7 @@ What holds the parts together:
 Stack-up at the plate-to-shell interface (rear shoulder region):
 
 ```
-      shell wall (PET-CF) — solid material, no pockets
+      shell wall (PET-GF15) — solid material, no pockets
       └── shell bottom face (smooth)
            └── plate top face (smooth, clamped to the shell bottom by the pod screws)
                 └── 4 mm plate (solid material, no holes here)
