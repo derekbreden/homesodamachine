@@ -128,6 +128,15 @@ function bodiesNamed(names) {
   for (const m of hostGroup.children) {
     if (!m.isMesh || m.userData.isXrayEdge) continue;
     if (!m.name || !want.has(m.name)) continue;
+    // A BODY TAKEN OUT OF THE VIEW STAYS OUT. Everything here draws with depth
+    // testing off, so a highlight over a hidden solid is not faint — it is a
+    // bright wireframe of a thing that is not on screen, floating over whatever
+    // replaced it. That is the ordinary case once a beat isolates a
+    // sub-assembly (component-picker.js isolateComponent): the run leading up
+    // to the core is hidden while the core is being shown, and the map tier
+    // would otherwise draw the whole water path across the inside of the
+    // vessel.
+    if (m.visible === false) continue;
     if (seen.has(m.geometry)) continue; // one highlight per solid
     seen.add(m.geometry);
     out.push(m);
@@ -188,6 +197,17 @@ export function paint({ path, trail, active, out, mix = 1, pulse = 0 }) {
   MATS.out.opacity = THREE.MathUtils.lerp(BASE_OPACITY.out, BASE_OPACITY.trail, mix);
   MATS.active.opacity = BASE_OPACITY.active * mix * breathe;
   SHELL.opacity = SHELL_OPACITY * mix;
+}
+
+/** Drop the cached fills so the next `paint` rebuilds them.
+ *
+ *  A tier is only rebuilt when the NAMES it holds change, which is once a beat
+ *  rather than once a frame. Visibility is not in that signature: isolating a
+ *  sub-assembly takes bodies out of the view without changing any beat's name
+ *  set, so the layers would keep the highlights they built while those bodies
+ *  were still drawn. Anything that changes what is visible says so here. */
+export function invalidate() {
+  for (const layer of Object.values(layers)) layer.sig = null;
 }
 
 export function clear() {
