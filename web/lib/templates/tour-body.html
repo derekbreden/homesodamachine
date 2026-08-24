@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/css/viewer.css">
+<link rel="stylesheet" href="/css/tour.css">
+
+<!-- The stage is the page: the shared Three.js canvases move in here at boot
+     and stay. `.cad-wrapper` is what dresses them (viewer.css) — the same
+     rules that dress the parts viewer's modal, so the canvas, the ViewCube and
+     the loading scrim land where they always do. -->
+<div id="tour-stage" class="cad-wrapper tour-stage">
+  <div id="tour-hud-host"></div>
+</div>
+
+<!-- scene.js parks the renderer and gizmo canvases here at module load, before
+     anything has a stage to put them on. It is never visible. -->
+<div id="cad-canvas-host" style="display: none;"></div>
+
+<!-- Importmap MUST live in the page; browsers ignore importmaps inside
+     imported modules. Same pin as the viewer, because the tour stands on the
+     viewer's own scene and loader. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module" src="/js/tour/main.js"></script>
