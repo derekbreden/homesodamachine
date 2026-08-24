@@ -45,6 +45,14 @@
 //           body outside it goes out of the view, in place — no reload, no
 //           second model. `null` puts the machine back. It carries forward
 //           until another beat states one, the way a chapter does.
+//   quiet   0..1, how far the machine BEHIND the lights is turned down for this
+//           beat. The subject gets louder by everything else getting quieter,
+//           which costs nothing and composes with every other tier. Carried by
+//           the beat, not sticky — a beat with no `quiet` is a full-brightness
+//           machine.
+//   ignite  ms per body. The beat's bodies come on ONE AT A TIME, in the order
+//           it names them, instead of arriving together. On a beat about a whole
+//           run that order is the order the water takes, so the run draws itself.
 //   overview  this beat is the whole run at once. It lights everything and is
 //           not counted as ground covered, so the trail behind the tour still
 //           means the legs it has actually walked.
@@ -81,7 +89,8 @@ export const TOUR = {
               "water-split", "tube-water-3", "vk-solenoid", "suction-chain", "tube-water-7",
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
-      dir: [0.9, -1.0, 0.5], pad: 1.12, dwell: 6000, drift: { az: 9, el: 2, dolly: -0.06 }, enter: 0 },
+      dir: [0.9, -1.0, 0.5], pad: 1.12, dwell: 8500, ignite: 240, quiet: 0.62,
+      drift: { az: 9, el: 2, dolly: -0.06 }, enter: 0 },
 
     // ── The house connection ────────────────────────────────────────────────
     { chapter: "The house connection", title: "The customer's line",
@@ -153,7 +162,7 @@ export const TOUR = {
       dir: [0.7, -0.85, 0.45], pad: 1.5, drift: { az: 11, el: 3, dolly: -0.07 } },
     { chapter: "The pump", title: "100 psi",
       body: "Its shutoff, and the whole trick: enough head to push water in against the CO2 already in the vessel.",
-      parts: ["seaflo-pump"], hold: true, dwell: 5600, drift: HOLD_DRIFT },
+      parts: ["seaflo-pump"], hold: true, dwell: 5600, quiet: 0.4, drift: HOLD_DRIFT },
     { chapter: "The pump", title: "Out the other side",
       body: "The discharge is the same stub, the other way.",
       parts: ["tube-water-6"], hold: true, drift: HOLD_DRIFT },
@@ -288,7 +297,7 @@ export const TOUR = {
               "water-split", "tube-water-3", "vk-solenoid", "suction-chain", "tube-water-7",
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
-      dir: [-0.95, -1.0, 0.45], pad: 1.15, dwell: 7500,
+      dir: [-0.95, -1.0, 0.45], pad: 1.15, dwell: 9000, ignite: 130, quiet: 0.5,
       drift: { az: 20, el: 4, dolly: -0.04 }, enter: 4200 },
   ],
 };
