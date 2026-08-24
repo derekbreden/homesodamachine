@@ -12,14 +12,14 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 
 | Generator | Cuts | Seconds |
 |---|---|---:|
-| [`assembly/cards/_build.py`](/hardware/assembly/cards/_build.py) | every build card, and the deck they print as | [176](BT_BUILD) |
+| [`assembly/cards/_build.py`](/hardware/assembly/cards/_build.py) | every build card, and the deck they print as | [124](BT_BUILD) |
 | [`assembly/scenes/render_scenes.py`](/hardware/assembly/scenes/render_scenes.py) | every card's picture, off the placed machine | [7.6](BT_RENDER_SCENES) |
-| [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) | the placed machine — every body in the box | [53](BT_ENCLOSURE_ASSEMBLY) |
-| [`printed-parts/enclosure/enclosure/enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) | the box, in its printable pieces | [77](BT_ENCLOSURE) |
+| [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) | the placed machine — every body in the box | [48](BT_ENCLOSURE_ASSEMBLY) |
+| [`printed-parts/enclosure/enclosure/enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) | the box, in its printable pieces | [50](BT_ENCLOSURE) |
 | [`faucet-layout/faucet_assembly.py`](/hardware/faucet-layout/faucet_assembly.py) | the faucet on its counter | [11](BT_FAUCET_ASSEMBLY) |
 | [`manifold-layout/manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) | the fittings and the runs between them | [7.2](BT_MANIFOLD_LAYOUT) |
 | [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | both flavor reservoirs and their caps | [2.8](BT_RESERVOIR) |
-| [`printed-parts/cold-core/foam-assembly/foam_assembly.py`](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py) | the foam shell and its four cap pieces | [3.4](BT_FOAM_ASSEMBLY) |
+| [`printed-parts/cold-core/foam-assembly/foam_assembly.py`](/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py) | the foam shell and its four cap pieces | [1.7](BT_FOAM_ASSEMBLY) |
 | [`printed-parts/refrigeration/fuse-clamp/fuse_clamp.py`](/hardware/printed-parts/refrigeration/fuse-clamp/fuse_clamp.py) | the thermal fuse's clamp | [0.1](BT_FUSE_CLAMP) |
 
 Sixty-two generators cut solids, and two more draw what the rest of them made — the cards and their pictures, which is why those two head the table. The rows here are hand-kept, as bom.md's are. `_build_time.py --check` names a generator whose readings come in slower than every row on this page.

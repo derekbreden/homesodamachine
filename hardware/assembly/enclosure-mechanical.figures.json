@@ -29,7 +29,7 @@
     "FOAM_SHELL_Y": "181",
     "FRONT_TOP_FLANK": "9 mm",
     "FRONT_WALL": "9 mm",
-    "FUNNEL_GATE_STATUS": "currently reports red",
+    "FUNNEL_GATE_STATUS": "currently passes",
     "FUNNEL_LANE_SIDE": "1.341 mm",
     "FUNNEL_NEAR_A": "coil-v-a",
     "FUNNEL_NEAR_B": "coil-v-b",

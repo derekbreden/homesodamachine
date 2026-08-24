@@ -1,5 +1,5 @@
 """Two reservoir pockets, one on each ±X side, as four-walled
-enclosures whose centerward wall is curved to clear the tank+coil
+enclosures whose centerward wall is curved to clear the carbonator+coil
 envelope. The −X pocket mirrors the +X pocket across YZ."""
 
 import math
@@ -18,26 +18,26 @@ from _cold_core_interface import (
 w = wall_and_floor_thickness
 
 # Y at which the centerward wall hands off from its middle segment
-# (the cylindrical arc that wraps the tank+coil envelope) to the
+# (the cylindrical arc that wraps the carbonator+coil envelope) to the
 # transition arcs that swing the wall out to the pocket's ±Y walls.
 pocket_centerward_arc_transition_y = 60.0
 
-# Transition arc: the short curve between the middle (tank-wrapping)
-# arc and the pocket's ±Y wall. Tank-side face radius.
-transition_tank_r = 8.0
+# Transition arc: the short curve between the middle (carbonator-wrapping)
+# arc and the pocket's ±Y wall. Carbonator-side face radius.
+transition_outer_r = 8.0
 
 # Centerward-wall arc geometry. The reservoir corner supports seat
 # against the transition corner where the centerward wall meets a ±Y
 # wall. The +Y side is described; the −Y side mirrors in y.
 arc_cavity_r = pocket_centerward_arc_outer_radius
-arc_tank_r = arc_cavity_r - w
+arc_outer_r = arc_cavity_r - w
 # ±Y wall position — the reservoir's own half-width, NOT the arc radius, so the
 # centerward wall can move out (bigger foam blanket) without splaying the pocket.
 y_inner = bag_pocket_y_inner_max
-middle_tank_x = math.sqrt(arc_tank_r**2 - pocket_centerward_arc_transition_y**2)
+middle_outer_x = math.sqrt(arc_outer_r**2 - pocket_centerward_arc_transition_y**2)
 middle_cavity_x = math.sqrt(arc_cavity_r**2 - pocket_centerward_arc_transition_y**2)
 _chord_half_y = (y_inner - pocket_centerward_arc_transition_y) / 2.0
-transition_center_x = middle_tank_x + math.sqrt(transition_tank_r**2 - _chord_half_y**2)
+transition_center_x = middle_outer_x + math.sqrt(transition_outer_r**2 - _chord_half_y**2)
 transition_center_y = (y_inner + pocket_centerward_arc_transition_y) / 2.0
 transition_cavity_r = math.sqrt((transition_center_x - middle_cavity_x)**2 + _chord_half_y**2)
 # Cavity-side vertex where the centerward wall meets a ±Y wall (+Y; −Y
@@ -89,8 +89,8 @@ def build_reservoir_pocket_walls():
     corner_outer_r = corner_inner_r + w
     arc_y = pocket_centerward_arc_transition_y
 
-    transition_tank_terminus_x = transition_center_x - math.sqrt(
-        transition_tank_r**2 - (y_outer - transition_center_y)**2
+    transition_outer_terminus_x = transition_center_x - math.sqrt(
+        transition_outer_r**2 - (y_outer - transition_center_y)**2
     )
 
     def transition_apex(y_sign, r):
@@ -98,13 +98,13 @@ def build_reservoir_pocket_walls():
         center toward the cold-core axis."""
         return (transition_center_x - r, y_sign * transition_center_y)
 
-    # Centerward-wall joints for the OUTER (tank-side) profile. Apexes are
+    # Centerward-wall joints for the OUTER (carbonator-side) profile. Apexes are
     # where each middle-arc reaches its max +X excursion (at y=0).
-    middle_tank_apex = (arc_tank_r, 0)
-    middle_tank_handoff_plus_y = (middle_tank_x, arc_y)
-    middle_tank_handoff_minus_y = (middle_tank_x, -arc_y)
-    transition_tank_terminus_plus_y = (transition_tank_terminus_x, y_outer)
-    transition_tank_terminus_minus_y = (transition_tank_terminus_x, -y_outer)
+    middle_outer_apex = (arc_outer_r, 0)
+    middle_outer_handoff_plus_y = (middle_outer_x, arc_y)
+    middle_outer_handoff_minus_y = (middle_outer_x, -arc_y)
+    transition_outer_terminus_plus_y = (transition_outer_terminus_x, y_outer)
+    transition_outer_terminus_minus_y = (transition_outer_terminus_x, -y_outer)
 
     # +X far wall outer face + ±Y wall corner-arc termini (outer side).
     far_wall_outer_plus_y = (far_x_outer, y_inner - corner_inner_r)
@@ -117,10 +117,10 @@ def build_reservoir_pocket_walls():
         .moveTo(far_wall_outer_plus_y)
         .lineTo(far_wall_outer_minus_y)
         .radiusArc(side_wall_outer_minus_y, corner_outer_r)
-        .lineTo(transition_tank_terminus_minus_y)
-        .threePointArc(transition_apex(-1, transition_tank_r), middle_tank_handoff_minus_y)
-        .threePointArc(middle_tank_apex, middle_tank_handoff_plus_y)
-        .threePointArc(transition_apex(+1, transition_tank_r), transition_tank_terminus_plus_y)
+        .lineTo(transition_outer_terminus_minus_y)
+        .threePointArc(transition_apex(-1, transition_outer_r), middle_outer_handoff_minus_y)
+        .threePointArc(middle_outer_apex, middle_outer_handoff_plus_y)
+        .threePointArc(transition_apex(+1, transition_outer_r), transition_outer_terminus_plus_y)
         .lineTo(side_wall_outer_plus_y)
         .radiusArc(far_wall_outer_plus_y, corner_outer_r)
     )

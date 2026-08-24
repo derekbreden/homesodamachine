@@ -17,7 +17,7 @@ The setting gauge hangs on the tube's bottom rim and its top face is
 bridge_z_bottom.
 
 Frame: +Z is the carbonator axis, Z=0 at the tube's bottom rim — the face
-that seats on the tank support ring. +X is the register azimuth, the line
+that seats on the carbonator support ring. +X is the register azimuth, the line
 the wall-preloaded donut rides. The part is symmetric about the XZ plane
 apart from the lead groove.
 """
@@ -43,9 +43,9 @@ from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, one_body
 from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
-    tank_outer_radius,
-    tank_height,
-    tank_support_ring_height,
+    carbonator_outer_radius,
+    carbonator_height,
+    carbonator_support_ring_height,
     wall_and_floor_thickness,
 )
 from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
@@ -62,12 +62,12 @@ from endcap_circular_dxf import (
 # THE WALL THE BRIDGE SITS ON
 # ═══════════════════════════════════════════════════════
 
-# The tube's bottom rim rests on the tank support ring, so the carbonator's
+# The tube's bottom rim rests on the carbonator support ring, so the carbonator's
 # own Z=0 is that far up the foam shell.
-tube_bottom_z_in_shell = wall_and_floor_thickness + tank_support_ring_height
+tube_bottom_z_in_shell = wall_and_floor_thickness + carbonator_support_ring_height
 
 # [15 mm](BAND_BOTTOM) / [134.4 mm](BAND_TOP) — lowest and highest coil
-# centreline on the tube. Read from where the TAILS leave the tank, not from where
+# centreline on the tube. Read from where the TAILS leave the carbonator, not from where
 # their copper crosses the shell wall: the two part company (each tail climbs the
 # port lane to its station), and reading the crossing here would let the front port
 # field compress the coil.
@@ -92,7 +92,7 @@ inter_wrap_clear = pitch - copper_od
 plate_recess = disc_thickness * 25.4
 plate_thickness = disc_thickness * 25.4
 interior_floor_z = plate_recess + plate_thickness  # [12.7 mm](INTERIOR_FLOOR)
-interior_ceiling_z = tank_height - plate_recess - plate_thickness  # [139.7 mm](INTERIOR_CEILING)
+interior_ceiling_z = carbonator_height - plate_recess - plate_thickness  # [139.7 mm](INTERIOR_CEILING)
 # [127 mm](INTERIOR_H) of wetted height inside a [123.7 mm](TUBE_ID_MM) bore.
 interior_height = interior_ceiling_z - interior_floor_z
 
@@ -160,13 +160,13 @@ reed_glass_length = 14.0
 reed_glass_diameter = 2.5
 
 seat_clearance = 0.05
-inner_radius = tank_outer_radius + seat_clearance
+inner_radius = carbonator_outer_radius + seat_clearance
 skirt_thickness = 0.8
 copper_clearance_over_glass = 0.5
 # [3 mm](POCKET_DEPTH) — plateau face to the carbonator wall; a wrap crossing the
 # plateau clears the glass by copper_clearance_over_glass.
 pocket_depth = reed_glass_diameter + copper_clearance_over_glass
-plateau_radius = tank_outer_radius + pocket_depth
+plateau_radius = carbonator_outer_radius + pocket_depth
 skirt_radius = inner_radius + skirt_thickness
 
 pocket_length = reed_glass_length + 2.0

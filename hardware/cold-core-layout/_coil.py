@@ -8,7 +8,7 @@ again wherever the reed bridge carries it (`_ride_radius`). `wrap_length` is the
 copper a build CONSUMES, which is the figure `bom.md` §5 bills — longer than either of the
 mandrel's two.
 
-    winding radius   `tank_outer_radius + tube_radius`, the copper's centreline on the carbonator
+    winding radius   `carbonator_outer_radius + tube_radius`, the copper's centreline on the carbonator
     wraps            `coil_mandrel.total_wraps` — 9 full plus the fraction the tails' azimuths
                      span, which is the mandrel's own figure and stays its own
     z                `evap_tail_low_z` up to `evap_tail_high_z`, the bands the carbonator's own
@@ -48,8 +48,8 @@ import reed_bridge as _bridge                            # noqa: E402
 from _cold_core_interface import (                       # noqa: E402
     evap_tail_high_z,
     evap_tail_low_z,
-    tank_outer_radius,
-    tank_support_ring_height,
+    carbonator_outer_radius,
+    carbonator_support_ring_height,
     wall_and_floor_thickness,
 )
 from _routing import stock_min, stock_of                 # noqa: E402
@@ -59,7 +59,7 @@ import _stated_bounds as _bounds                         # noqa: E402
 TUBE_R = _mandrel.tube_radius                       # 3.175 — 1/4" ACR copper
 # The copper's centreline once it is off the mandrel and onto the carbonator: its inner surface
 # on the carbonator's OD.
-WIND_R = tank_outer_radius + TUBE_R
+WIND_R = carbonator_outer_radius + TUBE_R
 TOTAL_WRAPS = _mandrel.total_wraps
 PITCH = _mandrel.pitch
 COPPER_STOCK = stock_of("refrigerant", 2 * TUBE_R)
@@ -119,16 +119,16 @@ WIND_HEIGHT = evap_tail_high_z - evap_tail_low_z
 # L² / (lift · π²/2), and a 1/4" ACR tube will not turn tighter than `COPPER_BEND`. So the ramp
 # on and off is as long as that floor asks — longer than the bridge's own printed ramps, in
 # both directions, because PETG can step where copper cannot.
-BRIDGE_LIFT = _bridge.plateau_radius - tank_outer_radius
+BRIDGE_LIFT = _bridge.plateau_radius - carbonator_outer_radius
 BRIDGE_RAMP = math.sqrt(COPPER_BEND * BRIDGE_LIFT * math.pi ** 2 / 2.0)
 BRIDGE_ARC_RUNOUT = math.degrees(BRIDGE_RAMP / _bridge.plateau_radius)
 # What the copper's INNER surface rides on, by azimuth off the register line. A bent tube
 # BRIDGES the bridge's own arc ramps rather than following them down, so it holds the plateau
 # all the way to the bridge's edge and comes back to the carbonator outside it.
 RIDE_RADII = ((math.degrees(_bridge.bridge_half_angle), _bridge.plateau_radius),
-              (math.degrees(_bridge.bridge_half_angle) + BRIDGE_ARC_RUNOUT, tank_outer_radius))
+              (math.degrees(_bridge.bridge_half_angle) + BRIDGE_ARC_RUNOUT, carbonator_outer_radius))
 # The bridge is authored in the CARBONATOR's own frame, one floor slab and one support ring up.
-_carbonator_bottom_z = wall_and_floor_thickness + tank_support_ring_height
+_carbonator_bottom_z = wall_and_floor_thickness + carbonator_support_ring_height
 BRIDGE_Z = (_bridge.bridge_z_bottom + _carbonator_bottom_z,
             _bridge.bridge_z_top + _carbonator_bottom_z)
 BRIDGE_AXIAL_RAMP = max(_bridge.axial_ramp_length, BRIDGE_RAMP)
@@ -157,7 +157,7 @@ def _ride_radius(azimuth_deg: float, z: float) -> float:
     bridge presents at that azimuth, and the two ends of the bridge's own axial ramp bring it
     up and down rather than stepping."""
     a = abs(((azimuth_deg - _bridge_azimuth + 180.0) % 360.0) - 180.0)
-    surface = tank_outer_radius
+    surface = carbonator_outer_radius
     for i, (edge, radius) in enumerate(RIDE_RADII):
         if a <= edge:
             if i == 0:
@@ -169,7 +169,7 @@ def _ride_radius(azimuth_deg: float, z: float) -> float:
     z0, z1 = BRIDGE_Z
     axial = _ease(min((z - (z0 - BRIDGE_AXIAL_RAMP)) / BRIDGE_AXIAL_RAMP,
                       ((z1 + BRIDGE_AXIAL_RAMP) - z) / BRIDGE_AXIAL_RAMP))
-    return WIND_R + axial * max(0.0, surface - tank_outer_radius)
+    return WIND_R + axial * max(0.0, surface - carbonator_outer_radius)
 
 
 def wrap_points() -> list:
@@ -330,7 +330,7 @@ def report() -> None:
     print("  evaporator coil")
     print(f"    stock           {COPPER_STOCK.name}, min bend {COPPER_BEND:.2f} — "
           f"{COPPER_STOCK.source}")
-    print(f"    wound at        r {WIND_R:.3f} (carbonator {tank_outer_radius:.1f} + tube "
+    print(f"    wound at        r {WIND_R:.3f} (carbonator {carbonator_outer_radius:.1f} + tube "
           f"{TUBE_R:.3f}); the mandrel winds at r {_mandrel.helix_path_radius:.3f}")
     print(f"    wraps           {TOTAL_WRAPS:.3f} at {PITCH:.4g} mm pitch, "
           f"z {evap_tail_low_z:.1f}..{evap_tail_high_z:.1f}")

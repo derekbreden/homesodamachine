@@ -40,7 +40,7 @@ position passes clear through every cap and lid, and no two solids overlap
 THE LINES INSIDE ARE DRAWN HERE TOO. `_internal_routes` carries every fluid
 run from the fitting it lands on to the conduit it leaves by; this script is
 where each one is measured against the solids it runs among — the shell, the
-tank and its coil, and both reservoirs with their caps — and where it lands as
+carbonator and its coil, and both reservoirs with their caps — and where it lands as
 `internal-routes.step` beside the stack. They are a separate file and not part
 of `foam-assembly.step`, because the assembly STEP is the CORE AS THE MACHINE
 SEES IT: what the enclosure loads and stands its bodies off. A tube potted
@@ -332,11 +332,11 @@ def _report(placed):
 def build_internal_routes(placed):
     """Every fluid line inside the core, drawn at the arc its own corridor leaves.
 
-    The obstacles are what a line actually runs among down there: the shell, the tank with
+    The obstacles are what a line actually runs among down there: the shell, the carbonator with
     its wrapped coil, and both reservoirs with their caps. The reservoirs are not in the
     foam assembly — they are dropped into its pockets — but a line that crosses a pocket
     crosses them, so they are here."""
-    obstacles = {"the foam shell": placed["foam-shell"][0], "the tank": routes.tank_envelope()}
+    obstacles = {"the foam shell": placed["foam-shell"][0], "the carbonator": routes.carbonator_envelope()}
     for name, stem in RESERVOIRS.items():
         obstacles[name] = _load(RESERVOIR_DIR / f"{stem}.step")
         cap = _load(RESERVOIR_DIR / f"{stem.replace('reservoir', 'reservoir-cap')}.step")

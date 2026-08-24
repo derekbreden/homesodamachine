@@ -7,7 +7,7 @@ cavity the open-port pop-off PRV needs to function.
 
 The SV-125 (per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 9) is installed via a TAISHER 316L 90° street elbow on Port 4
-with the SV-125's body extending laterally inside the ~30 mm above-tank
+with the SV-125's body extending laterally inside the ~30 mm above-carbonator
 elbow envelope. The body foam pour ([`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/))
 fills the surrounding foam zone with closed-cell polyurethane.
 

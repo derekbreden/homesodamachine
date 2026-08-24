@@ -231,3 +231,37 @@ html.dev-mode .tour-dev { display: inline-block; }
   background: transparent;
   border-color: var(--border);
 }
+
+/* ── the from/to pins ───────────────────────────────────────────────────── */
+/* Screen-space labels on the two subjects of a move, positioned each frame by
+   tags.js. `will-change` because they move every frame while a flight runs. */
+.tour-tag {
+  position: absolute;
+  top: 0; left: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 11px;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(26, 26, 46, 0.9);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.tour-tag-arrow { font-size: 13px; opacity: 0.9; }
+.tour-tag-from { color: var(--text-2); }
+.tour-tag-from .tour-tag-arrow { color: #4d8dff; }
+.tour-tag-to {
+  color: var(--text);
+  border-color: color-mix(in srgb, #35e0d0 45%, transparent);
+}
+.tour-tag-to .tour-tag-arrow { color: #35e0d0; }
+
+@media (max-width: 720px) {
+  .tour-tag { font-size: 11px; padding: 3px 9px; }
+}

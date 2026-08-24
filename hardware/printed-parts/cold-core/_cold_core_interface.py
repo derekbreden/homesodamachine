@@ -34,13 +34,13 @@ hole_shift_from_edge = 15.0
 
 # The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
 # radial clearance out from the cylinder OD holds the 1/4" ACR copper coil +
-# thermal tape; the tank support ring cradles the tank rim at this envelope.
-tank_outer_radius = 63.5
+# thermal tape; the carbonator support ring cradles the carbonator rim at this envelope.
+carbonator_outer_radius = 63.5
 coil_radial_clearance = 7.0
-tank_coil_envelope_radius = tank_outer_radius + coil_radial_clearance
+carbonator_coil_envelope_radius = carbonator_outer_radius + coil_radial_clearance
 
 # Foam blanket around the cylinder — the pour-foam standoff measured from the
-# cylinder OD out to the reservoir's tank-facing wall, uniform around the wrapped
+# cylinder OD out to the reservoir's carbonator-facing wall, uniform around the wrapped
 # arc (that wall is a concentric arc), with the coil embedded in its inner slice
 # (so it must be >= coil_radial_clearance). This VALUE is not a thermal target:
 # it is set so the reservoir, shifted out by it, keeps the 283 mm outer width
@@ -49,20 +49,20 @@ tank_coil_envelope_radius = tank_outer_radius + coil_radial_clearance
 # cylinder side. The reservoir-facing (cavity) face is one wall further out.
 foam_thickness_around_cylinder = 15.0
 pocket_centerward_arc_outer_radius = (
-    tank_outer_radius + foam_thickness_around_cylinder + wall_and_floor_thickness
+    carbonator_outer_radius + foam_thickness_around_cylinder + wall_and_floor_thickness
 )
 
-# Foam-shell outer height. Tank height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
+# Foam-shell outer height. Carbonator height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
 # fittings + [30 mm](BELOW_TANK_ELBOWS_HEIGHT) below for bottom-side elbow fittings + 1 mm
 # wall-thickness compensation.
-tank_height = 152.4
-below_tank_elbows_height = 30.0
-above_tank_elbows_height = 30.0
+carbonator_height = 152.4
+below_carbonator_elbows_height = 30.0
+above_carbonator_elbows_height = 30.0
 foam_shell_outer_height = (
-    tank_height + below_tank_elbows_height + above_tank_elbows_height + 1.0
+    carbonator_height + below_carbonator_elbows_height + above_carbonator_elbows_height + 1.0
 )
 
-tank_support_ring_height = 30.0
+carbonator_support_ring_height = 30.0
 support_ring_radial_width = 9.0
 
 # ⌀[6.5](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
@@ -95,7 +95,7 @@ level_rod_y = 32.5
 # Bag pocket. Width and depth are the reservoir's own dimensions — sized to the
 # flavor charge it carries (each usable window, Reed 1 low → Reed 4 full over
 # 135 mm of float travel, holds 2 × SodaStream 0.44 L bottles). They are NOT tied
-# to the tank geometry: the ±Y width stands on its own so growing the cylinder's
+# to the carbonator geometry: the ±Y width stands on its own so growing the cylinder's
 # foam blanket slides the pocket outward without resizing the reservoir.
 bag_pocket_width = 145.0
 bag_pocket_depth = 49 + 2 * wall_and_floor_thickness
@@ -174,7 +174,7 @@ def reservoir_fill_conduit_xy(side):
     x, y = reservoir_fill_port[side]
     return (-x, -y)
 
-# Outer footprint. The ±Y (front/back) gap is the tank's foam blanket out to the
+# Outer footprint. The ±Y (front/back) gap is the carbonator's foam blanket out to the
 # shell wall. The ±X width is set by the reservoir + its reed channel butted
 # against the shell wall — no outboard foam there; it moved to the cylinder side.
 outer_shell_foam_gap = 16.0  # ±Y front/back foam-pour gap
@@ -236,7 +236,7 @@ carbonator_port_offset = 0.750 * 25.4
 # liquid and dissolves on the way up, which is what makes the carbonation the
 # CO2 supply pressure sets.
 #   Outside the carbonator it is one bore on the shell's own centreline, level with the
-# bottom-plate elbows, run from the port out through the tank support ring to the
+# bottom-plate elbows, run from the port out through the carbonator support ring to the
 # port lane. The port, its TAISHER elbow, the PP010822E collet made up on it and
 # the ring bore all stand on that one line, so the tube is the only thing that
 # crosses shell material and no bend is taken in-cavity. The line reaches the
@@ -291,7 +291,7 @@ head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
 # which is why the shell's short axis is what sets the appliance's width.
 #
 # Nothing reaches that face head-on: the reservoir pockets fill both ±X ends of the
-# shell, so a line from the tank or from either pocket gets there along the −Y POUR
+# shell, so a line from the carbonator or from either pocket gets there along the −Y POUR
 # BAND, which runs the shell's whole length outboard of both pockets. What a line
 # may use of that band is the LANE: the strip inboard of every attachment boss.
 # All six bosses stand hard against a ±Y wall (`attachment_xy_positions`) and reach
@@ -322,7 +322,7 @@ state(
     f"the port lane is {port_lane_inner_y - port_lane_outer_y:g} mm wide, which cannot carry a "
     f"⌀{2 * port_hole_radius:g} bore with {port_lane_wall:g} mm of PETG either side")
 
-# Where the evaporator coil's two tails leave the tank: the low one one
+# Where the evaporator coil's two tails leave the carbonator: the low one one
 # `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
 # below the top's. These are the COIL's heights — what the mandrel is wound to and
 # what the reed bridge's wrap band spans — and they are NOT the heights their copper
@@ -330,9 +330,9 @@ state(
 # the port lane, the outlet's onto the west (`copper_plugs.columns`) — and both drop
 # from there to their stations in the slot, so compressing the field can never compress
 # the coil.
-evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
+evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_carbonator_elbows_height
 evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
-                    - wall_and_floor_thickness - above_tank_elbows_height)
+                    - wall_and_floor_thickness - above_carbonator_elbows_height)
 
 # NOTHING CROSSES THIS FACE BUT THE SLOTS. The front wall is mated face to face with the
 # refrigeration base — the condenser against it and the compressor's own plate just short of that
@@ -752,9 +752,9 @@ state(
 # have one.
 #   carb-water-out — the carbonator's BOTTOM-PLATE +Y port, under the liquid, which is the
 # carbonator's own drain and the dispense line's source. The elbow turns it laterally, it crosses
-# under the tank inboard of the support ring, leaves the ring through the ring's OWN SLOT on
+# under the carbonator inboard of the support ring, leaves the ring through the ring's OWN SLOT on
 # this bore's column (`_port_cuts.water_outlet_ring_crossing_x` — no bore, and the four bearing
-# segments stay whole), and climbs beside the coil clear of the port lane until the tank's top
+# segments stay whole), and climbs beside the coil clear of the port lane until the carbonator's top
 # plate is under it. Only there does it step out onto the lane and into this bore. That climb is
 # inboard because the CO2 owns the lane's own strip at the bottom of the shell.
 #   Its X answers to two things. THE DECK ABOVE: the +X flank stands a column of bodies on the
@@ -774,12 +774,12 @@ state(
 # down the lane before the top cap goes on.
 #   ITS FALL IS THE ONLY RISER THE LANE CARRIES. A lane is one bore wide, so a riser in it is a
 # wall to everything crossing that column, and the lane's other traffic all runs WEST at one
-# storey each: the evaporator's inlet copper drops onto the lane beside the tank and takes it to
+# storey each: the evaporator's inlet copper drops onto the lane beside the carbonator and takes it to
 # its slot station (`copper_plugs.columns`), reservoir A's draw crosses on the pockets' floor
-# storey, and the carbonated water joins only once it is over the tank. What used to stand
+# storey, and the carbonated water joins only once it is over the carbonator. What used to stand
 # against the riser as well was the PRV — a ⌀23 cup lying across the lane at x ±11.5 — and that
 # vents down the WEST lane now (`prv_port_y`), so this column is free floor to cap.
-#   WHERE THE LEAN CROSSES is the TANK SUPPORT RING's business, not this file's. The reach in
+#   WHERE THE LEAN CROSSES is the Carbonator SUPPORT RING's business, not this file's. The reach in
 # from the lane to the bottom plate's port crosses the ring, and the ring is four bearing
 # segments with four slots between them (`_support_ring`); a reach that misses a slot would have
 # to be bored through a segment that carries the carbonator. `_port_cuts.co2-inlet-slot` is that
@@ -796,7 +796,7 @@ co2_lane_x = 72.5
 # leg between the two still carries a rib.
 co2_cap_x = 1.5
 # THE CARBONATED WATER IS SPLIT THE SAME WAY, at the other end of its line. Its CLIMB is
-# pinned: it crosses the tank support ring at one of the ring's own four slots, so the column
+# pinned: it crosses the carbonator support ring at one of the ring's own four slots, so the column
 # it rises on may not wander without notching a bearing segment, and the slot leaves it under
 # 8 mm of travel — all of it under the same deck body its bore has to dodge. Its cap bore has
 # no such tie: the run is already on the lane by then, and a jog ALONG a lane costs it nothing.
@@ -879,8 +879,8 @@ for _s in reservoir_fill_sides:
 
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
 # axis up to the cap's floor, against the rise a corner of 1/4" LLDPE takes.
-tank_top_plate_z = wall_and_floor_thickness + tank_support_ring_height + tank_height
-top_band_to_cap = foam_shell_outer_height - (tank_top_plate_z + hole_shift_from_edge)
+carbonator_top_plate_z = wall_and_floor_thickness + carbonator_support_ring_height + carbonator_height
+top_band_to_cap = foam_shell_outer_height - (carbonator_top_plate_z + hole_shift_from_edge)
 # [25.4 mm](LLDPE_BEND_R) — 4 × OD, the corner 1/4" LLDPE holds unsupported. The machine
 # draws its own runs at half of it (`_routing.BEND_RATIO`), and so does `_internal_routes`,
 # because a potted line is held at its corner by the foam round it.
@@ -1615,8 +1615,8 @@ if __name__ == "__main__":
     variables = {
         "WALL_AND_FLOOR_THICKNESS": f"{wall_and_floor_thickness:.4g} mm",
         "COIL_RADIAL_CLEARANCE": f"{coil_radial_clearance:.4g} mm",
-        "ABOVE_TANK_ELBOWS_HEIGHT": f"{above_tank_elbows_height:.4g} mm",
-        "BELOW_TANK_ELBOWS_HEIGHT": f"{below_tank_elbows_height:.4g} mm",
+        "ABOVE_TANK_ELBOWS_HEIGHT": f"{above_carbonator_elbows_height:.4g} mm",
+        "BELOW_TANK_ELBOWS_HEIGHT": f"{below_carbonator_elbows_height:.4g} mm",
         "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
         "SCREW_CLEARANCE_DIAMETER": f"{screw_clearance_radius * 2:.4g}",
         "INSERT_POCKET_DIAMETER": f"{insert_pocket_radius * 2:.4g}",

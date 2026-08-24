@@ -366,7 +366,7 @@ def main():
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
         # Evaporator-coil copper (§5 GOORY row). LAID_FT is the copper a build CONSUMES —
-        # the wrap as it lies on the tank, bridge lift and all. The mandrel's two shorter
+        # the wrap as it lies on the carbonator, bridge lift and all. The mandrel's two shorter
         # readings are MANDREL_FT (what the tool holds) and SPRUNG_FT (what the same wraps
         # come to once off it) — three lengths, three names, so a doc says which it quotes.
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",

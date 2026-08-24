@@ -77,7 +77,7 @@ _coil_mandrel_gen = load_module(
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
-# The wrap AS LAID on the tank, and the cut struck on it — `coil_mandrel` holds the two
+# The wrap AS LAID on the carbonator, and the cut struck on it — `coil_mandrel` holds the two
 # shorter readings (what the tool holds, what the same wraps come to once sprung off it)
 # but only this module sees the lift over the reed bridge, so the cut lives here.
 _coil_gen = load_module("cold_core_coil_gen", _hw / "cold-core-layout" / "_coil.py")
@@ -97,7 +97,7 @@ def main():
         # ─── Coil winding (step 1, line 47) ───────────────────────────
         "GROOVE_DEPTH": f"{_coil_mandrel_gen.groove_depth:.4g} mm",
         "MANDREL_OD": f"{_coil_mandrel_gen.mandrel_od:.4g} mm",
-        "TANK_OD": f"{_coil_mandrel_gen.tank_od:.4g} mm",
+        "TANK_OD": f"{_coil_mandrel_gen.carbonator_od:.4g} mm",
         "NET_UNDERSIZE": f"{_coil_mandrel_gen.net_undersize:.4g} mm",
         "WIND_LENGTH": f"{_coil_mandrel_gen.wind_length:.4g} mm",
         # total_wraps is a derived float; .3f matches "9.687 wraps".
@@ -105,7 +105,7 @@ def main():
         # pitch is derived; .2f matches "12.43 mm".
         "PITCH": f"{_coil_mandrel_gen.pitch:.2f} mm",
         # Copper consumption. SPRUNG_LEN is the wrap once it has sprung off the mandrel
-        # onto the tank; LAID_FT is that same wrap with the reed bridge's lift in it —
+        # onto the carbonator; LAID_FT is that same wrap with the reed bridge's lift in it —
         # what a build consumes, and what the cut stands on.
         "SPRUNG_LEN": f"{_coil_mandrel_gen.fitted_wrap_length / 1000:.4g} m",
         "LAID_FT": f"{_coil_gen.wrap_length() / 304.8:.4g} ft",
