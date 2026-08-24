@@ -265,9 +265,30 @@ jobs:
         # took 270 s and 1926 s at four concurrent actions and 1905 s at two, and at two the
         # failure SPREAD to a second card and to the manual's cover. What decides it is the size
         # of the capture, not how many run at once, which is what `--shm-size` above addresses.
-        # Keep going fills both caches with every independent success, but a nonzero final
-        # status stops the carry. A mixed old/new output tree is not a derivation to commit.
-        run: bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" //:everything
+        # KEEP GOING, AND CARRY WHAT KEPT GOING. `--keep_going` builds every target whose
+        # inputs are ready and leaves the rest, so a run with one red target has every other
+        # target's fresh output sitting in bazel-bin. Ending the job on the exit status threw
+        # all of them away — nothing carried, nothing committed, no publish dispatched — so one
+        # broken target held every good one off the site, and with no red X in front of anybody
+        # because the run simply stopped.
+        #
+        # `failed_targets.py` reads the build event log and names what did not complete.
+        # `sync_tree` and `cut_vs_lock` each take `--failed` and leave exactly those alone.
+        id: cut
+        run: |
+          set +e
+          bazel build --keep_going --disk_cache="$HOME/.cache/bazel-disk" \
+            --build_event_json_file=bep.json //:everything
+          built=$?
+          set -e
+          failed=$(tools/cad-venv/bin/python tools/bazel/failed_targets.py bep.json)
+          echo "failed=$failed" >> "$GITHUB_OUTPUT"
+          if [ -n "$failed" ]; then
+            echo "::warning title=build::$(tr ',' '\n' <<< "$failed" | wc -l | tr -d ' ') target(s) did not complete; the rest carry"
+            tr ',' '\n' <<< "$failed" | sed 's/^/  /'
+          fi
+          # A build that analyzed nothing names no target, and there is nothing to carry.
+          [ -n "$failed" ] || [ "$built" -eq 0 ]
 
       - name: Save the drawn solids
         if: always()
@@ -291,7 +312,7 @@ jobs:
         run: |
           set +e
           tools/cad-venv/bin/python tools/cad-artifacts/cut_vs_lock.py \
-            --annotate --assume-fresh
+            --annotate --assume-fresh --failed "${{ steps.cut.outputs.failed }}"
           rc=$?
           set -e
           [ "$rc" -le 1 ]
@@ -299,7 +320,9 @@ jobs:
       # Bazel cuts into bazel-bin; the ledger, docs, commit and artifact status read the tree.
       # Carry only after the complete build and cut gates have both passed.
       - name: Carry what the build cut into the tree
-        run: tools/cad-venv/bin/python tools/bazel/sync_tree.py --write
+        run: |
+          tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
+            --failed "${{ steps.cut.outputs.failed }}"
 
       # The ledger, in the order the modules document: masses price the totals, and the
       # totals' §7 feeds the print hours.
