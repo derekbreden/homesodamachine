@@ -15,12 +15,11 @@ rewritten, so a checkout resolves to the bundle its own commit was packed agains
 `web/scripts/fetch-cad-artifacts.mjs` reads the lock at deploy and holds the download to both
 hashes before anything is extracted.
 
-`source.commit` is the commit every member came from except the ones `held` names. A member
-whose producing rule an uncommitted edit reaches ships the bytes of its last publication, taken
-back out of that asset, and `held` carries the commit those bytes came from; the rest of the
-tree packs at HEAD around it. So one session's open file bounds its own rules and not the
-bundle, and every asset still carries every member the lock names. `held` is absent from a lock
-packed off a clean tree.
+THE BUNDLE CARRIES WHAT THIS DISK HOLDS, and `source.commit` is where that came from. Where the
+disk stood outside HEAD, `unproven` says so: the uncommitted paths the pack was cut beside and
+the members those paths reach. Nothing is withheld for it — a solid mid-edit is a solid to look
+at — and a reader asking where one came from gets the answer instead of the assumption.
+`unproven` is absent from a lock packed off a tree standing at HEAD.
 
 THE BUNDLE CARRIES NO FACT ABOUT THE MACHINE THAT PACKED IT. Members go in sorted, and the mtime,
 uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carries no mtime. A
@@ -94,7 +93,7 @@ def _facets(path) -> int:
     return int.from_bytes(head[80:84], "little")
 
 
-def barren(root: Path, solid_hashes: dict, source: dict = None) -> list:
+def barren(root: Path, solid_hashes: dict) -> list:
     """Members carrying no geometry, and members whose bytes are already another member's.
 
     A SHA256 OF AN EMPTY FILE IS A PERFECTLY GOOD SHA256. `fetch-cad-artifacts.mjs` holds every
@@ -109,9 +108,8 @@ def barren(root: Path, solid_hashes: dict, source: dict = None) -> list:
     precisely because there is nothing in them to differ."""
     out = []
     for rel in sorted(solid_hashes):
-        path = (source or {}).get(rel) or root / rel
-        if _facets(path) == 0:
-            out.append(f"{rel} declares 0 facets — {path.stat().st_size} bytes, an empty solid")
+        if _facets(root / rel) == 0:
+            out.append(f"{rel} declares 0 facets — {(root / rel).stat().st_size} bytes, an empty solid")
     seen = {}
     for rel, sha in sorted(solid_hashes.items()):
         if sha in seen:
@@ -202,16 +200,13 @@ def solids(root: Path) -> list:
     return sorted(out)
 
 
-def build(root: Path, rels: list, dest, source: dict = None) -> str:
+def build(root: Path, rels: list, dest) -> str:
     """Write the bundle at `dest` and return its sha256. A member carries its path and its
-    bytes; every other field a tar can hold is set flat.
-
-    `source` names where a member's bytes are read from when that is not this tree — the held
-    ones, which come out of the asset their commit published."""
+    bytes; every other field a tar can hold is set flat."""
     raw = io.BytesIO()
     with tarfile.open(fileobj=raw, mode="w", format=tarfile.GNU_FORMAT) as tar:
         for rel in rels:
-            src = (source or {}).get(rel) or root / rel
+            src = root / rel
             info = tarfile.TarInfo(rel)
             info.size = src.stat().st_size
             info.mtime = 0
@@ -253,18 +248,18 @@ def _head(root: Path) -> str:
 
 
 def _dirty_artifact_reach(root: Path) -> tuple:
-    """`(artifact rules the working tree's edits reach, paths whose reach nothing bounds)`.
+    """`(artifact rules the tree's edits reach, edits nothing bounds, every edit either way)`.
 
     Ignored generated solids are intentionally absent from git status; they are the bytes being
-    packed. A member's bytes belong to HEAD only when no edit outside HEAD can cut them, so the
-    rules on the left are the ones whose members `attribution` holds at an earlier commit.
+    packed. What is left is the working tree standing outside HEAD, and the rules on the left
+    are the ones a member has to be under for HEAD not to describe it.
 
-    TWO KINDS OF EDIT HAVE NO RULES TO NAME, and they go on the right. An unlabelled path is one
-    bazel names as a source of no rule, so nothing says which outputs it reaches. An
-    `artifact_global` one is named — `.bazelrc`, `BUILD.bazel`, this directory — and reaches
-    every action by describing or executing it rather than by being read, which is reach an
-    rdeps walk over source labels does not show. A bundle cut beside either is unattributable
-    whole rather than per member.
+    TWO KINDS OF EDIT HAVE NO RULES TO NAME, and they go in the middle. An unlabelled path is
+    one bazel names as a source of no rule, so nothing says which outputs it reaches. An
+    `artifact_global` one is named — `.bazelrc`, `BUILD.bazel`, the image and workflow trees —
+    and reaches every action by describing or executing it rather than by being read, which is
+    reach an rdeps walk over source labels does not show. Either one puts every member in the
+    record rather than a nameable few.
     """
     status = subprocess.run(
         ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
@@ -279,72 +274,33 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     moved -= set(sidecars(root)) | set(read_lock(root).get("sidecars", {}))
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
-        return [], []
+        return [], [], []
     hit, miss = affected.known(sorted(moved))
     everywhere = {p for p in moved if affected.artifact_global(p)}
     unlabelled = {p for p in miss if affected.artifact_unknown(p, artifacts_only=True)}
     reached = ((set(affected.targets(hit)) & affected.artifact_targets())
                | affected.sentinel_targets(moved))
-    return sorted(reached), sorted(everywhere | unlabelled)
+    return sorted(reached), sorted(everywhere | unlabelled), sorted(moved)
 
 
-def attribution(quarantined: set, now: dict, lock: dict) -> tuple:
-    """`(commit per held member, members with no commit to hold)`, for a dirty-reached set.
+def unproven(dirty: list, members) -> dict:
+    """What a publication could not put under `source.commit`, as the lock carries it.
 
-    THE BYTES ON THIS DISK ARE NOT EVIDENCE OF ANYTHING HERE. A rule an uncommitted edit reaches
-    cuts from a source that is in no commit, and a cut older than the edit says which inputs it
-    saw and not which commit held them. Neither reading names a commit, so a held member ships
-    the bytes its last publication named — `_prior_members` takes those out of that asset — and
-    carries that publication's commit.
+    THE BUNDLE SHIPS WHAT THIS DISK HOLDS. A member cut beside an uncommitted edit still travels
+    — seeing the geometry that is actually here is what the site is for — and this is the lock
+    saying which members those were and which uncommitted paths reach them, so a reader asking
+    where a solid came from gets an answer rather than an assumption.
 
-    A member the lock has never held has no such publication. `--write` names it and stops.
+    Empty is the ordinary answer, and then `source.commit` describes every member on its own.
     """
-    was = lock.get("solids", {})
-    prior = lock.get("held", {})
-    base = lock.get("source", {}).get("commit", "")
-    held, orphan = {}, []
-    for rel in sorted(quarantined):
-        if rel not in now:
-            continue
-        if rel in was:
-            held[rel] = prior.get(rel, base)
-        else:
-            orphan.append(rel)
-    return held, orphan
-
-
-def _prior_members(root: Path, lock: dict, rels: list, into: Path) -> dict:
-    """`{rel: path}` for `rels` taken out of the asset the lock names, held to their hashes.
-
-    The lock's asset carries every member it names, so one download reaches all of them."""
-    if not rels:
+    if not dirty:
         return {}
-    release, bundle = lock.get("release", {}), lock.get("bundle", {})
-    asset = release.get("asset", "")
-    got = _gh(root, "release", "download", TAG, "--pattern", asset,
-              "--dir", str(into), "--clobber")
-    if got.returncode != 0:
-        raise SystemExit(f"could not fetch {asset} for the held members:\n{got.stderr}")
-    tar = into / asset
-    digest = _sha256(tar)
-    if digest != bundle.get("sha256"):
-        raise SystemExit(f"{asset} is not the locked bundle\n  locked {bundle.get('sha256')}"
-                         f"\n  got    {digest}")
-    out = into / "members"
-    out.mkdir(parents=True, exist_ok=True)
-    with tarfile.open(tar, "r:gz") as archive:
-        for rel in rels:
-            member = archive.extractfile(rel)
-            if member is None:
-                raise SystemExit(f"{asset} does not carry {rel}")
-            dest = out / rel
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_bytes(member.read())
-    off = [rel for rel in rels if _sha256(out / rel) != lock["solids"][rel]]
-    if off:
-        raise SystemExit("the asset's bytes are not the ones it is locked at:\n  "
-                         + "\n  ".join(off))
-    return {rel: out / rel for rel in rels}
+    return {
+        "_": "Cut beside these uncommitted paths, so source.commit does not describe the"
+             " members below them.",
+        "paths": sorted(dirty),
+        "members": sorted(members),
+    }
 
 
 def _members_of_targets(root: Path, labels: set) -> set:
@@ -438,10 +394,10 @@ def _targets_for_members(root: Path, members: set) -> tuple:
 
 
 def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
-             sidecar_hashes: dict = None, held_members: dict = None) -> dict:
+             sidecar_hashes: dict = None, record: dict = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
-    return _with_held({
+    return _with_record({
         "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed —"
              " web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
         "release": {
@@ -454,23 +410,23 @@ def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict 
         "solids": solid_hashes if solid_hashes is not None else hashes(root, rels),
         "sidecars": sidecar_hashes if sidecar_hashes is not None
                     else hashes(root, sidecars(root)),
-    }, held_members or {})
+    }, record or {})
 
 
-def _with_held(lock: dict, held_members: dict) -> dict:
-    """`lock` with `held` set to `held_members`, seated after the commit it is the exception to.
+def _with_record(lock: dict, record: dict) -> dict:
+    """`lock` with `unproven` set to `record`, seated after the commit it qualifies.
 
-    `source.commit` is what every member not named here came from, so an empty map is the
-    field's absence rather than an empty object."""
+    `source.commit` describes every member on its own when the record is empty, so an empty one
+    is the field's absence rather than an empty object."""
     out = {}
     for key, value in lock.items():
-        if key == "held":
+        if key == "unproven":
             continue
         out[key] = value
-        if key == "source" and held_members:
-            out["held"] = dict(sorted(held_members.items()))
-    if held_members and "held" not in out:
-        out["held"] = dict(sorted(held_members.items()))
+        if key == "source" and record:
+            out["unproven"] = record
+    if record and "unproven" not in out:
+        out["unproven"] = record
     return out
 
 
@@ -705,21 +661,11 @@ def main(argv) -> int:
         ap.error("--allow-retired is only valid with --prune")
 
     if args.write:
-        reached, unbounded = _dirty_artifact_reach(_ROOT)
-        if unbounded:
-            print("refusing to pack beside edits the graph does not bound:")
-            for item in unbounded[:20]:
-                print(f"  {item}")
-            print("  Commit the inputs, then pack from that clean source commit.")
-            return 2
+        reached, unbounded, dirty = _dirty_artifact_reach(_ROOT)
         quarantined = set(reached)
-        if quarantined:
-            print(f"{len(quarantined)} artifact rule(s) reached by uncommitted edits, "
-                  f"held at their published commit:")
-            for label in reached[:20]:
-                print(f"  {label}")
         owed = _owed_artifact_targets(_ROOT)
     else:
+        reached, unbounded, dirty = [], [], []
         quarantined = set()
         owed = []
 
@@ -754,25 +700,18 @@ def main(argv) -> int:
     sidecar_now = hashes(_ROOT, sidecar_rels)
 
     held = read_lock()
-    quarantined_members = _members_of_targets(_ROOT, quarantined) & set(now)
-    held_now, orphan = attribution(quarantined_members, now, held)
-    if orphan:
-        print("refusing to publish members no earlier bundle carries:")
-        for rel in orphan[:20]:
-            print(f"  {rel}")
-        print("  Commit the source that cuts them, then pack.")
-        return 2
-    # The held members' own bytes, out of the asset that named their commit. The directory
-    # stays referenced for the rest of this call and goes when the call does.
-    prior_dir = tempfile.TemporaryDirectory(prefix="cad-held.") if held_now else None
-    prior_source = (_prior_members(_ROOT, held, sorted(held_now), Path(prior_dir.name))
-                    if prior_dir else {})
-    # What this publication names each member at: HEAD's cut, or the held member's own.
-    pinned = dict(now)
-    for rel in held_now:
-        pinned[rel] = held["solids"][rel]
+    # An unbounded edit reaches by a route the graph cannot walk, so the record names every
+    # member rather than the few a rule owns.
+    unproven_members = (set(now) if unbounded
+                        else _members_of_targets(_ROOT, quarantined) & set(now))
+    unproven_now = unproven(dirty, unproven_members)
+    if unproven_now:
+        print(f"{len(unproven_members)} of {len(now)} member(s) cut beside "
+              f"{len(dirty)} uncommitted path(s); the lock records them:")
+        for path in dirty[:8]:
+            print(f"  {path}")
 
-    hollow = barren(_ROOT, pinned, prior_source)
+    hollow = barren(_ROOT, now)
     if hollow:
         print(f"{len(hollow)} member(s) carry no geometry, so nothing here is packed:")
         for line in hollow:
@@ -793,7 +732,7 @@ def main(argv) -> int:
         for rel in unpruned_sidecars:
             print(f"  {rel}")
         return 2
-    changed_members = {rel for rel, digest in pinned.items()
+    changed_members = {rel for rel, digest in now.items()
                        if held.get("solids", {}).get(rel) != digest}
     changed_sidecars = {rel for rel, digest in sidecar_now.items()
                         if held.get("sidecars", {}).get(rel) != digest}
@@ -805,15 +744,13 @@ def main(argv) -> int:
             for rel in unowned[:20]:
                 print(f"  {rel}")
             return 2
-        # A held member returns to HEAD when its own rule builds clean there, so the rules
-        # holding one are verified alongside the owed and the changed.
-        prior_held, _ = _targets_for_members(_ROOT, set(held.get("held", {})))
-        verify_targets = sorted(
-            (set(owed) | set(changed_targets) | set(prior_held)) - quarantined)
+        # A rule an uncommitted edit reaches has nothing at HEAD to be checked against, and
+        # the record is what says so; the rest are held to their cut as before.
+        verify_targets = sorted((set(owed) | set(changed_targets)) - quarantined)
         if not _cut_is_fresh(_ROOT, verify_targets):
             print("  Build and carry every owed or changed artifact target before --write.")
             return 2
-    same_solids = held.get("solids") == pinned
+    same_solids = held.get("solids") == now
     same_sidecars = held.get("sidecars") == sidecar_now
     if same_solids and same_sidecars:
         if args.write:
@@ -823,24 +760,24 @@ def main(argv) -> int:
                                           bundle.get("sha256", ""), bundle.get("bytes", -1)):
                 with tempfile.TemporaryDirectory() as d:
                     path = Path(d) / "bundle.tar.gz"
-                    digest = build(_ROOT, rels, path, prior_source)
+                    digest = build(_ROOT, rels, path)
                     if digest != bundle.get("sha256"):
                         raise SystemExit("equal member hashes built a different bundle digest")
                     upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
             if (held.get("source", {}).get("commit") != _head(_ROOT)
-                    or held.get("held", {}) != held_now):
+                    or held.get("unproven", {}) != unproven_now):
                 held["source"] = {"commit": _head(_ROOT)}
-                _write_lock(_with_held(held, held_now))
+                _write_lock(_with_record(held, unproven_now))
                 print(f"lock names this tree — {held['release']['asset']}; source advanced"
-                      + (f", {len(held_now)} member(s) held" if held_now else ""))
+                      + (f", {len(unproven_now['members'])} unproven" if unproven_now else ""))
                 return 0
         print(f"lock names this tree — {held['release']['asset']}")
         return 0
 
     was = held.get("solids", {})
-    moved = sorted(k for k in pinned if k in was and was[k] != pinned[k])
-    fresh = sorted(set(pinned) - set(was))
-    gone = sorted(set(was) - set(pinned))
+    moved = sorted(k for k in now if k in was and was[k] != now[k])
+    fresh = sorted(set(now) - set(was))
+    gone = sorted(set(was) - set(now))
     side_was = held.get("sidecars", {})
     side_moved = sorted(k for k in sidecar_now
                         if k in side_was and side_was[k] != sidecar_now[k])
@@ -869,28 +806,29 @@ def main(argv) -> int:
                                       bundle.get("sha256", ""), bundle.get("bytes", -1)):
             with tempfile.TemporaryDirectory() as d:
                 path = Path(d) / "bundle.tar.gz"
-                digest = build(_ROOT, rels, path, prior_source)
+                digest = build(_ROOT, rels, path)
                 if digest != bundle.get("sha256"):
                     raise SystemExit("equal member hashes built a different bundle digest")
                 upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
         held["source"] = {"commit": _head(_ROOT)}
         held["sidecars"] = sidecar_now
-        _write_lock(_with_held(held, held_now))
+        _write_lock(_with_record(held, unproven_now))
         print(f"pinned current scorecards without rebuilding {release['asset']}")
         return 0
 
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
-        digest = build(_ROOT, rels, bundle, prior_source)
+        digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
-        data = lock_for(_ROOT, rels, digest, size, pinned, sidecar_now, held_now)
+        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
 
     _write_lock(data)
     print(f"pinned in {LOCK.relative_to(_ROOT)}"
-          + (f" — {len(held_now)} member(s) held at an earlier commit" if held_now else ""))
+          + (f" — {len(unproven_now['members'])} member(s) recorded unproven"
+             if unproven_now else ""))
     return 0
 
 
@@ -969,38 +907,24 @@ def selftest() -> int:
              retired_outputs(root), ["hardware/retired/old.scorecard.json",
                                      "hardware/retired/old.step"])
 
-        # A publication under way beside somebody's open file. `a.step` has not moved since it
-        # was packed, `b.step` was already standing on an older commit than the lock's, `c.step`
-        # has been recut on this disk, and `d.step` is a first cut nothing has published.
-        packed = {"solids": {"a.step": "aa", "b.step": "bb", "c.step": "cc"},
-                  "source": {"commit": "head1"},
-                  "held": {"b.step": "head0"}}
-        disk = {"a.step": "aa", "b.step": "bb", "c.step": "moved", "d.step": "new"}
-        hold("a held member carries the commit that published it, recut or not",
-             attribution({"a.step", "b.step", "c.step", "d.step"}, disk, packed),
-             ({"a.step": "head1", "b.step": "head0", "c.step": "head1"}, ["d.step"]))
-        hold("a clean rule's members are nobody's exception",
-             attribution(set(), disk, packed), ({}, []))
-        hold("held is seated on the commit it is the exception to",
-             list(_with_held({"source": {}, "solids": {}}, {"b.step": "head0"})),
-             ["source", "held", "solids"])
-        hold("and is the field's absence when nothing is held",
-             _with_held({"source": {}, "held": {"b.step": "head0"}, "solids": {}}, {}),
+        # A publication under way beside somebody's open file. Both members still ship;
+        # what the record adds is which uncommitted paths reach them.
+        hold("the record names the edits and the members they reach",
+             unproven(["hardware/manifold-layout/enclosure_assembly.py"],
+                      {"b.step", "a.step"}),
+             {"_": "Cut beside these uncommitted paths, so source.commit does not describe the"
+                   " members below them.",
+              "paths": ["hardware/manifold-layout/enclosure_assembly.py"],
+              "members": ["a.step", "b.step"]})
+        hold("and a tree standing at HEAD writes no record at all",
+             unproven([], {"a.step"}), {})
+        hold("the record is seated on the commit it qualifies",
+             list(_with_record({"source": {}, "solids": {}}, {"paths": [], "members": []})),
+             ["source", "unproven", "solids"])
+        hold("and is the field's absence when there is nothing to record",
+             _with_record({"source": {}, "unproven": {"paths": []}, "solids": {}}, {}),
              {"source": {}, "solids": {}})
         shutil.rmtree(hw / "printed-parts" / "enclosure")
-
-        # A held member's bytes come out of the asset its commit published, not off this disk.
-        elsewhere = root / "held" / "hardware" / "printed-parts" / "cap" / "cap.step"
-        elsewhere.parent.mkdir(parents=True)
-        elsewhere.write_text("ISO-10303-21;\nas published\n")
-        held_bundle = build(root, solids(root), root / "held.tar.gz",
-                            {"hardware/printed-parts/cap/cap.step": elsewhere})
-        with tarfile.open(root / "held.tar.gz", "r:gz") as tar:
-            carried = tar.extractfile("hardware/printed-parts/cap/cap.step").read()
-        hold("a held member is packed from where its bytes are, under its own path",
-             carried, b"ISO-10303-21;\nas published\n")
-        hold("and that is a different bundle from the one this disk would make",
-             held_bundle != build(root, solids(root), root / "ondisk.tar.gz"), True)
 
         a, b = root / "a.tar.gz", root / "b.tar.gz"
         rels = solids(root)
@@ -1028,8 +952,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/19")
-    return 0 if holds == 19 else 1
+    print(f"pack selftest {holds}/17")
+    return 0 if holds == 17 else 1
 
 
 if __name__ == "__main__":
