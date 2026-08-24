@@ -19,6 +19,7 @@
 
 import * as THREE from "three";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { heldBy, leafOf, standsIn } from "/contracts/body-path.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { setEdgePickEnabled, syncEdgeToggle, invalidateAllEdgesLayer } from "./edge-picker.js";
@@ -110,23 +111,15 @@ hoverEdgeMat.depthWrite = false;
 // An index is not a branch: `display/1` is the first solid of one body, which `bodyName` in
 // step.js has already taken off by the time a name reaches here.
 
-/** The sub-assemblies above `name`, outermost first. A body at the top has none. */
-export function heldBy(name) {
-  const parts = String(name || "").split("/");
-  return parts.slice(0, -1).map((_p, i) => parts.slice(0, i + 1).join("/"));
-}
-
-/** The body's own name, out of everything holding it. */
-export const leafOf = (name) => String(name || "").split("/").pop();
-
 /** Every body standing inside `group`, by name. */
+export { heldBy, leafOf };
+
 export function membersOf(group) {
-  const held = group + "/";
   const out = new Set();
-  if (!state.currentGroup) return [];
+  if (!state.currentGroup || !group) return [];
   for (const m of state.currentGroup.children) {
     const nm = m.isMesh ? (m.name || (m.userData && m.userData.body)) : null;
-    if (nm && nm.startsWith(held)) out.add(nm);
+    if (nm && nm !== group && standsIn(nm, group)) out.add(nm);
   }
   return [...out].sort();
 }
@@ -150,11 +143,10 @@ export function isolateComponent(name, { persist = true } = {}) {
   if (!name) {
     state.hiddenComponents = new Set();
   } else {
-    const held = name + "/";
     const tops = new Set();
     for (const m of (state.currentGroup ? state.currentGroup.children : [])) {
       const nm = m.isMesh ? (m.name || (m.userData && m.userData.body)) : null;
-      if (!nm || nm === name || nm.startsWith(held)) continue;
+      if (!nm || standsIn(nm, name)) continue;
       // The outermost node that is not the one being isolated, so 62 bodies go out as one name.
       tops.add(heldBy(nm)[0] || nm);
     }
@@ -190,10 +182,9 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   if (!name || !state.currentGroup) return;
   const seen = new Set();
   // A sub-assembly lights up as the whole of what it holds.
-  const held = name + "/";
-  const wanted = (nm) => nm === name || nm.startsWith(held);
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || !wanted(mesh.name) || mesh.visible === false || seen.has(mesh.geometry)) continue;
+    if (!mesh.isMesh || !standsIn(mesh.name, name) || mesh.visible === false
+        || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
     g.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
     const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
