@@ -48,8 +48,8 @@ TURN_IN_LEAD_BEND = 50.5
 # where a prefix would leave the reading with one fewer fitting in it and nothing to say so.
 UNIONS = ("bulkhead-carb", "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-water")
 # The five body names are what `hardware/printed-parts/enclosure/bulkhead-ring/` exports today.
-BULKHEAD_RINGS = ("port-ring-carb", "port-ring-co2", "port-ring-flavor-a",
-                  "port-ring-flavor-b", "port-ring-water")
+BULKHEAD_RINGS = ("bulkhead-ring-carb", "bulkhead-ring-co2", "bulkhead-ring-flavor-a",
+                  "bulkhead-ring-flavor-b", "bulkhead-ring-water")
 
 # The piece a hand hauls out of the front bay, both peristaltic pumps and their tubing aboard.
 PUMP_CARTRIDGE = "enclosure-pump-cartridge"
