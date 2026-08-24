@@ -9,12 +9,17 @@
 // made of stands inside one of them, and is reached by opening it.
 //
 // AN ASSEMBLY MAY HOLD AN ASSEMBLY, and the cold core is it. The enclosure STEP
-// carries the core's own bodies — the shell and its caps, the carbonator, the coil,
-// both reservoirs, every fitting and the lines among them — so opening the appliance
-// is already being inside the core, and each of those is picked where it stands.
-// What `children` states is whose directories are whose: the core's parts are
-// claimed by the core rather than swept up by the machine that holds it, and
-// `cold-core-assembly.step` is that same stack on a bench.
+// carries the core as a real sub-assembly — a node named `cold-core` with the shell
+// and its caps, the carbonator, the coil, both reservoirs, every fitting and the
+// lines among them inside it — so opening the appliance is already being inside the
+// core, and each of those is picked where it stands.
+//
+// THIS NESTING IS THAT NESTING AND NOT A SECOND ONE. A child's `node` names the
+// sub-assembly its parent's model holds it under, and the test beside this file holds
+// the model to it, so the page cannot come to believe in a shape the geometry does not
+// have. What `children` adds on top is whose directories are whose: the core's parts
+// are claimed by the core rather than swept up by the machine, and its `model` is that
+// same stack on a bench, before the box goes round it.
 //
 // A PART INSIDE AN ASSEMBLY IS REACHED BY SELECTING IT THERE. Open the assembly,
 // arm Select → Component, click the solid: the panel names the component and
@@ -77,6 +82,13 @@ export const ASSEMBLIES = [
         id: "cold-core-assembly",
         label: "Cold core assembly",
         model: "cold-core-layout/cold-core-assembly.step",
+        // THE NODE ITS PARENT HOLDS IT UNDER, and the only reason this nesting is not a
+        // second hierarchy beside the model's. `manifold-layout/enclosure-assembly.step`
+        // carries a sub-assembly by this name with the core's bodies inside it, each called
+        // `cold-core/<body>`; the test below holds that file to it. Rename the node in
+        // `enclosure_assembly.CORE` without renaming it here and the gate says so, rather
+        // than the two drifting apart in silence.
+        node: "cold-core",
         note: "The stack the appliance is built around: the carbonator that fills it, the " +
               "coil wound on that, both reservoirs in their pockets, every fitting made up, " +
               "and the lines among them. The machine stands every one of these bodies; this " +
