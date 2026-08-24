@@ -57,7 +57,7 @@ const MATS = {
   // is already built read as a halo; a real bloom would cost an offscreen target
   // and a composer for the whole scene to light up a handful of bodies.
   halo: makeEdgeMaterial({
-    color: new THREE.Color(ACTIVE_HUE), linewidth: 12.0,
+    color: new THREE.Color(ACTIVE_HUE), linewidth: 6.5,
     transparent: true, opacity: 0.0, depthTest: false, depthWrite: false,
   }),
 };
@@ -67,7 +67,7 @@ const SHELL = new THREE.MeshBasicMaterial({
   side: THREE.DoubleSide, depthWrite: false, depthTest: false,
 });
 
-const BASE_OPACITY = { path: 0.20, trail: 0.5, out: 0.9, active: 0.9, halo: 0.13 };
+const BASE_OPACITY = { path: 0.20, trail: 0.5, out: 0.9, active: 0.9, halo: 0.10 };
 const SHELL_OPACITY = 0.15;
 
 // A BODY BIG ENOUGH TO BE THE VIEW DOES NOT GET THE FILL. The shell reads as
