@@ -300,6 +300,9 @@ void faucetApplyFlavorArt(const uint8_t art[2]) {
 }
 
 static void wakeBacklight() {
+  // The main board is being told a finger landed. Take the awake state now, or
+  // the loop re-dims against the sleep it last published before the answer.
+  idleAsleepWanted = false;
   dimmed = false;
   blDuty = blTarget = BL_FULL_DUTY;
   ledcWrite(LCD_BL, blDuty);
