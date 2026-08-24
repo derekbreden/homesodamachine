@@ -923,6 +923,11 @@ static void panelRealign() {
 // the idle timer. A tap calls this — "tap to bring the backlight back on."
 static void wake() {
   lastInputTime = millis();
+  // A finger has landed and the main board is being told. Take the awake state
+  // now rather than holding the sleep it last published: waiting out that round
+  // trip lets the loop below put the panel straight back into the dark this
+  // call just left, and the answer then arrives as a second wake.
+  idleAsleepWanted = false;
   if (screenIdle || !backlightOn) {
     if (kickStage) return;   // a wake is already on its way through the stages
     screenIdle = false;
