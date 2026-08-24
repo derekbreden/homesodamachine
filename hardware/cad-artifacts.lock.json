@@ -6,7 +6,7 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6f16218fa655b566.tar.gz"
   },
   "source": {
-    "commit": "a59adf94f61f71d8b150baad34da0c05a469ebf9"
+    "commit": "9c95273f2500c992d38b108ae21ca22619999d42"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -34,6 +34,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+      "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
