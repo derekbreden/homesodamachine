@@ -429,8 +429,8 @@ PARTS = (
          "hardware/manifold-layout/manifold-layout.step", solid=False),
     Part("fu02-faucet", "Faucet, made up",
          "hardware/faucet-layout/faucet-assembly.step"),
-    # Through the walls: the three pieces and the scarf seams between them.
-    Part("fu05-shell", "Faucet shell, three pieces",
+    # Through the walls: the two pieces and the seam between them.
+    Part("fu05-shell", "Faucet shell, two pieces",
          "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step", solid=False),
     # The tee in the attitude the split stands in — the run fore-and-aft and the branch
     # rolled to look down. `water_split._TURNS` is that turn, so the camera is the default
