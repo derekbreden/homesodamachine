@@ -52,6 +52,14 @@ const MATS = {
     color: new THREE.Color(ACTIVE_HUE), linewidth: 3.0,
     transparent: true, opacity: 0.0, depthTest: false, depthWrite: false,
   }),
+  // THE GLOW, WITHOUT A GLOW PASS. The same edges again, four times as wide and
+  // an eighth as bright, drawn under the bright ones. Two draws of geometry that
+  // is already built read as a halo; a real bloom would cost an offscreen target
+  // and a composer for the whole scene to light up a handful of bodies.
+  halo: makeEdgeMaterial({
+    color: new THREE.Color(ACTIVE_HUE), linewidth: 12.0,
+    transparent: true, opacity: 0.0, depthTest: false, depthWrite: false,
+  }),
 };
 
 const SHELL = new THREE.MeshBasicMaterial({
@@ -59,7 +67,7 @@ const SHELL = new THREE.MeshBasicMaterial({
   side: THREE.DoubleSide, depthWrite: false, depthTest: false,
 });
 
-const BASE_OPACITY = { path: 0.20, trail: 0.5, out: 0.9, active: 0.9 };
+const BASE_OPACITY = { path: 0.20, trail: 0.5, out: 0.9, active: 0.9, halo: 0.13 };
 const SHELL_OPACITY = 0.15;
 
 // A BODY BIG ENOUGH TO BE THE VIEW DOES NOT GET THE FILL. The shell reads as
@@ -77,6 +85,36 @@ let edgeCache = new WeakMap();
 // The same geometries, in a list we can walk — a fat-line buffer is a GL
 // allocation and lives until it is disposed, not until it is unreachable.
 let edgeMade = [];
+
+// EVERYTHING BEHIND THE LIGHTS, TURNED DOWN. A camera-facing sheet of the
+// background colour, drawn after the model and before the overlay, so the
+// machine fades and what is lit does not. Louder by silence rather than by
+// brightness — and it composes with every other tier, because it is a layer in
+// the draw order and not a change to anybody's material.
+//
+// It cannot be a DOM scrim: the highlights are in the canvas, so a sheet over
+// the canvas would dim them too.
+const scrim = new THREE.Mesh(
+  new THREE.PlaneGeometry(1, 1),
+  new THREE.MeshBasicMaterial({
+    color: 0x1a1a2e, transparent: true, opacity: 0,
+    depthTest: false, depthWrite: false,
+  }),
+);
+scrim.renderOrder = 989;
+scrim.frustumCulled = false;
+scrim.visible = false;
+
+/** Keep the scrim filling the frame, one unit in front of the camera. */
+export function fitScrim(camera) {
+  if (!scrim.visible) return;
+  const d = Math.max(camera.near * 2, 0.05);
+  const h = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * d;
+  scrim.scale.set(h * camera.aspect * 1.1, h * 1.1, 1);
+  scrim.quaternion.copy(camera.quaternion);
+  scrim.position.copy(camera.position)
+    .add(new THREE.Vector3(0, 0, -d).applyQuaternion(camera.quaternion));
+}
 
 let root = null;      // our group, parented to the model group
 let hostGroup = null; // the model group it hangs off
@@ -112,9 +150,13 @@ export function attach(group) {
   root.name = "tour-spotlight";
   root.renderOrder = 990;
   hostGroup.add(root);
-  for (const tier of ["path", "trail", "out", "active"]) {
+  // The scrim rides the SCENE, not the model — it is a sheet in front of the
+  // camera and owes nothing to where the machine stands.
+  if (scrim.parent !== hostGroup.parent && hostGroup.parent) hostGroup.parent.add(scrim);
+  for (const tier of ["path", "trail", "out", "halo", "active"]) {
     const g = new THREE.Group();
-    g.renderOrder = tier === "path" ? 991 : tier === "trail" ? 992 : 994;
+    g.renderOrder = tier === "path" ? 991 : tier === "trail" ? 992
+                  : tier === "halo" ? 993 : 994;
     root.add(g);
     layers[tier] = { group: g, sig: null };
   }
@@ -184,19 +226,48 @@ function fill(tier, names, withShell) {
  *                          wide shot read as a handoff rather than a jump.
  *   pulse                  seconds, for the slow breath on the active leg.
  */
-export function paint({ path, trail, active, out, mix = 1, pulse = 0 }) {
+/**
+ * What is lit, and how brightly. Called once per frame by the player.
+ *
+ *   path/trail/active/out  name sets (arrays or Sets)
+ *   mix                    0 at the start of a transition, 1 at its end:
+ *                          `out` (the leg being left) fades from active down
+ *                          to trail brightness while `active` (the leg being
+ *                          arrived at) comes up. Both are on screen through
+ *                          the middle of the move, which is what makes the
+ *                          wide shot read as a handoff rather than a jump.
+ *   quiet                  0..1, how far the machine behind the lights is
+ *                          turned down. The subject gets louder by everything
+ *                          else getting quieter.
+ *   reveal                 0..1 of `active` lit so far, IN THE ORDER THE BEAT
+ *                          NAMES THEM. A beat about a whole run can come on
+ *                          one body at a time, along the direction of flow,
+ *                          instead of arriving all at once.
+ *   pulse                  seconds, for the slow breath on the active leg.
+ */
+export function paint({ path, trail, active, out, mix = 1, pulse = 0,
+                        quiet = 0, reveal = 1 }) {
   if (!root) return;
+  const list = active instanceof Set ? [...active] : (active || []);
+  const lit = reveal >= 1 ? list
+    : list.slice(0, Math.max(1, Math.round(list.length * reveal)));
+
   fill("path", path, false);
   fill("trail", trail, false);
   fill("out", out, false);
-  fill("active", active, true);
+  fill("halo", lit, false);
+  fill("active", lit, true);
 
   const breathe = 0.88 + 0.12 * Math.sin(pulse * 2.2);
   MATS.path.opacity = BASE_OPACITY.path;
   MATS.trail.opacity = BASE_OPACITY.trail;
   MATS.out.opacity = THREE.MathUtils.lerp(BASE_OPACITY.out, BASE_OPACITY.trail, mix);
   MATS.active.opacity = BASE_OPACITY.active * mix * breathe;
+  MATS.halo.opacity = BASE_OPACITY.halo * mix * breathe;
   SHELL.opacity = SHELL_OPACITY * mix;
+
+  scrim.visible = quiet > 0.002;
+  scrim.material.opacity = THREE.MathUtils.clamp(quiet, 0, 1);
 }
 
 /** Drop the cached fills so the next `paint` rebuilds them.

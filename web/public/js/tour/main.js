@@ -237,6 +237,7 @@ let modelSpan = 400;     // the loaded model's own size, for pacing
 let moveTags = null;     // the two subjects of the move in the air, for the pins
 let swinging = false;    // a held beat's light is still crossing over
 let swingFrom = [];      // and this is what it is crossing from
+let quietNow = 0;        // how far the machine behind the lights is turned down
 
 const SPEEDS = [1, 1.5, 0.6];
 let speedAt = 0;
@@ -445,6 +446,19 @@ function step(dt) {
     mix = 0;
   }
 
+  // HOW FAR INTO THE BEAT'S OWN IGNITION WE ARE. A beat that states `ignite`
+  // comes on one body at a time in the order it names them, which for a beat
+  // about a whole run is the order the water takes.
+  const step0 = STEPS[phase === "flight" || phase === "swap-in" ? pendingIndex : idx];
+  const nParts = (step0.parts || []).length || 1;
+  const reveal = step0.ignite
+    ? THREE.MathUtils.clamp(clock / (step0.ignite * nParts), 0, 1)
+    : 1;
+  // And how far down the rest of the machine is turned, eased in over the same
+  // stretch a move takes so it arrives with the shot rather than before it.
+  const wantQuiet = step0.quiet || 0;
+  quietNow += (wantQuiet - quietNow) * Math.min(1, dt / 260);
+
   spotlight.paint({
     path: TOUR.path,
     trail: visited(),
@@ -452,7 +466,10 @@ function step(dt) {
     out,
     mix,
     pulse: elapsed / 1000,
+    quiet: quietNow,
+    reveal,
   });
+  spotlight.fitScrim(camera);
 
   // The pins ride the move: from at full at its start, to at full at its end,
   // and both up across the wide shot in the middle where they are the point.
