@@ -1,0 +1,31 @@
+#!/bin/sh
+# THE CHECKS THAT COST MILLISECONDS HERE AND FIVE MINUTES IN CI.
+#
+# A publish is a queue, a container and a bazel build, so a graph fault costs a round trip to
+# find and the queue is shared with every other session. Both faults below are decided by
+# reading files that are already on this disk — ast and a dictionary, no venv, no bazel, no
+# network — and both stop the ENTIRE build when they reach CI, not just the rule at fault.
+#
+# NEITHER IS ABOUT THE CODE. They are about the build graph agreeing with it, which is a thing
+# a person cannot see by reading a diff and a tracer only learns by watching a run.
+#
+# HSM_SKIP_PRECOMMIT=1 commits anyway. The gates print what to run; a commit that needs to land
+# before the re-trace it asks for is a real case, and the next commit carries the fix.
+[ -n "$HSM_SKIP_PRECOMMIT" ] && exit 0
+root=$(git rev-parse --show-toplevel) || exit 0
+py="$root/tools/cad-venv/bin/python"
+[ -x "$py" ] || py=python3
+
+# A STEP THAT IMPORTS WHAT IT DOES NOT HOLD FINDS NO MODULE. An action is filled from `srcs`
+# and holds nothing else, so an import added since the last trace is `ModuleNotFoundError` on
+# a file that is sitting in the tree, tracked and committed. This reads the staged `.py` and
+# names every step that reaches it.
+"$py" "$root/tools/bazel/check_declared_imports.py" || exit 1
+
+# AND A GRAPH THAT COMES BACK AROUND STOPS THE LOADING PHASE, which fails every target at once
+# and blames none of them. `gen_build.py` refuses to write such a file; `--check` also holds
+# BUILD.bazel to what the graph currently says, so a graph edited without regenerating is named
+# here rather than as a mismatch in CI.
+"$py" "$root/tools/bazel/gen_build.py" --check || exit 1
+
+exit 0

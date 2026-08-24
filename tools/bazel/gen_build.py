@@ -81,6 +81,39 @@ _NODE_RUNTIME_SUPPORT = {
 BAZEL_SKIPPED_READS = set()
 
 
+def _no_cycles(wants: dict) -> None:
+    """Refuse to write a BUILD.bazel whose rules wait on each other.
+
+    A step's srcs name another step's outputs, and bazel will not analyze a graph where that
+    relation comes back around: the whole build stops at the loading phase, so every target
+    fails and none of the messages is about the pair at fault. The relation is in hand here,
+    a rule and the rules it reads, and the loop is a walk over it.
+
+    THIS IS A TRACE THAT CAME BACK WRONG, EVERY TIME. Nobody writes an edge by hand — a run is
+    watched, and a generator that opened a sibling's output while doing something else is
+    recorded as needing it. So the report names the pair and leaves the reading to a person:
+    the cure is either a filter above, where the read is incidental, or a producer split, where
+    it is real."""
+    seen, stack = set(), []
+
+    def walk(rule):
+        if rule in stack:
+            loop = stack[stack.index(rule):] + [rule]
+            raise SystemExit("gen_build: these rules wait on each other and bazel will not\n"
+                             "  load the graph at all — one of these reads is incidental:\n    "
+                             + "\n    ".join(f"{a} reads {b}" for a, b in zip(loop, loop[1:])))
+        if rule in seen:
+            return
+        stack.append(rule)
+        for nxt in sorted(wants.get(rule, ())):
+            walk(nxt)
+        stack.pop()
+        seen.add(rule)
+
+    for rule in sorted(wants):
+        walk(rule)
+
+
 def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
 
@@ -285,7 +318,7 @@ def render_build(only: str = None) -> tuple:
         raise SystemExit(f"  a tracked path holds /{PYSRC}/, which is where a stripped source"
                          f" lands — the staging loop cannot tell the two apart")
 
-    blocks, comments_out = [], set()
+    blocks, comments_out, wants = [], set(), {}
     for gens, made in sorted(inv.items()):
         # A doc is read to be rewritten, so it is on both sides — named as a src under its own
         # path and handed back under the target's own, which `sync_tree` carries into the tree.
@@ -311,8 +344,12 @@ def render_build(only: str = None) -> tuple:
         optional = sorted(d for d in made["docs"] if d.endswith((".png", ".json")))
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
         comments_out |= {s for s in srcs if comments_come_out(s, rewritten)}
+        wants[names[gens]] = {producers[s] for s in srcs
+                              if producers.get(s) and producers[s] != names[gens]}
         blocks.append(render(gens, made["solids"], srcs, optional, made["docs"], rewritten,
                              names[gens], producers))
+
+    _no_cycles(wants)
 
     # ONE STRIPPED SOURCE PER ACTION. A single multi-output action made every Python edit an
     # input to every consumer of any stripped source, so `rdeps(ceiling_panel.py)` became almost
