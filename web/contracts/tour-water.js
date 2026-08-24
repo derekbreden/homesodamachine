@@ -89,7 +89,7 @@ export const TOUR = {
               "water-split", "tube-water-3", "vk-solenoid", "suction-chain", "tube-water-7",
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
-      dir: [0.9, -1.0, 0.5], pad: 1.12, dwell: 8500, ignite: 240, quiet: 0.62,
+      dir: [0.9, -1.0, 0.5], pad: 1.12, dwell: 8500, ignite: 240, quiet: 0.45,
       drift: { az: 9, el: 2, dolly: -0.06 }, enter: 0 },
 
     // ── The house connection ────────────────────────────────────────────────
@@ -297,7 +297,7 @@ export const TOUR = {
               "water-split", "tube-water-3", "vk-solenoid", "suction-chain", "tube-water-7",
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
-      dir: [-0.95, -1.0, 0.45], pad: 1.15, dwell: 9000, ignite: 130, quiet: 0.5,
+      dir: [-0.95, -1.0, 0.45], pad: 1.15, dwell: 9000, ignite: 130, quiet: 0.4,
       drift: { az: 20, el: 4, dolly: -0.04 }, enter: 4200 },
   ],
 };
