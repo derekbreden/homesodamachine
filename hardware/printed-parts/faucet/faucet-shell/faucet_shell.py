@@ -1166,6 +1166,17 @@ _skirt_drop = display_collar_half_x - (
     )
 )
 _cradle_n_bottom = _block_n_bottom - _skirt_drop
+# The cradle prisms are cut from stock reaching this far below the skirt
+# bottom. Past the tip's straight the gooseneck turns away from the tip
+# axis, so a prism floor struck in the tip's frame stands off the tube;
+# the skirt cut, which is struck in the tube's own frame, is what gives
+# the cradle its floor, and this stock is only what that cut trims.
+_cradle_stock_drop = 20.0
+_cradle_prism_n_bottom = _cradle_n_bottom - _cradle_stock_drop
+# Local Y the skirt cut's slab reaches down to. Bounded so its inner
+# radius stays well clear of the axis around bend 1, the tightest the
+# gooseneck turns.
+_skirt_slab_n_bottom = -25.0
 # The cradle's back end ramps onto the gooseneck rather than ending
 # square. In the tip's print orientation a face at angle t from the tip
 # axis overhangs by 90 degrees minus t minus the tip's own tilt, so
@@ -1179,6 +1190,14 @@ cradle_back_s = (
     display_s_top + display_cap_thickness
     + (display_wall_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
 )  # [53.54 mm](CRADLE_BACK_S)
+# The head wall is cut from stock reaching this far back, so the ramp —
+# not the prism's own square end — is what closes the cradle at every
+# depth of _cradle_stock_drop. Cut short, the stock the ramp has not
+# reached yet ends facing straight up-gooseneck, and the tip's print
+# orientation makes that the steepest face on the part.
+_cradle_prism_back_s = cradle_back_s + (
+    _cradle_stock_drop * math.tan(cradle_back_slope_rad)
+)
 
 
 def _tip_frame():
@@ -1236,7 +1255,7 @@ def _cradle_block() -> cq.Workplane:
     cavity bands carve the pocket out of this."""
     slab = _cradle_prism(
         display_collar_half_x, 0.0, display_s_top,
-        _cradle_n_bottom, display_wall_top_n,
+        _cradle_prism_n_bottom, display_wall_top_n,
     )
     return slab.cut(_skirt_chamfer())
 
@@ -1279,36 +1298,44 @@ def _display_cavity() -> cq.Workplane:
     )
 
 
-def _skirt_chamfer() -> cq.Workplane:
-    """Transition cut from the collar's pre-skirt bottom edges down to
-    the gooseneck: a wedge prism per flank whose face runs from the
-    outline at _block_n_bottom to the gooseneck's fill-rect flank at the
-    skirt bottom, over the cradle's whole length. Where the bend carries
-    the gooseneck's flank inboard of that straight landing line the
-    wedge simply takes more cradle — the cut is applied before the
-    cradle parts join the gooseneck, so it can only ever subtract from
-    them."""
-    tip_end, s_hat, _ = _tip_frame()
-    # Wedge cross-section, x measured outboard: toe on the fill-rect
-    # flank at the skirt bottom, hinge at the outline on the old bottom.
-    # The profile bottoms exactly at the skirt plane — below it is gooseneck.
-    wedge_profile = [
+def _skirt_slab_sketch() -> cq.Sketch:
+    """Cross-section filling the tube-frame section below the skirt
+    bottom, wide enough in X to swallow the collar. X is world X the
+    whole length of the sweep, so only the Y reach has to respect the
+    bend radius."""
+    depth = _cradle_n_bottom - _skirt_slab_n_bottom
+    return (
+        cq.Sketch()
+        .push([(0.0, (_cradle_n_bottom + _skirt_slab_n_bottom) / 2.0)])
+        .rect(4.0 * display_collar_half_x, depth)
+    )
+
+
+def _skirt_wedge_sketch() -> cq.Sketch:
+    """Chamfer cross-section on the +X flank, toe on the fill-rect flank
+    at the skirt bottom and hinge at the collar's outline on the block
+    bottom. At the skirt bottom the tube's section is its fill rect, so
+    the toe lands on the flank for every station of the sweep."""
+    return cq.Sketch().polygon([
         (tube_shell_x_half_outer, _cradle_n_bottom),
         (display_collar_half_x, _block_n_bottom),
         (display_collar_half_x + 4.0, _block_n_bottom),
         (display_collar_half_x + 4.0, _cradle_n_bottom),
-    ]
-    xs_plane = cq.Plane(
-        origin=tip_end + s_hat.multiply(cradle_back_s + 1.0),
-        xDir=cq.Vector(1, 0, 0),
-        normal=s_hat.multiply(-1.0),
-    )
-    wedge = (
-        cq.Workplane(xs_plane)
-        .polyline(wedge_profile).close()
-        .extrude(cradle_back_s + 2.0)
-    )
-    return wedge.union(wedge.mirror("YZ"))
+    ])
+
+
+def _skirt_chamfer() -> cq.Workplane:
+    """The cradle's floor and the chamfer that lands it on the gooseneck,
+    both struck as sweeps in the tube's own cross-section frame so they
+    track the flank around the bend. Cut in the tip's straight frame
+    instead, the floor stands off the tube once the bend turns the
+    section away from it and the chamfer's toe stops short of the flank,
+    leaving a ribbon of collar floor in the air. The cut is applied
+    before the cradle parts join the gooseneck, so it can only ever
+    subtract from them."""
+    floor = _sweep_along_gooseneck(_skirt_slab_sketch())
+    wedge = _sweep_along_gooseneck(_skirt_wedge_sketch())
+    return floor.union(wedge).union(wedge.mirror("YZ"))
 
 
 def _display_head_wall() -> cq.Workplane:
@@ -1321,8 +1348,8 @@ def _display_head_wall() -> cq.Workplane:
     block)."""
     return (
         _cradle_prism(
-            display_collar_half_x, display_s_top, cradle_back_s,
-            _cradle_n_bottom, display_wall_top_n,
+            display_collar_half_x, display_s_top, _cradle_prism_back_s,
+            _cradle_prism_n_bottom, display_wall_top_n,
         )
         .cut(_skirt_chamfer())
         .cut(_cradle_back_slope())
