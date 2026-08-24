@@ -20,6 +20,12 @@ const NEXT = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"
 
 const CHIP_LIMIT = 7;
 
+// A body inside a sub-assembly carries its path — `cold-core/sparge-stone`.
+// The chip shows the body's own name and keeps the whole of it on hover: the
+// path is what the model calls it and the leaf is what the sentence calls it,
+// and a row of chips is reading, not addressing.
+const leaf = (name) => name.slice(name.lastIndexOf("/") + 1);
+
 const el = (tag, cls, html) => {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
@@ -120,8 +126,8 @@ export function mountHud(host, { steps, title, subtitle, on }) {
       const named = step.parts || [];
       const gone = new Set(missing);
       for (const p of named.slice(0, CHIP_LIMIT)) {
-        const c = el("span", `tour-chip${gone.has(p) ? " tour-chip-missing" : ""}`, p);
-        if (gone.has(p)) c.title = "this model carries no body by that name";
+        const c = el("span", `tour-chip${gone.has(p) ? " tour-chip-missing" : ""}`, leaf(p));
+        c.title = gone.has(p) ? `${p} — this model carries no body by that name` : p;
         chips.append(c);
       }
       if (named.length > CHIP_LIMIT) {
