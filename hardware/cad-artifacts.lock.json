@@ -2,20 +2,20 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-a5a605de758fdf68.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-a5a605de758fdf68.tar.gz"
+    "asset": "cad-9f92eebcaa971f03.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-9f92eebcaa971f03.tar.gz"
   },
   "source": {
-    "commit": "fdcf86bf8c5f1b0ac2201f862626e0399cd7a6fd"
+    "commit": "ae8ff4113674777d24c09662ec4f4298ef3105b5"
   },
   "bundle": {
-    "sha256": "a5a605de758fdf68b5a1dd237748ff94a8613091eb5f89088c00d13cfe529d3f",
-    "bytes": 66669562,
+    "sha256": "9f92eebcaa971f03ed4bf7348b955c7fbcdfe94b47b7acf80a1c67cddc189f5c",
+    "bytes": 66669536,
     "solids": 124
   },
   "solids": {
-    "hardware/assembly/scenes/glb/back-half.glb": "8d6f7dd82a2faf4cc9ed620aa7ad141e3f230a85bf213ce525eca46de7e5cbcd",
-    "hardware/assembly/scenes/glb/back-top.glb": "e4d5172aa283d37a5fb6ff09c05f8c8e5bb6926804194c9d92acfacb2085b195",
+    "hardware/assembly/scenes/glb/back-half.glb": "24e2edb9487259e874458b5a2db9a3c4bd063a321426be035ee7561192376a8a",
+    "hardware/assembly/scenes/glb/back-top.glb": "6cc91ee6397c2afa51a923244ee348f344852357fdd19e2b391a02b6fbaa01bf",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "3ac41129c07e2fc9c8abc1fb3930344bebf4a3fc4e01befb66c2a312400d8f2f",
     "hardware/assembly/scenes/glb/cap-lid.glb": "5c98a79400b37f9424c43243da3d8ff74e2e7658f1efecd23098b274d1a5efaa",
     "hardware/assembly/scenes/glb/cold-core-open.glb": "a640960beb2f0a785428e55dd05bfb7e16399bb0aaa7cfcb70a1dd2870d136f4",
@@ -29,8 +29,8 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "ee1edf83dfb207d457aae1d896d8776f63b438d9d289c7e04e5f094fe232f22c",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "7dbb42c1c907bb0de1ec4cfb59c926b7b78ce6afeb84c5c799f2a9db2f3dd4e5",
-    "hardware/manifold-layout/enclosure-assembly.step": "092fb7c806f52566e9e434906f074baec9a1ef3ab4fc5ad768257c698939cc3e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "ff4f765a55b71f107a9a488e45a25c01f78af32e6eb78582bdd11863d6ca76d2",
+    "hardware/manifold-layout/enclosure-assembly.step": "55bbe8b8e3b365951136a5b812323ac6cf02f918377e5afb1d197b0bb45a0b30",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "83b4d145da3fd22ee4f7337f3d9afbca84ed115d19ab483b342ab3a7810fac9a",
     "hardware/manifold-layout/manifold-layout.step": "b1ec5c322c80216d7bda15940c767ff696c351f88ce7c9725acaf9a1533bd120",
     "hardware/manifold-layout/manifold-layout.step.mesh": "1d64c534e6f94d485621e4bfc1b256a6adb3da044f094b7bd5e47bccaa31326f",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "1184197a7aa70ac632f0de1073fb51d4dfc020e417abfce95e27cc70c0db47a3",
