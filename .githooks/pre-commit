@@ -1,15 +1,21 @@
 #!/bin/sh
-# ONE THING HOLDS A COMMIT HERE, AND IT IS NOT WHETHER ANYTHING IS RED.
+# WHAT HOLDS A COMMIT HERE IS "NOTHING SHIPS UNTIL THIS IS GONE", AND NOT WHETHER ANYTHING
+# IS RED. A gate that reports a failing check is a gate nobody reads. Both faults below stop
+# the publish outright, and the publish is the only road geometry takes to the site.
 #
-# A cycle in the build graph fails bazel's LOADING phase, which is before any target is built:
-# every one of them fails at once and none of the messages names the pair at fault. Nothing
-# ships until it is gone — not the part being worked on, not the assembly, not the site. That
-# is the only fault below that stops a commit, and it is decided by walking a dictionary.
+# A CYCLE fails bazel's LOADING phase, before any target is built: every one of them fails at
+# once and none of the messages names the pair at fault.
 #
-# EVERYTHING ELSE REPORTS. An undeclared import fails one action and leaves the rest of the
-# build standing, so it is named with the command that settles it and the commit goes in.
+# AN UNDECLARED READ fails one action — and the publish cuts a SET, so one action that will not
+# run is a run that pins no lock, and no part ships, not just that one. The blast radius is the
+# same; only the message differs.
 #
-# AND EACH GATE IS KEYED TO WHAT THE COMMIT TOUCHED, so a commit to web/ or a doc pays nothing.
+# EACH GATE IS KEYED TO WHAT THE COMMIT TOUCHED, so a commit to web/ or a doc pays nothing, and
+# a `.py` that no step reads reports nothing because no action holds it.
+#
+# THE IMPORT GATE NAMES A ONE-COMMAND CURE — `--fix` writes the edges it found, in seconds. What
+# it cannot see is a solid a lazy path loads at runtime, which is a reading of the run and only
+# `trace_inputs` takes it.
 #
 # HSM_SKIP_PRECOMMIT=1 skips both.
 [ -n "$HSM_SKIP_PRECOMMIT" ] && exit 0
@@ -27,10 +33,9 @@ case "$staged" in
 esac
 
 # A STEP THAT IMPORTS WHAT IT DOES NOT HOLD finds no module — `ModuleNotFoundError` on a file
-# sitting tracked in the tree. This reads the staged `.py` and names every step that reaches it,
-# and `--fix` writes those edges without watching a run. It never holds the commit.
+# sitting tracked in the tree. This reads the staged `.py` and names every step that reaches it.
 case "$staged" in
-  *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || true ;;
+  *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || exit 1 ;;
 esac
 
 exit 0
