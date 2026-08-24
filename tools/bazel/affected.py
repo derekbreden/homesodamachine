@@ -42,10 +42,12 @@ _GEN_BUILD = "tools/bazel/gen_build.py"
 _CAD_OUTPUTS = (".step", ".stl", ".glb", ".step.mesh")
 
 #: These two programs move or package an already-described cut; neither is an input to a CAD
-#: action.  A change still needs a real current cut to exercise, and the enclosure assembly is
-#: the deployed viewer's canonical producer.  Naming that one sentinel keeps publication-code
-#: work fail-closed on both scorecard producers without turning it into an unrelated
-#: sixty-two-rule geometry rebuild.
+#: action.  What they name here is REACH, for provenance: the rules whose members an edit to
+#: them stands beside, so `pack.py` can record those members as unproven while the edit is
+#: uncommitted.  It is not a build scope.  Asking for a cut of these assemblies to "exercise" a
+#: packer change re-cuts every solid they reach, and a cut only reproduces across runs of one
+#: OCC build — so on the other publisher's wheel the whole bundle re-addresses to an edit that
+#: cannot move a single solid.
 _PUBLICATION_SENTINELS = {
     "tools/bazel/sync_tree.py": ("//:cold-core-assembly", "//:enclosure-assembly"),
     "tools/cad-artifacts/pack.py": ("//:cold-core-assembly", "//:enclosure-assembly"),
@@ -341,7 +343,10 @@ def sentinel_targets(paths) -> set:
 
     `_PUBLICATION_SENTINELS` states reach `targets` cannot see. These files carry a solid that
     is already cut rather than being read while one is being cut, so no rule lists them as a
-    source and an rdeps walk over source labels finds nothing."""
+    source and an rdeps walk over source labels finds nothing.
+
+    FOR PROVENANCE, NOT FOR A BUILD. `pack.py` asks this to name the members an uncommitted
+    packer stands beside; nothing adds the answer to a set of targets to cut."""
     moved = set(paths)
     return {target for path, targets_for_path in _PUBLICATION_SENTINELS.items()
             if path in moved for target in targets_for_path}
@@ -638,11 +643,12 @@ genrule(
                               ["tools/bazel/affected.py"], True) == []
          and unscoped_changes([".github/workflows/derive.yml"], [], True)
              == [".github/workflows/derive.yml"])
-    hold("publication machinery exercises only the scorecard producers",
+    hold("publication machinery states its reach and owes no cut",
          not artifact_global("tools/bazel/sync_tree.py")
          and artifact_unknown("tools/cad-artifacts/pack.py", True)
-         and set().union(*map(set, _PUBLICATION_SENTINELS.values()))
+         and sentinel_targets(["tools/cad-artifacts/pack.py"])
              == {"//:cold-core-assembly", "//:enclosure-assembly"}
+         and sentinel_targets(["hardware/part.py"]) == set()
          and artifact_sidecar_output(
              "hardware/manifold-layout/enclosure-assembly.scorecard.json"))
     empty = io.StringIO()
@@ -752,12 +758,17 @@ def main(argv) -> int:
         found = sorted(artifact_targets()) if args.artifacts else ["//:everything"]
     elif args.artifacts:
         found = sorted(set(found) & artifact_targets())
-    if args.artifacts:
-        found = sorted(set(found) | sentinel_targets(moved))
+    # A PUBLICATION SENTINEL OWES NO CUT, BECAUSE IT CANNOT MOVE A SOLID. `sync_tree.py` copies
+    # bytes a rule already wrote and `pack.py` reads and tars them; neither is an input to a CAD
+    # action, which is the same reason `artifact_global` returns False for both. Building their
+    # two scorecard producers to "exercise" a change re-cuts the ~95 solids those assemblies
+    # reach — and a cut is only reproducible across runs of ONE OCC build, so on a machine whose
+    # wheel differs from the one that pinned the lock every one of those members moves. That is
+    # the whole bundle re-addressed to the packer's own edit. `sentinel_targets` still states the
+    # reach for provenance, where naming what an uncommitted packer touches is exactly right.
     if args.why:
         for t in found:
-            reach = [p for p in hit if (t in targets([p])
-                                        or t in _PUBLICATION_SENTINELS.get(p, ()))]
+            reach = [p for p in hit if t in targets([p])]
             print(f"{t}\n    " + "\n    ".join(reach))
     else:
         write_targets(found)
