@@ -812,6 +812,11 @@
   "tools/bazel/check_declared_imports.py": [
     "tools/bazel/check_declared_imports.py"
   ],
+  "tools/bazel/check_publish_paths.py": [
+    "tools/bazel/check_publish_paths.py",
+    "tools/bazel/graph.json",
+    ".github/workflows/publish.yml"
+  ],
   "tools/bazel/sync_tree.py": [
     "hardware/assembly/cards/_cardgen.py",
     "tools/bazel/graph.json",
