@@ -3,7 +3,8 @@ The appliance the enclosure iso drawings show: THE MACHINE'S OWN WALLS.
 
 `enclosure_assembly.build_enclosure_assembly()` places every body, seats what each wall
 carries, and cuts the printed pieces of the box around them. This module takes
-that one build and keeps what stands OUTSIDE the closed machine:
+ONE such machine — read from the producer's own STEP in an action, derived live
+in a design run — and keeps what stands OUTSIDE the closed machine:
 
 - the [7](PIECE_N) printed pieces — front/back × bottom/top — carrying the 45°
   display facet let into the top-front arris and the funnel throat cut through
@@ -41,6 +42,8 @@ for _p in (next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) /
 
 from docgen import substitute_py_comments               # noqa: E402
 import _boxes                                           # noqa: E402
+import _box_spec                                         # noqa: E402
+from _cadq_export import import_assembly                 # noqa: E402
 import enclosure_assembly as _ea                                # noqa: E402
 import _y_wall_dimensions as _rear                  # noqa: E402
 import bulkhead_ring as _ring                               # noqa: E402
@@ -50,13 +53,32 @@ import bulkhead_ring as _ring                               # noqa: E402
 # The machine, once
 # ---------------------------------------------------------------------------
 #
-# Built at import, and every figure below is read off this one assembly — so the
-# two drawings that render it cannot show two machines, and neither can the
-# quick-start sheet that embeds them.
+# Every figure below is read off ONE machine — so the two drawings that render it
+# cannot show two machines, and neither can the quick-start sheet that embeds them.
+#
+# AND AN ACTION READS THE ONE ITS PRODUCER WROTE. `enclosure-assembly.step` holds every
+# body placed where the machine stands it, and `enclosure-box.json` holds the description
+# it was sized on; between them they are the whole of what this file takes off an assembly.
+# Reading them is five seconds where standing the appliance is a hundred, and three targets
+# import this module — the two iso drawings and the model itself — so the build stood the
+# same machine three times to draw it.
+#
+# DIRECT DESIGN RUNS STILL DERIVE IT, which is the rule `_box_spec` already states: an
+# edited checkout must not draw yesterday's stations, and `in_action` is what tells the two
+# apart.
 
-_ASSY = _ea.build_enclosure_assembly()
-_BOX = _ASSY.box
-_SOLIDS = _ea._solids(_ASSY)
+def _machine():
+    """The placed bodies and the box, read where a producer wrote them and derived otherwise."""
+    if not _box_spec.in_action():
+        assy = _ea.build_enclosure_assembly()
+        return {name: shape for name, (shape, _carry) in _ea._solids(assy).items()}, assy.box
+    box, _bounds = _box_spec.read(_ea._enc.Box, _ea._enc.Bound,
+                                  (_ea._enc.PortField, _ea._enc.Nameplate))
+    loaded = import_assembly(_HW / "manifold-layout" / "enclosure-assembly.step")
+    return {name: shape for name, (shape, _color) in loaded.items()}, box
+
+
+_SOLIDS, _BOX = _machine()
 
 # The bounds the box came out at. A drawing that states its own is a drawing of
 # a machine nobody builds.
@@ -106,7 +128,7 @@ def proud(name: str) -> cq.Shape:
     against the box's own bounds rather than a named wall, so a fitting reseated
     on another wall keeps its proud end and loses its buried one just the same.
     """
-    return _SOLIDS[name][0].cut(_OUTSIDE)
+    return _SOLIDS[name].cut(_OUTSIDE)
 
 
 def build_appliance() -> cq.Workplane:
@@ -116,7 +138,7 @@ def build_appliance() -> cq.Workplane:
     A COMPOUND, not a fusion — the pieces meet on their seams and the drawing
     shows those seams, which is what a machine that comes apart into four
     printed pieces looks like from outside."""
-    parts = [_SOLIDS[n][0] for n in PIECES + SEATED]
+    parts = [_SOLIDS[n] for n in PIECES + SEATED]
     parts += [proud(n) for n in FITTINGS]
     return cq.Workplane().add(cq.Compound.makeCompound(parts))
 

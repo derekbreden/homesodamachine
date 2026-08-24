@@ -283,11 +283,11 @@ def main(argv) -> int:
         print("    tools/cad-venv/bin/python tools/bazel/gen_build.py")
         return 0
     gens = sorted({g for g, _s, _w in missing})
-    print("  a read is recorded by watching a run:")
+    print("  the import edges are read off the source and written in seconds:")
+    print("    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix")
+    print("  a read this cannot see — a solid a lazy path loads — is recorded by watching a run:")
     print(f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py {' '.join(gens)}")
     print("    tools/cad-venv/bin/python tools/bazel/gen_build.py")
-    print("  or write just the import edges, which are read off the source:")
-    print("    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix")
     return 1
 
 

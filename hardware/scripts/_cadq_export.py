@@ -666,6 +666,123 @@ def import_step(path):
     return cq.importers.importStep(str(p))
 
 
+def import_assembly(path):
+    """`{name: (shape, color)}` for every named body in the assembly at `path`, stood where it
+    stands — the shape of `enclosure_assembly._solids`, which pairs a body with what a reader
+    needs alongside it.
+
+    `importStep` hands back one compound and drops every name with it, so a caller that wants
+    the funnel gets the machine. This reads the same file through XCAF, which is where the
+    names are, and hands back the bodies under the names `export_assembly` wrote.
+
+    WHY A CALLER WOULD RATHER READ THIS THAN BUILD IT. Standing the appliance is a hundred
+    seconds and reading this file is five, and the bodies are identical — the STEP is what the
+    build wrote. A drawing, a scene or a picture wants placed geometry and no more; deriving it
+    a second time buys a second chance to derive it differently.
+
+    A BODY OF SEVERAL SOLIDS COMES BACK UNDER ITS OWN NAME. `_per_solid_color` splits one such
+    body into a component per solid so the viewer's reader can find a colour on each, and names
+    them `display/1`, `display/2` — `SOLID_INDEX_SEP` and an index, which `bodyName` in
+    web/public/js/viewer/step.js strips back off. The pieces are compounded back here, so what
+    a caller asks for is the body the assembly added and not one solid of it.
+
+    THE COLOUR COMES BACK BECAUSE THE MATERIAL IS THE COLOUR, and because nothing downstream
+    would say if it did not. `check_bodies_colored` reads `_solids`, which is the machine in
+    envelope terms — a body loaded here and handed on without its colour is drawn in the
+    viewer's default gray and passes every gate on the way."""
+    import cadquery as cq
+    from OCP.Quantity import Quantity_Color, Quantity_TOC_RGB
+    from OCP.STEPCAFControl import STEPCAFControl_Reader
+    from OCP.TCollection import TCollection_ExtendedString
+    from OCP.TDataStd import TDataStd_Name
+    from OCP.TDF import TDF_Label, TDF_LabelSequence
+    from OCP.TDocStd import TDocStd_Document
+    from OCP.TopLoc import TopLoc_Location
+    from OCP.XCAFDoc import XCAFDoc_ColorType, XCAFDoc_DocumentTool
+
+    p = Path(path).resolve()
+    try:
+        _STEP_READS.add(p.relative_to(_ROOT).as_posix())
+    except ValueError:
+        pass
+    doc = TDocStd_Document(TCollection_ExtendedString("hsm"))
+    reader = STEPCAFControl_Reader()
+    reader.SetNameMode(True)
+    reader.SetColorMode(True)
+    reader.ReadFile(str(p))
+    reader.Transfer(doc)
+    tool = XCAFDoc_DocumentTool.ShapeTool_s(doc.Main())
+
+    colors = XCAFDoc_DocumentTool.ColorTool_s(doc.Main())
+
+    def named(label):
+        attr = TDataStd_Name()
+        return (attr.Get().ToExtString()
+                if label.FindAttribute(TDataStd_Name.GetID_s(), attr) else "")
+
+    # SURFACE FIRST AND GENERIC AFTER, because that is the order the writer sets them: a body
+    # given one colour carries it as a surface colour, and the generic slot is what a document
+    # with no per-face styling falls back to. The lookup is by SHAPE — a colour in XCAF is
+    # attached to the shape the label holds, and the tool resolves the label from it.
+    def color_of(shape):
+        shade = Quantity_Color()
+        for kind in (XCAFDoc_ColorType.XCAFDoc_ColorSurf,
+                     XCAFDoc_ColorType.XCAFDoc_ColorGen):
+            if colors.GetColor(shape, kind, shade):
+                return cq.Color(shade.Red(), shade.Green(), shade.Blue())
+        return None
+
+    # A COMPONENT CARRIES THE PLACEMENT AND THE PROTOTYPE CARRIES THE SHAPE. The name is on
+    # whichever of the two the writer put it on, so the component's is preferred and the
+    # prototype's answers when it has none; the colour is looked for on both, the same way.
+    out = {}
+
+    def walk(label, place):
+        kids = TDF_LabelSequence()
+        tool.GetComponents_s(label, kids)
+        if kids.Length() == 0:
+            shape = tool.GetShape_s(label)
+            if shape is not None and not shape.IsNull():
+                out.setdefault(named(label), []).append(
+                    (cq.Shape.cast(shape.Moved(place)), color_of(shape)))
+            return
+        for i in range(1, kids.Length() + 1):
+            part = kids.Value(i)
+            here = TopLoc_Location(place.Transformation()
+                                   * tool.GetLocation_s(part).Transformation())
+            proto = TDF_Label()
+            if tool.GetReferredShape_s(part, proto):
+                inner = TDF_LabelSequence()
+                tool.GetComponents_s(proto, inner)
+                if inner.Length() == 0:
+                    shape = tool.GetShape_s(proto)
+                    if shape is not None and not shape.IsNull():
+                        name = named(part) or named(proto)
+                        out.setdefault(name, []).append(
+                            (cq.Shape.cast(shape.Moved(here)), color_of(shape)))
+                else:
+                    walk(proto, here)
+            else:
+                walk(part, here)
+
+    free = TDF_LabelSequence()
+    tool.GetFreeShapes(free)
+    for i in range(1, free.Length() + 1):
+        walk(free.Value(i), TopLoc_Location())
+
+    bodies = {}
+    for name, found in out.items():
+        base = name.rsplit(SOLID_INDEX_SEP, 1)[0] if SOLID_INDEX_SEP in name else name
+        bodies.setdefault(base, []).extend(found)
+    placed = {}
+    for name, found in bodies.items():
+        shapes = [shape for shape, _color in found]
+        shade = next((color for _shape, color in found if color is not None), None)
+        placed[name] = (shapes[0] if len(shapes) == 1
+                        else cq.Compound.makeCompound(shapes), shade)
+    return placed
+
+
 def _atomic_write(target_path, write_fn):
     """Write atomically; return True if the target's bytes changed, False if
     the new output matched the existing file (no rename performed)."""
