@@ -443,7 +443,7 @@ inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
 # magnetic coupling falls off fast across a wall, so the float is NOT concentric on its rod: the
 # rod is parked outboard of where a concentric capsule would touch, and the capsule's own loose
 # bore spends that difference, so the wall holds the magnet against itself for the whole travel.
-# The carbonator makes the same move on the tank's bore — `endcap_circular_dxf.magnet_wall_bias`.
+# The carbonator makes the same move on the carbonator's bore — `endcap_circular_dxf.magnet_wall_bias`.
 # Parking it off the wall is what keeps a wall that moves carrying its rod.
 #   The two donor figures below are the assembly's as well (`_internals.FLOAT_SLOP` reads them
 # from `_fittings`), and `cold-core-layout`'s `floats-couple` grades the pair against the bench
@@ -451,7 +451,7 @@ inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
 float_capsule_od = 28.0    # the harvested donor float ball, `bom.md` §12
 float_capsule_bore = 9.75  # its own bore: made for the donor's stem, so it is LOOSE on this rod
 # How far past touching the rod stands. Under the carbonator's 3.0 because this wall is printed
-# PETG and gives, where the tank's is rigid 316 — and it has to stay under the slop below or the
+# PETG and gives, where the carbonator's is rigid 316 — and it has to stay under the slop below or the
 # capsule cannot reach the rod inside the wall at all.
 magnet_wall_bias = 2.5
 rod_position_x = inner_far_x_abs - float_capsule_od / 2.0 + magnet_wall_bias

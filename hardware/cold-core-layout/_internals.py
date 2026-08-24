@@ -38,7 +38,7 @@ from _cold_core_interface import (                       # noqa: E402
     bulkhead_elbow_exit_z,
     reed_x_depth,
     reservoir_bulkhead_port_x,
-    tank_outer_radius,
+    carbonator_outer_radius,
 )
 from _reed_channels import reed_y_center, reeds_per_reservoir   # noqa: E402
 
@@ -223,7 +223,7 @@ def carbonator_reed_z() -> tuple:
 def carbonator_reed_x() -> float:
     """The reeds sit against bare 316L on the register azimuth, so their glass stands one
     radius out from the carbonator wall inside the bridge that holds them."""
-    return tank_outer_radius + F.REED_GLASS_R
+    return carbonator_outer_radius + F.REED_GLASS_R
 
 
 # --- where a float rides -----------------------------------------------------
@@ -353,11 +353,11 @@ PROBE_STANDOFF = F.TO92_W * 0.71
 
 def probes() -> dict:
     carbonator_z = _C.gap_z_near(180.0, (_V.interior_z[0] + _V.interior_z[1]) / 2.0)
-    carbonator_at = (-(tank_outer_radius + PROBE_STANDOFF), 0.0, carbonator_z)
+    carbonator_at = (-(carbonator_outer_radius + PROBE_STANDOFF), 0.0, carbonator_z)
     # One wrap back from the outlet tail, in the gap between two wraps and against the carbonator —
     # which is where the tape that holds it can reach it.
     coil_at = _C._at(_C.AZ_OUT, _C.gap_z_near(_C.AZ_OUT, _C.evap_tail_high_z - _C.PITCH),
-                     tank_outer_radius + PROBE_STANDOFF).toTuple()
+                     carbonator_outer_radius + PROBE_STANDOFF).toTuple()
     return {"probe-carbonator-ds18b20": F.to92(centre=carbonator_at, axis=(0, 0, 1)),
             "probe-coil-ds18s20": F.to92(centre=coil_at, axis=(0, 0, 1))}
 

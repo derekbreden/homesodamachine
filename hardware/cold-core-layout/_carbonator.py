@@ -40,10 +40,10 @@ from _cold_core_interface import (                      # noqa: E402
     co2_inlet_y,
     hole_shift_from_edge,
     prv_port_y,
-    tank_height,
-    tank_outer_radius,
-    tank_support_ring_height,
-    tank_top_plate_z,
+    carbonator_height,
+    carbonator_outer_radius,
+    carbonator_support_ring_height,
+    carbonator_top_plate_z,
     carbonator_port_offset,
     wall_and_floor_thickness,
     water_inlet_port_y,
@@ -58,11 +58,11 @@ import endcap_circular_dxf as _endcap                    # noqa: E402
 IN = 25.4
 
 # --- The tube -----------------------------------------------------------------
-TUBE_OD = 2 * tank_outer_radius                  # 127.0 — 5" OD
+TUBE_OD = 2 * carbonator_outer_radius                  # 127.0 — 5" OD
 TUBE_WALL = 0.065 * IN                           # 1.651
 TUBE_ID = TUBE_OD - 2 * TUBE_WALL
-carbonator_bottom_z = wall_and_floor_thickness + tank_support_ring_height
-carbonator_top_z = tank_top_plate_z                    # the tube's own top, `tank_height` above
+carbonator_bottom_z = wall_and_floor_thickness + carbonator_support_ring_height
+carbonator_top_z = carbonator_top_plate_z                    # the tube's own top, `carbonator_height` above
 
 # --- The plates ---------------------------------------------------------------
 PLATE_D = _endcap.disc_diameter * IN             # 4.860" — tube ID less a slip fit
@@ -142,9 +142,9 @@ def port_out(name: str) -> tuple:
 
 
 def build_tube() -> cq.Solid:
-    outer = cq.Solid.makeCylinder(TUBE_OD / 2, tank_height,
+    outer = cq.Solid.makeCylinder(TUBE_OD / 2, carbonator_height,
                                   cq.Vector(0, 0, carbonator_bottom_z), cq.Vector(0, 0, 1))
-    bore = cq.Solid.makeCylinder(TUBE_ID / 2, tank_height + 2,
+    bore = cq.Solid.makeCylinder(TUBE_ID / 2, carbonator_height + 2,
                                  cq.Vector(0, 0, carbonator_bottom_z - 1), cq.Vector(0, 0, 1))
     return outer.cut(bore)
 
@@ -219,7 +219,7 @@ def mouths() -> dict:
 
 def report() -> None:
     print("  carbonator")
-    print(f"    tube            ⌀{TUBE_OD:.1f} × {TUBE_WALL:.3f} wall × {tank_height:.1f}, "
+    print(f"    tube            ⌀{TUBE_OD:.1f} × {TUBE_WALL:.3f} wall × {carbonator_height:.1f}, "
           f"z {carbonator_bottom_z:.2f}..{carbonator_top_z:.2f}")
     print(f"    plates          ⌀{PLATE_D:.2f} × {PLATE_T:.2f}, bottom z "
           f"{bottom_plate_z[0]:.2f}..{bottom_plate_z[1]:.2f}, top z "
@@ -240,7 +240,7 @@ def report() -> None:
               f"mouth ({m.pos[0]:+.1f}, {m.pos[1]:+.2f}, {m.pos[2]:.2f})")
     # Both bands the shell's own lines cross at, against the corners that have to meet them.
     for band, name in ((front_face_port_z, "co2-in"),
-                       (tank_top_plate_z + hole_shift_from_edge, "water-in")):
+                       (carbonator_top_plate_z + hole_shift_from_edge, "water-in")):
         got = port_corner(name)[2]
         print(f"    band {band:7.2f}    {name} corner at {got:.2f} — "
               f"{'on it' if abs(band - got) < 1e-6 else f'OFF by {got - band:+.3f}'}")

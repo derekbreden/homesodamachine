@@ -10,7 +10,7 @@ shape. Reservoir A's opening is in its pocket's −Y wall, onto the port lane; r
 B's is in its +Y wall, onto the west lane; and the CO2's is the port lane run the other
 way, its line coming DOWN from the cap into a bore that runs the whole reach in.
 
-The carbonated-water outlet has no opening here at all. It crosses the tank support
+The carbonated-water outlet has no opening here at all. It crosses the carbonator support
 ring at one of the ring's own slots, on the column it CLIMBS — `water_outlet_climb_x`,
 which its cap conduit no longer has to stand over — and the assertion under it is what
 holds the crossing inside the slot.
@@ -38,7 +38,7 @@ from _cold_core_interface import (
     lldpe_tube_od,
     port_lane_mid_y,
     support_ring_radial_width,
-    tank_coil_envelope_radius,
+    carbonator_coil_envelope_radius,
     make_box,
     build_slot_punch,
     port_to_shell,
@@ -50,22 +50,22 @@ from _support_ring import slot_angular_width, slot_count
 # leave their own fittings: the carbonated-water outlet and the CO2 inlet, both
 # hole_shift_from_edge in from the +Z outer face of the shell's floor. One band of the
 # shell's height carries both, one either side of the plate's own axis in Y, and both
-# have to cross the tank support ring to get out of it. THEY CROSS IT IN DIFFERENT
+# have to cross the carbonator support ring to get out of it. THEY CROSS IT IN DIFFERENT
 # PLACES: the CO2 takes a bore on the shell's centreline (below), the water outlet
 # takes a slot. Two lines on one crossing would be two tubes in one ⌀6.5 hole.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
 # WHERE THE CARBONATED-WATER OUTLET LEAVES THE RING, and the one thing this module says
 # about that line: it crosses at a SLOT, on the column it CLIMBS, so the line turns once
-# under the tank and holds one X the whole way up to the lane. What it does once it is ON
+# under the carbonator and holds one X the whole way up to the lane. What it does once it is ON
 # the lane is the lane's business and not this module's. The
 # ring is already slotted at four azimuths (`_support_ring`) to let the pour reach the
-# under-tank floor, and one of them lies where a line heading for that column wants to
+# under-carbonator floor, and one of them lies where a line heading for that column wants to
 # go — so this crossing costs no bore, notches no bearing segment, and the ⌀6.5
 # standard does not apply to it. The assertion is what keeps it inside the slot when
 # either the column or the ring moves.
 water_outlet_ring_crossing_x = water_outlet_climb_x
-support_ring_outer_radius = tank_coil_envelope_radius
+support_ring_outer_radius = carbonator_coil_envelope_radius
 support_ring_inner_radius = support_ring_outer_radius - support_ring_radial_width
 
 
@@ -133,9 +133,9 @@ state(
     _crossing is not None and any(lo <= _crossing[0] and _crossing[1] <= hi
                                   for lo, hi in ring_slot_spans()),
     (f"the carbonated-water outlet at x {water_outlet_ring_crossing_x:g} passes clear "
-     f"outboard of the tank support ring and crosses no azimuth of it — the slot it is "
+     f"outboard of the carbonator support ring and crosses no azimuth of it — the slot it is "
      f"struck against is not the ring this line meets" if _crossing is None else
-     f"the carbonated-water outlet crosses the tank support ring at x "
+     f"the carbonated-water outlet crosses the carbonator support ring at x "
      f"{water_outlet_ring_crossing_x:g} over azimuths "
      f"{_crossing[0]:.1f}°..{_crossing[1]:.1f}°, "
      f"which no slot of {ring_slot_spans()} holds — the line would have to be bored through a "
@@ -172,7 +172,7 @@ state(
                                       for lo, hi in ring_slot_spans()),
     (f"the CO2 reach in from x {co2_inlet_lane_xyz[0]:g} passes clear of the ring this is "
      f"struck against" if _co2_crossing is None else
-     f"the CO2 reach in from x {co2_inlet_lane_xyz[0]:g} crosses the tank support ring over "
+     f"the CO2 reach in from x {co2_inlet_lane_xyz[0]:g} crosses the carbonator support ring over "
      f"azimuths {_co2_crossing[0]:.1f}°..{_co2_crossing[1]:.1f}°, which no slot of "
      f"{ring_slot_spans()} holds — the line would have to be bored through a bearing "
      f"segment that carries the carbonator"))
@@ -233,7 +233,7 @@ def cut_line_corridors(foam_shell, gives_way):
     each corridor is met with them and the shell is cut by what comes back, so a line opens
     those bodies where it crosses them and nothing anywhere else on a run that may be half a
     metre long. What gives way is stated by `_foam_shell`, which is where the bodies are.
-    Everything left out of it — the outer shell, the tank support ring, the tank, the
+    Everything left out of it — the outer shell, the carbonator support ring, the carbonator, the
     reservoirs, the other six lines — still stops a line dead, and `_internal_routes.
     report_routes` is where that shows as the arc a corner comes back at.
 

@@ -6,7 +6,7 @@ round 316L carbonator. [5 mm](WALL) solid PETG wall, with a shallow
 helical guide groove [1 mm](GROOVE_DEPTH) deep that cradles the copper.
 
 The coil's inner radius after winding is net_undersize mm smaller than
-the tank radius, so the coil stretches radially to clamp the tank.
+the carbonator radius, so the coil stretches radially to clamp the carbonator.
 
 Coil start and end are clocked to the foam-shell's two copper-plug
 slots — one tail either side of the mandrel's centre plane, one per
@@ -37,19 +37,19 @@ from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
 
 # ═══════════════════════════════════════════════════════
-# COPPER, TANK, AND TARGET COMPENSATION
+# COPPER, Carbonator, AND TARGET COMPENSATION
 # ═══════════════════════════════════════════════════════
 
 tube_od_in = 0.250
 # [3.175 mm](TUBE_R) — 1/4" copper tube radius.
 tube_radius = (tube_od_in / 2) * 25.4
 
-tank_od = 127.0  # 5" carbonator tank OD
-# [63.5 mm](TANK_R) — tank radius.
-tank_radius = tank_od / 2
+carbonator_od = 127.0  # 5" carbonator carbonator OD
+# [63.5 mm](TANK_R) — carbonator radius.
+carbonator_radius = carbonator_od / 2
 
-# As-wound coil inner radius, this much under the tank radius; the coil
-# stretches radially by this to clamp the tank.
+# As-wound coil inner radius, this much under the carbonator radius; the coil
+# stretches radially by this to clamp the carbonator.
 net_undersize = 3.0
 
 
@@ -64,9 +64,9 @@ groove_profile_radius = tube_radius
 groove_offset = groove_profile_radius - groove_depth
 
 # Copper bottom rests at the groove bottom, so the coil inner radius is
-# mandrel_radius − groove_depth, net_undersize mm under the tank radius.
+# mandrel_radius − groove_depth, net_undersize mm under the carbonator radius.
 # [61.5 mm](MANDREL_R) — radius of the mandrel cylinder surface.
-mandrel_radius = tank_radius - net_undersize + groove_depth
+mandrel_radius = carbonator_radius - net_undersize + groove_depth
 # [123 mm](MANDREL_OD) — mandrel outer surface diameter.
 mandrel_od = 2 * mandrel_radius
 
@@ -121,12 +121,12 @@ mandrel_wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, 
 # THE WRAP HAS THREE LENGTHS AND THIS MODULE HOLDS TWO. The wrap springs
 # net_undersize out when it comes off, so the same [9.687](TOTAL_WRAPS) wraps stand
 # on a circle 2·π·net_undersize longer each turn: [4.06 m](SPRUNG_LEN)
-# ([13.32 ft](SPRUNG_FT)) at the tank's own winding radius, [183 mm](SPRING_GAIN)
+# ([13.32 ft](SPRUNG_FT)) at the carbonator's own winding radius, [183 mm](SPRING_GAIN)
 # over the mandrel's. The third is `cold-core-layout/_coil.wrap_length` — the same
 # wraps AS LAID, with the lift over the reed bridge in them — and that is the copper
 # a build consumes, so the cut and the roll arithmetic stand on it and live there.
 # Only that module can see the bridge; this one is imported BY it.
-fitted_wrap_radius = tank_radius + tube_radius
+fitted_wrap_radius = carbonator_radius + tube_radius
 fitted_wrap_length = total_wraps * math.hypot(2 * math.pi * fitted_wrap_radius, pitch)
 wrap_length = fitted_wrap_length
 spring_gain = fitted_wrap_length - mandrel_wrap_length
@@ -238,11 +238,11 @@ def build_mandrel():
 
 
 def main():
-    print(f"Tank OD:               {tank_od:.1f} mm (R = {tank_radius:.2f})")
+    print(f"Carbonator OD:               {carbonator_od:.1f} mm (R = {carbonator_radius:.2f})")
     print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
     print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
     print(f"Groove bottom OD:      {groove_bottom_od:.2f} mm "
-          f"(= tank_od − 2·undersize = {tank_od - 2 * net_undersize:.1f})")
+          f"(= carbonator_od − 2·undersize = {carbonator_od - 2 * net_undersize:.1f})")
     print(f"Wall thickness:        {wall:.1f} mm  "
           f"(groove backing: {wall - groove_depth:.1f} mm)")
     print(f"Groove:                profile R={groove_profile_radius} mm, "
@@ -286,7 +286,7 @@ def main():
 
     variables = {
         "TUBE_R": f"{tube_radius:.4g} mm",
-        "TANK_R": f"{tank_radius:.4g} mm",
+        "TANK_R": f"{carbonator_radius:.4g} mm",
         "GROOVE_OFFSET": f"{groove_offset:.4g} mm",
         "MANDREL_R": f"{mandrel_radius:.4g} mm",
         "MANDREL_OD": f"{mandrel_od:.4g} mm",

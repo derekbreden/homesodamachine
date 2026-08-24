@@ -42,7 +42,7 @@ _coil_mandrel_gen = load_module(
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
-# The wrap AS LAID on the tank — the figure `bom.md` §5 bills and the sentence in
+# The wrap AS LAID on the carbonator — the figure `bom.md` §5 bills and the sentence in
 # handwork.md cites it for. The mandrel's own two shorter readings stay in its module.
 _coil_gen = load_module("handwork_coil_gen", _hw / "cold-core-layout" / "_coil.py")
 

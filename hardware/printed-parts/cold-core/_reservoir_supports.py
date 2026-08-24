@@ -12,7 +12,7 @@ region faces open pocket interior and is clear.
 Eight posts: the four corners of the +X pocket plus the four of the −X
 pocket (a mirror of the +X set across YZ). Each pocket has two far-+X
 corners (teardrops) and two centerward corners. The centerward wall is a
-curved tank-wrapping arc with no fillet to nest, so those posts are clip
+curved carbonator-wrapping arc with no fillet to nest, so those posts are clip
 cylinders intersected with the pocket cavity, conforming to both the ±Y
 wall and the curved centerward wall.
 
@@ -83,7 +83,7 @@ def _corner_teardrop(y_sign):
 
 def _centerward_teardrop(y_sign):
     """Fill at the centerward × (y_sign·Y) pocket corner — the junction
-    where the ±Y wall meets the curved tank-wrapping wall. A clip cylinder
+    where the ±Y wall meets the curved carbonator-wrapping wall. A clip cylinder
     seated under the reservoir's curve-corner, intersected with the pocket
     cavity, conforming to the flat ±Y face and the curved centerward
     face."""
