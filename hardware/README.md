@@ -29,7 +29,7 @@ The home soda machine's physical design — the integrated under-counter applian
 
     node web/scripts/fetch-cad-artifacts.mjs              # the solids the lock names, onto this disk
 
-A generated `.step` is on this disk and in no index. [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each one by sha256, the release asset carrying them, and the commit each came from — `source.commit` for the bundle, and a `held` entry for any member whose rule an uncommitted edit reaches, which keeps the commit it was last published under. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and pins one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
+A generated `.step` is on this disk and in no index. [`cad-artifacts.lock.json`](/hardware/cad-artifacts.lock.json) names each one by sha256, the release asset carrying them, and the commit each came from — `source.commit` for the bundle, and a `held` entry for any member whose rule an uncommitted edit reaches, which ships its last publication's bytes and names that commit. [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) builds and pins one, and the deploy runs the fetch above (`render.yaml`). A build cuts them too, so a checkout that runs one needs no fetch. The three harvested solids under [`reference/`](/hardware/reference/) have no builder here and are in the index.
 
 ## The design loop
 
