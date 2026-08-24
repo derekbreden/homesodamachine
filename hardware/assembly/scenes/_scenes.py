@@ -117,19 +117,23 @@ def inner_of(scene) -> tuple:
 
 
 def crossings(runs) -> dict:
-    """`line-<conduit>` -> the `tube-<run>` that is the rest of the same length of tube.
+    """`cold-core/line-<conduit>` -> the `tube-<run>` that is the rest of the same length of tube.
 
     A CAP CONDUIT IS WHERE ONE MODEL HANDS A LINE TO THE OTHER. `_internal_routes` draws to the
     face the bore opens on, and the machine's own run starts on that same face — at the port both
     of them call `foam-assembly.<conduit>`. The two halves are joined by a name already, so this
-    reads the pair off the runs rather than keeping a table of them."""
+    reads the pair off the runs rather than keeping a table of them.
+
+    THE CORE'S HALF IS NAMED THE WAY THE MACHINE HOLDS IT — under `INNER_ROOT_HELD`, the path a
+    body inside a sub-assembly carries. Every caller holds this key against `named` or `members`,
+    which speak that path, so the pair is stated in it here and nowhere else."""
     import _cold_core_interface as _cci
     out = {}
     for r in runs:
         for end in (r.frm, r.to):
             part, _dot, mouth = end.partition(".")
             if part == "foam-assembly" and mouth in _cci.cap_conduits:
-                out[f"line-{mouth}"] = f"tube-{r.id}"
+                out[f"{INNER_ROOT_HELD}line-{mouth}"] = f"tube-{r.id}"
     return out
 
 # WHAT THE CAMERA LOOKS AT IS THE ROOTS AND NOT THE SCENE. A run reaching out of a unit — the

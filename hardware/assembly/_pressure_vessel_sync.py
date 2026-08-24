@@ -37,11 +37,19 @@ MM_PER_IN = 25.4
 
 _hw = next(p for p in _here.parents if p.name == "hardware")
 
-# The sparge stone, for one figure: the diameter of its sintered barrel. Step 4 stands on
-# that figure against the port bore beside it — the barrel does not pass a finished port, so
-# the stack goes in through the open tube or it does not go in. Read off the part and off the
-# plate drawing, so a procedure that says so cannot go on saying so once either one moves.
-_fittings_gen = load_module("pressure_vessel_fittings", _hw / "cold-core-layout" / "_fittings.py")
+
+def _fittings():
+    """The sparge stone, for one figure: the diameter of its sintered barrel.
+
+    Step 4 stands that figure against the port bore beside it — the barrel does not pass a
+    finished port, so the stack goes in through the open tube or it does not go in. Read off
+    the part, so a procedure that says so cannot go on saying so once the part moves.
+
+    LOADED IN `main` AND NOT AT IMPORT, because this module is imported for one constant:
+    `_acceptance_and_burn_in_sync` wants the working pressure and nothing else, and a fitting
+    on its import surface is a fitting in its build graph.
+    """
+    return load_module("pressure_vessel_fittings", _hw / "cold-core-layout" / "_fittings.py")
 
 # The carbonator's working pressure, and the only thing that sets it: the in-appliance
 # Interstate Pneumatics WR1110 fixed secondary regulator standing between the
@@ -79,6 +87,8 @@ def main():
         "split ELBOW_ENV into ABOVE / BELOW variables."
     )
 
+    stone_d = 2 * _fittings().STONE_R
+
     variables = {
         # Tube cut length / carbonator-as-assembled height.
         "TANK_H": f"{carbonator_height:.4g} mm",
@@ -98,8 +108,7 @@ def main():
         # The two figures step 4 turns on — a finished port's bore, and the widest thing that
         # has to get past it.
         "PORT_BORE": f'⌀{hole_diameter * MM_PER_IN:.4g} mm ({hole_diameter:.3f}")',
-        "STONE_BARREL": (f'⌀{2 * _fittings_gen.STONE_R:.4g} mm '
-                         f'({2 * _fittings_gen.STONE_R / MM_PER_IN:.3g}")'),
+        "STONE_BARREL": f'⌀{stone_d:.4g} mm ({stone_d / MM_PER_IN:.3g}")',
     }
 
     substitute_md(
