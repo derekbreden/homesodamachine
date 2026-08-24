@@ -154,13 +154,16 @@ def hose_barb(*, at, axis):
     return stub.fuse(hexb).fuse(barb), Mouth(tuple(tip), tuple(axis), 0.25 * IN)
 
 
-# --- FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb -----------------
+# --- FERRODAY 0.5 µm sintered SS sparge stone, 1/4" barb ---------------------
 #
 # `bom.md` §2. Hangs in the water column on the silicone stub off port 1.
-# ⌀[2"](STONE_D) × 1/2" is the 2-set's size.
-STONE_R = 0.5 * 2.0 * IN
-STONE_H = 0.5 * IN
-STONE_STEM_LEN = 0.55 * IN
+# A BATON: ⌀[0.5"](STONE_D) of sintered barrel, 1" of it, with the 1/4" barb pressed into its
+# crown and standing 0.87" proud — 1.87" over all, off the listing's own dimensioned photo.
+# The barrel is the envelope that has to clear a bore; the barb is what the silicone pulls on.
+# `sparge_reach` is their sum.
+STONE_R = 0.5 * 0.5 * IN
+STONE_H = 1.0 * IN
+STONE_STEM_LEN = 0.87 * IN
 
 
 def sparge_stone(*, at, axis):
