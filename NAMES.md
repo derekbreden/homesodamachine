@@ -31,6 +31,7 @@ they became.
 | **enclosure** | the cabinet under the counter | |
 | **enclosure quadrant** | one of the four printed pieces the enclosure comes apart into — front-top, front-bottom, back-top, back-bottom | |
 | **enclosure display** | the 4.3" LCD on the enclosure's front face | config display, front-face display, front display |
+| **round rotary display** | the prototype's 1.28" Meshnology 240×240 touchscreen | config display |
 | **umbilical** | the sleeved run of three tubes and the signal cable, counter to rear wall | |
 | **flavor tube** | either of the two black 1/4" tubes, rear wall to the gooseneck exit | |
 | **flavor reservoir** | the printed translucent PETG part that holds one flavor | |
@@ -54,11 +55,13 @@ they became.
 | **pump tray** | either of the two fused beds in the quadrant that a peristaltic pump sits in | |
 | **flow-meter anchor** | either of the two anchors off the top wall that the flow meter's barrel seats in | flow-meter saddle, saddle |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
-| **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the controller, controller PCBA, the PCBA |
+| **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the base, the controller, controller PCBA, the PCBA |
 | **foam cap** | the printed piece closing one end of the foam shell — one per end, two per machine | |
 | **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
 | **boss** | material round a socket that a part fastens into — a post, or a plate one socket thick | |
+| **anchor** | a printed feature a body seats in and a zip tie closes over | anchor point |
+| **zip tie** | the fastener that closes over an anchor | strap |
 | **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
 | **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | electronics shelf |
 | **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
@@ -74,7 +77,4 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 
 | Name | Point at | Not |
 | --- | --- | --- |
-| **anchor** | a printed feature a body seats in and a strap closes over | anchor point |
-| **strap** | the zip tie that closes over an anchor | zip tie |
-| **round rotary display** | the prototype's 1.28" Meshnology 240×240 touchscreen | config display |
 | **power column** | the parts standing as one column down the +X wall of back-top — main board, PSU, both relay modules, the AC inlet | electronics shelf |
