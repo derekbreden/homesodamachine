@@ -120,7 +120,7 @@ def _targets(labels=()) -> dict:
         first = next((ln for ln in q.stderr.splitlines() if ln.startswith("ERROR")), "")
         raise SystemExit(f"  the build graph does not load, so nothing here can be read\n"
                          f"  {first}")
-    out, claimed = {}, {}
+    out, claimed, collided = {}, {}, set()
     for line in q.stdout.split():
         m = _DECLARED.search(line)
         if not m:
@@ -128,13 +128,19 @@ def _targets(labels=()) -> dict:
         hit = m.group(1)
         if hit in ACTION_INTERMEDIATE:
             continue
-        # TWO ACTIONS CUTTING ONE FILE is a graph that cannot be carried into a tree, because
-        # the second copy decides and the first is lost. Named here rather than resolved.
+        # TWO ACTIONS CUTTING ONE FILE is a file that cannot be carried into a tree, because
+        # the second copy decides and the first is lost. Named here rather than resolved —
+        # and it is ONE FILE. Refusing the whole carry over it held every other solid out of
+        # the tree, out of the lock and off the site, so that one is dropped from the carry
+        # (the tree keeps what it has for it) and the rest go through.
         if hit in claimed:
-            raise SystemExit(f"  {hit} is cut by two targets: {claimed[hit]} and {line}")
+            print(f"  {hit} is cut by two targets: {claimed[hit]} and {line}")
+            print("  — carried by neither; the tree keeps the copy it holds.")
+            collided.add(hit)
+            continue
         claimed[hit] = line
         out[str(_ROOT / line)] = hit
-    return out
+    return {built: tree for built, tree in out.items() if tree not in collided}
 
 
 def _managed(text: str, suffix: str, names=None) -> list:
