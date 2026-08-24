@@ -33,6 +33,9 @@ export function mountHud(host, { steps, title, subtitle, on }) {
   // --- the narration card -------------------------------------------------
   const card = el("div", "tour-card");
   const kicker = el("div", "tour-kicker");
+  const kickerName = el("span", "tour-kicker-name");
+  const kickerCount = el("span", "tour-kicker-count");
+  kicker.append(kickerName, kickerCount);
   const heading = el("h2", "tour-title");
   const body = el("p", "tour-body");
   const chips = el("div", "tour-chips");
@@ -91,7 +94,7 @@ export function mountHud(host, { steps, title, subtitle, on }) {
   let shownIndex = -1;
   let swapTimer = null;
 
-  function setStep(i, step) {
+  function setStep(i, step, missing = []) {
     dots.forEach((d, n) => {
       d.classList.toggle("done", n < i);
       d.classList.toggle("now", n === i);
@@ -106,7 +109,8 @@ export function mountHud(host, { steps, title, subtitle, on }) {
     card.classList.remove("in");
     clearTimeout(swapTimer);
     swapTimer = setTimeout(() => {
-      kicker.textContent = `${i + 1} / ${steps.length}`;
+      kickerName.textContent = step.chapter || "";
+      kickerCount.textContent = `${i + 1} / ${steps.length}`;
       heading.textContent = step.title;
       body.textContent = step.body;
       chips.textContent = "";
@@ -114,7 +118,12 @@ export function mountHud(host, { steps, title, subtitle, on }) {
       // eighteen chips under three sentences is a wall. Name a few and count
       // the rest.
       const named = step.parts || [];
-      for (const p of named.slice(0, CHIP_LIMIT)) chips.append(el("span", "tour-chip", p));
+      const gone = new Set(missing);
+      for (const p of named.slice(0, CHIP_LIMIT)) {
+        const c = el("span", `tour-chip${gone.has(p) ? " tour-chip-missing" : ""}`, p);
+        if (gone.has(p)) c.title = "this model carries no body by that name";
+        chips.append(c);
+      }
       if (named.length > CHIP_LIMIT) {
         chips.append(el("span", "tour-chip tour-chip-more",
                         `+${named.length - CHIP_LIMIT} more`));
