@@ -26,9 +26,9 @@ sys.path.insert(
 )
 
 from _cold_core_interface import (
-    above_tank_elbows_height,
-    below_tank_elbows_height,
-    tank_height,
+    above_carbonator_elbows_height,
+    below_carbonator_elbows_height,
+    carbonator_height,
 )
 from endcap_circular_dxf import disc_thickness, register_depth
 from docgen import substitute_md
@@ -55,7 +55,7 @@ secondary_regulator_pressure_psi = 90.0
 plate_recess = 0.25 * MM_PER_IN   # mm — plate outer face set 1/4" below the rim
 rod_clearance = 1.0               # mm — cut under seat-to-seat
 carbonator_rod_len = (
-    tank_height
+    carbonator_height
     - 2 * plate_recess
     - 2 * disc_thickness * MM_PER_IN
     + 2 * register_depth * MM_PER_IN
@@ -66,17 +66,17 @@ carbonator_rod_len = (
 def main():
     # The two elbow envelopes are equal by design; ELBOW_ENV is a single
     # substitution. If they diverge, split into ABOVE / BELOW variables.
-    assert above_tank_elbows_height == below_tank_elbows_height, (
-        f"above ({above_tank_elbows_height}) != below ({below_tank_elbows_height}); "
+    assert above_carbonator_elbows_height == below_carbonator_elbows_height, (
+        f"above ({above_carbonator_elbows_height}) != below ({below_carbonator_elbows_height}); "
         "split ELBOW_ENV into ABOVE / BELOW variables."
     )
 
     variables = {
-        # Tube cut length / tank-as-assembled height.
-        "TANK_H": f"{tank_height:.4g} mm",
+        # Tube cut length / carbonator-as-assembled height.
+        "TANK_H": f"{carbonator_height:.4g} mm",
         # Vertical envelope for the 1/4" NPT 90° elbow stack above and
-        # below the tank (foam-shell budget).
-        "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
+        # below the carbonator (foam-shell budget).
+        "ELBOW_ENV": f"{above_carbonator_elbows_height:.4g} mm",
         # Carbonator float-rod cut length (computed above), and the one term of its
         # formula the prose spells out — the undercut that keeps the rod from holding
         # a plate off its seated depth. Read off the constant the length is cut with,

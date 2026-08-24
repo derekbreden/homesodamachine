@@ -16,7 +16,7 @@ WHERE EACH LINE GOES, and what it does at the end of it:
                    back-pressure and it falls into the headspace.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the carbonator's own
                    drain. Out flat on its own storey and through a slot in the support
-                   ring, up beside the coil, and onto the port lane only once the tank's
+                   ring, up beside the coil, and onto the port lane only once the carbonator's
                    top plate is under it.
   co2-in           the one line that runs DOWN. The port lane's own column the shell's
                    whole height, a leg along its floor, and straight in along the
@@ -37,7 +37,7 @@ THE BANDS ARE STACKED IN Z, not in Y — AND A RISER IS ON NO BAND. A lane is on
 wide, so two runs that want it at the same height cannot pass: what separates them is the
 storey each takes. On the port lane, reservoir A's draw has the lane's own floor at the
 bulkhead band, under everything; the evaporator's inlet copper takes a storey above it;
-the carbonated water does not join the lane until it is over the tank. On the west lane,
+the carbonated water does not join the lane until it is over the carbonator. On the west lane,
 reservoir B's draw has that same floor, and the PRV vent and the evaporator's outlet
 copper take the two storeys over it.
 A RISER answers to none of that — it stands in every storey at once, so what keeps it
@@ -57,13 +57,13 @@ gives way: its opening is the line's own corridor rather than a circle
 (`_port_cuts.cut_line_corridors`), so a draw may come about the moment it is through
 instead of holding a bore's length of straight first. Where a line has to reach and rise
 at once, it LEANS: one diagonal in place of two square corners on a step's own width,
-which is what the carbonated water does under the tank to cross the CO2 and again at the
+which is what the carbonated water does under the carbonator to cross the CO2 and again at the
 top to put itself on its conduit's column.
 
 WHAT IS LEFT SHORT is printed by name at every build. `top_band_to_cap` is the band between
-the tank's top plate and the cap's floor, and it is narrower than the step `water-in` takes
-in to its conduit's station — so that step is not taken in it. `top_band_z` is the TANK's
-storey and the tank is what holds a line on it; past the rim the strip under the forward
+the carbonator's top plate and the cap's floor, and it is narrower than the step `water-in` takes
+in to its conduit's station — so that step is not taken in it. `top_band_z` is the Carbonator's
+storey and the carbonator is what holds a line on it; past the rim the strip under the forward
 band stands open to the shell's floor, and `water-in` drops onto `water_in_lane_z` to cross
 and spends the height it gains on the lean into the station.
 """
@@ -94,9 +94,9 @@ from _cold_core_interface import (  # noqa: E402
     port_lane_mid_y,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
-    tank_coil_envelope_radius,
-    tank_support_ring_height,
-    tank_top_plate_z,
+    carbonator_coil_envelope_radius,
+    carbonator_support_ring_height,
+    carbonator_top_plate_z,
     carbonator_port_offset,
     wall_and_floor_thickness,
     west_lane_mid_y,
@@ -135,7 +135,7 @@ route_stock = stock_of("fluid", lldpe_tube_od)
 # Four heights carry everything, and which one a line is on is most of where it is.
 pocket_storey_z = bulkhead_elbow_exit_z                       # both reservoirs' floor bulkheads
 plate_storey_z = front_face_port_z                            # both bottom-plate elbows
-top_band_z = tank_top_plate_z + hole_shift_from_edge          # both top-plate elbows
+top_band_z = carbonator_top_plate_z + hole_shift_from_edge          # both top-plate elbows
 shell_top_z = foam_shell_outer_height                         # where a riser enters its conduit
 conduit_mouth_z = cap_face_z                                  # and where it comes back out
 
@@ -151,8 +151,8 @@ lane_step_top_z = shell_top_z - route_bend_radius
 # it rather than restated: all three are on it, so any one of them names it.
 forward_band_x = cap_conduit_shell_xy("water-in")[0]
 
-# The storey `water-in` crosses to the forward band on, under the tank's own. It drops onto
-# this on the lane leg, once the diagonal off the top plate is past the tank's rim — the
+# The storey `water-in` crosses to the forward band on, under the carbonator's own. It drops onto
+# this on the lane leg, once the diagonal off the top plate is past the carbonator's rim — the
 # evaporator's outlet copper is the west lane's occupant under it, at z 169.6 and below.
 water_in_lane_z = 180.0
 
@@ -185,7 +185,7 @@ reservoir_cap_top_z = reservoir_cap_z + _reservoir.cap_total_height
 # — where length costs nothing, because the chase runs several times the tube's bore in section.
 prv_vent_lane_y = west_lane_mid_y
 prv_vent_start = (0.0, prv_vent_lane_y,
-                  tank_top_plate_z + hole_shift_from_edge - _shroud.outer_diameter / 2.0)
+                  carbonator_top_plate_z + hole_shift_from_edge - _shroud.outer_diameter / 2.0)
 prv_vent_flank_y = outer_shell_y_length / 2.0     # the +Y outer face, where it leaves
 
 # WHAT FIXES THE TWO ENDS IS THE ONE CORNER BETWEEN THEM, so neither is a chosen height.
@@ -205,7 +205,7 @@ prv_vent_reach = route_bend_radius - (prv_vent_flank_y - prv_vent_lane_y) + 1.0
 
 # WHERE THE WATER INLET CROSSES THE CARBONATOR'S OWN TOP. Its port is the top plate's −Y hole and
 # its conduit stands over the +Y band, so the line has to cross the axis somewhere in the band
-# between that plate and the cap's floor — where the tank has already ended and the space is
+# between that plate and the cap's floor — where the carbonator has already ended and the space is
 # open. It crosses on ONE DIAGONAL from the port to the west lane, which is also what clocks
 # the elbow: a line leaving on the diagonal's own axis needs no corner to start it, and the
 # straight it gives the collet is the whole 105 mm reach instead of a leg out of a corner.
@@ -218,20 +218,20 @@ prv_vent_reach = route_bend_radius - (prv_vent_flank_y - prv_vent_lane_y) + 1.0
 # pocket wall, which gives way to a corridor and would open a hole into the pocket.
 water_in_cross_x = -47.0
 
-# The tank + its wrapped coil, as one cylinder: what the carbonated water's riser stands
+# The carbonator + its wrapped coil, as one cylinder: what the carbonated water's riser stands
 # off, and the reason it stands where it does.
-tank_envelope_z_range = (wall_and_floor_thickness + tank_support_ring_height, tank_top_plate_z)
+carbonator_envelope_z_range = (wall_and_floor_thickness + carbonator_support_ring_height, carbonator_top_plate_z)
 
 
 def coil_standoff_y(x):
-    """The −Y a riser at `x` stands on to clear the tank+coil envelope by one `line_hug`.
+    """The −Y a riser at `x` stands on to clear the carbonator+coil envelope by one `line_hug`.
 
     A riser between the pockets has the whole −Y foam zone to stand in, from the coil out
     to the shell wall, and only the port lane's own strip is spoken for. This is the
     inboard edge of that zone at one X — and the clearance is RADIAL, because the envelope
     is a cylinder: what a riser stands off is the surface on its own azimuth, not the point
     level with it in Y."""
-    clear = tank_coil_envelope_radius + line_radius + line_hug
+    clear = carbonator_coil_envelope_radius + line_radius + line_hug
     reach = clear ** 2 - x ** 2
     return -math.sqrt(reach) if reach > 0.0 else 0.0
 
@@ -269,8 +269,8 @@ def _routes():
     carb_riser_y = coil_standoff_y(carb_x)
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
     carb_lane_y = cap_conduit_shell_xy("carb-water-out")[1]
-    # The carbonated water's LEAN at the top, and the rise it owes anything under the tank.
-    #   Under the tank the only run it could meet is the CO2's reach in, and that reach stops
+    # The carbonated water's LEAN at the top, and the rise it owes anything under the carbonator.
+    #   Under the carbonator the only run it could meet is the CO2's reach in, and that reach stops
     # on the carbonator's axis — the CO2 falls the lane's +X half, so its lean never comes out as
     # far as this column. `co2_run_y` says so by returning None, and a crossing nobody makes
     # costs no rise: the outlet runs flat on its own storey from the elbow to the coil's
@@ -298,11 +298,11 @@ def _routes():
 
     return {
         # The carbonator's top plate, above the liquid. Out of the elbow on one diagonal that
-        # crosses the carbonator's own top to the +Y band — the tank has ended by this height, so
+        # crosses the carbonator's own top to the +Y band — the carbonator has ended by this height, so
         # the crossing costs nothing but the room between the PRV stack and reservoir B's
         # pocket (`water_in_cross_x`) — then forward along that band and in to the strip.
-        #   IT LEAVES THE TANK'S OWN STOREY ON THE LANE LEG. `top_band_z` is struck off the top
-        # plate and the tank is what holds a line up on it; past the rim the strip is open to
+        #   IT LEAVES THE Carbonator'S OWN STOREY ON THE LANE LEG. `top_band_z` is struck off the top
+        # plate and the carbonator is what holds a line up on it; past the rim the strip is open to
         # the shell's floor, so the lane leg falls to `water_in_lane_z` as it runs forward.
         #   THE STEP AT THE END CLIMBS WHILE IT STEPS. It travels outboard of both pockets —
         # the reservoirs and their caps fill them to within a pour clearance of the cap's floor
@@ -354,7 +354,7 @@ def _routes():
         # The carbonator's bottom plate, under the liquid. Its elbow is clocked −X, out to
         # its own column on the +Y side of the plate's axis; then straight out to the coil's
         # standoff on that same storey, because the CO2's reach in stops on the carbonator's axis
-        # and there is nothing under the tank on this column to go over (`carb_co2_rise`). It
+        # and there is nothing under the carbonator on this column to go over (`carb_co2_rise`). It
         # leaves through the ring's own slot on that leg and climbs beside the coil — clear of
         # the lane, which the copper owns down there — and leans at the top to put itself on
         # the conduit's own column for the last stock arc.
@@ -559,10 +559,10 @@ def build_routes(obstacles=None):
 # --- Measuring them ----------------------------------------------------------
 
 
-def tank_envelope():
-    """The tank and its wrapped coil as one cylinder — an obstacle, not a part."""
-    z0, z1 = tank_envelope_z_range
-    return cq.Solid.makeCylinder(tank_coil_envelope_radius, z1 - z0,
+def carbonator_envelope():
+    """The carbonator and its wrapped coil as one cylinder — an obstacle, not a part."""
+    z0, z1 = carbonator_envelope_z_range
+    return cq.Solid.makeCylinder(carbonator_coil_envelope_radius, z1 - z0,
                                  cq.Vector(0, 0, z0), cq.Vector(0, 0, 1))
 
 
@@ -570,7 +570,7 @@ def report_routes(fitted, obstacles):
     """Print each line's reading and fail on any that does not fit.
 
     Three claims. (1) NO LINE MEETS A SOLID: not the shell it runs inside, not a reservoir
-    filling a pocket, not the tank. A bore it passes through is a void, so a line that reads
+    filling a pocket, not the carbonator. A bore it passes through is a void, so a line that reads
     blocked is a line with no hole in front of it. (2) NO TWO LINES MEET: the bands are one
     bore wide and it is the storeys that keep them apart, so the pack has to be read as a
     pack. (3) EVERY LINE NAMES THE ARC IT TURNS AT, and the corner that arc's tightest

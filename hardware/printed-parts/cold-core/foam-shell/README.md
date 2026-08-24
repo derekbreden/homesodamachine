@@ -44,9 +44,9 @@ The CadQuery script uses an explicit XY plane with +Z normal
   at [7 mm](COIL_GAP). The coil is embedded in the inner slice of the
   cylinder's foam blanket; pour foam fills the helical gaps between wraps
   and out to the reservoir wall.
-- **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
+- **Carbonator-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
-  and below the tank. Each is clocked to the line it feeds, which is what lets
+  and below the carbonator. Each is clocked to the line it feeds, which is what lets
   a run leave straight. The bottom-plate CO2 port's elbow carries a
   **PP010822E 1/4" PTC × 1/4" NPT M adapter** on its outlet; that pair is made
   up on the carbonator at the bench and hangs inboard of the support ring's bore,
@@ -79,8 +79,8 @@ top receives the foam pour):
   or splaying the reservoir.
 - **Centerward wall** — the only curved wall. Its cavity-side face
   rides on a cylinder of radius **[80.5 mm](POCKET_ARC_R)** (centered on the
-  cold-core Z axis); its tank-side face is concentric one wall-thickness
-  inboard. That tank-side face is the reservoir's tank-facing wall, and
+  cold-core Z axis); its carbonator-side face is concentric one wall-thickness
+  inboard. That carbonator-side face is the reservoir's carbonator-facing wall, and
   because it is a concentric arc the span from the cylinder OD
   (R = [63.5 mm](TANK_R)) out to it is a uniform 15 mm of foam around the
   wrapped arc — the cylinder's designed foam blanket, with the 1/4" ACR
@@ -90,13 +90,13 @@ top receives the foam pour):
 The centerward wall is one continuous curved wall built from three
 arc segments along its length:
 
-1. A **middle segment** — the cylindrical arc that wraps the tank+coil
+1. A **middle segment** — the cylindrical arc that wraps the carbonator+coil
    envelope, running from y = −[60 mm](POCKET_ARC_TRANSITION_Y) to y = +[60 mm](POCKET_ARC_TRANSITION_Y).
 2. Two **transition segments**, one at each ±Y end — short
    [8 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
    the middle arc to the pocket's ±Y wall. Each transition arc is
    tangent to the middle arc and to the ±Y outboard face; its
-   tank-side face has radius [8 mm](TRANSITION_ARC_R) and its
+   carbonator-side face has radius [8 mm](TRANSITION_ARC_R) and its
    cavity-side face is concentric with the same center but a slightly
    smaller radius derived from geometry.
 
@@ -111,8 +111,8 @@ around the corner.
 The pocket is **open along its centerward face into the foam zone
 inside the centerward arc envelope** — there's no wall at radius
 R < [78.5 mm](POCKET_ARC_INNER_R). During operation, that interior region
-holds the tank + copper coil, and the foam pour fills the full 15 mm
-blanket from the cylinder OD out to the wall's tank-side face —
+holds the carbonator + copper coil, and the foam pour fills the full 15 mm
+blanket from the cylinder OD out to the wall's carbonator-side face —
 around and between the embedded helical wraps.
 
 The four walls of each pocket are traced as a single connected
@@ -121,23 +121,23 @@ cut out of it), so the four walls union into one solid by
 construction. The +X pocket is traced explicitly; the −X pocket is
 its mirror across YZ. Total assembly height = [213.4 mm](OUTER_H).
 
-### tank_support_ring
+### carbonator_support_ring
 
 Annular ring sitting inside the lower portion of the assembly,
-holding the tank up by its outer rim. The ring's outer face sits on
-the tank+coil envelope (R = 70.5, the tank OD plus the coil radial
+holding the carbonator up by its outer rim. The ring's outer face sits on
+the carbonator+coil envelope (R = 70.5, the carbonator OD plus the coil radial
 clearance) — inboard of the pocket's centerward wall, which has moved
 outward with the foam blanket. Its inner face sits [9 mm](SUPPORT_RING_W)
-inboard. The top face is a flat annular plateau where the tank's outer
+inboard. The top face is a flat annular plateau where the carbonator's outer
 rim rests, [30 mm](SUPPORT_RING_H) tall above the floor.
 
 Inboard of the ring's inner face (R < [61.5 mm](SUPPORT_RING_INNER_R))
-is open volume — so the tank's bottom-plate fittings have unobstructed
+is open volume — so the carbonator's bottom-plate fittings have unobstructed
 downward space, and pour foam fills around them.
 
 Four 30°-wide angular slots are cut through the ring at azimuths
 45°/135°/225°/315°, leaving four 60° support segments aligned with
-the cardinal axes. The slots let pour foam reach the under-tank
+the cardinal axes. The slots let pour foam reach the under-carbonator
 floor regardless of which cavity it enters from.
 
 **Both bottom-plate lines cross the ring at the 225° slot, and the ring is bored
@@ -316,7 +316,7 @@ nothing else.
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | west-lane slot | 1/4" OD LLDPE from the prv-shroud's barrel into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 | 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the carbonator's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
-| 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the tank, out through the ring's 225° slot and up beside the coil |
+| 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 225° slot and up beside the coil |
 | 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the WR1110 regulator — the one line running DOWN: the port lane the shell's whole height, one corner, then the leaning bore through the ring onto Port 1, which feeds the **sparge stone below the liquid** |
 | 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | off A's floor bulkhead at the **bottom of its wet V**, out the pocket's −Y wall, forward along the port lane's own floor, up the forward strip |
 | 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | the same off B's floor bulkhead, out the pocket's +Y wall and forward along the west lane |
@@ -336,7 +336,7 @@ live on the warm side. Inside, every line is 1/4" OD.
 
 [`_internal_routes.py`](/hardware/printed-parts/cold-core/_internal_routes.py) draws all
 seven as swept solids on the tube's own centreline, and `foam_assembly.py` measures each
-against the shell, the tank with its wrapped coil, and both reservoirs with their caps —
+against the shell, the carbonator with its wrapped coil, and both reservoirs with their caps —
 then lands them as `foam-assembly/internal-routes.step`. A line in here is a void's
 occupant: it appears in no bounding box and collides with nothing, so drawing it is the
 only way to know it fits.
@@ -351,7 +351,7 @@ wall, **the wall gives way**: the opening is the line's own corridor rather than
 (`_port_cuts.cut_line_corridors`), so a draw comes about the moment it is through instead
 of holding a bore's length of straight first. Where a line has to reach and rise at once
 it **leans** — one diagonal in place of two square corners on a step's own width — which
-is what the carbonated water does under the tank to cross the CO2, and again at the top to
+is what the carbonated water does under the carbonator to cross the CO2, and again at the top to
 put itself on its conduit's column.
 
 `water-in` is the one left short. It comes off the top plate's elbow, has to travel
@@ -363,7 +363,7 @@ the band is tall, so the two corners either end of it share a leg neither can ha
 ### Port lane
 
 **Nothing reaches the −X face head-on.** The reservoir pockets fill both ±X ends
-of the shell, so a line from the tank or from either pocket gets there along the
+of the shell, so a line from the carbonator or from either pocket gets there along the
 −Y pour band — the [16 mm](OUTER_GAP) strip that runs the shell's whole length
 outboard of both pockets.
 
@@ -399,7 +399,7 @@ a wall. `copper_plugs.evap_cross_z` takes the slot's own reach up from this top.
 **Three fluid lines use this lane and none of them crosses this wall:** reservoir A's
 draw runs forward along the lane's own floor at the bulkhead band, under everything;
 the CO2 falls the lane's whole height and turns in at the plate band above it; the
-carbonated water joins only once the tank's top plate is under it. The lane is one bore
+carbonated water joins only once the carbonator's top plate is under it. The lane is one bore
 wide, so what keeps those three apart is the storey each takes, and
 `_internal_routes.report_routes` is what proves it. Above the shell,
 `cap_conduit_pair_neck` holds the two columns in this lane apart.
@@ -528,7 +528,7 @@ the body pour into the shell's open +Z top.
 Every internal component is installed first:
 
 - Carbonator lowered into the centerward arc envelope, seated
-  on the `tank_support_ring`. Its four port elbows are already made up and clocked
+  on the `carbonator_support_ring`. Its four port elbows are already made up and clocked
   to the lines they feed — the bottom-plate CO2 elbow onto the leaning bore, the
   bottom-plate outlet elbow toward −X, the top-plate inlet elbow toward +Y — with
   the PP010822E collets on them hanging inboard of the ring, and the sparge stone
@@ -544,7 +544,7 @@ Every internal component is installed first:
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
   lateral FNPT of the carbonator's top-plate −Y elbow, collet clocked onto the diagonal
   the line leaves on, and a length of 1/4" OD LLDPE from that collet across the carbonator's
-  own top in the band between the top plate and the cap floor — the tank has ended by
+  own top in the band between the top plate and the cap floor — the carbonator has ended by
   this height — onto the +Y band, forward, then into the forward strip and up
   the top cap's `water-in` conduit. Every corner on it is potted where it turns, and
   the two either end of the step into the strip are the pack's only ones under the
@@ -586,7 +586,7 @@ Foam falls into the body and fills one connected volume: the
 **surrounding foam zone** between the outer_shell and the pockets'
 ±Y walls (the front/back foam-pour gap; the ±X reservoir side has no
 outboard foam, its reed channel butting the shell wall). This zone
-reaches the centerward space around the tank+coil through the gap at
+reaches the centerward space around the carbonator+coil through the gap at
 the pockets' ±Y ends (y = ±[72.5 mm](POCKET_Y_OUTER)), where the ±Y
 walls stop and the centerward walls' transition arcs swing in to join
 them.
@@ -604,7 +604,7 @@ columns drop in after cure.
 The longest required traverse for the foam is around the back of the
 coil at the ±X azimuths — the foam has to work through the embedded
 helical wraps and fill the 15 mm blanket out to the centerward wall's
-tank-side face, ~110 mm of arc to reach around from the ±Y entry.
+carbonator-side face, ~110 mm of arc to reach around from the ±Y entry.
 
 Foam expansion may push a small amount of material out through the
 clearance bands around tubes in the slot and through the tight-fit
@@ -633,8 +633,8 @@ This drives several dimension choices:
   whole pocket outward without resizing or splaying the reservoir, so
   the ±Y walls keep their standalone width and meet the centerward
   wall's transition arcs there.
-- The **tank_support_ring**'s outer face sits on the tank+coil envelope
-  (`tank_coil_envelope_radius` = 70.5, the tank OD plus the coil radial
+- The **carbonator_support_ring**'s outer face sits on the carbonator+coil envelope
+  (`carbonator_coil_envelope_radius` = 70.5, the carbonator OD plus the coil radial
   clearance) — inboard of the pocket's centerward wall, which has moved
   outward with the foam blanket.
 - Each **reservoir pocket's four walls** are traced as a single

@@ -41,7 +41,7 @@ the wall.
 ## The two heights
 
 Measured up from the tube's **bottom rim** — the face that seats on the
-tank support ring.
+carbonator support ring.
 
 **The column.** Each end plate is an ID-fit plug recessed 1/4" below its
 tube end. The wetted column runs from the bottom plate's inside face at

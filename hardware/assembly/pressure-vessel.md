@@ -25,7 +25,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
 | Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
 | 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb, installed at sparge step |
-| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per carbonator — all four ports.** Turns the line laterally within the ~[30 mm](ELBOW_ENV) vertical envelope around the tank — see [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
+| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per carbonator — all four ports.** Turns the line laterally within the ~[30 mm](ELBOW_ENV) vertical envelope around the carbonator — see [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** 125 PSI set pressure gives 1.39× margin over the [90 PSI](WORKING_PSI) working pressure. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
@@ -40,7 +40,7 @@ Tooling (per-carbonator-amortized only — single-asset tools live in [`/hardwar
 
 ## CO2 supply (sets working pressure)
 
-The [90 PSI](WORKING_PSI) working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT [fixed-90 PSI](REG_FIXED) secondary regulator (B07J2L8LF3, [`bom.md`](/hardware/ledger/bom.md) §4) between the shipped Wellbom CGA-320 primary regulator (mounted on the customer's tank) and the carbonator CO2 port. The WR1110 holds the appliance-side pressure at [90 PSI](WORKING_PSI) regardless of where the primary is set, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest.
+The [90 PSI](WORKING_PSI) working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT [fixed-90 PSI](REG_FIXED) secondary regulator (B07J2L8LF3, [`bom.md`](/hardware/ledger/bom.md) §4) between the shipped Wellbom CGA-320 primary regulator (mounted on the customer's carbonator) and the carbonator CO2 port. The WR1110 holds the appliance-side pressure at [90 PSI](WORKING_PSI) regardless of where the primary is set, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest.
 
 At the 5" OD × 0.065" wall geometry, hoop stress at [90 PSI](WORKING_PSI) is ~3,461 PSI — a ~5.8× safety factor against the 20,000 PSI allowable for 316L SS in vessel-grade service. The 35 PSI margin between the [90 PSI](WORKING_PSI) working setpoint and the SV-125 PRV (above) is the safety margin sized for normal-operation excursions.
 
@@ -122,13 +122,13 @@ Hold pressure: **180 PSI for 30 minutes** (~2× the [90 PSI](WORKING_PSI) workin
 
 One-time soak in ~4 % food-grade citric acid solution, 30-60 minutes, in the reusable polycarbonate tub sized for the carbonator. Followed by thorough water rinse.
 
-Restores the chromium oxide layer at the weld zones — what makes 316L resistant to pitting from carbonic acid in long-life carbonated-water service. The yellow/brown weld coloration from step 3/5 dissolves out during this soak. Same treatment commercial brewery bright tanks and commercial carbonators receive.
+Restores the chromium oxide layer at the weld zones — what makes 316L resistant to pitting from carbonic acid in long-life carbonated-water service. The yellow/brown weld coloration from step 3/5 dissolves out during this soak. Same treatment commercial brewery bright carbonator and commercial carbonators receive.
 
 Done after hydro because failures get re-welded (re-introducing oxide that the passivation needs to handle) and before sparge install because the silicone tube and sintered stone don't belong in a citric soak.
 
 ### 9. Install elbows, sparge stone, PRV
 
-After passivation, the carbonator receives its permanent port fittings. Per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~[30 mm](ELBOW_ENV) vertical envelope above and below the tank.
+After passivation, the carbonator receives its permanent port fittings. Per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~[30 mm](ELBOW_ENV) vertical envelope above and below the carbonator.
 
 All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose PTFE anti-seize tape on every joint. Downstream stack varies by port:
 

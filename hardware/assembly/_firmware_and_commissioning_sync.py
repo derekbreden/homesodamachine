@@ -27,7 +27,7 @@ from docgen import substitute_md  # noqa: E402
 # Source: hardware/wiring/esp32-pinout.mmd.
 
 gpio_relay1 = 19            # Teyleten relay #1 (compressor AC)
-gpio_onewire = 26           # DS18B20 1-wire bus (tank-wall + suction-line)
+gpio_onewire = 26           # DS18B20 1-wire bus (carbonator-wall + suction-line)
 gpio_flow = 25              # DIGITEN flow meter pulse input
 gpio_relay2 = 2             # Teyleten relay #2 (diaphragm pump 12 V refill)
 
@@ -69,15 +69,15 @@ rail_33v_tol = 0.05         # V — ±, bench-acceptance window
 
 # ─── DS18B20 + onewire ────────────────────────────────────────────────
 onewire_pullup_kohm = 4.7   # 1-wire data-line pull-up
-ds18b20_count = 2           # Tank-wall + suction-line probes on the bus
+ds18b20_count = 2           # Carbonator-wall + suction-line probes on the bus
 ambient_tol_c = 2           # ±, room-ambient sensor-health check
 
 # ─── Firmware factory-default setpoints (refrigeration control) ───────
 
-tank_target_c = 2           # Tank-wall DS18B20 target
-hysteresis_c = 2            # ±, around the tank target
-comp_on_temp_c = tank_target_c + hysteresis_c   # = 4 — compressor turns on
-comp_off_temp_c = tank_target_c                  # = 2 — compressor turns off
+carbonator_target_c = 2           # Carbonator-wall DS18B20 target
+hysteresis_c = 2            # ±, around the carbonator target
+comp_on_temp_c = carbonator_target_c + hysteresis_c   # = 4 — compressor turns on
+comp_off_temp_c = carbonator_target_c                  # = 2 — compressor turns off
 freeze_cutoff_c = -8        # Suction-line freeze-protect cutoff
 min_off_time_min = 3        # Compressor start-capacitor minimum off-time
 
@@ -121,7 +121,7 @@ def main():
         "ONEWIRE_PULLUP": f"{onewire_pullup_kohm:.4g} kΩ",
         "AMBIENT_TOL": f"±{ambient_tol_c:.4g} °C",
         # Setpoints (factory defaults on `main`).
-        "TANK_TARGET": f"{tank_target_c:.4g} °C",
+        "TANK_TARGET": f"{carbonator_target_c:.4g} °C",
         "HYSTERESIS": f"±{hysteresis_c:.4g} °C",
         "COMP_ON_TEMP": f"{comp_on_temp_c:.4g} °C",
         "COMP_OFF_TEMP": f"{comp_off_temp_c:.4g} °C",

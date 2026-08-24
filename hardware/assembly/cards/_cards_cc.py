@@ -16,7 +16,7 @@ WHAT THE CC CARDS STAND ON, and therefore what is asserted rather than measured:
   a relief vent is made up on nothing, it ends open, and tube length on a relief
   path is discharge taken off the valve's rating — so it takes the shortest way
   out, one corner and through the +Y flank. One line, one opening, no second door.
-- EVERY TANK IS FILLED HIGH AND DRAWN LOW — the carbonator at its top plate and
+- EVERYTHING FILLED IS FILLED HIGH AND DRAWN LOW — the carbonator at its top plate and
   its bottom, each reservoir at its cap and at its floor bulkhead. That is what
   the air-purge and clean-flush service modes run on, and it is a pairing of
   conduits rather than a figure, so it is an assertion too.
@@ -24,7 +24,7 @@ WHAT THE CC CARDS STAND ON, and therefore what is asserted rather than measured:
   base the wall is mated to is two bodies. CC-03, CC-10 and CC-12 all send the
   bench to a different lane per tail; one column carrying both would make all
   three wrong at once.
-- The carbonated-water outlet crosses the tank support ring at one of the RING'S
+- The carbonated-water outlet crosses the carbonator support ring at one of the RING'S
   OWN SLOTS and the CO2's reach crosses the same one, so no bearing segment is
   notched. `_port_cuts` asserts the water outlet's crossing at import; the CO2's
   lean is measured here, because CC-10 and CC-12 both say "both lines, one slot".
@@ -81,7 +81,7 @@ def _front_wall_census():
 
 def _ring_azimuths(a, b, tube_radius):
     """The azimuth band a straight line from plan `a` to plan `b` sweeps while it is
-    inside the tank support ring's annulus — `(low, high)` degrees about +X.
+    inside the carbonator support ring's annulus — `(low, high)` degrees about +X.
 
     `_port_cuts.ring_crossing_azimuths` answers this for a line running square out
     of the shell, where the extremes are corners. The CO2's reach LEANS, so its
@@ -143,12 +143,13 @@ def cold_core(m):
         and len(routes.routes["prv-vent"]) == 3, (
         f"the PRV vent runs {routes.routes['prv-vent']} — CC-12 lets this one line out the "
         f"+Y flank on one corner and nothing else through the skin")
-    # Filled high, drawn low. Each of the three tanks is entered once and drawn
-    # once, and the pairs are named: two ends per tank, never two of a kind.
+    # Filled high, drawn low. The carbonator and both reservoirs are each entered
+    # once and drawn once, and the pairs are named: two ends each, never two of a kind.
     entries = {"water-in", "co2-in", "reservoir-a-fill", "reservoir-b-fill"}
     draws = {"carb-water-out", "reservoir-a", "reservoir-b"}
     assert set(cci.cap_fluid_conduits) == entries | draws, (
-        f"the cap carries {sorted(cci.cap_fluid_conduits)} — CC-12 walks three tanks, each "
+        f"the cap carries {sorted(cci.cap_fluid_conduits)} — CC-12 walks the carbonator and both "
+        f"reservoirs, each "
         f"entered above its liquid and drawn at its lowest point, and every fluid conduit on "
         f"the cap is one end of one of those")
     pair = {+cci.carbonator_port_offset, -cci.carbonator_port_offset}
@@ -165,7 +166,7 @@ def cold_core(m):
         and tails["evap-outlet"] == cci.west_lane_mid_y, (
         f"the evaporator's tails cross at {tails} — CC-03 clocks one tail to each lane "
         f"and CC-10's last check is that they lie there")
-    # Both bottom-plate lines cross the tank support ring at ONE of its own slots,
+    # Both bottom-plate lines cross the carbonator support ring at ONE of its own slots,
     # so all four bearing segments stay whole (CC-10's table, CC-12's step).
     water_band = pcuts.ring_crossing_azimuths(
         pcuts.water_outlet_ring_crossing_x, cci.lldpe_tube_od / 2.0)
@@ -221,7 +222,7 @@ def cold_core(m):
 
     # The carbonator's own bottom rim, where it lands on the support ring's plateau —
     # what CC-03 measures the coil's bare band up from.
-    band_floor_z = cci.wall_and_floor_thickness + cci.tank_support_ring_height
+    band_floor_z = cci.wall_and_floor_thickness + cci.carbonator_support_ring_height
     plug_count = len(plugs.plug_specs)
     deck_columns = sum(len(cci.deck_mount_xy(n)) for n in cci.deck_mounts)
     face_bosses = len(cci.attachment_xy_positions)
@@ -244,7 +245,7 @@ def cold_core(m):
         # tail, and over its high one, read off the tails the mandrel is wound to.
         "WIND_LENGTH": f"{cci.evap_tail_high_z - cci.evap_tail_low_z:.4g}",
         "WIND_BAND_LOW": f"{cci.evap_tail_low_z - band_floor_z:.4g}",
-        "WIND_BAND_HIGH": f"{cci.tank_top_plate_z - cci.evap_tail_high_z:.4g}",
+        "WIND_BAND_HIGH": f"{cci.carbonator_top_plate_z - cci.evap_tail_high_z:.4g}",
         "FACE_BOSSES": f"{face_bosses}",
         "INSERT_POCKET": f"{DIA}{2 * cci.insert_pocket_radius:.4g} mm {X} "
                          f"{cci.insert_length:.4g} mm",
@@ -270,8 +271,8 @@ def cold_core(m):
         "RESERVOIR_GAP": f"{cci.reservoir_clearance:.4g} mm",
         "POCKET_FILLET": f"{cci.bag_pocket_corner_inner_radius:.4g} mm",
         "BULKHEAD_CLEARANCE": f"{cci.bulkhead_floor_clearance:.4g} mm",
-        # The tank support ring (CC-10, CC-12).
-        "RING_H": f"{cci.tank_support_ring_height:.4g} mm",
+        # The carbonator support ring (CC-10, CC-12).
+        "RING_H": f"{cci.carbonator_support_ring_height:.4g} mm",
         "RING_SLOTS": f"{len(pcuts.ring_slot_spans())} {X} "
                       f"{pcuts.slot_angular_width:.4g}{DEG} at "
                       + "/".join(f"{(lo + hi) / 2:.4g}" for lo, hi in pcuts.ring_slot_spans())

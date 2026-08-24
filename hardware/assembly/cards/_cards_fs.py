@@ -264,7 +264,7 @@ def _figures():
         "ROD_PAIR_SUM": f"{rod_pair:.4g}",
         "ROD_STICK": f"{stick_len:.4g}",
         # ── PV — closure (PV-06, PV-09) ──────────────────────────────────
-        "TANK_H": f"{_pv.tank_height:.4g}",
+        "TANK_H": f"{_pv.carbonator_height:.4g}",
         "PLATE_RECESS": _frac(_pv.plate_recess / MM_PER_IN),
         # ── PV — the PRV shroud (PV-13) ──────────────────────────────────
         "PRV_SHROUD_SIZE": f"{_prv.inner_diameter:.4g} ID {X} {_prv.outer_diameter:.4g} OD "
@@ -299,7 +299,7 @@ def _figures():
         "FREEZE_CUTOUT": f"&minus;{abs(_fc.freeze_cutoff_c):.4g} {DEG}C",
         "MIN_OFF": f"{_fc.min_off_time_min:.4g} min",
         "COMP_ON_OFF": f"{_fc.comp_on_temp_c:.4g} / {_fc.comp_off_temp_c:.4g} {DEG}C",
-        "TANK_TARGET": f"{_fc.tank_target_c:.4g} {DEG}C",
+        "TANK_TARGET": f"{_fc.carbonator_target_c:.4g} {DEG}C",
         "HYSTERESIS": f"&plusmn;{_fc.hysteresis_c:.4g} {DEG}C",
         # ── FS — the carton and the gate it has to clear ─────────────────
         "TILT_ANGLE": f"~{_fs.splash_check_tilt_deg:.4g}{DEG}",
