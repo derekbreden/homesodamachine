@@ -168,6 +168,23 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": [
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
+    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_measuring.py",
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/printed-parts/enclosure/display-cover/display_cover.py": [
     "hardware/printed-parts/cadlib/reeding.py",
     "hardware/printed-parts/cadlib/snap.py",
@@ -220,23 +237,6 @@
     "hardware/scripts/_realized.py",
     "hardware/scripts/_run_lock.py",
     "hardware/scripts/_stated_bounds.py",
-    "tools/docgen/__init__.py"
-  ],
-  "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py": [
-    "hardware/printed-parts/cadlib/world_workplane.py",
-    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-carb.step",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-co2.step",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
-    "hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
-    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
-    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
-    "hardware/scripts/_cadq_export.py",
-    "hardware/scripts/_materials.py",
-    "hardware/scripts/_measuring.py",
-    "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
   "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": [
@@ -804,6 +804,10 @@
   ],
   "tools/bazel/affected.py": [
     "tools/bazel/affected.py"
+  ],
+  "tools/bazel/check_ci_targets.py": [
+    "tools/bazel/check_ci_targets.py",
+    "BUILD.bazel"
   ],
   "tools/bazel/check_declared_imports.py": [
     "tools/bazel/check_declared_imports.py"

@@ -110,8 +110,8 @@ jobs:
     # A HUNG RUN HOLDS THE WHOLE LANE, and with no timeout it holds it for GitHub's default
     # SIX HOURS. Only one run is pending at a time, so a build that never returns does not
     # merely lose itself — every push behind it is cancelled out of the slot and nothing
-    # derives at all. One did exactly that for an hour and a half: `//:render-scenes` boots a
-    # server and drives a browser, and neither has a timeout of its own.
+    # derives at all. One did exactly that for an hour and a half: `//:render-scene-cards` boots
+    # a server and drives a browser, and neither has a timeout of its own.
     timeout-minutes: 75
     # A CONTAINER JOB'S DEFAULT SHELL IS `sh -e`, NOT BASH. GitHub picks bash on a hosted
     # runner and drops to sh inside a container, because it cannot assume the image has one —

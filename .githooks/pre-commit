@@ -38,4 +38,14 @@ case "$staged" in
   *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || exit 1 ;;
 esac
 
+# AND A WORKFLOW NAMES TARGETS THE GRAPH INVENTS. `gen_build` derives a rule's name from what
+# its step writes, so two generators that come to share an output merge into one rule under
+# the alphabetically first name — the rule renames itself and nobody decides it. The workflow
+# keeps the old label, the publish builds all the CAD, and dies ten minutes in on a target
+# bazel never heard of; the greps that MATCH on that label just go quiet instead.
+case "$staged" in
+  *BUILD.bazel*|*tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*.github/workflows/*)
+    "$py" "$root/tools/bazel/check_ci_targets.py" || exit 1 ;;
+esac
+
 exit 0
