@@ -336,6 +336,17 @@ def targets(paths: list) -> list:
     return sorted(set(out))
 
 
+def sentinel_targets(paths) -> set:
+    """The artifact rules a publication sentinel in `paths` names for itself.
+
+    `_PUBLICATION_SENTINELS` states reach `targets` cannot see. These files carry a solid that
+    is already cut rather than being read while one is being cut, so no rule lists them as a
+    source and an rdeps walk over source labels finds nothing."""
+    moved = set(paths)
+    return {target for path, targets_for_path in _PUBLICATION_SENTINELS.items()
+            if path in moved for target in targets_for_path}
+
+
 def artifact_targets() -> set:
     """Generator rules that publish at least one member of the CAD bundle."""
     inv = inventory(tracked())
@@ -742,11 +753,7 @@ def main(argv) -> int:
     elif args.artifacts:
         found = sorted(set(found) & artifact_targets())
     if args.artifacts:
-        found = sorted(set(found) | {
-            target
-            for path, targets_for_path in _PUBLICATION_SENTINELS.items() if path in moved
-            for target in targets_for_path
-        })
+        found = sorted(set(found) | sentinel_targets(moved))
     if args.why:
         for t in found:
             reach = [p for p in hit if (t in targets([p])
