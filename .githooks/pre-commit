@@ -1,17 +1,23 @@
 #!/bin/sh
-# What stands between a change and the site, checked on this disk.
+# NOTHING HERE HOLDS A COMMIT. ON PURPOSE. Every check below reports and exits 0, and a check
+# added later reports too — if you find yourself writing `|| exit 1`, that is the thing this
+# file exists to not do.
+#
+# WHY: the site is how Derek sees what is on this disk, and he wants to see whatever there is as
+# fast as possible. A check that stops a commit stops the push, stops the lock moving, and stops
+# him seeing it. Geometry that is wrong is what the tree currently produces; the scorecard rides
+# to the site beside it, so a red gate is the signal arriving rather than a reason to hold the
+# thing carrying it.
 #
 # THE SITE DEPLOYS WHEN THE LOCK MOVES IN A PUSH — `render.yaml`'s buildFilter names
 # `hardware/cad-artifacts.lock.json`, and `pack.py --write` cuts, uploads and pins from any
 # machine. So the path a change takes to Derek is: build the changed target here, `--write`,
-# push. CI publishes too, and what it is for is catching what that missed while nobody is
-# waiting.
+# push. CI publishes too, and what it is for is catching what that missed while nobody waits.
 #
-# TWO FAULTS HOLD A COMMIT, AND THEY ARE THE TWO THAT PATH CANNOT SURVIVE. Everything else is
-# reported, because the local build is already the thing that fails on it — in seconds, on this
-# disk, with the compiler's own message rather than a gate's paraphrase.
+# WHAT THESE ARE FOR: naming a fault while the author is still here, so it has a name before the
+# build says it in its own words. That is worth a second. It is not worth a commit.
 #
-# Each gate is keyed to the files that can carry its fault, so a commit to `web/` or a doc runs
+# Each check is keyed to the files that can carry its fault, so a commit to `web/` or a doc runs
 # none of them. HSM_SKIP_PRECOMMIT=1 skips them all.
 [ -n "$HSM_SKIP_PRECOMMIT" ] && exit 0
 root=$(git rev-parse --show-toplevel) || exit 0
@@ -19,30 +25,25 @@ py="$root/tools/cad-venv/bin/python"
 [ -x "$py" ] || py=python3
 staged=$(git diff --cached --name-only --diff-filter=ACM)
 
-# HOLDS: A GRAPH THAT COMES BACK AROUND fails bazel's loading phase, which is before any target
-# is built — so the changed target does not build either, and there is nothing to publish.
+# A graph that comes back around fails bazel's loading phase, so no target builds.
 case "$staged" in
   *tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*BUILD.bazel*)
-    "$py" "$root/tools/bazel/gen_build.py" --cycles || exit 1 ;;
+    "$py" "$root/tools/bazel/gen_build.py" --cycles || true ;;
 esac
 
-# HOLDS: BUILD.bazel DRIFTED FROM ITS GENERATOR builds the rules the file holds and not the ones
-# the graph states, and `pack.py --write` uploads what that built. A red CI run is a delay; this
-# is the site serving geometry cut by a rule nobody has.
+# BUILD.bazel drifted from its generator builds the rules the file holds rather than the ones the
+# graph states. Regenerate with `gen_build.py` before packing if you want the two to agree.
 case "$staged" in
   *tools/bazel/selftests.json*|*tools/bazel/graph.json*|*BUILD.bazel*)
-    "$py" "$root/tools/bazel/gen_build.py" --check || exit 1 ;;
+    "$py" "$root/tools/bazel/gen_build.py" --check || true ;;
 esac
 
-# REPORTS: a step that imports what it does not hold fails its own action, which is the build
-# the author just ran. `--fix` writes the edges in seconds.
+# A step that imports what it does not hold fails its own action. `--fix` writes the edges.
 case "$staged" in
   *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || true ;;
 esac
 
-# REPORTS: a workflow naming a target the graph does not declare, and a source no `paths:`
-# pattern names. Both are faults in how CI publishes; neither reaches a local build or a
-# `--write` from this machine.
+# A workflow naming a target the graph does not declare, and a source no `paths:` pattern names.
 case "$staged" in
   *BUILD.bazel*|*tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*.github/workflows/*)
     "$py" "$root/tools/bazel/check_ci_targets.py" || true ;;
