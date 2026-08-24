@@ -45,6 +45,14 @@
 //           body outside it goes out of the view, in place — no reload, no
 //           second model. `null` puts the machine back. It carries forward
 //           until another beat states one, the way a chapter does.
+//   hue     what is in the pipe from this beat on — `water`, `soda`, `co2`,
+//           `refrigerant`, `flavor`. Carried forward like `isolate`, so the
+//           tour changes colour once, where the water becomes soda.
+//   solid   ms the machine is drawn SOLID at the top of the tour before it
+//           dissolves to the x-ray view. Only the opening beat reads it.
+//   flow    ms per body of a bright crest travelling the beat's own list, over
+//           and over, in the order it names them. Direction, on tubes that have
+//           no centreline to run dashes along.
 //   quiet   0..1, how far the machine BEHIND the lights is turned down for this
 //           beat. The subject gets louder by everything else getting quieter,
 //           which costs nothing and composes with every other tier. Carried by
@@ -70,14 +78,21 @@ export const TOUR = {
   subtitle: "Tap to soda, end to end",
   model: "manifold-layout/enclosure-assembly.step",
 
-  // Everything the water touches, lit faintly for the whole tour so the leg on
-  // screen is always read against the line it belongs to.
-  path: [
-    "tube-customer-water", "bulkhead-water", "bulkhead-ring-water", "tube-collar-water",
-    "asse1022-assembly", "tube-water-2", "water-split", "tube-water-3",
-    "vk-solenoid", "suction-chain", "tube-water-7", "seaflo-pump",
-    "tube-water-6", "discharge-chain", "tube-water-5",
-    "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb", "bulkhead-ring-carb",
+  // THE MAP, BY FLUID. Every body the run touches, faint, all tour long — so a
+  // close-up is always read against the line it belongs to. Split where the
+  // water becomes soda, because that is the machine's whole point and the
+  // colour is the cheapest way to say it: blue in at the rear wall, teal back
+  // out of it. `spotlight.js` HUES is the palette.
+  paths: [
+    { hue: "water", parts: [
+      "tube-customer-water", "bulkhead-water", "bulkhead-ring-water", "tube-collar-water",
+      "asse1022-assembly", "tube-water-2", "water-split", "tube-water-3",
+      "vk-solenoid", "suction-chain", "tube-water-7", "seaflo-pump",
+      "tube-water-6", "discharge-chain", "tube-water-5",
+    ] },
+    { hue: "soda", parts: [
+      "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb", "bulkhead-ring-carb",
+    ] },
   ],
 
   steps: [
@@ -89,8 +104,9 @@ export const TOUR = {
               "water-split", "tube-water-3", "vk-solenoid", "suction-chain", "tube-water-7",
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
-      dir: [0.9, -1.0, 0.5], pad: 1.12, dwell: 8500, ignite: 240, quiet: 0.45,
-      drift: { az: 9, el: 2, dolly: -0.06 }, enter: 0 },
+      dir: [0.9, -1.0, 0.5], pad: 1.12, dwell: 11000, enter: 0,
+      solid: 3200, ignite: 240, quiet: 0.45, flow: 150,
+      drift: { az: 12, el: 2, dolly: -0.07 } },
 
     // ── The house connection ────────────────────────────────────────────────
     { chapter: "The house connection", title: "The customer's line",
@@ -253,7 +269,7 @@ export const TOUR = {
       parts: ["cold-core/prv-shroud"], hold: true, drift: HOLD_DRIFT },
 
     // ── Out of the bottom ───────────────────────────────────────────────────
-    { chapter: "Out of the bottom", title: "Soda leaves here",
+    { chapter: "Out of the bottom", title: "Soda leaves here", hue: "soda",
       body: "At the floor of the vessel, where it is coldest and least disturbed.",
       parts: ["cold-core/carbonator-elbow-carb-water-out"],
       dir: [0.5, -0.95, 0.12], pad: 2.1, drift: { az: 7, el: 4, dolly: -0.05 } },
@@ -298,6 +314,6 @@ export const TOUR = {
               "seaflo-pump", "tube-water-6", "discharge-chain", "tube-water-5",
               "tube-carb-1", "digiten-flow", "tube-carb-2", "bulkhead-carb"],
       dir: [-0.95, -1.0, 0.45], pad: 1.15, dwell: 9000, ignite: 130, quiet: 0.4,
-      drift: { az: 20, el: 4, dolly: -0.04 }, enter: 4200 },
+      flow: 120, drift: { az: 20, el: 4, dolly: -0.04 }, enter: 4200 },
   ],
 };

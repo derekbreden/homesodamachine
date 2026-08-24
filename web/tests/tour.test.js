@@ -68,11 +68,36 @@ test("every body the tour names is in the model it names it on", { skip: !haveEv
   assert.deepEqual(missing, []);
 });
 
-test("the faintly-lit path is all in the base model", { skip: !haveEvery
+test("the faintly-lit map is all in the base model", { skip: !haveEvery
   && "the generated solids are not on this disk" }, () => {
   const have = models.get(TOUR.model);
-  const missing = (TOUR.path || []).filter((n) => !have.has(n));
+  const missing = [];
+  for (const p of TOUR.paths) {
+    for (const n of p.parts) if (!have.has(n)) missing.push(`${p.hue}: ${n}`);
+  }
   assert.deepEqual(missing, []);
+});
+
+// The map is the whole run. A body a beat lights that no map entry carries is a
+// leg drawn bright and then never again — the reader loses it the moment the
+// tour moves on, which is the one thing the faint tier exists to prevent.
+test("every leg a beat lights is on the map", { skip: !haveEvery
+  && "the generated solids are not on this disk" }, () => {
+  const mapped = new Set(TOUR.paths.flatMap((p) => p.parts));
+  const loose = new Set();
+  for (const s of TOUR.steps) {
+    if (s.overview) continue; // an overview names the whole run, map entries included
+    for (const n of s.parts || []) if (!mapped.has(n)) loose.add(n);
+  }
+  // Bodies that are scenery for a beat rather than legs of the run — the
+  // preventer's pan and sensor, the parts inside the vessel, the words on the
+  // rings — are named here so the gate reads as a list and not as a mystery.
+  const SCENERY = new Set([
+    "asse-drip-pan", "moisture-plate", "tube-fluid-1", "flow-regulator",
+    "bulkhead-ring-water-word", "tube-collar-water-word", "bulkhead-ring-carb-word",
+  ]);
+  const unexplained = [...loose].filter((n) => !SCENERY.has(n) && !n.startsWith("cold-core/"));
+  assert.deepEqual(unexplained, []);
 });
 
 // A beat that does not hold has to say where the camera stands, because there
