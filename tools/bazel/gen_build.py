@@ -15,6 +15,8 @@ import argparse
 import difflib
 import hashlib
 import json
+import os
+import re
 import sys
 from pathlib import Path
 
@@ -116,6 +118,41 @@ def _no_cycles(wants: dict) -> None:
 
 def _needs_node(srcs: list) -> bool:
     return any(s.startswith(_NODE) for s in srcs)
+
+
+#: A relative import in a JS module — `from "./browser.js"`, `import("./x.js")`, `require`.
+_JS_LOCAL = re.compile(r"""(?:from|import|require)\s*\(?\s*["'](\.[^"']*)["']""")
+
+
+def _js_closure(srcs: set) -> set:
+    """Every local module the `.js` in `srcs` import, to a fixpoint.
+
+    NODE RESOLVES THESE ITSELF, below the interpreter the tracer watches: a run that reaches
+    the `node` call opens them and a run that stops short of it does not, so whether the graph
+    holds them is a reading of how far that run got. `render-step-posed.js` imports
+    `./browser.js`, and an action holding the importer and not the module dies on
+    ERR_MODULE_NOT_FOUND.
+
+    The specifiers are relative and resolved against the importer's own directory, which is
+    what makes this answerable from the text.
+
+    THE RUNTIME GROUPS ALREADY CARRY `web/**` AND `tools/render/node_modules/**`, by glob. What
+    they leave is the renderer's own modules beside their entrypoint, so that is what this
+    adds — naming a file twice stages it twice."""
+    seen, stack = set(), [s for s in srcs if s.endswith((".js", ".mjs", ".cjs"))]
+    while stack:
+        current = stack.pop()
+        try:
+            text = (_ROOT / current).read_text()
+        except OSError:
+            continue
+        for spec in _JS_LOCAL.findall(text):
+            found = os.path.normpath(os.path.join(os.path.dirname(current), spec))
+            if found not in seen and (_ROOT / found).is_file():
+                seen.add(found)
+                stack.append(found)
+    return {f for f in seen - set(srcs)
+            if f.startswith("tools/render/") and "/node_modules/" not in f}
 
 
 def _node_runtimes(gens: tuple, srcs: list) -> tuple[str, ...]:
@@ -340,6 +377,10 @@ def render_build(only: str = None) -> tuple:
                 - probes
                 - {d for d in made["docs"] if d.endswith((".png", ".json"))}
                 - BAZEL_SKIPPED_READS)
+        # AND WHAT A NODE ENTRYPOINT IMPORTS COMES WITH IT. Node resolves its own specifiers,
+        # so whether the graph holds them is a reading of how far the traced run got rather
+        # than of what the action needs.
+        srcs |= _js_closure(srcs)
         srcs = sorted(s for s in srcs if s in held)
         optional = sorted(d for d in made["docs"] if d.endswith((".png", ".json")))
         rewritten = {d for d in made["docs"] if d.endswith(".py")}
