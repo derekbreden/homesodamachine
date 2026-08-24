@@ -208,6 +208,16 @@ jobs:
       - name: The sandbox mount pairs
         run: sudo mkdir -p /opt/homebrew/bin /usr/local/bin
 
+      # WRITTEN ONCE SO EVERY BAZEL IN THIS JOB READS IT. Passing --disk_cache on the build
+      # command line and not on `sync_tree`'s `--check_up_to_date` makes the two disagree about
+      # the same outputs: nine stale actions on //:tpu-o-ring measured locally, twenty-two on
+      # //:cad-art in run 32731505916, on a build that had completed successfully seconds
+      # earlier. `.bazelrc` try-imports this, so the flag reaches the checks and the queries too.
+      - name: The flags every bazel in this job reads
+        run: |
+          printf 'build --disk_cache=%s/.cache/bazel-disk\n' "$HOME" > .bazelrc.ci
+          cat .bazelrc.ci
+
       - name: The locked inputs
         run: node web/scripts/fetch-cad-artifacts.mjs
 
@@ -423,11 +433,11 @@ jobs:
         run: |
           mapfile -t targets < <(printf '%s\n' "$TARGETS" | sed '/^[[:space:]]*$/d')
           [ "${#targets[@]}" -gt 0 ] || exit 0
-          bazel build --disk_cache="$HOME/.cache/bazel-disk" "${targets[@]}"
+          bazel build "${targets[@]}"
 
       - name: Build the canonical Quick Start artwork
         if: steps.scope.outputs.quickstart_art == 'true'
-        run: bazel build --disk_cache="$HOME/.cache/bazel-disk" //:cad-art
+        run: bazel build //:cad-art
 
       - name: Carry the canonical Quick Start artwork
         if: steps.scope.outputs.quickstart_art == 'true'

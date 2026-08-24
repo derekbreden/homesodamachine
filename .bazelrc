@@ -36,6 +36,16 @@ build --action_env=BLENDER_USER_RESOURCES
 # is the one place bazel expands `%workspace%`. A tree that has not written one builds nothing,
 # and `gen_build.py --check` says so.
 try-import %workspace%/.bazelrc.paths
+
+# AND A FLAG A RUNNER ADDS MUST REACH EVERY INVOCATION, NOT THE ONE THAT NAMES IT. `--disk_cache`
+# on the build alone is a build and a check asking different questions: measured here, `bazel
+# build --disk_cache=DIR //:tpu-o-ring` followed by `bazel build --check_up_to_date //:tpu-o-ring`
+# reports nine actions not up to date, and the same check WITH the flag reports none. So a
+# workflow that passes it inline makes `sync_tree` refuse to carry a cut that was just built
+# — publish run 32731505916, twenty-two actions stale on a build that had completed
+# successfully thirty seconds earlier. A file every invocation reads is the fix; nothing writes
+# one on a laptop, and `try-import` is silent when it is absent.
+try-import %workspace%/.bazelrc.ci
 build --action_env=HSM_NO_BUILD_LOCK=1
 
 # A `.step.mesh` IS WHAT THE PAGE READS INSTEAD OF PARSING THE STEP, and it is in no `outs`,

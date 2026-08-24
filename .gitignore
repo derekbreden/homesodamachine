@@ -102,6 +102,9 @@ bazel-*
 # Where this checkout is, which is not where any other checkout is. `gen_build.py` writes it
 # and `.bazelrc` takes it with `try-import`, so BUILD.bazel carries no machine's path.
 .bazelrc.paths
+# The flags a CI lane adds, written by the workflow so every bazel invocation in the job
+# reads them rather than only the command line that names one.
+.bazelrc.ci
 
 # A card's own two renders — the PNG a printer is handed one card at a time, and the page it
 # contributes to the bound deck — drawn from the card HTML by a browser
