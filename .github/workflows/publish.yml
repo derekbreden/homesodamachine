@@ -21,7 +21,7 @@ on:
       - tools/ci-image/**
       - tools/docgen/**
       - tools/render/**
-      # `web/**` stays: `render-step-posed-runtime` and `quickstart-art` stand this viewer to
+      # `web/**` stays: `render-step-posed-runtime` and `cad-art` stand this viewer to
       # draw the assembly cards, so a change to it is a change to those pictures. `updates/**`
       # and `render.yaml` are srcs of no rule in BUILD.bazel and reach the site on their own
       # push, so a run here would cut nothing and deploy nothing.
@@ -194,9 +194,9 @@ jobs:
               > /tmp/cad-requested.without-quickstart || true
             mv /tmp/cad-requested.without-quickstart /tmp/cad-requested
           fi
-          if grep -qx '//:quickstart-art' /tmp/cad-requested; then
+          if grep -qx '//:cad-art' /tmp/cad-requested; then
             quickstart_art=true
-            grep -vx '//:quickstart-art' /tmp/cad-requested \
+            grep -vx '//:cad-art' /tmp/cad-requested \
               > /tmp/cad-requested.without-quickstart-art || true
             mv /tmp/cad-requested.without-quickstart-art /tmp/cad-requested
           fi
@@ -253,7 +253,7 @@ jobs:
           # The tracked artwork is the materialized boundary between product CAD and the
           # sheets. Once the migration run refreshes it explicitly, this source range proves
           # whether its real producer inputs moved. Layout-only work reaches quickstart-build,
-          # never quickstart-art, and therefore binds the current bytes without recutting CAD.
+          # never cad-art, and therefore binds the current bytes without recutting CAD.
           : > /tmp/quickstart-debt
           : > /tmp/quickstart-art-debt
           if [ "$source_only" != true ]; then
@@ -281,7 +281,7 @@ jobs:
               tools/cad-venv/bin/python tools/bazel/affected.py \
                 --base "$quickstart_art_base" --head "$GITHUB_SHA" \
                 > /tmp/quickstart-art-debt
-              if grep -qx '//:quickstart-art' /tmp/quickstart-art-debt; then
+              if grep -qx '//:cad-art' /tmp/quickstart-art-debt; then
                 quickstart_art=true
               fi
               if only_aggregate < /tmp/quickstart-art-debt; then
@@ -363,13 +363,13 @@ jobs:
 
       - name: Build the canonical Quick Start artwork
         if: steps.scope.outputs.quickstart_art == 'true'
-        run: bazel build --disk_cache="$HOME/.cache/bazel-disk" //:quickstart-art
+        run: bazel build --disk_cache="$HOME/.cache/bazel-disk" //:cad-art
 
       - name: Carry the canonical Quick Start artwork
         if: steps.scope.outputs.quickstart_art == 'true'
         run: |
           tools/cad-venv/bin/python tools/bazel/sync_tree.py --write \
-            --targets //:quickstart-art
+            --targets //:cad-art
           unexpected=$(git diff --name-only -- hardware/quickstart | \
             grep -Ev '^hardware/quickstart/art/' || true)
           if [ -n "$unexpected" ]; then
@@ -613,7 +613,7 @@ jobs:
 
               newer_affected=$(tools/cad-venv/bin/python tools/bazel/affected.py \
                 --base "$base" --head "$tip")
-              newer_quickstart=$(grep -E '^//:(quickstart-build|quickstart-art)$' \
+              newer_quickstart=$(grep -E '^//:(quickstart-build|cad-art)$' \
                 <<< "$newer_affected" || true)
               if [ -n "$newer_quickstart" ]; then
                 echo "newer Quick Start producer inputs reached main"
