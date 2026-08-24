@@ -34,6 +34,7 @@ import { boxOfParts, unionBoxes, poseFor, boxOfGroup } from "./frame.js";
 import { flight, tween, driftAt, durationFor, midHeading, toOrbit } from "./flight.js";
 import * as spotlight from "./spotlight.js";
 import { mountHud } from "./hud.js";
+import { mountTags } from "./tags.js";
 
 const STEPS = TOUR.steps;
 const N = STEPS.length;
@@ -62,8 +63,17 @@ veil.className = "tour-veil";
 stage.append(veil);
 state.currentCadWrapper = stage;
 
-new ResizeObserver(() => { resizeRenderer(); onResize(); }).observe(stage);
+// The stage's box, read on change rather than every frame — the pins project
+// into it sixty times a second and a layout read per frame is a layout per
+// frame.
+let stageRect = { width: 0, height: 0 };
+new ResizeObserver(() => {
+  resizeRenderer();
+  stageRect = stage.getBoundingClientRect();
+  onResize();
+}).observe(stage);
 resizeRenderer();
+stageRect = stage.getBoundingClientRect();
 startAnimate();
 
 // ── models and their seats ──────────────────────────────────────────────────
@@ -175,6 +185,7 @@ let speed = 1;
 let lastFrame = 0;
 let elapsed = 0;        // ms of tour time, for the pulse on the active leg
 let modelSpan = 400;     // the loaded model's own size, for pacing
+let moveTags = null;     // the two subjects of the move in the air, for the pins
 
 const SPEEDS = [1, 1.5, 0.6];
 let speedAt = 0;
@@ -210,6 +221,10 @@ async function go(i, { instant = false } = {}) {
     const from = livePose();
     const region = seatBoxFor(want) || seatBoxFor(loadedModel) || focusBox(idx);
     const wide = poseFor(unionBoxes(focusBox(idx), region), headingOf(from), SWAP_PAD, camera);
+    moveTags = {
+      fromBox: focusBox(idx), fromText: STEPS[idx].title,
+      toBox: region, toText: STEPS[i].title,
+    };
     pending = { file: want, index: i, wide };
     poseAt = tween.bind(null, from, wide);
     span = SWAP_OUT_MS;
@@ -232,6 +247,13 @@ function startFlight(i, from) {
   const authored = STEPS[i].enter;
   span = authored != null ? authored : durationFor(from, to, modelSpan);
   if (span <= 0) { applyPose(to); idx = i; beginDwell(); commit(i); return false; }
+  // Coming out of a swap the beat being left is not in this model any more, so
+  // it gets no pin — there is nothing on screen for one to point at.
+  moveTags = {
+    fromBox: phase === "swap-hold" ? null : focusBox(idx),
+    fromText: phase === "swap-hold" ? "" : STEPS[idx].title,
+    toBox: focusBox(i), toText: STEPS[i].title,
+  };
   poseAt = flight(from, mid, to);
   clock = 0;
   pendingIndex = i;
@@ -331,6 +353,20 @@ function step(dt) {
     mix,
     pulse: elapsed / 1000,
   });
+
+  // The pins ride the move: from at full at its start, to at full at its end,
+  // and both up across the wide shot in the middle where they are the point.
+  const moving = phase === "flight" || phase === "swap-out" || phase === "swap-in";
+  const pinMix = phase === "swap-out" ? t * 0.6
+               : phase === "swap-in" ? 0.4 + t * 0.6
+               : t;
+  tags.update({
+    camera,
+    rect: stageRect,
+    mix: pinMix,
+    active: moving && !!moveTags,
+    ...(moveTags || {}),
+  });
 }
 
 function tick(now) {
@@ -383,6 +419,8 @@ const ACTIONS = {
     hud.flash(text.replace(/\n/g, "  "));
   },
 };
+
+const tags = mountTags(document.getElementById("tour-hud-host"));
 
 const hud = mountHud(document.getElementById("tour-hud-host"), {
   steps: STEPS,
