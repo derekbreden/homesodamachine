@@ -13,6 +13,8 @@
 // instead of at the top. Iterating on beat nine costs one reload, not the
 // eight beats before it.
 
+import { leafOf } from "/contracts/body-path.js";
+
 const PLAY = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>`;
 const PAUSE = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>`;
 const PREV = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M18 5v14l-9-7zM7 5h2v14H7z"/></svg>`;
@@ -24,7 +26,10 @@ const CHIP_LIMIT = 7;
 // The chip shows the body's own name and keeps the whole of it on hover: the
 // path is what the model calls it and the leaf is what the sentence calls it,
 // and a row of chips is reading, not addressing.
-const leaf = (name) => name.slice(name.lastIndexOf("/") + 1);
+//
+// From the contract rather than inline, because there is one rule for reading a
+// body's path and it has a test. The contract is pure — no three.js, no viewer
+// state — so a caption can have it without pulling the picker in behind it.
 
 const el = (tag, cls, html) => {
   const n = document.createElement(tag);
@@ -126,7 +131,7 @@ export function mountHud(host, { steps, title, subtitle, on }) {
       const named = step.parts || [];
       const gone = new Set(missing);
       for (const p of named.slice(0, CHIP_LIMIT)) {
-        const c = el("span", `tour-chip${gone.has(p) ? " tour-chip-missing" : ""}`, leaf(p));
+        const c = el("span", `tour-chip${gone.has(p) ? " tour-chip-missing" : ""}`, leafOf(p));
         c.title = gone.has(p) ? `${p} — this model carries no body by that name` : p;
         chips.append(c);
       }
