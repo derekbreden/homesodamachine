@@ -5608,6 +5608,47 @@ cp hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py $$O3
 )
 
 genrule(
+    name = "faucet-display-cover",
+    srcs = [
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O0
+""",
+)
+
+genrule(
     name = "tpu-o-ring",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -7547,6 +7588,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+        ":out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
@@ -8890,6 +8932,14 @@ genrule(
     name = "pysrc-1536cdb1c7d1",
     srcs = ["hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"],
     outs = ["pysrc/hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-2616ee3fb04c",
+    srcs = ["hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py"],
+    outs = ["pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -14736,6 +14786,7 @@ filegroup(
         ":y-wall-dimensions",
         ":above-counter-gasket",
         ":above-counter-plate",
+        ":faucet-display-cover",
         ":tpu-o-ring",
         ":tube-collar",
         ":fuse-clamp",

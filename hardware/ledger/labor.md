@@ -115,13 +115,13 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.6 kg of filament across the twenty-three §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [60](TOTAL_INSERTS) heat-set inserts and the [60](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
+Everything that is putting parts together with fasteners and hands. Printer tending lives here: ~7.6 kg of filament across the twenty-three §7 lines is ~100 printer-hours per unit ([machine-time.md](/hardware/ledger/machine-time.md)), but the *attended* share is plate changes, spool swaps, part removal and support cleanup. So do the [61](TOTAL_INSERTS) heat-set inserts and the [61](TOTAL_SCREWS) machine screws that close the build — one screw per insert, the whole way through.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Tend the printers — plate changes, spool swaps, part removal, support cleanup | — | ~7.6 kg over ~100 printer-hours; only the load/unload passes are counted | 25 |
-| Press the [60](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the display plate's pair, the ceiling panel's pair, the nameplate's pair, floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [12](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [56](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
-| Drive the [60](TOTAL_SCREWS) machine screws that close the build | — | [12](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) touch-flo, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [2](DISPLAY_COVER_SCREWS) display plate, [2](CEILING_SCREWS) ceiling panel, [2](NAMEPLATE_SCREWS) nameplate, [4](FLOOR_SCREWS) floor | 5 |
+| Press the [61](TOTAL_INSERTS) heat-set inserts — shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, the display plate's pair, the ceiling panel's pair, the nameplate's pair, floor posts | CC-05, ES-01, EN-01 | FX-888D + T18 tip kit, [12](FOAM_CLAMP_INSERTS) of them in the shell faces alone; [57](TOTAL_M3_INSERTS) M3 and the floor's four M5, so the tip changes once | 10 |
+| Drive the [61](TOTAL_SCREWS) machine screws that close the build | — | [12](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) touch-flo, [17](SHELF_SCREWS) shelf, [2](COND_SCREWS) condenser, [2](DISPLAY_COVER_SCREWS) display plate, [2](CEILING_SCREWS) ceiling panel, [2](NAMEPLATE_SCREWS) nameplate, [4](FLOOR_SCREWS) floor | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | CC-01, CC-03 | | 10 |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | CC-02, CC-04 | | 10 |
 | Build the reed columns; seat rods and floats; close the reservoirs | CC-07, CC-08, CC-09, CC-15 | Two reservoirs, gaskets, caps, vent filters | 15 |

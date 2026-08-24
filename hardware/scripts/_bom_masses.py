@@ -133,6 +133,12 @@ PARTS = {
         "faucet/faucet-shell/faucet-shell-base.step",
         "faucet/faucet-shell/faucet-shell-tip.step",
     ],
+    # The faucet display's face plate is its own row and not the shell's: it
+    # is a separate print, screwed on, and the customer sees it as its own
+    # surface across the seam.
+    "Faucet display cover plate": [
+        "faucet/faucet-display-cover/faucet-display-cover.step",
+    ],
     "Above-counter plate": ["faucet/above-counter-plate/above-counter-plate.step"],
 }
 

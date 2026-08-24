@@ -5446,6 +5446,25 @@
       "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py"
     ]
   },
+  "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": {
+    "reads": [
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step"
+    ]
+  },
   "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
     "reads": [
       "hardware/printed-parts/cadlib/world_workplane.py",
@@ -6484,6 +6503,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
       "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
       "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
       "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
@@ -6493,6 +6513,8 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
       "hardware/scripts/_bom_masses.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [],

@@ -24,7 +24,7 @@ from _cold_core_interface import (attachment_xy_positions, cap_cradles, deck_mou
 from _reed_channels import reeds_per_reservoir
 from docgen import load_module, substitute_md
 from reservoir import insert_positions_for_side_plus_1
-from faucet_shell import base_pod_centers
+from faucet_shell import base_pod_centers, display_cover_screw_s
 
 import manifold_layout as ml
 import _facts
@@ -188,6 +188,13 @@ reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
+# The faucet display's face plate: one station on the tip's centreline
+# above the device's north edge, so one insert in the shell and the one
+# M3 x 8 that threads it.
+faucet_display_cover_stations = ((0.0, display_cover_screw_s),)
+faucet_display_cover_inserts_per_build = len(faucet_display_cover_stations)
+faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
+
 # Electronics-shelf hardware (Zone B, assembly/power-column.md). The power column
 # bolts to `enclosure-back-top`'s +X wall: `enclosure_assembly.wall_mounts` stands ONE BOSS PER
 # HOLE in each body's own mounting pattern, and each boss is bored for a ruthex short.
@@ -262,7 +269,8 @@ assert not _display_stack, (
 # Every M3 × 8 in the build: the shelf's short ones, the condenser's aft pair, the nameplate's
 # and the display cover plate's.
 m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
-                  + nameplate_screws_per_build + display_cover_screws_per_build)
+                  + nameplate_screws_per_build + display_cover_screws_per_build
+                  + faucet_display_cover_screws_per_build)
 
 # And every M3 x 10: the ground-stack clamp's one, and the ceiling panel's two.
 m3x10_per_build = shelf_long_screws_per_build + ceiling_panel_screws_per_build
@@ -276,6 +284,7 @@ total_m3_inserts_per_build = (
     + cond_inserts_per_build
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
+    + faucet_display_cover_inserts_per_build
     + ceiling_panel_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
@@ -292,6 +301,7 @@ total_m3_screws_per_build = (
     + cond_screws_per_build
     + nameplate_screws_per_build
     + display_cover_screws_per_build
+    + faucet_display_cover_screws_per_build
     + ceiling_panel_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
@@ -334,6 +344,8 @@ def main():
         "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
         "TOUCHFLO_INSERTS": f"{touchflo_inserts_per_build:.4g}",
         "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
+        "FAUCET_DISPLAY_INSERTS": f"{faucet_display_cover_inserts_per_build:.4g}",
+        "FAUCET_DISPLAY_SCREWS": f"{faucet_display_cover_screws_per_build:.4g}",
         "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
         "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
@@ -404,6 +416,8 @@ def main():
             "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
             "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
             "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
+        "FAUCET_DISPLAY_INSERTS": f"{faucet_display_cover_inserts_per_build:.4g}",
+        "FAUCET_DISPLAY_SCREWS": f"{faucet_display_cover_screws_per_build:.4g}",
             "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
