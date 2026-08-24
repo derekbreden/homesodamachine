@@ -41,7 +41,10 @@
 //           distance (negative pushes in).
 //   enter   ms of travel INTO this beat. Omitted, it is read off how far the
 //           camera has to go.
-//   model   the STEP this beat is shown on, when that is not the one before.
+//   isolate the sub-assembly this beat and the ones after it show ALONE. Every
+//           body outside it goes out of the view, in place — no reload, no
+//           second model. `null` puts the machine back. It carries forward
+//           until another beat states one, the way a chapter does.
 //   overview  this beat is the whole run at once. It lights everything and is
 //           not counted as ground covered, so the trail behind the tour still
 //           means the legs it has actually walked.
@@ -58,29 +61,6 @@ export const TOUR = {
   title: "The water path",
   subtitle: "Tap to soda, end to end",
   model: "manifold-layout/enclosure-assembly.step",
-
-  // WHERE A SECOND MODEL STANDS IN THE FIRST ONE'S FRAME. The cold core is
-  // drawn in its own frame and seated in the machine at a quarter turn
-  // (enclosure_assembly.py FOAM_YAW), so a swap that did not turn it would land
-  // the core across the cabinet. `anchor` is the body in the incoming model
-  // that answers to `into` in the outgoing one; matching those two boxes after
-  // the turn is what puts the core back where the foam block stood, and the
-  // camera never has to move for the swap.
-  frames: {
-    "cold-core-layout/cold-core-assembly.step": {
-      yawDeg: 90,
-      anchor: ["foam-shell", "foam-cap-top", "foam-cap-bottom",
-               "foam-cap-lid-top", "foam-cap-lid-bottom"],
-      into: "foam-assembly",
-      // The seat, for the case where the enclosure is not on screen to be
-      // asked — a link straight into a cold-core beat, which is the ordinary
-      // way to come back to one while the words are still being written. The
-      // live body wins whenever the enclosure has been loaded, so this is a
-      // cold start's answer rather than a second source of truth. It is
-      // `foam-assembly` in manifold-layout/enclosure-assembly.facts.json.
-      intoBox: [-90.5, 178.0, 0.0, 90.5, 461.0, 305.6],
-    },
-  },
 
   // Everything the water touches, lit faintly for the whole tour so the leg on
   // screen is always read against the line it belongs to.
@@ -293,9 +273,9 @@ export const TOUR = {
     {
       chapter: "Inside the vessel",
       title: "The carbonator",
-      model: "cold-core-layout/cold-core-assembly.step",
+      isolate: "cold-core",
       body: "A 316L stainless tube, standing upright inside the foam.",
-      parts: ["carbonator-tube"],
+      parts: ["cold-core/carbonator-tube"],
       dir: [0.85, -0.9, 0.3],
       pad: 1.7,
       dwell: 5200,
@@ -305,7 +285,7 @@ export const TOUR = {
       chapter: "Inside the vessel",
       title: "Closed at both ends",
       body: "Welded end caps, with four NPT ports between them.",
-      parts: ["endcap-top", "endcap-bottom"],
+      parts: ["cold-core/endcap-top", "cold-core/endcap-bottom"],
       hold: true,
       drift: HOLD_DRIFT,
     },
@@ -313,7 +293,7 @@ export const TOUR = {
       chapter: "Inside the vessel",
       title: "Where the water lands",
       body: "The top plate's own elbow. This is where the 100 psi is spent.",
-      parts: ["carbonator-elbow-water-in", "collet-water-in", "line-water-in"],
+      parts: ["cold-core/carbonator-elbow-water-in", "cold-core/collet-water-in", "cold-core/line-water-in"],
       dir: [0.6, -0.95, 0.45],
       pad: 2.3,
       drift: { az: 8, el: -2, dolly: -0.06 },
@@ -324,7 +304,7 @@ export const TOUR = {
       chapter: "Making it soda",
       title: "Gas comes in low",
       body: "CO2 enters through the bottom plate, not the top.",
-      parts: ["carbonator-elbow-co2-in", "collet-co2-in", "line-co2-in"],
+      parts: ["cold-core/carbonator-elbow-co2-in", "cold-core/collet-co2-in", "cold-core/line-co2-in"],
       dir: [0.9, -0.7, 0.1],
       pad: 2.2,
       drift: { az: -8, el: 4, dolly: -0.06 },
@@ -333,7 +313,7 @@ export const TOUR = {
       chapter: "Making it soda",
       title: "Onto a stub",
       body: "Inside the vessel it turns onto a barb and a short silicone stub.",
-      parts: ["sparge-barb", "sparge-silicone-stub"],
+      parts: ["cold-core/sparge-barb", "cold-core/sparge-silicone-stub"],
       hold: true,
       drift: HOLD_DRIFT,
     },
@@ -342,7 +322,7 @@ export const TOUR = {
       title: "The sparge stone",
       body: "Hanging in the water column. The gas enters below the liquid and "
           + "dissolves on the way up.",
-      parts: ["sparge-stone"],
+      parts: ["cold-core/sparge-stone"],
       hold: true,
       dwell: 5200,
       drift: HOLD_DRIFT,
@@ -352,7 +332,7 @@ export const TOUR = {
       title: "The coil",
       body: "Wound on the outside and holding the water near freezing. Cold water "
           + "takes gas; warm water gives it back.",
-      parts: ["evap-coil"],
+      parts: ["cold-core/evap-coil"],
       dir: [0.95, -0.6, 0.25],
       pad: 1.5,
       dwell: 5600,
@@ -363,7 +343,7 @@ export const TOUR = {
       title: "Two temperatures",
       body: "One probe on the vessel wall, one on the coil. The compressor cycles "
           + "against them, with a freeze cutout.",
-      parts: ["probe-carbonator-ds18b20", "probe-coil-ds18s20"],
+      parts: ["cold-core/probe-carbonator-ds18b20", "cold-core/probe-coil-ds18s20"],
       hold: true,
       drift: HOLD_DRIFT,
     },
@@ -371,7 +351,7 @@ export const TOUR = {
       chapter: "Making it soda",
       title: "A magnet on the water",
       body: "A float rides a rod inside, at whatever level the water is.",
-      parts: ["float-carb", "float-rod-carb"],
+      parts: ["cold-core/float-carb", "cold-core/float-rod-carb"],
       dir: [0.55, -1.0, 0.2],
       pad: 2.1,
       drift: { az: 8, el: 2, dolly: -0.05 },
@@ -381,7 +361,7 @@ export const TOUR = {
       title: "Read through the wall",
       body: "Reed switches outside see it. The level is known without piercing the "
           + "vessel anywhere.",
-      parts: ["reed-carb-1", "reed-carb-2"],
+      parts: ["cold-core/reed-carb-1", "cold-core/reed-carb-2"],
       hold: true,
       drift: HOLD_DRIFT,
     },
@@ -389,7 +369,7 @@ export const TOUR = {
       chapter: "Making it soda",
       title: "The last word on pressure",
       body: "A relief valve on the top plate, on a port of its own.",
-      parts: ["prv-sv125", "prv-shroud"],
+      parts: ["cold-core/prv-sv125", "cold-core/prv-shroud"],
       dir: [0.4, -1.0, 0.5],
       pad: 2.1,
       drift: { az: 9, el: 3, dolly: -0.05 },
@@ -399,8 +379,8 @@ export const TOUR = {
       title: "Out of the bottom",
       body: "Carbonated water leaves from the floor of the vessel, where it is "
           + "coldest and least disturbed.",
-      parts: ["carbonator-elbow-carb-water-out", "collet-carb-water-out",
-              "line-carb-water-out"],
+      parts: ["cold-core/carbonator-elbow-carb-water-out", "cold-core/collet-carb-water-out",
+              "cold-core/line-carb-water-out"],
       dir: [0.5, -0.95, 0.12],
       pad: 2.2,
       drift: { az: 7, el: 4, dolly: -0.05 },
@@ -410,7 +390,7 @@ export const TOUR = {
     {
       chapter: "Up and out",
       title: "The climb",
-      model: "manifold-layout/enclosure-assembly.step",
+      isolate: null,
       body: "Back in the cabinet, 279 mm up the corridor.",
       parts: ["tube-carb-1"],
       dir: [-0.7, -0.75, 0.4],

@@ -29,7 +29,7 @@ import {
 } from "../viewer/scene.js";
 import { loadStepFile } from "../viewer/step.js";
 import { isXrayEnabled, setXrayEnabled } from "../viewer/xray.js";
-import { applyHiddenComponents } from "../viewer/component-picker.js";
+import { applyHiddenComponents, isolateComponent } from "../viewer/component-picker.js";
 import { boxOfParts, unionBoxes, poseFor, boxOfGroup } from "./frame.js";
 import { flight, tween, driftAt, durationFor, midHeading, toOrbit } from "./flight.js";
 import * as spotlight from "./spotlight.js";
@@ -90,6 +90,37 @@ const modelOf = (i) => {
   return TOUR.model;
 };
 
+// WHAT IS SHOWN ALONE AT THIS BEAT. Carried forward from the last beat that
+// stated one, the way `model` is — and `isolate: null` is a statement, so a
+// chapter can put the machine back.
+const isolateOf = (i) => {
+  for (let k = i; k >= 0; k--) if ("isolate" in STEPS[k]) return STEPS[k].isolate;
+  return null;
+};
+
+// The sub-assembly the view currently stands isolated to.
+let isolated = null;
+
+// A BEAT SHOWS ITS SUBJECT ALONE BY TAKING THE REST OF THE MACHINE OUT OF THE
+// VIEW, not by loading a second model. The bodies are already there; this only
+// decides which of them are drawn (component-picker.js isolateComponent).
+//
+// `persist: false` because a walkthrough must not edit the reader's own view:
+// the picker's hidden set is saved per file, and a beat that isolated the core
+// would otherwise leave 137 bodies missing from that model on /3d, with no
+// memory of hiding them.
+//
+// Applied as a move BEGINS rather than as it lands. The camera is already
+// travelling, so the change in what is drawn arrives under motion instead of
+// popping on arrival, and the shot flies INTO a subject that is already clear.
+function applyIsolate(i) {
+  const want = isolateOf(i);
+  if (want === isolated) return;
+  isolateComponent(want, { persist: false });
+  isolated = want;
+  spotlight.invalidate(); // the tiers are keyed by name, and names did not change
+}
+
 function seatBoxFor(file) {
   const spec = (TOUR.frames || {})[file];
   if (!spec) return null;
@@ -138,6 +169,7 @@ async function ensureModel(file) {
   state.mountedDetail = null;
   state.hiddenComponents.clear();
   try { applyHiddenComponents(); } catch {}
+  isolated = null; // the fresh mount is the whole machine
   loadedModel = file;
   seatGroup(file, state.currentGroup);
   spotlight.attach(state.currentGroup);
@@ -215,6 +247,7 @@ async function go(i, { instant = false } = {}) {
   // words, and the camera carries on drifting from exactly where it is. A
   // chapter is one move and then a few of these.
   if (!instant && STEPS[i].hold && want === loadedModel && loadedModel !== null) {
+    applyIsolate(i);
     moveTags = {
       fromBox: focusBox(idx), fromText: STEPS[idx].title,
       toBox: focusBox(i), toText: STEPS[i].title,
@@ -233,6 +266,7 @@ async function go(i, { instant = false } = {}) {
     await ensureModel(want);
     modelSpan = boxOfGroup(state.currentGroup).getSize(new THREE.Vector3()).length() || 400;
     idx = i;
+    applyIsolate(i);
     applyPose(poseOf(i));
     beginDwell();
     commit(i);
@@ -259,6 +293,7 @@ async function go(i, { instant = false } = {}) {
     return;
   }
 
+  applyIsolate(i);
   startFlight(i, livePose());
 }
 
