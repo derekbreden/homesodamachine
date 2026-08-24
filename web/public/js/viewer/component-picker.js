@@ -78,9 +78,9 @@ export function applyHiddenComponents() {
         // Hide a hidden component's feature edges too, or its wireframe keeps
         // obstructing the interior.
         const nm = m.userData.xrayComponent;
-        m.visible = !(nm && state.hiddenComponents.has(nm));
+        m.visible = !(nm && standsHidden(nm));
       } else if (m.isMesh) {
-        m.visible = !(m.name && state.hiddenComponents.has(m.name));
+        m.visible = !(m.name && standsHidden(m.name));
       }
     }
   }
@@ -98,6 +98,77 @@ const selEdgeMat = new THREE.LineBasicMaterial({ color: SEL, transparent: true, 
 selEdgeMat.depthWrite = false;
 const hoverEdgeMat = new THREE.LineBasicMaterial({ color: HOVER, transparent: true, opacity: 0.8, depthTest: false });
 hoverEdgeMat.depthWrite = false;
+
+// --- the tree a name spells ---------------------------------------------------
+//
+// A BODY IS NAMED FOR THE BRANCH IT HANGS ON. The appliance stands the cold core as a
+// sub-assembly, so its bodies arrive called `cold-core/evap-coil` — the STEP carries that
+// nesting, and the name carries it too because occt-import-js reports a component node as
+// childless and the tree would otherwise not survive the read. Grouping on the name is
+// therefore grouping on the model's own structure, not on a convention laid over it.
+//
+// An index is not a branch: `display/1` is the first solid of one body, which `bodyName` in
+// step.js has already taken off by the time a name reaches here.
+
+/** The sub-assemblies above `name`, outermost first. A body at the top has none. */
+export function heldBy(name) {
+  const parts = String(name || "").split("/");
+  return parts.slice(0, -1).map((_p, i) => parts.slice(0, i + 1).join("/"));
+}
+
+/** The body's own name, out of everything holding it. */
+export const leafOf = (name) => String(name || "").split("/").pop();
+
+/** Every body standing inside `group`, by name. */
+export function membersOf(group) {
+  const held = group + "/";
+  const out = new Set();
+  if (!state.currentGroup) return [];
+  for (const m of state.currentGroup.children) {
+    const nm = m.isMesh ? (m.name || (m.userData && m.userData.body)) : null;
+    if (nm && nm.startsWith(held)) out.add(nm);
+  }
+  return [...out].sort();
+}
+
+// ISOLATE A NODE, IN PLACE. Everything the machine holds that is not `name` or inside it goes
+// out of sight; `name` and its subtree stay. No reload, no second model, no swap — the bodies
+// are already loaded and this only decides which of them are drawn. `isolateComponent(null)`
+// puts everything back.
+//
+// This is what a walkthrough wants of a sub-assembly: show me the core, alone, where it stands
+// in the appliance. Hiding is by NAME and the tree is in the name, so a node's descendants come
+// out of the same set every hand-hidden body does — one mechanism, not two.
+// `persist` is what separates a PERSON isolating a node from a SCRIPT doing it. The hidden set
+// is saved per file under `step-hidden:<file>`, and that saved set is the reader's own view of
+// their own model: a walkthrough that isolates the core and is closed mid-chapter must not
+// leave them opening the appliance later with 137 bodies gone and no memory of hiding them.
+// So a scripted caller passes `{persist: false}` — the view changes for this session and the
+// stored set is neither written nor cleared, which also makes `isolateComponent(null, …)` a
+// restore to "nothing hidden" that gives them their own saved view back on the next load.
+export function isolateComponent(name, { persist = true } = {}) {
+  if (!name) {
+    state.hiddenComponents = new Set();
+  } else {
+    const held = name + "/";
+    const tops = new Set();
+    for (const m of (state.currentGroup ? state.currentGroup.children : [])) {
+      const nm = m.isMesh ? (m.name || (m.userData && m.userData.body)) : null;
+      if (!nm || nm === name || nm.startsWith(held)) continue;
+      // The outermost node that is not the one being isolated, so 62 bodies go out as one name.
+      tops.add(heldBy(nm)[0] || nm);
+    }
+    state.hiddenComponents = tops;
+  }
+  if (persist) persistHidden();
+  applyHiddenComponents();
+}
+
+/** Whether `name` is hidden outright or stands inside something that is. *//** Whether `name` is hidden outright or stands inside something that is. */
+function standsHidden(name) {
+  if (state.hiddenComponents.has(name)) return true;
+  return heldBy(name).some((held) => state.hiddenComponents.has(held));
+}
 
 // One overlay Group per role so we can rebuild each independently.
 const selGroup = new THREE.Group(); selGroup.renderOrder = 994; overlay.add(selGroup);
@@ -118,8 +189,11 @@ function drawOverlay(g, name, color, edgeMat, shellOpacity) {
   disposeGroup(g);
   if (!name || !state.currentGroup) return;
   const seen = new Set();
+  // A sub-assembly lights up as the whole of what it holds.
+  const held = name + "/";
+  const wanted = (nm) => nm === name || nm.startsWith(held);
   for (const mesh of state.currentGroup.children) {
-    if (!mesh.isMesh || mesh.name !== name || mesh.visible === false || seen.has(mesh.geometry)) continue;
+    if (!mesh.isMesh || !wanted(mesh.name) || mesh.visible === false || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry);
     g.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG), edgeMat));
     const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
@@ -240,6 +314,11 @@ function buildPanel() {
 
   panel.appendChild(actions);
 
+  const holds = document.createElement("div");
+  holds.className = "component-holds";
+  panel.appendChild(holds);
+  panel._holds = holds;
+
   const hidden = document.createElement("div");
   hidden.className = "component-hidden";
   panel.appendChild(hidden);
@@ -259,15 +338,44 @@ function showPanel() {
   if (state.currentCadWrapper && panel.parentElement !== state.currentCadWrapper) {
     state.currentCadWrapper.appendChild(panel);
   }
-  // Selected component row. Nothing selected — the panel is up for the hidden
-  // list — and the head carries its title alone.
-  panel._nameEl.textContent = selection || "";
+  // THE NAME IS A PATH AND THE ROW IS THAT PATH, WALKABLE. `cold-core / evap-coil` reads as
+  // the coil inside the core; the `cold-core` step takes the whole sub-assembly, which lights
+  // up together and hides together. A body at the top of the machine has one step and reads
+  // exactly as it always did.
+  panel._nameEl.textContent = "";
   panel._nameEl.title = selection || "";
+  const inside = membersOf(selection || "");
+  if (selection) {
+    heldBy(selection).forEach((held) => {
+      const step = document.createElement("button");
+      step.type = "button";
+      step.className = "component-held-step";
+      step.textContent = leafOf(held);
+      step.title = `Take the whole of ${held}`;
+      step.addEventListener("click", () => selectComponent(held));
+      panel._nameEl.appendChild(step);
+      const sep = document.createElement("span");
+      sep.className = "component-held-sep";
+      sep.textContent = "/";
+      panel._nameEl.appendChild(sep);
+    });
+    const here = document.createElement("span");
+    here.className = "component-held-here";
+    here.textContent = leafOf(selection);
+    panel._nameEl.appendChild(here);
+    if (inside.length) {
+      const count = document.createElement("span");
+      count.className = "component-held-count";
+      count.textContent = `${inside.length} inside`;
+      panel._nameEl.appendChild(count);
+    }
+  }
   panel._close.style.display = selection ? "" : "none";
-  const already = selection && state.hiddenComponents.has(selection);
+  const already = selection && standsHidden(selection);
   panel._hideBtn.style.display = selection ? "block" : "none";
   panel._hideBtn.disabled = !!already;
-  panel._hideBtn.textContent = already ? "Already hidden" : "Hide component";
+  panel._hideBtn.textContent = already ? "Already hidden"
+    : inside.length ? `Hide ${leafOf(selection)} (${inside.length})` : "Hide component";
 
   // The assembly builds its own tubing and valve bodies, and there is nowhere
   // to go from one of those — so the offer is only on screen when it leads
@@ -283,6 +391,27 @@ function showPanel() {
   panel._openBtn.textContent = goes && stemOf(goes) !== selection
     ? `Open ${stemOf(goes)}` : "Open part";
   panel._openBtn.title = goes ? `Open ${goes}` : "";
+
+  // WHAT STANDS INSIDE IT. Picking the core in the appliance is picking one thing; this is
+  // how the 62 it holds are reached without hunting for them in the model. Nothing here is
+  // hidden by the listing — every one of them is drawn, and this only says where they are.
+  const holds = panel._holds;
+  holds.textContent = "";
+  if (inside.length) {
+    const head = document.createElement("div");
+    head.className = "component-holds-head";
+    head.textContent = `${leafOf(selection)} holds ${inside.length}`;
+    holds.appendChild(head);
+    for (const name of inside) {
+      const row = document.createElement("button");
+      row.type = "button";
+      row.className = "component-holds-row";
+      row.textContent = leafOf(name);
+      row.title = name;
+      row.addEventListener("click", () => selectComponent(name));
+      holds.appendChild(row);
+    }
+  }
 
   // Hidden list.
   const hidden = panel._hidden;

@@ -112,15 +112,15 @@ def _split_placed(a) -> tuple:
     # The reading that costs is the one saved: `pack-closes` and `clearance-floor` are exact
     # all-pairs booleans, and the core's 62 bodies would take the pack from 138 to 199 and the
     # pairs it answers from nine thousand to twenty.
+    import manifold_layout as ml
+
     inside = getattr(a, "core_body_names", frozenset())
-    for c in a.children:
-        if c.name in inside:
+    for name, solid, _colour in ml.placed_leaves(a):
+        if name in inside:
             continue
-        solid = (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-            cq.Location(c.loc.wrapped.Transformation()))
-        target = (pieces if c.name.startswith("enclosure-")
-                  else tubes if c.name.startswith(TUBE_PREFIXES) else bodies)
-        target[c.name] = solid
+        target = (pieces if name.startswith("enclosure-")
+                  else tubes if name.startswith(TUBE_PREFIXES) else bodies)
+        target[name] = solid
     if getattr(a, "core_envelope", None) is not None:
         bodies["foam-assembly"] = a.core_envelope
     _placed_cache[id(a)] = (a, (bodies, tubes, pieces))    # pin `a` so its id stays its own

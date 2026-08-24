@@ -131,7 +131,8 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "ceiling-panel"):
     sys.path.insert(0, str(_p))
-from _cadq_export import export_assembly, export_dxf, import_step  # noqa: E402
+from _cadq_export import (SOLID_INDEX_SEP, export_assembly, export_dxf,  # noqa: E402
+                          import_step)
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
@@ -718,6 +719,15 @@ def build_foam(front_y: float):
                      cx=0.0, y0=front_y, z0=0.0)
 
 
+#: THE SUB-ASSEMBLY THE CORE'S BODIES STAND IN. The machine exports them under this name and
+#: the separator a solid index already uses, so `cold-core/evap-coil` is the coil of the core
+#: and `cold-core/evap-coil/2` is that body's second solid. Nothing in the tree has to be told:
+#: `bodyName` in the viewer, `_SOLID_INDEX_RE` in `_cadq_export` and `_LEAF_NAME` in
+#: `render_scenes` all take an index off by asking for DIGITS, so what is left is a name that
+#: says what holds it. That is the whole of the containment — one string, read by everything
+#: that already reads names, and carried alike by both routes the viewer loads a model through.
+CORE = "cold-core"
+
 #: The core's own bodies are the same for every machine that seats the core alike, and building
 #: them costs about six seconds, so one placement is built once.
 _CORE_BODIES: dict = {}
@@ -735,7 +745,8 @@ def core_bodies(carry):
     283.0 x 181.0, and every clearance in the pack is struck off the foam's faces."""
     key = repr(carry.where.toTuple())
     if key not in _CORE_BODIES:
-        _CORE_BODIES[key] = [(c.name, c.obj.moved(carry.where), c.color)
+        _CORE_BODIES[key] = [(f"{CORE}{SOLID_INDEX_SEP}{c.name}",
+                              c.obj.moved(carry.where), c.color)
                              for c in _cca.build_assembly().children]
     return _CORE_BODIES[key]
 
@@ -5828,20 +5839,28 @@ def build_pack() -> cq.Assembly:
         box(foam).ymin,
         [("compressor", box(comp).ymax), ("condenser+fan", box(cond).ymax)]
         + [(n, box(s).ymax) for n, s, _c in stood if box(s).zmin < top])
-    # THE CORE STANDS IN THE MACHINE AS ITS OWN BODIES, so opening the appliance is how the
-    # vessel, the coil, both reservoirs, every fitting and the lines among them are reached —
-    # and a pick lands on the one it is over rather than on the block they are all inside.
+    # THE CORE STANDS IN THE MACHINE AS ONE NODE, and its own bodies stand inside that node.
+    # Opening the appliance reaches the carbonator, the coil, both reservoirs, every fitting and
+    # the lines among them; each is picked where it is, and the core is taken in one where a
+    # reader wants the whole of it. That is a real sub-assembly: the STEP carries the nesting,
+    # `_placed` in `_mesh_payload` descends it, and every pass over this machine descends it too.
     #
-    # FLAT, as siblings of the machine's own. Every pass over `a.children` reads one level and
-    # moves `c.obj`, and a nested node carries no solid to move.
+    # THE NAME SAYS IT AS WELL, because one reader cannot see it. occt-import-js 0.0.23 — the
+    # STEP reader the viewer runs — reports a component node as childless, so the tree reaches
+    # the page flattened whatever the file holds. It carries NAMES faithfully, so `core_bodies`
+    # composes the node into each one and the structure survives the flattening. Both of the
+    # viewer's routes then say the same thing, which is the contract `_mesh_payload`'s selftest
+    # holds them to.
     #
-    # THE ENVELOPE IS NOT ONE OF THEM. `solids["foam-assembly"]` below still holds it, and it is
+    # THE ENVELOPE IS NOT INSIDE IT. `solids["foam-assembly"]` below still holds it, and it is
     # what every port, station, line-route and geometry gate measures against; but a body cannot
     # be exported beside the bodies it is the outside of without sharing volume with all of them.
     a.core_envelope = foam
-    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry))
+    core = cq.Assembly(name=CORE)
     for _name, _solid, _colour in core_bodies(foam_carry):
-        a.add(_solid, name=_name, color=_colour)
+        core.add(_solid, name=_name, color=_colour)
+    a.add(core, name=CORE)
+    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry))
     # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
     # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
     # wall — both struck on the core's own faces here, and grown by `enclosure._core_stops` /
@@ -6086,10 +6105,9 @@ def _solids(a: cq.Assembly):
 
     What reads the bodies themselves is the STEP, and `manifold_layout.clashes`, which walks
     `a.children` because a solid nobody can see is still a solid in the way."""
-    world = lambda c: (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-        cq.Location(c.loc.wrapped.Transformation()))
     inside = getattr(a, "core_body_names", frozenset())
-    out = {c.name: (world(c), c.color) for c in a.children if c.name not in inside}
+    out = {name: (shape, colour) for name, shape, colour in ml.placed_leaves(a)
+           if name not in inside}
     if getattr(a, "core_envelope", None) is not None:
         out["foam-assembly"] = (a.core_envelope, C_FOAM)
     return out
@@ -6100,11 +6118,15 @@ def _core_solids(a: cq.Assembly):
 
     `_solids` reads the pack, where the core is one envelope. This is its complement: the bodies
     the STEP carries, already placed, for a reader that wants the core where the machine puts it
-    rather than the block it fills. Together the two are every child of the assembly."""
+    rather than the block it fills. Together the two are every child of the assembly.
+
+    UNDER THE CORE'S OWN NAMES. The STEP stands them in a `cold-core/` sub-assembly so a reader
+    of the appliance can take the core in one, but that prefix is the machine's way of saying
+    what holds them. The core's card, its payload and the scene tables all speak the plain
+    names, and so does this."""
     inside = getattr(a, "core_body_names", frozenset())
-    return {c.name: ((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
-        cq.Location(c.loc.wrapped.Transformation())), c.color)
-        for c in a.children if c.name in inside}
+    return {name: (shape, colour) for name, shape, colour in ml.placed_leaves(a)
+            if name in inside}
 
 
 # Bodies seated THROUGH a wall rather than standing inside it. Each one takes a hole in the skin

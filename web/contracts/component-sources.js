@@ -145,9 +145,20 @@ function stem(path) {
 // `stepPaths` is state.allFiles: an alias still has to name a file that is
 // really there, so a part deleted out from under the table reads as null
 // rather than as a link to a 404.
+// A BODY INSIDE A SUB-ASSEMBLY IS STILL THE BODY IT IS. The appliance stands the cold core's
+// bodies under `cold-core/<name>`, which says what holds them and changes nothing about what
+// each one was modelled in — so the name is asked for whole first, and then by its leaf.
+// The body's own name, out of the sub-assembly that holds it. `cold-core/evap-coil` is the
+// core's coil; a name with no slash in it is its own leaf.
+export const leafOf = (name) => String(name || "").slice(String(name || "").lastIndexOf("/") + 1);
+
 export function sourceFileFor(name, stepPaths) {
   if (!name || !Array.isArray(stepPaths)) return null;
-  const alias = ALIASES[name];
-  if (alias) return stepPaths.includes(alias) ? alias : null;
-  return stepPaths.find((p) => stem(p) === name) || null;
+  for (const key of [name, leafOf(name)]) {
+    const alias = ALIASES[key];
+    if (alias) return stepPaths.includes(alias) ? alias : null;
+    const hit = stepPaths.find((p) => stem(p) === key);
+    if (hit) return hit;
+  }
+  return null;
 }

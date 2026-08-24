@@ -565,7 +565,10 @@ def _payload_geometry(path):
             raise ValueError(f"{path}: mesh leaf {number} is not an object")
         name = held.get("name")
         leaf = _LEAF_NAME.fullmatch(name) if isinstance(name, str) else None
-        if not name or leaf is None or "/" in leaf.group(1):
+        # `_LEAF_NAME` already takes a trailing `/<index>` off, so what is left is the body's
+        # own name — `cold-core/evap-coil` included. A slash there names the sub-assembly the
+        # body stands in, which is a body's name and not a malformed one.
+        if not name or leaf is None:
             raise ValueError(f"{path}: mesh leaf {number} has an invalid name")
         if name in leaf_names:
             raise ValueError(f"{path}: duplicate mesh leaf {name!r}")
@@ -687,13 +690,20 @@ def _linear_rgba(color):
 
 
 def _assembly_rgba(assembly):
-    """Every named body colour in a live flat assembly."""
+    """Every named body colour in a live assembly, however deep it nests.
+
+    A SUB-ASSEMBLY HAS NO COLOUR AND OWES NONE. `cold-core` is a node the machine holds and not
+    a body anybody draws, so what carries a colour is the leaves inside it. Reading `children`
+    one level deep would ask the node for a colour it is right not to have, and would miss the
+    62 that do."""
+    import manifold_layout as ml
+
     out = {}
-    for child in assembly.children:
-        if child.color is None:
-            raise ValueError(f"{child.name!r}: scene body has no colour")
-        name = _body_name(child.name)
-        rgba = _linear_rgba(child.color)
+    for child_name, _shape, colour in ml.placed_leaves(assembly):
+        if colour is None:
+            raise ValueError(f"{child_name!r}: scene body has no colour")
+        name = _body_name(child_name)
+        rgba = _linear_rgba(colour)
         if name in out and out[name] != rgba:
             raise ValueError(f"{name!r}: its solids carry different scene colours")
         out[name] = rgba
@@ -756,7 +766,11 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
     exact_materials = {}
     missing = []
     for name in names:
-        inside = name in inner
+        # THE MACHINE CARRIES THE CORE NOW, so a body of it is in the appliance's own payload,
+        # under the name the appliance holds it by, already stood where the appliance stands it.
+        # The core's own payload is the fallback and the contract read above still holds it to
+        # its card — but a scene draws one model, and the transform it needs is the outer one.
+        inside = name in inner and name not in outer
         entries = (core if inside else outer).get(name)
         if not entries:
             missing.append(name)
