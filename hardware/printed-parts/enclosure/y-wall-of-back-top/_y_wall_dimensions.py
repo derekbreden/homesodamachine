@@ -79,7 +79,7 @@ def chip_color(fluid):
     `port_colors` is the SCHEME: what blue means on this wall, and the neoFlo
     LLDPE the customer's tube is cut off. A chip printed to match one is Bambu
     PETG Basic, a different product answering to the same name, and the two are
-    a few points apart. `enclosure_assembly.build_port_rings` draws the chip
+    a few points apart. `enclosure_assembly.build_bulkhead_rings` draws the chip
     from here and the drawings paint the scheme from `port_colors`."""
     return chip_filaments[fluid][1]
 

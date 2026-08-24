@@ -360,20 +360,20 @@ MOUNTS = (
     # holds it is that pocket: the same bargain the lever nuts strike in their wells, with a placed
     # body's flange over the mouth. The three on the top row are fenced on three sides and open at
     # the ceiling, which `enclosure_assembly.check_top_row` is what reads.
-    ("port-ring-water", "enclosure-back-top", "well"),
-    ("port-ring-carb", "enclosure-back-top", "well"),
-    ("port-ring-co2", "enclosure-back-top", "well"),
-    ("port-ring-flavor-a", "enclosure-back-top", "well"),
-    ("port-ring-flavor-b", "enclosure-back-top", "well"),
+    ("bulkhead-ring-water", "enclosure-back-top", "well"),
+    ("bulkhead-ring-carb", "enclosure-back-top", "well"),
+    ("bulkhead-ring-co2", "enclosure-back-top", "well"),
+    ("bulkhead-ring-flavor-a", "enclosure-back-top", "well"),
+    ("bulkhead-ring-flavor-b", "enclosure-back-top", "well"),
     # AND THE WORD LIES IN A RECESS OF THE CHIP, by the same bargain one step in. A two-colour
     # print is ONE part in two materials: `bulkhead_ring.build_ring` cuts the recess and
     # `bulkhead_ring.build_word` fills it in the same layers, so nothing joins the pair but the print
     # that lays them both. `RIDES` is what keeps this from counting as a second joint.
-    ("port-ring-water-word", "port-ring-water", "well"),
-    ("port-ring-carb-word", "port-ring-carb", "well"),
-    ("port-ring-co2-word", "port-ring-co2", "well"),
-    ("port-ring-flavor-a-word", "port-ring-flavor-a", "well"),
-    ("port-ring-flavor-b-word", "port-ring-flavor-b", "well"),
+    ("bulkhead-ring-water-word", "bulkhead-ring-water", "well"),
+    ("bulkhead-ring-carb-word", "bulkhead-ring-carb", "well"),
+    ("bulkhead-ring-co2-word", "bulkhead-ring-co2", "well"),
+    ("bulkhead-ring-flavor-a-word", "bulkhead-ring-flavor-a", "well"),
+    ("bulkhead-ring-flavor-b-word", "bulkhead-ring-flavor-b", "well"),
     # AND THE NAMEPLATE LIES IN A POCKET OF THAT SAME WALL, by the same bargain with one
     # difference: nothing places a flange over it, so two M3 cap screws do what a fitting's nut
     # does for a chip. Each lands in a counterbore sunk into the plate's own local thickening and
@@ -433,7 +433,7 @@ RIDES = {
     **{f"coil-v-{v}": f"valve-v-{v}" for v in "abcdefghij"},
     **{f"pump-{p}-{part}": f"pump-{p}-head"
        for p in ("a", "b") for part in ("boss", "motor")},
-    **{f"port-ring-{w}-word": f"port-ring-{w}"
+    **{f"bulkhead-ring-{w}-word": f"bulkhead-ring-{w}"
        for w in ("water", "carb", "co2", "flavor-a", "flavor-b")},
     "nameplate-ink": "nameplate",
 }
@@ -719,15 +719,15 @@ TOUCHING_OK = {frozenset(p) for p in (
     # `enclosure_assembly.bulkhead_seat_y` is that plane, and the nut on the far side of the wall
     # draws flange, ring and wall into one stack — so the pair reads 0 and it is the clamp
     # holding.
-    ("bulkhead-water", "port-ring-water"),
-    ("bulkhead-carb", "port-ring-carb"),
-    ("co2-inlet", "port-ring-co2"),
-    ("bulkhead-flavor-a", "port-ring-flavor-a"),
-    ("bulkhead-flavor-b", "port-ring-flavor-b"),
+    ("bulkhead-water", "bulkhead-ring-water"),
+    ("bulkhead-carb", "bulkhead-ring-carb"),
+    ("co2-inlet", "bulkhead-ring-co2"),
+    ("bulkhead-flavor-a", "bulkhead-ring-flavor-a"),
+    ("bulkhead-flavor-b", "bulkhead-ring-flavor-b"),
     # AND THE WORD AGAINST THE CHIP IT IS LETTERED INTO. The recess is cut to the word and the
     # word fills it, so the pair reads 0 across the whole of its back and every flank — which is
     # not two bodies closing on each other but one printed part in two colours.
-    *((f"port-ring-{w}", f"port-ring-{w}-word")
+    *((f"bulkhead-ring-{w}", f"bulkhead-ring-{w}-word")
       for w in ("water", "carb", "co2", "flavor-a", "flavor-b")),
     # And the nameplate's lettering against the plate it is lettered into, the same print in the
     # same two filaments at another size.
