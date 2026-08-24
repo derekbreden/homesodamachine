@@ -292,8 +292,19 @@ def render_build(only: str = None) -> tuple:
         # A solid the run cuts is only ever handed back. Atomic writers often open an old copy
         # solely to avoid replacing equal bytes; that optional comparison must not make a new
         # output into a required source. Whole rewritten PNG/JSON outputs are the same case.
+        #
+        # A PAYLOAD BESIDE A SOLID THIS STEP CUTS IS THAT SAME COMPARISON. `_write_payload_beside`
+        # stats `<solid>.step.mesh` to decide whether the bytes it holds were made from the STEP
+        # about to be written, so every exporter reads the payload of everything it exports —
+        # including payloads a sibling step writes. Read as an edge, that points a producer at
+        # its own consumer. The payload is derived from the STEP and from nothing else, so a
+        # step that cuts the STEP owes the payload no dependency; one that does not cut it is
+        # reading somebody's output and keeps the edge.
+        probes = {r for r in made["reads"]
+                  if r.endswith(".step.mesh") and r[:-len(".mesh")] in set(made["solids"])}
         srcs = ((set(made["reads"]) | set(made["docs"]) | set(gens))
                 - set(made["solids"])
+                - probes
                 - {d for d in made["docs"] if d.endswith((".png", ".json"))}
                 - BAZEL_SKIPPED_READS)
         srcs = sorted(s for s in srcs if s in held)
