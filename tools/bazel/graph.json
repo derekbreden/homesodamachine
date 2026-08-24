@@ -5455,9 +5455,8 @@
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
       "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
       "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
@@ -5481,9 +5480,8 @@
       "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
       "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
       "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py"
     ]

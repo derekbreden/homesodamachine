@@ -3135,9 +3135,8 @@ genrule(
     ),
     outs = [
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
-        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
-        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
-        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py",
@@ -3150,17 +3149,16 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf)
-O1=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step)
-O2=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step)
-O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step)
-O4=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
-O5=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
-O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
-O7=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
-O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
-O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
-O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
-O11=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
+O1=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step)
+O2=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step)
+O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
+O4=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
+O5=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
+O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
+O7=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
+O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
+O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
+O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3179,17 +3177,16 @@ D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
 cp hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf $$O0
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step $$O1
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step $$O2
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step $$O3
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O4
-cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O5
-cp hardware/printed-parts/faucet/_faucet_interface.py $$O6
-cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O7
-cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O8
-cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O9
-cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O10
-cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O11
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step $$O1
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step $$O2
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O3
+cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O4
+cp hardware/printed-parts/faucet/_faucet_interface.py $$O5
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O6
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O7
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O8
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O9
+cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O10
 """,
 )
 
@@ -7550,9 +7547,9 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
         ":out/above-counter-plate/hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
-        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-bottom.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-middle.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-top.step",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",

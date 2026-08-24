@@ -129,10 +129,9 @@ PARTS = {
     # (`enclosure._valve_trays`), which are `enclosure-front-top`'s own material. So a valve's
     # seat is priced as part of the piece that carries it, and nothing stands under one that
     # ships on its own.
-    "Faucet shell (3-piece: bottom + middle + top)": [
-        "faucet/faucet-shell/faucet-shell-bottom.step",
-        "faucet/faucet-shell/faucet-shell-middle.step",
-        "faucet/faucet-shell/faucet-shell-top.step",
+    "Faucet shell (2-piece: base + tip)": [
+        "faucet/faucet-shell/faucet-shell-base.step",
+        "faucet/faucet-shell/faucet-shell-tip.step",
     ],
     "Above-counter plate": ["faucet/above-counter-plate/above-counter-plate.step"],
 }

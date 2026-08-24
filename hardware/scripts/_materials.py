@@ -48,7 +48,7 @@ M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead 
 M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # Polymaker Fiberon PET-GF15 black, the stock every surface a customer sees prints in
 # (`ledger/bom.md` §7): the four quadrants, the pump cartridge and the cap under it, the ceiling
-# panel, the display cover plate, the faucet shell's three pieces and the above-counter plate.
+# panel, the display cover plate, the faucet shell's two pieces and the above-counter plate.
 # Glass fill stands it a shade above the PETG black it closes on, and matte beside the donor's
 # matte-black metal.
 M_PETGF_BLACK = cq.Color(0.20, 0.20, 0.21)
@@ -173,7 +173,7 @@ C_PUMP_MOTOR = cq.Color(0.74, 0.76, 0.80)
 
 # --- the faucet's own bodies ---------------------------------------------------
 # `faucet-layout/faucet_assembly` stands these and the touch-flo generators cut them. The shell's
-# three pieces and the above-counter plate come off `M_PETGF_BLACK`, the same spool the box's
+# two pieces and the above-counter plate come off `M_PETGF_BLACK`, the same spool the box's
 # exterior does, so the two stand in one colour across the countertop between them.
 C_FAUCET_BLACK = M_PETGF_BLACK
 # The Westbrass A2031-NL-62 / R2031-NL-62 donor body inside that shell, which the BOM buys in

@@ -304,79 +304,56 @@ gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
 
 
-# SPLITS — the shell prints in THREE pieces, mating at two 20 mm slip-fit
-# joints along the gooseneck:
-#   SPLIT A: angled-gooseneck ↔ upper-bend, at end of mid-straight / start
-#     of bend 2. Mating faces perpendicular to the gooseneck tangent.
-#   SPLIT B: upper-bend ↔ dispense-tip, at end of bend 2 / start of tip.
-#     Bend 2 is a [110°](GN_BEND2_SWEEP_DEG) arc at R=gn_bend2_r; the 20 mm overlap
-#     follows the arc.
+# SPLIT — the shell prints in TWO pieces, meeting at one 20 mm slip-fit
+# joint on bend 2, at half the gooseneck's total turn. Each piece then
+# carries [70°](SPLIT_JUNCTION_ROT) of turn and prints with its build direction on its own
+# half's angular midpoint, so the steepest overhang either piece can
+# reach is a quarter of the total turn (PRINTING section). The joint's
+# mating surfaces follow the arc: the tip swings shut about the bend-2
+# axis.
 # Fit: the plug's outer surface sits slip/2 inside the socket's cavity
 # surface, all the way around the cross-section.
 
-# Per-joint, per-side overlap depth (mm along gooseneck / arc), socket wall
-# (mm), and diametral slip (mm), mapped onto `shrink`s (inward offsets of
-# the outer cross-section):
+_path_total_rot = gn_bend1_sweep_rad + gn_bend2_sweep_rad  # [140°](GN_TOTAL_ROT) at the tip
+split_junction_rot = _path_total_rot / 2.0  # [70°](SPLIT_JUNCTION_ROT)
+
+# Per-side overlap depth (mm of arc), socket wall (mm), and diametral
+# slip (mm), mapped onto `shrink`s (inward offsets of the outer
+# cross-section):
 #   socket shrink = socket_wall
 #   plug   shrink = socket_shrink + slip / 2
-split_a_socket_overlap_len = 20.0
-split_a_plug_overlap_len = 19.0
-split_a_socket_wall = 2.0
-split_a_slip = 0.25
+split_socket_overlap_len = 20.0
+split_plug_overlap_len = 18.0
+split_socket_wall = 2.0
+split_slip = 0.30
 
-split_b_socket_overlap_len = 20.0
-split_b_plug_overlap_len = 18.0
-split_b_socket_wall = 2.0
-split_b_slip = 0.30
-
-split_a_socket_shrink = split_a_socket_wall
-split_a_plug_shrink = split_a_socket_shrink + split_a_slip / 2.0
-split_b_socket_shrink = split_b_socket_wall
-split_b_plug_shrink = split_b_socket_shrink + split_b_slip / 2.0
-
-# Mid-straight tangent in path-local (a, b) — points up the gooseneck toward bend 2.
-_mid_tan_yz = (math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
-
-# SPLIT A cutting-plane normal in world (X, Y, Z), perpendicular to the tangent.
-split_normal = (0.0, -_mid_tan_yz[0], _mid_tan_yz[1])
-
-# End of mid-straight (= SPLIT A junction) in world coords.
-_bend1_end_yz = (
-    gn_bend1_r * (1.0 - math.cos(gn_bend1_sweep_rad)),
-    (gn_bend1_z_start - zone5_z_top) + gn_bend1_r * math.sin(gn_bend1_sweep_rad),
-)
-split_junction_y = soda_faucet_tube_y - _bend1_end_yz[0] - gn_mid_straight_len * _mid_tan_yz[0]
-split_junction_z = zone5_z_top + _bend1_end_yz[1] + gn_mid_straight_len * _mid_tan_yz[1]
-
-# Bottom of SPLIT A's overlap zone, per side (socket = female cavity;
-# plug = male tongue), at asymmetric depths.
-split_a_socket_overlap_y = split_junction_y + split_a_socket_overlap_len * _mid_tan_yz[0]
-split_a_socket_overlap_z = split_junction_z - split_a_socket_overlap_len * _mid_tan_yz[1]
-split_a_plug_overlap_y = split_junction_y + split_a_plug_overlap_len * _mid_tan_yz[0]
-split_a_plug_overlap_z = split_junction_z - split_a_plug_overlap_len * _mid_tan_yz[1]
+split_socket_shrink = split_socket_wall
+split_plug_shrink = split_socket_shrink + split_slip / 2.0
 
 
-# SPLIT B geometry — bend↔tip joint.
+# SPLIT geometry.
 #
 # All `_path_*` constants below are in path-local 2D coords: local axes
 # (a, b) map to world (-Y, +Z); X=0, origin at world (0, soda_faucet_tube_y,
 # zone5_z_top).
 
-# Bend-2 sub-arc covering the last overlap_len mm of bend 2 — separate
-# arcs for the female socket and the male plug.
-split_b_socket_angle_rad = split_b_socket_overlap_len / gn_bend2_r
-split_b_plug_angle_rad = split_b_plug_overlap_len / gn_bend2_r
+# Bend-2 sub-arcs covering the last overlap_len mm of arc before the
+# junction — separate arcs for the female socket and the male plug.
+split_socket_angle_rad = split_socket_overlap_len / gn_bend2_r
+split_plug_angle_rad = split_plug_overlap_len / gn_bend2_r
 
 # Cumulative path rotations from the +Z origin tangent.
-_path_total_rot = gn_bend1_sweep_rad + gn_bend2_sweep_rad  # rotation at end of bend 2
-_path_socket_start_rot = _path_total_rot - split_b_socket_angle_rad
-_path_socket_mid_rot = _path_total_rot - split_b_socket_angle_rad / 2.0
-_path_plug_start_rot = _path_total_rot - split_b_plug_angle_rad
-_path_plug_mid_rot = _path_total_rot - split_b_plug_angle_rad / 2.0
+_path_socket_start_rot = split_junction_rot - split_socket_angle_rad
+_path_socket_mid_rot = split_junction_rot - split_socket_angle_rad / 2.0
+_path_plug_start_rot = split_junction_rot - split_plug_angle_rad
+_path_plug_mid_rot = split_junction_rot - split_plug_angle_rad / 2.0
 
 # Tangent unit-vectors in path-local (a, b).
 _tan_after_bend1 = (math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
 _tan_after_bend2 = (math.sin(_path_total_rot), math.cos(_path_total_rot))
+_tan_at_junction = (
+    math.sin(split_junction_rot), math.cos(split_junction_rot),
+)
 _tan_at_socket_start = (
     math.sin(_path_socket_start_rot), math.cos(_path_socket_start_rot),
 )
@@ -390,7 +367,7 @@ _path_p2 = (  # end of bend 1 / start of mid-straight
     gn_bend1_r * (1.0 - math.cos(gn_bend1_sweep_rad)),
     _path_z_lift + gn_bend1_r * math.sin(gn_bend1_sweep_rad),
 )
-_path_p3 = (  # end of mid-straight / start of bend 2 (= SPLIT A junction)
+_path_p3 = (  # end of mid-straight / start of bend 2
     _path_p2[0] + gn_mid_straight_len * _tan_after_bend1[0],
     _path_p2[1] + gn_mid_straight_len * _tan_after_bend1[1],
 )
@@ -399,38 +376,55 @@ _path_center_bend2 = (
     _path_p3[0] + gn_bend2_r * math.cos(gn_bend1_sweep_rad),
     _path_p3[1] - gn_bend2_r * math.sin(gn_bend1_sweep_rad),
 )
-_path_p4 = (  # end of bend 2 / start of tip (= SPLIT B junction)
-    _path_center_bend2[0] - gn_bend2_r * math.cos(_path_total_rot),
-    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_total_rot),
-)
-_path_socket_start = (  # bend-2 point split_b_socket_overlap_len arc-length before p4
-    _path_center_bend2[0] - gn_bend2_r * math.cos(_path_socket_start_rot),
-    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_socket_start_rot),
-)
-_path_socket_mid = (  # midpoint of the female socket sub-arc
-    _path_center_bend2[0] - gn_bend2_r * math.cos(_path_socket_mid_rot),
-    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_socket_mid_rot),
-)
-_path_plug_start = (  # bend-2 point split_b_plug_overlap_len arc-length before p4
-    _path_center_bend2[0] - gn_bend2_r * math.cos(_path_plug_start_rot),
-    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_plug_start_rot),
-)
-_path_plug_mid = (  # midpoint of the male plug sub-arc
-    _path_center_bend2[0] - gn_bend2_r * math.cos(_path_plug_mid_rot),
-    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_plug_mid_rot),
-)
+
+
+def _bend2_point(rot: float) -> tuple:
+    """Path-local (a, b) on bend 2 at cumulative rotation `rot` from vertical."""
+    return (
+        _path_center_bend2[0] - gn_bend2_r * math.cos(rot),
+        _path_center_bend2[1] + gn_bend2_r * math.sin(rot),
+    )
+
+
+_path_junction = _bend2_point(split_junction_rot)
+_path_socket_start = _bend2_point(_path_socket_start_rot)
+_path_socket_mid = _bend2_point(_path_socket_mid_rot)
+_path_plug_start = _bend2_point(_path_plug_start_rot)
+_path_plug_mid = _bend2_point(_path_plug_mid_rot)
+_path_p4 = _bend2_point(_path_total_rot)  # end of bend 2 / start of tip
 _path_p5 = (  # end of tip
     _path_p4[0] + gn_tip_straight_len * _tan_after_bend2[0],
     _path_p4[1] + gn_tip_straight_len * _tan_after_bend2[1],
 )
 
-# SPLIT B mating-plane geometry in world coords.
-split_b_junction_y = soda_faucet_tube_y - _path_p4[0]
-split_b_junction_z = zone5_z_top + _path_p4[1]
-split_b_socket_overlap_y = soda_faucet_tube_y - _path_socket_start[0]
-split_b_socket_overlap_z = zone5_z_top + _path_socket_start[1]
-split_b_plug_overlap_y = soda_faucet_tube_y - _path_plug_start[0]
-split_b_plug_overlap_z = zone5_z_top + _path_plug_start[1]
+# SPLIT mating-plane geometry in world coords. The plane is
+# perpendicular to the gooseneck tangent at the junction.
+split_normal = (0.0, -_tan_at_junction[0], _tan_at_junction[1])
+split_junction_y = soda_faucet_tube_y - _path_junction[0]  # [-73.6 mm](SPLIT_JUNCTION_Y)
+split_junction_z = zone5_z_top + _path_junction[1]  # [211.4 mm](SPLIT_JUNCTION_Z)
+
+
+# PRINTING — each piece beds on the face at the far end of its own half
+# of the turn and tilts until its build direction lands on that half's
+# angular midpoint. The overhang on a swept flank is then the angle
+# between the build direction and the local tangent, which over a half
+# of length split_junction_rot never exceeds half of it. Splitting the
+# turn in half and bisecting each half is what puts the worst visible
+# overhang at a quarter of the whole.
+#
+# The base beds on its foot (Z=0) with the -Y edge lifted; the tip beds
+# on the joint end with the crown lifted.
+#
+# Build direction of each piece, as a path rotation: the angular
+# midpoint of the half it carries.
+print_base_build_rot = split_junction_rot / 2.0
+print_tip_build_rot = (split_junction_rot + _path_total_rot) / 2.0
+# Tilt off the bed face. The foot is square to the path at rotation 0
+# and the joint face to the path at the junction, so each tilt is the
+# distance from that end round to the build direction — [35°](PRINT_TILT) both.
+print_base_tilt_rad = print_base_build_rot
+print_tip_tilt_rad = print_tip_build_rot - split_junction_rot
+max_print_overhang_rad = _path_total_rot / 4.0  # [35°](MAX_PRINT_OVERHANG)
 
 
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
@@ -1026,23 +1020,6 @@ def _build_zone6_outer_shrunk(shrink: float) -> cq.Workplane:
     return _sweep_along_gooseneck(_tube_shell_outer_shrunk_sketch(shrink))
 
 
-def _tube_shell_u_sketch(shrink: float, y_cut: float) -> cq.Sketch:
-    """`_tube_shell_outer_shrunk_sketch` with its +Y crown (everything
-    above local Y = y_cut) removed — the open-top profile. Swept along
-    the bend, the cut becomes an arc-following surface (constant radius
-    about the bend-2 axis), so it shaves the crown the whole length of
-    the overlap, not just at the junction. Local +Y is the display /
-    crown side; y_cut at the flavor bore top opens the flavor channel."""
-    cut_h = 100.0
-    return (
-        _tube_shell_outer_shrunk_sketch(shrink)
-        .reset()
-        .push([(0.0, y_cut + cut_h / 2.0)])
-        .rect(2.0 * tube_shell_x_outer, cut_h, mode="s")
-        .clean()
-    )
-
-
 def _split_plane_halfspace(origin: tuple, normal: tuple, sign: int,
                            extent: float = 600.0) -> cq.Workplane:
     """Solid filling one side of a plane: sign +1 = +normal side, -1 = −normal side."""
@@ -1052,17 +1029,6 @@ def _split_plane_halfspace(origin: tuple, normal: tuple, sign: int,
         normal=cq.Vector(*normal),
     )
     return cq.Workplane(plane).rect(2.0 * extent, 2.0 * extent).extrude(sign * extent)
-
-
-def _split_overlap_slab(overlap_y: float, overlap_z: float) -> cq.Workplane:
-    """Slab between the overlap plane and the junction plane, both perpendicular to the angled-gooseneck tangent."""
-    above_overlap = _split_plane_halfspace(
-        (0.0, overlap_y, overlap_z), split_normal, sign=+1,
-    )
-    below_junction = _split_plane_halfspace(
-        (0.0, split_junction_y, split_junction_z), split_normal, sign=-1,
-    )
-    return above_overlap.intersect(below_junction)
 
 
 def _sweep_segment_in_path_local(
@@ -1087,34 +1053,18 @@ def _sweep_segment_in_path_local(
     return swept.translate((0, soda_faucet_tube_y, zone5_z_top))
 
 
-def _tip_subpath() -> cq.Workplane:
-    """Dispense-tip straight path (_path_p4 → _path_p5) in path-local (a, b)."""
-    return (
-        cq.Workplane(_path_plane)
-        .moveTo(*_path_p4)
-        .lineTo(*_path_p5)
-    )
-
-
 def _bend_overlap_subarc(start_yz: tuple, mid_yz: tuple) -> cq.Workplane:
-    """Bend-2 sub-arc from `start_yz` through `mid_yz` to `_path_p4` (SPLIT B junction), path-local (a, b)."""
+    """Bend-2 sub-arc from `start_yz` through `mid_yz` to `_path_junction`, path-local (a, b)."""
     return (
         cq.Workplane(_path_plane)
         .moveTo(*start_yz)
-        .threePointArc(mid_yz, _path_p4)
-    )
-
-
-def _build_tip_section(sketch: cq.Sketch) -> cq.Workplane:
-    """`sketch` swept along the dispense-tip path."""
-    return _sweep_segment_in_path_local(
-        _path_p4, _tan_after_bend2, _tip_subpath(), sketch,
+        .threePointArc(mid_yz, _path_junction)
     )
 
 
 def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
-    """`sketch` swept along the last split_b_<side>_overlap_len mm of
-    bend 2. `side` "socket" (longer) or "plug" (shorter)."""
+    """`sketch` swept along the split_<side>_overlap_len mm of bend 2
+    below the junction. `side` "socket" (longer) or "plug" (shorter)."""
     if side == "socket":
         start_yz, mid_yz, tan_start = _path_socket_start, _path_socket_mid, _tan_at_socket_start
     elif side == "plug":
@@ -1140,26 +1090,21 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # behind the PCB cover — occupying s ∈ [end wall, end wall +
 # housing_length], n ∈ [floor, floor + total_depth].
 #
-# The cradle parts at the SPLIT B junction plane: the tip piece carries
-# the pocket's straight-zone portion and the plug; the bend piece
-# carries everything beyond the junction — the cradle walls, their
-# below-floor flank pads, and the head wall closing the cradle's top
-# end — and presses the display in as the arc-slide joint closes.
-# Through the joint's overlap the bend piece carries the pocket floor /
-# bore ceiling as a slab tying its two socket walls together, closing
-# joint B into a four-sided box; the tip piece's plug is a three-sided U
-# (floor and flanks, open top) that slides in under it, so the tube's
-# spring-back lift bears on the bend piece's slab and runs into its
-# walls instead of prying the tip out. The cradle
-# never collides with the plug during the slide: the walls and pads sit
-# laterally outside it, and the bend piece's material at the plug's
-# width stays outside the socket surface — the joint's own fit is the
-# slide clearance.
+# The whole cradle rides the tip piece — the SPLIT junction is 33 mm of
+# arc up-gooseneck of the cradle's back end, so nothing here crosses a
+# seam.
+#
+# The tip prints with its axis 55 degrees below the print horizontal
+# and up-gooseneck pointing down, so the cradle's back end is the
+# lowest cradle material on the plate and a square end there would be a
+# 55-degree overhang. It ramps instead, at cradle_back_slope_rad, over
+# stock added beyond the head wall so the pocket keeps its full length.
 #
 # Retention: nothing overhangs the display face — the walls and head
 # wall all stop just over the face plane. Axially the device's rounded
 # corners bear on the cavity's rounded corners (open end) and the head
-# wall (top end). At the open end the PCB band is closed by a
+# wall (top end), whose face is square to the tip axis for its full
+# height — the ramp is stock behind it. At the open end the PCB band is closed by a
 # one-extrusion cover, so only the housing shows there — the bare PCB
 # and under-PCB components face stays hidden; the housing band remains
 # open. Lift is friction, gravity, and the wires.
@@ -1184,24 +1129,8 @@ display_line_width = 0.62
 display_collar_wall = 3.0 * display_line_width    # sides — three slicer lines
 display_cap_thickness = 3.0 * display_line_width  # head wall — the same three
 display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
-display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
-display_wire_hole_s = 35.0        # drops through the bend piece's joint-B ceiling into the pill cusp
-# Joint B closes four-sided. The bend piece (female) carries the flavor
-# bore's ceiling through the whole overlap, tying its two socket walls
-# together; the tip piece (male) is a three-sided U — floor, walls, and
-# the open flavor channel — that slides in under it. The tube's
-# spring-back lift bears on the bend piece's ceiling and runs into its
-# walls instead of prying the tip out. The cut is in the swept
-# cross-section, so it follows the arc the whole length of the overlap;
-# local +Y is the crown (display) side. The female cut sits
-# split_b_ceiling_engage below the flavor bore top, so the bend piece
-# wraps the channel's upper edge with a lip; the tip's cut drops a
-# further split_b_slip/2 for slide clearance under that ceiling.
-split_b_ceiling_engage = 0.5
-split_b_ceiling_y_cut = (
-    flavor_offset_y_from_water + pill_width_y / 2.0 - split_b_ceiling_engage
-)
+display_wire_hole_s = 35.0        # drops through the pocket floor into the pill cusp
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
 # Drain at the floor's low corner, edge tangent to the PCB cover's back:
 # splash that gets past the housing drops into the pill cusp and runs
@@ -1237,6 +1166,19 @@ _skirt_drop = display_collar_half_x - (
     )
 )
 _cradle_n_bottom = _block_n_bottom - _skirt_drop
+# The cradle's back end ramps onto the gooseneck rather than ending
+# square. In the tip's print orientation a face at angle t from the tip
+# axis overhangs by 90 degrees minus t minus the tip's own tilt, so
+# holding the ramp to the same max_print_overhang_rad the swept flanks
+# carry fixes it at [20°](CRADLE_BACK_SLOPE).
+cradle_back_slope_rad = math.pi / 2.0 - 2.0 * max_print_overhang_rad
+# Ramp origin, at the skirt bottom. Set so the slope reaches the head
+# wall's back face exactly at the collar top: the ramp is stock behind
+# the head wall, and the pocket keeps its full length.
+cradle_back_s = (
+    display_s_top + display_cap_thickness
+    + (display_wall_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
+)  # [53.58 mm](CRADLE_BACK_S)
 
 
 def _tip_frame():
@@ -1265,54 +1207,38 @@ def _cradle_prism(half_x: float, s0: float, s1: float, n0: float, n1: float,
     )
 
 
-def _arc_zone(n0: float, n1: float) -> cq.Workplane:
-    """Tip-frame slab covering the bend-arc side of the SPLIT B junction
-    plane (s ≥ tip length) between n0 and n1 — the parting tool that
-    assigns the cradle's beyond-junction material to the bend piece."""
-    return _cradle_prism(60.0, gn_tip_straight_len, display_s_top + 60.0, n0, n1)
-
-
-def _cradle_outline() -> cq.Workplane:
-    """The cradle's plan outline: rounded at the head-wall end, square at
-    the open end. The tip piece prints standing on the open end face, so
-    a plan corner rounded at that end would overhang from the first
-    layer; the head-wall end's plan shrinks as the print rises, which is
-    the printable direction. The head-wall arcs run continuously across
-    the block/head-wall seam."""
-    n0 = _cradle_n_bottom - 5.0
-    n1 = display_wall_top_n + 5.0
-    rounded = _cradle_prism(
-        display_collar_half_x,
-        0.0, display_s_top + display_cap_thickness,
-        n0, n1,
-        corner_r=display_outline_corner_r,
+def _cradle_back_slope() -> cq.Workplane:
+    """Everything up-gooseneck of the cradle's back ramp — the tool that
+    turns a square back end into a slope onto the gooseneck. The plane
+    runs through cradle_back_s at the skirt bottom and rises at
+    cradle_back_slope_rad, meeting the head wall's back face at the
+    collar top."""
+    tip_end, s_hat, n_hat = _tip_frame()
+    normal = (
+        s_hat.multiply(math.cos(cradle_back_slope_rad))
+        + n_hat.multiply(math.sin(cradle_back_slope_rad))
     )
-    square_open_end = _cradle_prism(
-        display_collar_half_x, 0.0, 10.0, n0, n1,
+    origin = (
+        tip_end + s_hat.multiply(cradle_back_s) + n_hat.multiply(_cradle_n_bottom)
     )
-    return rounded.union(square_open_end)
+    plane = cq.Plane(origin=origin, xDir=cq.Vector(1, 0, 0), normal=normal)
+    return cq.Workplane(plane).rect(400.0, 400.0).extrude(200.0)
 
 
 def _cradle_block() -> cq.Workplane:
     """Collar block: plain slab from the transition-stock bottom to just
-    over the face plane, spanning the device length, trimmed to the
-    rounded plan outline, with the skirt chamfer already cut. The
-    chamfer applies here — before the block joins the gooseneck — so it can
-    only ever remove cradle material, never the swept tube. The cavity
-    bands carve the pocket out of this."""
+    over the face plane, spanning the device length, with the skirt
+    chamfer already cut. The chamfer applies here — before the block
+    joins the gooseneck — so it can only ever remove cradle material,
+    never the swept tube. The block's plan is a rectangle: the back
+    ramp is what shapes its up-gooseneck end, and a plan corner rounded
+    into that ramp would face up-gooseneck under the ramp's foot. The
+    cavity bands carve the pocket out of this."""
     slab = _cradle_prism(
         display_collar_half_x, 0.0, display_s_top,
         _cradle_n_bottom, display_wall_top_n,
     )
-    return slab.intersect(_cradle_outline()).cut(_skirt_chamfer())
-
-
-def _cradle_block_tip_owned() -> cq.Workplane:
-    """The cradle block up to the SPLIT B junction plane — the tip
-    piece's share. The bend piece keeps everything beyond it: the walls,
-    their below-floor flank pads (one continuous solid), and the head
-    wall."""
-    return _cradle_block().cut(_arc_zone(_block_n_bottom - 80.0, display_wall_top_n + 80.0))
+    return slab.cut(_skirt_chamfer())
 
 
 def _end_throat(half_x: float, corner_r: float, n0: float, n1: float) -> cq.Workplane:
@@ -1355,97 +1281,51 @@ def _display_cavity() -> cq.Workplane:
 
 def _skirt_chamfer() -> cq.Workplane:
     """Transition cut from the collar's pre-skirt bottom edges down to
-    the gooseneck: wedge prisms whose faces run from the outline at
-    _block_n_bottom to the gooseneck's fill-rect flank at the skirt bottom,
-    plus the same profile revolved about each head-corner axis. Around
-    the corners the bend carries the gooseneck's flank inboard of the
-    straight landing line, so the cone face tucks into the flank there —
-    the curved portion of the landing."""
-    tip_end, s_hat, n_hat = _tip_frame()
-    corner_s = display_s_top + display_cap_thickness - display_outline_corner_r
-    corner_x = display_collar_half_x - display_outline_corner_r
+    the gooseneck: a wedge prism per flank whose face runs from the
+    outline at _block_n_bottom to the gooseneck's fill-rect flank at the
+    skirt bottom, over the cradle's whole length. Where the bend carries
+    the gooseneck's flank inboard of that straight landing line the
+    wedge simply takes more cradle — the cut is applied before the
+    cradle parts join the gooseneck, so it can only ever subtract from
+    them."""
+    tip_end, s_hat, _ = _tip_frame()
     # Wedge cross-section, x measured outboard: toe on the fill-rect
     # flank at the skirt bottom, hinge at the outline on the old bottom.
-    # The profile bottoms exactly at the skirt plane — below it is gooseneck,
-    # and the cut must never reach the gooseneck (revolved at the corner, a
-    # deeper margin sweeps an annular trench through it).
+    # The profile bottoms exactly at the skirt plane — below it is gooseneck.
     wedge_profile = [
         (tube_shell_x_half_outer, _cradle_n_bottom),
         (display_collar_half_x, _block_n_bottom),
         (display_collar_half_x + 4.0, _block_n_bottom),
         (display_collar_half_x + 4.0, _cradle_n_bottom),
     ]
-    # Revolve profile, radius measured from the corner axis (the side
-    # face sits display_outline_corner_r from it).
-    ring_profile = [
-        (x - corner_x, n) for (x, n) in wedge_profile
-    ]
-    fp_plane = cq.Plane(origin=tip_end, xDir=cq.Vector(1, 0, 0), normal=n_hat)
     xs_plane = cq.Plane(
-        origin=tip_end + s_hat.multiply(corner_s),
+        origin=tip_end + s_hat.multiply(cradle_back_s + 1.0),
         xDir=cq.Vector(1, 0, 0),
         normal=s_hat.multiply(-1.0),
     )
     wedge = (
         cq.Workplane(xs_plane)
         .polyline(wedge_profile).close()
-        .extrude(corner_s + 1.0)
+        .extrude(cradle_back_s + 2.0)
     )
-    rev_plane = cq.Plane(
-        origin=tip_end + s_hat.multiply(corner_s) + cq.Vector(corner_x, 0, 0),
-        xDir=cq.Vector(1, 0, 0),
-        normal=s_hat.multiply(-1.0),
-    )
-    ring = (
-        cq.Workplane(rev_plane)
-        .polyline(ring_profile).close()
-        .revolve(360.0, (0, 0), (0, 1))
-    )
-    quad = (
-        cq.Workplane(fp_plane).workplane(offset=_cradle_n_bottom - 4.0)
-        .center(corner_x + 15.0, corner_s + 15.0)
-        .rect(30.0, 30.0)
-        .extrude(_block_n_bottom - _cradle_n_bottom + 8.0)
-    )
-    # Back bevel between the two corner axes: the same profile as the
-    # cones' back-azimuth end, so cone and bevel meet tangentially —
-    # without it, the quadrant boundary leaves a step facet where the
-    # back skirt pokes past the gooseneck skin. Extends past the back face
-    # harmlessly: the chamfer only ever subtracts from cradle parts.
-    s_back = display_s_top + display_cap_thickness
-    back_profile = [
-        (s_back - _skirt_drop, _cradle_n_bottom),
-        (s_back, _block_n_bottom),
-        (s_back + 4.0, _block_n_bottom),
-        (s_back + 4.0, _cradle_n_bottom),
-    ]
-    back_plane = cq.Plane(
-        origin=tip_end + cq.Vector(-corner_x, 0, 0),
-        xDir=s_hat,
-        normal=cq.Vector(1, 0, 0),
-    )
-    back = (
-        cq.Workplane(back_plane)
-        .polyline(back_profile).close()
-        .extrude(2.0 * corner_x)
-    )
-    plus_side = wedge.union(ring.intersect(quad))
-    return plus_side.union(plus_side.mirror("YZ")).union(back)
+    return wedge.union(wedge.mirror("YZ"))
 
 
 def _display_head_wall() -> cq.Workplane:
-    """Bend-piece head wall past the display's top end — closes the
-    cradle's top end and is the display's axial stop as SPLIT B closes.
-    Same bottom and top planes as the collar block, so the cradle reads
-    as one rectangle; trimmed to the shared plan outline, with the skirt
-    chamfer cut before it joins the gooseneck (same rule as the block)."""
+    """Head wall past the display's top end — closes the cradle's top end
+    and is the device's axial stop. Same bottom and top planes as the
+    collar block, so the cradle reads as one rectangle; runs back to
+    cradle_back_s and is then cut to the ramp, which leaves the wall's
+    face square for its full height and the stock behind it a slope.
+    Skirt chamfer cut before it joins the gooseneck (same rule as the
+    block)."""
     return (
         _cradle_prism(
-            display_collar_half_x, display_s_top, display_s_top + display_cap_thickness,
+            display_collar_half_x, display_s_top, cradle_back_s,
             _cradle_n_bottom, display_wall_top_n,
         )
-        .intersect(_cradle_outline())
         .cut(_skirt_chamfer())
+        .cut(_cradle_back_slope())
     )
 
 
@@ -1536,9 +1416,8 @@ def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
 def build_shell() -> cq.Workplane:
     """Faucet shell — full reference solid (un-split), all zones
     unioned, with the display cradle on the dispense tip. Split for
-    printing into three pieces along the gooseneck: build_shell_bottom
-    (angled-gooseneck), build_shell_middle (upper-bend), build_shell_top
-    (dispense-tip)."""
+    printing into two pieces at the gooseneck's angular midpoint:
+    build_shell_base and build_shell_tip."""
     outer_parts = [
         build_zone1_outer().val(),
         build_base_pods().val(),
@@ -1572,110 +1451,70 @@ def build_shell() -> cq.Workplane:
     return outer.cut(inner)
 
 
-def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Angled-gooseneck piece — everything below the SPLIT A junction plane,
-    top 20 mm of the gooseneck hollowed to a 2 mm-wall female socket."""
+def build_shell_base(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Base piece — everything below the SPLIT junction plane, with the
+    last split_socket_overlap_len mm of gooseneck hollowed to a
+    split_socket_wall female socket. The socket cavity is the swept
+    cross-section offset inward, so its surface follows bend 2's arc and
+    the tip's plug swings into it about the bend-2 axis."""
     full = full_shell if full_shell is not None else build_shell()
     below_junction = _split_plane_halfspace(
         (0.0, split_junction_y, split_junction_z), split_normal, sign=-1,
     )
-    socket_cavity = _build_zone6_outer_shrunk(split_a_socket_shrink).intersect(
-        _split_overlap_slab(split_a_socket_overlap_y, split_a_socket_overlap_z)
+    socket_cavity = _build_bend_overlap(
+        _tube_shell_outer_shrunk_sketch(split_socket_shrink), side="socket",
     )
     return full.intersect(below_junction).cut(socket_cavity)
 
 
-def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Upper-bend piece — male plug at the SPLIT A (bottom) end, female
-    socket at the SPLIT B (top) end. The piece carries the cradle beyond
-    the junction plane — walls, flank pads, and head wall, inherited
-    from the full shell — and presses the display in as the joint
-    closes; it gives up only the cradle's straight-zone block. The SPLIT
-    B socket is a four-sided box: its cavity is held back from the
-    joint-B ceiling so the bend piece keeps that slab, roofing the tip
-    piece's U against the tube's lift."""
+def build_shell_tip(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Tip piece — everything above the SPLIT junction plane, carrying
+    the whole display cradle, plus a male plug reaching
+    split_plug_overlap_len mm back down bend 2 into the base's socket. The
+    plug is the swept cross-section offset inward with the tube bores
+    taken out: a closed ring, so the joint bears all the way around."""
     full = full_shell if full_shell is not None else build_shell()
-    above_junction_a = _split_plane_halfspace(
+    above_junction = _split_plane_halfspace(
         (0.0, split_junction_y, split_junction_z), split_normal, sign=+1,
     )
-    overlap_slab_a = _split_overlap_slab(
-        split_a_plug_overlap_y, split_a_plug_overlap_z
-    )
-    plug_outer_a = _build_zone6_outer_shrunk(split_a_plug_shrink).intersect(overlap_slab_a)
-    plug_bores_a = build_zone6_inner_cut().intersect(overlap_slab_a)
-    plug_a = plug_outer_a.cut(plug_bores_a)
-    bend_plus_tip = full.intersect(above_junction_a).union(plug_a)
-
-    tip_section = _build_tip_section(_tube_shell_outer_sketch())
-    bend_socket_cavity = _build_bend_overlap(
-        _tube_shell_u_sketch(split_b_socket_shrink, split_b_ceiling_y_cut),
-        side="socket",
-    )
-    return (
-        bend_plus_tip
-        .cut(tip_section)
-        .cut(bend_socket_cavity)
-        .cut(_cradle_block_tip_owned())
-    )
-
-
-def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Dispense-tip piece — male plug for the SPLIT B (bend↔tip) joint,
-    carrying the cradle's straight-zone portion: pocket, PCB cover, and
-    walls up to the junction plane. The plug is a three-sided U through
-    the overlap — floor and flanks, open top — that slides in under the
-    bend piece's ceiling; the ceiling band is cut away so the tip can't
-    be pried up out of the joint."""
-    _ = full_shell
-    tip_outer = _build_tip_section(_tube_shell_outer_sketch())
-    tip_inner = _build_tip_section(_tube_shell_inner_sketch())
     plug_outer = _build_bend_overlap(
-        _tube_shell_u_sketch(
-            split_b_plug_shrink, split_b_ceiling_y_cut - split_b_slip / 2.0,
-        ),
-        side="plug",
+        _tube_shell_outer_shrunk_sketch(split_plug_shrink), side="plug",
     )
-    plug_inner = _build_bend_overlap(_tube_shell_inner_sketch(), side="plug")
-    plug = plug_outer.cut(plug_inner)
+    plug = plug_outer.cut(build_zone6_inner_cut())
+    return full.intersect(above_junction).union(plug)
 
-    return (
-        tip_outer
-        .union(_cradle_block_tip_owned())
-        .union(plug)
-        .cut(tip_inner)
-        .cut(_display_cavity())
-        .cut(_display_drain_hole())
-        .cut(_display_wire_hole())
-    )
+
+def print_height(shape: cq.Workplane, build_rot: float) -> float:
+    """Height of `shape` on the bed when built along the gooseneck tangent
+    at path rotation `build_rot` — the piece's print orientation."""
+    w = cq.Vector(0.0, -math.sin(build_rot), math.cos(build_rot))
+    heights = [cq.Vector(*v.toTuple()).dot(w) for v in shape.val().Vertices()]
+    return max(heights) - min(heights)
 
 
 def main():
     out_dir = Path(__file__).resolve().parent
     full = build_shell()
-    bottom = build_shell_bottom(full)
-    middle = build_shell_middle(full)
-    top = build_shell_top(full)
-    # faucet-shell.step is the TRUE assembly — the three printed
-    # pieces as separate solids in their assembled positions, joint
-    # voids, seams and all — not the unsplit design solid the pieces
-    # derive from. Separate solids, not a union: a boolean union fuses
-    # the joints' nominal-contact faces and dissolves their seams.
+    base = build_shell_base(full)
+    tip = build_shell_tip(full)
+    # faucet-shell.step is the TRUE assembly — the two printed pieces as
+    # separate solids in their assembled positions, joint voids, seam
+    # and all — not the unsplit design solid the pieces derive from.
+    # Separate solids, not a union: a boolean union fuses the joint's
+    # nominal-contact faces and dissolves the seam.
     assembled = cq.Assembly(name="faucet-shell")
-    assembled.add(bottom, name="shell_bottom", color=C_FAUCET_BLACK)
-    assembled.add(middle, name="shell_middle", color=C_FAUCET_BLACK)
-    assembled.add(top, name="shell_top", color=C_FAUCET_BLACK)
+    assembled.add(base, name="shell_base", color=C_FAUCET_BLACK)
+    assembled.add(tip, name="shell_tip", color=C_FAUCET_BLACK)
 
     full_out = out_dir / "faucet-shell.step"
-    bottom_out = out_dir / "faucet-shell-bottom.step"
-    middle_out = out_dir / "faucet-shell-middle.step"
-    top_out = out_dir / "faucet-shell-top.step"
+    base_out = out_dir / "faucet-shell-base.step"
+    tip_out = out_dir / "faucet-shell-tip.step"
     export_assembly(assembled, str(full_out))
-    for shape, out in ((bottom, bottom_out), (middle, middle_out), (top, top_out)):
+    for shape, out in ((base, base_out), (tip, tip_out)):
         export_assembly(one_body(shape, out.stem, C_FAUCET_BLACK), str(out))
     print(f"-> {full_out.name}")
-    print(f"-> {bottom_out.name}")
-    print(f"-> {middle_out.name}")
-    print(f"-> {top_out.name}")
+    print(f"-> {base_out.name}")
+    print(f"-> {tip_out.name}")
 
     variables = {
         "BORE_CLEAR": f"{bore_clearance:.4g} mm",
@@ -1735,6 +1574,19 @@ def main():
         "GN_BEND1_Z_MID": f"{gn_bend1_z_mid:.4g} mm",
         "GN_BEND1_Z_START": f"{gn_bend1_z_start:.4g} mm",
         "GN_BEND2_SWEEP_DEG": f"{math.degrees(gn_bend2_sweep_rad):.0f}°",
+        "GN_TOTAL_ROT": f"{math.degrees(_path_total_rot):.0f}°",
+        "SPLIT_JUNCTION_ROT": f"{math.degrees(split_junction_rot):.0f}°",
+        "SPLIT_JUNCTION_Y": f"{split_junction_y:.4g} mm",
+        "SPLIT_JUNCTION_Z": f"{split_junction_z:.4g} mm",
+        "SPLIT_OVERLAP": f"{split_socket_overlap_len:.4g} mm",
+        "SPLIT_SOCKET_WALL": f"{split_socket_wall:.4g} mm",
+        "SPLIT_SLIP": f"{split_slip:.4g} mm",
+        "PRINT_TILT": f"{math.degrees(print_base_tilt_rad):.0f}°",
+        "MAX_PRINT_OVERHANG": f"{math.degrees(max_print_overhang_rad):.0f}°",
+        "CRADLE_BACK_SLOPE": f"{math.degrees(cradle_back_slope_rad):.0f}°",
+        "CRADLE_BACK_S": f"{cradle_back_s:.4g} mm",
+        "BASE_PRINT_HEIGHT": f"{print_height(base, print_base_build_rot):.1f} mm",
+        "TIP_PRINT_HEIGHT": f"{print_height(tip, print_tip_build_rot):.1f} mm",
         "BACK_ARCH_DY": f"{_back_arch_dy:.4g} mm",
         "Z5_Y_MIN": f"{_z5_y_min:.4g} mm",
         "ZONE45_Z_TOP": f"{zone45_z_top:.4g} mm",

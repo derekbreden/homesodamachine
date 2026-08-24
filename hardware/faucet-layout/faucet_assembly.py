@@ -290,13 +290,12 @@ def load_above_counter_gasket():
 
 
 def load_shell_pieces():
-    """The three faucet-shell pieces, +Z-up, in assembled position —
-    as printed, joint voids and all."""
+    """The two faucet-shell pieces, +Z-up, in assembled position —
+    as printed, joint void and all."""
     full = faucet_shell.build_shell()
     return (
-        faucet_shell.build_shell_bottom(full),
-        faucet_shell.build_shell_middle(full),
-        faucet_shell.build_shell_top(full),
+        faucet_shell.build_shell_base(full),
+        faucet_shell.build_shell_tip(full),
     )
 
 
@@ -997,7 +996,7 @@ def build_assembly():
     above_counter_plate = load_above_counter_plate()
     above_counter_gasket = load_above_counter_gasket()
     o_ring = build_o_ring()
-    shell_bottom, shell_middle, shell_top = load_shell_pieces()
+    shell_base, shell_tip = load_shell_pieces()
     display_body = build_display_body()
     display_screen = build_display_screen()
     countertop = build_countertop()
@@ -1038,9 +1037,8 @@ def build_assembly():
     assy.add(lever, name="lever", color=donor_black)
     assy.add(above_counter_plate, name="above_counter_plate", color=faucet_black)
     assy.add(above_counter_gasket, name="above_counter_gasket", color=tpu_black)
-    assy.add(shell_bottom, name="shell_bottom", color=faucet_black)
-    assy.add(shell_middle, name="shell_middle", color=faucet_black)
-    assy.add(shell_top, name="shell_top", color=faucet_black)
+    assy.add(shell_base, name="shell_base", color=faucet_black)
+    assy.add(shell_tip, name="shell_tip", color=faucet_black)
     assy.add(display_body, name="faucet_display", color=display_slate)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     assy.add(countertop, name="countertop", color=stone)
@@ -1113,7 +1111,7 @@ def main():
           f"{soda_faucet_tube_z_bottom - tpu_o_ring.cap_thickness + tpu_o_ring.total_height:.2f}")
     print(f"  Above-counter plate:   above_counter_plate.build_above_counter_plate()")
     print(f"  Above-counter gasket:  above_counter_gasket.build_above_counter_gasket()")
-    print(f"  Shell pieces:          faucet_shell.build_shell_bottom/middle/top()")
+    print(f"  Shell pieces:          faucet_shell.build_shell_base/tip()")
     print(f"  Countertop:            {countertop_thickness:.0f} mm slab, "
           f"Z = {countertop_bottom_z:.1f} → {countertop_top_z:.1f}")
     print(f"    standard hole:       Ø{countertop_hole_diameter:.2f} mm at Y = "
