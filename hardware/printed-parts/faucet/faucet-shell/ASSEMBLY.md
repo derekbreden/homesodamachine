@@ -12,8 +12,11 @@ before the complete factory assembly reaches the countertop.
 
 Upstream:
 
-1. Print `faucet-shell` (PET-GF15, Bambu 0.4 mm TC nozzle, settings in
-   [`print-log.md`](/hardware/printed-parts/faucet/faucet-shell/print-log.md)).
+1. Print `faucet-shell` — two pieces, base and tip, each on its own tilt
+   ([MATERIAL.md](MATERIAL.md)) — and close them at the gooseneck seam:
+   the tip's plug swings into the base's socket about the bend-2 axis.
+   PET-GF15, Bambu 0.4 mm TC nozzle, settings in
+   [`print-log.md`](/hardware/printed-parts/faucet/faucet-shell/print-log.md).
 2. Print `above-counter-plate` (PET-GF15, same H2C).
 3. Harvest the Westbrass from the donor faucet per
    [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
