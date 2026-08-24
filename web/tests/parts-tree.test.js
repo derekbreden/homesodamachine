@@ -12,6 +12,7 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -23,6 +24,18 @@ import { walkFiles } from "../lib/walk.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HARDWARE = path.resolve(__dirname, "..", "..", "hardware");
+
+const HW = path.resolve(__dirname, "..", "..", "hardware");
+const stepsOnDisk = () => fs.existsSync(path.join(HW, "manifold-layout", "enclosure-assembly.step"));
+const readStep = (rel) => {
+  const f = path.join(HW, rel);
+  return fs.existsSync(f) ? fs.readFileSync(f, "latin1") : null;
+};
+const productNames = (text) => {
+  const out = new Set();
+  for (const m of text.matchAll(/PRODUCT\s*\(\s*'([^']*)'/g)) out.add(m[1].replace(/\/\d+$/, ""));
+  return out;
+};
 
 const names = (parts) => parts.map((p) => p.name);
 const files = (parts) => parts.flatMap((p) => p.kinds.map((k) => k.file));
@@ -176,6 +189,29 @@ test("no two lists claim the same directory", () => {
   for (const s of PURCHASED) {
     for (const h of held) {
       assert.ok(!overlaps(s, h), `${s} and ${h} overlap`);
+    }
+  }
+});
+
+// A CHILD'S `node` IS THE ONE THING TYING THIS TREE TO THE GEOMETRY. Everything else here is
+// about which file belongs to whom; this says the parent's own model really does hold the child
+// as a sub-assembly, under that name, with the child's bodies inside it. Without it the page
+// could go on describing a shape the STEP stopped having — which is exactly what it did while
+// the appliance placed the core as one opaque solid.
+test("a nested assembly is a node its parent's model actually holds", { skip: !stepsOnDisk() },
+     () => {
+  for (const parent of walkAssemblies()) {
+    for (const child of parent.children || []) {
+      assert.ok(child.node, `${child.id} states no node, so nothing holds it to the model`);
+      const text = readStep(parent.model);
+      if (!text) continue;
+      const names = productNames(text);
+      assert.ok(names.has(child.node),
+        `${parent.model} has no ${child.node} node — ${child.id} nests in the page and ` +
+        `nowhere in the geometry`);
+      const inside = [...names].filter((n) => n.startsWith(child.node + "/"));
+      assert.ok(inside.length > 0,
+        `${parent.model}'s ${child.node} node holds nothing; ${child.id} claims it holds a stack`);
     }
   }
 });
