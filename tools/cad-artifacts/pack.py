@@ -434,7 +434,13 @@ def _undeclared(root: Path, rels: list) -> list:
 
 
 def _retirement_evidence(root: Path, retired: list) -> list:
-    """Retired paths whose producing source did not move since the published cut."""
+    """Retired paths with nothing to show for their retirement.
+
+    A SOURCE THAT IS GONE FROM THE TREE HAS ALREADY ANSWERED. The range below asks whether a
+    producer moved since the published cut, which a rename older than that cut cannot satisfy —
+    the commit that took the file away is behind the base, so no diff over `base..HEAD` will
+    ever hold it, and the entry can never be retired. Whether the file is there now does not
+    depend on a range at all."""
     if not retired:
         return []
     source = read_lock(root).get("source", {}).get("commit", "")
@@ -457,7 +463,8 @@ def _retirement_evidence(root: Path, retired: list) -> list:
     for rel in retired:
         producers = {gen for gen, seen in graph.items() if rel in seen.get("writes", ())}
         if producers:
-            explained = bool(producers & changed)
+            explained = (bool(producers & changed)
+                         or not any((root / gen).is_file() for gen in producers))
         else:
             explained = "tools/bazel/inventory.py" in changed
         if not explained:
