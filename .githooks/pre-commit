@@ -32,6 +32,21 @@ case "$staged" in
     "$py" "$root/tools/bazel/gen_build.py" --cycles || exit 1 ;;
 esac
 
+# AND BUILD.bazel HOLDS WHAT ITS GENERATOR WRITES. `publish` regenerates and runs
+# `git diff --exit-code -- BUILD.bazel`, so a file that has drifted from the three inputs that
+# write it fails the run before a single target is built. Registering a selftest and not
+# regenerating is the whole of how that happens, and it costs a round trip to learn.
+#
+# KEYED, WHICH IS THE WHOLE OF WHY THIS IS SAFE TO HOLD A COMMIT WITH. `--check` compares the
+# file against the graph, several sessions share this checkout, and one of them is always
+# part-way through a re-trace — so run against a commit that touches none of these, it would
+# stop an author over somebody else's in-flight state. Against a commit that touches them, the
+# author is already in this area and is exactly who should be told.
+case "$staged" in
+  *tools/bazel/selftests.json*|*tools/bazel/graph.json*|*BUILD.bazel*)
+    "$py" "$root/tools/bazel/gen_build.py" --check || exit 1 ;;
+esac
+
 # A STEP THAT IMPORTS WHAT IT DOES NOT HOLD finds no module — `ModuleNotFoundError` on a file
 # sitting tracked in the tree. This reads the staged `.py` and names every step that reaches it.
 case "$staged" in
