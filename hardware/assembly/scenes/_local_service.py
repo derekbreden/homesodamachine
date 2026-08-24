@@ -120,7 +120,7 @@ def main(argv):
         selftest()
         return
     if argv:
-        raise SystemExit("usage: _local_service.py [selftest]")
+        sys.exit("usage: _local_service.py [selftest]")
     output, changed, bodies = generate()
     state = "fresh bytes" if changed else "same bytes"
     print(f"-> {output.relative_to(ROOT)} ({bodies} bodies, {state})")
