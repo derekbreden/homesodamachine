@@ -20,7 +20,7 @@ The module does not carbonate. It does not connect to the customer's plumbing or
 
 ## The new dispense point
 
-A second faucet penetration in the customer's countertop, alongside the main unit's faucet at the back of the sink (or wherever the customer chose to install it). The new faucet is the same PET-CF Touch-Flo design as the main unit's faucet, with the gooseneck's internal geometry extended to inject **four flavor lines** rather than two. Carbonated water enters the faucet's inlet stub and mixes with flavor at the gooseneck, the same way the main unit's faucet works.
+A second faucet penetration in the customer's countertop, alongside the main unit's faucet at the back of the sink (or wherever the customer chose to install it). The new faucet is the same PET-GF15 Touch-Flo design as the main unit's faucet, with the gooseneck's internal geometry extended to inject **four flavor lines** rather than two. Carbonated water enters the faucet's inlet stub and mixes with flavor at the gooseneck, the same way the main unit's faucet works.
 
 Companion through-counter elements at the module's faucet:
 
@@ -54,7 +54,7 @@ The umbilical is a fat bundle but its endpoints are short: out the back of main,
    │   flavors│ (power,  │  + refrig only │
    │ + carb.  │  signal, │    on those 2  │
    │ + refrig │  carb H2O│                │
-   │          │  tap H2O,│  + new PET-CF  │
+   │          │  tap H2O,│  + new PET-GF  │
    │          │  2 conc. │    faucet      │
    │          │  lines)  │    (4-line)    │
    └────┬─────┘          └──────┬─────────┘
@@ -82,7 +82,7 @@ From the customer's vantage the module is *one more faucet, two more flavors*. T
 | Beduan solenoids (~8 for the module-side manifold) | $80 |
 | Funnel + cabinet print | $30 |
 | Electronics (local µC, MCP23017, ULN2803A, motor driver, regs) | $60 |
-| New PET-CF faucet (extended gooseneck internal geometry, 4-line injection) | $40 |
+| New PET-GF15 faucet (extended gooseneck internal geometry, 4-line injection) | $40 |
 | SS under-counter plate | $4 |
 | RP2040 round display | $24 |
 | KRAUS air switch (or 4-button panel) | $40 |

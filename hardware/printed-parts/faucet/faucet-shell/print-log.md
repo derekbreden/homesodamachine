@@ -623,6 +623,32 @@ Saved as a new printer preset **"Touch Flo Middle"** inheriting `Bambu Lab H2C 0
 
 Commands cross-checked against the machine's own G-code in the same 3mf: part fan is `M106 P1` (P2 aux, P3 chamber); `M220 S100 ; Reset feedrate magnitude` and `M201.2 K1.0 ; Reset acc magnitude` appear in the start G-code (both persistent scalers that reset per print); `layer_num` is the layer variable the machine's templates use (no bare `layer_z`).
 
+## Material and nozzle of record (2026-08-24)
+
+The shell prints in Polymaker Fiberon PET-GF15 on the Bambu 0.4 mm tungsten carbide hotend,
+left side — the exterior's stock and the exterior's nozzle
+([MATERIAL.md](MATERIAL.md), [tools.md](/hardware/ledger/tools.md), [bom.md
+§7](/hardware/ledger/bom.md)). Attempts 1–21 below are PET-CF, on 0.4 hotends at 1–6 and on
+0.6 TC / 0.6 PCD at 7–21.
+
+What the two stocks measure, on Polymaker's own printed specimens:
+
+| | PET-CF17 | PET-GF15 |
+|---|---:|---:|
+| Tensile X-Y | 65.9 MPa | 59.9 MPa |
+| Tensile **Z** | **27.9 MPa** | **48.2 MPa** |
+| Young's modulus, dry | 5481 MPa | 4144 MPa |
+| Bending modulus X-Y | 4744 MPa | 3705 MPa |
+| Bending modulus Z | — | 2998 MPa |
+| Charpy notched X-Y | 5.1 kJ/m² | 8.7 kJ/m² |
+| HDT 0.45 MPa, annealed | 147.5 °C | 133.7 °C |
+| Nozzle | 270–300 °C | 280–310 °C |
+| Density | 1.34 g/cm³ | 1.43 g/cm³ |
+
+The middle piece prints end-on and stands 107.1 mm, so the zone transitions the pre-PET-CF
+test print snapped at — *"the zone 4.5 to zone 5 transition is the structural weak point and
+snaps easier than I would like"* — are layer planes, loaded in Z.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:

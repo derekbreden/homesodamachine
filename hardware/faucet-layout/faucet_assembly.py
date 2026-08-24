@@ -1012,10 +1012,10 @@ def build_assembly():
         return cq.Color(*(c / 255.0 for c in _rear.port_colors[fluid]))
 
     # The donor faucet is matte black (`ledger/bom.md` §9, Westbrass A2031-NL-62) and the printed
-    # stack around it is PET-CF; what a hand meets above the counter is one colour end to end.
+    # stack around it is PET-GF15; what a hand meets above the counter is one colour end to end.
     # Every one of these is `_materials`, so a body here and its own card are one colour.
     donor_black = _mat.M_DONOR_BLACK
-    petcf_black = _mat.C_PETCF_BLACK
+    faucet_black = _mat.C_FAUCET_BLACK
     tpu_black = _mat.M_TPU_BLACK
     # The gooseneck's 1.47" Waveshare (`ledger/bom.md` §1) — the same maker's blue solder mask as
     # the 4.3B in the front facet, under the same cover glass. THE GLASS IS DRAWN DARK BECAUSE
@@ -1036,11 +1036,11 @@ def build_assembly():
     assy.add(flavor_tube_neg_x, name="flavor_tube_neg_x", color=spool("flavor"))
     assy.add(soda_umbilical_tube, name="soda_umbilical_tube", color=spool("carb"))
     assy.add(lever, name="lever", color=donor_black)
-    assy.add(above_counter_plate, name="above_counter_plate", color=petcf_black)
+    assy.add(above_counter_plate, name="above_counter_plate", color=faucet_black)
     assy.add(above_counter_gasket, name="above_counter_gasket", color=tpu_black)
-    assy.add(shell_bottom, name="shell_bottom", color=petcf_black)
-    assy.add(shell_middle, name="shell_middle", color=petcf_black)
-    assy.add(shell_top, name="shell_top", color=petcf_black)
+    assy.add(shell_bottom, name="shell_bottom", color=faucet_black)
+    assy.add(shell_middle, name="shell_middle", color=faucet_black)
+    assy.add(shell_top, name="shell_top", color=faucet_black)
     assy.add(display_body, name="faucet_display", color=display_slate)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     assy.add(countertop, name="countertop", color=stone)

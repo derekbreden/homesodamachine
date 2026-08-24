@@ -1,6 +1,6 @@
 # Above-counter plate
 
-Printed PET-CF plate that supports the harvested Westbrass and
+Printed PET-GF15 plate that supports the harvested Westbrass and
 the two flavor tubes beside it, and carries the three screw bosses that
 bolt up into the shell. Mates against the countertop top surface via the
 above-counter gasket below it.

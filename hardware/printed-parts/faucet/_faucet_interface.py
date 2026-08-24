@@ -21,7 +21,7 @@ flavor_tube_od = 6.35
 flavor_tube_x_offset = flavor_tube_od / 2.0  # [3.175 mm](FLAVOR_TUBE_X_OFFSET)
 
 # Diametric (total) clearance around each flavor tube through the pill
-# cutout — i.e. hole_dia − tube_od. Print-validated on PET-CF; see
+# cutout — i.e. hole_dia − tube_od. Print-validated on fibre-filled PET; see
 # `faucet-shell/print-log.md`.
 flavor_tube_hole_clearance = 0.7
 

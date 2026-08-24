@@ -2,6 +2,7 @@
 
 #include "link.h"
 #include "flavor.h"
+#include "idle.h"
 #include "flavor_link_policy.h"
 #include "machine.h"
 #include "pins.h"
@@ -210,6 +211,8 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // after whatever the command sets in motion. Anything the machine decides
     // next — a refusal, a chime — outranks PRIO_UI and pre-empts it.
     if (isUserAction(type)) soundPlay(SND_TICK);
+    // A press is presence whether or not it also asked for something.
+    if (isUserAction(type) || type == MSG_SOUND_PLAY || type == MSG_TOUCH) idleTouched();
 
     if (type == MSG_RESP_DISPLAY_USB_REATTACH) {
         displayUsbReattachAck = true;
@@ -228,6 +231,14 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
     // The logo a channel wears is main-board-owned like the selection, so the
     // enclosure states the pair and reads back what the main board now holds.
+    if (type == MSG_TOUCH) return;   // presence only; nothing to answer
+
+    if (type == MSG_IDLE_QUERY) {
+        IdlePayload idle{idleAsleep() ? (uint8_t)1 : (uint8_t)0, idleWindowMs()};
+        link->send(MSG_RESP_IDLE, &idle, sizeof(idle));
+        return;
+    }
+
     if (type == MSG_FLAVOR_ART_QUERY) {
         FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
         link->send(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
@@ -447,6 +458,13 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     Serial.printf("\n[J9] type 0x%02X, %u byte(s), raw", type, plen);
     for (uint16_t i = 0; i < len && i < 16; i++) Serial.printf(" %02X", frame[i]);
     Serial.println();
+}
+
+// The enclosure cannot be driven asynchronously, so a change waits for the turn
+// its next poll gives us.
+void linkPublishIdle() {
+    IdlePayload idle{idleAsleep() ? (uint8_t)1 : (uint8_t)0, idleWindowMs()};
+    announceQueue(MSG_RESP_IDLE, &idle, sizeof(idle));
 }
 
 void linkBegin() {

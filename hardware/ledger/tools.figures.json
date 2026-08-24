@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$14,890.78",
+    "TOOLS_TOTAL": "$15,187.17",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -37,7 +37,7 @@
     "T_HELPING_HANDS": "$9.64",
     "T_HEX_NIPPLE": "$12.86",
     "T_HOLE_SAW": "$19.19",
-    "T_HOTENDS": "$608.04",
+    "T_HOTENDS": "$904.43",
     "T_HUSKY": "\u2014",
     "T_HYDRO_PUMP": "$93.30",
     "T_KILL_A_WATT": "$34.31",

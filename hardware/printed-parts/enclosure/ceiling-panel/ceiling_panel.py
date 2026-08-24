@@ -66,7 +66,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enc
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, one_body
+from _materials import M_PETGF_BLACK, one_body
 from docgen import substitute_md
 import enclosure as _enc
 import funnel as _funnel
@@ -412,7 +412,7 @@ def main():
             f"{bed_x:g} x {bed_y:g} — it prints flat or it does not print")
 
     out = _here.parent / "ceiling-panel.step"
-    export_assembly(one_body(panel, "ceiling-panel", M_PETG_BLACK), str(out))
+    export_assembly(one_body(panel, "ceiling-panel", M_PETGF_BLACK), str(out))
     print(f"-> {out.name}")
     print(f"  field:   {panel_w:.1f} x {depth:.1f} x {structural_t:.1f} mm structural, "
           f"x +-{panel_half_w:g}, y {fore_y:g}..{aft_y:g}, "

@@ -8,7 +8,7 @@ not capturing advice, because I want this captured in the repo." So
 forward-looking notes live here too, not just historical attempts.
 
 This part iterates differently from the faucet-shell — there's no
-PET-CF / nozzle / temp / scarf surface to tune. The variables are
+PET-GF15 / nozzle / temp / scarf surface to tune. The variables are
 purely **TPU hardness**, **CAD interference values**, and **install
 technique**. Print settings are stock Bambu profiles for whichever
 TPU SKU is loaded.

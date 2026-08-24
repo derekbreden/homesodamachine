@@ -303,7 +303,7 @@ from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E40
                         C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY, C_SEAFLO, C_STEEL_PLATE,
                         M_ALUMINIUM, M_BRASS, M_JG_BLACK_PP,
-                        M_NEOFIT_ACETAL, M_PETG_BLACK, M_SILICONE_BLACK,
+                        M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
                         M_STAINLESS, M_TINNED_STEEL, M_TPU_BLACK)
 # The refrigeration donor's own two. A hermetic compressor is a painted-steel can; the condenser is
 # a plate-fin block, aluminium fins on a copper tube (`reference/ice-maker/README.md`), and it
@@ -6316,9 +6316,9 @@ def check_ceiling_fastener_direction() -> Bound:
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
 
-# THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETG_BLACK` — the black the flavour chips are cut
-# off too. Every piece takes that one value, so the standing box is the one colour it is; a seam
-# is told by the geometry that makes one, and the pack behind the walls is read through x-ray.
+# THE BOX PRINTS IN ONE FILAMENT, and it is `M_PETGF_BLACK` — the exterior's own spool. Every
+# piece takes that one value, so the standing box is the one colour it is; a seam is told by the
+# geometry that makes one, and the pack behind the walls is read through x-ray.
 from _materials import WALL_COLORS                     # noqa: E402
 
 
@@ -6794,7 +6794,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # joint's mating figures and back-top is cut to them, and what the panel needs from this
     # assembly is the two ceiling stations it carries.
     pieces["ceiling-panel"] = _materialized_ceiling_panel(box, require_box_spec)
-    a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETG_BLACK)
+    a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETGF_BLACK)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.

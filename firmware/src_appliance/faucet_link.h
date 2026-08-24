@@ -17,5 +17,8 @@ struct FaucetLinkStatus {
 
 void faucetLinkBegin();
 void faucetLinkService();
+
+// Publish the shared idle state to the faucet.
+void faucetLinkPublishIdle();
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);

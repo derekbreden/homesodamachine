@@ -1,4 +1,4 @@
-"""Above-counter plate — printed PET-CF plate that supports the
+"""Above-counter plate — printed PET-GF15 plate that supports the
 harvested Westbrass and the two flavor tubes beside it, and
 carries the three screw bosses that bolt up into the shell. Its footprint
 matches the shell foot exactly (foot circle + two lateral teardrop pods +
@@ -22,7 +22,7 @@ sys.path.insert(0, str(_here.parent))  # for _faucet_interface
 sys.path.insert(0, str(_here.parent / "faucet-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
-from _materials import C_PETCF_BLACK, one_body
+from _materials import C_FAUCET_BLACK, one_body
 from _faucet_interface import (
     flavor_tube_depth,
     pill_length_x,
@@ -135,7 +135,7 @@ def main():
     plate = build_above_counter_plate()
 
     out = _here / "above-counter-plate.step"
-    export_assembly(one_body(plate, out.stem, C_PETCF_BLACK), str(out))
+    export_assembly(one_body(plate, out.stem, C_FAUCET_BLACK), str(out))
     print(f"-> {out.name}")
 
     variables = {

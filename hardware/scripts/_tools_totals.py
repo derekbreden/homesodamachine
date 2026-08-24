@@ -204,6 +204,10 @@ TOOLS = [
         # two 0.8 PCD tips, bought a month apart — one line each
         L(contains="B0GWDL57FK", order="114-8935189-9054653"),
         L(contains="B0GWDL57FK", order="112-1974343-4486643"),
+        # The 0.4 pair the exterior prints on: the ENOMAKER 0.8 + 0.4 HF hardened
+        # steel on one Amazon line, and the Bambu 0.4 TC (L) that carries PET-GF15.
+        L(order="112-7312343-0359412"),
+        L(order="us766639627317551105"),
     ])),
     ("PTFE Adapter II", "T_PTFE_ADAPTER", SUM([
         L(order="us717877837343809537", contains="PTFE Adapter"),

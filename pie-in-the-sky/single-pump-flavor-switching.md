@@ -53,7 +53,7 @@ Sixty millilitres of pump work in ten seconds is **~360 mL/min**, three to four 
 
 The machine carries no liquid-in-line sensing today. What this design wants is a printed clamshell holding two copper foil rings against a 1/4" LLDPE tube, read by a charge-transfer controller — an MPR121 at 0x5A takes twelve electrodes behind one address — on the existing I2C bus with no ESP32 GPIO. The J8 header ([`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)) is where it would land, so the main board needs no change. The pump-outlet sensor is that same part in a different position on the same tube size in the same dry cabinet.
 
-The faucet pair would sit in a PET-CF gooseneck with carbonated water and condensation inches away and a hand on the capacitive LCD during selection. The faucet carries its own ESP32-S3 with an I2C bus and a UART link home over SIG-6, so a controller there adds no umbilical conductors.
+The faucet pair would sit in a PET-GF15 gooseneck with carbonated water and condensation inches away and a hand on the capacitive LCD during selection. The faucet carries its own ESP32-S3 with an I2C bus and a UART link home over SIG-6, so a controller there adds no umbilical conductors.
 
 Prime is a counted volume with or without the faucet electrodes reporting. Without them, the cycle loses its read on empty reservoir, blockage, and pump slip.
 
@@ -86,5 +86,5 @@ The line takes a water flush on every switch. Reverting to the household default
 2. **The 1/4" LLDPE bore is not recorded anywhere in the repo.** Every volume here assumes 4.3 mm, and scales as its square. Measure the neoFlo spool.
 3. **KPHM400 delivered flow is unspecified.** The 3–4× figure is relative to an assumed 100 mL/min. Measure the pumps.
 4. **What does 30 mL of aerated syrup do inside the reservoir?** The vented cap passes the air. Foam riding the magnet float reaches the reed column in [`level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md).
-5. **Does a capacitive electrode read through PET-CF at the tip**, with condensation on the gooseneck and a hand on the LCD?
+5. **Does a capacitive electrode read through PET-GF15 at the tip**, with condensation on the gooseneck and a hand on the LCD?
 6. **Syrup viscosity and surface tension.** The film range and the flush volume rest on assumed values.

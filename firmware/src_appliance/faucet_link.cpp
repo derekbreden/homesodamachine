@@ -2,6 +2,7 @@
 
 #include "faucet_link.h"
 #include "flavor.h"
+#include "idle.h"
 #include "flavor_link_policy.h"
 #include "machine.h"
 #include "pins.h"
@@ -33,6 +34,7 @@ uint32_t primeHeartbeatPublications = 0;
 // A faucet display that just came up renders from artwork it has not been told
 // yet, so the pair is published once per connection as well as on every change.
 bool artPublished = false;
+bool idlePublished = false;
 
 void observeConnectionEpoch() {
     const uint32_t generation = faucet.connectionGeneration();
@@ -65,6 +67,15 @@ bool sendState(uint32_t token) {
 
 // The pair travels on its own message, so the six-byte flavor state keeps its
 // wire layout and an older glass on either link is unaffected by it.
+bool sendIdle() {
+    IdlePayload idle{idleAsleep() ? (uint8_t)1 : (uint8_t)0, idleWindowMs()};
+    if (faucet.trySend(MSG_RESP_IDLE, &idle, sizeof(idle)) >= 0) {
+        ++framesTx;
+        return true;
+    }
+    return false;
+}
+
 bool sendArt() {
     FlavorArtPayload art{{flavorArt(0), flavorArt(1)}};
     if (faucet.trySend(MSG_RESP_FLAVOR_ART, &art, sizeof(art)) >= 0) {
@@ -121,6 +132,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         }
 
         synchronized = true;
+        idleTouched();
         const bool duplicate = handledTokens.duplicateOrRemember(request.token);
         if (duplicate) {
             ++duplicateRequests;
@@ -138,6 +150,16 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
                           flavorPersisted() ? "" : " — persistence pending");
         }
         sendState(request.token);
+        return;
+    }
+
+    if (type == MSG_TOUCH) {
+        idleTouched();
+        return;
+    }
+
+    if (type == MSG_IDLE_QUERY) {
+        sendIdle();
         return;
     }
 
@@ -165,6 +187,8 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         sendPrimeState();
         return;
     }
+
+    if (type == MSG_PRIME_SESSION_HOLD_START || type == MSG_PRIME_SESSION_SET) idleTouched();
 
     if (type == MSG_PRIME_SESSION_SET &&
         plen >= sizeof(PrimeSessionRequestPayload)) {
@@ -286,9 +310,14 @@ void faucetLinkService() {
         if (revisionPending || !artPublished) {
             if (sendArt()) artPublished = true;
         }
+        if (!idlePublished && sendIdle()) idlePublished = true;
     }
 
     faucet.service();
+}
+
+void faucetLinkPublishIdle() {
+    if (!sendIdle()) idlePublished = false;
 }
 
 void faucetLinkReadStatus(FaucetLinkStatus &status) {

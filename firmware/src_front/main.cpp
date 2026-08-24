@@ -407,12 +407,16 @@ static uint32_t flavorStaleResponses = 0;
 // Someone back after a few minutes comes back to the area they were working in, without
 // the view inside it that would have acted on a tap — a confirm, a hold pad, a stepper.
 // Someone back much later arrives at Choose, because by then they may not be the same person.
-#define IDLE_TIMEOUT_MS   90000   // touch -> dark
+// The quiet stretch before dark is the main board's, counted across both
+// glasses. Nothing here runs a timer of its own.
 #define KEEP_VIEW_MS     120000   // dark -> the root of the page you were on
 #define KEEP_AREA_MS     600000   // dark -> Choose
 
 static unsigned long lastInputTime = 0;
 static unsigned long darkSince = 0;
+static bool idleAsleepKnown = false;   // the main board has said, at least once
+static bool idleAsleepWanted = false;  // what it last said
+static uint32_t idleWindowMs = 0;      // the window it is counting against
 static uint8_t idleStage = 0;    // 0 lit · 1 dark · 2 at the page's root · 3 Choose
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
 
@@ -948,6 +952,10 @@ static bool touchWakesOnly = false;
 
 static uint32_t touchBridged = 0;   // polls carried across a dropped report
 
+// Every press edge, including one that only wakes the glass or lands on nothing.
+// The main board keeps the clock for both glasses; this is what it counts.
+static bool touchPending = false;
+
 // The live point goes to LVGL, so a drag is still a drag. Which objects hold a press that
 // slides off them is LV_OBJ_FLAG_PRESS_LOCK's job, per object — see mkBtn().
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
@@ -963,6 +971,7 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
     if (!prevTouch && bridgedRun == 0) {
       pressStartMs = lastDownMs;
       touchCount++;  // count press edges
+      touchPending = true;
       touchWakesOnly = screenIdle || !backlightOn;
       lastTouchX = x;
       lastTouchY = y;
@@ -1227,6 +1236,7 @@ static void flavorLinkService() {
   // so a second ask would only crowd a pair that is already telling us.
   if (!flavorArtAsked) {
     j9Post(MSG_FLAVOR_ART_QUERY, nullptr, 0);
+    j9Post(MSG_IDLE_QUERY, nullptr, 0);
     flavorArtAsked = true;
   }
   flavorQueryQueuedMs = now;
@@ -1319,6 +1329,18 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     usbReattachPending = true;
     usbReattachAt = millis() + 100;
     Serial.println("[J9] USB reattach accepted — deep-sleep detach in 100 ms");
+    return;
+  }
+
+  if (type == MSG_RESP_IDLE && plen >= sizeof(IdlePayload)) {
+    IdlePayload idle;
+    memcpy(&idle, payload, sizeof(idle));
+    idleAsleepKnown = true;
+    idleWindowMs = idle.windowMs;
+    idleAsleepWanted = idle.asleep != 0;
+    // Waking is immediate; going dark waits for the loop, where a live hold or
+    // an operation lock can still hold it off.
+    if (!idleAsleepWanted && screenIdle) wake();
     return;
   }
 
@@ -3005,6 +3027,8 @@ static void processTextLine(const char *line) {
                   "flushes=%lu,maxLoopMs=%lu,heap=%lu,minHeap=%lu\n",
                   (int)activeRail, (int)activeSvc, (int)activeFlv,
                   lockActive ? 1 : 0, (unsigned)idleStage, screenIdle ? 1 : 0,
+                  idleAsleepKnown ? 1 : 0, idleAsleepWanted ? 1 : 0,
+                  (unsigned long)idleWindowMs,
                   holding ? 1 : 0, gt911Addr, (unsigned long)linkReinits,
                   lastSendErr, (unsigned)outCount, (unsigned)outHighWater,
                   (unsigned long)outDropped, j9.framesRx ? "rx" : "silent",
@@ -3357,9 +3381,17 @@ void loop() {
   // the command it received. Only a press that said nothing else sends one, and
   // it goes out here rather than from inside the LVGL callback, so one press can
   // never put two frames on the pair back to back.
+  // A press that landed on a button has already put a frame on the pair — its
+  // own command, or the tick below — and the main board reads either as
+  // presence. Only a press that stayed silent has to say so on its own.
+  const bool pressSpoke = clickPending;
   if (clickPending) {
     clickPending = false;
     if (j9.framesTx == framesTxAtPress) sendSound(SND_WIRE_TICK);
+  }
+  if (touchPending) {
+    touchPending = false;
+    if (!pressSpoke) j9Post(MSG_TOUCH, nullptr, 0);
   }
 
   primeSessionService();
@@ -3487,17 +3519,20 @@ void loop() {
     }
   }
 
-  // Idle: after inactivity, turn the backlight off. An active operation lock is
-  // exempt; a touch wakes an ordinary page — see wake().
-  const bool primeRunning = primeSessionKnown && !primeLinkLost &&
-                            primeSession.phase == PRIME_SESSION_RUNNING;
-  if (displayReady && !screenIdle && !holding && !primeRunning && !lockActive &&
-      millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
-    screenIdle = true;
-    idleStage = 1;
-    darkSince = millis();
-    setBacklight(false);
-    if (animTimer) lv_timer_pause(animTimer);
+  // Going dark is the main board's call, made across both glasses at once — see
+  // applyIdleState(). An active operation lock and a live hold still hold it off
+  // here, because those are this panel's own business.
+  if (displayReady && !screenIdle && idleAsleepKnown && idleAsleepWanted &&
+      !holding && !lockActive) {
+    const bool primeRunning = primeSessionKnown && !primeLinkLost &&
+                              primeSession.phase == PRIME_SESSION_RUNNING;
+    if (!primeRunning) {
+      screenIdle = true;
+      idleStage = 1;
+      darkSince = millis();
+      setBacklight(false);
+      if (animTimer) lv_timer_pause(animTimer);
+    }
   }
 
   if (screenIdle) {

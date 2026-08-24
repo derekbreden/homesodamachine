@@ -26,7 +26,7 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly
-from _materials import C_PETCF_BLACK, one_body
+from _materials import C_FAUCET_BLACK, one_body
 import _faucet_interface
 from _faucet_interface import (
     flavor_tube_od,
@@ -1661,9 +1661,9 @@ def main():
     # derive from. Separate solids, not a union: a boolean union fuses
     # the joints' nominal-contact faces and dissolves their seams.
     assembled = cq.Assembly(name="faucet-shell")
-    assembled.add(bottom, name="shell_bottom", color=C_PETCF_BLACK)
-    assembled.add(middle, name="shell_middle", color=C_PETCF_BLACK)
-    assembled.add(top, name="shell_top", color=C_PETCF_BLACK)
+    assembled.add(bottom, name="shell_bottom", color=C_FAUCET_BLACK)
+    assembled.add(middle, name="shell_middle", color=C_FAUCET_BLACK)
+    assembled.add(top, name="shell_top", color=C_FAUCET_BLACK)
 
     full_out = out_dir / "faucet-shell.step"
     bottom_out = out_dir / "faucet-shell-bottom.step"
@@ -1671,7 +1671,7 @@ def main():
     top_out = out_dir / "faucet-shell-top.step"
     export_assembly(assembled, str(full_out))
     for shape, out in ((bottom, bottom_out), (middle, middle_out), (top, top_out)):
-        export_assembly(one_body(shape, out.stem, C_PETCF_BLACK), str(out))
+        export_assembly(one_body(shape, out.stem, C_FAUCET_BLACK), str(out))
     print(f"-> {full_out.name}")
     print(f"-> {bottom_out.name}")
     print(f"-> {middle_out.name}")

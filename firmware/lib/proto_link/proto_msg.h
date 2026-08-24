@@ -109,6 +109,18 @@ constexpr uint8_t MSG_FLAVOR_ART_SET   = 0x31;  // FlavorArtPayload: both channe
 constexpr uint8_t MSG_FLAVOR_ART_QUERY = 0x32;  // no payload: answer with the pair
 constexpr uint8_t MSG_RESP_FLAVOR_ART  = 0x33;  // FlavorArtPayload: resulting truth
 
+// ── Idle, owned by the main board (0x34..) ───────────────────────────────
+// Two glasses, one appliance, one clock. A finger on either is activity for
+// both, so the pair sleeps and wakes together instead of each keeping its own
+// idea of whether anyone is here. A display reports a touch that put no other
+// frame on its link — a press that already sent a command is a touch the main
+// board can see — and renders whatever state comes back. Nothing sleeps on a
+// display's own timer: a pair left lit is a link that stopped talking, and is
+// meant to be visible as such.
+constexpr uint8_t MSG_TOUCH          = 0x34;  // no payload: a finger landed on this glass
+constexpr uint8_t MSG_IDLE_QUERY     = 0x35;  // no payload: answer with the current state
+constexpr uint8_t MSG_RESP_IDLE      = 0x36;  // IdlePayload: awake or asleep, and for how long
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -162,6 +174,15 @@ struct __attribute__((packed)) PumpRunPayload {
 struct __attribute__((packed)) ChannelPayload {
   uint8_t channel;
 };
+
+// Whether the appliance considers anyone present, and the window it is counting
+// against — the window widens while an offered action is waiting to be taken.
+struct __attribute__((packed)) IdlePayload {
+  uint8_t  asleep;      // 0 awake, 1 asleep
+  uint32_t windowMs;    // how long the current quiet stretch may run
+};
+
+static_assert(sizeof(IdlePayload) == 5, "idle wire layout drift");
 
 // One logo index per channel, low channel first. A SET states both, so the
 // main board never has to merge a partial view of the pair.

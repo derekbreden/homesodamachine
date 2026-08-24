@@ -93,17 +93,19 @@ static unsigned long primeLastUiAt = 0;
 #define PRIME_STATE_STALE_MS  1800
 
 // ── Backlight / idle dimming ──
-// Full brightness while in use; fades to a glanceable dim level after
-// DIM_TIMEOUT_MS without input. While dimmed, the first tap only wakes
-// the screen (consumed in onTap); serial flavor commands wake and apply.
+// Full brightness while the appliance considers anyone present, fading to a
+// glanceable dim level when the main board says both glasses are done. The
+// quiet stretch is counted there, across both, so this head does not dim while
+// a hand is at the enclosure. While dimmed, the first tap only wakes the screen
+// (consumed in onTap); serial flavor commands wake and apply.
 #define BL_FULL_DUTY   255
 #define BL_DIM_DUTY    8    // idle glow — soft but clearly visible in a dark room; 0 is off
 #define BL_FADE_STEP   4    // duty per loop pass; fade spans (FULL-DIM)/STEP passes
-#define DIM_TIMEOUT_MS 60000
 
 static uint8_t blDuty = BL_FULL_DUTY;
 static uint8_t blTarget = BL_FULL_DUTY;
 static bool dimmed = false;
+static bool idleAsleepWanted = false;   // what the main board last said
 static unsigned long lastInputTime = 0;
 
 // ── Pin assignments (fixed by Waveshare ESP32-S3-Touch-LCD-1.47) ──
@@ -334,9 +336,13 @@ static void onTap(lv_event_t *e) {
   if (dimmed) {  // a tap on a dimmed screen only wakes it
     lastInputTime = millis();
     wakeBacklight();
+    baseLinkTouched();
     return;
   }
+  const uint8_t before = activeFlavor;
   selectFlavorLocally(activeFlavor ^ 1);
+  // A tap that changed nothing sent nothing, and is still a finger.
+  if (activeFlavor == before) baseLinkTouched();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -484,6 +490,14 @@ static void setPrimeVisible(bool visible) {
     renderPrime(true);
   } else {
     lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
+  }
+}
+
+void faucetApplyIdle(bool asleep) {
+  idleAsleepWanted = asleep;
+  if (!asleep && dimmed) {
+    lastInputTime = millis();
+    wakeBacklight();
   }
 }
 
@@ -858,7 +872,7 @@ static void processTextLine(const char *line) {
                   "base=%s,sync=%d,baseFlavor=%u,basePersisted=%d,basePersistErr=%d,durabilityPending=%d,"
                   "pending=%u,linkRx=%lu,linkTx=%lu,retries=%lu,qDrop=%lu,staleResp=%lu,truthSync=%lu,"
                   "lastAckMs=%lu,maxAckMs=%lu,maxLinkUs=%lu,primeQ=%u,primeDrop=%lu,"
-                  "art=%u/%u,showing=%u,uptime=%lus\n",
+                  "art=%u/%u,showing=%u,idle=%d,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)touch.intCount(),
@@ -880,6 +894,7 @@ static void processTextLine(const char *line) {
                   (unsigned)link.primePending, (unsigned long)link.primeQueueDrops,
                   (unsigned)flavorArt[0], (unsigned)flavorArt[1],
                   (unsigned)flavorArt[activeFlavor & 1],
+                  idleAsleepWanted ? 1 : 0,
                   millis() / 1000);
     Serial.printf("DIAG_PRIME:visible=%d,known=%d,phase=%u,owner=%u,outcome=%u,"
                   "pressed=%d,stop=%d,cancel=%d,lost=%d,session=%08lX,hold=%08lX,"
@@ -1051,15 +1066,16 @@ void loop() {
     }
   }
 
-  // Idle dimming: set the dim target after inactivity, fade toward it.
-  // Waking snaps to full (wakeBacklight), so the stepper only walks down.
+  // Idle dimming: take the dim target when the appliance says both glasses are
+  // done, then fade toward it. Waking snaps to full (wakeBacklight), so the
+  // stepper only walks down. A live hold is this head's own business and holds
+  // the dark off regardless.
   const bool primeRunning = primeSessionKnown && !primeLinkLost &&
                             primeSession.phase == PRIME_SESSION_RUNNING;
-  if (!dimmed && !primePressed && !primeRunning &&
-      millis() - lastInputTime >= DIM_TIMEOUT_MS) {
+  if (!dimmed && idleAsleepWanted && !primePressed && !primeRunning) {
     dimmed = true;
     blTarget = BL_DIM_DUTY;
-    Serial.println("Backlight dim (idle)");
+    Serial.println("Backlight dim (appliance idle)");
   }
   if (blDuty != blTarget) {
     int next = (int)blDuty - BL_FADE_STEP;
