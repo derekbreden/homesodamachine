@@ -6,14 +6,12 @@ and names it after the step's own path, so a source that moves takes its target'
 it — and `.github/workflows/` keeps whatever it was told. The graph regenerates, every gate
 stays green, and the run dies naming a target bazel has never heard of.
 
-IT DIES LATE, WHICH IS THE COST. A publish builds the CAD first and reaches the steps that
-name targets by hand at the end, so this fault is ten minutes of correct work and then
-nothing — and it fails every publish identically until someone reads the log.
+IT DIES LATE. A publish builds the CAD first and reaches the steps that name targets by hand
+at the end, so the run cuts everything and then stops on the label.
 
-WORSE THAN THE FAILURE IS THE GREP THAT GOES QUIET. A workflow does not only build these
-labels, it matches on them: scoping greps one out of the requested list, debt greps one out
-of a provenance range. A `grep` for a name nothing emits is not an error, it is a false
-answer — the branch simply stops being taken.
+AND A WORKFLOW MATCHES ON THESE LABELS AS WELL AS BUILDING THEM: scoping greps one out of the
+requested list, debt greps one out of a provenance range. A `grep` for a name nothing emits
+returns nothing, and the branch behind it stops being taken.
 
 So this reads the labels out of the workflows and holds them against the names in
 BUILD.bazel. Text and a set: no venv, no bazel, no network.
@@ -42,10 +40,8 @@ def named(text: str) -> tuple:
     """`(run, prose)` — the target names a workflow's steps name, and the ones only its
     comments do, alternations split out of both.
 
-    A LABEL A STEP NAMES STOPS THE RUN AND A LABEL A COMMENT NAMES MISLEADS A READER, and
-    those are not the same fault. A comment carrying a name nothing declares is still wrong —
-    the tree describes what is — but it ships, and holding a commit for it would be the gate
-    crying about prose. So they are counted apart and only the first is fatal."""
+    A label a step names stops the run; a label only a comment names does not. They are
+    counted apart, and `main` holds the commit for the first and prints the second."""
     run, prose = set(), set()
     for line in text.splitlines():
         stripped = line.lstrip()

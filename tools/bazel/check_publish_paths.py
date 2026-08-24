@@ -6,9 +6,8 @@ the graph. A file some step reads that sits under no pattern in that list is a f
 change publishes nothing: the push lands, no run is created, no target is cut, and the tracked
 output it feeds keeps yesterday's bytes.
 
-THE SYMPTOM IS SILENCE, WHICH IS WHY IT NEEDS A GATE. Every other fault in this pipeline ends
-in a red run somebody reads. This one ends in "I pushed it and nothing happened" — no run, no
-log, no failure, and a doc or a picture that quietly stopped tracking its source.
+THE SYMPTOM IS SILENCE: no run, no log, no failure, and a doc or a picture that has stopped
+tracking its source.
 
 A PATTERN THAT EXCLUDES ON PURPOSE IS NOT THIS FAULT. The list negates its own outputs —
 scorecards, the Quick Start artwork — because a generated file that is also a source would
