@@ -31,7 +31,7 @@ import { loadStepFile } from "../viewer/step.js";
 import { isXrayEnabled, setXrayEnabled } from "../viewer/xray.js";
 import { applyHiddenComponents, isolateComponent } from "../viewer/component-picker.js";
 import { boxOfParts, unionBoxes, poseFor, boxOfGroup } from "./frame.js";
-import { flight, tween, driftAt, durationFor, midHeading, toOrbit } from "./flight.js";
+import { flight, tween, driftAt, durationFor, midHeading, toOrbit, vertigoScale } from "./flight.js";
 import * as spotlight from "./spotlight.js";
 import { mountHud } from "./hud.js";
 import { mountTags } from "./tags.js";
@@ -220,6 +220,21 @@ const livePose = () => ({
 
 const headingOf = (pose) => pose.position.clone().sub(pose.target).normalize().toArray();
 
+// The lens, and what it does to the distance. The flight hands over a pose
+// framed at the page's own field of view; holding the subject's size while the
+// lens changes means moving the camera along its own axis by the ratio of the
+// two half-angles' tangents.
+function applyVertigo(pose, raw) {
+  if (!vertigo) return pose;
+  const { fov, scale } = vertigoScale(vertigo.from, vertigo.to,
+    THREE.MathUtils.clamp(raw, 0, 1), camera.aspect);
+  if (camera.fov !== fov) { camera.fov = fov; camera.updateProjectionMatrix(); }
+  const o = pose.position.clone().sub(pose.target);
+  const d = o.length();
+  return { ...pose,
+    position: pose.target.clone().addScaledVector(o.normalize(), d * scale) };
+}
+
 function applyPose(p) {
   camera.up.copy(p.up);
   camera.position.copy(p.position);
@@ -273,6 +288,14 @@ let moveTags = null;     // the two subjects of the move in the air, for the pin
 let swinging = false;    // a held beat's light is still crossing over
 let swingFrom = [];      // and this is what it is crossing from
 let quietNow = 0;        // how far the machine behind the lights is turned down
+const BASE_FOV = camera.fov;
+// The lens a beat is seen through, carried forward like `hue` — so a chapter
+// entered on a wide lens stays on it, and the moves inside it change nothing.
+const vertigoOf = (i) => {
+  for (let k = i; k >= 0; k--) if (STEPS[k].vertigo) return STEPS[k].vertigo;
+  return BASE_FOV;
+};
+let vertigo = null;      // { from, to } while a move is changing the lens
 
 const SPEEDS = [1, 1.5, 0.6];
 let speedAt = 0;
@@ -315,6 +338,13 @@ async function go(i, { instant = false } = {}) {
     modelSpan = boxOfGroup(state.currentGroup).getSize(new THREE.Vector3()).length() || 400;
     idx = i;
     applyIsolate(i);
+    // A LINK LANDS ON THE BEAT'S OWN LENS. There is no move to change it during,
+    // so it is set before the pose is framed — `poseFor` takes its distance from
+    // the field of view, and framing at 45 and then arriving at 68 would put the
+    // subject at the wrong size in its own beat.
+    const lens = vertigoOf(i);
+    if (Math.abs(camera.fov - lens) > 0.01) { camera.fov = lens; camera.updateProjectionMatrix(); }
+    vertigo = null;
     applyPose(poseOf(i));
     beginDwell();
     commit(i);
@@ -356,6 +386,13 @@ function startFlight(i, from) {
   const authored = STEPS[i].enter;
   span = authored != null ? authored : durationFor(from, to, modelSpan);
   if (span <= 0) { applyPose(to); idx = i; beginDwell(); commit(i); return false; }
+  // A beat that states `vertigo` takes the lens with it. The number is the field
+  // of view it arrives at: below the page's own is a longer lens, which flattens
+  // the machine and pushes the camera back; above it is wider, which swells the
+  // surroundings around a subject that has not moved.
+  const lens = vertigoOf(i);
+  vertigo = Math.abs(camera.fov - lens) > 0.01 ? { from: camera.fov, to: lens } : null;
+
   // Coming out of a swap the beat being left is not in this model any more, so
   // it gets no pin — there is nothing on screen for one to point at.
   moveTags = {
@@ -446,7 +483,7 @@ function step(dt) {
     }
     if (t >= 1 && playing && !grabbed) go(idx + 1);
   } else if (phase === "flight") {
-    if (!grabbed) applyPose(poseAt(t));
+    if (!grabbed) applyPose(applyVertigo(poseAt(t), t));
     active = STEPS[pendingIndex].parts || [];
     out = STEPS[idx].parts || [];
     mix = t;

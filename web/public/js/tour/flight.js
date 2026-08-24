@@ -134,6 +134,28 @@ export function flight(a, m, b) {
   };
 }
 
+/**
+ * THE VERTIGO SHOT. Field of view and distance changed together so the subject
+ * holds its size on screen while everything around it swells or collapses.
+ * Nothing about the subject moves; the machine around it does. It is the exact
+ * grammar for "this is INSIDE that" — which is what a move into the vessel is
+ * saying, and what a cut or an arc can only imply.
+ *
+ * `fov(t)` is the lens through the move; the distance that keeps a subject of
+ * `radius` filling the same fraction of the frame is the distance at which it
+ * subtends the same angle, so the radius rides 1/tan of the half-angle.
+ *
+ * Returns the multiplier to apply to the flight's own radius at `t`.
+ */
+export function vertigoScale(fovFrom, fovTo, t, aspect) {
+  const half = (fov) => {
+    const v = THREE.MathUtils.degToRad(fov) / 2;
+    return Math.min(v, Math.atan(Math.tan(v) * Math.max(aspect, 0.01)));
+  };
+  const now = THREE.MathUtils.lerp(fovFrom, fovTo, t);
+  return { fov: now, scale: Math.tan(half(fovFrom)) / Math.tan(half(now)) };
+}
+
 /** The pose a step drifts to while it is held: a few degrees of swing and a
  *  touch of dolly, so the picture is alive without becoming a second move. */
 export function driftedFrom(pose, drift) {
