@@ -2307,16 +2307,6 @@
   },
   "hardware/assembly/cards/tools/_build.py": {
     "reads": [
-      "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin-ext.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexMono-400-normal-latin.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin-ext.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexMono-600-normal-latin.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin-ext.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexMono-700-normal-latin.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin-ext.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-italic-latin.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin-ext.woff2",
-      "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
       "hardware/assembly/cards/tools/README.md",
       "hardware/assembly/cards/tools/_build.py",
       "hardware/assembly/cards/tools/_index.py",
@@ -2410,9 +2400,6 @@
       "hardware/assembly/cards/tools/vc-vacuum-charge.html",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_run_lock.py",
-      "tools/render/browser.js",
-      "tools/render/package-lock.json",
-      "tools/render/package.json",
       "tools/render/render-card.js"
     ],
     "rewritten": [],
@@ -6323,8 +6310,6 @@
       "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
       "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
       "hardware/scripts/_bom_masses.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [],
@@ -6598,8 +6583,7 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh"
     ]
   },
   "hardware/service/_pump_replacement_sync.py": {
