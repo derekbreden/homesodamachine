@@ -135,16 +135,16 @@
 .tour-dot.done::before { background: color-mix(in srgb, #4d8dff 60%, transparent); }
 .tour-dot-fill {
   position: absolute;
-  left: 2px; top: 11px;
-  width: calc((100% - 4px) * 0);
+  left: 2px; right: 2px; top: 11px;
   height: 4px;
   border-radius: 2px;
   background: #35e0d0;
   opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
 }
-.tour-dot.now .tour-dot-fill { width: calc((100% - 4px) * 1); opacity: 1; transform-origin: left; }
 .tour-dot.now { width: 26px; }
-.tour-dot.now .tour-dot-fill { transform: scaleX(var(--fill-x, 1)); }
+.tour-dot.now .tour-dot-fill { opacity: 1; transform: scaleX(var(--fill-x, 0)); }
 .tour-dot:hover::before { background: var(--text-2); }
 
 .tour-chip-btn {
