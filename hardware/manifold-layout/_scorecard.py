@@ -102,12 +102,27 @@ def _split_placed(a) -> tuple:
     if hit is not None and hit[0] is a:
         return hit[1]
     bodies, tubes, pieces = {}, {}, {}
+    # THE CORE IS ONE BODY TO THIS CARD. The assembly exports the cold core's own bodies so a
+    # reader can open the machine and reach them, and they are checked — every pair of them —
+    # by the core's own card beside `cold-core-assembly.step`. What this card asks is whether
+    # the MACHINE closes: that the core as a unit fits its lane, is stopped and held, and that
+    # every port on it is reachable. All of that is struck off the envelope's faces, so the
+    # envelope is what stands here and its contents do not.
+    #
+    # The reading that costs is the one saved: `pack-closes` and `clearance-floor` are exact
+    # all-pairs booleans, and the core's 62 bodies would take the pack from 138 to 199 and the
+    # pairs it answers from nine thousand to twenty.
+    inside = getattr(a, "core_body_names", frozenset())
     for c in a.children:
+        if c.name in inside:
+            continue
         solid = (c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
             cq.Location(c.loc.wrapped.Transformation()))
         target = (pieces if c.name.startswith("enclosure-")
                   else tubes if c.name.startswith(TUBE_PREFIXES) else bodies)
         target[c.name] = solid
+    if getattr(a, "core_envelope", None) is not None:
+        bodies["foam-assembly"] = a.core_envelope
     _placed_cache[id(a)] = (a, (bodies, tubes, pieces))    # pin `a` so its id stays its own
     return bodies, tubes, pieces
 
@@ -1038,7 +1053,8 @@ def pack_clashes(a) -> tuple:
     hit = _clash_cache.get(id(a))
     if hit is not None and hit[0] is a:
         return hit[1]
-    result = ml.clashes(a)
+    bodies, tubes, pieces = _split_placed(a)
+    result = ml.clashes(a, bodies={**bodies, **tubes, **pieces})
     _clash_cache[id(a)] = (a, result)
     return result
 

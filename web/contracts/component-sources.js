@@ -13,13 +13,12 @@
 // that part (`pump-a-motor` is one of three solids in the Kamoer's STEP;
 // `coil-v-a` is the coil half of the Beduan solenoid).
 //
-// A COMPONENT MAY BE A WHOLE ASSEMBLY, and then the file is that assembly and the
-// drill-down goes on from there. `foam-assembly` is the machine's one handle on
-// the cold core — the name its port table, its scorecard rows and its plumbing
-// runs all speak — and `cold-core-layout/cold-core-assembly.step` is that same
-// body one frame in, foam and all, with the carbonator, the coil, both reservoirs,
-// every fitting and the lines among them standing in it. Opening it is how they
-// are reached; contracts/parts-tree.js seats the two the same way.
+// THE COLD CORE IS NOT REACHED THROUGH A NAME HERE. The enclosure carries the core's
+// own bodies — the shell and its caps, the carbonator, the coil, both reservoirs,
+// every fitting and the lines among them — so each is picked where it stands and
+// offers the file it was modelled in, the same as any other component. `foam-assembly`
+// is still the name the port table, the scorecard rows and the plumbing runs speak,
+// but it is the envelope the machine measures against and not a body it exports.
 //
 // A name in neither is a body the assembly builds itself and keeps: the routed
 // `tube-*`, `turn-*` and `step-*` runs, the cold core's `vessel-*` primitives and
@@ -64,7 +63,6 @@ export const ALIASES = {
   "faucet_display": "reference/waveshare-43b-display/waveshare-43b-display.step",
   "faucet_display_screen": "reference/waveshare-43b-display/waveshare-43b-display.step",
   "flow-regulator": "reference/neofit-flow-control/neofit-flow-control.step",
-  "foam-assembly": "cold-core-layout/cold-core-assembly.step",
   "gasher-co2": "reference/gasher-check-valve/gasher-check-valve.step",
   "ground-stack": "reference/ground-ring-stack/ground-ring-stack.step",
   "funnel-drain-clamp": "reference/worm-clamp/worm-clamp.step",

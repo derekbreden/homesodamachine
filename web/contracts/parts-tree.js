@@ -8,11 +8,13 @@
 // Those two are what ship as separate bodies. Everything else the machine is
 // made of stands inside one of them, and is reached by opening it.
 //
-// AN ASSEMBLY MAY HOLD AN ASSEMBLY. `children` is that nesting: the cold core is
-// one component of the enclosure, and opening that component is how its carbonator,
-// coil, reservoirs, fittings and lines are reached. The nesting is what the page
-// browses and what the drill-down walks, and the two agree because both read
-// this file.
+// AN ASSEMBLY MAY HOLD AN ASSEMBLY, and the cold core is it. The enclosure STEP
+// carries the core's own bodies — the shell and its caps, the carbonator, the coil,
+// both reservoirs, every fitting and the lines among them — so opening the appliance
+// is already being inside the core, and each of those is picked where it stands.
+// What `children` states is whose directories are whose: the core's parts are
+// claimed by the core rather than swept up by the machine that holds it, and
+// `cold-core-assembly.step` is that same stack on a bench.
 //
 // A PART INSIDE AN ASSEMBLY IS REACHED BY SELECTING IT THERE. Open the assembly,
 // arm Select → Component, click the solid: the panel names the component and
@@ -75,10 +77,10 @@ export const ASSEMBLIES = [
         id: "cold-core-assembly",
         label: "Cold core assembly",
         model: "cold-core-layout/cold-core-assembly.step",
-        note: "One component of the enclosure, and a stack in its own right: the carbonator that " +
-              "fills it, the coil wound on that, both reservoirs in their pockets, every " +
-              "fitting made up, and the lines among them. The machine places its foam; this " +
-              "is the same body one frame in.",
+        note: "The stack the appliance is built around: the carbonator that fills it, the " +
+              "coil wound on that, both reservoirs in their pockets, every fitting made up, " +
+              "and the lines among them. The machine stands every one of these bodies; this " +
+              "is the same stack on a bench, before the box goes round it.",
         holds: [
           "cold-core-layout",
           "cut-parts/carbonation",
