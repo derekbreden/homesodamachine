@@ -6,25 +6,7 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c57bddbe75cf66e8.tar.gz"
   },
   "source": {
-    "commit": "f5aaca5b631dcd67f08dbdc1ec1879f857e7d1f2"
-  },
-  "unproven": {
-    "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
-    "paths": [],
-    "members": [
-      "hardware/assembly/scenes/glb/back-half.glb",
-      "hardware/assembly/scenes/glb/back-top.glb",
-      "hardware/assembly/scenes/glb/cap-lid.glb",
-      "hardware/assembly/scenes/glb/cold-core-open.glb",
-      "hardware/assembly/scenes/glb/cold-core.glb",
-      "hardware/assembly/scenes/glb/en04-stratum.glb",
-      "hardware/assembly/scenes/glb/front-top.glb",
-      "hardware/assembly/scenes/glb/pump-cartridge.glb",
-      "hardware/manifold-layout/enclosure-assembly.step",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step"
-    ]
+    "commit": "fde00798174af98fd5a7eecf927dc28c75d9d220"
   },
   "bundle": {
     "sha256": "c57bddbe75cf66e82ae5d78b7fdbdca502cb3758f941a7ea261c523b0cb2008d",
