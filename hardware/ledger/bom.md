@@ -137,10 +137,10 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PETG | 2.774 | $31.07 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PETG | 2.912 | $32.61 <!--@printed--> |
 | Enclosure — pump cartridge + cap (one set) | 1 set | PETG | 0.985 | $11.03 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PETG | 2.351 | $26.34 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PETG | 2.634 | $29.51 <!--@printed--> |
 | Enclosure — ceiling panel | 1 | PETG | 0.366 | $4.10 <!--@printed--> |
 | Display cover plate | 1 | PETG | 0.028 | $0.31 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.14 <!--@printed--> |
@@ -150,9 +150,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
 | Faucet shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Above-counter plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~9.65** | **[$112.72](BOM_SEC7)** |
+| **Printed parts total** | | | **~10.07** | **[$117.43](BOM_SEC7)** |
 
-By material: PETG ≈ 9.49 kg / $106.25 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 9.91 kg / $110.96 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -185,7 +185,7 @@ Soft seals print in Bambu TPU 90A from per-unit-trivial stock, not costed here: 
 |---|---|---:|---:|---:|
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | Carbonated-water outlet adapter — threads onto the bottom-plate Port 3 TAISHER elbow (1/4" NPT F), 1/4" PTC accepts the blue LLDPE riser. Same PTC×NPT SKU as the §3/§4 slot transitions; PTC suits soft LLDPE better than a compression ferrule. FWS WEBFWS100675224 May 15: $17.41 ÷ 10 = $1.741/ea | 1 (of 10 pk) | $1.74 | $1.74 <!--@plumbing--> |
 | [Westbrass A2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | donor faucet; family-equivalence + interchangeable-finish notes in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Adjacent parts" | 1 | $32.18 | $32.18 <!--@faucet--> |
-| SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Adjacent parts"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 <!--@cut-parts--> |
+| SendCutSend 0.060" 316 SS under-counter plate (`under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/faucet-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md) "Adjacent parts"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 <!--@cut-parts--> |
 | [DIGITEN G1/4" Hall-effect flow sensor, 0.3–10 L/min](https://www.amazon.com/dp/B07QRXLRTH) | flow detection on the carbonated-water dispense path; ACQUIRED ×4 ([purchases.md](/hardware/ledger/purchases.md) §7) | 1 | $10.18 | $10.18 <!--@sensors--> |
 | [CARGEN Pipe Insulation Foam Tube, 1/4" ID × 3/8" wall × 6 ft, nitrile rubber closed-cell](https://www.amazon.com/dp/B0D2XFK337) | insulates the 1/4" OD LLDPE soda umbilical tube from the foam-shell exit through the countertop to the underside of the Westbrass touch-flo body. **Two runs consume it, on two different benches:** the cabinet-internal riser, one cut ~600 mm ( ~24") piece from the cold-core exit to the blue-ringed bulkhead per [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §4, and the above-counter umbilical, five butted 1-ft segments ( ~60") per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3 — ~84"/build against a 72" roll, so a build takes more than one roll. Amazon 112-3935659 May 15: 2 @ $7.59 + $1.10 tax = $16.28 ÷ 2 = $8.14/roll = $0.113/in × 84" = $9.50/build | ~1.17 roll (~84") | $9.50 | $9.50 <!--@insulation--> |
 | [BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, 50 ft](https://www.amazon.com/dp/B07PNPHWMG) | Umbilical signal cable — the faucet-display harness (SIG-6: TX / RX / 5 V / GND) from the gooseneck 1.47" display down through the countertop and umbilical to the base ESP32. ~2 m per build off the 50 ft (15.2 m) spool; Amazon 112-9860351 Jun 10: $21.43 ÷ ~7 builds = $3.06/build | ~1/7 spool (~2 m) | $3.06 | $3.06 <!--@wiring--> |
@@ -298,7 +298,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$112.72](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$117.43](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.33](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -306,7 +306,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$12.64](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,327.70](BOM_GRAND)** |
+| **Total** | **[$1,332.41](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
