@@ -1055,7 +1055,7 @@ def extents(shape) -> Extents:
     return Extents(*bb.Get())
 
 
-def clashes(assy: cq.Assembly, floor: float = 1.0):
+def clashes(assy: cq.Assembly, floor: float = 1.0, bodies: dict = None):
     """Every pair of placed solids that shares more than `floor` mm³ — as `Clash(a, b, volume,
     where)`, `where` being the extents of the shared solid itself and not of either body — and
     every pair the boolean would not answer for. Butted collets meet on a plane and share
@@ -1064,9 +1064,13 @@ def clashes(assy: cq.Assembly, floor: float = 1.0):
 
     The pair's boxes are a pre-filter and only that. Disjoint boxes prove disjoint solids, so
     skipping on them is sound; overlapping boxes prove nothing at all, which is why no pair is
-    ever reported without the boolean having been asked."""
-    solids = [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj)
-               .moved(cq.Location(c.loc.wrapped.Transformation()))) for c in assy.children]
+    ever reported without the boolean having been asked.
+
+    `bodies` names the placed solids to read INSTEAD of the assembly's own children — what a
+    card hands in when the assembly exports a body some other card is what checks."""
+    solids = (list(bodies.items()) if bodies is not None else
+              [(c.name, (c.obj.val() if hasattr(c.obj, "val") else c.obj)
+                .moved(cq.Location(c.loc.wrapped.Transformation()))) for c in assy.children])
     boxes = [(n, s, _boxes.loose(s)) for n, s in solids]
     hits, unanswered = [], []
     for i in range(len(boxes)):

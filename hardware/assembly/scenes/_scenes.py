@@ -78,6 +78,13 @@ INNER_ALL = "*"
 # bodies come from and — through the machine's own seating of it — where they stand.
 INNER_ROOT = "foam-assembly"
 
+# THE FOAM ITSELF, as the core names its five pieces. `foam-assembly.step` is a compound of
+# exactly these, so a scene drawing them draws what the machine's one solid drew — with each
+# piece under its own name. A unit that carries the core without being a picture of its insides
+# takes these: on a bench the core arrives foamed and closed.
+INNER_FOAM = ("foam-shell", "foam-cap-top", "foam-cap-lid-top",
+              "foam-cap-bottom", "foam-cap-lid-bottom")
+
 _COLD_CARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 
 
@@ -299,7 +306,7 @@ SCENES = (
     ),
     Scene(
         "back-half", "Enclosure back half",
-        roots=("enclosure-back-bottom", "enclosure-back-top"), inner=(), flip=None,
+        roots=("enclosure-back-bottom", "enclosure-back-top"), inner=INNER_FOAM, flip=None,
         # The four that cross the Y seam: the flavour-A riser off the +Y wall's own union,
         # and the three reservoir lines standing in the core's cap. All four are made up on
         # this half and all four leave it hanging, for the front half's valves to take.
@@ -613,10 +620,13 @@ def named(scene, runs):
     derived -= set(scene.later)
     # THE CORE'S OWN BODIES STAND WHERE THE MACHINE'S ONE SOLID WOULD. `roots` still decided
     # which of the machine's bodies this unit carries; what it names is drawn from the frame
-    # that has the pieces.
+    # that has the pieces. What they stand in place of is `INNER_ROOT` — the one name the
+    # machine carried the whole core under — and not whatever this scene happens to be rooted
+    # on: a scene rooted on two box halves carries the core because a half holds it, and
+    # replacing its roots would take the box out of its own picture.
     inner = set(inner_of(scene))
     if inner:
-        derived -= set(scene.roots)
+        derived.discard(INNER_ROOT)
         derived |= inner - set(scene.later)
     if scene.without:
         other = SCENE_BY_ID[scene.without]
