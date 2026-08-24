@@ -275,37 +275,43 @@ function applyPose(p) {
   camera.lookAt(controls.target);
 }
 
-// ── the machine, before you see through it ──────────────────────────────────
-// THE TOUR OPENED ALREADY GHOSTED, so nobody ever met the appliance as an
-// object — the first thing they saw was a wireframe. A beat can now ask for the
-// machine SOLID and dissolve it to the x-ray view a moment later, which is a
-// stronger ten seconds than any amount of highlight: here is the thing, and now
-// here is inside the thing.
+// ── SOLID OR SEEN THROUGH — ONE PLACE THAT DECIDES ──────────────────────────
+// Three different things want the machine drawn solid: the opening, where it is
+// an object before it is a diagram; a section, which is a thicket through the
+// ghost and a drawing through solid shading; and the closing beat, which shuts
+// the appliance again with the line still burning inside it.
 //
-// The reader's own x-ray choice is theirs. It is read once at boot, restored
-// the moment the dissolve is done, and restored again if the page goes away
-// mid-dissolve — a walkthrough must not leave someone's parts viewer in a mode
-// they did not pick.
+// They used to each write x-ray when they changed. Two edge-triggered writers
+// on one piece of state race on any frame they share — one sets, the other
+// restores, and neither fires again, so the mode sticks wrong permanently and
+// reads as the feature simply not working. So nothing writes it on an edge.
+// Every frame states what the beat needs, and the one place below moves the
+// renderer if it disagrees.
+//
+// THE READER'S OWN CHOICE IS THEIRS. It is read once at boot, it is what every
+// beat that does not care falls back to, and it is put back on pagehide — a
+// walkthrough must not leave someone's parts viewer in a mode they did not pick.
 const readerXray = isXrayEnabled();
-let dissolving = false;
 
-function restoreXray() {
-  if (!dissolving) return;
-  dissolving = false;
-  if (isXrayEnabled() !== readerXray) setXrayEnabled(readerXray);
+function wantsGhost(shown, at) {
+  const step = STEPS[shown];
+  if (REVEAL === "section" && isolateOf(shown)) return false;  // a section is a drawing
+  if (shown === 0 && step.solid && at < step.solid) return false; // the machine, first
+  if (step.xray === false) return false;                        // and last
+  return readerXray;
 }
+
+function syncGhost(shown, at) {
+  const want = wantsGhost(shown, at);
+  if (isXrayEnabled() === want) return;
+  setXrayEnabled(want);
+  spotlight.invalidate();
+}
+
 window.addEventListener("pagehide", () => {
-  // Unconditional: section mode drives x-ray too, so "was there a dissolve" is
-  // no longer the whole of when it needs putting back.
   if (isXrayEnabled() !== readerXray) setXrayEnabled(readerXray);
   restoreModel(state.currentGroup);
 });
-
-function beginSolid() {
-  if (readerXray === false) return; // already the way they like it
-  dissolving = true;
-  setXrayEnabled(false);
-}
 
 // ── the clock ───────────────────────────────────────────────────────────────
 let idx = 0;
@@ -593,6 +599,9 @@ function step(dt) {
     haloWidth = THREE.MathUtils.clamp((r / d) * 3.2, 0.25, 1);
   }
 
+  syncGhost(shown, clock);
+  if (shown !== 0 || clock > (STEPS[0].solid || 0)) hud.showTitle(false);
+
   // The cut rides the camera, so it re-strikes every frame it is wanted.
   //
   // AND IT IS DRAWN SOLID. A cut-away through the x-ray ghost is not a section,
@@ -602,30 +611,14 @@ function step(dt) {
   // the cut face is a face, and the first thing behind it is the thing you are
   // being shown.
   if (REVEAL === "section") {
-    const want = isolateOf(shown) ? focusBox(shown) : null;
-    setSection(state.currentGroup, want, camera, renderer);
-    // Stated against the mode the renderer is ACTUALLY in rather than against a
-    // flag of our own. The opening dissolve also drives x-ray, and two
-    // edge-triggered writers on one piece of state race on whichever frame they
-    // share — one sets solid, the other restores, and the second one wins
-    // forever because neither will fire again.
-    const target = want ? false : readerXray;
-    if (isXrayEnabled() !== target) { setXrayEnabled(target); spotlight.invalidate(); }
+    setSection(state.currentGroup, isolateOf(shown) ? focusBox(shown) : null,
+               camera, renderer);
   }
 
   if (ghosting) {
     ghostClock += dt;
     ghosting(ghostClock / ghostSpan);
     if (ghostClock >= ghostSpan) ghosting = null;
-  }
-
-  // The opening dissolve: solid while the beat states it, x-ray once it is
-  // past — and the title leaves with it, so the machine opening and the words
-  // clearing are one motion rather than two.
-  if (dissolving && (shown !== 0 || clock > (STEPS[0].solid || 0))) {
-    restoreXray();
-    spotlight.invalidate();
-    hud.showTitle(false);
   }
 
   // THE LAST BEAT IS THE MACHINE AND THE LINE. Its words have been read by the
@@ -778,7 +771,7 @@ hud.setSpeed(speed);
 hud.setPlaying(true);
 // Only the tour's own opening beat gets the solid machine. A link into the
 // middle of it is someone coming back to a beat, not meeting the appliance.
-if (STEPS[0].solid && initialIndex() === 0) { beginSolid(); hud.showTitle(true); }
+if (STEPS[0].solid && initialIndex() === 0) hud.showTitle(true);
 requestAnimationFrame(tick);
 go(initialIndex(), { instant: true });
 
