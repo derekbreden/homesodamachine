@@ -354,39 +354,51 @@ def _behind(root: Path, targets: list) -> bool:
 
 
 def carry_the_cut(root: Path, targets: list) -> list:
-    """Cut whatever of `targets` this tree is behind on, carry it in, and name what would not.
+    """`(rules that would not cut, members this tree does not hold the cut of)`.
 
     THE PART AS IT IS, WHICH IS WHAT THE SITE IS FOR. A rule whose source has moved and whose
     output has not describes the part as it was, and publishing that shows a change that has not
     happened. Bazel already knows which rules those are and how to cut them, so it cuts them —
     a refusal here would only be this asking someone to run the build it could run.
 
-    What comes back is the rules still behind afterwards, which is what would not build. Their
-    members go in the record beside the uncommitted ones: both are outputs `source.commit` does
-    not describe, and both still travel.
+    A CUT REACHES BAZEL-BIN AND STOPS THERE. Carrying it into the tree is `sync_tree --write`,
+    which copies over files other sessions are editing, and this is not the caller that gets to
+    decide that. So the tree keeps its own bytes, the bundle carries them, and a member whose
+    bytes are not the ones HEAD's source just cut comes back on the right to be recorded —
+    which is the same answer as a rule that would not cut at all, arrived at one step later.
     """
     if not targets:
-        return []
+        return [], set()
     if _behind(root, targets):
         print(f"cutting {len(targets)} artifact target(s) this tree is behind on")
         subprocess.run(["bazel", "build", *targets], cwd=str(root))
-    # ONE RULE THAT WOULD NOT CUT IS NOT THE OTHERS' PROBLEM. `sync_tree --write` refuses on a
-    # label set bazel calls behind, and rightly — it copies over the tree, where stale bytes
-    # would land on newer ones. So the failed rules leave the set rather than the carry, and
-    # every rule that did cut still reaches the tree, the bundle and the site.
+    # ONE RULE THAT WOULD NOT CUT IS NOT THE OTHERS' PROBLEM, so the failed ones leave the set
+    # rather than the reading, and every rule that did cut is still compared.
     failed = [t for t in targets if _behind(root, [t])] if _behind(root, targets) else []
     if failed:
-        print(f"  {len(failed)} target(s) would not cut, and are recorded rather than carried:")
+        print(f"  {len(failed)} target(s) would not cut:")
         for label in failed[:8]:
             print(f"    {label}")
     carried = [t for t in targets if t not in set(failed)]
-    if carried:
-        sync = subprocess.run(
-            [sys.executable, str(root / "tools" / "bazel" / "sync_tree.py"),
-             "--runtime-only", "--targets", " ".join(carried)], cwd=str(root))
-        if sync.returncode != 0:
-            print("  bazel-bin does not hold that cut; the tree keeps what it has")
-    return failed
+    if not carried:
+        return failed, set()
+    sys.path.insert(0, str(root / "tools" / "bazel"))
+    from sync_tree import _runtime_output, _targets as cut_pairs
+
+    unheld = set()
+    for built, rel in cut_pairs(tuple(carried)).items():
+        if not _runtime_output(rel):
+            continue
+        here = root / rel
+        if not Path(built).is_file():
+            continue
+        if not here.is_file() or _sha256(built) != _sha256(here):
+            unheld.add(rel)
+    if unheld:
+        print(f"  {len(unheld)} member(s) are not the bytes that cut just made, and are recorded:")
+        for rel in sorted(unheld)[:8]:
+            print(f"    {rel}")
+    return failed, unheld
 
 
 def _targets_for_members(root: Path, members: set) -> tuple:
@@ -690,11 +702,11 @@ def main(argv) -> int:
 
     if args.write:
         reached, unbounded, dirty = _dirty_artifact_reach(_ROOT)
-        quarantined = set(reached)
+        quarantined, unheld = set(reached), set()
         owed = _owed_artifact_targets(_ROOT)
     else:
         reached, unbounded, dirty = [], [], []
-        quarantined = set()
+        quarantined, unheld = set(), set()
         owed = []
 
     rels = solids(_ROOT)
@@ -744,8 +756,9 @@ def main(argv) -> int:
     if args.write:
         # A rule an uncommitted edit reaches has nothing at HEAD to be cut against, and the
         # record is what says so; the rest are cut and carried here.
-        quarantined |= set(carry_the_cut(
-            _ROOT, sorted((set(owed) | set(changed_targets)) - quarantined)))
+        would_not_cut, unheld = carry_the_cut(
+            _ROOT, sorted((set(owed) | set(changed_targets)) - quarantined))
+        quarantined |= set(would_not_cut)
         # The carry writes bazel-bin into the tree, so the bytes this pins are read after it.
         rels = solids(_ROOT)
         now = hashes(_ROOT, rels)
@@ -755,7 +768,7 @@ def main(argv) -> int:
     # rule is reached by an uncommitted path, its rule would not cut, or no rule claims it at
     # all. A solid on this disk that nothing produces is still a solid on this disk.
     unproven_members = (set(now) if unbounded else (
-        _members_of_targets(_ROOT, quarantined) | set(unowned) | set(loose)
+        _members_of_targets(_ROOT, quarantined) | set(unowned) | set(loose) | unheld
         | {line.split(" ", 1)[0] for line in hollow}) & set(now))
     unproven_now = unproven(dirty, unproven_members) if args.write else {}
     if unproven_now:
