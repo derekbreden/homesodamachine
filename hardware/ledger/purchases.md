@@ -145,7 +145,7 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | LTWFITTING 316 SS 1/4" hose barb × 1/4" MNPT | [B017N4TTMA](https://www.amazon.com/dp/B017N4TTMA) | 1 | $13.65 | 112-4822227-6802649 | 2026-04-24 | 2026-04-25 | ACQUIRED |
 | TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT Male × 1/4" NPT Female | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | 112-2846745-4487464 | 2026-05-13 | 2026-05-15 | ACQUIRED |
 | TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
-| FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set) | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9) | 1 | $14.97 | 112-5893072-9403444 | 2026-04-24 | 2026-04-25 | ACQUIRED |
+| FERRODAY 0.5 µm sintered 304 SS sparge stone, 1/4" barb input (2-set) | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9) | 1 | $14.97 | 112-5893072-9403444 | 2026-04-24 | 2026-04-25 | ACQUIRED |
 | ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~ | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $10.71 | 112-0019658-3684217 | 2026-04-04 | — | ACQUIRED (superseded) |
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | 112-6216768-3197856 | 2026-04-12 | — | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | 112-6216768-3197856 | 2026-04-12 | — | ACQUIRED |

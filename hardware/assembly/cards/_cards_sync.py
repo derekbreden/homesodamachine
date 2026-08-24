@@ -552,8 +552,10 @@ def sub_assemblies(m: Machine):
     # `CAP_FLUID_LINES` of them rise into the cap; the PRV vent leaves at a wall slot instead,
     # which is the whole of the difference between the two counts. The cap's other two conduits
     # carry a reed cable apiece and no line at all.
+    # The core's own lines are named the way the machine holds them — under `INNER_ROOT_HELD`,
+    # the same path a body inside a sub-assembly carries everywhere else.
     open_core = sorted(n for n in _scenes.named(_scenes.SCENE_BY_ID["cold-core-open"], m.a.runs)
-                       if n.startswith("line-"))
+                       if n.startswith(f"{_scenes.INNER_ROOT_HELD}line-"))
     # EVERY LINE INSIDE THE SHELL IS DRAWN WHOLE, so the shortest of them is the one a bench
     # would mistake for a stub — the reservoir fills, which are the gap between two bores plus
     # the run their conduit hands to the manifold.

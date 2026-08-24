@@ -77,8 +77,8 @@ M_PET_BRAID = cq.Color(0.10, 0.10, 0.11, 0.55)
 
 # --- the metals --------------------------------------------------------------
 M_STAINLESS = cq.Color(0.72, 0.73, 0.76)
-# Sintered 316 SS — the FERRODAY sparge stone. The same alloy as the barb it hangs off, and a
-# powder-formed surface, so it reads matte where the bar stock reads bright.
+# Sintered 304 SS — the FERRODAY sparge stone, which its listing states as 304 throughout. A
+# powder-formed surface, so it reads matte where the bar stock it hangs off reads bright.
 M_SINTERED_SS = cq.Color(0.58, 0.59, 0.61)
 M_ALUMINIUM = cq.Color(0.80, 0.81, 0.83)
 # The Multiplex 19-0897's hex barrel (`reference/multiplex-asse1022`).
