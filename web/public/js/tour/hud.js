@@ -38,7 +38,21 @@ const el = (tag, cls, html) => {
   return n;
 };
 
-export function mountHud(host, { steps, title, subtitle, on }) {
+const escapeText = (v) => String(v == null ? "" : v);
+
+// The two announcements are shown by setting opacity and transform on the
+// element rather than by toggling a class the stylesheet answers. Both work;
+// this one puts the state where it can be read straight off the node, which is
+// worth something on an overlay that is only up for two seconds at a time and
+// is otherwise very hard to catch in the act.
+function show(node, on) {
+  node.style.opacity = on ? "1" : "0";
+  node.style.transform = node.dataset.rest && !on
+    ? node.dataset.rest
+    : (node.dataset.shown || "none");
+}
+
+export function mountHud(host, { steps, title: titleText, subtitle, on }) {
   const hud = el("div", "tour-hud");
 
   // --- the narration card -------------------------------------------------
@@ -96,14 +110,33 @@ export function mountHud(host, { steps, title, subtitle, on }) {
   resume.addEventListener("click", () => on.resume());
 
   const banner = el("div", "tour-banner");
-  banner.append(el("span", "tour-banner-title", title),
-                el("span", "tour-banner-sub", subtitle || ""));
+  banner.append(el("span", "tour-banner-title", escapeText(titleText)),
+                el("span", "tour-banner-sub", escapeText(subtitle || "")));
 
-  hud.append(banner, card, resume, bar);
+  // ── the chapter's name, when the chapter turns over ─────────────────────
+  // Fifty-six beats in a row is a list. Eleven names that arrive over the shot
+  // and leave again is a piece with movements in it, and it costs the reader
+  // nothing to ignore.
+  const chapterCard = el("div", "tour-chapter-card");
+  chapterCard.dataset.rest = "translateY(10px)";
+  chapterCard.dataset.shown = "none";
+  const chapterName = el("div", "tour-chapter-name");
+  chapterCard.append(chapterName);
+
+  // ── the title, over the machine while it is still solid ─────────────────
+  const title = el("div", "tour-title-card");
+  title.dataset.rest = "translate(-50%, -50%) scale(0.985)";
+  title.dataset.shown = "translate(-50%, -50%) scale(1)";
+  title.append(el("div", "tour-title-main", escapeText(titleText)),
+               el("div", "tour-title-sub", escapeText(subtitle || "")));
+
+  hud.append(banner, chapterCard, title, card, resume, bar);
   host.append(hud);
 
   let shownIndex = -1;
   let swapTimer = null;
+  let shownChapter = null;
+  let chapterTimer = null;
 
   function setStep(i, step, missing = []) {
     dots.forEach((d, n) => {
@@ -111,7 +144,21 @@ export function mountHud(host, { steps, title, subtitle, on }) {
       d.classList.toggle("now", n === i);
     });
     if (i === shownIndex) return;
+    const first = shownIndex < 0;
     shownIndex = i;
+
+    // A NEW CHAPTER ANNOUNCES ITSELF, except the first one — the title is
+    // already on screen there and two cards arriving together is neither.
+    if (step.chapter && step.chapter !== shownChapter) {
+      shownChapter = step.chapter;
+      if (!first) {
+        chapterName.textContent = step.chapter;
+        show(chapterCard, true);
+        clearTimeout(chapterTimer);
+        chapterTimer = setTimeout(() => show(chapterCard, false), 2100);
+      }
+    }
+
     // Out, then in: the card fades down, swaps its words while it is
     // invisible, and comes back — so a step change never shows two texts. On a
     // timer rather than on frames, because a page nobody is looking at is a
@@ -167,5 +214,10 @@ export function mountHud(host, { steps, title, subtitle, on }) {
       setTimeout(() => { t.classList.remove("in"); setTimeout(() => t.remove(), 300); }, 1600);
     },
     element: hud,
+    /** The title, over the machine while it is still solid at the top of the
+     *  tour. It leaves as the machine dissolves, so the two motions are one. */
+    showTitle(on) { show(title, !!on); },
+    /** The last beat is the machine and the line and nothing else. */
+    setCardVisible(on) { card.classList.toggle("gone", !on); },
   };
 }
