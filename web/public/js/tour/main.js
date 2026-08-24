@@ -98,6 +98,14 @@ const isolateOf = (i) => {
   return null;
 };
 
+// WHAT IS IN THE PIPE AT THIS BEAT. Carried forward from the last beat that
+// said, the way `isolate` and `model` are — so the water becomes soda once,
+// where the tour says it does, and stays soda after.
+const hueOf = (i) => {
+  for (let k = i; k >= 0; k--) if (STEPS[k].hue) return STEPS[k].hue;
+  return "water";
+};
+
 // The sub-assembly the view currently stands isolated to.
 let isolated = null;
 
@@ -217,6 +225,33 @@ function applyPose(p) {
   camera.position.copy(p.position);
   controls.target.copy(p.target);
   camera.lookAt(controls.target);
+}
+
+// ── the machine, before you see through it ──────────────────────────────────
+// THE TOUR OPENED ALREADY GHOSTED, so nobody ever met the appliance as an
+// object — the first thing they saw was a wireframe. A beat can now ask for the
+// machine SOLID and dissolve it to the x-ray view a moment later, which is a
+// stronger ten seconds than any amount of highlight: here is the thing, and now
+// here is inside the thing.
+//
+// The reader's own x-ray choice is theirs. It is read once at boot, restored
+// the moment the dissolve is done, and restored again if the page goes away
+// mid-dissolve — a walkthrough must not leave someone's parts viewer in a mode
+// they did not pick.
+const readerXray = isXrayEnabled();
+let dissolving = false;
+
+function restoreXray() {
+  if (!dissolving) return;
+  dissolving = false;
+  if (isXrayEnabled() !== readerXray) setXrayEnabled(readerXray);
+}
+window.addEventListener("pagehide", restoreXray);
+
+function beginSolid() {
+  if (readerXray === false) return; // already the way they like it
+  dissolving = true;
+  setXrayEnabled(false);
 }
 
 // ── the clock ───────────────────────────────────────────────────────────────
@@ -449,25 +484,57 @@ function step(dt) {
   // HOW FAR INTO THE BEAT'S OWN IGNITION WE ARE. A beat that states `ignite`
   // comes on one body at a time in the order it names them, which for a beat
   // about a whole run is the order the water takes.
-  const step0 = STEPS[phase === "flight" || phase === "swap-in" ? pendingIndex : idx];
-  const nParts = (step0.parts || []).length || 1;
+  const shown = phase === "flight" || phase === "swap-in" ? pendingIndex : idx;
+  const step0 = STEPS[shown];
+  const parts0 = step0.parts || [];
   const reveal = step0.ignite
-    ? THREE.MathUtils.clamp(clock / (step0.ignite * nParts), 0, 1)
+    ? THREE.MathUtils.clamp(clock / (step0.ignite * (parts0.length || 1)), 0, 1)
     : 1;
-  // And how far down the rest of the machine is turned, eased in over the same
-  // stretch a move takes so it arrives with the shot rather than before it.
-  const wantQuiet = step0.quiet || 0;
-  quietNow += (wantQuiet - quietNow) * Math.min(1, dt / 260);
+
+  // And how far down the rest of the machine is turned, eased over about a
+  // quarter-second so it arrives with the shot rather than before it.
+  quietNow += ((step0.quiet || 0) - quietNow) * Math.min(1, dt / 260);
+
+  // THE WAVEFRONT. `flow` gives a beat a bright crest of two bodies travelling
+  // its list in the order it names them, over and over — direction, on a run
+  // whose tubes have no centreline to draw dashes along. It only runs once the
+  // beat is fully lit, so it does not race the ignition.
+  let crest = [];
+  if (step0.flow && reveal >= 1 && parts0.length > 2) {
+    const period = step0.flow * parts0.length;
+    const head = Math.floor(((elapsed % period) / period) * parts0.length);
+    crest = [parts0[head], parts0[(head + 1) % parts0.length]];
+  }
+
+  // THE HALO, NARROWED ON A WIDE SHOT. How much of the frame the subject fills
+  // is what decides whether a glow reads as a glow or as a smear, so the width
+  // is taken from that rather than fixed.
+  const subject = focusBox(shown);
+  let haloWidth = 1;
+  if (!subject.isEmpty()) {
+    const r = subject.getBoundingSphere(new THREE.Sphere()).radius;
+    const d = Math.max(camera.position.distanceTo(subject.getCenter(new THREE.Vector3())), 1);
+    haloWidth = THREE.MathUtils.clamp((r / d) * 3.2, 0.25, 1);
+  }
+
+  // The opening dissolve: solid while the beat states it, x-ray once it is past.
+  if (dissolving && (shown !== 0 || clock > (STEPS[0].solid || 0))) {
+    restoreXray();
+    spotlight.invalidate();
+  }
 
   spotlight.paint({
-    path: TOUR.path,
+    paths: TOUR.paths,
+    hue: hueOf(shown),
     trail: visited(),
     active,
     out,
+    crest,
     mix,
     pulse: elapsed / 1000,
     quiet: quietNow,
     reveal,
+    haloWidth,
   });
   spotlight.fitScrim(camera);
 
@@ -598,6 +665,9 @@ window.__tour = {
 hud.setGhost(isXrayEnabled());
 hud.setSpeed(speed);
 hud.setPlaying(true);
+// Only the tour's own opening beat gets the solid machine. A link into the
+// middle of it is someone coming back to a beat, not meeting the appliance.
+if (STEPS[0].solid && initialIndex() === 0) beginSolid();
 requestAnimationFrame(tick);
 go(initialIndex(), { instant: true });
 
