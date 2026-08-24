@@ -30,10 +30,18 @@ from _cold_core_interface import (
     below_carbonator_elbows_height,
     carbonator_height,
 )
-from endcap_circular_dxf import disc_thickness, register_depth
-from docgen import substitute_md
+from endcap_circular_dxf import disc_thickness, hole_diameter, register_depth
+from docgen import load_module, substitute_md
 
 MM_PER_IN = 25.4
+
+_hw = next(p for p in _here.parents if p.name == "hardware")
+
+# The sparge stone, for one figure: the diameter of its sintered barrel. Step 4 stands on
+# that figure against the port bore beside it — the barrel does not pass a finished port, so
+# the stack goes in through the open tube or it does not go in. Read off the part and off the
+# plate drawing, so a procedure that says so cannot go on saying so once either one moves.
+_fittings_gen = load_module("pressure_vessel_fittings", _hw / "cold-core-layout" / "_fittings.py")
 
 # The carbonator's working pressure, and the only thing that sets it: the in-appliance
 # Interstate Pneumatics WR1110 fixed secondary regulator standing between the
@@ -87,6 +95,11 @@ def main():
         # regulator that holds it there — one number, read everywhere it is stated.
         "WORKING_PSI": f"{secondary_regulator_pressure_psi:.4g} PSI",
         "REG_FIXED": f"fixed-{secondary_regulator_pressure_psi:.4g} PSI",
+        # The two figures step 4 turns on — a finished port's bore, and the widest thing that
+        # has to get past it.
+        "PORT_BORE": f'⌀{hole_diameter * MM_PER_IN:.4g} mm ({hole_diameter:.3f}")',
+        "STONE_BARREL": (f'⌀{2 * _fittings_gen.STONE_R:.4g} mm '
+                         f'({2 * _fittings_gen.STONE_R / MM_PER_IN:.3g}")'),
     }
 
     substitute_md(
