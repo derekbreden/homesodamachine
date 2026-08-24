@@ -60,3 +60,20 @@ homesodamachine.com. Don't reconcile first. When I go quiet, that is when you re
 full derive, resync the ledger, the docs and the deck, close whatever is behind. The moment I ask
 for anything, stop reconciling and come back. A commit is a checkpoint, not a claim that
 everything downstream of it is current.
+
+## The site deploys on the lock, not on CI
+
+`render.yaml`'s buildFilter names `hardware/cad-artifacts.lock.json` alongside `web/**`, and
+autoDeploy is on. So a push that moves the lock deploys the site, and nothing about that waits
+for a workflow.
+
+`tools/cad-artifacts/pack.py --write` builds, uploads the bundle to the release, and pins the
+lock — from any machine. So the path from a CAD change to my seeing it is: build the changed
+target, `--write`, push the source and the lock. Render serves it minutes later.
+
+The publish workflow does the same work in CI, and takes five to twelve minutes plus whatever is
+queued ahead of it. It is the reconciler — it catches what a laptop missed and rebuilds what
+nobody named. It is not the path, and I should never be waiting on it to see a change.
+
+What sits between a change and my seeing it has to earn its seconds against that. A local check
+that saves a CI round-trip earns them. A full sweep before every push does not.
