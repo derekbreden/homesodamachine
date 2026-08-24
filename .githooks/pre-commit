@@ -1,57 +1,55 @@
 #!/bin/sh
-# The faults that stop a publish, named on this disk instead of in a queued run.
+# What stands between a change and the site, checked on this disk.
 #
-# Each gate below holds the commit, and each is keyed to the files that can carry its fault, so
-# a commit to `web/` or a doc runs none of them.
+# THE SITE DEPLOYS WHEN THE LOCK MOVES IN A PUSH — `render.yaml`'s buildFilter names
+# `hardware/cad-artifacts.lock.json`, and `pack.py --write` cuts, uploads and pins from any
+# machine. So the path a change takes to Derek is: build the changed target here, `--write`,
+# push. CI publishes too, and what it is for is catching what that missed while nobody is
+# waiting.
 #
-# HSM_SKIP_PRECOMMIT=1 skips them all.
+# TWO FAULTS HOLD A COMMIT, AND THEY ARE THE TWO THAT PATH CANNOT SURVIVE. Everything else is
+# reported, because the local build is already the thing that fails on it — in seconds, on this
+# disk, with the compiler's own message rather than a gate's paraphrase.
+#
+# Each gate is keyed to the files that can carry its fault, so a commit to `web/` or a doc runs
+# none of them. HSM_SKIP_PRECOMMIT=1 skips them all.
 [ -n "$HSM_SKIP_PRECOMMIT" ] && exit 0
 root=$(git rev-parse --show-toplevel) || exit 0
 py="$root/tools/cad-venv/bin/python"
 [ -x "$py" ] || py=python3
 staged=$(git diff --cached --name-only --diff-filter=ACM)
 
-# A GRAPH THAT COMES BACK AROUND fails bazel's loading phase, before any target is built: every
-# one of them fails at once and none of the messages names the pair at fault. Three files carry
-# the relation — `graph.json` records a rule's reads, `gen_build.py` turns a read into an edge,
-# BUILD.bazel is where the result lands.
+# HOLDS: A GRAPH THAT COMES BACK AROUND fails bazel's loading phase, which is before any target
+# is built — so the changed target does not build either, and there is nothing to publish.
 case "$staged" in
   *tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*BUILD.bazel*)
     "$py" "$root/tools/bazel/gen_build.py" --cycles || exit 1 ;;
 esac
 
-# BUILD.bazel HOLDS WHAT ITS GENERATOR WRITES. `publish` regenerates it and runs
-# `git diff --exit-code -- BUILD.bazel`; a file drifted from the three inputs that write it
-# fails the run before a target is built. Registering a selftest without regenerating drifts it.
-#
-# `--check` compares the whole file against the graph, and several sessions share this checkout
-# with one of them part-way through a re-trace at any time. Keyed to these three, it asks only
-# an author already in that area.
+# HOLDS: BUILD.bazel DRIFTED FROM ITS GENERATOR builds the rules the file holds and not the ones
+# the graph states, and `pack.py --write` uploads what that built. A red CI run is a delay; this
+# is the site serving geometry cut by a rule nobody has.
 case "$staged" in
   *tools/bazel/selftests.json*|*tools/bazel/graph.json*|*BUILD.bazel*)
     "$py" "$root/tools/bazel/gen_build.py" --check || exit 1 ;;
 esac
 
-# A STEP THAT IMPORTS WHAT IT DOES NOT HOLD finds no module — `ModuleNotFoundError` on a file
-# sitting tracked in the tree. This reads the staged `.py` and names every step that reaches it.
+# REPORTS: a step that imports what it does not hold fails its own action, which is the build
+# the author just ran. `--fix` writes the edges in seconds.
 case "$staged" in
-  *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || exit 1 ;;
+  *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || true ;;
 esac
 
-# A WORKFLOW NAMES TARGETS THE GRAPH INVENTS. `gen_build` derives a rule's name from what its
-# step writes, so two generators that come to share an output merge into one rule under the
-# alphabetically first name. The workflow keeps the old label: the run builds the CAD and dies
-# naming a target bazel does not have, and the greps that MATCH on that label go quiet.
+# REPORTS: a workflow naming a target the graph does not declare, and a source no `paths:`
+# pattern names. Both are faults in how CI publishes; neither reaches a local build or a
+# `--write` from this machine.
 case "$staged" in
   *BUILD.bazel*|*tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*.github/workflows/*)
-    "$py" "$root/tools/bazel/check_ci_targets.py" || exit 1 ;;
+    "$py" "$root/tools/bazel/check_ci_targets.py" || true ;;
 esac
-
-# A SOURCE NO `paths:` PATTERN NAMES STARTS NO RUN. The push lands, nothing is cut, and the
-# tracked file that source feeds keeps yesterday's bytes.
 case "$staged" in
   *tools/bazel/graph.json*|*.github/workflows/publish.yml*)
-    "$py" "$root/tools/bazel/check_publish_paths.py" || exit 1 ;;
+    "$py" "$root/tools/bazel/check_publish_paths.py" || true ;;
 esac
 
 exit 0
