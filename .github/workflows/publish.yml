@@ -85,87 +85,86 @@ permissions:
   packages: read
 
 jobs:
-  # Resolve a content-tagged image before the container job starts. The OCI digest also
-  # namespaces caches because Bazel cannot see the external CAD interpreter as an action input.
-  image:
-    runs-on: ubuntu-latest
-    outputs:
-      ref: ${{ steps.resolve.outputs.ref }}
-      identity: ${{ steps.resolve.outputs.identity }}
-      sha: ${{ steps.source.outputs.sha }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: The image inputs
-        id: source
-        run: |
-          echo "sha=$(python3 tools/ci-image/digest.py)" >> "$GITHUB_OUTPUT"
-          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}-cad" >> "$GITHUB_OUTPUT"
-
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: docker/setup-buildx-action@v3
-
-      - name: The exact published image
-        id: resolve
-        env:
-          IMAGE: ${{ steps.source.outputs.image }}
-          SHA: ${{ steps.source.outputs.sha }}
-        run: |
-          tag="$IMAGE:cad-$SHA"
-          for attempt in $(seq 1 90); do
-            report=$(docker buildx imagetools inspect "$tag" 2>/dev/null || true)
-            digest=$(awk '$1 == "Digest:" {print $2; exit}' <<< "$report")
-            if [[ "$digest" == sha256:* ]]; then
-              ref="$IMAGE@$digest"
-              identity=$digest
-              identity=${identity/:/-}
-              echo "ref=$ref" >> "$GITHUB_OUTPUT"
-              echo "identity=$identity" >> "$GITHUB_OUTPUT"
-              echo "$ref"
-              exit 0
-            fi
-            echo "cad-$SHA is not published yet ($attempt/90)"
-            sleep 10
-          done
-          echo "the exact CAD image did not become available" >&2
-          exit 1
-
+  # THE MACHINE THAT PINS THE LOCK MUST BE THE MACHINE THAT CUTS, and for this repo there is
+  # only one of those. A bundle is content-addressed over its members, so the lock converges
+  # only while one OpenCASCADE writes it — `cad-requirements.txt` says the canonicalization
+  # holds "across runs of ONE OCC build", and `cadquery-ocp 7.8.1.1.post1` ships a
+  # macosx_11_0_arm64 wheel and a manylinux_2_31_x86_64 one at that same pin. Two publishers on
+  # two wheels do not converge, they alternate: measured over four consecutive publishes on
+  # 2026-08-23, the same 95 of 124 members flipped on every handoff, both directions.
+  #
+  # SO THIS LANE IS arm64 macOS, which is what the Mac that cuts these is. Measured head to
+  # head on run 32726925012, same commit and same lock: macos-arm64 differs from the lock on 12
+  # of 124 members, ubuntu-x64 on 95. `macos-latest` is macos-26-arm64, Apple M1, so it resolves
+  # the same wheel rather than merely a similar one.
+  #
+  # AND IT NEEDS NO CONTAINER, WHICH IS WHY THIS IS AFFORDABLE. `container:` is Linux-only, and
+  # the ci-image exists for tools this job never reaches: blender and rsvg-convert are for
+  # `//:appliance-model` and the freestyle sieve, and `//:appliance-model` is an rdep of nothing
+  # but `//:everything`. What publish actually builds is the artifact slice and `//:cad-art`,
+  # and what those want is CadQuery, node, gh, ImageMagick and rsvg-convert. `derive` still runs
+  # in the image on Linux because it builds the whole graph, blender included — and it pins no
+  # solids, so it cannot move the lock.
   publish:
-    needs: image
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     timeout-minutes: 60
     defaults:
       run:
         shell: bash
-    container:
-      image: ${{ needs.image.outputs.ref }}
-      options: --shm-size=2g
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # THE 840 MB THE IMAGE USED TO CARRY. Keyed on the files that name the environment, which
+      # is what the OCI digest was doing before — Bazel cannot see the CAD interpreter as an
+      # action input, so the environment has to namespace its own caches. `hashFiles` is
+      # evaluated at step time, after checkout, which a job-level `env:` would not be.
+      - name: The CAD environment, cached
+        id: cadenv
+        uses: actions/cache@v4
+        with:
+          path: |
+            tools/cad-venv
+            tools/render/node_modules
+            web/node_modules
+          key: cadenv-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', 'tools/cad-venv-site/**', 'tools/render/package-lock.json', 'web/package-lock.json') }}
+
+      # rsvg-convert IS NOT AN OPTIONAL TOOL, IT IS A SILENT ONE. `appliance_quickstart.py`
+      # shells out to it and catches the missing binary — "rsvg-convert not found on PATH;
+      # skipping PDF generation." A runner without it does not fail, it produces less and
+      # reports green, which is the worse of the two.
       - name: The CAD environment
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          [ "$HSM_REQ_SHA" = "${{ needs.image.outputs.sha }}" ]
-          ln -sfn "$HSM_CAD_VENV"       tools/cad-venv
-          ln -sfn "$HSM_RENDER_MODULES" tools/render/node_modules
-          ln -sfn "$HSM_WEB_MODULES"    web/node_modules
+          brew list librsvg    >/dev/null 2>&1 || brew install librsvg
+          brew list imagemagick >/dev/null 2>&1 || brew install imagemagick
+          # `python`, NOT `python3.13`: setup-python puts the interpreter on PATH under the
+          # plain name and the versioned one is not guaranteed. This is the form run
+          # 32726925012 built the whole graph with.
+          if [ ! -x tools/cad-venv/bin/python ]; then
+            python -m venv tools/cad-venv
+            tools/cad-venv/bin/pip install --quiet --upgrade pip
+            tools/cad-venv/bin/pip install --quiet -r tools/cad-requirements.txt
+          fi
+          tools/cad-venv/bin/python -c "import sys; assert sys.version_info[:2]==(3,13), sys.version"
+          tools/cad-venv/bin/python tools/cad-venv-site/install.py
+          [ -d tools/render/node_modules ] || npm --prefix tools/render ci --no-audit --no-fund
+          [ -d web/node_modules ] || npm --prefix web ci --omit=dev --no-audit --no-fund
           tools/cad-venv/bin/python tools/cad-venv-site/install.py --check
           tools/cad-venv/bin/python -c "import cadquery; print('cadquery', cadquery.__version__)"
-          convert -version | head -1
+          rsvg-convert --version
+          magick -version | head -1
           mkdir -p .cache "$HOME/.cache/bazel-disk"
+
+      # `.bazelrc` NAMES TWO MOUNT PAIRS AND BAZEL REFUSES ONE WHOSE SOURCE IS ABSENT. On this
+      # runner /opt/homebrew is the real brew prefix and already there; /usr/local/bin may not
+      # be, and an empty directory satisfies the pair either way.
+      - name: The sandbox mount pairs
+        run: sudo mkdir -p /opt/homebrew/bin /usr/local/bin
 
       - name: The locked inputs
         run: node web/scripts/fetch-cad-artifacts.mjs
@@ -363,8 +362,8 @@ jobs:
             .cache/realized
             .cache/boxes
             .cache/meshes
-          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: realized-${{ needs.image.outputs.identity }}-
+          key: realized-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: realized-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-
 
       - name: Restore the Bazel disk cache
         if: steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true'
@@ -372,8 +371,8 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ~/.cache/bazel-disk
-          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: bazel-${{ needs.image.outputs.identity }}-
+          key: bazel-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: bazel-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-
 
       - name: Build the affected artifact rules
         if: steps.scope.outputs.count != '0'
@@ -694,7 +693,7 @@ jobs:
             .cache/realized
             .cache/boxes
             .cache/meshes
-          key: realized-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: realized-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Save the Bazel disk cache
         if: always() && (steps.scope.outputs.count != '0' || steps.scope.outputs.quickstart == 'true')
@@ -702,7 +701,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ~/.cache/bazel-disk
-          key: bazel-${{ needs.image.outputs.identity }}-${{ github.run_id }}-${{ github.run_attempt }}
+          key: bazel-macos-arm64-${{ hashFiles('tools/cad-requirements.txt', '.bazelversion') }}-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Verify the production deployment
         if: steps.commit.outputs.published != ''
