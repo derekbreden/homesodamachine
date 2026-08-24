@@ -648,6 +648,83 @@
 .component-hidden {
   margin-top: 8px;
 }
+/* --- the path a body's name spells ------------------------------------------
+   The name row of the component panel is the branch the body hangs on, and each
+   step above it is a button that takes the whole of that sub-assembly. A body at
+   the top of the machine has one step and reads as it always did. */
+.component-held-step {
+  flex: 0 0 auto;
+  padding: 1px 5px;
+  background: rgba(58, 58, 90, 0.55);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font: inherit;
+  cursor: pointer;
+}
+.component-held-step:hover { border-color: var(--accent); color: var(--accent); }
+.component-held-sep { flex: 0 0 auto; opacity: 0.45; padding: 0 1px; }
+.component-held-here { flex: 0 1 auto; min-width: 0; overflow: hidden;
+                       white-space: nowrap; text-overflow: ellipsis; }
+/* How many bodies stand inside the selected one. Nothing else in the row is a
+   count, so it reads as one without a word for it. */
+.component-held-count {
+  flex: 0 0 auto;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-2);
+  font-size: 10px;
+}
+/* The row is a path now, so it lays out as one rather than as a single string. */
+.component-panel .edge-panel-file {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow: hidden;
+}
+
+/* WHAT THE SELECTED NODE HOLDS. A sub-assembly is a thing you open, and this is
+   how the bodies inside it are reached without hunting for them in the model.
+   None of them is hidden by being listed — every one is drawn. */
+.component-holds:empty { display: none; }
+.component-holds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 168px;
+  overflow-y: auto;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.component-holds-head {
+  flex: 0 0 100%;
+  color: var(--text-2);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.component-holds-row {
+  flex: 0 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 2px 7px;
+  background: rgba(58, 58, 90, 0.45);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  cursor: pointer;
+}
+.component-holds-row:hover { border-color: var(--accent); color: var(--accent); }
+
 .component-hidden:empty {
   margin-top: 0;
 }
