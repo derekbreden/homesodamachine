@@ -370,12 +370,22 @@ def carry_the_cut(root: Path, targets: list) -> list:
     if _behind(root, targets):
         print(f"cutting {len(targets)} artifact target(s) this tree is behind on")
         subprocess.run(["bazel", "build", *targets], cwd=str(root))
+    # ONE RULE THAT WOULD NOT CUT IS NOT THE OTHERS' PROBLEM. `sync_tree --write` refuses on a
+    # label set bazel calls behind, and rightly — it copies over the tree, where stale bytes
+    # would land on newer ones. So the failed rules leave the set rather than the carry, and
+    # every rule that did cut still reaches the tree, the bundle and the site.
     failed = [t for t in targets if _behind(root, [t])] if _behind(root, targets) else []
-    sync = subprocess.run(
-        [sys.executable, str(root / "tools" / "bazel" / "sync_tree.py"),
-         "--runtime-only", "--targets", " ".join(targets)], cwd=str(root))
-    if sync.returncode != 0:
-        print("  bazel-bin does not hold the complete cut; the tree keeps what it has")
+    if failed:
+        print(f"  {len(failed)} target(s) would not cut, and are recorded rather than carried:")
+        for label in failed[:8]:
+            print(f"    {label}")
+    carried = [t for t in targets if t not in set(failed)]
+    if carried:
+        sync = subprocess.run(
+            [sys.executable, str(root / "tools" / "bazel" / "sync_tree.py"),
+             "--runtime-only", "--targets", " ".join(carried)], cwd=str(root))
+        if sync.returncode != 0:
+            print("  bazel-bin does not hold that cut; the tree keeps what it has")
     return failed
 
 
