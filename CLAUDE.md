@@ -75,5 +75,13 @@ The publish workflow does the same work in CI, and takes five to twelve minutes 
 queued ahead of it. It is the reconciler — it catches what a laptop missed and rebuilds what
 nobody named. It is not the path, and I should never be waiting on it to see a change.
 
-What sits between a change and my seeing it has to earn its seconds against that. A local check
-that saves a CI round-trip earns them. A full sweep before every push does not.
+## Nothing withholds
+
+I want to see whatever there is, as fast as possible. The site is a window onto what is on this
+disk right now — broken included. Geometry that is wrong is what the tree currently produces, and
+seeing it is how I know.
+
+So nothing blocks a commit, a publish or a deploy. Checks report. The scorecard rides to the site
+with everything else, so a red gate is the signal reaching me rather than a reason to hold the
+thing that carries it. A tool that refuses to publish is withholding the one thing the site is
+for, and a full sweep before every push is time I spend not seeing.
