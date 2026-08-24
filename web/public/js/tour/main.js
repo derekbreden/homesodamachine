@@ -46,8 +46,13 @@ const MID_PAD = 1.12;
 const SWAP_PAD = 1.4;
 // Reading pace for a beat with no `dwell` of its own: words at a calm rate,
 // plus a moment to look at what is lit before and after the sentence.
-const MS_PER_WORD = 270;
-const READ_FLOOR = 3800;
+const MS_PER_WORD = 230;
+const READ_BASE = 1100;
+const READ_FLOOR = 2600;
+// A beat that only changes what is lit does not travel. The words and the light
+// cross over this long while the camera carries on with the drift it was
+// already making, which is what keeps a chapter one shot rather than six.
+const SWING_MS = 750;
 const SWAP_OUT_MS = 1500;
 const VEIL_MS = 620;
 
@@ -186,6 +191,8 @@ let lastFrame = 0;
 let elapsed = 0;        // ms of tour time, for the pulse on the active leg
 let modelSpan = 400;     // the loaded model's own size, for pacing
 let moveTags = null;     // the two subjects of the move in the air, for the pins
+let swinging = false;    // a held beat's light is still crossing over
+let swingFrom = [];      // and this is what it is crossing from
 
 const SPEEDS = [1, 1.5, 0.6];
 let speedAt = 0;
@@ -193,7 +200,7 @@ let speedAt = 0;
 function dwellMs(s) {
   if (s.dwell) return s.dwell;
   const words = String(s.body || "").split(/\s+/).filter(Boolean).length;
-  return Math.max(READ_FLOOR, words * MS_PER_WORD + 1600);
+  return Math.max(READ_FLOOR, words * MS_PER_WORD + READ_BASE);
 }
 
 function setVeil(a) { veil.style.opacity = String(THREE.MathUtils.clamp(a, 0, 1)); }
@@ -202,6 +209,25 @@ function setVeil(a) { veil.style.opacity = String(THREE.MathUtils.clamp(a, 0, 1)
 async function go(i, { instant = false } = {}) {
   i = ((i % N) + N) % N;
   const want = modelOf(i);
+
+  // A HELD BEAT IS THE SAME SHOT. Its subject is already on screen and already
+  // framed, so nothing flies: the highlight crosses over, the card changes its
+  // words, and the camera carries on drifting from exactly where it is. A
+  // chapter is one move and then a few of these.
+  if (!instant && STEPS[i].hold && want === loadedModel && loadedModel !== null) {
+    moveTags = {
+      fromBox: focusBox(idx), fromText: STEPS[idx].title,
+      toBox: focusBox(i), toText: STEPS[i].title,
+    };
+    swingFrom = STEPS[idx].parts || [];
+    swinging = true;
+    commit(i);
+    dwellBase = livePose();
+    span = dwellMs(STEPS[i]);
+    clock = 0;
+    phase = "dwell";
+    return;
+  }
 
   if (instant || loadedModel === null) {
     await ensureModel(want);
@@ -256,6 +282,7 @@ function startFlight(i, from) {
   };
   poseAt = flight(from, mid, to);
   clock = 0;
+  swinging = false;
   pendingIndex = i;
   // A swap sets its own phase after this returns; a plain move is a flight.
   if (phase !== "swap-hold") phase = "flight";
@@ -281,9 +308,29 @@ const visited = () => {
   return out;
 };
 
+// The body names this model actually carries. A tour names solids and the tree
+// renames them; a beat pointing at a name nothing answers to would quietly
+// frame the whole machine and light nothing, which reads as a bad angle rather
+// than as a stale name. So it is said out loud, on the chip and in the console.
+function presentNames() {
+  const have = new Set();
+  if (state.currentGroup) {
+    for (const m of state.currentGroup.children) {
+      if (m.isMesh && !m.userData.isXrayEdge && m.name) have.add(m.name);
+    }
+  }
+  return have;
+}
+
 function commit(i) {
   idx = i;
-  hud.setStep(i, STEPS[i]);
+  const have = presentNames();
+  const missing = (STEPS[i].parts || []).filter((p) => !have.has(p));
+  if (missing.length) {
+    console.warn(`[tour] step ${i + 1} "${STEPS[i].title}" names ${missing.length} `
+      + `body/bodies this model does not carry: ${missing.join(", ")}`);
+  }
+  hud.setStep(i, STEPS[i], missing);
   const h = `#${i + 1}`;
   if (location.hash !== h) history.replaceState(null, "", h);
 }
@@ -308,6 +355,12 @@ function step(dt) {
   if (phase === "dwell" && dwellBase) {
     if (!grabbed) applyPose(driftAt(dwellBase, STEPS[idx].drift, t));
     hud.setProgress(idx, t);
+    if (swinging) {
+      const m = Math.min(clock / SWING_MS, 1);
+      mix = m;
+      out = swingFrom;
+      if (m >= 1) swinging = false;
+    }
     if (t >= 1 && playing && !grabbed) go(idx + 1);
   } else if (phase === "flight") {
     if (!grabbed) applyPose(poseAt(t));
@@ -356,9 +409,11 @@ function step(dt) {
 
   // The pins ride the move: from at full at its start, to at full at its end,
   // and both up across the wide shot in the middle where they are the point.
-  const moving = phase === "flight" || phase === "swap-out" || phase === "swap-in";
+  const moving = swinging
+    || phase === "flight" || phase === "swap-out" || phase === "swap-in";
   const pinMix = phase === "swap-out" ? t * 0.6
                : phase === "swap-in" ? 0.4 + t * 0.6
+               : swinging ? Math.min(clock / SWING_MS, 1)
                : t;
   tags.update({
     camera,
@@ -378,7 +433,10 @@ function tick(now) {
 
 // ── controls ────────────────────────────────────────────────────────────────
 function onResize() {
-  if (phase === "dwell" && !grabbed) {
+  // A held beat states no direction — it is whatever shot the beat before it
+  // left standing — so there is nothing to re-derive and re-framing it would
+  // throw the camera at a default heading.
+  if (phase === "dwell" && !grabbed && STEPS[idx].dir) {
     dwellBase = poseOf(idx);
     // Keep where the drift has got to rather than snapping back to the top of
     // the beat: the shot is re-framed for the new aspect, not restarted.
