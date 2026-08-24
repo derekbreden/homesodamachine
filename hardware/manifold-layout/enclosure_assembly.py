@@ -6419,7 +6419,12 @@ def check_drain_over_deck(joint, pack) -> Bound:
     j = box(cq.Compound.makeCompound(list(joint)))
     rows = []
     for name, solid in pack.items():
-        if name.startswith("funnel-"):
+        # THE JOINT'S OWN FAMILY IS NOT SOMETHING IT STANDS OVER. The elbow is placed off the
+        # funnel's spout by `funnel_carry`, and the clamp and stub are made up on it — so the
+        # funnel is above its own drain by construction, and reading it as headroom under that
+        # drain reports the design as a fault. Four bodies carry the name and only three of
+        # them are hyphenated: `funnel-drain-clamp`, `-stub`, `-union`, and `funnel` itself.
+        if name == "funnel" or name.startswith("funnel-"):
             continue
         b = box(solid)
         if b.xmin >= j.xmax or b.xmax <= j.xmin or b.ymin >= j.ymax or b.ymax <= j.ymin:

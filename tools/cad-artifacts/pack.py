@@ -15,6 +15,11 @@ rewritten, so a checkout resolves to the bundle its own commit was packed agains
 `web/scripts/fetch-cad-artifacts.mjs` reads the lock at deploy and holds the download to both
 hashes before anything is extracted.
 
+`source.commit` is the commit every member came from except the ones `held` names. A member
+whose producing rule an uncommitted edit reaches keeps the commit its bytes were last published
+under, and the rest of the tree publishes around it — so one session's working file bounds its
+own rules rather than the bundle. `held` is absent from a lock packed off a clean tree.
+
 THE BUNDLE CARRIES NO FACT ABOUT THE MACHINE THAT PACKED IT. Members go in sorted, and the mtime,
 uid, gid, uname, gname and mode a tar can hold are dropped; the gzip header carries no mtime. A
 pack over a tree whose geometry has not moved lands on the same asset name and the same bytes —
@@ -241,12 +246,15 @@ def _head(root: Path) -> str:
                           capture_output=True, text=True, check=True).stdout.strip()
 
 
-def _dirty_artifact_inputs(root: Path) -> list:
-    """Tracked/untracked edits that can reach a published output.
+def _dirty_artifact_reach(root: Path) -> tuple:
+    """`(artifact rules the working tree's edits reach, paths whose reach nothing bounds)`.
 
     Ignored generated solids are intentionally absent from git status; they are the bytes being
-    packed. Source provenance is only honest when every input that can cut those bytes belongs
-    to HEAD.
+    packed. A member's bytes belong to HEAD only when no edit outside HEAD can cut them, so the
+    rules on the left are the ones whose members `attribution` holds at an earlier commit.
+
+    An unlabelled path is one bazel names as a source of no rule, so nothing says which outputs
+    it reaches. A bundle cut beside one is unattributable whole rather than per member.
     """
     status = subprocess.run(
         ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
@@ -257,18 +265,66 @@ def _dirty_artifact_inputs(root: Path) -> list:
     moved = {path for line in status.stdout.splitlines()
              for path in affected.paths_in(line)}
     moved.discard("hardware/cad-artifacts.lock.json")
-    # These are generated outputs this very publication carries. A hand edit still cannot slip
-    # through: its changed hash maps back to the producer below and `_cut_is_fresh` refuses until
-    # the current Bazel output and tree agree.
+    # These are generated outputs this very publication carries.
     moved -= set(sidecars(root)) | set(read_lock(root).get("sidecars", {}))
     moved = {path for path in moved if not affected.artifact_presentation_only(path)}
     if not moved:
-        return []
-    forced = sorted(p for p in moved if affected.artifact_unknown(p, artifacts_only=True))
+        return [], []
+    forced = {p for p in moved if affected.artifact_unknown(p, artifacts_only=True)}
     hit, miss = affected.known(sorted(moved))
-    risky = [p for p in miss if affected.artifact_unknown(p, artifacts_only=True)]
-    reached = sorted(set(affected.targets(hit)) & affected.artifact_targets())
-    return sorted(set(forced) | set(risky) | set(reached))
+    risky = {p for p in miss if affected.artifact_unknown(p, artifacts_only=True)}
+    reached = set(affected.targets(hit)) & affected.artifact_targets()
+    return sorted(reached), sorted(forced | risky)
+
+
+def attribution(quarantined: set, now: dict, lock: dict) -> tuple:
+    """`(commit per held member, members with no commit to hold)`, for a dirty-reached set.
+
+    THE BYTES SAY WHICH COMMIT THEY CAME FROM. A member a dirty source reaches whose sha256 is
+    the one already locked has not moved since that publication, so the commit that publication
+    named still describes it.
+
+    A member whose bytes have moved has no commit here to name. Its producer's source is outside
+    HEAD, and the bytes that publication did name are in the asset rather than on this disk. So
+    is a member the lock has never held: a first cut from an uncommitted generator stands on no
+    earlier publication.
+    """
+    was = lock.get("solids", {})
+    prior = lock.get("held", {})
+    base = lock.get("source", {}).get("commit", "")
+    held, orphan = {}, []
+    for rel in sorted(quarantined):
+        if rel not in now:
+            continue
+        if was.get(rel) != now[rel]:
+            orphan.append(rel)
+        else:
+            held[rel] = prior.get(rel, base)
+    return held, orphan
+
+
+def _members_of_targets(root: Path, labels: set) -> set:
+    """Every bundle member and scorecard the named artifact rules produce.
+
+    The inverse of `_targets_for_members`, off the same inventory."""
+    if not labels or root.resolve() != _ROOT.resolve():
+        return set()
+    sys.path.insert(0, str(root / "tools" / "bazel"))
+    from gen_build import target_name
+    from inventory import inventory, tracked
+
+    inv = inventory(tracked())
+    seen, shared = set(), set()
+    for gens in inv:
+        for gen in gens:
+            stem = Path(gen).stem.strip("_").replace("_", "-")
+            (shared if stem in seen else seen).add(stem)
+
+    out = set()
+    for gens, made in inv.items():
+        if f"//:{target_name(gens[0], shared)}" in labels:
+            out |= set(made["solids"])
+    return out
 
 
 def _owed_artifact_targets(root: Path) -> list:
@@ -338,10 +394,10 @@ def _targets_for_members(root: Path, members: set) -> tuple:
 
 
 def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict = None,
-             sidecar_hashes: dict = None) -> dict:
+             sidecar_hashes: dict = None, held_members: dict = None) -> dict:
     asset = f"cad-{digest[:16]}.tar.gz"
     slug = _origin_slug(root)
-    return {
+    return _with_held({
         "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed —"
              " web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
         "release": {
@@ -354,7 +410,24 @@ def lock_for(root: Path, rels: list, digest: str, size: int, solid_hashes: dict 
         "solids": solid_hashes if solid_hashes is not None else hashes(root, rels),
         "sidecars": sidecar_hashes if sidecar_hashes is not None
                     else hashes(root, sidecars(root)),
-    }
+    }, held_members or {})
+
+
+def _with_held(lock: dict, held_members: dict) -> dict:
+    """`lock` with `held` set to `held_members`, seated after the commit it is the exception to.
+
+    `source.commit` is what every member not named here came from, so an empty map is the
+    field's absence rather than an empty object."""
+    out = {}
+    for key, value in lock.items():
+        if key == "held":
+            continue
+        out[key] = value
+        if key == "source" and held_members:
+            out["held"] = dict(sorted(held_members.items()))
+    if held_members and "held" not in out:
+        out["held"] = dict(sorted(held_members.items()))
+    return out
 
 
 def read_lock(root: Path = _ROOT) -> dict:
@@ -588,15 +661,22 @@ def main(argv) -> int:
         ap.error("--allow-retired is only valid with --prune")
 
     if args.write:
-        dirty = _dirty_artifact_inputs(_ROOT)
-        if dirty:
-            print("refusing to stamp HEAD onto a bundle cut from dirty artifact inputs:")
-            for item in dirty[:20]:
+        reached, unbounded = _dirty_artifact_reach(_ROOT)
+        if unbounded:
+            print("refusing to pack beside edits the graph does not bound:")
+            for item in unbounded[:20]:
                 print(f"  {item}")
             print("  Commit the inputs, then pack from that clean source commit.")
             return 2
+        quarantined = set(reached)
+        if quarantined:
+            print(f"{len(quarantined)} artifact rule(s) reached by uncommitted edits, "
+                  f"held at their published commit:")
+            for label in reached[:20]:
+                print(f"  {label}")
         owed = _owed_artifact_targets(_ROOT)
     else:
+        quarantined = set()
         owed = []
 
     rels = solids(_ROOT)
@@ -657,13 +737,27 @@ def main(argv) -> int:
                         if held.get("sidecars", {}).get(rel) != digest}
     changed_targets, unowned = _targets_for_members(
         _ROOT, changed_members | changed_sidecars)
+    quarantined_members = _members_of_targets(_ROOT, quarantined)
+    held_now, orphan = attribution(quarantined_members, now, held)
     if args.write:
         if unowned:
             print("refusing to publish changed bundle members with no current Bazel producer:")
             for rel in unowned[:20]:
                 print(f"  {rel}")
             return 2
-        verify_targets = sorted(set(owed) | set(changed_targets))
+        orphan += sorted(rel for rel in quarantined_members & set(sidecar_now)
+                         if held.get("sidecars", {}).get(rel) != sidecar_now[rel])
+        if orphan:
+            print("refusing to publish members cut from a source outside HEAD:")
+            for rel in orphan[:20]:
+                print(f"  {rel}")
+            print("  Commit the source that moved them, then pack.")
+            return 2
+        # A held member returns to HEAD when its own rule builds clean there, so the rules
+        # holding one are verified alongside the owed and the changed.
+        prior_held, _ = _targets_for_members(_ROOT, set(held.get("held", {})))
+        verify_targets = sorted(
+            (set(owed) | set(changed_targets) | set(prior_held)) - quarantined)
         if not _cut_is_fresh(_ROOT, verify_targets):
             print("  Build and carry every owed or changed artifact target before --write.")
             return 2
@@ -681,10 +775,12 @@ def main(argv) -> int:
                     if digest != bundle.get("sha256"):
                         raise SystemExit("equal member hashes built a different bundle digest")
                     upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
-            if held.get("source", {}).get("commit") != _head(_ROOT):
+            if (held.get("source", {}).get("commit") != _head(_ROOT)
+                    or held.get("held", {}) != held_now):
                 held["source"] = {"commit": _head(_ROOT)}
-                _write_lock(held)
-                print(f"lock names this tree — {held['release']['asset']}; source advanced")
+                _write_lock(_with_held(held, held_now))
+                print(f"lock names this tree — {held['release']['asset']}; source advanced"
+                      + (f", {len(held_now)} member(s) held" if held_now else ""))
                 return 0
         print(f"lock names this tree — {held['release']['asset']}")
         return 0
@@ -727,7 +823,7 @@ def main(argv) -> int:
                 upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
         held["source"] = {"commit": _head(_ROOT)}
         held["sidecars"] = sidecar_now
-        _write_lock(held)
+        _write_lock(_with_held(held, held_now))
         print(f"pinned current scorecards without rebuilding {release['asset']}")
         return 0
 
@@ -735,13 +831,14 @@ def main(argv) -> int:
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
         size = bundle.stat().st_size
-        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now)
+        data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, held_now)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
 
     _write_lock(data)
-    print(f"pinned in {LOCK.relative_to(_ROOT)}")
+    print(f"pinned in {LOCK.relative_to(_ROOT)}"
+          + (f" — {len(held_now)} member(s) held at an earlier commit" if held_now else ""))
     return 0
 
 
@@ -819,6 +916,25 @@ def selftest() -> int:
         hold("retired solids and scorecards leave the lock together",
              retired_outputs(root), ["hardware/retired/old.scorecard.json",
                                      "hardware/retired/old.step"])
+
+        # A publication under way beside somebody's open file. `a.step` has not moved since it
+        # was packed, `b.step` was already standing on an older commit than the lock's, `c.step`
+        # has been recut, and `d.step` is a first cut nothing has published.
+        packed = {"solids": {"a.step": "aa", "b.step": "bb", "c.step": "cc"},
+                  "source": {"commit": "head1"},
+                  "held": {"b.step": "head0"}}
+        disk = {"a.step": "aa", "b.step": "bb", "c.step": "moved", "d.step": "new"}
+        hold("a member the dirty rule did not move keeps the commit that published it",
+             attribution({"a.step", "b.step", "c.step", "d.step"}, disk, packed),
+             ({"a.step": "head1", "b.step": "head0"}, ["c.step", "d.step"]))
+        hold("a clean rule's members are nobody's exception",
+             attribution(set(), disk, packed), ({}, []))
+        hold("held is seated on the commit it is the exception to",
+             list(_with_held({"source": {}, "solids": {}}, {"b.step": "head0"})),
+             ["source", "held", "solids"])
+        hold("and is the field's absence when nothing is held",
+             _with_held({"source": {}, "held": {"b.step": "head0"}, "solids": {}}, {}),
+             {"source": {}, "solids": {}})
         shutil.rmtree(hw / "printed-parts" / "enclosure")
 
         a, b = root / "a.tar.gz", root / "b.tar.gz"
@@ -847,8 +963,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/13")
-    return 0 if holds == 13 else 1
+    print(f"pack selftest {holds}/17")
+    return 0 if holds == 17 else 1
 
 
 if __name__ == "__main__":
