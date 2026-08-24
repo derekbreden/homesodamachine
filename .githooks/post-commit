@@ -6,7 +6,7 @@
 # that one and IS committed — but the real index is never updated, so it keeps the file's
 # PRE-COMMIT blob. HEAD moves on, the worktree moves with it, and the index alone stays
 # behind. `git status` shows `MM`, and the next bare `git commit` lands that older blob and
-# silently undoes what this commit derived. It has taken the ledger backwards three times.
+# silently undoes what this commit derived.
 #
 # THE SIGNATURE: the worktree matches HEAD, and the index matches neither. Content somebody
 # staged on purpose and is holding for a later commit does NOT look like this — there the
@@ -32,45 +32,16 @@ if [ -n "$_ghosts" ]; then
   echo "post-commit:   no file changed. To read one back: git cat-file -p <hash>" >&2
 fi
 
-# A REBASE REFUSES AGAINST A DIRTY WORKTREE — NOT FOR THE FILES IT TOUCHES, FOR ANY OF THEM.
+# AND THEN IT GOES. The site deploys on a push — `render.yaml`'s buildFilter names `web/**` and
+# the artifact lock — so this hook is the distance between a commit and homesodamachine.com.
 #
-# So the push you are about to make fails on `behind`, and the `git pull --rebase` that would
-# normally fix it stops at "cannot pull with rebase: You have unstaged changes". Several
-# sessions building at once keep this tree dirty in the artifacts they all rewrite, so that
-# state is not a moment to wait out — it is the resting state, and waiting is not a plan.
+# `push.py` lands it: a commit whose patch is already on the remote under another hash is
+# dropped, anything else is replayed in a detached worktree that shares no index with the
+# sessions building here, and a conflict is left alone and named.
 #
-# WHAT CLEARS IT IS DROPPING WHAT CARRIES NO INFORMATION. Most of what is dirty here is what a
-# rebuild writes again from the sources beside it, so a copy differing from HEAD only says a
-# build ran. `drop_derived.py` restores exactly those and leaves anything authored — geometry
-# mid-edit, a landed trace, a thumbnail paired with a solid on the disk — for `--autostash` to
-# carry, which is the division: the stash then holds only work worth a conflict.
-#
-# AND A CONFLICT THERE IS STILL NOT A MERGE. Two builds of one picture are two binaries with
-# no combination, so git stops rather than inventing one. Whichever side you keep, the answer
-# is the same: the file is a function of the sources, so take what came in and let the next
-# build write it — `git checkout --ours -- <path>`, which during a stash pop is the incoming
-# tree and not your stash.
-#
-# THE OTHER ROUTE IS TO NOT TOUCH THE TREE AT ALL: push this commit from a detached worktree,
-# which shares no index and no checkout with the sessions building here. It leaves your commit
-# on the remote under a new hash while local HEAD keeps the old one, and the patch-ids match,
-# so the next real rebase drops the duplicate on its own.
-#
-# READ FROM THE REFS AS THEY STAND. No fetch — a network call on every commit is a tax on the
-# path this hook is trying to keep short, and a cached ref that reads zero costs nothing but
-# this paragraph going unprinted.
-_behind=$(git -C "$root" rev-list --count HEAD..origin/main 2>/dev/null) || _behind=0
-if [ "${_behind:-0}" -gt 0 ] && ! git -C "$root" diff --quiet 2>/dev/null; then
-  echo "post-commit: behind origin/main by $_behind, and the worktree is dirty — a rebase will refuse." >&2
-  echo "post-commit:   python3 tools/bazel/drop_derived.py --write   # restore what a rebuild rewrites" >&2
-  echo "post-commit:   git pull --rebase --autostash origin main     # what is left rides the stash" >&2
-  echo "post-commit:   git push" >&2
-  echo "post-commit: or leave the tree alone and push from a worktree of your own:" >&2
-  echo "post-commit:   git fetch origin main && git worktree add --detach .git/push-wt origin/main" >&2
-  echo "post-commit:   git -C .git/push-wt cherry-pick $(git -C "$root" rev-parse --short HEAD) && git -C .git/push-wt push origin HEAD:main" >&2
-  echo "post-commit:   git worktree remove --force .git/push-wt" >&2
-  echo "post-commit: THE CHERRY-PICK MERGES. A path that moved on main since you branched stops it" >&2
-  echo "post-commit: and says so. Writing a blob into a temporary index and commit-tree-ing it onto" >&2
-  echo "post-commit: origin/main skips that — it takes your file whole and the other version is gone." >&2
-fi
+# IT REPORTS AND DOES NOT HOLD. The commit is already made and this hook's exit status cannot
+# unmake it, so a push that does not land says so and leaves the work committed.
+_py="$root/tools/cad-venv/bin/python"
+[ -x "$_py" ] || _py=python3
+"$_py" "$root/tools/push.py" 2>&1 | sed 's/^/post-commit: /' >&2
 exit 0
