@@ -61,27 +61,26 @@ for _p in (_HW / "scripts", _HW / "manifold-layout", _HW / "cold-core-layout",
 Scene = namedtuple("Scene", "id title roots inner flip also later cam up zoom look note without",
                    defaults=(None,))
 
-# TWO MODELS OF THE CORE, AND A SCENE MAY WANT EITHER. `manifold-layout/enclosure_assembly` is the
-# appliance and places the core as ONE solid with a port table — which is the right body for a
-# picture of the machine. `cold-core-layout/cold_core_assembly` is the same stack one frame in:
-# the six printed pieces AND the carbonator, the coil, both reservoirs, every fitting, the sensing
-# and the eight lines among them, in the shell's own frame. Its `one-core` gate holds every body
-# the outer model draws standing in the inner one, so the two agree about what they share.
+# HOW MUCH OF THE CORE A PICTURE WANTS. `manifold-layout/enclosure_assembly` stands the core's
+# own bodies — the shell and its caps AND the carbonator, the coil, both reservoirs, every
+# fitting, the sensing and the eight lines among them — so a scene can draw as much or as little
+# of the stack as its bench step has reached. `cold-core-layout/cold_core_assembly` is the same
+# stack in the shell's own frame, and its `one-core` gate holds the two agreeing about it.
 #
-# `inner` NAMES BODIES FROM THAT INNER MODEL, and they are drawn INSTEAD of the one solid `roots`
-# puts there. `INNER_ALL` takes every one of them — the core on a bench with its lid off is a
-# picture of what is inside it, and no list of 63 names belongs in this file.
+# `inner` NAMES WHICH OF THOSE BODIES A SCENE DRAWS, in place of `INNER_ROOT`. `INNER_ALL` takes
+# every one — the core on a bench with its lid off is a picture of what is inside it, and no list
+# of 63 names belongs in this file — and `INNER_FOAM` takes the closed unit.
 INNER_ALL = "*"
 
-# THE BODY THE INNER MODEL IS THE INSIDE OF. The machine places the core under this one name and
-# `cold_core_assembly` is that same object one frame in, so this is both where a scene's `inner`
-# bodies come from and — through the machine's own seating of it — where they stand.
+# THE NAME THE CORE IS ONE BODY UNDER. Nothing is exported by it: the machine's card measures the
+# pack against the envelope, its port table hangs off it, and `inner` bodies are drawn in its
+# place. A scene naming it is a scene that has not said which of the core it wants.
 INNER_ROOT = "foam-assembly"
 
 # THE FOAM ITSELF, as the core names its five pieces. `foam-assembly.step` is a compound of
-# exactly these, so a scene drawing them draws what the machine's one solid drew — with each
-# piece under its own name. A unit that carries the core without being a picture of its insides
-# takes these: on a bench the core arrives foamed and closed.
+# exactly these, so a scene drawing them draws the closed unit — with each piece under its own
+# name. A unit that carries the core without being a picture of its insides takes these: on a
+# bench the core arrives foamed and shut.
 INNER_FOAM = ("foam-shell", "foam-cap-top", "foam-cap-lid-top",
               "foam-cap-bottom", "foam-cap-lid-bottom")
 
@@ -661,14 +660,16 @@ def named(scene, runs):
 def members(scene, assembly):
     """`named`, held against the machine that has to place every one of them."""
     names = named(scene, assembly.runs)
-    present = {c.name for c in assembly.children} | set(core_names())
+    # ONE MODEL PLACES EVERY ONE OF THEM. The machine stands the core's own bodies, so a name
+    # this cannot find is a name nothing draws — including a body the core's card claims and
+    # the machine does not stand, which is the divergence worth hearing about.
+    present = {c.name for c in assembly.children}
     missing = sorted(n for n in names if n not in present)
     if missing:
         raise ValueError(
-            f"scene {scene.id!r} names {', '.join(missing)}, which neither the machine nor the "
-            f"cold core places. The fastening tables and the two assemblies' own body lists are "
-            f"what this reads; a name in one of them and not in either model is the table to "
-            f"correct.")
+            f"scene {scene.id!r} names {', '.join(missing)}, which the machine does not place. "
+            f"The fastening tables and the two assemblies' own body lists are what this reads; "
+            f"a name in one of them and not in the model is the table to correct.")
     return names
 
 

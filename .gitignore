@@ -123,3 +123,8 @@ hardware/quickstart/out/
 # names each by sha256, and web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy
 # serves from. The lock is what git carries.
 hardware/assembly/scenes/glb/
+
+# The MiniProto upload `wiring/_harness_quote.py` emits. `--gauge` renders a different one from
+# the same schedule, and `harness-rfq.md` still has the gauge open, so what is here is a choice
+# being tried rather than a record of one. One command remakes it.
+hardware/wiring/*.harness.json

@@ -6095,6 +6095,18 @@ def _solids(a: cq.Assembly):
     return out
 
 
+def _core_solids(a: cq.Assembly):
+    """The cold core's own bodies as the machine stands them — the half `_solids` leaves out.
+
+    `_solids` reads the pack, where the core is one envelope. This is its complement: the bodies
+    the STEP carries, already placed, for a reader that wants the core where the machine puts it
+    rather than the block it fills. Together the two are every child of the assembly."""
+    inside = getattr(a, "core_body_names", frozenset())
+    return {c.name: ((c.obj.val() if hasattr(c.obj, "val") else c.obj).moved(
+        cq.Location(c.loc.wrapped.Transformation())), c.color)
+        for c in a.children if c.name in inside}
+
+
 # Bodies seated THROUGH a wall rather than standing inside it. Each one takes a hole in the skin
 # and reaches out the far side — the six fittings clamped in theirs, the ASSE drip pan drawing in and
 # out of its slot with `PAN_PROUD` of tab standing outside. So its box is not a box the interior
