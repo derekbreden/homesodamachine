@@ -89,6 +89,7 @@ export function mountHud(host, { steps, title, subtitle, on }) {
   host.append(hud);
 
   let shownIndex = -1;
+  let swapTimer = null;
 
   function setStep(i, step) {
     dots.forEach((d, n) => {
@@ -97,10 +98,14 @@ export function mountHud(host, { steps, title, subtitle, on }) {
     });
     if (i === shownIndex) return;
     shownIndex = i;
+    // Out, then in: the card fades down, swaps its words while it is
+    // invisible, and comes back — so a step change never shows two texts. On a
+    // timer rather than on frames, because a page nobody is looking at is a
+    // page with no frames, and it still has to be showing the right beat when
+    // someone looks back at it.
     card.classList.remove("in");
-    // One frame out, then in: the card fades down, swaps its words while it is
-    // invisible, and comes back — so a step change never shows two texts.
-    requestAnimationFrame(() => {
+    clearTimeout(swapTimer);
+    swapTimer = setTimeout(() => {
       kicker.textContent = `${i + 1} / ${steps.length}`;
       heading.textContent = step.title;
       body.textContent = step.body;
@@ -114,13 +119,15 @@ export function mountHud(host, { steps, title, subtitle, on }) {
         chips.append(el("span", "tour-chip tour-chip-more",
                         `+${named.length - CHIP_LIMIT} more`));
       }
-      requestAnimationFrame(() => card.classList.add("in"));
-    });
+      void card.offsetWidth; // restart the transition rather than continue it
+      card.classList.add("in");
+    }, 220);
   }
 
+  // How far through the beat the player is, as the scale of the dot's fill.
   function setProgress(i, frac) {
     const d = dots[i];
-    if (d) d.style.setProperty("--fill", `${Math.round(frac * 100)}%`);
+    if (d) d.style.setProperty("--fill-x", String(Math.max(0, Math.min(frac, 1))));
   }
 
   return {

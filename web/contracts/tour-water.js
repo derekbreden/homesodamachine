@@ -199,7 +199,7 @@ export const TOUR = {
           + "what starts the flavor pumps.",
       parts: ["tube-carb-1", "digiten-flow"],
       dir: [-0.7, -0.75, 0.4],
-      pad: 1.45,
+      pad: 1.9,
       drift: { az: 11, el: 2, dolly: -0.06 },
     },
     {
