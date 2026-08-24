@@ -257,7 +257,23 @@ def main(argv) -> int:
     for gen, src, want in missing:
         print(f"    {gen}\n      reads {src}, which imports {want}")
     if fix:
-        new = repair(graph, missing)
+        # TO A FIXPOINT, BECAUSE AN IMPORT BRINGS ITS OWN. A step that gains `cold_core_assembly`
+        # now reads a file importing `_carbonator`, which no pass over the old graph could see —
+        # the source was in nobody's reads and so was never asked about. Each round makes the
+        # next round's question, and the interpreter walks the whole chain before the step's
+        # first line, so a graph that stops early fails the action one import deeper.
+        new = 0
+        while missing:
+            new += repair(graph, missing)
+            named = sorted({r for e in graph.values() for r in e.get("reads", ())})
+            for f in named:
+                if f.endswith(".py") and f not in sources:
+                    try:
+                        sources[f] = (_ROOT / f).read_text()
+                    except OSError:
+                        pass
+            missing = [m for m in owed(graph, tracked, sources) if m[2] not in
+                       set(graph[m[0]].get("reads", ()))]
         # THE SHAPE `trace_inputs` WRITES, so a repair is the lines it moved and not the file.
         # Several sessions hold this tree and read each other's diffs; a reformat here is 13,000
         # lines of noise over ten facts, and it collides with every re-trace in flight.
