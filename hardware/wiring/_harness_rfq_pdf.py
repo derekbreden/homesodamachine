@@ -19,6 +19,7 @@ import sys
 HERE = pathlib.Path(__file__).parent
 SRC = HERE / "harness-rfq.md"
 OUT = HERE / "homesodamachine-harness-rfq.pdf"
+BOM = HERE / "homesodamachine-harness-bom.csv"
 
 PREAMBLE = """# Harness RFQ
 
@@ -80,6 +81,29 @@ def main():
     subprocess.run(["weasyprint", str(tmp), str(OUT)], check=True)
     tmp.unlink()
     print(f"-> {OUT}  ({OUT.stat().st_size // 1024} KB)")
+
+    write_bom_csv()
+
+
+def write_bom_csv():
+    """Emit the purchased-parts table as a CSV a supplier's purchasing system can ingest.
+
+    Parsed out of the same markdown table the PDF renders, so the two cannot drift.
+    """
+    import csv
+
+    body = SRC.read_text().split("## Purchased parts, per set")[1].split("\n## ")[0]
+    rows = [
+        [c.strip().replace("**", "") for c in line.strip().strip("|").split("|")]
+        for line in body.splitlines()
+        if line.startswith("|") and not set(line) <= set("|-: ")
+    ]
+    if not rows:
+        sys.exit("no purchased-parts table found in harness-rfq.md")
+
+    with BOM.open("w", newline="") as f:
+        csv.writer(f).writerows(rows)
+    print(f"-> {BOM}  ({len(rows) - 1} line items)")
 
 
 if __name__ == "__main__":
