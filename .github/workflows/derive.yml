@@ -342,6 +342,21 @@ jobs:
       - name: The card deck
         run: tools/cad-venv/bin/python hardware/assembly/cards/_cards_sync.py
 
+      # EVERY CHECK, AGAINST THIS TREE, WHERE SOMETHING RUNS THEM. Three of the eleven are in
+      # the pre-commit hook and only for the paths they watch; four are registered in
+      # `selftests.json`, where `selftest.sh` runs `<script> selftest` — the script's rules
+      # against its own fixtures, which passes while the same script run against the tree
+      # reports rot. This asks the second question, and it is the only place that asks it of
+      # all of them.
+      #
+      # `continue-on-error` BECAUSE A RED HERE IS A READING AND NOT A GATE. The reconcile
+      # finishes, the derived files commit, and the red rides out with them; a check that could
+      # stop the tree reaching the site would be the one thing this tree does not do. It costs
+      # five seconds, which is why it is here and not on the commit path.
+      - name: Every check against this tree
+        continue-on-error: true
+        run: tools/cad-venv/bin/python tools/checks.py
+
       # Bundle publication is isolated in `publish.yml`. This full derive verifies that
       # its carried tree is complete and reports a behind lock without competing to repin it.
       - name: Artifact publication status
