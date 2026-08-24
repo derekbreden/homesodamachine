@@ -9,8 +9,8 @@
 //   node tools/render/render-dxf.js <dxf-file-relative> <output-png> [--at <date|ref>]
 // Example:
 //   node tools/render/render-dxf.js \
-//     cut-parts/faucet/touch-flo-under-counter-plate/touch-flo-under-counter-plate.dxf \
-//     /tmp/touch-flo-under-counter-plate.png
+//     cut-parts/faucet/under-counter-plate/under-counter-plate.dxf \
+//     /tmp/under-counter-plate.png
 //
 // The dxf path is relative to hardware/ (matches /api/dxf + /dxfs/*).
 // Output path may be relative to repo root or absolute.
