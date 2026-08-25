@@ -1,13 +1,17 @@
-# Enclosure display (Waveshare ESP32-S3-Touch-LCD-4.3B, 16 MB flash).
+# Enclosure display (Waveshare ESP32-S3-Touch-LCD-4.3B, 16 MB). Dual-slot.
+#
 # The update path this serves is `firmware/README.md`, "A shipped unit is
 # updated from the iOS app".
-# Single-slot dev/foundation layout with a large app partition — the loading
-# animation frames are compiled in (~4 MB of .rodata), which overflows the
-# 4 MB app slot of the shared partitions_s3.csv. No OTA dual-slot yet (this
-# board is not shipping); when it ships, revisit for two app slots like the
-# note in partitions_s3.csv.
+#
+# The loading animation is compiled in — ~4 MB of .rodata against ~1.5 MB of
+# everything else — so this board's slots are the widest of the three and the
+# image still fills 81% of one. Art that moved to a partition of its own would
+# take both slots down to 2 MB; until it does, a slot here is 7 MB.
+#
+# app: 5.65 MB in a 7 MB slot.
 # Name,   Type, SubType, Offset,   Size,     Flags
 nvs,      data, nvs,     0x9000,   0x5000,
 otadata,  data, ota,     0xe000,   0x2000,
-app0,     app,  ota_0,   0x10000,  0x800000,
-spiffs,   data, spiffs,  0x810000, 0x7F0000,
+app0,     app,  ota_0,   0x10000,  0x700000,
+app1,     app,  ota_1,   0x710000, 0x700000,
+spiffs,   data, spiffs,  0xE10000, 0x1F0000,

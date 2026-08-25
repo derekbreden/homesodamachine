@@ -150,6 +150,7 @@ static lv_color_t *lvgl_buf;
 // ── UI objects ──
 static lv_obj_t *logoImg;
 static lv_obj_t *primeLayer;
+static lv_obj_t *otaLayer, *otaTitle, *otaPct;
 static lv_obj_t *primeExitBtn, *primeHoldBtn;
 static lv_obj_t *primeExitLbl, *primeHoldLbl, *primeStatusLbl;
 static lv_indev_t *touchInput = nullptr;
@@ -494,6 +495,46 @@ static void setPrimeVisible(bool visible) {
   } else {
     lv_obj_add_flag(primeLayer, LV_OBJ_FLAG_HIDDEN);
   }
+}
+
+// An image is arriving over J3. esp_ota_write stalls this board for whole
+// seconds at a time and LVGL only runs between chunks, so the panel is painted
+// once here and then only its percentage changes — a screen that says what is
+// happening rather than one that looks hung.
+void faucetApplyOta(bool active, uint8_t percent) {
+  if (!otaLayer) {
+    otaLayer = lv_obj_create(lv_scr_act());
+    lv_obj_remove_style_all(otaLayer);
+    lv_obj_set_pos(otaLayer, 0, 0);
+    lv_obj_set_size(otaLayer, SCREEN_W, SCREEN_H);
+    lv_obj_set_style_bg_color(otaLayer, THEME_BG, 0);
+    lv_obj_set_style_bg_opa(otaLayer, LV_OPA_COVER, 0);
+    lv_obj_clear_flag(otaLayer, LV_OBJ_FLAG_SCROLLABLE);
+
+    otaTitle = lv_label_create(otaLayer);
+    lv_label_set_text(otaTitle, "UPDATING");
+    lv_obj_set_style_text_font(otaTitle, &lv_font_montserrat_20, 0);
+    lv_obj_set_style_text_color(otaTitle, lv_color_hex(COL_TEXT), 0);
+    lv_obj_align(otaTitle, LV_ALIGN_CENTER, 0, -28);
+
+    otaPct = lv_label_create(otaLayer);
+    lv_obj_set_style_text_font(otaPct, &lv_font_montserrat_20, 0);
+    lv_obj_set_style_text_color(otaPct, lv_color_hex(COL_ACCENT), 0);
+    lv_obj_align(otaPct, LV_ALIGN_CENTER, 0, 12);
+  }
+
+  if (!active) {
+    lv_obj_add_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
+    return;
+  }
+
+  // Nothing dims or sleeps mid-transfer, and the screen must be lit to be read.
+  lastInputTime = millis();
+  wakeBacklight();
+  lv_label_set_text_fmt(otaPct, "%u%%", (unsigned)percent);
+  lv_obj_move_foreground(otaLayer);
+  lv_obj_clear_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
+  lv_timer_handler();
 }
 
 void faucetApplyIdle(bool asleep) {

@@ -41,6 +41,11 @@ void faucetApplyFlavorArt(const uint8_t art[2]);
 // the backlight lives.
 void faucetApplyIdle(bool asleep);
 
+// What the glass shows while an image is arriving. Defined in main.cpp, where
+// the display lives. Flash writes stall this board for whole seconds at a
+// time, so the panel says what is happening rather than appearing to hang.
+void faucetApplyOta(bool active, uint8_t percent);
+
 // A press this display did not otherwise report.
 void baseLinkTouched();
 

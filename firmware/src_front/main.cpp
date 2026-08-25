@@ -27,6 +27,7 @@ extern "C" const lv_font_t front_icons_96;
 // the config display uses), rendered natively at 360x360 RGB565 by
 // tools/gen_animation_frames.py from the app-icon artwork. Each frame's
 // background is THEME_BG, so the centered image blends into the screen fill.
+#include "ota_receiver.h"
 #include "images/anim_00.h"
 #include "images/anim_01.h"
 #include "images/anim_02.h"
@@ -1094,6 +1095,94 @@ static unsigned long lastTxMs = 0;
 static bool          awaitingAnswer = false;
 static bool          holding = false;
 
+// ── Firmware arriving over J9 ─────────────────────────────────────────────
+// This board cannot write its own flash with the panel running. The scan-out
+// DMA refills its bounce buffer from PSRAM, a flash write suspends the cache
+// PSRAM is reached through, and the refill then faults — the same reason the
+// logo choice is kept on the main board rather than in local NVS.
+//
+// So an update here is deliberately a blind operation: the glass says what is
+// about to happen, the panel is stopped, the image comes down dark, and the
+// board reboots whatever the outcome. A failed transfer costs a reboot into
+// the image it was already running, which is the same image it would have kept
+// anyway.
+static OtaReceiver ota;
+static unsigned long otaAskedAtMs = 0;
+static bool otaPanelStopped = false;
+static bool otaRebootPending = false;
+static unsigned long otaRebootAtMs = 0;
+static const unsigned long OTA_REASK_MS = 400;
+
+static void j9Post(uint8_t type, const void *data, uint8_t len);
+static bool setBacklight(bool on);
+
+static void otaStopPanel() {
+  if (otaPanelStopped) return;
+  otaPanelStopped = true;
+  setBacklight(false);
+  if (panel) esp_lcd_panel_disp_on_off(panel, false);
+}
+
+static void otaAsk() {
+  OtaReqPayload req{ota.nextOffset()};
+  j9Post(MSG_OTA_REQ, &req, sizeof(req));
+  otaAskedAtMs = millis();
+}
+
+static void otaReport() {
+  OtaStatePayload st;
+  ota.fill(st);
+  j9Post(MSG_RESP_OTA, &st, sizeof(st));
+}
+
+static void otaBanner() {
+  if (!lockTitle) return;
+  lockActive = true;
+  if (lockScreen) lv_obj_move_foreground(lockScreen);
+  lv_label_set_text(lockTitle, "UPDATING");
+  if (lockBody) lv_label_set_text(lockBody, "The screen goes dark while the new firmware is written.\nDo not cut power. It restarts on its own.");
+  if (lockScreen) lv_obj_clear_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
+  for (int i = 0; i < 40; i++) { lv_timer_handler(); delay(25); }   // let it render and be read
+}
+
+static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
+  if (type == MSG_OTA_ABORT) { ota.abort(); otaRebootPending = true; otaRebootAtMs = millis() + 200; return; }
+
+  if (type == MSG_OTA_BEGIN && plen >= sizeof(OtaBeginPayload)) {
+    OtaBeginPayload b;
+    memcpy(&b, payload, sizeof(b));
+    otaBanner();
+    otaStopPanel();
+    ota.begin(b.size, b.crc32);
+    otaReport();
+    if (ota.active()) otaAsk();
+    else { otaRebootPending = true; otaRebootAtMs = millis() + 200; }
+    return;
+  }
+
+  if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
+    uint32_t offset;
+    memcpy(&offset, payload, 4);
+    if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
+      otaReport();
+      otaRebootPending = true;
+      otaRebootAtMs = millis() + 200;
+      return;
+    }
+    if (ota.nextOffset() < ota.expected) { otaAsk(); return; }
+    ota.finish();
+    otaReport();
+    otaRebootPending = true;
+    otaRebootAtMs = millis() + 600;   // let the reply clear the pair
+    return;
+  }
+}
+
+static void otaService() {
+  if (otaRebootPending && (long)(millis() - otaRebootAtMs) >= 0) esp_restart();
+  if (ota.active() && millis() - otaAskedAtMs >= OTA_REASK_MS) otaAsk();
+}
+
 static void j9Post(uint8_t type, const void *data, uint8_t len) {
   if (len > sizeof(outQ[0].data)) len = sizeof(outQ[0].data);
   if (outCount >= OUT_Q_DEPTH) {
@@ -1323,6 +1412,11 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   char buf[64];
 
   unanswered = 0;   // anything arriving says the far end is still hearing us
+
+  if (type == MSG_OTA_BEGIN || type == MSG_OTA_DATA || type == MSG_OTA_ABORT) {
+    otaOnFrame(type, payload, plen);
+    return;
+  }
 
   if (type == MSG_DISPLAY_USB_REATTACH) {
     // Answer while the pair is still ours, then leave enough time for the UART to
@@ -3365,6 +3459,11 @@ void setup() {
 
 void loop() {
   unsigned long loopStart = millis();
+
+  // An update owns the board once it starts: the panel is already stopped and
+  // nothing else should be drawing, polling, or sleeping it.
+  otaService();
+  if (ota.active() || otaRebootPending) { j9.service(); j9Pump(); return; }
 
   // USB serial commands (bring-up / diagnostics)
   static char usbBuf[64];
