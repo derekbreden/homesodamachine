@@ -55,7 +55,9 @@ def open_console(port: str) -> serial.Serial:
     ser = serial.Serial()
     ser.port = port
     ser.baudrate = 115200
-    ser.timeout = 0.2
+    # Small: every chunk costs one of these waits, and at 1 KB a chunk a 200 ms
+    # blocking read is most of the transfer. 5 ms keeps the pipe wire-bound.
+    ser.timeout = 0.005
     ser.write_timeout = 5
     ser.dtr = False
     ser.rts = False
@@ -84,12 +86,14 @@ def run(target: str, image: str, verbose: bool) -> int:
     last_print = 0.0
     buf = b""
 
+    idle_since = time.time()
     while True:
-        chunk = ser.read(256)
+        chunk = ser.read(max(1, ser.in_waiting))
         if chunk:
             buf += chunk
-        elif time.time() - started > 900:
-            print("\ntimed out")
+            idle_since = time.time()
+        elif time.time() - idle_since > 30:
+            print("\ntimed out — nothing from the main board for 30s")
             ser.close()
             return 1
 
