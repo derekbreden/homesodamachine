@@ -304,7 +304,7 @@ partition holding the loading animation, erased and rewritten in place, verified
 | `self` | `appliance` | 768 KB | J3, or the console |
 | `faucet` | `esp32s3_faucet` | 3 MB | BLE, or J3 from the console |
 | `enclosure` | `esp32s3_front` | 2.5 MB | J9 |
-| `art` | `tools/make_front_art.py` | 4 MB | J9 |
+| `art` | `tools/make_art.py enclosure` | 4 MB | J9 |
 
 **The enclosure display goes dark while it writes.** Its scan-out DMA refills a bounce buffer
 from PSRAM, a flash write suspends the cache PSRAM is reached through, and the refill then
@@ -340,7 +340,7 @@ install a dual-slot table, which is the one thing an update cannot install.
 `rotary`'s app is 3.2 MB of an 8 MB flash, and 2.1 MB of that is nineteen 240×240 images
 compiled in ([`src_config/images/`](src_config/images)). Two slots and a filesystem do not fit
 around that, so the table it gets is the one it gets after the art moves to its own partition —
-the change [`front_art.cpp`](src_front/front_art.cpp) already is for the enclosure.
+the change [`lib/board_art`](lib/board_art/board_art.h) already is for the enclosure.
 
 `rp2040_display` is not in the manifest. The RP2040's ROM offers USB and nothing else, so it
 takes an image through BOOTSEL and a cable.
@@ -405,7 +405,7 @@ Both go over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3
 
 The loading animation is not in that board's firmware image — it is 3.96 MB in
 the `art` partition, built from the same `src_front/images/anim_NN.h` headers by
-[`tools/make_front_art.py`](/tools/make_front_art.py), which `pre_build.py` runs
+[`tools/make_art.py`](/tools/make_art.py), which `pre_build.py` runs
 for this environment. `esp_partition_mmap` hands LVGL a pointer into it, so it
 renders straight out of flash at no RAM cost, exactly as compiled-in `.rodata`
 did — it just stops riding along in every update of code that never touches it.

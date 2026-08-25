@@ -73,9 +73,18 @@ TARGETS = {
         "src": "src_front",
         "machine": "appliance",
         "what": "the enclosure display's loading animation",
-        # Not a firmware image and not built by pio — laid out from the same frame headers the
+        # Not a firmware image and not built by pio — laid out from the same headers the
         # firmware used to compile in, so it carries no version of its own.
         "kind": "art",
+        "art_board": "enclosure",
+    },
+    "rotary_art": {
+        "env": "esp32s3_config",
+        "src": "src_config",
+        "machine": "prototype",
+        "what": "the rotary display's animation and flavor faces",
+        "kind": "art",
+        "art_board": "rotary",
     },
     "prototype": {
         "env": "prototype",
@@ -160,10 +169,10 @@ def build(target: str) -> None:
     the target is absent from the survey below and the rest of the manifest goes out."""
     spec = TARGETS[target]
     if spec.get("kind") == "art":
-        run = subprocess.run([sys.executable, str(_ROOT / "tools" / "make_front_art.py")],
-                             cwd=str(_ROOT))
+        run = subprocess.run([sys.executable, str(_ROOT / "tools" / "make_art.py"),
+                              spec["art_board"], "-q"], cwd=str(_ROOT))
         if run.returncode != 0:
-            print(f"  {target}: make_front_art.py failed")
+            print(f"  {target}: make_art.py failed")
         return
     run = subprocess.run([str(PIO), "run", "-e", spec["env"]], cwd=str(_ROOT),
                          capture_output=True, text=True)

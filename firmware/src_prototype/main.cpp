@@ -106,6 +106,8 @@ uint8_t flavor2Image = 1;
 #define CONFIG_SEND_INTERVAL_MS 30000  // resend image mapping every 30s
 
 // ── RP2040 link (TinyProto) ──
+#include "proto_ota.h"
+
 ProtoLink protoRP;
 
 // ── S3 link (TinyProto) ──
@@ -2967,6 +2969,20 @@ void onS3Message(ProtoLink *link, const uint8_t *data, uint16_t len) {
     case MSG_UPLOAD_DONE:
       handleS3UploadDone(payload, payloadLen);
       break;
+    // The radio is on the rotary display, so an image for this board arrives
+    // from there rather than from a cable.
+    case MSG_OTA_SRC_BEGIN:
+      protoOtaOnSrcBegin(payload, payloadLen);
+      break;
+    case MSG_OTA_SRC_DATA:
+      protoOtaOnSrcData(payload, payloadLen);
+      break;
+    case MSG_IDENTITY_QUERY: {
+      IdentityPayload id;
+      protoMachineIdentity(id);
+      protoS3.trySend(MSG_RESP_IDENTITY, &id, sizeof(id));
+      break;
+    }
     case MSG_DEVICE_READY: {
       if (payloadLen >= sizeof(ResponsePayload)) {
         const ResponsePayload *resp = (const ResponsePayload *)payload;
@@ -3467,6 +3483,10 @@ void setup() {
   // Init ProtoLink for S3 (TinyProto HDLC)
   protoS3.onMessage = onS3Message;
   protoS3.begin(Serial1, "S3");
+  protoIdentityBegin();
+  protoOtaBegin([](uint8_t type, const void *data, uint16_t len) {
+    return protoS3.trySend(type, data, len) >= 0;
+  });
 
   // Start TX pump on core 1
   xTaskCreatePinnedToCore(s3TxPumpTask, "s3TxPump", 4096, NULL, 1, NULL, 1);
@@ -3520,6 +3540,8 @@ void setup() {
 
 void loop() {
   unsigned long now = millis();
+
+  protoOtaService();
 
   // ── 1. Read inputs ─────────────────────────────────────────
 
