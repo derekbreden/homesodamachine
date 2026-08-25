@@ -893,6 +893,20 @@ def _write_payload_beside(target_path, source=None):
         return
     if os.environ.get("HSM_SKIP_MESH_PAYLOAD"):
         return
+    # A SOLID THAT PRINTS ITS OWN MESH DOES NOT GET ITS PAYLOAD FROM HERE. Six `.step` files in
+    # this tree have an `.stl` beside them, and every one is an enclosure piece whose show
+    # surface is in that print and not in the B-rep (`flute_payload`, and `pack`'s
+    # `BUNDLED_PAYLOAD_DIRS`). A plain tessellation of the solid is a smooth prism of a fluted
+    # part — and writing one here stamps it with this STEP's digest, so `_payload_current`
+    # answers yes to it from then on and the flute cut is never asked for again. Recutting the
+    # piece is exactly when that happens, which is to say every time the part is worked on.
+    #
+    # LEFT FOR ITS OWN CUTTER, WHICH IS `//:flute-payload` and takes the `.stl` as its input. A
+    # payload of older descent still draws flutes; this writer's would draw none, and a stale
+    # surface is nearer the part than a surface the part does not have. `check_flutes` reads
+    # the distance either way.
+    if target.with_suffix(".stl").is_file():
+        return
     mesh = target.with_name(target.name + ".mesh")
     if not _payload_current(target, mesh):
         _write_mesh_payload(target, source)
