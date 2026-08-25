@@ -21,6 +21,11 @@ static uint16_t  chunk = 0;
 static uint32_t  lastReported = 0;
 static uint32_t  openedAtMs = 0;
 static uint8_t   imgKind = OTA_KIND_APP;
+// Until the far end says something, BEGIN may simply have been dropped —
+// opening this board's console resets it, and a link takes seconds to come
+// back up. So it is offered again until a receiver answers.
+static bool      sawReceiver = false;
+static uint32_t  beganAtMs = 0;
 
 // One chunk, which is the whole of what this board holds of an image.
 static uint8_t   buf[OTA_CHUNK_J3];
@@ -67,6 +72,7 @@ static void endSession(const char *how, uint8_t state, uint8_t err) {
     if (target == OTA_TGT_SELF && state != OTA_STATE_DONE) selfRx.abort();
     Serial.printf("\nOTA:%s state=%u err=%u\n", how, state, err);
     target = OTA_TGT_NONE;
+    sawReceiver = false;
     hostOwes = hostGot = 0;
     bufFull = false;
     bufLen = 0;
@@ -127,6 +133,7 @@ void otaFeedHostBytes() {
 // ── What a receiver on either link asks for ───────────────────────────────
 bool otaOnRequest(OtaTarget from, const uint8_t *payload, uint16_t plen) {
     if (target == OTA_TGT_NONE || from != target) return false;
+    sawReceiver = true;
     if (plen < sizeof(OtaReqPayload)) return false;
 
     OtaReqPayload req;
@@ -148,6 +155,7 @@ bool otaOnRequest(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 
 void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
     if (target == OTA_TGT_NONE || from != target) return;
+    sawReceiver = true;
     if (plen < sizeof(OtaStatePayload)) return;
 
     OtaStatePayload st;
@@ -165,6 +173,13 @@ void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 
 void otaService() {
     if (target == OTA_TGT_NONE) return;
+
+    if (!sawReceiver && target != OTA_TGT_SELF && millis() - beganAtMs >= 500) {
+        beganAtMs = millis();
+        OtaBeginPayload begin{imgSize, imgCrc, chunk, imgKind};
+        volunteer(target, MSG_OTA_BEGIN, &begin, sizeof(begin));
+    }
+
     // A receiver that stops asking is a session nobody will finish. The board
     // keeps running what it booted either way; this just frees the console.
     if (millis() - openedAtMs > 600000UL) endSession("FAIL", OTA_STATE_FAILED, OTA_ERR_NONE);
@@ -215,6 +230,8 @@ void otaConsole(const String &line) {
     chunk = (t == OTA_TGT_ENCLOSURE) ? OTA_CHUNK_J9 : OTA_CHUNK_J3;
     lastReported = 0;
     openedAtMs = millis();
+    beganAtMs = millis();
+    sawReceiver = false;
     bufFull = false;
     bufLen = 0;
 
