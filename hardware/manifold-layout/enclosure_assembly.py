@@ -584,7 +584,7 @@ def east_lane_free(cond) -> float:
 
     THE SEAM'S FURNITURE IS NOT THE FENCE HERE, and saying so is the whole of this. The block's
     fore end reaches into the frontmost ±X band, where the front column's collars stand — but a
-    collar is a pipe `2 * socket_r` tall at its own seam height, and this block's crown comes up
+    collar is a block `2 * socket_r` tall at its own seam height, and this block's crown comes up
     UNDER that seam (`enclosure.front_band_free_below`). A body under a boss is beside nothing,
     and charging it the chain's whole reach would be charging it for a column that is not there.
 
@@ -4220,7 +4220,7 @@ _ROUTED: set = set()
 # a boss carrying a body has to be. The wall's inner face is what caps the bore's blind end.
 #
 # The seam's own furniture reaches a whole `enclosure.boss_in` further inboard, and each piece
-# of it is a pipe round its own screw, one `enclosure.socket_r` about the level it pins. A body
+# of it is a block round its own screw, one `enclosure.socket_r` about the level it pins. A body
 # seated here meets one where its own height crosses one of theirs, which is a question about
 # two placed solids and is `pack-closes`'s to answer.
 #
@@ -4621,7 +4621,7 @@ def check_east_band(seated) -> Bound:
     seat plane at every height. `enclosure.east_band_free_y` strikes both.
 
     IT DOES NOT MEASURE THE Z-SEAM COLLARS, and that is the shape of the answer rather than a
-    gap in it. Each is a pipe `2 * socket_r` tall at a height its own seam is SEARCHED to
+    gap in it. Each is a block `2 * socket_r` tall at a height its own seam is SEARCHED to
     (`_z_joints`), so whether a body meets one is a question about where two solids stand — and
     the body clears it by standing over or under it as readily as beside it. `pack-closes`
     answers that, against the printed pieces themselves. This runs while the pack is being
