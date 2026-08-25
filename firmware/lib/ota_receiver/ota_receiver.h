@@ -22,16 +22,20 @@
 // of it matches what BEGIN promised does the boot partition move. A session
 // that stalls, fails, or is abandoned leaves the board running what it booted.
 struct OtaReceiver {
-  // Open the slot that is not running. False if there is no second slot (a
-  // single-slot partition table) or the image will not fit the one there is.
-  bool begin(uint32_t size, uint32_t crc32);
+  // Open the destination. OTA_KIND_APP takes the slot that is not running —
+  // false if there is no second slot, or the image will not fit it.
+  // OTA_KIND_ART takes the named data partition, erased as the write crosses
+  // into each block rather than all at once, so nothing waits on a 4 MB erase.
+  bool begin(uint32_t size, uint32_t crc32, uint8_t kind = OTA_KIND_APP);
 
   // Write bytes at `offset`. They must start exactly at nextOffset(); anything
   // earlier is a retry and is ignored (returns true, writes nothing), anything
   // later fails the session.
   bool write(uint32_t offset, const uint8_t *data, uint16_t len);
 
-  // Verify the whole image against the promised CRC32 and set it to boot.
+  // Verify what arrived against the promised CRC32. For firmware that is what
+  // sets it to boot; for a data partition the bytes are already in place and
+  // this is the check that says they are the right ones.
   bool finish();
 
   void abort();
@@ -51,9 +55,11 @@ struct OtaReceiver {
   uint32_t received = 0;   // bytes written so far
   uint32_t wantCrc = 0;
   uint32_t runCrc = 0;     // CRC32 over what has been written
+  uint8_t  kind = OTA_KIND_APP;
 
 private:
   void *handle_ = nullptr;         // esp_ota_handle_t, kept opaque
   const void *part_ = nullptr;     // const esp_partition_t *
+  uint32_t erasedTo_ = 0;          // ART: how far the erase has reached
   void failWith(uint8_t e);
 };

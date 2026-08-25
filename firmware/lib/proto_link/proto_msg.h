@@ -407,7 +407,14 @@ struct __attribute__((packed)) OtaBeginPayload {
   uint32_t size;    // bytes in the image
   uint32_t crc32;   // over the whole image
   uint16_t chunk;   // most bytes the sender will put in one OTA_DATA
+  uint8_t  kind;    // OTA_KIND_*
 };
+
+// What is arriving. Firmware goes into the OTA slot that is not running and
+// moves the boot partition; a named data partition is erased and rewritten in
+// place. Both are verified against the promised CRC32 before anything counts.
+constexpr uint8_t OTA_KIND_APP = 0;
+constexpr uint8_t OTA_KIND_ART = 1;  // the enclosure display's `art` partition
 
 struct __attribute__((packed)) OtaReqPayload {
   uint32_t offset;  // where the receiver is ready to write

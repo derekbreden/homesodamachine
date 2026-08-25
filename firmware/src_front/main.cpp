@@ -28,22 +28,7 @@ extern "C" const lv_font_t front_icons_96;
 // tools/gen_animation_frames.py from the app-icon artwork. Each frame's
 // background is THEME_BG, so the centered image blends into the screen fill.
 #include "ota_receiver.h"
-#include "images/anim_00.h"
-#include "images/anim_01.h"
-#include "images/anim_02.h"
-#include "images/anim_03.h"
-#include "images/anim_04.h"
-#include "images/anim_05.h"
-#include "images/anim_06.h"
-#include "images/anim_07.h"
-#include "images/anim_08.h"
-#include "images/anim_09.h"
-#include "images/anim_10.h"
-#include "images/anim_11.h"
-#include "images/anim_12.h"
-#include "images/anim_13.h"
-#include "images/anim_14.h"
-#include "images/anim_15.h"
+#include "front_art.h"
 
 // The flavor marks are deliberately static artwork. Choose's selection refresh
 // changes only on actual main board state transitions, so these do not
@@ -67,10 +52,6 @@ extern "C" const lv_font_t front_icons_96;
 #include "images/flavor2_head.h"
 #include "images/flavor3_head.h"
 
-static const uint16_t *animFrames[] = {
-    anim_00, anim_01, anim_02, anim_03, anim_04, anim_05, anim_06, anim_07,
-    anim_08, anim_09, anim_10, anim_11, anim_12, anim_13, anim_14, anim_15,
-};
 #define NUM_ANIM_FRAMES  16
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
 #define LOGO_SIZE        360
@@ -304,6 +285,13 @@ static void lockScreenHide();
 
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
+// Frame pixels live in the `art` partition, mapped through the MMU at boot —
+// see front_art.h. Null means the partition is absent or holds something this
+// build does not recognise, and the lock screen then carries its text alone.
+static const uint16_t *animBase = nullptr;
+static inline const uint16_t *animFrame(uint8_t i) {
+  return animBase ? animBase + (size_t)i * LOGO_SIZE * LOGO_SIZE : nullptr;
+}
 static lv_img_dsc_t frameDsc[NUM_ANIM_FRAMES];
 static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
@@ -1050,6 +1038,7 @@ static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *co
 
 static void animTimerCb(lv_timer_t *t) {
   (void)t;
+  if (!animBase) return;   // no art partition: the lock screen is its text
   animFrameIdx = (animFrameIdx + 1) % NUM_ANIM_FRAMES;
   if (lockLogoImg) lv_img_set_src(lockLogoImg, &frameDsc[animFrameIdx]);
 }
@@ -1153,7 +1142,7 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     memcpy(&b, payload, sizeof(b));
     otaBanner();
     otaStopPanel();
-    ota.begin(b.size, b.crc32);
+    ota.begin(b.size, b.crc32, b.kind);
     otaReport();
     if (ota.active()) otaAsk();
     else { otaRebootPending = true; otaRebootAtMs = millis() + 200; }
@@ -2549,7 +2538,8 @@ static void buildLockScreen(lv_obj_t *scr) {
   lv_obj_add_flag(lockScreen, LV_OBJ_FLAG_CLICKABLE);
 
   lockLogoImg = lv_img_create(lockScreen);
-  lv_img_set_src(lockLogoImg, &frameDsc[0]);
+  if (animBase) lv_img_set_src(lockLogoImg, &frameDsc[0]);
+  else lv_obj_add_flag(lockLogoImg, LV_OBJ_FLAG_HIDDEN);
   lv_obj_align(lockLogoImg, LV_ALIGN_LEFT_MID, 18, 0);
 
   lv_obj_t *modal = mkCard(lockScreen, 360, 238);
@@ -3038,13 +3028,14 @@ static void showRail(RailPage p) {
 }
 
 static void buildUi() {
+  animBase = frontArtMap(NUM_ANIM_FRAMES, LOGO_SIZE, LOGO_SIZE);
   for (uint8_t i = 0; i < NUM_ANIM_FRAMES; i++) {
     frameDsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
     frameDsc[i].header.always_zero = 0;
     frameDsc[i].header.w = LOGO_SIZE;
     frameDsc[i].header.h = LOGO_SIZE;
     frameDsc[i].data_size = LOGO_SIZE * LOGO_SIZE * sizeof(uint16_t);
-    frameDsc[i].data = (const uint8_t *)animFrames[i];
+    frameDsc[i].data = (const uint8_t *)animFrame(i);
   }
   for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
     flavorArt[i].header.cf = LV_IMG_CF_TRUE_COLOR;
@@ -3285,6 +3276,19 @@ static void processTextLine(const char *line) {
   } else if (strcmp(line, "PRIME:EXIT") == 0) {
     primeSessionCancel();
     Serial.println("OK:PRIME:EXIT");
+  } else if (strcmp(line, "ART") == 0) {
+    FrontArtHeader h;
+    if (!frontArtHeader(h)) {
+      Serial.println("ART:none — no art partition, or it could not be mapped");
+    } else {
+      Serial.printf("ART:magic=%08lX format=%lu count=%lu %ux%u crc=%08lX mapped=%d\n",
+                    (unsigned long)h.magic, (unsigned long)h.format,
+                    (unsigned long)h.count, h.w, h.h, (unsigned long)h.crc32,
+                    animBase ? 1 : 0);
+    }
+  } else if (strcmp(line, "ART:VERIFY") == 0) {
+    // Walks 3.96 MB, so it is asked for rather than done at boot.
+    Serial.printf("ART:VERIFY=%s\n", frontArtVerify() ? "PASS" : "FAIL");
   } else if (strcmp(line, "PANEL:REALIGN") == 0) {
     panelRealign();
     Serial.println("OK:PANEL:REALIGN");

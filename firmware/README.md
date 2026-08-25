@@ -280,6 +280,40 @@ banners in [`partitions_esp32.csv`](partitions_esp32.csv), [`partitions_s3.csv`]
 and [`partitions_s3_front.csv`](partitions_s3_front.csv) carry the per-board layouts and the
 deadline: before unit #001 is flashed for shipment.
 
+**What an update is, per board.** Firmware goes into the OTA slot that is not
+running and the boot partition moves only after the whole image is in and its
+CRC32 matches; a transfer that stalls leaves the board running what it booted.
+The enclosure display also carries `art` — a data partition holding the loading
+animation, erased and rewritten in place, verified the same way.
+
+| Target | Image | Slot | |
+|---|---|---|---|
+| `self` | `appliance` | 768 KB | the main board's own spare slot |
+| `faucet` | `esp32s3_faucet` | 3 MB | over J3 |
+| `enclosure` | `esp32s3_front` | 2.5 MB | over J9 |
+| `art` | `tools/make_front_art.py` | 4 MB | the animation, over J9 |
+
+From a laptop, through the main board's console:
+
+```bash
+~/.platformio/penv/bin/python tools/ota.py faucet
+```
+
+The main board stores nothing — it has 4 MB of flash and holds one chunk. The
+receiver asks for the offset it is ready to write, the main board asks the host
+for those bytes and passes them on, so the host paces the transfer and nothing
+is buffered in between. That pull is also what makes J9 work: the main board
+may only speak inside the turn a frame opens, and a request is exactly such a
+turn.
+
+**The enclosure display goes dark while it writes.** Its scan-out DMA refills a
+bounce buffer from PSRAM, a flash write suspends the cache PSRAM is reached
+through, and the refill then faults — the same constraint that keeps its logo
+choice on the main board rather than in local NVS. So it says what is about to
+happen, stops the panel, takes the image dark and reboots either way. A failed
+transfer costs a reboot into the image it was already running. The faucet drives
+SPI, has no such conflict, and shows a live percentage.
+
 **Which board hosts the GATT server is open.** It decides who relays and nothing else — the
 receiving half is the same work on all three boards, and is what the wire contract's
 `MSG_UPLOAD_START` / `MSG_UPLOAD_DONE` / `MSG_ERR_CRC32_MISMATCH` shape already describes
@@ -343,6 +377,28 @@ pio run -e pcba_bench -t upload
 For a bare main board on the bench, not an assembled machine. See [`src_pcba_bench/README.md`](src_pcba_bench/README.md) for its command table.
 
 Both go over a plain USB-C cable into J14; the on-board CH340C bridges and Q2/Q3 auto-reset, so no button presses.
+
+### Flash the enclosure display's art partition
+
+The loading animation is not in that board's firmware image — it is 3.96 MB in
+the `art` partition, built from the same `src_front/images/anim_NN.h` headers by
+[`tools/make_front_art.py`](/tools/make_front_art.py), which `pre_build.py` runs
+for this environment. `esp_partition_mmap` hands LVGL a pointer into it, so it
+renders straight out of flash at no RAM cost, exactly as compiled-in `.rodata`
+did — it just stops riding along in every update of code that never touches it.
+
+A board whose `art` partition is empty runs and shows its lock screen without a
+logo; `ART` on its console says what is there and `ART:VERIFY` walks the CRC.
+
+```bash
+PLATFORMIO_UPLOAD_PORT=/dev/cu.usbmodem1101 ~/.platformio/penv/bin/python -m esptool --chip esp32s3 write-flash 0x510000 .pio/build/esp32s3_front/art.bin
+```
+
+Over the link instead, with only the main board on USB:
+
+```bash
+~/.platformio/penv/bin/python tools/ota.py art
+```
 
 ### Flash the ESP32-S3 (4.3B enclosure display)
 

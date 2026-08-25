@@ -36,7 +36,12 @@ TARGETS = {
     "self":      ("appliance",      "the main board's own spare slot"),
     "faucet":    ("esp32s3_faucet", "the faucet display, over J3"),
     "enclosure": ("esp32s3_front",  "the enclosure display, over J9"),
+    "art":       ("esp32s3_front",  "the enclosure display's art partition, over J9"),
 }
+
+# The art partition is not a firmware image and is not built by pio; it is laid
+# out from the same frame headers the firmware used to compile in.
+ART_IMAGE = os.path.join(REPO, ".pio", "build", "esp32s3_front", "art.bin")
 
 
 def main_board_port() -> str:
@@ -139,7 +144,14 @@ if __name__ == "__main__":
     ap.add_argument("-v", "--verbose", action="store_true", help="echo the console's own lines")
     a = ap.parse_args()
 
-    img = a.image or os.path.join(REPO, ".pio", "build", TARGETS[a.target][0], "firmware.bin")
+    if a.image:
+        img = a.image
+    elif a.target == "art":
+        img = ART_IMAGE
+    else:
+        img = os.path.join(REPO, ".pio", "build", TARGETS[a.target][0], "firmware.bin")
     if not os.path.exists(img):
-        sys.exit(f"no image at {img} — build it first: pio run -e {TARGETS[a.target][0]}")
+        how = ("~/.platformio/penv/bin/python tools/make_front_art.py"
+               if a.target == "art" else f"pio run -e {TARGETS[a.target][0]}")
+        sys.exit(f"no image at {img} — build it first: {how}")
     sys.exit(run(a.target, img, a.verbose))

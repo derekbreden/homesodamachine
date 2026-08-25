@@ -1,17 +1,20 @@
-# Enclosure display (Waveshare ESP32-S3-Touch-LCD-4.3B, 16 MB). Dual-slot.
+# Enclosure display (Waveshare ESP32-S3-Touch-LCD-4.3B, 16 MB). Dual-slot, with
+# the loading animation in a partition of its own.
 #
 # The update path this serves is `firmware/README.md`, "A shipped unit is
 # updated from the iOS app".
 #
-# The loading animation is compiled in — ~4 MB of .rodata against ~1.5 MB of
-# everything else — so this board's slots are the widest of the three and the
-# image still fills 81% of one. Art that moved to a partition of its own would
-# take both slots down to 2 MB; until it does, a slot here is 7 MB.
+# `art` holds 16 frames of 360x360 RGB565 behind a small header — 3.96 MB that
+# used to be .rodata inside the app. It is still memory-mapped, so LVGL still
+# renders straight out of flash at no RAM cost; it just stops riding along in
+# every update of code that never touches it. Built by
+# `tools/make_front_art.py`, read through `firmware/src_front/front_art.h`.
 #
-# app: 5.65 MB in a 7 MB slot.
+# app: 1.5 MB in a 2.5 MB slot. art: 4,147,232 B in 4 MB.
 # Name,   Type, SubType, Offset,   Size,     Flags
 nvs,      data, nvs,     0x9000,   0x5000,
 otadata,  data, ota,     0xe000,   0x2000,
-app0,     app,  ota_0,   0x10000,  0x700000,
-app1,     app,  ota_1,   0x710000, 0x700000,
-spiffs,   data, spiffs,  0xE10000, 0x1F0000,
+app0,     app,  ota_0,   0x10000,  0x280000,
+app1,     app,  ota_1,   0x290000, 0x280000,
+art,      data, 0x40,    0x510000, 0x400000,
+spiffs,   data, spiffs,  0x910000, 0x6F0000,

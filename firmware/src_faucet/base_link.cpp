@@ -247,7 +247,7 @@ static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
     memcpy(&b, payload, sizeof(b));
     // Erasing a 3 MB slot takes long enough that the panel must say so first.
     faucetApplyOta(true, 0);
-    ota.begin(b.size, b.crc32);
+    ota.begin(b.size, b.crc32, b.kind);
     otaReport();
     if (ota.active()) otaAsk();
     else faucetApplyOta(false, 0);
