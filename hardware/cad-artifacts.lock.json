@@ -6,19 +6,25 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f52313edbc8b9502.tar.gz"
   },
   "source": {
-    "commit": "a58274d2d61cf828b9d29b2c985790fbce5b20f9"
+    "commit": "2b11fbdf8e618c00945a65bf277c74a30b202fac"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
       "firmware/README.md",
+      "firmware/lib/ble_ota/ble_ota.cpp",
+      "firmware/lib/ble_ota/ble_ota.h",
       "firmware/lib/board_art/board_art.cpp",
       "firmware/lib/board_art/board_art.h",
       "firmware/partitions_s3.csv",
       "firmware/partitions_s3_front.csv",
       "firmware/pre_build.py",
       "firmware/src_config/main.cpp",
+      "firmware/src_faucet/ble_link.cpp",
       "firmware/src_front/main.cpp",
+      "firmware/src_prototype/main.cpp",
+      "firmware/src_prototype/proto_ota.cpp",
+      "firmware/src_prototype/proto_ota.h",
       "hardware/printed-parts/petgf.3mf",
       "tools/make_art.py",
       "tools/ota.py",
