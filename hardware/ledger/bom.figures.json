@@ -68,7 +68,7 @@
     "Z_SEAM_SCREWS": "4"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,452.88",
+    "BOM_GRAND": "$1,328.22",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$31.19",
     "BOM_SEC12": "$37.50",
@@ -79,7 +79,7 @@
     "BOM_SEC4": "$96.56",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$233.67",
+    "BOM_SEC7": "$109.01",
     "BOM_SEC8": "$209.65",
     "BOM_SEC9": "$60.29"
   }
