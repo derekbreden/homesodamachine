@@ -36,6 +36,21 @@ destroyed is a part that comes out by being destroyed.
   chain order, each body free as its own joint closes. What it forbids is fixing both ends
   first, and a body whose butts run on two axes being last in. The flavour manifold is 19 such
   joints ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
+- **A catch in PET-GF goes home on a SECOND MOTION, never by deflecting.** Short glass buys
+  stiffness with elongation, and a wall that carries a lip is `2 * wall` thick — a snap asking
+  either of those to flex cracks rather than clicks. So a `barbed lip` is set down clear of its
+  roof by the motion that closes its own seam and driven under it by the motion that closes the
+  next, and the fastener is what stops it travelling back out. The exemplar is the faucet display
+  cover ([`printed-parts/faucet/faucet-display-cover/`](/hardware/printed-parts/faucet/faucet-display-cover/)):
+  set down `display_cover_hook_travel` up-gooseneck of home, pushed to the spout until the riser
+  stops on the roof's face, then the screw. Its bearing face is FLAT, because a ramp there would
+  let the hook cam out under the screw's own clearance. This constrains the ORDER: **a seam is
+  locked by the motion that closes the seam after it, so the seam closing LAST has no motion
+  behind it and takes a screw.**
+- **What strain PET-GF15 has before it breaks is not in this tree.** The rule above is the
+  material's direction, not a number: no elongation, modulus or stress figure for Fiberon PET-GF15
+  is recorded anywhere here. Any claim that a particular catch *could* be sprung answers to that
+  number first.
 - **How much axial travel a collet needs is not in this tree.** The models carry collet faces
   and `BUTT = 0`; the insertion depth of the 1/4" quick-connects, and whether over-inserting a
   stub buys slack to close a joint between two fixed bodies, are unmeasured. Any claim that a
