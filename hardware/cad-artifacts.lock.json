@@ -2,11 +2,11 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-fb9b24eede7258a1.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-fb9b24eede7258a1.tar.gz"
+    "asset": "cad-f52313edbc8b9502.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f52313edbc8b9502.tar.gz"
   },
   "source": {
-    "commit": "067965dec6c37c59f603b09294b6c2d8d05d0ce6"
+    "commit": "ef7e3b9ca982a24ab613ca1ba5fbf1b1741dbed2"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -142,8 +142,8 @@
     ]
   },
   "bundle": {
-    "sha256": "fb9b24eede7258a13a512ee1a5231dff200cfbfe1cb1b00c65f5a0b666ab2a31",
-    "bytes": 82162765,
+    "sha256": "f52313edbc8b95023f4c37f601d799ae4b1c58435de1de9c0cca4bbf1c78606b",
+    "bytes": 82174806,
     "solids": 124
   },
   "solids": {
@@ -232,9 +232,9 @@
     "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step": "01713593b16ef5c5c8a029ab4be0c0ed1a44b8af703f0b30c45e525a64b7b54b",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step": "b43b018ddf706b9a197370259e41337109a35d0746fc57843ac919ba61345af1",
     "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step": "bf565cc10c5b79c75a58b3addf25ddc52fda6e8b49d437345cc03aefd680eb53",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "da644e841b6ad8838ad2a3b178224fc96ca936b68180a12e796c301023ebdc43",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-assembly.step": "151da01378e0c8bf7e1dc692cd379331561cfc4c51bcd372198aba389f468976",
     "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-cavity.step": "ac6a325d9efefcc3062bb4c20c64f0257b11c7b84b2b805a41741e325d6153a0",
-    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "f438da2138fbd4e3d94323812a06f5396912965074b5e022bdf415c35c8c706c",
+    "hardware/printed-parts/zone-c/funnel-mold/funnel-mold-core.step": "80a7dc2b1c3fc0f941dcb399b4338b2d3b2c3472e32d1a7bd749a47e037d65b0",
     "hardware/printed-parts/zone-c/funnel/funnel.step": "50cd88887b0056171c27f60bd4e20a3e92605cf8b0d0b3c137fdf62aaf853f35",
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": "c6486e5fc7bfa79fc67b80e918e70685e6d1f18e869a477420625c7010f76c2e",
     "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step": "f3313444ebf3350ebf330f64676a7d9ce3729135b7086d197ffda14b228e5b98",
