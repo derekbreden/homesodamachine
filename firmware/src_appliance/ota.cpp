@@ -22,6 +22,11 @@ static uint32_t  lastReported = 0;
 static uint32_t  openedAtMs = 0;
 static uint8_t   imgKind = OTA_KIND_APP;
 
+// Which side of this board the image is arriving from. The console is a laptop
+// on USB; J3 is the faucet display, relaying a phone.
+enum : uint8_t { OTA_SRC_CONSOLE = 0, OTA_SRC_J3 };
+static uint8_t   source = OTA_SRC_CONSOLE;
+
 // The console carries every image byte, so 115200 is a ceiling on the whole
 // transfer no matter how fast the links get. A session raises it and drops back
 // when it ends. Nothing can be stranded at the high rate: opening this port
@@ -89,7 +94,12 @@ static void endSession(const char *how, uint8_t state, uint8_t err) {
         volunteer(target, MSG_OTA_ABORT, nullptr, 0);
     if (target == OTA_TGT_SELF && state != OTA_STATE_DONE) selfRx.abort();
     Serial.printf("\nOTA:%s state=%u err=%u\n", how, state, err);
+    if (source == OTA_SRC_J3) {
+        OtaStatePayload st{state, err, bufOffset};
+        faucetLinkSendOta(MSG_OTA_SRC_END, &st, sizeof(st));
+    }
     if (consoleFast) { delay(20); consoleBaud(OTA_CONSOLE_BAUD_IDLE); }
+    source = OTA_SRC_CONSOLE;
     target = OTA_TGT_NONE;
     sawReceiver = false;
     hostOwes = hostGot = 0;
@@ -107,20 +117,19 @@ static void askHost(uint32_t offset) {
     hostOwes = want;
     hostGot = 0;
     askedHostAtMs = millis();
+    if (source == OTA_SRC_J3) {
+        OtaSrcNeedPayload need{offset, want};
+        faucetLinkSendOta(MSG_OTA_SRC_NEED, &need, sizeof(need));
+        return;
+    }
     Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)offset, want);
 }
 
-bool otaAwaitingHostBytes() { return hostOwes > 0; }
+bool otaAwaitingHostBytes() { return source == OTA_SRC_CONSOLE && hostOwes > 0; }
 
-void otaFeedHostBytes() {
-    while (hostOwes > 0 && Serial.available()) {
-        int c = Serial.read();
-        if (c < 0) break;
-        buf[hostGot++] = (uint8_t)c;
-        hostOwes--;
-    }
-    if (hostOwes > 0 || bufFull) return;
-
+// The chunk is complete. Where it goes from here is the same whichever side it
+// arrived on.
+static void bytesHeld() {
     bufFull = true;
     if (target == OTA_TGT_SELF) {
         if (!selfRx.write(bufOffset, buf, bufLen)) {
@@ -148,6 +157,87 @@ void otaFeedHostBytes() {
     memcpy(frame + 4, buf, bufLen);
     if (!faucetLinkSendOta(MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen)))
         Serial.println("\nOTA:HOLD link busy");   // the receiver re-asks; bytes stay held
+}
+
+void otaFeedHostBytes() {
+    while (hostOwes > 0 && Serial.available()) {
+        int c = Serial.read();
+        if (c < 0) break;
+        buf[hostGot++] = (uint8_t)c;
+        hostOwes--;
+    }
+    if (hostOwes > 0 || bufFull) return;
+    bytesHeld();
+}
+
+// ── A source on J3 ────────────────────────────────────────────────────────
+void otaOnSrcBegin(const uint8_t *payload, uint16_t plen) {
+    if (plen < sizeof(OtaSrcBeginPayload)) return;
+    OtaSrcBeginPayload b;
+    memcpy(&b, payload, sizeof(b));
+
+    // A source repeating BEGIN into an open session it already opened is a
+    // retry of a frame this board answered; the session it names is running.
+    if (target != OTA_TGT_NONE) {
+        if (source == OTA_SRC_J3 && target == b.target && imgSize == b.size) return;
+        OtaStatePayload busy{OTA_STATE_FAILED, OTA_ERR_NONE, 0};
+        faucetLinkSendOta(MSG_OTA_SRC_END, &busy, sizeof(busy));
+        return;
+    }
+    if (b.size == 0 || b.target == OTA_TGT_NONE || b.target == OTA_TGT_FAUCET) {
+        // The faucet holds the radio; an image for it never crosses this board.
+        OtaStatePayload no{OTA_STATE_FAILED, OTA_ERR_NONE, 0};
+        faucetLinkSendOta(MSG_OTA_SRC_END, &no, sizeof(no));
+        return;
+    }
+
+    source = OTA_SRC_J3;
+    target = b.target;
+    imgSize = b.size;
+    imgCrc = b.crc32;
+    imgKind = b.kind;
+    chunk = (target == OTA_TGT_ENCLOSURE) ? OTA_CHUNK_J9 : OTA_CHUNK_J3;
+    lastReported = 0;
+    openedAtMs = beganAtMs = millis();
+    sawReceiver = false;
+    bufFull = false;
+    bufLen = 0;
+    hostOwes = hostGot = 0;
+
+    Serial.printf("\nOTA:BEGIN %s size=%lu crc=%08lX kind=%u via J3\n",
+                  targetName(target), (unsigned long)imgSize,
+                  (unsigned long)imgCrc, imgKind);
+
+    if (target == OTA_TGT_SELF) {
+        if (!selfRx.begin(imgSize, imgCrc, imgKind)) {
+            endSession("FAIL", selfRx.state, selfRx.err);
+            return;
+        }
+        askHost(0);
+        return;
+    }
+    OtaBeginPayload begin{imgSize, imgCrc, chunk, imgKind};
+    volunteer(target, MSG_OTA_BEGIN, &begin, sizeof(begin));
+}
+
+void otaOnSrcData(const uint8_t *payload, uint16_t plen) {
+    if (source != OTA_SRC_J3 || target == OTA_TGT_NONE || plen < 4) return;
+    uint32_t offset;
+    memcpy(&offset, payload, 4);
+    const uint16_t len = (uint16_t)(plen - 4);
+
+    // A source over BLE cannot put a whole chunk in one frame — the phone's MTU
+    // is a few hundred bytes and a chunk is 1 KB — so a chunk arrives as
+    // several, each naming where in the image it starts. Only the next position
+    // is taken: a late duplicate names one already passed, and appending it
+    // would put the image out of step.
+    if (hostOwes == 0 || offset != bufOffset + hostGot) return;
+    if (len > hostOwes) return;
+    memcpy(buf + hostGot, payload + 4, len);
+    hostGot += len;
+    hostOwes -= len;
+    if (hostOwes > 0 || bufFull) return;
+    bytesHeld();
 }
 
 // ── What a receiver on either link asks for ───────────────────────────────
@@ -209,9 +299,14 @@ void otaService() {
     // is the one most likely to fall in that seam. Re-asking is only safe before
     // any of the chunk has arrived — once bytes are in flight a second ask would
     // leave the stream out of step.
-    if (hostOwes > 0 && hostGot == 0 && millis() - askedHostAtMs >= 1500) {
+    if (hostOwes > 0 && hostGot == 0 && millis() - askedHostAtMs >= (source == OTA_SRC_J3 ? 400 : 1500)) {
         askedHostAtMs = millis();
-        Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)bufOffset, hostOwes);
+        if (source == OTA_SRC_J3) {
+            OtaSrcNeedPayload need{bufOffset, hostOwes};
+            faucetLinkSendOta(MSG_OTA_SRC_NEED, &need, sizeof(need));
+        } else {
+            Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)bufOffset, hostOwes);
+        }
     }
 
     // A session that stops moving says so. While the host owes bytes the
@@ -278,6 +373,7 @@ void otaConsole(const String &line) {
     if (target != OTA_TGT_NONE) { Serial.println("\nOTA:FAIL a session is already open"); return; }
     if (size == 0) { Serial.println("\nOTA:FAIL size is zero"); return; }
 
+    source = OTA_SRC_CONSOLE;
     target = t;
     imgSize = size;
     imgCrc = crc;

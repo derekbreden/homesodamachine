@@ -61,4 +61,9 @@ void baseLinkPrimeHoldTick(uint8_t channel, uint32_t sessionToken, uint32_t hold
 void baseLinkPrimeHoldStop(uint8_t channel, uint32_t sessionToken, uint32_t holdToken);
 void baseLinkPrimeDiscard();
 
+// Put one frame on J3 for the OTA path — the source half, where this board is
+// upstream of the relay rather than a target of it. False when the link is busy
+// or down, which the pull answers by re-asking.
+bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len);
+
 void baseLinkReadStatus(BaseLinkStatus &status);

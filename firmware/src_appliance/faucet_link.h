@@ -23,5 +23,8 @@ void faucetLinkPublishIdle();
 // Put one OTA frame on J3. Full duplex, so this has none of J9's turn rule.
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len);
 
+// What the display at the far end is doing with its radio.
+void faucetLinkBleReport();
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);

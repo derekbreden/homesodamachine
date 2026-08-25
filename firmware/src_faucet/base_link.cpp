@@ -3,6 +3,7 @@
 #include <esp_system.h>
 
 #include "base_link.h"
+#include "ble_link.h"
 #include "ota_receiver.h"
 #include <esp_system.h>
 #include "flavor_link_policy.h"
@@ -309,6 +310,32 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  // The relay's half of a session this board opened for someone else.
+  if (type == MSG_OTA_SRC_NEED && plen >= sizeof(OtaSrcNeedPayload)) {
+    OtaSrcNeedPayload need;
+    memcpy(&need, payload, sizeof(need));
+    bleLinkOnSrcNeed(need.offset, need.len);
+    return;
+  }
+  if (type == MSG_OTA_SRC_END && plen >= sizeof(OtaStatePayload)) {
+    OtaStatePayload st;
+    memcpy(&st, payload, sizeof(st));
+    bleLinkOnSrcEnd(st);
+    return;
+  }
+  if (type == MSG_BLE_STATUS_REQ) {
+    BleStatusPayload st;
+    bleLinkFillStatus(st);
+    base.trySend(MSG_RESP_BLE_STATUS, &st, sizeof(st));
+    return;
+  }
+  if (type == MSG_RESP_IDENTITY && plen >= sizeof(IdentityPayload)) {
+    IdentityPayload id;
+    memcpy(&id, payload, sizeof(id));
+    bleLinkOnIdentity(id);
+    return;
+  }
+
   if (type == MSG_RESP_PRIME_SESSION && plen >= sizeof(PrimeSessionStatePayload)) {
     PrimeSessionStatePayload state;
     memcpy(&state, payload, sizeof(state));
@@ -500,6 +527,10 @@ void baseLinkService() {
   base.service();
   const uint32_t elapsedUs = micros() - startedUs;
   if (elapsedUs > maxServiceUs) maxServiceUs = elapsedUs;
+}
+
+bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len) {
+  return base.trySend(type, data, len) >= 0;
 }
 
 void baseLinkReadStatus(BaseLinkStatus &status) {

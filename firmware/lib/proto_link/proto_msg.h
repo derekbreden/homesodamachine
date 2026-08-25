@@ -138,6 +138,28 @@ constexpr uint8_t MSG_OTA_DATA  = 0x39;  // OtaDataPayload: offset, then the byt
 constexpr uint8_t MSG_OTA_ABORT = 0x3A;  // no payload: drop the session
 constexpr uint8_t MSG_RESP_OTA  = 0x3B;  // OtaStatePayload: where the receiver is
 
+// ── The board holding the image, when it is not the relay (0x3C..) ───────
+// The relay stores nothing. Where the image arrives from a phone rather than a
+// cable, the board with the radio is upstream of the relay and the same pull
+// runs one link further: the receiver asks the relay, the relay asks the
+// source, the source asks the phone. One chunk is in flight anywhere on the
+// path.
+constexpr uint8_t MSG_OTA_SRC_BEGIN = 0x3C;  // OtaSrcBeginPayload: which target, and the image
+constexpr uint8_t MSG_OTA_SRC_NEED  = 0x3D;  // OtaSrcNeedPayload: offset and how much
+constexpr uint8_t MSG_OTA_SRC_DATA  = 0x3E;  // offset, then the bytes
+constexpr uint8_t MSG_OTA_SRC_END   = 0x3F;  // OtaStatePayload: how the session finished
+
+// ── What a machine is, asked of the board that knows (0x40..) ────────────
+// The main board is the only one that knows which machine it is in. A display
+// asks at boot and carries the answer into whatever it advertises.
+constexpr uint8_t MSG_IDENTITY_QUERY = 0x40;  // no payload
+constexpr uint8_t MSG_RESP_IDENTITY  = 0x41;  // IdentityPayload
+
+// The radio is on a display, so the main board's console cannot see it
+// directly. This is how it asks.
+constexpr uint8_t MSG_BLE_STATUS_REQ  = 0x42;  // no payload
+constexpr uint8_t MSG_RESP_BLE_STATUS = 0x43;  // BleStatusPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -439,6 +461,55 @@ constexpr uint8_t OTA_ERR_WRITE     = 3;
 constexpr uint8_t OTA_ERR_CRC       = 4;  // whole-image CRC32 did not match BEGIN
 constexpr uint8_t OTA_ERR_VERIFY    = 5;  // esp_ota_end / set_boot_partition refused
 constexpr uint8_t OTA_ERR_SEQUENCE  = 6;  // bytes arrived for the wrong offset
+
+// Which board an image is for. The relay reaches every one of these; a source
+// upstream of it names one here rather than knowing which link it lives on.
+constexpr uint8_t OTA_TGT_NONE      = 0;
+constexpr uint8_t OTA_TGT_SELF      = 1;  // the relay's own spare slot
+constexpr uint8_t OTA_TGT_FAUCET    = 2;
+constexpr uint8_t OTA_TGT_ENCLOSURE = 3;
+
+// A phone's MTU is a few hundred bytes and a relay chunk is 1 KB, so the source
+// answers one NEED with several DATA frames. The length is here because the
+// source is what has to divide it.
+struct __attribute__((packed)) OtaSrcNeedPayload {
+  uint32_t offset;
+  uint16_t len;
+};
+
+struct __attribute__((packed)) OtaSrcBeginPayload {
+  uint32_t size;
+  uint32_t crc32;
+  uint16_t chunk;
+  uint8_t  kind;    // OTA_KIND_*
+  uint8_t  target;  // OTA_TGT_*
+};
+
+// Which machine this is and which unit of it. `model` decides what a phone
+// shows; `unit` is the low three bytes of the main board's MAC, which is what
+// distinguishes two machines standing next to each other.
+constexpr uint8_t MACHINE_APPLIANCE = 1;
+constexpr uint8_t MACHINE_PROTOTYPE = 2;
+
+constexpr uint8_t MACHINE_NAME_MAX = 20;
+
+struct __attribute__((packed)) IdentityPayload {
+  uint8_t  model;                       // MACHINE_*
+  uint8_t  unit[3];                     // low three bytes of the main board's MAC
+  char     name[MACHINE_NAME_MAX + 1];  // NUL-terminated; empty until someone sets one
+};
+
+struct __attribute__((packed)) BleStatusPayload {
+  uint8_t  flags;        // BLE_ST_*
+  uint8_t  target;       // OTA_TGT_* of the session passing through, if any
+  uint16_t owed;         // bytes of the current ask the phone still owes
+  uint32_t dropped;      // frames this board could not take or forward
+  char     advertised[MACHINE_NAME_MAX + 1];
+};
+
+constexpr uint8_t BLE_ST_UP        = 1 << 0;  // the stack came up and is advertising
+constexpr uint8_t BLE_ST_CONNECTED = 1 << 1;
+constexpr uint8_t BLE_ST_IDENTITY  = 1 << 2;  // the main board answered
 
 // The most image bytes one OTA_DATA carries on each link. Both are 1 KB: J9's
 // HDLC frame buffers are sized for it, and J3's TinyProto Fd fragments
