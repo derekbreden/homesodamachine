@@ -322,8 +322,8 @@ protected:
 private:
   // Sized for a firmware chunk plus its offset. At 248 bytes a turn the pair
   // spent most of itself on turnaround rather than on payload.
-  uint8_t frameBuf[1280];  // RX frame assembly
-  uint8_t txFrame[1152];   // held until run_tx has serialized it
+  uint8_t frameBuf[4608];  // RX frame assembly
+  uint8_t txFrame[4224];   // held until run_tx has serialized it
   static_assert(sizeof(txFrame) >= J9_MAX_PAYLOAD + 1, "J9_MAX_PAYLOAD outgrew txFrame");
   static_assert(sizeof(frameBuf) > sizeof(txFrame), "a frame must fit its own reassembly");
 };
