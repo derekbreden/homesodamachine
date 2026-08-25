@@ -492,7 +492,7 @@ void linkQueueOta(uint8_t type, const void *data, uint8_t len) {
 
 // A reply, sent from inside the dispatch of the request it answers. This is
 // the one place OTA bytes may go straight onto the pair.
-bool linkReplyOta(uint8_t type, const void *data, uint8_t len) {
+bool linkReplyOta(uint8_t type, const void *data, uint16_t len) {
     return j9.send(type, data, len) >= 0;
 }
 
