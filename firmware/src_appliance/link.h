@@ -28,7 +28,7 @@ void linkQueueOta(uint8_t type, const void *data, uint8_t len);
 
 // Answer an OTA request from inside its own dispatch, spending that turn's one
 // reply. Illegal anywhere else.
-bool linkReplyOta(uint8_t type, const void *data, uint8_t len);
+bool linkReplyOta(uint8_t type, const void *data, uint16_t len);
 
 // Make an externally-powered enclosure display present a fresh USB attach. An application
 // that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY.

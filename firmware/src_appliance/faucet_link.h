@@ -21,7 +21,7 @@ void faucetLinkService();
 // Publish the shared idle state to the faucet.
 void faucetLinkPublishIdle();
 // Put one OTA frame on J3. Full duplex, so this has none of J9's turn rule.
-bool faucetLinkSendOta(uint8_t type, const void *data, uint8_t len);
+bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len);
 
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);
