@@ -110,10 +110,21 @@ class BLEManager {
     @ObservationIgnored fileprivate var otaImage: FirmwareImage? = nil
     @ObservationIgnored fileprivate var otaData: Data = Data()
 
-    /// Ready to transition from animated splash to main UI
+    /// Ready to transition from animated splash to main UI.
+    ///
+    /// The prototype is ready once its images are down, which is what the
+    /// config screens are made of. The appliance answers none of that
+    /// vocabulary, so being connected is the whole of it.
     var readyToShow: Bool {
-        connectionState == .connected && (demoMode || !cachedImages.isEmpty)
+        guard connectionState == .connected else { return false }
+        if demoMode || isAppliance { return true }
+        return !cachedImages.isEmpty
     }
+
+    /// Which screens this machine gets. A machine whose advertisement carried
+    /// no model byte is running firmware older than that, and every one of
+    /// those is a prototype.
+    var isAppliance: Bool { connectedMachine?.model == .appliance }
 
     // Chart data (populated by GET_CHART_DATA response)
     var chartData24H: [[Double]] = [Array(repeating: 0, count: 24), Array(repeating: 0, count: 24)]

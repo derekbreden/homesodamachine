@@ -8,7 +8,7 @@ struct ScanView: View {
     var body: some View {
         Group {
             if ble.readyToShow {
-                ConfigView()
+                if ble.isAppliance { ApplianceView() } else { ConfigView() }
             } else if ble.connectionState == .choosing {
                 MachinePickerView()
             } else if !hasCompletedOnboarding {
