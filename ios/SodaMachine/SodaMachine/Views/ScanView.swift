@@ -9,6 +9,8 @@ struct ScanView: View {
         Group {
             if ble.readyToShow {
                 ConfigView()
+            } else if ble.connectionState == .choosing {
+                MachinePickerView()
             } else if !hasCompletedOnboarding {
                 onboardingView
             } else if ble.demoMode {

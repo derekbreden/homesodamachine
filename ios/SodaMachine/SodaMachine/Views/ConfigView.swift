@@ -394,6 +394,8 @@ private struct SettingsPageView: View {
     @State private var showResetAlert = false
     @State private var showDisconnectAlert = false
     @State private var resetting = false
+    @State private var inFirmware = false
+    @State private var inMachines = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -415,6 +417,18 @@ private struct SettingsPageView: View {
                     settingsButton("Clean") {
                         inClean = true
                     }
+                    if !ble.demoMode {
+                        settingsButton("Firmware") {
+                            inFirmware = true
+                        }
+                        // Bench and kitchen are a room apart; switching between
+                        // them keeps each machine's images on disk.
+                        settingsButton(ble.connectedMachine.map { "Machine: \($0.displayName)" }
+                                       ?? "Machines") {
+                            ble.chooseAnother()
+                            inMachines = true
+                        }
+                    }
                     settingsButton("Factory Reset") {
                         showResetAlert = true
                     }
@@ -435,6 +449,17 @@ private struct SettingsPageView: View {
                     }
                 }
             }
+        }
+        .sheet(isPresented: $inFirmware) {
+            ZStack {
+                Theme.background.ignoresSafeArea()
+                FirmwareUpdateView()
+            }
+            .presentationBackground(Theme.background)
+        }
+        .sheet(isPresented: $inMachines) {
+            MachinePickerView(onPick: { inMachines = false })
+                .presentationBackground(Theme.background)
         }
         .alert("Disconnect?", isPresented: $showDisconnectAlert) {
             Button("Disconnect", role: .destructive) {
