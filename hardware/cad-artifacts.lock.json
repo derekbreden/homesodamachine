@@ -6,17 +6,12 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-fb9b24eede7258a1.tar.gz"
   },
   "source": {
-    "commit": "19ce6590421a1a0029127cdc09aa7bac28557de7"
+    "commit": "067965dec6c37c59f603b09294b6c2d8d05d0ce6"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "firmware/lib/proto_link/proto_link.h",
-      "firmware/lib/proto_link/proto_msg.h",
-      "firmware/lib/proto_link/rs485_echo.h",
-      "firmware/src_appliance/ota.cpp",
       "hardware/printed-parts/petgf.3mf",
-      "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
       "tools/ota.py"
     ],
     "members": [
