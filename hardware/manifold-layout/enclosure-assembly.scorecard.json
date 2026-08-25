@@ -1200,6 +1200,16 @@
    "active": true
   },
   {
+   "id": "corner-slot-lands",
+   "label": "The core's flank slots receive the four-corner bosses",
+   "kind": "gate",
+   "status": "pass",
+   "value": "swept bands clear on both flanks",
+   "target": "air over each boss's whole swept band",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "wall-clamped",
    "label": "Every rear-wall fitting is clamped through the wall it passes",
    "kind": "gate",

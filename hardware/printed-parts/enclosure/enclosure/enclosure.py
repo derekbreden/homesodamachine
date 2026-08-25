@@ -1330,33 +1330,23 @@ z_joint_clear = 3.0
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
 
-# THE BARBED LIP: what holds each Z seam shut. No screw crosses a Z seam. The TOP piece
-# carries the barbs: short ribs proud of its wall's inner face, above its own mouth (its
-# bed plane — nothing on a top piece reaches below it). The BOTTOM piece's lip carries
-# the groove they ride in, the entry notches they descend through, and the ROOF — the
-# lip's own material above the groove, whose underside is the flat the barb bears on
-# (`design-pressures.md`, the display cover's own bearing face).
-#
-# A catch in PET-GF goes home on a SECOND MOTION (`design-pressures.md`): each top piece
-# lands `barb_travel` toward its own end wall of home — every barb in a notch, the Z pins
-# in their slots' elongated ends — and is slid TOWARD THE Y SEAM until the pins stop on
-# the slots' home walls: front-top lands forward and slides aft, back-top lands aft and
-# slides forward. The telescoping push that closes the Y seam loads both catches the
-# seated way, and the Y seam's four screws stop the slide backing out. The slot's two end
-# walls are the two stops, so the landing phase and home cannot drift from the travel.
-#
-# THE ±X FLANK RUNS ARE SEGMENTED: barbs `barb_seg` long on a `barb_pitch` grid, each
-# notch one `barb_travel` toward the Y seam of its barb, roof between notches. The +Y
-# REAR RUN IS CONTINUOUS: back-top's rear-wall barb moves perpendicular to its own
-# length, entering its groove head-on with the whole run engaging at once.
-barb_proud = 0.8             # the catch's bearing shoulder, off the top piece's wall face
-barb_h = 3.0                 # the barb's own height
-barb_seg = 3.0               # one flank segment; the travel is this plus the slip
-barb_travel = barb_seg + split_slip
-barb_pitch = 2.0 * (barb_seg + split_slip)
-# The barb stands this far over the top piece's mouth, so the lip keeps a whole band of
-# material UNDER the groove and the roof above it carries the rest of the lip's height.
-barb_z_off = 3.0
+# THE FOUR-CORNER SCREW: one M3 per side wall at (`_y_boss`, `z_seam`), where all four
+# pieces meet, crossing every one of them — the Y-boss idiom with the seam plane through
+# it. The back pair carries the plug as two halves of one square prism, each piece its
+# own half; the front lip's two halves carry the slide slot; and FRONT-BOTTOM alone
+# carries the socket, a pedestal standing proud through the plane off its own lip face,
+# so the slot and the insert live in one piece's solid. The head sits in the standard counterbore,
+# astride the visible seam line. It pins fb↔bb over the floor level, ft↔bt under the
+# ceiling one, and each column's Z seam against its far station — every pair at both
+# ends of its span.
+corner_screw_len = 12.0      # M3×12 SHCS — the corner's own length
+# The corner chain, read the way `boss_in` is: head seat, pin, heat-set and cap, less the
+# wall the counterbore is sunk into. TWO walls stand at the corner (the back piece's own
+# with the front lip inside it), so the socket roots one `wall` deeper than a Y-boss
+# collar and the cap lands past `boss_in` — the reach the cold core's flank slot
+# receives (`_cold_core_interface.corner_boss_slots`, `corner-slot-lands`).
+corner_boss_in = head_cbore_depth + corner_screw_len + socket_cap - wall
+corner_core_reach = corner_boss_in - boss_in
 
 # --- THE PUMP BAY AND ITS PUMP CARTRIDGE ------------------------------------------
 #
@@ -2006,7 +1996,9 @@ def east_band_free_y():
 
 def front_band_collar_z():
     """The front-wall station's collar in height, as `(z0, z1)` — the one thing the seam
-    stands in a ±X boss-chain band forward of `front_band_free_y`'s aft fence.
+    stands in a ±X boss-chain band forward of `front_band_free_y`'s aft fence. The
+    four-corner boss and its web stand wholly behind that fence, so they never enter
+    this answer.
 
     THE SEAM'S HEIGHT IS STATED (`z_seam`), so the collar has a height a body can be
     placed against BEFORE the box is sized. `front_band_free_y` turns it into a depth;
@@ -2037,8 +2029,8 @@ def front_band_free_y(front_face, z0=None, z1=None):
     """The FRONT half's free run of the ±X boss-chain bands, as `(y0, y1)` — the run
     `east_band_free_y` says this half has and is not.
 
-    The front-wall station and the Y-seam bosses' own station are its ends, and the seam's
-    height IS stated (`z_seam`), so a caller that says what height it stands at gets the answer
+    The front-wall station and the four-corner boss are its ends, and the seam's height
+    IS stated (`z_seam`), so a caller that says what height it stands at gets the answer
     for that height: a body clear of the seam's furniture in z has the column from the
     front wall to the corner boss's own fore face. A caller that names no height gets the
     run with the front-wall collar standing.
@@ -2076,9 +2068,10 @@ def seam_bosses(inner, y_joint, splits):
     one actually occupies of that wall, both walls' taken together.
 
     A boss is a collar round a bore, so what it takes of the band is `2 * socket_r` across
-    and the same tall, at the station its own screw is on. Read from the definitions that
-    BUILD them (`_bosses`, `_y_corner`, `_z_stations`, `_z_station_y`), so a footprint
-    cannot drift from the geometry it stands for.
+    and the same tall, at the station its own screw is on — and the four-corner boss takes
+    its 45° web's run below the collar too. Read from the definitions that BUILD them
+    (`_bosses`, `_y_corner`, `_z_stations`, `_z_station_y`, `_corner_socket`), so a
+    footprint cannot drift from the geometry it stands for.
 
     THE HEIGHT IS HALF THE ANSWER. A body hung on a flank clears a boss by standing beside it
     or by standing over it, and a reading with no z in it can only see the first — it would
@@ -2092,6 +2085,11 @@ def seam_bosses(inner, y_joint, splits):
         zp = _z_pin_z(splits[0] if col == "front" else splits[1])
         y0, y1 = _z_station_y(ys)
         out.append((y0, y1, zp - r, zp + r))
+    # The four-corner boss: its collar, and the 45° web running from the collar's
+    # underside down to the lip face.
+    ycb = _y_boss(y_joint)
+    out.append((ycb - r, ycb + r,
+                z_seam - r - (corner_boss_in - wall), z_seam + r))
     return out
 
 
@@ -3466,13 +3464,11 @@ def _bosses(inner, y_joint):
     inboard, and the bore-axis height.
 
     The Y seam runs the box's whole height and BOTH columns cross it, so it is
-    pinned at a level for each end of each piece that crosses it: the under-floor
-    level pins the two bottom pieces, the under-ceiling one the two tops. These
-    four are THE BOX'S ONLY SCREWS — each column's barbed lip stops its top piece
-    lifting, each column's slot stops its top piece sliding past home toward the
-    Y seam, and with the bottoms screwed to each other and the tops screwed to
-    each other, each column's home stop is what blocks the OTHER column's top
-    sliding back out of its catch.
+    pinned at a level for each end of each piece that crosses it. The floor and
+    ceiling levels close the outer ends — the under-floor level pins the two
+    bottom pieces, the under-ceiling one the two tops — and the FOUR-CORNER
+    screw at the seam plane itself closes the inner ends of all four at once
+    (`_corner_socket`).
 
     A level sits as near the end it pins as its OWN wall allows — the two walls
     are independent screws, so each is searched separately and they need not
@@ -3510,9 +3506,8 @@ def _boss_x(x_ext, sx, length=None):
     """Inboard X stations from the ±X exterior, each sized to its job: the
     screw-head seat (recess), the pin/heat-set boundary (the screw spans the seat
     to the heat-set, so the pin body is the screw's length − heatset_depth long),
-    the heat-set end, and the pod cap one wall past it. The Z stations' dry pins
-    and slots are struck on the same chain, so their reach into a band reads the
-    same way a screwed boss's does."""
+    the heat-set end, and the pod cap one wall past it. `length` is `screw_len`
+    unless the boss carries its own — the four-corner's `corner_screw_len`."""
     length = screw_len if length is None else length
     x_seat = x_ext + sx * head_cbore_depth
     x_tip = x_seat + sx * (length - heatset_depth)
@@ -3709,12 +3704,10 @@ def _z_back_station_y(iy1):
 
 
 def _z_stations(inner, y_joint):
-    """DRY registration stations along the Z seams — ONE per ±X wall per Y column, at
-    the wall end of that column's seam: a square tongue on the top piece riding a
-    slotted socket on the bottom's lip, no screw and no insert. The slot is a
-    `barb_travel` longer than the tongue, and its two end walls are the seating
-    slide's two stops — the landing end sets the barbs' notch phase, the home end is
-    where the piece stops as the telescoping push drives it toward the Y seam.
+    """X-axis pin stations along the Z seams — ONE per ±X wall per Y column, at the
+    wall end of that column's seam. The seam's other end is the four-corner screw
+    (`_corner_socket`), so each column is pinned at both ends of its span and cannot
+    hinge open.
 
     Front column: the front-wall corner — or, where that corner carries a column,
     behind it (`_z_front_station_y`). Back column: the rear-wall corner. Every
@@ -3771,15 +3764,9 @@ def _z_lip(inner, y_joint, zj):
     FORWARD, because this band is proud on the same wall surface its own piece's Y lip is
     proud on, and two telescopes that meet on one surface have nowhere to go — the front
     piece's Z lip would rise into the front-TOP piece's Y lip. `z_lip_y_margin` is the air
-    either side of that.
-
-    THE FORWARD SIDE OPENS `barb_travel` FURTHER. front-top lands that far forward of home
-    with its Y tongue riding down beside this lip's aft end, so the aft end stands where
-    the tongue passes it at the LANDING offset with the margin's own air still between
-    them — not where it would pass it at home."""
+    either side of that."""
     return _lip_ring(inner,
-                     (y_joint - wall - z_lip_y_margin - barb_travel,
-                      y_joint + lip_len + z_lip_y_margin),
+                     (y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin),
                      zj, zj + lip_len)
 
 
@@ -3866,8 +3853,8 @@ def _z_station_y(ys):
 
 
 def _z_pod(x_in, x_ext, sx, ys, inner, zj):
-    """BOTTOM boss: the plastic round the slot, off the ±X wall's inner face out to the
-    cap, at least one `wall` of material round the slot its whole length. Its +Z face
+    """BOTTOM boss: the plastic round the bore, off the ±X wall's inner face out to the
+    cap, at least one `wall` of material round the bore its whole length. Its +Z face
     lands ON the lip rim and its −Z face a hair under the seam mouth, so it stands on the
     band the whole way — on the lip above the mouth and on the wall under it below, which
     is one surface and not two.
@@ -3902,11 +3889,10 @@ def _z_pod(x_in, x_ext, sx, ys, inner, zj):
 
 
 def _z_pin(x_ext, sx, ys, zj):
-    """TOP tongue: ONE prism from the ±X exterior to the slot's deep end, `plug_dia`
-    square in section, standing on the top piece's own mouth and running to the lip rim.
-    It seats in the bottom socket's slot and rides the channel that slot continues, so
-    the wall it drives through carries the whole of it — dry: no screw crosses it, and
-    the slot it rides is a `barb_travel` longer than it is (`_z_pod_cuts`).
+    """TOP tongue: ONE prism from the ±X exterior to the heat-set, `plug_dia` square in
+    section, standing on the top piece's own mouth and running to the lip rim. It seats in
+    the bottom socket's slot and rides the channel that slot continues, so the wall it
+    drives through carries the whole of it.
 
     ITS FOOT IS A FACE AND NOT A TANGENT LINE. The mouth is this piece's FIRST LAYER —
     front-top and back-top both bed on it — so a half-round nose starts the tongue on the
@@ -3922,154 +3908,96 @@ def _z_pin(x_ext, sx, ys, zj):
     return _ybox(xa, xb, ys - r, ys + r, zj, zj + lip_len)
 
 
-def _z_pod_cuts(x_in, x_ext, sx, ys, zj, col):
-    """Bottom-socket inner cut: ONE slot that receives the tongue and carries it down.
-    The seat and the +Z slide channel were always the same width struck on the same axis;
-    squared, they are one prism. No heat-set and no bore — the station is dry
-    registration, and the barbed lip is what holds the seam shut.
+def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
+    """Bottom-socket inner cuts: ONE slot that receives the tongue and carries it down,
+    and the heat-set pocket at the deep end. The seat and the +Z slide channel were always
+    the same width struck on the same axis; squared, they are one prism.
 
     THE SLIP LIVES ON THE +Z (SLIDE-IN) SIDE: the slot's floor IS the mouth (`zj`), which
     is where the tongue's own foot lands. Seated, the two bear on that plane face to face
     and the whole slip is overhead — and the slot, a `split_slip` wider than the tongue
-    that fills it, is open to the rim.
-
-    IN Y THE SLOT IS THE TONGUE PLUS THE TRAVEL, opened toward the top piece's landing
-    side — forward on the front column, aft on the back. The tongue drops in at the
-    landing end, rides the slot as the piece is slid toward the Y seam, and stops on the
-    home wall; the two end walls are the seating slide's two stops (`_z_stations`)."""
-    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    that fills it, is open to the rim."""
+    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
+    zp = _z_pin_z(zj)
     b = socket_bore_dia / 2.0
-    y0 = ys - b - (barb_travel if col == "front" else 0.0)
-    y1 = ys + b + (barb_travel if col == "back" else 0.0)
+    heat = _xcyl(heatset_dia / 2.0, ys, zp, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
-    return _ybox(bx0, bx1, y0, y1, zj, zj + lip_len + 1.0)
+    slot = _ybox(bx0, bx1, ys - b, ys + b, zj, zj + lip_len + 1.0)
+    return slot.fuse(heat)
 
 
-# --- the barbed lip ----------------------------------------------------------
+# --- the four-corner screw: the Y-boss idiom with the seam plane through it --
 #
-# The Z seams' own retention (`barb_proud` and the block above it). The TOP piece
-# carries the barbs off its wall's inner face; the BOTTOM piece's lip carries the
-# groove, the notches and the roof. One shared grid phases the two, and the Z slots'
-# elongated ends are the seating slide's stops.
+# One per side wall at (`_y_boss`, `z_seam`). The BACK pair carries the plug — each piece
+# its own half of one square prism, parted on the plane (the bottom's half prints at its
+# rim, the top's face-down on its own mouth). The FRONT lip's two halves carry the slide
+# channel, and FRONT-BOTTOM alone carries the socket: a pedestal off its own lip face,
+# proud through the plane the way the lip itself is, so the bore and the insert live in
+# one piece's solid and the heat-set presses into a whole mouth. A 45° web under the
+# pedestal carries it to the lip face, so the piece prints floor-down with nothing
+# hanging. The screw crosses all four pieces; the plug registers in the bore the way
+# every Y-boss plug does.
 
 
-def _barb_z(zj):
-    """The barb's height band: `barb_z_off` over the top piece's mouth, `barb_h` tall.
-    Under it the lip keeps a whole band of wall to the mouth; over the groove it cuts,
-    the lip's remaining height to the rim is the roof."""
-    return zj + barb_z_off, zj + barb_z_off + barb_h
+def corner_stations(inner):
+    """The four-corner screw's own stations — ONE PER ±X SIDE WALL, at
+    (`_y_boss`, `z_seam`), each as (x_in, x_ext, sx) the way `_bosses` reads.
+
+    There is no search here and no clearance to answer for: the station IS the
+    two seams crossing, so where they cross is where it stands. It is a list
+    rather than a literal because the ledger counts it — `scripts/_bom_sync.py`
+    bills these screws and their heat-sets off this function, so the box and
+    bom.md cannot disagree about how many the build drives."""
+    return tuple((x_in, x_in - sx * wall, sx)
+                 for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)))
 
 
-def _barb_slip():
-    """The catch's running clearance, each side of each face — half the box's one
-    diametral slide fit, the same figure every plug in a socket rides."""
-    return split_slip / 2.0
+def _corner_plug(x_ext, sx, zlo, zhi):
+    """The back pair's pin at the four-corner, clipped to the piece band it is fused
+    into — each back piece carries the half the seam plane leaves it."""
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx, corner_screw_len)
+    yb = _y_boss(y_seam)
+    r = plug_dia / 2.0
+    xa, xb = sorted((x_ext, x_tip))
+    return _ybox(xa, xb, yb - r, yb + r, z_seam - r, z_seam + r).intersect(
+        _ybox(xa - 1.0, xb + 1.0, yb - plug_dia, yb + plug_dia, zlo, zhi))
 
 
-def _flank_barb_grid(inner, plate, y_joint, y_side):
-    """The flank barbs' HOME spans on one column, `[(y0, y1), ...]` — ONE figure read by
-    the barbs (top piece) and by the notches and grooves (bottom piece's lip), so the
-    two pieces cannot fall out of phase.
+def _corner_socket(x_in, x_ext, sx):
+    """Front-bottom's socket at the four-corner: the pedestal — a collar off the lip's
+    own inner face out to the cap, a box `2 * socket_r` on a side about the bore, with
+    the 45° web under it.
 
-    Anchored at the run's Y-seam end and stepped away on `barb_pitch`. A span that would
-    sweep past the run's far end drops out, and so does one riding into a Z station's
-    slot band — the tongue and its travel own that stretch of lip. The run is the lip
-    the column actually carries: the front column's starts at the tee wall's aft face,
-    where `_flank_lip_drop` gives the forward stretch to the bay; the back column's
-    starts past the Y-seam overlap and ends where the +Y corner round turns the wall."""
-    ix0, ix1, iy0, iy1, _iz0, _iz1 = inner
-    s = _barb_slip()
-    if y_side == "front":
-        run0 = (plate["wall_aft_y"] if plate else iy0 + corner_round) + barb_travel
-        run1 = y_joint - wall - z_lip_y_margin - barb_travel
-        anchor = run1 - s - barb_seg
-        step = -barb_pitch
-    else:
-        run0 = y_joint + lip_len + z_lip_y_margin
-        run1 = iy1 - corner_round - barb_travel
-        anchor = run0 + s
-        step = +barb_pitch
-    denied = []
-    for _xi, _xe, _sx, ys, col in _z_stations(inner, y_joint):
-        if (col == "front") == (y_side == "front"):
-            b = socket_bore_dia / 2.0
-            denied.append((ys - b - barb_travel - s, ys + b + barb_travel + s))
-    out, y = [], anchor
-    while run0 <= y and y + barb_seg <= run1:
-        if not any(y < d1 and y + barb_seg > d0 for d0, d1 in denied):
-            out.append((y, y + barb_seg))
-        y += step
-    return sorted(out)
+    A round pipe tangent to the web's flat top leaves a crevice either side of the
+    touching line and closes overhead on a crown laid across its own bore. Squared, the
+    collar stands on the web across its whole width, the two meet on one flat, and the
+    only surface over the bore is a face."""
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx, corner_screw_len)
+    yb = _y_boss(y_seam)
+    lip_in = x_in + sx * wall
+    xa, xb = sorted((lip_in, x_cap))
+    floor = z_seam - socket_r
+    collar = _ybox(xa, xb, yb - socket_r, yb + socket_r, floor, z_seam + socket_r)
+    drop = abs(x_cap - lip_in)
+    web = _xz_prism(yb - socket_r, yb + socket_r,
+                    [(lip_in, floor), (x_cap, floor), (lip_in, floor - drop)])
+    return collar.fuse(web)
 
 
-def _flank_barbs(inner, zj, grid):
-    """TOP: the flank barbs — one prism per grid span per ±X wall, `barb_proud` of the
-    wall's inner face, its two Y ends chamfered 45° over the proudness so the leading
-    edge meets each roof segment on a rising flat. Returned per side for `build_piece`
-    to clip to its own wall's material, so a barb over a port or a relief in that wall
-    dies with the wall that would have carried it."""
-    z0, z1 = _barb_z(zj)
-    out = []
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        xo = x_in + sx * barb_proud
-        solid = None
-        for y0, y1 in grid:
-            p = _xy_prism(z0, z1, [(x_in, y0), (xo, y0 + barb_proud),
-                                   (xo, y1 - barb_proud), (x_in, y1)])
-            solid = p if solid is None else solid.fuse(p)
-        if solid is not None:
-            out.append((sx, solid))
-    return out
-
-
-def _flank_barb_cuts(inner, zj, grid, y_side):
-    """BOTTOM: the lip's groove and entry notches for one column's flank barbs, off the
-    same grid. Per span, the groove covers the barb's whole sweep — home to landing —
-    and the notch stands at the landing offset, open to the rim, so the barb descends
-    through it and slides under the roof segment beside it. Adjacent grooves meet where
-    the grid is unbroken, so an uncut stretch of lip face is one no barb crosses."""
-    z0, z1 = _barb_z(zj)
-    s = _barb_slip()
-    depth = barb_proud + s
-    d = -1.0 if y_side == "front" else +1.0      # toward the landing offset
-    rim = zj + lip_len
-    out = None
-    for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-        xa, xb = sorted((x_in - sx * 0.5, x_in + sx * depth))
-        for y0, y1 in grid:
-            lo = min(y0, y0 + d * barb_travel) - s
-            hi = max(y1, y1 + d * barb_travel) + s
-            groove = _ybox(xa, xb, lo, hi, z0 - s, z1 + s)
-            notch = _ybox(xa, xb, y0 + d * barb_travel - s, y1 + d * barb_travel + s,
-                          z0 - s, rim + 1.0)
-            cut = groove.fuse(notch)
-            out = cut if out is None else out.fuse(cut)
-    return out
-
-
-def _rear_barb(inner, zj):
-    """TOP: back-top's rear-wall barb — ONE continuous rib proud of the +Y wall's inner
-    face over the wall's straight flat, its two X ends chamfered 45°. It moves
-    perpendicular to its own length: clear of the lip face at the landing offset,
-    driven straight into its groove by the same forward slide that seats the flanks,
-    the whole run engaging at once."""
-    z0, z1 = _barb_z(zj)
-    iy1 = inner[3]
-    x0, x1 = inner[0] + corner_round, inner[1] - corner_round
-    return _xy_prism(z0, z1, [(x0, iy1), (x1, iy1),
-                              (x1 - barb_proud, iy1 - barb_proud),
-                              (x0 + barb_proud, iy1 - barb_proud)])
-
-
-def _rear_barb_cut(inner, zj):
-    """BOTTOM: the rib's groove in back-bottom's rear lip — head-on, so it runs the
-    rib's whole length with no notch: nothing stands over the rib at the landing
-    offset, and the forward slide carries it straight in under the lip's roof."""
-    z0, z1 = _barb_z(zj)
-    s = _barb_slip()
-    iy1 = inner[3]
-    return _ybox(inner[0] + corner_round - s, inner[1] - corner_round + s,
-                 iy1 - barb_proud - s, iy1 + 1.0, z0 - s, z1 + s)
+def _corner_cuts(x_in, x_ext, sx):
+    """The corner socket's inner cuts — one slot, seat and +Y slide channel together, and
+    the insert pocket behind it, the Y-boss cuts one wall deeper. Cut from BOTH front
+    pieces: the slot crosses the lip, so each piece's own half comes out of its own
+    solid."""
+    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx, corner_screw_len)
+    yb = _y_boss(y_seam)
+    b = socket_bore_dia / 2.0
+    bore_y = yb + split_slip / 2.0
+    heat = _xcyl(heatset_dia / 2.0, yb, z_seam, x_tip, x_heat)
+    bx0, bx1 = sorted((x_in, x_tip))
+    slot = _ybox(bx0, bx1, bore_y - b, y_seam + lip_len + 1.0,
+                 z_seam - b, z_seam + b)
+    return slot.fuse(heat)
 
 
 # --- the pump bay's own machinery -------------------------------------------
@@ -4383,9 +4311,9 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     IT BEGINS AT THE RIM, and under the rim this flank is the box's own `wall`. Front-bottom's
     Z-seam tongue LAPS that wall's inner face over `lip_len` and stands open inboard — the
     same joint the back column makes (`_back_top_flanks`), on a piece that carries three
-    times the section. What locates the seam is the pins that cross it: a square tongue
-    in a slotted socket at `split_slip`, one per flank at the column's wall end
-    (`_z_pin`, `_z_pod`). A lap bears; the pins register; the barbed lip retains.
+    times the section. What locates the seam is the four pins that cross it: a square
+    tongue in a slotted socket at `split_slip`, one per flank at each end of the column's span
+    (`_z_pin`, `_z_pod`, `_corner_socket`). A lap bears; the pins register.
 
     SECTION CARRIED PAST THE RIM WOULD STAND ON THE FAR SIDE OF THAT TONGUE, and the lane
     would stop being a lane: `wall` wide, `lip_len` deep, blind, roofed flat and running the
@@ -4418,11 +4346,15 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     band = band.cut(_ybox(ix0 - 1.0, ix1 + 1.0, plate["fore_y"], plate["aft_y"],
                           plate["z0"] - 1.0, iz1 + 1.0))
     # Everything this piece's own walls were already bored for, struck out before the section
-    # is fused rather than re-cut after it: the Y seam's bosses, whose cuts were made in
-    # `build_front_half`, and the panel holes through both faces.
+    # is fused rather than re-cut after it: the Y seam's bosses and the four-corner's, whose
+    # cuts were made in `build_front_half`, and the panel holes through both faces.
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss in box.y_bosses:
         band = band.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
+    for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
+        x_ext = x_in - sx * wall
+        band = band.cut(_corner_cuts(x_in, x_ext, sx))
+        band = band.cut(_screw_cut(x_ext, sx, z_seam, yb, corner_screw_len))
     for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         band = band.cut(cutter)
     for cutter in _x_port_cuts(box.east_ports, fx1 - 5.0, outer[1] + 5.0):
@@ -4522,10 +4454,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
         seg = seg.cut(_xz_prism(y0 - 1.0, iy1 + 1.0,
                                 [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
         band = seg if band is None else band.fuse(seg)
-    # Opened `barb_travel` fore: this piece lands that far aft of home with back-bottom's
-    # share of the sleeve already standing past the rim, and slides forward onto it.
     for bx0, bx1, by0, by1, bz0, bz1 in box.pan_sleeve[0]:
-        band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0 - barb_travel, by1, bz0, bz1))
+        band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
     # AND THE PRV CHASE'S RIB KEEPS ITS LANE, for the same reason the sleeve keeps its block and
     # a Z tongue keeps its own. The rib stands proud of `interior_x` on this very wall surface
     # and carries past back-bottom's rim into this piece, where the duct's west face IS back-top's
@@ -4536,10 +4466,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
         half = vent_channel_w / 2.0 + vent_rib_wall
         if sz + half <= rim:
             continue                       # the rib ends under the rim; this piece never meets it
-        # The lane opens `barb_travel` fore of the rib for the same reason the sleeve's
-        # berth does: the rib is standing at home while this piece slides forward onto it.
-        band = band.cut(_ybox(min(ix0, sx) - 1.0, max(ix0, sx),
-                              sy - half - barb_travel, sy + half,
+        band = band.cut(_ybox(min(ix0, sx) - 1.0, max(ix0, sx), sy - half, sy + half,
                               rim - 1.0, sz + half))
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
     # slot, cut in `build_back_half` before this stood here.
@@ -5067,11 +4994,7 @@ def _z_seam_berth(inner, plate, y_joint):
     for x_in, x_ext, sx, ys, col in _z_stations(inner, y_joint):
         if col == "front":
             berth = berth.fuse(_z_pod(x_in, x_ext, sx, ys, inner, z_seam))
-    # AND THE LANDING'S SWEEP. front-top comes down `barb_travel` forward of home and
-    # slides aft, so everything the lip and its collars occupy stands `barb_travel`
-    # further aft in this piece's own frame at the landing — the berth is the union of
-    # the two positions, and the slide runs between them.
-    return berth.fuse(berth.translate(cq.Vector(0.0, barb_travel, 0.0)))
+    return berth
 
 
 def _bay_floor(inner, y_joint, plate, pump_trays):
@@ -6979,10 +6902,10 @@ def _piece_bands(box, name):
 def build_piece(box, y_side, z_side, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
     its seam (`box.splits` — the one stated plane, both columns), the bottom
-    taking the Z lip, its grooves and notches, and the dry-pin sockets; the top
-    taking the pins and the barbs. The Y-seam bosses' under-floor level sits
-    under that plane, so it lands in — and pins — the two bottom pieces; the
-    under-ceiling level the two tops."""
+    taking the Z lip + socket collars, the top taking the pins + X-axis screw
+    bores. The Y-seam bosses' under-seam level sits under that plane, so it
+    lands in — and pins — the two bottom pieces; the over-rim level the two
+    tops."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     zj = box.splits[0] if y_side == "front" else box.splits[1]
@@ -7025,8 +6948,18 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_flank_lip_drop(inner, box.collet_plate, y_joint, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
-        for x_in, x_ext, sx, ys, c in stations:
-            piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj, c))
+        for x_in, x_ext, sx, ys, _c in stations:
+            piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj))
+        for x_in, x_ext, sx in corner_stations(inner):
+            if y_side == "front":
+                # The four-corner socket: front-bottom's alone, proud through the plane.
+                piece = piece.fuse(_corner_socket(x_in, x_ext, sx))
+                piece = piece.cut(_corner_cuts(x_in, x_ext, sx))
+            else:
+                # The back-bottom half of the four-corner pin, flat on the plane.
+                piece = piece.fuse(_corner_plug(x_ext, sx, oz0 - 1.0, zj))
+            piece = piece.cut(_screw_cut(x_ext, sx, z_seam, _y_boss(y_joint),
+                                         corner_screw_len))
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
@@ -7043,16 +6976,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(_back_top_flanks(inner, outer, box, y_joint, zj))
         for _x_in, x_ext, sx, ys, _c in stations:
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
-        # The barbs, each side clipped to its own wall's material shifted inboard by the
-        # proudness — what carries a barb is the wall behind it, so a barb over a port
-        # or a relief in that wall dies with it.
-        grid = _flank_barb_grid(inner, box.collet_plate, y_joint, y_side)
-        for sx, barbs in _flank_barbs(inner, zj, grid):
-            piece = piece.fuse(barbs.intersect(
-                piece.translate(cq.Vector(sx * barb_proud, 0.0, 0.0))))
-        if y_side == "back":
-            piece = piece.fuse(_rear_barb(inner, zj).intersect(
-                piece.translate(cq.Vector(0.0, -barb_proud, 0.0))))
+        for _x_in, x_ext, sx, ys, _c in stations:
+            piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
         if y_side == "back":
             # BACK-TOP'S OWN +Y SECTION, first of everything this piece does to that wall — so
             # the port field, the C14's bores and the nameplate's seat are cut out of the
@@ -7063,6 +6988,15 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # the chain's bores, the wells and every bore below are cut AFTER this, so each is
             # cut out of what the corbel left rather than filling a pocket back in.
             piece = _back_top_ceiling(piece, inner, y_joint)
+        for x_in, x_ext, sx in corner_stations(inner):
+            if y_side == "front":
+                # The corner's slide channel through front-top's half of the lip.
+                piece = piece.cut(_corner_cuts(x_in, x_ext, sx))
+            else:
+                # The back-top half of the four-corner pin, flat-face on its own mouth.
+                piece = piece.fuse(_corner_plug(x_ext, sx, zj, oz1 + 1.0))
+            piece = piece.cut(_screw_cut(x_ext, sx, z_seam, _y_boss(y_joint),
+                                         corner_screw_len))
     piece = piece.intersect(_rounded_outer(outer))
     zlo, zhi = _piece_bands(box, f"{y_side}-{z_side}")[2:]
     if y_side == "back":
@@ -7186,18 +7120,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
     # relief on those two flanks already in it.
     piece = _flank_vents(piece, inner, outer, box.cond_airway, ylo, yhi, zlo, zhi)
-    # The lip's share of the barbed lip, LAST of the bottom pieces' cuts: the groove the
-    # barbs sweep and the notches they descend through are the seating slide's own air,
-    # and they are cut through everything standing at that band — the lip, and whatever
-    # the flank furniture above fused across it — so a later fuse cannot close the path.
-    if z_side == "bottom":
-        barb_cuts = _flank_barb_cuts(
-            inner, zj, _flank_barb_grid(inner, box.collet_plate, y_joint, y_side),
-            y_side)
-        if barb_cuts is not None:
-            piece = piece.cut(barb_cuts)
-        if y_side == "back":
-            piece = piece.cut(_rear_barb_cut(inner, zj))
     return _unified(piece)
 
 
@@ -7447,26 +7369,6 @@ def _report_columns(box):
               ", ".join(f"{n} (z {r[4]:.1f}..{r[5]:.1f})" for n, r in gave))
 
 
-def _report_barbs(pieces, box):
-    """Each column's barbed lip, read off the built pieces: the seating slide swept from
-    the landing offset to home against the bottom piece, and the catch's engagement — the
-    material the two pieces contest when the top is lifted off home.
-
-    The sweep rows want ZERO: material standing in the top piece's path at any offset is
-    a column that cannot close. The lift row wants MORE than zero: a top piece lifted a
-    hair with no contested volume is one no roof is holding."""
-    for col, off in (("front", -barb_travel), ("back", +barb_travel)):
-        top = pieces[f"{col}-top"].val()
-        bot = pieces[f"{col}-bottom"].val()
-        for label, dy, dz, want in (
-                ("landing", off, 0.0, "0"),
-                ("mid-slide", off / 2.0, 0.0, "0"),
-                ("lifted 0.5", 0.0, 0.5, ">0")):
-            v = top.translate(cq.Vector(0.0, dy, 0.0)).translate(
-                cq.Vector(0.0, 0.0, dz)).intersect(bot).Volume()
-            print(f"  {col} column {label}: {v:.2f} mm³ contested (wants {want})")
-
-
 def _report_bounds():
     """Every bound in the ledger that is open, and nothing when they all hold.
 
@@ -7497,7 +7399,6 @@ def main():
     _report_seams(box)
     _report_levels(box)
     _report_split(pieces, core)
-    _report_barbs(pieces, box)
 
     bo = box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
