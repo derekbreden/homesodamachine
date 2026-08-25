@@ -17,9 +17,14 @@ enum ConnectionState: Equatable {
     case bluetoothOff
     case searching
     case searchingLong  // been searching a while, show hints
+    case choosing       // more than one machine in range, none of them remembered
     case connecting
     case connected
 }
+
+/// How long a scan collects before it decides. Long enough that the second
+/// machine on the bench is in the list when the first one is.
+private let settleWindow: TimeInterval = 2.5
 
 // ────────────────────────────────────────────────────────────
 // BLEManager — @Observable so SwiftUI only re-renders views
@@ -77,6 +82,33 @@ class BLEManager {
 
     // Demo mode (no hardware needed)
     var demoMode = false
+
+    // ── Which machines are in range ──────────────────────────────────────
+    // Every scan result lands here rather than the first one winning. A phone
+    // standing between the bench and the machine under the sink sees both.
+    var discovered: [DiscoveredMachine] = []
+    var connectedMachine: DiscoveredMachine? = nil
+
+    /// The one to reconnect to without asking. Set by picking, cleared by
+    /// picking something else.
+    var rememberedMachineID: String? {
+        get { UserDefaults.standard.string(forKey: "rememberedMachineID") }
+        set { UserDefaults.standard.set(newValue, forKey: "rememberedMachineID") }
+    }
+
+    @ObservationIgnored fileprivate var settleTimer: Timer?
+    @ObservationIgnored fileprivate var chooserPending = false
+
+    // ── Pushing an image ─────────────────────────────────────────────────
+    // The board pulls. It asks for an offset and a length, this sends exactly
+    // that, and nothing moves until it asks again — so the phone never has to
+    // guess a rate, and a frame that goes missing costs one re-ask.
+    var otaProgress: OTAProgress? = nil
+    /// What the board with the radio says it is running, from BLE_IDENTITY.
+    var radioBoardVersion: String = ""
+
+    @ObservationIgnored fileprivate var otaImage: FirmwareImage? = nil
+    @ObservationIgnored fileprivate var otaData: Data = Data()
 
     /// Ready to transition from animated splash to main UI
     var readyToShow: Bool {
@@ -1231,10 +1263,22 @@ class BLEManager {
             // Don't clear cachedImages here — disk cache + CRC comparison
             // in downloadAllImages() handles stale data on reconnect
         }
+        // Duplicates on: RSSI is how a picker sorts, and a machine that moves
+        // closer should climb the list rather than keep the reading it had when
+        // it was first seen.
         centralManager.scanForPeripherals(withServices: [nusServiceUUID], options: [
-            CBCentralManagerScanOptionAllowDuplicatesKey: false
+            CBCentralManagerScanOptionAllowDuplicatesKey: true
         ])
-        log.info("Auto-scanning for Soda Machine...")
+        log.info("Scanning for machines...")
+
+        DispatchQueue.main.async {
+            self.discovered = []
+            self.chooserPending = true
+            self.settleTimer?.invalidate()
+            self.settleTimer = Timer.scheduledTimer(withTimeInterval: settleWindow, repeats: false) {
+                [weak self] _ in self?.decideFromScan()
+            }
+        }
 
         DispatchQueue.main.async {
             self.scanTimer?.invalidate()
@@ -1242,6 +1286,184 @@ class BLEManager {
                 guard let self, self.connectionState == .searching else { return }
                 self.connectionState = .searchingLong
                 log.info("Still scanning, showing hints")
+            }
+        }
+    }
+
+    /// What the settle window found. A machine already chosen wins outright; one
+    /// candidate alone needs no question; anything else is the user's call.
+    fileprivate func decideFromScan() {
+        guard chooserPending, connectionState == .searching || connectionState == .searchingLong
+        else { return }
+
+        if let remembered = rememberedMachineID,
+           let match = discovered.first(where: { $0.id == remembered }) {
+            connect(to: match)
+            return
+        }
+        if discovered.count == 1 {
+            connect(to: discovered[0])
+            return
+        }
+        if discovered.count > 1 {
+            chooserPending = false
+            connectionState = .choosing
+        }
+        // Nothing in range yet: the scan is still running and this runs again
+        // whenever a first machine appears.
+    }
+
+    /// Point the app at one machine. Everything the previous one filled in is
+    /// dropped, but its disk cache is not — the caches are per-peripheral, so
+    /// coming back finds what was there.
+    func connect(to machine: DiscoveredMachine) {
+        guard let centralManager,
+              let peripheral = centralManager.retrievePeripherals(withIdentifiers:
+                  [UUID(uuidString: machine.id)].compactMap { $0 }).first
+        else { return }
+
+        chooserPending = false
+        settleTimer?.invalidate()
+        centralManager.stopScan()
+
+        if !connectedPeripheralUUID.isEmpty && connectedPeripheralUUID != machine.id {
+            forgetConnectedState()
+        }
+        rememberedMachineID = machine.id
+        connectedMachine = machine
+        connectedPeripheralUUID = machine.id
+        connectedPeripheral = peripheral
+        connectionState = .connecting
+        centralManager.connect(peripheral, options: nil)
+    }
+
+    /// Go back to the list without forgetting what is on disk for either.
+    func chooseAnother() {
+        if let peripheral = connectedPeripheral {
+            userInitiatedDisconnect = true
+            centralManager?.cancelPeripheralConnection(peripheral)
+        }
+        connectedPeripheral = nil
+        rxCharacteristic = nil
+        nusReady = false
+        frameBuffer = Data()
+        connectedMachine = nil
+        rememberedMachineID = nil
+        forgetConnectedState()
+        connectionState = .searching
+        startScan()
+    }
+
+    /// The previous machine's answers, which do not describe this one.
+    fileprivate func forgetConnectedState() {
+        configSynced = false
+        statsSynced = false
+        chartDataSynced = false
+        cachedImages = [:]
+        imageNames = []
+        numImages = 0
+        s3Version = ""
+        espVersion = ""
+        rpVersion = ""
+    }
+
+    // ── The image push ───────────────────────────────────────────────────
+    fileprivate static let bleOtaBegin: UInt8 = 0x10
+    fileprivate static let bleOtaNeed:  UInt8 = 0x11
+    fileprivate static let bleOtaData:  UInt8 = 0x12
+    fileprivate static let bleOtaEnd:   UInt8 = 0x13
+    fileprivate static let bleIdentity: UInt8 = 0x14
+
+    /// Start pushing one image. `data` has already been held to the manifest's
+    /// sha256; the crc32 goes onto the wire for the board to hold it to.
+    func startUpdate(image: FirmwareImage, data: Data, on model: MachineModel) {
+        guard otaProgress == nil else { return }
+        guard let target = image.otaTarget(on: model) else { return }
+
+        otaImage = image
+        otaData = data
+        otaProgress = OTAProgress(target: image.target, what: image.what,
+                                  sent: 0, total: data.count)
+
+        var payload = Data([target.rawValue, image.otaKind.rawValue])
+        payload.append(contentsOf: withUnsafeBytes(of: UInt32(data.count).littleEndian, Array.init))
+        payload.append(contentsOf: withUnsafeBytes(of: image.crc32.littleEndian, Array.init))
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: BLEManager.bleOtaBegin, payload: payload)
+        }
+        log.info("OTA \(image.target): \(data.count) bytes, crc \(image.crc32)")
+    }
+
+    func cancelUpdate() {
+        guard let image = otaImage else { return }
+        log.info("OTA \(image.target): cancelled")
+        finishUpdate(failure: "cancelled")
+    }
+
+    fileprivate func finishUpdate(failure: String?) {
+        if var p = otaProgress {
+            p.failure = failure
+            p.finished = failure == nil
+            otaProgress = p
+        }
+        otaImage = nil
+        otaData = Data()
+    }
+
+    /// The board asking for the next piece. Answering is the whole of the
+    /// phone's side: no timer, no pacing, no guess at a rate.
+    fileprivate func handleOtaNeed(_ payload: Data) {
+        guard payload.count >= 6, !otaData.isEmpty else { return }
+        let b = payload.startIndex
+        let offset = Int(UInt32(payload[b]) | (UInt32(payload[b + 1]) << 8) |
+                         (UInt32(payload[b + 2]) << 16) | (UInt32(payload[b + 3]) << 24))
+        let want = Int(UInt16(payload[b + 4]) | (UInt16(payload[b + 5]) << 8))
+        guard offset >= 0, offset < otaData.count, want > 0 else { return }
+        let end = min(offset + want, otaData.count)
+
+        var frame = Data()
+        frame.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
+        frame.append(otaData[offset..<end])
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: BLEManager.bleOtaData, payload: frame)
+        }
+
+        DispatchQueue.main.async {
+            if var p = self.otaProgress, end > p.sent {
+                p.sent = end
+                self.otaProgress = p
+            }
+        }
+    }
+
+    fileprivate func handleOtaEnd(_ payload: Data) {
+        guard payload.count >= 6 else { return }
+        let b = payload.startIndex
+        let state = payload[b]
+        let err = OTAError(rawValue: payload[b + 1]) ?? .none
+        // OTA_STATE_DONE is 3 (proto_msg.h).
+        if state == 3 {
+            log.info("OTA \(self.otaImage?.target ?? "?"): verified and set to boot")
+            finishUpdate(failure: nil)
+        } else {
+            log.error("OTA failed: state \(state), \(err.message)")
+            finishUpdate(failure: err.message)
+        }
+    }
+
+    fileprivate func handleIdentity(_ payload: Data) {
+        // [model:1][unit:3][name:21][version…NUL]
+        guard payload.count > 25 else { return }
+        let b = payload.startIndex
+        let versionBytes = payload[(b + 25)...].prefix { $0 != 0 }
+        let version = String(data: Data(versionBytes), encoding: .utf8) ?? ""
+        let name = String(data: Data(payload[(b + 4)..<(b + 25)].prefix { $0 != 0 }),
+                          encoding: .utf8) ?? ""
+        DispatchQueue.main.async {
+            self.radioBoardVersion = version
+            if !name.isEmpty, var m = self.connectedMachine {
+                m.name = name
+                self.connectedMachine = m
             }
         }
     }
@@ -1361,21 +1583,32 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                          advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        let name = peripheral.name ?? advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? ""
-        guard name == "SodaMachine" else { return }
-        log.info("Found: \(name) (RSSI: \(RSSI.intValue))")
+        guard let seen = MachineAdvert.read(peripheral: peripheral,
+                                            advertisementData: advertisementData,
+                                            rssi: RSSI) else { return }
 
-        DispatchQueue.main.async { self.ble.scanTimer?.invalidate() }
-        central.stopScan()
-        DispatchQueue.main.async { self.ble.connectionState = .connecting }
-        let uuid = peripheral.identifier.uuidString
-        // If connecting to a different device, clear disk cache from previous
-        if !ble.connectedPeripheralUUID.isEmpty && ble.connectedPeripheralUUID != uuid {
-            ble.clearDiskCache()
+        DispatchQueue.main.async {
+            self.ble.scanTimer?.invalidate()
+            if let i = self.ble.discovered.firstIndex(where: { $0.id == seen.id }) {
+                // A name or a unit that arrived in a later scan response fills in
+                // what the first sighting did not carry.
+                var entry = self.ble.discovered[i]
+                entry.rssi = seen.rssi
+                entry.lastSeen = seen.lastSeen
+                if !seen.name.isEmpty { entry.name = seen.name }
+                if !seen.unit.isEmpty { entry.unit = seen.unit }
+                if seen.model != .unknown { entry.model = seen.model }
+                self.ble.discovered[i] = entry
+            } else {
+                log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
+                self.ble.discovered.append(seen)
+                // The remembered machine is answerable the moment it appears;
+                // anything else waits for the window to close so the second
+                // machine on the bench is in the list before the question.
+                if seen.id == self.ble.rememberedMachineID { self.ble.decideFromScan() }
+            }
+            self.ble.discovered.sort { $0.rssi > $1.rssi }
         }
-        ble.connectedPeripheralUUID = uuid
-        ble.connectedPeripheral = peripheral
-        central.connect(peripheral, options: nil)
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -1491,6 +1724,12 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleBinData(payload)
             case 0x04: // BIN_END
                 ble.handleBinEnd()
+            case 0x11: // OTA_NEED — the board asking for its next piece
+                ble.handleOtaNeed(payload)
+            case 0x13: // OTA_END
+                ble.handleOtaEnd(payload)
+            case 0x14: // IDENTITY
+                ble.handleIdentity(payload)
             default:
                 break
             }
