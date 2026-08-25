@@ -266,16 +266,29 @@ assert not _display_stack, (
     f"the machine no longer stands {sorted(_display_stack)} — bom.md §7 bills the display's "
     f"cover plate and its gasket, and §13 bills the plate's two inserts and two M3 × 8")
 
-# The enclosure's own SEAM SCREWS — the Y seam's cross-pins, the box's ONLY screws, and
-# the heat-sets they land in. Every one drives from a ±X EXTERIOR face, so the bench
-# closes the box from outside and nothing reaches in for them. Counted off the box's own
-# stations rather than named here: the Y seam's `y_bosses`, a level for each end of each
-# piece crossing it — the under-floor level pins the two bottoms, the under-ceiling one
-# the two tops. The Z seams take no screw at all: each column's barbed lip holds its top
-# piece down and its dry pin-in-slot stops it at home (`enclosure._flank_barbs`,
-# `enclosure._z_stations`). The heat-set is in the RECEIVING piece every time — the
-# front pieces, on the Y seam.
-enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
+# The enclosure's own SEAM CROSS-PINS — the screws that hold the four quadrants together
+# and the heat-sets they land in. Every one drives from a ±X EXTERIOR face, so the bench
+# closes the box from outside and nothing reaches in for them. Three families, each counted
+# off the box's own stations rather than named here:
+#   * the Y seam's `y_bosses` — a level for each end of each piece (a wall above the floor,
+#     one under the ceiling), pinning the two bottoms and the two tops;
+#   * the Z seams' `z_stations` — the wall end of each column's seam, the front-wall corner
+#     forward and the rear-wall corner aft;
+#   * `enclosure.corner_stations` — one per side wall where both seams cross, each screw
+#     crossing ALL FOUR pieces in one sandwich.
+# The first two take the box's M3 x 10; the corner pair is M3 x 12 (`corner_screw_len`), two
+# millimetres longer because it spans the +Y wall and the front lip before it reaches
+# front-bottom's pedestal. The heat-set is in the RECEIVING piece every time — the front
+# pieces on the Y seam, the bottom pieces on the Z seams, front-bottom at the corner.
+enclosure_y_seam_screws_per_build = len(_f.box["y_bosses"])
+enclosure_z_seam_screws_per_build = len(_f.z_stations)
+enclosure_corner_screws_per_build = len(_enc.corner_stations(tuple(_f.box["inner"])))
+enclosure_seam_screws_per_build = (enclosure_y_seam_screws_per_build
+                                   + enclosure_z_seam_screws_per_build
+                                   + enclosure_corner_screws_per_build)
+# The M3 x 10 share of them — everything but the corner pair.
+enclosure_seam_m3x10_per_build = (enclosure_y_seam_screws_per_build
+                                  + enclosure_z_seam_screws_per_build)
 # One insert per screw, pressed into the piece that screw lands in.
 enclosure_seam_inserts_per_build = enclosure_seam_screws_per_build
 
@@ -286,14 +299,14 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + faucet_display_cover_screws_per_build)
 
 # And every M3 x 10: the ground-stack clamp's one, the ceiling panel's two, and the
-# enclosure's four seam screws.
+# enclosure's eight seam cross-pins.
 m3x10_per_build = (shelf_long_screws_per_build + ceiling_panel_screws_per_build
-                   + enclosure_seam_screws_per_build)
+                   + enclosure_seam_m3x10_per_build)
 
-# And every M3 x 12 of the black-oxide 12.9 kind: the touch-flo plate's. (The 304
-# stainless M3 x 12 is a different row — the reservoir caps' wetted-zone hardware — and
-# is not counted here.)
-m3x12_per_build = touchflo_screws_per_build
+# And every M3 x 12 of the black-oxide 12.9 kind: the touch-flo plate's, and the two
+# four-corner screws. (The 304 stainless M3 x 12 is a different row — the reservoir
+# caps' wetted-zone hardware — and is not counted here.)
+m3x12_per_build = touchflo_screws_per_build + enclosure_corner_screws_per_build
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
@@ -381,7 +394,11 @@ def main():
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
+        "Y_SEAM_SCREWS": f"{enclosure_y_seam_screws_per_build:.4g}",
+        "Z_SEAM_SCREWS": f"{enclosure_z_seam_screws_per_build:.4g}",
+        "CORNER_SCREWS": f"{enclosure_corner_screws_per_build:.4g}",
         "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
+        "SEAM_M3X10": f"{enclosure_seam_m3x10_per_build:.4g}",
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "CEILING_INSERTS": f"{ceiling_panel_inserts_per_build:.4g}",
         "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
