@@ -1,5 +1,7 @@
 #pragma once
 
+#include "proto_msg.h"
+
 #include <Arduino.h>
 
 // ════════════════════════════════════════════════════════════
@@ -53,7 +55,15 @@ public:
     size_t echoDesyncs() const { return desyncs; }   // collisions that reached the wire
 
 private:
-    static const size_t CAP = 256;   // two full service() writes; more than a frame ever is
+    // Big enough for the largest frame this pair carries, after HDLC byte
+    // stuffing, which in the worst case doubles it. This is not a tuning knob:
+    // a frame that outruns CAP has its expected echo dropped at line 60, and
+    // the canceller then swallows real incoming traffic as its own echo — the
+    // far end keeps sending and this end goes quietly deaf. The assert below is
+    // what stops the frame size and this number drifting apart again.
+    static const size_t CAP = 4096;
+    static_assert(CAP >= 2 * (size_t)(J9_MAX_PAYLOAD + 8),
+                  "a stuffed J9 frame has to fit the echo the sender must swallow");
 
     void remember(const uint8_t *b, size_t n) {
         for (size_t i = 0; i < n; i++) {
