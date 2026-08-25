@@ -20,7 +20,7 @@ clash in `pack-closes` at the body that overran.
   it is clearance: a body on the floor slab spans the interior wall to wall, so a
   floor body stands one `side_band_inset` in from the wall **where it meets one of the
   seam's bosses in depth and in height**, leaving each mouth, plug and collar its full
-  section. A boss is a pipe as tall as it is wide, so over and under one, as much as
+  section. A boss is a block as tall as it is wide, so over and under one, as much as
   between two, the band is the wall's own air. The cold
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
@@ -103,16 +103,15 @@ it is owed.
 
 **The four-corner screw is the Y-boss idiom with the seam plane through it.** One M3×12
 per side wall at the Y-boss station on `z_seam`, where all four pieces meet: the back
-pair carries the plug as two half-cylinders — each piece its own half, the flat on the
-plane, the bottom's at its rim and the top's flat-face-down on its own mouth — the
-front lip's two halves carry the slide channel, and `enclosure-front-bottom` alone
-carries the socket: a pedestal off its own lip face, proud through the plane the way
-the lip itself is, so the bore and the heat-set live in one piece's solid. The
-pedestal is a D below its axis, and a 45° web carries it to the lip face — collar,
-fill and web meet on flats, and the piece prints floor-down with nothing hanging.
-The Y seam's own collars keep the same shape: a D squared onto the slab at the floor
-level, a D on its web with its crown squared into the ceiling at the top one
-(`_front_socket`).
+pair carries the plug as two halves of one square prism — each piece its own half,
+parted on the plane, the bottom's printing at its rim and the top's face-down on its own
+mouth — the front lip's two halves carry the slide slot, and `enclosure-front-bottom`
+alone carries the socket: a pedestal off its own lip face, proud through the plane the
+way the lip itself is, so the slot and the heat-set live in one piece's solid. The
+pedestal is a block `2 × socket_r` on a side, and a 45° web carries it to the lip face —
+collar and web meet on flats, and the piece prints floor-down with nothing hanging.
+The Y seam's own collars are that same block, standing on the slab at the floor level
+and on its own web at every other (`_front_socket`).
 The head sits in the standard counterbore astride the visible seam line, and the screw
 clamps +Y wall and front lip against the pedestal's shoulder — all four pieces in
 one sandwich, the shank shear-locking them in Y and Z at the point. Its cap stands
@@ -158,19 +157,19 @@ the head seat to the heat-set, so the body is screw length − heat-set long), t
 the heat-set, then a one-wall cap.
 
 - **Receiving piece = pin** (the back pieces on the Y seam, the top pieces on
-  the Z seam): a Ø[9.9 mm](PLUG_DIA) cylinder (the shank + one wall each side, *not*
+  the Z seam): a [9.9 mm](PLUG_DIA) SQUARE prism (the shank + one wall each side, *not*
   the head — the head sits in the wall counterbore) from the exterior to the
-  heat-set, registering in the socket bore.
-- **Lip piece = socket** (the front pieces / the bottom pieces): a collar bored
-  Ø[10.3 mm](SOCKET_BORE) to take the round pin as a slide fit, with the ruthex M3
+  heat-set, seating in the socket's slot.
+- **Lip piece = socket** (the front pieces / the bottom pieces): a collar slotted
+  [10.3 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
   heat-set (Ø4.0 × 5.25) capped at its deep inboard end.
 
 **Each boss stands on the joint it pins.** A plug is the wall it drives through and
 the reach it needs past it: the first `wall` of its length *is* that wall's own
 material and the rest a stub off it, its mouth-side face on the receiving mouth. A
-socket is a **pipe round that plug** — Ø[16.3 mm](SOCKET_OD) outside,
-Ø[10.3 mm](SOCKET_BORE) bored, one `wall` of material the whole way, a `socket_cap`
-over the insert's blind end — its rim-side face on the lip rim and its far face a
+socket is a **block round that plug** — [16.3 mm](SOCKET_OD) square outside,
+[10.3 mm](SOCKET_BORE) square slotted, one `wall` of material the whole way, a
+`socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
 hair under the seam mouth, so it stands on that band down its
 whole length. That band is one `wall` deep and runs the piece's full height, the way
 a telescoping lip does. Those two matings are the pair the overlap depth is struck
@@ -182,7 +181,7 @@ leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets one of the seam's bosses** — the
 boss chain's own reach — and the **+Y wall keeps one `rear_seam_clear`**, the rear
 Z-seam lip's own thickness. That is a requirement on the body where it meets one, not
-a rule about the wall: each boss is a pipe at its own station and its own height, and
+a rule about the wall: each boss is a block at its own station and its own height, and
 beside one — over or under one — the band is nothing but the wall's own air. Of the
 three bodies on the slab only the cold core meets the chain; the compressor stands
 under the front column's collars. Everything on the slab sits flat on it:
@@ -203,7 +202,7 @@ rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
 The crowding mechanism stays in place even though nothing is crowded now: each level
-is offered only where the socket's whole body — bore, heat-set and cap, one collar
+is offered only where the socket's whole body — slot, heat-set and cap, one collar
 radius either side of the axis — stands clear of what `_measure_wall_block` found in
 that corner, measured against the contents themselves rather than their bounding
 boxes. It reads zero on both walls today, and the build prints each wall's levels so
