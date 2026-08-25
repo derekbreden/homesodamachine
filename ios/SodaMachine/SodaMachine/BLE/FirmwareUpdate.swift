@@ -131,6 +131,42 @@ final class FirmwareCatalog {
     func release(_ target: String) { payloads[target] = nil }
 }
 
+/// What every board on the machine reports running, as the main board assembled
+/// it. A board that has not answered carries an empty string, which is not the
+/// same as one running nothing.
+struct MachineVersions: Equatable {
+    /// Keyed by OTATarget.rawValue.
+    var byBoard: [UInt8: String] = [:]
+    /// The crc32 over the art partition's pixels, by the board that holds one.
+    var artCrc: [UInt8: UInt32] = [:]
+
+    func version(for image: FirmwareImage, on model: MachineModel) -> String? {
+        guard let t = image.otaTarget(on: model) else { return nil }
+        let v = byBoard[t.rawValue] ?? ""
+        return v.isEmpty ? nil : v
+    }
+
+    /// Whether this image differs from what its board reports.
+    ///
+    /// Firmware is a version string against a version string. The art partition
+    /// carries no version — it carries a crc32 over its pixels, and the manifest
+    /// carries the same one. A board that has said nothing is not called
+    /// current: there is nothing to compare it to.
+    func needs(_ image: FirmwareImage, on model: MachineModel) -> Bool {
+        guard let t = image.otaTarget(on: model) else { return false }
+        if image.kind == "art" {
+            guard let running = artCrc[t.rawValue], running != 0 else { return false }
+            return running != image.crc32
+        }
+        guard let running = version(for: image, on: model) else { return false }
+        return running != (image.version ?? running)
+    }
+
+    /// Every board that answered. Until one has, the machine has said nothing
+    /// about itself and no claim either way is honest.
+    var answered: Int { byBoard.values.filter { !$0.isEmpty }.count }
+}
+
 /// What the phone is doing to one board right now.
 struct OTAProgress: Equatable {
     var target: String

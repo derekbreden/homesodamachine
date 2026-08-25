@@ -30,6 +30,7 @@ constexpr uint8_t BLE_FRAME_OTA_NEED  = 0x11;  // board → phone: BleOtaNeed
 constexpr uint8_t BLE_FRAME_OTA_DATA  = 0x12;  // phone → board: offset, then bytes
 constexpr uint8_t BLE_FRAME_OTA_END   = 0x13;  // board → phone: OtaStatePayload
 constexpr uint8_t BLE_FRAME_IDENTITY  = 0x14;  // board → phone: model, unit, name, version
+constexpr uint8_t BLE_FRAME_VERSIONS  = 0x15;  // board → phone: VersionsPayload
 
 struct __attribute__((packed)) BleOtaBegin {
   uint8_t  target;   // OTA_TGT_*

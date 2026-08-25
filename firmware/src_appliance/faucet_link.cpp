@@ -4,6 +4,7 @@
 #include "ota.h"
 #include "flavor.h"
 #include "identity.h"
+#include "versions.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
 #include "machine.h"
@@ -170,6 +171,20 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
                       (st.flags & BLE_ST_CONNECTED) ? ", a phone is connected" : ", advertising",
                       (st.flags & BLE_ST_IDENTITY) ? "" : ", identity unanswered",
                       st.advertised, st.target, st.owed, (unsigned long)st.dropped);
+        return;
+    }
+
+    if (type == MSG_RESP_VERSION && plen >= sizeof(VersionPayload)) {
+        VersionPayload v;
+        memcpy(&v, payload, sizeof(v));
+        v.version[FW_VERSION_MAX] = 0;
+        versionsOnReport(OTA_TGT_FAUCET, v.version, v.artCrc32);
+        return;
+    }
+    if (type == MSG_VERSIONS_QUERY) {
+        VersionsPayload all;
+        versionsFill(all);
+        faucet.trySend(MSG_RESP_VERSIONS, &all, sizeof(all));
         return;
     }
 
