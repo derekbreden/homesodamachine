@@ -3955,8 +3955,12 @@ DECK_CEILING_CLEAR = ASSE_TIE_T + ASSE_TIE_CLEAR
 
 
 def interior_ceiling() -> float:
-    """The plane the top wall's inner face lies on, off the appliance's own stated height."""
-    return _enc.appliance_height - 2.0 * _enc.wall
+    """The plane the top wall's inner face lies on, off the appliance's own stated height.
+
+    The height is struck from the floor slab's underside, so the cavity is what the stated
+    number leaves once the slab and the top wall are both out of it — and the slab is the
+    thicker of the two (`enclosure.floor_t`)."""
+    return _enc.appliance_height - _enc.floor_t - _enc.wall
 
 
 def asse_crown_over_axis() -> float:

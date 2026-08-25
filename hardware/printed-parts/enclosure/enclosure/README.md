@@ -8,9 +8,12 @@ wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
 and `interior_x` both stand still: a bottom piece's three lipped sides get
 [6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
 flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [6 mm](BACK_TOP_FLANK) and its
-+Y wall [6 mm](BACK_TOP_WALL). **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
++Y wall [6 mm](BACK_TOP_WALL). The floor is the one section taken OUTWARD:
+[6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
+its underside, so it stands in the silhouette and the cavity's floor plane — the
+one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
 telescope and screw together.
-It measures [215 × 462 × 358 mm](BOX_SIZE), and **width, height and the +Y wall
+It measures [215 × 462 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
 that overruns one gets a wall drawn through it, a red row naming by how much, and a
@@ -25,7 +28,7 @@ clash in `pack-closes` at the body that overran.
   core is the widest of the floor bodies, yawed a quarter turn
   (`enclosure_assembly.FOAM_YAW`) so what crosses the machine is its 181 mm short face
   instead of its 283 mm long one. The yaw is the thin machine.
-- **Height** is a stated [358 mm](APPLIANCE_HEIGHT), floor slab's underside to the
+- **Height** is a stated [361 mm](APPLIANCE_HEIGHT), floor slab's underside to the
   top wall's outer face. The contents do not lift it; they have to fit under it.
 
 **Depth** is stated at the back — `rear_plane_y` — and follows the pack at the

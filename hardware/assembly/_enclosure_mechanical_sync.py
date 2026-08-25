@@ -137,6 +137,10 @@ def main():
         # The box `enclosure._dims` builds around the pack, and where it comes apart.
         "BOX_SIZE": (f"{_ox1 - _ox0:.0f} × {_oy1 - _oy0:.0f} × {_oz1 - _oz0:.0f} mm"),
         "WALL_T": f"{_enc.wall:.4g} mm",
+        # The FLOOR's own section, and the one on this box that does NOT grow inward: the
+        # stated height is struck to the slab's underside, so what the floor carries stands in
+        # the silhouette and the cavity keeps its floor plane where the pack stands on it.
+        "FLOOR_T": f"{_enc.floor_t:.4g} mm",
         # The FRONT wall's own section, which is not the wall the other five faces keep: it
         # is the face a user hauls the pump cartridge out by, so it carries section the way
         # the facet does and grows INWARD off the stated exterior. What noses into it takes a

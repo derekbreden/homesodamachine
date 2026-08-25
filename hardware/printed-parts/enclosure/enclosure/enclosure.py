@@ -158,6 +158,14 @@ import _enclosure_interface as _interface
 
 # Shell parameters.
 wall = _interface.wall      # PETG wall thickness
+# THE FLOOR SLAB IS NOT A WALL AND IS NOT ONE WALL THICK. It is the face the machine's whole
+# mass stands on, the face a body bolted DOWN rather than hung on a flank is anchored to
+# (`_floor_bosses`), and the one face of the box that prints flat on the bed — where section
+# is filament and nothing else: no bridge, no support, no standing wall to warp.
+# `appliance_height` is struck to its UNDERSIDE and the cavity keeps its own floor plane at
+# the pack's z = 0, so the slab stands in the silhouette: the machine is `floor_t`, the
+# cavity, and one `wall` of top.
+floor_t = 6.0
 interior_clearance = 0.0    # gap between contents bbox and inner wall
 # The +Y wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
@@ -790,11 +798,11 @@ side_band_inset = boss_in
 # (y_boss + socket_r) lands on the rim iff lip_len = plug_dia/2 + socket_r.
 lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 
-# The appliance's stated HEIGHT — floor slab's underside (z = −wall) to the top
+# The appliance's stated HEIGHT — floor slab's underside (z = −floor_t) to the top
 # wall's outer face. It is the machine's silhouette, the one dimension a counter
 # appliance is judged by before it is opened, and this is the number the thin machine
 # is FOR. The contents live under it; `_dims` measures whether they do (`box-height`).
-appliance_height = 358.0
+appliance_height = 361.0
 # The stated WIDTH — ±X outer faces, struck symmetric about x = 0, which is the axis
 # the whole pack is centred on. A body that leaves the floor, or a narrower one taking
 # its place, does not make the machine narrower; a pack that outgrows this is a red
@@ -2121,7 +2129,7 @@ def _bed_band(inner):
     where the station collars stop too); the top piece runs the seam plane to the top
     wall's outer face. Both print standing on a Z face, so the bed's Z bounds each of
     them, and each bound is one end of this band."""
-    oz0, oz1 = inner[4] - wall, inner[5] + wall
+    oz0, oz1 = inner[4] - floor_t, inner[5] + wall
     return oz1 - H2C_Z, oz0 + H2C_Z - lip_len
 
 
@@ -2247,10 +2255,10 @@ def _z_joints(placed, inner, stated, plate, y_joint):
     record_bound(Bound(
         "z-seam-two-pieces", "A column splits into two pieces the H2C can print",
         bed_hi >= bed_lo,
-        f"{iz1 - iz0 + 2.0 * wall:.2f} mm column, band {bed_lo:.2f}..{bed_hi:.2f}",
+        f"{iz1 - iz0 + floor_t + wall:.2f} mm column, band {bed_lo:.2f}..{bed_hi:.2f}",
         f"a band inside the H2C's {H2C_Z:g} mm Z",
         ([] if bed_hi >= bed_lo else [
-            f"a {iz1 - iz0 + 2.0 * wall:.2f} mm column has no seam height leaving two pieces "
+            f"a {iz1 - iz0 + floor_t + wall:.2f} mm column has no seam height leaving two pieces "
             f"inside the H2C's {H2C_Z:g} mm Z: the top piece wants the seam at or below "
             f"{bed_hi:.2f} and the bottom at or above {bed_lo:.2f}. It needs a third piece"])))
     spans = {"front": [], "back": []}
@@ -2308,7 +2316,7 @@ def _dims(pack):
     iy0 = front_plane_y
     iy1 = rear_plane_y
     iz0 = min(czmin, 0.0) - interior_clearance
-    iz1 = (iz0 - wall) + appliance_height - wall
+    iz1 = (iz0 - floor_t) + appliance_height - wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     y_joint = y_seam
     splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint)
@@ -2457,7 +2465,7 @@ def _dims(pack):
             f"downward"])))
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - front_wall, iy1 + wall
-    outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
+    outer = (ox0, ox1, oy0, oy1, iz0 - floor_t, iz1 + wall)
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
@@ -3629,8 +3637,9 @@ def _floor_scarf(inner, y_joint):
     The floor is the one seam face whose cavity side is occupied — the cold core
     rides on it — so it cannot carry the proud tongue the walls and ceiling do
     (`_front_lip`). Its overlap stays within the slab instead. The FRONT floor runs
-    aft at the slab's whole `wall` thickness, then tapers to the cavity-side datum
-    over one `wall`; the BACK floor gives up that envelope and keeps the matching
+    aft at the slab's whole `floor_t` thickness, then tapers to the cavity-side datum
+    over one `floor_t` — the run is the rise, which is what makes the nose 45° on a
+    slab of any section; the BACK floor gives up that envelope and keeps the matching
     bed-side wedge under the nose. The tongue's broad underside is on the print bed
     and the only rising face is 45°, so neither half asks support for the core's
     bearing surface. Assembled, the top remains one plane at z=iz0.
@@ -3643,12 +3652,12 @@ def _floor_scarf(inner, y_joint):
     Returns (tongue, relief): the solid the FRONT half fuses and the matching
     envelope the BACK half cuts."""
     ix0, ix1, _iy0, _iy1, iz0, _iz1 = inner
-    zbed = iz0 - wall
+    zbed = iz0 - floor_t
     root = y_joint - 1.0                              # robust face overlap into front slab
     tongue_tip = y_joint + lip_len - split_slip
-    tongue_flat = tongue_tip - wall
+    tongue_flat = tongue_tip - floor_t
     relief_tip = y_joint + lip_len
-    relief_flat = relief_tip - wall
+    relief_flat = relief_tip - floor_t
     tongue = _yz_prism(
         ix0 + split_slip / 2.0, ix1 - split_slip / 2.0,
         [(root, zbed), (tongue_flat, zbed), (tongue_tip, iz0), (root, iz0)])
@@ -7442,10 +7451,13 @@ def main():
         "COLUMN_FACE_LIGAMENT": (
             f"{_column_face_land(box.inner, box.outer) - 2.0 * flute_depth:.4g} mm"),
         "APPLIANCE_HEIGHT": f"{appliance_height:.4g} mm",
-        # The walls on this box that are not `wall`, and the piece each belongs to. Every one
-        # grows INWARD off the plane the box states, so the silhouette and `interior_x` both
-        # stand still and only the piece carrying the section knows about it.
+        # The sections on this box that are not `wall`, and the piece each belongs to. Every
+        # WALL grows INWARD off the plane the box states, so the silhouette and `interior_x`
+        # both stand still and only the piece carrying the section knows about it. The FLOOR
+        # is the one that does not: `appliance_height` is struck to its underside, so its
+        # section stands in the silhouette and the cavity keeps its floor plane at z = 0.
         "WALL_T": f"{wall:.4g} mm",
+        "FLOOR_T": f"{floor_t:.4g} mm",
         "FLUTE_COUNT": f"{flute_count:d}",
         "FLUTE_PERIM": f"{plan_perimeter(bo):.5g} mm",
         "FLUTE_PITCH": f"{flute_pitch(bo):.5g} mm",

@@ -7,7 +7,7 @@
    "min": [
     -107.5,
     5.0,
-    -3.0
+    -6.0
    ],
    "max": [
     107.5,
@@ -17,7 +17,7 @@
    "mm": [
     215.0,
     462.0,
-    358.0
+    361.0
    ]
   },
   {
@@ -26,7 +26,7 @@
    "min": [
     -113.5,
     5.0,
-    -3.0
+    -6.0
    ],
    "max": [
     107.5,
@@ -36,7 +36,7 @@
    "mm": [
     221.0,
     526.891,
-    364.0
+    367.0
    ]
   }
  ],
@@ -1314,7 +1314,7 @@
    "label": "The Z seam leaves every piece on the H2C's bed",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, band 35.00..303.90",
+   "value": "seam at 160.00, band 35.00..300.90",
    "target": "inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
@@ -1324,7 +1324,7 @@
    "label": "A column splits into two pieces the H2C can print",
    "kind": "gate",
    "status": "pass",
-   "value": "358.00 mm column, band 35.00..303.90",
+   "value": "361.00 mm column, band 35.00..300.90",
    "target": "a band inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
@@ -1405,7 +1405,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "pack reaches z 350.50, ceiling at 352.00",
-   "target": "under a 358 mm appliance",
+   "target": "under a 361 mm appliance",
    "detail": [],
    "active": true
   },

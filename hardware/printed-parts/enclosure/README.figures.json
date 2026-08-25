@@ -1,9 +1,9 @@
 {
   "/hardware/printed-parts/enclosure/_enclosure_dimensions.py": {
     "APPLIANCE_DEPTH": "462 mm",
-    "APPLIANCE_HEIGHT": "358 mm",
+    "APPLIANCE_HEIGHT": "361 mm",
     "APPLIANCE_WIDTH": "215 mm",
-    "BACK_BOTTOM_H": "202.9",
+    "BACK_BOTTOM_H": "205.9",
     "BACK_Z_SEAM": "160",
     "BED_Z": "320",
     "COMPRESSOR_ROOF": "135",

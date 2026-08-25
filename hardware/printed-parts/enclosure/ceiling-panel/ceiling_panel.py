@@ -78,7 +78,7 @@ import funnel as _funnel
 # from: `deck_storey` is this less the tap-water chain's crown and its tie clearance, and
 # every port, receptacle, axis and anchor on that deck is placed off it. The panel's
 # underside lies ON it and nothing below moves.
-underside_z = _enc.appliance_height - 2.0 * _enc.wall
+underside_z = _enc.appliance_height - _enc.floor_t - _enc.wall
 # The show face — the appliance's top surface. The panel carries the top wall's own
 # section, so this is one `wall` over the interior ceiling and the exterior top face both.
 show_z = underside_z + _enc.wall
