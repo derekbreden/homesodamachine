@@ -35,9 +35,14 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
   a drawer item). [28.8 mm](ROD_SOCKET) of it lives in the core's socket and
   [22.0 mm](ROD_BELOW) stands in silicone; it **bottoms** in the socket, so the stock
   length sets its own reach and nothing is measured on assembly. It touches no part
-  of the mould but that socket, and stops [10 mm](MOLD_BASE) short of the pocket's
+  of the mould but that socket, and stops [2 mm](TIP_CAP) short of the pocket's
   blind floor. Slip fit — the core lifts **off** it. Writes no STEP: it is stock,
   billed as a length the way the drain stub is.
+  **Buy it ground.** The socket carries [0.1 mm](ROD_FIT) of slip, so the rod's own
+  diameter tolerance has to be a fraction of that: ASME-standard ground dowel pins
+  hold 0.0025–0.013 mm and any of them will do. Pins sold on a 0.13–0.25 mm band —
+  the cheap bearing-steel shelf-peg grade — carry more error than this fit has room
+  for, and will either not enter the socket or rattle in it.
 
 ## The spout's bore is not printed
 
@@ -97,6 +102,11 @@ platinum-compatible release film.
   surface both traps concentrate and outgasses under vacuum. The cavity (outside)
   face can stay as-printed. Full procedure — seal, release, coupon-test — under
   "Finish the core" below.
+- **Open the socket before the first pour.** It models at
+  [6.45 mm](ROD_SOCKET_D) and printed PETG holes come out under it. Test-fit the rod
+  dry; if it does not drop in under its own weight, run a **1/4" bit** down the
+  socket — in PETG that leaves ~6.4–6.5 mm, which is the fit as drawn. Do this
+  *before* the core is sealed and released, so the swarf goes with the sanding.
 - **Critical bridge:** printed opening-up, the cavity's flange-seat ledge (the
   downward-facing shelf where the bowl recess meets the throat) is a short bridge
   that forms the bowl-rim seal — verify it prints clean.
