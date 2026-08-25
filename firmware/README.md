@@ -7,7 +7,7 @@ Seven source trees, each its own PlatformIO environment in [`/platformio.ini`](/
 | `src_appliance/` | `appliance` | the main board's WROOM (U1) | the appliance |
 | `src_pcba_bench/` | `pcba_bench` | the main board's WROOM (U1) | none — a bare board on the bench |
 | `src_front/` | `esp32s3_front` | Waveshare ESP32-S3-Touch-LCD-4.3B | the appliance |
-| `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance, and the prototype |
+| `src_faucet/` | `esp32s3_faucet` | Waveshare ESP32-S3-Touch-LCD-1.47 | the appliance |
 | `src_prototype/` | `prototype` | an ESP32 dev module on L298N drivers | the prototype under the counter |
 | `src_config/` | `esp32s3_config` | Meshnology 1.28" round rotary display | the prototype under the counter |
 | `src_display/` | `rp2040_display` | Waveshare RP2040-LCD-0.99 | the prototype under the counter |
@@ -74,7 +74,7 @@ deadline boundaries without opening a serial port. See [`test/README.md`](test/R
 ## Appliance displays
 
 - **ESP32-S3 enclosure display** (Waveshare ESP32-S3-Touch-LCD-4.3B) — The appliance's config + interaction surface on the enclosure's front face: a 4.3" 800×480 RGB capacitive touchscreen (GT911, CH422G I/O expander) angled up toward a standing user, linked to the base ESP32 over RS485. HOME presents both flavor cards and mirrors the main-board-owned selection shared with the faucet. A reusable operation lock puts the animated logo on the left and a clear status modal on the right; boot exercises it for at least two cycles. `src_front/` drives the panel through esp_lcd with a double framebuffer + bounce buffer for tear-free output and carries the RS485 link on GPIO43/44 as typed TinyProto frames ([`proto_msg.h`](lib/proto_link/proto_msg.h)). Service → Prime → a flavor → hold the pad sends `MSG_PRIME_START` and a tick every 500 ms under the finger; the base answers `MSG_RESP_PRIME` on every state change. See [`src_front/README.md`](src_front/README.md).
-- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector at the end of the gooseneck, on both machines. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the main board. The main board owns and persists the selection; faucet NVS is the immediate boot-logo cache. After a minute idle the backlight fades to an ember level, and the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
+- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector at the end of the appliance's gooseneck. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere changes it locally before a nonblocking J3 message reaches the main board. The main board owns and persists the selection; faucet NVS is the immediate boot-logo cache. After a minute idle the backlight fades to an ember level, and the first touch wakes it without toggling. See [`src_faucet/README.md`](src_faucet/README.md).
 
 The config UX the 4.3B carries in the appliance is the prototype's rotary-display UX below, and porting it is a pending integration seam.
 

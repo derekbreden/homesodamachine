@@ -6,7 +6,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "prestart": "node scripts/fetch-cad-artifacts.mjs",
+    "prestart": "node scripts/fetch-cad-artifacts.mjs && node scripts/fetch-firmware.mjs",
     "start": "node server.js",
     "dev": "node dev-server/server.js",
     "build": "node dev-server/build-all.js",

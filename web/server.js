@@ -12,6 +12,7 @@ import { mountTourRoutes } from "./lib/tour.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
+import { mountFirmwareRoutes } from "./lib/firmware.js";
 import { mountEvents } from "./lib/events.js";
 import {
   initPush,
@@ -271,6 +272,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
+  mountFirmwareRoutes(app, { commit });
   attachSubscribe(app, pool);
 
   // Live build commit, for boot.js's activation check: boot.js records it
