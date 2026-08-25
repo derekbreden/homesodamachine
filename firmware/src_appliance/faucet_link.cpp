@@ -337,7 +337,7 @@ void faucetLinkReadStatus(FaucetLinkStatus &status) {
     status.primeHeartbeatPublications = primeHeartbeatPublications;
 }
 
-bool faucetLinkSendOta(uint8_t type, const void *data, uint8_t len) {
+bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
     return faucet.trySend(type, data, len) >= 0;
 }
 

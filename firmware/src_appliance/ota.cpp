@@ -5,6 +5,14 @@
 #include "link.h"
 #include "faucet_link.h"
 
+// Each chunk plus its 4-byte offset has to fit what its link can carry, and
+// the length that carries it has to be wide enough to say so.
+static_assert(sizeof(OtaBeginPayload) <= 12,
+              "OTA_BEGIN is queued in link.cpp's Announce.data");
+static_assert(OTA_CHUNK_J9 + 4 <= 255,
+              "J9 is bare HDLC through a 256-byte tx frame, type byte included");
+static_assert(OTA_CHUNK_J3 + 4 <= UINT16_MAX, "the send length is uint16_t");
+
 // ── The session ───────────────────────────────────────────────────────────
 static OtaTarget target = OTA_TGT_NONE;
 static uint32_t  imgSize = 0;
@@ -45,7 +53,9 @@ static bool volunteer(OtaTarget t, uint8_t type, const void *data, uint8_t len) 
 }
 
 // Answering a request, from inside its dispatch.
-static bool reply(OtaTarget t, uint8_t type, const void *data, uint8_t len) {
+// uint16_t: a J3 chunk plus its offset is 1028 bytes, and a uint8_t length
+// here silently became 4 — every frame carrying an offset and no image.
+static bool reply(OtaTarget t, uint8_t type, const void *data, uint16_t len) {
     if (t == OTA_TGT_FAUCET)    return faucetLinkSendOta(type, data, len);
     if (t == OTA_TGT_ENCLOSURE) return linkReplyOta(type, data, len);
     return false;
@@ -110,7 +120,7 @@ void otaFeedHostBytes() {
     uint8_t frame[4 + OTA_CHUNK_J3];
     memcpy(frame, &bufOffset, 4);
     memcpy(frame + 4, buf, bufLen);
-    if (!faucetLinkSendOta(MSG_OTA_DATA, frame, (uint8_t)(4 + bufLen)))
+    if (!faucetLinkSendOta(MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen)))
         Serial.println("\nOTA:HOLD link busy");   // the receiver re-asks; bytes stay held
 }
 
@@ -129,7 +139,7 @@ bool otaOnRequest(OtaTarget from, const uint8_t *payload, uint16_t plen) {
         uint8_t frame[4 + OTA_CHUNK_J3];
         memcpy(frame, &bufOffset, 4);
         memcpy(frame + 4, buf, bufLen);
-        return reply(target, MSG_OTA_DATA, frame, (uint8_t)(4 + bufLen));
+        return reply(target, MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen));
     }
 
     if (hostOwes == 0) askHost(req.offset);

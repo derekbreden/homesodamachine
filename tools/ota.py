@@ -67,7 +67,18 @@ def open_console(port: str) -> serial.Serial:
     ser.dtr = False
     ser.rts = False
     ser.open()
-    time.sleep(2.5)
+
+    # Wait for the prompt rather than guessing at the boot. A command written
+    # while the console is still coming up is simply lost, and the transfer
+    # then waits forever on a board that never heard it asked.
+    deadline = time.time() + 15
+    seen = b""
+    while time.time() < deadline:
+        seen += ser.read(max(1, ser.in_waiting))
+        if seen.rstrip().endswith(b">"):
+            break
+    else:
+        sys.exit("the main board never showed its prompt — is it powered at J10?")
     ser.reset_input_buffer()
     return ser
 
