@@ -28,7 +28,7 @@ extern "C" const lv_font_t front_icons_96;
 // tools/gen_animation_frames.py from the app-icon artwork. Each frame's
 // background is THEME_BG, so the centered image blends into the screen fill.
 #include "ota_receiver.h"
-#include "front_art.h"
+#include "board_art.h"
 
 // The flavor marks are deliberately static artwork. Choose's selection refresh
 // changes only on actual main board state transitions, so these do not
@@ -286,7 +286,7 @@ static void lockScreenHide();
 // ── UI objects ──
 static lv_obj_t *lockScreen, *lockLogoImg, *lockKicker, *lockTitle, *lockBody;
 // Frame pixels live in the `art` partition, mapped through the MMU at boot —
-// see front_art.h. Null means the partition is absent or holds something this
+// see firmware/lib/board_art. Null means the partition is absent or holds something this
 // build does not recognise, and the lock screen then carries its text alone.
 static const uint16_t *animBase = nullptr;
 static inline const uint16_t *animFrame(uint8_t i) {
@@ -3060,7 +3060,7 @@ static void showRail(RailPage p) {
 }
 
 static void buildUi() {
-  animBase = frontArtMap(NUM_ANIM_FRAMES, LOGO_SIZE, LOGO_SIZE);
+  animBase = boardArtMap(NUM_ANIM_FRAMES, LOGO_SIZE, LOGO_SIZE);
   for (uint8_t i = 0; i < NUM_ANIM_FRAMES; i++) {
     frameDsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
     frameDsc[i].header.always_zero = 0;
@@ -3309,8 +3309,8 @@ static void processTextLine(const char *line) {
     primeSessionCancel();
     Serial.println("OK:PRIME:EXIT");
   } else if (strcmp(line, "ART") == 0) {
-    FrontArtHeader h;
-    if (!frontArtHeader(h)) {
+    BoardArtHeader h;
+    if (!boardArtHeader(h)) {
       Serial.println("ART:none — no art partition, or it could not be mapped");
     } else {
       Serial.printf("ART:magic=%08lX format=%lu count=%lu %ux%u crc=%08lX mapped=%d\n",
@@ -3320,7 +3320,7 @@ static void processTextLine(const char *line) {
     }
   } else if (strcmp(line, "ART:VERIFY") == 0) {
     // Walks 3.96 MB, so it is asked for rather than done at boot.
-    Serial.printf("ART:VERIFY=%s\n", frontArtVerify() ? "PASS" : "FAIL");
+    Serial.printf("ART:VERIFY=%s\n", boardArtVerify() ? "PASS" : "FAIL");
   } else if (strcmp(line, "PANEL:REALIGN") == 0) {
     panelRealign();
     Serial.println("OK:PANEL:REALIGN");

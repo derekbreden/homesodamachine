@@ -175,17 +175,21 @@ if os.path.isdir(libdeps_dir):
             with open(fd_cpp, "w") as f:
                 f.write(content)
 
-# ── The enclosure display's art partition ─────────────────────────────────
-# The loading animation is not compiled into that board's image any more; it
-# lives in its own partition (firmware/partitions_s3_front.csv, `art`). Laying
-# it out here rather than by hand is what keeps the blob and the firmware from
-# drifting: both come from this tree, in one build.
-if env_name == "esp32s3_front":
+# ── The display art partitions ────────────────────────────────────────────
+# Neither display compiles its pixels into its image any more; each has an
+# `art` partition (firmware/partitions_s3_front.csv, firmware/partitions_s3.csv)
+# and firmware/lib/board_art maps it. Laying the blob out here rather than by
+# hand is what keeps it and the firmware from drifting: both come from this
+# tree, in one build.
+ART_BOARD = {"esp32s3_front": ("enclosure", "src_front"),
+             "esp32s3_config": ("rotary", "src_config")}
+if env_name in ART_BOARD:
+    board, tree = ART_BOARD[env_name]
     art_out = os.path.join(env.subst("$BUILD_DIR"), "art.bin")
-    maker = os.path.join(env.subst("$PROJECT_DIR"), "tools", "make_front_art.py")
-    images = os.path.join(env.subst("$PROJECT_DIR"), "firmware", "src_front", "images")
+    maker = os.path.join(env.subst("$PROJECT_DIR"), "tools", "make_art.py")
+    images = os.path.join(env.subst("$PROJECT_DIR"), "firmware", tree, "images")
     newest = max((os.path.getmtime(os.path.join(images, f))
-                  for f in os.listdir(images) if f.startswith("anim_")), default=0)
+                  for f in os.listdir(images) if f.endswith(".h")), default=0)
     if not os.path.isfile(art_out) or os.path.getmtime(art_out) < newest:
         os.makedirs(os.path.dirname(art_out), exist_ok=True)
-        subprocess.run([sys.executable, maker, "-o", art_out], check=True)
+        subprocess.run([sys.executable, maker, board, "-o", art_out, "-q"], check=True)

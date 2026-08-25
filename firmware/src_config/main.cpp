@@ -4,6 +4,10 @@
 #include <lvgl.h>
 #include <LittleFS.h>
 #include <NimBLEDevice.h>
+#include <esp_mac.h>
+
+#include "board_art.h"
+#include "ble_ota.h"
 #include "host/ble_hs_mbuf.h"
 #include "host/ble_gatt.h"
 #include <PersistentLog.h>
@@ -13,34 +17,23 @@
 #include "fw_version.h"
 
 // Seed images (compiled in for first-boot only, then served from LittleFS)
-#include "images/flavor0_240.h"
-#include "images/flavor1_240.h"
-#include "images/flavor2_240.h"
 // Animation frames (compiled in for screensaver idle animation)
-#include "images/anim_00.h"
-#include "images/anim_01.h"
-#include "images/anim_02.h"
-#include "images/anim_03.h"
-#include "images/anim_04.h"
-#include "images/anim_05.h"
-#include "images/anim_06.h"
-#include "images/anim_07.h"
-#include "images/anim_08.h"
-#include "images/anim_09.h"
-#include "images/anim_10.h"
-#include "images/anim_11.h"
-#include "images/anim_12.h"
-#include "images/anim_13.h"
-#include "images/anim_14.h"
-#include "images/anim_15.h"
 
-static const uint16_t *animFrames[] = {
-    anim_00, anim_01, anim_02, anim_03,
-    anim_04, anim_05, anim_06, anim_07,
-    anim_08, anim_09, anim_10, anim_11,
-    anim_12, anim_13, anim_14, anim_15,
-};
+// The animation and the three flavor faces live in the `art` partition, laid
+// out by tools/make_art.py in this order and mapped through the MMU — see
+// firmware/lib/board_art. Null means the partition is absent or holds something
+// this build does not recognise; the board runs, and draws no logo.
 static const uint8_t NUM_ANIM_FRAMES = 16;
+static const uint8_t NUM_SEED_IMAGES = 3;
+static const uint16_t ART_SIZE_PX = 240;
+static const uint16_t *artBase = nullptr;
+
+static inline const uint16_t *animFrame(uint8_t i) {
+  return boardArtAt(artBase, i, ART_SIZE_PX, ART_SIZE_PX);
+}
+static inline const uint16_t *seedImage(uint8_t i) {
+  return boardArtAt(artBase, NUM_ANIM_FRAMES + i, ART_SIZE_PX, ART_SIZE_PX);
+}
 
 // ════════════════════════════════════════════════════════════
 //  ESP32-S3 Config Display — Soda Flavor Injector
@@ -123,6 +116,21 @@ static lv_color_t *lvgl_buf;
 
 // ── UART to ESP32 (Serial0 = UART0, J34 connector) ──
 ProtoLink proto;  // TinyProto HDLC link to ESP32
+
+// ── An image arriving from the phone ──────────────────────────────────────
+// This board holds the radio, so it is where firmware enters the prototype. An
+// image for this display goes into its own spare slot; one for the ESP32 goes
+// onto the link as it lands. firmware/lib/ble_ota is the session either way.
+static IdentityPayload machineIdent{};
+static bool            haveIdent = false;
+static uint32_t        identAskedAtMs = 0;
+
+// A BLE write arrives on the NimBLE task and the session touches flash, so one
+// frame is staged and handled from loop(). The pull only ever asks for one.
+static const uint16_t OTA_STAGE = 640;
+static volatile uint16_t otaStageLen = 0;
+static uint8_t  otaStage[OTA_STAGE];
+static uint32_t otaStageDrops = 0;
 
 // ── BLE (GATT/NUS via NimBLE-Arduino) ──
 #define NUS_SERVICE_UUID "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
@@ -293,6 +301,14 @@ class BLERxCB : public NimBLECharacteristicCallbacks {
     const uint8_t *payload = d + 3;
 
     switch (type) {
+      case BLE_FRAME_OTA_BEGIN:
+      case BLE_FRAME_OTA_DATA: {
+        if (raw.length() > OTA_STAGE || otaStageLen != 0) { ++otaStageDrops; break; }
+        memcpy(otaStage, d, raw.length());
+        otaStageLen = (uint16_t)raw.length();
+        break;
+      }
+
       case BLE_FRAME_TEXT: {
         char textBuf[256];
         size_t tLen = payloadLen < sizeof(textBuf) - 1 ? payloadLen : sizeof(textBuf) - 1;
@@ -779,8 +795,51 @@ class BLEServerCB : public NimBLEServerCallbacks {
   }
 };
 
+// The main board is the only one that knows which machine it is; until it
+// answers, this display's own MAC names the board.
+static void advertisedName(char *out, size_t cap) {
+  if (haveIdent && machineIdent.name[0]) { snprintf(out, cap, "%s", machineIdent.name); return; }
+  uint8_t unit[3];
+  if (haveIdent) memcpy(unit, machineIdent.unit, 3);
+  else {
+    uint8_t mac[6] = {0};
+    esp_read_mac(mac, ESP_MAC_WIFI_STA);
+    unit[0] = mac[3]; unit[1] = mac[4]; unit[2] = mac[5];
+  }
+  snprintf(out, cap, "SodaMachine %02X-%02X", unit[1], unit[2]);
+}
+
+static void applyAdvertising() {
+  NimBLEAdvertising *adv = NimBLEDevice::getAdvertising();
+  adv->stop();
+  char name[32];
+  advertisedName(name, sizeof(name));
+  NimBLEDevice::setDeviceName(name);
+
+  // The 128-bit service UUID fills half of the 31-byte advertisement, so the
+  // name and the manufacturer block ride the scan response. 0xFFFF is the
+  // company id reserved for a device that has none.
+  NimBLEAdvertisementData scan;
+  scan.setName(name);
+  uint8_t mfg[6];
+  mfg[0] = 0xFF; mfg[1] = 0xFF;
+  mfg[2] = haveIdent ? machineIdent.model : 0;
+  memcpy(mfg + 3, haveIdent ? machineIdent.unit : (const uint8_t *)"\0\0\0", 3);
+  scan.setManufacturerData(mfg, sizeof(mfg));
+  adv->setScanResponseData(scan);
+
+  NimBLEAdvertisementData primary;
+  primary.setFlags(BLE_HS_ADV_F_DISC_GEN | BLE_HS_ADV_F_BREDR_UNSUP);
+  primary.addServiceUUID(NimBLEUUID(NUS_SERVICE_UUID));
+  adv->setAdvertisementData(primary);
+  adv->start();
+}
+
 static void initBLE() {
-  NimBLEDevice::init("SodaMachine");
+  char bootName[32];
+  advertisedName(bootName, sizeof(bootName));
+  NimBLEDevice::init(bootName);
+  NimBLEDevice::setMTU(517);
 
   pBLEServer = NimBLEDevice::createServer();
   pBLEServer->setCallbacks(new BLEServerCB());
@@ -805,9 +864,21 @@ static void initBLE() {
   NimBLEAdvertising *pAdv = NimBLEDevice::getAdvertising();
   pAdv->addServiceUUID(NUS_SERVICE_UUID);
   pAdv->enableScanResponse(true);
-  pAdv->start();
+  BleOtaSeams seams{};
+  seams.notify = [](uint8_t type, const void *data, uint16_t len) {
+    bleSendFrame(type, (const uint8_t *)data, len);
+  };
+  seams.sendSrc = [](uint8_t type, const void *data, uint16_t len) {
+    return proto.trySend(type, data, len) >= 0;
+  };
+  // This display draws its own screen; a flash write on an SPI panel has none
+  // of the enclosure's PSRAM conflict, so nothing has to stop.
+  seams.onLocalProgress = nullptr;
+  seams.self = OTA_TGT_FAUCET;   // "the board holding the radio"
+  bleOtaBegin(seams);
 
-  Serial.println("BLE: NUS service started, advertising as 'SodaMachine'");
+  applyAdvertising();
+  Serial.printf("BLE: NUS service started, advertising as '%s'\n", bootName);
 }
 
 // ── Menu ──
@@ -975,11 +1046,6 @@ static bool loadImageFromFS(uint8_t slot) {
 //  First-boot seeding: write PROGMEM images to LittleFS
 // ════════════════════════════════════════════════════════════
 
-static const uint16_t *seedBitmaps[] = {
-  flavor0_240,   // 0 = flavor_1
-  flavor1_240,   // 1 = flavor_2
-  flavor2_240,   // 2 = flavor_3
-};
 static const char *seedLabelsArr[] = {
   "flavor_1",
   "flavor_2",
@@ -990,13 +1056,16 @@ static void seedDefaultImages() {
   if (LittleFS.exists(META_PATH)) return;  // already seeded
 
   Serial.println("First boot: seeding default images to LittleFS...");
-  for (uint8_t i = 0; i < 3; i++) {
+  for (uint8_t i = 0; i < NUM_SEED_IMAGES; i++) {
+    const uint16_t *pixels = seedImage(i);
+    if (!pixels) continue;   // no art partition: the slot stays empty
     char path[16];
     imagePath(path, i);
     File f = LittleFS.open(path, "w");
     if (f) {
-      // On ESP32-S3, PROGMEM is memory-mapped flash (same as regular const)
-      f.write((const uint8_t *)seedBitmaps[i], IMAGE_BYTES);
+      // The art partition is mapped, so this is a copy out of flash the CPU
+      // reads through the MMU exactly as it did the const arrays.
+      f.write((const uint8_t *)pixels, IMAGE_BYTES);
       f.close();
       Serial.printf("  Seeded %s (%d bytes)\n", path, IMAGE_BYTES);
     }
@@ -1608,6 +1677,31 @@ static void onMessage(ProtoLink *link, const uint8_t *data, uint16_t len) {
   uint16_t payloadLen = msgPayloadLen(len);
 
   switch (type) {
+    case MSG_OTA_SRC_NEED: {
+      if (payloadLen < sizeof(OtaSrcNeedPayload)) break;
+      OtaSrcNeedPayload need;
+      memcpy(&need, payload, sizeof(need));
+      bleOtaOnSrcNeed(need.offset, need.len);
+      break;
+    }
+    case MSG_OTA_SRC_END: {
+      if (payloadLen < sizeof(OtaStatePayload)) break;
+      OtaStatePayload st;
+      memcpy(&st, payload, sizeof(st));
+      bleOtaOnSrcEnd(st);
+      break;
+    }
+    case MSG_RESP_IDENTITY: {
+      if (payloadLen < sizeof(IdentityPayload)) break;
+      memcpy(&machineIdent, payload, sizeof(machineIdent));
+      haveIdent = true;
+      Serial.printf("IDENTITY model=%u unit=%02X%02X%02X name=%s\n",
+                    machineIdent.model, machineIdent.unit[0], machineIdent.unit[1],
+                    machineIdent.unit[2],
+                    machineIdent.name[0] ? machineIdent.name : "(unset)");
+      break;
+    }
+
     case MSG_UPLOAD_START: {
       if (payloadLen < sizeof(UploadStartPayload)) break;
       const UploadStartPayload *pl = (const UploadStartPayload *)payload;
@@ -2011,7 +2105,7 @@ static void animTimerCb(lv_timer_t *timer) {
   (void)timer;
   if (!screensaverActive || !animCanvas) return;
   animFrameIdx = (animFrameIdx + 1) % NUM_ANIM_FRAMES;
-  lv_canvas_set_buffer(animCanvas, (lv_color_t *)animFrames[animFrameIdx],
+  lv_canvas_set_buffer(animCanvas, (lv_color_t *)animFrame(animFrameIdx),
                        240, 240, LV_IMG_CF_TRUE_COLOR);
   lv_refr_now(NULL);
 }
@@ -2031,7 +2125,7 @@ void drawScreensaver() {
 
   animFrameIdx = 0;
   animCanvas = lv_canvas_create(scr);
-  lv_canvas_set_buffer(animCanvas, (lv_color_t *)animFrames[0],
+  lv_canvas_set_buffer(animCanvas, (lv_color_t *)animFrame(0),
                        240, 240, LV_IMG_CF_TRUE_COLOR);
   lv_obj_align(animCanvas, LV_ALIGN_CENTER, 0, 0);
   lv_refr_now(NULL);
@@ -2336,6 +2430,8 @@ void setup() {
   }
   plog.println("Boot — firmware %s, heap=%lu, reason=%s",
                FW_VERSION, (unsigned long)ESP.getFreeHeap(), reasonStr);
+  artBase = boardArtMap(NUM_ANIM_FRAMES + NUM_SEED_IMAGES, ART_SIZE_PX, ART_SIZE_PX);
+  if (!artBase) Serial.println("ART: no art partition — the logo will not draw");
   seedDefaultImages();
   numImages = countImages();
   loadLabels();
@@ -2416,7 +2512,31 @@ void setup() {
   Serial.println("Ready. Rotate to navigate, tap to edit/confirm.");
 }
 
+// Handled from loop() rather than the NimBLE task: the session writes flash.
+static void serviceBleOta() {
+  bleOtaService();
+
+  if (!haveIdent && millis() - identAskedAtMs >= 2000) {
+    identAskedAtMs = millis();
+    proto.trySend(MSG_IDENTITY_QUERY, nullptr, 0);
+  }
+  static bool advertisedIdent = false;
+  if (haveIdent && !advertisedIdent) { advertisedIdent = true; applyAdvertising(); }
+
+  if (otaStageLen == 0) return;
+  const uint16_t len = otaStageLen;
+  static uint8_t work[OTA_STAGE];
+  memcpy(work, otaStage, len);
+  otaStageLen = 0;
+  if (len < 3) return;
+  const uint16_t plen = (uint16_t)(work[1] | (work[2] << 8));
+  if (3 + plen > len) return;
+  bleOtaHandleFrame(work[0], work + 3, plen);
+}
+
 void loop() {
+  serviceBleOta();
+
   // Boot sync: request config from ESP32 every 500ms until synced
   if (!configSynced && millis() - lastGetConfig > 500) {
     proto.sendText("GET_CONFIG");
