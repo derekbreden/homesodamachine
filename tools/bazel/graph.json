@@ -6720,6 +6720,7 @@
       "hardware/ledger/bom.md",
       "hardware/ledger/machine-time.figures.json",
       "hardware/ledger/machine-time.md",
+      "hardware/scripts/_bom_masses.py",
       "hardware/scripts/_machine_time.py",
       "hardware/scripts/_realized.py",
       "tools/docgen/__init__.py"

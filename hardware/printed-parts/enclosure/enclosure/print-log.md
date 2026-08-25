@@ -116,3 +116,23 @@ Polymaker publishes a `Fiberon PET-GF15 @BBL H2C` preset of their own — filame
 `filament_density` 1.43, `required_nozzle_HRC` 40, `compatible_printers` `Bambu Lab H2C 0.4
 nozzle`, and 310 °C / bed 70 / chamber 0 / 8 mm³/s / fan 0-10-40. The slot on this machine is
 the cloned one, at the settings above.
+
+### What the front-top plate measures
+
+The front-top sliced on the PET-GF slot at `0.24mm Standard @BBL H2C` — the 0.24 layer of the
+PETG profile above rather than this section's 0.20, top/bottom shells 4/3, everything else as
+listed — with tree supports and a 5 mm auto brim:
+
+**213.06 m / 20 h 23 m, 813 layers to 195.08 mm.**
+
+Metres, not grams, is the figure to carry. The slot's `filament_density` is 1.29 (above), so
+the 661.09 g Bambu Studio prints for this plate is PET-CF's number and not this spool's:
+213.06 m of 1.75 mm filament is **512.5 cm³**, which at PET-GF15's 1.43 g/cm³ is **733 g**.
+
+Two ledgers stand on it. [bom.md §7](/hardware/ledger/bom.md) bills the piece at 456 cm³ —
+shell plus 15 % grid off the solid's own volume and area
+([`_bom_masses.py`](/hardware/scripts/_bom_masses.py) `PROFILES`) — and the 56 cm³ between
+that and the plate is the supports and the brim, which §7 does not bill.
+[machine-time.md](/hardware/ledger/machine-time.md) §1 carries the 20 h 23 m against §7's
+0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even
+though they are out of the mass.

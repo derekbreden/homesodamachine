@@ -7791,6 +7791,7 @@ genrule(
     srcs = [
         "hardware/ledger/bom.md",
         "hardware/ledger/machine-time.md",
+        "pysrc/hardware/scripts/_bom_masses.py",
         "pysrc/hardware/scripts/_machine_time.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/tools/docgen/__init__.py",
