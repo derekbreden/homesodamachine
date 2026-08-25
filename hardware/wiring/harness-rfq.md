@@ -87,7 +87,7 @@ contact count.
 | 7 | Faston 250 receptacle | TE **2178438-1**, 6.3 mm, female, 20–24 AWG | 12 | ea |
 | 8 | Faston 187 receptacle | TE **170214-2**, 4.8 mm, female, 20–24 AWG | 4 | ea |
 | 9 | Bootlace ferrule, insulated | DIN 46228-4, to suit final gauge | 13 | ea |
-| 10 | Hook-up wire | black silicone 600 V, 22 AWG, 1.7 mm ± 0.1 OD | 25.1 | m |
+| 10 | Hook-up wire | black silicone 600 V, 22 AWG, 1.7 mm ± 0.1 OD | 22.7 | m |
 | 11 | Ribbon, 4-conductor | 28 AWG jacketed, black | 1.0 | m |
 | 12 | Braided sleeve, 3/4" | black PET expandable | 0.30 | m |
 | 13 | Braided sleeve, 1/2" | black PET expandable | 1.70 | m |
@@ -96,7 +96,7 @@ contact count.
 | 16 | Heat-shrink marker, label | black, one per assembly, printed with the assembly name | 10 | ea |
 
 **Wire length by assembly** (sum of conductor cut lengths, service loop excluded): J1 3900, J2 2100,
-J4 3300, J5 600, J6 3000, J7 4200, J9 4000, J11 2400, J13 1600 mm. J3 is the ribbon, quoted by the
+J4 3300, J5 600, J6 3000, J7 4200, J9 1600, J11 2400, J13 1600 mm. J3 is the ribbon, quoted by the
 metre instead.
 
 Items 7 and 8 split on an assumption — see Open question 2. Item 9's barrel is sized for 22 AWG;
@@ -232,10 +232,10 @@ Same XHP-7 as J4 — label at the housing.
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1 | `B` | display RS485 B | ~1 m | ferrule |
-| 2 | `A` | display RS485 A | ~1 m | ferrule |
-| 3 | `GND` | display 7–36 V input GND | ~1 m | ferrule |
-| 4 | `V12` | display 7–36 V input + | ~1 m | ferrule |
+| 1 | `B` | display RS485 B | ~400 mm | ferrule |
+| 2 | `A` | display RS485 A | ~400 mm | ferrule |
+| 3 | `GND` | display 7–36 V input GND | ~400 mm | ferrule |
+| 4 | `V12` | display 7–36 V input + | ~400 mm | ferrule |
 
 **`A` and `B` twisted pair** over the run; `V12`/`GND` ride the same sleeve.
 
