@@ -148,6 +148,7 @@ class ServerCB : public NimBLEServerCallbacks {
     NimBLEDevice::startAdvertising();
   }
   void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
+    bleOtaSetMtu(mtu);
     Serial.printf("BLE: MTU %u\n", mtu);
   }
 };

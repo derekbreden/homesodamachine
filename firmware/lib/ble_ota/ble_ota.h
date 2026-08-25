@@ -43,9 +43,12 @@ struct __attribute__((packed)) BleOtaNeed {
   uint16_t len;
 };
 
-// The most image bytes one BLE_FRAME_OTA_DATA carries. A 517-byte MTU leaves
-// 514 for the payload, less the 3-byte header and the 4-byte offset.
+// The most image bytes one BLE_FRAME_OTA_DATA carries, at the largest MTU worth
+// asking for: 517 leaves 514 for the payload, less the 3-byte header and the
+// 4-byte offset. What is actually asked for is bounded by the MTU the phone
+// agreed to — a write longer than that is one the phone cannot make.
 constexpr uint16_t BLE_OTA_ASK = 480;
+constexpr uint16_t BLE_OTA_FRAME_OVERHEAD = 3 + 4;   // header, then the offset
 
 // What the owning board supplies: its notify, its link to the main board, and
 // what it does to its own screen while its own flash is being written.
@@ -59,6 +62,9 @@ struct BleOtaSeams {
 
 void bleOtaBegin(const BleOtaSeams &seams);
 void bleOtaService();
+
+// The MTU the phone agreed to, from the server's onMTUChange.
+void bleOtaSetMtu(uint16_t mtu);
 
 // Frames off the radio. `handleFrame` returns true when it took the type.
 bool bleOtaHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen);
