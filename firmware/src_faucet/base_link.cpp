@@ -222,7 +222,7 @@ static uint32_t otaAskedAtMs = 0;
 static uint32_t otaFrames = 0, otaDups = 0, otaGaps = 0, otaBytes = 0;
 static bool     otaRebootPending = false;
 static uint32_t otaRebootAtMs = 0;
-static const uint32_t OTA_REASK_MS = 400;
+static const uint32_t OTA_REASK_MS = 40;
 
 static void otaAsk() {
   OtaReqPayload req{ota.nextOffset()};

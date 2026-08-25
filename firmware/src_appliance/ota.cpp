@@ -140,13 +140,22 @@ bool otaOnRequest(OtaTarget from, const uint8_t *payload, uint16_t plen) {
     memcpy(&req, payload, sizeof(req));
     if (req.offset > imgSize) return false;
 
-    // Already holding exactly what it wants: answer straight from the buffer
-    // without spending a host round trip. This is the retry path.
+    // Already holding exactly what it wants: answer straight from the buffer.
     if (bufFull && req.offset == bufOffset) {
         uint8_t frame[4 + OTA_CHUNK_J3];
         memcpy(frame, &bufOffset, 4);
         memcpy(frame + 4, buf, bufLen);
-        return reply(target, MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen));
+        const uint32_t sent = bufOffset;
+        const uint16_t sentLen = bufLen;
+        const bool ok = reply(target, MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen));
+
+        // Prefetch. Without this every chunk costs a full host round trip that
+        // J9 cannot overlap — the receiver asks, this board has nothing, the
+        // turn is spent, and the bytes only leave on the request after that.
+        // Asking now means the next request finds them already here.
+        if (ok && hostOwes == 0 && (uint32_t)(sent + sentLen) < imgSize)
+            askHost(sent + sentLen);
+        return ok;
     }
 
     if (hostOwes == 0) askHost(req.offset);
