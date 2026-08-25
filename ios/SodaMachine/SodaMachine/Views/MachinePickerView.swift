@@ -18,12 +18,10 @@ struct MachinePickerView: View {
 
             VStack(spacing: 0) {
                 VStack(spacing: 6) {
-                    Text("Choose a machine")
-                        .font(.system(size: 20, weight: .medium))
+                    Text("Which machine?")
+                        .font(.system(size: 22, weight: .semibold))
                         .foregroundStyle(Theme.textPrimary)
-                    Text(ble.discovered.count == 1
-                         ? "One machine is in range."
-                         : "\(ble.discovered.count) machines are in range.")
+                    Text("Pick the one you're standing at.")
                         .font(.system(size: 14))
                         .foregroundStyle(Theme.textSecondary)
                 }
@@ -52,6 +50,7 @@ struct MachinePickerView: View {
                         .foregroundStyle(Theme.textSecondary)
                 }
                 .padding(.vertical, 20)
+                .accessibilityHidden(true)
             }
         }
     }

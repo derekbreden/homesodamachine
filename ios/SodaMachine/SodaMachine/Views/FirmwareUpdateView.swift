@@ -3,6 +3,11 @@ import SwiftUI
 // ────────────────────────────────────────────────────────────
 // Whether this machine is current, and the one button that makes it so.
 //
+// NOTHING HERE NAMES A BOARD. A machine is several of them and an update is
+// several images, and neither is a thing a person owns — they own a soda
+// machine. So there is one bar for the whole run, one button, and one sentence
+// about what to do while it happens.
+//
 // A machine is several boards, and being current is all of them being current.
 // Each reports the version string `pre_build.py` wrote into its own tree, and
 // the manifest carries the same strings — so the comparison is a value against
@@ -27,7 +32,7 @@ struct FirmwareUpdateView: View {
 
     var body: some View {
         VStack(spacing: 18) {
-            Text("Firmware")
+            Text("Software Update")
                 .font(.system(size: 20, weight: .medium))
                 .foregroundStyle(Theme.textPrimary)
                 .padding(.top, 24)
@@ -41,12 +46,12 @@ struct FirmwareUpdateView: View {
                 Text("Checking for updates")
                     .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
-            } else if let error = catalog.error {
-                state("Could not reach homesodamachine.com", error)
+            } else if catalog.error != nil {
+                state("Couldn't check for updates",
+                      "Make sure your phone is online, then try again.")
                 checkButton()
             } else if !heardFrom {
-                state("Asking the machine what it is running",
-                      "It has not answered yet.")
+                state("Checking your machine", "")
                 checkButton()
             } else if behind.isEmpty {
                 state("Your machine is up to date",
@@ -65,13 +70,11 @@ struct FirmwareUpdateView: View {
 
     private var available: some View {
         VStack(spacing: 14) {
-            Text("An update is available")
-                .font(.system(size: 17, weight: .medium))
+            Text("An update is ready")
+                .font(.system(size: 20, weight: .semibold))
                 .foregroundStyle(Theme.textPrimary)
 
-            Text(behind.count == 1
-                 ? "One part of your machine has a newer version."
-                 : "\(behind.count) parts of your machine have newer versions.")
+            Text("This usually takes a few minutes.")
                 .font(.system(size: 14))
                 .foregroundStyle(Theme.textSecondary)
                 .multilineTextAlignment(.center)
@@ -105,9 +108,9 @@ struct FirmwareUpdateView: View {
         VStack(spacing: 14) {
             if push.finished && ble.otaQueue.isEmpty {
                 Text("Update complete")
-                    .font(.system(size: 17, weight: .medium))
+                    .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
-                Text("Your machine is restarting into it.")
+                Text("Your machine is restarting.")
                     .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
                 Button("Done") { ble.otaProgress = nil }
@@ -115,24 +118,21 @@ struct FirmwareUpdateView: View {
                     .foregroundStyle(Theme.textPrimary)
                     .padding(.top, 6)
             } else if let why = push.failure {
-                Text("The update stopped")
-                    .font(.system(size: 17, weight: .medium))
+                Text("The update didn't finish")
+                    .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
                 Text(why)
-                    .font(.system(size: 13))
-                    .foregroundStyle(.orange)
+                    .font(.system(size: 14))
+                    .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
-                Text("Your machine is still running what it was.")
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.textSecondary)
                 Button("Done") { ble.otaProgress = nil }
                     .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(Theme.textPrimary)
                     .padding(.top, 6)
             } else {
                 Text("Updating your machine")
-                    .font(.system(size: 17, weight: .medium))
+                    .font(.system(size: 20, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
 
                 ProgressView(value: overall)
@@ -140,8 +140,8 @@ struct FirmwareUpdateView: View {
                     .scaleEffect(x: 1, y: 1.6, anchor: .center)
                     .padding(.horizontal, 32)
 
-                Text(step)
-                    .font(.system(size: 13))
+                Text("\(Int(overall * 100))%")
+                    .font(.system(size: 14).monospacedDigit())
                     .foregroundStyle(Theme.textSecondary)
 
                 Text("Keep your phone near the machine. Do not unplug it.")
@@ -163,14 +163,6 @@ struct FirmwareUpdateView: View {
         let total = ble.otaQueueDone + ble.otaQueue.count
         guard total > 0, let push = ble.otaProgress else { return 0 }
         return (Double(ble.otaQueueDone) + push.fraction) / Double(total)
-    }
-
-    private var step: String {
-        let total = ble.otaQueueDone + ble.otaQueue.count
-        guard let push = ble.otaProgress else { return "" }
-        return total > 1
-            ? "\(push.what) — part \(ble.otaQueueDone + 1) of \(total)"
-            : push.what
     }
 
     // MARK: - Pieces
