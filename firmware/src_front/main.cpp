@@ -1101,9 +1101,11 @@ static bool otaPanelStopped = false;
 static bool otaRebootPending = false;
 static unsigned long otaRebootAtMs = 0;
 static const unsigned long OTA_REASK_MS = 40;
+static unsigned long otaLastDataMs = 0;
 
 static void j9Post(uint8_t type, const void *data, uint8_t len);
 static bool setBacklight(bool on);
+static void j9Reinit(const char *why);
 
 static void otaStopPanel() {
   if (otaPanelStopped) return;
@@ -1150,6 +1152,7 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     memcpy(&b, payload, sizeof(b));
     otaBanner();
     otaStopPanel();
+    otaLastDataMs = millis();
     ota.begin(b.size, b.crc32, b.kind);
     otaReport();
     if (ota.active()) otaAsk();
@@ -1158,6 +1161,7 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
   }
 
   if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
+    otaLastDataMs = millis();
     uint32_t offset;
     memcpy(&offset, payload, 4);
     if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
@@ -1177,7 +1181,21 @@ static void otaOnFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
 
 static void otaService() {
   if (otaRebootPending && (long)(millis() - otaRebootAtMs) >= 0) esp_restart();
-  if (ota.active() && millis() - otaAskedAtMs >= OTA_REASK_MS) otaAsk();
+  if (!ota.active()) return;
+
+  // A transfer owns the loop, which means it also owns the link's recovery.
+  // The pair can wedge mid-session with this end still sending — the failure
+  // j9Reinit exists for — and the poll that normally notices is one of the
+  // things being skipped. Without this the transfer simply stops, with the
+  // main board still holding the chunk nobody asks for any more.
+  if (millis() - otaLastDataMs >= 2000) {
+    otaLastDataMs = millis();
+    j9Reinit("no OTA data for 2s");
+    otaAsk();
+    return;
+  }
+
+  if (millis() - otaAskedAtMs >= OTA_REASK_MS) otaAsk();
 }
 
 static void j9Post(uint8_t type, const void *data, uint8_t len) {
