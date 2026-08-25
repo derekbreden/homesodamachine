@@ -4,7 +4,7 @@ In the BOX'S OWN FRAME, not a frame of its own: every plane this part stands on 
 plane the box states about itself, and a second copy of any of them is a second machine.
 Its 3 mm show skin spans the interior ceiling datum and its top face IS the appliance's top
 surface. A broad 8 mm structural field descends into the room, relieved only where the placed
-bodies and a strap approach need that volume.
+bodies and a zip tie approach need that volume.
 
 WHY IT IS A SEPARATE PART. enclosure-back-top prints mouth-down on its seam rim with the
 build axis +Z (`enclosure.py`'s module docstring), so a ceiling printed in that piece is
@@ -250,8 +250,8 @@ def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
     return cq.Workplane(obj=solid).edges("|Z").fillet(radius).val()
 
 
-def _strap_reliefs(box):
-    """Full anchor footprints whose existing strap approach enters the deeper field."""
+def _tie_reliefs(box):
+    """Full anchor footprints whose existing zip tie approach enters the deeper field."""
     _meter_anchors, ribs = _enc.ceiling_stations(
         box.flow_meter_anchors, box.tube_anchors, panel=True)
     raw = structural_stock()
@@ -259,24 +259,24 @@ def _strap_reliefs(box):
     for mid, u, n, seat_r in ribs:
         origin = tuple(mid[k] - u[k] * _enc.tube_anchor_len / 2.0 for k in range(3))
         crown = seat_r + _enc.wall
-        strap_origin = tuple(origin[k] + u[k] * _enc.tie_cav_wall for k in range(3))
-        strap = _enc._anchor_rib(strap_origin, u, n, _enc.tie_cav_w,
-                                  crown, crown, crown + _enc.tie_strap_t)
-        if raw.intersect(strap).Volume() <= 1e-6:
+        tie_origin = tuple(origin[k] + u[k] * _enc.tie_cav_wall for k in range(3))
+        tie = _enc._anchor_rib(tie_origin, u, n, _enc.tie_cav_w,
+                                  crown, crown, crown + _enc.tie_t)
+        if raw.intersect(tie).Volume() <= 1e-6:
             continue
         if tuple(n) != (0, 0, 1):
             raise ValueError(
-                f"a ceiling strap relief names root {n}; only a +Z root can be cut out of "
+                f"a ceiling zip tie relief names root {n}; only a +Z root can be cut out of "
                 f"the panel's downward-open structural field")
         b_face = underside_z - mid[2]
         pockets.append(_enc._anchor_rib(
             origin, u, n, _enc.tube_anchor_len,
-            crown + _enc.tie_strap_t + _enc.tie_cav_buffer, 0.0, b_face))
+            crown + _enc.tie_t + _enc.tie_cav_buffer, 0.0, b_face))
     return tuple(pockets)
 
 
 def _relieved_stock(box):
-    """The broad field and rails after body headroom and strap approaches are opened below."""
+    """The broad field and rails after body headroom and zip tie approaches are opened below."""
     stock = structural_stock().fuse(rail_stock())
     for _name, x0, x1, y0, y1, pocket_top_z in box.ceiling_reliefs:
         top = min(underside_z, pocket_top_z)
@@ -284,7 +284,7 @@ def _relieved_stock(box):
             continue
         stock = stock.cut(_rounded_slab(
             x0, x1, y0, y1, structural_under_z - 0.1, top))
-    for pocket in _strap_reliefs(box):
+    for pocket in _tie_reliefs(box):
         stock = stock.cut(pocket)
     return stock
 
@@ -308,7 +308,7 @@ def build(box=None):
 
     AND IT IS A BETTER BENCH FOR THEM. A seat hanging off the top wall is an upward-opening cradle
     with the piece inverted, and this panel inverted is a flat plate on the bench: the meter drops
-    into its two anchors and the runs into their three, straps go round, and the loaded panel then
+    into its two anchors and the runs into their three, zip ties go round, and the loaded panel then
     slides into back-top's dados."""
     field = _slab(-panel_half_w, panel_half_w, fore_y, aft_y, underside_z, show_z)
     stock = (_relieved_stock(box) if box is not None
@@ -339,7 +339,7 @@ def build(box=None):
     meter_anchors, ribs = _enc.ceiling_stations(
         box.flow_meter_anchors, box.tube_anchors, panel=True)
     # THE CEILING THESE ROOT ON IS THIS PANEL'S UNDERSIDE. A rib's two ends climb to the face it
-    # stops on and the strap's channel is the room they leave between them, so what the builders
+    # stops on and the zip tie's channel is the room they leave between them, so what the builders
     # are handed is the plane this part puts there — `enclosure.piece_root_faces` is the same
     # substitution for a wall, on the pieces that carry one thicker than the box's own.
     roots = box.inner[:5] + (underside_z,)
@@ -439,7 +439,7 @@ def main():
           f"{len(ribs)} ceiling rib(s) — "
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
     print(f"  reliefs: {len(box.ceiling_reliefs)} body pocket(s), "
-          f"{len(_strap_reliefs(box))} full strap approach pocket(s), rounded r{relief_corner_r:g}")
+          f"{len(_tie_reliefs(box))} full zip tie approach pocket(s), rounded r{relief_corner_r:g}")
     print(f"  piece:   back-top stands {piece_h:g} mm on its seam rim at z {_enc.z_seam:g}")
     print(f"  bed:     {b.xlen:.1f} x {b.ylen:.1f} on the H2C's {bed_x:g} x {bed_y:g}")
 
@@ -454,7 +454,7 @@ def main():
             "STRUCTURAL_UNDER": f"{structural_under_z:g}",
             "RELIEF_R": f"{relief_corner_r:g} mm",
             "RELIEF_N": f"{len(box.ceiling_reliefs)}",
-            "STRAP_RELIEF_N": f"{len(_strap_reliefs(box))}",
+            "TIE_RELIEF_N": f"{len(_tie_reliefs(box))}",
             "PIECE_H": f"{piece_h:g} mm",
             "PANEL_FORE": f"{fore_y:g}",
             "PANEL_AFT": f"{aft_y:g}",

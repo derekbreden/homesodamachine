@@ -66,7 +66,7 @@ LENGTH = (BARB_L + MAAC_HEX_L + MAAC_NPT_L
 
 # The stack barb-tip first, as `(label, diameter, length)`. `build()` lays these down and a
 # holder reads the same list for the section it seats on — the MAACFLOW is stainless, the check
-# metal, and the PP450822E polypropylene, which is what says where a strap may close.
+# metal, and the PP450822E polypropylene, which is what says where a zip tie may close.
 SECTIONS = (
     ("MAACFLOW barb", BARB_D, BARB_L),
     ("MAACFLOW hex", MAAC_HEX, MAAC_HEX_L),

@@ -1234,7 +1234,7 @@ def pump_tray_stations(placed: dict) -> tuple:
     """Every pump as `enclosure.Box.pump_trays` — one world `centre` each.
 
     This is the whole of what the wall is handed: how far a plate runs to the wall is the box's
-    own figure, and its depth, its margin and its strap band are `pump_tray`'s."""
+    own figure, and its depth, its margin and its zip tie band are `pump_tray`'s."""
     out = []
     for head, (axis, sign, centre) in sorted(pump_tray_seats(placed).items()):
         if (axis, sign) != (2, 1.0):
@@ -3576,16 +3576,16 @@ def build_digiten(carb_carry, seat: bool = True):
 # best part of a centimetre. So the arms are what a anchor can reach, and each takes the same 120°
 # V the ASSE anchor takes, read off a round section's tangent — apex up, opening down.
 #
-# WHAT THE STRAP CARRIES HERE IS THE METER. A V that opens downward holds nothing on its own, so
+# WHAT THE ZIP TIE CARRIES HERE IS THE METER. A V that opens downward holds nothing on its own, so
 # unlike the anchor's two ties these are the load path, and what they carry is a purchased part of
-# a few tens of grams on two nylon straps.
+# a few tens of grams on two nylon zip ties.
 DIGITEN_SEAT_SLIP = 0.2
 # Off the body's own rim. The rim is a circle in plan, so it stands closest to a anchor at the
 # arm's own column and falls away either side of it; this is struck on the closest.
 DIGITEN_BODY_CLEAR = 1.0
 # HOW MUCH OF EACH BARREL IS LEFT ALONE at its outer end. That end is a push-fit collet: a tube
 # goes into it and the ring that lets the tube back out is on the face. A anchor over that ring is
-# a joint that cannot be broken without cutting the strap first.
+# a joint that cannot be broken without cutting the zip tie first.
 DIGITEN_COLLET_FREE = 6.0
 
 
@@ -3747,7 +3747,7 @@ def check_body_seated(bodies, pieces) -> Bound:
 
     The reading `check_digiten_seated` takes, on a bore rather than a V — so the gap it holds is
     the slip itself, with no angle in it. And like the meter's anchors this seat opens DOWNWARD:
-    what it says is that the strap has the body to pull up against and the bore to pull it into,
+    what it says is that the zip tie has the body to pull up against and the bore to pull it into,
     not that the rib is carrying it.
 
     It reads back WHICH piece, the same way `check_tube_seated` does: a rib is built by whichever
@@ -3934,11 +3934,11 @@ def _would_land_on(b, placed):
                     or box(s).zmin >= b.zmax)]
 
 
-# The strap's own stock, and the room it needs to lie in. Two of them shut the mouth of the
-# anchor the chain lies in (`asse_cradle`), and a tie is a closed loop: the strap has to cross
-# the chain's top flat, which is the highest thing on this storey. The strap is THREADED through
+# The zip tie's own stock, and the room it needs to lie in. Two of them shut the mouth of the
+# anchor the chain lies in (`asse_cradle`), and a tie is a closed loop: the zip tie has to cross
+# the chain's top flat, which is the highest thing on this storey. The zip tie is THREADED through
 # the anchor's bore and then LAID across this channel — the piece is populated INVERTED on the
-# bench, ceiling down, so the strap lies on the ceiling's inner face and the chain comes
+# bench, ceiling down, so the zip tie lies on the ceiling's inner face and the chain comes
 # down onto it. Nothing is pulled through here, which is why the room is a clearance and not a
 # working reach.
 ASSE_TIE_T = 1.0
@@ -4927,7 +4927,7 @@ def check_digiten_seated(meter, piece) -> Bound:
     differ. The seat here is a BORE, concentric with the barrel, so the gap it holds is the slip
     itself — the anchor's V holds its slip on the V's own normal and reads `slip / sin 60°` between
     two axis-aligned solids, and a bore has no such angle in it. And this seat opens DOWNWARD, so it
-    is not carrying the meter: the two straps are, and this is the reading that says they have
+    is not carrying the meter: the two zip ties are, and this is the reading that says they have
     something to pull it up against."""
     def solid(s):
         s = s.toCompound() if hasattr(s, "toCompound") else s
@@ -5006,7 +5006,7 @@ def check_chains_seated(chains: dict, foam) -> Bound:
 
     The same reading the tap-water chain's and the meter's take. These seats are bores, so the gap
     each holds is the slip itself — and they open UP, so the reading says the body is DOWN in its
-    rib and the strap has something to pull against rather than something to carry."""
+    rib and the zip tie has something to pull against rather than something to carry."""
     def solid(s):
         s = s.toCompound() if hasattr(s, "toCompound") else s
         return s.val() if hasattr(s, "val") else s
@@ -5024,21 +5024,21 @@ def check_chains_seated(chains: dict, foam) -> Bound:
             f"`anchor-lands` is the row that says which." for n, g in bad.items()])))
 
 
-def check_strap_vocabulary() -> Bound:
-    """Whether every module that cuts a strap cavity cuts it for the same strap.
+def check_tie_vocabulary() -> Bound:
+    """Whether every module that cuts a zip tie cavity cuts it for the same zip tie.
 
     `enclosure` and `_cold_core_interface` each state the fastener their own features read,
     and the box imports the core's interface rather than the other way round. This is the
     module that seats both, so it is where they are held together."""
-    pairs = (("width", "_cold_core_interface", _enc.tie_strap_w, _cci.cap_anchor_strap_w),
+    pairs = (("width", "_cold_core_interface", _enc.tie_w, _cci.cap_anchor_tie_w),
              ("cavity", "_cold_core_interface", _enc.tie_cav_w, _cci.cap_anchor_cav_w),
              ("end wall", "_cold_core_interface", _enc.tie_cav_wall, _cci.cap_anchor_cav_wall))
     bad = [(what, who, a, b) for what, who, a, b in pairs if abs(a - b) > 1e-9]
     return record_bound(Bound(
-        "strap-vocabulary", "Every box cuts its strap cavities for the same strap", not bad,
+        "tie-vocabulary", "Every box cuts its zip tie cavities for the same zip tie", not bad,
         f"{len(pairs) - len(bad)}/{len(pairs)} agree", "every figure the same in both",
-        [f"the strap's {what}: `enclosure` cuts for {a:.3f} and `{who}` for {b:.3f}. One tie "
-         f"goes through both, so one of these is a cavity the strap in the BOM does not pass."
+        [f"the zip tie's {what}: `enclosure` cuts for {a:.3f} and `{who}` for {b:.3f}. One tie "
+         f"goes through both, so one of these is a cavity the zip tie in the BOM does not pass."
          for what, who, a, b in bad]))
 
 
@@ -5073,25 +5073,25 @@ def check_tube_seated(tubes, pieces) -> Bound:
         f"{want:.3f} mm at most", rows))
 
 
-def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
+def check_tie_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
     """Whether a tie can still reach through every cavity the box cuts one for.
 
     THE CHANNEL IS A REMAINDER AND NOT A CUT (`enclosure._tube_anchors`, `_flow_meter_anchors`): the
-    rib's two ends climb to the face it roots on and what they do not span IS the strap's room.
+    rib's two ends climb to the face it roots on and what they do not span IS the zip tie's room.
     Nothing is drawn for it, so nothing about it can fail loudly — a wall that grows inboard of
     the plane the rib was measured against simply arrives standing in that room, and the rib comes
     through as a lump with a bore in it. Every other reading on this card stays green: the seat
     still closes on its body at the slip, the piece is still one watertight solid, the pack still
     stands clear of the walls. Nothing here measures a hole, and this is a hole.
 
-    SO IT ASKS FOR THE STRAP AND NOT FOR THE CHANNEL. What is read is the seat a tie actually
-    needs — `tie_strap_t` off the bore's own crown, the cavity's width along the body, the rib's
+    SO IT ASKS FOR THE ZIP TIE AND NOT FOR THE CHANNEL. What is read is the seat a tie actually
+    needs — `tie_t` off the bore's own crown, the cavity's width along the body, the rib's
     full reach across it — and that volume is struck off the STATION, with no root face in it at
     all. A rib buried in a wall and a rib standing proud of one are the same arithmetic; what
     differs is whether the answer is air.
 
     THE ASSE ANCHOR'S TWO ARE A CUT AND CANNOT FILL, so what is read there is the ROUTE
-    INSTEAD: each strap comes west over the chain's top flat and drops into its channel through
+    INSTEAD: each zip tie comes west over the chain's top flat and drops into its channel through
     the block's back, and that channel's mouth is out at the −X wall. So the column between the
     mouth and the ceiling is the room the loop comes down, and it is what a ceiling corbel
     standing on the strip's outboard run would close (`enclosure.back_top_ceiling_reliefs`)."""
@@ -5118,21 +5118,21 @@ def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
                 continue
             worst = max(worst, 100.0 * got / want)
             rows.append(
-                f"{what}: {100.0 * got / want:.0f}% of the room a strap needs is inside {name} — "
+                f"{what}: {100.0 * got / want:.0f}% of the room a zip tie needs is inside {name} — "
                 f"{got:.1f} of {want:.1f} mm3. On a rib, the two ends are drawn to a plane that "
                 f"piece stands inboard of, so what is left between them is in its stock "
                 f"(`enclosure.piece_root_faces`); on the anchor, a corbel has closed over the "
                 f"channel's mouth (`enclosure.back_top_ceiling_reliefs`).")
 
     for mid, u, n, seat_r in anchors:
-        # The strap's seat in the anchor's own frame: one `tie_strap_t` slab off the bore's crown,
+        # The zip tie's seat in the anchor's own frame: one `tie_t` slab off the bore's crown,
         # spanning the cavity's length along the body and the rib's whole reach across it.
         origin = tuple(mid[k] - u[k] * _enc.tube_anchor_len / 2.0 + u[k] * _enc.tie_cav_wall
                        for k in range(3))
         reach, crown = seat_r + _enc.wall, seat_r + _enc.wall
         read(f"anchor at {tuple(round(c, 1) for c in mid)}",
              _enc._anchor_rib(origin, u, n, _enc.tie_cav_w, reach, crown,
-                              crown + _enc.tie_strap_t))
+                              crown + _enc.tie_t))
     if meter_anchor:
         x_axis, z_axis, seat_r, bands = meter_anchor
         reach = seat_r + _enc.flow_meter_anchor_wall
@@ -5141,7 +5141,7 @@ def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
             m = (by0 + by1) / 2.0
             read(f"anchor at y {m:.1f}",
                  _enc._ybox(x_axis - reach, x_axis + reach, m - _enc.tie_cav_w / 2.0,
-                            m + _enc.tie_cav_w / 2.0, crown, crown + _enc.tie_strap_t))
+                            m + _enc.tie_cav_w / 2.0, crown, crown + _enc.tie_t))
     if cradle:
         z_ax, sections, ties, _dn = cradle
         run = 1.0 / math.tan(math.radians(_enc.asse_v_half))
@@ -5153,11 +5153,11 @@ def check_strap_channels(anchors, meter_anchor, cradle, pieces) -> Bound:
             + (_enc.asse_cradle_up + 1.0) * run
         top = z_ax + _enc.asse_cradle_up + 1.0
         for ty in ties:
-            read(f"tap-water strap at y {ty:.1f}",
-                 _enc._ybox(x_w, x_e, ty - _enc.tie_strap_wide_w / 2.0,
-                            ty + _enc.tie_strap_wide_w / 2.0, top, interior_ceiling()))
+            read(f"tap-water zip tie at y {ty:.1f}",
+                 _enc._ybox(x_w, x_e, ty - _enc.tie_wide_w / 2.0,
+                            ty + _enc.tie_wide_w / 2.0, top, interior_ceiling()))
     return record_bound(Bound(
-        "strap-channels", "A tie still reaches through every cavity cut for one", not rows,
+        "tie-channels", "A tie still reaches through every cavity cut for one", not rows,
         f"{seen} read, worst {worst:.0f}% filled", "0% filled", rows))
 
 
@@ -5972,7 +5972,7 @@ def build_pack() -> cq.Assembly:
     a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis),
                                          "suction-chain": (chain_carry, _suct)})
     check_anchor_lands(a.anchors)
-    check_strap_vocabulary()
+    check_tie_vocabulary()
     bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
     a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
     deck_solids, panel_carries = build_deck(a.deck_z, a.gate_z, seat=True)
@@ -6886,9 +6886,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_tube_seated(tubes, pieces)
     # And every body the box stands a rib for, against the same pieces.
     check_body_seated(a.pack_solids, pieces)
-    # And every one of those ribs' strap channels, against the piece that built it. A seat that
+    # And every one of those ribs' zip tie channels, against the piece that built it. A seat that
     # reads closed on its body says nothing about whether a tie can reach round it.
-    check_strap_channels(a.tube_anchors + a.body_anchors, a.digiten_anchors,
+    check_tie_channels(a.tube_anchors + a.body_anchors, a.digiten_anchors,
                          a.asse_cradle, pieces)
     # And every run the COLD CORE's cap is bored for, against the cap it lies on.
     check_run_seated(tubes, a.pack_solids["foam-assembly"])
