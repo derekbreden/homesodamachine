@@ -41,15 +41,13 @@ struct DiscoveredMachine: Identifiable, Equatable {
     var rssi: Int
     var lastSeen: Date
 
-    var displayName: String {
-        name.isEmpty ? (unit.isEmpty ? "Soda Machine" : "SodaMachine \(unit.suffix(4))") : name
-    }
+    /// What a person calls this machine. Whoever owns it can set one — the main
+    /// board holds it and every display advertises it — and a machine nobody has
+    /// named is just what it is.
+    var displayName: String { name.isEmpty ? "Home Soda Machine" : name }
 
-    /// Distinct even when two machines share a name: the unit is the machine.
-    var subtitle: String {
-        let bars = signal
-        return unit.isEmpty ? "\(model.label) · \(bars)" : "\(model.label) · \(unit) · \(bars)"
-    }
+    /// Only what tells one machine from another in a room with two of them.
+    var subtitle: String { signal }
 
     var signal: String {
         switch rssi {
