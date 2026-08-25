@@ -17,10 +17,12 @@
     "ROD_FIT": "0.1 mm",
     "ROD_LEN": "50.8 mm",
     "ROD_SOCKET": "28.8 mm",
+    "ROD_SOCKET_D": "6.45 mm",
     "SIL_VOLUME": "135 mL",
     "SIL_WALL": "6 mm",
     "SPOUT_BORE": "6.35 mm",
     "TIP_BUFFER": "12 mm",
+    "TIP_CAP": "2 mm",
     "TIP_STEP": "1 mm"
   }
 }

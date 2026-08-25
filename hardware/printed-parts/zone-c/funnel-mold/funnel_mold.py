@@ -298,6 +298,8 @@ def main():
             "ROD_SOCKET": f"{info['rod_socket']:.1f} mm",
             "ROD_BELOW": f"{info['rod_below']:.1f} mm",
             "ROD_FIT": f"{rod_fit:g} mm",
+            "ROD_SOCKET_D": f"{rod_d + rod_fit:g} mm",
+            "TIP_CAP": f"{tip_cap:g} mm",
             "LIP_H": f"{lip_h:g} mm",
             "BRIM_SQ": f"{info['cast'].BoundingBox().xlen:.0f} mm",
             "TIP_STEP": f"{tip_step:g} mm",
