@@ -25,17 +25,11 @@ struct ApplianceView: View {
                     .frame(width: 160, height: 160)
                     .accessibilityHidden(true)
 
-                VStack(spacing: 6) {
-                    Text(ble.connectedMachine?.displayName ?? "Soda Machine")
-                        .font(.system(size: 22, weight: .medium))
-                        .foregroundStyle(Theme.textPrimary)
-                    Text(subtitle)
-                        .font(.system(size: 13))
-                        .foregroundStyle(Theme.textSecondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.top, 20)
-                .padding(.horizontal, 32)
+                Text(ble.connectedMachine?.displayName ?? "Home Soda Machine")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
+                    .padding(.top, 20)
+                    .padding(.horizontal, 32)
 
                 Spacer()
 
@@ -61,13 +55,6 @@ struct ApplianceView: View {
             MachinePickerView(onPick: { inMachines = false })
                 .presentationBackground(Theme.background)
         }
-    }
-
-    private var subtitle: String {
-        var parts: [String] = []
-        if let unit = ble.connectedMachine?.unit, !unit.isEmpty { parts.append("unit \(unit)") }
-        if !ble.radioBoardVersion.isEmpty { parts.append(ble.radioBoardVersion) }
-        return parts.isEmpty ? "connected" : parts.joined(separator: " · ")
     }
 
     private func button(_ title: String, action: @escaping () -> Void) -> some View {
