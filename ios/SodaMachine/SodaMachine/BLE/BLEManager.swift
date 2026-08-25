@@ -210,8 +210,17 @@ class BLEManager {
 
     /// Create the CBCentralManager (triggers Bluetooth permission prompt).
     /// Idempotent — safe to call multiple times.
+    /// Bring the radio up, or start looking again on a radio that is already up.
+    ///
+    /// The central manager outlives a disconnect — it is the app's, not the
+    /// connection's — and creating it is what starts the first scan, by way of
+    /// `centralManagerDidUpdateState`. A second call therefore has to start one
+    /// itself, or "Scan for Hardware" after a disconnect does nothing at all.
     func activateBluetooth() {
-        guard centralManager == nil else { return }
+        guard centralManager == nil else {
+            startScan()
+            return
+        }
         centralManager = CBCentralManager(delegate: cbAdapter, queue: bleQueue)
     }
 
