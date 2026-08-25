@@ -76,8 +76,22 @@ tip_draft = 0.5       # draft on the buffer's bore, off its radius over its leng
                       # tube breaks its own seal at once instead of being pulled out of a
                       # straight sleeve it fits exactly
 pin_lead = 2.0        # taper on the pin's last stretch, so it finds the pocket on the way down
-fill_port_id = 4.0    # pour port through the plate (fallback to the open-cavity pour)
-fill_port_csink = 5.0   # shallow pour dish countersunk on top of the fill port
+# THE POUR PORT TAKES THE WHOLE RING. Silicone is poured degassed and it is honey: what a
+# port costs to pour through is its narrowest section, and there is nothing to trade against
+# it here. What comes out of a wide one is a wide sprue standing on the brim's top face, and
+# that is cut flush with the tip in the same pass. So the port is not a size — it is whatever
+# the rim ring leaves once its land is kept, and it grows with the ring.
+fill_port_land = 1.0  # PETG left between the port's edge and the brim's outer edge. The port
+                      # stands in the ring's CORNER, where the ring is a square of its own
+                      # width, so the land is struck on the outer edge — the near one — and the
+                      # bore mouth inboard is further off than that by the corner's diagonal.
+                      # Past this edge the plate stops sitting on silicone and starts sitting on
+                      # the cavity's own top face, and a port over that is a port that weeps
+                      # onto the parting line
+fill_dish_d = 20.0    # the pour dish's mouth, on top of the plate — a cone necking into the
+                      # port. It is the target the cup is aimed at, and it lives in the plate's
+                      # own top with no silicone under it, so it is not held to the ring
+fill_dish_h = 4.0     # how deep that cone necks down, out of `plate_thk`
 vent_id = 2.5         # vent holes through the plate, over the brim ring
 
 
@@ -151,14 +165,21 @@ def build():
     # flange + collar band between the bore mouth and the brim's outer edge)
     # so they open into the silicone, not the plug.
     ring_w = m["rim_ring"]
-    assert fill_port_csink <= ring_w, f"fill-port csink {fill_port_csink} > rim ring {ring_w:.1f} mm"
+    # The ring is what the port is allowed, less a land either side of it.
+    fill_port_id = ring_w - 2.0 * fill_port_land
+    assert fill_dish_h < plate_thk, (
+        f"the pour dish necks {fill_dish_h} mm into a {plate_thk} mm plate — it breaks through")
     rx = out_w / 2.0 - ring_w / 2.0
     ry = out_d / 2.0 - ring_w / 2.0
     fill_xy = (ocx - rx, ocy - ry)
     vents = [(ocx + rx, ocy - ry), (ocx - rx, ocy + ry), (ocx + rx, ocy + ry),
              (ocx - rx, ocy), (ocx + rx, ocy)]
     core = core.cut(_cyl(fill_port_id / 2.0, top_z + plate_thk + 1.0, top_z - 1.0, *fill_xy))
-    core = core.cut(_cyl(fill_port_csink / 2.0, top_z + plate_thk + 1.0, top_z + plate_thk - 3.0, *fill_xy))
+    # and the dish over it — a cone from the port's own bore out to `fill_dish_d` at the plate's
+    # top face, so what the pour is aimed at is the mouth and what it necks into is the port.
+    core = core.cut(cq.Solid.makeCone(
+        fill_port_id / 2.0, fill_dish_d / 2.0, fill_dish_h,
+        cq.Vector(fill_xy[0], fill_xy[1], top_z + plate_thk - fill_dish_h), cq.Vector(0, 0, 1)))
     for vx, vy in vents:
         core = core.cut(_cyl(vent_id / 2.0, top_z + plate_thk + 1.0, top_z - 1.0, vx, vy))
 
@@ -179,6 +200,8 @@ def build():
         "sil_vol": cast.Volume(),
         "part_vol": funnel.Volume(),
         "tip_vol": tip.Volume(),
+        "fill_d": fill_port_id,
+        "fill_xy": fill_xy,
         "sil_wall": m["collar_wall"],
         "spout_id": m["spout_id"],
         "cavity_bb": cavity.BoundingBox(),
@@ -216,6 +239,8 @@ def main():
           f"({info['part_vol'] / 1000.0:.1f} the funnel, {info['tip_vol'] / 1000.0:.1f} the tip cut off it)")
     print(f"  tip cast {tip_buffer:g} mm past the exit face, closed, and stepped {tip_step:g} mm "
           f"in at the cut")
+    print(f"  pour port: Ø{info['fill_d']:g} through the plate at "
+          f"({info['fill_xy'][0]:.1f}, {info['fill_xy'][1]:.1f}), Ø{fill_dish_d:g} dish over it")
 
     substitute_md(
         here / "README.md",
@@ -230,7 +255,9 @@ def main():
             "TIP_STEP": f"{tip_step:g} mm",
             "CAVITY_DIMS": f"{cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm",
             "CORE_DIMS": f"{kbb.xlen:.1f} × {kbb.ylen:.1f} × {kbb.zlen:.1f} mm",
-            "FILL_D": f"{fill_port_id:g} mm",
+            "FILL_D": f"{info['fill_d']:g} mm",
+            "FILL_DISH": f"{fill_dish_d:g} mm",
+            "FILL_LAND": f"{fill_port_land:g} mm",
             "MOLD_VENT_D": f"{vent_id:g} mm",
             "N_VENTS": f"{info['n_vents']}",
         },
