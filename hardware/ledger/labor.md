@@ -59,12 +59,12 @@ Every pressure boundary in the unit gets proved before it is buried: the carbona
 
 ## 4. Silicone casting
 
-One cast part per unit: the funnel, ~78 g of 1:1 platinum silicone poured into the two-piece printed mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
+One cast part per unit: the funnel, ~153 g of 1:1 platinum silicone poured into the printed two-part mold. The cure and the post-cure bake are oven time, not operator time. What costs is the release film, the degas, and the flash trim.
 
 | Operation | Cards | Notes | Minutes |
 |---|---|---|---:|
 | Release the cavity, release the sealed core, close and clamp | — | Ease Release 200 on both faces every pour | 5 |
-| Weigh, pigment, mix and vacuum-degas 78 g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
+| Weigh, pigment, mix and vacuum-degas 153 g of silicone | — | 1:1 by weight, ≤2 % black pigment, chamber until it falls back | 10 |
 | Pour through the port, watch the five vents, rack to cure | — | Cure is unattended | 5 |
 | Demold, trim the port and vent flash | — | 3 mm wall, 40A — it wants to tear if the release is thin | 5 |
 | Post-cure bake — load and unload the oven | — | Bake is unattended | 5 |

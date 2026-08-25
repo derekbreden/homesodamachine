@@ -9,18 +9,21 @@ forms in the gap between two printed halves:
     sits in a recess at the top rim; below the spout's own exit face the pocket
     carries on `tip_buffer` further as a blind, drafted bore that the floor closes.
   * CORE — the funnel *interior* (the bore) as a plug, hanging from a top plate
-    that forms the brim's top face and registers over the cavity via a skirt. A
-    pin continues the Ø6.35 spout bore down the whole of that buffer, stopping
-    `tip_cap` short of its blind bottom. Vents + a pour port pass through the plate.
+    that forms the brim's top face and registers over the cavity via a skirt. The
+    plug STOPS AT THE RAMP TIP, and a socket bores up the cone from that tip.
+    Vents + a pour port pass through the plate.
+  * ROD — a 1/4" ground dowel dropped into that socket, and the whole of the Ø6.35
+    spout bore. It bottoms in the socket, so `rod_len` sets its own reach; it stops
+    `tip_cap` short of the pocket's blind floor; and it is a slip fit, so the core
+    lifts OFF it. Stock, not a print: it writes no STEP.
 
-THE SPOUT IS CAST LONG AND CLOSED, AND CUT TO LENGTH AFTERWARDS. Moulding the
-exit face itself is what asked the core for a slender Ø6.35 pin driven through a
-zero-clearance hole in the cavity floor — a printed column loaded sideways on
-assembly, which is a column that snaps. Nothing here forms that face: the buffer
-hangs the pin free in silicone, so there is no hole to find and nothing to press.
-The pin runs the full buffer, so the cast tube is OPEN bore wherever it is cut,
-and the buffer steps `tip_step` in at the exit plane — a shoulder a blade seats
-flat against, which is the cut. Everything below that shoulder is scrap.
+THE SPOUT IS CAST LONG AND CLOSED, AND CUT TO LENGTH AFTERWARDS. Nothing here
+moulds the exit face. The spout runs on `tip_buffer` past it into a blind pocket
+and closes there, so the rod hangs free in silicone with no hole to find and
+nothing to press. The rod runs the full buffer, so the cast tube is OPEN bore
+wherever it is cut, and the buffer steps `tip_step` in at the exit plane — a
+shoulder a blade seats flat against, which is the cut. Everything below that
+shoulder is scrap.
 
 Both halves pull straight up — a funnel is its own draft. The geometry is read
 live from the funnel: `funnel.build_solids()` returns the exterior and
@@ -50,7 +53,7 @@ sys.path.insert(0, str(_tools))
 _FUNNEL = _repo / "hardware" / "printed-parts" / "zone-c" / "funnel"
 sys.path.insert(0, str(_FUNNEL))
 from _cadq_export import export_assembly
-from _materials import M_PETG_BLACK, M_SILICONE_BLACK, one_body
+from _materials import M_PETG_BLACK, M_SILICONE_BLACK, M_STAINLESS, one_body
 from docgen import substitute_md
 import funnel as HF
 
@@ -62,20 +65,37 @@ plate_thk = 10.0      # core top plate — forms the brim top, carries the vents
 lip_h = 10.0          # how far the skirt drops over the cavity (registration)
 lip_gap = 0.0         # slip between the skirt and the cavity outside
 # The sacrificial tip. The mould casts the spout PAST the funnel's own exit face and closes
-# it, and the cut that opens it is a post-process. What that buys is a core with no slender
-# press fit on it: the pin hangs free in silicone the whole way down instead of being driven
-# into the cavity floor.
+# it, and the cut that opens it is a post-process. What that buys is a core with no press fit
+# on it: the rod hangs free in silicone the whole way down and reaches nothing.
 tip_buffer = 12.0     # spout cast below the funnel's exit face — scrap, and the room the cut has
 tip_step = 1.0        # how far the buffer's outer wall steps IN at that face. The step is the
                       # cut line: an annular shoulder facing down, which a razor laid flat on it
                       # follows to exactly the spout length the drain joint is dimensioned to
                       # (`reference/funnel-drain-stub` takes `funnel.spout_tube` whole). It steps
                       # in rather than out so the scrap still draws straight up out of its bore
-tip_cap = 2.0         # silicone left under the pin's tip — what closes the cast tube's end
+tip_cap = 2.0         # silicone left under the rod's tip — what closes the cast tube's end
 tip_draft = 0.5       # draft on the buffer's bore, off its radius over its length, so the scrap
                       # tube breaks its own seal at once instead of being pulled out of a
                       # straight sleeve it fits exactly
-pin_lead = 2.0        # taper on the pin's last stretch, so it finds the pocket on the way down
+# THE SPOUT'S BORE IS NOT PRINTED. Below the ramp tip the core is a dropped-in dowel, and the
+# print stops where the cone does. What that costs is one piece of stock; what it buys is three
+# things a printed column cannot have.
+#   IT CANNOT BE LEVERED. The rod is not fixed to the plate, so nothing that frees the plug
+# reaches it: the core lifts OFF it and leaves it standing in the cast, and it then comes out on
+# its own, straight, gripped where it stands. A Ø6.35 column buried this deep parts at about
+# 34 N sideways and takes about 950 N to pull, so every hand on it wants to be an axial one —
+# and each of the three pulls this mould asks for is.
+#   IT IS ROUND. That bore is a SEALING bore — `reference/funnel-drain-stub` closes the worm
+# clamp's band onto silicone that was moulded on this surface — and ground stock is rounder and
+# smoother than any printed column of the same nominal.
+#   IT IS STOCK. A bent rod is replaced from the drawer, and the core it drops into is
+# untouched — the plug's own finish (sand, seal, gas off, coupon-test) outlives it.
+rod_d = 6.35          # 1/4" ground dowel, the same nominal round as `funnel.spout_id`
+rod_len = 50.8        # 1/4" × 2" — the stock length, and what the socket's depth is cut to so
+                      # the rod sets its own reach by bottoming in it
+rod_fit = 0.10        # slip on the socket's diameter. Small: the socket is the one place
+                      # silicone could wick past the rod, and it will not cross this in a pot
+                      # life
 # THE POUR PORT TAKES THE WHOLE RING. Silicone is poured degassed and it is honey: what a
 # port costs to pour through is its narrowest section, and there is nothing to trade against
 # it here. What comes out of a wide one is a wide sprue standing on the brim's top face, and
@@ -113,11 +133,11 @@ def _cyl(r, z_top, z_bot, cx, cy):
 
 def build():
     solid, bore, m = HF.build_solids()
-    # The neck's own centre, both axes — the spout, the buffer and the pin all stand on it.
+    # The neck's own centre, both axes — the spout, the buffer and the rod all stand on it.
     ncx, ncy = m["ncx"], m["ncy"]
     ocx, ocy = m["out_cx"], m["out_cy"]
     top_z, end_z = m["top_z"], m["end_z"]
-    pin_r = m["spout_id"] / 2.0
+    spout_r = m["spout_id"] / 2.0
     out_w, out_d = m["out_w"], m["out_d"]         # the brim = the part's outer footprint
     block_w, block_d = out_w + 2.0 * mold_wall, out_d + 2.0 * mold_wall
     plate_w, plate_d = block_w + 2.0 * skirt_wall, block_d + 2.0 * skirt_wall
@@ -142,24 +162,36 @@ def build():
         .cut(tip_pocket)
     )
 
-    # CORE: the bore is the plug; the spout pin runs on down the whole buffer and
-    # stops `tip_cap` short of its blind bottom, so silicone closes the cast tube
-    # under it and the pin is held by that silicone rather than by the mould. Its
-    # last `pin_lead` tapers — a lead-in for the way down, not a press fit.
-    # Nothing registers the pin at the bottom and nothing needs to: the skirt
-    # squares the core on the cavity, and the pour is symmetric about the pin.
-    pin_bot = buf_z + tip_cap
-    pin = (
-        _cyl(pin_r, end_z, pin_bot + pin_lead, ncx, ncy)
-        .fuse(cq.Solid.makeCone(pin_r - 1.0, pin_r, pin_lead,
-                                cq.Vector(ncx, ncy, pin_bot), cq.Vector(0, 0, 1)))
-    )
+    # THE ROD, and the socket that holds it. What stands in silicone is the spout's own land
+    # plus the buffer less the cap it leaves; what the core holds is the rest of the stock
+    # length. The two add to `rod_len`, so the rod BOTTOMS in the socket and sets its own reach
+    # — nothing measures it on assembly. It stops `tip_cap` short of the pocket's blind floor,
+    # so silicone closes the cast tube under it and the rod touches no part of the mould but
+    # this socket.
+    neck_z = m["neck_z"]                          # the ramp tip: where the bore stops being round
+    rod_below = HF.spout_tube + tip_buffer - tip_cap
+    rod_socket = rod_len - rod_below
+    rod_bot = buf_z + tip_cap
+    rod_top = neck_z + rod_socket
+    assert rod_socket > 0.0, (
+        f"a {rod_len:g} mm rod is shorter than the {rod_below:.1f} mm of it that stands in "
+        f"silicone — bill a longer one")
+    assert rod_top <= top_z, (
+        f"the socket reaches z {rod_top:.2f} and the plate's underside is {top_z:.2f} — the "
+        f"socket is boring out of the plug and into the plate. Bill a shorter rod")
+    rod = _cyl(rod_d / 2.0, rod_top, rod_bot, ncx, ncy)
     plate = _box(plate_w, plate_d, top_z, top_z + plate_thk, ocx, ocy)
     skirt = (
         _box(plate_w, plate_d, top_z - lip_h, top_z, ocx, ocy)
         .cut(_box(block_w + 2.0 * lip_gap, block_d + 2.0 * lip_gap, top_z - lip_h - 1.0, top_z, ocx, ocy))
     )
-    core = bore.fuse(pin).fuse(plate).fuse(skirt)
+    # The printed plug STOPS AT THE RAMP TIP — below it the round is the rod's, not the
+    # print's — and the socket bores up the cone from that same tip.
+    plug = (
+        bore.cut(_cyl(spout_r + 1.0, neck_z, buf_z - 1.0, ncx, ncy))
+        .cut(_cyl((rod_d + rod_fit) / 2.0, rod_top, neck_z - 1.0, ncx, ncy))
+    )
+    core = plug.fuse(plate).fuse(skirt)
 
     # Pour port + vents through the plate, set over the brim's rim ring (the
     # flange + collar band between the bore mouth and the brim's outer edge)
@@ -189,14 +221,18 @@ def build():
     cavity = cavity.translate((dx, dy, dz))
     core = core.translate((dx, dy, dz))
     # What comes OUT of the mould is the funnel with its tip still on: the part, plus the
-    # silicone standing in the buffer around the pin. That is the body the pour is mixed for
+    # silicone standing in the buffer around the rod. That is the body the pour is mixed for
     # and the body the cut is made on, so it is the one drawn here.
-    tip = tip_pocket.cut(pin)
+    tip = tip_pocket.cut(rod)
     funnel = HF.build()[0].val()
     cast = funnel.fuse(tip).translate((dx, dy, dz))
 
     info = {
         "cast": cast,
+        # The rod is stock, so it writes no STEP of its own — it is drawn in the exploded
+        # picture and billed as a length, the way `reference/funnel-drain-stub` is.
+        "rod": rod.translate((dx, dy, dz)),
+        "rod_len": rod_len, "rod_below": rod_below, "rod_socket": rod_socket,
         "sil_vol": cast.Volume(),
         "part_vol": funnel.Volume(),
         "tip_vol": tip.Volume(),
@@ -229,6 +265,9 @@ def main():
     assy.add(cavity, name="cavity", color=M_PETG_BLACK)
     assy.add(info["cast"].translate((0, 0, 45)), name="funnel", color=M_SILICONE_BLACK)
     assy.add(core.translate((0, 0, 100)), name="core", color=M_PETG_BLACK)
+    # The rod, standing where it stands in the cast — the one piece of this mould that is
+    # neither printed nor poured.
+    assy.add(info["rod"].translate((0, 0, 72)), name="rod", color=M_STAINLESS)
     export_assembly(assy, str(here / "funnel-mold-assembly.step"))
     print("-> funnel-mold-assembly.step")
 
@@ -239,6 +278,8 @@ def main():
           f"({info['part_vol'] / 1000.0:.1f} the funnel, {info['tip_vol'] / 1000.0:.1f} the tip cut off it)")
     print(f"  tip cast {tip_buffer:g} mm past the exit face, closed, and stepped {tip_step:g} mm "
           f"in at the cut")
+    print(f"  rod: Ø{rod_d:g} × {info['rod_len']:g} dowel — {info['rod_socket']:.1f} mm in the "
+          f"core's socket, {info['rod_below']:.1f} mm standing in silicone")
     print(f"  pour port: Ø{info['fill_d']:g} through the plate at "
           f"({info['fill_xy'][0]:.1f}, {info['fill_xy'][1]:.1f}), Ø{fill_dish_d:g} dish over it")
 
@@ -252,6 +293,13 @@ def main():
             "SPOUT_BORE": f"{info['spout_id']:g} mm",
             "SIL_VOLUME": f"{info['sil_vol'] / 1000.0:.0f} mL",
             "TIP_BUFFER": f"{tip_buffer:g} mm",
+            "ROD_D": f"{rod_d:g} mm",
+            "ROD_LEN": f"{rod_len:g} mm",
+            "ROD_SOCKET": f"{info['rod_socket']:.1f} mm",
+            "ROD_BELOW": f"{info['rod_below']:.1f} mm",
+            "ROD_FIT": f"{rod_fit:g} mm",
+            "LIP_H": f"{lip_h:g} mm",
+            "BRIM_SQ": f"{info['cast'].BoundingBox().xlen:.0f} mm",
             "TIP_STEP": f"{tip_step:g} mm",
             "CAVITY_DIMS": f"{cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm",
             "CORE_DIMS": f"{kbb.xlen:.1f} × {kbb.ylen:.1f} × {kbb.zlen:.1f} mm",
