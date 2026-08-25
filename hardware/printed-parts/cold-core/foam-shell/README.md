@@ -174,19 +174,10 @@ its reed channel against the shell wall, and the foam that would otherwise sit
 outboard of the reed has moved to the cylinder side. Those two ±Y bands are what
 every penetration travels along — see §Port lane.
 
-**Each ±Y wall carries a corner-boss slot** (`_cold_core_interface.corner_boss_slots`):
-an inward emboss over the band the enclosure's four-corner screw boss sweeps as the
-front assembly telescopes aft along the flank — the boss's socket stands
-`enclosure.corner_core_reach` past the 14 mm chain the flanks are packed to. The void
-is lined a full wall behind and beside it, so the pour stays sealed; its fore end
-stands where the corner round's own recession already clears the boss, and
-`enclosure_assembly.check_corner_slot` reads the built boss's swept band against the
-placed core (`corner-slot-lands`).
-
 The four vertical corners are rounded — the exterior wall is a true
 [12 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
 face concentric one wall-thickness inboard — so the warp-prone sharp
-corner is gone and the corner boss is wrapped by a curved wall.
+corner is gone.
 
 **Every one of the six bosses stands hard against a ±Y wall** — none in a
 corner, and none on a ±X wall. Four sit over the reservoir pockets' own far
