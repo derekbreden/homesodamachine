@@ -331,16 +331,25 @@ HEAD's date and short SHA, the board reports that string, and the manifest carri
 
 ### The prototype
 
-`prototype` and `rotary` are in the manifest and neither board can take an update yet.
-[`partitions_s3.csv`](partitions_s3.csv) is single-slot, and the ESP32 under the counter is
-running the single-slot table it was flashed with even though
-[`partitions_esp32.csv`](partitions_esp32.csv) now describes two. Both need one USB visit to
-install a dual-slot table, which is the one thing an update cannot install.
+The same four links with one fewer hop. The radio is already on the rotary display
+([`src_config`](src_config/main.cpp)), which relays over its UART to the prototype's ESP32; that
+board takes an image into its own spare slot and forwards nothing, because there is nothing
+past it on a wire that can receive one.
 
-`rotary`'s app is 3.2 MB of an 8 MB flash, and 2.1 MB of that is nineteen 240×240 images
-compiled in ([`src_config/images/`](src_config/images)). Two slots and a filesystem do not fit
-around that, so the table it gets is the one it gets after the art moves to its own partition —
-the change [`lib/board_art`](lib/board_art/board_art.h) already is for the enclosure.
+```
+homesodamachine.com  ──HTTPS──▶  iOS app  ──BLE──▶  rotary display  ──UART──▶  ESP32
+```
+
+| Target | Image | Slot | Reached over |
+|---|---|---|---|
+| `prototype` | `prototype` | 768 KB | UART from the rotary |
+| `rotary` | `esp32s3_config` | 1.5 MB | BLE |
+| `rotary_art` | `tools/make_art.py rotary` | 2.25 MB | BLE |
+
+**Both boards under the counter are running the single-slot tables they were flashed with**,
+so each takes one USB visit to arrive at the layouts
+[`partitions_s3.csv`](partitions_s3.csv) and [`partitions_esp32.csv`](partitions_esp32.csv)
+now describe, and none after that. A partition table is the one thing an update cannot install.
 
 `rp2040_display` is not in the manifest. The RP2040's ROM offers USB and nothing else, so it
 takes an image through BOOTSEL and a cable.
