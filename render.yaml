@@ -21,7 +21,7 @@ services:
     # viewer serves those off the tree at request time (web/lib/viewer-routes.js), so the
     # build is where they arrive. A hash that disagrees with the lock ends the build and
     # leaves the previous deploy serving.
-    buildCommand: cd web && npm ci --omit=dev && node scripts/fetch-cad-artifacts.mjs
+    buildCommand: cd web && npm ci --omit=dev && node scripts/fetch-cad-artifacts.mjs && node scripts/fetch-firmware.mjs
     startCommand: cd web && npm start
     healthCheckPath: /
     autoDeploy: true
@@ -42,6 +42,7 @@ services:
     buildFilter:
       paths:
         - hardware/cad-artifacts.lock.json
+        - firmware/firmware.lock.json
         - web/**
         - updates/**
         - render.yaml
