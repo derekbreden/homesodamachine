@@ -69,8 +69,22 @@ brim_margin = 10.0      # top-wall left between the collar edge and the frame, a
                         # one overhang catches the flange, the rest is what stands beyond it
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
                         # top wall and holds the funnel out of the box, all around
-brim_thickness = 3.0    # flange thickness, resting on the enclosure top
-collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
+brim_thickness = 6.0    # flange thickness, resting on the enclosure top — the same figure as
+                        # `collar_wall`, because the flange is the shell where the HAND takes it: a
+                        # full funnel is lifted by pinching this ring, and a flange thinner than the
+                        # walls it hangs is the one place a stiffened shell still folds. It costs no
+                        # capacity — `chute_h` is measured from the brim TOP, so the bore keeps its
+                        # whole height whatever the flange is — and it buys drain height, since
+                        # `drop` is struck below that top and a thicker flange lifts the spout by
+                        # exactly its own growth.
+collar_wall = 6.0       # THE SHELL'S WALL — collar, chute and floor alike, and so the gap the
+                        # silicone casts in. The part has no rib, no frame and no core: it is one
+                        # soft skin spanning `collar_w`, so what it costs to deflect goes as the
+                        # CUBE of this figure and there is nowhere else to buy it. What caps it is
+                        # capacity — every millimetre here takes two off the bore in each axis, and
+                        # the chute cannot buy the volume back because the chute's own ceiling is
+                        # the fall under the spout. The floor is `capacity_bottles` below, and the
+                        # wall runs out against it at 8 mm.
 # The funnel is sized in bottles: a full one goes in dumped, not metered, and the
 # margin is what keeps a miss off the counter. The ramp's depth is set by its grade
 # and the spout by its tube, so the straight section is the only height the funnel's
