@@ -27,23 +27,12 @@ static uint8_t   imgKind = OTA_KIND_APP;
 // when it ends. Nothing can be stranded at the high rate: opening this port
 // resets the board, and a reset always comes up at OTA_CONSOLE_BAUD_IDLE.
 static const uint32_t OTA_CONSOLE_BAUD_IDLE = 115200;
-// 500000, not 921600. Measured on this board: a request for 921600 comes out
-// near 1 Mbps and every byte after it is garbage to a host that believed the
-// number. 500000 divides cleanly at both ends and is 4.3x the idle rate.
-static const uint32_t OTA_CONSOLE_BAUD_FAST = 500000;
+static const uint32_t OTA_CONSOLE_BAUD_FAST = 921600;
 static bool consoleFast = false;
 
-// end()+begin(), not updateBaudRate(). updateBaudRate keeps whatever clock the
-// port was opened against, and at console rates that is the 1 MHz REF_TICK —
-// so a request for 921600 becomes the nearest divisor of that, which is 1 MHz,
-// and every byte afterwards is garbage to a host that believed the number.
-// Reopening picks a clock that can express the rate exactly.
 static void consoleBaud(uint32_t rate) {
     Serial.flush();
-    delay(5);
-    Serial.end();
-    Serial.setRxBufferSize(8192);
-    Serial.begin(rate);
+    Serial.updateBaudRate(rate);
     consoleFast = (rate != OTA_CONSOLE_BAUD_IDLE);
 }
 // Until the far end says something, BEGIN may simply have been dropped —
@@ -54,9 +43,6 @@ static uint32_t  beganAtMs = 0;
 
 // One chunk, which is the whole of what this board holds of an image.
 static uint8_t   buf[OTA_CHUNK_J3];
-// File scope, not a local: at 4 KB a chunk this array is half the loop task's
-// stack, and it is only ever used to hand one frame to a link.
-static uint8_t   frameOut[4 + OTA_CHUNK_J3];
 static uint16_t  bufLen = 0;
 static uint32_t  bufOffset = 0;
 static bool      bufFull = false;
@@ -64,7 +50,6 @@ static bool      bufFull = false;
 // Raw-mode state: how many bytes of the current chunk the host still owes.
 static uint16_t  hostOwes = 0;
 static uint16_t  hostGot = 0;
-static uint32_t  askedHostAtMs = 0;
 
 // `ota self` writes into this board's own spare slot rather than onto a link.
 static OtaReceiver selfRx;
@@ -117,7 +102,6 @@ static void askHost(uint32_t offset) {
     bufFull = false;
     hostOwes = want;
     hostGot = 0;
-    askedHostAtMs = millis();
     Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)offset, want);
 }
 
@@ -154,9 +138,10 @@ void otaFeedHostBytes() {
     // it from this buffer without a further host round trip.
     if (target != OTA_TGT_FAUCET) return;
 
-    memcpy(frameOut, &bufOffset, 4);
-    memcpy(frameOut + 4, buf, bufLen);
-    if (!faucetLinkSendOta(MSG_OTA_DATA, frameOut, (uint16_t)(4 + bufLen)))
+    uint8_t frame[4 + OTA_CHUNK_J3];
+    memcpy(frame, &bufOffset, 4);
+    memcpy(frame + 4, buf, bufLen);
+    if (!faucetLinkSendOta(MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen)))
         Serial.println("\nOTA:HOLD link busy");   // the receiver re-asks; bytes stay held
 }
 
@@ -172,11 +157,12 @@ bool otaOnRequest(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 
     // Already holding exactly what it wants: answer straight from the buffer.
     if (bufFull && req.offset == bufOffset) {
-            memcpy(frameOut, &bufOffset, 4);
-        memcpy(frameOut + 4, buf, bufLen);
+        uint8_t frame[4 + OTA_CHUNK_J3];
+        memcpy(frame, &bufOffset, 4);
+        memcpy(frame + 4, buf, bufLen);
         const uint32_t sent = bufOffset;
         const uint16_t sentLen = bufLen;
-        const bool ok = reply(target, MSG_OTA_DATA, frameOut, (uint16_t)(4 + bufLen));
+        const bool ok = reply(target, MSG_OTA_DATA, frame, (uint16_t)(4 + bufLen));
 
         // Prefetch. Without this every chunk costs a full host round trip that
         // J9 cannot overlap — the receiver asks, this board has nothing, the
@@ -211,15 +197,6 @@ void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 
 void otaService() {
     if (target == OTA_TGT_NONE) return;
-
-    // A request the host never saw is a deadlock: it waits for a line, this
-    // board waits for the bytes that line asked for, and neither speaks again.
-    // Re-asking is only safe before any of the chunk has arrived — once bytes
-    // are in flight, a second ask would leave the stream out of step.
-    if (hostOwes > 0 && hostGot == 0 && millis() - askedHostAtMs >= 2000) {
-        askedHostAtMs = millis();
-        Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)bufOffset, hostOwes);
-    }
 
     // A session that stops moving says so. While the host owes bytes the
     // console reads raw and answers nothing, so without this a stall is
