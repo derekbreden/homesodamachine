@@ -137,10 +137,10 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 3.278 | $82.03 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 3.280 | $82.06 <!--@printed--> |
 | Enclosure — pump cartridge + cap (one set) | 1 set | PET-GF | 1.109 | $27.74 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 2.966 | $74.22 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 2.968 | $74.25 <!--@printed--> |
 | Enclosure — ceiling panel | 1 | PET-GF | 0.412 | $10.31 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.031 | $0.78 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 5 | PETG (blue, white, red, black ×2) | 0.012 | $0.14 <!--@printed--> |
@@ -151,9 +151,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.175 | $4.38 <!--@printed--> |
 | Faucet display cover plate | 1 | PET-GF | 0.006 | $0.15 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.015 | $0.37 <!--@printed--> |
-| **Printed parts total** | | | **~10.98** | **[$233.01](BOM_SEC7)** |
+| **Printed parts total** | | | **~10.98** | **[$233.46](BOM_SEC7)** |
 
-By material: PETG ≈ 2.98 kg / $33.41 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 7.99 kg / $199.98.
+By material: PETG ≈ 2.98 kg / $33.41 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 8.00 kg / $200.05.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -175,10 +175,10 @@ Soft seals print in Bambu TPU 90A from per-unit-trivial stock, not costed here: 
 | [John Guest PP0208E 1/4" union tee, black polypropylene (bag of 10)](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | manifold Tees Y-A/B/C/D/F/G per [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd) — [6](TEES) junctions on four limbs, every one of them a Tee (in-line run + branch). **Y-C, Y-D, Y-F and Y-G sit on the four pump barbs**, each taken by its BRANCH, which lays its run across the head's face as the outboard half of a limb with a valve on either end. **Y-A and Y-B** stand on the two inner limbs' own axes, one valve forward of the select each feeds, and their branches face each other across the mirror plane and meet on the crossbar — which is what puts all four of their ports on one hydraulic node. **Neither reservoir has a junction:** each carries two mouths of its own, a fill bore in its cap and a draw bulkhead at the bottom of its wet V, so each pair's two valves reach one directly. Same JG black-PP NSF 51 + 61 family as the §3 install-kit tee. FWS WEBFWS100681220 Jun 8: 2 bags of 10 @ $42.68 = $21.34/bag = $2.134/ea pre-tax/ship | [6](TEES) (of 2 bags) | $2.134 | $12.80 <!--@plumbing--> |
 | [Siptenk 1/4" OD brass tube stiffener insert (100-pk)](https://www.amazon.com/dp/B0FM77LLM1) | required on the LLDPE side of the soda umbilical tube end that lands in the Westbrass's upstream compression port (per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2) so the brass ferrule does not crush the soft tube; 1 stiffener per build ($8.99/100) | 1 (of 100 pk) | $0.09 | $0.09 <!--@plumbing--> |
 | [John Guest PP0308E 1/4" union elbow, black polypropylene (bag of 10)](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | **The funnel's disconnect.** Under the top wall on the funnel's spout: its +Z collet face stands on the spout's exit face and grips the 1/4" LLDPE stub the funnel carries, and its +Y leg starts `fluid-4` aft to V-A/V-B. **The fitting is what turns the fall** — it turns inside its own envelope, so it hangs one leg under the spout and its foot stands over the folded deck's anchor tees rather than down among them (`enclosure_assembly.build_drain_joint`, read by `drain-over-deck`). It is the one joint on the machine the customer opens and closes as a routine — the collet released square with the 1/4" jaw of a JG collet quick-connect tool, the funnel lifting out for the dishwasher — so it is a push-fit rather than a clamp, and the clamp behind it never comes off. Geometry at [`/hardware/reference/elbow-connector/`](/hardware/reference/elbow-connector/README.md), the mechanism at [`printed-parts/zone-c/funnel/`](/hardware/printed-parts/zone-c/funnel/README.md) "Lifting it out". Same JG black-PP NSF 51 + 61 family as the PP0208E tee above. FWS WEBFWS100684731 Jun 20: 3 bags of 10 @ $68.49 = $22.83/bag = $2.283/ea | 1 (of 10 pk) | $2.28 | $2.28 <!--@plumbing--> |
-| [BBDINO 40A food-contact platinum silicone, 2.42 lb kit, 1:1](https://www.amazon.com/dp/B0FHHBGSQK) | **Cast silicone funnel** (Zone C, [printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)) — the removable, dishwasher-safe flavor-fill funnel, cast in a two-piece printed mold (the vacuum chamber + Orion pump + post-cure oven are tooling, in [purchases.md](/hardware/ledger/purchases.md) §21). ~78 g of mixed silicone per funnel (CAD shell volume 68.8 mL × ~1.13 g/mL) ≈ ~13 funnels per kit. Amazon 112-8255970 Jun 22: $35.16 ÷ 13 | 1 (~78 g) | $2.70 | $2.70 <!--@funnel-casting--> |
+| [BBDINO 40A food-contact platinum silicone, 2.42 lb kit, 1:1](https://www.amazon.com/dp/B0FHHBGSQK) | **Cast silicone funnel** (Zone C, [printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)) — the removable, dishwasher-safe flavor-fill funnel, cast in a printed two-part mold on a 1/4" dowel (the vacuum chamber + Orion pump + post-cure oven are tooling, in [purchases.md](/hardware/ledger/purchases.md) §21). ~153 g of mixed silicone per funnel (CAD pour volume 135 mL × ~1.13 g/mL) ≈ ~7 funnels per kit. Amazon 112-8255970 Jun 22: $35.16 ÷ 7 | 1 (~153 g) | $5.02 | $5.02 <!--@funnel-casting--> |
 | [BBDINO black silicone pigment, 150 g](https://www.amazon.com/dp/B0BVR3R58V) | funnel colorant at ≤2% by weight (~1.5 g/funnel; carbon-black, hides dark-concentrate staining; food contact qualified by the wetted-surface screen, not a cert). $18.97 ÷ ~100 funnels | 1 (~1.5 g) | $0.19 | $0.19 <!--@funnel-casting--> |
 | [Mann Ease Release 200, 14 oz aerosol](https://www.amazon.com/dp/B002YEBO1O) | addition-cure release on the funnel-mold cavity and the core's clear-acrylic seal (a release film, not a silicone fluid — trace cleared by the funnel's bake + wetted-surface screen); $21.99 ÷ ~50 pours | 1 (of ~50) | $0.44 | $0.44 <!--@funnel-casting--> |
-| [TCP Global 32 oz graduated mixing cups (25-pk)](https://www.amazon.com/dp/B08HNCGY4N) | silicone-degassing batch cup (3–4× headroom for the ~70 mL pour), 1 disposable per pour; $17.99 ÷ 25 | 1 (of 25 pk) | $0.72 | $0.72 <!--@consumables--> |
+| [TCP Global 32 oz graduated mixing cups (25-pk)](https://www.amazon.com/dp/B08HNCGY4N) | silicone-degassing batch cup (3–4× headroom for the ~135 mL pour), 1 disposable per pour; $17.99 ÷ 25 | 1 (of 25 pk) | $0.72 | $0.72 <!--@consumables--> |
 
 ## 9. Dispensing (carbonator bottom-plate outlet → faucet)
 
@@ -299,15 +299,15 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$233.01](BOM_SEC7) |
-| 8. Flavor subsystem | [$207.33](BOM_SEC8) |
+| 7. Printed parts (PETG + PET-GF) | [$233.46](BOM_SEC7) |
+| 8. Flavor subsystem | [$209.65](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$31.19](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$12.64](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,447.99](BOM_GRAND)** |
+| **Total** | **[$1,450.76](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
