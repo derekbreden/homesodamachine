@@ -2,15 +2,15 @@
   "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "release": {
     "tag": "firmware",
-    "asset": "fw-26a59699f1d5473d.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-26a59699f1d5473d.tar.gz"
+    "asset": "fw-49b566501dca647f.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-49b566501dca647f.tar.gz"
   },
   "source": {
-    "commit": "0018c551d38765ed29ae86a70782eac34fbbcd5f"
+    "commit": "d3ccc07a9bbadbb052541577adbfa84c92d1fb91"
   },
   "bundle": {
-    "sha256": "26a59699f1d5473d704febd57dd8aa1f1723aa43a01d39dccce76bc968e79b7f",
-    "bytes": 2559956,
+    "sha256": "49b566501dca647f85129374ade56e27886f7a10e78f2ba7c2acca18999c7899",
+    "bytes": 2560484,
     "images": 7
   },
   "images": {
@@ -19,10 +19,10 @@
       "machine": "appliance",
       "what": "the main board's own firmware",
       "kind": "app",
-      "version": "2026.08.25 e0dff582+",
-      "bytes": 441808,
-      "crc32": 3746331010,
-      "sha256": "3787184a142d66b9af628f30ce24a7a256ce43cb2bef478da2ff86b7039500b0",
+      "version": "2026.08.25 c3a47202+",
+      "bytes": 442672,
+      "crc32": 1966754649,
+      "sha256": "3bf777e4391c30dc21f63248448550938d2848bcb69b98bb2a40823b0b6301f7",
       "file": "appliance.bin"
     },
     "art": {
@@ -34,17 +34,18 @@
       "bytes": 4147232,
       "crc32": 1688936971,
       "sha256": "81cc04aaf4f482f913296e3014766c75156d5d8ba1c54335d07b9d2792fb6087",
-      "file": "art.bin"
+      "file": "art.bin",
+      "art_crc32": 446856858
     },
     "enclosure": {
       "env": "esp32s3_front",
       "machine": "appliance",
       "what": "the 4.3\" enclosure display",
       "kind": "app",
-      "version": "2026.08.25 e0dff582+",
-      "bytes": 1507008,
-      "crc32": 453289619,
-      "sha256": "47a951be04a4f8cf393a25db617c5a1d5558c3ef8ceb2a7212f67a876c87faeb",
+      "version": "2026.08.25 c3a47202+",
+      "bytes": 1507152,
+      "crc32": 1759012615,
+      "sha256": "4fa4801dda3e371d992dc99a794576eedba5b79e188d9d2b7ed9ffcca6b702c6",
       "file": "enclosure.bin"
     },
     "faucet": {
@@ -52,10 +53,10 @@
       "machine": "appliance",
       "what": "the 1.47\" faucet display",
       "kind": "app",
-      "version": "2026.08.25 0018c551+",
-      "bytes": 1357024,
-      "crc32": 1404583886,
-      "sha256": "d476c19bc7ce1069b85270c21644525c16ad44bc1b798e4ee1f75ff91e2d5cdb",
+      "version": "2026.08.25 c3a47202+",
+      "bytes": 1357312,
+      "crc32": 1298077534,
+      "sha256": "2c0ce7bbebe667154175a80eb623d2023846bb715b50c62247d23aa9eeb2aee0",
       "file": "faucet.bin"
     },
     "prototype": {
@@ -63,10 +64,10 @@
       "machine": "prototype",
       "what": "the prototype's main ESP32",
       "kind": "app",
-      "version": "2026.08.25 0018c551+",
+      "version": "2026.08.25 d3ccc07a+",
       "bytes": 493376,
-      "crc32": 4215798567,
-      "sha256": "ff970e54972a4735e42b223942d153e9f29a8a934d8aaa580ed1f01772903a97",
+      "crc32": 3086414861,
+      "sha256": "f4e1c92f5556f2ff23a927a39a2478818383dfbeb056a52b04fda10644333f8a",
       "file": "prototype.bin"
     },
     "rotary": {
@@ -74,10 +75,10 @@
       "machine": "prototype",
       "what": "the prototype's 1.28\" rotary display",
       "kind": "app",
-      "version": "2026.08.25 0018c551+",
+      "version": "2026.08.25 d3ccc07a+",
       "bytes": 1011952,
-      "crc32": 1575422520,
-      "sha256": "01f5717067521e22b3ff1d5be091d8b24dc6902da1b72383e35aa408892707cc",
+      "crc32": 1467843144,
+      "sha256": "96969ced80d6146206c08c613a3fab9da237bdbd30c8b3b4420aad6679b8170f",
       "file": "rotary.bin"
     },
     "rotary_art": {
@@ -89,7 +90,15 @@
       "bytes": 2188832,
       "crc32": 3634581630,
       "sha256": "36a4e1a22eb8396c0cd03f370700fd61f96b2fbcb550a1738762e99254887504",
-      "file": "rotary_art.bin"
+      "file": "rotary_art.bin",
+      "art_crc32": 2684476894
     }
+  },
+  "unproven": {
+    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
+    "paths": [
+      "firmware/firmware.lock.json",
+      "tools/publish_firmware.py"
+    ]
   }
 }

@@ -202,6 +202,12 @@ def survey(targets: list) -> dict:
             "sha256": hashlib.sha256(data).hexdigest(),
             "file": f"{target}.bin",
         }
+        if spec.get("kind") == "art":
+            # The crc32 above is over the file, which is what MSG_OTA_BEGIN
+            # promises for the transfer. The one the board reports is over the
+            # pixels — it is in the blob's own header, at offset 16 — and that
+            # is what says whether the pictures on a board are these pictures.
+            out[target]["art_crc32"] = int.from_bytes(data[16:20], "little")
     return out
 
 
