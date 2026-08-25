@@ -42,10 +42,12 @@ bool OtaReceiver::begin(uint32_t size, uint32_t crc32, uint8_t k) {
     erasedTo_ = 0;
   } else {
     esp_ota_handle_t h = 0;
-    // The size is known, so the slot is erased for exactly what is coming
-    // rather than in full: on a 2.5 MB slot holding 1.5 MB that is erase
-    // nobody waits through.
-    if (esp_ota_begin(target, size, &h) != ESP_OK) {
+    // Sequential writes, not a sized begin. Passing the size makes esp_ota_begin
+    // erase the whole extent in one call, which holds interrupts off for well
+    // past the interrupt watchdog's window and resets the board (TG1WDT_SYS_RST)
+    // before a byte has arrived. This erases a sector at a time, as each write
+    // reaches it.
+    if (esp_ota_begin(target, OTA_WITH_SEQUENTIAL_WRITES, &h) != ESP_OK) {
       state = OTA_STATE_FAILED;
       err = OTA_ERR_WRITE;
       return false;
@@ -85,7 +87,7 @@ bool OtaReceiver::write(uint32_t offset, const uint8_t *data, uint16_t len) {
     const esp_partition_t *part = (const esp_partition_t *)part_;
     const uint32_t needTo = offset + len;
     if (needTo > erasedTo_) {
-      const uint32_t blk = 65536;
+      const uint32_t blk = 4096;   // one sector: a block erase outlasts the watchdog
       const uint32_t upto = ((needTo + blk - 1) / blk) * blk;
       const uint32_t end = (upto > part->size) ? part->size : upto;
       if (esp_partition_erase_range(part, erasedTo_, end - erasedTo_) != ESP_OK) {
