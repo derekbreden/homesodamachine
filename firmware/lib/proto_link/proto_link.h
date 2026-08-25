@@ -261,7 +261,7 @@ struct HdlcLink : public tinyproto::Hdlc {
   // metering a pump.
   void service() {
     if (!serial) return;
-    uint8_t rx[128];
+    uint8_t rx[512];
     for (;;) {
       int n = 0;
       while (n < (int)sizeof(rx) && serial->available() > 0) {
@@ -274,7 +274,7 @@ struct HdlcLink : public tinyproto::Hdlc {
       run_rx(rx, n);
     }
     for (;;) {
-      uint8_t tx[128];
+      uint8_t tx[512];
       int len = run_tx(tx, sizeof(tx));
       if (len <= 0) break;
       bytesTx += len;
@@ -296,7 +296,7 @@ struct HdlcLink : public tinyproto::Hdlc {
     int r = write((const char *)txFrame, len + 1);
     if (r < 0) return r;
     for (;;) {
-      uint8_t tx[128];
+      uint8_t tx[512];
       int n = run_tx(tx, sizeof(tx));
       if (n <= 0) break;
       bytesTx += n;
@@ -320,6 +320,10 @@ protected:
   }
 
 private:
-  uint8_t frameBuf[512];   // RX frame assembly
-  uint8_t txFrame[256];    // held until run_tx has serialized it
+  // Sized for a firmware chunk plus its offset. At 248 bytes a turn the pair
+  // spent most of itself on turnaround rather than on payload.
+  uint8_t frameBuf[1280];  // RX frame assembly
+  uint8_t txFrame[1152];   // held until run_tx has serialized it
+  static_assert(sizeof(txFrame) >= J9_MAX_PAYLOAD + 1, "J9_MAX_PAYLOAD outgrew txFrame");
+  static_assert(sizeof(frameBuf) > sizeof(txFrame), "a frame must fit its own reassembly");
 };

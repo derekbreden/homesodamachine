@@ -13,7 +13,7 @@ namespace {
 
 constexpr int kBaseRxPin = 44;  // P1 ESP_RXD, crossed from main board J3 IO33 TX
 constexpr int kBaseTxPin = 43;  // P1 ESP_TXD, crossed to main board J3 IO35 RX
-constexpr long kBaseBaud = 115200;
+constexpr long kBaseBaud = 921600;
 constexpr uint8_t kQueueDepth = 8;
 constexpr uint8_t kPrimeQueueDepth = PRIME_J3_APP_QUEUE_DEPTH;
 constexpr uint8_t kPrimePayloadMax = sizeof(PrimeHoldPayload);

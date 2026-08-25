@@ -9,8 +9,8 @@
 // the length that carries it has to be wide enough to say so.
 static_assert(sizeof(OtaBeginPayload) <= 12,
               "OTA_BEGIN is queued in link.cpp's Announce.data");
-static_assert(OTA_CHUNK_J9 + 4 <= 255,
-              "J9 is bare HDLC through a 256-byte tx frame, type byte included");
+static_assert(OTA_CHUNK_J9 + 4 <= J9_MAX_PAYLOAD,
+              "a J9 chunk plus its offset has to fit one HDLC frame");
 static_assert(OTA_CHUNK_J3 + 4 <= UINT16_MAX, "the send length is uint16_t");
 
 // ── The session ───────────────────────────────────────────────────────────
@@ -21,6 +21,20 @@ static uint16_t  chunk = 0;
 static uint32_t  lastReported = 0;
 static uint32_t  openedAtMs = 0;
 static uint8_t   imgKind = OTA_KIND_APP;
+
+// The console carries every image byte, so 115200 is a ceiling on the whole
+// transfer no matter how fast the links get. A session raises it and drops back
+// when it ends. Nothing can be stranded at the high rate: opening this port
+// resets the board, and a reset always comes up at OTA_CONSOLE_BAUD_IDLE.
+static const uint32_t OTA_CONSOLE_BAUD_IDLE = 115200;
+static const uint32_t OTA_CONSOLE_BAUD_FAST = 921600;
+static bool consoleFast = false;
+
+static void consoleBaud(uint32_t rate) {
+    Serial.flush();
+    Serial.updateBaudRate(rate);
+    consoleFast = (rate != OTA_CONSOLE_BAUD_IDLE);
+}
 // Until the far end says something, BEGIN may simply have been dropped —
 // opening this board's console resets it, and a link takes seconds to come
 // back up. So it is offered again until a receiver answers.
@@ -71,6 +85,7 @@ static void endSession(const char *how, uint8_t state, uint8_t err) {
         volunteer(target, MSG_OTA_ABORT, nullptr, 0);
     if (target == OTA_TGT_SELF && state != OTA_STATE_DONE) selfRx.abort();
     Serial.printf("\nOTA:%s state=%u err=%u\n", how, state, err);
+    if (consoleFast) { delay(20); consoleBaud(OTA_CONSOLE_BAUD_IDLE); }
     target = OTA_TGT_NONE;
     sawReceiver = false;
     hostOwes = hostGot = 0;
@@ -257,6 +272,10 @@ void otaConsole(const String &line) {
     sawReceiver = false;
     bufFull = false;
     bufLen = 0;
+
+    Serial.printf("\nOTA:BAUD %lu\n", (unsigned long)OTA_CONSOLE_BAUD_FAST);
+    delay(20);
+    consoleBaud(OTA_CONSOLE_BAUD_FAST);
 
     if (t == OTA_TGT_SELF) {
         if (!selfRx.begin(imgSize, imgCrc, imgKind)) {

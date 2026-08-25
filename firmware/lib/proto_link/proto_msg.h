@@ -440,10 +440,16 @@ constexpr uint8_t OTA_ERR_CRC       = 4;  // whole-image CRC32 did not match BEG
 constexpr uint8_t OTA_ERR_VERIFY    = 5;  // esp_ota_end / set_boot_partition refused
 constexpr uint8_t OTA_ERR_SEQUENCE  = 6;  // bytes arrived for the wrong offset
 
-// The most image bytes one OTA_DATA carries on each link. J9 is bare HDLC
-// through a 256-byte tx frame, so its ceiling is that frame minus the type
-// byte and the offset. J3 is TinyProto Fd, which fragments internally.
-constexpr uint16_t OTA_CHUNK_J9 = 248;
+// The most image bytes one OTA_DATA carries on each link. Both are 1 KB: J9's
+// HDLC frame buffers are sized for it, and J3's TinyProto Fd fragments
+// internally. A chunk is a round trip, so this is most of what a transfer's
+// speed is made of.
+constexpr uint16_t OTA_CHUNK_J9 = 1024;
+
+// What one J9 frame can carry: the HDLC tx buffer less the type byte. Declared
+// here beside the chunk that has to fit it; proto_link.h asserts its buffer is
+// at least this, so raising one without the other does not compile.
+constexpr uint16_t J9_MAX_PAYLOAD = 1151;
 constexpr uint16_t OTA_CHUNK_J3 = 1024;
 
 inline uint32_t uartCrc32Update(uint32_t prev, const uint8_t *data, size_t len) {

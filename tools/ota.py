@@ -136,6 +136,16 @@ def run(target: str, image: str, verbose: bool) -> int:
             line = line.decode(errors="replace").strip()
             if not line:
                 continue
+            if line.startswith("OTA:BAUD"):
+                # The board has already switched; follow it. It drops back when
+                # the session ends, and a reset restores the idle rate anyway.
+                rate = int(line.split()[1])
+                ser.baudrate = rate
+                print(f"console at {rate:,} baud")
+                continue
+
+            if line.startswith("OTA:STALL"):
+                print(f"\n  {line}")
             if verbose and not line.startswith("OTA:NEED"):
                 print(f"  [{line}]")
 
