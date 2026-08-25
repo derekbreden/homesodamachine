@@ -38,6 +38,10 @@ struct FirmwareImage: Codable, Identifiable, Equatable {
     let version: String?
     let bytes: Int
     let crc32: UInt32
+    /// Art only: the crc32 over the pixels, which is what a board reports about
+    /// the partition it holds. `crc32` is over the file, and is what the wire
+    /// holds the transfer to.
+    let artCrc32: UInt32?
     let sha256: String
     let url: String
     let available: Bool
@@ -155,8 +159,9 @@ struct MachineVersions: Equatable {
     func needs(_ image: FirmwareImage, on model: MachineModel) -> Bool {
         guard let t = image.otaTarget(on: model) else { return false }
         if image.kind == "art" {
-            guard let running = artCrc[t.rawValue], running != 0 else { return false }
-            return running != image.crc32
+            guard let running = artCrc[t.rawValue], running != 0,
+                  let published = image.artCrc32 else { return false }
+            return running != published
         }
         guard let running = version(for: image, on: model) else { return false }
         return running != (image.version ?? running)
