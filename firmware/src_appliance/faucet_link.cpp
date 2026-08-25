@@ -3,6 +3,7 @@
 #include "faucet_link.h"
 #include "ota.h"
 #include "flavor.h"
+#include "identity.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
 #include "machine.h"
@@ -156,6 +157,28 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
 
     if (type == MSG_OTA_REQ)  { otaOnRequest(OTA_TGT_FAUCET, payload, plen); return; }
     if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_FAUCET, payload, plen);   return; }
+
+    // The faucet holds the radio, so it is also where an image arrives from.
+    if (type == MSG_OTA_SRC_BEGIN) { otaOnSrcBegin(payload, plen); return; }
+    if (type == MSG_OTA_SRC_DATA)  { otaOnSrcData(payload, plen);  return; }
+
+    if (type == MSG_RESP_BLE_STATUS && plen >= sizeof(BleStatusPayload)) {
+        BleStatusPayload st;
+        memcpy(&st, payload, sizeof(st));
+        Serial.printf("\nBLE  %s%s%s as '%s'\n     session target=%u owed=%u dropped=%lu\n",
+                      (st.flags & BLE_ST_UP) ? "up" : "DOWN",
+                      (st.flags & BLE_ST_CONNECTED) ? ", a phone is connected" : ", advertising",
+                      (st.flags & BLE_ST_IDENTITY) ? "" : ", identity unanswered",
+                      st.advertised, st.target, st.owed, (unsigned long)st.dropped);
+        return;
+    }
+
+    if (type == MSG_IDENTITY_QUERY) {
+        IdentityPayload id;
+        machineIdentity(id);
+        faucet.trySend(MSG_RESP_IDENTITY, &id, sizeof(id));
+        return;
+    }
 
     if (type == MSG_TOUCH) {
         idleTouched();
@@ -339,6 +362,11 @@ void faucetLinkReadStatus(FaucetLinkStatus &status) {
 
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
     return faucet.trySend(type, data, len) >= 0;
+}
+
+void faucetLinkBleReport() {
+    if (faucet.trySend(MSG_BLE_STATUS_REQ, nullptr, 0) < 0)
+        Serial.println("\nJ3 would not take the request");
 }
 
 void faucetLinkReport() {

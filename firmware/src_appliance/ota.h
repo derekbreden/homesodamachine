@@ -15,14 +15,27 @@
 //
 // `ota self` is the exception — those bytes go into this board's own spare
 // slot instead of onto a link.
+//
+// WHERE THE BYTES COME FROM IS NOT WHERE THEY GO. A session opened at the
+// console is fed by a laptop over USB; one opened by MSG_OTA_SRC_BEGIN on J3 is
+// fed by the faucet display, which is holding a phone's radio and no more of
+// the image than this board holds. Both answer the same question — "give me
+// the bytes at this offset" — so everything downstream of the source is one
+// path.
 
-enum OtaTarget : uint8_t { OTA_TGT_NONE = 0, OTA_TGT_SELF, OTA_TGT_FAUCET, OTA_TGT_ENCLOSURE };
+#include "proto_msg.h"
+
+typedef uint8_t OtaTarget;   // OTA_TGT_*, proto_msg.h
 
 void otaConsole(const String &line);
 
-// True while a session is open, which is what puts the console into raw mode.
+// True while the console owes bytes, which is what puts it into raw mode.
 bool otaAwaitingHostBytes();
 void otaFeedHostBytes();   // called from loop() ahead of line reading
+
+// A source on J3 opening a session, and feeding it.
+void otaOnSrcBegin(const uint8_t *payload, uint16_t plen);
+void otaOnSrcData(const uint8_t *payload, uint16_t plen);
 
 // A receiver on either link asked for bytes. Returns true if a reply was put
 // on the link, which on J9 spends that turn's one reply.

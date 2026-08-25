@@ -4,6 +4,7 @@
 #include "fw_build_time.h"   // churns every build; the banner is what reads it
 #include "faucet_link.h"
 #include "flavor.h"
+#include "identity.h"
 #include "idle.h"
 #include "link.h"
 #include "machine.h"
@@ -67,6 +68,7 @@ void setup() {
     while (!Serial && millis() < 2000) {}
     Serial.printf("\nhomesodamachine appliance  %s  (%s)\n", FW_VERSION, FW_BUILD_TIME);
 
+    identityBegin();
     flavorBegin();
     idleBegin();
 
@@ -344,6 +346,8 @@ static void console(const String &line) {
     if (line.startsWith("quiet"))  { cmdQuiet(line);  return; }
     if (line.startsWith("rtc"))    { cmdRtc(line);    return; }
     if (line.startsWith("ota"))    { otaConsole(line); return; }
+    if (line.startsWith("identity")) { identityConsole(line); return; }
+    if (line == "ble")             { faucetLinkBleReport(); return; }
 
     if (line.startsWith("flavor")) {
         String rest = line.substring(6); rest.trim();
