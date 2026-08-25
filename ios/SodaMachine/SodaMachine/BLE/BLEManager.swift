@@ -98,6 +98,8 @@ class BLEManager {
 
     @ObservationIgnored fileprivate var settleTimer: Timer?
     @ObservationIgnored fileprivate var chooserPending = false
+    @ObservationIgnored fileprivate var scanStartedAt = Date.distantPast
+    @ObservationIgnored fileprivate var lastRssiPush: [String: Date] = [:]
 
     // ── Pushing an image ─────────────────────────────────────────────────
     // The board pulls. It asks for an offset and a length, this sends exactly
@@ -593,7 +595,12 @@ class BLEManager {
     func disconnect() {
         centralManager?.stopScan()
         scanTimer?.invalidate()
+        settleTimer?.invalidate()
         reconnectTimer?.invalidate()
+        // Done with this machine: the next scan offers a choice rather than
+        // going straight back to the one just left.
+        rememberedMachineID = nil
+        connectedMachine = nil
         if let peripheral = connectedPeripheral {
             userInitiatedDisconnect = true
             centralManager?.cancelPeripheralConnection(peripheral)
@@ -1284,9 +1291,14 @@ class BLEManager {
 
         DispatchQueue.main.async {
             self.discovered = []
+            self.lastRssiPush = [:]
             self.chooserPending = true
+            self.scanStartedAt = Date()
+            // Repeating, because a machine that only starts advertising after
+            // the window closes still has to be decided about. It stops when
+            // the decision is made, or when the scan is torn down.
             self.settleTimer?.invalidate()
-            self.settleTimer = Timer.scheduledTimer(withTimeInterval: settleWindow, repeats: false) {
+            self.settleTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {
                 [weak self] _ in self?.decideFromScan()
             }
         }
@@ -1301,8 +1313,9 @@ class BLEManager {
         }
     }
 
-    /// What the settle window found. A machine already chosen wins outright; one
-    /// candidate alone needs no question; anything else is the user's call.
+    /// What the scan has found. The machine picked last time wins outright and
+    /// needs no window; anything else waits for one, so the second machine on
+    /// the bench is in the list before the question is asked.
     fileprivate func decideFromScan() {
         guard chooserPending, connectionState == .searching || connectionState == .searchingLong
         else { return }
@@ -1312,16 +1325,14 @@ class BLEManager {
             connect(to: match)
             return
         }
+        guard Date().timeIntervalSince(scanStartedAt) >= settleWindow else { return }
         if discovered.count == 1 {
             connect(to: discovered[0])
-            return
-        }
-        if discovered.count > 1 {
+        } else if discovered.count > 1 {
             chooserPending = false
+            settleTimer?.invalidate()
             connectionState = .choosing
         }
-        // Nothing in range yet: the scan is still running and this runs again
-        // whenever a first machine appears.
     }
 
     /// Point the app at one machine. Everything the previous one filled in is
@@ -1598,27 +1609,43 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                                             advertisementData: advertisementData,
                                             rssi: RSSI) else { return }
 
-        DispatchQueue.main.async {
-            self.ble.scanTimer?.invalidate()
-            if let i = self.ble.discovered.firstIndex(where: { $0.id == seen.id }) {
-                // A name or a unit that arrived in a later scan response fills in
-                // what the first sighting did not carry.
+        // Duplicates are on, so this runs many times a second per machine. Only
+        // a sighting that changes what a row says reaches the main thread.
+        if let i = ble.discovered.firstIndex(where: { $0.id == seen.id }) {
+            let due = Date().timeIntervalSince(ble.lastRssiPush[seen.id] ?? .distantPast) >= 0.5
+            let fills = (!seen.name.isEmpty && ble.discovered[i].name != seen.name)
+                     || (!seen.unit.isEmpty && ble.discovered[i].unit != seen.unit)
+                     || (seen.model != .unknown && ble.discovered[i].model != seen.model)
+            guard due || fills else { return }
+            DispatchQueue.main.async {
+                guard let i = self.ble.discovered.firstIndex(where: { $0.id == seen.id }) else { return }
+                self.ble.lastRssiPush[seen.id] = Date()
                 var entry = self.ble.discovered[i]
-                entry.rssi = seen.rssi
+                // Smoothed, because a raw reading swings ten dBm packet to
+                // packet and the row would say "far" and "nearby" by turns.
+                entry.rssi = (entry.rssi * 3 + seen.rssi) / 4
                 entry.lastSeen = seen.lastSeen
+                // A name or a unit that arrived in a later scan response fills
+                // in what the first sighting did not carry.
                 if !seen.name.isEmpty { entry.name = seen.name }
                 if !seen.unit.isEmpty { entry.unit = seen.unit }
                 if seen.model != .unknown { entry.model = seen.model }
+                // ORDER IS NOT RE-DERIVED HERE. Sorting on every reading makes
+                // rows trade places under a finger already on its way down.
                 self.ble.discovered[i] = entry
-            } else {
-                log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
-                self.ble.discovered.append(seen)
-                // The remembered machine is answerable the moment it appears;
-                // anything else waits for the window to close so the second
-                // machine on the bench is in the list before the question.
-                if seen.id == self.ble.rememberedMachineID { self.ble.decideFromScan() }
             }
+            return
+        }
+
+        DispatchQueue.main.async {
+            self.ble.scanTimer?.invalidate()
+            guard !self.ble.discovered.contains(where: { $0.id == seen.id }) else { return }
+            log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
+            self.ble.discovered.append(seen)
+            self.ble.lastRssiPush[seen.id] = Date()
+            // The set changed, so this is where the order is settled.
             self.ble.discovered.sort { $0.rssi > $1.rssi }
+            self.ble.decideFromScan()
         }
     }
 
