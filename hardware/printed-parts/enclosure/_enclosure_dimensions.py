@@ -68,7 +68,7 @@ def _group(pick):
 #
 # `side_band_inset` is what that width check REQUIRES of a body standing on the floor, not
 # what sets the wall — the band the seam's bosses need where they stand, which is a station
-# and a height together: a boss is a pipe as tall as it is wide, so a body clears one by
+# and a height together: a boss is a block as tall as it is wide, so a body clears one by
 # standing over or under it as readily as beside it.
 APPLIANCE_W = _OUTER[1] - _OUTER[0]
 APPLIANCE_D = _OUTER[3] - _OUTER[2]
