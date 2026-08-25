@@ -10,10 +10,13 @@ Why a script rather than typed numbers: the print estimate is a function of the
 that changes shape moves its mass, its print hours, the bottleneck's wall clock
 and the units-per-year ceiling — all of it, without anyone remembering to.
 
-  * Print hours = each §7 row's mass × its GROUP's hours-per-kg. Groups are the
-    five print configurations the build uses; GROUP_OF assigns every row by
-    name. --check fails on an unassigned row, so a new printed part cannot
-    silently escape the estimate.
+  * Print hours = each §7 row's mass × its GROUP's hours-per-kg. THE KG IS
+    FILAMENT, not geometry — §7 bills what a slice of the part lays, shell and
+    infill (_bom_masses.PROFILES), and the rates below are measured against that
+    same figure. Groups are the five print configurations the build uses;
+    _bom_masses.GROUP_OF assigns every row by name and is imported rather than
+    restated, so one list says what plate a part comes off. --check fails on an
+    unassigned row, so a new printed part cannot silently escape the estimate.
   * The §2/§3/§4 process tables are read, not computed — those are datasheet and
     procedure figures. Their subtotals are summed here.
   * The turnaround table is likewise read and summed, except for the print's own
@@ -38,60 +41,42 @@ sys.path.insert(
                 if (p / "tools" / "docgen").is_dir()) / "tools"))
 from docgen import cells, substitute_md  # noqa: E402
 
+sys.path.insert(0, HERE)
+from _bom_masses import GROUP_OF  # noqa: E402
+
 PRINTERS = 2          # Bambu Lab H2C, tools.md
 DUTY = 0.65           # machine duty — failed prints, plate changes, maintenance
 HOURS_PER_YEAR = 24 * 365
 
 # The two measured slices the print estimate stands on, each one its own
-# configuration's rate. Neither is scaled from the other.
+# configuration's rate, and each one a plate whose hours AND filament were both
+# read off the same slice. Neither is scaled from the other, and neither is
+# scaled across stocks: the exterior is measured in the stock it ships in.
 #
-#   bulk — the cold-core inner shell, 1142.47 g in 14h22m on an H2C (0.8 nozzle,
-#          0.4 layer, PETG, 21 mm³/s), against its 1.325 kg geometry mass in §7.
-#   ext  — the enclosure front-top, 16 h on an H2C (0.4 High Flow nozzle, 0.24
-#          layer, PETG, 21 mm³/s), against its 1.751 kg of STEP geometry — the
-#          §7 "front bottom + front top" row less the front-bottom's 1.095.
+#   bulk — the cold-core inner shell, 379.99 m in 14h22m on an H2C (0.8 nozzle,
+#          0.4 layer, PETG, 21 mm³/s). printed-parts/cold-core/foam-shell/print-log.md.
+#   ext  — the enclosure front-top, 213.06 m in 20h23m on an H2C (0.4 nozzle,
+#          0.24 layer, PET-GF15, 18 mm³/s).
 #          printed-parts/enclosure/enclosure/print-log.md holds the profile.
-MEASURED = ("14 h 22 m", 1.325, 14 + 22 / 60)
-MEASURED_EXT = ("16 h", 1.751, 16.0)
+#
+# The kg beside each is §7's figure for that ONE PIECE — what _bom_masses says the
+# plate lays, which is what this file multiplies. The slice's own metres are the
+# larger number of the two, by the supports and brim §7 does not carry; carrying
+# the rate against §7's figure is what puts the supports back into the hours.
+MEASURED = ("14 h 22 m", 1.126, 14 + 22 / 60)
+MEASURED_EXT = ("20 h 23 m", 0.653, 20 + 23 / 60)
 
-# A nozzle lays grams at (volumetric cap × density), and hours per kg is one over
-# that. The 16 h slice measured a PETG kilogram; the exterior's kilogram is
-# PET-GF15's, so the measured rate is carried across on the ratio of the two.
-EXT_CAP_PETG, EXT_CAP_PETGF = 21.0, 18.0    # mm³/s: enclosure-front-top-0.4mm-16hours,
-                                            #        enclosure-front-top-petgf
-EXT_RHO_PETG, EXT_RHO_PETGF = 1.27, 1.43    # g/cm³, bom.md §7
-EXT_SCALE = (EXT_CAP_PETG * EXT_RHO_PETG) / (EXT_CAP_PETGF * EXT_RHO_PETGF)
-
-# Hours per geometry-kg, by print configuration. `bulk` is measured and `ext` is
-# a measured PETG rate carried onto PET-GF by EXT_SCALE; the other three are the
-# bulk rate scaled for a slower setup and are labelled est. in the ledger. See
-# machine-time.md "Open items" for what would measure them.
+# Hours per kg of filament, by print configuration. `bulk` and `ext` are measured;
+# the other three are the bulk rate scaled for a slower setup and are labelled est.
+# in the ledger. See machine-time.md "Open items" for what would measure them.
+_BULK = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
-    "bulk":  round(MEASURED[2] / MEASURED[1], 1),                          # 10.8 — measured
-    "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1] * EXT_SCALE, 1),      #  9.5 — measured, scaled
-    "tight": 22,    # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
-    "small": 30,    # travel + layer-change overhead dominates a small part
-    "petgf": 60,    # the faucet: 0.4 TC, fine layers, 50 °C chamber, supported
+    "bulk":  _BULK,                                             # 12.8 — measured
+    "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
+    "tight": round(_BULK * 2.0),    # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
+    "small": round(_BULK * 2.8),    # travel + layer-change overhead dominates a small part
+    "petgf": round(_BULK * 5.5),    # the faucet: 0.4 TC, fine layers, 50 °C chamber, supported
 }
-
-# bom.md §7 part-name fragment -> rate group. Every §7 row must match exactly one.
-GROUP_OF = [
-    ("Cold-core inner shell",  "bulk"),
-    ("Cold-core foam cap",     "bulk"),
-    ("Enclosure —",            "ext"),
-    ("Flavor reservoir",       "tight"),
-    ("Faucet shell",           "petgf"),
-    ("Above-counter plate",    "petgf"),
-    ("Copper-plug stack",      "small"),
-    ("PRV shroud",             "small"),
-    ("Carbonator reed bridge", "small"),
-    ("ASSE drip pan",          "small"),
-    ("Fuse clamp",             "small"),
-    ("Display cover plate",    "ext"),
-    ("Bulkhead ring",          "small"),
-    ("Tube collar",            "small"),
-    ("Nameplate",              "small"),
-]
 
 GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
                 "small": "SMALL", "petgf": "PETGF"}
