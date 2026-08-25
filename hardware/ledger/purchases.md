@@ -613,7 +613,7 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 ## 21. Silicone molding — Zone C funnel
 
-Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funnel ([printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)): a two-piece printed mold poured with food-grade platinum silicone (BBDINO 40A — ~135 mL / ~153 g per funnel, ~7 funnels per kit), vacuum-degassed in a chamber driven by the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) + 1/4" SAE manifold, then oven post-cured. Pigmented black to hide concentrate staining; food contact (fat-free) qualified by the wetted-surface screen, not a cert. The printed core's food-contact face is sealed with a clear-acrylic coat that releases the silicone without inhibiting cure; release runs on it and the cavity.
+Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funnel ([printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)): a printed two-part mold on a 1/4" dowel, poured with food-grade platinum silicone (BBDINO 40A — ~135 mL / ~153 g per funnel, ~7 funnels per kit), vacuum-degassed in a chamber driven by the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) + 1/4" SAE manifold, then oven post-cured. Pigmented black to hide concentrate staining; food contact (fat-free) qualified by the wetted-surface screen, not a cert. The printed core's food-contact face is sealed with a clear-acrylic coat that releases the silicone without inhibiting cure; release runs on it and the cavity.
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -624,6 +624,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert) | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $20.35 | 112-7063184-8235469 | 2026-06-22 | 2026-06-24 | ACQUIRED |
 | Mann Ease Release 200, 14 oz aerosol — addition-cure-compatible mold release for the printed funnel mold; used on the cavity and on the core's clear-acrylic seal (it is a release film, not a silicone fluid, so it does not add siloxane to the food face — any trace is cleared by the funnel's post-cure bake + wetted-surface screen) | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $23.58 | 112-0411698-8891425 | 2026-06-22 | 2026-06-23 | ACQUIRED |
 | TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~135 mL pour | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $19.29 | 112-0401256-3893007 | 2026-06-22 | 2026-06-22 | ACQUIRED |
+| POWERTEC 71476 hardened steel dowel pins, 1/4" × 2" (10-pk) — **the funnel mould's spout bore**: dropped into a socket up the core's ramp cone, it is the whole of the Ø6.35 round below the ramp tip ([funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md)). Ground to 0.0001"–0.0005" on diameter against ASME dimensional standard — the socket carries 0.1 mm of slip, so the rod's own tolerance has to be a fraction of that, which the 0.005"–0.01" shelf-peg grade is not. Stock, so it is tooling and not a per-unit line: a bent one is replaced from the drawer with the core untouched. $16.99 + $1.23 NE tax | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK) | 1 pk (10) | $18.22 | 112-8827949-5565840 | 2026-08-24 | — | ON-ORDER |
 | Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/hardware/printed-parts/zone-c/funnel-mold/README.md) "Finish the core" | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $10.61 | 112-5591371-7092233 | 2026-06-23 | 2026-06-25 | ACQUIRED |
 
 ---
@@ -644,10 +645,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$32,293.71](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$5,437.54](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$37,731.25](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$548.83](LEDGER_ON_ORDER) |
+| ON-ORDER | [$567.05](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$38,322.97](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$38,341.19](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
