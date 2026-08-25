@@ -1,10 +1,10 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
-    "APPLIANCE_HEIGHT": "358 mm",
+    "APPLIANCE_HEIGHT": "361 mm",
     "BACK_TOP_FLANK": "6 mm",
     "BACK_TOP_FLANK_GROWN": "3 mm",
     "BACK_TOP_WALL": "6 mm",
-    "BOX_SIZE": "215 \u00d7 462 \u00d7 358 mm",
+    "BOX_SIZE": "215 \u00d7 462 \u00d7 361 mm",
     "CABLE_BORE": "19.05 mm",
     "CAP_TUBE_RELIEF": "1 mm",
     "CEILING_KEEP": "5 mm",
@@ -27,6 +27,7 @@
     "COUPON_PITCH": "5 mm",
     "DISPLAY_FACET_SLOPE": "87.5 mm",
     "DISPLAY_FACET_X": "158 mm",
+    "FLOOR_T": "6 mm",
     "FLUTE_BACKING": "3 mm",
     "FLUTE_COUNT": "260",
     "FLUTE_DEPTH": "1.2 mm",
