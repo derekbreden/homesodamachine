@@ -262,79 +262,102 @@ Boot order does not matter. The S3 retries `GET_CONFIG` until the ESP32 is ready
 
 ## A shipped unit is updated from the iOS app
 
-**The phone is the update path.** The iOS app carries the images and pushes them over BLE to
-whichever board hosts the GATT server; that board updates itself and forwards the other two
-over the wired links they already use. A customer's machine is never on WiFi and never on the
-internet — the air gap is deliberate — so BLE from a phone standing in the kitchen is the only
-way new firmware reaches a unit in the field. USB, below, is the bench path.
+**The phone is the update path.** A customer's machine is never on WiFi and never on the
+internet — the air gap is deliberate — so BLE from a phone standing in the kitchen is how new
+firmware reaches a unit in the field. USB, below, is the bench path.
 
-Every board in the appliance is a target, the main board included. It has its own USB-C at J14,
-but that is a service visit; downstream of the radio it takes its image over the link like the
-displays do.
+Four links, one pull. The receiver asks for the offset it is ready to write; whoever is upstream
+of it asks the next one out; the phone answers. One chunk is in flight anywhere on the path and
+no board between the phone and the flash stores more than a frame.
 
-**All three partition tables are single-slot today, so no board can take an update yet.** Each
-has `otadata` and `ota_0` and no `ota_1`, and ESP-IDF refuses to write an OTA without the second
-slot. The layout is fixed at flash time and cannot be changed by the mechanism it blocks, so a
-unit that ships single-slot needs a service visit for every firmware change it ever gets. The
-banners in [`partitions_esp32.csv`](partitions_esp32.csv), [`partitions_s3.csv`](partitions_s3.csv)
-and [`partitions_s3_front.csv`](partitions_s3_front.csv) carry the per-board layouts and the
-deadline: before unit #001 is flashed for shipment.
-
-**What an update is, per board.** Firmware goes into the OTA slot that is not
-running and the boot partition moves only after the whole image is in and its
-CRC32 matches; a transfer that stalls leaves the board running what it booted.
-The enclosure display also carries `art` — a data partition holding the loading
-animation, erased and rewritten in place, verified the same way.
-
-| Target | Image | Slot | |
-|---|---|---|---|
-| `self` | `appliance` | 768 KB | the main board's own spare slot |
-| `faucet` | `esp32s3_faucet` | 3 MB | over J3 |
-| `enclosure` | `esp32s3_front` | 2.5 MB | over J9 |
-| `art` | `tools/make_front_art.py` | 4 MB | the animation, over J9 |
-
-From a laptop, through the main board's console:
-
-```bash
-~/.platformio/penv/bin/python tools/ota.py faucet
+```
+homesodamachine.com  ──HTTPS──▶  iOS app  ──BLE──▶  faucet display
+                                                          │
+                                                          J3
+                                                          ▼
+                                     enclosure  ◀──J9──  main board
 ```
 
-The main board stores nothing — it has 4 MB of flash and holds one chunk. The
-receiver asks for the offset it is ready to write, the main board asks the host
-for those bytes and passes them on, so the host paces the transfer and nothing
-is buffered in between. That pull is also what makes J9 work: the main board
-may only speak inside the turn a frame opens, and a request is exactly such a
-turn.
+**The faucet display carries the radio** ([`src_faucet/ble_link.cpp`](src_faucet/ble_link.cpp)):
+NimBLE on the Nordic UART Service, at the end of the gooseneck, above the counter, in open air.
+An image for the faucet goes from the phone into its own spare slot with no relay in it. Anything
+else goes onto J3 as it lands, and [`src_appliance/ota.cpp`](src_appliance/ota.cpp) is the relay
+that carries it the rest of the way. That relay takes its bytes from the console or from J3 —
+`MSG_OTA_SRC_BEGIN` / `_NEED` / `_DATA` / `_END` in
+[`proto_msg.h`](lib/proto_link/proto_msg.h) — and everything downstream of that question is one
+path.
 
-**The enclosure display goes dark while it writes.** Its scan-out DMA refills a
-bounce buffer from PSRAM, a flash write suspends the cache PSRAM is reached
-through, and the refill then faults — the same constraint that keeps its logo
-choice on the main board rather than in local NVS. So it says what is about to
-happen, stops the panel, takes the image dark and reboots either way. A failed
-transfer costs a reboot into the image it was already running. The faucet drives
+**What a machine advertises comes from its main board.** A display is one board out of a pair
+that could be wired to either machine; the main board is the machine. `MSG_IDENTITY_QUERY`
+answers with the model and the low three bytes of the main board's own MAC, and the faucet puts
+that in its local name and in a `0xFFFF` manufacturer block. Two machines a metre apart are
+distinguishable in a scan result, before either is connected to. `identity <name>` on the main
+board console sets a name; `ble` reports the radio the main board cannot see.
+
+**What an update is, per board.** Firmware goes into the OTA slot that is not running and the
+boot partition moves only after the whole image is in and its CRC32 matches; a transfer that
+stalls leaves the board running what it booted. The enclosure display also carries `art` — a data
+partition holding the loading animation, erased and rewritten in place, verified the same way.
+
+| Target | Image | Slot | Reached over |
+|---|---|---|---|
+| `self` | `appliance` | 768 KB | J3, or the console |
+| `faucet` | `esp32s3_faucet` | 3 MB | BLE, or J3 from the console |
+| `enclosure` | `esp32s3_front` | 2.5 MB | J9 |
+| `art` | `tools/make_front_art.py` | 4 MB | J9 |
+
+**The enclosure display goes dark while it writes.** Its scan-out DMA refills a bounce buffer
+from PSRAM, a flash write suspends the cache PSRAM is reached through, and the refill then
+faults — the same constraint that keeps its logo choice on the main board rather than in local
+NVS. So it says what is about to happen, stops the panel, takes the image dark and reboots either
+way. A failed transfer costs a reboot into the image it was already running. The faucet drives
 SPI, has no such conflict, and shows a live percentage.
 
-**Which board hosts the GATT server is open.** It decides who relays and nothing else — the
-receiving half is the same work on all three boards, and is what the wire contract's
-`MSG_UPLOAD_START` / `MSG_UPLOAD_DONE` / `MSG_ERR_CRC32_MISMATCH` shape already describes
-([`proto_msg.h`](lib/proto_link/proto_msg.h)). What the boards bring to that choice:
+### Where the images come from
 
-| | RF position | Flash | Hops to the others |
-|---|---|---|---|
-| faucet display | above the counter, in open air, nearest the phone | 16 MB, half unclaimed by `partitions_s3.csv` | J3 to the main board, then J9 onward |
-| enclosure display | inside the front facet of a cabinet under a counter | 16 MB, and the app fills most of one slot | J9 to the main board, then J3 onward |
-| main board | deepest in the cabinet | 4 MB total, `-N8`/`-N16` a drop-in swap | one hop to each, no relay |
+[`tools/publish_firmware.py`](/tools/publish_firmware.py) builds every image, packs one
+content-addressed release asset and pins it in
+[`firmware/firmware.lock.json`](firmware.lock.json) — each image by target, `FW_VERSION`, size,
+the crc32 `MSG_OTA_BEGIN` promises, and a sha256. `web/scripts/fetch-firmware.mjs` puts the bytes
+on the deploy's disk and `/api/firmware` serves the manifest; `render.yaml` names the lock in its
+build filter, so publishing firmware deploys the site the way pinning geometry does.
 
-The main board's radio is unused but present: its antenna keepout is reserved
-([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)) and the bench proved the RF as built — 15–26 networks
-at −42 to −50 dBm ([`bench-log.md`](/hardware/pcb/pcba/bench-log.md)). Hosting BLE there is a
-firmware decision, not a hardware one.
+The version string is the board's own: `pre_build.py` writes `FW_VERSION` into each tree from
+HEAD's date and short SHA, the board reports that string, and the manifest carries the same one.
 
-**The enclosure display stops its panel to take an update.** It scans an 800×480 framebuffer out
-of PSRAM, and a flash write suspends the cache PSRAM is reached through, so the DMA refilling the
-bounce buffer faults — the same constraint that keeps its logo choice on the main board instead of
-in local NVS. Its OTA holds the panel stopped for the whole write. The faucet drives SPI and has
-no such conflict.
+```bash
+~/.platformio/penv/bin/python tools/publish_firmware.py --write
+```
+
+### The prototype
+
+`prototype` and `rotary` are in the manifest and neither board can take an update yet.
+[`partitions_s3.csv`](partitions_s3.csv) is single-slot, and the ESP32 under the counter is
+running the single-slot table it was flashed with even though
+[`partitions_esp32.csv`](partitions_esp32.csv) now describes two. Both need one USB visit to
+install a dual-slot table, which is the one thing an update cannot install.
+
+`rotary`'s app is 3.2 MB of an 8 MB flash, and 2.1 MB of that is nineteen 240×240 images
+compiled in ([`src_config/images/`](src_config/images)). Two slots and a filesystem do not fit
+around that, so the table it gets is the one it gets after the art moves to its own partition —
+the change [`front_art.cpp`](src_front/front_art.cpp) already is for the enclosure.
+
+`rp2040_display` is not in the manifest. The RP2040's ROM offers USB and nothing else, so it
+takes an image through BOOTSEL and a cable.
+
+## The bench path
+
+`tools/ota.py` pushes through the main board's USB console — the same relay, with the console as
+the source instead of J3:
+
+```bash
+~/.platformio/penv/bin/python tools/ota.py enclosure
+```
+
+Targets are `self`, `faucet`, `enclosure` and `art`; `pio run -e <env>` first. The console runs
+at 500000 for the duration of a session and drops back when it ends.
+
+`tools/boards.py` names each S3 on sight — every one reports its MAC as its USB serial number.
 
 ## Building and Flashing
 
