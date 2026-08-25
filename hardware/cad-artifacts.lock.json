@@ -6,28 +6,12 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-4ac541f9c10b93e0.tar.gz"
   },
   "source": {
-    "commit": "51057d97cd7689f236327d21577a8b3540693b39"
+    "commit": "1a2d1f979cd32adcc46db9f4631c8c5bda303d72"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "NAMES.md",
-      "hardware/assembly/_internal_plumbing_sync.py",
-      "hardware/assembly/cards/_cards_sync.py",
-      "hardware/assembly/scenes/_scenes.py",
-      "hardware/manifold-layout/_scorecard.py",
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/manifold-layout/enclosure_assembly.py",
-      "hardware/printed-parts/cold-core/_cold_core_interface.py",
-      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
-      "hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
-      "hardware/printed-parts/enclosure/enclosure/README.md",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "hardware/printed-parts/faucet/faucet-petgf.3mf",
-      "hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
-      "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
-      "hardware/reference/seaflo-suction-chain/seaflo_suction_chain.py",
-      "hardware/reference/sf76e-thermal-fuse/sf76e_thermal_fuse.py"
+      "hardware/printed-parts/faucet/faucet-petgf.3mf"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
