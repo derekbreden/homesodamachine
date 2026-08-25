@@ -1,0 +1,84 @@
+{
+  "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
+  "release": {
+    "tag": "firmware",
+    "asset": "fw-9abda2770d312769.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-9abda2770d312769.tar.gz"
+  },
+  "source": {
+    "commit": "8403e11687838c4873b9a654bc6eaeaeb9f1c02f"
+  },
+  "bundle": {
+    "sha256": "9abda2770d31276958e635ef074c7669256f8da32cba16f34a98c2d75ddbe3eb",
+    "bytes": 2373506,
+    "images": 6
+  },
+  "images": {
+    "appliance": {
+      "env": "appliance",
+      "machine": "appliance",
+      "what": "the main board's own firmware",
+      "kind": "app",
+      "version": "2026.08.24 8403e116+",
+      "bytes": 435120,
+      "crc32": 1252325989,
+      "sha256": "fbb2389ef9e609091db466112541cf8714f8cd3e1a83402be29a500166aee117",
+      "file": "appliance.bin"
+    },
+    "art": {
+      "env": "esp32s3_front",
+      "machine": "appliance",
+      "what": "the enclosure display's loading animation",
+      "kind": "art",
+      "version": null,
+      "bytes": 4147232,
+      "crc32": 1688936971,
+      "sha256": "81cc04aaf4f482f913296e3014766c75156d5d8ba1c54335d07b9d2792fb6087",
+      "file": "art.bin"
+    },
+    "enclosure": {
+      "env": "esp32s3_front",
+      "machine": "appliance",
+      "what": "the 4.3\" enclosure display",
+      "kind": "app",
+      "version": "2026.08.24 8403e116+",
+      "bytes": 1507008,
+      "crc32": 1523369337,
+      "sha256": "fdea1b8b9b8f7ba5908d440aa19872987ce1f66f66c1a0702507959c98c7d2dc",
+      "file": "enclosure.bin"
+    },
+    "faucet": {
+      "env": "esp32s3_faucet",
+      "machine": "appliance",
+      "what": "the 1.47\" faucet display",
+      "kind": "app",
+      "version": "2026.08.24 8403e116+",
+      "bytes": 1099664,
+      "crc32": 352651987,
+      "sha256": "8f937fffbcc2d4b8ba8f2e01fd8a88e2ea4eb25dd75d4f13614908a290915dc3",
+      "file": "faucet.bin"
+    },
+    "prototype": {
+      "env": "prototype",
+      "machine": "prototype",
+      "what": "the prototype's main ESP32",
+      "kind": "app",
+      "version": "2026.08.24 8403e116+",
+      "bytes": 475024,
+      "crc32": 3156136543,
+      "sha256": "a8fcd9cceaea83615f778cbc7f2b747e8c0bb10c4fdf5fe3a7298c63539260d0",
+      "file": "prototype.bin"
+    },
+    "rotary": {
+      "env": "esp32s3_config",
+      "machine": "prototype",
+      "what": "the prototype's 1.28\" rotary display",
+      "kind": "app",
+      "version": "2026.08.24 8403e116+",
+      "bytes": 3192560,
+      "crc32": 4283877340,
+      "sha256": "c3fa7104d93f5f6beb731c98a9b0d83e9bb2a75b15976094e85ab3af70551c7b",
+      "file": "rotary.bin"
+    }
+  }
+}
