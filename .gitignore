@@ -127,11 +127,6 @@ hardware/quickstart/out/
 # serves from. The lock is what git carries.
 hardware/assembly/scenes/glb/
 
-# The MiniProto upload `wiring/_harness_quote.py` emits. `--gauge` renders a different one from
-# the same schedule, and `harness-rfq.md` still has the gauge open, so what is here is a choice
-# being tried rather than a record of one. One command remakes it.
-hardware/wiring/*.harness.json
-
 # Fetched at deploy from the release firmware/firmware.lock.json names
 # (web/scripts/fetch-firmware.mjs). The lock is committed; the images are not.
 web/public/firmware/
