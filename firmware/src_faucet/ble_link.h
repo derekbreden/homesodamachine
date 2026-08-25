@@ -36,6 +36,9 @@ void bleLinkService();
 // The identity the main board answered with, which is what gets advertised.
 void bleLinkOnIdentity(const IdentityPayload &id);
 
+// What every board on this machine is running, as the main board assembled it.
+void bleLinkOnVersions(const VersionsPayload &all);
+
 // The relay asking for bytes, and telling this board how a session ended.
 void bleLinkOnSrcNeed(uint32_t offset, uint16_t len);
 void bleLinkOnSrcEnd(const OtaStatePayload &state);

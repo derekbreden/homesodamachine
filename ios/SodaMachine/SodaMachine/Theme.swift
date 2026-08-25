@@ -16,6 +16,10 @@ enum Theme {
     // Accent (used by Hold-to-Prime button and Clean cycle phase)
     static let primeBlue = Color(red: 0.27, green: 0.53, blue: 1.0)
 
+    // The red the app icon and the glass animation open on, for the one
+    // action on a screen that has one.
+    static let accent = Color(red: 0.914, green: 0.271, blue: 0.376)
+
     // Chart colors (per-flavor, also used as pie + bar foregrounds in StatsSheet)
     static let chartPink = Color(red: 0.9, green: 0.3, blue: 0.5)
     static let chartPurple = Color(red: 0.6, green: 0.3, blue: 0.9)

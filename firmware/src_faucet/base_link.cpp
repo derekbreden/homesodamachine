@@ -4,6 +4,7 @@
 
 #include "base_link.h"
 #include "ble_link.h"
+#include "fw_version.h"
 #include "ota_receiver.h"
 #include <esp_system.h>
 #include "flavor_link_policy.h"
@@ -321,6 +322,18 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     OtaStatePayload st;
     memcpy(&st, payload, sizeof(st));
     bleLinkOnSrcEnd(st);
+    return;
+  }
+  if (type == MSG_VERSION_QUERY) {
+    VersionPayload v{OTA_TGT_FAUCET, {0}, 0};
+    strncpy(v.version, FW_VERSION, FW_VERSION_MAX);
+    base.trySend(MSG_RESP_VERSION, &v, sizeof(v));
+    return;
+  }
+  if (type == MSG_RESP_VERSIONS && plen >= sizeof(VersionsPayload)) {
+    VersionsPayload all;
+    memcpy(&all, payload, sizeof(all));
+    bleLinkOnVersions(all);
     return;
   }
   if (type == MSG_BLE_STATUS_REQ) {

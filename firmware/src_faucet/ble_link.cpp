@@ -25,6 +25,10 @@ static IdentityPayload identity{};
 static bool            haveIdentity = false;
 static uint32_t        identityAskedAtMs = 0;
 
+static VersionsPayload versions{};
+static bool            haveVersions = false;
+static uint32_t        versionsAskedAtMs = 0;
+
 // A write arrives on the NimBLE task; anything that touches flash, LVGL or J3
 // has to happen in loop(). One frame is in flight at a time because the pull
 // only ever asks for one, so a single staging buffer is the whole queue.
@@ -35,7 +39,8 @@ static uint32_t stageDrops = 0;
 
 static void notify(uint8_t type, const void *data, uint16_t len) {
   if (!txChar || !connected) return;
-  uint8_t frame[3 + 64];
+  // VersionsPayload is the largest thing sent this way, at 76 bytes.
+  uint8_t frame[3 + 128];
   if (len > sizeof(frame) - 3) return;
   frame[0] = type;
   frame[1] = (uint8_t)(len & 0xFF);
@@ -59,6 +64,24 @@ static void sendIdentity() {
   memcpy(body + n, FW_VERSION, vlen); n += vlen;
   body[n++] = 0;
   notify(BLE_FRAME_IDENTITY, body, (uint16_t)n);
+}
+
+// A phone asking whether a machine is current is asking about every board on
+// it. An entry the main board has not been told about carries an empty string,
+// which the phone reads as "has not said" rather than as current.
+static void sendVersions() {
+  if (!haveVersions) return;
+  notify(BLE_FRAME_VERSIONS, &versions, sizeof(versions));
+}
+
+void bleLinkOnVersions(const VersionsPayload &all) {
+  versions = all;
+  haveVersions = true;
+  // Sent on every answer rather than on a change. This frame is larger than the
+  // default MTU carries, so the first one after a connection may not fit; the
+  // poll behind it is what makes that heal instead of stranding the phone on a
+  // machine whose versions it never learned.
+  sendVersions();
 }
 
 // ── What this board advertises ────────────────────────────────────────────
@@ -137,6 +160,7 @@ class ServerCB : public NimBLEServerCallbacks {
   void onConnect(NimBLEServer *, NimBLEConnInfo &info) override {
     connected = true;
     Serial.println("BLE: connected");
+    versionsAskedAtMs = 0;
     // The pull costs one round trip per frame, so the connection interval is
     // the transfer rate. Ask for the shortest iOS grants.
     server->updateConnParams(info.getConnHandle(), 12, 24, 0, 200);
@@ -192,6 +216,12 @@ void bleLinkService() {
     baseLinkSendOtaSrc(MSG_IDENTITY_QUERY, nullptr, 0);
   }
 
+  // Boards reboot into new images, so this is asked for again rather than once.
+  if (millis() - versionsAskedAtMs >= (connected ? 5000UL : 30000UL)) {
+    versionsAskedAtMs = millis();
+    baseLinkSendOtaSrc(MSG_VERSIONS_QUERY, nullptr, 0);
+  }
+
   if (stageLen == 0) return;
   const uint16_t len = stageLen;
   static uint8_t work[RX_STAGE];
@@ -205,7 +235,11 @@ void bleLinkService() {
   const uint8_t *payload = work + 3;
 
   if (bleOtaHandleFrame(type, payload, plen)) return;
-  if (type == BLE_TEXT && plen >= 8 && !memcmp(payload, "IDENTITY", 8)) sendIdentity();
+  if (type == BLE_TEXT && plen >= 8 && !memcmp(payload, "IDENTITY", 8)) {
+    sendIdentity();
+    sendVersions();
+    versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
+  }
 }
 
 bool bleLinkConnected() { return connected; }

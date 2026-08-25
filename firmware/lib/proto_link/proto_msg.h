@@ -160,6 +160,16 @@ constexpr uint8_t MSG_RESP_IDENTITY  = 0x41;  // IdentityPayload
 constexpr uint8_t MSG_BLE_STATUS_REQ  = 0x42;  // no payload
 constexpr uint8_t MSG_RESP_BLE_STATUS = 0x43;  // BleStatusPayload
 
+// ── What each board is running (0x44..) ──────────────────────────────────
+// A phone asking whether a machine is current is asking about every board on
+// it, not the one it happens to be talking to. The main board reaches them
+// all, so it is where the answer is assembled: it knows its own and asks each
+// display for theirs.
+constexpr uint8_t MSG_VERSION_QUERY   = 0x44;  // no payload: a display's own
+constexpr uint8_t MSG_RESP_VERSION    = 0x45;  // VersionPayload
+constexpr uint8_t MSG_VERSIONS_QUERY  = 0x46;  // no payload: the whole machine
+constexpr uint8_t MSG_RESP_VERSIONS   = 0x47;  // VersionsPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -505,6 +515,28 @@ struct __attribute__((packed)) BleStatusPayload {
   uint16_t owed;         // bytes of the current ask the phone still owes
   uint32_t dropped;      // frames this board could not take or forward
   char     advertised[MACHINE_NAME_MAX + 1];
+};
+
+constexpr uint8_t FW_VERSION_MAX = 23;
+
+struct __attribute__((packed)) VersionPayload {
+  uint8_t  board;                        // OTA_TGT_*
+  char     version[FW_VERSION_MAX + 1];  // NUL-terminated; empty until asked
+  // The art partition carries no version. It carries a crc32 over its pixels,
+  // and the manifest carries the same one, so that is what says whether the
+  // pictures on this board are the published pictures. Zero where the board has
+  // no art partition, or has not mapped one.
+  uint32_t artCrc32;
+};
+
+// Every board on this machine that can take an image. An entry whose version is
+// empty is a board that has not answered — which is not the same as one running
+// nothing, and the phone says so rather than calling the machine current.
+constexpr uint8_t VERSIONS_MAX = 3;
+
+struct __attribute__((packed)) VersionsPayload {
+  uint8_t count;
+  VersionPayload entries[VERSIONS_MAX];
 };
 
 constexpr uint8_t BLE_ST_UP        = 1 << 0;  // the stack came up and is advertising

@@ -2,6 +2,7 @@
 
 #include "link.h"
 #include "ota.h"
+#include "versions.h"
 #include "flavor.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
@@ -237,6 +238,13 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // Firmware for this display. A request is answered from the held chunk if
     // the main board has it; otherwise this turn passes and the host is asked,
     // and the enclosure's next poll gets the bytes.
+    if (type == MSG_RESP_VERSION && plen >= sizeof(VersionPayload)) {
+        VersionPayload v;
+        memcpy(&v, payload, sizeof(v));
+        v.version[FW_VERSION_MAX] = 0;
+        versionsOnReport(OTA_TGT_ENCLOSURE, v.version, v.artCrc32);
+        return;
+    }
     if (type == MSG_OTA_REQ)  { otaOnRequest(OTA_TGT_ENCLOSURE, payload, plen); return; }
     if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_ENCLOSURE, payload, plen);   return; }
 
