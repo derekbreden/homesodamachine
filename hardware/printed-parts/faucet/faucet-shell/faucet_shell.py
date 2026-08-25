@@ -1113,11 +1113,10 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # reaches past that step, and the seam a hand finds around the cradle is
 # a step the device already has.
 #
-# The wall tops are rebated on their inner display_cover_tongue_w for
-# display_cover_lap_depth and the plate drops a matching tongue into it:
-# the joint locates the plate across the tip and along it, and takes the
-# seam's own tolerance out of sight. One M3 above the device's north
-# edge threads a ruthex insert set into the shell from the land.
+# The plate butts the land the whole way round and is held by two
+# things: the hook the south wall makes for it (below), and one M3 above
+# the device's north edge, threading a ruthex insert set into the shell
+# from the land.
 
 display_web_over_pill = 1.0
 display_pocket_inset = zone5_wall - display_web_over_pill
@@ -1141,11 +1140,32 @@ display_cap_thickness = 3.0 * display_line_width  # head wall — the same three
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # drops through the pocket floor into the pill cusp
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
-# The cavity's south and north faces. The device's south edge is walled
-# by display_cover_wall of shell, the same three extrusions its sides
-# get, and the cavity clears the device by display_cradle_clearance at
-# each end the way it does at each side.
-display_s_bottom = display_cover_wall  # [1.86 mm](DISPLAY_S_BOTTOM)
+# THE SOUTH WALL IS THE COVER'S HOOK. The screw is at the far end of
+# the plate, so on its own it leaves the bezel's grip on the device's
+# bottom edge hanging off 50 mm of cantilever. The wall between the
+# device and the dispense end carries a tongue off the plate instead:
+# its top third stands display_cover_hook_lap further up-gooseneck than
+# the rest, and the plate's tongue goes under that.
+#
+# So this wall is no longer one thickness. It is a skin at the end face
+# thick enough to carry the overhanging third, the reach of that
+# overhang, the tongue's riser, and the travel that gets the one under
+# the other — and the device sits north of all four.
+display_cover_hook_skin = display_cover_wall  # end-face skin the roof cantilevers off
+display_cover_hook_lap = display_cover_wall   # how far the roof reaches over the tongue
+display_cover_hook_stem = display_cover_wall  # the tongue's riser, off the plate
+# The plate is set down this far up-gooseneck of home, where the tongue
+# clears the roof and drops straight into the notch, and pushed to the
+# spout until the riser stops against the roof's face.
+display_cover_hook_travel = (
+    display_cover_hook_lap + display_cover_slip
+)  # [2.16 mm](DISPLAY_COVER_HOOK_TRAVEL)
+# The cavity's south and north faces. The cavity clears the device by
+# display_cradle_clearance at each end the way it does at each side.
+display_s_bottom = (
+    display_cover_hook_skin + display_cover_hook_lap
+    + display_cover_hook_stem + display_cover_hook_travel
+)  # [7.74 mm](DISPLAY_S_BOTTOM)
 display_s_top = (
     display_s_bottom + display_housing_length + 2.0 * display_cradle_clearance
 )  # [46.86 mm](DISPLAY_S_TOP)
@@ -1167,10 +1187,32 @@ _housing_band_half_x = display_housing_width / 2.0 + display_cradle_clearance
 # THE CRADLE PARTS HERE. The shell stops at the step the device's own
 # board makes under its housing; everything above it is the cover plate.
 display_cover_land_n = _pcb_band_n_top  # [17.2 mm](DISPLAY_COVER_LAND_N)
-# Rebate in the wall tops, and the plate's tongue that drops into it —
-# the inner extrusion of the three the wall is, sunk two deep.
-display_cover_tongue_w = display_line_width
-display_cover_lap_depth = 2.0 * display_line_width  # [1.24 mm](DISPLAY_COVER_LAP_DEPTH)
+# How the south wall's inner face divides. Off the floor, only enough
+# air to keep the tongue from landing on it — everything else is section,
+# split evenly between the tongue and the roof over it, because the two
+# carry the same load in opposite directions and neither should be the
+# one that gives.
+display_cover_hook_relief = 0.5  # air under the tongue
+_cradle_wall_h = display_cover_land_n - display_floor_n  # [5.3 mm](CRADLE_WALL_H)
+display_cover_hook_n0 = display_floor_n + display_cover_hook_relief  # [12.4 mm](DISPLAY_COVER_HOOK_N0)
+display_cover_hook_n1 = (
+    display_cover_hook_n0 + display_cover_land_n
+) / 2.0  # [14.8 mm](DISPLAY_COVER_HOOK_N1) — [2.4 mm](DISPLAY_COVER_HOOK_T) of each
+# The tongue is the wall's own straight run wide — the cavity's south
+# face is a rounded rectangle's end, and this is the flat of it. Wall
+# is left standing either side of the notch, and that is what still
+# stops the device.
+display_cover_hook_half_x = (
+    _housing_band_half_x - (display_corner_r + display_cradle_clearance)
+)  # [6.5 mm](DISPLAY_COVER_HOOK_HALF_X)
+# The tongue's own stations along the tip. The riser stands against the
+# roof's up-gooseneck face, and the tongue reaches back under the roof
+# from there to within a slip of the notch's own end.
+display_cover_hook_s0 = display_cover_hook_skin + display_cover_slip
+display_cover_hook_s1 = (
+    display_cover_hook_skin + display_cover_hook_lap + display_cover_hook_stem
+)  # [5.58 mm](DISPLAY_COVER_HOOK_S1)
+display_cover_stem_s0 = display_cover_hook_skin + display_cover_hook_lap  # [3.72 mm](DISPLAY_COVER_STEM_S0)
 # The one screw, on the centreline north of the device. Same chain as the
 # base pods: a ruthex M3 short set opening-up into the shell from the
 # land, a clearance shank through the plate, and the head sunk in a
@@ -1228,7 +1270,7 @@ cradle_back_slope_rad = math.pi / 2.0 - 2.0 * max_print_overhang_rad
 cradle_back_s = (
     display_cover_screw_s + display_cover_cbore_dia / 2.0 + display_cover_boss_wall
     + (display_cover_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
-)  # [62.54 mm](CRADLE_BACK_S)
+)  # [68.42 mm](CRADLE_BACK_S)
 # The head wall is cut from stock reaching this far back, so the ramp —
 # not the prism's own square end — is what closes the cradle at every
 # depth of _cradle_stock_drop. Cut short, the stock the ramp has not
@@ -1321,21 +1363,34 @@ def _display_cavity() -> cq.Workplane:
     return pcb_band.union(housing_band)
 
 
-def _display_cover_rebate() -> cq.Workplane:
-    """Groove sunk into the cradle's wall tops for the cover plate's
-    tongue: the inner display_cover_tongue_w of the wall, taken
-    display_cover_lap_depth down from the land. It runs the cavity's
-    whole perimeter, so the joint locates the plate on both axes and the
-    seam's tolerance sits below the surface instead of on it."""
-    reach = display_cover_tongue_w + display_cover_slip
-    return _cradle_prism(
-        _housing_band_half_x + reach,
-        display_s_bottom - reach,
-        display_s_top + reach,
-        display_cover_land_n - display_cover_lap_depth,
-        display_cover_land_n + 1.0,
-        corner_r=display_corner_r + display_cradle_clearance + reach,
+def _display_cover_hook_notch() -> cq.Workplane:
+    """The notch in the south wall the cover plate's tongue hooks into.
+
+    The wall between the device and the dispense end is
+    display_cover_hook_half_x of straight either side of the centreline
+    — the flat of the cavity's rounded end — and this takes that flat
+    out over the wall's bottom two thirds, and out again over the top
+    third everything up-gooseneck of display_cover_stem_s0. What is
+    left is a roof: the top third, reaching display_cover_hook_lap
+    further up-gooseneck than the wall under it, cantilevered off the
+    end-face skin. The plate's tongue goes under it.
+
+    The wall outboard of the notch is untouched, so the device still
+    stops against full-height wall on both sides of the tongue.
+
+    The roof's underside faces down the cradle's normal, which in the
+    tip's print orientation is [35°](CRADLE_BACK_SLOPE_PEER) — the same
+    the swept flanks carry. It costs the shell nothing."""
+    half_x = display_cover_hook_half_x + display_cover_slip
+    under = _cradle_prism(
+        half_x, display_cover_hook_skin, display_s_bottom,
+        display_floor_n, display_cover_hook_n1,
     )
+    slot = _cradle_prism(
+        half_x, display_cover_stem_s0, display_s_bottom,
+        display_cover_hook_n1, display_cover_land_n + 1.0,
+    )
+    return under.union(slot)
 
 
 def _display_cover_insert_bore() -> cq.Workplane:
@@ -1525,7 +1580,7 @@ def build_shell() -> cq.Workplane:
         build_zone6_inner_cut().val(),
         build_lever_clearance().val(),
         _display_cavity().val(),
-        _display_cover_rebate().val(),
+        _display_cover_hook_notch().val(),
         _display_cover_insert_bore().val(),
         _display_wire_hole().val(),
         _display_drain_hole().val(),
