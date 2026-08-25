@@ -52,8 +52,8 @@ section over them. At the C14, that same construction locally opens the lower
 face of the +X rail while its captured upper section continues to the back
 stop. Every pocket is open on the interior face, which is upward on the printer.
 
-One anchor's strap approach enters the new field. Its whole existing footprint
-is returned as the single [1](STRAP_RELIEF_N) strap pocket, so the loop still
+One anchor's zip tie approach enters the new field. Its whole existing footprint
+is returned as the single [1](TIE_RELIEF_N) zip tie pocket, so the loop still
 descends on both sides of the WR1110 barrel. The other anchor channels and both
 meter channels remain open while their solid roots merge into the plate.
 
@@ -133,10 +133,10 @@ so each one is grown by exactly one part.
 
 Each is built by `enclosure`'s own builder (`_flow_meter_anchors`, `_tube_anchors`):
 a bore concentric with the body it takes, its arc stopped on that body's own axis
-plane, and the strap's channel behind it. The stations are struck in the box's
+plane, and the zip tie's channel behind it. The stations are struck in the box's
 frame, because that is the frame the bodies are in; the z = [352](PANEL_UNDER)
 datum remains the plane each rib is constructed toward. The structural field
-then merges with the solid portions of those roots while leaving every strap
+then merges with the solid portions of those roots while leaving every zip tie
 channel open.
 
 The bench sequence follows from it: a seat that hangs off the top wall is an
@@ -152,7 +152,7 @@ flat plate.
 3. Keep back-top ceiling-down, with its Z− face upward. Insert both screws from
    that face through the fixed bosses and drive them upward into the panel's
    heat-sets.
-4. Lay the meter into its two anchors and each run into its rib, and strap them.
+4. Lay the meter into its two anchors and each run into its rib, and zip tie them.
    Then lower the populated piece onto the machine.
 5. Drop the funnel in. Its collar fills the throat immediately ahead of the
    panel; the panel's show face remains uninterrupted behind it.

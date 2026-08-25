@@ -9,7 +9,7 @@ moving under its own picture is a fact the tree holds rather than something a re
 notice.
 
 A SCENE IS A SUBSET OF THE MACHINE, NOT A FILE. `enclosure-back-top` with everything bolted,
-pressed and strapped to it is a real thing a person holds on the bench, and no STEP in this repo
+pressed and zip-tied to it is a real thing a person holds on the bench, and no STEP in this repo
 contains exactly it. So a scene names its ROOTS — the printed pieces the unit is built on — and
 takes everything those roots hold, transitively, off the fastening table the machine already
 keeps.
@@ -276,7 +276,7 @@ SCENES = (
         later=("tube-fluid-14",),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "three valves pressed into their cradles, both chains and one run strapped into "
+             "three valves pressed into their cradles, both chains and one run zip-tied into "
              "printed ribs. It meets the rest of the core after all of it is on.",
     ),
     Scene(

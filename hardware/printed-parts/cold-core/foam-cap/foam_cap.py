@@ -203,11 +203,11 @@ def add_chain_anchors(lid, face_z):
     """Every chain anchor, standing on the lid's outer face at `face_z`.
 
     THE CHANNEL IS A REMAINDER: the rib stands one `cap_anchor_wall` over the face down its whole
-    length and only its two ends carry on down to meet it, so the strap's channel is the room
+    length and only its two ends carry on down to meet it, so the zip tie's channel is the room
     between those ends. The lid's own face is the channel's floor and the rib's underside is its
     roof — neither is drawn, and there is no cut anywhere in it to graze a face with.
 
-    THE STRAP CLOSES ROUND THE BODY AND THE RIB'S OWN BACK TOGETHER: through the channel, out one
+    THE ZIP TIE CLOSES ROUND THE BODY AND THE RIB'S OWN BACK TOGETHER: through the channel, out one
     flank, over the far side of the body and back in the other. What it pulls is the body down
     into the bore, and the bore is what says where the body is.
 
@@ -305,7 +305,7 @@ def add_side_anchors(lid, face_z):
             .extrude(cap_side_len)
         )
         # THE TIE'S OWN CHANNEL DOWN THE BACK, on the tunnel's own width and over its mouth, so
-        # the strap leaves the tunnel and climbs the post in one line and the buckle sits in it.
+        # the zip tie leaves the tunnel and climbs the post in one line and the buckle sits in it.
         relief = (
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=face_z)

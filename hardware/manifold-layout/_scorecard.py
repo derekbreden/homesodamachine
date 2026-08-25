@@ -312,7 +312,7 @@ MOUNTS = (
     # a 120° V to each of the chain's own three sections, so the steps between them are faces
     # square to the axis and the brass barrel is trapped between two of them. What the V beds on
     # is that barrel's own two flats, which is the one section on the run whose clock the vent is
-    # machined into — so keying it is what holds the drip over the pan. Two straps through the
+    # machined into — so keying it is what holds the drip over the pan. Two zip ties through the
     # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
     ("asse-drip-pan", "enclosure-back-top", "channel"),
@@ -361,9 +361,9 @@ MOUNTS = (
     # 1/4" LLDPE in its own pair of collets, off a body the box holds.
     ("gasher-co2", None, "tube-hung"),
     # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
-    # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a strap
+    # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a zip tie
     # through the rib's own cavity closes round the barrel and the rib's back together. The seat
-    # opens downward, so the strap is the load path and the bore is what it pulls into.
+    # opens downward, so the zip tie is the load path and the bore is what it pulls into.
     ("wr1110", "enclosure-back-top", "cradle"),
     ("bulkhead-flavor-a", "enclosure-back-top", "wall-capture"),
     ("bulkhead-flavor-b", "enclosure-back-top", "wall-capture"),
@@ -399,7 +399,7 @@ MOUNTS = (
     # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._flow_meter_anchors` puts the
     # same 120° V over each of its two collet barrels — the body reaches to within a hair of that
     # wall and the barrels leave the best part of a centimetre, so the arms are what a printed
-    # feature can reach. A strap through each anchor's own cavity closes it, and here the straps
+    # feature can reach. A zip tie through each anchor's own cavity closes it, and here the zip ties
     # are the load path: a V that opens downward carries nothing.
     ("digiten-flow", "enclosure-back-top", "anchor"),
     # THE CAP LID PRINTS A CRADLE UNDER EACH VALVE THAT STANDS ON IT
@@ -528,7 +528,7 @@ NEVER = {
     # between them.
     "gasher-co2":
         "Both its hops land on held bodies — `co2-0` back to the ABU44 clamped through the +Y "
-        "wall of back-top, `co2-1` on to the WR1110 strapped into its rib off the top one — and "
+        "wall of back-top, `co2-1` on to the WR1110 zip-tied into its rib off the top one — and "
         "each is ten "
         "millimetres of 1/4\" LLDPE in a pair of collets, so the check is fixed on the chain's "
         "own axis with nothing printed closing on it. A seat under the middle body of three "
@@ -1658,7 +1658,7 @@ LOOSE = {
         "The funnel's own drain, and the one line in the machine a customer handles. It parts at "
         "the union under the spout every time the funnel goes to the dishwasher and is pushed "
         "back at the same collet, so the length between that joint and V-B has to give: a rib "
-        "strapped across it would be a fixed point the customer works against, and the run would "
+        "zip-tied across it would be a fixed point the customer works against, and the run would "
         "take the load at the collet instead of along its own length.",
     "fluid-18":
         "Flavor A's line to its rear union. The cold core's side post grips its crossing fore "

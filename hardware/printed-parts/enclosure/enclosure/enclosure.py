@@ -931,7 +931,7 @@ def piece_root_faces(inner, y_side, z_side):
     (`lip_face_x`) — so a feature drawn to the box's plane on one of those is drawn to a plane
     that piece has already filled in.
 
-    WHAT THAT COSTS IS THE STRAP'S CHANNEL. A rib's two ends climb from the bore's crown to the
+    WHAT THAT COSTS IS THE ZIP TIE'S CHANNEL. A rib's two ends climb from the bore's crown to the
     face it roots on and the channel is the room LEFT between them (`_tube_anchors`): measured to
     a plane the wall stands inboard of, the whole of it comes out inside that wall's own stock,
     and the rib arrives buried to its crown with nowhere for a tie to pass."""
@@ -1107,11 +1107,11 @@ front_bottom_flank_t = 9.0
 # given back: it is the half of the wedge that roots on the flank and carries itself, and taking
 # it left the strip's whole width hanging over the rear storey for 71 mm of depth.
 #
-# WHAT STILL TAKES THE WHOLE RUN IS THE TWO TIE BANDS. Each strap is a closed loop that comes west
+# WHAT STILL TAKES THE WHOLE RUN IS THE TWO TIE BANDS. Each zip tie is a closed loop that comes west
 # over the chain's top flat in the `DECK_CEILING_CLEAR` lane and drops into the cavity through the
 # anchor's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a corbel
-# standing over the outboard run would roof the one opening the strap has. `_asse_cradle` reads
-# these two rows back against the ties it was handed, so a band that moves off its strap says so.
+# standing over the outboard run would roof the one opening the zip tie has. `_asse_cradle` reads
+# these two rows back against the ties it was handed, so a band that moves off its zip tie says so.
 _RAIL = 22.0                # `ceiling_panel.rail_run`, restated here so the rows can read it
 back_top_ceiling_reliefs = (
     ("ground-stack",   +1.0, 236.0, 248.5, 5.0, _RAIL),   # the +X ground bar's stack, fore end
@@ -1122,7 +1122,7 @@ back_top_ceiling_reliefs = (
     ("relay-1",        +1.0, 250.0, 325.0, 5.0, _RAIL),   # the relay's crown, mid-strip
     ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, _RAIL),   # the receptacle's rim, on the +Y wall
     # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
-    # bands give up the whole run, so the strap's cavity opens on air out to the wall.
+    # bands give up the whole run, so the zip tie's cavity opens on air out to the wall.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
     ("asse1022-body",     -1.0, 394.0, 424.5, 0.0,  7.0),
     ("asse1022-tie-fore", -1.0, 358.0, 364.5, 0.0, _RAIL),
@@ -1206,7 +1206,7 @@ def ceiling_stations(digiten, anchors, panel: bool):
     AND WHAT BACK-TOP KEEPS OF ITS CEILING IS CORBELLED. Outboard of the panel's edge the strip
     hangs `ceiling_corbel_at` below the ceiling plane, so a station out there roots on a slope and
     not on the plane its rib would be drawn to — and a rib drawn to the plane arrives buried, the
-    strap's channel filled with the corbel's own stock. There is no such station and this is what
+    zip tie's channel filled with the corbel's own stock. There is no such station and this is what
     keeps it that way: a ceiling rib either stands over the field, where the panel takes it, or on
     a run of strip the corbel has left flat."""
     cp = _ceiling()
@@ -6158,21 +6158,21 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
 # The ASSE anchor's own section, and what it spends on either side of the chain's axis.
 # How far the anchor's upper flank runs off the axis. It is SHORT: the chain's own top flat
 # stands one `clearance-floor` under the ceiling, so a lip carried up to that flat's arris is a
-# lip standing in the only air a tie could have used, and the strap climbs past this lip on its
+# lip standing in the only air a tie could have used, and the zip tie climbs past this lip on its
 # way over the chain. The lower flank's reach is not stated here at all — the station carries it,
 # struck on the chain's own lowest arris, because an anchor deeper than the body it holds is PETG
 # holding air.
 asse_cradle_up = 9.0
 asse_v_half = 60.0          # half the V's included angle, off the axis plane
 asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is never clipped
-# THE STRAP'S CAVITY THROUGH THE ANCHOR'S BACK, closed on every side but its two mouths.
+# THE ZIP TIE'S CAVITY THROUGH THE ANCHOR'S BACK, closed on every side but its two mouths.
 #
 # STRAIGHT ON THE WEST, THE ANCHOR'S OWN V ON THE EAST. The V's apex stands closest to that
 # straight, so the cavity is narrowest at the axis and flares to both mouths: each mouth opens
 # `wall / sin 60°` off its lip's own arris, on the block's face, and at the axis the flare
-# leaves a strap pushed through the room to turn the vertex by cutting its corner.
+# leaves a zip tie pushed through the room to turn the vertex by cutting its corner.
 #
-# ONE CHANNEL PER STRAP, `tie_cav_wide_w` long and centred on its own tie band. Two straps go
+# ONE CHANNEL PER ZIP TIE, `tie_cav_wide_w` long and centred on its own tie band. Two zip ties go
 # through this block, so what it owes them is two holes: the back stands solid fore and aft of
 # each and between them, and the ceiling over the run keeps whatever corbel the strip has
 # (`back_top_ceiling_reliefs`). A single opening spanning the pair would give up all of that for
@@ -6182,12 +6182,12 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # anchor on the east and a `wall` off the side wall's own inner face on the west — so its width is
 # a remainder and not a number, and every face of it is the section the rest of this box is.
 
-# --- what a strap is, wherever one is cut for on this box --------------------
+# --- what a zip tie is, wherever one is cut for on this box --------------------
 #
 # Every cavity on this wall carries the same fastener, so its section is stated once here and the
-# features read it. `enclosure_assembly.ASSE_TIE_T` is the same strap's THICKNESS, and it is stated
+# features read it. `enclosure_assembly.ASSE_TIE_T` is the same zip tie's THICKNESS, and it is stated
 # over there because what it sets is the deck's own storey rather than anything printed.
-# TWO STRAPS, AND WHAT PICKS BETWEEN THEM IS THE LOOP. A strap turns INSIDE the cavity, so what it
+# TWO ZIP TIES, AND WHAT PICKS BETWEEN THEM IS THE LOOP. A zip tie turns INSIDE the cavity, so what it
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
@@ -6199,13 +6199,13 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # A 4" tie closes about 69 mm of loop, which takes the first two; the regulator's takes the 6",
 # which closes about 110. The ASSE barrel's passes both and takes the 8", and an 8" tie is a 50 lb
 # tie at 0.19" where the rest are 18 lb at 0.1" — so that anchor's cavity, alone on this box, is
-# cut to the wider strap. Every other cavity here takes the same 0.1" section at any length.
-tie_strap_w = 2.5           # the 18 lb strap, across its width — 0.1"
-tie_strap_wide_w = 4.826    # and the 50 lb strap's — 0.19"
-tie_strap_t = 1.0           # both, through the thickness
-tie_cav_buffer = 1.0        # the room a cavity carries over the strap
-tie_cav_w = tie_strap_w + tie_cav_buffer
-tie_cav_wide_w = tie_strap_wide_w + tie_cav_buffer
+# cut to the wider zip tie. Every other cavity here takes the same 0.1" section at any length.
+tie_w = 2.5           # the 18 lb zip tie, across its width — 0.1"
+tie_wide_w = 4.826    # and the 50 lb zip tie's — 0.19"
+tie_t = 1.0           # both, through the thickness
+tie_cav_buffer = 1.0        # the room a cavity carries over the zip tie
+tie_cav_w = tie_w + tie_cav_buffer
+tie_cav_wide_w = tie_wide_w + tie_cav_buffer
 # Solid either side of a cavity, ALONG the run. A cavity is a hole through a rib, and this is what
 # the rib keeps of itself at each end of that hole.
 tie_cav_wall = 3.0
@@ -6251,9 +6251,9 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     through that channel, and back into the cavity. So it closes round the chain and the anchor's
     own back together, and what it pulls is the chain into the V.
 
-    ONE CHANNEL PER STRAP, AND EACH IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of
+    ONE CHANNEL PER ZIP TIE, AND EACH IS CLOSED ON EVERY SIDE BUT ITS TWO MOUTHS. It stands west of
     the apex with one `wall` of PETG between it and the anchor, so at no station is it anything
-    but a hole through solid material, and a strap in it stays where it was put. Two straps, two
+    but a hole through solid material, and a zip tie in it stays where it was put. Two zip ties, two
     holes: the block's back is solid fore and aft of each and between them.
 
     THE BLOCK'S UNDERSIDE HANGS. Printed Z−-down that face is a horizontal soffit under the
@@ -6285,19 +6285,19 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         # east face at a right angle.
         solid = solid.fuse(_ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, z_axis + up))
         solid = solid.cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1))
-    # THE STRAPS' CHANNELS, ONE EACH, cut after every section is fused so a neighbour's block
+    # THE ZIP TIES' CHANNELS, ONE EACH, cut after every section is fused so a neighbour's block
     # cannot fill one back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
     # and the web comes out no thinner than stated at any station.
     #
-    # IT IS THE WIDE STRAP'S CAVITY. The barrel and this anchor make a 100 mm loop, past what a 4"
+    # IT IS THE WIDE ZIP TIE'S CAVITY. The barrel and this anchor make a 100 mm loop, past what a 4"
     # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
-    # 18 lb strap the flow-meter anchors and the runs' ribs take.
+    # 18 lb zip tie the flow-meter anchors and the runs' ribs take.
     for ty in ties:
         if not (sections[0][0] <= ty <= sections[-1][1]):
             raise ValueError(
                 f"_asse_cradle: tie band {ty:.2f} falls outside the anchor's run "
-                f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. A strap's channel is cut through "
+                f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. A zip tie's channel is cut through "
                 f"the block at its own band, so a band off either end has no channel at all.")
     apex = min(w for _y0, _y1, w, _r, _a in sections)
     for ty in ties:
@@ -6308,11 +6308,11 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
 
 
 def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
-    """The strap's cavity: STRAIGHT on the west, the ASSE anchor's own V on the east.
+    """The zip tie's cavity: STRAIGHT on the west, the ASSE anchor's own V on the east.
 
     Five points and one cut. The V's apex stands closest to that straight, so the cavity comes out
     narrowest in the middle and flared at both mouths — which is the reach where a hand needs it
-    and the room to turn the vertex where a strap needs that, out of one shape rather than out of a
+    and the room to turn the vertex where a zip tie needs that, out of one shape rather than out of a
     chamfer and a round.
 
     Both ends run one millimetre past the block's faces, so each mouth is cut open rather than
@@ -6345,16 +6345,16 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
 # and each lip comes out a flat strip one `wall` across. An arc carried past its widest point runs
 # out to nothing against the flank and leaves a feather no nozzle can lay down.
 flow_meter_anchor_wall = 3.0
-# ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One strap crosses each anchor, so the rib is that
-# strap's cavity with `tie_cav_wall` of itself at each end of it, and the band `flow_meter_anchors`
+# ITS LENGTH ALONG THE ARM IS ITS CAVITY'S. One zip tie crosses each anchor, so the rib is that
+# zip tie's cavity with `tie_cav_wall` of itself at each end of it, and the band `flow_meter_anchors`
 # reads off the barrel is what that rib is centred in.
 flow_meter_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
-# The strap's cavity through each anchor, over the bore. Its floor is the SEAT'S OWN ARC offset out
+# The zip tie's cavity through each anchor, over the bore. Its floor is the SEAT'S OWN ARC offset out
 # by one `wall` — concentric, so the web reads `wall` all the way round — and ITS CEILING IS THE
 # TOP WALL'S OWN INNER FACE. The channel is everything left between them, deepest over the crown
 # and flaring as the arc falls away to each mouth.
 #
-# The strap bears straight on that face and what stands over it is `wall`: the top wall's own
+# The zip tie bears straight on that face and what stands over it is `wall`: the top wall's own
 # section, which is already there. A plate of this rib's under it would be a second `wall` doing
 # the first one's job.
 
@@ -6449,7 +6449,7 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
 # `pump_tray` states what that cut adds and draws one in the pump's own frame; `build_pump_cartridge`
 # roots it on the pump cartridge's face and fuses it into that piece.
 #
-# THE STRAPS ARE WHAT HOLD A PUMP UP. It hangs under its tray, so two close round it and the
+# THE ZIP TIES ARE WHAT HOLD A PUMP UP. It hangs under its tray, so two close round it and the
 # tray together through the plate's four channels, reaching under the bracket the part carries at
 # that crown — the meter's bargain, on the heaviest body either wall carries.
 #
@@ -6514,7 +6514,7 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
     """The flow meter's two anchors hung off the top wall, for the piece that owns the ceiling.
 
     `roots` IS THE PIECE'S OWN INTERIOR AND NOT THE BOX'S (`piece_root_faces`). The rib's two
-    ends climb to the face it roots on and the strap's channel is the room left between them, so
+    ends climb to the face it roots on and the zip tie's channel is the room left between them, so
     the plane handed in here is the one that piece actually presents.
 
     ONE PER ARM AND NONE OVER THE BODY. The round body reaches to within a hair of the top wall
@@ -6527,9 +6527,9 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
     gets — and the rib carries `flow_meter_anchor_wall` past that, so each lip is a flat strip one wall
     across. Carried any further round, the arc would run out to nothing against the flank.
 
-    THE STRAP IS THE LOAD PATH. A bore that opens downward carries nothing, so the two ties here
+    THE ZIP TIE IS THE LOAD PATH. A bore that opens downward carries nothing, so the two ties here
     are not the ASSE anchor's ties: cut them and the meter comes out of its anchors. What is hanging is
-    a purchased part of a few tens of grams on two nylon straps.
+    a purchased part of a few tens of grams on two nylon zip ties.
 
     Printed Z−-down the rib HANGS OFF THE TOP WALL and starts on its two lips — one
     `flow_meter_anchor_wall` strip either side of the bore, the anchor's whole length, with nothing
@@ -6545,21 +6545,21 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
         if by1 - by0 < flow_meter_anchor_len - 1e-6:
             raise ValueError(
                 f"_flow_meter_anchors: the barrel leaves {by1 - by0:.2f} mm between the body's rim "
-                f"and the collet's ring, and an anchor is {flow_meter_anchor_len:.2f} — one strap's "
+                f"and the collet's ring, and an anchor is {flow_meter_anchor_len:.2f} — one zip tie's "
                 f"cavity with `tie_cav_wall` at each end of it. Either the band gives way "
                 f"(`DIGITEN_BODY_CLEAR`, `DIGITEN_COLLET_FREE`) or the rib does.")
         mid = (by0 + by1) / 2.0
         sy0, sy1 = mid - flow_meter_anchor_len / 2.0, mid + flow_meter_anchor_len / 2.0
         z_crown = z_axis + seat_r + wall          # one `wall` over the bore's own crown
-        if roots[5] - z_crown < tie_strap_t + 1e-6:
+        if roots[5] - z_crown < tie_t + 1e-6:
             raise ValueError(
                 f"_flow_meter_anchors: a `wall` off the bore's crown leaves {roots[5] - z_crown:.3f} "
-                f"mm under the top wall's inner face, and the strap is {tie_strap_t:.3g} thick. The "
+                f"mm under the top wall's inner face, and the zip tie is {tie_t:.3g} thick. The "
                 f"storey the meter stands on is what gives way here "
                 f"(`enclosure_assembly.DECK_CEILING_CLEAR`), not the wall.")
         # THE CAVITY IS WHAT IS NEVER FUSED, and nothing is cut for it. The rib is ONE box its whole
         # length up to `z_crown`, the two ends carried on up to the top wall, and ONE bore through
-        # all of it. What the ends do not span IS the strap's channel — so it has no floor to draw,
+        # all of it. What the ends do not span IS the zip tie's channel — so it has no floor to draw,
         # no cut to make it, and no face for either to graze.
         #
         # The lower box runs the rib's whole length so the seat's own lip is ONE edge, and the rib
@@ -6580,7 +6580,7 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
 # THE SAME 120° V AGAIN, on the one body in this machine there are twenty of. A run is held at its
 # two ends by the collets it is pushed into and by nothing between them, so what it does between
 # them is sag — and a run that sags is not on the centreline `lines-clear` cleared. An anchor is a
-# stop on that span: a seat the tube lies in, and a strap's cavity behind the seat, standing on
+# stop on that span: a seat the tube lies in, and a zip tie's cavity behind the seat, standing on
 # whichever face of the box comes near enough to reach it.
 #
 # A ROUND SEAT ON A ROUND BODY. The section is struck in the anchor's own frame — `u` along the
@@ -6591,18 +6591,18 @@ def _flow_meter_anchors(solid, roots, station, y0, y1, z0, z1):
 #
 # EVERY WORKING SECTION IN IT IS ONE `wall`. The rib reaches `seat_r + wall` off the axis, so the
 # lip is a wall-wide strip; the cavity's floor is the seat's own arc offset one `wall`, so the web
-# is a half-annulus of that thickness at every station of it; and the strap gets one `wall` of
+# is a half-annulus of that thickness at every station of it; and the zip tie gets one `wall` of
 # depth over that floor. If the body stands further from its root face, the rest is solid backing
 # into that face rather than a needlessly deep void hanging the seat from its two end webs.
 #
 # THESE PIECES ARE POPULATED INVERTED ON THE BENCH. A seat hanging off the top wall is an
-# upward-opening cradle at the moment a tube is laid in it and its strap threaded.
+# upward-opening cradle at the moment a tube is laid in it and its zip tie threaded.
 #
-# ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `flow_meter_anchor_len` strikes: one strap
-# crosses one anchor, so the rib is that strap's cavity with `tie_cav_wall` of itself at each end.
+# ITS LENGTH ALONG THE RUN IS ITS CAVITY'S, the bargain `flow_meter_anchor_len` strikes: one zip tie
+# crosses one anchor, so the rib is that zip tie's cavity with `tie_cav_wall` of itself at each end.
 tube_anchor_len = tie_cav_w + 2.0 * tie_cav_wall
-# A 1 mm strap needs its own thickness plus routing air, not every millimetre between a small tube
-# and a distant wall. One structural section leaves 2 mm beyond the strap and keeps a deep anchor
+# A 1 mm zip tie needs its own thickness plus routing air, not every millimetre between a small tube
+# and a distant wall. One structural section leaves 2 mm beyond the zip tie and keeps a deep anchor
 # boxed back into its root; shallower fitting anchors keep all the air they actually have.
 tube_anchor_cavity_depth = wall
 # Do not add a skin-thin backing merely to shave a fraction from an already compact channel.
@@ -6610,10 +6610,10 @@ tube_anchor_cavity_depth = wall
 tube_anchor_backing_min = tie_cav_buffer
 
 
-def tube_anchor_strap_loop(seat_r: float) -> float:
-    """The shortest strap that closes round a seated body and its rib together.
+def tube_anchor_tie_loop(seat_r: float) -> float:
+    """The shortest zip tie that closes round a seated body and its rib together.
 
-    A strap turns INSIDE the channel, so what it reaches round is the body with the rib's own
+    A zip tie turns INSIDE the channel, so what it reaches round is the body with the rib's own
     back behind it — the convex perimeter of that pair, and not of the wall the rib stands on.
     Read on the bore, which is the section this box knows.
 
@@ -6680,20 +6680,20 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
     bargain read off the station rather than stated: the wall keeps its full section everywhere the
     rib does not need it, and one `wall` stands behind the relief because `lane` is one `wall` in.
 
-    THE RELIEF IS WIDER THAN THE RIB, and by the strap. What the loop runs down is the rib's two
-    FLANKS, from the channel's floor to the tube's own axis plane (`tube_anchor_strap_loop`), so a
-    relief cut to the rib's own reach would hand the strap a channel it could not leave. It is
-    carried `tie_strap_t + tie_cav_buffer` past each flank instead — the same room over the strap
+    THE RELIEF IS WIDER THAN THE RIB, and by the zip tie. What the loop runs down is the rib's two
+    FLANKS, from the channel's floor to the tube's own axis plane (`tube_anchor_tie_loop`), so a
+    relief cut to the rib's own reach would hand the zip tie a channel it could not leave. It is
+    carried `tie_t + tie_cav_buffer` past each flank instead — the same room over the zip tie
     every cavity on this box carries — and those two lobes are what the loop comes down.
 
     THE CAVITY IS A REMAINDER: the rib stands one `wall` over the bore's crown down its whole
-    length and its two ends carry on to the face it roots on. In the middle, the strap keeps at
+    length and its two ends carry on to the face it roots on. In the middle, the zip tie keeps at
     most `tube_anchor_cavity_depth` once there is enough excess reach to add substantial backing;
     that excess is filled from the root face. The crown is therefore always its floor and either
     the root face or that backing is its roof — neither is cut, so there is no cutter face to
     graze the opening.
 
-    THE STRAP CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
+    THE ZIP TIE CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
     the bore, and the bore is what says where the tube is."""
     if not stations:
@@ -6709,13 +6709,13 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
         b_lane = (lane[face] - mid[face // 2]) * sign       # and the box's own, at or outboard of it
         reach = seat_r + wall              # the lip's outer edge
         b_crown = seat_r + wall            # one `wall` over the bore's own crown
-        b_root, relief = b_face, b_face < b_lane - 1e-9 and b_face - b_crown < tie_strap_t
+        b_root, relief = b_face, b_face < b_lane - 1e-9 and b_face - b_crown < tie_t
         if relief:
             b_root = b_lane                # the wall gives this rib its lane back
-        if b_root - b_crown < tie_strap_t:
+        if b_root - b_crown < tie_t:
             raise ValueError(
                 f"_tube_anchors: a `wall` off the bore's crown leaves {b_root - b_crown:.3f} mm "
-                f"under the face this rib roots on, and the strap is {tie_strap_t:.3g} thick. What "
+                f"under the face this rib roots on, and the zip tie is {tie_t:.3g} thick. What "
                 f"gives way here is the run's own lane, not the wall: route it further off that "
                 f"face, or anchor it to another one.")
         origin = tuple(mid[k] - u[k] * tube_anchor_len / 2.0 for k in range(3))
@@ -6731,7 +6731,7 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
             continue
         # THE CAVITY IS WHAT IS NEVER FUSED, and nothing is cut for it. The rib is ONE box its
         # whole length up to `b_crown`, the two ends carried on up to the face it roots on, and
-        # ONE bore through all of it. In the central strap band, material comes back from a remote
+        # ONE bore through all of it. In the central zip tie band, material comes back from a remote
         # root until only `tube_anchor_cavity_depth` remains, provided that backing itself is at
         # least `tube_anchor_backing_min`. That boxes a small tube's long rib into the wall without
         # changing either threading mouth or putting a fragile skin against them.
@@ -6743,9 +6743,9 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
         if relief:
             # THE RELIEF, cut before the rib is fused so the rib is what fills it. Its floor is
             # `lane`, so what stands behind it is the one `wall` this box carries everywhere, and
-            # its two lobes past the rib's flanks are where the strap comes down.
+            # its two lobes past the rib's flanks are where the zip tie comes down.
             solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
-                                          reach + tie_strap_t + tie_cav_buffer, b_face, b_lane))
+                                          reach + tie_t + tie_cav_buffer, b_face, b_lane))
         rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
         for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
             end = tuple(origin[k] + u[k] * s0 for k in range(3))
@@ -7395,19 +7395,19 @@ def main():
     # The loops this box's ribs close, read off the seats the pack actually bored. Every rib
     # holding a RUN is bored for the one stock; the ribs holding a BODY are bored for whatever
     # section that body offers, so the radii are as many as the pack has kinds of seat. The
-    # smallest is the runs' own and the largest is the widest body's, and a strap cut to the
+    # smallest is the runs' own and the largest is the widest body's, and a zip tie cut to the
     # largest closes on every one of them — which is what the table quotes.
     seats = sorted({round(r, 6) for *_s, r in (box.tube_anchors or ())})
     if not seats:
         raise ValueError(
-            "the box bores no tube anchor at all, and the strap table quotes a loop for them. "
+            "the box bores no tube anchor at all, and the zip tie table quotes a loop for them. "
             "Either the pack stands a rib again or the table stops reading one.")
     # The vents as the piece came out, for the page — the same reading `flank-vent-mullions` is
     # graded on, asked of the same solid after it was drawn.
     vent_read = vent_readings(pieces, box)
     variables = {
-        "LOOP_CARB_1": f"{tube_anchor_strap_loop(seats[0]):.3g} mm",
-        "LOOP_WR1110": f"{tube_anchor_strap_loop(seats[-1]):.3g} mm",
+        "LOOP_CARB_1": f"{tube_anchor_tie_loop(seats[0]):.3g} mm",
+        "LOOP_WR1110": f"{tube_anchor_tie_loop(seats[-1]):.3g} mm",
         "ANCHOR_SEATS": ", ".join(f"{2 * r:.4g}" for r in seats),
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",

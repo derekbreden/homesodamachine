@@ -9,7 +9,7 @@ changes, its cards rebuild.
 **The `SA` cards are a different animal**: one per finished sub-assembly rather
 than per operation. A unit card is a large picture of what one unit looks like
 when it leaves the bench, and a column naming each thing on it and the joint that
-holds it — screwed, clamped, pressed, strapped. It states no sequence; the
+holds it — screwed, clamped, pressed, zip-tied. It states no sequence; the
 operation cards do that. Its picture is a cut of the built machine, posed, from
 [`../scenes/`](/hardware/assembly/scenes/), and which bodies appear in it is
 derived from the same fastening table the machine is gated on — so a body that

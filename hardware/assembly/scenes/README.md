@@ -2,7 +2,7 @@
 
 One picture per finished sub-assembly, for the [`SA` unit cards](/hardware/assembly/cards/).
 A scene is a **subset of the built machine**, posed: `enclosure-back-top` with everything bolted,
-pressed and strapped to it is a real thing a person holds on the bench, and no STEP in this repo
+pressed and zip-tied to it is a real thing a person holds on the bench, and no STEP in this repo
 contains exactly it.
 
 Beside them, a **part shot** is one STEP posed — the card that names a single part, or a

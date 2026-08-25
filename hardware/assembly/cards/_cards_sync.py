@@ -445,11 +445,11 @@ def sub_assemblies(m: Machine):
                            if by == "enclosure-back-top" and n.startswith("tube-"))
     cap_ribs = sorted(n for n, by in holder.items()
                       if by == "foam-assembly" and n.startswith("tube-"))
-    # A rib the cap prints and a rib a strap closes are two counts. `fluid-14` reaches a valve
+    # A rib the cap prints and a rib a zip tie closes are two counts. `fluid-14` reaches a valve
     # on the front top, so its channel leaves SA-04 empty and SA-07 is where the tie goes on.
     cap_lid = _scenes.SCENE_BY_ID["cap-lid"]
     front_top = _scenes.SCENE_BY_ID["front-top"]
-    ribs_strapped = [n for n in cap_ribs if n not in cap_lid.later]
+    ribs_tied = [n for n in cap_ribs if n not in cap_lid.later]
     ribs_empty = [n for n in cap_ribs if n in cap_lid.later]
     cap_chains = under("foam-assembly", "cradle")
     cap_cradled = [n for n in cap_chains if n.startswith("valve-") or n == "vk-solenoid"]
@@ -589,7 +589,7 @@ def sub_assemblies(m: Machine):
         "SA02_WELLS": f"{len(front_top_wells)}",
         "SA04_CRADLES": f"{len(cap_cradled)}",
         "SA04_CHAINS": f"{len(cap_chain_bodies)}",
-        "SA04_RIB_RUNS": f"{len(ribs_strapped)}",
+        "SA04_RIB_RUNS": f"{len(ribs_tied)}",
         "SA04_RIB_EMPTY": f"{len(ribs_empty)}",
         "SA08_LINES": f"{len(open_core)}",
         "SA05_HANGING": f"{len(_scenes.SCENE_BY_ID['back-half'].also)}",

@@ -59,7 +59,7 @@ LENGTH = (disch.BARB_L + disch.MAAC_HEX_L + disch.MAAC_NPT_L
 # The stack barb-tip first, as `(label, diameter, length)` — the discharge chain's own list
 # less the check's three sections, off the same constants. `build()` lays these down and a
 # holder reads the same list for the section it seats on.
-#   NOTHING HERE IS 9.5 MM OF METAL. The MAACFLOW hex is the longest section a strap may close
+#   NOTHING HERE IS 9.5 MM OF METAL. The MAACFLOW hex is the longest section a zip tie may close
 # on and it is 6 mm; what its twin seats on is the GASHER's 18 mm hex, and that fitting is not
 # on this side. So a rib here is longer than the section it bears against, and
 # `enclosure_assembly.anchor_rows` is where that is held: every section under the rib has to

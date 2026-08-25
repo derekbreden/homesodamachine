@@ -1061,8 +1061,8 @@ for _name in cap_cradles:
 # made-up thread, so where its flats land is wherever the thread stopped, and nothing on the body
 # is clocked — the check's arrow is axial.
 #
-# IT OPENS UP, AND THE STRAP ONLY PRELOADS IT. The chain lies IN this rib, so cutting the strap
-# leaves it where it lies; what the strap carries is lift-out and the pump's own pulse. The pump
+# IT OPENS UP, AND THE ZIP TIE ONLY PRELOADS IT. The chain lies IN this rib, so cutting the zip tie
+# leaves it where it lies; what the zip tie carries is lift-out and the pump's own pulse. The pump
 # bolts to this same plate through `deck_mounts`, so the stub between them spans no joint.
 #
 # The station lives here, in the cap's own frame, because the rib is printed in this part.
@@ -1102,23 +1102,23 @@ cap_anchors = {
     "fluid-14":        CapAnchor(( 68.500,  43.500), 3.375, 21.894),
 }
 
-# What a strap is, wherever one is cut for on this cap. `enclosure.tie_strap_w` is the same
-# fastener stated for the other box; `enclosure_assembly.check_strap_vocabulary` holds the two
+# What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
+# fastener stated for the other box; `enclosure_assembly.check_tie_vocabulary` holds the two
 # against each other.
-#   WHAT PICKS THE TIE IS THE LOOP, not the width: `cap_anchor_strap_loop` is [77 mm](ANCHOR_LOOP)
+#   WHAT PICKS THE TIE IS THE LOOP, not the width: `cap_anchor_tie_loop` is [77 mm](ANCHOR_LOOP)
 # round the chain and its rib, past the ~69 mm a 4" closes, so this one takes the 6" 18 lb the
-# ledger already carries. An 18 lb strap is 0.1" across at every length it is sold in, so the
+# ledger already carries. An 18 lb zip tie is 0.1" across at every length it is sold in, so the
 # longer tie goes through the same cavity.
-cap_anchor_strap_w = 2.5              # the 18 lb strap, across its width — 0.1"
-cap_anchor_cav_buffer = 1.0           # the room a cavity carries over the strap
-cap_anchor_cav_w = cap_anchor_strap_w + cap_anchor_cav_buffer
+cap_anchor_tie_w = 2.5              # the 18 lb zip tie, across its width — 0.1"
+cap_anchor_cav_buffer = 1.0           # the room a cavity carries over the zip tie
+cap_anchor_cav_w = cap_anchor_tie_w + cap_anchor_cav_buffer
 # Solid either side of the channel, ALONG the run: what the rib keeps of itself at each end.
 cap_anchor_cav_wall = 3.0
-# ITS LENGTH ALONG THE BODY IS ITS CHANNEL'S. One strap crosses one anchor, so the rib is that
-# strap's cavity with `cap_anchor_cav_wall` of itself at each end of it.
+# ITS LENGTH ALONG THE BODY IS ITS CHANNEL'S. One zip tie crosses one anchor, so the rib is that
+# zip tie's cavity with `cap_anchor_cav_wall` of itself at each end of it.
 cap_anchor_len = cap_anchor_cav_w + 2.0 * cap_anchor_cav_wall
 # One wall of material under the bore's floor, and one more from there down to the lid's face —
-# the height the rib's two ends stand, and the strap's channel between them. `valve_seat`'s is
+# the height the rib's two ends stand, and the zip tie's channel between them. `valve_seat`'s is
 # the wall this face already carries.
 cap_anchor_wall = cap_cradle_wall
 
@@ -1126,9 +1126,9 @@ cap_anchor_wall = cap_cradle_wall
 def cap_anchor_axis_over_face(name):
     """How far the seated body's AXIS stands over the lid's outer face.
 
-    Three layers of the rib, read from the face up: the channel the strap is pushed through, one
+    Three layers of the rib, read from the face up: the channel the zip tie is pushed through, one
     `cap_anchor_wall`; the material under the bore, one more; then the bore's own radius. A body
-    seated lower than that sits on its own strap.
+    seated lower than that sits on its own zip tie.
 
     A row that STATES its own height is one whose body cannot move to meet the rib, so the rib is
     built up to it. What it must not do is come out under the three layers, which is the same
@@ -1141,14 +1141,14 @@ def cap_anchor_axis_over_face(name):
         raise ValueError(
             f"cap_anchor_axis_over_face: {name} states {stated:.3f} mm over the lid's face and "
             f"the rib's own three layers come to {least:.3f}. A seat lower than that stands the "
-            f"body on its own strap.")
+            f"body on its own zip tie.")
     return stated
 
 
-def cap_anchor_strap_loop(name):
-    """The shortest strap that closes round the seated body and the rib together.
+def cap_anchor_tie_loop(name):
+    """The shortest zip tie that closes round the seated body and the rib together.
 
-    A strap turns INSIDE the channel, so what it reaches round is the body with the rib's own
+    A zip tie turns INSIDE the channel, so what it reaches round is the body with the rib's own
     back behind it — the convex perimeter of that pair, and not of the lid the rib stands on.
     Read on the bore rather than on the body, which is the section this part knows.
 
@@ -1201,7 +1201,7 @@ def cap_anchor_room(name):
 
 
 # The rib stands on a plate it only touches, so everything the face opens has to be somewhere
-# else: a rib over a hole is a channel with no floor and a strap that falls into the cup.
+# else: a rib over a hole is a channel with no floor and a zip tie that falls into the cup.
 _anchor_room = bound(
     "anchor-room", "Every chain anchor stands its room off everything else the face opens",
     f"{cap_cradle_room_gap:g} mm off the nearest")
@@ -1215,7 +1215,7 @@ for _name in cap_anchors:
 
 # --- the anchors that grip SIDEWAYS -----------------------------------------
 #
-# The ribs above open at the sky: a run is laid down into the trough and the strap comes up round
+# The ribs above open at the sky: a run is laid down into the trough and the zip tie comes up round
 # it. A run laid ACROSS this lid cannot be held that way. `water-3` crosses the machine along the
 # cap's own Y, one lane off the core's front face, and an upward trough on that line would open
 # its mouth at the funnel — a tube dropped into it would come down through the storey the
@@ -1237,15 +1237,15 @@ SideAnchor = namedtuple("SideAnchor", "centre over_face seat_r axis_off")
 
 cap_side_wall = cap_anchor_wall           # every solid section in the post
 cap_side_len = cap_anchor_len             # along the run, one tie's tunnel and its two flanks
-cap_side_cav_w = cap_anchor_cav_w         # the tunnel's width, on the strap and its slip
+cap_side_cav_w = cap_anchor_cav_w         # the tunnel's width, on the zip tie and its slip
 cap_side_flank = (cap_side_len - cap_side_cav_w) / 2.0
 # THE TUNNEL IS CUT AND NOT LEFT. The up-opening ribs leave theirs between two feet that carry on
 # down to the lid; this post's own floor is the run's tie path, so a post built that way would
 # stand on two legs with nothing over them. Cut, the block over the tunnel is continuous.
-# The 18 lb strap through its thickness — `enclosure.tie_strap_t`, and the one figure the tunnel
+# The 18 lb zip tie through its thickness — `enclosure.tie_t`, and the one figure the tunnel
 # has to leave standing.
-cap_side_strap_t = 1.0
-# The tie's own channel down the post's back face, so the buckle seats and the strap cannot walk
+cap_side_tie_t = 1.0
+# The tie's own channel down the post's back face, so the buckle seats and the zip tie cannot walk
 # along the run.
 cap_side_back_relief = 1.2
 # How deep the post runs BEHIND the axis plane, and it is not its own to choose: the axis plane
@@ -1312,17 +1312,17 @@ def cap_side_anchor_height(name) -> float:
 def cap_side_anchor_holds(name) -> None:
     """The post's own stack, against what the run's height gives it.
 
-    A run laid closer to the lid's face than the pipe, one wall and the strap together is a run
-    with no tie path under it, and the post would stand on its own strap."""
+    A run laid closer to the lid's face than the pipe, one wall and the zip tie together is a run
+    with no tie path under it, and the post would stand on its own zip tie."""
     a = cap_side_anchors[name]
     tunnel = cap_side_tunnel_h(name)
-    if tunnel < cap_side_strap_t - 1e-9:
+    if tunnel < cap_side_tie_t - 1e-9:
         raise ValueError(
             f"cap_side_anchor_holds: {name} runs {a.over_face:.3f} mm over the lid's face; the "
             f"pipe takes {a.seat_r:.3f} of that and one wall {cap_side_wall:.3f} more, leaving "
-            f"{tunnel:.3f} mm of tunnel where the strap is {cap_side_strap_t:g} thick. What gives "
+            f"{tunnel:.3f} mm of tunnel where the zip tie is {cap_side_tie_t:g} thick. What gives "
             f"way here is the run's own lane, not the lid: route it further off that face.")
-    if a.axis_off >= a.seat_r - cap_side_strap_t:
+    if a.axis_off >= a.seat_r - cap_side_tie_t:
         raise ValueError(
             f"cap_side_anchor_holds: {name} stands its pipe {a.axis_off:.3f} mm forward of the "
             f"post's face on a seat of {a.seat_r:.3f} — what is left of the seat is a scratch in "
@@ -1336,7 +1336,7 @@ def cap_side_anchor_holds(name) -> None:
             f"is the pipe or the lane — not the web.")
 
 
-def cap_side_anchor_strap_loop(name) -> float:
+def cap_side_anchor_tie_loop(name) -> float:
     """The shortest tie that closes round the tube and the post's own back together.
 
     A tie turns INSIDE the tunnel, so what it reaches round is the tube with the post behind it:
@@ -1633,7 +1633,7 @@ if __name__ == "__main__":
         "LLDPE_TUBE_OD": f"{lldpe_tube_od:.4g}",
         "ENTRY_RELIEF_D": f"{2.0 * cap_conduit_entry_relief_radius:.4g}",
         "ENTRY_SKEW_CEILING": f"{cap_conduit_entry_skew_ceiling:.4g}°",
-        "ANCHOR_LOOP": f"{cap_anchor_strap_loop('discharge-chain'):.3g} mm",
+        "ANCHOR_LOOP": f"{cap_anchor_tie_loop('discharge-chain'):.3g} mm",
     }
     substitute_py_comments(
         Path(__file__),

@@ -39,7 +39,7 @@ cable the same way.
 ## Frame
 
 X is the fuse's own axis, origin at the case's mid-length. **Z = 0 is the seating
-plane** — the generatrix the case lies on — so whatever straps it down reads its own
+plane** — the generatrix the case lies on — so whatever holds it down reads its own
 surface as this plane. The axis runs one case radius up and both leads run on the
 axis, which leaves a lead 1.6 mm clear of the seat: **the case is the whole of the
 thermal contact.**

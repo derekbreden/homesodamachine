@@ -37,7 +37,7 @@ sys.path.insert(
 from _cold_core_interface import cap_fluid_conduits, cap_conduit_bore_radius  # noqa: E402
 
 import _lines  # noqa: E402  — the stock every water run is drawn on
-import enclosure as _enc  # noqa: E402  — the box, and the hull its own strap cavities state
+import enclosure as _enc  # noqa: E402  — the box, and the hull its own zip tie cavities state
 import _facts  # noqa: E402  — the placed pack and its runs, off the last build
 import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this doc watches
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
@@ -107,9 +107,9 @@ def main():
         # What each of the flow meter's anchors leave alone at the outer end of its barrel —
         # the push-fit ring, off the layout that strikes the anchor's own band on it.
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
-        "WR1110_LOOP": f"{_enc.tube_anchor_strap_loop(_barrel_seat):.3g} mm",
-        "CARB_1_LOOP": f"{_enc.tube_anchor_strap_loop(next(iter(_run_seats))):.3g} mm",
-        # And the loop each of a pump's two straps closes — the tray's plate and the bracket the
+        "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_barrel_seat):.3g} mm",
+        "CARB_1_LOOP": f"{_enc.tube_anchor_tie_loop(next(iter(_run_seats))):.3g} mm",
+        # And the loop each of a pump's two zip ties closes — the tray's plate and the bracket the
         # part carries under it, off the module that draws the tray, with the bore and the can's
         # own hole that tray takes the pump on.
         "PUMP_BRACKET": f"{_tray.bracket_half * 2:.4g} mm",

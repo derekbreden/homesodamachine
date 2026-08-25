@@ -557,7 +557,7 @@ rather than the pan, the pan remains watertight.
 
 The **ASSE anchor** one storey above it costs the same. Its two 60° flanks
 stand 30° off vertical and are free; its **underside is flat**, a soffit off the wall
-under the lane, and that face hangs. Behind the anchor are the two straps' channels,
+under the lane, and that face hangs. Behind the anchor are the two zip ties' channels,
 one per tie band and `tie_cav_wide_w` long, and the support in each draws out its
 own end.
 
@@ -616,14 +616,14 @@ number chosen here.
 spin: a V cut to their flats would demand an angle the assembly does not control and
 bind on the build that landed 30° off. The Multiplex's hex does not spin — its
 atmospheric vent is machined into it — so keying that one section is what holds the
-drip over the pan, and it is the whole reason this is an anchor and not a strap.
+drip over the pan, and it is the whole reason this is an anchor and not a zip tie.
 
 `asse_seat_slip` is the fit across the V and `ASSE_STEP_SLIP` the play along it, the
 deeper section taking the latter past both its ends so the barrel drops in and the
 steps stop it travelling rather than hold it still. Aft it needs neither: the chain's
 inlet collet butts the tap-water union's, and that joint takes the length up.
 
-Two **straps** shut the anchor's mouth, one in each band the vent leaves clear on
+Two **zip ties** shut the anchor's mouth, one in each band the vent leaves clear on
 the barrel — the brass, which is the only section a tie may close on.
 
 Each runs in **its own channel through the anchor's back** (`asse_tie_*`), closed on
@@ -633,22 +633,22 @@ and the ceiling over that run keeps whatever corbel the strip has. It is **strai
 on the west and the anchor's own V on the east**, so it is narrowest at the axis and
 flares to both mouths: each mouth opens `asse_tie_back / sin 60°` off its lip's own
 arris, on the block's face where a hand reaches it, and at the axis the flare leaves
-a strap pushed through the room to turn the vertex by cutting its corner. It stands
+a zip tie pushed through the room to turn the vertex by cutting its corner. It stands
 one `wall` west of the apex at every station, struck on the deepest section's apex so
 the web is no thinner than that anywhere, and one `wall` off the side wall behind it —
 so its width is a remainder between the two rather than a number.
 
-A tie is a closed loop, so its strap also has to cross the chain's top flat, come west
+A tie is a closed loop, so its zip tie also has to cross the chain's top flat, come west
 in that lane and drop into its channel — and **the top wall is never cut for it.** The storey the chain lies on is struck to leave
-that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the strap's own section
+that channel instead (`enclosure_assembly.DECK_CEILING_CLEAR`, the zip tie's own section
 plus its clearance), so `wall` stays whole across the whole ceiling and the deck pays
 the millimetre out of its own headroom. That leg is **laid, not pulled**: this piece
-is populated inverted on the bench — ceiling down — so the strap lies on the
+is populated inverted on the bench — ceiling down — so the zip tie lies on the
 ceiling's inner face and the chain comes down onto it.
 
 Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the anchor
 closed on the barrel, measured off the two placed solids, because every other
-reading on the card is satisfied by a chain floating in air. And `check_strap_channels`
+reading on the card is satisfied by a chain floating in air. And `check_tie_channels`
 is the row that reads the **route**: the column between each channel's top mouth and
 the ceiling, which is the room the loop comes down and what a corbel on the strip's
 outboard run would close over.
@@ -672,18 +672,18 @@ runs out to nothing against the flank and leaves a feather.
 
 Each anchor runs the middle of its barrel: one `DIGITEN_BODY_CLEAR` off the body's
 rim, and clear of the outer `DIGITEN_COLLET_FREE`, which is the push-fit ring the
-tube comes back out of. The rib's length is its cavity's — `tie_cav_w` of strap and
+tube comes back out of. The rib's length is its cavity's — `tie_cav_w` of zip tie and
 buffer with `tie_cav_wall` of itself at each end, centred in the band the barrel
 allows.
 
-**The straps are the load path here.** A seat that opens downward carries nothing, so
-unlike the ASSE anchor's two straps these hold the meter up — a purchased part of a few tens
-of grams on two nylon straps. `enclosure_assembly.check_digiten_seated` reads the
+**The zip ties are the load path here.** A seat that opens downward carries nothing, so
+unlike the ASSE anchor's two zip ties these hold the meter up — a purchased part of a few tens
+of grams on two nylon zip ties. `enclosure_assembly.check_digiten_seated` reads the
 seats closed on the barrels at the slip itself, there being no angle in a bore to
 divide by; travel off the placed pack is 0.231 up into them, 0.400 either way across,
 and free downward.
 
-Each anchor's strap runs a cavity over its bore, and **nothing is cut for it.** The
+Each anchor's zip tie runs a cavity over its bore, and **nothing is cut for it.** The
 rib is one box its whole length up to one `wall` over the bore's crown, its two ends
 carried on up to the top wall, and one bore through all of it — so the channel is the
 length the ends do not span. It has no floor of its own to draw and no cut to make it.
@@ -705,7 +705,7 @@ in the feature support has to reach.
 
 One pattern wherever a wall comes near enough to reach something round
 (`_tube_anchors`): a **bore concentric with the body**, half a cylinder at
-`seat_r`, and the strap's channel behind it. Three of these hold a length of tube
+`seat_r`, and the zip tie's channel behind it. Three of these hold a length of tube
 (`enclosure_assembly.TUBE_ANCHOR_SITES`) and three hold a fitting
 (`enclosure_assembly.BODY_ANCHOR_SITES`) — the same rib either way, since what the
 builder is handed is an axis, a direction along it and a radius.
@@ -713,17 +713,17 @@ builder is handed is an axis, a direction along it and a radius.
 **The arc stops on the body's own axis plane and the rib carries one `wall` past
 it**, so each lip is a flat strip rather than a feather — the anchors' bargain,
 on the one body this machine has twenty of. The rib's length is its cavity's:
-`tie_cav_w` of strap and buffer with `tie_cav_wall` of itself at each end. It states
+`tie_cav_w` of zip tie and buffer with `tie_cav_wall` of itself at each end. It states
 no height of its own — it is handed the body, and the wall it stands on is where it
 stops.
 
-**The strap's channel is what is never fused.** The rib is one box its whole length
+**The zip tie's channel is what is never fused.** The rib is one box its whole length
 up to one `wall` over the bore's crown, its two ends carried on up to the face it
 roots on, and one bore through all of it. Where a small tube stands far enough from
 its root face to put at least one routing buffer back into the load path, its central
 band is solid-backed from the wall until one `wall` of useful cavity remains. Compact
 fitting anchors keep their available clearance instead of acquiring a skin-thin roof.
-The two side mouths stay open and no cutter grazes them. A strap therefore goes in
+The two side mouths stay open and no cutter grazes them. A zip tie therefore goes in
 **before** the body does.
 
 **And the face is the piece's own** (`piece_root_faces`), not the box's interior. A
@@ -738,19 +738,19 @@ The box's interior is one `wall` inside the exterior, and a piece carrying stock
 inboard of it carries stock the rib was drawn to use — so it gives that up over
 the rib's footprint and the rib roots on the box's plane, which is
 `front_top_flank_relief`'s bargain read off the station rather than stated. The
-relief is **wider than the rib, and by the strap**: what the loop runs down is the
+relief is **wider than the rib, and by the zip tie**: what the loop runs down is the
 rib's two flanks, from the channel's floor to the body's axis plane, so it is
-carried `tie_strap_t + tie_cav_buffer` past each flank and those two lobes are
+carried `tie_t + tie_cav_buffer` past each flank and those two lobes are
 what the loop comes down. The tap-water pair's two ribs are the pair that take it —
 back-top's 6 mm flank leaves the `water-split` and `flow-regulator` barrels
 2.44 mm of room where a rib needs 4.
 
-**And the channel is read back** (`enclosure_assembly.check_strap_channels`,
-`strap-channels` on the card). A remainder cannot fail loudly: a wall standing in
+**And the channel is read back** (`enclosure_assembly.check_tie_channels`,
+`tie-channels` on the card). A remainder cannot fail loudly: a wall standing in
 one arrives as a rib with a bore and nothing else wrong — the seat still closes on
 its body at the slip, the piece is still one watertight solid, the pack still
 stands clear. Nothing else on that card measures a hole. So this reading asks for
-the strap and not the channel: `tie_strap_t` off the bore's own crown, the
+the zip tie and not the channel: `tie_t` off the bore's own crown, the
 cavity's width along the body, the rib's full reach across it, struck off the
 station with no root face in it, and it has to come back air.
 
@@ -766,9 +766,9 @@ end walls filled 100% from the channel's floor at 348.911 to the top wall's inne
 face, the channel between them a true void 3.089 deep, the web under the bore filled
 100%, and each lip **one 9.500 edge** on a flat 3.000 strip of 28.5 mm². Travel off
 the placed pack is 0.199 either way across, 0.197 up into the seat, and free
-downward — the mouth the strap shuts.
+downward — the mouth the zip tie shuts.
 
-**The strap is the load path here**, the same bargain the flow-meter anchors make: a
+**The zip tie is the load path here**, the same bargain the flow-meter anchors make: a
 seat that opens downward carries nothing. Barrel and rib make an [84.1 mm](LOOP_WR1110)
 loop, past what a 4" tie closes, so this one takes the 6".
 `enclosure_assembly.check_body_seated` reads the seat closed on the barrel at the slip
@@ -979,13 +979,13 @@ octagon alone; nothing about where one sits is a number this wall chose. Plate o
 head's crown, shoulder on the boss's, bore on the boss's flanks — each a plane or a
 shared wall, so a tray and the pump it takes share no volume.
 
-**The straps are the load path**, the meter's bargain again and on the heaviest body
+**The zip ties are the load path**, the meter's bargain again and on the heaviest body
 either wall carries: a pump hangs UNDER its tray, so the tray on its own holds nothing.
 **Two** close round the plate and the pump's own stamped mounting bracket — the steel
 plate at the head-to-motor junction, which stands proud of the head all the way round
 in the very plane the tray's plate lands on. `kamoer_kphm400` states that bracket and
-draws none of it; a strap here reaches under its lip rather than round the head, so the
-loop is a bracket wide and the 8" strap the ASSE anchor takes closes it.
+draws none of it; a zip tie here reaches under its lip rather than round the head, so the
+loop is a bracket wide and the 8" zip tie the ASSE anchor takes closes it.
 
 **The four channels stand in two bands, one either side of the can.** They sit outside
 the head, so each run crosses the shoulder's own face: inboard of the can's radius a
@@ -1212,12 +1212,12 @@ ceiling — and run 4.67…5.42 over y 394…424, three quarters of a millimetre
 in a strip 22 wide. **1,275 mm³ of a 17,182 mm³ corbel, and none of it outboard of
 run 14.09.** So the outboard run goes back, and those two rows give up 0…16 and 0…7.
 
-What still gives up the whole run is **the two tie bands**. Each strap is a closed
+What still gives up the whole run is **the two tie bands**. Each zip tie is a closed
 loop that comes west over the chain's top flat in the `DECK_CEILING_CLEAR` lane and
 drops into the cavity through the anchor's back — and that cavity's top mouth is out
 at the wall (`_asse_tie_cavity`), so a corbel standing on the outboard run would roof
-the one opening the strap has. `_asse_cradle` reads those two rows back against the
-ties it was handed, so a band that moves off its strap says so instead of closing
+the one opening the zip tie has. `_asse_cradle` reads those two rows back against the
+ties it was handed, so a band that moves off its zip tie says so instead of closing
 over it.
 
 **The dado** is cut in each strip's inboard face on the section the panel states
