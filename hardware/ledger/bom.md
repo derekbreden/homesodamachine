@@ -148,12 +148,12 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Nameplate — one per unit, serialized | 1 | PETG (black + white) | 0.037 | $0.42 <!--@printed--> |
 | ASSE drip pan | 1 | PETG | 0.033 | $0.37 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.007 | $0.08 <!--@printed--> |
-| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.175 | $4.38 <!--@printed--> |
-| Faucet display cover plate | 1 | PET-GF | 0.006 | $0.15 <!--@printed--> |
+| Faucet shell (2-piece: base + tip) | 1 | PET-GF | 0.182 | $4.56 <!--@printed--> |
+| Faucet display cover plate | 1 | PET-GF | 0.007 | $0.18 <!--@printed--> |
 | Above-counter plate | 1 | PET-GF | 0.015 | $0.37 <!--@printed--> |
-| **Printed parts total** | | | **~10.98** | **[$233.46](BOM_SEC7)** |
+| **Printed parts total** | | | **~10.99** | **[$233.67](BOM_SEC7)** |
 
-By material: PETG ≈ 2.98 kg / $33.41 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 8.00 kg / $200.05.
+By material: PETG ≈ 2.98 kg / $33.41 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.85 — and PET-GF ≈ 8.00 kg / $200.25.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the power column stand on. The top lid also carries the [3](CAP_CRADLES) valve cradles — four bosses printed into that face per valve that stands on it (`_cold_core_interface.cap_cradles`, [`valve-seat/`](/hardware/printed-parts/valve-seat/)) — which is why it outweighs the bottom one. The cradles are a press fit and take no screw. The top cap under it carries the [4](DECK_INSERTS) deck-mount columns, which are the cap's rotation key and the water pump's own bolt pattern: its bracket bolts down into all [4](PUMP_MOUNT_SCREWS).
 
@@ -299,7 +299,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$96.56](BOM_SEC4) |
 | 5. Refrigeration | [$142.25](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$233.46](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$233.67](BOM_SEC7) |
 | 8. Flavor subsystem | [$209.65](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -307,7 +307,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$12.64](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,450.76](BOM_GRAND)** |
+| **Total** | **[$1,450.97](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
