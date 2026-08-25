@@ -1109,7 +1109,15 @@ static void otaStopPanel() {
   if (otaPanelStopped) return;
   otaPanelStopped = true;
   setBacklight(false);
-  if (panel) esp_lcd_panel_disp_on_off(panel, false);
+  // Deleted, not blanked. disp_on_off only stops light reaching the glass; the
+  // scan-out DMA keeps refilling its bounce buffer out of PSRAM, and a flash
+  // erase suspends the cache that reaches PSRAM. Tearing the panel down stops
+  // the DMA and its ISR. Nothing draws after this — the board reboots either
+  // way — so there is nothing to restore.
+  if (panel) {
+    esp_lcd_panel_del(panel);
+    panel = nullptr;
+  }
 }
 
 static void otaAsk() {
@@ -3467,7 +3475,12 @@ void loop() {
   // An update owns the board once it starts: the panel is already stopped and
   // nothing else should be drawing, polling, or sleeping it.
   otaService();
-  if (ota.active() || otaRebootPending) { j9.service(); j9Pump(); return; }
+  if (ota.active() || otaRebootPending) {
+    j9.service();
+    j9Pump();
+    delay(1);   // the loop owns the CPU here; the idle task still has to run
+    return;
+  }
 
   // USB serial commands (bring-up / diagnostics)
   static char usbBuf[64];
