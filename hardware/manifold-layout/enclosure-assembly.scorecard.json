@@ -31,12 +31,12 @@
    "max": [
     107.5,
     531.891,
-    358.0
+    361.0
    ],
    "mm": [
     221.0,
     526.891,
-    361.0
+    364.0
    ]
   }
  ],
@@ -60,10 +60,10 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
-    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 10.674",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
+    "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 14.478",
     "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
     "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it"
    ],
@@ -155,7 +155,7 @@
     "water-3 \u2014 enclosure-back-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "water-3 \u2014 fluid-26: 1.151 mm",
-    "funnel-drain-clamp \u2014 funnel-drain-union: 1.337 mm",
+    "funnel-drain-clamp \u2014 funnel-drain-union: 1.338 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.366 mm",
@@ -374,7 +374,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "the Y half-run at or under the X (75.17 mm)",
+   "target": "the Y half-run at or under the X (72.17 mm)",
    "detail": [],
    "active": true
   },
@@ -877,7 +877,7 @@
    "label": "The flavour tap runs under the funnel's bowl",
    "kind": "gate",
    "status": "pass",
-   "value": "10.266 mm to the funnel",
+   "value": "13.235 mm to the funnel",
    "target": "1 mm",
    "detail": [],
    "active": true
@@ -887,7 +887,7 @@
    "label": "The funnel's drain joint stands over the pack under its column",
    "kind": "gate",
    "status": "pass",
-   "value": "7 under the joint's foot at z 277.62, nearest 10.312 mm",
+   "value": "7 under the joint's foot at z 281.43, nearest 14.116 mm",
    "target": "at least 1 mm under the fitting's foot",
    "detail": [],
    "active": true
@@ -1649,7 +1649,7 @@
     "co2-2: 114.2 mm, held at its anchor",
     "fluid-28: 164.4 mm, held at its anchor",
     "fluid-18: 245.3 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
-    "fluid-4: 199.3 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
+    "fluid-4: 197.4 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib strapped across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false
   }

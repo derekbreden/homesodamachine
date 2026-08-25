@@ -49,7 +49,7 @@ bottom:
   grips tube and this spout is silicone. Every millimetre of this land lowers the
   drain exactly as a millimetre of chute does, so the two come out of one budget.
 
-Capacity to the brim is [662 mL](FUNNEL_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [606 mL](FUNNEL_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's

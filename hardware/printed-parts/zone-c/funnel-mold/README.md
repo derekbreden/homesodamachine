@@ -1,7 +1,7 @@
 # Funnel silicone mold
 
 The two-piece printed mold that casts the Zone C [funnel](/hardware/printed-parts/zone-c/funnel/README.md)
-in food-grade platinum silicone. The funnel is a hollow [3 mm](SIL_WALL) shell,
+in food-grade platinum silicone. The funnel is a hollow [6 mm](SIL_WALL) shell,
 so the silicone forms in the gap between an outer **cavity** and an inner
 **core** — it is injection-molding geometry, hand-poured.
 
@@ -11,23 +11,44 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
 
 ## The two halves
 
-- **Cavity** ([189.0 × 189.0 × 63.5 mm](CAVITY_DIMS)). A block with the funnel exterior
-  carved out, opening up. The catch bowl sits in a recess at the top rim; the spout
-  pokes down through a register hole in the floor. Wall [8 mm](MOLD_WALL) around
-  the part, floor [10 mm](MOLD_BASE) under the spout.
-- **Core** ([201.0 × 201.0 × 73.5 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
+- **Cavity** ([189.0 × 189.0 × 74.6 mm](CAVITY_DIMS)). A block with the funnel exterior
+  carved out, opening up. The catch bowl sits in a recess at the top rim. Below the
+  spout's own exit face the pocket carries on [12 mm](TIP_BUFFER) further as a
+  **blind** drafted bore, stepped [1 mm](TIP_STEP) inside the spout's radius —
+  nothing passes the floor. Wall [8 mm](MOLD_WALL) around the part, floor
+  [10 mm](MOLD_BASE) under the closed tip.
+- **Core** ([201.0 × 201.0 × 72.6 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
   hanging from a [10 mm](PLATE_THK) top plate that forms the bowl rim's top face and
-  registers over the cavity by a skirt that drops over its outside. A pin —
-  tapered at the tip so it self-centers — continues the [6.35 mm](SPOUT_BORE)
-  spout bore down through the cavity floor, holding the thin spout wall
-  concentric. A [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](MOLD_VENT_D)
+  registers over the cavity by a skirt that drops over its outside. A pin — tapered
+  at the last few millimetres so it finds its way down — continues the
+  [6.35 mm](SPOUT_BORE) spout bore the whole length of that buffer and stops short
+  of its blind bottom, so it hangs in silicone rather than in the mould. What squares
+  the core is the skirt; the pin needs nothing at the bottom, and the pour is
+  symmetric about it. A [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](MOLD_VENT_D)
   vents pass through the plate, set over the bowl's rim ring so they open into
   the silicone.
+
+## The tip is cast long and closed, and cut afterwards
+
+The mould does not form the spout's exit face. Forming it is what asked the core
+for a slender Ø6.35 pin driven through a zero-clearance hole in the cavity floor,
+and a printed column loaded sideways on assembly is a column that snaps. Instead
+the spout casts [12 mm](TIP_BUFFER) PAST that face into a blind pocket and closes
+there. Nothing is pressed into anything; the pin hangs free the whole way down.
+
+The pin runs the full buffer, so the cast tube is **open bore wherever it is cut** —
+the cut only has to land in the right place, not make the hole. And the buffer steps
+[1 mm](TIP_STEP) in at the exit plane, which leaves an annular shoulder facing down
+at exactly the spout length the drain joint is dimensioned to. Lay a razor flat on
+that shoulder and sweep: that is the cut, and it is the funnel's real length. It
+steps **in** rather than out so every face below the funnel still narrows downward
+and the scrap draws up out of its own bore with the part. Everything below the
+shoulder is scrap — under a third of a millilitre of it.
 
 Because the part is a funnel — everything narrows downward — both halves pull
 straight up; no split halves, no side draft. The forming surfaces carry **no
 release clearance**: the mold face *is* the part face, so the wall comes out
-exactly [3 mm](SIL_WALL) and the collar still press-fits the Zone C opening
+exactly [6 mm](SIL_WALL) and the collar still press-fits the Zone C opening
 (platinum silicone shrinks ~0.1 %). Release is by silicone flex + a
 platinum-compatible release film.
 
@@ -112,7 +133,7 @@ and coupon test are mandatory).
    the press-fit collar, and flexes to clean — and the funnel never has to be
    self-supporting, since the rigid opening cradles it during a pour. Select for
    **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
-   demold. One funnel is about [71 mL](SIL_VOLUME) of silicone. BBDINO rates it
+   demold. One funnel is about [135 mL](SIL_VOLUME) of silicone. BBDINO rates it
    food-contact safe for **fat-free foods** — fine here: the concentrate is a
    sugar/sucralose syrup with no fat.
 2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,
@@ -141,8 +162,16 @@ and coupon test are mandatory).
    cure — is the food-contact acceptance gate — see
    [wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md).
 6. **Demold.** Respect the full demold time before pulling the thin spout; lift
-   the core out (it peels off the plug), then pop the funnel from the cavity.
-7. **Reuse.** Reapply release every pour and inspect/clean the PETG faces between
+   the core out (it peels off the plug), then pop the funnel from the cavity. Take
+   the core FIRST: the cavity still holds the tip while the pin withdraws from it.
+7. **Trim the tip.** The spout comes out of the mould long and closed. Lay a fresh
+   razor flat against the shoulder [1 mm](TIP_STEP) below the spout's outer face and
+   sweep it round — the cut lands on the funnel's real spout length and opens a bore
+   the pin already formed. Discard the [12 mm](TIP_BUFFER) below it. **The funnel is
+   not a funnel until this cut is made**; `reference/funnel-drain-stub` takes the
+   whole of that spout as the clamp land, so a tip left on is a spout that will not
+   meet the union's collet face.
+8. **Reuse.** Reapply release every pour and inspect/clean the PETG faces between
    cycles — a reused mold accumulates cured film and bald spots.
 
 ## Regenerate

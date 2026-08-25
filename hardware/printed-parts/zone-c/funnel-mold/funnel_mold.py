@@ -2,16 +2,25 @@
 Zone C funnel ([../funnel/](../funnel/README.md)) in
 food-grade platinum silicone.
 
-The funnel is a hollow 3 mm shell, so the silicone forms in the gap between two
-printed halves:
+The funnel is a hollow shell of one wall (`funnel.collar_wall`), so the silicone
+forms in the gap between two printed halves:
 
   * CAVITY — a block with the funnel *exterior* carved out, opening up. The brim
-    sits in a recess at the top rim; the spout pokes down through a pin-register
-    hole in the floor.
+    sits in a recess at the top rim; below the spout's own exit face the pocket
+    carries on `tip_buffer` further as a blind, drafted bore that the floor closes.
   * CORE — the funnel *interior* (the bore) as a plug, hanging from a top plate
     that forms the brim's top face and registers over the cavity via a skirt. A
-    pin continues the Ø6.35 spout bore down through the cavity floor, fixing the
-    thin spout wall concentric. Vents + a pour port pass through the plate.
+    pin continues the Ø6.35 spout bore down the whole of that buffer, stopping
+    `tip_cap` short of its blind bottom. Vents + a pour port pass through the plate.
+
+THE SPOUT IS CAST LONG AND CLOSED, AND CUT TO LENGTH AFTERWARDS. Moulding the
+exit face itself is what asked the core for a slender Ø6.35 pin driven through a
+zero-clearance hole in the cavity floor — a printed column loaded sideways on
+assembly, which is a column that snaps. Nothing here forms that face: the buffer
+hangs the pin free in silicone, so there is no hole to find and nothing to press.
+The pin runs the full buffer, so the cast tube is OPEN bore wherever it is cut,
+and the buffer steps `tip_step` in at the exit plane — a shoulder a blade seats
+flat against, which is the cut. Everything below that shoulder is scrap.
 
 Both halves pull straight up — a funnel is its own draft. The geometry is read
 live from the funnel: `funnel.build_solids()` returns the exterior and
@@ -22,7 +31,8 @@ film, not by gap.
 
 Pour (see README.md): degas the silicone, pour into the open cavity to the brim
 line, lower the core, and let air + excess weep out the plate vents. Vacuum the
-filled mold for the deep spout if you have the chamber.
+filled mold for the deep spout if you have the chamber. Then trim the tip at its
+shoulder — the funnel is not a funnel until that cut is made.
 """
 
 import sys
@@ -51,7 +61,21 @@ skirt_wall = 6.0      # core registration-skirt wall (wraps the cavity top)
 plate_thk = 10.0      # core top plate — forms the brim top, carries the vents
 lip_h = 10.0          # how far the skirt drops over the cavity (registration)
 lip_gap = 0.0         # slip between the skirt and the cavity outside
-pin_reg_clear = 0.0   # spout pin press-fits the cavity-floor register hole (PETG seals at zero)
+# The sacrificial tip. The mould casts the spout PAST the funnel's own exit face and closes
+# it, and the cut that opens it is a post-process. What that buys is a core with no slender
+# press fit on it: the pin hangs free in silicone the whole way down instead of being driven
+# into the cavity floor.
+tip_buffer = 12.0     # spout cast below the funnel's exit face — scrap, and the room the cut has
+tip_step = 1.0        # how far the buffer's outer wall steps IN at that face. The step is the
+                      # cut line: an annular shoulder facing down, which a razor laid flat on it
+                      # follows to exactly the spout length the drain joint is dimensioned to
+                      # (`reference/funnel-drain-stub` takes `funnel.spout_tube` whole). It steps
+                      # in rather than out so the scrap still draws straight up out of its bore
+tip_cap = 2.0         # silicone left under the pin's tip — what closes the cast tube's end
+tip_draft = 0.5       # draft on the buffer's bore, off its radius over its length, so the scrap
+                      # tube breaks its own seal at once instead of being pulled out of a
+                      # straight sleeve it fits exactly
+pin_lead = 2.0        # taper on the pin's last stretch, so it finds the pocket on the way down
 fill_port_id = 4.0    # pour port through the plate (fallback to the open-cavity pour)
 fill_port_csink = 5.0   # shallow pour dish countersunk on top of the fill port
 vent_id = 2.5         # vent holes through the plate, over the brim ring
@@ -75,32 +99,46 @@ def _cyl(r, z_top, z_bot, cx, cy):
 
 def build():
     solid, bore, m = HF.build_solids()
-    cx, cy, ncx = m["cx"], m["cy"], m["ncx"]
+    # The neck's own centre, both axes — the spout, the buffer and the pin all stand on it.
+    ncx, ncy = m["ncx"], m["ncy"]
     ocx, ocy = m["out_cx"], m["out_cy"]
     top_z, end_z = m["top_z"], m["end_z"]
     pin_r = m["spout_id"] / 2.0
     out_w, out_d = m["out_w"], m["out_d"]         # the brim = the part's outer footprint
     block_w, block_d = out_w + 2.0 * mold_wall, out_d + 2.0 * mold_wall
     plate_w, plate_d = block_w + 2.0 * skirt_wall, block_d + 2.0 * skirt_wall
-    floor_z = end_z - mold_base
+    # THE SACRIFICIAL TIP. `end_z` is the funnel's own exit face and so the CUT plane; the
+    # mould carries the spout `tip_buffer` past it into a blind, drafted bore, and the block's
+    # floor stands under THAT. The bore steps `tip_step` inside the spout's own radius, which
+    # leaves an annulus of that width facing down at the cut plane — the shoulder the blade
+    # rides. Stepping IN keeps every face below the funnel narrowing downward, so the scrap
+    # draws up out of its own bore with the part.
+    buf_or = m["spout_or"] - tip_step
+    buf_z = end_z - tip_buffer
+    floor_z = buf_z - mold_base
+    tip_pocket = cq.Solid.makeCone(buf_or - tip_draft, buf_or, tip_buffer,
+                                   cq.Vector(ncx, ncy, buf_z), cq.Vector(0, 0, 1))
 
     # CAVITY: block from floor to brim top, funnel exterior carved out (opens
-    # up), with a through-hole in the floor that registers the spout pin.
+    # up), the sacrificial tip's pocket carrying on below it and CLOSED — nothing
+    # passes the floor, so there is no register to press and no path to weep down.
     cavity = (
         _box(block_w, block_d, floor_z, top_z, ocx, ocy)
         .cut(solid)
-        .cut(_cyl(pin_r + pin_reg_clear, end_z, floor_z - 1.0, ncx, cy))
+        .cut(tip_pocket)
     )
 
-    # CORE: the bore is the plug; extend the spout pin down through the cavity
-    # floor; cap with a top plate that forms the brim top, joined to a skirt that
-    # drops over the cavity outside for registration.
-    # pin with a tapered lead nose so it self-centers into the floor register
-    # hole on assembly (the nose is below the silicone — pure registration).
-    pin_nose = 3.0
+    # CORE: the bore is the plug; the spout pin runs on down the whole buffer and
+    # stops `tip_cap` short of its blind bottom, so silicone closes the cast tube
+    # under it and the pin is held by that silicone rather than by the mould. Its
+    # last `pin_lead` tapers — a lead-in for the way down, not a press fit.
+    # Nothing registers the pin at the bottom and nothing needs to: the skirt
+    # squares the core on the cavity, and the pour is symmetric about the pin.
+    pin_bot = buf_z + tip_cap
     pin = (
-        _cyl(pin_r, end_z - 1.0, floor_z + pin_nose, ncx, cy)
-        .fuse(cq.Solid.makeCone(pin_r - 1.0, pin_r, pin_nose, cq.Vector(ncx, cy, floor_z), cq.Vector(0, 0, 1)))
+        _cyl(pin_r, end_z, pin_bot + pin_lead, ncx, ncy)
+        .fuse(cq.Solid.makeCone(pin_r - 1.0, pin_r, pin_lead,
+                                cq.Vector(ncx, ncy, pin_bot), cq.Vector(0, 0, 1)))
     )
     plate = _box(plate_w, plate_d, top_z, top_z + plate_thk, ocx, ocy)
     skirt = (
@@ -129,11 +167,18 @@ def build():
     dx, dy, dz = -ocx, -ocy, -floor_z
     cavity = cavity.translate((dx, dy, dz))
     core = core.translate((dx, dy, dz))
-    funnel = HF.build()[0].val().translate((dx, dy, dz))
+    # What comes OUT of the mould is the funnel with its tip still on: the part, plus the
+    # silicone standing in the buffer around the pin. That is the body the pour is mixed for
+    # and the body the cut is made on, so it is the one drawn here.
+    tip = tip_pocket.cut(pin)
+    funnel = HF.build()[0].val()
+    cast = funnel.fuse(tip).translate((dx, dy, dz))
 
     info = {
-        "funnel": funnel,
-        "sil_vol": funnel.Volume(),
+        "cast": cast,
+        "sil_vol": cast.Volume(),
+        "part_vol": funnel.Volume(),
+        "tip_vol": tip.Volume(),
         "sil_wall": m["collar_wall"],
         "spout_id": m["spout_id"],
         "cavity_bb": cavity.BoundingBox(),
@@ -159,7 +204,7 @@ def main():
     # Two printed halves off the black spool and the black silicone they cast between them —
     # what tells the three apart in this picture is the 45 mm of air each is lifted by.
     assy.add(cavity, name="cavity", color=M_PETG_BLACK)
-    assy.add(info["funnel"].translate((0, 0, 45)), name="funnel", color=M_SILICONE_BLACK)
+    assy.add(info["cast"].translate((0, 0, 45)), name="funnel", color=M_SILICONE_BLACK)
     assy.add(core.translate((0, 0, 100)), name="core", color=M_PETG_BLACK)
     export_assembly(assy, str(here / "funnel-mold-assembly.step"))
     print("-> funnel-mold-assembly.step")
@@ -167,7 +212,10 @@ def main():
     cbb, kbb = info["cavity_bb"], info["core_bb"]
     print(f"  cavity:  {cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm")
     print(f"  core:    {kbb.xlen:.1f} × {kbb.ylen:.1f} × {kbb.zlen:.1f} mm")
-    print(f"  silicone per pour: {info['sil_vol']:.0f} mm³ = {info['sil_vol'] / 1000.0:.1f} mL")
+    print(f"  silicone per pour: {info['sil_vol'] / 1000.0:.1f} mL "
+          f"({info['part_vol'] / 1000.0:.1f} the funnel, {info['tip_vol'] / 1000.0:.1f} the tip cut off it)")
+    print(f"  tip cast {tip_buffer:g} mm past the exit face, closed, and stepped {tip_step:g} mm "
+          f"in at the cut")
 
     substitute_md(
         here / "README.md",
@@ -178,6 +226,8 @@ def main():
             "SIL_WALL": f"{info['sil_wall']:g} mm",
             "SPOUT_BORE": f"{info['spout_id']:g} mm",
             "SIL_VOLUME": f"{info['sil_vol'] / 1000.0:.0f} mL",
+            "TIP_BUFFER": f"{tip_buffer:g} mm",
+            "TIP_STEP": f"{tip_step:g} mm",
             "CAVITY_DIMS": f"{cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm",
             "CORE_DIMS": f"{kbb.xlen:.1f} × {kbb.ylen:.1f} × {kbb.zlen:.1f} mm",
             "FILL_D": f"{fill_port_id:g} mm",
