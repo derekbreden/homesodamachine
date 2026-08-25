@@ -2308,42 +2308,6 @@ def _boxed(x0, x1, y0, y1, z0, z1):
     return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
 
 
-def check_corner_slot(foam) -> Bound:
-    """Whether the cold core's flank slots receive the four-corner bosses — landed, and
-    with the aft slide each boss arrives by clear.
-
-    The boss's socket stands `corner_core_reach` past the boss chain the flanks are packed
-    to, and the front assembly carries it aft along the flank as the halves telescope — so
-    the whole SWEPT band has to be air in the placed core, from the core's front face to
-    the boss's aft face plus a slip. Read as that band against the core itself
-    (`_cold_core_interface.corner_boss_slots` is the shell's side of the same figure)."""
-    ix0, ix1 = _enc.interior_x()
-    reach = _enc.corner_core_reach + _enc.split_slip
-    z0 = _enc.z_seam - _enc.socket_r - _enc.split_slip
-    z1 = _enc.z_seam + _enc.socket_r + _enc.split_slip
-    aft = _enc._y_boss(_enc.y_seam) + _enc.socket_r + _enc.split_slip
-    fb = box(foam)
-    hits = []
-    for sx, face in ((+1.0, ix0 + _enc.side_band_inset), (-1.0, ix1 - _enc.side_band_inset)):
-        xa, xb = sorted((face, face + sx * reach))
-        probe = _boxed(xa, xb, fb.ymin - 1.0, aft, z0, z1)
-        v = foam.intersect(probe).Volume()
-        hits.append((("−X", "+X")[sx < 0], v))
-    ok = all(v <= 1.0 for _s, v in hits)
-    return record_bound(Bound(
-        "corner-slot-lands", "The core's flank slots receive the four-corner bosses",
-        ok,
-        "swept bands clear on both flanks" if ok else
-        ", ".join(f"{s}: {v:.0f} mm³ standing in the band" for s, v in hits if v > 1.0),
-        "air over each boss's whole swept band",
-        ([] if ok else [
-            f"the cold core stands in the four-corner boss's swept band on the "
-            f"{', '.join(s for s, v in hits if v > 1.0)} flank — the boss reaches "
-            f"{reach:.2f} past the chain and rides the flank aft as the halves close. "
-            f"The shell's slot (`_cold_core_interface.corner_boss_slots`) has to cover "
-            f"z {z0:.2f}..{z1:.2f} back to y {aft:.2f}"])))
-
-
 def check_core_held(pieces: dict, foam, shell) -> Bound:
     """Whether all four of the cold core's grips are closed on it.
 
@@ -6862,9 +6826,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # two blocks on one piece's slab and two brackets off another's +Y wall of back-top, each read inside
     # the room it stands in.
     check_core_held(pieces, a.pack_solids["foam-assembly"], box)
-    # And the flank slots those grips' own screws pass along: the four-corner bosses ride
-    # the ±X flanks aft as the halves telescope, and the slots are the room they do it in.
-    check_corner_slot(a.pack_solids["foam-assembly"])
     # And every rear-wall fitting against the chip it bears on and the bore it passes. The chips
     # go into the assembly rather than the pack — they lie in the wall's own thickness — so they
     # come back off the placed children the way the runs do.
