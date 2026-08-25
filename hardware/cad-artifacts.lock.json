@@ -6,12 +6,20 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f52313edbc8b9502.tar.gz"
   },
   "source": {
-    "commit": "6f16c8f44c4f6b93ddce3545e929c9db41a2594f"
+    "commit": "7930f227845693eee9799a9b1afef299f5b9ee83"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
+      "firmware/lib/board_art/board_art.cpp",
+      "firmware/lib/board_art/board_art.h",
+      "firmware/partitions_s3.csv",
+      "firmware/pre_build.py",
+      "firmware/src_config/main.cpp",
+      "firmware/src_front/main.cpp",
       "hardware/printed-parts/petgf.3mf",
+      "tools/make_art.py",
+      "tools/ota.py",
       "tools/publish_firmware.py"
     ],
     "members": [
