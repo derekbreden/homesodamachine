@@ -17,6 +17,17 @@ static uint32_t  spanOffset = 0;
 static uint32_t  spanRemain = 0;
 static uint32_t  dropped = 0;
 
+// Until the phone says otherwise, the 23-byte default every connection starts
+// at. Asking for more than it agreed to is asking for a write it cannot make.
+static uint16_t  mtu = 23;
+
+static uint16_t askSize(uint32_t remain) {
+  uint16_t cap = (mtu > BLE_OTA_FRAME_OVERHEAD + 3)
+                 ? (uint16_t)(mtu - 3 - BLE_OTA_FRAME_OVERHEAD) : 16;
+  if (cap > BLE_OTA_ASK) cap = BLE_OTA_ASK;
+  return (remain < cap) ? (uint16_t)remain : cap;
+}
+
 static OtaReceiver localRx;
 static bool      rebootPending = false;
 static uint32_t  rebootAtMs = 0;
@@ -45,11 +56,13 @@ static void endSession(uint8_t state, uint8_t err, uint32_t received) {
 
 void bleOtaBegin(const BleOtaSeams &seams) { seam = seams; }
 
+void bleOtaSetMtu(uint16_t negotiated) { mtu = negotiated; }
+
 void bleOtaOnSrcNeed(uint32_t offset, uint16_t len) {
   if (target == OTA_TGT_NONE || target == seam.self) return;
   spanOffset = offset;
   spanRemain = len;
-  askPhone(spanOffset, (uint16_t)(spanRemain < BLE_OTA_ASK ? spanRemain : BLE_OTA_ASK));
+  askPhone(spanOffset, askSize(spanRemain));
 }
 
 void bleOtaOnSrcEnd(const OtaStatePayload &state) {
@@ -82,7 +95,7 @@ static void handleBegin(const uint8_t *payload, uint16_t plen) {
       endSession(localRx.state, localRx.err, 0);
       return;
     }
-    askPhone(0, (uint16_t)(b.size < BLE_OTA_ASK ? b.size : BLE_OTA_ASK));
+    askPhone(0, askSize(b.size));
     return;
   }
 
@@ -109,7 +122,7 @@ static void handleData(const uint8_t *payload, uint16_t plen) {
       const uint32_t remain = localRx.expected - localRx.nextOffset();
       if (seam.onLocalProgress)
         seam.onLocalProgress(true, (uint8_t)((uint64_t)localRx.nextOffset() * 100 / localRx.expected));
-      askPhone(localRx.nextOffset(), (uint16_t)(remain < BLE_OTA_ASK ? remain : BLE_OTA_ASK));
+      askPhone(localRx.nextOffset(), askSize(remain));
       return;
     }
     const bool ok = localRx.finish();
@@ -133,7 +146,7 @@ static void handleData(const uint8_t *payload, uint16_t plen) {
   // The relay only speaks again once its whole span is in, so the rest of it is
   // asked for from here.
   if (spanRemain)
-    askPhone(spanOffset, (uint16_t)(spanRemain < BLE_OTA_ASK ? spanRemain : BLE_OTA_ASK));
+    askPhone(spanOffset, askSize(spanRemain));
   else owedOffset += len;
 }
 
