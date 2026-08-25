@@ -7,18 +7,27 @@ housing; this plate is everything above it. So the seam a hand finds
 around the cradle is a step the device already has, not a height chosen
 for it, and the outside reads as one surface across the joint.
 
-WHAT HOLDS IT. A tongue on the plate's inner-bottom edge drops into a
-groove sunk in the shell's wall tops and runs the cavity's whole
-perimeter — that is what locates the plate across the tip and along it,
-and what takes the seam's tolerance out of sight. One M3 above the
-device's north edge threads a ruthex insert set into the shell. The
-skirt bottoms on the shell's land, so the screw pulls the plate onto a
-hard stop and the device is captured with `display_cover_over_face` of
-clearance rather than clamped through its housing.
+WHAT HOLDS IT. Two things: one M3 above the device's north edge,
+threading a ruthex insert set into the shell, and the hook below. The
+plate butts the shell's land the whole way round, so the screw pulls it
+onto a hard stop and the device is captured with
+`display_cover_over_face` of clearance rather than clamped through its
+housing.
+
+WHAT HOLDS THE SPOUT END. That screw is 50 mm up-gooseneck of it, so on
+its own it leaves the bezel's grip on the device's bottom edge hanging
+off a cantilever. So the plate grows a tongue there: a riser down the
+notch in the shell's south wall and a toe reaching back under that
+wall's overhanging top third. It goes in by sliding — the plate is set
+down `display_cover_hook_travel` up-gooseneck of home, where the toe
+clears the roof, and pushed toward the spout until the riser stops
+against the roof's face. Then the screw, which is what keeps it there.
 
 IT PRINTS FACE DOWN. The outer face lies on the bed and every step in
-the body faces up from there; the only hanging feature is the annular
-ledge at the counterbore.
+the body faces up from there. The hanging features are the annular
+ledge at the counterbore and the toe's top face — the one that bears
+up against the roof, which is flat because a ramp there would let the
+hook cam out under the screw's own clearance.
 
 Frame: the shell's own tip frame — s is distance up-gooseneck from the
 tip end along the tip axis, n is distance from the water-tube centerline
@@ -26,6 +35,7 @@ along the tip's top normal, x is world X. `faucet_shell._cradle_prism`
 builds in it, and `faucet_assembly` stands this plate on the faucet
 without moving it."""
 
+import math
 import sys
 from pathlib import Path
 
@@ -45,6 +55,7 @@ from _cadq_export import export_assembly
 from _materials import C_FAUCET_BLACK, one_body
 from _faucet_interface import (
     display_corner_r,
+    display_cover_wall,
     display_cover_cbore_depth,
     display_cover_lap,
     display_cover_over_face,
@@ -55,6 +66,10 @@ from _faucet_interface import (
 from docgen import substitute_md, substitute_py_comments
 from faucet_shell import (
     _cradle_back_slope,
+    display_cover_hook_lap,
+    display_cover_hook_relief,
+    display_floor_n,
+    max_print_overhang_rad,
     _cradle_prism,
     _tip_frame,
     _housing_band_half_x,
@@ -62,12 +77,18 @@ from faucet_shell import (
     display_collar_half_x,
     display_cover_boss_wall,
     display_cover_cbore_dia,
+    display_cover_hook_half_x,
+    display_cover_hook_n0,
+    display_cover_hook_n1,
+    display_cover_hook_s0,
+    display_cover_hook_s1,
+    display_cover_hook_travel,
+    display_cover_stem_s0,
     display_cover_insert_len,
     display_cover_land_n,
-    display_cover_lap_depth,
     display_cover_screw_s,
     display_cover_shank_dia,
-    display_cover_tongue_w,
+    display_cover_slip,
     display_cover_top_n,
     display_cradle_clearance,
     display_face_n,
@@ -84,12 +105,15 @@ plate_n_bottom = display_cover_land_n       # [17.2 mm](PLATE_N_BOTTOM) — the 
 plate_n_top = display_cover_top_n           # [24.21 mm](PLATE_N_TOP)
 plate_thickness = plate_n_top - plate_n_bottom  # [7.01 mm](PLATE_THICKNESS)
 
-# TONGUE — the inner extrusion of the skirt, carried below the seam into
-# the shell's groove. Nominal: the groove is what carries the slip.
-tongue_n_bottom = plate_n_bottom - display_cover_lap_depth  # [15.96 mm](TONGUE_N_BOTTOM)
-tongue_half_x = _housing_band_half_x + display_cover_tongue_w
-tongue_s_south = display_s_bottom - display_cover_tongue_w
-tongue_s_north = display_s_top + display_cover_tongue_w
+# HOOK — the tongue off the plate's south end that goes under the south
+# wall's overhanging top third. A riser down the shell's notch and a toe
+# reaching back under the roof from it: the toe's top clears the roof's
+# underside by half a slip, which is all the play the fit needs, since
+# the plate's own land is what sets its height and this face only has to
+# absorb the two parts' thickness, not a position.
+hook_half_x = display_cover_hook_half_x   # [6.5 mm](HOOK_HALF_X)
+hook_n_bottom = display_cover_hook_n0     # [13.67 mm](HOOK_N_BOTTOM)
+hook_n_top = display_cover_hook_n1 - display_cover_slip / 2.0  # [14.65](HOOK_N_TOP)
 
 # SKIRT — inner faces on the cavity's own outline, so the plate comes
 # down over the device's housing the way the shell came up its board.
@@ -117,27 +141,36 @@ cbore_ledge = (display_cover_cbore_dia - display_cover_shank_dia) / 2.0  # [1.12
 
 
 def build_plate_outer() -> cq.Workplane:
-    """Skirt and bezel over the seam, with the tongue hung below it, cut
-    to the cradle's back ramp so the plate's north end continues the
-    shell's slope instead of stepping off it."""
+    """Skirt and bezel over the seam, with the tongue and its hooks hung
+    below on the two flanks, cut to the cradle's back ramp so the
+    plate's north end continues the shell's slope instead of stepping
+    off it."""
     body = _cradle_prism(
         plate_half_x, 0.0, plate_s_north,
         plate_n_bottom, plate_n_top,
     )
-    tongue = _cradle_prism(
-        tongue_half_x, tongue_s_south, tongue_s_north,
-        tongue_n_bottom, plate_n_bottom,
-        corner_r=skirt_corner_r + display_cover_tongue_w,
+    toe = _cradle_prism(
+        hook_half_x, display_cover_hook_s0, display_cover_hook_s1,
+        hook_n_bottom, hook_n_top,
     )
-    return body.union(tongue).cut(_cradle_back_slope())
+    riser = _cradle_prism(
+        hook_half_x, display_cover_stem_s0, display_cover_hook_s1,
+        hook_n_bottom, plate_n_bottom,
+    )
+    return body.union(toe).union(riser).cut(_cradle_back_slope())
 
 
 def build_plate_inner_cut() -> cq.Workplane:
     """The void the device stands in, the window over the glass, and the
-    screw's two bores."""
+    screw's two bores. The pocket starts display_cover_hook_travel south
+    of the cavity's own south face: the plate is set down that far up-
+    gooseneck of home, and the device has to be inside the pocket there
+    as well as at home. The wall it gives up is wall the south wall's
+    own thickness has more than replaced."""
     pocket = _cradle_prism(
-        skirt_half_x, display_s_bottom, display_s_top,
-        tongue_n_bottom - 1.0, bezel_n_bottom,
+        skirt_half_x, display_s_bottom - display_cover_hook_travel,
+        display_s_top,
+        hook_n_bottom - 1.0, bezel_n_bottom,
         corner_r=skirt_corner_r,
     )
     window = _cradle_prism(
@@ -236,9 +269,22 @@ def main():
         "PLATE_N_BOTTOM": f"{plate_n_bottom:.4g} mm",
         "PLATE_N_TOP": f"{plate_n_top:.4g} mm",
         "PLATE_THICKNESS": f"{plate_thickness:.4g} mm",
-        "TONGUE_N_BOTTOM": f"{tongue_n_bottom:.4g} mm",
-        "TONGUE_W": f"{display_cover_tongue_w:.4g} mm",
-        "LAP_DEPTH": f"{display_cover_lap_depth:.4g} mm",
+        "CRADLE_WALL_H": f"{display_cover_land_n - display_floor_n:.4g} mm",
+        "FLOOR_N": f"{display_floor_n:.4g}",
+        "HOOK_N0": f"{display_cover_hook_n0:.4g}",
+        "HOOK_N1": f"{display_cover_hook_n1:.4g}",
+        "HOOK_N_TOP": f"{hook_n_top:.4g}",
+        "HOOK_RELIEF": f"{display_cover_hook_relief:.4g} mm",
+        "HOOK_T": f"{hook_n_top - hook_n_bottom:.4g} mm",
+        "HOOK_GAP": f"{display_cover_hook_n1 - hook_n_top:.4g} mm",
+        "ROOF_T": f"{display_cover_land_n - display_cover_hook_n1:.4g} mm",
+        "HOOK_LAP": f"{display_cover_hook_lap:.4g} mm",
+        "HOOK_X": f"{2.0 * hook_half_x:.4g} mm",
+        "HOOK_TRAVEL": f"{display_cover_hook_travel:.4g} mm",
+        "S_BOTTOM": f"{display_s_bottom:.4g} mm",
+        "COVER_WALL": f"{display_cover_wall:.4g} mm",
+        "CHIN": f"{window_s_south:.4g} mm",
+        "MAX_PRINT_OVERHANG": f"{math.degrees(max_print_overhang_rad):.0f}\u00b0",
         "SKIRT_HALF_X": f"{skirt_half_x:.4g} mm",
         "SKIRT_DEPTH": f"{bezel_n_bottom - plate_n_bottom:.4g} mm",
         "BEZEL_N_BOTTOM": f"{bezel_n_bottom:.4g} mm",
