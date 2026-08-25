@@ -9,7 +9,7 @@ the pack and enters the reading in `BOUNDS`. The box comes out at its stated siz
 either way, so a pack that overran it gets a wall drawn through it.
 
 Three bodies stand on the floor slab — the compressor and the condenser side by side
-across the front, and the cold core behind them. A boss is a pipe `2 * socket_r` across
+across the front, and the cold core behind them. A boss is a block `2 * socket_r` across
 and the same TALL, so what the ±X band costs a body is a question about the body's own
 height as much as its depth: it is held one `side_band_inset` off the wall where it meets
 one in both, and beside one — over or under one — the band is the wall's own air. The cold
@@ -94,7 +94,7 @@ hole the collar at a seam station, the station stands off its cusp instead
 
 A plug is the wall it drives through and the reach it needs past it: the first
 `wall` of its length is that wall's own material and the rest a stub off it, its
-mouth-side face on the mouth that receives it. A socket is a pipe round that plug —
+mouth-side face on the mouth that receives it. A socket is a block round that plug —
 one `wall` of material, a `socket_cap` over the insert's blind end — its rim-side
 face on the lip rim and its far face a hair under the seam mouth, so it stands on
 that band — lip above the mouth, wall under it below — down its whole length. Those are the two matings the
@@ -1325,10 +1325,10 @@ z_lip_y_margin = 2.0
 
 # THE FOUR-CORNER SCREW: one M3 per side wall at (`_y_boss`, `z_seam`), where all four
 # pieces meet, crossing every one of them — the Y-boss idiom with the seam plane through
-# it. The back pair carries the plug as two half-cylinders, each piece its own half; the
-# front lip's two halves carry the slide channel; and FRONT-BOTTOM alone carries the
-# socket, a pedestal standing proud through the plane off its own lip face, so the bore
-# and the insert live in one piece's solid. The head sits in the standard counterbore,
+# it. The back pair carries the plug as two halves of one square prism, each piece its
+# own half; the front lip's two halves carry the slide slot; and FRONT-BOTTOM alone
+# carries the socket, a pedestal standing proud through the plane off its own lip face,
+# so the slot and the insert live in one piece's solid. The head sits in the standard counterbore,
 # astride the visible seam line. It pins fb↔bb over the floor level, ft↔bt under the
 # ceiling one, and each column's Z seam against its far station — every pair at both
 # ends of its span.
@@ -3419,11 +3419,11 @@ def _ceiling_corbels(solid, inner, outer, centre, y_joint):
 # drives in from the ±X exterior; outboard→inboard the joint reads: head
 # counterbore, then the pin body (screw_len − heatset_depth of material the shank
 # crosses), then the heat-set, then a one-wall cap.
-#   * BACK half = PIN: a round cylinder from the ±X exterior to the heat-set,
-#     registering in the socket bore. Sized to the screw SHANK, not the head (the
-#     head sits in the wall counterbore); screw-clearance + head counterbore bored
-#     in.
-#   * FRONT lip = SOCKET: a collar round the bore — one `wall` of material and no
+#   * BACK half = PIN: a `plug_dia` square prism from the ±X exterior to the
+#     heat-set, seating in the socket's slot. Sized to the screw SHANK, not the head
+#     (the head sits in the wall counterbore); screw-clearance + head counterbore
+#     bored in.
+#   * FRONT lip = SOCKET: a collar round the slot — one `wall` of material and no
 #     more — bored to receive the round pin (slide fit) with the heat-set + cap at
 #     the deep inboard end.
 # The head seats in the +Y wall; the shank crosses the pin body into the front
@@ -3468,8 +3468,8 @@ def _bosses(inner, y_joint):
     agree. The manifold stack denies the −X wall a socket body over one band, so
     its levels there slide to the nearest height that can hold one.
 
-    The end levels sit one `wall` plus a bore radius off the floor and the ceiling,
-    where a collar of one wall round the bore comes tangent to each."""
+    The end levels sit one `wall` plus half the slot off the floor and the ceiling,
+    where a collar of one wall round that slot lands its own face on each."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
     zt = iz1 - wall - r
@@ -3525,9 +3525,9 @@ def _back_plug(x_ext, sx, z_boss, y_boss):
 
 
 def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
-    """FRONT socket: a collar round the bore — a pipe standing off the ±X wall's
+    """FRONT socket: a collar round the slot — a block standing off the ±X wall's
     inner face, from that face out to the cap over the insert's blind end, one
-    `wall` of material round the bore its whole length.
+    `wall` of material round the slot its whole length.
 
     Its aft face lands on the lip rim (`_y_boss` + socket_r, which is what `lip_len`
     is struck from) and its forward face a hair ahead of the lip's own fusion
@@ -4290,8 +4290,8 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     IT BEGINS AT THE RIM, and under the rim this flank is the box's own `wall`. Front-bottom's
     Z-seam tongue LAPS that wall's inner face over `lip_len` and stands open inboard — the
     same joint the back column makes (`_back_top_flanks`), on a piece that carries three
-    times the section. What locates the seam is the four pins that cross it: a half-round
-    nose in a bored socket at `split_slip`, one per flank at each end of the column's span
+    times the section. What locates the seam is the four pins that cross it: a square
+    tongue in a slotted socket at `split_slip`, one per flank at each end of the column's span
     (`_z_pin`, `_z_pod`, `_corner_socket`). A lap bears; the pins register.
 
     SECTION CARRIED PAST THE RIM WOULD STAND ON THE FAR SIDE OF THAT TONGUE, and the lane
