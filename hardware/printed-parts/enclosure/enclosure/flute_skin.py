@@ -66,7 +66,7 @@ import reeding                                                          # noqa: 
 grid_across = 0.4
 # And ALONG them. The field is constant along a flute except where it ramps, so rows that say
 # nothing new are dropped after the field is built rather than never taken — the ramp is what
-# needs the resolution and the ramp is 5 mm of a 358 mm wall.
+# needs the resolution and the ramp is 5 mm of a 361 mm wall.
 grid_along = 0.25
 # How far outboard the cutter stands before it turns inward. It is air out there; what this
 # buys is a boolean that never has to decide about two surfaces lying on each other.
@@ -297,7 +297,7 @@ def _depth_field(s, mask, closed):
 def _thin(depth, rows, s, point, normal):
     """Drop the stations that say nothing new.
 
-    The field is CONSTANT ALONG A FLUTE except where it ramps, and a ramp is 5 mm of a 358 mm
+    The field is CONSTANT ALONG A FLUTE except where it ramps, and a ramp is 5 mm of a 361 mm
     wall — so most rows repeat the one above them exactly, and a mesh drawn through all of them
     is ten million triangles of saying the same thing. Across, the same is true of every stretch
     of a rail this piece does not carry: the depth is zero the whole height and two columns
