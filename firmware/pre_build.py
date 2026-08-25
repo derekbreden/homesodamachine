@@ -14,6 +14,7 @@ Import("env")
 import time
 import os
 import subprocess
+import sys
 
 timestamp = time.strftime("%b %d %Y %H:%M:%S")
 
@@ -173,3 +174,18 @@ if os.path.isdir(libdeps_dir):
         if patched:
             with open(fd_cpp, "w") as f:
                 f.write(content)
+
+# ── The enclosure display's art partition ─────────────────────────────────
+# The loading animation is not compiled into that board's image any more; it
+# lives in its own partition (firmware/partitions_s3_front.csv, `art`). Laying
+# it out here rather than by hand is what keeps the blob and the firmware from
+# drifting: both come from this tree, in one build.
+if env_name == "esp32s3_front":
+    art_out = os.path.join(env.subst("$BUILD_DIR"), "art.bin")
+    maker = os.path.join(env.subst("$PROJECT_DIR"), "tools", "make_front_art.py")
+    images = os.path.join(env.subst("$PROJECT_DIR"), "firmware", "src_front", "images")
+    newest = max((os.path.getmtime(os.path.join(images, f))
+                  for f in os.listdir(images) if f.startswith("anim_")), default=0)
+    if not os.path.isfile(art_out) or os.path.getmtime(art_out) < newest:
+        os.makedirs(os.path.dirname(art_out), exist_ok=True)
+        subprocess.run([sys.executable, maker, "-o", art_out], check=True)
