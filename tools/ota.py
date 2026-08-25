@@ -196,7 +196,7 @@ if __name__ == "__main__":
     else:
         img = os.path.join(REPO, ".pio", "build", TARGETS[a.target][0], "firmware.bin")
     if not os.path.exists(img):
-        how = ("~/.platformio/penv/bin/python tools/make_front_art.py"
+        how = ("~/.platformio/penv/bin/python tools/make_art.py enclosure"
                if a.target == "art" else f"pio run -e {TARGETS[a.target][0]}")
         sys.exit(f"no image at {img} — build it first: {how}")
     sys.exit(run(a.target, img, a.verbose))

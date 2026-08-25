@@ -1,42 +1,31 @@
 # ============================================================================
-# !! READ BEFORE UNIT #001'S FIRMWARE IS FLASHED FOR SHIPMENT !!
-# ----------------------------------------------------------------------------
-# This is a SINGLE-SLOT partition table. There is an `otadata` partition and
-# an `app0` (ota_0) slot, but NO `app1` (ota_1). ESP-IDF / Arduino OTA refuses
-# to write without a second slot because rollback is impossible.
+# The prototype's 1.28" rotary display (Meshnology, 8 MB flash).
 #
-# The update path this serves is `firmware/README.md`, "A shipped unit is
-# updated from the iOS app".
-# Architecture: updates flow phone -> BLE -> S3 (this MCU) -> UART -> ESP32
-# main. The S3 hosts the NimBLE GATT server the iOS/Android apps talk to.
-# The unit is never on WiFi or the internet (air gap is intentional). BLE OTA
-# still needs two app slots on the device.
+# TWO APP SLOTS. An image lands in the one that is not running and the boot
+# partition moves only after the whole of it is in and its CRC32 matches; a
+# transfer that stalls leaves the board running what it booted. The update path
+# is `firmware/README.md`, "A shipped unit is updated from the iOS app": this
+# board hosts the NimBLE GATT server the phone talks to, and relays over UART to
+# the prototype's ESP32. The unit is never on WiFi or the internet.
 #
-# Once a unit ships with this single-slot layout, it CANNOT be retrofitted to
-# dual-slot over the air -- by definition, the OTA mechanism we'd use to push
-# the fix requires the second slot to already exist. Decide BEFORE unit #001
-# or accept that unit forever requires a service-visit reflash.
+# THE BOARD UNDER THE COUNTER IS RUNNING THE SINGLE-SLOT TABLE IT WAS FLASHED
+# WITH. A partition table is the one thing an update cannot install, so it takes
+# one USB visit to arrive at this one, and none after that.
 #
-# The S3 has 8 MB of flash, so the fix is cheap. Proposed dual-slot layout,
-# sketch only -- verify before committing:
-#   nvs       data nvs    0x9000   0x5000
-#   otadata   data ota    0xe000   0x2000
-#   app0      app  ota_0  0x10000  0x200000  (2 MB)
-#   app1      app  ota_1  0x210000 0x200000  (2 MB)
-#   spiffs    data spiffs 0x410000 0x3F0000  (~4 MB, unchanged)
-# No real cost on this MCU.
+# `art` holds the 16 animation frames and 3 flavor faces at 240x240 RGB565 —
+# 2,188,832 bytes, laid out by `tools/make_art.py rotary` and read through
+# `firmware/lib/board_art`. Compiled in they were 2.1 MB of a 3.2 MB app, which
+# is why two slots and a filesystem did not fit around them.
 #
-# Companion file: firmware/partitions_esp32.csv has the same problem on the
-# 4 MB main controller (tighter fit there -- ~1 MB of LittleFS goes away).
-#
-# Two boards share this table: the Meshnology config S3 (8 MB flash) and the
-# Waveshare faucet S3 (16 MB flash -- its upper 8 MB sits unused under this
-# 8 MB layout, so a dual-slot variant has even more room there).
-#
-# When this is done: delete this banner.
+#   0x010000  app0    1.5 MB   the app is ~1.1 MB
+#   0x190000  app1    1.5 MB
+#   0x310000  art     2.25 MB  holds 2,188,832 B
+#   0x550000  spiffs  2.69 MB  uploaded images, 10 slots at 115,200 B
 # ============================================================================
 # Name,   Type, SubType, Offset,   Size,     Flags
 nvs,      data, nvs,     0x9000,   0x5000,
 otadata,  data, ota,     0xe000,   0x2000,
-app0,     app,  ota_0,   0x10000,  0x400000,
-spiffs,   data, spiffs,  0x410000, 0x3F0000,
+app0,     app,  ota_0,   0x10000,  0x180000,
+app1,     app,  ota_1,   0x190000, 0x180000,
+art,      data, 0x40,    0x310000, 0x240000,
+spiffs,   data, spiffs,  0x550000, 0x2B0000,

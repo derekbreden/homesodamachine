@@ -4,7 +4,7 @@
 
 #include "ble_link.h"
 #include "base_link.h"
-#include "ota_receiver.h"
+#include "ble_ota.h"
 #include "fw_version.h"
 
 // Nordic UART Service — the same three UUIDs the iOS app already knows.
@@ -12,32 +12,10 @@ static const char *NUS_SERVICE = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
 static const char *NUS_RX      = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E";
 static const char *NUS_TX      = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E";
 
-// Anthropic's assigned company id is not ours to use and this is not a shipped
-// product, so the manufacturer block opens with 0xFFFF — the id reserved for
-// exactly this.
+// 0xFFFF is the company id reserved for a device that has none.
 static const uint16_t MFG_ID = 0xFFFF;
 
-// ── The framing the app speaks ────────────────────────────────────────────
-// 0x01..0x04 are the vocabulary the prototype's rotary display already uses.
-// Firmware starts at 0x10 so nothing here can be read as one of those.
-static const uint8_t BLE_TEXT       = 0x01;
-static const uint8_t BLE_OTA_BEGIN  = 0x10;  // phone → board: target, size, crc32, kind
-static const uint8_t BLE_OTA_NEED   = 0x11;  // board → phone: offset, length
-static const uint8_t BLE_OTA_DATA   = 0x12;  // phone → board: offset, then bytes
-static const uint8_t BLE_OTA_END    = 0x13;  // board → phone: state, err, received
-static const uint8_t BLE_IDENTITY   = 0x14;  // board → phone: model, unit, name, versions
-
-struct __attribute__((packed)) BleOtaBegin {
-  uint8_t  target;   // OTA_TGT_*
-  uint8_t  kind;     // OTA_KIND_*
-  uint32_t size;
-  uint32_t crc32;
-};
-
-struct __attribute__((packed)) BleOtaNeed {
-  uint32_t offset;
-  uint16_t len;
-};
+static const uint8_t BLE_TEXT = 0x01;
 
 static NimBLEServer         *server = nullptr;
 static NimBLECharacteristic *txChar = nullptr;
@@ -47,30 +25,13 @@ static IdentityPayload identity{};
 static bool            haveIdentity = false;
 static uint32_t        identityAskedAtMs = 0;
 
-// ── The session, as this board sees it ────────────────────────────────────
-// Either the bytes are going onto J3 for someone else, or into this board's own
-// spare slot. Nothing else is held.
-static uint8_t   sessionTarget = OTA_TGT_NONE;
-static uint32_t  imgSize = 0;
-static uint32_t  owedOffset = 0;   // what the phone was last asked for
-static uint16_t  owed = 0;         // how much of that it still owes
-// What the relay asked for, which is more than one BLE frame carries. This
-// board walks it a frame at a time and the relay sees the pieces arrive.
-static uint32_t  spanOffset = 0;
-static uint32_t  spanRemain = 0;
-
-static OtaReceiver localRx;
-static uint32_t    localAskedAtMs = 0;
-static bool        rebootPending = false;
-static uint32_t    rebootAtMs = 0;
-
 // A write arrives on the NimBLE task; anything that touches flash, LVGL or J3
 // has to happen in loop(). One frame is in flight at a time because the pull
 // only ever asks for one, so a single staging buffer is the whole queue.
 static const uint16_t RX_STAGE = 640;
 static volatile uint16_t stageLen = 0;
 static uint8_t  stage[RX_STAGE];
-static uint32_t dropped = 0;
+static uint32_t stageDrops = 0;
 
 static void notify(uint8_t type, const void *data, uint16_t len) {
   if (!txChar || !connected) return;
@@ -97,7 +58,7 @@ static void sendIdentity() {
   const size_t vlen = strnlen(FW_VERSION, 31);
   memcpy(body + n, FW_VERSION, vlen); n += vlen;
   body[n++] = 0;
-  notify(BLE_IDENTITY, body, (uint16_t)n);
+  notify(BLE_FRAME_IDENTITY, body, (uint16_t)n);
 }
 
 // ── What this board advertises ────────────────────────────────────────────
@@ -159,127 +120,14 @@ void bleLinkOnIdentity(const IdentityPayload &id) {
   }
 }
 
-// ── The session, driven from loop() ───────────────────────────────────────
-// The most image bytes one BLE_OTA_DATA carries. A 517-byte MTU leaves 514 for
-// the payload, less this board's 3-byte header and the 4-byte offset.
-static const uint16_t BLE_ASK = 480;
-
-static void askPhone(uint32_t offset, uint16_t len) {
-  owedOffset = offset;
-  owed = len;
-  BleOtaNeed need{offset, len};
-  notify(BLE_OTA_NEED, &need, sizeof(need));
-}
-
-static void endSession(uint8_t state, uint8_t err, uint32_t received) {
-  OtaStatePayload st{state, err, received};
-  notify(BLE_OTA_END, &st, sizeof(st));
-  Serial.printf("BLE:OTA END target=%u state=%u err=%u recv=%lu\n",
-                sessionTarget, state, err, (unsigned long)received);
-  sessionTarget = OTA_TGT_NONE;
-  imgSize = 0;
-  owed = 0;
-  spanRemain = 0;
-}
-
-void bleLinkOnSrcNeed(uint32_t offset, uint16_t len) {
-  if (sessionTarget == OTA_TGT_NONE || sessionTarget == OTA_TGT_FAUCET) return;
-  spanOffset = offset;
-  spanRemain = len;
-  askPhone(spanOffset, (uint16_t)(spanRemain < BLE_ASK ? spanRemain : BLE_ASK));
-}
-
-void bleLinkOnSrcEnd(const OtaStatePayload &state) {
-  if (sessionTarget == OTA_TGT_NONE || sessionTarget == OTA_TGT_FAUCET) return;
-  endSession(state.state, state.err, state.received);
-}
-
-static void handleBegin(const uint8_t *payload, uint16_t plen) {
-  if (plen < sizeof(BleOtaBegin)) return;
-  BleOtaBegin b;
-  memcpy(&b, payload, sizeof(b));
-
-  if (sessionTarget != OTA_TGT_NONE) {
-    // A repeat of the session already running is the phone's retry.
-    if (b.target == sessionTarget && b.size == imgSize) return;
-    endSession(OTA_STATE_FAILED, OTA_ERR_NONE, 0);
-    return;
-  }
-  if (b.size == 0 || b.target == OTA_TGT_NONE) return;
-
-  sessionTarget = b.target;
-  imgSize = b.size;
-  Serial.printf("BLE:OTA BEGIN target=%u size=%lu crc=%08lX kind=%u\n",
-                b.target, (unsigned long)b.size, (unsigned long)b.crc32, b.kind);
-
-  if (b.target == OTA_TGT_FAUCET) {
-    faucetApplyOta(true, 0);
-    if (!localRx.begin(b.size, b.crc32, b.kind)) {
-      faucetApplyOta(false, 0);
-      endSession(localRx.state, localRx.err, 0);
-      return;
-    }
-    localAskedAtMs = millis();
-    askPhone(0, (uint16_t)(b.size < BLE_ASK ? b.size : BLE_ASK));
-    return;
-  }
-
-  OtaSrcBeginPayload src{b.size, b.crc32,
-                         (uint16_t)(b.target == OTA_TGT_ENCLOSURE ? OTA_CHUNK_J9 : OTA_CHUNK_J3),
-                         b.kind, b.target};
-  baseLinkSendOtaSrc(MSG_OTA_SRC_BEGIN, &src, sizeof(src));
-}
-
-static void handleData(const uint8_t *payload, uint16_t plen) {
-  if (sessionTarget == OTA_TGT_NONE || plen < 4 || owed == 0) return;
-  uint32_t offset;
-  memcpy(&offset, payload, 4);
-  const uint16_t len = (uint16_t)(plen - 4);
-  if (offset != owedOffset || len > owed) return;
-
-  if (sessionTarget == OTA_TGT_FAUCET) {
-    if (!localRx.write(offset, payload + 4, len)) {
-      faucetApplyOta(false, 0);
-      endSession(localRx.state, localRx.err, localRx.received);
-      return;
-    }
-    if (localRx.nextOffset() < localRx.expected) {
-      const uint32_t remain = localRx.expected - localRx.nextOffset();
-      faucetApplyOta(true, (uint8_t)((uint64_t)localRx.nextOffset() * 100 / localRx.expected));
-      localAskedAtMs = millis();
-      askPhone(localRx.nextOffset(), (uint16_t)(remain < BLE_ASK ? remain : BLE_ASK));
-      return;
-    }
-    const bool ok = localRx.finish();
-    faucetApplyOta(ok, ok ? 100 : 0);
-    endSession(localRx.state, localRx.err, localRx.received);
-    if (ok) { rebootPending = true; rebootAtMs = millis() + 600; }
-    return;
-  }
-
-  // Straight onto J3, unbuffered. The relay accumulates it into the chunk it
-  // asked for and forwards that.
-  uint8_t frame[4 + RX_STAGE];
-  memcpy(frame, &offset, 4);
-  memcpy(frame + 4, payload + 4, len);
-  if (!baseLinkSendOtaSrc(MSG_OTA_SRC_DATA, frame, (uint16_t)(4 + len))) {
-    ++dropped;
-    return;   // the relay re-asks for this offset
-  }
-  owed -= len;
-  spanOffset += len;
-  spanRemain -= len;
-  // The relay only speaks again once its whole chunk is in, so the rest of this
-  // span is asked for from here.
-  if (spanRemain) askPhone(spanOffset, (uint16_t)(spanRemain < BLE_ASK ? spanRemain : BLE_ASK));
-  else owedOffset += len;
-}
+void bleLinkOnSrcNeed(uint32_t offset, uint16_t len) { bleOtaOnSrcNeed(offset, len); }
+void bleLinkOnSrcEnd(const OtaStatePayload &state)   { bleOtaOnSrcEnd(state); }
 
 // ── NimBLE callbacks ──────────────────────────────────────────────────────
 class RxCB : public NimBLECharacteristicCallbacks {
   void onWrite(NimBLECharacteristic *chr, NimBLEConnInfo &) override {
     NimBLEAttValue raw = chr->getValue();
-    if (raw.length() > RX_STAGE || stageLen != 0) { ++dropped; return; }
+    if (raw.length() > RX_STAGE || stageLen != 0) { ++stageDrops; return; }
     memcpy(stage, raw.data(), raw.length());
     stageLen = (uint16_t)raw.length();
   }
@@ -289,19 +137,14 @@ class ServerCB : public NimBLEServerCallbacks {
   void onConnect(NimBLEServer *, NimBLEConnInfo &info) override {
     connected = true;
     Serial.println("BLE: connected");
-    // The pull costs one round trip per chunk, so the interval is the transfer
-    // rate. Ask for the shortest iOS grants.
+    // The pull costs one round trip per frame, so the connection interval is
+    // the transfer rate. Ask for the shortest iOS grants.
     server->updateConnParams(info.getConnHandle(), 12, 24, 0, 200);
   }
   void onDisconnect(NimBLEServer *, NimBLEConnInfo &, int) override {
     connected = false;
     Serial.println("BLE: disconnected");
-    if (sessionTarget != OTA_TGT_NONE) {
-      if (sessionTarget == OTA_TGT_FAUCET) { localRx.abort(); faucetApplyOta(false, 0); }
-      else baseLinkSendOtaSrc(MSG_OTA_ABORT, nullptr, 0);
-      sessionTarget = OTA_TGT_NONE;
-      owed = 0;
-    }
+    bleOtaDisconnected();
     NimBLEDevice::startAdvertising();
   }
   void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
@@ -327,16 +170,19 @@ void bleLinkBegin() {
   rx->setCallbacks(new RxCB());
   svc->start();
 
+  BleOtaSeams seams{};
+  seams.notify = notify;
+  seams.sendSrc = baseLinkSendOtaSrc;
+  seams.onLocalProgress = faucetApplyOta;
+  seams.self = OTA_TGT_FAUCET;
+  bleOtaBegin(seams);
+
   applyAdvertising();
   Serial.printf("BLE: advertising as '%s'\n", name);
 }
 
 void bleLinkService() {
-  if (rebootPending && (int32_t)(millis() - rebootAtMs) >= 0) {
-    Serial.println("BLE:OTA rebooting into the new image");
-    delay(50);
-    ESP.restart();
-  }
+  bleOtaService();
 
   // Until the main board answers, this board is advertising its own MAC rather
   // than the machine's. Ask again until it does.
@@ -357,14 +203,8 @@ void bleLinkService() {
   if (3 + plen > len) return;
   const uint8_t *payload = work + 3;
 
-  switch (type) {
-    case BLE_OTA_BEGIN: handleBegin(payload, plen); break;
-    case BLE_OTA_DATA:  handleData(payload, plen);  break;
-    case BLE_TEXT:
-      if (plen >= 8 && !memcmp(payload, "IDENTITY", 8)) sendIdentity();
-      break;
-    default: break;
-  }
+  if (bleOtaHandleFrame(type, payload, plen)) return;
+  if (type == BLE_TEXT && plen >= 8 && !memcmp(payload, "IDENTITY", 8)) sendIdentity();
 }
 
 bool bleLinkConnected() { return connected; }
@@ -373,9 +213,9 @@ void bleLinkFillStatus(BleStatusPayload &out) {
   out.flags = (uint8_t)((server ? BLE_ST_UP : 0) |
                         (connected ? BLE_ST_CONNECTED : 0) |
                         (haveIdentity ? BLE_ST_IDENTITY : 0));
-  out.target = sessionTarget;
-  out.owed = owed;
-  out.dropped = dropped;
+  out.target = bleOtaTarget();
+  out.owed = bleOtaOwed();
+  out.dropped = bleOtaDropped() + stageDrops;
   memset(out.advertised, 0, sizeof(out.advertised));
   char name[32];
   advertisedName(name, sizeof(name));
@@ -388,5 +228,5 @@ void bleLinkReport() {
   Serial.printf("BLE: %s as '%s', identity %s, session target=%u owed=%u dropped=%lu\n",
                 connected ? "connected" : "advertising", name,
                 haveIdentity ? "known" : "unanswered",
-                sessionTarget, owed, (unsigned long)dropped);
+                bleOtaTarget(), bleOtaOwed(), (unsigned long)(bleOtaDropped() + stageDrops));
 }
