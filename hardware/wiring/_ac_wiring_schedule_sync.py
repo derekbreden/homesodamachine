@@ -103,25 +103,40 @@ solenoid_count = 10
 # All values mm except where noted.
 len_short_mm = 50       # AC-3 (a hop along the +X wall)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, DC-5 pigtail
-len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), LV-1/2/3, DC-4, DC-6/DC-7 valve fan-outs, SIG-4
+len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4, and the
+                        # DC-6/DC-7 valve fan-out legs downstream of the manifold lever nuts
 len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
-# DC-5 IS THE ONE RUN WHOSE DEVICE LEAVES THE BOX. Both peristaltics ride the pump cartridge
-# out of the front bay, and the spade pairs come off the motor tabs with the cartridge already
-# drawn clear — so this run is cut to the DRAWN-OUT reach, not the seated one. Straight line
-# from the main board to the far motor's tab end is 215 mm seated and 275 mm with the pump
-# cartridge out; the rung above that carries the routed path and the service loop.
-len_cartridge_mm = 400  # DC-5 to the peristaltic pumps, measured with the cartridge drawn
-len_manifold_mm = 300   # DC-6/DC-7 (+X wall → manifold trunks)
-len_compressor_mm = 400 # AC-4, AC-5, AC-6 (+X wall → compressor on the unbroken SJOOW jacket), DC-8 (+X wall → side-wall fan)
-len_aft_strip_mm = 500  # DC-9 (+X wall → V-K at the aft strip, past the water bulkhead)
-# SIG-7 IS INTERNAL AND SHORT. The main board stands at the FORWARD end of the +X wall's
-# column (`enclosure_assembly.build_pcba` — board, then relay #2, then the PSU hard against
-# the rear), and the 4.3B is let into the facet on the top-front arris, so the run crosses
-# less than half the box: ~260 mm straight line against a 624 mm body diagonal. The rung
-# above that carries the routed path and the service loop. Unmeasured, like every length here.
-len_cold_core_mm = 600  # SIG-1/2/3/10/11 (+X wall → cold core), SIG-9 (ASSE drip pan), SIG-12 (rear cabinet floor)
-len_front_face_mm = 400 # SIG-7 (+X wall → the 4.3B in the front-top facet), which never leaves the box
-len_umbilical_m = 1.0   # SIG-6 ONLY — the faucet display, up the umbilical and out of the box
+
+# ─── Loom cut lengths, measured ───────────────────────────────────────
+# Every length below is `_run_lengths.py` — the placed assembly, board centre to device centre,
+# scaled by the routed factor that module calibrates on DC-5 — rounded UP to the next 50 mm.
+# Rounded up because slack coils and short does not reach. Re-run that tool when a body moves;
+# these are the one thing in this file the machine can answer and a typist cannot.
+#
+# THEY DO NOT SHARE. A token that carried two runs is how SIG-7 came to be quoted the umbilical's
+# metre for a trip across half a box, and how DC-9 came to be quoted 500 mm to a solenoid standing
+# against the board. Each run below reaches its own device and gets its own name.
+len_relays_mm = 100      # LV-1/2/3 → both Teyleten modules, one crown above the board (88)
+len_vk_mm = 100          # DC-9 → V-K, which stands against the board's own flank (87)
+len_man_a_com_mm = 250   # DC-6 `COM` → the 221-420 at manifold A (241)
+len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
+len_onewire_mm = 300     # SIG-1 → the DS18B20/DS18S20 bus in the core (267)
+len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
+len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the reservoirs (274–278)
+len_man_a_mm = 350       # DC-6 `OUT1`–`OUT8` → the eight manifold-A coils (309)
+len_moisture_mm = 350    # SIG-9 → the moisture plate in the ASSE drip pan (304)
+len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
+len_man_b_mm = 400       # DC-7 `OUT1`/`OUT2` → V-I and V-J, and `COM` → the 221-415 (356–359)
+len_cartridge_mm = 400   # DC-5 → the peristaltics, measured with the cartridge DRAWN OUT (400).
+                         # This is the calibration run: its reach is 273 mm and its cut is 400.
+len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
+len_reeds_b_mm = 400     # SIG-11 → reservoir B's four level reeds (383)
+len_fan_mm = 450         # DC-8 → the condenser fan, off the J2 trunk (415)
+len_reeds_a_mm = 450     # SIG-10 → reservoir A's four level reeds, the far end of the core (442)
+len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
+len_compressor_mm = 400  # AC-4/5/6 — the purchased SJOOW cord to the compressor, not measured here
+len_umbilical_m = 1.0    # SIG-6 ONLY — the faucet display, up the umbilical and OUT of the box,
+                         # above this model's ceiling. The one length still estimated.
 
 # ─── Loom connector pitch ─────────────────────────────────────────────
 # JST XH 2.50 mm — every board loom connector (J1–J9, J11, J13); J10 is
@@ -172,12 +187,24 @@ def main():
         "LEN_SHORT_2": f"~{len_short_2_mm:.4g} mm",
         "LEN_MID": f"~{len_mid_mm:.4g} mm",
         "LEN_PUMP": f"~{len_pump_mm:.4g} mm",
+        "LEN_RELAYS": f"~{len_relays_mm:.4g} mm",
+        "LEN_VK": f"~{len_vk_mm:.4g} mm",
+        "LEN_MAN_A_COM": f"~{len_man_a_com_mm:.4g} mm",
+        "LEN_FLOW": f"~{len_flow_mm:.4g} mm",
+        "LEN_ONEWIRE": f"~{len_onewire_mm:.4g} mm",
+        "LEN_SENSORS_GND": f"~{len_sensors_gnd_mm:.4g} mm",
+        "LEN_REEDS_GND": f"~{len_reeds_gnd_mm:.4g} mm",
+        "LEN_MAN_A": f"~{len_man_a_mm:.4g} mm",
+        "LEN_MOISTURE": f"~{len_moisture_mm:.4g} mm",
+        "LEN_CARB_REEDS": f"~{len_carb_reeds_mm:.4g} mm",
+        "LEN_MAN_B": f"~{len_man_b_mm:.4g} mm",
         "LEN_CARTRIDGE": f"~{len_cartridge_mm:.4g} mm",
-        "LEN_MANIFOLD": f"~{len_manifold_mm:.4g} mm",
-        "LEN_COMPRESSOR": f"~{len_compressor_mm:.4g} mm",
-        "LEN_AFT_STRIP": f"~{len_aft_strip_mm:.4g} mm",
-        "LEN_COLD_CORE": f"~{len_cold_core_mm:.4g} mm",
         "LEN_FRONT_FACE": f"~{len_front_face_mm:.4g} mm",
+        "LEN_REEDS_B": f"~{len_reeds_b_mm:.4g} mm",
+        "LEN_FAN": f"~{len_fan_mm:.4g} mm",
+        "LEN_REEDS_A": f"~{len_reeds_a_mm:.4g} mm",
+        "LEN_GAS": f"~{len_gas_mm:.4g} mm",
+        "LEN_COMPRESSOR": f"~{len_compressor_mm:.4g} mm",
         "LEN_UMBILICAL": f"~{len_umbilical_m:.4g} m",
         # Connector pitch.
         "JST_PITCH": f"{jst_pitch_mm:.4g} mm",
