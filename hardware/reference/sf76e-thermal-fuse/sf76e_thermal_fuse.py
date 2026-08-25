@@ -22,7 +22,7 @@ Coordinate frame
 ----------------
 - X = the fuse's own axis, lead to lead, origin at the case's mid-length.
 - Z = 0 is the SEATING PLANE — the generatrix the case lies on, so whatever
-  straps it down reads its own surface as this plane. The axis runs one case
+  holds it down reads its own surface as this plane. The axis runs one case
   radius above it and the leads run on the axis, so a lead stands 1.6 mm clear
   of the seat and nothing but the case touches it.
 - Y is centred on the axis.
