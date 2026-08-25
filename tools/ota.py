@@ -140,7 +140,13 @@ def run(target: str, image: str, verbose: bool) -> int:
                 # The board has already switched; follow it. It drops back when
                 # the session ends, and a reset restores the idle rate anyway.
                 rate = int(line.split()[1])
+                time.sleep(0.05)
                 ser.baudrate = rate
+                # Bytes straddling the switch are framed at the old rate and
+                # arrive as noise. Drop them rather than parse them.
+                time.sleep(0.05)
+                ser.reset_input_buffer()
+                buf = b""
                 print(f"console at {rate:,} baud")
                 continue
 
