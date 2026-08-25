@@ -536,9 +536,8 @@ wago_well_wall = 3.0        # well wall thickness
 wago_well_press = 0.15      # per-side press-fit clearance, validated on the valve trays
 # The well's roof is two tabs, this wide, one at each end of the pocket's span — each
 # catches the lug's lift and prints as its own short bridge. What opens BETWEEN them is
-# roofed by two 45 degree planes meeting over the pocket's centre — the construction
-# `_teardrop_y` gives a horizontal bore, for the same reason: the opening runs past the
-# tower's own crown into whatever stands over it, and squared off there it would lay that
+# roofed on ONE 45 degree plane folded on the wall: the opening runs past the tower's
+# own crown into whatever stands over it, and squared off there it would lay that
 # thing's underside on air across the opening's full width.
 wago_roof_tab = 2.0
 
@@ -5574,10 +5573,15 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
 
     THE ROOF IS TWO TABS, NOT A SOFFIT. The band over the pocket keeps `wago_roof_tab`
     at each end and opens between them: each tab catches the lug's lift and prints as
-    its own short bridge, with nothing hanging the pocket's full width. The opening is
-    cut square to the tower's crown and PEAKED at 45 degrees above it, because past the
-    crown it is cutting whatever stands over the well — the ceiling's own soffit on the
-    +X row — and a squared cut leaves that thing roofing the opening on air.
+    its own short bridge, with nothing hanging the pocket's full width.
+
+    AND THE OPENING IS ROOFED ON ONE 45° PLANE, folded on the wall face at the tower's
+    crown and rising inboard off it. Past the crown the cut is taking whatever stands
+    over the well — the flank's own section, the ceiling's soffit on the +X row — and
+    squared off it leaves that thing roofing the opening on air. The wall carries this
+    plane the way it carries the wedge under the tower: same angle, same fold, mirrored
+    over the lug, so every layer inboard of the fold is laid one layer-height out over
+    the one below it.
 
     A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
     flank's air stops being the well's — the crown of whatever the station stands over —
@@ -5591,8 +5595,9 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
         stand_y, stand_z, _sx = wago_stand(size)
         # inboard is −X on the east wall and +X on the west, so the tower and the pocket
         # both run from the wall towards the room
+        reach = engage + 1.0
         tower = sorted((face, face - side * engage))
-        pocket = sorted((face, face - side * (engage + 1.0)))
+        pocket = sorted((face, face - side * reach))
         solid = solid.fuse(_ybox(tower[0], tower[1],
                                  sy - half_y, sy + half_y,
                                  sz - half_z, sz + half_z))
@@ -5611,10 +5616,10 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
                                 sz - (stand_z / 2.0 + wago_well_press), roof_z))
         gap = pk_y - wago_roof_tab
         crown = sz + half_z
-        solid = solid.cut(_yz_prism(pocket[0], pocket[1],
-                                    [(sy - gap, roof_z), (sy + gap, roof_z),
-                                     (sy + gap, crown), (sy, crown + gap),
-                                     (sy - gap, crown)]))
+        solid = solid.cut(_xz_prism(sy - gap, sy + gap,
+                                    [(face, roof_z), (face - side * reach, roof_z),
+                                     (face - side * reach, crown + reach),
+                                     (face, crown)]))
     return solid
 
 
