@@ -6,13 +6,12 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-f52313edbc8b9502.tar.gz"
   },
   "source": {
-    "commit": "b2e81682ff16e2a1870ccc17ec108a37d65e4bd0"
+    "commit": "1e49435fa7b304fb7fdb88318fa7360016a00294"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "hardware/printed-parts/petgf.3mf",
-      "ios/SodaMachine/project.yml"
+      "hardware/printed-parts/petgf.3mf"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
