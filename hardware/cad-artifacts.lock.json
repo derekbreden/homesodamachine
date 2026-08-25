@@ -6,7 +6,7 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-4ac541f9c10b93e0.tar.gz"
   },
   "source": {
-    "commit": "584a1f8126aa50ce46e4111d1f7b4c6ca4fc3658"
+    "commit": "b4e1bf565f2954ba0d5a8d6c6d30207eafc6fb98"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
