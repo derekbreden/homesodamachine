@@ -24,9 +24,13 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
   [6.35 mm](SPOUT_BORE) spout bore the whole length of that buffer and stops short
   of its blind bottom, so it hangs in silicone rather than in the mould. What squares
   the core is the skirt; the pin needs nothing at the bottom, and the pour is
-  symmetric about it. A [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](MOLD_VENT_D)
+  symmetric about it. A [11 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](MOLD_VENT_D)
   vents pass through the plate, set over the bowl's rim ring so they open into
-  the silicone.
+  the silicone. The port takes the **whole ring** less a [1 mm](FILL_LAND) land —
+  it is not a size but whatever the ring leaves, and it grew when the wall did. A
+  [20 mm](FILL_DISH) cone necks down into it from the plate's top face: the dish is
+  what the cup is aimed at, and it lives in the plate's own top with no silicone
+  under it, so the ring does not hold it.
 
 ## The tip is cast long and closed, and cut afterwards
 
@@ -67,7 +71,9 @@ platinum-compatible release film.
 - **Critical bridge:** printed opening-up, the cavity's flange-seat ledge (the
   downward-facing shelf where the bowl recess meets the throat) is a short bridge
   that forms the bowl-rim seal — verify it prints clean.
-- No supports needed; the pour port and vents are vertical through-holes.
+- No supports needed; the pour port and vents are vertical through-holes, and the
+  pour dish is a cone that only ever widens toward the plate's top — printed plate
+  down, every layer of it is larger than the one under it.
 
 ## Finish the core
 
@@ -142,14 +148,18 @@ and coupon test are mandatory).
    none if a test shows bare PETG demolds clean. **Patch-test the actual silicone
    *and* release on a PETG coupon first** (not just bare PETG). Keep latex gloves
    and sulfur-bearing clay/tape away from the mold.
-3. **Degas + pour — vacuum is the primary path, not optional.** The deep 2 mm
-   spout is a void trap, so clear it first: pour degassed silicone into the
-   **open cavity** and pull vacuum on it — the spout fills bottom-up and air rises
-   out. Then lower the core slowly so it displaces silicone up and out the top
-   vents. Keep the mold slightly **under-filled / degas the open cavity before
-   seating the core** so the ~3× vacuum rise doesn't overflow and starve the part.
-   (Fallback: seat the core and pour through the fill port — but the deep spout
-   casts voids this way; use only with no chamber.)
+3. **Degas + pour.** With a chamber, pour degassed silicone into the **open
+   cavity** and pull vacuum on it — the spout fills bottom-up and air rises out —
+   then lower the core slowly so it displaces silicone up and out the top vents.
+   Keep the mold slightly **under-filled / degas the open cavity before seating the
+   core** so the ~3× vacuum rise doesn't overflow and starve the part.
+   Without a chamber, seat the core and pour through the port: it is
+   [11 mm](FILL_D) into a [20 mm](FILL_DISH) dish, which is a pour and not a
+   trickle, and the vents weep when the mould is full. What that path risks is voids
+   in the deep spout — and the **bottom [12 mm](TIP_BUFFER) of that spout is
+   scrap**, cut off at the shoulder, so the deepest and most void-prone part of the
+   pocket is not part of the funnel. Inspect the cut face; a void above the shoulder
+   is a re-pour.
 4. **Clamp.** Hold the plate down with clamps or weight through the plate while it
    cures; a loosely-held plate flashes a soft fill at the rim parting line.
 5. **Cure, then post-cure bake.** BBDINO 40A cures at room temperature (~5 h to
@@ -164,13 +174,20 @@ and coupon test are mandatory).
 6. **Demold.** Respect the full demold time before pulling the thin spout; lift
    the core out (it peels off the plug), then pop the funnel from the cavity. Take
    the core FIRST: the cavity still holds the tip while the pin withdraws from it.
-7. **Trim the tip.** The spout comes out of the mould long and closed. Lay a fresh
-   razor flat against the shoulder [1 mm](TIP_STEP) below the spout's outer face and
-   sweep it round — the cut lands on the funnel's real spout length and opens a bore
-   the pin already formed. Discard the [12 mm](TIP_BUFFER) below it. **The funnel is
-   not a funnel until this cut is made**; `reference/funnel-drain-stub` takes the
-   whole of that spout as the clamp land, so a tip left on is a spout that will not
-   meet the union's collet face.
+7. **Trim — the tip, then the sprue.** The part comes out of the mould with growths
+   on it, and one pass with a fresh razor takes them all.
+   - **The tip.** The spout casts long and closed. Lay the blade flat against the
+     shoulder [1 mm](TIP_STEP) below the spout's outer face and sweep it round — the
+     cut lands on the funnel's real spout length and opens a bore the pin already
+     formed. Discard the [12 mm](TIP_BUFFER) below it. **The funnel is not a funnel
+     until this cut is made**; `reference/funnel-drain-stub` takes the whole of that
+     spout as the clamp land, so a tip left on is a spout that will not meet the
+     union's collet face.
+   - **The sprue and the vent pips.** The port and the vents leave columns standing
+     on the brim's TOP face. That face is flat and it is its own jig: lay the blade
+     on it and take them flush. It shows above the top wall, so the
+     [11 mm](FILL_D) sprue scar is the one cosmetic mark the pour leaves — on black
+     silicone a flush cut reads as matte against gloss and nothing more.
 8. **Reuse.** Reapply release every pour and inspect/clean the PETG faces between
    cycles — a reused mold accumulates cured film and bald spots.
 
