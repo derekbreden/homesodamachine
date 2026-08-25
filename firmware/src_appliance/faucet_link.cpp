@@ -255,7 +255,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
 }  // namespace
 
 void faucetLinkBegin() {
-    Serial2.setRxBufferSize(1024);
+    Serial2.setRxBufferSize(8192);
     Serial2.begin(FAUCET_BAUD, SERIAL_8N1, PIN_FAUCET_RX, PIN_FAUCET_TX);
     faucet.onMessage = onMessage;
     faucet.begin(Serial2, "J3 faucet");
