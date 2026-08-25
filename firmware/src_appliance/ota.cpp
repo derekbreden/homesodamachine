@@ -53,6 +53,7 @@ static bool      bufFull = false;
 // Raw-mode state: how many bytes of the current chunk the host still owes.
 static uint16_t  hostOwes = 0;
 static uint16_t  hostGot = 0;
+static uint32_t  askedHostAtMs = 0;
 
 // `ota self` writes into this board's own spare slot rather than onto a link.
 static OtaReceiver selfRx;
@@ -105,6 +106,7 @@ static void askHost(uint32_t offset) {
     bufFull = false;
     hostOwes = want;
     hostGot = 0;
+    askedHostAtMs = millis();
     Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)offset, want);
 }
 
@@ -200,6 +202,17 @@ void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 
 void otaService() {
     if (target == OTA_TGT_NONE) return;
+
+    // A request the host never saw is a deadlock: it waits for a line, this
+    // board waits for the bytes that line asked for, and neither speaks again.
+    // The console changes rate at the start of a session, and the first request
+    // is the one most likely to fall in that seam. Re-asking is only safe before
+    // any of the chunk has arrived — once bytes are in flight a second ask would
+    // leave the stream out of step.
+    if (hostOwes > 0 && hostGot == 0 && millis() - askedHostAtMs >= 1500) {
+        askedHostAtMs = millis();
+        Serial.printf("\nOTA:NEED %lu %u\n", (unsigned long)bufOffset, hostOwes);
+    }
 
     // A session that stops moving says so. While the host owes bytes the
     // console reads raw and answers nothing, so without this a stall is
