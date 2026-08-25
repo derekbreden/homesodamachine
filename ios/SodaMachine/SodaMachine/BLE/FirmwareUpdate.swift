@@ -1,0 +1,161 @@
+import Foundation
+import CryptoKit
+import os
+
+private let log = Logger(subsystem: "com.derekbreden.SodaMachine", category: "Firmware")
+
+// ────────────────────────────────────────────────────────────
+// The phone is the path a machine's firmware takes.
+//
+// A machine is never on WiFi and never on the internet. The phone is: it reads
+// what homesodamachine.com published, holds the download to the sha256 the
+// manifest names, and pushes the bytes over BLE to the board with the radio.
+// That board updates itself or hands them to the main board, which hands them
+// to the other display.
+//
+// The crc32 in the manifest is the one MSG_OTA_BEGIN promises. The board holds
+// the whole image to it before its boot partition moves, so the phone passes it
+// through rather than computing anything.
+// ────────────────────────────────────────────────────────────
+
+/// Which board an image is for, as the wire names it (proto_msg.h OTA_TGT_*).
+enum OTATarget: UInt8 {
+    case mainBoard = 1   // the relay's own spare slot
+    case radioBoard = 2  // the display holding the radio, which needs no relay
+    case farDisplay = 3  // the display on the relay's other link
+}
+
+enum OTAKind: UInt8 {
+    case app = 0
+    case art = 1
+}
+
+struct FirmwareImage: Codable, Identifiable, Equatable {
+    let target: String
+    let machine: String
+    let what: String
+    let kind: String
+    let version: String?
+    let bytes: Int
+    let crc32: UInt32
+    let sha256: String
+    let url: String
+    let available: Bool
+
+    var id: String { target }
+
+    var otaKind: OTAKind { kind == "art" ? .art : .app }
+
+    /// Where this image goes, given which machine the phone is pointed at. The
+    /// board with the radio differs between the two, and the byte follows it.
+    func otaTarget(on model: MachineModel) -> OTATarget? {
+        switch (model, target) {
+        case (.appliance, "appliance"): return .mainBoard
+        case (.appliance, "faucet"):    return .radioBoard
+        case (.appliance, "enclosure"): return .farDisplay
+        case (.appliance, "art"):       return .farDisplay
+        case (.prototype, "prototype"): return .mainBoard
+        case (.prototype, "rotary"):    return .radioBoard
+        default: return nil
+        }
+    }
+}
+
+struct FirmwareManifest: Codable {
+    let commit: String?
+    let deployed: String?
+    let unproven: [String]
+    let images: [FirmwareImage]
+
+    func images(for model: MachineModel) -> [FirmwareImage] {
+        let want = model == .prototype ? "prototype" : "appliance"
+        return images.filter { $0.machine == want && $0.available }
+    }
+}
+
+@Observable
+final class FirmwareCatalog {
+    /// Where a machine's next image comes from. Overridable so a laptop serving
+    /// the site on the same network can be pointed at during development.
+    static var origin: URL {
+        if let raw = UserDefaults.standard.string(forKey: "firmwareOrigin"),
+           let url = URL(string: raw) { return url }
+        return URL(string: "https://homesodamachine.com")!
+    }
+
+    var manifest: FirmwareManifest?
+    var error: String?
+    var loading = false
+
+    /// Image bytes, held only as long as the push that needs them.
+    @ObservationIgnored private var payloads: [String: Data] = [:]
+
+    func refresh() async {
+        await MainActor.run { self.loading = true; self.error = nil }
+        defer { Task { @MainActor in self.loading = false } }
+        do {
+            var request = URLRequest(url: Self.origin.appendingPathComponent("api/firmware"))
+            request.cachePolicy = .reloadIgnoringLocalCacheData
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+                throw URLError(.badServerResponse)
+            }
+            let decoded = try JSONDecoder().decode(FirmwareManifest.self, from: data)
+            await MainActor.run { self.manifest = decoded }
+            log.info("Manifest: \(decoded.images.count) image(s) at \(decoded.commit ?? "?")")
+        } catch {
+            await MainActor.run { self.error = error.localizedDescription }
+            log.error("Manifest: \(error.localizedDescription)")
+        }
+    }
+
+    /// The bytes for one image, held to the sha256 the manifest named. A file
+    /// that hashes differently is not the image and is not returned.
+    func payload(for image: FirmwareImage) async throws -> Data {
+        if let held = payloads[image.target] { return held }
+        guard let url = URL(string: image.url) else { throw URLError(.badURL) }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        let digest = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+        guard digest == image.sha256 else {
+            log.error("\(image.target): sha256 \(digest) is not \(image.sha256)")
+            throw URLError(.dataNotAllowed)
+        }
+        guard data.count == image.bytes else { throw URLError(.dataLengthExceedsMaximum) }
+        payloads[image.target] = data
+        return data
+    }
+
+    func release(_ target: String) { payloads[target] = nil }
+}
+
+/// What the phone is doing to one board right now.
+struct OTAProgress: Equatable {
+    var target: String
+    var what: String
+    var sent: Int
+    var total: Int
+    var finished: Bool = false
+    var failure: String? = nil
+
+    var fraction: Double { total > 0 ? Double(sent) / Double(total) : 0 }
+}
+
+/// The failures the receiver reports, as proto_msg.h names them.
+enum OTAError: UInt8 {
+    case none = 0, noSlot = 1, tooBig = 2, write = 3, crc = 4, verify = 5, sequence = 6
+
+    var message: String {
+        switch self {
+        case .none:     return "stopped"
+        case .noSlot:   return "that board has a single-slot partition table, so it cannot take an update over the wire"
+        case .tooBig:   return "the image does not fit that board's slot"
+        case .write:    return "the board could not write its flash"
+        case .crc:      return "the image that arrived is not the image that was sent"
+        case .verify:   return "the board refused to boot from what arrived"
+        case .sequence: return "bytes arrived out of order"
+        }
+    }
+}
