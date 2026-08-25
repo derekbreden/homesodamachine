@@ -41,7 +41,14 @@ export function mountFirmwareRoutes(app, { commit } = {}) {
     }
     // Absolute, because the app is not a browser sitting on this origin — it has a URL and
     // nothing else to resolve one against.
-    const origin = `${req.protocol}://${req.get("host")}`;
+    //
+    // The scheme comes from the proxy that terminated TLS, not from `req.protocol`: this
+    // process is reached over plain HTTP behind Render's edge, so `req.protocol` is "http"
+    // for every request the world made over https. An iOS app handed an http:// URL refuses
+    // it — App Transport Security requires the secure connection the caller already had.
+    const forwarded = String(req.headers["x-forwarded-proto"] || "").split(",")[0].trim();
+    const scheme = forwarded || req.protocol;
+    const origin = `${scheme}://${req.get("host")}`;
     const images = Object.entries(lock.images ?? {}).map(([target, e]) => {
       const file = path.join(IMAGES, e.file);
       const available = fs.existsSync(file);
