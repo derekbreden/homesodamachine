@@ -14,6 +14,7 @@ import { state } from "./state.js";
 import { saveCameraState, applyCameraState } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { mountRelated } from "./related-nav.js";
 import { probeEditor } from "./component-edit.js";
 
 // The models above the one on screen, outermost first. Reset whenever a move
@@ -150,7 +151,10 @@ async function showStep(file, push) {
   applyCameraState(file);
   setFilename(file);
   syncCrumb(file);
-  if (state.currentCadWrapper) mountScorecard(state.currentCadWrapper, file);
+  if (state.currentCadWrapper) {
+    mountScorecard(state.currentCadWrapper, file);
+    mountRelated(state.currentCadWrapper, file, trail);
+  }
   probeEditor(file);
   return true;
 }
