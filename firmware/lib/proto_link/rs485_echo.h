@@ -61,7 +61,7 @@ private:
     // the canceller then swallows real incoming traffic as its own echo — the
     // far end keeps sending and this end goes quietly deaf. The assert below is
     // what stops the frame size and this number drifting apart again.
-    static const size_t CAP = 4096;
+    static const size_t CAP = 9216;
     static_assert(CAP >= 2 * (size_t)(J9_MAX_PAYLOAD + 8),
                   "a stuffed J9 frame has to fit the echo the sender must swallow");
 
