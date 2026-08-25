@@ -14,6 +14,10 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.derekbreden.SodaMachine
+        # The team on this machine's only signing identity, read off its OU.
+        # Automatic signing so a build to a device fetches its own profile.
+        DEVELOPMENT_TEAM: T5WDQ2QJCS
+        CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
         INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription: "This app uses Bluetooth to connect to your Home Soda Machine for managing display images, maintenance, and usage statistics."
