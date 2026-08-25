@@ -3,6 +3,8 @@
 #include <esp_system.h>
 
 #include "base_link.h"
+#include "ota_receiver.h"
+#include <esp_system.h>
 #include "flavor_link_policy.h"
 #include "proto_link.h"
 #include "proto_msg.h"
@@ -211,12 +213,86 @@ void settleFromMainBoardHeartbeat(const FlavorStatePayload &state) {
   ++authoritativeReconciliations;
 }
 
+// ── Firmware arriving over J3 ─────────────────────────────────────────────
+// The receiver pulls: it asks for the offset it is ready to write and the main
+// board answers that. A request that goes unanswered is simply re-asked, so a
+// lost frame costs a retry interval rather than the transfer.
+static OtaReceiver ota;
+static uint32_t otaAskedAtMs = 0;
+static bool     otaRebootPending = false;
+static uint32_t otaRebootAtMs = 0;
+static const uint32_t OTA_REASK_MS = 400;
+
+static void otaAsk() {
+  OtaReqPayload req{ota.nextOffset()};
+  base.trySend(MSG_OTA_REQ, &req, sizeof(req));
+  otaAskedAtMs = millis();
+}
+
+static void otaReport() {
+  OtaStatePayload st;
+  ota.fill(st);
+  base.trySend(MSG_RESP_OTA, &st, sizeof(st));
+}
+
+static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
+  if (type == MSG_OTA_ABORT) {
+    ota.abort();
+    faucetApplyOta(false, 0);
+    return;
+  }
+
+  if (type == MSG_OTA_BEGIN && plen >= sizeof(OtaBeginPayload)) {
+    OtaBeginPayload b;
+    memcpy(&b, payload, sizeof(b));
+    // Erasing a 3 MB slot takes long enough that the panel must say so first.
+    faucetApplyOta(true, 0);
+    ota.begin(b.size, b.crc32);
+    otaReport();
+    if (ota.active()) otaAsk();
+    else faucetApplyOta(false, 0);
+    return;
+  }
+
+  if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
+    uint32_t offset;
+    memcpy(&offset, payload, 4);
+    if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
+      otaReport();
+      faucetApplyOta(false, 0);
+      return;
+    }
+    if (ota.nextOffset() < ota.expected) {
+      faucetApplyOta(true, (uint8_t)((uint64_t)ota.nextOffset() * 100 / ota.expected));
+      otaAsk();
+      return;
+    }
+    // Last byte is in. Nothing has moved yet — finish() is what verifies the
+    // whole image and only then points the bootloader at it.
+    ota.finish();
+    otaReport();
+    if (ota.done()) {
+      faucetApplyOta(true, 100);
+      otaRebootPending = true;
+      otaRebootAtMs = millis() + 400;   // let the reply clear J3 first
+    } else {
+      faucetApplyOta(false, 0);
+    }
+    return;
+  }
+}
+
 void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
   (void)link;
   ++framesRx;
   const uint8_t type = msgType(frame);
   const uint8_t *payload = msgPayload(frame);
   const uint16_t plen = msgPayloadLen(len);
+
+  if (type == MSG_OTA_BEGIN || type == MSG_OTA_DATA || type == MSG_OTA_ABORT) {
+    otaHandle(type, payload, plen);
+    return;
+  }
 
   if (type == MSG_RESP_PRIME_SESSION && plen >= sizeof(PrimeSessionStatePayload)) {
     PrimeSessionStatePayload state;
@@ -368,6 +444,9 @@ void baseLinkPrimeDiscard() {
 void baseLinkService() {
   const uint32_t startedUs = micros();
   base.service();
+
+  if (otaRebootPending && (int32_t)(millis() - otaRebootAtMs) >= 0) esp_restart();
+  if (ota.active() && millis() - otaAskedAtMs >= OTA_REASK_MS) otaAsk();
 
   const uint32_t generation = base.connectionGeneration();
   const bool connected = base.isConnected();

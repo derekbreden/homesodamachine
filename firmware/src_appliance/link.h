@@ -22,6 +22,14 @@ void linkReport();        // one console block: frames, bytes, echo, last rx
 // termination -> U7 -> IO34 without the far end taking any part.
 void linkPing();
 
+// Volunteer an OTA frame to the enclosure. Queued like any announcement and
+// flushed inside a turn, because the main board does not interrupt the pair.
+void linkQueueOta(uint8_t type, const void *data, uint8_t len);
+
+// Answer an OTA request from inside its own dispatch, spending that turn's one
+// reply. Illegal anywhere else.
+bool linkReplyOta(uint8_t type, const void *data, uint8_t len);
+
 // Make an externally-powered enclosure display present a fresh USB attach. An application
 // that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY.
 bool linkDisplayUsbReattach();

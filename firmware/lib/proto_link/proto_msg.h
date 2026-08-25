@@ -121,6 +121,23 @@ constexpr uint8_t MSG_TOUCH          = 0x34;  // no payload: a finger landed on 
 constexpr uint8_t MSG_IDLE_QUERY     = 0x35;  // no payload: answer with the current state
 constexpr uint8_t MSG_RESP_IDLE      = 0x36;  // IdlePayload: awake or asleep, and for how long
 
+// ── Firmware over the link (0x37..) ──────────────────────────────────────
+// A board takes its new image over the wire it already talks on, so a machine
+// in a kitchen is updated from the phone rather than from a cable. The
+// receiver pulls: it asks for the offset it is ready to write, and whoever
+// holds the image answers with those bytes. That inverts cleanly onto J9,
+// where the main board only ever speaks inside the turn after one arrives,
+// and costs J3 nothing it cannot afford.
+//
+// The image lands in the OTA slot that is not running. Nothing is committed
+// until the whole of it is written and its CRC32 matches what BEGIN promised;
+// a receiver that never gets there keeps running what it booted.
+constexpr uint8_t MSG_OTA_BEGIN = 0x37;  // OtaBeginPayload: size, crc32, chunk
+constexpr uint8_t MSG_OTA_REQ   = 0x38;  // OtaReqPayload: receiver wants this offset
+constexpr uint8_t MSG_OTA_DATA  = 0x39;  // OtaDataPayload: offset, then the bytes
+constexpr uint8_t MSG_OTA_ABORT = 0x3A;  // no payload: drop the session
+constexpr uint8_t MSG_RESP_OTA  = 0x3B;  // OtaStatePayload: where the receiver is
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -382,6 +399,45 @@ struct __attribute__((packed)) SoundCfgPayload {
 
 constexpr uint8_t SOUND_CFG_F_CLOCK_OK  = 1 << 0;  // U6 answers and its time is believed
 constexpr uint8_t SOUND_CFG_F_QUIET_NOW = 1 << 1;  // quiet hours are in force right now
+
+// ── Firmware over the link ────────────────────────────────────────────────
+// OTA_DATA carries a 4-byte offset then the bytes, so a reply that arrives
+// after a retry is written where it belongs or discarded, never appended.
+struct __attribute__((packed)) OtaBeginPayload {
+  uint32_t size;    // bytes in the image
+  uint32_t crc32;   // over the whole image
+  uint16_t chunk;   // most bytes the sender will put in one OTA_DATA
+};
+
+struct __attribute__((packed)) OtaReqPayload {
+  uint32_t offset;  // where the receiver is ready to write
+};
+
+struct __attribute__((packed)) OtaStatePayload {
+  uint8_t  state;    // OTA_STATE_*
+  uint8_t  err;      // OTA_ERR_*, meaningful when state is FAILED
+  uint32_t received; // bytes written so far
+};
+
+constexpr uint8_t OTA_STATE_IDLE    = 0;
+constexpr uint8_t OTA_STATE_READY   = 1;  // slot open, waiting on bytes
+constexpr uint8_t OTA_STATE_WRITING = 2;
+constexpr uint8_t OTA_STATE_DONE    = 3;  // verified and set to boot
+constexpr uint8_t OTA_STATE_FAILED  = 4;
+
+constexpr uint8_t OTA_ERR_NONE      = 0;
+constexpr uint8_t OTA_ERR_NO_SLOT   = 1;  // single-slot table: nothing to write into
+constexpr uint8_t OTA_ERR_TOO_BIG   = 2;  // image will not fit the slot
+constexpr uint8_t OTA_ERR_WRITE     = 3;
+constexpr uint8_t OTA_ERR_CRC       = 4;  // whole-image CRC32 did not match BEGIN
+constexpr uint8_t OTA_ERR_VERIFY    = 5;  // esp_ota_end / set_boot_partition refused
+constexpr uint8_t OTA_ERR_SEQUENCE  = 6;  // bytes arrived for the wrong offset
+
+// The most image bytes one OTA_DATA carries on each link. J9 is bare HDLC
+// through a 256-byte tx frame, so its ceiling is that frame minus the type
+// byte and the offset. J3 is TinyProto Fd, which fragments internally.
+constexpr uint16_t OTA_CHUNK_J9 = 192;
+constexpr uint16_t OTA_CHUNK_J3 = 1024;
 
 inline uint32_t uartCrc32Update(uint32_t prev, const uint8_t *data, size_t len) {
   uint32_t crc = ~prev;
