@@ -145,7 +145,7 @@ extern "C" const lv_font_t front_icons_96;
 // the ROM's fixed UART0 direction (43 TX, 44 RX), so the ROM neither receives from
 // nor transmits onto the A/B pair. `RS485:SWAP` exchanges the application mapping and
 // reports which way round it is now running.
-#define RS485_BAUD 115200
+#define RS485_BAUD 460800
 static int rs485Rx = 43;
 static int rs485Tx = 44;
 
