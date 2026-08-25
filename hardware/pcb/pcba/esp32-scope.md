@@ -3,10 +3,11 @@
 Board `esp32dev` (ESP32-WROOM-32E), firmware `firmware/src_prototype/main.cpp`. A wired GPIO +
 UART hub:
 
-- No WiFi, no BLE — the base firmware links no radio. BLE is on the separate ESP32-S3
-  enclosure display (`firmware/src_config`); the faucet display is another S3. The base
-  ESP32 reaches both over wired UART (RS485 to the enclosure display, TTL UART to the
-  faucet display).
+- No WiFi, no BLE — the base firmware links no radio. BLE is on a separate ESP32-S3: the
+  prototype's round rotary display (`firmware/src_config`) hosts the GATT server the iOS app
+  talks to, and which board carries it in the appliance is open (`firmware/README.md`,
+  "A shipped unit is updated from the iOS app"). The base ESP32 reaches both displays over
+  wired UART (RS485 to the enclosure display, TTL UART to the faucet display).
 - Flashed over serial (`pio run -e prototype -t upload`): UART0 + EN/IO0.
 
 ## Connected pins (`pcba.tsx`)
