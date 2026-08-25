@@ -1435,18 +1435,31 @@ class BLEManager {
         log.info("OTA \(image.target): \(data.count) bytes, crc \(image.crc32)")
     }
 
-    /// One tap: every image this machine is behind on, in order — the far
-    /// display first, the radio board last, so the board carrying the session is
-    /// the last one to reboot out from under it.
+    /// One tap: every image this machine is behind on, in order.
+    ///
+    /// THE RADIO BOARD GOES LAST. Each board reboots into what it took, and the
+    /// board holding the radio is the one the session runs on — rebooting it
+    /// drops the connection carrying everything still queued behind it. So the
+    /// far display goes first, the main board next, and the radio last, where
+    /// the only thing its reboot ends is a queue that is already empty.
     func startUpdateAll(_ images: [FirmwareImage], on model: MachineModel,
                         fetch: @escaping (FirmwareImage) async throws -> Data) {
         guard otaQueue.isEmpty, otaProgress == nil, !images.isEmpty else { return }
         otaModel = model
         otaFetch = fetch
         otaQueueDone = 0
-        otaQueue = images.sorted { a, b in
-            (a.otaTarget(on: model)?.rawValue ?? 0) > (b.otaTarget(on: model)?.rawValue ?? 0)
+        func order(_ i: FirmwareImage) -> Int {
+            switch i.otaTarget(on: model) {
+            case .farDisplay: return 0
+            case .mainBoard:  return 1
+            case .radioBoard: return 2
+            case nil:         return 3
+            }
         }
+        // Art before the firmware of the display that renders it: the app checks
+        // the partition at boot, so the reboot that ends this run finds it there.
+        otaQueue = images.sorted { (order($0), $0.kind == "art" ? 0 : 1)
+                                 < (order($1), $1.kind == "art" ? 0 : 1) }
         pumpQueue()
     }
 
@@ -1492,8 +1505,9 @@ class BLEManager {
         if !otaQueue.isEmpty { otaQueue.removeFirst(); otaQueueDone += 1 }
         guard !otaQueue.isEmpty else { otaFetch = nil; return }
         // The board that just took an image is rebooting into it, and on the far
-        // side of a relay the link has to come back before the next one starts.
-        let delay: TimeInterval = 6
+        // side of a relay the link has to come back up before the next one can
+        // start. J9 and J3 both take seconds to re-establish after a reset.
+        let delay: TimeInterval = 12
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
             guard let self, !self.otaQueue.isEmpty else { return }
             self.otaProgress = nil
