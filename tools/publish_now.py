@@ -84,8 +84,30 @@ def owed() -> tuple:
     return ("", [])
 
 
+def repair_flutes() -> None:
+    """Recut and carry the enclosure payloads when they no longer draw their print.
+
+    `check_flutes` reads the distance from each payload to the mesh its piece prints, and a
+    payload standing a flute's depth away draws a part that does not exist. The flute cut is one
+    bazel target and a carry, and then the site gets the part.
+
+    WHAT DOES NOT SETTLE IS PUBLISHED ANYWAY, and said. CLAUDE.md, "Nothing withholds".
+    """
+    if run([str(PY), "hardware/scripts/check_flutes.py"], quiet=True).returncode == 0:
+        return
+    print("  payloads have drifted from the print they draw — recutting before the pack")
+    run(["bazel", "build", "//:flute-payload", "//:enclosure-assembly", "//:enclosure"],
+        quiet=True)
+    run([str(PY), "tools/bazel/sync_tree.py", "--write", "--targets",
+         "//:flute-payload,//:enclosure-assembly,//:enclosure"], quiet=True)
+    settled = run([str(PY), "hardware/scripts/check_flutes.py"], quiet=True).returncode == 0
+    print("  flutes recut and carried" if settled else
+          "  recut did not settle them; publishing what the tree holds")
+
+
 def publish() -> int:
     started = time.time()
+    repair_flutes()
     reason, targets = owed()
     if not reason:
         print("  nothing owed — this tree's solids are the ones the lock names")
