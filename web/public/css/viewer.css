@@ -299,6 +299,15 @@
   color: var(--text);
 }
 .tool-chip[aria-pressed="false"] { opacity: 0.62; }
+/* A chip that leaves the model rather than switching something on it. The rest
+   of the rail holds its state on the pill; this one lights only under the
+   pointer, the way the breadcrumb's steps do. */
+.related-chip { color: var(--text-2); }
+.related-chip:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 18%, rgba(35, 35, 66, 0.85));
+}
 /* The glyph beside a label. Sized to the label's own cap height so the two
    read as one word, and painted in currentColor so it carries the control's
    lit/unlit state with the text rather than needing its own. */

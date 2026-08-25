@@ -38,6 +38,7 @@ import { makeToolRail, makeToolGroup, makeChipRow, makeToolButton } from "./tool
 import { makePickModeControl } from "./pick-mode.js";
 import { setTrail, stepHash, walkDepth } from "./step-nav.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { mountRelated } from "./related-nav.js";
 import { clearHighlight } from "./part-highlight.js";
 
 // Reset-view button: re-frames the current part with the format's default
@@ -167,6 +168,8 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   chips.appendChild(makeRulerToggle());
   rail.appendChild(makeToolGroup("Show", chips));
   wrapper.appendChild(rail);
+  // The models beside this one, under the rail's own controls.
+  if (type === "step") mountRelated(wrapper, file, (path || []).slice(0, -1));
   wrapper.appendChild(makeResetViewButton());
 
   // A STEP model may carry a scorecard sidecar (<model>.scorecard.json) — mount its checks
