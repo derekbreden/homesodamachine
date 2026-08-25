@@ -53,6 +53,9 @@ export function mountFirmwareRoutes(app, { commit } = {}) {
         version: e.version ?? null,
         bytes: e.bytes,
         crc32: e.crc32,
+        // Art only: the crc32 over the pixels, which is what a board reports
+        // about the partition it holds. `crc32` above is over the file.
+        artCrc32: e.art_crc32 ?? null,
         sha256: e.sha256,
         url: `${origin}/firmware/${e.file}`,
         available,
