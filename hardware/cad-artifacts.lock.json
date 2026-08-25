@@ -6,11 +6,12 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-867a8932e9ed70bb.tar.gz"
   },
   "source": {
-    "commit": "def59fd3d5dd0bc70c08d8a26a70c574ee72fcd0"
+    "commit": "9b2f43db24f7c9da230dd2e65e20e0c74e82ed37"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/printed-parts/petgf.3mf"
     ],
     "members": [
