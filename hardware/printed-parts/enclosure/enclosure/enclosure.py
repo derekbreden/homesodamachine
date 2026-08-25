@@ -3510,12 +3510,18 @@ def _boss_x(x_ext, sx, length=None):
 
 
 def _back_plug(x_ext, sx, z_boss, y_boss):
-    """BACK pin: a round cylinder from the ±X exterior to the heat-set, where it
-    registers in the front socket bore. Its −Y face stands on the seam mouth, and
+    """BACK pin: a `plug_dia` SQUARE prism from the ±X exterior to the heat-set, where
+    it registers in the front socket's slot. Its −Y face stands on the seam mouth, and
     the wall it drives through carries it — the pin is that wall's own material for
-    the first `wall` of its length and a stub of the same section beyond."""
+    the first `wall` of its length and a stub of the same section beyond.
+
+    IT IS A BOX AND NOT A PIPE — the box's one boss section. A pipe meets the mouth on
+    the line where it grazes it and closes on a crown laid over its own axis, so the
+    stub beyond the wall has no printable half; squared, it stands on a face at both."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    return _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
+    r = plug_dia / 2.0
+    xa, xb = sorted((x_ext, x_tip))
+    return _ybox(xa, xb, y_boss - r, y_boss + r, z_boss - r, z_boss + r)
 
 
 def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
@@ -3527,21 +3533,22 @@ def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
     is struck from) and its forward face a hair ahead of the lip's own fusion
     shoulder, so it stands on the lip band down its whole length.
 
-    THE COLLAR IS A D BELOW ITS AXIS. A round pipe tangent to a flat leaves a crevice
-    either side of the tangent line — an overhang that starts at zero degrees — so the
-    lower half is squared to the flat it meets: the floor collar's fill stands on the
-    slab, and any other level's stands on a 45° web run down the lip's own face, the
-    corner pedestal's idiom. A collar whose crown reaches the ceiling squares its upper
-    half into it the same way.
+    THE COLLAR IS A BOX, `2 * socket_r` on a side about the bore's axis. A round pipe
+    has no printable half on a standing print: tangent to the flat under it, it leaves a
+    crevice either side of the touching line — an overhang that starts at zero degrees —
+    and it closes overhead on a crown laid across its own bore. So the section is squared
+    onto the flats it meets, the floor collar's onto the slab and every other level's onto
+    a 45° web run down the lip's own face, the corner pedestal's idiom. It is also the
+    footprint `seam_bosses` already reports, so what a check reads and what stands on the
+    wall are one shape.
 
     Bore, heat-set and the plug's slide path are cut afterwards."""
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     yb = _y_boss(y_joint)
-    iz0, iz1 = inner[4], inner[5]
-    boss = _xcyl(socket_r, yb, z_boss, xa, xb)
-    boss = boss.fuse(_ybox(xa, xb, yb - socket_r, yb + socket_r,
-                           z_boss - socket_r, z_boss))
+    iz0 = inner[4]
+    boss = _ybox(xa, xb, yb - socket_r, yb + socket_r,
+                 z_boss - socket_r, z_boss + socket_r)
     if z_boss - socket_r > iz0 + 0.01:
         lip_in = x_in + sx * wall
         drop = abs(x_cap - lip_in)
@@ -3549,30 +3556,29 @@ def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
         boss = boss.fuse(_xz_prism(yb - socket_r, yb + socket_r,
                                    [(lip_in, floor), (x_cap, floor),
                                     (lip_in, floor - drop)]))
-    if z_boss + socket_r > iz1 - 0.01:
-        boss = boss.fuse(_ybox(xa, xb, yb - socket_r, yb + socket_r,
-                               z_boss, z_boss + socket_r))
     return boss
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
-    """Front-socket inner cuts at one level: the bore that receives the plug, the
-    heat-set pocket at its deep end, and the +Y channel the plug travels down to
-    reach the bore as the halves close — open at the rim, so it is a slide path and
-    not a pocket.
+    """Front-socket inner cuts at one level: ONE slot that receives the plug and carries
+    it down to its seat, and the heat-set pocket at the deep end. Open at the rim, so it
+    is a slide path and not a pocket.
 
-    The slip lives on the +Y (slide-in) side: the bore is shifted +slip/2 so its −Y
-    wall registers on the plug's −Y face at the mouth, instead of overshooting past
-    the seam. The heat-set stays coaxial with the screw at y_boss, past the deep end
-    of the channel."""
+    THE SEAT AND THE CHANNEL ARE ONE PRISM. The channel was always struck at the bore's
+    axis carrying the bore's width; squared, there is nothing left to distinguish them and
+    the plug rides one section its whole travel.
+
+    The slip lives on the +Y (slide-in) side: the slot is shifted +slip/2 so its −Y wall
+    registers on the plug's −Y face at the mouth, instead of overshooting past the seam.
+    The heat-set stays coaxial with the screw at y_boss, past the slot's deep end."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
+    b = socket_bore_dia / 2.0
     bore_y = y_boss + split_slip / 2.0
-    bore = _xcyl(socket_bore_dia / 2.0, bore_y, z_boss, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
-    chan = _ybox(bx0, bx1, bore_y, y_joint + lip_len + 1.0,
-                 z_boss - socket_bore_dia / 2.0, z_boss + socket_bore_dia / 2.0)
-    return bore.fuse(heat).fuse(chan)
+    slot = _ybox(bx0, bx1, bore_y - b, y_joint + lip_len + 1.0,
+                 z_boss - b, z_boss + b)
+    return slot.fuse(heat)
 
 
 def _screw_cut(x_ext, sx, z_boss, y_boss, length=None):
@@ -3875,54 +3881,48 @@ def _z_pod(x_in, x_ext, sx, ys, inner, zj):
 
 
 def _z_pin(x_ext, sx, ys, zj):
-    """TOP tongue: ONE prism from the ±X exterior to the heat-set — a half-round nose
-    below its axis, parallel flanks from that axis up to the lip rim. The nose registers
-    in the bottom socket's bore; the flanks stand in the +Z channel the nose swept coming
-    down. Its lowest point is the top piece's own mouth, so the wall it drives through
-    carries the whole of it.
+    """TOP tongue: ONE prism from the ±X exterior to the heat-set, `plug_dia` square in
+    section, standing on the top piece's own mouth and running to the lip rim. It seats in
+    the bottom socket's slot and rides the channel that slot continues, so the wall it
+    drives through carries the whole of it.
 
-    THE FLANKS ARE THE NOSE'S OWN TANGENT PLANES, one `plug_dia` apart, so the section is
-    a slot's shape and the two meet with material either side and no edge between them —
-    the box's boss idiom (`_corner_socket`'s D) stood on its head. Set
-    the flanks on the crown instead of the axis and they bear on the nose along one line:
-    a blade hung off a tangent, which slices in the model and prints as nothing.
+    ITS FOOT IS A FACE AND NOT A TANGENT LINE. The mouth is this piece's FIRST LAYER —
+    front-top and back-top both bed on it — so a half-round nose starts the tongue on the
+    line where it grazes the plate and opens out from zero degrees, which is the one place
+    on the print where nothing can be laid. Squared, the whole section is down on the
+    plate at layer one, and the tongue bears on the slot's floor across that same face.
 
-    ONE `plug_dia` IS ALSO THE CHANNEL LESS ITS SLIP, since the bore is the plug plus
-    `split_slip` — so the same width that continues the nose rides the channel free."""
+    ONE `plug_dia` IS ALSO THE SLOT LESS ITS SLIP, since the slot is the plug plus
+    `split_slip` — so the section that seats rides the channel free."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    zp = _z_pin_z(zj)
     r = plug_dia / 2.0
     xa, xb = sorted((x_ext, x_tip))
-    nose = _xcyl(r, ys, zp, x_ext, x_tip)
-    shank = _ybox(xa, xb, ys - r, ys + r, zp, zj + lip_len)
-    return _unified(nose.fuse(shank)).val()
+    return _ybox(xa, xb, ys - r, ys + r, zj, zj + lip_len)
 
 
 def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
-    """Bottom-socket inner cuts: the bore that receives the tongue's nose, the heat-set
-    pocket at the deep end, and a +Z channel for the slide-down — struck at the bore's own
-    axis carrying the bore's width, so the channel's walls continue the bore's sides.
+    """Bottom-socket inner cuts: ONE slot that receives the tongue and carries it down,
+    and the heat-set pocket at the deep end. The seat and the +Z slide channel were always
+    the same width struck on the same axis; squared, they are one prism.
 
-    THE SLIP LIVES ON THE +Z (SLIDE-IN) SIDE: the bore is shifted +slip/2, which puts its
-    lowest line on the mouth (`zj`) where the nose's own lowest line lands. Seated, the two
-    bear on that plane and the whole slip is overhead — and the channel, a slip wider than
-    the tongue that fills it, is closed to the rim."""
+    THE SLIP LIVES ON THE +Z (SLIDE-IN) SIDE: the slot's floor IS the mouth (`zj`), which
+    is where the tongue's own foot lands. Seated, the two bear on that plane face to face
+    and the whole slip is overhead — and the slot, a `split_slip` wider than the tongue
+    that fills it, is open to the rim."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
     zp = _z_pin_z(zj)
-    bore_z = zp + split_slip / 2.0
-    bore = _xcyl(socket_bore_dia / 2.0, ys, bore_z, x_in, x_tip)
+    b = socket_bore_dia / 2.0
     heat = _xcyl(heatset_dia / 2.0, ys, zp, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
-    chan = _ybox(bx0, bx1, ys - socket_bore_dia / 2.0, ys + socket_bore_dia / 2.0,
-                 bore_z, zj + lip_len + 1.0)
-    return bore.fuse(heat).fuse(chan)
+    slot = _ybox(bx0, bx1, ys - b, ys + b, zj, zj + lip_len + 1.0)
+    return slot.fuse(heat)
 
 
 # --- the four-corner screw: the Y-boss idiom with the seam plane through it --
 #
 # One per side wall at (`_y_boss`, `z_seam`). The BACK pair carries the plug — each piece
-# its own half-cylinder, the flat on the plane (the bottom's half prints at its rim, the
-# top's flat-face-down on its own mouth). The FRONT lip's two halves carry the slide
+# its own half of one square prism, parted on the plane (the bottom's half prints at its
+# rim, the top's face-down on its own mouth). The FRONT lip's two halves carry the slide
 # channel, and FRONT-BOTTOM alone carries the socket: a pedestal off its own lip face,
 # proud through the plane the way the lip itself is, so the bore and the insert live in
 # one piece's solid and the heat-set presses into a whole mouth. A 45° web under the
@@ -3936,44 +3936,47 @@ def _corner_plug(x_ext, sx, zlo, zhi):
     into — each back piece carries the half the seam plane leaves it."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx, corner_screw_len)
     yb = _y_boss(y_seam)
+    r = plug_dia / 2.0
     xa, xb = sorted((x_ext, x_tip))
-    return _xcyl(plug_dia / 2.0, yb, z_seam, x_ext, x_tip).intersect(
+    return _ybox(xa, xb, yb - r, yb + r, z_seam - r, z_seam + r).intersect(
         _ybox(xa - 1.0, xb + 1.0, yb - plug_dia, yb + plug_dia, zlo, zhi))
 
 
 def _corner_socket(x_in, x_ext, sx):
     """Front-bottom's socket at the four-corner: the pedestal — a collar off the lip's
-    own inner face out to the cap, a D below its axis, with the 45° web under it.
+    own inner face out to the cap, a box `2 * socket_r` on a side about the bore, with
+    the 45° web under it.
 
-    The D is the merge: a round pipe tangent to the web's flat top leaves a crevice
-    either side of the tangent line, so the lower half is squared and the two meet on
-    one flat."""
+    A round pipe tangent to the web's flat top leaves a crevice either side of the
+    touching line and closes overhead on a crown laid across its own bore. Squared, the
+    collar stands on the web across its whole width, the two meet on one flat, and the
+    only surface over the bore is a face."""
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx, corner_screw_len)
     yb = _y_boss(y_seam)
     lip_in = x_in + sx * wall
     xa, xb = sorted((lip_in, x_cap))
-    collar = _xcyl(socket_r, yb, z_seam, xa, xb)
     floor = z_seam - socket_r
-    fill = _ybox(xa, xb, yb - socket_r, yb + socket_r, floor, z_seam)
+    collar = _ybox(xa, xb, yb - socket_r, yb + socket_r, floor, z_seam + socket_r)
     drop = abs(x_cap - lip_in)
     web = _xz_prism(yb - socket_r, yb + socket_r,
                     [(lip_in, floor), (x_cap, floor), (lip_in, floor - drop)])
-    return collar.fuse(fill).fuse(web)
+    return collar.fuse(web)
 
 
 def _corner_cuts(x_in, x_ext, sx):
-    """The corner socket's inner cuts — bore, insert pocket, and the +Y slide channel,
-    the Y-boss cuts one wall deeper. Cut from BOTH front pieces: the channel crosses the
-    lip, so each piece's own half comes out of its own solid."""
+    """The corner socket's inner cuts — one slot, seat and +Y slide channel together, and
+    the insert pocket behind it, the Y-boss cuts one wall deeper. Cut from BOTH front
+    pieces: the slot crosses the lip, so each piece's own half comes out of its own
+    solid."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx, corner_screw_len)
     yb = _y_boss(y_seam)
+    b = socket_bore_dia / 2.0
     bore_y = yb + split_slip / 2.0
-    bore = _xcyl(socket_bore_dia / 2.0, bore_y, z_seam, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, yb, z_seam, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
-    chan = _ybox(bx0, bx1, bore_y, y_seam + lip_len + 1.0,
-                 z_seam - socket_bore_dia / 2.0, z_seam + socket_bore_dia / 2.0)
-    return bore.fuse(heat).fuse(chan)
+    slot = _ybox(bx0, bx1, bore_y - b, y_seam + lip_len + 1.0,
+                 z_seam - b, z_seam + b)
+    return slot.fuse(heat)
 
 
 # --- the pump bay's own machinery -------------------------------------------
@@ -5515,20 +5518,24 @@ def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
     Cut here, the boss fuses nothing where the collar already stands and is bored through it
     all the same.
 
-    A boss is a D below its axis, on a 45° web run down the wall — the seam collars'
+    A boss is a `mount_boss_dia` BOX on a 45° web run down the wall — the seam collars'
     own shape (`_front_socket`) at the mount's scale — and the web stops on the boss's
-    own tip plane, which is the body's mounting face."""
+    own tip plane, which is the body's mounting face. Only the last `wall` at the tip is
+    left round, and for a reason that is not printing: see below."""
     for sy, sz, tip in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
         r = mount_boss_dia / 2.0
-        # The fill and the web stop one `wall` short of the tip plane: the plane is the
-        # body's mounting face, and past it is the body's own back side — solder tails,
-        # potting lips — which only the bore's own pad annulus may meet.
+        # The box and the web stop one `wall` short of the tip plane, and that last `wall`
+        # is a PIPE: the plane is the body's mounting face, and past it is the body's own
+        # back side — solder tails, potting lips — which only the bore's own pad annulus
+        # may meet. A square pad there would put four corners into that clearance. It is
+        # the one round left in the box's boss family, and it is short enough that its
+        # crown is a `wall`-long bridge off the box's own top face.
         stop = tip + wall
         drop = inner[1] - stop
-        solid = solid.fuse(_xcyl(r, sy, sz, tip, inner[1]))
-        solid = solid.fuse(_ybox(stop, inner[1], sy - r, sy + r, sz - r, sz))
+        solid = solid.fuse(_xcyl(r, sy, sz, tip, stop))
+        solid = solid.fuse(_ybox(stop, inner[1], sy - r, sy + r, sz - r, sz + r))
         solid = solid.fuse(_xz_prism(sy - r, sy + r,
                                      [(inner[1], sz - r), (stop, sz - r),
                                       (inner[1], sz - r - drop)]))
