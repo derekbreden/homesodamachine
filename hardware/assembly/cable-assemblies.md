@@ -49,7 +49,9 @@ makes by hand, with the positioning done by the strip.
 
 JST also sells the -001T factory-crimped onto black 22 AWG as **ASXHSXH22K*** — socket-to-socket
 jumpers in 50, 100, 150, 200, 250 and 305 mm, under a dollar each in single quantity. Cutting one
-end off yields a finished XH pigtail for any run at or under its length.
+end off yields a finished XH pigtail for any run at or under its length, which in this schedule is
+J5 and the flow-meter leg of J4 — six of the harness's 53 contacts. The 305 mm ceiling is the whole
+catalogue; 21 contacts sit on 600 mm runs and 8 on 1 m.
 ## Procedure (per assembly)
 
 For each cable assembly in the schedule below:
