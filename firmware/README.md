@@ -260,6 +260,48 @@ Valid keys and ranges: `F1_RATIO` (6-24), `F2_RATIO` (6-24), `F1_IMAGE` (0-NUM_I
 
 Boot order does not matter. The S3 retries `GET_CONFIG` until the ESP32 is ready. Both the RP2040 and S3 send `MSG_DEVICE_READY` at the end of their `setup()`, and the ESP32 uses this to trigger initial sync.
 
+## A shipped unit is updated from the iOS app
+
+**The phone is the update path.** The iOS app carries the images and pushes them over BLE to
+whichever board hosts the GATT server; that board updates itself and forwards the other two
+over the wired links they already use. A customer's machine is never on WiFi and never on the
+internet — the air gap is deliberate — so BLE from a phone standing in the kitchen is the only
+way new firmware reaches a unit in the field. USB, below, is the bench path.
+
+Every board in the appliance is a target, the main board included. It has its own USB-C at J14,
+but that is a service visit; downstream of the radio it takes its image over the link like the
+displays do.
+
+**All three partition tables are single-slot today, so no board can take an update yet.** Each
+has `otadata` and `ota_0` and no `ota_1`, and ESP-IDF refuses to write an OTA without the second
+slot. The layout is fixed at flash time and cannot be changed by the mechanism it blocks, so a
+unit that ships single-slot needs a service visit for every firmware change it ever gets. The
+banners in [`partitions_esp32.csv`](partitions_esp32.csv), [`partitions_s3.csv`](partitions_s3.csv)
+and [`partitions_s3_front.csv`](partitions_s3_front.csv) carry the per-board layouts and the
+deadline: before unit #001 is flashed for shipment.
+
+**Which board hosts the GATT server is open.** It decides who relays and nothing else — the
+receiving half is the same work on all three boards, and is what the wire contract's
+`MSG_UPLOAD_START` / `MSG_UPLOAD_DONE` / `MSG_ERR_CRC32_MISMATCH` shape already describes
+([`proto_msg.h`](lib/proto_link/proto_msg.h)). What the boards bring to that choice:
+
+| | RF position | Flash | Hops to the others |
+|---|---|---|---|
+| faucet display | above the counter, in open air, nearest the phone | 16 MB, half unclaimed by `partitions_s3.csv` | J3 to the main board, then J9 onward |
+| enclosure display | inside the front facet of a cabinet under a counter | 16 MB, and the app fills most of one slot | J9 to the main board, then J3 onward |
+| main board | deepest in the cabinet | 4 MB total, `-N8`/`-N16` a drop-in swap | one hop to each, no relay |
+
+The main board's radio is unused but present: its antenna keepout is reserved
+([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)) and the bench proved the RF as built — 15–26 networks
+at −42 to −50 dBm ([`bench-log.md`](/hardware/pcb/pcba/bench-log.md)). Hosting BLE there is a
+firmware decision, not a hardware one.
+
+**The enclosure display stops its panel to take an update.** It scans an 800×480 framebuffer out
+of PSRAM, and a flash write suspends the cache PSRAM is reached through, so the DMA refilling the
+bounce buffer faults — the same constraint that keeps its logo choice on the main board instead of
+in local NVS. Its OTA holds the panel stopped for the whole write. The faucet drives SPI and has
+no such conflict.
+
 ## Building and Flashing
 
 Every environment in [`/platformio.ini`](/platformio.ini) builds with `pio run -e <env>` and flashes with `-t upload`. `firmware/pre_build.py` runs first on all of them, stamping `fw_version.h` from the git rev so a board reports the commit it was built from.
