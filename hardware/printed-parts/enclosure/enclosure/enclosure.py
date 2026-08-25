@@ -5575,13 +5575,14 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
     at each end and opens between them: each tab catches the lug's lift and prints as
     its own short bridge, with nothing hanging the pocket's full width.
 
-    AND THE OPENING IS ROOFED ON ONE 45° PLANE, folded on the wall face at the tower's
-    crown and rising inboard off it. Past the crown the cut is taking whatever stands
+    AND THE OPENING IS ROOFED ON ONE 45° PLANE, folded on the wall at the pocket's own
+    roof — the plane the tabs bridge on, so the roof is one height where it meets the
+    lug and the ramp starts where they do. It rises inboard off that fold, and the wall
+    carries it the way the wall carries the wedge under the tower: same angle, same
+    fold, mirrored over the lug, every layer inboard laid one layer-height out over the
+    one below. Roofed flat instead, the opening hands its ceiling to whatever stands
     over the well — the flank's own section, the ceiling's soffit on the +X row — and
-    squared off it leaves that thing roofing the opening on air. The wall carries this
-    plane the way it carries the wedge under the tower: same angle, same fold, mirrored
-    over the lug, so every layer inboard of the fold is laid one layer-height out over
-    the one below it.
+    that thing spans the opening on air.
 
     A 45° WEDGE CARRIES THE TOWER'S UNDERSIDE to the wall. `clear_z` is the plane the
     flank's air stops being the well's — the crown of whatever the station stands over —
@@ -5615,11 +5616,9 @@ def _side_wells(solid, inner, stations, y0, y1, z0, z1):
                                 sy - pk_y, sy + pk_y,
                                 sz - (stand_z / 2.0 + wago_well_press), roof_z))
         gap = pk_y - wago_roof_tab
-        crown = sz + half_z
         solid = solid.cut(_xz_prism(sy - gap, sy + gap,
                                     [(face, roof_z), (face - side * reach, roof_z),
-                                     (face - side * reach, crown + reach),
-                                     (face, crown)]))
+                                     (face - side * reach, roof_z + reach)]))
     return solid
 
 
