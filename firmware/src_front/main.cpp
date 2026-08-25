@@ -1100,7 +1100,7 @@ static unsigned long otaAskedAtMs = 0;
 static bool otaPanelStopped = false;
 static bool otaRebootPending = false;
 static unsigned long otaRebootAtMs = 0;
-static const unsigned long OTA_REASK_MS = 400;
+static const unsigned long OTA_REASK_MS = 40;
 
 static void j9Post(uint8_t type, const void *data, uint8_t len);
 static bool setBacklight(bool on);
