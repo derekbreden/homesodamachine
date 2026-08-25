@@ -163,6 +163,7 @@ preset carries `required_nozzle_HRC` 40 and names one compatible printer:
 |---|---|---|---:|
 | **PB Motor Tech 5-gal stainless vacuum chamber** | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928), [purchases.md §21](/hardware/ledger/purchases.md) | 18.9 L, 11.8" × 11.8" interior, tempered-glass lid, glycerin gauge, shutoff valve. Degassing the platinum-silicone funnel pours. Has no pump of its own — it mates the §6 Orion 4 CFM pump (T_VAC_PUMP) over 1/4" SAE flare, so a refrigerant evacuation and a silicone degas compete for one pump. Cup sizing assumes the 3–4× rise of a ~135 mL pour. | [$102.95](T_VAC_CHAMBER) |
 | **Nuwave Bravo 30-QT convection toaster oven** | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M), [purchases.md §21](/hardware/ledger/purchases.md) | 50–500 °F, independent top/bottom heater control 0–100 %. Silicone post-cure bake — drives off volatiles and completes the platinum cure on the food-contact funnel. Dedicated to shop use; not a food oven. | [$139.41](T_CURE_OVEN) |
+| **POWERTEC 71476 hardened dowel pins, 1/4" × 2" (10-pk)** | [B086DCHYQK](https://www.amazon.com/dp/B086DCHYQK), [purchases.md §21](/hardware/ledger/purchases.md) | Ground to 0.0001"–0.0005" on diameter, ASME dimensional standard, alloy steel. **The funnel mould's spout bore** — dropped into the core's socket, it is the whole of the Ø6.35 round below the ramp tip, and the core lifts off it at demold instead of levering a printed column. A ground rod is what this fit needs: the socket's slip is 0.1 mm, which the 0.005"–0.01" shelf-peg grade exceeds on its own. One pin per mould, ten to a pack. | [$18.22](T_DOWEL_PINS) |
 | **Rubbermaid Commercial monitoring thermometer** | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0), [purchases.md §21](/hardware/ledger/purchases.md) | Stainless, 60–580 °F. Verifies the post-cure oven's actual cavity temperature against its dial. | [$10.21](T_OVEN_THERMO) |
 
 ## Shop / bench infrastructure
@@ -184,7 +185,7 @@ preset carries `required_nozzle_HRC` 40 and names one compatible printer:
 
 ## Tools total
 
-Total acquired tooling: **[$15,187.17](TOOLS_TOTAL)**
+Total acquired tooling: **[$15,205.39](TOOLS_TOTAL)**
 
 ## Open items
 

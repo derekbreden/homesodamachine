@@ -1,6 +1,6 @@
 {
   "/hardware/scripts/_tools_totals.py": {
-    "TOOLS_TOTAL": "$15,187.17",
+    "TOOLS_TOTAL": "$15,205.39",
     "T_AMS2PRO": "$331.99",
     "T_AMS_HT": "$278.00",
     "T_ARGON_CYL": "$399.31",
@@ -17,6 +17,7 @@
     "T_DEWALT": "\u2014",
     "T_DIE_HANDLE": "$15.00",
     "T_DMM": "$32.16",
+    "T_DOWEL_PINS": "$18.22",
     "T_DRILL_PRESS": "$111.54",
     "T_DRYER_E2": "$321.74",
     "T_DRYER_S4": "$125.47",
