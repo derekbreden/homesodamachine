@@ -786,8 +786,13 @@ class BLEServerCB : public NimBLEServerCallbacks {
                  (unsigned long)ESP.getFreeHeap());
     NimBLEDevice::startAdvertising();
   }
+  void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
+    bleOtaSetMtu(mtu);
+    Serial.printf("BLE: MTU %u\n", mtu);
+  }
   void onDisconnect(NimBLEServer *pServer, NimBLEConnInfo &connInfo, int reason) override {
     bleOnDisconnect(connInfo.getConnHandle());
+    bleOtaDisconnected();
     plog.println("BLE disconnect: remaining=%lu", (unsigned long)pServer->getConnectedCount());
     Serial.printf("BLE: disconnected (remaining=%lu)\n",
                   (unsigned long)pServer->getConnectedCount());
