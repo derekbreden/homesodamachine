@@ -3930,6 +3930,19 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
 # every Y-boss plug does.
 
 
+def corner_stations(inner):
+    """The four-corner screw's own stations — ONE PER ±X SIDE WALL, at
+    (`_y_boss`, `z_seam`), each as (x_in, x_ext, sx) the way `_bosses` reads.
+
+    There is no search here and no clearance to answer for: the station IS the
+    two seams crossing, so where they cross is where it stands. It is a list
+    rather than a literal because the ledger counts it — `scripts/_bom_sync.py`
+    bills these screws and their heat-sets off this function, so the box and
+    bom.md cannot disagree about how many the build drives."""
+    return tuple((x_in, x_in - sx * wall, sx)
+                 for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)))
+
+
 def _corner_plug(x_ext, sx, zlo, zhi):
     """The back pair's pin at the four-corner, clipped to the piece band it is fused
     into — each back piece carries the half the seam plane leaves it."""
@@ -6928,8 +6941,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj))
-        for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-            x_ext = x_in - sx * wall
+        for x_in, x_ext, sx in corner_stations(inner):
             if y_side == "front":
                 # The four-corner socket: front-bottom's alone, proud through the plane.
                 piece = piece.fuse(_corner_socket(x_in, x_ext, sx))
@@ -6967,8 +6979,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # the chain's bores, the wells and every bore below are cut AFTER this, so each is
             # cut out of what the corbel left rather than filling a pocket back in.
             piece = _back_top_ceiling(piece, inner, y_joint)
-        for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
-            x_ext = x_in - sx * wall
+        for x_in, x_ext, sx in corner_stations(inner):
             if y_side == "front":
                 # The corner's slide channel through front-top's half of the lip.
                 piece = piece.cut(_corner_cuts(x_in, x_ext, sx))

@@ -3,6 +3,7 @@
     "CEILING_SCREWS": "2",
     "COND_SCREWS": "2",
     "DISPLAY_COVER_SCREWS": "2",
+    "FAUCET_DISPLAY_SCREWS": "1",
     "FLOOR_SCREWS": "4",
     "FOAM_CLAMP_INSERTS": "12",
     "FOAM_SCREWS": "12",
@@ -12,9 +13,9 @@
     "SHELF_INSERTS": "17",
     "SHELF_SCREWS": "17",
     "SOLENOIDS": "10",
-    "TOTAL_INSERTS": "61",
-    "TOTAL_M3_INSERTS": "57",
-    "TOTAL_SCREWS": "61",
+    "TOTAL_INSERTS": "71",
+    "TOTAL_M3_INSERTS": "67",
+    "TOTAL_SCREWS": "71",
     "TOUCHFLO_SCREWS": "3"
   },
   "/hardware/scripts/_labor_totals.py": {
