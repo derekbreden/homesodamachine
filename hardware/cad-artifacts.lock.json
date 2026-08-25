@@ -2,11 +2,11 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-dbd427e201cf02e0.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-dbd427e201cf02e0.tar.gz"
+    "asset": "cad-bbcef032449d77b7.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-bbcef032449d77b7.tar.gz"
   },
   "source": {
-    "commit": "623efb04d395c7f2f4ff8f0268a2c2c940367641"
+    "commit": "f49d667556c9161d945773d0fecca10efe6d20fc"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -143,8 +143,8 @@
     ]
   },
   "bundle": {
-    "sha256": "dbd427e201cf02e008348ab75cc0b5e9f3b29ac2df58cdce70e3396be8deb71b",
-    "bytes": 82198378,
+    "sha256": "bbcef032449d77b730d467334191169592bfb8e9d1bf273d5ee9c43ffee15dc0",
+    "bytes": 82194804,
     "solids": 124
   },
   "solids": {
@@ -222,10 +222,10 @@
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "5477d83388b6cfa83526ca245d66c182ac7599cd875f21d8a1b504ad985cdd01",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "cffb75b1b1e24f80ead6fefc4967ffc92071559d8871a80f4698e0752c020296",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "cee32e9cb1df797d0eac95abbb4634f907baa9b2b2abb7a40e9c866acec7e0dc",
-    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "aba83056c2bec438fd81b7be6dd5369f2a3f7a54a10af125f88296ecfcfa2e9d",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "d7817ccc661d9b36d04775993325fc7c01e3f5c4f1d072e9d90eba62c1361808",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "585bc3c6ef60eefe53f6009789bb62fbcd86540878f591c98a25589de61336db",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": "5cce335886e72ff21b1ab4ce0b44a5264b9a525b8c445977402ec400c63283ba",
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step": "40702f6f67724557c71ade446cd9526a592e43240be0a0b7b5d0cda4d3cadabd",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step": "928f628a43a553a1697513fe9d0244f8508264805c7496b8fc804baee6203cb9",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "856455ee8dfb2b91efd40e1ea254605c60d1a1abf99015d8c556d4b00c1411df",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step": "8a5cb8d69d963715444b38f4539b052868c1006078fcf2499813fc47b4247b83",
     "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring.step": "c819517bec8c9db57c76f42a5fe945ac0d9d4b8deb168d66661a0a8758001e96",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step": "ec53710b0e032ac7cf0bd798ac43157772c0d48d26c44c268c103b5f083f7fce",
     "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step": "a2b07239d943227ec990376f1886184440e3af3e04c5f5f8f92375c7028b5f30",
