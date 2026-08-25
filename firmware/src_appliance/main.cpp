@@ -58,6 +58,11 @@ static void console(const String &line);
 void setup() {
     machineBegin();   // actuators parked before anything else runs — including U8's coil
 
+    // The console carries whole firmware images during an update, and at the
+    // rate a transfer raises it to, the default 256-byte ring empties in under
+    // three milliseconds — less than one pass of this loop. Anything dropped
+    // there is a chunk that never arrives and a transfer that stops dead.
+    Serial.setRxBufferSize(8192);
     Serial.begin(115200);
     while (!Serial && millis() < 2000) {}
     Serial.printf("\nhomesodamachine appliance  %s  (%s)\n", FW_VERSION, FW_BUILD_TIME);
