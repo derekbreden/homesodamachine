@@ -27,7 +27,10 @@ static uint8_t   imgKind = OTA_KIND_APP;
 // when it ends. Nothing can be stranded at the high rate: opening this port
 // resets the board, and a reset always comes up at OTA_CONSOLE_BAUD_IDLE.
 static const uint32_t OTA_CONSOLE_BAUD_IDLE = 115200;
-static const uint32_t OTA_CONSOLE_BAUD_FAST = 921600;
+// 500000, not 921600. Measured on this board: a request for 921600 comes out
+// near 1 Mbps and every byte after it is garbage to a host that believed the
+// number. 500000 divides cleanly at both ends and is 4.3x the idle rate.
+static const uint32_t OTA_CONSOLE_BAUD_FAST = 500000;
 static bool consoleFast = false;
 
 static void consoleBaud(uint32_t rate) {
