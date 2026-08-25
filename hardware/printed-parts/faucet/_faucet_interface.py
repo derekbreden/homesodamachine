@@ -79,13 +79,12 @@ display_pcb_top_z = display_total_depth - display_housing_depth             # [5
 # a hand finds is a step the device already has rather than a height
 # chosen for it.
 #
-# The plate laps the shell rather than butting it — the shell's wall
-# steps in by display_cover_wall above the land and the plate's skirt
-# fills that step out to the same outer face, so the outside reads as
-# one surface and the joint is what locates the plate in X and along
-# the tip.
+# The plate butts the shell's land the whole way round, and is held at
+# one end by a screw and at the other by a hook the cradle's south wall
+# makes for it. That wall's thickness is the hook's, not a wall's: see
+# the DISPLAY CRADLE section of faucet_shell.py.
 display_cover_wall = 1.86       # skirt and bezel — three 0.62 extrusions, the cradle's wall
-display_cover_slip = 0.30       # per side, plate skirt over the shell's rib
+display_cover_slip = 0.30       # per side, plate against the shell
 # How far the bezel laps the device's face on every edge. The screen is
 # 17.75 x 32.93 in a 24.5 x 44.5 housing, so 2 mm of lap stops 1.4 mm
 # short of the glass on the sides and 3.8 mm short on the ends.
