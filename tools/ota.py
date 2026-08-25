@@ -68,17 +68,35 @@ def open_console(port: str) -> serial.Serial:
     ser.rts = False
     ser.open()
 
-    # Wait for the prompt rather than guessing at the boot. A command written
-    # while the console is still coming up is simply lost, and the transfer
-    # then waits forever on a board that never heard it asked.
-    deadline = time.time() + 15
+    # Opening reset the board. Let it boot, throw away the banner, then ask for
+    # a prompt and wait for that one — a `>` already sitting in the port buffer
+    # is the previous session's, and taking it means writing the command into a
+    # console that is still coming up, where it is simply lost.
+    # Let the boot banner run out, then ask something harmless and wait for the
+    # answer. A bare newline draws no reply at all — the console only acts on a
+    # non-empty line — and a `>` already in the buffer is the previous session's,
+    # so neither is proof that anyone is listening yet.
+    quiet_since = time.time()
+    while time.time() - quiet_since < 0.4:
+        if ser.read(max(1, ser.in_waiting)):
+            quiet_since = time.time()
+        if time.time() - quiet_since > 12:
+            break
+    ser.reset_input_buffer()
+
+    deadline = time.time() + 10
+    ser.write(b"ota\n")
+    ser.flush()
     seen = b""
     while time.time() < deadline:
         seen += ser.read(max(1, ser.in_waiting))
         if seen.rstrip().endswith(b">"):
             break
+        time.sleep(0.02)
     else:
-        sys.exit("the main board never showed its prompt — is it powered at J10?")
+        sys.exit("the main board never answered — is it powered at J10?")
+    if b"SINGLE SLOT" in seen:
+        sys.exit("the main board still has a single-slot partition table")
     ser.reset_input_buffer()
     return ser
 

@@ -219,6 +219,7 @@ void settleFromMainBoardHeartbeat(const FlavorStatePayload &state) {
 // lost frame costs a retry interval rather than the transfer.
 static OtaReceiver ota;
 static uint32_t otaAskedAtMs = 0;
+static uint32_t otaFrames = 0, otaDups = 0, otaGaps = 0, otaBytes = 0;
 static bool     otaRebootPending = false;
 static uint32_t otaRebootAtMs = 0;
 static const uint32_t OTA_REASK_MS = 400;
@@ -247,6 +248,9 @@ static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
     memcpy(&b, payload, sizeof(b));
     // Erasing a 3 MB slot takes long enough that the panel must say so first.
     faucetApplyOta(true, 0);
+    otaFrames = otaDups = otaGaps = otaBytes = 0;
+    Serial.printf("OTA:BEGIN size=%lu crc=%08lX chunk=%u kind=%u\n",
+                  (unsigned long)b.size, (unsigned long)b.crc32, b.chunk, b.kind);
     ota.begin(b.size, b.crc32, b.kind);
     otaReport();
     if (ota.active()) otaAsk();
@@ -257,6 +261,10 @@ static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
   if (type == MSG_OTA_DATA && plen >= 4 && ota.active()) {
     uint32_t offset;
     memcpy(&offset, payload, 4);
+    ++otaFrames;
+    otaBytes += (uint32_t)(plen - 4);
+    if (offset < ota.nextOffset()) ++otaDups;
+    else if (offset != ota.nextOffset()) ++otaGaps;
     if (!ota.write(offset, payload + 4, (uint16_t)(plen - 4))) {
       otaReport();
       faucetApplyOta(false, 0);
@@ -269,7 +277,14 @@ static void otaHandle(uint8_t type, const uint8_t *payload, uint16_t plen) {
     }
     // Last byte is in. Nothing has moved yet — finish() is what verifies the
     // whole image and only then points the bootloader at it.
-    ota.finish();
+    const bool ok = ota.finish();
+    Serial.printf("OTA:END ok=%d state=%u err=%u recv=%lu exp=%lu run=%08lX want=%08lX "
+                  "frames=%lu dup=%lu bytes=%lu\n",
+                  (int)ok, ota.state, ota.err,
+                  (unsigned long)ota.received, (unsigned long)ota.expected,
+                  (unsigned long)ota.runCrc, (unsigned long)ota.wantCrc,
+                  (unsigned long)otaFrames, (unsigned long)otaDups,
+                  (unsigned long)otaBytes);
     otaReport();
     if (ota.done()) {
       faucetApplyOta(true, 100);
