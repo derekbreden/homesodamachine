@@ -12,6 +12,7 @@ static uint32_t  imgCrc = 0;
 static uint16_t  chunk = 0;
 static uint32_t  lastReported = 0;
 static uint32_t  openedAtMs = 0;
+static uint8_t   imgKind = OTA_KIND_APP;
 
 // One chunk, which is the whole of what this board holds of an image.
 static uint8_t   buf[OTA_CHUNK_J3];
@@ -169,7 +170,7 @@ void otaConsole(const String &line) {
                       OtaReceiver::slotAvailable()
                           ? "a spare OTA slot is present — it can take an update"
                           : "SINGLE SLOT — no ota_1, so it cannot take an update");
-        Serial.println("  ota <self|faucet|enclosure> <size> <crc32>");
+        Serial.println("  ota <self|faucet|enclosure|art> <size> <crc32>");
         if (target != OTA_TGT_NONE)
             Serial.printf("  a session to %s is open, %lu bytes\n",
                           targetName(target), (unsigned long)imgSize);
@@ -181,15 +182,19 @@ void otaConsole(const String &line) {
     char who[16] = {0};
     unsigned long size = 0, crc = 0;
     if (sscanf(rest.c_str(), "%15s %lu %lu", who, &size, &crc) != 3) {
-        Serial.println("\nusage: ota <self|faucet|enclosure> <size> <crc32>");
+        Serial.println("\nusage: ota <self|faucet|enclosure|art> <size> <crc32>");
         return;
     }
 
     OtaTarget t = OTA_TGT_NONE;
+    imgKind = OTA_KIND_APP;
     if (!strcmp(who, "self"))           t = OTA_TGT_SELF;
     else if (!strcmp(who, "faucet"))    t = OTA_TGT_FAUCET;
     else if (!strcmp(who, "enclosure")) t = OTA_TGT_ENCLOSURE;
-    else { Serial.println("\nusage: ota <self|faucet|enclosure> <size> <crc32>"); return; }
+    // The enclosure's art partition rides the same session; only what the
+    // receiver opens at the far end differs.
+    else if (!strcmp(who, "art"))     { t = OTA_TGT_ENCLOSURE; imgKind = OTA_KIND_ART; }
+    else { Serial.println("\nusage: ota <self|faucet|enclosure|art> <size> <crc32>"); return; }
 
     if (target != OTA_TGT_NONE) { Serial.println("\nOTA:FAIL a session is already open"); return; }
     if (size == 0) { Serial.println("\nOTA:FAIL size is zero"); return; }
@@ -204,7 +209,7 @@ void otaConsole(const String &line) {
     bufLen = 0;
 
     if (t == OTA_TGT_SELF) {
-        if (!selfRx.begin(imgSize, imgCrc)) {
+        if (!selfRx.begin(imgSize, imgCrc, imgKind)) {
             Serial.printf("\nOTA:FAIL state=%u err=%u\n", selfRx.state, selfRx.err);
             target = OTA_TGT_NONE;
             return;
@@ -215,7 +220,7 @@ void otaConsole(const String &line) {
         return;
     }
 
-    OtaBeginPayload begin{imgSize, imgCrc, chunk};
+    OtaBeginPayload begin{imgSize, imgCrc, chunk, imgKind};
     volunteer(t, MSG_OTA_BEGIN, &begin, sizeof(begin));
     Serial.printf("\nOTA:BEGIN %s size=%lu crc=%lu chunk=%u\n",
                   targetName(t), (unsigned long)imgSize, (unsigned long)imgCrc, chunk);
