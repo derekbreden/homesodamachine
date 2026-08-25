@@ -51,6 +51,8 @@
 // operation opens a valve or runs the fan, neither relay is ever driven, and
 // a clean cycle is answered MSG_ERR_UNSUPPORTED.
 
+#include "ota.h"
+
 static void console(const String &line);
 
 void setup() {
@@ -129,6 +131,12 @@ void loop() {
         Serial.printf("\n[idle] %s\n", idleAsleep() ? "asleep" : "awake");
     }
 
+    otaService();
+
+    // While a transfer is open the console is a byte pipe, not a line reader:
+    // the host owes an exact count and those bytes are not text.
+    if (otaAwaitingHostBytes()) { otaFeedHostBytes(); return; }
+
     static String line;
     while (Serial.available()) {
         char c = Serial.read();
@@ -157,6 +165,7 @@ static void help() {
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
     Serial.println("  rtc [set <YYYY-MM-DD> <HH:MM:SS>]    the clock quiet hours reads");
+    Serial.println("  ota [<self|faucet|enclosure> <size> <crc32>]   firmware over the link");
     Serial.println("  help              this");
     Serial.println("\n  The enclosure opens prime mode for one flavor. Either display can then");
     Serial.println("  own the held pump; it stops on lift, a stale hold/session, disconnect, or at");
@@ -329,6 +338,7 @@ static void console(const String &line) {
     if (line.startsWith("volume")) { cmdVolume(line); return; }
     if (line.startsWith("quiet"))  { cmdQuiet(line);  return; }
     if (line.startsWith("rtc"))    { cmdRtc(line);    return; }
+    if (line.startsWith("ota"))    { otaConsole(line); return; }
 
     if (line.startsWith("flavor")) {
         String rest = line.substring(6); rest.trim();

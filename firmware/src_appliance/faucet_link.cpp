@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "faucet_link.h"
+#include "ota.h"
 #include "flavor.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
@@ -152,6 +153,9 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         sendState(request.token);
         return;
     }
+
+    if (type == MSG_OTA_REQ)  { otaOnRequest(OTA_TGT_FAUCET, payload, plen); return; }
+    if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_FAUCET, payload, plen);   return; }
 
     if (type == MSG_TOUCH) {
         idleTouched();
@@ -331,6 +335,10 @@ void faucetLinkReadStatus(FaucetLinkStatus &status) {
     status.lastRxAgoMs = lastRxMs ? millis() - lastRxMs : 0;
     status.primeStatePublications = primeStatePublications;
     status.primeHeartbeatPublications = primeHeartbeatPublications;
+}
+
+bool faucetLinkSendOta(uint8_t type, const void *data, uint8_t len) {
+    return faucet.trySend(type, data, len) >= 0;
 }
 
 void faucetLinkReport() {

@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "link.h"
+#include "ota.h"
 #include "flavor.h"
 #include "idle.h"
 #include "flavor_link_policy.h"
@@ -102,7 +103,9 @@ static void fillSoundCfg(SoundCfgPayload &c) {
 // window right after a frame arrives, when the glass is known to be listening
 // rather than talking. The glass polls on an interval for exactly this reason,
 // so the wait is bounded by that poll and not by whether anyone touches anything.
-struct Announce { uint8_t type; uint8_t len; uint8_t data[8]; };
+// 12 bytes because OtaBeginPayload is 10 and is queued here like anything
+// else the main board volunteers; every other announcement fits in 8.
+struct Announce { uint8_t type; uint8_t len; uint8_t data[12]; };
 static const uint8_t ANN_DEPTH = 4;
 static Announce annQ[ANN_DEPTH];
 static uint8_t  annHead = 0, annTail = 0, annCount = 0;
@@ -231,6 +234,12 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 
     // The logo a channel wears is main-board-owned like the selection, so the
     // enclosure states the pair and reads back what the main board now holds.
+    // Firmware for this display. A request is answered from the held chunk if
+    // the main board has it; otherwise this turn passes and the host is asked,
+    // and the enclosure's next poll gets the bytes.
+    if (type == MSG_OTA_REQ)  { otaOnRequest(OTA_TGT_ENCLOSURE, payload, plen); return; }
+    if (type == MSG_RESP_OTA) { otaOnState(OTA_TGT_ENCLOSURE, payload, plen);   return; }
+
     if (type == MSG_TOUCH) return;   // presence only; nothing to answer
 
     if (type == MSG_IDLE_QUERY) {
@@ -474,6 +483,17 @@ void linkBegin() {
     Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
     j9.onMessage = onMessage;
     j9.begin(j9Stream, "J9");
+}
+
+// Volunteered, so it waits for a turn exactly like every other announcement.
+void linkQueueOta(uint8_t type, const void *data, uint8_t len) {
+    announceQueue(type, data, len);
+}
+
+// A reply, sent from inside the dispatch of the request it answers. This is
+// the one place OTA bytes may go straight onto the pair.
+bool linkReplyOta(uint8_t type, const void *data, uint8_t len) {
+    return j9.send(type, data, len) >= 0;
 }
 
 void linkService() { j9.service(); }
