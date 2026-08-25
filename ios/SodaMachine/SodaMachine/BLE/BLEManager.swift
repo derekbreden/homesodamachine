@@ -127,10 +127,17 @@ class BLEManager {
     /// config screens are made of. The appliance answers none of that
     /// vocabulary, so being connected is the whole of it.
     var readyToShow: Bool {
+        // The last board an update touches is the one carrying the connection,
+        // so finishing one drops it. Being dumped back to a search screen is not
+        // what "Update complete" should look like.
+        if updateSettling { return true }
         guard connectionState == .connected else { return false }
         if demoMode || isAppliance { return true }
         return !cachedImages.isEmpty
     }
+
+    /// An update finished and the machine is restarting into it.
+    var updateSettling = false
 
     /// Which screens this machine gets. A machine whose advertisement carried
     /// no model byte is running firmware older than that, and every one of
@@ -1503,7 +1510,16 @@ class BLEManager {
 
         guard failure == nil else { otaQueue = []; otaFetch = nil; return }
         if !otaQueue.isEmpty { otaQueue.removeFirst(); otaQueueDone += 1 }
-        guard !otaQueue.isEmpty else { otaFetch = nil; return }
+        guard !otaQueue.isEmpty else {
+            otaFetch = nil
+            // The board that took the last image is rebooting, and it is the one
+            // this connection runs on. Hold the screen until it is back.
+            updateSettling = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 90) { [weak self] in
+                self?.updateSettling = false
+            }
+            return
+        }
         // The board that just took an image is rebooting into it, and on the far
         // side of a relay the link has to come back up before the next one can
         // start. J9 and J3 both take seconds to re-establish after a reset.
@@ -1551,7 +1567,7 @@ class BLEManager {
             log.info("OTA \(self.otaImage?.target ?? "?"): verified and set to boot")
             finishUpdate(failure: nil)
         } else {
-            log.error("OTA failed: state \(state), \(err.message)")
+            log.error("OTA failed: state \(state), \(err.detail)")
             finishUpdate(failure: err.message)
         }
     }
@@ -1751,6 +1767,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        DispatchQueue.main.async { self.ble.updateSettling = false }
         log.info("Connected to \(peripheral.name ?? "device")")
         peripheral.delegate = self
         peripheral.discoverServices([nusServiceUUID])

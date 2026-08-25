@@ -185,18 +185,35 @@ struct OTAProgress: Equatable {
 }
 
 /// The failures the receiver reports, as proto_msg.h names them.
+///
+/// WHAT A PERSON IS TOLD IS WHAT THEY CAN DO. Which partition table a board was
+/// flashed with, and whether a CRC matched, are answers to questions nobody
+/// standing at a kitchen counter asked. Two things can be done about a failed
+/// update: try it again, or get the machine looked at. Every one of these is
+/// one of those, and the exact cause goes to the log for whoever reads logs.
 enum OTAError: UInt8 {
     case none = 0, noSlot = 1, tooBig = 2, write = 3, crc = 4, verify = 5, sequence = 6
 
+    /// True where trying again cannot help, because nothing about the machine
+    /// will be different next time.
+    var needsService: Bool { self == .noSlot || self == .tooBig }
+
     var message: String {
+        needsService
+            ? "This machine needs an update that can't be installed over Bluetooth."
+            : "Something went wrong partway through. Your machine is unchanged."
+    }
+
+    /// For the log, not the screen.
+    var detail: String {
         switch self {
         case .none:     return "stopped"
-        case .noSlot:   return "that board has a single-slot partition table, so it cannot take an update over the wire"
-        case .tooBig:   return "the image does not fit that board's slot"
-        case .write:    return "the board could not write its flash"
-        case .crc:      return "the image that arrived is not the image that was sent"
-        case .verify:   return "the board refused to boot from what arrived"
-        case .sequence: return "bytes arrived out of order"
+        case .noSlot:   return "single-slot partition table"
+        case .tooBig:   return "image does not fit the slot"
+        case .write:    return "flash write failed"
+        case .crc:      return "whole-image CRC32 did not match"
+        case .verify:   return "esp_ota_end / set_boot_partition refused"
+        case .sequence: return "bytes arrived for the wrong offset"
         }
     }
 }

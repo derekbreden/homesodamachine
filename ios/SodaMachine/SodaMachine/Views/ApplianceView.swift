@@ -34,13 +34,20 @@ struct ApplianceView: View {
                 Spacer()
 
                 VStack(spacing: 0) {
-                    button("Firmware") { inFirmware = true }
-                    button("Machines") {
-                        ble.chooseAnother()
-                        inMachines = true
-                    }
+                    button("Software Update") { inFirmware = true }
                 }
                 .padding(.horizontal, 24)
+
+                // Most people own one machine and never need this, so it is a
+                // line of text rather than a second button competing with the
+                // one thing this screen does.
+                Button("Not this machine?") {
+                    ble.chooseAnother()
+                    inMachines = true
+                }
+                .font(.system(size: 14))
+                .foregroundStyle(Theme.textSecondary)
+                .padding(.top, 18)
                 .padding(.bottom, 32)
             }
         }
