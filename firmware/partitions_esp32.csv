@@ -5,6 +5,8 @@
 # an `app0` (ota_0) slot, but NO `app1` (ota_1). ESP-IDF / Arduino OTA refuses
 # to write without a second slot because rollback is impossible.
 #
+# The update path this serves is `firmware/README.md`, "A shipped unit is
+# updated from the iOS app".
 # Architecture: updates flow phone -> BLE -> S3 -> UART -> ESP32 main. The
 # unit is never on WiFi or the internet (air gap is intentional, see
 # README/MEMORY). BLE OTA still needs two app slots on the device.
