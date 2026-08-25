@@ -183,6 +183,20 @@ void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
 void otaService() {
     if (target == OTA_TGT_NONE) return;
 
+    // A session that stops moving says so. While the host owes bytes the
+    // console reads raw and answers nothing, so without this a stall is
+    // indistinguishable from a board that has stopped existing.
+    static uint32_t lastMoveMs = 0;
+    static uint32_t lastSeen = 0;
+    if (lastReported != lastSeen) { lastSeen = lastReported; lastMoveMs = millis(); }
+    if (lastMoveMs == 0) lastMoveMs = millis();
+    if (millis() - lastMoveMs >= 4000) {
+        lastMoveMs = millis();
+        Serial.printf("\nOTA:STALL owes=%u got=%u bufOff=%lu bufLen=%u full=%d seen=%d\n",
+                      hostOwes, hostGot, (unsigned long)bufOffset, bufLen,
+                      (int)bufFull, (int)sawReceiver);
+    }
+
     if (!sawReceiver && target != OTA_TGT_SELF && millis() - beganAtMs >= 500) {
         beganAtMs = millis();
         OtaBeginPayload begin{imgSize, imgCrc, chunk, imgKind};
