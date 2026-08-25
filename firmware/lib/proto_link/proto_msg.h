@@ -444,13 +444,13 @@ constexpr uint8_t OTA_ERR_SEQUENCE  = 6;  // bytes arrived for the wrong offset
 // HDLC frame buffers are sized for it, and J3's TinyProto Fd fragments
 // internally. A chunk is a round trip, so this is most of what a transfer's
 // speed is made of.
-constexpr uint16_t OTA_CHUNK_J9 = 4096;
+constexpr uint16_t OTA_CHUNK_J9 = 1024;
 
 // What one J9 frame can carry: the HDLC tx buffer less the type byte. Declared
 // here beside the chunk that has to fit it; proto_link.h asserts its buffer is
 // at least this, so raising one without the other does not compile.
-constexpr uint16_t J9_MAX_PAYLOAD = 4223;
-constexpr uint16_t OTA_CHUNK_J3 = 4096;
+constexpr uint16_t J9_MAX_PAYLOAD = 1151;
+constexpr uint16_t OTA_CHUNK_J3 = 1024;
 
 inline uint32_t uartCrc32Update(uint32_t prev, const uint8_t *data, size_t len) {
   uint32_t crc = ~prev;
