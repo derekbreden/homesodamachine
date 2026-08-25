@@ -108,9 +108,18 @@ class BLEManager {
     var otaProgress: OTAProgress? = nil
     /// What the board with the radio says it is running, from BLE_IDENTITY.
     var radioBoardVersion: String = ""
+    /// What every board on the machine reports, assembled by its main board.
+    var machineVersions = MachineVersions()
 
     @ObservationIgnored fileprivate var otaImage: FirmwareImage? = nil
     @ObservationIgnored fileprivate var otaData: Data = Data()
+
+    /// What one tap of Update still owes. A board reboots into its new image and
+    /// the link comes back before the next one starts, so these go one at a time.
+    var otaQueue: [FirmwareImage] = []
+    var otaQueueDone: Int = 0
+    @ObservationIgnored fileprivate var otaModel: MachineModel = .unknown
+    @ObservationIgnored fileprivate var otaFetch: ((FirmwareImage) async throws -> Data)? = nil
 
     /// Ready to transition from animated splash to main UI.
     ///
@@ -1404,6 +1413,7 @@ class BLEManager {
     fileprivate static let bleOtaData:  UInt8 = 0x12
     fileprivate static let bleOtaEnd:   UInt8 = 0x13
     fileprivate static let bleIdentity: UInt8 = 0x14
+    fileprivate static let bleVersions: UInt8 = 0x15
 
     /// Start pushing one image. `data` has already been held to the manifest's
     /// sha256; the crc32 goes onto the wire for the board to hold it to.
@@ -1425,9 +1435,47 @@ class BLEManager {
         log.info("OTA \(image.target): \(data.count) bytes, crc \(image.crc32)")
     }
 
+    /// One tap: every image this machine is behind on, in order — the far
+    /// display first, the radio board last, so the board carrying the session is
+    /// the last one to reboot out from under it.
+    func startUpdateAll(_ images: [FirmwareImage], on model: MachineModel,
+                        fetch: @escaping (FirmwareImage) async throws -> Data) {
+        guard otaQueue.isEmpty, otaProgress == nil, !images.isEmpty else { return }
+        otaModel = model
+        otaFetch = fetch
+        otaQueueDone = 0
+        otaQueue = images.sorted { a, b in
+            (a.otaTarget(on: model)?.rawValue ?? 0) > (b.otaTarget(on: model)?.rawValue ?? 0)
+        }
+        pumpQueue()
+    }
+
+    fileprivate func pumpQueue() {
+        guard let next = otaQueue.first, let fetch = otaFetch else {
+            otaFetch = nil
+            return
+        }
+        Task {
+            do {
+                let data = try await fetch(next)
+                await MainActor.run { self.startUpdate(image: next, data: data, on: self.otaModel) }
+            } catch {
+                await MainActor.run {
+                    self.otaProgress = OTAProgress(target: next.target, what: next.what,
+                                                   sent: 0, total: next.bytes,
+                                                   failure: error.localizedDescription)
+                    self.otaQueue = []
+                    self.otaFetch = nil
+                }
+            }
+        }
+    }
+
     func cancelUpdate() {
         guard let image = otaImage else { return }
         log.info("OTA \(image.target): cancelled")
+        otaQueue = []
+        otaFetch = nil
         finishUpdate(failure: "cancelled")
     }
 
@@ -1439,6 +1487,18 @@ class BLEManager {
         }
         otaImage = nil
         otaData = Data()
+
+        guard failure == nil else { otaQueue = []; otaFetch = nil; return }
+        if !otaQueue.isEmpty { otaQueue.removeFirst(); otaQueueDone += 1 }
+        guard !otaQueue.isEmpty else { otaFetch = nil; return }
+        // The board that just took an image is rebooting into it, and on the far
+        // side of a relay the link has to come back before the next one starts.
+        let delay: TimeInterval = 6
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self, !self.otaQueue.isEmpty else { return }
+            self.otaProgress = nil
+            self.pumpQueue()
+        }
     }
 
     /// The board asking for the next piece. Answering is the whole of the
@@ -1497,6 +1557,24 @@ class BLEManager {
                 self.connectedMachine = m
             }
         }
+    }
+
+    /// VersionsPayload: [count:1] then count × [board:1][version:24][artCrc:4].
+    fileprivate func handleVersions(_ payload: Data) {
+        guard payload.count >= 1 else { return }
+        let b = payload.startIndex
+        let count = min(Int(payload[b]), 3)
+        var found = MachineVersions()
+        for i in 0..<count {
+            let o = b + 1 + i * 29
+            guard payload.count >= (o - b) + 29 else { break }
+            let board = payload[o]
+            let raw = payload[(o + 1)..<(o + 25)].prefix { $0 != 0 }
+            found.byBoard[board] = String(data: Data(raw), encoding: .utf8) ?? ""
+            found.artCrc[board] = UInt32(payload[o + 25]) | (UInt32(payload[o + 26]) << 8)
+                                | (UInt32(payload[o + 27]) << 16) | (UInt32(payload[o + 28]) << 24)
+        }
+        DispatchQueue.main.async { self.machineVersions = found }
     }
 
     fileprivate func scheduleReconnect() {
@@ -1777,6 +1855,8 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleOtaEnd(payload)
             case 0x14: // IDENTITY
                 ble.handleIdentity(payload)
+            case 0x15: // VERSIONS
+                ble.handleVersions(payload)
             default:
                 break
             }

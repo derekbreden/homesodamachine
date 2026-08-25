@@ -5,6 +5,7 @@
 #include "faucet_link.h"
 #include "flavor.h"
 #include "identity.h"
+#include "versions.h"
 #include "idle.h"
 #include "link.h"
 #include "machine.h"
@@ -69,6 +70,7 @@ void setup() {
     Serial.printf("\nhomesodamachine appliance  %s  (%s)\n", FW_VERSION, FW_BUILD_TIME);
 
     identityBegin();
+    versionsBegin();
     flavorBegin();
     idleBegin();
 
@@ -114,6 +116,7 @@ void loop() {
     machineService();   // the deadlines a held pump is measured against
     linkService();      // J9 frames in, replies out
     faucetLinkService();// J3 frames in, replies out
+    versionsService();  // ask each display what it is running
     soundService();     // U8's step boundaries — nothing here blocks, and it must
                         // run every pass: LEDC keeps oscillating on its own, so a
                         // sequencer that stops being serviced holds the coil on.
@@ -348,6 +351,7 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line == "versions")        { versionsConsole(); return; }
 
     if (line.startsWith("flavor")) {
         String rest = line.substring(6); rest.trim();

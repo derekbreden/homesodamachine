@@ -1,169 +1,218 @@
 import SwiftUI
 
 // ────────────────────────────────────────────────────────────
-// What this machine is running, and what homesodamachine.com has published.
+// Whether this machine is current, and the one button that makes it so.
 //
-// A board's version string is written into its own tree by pre_build.py and
-// reported back over the wire, and the manifest carries the same string. So
-// "current" is a comparison of one value against itself rather than two
-// independent readings of a date.
+// A machine is several boards, and being current is all of them being current.
+// Each reports the version string `pre_build.py` wrote into its own tree, and
+// the manifest carries the same strings — so the comparison is a value against
+// itself, not two readings of a date. The animation partition carries a crc32
+// instead of a version, and the manifest carries that too.
 //
-// While a display is taking an image it goes dark and reboots either way. The
-// phone is what says so — the screen being written cannot.
+// A board that has said nothing is not counted as behind. Until the machine has
+// answered at all, neither claim is made.
 // ────────────────────────────────────────────────────────────
 
 struct FirmwareUpdateView: View {
     @Environment(BLEManager.self) var ble
     @State private var catalog = FirmwareCatalog()
-    @State private var failure: String?
+    @State private var checking = false
 
     private var model: MachineModel { ble.connectedMachine?.model ?? .unknown }
-    private var images: [FirmwareImage] { catalog.manifest?.images(for: model) ?? [] }
+    private var published: [FirmwareImage] { catalog.manifest?.images(for: model) ?? [] }
+    private var behind: [FirmwareImage] {
+        published.filter { ble.machineVersions.needs($0, on: model) }
+    }
+    private var heardFrom: Bool { ble.machineVersions.answered > 0 }
 
     var body: some View {
-        VStack(spacing: 14) {
-            header
-
-            if let push = ble.otaProgress {
-                pushing(push)
-            } else if catalog.loading {
-                ProgressView().tint(Theme.textPrimary).padding(.vertical, 24)
-            } else if let error = catalog.error {
-                message("Could not reach homesodamachine.com", error)
-            } else if images.isEmpty {
-                message("Nothing published for this machine", "The manifest carries no image for a \(model.label.lowercased()).")
-            } else {
-                ScrollView {
-                    VStack(spacing: 10) { ForEach(images) { row($0) } }
-                }
-            }
-
-            if let failure {
-                Text(failure)
-                    .font(.system(size: 13))
-                    .foregroundStyle(.orange)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
-            }
-        }
-        .task { await catalog.refresh() }
-    }
-
-    private var header: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 18) {
             Text("Firmware")
                 .font(.system(size: 20, weight: .medium))
                 .foregroundStyle(Theme.textPrimary)
-            if !ble.radioBoardVersion.isEmpty {
-                Text("this machine reports \(ble.radioBoardVersion)")
-                    .font(.system(size: 12))
+                .padding(.top, 24)
+
+            Spacer()
+
+            if let push = ble.otaProgress {
+                pushing(push)
+            } else if catalog.loading || checking {
+                ProgressView().tint(Theme.textPrimary)
+                Text("Checking for updates")
+                    .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
+            } else if let error = catalog.error {
+                state("Could not reach homesodamachine.com", error)
+                checkButton()
+            } else if !heardFrom {
+                state("Asking the machine what it is running",
+                      "It has not answered yet.")
+                checkButton()
+            } else if behind.isEmpty {
+                state("Your machine is up to date",
+                      running)
+                checkButton()
+            } else {
+                available
             }
+
+            Spacer()
         }
-        .padding(.top, 20)
+        .task { await check() }
     }
 
-    private func pushing(_ push: OTAProgress) -> some View {
-        VStack(spacing: 12) {
-            Text(push.what)
-                .font(.system(size: 15, weight: .medium))
+    // MARK: - The one button
+
+    private var available: some View {
+        VStack(spacing: 14) {
+            Text("An update is available")
+                .font(.system(size: 17, weight: .medium))
                 .foregroundStyle(Theme.textPrimary)
 
-            ProgressView(value: push.fraction)
-                .tint(Theme.textPrimary)
-                .padding(.horizontal, 24)
-
-            Text("\(push.sent.formatted()) of \(push.total.formatted()) bytes")
-                .font(.system(size: 12).monospacedDigit())
+            Text(behind.count == 1
+                 ? "One part of your machine has a newer version."
+                 : "\(behind.count) parts of your machine have newer versions.")
+                .font(.system(size: 14))
                 .foregroundStyle(Theme.textSecondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
 
-            if push.finished {
-                Text("Verified. The board is restarting into it.")
-                    .font(.system(size: 13))
+            Button {
+                ble.startUpdateAll(behind, on: model) { try await catalog.payload(for: $0) }
+            } label: {
+                Text("Update Now")
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(Theme.accent)
+                    .cornerRadius(14)
+            }
+            .padding(.horizontal, 28)
+            .padding(.top, 8)
+
+            Text("Keep your phone near the machine. Do not unplug it.")
+                .font(.system(size: 12))
+                .foregroundStyle(Theme.textSecondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+        }
+    }
+
+    // MARK: - While it runs
+
+    private func pushing(_ push: OTAProgress) -> some View {
+        VStack(spacing: 14) {
+            if push.finished && ble.otaQueue.isEmpty {
+                Text("Update complete")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
+                Text("Your machine is restarting into it.")
+                    .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
+                Button("Done") { ble.otaProgress = nil }
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
+                    .padding(.top, 6)
             } else if let why = push.failure {
+                Text("The update stopped")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
                 Text(why)
                     .font(.system(size: 13))
                     .foregroundStyle(.orange)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
-            } else {
-                // The display being written goes dark for the whole write and
-                // reboots either way; a half-finished transfer costs a reboot
-                // into what it was already running, and a pulled plug costs more.
-                Text("Keep the phone near the machine. Do not unplug it.")
+                    .padding(.horizontal, 32)
+                Text("Your machine is still running what it was.")
                     .font(.system(size: 13))
                     .foregroundStyle(Theme.textSecondary)
+                Button("Done") { ble.otaProgress = nil }
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
+                    .padding(.top, 6)
+            } else {
+                Text("Updating your machine")
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
+
+                ProgressView(value: overall)
+                    .tint(Theme.accent)
+                    .scaleEffect(x: 1, y: 1.6, anchor: .center)
+                    .padding(.horizontal, 32)
+
+                Text(step)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.textSecondary)
+
+                Text("Keep your phone near the machine. Do not unplug it.")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 40)
+                    .padding(.top, 4)
 
                 Button("Cancel") { ble.cancelUpdate() }
                     .font(.system(size: 14))
                     .foregroundStyle(Theme.textSecondary)
             }
-
-            if push.finished || push.failure != nil {
-                Button("Done") { ble.otaProgress = nil }
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundStyle(Theme.textPrimary)
-                    .padding(.top, 4)
-            }
         }
-        .padding(.vertical, 20)
     }
 
-    private func row(_ image: FirmwareImage) -> some View {
-        let current = image.version != nil && image.version == ble.radioBoardVersion
-        return HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(image.what)
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundStyle(Theme.textPrimary)
-                Text("\(image.version ?? "no version") · \(image.bytes.formatted()) bytes")
-                    .font(.system(size: 12))
-                    .foregroundStyle(Theme.textSecondary)
-            }
-            Spacer()
-            Button(current ? "Reinstall" : "Install") { push(image) }
-                .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Theme.textPrimary)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 8)
-                .background(Color.white.opacity(0.15))
-                .cornerRadius(8)
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .background(Color.white.opacity(0.08))
-        .cornerRadius(12)
-        .padding(.horizontal, 20)
+    /// One bar for the whole tap, not one per board.
+    private var overall: Double {
+        let total = ble.otaQueueDone + ble.otaQueue.count
+        guard total > 0, let push = ble.otaProgress else { return 0 }
+        return (Double(ble.otaQueueDone) + push.fraction) / Double(total)
     }
 
-    private func message(_ title: String, _ body: String) -> some View {
-        VStack(spacing: 6) {
+    private var step: String {
+        let total = ble.otaQueueDone + ble.otaQueue.count
+        guard let push = ble.otaProgress else { return "" }
+        return total > 1
+            ? "\(push.what) — part \(ble.otaQueueDone + 1) of \(total)"
+            : push.what
+    }
+
+    // MARK: - Pieces
+
+    private var running: String {
+        let v = ble.machineVersions.byBoard.values.filter { !$0.isEmpty }
+        return v.first.map { "Running \($0)" } ?? ""
+    }
+
+    private func state(_ title: String, _ body: String) -> some View {
+        VStack(spacing: 8) {
             Text(title)
-                .font(.system(size: 15, weight: .medium))
+                .font(.system(size: 17, weight: .medium))
                 .foregroundStyle(Theme.textPrimary)
-            Text(body)
-                .font(.system(size: 13))
-                .foregroundStyle(Theme.textSecondary)
                 .multilineTextAlignment(.center)
-        }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 24)
-    }
-
-    private func push(_ image: FirmwareImage) {
-        failure = nil
-        Task {
-            do {
-                let data = try await catalog.payload(for: image)
-                await MainActor.run { ble.startUpdate(image: image, data: data, on: model) }
-            } catch {
-                await MainActor.run {
-                    failure = "Could not fetch \(image.target): \(error.localizedDescription)"
-                }
+            if !body.isEmpty {
+                Text(body)
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
             }
         }
+        .padding(.horizontal, 32)
+    }
+
+    private func checkButton() -> some View {
+        Button("Check for Updates") { Task { await check() } }
+            .font(.system(size: 16, weight: .medium))
+            .foregroundStyle(Theme.textPrimary)
+            .padding(.horizontal, 22)
+            .padding(.vertical, 12)
+            .background(Color.white.opacity(0.12))
+            .cornerRadius(12)
+            .padding(.top, 14)
+    }
+
+    private func check() async {
+        checking = true
+        ble.send("IDENTITY")          // ask the machine to say what it is running
+        await catalog.refresh()
+        // Give the machine's answer the same beat the manifest took.
+        try? await Task.sleep(nanoseconds: 900_000_000)
+        checking = false
     }
 }
