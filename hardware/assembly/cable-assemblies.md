@@ -25,6 +25,31 @@ Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever 
 
 Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
+
+### XH contacts
+
+The board-end contact is JST **SXH-001T-P0.6** — conductor #28 to #22, **insulation OD 0.9 to
+1.9 mm**, tin, 8,000 per reel. The bulk 22 AWG silicone runs 1.7 mm ± 0.1, so it sits inside that
+window with about 0.1 mm at the top of the tolerance band; a contract manufacturer's crimp-selection
+database may refuse the pair on its own margins even though JST's range covers it. The umbilical's
+28 AWG has a second option: **SXH-002T-P0.6** is the #30 to #26 contact, insulation OD 0.9 to
+1.3 mm, and its conductor barrel closes on 0.08 mm² near the middle of its range rather than at the
+floor of the -001T's.
+
+What holds a contact square in the die during a crimp is a **locator**, and no low-cost tool has
+one — the contact is placed by hand and held there. JST's own hand tools do: **WC-110** (#22–#28,
+side entry) covers both gauges in this build, **YC-111R** (#22–#24) and **YC-110R** (#24–#26) cover
+one each. With a ratcheting tool and no locator, close the ratchet one click onto the contact first
+so it is captive, then feed the wire.
+
+At volume the contact is never handled at all: it arrives on its carrier strip and an applicator
+(**MKS-L** with **APLMK SXH001-06** dies) on a semi-automatic press (**AP-K2N**) indexes, crimps and
+shears it in one stroke, so the operator only places the wire. That is the same crimp this bench
+makes by hand, with the positioning done by the strip.
+
+JST also sells the -001T factory-crimped onto black 22 AWG as **ASXHSXH22K*** — socket-to-socket
+jumpers in 50, 100, 150, 200, 250 and 305 mm, under a dollar each in single quantity. Cutting one
+end off yields a finished XH pigtail for any run at or under its length.
 ## Procedure (per assembly)
 
 For each cable assembly in the schedule below:
@@ -94,7 +119,6 @@ signals are protected.
 
 1. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
 2. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW compressor lead.
-3. **22 AWG silicone into JST XH.** The XH contact (SXH-001T-P0.6) is rated 22–30 AWG on the conductor, and its insulation barrel is sized for the PVC and ETFE hookup wire that range is written against. Silicone's wall is thicker at every gauge, and 22 AWG silicone presents an OD the barrel does not close on. A harness contract manufacturer's crimp-selection data (MiniProto, `/api/v1/validations`) accepts 22 AWG into XH on UL 1007, UL 1015, UL 1061 and ThermoThin, and rejects Silicone at 22 and 23 AWG while accepting it from 24 AWG down. Every XH-terminated loom in the schedule above is 22 AWG silicone. Three ways out: 24 AWG silicone on the XH looms (the signal and reed runs carry no current; MANIFOLD A `COM` carries ≤ ~1.4 A over 300 mm), a thin-wall family at 22 AWG, or 22 AWG silicone kept only where the termination is a ferrule or a Faston.
 
 ## Sources
 [value](NAME) texts are updated by:
