@@ -87,7 +87,7 @@ contact count.
 | 7 | Faston 250 receptacle | TE **2178438-1**, 6.3 mm, female, 20–24 AWG | 12 | ea |
 | 8 | Faston 187 receptacle | TE **170214-2**, 4.8 mm, female, 20–24 AWG | 4 | ea |
 | 9 | Bootlace ferrule, insulated | DIN 46228-4, to suit final gauge | 13 | ea |
-| 10 | Hook-up wire | black silicone 600 V, 22 AWG, 1.7 mm ± 0.1 OD | 22.7 | m |
+| 10 | Hook-up wire | black silicone 600 V, 22 AWG, 1.7 mm ± 0.1 OD | 17.7 | m |
 | 11 | Ribbon, 4-conductor | 28 AWG jacketed, black | 1.0 | m |
 | 12 | Braided sleeve, 3/4" | black PET expandable | 0.30 | m |
 | 13 | Braided sleeve, 1/2" | black PET expandable | 1.70 | m |
@@ -95,8 +95,8 @@ contact count.
 | 15 | Heat-shrink, sleeve ends | black, sized to sleeve | 18 | ends |
 | 16 | Heat-shrink marker, label | black, one per assembly, printed with the assembly name | 10 | ea |
 
-**Wire length by assembly** (sum of conductor cut lengths, service loop excluded): J1 3900, J2 2100,
-J4 3300, J5 600, J6 3000, J7 4200, J9 1600, J11 2400, J13 1600 mm. J3 is the ribbon, quoted by the
+**Wire length by assembly** (sum of conductor cut lengths, service loop excluded): J1 3050, J2 1750,
+J4 2200, J5 400, J6 2100, J7 2600, J9 1600, J11 2400, J13 1600 mm. J3 is the ribbon, quoted by the
 metre instead.
 
 Items 7 and 8 split on an assumption — see Open question 2. Item 9's barrel is sized for 22 AWG;
@@ -140,33 +140,34 @@ housing.**
 ## Wire lists
 
 Lengths are conductor cut lengths from the main-board contact to the device termination, service loop
-excluded — add your standard allowance. They are design targets from the enclosure layout, not yet
-measured against a built enclosure.
+excluded — add your standard allowance. Each is measured off the placed CAD assembly, board centre to
+device centre, scaled by a routed factor and rounded up to the next 50 mm. No enclosure has been built
+yet, so treat them as tight rather than final and tell us if your process wants more allowance.
 
 ### J1 — MANIFOLD A · XHP-9 · 3/4" sleeve
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1–8 | `OUT8`…`OUT1` | valves V-H…V-A, one each | ~450 mm | female Faston |
-| 9 | `COM` | 221-420 at the manifold | ~300 mm | ferrule |
+| 1–8 | `OUT8`…`OUT1` | valves V-H…V-A, one each | ~350 mm | female Faston |
+| 9 | `COM` | 221-420 at the manifold | ~250 mm | ferrule |
 | — | 8 × `COM` branch | 221-420 → each valve `+` | ~150 mm | ferrule / female Faston |
 
-Trunk is 300 mm to the manifold, then a 150 mm fan-out per valve. Low-side switching: `COM` carries
+Each `OUT` reaches its own coil; `COM` stops 250 mm out at the lever nut and fans out from there. Low-side switching: `COM` carries
 shared 12 V to every valve `+`; each valve `−` returns on its own `OUT`.
 
 ### J2 — MANIFOLD B · XHP-6, 5 populated · 1/2" sleeve
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1 | `COM` | 221-415 at the manifold | ~300 mm | ferrule |
-| 2 | `FAN` | condenser fan `−` | ~400 mm | female Faston |
+| 1 | `COM` | 221-415 at the manifold | ~400 mm | ferrule |
+| 2 | `FAN` | condenser fan `−` | ~450 mm | female Faston |
 | 3 | — | **empty, do not populate** | — | — |
-| 4 | `OUT3` | valve V-K `−` at the aft strip | ~500 mm | female Faston |
-| 5 | `OUT2` | valve V-J `−` | ~450 mm | female Faston |
-| 6 | `OUT1` | valve V-I `−` | ~450 mm | female Faston |
+| 4 | `OUT3` | valve V-K `−`, which stands against the board's own flank | ~100 mm | female Faston |
+| 5 | `OUT2` | valve V-J `−` | ~400 mm | female Faston |
+| 6 | `OUT1` | valve V-I `−` | ~400 mm | female Faston |
 | — | 4 × `COM` branch | 221-415 → V-I, V-J, fan, V-K | 150 / 150 / 100 / 200 mm | ferrule / female Faston |
 
-All four branches leave the 221-415 at the manifold, 300 mm along the trunk.
+All four branches leave the 221-415 at the manifold, 400 mm along the trunk.
 
 ### J3 — FAUCET · XHP-4 · 28 AWG 4-conductor ribbon
 
@@ -184,25 +185,25 @@ main board, so no cable-end component is required.
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1 | `3V3` | 1-wire temp bus | ~600 mm | per device |
-| 2 | `GND` | 221-415 on the −X wall aft | ~600 mm | ferrule |
-| 3 | `V5` | flow meter | ~150 mm | per device |
-| 4 | `IO25` | flow meter pulse | ~150 mm | per device |
-| 5 | `IO26` | 1-wire data | ~600 mm | per device |
-| 6 | `IO27` | moisture sensor DO | ~600 mm | per device |
-| 7 | `IO23` | moisture sensor switched VCC | ~600 mm | per device |
+| 1 | `3V3` | 1-wire temp bus | ~300 mm | per device |
+| 2 | `GND` | 221-415 on the −X wall aft | ~300 mm | ferrule |
+| 3 | `V5` | flow meter | ~300 mm | per device |
+| 4 | `IO25` | flow meter pulse | ~300 mm | per device |
+| 5 | `IO26` | 1-wire data | ~300 mm | per device |
+| 6 | `IO27` | moisture sensor DO | ~350 mm | per device |
+| 7 | `IO23` | moisture sensor switched VCC | ~350 mm | per device |
 | — | 3 × `GND` branch | 221-415 → 1-wire, flow meter, moisture | short pigtails | ferrule |
 
-The flow-meter leg (contacts 3, 4) leaves the trunk at ~150 mm; the other two legs run on to ~600 mm.
+All three legs land within 50 mm of each other; the trunk barely branches by length.
 
 ### J5 — RELAYS · XHP-4 · 1/4" sleeve
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1 | `GND` | relay #1 and #2 GND | ~150 mm | ferrule, teed to both |
-| 2 | `V5` | relay #1 and #2 VCC | ~150 mm | ferrule, teed to both |
-| 3 | `IO2` | relay #2 IN | ~150 mm | ferrule |
-| 4 | `IO19` | relay #1 IN | ~150 mm | ferrule |
+| 1 | `GND` | relay #1 and #2 GND | ~100 mm | ferrule, teed to both |
+| 2 | `V5` | relay #1 and #2 VCC | ~100 mm | ferrule, teed to both |
+| 3 | `IO2` | relay #2 IN | ~100 mm | ferrule |
+| 4 | `IO19` | relay #1 IN | ~100 mm | ferrule |
 
 `V5` and `GND` tee at the relay screw terminals — **no WAGO on this assembly.**
 
@@ -210,8 +211,8 @@ The flow-meter leg (contacts 3, 4) leaves the trunk at ~150 mm; the other two le
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1 | `GND` | 221-415 at reservoir A | ~600 mm | ferrule |
-| 2–5 | `RA4`…`RA1` | reservoir A level reeds 4…1 | ~600 mm | reed leads |
+| 1 | `GND` | 221-415 at reservoir A | ~300 mm | ferrule |
+| 2–5 | `RA4`…`RA1` | reservoir A level reeds 4…1 | ~450 mm | reed leads |
 | — | 4 × `GND` branch | 221-415 → each reed | short pigtails | ferrule |
 
 Note the reversed order: contact 2 is `RA4`, contact 5 is `RA1`.
@@ -220,10 +221,10 @@ Note the reversed order: contact 2 is `RA4`, contact 5 is `RA1`.
 
 | Contact | Signal | To | Length | Termination |
 |---|---|---|---|---|
-| 1–4 | `RB1`…`RB4` | reservoir B level reeds 1…4 | ~600 mm | reed leads |
-| 5 | `CLO` | carbonator low reed | ~600 mm | reed leads |
-| 6 | `CHI` | carbonator high reed | ~600 mm | reed leads |
-| 7 | `GND` | 221-420 at the cold-core end | ~600 mm | ferrule |
+| 1–4 | `RB1`…`RB4` | reservoir B level reeds 1…4 | ~400 mm | reed leads |
+| 5 | `CLO` | carbonator low reed | ~350 mm | reed leads |
+| 6 | `CHI` | carbonator high reed | ~350 mm | reed leads |
+| 7 | `GND` | 221-420 at the cold-core end | ~300 mm | ferrule |
 | — | 6 × `GND` branch | 221-420 → each reed | short pigtails | ferrule |
 
 Same XHP-7 as J4 — label at the housing.
@@ -291,3 +292,4 @@ Derived from, and kept consistent with:
 - [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) — run table, lengths
 - [`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) — contact order, canonical
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 — stock and part numbers
+- [`/hardware/wiring/_run_lengths.py`](/hardware/wiring/_run_lengths.py) — the cut lengths, measured off the placed assembly
