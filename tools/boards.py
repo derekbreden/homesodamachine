@@ -38,6 +38,7 @@ S3_ENVS = [
 # convenience, and nothing depends on a board being in it.
 S3_MACS = {
     "44:1B:F6:86:15:98": "esp32s3_faucet",
+    "E8:F6:0A:8E:8B:C8": "esp32s3_front",
 }
 
 
