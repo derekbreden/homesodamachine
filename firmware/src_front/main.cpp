@@ -1556,6 +1556,12 @@ static void j9Begin() {
   // reply then reads `7E 16 01 8F DF 7E` — flag, MSG_RESP_PUMP_DONE, channel, CRC, flag.
   gpio_reset_pin((gpio_num_t)rs485Rx);
   gpio_reset_pin((gpio_num_t)rs485Tx);
+  // 8 KB, because the loop does not always come back quickly: a flash sector
+  // erase inside esp_ota_write blocks for tens of milliseconds, and at these
+  // rates that is thousands of bytes arriving with nobody draining them. The
+  // default 256-byte ring overflows and the frame is simply lost — which
+  // looks exactly like a link that has stopped talking.
+  Serial1.setRxBufferSize(8192);
   Serial1.begin(RS485_BAUD, SERIAL_8N1, rs485Rx, rs485Tx);
   j9.onMessage = j9OnMessage;
   j9.begin(Serial1, "J9");

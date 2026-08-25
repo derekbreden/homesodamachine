@@ -398,7 +398,7 @@ void baseLinkBegin(uint8_t cachedFlavor, BaseFlavorHandler handler,
   // mapping UART1, so the native-USB build never inherits a boot-ROM owner.
   gpio_reset_pin(static_cast<gpio_num_t>(kBaseTxPin));
   gpio_reset_pin(static_cast<gpio_num_t>(kBaseRxPin));
-  Serial1.setRxBufferSize(1024);
+  Serial1.setRxBufferSize(8192);
   Serial1.begin(kBaseBaud, SERIAL_8N1, kBaseRxPin, kBaseTxPin);
   base.onMessage = onMessage;
   base.begin(Serial1, "J3 base");

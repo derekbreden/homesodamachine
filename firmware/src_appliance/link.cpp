@@ -480,6 +480,12 @@ void linkBegin() {
     machineOnPrimeState = onPrimeState;
     machineOnPumpDone   = onPumpDone;
 
+    // 8 KB, because the loop does not always come back quickly: a flash sector
+    // erase inside esp_ota_write blocks for tens of milliseconds, and at these
+    // rates that is thousands of bytes arriving with nobody draining them. The
+    // default 256-byte ring overflows and the frame is simply lost — which
+    // looks exactly like a link that has stopped talking.
+    Serial1.setRxBufferSize(8192);
     Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
     j9.onMessage = onMessage;
     j9.begin(j9Stream, "J9");
