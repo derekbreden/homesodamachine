@@ -175,9 +175,13 @@ struct FirmwareUpdateView: View {
 
     // MARK: - Pieces
 
+    /// The date the running firmware was built. The rest of the version string
+    /// is a commit and a dirty marker, which answer a question nobody standing
+    /// at their kitchen counter is asking.
     private var running: String {
-        let v = ble.machineVersions.byBoard.values.filter { !$0.isEmpty }
-        return v.first.map { "Running \($0)" } ?? ""
+        let v = ble.machineVersions.byBoard.values.first { !$0.isEmpty } ?? ""
+        let date = v.split(separator: " ").first.map(String.init) ?? ""
+        return date.isEmpty ? "" : "Installed \(date)"
     }
 
     private func state(_ title: String, _ body: String) -> some View {

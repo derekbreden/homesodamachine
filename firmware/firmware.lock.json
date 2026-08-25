@@ -2,15 +2,15 @@
   "_": "Written by tools/publish_firmware.py. The images are fetched, not committed \u2014 web/scripts/fetch-firmware.mjs reads this at deploy and /api/firmware serves it.",
   "release": {
     "tag": "firmware",
-    "asset": "fw-49b566501dca647f.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-49b566501dca647f.tar.gz"
+    "asset": "fw-e339aad5e2c76ea3.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/firmware/fw-e339aad5e2c76ea3.tar.gz"
   },
   "source": {
-    "commit": "d3ccc07a9bbadbb052541577adbfa84c92d1fb91"
+    "commit": "565ff1a80fb35fcb3a9875c351f78125b4b22140"
   },
   "bundle": {
-    "sha256": "49b566501dca647f85129374ade56e27886f7a10e78f2ba7c2acca18999c7899",
-    "bytes": 2560484,
+    "sha256": "e339aad5e2c76ea335852009e4f19be3b83615ccfea98547e2087c4b75513d5b",
+    "bytes": 2560473,
     "images": 7
   },
   "images": {
@@ -19,10 +19,10 @@
       "machine": "appliance",
       "what": "the main board's own firmware",
       "kind": "app",
-      "version": "2026.08.25 c3a47202+",
+      "version": "2026.08.25 565ff1a8+",
       "bytes": 442672,
-      "crc32": 1966754649,
-      "sha256": "3bf777e4391c30dc21f63248448550938d2848bcb69b98bb2a40823b0b6301f7",
+      "crc32": 1613599508,
+      "sha256": "c9c84e67b66c5a984317518bfc169a0689b381c06ad09af2a31cf6b3e3abe010",
       "file": "appliance.bin"
     },
     "art": {
@@ -42,10 +42,10 @@
       "machine": "appliance",
       "what": "the 4.3\" enclosure display",
       "kind": "app",
-      "version": "2026.08.25 c3a47202+",
+      "version": "2026.08.25 565ff1a8+",
       "bytes": 1507152,
-      "crc32": 1759012615,
-      "sha256": "4fa4801dda3e371d992dc99a794576eedba5b79e188d9d2b7ed9ffcca6b702c6",
+      "crc32": 3184801119,
+      "sha256": "bb14676c333ed2c6bc7f789b697f070b5e622ea04f98726d9be59575af0132ae",
       "file": "enclosure.bin"
     },
     "faucet": {
@@ -53,10 +53,10 @@
       "machine": "appliance",
       "what": "the 1.47\" faucet display",
       "kind": "app",
-      "version": "2026.08.25 c3a47202+",
+      "version": "2026.08.25 565ff1a8+",
       "bytes": 1357312,
-      "crc32": 1298077534,
-      "sha256": "2c0ce7bbebe667154175a80eb623d2023846bb715b50c62247d23aa9eeb2aee0",
+      "crc32": 3294683682,
+      "sha256": "ed25c6119eb8fba18f4d19072539bc9c5103df18d5ea9c741f0a4a7fd25941ef",
       "file": "faucet.bin"
     },
     "prototype": {
@@ -64,10 +64,10 @@
       "machine": "prototype",
       "what": "the prototype's main ESP32",
       "kind": "app",
-      "version": "2026.08.25 d3ccc07a+",
+      "version": "2026.08.25 565ff1a8+",
       "bytes": 493376,
-      "crc32": 3086414861,
-      "sha256": "f4e1c92f5556f2ff23a927a39a2478818383dfbeb056a52b04fda10644333f8a",
+      "crc32": 1787746180,
+      "sha256": "396e0f160bde62605a1528425182a4b8a50fd63f9a97b616ec2993300033a2bd",
       "file": "prototype.bin"
     },
     "rotary": {
@@ -75,10 +75,10 @@
       "machine": "prototype",
       "what": "the prototype's 1.28\" rotary display",
       "kind": "app",
-      "version": "2026.08.25 d3ccc07a+",
+      "version": "2026.08.25 565ff1a8+",
       "bytes": 1011952,
-      "crc32": 1467843144,
-      "sha256": "96969ced80d6146206c08c613a3fab9da237bdbd30c8b3b4420aad6679b8170f",
+      "crc32": 1683499180,
+      "sha256": "613d84543b87b63aa8015d21328b6d31e3f17e92496ace5fb9d51cf60b7c5fcc",
       "file": "rotary.bin"
     },
     "rotary_art": {
@@ -93,12 +93,5 @@
       "file": "rotary_art.bin",
       "art_crc32": 2684476894
     }
-  },
-  "unproven": {
-    "_": "source.commit does not describe these images: an uncommitted path below reaches what built them.",
-    "paths": [
-      "firmware/firmware.lock.json",
-      "tools/publish_firmware.py"
-    ]
   }
 }
