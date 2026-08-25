@@ -114,8 +114,14 @@ len_cartridge_mm = 400  # DC-5 to the peristaltic pumps, measured with the cartr
 len_manifold_mm = 300   # DC-6/DC-7 (+X wall → manifold trunks)
 len_compressor_mm = 400 # AC-4, AC-5, AC-6 (+X wall → compressor on the unbroken SJOOW jacket), DC-8 (+X wall → side-wall fan)
 len_aft_strip_mm = 500  # DC-9 (+X wall → V-K at the aft strip, past the water bulkhead)
+# SIG-7 IS INTERNAL AND SHORT. The main board stands at the FORWARD end of the +X wall's
+# column (`enclosure_assembly.build_pcba` — board, then relay #2, then the PSU hard against
+# the rear), and the 4.3B is let into the facet on the top-front arris, so the run crosses
+# less than half the box: ~260 mm straight line against a 624 mm body diagonal. The rung
+# above that carries the routed path and the service loop. Unmeasured, like every length here.
 len_cold_core_mm = 600  # SIG-1/2/3/10/11 (+X wall → cold core), SIG-9 (ASSE drip pan), SIG-12 (rear cabinet floor)
-len_umbilical_m = 1.0   # SIG-6 (faucet display up the umbilical), SIG-7 (the 4.3B enclosure display, internal)
+len_front_face_mm = 400 # SIG-7 (+X wall → the 4.3B in the front-top facet), which never leaves the box
+len_umbilical_m = 1.0   # SIG-6 ONLY — the faucet display, up the umbilical and out of the box
 
 # ─── Loom connector pitch ─────────────────────────────────────────────
 # JST XH 2.50 mm — every board loom connector (J1–J9, J11, J13); J10 is
@@ -171,6 +177,7 @@ def main():
         "LEN_COMPRESSOR": f"~{len_compressor_mm:.4g} mm",
         "LEN_AFT_STRIP": f"~{len_aft_strip_mm:.4g} mm",
         "LEN_COLD_CORE": f"~{len_cold_core_mm:.4g} mm",
+        "LEN_FRONT_FACE": f"~{len_front_face_mm:.4g} mm",
         "LEN_UMBILICAL": f"~{len_umbilical_m:.4g} m",
         # Connector pitch.
         "JST_PITCH": f"{jst_pitch_mm:.4g} mm",
