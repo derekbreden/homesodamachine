@@ -6,6 +6,14 @@ One thing, one name.
 in two places take the place: `faucet display`, `enclosure display`. There is one gooseneck, so
 `gooseneck` stands alone.
 
+**A word already in the machine is the BEST candidate for a new name, not a spent one.** `bay`
+names three of them, `display` two, and `boss`, `anchor`, `wall`, `plate`, `shell`, `tray`, `cap`
+and `ring` each name several. A word that already carries weight here has proved it reads here —
+so reach for it again and qualify it. Minting a fresh word to dodge a shared one is how a machine
+ends up with two words for one idea, which is the thing this file exists to stop. **One thing, one
+name** binds a THING to one name. It says nothing about how many things a word may serve, and a
+word's other duties are never a reason to refuse it.
+
 **A glossary entry is the full name.** The bare short form is what a file's path licenses, not what
 the entry says: `faucet shell` is the name, and `the shell` is correct inside
 `hardware/printed-parts/faucet/` and nowhere else.
@@ -60,6 +68,7 @@ they became.
 | **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
 | **boss** | material round a socket that a part fastens into — a post, or a plate one socket thick | |
+| **barbed lip** | the catch on a telescoping seam's lip that holds the seam shut against pulling apart, so the joint resists separation along its own axis rather than leaving that to the screws crossing it | snap, snap-fit lip, detent, catch |
 | **anchor** | a printed feature a body seats in and a zip tie closes over | anchor point |
 | **zip tie** | the fastener that closes over an anchor | strap |
 | **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
