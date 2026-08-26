@@ -21,9 +21,9 @@ here is a depth below the face and reads directly against the depths
 
 ## Outline
 
-- Outer [152.9 mm](COVER_X) lateral × [82.4 mm](COVER_SLOPE) up the slope,
-  corners r[2.2 mm](COVER_CORNER_R). That is the inset less
-  [0.3 mm](COVER_SLIP) per side, corner radius included, so the plate's round and
+- Outer [153.2 mm](COVER_X) lateral × [82.7 mm](COVER_SLOPE) up the slope,
+  corners r[2.35 mm](COVER_CORNER_R). That is the inset less
+  [0.15 mm](COVER_SLIP) per side, corner radius included, so the plate's round and
   the inset's stay concentric and the fit is one figure the whole way round.
 - [2 mm](COVER_T) thick **where it laps the glass** — the inset's own depth, which is
   what puts the top face in the 45° plane. Everywhere else it is [5.2 mm](COVER_SEAT);
@@ -32,7 +32,7 @@ here is a depth below the face and reads directly against the depths
   r[2.5 mm](WINDOW_CORNER_R) — the glass less [3 mm](INSET_LAP) of lap per side.
   The corners carry the glass's own radius, since a constant lap round a corner
   needs both outlines to share it.
-- Border [22.7 mm](BORDER_X) either side laterally, [5.7 mm](BORDER_SLOPE) top and
+- Border [22.85 mm](BORDER_X) either side laterally, [5.85 mm](BORDER_SLOPE) top and
   bottom. The lateral land is wide because the inset reaches past the glass for the
   two screws to stand in; up the slope the border is the lap twice over.
 
@@ -63,15 +63,15 @@ Over the glass the plate is [2 mm](COVER_T) and can be nothing else — what sta
 that step is the gasket, and under it the cover glass. Everywhere else it is
 [5.2 mm](COVER_SEAT), and `enclosure._display_cuts` sinks the inset's land to meet it.
 The two meet on the **bezel's own outline one slip out**,
-[114.1 mm](SEAT_INNER_X) × [77.6 mm](SEAT_INNER_SLOPE) with corners
-r[2.8 mm](SEAT_INNER_R), so the deeper section drops past the bezel counterbore's wall
+[113.8 mm](SEAT_INNER_X) × [77.3 mm](SEAT_INNER_SLOPE) with corners
+r[2.65 mm](SEAT_INNER_R), so the deeper section drops past the bezel counterbore's wall
 on the same figure the plate's edge takes at the outline.
 
 | | |
 |---|---|
-| Seat band, laterally | [19.4 mm](SEAT_BAND_X) each side — the whole land the inset reaches out for the screws |
-| Seat band, up the slope | [2.4 mm](SEAT_BAND_SLOPE) each side — there the border is nearly all lap |
-| Lap that stays thin | [3.3 mm](LAP_BAND) from the window out: the gasket's own footprint and one slip more |
+| Seat band, laterally | [19.7 mm](SEAT_BAND_X) each side — the whole land the inset reaches out for the screws |
+| Seat band, up the slope | [2.7 mm](SEAT_BAND_SLOPE) each side — there the border is nearly all lap |
+| Lap that stays thin | [3.15 mm](LAP_BAND) from the window out: the gasket's own footprint and one slip more |
 
 **What it buys.** The plate used to stand two ⌀12 circles off an otherwise flat back
 and rest on them, with the whole of its area [3.2 mm](COVER_CBORE_DEPTH) in the air.
@@ -84,7 +84,7 @@ since that goes as the cube of the section.
 and a face printed against the bed is flat because the bed is. It is also what makes
 the step free: build upward from that face and every step in the back faces *up* — the
 lap stops at its own depth, the seat carries on, and nothing hangs. The bed takes
-[4908 mm²](BED_AREA) of top face in one plane. The only feature on the whole plate that
+[4978 mm²](BED_AREA) of top face in one plane. The only feature on the whole plate that
 hangs is the annular ledge at each counterbore, [1.125 mm](CBORE_LEDGE) wide.
 
 ## The lap

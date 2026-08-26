@@ -53,15 +53,15 @@ wall is left standing either side of the notch, which is what still stops the
 device.
 
 **It goes in by sliding.** The plate is set down
-[2.16 mm](HOOK_TRAVEL) up-gooseneck of home, where the toe clears the roof and
+[2.01 mm](HOOK_TRAVEL) up-gooseneck of home, where the toe clears the roof and
 the notch takes it straight down, then pushed toward the spout until the riser
 stops against the roof's face. Then the screw, which is what keeps it there.
 
 **What it costs.** The wall it needs is a skin to carry the roof, the roof's own
-reach, the riser, and the travel — [7.74 mm](S_BOTTOM) of it, against the
+reach, the riser, and the travel — [7.59 mm](S_BOTTOM) of it, against the
 [1.86 mm](COVER_WALL) a plain wall would have been. That is why the device sits
 that far up the tip, and why the plate's chin below the window is
-[9.99 mm](CHIN) rather than 4.11.
+[9.84 mm](CHIN) rather than 4.11.
 
 ## Outline
 
@@ -81,7 +81,7 @@ that far up the tip, and why the plate's chin below the window is
 
 ## The screw
 
-One, on the centreline at s = [56.6 mm](SCREW_S) — north of the device, in the
+One, on the centreline at s = [56.45 mm](SCREW_S) — north of the device, in the
 head wall the cradle already had.
 
 - **Seat** — ⌀[3.9 mm](SHANK_DIA) shank clear through, ⌀[6.15 mm](CBORE_DIA)
@@ -106,7 +106,7 @@ ramp there would let the hook cam out under the screw's own shank clearance.
 The shell pays nothing for the matching face: the roof's underside looks straight
 down the cradle's normal, which in the tip's print orientation is
 [35°](MAX_PRINT_OVERHANG), the same its swept flanks carry.
-Bed face: [909 mm²](BED_AREA) over one face, which
+Bed face: [905 mm²](BED_AREA) over one face, which
 `faucet_display_cover.py selftest` checks by measuring the built solid rather
 than arguing from these figures.
 

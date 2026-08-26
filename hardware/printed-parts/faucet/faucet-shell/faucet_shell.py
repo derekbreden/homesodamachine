@@ -177,7 +177,7 @@ base_pod_center_x = math.sqrt(
 # radius and same bore tangency as the laterals (inner edge touches the Westbrass
 # bore, base_pod_wall from the pocket to the bore), straight in front.
 base_pod_front_center_x = 0.0
-base_pod_front_center_y = -(westbrass_bore_diameter / 2.0 + base_pod_radius)  # [-25.27 mm](BASE_POD_FRONT_CENTER_Y)
+base_pod_front_center_y = -(westbrass_bore_diameter / 2.0 + base_pod_radius)  # [-25.23 mm](BASE_POD_FRONT_CENTER_Y)
 # All three pod centers (both laterals + the front) — the boss-hole/insert
 # pattern, shared with the plate so its bosses land on exactly the same points.
 base_pod_centers = [
@@ -1270,7 +1270,7 @@ cradle_back_slope_rad = math.pi / 2.0 - 2.0 * max_print_overhang_rad
 cradle_back_s = (
     display_cover_screw_s + display_cover_cbore_dia / 2.0 + display_cover_boss_wall
     + (display_cover_top_n - _cradle_n_bottom) * math.tan(cradle_back_slope_rad)
-)  # [68.42 mm](CRADLE_BACK_S)
+)  # [68.27 mm](CRADLE_BACK_S)
 # The head wall is cut from stock reaching this far back, so the ramp —
 # not the prism's own square end — is what closes the cradle at every
 # depth of _cradle_stock_drop. Cut short, the stock the ramp has not

@@ -54,7 +54,7 @@ is drawn on — the container under the faucet is the only one the procedure ask
 ## How the plate lets go
 
 The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
-`collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
+`collet-plate.dxf`), [195.8](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
 on edge in a slot that passes clean through the bay floor and opens on front-top's own Z− face.
 The slot locates it fore and aft over the floor's whole section and narrows at that mouth to
 the foot's own width, so the two shoulders the foot leaves come up onto the floor's top and
