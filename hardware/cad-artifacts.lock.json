@@ -6,11 +6,14 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e21830421a44e909.tar.gz"
   },
   "source": {
-    "commit": "3d75333c53b624a8a7cc4dc29fba2bf0e0225111"
+    "commit": "f59774902624f3a8390e5dce73184b517660c9fe"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
-    "paths": [],
+    "paths": [
+      "web/lib/settings.js",
+      "web/lib/shell.js"
+    ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
       "hardware/assembly/scenes/glb/back-top.glb",
@@ -20,8 +23,11 @@
       "hardware/assembly/scenes/glb/en04-stratum.glb",
       "hardware/assembly/scenes/glb/front-top.glb",
       "hardware/assembly/scenes/glb/pump-cartridge.glb",
+      "hardware/cold-core-layout/cold-core-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
