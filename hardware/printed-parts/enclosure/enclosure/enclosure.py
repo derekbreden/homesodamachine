@@ -6410,7 +6410,7 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 # own round body boss lands on the plate's face, which is what sets its height — the same
 # bargain the cold core's cap lid strikes under its own three valves, whose thinner lid stands
 # the bosses instead.
-def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
+def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     """Every valve tray whose deck falls in the depth and height band this piece owns.
 
     Each station is `(plane, sign, seats)`: the world Y the deck's valves stand their mounting
@@ -6423,7 +6423,20 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
     its face: the sockets and the channel are CUT, and the face itself is the plane the valve's
     round body boss lands on. Everything is struck in the valve's own frame at `plane`, its
     mounting plane, and turned onto the deck — the plate's face follows from `SEAT` and is not
-    the datum anything here is placed on."""
+    the datum anything here is placed on.
+
+    A PLATE THAT OUTRUNS ITS OWN WALL IS CORBELLED AT THE ROOT. `wall_aft_y` is
+    `collet_plate_spec`'s own `wall_aft_y` — the tee wall's aft face, the plane wall support
+    actually ends at (`_tee_wall`). Where that plane falls strictly inside a plate's own
+    near/far span, the plate stands on the wall for the inboard share of its thickness and
+    overhangs open bay air for the rest: `far - wall_aft_y`, read off the two planes and never
+    typed. The corbel rises 45° off the wall's own aft face and closes at the plate's own far
+    face, so the flat downward band between the two stops existing — what a hand meets at
+    either arris is the corbel meeting a vertical face, not a square step off the wall's crown.
+    Struck before the per-seat sockets and port channels below, so a station that already
+    breaks the plate's own edge breaks the corbel the same way. A footed plate's own near/far
+    never brackets `wall_aft_y` (it stands on a different wall entirely), so this is a
+    no-op there rather than a case split."""
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
@@ -6435,6 +6448,11 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1):
         face = plane - sign * _valve_tray.SEAT
         near, far = sorted((face, face - sign * _valve_tray.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
+        floor = mid_z - half
+        if wall_aft_y is not None and near < wall_aft_y < far:
+            solid = solid.fuse(_yz_prism(inner[0], inner[1], [
+                (far, floor), (wall_aft_y, floor), (wall_aft_y, floor - (far - wall_aft_y)),
+            ]))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
         # face, its valve-side face one plane with the plate's, so the plate prints as a
         # wall standing on the bed with nothing left hanging. The valves' bottom ports and
@@ -7056,7 +7074,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
         piece = piece.fuse(_ridge_wall(inner, outer, box.collet_plate, box.pump_bay))
-    piece = _valve_trays(piece, inner, box.valve_trays, ylo, yhi, zlo, zhi)
+    piece = _valve_trays(piece, inner, box.valve_trays, ylo, yhi, zlo, zhi,
+                         wall_aft_y=(box.collet_plate["wall_aft_y"] if box.collet_plate else None))
     # The pump trays are the pump cartridge's (`build_pump_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
     # plate drops into — and then the opening itself, cut last of the wall's work.
