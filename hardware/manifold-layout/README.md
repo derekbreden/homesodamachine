@@ -170,8 +170,7 @@ pump cartridge service and no hand goes behind the deck.
 beside this file — the flat
 [`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) stages with the
 printed pieces and feeds into `enclosure-front-top` through that piece's own Z− face, up the slot
-through the bay floor until its tails land on the guides' heads. The front column's close is what
-puts the bottom piece's mouth under its foot. The berth is steel and its two airs, so
+through the bay floor until its two shoulders land on that floor's top. The berth is steel and its two airs, so
 the whole deck rides on it one millimetre for one: z [88.38](DECK_Z2) carries it, and so does
 every millimetre of `SOURCE_TRAVEL` the source runs have left to step in.
 
