@@ -37,12 +37,12 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "90/90 artifacts have their record in the index",
+      "note": "56/56 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1379 tracked, 254 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1295 tracked, 254 fetched solids, 53 tags",
       "status": "ok"
     },
     {
