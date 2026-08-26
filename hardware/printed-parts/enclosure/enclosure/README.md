@@ -592,8 +592,8 @@ own end.
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
 no face under it to hang and no support in it to pick out. It is a solid slab across the
-whole front storey: the pump cartridge slides across it, and the collet plate's foot sits in a
-blind seat sunk in its top.
+whole front storey with one slot through it: the pump cartridge slides across it, and the collet
+plate comes up that slot from the bed face.
 
 The **tee wall** behind that plate costs nothing standing up, and its four bores are the
 only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
