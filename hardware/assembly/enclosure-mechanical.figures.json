@@ -30,6 +30,8 @@
     "FUNNEL_TUBE_D": "\u00d86.35",
     "GROMMET_SQUEEZE": "0.4",
     "LIP_UNDERWALL": "6 mm",
+    "PLATE_STEP_IN": "6.8 mm",
+    "PLATE_STEP_Z": "176.1 mm",
     "PORT_CHAIN_3": "82.58",
     "PORT_HOLE_D": "18",
     "PORT_NUT_D": "22.86",
