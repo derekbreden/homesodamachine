@@ -76,6 +76,26 @@ export function frameBuffer(dataURL) {
   return Buffer.from(String(dataURL).split(",")[1], "base64");
 }
 
+// THE VIEWER ASKS TWO ENDPOINTS WHETHER A THING EXISTS, AND 404 IS THE ANSWER "no".
+// `mountScorecard` asks for a sidecar most models do not carry, and `probeEditor` asks
+// whether the dev-only editor answers for this file at all — each reads the miss and draws
+// nothing, which is the feature working. The browser logs every miss as a failed resource
+// regardless, so a run over thirteen subjects prints twenty-six errors naming nothing that
+// is wrong, and a real 404 stands in that crowd unread.
+//
+// These two are the only misses that are answers. Every other line is reported, and it
+// carries the URL that failed: a console line naming no resource cannot be acted on, and
+// dropping whole classes of them by their text hides the breakage the render exists to show.
+const VIEWER_PROBES = ["/api/step-scorecard/", "/api/step-editor/overrides"];
+
+export function consoleLine(msg) {
+  const type = msg.type();
+  if (type !== "error" && type !== "warning") return null;
+  const url = (msg.location() || {}).url || "";
+  if (VIEWER_PROBES.some((probe) => url.includes(probe))) return null;
+  return `console.${type}: ${msg.text()}${url ? ` (${url})` : ""}`;
+}
+
 const LIVE_BROWSERS = new Set();
 
 function killBrowserNow(browser) {
