@@ -51,6 +51,11 @@
       "status": "ok"
     },
     {
+      "check": "tools/bazel/check_build_file.py",
+      "note": "check_build_file: BUILD.bazel is what the graph writes",
+      "status": "ok"
+    },
+    {
       "check": "tools/bazel/check_ci_targets.py",
       "note": "check_ci_targets: every target a workflow step names is declared",
       "status": "ok"
