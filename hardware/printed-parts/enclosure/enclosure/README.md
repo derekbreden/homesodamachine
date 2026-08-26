@@ -946,21 +946,35 @@ The **collet plate goes in through the Z− face**, which is the seam face front
 on and the face this piece beds on. Its slot (`_plate_slot`) passes through the floor and opens
 on that plane, `plate_slot_slip` off the steel fore and aft at every height, and the mouth
 flares [1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it — a lead that leans in as the print
-climbs off the bed. **Across, the slot is two widths**: the foot's up to the floor's top, and
-the walls' above it. What is left standing between the two is [6 mm](PLATE_SEAT_LAND) of the
-floor's own top at each end of the mouth, and that is what carries the plate — the steel comes
-up foot-first until its two shoulders land there. `bay-floor-bedded` reads both of them whole.
+climbs off the bed. **Across, the slot is the steel's own section and nothing narrower** — the
+floor holds the plate fore and aft and holds it back not at all. Nothing in this storey is a
+stop: the steel goes clean through and comes up until its own **top edge** lands a storey
+higher. `bay-floor-bedded` reads the floor whole on the bed and that land whole over the edge.
+
+**The wall over the steel is what stops it** (`_plate_cap`). A plate dropped in from Z+ needs
+its own lane left open above it for the whole of its height — that is what a drop-in is — and
+fed up from the seam plane it needs no room over its head at all. So the lane above the steel
+is filled, wall to wall, from the top edge to the bay's ceiling at [281 mm](PLATE_CAP_TOP).
+[1 mm](PLATE_CAP_LAND) of that is flat, taken off the tee wall's fore face at
+[216.49 mm](PLATE_CAP_Z): the top edge comes up onto it and stops, and **that land is the
+plate's Z datum** — the only stop in this joint, and the reason the outline needs no shoulder.
+Fore of the land the underside **rakes at 45°** to the steel's own fore plane, because the lane
+under it is air at print time and a square ceiling `PLATE_T` wide would be a ledge hanging off
+the tee wall for the width of the machine. Over the rake the wall stands on the steel's own
+face, so the pump cartridge's back — `cap_kiss` fore of that plane at every height — lands on
+printed wall where there is no steel behind it and on steel below, one face top to bottom.
 
 **The guides are two stationary L sections** (`_plate_fore_guides`) standing fore of the
 plate's outer tails and returning around its ends into the fixed side-wall stock aft of the
 plate. The tee wall is the channel's aft face and the guides its fore face, so the steel
 cannot pitch forward when the four collet noses load it after the pump cartridge has begun
-moving. Over each tail the crown band reaches aft from the cheek to the tee wall, standing
-one `slide_slip` over the steel's top: what the floor's shoulders carry from below, that
-[6 mm](PLATE_GUIDE_CROWN) of section holds down from above, closing the bright top edge in
-over both tails and spanning `PLATE_T + plate_slot_slip` between two standing walls.
+moving. Each cheek is a wedge in plan, [3 mm](PLATE_GUIDE_WEDGE) deeper at the fixed wall it
+is rooted in than at its inboard face, and it **stands the whole storey** — to the same ceiling
+the cap does, so it is a post between two slabs rather than a fin off the floor, and the flank
+opening gets an aft jamb for its full height. Over each tail its head carries the cap's own
+land out to the side wall, spanning `PLATE_T + plate_slot_slip` between two standing walls.
 
-**The steel is three widths and one band.** The band's bottom is the **seam plane** — the foot
+**The steel is two widths and one band.** The band's bottom is the **seam plane** — the steel
 fills the slot to its mouth — and its top is whatever puts the four collet holes **centred**
 in the band (`plate-holes-centred`). Over [177.8 mm](PLATE_STEP_Z) its ends stand
 `PLATE_END_AIR` off the side walls and the outline is whole between them: the one thing that
@@ -969,8 +983,9 @@ whole run. Between the floor's top and that plane each end **steps in** [6.8 mm]
 from the wall — under that plane the steel is standing in the Z seam's own storey, and that
 band down each flank is the joint's, groove to arm to head. It rides in front-top through the
 whole of the front column's slide, which `z-slide-front-lanes` is the reading of.
-Under the floor's top it draws in another [6 mm](PLATE_SEAT_LAND) to make the foot. The outline
-is a waterjet cut and `build_collet_plate` writes it into `collet-plate.dxf` with the holes.
+**Those two steps are every notch in it** — nothing down here is a stop, so nothing down here
+is cut for one. The outline is a waterjet cut and `build_collet_plate` writes it into
+`collet-plate.dxf` with the holes.
 
 The **wall behind the steel is struck on the same four collets** (`_tee_wall`).
 Front-top stands a section of its own material aft of the plate, wall to wall and the

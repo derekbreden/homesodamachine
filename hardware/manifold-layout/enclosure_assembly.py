@@ -2391,30 +2391,37 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
         rungs.append(d)
         d += 16.0
     rungs.append(travel)
-    mover = cq.Compound.makeCompound([s for _n, s in mover_parts])
-    # THE BOXES ARE A PRE-FILTER AND ONLY THAT, on `manifold_layout.clashes`' reasoning:
-    # boxes that miss are solids that miss, and boxes that meet prove nothing, so every pair
-    # that survives is still asked exactly. `loose` is the box to ask it on — never smaller
-    # than the solid it holds, and taken without meshing. A skipped pair is one whose boolean
-    # would have come back empty, which this loop already discards at the floor below.
-    mbb = _boxes.loose(mover)
-    fixed = [(name, s, _boxes.loose(s)) for name, s in fixed_parts]
+    # THE STATIONS ARE MEASURED ON MESHES, through `_overlap`. `Shape.intersect` reports
+    # 0.00 mm³ for two surfaces tangent along their crossing and raises nothing, and a mover
+    # grazing a fixed member holds that tangency the length of the lane. A mesh reading stands
+    # within ~2 × `_meshes.DEFLECTION` of the exact one, under-reporting where the surface is
+    # convex.
+    #
+    # MESHED ONCE, MOVED MANY TIMES. `_meshes.meshed` memoizes on the shape's identity, and
+    # translating a compound hands back a new shape. A manifold translates itself, so the
+    # mover is tessellated once and the ladder moves it; the fixed members do not move.
+    mover = _meshes.meshed(cq.Compound.makeCompound([s for _n, s in mover_parts]))
+    fixed = [(name, m, _meshes.box(m))
+             for name, m in ((n, _meshes.meshed(s)) for n, s in fixed_parts)]
+    # THE BOXES ARE A PRE-FILTER AND ONLY THAT, as in `manifold_layout.clashes`: boxes that
+    # miss are solids that miss, boxes that meet prove nothing, and every pair that survives
+    # is asked. The mover's box rides with the mover, so a station's box is the home box
+    # offset.
+    mbb = _meshes.box(mover)
     worst, hits = (0.0, 0.0), {}
     for d in rungs:
-        off = cq.Vector(axis[0] * d, axis[1] * d, axis[2] * d)
-        at = mover.translate(off)
-        # The mover's box rides with the mover, so a station's box is the home box offset —
-        # a bound per rung rather than a bounding pass per rung.
-        mx0, mx1 = mbb.xmin + off.x, mbb.xmax + off.x
-        my0, my1 = mbb.ymin + off.y, mbb.ymax + off.y
-        mz0, mz1 = mbb.zmin + off.z, mbb.zmax + off.z
+        ox, oy, oz = axis[0] * d, axis[1] * d, axis[2] * d
+        at = mover.translate([ox, oy, oz])
+        mx0, mx1 = mbb.xmin + ox, mbb.xmax + ox
+        my0, my1 = mbb.ymin + oy, mbb.ymax + oy
+        mz0, mz1 = mbb.zmin + oz, mbb.zmax + oz
         total = 0.0
-        for name, s, bb in fixed:
+        for name, m, bb in fixed:
             if (mx0 > bb.xmax or bb.xmin > mx1
                     or my0 > bb.ymax or bb.ymin > my1
                     or mz0 > bb.zmax or bb.zmin > mz1):
                 continue
-            v = at.intersect(s).Volume()
+            v = _overlap.volume(at, m)
             if v > 1e-6:
                 total += v
                 if v > hits.get(name, (0.0, 0.0))[0]:
