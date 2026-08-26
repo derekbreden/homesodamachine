@@ -6,7 +6,23 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-77568d5a0c39f6f4.tar.gz"
   },
   "source": {
-    "commit": "c21e0876cf62ef9b652a17e3d0eea03b3fd72443"
+    "commit": "664ac29d01f08056099574dbdec90ce5db1cddf0"
+  },
+  "unproven": {
+    "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
+    "paths": [],
+    "members": [
+      "hardware/cold-core-layout/cold-core-assembly.step",
+      "hardware/faucet-layout/faucet-assembly.step",
+      "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+      "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step"
+    ]
   },
   "bundle": {
     "sha256": "77568d5a0c39f6f4bb287963690ef2ef3bb6dffa437412067eaffa0c36971bc5",
