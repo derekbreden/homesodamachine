@@ -1406,20 +1406,21 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     holes — the one figure the steel, the bay floor's slot and the waterjet's own outline
     all read.
 
-    ITS Z BAND IS STRUCK ON THE HOLES. The bottom is the seam plane, which is what
-    front-bottom's mouth closes under it and what the steel comes to rest on; the top is then
-    whatever puts the four collet holes in the middle of the band, which is the only place a
-    hole is as far from one edge as from the other. Over its top the guides' heads stand one
-    `slide_slip` clear (`enclosure._plate_fore_guides`): that is the lift the steel takes on
-    the way in through the Z− mouth, and the air front-bottom's mouth passes under its foot as
-    the front column slides home.
+    ITS Z BAND IS STRUCK ON THE HOLES. The bottom is the seam plane — the foot fills the slot
+    to its Z− mouth and stops there; the top is then whatever puts the four collet holes in
+    the middle of the band, which is the only place a hole is as far from one edge as from the
+    other. Over that top the guides' heads stand one `slide_slip` clear
+    (`enclosure._plate_fore_guides`).
 
-    ACROSS, IT IS STEPPED. Between `seam_cap_z` and the top its ends stand `PLATE_END_AIR` off
-    the side walls, and the outline is whole between them — the one thing that ever stood proud
-    of the floor down these flanks was front-bottom's Z-seam lip, and it is given up over this
-    whole run (`enclosure._flank_lip_drop`). Under that plane each end steps in to
-    `enclosure.plate_step_in`, because the steel rides in front-top through the front column's
-    slide and everything fore of the stop blocks sweeps the rails."""
+    ACROSS, IT IS THREE WIDTHS. Over `seam_cap_z` its ends stand `PLATE_END_AIR` off the side
+    walls and the outline is whole between them — the one thing that ever stood proud of the
+    floor down these flanks was front-bottom's Z-seam lip, and it is given up over this whole
+    run (`enclosure._flank_lip_drop`). Between the bay floor's top and that plane each end
+    steps in to `enclosure.plate_step_in`, because the steel rides in front-top through the
+    front column's slide and everything fore of the stop blocks sweeps the rails. Under the
+    floor's top it draws in another `enclosure.plate_seat_land` to make the FOOT: what the two
+    shoulders that leaves come up onto is the floor's own top, and that is what carries the
+    steel."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
         (px, py, pz), _axis = mcarry(ml.branch_port(t))
@@ -1476,12 +1477,15 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     branch_face = faces[0]
     stroke = PLATE_REST_GAP
     step_x = round(_enc.interior_x()[1] - _enc.plate_step_in(), 6)
+    foot_x = round(step_x - _enc.plate_seat_land, 6)
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": z1,
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
             "step_x0": -step_x, "step_x1": step_x,
             "step_z": round(_enc.seam_cap_z(), 6),
+            "foot_x0": -foot_x, "foot_x1": foot_x,
+            "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
             "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
                                 - stroke - TEE_WALL_BODY_AIR, 6),
             "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
@@ -1789,9 +1793,9 @@ def check_bay_floor(pieces, shell) -> Bound:
     the rails in, cut through the floor's flank bands) and LESS the plate's own slot
     (`enclosure._plate_slot` — the opening the steel comes in by, which is a gap in the
     first layers and not a hole over them), is the piece's first layers, and full means
-    the floor lies on the bed rather than hanging in the piece. SECOND, the heads: a slab
-    one probe over the guides' stop plane, across each tail's own footprint, is what the
-    steel is pushed up to."""
+    the floor lies on the bed rather than hanging in the piece. SECOND, the seat: a slab
+    one probe under the floor's top, across each of the two shoulders the steel's foot
+    leaves, is what carries the plate."""
     spec = shell.collet_plate
     z_bed, top = _enc.bay_floor_z(shell.pump_trays)
     probe = 0.5
@@ -1802,26 +1806,28 @@ def check_bay_floor(pieces, shell) -> Bound:
         _enc._plate_slot(shell.inner, spec, top + 1.0))
     lx0, lx1 = _enc.lip_face_x()
     aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
-    z_stop = spec["z1"] + _enc.slide_slip
     rows = [("bed", _enc._ybox(lx0, lx1, _enc.front_plane_y, aft, z_bed, z_bed + probe)
              .cut(berth))]
-    for x0, x1 in _enc.plate_head_spans(shell.pump_bay, shell.inner):
-        rows.append(("head", _enc._ybox(x0, x1, spec["fore_y"], spec["aft_y"],
-                                        z_stop, z_stop + probe)))
+    slip = _enc.plate_slot_slip
+    for x0, x1 in ((spec["step_x0"], spec["foot_x0"] - slip),
+                   (spec["foot_x1"] + slip, spec["step_x1"])):
+        rows.append(("seat", _enc._ybox(min(x0, x1), max(x0, x1),
+                                        spec["fore_y"], spec["aft_y"],
+                                        top - probe, top)))
     rows = [(n, plug.intersect(ft).Volume() / plug.Volume()) for n, plug in rows]
     worst = min(g for _n, g in rows)
     ok = worst >= 1.0 - 1e-6
     return record_bound(Bound(
-        "bay-floor-bedded", "The bay floor lies on the bed and stops the collet plate", ok,
+        "bay-floor-bedded", "The bay floor lies on the bed and seats the collet plate", ok,
         ", ".join(f"{n} {g * 100:.1f}% solid" for n, g in rows),
-        f"the floor whole on the seam plane {z_bed:g} and the heads whole over the steel's "
-        f"top {spec['z1']:g}",
+        f"the floor whole on the seam plane {z_bed:g} and whole under both of the steel's "
+        f"shoulders at {top:g}",
         ([] if ok else
          [f"{n}: {g * 100:.1f}% of its plan" for n, g in rows if g < 1.0 - 1e-6]
-         + ["the floor is this piece's first layers and the heads are what the steel lands "
-            "on coming up through it — a hole in the first is material the print has to "
-            f"bridge, a hole in the second is a plate with no stop. The floor runs {z_bed:g} "
-            f"to {top:g}"])))
+         + ["the floor is this piece's first layers and its top is what the steel's two "
+            "shoulders come up onto — a hole in the first is material the print has to "
+            f"bridge, a hole in the second is a plate with nothing under it. The floor runs "
+            f"{z_bed:g} to {top:g}"])))
 
 
 def check_column_face(pieces, shell) -> Bound:
