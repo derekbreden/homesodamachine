@@ -1404,21 +1404,6 @@ def cap_conduit_station(name):
     return ((x, y, 0.0), cap_conduit_axis)
 
 
-# THE ENCLOSURE'S FOUR-CORNER SCREW REACHES PAST THE BOSS CHAIN. Each side wall carries one
-# at the box's seam crossing (`enclosure.corner_boss_in`), its socket standing
-# `enclosure.corner_core_reach` past the 14 mm chain this shell's flanks are packed to — and
-# the front assembly carries that socket aft along the flank as the halves telescope. So each
-# ±Y wall takes a SLOT: an inward emboss over the boss's swept band plus a slip, lined a full
-# wall behind and beside the void so the pour stays sealed. Its fore end stands where the
-# corner round's own recession already clears the boss; its aft end is the boss's aft face
-# plus the slip. `enclosure_assembly.check_corner_slot` reads the built boss's swept band
-# against the placed core, so these figures cannot drift from the box that spends them.
-# Figures in this shell's own frame — the assembly hangs its bottom cap under z = 0, so
-# the machine reads every z here one bottom-cap higher.
-corner_slot_x = (-137.0, -106.0)
-corner_slot_z = (129.45, 148.55)
-corner_slot_depth = 2.4
-
 # THE FUNNEL DRAIN'S BERTH. The union hangs on the funnel's spout between the folded deck's
 # crossbar barrels and this core's front face, and the barrels ride
 # `manifold_layout.BARB_STANDOFF` aft — the drain follows (`funnel.neck_dy`), and the
@@ -1428,22 +1413,6 @@ corner_slot_depth = 2.4
 # and the drawn run against the built core, so a berth outgrown reads red on the card.
 drain_berth_span = (-15.0, 15.0)     # cap Y, symmetric over the spout's column
 drain_berth_depth = 1.6              # off the lid's fore edge, at +X in the cap's frame
-
-
-def corner_boss_slots():
-    """The two flank slots, as `(liner, void)` solids per ±Y wall — the liner unioned first
-    (trimmed to the rounded footprint by the caller), the void cut after."""
-    x0, x1 = corner_slot_x
-    z0, z1 = corner_slot_z
-    t = wall_and_floor_thickness
-    out = []
-    for ys in (1.0, -1.0):
-        face = ys * outer_shell_y_length / 2.0
-        floor = face - ys * corner_slot_depth
-        liner = make_box((x0 - t, x1 + t), (face, floor - ys * t), (z0 - t, z1 + t))
-        void = make_box((x0, x1), (face + ys * 1.0, floor), (z0, z1))
-        out.append((liner, void))
-    return out
 
 
 def make_box(x_range, y_range, z_range):

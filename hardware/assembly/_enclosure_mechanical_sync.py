@@ -204,6 +204,8 @@ def main():
         "CORE_HOLD_REACH": f"{_enc.core_hold_reach:.4g} mm",
         "CORE_HOLD_CLEAR": f"{_core_hold_clear:.3g} mm",
         "REAR_SEAM_CLEAR": f"{_enc.rear_seam_clear:.4g} mm",
+        # The Y seam's telescoping overlap — the last stretch of the back assembly's ride.
+        "Y_OVERLAP": f"{_enc.lip_len:.3g} mm",
         # The +Y wall's six stations, its hardware, and what a chain of it occupies.
         "PORT_HOLE_D": f"{_union_bores[0][3]:.4g}",
         "CO2_HOLE_D": f"{_co2_hole_d:.4g}",

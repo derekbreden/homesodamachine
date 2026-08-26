@@ -248,13 +248,6 @@ def enclosure(m: Machine):
         f"— EN-02 has the bench seat one body per corner: {sorted(corners)}")
     carb_end = "east" if round(_ea.PANEL_X["bulkhead-carb"], 3) == port_cols[-1] else "west"
 
-    # EN-07 pins each Z seam at both ends of each ±X wall so it cannot hinge open
-    # at the end it was not pinned at. That is the shape of the sentence, so the
-    # count is read off the stations rather than typed beside it.
-    z_stations = m.a.z_stations
-    assert len({s[4] for s in z_stations}) == 2, (
-        "the Z seams no longer pin per Y column and EN-07 closes them one column at a time")
-
     # The funnel opening's own rectangle against the seam it may cross.
     hx0, hx1, hy0, hy1 = m.a.hopper_hole
     funnel_pieces = ("both top pieces" if hy1 > box.y_joint
@@ -287,7 +280,6 @@ def enclosure(m: Machine):
         # seam is a level line round the box, so a second name for the back column's
         # half of it would be a fact that can only ever agree with this one.
         "Z_SEAM_FRONT": f"{box.splits[0]:.4g}",
-        "SEAM_SCREWS_Z": f"{sum(1 for s in z_stations if s[4] == 'front')}",
         "STRATUM_X": f"{_span('compressor', 'condenser+fan'):.0f} mm",
         "CORE_X": f"{_span('foam-assembly'):.0f} mm",
         "SIDE_BAND": f"{m.a.constants['side_band_inset']:.4g} mm",
@@ -346,7 +338,7 @@ def enclosure(m: Machine):
         "en-05-seat-cold-core": {
             "CORE_FOOTPRINT", "CAP_CONDUITS", "CORE_FRONT_PORTS"},
         "en-07-close-the-box": {
-            "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT", "SEAM_SCREWS_Z",
+            "BOX_QUADRANTS", "Y_SEAM", "Z_SEAM_FRONT",
             "BODY_COUNT"},
         "en-09-display-and-funnel": {"FUNNEL_PIECES"},
     }
@@ -624,7 +616,7 @@ def sub_assemblies(m: Machine):
         "sa-03-cap-lid-fill": {"CAP_POUR_SCREWS", "CAP_CONDUITS"},
         "sa-04-cap-lid": {"PUMP_MOUNT_SCREWS", "SA04_CRADLES", "SA04_CHAINS", "SA04_RIB_RUNS",
                           "SA04_RIB_EMPTY"},
-        "sa-05-back-half": {"SEAM_SCREWS_Z", "SA05_HANGING"},
+        "sa-05-back-half": {"SA05_HANGING"},
         "sa-06-funnel-drain": {"SA06_STUB_LEN", "SA06_SPOUT_LAND", "SA06_UNION_INSERT",
                                "SA06_SPOUT_WALL"},
         "sa-07-cold-core": {"CAP_CONDUITS", "SA07_HANGING", "SA07_CLOSED"},
