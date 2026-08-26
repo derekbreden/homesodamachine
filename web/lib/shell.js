@@ -21,7 +21,33 @@
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
 //            <body content> + renderFooter());
 
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+
+// The check verdict this deploy is carrying — `public/checks.json`, written by
+// `tools/checks.py --json` and committed by `tools/checks_now.py` off the post-commit hook.
+//
+// READ ONCE, AT BOOT, FOR THE SAME REASON `commit` IS. The file is part of the deploy, so it
+// cannot change under a running container; a read per request would be the same answer bought
+// again every time. A deploy restarts this process, and that is when the reading moves.
+//
+// A DEPLOY WITHOUT ONE IS NOT A FAILURE. The file arrives with the first commit that runs the
+// hook, and until then — and on any container whose disk does not hold it — there is simply no
+// band. Absent is not green: nothing is claimed either way.
+const CHECKS_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", "checks.json");
+
+function readChecks() {
+  try {
+    const v = JSON.parse(fs.readFileSync(CHECKS_FILE, "utf-8"));
+    return Array.isArray(v.checks) ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+const CHECKS = readChecks();
 
 function escape(s) {
   return String(s)
@@ -69,6 +95,47 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* The check band, drawn under the nav on every page while any check is red and
+   not drawn at all while none is. It is <details>, so the summary is one line
+   until it is asked and no script is involved in opening it.
+
+   IT SCROLLS AWAY AND THE NAV DOES NOT. Two sticky elements stacking is a bar
+   that eats a phone's viewport, and this one has said what it has to say by the
+   time the reader has scrolled past it. */
+.checks-band {
+  border-bottom: 1px solid var(--err);
+  background: color-mix(in srgb, var(--err) 14%, var(--bg));
+  color: var(--text);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  padding: 0.5rem calc(env(safe-area-inset-right, 0px) + 0.875rem)
+           0.5rem calc(env(safe-area-inset-left, 0px) + 0.875rem);
+}
+.checks-band summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.checks-band summary::-webkit-details-marker { display: none; }
+.checks-band summary::after {
+  content: "›";
+  margin-left: auto;
+  color: var(--err);
+  transition: transform 0.15s ease;
+}
+.checks-band[open] summary::after { transform: rotate(90deg); }
+.checks-band .checks-mark { color: var(--err); font-weight: 600; }
+.checks-band .checks-what { color: var(--text-2); }
+.checks-band ul { margin: 0.5rem 0 0.125rem; padding: 0 0 0 1rem; }
+.checks-band li { margin: 0 0 0.375rem; }
+.checks-band code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  color: var(--text-2);
+}
+.checks-band .checks-note { color: var(--text); }
 /* The bar's own inset stops at the safe area; the rest of it belongs to the
    links, which spend it as hit area (see .nav-icon). The gap closes as the bar
    narrows, so nine icons in dev mode still land inside a phone's width and the
@@ -368,6 +435,37 @@ ${pageHead}
 // present in the markup but, on the public surface, hidden by CSS unless
 // html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
 // visible. Updates is the complement: visible wherever that set is hidden.
+// What the checks found, drawn under the nav — and nothing at all when they found nothing.
+//
+// GREEN IS SILENCE AND RED IS UNMISSABLE. A band that is always there is chrome, and chrome is
+// read once and then never again; the whole point of this one is that its presence is the
+// signal. `tools/checks_now.py` writes the verdict after every commit, so the band appears on
+// the deploy that follows the commit that broke something.
+//
+// IT REPORTS AND HOLDS NOTHING. A red check has never stopped this page rendering, and the
+// tree it describes reached the site regardless. CLAUDE.md, "Nothing withholds".
+export function renderChecksBand() {
+  if (!CHECKS || CHECKS.green) return "";
+  const red = CHECKS.checks.filter((c) => c.status === "red");
+  if (!red.length) return "";
+  const what = red.length === 1 ? "1 check is red" : `${red.length} checks are red`;
+  const items = red
+    .map((c) => {
+      const detail = (CHECKS.detail?.[c.check] ?? [])
+        .map((ln) => `<div class="checks-note">${escape(ln)}</div>`)
+        .join("");
+      return `    <li><code>${escape(c.check)}</code>${detail}</li>`;
+    })
+    .join("\n");
+  return `<details class="checks-band">
+  <summary><span class="checks-mark">✗</span><span class="checks-what">${what} in the tree this deploy carries</span></summary>
+  <ul>
+${items}
+  </ul>
+</details>
+`;
+}
+
 export function renderNav({ surface = "public", active = null }) {
   const iconLinks = [
     { href: "/", name: "home", label: "Home", svg: HOME_SVG },
@@ -395,7 +493,7 @@ ${iconItems}
     <a href="/settings" class="nav-icon nav-gear${gearActive}" data-nav="settings" aria-label="Settings">${GEAR_SVG}</a>
   </div>
 </nav>
-`;
+${renderChecksBand()}`;
 }
 
 export function renderFooter() {
