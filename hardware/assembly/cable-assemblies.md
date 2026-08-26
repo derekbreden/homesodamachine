@@ -48,8 +48,8 @@ Two properties of the lead shape the scheme, and both are easy to trip over:
 
 Twenty-four conductors break that way, in four clusters: the cold core (J6, J7 and J11, twelve
 conductors between them), MANIFOLD B, the display, and the pumps. The break doubles as the quadrant
-seam — the enclosure telescopes and cross-pins from the side faces, and a loom that parts at the
-seam lets a quadrant come away without being unthreaded.
+seam — the enclosure's columns slide apart and its halves unscrew from the side faces, and a
+loom that parts at the seam lets a quadrant come away without being unthreaded.
 
 Twelve more conductors measure 304 to 323 mm against the 302 mm a cut lead yields. The routed factor
 in `_run_lengths.py` is calibrated on a single point, so those are not meaningfully longer than the

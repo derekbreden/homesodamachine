@@ -138,11 +138,14 @@ had, arrived at along Y instead of dropped into.
 
 **Lifting a seated top wedges the flare pairs together along both whole runs** —
 [84 mm](RAIL_RUN_FRONT) per flank on the front column, [114 mm](RAIL_RUN_BACK) and
-[92 mm](RAIL_RUN_BACK_W) on the back (the −X run stops at the PRV chase's rib and takes its
-stop block there, mid-flank) — where the old joint pinned each seam at two points. **Sliding
-one back out needs the other column's ground**: each top's only way out is toward the Y
-seam, where the other column stands screwed to it at the ceiling level. Four M3×10 close
-the box; the same four open it.
+[92 mm](RAIL_RUN_BACK_W) on the back — where the old joint pinned each seam at two points.
+A run ends at its **horizon**: the closed end's outer skin and corner round are show
+surface the sliding piece cannot open a channel through, so the rail stops where their
+sweep begins — half the flank less half the entry — and the −X back run stops sooner
+still, `slide_slip` fore of the PRV chase's rib, taking its stop block mid-flank.
+**Sliding a top back out needs the other column's ground**: its only way out is toward
+the Y seam, where the other column stands screwed to it at the ceiling level. Four M3×10
+close the box; the same four open it.
 
 **Every sliding face prints at the box's own rule.** The head's flare is 45° under, on a
 piece that prints floor-down; the return's counter-flare and the channel's **gabled roof** —
@@ -544,10 +547,10 @@ instead and the collar comes out whole — the front column's front-wall station
 (`enclosure._z_front_station_y`) and the back column's rear-wall one
 (`enclosure._z_back_station_y`), which are the two seam ends that sit in a standing corner.
 
-The rest of the seam furniture follows the orientation rule: the Z-seam lip is a
-*horizontal* band that telescopes straight through those verticals, so it is struck as
-the cavity's own one-wall skin — corners relieved on Z, columns wrapped — and a socket
-collar standing in one of them is held inside that same cavity; the Y-seam lip sits
+The rest of the seam furniture follows the orientation rule: the Z seams' rails run
+the straight flanks only — a slide neither turns a corner nor stands where a corner's
+own skin sweeps — and the deep channel that lets the bay floor and the posts pass the
+rails is the one mark the slide leaves inside a standing corner. The Y-seam lip sits
 mid-wall where there is no vertical arris, so it stays square.
 
 The Y-seam lip is the one joint the orientation costs something. Its ceiling
@@ -884,7 +887,7 @@ end of a berth the plate already keeps its own end air off. It ends on printed s
 instead of on a free edge of its own.
 
 **Its floor is the seam's cap**, one `wall` over the rim (`_rim_cap`). Front-top's side wall
-under that plane is the outer register front-bottom's lip telescopes into, so an opening cut
+under that plane is the skin the seam closes on at the mouth, so an opening cut
 there would be a seam that does not close; between the two planes stands the cap. The flat
 span's sill runs lower because the pump heads leave under it, and the two meet in a step at
 the post.
