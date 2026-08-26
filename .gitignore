@@ -116,9 +116,19 @@ bazel-*
 # contributes to the bound deck — drawn from the card HTML by a browser
 # (hardware/assembly/cards/_build.py). `//:cards-build` names them in `outs` and none in `srcs`,
 # no web route serves one and no doc embeds one. The build makes them, sync_tree lands them on
-# the disk, and nothing carries them into a commit. THE BOUND DECK IS NOT HERE: `deck.pdf` sits
-# beside the cards, in git, because the site serves it and a deploy fetches nothing.
+# the disk, and nothing carries them into a commit.
 hardware/assembly/cards/out/
+
+# The bound decks and the cards' own pictures, drawn by `//:cards-build` and `//:render-scene-cards`.
+# They arrive the road every solid takes: `pack.py`'s BUNDLED_ART_DIRS puts them in the release
+# asset, hardware/cad-artifacts.lock.json names each by sha256, and
+# web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy serves from. The card pages
+# themselves are HTML and stay; so does the rack's photo stock under `tools/img`, which is named
+# by ASIN and drawn by no rule.
+hardware/assembly/cards/deck.cover.png
+hardware/assembly/cards/deck.pdf
+hardware/assembly/cards/img/
+hardware/assembly/cards/tools/out/
 
 # A quick-start sheet's own two renders, the same pair for the same reasons
 # (hardware/quickstart/_build.py).
