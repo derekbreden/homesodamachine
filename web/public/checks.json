@@ -42,8 +42,8 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1295 tracked, 254 fetched solids, 53 tags",
-      "status": "ok"
+      "note": "5 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_web_tests.py",
@@ -66,6 +66,15 @@
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/check_paths.py": [
+      "hardware/pcb/pcba/bench-log.md:33 — blob URL pinned to acb5146c, a commit this repo does not have; tools/git-history/commit-map names its successor",
+      "  hardware/snapshots/enclosure-connections-2026-07-17.md:8 — blob URL pinned to c858fc86, a commit this repo does not have; tools/git-history/commit-map names its successor",
+      "  hardware/snapshots/enclosure-connections-2026-07-17.md:10 — blob URL pinned to c858fc86, a commit this repo does not have; tools/git-history/commit-map names its successor",
+      "  hardware/snapshots/pcba-audit-2026-07-13.md:93 — blob URL pinned to b256c44e, a commit this repo does not have; tools/git-history/commit-map names its successor",
+      "  marketing/video/ive-never-desoldered.md:18 — blob URL pinned to c74ad433, a commit this repo does not have; tools/git-history/commit-map names its successor",
+      "5 reference(s) name a path nothing holds."
+    ]
+  },
+  "green": false
 }
