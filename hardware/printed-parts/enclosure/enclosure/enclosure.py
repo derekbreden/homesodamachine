@@ -5727,10 +5727,11 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     layer after it on the one below, nothing over air and no support to pick out of a groove.
     That is what standing the card along the strip buys, and it is why it lies that way.
 
-    THE POSTS STAND OFF THE CAN'S OWN DIAMETER. The can is centred on the board and leaves only
-    the ends of the long run clear, so `mq6_grip` is swallowed at each end and the two posts
-    close no nearer the middle than that — the reach is the card's and the can's, not a number
-    typed here.
+    THE GROOVES TAKE THE ENDS OF THE LONG RUN, and how much they may take is the CAN'S to say.
+    The can is centred on the board and leaves half a millimetre at each long edge, so the ends
+    are the only material clear of it — a post reaching further in than the can leaves is a post
+    driven into the sensor. So the grip is `mq6_grip` or what the can leaves, whichever is less,
+    and the two posts pass either side of the can rather than through it.
 
     THE EAST CHEEK IS CUT ACROSS THE HEADER. The pins face east off the card and the loom lands
     on them out of the bay, so a cheek running unbroken past them is a cheek nothing can reach
@@ -5748,6 +5749,7 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     `enclosure_assembly.build_mq6` seats the card on the same call."""
     span, off = _mq6.header_span()
     across = _mq6.PIN_SQ / 2.0 + mq6_header_relief
+    grip = min(mq6_grip, (mq6_card_y - mq6_can_yz) / 2.0)
     for sx, sy, sz, *_foot in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
@@ -5758,11 +5760,11 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
         for into in (1.0, -1.0):
             end = sy - into * mq6_card_y / 2.0
             # The post: slab to the card's own crown, rooted on the wall over its whole depth.
-            pa, pb = sorted((end - into * mq6_rail_wall, end + into * mq6_grip))
+            pa, pb = sorted((end - into * mq6_rail_wall, end + into * grip))
             solid = solid.fuse(_ybox(px0, px1, pa, pb, inner[4], zt))
             # And its groove, open at the top so the card comes in from above and blind at the
             # bottom so it lands: what it lands ON is the post's own first `mq6_rail_wall`.
-            ga, gb = sorted((end - into * mq6_slot_press, end + into * (mq6_grip + 1.0)))
+            ga, gb = sorted((end - into * mq6_slot_press, end + into * (grip + 1.0)))
             solid = solid.cut(_ybox(gx0, gx1, ga, gb, zb, zt + 1.0))
             # And the east cheek off the header's own band, from the pin field's foot CLEAR TO
             # THE TOP. Up, because the loom comes down out of the bay onto the pins and a cheek
