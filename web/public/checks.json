@@ -42,7 +42,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1401 tracked, 149 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1400 tracked, 149 fetched solids, 53 tags",
       "status": "ok"
     },
     {
@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
-      "status": "red"
+      "note": "check_build_file: BUILD.bazel is what the graph writes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -64,41 +64,8 @@
       "check": "tools/bazel/check_declared_imports.py",
       "note": "check_declared_imports: every step holds what it imports",
       "status": "ok"
-    },
-    {
-      "check": "tools/bazel/check_publish_paths.py",
-      "note": "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/derekbredensteiner/Developer/homesodamachine/tools/bazel/check_publish_paths.py': [Errno 2] No such file or directory",
-      "status": "red"
     }
   ],
-  "detail": {
-    "tools/bazel/check_build_file.py": [
-      "BUILD.bazel is not what the graph would write now:",
-      "  --- BUILD.bazel",
-      "  +++ what gen_build.py writes now",
-      "  @@ -15274,19 +15274,6 @@",
-      "   )",
-      "   sh_test(",
-      "  -    name = \"check-publish-paths-selftest\",",
-      "  -    srcs = [\"tools/bazel/selftest.sh\"],",
-      "  -    data = [",
-      "  -        \".github/workflows/publish.yml\",",
-      "  -        \"tools/bazel/check_publish_paths.py\",",
-      "  -        \"tools/bazel/graph.json\",",
-      "  -    ],",
-      "  -    args = [\"tools/bazel/check_publish_paths.py\"],",
-      "  -    size = \"large\",",
-      "  -    tags = [\"local\"],",
-      "  -)",
-      "  -",
-      "  -sh_test(",
-      "       name = \"failed-targets-selftest\",",
-      "  … 6 more line(s)",
-      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
-    ],
-    "tools/bazel/check_publish_paths.py": [
-      "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/derekbredensteiner/Developer/homesodamachine/tools/bazel/check_publish_paths.py': [Errno 2] No such file or directory"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
