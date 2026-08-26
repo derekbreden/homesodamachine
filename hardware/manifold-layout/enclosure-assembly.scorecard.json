@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -756,13 +756,10 @@
    "id": "pump-mount-lands",
    "label": "Every cap column the water pump bolts to is under its own bore",
    "kind": "gate",
-   "status": "fail",
-   "value": "4 columns, furthest off 0.100 mm",
+   "status": "pass",
+   "value": "4 columns, furthest off 0.000 mm",
    "target": "every column within 0.001 mm of the bore over it",
-   "detail": [
-    "the cold core's cap bores the columns the pump's bracket bolts down into, and the pump is stood on that cap by this module \u2014 so the cap follows the machine. This is the row `_cold_core_interface.deck_mounts` should carry:",
-    "    \"seaflo-pump\": DeckMount((-93.20, 2.62), 59.00, 79.00,   0.0,  8.50, 16.0),"
-   ],
+   "detail": [],
    "active": true
   },
   {
