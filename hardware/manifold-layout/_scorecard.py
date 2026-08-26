@@ -321,10 +321,10 @@ MOUNTS = (
     # `asse_drip_pan.PLATE_SLIP`. Nothing screws down — a plate bolted flat could not be lifted out
     # to wipe, and the tray is drawn and emptied on service with the plate still in it.
     ("moisture-plate", "asse-drip-pan", "basin"),
-    # The gas sensor slides into a slot printed on the −X wall of the bay it watches
-    # (`enclosure._west_cradle`) and bottoms on the wall itself. The main board carries no mounting
-    # hole, so a slot is the only way it is ever held — the same bargain the lever nuts strike,
-    # and the same wall-as-datum.
+    # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
+    # (`enclosure._west_cradle`), and its can bottoms in a well cut back to the wall. The sensor
+    # board carries no mounting hole, so a slot is the only way it is ever held — the same bargain
+    # the lever nuts strike, and the same wall-as-datum.
     ("mq6-sensor", "enclosure-front-bottom", "cradle"),
     # The thermal cutoff lies in a channel printed through the clamp's head
     # (`printed-parts/refrigeration/fuse-clamp`), whose crown lands on the case's outboard
