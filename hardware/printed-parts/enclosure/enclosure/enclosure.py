@@ -3838,10 +3838,6 @@ def _z_rail_runs(inner, y_joint, col, plate, chase=()):
         else:
             y0 = y_joint + lip_len + z_lip_y_margin
             y1 = _rail_horizon(y0, iy1 - corner_round)
-            for cx, cy, _cz in chase:
-                if (cx < 0.0) == (sx > 0.0):
-                    y1 = min(y1, cy - (vent_channel_w / 2.0 + vent_rib_wall)
-                             - slide_slip)
             lane_aft = y1 - rail_stop_len
         out.append((x_in, sx, y0, y1, lane_aft))
     return out
@@ -4658,8 +4654,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
         band = seg if band is None else band.fuse(seg)
     for bx0, bx1, by0, by1, bz0, bz1 in box.pan_sleeve[0]:
         band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
-    # The PRV chase cuts its own share of this band later (`_vent_chase`): each piece carries
-    # the height of the passage it owns.
+    # The PRV chase's rib gets its lane back later: `_chase_channel`, cut at the end of the
+    # piece's work, opens the span of the slide over which this piece crosses the rib.
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
     # slot, cut in `build_back_half` before this stood here.
     for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
@@ -5864,20 +5860,14 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     of the wall is still standing outboard of it. The mouth is `vent_channel_w` square, on the
     tube's own axis, and its lip is the rib's east face — the face that lands on the core.
 
-    EACH PIECE CARRIES ITS OWN HEIGHT OF IT. The passage crosses the Z seam, so the rib is
-    clipped to the band the piece owns and both pieces build their share: back-bottom from
-    the ramp's run-out up to the seam plane, back-top from that plane up to the mouth.
-    Below the seam the piece's own skin is the duct's west face, as it is for the groove;
-    above it the liner is.
-
-    THE TWO HALVES BUTT AT THE SEAM PLANE, closed to the seam's own tolerance and no closer
-    — this is a relief path that opens to the room through the wall two storeys down, not a
-    sealed duct.
-
-    WHAT THIS COSTS IS THE SLIDE, AND `z-slide-back-clear` READS IT. The rib is 16 mm along
-    Y and the passage through it is 12, so 2 mm of it stands at each end at the duct's full
-    depth — out to `interior_x`, which is the band back-bottom's rail head occupies. Given
-    to the piece that MOVES, those two slabs sweep the length of that rail.
+    THE DISCHARGE IS THE OWNER. The passage opens through the wall at the ramp's foot, so
+    the chase goes on the piece whose band holds that foot — the bottom piece wherever the
+    Z seam crosses the chase — and the rib stands proud past that piece's own rim the way
+    the lip does. Above the rim it is a body the SLIDING top wall passes on its way home,
+    so there it walls its own duct: a `vent_rib_wall` liner on the west side, the whole
+    rib standing `slide_slip` off the wall face the top's skin sweeps along, and back-top
+    carries a channel over the span of its slide that crosses it (`_chase_channel`). Below the rim the
+    piece's own skin is the duct's west face, as it is for the groove.
 
     THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
     down as that floor is still inboard of what the skin alone stands `vent_rib_wall` behind.
@@ -5890,9 +5880,7 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         ramp_depth = floor_x - outer[0]
         ramp_rise = ramp_depth / math.tan(math.radians(vent_ramp_angle))
         vent = sz - vent_duct_drop - vent_groove_drop - ramp_rise
-        # The station is the flank's; the HEIGHT is this piece's, and a piece the passage
-        # does not reach builds nothing.
-        if not (y0 <= sy <= y1 and vent < z1 and sz + half > z0):
+        if not (y0 <= sy <= y1 and z0 <= vent <= z1):
             continue
         mouth_top = sz + vent_channel_w / 2.0
         mouth_bot = sz - vent_channel_w / 2.0
@@ -5909,9 +5897,19 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         rib = _xz_prism(sy - half, sy + half,
                         [(inner[0], sz + half), (rib_x, sz + half),
                          (rib_x, ramp_top), (inner[0], rib_end)])
-        # CLIPPED TO THE PIECE'S OWN HEIGHT. The seam plane is where the two halves meet.
-        rib = rib.intersect(_ybox(outer[0] - 1.0, outer[1] + 1.0,
-                                  sy - half - 1.0, sy + half + 1.0, z0, z1))
+        # The whole rib stands `slide_slip` east of the wall face above the rim, so the
+        # sliding skin passes it rather than dragging down it.
+        rib = rib.cut(_ybox(inner[0] - 1.0, inner[0] + slide_slip,
+                            sy - half - 1.0, sy + half + 1.0, rim, sz + half + 1.0))
+        # THE RAIL RUNS THROUGH THIS. Over the seam's own storey the joint reaches
+        # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —
+        # and neither the rib nor the cut enters that band, so the rail carries through the
+        # chase unbroken and what closes the duct on its west side is the joint standing in
+        # it. What that costs is the seal: the duct opens on the seam's own running
+        # clearance for the height of one storey, into a joint that opens to the room.
+        joint_lane = _ybox(inner[0] - 1.0, inner[0] + rail_reach_in + slide_slip,
+                           sy - half - 1.0, sy + half + 1.0, z_seam, rim)
+        rib = rib.cut(joint_lane)
         solid = solid.fuse(rib)
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(rib_x + 1.0, mouth_top),       # the mouth, through the lip
@@ -5923,8 +5921,42 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                      (inner[0], groove_top),         # under the rim the skin
                                      (inner[0], rim),                # is the duct's west face;
                                      (liner_x, rim),                 # above it the liner is,
-                                     (liner_x, mouth_top)]))         # and the rib roofs the duct
+                                     (liner_x, mouth_top)])           # and the rib roofs the duct
+                          .cut(joint_lane))
     return solid
+
+
+def _chase_channel(inner, stations, zj, y_joint, plate):
+    """Back-top's berth for the PRV chase's rib — the lane the rib sweeps through this
+    piece on the way home.
+
+    THE LANE IS THE SWEEP AND NOT THE COLUMN. The rib is back-bottom's and it stands
+    still; this piece enters fore of home and travels aft, so a point of it homed at `y`
+    crosses the rib's station when `y` is aft of the rib's fore face and no more than one
+    travel aft of its back one. A point homed fore of that face travels from further fore
+    still and never reaches the rib — and the west rail's own run stands there, stopping
+    one `slide_slip` fore of it (`_z_rail_runs`), which is the plane this starts on.
+
+    AND IT STOPS ON `interior_x`. What it clears is the flank section and whatever else
+    stands inboard of that plane; outboard of it is the box's own `wall`, which is the
+    face the Z seam's heads run one `slide_slip` off.
+
+    Cut last of the piece's work — through the flank section, the return, whatever stands
+    in the lane by then — with `slide_slip` round the rib's own faces."""
+    out = None
+    travel = _z_rail_travel(inner, y_joint, "back", plate, stations)
+    for sx, sy, sz in stations:
+        half = vent_channel_w / 2.0 + vent_rib_wall
+        side = +1.0 if sx < 0.0 else -1.0          # which flank the rib is on
+        x_in = inner[0] if side > 0 else inner[1]
+        xa, xb = sorted((x_in, sx + side * slide_slip))
+        # FROM THE RIM UP, because that is where the rib is: over the seam's own storey the
+        # chase stands clear of the joint (`_vent_chase`) and the rail carries through it.
+        cut = _ybox(xa, xb, sy - half - slide_slip,
+                    sy + half + slide_slip + travel,
+                    zj + z_rise, sz + half + slide_slip)
+        out = cut if out is None else out.fuse(cut)
+    return out
 
 
 def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
@@ -7381,6 +7413,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # corner fills and flank rails sweep, and regrow on their 45° pair above it.
         piece = piece.cut(_z_rail_channels(inner, y_joint, zj, y_side, plate,
                                            box.vent_chase))
+        if y_side == "back" and box.vent_chase:
+            # And the PRV chase's berth: the rib stands the seam storey's full section on
+            # its flank, and the lane is the span of this piece that crosses it on the way
+            # in — through the flank section, the pan sleeve, whatever stands in it — with
+            # `slide_slip` round the rib's own faces. The west rail's run stands fore of it.
+            piece = piece.cut(_chase_channel(inner, box.vent_chase, zj, y_joint, plate))
     if y_side == "front":
         # AND THE Y TELESCOPE'S, on both storeys and for the same reason: the lip's own
         # section is the section this piece presents aft of the mouth, whatever has grown
@@ -7528,7 +7566,7 @@ def _report_slide(pieces, box):
                 f"its west flank and {flanks['east']:.1f} mm³ on its east — a flank reading "
                 f"nothing has no foot over its head, so that run is a rail the other piece "
                 f"never entered. Read the channel cuts that run last on the top piece "
-                f"(`_z_rail_channels`) against the runs `_z_rail_runs` "
+                f"(`_z_rail_channels`, `_chase_channel`) against the runs `_z_rail_runs` "
                 f"gives that flank, and `hook_lap` against both"])))
         out[col] = (worst, travel, len(rungs), lifted)
         print(f"  Z slide {col + ':':7s} travel {travel:6.1f} mm, worst contested "

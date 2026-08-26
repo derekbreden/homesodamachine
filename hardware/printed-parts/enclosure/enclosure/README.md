@@ -144,7 +144,7 @@ arrived at along Y instead of dropped into.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
-[114 mm](RAIL_RUN_BACK) and [92 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+[114 mm](RAIL_RUN_BACK) and [114 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron.
 **The two columns end their runs on different things.** Aft of the front run the top
 piece carries nothing but its own seam band and the Y-seam tongue, and both are inboard
