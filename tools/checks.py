@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """checks.py — every check in this tree, run against this tree, in one place.
 
-    tools/cad-venv/bin/python tools/checks.py           every check, a line each
+    tools/cad-venv/bin/python tools/checks.py            every check, a line each
     tools/cad-venv/bin/python tools/checks.py --list     name them and run none
+    tools/cad-venv/bin/python tools/checks.py --json P   write the verdict to P as well
 
 FOUND BY GLOB, NOT BY LIST. `check_*.py` under `hardware/scripts/`, `tools/` and `tools/bazel/`
 is the whole set, so a check added tomorrow is run tomorrow. A list is a second place to
 remember, and the thing being guarded here is checks nobody remembers to run.
+
+`--json` CARRIES NO CLOCK, AND THAT IS WHAT MAKES IT COMMITTABLE. Durations and a run time are
+in the terminal reading and not in the file, so an unchanged tree writes byte-identical bytes
+and `checks_now.py` finds nothing to commit. A verdict that differed every run would push a
+commit every run, and the site would deploy on the clock rather than on the reading.
 
 A SELFTEST AND A CHECK ANSWER DIFFERENT QUESTIONS. `selftests.json` registers four of these and
 `tools/bazel/selftest.sh` runs `<script> selftest` — the script's own rules held against
@@ -22,6 +28,7 @@ stop the tree reaching the site would be the one thing this tree does not do.
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 import time
@@ -43,9 +50,29 @@ def checks() -> list:
     return out
 
 
+def verdict(rows: list, red: list) -> dict:
+    """The reading with nothing volatile in it, for the file the site serves.
+
+    NO DURATIONS AND NO TIMESTAMP. What a check took is a fact about this machine at this
+    moment; what it found is a fact about the tree, and only the second one is worth a commit.
+    The commit's own date says when, which is the same answer from a source that cannot drift.
+    """
+    detail = {}
+    for rel, out, err in red:
+        body = ((out or "") + (err or "")).strip().splitlines()
+        detail[rel] = [ln.rstrip() for ln in body[-25:] if ln.strip()]
+    return {
+        "green": not red,
+        "checks": [{"check": rel, "status": "ok" if code == 0 else "red", "note": note}
+                   for rel, code, _took, note in rows],
+        "detail": detail,
+    }
+
+
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--list", action="store_true", help="name them and run none")
+    ap.add_argument("--json", metavar="PATH", help="also write the verdict here, clock-free")
     args = ap.parse_args(argv)
 
     found = checks()
@@ -80,6 +107,12 @@ def main(argv) -> int:
         body = (out or "") + (err or "")
         for ln in body.strip().splitlines()[-25:]:
             print(f"  {ln}")
+
+    if args.json:
+        out = Path(args.json)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(verdict(rows, red), indent=2, sort_keys=True,
+                                  ensure_ascii=False) + "\n")
 
     return 1 if red else 0
 

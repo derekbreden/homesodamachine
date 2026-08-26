@@ -59,4 +59,15 @@ _py="$root/tools/cad-venv/bin/python"
 mkdir -p "$root/.cache"
 nohup "$_py" "$root/tools/publish_now.py" \
   >>"$root/.cache/publish-now.log" 2>&1 &
+
+# AND THE TREE IS ASKED HOW IT IS DOING, WHERE THE ANSWER IS LOOKED AT. Every check run against
+# the tree is 14 seconds and takes no build lock, and `checks_now.py` commits the verdict to
+# `web/public/checks.json` — a deploying path — so a red draws a band on every page of the site
+# instead of sitting in a log. Detached and behind its own single-flight lock, for the same
+# reasons as the publish above: nothing here is in front of the agent's next tool call, and six
+# sessions committing at once produce one reading of the newest tree.
+#
+# A RED CHANGES NOTHING ABOUT WHAT SHIPS. It rides out with the commit that caused it.
+nohup "$_py" "$root/tools/checks_now.py" \
+  >>"$root/.cache/checks-now.log" 2>&1 &
 exit 0
