@@ -639,6 +639,75 @@ def _release_asset_matches(root: Path, asset: str, digest: str, size: int) -> bo
                 and old.get("digest") == f"sha256:{digest}")
 
 
+OBJECT_PREFIX = "s-"
+
+
+def object_asset(sha: str) -> str:
+    """The release asset holding one member's bytes, named by those bytes."""
+    return f"{OBJECT_PREFIX}{sha}.gz"
+
+
+def objects_on_release(root: Path) -> set:
+    """Every member sha the release already holds as its own asset.
+
+    ASKED, NOT INFERRED. The previous lock's shas say where those bytes were, not that an asset
+    holds them — a lock written before these existed names members that only ever went up inside
+    the bundle. Reading the release answers for a hand backfill, an upload that failed last time
+    and a member reverting to bytes some older lock named, all the same way and without any of
+    them being special cases.
+    """
+    listing = _gh(root, "release", "view", TAG, "--json", "assets")
+    if listing.returncode != 0:
+        return set()
+    out = set()
+    for a in json.loads(listing.stdout).get("assets", []):
+        name = a.get("name", "")
+        if (name.startswith(OBJECT_PREFIX) and name.endswith(".gz")
+                and a.get("state") == "uploaded"):
+            out.add(name[len(OBJECT_PREFIX):-len(".gz")])
+    return out
+
+
+def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bool:
+    """Put each member the release does not already hold on it, one asset per member.
+
+    THE BUNDLE COSTS THE WHOLE TREE TO MOVE THREE MEMBERS. `build` tars and gzips 304 MB in 9.9
+    seconds however few solids moved, the upload carries all 65 MB of it, and the site downloads
+    the same 65 MB to extract what changed. One lock move measured on 2026-08-26 moved 3 of 124
+    members. These assets are the same bytes addressed one at a time, so a publish and an
+    adoption both cost what actually moved.
+
+    NAMED BY CONTENT, SO AN UNCHANGED MEMBER IS NOT RE-SENT AND A REVERTED ONE IS ALREADY THERE.
+    `known` is what `objects_on_release` found, so what is skipped is what is demonstrably up.
+    An asset the name already matches holds these bytes, the name being the hash.
+
+    THE BUNDLE IS STILL WRITTEN AND STILL UPLOADED. A container with no solids at all reads one
+    asset rather than 124, and a lock this does not finish is a lock the tarball still answers.
+    """
+    todo = [r for r in rels if solid_hashes[r] not in known]
+    if not todo:
+        print("  every member is already on the release under its own hash")
+        return True
+    sent, failed = 0, 0
+    with tempfile.TemporaryDirectory() as d:
+        for rel in todo:
+            sha = solid_hashes[rel]
+            staged = Path(d) / object_asset(sha)
+            with open(root / rel, "rb") as src, open(staged, "wb") as raw, \
+                    gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as out:
+                shutil.copyfileobj(src, out)
+            up = _gh(root, "release", "upload", TAG, str(staged), "--clobber")
+            staged.unlink(missing_ok=True)
+            if up.returncode != 0:
+                print(f"  {rel} did not upload as {object_asset(sha)}")
+                failed += 1
+                continue
+            sent += 1
+    print(f"  {sent} of {len(todo)} changed member(s) uploaded on their own hash"
+          + (f"; {failed} did not, so this lock is read from the bundle" if failed else ""))
+    return failed == 0
+
+
 def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None:
     """Put `bundle` on the release as `asset`, making the release if it is not there yet.
 
@@ -842,6 +911,8 @@ def main(argv) -> int:
         print(f"pinned current scorecards without rebuilding {release['asset']}")
         return 0
 
+    known = objects_on_release(_ROOT)
+
     with tempfile.TemporaryDirectory() as d:
         bundle = Path(d) / "bundle.tar.gz"
         digest = build(_ROOT, rels, bundle)
@@ -850,6 +921,14 @@ def main(argv) -> int:
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
+        complete = upload_objects(_ROOT, rels, now, known)
+
+    # `objects` says EVERY member of this lock is on the release under its own hash, so a reader
+    # may fetch what it is missing rather than the whole bundle. One upload that did not land
+    # leaves it off, and the lock is read from the bundle the way a lock without it is — the
+    # claim is about the whole set, so a partial one is not a smaller claim but a false one.
+    if complete:
+        data["release"]["objects"] = OBJECT_PREFIX
 
     _write_lock(data)
     print(f"pinned in {LOCK.relative_to(_ROOT)}"

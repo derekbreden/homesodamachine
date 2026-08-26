@@ -31,12 +31,13 @@
 
 import { createHash } from "node:crypto";
 import { createReadStream, createWriteStream } from "node:fs";
-import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
+import { createGunzip } from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -114,7 +115,65 @@ if (CHECK) {
   process.exit(1);
 }
 
+// A FEW MEMBERS ARE WORTH ASKING FOR BY NAME; A HUNDRED ARE NOT. `pack.py` puts every member of
+// a lock on the release under its own hash as well as inside the bundle, and says so with
+// `release.objects`. Fetching those one at a time costs what actually moved — a lock move
+// measured on 2026-08-26 changed 3 of 124 members against a 65 MB bundle — and a container that
+// holds nothing still reads one asset instead of 124 requests. The threshold is where those
+// cross; the bundle is also the whole of the answer for any lock written before `objects`.
+const OBJECT_LIMIT = 24;
 const { url, asset } = lock.release;
+
+// EIGHT AT A TIME, BECAUSE THE WAIT IS THE ROUND TRIP AND NOT THE BYTES. A member averages a
+// few hundred KB and the objects are on a CDN, so one at a time spends the whole fetch waiting
+// on latency it could have overlapped. Eight is enough to hide it and few enough that a
+// container with 256 MB is never holding more than a handful of members in flight.
+const OBJECT_LANES = 8;
+
+async function fetchObject(rel, base) {
+  const dest = path.join(ROOT, rel);
+  const gz = dest + ".gz.part";
+  await mkdir(path.dirname(dest), { recursive: true });
+  try {
+    await download(`${base}${lock.release.objects}${solids[rel]}.gz`, gz);
+    await pipeline(createReadStream(gz), createGunzip(), createWriteStream(dest));
+    if ((await sha256(dest)) !== solids[rel]) throw new Error("not the locked bytes");
+  } finally {
+    await rm(gz, { force: true });
+  }
+}
+
+async function fetchObjects(rels) {
+  const base = url.slice(0, url.lastIndexOf("/") + 1);
+  const queue = [...rels];
+  const failed = [];
+  const lane = async () => {
+    for (let rel = queue.shift(); rel !== undefined; rel = queue.shift()) {
+      try {
+        await fetchObject(rel, base);
+      } catch (err) {
+        failed.push(`${rel} — ${err.message}`);
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(OBJECT_LANES, rels.length) }, lane));
+  return failed;
+}
+
+if (lock.release.objects && missing.length <= OBJECT_LIMIT) {
+  console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
+  const failed = await fetchObjects(missing);
+  if (!failed.length) {
+    console.log(`[cad-artifacts] ${missing.length} of ${missing.length} solid(s) in place`);
+    process.exit(0);
+  }
+  // WHAT ONE ROUTE COULD NOT SETTLE, THE OTHER STILL CARRIES. The bundle holds every member of
+  // this lock too, so a missing object or a bad gunzip falls through to it rather than costing
+  // the site a solid.
+  console.warn(`[cad-artifacts] ${failed.length} solid(s) did not come by name — reading the bundle`);
+  for (const line of failed.slice(0, 8)) console.warn(`    ${line}`);
+}
+
 console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch — ${asset} (${(lock.bundle.bytes / 1e6).toFixed(1)} MB)`);
 
 const work = await mkdtemp(path.join(tmpdir(), "cad-artifacts."));
