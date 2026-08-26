@@ -153,6 +153,7 @@ from _materials import WALL_COLORS as PIECE_COLORS, one_body
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _realized
+import fits
 import reeding
 import trimesh
 import flute_skin as _flute_skin
@@ -486,13 +487,16 @@ funnel_front_ledge = 0.0
 # front socket bore, meeting the back half's own corner web along its whole +Y
 # side. The screw spans the head seat to the front heat-set, so the pin body is
 # screw_len − heatset_depth long.
-split_slip = 0.40            # diametral slide fit, plug into socket bore
+split_slip = 2.0 * fits.slip # diametral slide fit, plug into socket bore
+# What a 45 degree lap gives up along the axis it is driven home on, so the two raked faces
+# stand one `fits.slip` apart where they pass.
+scarf_axial = fits.slip * math.sqrt(2.0)
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
 screw_len = 10.0             # M3 SHCS under-head length (M3x10), head seat → heat-set
 plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
-socket_bore_dia = plug_dia + split_slip          # 10.3 — slide fit over the plug
+socket_bore_dia = plug_dia + split_slip          # 10.2 — slide fit over the plug
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
 heatset_dia = _interface.heatset_dia  # ruthex M3 short heat-set
 heatset_len = 4.0            # ruthex RX-M3Sx4.0 brass body, set flush at its opening
@@ -1379,7 +1383,7 @@ z_lip_y_margin = 2.0
 # face is vertical or horizontal. No channel anywhere in the joint closes over the bed
 # of the piece that prints it — the notch is an open rebate in the wall's own inboard
 # face, not a cavity.
-slide_slip = 0.2             # per-face running clearance on every sliding face of a Z seam
+slide_slip = fits.slip       # per-face running clearance on every sliding face of a Z seam
 hook_foot = 8.7              # the foot: the top's full section, mouth face to caught face
 hook_lap = 2.0               # the catch: how far the head stands out over the foot, in plan
 # THE Z SEAM'S OWN STOREY, mouth to rim, and THE FLAVOUR DECK IS ITS CEILING: the rim
@@ -1453,7 +1457,7 @@ rail_reach_in = 2.0 * slide_slip + hook_lap + hook_arm
 # to `bay_x_span` and no further at any height, so the posts it slides between are untouched
 # and the front of the box outboard of the bay is theirs.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
-bay_face_slip = 0.4          # pump cartridge face inside the opening, per side — its running fit
+bay_face_slip = fits.slip    # pump cartridge face inside the opening, per side — its running fit
 # HOW FAR A CORNER POST REACHES ALONG THE FRONT WALL'S INNER FACE. The post is the whole of
 # the box's corner and the bay stops on it, so this is what the front of the machine keeps
 # outboard of the opening. It is carried past the column's own arc — which lands one
@@ -1464,7 +1468,7 @@ bay_face_slip = 0.4          # pump cartridge face inside the opening, per side 
 # is what stands behind the face where the turn lands on the flank — `column-face-backed` reads
 # it, against the section a flute wants under it.
 post_along = 14.676
-face_reveal = 0.4            # the face's edge reveal at the sill and under the lintel
+face_reveal = fits.slip      # the face's edge reveal at the sill and under the lintel
 # THE MOUTH IS SQUARE IN PLAN BECAUSE THE WHOLE BLOCK PASSES IT. A round on its fore standing
 # arrises admits the rounded drawer face at home but not the square fill behind that face: as
 # the drawer moves, the fill reaches the round and binds. The outside box keeps its rounded
@@ -1485,6 +1489,10 @@ plate_guide_x_air = 1.0      # fixed guide cheeks outside the pump cartridge's w
 plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading the steel in
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
                              # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
+plate_shelf_land = 3.0       # front-bottom's shelf inboard of the steel's END, per end — the
+                             # bearing the plate's bottom edge rides on (`_plate_shelf`)
+plate_shelf_t = 1.2          # that shelf's own section at its inboard edge, before the 45°
+                             # under it takes it back into the flank
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
 
@@ -3646,11 +3654,18 @@ def _screw_cut(x_ext, sx, z_boss, y_boss, length=None):
 
 
 def _front_lip(inner, y_joint):
-    """The front half's rear lip: a full-`wall` band whose outer face is flush
-    with the body's inner wall — one solid with the body, nothing shaved —
-    telescoping +Y into the back half and mating its inner wall. It runs one
-    `wall` back into the body cavity (the fusion shoulder / telescoping stop) and
-    forward over the overlap to the rim. Printed Z-down the side segments are
+    """The front half's rear lip: a full-`wall` band telescoping +Y into the back
+    half and running on its inner wall. It runs one `wall` back into the body
+    cavity (the fusion shoulder / telescoping stop) and forward over the overlap
+    to the rim.
+
+    THE SHOULDER IS FLUSH AND THE TONGUE IS NOT, and the step between them is at
+    the mouth. Fore of `y_joint` the band's outer face is the body's own inner
+    wall — one solid with the body, nothing shaved. Aft of it the band stands in
+    the other piece, so its three outer faces come in one `fits.slip`, and the
+    step they come in on is the plane the back half's mouth is struck on: it
+    passes the mouth in the first millimetre of travel and leads the rest of the
+    lip in behind it. Printed Z-down the side segments are
     vertical bands and the −Y mouth is a vertical face, so it needs no frame
     bevel; corners stay square, concentric with the square seam mouth it
     telescopes into (the box's rounded verticals are at the front and +Y walls, not
@@ -3672,9 +3687,37 @@ def _front_lip(inner, y_joint):
     segments, vertical to the bed, are free."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
-    outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
+    shoulder = _ybox(ix0, ix1, y0, y_joint, iz0, iz1)
+    tongue = _ybox(ix0 + fits.slip, ix1 - fits.slip, y_joint, y1,
+                   iz0, iz1 - fits.slip)
     inner_box = _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 - 1.0, iz1 - wall)
-    return outer.cut(inner_box)
+    return shoulder.fuse(tongue).cut(inner_box)
+
+
+def _y_lip_channel(inner, y_joint, bosses):
+    """THE Y TELESCOPE'S OWN CARVING — cut LAST of a front piece's work, so the section
+    standing aft of the mouth is the section that runs in the back half's register,
+    whatever the piece has since fused into that band: its own flank stock
+    (`_front_top_flanks`), a socket's web, a corbel, a tray's foot. `_front_lip` draws
+    the tongue at that section and this is what holds it there. `_z_rail_channels` is
+    the same cut on the other seam.
+
+    THE FOUR COLLARS STAND OUT OF ITS FLANKS. `_front_socket`'s outboard face is what
+    each screw pulls the back wall onto, and four of them across two walls are what
+    locates this joint in X. The collars keep that face; the lip runs clear of the wall
+    between them, and their crowns are carved with everything else."""
+    ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
+    y0, y1 = y_joint, y_joint + lip_len + 1.0
+    zlo, zhi = iz0 - floor_t - 1.0, iz1 + wall + 1.0
+    flanks = _ybox(ix0 - 1.0, ix0 + fits.slip, y0, y1, zlo, zhi).fuse(
+        _ybox(ix1 - fits.slip, ix1 + 1.0, y0, y1, zlo, zhi))
+    yb = _y_boss(y_joint)
+    for x_in, x_ext, sx, z_boss in bosses:
+        _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
+        xa, xb = sorted((x_in, x_cap))
+        flanks = flanks.cut(_ybox(xa, xb, yb - socket_r, yb + socket_r,
+                                  z_boss - socket_r, z_boss + socket_r))
+    return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1, iz1 - fits.slip, zhi))
 
 
 def _floor_scarf(inner, y_joint):
@@ -3691,22 +3734,21 @@ def _floor_scarf(inner, y_joint):
     and the only rising face is 45°, so neither half asks support for the core's
     bearing surface. Assembled, the top remains one plane at z=iz0.
 
-    `split_slip` is taken along the insertion axis: the tongue's nose is that much
-    shorter than the back relief. Its flanks are inset half that figure from each
-    side wall, giving the full-width tongue the same diametral running fit as a
-    plug in its socket.
+    Each flank is a plumb face standing one `fits.slip` off the side wall beside
+    it. The nose is raked, and the tongue's is struck `scarf_axial` short of the
+    relief's, which stands the two rakes one `fits.slip` apart where they pass.
 
     Returns (tongue, relief): the solid the FRONT half fuses and the matching
     envelope the BACK half cuts."""
     ix0, ix1, _iy0, _iy1, iz0, _iz1 = inner
     zbed = iz0 - floor_t
     root = y_joint - 1.0                              # robust face overlap into front slab
-    tongue_tip = y_joint + lip_len - split_slip
+    tongue_tip = y_joint + lip_len - scarf_axial
     tongue_flat = tongue_tip - floor_t
     relief_tip = y_joint + lip_len
     relief_flat = relief_tip - floor_t
     tongue = _yz_prism(
-        ix0 + split_slip / 2.0, ix1 - split_slip / 2.0,
+        ix0 + fits.slip, ix1 - fits.slip,
         [(root, zbed), (tongue_flat, zbed), (tongue_tip, iz0), (root, iz0)])
     relief = _yz_prism(
         ix0, ix1,
@@ -4029,6 +4071,50 @@ def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
+def _plate_shelf(inner, plate, zj):
+    """THE TWO SHELVES THE COLLET PLATE RIDES ON — front-bottom's own, at the seam mouth,
+    one down each flank over the front run.
+
+    THE STEEL IS CARRIED BY THE SEAM. Nothing in front-top holds it down: it goes in through
+    that piece's bed face and `_plate_cap`'s land is over it, not under it, so what stops the
+    plate falling back out the way it came is the piece the mouth closes onto. Front-bottom is
+    a hollow tub across the bay at this station — it stands nothing under the steel's middle —
+    but its two FLANKS run to the mouth here, `_front_bottom_flank_skin` having carried them
+    to `front_bottom_flank_face`. This brings that face in the last few millimetres, under the
+    plate's own ends.
+
+    IT MISSED BY LESS THAN A MILLIMETRE. The flank's face is one `LIP_UNDERWALL` off
+    `interior_x` and the steel's end is `plate_step_in` off it — the joint's own reach plus two
+    slips, which is what the plate has to keep clear of down the whole of the front slide. The
+    two planes pass within a millimetre of each other and neither may move: the wall is the
+    section the seam's furniture stands on, and the steel is already the innermost of the three
+    faces in the joint's lane. So the shelf is what closes that gap, and it is the only new
+    material either piece needs.
+
+    IT RUNS THE WHOLE FRONT RUN AND NOT JUST THE HOME STATION. The plate's bottom edge lies IN
+    the seam plane, which is the shelf's own top, so it cannot step up onto a ledge that begins
+    where it stops — it would meet that ledge's fore face and stop the slide. Run from the
+    front wall's inner face back to the steel's own aft plane, the shelf is under the plate
+    from the moment the piece has any of front-bottom beneath it, and the steel rides it in.
+
+    AND ITS UNDERSIDE IS A 45° BACK TO THE FLANK. This piece prints floor-down and builds in
+    +Z, so a shelf struck square here would be a `plate_shelf_land + LIP_UNDERWALL` soffit
+    running the length of the flank with nothing under it. Taken back at that angle it is a
+    surface the print grows into off the wall it stands on — and a gusset down the flank's
+    top corner besides."""
+    fx0, fx1 = front_bottom_flank_face()
+    t, top = plate_shelf_t, zj
+    out = None
+    for x_face, x_in in ((fx0, plate["x0"] + plate_shelf_land),
+                         (fx1, plate["x1"] - plate_shelf_land)):
+        reach = abs(x_face - x_in)
+        shelf = _xz_prism(inner[2], plate["aft_y"], [
+            (x_in, top), (x_face, top),
+            (x_face, top - t - reach), (x_in, top - t)])
+        out = shelf if out is None else out.fuse(shelf)
+    return out
+
+
 def _back_bottom_flank_skin(inner, y_joint, zj):
     """The extra skin inboard of back-bottom's two flanks, slab to seam mouth.
 
@@ -4086,13 +4172,19 @@ def _front_relief_regions(pump_trays):
     return [fridge_relief] + _pump_relief_regions(pump_trays)
 
 
-def _front_relief_cuts(inner, pump_trays):
+def _front_relief_cuts(inner, pump_trays, slip=0.0):
     """The relief pockets cut out of the front wall: a box to each region's floor, its
     ceiling rising at `relief_chamfer` to the mouth so the pocket prints in a standing
-    wall with no flat over it."""
+    wall with no flat over it.
+
+    `slip` closes each pocket in by that much on all four of its standing faces and
+    stands its floor that much aft — the outline a piece standing in these pockets is
+    held off the wall by, which is what `_cap_room` takes."""
     iy0 = inner[2]
     cuts = []
     for x0, x1, z0, z1, floor in _front_relief_regions(pump_trays):
+        x0, x1, z0, z1 = x0 + slip, x1 - slip, z0 + slip, z1 - slip
+        floor = floor + slip
         depth = iy0 - floor
         cuts.append(_ybox(x0, x1, floor, iy0 + 1.0, z0, z1))
         cuts.append(_yz_prism(x0, x1, [(floor, z1), (iy0 + 1.0, z1 + depth + 1.0),
@@ -5344,7 +5436,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
     return solid
 
 
-def _cap_room(box):
+def _cap_room(box, slip=0.0):
     """Everything under the split AND BEHIND THE FACE — the volume `build_pump_cap` keeps and
     `build_pump_cartridge` gives up.
 
@@ -5352,13 +5444,20 @@ def _cap_room(box):
     the plate whole on the piece a hand pulls; what parts on `cap_split_z` is the block behind
     it. So this room is cut back by the front wall's own section — the relieved section, so a
     pump pocket's floor is where the cap begins over that pump and the face's own skin stays
-    ahead of it."""
+    ahead of it.
+
+    THE TWO PIECES TAKE TWO ROOMS, AND `slip` IS THE WHOLE DIFFERENCE. The cartridge gives up
+    the room struck on the wall itself; the cap keeps the room struck on that wall opened one
+    `fits.slip`, so the band between the two rooms is air on the piece the cap rises past —
+    every standing face of every pocket it fills, and the floor its own fore face lands on.
+    `cap_split_z` is not opened: the screws close on that plane and it is where this joint
+    decides the pump's height."""
     outer, inner = box.outer, box.inner
     room = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
                  outer[4] - 1.0, cap_split_z(box.pump_trays))
-    wall_solid = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, front_plane_y,
+    wall_solid = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, front_plane_y + slip,
                        outer[4] - 1.0, outer[5] + 1.0)
-    for cutter in _front_relief_cuts(inner, box.pump_trays):
+    for cutter in _front_relief_cuts(inner, box.pump_trays, slip):
         wall_solid = wall_solid.cut(cutter)
     return room.cut(wall_solid)
 
@@ -5413,7 +5512,7 @@ def build_pump_cap(box, halves_cache=None):
     the piece comes out screwed to the pump cartridge and a hand pulling the assembly finds relief
     at both storeys. Printed on its Z− face, the same pose the pump cartridge takes."""
     inner, plate = box.inner, box.collet_plate
-    solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_room(box))
+    solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_room(box, fits.slip))
     split = cap_split_z(box.pump_trays)
     bx0, bx1 = cap_band_x(box.pump_trays)
     solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
@@ -7089,6 +7188,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # And front-bottom's own extra section on the west flank, welled round the card.
             piece = piece.fuse(_front_bottom_flank_skin(
                 inner, box.west_cradle, y_joint, zj).intersect(col))
+            # And the two shelves that carry the collet plate, which bring that same face in
+            # the last millimetre under the steel's ends. Fused with the skin, before every
+            # pocket, so anything cut into this flank later is cut out of the whole of it.
+            if box.pump_bay and box.collet_plate:
+                piece = piece.fuse(
+                    _plate_shelf(inner, box.collet_plate, zj).intersect(col))
         if y_side == "back":
             # And back-bottom's own extra section inboard of that, on the two flanks only.
             # Fused with them and before every pocket for the same reason: a well cut into
@@ -7278,6 +7383,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # flank section, the pan sleeve, whatever stands in it — with `slide_slip`
             # round the rib's own faces.
             piece = piece.cut(_chase_channel(inner, box.vent_chase, zj, y_joint, plate))
+    if y_side == "front":
+        # AND THE Y TELESCOPE'S, on both storeys and for the same reason: the lip's own
+        # section is the section this piece presents aft of the mouth, whatever has grown
+        # into that band since the lip was drawn.
+        piece = piece.cut(_y_lip_channel(inner, y_joint, box.y_bosses))
     return _unified(piece)
 
 

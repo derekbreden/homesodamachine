@@ -25,6 +25,7 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+import fits
 from _cadq_export import export_assembly
 from _materials import C_FAUCET_BLACK, one_body
 import _faucet_interface
@@ -160,9 +161,8 @@ base_pod_counterbore_dia = 6.15     # clearance bore over the M3 SHCS head (~5.4
                                     # ring, so nothing registers on this wall
 base_pod_shank_dia = 3.9            # M3 shank clearance — plate boss bore up to the insert
 base_pod_wall = 3.0                 # wall added at each step (plate boss wall = shell wall)
-base_pod_slip = 0.40                # boss-to-hole diametral slip fit — covers the
-                                    # bore printing undersized and the three-pin
-                                    # positional stack across two prints
+base_pod_slip = 2.0 * fits.slip     # boss-to-hole diametral slip fit; the three pins
+                                    # enter together, led in by `boss_chamfer` on each
 base_pod_boss_dia = base_pod_counterbore_dia + 2.0 * base_pod_wall  # plate boss OD
 base_pod_hole_dia = base_pod_boss_dia + base_pod_slip               # shell pocket
 base_pod_radius = base_pod_hole_dia / 2.0 + base_pod_wall           # pod outer
@@ -331,7 +331,7 @@ split_junction_rot = _path_total_rot / 2.0  # [70°](SPLIT_JUNCTION_ROT)
 split_socket_overlap_len = 20.0
 split_plug_overlap_len = 18.0
 split_socket_wall = 2.0
-split_slip = 0.30
+split_slip = 2.0 * fits.slip
 
 split_socket_shrink = split_socket_wall
 split_plug_shrink = split_socket_shrink + split_slip / 2.0

@@ -9,6 +9,14 @@ Coordinates are in the repo's +Z-up frame: +Z is height, +X is lateral
 side), so the flavor-tube pill sits at world +Y, behind the Westbrass's axis
 (toward the back of the appliance)."""
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
+                            if p.name == "printed-parts") / "cadlib"))
+
+import fits  # noqa: E402
+
 
 # 1/4" LLDPE flavor tube — physical fact, set by the vinyl tube the
 # pumps push the syrup through.
@@ -84,7 +92,7 @@ display_pcb_top_z = display_total_depth - display_housing_depth             # [5
 # makes for it. That wall's thickness is the hook's, not a wall's: see
 # the DISPLAY CRADLE section of faucet_shell.py.
 display_cover_wall = 1.86       # skirt and bezel — three 0.62 extrusions, the cradle's wall
-display_cover_slip = 0.30       # per side, plate against the shell
+display_cover_slip = fits.slip  # per side, plate against the shell
 # How far the bezel laps the device's face on every edge. The screen is
 # 17.75 x 32.93 in a 24.5 x 44.5 housing, so 2 mm of lap stops 1.4 mm
 # short of the glass on the sides and 3.8 mm short on the ends.

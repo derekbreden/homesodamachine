@@ -5,6 +5,14 @@ names so its public geometry API stays intact without making a small mating part
 machine.
 """
 
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(next(p for p in Path(__file__).resolve().parents
+                            if p.name == "printed-parts") / "cadlib"))
+
+import fits  # noqa: E402
+
 wall = 3.0
 rear_seam_clear = 3.0
 
@@ -27,7 +35,7 @@ display_inset_x = display_bezel_x + 2 * display_inset_reach
 display_inset_slope = display_bezel_slope + 2 * display_inset_lap
 display_bezel_depth = 4.0
 display_cover_thickness = 2.0
-display_cover_slip = 0.30
+display_cover_slip = fits.slip      # per side, plate edge into the inset it drops in
 display_cover_head_h = 3.0
 display_cover_seat_recess = 0.2
 display_cover_cbore_depth = display_cover_head_h + display_cover_seat_recess

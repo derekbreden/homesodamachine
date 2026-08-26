@@ -105,14 +105,14 @@ the heat-set, then a one-wall cap.
   + one wall each side, *not* the head — the head sits in the wall counterbore) from the
   exterior to the heat-set, seating in the socket's slot.
 - **Lip piece = socket** (the front pieces): a collar slotted
-  [10.3 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
+  [10.2 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
   heat-set (Ø4.0 × 5.25) capped at its deep inboard end.
 
 **Each boss stands on the joint it pins.** A plug is the wall it drives through and
 the reach it needs past it: the first `wall` of its length *is* that wall's own
 material and the rest a stub off it, its mouth-side face on the receiving mouth. A
-socket is a **block round that plug** — [16.3 mm](SOCKET_OD) square outside,
-[10.3 mm](SOCKET_BORE) square slotted, one `wall` of material the whole way, a
+socket is a **block round that plug** — [16.2 mm](SOCKET_OD) square outside,
+[10.2 mm](SOCKET_BORE) square slotted, one `wall` of material the whole way, a
 `socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
 hair under the seam mouth, so it stands on that band down its
 whole length. That band is one `wall` deep and runs the piece's full height, the way
@@ -124,14 +124,14 @@ is the wall's own air.
 
 Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel slide on hooked rails, and
 no screw anywhere on it.** Down each flank's **straight run** the bottom piece raises an
-**arm** on its mouth, standing one [0.2 mm](SLIDE_SLIP) inboard of the top's own wall,
+**arm** on its mouth, standing one [0.15 mm](SLIDE_SLIP) inboard of the top's own wall,
 and the arm's **head** steps [2 mm](HOOK_LAP) back out over the **groove** between them.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
 [8.7 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
 the head, closing back to the full wall on a 45° roof. The storey is [14.8 mm](Z_RISE)
 mouth to rim, and **the flavour deck is its ceiling** — the rim stands under the lowest
 valve plate (`z-seam-under-deck`), which is the whole height the box has to spend here.
-It buys the groove first: [8.9 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
+It buys the groove first: [8.85 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
 with 5.9 mm of head over the catch. That height is the Z seam's own — `lip_len` is the Y
 seam's overlap, struck off its boss, and the two are independent figures. **Both tops enter
 fore of home and slide AFT** the length of their column — front-top over the front wall's
@@ -195,7 +195,7 @@ floor slab spans the interior wall to wall, so a body laid on a wall's face woul
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
 Y-seam collars, or the rail band over the seam's own storey, whose groove, arm and head
-together reach [6.4 mm](RAIL_REACH) inboard, inside that same band — and the **+Y wall
+together reach [6.3 mm](RAIL_REACH) inboard, inside that same band — and the **+Y wall
 keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold
@@ -272,7 +272,7 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
   corner of the slab, [38 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
   past the tangent — and [40 mm](CORE_STOP_RISE) off the slab. **The pocket in it is the core's
-  own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.4 mm](CORE_STOP_BORE)
+  own plan outline offset one `split_slip`, not a shape of its own**: a Ø[24.3 mm](CORE_STOP_BORE)
   bore on the round's own axis outboard of the tangent, and the core's own flat front face
   inboard of it. So the block bears flat where the core is flat and round where it is round —
   the flat takes it forward, the round takes it across and in yaw, and the pair leaves it no
@@ -886,7 +886,7 @@ pump cartridge is home. `pump-cap-stops-on-plate` reads the area standing agains
 and that the kiss itself is air.
 
 **Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
-the same aft wall the pump cartridge's band stands on — [6.149 mm](GRIP_CAP_DEEP) of relief
+the same aft wall the pump cartridge's band stands on — [6.399 mm](GRIP_CAP_DEEP) of relief
 over [38.94 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
 piece comes out screwed to the pump cartridge and a hand on the assembly finds relief at both
 storeys; the whole figure is under [Pump trays](#pump-trays) below.
@@ -976,7 +976,7 @@ land out to the side wall, spanning `PLATE_T + plate_slot_slip` between two stan
 
 **The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
 its mouth — and its top is whatever puts the four collet holes **centred** in the band
-(`plate-holes-centred`). Each end stands [6.8 mm](PLATE_STEP_IN) off its side wall at **every**
+(`plate-holes-centred`). Each end stands [6.6 mm](PLATE_STEP_IN) off its side wall at **every**
 height: the plate rides in front-top through the whole of the front column's slide, and the
 band `rail_reach_in` off each flank belongs to the joint — groove, arm and head — down that
 whole travel, which `z-slide-front-lanes` is the reading of. Held off by the deepest thing it
@@ -1096,7 +1096,7 @@ on the post. Ledge to that plane is [22.54 mm](GRIP_TRAVEL), which is what one p
 draws the assembly.
 
 **It is one pocket across both pieces** (`_grip_bands`). The deck keeps the band over
-`cap_split_z` — [57.85 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
+`cap_split_z` — [58.1 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
 plate under it on the rail its edge strip bears on and one whole `wall` over it under the
 ceiling the motor cans open through. The cap keeps the band under that plane,
 [38.94 mm](GRIP_CAP_RISE) up from the flank opening's own floor, below which the box's
@@ -1107,10 +1107,10 @@ present it one face.
 
 **It goes as deep as the pump leaves it, storey by storey.** Under the split the head's
 own square reaches `pump_tray.head_half` and one `cap_pump_air` off the axis, and the
-cap's pocket is [6.149 mm](GRIP_CAP_DEEP) — nine millimetres of flank stand out there and
+cap's pocket is [6.399 mm](GRIP_CAP_DEEP) — nine millimetres of flank stand out there and
 that is what they come to. Over the split the boss's octagon reaches `boss_half` and the
-pocket is [8.354 mm](GRIP_SHALLOW); over the crown the bore reaches `can_half` and one
-`cap_pump_air`, and it is [15.95 mm](GRIP_DEEP). The deck keeps a [6 mm](GRIP_BACK) rib
+pocket is [8.604 mm](GRIP_SHALLOW); over the crown the bore reaches `can_half` and one
+`cap_pump_air`, and it is [16.2 mm](GRIP_DEEP). The deck keeps a [6 mm](GRIP_BACK) rib
 between its pocket floor and the boss/can room. The cap keeps one [3 mm](GRIP_CAP_BACK)
 wall between its pocket floor and the head room, leaving the rest of that flank to the hand.
 Between the boss and the can the deck pocket **walks out at `relief_chamfer`**: over a crown
@@ -1118,7 +1118,7 @@ that rib moves inboard by the whole octagon-to-bore step, and ramped, the first 
 the crown still lands on the rim the layer under it keeps.
 
 **The ledge is raked in plan, [1 in 3](GRIP_RAKE)** (`grip_rake`) — standing further fore
-the further inboard it runs, [5.318 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
+the further inboard it runs, [5.401 mm](GRIP_RAKE_FORE) of fall across the deepest pocket.
 The normal it presents to a fingertip carries a third of itself inboard, so the harder a
 hand pulls the harder it is drawn toward the centre of the piece and down into the pocket.
 The one edge this pocket has no wall on is the open flank, and inboard is the way away

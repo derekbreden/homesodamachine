@@ -62,9 +62,11 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_tools))
+import fits
 from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
 from docgen import substitute_md
@@ -127,7 +129,7 @@ brim_seat = _funnel.brim_overhang
 # that prints mouth-down. A 45 degree roof climbs one millimetre of section per millimetre
 # of reach and runs clear of the show face at the open mouth. At the blind end, the slide
 # clearance is struck on all four faces of the square rail.
-dado_slip = 0.30        # printed-fit clearance on each face of the tongue — a slide fit
+dado_slip = fits.slip   # printed-fit clearance on each face of the tongue — a slide fit
                         # down the whole `depth` of groove, not a press
 # One top-wall section in both directions makes the tongue a 9 mm2 rail. Its Z centre is the
 # ceiling datum, which puts half the root in the 8 mm field and half in the 3 mm show skin.
