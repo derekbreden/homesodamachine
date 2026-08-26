@@ -2414,6 +2414,10 @@ def check_slide_lanes(pieces, solids, ebox) -> Bound:
     it slides over is front-bottom AND the refrigeration stratum already seated there.
     `z-slide-front-clear` proved the pieces; this is the same travel with the bodies in.
 
+    IT COMES IN FROM THE FRONT, so the cargo sweeps AFT over the stratum — the axis
+    here is the entry offset, fore of home, and it is the one `_z_rail_runs` closes the
+    rails against.
+
     THE BACK COLUMN TAKES NO SUCH ROW because its tub is EMPTY when it closes: the core
     cannot pass under back-top's own +Y wall, so it enters through the Y-seam mouth
     after the column is one piece (`check_core_ride`), and everything back-top carries
@@ -2431,7 +2435,7 @@ def check_slide_lanes(pieces, solids, ebox) -> Bound:
                  "fuse-clamp"):
         if name in solids:
             fixed.append((name, solids[name]))
-    (worst, at), n, hits = _swept_worst(movers, fixed, (0.0, 1.0, 0.0), travel)
+    (worst, at), n, hits = _swept_worst(movers, fixed, (0.0, -1.0, 0.0), travel)
     ok = worst <= 2.0
     return record_bound(Bound(
         "z-slide-front-lanes", "The front top slides home carrying the flavour pack",

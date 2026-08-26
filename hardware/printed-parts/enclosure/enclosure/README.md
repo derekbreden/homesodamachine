@@ -133,25 +133,30 @@ mouth to rim, and **the flavour deck is its ceiling** — the rim stands under t
 valve plate (`z-seam-under-deck`), which is the whole height the box has to spend here.
 It buys the groove first: [8.9 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
 with 5.9 mm of head over the catch. That height is the Z seam's own — `lip_len` is the Y
-seam's overlap, struck off its boss, and the two are independent figures. The top **enters over the open
-Y-seam mouth** — the one opening the box has before the halves telescope — and slides
-the length of its column: front-top **fore** onto front-bottom, back-top **aft** onto
-back-bottom, the mouth riding the shoulder the whole way, until the foot's end face
-lands on the **stop block** closing each rail's far end. That contact is the column's Y
-datum; the end walls and the corner turns close head-on one `slide_slip` behind it — the
-same telescoping mate the box always had, arrived at along Y instead of dropped into.
+seam's overlap, struck off its boss, and the two are independent figures. **Both tops enter
+fore of home and slide AFT** the length of their column — front-top over the front wall's
+own plane, in open air ahead of the box; back-top over the open Y-seam mouth, the one
+opening the box has before the halves telescope — the mouth riding the shoulder the whole
+way, until the foot's aft end face lands on the **stop block** closing each rail's aft
+end. That contact is the column's Y datum; the end walls and the corner turns close
+head-on one `slide_slip` behind it — the same telescoping mate the box always had,
+arrived at along Y instead of dropped into.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [84 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [48 mm](RAIL_RUN_FRONT) per flank on the front column,
 [114 mm](RAIL_RUN_BACK) and [92 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron.
-A run ends at its **horizon**: the closed end's outer skin and corner round are show
-surface the sliding piece cannot open a channel through, so the rail stops where their
-sweep begins — half the flank less half the entry — and the −X back run stops sooner
-still, `slide_slip` fore of the PRV chase's rib, taking its stop block mid-flank.
-**Sliding a top back out needs the other column's ground**: its only way out is toward
-the Y seam, where the other column stands screwed to it at the ceiling level. Four M3×10
-close the box; the same four open it.
+A run ends at its **horizon**: everything the top piece carries aft of the run sweeps
+the whole travel fore along the flank on the way in, so the rail can reach only half way
+to the first station that piece cannot open a channel through — the **Y-seam tongue's own
+fore face** on the front column, which crosses the seam at full section, and the rear
+skin and its corner round, show surface, on the back. The −X back run stops sooner still,
+`slide_slip` fore of the PRV chase's rib, taking its stop block mid-flank.
+**Both tops escape FORE, the way they went on.** Back-top's escape runs into front-top,
+which stands in it. Front-top's runs into open air, and what holds it there is the Y
+seam's **upper pair of screws** — so two screws out and front-top draws straight off the
+front of the box, the back column and whatever the box is built under never touched.
+Four M3×10 close the box; the same four open it.
 
 **Every face of the joint prints at the box's own rule, and the catch faces are square.**
 The head's underside — the catch — is the joint's one down-looking flat, an abrupt
@@ -166,10 +171,11 @@ Every sliding face is vertical or horizontal, and the top's outer skin keeps its
 two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
 sweep along; the top piece stands off that whole band and its pillar regrows above on the
 45° pair every ceiling over a void here closes at. **The channel is the run's own span
-and the sweep fore of it**, and no further: what a station of the sliding piece has to
-clear is the head, the head stands only over the run, and the Y-seam tongue's flank
-segments stand aft of it — past the margin the two telescopes keep between them — at
-every displacement. So the tongue crosses the seam at its own full section.
+and the sweep aft of it**, and no further: what a station of the sliding piece has to
+clear is the head, so the lane behind the stop block is carried at full section as far as
+the **Y-seam tongue's fore face** — which the horizon has already put beyond the sweep's
+reach. So the tongue crosses the seam at its own full section, and everything nearer than
+it comes out of the lane clear.
 
 **And the slide is proved, not asserted.** `_report_slide` sweeps each built top from full
 entry to home against its built bottom — a ladder of stations, dense where the joint
@@ -232,7 +238,7 @@ even though the whole enclosure does not — that is the point of the split.
 
 The slides fix the order, and the order is the service story backwards. **Front column**,
 on the bench: the refrigeration stratum seats in front-bottom, and front-top — carrying the
-flavour pack made up into its trays and tee wall — slides FORE onto it. **Back column**,
+flavour pack made up into its trays and tee wall — slides AFT onto it, in from the front. **Back column**,
 on the bench, empty: back-top — carrying the chain, the meter, the ceiling panel and the
 wall electronics — slides AFT onto a bare back-bottom, over nothing. **The core rides in
 through the mouth**: the closed back column stands upright and the cold core enters over
@@ -242,8 +248,11 @@ into the pockets their stems land in; the lid's tenants — the water pump and t
 go on through the same mouth after it. **Then the halves telescope**: the front assembly
 slides aft into the back, its corner blocks closing on the core's front face, and the four
 Y-seam screws drive from the ±X exteriors. Service is the same door swinging the other
-way: four screws out, front assembly fore and off, the bay open through the mouth, the
-core out fore, and back-top slides fore off its rails if the tub itself is the work.
+way, and the first of it needs no bench: **the upper two screws alone free front-top**,
+which draws fore off its rails into open air with the box still standing where it is —
+the flavour pack, the trays and the tee wall coming with it. All four screws out takes
+the front assembly fore and off, opens the bay through the mouth, brings the core out
+fore, and back-top slides fore off its rails if the tub itself is the work.
 
 ## Cold-core grips
 

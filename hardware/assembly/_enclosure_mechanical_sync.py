@@ -163,6 +163,13 @@ def main():
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
+        # HOW FAR PROUD FRONT-TOP STANDS before it is drawn back — the front column's own
+        # rail travel, read off `_z_rail_runs` rather than typed, so the bench figure moves
+        # with the run whenever the horizon does.
+        "RAIL_TRAVEL_FRONT": f"{_enc._z_rail_travel(
+            _box["inner"], _box["y_joint"], "front",
+            _box["collet_plate"] if _box["pump_bay"] else None,
+            _box["vent_chase"]):.4g} mm",
         # THE COLLET PLATE'S TWO PLAN FIGURES, both read off `enclosure` rather than typed
         # here. The steel goes into front-top through that piece's Z− face and then rides it
         # through the front column's slide, so under the seam's cap plane it stands in the
