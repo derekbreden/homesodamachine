@@ -42,7 +42,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1425 tracked, 124 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1400 tracked, 149 fetched solids, 53 tags",
       "status": "ok"
     },
     {
