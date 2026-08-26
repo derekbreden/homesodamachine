@@ -68,7 +68,8 @@
   ],
   "detail": {
     "hardware/scripts/check_flutes.py": [
-      "2 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "3 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-back-top — the viewer draws this file, and it is another machine's",
       "  ✗ enclosure-front-bottom — the viewer draws this file, and it is another machine's",
       "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
       "  the flute cut is what puts the surface back:",
@@ -76,11 +77,10 @@
     ],
     "hardware/scripts/check_payloads.py": [
       "3 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/manifold-layout/enclosure-assembly.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
       "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
       "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
       "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
