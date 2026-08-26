@@ -2392,12 +2392,28 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
         d += 16.0
     rungs.append(travel)
     mover = cq.Compound.makeCompound([s for _n, s in mover_parts])
+    # THE BOXES ARE A PRE-FILTER AND ONLY THAT, on `manifold_layout.clashes`' reasoning:
+    # boxes that miss are solids that miss, and boxes that meet prove nothing, so every pair
+    # that survives is still asked exactly. `loose` is the box to ask it on — never smaller
+    # than the solid it holds, and taken without meshing. A skipped pair is one whose boolean
+    # would have come back empty, which this loop already discards at the floor below.
+    mbb = _boxes.loose(mover)
+    fixed = [(name, s, _boxes.loose(s)) for name, s in fixed_parts]
     worst, hits = (0.0, 0.0), {}
     for d in rungs:
         off = cq.Vector(axis[0] * d, axis[1] * d, axis[2] * d)
         at = mover.translate(off)
+        # The mover's box rides with the mover, so a station's box is the home box offset —
+        # a bound per rung rather than a bounding pass per rung.
+        mx0, mx1 = mbb.xmin + off.x, mbb.xmax + off.x
+        my0, my1 = mbb.ymin + off.y, mbb.ymax + off.y
+        mz0, mz1 = mbb.zmin + off.z, mbb.zmax + off.z
         total = 0.0
-        for name, s in fixed_parts:
+        for name, s, bb in fixed:
+            if (mx0 > bb.xmax or bb.xmin > mx1
+                    or my0 > bb.ymax or bb.ymin > my1
+                    or mz0 > bb.zmax or bb.zmin > mz1):
+                continue
             v = at.intersect(s).Volume()
             if v > 1e-6:
                 total += v
