@@ -131,6 +131,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "ceiling-panel"):
     sys.path.insert(0, str(_p))
+import fits
 from _cadq_export import (SOLID_INDEX_SEP, export_assembly, export_dxf,  # noqa: E402
                           import_step)
 import _boxes                                         # noqa: E402
@@ -2399,17 +2400,24 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
     # twentieth of `_meshes.DEFLECTION` — where the exact volume is 0.022 mm³. A tenth of a
     # deflection reads 0.006 and is handed over.
     #
-    # AND THAT 0.001 mm IS THE TESSELLATION'S OWN DEPTH. A mesh node sits on the surface, so
-    # what a mesh can hide is the sag between nodes. Measured against the true surfaces of the
-    # pump cap — the piece carrying the tree's only free-form patches — a plane departs by
-    # 0.000000 mm, a B-spline patch by 0.000211 and a cylinder by 0.000850 — the last of them
-    # 0.04 of DEFLECTION. The free-form patch is the second tightest of the three, not the
-    # loosest.
+    # WHAT A MESH CAN HIDE IS THE SAG BETWEEN ITS NODES, and a node sits on the surface.
+    # Measured against the true surfaces of the seventeen enclosure solids at DEFLECTION, the
+    # deepest departure of each kind and the piece carrying it:
+    #
+    #     SurfaceOfExtrusion   0.0133 mm   nameplate-001
+    #     SurfaceOfRevolution  0.0101 mm   asse-drip-pan
+    #     Cylinder             0.0062 mm   enclosure-front-top
+    #     Cone                 0.0022 mm   enclosure-back-top
+    #     BSplineSurface       0.0002 mm   enclosure-pump-cap
+    #     Plane                0.0000 mm
+    #
+    # A contact spans many triangles and a node is exact, so the sag is what a mesh can hide at
+    # a point rather than the depth at which a reading goes to zero. The bore against a wall
+    # above is that depth, measured.
     #
     # THE FLUTES ARE NOT IN THIS GEOMETRY. `flute_skin` cuts the show surfaces into the
     # payload mesh and says why they are not in the solid; the STEP beside it is a smooth
-    # prism. So a swept station meets planes, cylinders, a few cones and those eight patches,
-    # and nothing whose tessellation is unbounded.
+    # prism.
     #
     # MESHED ONCE, MOVED MANY TIMES. `_meshes.meshed` memoizes on the shape's identity, and
     # translating a compound hands back a new shape. A manifold translates itself, so the
@@ -3134,7 +3142,7 @@ def word_name(which: str) -> str:
 
 
 # The slip a pocket keeps around the chip that drops into it.
-BULKHEAD_RING_SLIP = 0.2
+BULKHEAD_RING_SLIP = fits.slip
 # THE WALL THE FIELD KEEPS AROUND EVERY CHIP, and it is one figure read on BOTH faces of the wall.
 # Outboard it is the web of stock standing between two neighbouring pockets, which is the only
 # thing holding one colour off the next — `port-field-web` reads the pitch against it. Inboard it
@@ -7397,6 +7405,7 @@ def main():
     # AND WHAT THE READERS READ, off this same machine. Eight doc drivers take their figures
     # from the artifact rather than standing an appliance apiece; writing it here is what makes
     # that one derivation instead of two.
+    import fits
     import _facts
     print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
     # THE VIEWER SCENES COME OFF THIS NAMED MACHINE while it is still in memory. Rebuilding the
