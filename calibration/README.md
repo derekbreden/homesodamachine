@@ -23,7 +23,7 @@ Everything in them is a quotation or a number from a session in [`fences/`](fenc
 | [Traffic.md](Traffic.md) | The record, not a rule. Agents go read-only, narrow a commit or offer to wait when another session is live in the tree, deferring to boundaries that do not exist. Beside it, what those collisions produced. | [`traffic/`](traffic/) — five sessions |
 | [Discretion.md](Discretion.md) | A softened instruction is still an instruction. Ending a turn on an offer spends it on the one output with no value. | [`discretion/`](discretion/README.md) — one session |
 | [Hack vs Teach meta lesson.md](<Hack vs Teach meta lesson.md>) | Where a fix stands. The decision point is where the knowledge your fix needs is already native. | [`hack-vs-teach/`](hack-vs-teach/) — one session |
-| [Model.md](Model.md) | In 3D model work, name the construction operation, not just the resulting shape. | — |
+| [Model.md](Model.md) | In 3D model work, name the construction operation, not just the resulting shape. | [`model/`](model/README.md) — one session |
 
 [`sessions/`](sessions/) holds conversations that nothing distills yet — `Avoidance.md`,
 `Comments are a code smell.md`, and `Routes 22`/`23`/`24`.
