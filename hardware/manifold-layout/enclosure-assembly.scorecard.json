@@ -1200,12 +1200,22 @@
    "active": true
   },
   {
-   "id": "corner-slot-lands",
-   "label": "The core's flank slots receive the four-corner bosses",
+   "id": "z-slide-front-lanes",
+   "label": "The front top slides home carrying the flavour pack",
    "kind": "gate",
    "status": "pass",
-   "value": "swept bands clear on both flanks",
-   "target": "air over each boss's whole swept band",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out, 13 stations over 89.4 mm",
+   "target": "0 mm\u00b3 at every station of the loaded travel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "core-rides-in",
+   "label": "The cold core rides in through the mouth to its seat",
+   "kind": "gate",
+   "status": "pass",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out, 24 stations over 266.0 mm",
+   "target": "0 mm\u00b3 down the whole lane",
    "detail": [],
    "active": true
   },
@@ -1334,7 +1344,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 149.00..163.87, 215.62..252.90",
+   "value": "seam at 160.00, lane 149.00..241.56",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1344,7 +1354,7 @@
    "label": "The back column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..240.30",
+   "value": "seam at 160.00, lane 35.00..236.72",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1536,6 +1546,46 @@
    "status": "pass",
    "value": "brim front at y 70.00, facet arris at 66.87",
    "target": "a 3 mm landing, so at or aft of 69.87",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-slide-front-clear",
+   "label": "The front top slides its whole travel onto its bottom clear",
+   "kind": "gate",
+   "status": "pass",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 13 stations over 89.4 mm",
+   "target": "0 mm\u00b3 at every station",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-slide-front-catch",
+   "label": "The front top's rails catch it against a lift",
+   "kind": "gate",
+   "status": "pass",
+   "value": "406.6 mm\u00b3 engaged at a 1 mm lift",
+   "target": "the flares bearing, so more than 5 mm\u00b3",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-slide-back-clear",
+   "label": "The back top slides its whole travel onto its bottom clear",
+   "kind": "gate",
+   "status": "pass",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 118.8 mm",
+   "target": "0 mm\u00b3 at every station",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-slide-back-catch",
+   "label": "The back top's rails catch it against a lift",
+   "kind": "gate",
+   "status": "pass",
+   "value": "274.2 mm\u00b3 engaged at a 1 mm lift",
+   "target": "the flares bearing, so more than 5 mm\u00b3",
    "detail": [],
    "active": true
   },
