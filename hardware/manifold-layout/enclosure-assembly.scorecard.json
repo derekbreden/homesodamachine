@@ -653,7 +653,7 @@
    "label": "The collet holes stand centred in the plate's band",
    "kind": "gate",
    "status": "pass",
-   "value": "holes at z 188.245, band 163.865..212.625, off 0.000 mm",
+   "value": "holes at z 188.245, band 160..216.49, off 0.000 mm",
    "target": "the row on the band's own middle",
    "detail": [],
    "active": true
@@ -1019,8 +1019,8 @@
    "label": "The bay floor lies on the bed and seats the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "bed 100.0% solid, seat 100.0% solid",
-   "target": "the floor whole on the seam plane 160 and under the plate's foot 163.865",
+   "value": "bed 100.0% solid, seat 100.0% solid, seat 100.0% solid",
+   "target": "the floor whole on the seam plane 160 and whole under both of the steel's shoulders at 166.865",
    "detail": [],
    "active": true
   },
@@ -1120,7 +1120,7 @@
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "2922.1 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "3107.7 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
@@ -1164,10 +1164,10 @@
    "label": "No mullion the condenser's vents leave stands free for more than one slot segment",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest of 172 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
+   "value": "tallest of 176 openings is 24.5000 mm, on a 2.0285 mm mullion \u2014 12.1:1",
    "target": "at most 24.5000 mm, the segment 3 transoms leave in a 110 mm band",
    "detail": [
-    "\u2212X intake  84 openings 24.5000\u201324.5000 mm tall in 22 slots",
+    "\u2212X intake  88 openings 24.5000\u201324.5000 mm tall in 22 slots",
     "+X exhaust 88 openings 24.5000\u201324.5000 mm tall in 22 slots",
     "the band is z 31..141 \u2014 the fan's own footprint, 22 mm up from the block's base and 5 down from its crown",
     "transom 1 of 3: z 55.5..59.5, 4 mm of unpierced wall tying every mullion and both jambs",
@@ -1184,7 +1184,7 @@
    "value": "thinnest of 42 mullions is 2.0285 mm across, on a 5.2416 mm section",
    "target": "at least 1.74 mm across, the loops the profile lays",
    "detail": [
-    "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 59.76 cm\u00b2 free over the fan's own band",
+    "\u2212X intake  22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 62.61 cm\u00b2 free over the fan's own band",
     "+X exhaust 22 slots 3.1000\u20133.1000 mm, 21 mullions 2.0285\u20132.0285 mm, 62.61 cm\u00b2 free over the fan's own band"
    ],
    "active": true
@@ -1344,7 +1344,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 149.00..241.56",
+   "value": "seam at 160.00, lane 35.00..241.70",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1354,7 +1354,7 @@
    "label": "The back column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..236.72",
+   "value": "seam at 160.00, lane 35.00..237.02",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1564,8 +1564,8 @@
    "label": "The front top's rails catch it against a lift",
    "kind": "gate",
    "status": "pass",
-   "value": "406.6 mm\u00b3 engaged at a 1 mm lift",
-   "target": "the flares bearing, so more than 5 mm\u00b3",
+   "value": "270.1 mm\u00b3 engaged at a 1 mm lift",
+   "target": "the hooks bearing, so more than 5 mm\u00b3",
    "detail": [],
    "active": true
   },
@@ -1584,8 +1584,8 @@
    "label": "The back top's rails catch it against a lift",
    "kind": "gate",
    "status": "pass",
-   "value": "274.2 mm\u00b3 engaged at a 1 mm lift",
-   "target": "the flares bearing, so more than 5 mm\u00b3",
+   "value": "182.2 mm\u00b3 engaged at a 1 mm lift",
+   "target": "the hooks bearing, so more than 5 mm\u00b3",
    "detail": [],
    "active": true
   },
