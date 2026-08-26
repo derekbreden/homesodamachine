@@ -158,6 +158,32 @@ def publish() -> int:
     return 0
 
 
+def holder() -> int:
+    """The pid the marker names, or 0 where there is none to read."""
+    try:
+        return int(LOCK.read_text().strip())
+    except (OSError, ValueError):
+        return 0
+
+
+def alive(pid: int) -> bool:
+    """Whether that process is still on this machine.
+
+    THE MARKER OUTLIVES A PUBLISH THAT IS KILLED. `finally` drops it when the process gets to
+    run its own unwinding, and a SIGKILL, a panic or a machine that sleeps hard is where it does
+    not — after which every publish reads a marker whose pid is gone and stands down for it.
+    That is a tree that stops reaching the site and says only that someone else is going."""
+    if pid <= 0:
+        return False
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true")
@@ -169,9 +195,21 @@ def main(argv) -> int:
         print(f"  --check: {reason}" if reason else "  --check: nothing owed")
         return 0
 
-    try:
-        fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-    except FileExistsError:
+    fd = None
+    for _ in range(2):
+        try:
+            fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            break
+        except FileExistsError:
+            held = holder()
+            if alive(held):
+                AGAIN.touch()
+                print("  a publish is already running — it will read the tree "
+                      "again when it finishes")
+                return 0
+            print(f"  a publish left its marker behind (pid {held or '?'} is gone) — taking it")
+            LOCK.unlink(missing_ok=True)
+    if fd is None:
         AGAIN.touch()
         print("  a publish is already running — it will read the tree again when it finishes")
         return 0
