@@ -1019,8 +1019,8 @@
    "label": "The bay floor lies on the bed and seats the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "bed 100.0% solid, seat 100.0% solid, seat 100.0% solid",
-   "target": "the floor whole on the seam plane 160 and whole under both of the steel's shoulders at 166.865",
+   "value": "bed 100.0% solid, land 100.0% solid",
+   "target": "the floor whole on the seam plane 160 and the cap's land whole over the steel's top edge at 216.49",
    "detail": [],
    "active": true
   },

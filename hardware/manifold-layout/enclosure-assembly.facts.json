@@ -1243,8 +1243,6 @@
    "bore_r": 7.108,
    "collar_in_y": 87.565,
    "collar_r": 6.858,
-   "foot_x0": -91.7,
-   "foot_x1": 91.7,
    "fore_y": 75.635,
    "hole_d": 8.0,
    "holes": [
@@ -1955,7 +1953,7 @@
    true
   ]
  },
- "card": "cc51208bee18db2cc9f14e8c346e7ac0",
+ "card": "afc05df26fb3c2f3ebaeda0ab5b4a791",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2984,7 +2982,7 @@
   }
  ],
  "schema": 2,
- "step": "c4a2cdfefdcb6e33655a9d6a6fc7f36a",
+ "step": "933ddc103ea6bb90874bf6f258d508bf",
  "valve_tray_stations": [
   [
    171.08,
