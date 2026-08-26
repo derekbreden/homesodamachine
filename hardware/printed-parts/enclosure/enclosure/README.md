@@ -415,7 +415,7 @@ is asked, groove by groove, what stands ROOTED on its inner face, probing one
 transoms are the opening vocabulary: if a root's margin enters one course, that whole segment
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
 such a land stays wall too. On the intake, the MQ-6 cradle's upper rail therefore leaves one clean
-stepped end in the lowest course. All [84](VENT_RUNS_IN) intake openings remain the full
+stepped end in the lowest course. All [88](VENT_RUNS_IN) intake openings remain the full
 [24.5 mm](VENT_SHORTEST) segment; [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
@@ -439,7 +439,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [22](VENT_SLOTS_IN) | [84](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [59.8 cm²](VENT_OPEN_IN) |
+| −X intake | [22](VENT_SLOTS_IN) | [88](VENT_RUNS_IN) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [62.6 cm²](VENT_OPEN_IN) |
 | +X exhaust | [22](VENT_SLOTS_OUT) | [88](VENT_RUNS_OUT) | [2.0285 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [62.6 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field
