@@ -13,8 +13,12 @@
 //   3. Live-reload debug — only visible when dev mode is on. Flips the
 //      on-screen panel boot.js renders (socket health, build commit,
 //      deploy events) via window.__hsmLiveDebug + localStorage.
+//
+// Below the card, the Checks section: every check in the tree and what it
+// answered, out of the verdict this deploy carries. It is what the gear's dot
+// is the summary of — shell.js colours that dot, this page names the rows.
 
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderFooter, renderChecksRows } from "./shell.js";
 
 const PAGE_STYLES = `
 .wrap {
@@ -84,6 +88,22 @@ h1 {
 .modal button:hover { background: var(--border); }
 .modal button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
 .modal button.primary:hover { background: #5599ff; border-color: #5599ff; }
+/* The checks the gear's dot is the summary of. A row per check, its own last
+   line as the help text, and under a red one the lines it printed — which carry
+   the command that repairs it, so it wraps rather than truncating. */
+h2.section { font-size: 14px; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--text-2); }
+.checks-row { align-items: flex-start; }
+.checks-mark { font-size: 14px; line-height: 1.5; padding-left: 12px; }
+.checks-mark.ok { color: var(--ok); }
+.checks-mark.red { color: var(--err); }
+.checks-detail {
+  margin-top: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
 `;
 
 const BODY = `<div class="wrap">
@@ -116,6 +136,11 @@ const BODY = `<div class="wrap">
       <button id="livedebug-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Live-reload debug"></button>
     </div>
 
+  </div>
+
+  <h2 class="section">Checks</h2>
+  <div class="settings-card">
+${renderChecksRows()}
   </div>
 </div>
 
