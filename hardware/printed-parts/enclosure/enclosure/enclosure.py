@@ -708,8 +708,10 @@ def cond_slot_half(sheet: float) -> float:
 # asked, groove by groove, what stands rooted on its inner face there, with `cond_vent_clear`
 # round the root in Y and Z. The transoms are the opening vocabulary, so a root touching part of
 # one segment leaves that whole segment as fluted wall; a lone opening beyond such a land stays
-# wall as well. The MQ-6 cradle therefore makes one clean stepped end in the intake's lowest
-# course, not a handful of one-off slot heights around its upper rail.
+# wall as well. THE INTAKE IS ASKED AND ANSWERS NOTHING: the only thing rooted on that flank down
+# there is the MQ-6's cradle, and its two posts stop at the card's crown, clear under a band that
+# starts one `cond_fan_rise` over the block's base — so the lowest course runs the full segment
+# across like every other and no slot on this flank is a one-off height.
 #
 # AND THE BAND IS CROSSED BY TRANSOMS, which is what makes it printable. A mullion is
 # `reeding.mullion` across on a `2 * wall` wall, so a slot run the whole height of the fan leaves

@@ -414,9 +414,10 @@ is asked, groove by groove, what stands ROOTED on its inner face, probing one
 [3 mm](VENT_CLEAR) wall inward and keeping that same margin past both jambs and both ends. The
 transoms are the opening vocabulary: if a root's margin enters one course, that whole segment
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
-such a land stays wall too. On the intake, the MQ-6 cradle's upper rail therefore leaves one clean
-stepped end in the lowest course. All [88](VENT_RUNS_IN) intake openings remain the full
-[24.5 mm](VENT_SHORTEST) segment; [0](VENT_SHORT) have a different height.
+such a land stays wall too. The intake is asked and answers nothing: the only thing rooted on that
+flank down there is the MQ-6's cradle, and its two posts stop at the card's crown, clear under a
+band that starts one fan inset over the block's base. All [88](VENT_RUNS_IN) intake openings are
+the full [24.5 mm](VENT_SHORTEST) segment; [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
 [2.0285 mm](VENT_MULLION) across. Pierced clean over the whole band it would stand
@@ -912,7 +913,7 @@ reliefs floor on, one millimetre under the heads, and the floor's top is that pl
 `bay-floor-bedded` reads the floor's whole plan solid on the bed, less the two lanes that
 pass through it: the rails' own channels and the collet plate's slot.
 
-**One pocket per collar passes the Z seam** (`_z_seam_berth`), and nothing else does.
+**One pocket per collar passes the Z seam**, and nothing else does.
 Front-bottom's side lip is given up over this whole run (`_flank_lip_drop`) — round both
 front corners and back down each flank as far as the tee wall's aft face — so the floor
 crosses it wall to wall instead of surrendering one `wall` at each flank. What still
@@ -965,7 +966,7 @@ the wall holds is the collar, across the bore; what stops the tee is the steel.
 **That wall is also the bay's back.** Over the plate's own band the steel closes the
 bay; above and below it this wall does, so what stands behind the berth the pump cartridge
 leaves is a wall rather than the cavity. The Z seam passes it the way it passes the
-floor, on `_z_seam_berth`'s own channels.
+floor, on the rail channels' own deep lane (`_z_rail_channels`).
 
 The **bay** is the opening all that leaves through (`_bay_cut`): jamb to jamb between
 the corner columns' cusps, from the floor's own top up past the motor cans' crowns
