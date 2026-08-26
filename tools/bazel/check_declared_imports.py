@@ -229,7 +229,12 @@ def main(argv) -> int:
     fix = "--fix" in argv
     # WHAT IS STAGED IS THE COMMIT'S OWN QUESTION, and the hook asks it there. A repair is asked
     # of a tree that is already committed and already failing, so it reads every tracked source.
-    every = "--all" in argv or fix
+    #
+    # AND AN EMPTY INDEX IS NOT AN ANSWER. `checks.py` runs this against the tree with nothing
+    # staged, where the staged reading is no sources, no findings and a green line — a check
+    # that reports what it never asked. With nothing staged the question is the tree's.
+    every = "--all" in argv or fix or not _git(
+        "diff", "--cached", "--name-only", "--diff-filter=ACM")
     try:
         graph = json.loads(GRAPH.read_text())
     except (OSError, ValueError):
@@ -251,7 +256,9 @@ def main(argv) -> int:
             pass
     missing = owed(graph, tracked, sources)
     if not missing:
-        print("check_declared_imports: every step holds what it imports")
+        over = f"{len(sources)} source(s) the graph names" if every else \
+               f"{len(sources)} staged source(s)"
+        print(f"check_declared_imports: every step holds what it imports, over {over}")
         return 0
     print(f"{len(missing)} step(s) read a file importing a module the step does not hold:")
     for gen, src, want in missing:
