@@ -46,10 +46,19 @@ REMOTE, BRANCH = "origin", "main"
 #: The replay tree, named for the process that prepares it.
 WORKTREE = f".git/push-wt-{os.getpid()}"
 
+#: A HOOK HANDS DOWN THE CHECKOUT IT RAN IN, and these are how. Git exports them naming paths
+#: against that checkout — `GIT_INDEX_FILE` is `.git/next-index-*.lock` under a pathspec commit
+#: — and `worktree add` resolves them again from inside the tree it has just made, where `.git`
+#: is a file. Every call below runs without them, so this lands the same by hand and from a
+#: hook.
+ENV = {k: v for k, v in os.environ.items()
+       if k not in ("GIT_DIR", "GIT_INDEX_FILE", "GIT_WORK_TREE",
+                    "GIT_OBJECT_DIRECTORY", "GIT_COMMON_DIR", "GIT_PREFIX")}
+
 
 def git(*args: str, check: bool = True, cwd: Path | None = None) -> str:
     run = subprocess.run(["git", *args], cwd=str(cwd or ROOT),
-                         capture_output=True, text=True)
+                         capture_output=True, text=True, env=ENV)
     if check and run.returncode != 0:
         detail = (run.stderr or run.stdout).strip().splitlines()
         raise SystemExit(f"  git {' '.join(args)} did not answer: "
@@ -59,7 +68,7 @@ def git(*args: str, check: bool = True, cwd: Path | None = None) -> str:
 
 def ok(*args: str, cwd: Path | None = None) -> bool:
     return subprocess.run(["git", *args], cwd=str(cwd or ROOT),
-                          capture_output=True, text=True).returncode == 0
+                          capture_output=True, text=True, env=ENV).returncode == 0
 
 
 ROOT = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
