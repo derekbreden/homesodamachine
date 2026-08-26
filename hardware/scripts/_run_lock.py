@@ -213,6 +213,21 @@ def _who(holder) -> str:
     return f"{holder.get('source', '?')} ({holder.get('script', '?')})"
 
 
+def _age(holder) -> str:
+    """How long the holder has held the machine, for the message that starts a wait.
+
+    A WAITER CANNOT SIZE ITS WAIT FROM A PID. What it is queued behind is the rest of one
+    generator's run, so the holder's age is the only figure that separates a wait about to
+    end from one just begun — and without it a queue behind a long build reads as a hang.
+    That reading is what routes an agent around this lock and onto the same cores it exists
+    to keep clear."""
+    started = holder.get("started")
+    if not started:
+        return "age unknown"
+    secs = max(0.0, time.time() - started)
+    return f"{secs:.0f}s in" if secs < 90 else f"{secs // 60:.0f}m{secs % 60:02.0f}s in"
+
+
 def _on_signal(_signum, _frame):
     """SIGTERM/SIGINT — usually a newer build taking the lock, but not always (a
     Ctrl-C, a `kill`). Only claim a supersede when the taker actually named us as its
@@ -384,7 +399,8 @@ def acquire(script: str, source: str = None) -> None:
     if (prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"])
             and _deliberate(prev) and not supersede):
         print(f"[build] a {prev.get('source', '?')} build is already running (pid {prev['pid']}, "
-              f"{Path(prev.get('script', '?')).name}) — waiting for it rather than stopping it. "
+              f"{Path(prev.get('script', '?')).name}, {_age(prev)}) — waiting up to "
+              f"{WAIT_S:.0f}s for it rather than stopping it. "
               f"HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue).",
               file=sys.stderr, flush=True)
         # Wait on the LOCK, not the process: a finished build whose parent has not reaped it is a
