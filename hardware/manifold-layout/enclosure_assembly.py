@@ -796,9 +796,10 @@ def cap_face(foam):
 # aft, then +90° about Z swings that long side into the strip and the can into the wall.
 MQ6_STEP = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Z_AXIS[1].toTuple(), 90.0))
-# The card's own fore edge, stated. The grille is cut around this station — the courses the
-# cradle's two posts stand in are where the flank shows it — so the card owns its Y the way
-# every stated station here does, and the vent pattern is what a move would visibly cost.
+# The card's own fore edge, stated: the long side runs aft off it. Nothing on this flank is a
+# remainder off the card — the cradle's posts stop under the grille's own band, so the vent
+# neither steps around them nor pays for them — and the card owns its Y the way every stated
+# station here does.
 MQ6_Y0 = 38.3
 
 
@@ -813,10 +814,10 @@ def build_mq6(comp, cond):
     own extra section is what lets the can reach that plane.
 
     FORE on its own stated `MQ6_Y0`, which is the card's fore edge — the long side runs aft off
-    it. The grille grew around this station: the intake's lowest course carries the two posts'
-    roots (`flank-vent-mullions`), the card's loom dresses off its east face, and nothing else
-    on the flank asks for the depth — so the station is the card's own fact, not a remainder off
-    the seam machinery.
+    it. The grille costs this station nothing and is costed nothing by it: the cradle's posts
+    stop at the card's crown, under the band the intake is pierced over (`flank-vent-mullions`),
+    and the card's loom dresses off its east face into the open bay. So the station is the card's
+    own fact, not a remainder off the seam machinery or the vent's.
 
     LOW on the slab the compressor stands on, one post section up — the shoulder at the foot of
     each groove is what the card lands on, and the whole of what lifts it. The mesh comes out
