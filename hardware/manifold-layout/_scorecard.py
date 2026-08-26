@@ -263,15 +263,14 @@ MOUNTS = (
     ("funnel-drain-stub", None, "tube-clamp"),
     ("funnel-drain-clamp", None, "tube-clamp"),
     ("funnel-drain-union", None, "tube-hung"),
-    # THE ONE STEEL PIECE, SUNK IN A PRINTED SEAT. The collet plate's foot stands in the seat
-    # `enclosure._bay_floor` cuts down the bay floor's top, one `wall` deep, its two bottom
-    # corners notched round front-bottom's Z-seam lip — gravity onto the seat's own bottom, the
-    # seat's walls fore and aft, the side walls across, and open at the top. What loads it is the
-    # pump cartridge's own release: the four anchor-tee collets press its aft face as the pump cartridge is
-    # pulled, the seat's fore wall carries that into a floor lying on the print bed, and the
-    # user's aft brace on the box closes the loop. It lifts out through the bay with the
-    # pump cartridge removed.
-    ("collet-plate", "enclosure-front-top", "well"),
+    # THE ONE STEEL PIECE, STANDING IN A PRINTED SLOT. The collet plate comes up through
+    # `enclosure._plate_slot` from front-top's own Z− face and hangs its two shoulders on the bay
+    # floor's top; the slot's walls take it fore and aft, the guides' crowns close over its top
+    # edge, and gravity does the rest. What loads it is the pump cartridge's own release: the
+    # four anchor-tee collets press its aft face as the pump cartridge is pulled, the slot's fore
+    # wall carries that into a floor lying on the print bed, and the user's aft brace on the box
+    # closes the loop. It goes in before the front column closes and comes out the same way.
+    ("collet-plate", "enclosure-front-top", "slot"),
     # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
     # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
     # four sides, drawn down by two DIN 912 M3s into ruthex inserts in the facet's own inset
