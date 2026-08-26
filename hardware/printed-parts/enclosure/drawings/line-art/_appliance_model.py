@@ -88,7 +88,7 @@ PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
 # What a customer's line reaches. `enclosure_assembly.THROUGH_WALL` is the machine's own
 # list of bodies clamped IN a wall rather than standing inside one, so the
 # drawing carries exactly the fittings the machine presents to the room — the
-# three umbilical unions on two columns at [40.36 mm](PANEL_PITCH) pitch, the tap-water
+# three umbilical unions on two columns at [40.26 mm](PANEL_PITCH) pitch, the tap-water
 # union on its own storey below them, the mains inlet, and the CO2 inlet under
 # it. All of them on the +Y wall of back-top, because that is where the machine puts them.
 FITTINGS = _ea.THROUGH_WALL
