@@ -70,6 +70,33 @@ def main() -> int:
         print("  nothing to hold a payload against")
         return 0
 
+    # FIRST, THE STAMP. Every payload carries the sha256 of the STEP it was cut from
+    # (`_mesh_payload.write`), so a payload standing beside a STEP it was not cut from is
+    # one comparison, before any surface is probed — and it is the reading that catches a
+    # payload the repair loop's own sync failed to carry, which the deviation probe only
+    # sees where the surfaces happen to differ at the probe's samples.
+    import hashlib
+    import _mesh_payload
+    stale = []
+    for step, _stl in sorted(found):
+        mesh = step.with_name(step.name + ".mesh")
+        if not mesh.exists():
+            continue
+        stamped = _mesh_payload.read_source(mesh)
+        actual = hashlib.sha256(step.read_bytes()).hexdigest()
+        if stamped and stamped != actual:
+            stale.append(step.stem)
+    if stale:
+        print(f"{len(stale)} payload(s) were cut from a STEP that is no longer the one "
+              f"beside them:")
+        for name in stale:
+            print(f"  ✗ {name} — the viewer draws this file, and it is another machine's")
+        print("\n  the flute cut is what puts the surface back:")
+        print("    bazel build //:flute-payload && "
+              "tools/cad-venv/bin/python tools/bazel/sync_tree.py --write "
+              "--targets //:flute-payload")
+        return 1
+
     flat = []
     for step, stl in sorted(found):
         got = reading(step, stl)
