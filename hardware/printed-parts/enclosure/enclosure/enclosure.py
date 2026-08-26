@@ -629,11 +629,11 @@ mq6_header_relief = 2.0
 mq6_card_x = _mq6.PCB_T     # 1.6 — the card itself, what the groove grips
 mq6_card_y = _mq6.PCB_X     # 32 — the long run down the strip
 mq6_card_z = _mq6.PCB_Y     # 20 — height, the card's short side
-# And the can's, which is the only part of the board that reaches into the flank's own section.
-# It bottoms in a well cut back to `lip_face_x` (`_front_bottom_flank_skin`), so THE WALL IS
-# STILL THE DATUM IN X and what stands the card off it is the can's own height.
-mq6_can_x = _mq6.CAN_H      # 14 — the standoff, west face of the card to the well's floor
-mq6_can_yz = _mq6.CAN_D     # 19 — what the well opens, and the run the posts keep clear of
+# And the can, which is the only part of the board that reaches into the flank's own section: it
+# bottoms in a well cut back to `lip_face_x` (`_front_bottom_flank_skin`), so THE WALL IS STILL
+# THE DATUM IN X and what stands the card off it is the can's own height. Across, the can is what
+# the well opens and what the two posts stand clear of, and both read this one figure.
+mq6_can_yz = _mq6.CAN_D     # 19 — the can's diameter, in the plane the well is cut on
 
 # --- the condenser block's four flanges -------------------------------------
 #

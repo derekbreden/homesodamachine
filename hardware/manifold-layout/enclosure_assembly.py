@@ -783,8 +783,9 @@ def cap_face(foam):
 # what it spends across the strip. THE CAN LOOKS WEST, into a well cut back through
 # front-bottom's own flank section (`enclosure._front_bottom_flank_skin`), and bottoms on
 # `lip_face_x` — so the wall is still the datum in X and what stands the card off it is the
-# can's own height. THE HEADER LOOKS EAST, into the bay the front assembly opens onto, so the
-# loom lands on it out of the room and nothing reaches round the board to a face against a wall.
+# can's own height. THE HEADER LOOKS EAST, out of the strip and into the bay the front assembly
+# opens onto, so the loom lands on it out of the room rather than reaching round the board to a
+# face held against a wall.
 #
 # AND THAT IS WHAT THE CRADLE IS FOR. A card standing ACROSS the strip has to be held by rails
 # reaching horizontally off the wall, printed over air. A card lying ALONG it is held by two
