@@ -73,15 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "4 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "valve-v-e \u2229 enclosure-front-top   3.2 mm\u00b3, x[    3.96,   36.18] y[   92.88,   95.08] z[  213.82,  252.23]",
-    "valve-v-f \u2229 enclosure-front-top   3.2 mm\u00b3, x[   60.96,   93.18] y[   92.88,   95.08] z[  213.82,  252.23]",
-    "valve-v-h \u2229 enclosure-front-top   3.2 mm\u00b3, x[  -36.18,   -3.96] y[   92.88,   95.08] z[  213.82,  252.23]",
-    "valve-v-i \u2229 enclosure-front-top   3.2 mm\u00b3, x[  -93.18,  -60.96] y[   92.88,   95.08] z[  213.82,  252.23]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -951,18 +946,18 @@
    "id": "valve-trays-hold",
    "label": "Every valve on a printed valve tray is standing in its seats",
    "kind": "gate",
-   "status": "pass",
-   "value": "8/8 valves seated, furthest off 0.000 mm",
+   "status": "fail",
+   "value": "0/8 valves seated, furthest off 0.996 mm",
    "target": "every valve within 0.2 mm of the plate under it",
    "detail": [
-    "valve-tray-aft     valve-v-c    y-plane  171.080 -Z   off 0.0000",
-    "valve-tray-aft     valve-v-d    y-plane  171.080 -Z   off 0.0000",
-    "valve-tray-aft     valve-v-g    y-plane  171.080 -Z   off 0.0000",
-    "valve-tray-aft     valve-v-j    y-plane  171.080 -Z   off 0.0000",
-    "valve-tray-fore    valve-v-e    y-plane   89.080 +Z   off 0.0000",
-    "valve-tray-fore    valve-v-f    y-plane   89.080 +Z   off 0.0000",
-    "valve-tray-fore    valve-v-h    y-plane   89.080 +Z   off 0.0000",
-    "valve-tray-fore    valve-v-i    y-plane   89.080 +Z   off 0.0000"
+    "valve-tray-aft     valve-v-c    y-plane  171.080 -Z   off 0.9956",
+    "valve-tray-aft     valve-v-d    y-plane  171.080 -Z   off 0.9956",
+    "valve-tray-aft     valve-v-g    y-plane  171.080 -Z   off 0.9956",
+    "valve-tray-aft     valve-v-j    y-plane  171.080 -Z   off 0.9956",
+    "valve-tray-fore    valve-v-e    y-plane   89.080 +Z   off 0.9956",
+    "valve-tray-fore    valve-v-f    y-plane   89.080 +Z   off 0.9956",
+    "valve-tray-fore    valve-v-h    y-plane   89.080 +Z   off 0.9956",
+    "valve-tray-fore    valve-v-i    y-plane   89.080 +Z   off 0.9956"
    ],
    "active": true
   },
@@ -1073,18 +1068,18 @@
    "id": "post-engagement",
    "label": "Every valve's posts stand in their plate at rest",
    "kind": "gate",
-   "status": "pass",
-   "value": "8/8 valves gripped, least 6.000 mm",
+   "status": "fail",
+   "value": "0/8 valves gripped, least 0.000 mm",
    "target": "at least 3 mm of every post inside its plate with the valve at rest",
    "detail": [
-    "valve-v-c     6.000 mm of 6 in the plate",
-    "valve-v-d     6.000 mm of 6 in the plate",
-    "valve-v-g     6.000 mm of 6 in the plate",
-    "valve-v-j     6.000 mm of 6 in the plate",
-    "valve-v-e     6.000 mm of 6 in the plate",
-    "valve-v-f     6.000 mm of 6 in the plate",
-    "valve-v-h     6.000 mm of 6 in the plate",
-    "valve-v-i     6.000 mm of 6 in the plate"
+    "valve-v-c     0.000 mm of 6 in the plate",
+    "valve-v-d     0.000 mm of 6 in the plate",
+    "valve-v-g     0.000 mm of 6 in the plate",
+    "valve-v-j     0.000 mm of 6 in the plate",
+    "valve-v-e     0.000 mm of 6 in the plate",
+    "valve-v-f     0.000 mm of 6 in the plate",
+    "valve-v-h     0.000 mm of 6 in the plate",
+    "valve-v-i     0.000 mm of 6 in the plate"
    ],
    "active": true
   },
@@ -1329,7 +1324,7 @@
    "label": "The Z seam leaves every piece on the H2C's bed",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, band 35.00..300.90",
+   "value": "seam at 160.00, band 35.00..299.20",
    "target": "inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
@@ -1339,7 +1334,7 @@
    "label": "A column splits into two pieces the H2C can print",
    "kind": "gate",
    "status": "pass",
-   "value": "361.00 mm column, band 35.00..300.90",
+   "value": "361.00 mm column, band 35.00..299.20",
    "target": "a band inside the H2C's 320 mm Z",
    "detail": [],
    "active": true
@@ -1349,7 +1344,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..241.70",
+   "value": "seam at 160.00, lane 35.00..240.00",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1359,7 +1354,7 @@
    "label": "The back column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..237.02",
+   "value": "seam at 160.00, lane 35.00..235.32",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1369,7 +1364,7 @@
    "label": "The Z-seam rim stays under the flavour deck's lowest plate",
    "kind": "gate",
    "status": "pass",
-   "value": "rim at 173.10, deck floor at 175.88",
+   "value": "rim at 174.80, deck floor at 175.88",
    "target": "air between them",
    "detail": [],
    "active": true

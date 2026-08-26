@@ -6,7 +6,7 @@
     "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-e21830421a44e909.tar.gz"
   },
   "source": {
-    "commit": "80b06f2a0eb6cbbd28f3fdb93555c251204ae0cc"
+    "commit": "11dae9c9329a00bd0a11dcde3aaef2b5134212fe"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -16,8 +16,7 @@
       "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/printed-parts/enclosure/enclosure/README.figures.json",
       "hardware/printed-parts/enclosure/enclosure/README.md",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "tools/checks.py"
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",

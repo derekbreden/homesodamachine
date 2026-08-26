@@ -1863,7 +1863,7 @@ def check_column_face(pieces, shell) -> Bound:
     # stand full to the jamb — so a slab taken ON either plane reads the thing on the far side
     # of it rather than the post, and one micron of that reaches the whole reading.
     edge = 1.0
-    z0 = _enc.z_seam + _enc.lip_len + _enc.wall + edge
+    z0 = _enc.seam_cap_z() + edge
     z1 = bay_top - edge
     probe = 0.05
     sweep = math.sqrt(2.0 * r * probe)
