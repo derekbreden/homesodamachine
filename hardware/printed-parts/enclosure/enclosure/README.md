@@ -11,8 +11,9 @@ flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [6 mm](BACK_TOP_FLANK) and it
 +Y wall [6 mm](BACK_TOP_WALL). The floor is the one section taken OUTWARD:
 [6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
-one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed — that
-telescope and screw together.
+one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
+column's top SLIDES onto its bottom on dovetail rails; the two halves telescope and four screws
+close the whole box.
 It measures [215 × 462 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
 reading in `BOUNDS`; the box comes back at its stated size regardless, so a pack
@@ -56,10 +57,9 @@ and not a box, it **wraps every column standing in a vertical**, and that wrap s
 whole `column_round` inboard of any wall segment — so a body clear of all four walls
 can still be in the lip's way there, as the PSU's aft corner is at the X+/Y+ column.
 `_lip_denied` measures that lane per column, each seam answering for its own half of
-the box (`z-seam-front-lane`, `z-seam-back-lane`). The four station collars ride with
-that ring, in the ±X boss-chain bands its own side segments run down, so the seam
-height carries the lip and the collars together. The cold core spans the seam in both
-columns.
+the box (`z-seam-front-lane`, `z-seam-back-lane`) — the ring read one rail deeper down
+the straight runs, where the dovetail's head and return ride. The cold core spans the
+seam in both columns.
 
 The plane stands where the seam's own machinery fits the pack: the seam ring's foot
 over the condenser's fin crown, and the rim under the forward valve tray's
@@ -78,9 +78,9 @@ intact (mirrors `faucet/faucet-shell`).
 
 ## Seams + bosses
 
-Three seams, one joint idiom. Front↔back: the front pieces' rear lip telescopes
-into the back pieces, cross-pinned with M3 screws driven from the ±X exterior.
-That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
+Three seams. Front↔back: the front pieces' rear lip telescopes
+into the back pieces, cross-pinned with M3 screws driven from the ±X exterior — the box's
+only four screws. That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
 tongue is the wall continued one `wall` *into* the cavity, and on those faces the
 cavity is free; the floor's is not — the cold core rides on it — so a proud floor
 tongue would drive straight into the core. The floor laps anyway, but as a
@@ -90,45 +90,97 @@ at its nose; the back keeps the matching bed-side wedge. The assembled top stays
 flat under the core, while both printed bearing faces remain support-free.
 **Every seam laps, none butts** — the form suited to the face.
 
-The core spans this seam. It is one body running the box's whole depth, so it goes
-in before the two halves close around it — which the standoffs are what make
-possible: the lip's side segments pass in the ±X chain bands, its ceiling segment
-under the top wall, and the floor's scarfed tongue inside the slab, so none of the three
-meets the core at all.
+That seam is pinned at **[2](Y_LEVELS) levels** per side wall — a wall above the floor
+and one under the ceiling — so every piece crossing it is pinned at its own end: the floor
+level pins the two bottom pieces, the ceiling level the two tops. `_bosses` drops a level
+landing within two socket collars of one already placed, so the ladder carries one level per
+height it is owed.
 
-That seam runs the box's whole height, so it is pinned at **[2](Y_LEVELS) levels** per
-side wall — a wall above the floor and one under the ceiling — and at the
-**four-corner screw** between them, so every piece crossing it is pinned at both ends
-of its own span: the floor level pins the two bottom pieces, the ceiling level the two
-tops, and the corner screw all four at once. `_bosses` drops a level landing within
-two socket collars of one already placed, so the ladder carries one level per height
-it is owed.
+Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
+the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spans
+the head seat to the heat-set, so the body is screw length − heat-set long), then
+the heat-set, then a one-wall cap.
 
-**The four-corner screw is the Y-boss idiom with the seam plane through it.** One M3×12
-per side wall at the Y-boss station on `z_seam`, where all four pieces meet: the back
-pair carries the plug as two halves of one square prism — each piece its own half,
-parted on the plane, the bottom's printing at its rim and the top's face-down on its own
-mouth — the front lip's two halves carry the slide slot, and `enclosure-front-bottom`
-alone carries the socket: a pedestal off its own lip face, proud through the plane the
-way the lip itself is, so the slot and the heat-set live in one piece's solid. The
-pedestal is a block `2 × socket_r` on a side, and a 45° web carries it to the lip face —
-collar and web meet on flats, and the piece prints floor-down with nothing hanging.
-The Y seam's own collars are that same block, standing on the slab at the floor level
-and on its own web at every other (`_front_socket`).
-The head sits in the standard counterbore astride the visible seam line, and the screw
-clamps +Y wall and front lip against the pedestal's shoulder — all four pieces in
-one sandwich, the shank shear-locking them in Y and Z at the point. Its cap stands
-`corner_core_reach` past the boss chain, in a slot the cold core's flanks carry for it
-(`_cold_core_interface.corner_boss_slots`, read live by `corner-slot-lands`).
+- **Receiving piece = pin** (the back pieces): a [9.9 mm](PLUG_DIA) SQUARE prism (the shank
+  + one wall each side, *not* the head — the head sits in the wall counterbore) from the
+  exterior to the heat-set, seating in the socket's slot.
+- **Lip piece = socket** (the front pieces): a collar slotted
+  [10.3 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
+  heat-set (Ø4.0 × 5.25) capped at its deep inboard end.
 
-Bottom↔top, per column: the same joint rotated 90°, at `enclosure.z_seam` — the
-bottom pieces carry the lip + socket collars, the top pieces carry the pins,
-more X-axis screws crossing each seam. Front-bottom's lip runs its side walls
-whole and gives its front-flat span to the bay (`_front_flat_lip_drop`): the front
-Z-joint there is the corner columns' pillar telescopes and a butt at the seam. Where
-the side lip runs on, front-top's **bay floor** channels for it and stands on the seam
-mouth beside it (`bay-floor-bedded`). The front pair joins, the back pair joins, then
-the front assembly telescopes into the back as one.
+**Each boss stands on the joint it pins.** A plug is the wall it drives through and
+the reach it needs past it: the first `wall` of its length *is* that wall's own
+material and the rest a stub off it, its mouth-side face on the receiving mouth. A
+socket is a **block round that plug** — [16.3 mm](SOCKET_OD) square outside,
+[10.3 mm](SOCKET_BORE) square slotted, one `wall` of material the whole way, a
+`socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
+hair under the seam mouth, so it stands on that band down its
+whole length. That band is one `wall` deep and runs the piece's full height, the way
+a telescoping lip does. Those two matings are the pair the overlap depth is struck
+from — it works out to (plug + bore)/2 + one wall. Between the two levels the corner
+is the wall's own air.
+
+## The Z seams slide home
+
+Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel dovetail slide, and no
+screw anywhere on it.** The bottom piece carries the lip — the cavity's own skin standing
+proud of the mouth to the rim, one [0.2 mm](SLIDE_SLIP) inboard of every face the top
+piece slides along — and on each flank's **straight run** that lip flares 45° inboard over
+its last [4 mm](RAIL_RISE) to the rim: the **rail head**, widest at its crown. The
+top piece carries the mating **channel** behind its own wall and a **return** skin whose
+counter-flare rides under the head. The top **enters over the open Y-seam mouth** — the one
+opening the box has before the halves telescope — and slides the length of its column:
+front-top **fore** onto front-bottom, back-top **aft** onto back-bottom, the mouth riding
+the shoulder the whole way, until the return's end face lands on the **stop block** closing
+each rail's far end. That contact is the column's Y datum; the end walls and the corner
+turns close head-on one `slide_slip` behind it — the same telescoping mate the box always
+had, arrived at along Y instead of dropped into.
+
+**Lifting a seated top wedges the flare pairs together along both whole runs** —
+[84 mm](RAIL_RUN_FRONT) per flank on the front column, [114 mm](RAIL_RUN_BACK) and
+[92 mm](RAIL_RUN_BACK_W) on the back (the −X run stops at the PRV chase's rib and takes its
+stop block there, mid-flank) — where the old joint pinned each seam at two points. **Sliding
+one back out needs the other column's ground**: each top's only way out is toward the Y
+seam, where the other column stands screwed to it at the ceiling level. Four M3×10 close
+the box; the same four open it.
+
+**Every sliding face prints at the box's own rule.** The head's flare is 45° under, on a
+piece that prints floor-down; the return's counter-flare and the channel's **gabled roof** —
+two 45° faces rising off the channel's walls and meeting over it — are 45° over, on a piece
+that prints mouth-down; every other face is vertical or flat-up. Nothing in the joint hangs,
+and nothing in it takes support.
+
+**The corners give the slide its lane.** Over the seam band each bottom piece carries its
+two pillars **solid to the rim** (`_bottom_corner_fills`), flats one `slide_slip` off the
+walls the top's faces sweep along; the top piece stands off that whole band
+(`_top_corner_reliefs`) and its pillar regrows above on the 45° pair every ceiling over a
+void here closes at. The Y-seam tongue's flank segments carry the channel's notch — the
+head has to pass where the tongue stands, on its way in, every time.
+
+**And the slide is proved, not asserted.** `_report_slide` sweeps each built top from full
+entry to home against its built bottom — a ladder of stations, dense where the joint
+closes — and lifts it a millimetre off its catch: `z-slide-front-clear`,
+`z-slide-back-clear`, and the two `-catch` rows carry the readings on the scorecard.
+`z-slide-front-lanes` runs the front sweep again loaded — the piece with the flavour pack
+aboard, against the seated refrigeration stratum — and `core-rides-in` sweeps the cold
+core's own entry (below).
+
+**What makes all of that fit is the band the walls keep.** A body standing on the
+floor slab spans the interior wall to wall, so a body laid on a wall's face would
+leave the seam machinery nowhere to stand. A **floor body is held one
+`side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
+Y-seam collars, or the rail band over the seam's own storey, whose head and return
+together reach [10.3 mm](RAIL_REACH) inboard, inside that same band — and the **+Y wall
+keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
+on the body where it meets one, not a rule about the wall: beside one — over or under
+one — the band is the wall's own air. Of the three bodies on the slab only the cold
+core meets the band at the seam's storey; the compressor and condenser stand wholly
+under the mouth. Everything on the slab sits flat on it: the print-corner relief runs
+on the standing verticals and the Y-seam's floor joint stays inside the slab, so the
+seat is square and there is nothing standing there to clear.
+
+So the pack seats flush against the **seams**, not against the walls, and both
+walls carry all [2](Y_LEVELS) levels at full section.
 
 **A wall that lip stands on is `2 * wall` thick, floor slab to lip rim.** The lip is
 the cavity's own one-`wall` skin standing proud of the interior face, and a skin that
@@ -143,58 +195,6 @@ bottom piece — which is what the pack already stands off them (`front_seam_cle
 bottoms on it, the condenser's aft fin roots on it, and the compressor's suction lane
 is struck from it.
 
-A Z seam is pinned at **both ends of its column**, not just one, or the far end
-hinges open. The front column takes the front-wall corner and the four-corner
-screw; the back column takes the four-corner screw and the rear-wall corner.
-Every station stands in the ±X band the walls' standoff opens off the cold
-core, so none has to dodge the pack.
-Each cross-pin mates the walls of its overlap (the
-pin's mouth-side face on the receiving mouth, the socket collar's rim-side face
-on the lip rim) and the two are coaxial by construction, so the **overlap
-depth is derived from those matings**, not chosen — it works out to
-(plug + bore)/2 + one wall.
-
-Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
-the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spans
-the head seat to the heat-set, so the body is screw length − heat-set long), then
-the heat-set, then a one-wall cap.
-
-- **Receiving piece = pin** (the back pieces on the Y seam, the top pieces on
-  the Z seam): a [9.9 mm](PLUG_DIA) SQUARE prism (the shank + one wall each side, *not*
-  the head — the head sits in the wall counterbore) from the exterior to the
-  heat-set, seating in the socket's slot.
-- **Lip piece = socket** (the front pieces / the bottom pieces): a collar slotted
-  [10.3 mm](SOCKET_BORE) square to take that pin as a slide fit, with the ruthex M3
-  heat-set (Ø4.0 × 5.25) capped at its deep inboard end.
-
-**Each boss stands on the joint it pins.** A plug is the wall it drives through and
-the reach it needs past it: the first `wall` of its length *is* that wall's own
-material and the rest a stub off it, its mouth-side face on the receiving mouth. A
-socket is a **block round that plug** — [16.3 mm](SOCKET_OD) square outside,
-[10.3 mm](SOCKET_BORE) square slotted, one `wall` of material the whole way, a
-`socket_cap` over the insert's blind end — its rim-side face on the lip rim and its far face a
-hair under the seam mouth, so it stands on that band down its
-whole length. That band is one `wall` deep and runs the piece's full height, the way
-a telescoping lip does. Those two matings are the pair the overlap depth is struck
-from. Between two levels the corner is the wall's own air.
-
-**What makes all of that fit is the band the walls keep.** A body standing on the
-floor slab spans the interior wall to wall, so a body laid on a wall's face would
-leave the seam machinery nowhere to stand. A **floor body is held one
-`side_band_inset` in from the ±X walls where it meets one of the seam's bosses** — the
-boss chain's own reach — and the **+Y wall keeps one `rear_seam_clear`**, the rear
-Z-seam lip's own thickness. That is a requirement on the body where it meets one, not
-a rule about the wall: each boss is a block at its own station and its own height, and
-beside one — over or under one — the band is nothing but the wall's own air. Of the
-three bodies on the slab only the cold core meets the chain; the compressor stands
-under the front column's collars. Everything on the slab sits flat on it:
-the print-corner relief runs on the standing verticals and the Y-seam's floor joint
-stays inside the slab, so the seat is square and there is nothing standing there to
-clear.
-
-So the pack seats flush against the **seams**, not against the walls, and both
-walls carry all [2](Y_LEVELS) levels at full section.
-
 The Y seam is a stated plane, `enclosure.y_seam`, checked against those bands
 rather than derived from them: which pieces the box comes apart into is a decision
 about the pieces — what each has to carry, and what a hand reaches when the front
@@ -204,7 +204,7 @@ assembly is off.
 rear-wall bodies against it and `enclosure.py` builds the box to it, so the wall
 the bulkheads mount through and the wall the box is built to cannot drift apart.
 
-The crowding mechanism stays in place even though nothing is crowded now: each level
+The crowding mechanism stays in place even though nothing is crowded now: each Y-seam level
 is offered only where the socket's whole body — slot, heat-set and cap, one collar
 radius either side of the axis — stands clear of what `_measure_wall_block` found in
 that corner, measured against the contents themselves rather than their bounding
@@ -214,13 +214,30 @@ a wall that ever loses one is visible rather than silent.
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
 
+## The box closes in four motions
+
+The slides fix the order, and the order is the service story backwards. **Front column**,
+on the bench: the refrigeration stratum seats in front-bottom, and front-top — carrying the
+flavour pack made up into its trays and tee wall — slides FORE onto it. **Back column**,
+on the bench, empty: back-top — carrying the chain, the meter, the ceiling panel and the
+wall electronics — slides AFT onto a bare back-bottom, over nothing. **The core rides in
+through the mouth**: the closed back column stands upright and the cold core enters over
+the open Y-seam mouth and slides aft to its seat on the rear lip, under the hold-down
+feet (each fore arris eased 45° for exactly this), past the chain and the bulkhead unions,
+into the pockets their stems land in; the lid's tenants — the water pump and the rest —
+go on through the same mouth after it. **Then the halves telescope**: the front assembly
+slides aft into the back, its corner blocks closing on the core's front face, and the four
+Y-seam screws drive from the ±X exteriors. Service is the same door swinging the other
+way: four screws out, front assembly fore and off, the bay open through the mouth, the
+core out fore, and back-top slides fore off its rails if the tub itself is the work.
+
 ## Cold-core grips
 
 The core is the heaviest body in the machine and the one with no hole in it — a foamed cup
-under a screwed cap, plain skin the whole way round. What fastens it is the seams: **every
-quadrant is screwed to the two beside it**, so a feature printed on one piece stands over a
-body sitting in another, and the front-bottom, the back-bottom and the back-top close on the
-core together.
+under a screwed cap, plain skin the whole way round. What fastens it is the closed box: **the
+seams stand every piece against its neighbours**, so a feature printed on one piece stands
+over a body sitting in another, and the front-bottom, the back-bottom and the back-top close
+on the core together.
 
 Four features, two mirror pairs, and nothing on either that is not a face of the core:
 
@@ -249,11 +266,12 @@ The slab takes the weight and the +Y wall takes the aft, so the four between the
 direction the core could go. `enclosure_assembly.check_core_held` reads each inside its own
 window off the built pieces (`core-held`).
 
-**The core enters the pocket from ahead.** The pocket is that outline carried straight
-down, so it stands clear of the core at every stand-off and closes on it at the slip:
-the core goes down into the open back tub, and the front assembly slides aft onto it —
-the four-corner bosses riding the flank slots the core carries for them
-(`corner-slot-lands`).
+**The core enters from ahead, and only from ahead.** The back column closes empty — its
++Y wall cannot pass over a seated core — so the core rides in through the open Y-seam
+mouth, aft over the slab to its seat, the crown sliding under the brackets' eased feet
+(`core-rides-in` sweeps the whole lane). The front assembly then slides aft onto it and
+the corner blocks' pockets — the core's own plan outline offset one `split_slip` — close
+on the front face at the slip.
 
 **The front blocks need no support**: they print floor-down with no overhang in them at all. **An
 aft bracket's bearing face does.** The straight from the head of the leg out to the foot's tip

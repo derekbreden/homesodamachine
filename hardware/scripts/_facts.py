@@ -42,7 +42,7 @@ import _realized                                                        # noqa: 
 ARTIFACT = _HW / "manifold-layout" / "enclosure-assembly.facts.json"
 SCORECARD = _HW / "manifold-layout" / "enclosure-assembly.scorecard.json"
 STEP = _HW / "manifold-layout" / "enclosure-assembly.step"
-SCHEMA = 1
+SCHEMA = 2
 
 # The pairs whose exact distance a document states and the card does not carry. The card
 # reports a pair only when it closes to within its own `REPORT_NEAR`, so a sentence naming a
@@ -250,9 +250,8 @@ def gather(whole=None, module=None):
         "wall": _plain(_enc.wall),
     }
 
-    # Derived off the box, by the functions that derive them. A driver that recomputed any of
-    # these would be keeping a second copy of the rule.
-    z_stations = _plain(_enc._z_stations(box.inner, box.y_joint))
+    # Derived off the box, by the function that derives it. A driver that recomputed this
+    # would be keeping a second copy of the rule.
     hopper_hole = _plain(_enc._funnel_hole(box.funnel))
 
     return {
@@ -265,7 +264,6 @@ def gather(whole=None, module=None):
         "step": _realized.code_digest(STEP),
         "box": _plain(box),
         "constants": constants,
-        "z_stations": z_stations,
         "hopper_hole": hopper_hole,
         "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
         # What the two plate generators draw from. Both read their bodies out of a placed
@@ -428,10 +426,6 @@ class Facts:
     def constants(self):
         """What a driver would otherwise import the CAD to read."""
         return _Row(self._f["constants"])
-
-    @property
-    def z_stations(self):
-        return self._f["z_stations"]
 
     @property
     def hopper_hole(self):
