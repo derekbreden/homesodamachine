@@ -1950,7 +1950,7 @@
    true
   ]
  },
- "card": "2f4f1890ffdba27ab92d3f5bd165d535",
+ "card": "7a14b5fc96321a44fb2f41dc79e2b2e3",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2979,7 +2979,7 @@
   }
  ],
  "schema": 2,
- "step": "eb5f430ca1b31ad284ab0c9c0dcda5e4",
+ "step": "a343413f36e665f1cc675de694626533",
  "valve_tray_stations": [
   [
    171.08,
