@@ -1,7 +1,8 @@
 """ACEIRMC MQ-6 combustible-gas (LPG / isobutane) sensor module — the
-appliance's `mq6-sensor`, standing on edge low in the refrigeration bay where
-leaked isobutane pools on the cabinet floor. `enclosure._west_cradle` prints the
-card slot that holds it and `enclosure_assembly.build_mq6` places it.
+appliance's `mq6-sensor`, lying on edge along the floor of the refrigeration
+bay's −X strip where leaked isobutane pools on the cabinet floor.
+`enclosure._west_cradle` prints the two posts that hold it and
+`enclosure_assembly.build_mq6` places it.
 
 External envelope only — the carrier PCB, the cylindrical MQ-6 sensor can on
 top, and the 4-pin header (VCC / GND / DO / AO) below one edge. The comparator
@@ -12,9 +13,10 @@ than a pair of screws.
 Frame: PCB in the XY plane, sensor can up (+Z), header pins down (-Z); the
 header-pin tips sit at Z = 0 (the bbox floor). Origin centered on the PCB.
 
-The can is centred on the board, so it leaves only half a millimetre at each
-short edge and `PCB_Y / 2 - CAN_D / 2` at each long one. THE LONG EDGES ARE THE
-ONLY ONES WITH MATERIAL TO GRIP, and the cradle reads that off these constants.
+The can is centred on the board, so it leaves `PCB_Y / 2 - CAN_D / 2` — half a
+millimetre — at each LONG edge and `PCB_X / 2 - CAN_D / 2` at each SHORT one.
+THE SHORT EDGES, AT THE TWO ENDS OF THE LONG RUN, ARE THE ONLY ONES WITH
+MATERIAL TO GRIP, and the cradle reads that off these constants.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py
