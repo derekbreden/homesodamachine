@@ -25,11 +25,17 @@ node_modules
 
 # CAD script output (generated STEP/STL files)
 
-# board-3d.py: the component-model download cache (manufacturer STEPs keyed by
-# LCSC) and the on-demand full B-rep assembly are regenerable and large. The
-# committed out/<board>.glb is the viewer artifact.
+# board-3d.py: the component-model download cache, manufacturer STEPs keyed by LCSC.
 hardware/pcb/pcba/.cad-cache/
-hardware/pcb/pcba/out/*.step
+
+# A board's whole rendered set — the fab pack, the copper and mask views, the 3D assembly —
+# written by hardware/pcb/pcba/render-board.ts on every save of a board and served off
+# `pcb/<dir>/out/` by web/lib/walk.js. They arrive the road every solid takes: `pack.py`'s
+# BUNDLED_BOARD_DIRS puts them in the release asset, hardware/cad-artifacts.lock.json names each
+# by sha256, and web/scripts/fetch-cad-artifacts.mjs puts them on the disk a deploy serves from.
+# The on-demand full B-rep and the routed circuit-json are held out of the bundle too; the
+# board's own .gitignore carries the second.
+hardware/pcb/pcba/out/
 
 # Atomic-export temp files: hardware/_cadq_export.py writes a
 # `.NAME.EXT.RANDOM.EXT` sibling then renames it atomically onto the target.
