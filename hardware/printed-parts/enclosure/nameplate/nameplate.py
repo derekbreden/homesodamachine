@@ -62,6 +62,7 @@ for _p in (_hw / "scripts",
     sys.path.insert(0, str(_p))
 sys.path.insert(0, str(next(p for p in _here.parents
                             if (p / "tools" / "docgen").is_dir()) / "tools"))
+import fits                                           # noqa: E402
 from _cadq_export import export_assembly              # noqa: E402
 from _materials import step_safe                      # noqa: E402
 from docgen import substitute_md                      # noqa: E402
@@ -103,7 +104,7 @@ THICK = CBORE_DEPTH + LAND
 # pack. `floor_under` is what the wall keeps below the pocket.
 WALL = _enc.wall + _enc.rear_seam_clear
 # The slip the plate takes all round in its pocket.
-SLIP = 0.2
+SLIP = fits.slip
 # The plate's corner round, and its pocket's.
 CORNER_R = 3.0
 # THE BACK EDGE IS CHAMFERED, 45° and `BEVEL` in the thickness. That face is the one on the bed,

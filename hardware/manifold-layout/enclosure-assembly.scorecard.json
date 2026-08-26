@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -139,6 +139,7 @@
     "funnel-drain-stub \u2014 funnel-drain-union: 0.000 mm \u2014 seated against it",
     "display \u2014 display-gasket: 0.000 mm \u2014 seated against it",
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 seated against it",
+    "display \u2014 display-cover: 0.150 mm \u2014 seated against it",
     "carb-1 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
     "co2-2 \u2014 enclosure-ceiling-panel: 0.199 mm \u2014 seated against it",
     "fluid-28 \u2014 enclosure-back-top: 0.199 mm \u2014 seated against it",
@@ -146,7 +147,6 @@
     "water-3 \u2014 foam-assembly: 0.199 mm \u2014 seated against it",
     "discharge-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
     "suction-chain \u2014 foam-assembly: 0.200 mm \u2014 seated against it",
-    "display \u2014 display-cover: 0.300 mm \u2014 seated against it",
     "seaflo-pump \u2014 bulkhead-flavor-a: 1.004 mm",
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "pump-a-head \u2014 collet-plate: 1.025 mm",
@@ -723,8 +723,8 @@
    "label": "The +X wall's column stands in the depth that wall states",
    "kind": "gate",
    "status": "pass",
-   "value": "column spans y 231.68..460.50, band 213.10..463.57",
-   "target": "inside y 213.10..463.57",
+   "value": "column spans y 231.68..460.50, band 213.05..463.57",
+   "target": "inside y 213.05..463.57",
    "detail": [],
    "active": true
   },
@@ -756,10 +756,13 @@
    "id": "pump-mount-lands",
    "label": "Every cap column the water pump bolts to is under its own bore",
    "kind": "gate",
-   "status": "pass",
-   "value": "4 columns, furthest off 0.000 mm",
+   "status": "fail",
+   "value": "4 columns, furthest off 0.100 mm",
    "target": "every column within 0.001 mm of the bore over it",
-   "detail": [],
+   "detail": [
+    "the cold core's cap bores the columns the pump's bracket bolts down into, and the pump is stood on that cap by this module \u2014 so the cap follows the machine. This is the row `_cold_core_interface.deck_mounts` should carry:",
+    "    \"seaflo-pump\": DeckMount((-93.20, 2.62), 59.00, 79.00,   0.0,  8.50, 16.0),"
+   ],
    "active": true
   },
   {
@@ -797,7 +800,7 @@
    "label": "The ASSE drip pan's sleeve stands clear of the pump's casting",
    "kind": "gate",
    "status": "pass",
-   "value": "backstop at x -51.20, casting at -32.28 \u2014 18.92 mm",
+   "value": "backstop at x -51.20, casting at -32.38 \u2014 18.82 mm",
    "target": "\u2265 1 mm",
    "detail": [],
    "active": true
@@ -979,7 +982,7 @@
    "label": "The cap has material under every pump's bracket",
    "kind": "gate",
    "status": "pass",
-   "value": "6/6 closed sides land, least 493.6 mm\u00b3",
+   "value": "6/6 closed sides land, least 485.1 mm\u00b3",
    "target": "material under the three closed sides of each bracket (the aft face is open)",
    "detail": [],
    "active": true
@@ -1021,6 +1024,16 @@
    "status": "pass",
    "value": "bed 100.0% solid, land 100.0% solid",
    "target": "the floor whole on the seam plane 160 and the cap's land whole over the steel's top edge at 216.49",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "plate-carried",
+   "label": "The collet plate has front-bottom under it the whole way in",
+   "kind": "gate",
+   "status": "pass",
+   "value": "12/12 bands whole, worst 100.0%",
+   "target": "a shelf under both ends of the steel, unbroken from 14 to 78.81",
    "detail": [],
    "active": true
   },
@@ -1120,7 +1133,7 @@
    "label": "The cap's aft face lands on the collet plate",
    "kind": "gate",
    "status": "pass",
-   "value": "3107.7 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
+   "value": "3132.5 mm\u00b2 on the steel, 0.000 mm\u00b3 inside the kiss",
    "target": "the cap's face on the plate's and `cap_kiss` 0.1 mm of air at it",
    "detail": [],
    "active": true
@@ -1194,7 +1207,7 @@
    "label": "Every grip on the cold core is closed on it",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 grips closed, furthest off 0.196 mm",
+   "value": "4/4 grips closed, furthest off 0.146 mm",
    "target": "every grip within 0.2 mm of the core",
    "detail": [],
    "active": true
@@ -1244,8 +1257,8 @@
    "label": "The plate stands in the field this wall leaves it",
    "kind": "gate",
    "status": "pass",
-   "value": "104.53 x 66.07 at (38.23, 259.90), z 226.86..292.93",
-   "target": "inside x -19.03..95.50, z 160.00..317.53",
+   "value": "104.53 x 66.07 at (38.16, 259.90), z 226.86..292.93",
+   "target": "inside x -19.18..95.50, z 160.00..317.58",
    "detail": [],
    "active": true
   },
@@ -1254,7 +1267,7 @@
    "label": "The wall's pocket is the plate's own outline",
    "kind": "gate",
    "status": "pass",
-   "value": "104.53 x 66.07 and one 0.2 slip, on all four edges",
+   "value": "104.53 x 66.07 and one 0.15 slip, on all four edges",
    "target": "wall outside every edge, air inside it",
    "detail": [],
    "active": true
@@ -1344,7 +1357,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..240.00",
+   "value": "seam at 160.00, lane 35.00..240.03",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1354,7 +1367,7 @@
    "label": "The back column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..235.32",
+   "value": "seam at 160.00, lane 35.00..235.36",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1474,7 +1487,7 @@
    "label": "The bay's arrises stand on plain wall, not in a groove",
    "kind": "gate",
    "status": "pass",
-   "value": "least clearance 0.2403 mm",
+   "value": "least clearance 0.4882 mm",
    "target": "clear of every groove",
    "detail": [],
    "active": true
@@ -1564,7 +1577,7 @@
    "label": "The front top's rails catch it against a lift",
    "kind": "gate",
    "status": "pass",
-   "value": "317.5 mm\u00b3 engaged at a 1 mm lift",
+   "value": "337.4 mm\u00b3 engaged at a 1 mm lift",
    "target": "the hooks bearing, so more than 5 mm\u00b3",
    "detail": [],
    "active": true
@@ -1574,7 +1587,7 @@
    "label": "The back top slides its whole travel onto its bottom clear",
    "kind": "gate",
    "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 118.8 mm",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 118.9 mm",
    "target": "0 mm\u00b3 at every station",
    "detail": [],
    "active": true
@@ -1584,7 +1597,7 @@
    "label": "The back top's rails catch it against a lift",
    "kind": "gate",
    "status": "pass",
-   "value": "181.0 mm\u00b3 engaged at a 1 mm lift",
+   "value": "192.4 mm\u00b3 engaged at a 1 mm lift",
    "target": "the hooks bearing, so more than 5 mm\u00b3",
    "detail": [],
    "active": true
@@ -1695,10 +1708,10 @@
    "value": "20/20 within span, 2 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "carb-1: 144.5 mm, held at its anchor",
-    "co2-2: 114.2 mm, held at its anchor",
+    "carb-1: 144.6 mm, held at its anchor",
+    "co2-2: 114.3 mm, held at its anchor",
     "fluid-28: 164.4 mm, held at its anchor",
-    "fluid-18: 245.3 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
+    "fluid-18: 245.4 mm unheld \u2014 left loose; Flavor A's line to its rear union. The cold core's side post grips its crossing fore of the pump (`_cold_core_interface.cap_side_anchors`), and what runs loose past it is the fall and the union column's own straight \u2014 a column whose overhead is the ASSE drip pan's sleeve, the flow meter and the meter's down-line, and whose flanks are the pump's casting and the moisture plate's lane: nothing printed stands within a rib's reach of it. The slack sags toward the cap's open air below, away from every line beside it.",
     "fluid-4: 197.4 mm unheld \u2014 left loose; The funnel's own drain, and the one line in the machine a customer handles. It parts at the union under the spout every time the funnel goes to the dishwasher and is pushed back at the same collet, so the length between that joint and V-B has to give: a rib zip-tied across it would be a fixed point the customer works against, and the run would take the load at the collet instead of along its own length."
    ],
    "active": false

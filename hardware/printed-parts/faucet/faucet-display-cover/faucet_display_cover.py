@@ -107,13 +107,11 @@ plate_thickness = plate_n_top - plate_n_bottom  # [7.01 mm](PLATE_THICKNESS)
 
 # HOOK — the tongue off the plate's south end that goes under the south
 # wall's overhanging top third. A riser down the shell's notch and a toe
-# reaching back under the roof from it: the toe's top clears the roof's
-# underside by half a slip, which is all the play the fit needs, since
-# the plate's own land is what sets its height and this face only has to
-# absorb the two parts' thickness, not a position.
+# reaching back under the roof from it, one slip under that roof. The
+# plate's own land is what sets its height; this face carries none of it.
 hook_half_x = display_cover_hook_half_x   # [6.5 mm](HOOK_HALF_X)
 hook_n_bottom = display_cover_hook_n0     # [13.67 mm](HOOK_N_BOTTOM)
-hook_n_top = display_cover_hook_n1 - display_cover_slip / 2.0  # [14.65](HOOK_N_TOP)
+hook_n_top = display_cover_hook_n1 - display_cover_slip  # [14.65](HOOK_N_TOP)
 
 # SKIRT — inner faces on the cavity's own outline, so the plate comes
 # down over the device's housing the way the shell came up its board.
