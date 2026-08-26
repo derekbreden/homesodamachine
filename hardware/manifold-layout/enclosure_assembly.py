@@ -582,11 +582,11 @@ def east_lane_free(cond) -> float:
     """How far the block may go east off the plane the mating puts it on, read off the placed
     body and the wall it is going toward.
 
-    THE SEAM'S FURNITURE IS NOT THE FENCE HERE, and saying so is the whole of this. The block's
-    fore end reaches into the frontmost ±X band, where the front column's collars stand — but a
-    collar is a block `2 * socket_r` tall at its own seam height, and this block's crown comes up
-    UNDER that seam (`enclosure.front_band_free_below`). A body under a boss is beside nothing,
-    and charging it the chain's whole reach would be charging it for a column that is not there.
+    THE SEAM'S FURNITURE IS NOT THE FENCE HERE, and saying so is the whole of this. The front
+    column's seam furniture on a flank is the dovetail rail, and the rail lives in the seam's
+    own storey — `z_seam` up to the rim — while this block's crown comes up UNDER that mouth.
+    A body under the storey is beside nothing, and charging it the rail's whole reach would be
+    charging it for a lane it never enters.
 
     WHAT IS THERE IS ITS OWN AFT MOUNT. The block hangs off a fin fused to the wall's inner face
     (`condenser_mount`, `enclosure._cond_mount`), standing one `enclosure.cond_mount_clear` off
@@ -603,17 +603,18 @@ def east_lane_free(cond) -> float:
     `_lines._refrig_2`, which leaves and enters on its ports\' own normals and turns between
     them."""
     b = box(cond)
-    collar_z = _enc.front_band_collar_z()[0]
+    storey_z = _enc.z_seam
     # The block's own front face is what goes in: the fore end of the run comes back struck on
     # it and is not read, this block being cradled on the front wall already. What is read is
     # the aft end, which the box states about itself.
-    band_aft = _enc.front_band_free_y(b.ymin, b.zmin, b.zmax)[1]
-    if b.zmax > collar_z + 1e-9 or b.ymax > band_aft + 1e-9:
+    band_aft = _enc.front_band_free_y(b.ymin)[1]
+    if b.zmax > storey_z + 1e-9 or b.ymax > band_aft + 1e-9:
         raise ValueError(
             f"the condenser reaches y {b.ymax:g} and z {b.zmax:g}, out of the corner of the ±X "
-            f"band the front column leaves empty — under z {collar_z:g}, forward of y "
-            f"{band_aft:g}. A block that meets that collar answers to the chain's whole reach "
-            f"and not to its own fin, so it stands off `enclosure.side_band_inset` instead.")
+            f"band the front column leaves empty — under z {storey_z:g}, forward of y "
+            f"{band_aft:g}. A block that stands up into the slide's storey answers to the "
+            f"rail's whole reach and not to its own fin, so it stands off "
+            f"`enclosure.side_band_inset` instead.")
     return (_enc.front_bottom_flank_face()[1] - _enc.cond_mount_clear) - b.xmax
 
 
@@ -787,10 +788,11 @@ def cap_face(foam):
 # about Y stands it back up on its long edge with its short side reaching inboard.
 MQ6_STEP = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Y_AXIS[1].toTuple(), 90.0))
-# What the card's own pin tips stand off the post that fences the fore end of this band. The
-# clearance is on the PINS and not on the cradle, because they are what reaches furthest
-# forward — the header hangs off the card's fore face and the rails begin behind it.
-MQ6_FORE_CLEAR = 2.0
+# The card's own fore face, stated. The grille is cut around this station — the cradle
+# rail's stepped end in the intake's lowest course is where the flank shows it — so the
+# card owns its Y the way every stated station here does, and the vent pattern is what a
+# move would visibly cost.
+MQ6_Y0 = 38.3
 
 
 def build_mq6(comp, cond):
@@ -802,18 +804,17 @@ def build_mq6(comp, cond):
     That face is `lip_face_x` and not `interior_x`: the card stands under a Z seam, and a
     flank under a seam carries its lip's own wall down to the slab, `2 * wall` of it.
 
-    FORE one `MQ6_FORE_CLEAR` behind the front Z seam's aft cross-pin station, which stands in
-    this band at its own depth — `enclosure.front_band_free_y` is where the band reopens
-    behind it. The pack's frontmost body is what the front wall stands off, so the two bodies
-    on this floor are what the run is struck from.
+    FORE on its own stated `MQ6_Y0`. The grille grew around this station: the intake's
+    lowest course carries the cradle rail's one stepped end (`flank-vent-mullions`), the
+    card's loom dresses aft of it, and nothing else on the flank asks for the depth — so
+    the station is the card's own fact, not a remainder off the seam machinery.
 
     LOW on the slab the compressor stands on, one rail section up — which is the whole of what
     lifts it. The mesh comes out under the power box's floor, so the layer reaches this board
     before it reaches the one ignition source in the compartment."""
     body = import_step(str(MQ6_STEP)).val()
-    fore, _aft = _enc.front_band_free_y(min(box(comp).ymin, box(cond).ymin))
     return seat_body(body, MQ6_TURN, seat="mq6-sensor",
-                     x0=_enc.lip_face_x()[0], y0=fore + MQ6_FORE_CLEAR,
+                     x0=_enc.lip_face_x()[0], y0=MQ6_Y0,
                      z0=box(comp).zmin + _enc.mq6_rail_wall)
 
 
@@ -2308,40 +2309,128 @@ def _boxed(x0, x1, y0, y1, z0, z1):
     return cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
 
 
-def check_corner_slot(foam) -> Bound:
-    """Whether the cold core's flank slots receive the four-corner bosses — landed, and
-    with the aft slide each boss arrives by clear.
+def check_slides(pieces, box) -> None:
+    """The Z slides swept and their catches lifted, on the exact pieces this assembly
+    carries — `enclosure._report_slide`'s own readings, entered in this ledger the way
+    `carry_enclosure_bounds` enters the box's. That report ran piece against piece;
+    `check_slide_lanes` and `check_core_ride` below are the sweeps only this module can
+    take, because only it knows what is standing in the box when each motion happens."""
+    _enc._report_slide(pieces, box)
+    for b in _enc.BOUNDS:
+        if b.id.startswith("z-slide-"):
+            record_bound(Bound(*b))
 
-    The boss's socket stands `corner_core_reach` past the boss chain the flanks are packed
-    to, and the front assembly carries it aft along the flank as the halves telescope — so
-    the whole SWEPT band has to be air in the placed core, from the core's front face to
-    the boss's aft face plus a slip. Read as that band against the core itself
-    (`_cold_core_interface.corner_boss_slots` is the shell's side of the same figure)."""
-    ix0, ix1 = _enc.interior_x()
-    reach = _enc.corner_core_reach + _enc.split_slip
-    z0 = _enc.z_seam - _enc.socket_r - _enc.split_slip
-    z1 = _enc.z_seam + _enc.socket_r + _enc.split_slip
-    aft = _enc._y_boss(_enc.y_seam) + _enc.socket_r + _enc.split_slip
-    fb = box(foam)
-    hits = []
-    for sx, face in ((+1.0, ix0 + _enc.side_band_inset), (-1.0, ix1 - _enc.side_band_inset)):
-        xa, xb = sorted((face, face + sx * reach))
-        probe = _boxed(xa, xb, fb.ymin - 1.0, aft, z0, z1)
-        v = foam.intersect(probe).Volume()
-        hits.append((("−X", "+X")[sx < 0], v))
-    ok = all(v <= 1.0 for _s, v in hits)
+
+# What rides FRONT-TOP into its own close: the flavour pack is made up into the trays
+# and the tee wall on the bench (`internal-plumbing.md` §3), so the piece arrives
+# carrying it and the sweep has to carry it too. The crossing runs to the bulkheads and
+# the pumps' own tubes are made up later and are not in the box yet.
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-", "vk-")
+# And what is NOT in the box when the CORE rides in through the open Y-seam mouth: the
+# lid's own tenants go on after it through that same mouth, the pump cartridge and its
+# steel come later still, and every crossing run is internal-plumbing's. Everything else
+# in the back — the chain, the meter, the wall electronics, the bulkheads and their
+# rings — rides back-top or clamps its walls and is already standing when the core
+# arrives, which is what the sweep is against.
+CORE_RIDE_LATER = ("foam-assembly", "seaflo-pump", "moisture-plate", "collet-plate",
+                   "funnel", "nameplate", "asse-drip-pan")
+CORE_RIDE_RUNS = ("tube-", "turn-", "step-")
+
+
+def _swept_worst(mover, fixed, axis, travel):
+    """The worst contested volume over one linear motion, `(mm³, at_mm)` — the mover
+    translated along `axis` from `travel` out down a ladder of stations to home, dense
+    where the joint closes, intersected with the fixed set at each."""
+    rungs = [d for d in (0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0) if d < travel]
+    d = 24.0
+    while d < travel:
+        rungs.append(d)
+        d += 16.0
+    rungs.append(travel)
+    worst = (0.0, 0.0)
+    for d in rungs:
+        off = cq.Vector(axis[0] * d, axis[1] * d, axis[2] * d)
+        v = mover.translate(off).intersect(fixed).Volume()
+        if v > worst[0]:
+            worst = (v, d)
+    return worst, len(rungs)
+
+
+def check_slide_lanes(pieces, solids, ebox) -> Bound:
+    """The FRONT column's close, swept with its cargo: front-top arrives carrying the
+    flavour pack, so what slides is the piece AND the manifold made up into it, and what
+    it slides over is front-bottom AND the refrigeration stratum already seated there.
+    `z-slide-front-clear` proved the pieces; this is the same travel with the bodies in.
+
+    THE BACK COLUMN TAKES NO SUCH ROW because its tub is EMPTY when it closes: the core
+    cannot pass under back-top's own +Y wall, so it enters through the Y-seam mouth
+    after the column is one piece (`check_core_ride`), and everything back-top carries
+    — the chain, the meter, the panel, the wall electronics — rides with it over
+    nothing. The piece-on-piece sweep is the whole of that close."""
+    plate = ebox.collet_plate if (ebox.pump_bay and ebox.collet_plate) else None
+    travel = _enc._z_rail_travel(ebox.inner, ebox.y_joint, "front", plate,
+                                 ebox.vent_chase)
+    mover = pieces["front-top"].val()
+    for name, s in solids.items():
+        if name.startswith(FRONT_RIDERS):
+            mover = mover.fuse(s)
+    fixed = pieces["front-bottom"].val()
+    for name in ("compressor", "condenser+fan", "mq6-sensor", "thermal-fuse",
+                 "fuse-clamp", "discharge-chain", "suction-chain"):
+        if name in solids:
+            fixed = fixed.fuse(solids[name])
+    (worst, at), n = _swept_worst(mover, fixed, (0.0, 1.0, 0.0), travel)
+    ok = worst <= 2.0
     return record_bound(Bound(
-        "corner-slot-lands", "The core's flank slots receive the four-corner bosses",
+        "z-slide-front-lanes", "The front top slides home carrying the flavour pack",
         ok,
-        "swept bands clear on both flanks" if ok else
-        ", ".join(f"{s}: {v:.0f} mm³ standing in the band" for s, v in hits if v > 1.0),
-        "air over each boss's whole swept band",
+        f"worst {worst:.1f} mm³ contested, {at:.2f} mm out, {n} stations over "
+        f"{travel:.1f} mm",
+        "0 mm³ at every station of the loaded travel",
         ([] if ok else [
-            f"the cold core stands in the four-corner boss's swept band on the "
-            f"{', '.join(s for s, v in hits if v > 1.0)} flank — the boss reaches "
-            f"{reach:.2f} past the chain and rides the flank aft as the halves close. "
-            f"The shell's slot (`_cold_core_interface.corner_boss_slots`) has to cover "
-            f"z {z0:.2f}..{z1:.2f} back to y {aft:.2f}"])))
+            f"front-top with the flavour pack aboard contests {worst:.1f} mm³ "
+            f"{at:.2f} mm out of home — something the piece carries sweeps through the "
+            f"stratum or the bottom piece. Compare the body at that station against "
+            f"`FRONT_RIDERS` and the pack's own heights"])))
+
+
+def check_core_ride(pieces, solids, ebox) -> Bound:
+    """The cold core's ride IN: through the open Y-seam mouth, aft over back-bottom's
+    slab to its seat on the rear lip, under the hold-down feet and past everything
+    back-top brought with it. The whole travel is swept against the closed back column
+    and its riders, because this is the one motion in the build that crosses the box's
+    whole depth loaded.
+
+    Its service twin is the same sweep backwards: four screws, the front assembly fore
+    and off, the lid's tenants out through the mouth, and the core rides fore out of the
+    same lane this proves open."""
+    foam = solids["foam-assembly"]
+    b = box(foam)
+    travel = (b.ymax - ebox.y_joint) + 5.0
+    fixed = pieces["back-bottom"].val().fuse(pieces["back-top"].val())
+    if "ceiling-panel" in pieces:
+        fixed = fixed.fuse(pieces["ceiling-panel"].val())
+    for name, s in solids.items():
+        bb = box(s)
+        if bb.ymax <= ebox.y_joint - 5.0:
+            continue                       # the front column's; not standing in this lane
+        if name.startswith(CORE_RIDE_LATER) or name.startswith(CORE_RIDE_RUNS):
+            continue
+        if name.endswith("-word") or name.endswith("-ink"):
+            continue
+        fixed = fixed.fuse(s)
+    (worst, at), n = _swept_worst(foam, fixed, (0.0, -1.0, 0.0), travel)
+    ok = worst <= 2.0
+    return record_bound(Bound(
+        "core-rides-in", "The cold core rides in through the mouth to its seat", ok,
+        f"worst {worst:.1f} mm³ contested, {at:.2f} mm out, {n} stations over "
+        f"{travel:.1f} mm",
+        "0 mm³ down the whole lane",
+        ([] if ok else [
+            f"the core contests {worst:.1f} mm³ at {at:.2f} mm fore of its seat — "
+            f"something standing in the back column reaches into the core's own lane. "
+            f"Either it goes on after the core (add it to `CORE_RIDE_LATER`) or the "
+            f"lane has genuinely closed and the pack has to open it"])))
 
 
 def check_core_held(pieces: dict, foam, shell) -> Bound:
@@ -6862,9 +6951,15 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # two blocks on one piece's slab and two brackets off another's +Y wall of back-top, each read inside
     # the room it stands in.
     check_core_held(pieces, a.pack_solids["foam-assembly"], box)
-    # And the flank slots those grips' own screws pass along: the four-corner bosses ride
-    # the ±X flanks aft as the halves telescope, and the slots are the room they do it in.
-    check_corner_slot(a.pack_solids["foam-assembly"])
+    # And the slides themselves: each column's top swept its whole travel against its
+    # bottom piece and lifted off its catch; the front column again with the flavour
+    # pack aboard against the seated stratum; and the core's own ride in through the
+    # mouth against the closed, populated back column.
+    check_slides(pieces, box)
+    check_slide_lanes(pieces, {**a.pack_solids,
+                               **{n: s for n, (s, _c) in _solids(a).items()}}, box)
+    check_core_ride(pieces, {**a.pack_solids,
+                             **{n: s for n, (s, _c) in _solids(a).items()}}, box)
     # And every rear-wall fitting against the chip it bears on and the bore it passes. The chips
     # go into the assembly rather than the pack — they lie in the wall's own thickness — so they
     # come back off the placed children the way the runs do.
