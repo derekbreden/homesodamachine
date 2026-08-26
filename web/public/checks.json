@@ -70,8 +70,7 @@
       "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
       "  ✗ enclosure-pump-cap — the viewer draws this file, and it is another machine's",
       "  the flute cut is what puts the surface back:",
-      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
-      "[build] a manual build is already running (pid 65535, enclosure.py) — waiting for it rather than stopping it. HSM_BUILD_SUPERSEDE=1 stops it instead (0/no/false queue)."
+      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
     ],
     "hardware/scripts/check_payloads.py": [
       "5 solid(s) whose surface is not in the payload beside them:",
