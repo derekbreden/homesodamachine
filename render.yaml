@@ -25,14 +25,23 @@ services:
     startCommand: cd web && npm start
     healthCheckPath: /
     autoDeploy: true
-    # TWO LANES, AND THE FAST ONE IS THE POINT. A push that changes the site itself — its code,
-    # its posts, this file — deploys on that push, serving whatever bundle the lock currently
-    # names. Nothing about it waits for CAD: the solids it stands on are the ones already
-    # published, and they are minutes old at worst.
+    # A DEPLOY IS FOR CODE. A push that changes the site itself — its code, its posts, this file
+    # — deploys on that push, serving whatever bundle the lock currently names. Nothing about it
+    # waits for CAD: the solids it stands on are the ones already published.
     #
-    # HARDWARE COMES THROUGH THE LOCK, because the bundle is where the solids are. `publish`
-    # cuts what a hardware push owes, uploads the bundle and commits the lock, and that
-    # lock-only commit is what deploys the new geometry.
+    # THE CAD LOCK IS NOT A PATH HERE, AND THAT IS THE POINT. Geometry is data, and it reaches a
+    # running container without one: `web/lib/artifacts-live.js` adopts a lock that moved, brings
+    # its members down and pushes them to open pages on the `files-changed` frame, which the
+    # viewer answers by reloading the open model in place. On a working day the lock moves 40
+    # times against 15 pushes of everything else, and every one of those 40 used to be an `npm
+    # ci`, a 65 MB fetch and a restart, none of which ran in parallel with the next.
+    #
+    # A CONTAINER STILL STARTS WITH WHAT ITS OWN CLONE NAMES — `buildCommand` and `prestart` both
+    # run `fetch-cad-artifacts.mjs` — so a deploy for any reason lands holding the locked solids,
+    # and the adoption carries it forward from there.
+    #
+    # THE FIRMWARE LOCK STAYS, because nothing carries it forward: `/api/firmware` serves images
+    # off this disk that only `buildCommand` puts there.
     #
     # SO A WEB PUSH CAN LAND AHEAD OF THE ARTWORK IT CHANGES. `render-step-posed-runtime` and
     # `quickstart-art` stand this same viewer to draw the assembly cards, so a viewer change is
@@ -41,7 +50,6 @@ services:
     # the price of the fast lane and it closes itself.
     buildFilter:
       paths:
-        - hardware/cad-artifacts.lock.json
         - firmware/firmware.lock.json
         - web/**
         - updates/**

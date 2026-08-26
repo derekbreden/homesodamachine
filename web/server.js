@@ -25,6 +25,7 @@ import {
   notifyFilesChanged,
 } from "./lib/push.js";
 import { mountNotificationsRoutes } from "./lib/notifications.js";
+import { mountArtifactsLive } from "./lib/artifacts-live.js";
 import { WS } from "./contracts/ws-frames.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -329,6 +330,28 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
         console.error("Push diff error:", e.message);
       }
     })();
+
+    // AND THEN IT KEEPS LOOKING. The diff above is the boot reading. `artifacts-live.js` takes
+    // the next ones: it adopts a lock that moved, brings its members down, and sends the same
+    // frame this block sends, so new geometry reaches an open page without a deploy — which is
+    // why the lock is not among `render.yaml`'s buildFilter paths.
+    //
+    // ON THE DEPLOYED CONTAINER AND NOWHERE ELSE, WHICH `!dev` DOES NOT SAY. `npm start` on a
+    // laptop is this same branch — the dev wrapper is a separate entry point — and a laptop is
+    // exactly the machine holding cuts the lock has not named yet. Adopting there would pull
+    // published bytes over a generator's fresh work, the one thing
+    // `fetch-cad-artifacts.mjs` refuses to do by default. `RENDER_GIT_COMMIT` is set by Render
+    // and by nothing else; `commit` above already falls back to `local-…` without it.
+    if (process.env.RENDER_GIT_COMMIT) {
+      mountArtifactsLive(app, {
+        broadcast,
+        setRecent,
+        commit,
+        hardwareDir: HARDWARE_DIR,
+        detect: [detectChangedSteps, detectChangedMermaid, detectChangedDxf,
+                 detectChangedCards, detectChangedPcb],
+      });
+    }
   }
 
   const defaultPort = dev ? 3000 : 3001;

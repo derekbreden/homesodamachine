@@ -32,8 +32,9 @@ if [ -n "$_ghosts" ]; then
   echo "post-commit:   no file changed. To read one back: git cat-file -p <hash>" >&2
 fi
 
-# AND THEN IT GOES. The site deploys on a push — `render.yaml`'s buildFilter names `web/**` and
-# the artifact lock — so this hook is the distance between a commit and homesodamachine.com.
+# AND THEN IT GOES. The site deploys on a push that changes it — `render.yaml`'s buildFilter
+# names `web/**`, `updates/**` and the firmware lock — so this hook is the distance between a
+# commit and homesodamachine.com.
 #
 # `push.py` lands it: a commit whose patch is already on the remote under another hash is
 # dropped, anything else is replayed in a detached worktree that shares no index with the
@@ -45,11 +46,11 @@ _py="$root/tools/cad-venv/bin/python"
 [ -x "$_py" ] || _py=python3
 "$_py" "$root/tools/push.py" 2>&1 | sed 's/^/post-commit: /' >&2
 
-# AND A CAD CHANGE IS CUT HERE RATHER THAN WAITED FOR. Render deploys when the artifact lock
-# moves, so a solid reaches the site when someone pins it. Measured on 2026-08-24: a hardware
-# commit took 5.7 minutes to become visible, 4.2 of them between the commit and the runner
-# pushing the lock. `publish_now.py` does that from this machine, where the build cache and the
-# cut already are.
+# AND A CAD CHANGE IS CUT HERE RATHER THAN WAITED FOR. A solid reaches the site when someone
+# pins it into the lock, which the running container adopts without a deploy. Measured on
+# 2026-08-24: a hardware commit took 5.7 minutes to become visible, 4.2 of them between the
+# commit and the runner pushing the lock. `publish_now.py` does that from this machine, where
+# the build cache and the cut already are.
 #
 # DETACHED, BECAUSE IT IS NOT IN FRONT OF ANYTHING. The commit is made and the push is done by
 # the line above; this only moves the lock, so the agent's next tool call does not wait on a

@@ -1,7 +1,8 @@
 // The solids named in hardware/cad-artifacts.lock.json, put on this disk.
 //
-//     node scripts/fetch-cad-artifacts.mjs            # fetch what is missing or wrong
+//     node scripts/fetch-cad-artifacts.mjs            # fetch what this disk is missing
 //     node scripts/fetch-cad-artifacts.mjs --check    // 0 = every solid here matches the lock
+//     node scripts/fetch-cad-artifacts.mjs --adopt    # also replace what holds other bytes
 //
 // Render runs this after `npm ci` (render.yaml), from web/. The viewer serves `.step` off the
 // tree at request time — web/lib/viewer-routes.js — and the tree a deploy clones carries the
@@ -18,10 +19,15 @@
 // A tree that already holds every solid at its locked hash downloads nothing, so a dev machine
 // that cut the solids itself runs this to completion without reaching the network.
 //
-// ONLY A SOLID THAT IS ABSENT IS WRITTEN. A solid present and carrying other bytes is a generator's
-// fresh cut waiting to be packed, and this is `prestart` — it runs on `npm start` on the machine
-// doing that cutting. So drift is reported and left standing, and `pack.py --write` is what settles
-// it. A deploy clone has no solids at all, which is the case this fills.
+// ONLY A SOLID THAT IS ABSENT IS WRITTEN, AND `--adopt` IS WHAT SAYS OTHERWISE. A solid present
+// and carrying other bytes is a generator's fresh cut waiting to be packed, and this is
+// `prestart` — it runs on `npm start` on the machine doing that cutting. So drift is reported and
+// left standing, and `pack.py --write` is what settles it. A deploy clone has no solids at all,
+// which is the case this fills.
+//
+// A SERVER CUTS NOTHING, so drift there is a lock that moved on rather than work in progress, and
+// `--adopt` takes the lock's bytes over the ones on disk. `web/lib/artifacts-live.js` runs this
+// that way to bring new geometry into a container the lock moved under, with no deploy.
 
 import { createHash } from "node:crypto";
 import { createReadStream, createWriteStream } from "node:fs";
@@ -36,6 +42,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const LOCK = path.join(ROOT, "hardware", "cad-artifacts.lock.json");
 const CHECK = process.argv.includes("--check");
+const ADOPT = process.argv.includes("--adopt");
 
 async function sha256(file) {
   const h = createHash("sha256");
@@ -79,14 +86,22 @@ if (!lock) {
 }
 
 const solids = lock.solids ?? {};
-const { missing, drifted } = await wanted(solids);
+const { missing: absent, drifted } = await wanted(solids);
 
-// Named either way: a solid carrying other bytes is what `pack.py --write` is for, and saying so
-// is the whole of what happens to it here.
-if (drifted.length) {
+// `--adopt`: A SERVER HOLDS NO CUT OF ITS OWN, SO DRIFT THERE IS AGE, NOT WORK. Without it a
+// solid present under other bytes is left alone, because on a machine that cuts geometry those
+// bytes are a generator's fresh work and `pack.py --write` is what settles them. A container
+// cuts nothing: everything it holds came from a bundle, so a hash the lock does not name means
+// the lock moved on, and the newer bytes are the ones to serve. `web/lib/artifacts-live.js`
+// passes this when it adopts a lock without a deploy.
+const missing = ADOPT ? [...absent, ...drifted] : absent;
+if (drifted.length && !ADOPT) {
   console.log(`[cad-artifacts] ${drifted.length} solid(s) hold bytes the lock does not name, left as they are:`);
   for (const rel of drifted.slice(0, 8)) console.log(`    ${rel}`);
   console.log("    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write");
+}
+if (drifted.length && ADOPT) {
+  console.log(`[cad-artifacts] ${drifted.length} solid(s) hold older bytes — taking the lock's`);
 }
 
 if (missing.length === 0) {
