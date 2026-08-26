@@ -45,6 +45,15 @@ const LOCK = path.join(ROOT, "hardware", "cad-artifacts.lock.json");
 const LOCK_URL =
   "https://api.github.com/repos/derekbreden/homesodamachine/contents/hardware/cad-artifacts.lock.json?ref=main";
 
+// THE VERDICT IS NOT CODE EITHER. `checks.json` sits under `web/public/`, which `render.yaml`
+// deploys on, so every reading `checks_now.py` pinned rebuilt the container around it — 24 of
+// the 24 deploying commits in the six hours this was measured, each a `npm ci` and a restart,
+// none of them in parallel. A verdict twenty minutes behind describes a tree that has moved.
+// `render.yaml` holds it out of the filter and this carries it, on the same look as the lock.
+const CHECKS = path.join(WEB, "public", "checks.json");
+const CHECKS_URL =
+  "https://api.github.com/repos/derekbreden/homesodamachine/contents/web/public/checks.json?ref=main";
+
 // Two minutes is 30 calls an hour against an unauthenticated ceiling of 60, which leaves room
 // for the posts and for anything else on this address asking GitHub the same way.
 const POLL_MS = 120_000;
@@ -72,6 +81,30 @@ async function lockOnMain() {
   const meta = await res.json();
   if (meta.encoding !== "base64" || !meta.content) throw new Error("no inline content");
   return JSON.parse(Buffer.from(meta.content, "base64").toString("utf-8"));
+}
+
+// The verdict on main onto this disk, when it is not already the bytes here. Its own read, so a
+// GitHub that answers for one file and not the other still moves what it answered for; and its
+// own failure, because a verdict this cannot fetch is a stale band on the gear and not a reason
+// to leave geometry unadopted.
+async function carryChecks() {
+  const res = await fetch(CHECKS_URL, {
+    headers: { accept: "application/vnd.github+json", "user-agent": "homesodamachine-site" },
+  });
+  if (!res.ok) throw new Error(`GitHub says ${res.status} ${res.statusText}`);
+  const meta = await res.json();
+  if (meta.encoding !== "base64" || !meta.content) throw new Error("no inline content");
+  const text = Buffer.from(meta.content, "base64").toString("utf-8");
+  // Parsed before it is written: a truncated verdict draws no band rather than a wrong one.
+  const verdict = JSON.parse(text);
+  if (!Array.isArray(verdict.checks)) throw new Error("no checks in it");
+  let here = null;
+  try {
+    here = await readFile(CHECKS, "utf-8");
+  } catch { /* a container whose clone predates the file */ }
+  if (here === text) return { moved: false };
+  await writeFile(CHECKS, text);
+  return { moved: true, green: verdict.green === true, checks: verdict.checks.length };
 }
 
 // The lock's own shape, before it is written anywhere. A truncated or half-published lock that
@@ -117,8 +150,16 @@ export function refreshArtifacts(ctx, { force = false } = {}) {
   const now = Date.now();
   if (!force && now - lastLook < MIN_GAP_MS) return Promise.resolve({ skipped: true });
   lastLook = now;
-  running = adopt(ctx)
-    .then((r) => {
+  running = Promise.allSettled([adopt(ctx), carryChecks()])
+    .then(([geometry, checks]) => {
+      if (checks.status === "fulfilled" && checks.value.moved) {
+        console.log(`[artifacts-live] carried the verdict — `
+          + `${checks.value.green ? "green" : "RED"}, ${checks.value.checks} check(s)`);
+      } else if (checks.status === "rejected") {
+        console.error(`[artifacts-live] ${checks.reason.message} — the band is the one already here`);
+      }
+      if (geometry.status === "rejected") throw geometry.reason;
+      const r = geometry.value;
       if (r.moved) {
         console.log(`[artifacts-live] adopted ${r.bundle.slice(0, 16)} — ${r.files} file(s) pushed`);
       }

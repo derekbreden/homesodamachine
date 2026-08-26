@@ -54,6 +54,13 @@ services:
         - web/**
         - updates/**
         - render.yaml
+      ignoredPaths:
+        # THE VERDICT IS DATA UNDER A CODE PATH. `checks_now.py` pins a reading after every
+        # commit, and under `web/**` each one was an `npm ci`, a fetch and a restart — 24 of the
+        # 24 deploying commits in six hours, serialized, which is how a reading lands twenty
+        # minutes after the tree it describes. `web/lib/artifacts-live.js` carries it onto the
+        # running container on the same look that adopts the artifact lock.
+        - web/public/checks.json
     envVars:
       - key: DATABASE_URL
         fromDatabase:
