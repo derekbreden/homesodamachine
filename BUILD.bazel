@@ -5614,7 +5614,8 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
-        "pysrc/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -5622,13 +5623,24 @@ genrule(
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/tools/docgen/__init__.py",
-    ],
+    ] + glob(
+        [
+            "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        ],
+        allow_empty = True,
+    ),
     outs = [
         "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md",
+        "out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step)
+O1=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.figures.json)
+O2=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/README.md)
+O3=$$PWD/$(location out/faucet-display-cover/hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5646,6 +5658,9 @@ ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py > /dev/null
 cp hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step $$O0
+cp hardware/printed-parts/faucet/faucet-display-cover/README.figures.json $$O1
+cp hardware/printed-parts/faucet/faucet-display-cover/README.md $$O2
+cp hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py $$O3
 """,
 )
 
@@ -11719,6 +11734,8 @@ sh_test(
         "hardware/printed-parts/enclosure/y-wall-of-back-top/README.md",
         "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+        "hardware/printed-parts/faucet/faucet-display-cover/README.md",
         "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
         "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
         "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
