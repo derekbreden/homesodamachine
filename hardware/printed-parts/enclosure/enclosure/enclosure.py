@@ -938,8 +938,8 @@ def lip_face_x():
 
     A wall a Z-seam lip stands on is `2 * wall` thick from the floor slab to the lip rim
     (`_lip_underwall`), so what a body seated low on a flank meets is this plane and not
-    the other one. The MQ-6's card bottoms on it (`_west_cradle`), which is the whole of
-    what holds the card in X."""
+    the other one. The MQ-6's can bottoms on it through the well cut back to it
+    (`_west_cradle`), which is what stands its card off the flank in X."""
     ix0, ix1 = interior_x()
     return (ix0 + wall, ix1 - wall)
 
@@ -1061,10 +1061,11 @@ back_bottom_flank_t = 9.0
 # --- front-bottom's own ±X section --------------------------------------------
 #
 # THE FRONT PIECE CARRIES THE SAME 9 DOWN BOTH FLANKS, and neither body against them moves the
-# way you would expect. The MQ-6 bottoms on `lip_face_x` and the suction lane is struck off that
-# same plane, so the WEST face cannot move without carrying the card inboard and the compressor
-# east with it — the section closes ROUND the card instead (`_front_bottom_flank_skin` wells it
-# off the station's own footprint). The condenser's block already answers to the EAST wall
+# way you would expect. The MQ-6's can bottoms on `lip_face_x` and the suction lane is struck off
+# that same plane, so the WEST face cannot move without carrying the card inboard and the
+# compressor east with it — the section closes ROUND the can instead
+# (`_front_bottom_flank_skin` wells it off the station's own silhouette). The condenser's block
+# already answers to the EAST wall
 # (`enclosure_assembly.east_lane_free` stands it `cond_mount_clear` off this face), so that face
 # moving carries the block west into the lane it has always had off the compressor's tangent.
 #
@@ -1470,6 +1471,7 @@ plate_guide_x_air = 1.0      # fixed guide cheeks outside the pump cartridge's w
 plate_guide_crown = 6.0      # the head over the steel's tails — the stop the plate is pushed
                              # up to, and the section that closes its top edge in
 plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading the steel in
+plate_seat_land = 6.0        # bay-floor top each shoulder of the steel comes up onto, per end
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
                              # to nothing at its inboard face over the guide's whole height
 
@@ -2614,7 +2616,7 @@ def _dims(pack):
           for name, vol, z0, z1 in under]
          + ["the lip's wall carries to the slab so its shoulder is not a soffit, so a body "
             "against a flank down there is a body the wall runs through. Repack it inboard, "
-            "or seat it on `lip_face_x` the way the MQ-6's card is"])))
+            "or seat it on `lip_face_x` the way the MQ-6's can is"])))
     # WHAT THE COLUMNS GIVE UP. Measured here with everything else the placed pack decides,
     # against the same `inner` the columns are struck on.
     reliefs = []
@@ -2860,12 +2862,17 @@ def plate_outline(plate):
     """THE COLLET PLATE'S OWN OUTLINE, as an `(x, z)` polygon — the one figure the steel, the
     waterjet's file and every body that stands beside it read.
 
-    A rectangle stepped in at both ends over the band under `seam_cap_z`, where the front
-    column's rails sweep."""
+    THREE WIDTHS, EACH ONE A PLANE THE BOX ALREADY HAS. Over `seam_cap_z` it runs to
+    `PLATE_END_AIR` off the side walls. Between the bay floor's own top and that plane it
+    stands `plate_step_in` off them, which is the lane the front column's rails sweep. Under
+    the floor's top it draws in by `plate_seat_land` again: that is the FOOT, narrow enough to
+    pass the slot's Z− mouth, and the two shoulders it leaves are what the floor's top
+    carries."""
     x0, x1, z0, z1 = plate["x0"], plate["x1"], plate["z0"], plate["z1"]
     sx0, sx1, sz = plate["step_x0"], plate["step_x1"], plate["step_z"]
-    return [(sx0, z0), (sx1, z0), (sx1, sz), (x1, sz),
-            (x1, z1), (x0, z1), (x0, sz), (sx0, sz)]
+    fx0, fx1, seat = plate["foot_x0"], plate["foot_x1"], plate["seat_z"]
+    return [(fx0, z0), (fx1, z0), (fx1, seat), (sx1, seat), (sx1, sz), (x1, sz),
+            (x1, z1), (x0, z1), (x0, sz), (sx0, sz), (sx0, seat), (fx0, seat)]
 
 
 def bay_storey_z(bay):
@@ -4148,11 +4155,11 @@ def _plate_fore_guides(inner, outer, bay, plate, pump_trays):
     stated end runs one wall aft of the plate into fixed side-wall stock beyond the flank
     opening.
 
-    THE CROWN CLOSES THE CHANNEL AND IS THE STOP. Over each tail the crown band reaches aft
-    from the cheek to the tee wall's fore face, so its underside — `slide_slip` over the
-    steel's own top — is the face the plate lands on as it is pushed up from the Z− mouth.
-    That underside spans `PLATE_T + plate_slot_slip` between two standing walls, the cheek
-    fore and the tee wall aft, and closes the steel's top edge in over the tails."""
+    THE CROWN CLOSES THE CHANNEL OVER THE STEEL. Over each tail the crown band reaches aft
+    from the cheek to the tee wall's fore face, standing `slide_slip` over the steel's own
+    top: what the bay floor's shoulders carry from below, this holds down from above, and the
+    top edge is closed in over both tails. That underside spans `PLATE_T + plate_slot_slip`
+    between two standing walls, the cheek fore and the tee wall aft."""
     cart_x0, cart_x1 = _cap_x_span(bay)
     y_back = plate["fore_y"] - plate_slot_slip
     y_front = y_back - wall
@@ -4936,11 +4943,12 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     """THE BAY'S FLOOR: front-top's own storey across the front, from the front wall's
     interior face aft past the collet plate, on the bed and under everything else.
 
-    THE COLLET PLATE'S SLOT PASSES CLEAN THROUGH IT (`_plate_slot`), and that slot's mouth is
-    this piece's own Z− FACE — the seam plane, which is also the bed. The steel goes in
-    from there: up through the floor until its tails land on the guides' heads
-    (`_plate_fore_guides`), and front-bottom's mouth closes under it. Its Y faces over the
-    slot's whole rise are the floor's own section.
+    THE COLLET PLATE'S SLOT PASSES THROUGH IT (`_plate_slot`), and that slot's mouth is
+    this piece's own Z− FACE — the seam plane, which is also the bed. The steel comes up from
+    there, foot first, and what stops it is THIS FLOOR'S OWN TOP: the mouth is `plate_seat_land`
+    narrower at each end than the steel above it, so the two shoulders the foot leaves come up
+    onto that plane and the plate hangs its whole weight on them. Fore and aft it answers to
+    the slot's two faces, which are the floor's own section.
 
     NOTHING OF THE SEAM PASSES IT. The seam's skin is given up over this whole run
     (`_flank_lip_drop`, `_front_flat_lip_drop`), so the floor runs the walls whole — and
@@ -4951,9 +4959,9 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     Z-seam rim — and the seam's cap (`_rim_cap`) stands one `wall` on top of that, which is
     what the flank opening floors on.
 
-    ITS SLOT ENDS ON THE SIDE WALL. There is nothing outboard of that wall for the slot to
-    hold, so the wall is its end and the steel keeps `enclosure_assembly.PLATE_END_AIR` off
-    it."""
+    ITS SLOT ENDS ON THE SIDE WALL over the steel's own storey. There is nothing outboard of
+    that wall for the slot to hold, so the wall is its end and the steel keeps
+    `enclosure_assembly.PLATE_END_AIR` off it."""
     z0, z1 = bay_floor_z(pump_trays)
     rim = z_seam + lip_len
     bx0, bx1 = bay_x_span(inner)
@@ -4966,18 +4974,23 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
 
 def _plate_slot(inner, plate, z_top):
-    """THE COLLET PLATE'S OWN SLOT, wall to wall — open at the Z− face and led in at 45°.
+    """THE COLLET PLATE'S OWN SLOT — TWO WIDTHS ON ONE PAIR OF FACES.
 
-    Its two long faces are the steel's, `plate_slot_slip` off each. Its mouth is the seam
-    plane: there the opening stands one `plate_slot_lead` wider on each face and closes back
-    onto the steel's own width over the same rise, so the lead's two faces lean in at the
-    angle a print climbing off its bed carries them at."""
+    Fore and aft it is the steel, `plate_slot_slip` off each face, at every height. ACROSS, it
+    is the FOOT'S width up to the bay floor's top and the WALLS' above it: what is left standing
+    between the two is the floor's own top at each end of the mouth, and that is what the
+    steel's shoulders come up onto.
+
+    Its mouth is the seam plane, where the opening stands one `plate_slot_lead` wider on each
+    long face and closes back onto the steel's own width over the same rise — the lead's two
+    faces leaning in at the angle a print climbing off its bed carries them at."""
     y0, y1 = plate["fore_y"] - plate_slot_slip, plate["aft_y"] + plate_slot_slip
-    lead, mouth = plate_slot_lead, z_seam
-    return _yz_prism(inner[0], inner[1], (
+    lead, mouth, seat = plate_slot_lead, z_seam, plate["seat_z"]
+    foot = _yz_prism(plate["foot_x0"] - plate_slot_slip, plate["foot_x1"] + plate_slot_slip, (
         (y0 - lead, mouth - 1.0), (y1 + lead, mouth - 1.0),
-        (y1 + lead, mouth), (y1, mouth + lead), (y1, z_top),
-        (y0, z_top), (y0, mouth + lead), (y0 - lead, mouth)))
+        (y1 + lead, mouth), (y1, mouth + lead), (y1, seat),
+        (y0, seat), (y0, mouth + lead), (y0 - lead, mouth)))
+    return foot.fuse(_ybox(inner[0], inner[1], y0, y1, seat, z_top))
 
 
 def _tee_wall(inner, y_joint, plate, bay):
