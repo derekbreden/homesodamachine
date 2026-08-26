@@ -274,8 +274,7 @@ the built machine, posed, and the column beside it names each body and the joint
 that holds it. What a unit does **not** carry yet is held back in
 [`_scenes.py`](/hardware/assembly/scenes/_scenes.py) — the ASSE drip pan and the
 funnel both come in through a wall long after their piece leaves the
-bench, and the collet plate drops into the bay floor's seat through the open
-bay, all three with the box standing — and what it carries that the tables give
+bench, with the box standing — and what it carries that the tables give
 to another piece is added there too: a run made up on one unit leaves it with
 its far end hanging.
 
