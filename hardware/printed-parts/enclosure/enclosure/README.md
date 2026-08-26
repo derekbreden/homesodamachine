@@ -12,7 +12,7 @@ flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [6 mm](BACK_TOP_FLANK) and it
 [6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
-column's top SLIDES onto its bottom on dovetail rails; the two halves telescope and four screws
+column's top SLIDES onto its bottom on hooked rails; the two halves telescope and four screws
 close the whole box.
 It measures [215 × 462 × 361 mm](BOX_SIZE), and **width, height and the +Y wall
 are all stated bounds**. `_dims` measures the pack against each one and enters the
@@ -58,7 +58,7 @@ whole `column_round` inboard of any wall segment — so a body clear of all four
 can still be in the lip's way there, as the PSU's aft corner is at the X+/Y+ column.
 `_lip_denied` measures that lane per column, each seam answering for its own half of
 the box (`z-seam-front-lane`, `z-seam-back-lane`) — the ring read one rail deeper down
-the straight runs, where the dovetail's head and return ride. The cold core spans the
+the straight runs, where the groove, arm and head ride. The cold core spans the
 seam in both columns.
 
 The plane stands where the seam's own machinery fits the pack: the seam ring's foot
@@ -122,23 +122,24 @@ is the wall's own air.
 
 ## The Z seams slide home
 
-Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel dovetail slide, and no
-screw anywhere on it.** The bottom piece carries the lip — the cavity's own skin standing
-proud of the mouth to the rim, one [0.2 mm](SLIDE_SLIP) inboard of every face the top
-piece slides along — and on each flank's **straight run** that lip flares 45° inboard over
-its last [4 mm](RAIL_RISE) to the rim: the **rail head**, widest at its crown. The
-top piece carries the mating **channel** behind its own wall and a **return** skin whose
-counter-flare rides under the head. The top **enters over the open Y-seam mouth** — the one
-opening the box has before the halves telescope — and slides the length of its column:
-front-top **fore** onto front-bottom, back-top **aft** onto back-bottom, the mouth riding
-the shoulder the whole way, until the return's end face lands on the **stop block** closing
-each rail's far end. That contact is the column's Y datum; the end walls and the corner
-turns close head-on one `slide_slip` behind it — the same telescoping mate the box always
-had, arrived at along Y instead of dropped into.
+Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel slide on hooked rails, and
+no screw anywhere on it.** Down each flank's **straight run** the bottom piece raises an
+**arm** on its mouth, standing one [0.2 mm](SLIDE_SLIP) inboard of the top's own wall,
+and the arm's **head** steps [2 mm](HOOK_LAP) back out over the **groove** between them.
+The top piece's wall runs to the mouth at full section — the **foot**, its caught face
+[4 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
+the head, closing back to the full wall on a 45° roof. The top **enters over the open
+Y-seam mouth** — the one opening the box has before the halves telescope — and slides
+the length of its column: front-top **fore** onto front-bottom, back-top **aft** onto
+back-bottom, the mouth riding the shoulder the whole way, until the foot's end face
+lands on the **stop block** closing each rail's far end. That contact is the column's Y
+datum; the end walls and the corner turns close head-on one `slide_slip` behind it — the
+same telescoping mate the box always had, arrived at along Y instead of dropped into.
 
-**Lifting a seated top wedges the flare pairs together along both whole runs** —
-[84 mm](RAIL_RUN_FRONT) per flank on the front column, [114 mm](RAIL_RUN_BACK) and
-[92 mm](RAIL_RUN_BACK_W) on the back — where the old joint pinned each seam at two points.
+**Lifting a seated top lands each foot's flat top face on its head's flat underside,
+along both whole runs** — [84 mm](RAIL_RUN_FRONT) per flank on the front column,
+[114 mm](RAIL_RUN_BACK) and [92 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+face on horizontal printed face, square faces bearing full from the first micron.
 A run ends at its **horizon**: the closed end's outer skin and corner round are show
 surface the sliding piece cannot open a channel through, so the rail stops where their
 sweep begins — half the flank less half the entry — and the −X back run stops sooner
@@ -147,18 +148,21 @@ still, `slide_slip` fore of the PRV chase's rib, taking its stop block mid-flank
 the Y seam, where the other column stands screwed to it at the ceiling level. Four M3×10
 close the box; the same four open it.
 
-**Every sliding face prints at the box's own rule.** The head's flare is 45° under, on a
-piece that prints floor-down; the return's counter-flare and the channel's **gabled roof** —
-two 45° faces rising off the channel's walls and meeting over it — are 45° over, on a piece
-that prints mouth-down; every other face is vertical or flat-up. Nothing in the joint hangs,
-and nothing in it takes support.
+**Every face of the joint prints at the box's own rule, and the catch faces are square.**
+The head's underside — the catch — is the joint's one down-looking flat, an abrupt
+ledge at the top of a piece that prints floor-down; the arm's base falls back to the lip's
+underwall on a 45° under-flare. On the piece that prints mouth-down, the notch is an
+open rebate in the wall's own inboard face — no cavity closes over the bed — and where
+the channel's lane does cut interior bulk, a **gabled roof** of two 45° faces closes it.
+Every sliding face is vertical or horizontal, and the top's outer skin keeps its full
+`wall` of flute backing down to the mouth.
 
 **The corners give the slide its lane.** Over the seam band each bottom piece carries its
-two pillars **solid to the rim** (`_bottom_corner_fills`), flats one `slide_slip` off the
-walls the top's faces sweep along; the top piece stands off that whole band
-(`_top_corner_reliefs`) and its pillar regrows above on the 45° pair every ceiling over a
-void here closes at. The Y-seam tongue's flank segments carry the channel's notch — the
-head has to pass where the tongue stands, on its way in, every time.
+two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
+sweep along; the top piece stands off that whole band and its pillar regrows above on the
+45° pair every ceiling over a void here closes at. The Y-seam tongue's flank segments
+carry the channel's notch — the head has to pass where the tongue stands, on its way in,
+every time.
 
 **And the slide is proved, not asserted.** `_report_slide` sweeps each built top from full
 entry to home against its built bottom — a ladder of stations, dense where the joint
@@ -172,8 +176,8 @@ core's own entry (below).
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
-Y-seam collars, or the rail band over the seam's own storey, whose head and return
-together reach [10.3 mm](RAIL_REACH) inboard, inside that same band — and the **+Y wall
+Y-seam collars, or the rail band over the seam's own storey, whose groove, arm and head
+together reach [6.4 mm](RAIL_REACH) inboard, inside that same band — and the **+Y wall
 keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold

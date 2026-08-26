@@ -583,7 +583,7 @@ def east_lane_free(cond) -> float:
     body and the wall it is going toward.
 
     THE SEAM'S FURNITURE IS NOT THE FENCE HERE, and saying so is the whole of this. The front
-    column's seam furniture on a flank is the dovetail rail, and the rail lives in the seam's
+    column's seam furniture on a flank is the hooked rail, and the rail lives in the seam's
     own storey — `z_seam` up to the rim — while this block's crown comes up UNDER that mouth.
     A body under the storey is beside nothing, and charging it the rail's whole reach would be
     charging it for a lane it never enters.
@@ -1372,13 +1372,15 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # --- the collet plate --------------------------------------------------------
 #
 # THE PUMP CARTRIDGE'S RELEASE, and the one piece of this machine that is steel. A flat of 1/8"
-# 304 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, its
-# foot sunk in the seat `enclosure._bay_floor` cuts down the bay floor's top — the seat takes
-# it fore, aft and across and carries it on its own bottom, and with the pump cartridge out it
-# lifts straight up through the bay. IT IS A RECTANGLE: front-bottom's Z-seam lip is given up
-# over this whole run (`enclosure._flank_lip_drop`), so there is nothing standing proud of the
-# floor at either end for the steel to step around. Four holes pass the barb tubes and nothing
-# wider. Pull the pump cartridge and the gripped tubes drag the tees forward
+# 304 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, standing
+# in the slot `enclosure._plate_slot` cuts clean through the bay floor — the slot takes it fore
+# and aft over the floor's whole section, the guides' two heads stop it going in, and
+# front-bottom's mouth closes under its foot. IT GOES IN THROUGH FRONT-TOP'S OWN Z− FACE, the
+# seam plane the piece beds on, before the front column closes. Over `enclosure.seam_cap_z` its
+# ends run to `PLATE_END_AIR` off the side walls; under that plane they step in to
+# `enclosure.plate_step_in`, which is the lane the front column's rails sweep. Four holes pass
+# the barb tubes and nothing wider. Pull the pump cartridge and the gripped tubes drag the tees
+# forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
 # the grip opens, and the tubes draw out through the holes they entered by. Pushing the
 # pump cartridge home threads them back into the same collets, the cap's own aft face landing on
@@ -1397,16 +1399,23 @@ TEE_WALL_ARM_SLIP = 0.10     # the aft bore's air on the ARM — what leaves the
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
     """The plate as the four branch collets and the walls place it — faces, band, ends,
-    holes — the one figure the steel, the bay floor's seat and the waterjet's own outline
+    holes — the one figure the steel, the bay floor's slot and the waterjet's own outline
     all read.
 
-    ITS Z BAND IS STRUCK ON THE HOLES. The bottom is one `wall` down inside the bay floor,
-    which is the seat the foot stands in; the top is then whatever puts the four collet
-    holes in the middle of the band, which is the only place a hole is as far from the free
-    edge above it as from the seated edge below. Across, its ends stand `PLATE_END_AIR` off
-    the side walls and the outline is whole between them — the one thing that ever stood
-    proud of the floor down these flanks was front-bottom's Z-seam lip, and it is given up
-    over this whole run (`enclosure._flank_lip_drop`)."""
+    ITS Z BAND IS STRUCK ON THE HOLES. The bottom is the seam plane, which is what
+    front-bottom's mouth closes under it and what the steel comes to rest on; the top is then
+    whatever puts the four collet holes in the middle of the band, which is the only place a
+    hole is as far from one edge as from the other. Over its top the guides' heads stand one
+    `slide_slip` clear (`enclosure._plate_fore_guides`): that is the lift the steel takes on
+    the way in through the Z− mouth, and the air front-bottom's mouth passes under its foot as
+    the front column slides home.
+
+    ACROSS, IT IS STEPPED. Between `seam_cap_z` and the top its ends stand `PLATE_END_AIR` off
+    the side walls, and the outline is whole between them — the one thing that ever stood proud
+    of the floor down these flanks was front-bottom's Z-seam lip, and it is given up over this
+    whole run (`enclosure._flank_lip_drop`). Under that plane each end steps in to
+    `enclosure.plate_step_in`, because the steel rides in front-top through the front column's
+    slide and everything fore of the stop blocks sweeps the rails."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
         (px, py, pz), _axis = mcarry(ml.branch_port(t))
@@ -1417,7 +1426,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             f"the four branch collets stand on {len(set(round(f, 4) for f in faces))} planes "
             f"({sorted(set(round(f, 4) for f in faces))}) — one plate presses one plane")
     aft = faces[0] - PLATE_REST_GAP
-    z0 = _enc.bay_floor_z(tray_stations)[1] - _enc.wall
+    z0 = _enc.z_seam
     hole_z = holes[0][1]
     if max(abs(hz - hole_z) for _hx, hz in holes) > 1e-6:
         raise ValueError(
@@ -1462,10 +1471,13 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     tee = ml.tee
     branch_face = faces[0]
     stroke = PLATE_REST_GAP
+    step_x = round(_enc.interior_x()[1] - _enc.plate_step_in(), 6)
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": z1,
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
+            "step_x0": -step_x, "step_x1": step_x,
+            "step_z": round(_enc.seam_cap_z(), 6),
             "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
                                 - stroke - TEE_WALL_BODY_AIR, 6),
             "collar_in_y": round(branch_face + tee.BRANCH_REACH - tee.CAP_NEAR, 6),
@@ -1477,11 +1489,8 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
 
 
 def build_collet_plate(spec):
-    """The steel itself: one rectangle and four tube bores."""
-    plate = (cq.Workplane("XY")
-             .box(spec["x1"] - spec["x0"], spec["aft_y"] - spec["fore_y"],
-                  spec["z1"] - spec["z0"], centered=False)
-             .translate((spec["x0"], spec["fore_y"], spec["z0"]))).val()
+    """The steel itself: `enclosure.plate_outline` stood up on edge, and four tube bores."""
+    plate = _enc._xz_prism(spec["fore_y"], spec["aft_y"], _enc.plate_outline(spec))
     for hx, hz in spec["holes"]:
         plate = plate.cut(cq.Solid.makeCylinder(
             spec["hole_d"] / 2.0, PLATE_T + 2.0,
@@ -1496,8 +1505,7 @@ def export_collet_plate_dxf(spec, path):
     Written through `export_dxf`, so the header's save-time stamps and GUIDs come out
     canonical and a rebuild that moves no dimension leaves the file alone."""
     flat = (cq.Workplane("XY")
-            .box(spec["x1"] - spec["x0"], spec["z1"] - spec["z0"], 1.0, centered=False)
-            .translate((spec["x0"], spec["z0"], 0.0)))
+            .polyline(list(_enc.plate_outline(spec))).close().extrude(1.0))
     for hx, hz in spec["holes"]:
         flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
                         .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
@@ -1769,40 +1777,47 @@ def check_insertion_backing(pieces, placed, spec) -> Bound:
 
 
 def check_bay_floor(pieces, shell) -> Bound:
-    """Whether the bay floor lies on front-top's own bed plane and takes the plate's foot.
+    """Whether the bay floor lies on front-top's own bed plane and stops the collet plate.
 
     Two readings on the one solid. FIRST, the bed: a slab one probe over the seam mouth,
     across the floor's whole plan LESS the rail channels' own lane
     (`enclosure._z_rail_channels` — the deep profile everything fore of the stops sweeps
-    the rails in, cut through the floor's flank bands), is the piece's first layers, and
-    full means the floor lies on the bed rather than hanging in the piece. SECOND, the
-    seat: the same slab under the plate's own footprint is what the steel bottoms on."""
+    the rails in, cut through the floor's flank bands) and LESS the plate's own slot
+    (`enclosure._plate_slot` — the opening the steel comes in by, which is a gap in the
+    first layers and not a hole over them), is the piece's first layers, and full means
+    the floor lies on the bed rather than hanging in the piece. SECOND, the heads: a slab
+    one probe over the guides' stop plane, across each tail's own footprint, is what the
+    steel is pushed up to."""
     spec = shell.collet_plate
     z_bed, top = _enc.bay_floor_z(shell.pump_trays)
     probe = 0.5
     ft = pieces["front-top"]
     ft = ft.val() if hasattr(ft, "val") else ft
     berth = _enc._z_rail_channels(shell.inner, shell.y_joint, shell.splits[0],
-                                  "front", spec, shell.vent_chase)
+                                  "front", spec, shell.vent_chase).fuse(
+        _enc._plate_slot(shell.inner, spec, top + 1.0))
     lx0, lx1 = _enc.lip_face_x()
     aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
-    rows = []
-    for name, y0, y1, z0 in (("bed", _enc.front_plane_y, aft, z_bed),
-                             ("seat", spec["fore_y"], spec["aft_y"], spec["z0"] - probe)):
-        plug = _enc._ybox(lx0, lx1, y0, y1, z0, z0 + probe).cut(berth)
-        rows.append((name, plug.intersect(ft).Volume() / plug.Volume()))
+    z_stop = spec["z1"] + _enc.slide_slip
+    rows = [("bed", _enc._ybox(lx0, lx1, _enc.front_plane_y, aft, z_bed, z_bed + probe)
+             .cut(berth))]
+    for x0, x1 in _enc.plate_head_spans(shell.pump_bay, shell.inner):
+        rows.append(("head", _enc._ybox(x0, x1, spec["fore_y"], spec["aft_y"],
+                                        z_stop, z_stop + probe)))
+    rows = [(n, plug.intersect(ft).Volume() / plug.Volume()) for n, plug in rows]
     worst = min(g for _n, g in rows)
     ok = worst >= 1.0 - 1e-6
     return record_bound(Bound(
-        "bay-floor-bedded", "The bay floor lies on the bed and seats the collet plate", ok,
-        f"bed {rows[0][1] * 100:.1f}% solid, seat {rows[1][1] * 100:.1f}% solid",
-        f"the floor whole on the seam plane {z_bed:g} and under the plate's foot "
-        f"{spec['z0']:g}",
+        "bay-floor-bedded", "The bay floor lies on the bed and stops the collet plate", ok,
+        ", ".join(f"{n} {g * 100:.1f}% solid" for n, g in rows),
+        f"the floor whole on the seam plane {z_bed:g} and the heads whole over the steel's "
+        f"top {spec['z1']:g}",
         ([] if ok else
          [f"{n}: {g * 100:.1f}% of its plan" for n, g in rows if g < 1.0 - 1e-6]
-         + ["the floor is this piece's first layers and the plate's seat is sunk in it — a "
-            "hole in either is material the print has to bridge or the steel has to hang "
-            f"over. The floor runs {z_bed:g} to {top:g}"])))
+         + ["the floor is this piece's first layers and the heads are what the steel lands "
+            "on coming up through it — a hole in the first is material the print has to "
+            f"bridge, a hole in the second is a plate with no stop. The floor runs {z_bed:g} "
+            f"to {top:g}"])))
 
 
 def check_column_face(pieces, shell) -> Bound:
