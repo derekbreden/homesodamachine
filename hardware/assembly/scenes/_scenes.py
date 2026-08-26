@@ -221,9 +221,10 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material. Its two openings stand empty — one takes the funnel and the "
-             "front bay takes the pump cartridge both pumps ride, and each is filled with the box "
-             "standing.",
+             "material, and so is the collet plate's slot — the steel goes down it in this very "
+             "pose, foot first, onto the bay floor's top. Its two openings stand empty: one "
+             "takes the funnel and the front bay takes the pump cartridge both pumps ride, and "
+             "each is filled with the box standing.",
     ),
     # THE UNIT THAT FILLS THAT BAY, and the one scene here rooted on TWO printed pieces of one
     # block: the pump cartridge over the pump's own bracket plane and the cap under it. Nothing in
