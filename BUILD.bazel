@@ -5911,6 +5911,7 @@ cp hardware/printed-parts/valve-seat/README.md $$O1
 genrule(
     name = "funnel-mold",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/zone-c/funnel-mold/README.md",
         "pysrc/hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py",
