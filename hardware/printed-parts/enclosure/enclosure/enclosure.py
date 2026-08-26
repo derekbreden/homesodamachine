@@ -6452,11 +6452,13 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     never brackets `wall_aft_y` (it stands on a different wall entirely), so this is a
     no-op there rather than a case split.
 
-    THE SOCKET ANSWERS FOR THE POSTS, THE CHANNEL FOR THE PORT, AND NEITHER FOR THE BODY
-    BEHIND THEM. The socket is a post's own width — `valve_tray.build_body_clearance` is what
-    a fuse struck after it (the root corbel above) is cut on account of instead: the valve's
-    boss, posts and top box, read off `beduan_solenoid` again and grown one `PORT_SLIP`,
-    wherever a station's own transform puts it. THE CHANNEL DOES ANSWER FOR THE PORT, BUT ONLY
+    THE SOCKET ANSWERS FOR THE POSTS, THE CHANNEL FOR THE PORT, AND NEITHER FOR THE BOSS OR
+    THE BOX BEHIND THEM. `valve_tray.build_body_clearance` is what a fuse struck after them
+    (the root corbel above) is cut on account of instead: the valve's boss and top box, read
+    off `beduan_solenoid` again and grown one `PORT_SLIP`, wherever a station's own transform
+    puts it — the four posts stay out of it on purpose, because they are exactly what the
+    socket is cut to GRIP, and a second, looser cutter at the same station reams the grip out
+    from under it. THE CHANNEL DOES ANSWER FOR THE PORT, BUT ONLY
     AS FAR AS THE PLATE'S OWN FLOOR — its length is struck to reach the plate, which is all a
     port ever used to graze. `wedge_depth` is carried into it below so the same channel reaches
     the corbel's own floor too: a wall the corbel roots on stands nowhere near a valve's port,
