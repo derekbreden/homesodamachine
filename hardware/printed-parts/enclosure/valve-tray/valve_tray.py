@@ -175,30 +175,30 @@ def build_port_channel(length: float):
             .extrude(length / 2.0, both=True))
 
 def build_body_clearance():
-    """The valve's own body (`beduan_solenoid.build_body`), read again with the boss, the four
-    posts and the top box each grown by `PORT_SLIP` — the air a plate's own LATER fuse (a
-    corbel, a rib, anything struck after the sockets and the port channel already answer for
-    the posts and the port) still owes the body those two cuts were never asked to clear.
+    """The valve's own boss and top box (`beduan_solenoid.build_body`, less its four corner
+    posts), grown by `PORT_SLIP` — the air a plate's own LATER fuse (a corbel, a rib, anything
+    struck after the sockets and the port channel already answer for the posts and the port)
+    still owes the round body and the box behind it, neither of which either existing cut was
+    ever asked to clear.
 
-    Rebuilt from the same three primitives rather than a generic offset of their union — a
-    grown cylinder, four grown cylinders and a grown box, each independent of where the others'
-    faces meet, so there is no seam for an offset to reason about. `PORT_SLIP` is reused rather
-    than a second clearance figure: it is already this file's own answer for how much air a
-    fused feature owes the valve's real geometry."""
+    THE FOUR POSTS ARE LEFT OUT ON PURPOSE. They are exactly what `valve_seat.build_sockets`
+    cuts its sockets to GRIP — a press fit at `socket_clearance` (0.2 mm), not this function's
+    `PORT_SLIP` (1.0 mm) — over the whole length `valve_seat.grip` reads off this same body. A
+    post-shaped cutter here, at any radius past the socket's own, reams every socket out to a
+    free hole along that whole grip length and a valve seated in it is no longer held by
+    anything. The boss and the box carry no such grip to protect, so growing them costs nothing
+    a socket needs.
+
+    Rebuilt from the same two primitives rather than a generic offset of their union — a grown
+    cylinder and a grown box, independent of where their faces meet, so there is no seam for an
+    offset to reason about. `PORT_SLIP` is reused rather than a second clearance figure: it is
+    already this file's own answer for how much air a fused feature owes the valve's real
+    geometry."""
     slip = PORT_SLIP
     body = (cq.Workplane("XY")
             .workplane(offset=_valve.boss_z_range[0] - slip)
             .circle(_valve.body_radius + slip)
             .extrude(_valve.boss_z_range[1] - _valve.boss_z_range[0] + 2.0 * slip))
-    for sx in (-1.0, 1.0):
-        for sy in (-1.0, 1.0):
-            post = (cq.Workplane("XY")
-                    .workplane(offset=_valve.corner_boss_z_range[0] - slip)
-                    .center(sx * _valve.corner_inset, sy * _valve.corner_inset)
-                    .circle(_valve.corner_boss_radius + slip)
-                    .extrude(_valve.corner_boss_z_range[1] - _valve.corner_boss_z_range[0]
-                             + 2.0 * slip))
-            body = body.union(post)
     top_box = (cq.Workplane("XY")
                .workplane(offset=_valve.top_box_z_range[0] - slip)
                .box(_valve.body_width_x + 2.0 * slip, _valve.body_width + 2.0 * slip,
