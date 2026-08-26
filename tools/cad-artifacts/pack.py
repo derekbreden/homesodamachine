@@ -59,6 +59,9 @@ TAG = "cad-artifacts"
 NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
     "hardware/assembly/scenes/out",          # a rendering intermediate for the unit cards' pictures
+    "hardware/assembly/cards/out",           # a card's own two renders; no route serves one
+    "hardware/assembly/cards/fonts",         # faces the renderer embeds, not a thing it writes
+    "hardware/assembly/cards/tools/img",     # the rack's photo stock, named by ASIN, drawn by no rule
     "hardware/quickstart/out",               # where a mount study lands; no rule declares one
     "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
 )
@@ -156,10 +159,16 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/faucet-layout",
 )
 
-#: The Quick Start's sheet and the pictures in it. `quickstart-build` draws them off the same
-#: solids as everything else here, and `walkDocuments` serves the PDF off this tree at request
-#: time. `.png` and `.pdf` under these, the studies held out above.
-BUNDLED_ART_DIRS = ("hardware/quickstart",)
+#: Drawn pages and the pictures in them: the Quick Start's sheet, the assembly cards and the
+#: tool deck. `quickstart-build` and `cards-build` draw them off the same solids as everything
+#: else here, `walkDocuments` serves a PDF off this tree at request time and the cards' own
+#: pictures are what `/3d` shows beside a part. The studies, a card's local renders and the
+#: renderer's fonts are held out above.
+BUNDLED_ART_DIRS = ("hardware/quickstart", "hardware/assembly/cards")
+
+#: What a drawn page is made of. `.png.scene.json` rides beside the picture it describes and
+#: moves with it.
+BUNDLED_ART_SUFFIXES = (".png", ".pdf", ".png.scene.json")
 
 #: What `quickstart-build` writes beside those that is not a picture, named one at a time: the
 #: `style.css` in the same directory is written by hand, so a suffix cannot tell them apart.
@@ -208,8 +217,8 @@ def solids(root: Path) -> list:
     for d in BUNDLED_GLB_DIRS:
         walk += list((root / d).rglob("*.glb"))
     for d in BUNDLED_ART_DIRS:
-        walk += list((root / d).rglob("*.png"))
-        walk += list((root / d).rglob("*.pdf"))
+        walk += [q for q in (root / d).rglob("*")
+                 if q.is_file() and q.name.endswith(BUNDLED_ART_SUFFIXES)]
     walk += [root / rel for rel in BUNDLED_ART_FILES if (root / rel).is_file()]
     for d in BUNDLED_BOARD_DIRS:
         walk += [p for p in (root / d).rglob("*")
@@ -233,7 +242,7 @@ def solids(root: Path) -> list:
             continue
         if p.suffix == ".mesh" and not rel.startswith(payloads):
             continue
-        if p.suffix in (".png", ".pdf") and not rel.startswith(art):
+        if p.name.endswith(BUNDLED_ART_SUFFIXES) and not rel.startswith(art):
             continue
         # A dependency's own test fixtures are solids on this disk that no part of this machine
         # is made of. `occt-import-js` ships eight.
@@ -544,7 +553,7 @@ def _declared(root: Path) -> set:
         for f in (node.get("writes") or [])
         if not str(f).startswith(skip)
         and (str(f).endswith((".step", ".stl", ".glb", ".step.mesh"))
-             or (str(f).endswith((".png", ".pdf")) and str(f).startswith(art))
+             or (str(f).endswith(BUNDLED_ART_SUFFIXES) and str(f).startswith(art))
              or str(f) in BUNDLED_ART_FILES)
     }
     if root.resolve() == _ROOT.resolve():
