@@ -414,9 +414,9 @@ is asked, groove by groove, what stands ROOTED on its inner face, probing one
 [3 mm](VENT_CLEAR) wall inward and keeping that same margin past both jambs and both ends. The
 transoms are the opening vocabulary: if a root's margin enters one course, that whole segment
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
-such a land stays wall too. The intake is asked and answers nothing: the only thing rooted on that
-flank down there is the MQ-6's cradle, and its two posts stop at the card's crown, clear under a
-band that starts one fan inset over the block's base. All [88](VENT_RUNS_IN) intake openings are
+such a land stays wall too. The MQ-6's cradle is not one of the roots the intake answers for: its
+two posts stop at the card's crown and the band starts one fan inset over the block's base, so the
+whole cradle stands under the vent with clearance to spare. All [88](VENT_RUNS_IN) intake openings are
 the full [24.5 mm](VENT_SHORTEST) segment; [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
