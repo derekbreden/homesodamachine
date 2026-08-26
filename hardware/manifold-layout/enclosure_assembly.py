@@ -1772,17 +1772,18 @@ def check_bay_floor(pieces, shell) -> Bound:
     """Whether the bay floor lies on front-top's own bed plane and takes the plate's foot.
 
     Two readings on the one solid. FIRST, the bed: a slab one probe over the seam mouth,
-    across the floor's whole plan LESS what front-bottom's Z seam stands in
-    (`enclosure._z_seam_berth` — a pocket per front collar, the lip itself being given up
-    over this run), is the piece's first layers, and full means the floor lies on the bed rather
-    than hanging in the piece. SECOND, the seat: the same slab under the plate's own
-    footprint is what the steel bottoms on."""
+    across the floor's whole plan LESS the rail channels' own lane
+    (`enclosure._z_rail_channels` — the deep profile everything fore of the stops sweeps
+    the rails in, cut through the floor's flank bands), is the piece's first layers, and
+    full means the floor lies on the bed rather than hanging in the piece. SECOND, the
+    seat: the same slab under the plate's own footprint is what the steel bottoms on."""
     spec = shell.collet_plate
     z_bed, top = _enc.bay_floor_z(shell.pump_trays)
     probe = 0.5
     ft = pieces["front-top"]
     ft = ft.val() if hasattr(ft, "val") else ft
-    berth = _enc._z_seam_berth(shell.inner, spec, shell.y_joint)
+    berth = _enc._z_rail_channels(shell.inner, shell.y_joint, shell.splits[0],
+                                  "front", spec, shell.vent_chase)
     lx0, lx1 = _enc.lip_face_x()
     aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
     rows = []
@@ -2323,37 +2324,59 @@ def check_slides(pieces, box) -> None:
 
 # What rides FRONT-TOP into its own close: the flavour pack is made up into the trays
 # and the tee wall on the bench (`internal-plumbing.md` §3), so the piece arrives
-# carrying it and the sweep has to carry it too. The crossing runs to the bulkheads and
-# the pumps' own tubes are made up later and are not in the box yet.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-", "vk-")
-# And what is NOT in the box when the CORE rides in through the open Y-seam mouth: the
-# lid's own tenants go on after it through that same mouth, the pump cartridge and its
-# steel come later still, and every crossing run is internal-plumbing's. Everything else
-# in the back — the chain, the meter, the wall electronics, the bulkheads and their
-# rings — rides back-top or clamps its walls and is already standing when the core
-# arrives, which is what the sweep is against.
-CORE_RIDE_LATER = ("foam-assembly", "seaflo-pump", "moisture-plate", "collet-plate",
+# carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
+# core's own cap, which are the core's riders and nobody else's. The crossing runs to
+# the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
+# What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
+# when the back assembly comes over: the water pump, its two made-up chains, and the
+# three cap-cradled valves with their coils and port stubs. They sweep with the core,
+# so the ride carries them.
+CORE_RIDERS = ("seaflo-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
+               "coil-v-a", "coil-v-b", "stub-fluid-2", "stub-fluid-4",
+               "discharge-chain", "suction-chain")
+# And what is NOT in the box at all when the core rides in: the pan and its plate come
+# through the −X wall after, the pump cartridge and its steel later still, and every
+# crossing run is internal-plumbing's, made up at the mouth. Everything else in the
+# back — the chain, the meter, the wall electronics, the bulkheads and their rings —
+# rides back-top or clamps its walls and is already standing, which is what the sweep
+# is against.
+CORE_RIDE_LATER = ("foam-assembly", "moisture-plate", "collet-plate",
                    "funnel", "nameplate", "asse-drip-pan")
 CORE_RIDE_RUNS = ("tube-", "turn-", "step-")
 
 
-def _swept_worst(mover, fixed, axis, travel):
-    """The worst contested volume over one linear motion, `(mm³, at_mm)` — the mover
-    translated along `axis` from `travel` out down a ladder of stations to home, dense
-    where the joint closes, intersected with the fixed set at each."""
+def _swept_worst(mover_parts, fixed_parts, axis, travel):
+    """The worst contested volume over one linear motion — the movers translated along
+    `axis` from `travel` out down a ladder of stations to home, dense where the joint
+    closes, intersected with each fixed member at each. `(worst_mm³, at_mm)`, the rung
+    count, and the per-member worst readings for whoever has to name a blocker.
+
+    MEMBER-WISE, NEVER FUSED. A fuse chain over thirty placed castings can come back
+    subtly broken — a solid whose intersections report phantom volume — and a sweep
+    against it fails loud on clean geometry. A compound carries the same bodies with no
+    boolean taken, and each fixed member answers for itself."""
     rungs = [d for d in (0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0) if d < travel]
     d = 24.0
     while d < travel:
         rungs.append(d)
         d += 16.0
     rungs.append(travel)
-    worst = (0.0, 0.0)
+    mover = cq.Compound.makeCompound([s for _n, s in mover_parts])
+    worst, hits = (0.0, 0.0), {}
     for d in rungs:
         off = cq.Vector(axis[0] * d, axis[1] * d, axis[2] * d)
-        v = mover.translate(off).intersect(fixed).Volume()
-        if v > worst[0]:
-            worst = (v, d)
-    return worst, len(rungs)
+        at = mover.translate(off)
+        total = 0.0
+        for name, s in fixed_parts:
+            v = at.intersect(s).Volume()
+            if v > 1e-6:
+                total += v
+                if v > hits.get(name, (0.0, 0.0))[0]:
+                    hits[name] = (v, d)
+        if total > worst[0]:
+            worst = (total, d)
+    return worst, len(rungs), hits
 
 
 def check_slide_lanes(pieces, solids, ebox) -> Bound:
@@ -2370,16 +2393,16 @@ def check_slide_lanes(pieces, solids, ebox) -> Bound:
     plate = ebox.collet_plate if (ebox.pump_bay and ebox.collet_plate) else None
     travel = _enc._z_rail_travel(ebox.inner, ebox.y_joint, "front", plate,
                                  ebox.vent_chase)
-    mover = pieces["front-top"].val()
+    movers = [("front-top", pieces["front-top"].val())]
     for name, s in solids.items():
-        if name.startswith(FRONT_RIDERS):
-            mover = mover.fuse(s)
-    fixed = pieces["front-bottom"].val()
+        if name.startswith(FRONT_RIDERS) and not name.startswith(CORE_RIDERS):
+            movers.append((name, s))
+    fixed = [("front-bottom", pieces["front-bottom"].val())]
     for name in ("compressor", "condenser+fan", "mq6-sensor", "thermal-fuse",
-                 "fuse-clamp", "discharge-chain", "suction-chain"):
+                 "fuse-clamp"):
         if name in solids:
-            fixed = fixed.fuse(solids[name])
-    (worst, at), n = _swept_worst(mover, fixed, (0.0, 1.0, 0.0), travel)
+            fixed.append((name, solids[name]))
+    (worst, at), n, hits = _swept_worst(movers, fixed, (0.0, 1.0, 0.0), travel)
     ok = worst <= 2.0
     return record_bound(Bound(
         "z-slide-front-lanes", "The front top slides home carrying the flavour pack",
@@ -2389,9 +2412,11 @@ def check_slide_lanes(pieces, solids, ebox) -> Bound:
         "0 mm³ at every station of the loaded travel",
         ([] if ok else [
             f"front-top with the flavour pack aboard contests {worst:.1f} mm³ "
-            f"{at:.2f} mm out of home — something the piece carries sweeps through the "
-            f"stratum or the bottom piece. Compare the body at that station against "
-            f"`FRONT_RIDERS` and the pack's own heights"])))
+            f"{at:.2f} mm out of home — in the lane: "
+            + "; ".join(f"{k}: {v:.1f} mm³ at {d:.1f}" for k, (v, d) in
+                        sorted(hits.items(), key=lambda r: -r[1][0])[:4])
+            + ". A blocker either rides the piece (add it to `FRONT_RIDERS`) or the "
+            f"pack has to open its lane"])))
 
 
 def check_core_ride(pieces, solids, ebox) -> Bound:
@@ -2401,25 +2426,41 @@ def check_core_ride(pieces, solids, ebox) -> Bound:
     and its riders, because this is the one motion in the build that crosses the box's
     whole depth loaded.
 
-    Its service twin is the same sweep backwards: four screws, the front assembly fore
-    and off, the lid's tenants out through the mouth, and the core rides fore out of the
-    same lane this proves open."""
-    foam = solids["foam-assembly"]
-    b = box(foam)
-    travel = (b.ymax - ebox.y_joint) + 5.0
-    fixed = pieces["back-bottom"].val().fuse(pieces["back-top"].val())
+    THE LID'S TENANTS RIDE WITH IT. The water pump, its two chains and the three
+    cap-cradled valves stand on the core before the back assembly comes over, so the
+    mover here is the core AND its riders, and the lane proved open is the loaded one.
+
+    Its service twin is the same sweep backwards: four screws, the back assembly aft
+    and off the core, and the bay is cart work again."""
+    movers = [("foam-assembly", solids["foam-assembly"])]
+    for name in CORE_RIDERS:
+        if name in solids:
+            movers.append((name, solids[name]))
+    travel = (max(box(s).ymax for _n, s in movers) - ebox.y_joint) + 5.0
+    members = [("back-bottom", pieces["back-bottom"].val()),
+               ("back-top", pieces["back-top"].val())]
     if "ceiling-panel" in pieces:
-        fixed = fixed.fuse(pieces["ceiling-panel"].val())
+        panel = pieces["ceiling-panel"]
+        panel = panel.val() if hasattr(panel, "val") else panel
+        members.append(("ceiling-panel", panel))
     for name, s in solids.items():
         bb = box(s)
         if bb.ymax <= ebox.y_joint - 5.0:
             continue                       # the front column's; not standing in this lane
-        if name.startswith(CORE_RIDE_LATER) or name.startswith(CORE_RIDE_RUNS):
+        if name.replace("_", "-").startswith("enclosure-"):
+            continue                       # the box's own pieces, under either spelling an
+                                           # assembly child carries: the back pair is already
+                                           # fused above, and the front pair is the core's
+                                           # own train — it rides at the core's side of the
+                                           # motion, and the last 13 mm it shares with the
+                                           # back column is the Y telescope the home fits
+                                           # already prove
+        if name.startswith(CORE_RIDE_LATER + CORE_RIDERS) or name.startswith(CORE_RIDE_RUNS):
             continue
         if name.endswith("-word") or name.endswith("-ink"):
             continue
-        fixed = fixed.fuse(s)
-    (worst, at), n = _swept_worst(foam, fixed, (0.0, -1.0, 0.0), travel)
+        members.append((name, s))
+    (worst, at), n, hits = _swept_worst(movers, members, (0.0, -1.0, 0.0), travel)
     ok = worst <= 2.0
     return record_bound(Bound(
         "core-rides-in", "The cold core rides in through the mouth to its seat", ok,
@@ -2428,8 +2469,10 @@ def check_core_ride(pieces, solids, ebox) -> Bound:
         "0 mm³ down the whole lane",
         ([] if ok else [
             f"the core contests {worst:.1f} mm³ at {at:.2f} mm fore of its seat — "
-            f"something standing in the back column reaches into the core's own lane. "
-            f"Either it goes on after the core (add it to `CORE_RIDE_LATER`) or the "
+            f"standing in its lane: "
+            + "; ".join(f"{k}: {v:.1f} mm³ at {d:.1f}" for k, (v, d) in
+                        sorted(hits.items(), key=lambda r: -r[1][0])[:4])
+            + ". Either it goes on after the core (add it to `CORE_RIDE_LATER`) or the "
             f"lane has genuinely closed and the pack has to open it"])))
 
 
