@@ -115,9 +115,21 @@ bazel-*
 hardware/assembly/cards/out/
 
 # A quick-start sheet's own two renders, the same pair for the same reasons
-# (hardware/quickstart/_build.py). The bound sheets, cover and sidecar sit beside
-# the authored pages, in git.
+# (hardware/quickstart/_build.py).
 hardware/quickstart/out/
+
+# The bound Quick Start and the pictures in it, drawn by hardware/quickstart/quickstart_art.py
+# and _build.py off the same solids as everything else. They arrive the road every solid takes:
+# `pack.py`'s BUNDLED_ART_DIRS and BUNDLED_ART_FILES put them in the release asset,
+# hardware/cad-artifacts.lock.json names each by sha256, and web/scripts/fetch-cad-artifacts.mjs
+# puts them on the disk a deploy serves from — `walkDocuments` finds the PDF there through its
+# sidecar. The `style.css` in the same directories and everything under `studies/` are written
+# by hand and are in git.
+hardware/quickstart/art/*.png
+hardware/quickstart/art/colors.css
+hardware/quickstart/quick-start.cover.png
+hardware/quickstart/quick-start.pdf
+hardware/quickstart/quick-start.pdf.json
 
 # The scene meshes the parts viewer opens as themselves, cut by
 # hardware/assembly/scenes/render_scenes.py. `web/public/js/viewer/parts.js` names `glb` a build
