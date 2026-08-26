@@ -54,11 +54,20 @@ def verdict(rows: list, red: list) -> dict:
 
     NO DURATIONS AND NO TIMESTAMP: what each check found, and nothing about the machine that
     ran it. When the reading was taken is the date of the commit carrying it.
+
+    `[build]` IS THE MACHINE TALKING AND IT CARRIES PIDS. A check that imports a CAD generator
+    takes `_run_lock.py`'s global lock, which narrates whose build it is queueing behind:
+
+        [build] a manual build is already running (pid 76191, enclosure_assembly.py) — waiting
+
+    Those lines differ every run, so a verdict holding them differs every run, and this file is
+    committed. The terminal reading above keeps them — there they say why a check took 900s.
     """
     detail = {}
     for rel, out, err in red:
         body = ((out or "") + (err or "")).strip().splitlines()
-        detail[rel] = [ln.rstrip() for ln in body[-25:] if ln.strip()]
+        kept = [ln.rstrip() for ln in body if ln.strip() and not ln.lstrip().startswith("[build]")]
+        detail[rel] = kept[-25:]
     return {
         "green": not red,
         "checks": [{"check": rel, "status": "ok" if code == 0 else "red", "note": note}
