@@ -61,6 +61,7 @@ NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/out",                 # the on-demand full B-rep; out/<board>.glb is the artifact
     "hardware/assembly/scenes/out",          # a rendering intermediate for the unit cards' pictures
     "hardware/quickstart/out",               # where a mount study lands; no rule declares one
+    "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
 )
 
 #: Solids with no builder in this tree — `y_divider.py:3` says it of its own. A generator reads
@@ -156,10 +157,22 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/faucet-layout",
 )
 
+#: The Quick Start's sheet and the pictures in it. `quickstart-build` draws them off the same
+#: solids as everything else here, and `walkDocuments` serves the PDF off this tree at request
+#: time. `.png` and `.pdf` under these, the studies held out above.
+BUNDLED_ART_DIRS = ("hardware/quickstart",)
+
+#: What `quickstart-build` writes beside those that is not a picture, named one at a time: the
+#: `style.css` in the same directory is written by hand, so a suffix cannot tell them apart.
+BUNDLED_ART_FILES = (
+    "hardware/quickstart/art/colors.css",
+    "hardware/quickstart/quick-start.pdf.json",
+)
+
 
 def solids(root: Path) -> list:
-    """Every generated `.step`, `.stl`, `.glb` and `.step.mesh` under `hardware/`, repo-relative
-    and sorted.
+    """Every generated `.step`, `.stl`, `.glb`, `.step.mesh`, `.png` and `.pdf` under
+    `hardware/`, repo-relative and sorted.
 
     Off the disk, tracked or not: an artifact the index does not hold is one a fresh clone still
     has to be sent, and it is the lock that carries it into the index."""
@@ -170,6 +183,7 @@ def solids(root: Path) -> list:
     meshes = tuple(f"{d}/" for d in BUNDLED_MESH_DIRS)
     scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
     payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
+    art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
     out = []
     walk = list(hw.rglob("*.step"))
     for d in BUNDLED_MESH_DIRS:
@@ -178,6 +192,10 @@ def solids(root: Path) -> list:
         walk += list((root / d).rglob("*.step.mesh"))
     for d in BUNDLED_GLB_DIRS:
         walk += list((root / d).rglob("*.glb"))
+    for d in BUNDLED_ART_DIRS:
+        walk += list((root / d).rglob("*.png"))
+        walk += list((root / d).rglob("*.pdf"))
+    walk += [root / rel for rel in BUNDLED_ART_FILES if (root / rel).is_file()]
     for p in walk:
         if not p.is_file() or p.is_symlink():
             continue
@@ -189,6 +207,8 @@ def solids(root: Path) -> list:
         if p.suffix == ".glb" and not rel.startswith(scenes):
             continue
         if p.suffix == ".mesh" and not rel.startswith(payloads):
+            continue
+        if p.suffix in (".png", ".pdf") and not rel.startswith(art):
             continue
         # A dependency's own test fixtures are solids on this disk that no part of this machine
         # is made of. `occt-import-js` ships eight.
@@ -489,11 +509,18 @@ def _declared(root: Path) -> set:
         graph = json.loads((root / "tools" / "bazel" / "graph.json").read_text())
     except (OSError, ValueError):
         return set()
+    # The same reach the walk has, so the two answer about one set: a picture the graph declares
+    # outside an art dir is no more bundled than one on disk there is.
+    art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
+    skip = tuple(f"{d}/" for d in NOT_BUNDLED_DIRS)
     declared = {
         str(f)
         for node in graph.values()
         for f in (node.get("writes") or [])
-        if str(f).endswith((".step", ".stl", ".glb", ".step.mesh"))
+        if not str(f).startswith(skip)
+        and (str(f).endswith((".step", ".stl", ".glb", ".step.mesh"))
+             or (str(f).endswith((".png", ".pdf")) and str(f).startswith(art))
+             or str(f) in BUNDLED_ART_FILES)
     }
     if root.resolve() == _ROOT.resolve():
         sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
