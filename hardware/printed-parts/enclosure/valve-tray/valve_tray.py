@@ -174,6 +174,38 @@ def build_port_channel(length: float):
             .circle(_valve.port_radius + PORT_SLIP)
             .extrude(length / 2.0, both=True))
 
+def build_body_clearance():
+    """The valve's own body (`beduan_solenoid.build_body`), read again with the boss, the four
+    posts and the top box each grown by `PORT_SLIP` — the air a plate's own LATER fuse (a
+    corbel, a rib, anything struck after the sockets and the port channel already answer for
+    the posts and the port) still owes the body those two cuts were never asked to clear.
+
+    Rebuilt from the same three primitives rather than a generic offset of their union — a
+    grown cylinder, four grown cylinders and a grown box, each independent of where the others'
+    faces meet, so there is no seam for an offset to reason about. `PORT_SLIP` is reused rather
+    than a second clearance figure: it is already this file's own answer for how much air a
+    fused feature owes the valve's real geometry."""
+    slip = PORT_SLIP
+    body = (cq.Workplane("XY")
+            .workplane(offset=_valve.boss_z_range[0] - slip)
+            .circle(_valve.body_radius + slip)
+            .extrude(_valve.boss_z_range[1] - _valve.boss_z_range[0] + 2.0 * slip))
+    for sx in (-1.0, 1.0):
+        for sy in (-1.0, 1.0):
+            post = (cq.Workplane("XY")
+                    .workplane(offset=_valve.corner_boss_z_range[0] - slip)
+                    .center(sx * _valve.corner_inset, sy * _valve.corner_inset)
+                    .circle(_valve.corner_boss_radius + slip)
+                    .extrude(_valve.corner_boss_z_range[1] - _valve.corner_boss_z_range[0]
+                             + 2.0 * slip))
+            body = body.union(post)
+    top_box = (cq.Workplane("XY")
+               .workplane(offset=_valve.top_box_z_range[0] - slip)
+               .box(_valve.body_width_x + 2.0 * slip, _valve.body_width + 2.0 * slip,
+                    _valve.top_box_height + 2.0 * slip, centered=(True, True, False)))
+    return body.union(top_box)
+
+
 def build_valve_tray(width: float, seats):
     """One tray: the plate, with one `valve_seat`'s sockets and one port channel sunk into it
     per station in `seats`.
