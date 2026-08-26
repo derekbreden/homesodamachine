@@ -198,9 +198,9 @@ two fuse into one wall with no step in it and the bottom pieces come off the bed
 no bridge in them. What it spends is the cavity, one `wall` off three sides of each
 bottom piece — which is what the pack already stands off them (`front_seam_clear`,
 `rear_seam_clear`, `side_band_inset`), measured rather than assumed by
-`wall-under-lip`. `lip_face_x` is the flank a body down there meets: the MQ-6's card
-bottoms on it, the condenser's aft fin roots on it, and the compressor's suction lane
-is struck from it.
+`wall-under-lip`. `lip_face_x` is the flank a body down there meets: the MQ-6's can
+bottoms on it through the well cut back to it, the condenser's aft fin roots on it, and
+the compressor's suction lane is struck from it.
 
 The Y seam is a stated plane, `enclosure.y_seam`, checked against those bands
 rather than derived from them: which pieces the box comes apart into is a decision
