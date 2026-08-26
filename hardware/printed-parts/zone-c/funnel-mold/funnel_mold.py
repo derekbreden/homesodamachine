@@ -49,9 +49,11 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_tools))
 _FUNNEL = _repo / "hardware" / "printed-parts" / "zone-c" / "funnel"
 sys.path.insert(0, str(_FUNNEL))
+import fits
 from _cadq_export import export_assembly
 from _materials import M_PETG_BLACK, M_SILICONE_BLACK, M_STAINLESS, one_body
 from docgen import substitute_md
@@ -63,7 +65,8 @@ mold_base = 10.0      # solid floor below the spout tip
 skirt_wall = 6.0      # core registration-skirt wall (wraps the cavity top)
 plate_thk = 10.0      # core top plate — forms the brim top, carries the vents
 lip_h = 10.0          # how far the skirt drops over the cavity (registration)
-lip_gap = 0.0         # slip between the skirt and the cavity outside
+lip_gap = fits.slip   # slip between the skirt and the cavity outside — the same air any
+                      # printed face keeps off another, and this one is `lip_h` deep
 # The sacrificial tip. The mould casts the spout PAST the funnel's own exit face and closes
 # it, and the cut that opens it is a post-process. What that buys is a core with no press fit
 # on it: the rod hangs free in silicone the whole way down and reaches nothing.
