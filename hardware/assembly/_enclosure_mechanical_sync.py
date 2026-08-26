@@ -163,11 +163,17 @@ def main():
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
-        # HOW FAR PROUD FRONT-TOP STANDS before it is drawn back — the front column's own
-        # rail travel, read off `_z_rail_runs` rather than typed, so the bench figure moves
-        # with the run whenever the run's own ends do.
+        # HOW FAR PROUD EACH TOP STANDS before it is drawn home — that column's own rail
+        # travel, read off `_z_rail_runs` rather than typed, so the bench figure moves with
+        # the run whenever the run's own ends do. The two are mirrored: front-top stands
+        # this far ahead of the box and draws aft, back-top this far behind it and draws
+        # fore, so each is the bench room that column's own end of the box wants.
         "RAIL_TRAVEL_FRONT": f"{_enc._z_rail_travel(
             _box["inner"], _box["y_joint"], "front",
+            _box["collet_plate"] if _box["pump_bay"] else None,
+            _box["vent_chase"]):.4g} mm",
+        "RAIL_TRAVEL_BACK": f"{_enc._z_rail_travel(
+            _box["inner"], _box["y_joint"], "back",
             _box["collet_plate"] if _box["pump_bay"] else None,
             _box["vent_chase"]):.4g} mm",
         # THE COLLET PLATE'S TWO PLAN FIGURES, both read off `enclosure` rather than typed

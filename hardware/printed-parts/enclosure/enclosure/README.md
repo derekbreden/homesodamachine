@@ -144,20 +144,21 @@ arrived at along Y instead of dropped into.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
-[114 mm](RAIL_RUN_BACK) and [114 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
+[233 mm](RAIL_RUN_BACK) and [233 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron.
 **The two columns end their runs on different things.** Aft of the front run the top
 piece carries nothing but its own seam band and the Y-seam tongue, and both are inboard
 surfaces the channel may cut — so that lane runs clear off the piece's aft end, nothing is
 left to sweep around, and the run reaches its own structural limit: `wall + z_lip_y_margin`
-short of the joint, where the Y telescope's overlap begins and the Z lip must stop. The
-back column's aft end is the rear skin and its corner round, SHOW surface that no channel
-opens, so that run ends at a **horizon** instead — everything the top carries aft of it
-sweeps the whole travel fore along the flank, so the rail reaches only half way to the
-first station it cannot open. The −X back run stops sooner still,
-`slide_slip` fore of the PRV chase's rib, taking its stop block mid-flank.
-**Both tops escape FORE, the way they went on.** Back-top's escape runs into front-top,
-which stands in it. Front-top's runs into open air, and what holds it there is the Y
+short of the joint, where the Y telescope's overlap begins and the Z lip must stop. **The
+back column is that mirrored**: back-top enters AFT of home and slides FORE, so what sweeps
+its run is what it carries fore of it — its own Y-seam band, inboard surface the same
+channel may cut. That run needs no horizon either and reaches the rear wall's own corner
+round. Neither flank stops short for the PRV chase: the rail carries straight through it,
+and the chase keeps out of the joint's own band for that one storey (`_vent_chase`).
+**Each top escapes toward the end of the box it stands at** — front-top fore into the room,
+back-top aft toward the wall — so neither has to be lifted over the other. Front-top's
+escape is open air, and what holds it there is the Y
 seam's **upper pair of screws** — so two screws out and front-top draws straight off the
 front of the box, the back column and whatever the box is built under never touched.
 Four M3×10 close the box; the same four open it.
@@ -245,7 +246,7 @@ The slides fix the order, and the order is the service story backwards. **Front 
 on the bench: the refrigeration stratum seats in front-bottom, and front-top — carrying the
 flavour pack made up into its trays and tee wall — slides AFT onto it, in from the front. **Back column**,
 on the bench, empty: back-top — carrying the chain, the meter, the ceiling panel and the
-wall electronics — slides AFT onto a bare back-bottom, over nothing. **The core rides in
+wall electronics — slides FORE onto a bare back-bottom, over nothing. **The core rides in
 through the mouth**: the closed back column stands upright and the cold core enters over
 the open Y-seam mouth and slides aft to its seat on the rear lip, under the hold-down
 feet (each fore arris eased 45° for exactly this), past the chain and the bulkhead unions,
