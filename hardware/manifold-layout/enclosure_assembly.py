@@ -1784,6 +1784,51 @@ def check_insertion_backing(pieces, placed, spec) -> Bound:
          for t, n, v, i in rows]))
 
 
+def check_plate_carried(pieces, shell) -> Bound:
+    """Whether front-bottom is under the collet plate — the whole way in, not just at home.
+
+    NOTHING IN FRONT-TOP HOLDS THE STEEL DOWN. It goes in through that piece's bed face and
+    `enclosure._plate_cap`'s land is over it, not under it, so what stops the plate falling
+    back out the way it came is the piece the mouth closes onto. `enclosure._plate_shelf` is
+    the two shelves that do it, and this is the reading of them.
+
+    IT IS READ DOWN THE WHOLE FRONT RUN and not only at the home station, because the plate's
+    bottom edge lies IN the seam plane, which is the shelf's own top: the steel cannot step up
+    onto a ledge that begins where it stops — it would meet that ledge's fore face and stop the
+    slide. A shelf with a hole in it anywhere between the front wall and the plate's own aft
+    plane is a shelf the plate drops off partway home.
+
+    The probe is a slab one probe under the seam mouth, under each end of the steel from its
+    end plane `enclosure.plate_shelf_land` inboard, taken in bands down the run so a gap
+    reports where it is rather than as an average."""
+    spec = shell.collet_plate
+    fb = pieces["front-bottom"]
+    fb = fb.val() if hasattr(fb, "val") else fb
+    probe, land = 0.5, _enc.plate_shelf_land
+    y0, y1 = shell.inner[2], spec["aft_y"]
+    rows, step = [], (y1 - y0) / 6.0
+    for i in range(6):
+        ya, yb = y0 + i * step, y0 + (i + 1) * step
+        for sx, x0, x1 in (("-X", spec["x0"], spec["x0"] + land),
+                           ("+X", spec["x1"] - land, spec["x1"])):
+            plug = _enc._ybox(min(x0, x1), max(x0, x1), ya, yb,
+                              _enc.z_seam - probe, _enc.z_seam)
+            rows.append((f"{sx} y {ya:.0f}..{yb:.0f}",
+                         plug.intersect(fb).Volume() / plug.Volume()))
+    worst = min(g for _n, g in rows)
+    ok = worst >= 1.0 - 1e-6
+    return record_bound(Bound(
+        "plate-carried", "The collet plate has front-bottom under it the whole way in", ok,
+        f"{sum(1 for _n, g in rows if g >= 1.0 - 1e-6)}/{len(rows)} bands whole, "
+        f"worst {worst * 100:.1f}%",
+        f"a shelf under both ends of the steel, unbroken from {y0:g} to {y1:g}",
+        ([] if ok else
+         [f"{n}: {g * 100:.1f}% solid" for n, g in rows if g < 1.0 - 1e-6]
+         + ["the steel rides this shelf in from the front wall and rests on it at home. A "
+            "gap in it is a station where the plate has nothing under it, and the plate is "
+            "held by nothing else in either piece"])))
+
+
 def check_bay_floor(pieces, shell) -> Bound:
     """Whether the bay floor lies on front-top's own bed plane and stops the collet plate.
 
@@ -7045,6 +7090,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And the floor that whole storey stands on, against the rim it stands on — then each
     # pump head against the lane it leaves the box through.
     check_bay_floor(pieces, box)
+    check_plate_carried(pieces, box)
     # And the two posts that storey leaves standing either side of it — a reading of whether
     # section is PRESENT, which every clearance check on this card passes by definition.
     check_column_face(pieces, box)
@@ -7405,7 +7451,6 @@ def main():
     # AND WHAT THE READERS READ, off this same machine. Eight doc drivers take their figures
     # from the artifact rather than standing an appliance apiece; writing it here is what makes
     # that one derivation instead of two.
-    import fits
     import _facts
     print(f"-> {_facts.write(whole=a, module=sys.modules[__name__]).name}")
     # THE VIEWER SCENES COME OFF THIS NAMED MACHINE while it is still in memory. Rebuilding the
