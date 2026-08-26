@@ -12,6 +12,7 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import fs from "node:fs";
 import os from "node:os";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 import {
@@ -76,23 +77,39 @@ test("an edge goes only where a watched run did not open the file", () => {
   );
 });
 
+// THE PIN THIS HOLDS IS ITS OWN, over bytes whose digest is known to match. Read against
+// the tree's `_facts.py` the rule is only testable while that file's digest is the pinned
+// one: the moment it is edited every call below returns false, the first assertion fails,
+// and the two negatives start holding for the missed digest rather than for the thing each
+// one names. Whether the tree's live pin still matches is a fact about today's tree, and a
+// tree fact is not what a rule about the function is held against.
 test("the one inert shared STEP identity fails open on any source change", () => {
-  const shared = path.join(REPO_ROOT, "hardware/scripts/_facts.py");
-  const consumer = path.join(
-    REPO_ROOT, "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-  );
-  const source = fs.readFileSync(shared, "utf-8");
-  assert.equal(isPinnedInertStepEdge(shared, "enclosure-assembly.step", consumer, source), true);
+  const source = "STEP = _HW / 'manifold-layout' / 'enclosure-assembly.step'\n";
+  const pin = Object.freeze({
+    shared: "hardware/scripts/_facts.py",
+    step: "enclosure-assembly.step",
+    consumer: "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+    sha256: createHash("sha256").update(source).digest("hex"),
+  });
+  const shared = path.join(REPO_ROOT, pin.shared);
+  const consumer = path.join(REPO_ROOT, pin.consumer);
+
+  assert.equal(isPinnedInertStepEdge(shared, pin.step, consumer, source, pin), true);
   assert.equal(
-    isPinnedInertStepEdge(shared, "enclosure-assembly.step", consumer, source + "\nload(STEP)\n"),
+    isPinnedInertStepEdge(shared, pin.step, consumer, source + "\nload(STEP)\n", pin),
     false,
     "an old negative trace cannot hide a load newly added to the shared module",
   );
   assert.equal(
-    isPinnedInertStepEdge(shared, "enclosure-assembly.step",
-                         path.join(REPO_ROOT, "hardware/other.py"), source),
+    isPinnedInertStepEdge(shared, pin.step,
+                         path.join(REPO_ROOT, "hardware/other.py"), source, pin),
     false,
     "the observed absence belongs only to the one runnable that was traced",
+  );
+  assert.equal(
+    isPinnedInertStepEdge(shared, "cold-core-assembly.step", consumer, source, pin),
+    false,
+    "the observed absence belongs only to the one STEP that was traced",
   );
 });
 

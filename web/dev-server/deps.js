@@ -156,15 +156,19 @@ const INERT_FACTS_EDGE = Object.freeze({
   sha256: "885c56b98f46a8fa79f5b7958f6b4d42c8a72f69947280fe11e85d9d704d65d8",
 });
 
+// The pin is a parameter so the fail-open rule can be held against bytes chosen by the
+// caller. Held against the tree's own `_facts.py` it asserts today's maintenance state
+// instead: once the digest goes stale every branch below returns false, and a test reading
+// that as the answer passes for the one reason it exists to rule out.
 export function isPinnedInertStepEdge(
-  sharedFile, stepBasename, consumer, source = readSource(sharedFile),
+  sharedFile, stepBasename, consumer, source = readSource(sharedFile), pin = INERT_FACTS_EDGE,
 ) {
   const rel = (p) => path.relative(REPO_ROOT, path.resolve(p)).split(path.sep).join("/");
-  if (rel(sharedFile) !== INERT_FACTS_EDGE.shared
-      || stepBasename !== INERT_FACTS_EDGE.step
-      || rel(consumer) !== INERT_FACTS_EDGE.consumer
+  if (rel(sharedFile) !== pin.shared
+      || stepBasename !== pin.step
+      || rel(consumer) !== pin.consumer
       || source == null) return false;
-  return createHash("sha256").update(source).digest("hex") === INERT_FACTS_EDGE.sha256;
+  return createHash("sha256").update(source).digest("hex") === pin.sha256;
 }
 
 // A FILENAME NAMED IN A COMMENT IS PROSE, NOT AN EDGE. Every match below — the STEP loads,
