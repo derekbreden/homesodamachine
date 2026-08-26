@@ -7,12 +7,12 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "067c27567f54d43d0a3fe6ed190677c0270e3db5"
+    "commit": "ad1d9360b90ceacfc809b2f6ec642a50df6f1544"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "tools/bazel/check_build_file.py"
+      "BUILD.bazel"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
