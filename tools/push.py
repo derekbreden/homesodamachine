@@ -30,6 +30,7 @@ Non-zero only when it is not, which is the one thing the caller cannot find out 
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -41,7 +42,9 @@ from pathlib import Path
 # the ceiling is low and the loop is not the slow part of anything.
 ATTEMPTS = 6
 REMOTE, BRANCH = "origin", "main"
-WORKTREE = ".git/push-wt"
+
+#: The replay tree, named for the process that prepares it.
+WORKTREE = f".git/push-wt-{os.getpid()}"
 
 
 def git(*args: str, check: bool = True, cwd: Path | None = None) -> str:
@@ -87,6 +90,23 @@ def drop_worktree() -> None:
     if stale.exists():
         shutil.rmtree(stale, ignore_errors=True)
         ok("worktree", "prune")
+    drop_abandoned()
+
+
+def drop_abandoned() -> None:
+    """Replay trees whose process is gone. `worktree prune` drops the entry once the directory
+    is, so the directory is what goes here."""
+    for tree in (ROOT / ".git").glob("push-wt-*"):
+        name = tree.name.rsplit("-", 1)[-1]
+        if not name.isdigit() or int(name) == os.getpid():
+            continue
+        try:
+            os.kill(int(name), 0)
+        except ProcessLookupError:
+            shutil.rmtree(tree, ignore_errors=True)
+            ok("worktree", "prune")
+        except PermissionError:
+            pass
 
 
 def land(check: bool) -> int:
