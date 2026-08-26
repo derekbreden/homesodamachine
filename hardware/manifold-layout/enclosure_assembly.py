@@ -2393,9 +2393,14 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
     rungs.append(travel)
     # THE STATIONS ARE MEASURED ON MESHES, through `_overlap`. `Shape.intersect` reports
     # 0.00 mm³ for two surfaces tangent along their crossing and raises nothing, and a mover
-    # grazing a fixed member holds that tangency the length of the lane. A mesh reading stands
-    # within ~2 × `_meshes.DEFLECTION` of the exact one, under-reporting where the surface is
-    # convex.
+    # grazing a fixed member holds that tangency the length of the lane.
+    #
+    # WHAT A MESH READING IS WORTH depends on what the two surfaces are. Planar faces
+    # triangulate exactly. Two curved surfaces tessellated alike — nested cylinders at one
+    # angular resolution — carry the inscribed error in common and it subtracts out: 2.0 mm³
+    # across 50,000 mm² of wall reads 2.0 mm³. A curved surface against a dissimilar one
+    # carries that error whole, and shallower than `_meshes.DEFLECTION` it swallows the
+    # feature: a sphere of R600 pressed 0.033 mm into a plane shares 2.0 mm³ and reads 1.1.
     #
     # MESHED ONCE, MOVED MANY TIMES. `_meshes.meshed` memoizes on the shape's identity, and
     # translating a compound hands back a new shape. A manifold translates itself, so the
