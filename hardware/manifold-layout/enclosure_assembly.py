@@ -1382,9 +1382,9 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # in the slot `enclosure._plate_slot` cuts clean through the bay floor — the slot takes it fore
 # and aft over the floor's whole section, and its own TOP EDGE lands wall to wall on the
 # wall over it (`enclosure._plate_cap`), which is what stops it going in. IT GOES IN THROUGH FRONT-TOP'S OWN Z− FACE, the
-# seam plane the piece beds on, before the front column closes. Over `enclosure.seam_cap_z` its
-# ends run to `PLATE_END_AIR` off the side walls; under that plane they step in to
-# `enclosure.plate_step_in`, the band the Z seam's joint takes down each flank. Four holes pass
+# seam plane the piece beds on, before the front column closes. Its ends stand
+# `enclosure.plate_step_in` off the side walls at every height — the band the Z seam's joint
+# takes down each flank over the whole of the front slide. Four holes pass
 # the barb tubes and nothing wider. Pull the pump cartridge and the gripped tubes drag the tees
 # forward
 # until each collet's nose lands on the steel — the body keeps coming, the nose is held,
@@ -1397,7 +1397,6 @@ PLATE_T = 3.175              # 1/8" 304, waterjet from `collet-plate.dxf`
 PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, pump cartridge seated
 PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
-PLATE_END_AIR = 0.3          # each end off the side wall
 TEE_WALL_BORE_SLIP = 0.25    # a bore's air on the collar's own radius — a running fit, not a grip
 TEE_WALL_BODY_AIR = 1.0      # the wall's aft face off the tee's own body, at FULL travel
 TEE_WALL_ARM_SLIP = 0.10     # the aft bore's air on the ARM — what leaves the collar a ledge
@@ -1414,16 +1413,18 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     other. Over that top the guides' heads stand one `slide_slip` clear
     (`enclosure._plate_fore_guides`).
 
-    ACROSS, IT IS TWO WIDTHS. Over `seam_cap_z` its ends stand `PLATE_END_AIR` off the side
-    walls and the outline is whole between them — the one thing that ever stood proud of the
-    floor down these flanks was front-bottom's Z-seam lip, and it is given up over this whole
-    run (`enclosure._flank_lip_drop`). Under that plane each end steps in to
-    `enclosure.plate_step_in`, because there the steel is standing in the Z seam's own storey
-    and that band down each flank belongs to the joint.
+    ACROSS IT IS ONE WIDTH, AND IT IS A RECTANGLE. Each end stands `enclosure.plate_step_in`
+    off its side wall at EVERY height, because the plate rides in front-top through the whole
+    of the front column's slide and the band `rail_reach_in` off each flank belongs to the
+    joint — groove, arm and head — down the whole of that travel. Held off by the deepest thing
+    it ever passes, it is held off by that everywhere, and then there is nothing to step.
 
-    AND THAT IS EVERY NOTCH IN IT. What stops the steel is its own TOP EDGE, landing wall to
-    wall on `enclosure._plate_cap`'s land — so nothing down here has to be a stop, the slot
-    through the bay floor is one width, and the waterjet cuts two steps and four holes."""
+    SO THE PART HAS NO NOTCH IN IT AT ALL. What stops it is its own TOP EDGE, landing wall to
+    wall on `enclosure._plate_cap`'s land, so nothing else has to be a stop; the slot through
+    the bay floor is one width, and its two ends are what locate the steel across. Running the
+    ends wider over `seam_cap_z` bought nothing to be located BY — the flank there is opened
+    whole (`enclosure._flank_opening`) and the steel reached into the opening. The waterjet
+    cuts four corners and four holes."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
         (px, py, pz), _axis = mcarry(ml.branch_port(t))
@@ -1441,7 +1442,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
             f"the four branch collets stand on {len(set(round(hz, 4) for _hx, hz in holes))} "
             f"heights ({sorted(set(round(hz, 4) for _hx, hz in holes))}) — one band centres "
             f"one row")
-    x1 = _enc.interior_x()[1] - PLATE_END_AIR
+    x1 = _enc.interior_x()[1] - _enc.plate_step_in()
     z1 = round(2.0 * hole_z - z0, 6)
     # AND THE WALL BEHIND IT, off the same four collets — the steel's aft face IS the wall's
     # fore face, so the two are one figure and cannot be struck apart. What the wall reads is
@@ -1479,13 +1480,10 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     tee = ml.tee
     branch_face = faces[0]
     stroke = PLATE_REST_GAP
-    step_x = round(_enc.interior_x()[1] - _enc.plate_step_in(), 6)
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": z1,
             "x0": round(-x1, 6), "x1": round(x1, 6), "hole_d": PLATE_HOLE_D,
-            "step_x0": -step_x, "step_x1": step_x,
-            "step_z": round(_enc.seam_cap_z(), 6),
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1], 6),
             "wall_aft_y": round(branch_face + tee.BRANCH_REACH - tee.HALF_W
                                 - stroke - TEE_WALL_BODY_AIR, 6),

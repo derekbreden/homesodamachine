@@ -1477,9 +1477,10 @@ sill_wash = 1.4              # the sill's top face falls this much fore, so the 
 # steps in opposite directions, neither outline containing the other, and a thin ledge at
 # every junction. What the face fits through, the block behind it fits through.
 cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
-plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor's slot. NOT
-                             # across it: the slot's ends are the side walls themselves, and
-                             # what holds the steel off those is `PLATE_END_AIR` alone
+plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor's slot, and
+                             # across it too: the slot's ends are what locate the steel in X,
+                             # because over `seam_cap_z` the flank it would otherwise stand
+                             # against is opened whole (`_flank_opening`)
 plate_guide_x_air = 1.0      # fixed guide cheeks outside the pump cartridge's whole X sweep
 plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading the steel in
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
@@ -2859,15 +2860,25 @@ def seam_cap_z():
 
 
 def plate_step_in():
-    """HOW FAR EACH END OF THE COLLET PLATE STANDS IN FROM THE SIDE WALL, under
-    `seam_cap_z`.
+    """HOW FAR EACH END OF THE COLLET PLATE STANDS IN FROM THE SIDE WALL — at every height,
+    because the plate has one width and no step in it.
 
-    Under that plane the steel stands in the Z SEAM'S OWN STOREY — its bottom edge is
-    `z_seam` itself — and that storey belongs to the joint: `rail_reach_in` off a flank's
-    interior face is what the groove, the arm and the head take down both columns, and a
-    body standing on it keeps out of that band. One `slide_slip` outboard of the joint's
-    reach is the channel the top piece cuts for it; one more inboard is the steel's, so
-    the plan of the lane holds three faces and the steel takes the innermost.
+    ITS BOTTOM EDGE IS `z_seam` ITSELF, so the steel stands in the Z SEAM'S OWN STOREY, and
+    that storey belongs to the joint: `rail_reach_in` off a flank's interior face is what the
+    groove, the arm and the head take down both columns, and a body standing on it keeps out
+    of that band. One `slide_slip` outboard of the joint's reach is the channel the top piece
+    cuts for it; one more inboard is the steel's, so the plan of the lane holds three faces
+    and the steel takes the innermost.
+
+    AND IT IS HELD OFF BY THAT EVERYWHERE, NOT ONLY DOWN THERE. The plate rides in front-top
+    through the whole of the front column's slide, so a lane its bottom edge needs is a lane
+    the whole part travels; stepping the ends out over `seam_cap_z` buys 6.5 mm of steel
+    outboard of the outermost hole and costs the outline two notches, a slot with two widths
+    in it, and a waterjet path that turns eight times instead of four. AND IT BUYS NO
+    RESTRAINT: over that plane the flank the wider end would stand against is opened whole
+    (`_flank_opening`), so the steel's ends reach into the opening and touch nothing either
+    way. What locates them in X is the bay floor's slot, one `plate_slot_slip` off each end,
+    and that reads the same width whichever this is.
 
     AND THIS PLATE IS WHAT SETS THE FRONT RUN'S OPEN END: `_z_rail_runs` starts that
     column's rail on the plate's own tee wall (`wall_aft_y`). Keeping the joint's whole
@@ -2880,18 +2891,18 @@ def plate_outline(plate):
     """THE COLLET PLATE'S OWN OUTLINE, as an `(x, z)` polygon — the one figure the steel, the
     waterjet's file and every body that stands beside it read.
 
-    TWO WIDTHS, ONE STEP PER END, AND EACH IS A PLANE THE BOX ALREADY HAS. Over
-    `seam_cap_z` it runs to `PLATE_END_AIR` off the side walls. Under that plane it stands
-    `plate_step_in` off them, which is the band the Z seam's joint takes down each flank.
+    IT IS A RECTANGLE. Every plane it stands on is one the box already has: `plate_step_in`
+    off each side wall at every height, `z_seam` under it, and over it the height that
+    centres the four collet holes in the band.
 
-    NOTHING ELSE IS CUT OUT OF IT. The steel comes in through the bed face and stops on its
-    own TOP EDGE, which lands wall to wall on `_plate_cap`'s land — so the outline owes the
-    stop no shoulder, the slot no narrower foot, and the waterjet no notch it does not use.
-    Two steps, four holes, and the rest is one rectangle."""
+    NOTHING IS CUT OUT OF IT. A notch in a part is a thing something else is standing in, and
+    after the flip there is nothing standing in this one: what stops the steel is its own TOP
+    EDGE on `_plate_cap`'s land, so the outline owes the stop no shoulder; the lane its bottom
+    edge needs is the lane the whole part travels, so the ends owe the joint no step; and over
+    `seam_cap_z` the flank comes in to the steel rather than the steel out to the flank. Four
+    corners and four holes."""
     x0, x1, z0, z1 = plate["x0"], plate["x1"], plate["z0"], plate["z1"]
-    sx0, sx1, sz = plate["step_x0"], plate["step_x1"], plate["step_z"]
-    return [(sx0, z0), (sx1, z0), (sx1, sz), (x1, sz),
-            (x1, z1), (x0, z1), (x0, sz), (sx0, sz)]
+    return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]
 
 
 def bay_storey_z(bay):
@@ -4304,7 +4315,7 @@ def _flank_opening(inner, y_aft, z0, z1):
     IT RUNS PAST THE PLATE AND STOPS ON THE WALL BEHIND IT. Ending on `plate["fore_y"]` left
     the plate's own thickness of side wall standing aft of the opening — a band one `wall`
     deep and the whole storey tall, whose only job was to be the outboard end of a berth the
-    plate already keeps `enclosure_assembly.PLATE_END_AIR` off. `plate["aft_y"]` is where the
+    plate's own ends already stop `plate_step_in` short of. `plate["aft_y"]` is where the
     section behind it starts, so the opening ends on printed wall rather than on a free edge
     of its own, and the plate's ends stand in the opening the way everything else in this
     storey does.
@@ -4404,8 +4415,8 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     the seam asks for a second face there — a tongue held on both flanks at once is held
     at the fit of two printed walls, where one face and a slide fit is what closes.
 
-    AND THE COLLET PLATE KEEPS ITS BERTH. The steel stands out to `enclosure_assembly.PLATE_END_AIR`
-    off `interior_x`, past this face, so its own band comes out of this section — `PLATE_T`
+    AND THE COLLET PLATE KEEPS ITS BERTH. The steel stands `plate_step_in` off `interior_x`,
+    past this face, so its own band comes out of this section — `PLATE_T`
     of depth over the steel's height and nothing above it, which is why the plate is not a
     figure this reads: it is a berth cut through it."""
     ix0, ix1, _iy0, _iy1, _iz0, iz1 = inner
@@ -5053,9 +5064,11 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     Z-seam rim — and the seam's cap (`_rim_cap`) stands one `wall` on top of that, which is
     what the flank opening floors on.
 
-    ITS SLOT ENDS ON THE SIDE WALL over the steel's own storey. There is nothing outboard of
-    that wall for the slot to hold, so the wall is its end and the steel keeps
-    `enclosure_assembly.PLATE_END_AIR` off it."""
+    AND ITS SLOT'S TWO ENDS ARE WHAT LOCATE THE STEEL ACROSS. Over `seam_cap_z` the flank the
+    plate's ends would otherwise stand against is opened whole (`_flank_opening`), so the ends
+    reach into that opening and touch nothing; here, in the floor, they run one
+    `plate_slot_slip` off each end of a slot cut in solid material. This is the only station
+    in the machine that holds the plate in X."""
     z0, z1 = bay_floor_z(pump_trays)
     rim = z_seam + z_rise
     bx0, bx1 = bay_x_span(inner)
@@ -5071,9 +5084,9 @@ def _plate_slot(inner, plate, z_top):
     """THE COLLET PLATE'S OWN SLOT — THE STEEL'S OWN SECTION AND NOTHING NARROWER.
 
     Fore and aft it is the steel, `plate_slot_slip` off each face, at every height. ACROSS, it
-    is the width the outline actually presents at the bay floor's storey — `plate_step_in` off
-    each wall — up to the floor's top, and the WALLS' above it, where the floor has ended and
-    the slot has nothing left to be cut in.
+    is the steel's own width — `plate_step_in` off each wall, the same at every height because
+    the outline is a rectangle — up to the floor's top, and the WALLS' above it, where the
+    floor has ended and the slot has nothing left to be cut in.
 
     IT HOLDS NOTHING BACK. What stops the steel is its own top edge on `_plate_cap`, one
     storey up and wall to wall, so this slot is a lane and not a seat: no step in it, no
@@ -5084,7 +5097,7 @@ def _plate_slot(inner, plate, z_top):
     faces leaning in at the angle a print climbing off its bed carries them at."""
     y0, y1 = plate["fore_y"] - plate_slot_slip, plate["aft_y"] + plate_slot_slip
     lead, mouth, seat = plate_slot_lead, z_seam, plate["seat_z"]
-    foot = _yz_prism(plate["step_x0"] - plate_slot_slip, plate["step_x1"] + plate_slot_slip, (
+    foot = _yz_prism(plate["x0"] - plate_slot_slip, plate["x1"] + plate_slot_slip, (
         (y0 - lead, mouth - 1.0), (y1 + lead, mouth - 1.0),
         (y1 + lead, mouth), (y1, mouth + lead), (y1, seat),
         (y0, seat), (y0, mouth + lead), (y0 - lead, mouth)))
