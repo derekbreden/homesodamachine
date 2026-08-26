@@ -3869,10 +3869,10 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
 def _rail_keep(inner):
     """The region a channel cut may reach — everything standing at least one `wall`
     inside the box's EXTERIOR surface, corner rounds included, struck off the outer
-    faces rather than the interior ones so a front wall thicker than `wall` is still
-    openable behind its own show skin. A channel clipped to this can notch the bay
-    floor's flank band, a corner post's base or the pillar behind it without ever
-    nicking the surface it sweeps past."""
+    faces rather than the interior ones so a wall thicker than `wall` is still openable
+    behind its own show skin. A channel clipped to this can open the flank's own seam
+    band and turn a corner into a pillar's base without ever nicking the surface it
+    sweeps past."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     return _round_z(_ybox(ix0, ix1, (iy0 - front_wall) + wall, iy1,
                           iz0 - floor_t - 1.0, iz1 + wall + 1.0),
