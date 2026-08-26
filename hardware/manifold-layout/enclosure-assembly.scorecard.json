@@ -1594,7 +1594,7 @@
    "label": "The back top's rails catch it against a lift, on both flanks",
    "kind": "gate",
    "status": "pass",
-   "value": "789.5 mm\u00b3 engaged at a 1 mm lift \u2014 394.8 west, 394.8 east",
+   "value": "769.1 mm\u00b3 engaged at a 1 mm lift \u2014 374.4 west, 394.8 east",
    "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
    "detail": [],
    "active": true

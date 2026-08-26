@@ -5843,8 +5843,8 @@ vent_ramp_angle = relief_chamfer  # support-free run-out from the channel floor 
 
 
 def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
-    """The PRV vent's chase on a −X wall PIECE, for the station whose DISCHARGE opens
-    through the wall this piece owns.
+    """The PRV vent's chase on a −X wall PIECE — the rib the piece whose band holds the
+    discharge stands, and this piece's own height of the passage through it.
 
     One station, `(x, y, z)`: the core's own west flank and the tube's own axis where it comes
     through, in the machine's own frame. A RIB is fused up the wall's inner face OUT TO THAT
@@ -5853,14 +5853,23 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     of the wall is still standing outboard of it. The mouth is `vent_channel_w` square, on the
     tube's own axis, and its lip is the rib's east face — the face that lands on the core.
 
-    THE DISCHARGE IS THE OWNER. The passage opens through the wall at the ramp's foot, so
-    the chase goes on the piece whose band holds that foot — the bottom piece wherever the
-    Z seam crosses the chase — and the rib stands proud past that piece's own rim the way
-    the lip does. Above the rim it is a body the SLIDING top wall passes on its way home,
-    so there it walls its own duct: a `vent_rib_wall` liner on the west side, the whole
-    rib standing `slide_slip` off the wall face the top's skin sweeps along, and back-top
-    carries a channel over the span of its slide that crosses it (`_chase_channel`). Below the rim the
-    piece's own skin is the duct's west face, as it is for the groove.
+    THE DISCHARGE OWNS THE RIB AND THE COLUMN OWNS THE PASSAGE. The rib is one body and has
+    to stand on one piece — the one whose band holds the ramp's foot — and it stands proud
+    past that piece's own rim, where the sliding top wall passes it: a `vent_rib_wall` liner
+    on the west side, the whole rib `slide_slip` off the face the top's skin sweeps, and the
+    top carrying a channel over the span of its slide that crosses it (`_chase_channel`).
+    THE PASSAGE CROSSES THE SEAM AND BOTH PIECES CUT IT. A piece keeping its own material in
+    the duct's plan is a piece narrowing the duct, and below `groove_top` it is the wall
+    itself that has to open — the discharge leaves through the flank there, and half that
+    opening is the top piece's to give. Below the rim the piece's own skin is the duct's west
+    face, as it is for the groove; above it the liner is.
+
+    AND WHERE THE PASSAGE MEETS THE Z SEAM'S OWN BAND, THE RIB YIELDS AND THE PASSAGE DOES
+    NOT. The rib is `vent_rib_wall` longer than its passage at each end, so a rib standing in
+    the band the joint reaches (`rail_reach_in + slide_slip` off the flank) is two solid slabs
+    swept the length of the rail as the top comes home. The passage is the hole through it and
+    sweeps nothing, so it goes straight across: the rail gives up `vent_channel_w` where the
+    one opening that has to cross it does, and the duct keeps its whole section.
 
     THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
     down as that floor is still inboard of what the skin alone stands `vent_rib_wall` behind.
@@ -5873,8 +5882,14 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         ramp_depth = floor_x - outer[0]
         ramp_rise = ramp_depth / math.tan(math.radians(vent_ramp_angle))
         vent = sz - vent_duct_drop - vent_groove_drop - ramp_rise
-        if not (y0 <= sy <= y1 and z0 <= vent <= z1):
+        # THE RIB IS ONE PIECE'S AND THE PASSAGE IS THE COLUMN'S. The discharge opens
+        # through the wall at the ramp's foot, so the piece whose band holds that foot is
+        # the one that stands the rib — but the passage crosses the Z seam, and a piece
+        # that keeps its own material in the duct's plan is a piece narrowing the duct. So
+        # both cut, and the joint gives up the same `vent_channel_w` on either side of it.
+        if not (y0 <= sy <= y1 and vent < z1 and sz + half > z0):
             continue
+        owns = z0 <= vent <= z1
         mouth_top = sz + vent_channel_w / 2.0
         mouth_bot = sz - vent_channel_w / 2.0
         groove_top = sz - vent_duct_drop            # where the skin opens
@@ -5894,16 +5909,19 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         # sliding skin passes it rather than dragging down it.
         rib = rib.cut(_ybox(inner[0] - 1.0, inner[0] + slide_slip,
                             sy - half - 1.0, sy + half + 1.0, rim, sz + half + 1.0))
-        # THE RAIL RUNS THROUGH THIS. Over the seam's own storey the joint reaches
+        # THE RIB KEEPS OUT OF THE JOINT'S BAND AND THE DUCT DOES NOT, because one of them
+        # is material and the other is air. Over the seam's own storey the joint reaches
         # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —
-        # and neither the rib nor the cut enters that band, so the rail carries through the
-        # chase unbroken and what closes the duct on its west side is the joint standing in
-        # it. What that costs is the seal: the duct opens on the seam's own running
-        # clearance for the height of one storey, into a joint that opens to the room.
+        # and the rib is `vent_rib_wall` longer than its passage at each end, so a rib
+        # standing in that band is two slabs that sweep the length of the rail as the top
+        # comes home. The passage sweeps nothing: it is the hole. So the rib stops at the
+        # band and the duct goes straight through it, `vent_channel_w` of the rail given up
+        # to the one opening that has to cross it, and the duct keeps its whole section.
         joint_lane = _ybox(inner[0] - 1.0, inner[0] + rail_reach_in + slide_slip,
                            sy - half - 1.0, sy + half + 1.0, z_seam, rim)
         rib = rib.cut(joint_lane)
-        solid = solid.fuse(rib)
+        if owns:
+            solid = solid.fuse(rib)
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(rib_x + 1.0, mouth_top),       # the mouth, through the lip
                                      (rib_x + 1.0, mouth_bot),
@@ -5914,8 +5932,7 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                      (inner[0], groove_top),         # under the rim the skin
                                      (inner[0], rim),                # is the duct's west face;
                                      (liner_x, rim),                 # above it the liner is,
-                                     (liner_x, mouth_top)])           # and the rib roofs the duct
-                          .cut(joint_lane))
+                                     (liner_x, mouth_top)]))         # and the rib roofs the duct
     return solid
 
 
@@ -7798,7 +7815,16 @@ def main():
     plate = box.collet_plate if (box.pump_bay and box.collet_plate) else None
     front_runs = _z_rail_runs(box.inner, box.y_joint, "front", plate, box.vent_chase)
     back_runs = _z_rail_runs(box.inner, box.y_joint, "back", plate, box.vent_chase)
-    back_len = sorted(abs(r[3] - r[2]) - rail_stop_len for r in back_runs)
+    # WHAT A FLANK ACTUALLY BEARS ON, which is its run less anything crossing it: the PRV
+    # passage takes `vent_channel_w` of the flank it stands on (`_vent_chase`), so the two
+    # back flanks do not read the same figure and the card should not say they do.
+    def _borne(run):
+        _x, sx, y0, y1, _lane = run
+        lo, hi = min(y0, y1), max(y0, y1)
+        cut = sum(vent_channel_w for cx, cy, _cz in (box.vent_chase or ())
+                  if (cx < 0.0) == (sx > 0.0) and lo <= cy <= hi)
+        return abs(y1 - y0) - rail_stop_len - cut
+    back_len = sorted(_borne(r) for r in back_runs)
     variables = {
         "SLIDE_SLIP": f"{slide_slip:g} mm",
         "HOOK_LAP": f"{hook_lap:g} mm",
@@ -7806,7 +7832,8 @@ def main():
         "Z_RISE": f"{z_rise:g} mm",
         "HOOK_NECK": f"{hook_foot + slide_slip:g} mm",
         "RAIL_REACH": f"{rail_reach_in:.1f} mm",
-        "RAIL_RUN_FRONT": f"{abs(front_runs[0][3] - front_runs[0][2]) - rail_stop_len:.0f} mm",
+        "VENT_CHANNEL_W": f"{vent_channel_w:g} mm",
+        "RAIL_RUN_FRONT": f"{_borne(front_runs[0]):.0f} mm",
         "RAIL_RUN_BACK": f"{back_len[-1]:.0f} mm",
         "RAIL_RUN_BACK_W": f"{back_len[0]:.0f} mm",
         "LOOP_CARB_1": f"{tube_anchor_tie_loop(seats[0]):.3g} mm",
