@@ -81,11 +81,11 @@ a dado.
   The rails take the part's bounding width to [165 mm](PANEL_BBOX_X), while the
   show face stays [159 mm](PANEL_W) and its seam lines stay on the throat's own
   edges.
-- **Dado** [3.3 mm](DADO_DEPTH) deep, from z = [350.2](DADO_FLOOR) to
-  [353.8](DADO_ROOF) at the blind end. That end carries the
-  [0.3 mm](DADO_SLIP) printed-fit clearance on every face and leaves
+- **Dado** [3.15 mm](DADO_DEPTH) deep, from z = [350.35](DADO_FLOOR) to
+  [353.65](DADO_ROOF) at the blind end. That end carries the
+  [0.15 mm](DADO_SLIP) printed-fit clearance on every face and leaves
   [1.5 mm](DADO_LOWER_LIGAMENT) of the fixed corbel below the groove plus a
-  [1.2 mm](LIP_T) show-skin lip above it. Those are the two ligaments that
+  [1.35 mm](LIP_T) show-skin lip above it. Those are the two ligaments that
   capture the rail and hold the panel on the ceiling datum.
 - **The dado's roof rises to the mouth at [45°](CHAMFER)**, the way every relief
   ceiling on this box does — a roof left flat would hang over the slot in a

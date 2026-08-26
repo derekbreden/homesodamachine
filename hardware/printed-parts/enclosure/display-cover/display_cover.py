@@ -68,9 +68,9 @@ from _enclosure_interface import (
 # THE PLATE IS THE INSET, LESS THE SLIP IT DROPS IN ON. Corner radius comes off by the same
 # slip, so the plate's round and the inset's stay concentric and the fit is the one figure all
 # the way round the outline.
-cover_x = display_inset_x - 2.0 * display_cover_slip          # [152.9 mm](COVER_X)
-cover_slope = display_inset_slope - 2.0 * display_cover_slip  # [82.4 mm](COVER_SLOPE)
-cover_corner_r = display_corner_r - display_cover_slip        # [2.2 mm](COVER_CORNER_R)
+cover_x = display_inset_x - 2.0 * display_cover_slip          # [153.2 mm](COVER_X)
+cover_slope = display_inset_slope - 2.0 * display_cover_slip  # [82.7 mm](COVER_SLOPE)
+cover_corner_r = display_corner_r - display_cover_slip        # [2.35 mm](COVER_CORNER_R)
 
 # The top face IS the 45° plane and the body hangs below it. The LAP is `display_cover_thickness`
 # down, which is the inset's own depth; the SEAT is `display_cover_seat` down, and it is the
@@ -83,14 +83,14 @@ seat_z_bottom = plate_z_top - display_cover_seat
 # and has to stay thin; outside it the plate is over the inset's land and may be anything. The
 # deeper section's inner wall stands one `display_cover_slip` outside the bezel's own outline, so
 # it drops past that counterbore's wall on the same figure the plate's edge takes at the outline.
-seat_inner_x = display_bezel_x + 2.0 * display_cover_slip          # [114.1 mm](SEAT_INNER_X)
-seat_inner_slope = display_bezel_slope + 2.0 * display_cover_slip  # [77.6 mm](SEAT_INNER_SLOPE)
-seat_inner_corner_r = display_corner_r + display_cover_slip        # [2.8 mm](SEAT_INNER_R)
+seat_inner_x = display_bezel_x + 2.0 * display_cover_slip          # [113.8 mm](SEAT_INNER_X)
+seat_inner_slope = display_bezel_slope + 2.0 * display_cover_slip  # [77.3 mm](SEAT_INNER_SLOPE)
+seat_inner_corner_r = display_corner_r + display_cover_slip        # [2.65 mm](SEAT_INNER_R)
 
 # THE WINDOW IS THE GLASS, LESS THE LAP. `display_inset_lap` is what the border stands over the
 # glass on every side, so the opening is that lap taken off the glass twice over and the border
-# is [5.7 mm](BORDER_SLOPE) up the slope. Laterally the inset reaches far past the glass for the
-# two screws to stand in, so the same window leaves [22.7 mm](BORDER_X) of border either side.
+# is [5.85 mm](BORDER_SLOPE) up the slope. Laterally the inset reaches far past the glass for the
+# two screws to stand in, so the same window leaves [22.85 mm](BORDER_X) of border either side.
 # The opening's corners are the glass's own radius — the lap is constant round the corner only
 # if the two outlines share it.
 window_x = display_bezel_x - 2.0 * display_inset_lap          # [107.5 mm](WINDOW_X)
@@ -100,9 +100,9 @@ border_x = (cover_x - window_x) / 2.0
 border_slope = (cover_slope - window_slope) / 2.0
 
 # WHAT THE DEEPER SECTION IS WORTH, per side: the band of border it thickens. Laterally the inset
-# reaches [19.4 mm](SEAT_BAND_X) past the glass for the screws to stand in, and all of it carries
-# the seat; up the slope the land is only [2.4 mm](SEAT_BAND_SLOPE), because there the border is
-# nearly all lap. What stays thin is the ring inside it — [3.3 mm](LAP_BAND) from the window out,
+# reaches [19.7 mm](SEAT_BAND_X) past the glass for the screws to stand in, and all of it carries
+# the seat; up the slope the land is only [2.7 mm](SEAT_BAND_SLOPE), because there the border is
+# nearly all lap. What stays thin is the ring inside it — [3.15 mm](LAP_BAND) from the window out,
 # which covers the gasket's own footprint and one slip more.
 seat_band_x = (cover_x - seat_inner_x) / 2.0
 seat_band_slope = (cover_slope - seat_inner_slope) / 2.0
