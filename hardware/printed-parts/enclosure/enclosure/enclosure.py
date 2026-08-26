@@ -1495,7 +1495,8 @@ plate_slot_lead = 1.0        # 45 degree flare on the slot's Z− mouth, leading
 plate_cap_land = 1.0         # the flat the steel's top edge lands on, taken off the tee wall's
                              # fore face — the plate's Z datum, wall to wall (`_plate_cap`)
 plate_shelf_land = 3.0       # front-bottom's shelf inboard of the steel's END, per end — the
-                             # bearing the plate's bottom edge rides on (`_plate_shelf`)
+                             # bearing the plate's bottom edge rides on (`_plate_shelf`), one
+                             # `steel_air` under the land that is the plate's datum
 plate_shelf_t = 1.2          # that shelf's own section at its inboard edge, before the 45°
                              # under it takes it back into the flank
 plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall, raked away
@@ -4097,11 +4098,23 @@ def _plate_shelf(inner, plate, zj):
     faces in the joint's lane. So the shelf is what closes that gap, and it is the only new
     material either piece needs.
 
-    IT RUNS THE WHOLE FRONT RUN AND NOT JUST THE HOME STATION. The plate's bottom edge lies IN
-    the seam plane, which is the shelf's own top, so it cannot step up onto a ledge that begins
-    where it stops — it would meet that ledge's fore face and stop the slide. Run from the
-    front wall's inner face back to the steel's own aft plane, the shelf is under the plate
-    from the moment the piece has any of front-bottom beneath it, and the steel rides it in.
+    IT RUNS THE WHOLE FRONT RUN AND NOT JUST THE HOME STATION. The plate hangs within one
+    `steel_air` of this face for the whole of the front column's travel, so it cannot step up
+    onto a ledge that begins where it stops — it would meet that ledge's fore face and stop the
+    slide. Run from the front wall's inner face back to the steel's own aft plane, the shelf is
+    under the plate from the moment the piece has any of front-bottom beneath it, and the steel
+    rides it in.
+
+    AND IT STANDS ONE `steel_air` UNDER THE SEAM PLANE, WHICH IS THE STEEL'S OWN BOTTOM EDGE.
+    This face and `_plate_cap`'s land OPPOSE each other across the whole height of the plate,
+    and only one of them may be a datum. THE LAND IS THE ONE: front-top carries both the tee
+    bores the four holes have to meet and the stop the steel is pushed onto, so a datum struck
+    there keeps the Z seam out of the stack entirely. This face is the other, on the other
+    piece, and closing the seam is what brings it up — so struck at nominal the two would
+    capture the steel's whole height between two printed faces with nothing between them, and
+    a shelf that came off the bed a tenth proud would not make the plate rattle, it would stop
+    the box shutting. Two opposed faces are a fit and not a datum, and the one that is not the
+    datum takes the air.
 
     AND ITS UNDERSIDE IS A 45° BACK TO THE FLANK. This piece prints floor-down and builds in
     +Z, so a shelf struck square here would be a `plate_shelf_land + LIP_UNDERWALL` soffit
@@ -4109,7 +4122,7 @@ def _plate_shelf(inner, plate, zj):
     surface the print grows into off the wall it stands on — and a gusset down the flank's
     top corner besides."""
     fx0, fx1 = front_bottom_flank_face()
-    t, top = plate_shelf_t, zj
+    t, top = plate_shelf_t, zj - steel_air
     out = None
     for x_face, x_in in ((fx0, plate["x0"] + plate_shelf_land),
                          (fx1, plate["x1"] - plate_shelf_land)):
@@ -4645,8 +4658,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
         band = seg if band is None else band.fuse(seg)
     for bx0, bx1, by0, by1, bz0, bz1 in box.pan_sleeve[0]:
         band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
-    # The PRV chase's rib gets its lane back later and wider: `_chase_channel`, cut at the
-    # end of the piece's work, opens it fore to the piece's own edge for the slide.
+    # The PRV chase's rib gets its lane back later: `_chase_channel`, cut at the end of the
+    # piece's work, opens the span of the slide over which this piece crosses the rib.
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
     # slot, cut in `build_back_half` before this stood here.
     for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
@@ -5857,7 +5870,7 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     the lip does. Above the rim it is a body the SLIDING top wall passes on its way home,
     so there it walls its own duct: a `vent_rib_wall` liner on the west side, the whole
     rib standing `slide_slip` off the wall face the top's skin sweeps along, and back-top
-    carries a fore-open channel for all of it (`_chase_channel`). Below the rim the
+    carries a channel over the span of its slide that crosses it (`_chase_channel`). Below the rim the
     piece's own skin is the duct's west face, as it is for the groove.
 
     THE RIB RUNS OUT WITH THE RAMP. It stands behind the channel's floor, so it reaches as far
@@ -5908,21 +5921,31 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
 
 
 def _chase_channel(inner, stations, zj, y_joint, plate):
-    """Back-top's berth for the PRV chase's rib, fore-open — the rib stands the seam
-    storey's full section on its flank, and everything of the piece that ends up AFT
-    of it has to pass it on the way in. So the lane runs from the piece's own fore
-    edge back to the rib's aft face plus the whole travel: material homed anywhere in
-    that span crosses the rib once. Cut last of the piece's work, through the flank
-    section, the return, whatever stands in the lane by then — with `slide_slip`
-    round the rib's own faces."""
+    """Back-top's berth for the PRV chase's rib — the lane the rib sweeps through this
+    piece on the way home.
+
+    THE LANE IS THE SWEEP AND NOT THE COLUMN. The rib is back-bottom's and it stands
+    still; this piece enters fore of home and travels aft, so a point of it homed at `y`
+    crosses the rib's station when `y` is aft of the rib's fore face and no more than one
+    travel aft of its back one. A point homed fore of that face travels from further fore
+    still and never reaches the rib — and the west rail's own run stands there, stopping
+    one `slide_slip` fore of it (`_z_rail_runs`), which is the plane this starts on.
+
+    AND IT STOPS ON `interior_x`. What it clears is the flank section and whatever else
+    stands inboard of that plane; outboard of it is the box's own `wall`, which is the
+    face the Z seam's heads run one `slide_slip` off.
+
+    Cut last of the piece's work — through the flank section, the return, whatever stands
+    in the lane by then — with `slide_slip` round the rib's own faces."""
     out = None
     travel = _z_rail_travel(inner, y_joint, "back", plate, stations)
     for sx, sy, sz in stations:
         half = vent_channel_w / 2.0 + vent_rib_wall
         side = +1.0 if sx < 0.0 else -1.0          # which flank the rib is on
         x_in = inner[0] if side > 0 else inner[1]
-        xa, xb = sorted((x_in - side * 1.0, sx + side * slide_slip))
-        cut = _ybox(xa, xb, y_joint - 1.0, sy + half + slide_slip + travel,
+        xa, xb = sorted((x_in, sx + side * slide_slip))
+        cut = _ybox(xa, xb, sy - half - slide_slip,
+                    sy + half + slide_slip + travel,
                     zj - 1.0, sz + half + slide_slip)
         out = cut if out is None else out.fuse(cut)
     return out
@@ -7383,11 +7406,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.cut(_z_rail_channels(inner, y_joint, zj, y_side, plate,
                                            box.vent_chase))
         if y_side == "back" and box.vent_chase:
-            # And the PRV chase's berth, fore-open: the rib stands the seam storey's
-            # full section on its flank and the piece passes it on the way in, so the
-            # lane is a channel from the rib to the piece's own fore edge — through the
-            # flank section, the pan sleeve, whatever stands in it — with `slide_slip`
-            # round the rib's own faces.
+            # And the PRV chase's berth: the rib stands the seam storey's full section on
+            # its flank, and the lane is the span of this piece that crosses it on the way
+            # in — through the flank section, the pan sleeve, whatever stands in it — with
+            # `slide_slip` round the rib's own faces. The west rail's run stands fore of it.
             piece = piece.cut(_chase_channel(inner, box.vent_chase, zj, y_joint, plate))
     if y_side == "front":
         # AND THE Y TELESCOPE'S, on both storeys and for the same reason: the lip's own
@@ -7513,18 +7535,31 @@ def _report_slide(pieces, box):
                 f"into the channel after the rail was drawn; the channel cut runs last, "
                 f"so look for material fused after it or a bottom-piece feature standing "
                 f"proud of the mouth outside the lip's own runs"])))
-        lifted = top.translate(cq.Vector(0.0, 0.0, 1.0)).intersect(bot).Volume()
-        caught = lifted > 5.0
+        lift = top.translate(cq.Vector(0.0, 0.0, 1.0)).intersect(bot)
+        lifted = lift.Volume()
+        # AND IT IS READ ON EACH FLANK, because a column caught on one of them reads as a
+        # column caught: the runs are down both ±X sides and one of them answering for the
+        # whole seam is the reading a single figure cannot tell from two.
+        ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
+        flanks = {
+            side: lift.intersect(_ybox(fx0, fx1, oy0 - 1.0, oy1 + 1.0,
+                                       oz0 - 1.0, oz1 + 1.0)).Volume()
+            for side, (fx0, fx1) in (("west", (ox0 - 1.0, 0.0)), ("east", (0.0, ox1 + 1.0)))}
+        least = min(flanks.values())
+        caught = lifted > 5.0 and least > 5.0
         record_bound(Bound(
             f"z-slide-{col}-catch",
-            f"The {col} top's rails catch it against a lift", caught,
-            f"{lifted:.1f} mm³ engaged at a 1 mm lift",
-            "the hooks bearing, so more than 5 mm³",
+            f"The {col} top's rails catch it against a lift, on both flanks", caught,
+            f"{lifted:.1f} mm³ engaged at a 1 mm lift — "
+            f"{flanks['west']:.1f} west, {flanks['east']:.1f} east",
+            "the hooks bearing down both flanks, so more than 5 mm³ on each",
             ([] if caught else [
-                f"lifted 1 mm off home, the {col} top contests only {lifted:.1f} mm³ "
-                f"with its bottom piece — the heads are not standing over the feet and "
-                f"the seam is held shut by nothing. Check `hook_lap` against the runs "
-                f"the flanks actually carry"])))
+                f"lifted 1 mm off home, the {col} top contests {flanks['west']:.1f} mm³ on "
+                f"its west flank and {flanks['east']:.1f} mm³ on its east — a flank reading "
+                f"nothing has no foot over its head, so that run is a rail the other piece "
+                f"never entered. Read the channel cuts that run last on the top piece "
+                f"(`_z_rail_channels`, `_chase_channel`) against the runs `_z_rail_runs` "
+                f"gives that flank, and `hook_lap` against both"])))
         out[col] = (worst, travel, len(rungs), lifted)
         print(f"  Z slide {col + ':':7s} travel {travel:6.1f} mm, worst contested "
               f"{worst[0]:6.1f} mm³ at {worst[1]:.2f} mm out; catch {lifted:8.1f} mm³ "

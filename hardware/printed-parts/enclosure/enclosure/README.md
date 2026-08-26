@@ -976,7 +976,7 @@ land out to the side wall, spanning `PLATE_T + plate_slot_slip` between two stan
 
 **The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
 its mouth — and its top is whatever puts the four collet holes **centred** in the band
-(`plate-holes-centred`). Each end stands [6.6 mm](PLATE_STEP_IN) off its side wall at **every**
+(`plate-holes-centred`). Each end stands [6.65 mm](PLATE_STEP_IN) off its side wall at **every**
 height: the plate rides in front-top through the whole of the front column's slide, and the
 band `rail_reach_in` off each flank belongs to the joint — groove, arm and head — down that
 whole travel, which `z-slide-front-lanes` is the reading of. Held off by the deepest thing it

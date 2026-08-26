@@ -1792,13 +1792,19 @@ def check_plate_carried(pieces, shell) -> Bound:
     back out the way it came is the piece the mouth closes onto. `enclosure._plate_shelf` is
     the two shelves that do it, and this is the reading of them.
 
-    IT IS READ DOWN THE WHOLE FRONT RUN and not only at the home station, because the plate's
-    bottom edge lies IN the seam plane, which is the shelf's own top: the steel cannot step up
-    onto a ledge that begins where it stops — it would meet that ledge's fore face and stop the
-    slide. A shelf with a hole in it anywhere between the front wall and the plate's own aft
-    plane is a shelf the plate drops off partway home.
+    IT IS READ DOWN THE WHOLE FRONT RUN and not only at the home station, because the plate
+    hangs within one `enclosure.steel_air` of that shelf for the whole of the front column's
+    travel: the steel cannot step up onto a ledge that begins where it stops — it would meet
+    that ledge's fore face and stop the slide. A shelf with a hole in it anywhere between the
+    front wall and the plate's own aft plane is a shelf the plate drops off partway home.
 
-    The probe is a slab one probe under the seam mouth, under each end of the steel from its
+    AND IT IS READ UNDER THE SHELF'S OWN TOP, not under the seam mouth. The shelf stands one
+    `enclosure.steel_air` below that plane, because it OPPOSES `enclosure._plate_cap`'s land
+    across the whole height of the steel and the land is the datum — front-top carries both the
+    tee bores and the stop, so the seam stays out of that stack. Probing the mouth instead
+    would read the flank beside the shelf and pass on material that is not carrying anything.
+
+    The probe is a slab one probe under the shelf's top, under each end of the steel from its
     end plane `enclosure.plate_shelf_land` inboard, taken in bands down the run so a gap
     reports where it is rather than as an average."""
     spec = shell.collet_plate
@@ -1811,8 +1817,8 @@ def check_plate_carried(pieces, shell) -> Bound:
         ya, yb = y0 + i * step, y0 + (i + 1) * step
         for sx, x0, x1 in (("-X", spec["x0"], spec["x0"] + land),
                            ("+X", spec["x1"] - land, spec["x1"])):
-            plug = _enc._ybox(min(x0, x1), max(x0, x1), ya, yb,
-                              _enc.z_seam - probe, _enc.z_seam)
+            top = _enc.z_seam - _enc.steel_air
+            plug = _enc._ybox(min(x0, x1), max(x0, x1), ya, yb, top - probe, top)
             rows.append((f"{sx} y {ya:.0f}..{yb:.0f}",
                          plug.intersect(fb).Volume() / plug.Volume()))
     worst = min(g for _n, g in rows)
@@ -1821,7 +1827,8 @@ def check_plate_carried(pieces, shell) -> Bound:
         "plate-carried", "The collet plate has front-bottom under it the whole way in", ok,
         f"{sum(1 for _n, g in rows if g >= 1.0 - 1e-6)}/{len(rows)} bands whole, "
         f"worst {worst * 100:.1f}%",
-        f"a shelf under both ends of the steel, unbroken from {y0:g} to {y1:g}",
+        f"a shelf under both ends of the steel, unbroken from {y0:g} to {y1:g}, one "
+        f"{_enc.steel_air:g} under the seam plane",
         ([] if ok else
          [f"{n}: {g * 100:.1f}% solid" for n, g in rows if g < 1.0 - 1e-6]
          + ["the steel rides this shelf in from the front wall and rests on it at home. A "

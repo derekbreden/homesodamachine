@@ -1030,7 +1030,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "12/12 bands whole, worst 100.0%",
-   "target": "a shelf under both ends of the steel, unbroken from 14 to 78.81",
+   "target": "a shelf under both ends of the steel, unbroken from 14 to 78.81, one 0.2 under the seam plane",
    "detail": [],
    "active": true
   },
@@ -1571,11 +1571,11 @@
   },
   {
    "id": "z-slide-front-catch",
-   "label": "The front top's rails catch it against a lift",
+   "label": "The front top's rails catch it against a lift, on both flanks",
    "kind": "gate",
    "status": "pass",
-   "value": "337.4 mm\u00b3 engaged at a 1 mm lift",
-   "target": "the hooks bearing, so more than 5 mm\u00b3",
+   "value": "337.4 mm\u00b3 engaged at a 1 mm lift \u2014 168.7 west, 168.7 east",
+   "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
    "detail": [],
    "active": true
   },
@@ -1591,11 +1591,11 @@
   },
   {
    "id": "z-slide-back-catch",
-   "label": "The back top's rails catch it against a lift",
+   "label": "The back top's rails catch it against a lift, on both flanks",
    "kind": "gate",
    "status": "pass",
-   "value": "192.4 mm\u00b3 engaged at a 1 mm lift",
-   "target": "the hooks bearing, so more than 5 mm\u00b3",
+   "value": "348.1 mm\u00b3 engaged at a 1 mm lift \u2014 155.7 west, 192.4 east",
+   "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
    "detail": [],
    "active": true
   },
