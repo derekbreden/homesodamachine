@@ -6442,12 +6442,15 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     never brackets `wall_aft_y` (it stands on a different wall entirely), so this is a
     no-op there rather than a case split.
 
-    THE SOCKET AND THE CHANNEL ANSWER FOR THE POSTS AND THE PORT, NOT FOR THE BODY BEHIND THEM.
-    Both cuts are sized to what they carry and no wider, so a fuse struck after them (the root
-    corbel above) is cut on its own account by `valve_tray.build_body_clearance` — the valve's
-    own boss, posts and top box, grown one `PORT_SLIP` — wherever a station's own transform
-    puts it, whether or not that station's plate stands anywhere near the wall the corbel
-    roots on."""
+    THE SOCKET ANSWERS FOR THE POSTS, THE CHANNEL FOR THE PORT, AND NEITHER FOR THE BODY
+    BEHIND THEM. The socket is a post's own width — `valve_tray.build_body_clearance` is what
+    a fuse struck after it (the root corbel above) is cut on account of instead: the valve's
+    boss, posts and top box, read off `beduan_solenoid` again and grown one `PORT_SLIP`,
+    wherever a station's own transform puts it. THE CHANNEL DOES ANSWER FOR THE PORT, BUT ONLY
+    AS FAR AS THE PLATE'S OWN FLOOR — its length is struck to reach the plate, which is all a
+    port ever used to graze. `wedge_depth` is carried into it below so the same channel reaches
+    the corbel's own floor too: a wall the corbel roots on stands nowhere near a valve's port,
+    so this only ever lengthens the channel where the root corbel actually adds one."""
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
@@ -6460,9 +6463,11 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
         near, far = sorted((face, face - sign * _valve_tray.THICK))
         solid = solid.fuse(_ybox(inner[0], inner[1], near, far, mid_z - half, mid_z + half))
         floor = mid_z - half
+        wedge_depth = 0.0
         if wall_aft_y is not None and near < wall_aft_y < far:
+            wedge_depth = far - wall_aft_y
             solid = solid.fuse(_yz_prism(inner[0], inner[1], [
-                (far, floor), (wall_aft_y, floor), (wall_aft_y, floor - (far - wall_aft_y)),
+                (far, floor), (wall_aft_y, floor), (wall_aft_y, floor - wedge_depth),
             ]))
         # THE PLATE'S FOOT: the plate's own whole section carried down to the piece's bed
         # face, its valve-side face one plane with the plate's, so the plate prints as a
@@ -6485,8 +6490,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
             at = cq.Location(cq.Vector(sx, plane, sz))
             solid = solid.cut(_valve_tray.build_body_clearance().val().moved(turn).moved(at))
             solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
-            chan = _valve_tray.height() if not footed else max(
-                _valve_tray.height(), 2.0 * (sz - foot_z0))
+            chan = (_valve_tray.height() if not footed else max(
+                _valve_tray.height(), 2.0 * (sz - foot_z0))) + 2.0 * wedge_depth
             solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))
     return solid
