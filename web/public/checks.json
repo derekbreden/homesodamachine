@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
+      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -47,8 +47,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -67,10 +67,23 @@
     }
   ],
   "detail": {
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
+    "hardware/scripts/check_flutes.py": [
+      "2 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-front-bottom — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
+      "  the flute cut is what puts the surface back:",
+      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
+    ],
+    "hardware/scripts/check_payloads.py": [
+      "3 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/manifold-layout/enclosure-assembly.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ]
   },
   "green": false
