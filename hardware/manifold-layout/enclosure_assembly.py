@@ -2391,42 +2391,48 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
         rungs.append(d)
         d += 16.0
     rungs.append(travel)
-    # THE STATIONS ARE MEASURED ON MESHES, through `_overlap`. `Shape.intersect` reports
-    # 0.00 mm³ for two surfaces tangent along their crossing and raises nothing, and a mover
-    # grazing a fixed member holds that tangency the length of the lane.
+    # A MESH SCREENS AND THE KERNEL ANSWERS. Every pair the boxes let through is read on
+    # meshes through `_overlap`; a pair that reads zero there is left, and every pair that
+    # reads anything at all is measured again exactly. So a number this returns came off
+    # `Shape.intersect`, and the meshes decide only which pairs are worth asking about.
     #
-    # WHAT A MESH READING IS WORTH depends on what the two surfaces are. Planar faces
-    # triangulate exactly. Two curved surfaces tessellated alike — nested cylinders at one
-    # angular resolution — carry the inscribed error in common and it subtracts out: 2.0 mm³
-    # across 50,000 mm² of wall reads 2.0 mm³. A curved surface against a dissimilar one
-    # carries that error whole, and shallower than `_meshes.DEFLECTION` it swallows the
-    # feature: a sphere of R600 pressed 0.033 mm into a plane shares 2.0 mm³ and reads 1.1.
+    # WHAT THE SCREEN LETS PAST is bounded by what a mesh can hold. Measured on a `_lines`
+    # bore lying against a wall, the mesh first reads zero at 0.001 mm of penetration — a
+    # twentieth of `_meshes.DEFLECTION` — where the exact volume is 0.022 mm³. A tenth of a
+    # deflection reads 0.006 and is handed over.
     #
     # MESHED ONCE, MOVED MANY TIMES. `_meshes.meshed` memoizes on the shape's identity, and
     # translating a compound hands back a new shape. A manifold translates itself, so the
     # mover is tessellated once and the ladder moves it; the fixed members do not move.
-    mover = _meshes.meshed(cq.Compound.makeCompound([s for _n, s in mover_parts]))
-    fixed = [(name, m, _meshes.box(m))
-             for name, m in ((n, _meshes.meshed(s)) for n, s in fixed_parts)]
+    #
     # THE BOXES ARE A PRE-FILTER AND ONLY THAT, as in `manifold_layout.clashes`: boxes that
-    # miss are solids that miss, boxes that meet prove nothing, and every pair that survives
-    # is asked. The mover's box rides with the mover, so a station's box is the home box
-    # offset.
+    # miss are solids that miss, boxes that meet prove nothing. The mover's box rides with
+    # the mover, so a station's box is the home box offset.
+    solid = cq.Compound.makeCompound([s for _n, s in mover_parts])
+    mover = _meshes.meshed(solid)
+    fixed = [(name, s, m, _meshes.box(m))
+             for name, s, m in ((n, s, _meshes.meshed(s)) for n, s in fixed_parts)]
     mbb = _meshes.box(mover)
     worst, hits = (0.0, 0.0), {}
     for d in rungs:
         ox, oy, oz = axis[0] * d, axis[1] * d, axis[2] * d
         at = mover.translate([ox, oy, oz])
+        # The B-rep at this station is cut only where a screened pair asks for it.
+        exact = None
         mx0, mx1 = mbb.xmin + ox, mbb.xmax + ox
         my0, my1 = mbb.ymin + oy, mbb.ymax + oy
         mz0, mz1 = mbb.zmin + oz, mbb.zmax + oz
         total = 0.0
-        for name, m, bb in fixed:
+        for name, s, m, bb in fixed:
             if (mx0 > bb.xmax or bb.xmin > mx1
                     or my0 > bb.ymax or bb.ymin > my1
                     or mz0 > bb.zmax or bb.zmin > mz1):
                 continue
-            v = _overlap.volume(at, m)
+            if _overlap.volume(at, m) <= 0.0:
+                continue
+            if exact is None:
+                exact = solid.translate(cq.Vector(ox, oy, oz))
+            v = exact.intersect(s).Volume()
             if v > 1e-6:
                 total += v
                 if v > hits.get(name, (0.0, 0.0))[0]:
