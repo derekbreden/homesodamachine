@@ -2399,6 +2399,18 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
     # twentieth of `_meshes.DEFLECTION` — where the exact volume is 0.022 mm³. A tenth of a
     # deflection reads 0.006 and is handed over.
     #
+    # AND THAT 0.001 mm IS THE TESSELLATION'S OWN DEPTH. A mesh node sits on the surface, so
+    # what a mesh can hide is the sag between nodes. Measured against the true surfaces of the
+    # pump cap — the piece carrying the tree's only free-form patches — a plane departs by
+    # 0.000000 mm, a B-spline patch by 0.000211 and a cylinder by 0.000850 — the last of them
+    # 0.04 of DEFLECTION. The free-form patch is the second tightest of the three, not the
+    # loosest.
+    #
+    # THE FLUTES ARE NOT IN THIS GEOMETRY. `flute_skin` cuts the show surfaces into the
+    # payload mesh and says why they are not in the solid; the STEP beside it is a smooth
+    # prism. So a swept station meets planes, cylinders, a few cones and those eight patches,
+    # and nothing whose tessellation is unbounded.
+    #
     # MESHED ONCE, MOVED MANY TIMES. `_meshes.meshed` memoizes on the shape's identity, and
     # translating a compound hands back a new shape. A manifold translates itself, so the
     # mover is tessellated once and the ladder moves it; the fixed members do not move.
