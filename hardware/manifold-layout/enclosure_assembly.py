@@ -778,62 +778,66 @@ def cap_face(foam):
 # the loop has drains into that one pool, which is why the sensor answers to HEIGHT and not
 # to aim. It stands in the strip down the −X flank, the one stretch of floor no body occupies.
 #
-# THE MESH LOOKS AFT, down the length of that strip, and the header faces fore into the bay
-# the front assembly opens onto. That is what standing the card on edge buys. Flat on the wall
-# the can would spend the strip's whole depth and the loom would still have to reach a header
-# facing the wall behind it; on edge, the reach off the wall is the main board's own short side and
-# both of its faces are in open air.
+# THE CARD LIES ALONG THE STRIP, its plane parallel to the flank: the long side runs fore-aft
+# down the strip, the short side is the height, and the board's own thickness is the whole of
+# what it spends across the strip. THE CAN LOOKS WEST, into a well cut back through
+# front-bottom's own flank section (`enclosure._front_bottom_flank_skin`), and bottoms on
+# `lip_face_x` — so the wall is still the datum in X and what stands the card off it is the
+# can's own height. THE HEADER LOOKS EAST, into the bay the front assembly opens onto, so the
+# loom lands on it out of the room and nothing reaches round the board to a face against a wall.
 #
-# The turn is two quarters: −90° about X lays the card down with its can facing aft, then +90°
-# about Y stands it back up on its long edge with its short side reaching inboard.
+# AND THAT IS WHAT THE CRADLE IS FOR. A card standing ACROSS the strip has to be held by rails
+# reaching horizontally off the wall, printed over air. A card lying ALONG it is held by two
+# POSTS STANDING ON THE SLAB, one at each end of its long run, and every layer of them lands on
+# the one below (`enclosure._west_cradle`). The card drops in from above between them.
+#
+# The turn is two quarters: −90° about X stands the card up on its long side with the can facing
+# aft, then +90° about Z swings that long side into the strip and the can into the wall.
 MQ6_STEP = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
-MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Y_AXIS[1].toTuple(), 90.0))
-# The card's own fore face, stated. The grille is cut around this station — the cradle
-# rail's stepped end in the intake's lowest course is where the flank shows it — so the
-# card owns its Y the way every stated station here does, and the vent pattern is what a
-# move would visibly cost.
+MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Z_AXIS[1].toTuple(), 90.0))
+# The card's own fore edge, stated. The grille is cut around this station — the courses the
+# cradle's two posts stand in are where the flank shows it — so the card owns its Y the way
+# every stated station here does, and the vent pattern is what a move would visibly cost.
 MQ6_Y0 = 38.3
 
 
 def build_mq6(comp, cond):
-    """The MQ-6 on edge in the −X strip, as low as the card stands.
+    """The MQ-6 along the −X strip, as low as the card stands.
 
-    WEST on the wall's own inner face, not on the boss plane every body on the other flank
-    stands on — nothing bolts this card down, it slides into a slot printed on the wall
-    (`enclosure._west_cradle`) and bottoms on the wall itself, so the wall is where it goes.
-    That face is `lip_face_x` and not `interior_x`: the card stands under a Z seam, and a
-    flank under a seam carries its lip's own wall down to the slab, `2 * wall` of it.
+    WEST until the CAN bottoms in its well, not on the boss plane every body on the other flank
+    stands on — nothing bolts this card down, it drops into a slot printed on the wall
+    (`enclosure._west_cradle`) and the wall is what the far end of it lands on. That face is
+    `lip_face_x` and not `interior_x`: the card stands under a Z seam, and a flank under a seam
+    carries its lip's own wall down to the slab, `2 * wall` of it. The well through the flank's
+    own extra section is what lets the can reach that plane.
 
-    FORE on its own stated `MQ6_Y0`. The grille grew around this station: the intake's
-    lowest course carries the cradle rail's one stepped end (`flank-vent-mullions`), the
-    card's loom dresses aft of it, and nothing else on the flank asks for the depth — so
-    the station is the card's own fact, not a remainder off the seam machinery.
+    FORE on its own stated `MQ6_Y0`, which is the card's fore edge — the long side runs aft off
+    it. The grille grew around this station: the intake's lowest course carries the two posts'
+    roots (`flank-vent-mullions`), the card's loom dresses off its east face, and nothing else
+    on the flank asks for the depth — so the station is the card's own fact, not a remainder off
+    the seam machinery.
 
-    LOW on the slab the compressor stands on, one rail section up — which is the whole of what
-    lifts it. The mesh comes out under the power box's floor, so the layer reaches this board
-    before it reaches the one ignition source in the compartment."""
+    LOW on the slab the compressor stands on, one post section up — the shoulder at the foot of
+    each groove is what the card lands on, and the whole of what lifts it. The mesh comes out
+    under the power box's floor, so the layer reaches this board before it reaches the one
+    ignition source in the compartment."""
     body = import_step(str(MQ6_STEP)).val()
     return seat_body(body, MQ6_TURN, seat="mq6-sensor",
                      x0=_enc.lip_face_x()[0], y0=MQ6_Y0,
                      z0=box(comp).zmin + _enc.mq6_rail_wall)
 
 
-def mq6_cradle(carry, body):
-    """The wall's card-slot station, `(y, z, y0, y1, z0, z1)` — the card's own mid-plane and
-    its centre, then the whole board's footprint against that wall.
+def mq6_cradle(carry):
+    """The strip's card-slot station, `(x, y, z)` — the card's own mid-plane, and its centre
+    along the strip and in height. Nothing else, because nothing else varies: the slot is one
+    board's envelope and one slip fit, and both the cradle and the flank's well read those off
+    the reference module itself.
 
-    THE FIRST TWO ARE STRUCK ON `mq6_gas_sensor.card_plane` and not on the placed box, because
-    the box is the pins and the can as well, and its centre is behind the card they hang off.
-    The slot cannot land anywhere but on the card.
-
-    THE LAST FOUR ARE THAT BOX, and they are what the flank is WELLED to.
-    `front_bottom_west_flank_t` stands this wall inboard of the plane the card bottoms on, so
-    the main board would be inside the section if the section did not open for it — and what has to
-    open is the can's silhouette, not the card's plane. A well struck on the card alone is a
-    well the can does not fit."""
+    STRUCK ON `mq6_gas_sensor.card_plane` and not on the placed box, because the box is the pins
+    and the can as well, and its centre is 4 mm west of the card they hang off. The slot cannot
+    land anywhere but on the card."""
     pos = carry(_mq6.card_plane())[0]
-    b = box(body)
-    return ((pos[1], pos[2], b.ymin, b.ymax, b.zmin, b.zmax),)
+    return ((pos[0], pos[1], pos[2]),)
 
 
 # --- the bounds the machine states about itself -----------------------------
