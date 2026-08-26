@@ -95,47 +95,50 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* The check band, drawn under the nav on every page while any check is red and
-   not drawn at all while none is. It is <details>, so the summary is one line
-   until it is asked and no script is involved in opening it.
+/* What the checks found, under the nav on every page: the same pill the
+   enclosure's requirements verdict wears at the bottom of the 3D canvas
+   (.sc-badge in public/css/viewer.css), to the pixel — one mark, one word, the
+   green ground when it passes and the red one when it does not. Two readings of
+   whether the tree is holding should not look like two different kinds of thing.
 
-   IT SCROLLS AWAY AND THE NAV DOES NOT. Two sticky elements stacking is a bar
-   that eats a phone's viewport, and this one has said what it has to say by the
-   time the reader has scrolled past it. */
-.checks-band {
-  border-bottom: 1px solid var(--err);
-  background: color-mix(in srgb, var(--err) 14%, var(--bg));
-  color: var(--text);
-  font-size: 0.8125rem;
-  line-height: 1.45;
+   RED OPENS AND GREEN DOES NOT. A red pill is <summary> and carries the rows
+   under it; a green one is a span, because a verdict with nothing to name has
+   nothing to expand. No script either way. */
+.checks-pill-row {
   padding: 0.5rem calc(env(safe-area-inset-right, 0px) + 0.875rem)
            0.5rem calc(env(safe-area-inset-left, 0px) + 0.875rem);
 }
-.checks-band summary {
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  gap: 0.5rem;
-  align-items: baseline;
+.checks-pill-row > summary { list-style: none; cursor: pointer; }
+.checks-pill-row > summary::-webkit-details-marker { display: none; }
+.checks-pill {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 18%, rgba(35, 35, 66, 0.85));
+  color: var(--ok);
+  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  transition: filter 0.12s;
 }
-.checks-band summary::-webkit-details-marker { display: none; }
-.checks-band summary::after {
-  content: "›";
-  margin-left: auto;
+.checks-pill.has-issues {
+  border-color: color-mix(in srgb, var(--err) 60%, transparent);
+  background: color-mix(in srgb, var(--err) 20%, rgba(35, 35, 66, 0.85));
   color: var(--err);
-  transition: transform 0.15s ease;
 }
-.checks-band[open] summary::after { transform: rotate(90deg); }
-.checks-band .checks-mark { color: var(--err); font-weight: 600; }
-.checks-band .checks-what { color: var(--text-2); }
-.checks-band ul { margin: 0.5rem 0 0.125rem; padding: 0 0 0 1rem; }
-.checks-band li { margin: 0 0 0.375rem; }
-.checks-band code {
+.checks-pill-row > summary:hover .checks-pill { filter: brightness(1.2); }
+.checks-pill-row ul {
+  margin: 0.5rem 0 0.125rem;
+  padding: 0 0 0 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+.checks-pill-row li { margin: 0 0 0.375rem; }
+.checks-pill-row code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.75rem;
   color: var(--text-2);
 }
-.checks-band .checks-note { color: var(--text); }
 /* The bar's own inset stops at the safe area; the rest of it belongs to the
    links, which spend it as hit area (see .nav-icon). The gap closes as the bar
    narrows, so nine icons in dev mode still land inside a phone's width and the
@@ -435,30 +438,36 @@ ${pageHead}
 // present in the markup but, on the public surface, hidden by CSS unless
 // html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
 // visible. Updates is the complement: visible wherever that set is hidden.
-// What the checks found, drawn under the nav — and nothing at all when they found nothing.
+// What the checks found, under the nav on every page: `✓ Checks` or `✗ Checks`, in the pill the
+// enclosure's verdict already wears at the bottom of the 3D canvas.
 //
-// GREEN IS SILENCE AND RED IS UNMISSABLE. A band that is always there is chrome, and chrome is
-// read once and then never again; the whole point of this one is that its presence is the
-// signal. `tools/checks_now.py` writes the verdict after every commit, so the band appears on
+// A MARK EITHER WAY, BECAUSE ABSENCE IS NOT AN ANSWER. A pill that appeared only in trouble
+// would leave green and never-ran looking alike, and never-ran is the state this whole path
+// exists to end. `✓ Checks` says the tree was read and answered; nothing at all says only that
+// this deploy carries no reading, which is true of a container whose disk holds no such file.
+//
+// THE RED ONE CARRIES ITS ROWS, each check's own last words, which are usually the command that
+// repairs it. `tools/checks_now.py` writes the verdict after every commit, so the pill turns on
 // the deploy that follows the commit that broke something.
 //
-// IT REPORTS AND HOLDS NOTHING. A red check has never stopped this page rendering, and the
-// tree it describes reached the site regardless. CLAUDE.md, "Nothing withholds".
+// IT REPORTS AND HOLDS NOTHING. A red check has never stopped this page rendering, and the tree
+// it describes reached the site regardless. CLAUDE.md, "Nothing withholds".
 export function renderChecksBand() {
-  if (!CHECKS || CHECKS.green) return "";
+  if (!CHECKS) return "";
   const red = CHECKS.checks.filter((c) => c.status === "red");
-  if (!red.length) return "";
-  const what = red.length === 1 ? "1 check is red" : `${red.length} checks are red`;
+  if (!red.length) {
+    return `<div class="checks-pill-row"><span class="checks-pill">✓ Checks</span></div>\n`;
+  }
   const items = red
     .map((c) => {
       const detail = (CHECKS.detail?.[c.check] ?? [])
-        .map((ln) => `<div class="checks-note">${escape(ln)}</div>`)
+        .map((ln) => `<div>${escape(ln)}</div>`)
         .join("");
       return `    <li><code>${escape(c.check)}</code>${detail}</li>`;
     })
     .join("\n");
-  return `<details class="checks-band">
-  <summary><span class="checks-mark">✗</span><span class="checks-what">${what} in the tree this deploy carries</span></summary>
+  return `<details class="checks-pill-row">
+  <summary><span class="checks-pill has-issues">✗ Checks</span></summary>
   <ul>
 ${items}
   </ul>
