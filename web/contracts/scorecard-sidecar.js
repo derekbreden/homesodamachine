@@ -20,7 +20,12 @@ export function scorecardPathFor(stepPath) {
  * @property {string} id
  * @property {string} label
  * @property {"gate"|"goal"} kind
- * @property {"pass"|"fail"|"warn"} status
+ * @property {"pass"|"fail"|"warn"|"unread"} status
+ *   `unread` is a check the build did not compute — the row is here, its verdict is not. A
+ *   detached checker that has not answered yet leaves this, and the answer replaces it. It is
+ *   its own value and not `warn`: a clash nobody measured is not a clash that measured and came
+ *   back marginal, and a reader who cannot tell them apart is told the wrong thing either way.
+ *   `gatesPass` is false while any gate is `unread`, since the gates are not all passing.
  * @property {string} value    what the design is (the measurement)
  * @property {string} target   what it must be (the requirement)
  * @property {string[]} detail  offending / itemized rows
@@ -98,7 +103,10 @@ export function scorecardPathFor(stepPath) {
 
 /**
  * @typedef {Object} Scorecard
- * @property {boolean} gatesPass  every gate passes
+ * @property {boolean} gatesPass  every gate passes — false while any gate is `unread`, because
+ *                               a gate nobody read is not a gate that passed. What is
+ *                               outstanding is counted off `checks` by `gatesUnread` rather
+ *                               than carried here as well, so the two cannot disagree
  * @property {ScorecardSize[]} [size]  how big the thing is: the printed box, and everything
  *                               placed. Optional: a scorecard predating the table omits it,
  *                               and the card draws without a size block
@@ -131,8 +139,27 @@ export function sizeText(row) {
        + `${mm.map((v) => (v / MM_PER_INCH).toFixed(2)).join(" × ")} in`;
 }
 
+// ── Gates ────────────────────────────────────────────────────────────────────────────────────
+// Three counts off one array, so the badge and the drill-down cannot tell a reader two things.
+// A gate is failing or outstanding, never both, and the badge says which — `✗ 2 gates` and
+// `○ 2 gates` are different sentences and a reader acts on them differently.
+
+/** Gates the build measured and found wanting. */
+export function gatesFailing(sc) {
+  return (sc?.checks ?? []).filter((c) => c.kind === "gate" && (c.status === "fail" || c.status === "warn")).length;
+}
+
+/** Gates whose verdict nothing has written yet. */
+export function gatesUnread(sc) {
+  return (sc?.checks ?? []).filter((c) => c.kind === "gate" && c.status === "unread").length;
+}
+
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client
 // guard — a malformed sidecar draws no bar rather than throwing.
+//
+// A STATUS THIS DOES NOT NAME COSTS THE WHOLE BAR. Every check row runs through here, so one
+// unrecognised value returns false for the sidecar entire and the card draws nothing at all —
+// louder than a wrong verdict, and further from the row that caused it.
 export function isScorecard(o) {
   if (!o || typeof o !== "object") return false;
   if (typeof o.gatesPass !== "boolean") return false;
@@ -142,7 +169,7 @@ export function isScorecard(o) {
       c &&
       typeof c.label === "string" &&
       (c.kind === "gate" || c.kind === "goal") &&
-      (c.status === "pass" || c.status === "fail" || c.status === "warn") &&
+      (c.status === "pass" || c.status === "fail" || c.status === "warn" || c.status === "unread") &&
       typeof c.value === "string" &&
       Array.isArray(c.detail),
   );
