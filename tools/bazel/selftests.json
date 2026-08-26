@@ -411,6 +411,13 @@
   "hardware/scripts/_seating.py": [
     "hardware/scripts/_seating.py"
   ],
+  "hardware/scripts/check_flutes.py": [
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/check_flutes.py",
+    "hardware/scripts/flute_payload.py"
+  ],
   "hardware/scripts/check_payloads.py": [
     "hardware/scripts/check_payloads.py",
     "tools/cad-artifacts/pack.py"
