@@ -36,6 +36,7 @@ out is `NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk f
 """
 
 import argparse
+import concurrent.futures as cf
 import gzip
 import hashlib
 import io
@@ -688,24 +689,32 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
     if not todo:
         print("  every member is already on the release under its own hash")
         return True
-    sent, failed = 0, 0
-    with tempfile.TemporaryDirectory() as d:
-        for rel in todo:
-            sha = solid_hashes[rel]
-            staged = Path(d) / object_asset(sha)
-            with open(root / rel, "rb") as src, open(staged, "wb") as raw, \
-                    gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as out:
-                shutil.copyfileobj(src, out)
-            up = _gh(root, "release", "upload", TAG, str(staged), "--clobber")
+
+    def send(rel: str, d: str):
+        """gzip one member and put it up. Returns the rel on failure, None on success."""
+        sha = solid_hashes[rel]
+        staged = Path(d) / object_asset(sha)
+        with open(root / rel, "rb") as src, open(staged, "wb") as raw, \
+                gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as out:
+            shutil.copyfileobj(src, out)
+        try:
+            return None if _gh(root, "release", "upload", TAG, str(staged),
+                               "--clobber").returncode == 0 else rel
+        finally:
             staged.unlink(missing_ok=True)
-            if up.returncode != 0:
-                print(f"  {rel} did not upload as {object_asset(sha)}")
-                failed += 1
-                continue
-            sent += 1
-    print(f"  {sent} of {len(todo)} changed member(s) uploaded on their own hash"
-          + (f"; {failed} did not, so this lock is read from the bundle" if failed else ""))
-    return failed == 0
+
+    # FOUR AT A TIME, BECAUSE `gh` SPENDS THE UPLOAD WAITING. Measured at 2.2s a member for the
+    # 124-member backfill, almost none of it this machine's — a member averages a few hundred KB
+    # against a process start and a round trip. Four is enough to hide that and few enough not to
+    # be rate-limited as one client.
+    with tempfile.TemporaryDirectory() as d:
+        with cf.ThreadPoolExecutor(max_workers=min(4, len(todo))) as pool:
+            failures = [r for r in pool.map(lambda rel: send(rel, d), todo) if r]
+    for rel in failures:
+        print(f"  {rel} did not upload as {object_asset(solid_hashes[rel])}")
+    print(f"  {len(todo) - len(failures)} of {len(todo)} changed member(s) uploaded on their own hash"
+          + (f"; {len(failures)} did not, so this lock is read from the bundle" if failures else ""))
+    return not failures
 
 
 def upload(root: Path, bundle: Path, asset: str, digest: str, size: int) -> None:
