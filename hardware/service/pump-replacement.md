@@ -22,7 +22,7 @@ gooseneck's tip. The user's part is a container under the faucet.
 | Both Kamoer pumps, [2](CART_PUMPS) heads in the deck's printed trays ([`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)) | [8](TRAY_VALVES) valves — V-C…V-J, on the two valve trays ([`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/README.md)) |
 | The four barb tubes, on the barbs they were pushed onto | [3](CAP_VALVES) valves — V-A, V-B, V-K, in the cold core's lid cradles (`_cold_core_interface.cap_cradles`) |
 | Both DC-5 spade pairs, once they are off the motor tabs | All [6](BOX_TEES) PP0208E tees — each butts a valve that stays |
-| | The collet plate, in the blind seat sunk in the bay floor's top, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
+| | The collet plate, in the slot through the bay floor, and the printed wall behind it the four tees stand in (`enclosure._tee_wall`) |
 | | Every hairpin, turn and butted stub inside the pack, and every mouth it spends on a bulkhead or a cap conduit |
 | | The funnel, in its throat; the enclosure display; the SeaFlo and both its chains; the cold core itself |
 
@@ -55,16 +55,18 @@ is drawn on — the container under the faucet is the only one the procedure ask
 
 The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
 `collet-plate.dxf`), [208.4](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
-on edge in a blind seat sunk one `wall` into the bay floor's top. The seat locates and carries
-the foot; the printed wall behind it takes the push across its whole face. The floor is not
-asked to keep the top from pitching: at the plate's
+on edge in a slot that passes clean through the bay floor and opens on front-top's own Z− face.
+The slot locates it fore and aft over the floor's whole section; the printed wall behind it
+takes the push across its whole face; front-bottom's mouth, closed under its foot, carries it.
+The floor is not asked to keep the top from pitching: at the plate's
 two outer tails, stationary L-section cheeks stand just fore of the steel and return round
 its ends into front-top's fixed aft side-wall stock. Each cheek is a wedge in plan, deepest
 where it is rooted in that side wall, so the section taking the moment stands where the
-cheek is carried and not where it is free. They remain with the enclosure while the
-cartridge moves and the four collet noses load the plate. Their channel is open upward, so
-once the cartridge is out the plate lifts straight out through the bay — no tool, no
-fastener to back off first.
+cheek is carried and not where it is free. Each cheek's crown reaches aft to the tee wall over
+the tail, and that head is what the steel was pushed up to going in. They remain with the
+enclosure while the cartridge moves and the four collet noses load the plate. **A pump swap
+never touches the steel** — it is inside the closed front column, and nothing in this
+procedure opens that.
 
 Seated, the steel stands in the berth between the barbs and the collets, and that berth is
 spent three ways: [1.025](BARB_AIR) mm of air off the barb plane, the plate's own

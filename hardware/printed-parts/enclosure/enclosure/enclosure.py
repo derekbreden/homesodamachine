@@ -591,35 +591,49 @@ def wago_swing(size="413"):
 wago_lever_clear = 1.0      # air past the swept lever, so its tip does not graze the next lug
 wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear)
 
-# --- the −X wall's MQ-6 cradle ----------------------------------------------
+# --- the −X strip's MQ-6 cradle ---------------------------------------------
 #
-# The combustible-gas sensor stands ON EDGE low in the refrigeration bay, in the open strip
-# down the −X flank beside the compressor. R-600a is half again heavier than air: it falls
+# The combustible-gas sensor lies ALONG the open strip down the −X flank, low in the
+# refrigeration bay beside the compressor. R-600a is half again heavier than air: it falls
 # off whichever brazed joint let it go and spreads as one layer over the slab, so what the
 # sensor owes that layer is HEIGHT, and the floor of this bay is one connected pool — every
-# leak site the loop has feeds it. The card sits as low as a 32 mm card stands.
+# leak site the loop has feeds it. Laid along the strip the card sits as low as a 20 mm card
+# stands, which is as low as this board goes.
 #
 # The card carries no mounting hole, so what holds it is a SLOT ITS OWN EDGES SLIDE INTO —
-# the same bargain the Wago wells strike, for the same reason. Two rails reach inboard off
-# the wall, one under the card's bottom edge and one over its top, and the card goes in
-# sideways until its west edge meets the wall: THE WALL IS THE DATUM in X, the grooves in Y
-# and Z. The bottom rail's underside is the slab itself, so the cradle comes out of the print
-# as a corner bracket in one piece with both faces it stands on, and no fastener is bought.
+# the same bargain the Wago wells strike, for the same reason. TWO POSTS STAND ON THE SLAB,
+# one at each end of the card's long run, grooved on the faces they turn toward each other,
+# and the card DROPS IN FROM ABOVE until it lands on the shoulder at the foot of each groove.
+# The grooves hold it in X and along the strip; the shoulders hold it in height.
 #
-# The can is centred on the card and reaches within half a millimetre of each short edge,
-# which is what settles the rest: the long edges are the only ones with material to grip, so
-# the rails take those and the card enters from the room rather than from above.
-mq6_rail_wall = 3.0         # rail section around the groove
+# EVERY LAYER OF THAT LANDS ON THE ONE BELOW IT. A post is rooted on the slab and on the wall
+# at once — a corner bracket in one piece with both faces it stands on, first layer on the bed,
+# nothing printed over air and no support to pick out of a groove. That is the whole reason the
+# card lies along the strip rather than across it: a card across the strip has to be caught by
+# rails reaching horizontally off the wall, and a rail reaching off a wall is a rail printed
+# over nothing.
+#
+# The can is centred on the card and reaches within half a millimetre of each long edge, which
+# is what settles the rest: only the ENDS of the long run have material clear of the can, so the
+# grooves take those and the posts stand off the can's own diameter.
+mq6_rail_wall = 3.0         # post section around the groove, and the shoulder under the card
 mq6_slot_press = 0.15       # per-side slip in the groove, the wells' own figure
-mq6_grip = 5.0              # how much of the card's long edge each groove swallows
-# The pins face the card's BACK and the loom lands on them there, so the cheek on that side
-# is cut away across the header — this is what the cut leaves either side of the pin field.
+mq6_grip = 5.0              # how much of the card's long run each groove swallows at its end
+# The pins face EAST off the card and the loom lands on them out of the bay, so the cheek on
+# that side is cut away across the header — this is what the cut leaves either side of the pin
+# field.
 mq6_header_relief = 2.0
-# The card's own axes in the wall's frame. It stands on edge, so the card's long side is its
-# height and its short side is the whole reach inboard off the wall.
-mq6_card_x = _mq6.PCB_Y     # 20 — reach inboard, the card's short side
-mq6_card_y = _mq6.PCB_T     # 1.6 — the card itself, what the groove grips
-mq6_card_z = _mq6.PCB_X     # 32 — height, the card's long side
+# The card's own axes in the strip's frame. It lies along the strip with its plane parallel to
+# the flank, so its long side runs fore-aft, its short side is the height, and the whole of what
+# it spends across the strip is its own thickness.
+mq6_card_x = _mq6.PCB_T     # 1.6 — the card itself, what the groove grips
+mq6_card_y = _mq6.PCB_X     # 32 — the long run down the strip
+mq6_card_z = _mq6.PCB_Y     # 20 — height, the card's short side
+# And the can's, which is the only part of the board that reaches into the flank's own section.
+# It bottoms in a well cut back to `lip_face_x` (`_front_bottom_flank_skin`), so THE WALL IS
+# STILL THE DATUM IN X and what stands the card off it is the can's own height.
+mq6_can_x = _mq6.CAN_H      # 14 — the standoff, west face of the card to the well's floor
+mq6_can_yz = _mq6.CAN_D     # 19 — what the well opens, and the run the posts keep clear of
 
 # --- the condenser block's four flanges -------------------------------------
 #
@@ -1585,8 +1599,9 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
-#   west_cradle   the −X wall's MQ-6 card slot, (y, z, y0, y1, z0, z1) — the card's plane
-#                 and its centre, then the card's own footprint, which is what the flank wells
+#   west_cradle   the −X strip's MQ-6 card slot, (x, y, z) — the card's own mid-plane, and its
+#                 centre along the strip and in height. The can's silhouette is read off the
+#                 reference module round that centre, and is what the flank wells
 #   cond_cradle   the front wall's condenser rails, one (face, x0, x1, fz0, fz1, root) per fore
 #                 flange — the plane the block's fore face rests on, that flange's width, its
 #                 two faces in height, and how far the rail runs down under it
@@ -3923,21 +3938,27 @@ def _lip_underwall(inner, y_joint, zj):
 
 def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
     """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, WELLED on the
-    west where the MQ-6 stands.
+    west where the MQ-6's can reaches into it.
 
-    The strips are struck like back-bottom's. The well is the card's own footprint off the
-    station (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, so the card
-    still slides west onto `lip_face_x` and the can keeps the room it had. Cut here rather than
-    left to the cradle, because what the cradle builds is rails standing on a face and this is
-    the face they stand on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is
-    the condenser's block, and the block is stood off this very face."""
+    The strips are struck like back-bottom's. THE WELL IS THE CAN AND NOT THE BOARD: the card
+    itself stands the can's whole height off this flank and never enters the section, and what
+    does enter is one Ø`mq6_can_yz` cylinder — so the well is that silhouette off the station
+    (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, and the can bottoms on
+    `lip_face_x` at the back of it.
+
+    AND IT IS A CHUTE, not a pocket. The card comes down into its posts from above, carrying the
+    can with it, so the well runs from the can's seat clear up to the seam mouth: a well closed
+    over the can's crown is a well the can cannot enter. Cut here rather than left to the cradle,
+    because what the cradle builds is posts standing on a face and this is the face they stand
+    on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is the condenser's block,
+    and the block is stood off this very face."""
     lx0, lx1 = lip_face_x()
     fx0, fx1 = front_bottom_flank_face()
     west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
-    for _sy, _sz, by0, by1, bz0, bz1 in west_cradle:
+    half = mq6_can_yz / 2.0 + mq6_slot_press
+    for _sx, sy, sz in west_cradle:
         west = west.cut(_ybox(lx0 - 1.0, fx0 + 1.0,
-                              by0 - mq6_slot_press, by1 + mq6_slot_press,
-                              bz0 - mq6_slot_press, bz1 + mq6_slot_press))
+                              sy - half, sy + half, sz - half, zj + 1.0))
     return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
 
 
@@ -4855,6 +4876,9 @@ def grip_figures(box):
         "GRIP_TRAVEL": f"{y0 - (box.inner[2] + _column_along()):.4g} mm",
         "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
         "GRIP_RAKE_FORE": f"{grip_rake * deep:.4g} mm",
+        "PLATE_SLOT_LEAD": f"{plate_slot_lead:.4g} mm",
+        "PLATE_STEP_IN": f"{plate_step_in():.4g} mm",
+        "PLATE_STEP_Z": f"{seam_cap_z():.4g} mm",
         "PLATE_GUIDE_WEDGE": f"{plate_guide_wedge:.4g} mm",
         "PLATE_GUIDE_CROWN": f"{plate_guide_crown:.4g} mm",
         "PLATE_GRIP_BASE_OPEN": f"{guide_y_inner - y0:.4g} mm",
@@ -5675,47 +5699,57 @@ def _chase_channel(inner, stations, zj, y_joint, plate):
 
 
 def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
-    """The −X wall's MQ-6 card slot added to a PIECE, for the stations inside the depth and
+    """The −X strip's MQ-6 card slot added to a PIECE, for the stations inside the depth and
     height band that piece owns — the same band test `_side_wells` makes.
 
-    Each station is `(y, z)`: the card's own plane, and its centre in height. Nothing else is
-    passed, because nothing else varies — the slot is one board's envelope and one slip fit,
-    read off the reference solid.
+    Each station is `(x, y, z)`: the card's own mid-plane, and its centre along the strip and in
+    height. Nothing else is passed, because nothing else varies — the slot is one board's
+    envelope and one slip fit, read off the reference solid.
 
-    Two rails reach inboard off the wall's inner face, grooved on the faces they turn toward
-    each other, and the card slides west between them until its west edge meets the wall.
-    What stops it is the wall itself, the way a lever nut bottoms in its well — so the card's
-    reach into the room is the card's own short side and not a number typed here. The bottom
-    rail's underside is the slab, which is what makes this a corner bracket rather than a
-    shelf: it is in one piece with both faces it stands on.
+    TWO POSTS STAND ON THE SLAB, one at each end of the card's long run, rooted on the wall as
+    well and grooved on the faces they turn toward each other. The card DROPS IN FROM ABOVE and
+    lands on the shoulder at the foot of each groove — so a groove is blind at the bottom and
+    open at the top, and the whole cradle grows UP off the slab: first layer on the bed, every
+    layer after it on the one below, nothing over air and no support to pick out of a groove.
+    That is what standing the card along the strip buys, and it is why it lies that way.
 
-    THE BACK CHEEK IS CUT ACROSS THE HEADER. The pins face the card's back and the loom lands
-    on them there, so a cheek running unbroken past them is a cheek nothing can reach through.
-    The cut is struck on the pin field's own reach off the wall and runs both rails, because
-    which of the two the header ends up in is the card's turn to state and not this slot's.
+    THE POSTS STAND OFF THE CAN'S OWN DIAMETER. The can is centred on the board and leaves only
+    the ends of the long run clear, so `mq6_grip` is swallowed at each end and the two posts
+    close no nearer the middle than that — the reach is the card's and the can's, not a number
+    typed here.
 
-    THE WALL IT BOTTOMS ON IS THE ONE THAT IS THERE. The card stands as low as a 32 mm card
-    stands, which is under a Z seam, and a flank under a seam carries its lip's own wall down
-    to the slab — so the datum is `lip_face_x` and not `interior_x`, `2 * wall` of flank and
-    not one. `enclosure_assembly.build_mq6` seats the card on the same call."""
+    THE EAST CHEEK IS CUT ACROSS THE HEADER. The pins face east off the card and the loom lands
+    on them out of the bay, so a cheek running unbroken past them is a cheek nothing can reach
+    through. The cut is struck on the pin field's own run and takes BOTH posts, because which
+    end of the card the header lands at is the card's turn to state and not this slot's.
+
+    THE WALL IT IS STRUCK FROM IS THE ONE THAT IS THERE. The card stands under a Z seam, and a
+    flank under a seam carries its lip's own wall down to the slab — so the datum is
+    `lip_face_x` and not `interior_x`, `2 * wall` of flank and not one. The can bottoms on that
+    plane, through the well `_front_bottom_flank_skin` opens for it, and
+    `enclosure_assembly.build_mq6` seats the card on the same call."""
     span, _off = _mq6.header_span()
-    for sy, sz, *_foot in stations:
+    for sx, sy, sz, *_foot in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        cx0, cx1 = lip_face_x()[0], lip_face_x()[0] + mq6_card_x
-        gy0 = sy - mq6_card_y / 2.0 - mq6_slot_press
-        gy1 = sy + mq6_card_y / 2.0 + mq6_slot_press
-        ry0, ry1 = gy0 - mq6_rail_wall, gy1 + mq6_rail_wall
+        gx0 = sx - mq6_card_x / 2.0 - mq6_slot_press
+        gx1 = sx + mq6_card_x / 2.0 + mq6_slot_press
+        px0, px1 = lip_face_x()[0], gx1 + mq6_rail_wall
         zb, zt = sz - mq6_card_z / 2.0, sz + mq6_card_z / 2.0
-        solid = solid.fuse(_ybox(cx0, cx1, ry0, ry1, zb - mq6_rail_wall, zb + mq6_grip))
-        solid = solid.fuse(_ybox(cx0, cx1, ry0, ry1, zt - mq6_grip, zt + mq6_rail_wall))
-        # Both grooves run out past the rails' inboard end, so the card enters from the room.
-        solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, gy0, gy1, zb, zb + mq6_grip + 1.0))
-        solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, gy0, gy1, zt - mq6_grip - 1.0, zt))
-        hx = (cx0 + cx1) / 2.0
-        solid = solid.cut(_ybox(hx - span - mq6_header_relief, hx + span + mq6_header_relief,
-                                ry0 - 1.0, gy0,
-                                zb - mq6_rail_wall - 1.0, zt + mq6_rail_wall + 1.0))
+        ends = ((sy - mq6_card_y / 2.0, 1.0), (sy + mq6_card_y / 2.0, -1.0))
+        for end, into in ends:
+            # The post: slab to the card's own crown, rooted on the wall over its whole depth.
+            pa, pb = sorted((end - into * mq6_rail_wall, end + into * mq6_grip))
+            solid = solid.fuse(_ybox(px0, px1, pa, pb, inner[4], zt))
+            # And its groove, open at the top so the card comes in from above and blind at the
+            # bottom so it lands: what it lands ON is the post's own first `mq6_rail_wall`.
+            ga, gb = sorted((end - into * mq6_slot_press, end + into * (mq6_grip + 1.0)))
+            solid = solid.cut(_ybox(gx0, gx1, ga, gb, zb, zt + 1.0))
+        solid = solid.cut(_ybox(gx1, px1 + 1.0,
+                                ends[0][0] - mq6_rail_wall - 1.0,
+                                ends[1][0] + mq6_rail_wall + 1.0,
+                                sz - span - mq6_header_relief,
+                                sz + span + mq6_header_relief))
     return solid
 
 
@@ -7447,8 +7481,8 @@ def main():
         "DISPLAY_INSET_X": f"{display_inset_x:.4g} mm",
         "DISPLAY_INSET_SLOPE": f"{display_inset_slope:.4g} mm",
         "DISPLAY_SCREW_X": f"{display_screw_x:.4g} mm",
-        "MQ6_CARD_T": f"{mq6_card_y:.4g} mm",
-        "MQ6_SLOT_OPEN": f"{mq6_card_y + 2 * mq6_slot_press:.4g} mm",
+        "MQ6_CARD_T": f"{mq6_card_x:.4g} mm",
+        "MQ6_SLOT_OPEN": f"{mq6_card_x + 2 * mq6_slot_press:.4g} mm",
         "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
         "CORE_STOP_BORE": (f"{2.0 * (box.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
                            if box.core_stops else "no station"),

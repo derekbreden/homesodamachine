@@ -834,8 +834,8 @@ def mq6_cradle(carry):
     the reference module itself.
 
     STRUCK ON `mq6_gas_sensor.card_plane` and not on the placed box, because the box is the pins
-    and the can as well, and its centre is 4 mm west of the card they hang off. The slot cannot
-    land anywhere but on the card."""
+    and the can as well, and the two are not the same depth — its centre stands west of the card
+    they hang off. The slot cannot land anywhere but on the card."""
     pos = carry(_mq6.card_plane())[0]
     return ((pos[0], pos[1], pos[2]),)
 
@@ -2346,7 +2346,10 @@ def check_slides(pieces, box) -> None:
 # carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
+# THE COLLET PLATE IS ONE OF THESE. It goes into front-top through that piece's Z− face
+# before the column closes (`enclosure._plate_slot`), so the steel is in the lane the
+# rails sweep and this is the reading that holds it out of them.
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-", "collet-plate")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump, its two made-up chains, and the
 # three cap-cradled valves with their coils and port stubs. They sweep with the core,
@@ -2355,12 +2358,11 @@ CORE_RIDERS = ("seaflo-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
                "coil-v-a", "coil-v-b", "stub-fluid-2", "stub-fluid-4",
                "discharge-chain", "suction-chain")
 # And what is NOT in the box at all when the core rides in: the pan and its plate come
-# through the −X wall after, the pump cartridge and its steel later still, and every
-# crossing run is internal-plumbing's, made up at the mouth. Everything else in the
-# back — the chain, the meter, the wall electronics, the bulkheads and their rings —
-# rides back-top or clamps its walls and is already standing, which is what the sweep
-# is against.
-CORE_RIDE_LATER = ("foam-assembly", "moisture-plate", "collet-plate",
+# through the −X wall after, the pump cartridge later still, and every crossing run is
+# internal-plumbing's, made up at the mouth. Everything else in the back — the chain,
+# the meter, the wall electronics, the bulkheads and their rings — rides back-top or
+# clamps its walls and is already standing, which is what the sweep is against.
+CORE_RIDE_LATER = ("foam-assembly", "moisture-plate",
                    "funnel", "nameplate", "asse-drip-pan")
 CORE_RIDE_RUNS = ("tube-", "turn-", "step-")
 
@@ -5922,7 +5924,7 @@ def build_pack() -> cq.Assembly:
     # lands, the way every well on the other flank is struck on its lug.
     mq6, mq6_carry = build_mq6(comp, cond)
     a.add(mq6, name="mq6-sensor", color=C_MQ6)
-    a.west_cradle = mq6_cradle(mq6_carry, mq6)
+    a.west_cradle = mq6_cradle(mq6_carry)
     # The cutoff goes down with the compressor too, and for the same reason the sensor does:
     # its whole job is a temperature, and the temperature it reads is the one at the face it
     # is lying on.
