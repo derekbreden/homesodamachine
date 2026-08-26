@@ -5,10 +5,13 @@
     tools/cad-venv/bin/python tools/publish_now.py --check    say what it would do, touch nothing
 
 THE LAPTOP IS THE PATH AND THE RUNNER IS THE RECONCILER. `pack.py --write` builds what is owed,
-uploads the bundle and pins the lock, and moving the lock is what Render deploys on. A CAD
-change that waits for CI to do that instead is measured at 5.7 minutes from commit to visible,
-4.2 of them spent between the commit and the runner's lock push; the same publish from here
-reaches the site in about two.
+uploads the bundle and pins the lock. A CAD change that waits for CI to do that instead is
+measured at 5.7 minutes from commit to visible, 4.2 of them spent between the commit and the
+runner's lock push.
+
+PINNING THE LOCK DEPLOYS NOTHING. It is not among `render.yaml`'s buildFilter paths: the
+running container adopts a lock that moved and pushes the changed members to open pages.
+`tell_the_site()` below is what makes that immediate rather than a poll away.
 
 OWED IS READ BEFORE ANYTHING IS BUILT, AND IT IS TWO QUESTIONS. `affected.py --artifacts` from
 the commit the lock names to HEAD reads SOURCE, and is the only one that sees a change whose
@@ -34,6 +37,7 @@ import os
 import subprocess
 import sys
 import time
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"],
@@ -105,6 +109,27 @@ def repair_flutes() -> None:
           "  recut did not settle them; publishing what the tree holds")
 
 
+def tell_the_site() -> None:
+    """Ask the running site to look at the lock now, rather than at its next poll.
+
+    THE LOCK IS NOT IN `render.yaml`'s buildFilter, so pinning it deploys nothing — the container
+    adopts it in place and pushes the changed members to open pages. It finds out on a two-minute
+    poll on its own; this is what makes the usual case seconds instead.
+
+    IT CARRIES NOTHING AND IS TRUSTED WITH NOTHING. The site reads the lock from GitHub either
+    way, so this says only "look now". A post that does not arrive costs a poll, which is why
+    nothing here is retried and nothing here fails a publish.
+    """
+    try:
+        urllib.request.urlopen(
+            urllib.request.Request("https://homesodamachine.com/api/artifacts/refresh",
+                                   data=b"", method="POST"),
+            timeout=10).read()
+        print("  the site is looking")
+    except Exception as e:  # noqa: BLE001 — a site that did not answer still polls
+        print(f"  could not reach the site ({e}); it polls every 2 min")
+
+
 def publish() -> int:
     started = time.time()
     repair_flutes()
@@ -129,6 +154,7 @@ def publish() -> int:
         print("  the lock did not commit", file=sys.stderr)
         return 1
     print(f"  lock pinned and pushed ({time.time() - started:.0f}s)")
+    tell_the_site()
     return 0
 
 

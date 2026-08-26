@@ -9,10 +9,10 @@
 # to the site beside it, so a red gate is the signal arriving rather than a reason to hold the
 # thing carrying it.
 #
-# THE SITE DEPLOYS WHEN THE LOCK MOVES IN A PUSH — `render.yaml`'s buildFilter names
-# `hardware/cad-artifacts.lock.json`, and `pack.py --write` cuts, uploads and pins from any
-# machine. So the path a change takes to Derek is: build the changed target here, `--write`,
-# push. CI publishes too, and what it is for is catching what that missed while nobody waits.
+# A CUT REACHES THE SITE WHEN THE LOCK NAMES IT — `pack.py --write` cuts, uploads and pins from
+# any machine, and the running container adopts the lock without a deploy. So the path a change
+# takes to Derek is: build the changed target here, `--write`, push. CI publishes too, and what
+# it is for is catching what that missed while nobody waits.
 #
 # WHAT THESE ARE FOR: naming a fault while the author is still here, so it has a name before the
 # build says it in its own words. That is worth a second. It is not worth a commit.
