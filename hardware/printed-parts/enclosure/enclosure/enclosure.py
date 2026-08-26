@@ -6070,9 +6070,13 @@ def _core_stops(solid, inner, stations, y0, y1, z0, z1):
         tip = inner[4] + core_stop_rise
         solid = solid.fuse(_ybox(min(lap, wall_x), max(lap, wall_x),
                                  face - core_stop_web, cy, inner[4], tip))
+        # The fuse above already welds the block to the slab at `inner[4]`, so that plane is
+        # no longer a face of `solid` there — the notch's floor wants no overshoot past it, only
+        # the block's own free top (`tip`) does. A cutter reaching below `inner[4]` would carve
+        # into the slab itself rather than the block that stands on it.
         solid = solid.cut(_ybox(min(lap, cx), max(lap, cx), face, cy + 1.0,
-                                inner[4] - 1.0, tip + 1.0))
-        solid = solid.cut(_zcyl(r + slip, cx, cy, inner[4] - 1.0, tip + 1.0))
+                                inner[4], tip + 1.0))
+        solid = solid.cut(_zcyl(r + slip, cx, cy, inner[4], tip + 1.0))
     return solid
 
 
