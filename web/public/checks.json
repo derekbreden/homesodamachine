@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
-      "note": "✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): Faucet display cover plate",
-      "status": "red"
+      "note": "✓ pin map in sync: pinout, sync drivers, and BOM all agree with the main board.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
@@ -61,12 +61,6 @@
       "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_pinmap.py": [
-      "board GPIOs in use: 23 | documented: 23 (free: 3) | cross-table fns: 14",
-      "DRIFT: 1 mismatch(es) between the main board and a derived artifact:",
-      "  ✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): Faucet display cover plate"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
