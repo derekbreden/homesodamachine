@@ -5452,7 +5452,10 @@
       "hardware/printed-parts/cadlib/world_workplane.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/faucet/_faucet_interface.py",
+      "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+      "hardware/printed-parts/faucet/faucet-display-cover/README.md",
       "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py",
       "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_materials.py",
@@ -5461,9 +5464,16 @@
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py"
     ],
-    "rewritten": [],
+    "rewritten": [
+      "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+      "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py"
+    ],
     "writes": [
-      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step"
+      "hardware/printed-parts/faucet/faucet-display-cover/README.figures.json",
+      "hardware/printed-parts/faucet/faucet-display-cover/README.md",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step",
+      "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py"
     ]
   },
   "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": {
