@@ -143,14 +143,18 @@ head-on one `slide_slip` behind it — the same telescoping mate the box always 
 arrived at along Y instead of dropped into.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [48 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
 [114 mm](RAIL_RUN_BACK) and [92 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron.
-A run ends at its **horizon**: everything the top piece carries aft of the run sweeps
-the whole travel fore along the flank on the way in, so the rail can reach only half way
-to the first station that piece cannot open a channel through — the **Y-seam tongue's own
-fore face** on the front column, which crosses the seam at full section, and the rear
-skin and its corner round, show surface, on the back. The −X back run stops sooner still,
+**The two columns end their runs on different things.** Aft of the front run the top
+piece carries nothing but its own seam band and the Y-seam tongue, and both are inboard
+surfaces the channel may cut — so that lane runs clear off the piece's aft end, nothing is
+left to sweep around, and the run reaches its own structural limit: `wall + z_lip_y_margin`
+short of the joint, where the Y telescope's overlap begins and the Z lip must stop. The
+back column's aft end is the rear skin and its corner round, SHOW surface that no channel
+opens, so that run ends at a **horizon** instead — everything the top carries aft of it
+sweeps the whole travel fore along the flank, so the rail reaches only half way to the
+first station it cannot open. The −X back run stops sooner still,
 `slide_slip` fore of the PRV chase's rib, taking its stop block mid-flank.
 **Both tops escape FORE, the way they went on.** Back-top's escape runs into front-top,
 which stands in it. Front-top's runs into open air, and what holds it there is the Y
@@ -171,11 +175,12 @@ Every sliding face is vertical or horizontal, and the top's outer skin keeps its
 two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
 sweep along; the top piece stands off that whole band and its pillar regrows above on the
 45° pair every ceiling over a void here closes at. **The channel is the run's own span
-and the sweep aft of it**, and no further: what a station of the sliding piece has to
-clear is the head, so the lane behind the stop block is carried at full section as far as
-the **Y-seam tongue's fore face** — which the horizon has already put beyond the sweep's
-reach. So the tongue crosses the seam at its own full section, and everything nearer than
-it comes out of the lane clear.
+and the sweep aft of it**: what a station of the sliding piece has to clear is the head,
+so behind the stop block the lane is carried at **full section right off the front piece's
+aft end**, through the Y-seam tongue's own flank segment and past its tip. The flank's
+mouth band comes out as one unbroken rebate with no blunt face standing in it, and the
+tongue crosses the seam at full section **above the gable** — which is the height the Y
+telescope bears on.
 
 **And the slide is proved, not asserted.** `_report_slide` sweeps each built top from full
 entry to home against its built bottom — a ladder of stations, dense where the joint
@@ -961,8 +966,9 @@ in the band (`plate-holes-centred`). Over [177.8 mm](PLATE_STEP_Z) its ends stan
 `PLATE_END_AIR` off the side walls and the outline is whole between them: the one thing that
 ever stood proud of the floor down these flanks was the side lip, and it is given up over this
 whole run. Between the floor's top and that plane each end **steps in** [6.8 mm](PLATE_STEP_IN)
-from the wall — the steel rides in front-top through the front column's slide, and everything
-fore of the stop blocks sweeps the rails there, which `z-slide-front-lanes` is the reading of.
+from the wall — under that plane the steel is standing in the Z seam's own storey, and that
+band down each flank is the joint's, groove to arm to head. It rides in front-top through the
+whole of the front column's slide, which `z-slide-front-lanes` is the reading of.
 Under the floor's top it draws in another [6 mm](PLATE_SEAT_LAND) to make the foot. The outline
 is a waterjet cut and `build_collet_plate` writes it into `collet-plate.dxf` with the holes.
 
