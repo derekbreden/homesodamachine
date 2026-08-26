@@ -1,55 +1,15 @@
 name: publish
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - hardware/**
-      # Generated viewer verdicts move only in the same commit as their artifact lock.
-      - '!hardware/**/*.scorecard.json'
-      - '!hardware/quickstart/studies/**'
-      # The *.html scan declares this directory entry, but the renderer never opens its bytes.
-      - '!hardware/quickstart/README.md'
-      - '!hardware/quickstart/art/**'
-      - '!hardware/quickstart/quick-start.cover.png'
-      - '!hardware/quickstart/quick-start.pdf'
-      - '!hardware/quickstart/quick-start.pdf.json'
-      - tools/bazel/**
-      - '!tools/bazel/affected.py'
-      - tools/cad-artifacts/**
-      - tools/cad-venv-site/**
-      - tools/ci-image/**
-      - tools/docgen/**
-      - tools/render/**
-      # `web/**` stays: `render-step-posed-runtime` and `cad-art` stand this viewer to
-      # draw the assembly cards, so a change to it is a change to those pictures. `updates/**`
-      # and `render.yaml` are srcs of no rule in BUILD.bazel and reach the site on their own
-      # push, so a run here would cut nothing and deploy nothing.
-      - web/**
-      - .dockerignore
-      - BUILD.bazel
-      - MODULE.bazel
-      - MODULE.bazel.lock
-      - .bazelrc
-      - .bazelversion
-      - tools/cad-requirements.txt
-      # THE FLAVOUR ARTWORK IS THE FIRMWARE'S. `quickstart_art.py` reads these two headers and
-      # draws `art/flavor-1.png` and `art/flavor-2.png` from them, and both are tracked — so
-      # off this list a changed icon leaves twenty-two committed pictures standing, with no run
-      # to read and nothing red. Only the images: the rest of `firmware/**` cuts no CAD and
-      # pays nothing.
-      - firmware/src_faucet/images/**
-      # `_install_envelope_sync` writes its own page AND is read by
-      # `assembly/_faucet_and_umbilical_sync`, whose output is tracked hardware doc.
-      - marketing/_install_envelope_sync.py
-      - marketing/install-envelope.md
-      # THIS FILE, BECAUSE A PUBLISH IS THE ONLY THING THAT RUNS IT AND IT DECIDES WHEN A
-      # PUBLISH RUNS. Without this line a commit that touches nothing else cannot start the
-      # run it changes — so a repair to this workflow sits in main, unexercised, and the next
-      # push to reach CI is the first that carries it. A mistake in this filter is the one
-      # kind that hides itself: it makes itself untestable.
-      - .github/workflows/publish.yml
-      - '!hardware/cad-artifacts.lock.json'
+  # NOT ON PUSH. `publish_now.py` cuts and pins from the machine that changed the tree,
+  # detached from `.githooks/post-commit`, and the running container adopts the lock it
+  # writes without a deploy — a lock commit reached homesodamachine.com in 17s, measured
+  # 2026-08-26. A run here lands the same lock minutes later under a commit this checkout
+  # never made, and a local commit made in that window is replayed onto it: reconciliation
+  # that costs the thing it reconciles.
+  #
+  # `cad-image.yml` and `derive.yml` start this by hand, and it is the lane for a cut the
+  # laptop cannot make.
   workflow_dispatch:
     inputs:
       targets:
@@ -589,15 +549,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          quickstart_outputs=(
-            hardware/quickstart/quick-start.cover.png
-            hardware/quickstart/quick-start.pdf
-            hardware/quickstart/quick-start.pdf.json
-          )
-          mapfile -t quickstart_art_outputs < <(
-            tools/cad-venv/bin/python -c \
-              'import json; [print(path) for path in json.load(open("tools/bazel/graph.json"))["hardware/quickstart/quickstart_art.py"]["writes"]]'
-          )
           mapfile -t sidecar_outputs < <(
             tools/cad-venv/bin/python -c \
               'import json; [print(path) for path in json.load(open("hardware/cad-artifacts.lock.json")).get("sidecars", {})]'
@@ -660,12 +611,9 @@ jobs:
           if [ "${#retired_sidecar_outputs[@]}" -gt 0 ]; then
             git add -u -- "${retired_sidecar_outputs[@]}"
           fi
-          if [ "${{ steps.scope.outputs.quickstart }}" = true ]; then
-            git add -- "${quickstart_outputs[@]}"
-          fi
-          if [ "${{ steps.scope.outputs.quickstart_art }}" = true ]; then
-            git add -- "${quickstart_art_outputs[@]}"
-          fi
+          # The Quick Start's sheet and pictures are members of the bundle `pack.py --write`
+          # just uploaded, and `.gitignore` holds them out of the index. Staging them here is
+          # `git add` against an ignored path.
           if git diff --cached --quiet; then
             echo "the lock and canonical Quick Start already cover this source"
             exit 0
