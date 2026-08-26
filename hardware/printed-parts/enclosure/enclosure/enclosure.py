@@ -6440,7 +6440,14 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
     Struck before the per-seat sockets and port channels below, so a station that already
     breaks the plate's own edge breaks the corbel the same way. A footed plate's own near/far
     never brackets `wall_aft_y` (it stands on a different wall entirely), so this is a
-    no-op there rather than a case split."""
+    no-op there rather than a case split.
+
+    THE SOCKET AND THE CHANNEL ANSWER FOR THE POSTS AND THE PORT, NOT FOR THE BODY BEHIND THEM.
+    Both cuts are sized to what they carry and no wider, so a fuse struck after them (the root
+    corbel above) is cut on its own account by `valve_tray.build_body_clearance` — the valve's
+    own boss, posts and top box, grown one `PORT_SLIP` — wherever a station's own transform
+    puts it, whether or not that station's plate stands anywhere near the wall the corbel
+    roots on."""
     for plane, sign, seats in stations:
         zs = [z for _x, z in seats]
         mid_z = (min(zs) + max(zs)) / 2.0
@@ -6476,6 +6483,7 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1, wall_aft_y=None):
                            -90.0 if sign > 0 else 90.0)
         for sx, sz in seats:
             at = cq.Location(cq.Vector(sx, plane, sz))
+            solid = solid.cut(_valve_tray.build_body_clearance().val().moved(turn).moved(at))
             solid = solid.cut(_seat.build_sockets().val().moved(turn).moved(at))
             chan = _valve_tray.height() if not footed else max(
                 _valve_tray.height(), 2.0 * (sz - foot_z0))
