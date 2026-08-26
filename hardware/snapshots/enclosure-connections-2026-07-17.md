@@ -5,9 +5,9 @@
 `foam-assembly` (cold core), `compressor-shroud`, `condenser+fan` — evaluated for whether
 their positions and rotations serve the connections each must make. Re-running this against a
 later pack produces a fresh dated file. The durable rules are in
-[`requirements.md`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md); the
+[`requirements.md`](https://github.com/derekbreden/homesodamachine/blob/c4a5a2be93018addd8d28b7f508c6550c42bd501/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md); the
 executable form is the `located` axis + `PORTS` in
-[`scorecard.py`](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py).
+[`scorecard.py`](https://github.com/derekbreden/homesodamachine/blob/c4a5a2be93018addd8d28b7f508c6550c42bd501/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py).
 
 Coordinate frame: **+X right, +Y back, +Z up**, origin at the lower-front-left corner.
 
