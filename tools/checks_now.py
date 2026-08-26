@@ -4,38 +4,29 @@
     tools/cad-venv/bin/python tools/checks_now.py           read this tree, commit what changed
     tools/cad-venv/bin/python tools/checks_now.py --check    say what it would do, touch nothing
 
-A CHECK NOBODY RUNS IS A CHECK THAT DOES NOT EXIST. `tools/checks.py` was written so a red
-would be visible without someone deciding to look, and wired into `derive.yml`, which is
-`workflow_dispatch` — so it ran nowhere, and two checks stood red for a day and a half with
-nothing anywhere saying so. This is the caller that makes it true: the commit that changes the
-tree is what asks the tree how it is doing.
+`post-commit` runs this detached beside `publish_now.py`, so the commit that changes the tree is
+what asks the tree how it is doing. `tools/checks.py` against the tree is 7-27 seconds here and
+takes no build lock.
 
-THE ANSWER GOES TO THE SITE, BECAUSE THAT IS THE SURFACE THAT IS READ. `web/public/checks.json`
-is under `render.yaml`'s buildFilter, so committing it deploys, and `web/lib/shell.js` draws a
-red band on every page while any check is red and nothing at all while none is. A terminal line
-in a detached log is a place a red can sit unread, which is the failure this replaces.
+THE ANSWER GOES TO THE SITE. `web/public/checks.json` is under `render.yaml`'s buildFilter, so
+committing it deploys, and `web/lib/shell.js` draws it as a pill on every page — `✗ Checks`
+carrying each red check's last lines, `✓ Checks` when none is.
 
-IT REPORTS AND HOLDS NOTHING. The commit is already made and pushed by the time this runs; a
-red is a reading that rides to the site, never a reason to keep the tree from reaching it.
-CLAUDE.md, "Nothing withholds".
+IT REPORTS AND HOLDS NOTHING. The commit is made and pushed before this starts, and a red rides
+to the site with it. CLAUDE.md, "Nothing withholds".
 
 ONE AT A TIME, AND THE LAST REQUEST WINS — `publish_now.py`'s arrangement, for its reason.
 Several sessions commit at once, so a second invocation marks the running one to read again
 rather than queueing behind it, and what gets reported is the newest tree.
 
-THE TREE IS BEING WRITTEN WHILE IT IS READ, AND THE READING SAYS SO BY BEING TAKEN AGAIN. Six
-sessions edit this checkout and `publish_now.py` runs from the same hook, recutting payloads
-while this reads them — so a verdict can name a red that a repair already fixed, or miss one
-that landed a second later. Every commit takes another reading, which is the only thing that
-could be true of a tree nobody is holding still. Coupling this to the publish would buy a
-tidier answer for a wait of up to four minutes, and a reading that is late is a reading nobody
-acts on.
+THE TREE IS WRITTEN WHILE IT IS READ. Six sessions edit this checkout, and `publish_now.py` runs
+from the same hook and recuts payloads mid-read — so a verdict can name a red a repair has
+already fixed, or miss one that landed a second later. Every commit takes another reading.
 
 THE RECURSION ENDS ON THE MESSAGE, NOT ON THE BYTES. This commits, and a commit runs
-`post-commit`, which runs this. An unchanged verdict writes identical bytes and stops there —
-but a check whose output carries anything volatile would not, and would push a commit for every
-commit forever. So a tree whose HEAD is already one of these is left alone: the reading it
-carries was taken from the same content, and taking it again answers nothing.
+`post-commit`, which runs this. An unchanged verdict writes identical bytes and stops there; a
+check whose output carried anything volatile would not. So a tree whose HEAD is already one of
+these is left alone — that reading was taken from this same content.
 """
 
 from __future__ import annotations
@@ -88,9 +79,8 @@ def land() -> int:
     `--no-verify` skips the pre-commit re-derive, which has nothing to say about a reading.
 
     THE INDEX IS SHARED AND SO IS THE RACE. `publish_now.py` runs detached from the same hook
-    and commits the lock, so both can reach `index.lock` at once. A loss here is not a failure
-    worth reporting as one: the next commit in this tree runs this again, off content that has
-    not changed, and lands the same reading.
+    and commits the lock, so both can reach `index.lock` at once. Three tries, then the next
+    commit in this tree takes the reading again off content that has not moved.
     """
     for attempt in range(3):
         run(["git", "add", REL], quiet=True)

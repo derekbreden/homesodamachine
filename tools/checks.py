@@ -9,10 +9,9 @@ FOUND BY GLOB, NOT BY LIST. `check_*.py` under `hardware/scripts/`, `tools/` and
 is the whole set, so a check added tomorrow is run tomorrow. A list is a second place to
 remember, and the thing being guarded here is checks nobody remembers to run.
 
-`--json` CARRIES NO CLOCK, AND THAT IS WHAT MAKES IT COMMITTABLE. Durations and a run time are
-in the terminal reading and not in the file, so an unchanged tree writes byte-identical bytes
-and `checks_now.py` finds nothing to commit. A verdict that differed every run would push a
-commit every run, and the site would deploy on the clock rather than on the reading.
+`--json` CARRIES NO CLOCK. Durations and a run time are in the terminal reading and not in the
+file, so an unchanged tree writes byte-identical bytes and `checks_now.py`, which commits it,
+finds nothing to commit.
 
 A SELFTEST AND A CHECK ANSWER DIFFERENT QUESTIONS. `selftests.json` registers four of these and
 `tools/bazel/selftest.sh` runs `<script> selftest` — the script's own rules held against
@@ -53,9 +52,8 @@ def checks() -> list:
 def verdict(rows: list, red: list) -> dict:
     """The reading with nothing volatile in it, for the file the site serves.
 
-    NO DURATIONS AND NO TIMESTAMP. What a check took is a fact about this machine at this
-    moment; what it found is a fact about the tree, and only the second one is worth a commit.
-    The commit's own date says when, which is the same answer from a source that cannot drift.
+    NO DURATIONS AND NO TIMESTAMP: what each check found, and nothing about the machine that
+    ran it. When the reading was taken is the date of the commit carrying it.
     """
     detail = {}
     for rel, out, err in red:
