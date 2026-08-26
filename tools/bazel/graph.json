@@ -5656,6 +5656,7 @@
   },
   "hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py": {
     "reads": [
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
       "hardware/printed-parts/zone-c/funnel-mold/README.figures.json",
       "hardware/printed-parts/zone-c/funnel-mold/README.md",
