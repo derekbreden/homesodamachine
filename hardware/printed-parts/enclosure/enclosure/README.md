@@ -127,8 +127,13 @@ no screw anywhere on it.** Down each flank's **straight run** the bottom piece r
 **arm** on its mouth, standing one [0.2 mm](SLIDE_SLIP) inboard of the top's own wall,
 and the arm's **head** steps [2 mm](HOOK_LAP) back out over the **groove** between them.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
-[4 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
-the head, closing back to the full wall on a 45° roof. The top **enters over the open
+[8.7 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
+the head, closing back to the full wall on a 45° roof. The storey is [14.8 mm](Z_RISE)
+mouth to rim, and **the flavour deck is its ceiling** — the rim stands under the lowest
+valve plate (`z-seam-under-deck`), which is the whole height the box has to spend here.
+It buys the groove first: [8.9 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
+with 5.9 mm of head over the catch. That height is the Z seam's own — `lip_len` is the Y
+seam's overlap, struck off its boss, and the two are independent figures. The top **enters over the open
 Y-seam mouth** — the one opening the box has before the halves telescope — and slides
 the length of its column: front-top **fore** onto front-bottom, back-top **aft** onto
 back-bottom, the mouth riding the shoulder the whole way, until the foot's end face
@@ -160,9 +165,11 @@ Every sliding face is vertical or horizontal, and the top's outer skin keeps its
 **The corners give the slide its lane.** Over the seam band each bottom piece carries its
 two pillars **solid to the rim**, flats one `slide_slip` off the walls the top's faces
 sweep along; the top piece stands off that whole band and its pillar regrows above on the
-45° pair every ceiling over a void here closes at. The Y-seam tongue's flank segments
-carry the channel's notch — the head has to pass where the tongue stands, on its way in,
-every time.
+45° pair every ceiling over a void here closes at. **The channel is the run's own span
+and the sweep fore of it**, and no further: what a station of the sliding piece has to
+clear is the head, the head stands only over the run, and the Y-seam tongue's flank
+segments stand aft of it — past the margin the two telescopes keep between them — at
+every displacement. So the tongue crosses the seam at its own full section.
 
 **And the slide is proved, not asserted.** `_report_slide` sweeps each built top from full
 entry to home against its built bottom — a ladder of stations, dense where the joint
@@ -339,7 +346,7 @@ plan is one of them; the bay's storey is the other. With the pump cartridge in, 
 shows two of its own surfaces — each corner post's face across the bay, which is the corner
 relief's congruent twin (`_column_fairing`), and the **wings** of the tee wall behind the
 drawer, out where the drawer does not reach. `_bay_storey_segments` walks them: jamb to jamb,
-[369.67 mm](STOREY_RUN) over the storey at z [176.1..281 mm](STOREY_BAND), two quarter turns and
+[369.67 mm](STOREY_RUN) over the storey at z [177.8..281 mm](STOREY_BAND), two quarter turns and
 five straight runs, with its own datum on **x = 0** at the tee wall and the same
 [5.1285 mm](FLUTE_PITCH) pitch — so a groove lands on the machine's plane of symmetry inside as
 it does outside. It does not close, because a storey open at its mouth is not a loop; a run's
@@ -866,7 +873,7 @@ and that the kiss itself is air.
 
 **Its two flanks carry the lower band of the hand's own pocket**, on the same ledge and
 the same aft wall the pump cartridge's band stands on — [6.149 mm](GRIP_CAP_DEEP) of relief
-over [40.65 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
+over [38.94 mm](GRIP_CAP_RISE) of height, which is what the head leaves out there. The
 piece comes out screwed to the pump cartridge and a hand on the assembly finds relief at both
 storeys; the whole figure is under [Pump trays](#pump-trays) below.
 
@@ -941,7 +948,7 @@ over both tails and spanning `PLATE_T + plate_slot_slip` between two standing wa
 
 **The steel is three widths and one band.** The band's bottom is the **seam plane** — the foot
 fills the slot to its mouth — and its top is whatever puts the four collet holes **centred**
-in the band (`plate-holes-centred`). Over [176.1 mm](PLATE_STEP_Z) its ends stand
+in the band (`plate-holes-centred`). Over [177.8 mm](PLATE_STEP_Z) its ends stand
 `PLATE_END_AIR` off the side walls and the outline is whole between them: the one thing that
 ever stood proud of the floor down these flanks was the side lip, and it is given up over this
 whole run. Between the floor's top and that plane each end **steps in** [6.8 mm](PLATE_STEP_IN)
@@ -1058,7 +1065,7 @@ draws the assembly.
 `cap_split_z` — [57.85 mm](GRIP_RISE) tall at its mouth, one [3 mm](GRIP_SILL) tray/web
 plate under it on the rail its edge strip bears on and one whole `wall` over it under the
 ceiling the motor cans open through. The cap keeps the band under that plane,
-[40.65 mm](GRIP_CAP_RISE) up from the flank opening's own floor, below which the box's
+[38.94 mm](GRIP_CAP_RISE) up from the flank opening's own floor, below which the box's
 side wall closes back in and a hand reaching through the opening cannot get to the piece
 at all. That band is not roofed: it ends on the split, which is where the cap stops being
 material. Same ledge and same aft wall in both, so the two pieces a hand takes out together
