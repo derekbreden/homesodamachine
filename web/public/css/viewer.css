@@ -1447,6 +1447,13 @@
   background: color-mix(in srgb, var(--err) 20%, rgba(35, 35, 66, 0.85));
   color: var(--err);
 }
+/* A gate nobody has read yet: neither the green that says it passed nor the red that says it
+   failed. `--text-2` is the bar's own quiet, which is what an outstanding verdict is. */
+.cad-wrapper > .sc-badge.unread {
+  border-color: color-mix(in srgb, var(--text-2) 55%, transparent);
+  background: color-mix(in srgb, var(--text-2) 14%, rgba(35, 35, 66, 0.85));
+  color: var(--text-2);
+}
 .cad-wrapper > .sc-badge { transition: filter 0.12s; }
 .cad-wrapper > .sc-badge:hover { filter: brightness(1.2); }
 /* Driven by a finger, at any width: every control in the modal is a target a thumb can land on.
@@ -1628,6 +1635,8 @@
 .sc-row.issue .sc-v { color: var(--err); }
 .sc-row.warn .sc-k { color: var(--warn); }
 .sc-row.warn .sc-v { color: var(--warn); }
+.sc-row.unread .sc-k { color: var(--text-2); }
+.sc-row.unread .sc-v { color: var(--text-2); }
 /* A deferred row is dimmed, unless it is also the one that failed — a single
    red row in a list of two hundred is the whole reason the list is open. */
 .sc-row.gray:not(.issue):not(.warn) .sc-k,

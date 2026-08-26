@@ -4,10 +4,10 @@
 // _scorecard.py, and draws a badge at the bottom of the canvas that opens a modal drilling each
 // gate/goal into its detail rows. One verdict, two surfaces: the same data the terminal prints.
 
-import { scorecardPathFor, isScorecard, sizeText } from "/contracts/scorecard-sidecar.js";
+import { scorecardPathFor, isScorecard, sizeText, gatesFailing, gatesUnread } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 
-const MARK = { pass: "✓", fail: "✗", warn: "•" };
+const MARK = { pass: "✓", fail: "✗", warn: "•", unread: "○" };
 
 function el(tag, cls, text) {
   const n = document.createElement(tag);
@@ -45,7 +45,9 @@ function addCollapsible(card, rows, limit = 0) {
 }
 
 function appendCheck(card, c, gray, wrapper, partNames) {
-  const statusCls = c.status === "fail" ? " issue" : c.status === "warn" ? " warn" : "";
+  const statusCls = c.status === "fail" ? " issue"
+    : c.status === "warn" ? " warn"
+    : c.status === "unread" ? " unread" : "";
   card.appendChild(row("sc-row" + statusCls + (gray ? " gray" : ""), `${MARK[c.status]} ${c.label}`, c.value));
   // A detail row that names solids in the scene becomes clickable — it closes the modal and
   // highlights them on the model (part-highlight.js). A clearance pair names two, a clash names
@@ -138,8 +140,13 @@ function openModal(wrapper, sc, title) {
   const holds = (c) => c.status === "pass";
   const red = gates.filter((c) => !holds(c));
 
+  // `unread` is not a failure and does not read as one here either: the heading says how many
+  // are still outstanding, and `not build-ready` stays the words for a gate that came back bad.
+  const outstanding = gatesUnread(sc);
   card.appendChild(el("div", "sc-h",
-    `Gates — ${passed}/${gates.length} pass` + (sc.gatesPass ? "" : " · not build-ready")));
+    `Gates — ${passed}/${gates.length} pass`
+    + (outstanding ? ` · ${outstanding} not read yet` : "")
+    + (gatesFailing(sc) ? " · not build-ready" : "")));
   for (const c of red) appendCheck(card, c, false, wrapper, partNames);
   addCollapsedChecks(card, gates.filter(holds), `${passed} holding`, wrapper, partNames);
 
@@ -168,11 +175,20 @@ let badgeSize = null;
 
 // The verdict in one word, and the count when it is a bad one. Everything behind it —
 // each gate, each goal's score, the sizes — is a click away in the modal.
+//
+// FAILING AND OUTSTANDING ARE DIFFERENT SENTENCES. A gate the build measured and found wanting
+// is `✗ 2 gates`; a gate whose checker has not answered yet is `○ 2 gates`, and a reader does
+// something different about each. Failing wins the badge when both are present, because a
+// verdict that came back bad is the one worth reading first.
 function buildBadge(wrapper, sc, title) {
   removeScorecard(wrapper);
-  const fail = sc.checks.filter((c) => c.kind === "gate" && c.status !== "pass").length;
-  const badge = el("button", "sc-badge" + (fail ? " has-issues" : ""),
-    fail ? `✗ ${fail} gate${fail === 1 ? "" : "s"}` : "✓ checks");
+  const fail = gatesFailing(sc);
+  const unread = gatesUnread(sc);
+  const badge = el("button",
+    "sc-badge" + (fail ? " has-issues" : unread ? " unread" : ""),
+    fail ? `✗ ${fail} gate${fail === 1 ? "" : "s"}`
+      : unread ? `○ ${unread} gate${unread === 1 ? "" : "s"}`
+      : "✓ checks");
   badge.type = "button";
   badge.addEventListener("click", (e) => { e.stopPropagation(); openModal(wrapper, sc, title); });
   wrapper.appendChild(badge);

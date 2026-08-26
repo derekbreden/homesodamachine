@@ -13,7 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, sizeText,
-  MM_PER_INCH } from "../contracts/scorecard-sidecar.js";
+  MM_PER_INCH, gatesFailing, gatesUnread } from "../contracts/scorecard-sidecar.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -151,4 +151,39 @@ test("isScorecard rejects malformed input", () => {
   const size = { id: "enclosure", label: "the printed box", min: [0, 0, 0], max: [1, 2, 3], mm: [1, 2, 3] };
   assert.equal(isScorecard({ ...base, size: [{ ...size, mm: [1, 2] }] }), false);
   assert.equal(isScorecard({ ...base, size: [size] }), true);
+});
+
+// ── The unread verdict ───────────────────────────────────────────────────────────────────────
+// A check the build did not compute. `_scorecard.py` leaves the row and marks it `unread` when a
+// detached checker owns the answer, so the card can say a verdict is outstanding instead of
+// drawing a confident green over a gate nobody read.
+test("a check the build did not compute reads as unread, and not as a pass or a fail", () => {
+  const gate = (id, status) => ({
+    id, label: id, kind: "gate", status, value: "—", target: "—", detail: [], active: true,
+  });
+
+  const outstanding = {
+    gatesPass: false,
+    checks: [gate("pack-closes", "unread"), gate("lines-clear", "unread"), gate("mounted", "pass")],
+  };
+  assert.ok(isScorecard(outstanding),
+    "an unread row is a shape the viewer reads — an unrecognised status costs the whole bar");
+  assert.equal(gatesUnread(outstanding), 2, "both outstanding gates are counted");
+  assert.equal(gatesFailing(outstanding), 0,
+    "a gate nobody read is not a gate that failed — the badge would say ✗ over a verdict it does not have");
+
+  const bad = { gatesPass: false, checks: [gate("pack-closes", "fail"), gate("lines-clear", "unread")] };
+  assert.equal(gatesFailing(bad), 1, "only the measured one is failing");
+  assert.equal(gatesUnread(bad), 1, "only the uncomputed one is outstanding");
+
+  const warned = { gatesPass: false, checks: [gate("port-leads", "warn")] };
+  assert.equal(gatesUnread(warned), 0,
+    "warn is a verdict that came back marginal, and unread is no verdict at all");
+
+  const clean = { gatesPass: true, checks: [gate("mounted", "pass")] };
+  assert.equal(gatesUnread(clean), 0);
+  assert.equal(gatesFailing(clean), 0);
+
+  assert.equal(isScorecard({ gatesPass: true, checks: [gate("x", "maybe")] }), false,
+    "a status the contract does not name is refused rather than drawn");
 });
