@@ -1364,7 +1364,7 @@
    "label": "The back column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..235.36",
+   "value": "seam at 160.00, lane 35.00..299.20",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1584,7 +1584,7 @@
    "label": "The back top slides its whole travel onto its bottom clear",
    "kind": "gate",
    "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 118.9 mm",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 22 stations over 237.9 mm",
    "target": "0 mm\u00b3 at every station",
    "detail": [],
    "active": true
@@ -1594,7 +1594,7 @@
    "label": "The back top's rails catch it against a lift, on both flanks",
    "kind": "gate",
    "status": "pass",
-   "value": "384.8 mm\u00b3 engaged at a 1 mm lift \u2014 192.4 west, 192.4 east",
+   "value": "789.5 mm\u00b3 engaged at a 1 mm lift \u2014 394.8 west, 394.8 east",
    "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
    "detail": [],
    "active": true
