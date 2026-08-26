@@ -156,8 +156,14 @@ short of the joint, where the Y telescope's overlap begins and the Z lip must st
 back column is that mirrored**: back-top enters AFT of home and slides FORE, so what sweeps
 its run is what it carries fore of it — its own Y-seam band, inboard surface the same
 channel may cut. That run needs no horizon either and reaches the rear wall's own corner
-round. Neither flank stops short for the PRV chase: the rail carries straight through it,
-and the chase keeps out of the joint's own band for that one storey (`_vent_chase`).
+round. Neither flank stops short for the PRV chase either, because the chase's two halves
+are held to different rules (`_vent_chase`): the RIB keeps out of the band the joint reaches,
+since it is solid and would sweep the rail, and it parts on the seam's rim so each piece
+stands its own height of it and neither crosses into the other's travel; the PASSAGE is the
+hole through that rib, sweeps nothing, and goes straight across — the rail gives up
+[12 mm](VENT_CHANNEL_W) where the one opening that has to cross it does, and the duct keeps
+its whole section. Both pieces cut that passage, so the groove's discharge leaves through
+the flank on either side of the seam rather than half of it standing in the other's wall.
 **Each top escapes toward the end of the box it stands at** — front-top fore into the room,
 back-top aft toward the wall — so neither has to be lifted over the other. Front-top's
 escape is open air, and what holds it there is the Y
