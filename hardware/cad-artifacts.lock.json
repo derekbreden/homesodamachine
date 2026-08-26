@@ -7,33 +7,28 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "f9c5fac9cbe142b8376da7b0271b80f12dc9ad95"
+    "commit": "3f3d57d34f8b337c3a17d0e31eb8b15dff876584"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [],
     "members": [
-      "hardware/pcb/pcba/out/pcba.bom.csv",
-      "hardware/pcb/pcba/out/pcba.bottom.png",
-      "hardware/pcb/pcba/out/pcba.bottom.svg",
-      "hardware/pcb/pcba/out/pcba.bottom3d.png",
-      "hardware/pcb/pcba/out/pcba.bottommask.png",
-      "hardware/pcb/pcba/out/pcba.bottommask.svg",
-      "hardware/pcb/pcba/out/pcba.cpl.csv",
-      "hardware/pcb/pcba/out/pcba.gerbers.zip",
-      "hardware/pcb/pcba/out/pcba.glb",
-      "hardware/pcb/pcba/out/pcba.inner1.png",
-      "hardware/pcb/pcba/out/pcba.inner1.svg",
-      "hardware/pcb/pcba/out/pcba.inner2.png",
-      "hardware/pcb/pcba/out/pcba.inner2.svg",
-      "hardware/pcb/pcba/out/pcba.overlay.png",
-      "hardware/pcb/pcba/out/pcba.overlay.svg",
-      "hardware/pcb/pcba/out/pcba.picks.json",
-      "hardware/pcb/pcba/out/pcba.top.png",
-      "hardware/pcb/pcba/out/pcba.top.svg",
-      "hardware/pcb/pcba/out/pcba.top3d.png",
-      "hardware/pcb/pcba/out/pcba.topmask.png",
-      "hardware/pcb/pcba/out/pcba.topmask.svg"
+      "hardware/assembly/scenes/glb/back-half.glb",
+      "hardware/assembly/scenes/glb/back-top.glb",
+      "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+      "hardware/assembly/scenes/glb/cap-lid.glb",
+      "hardware/assembly/scenes/glb/cold-core-open.glb",
+      "hardware/assembly/scenes/glb/cold-core.glb",
+      "hardware/assembly/scenes/glb/en04-stratum.glb",
+      "hardware/assembly/scenes/glb/front-top.glb",
+      "hardware/assembly/scenes/glb/pump-cartridge.glb",
+      "hardware/cold-core-layout/cold-core-assembly.step",
+      "hardware/manifold-layout/enclosure-assembly.step",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
     ]
   },
   "bundle": {
