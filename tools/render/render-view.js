@@ -120,7 +120,7 @@ import sharp from "sharp";
 
 import { start } from "../../web/server.js";
 import { withHistoricalTree } from "./temporal.js";
-import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, consoleLine, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -1152,7 +1152,8 @@ async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
     await page.setViewport({ width: opts.width, height: opts.height, deviceScaleFactor: 1 });
     page.on("pageerror", (err) => console.error("pageerror:", err.message));
     page.on("console", (msg) => {
-      if (msg.type() === "error" && !/404/.test(msg.text())) console.error("console.error:", msg.text());
+      const line = consoleLine(msg);
+      if (line) console.error(line);
     });
 
     const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepRel)}`;

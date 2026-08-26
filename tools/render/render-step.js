@@ -25,7 +25,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, consoleLine, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -83,8 +83,8 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
     // Surface page errors so a hung wait points at the cause.
     page.on("pageerror", (err) => console.error("pageerror:", err.message));
     page.on("console", (msg) => {
-      const t = msg.type();
-      if (t === "error" || t === "warning") console.error(`console.${t}:`, msg.text());
+      const line = consoleLine(msg);
+      if (line) console.error(line);
     });
 
     const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepRel)}`;

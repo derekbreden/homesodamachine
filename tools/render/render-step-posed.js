@@ -61,10 +61,13 @@
 // the page standing, the canvas mounted and `toDataURL` answering, so a run that
 // only watched its own awaits photographed whatever survived and exited 0. Every
 // `pageerror` is collected on the page and the job holding it fails by name.
-// `pageerror` IS THE UNCAUGHT-EXCEPTION EVENT and nothing else: the four misses a
-// clean run makes — `/api/step-editor/overrides`, `/api/step-scorecard/…`,
+// `pageerror` IS THE UNCAUGHT-EXCEPTION EVENT and nothing else: the misses a clean
+// run makes — `/api/step-editor/overrides`, `/api/step-scorecard/…`,
 // `/meshes/….step.mesh`, `/steps/….step` — arrive as console entries behind an
-// `onerror` fallback, and no 404 is read here.
+// `onerror` fallback, and no 404 fails a job here. What a console entry is worth is
+// `browser.js`'s `consoleLine`: the first two are the viewer asking whether a thing
+// exists, so their miss is an answer and is dropped; every line it does report names
+// the URL that failed.
 //
 // AND A PICTURE IS THE SAME PICTURE WHEREVER IN A RUN IT IS DRAWN. Everything
 // the viewer keeps between mounts — the shared shading materials, the edge
@@ -83,7 +86,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { PARSE_TIMEOUT, closeBrowser, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
+import { PARSE_TIMEOUT, closeBrowser, consoleLine, closeServer, finish, frameBuffer, launchBrowser, sweepAbandonedBrowsers } from "./browser.js";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
@@ -239,8 +242,8 @@ async function openViewer(browser, port, stepRel, opts) {
     page.__hsmPageErrors.push(err.message || String(err));
   });
   page.on("console", (msg) => {
-    const t = msg.type();
-    if (t === "error" || t === "warning") console.error(`console.${t}:`, msg.text());
+    const line = consoleLine(msg);
+    if (line) console.error(line);
   });
 
   const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepRel)}`;
