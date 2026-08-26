@@ -23,6 +23,14 @@ ONE AT A TIME, AND THE LAST REQUEST WINS — `publish_now.py`'s arrangement, for
 Several sessions commit at once, so a second invocation marks the running one to read again
 rather than queueing behind it, and what gets reported is the newest tree.
 
+THE TREE IS BEING WRITTEN WHILE IT IS READ, AND THE READING SAYS SO BY BEING TAKEN AGAIN. Six
+sessions edit this checkout and `publish_now.py` runs from the same hook, recutting payloads
+while this reads them — so a verdict can name a red that a repair already fixed, or miss one
+that landed a second later. Every commit takes another reading, which is the only thing that
+could be true of a tree nobody is holding still. Coupling this to the publish would buy a
+tidier answer for a wait of up to four minutes, and a reading that is late is a reading nobody
+acts on.
+
 THE RECURSION ENDS ON THE MESSAGE, NOT ON THE BYTES. This commits, and a commit runs
 `post-commit`, which runs this. An unchanged verdict writes identical bytes and stops there —
 but a check whose output carries anything volatile would not, and would push a commit for every
