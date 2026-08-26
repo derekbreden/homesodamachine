@@ -42,13 +42,13 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1424 tracked, 124 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1425 tracked, 124 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -90,6 +90,11 @@
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
       "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
     ]
   },
   "green": false
