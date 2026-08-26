@@ -1204,7 +1204,7 @@
    "label": "The front top slides home carrying the flavour pack",
    "kind": "gate",
    "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out, 10 stations over 53.4 mm",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out, 14 stations over 105.0 mm",
    "target": "0 mm\u00b3 at every station of the loaded travel",
    "detail": [],
    "active": true
@@ -1344,7 +1344,7 @@
    "label": "The front column's lip ring is clear at the seam height",
    "kind": "gate",
    "status": "pass",
-   "value": "seam at 160.00, lane 35.00..251.20",
+   "value": "seam at 160.00, lane 35.00..240.00",
    "target": "a lane containing it",
    "detail": [],
    "active": true
@@ -1554,7 +1554,7 @@
    "label": "The front top slides its whole travel onto its bottom clear",
    "kind": "gate",
    "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 10 stations over 53.4 mm",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 105.0 mm",
    "target": "0 mm\u00b3 at every station",
    "detail": [],
    "active": true
@@ -1564,7 +1564,7 @@
    "label": "The front top's rails catch it against a lift",
    "kind": "gate",
    "status": "pass",
-   "value": "152.4 mm\u00b3 engaged at a 1 mm lift",
+   "value": "317.5 mm\u00b3 engaged at a 1 mm lift",
    "target": "the hooks bearing, so more than 5 mm\u00b3",
    "detail": [],
    "active": true

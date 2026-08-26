@@ -165,15 +165,15 @@ def main():
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
         # HOW FAR PROUD FRONT-TOP STANDS before it is drawn back — the front column's own
         # rail travel, read off `_z_rail_runs` rather than typed, so the bench figure moves
-        # with the run whenever the horizon does.
+        # with the run whenever the run's own ends do.
         "RAIL_TRAVEL_FRONT": f"{_enc._z_rail_travel(
             _box["inner"], _box["y_joint"], "front",
             _box["collet_plate"] if _box["pump_bay"] else None,
             _box["vent_chase"]):.4g} mm",
         # THE COLLET PLATE'S TWO PLAN FIGURES, both read off `enclosure` rather than typed
         # here. The steel goes into front-top through that piece's Z− face and then rides it
-        # through the front column's slide, so under the seam's cap plane it stands in the
-        # lane the rails sweep and its ends step in by what everything in that lane keeps.
+        # through the front column's slide, and under the seam's cap plane it is standing in
+        # the seam's own storey — so its ends step in by what the joint takes of that band.
         "PLATE_STEP_Z": f"{_enc.seam_cap_z():.4g} mm",
         "PLATE_STEP_IN": f"{_enc.plate_step_in():.4g} mm",
         # The STATED width — the bound itself and not a measurement of the box built to it, so
