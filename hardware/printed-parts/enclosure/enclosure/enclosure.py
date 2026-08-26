@@ -615,7 +615,7 @@ wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear
 #
 # The can is centred on the card and reaches within half a millimetre of each long edge, which
 # is what settles the rest: only the ENDS of the long run have material clear of the can, so the
-# grooves take those and the posts stand off the can's own diameter.
+# grooves take those, and what a groove may swallow there is what the can leaves and no more.
 mq6_rail_wall = 3.0         # post section around the groove, and the shoulder under the card
 mq6_slot_press = 0.15       # per-side slip in the groove, the wells' own figure
 mq6_grip = 5.0              # how much of the card's long run each groove swallows at its end
@@ -708,10 +708,10 @@ def cond_slot_half(sheet: float) -> float:
 # asked, groove by groove, what stands rooted on its inner face there, with `cond_vent_clear`
 # round the root in Y and Z. The transoms are the opening vocabulary, so a root touching part of
 # one segment leaves that whole segment as fluted wall; a lone opening beyond such a land stays
-# wall as well. THE INTAKE IS ASKED AND ANSWERS NOTHING: the only thing rooted on that flank down
-# there is the MQ-6's cradle, and its two posts stop at the card's crown, clear under a band that
-# starts one `cond_fan_rise` over the block's base — so the lowest course runs the full segment
-# across like every other and no slot on this flank is a one-off height.
+# wall as well. THE MQ-6'S CRADLE IS NOT ONE OF THE ROOTS THE INTAKE ANSWERS FOR: its two posts
+# stop at the card's crown and the band starts one `cond_fan_rise` over the block's base, so the
+# whole cradle stands under the vent with the clearance to spare and the lowest course runs the
+# full segment across like every other.
 #
 # AND THE BAND IS CROSSED BY TRANSOMS, which is what makes it printable. A mullion is
 # `reeding.mullion` across on a `2 * wall` wall, so a slot run the whole height of the fan leaves
