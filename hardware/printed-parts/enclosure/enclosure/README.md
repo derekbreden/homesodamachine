@@ -826,9 +826,8 @@ to cover. Nothing latches the pump cartridge. The four barb tubes
 gripped in the anchor tees' branch collets are the pump cartridge retention, and the **collet plate**
 is the release: a waterjet flat of 1/8" 304
 (`enclosure_assembly.build_collet_plate`, `collet-plate.dxf`) standing one rest gap
-fore of the four collets in the bay floor's own seat. Four large holes pass the tubes and
-nothing wider; two M3 clearance holes in the unused outer tails positively fasten the steel
-to inserts in the fixed tee wall. Pull the pump cartridge and the gripped tubes drag the tees forward, each tee
+fore of the four collets in the slot through the bay floor. Four large holes pass the tubes and
+nothing wider. Pull the pump cartridge and the gripped tubes drag the tees forward, each tee
 running in its own bore in the wall behind the steel and held across its collar while
 free along its axis, until each collet's nose lands on the steel — the body keeps
 coming, the nose is held, the grip opens, and the tubes draw out through the holes they
@@ -836,7 +835,7 @@ entered by. Push it home and the tubes thread back into the same collets, the ca
 aft face landing on the plate's own fore face, the tees square in those same bores and
 braced by the valves their runs butt into, each of those in a valve-tray seat. One hand
 pulls, the other braces the box; the box carries the brace through its fixed wall and
-the two wedge cheeks rather than asking the plate's little floor seat to take the
+the two wedge cheeks rather than asking the floor's slot to take the
 whole overturning moment.
 
 **The cap's aft face is open for the four made-up tubes.** One straight slot per pump rises
