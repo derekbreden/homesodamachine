@@ -464,9 +464,9 @@ def sub_assemblies(m: Machine):
             f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
             f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
 
-    # The wells this piece leaves the bench with. The collet plate takes one too — the slot
-    # through the bay floor — and that one IS made on the bench: the steel goes in through this
-    # piece's own Z− face, which is the face looking up in the scene's pose.
+    # The wells this piece leaves the bench with — lever nuts pressed butt-first into printed
+    # pockets, and nothing else: the collet plate stands in a SLOT rather than a well, which is
+    # what keeps the steel out of a count about lever nuts.
     front_top_wells = [n for n in under("enclosure-front-top", "well")
                        if n not in front_top.later]
 
