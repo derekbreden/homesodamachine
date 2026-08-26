@@ -2970,6 +2970,7 @@
       "hardware/manifold-layout/manifold-layout.step",
       "hardware/manifold-layout/manifold-layout.step.mesh",
       "hardware/manifold-layout/manifold_layout.py",
+      "hardware/printed-parts/cadlib/fits.py",
       "hardware/printed-parts/cadlib/reeding.py",
       "hardware/printed-parts/cadlib/snap.py",
       "hardware/printed-parts/cadlib/world_workplane.py",

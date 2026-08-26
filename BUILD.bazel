@@ -2442,6 +2442,7 @@ genrule(
         ":out/manifold-layout/hardware/manifold-layout/manifold-layout.step",
         ":out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
+        "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
