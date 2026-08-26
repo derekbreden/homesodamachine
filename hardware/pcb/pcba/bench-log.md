@@ -30,7 +30,7 @@ the end.
   light it — batch 1 wires D2 the other way up. Faint red at idle is `parkStraps()` holding
   MTDO on its ~45 kΩ internal pull-up, ~28 µA through the LED.
 - **With a 4.3B also on USB, name the port when flashing this board.** The
-  [`tools/flash.sh`](https://github.com/derekbreden/homesodamachine/blob/acb5146c/tools/flash.sh)
+  [`tools/flash.sh`](https://github.com/derekbreden/homesodamachine/blob/c7b4ba82068f391f67ca48cf945fac2249c7a472/tools/flash.sh)
   wrapper in use that day (`acb5146c`, since retired) let PlatformIO pick, and it picks the
   S3: esptool opens that port, drops the display into download mode, and only then fails on
   the chip id, leaving the panel dark until it is reflashed. A bare `pio run -t upload`
