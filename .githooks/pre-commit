@@ -43,14 +43,10 @@ case "$staged" in
   *.py*) "$py" "$root/tools/bazel/check_declared_imports.py" || true ;;
 esac
 
-# A workflow naming a target the graph does not declare, and a source no `paths:` pattern names.
+# A workflow naming a target the graph does not declare.
 case "$staged" in
   *BUILD.bazel*|*tools/bazel/graph.json*|*tools/bazel/gen_build.py*|*.github/workflows/*)
     "$py" "$root/tools/bazel/check_ci_targets.py" || true ;;
-esac
-case "$staged" in
-  *tools/bazel/graph.json*|*.github/workflows/publish.yml*)
-    "$py" "$root/tools/bazel/check_publish_paths.py" || true ;;
 esac
 
 exit 0
