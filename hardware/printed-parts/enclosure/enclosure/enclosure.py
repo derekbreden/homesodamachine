@@ -48,14 +48,17 @@ short face across the machine instead of its 283 mm long one. The pack is placed
     whose HEAD steps outboard over the groove (`_z_rail_heads`). The TOP
     pieces run their wall to the mouth at full section — the FOOT — with a
     notch above it that swallows that head (`_z_rail_feet`,
-    `_z_rail_channels`). Each top ENTERS over the open Y-seam mouth and
-    slides the length of its column — front-top FORE, back-top AFT — to the
-    stop block closing each rail's far end; the end walls and corner turns
+    `_z_rail_channels`). Both tops ENTER FORE OF HOME AND SLIDE AFT — front-top
+    over the front wall's own plane, back-top over the open Y-seam mouth — to
+    the stop block closing each rail's aft end; the end walls and corner turns
     close head-on behind it, the same telescoping mate the Y seam makes,
     arrived at along Y. Lifting a seated top lands each foot's flat top on
-    its head's flat underside down both whole runs; sliding one back out
-    needs the other column's ground, which the four Y-seam screws hold: the
-    box closes with four screws and opens with four. A WALL THAT
+    its head's flat underside down both whole runs. A top comes off the way it
+    went on, FORWARD: back-top's escape is fore into front-top, which stands in
+    it, and front-top's escape is fore into open air, held by the upper pair of
+    Y-seam screws alone — so front-top draws off the front of the box on two
+    screws, without disturbing the back column or lifting the box out of
+    whatever it is built under. A WALL THAT
     LIP STANDS ON IS `2 * wall` THICK, floor slab to lip rim
     (`_lip_underwall`): the lip is a skin standing proud of the interior
     face, and a skin that began at the seam would land its underside in air —
@@ -1351,21 +1354,22 @@ z_joint_clear = 3.0
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
 
-# THE Z SEAMS SLIDE HOME, AND TAKE NO SCREW. Each top piece enters over the open Y-seam
-# mouth and slides the length of its own column — front-top FORE onto front-bottom,
-# back-top AFT onto back-bottom — riding a HOOKED RAIL down each ±X flank: the bottom
+# THE Z SEAMS SLIDE HOME, AND TAKE NO SCREW. Each top piece enters fore of home and
+# slides AFT the length of its own column — front-top over the front wall's own plane,
+# back-top over the open Y-seam mouth — riding a HOOKED RAIL down each ±X flank: the bottom
 # piece raises an ARM on its mouth down each straight run, and the arm's HEAD steps
 # outboard over the groove the top's FOOT slides in — the top's wall carried to the
 # mouth at full section, with a notch above the foot that swallows the head. Lifting the
 # top lands the foot's flat top face on the head's flat underside along the whole of
 # both runs — horizontal printed face on horizontal printed face — so the seam is held
 # closed continuously down every millimetre both flanks carry.
-# The slide stops on a STOP BLOCK closing each rail's far end — the foot's end face on
+# The slide stops on a STOP BLOCK closing each rail's aft end — the foot's end face on
 # the block's, the one nominal contact in the joint and the column's Y datum — with the
-# end walls and corner turns closing head-on one `slide_slip` behind it. What blocks a
-# top sliding back OUT is the other column: each top's escape is toward the Y seam,
-# where the Y seam's four screws stand the two columns against each other. Four M3×10
-# close the whole box.
+# end walls and corner turns closing head-on one `slide_slip` behind it. Both tops go on
+# fore-to-aft, so both escape FORE: back-top's escape runs into front-top, which stands
+# in it, and front-top's runs into open air, where the Y seam's upper pair of screws is
+# what holds it — the plug back-top carries, in the socket front-top's lip carries. Four
+# M3×10 close the whole box, and the two upper ones are what front-top hangs on.
 #
 # EVERY FACE OF THE JOINT PRINTS AT ITS OWN RULE, and the CATCH faces are square. The
 # head's underside — the catch — is the joint's one down-looking flat, an abrupt
@@ -2108,7 +2112,7 @@ def seam_bosses(inner, y_joint, splits):
     out = [(yb0, yb1, z - r, z + r)
            for _x_in, _x_ext, _sx, z in _bosses(inner, y_joint)]
     for col, zj in (("front", splits[0]), ("back", splits[1])):
-        for _x_in, _sx, ry0, ry1, _closed in _z_rail_runs(inner, y_joint, col, None):
+        for _x_in, _sx, ry0, ry1, _sweep in _z_rail_runs(inner, y_joint, col, None):
             out.append((ry0, ry1, zj, zj + z_rise))
     return out
 
@@ -2194,7 +2198,7 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
     cy0, cy1 = y_span
     col = "front" if cy1 <= y_joint + 1.0 else "back"
     ring = None
-    for x_in, sx, ry0, ry1, _closed in _z_rail_runs(inner, y_joint, col, plate):
+    for x_in, sx, ry0, ry1, _sweep in _z_rail_runs(inner, y_joint, col, plate):
         ya, yb = max(ry0, cy0), min(ry1, cy1)
         if yb <= ya + 1e-6:
             continue
@@ -3705,46 +3709,70 @@ def _y_boss(y_joint):
 #
 # The BOTTOM piece carries the lip, the hooked arms on its straight flank runs, the
 # stop blocks at their closed ends and the corner fills; the TOP piece carries the
-# foot each head stands over and the notch that swallows it. The top ENTERS over
-# the open Y-seam mouth and SLIDES to its own end wall — front-top fore, back-top
-# aft — the foot's end face landing on the stop block's, which is the column's Y
-# datum. Everything else closes one `slide_slip` behind that contact.
+# foot each head stands over and the notch that swallows it. BOTH TOPS ENTER FORE OF
+# HOME AND SLIDE AFT — front-top over the front wall's own plane, in open air ahead
+# of the box; back-top over the open Y-seam mouth — each foot's aft end face landing
+# on its stop block's, which is the column's Y datum. Everything else closes one
+# `slide_slip` behind that contact.
+#
+# A TOP COMES OFF THE WAY IT WENT ON, FORWARD. Back-top's escape is fore into
+# front-top, which stands in it. Front-top's escape is fore into open air, and what
+# holds it there is the Y seam's upper pair of screws — the plug back-top carries,
+# in the socket front-top's lip carries. Two screws out and front-top draws straight
+# off the front of the box, the back column and whatever the box is built under
+# never touched.
+
+
+def _rail_horizon(y_open, sweep_from):
+    """Where a run's CLOSED end falls — the fixed point of run against travel.
+
+    A run's travel is its own length, and every station the top piece carries AFT of
+    the run sweeps that far fore along the flank on the way in. So the closed end can
+    reach only half way from the open end to the first station the top cannot open
+    for it: move it one further aft and the travel that buys has already dragged that
+    station over it. `sweep_from` is that station, `slide_slip` of running clearance
+    kept behind it."""
+    return (y_open + sweep_from + rail_stop_len - rail_entry - slide_slip) / 2.0
 
 
 def _z_rail_runs(inner, y_joint, col, plate, chase=()):
     """The runs one column's rails occupy, one row per ±X flank:
-    `(x_in, sx, y0, y1, closed)` — where that flank carries the head, the stop block
-    and the top piece's return. `closed` is the sign of the run's CLOSED end: −1 fore
-    (the front column), +1 aft (the back).
+    `(x_in, sx, y0, y1, sweep_from)` — where that flank carries the head, the stop
+    block and the top piece's foot. Every run is OPEN at `y0` and CLOSED at `y1`,
+    both columns alike, because both tops slide the same way.
 
     A RUN IS WHAT THE SWEEP LEAVES, and the sweep is the whole question: the top
-    piece passes over every station of the flank on its way in, so a rail may stand
-    only where the top's own solid can open for it. The channel's deep profile opens
-    the INTERIOR bulk — the bay floor's flank band, a post's inner face, the tee
-    wall's feet — but each end wall's outer skin and its corner rounds are SHOW
-    surface and cannot be opened, so a rail ends where that skin's sweep begins:
-    run and travel meet at the HORIZON, struck off the closed end's own corner
-    bulk, half the flank less half the entry. The flank that carries the PRV chase
-    stops sooner still — `slide_slip` fore of the rib — and takes its stop block
-    there, mid-flank."""
+    piece passes over every station of the flank AFT of where that station lands, so
+    a rail may stand only where the top's own solid can open for it. The channel's
+    deep profile opens what the top carries over the run and behind it — the flank's
+    own seam band, the lip's cavity wall — but the Y-seam TONGUE crosses the seam at
+    full section, and the rear end wall's outer skin and its corner rounds are SHOW
+    surface: neither of those opens. `sweep_from` is whichever of them the column
+    meets, and a rail ends where its sweep begins — run and travel meet at the
+    HORIZON (`_rail_horizon`). The flank that carries the PRV chase stops sooner
+    still — `slide_slip` fore of the rib — and takes its stop block there, mid-flank.
+
+    THE FRONT COLUMN OPENS ON THE TEE WALL. Fore of `plate["wall_aft_y"]` the top
+    piece stands its own tee wall across the flank at home, so the run starts on that
+    plane — and nothing of front-bottom stands proud of the mouth fore of it, so
+    what the top brings over that ground on the way in meets nothing."""
     iy0, iy1 = inner[2], inner[3]
     out = []
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
         if col == "front":
-            y1, closed = y_joint - wall - z_lip_y_margin, -1.0
-            horizon = ((iy0 - front_wall) + corner_round + y1
-                       - rail_stop_len + rail_entry + slide_slip) / 2.0
-            y0 = max(horizon,
-                     plate["wall_aft_y"] if plate else iy0 + column_round + wall)
+            y0 = plate["wall_aft_y"] if plate else iy0 + column_round + wall
+            sweep_from = y_joint - wall
+            y1 = min(_rail_horizon(y0, sweep_from),
+                     y_joint - wall - z_lip_y_margin)
         else:
-            y0, closed = y_joint + lip_len + z_lip_y_margin, +1.0
-            y1 = (iy1 - corner_round + y0 + rail_stop_len
-                  - rail_entry - slide_slip) / 2.0
+            y0 = y_joint + lip_len + z_lip_y_margin
+            sweep_from = iy1 - corner_round
+            y1 = _rail_horizon(y0, sweep_from)
             for cx, cy, _cz in chase:
                 if (cx < 0.0) == (sx > 0.0):
                     y1 = min(y1, cy - (vent_channel_w / 2.0 + vent_rib_wall)
                              - slide_slip)
-        out.append((x_in, sx, y0, y1, closed))
+        out.append((x_in, sx, y0, y1, sweep_from))
     return out
 
 
@@ -3791,7 +3819,7 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
     face on a flat printed face, once per rail."""
     z_foot, rim = zj + hook_foot, zj + z_rise
     out = None
-    for x_in, sx, y0, y1, closed in _z_rail_runs(inner, y_joint, col, plate, chase):
+    for x_in, sx, y0, y1, _sweep in _z_rail_runs(inner, y_joint, col, plate, chase):
         x_hk, x_f, x_a, x_h1 = _rail_x(x_in, sx)
         arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, z_foot + slide_slip),
                                  (x_hk, z_foot + slide_slip), (x_hk, rim),
@@ -3801,15 +3829,15 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
         x_uw = x_in + sx * (wall - 0.5)
         drop = abs(x_h1 - x_uw)
         arm = arm.fuse(_xz_prism(y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
-        # The plan taper at the open end: the head's lap falls back to the arm's own
-        # sliding face over `rail_lead`, every face of the cut vertical.
-        y_open = y1 if closed < 0 else y0
+        # The plan taper at the open end — the fore end, on both columns: the head's
+        # lap falls back to the arm's own sliding face over `rail_lead`, the cut
+        # reaching aft INTO the run, every face of it vertical.
         lead = _xy_prism(z_foot - 1.0, rim + 1.0, (
-            (x_a, y_open), (x_hk - sx * 1.0, y_open),
-            (x_hk - sx * 1.0, y_open - closed * rail_lead)))
+            (x_a, y0), (x_hk - sx * 1.0, y0),
+            (x_hk - sx * 1.0, y0 + rail_lead)))
         arm = arm.cut(lead)
-        ys = (y0, y0 + rail_stop_len) if closed < 0 else (y1 - rail_stop_len, y1)
-        block = _ybox(min(x_hk, x_h1), max(x_hk, x_h1), ys[0], ys[1], zj, rim)
+        block = _ybox(min(x_hk, x_h1), max(x_hk, x_h1),
+                      y1 - rail_stop_len, y1, zj, rim)
         piece = arm.fuse(block)
         out = piece if out is None else out.fuse(piece)
     return out
@@ -3829,11 +3857,8 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
     either way."""
     z_foot = zj + hook_foot
     out = None
-    for x_in, sx, y0, y1, closed in _z_rail_runs(inner, y_joint, col, plate, chase):
-        if closed < 0:
-            y0 += rail_stop_len
-        else:
-            y1 -= rail_stop_len
+    for x_in, sx, y0, y1, _sweep in _z_rail_runs(inner, y_joint, col, plate, chase):
+        y1 -= rail_stop_len
         _hk, x_f, _a, _h1 = _rail_x(x_in, sx)
         x_root = x_in - sx * 1.0
         slab = _ybox(min(x_root, x_f), max(x_root, x_f), y0, y1, zj, z_foot)
@@ -3858,27 +3883,25 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     """The TOP piece's channel voids, one per rail — cut LAST of the piece's work, so
     everything the piece fused near a flank is carved to the slide's own section.
 
-    TWO PROFILES DOWN ONE LANE. Aft of the stop face (fore of it, for the back
-    column) the void is the arm's berth and the NOTCH over the foot: inboard of the
-    foot's face it opens from the mouth — the arm's own lane, `slide_slip` off its
-    back — and outboard it opens from the foot's caught face up, `slide_slip` deeper
-    than the head, stopping on the wall's own inner face; a 45° GABLE closes the
-    roof `slide_slip` over the arm's cap, two faces rising off the channel's walls
-    and meeting over it, so a piece that prints mouth-down lays nothing flat across
-    the void — and the gable's outboard face is the notch's own roof, carrying the
-    wall back out to its full section. Fore of the stop face the front column's
-    void is the FULL section, mouth to gable: everything of that piece that ends up
-    fore of the stop — the bay floor's flank band, a corner post's inner face, the
-    tee wall's feet, the pillar behind them — sweeps over the stop block, the arm
-    and the head on its way in, and this is the lane it does it in. The back column
-    needs no deep zone: aft of its stop the rear horizon has already emptied the
-    lane.
+    TWO PROFILES DOWN ONE LANE. Fore of the stop face the void is the arm's berth
+    and the NOTCH over the foot: inboard of the foot's face it opens from the mouth —
+    the arm's own lane, `slide_slip` off its back — and outboard it opens from the
+    foot's caught face up, `slide_slip` deeper than the head, stopping on the wall's
+    own inner face; a 45° GABLE closes the roof `slide_slip` over the arm's cap, two
+    faces rising off the channel's walls and meeting over it, so a piece that prints
+    mouth-down lays nothing flat across the void — and the gable's outboard face is
+    the notch's own roof, carrying the wall back out to its full section. AFT of the
+    stop face the front column's void is the FULL section, mouth to gable: everything
+    of that piece standing aft of the stop — the flank's own seam band, the wall
+    under the lip's cavity — sweeps over the stop block, the head and the arm on its
+    way in, and this is the lane it does it in. The back column needs no deep zone:
+    aft of its stop the rear horizon has already emptied the lane.
 
-    THE LANE IS THE RUN'S OWN SPAN AND THE SWEEP FORE OF IT. What a station of the
-    top piece has to clear is the head, and the head stands only over the run: material
-    aft of the run's far end — the Y-seam tongue's flank segment, standing past the
-    margin the two telescopes keep between them — is never over it at any displacement,
-    so the void ends where the run does and the tongue crosses the seam at full section.
+    THE LANE IS THE RUN'S OWN SPAN AND THE SWEEP AFT OF IT, AND IT STOPS ON THE
+    TONGUE. The deep zone runs as far as `sweep_from` — the Y-seam tongue's own fore
+    face, which the horizon has already put beyond the reach of the sweep — so the
+    lane behind the stop comes out empty for everything nearer than the tongue, and
+    the tongue itself crosses the seam at full section.
     The cut is CLIPPED to `_rail_keep`, so at a corner it
     stops one `wall` inside the exterior round instead of slotting the show skin —
     and nothing here reaches outboard of the wall's inner face: the notch's outer
@@ -3888,18 +3911,18 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     z_roof = rim + slide_slip
     keep = _rail_keep(inner)
     out = None
-    for x_in, sx, y0, y1, closed in _z_rail_runs(inner, y_joint, col, plate, chase):
-        stop = y0 + rail_stop_len if closed < 0 else y1 - rail_stop_len
+    for x_in, sx, y0, y1, sweep_from in _z_rail_runs(inner, y_joint, col, plate,
+                                                      chase):
+        stop = y1 - rail_stop_len
         _hk, x_f, _a, x_h1 = _rail_x(x_in, sx)
         x_d = x_h1 + sx * slide_slip
         x_peak = (x_in + x_d) / 2.0
         z_peak = z_roof + abs(x_d - x_in) / 2.0
-        berth = (stop, y1) if closed < 0 else (y0, stop)
-        void = _xz_prism(berth[0], berth[1], [
+        void = _xz_prism(y0, stop, [
             (x_in, z_foot), (x_f, z_foot), (x_f, zj - 1.0), (x_d, zj - 1.0),
             (x_d, z_roof), (x_peak, z_peak), (x_in, z_roof)])
-        if closed < 0:
-            void = void.fuse(_xz_prism(inner[2] - front_wall - 1.0, stop, [
+        if col == "front":
+            void = void.fuse(_xz_prism(stop, sweep_from, [
                 (x_in, zj - 1.0), (x_d, zj - 1.0), (x_d, z_roof),
                 (x_peak, z_peak), (x_in, z_roof)]))
         void = void.intersect(keep)
@@ -7264,8 +7287,8 @@ def _report_slide(pieces, box):
     catch engaging, and 0 there is a top that lifts straight off. Both go in `BOUNDS`,
     so the scorecard carries the slide the way it carries every other claim."""
     out = {}
-    for col, names, enter in (("front", ("front-top", "front-bottom"), +1.0),
-                              ("back", ("back-top", "back-bottom"), -1.0)):
+    for col, names in (("front", ("front-top", "front-bottom")),
+                       ("back", ("back-top", "back-bottom"))):
         if names[0] not in pieces or names[1] not in pieces:
             continue
         plate = box.collet_plate if (box.pump_bay and box.collet_plate) else None
@@ -7279,7 +7302,7 @@ def _report_slide(pieces, box):
         rungs.append(travel)
         worst = (0.0, 0.0)
         for d in rungs:
-            v = top.translate(cq.Vector(0.0, enter * d, 0.0)).intersect(bot).Volume()
+            v = top.translate(cq.Vector(0.0, -d, 0.0)).intersect(bot).Volume()
             if v > worst[0]:
                 worst = (v, d)
         clear = worst[0] <= 1.0
@@ -7540,8 +7563,6 @@ def main():
         "SLIDE_SLIP": f"{slide_slip:g} mm",
         "HOOK_LAP": f"{hook_lap:g} mm",
         "HOOK_FOOT": f"{hook_foot:g} mm",
-        "Z_RISE": f"{z_rise:g} mm",
-        "HOOK_NECK": f"{hook_foot + slide_slip:g} mm",
         "Z_RISE": f"{z_rise:g} mm",
         "HOOK_NECK": f"{hook_foot + slide_slip:g} mm",
         "RAIL_REACH": f"{rail_reach_in:.1f} mm",
