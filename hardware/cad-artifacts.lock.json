@@ -2,17 +2,16 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-6b3259d25fd6d5bc.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6b3259d25fd6d5bc.tar.gz"
+    "asset": "cad-a301122c35a718f4.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-a301122c35a718f4.tar.gz"
   },
   "source": {
-    "commit": "f5f3507c521a24d3e4bb26102bc773ca16ca3bf1"
+    "commit": "a23aa779b31fb73a4be724561913d7d7449e6cc0"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "hardware/printed-parts/enclosure/enclosure/README.figures.json",
-      "hardware/printed-parts/enclosure/enclosure/README.md"
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -64,8 +63,8 @@
     ]
   },
   "bundle": {
-    "sha256": "6b3259d25fd6d5bcf225f5bb139299a384ceb6bfd0dc9bf6a9700d317d3df216",
-    "bytes": 65322328,
+    "sha256": "a301122c35a718f4ddeb831844a2d9e618d5b334cedb84a466486abc7aaea7b2",
+    "bytes": 65321750,
     "solids": 124
   },
   "solids": {
@@ -84,8 +83,8 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "c36377ca12a2f3ba651af4410885feddb1a3c7a447f8786e7ca29d655a3113bd",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "37eba7377991718c5befcef2d08998ceb58dabe78da50b004da5b926048f49db",
-    "hardware/manifold-layout/enclosure-assembly.step": "c20004a3620d5b982800acb6c161dc5ba9b4d7e5f7582450ae51f42e80053a8c",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "4645a5f1c3b325c3811a089a171d3a76c742486cd08ff1cbc4f55afdbb74ae0c",
+    "hardware/manifold-layout/enclosure-assembly.step": "1fe25be6eeb6d0cf4e27fbaef12de5b49d256021dc3daa64a0e3c4b84aa54507",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "41c24cc15ef491e60d83bfb34392eed2681540777b182df0d50b35286a98409d",
     "hardware/manifold-layout/manifold-layout.step": "b1ec5c322c80216d7bda15940c767ff696c351f88ce7c9725acaf9a1533bd120",
     "hardware/manifold-layout/manifold-layout.step.mesh": "1d64c534e6f94d485621e4bfc1b256a6adb3da044f094b7bd5e47bccaa31326f",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "1184197a7aa70ac632f0de1073fb51d4dfc020e417abfce95e27cc70c0db47a3",
