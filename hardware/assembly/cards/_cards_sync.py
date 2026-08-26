@@ -454,11 +454,9 @@ def sub_assemblies(m: Machine):
     captured = under("enclosure-back-top", "wall-capture")
 
     # SA-01 and SA-02 each end on a body that is NOT in their picture: the tray in
-    # one, the funnel and the steel plate in the other. The piece carries it in the
-    # finished machine and the scene holds it back, which is the pair of readings
-    # those two sentences stand on.
+    # one, the funnel in the other. The piece carries it in the finished machine and the
+    # scene holds it back, which is the pair of readings those two sentences stand on.
     for scene_id, absent in (("back-top", "asse-drip-pan"), ("front-top", "funnel"),
-                             ("front-top", "collet-plate"),
                              ("funnel-drain", "funnel-drain-union"),
                              ("cap-lid", "tube-fluid-14")):
         scene = _scenes.SCENE_BY_ID[scene_id]
@@ -466,8 +464,9 @@ def sub_assemblies(m: Machine):
             f"the {scene_id} scene draws {absent}, and its card says the piece leaves the "
             f"bench without it — hold it back in `_scenes.SCENES`, or restate the card")
 
-    # The wells this piece leaves the bench with. The steel takes one too and reaches it
-    # through the pump bay with the box standing, so the scene holds it back.
+    # The wells this piece leaves the bench with. The collet plate takes one too — the slot
+    # through the bay floor — and that one IS made on the bench: the steel goes in through this
+    # piece's own Z− face, which is the face looking up in the scene's pose.
     front_top_wells = [n for n in under("enclosure-front-top", "well")
                        if n not in front_top.later]
 
