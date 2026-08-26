@@ -1,0 +1,76 @@
+{
+  "checks": [
+    {
+      "check": "hardware/scripts/check_build_exit.py",
+      "note": "✓ every lock-taking script ends through sys.exit or an exception",
+      "status": "ok"
+    },
+    {
+      "check": "hardware/scripts/check_facts_current.py",
+      "note": "the enclosure's facts name the card and solid they were taken beside",
+      "status": "ok"
+    },
+    {
+      "check": "hardware/scripts/check_flutes.py",
+      "note": "✓ every payload stands within the budget its print was cut to",
+      "status": "ok"
+    },
+    {
+      "check": "hardware/scripts/check_ledger.py",
+      "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
+      "status": "ok"
+    },
+    {
+      "check": "hardware/scripts/check_payloads.py",
+      "note": "",
+      "status": "ok"
+    },
+    {
+      "check": "hardware/scripts/check_pinmap.py",
+      "note": "✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): Faucet display cover plate",
+      "status": "red"
+    },
+    {
+      "check": "hardware/scripts/check_step_colours.py",
+      "note": "step colours: 100/100 carry the colour of what they are made of",
+      "status": "ok"
+    },
+    {
+      "check": "hardware/scripts/check_tracked.py",
+      "note": "90/90 artifacts have their record in the index",
+      "status": "ok"
+    },
+    {
+      "check": "tools/check_paths.py",
+      "note": "1 reference(s) name a path nothing holds.",
+      "status": "red"
+    },
+    {
+      "check": "tools/bazel/check_ci_targets.py",
+      "note": "check_ci_targets: every target a workflow step names is declared",
+      "status": "ok"
+    },
+    {
+      "check": "tools/bazel/check_declared_imports.py",
+      "note": "check_declared_imports: every step holds what it imports",
+      "status": "ok"
+    },
+    {
+      "check": "tools/bazel/check_publish_paths.py",
+      "note": "check_publish_paths: every source a step reads can start a publish",
+      "status": "ok"
+    }
+  ],
+  "detail": {
+    "hardware/scripts/check_pinmap.py": [
+      "board GPIOs in use: 23 | documented: 23 (free: 3) | cross-table fns: 14",
+      "DRIFT: 1 mismatch(es) between the main board and a derived artifact:",
+      "  ✗ untracked electrical BOM part (give it a CROSS pin entry, or add to NO_PIN): Faucet display cover plate"
+    ],
+    "tools/check_paths.py": [
+      "hardware/wiring/harness-branches.mmd:4 — hardware/wiring/harness-rfq.md is held nowhere, and no tag is named for it",
+      "1 reference(s) name a path nothing holds."
+    ]
+  },
+  "green": false
+}
