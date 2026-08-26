@@ -272,7 +272,7 @@ assert not _display_stack, (
 # stations rather than named here: the Y seam's `y_bosses`, a level for each end of each
 # piece crossing it — the under-floor level pins the two bottoms, the under-ceiling one
 # the two tops. The Z seams take no screw at all: each column's top SLIDES home on its
-# dovetail rails and the other column, screwed on at these four, is what blocks the way
+# hooked rails and the other column, screwed on at these four, is what blocks the way
 # back out (`enclosure._z_rail_heads`). The heat-set is in the RECEIVING piece every
 # time — the front pieces, on the Y seam.
 enclosure_seam_screws_per_build = len(_f.box["y_bosses"])
