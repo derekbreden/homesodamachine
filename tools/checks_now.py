@@ -9,8 +9,8 @@ what asks the tree how it is doing. `tools/checks.py` against the tree is 7-27 s
 takes no build lock.
 
 THE ANSWER GOES TO THE SITE. `web/public/checks.json` is under `render.yaml`'s buildFilter, so
-committing it deploys, and `web/lib/shell.js` draws it as a pill on every page — `✗ Checks`
-carrying each red check's last lines, `✓ Checks` when none is.
+committing it deploys. `web/lib/shell.js` puts it on the settings gear's corner — green when
+every check passes, red when one does not — and /settings names the rows.
 
 IT REPORTS AND HOLDS NOTHING. The commit is made and pushed before this starts, and a red rides
 to the site with it. CLAUDE.md, "Nothing withholds".
@@ -103,7 +103,7 @@ def once() -> int:
         print(f"  {'red' if red else 'green'}, and unchanged from what this commit carries "
               f"({took:.0f}s)")
         return 0
-    print(f"  {'RED — the site says so on every page' if red else 'green again'}, "
+    print(f"  {'RED — the gear goes red, /settings names it' if red else 'green again'}, "
           f"pinning the reading ({took:.0f}s)")
     return land()
 

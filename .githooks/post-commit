@@ -62,7 +62,7 @@ nohup "$_py" "$root/tools/publish_now.py" \
 
 # AND THE TREE IS ASKED HOW IT IS DOING. `checks_now.py` runs every check against the tree —
 # 7-27 seconds, no build lock — and commits the verdict to `web/public/checks.json`, a deploying
-# path, so it draws as a pill on every page of the site. Detached and behind its own
+# path, so it colours the settings gear's dot on every page. Detached and behind its own
 # single-flight lock, as the publish above is: nothing here stands in front of the agent's next
 # tool call, and six sessions committing at once produce one reading of the newest tree.
 #
