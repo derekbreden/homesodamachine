@@ -203,12 +203,12 @@ SCENES = (
     Scene(
         "front-top", "Enclosure front top",
         roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
-        # BOTH OF THIS PIECE'S OPENINGS ARE FILLED FROM THE ROOM, so what arrives through
-        # either is late. The collet plate stands on edge across the pump bay with its foot
-        # down in the blind seat cut in that bay's floor, on nothing but gravity, and the
-        # funnel drops into its opening on its own brim — neither is a joint a hand can make
-        # with the piece upside down on a bench.
-        later=("collet-plate", "funnel"),
+        # THE COLLET PLATE IS ON THIS PIECE AND IN THIS POSE. It goes in through the Z− face,
+        # which is the face looking up here, so the bench work that fills the trays fills the
+        # bay's slot too. The FUNNEL is the opening that is still filled from the room: it
+        # drops into its throat on its own brim, which is not a joint a hand can make with the
+        # piece upside down on a bench.
+        later=("funnel",),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
         # they stand one behind the other on two Y planes, and a camera down the valves' own
