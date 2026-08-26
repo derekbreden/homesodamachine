@@ -129,7 +129,7 @@ Everything that is putting parts together with fasteners and hands. Printer tend
 | Press the wall's Wago wells; mount PSU, relays, PCBA | ES-01, ES-03 | Onto `enclosure-back-top`'s [17](SHELF_INSERTS) +X wall bosses | 5 |
 | Stage the six printed pieces and the +Y wall's bodies; bolt the compressor down to the slab | EN-01, EN-02, EN-03 | Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, power column, close the box, ASSE drip pan | EN-04, EN-05, EN-06, EN-07, EN-08 | | 10 |
-| Stage the collet plate and feed it into front-top's slot, holes forward | EN-01, EN-07 | In through that piece's seam face before the front column closes; the guides' heads stop it and the bottom piece's mouth closes under it | 5 |
+| Stage the collet plate and feed it into front-top's slot, holes forward | EN-01, EN-07 | In through that piece's seam face before the front column closes; its two shoulders come up onto the bay floor's top and the guides' crowns close over its top edge | 5 |
 | Cut, route and sleeve the umbilical; bag the installer kit | FU-01, FU-02, FU-03, FU-04 | Three LLDPE tubes, braid, install-kit bag | 10 |
 | Assemble the faucet — two-piece touch-flo shell, plate, gasket, o-ring | — | PET-GF shell, printed TPU seals | 5 |
 | **Assembly** | | | **[125](LAB_SEC8)** |

@@ -593,7 +593,7 @@ The **bay floor** is the one feature that costs nothing and pays: it IS front-to
 first layers. Its underside is the seam mouth, the plane the piece beds on, so there is
 no face under it to hang and no support in it to pick out. It is a solid slab across the
 whole front storey with one slot through it: the pump cartridge slides across it, and the collet
-plate comes up that slot from the bed face.
+plate comes up that slot from the bed face onto the floor's own top.
 
 The **tee wall** behind that plate costs nothing standing up, and its four bores are the
 only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
@@ -921,31 +921,33 @@ floor opens for that alone. Aft of that run the lip is carried whole and the tel
 is untouched.
 
 The **collet plate goes in through the Z− face**, which is the seam face front-bottom mates
-on and the face this piece beds on. Its slot (`_plate_slot`) passes clean through the floor
-and opens on that plane, `plate_slot_slip` off the steel fore and aft, and the mouth flares
-[1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it — a lead that leans in as the print
-climbs off the bed. The steel rises up the slot until its two outer tails land on the guides'
-heads; front-bottom's mouth then closes under its foot, and that is the whole retention.
+on and the face this piece beds on. Its slot (`_plate_slot`) passes through the floor and opens
+on that plane, `plate_slot_slip` off the steel fore and aft at every height, and the mouth
+flares [1 mm](PLATE_SLOT_LEAD) at 45° so the steel finds it — a lead that leans in as the print
+climbs off the bed. **Across, the slot is two widths**: the foot's up to the floor's top, and
+the walls' above it. What is left standing between the two is [6 mm](PLATE_SEAT_LAND) of the
+floor's own top at each end of the mouth, and that is what carries the plate — the steel comes
+up foot-first until its two shoulders land there. `bay-floor-bedded` reads both of them whole.
 
 **The guides are two stationary L sections** (`_plate_fore_guides`) standing fore of the
 plate's outer tails and returning around its ends into the fixed side-wall stock aft of the
 plate. The tee wall is the channel's aft face and the guides its fore face, so the steel
 cannot pitch forward when the four collet noses load it after the pump cartridge has begun
-moving. Over each tail the crown band reaches aft from the cheek to the tee wall, and its
-underside — one `slide_slip` over the steel's top — is the **head** the plate is pushed up to:
-[6 mm](PLATE_GUIDE_CROWN) of section over the steel, closing that bright edge in and spanning
-`PLATE_T + plate_slot_slip` between two standing walls. `bay-floor-bedded`'s second reading is
-those two heads whole over the steel's top.
+moving. Over each tail the crown band reaches aft from the cheek to the tee wall, standing
+one `slide_slip` over the steel's top: what the floor's shoulders carry from below, that
+[6 mm](PLATE_GUIDE_CROWN) of section holds down from above, closing the bright top edge in
+over both tails and spanning `PLATE_T + plate_slot_slip` between two standing walls.
 
-The steel's Z band follows: the bottom is the **seam plane** and the top is whatever puts the
-four collet holes **centred** in the band (`plate-holes-centred`). Across, over
-[176.1 mm](PLATE_STEP_Z) its ends stand `PLATE_END_AIR` off the side walls and the outline is
-whole between them — the one thing that ever stood proud of the floor down these flanks was
-the side lip, and it is given up over this whole run. Under that plane each end **steps in**
-[6.8 mm](PLATE_STEP_IN) from the wall: the steel rides in front-top through the front column's
-slide, and everything fore of the stop blocks sweeps the rails there. `z-slide-front-lanes` is
-the reading that holds it out of them. The outline is a waterjet cut and `build_collet_plate`
-writes it into `collet-plate.dxf` with the holes.
+**The steel is three widths and one band.** The band's bottom is the **seam plane** — the foot
+fills the slot to its mouth — and its top is whatever puts the four collet holes **centred**
+in the band (`plate-holes-centred`). Over [176.1 mm](PLATE_STEP_Z) its ends stand
+`PLATE_END_AIR` off the side walls and the outline is whole between them: the one thing that
+ever stood proud of the floor down these flanks was the side lip, and it is given up over this
+whole run. Between the floor's top and that plane each end **steps in** [6.8 mm](PLATE_STEP_IN)
+from the wall — the steel rides in front-top through the front column's slide, and everything
+fore of the stop blocks sweeps the rails there, which `z-slide-front-lanes` is the reading of.
+Under the floor's top it draws in another [6 mm](PLATE_SEAT_LAND) to make the foot. The outline
+is a waterjet cut and `build_collet_plate` writes it into `collet-plate.dxf` with the holes.
 
 The **wall behind the steel is struck on the same four collets** (`_tee_wall`).
 Front-top stands a section of its own material aft of the plate, wall to wall and the
