@@ -5734,15 +5734,20 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
 
     THE EAST CHEEK IS CUT ACROSS THE HEADER. The pins face east off the card and the loom lands
     on them out of the bay, so a cheek running unbroken past them is a cheek nothing can reach
-    through. The cut is struck on the pin field's own run and takes BOTH posts, because which
-    end of the card the header lands at is the card's turn to state and not this slot's.
+    through. The cut is struck on the header's own band — `header_span` states both how far in
+    off the card's end the row stands and how far it runs — and it is taken at BOTH ends,
+    because which end of the card the header lands at is the card's turn to state and not this
+    slot's. IT RUNS TO THE TOP OF THE POST: up is where the loom comes from, and a cut closed at
+    its crown would leave the cheek above it reaching sideways off the post over open air, which
+    is the one thing this cradle exists to have none of.
 
     THE WALL IT IS STRUCK FROM IS THE ONE THAT IS THERE. The card stands under a Z seam, and a
     flank under a seam carries its lip's own wall down to the slab — so the datum is
     `lip_face_x` and not `interior_x`, `2 * wall` of flank and not one. The can bottoms on that
     plane, through the well `_front_bottom_flank_skin` opens for it, and
     `enclosure_assembly.build_mq6` seats the card on the same call."""
-    span, _off = _mq6.header_span()
+    span, off = _mq6.header_span()
+    across = _mq6.PIN_SQ / 2.0 + mq6_header_relief
     for sx, sy, sz, *_foot in stations:
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
@@ -5750,8 +5755,8 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
         gx1 = sx + mq6_card_x / 2.0 + mq6_slot_press
         px0, px1 = lip_face_x()[0], gx1 + mq6_rail_wall
         zb, zt = sz - mq6_card_z / 2.0, sz + mq6_card_z / 2.0
-        ends = ((sy - mq6_card_y / 2.0, 1.0), (sy + mq6_card_y / 2.0, -1.0))
-        for end, into in ends:
+        for into in (1.0, -1.0):
+            end = sy - into * mq6_card_y / 2.0
             # The post: slab to the card's own crown, rooted on the wall over its whole depth.
             pa, pb = sorted((end - into * mq6_rail_wall, end + into * mq6_grip))
             solid = solid.fuse(_ybox(px0, px1, pa, pb, inner[4], zt))
@@ -5759,11 +5764,15 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
             # bottom so it lands: what it lands ON is the post's own first `mq6_rail_wall`.
             ga, gb = sorted((end - into * mq6_slot_press, end + into * (mq6_grip + 1.0)))
             solid = solid.cut(_ybox(gx0, gx1, ga, gb, zb, zt + 1.0))
-        solid = solid.cut(_ybox(gx1, px1 + 1.0,
-                                ends[0][0] - mq6_rail_wall - 1.0,
-                                ends[1][0] + mq6_rail_wall + 1.0,
-                                sz - span - mq6_header_relief,
-                                sz + span + mq6_header_relief))
+            # And the east cheek off the header's own band, from the pin field's foot CLEAR TO
+            # THE TOP. Up, because the loom comes down out of the bay onto the pins and a cheek
+            # over them is a cheek it cannot pass — and because a cut closed at its crown would
+            # leave the cheek above it standing on nothing, reaching sideways off the post over
+            # open air. Everything this cradle keeps runs to the bed.
+            ha, hb = sorted((end + into * (mq6_card_y / 2.0 - off - across),
+                             end + into * (mq6_card_y / 2.0 - off + across)))
+            solid = solid.cut(_ybox(gx1, px1 + 1.0, ha, hb,
+                                    sz - span - mq6_header_relief, zt + 1.0))
     return solid
 
 
