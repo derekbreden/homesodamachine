@@ -385,6 +385,22 @@ def main() -> int:
         print(f"{len(held)} selftest(s) watched")
         return 0
 
+    # A GENERATOR `SPLIT_GENERATORS` WRITES OVER CANNOT BE READ HERE. `inventory` builds the
+    # card wrapper's entry out of the SOURCE's trace and drops whatever stands under the
+    # wrapper's own name, so a reading taken of the wrapper lands in `graph.json`, survives
+    # until the next `inventory()`, and is gone — the run costs minutes and reports what it
+    # read. Named at the entrance, because the drop happens somewhere else.
+    from inventory import SPLIT_GENERATORS
+    written_from = {wrapper: source
+                    for source, wrappers in SPLIT_GENERATORS.items() for wrapper in wrappers}
+    for gen in args.gen:
+        if gen in written_from:
+            print(f"  {gen}'s entry is written from {written_from[gen]}, and a reading of it "
+                  f"here is dropped.\n  Read that one instead:\n"
+                  f"    tools/cad-venv/bin/python tools/bazel/trace_inputs.py "
+                  f"{written_from[gen]}", file=sys.stderr)
+            return 1
+
     gens = args.gen or _generators(files)
 
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}
