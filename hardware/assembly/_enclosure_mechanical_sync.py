@@ -163,6 +163,12 @@ def main():
         "Y_SEAM": f"{_box["y_joint"]:.4g}",
         "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
         "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
+        # THE COLLET PLATE'S TWO PLAN FIGURES, both read off `enclosure` rather than typed
+        # here. The steel goes into front-top through that piece's Z− face and then rides it
+        # through the front column's slide, so under the seam's cap plane it stands in the
+        # lane the rails sweep and its ends step in by what everything in that lane keeps.
+        "PLATE_STEP_Z": f"{_enc.seam_cap_z():.4g} mm",
+        "PLATE_STEP_IN": f"{_enc.plate_step_in():.4g} mm",
         # The STATED width — the bound itself and not a measurement of the box built to it, so
         # the doc quotes what `enclosure` declares rather than what the pieces came out at.
         "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
