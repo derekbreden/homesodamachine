@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -73,10 +73,15 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "4 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "valve-v-e \u2229 enclosure-front-top   3.2 mm\u00b3, x[    3.96,   36.18] y[   92.88,   95.08] z[  213.82,  252.23]",
+    "valve-v-f \u2229 enclosure-front-top   3.2 mm\u00b3, x[   60.96,   93.18] y[   92.88,   95.08] z[  213.82,  252.23]",
+    "valve-v-h \u2229 enclosure-front-top   3.2 mm\u00b3, x[  -36.18,   -3.96] y[   92.88,   95.08] z[  213.82,  252.23]",
+    "valve-v-i \u2229 enclosure-front-top   3.2 mm\u00b3, x[  -93.18,  -60.96] y[   92.88,   95.08] z[  213.82,  252.23]"
+   ],
    "active": true
   },
   {
