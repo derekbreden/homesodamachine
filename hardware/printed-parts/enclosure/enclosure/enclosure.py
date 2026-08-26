@@ -1481,7 +1481,12 @@ sill_wash = 1.4              # the sill's top face falls this much fore, so the 
 # steps in opposite directions, neither outline containing the other, and a thin ledge at
 # every junction. What the face fits through, the block behind it fits through.
 cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
-plate_slot_slip = 0.2        # air fore and aft of the collet plate in the floor's slot, and
+# THE STEEL'S OWN AIR, on every edge it presents to printed material. `fits.slip` is the
+# figure for a printed face on a printed face; this is the figure for the one part of this
+# box that is cut rather than printed — 1/8" 304 off a waterjet, square-edged, carrying no
+# support residue and no elephant's foot, and bought to a lead time.
+steel_air = 0.2
+plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor's slot, and
                              # across it too: the slot's ends are what locate the steel in X,
                              # because over `seam_cap_z` the flank it would otherwise stand
                              # against is opened whole (`_flank_opening`)
@@ -2875,8 +2880,9 @@ def plate_step_in():
     that storey belongs to the joint: `rail_reach_in` off a flank's interior face is what the
     groove, the arm and the head take down both columns, and a body standing on it keeps out
     of that band. One `slide_slip` outboard of the joint's reach is the channel the top piece
-    cuts for it; one more inboard is the steel's, so the plan of the lane holds three faces
-    and the steel takes the innermost.
+    cuts for it; one `steel_air` inboard of that is the plate's, so the plan of the lane holds
+    three faces and the steel takes the innermost — and the two figures are two figures
+    because the face on each side of that last one is a different material.
 
     AND IT IS HELD OFF BY THAT EVERYWHERE, NOT ONLY DOWN THERE. The plate rides in front-top
     through the whole of the front column's slide, so a lane its bottom edge needs is a lane
@@ -2892,7 +2898,7 @@ def plate_step_in():
     column's rail on the plate's own tee wall (`wall_aft_y`). Keeping the joint's whole
     reach is what leaves those two free of each other — the tee wall can carry the run's
     open end wherever it lands and the steel is already clear of the plan it lands in."""
-    return rail_reach_in + 2.0 * slide_slip
+    return rail_reach_in + slide_slip + steel_air
 
 
 def plate_outline(plate):
