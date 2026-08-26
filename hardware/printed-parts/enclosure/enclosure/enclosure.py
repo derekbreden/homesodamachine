@@ -4884,6 +4884,7 @@ def grip_figures(box):
         "GRIP_RAKE": f"1 in {1.0 / grip_rake:.4g}",
         "GRIP_RAKE_FORE": f"{grip_rake * deep:.4g} mm",
         "PLATE_SLOT_LEAD": f"{plate_slot_lead:.4g} mm",
+        "PLATE_SEAT_LAND": f"{plate_seat_land:.4g} mm",
         "PLATE_STEP_IN": f"{plate_step_in():.4g} mm",
         "PLATE_STEP_Z": f"{seam_cap_z():.4g} mm",
         "PLATE_GUIDE_WEDGE": f"{plate_guide_wedge:.4g} mm",
