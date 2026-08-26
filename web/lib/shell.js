@@ -91,46 +91,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* The checks' verdict, under the nav on every page, in .sc-badge's pill from
-   public/css/viewer.css — the one the enclosure's requirements verdict wears at
-   the bottom of the 3D canvas: the green ground when it passes, the red one when
-   it does not. A red pill is <summary> and carries the rows under it; a green one
-   is a span. No script either way. */
-.checks-pill-row {
-  padding: 0.5rem calc(env(safe-area-inset-right, 0px) + 0.875rem)
-           0.5rem calc(env(safe-area-inset-left, 0px) + 0.875rem);
-}
-.checks-pill-row > summary { list-style: none; cursor: pointer; }
-.checks-pill-row > summary::-webkit-details-marker { display: none; }
-.checks-pill {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
-  background: color-mix(in srgb, var(--ok) 18%, rgba(35, 35, 66, 0.85));
-  color: var(--ok);
-  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  transition: filter 0.12s;
-}
-.checks-pill.has-issues {
-  border-color: color-mix(in srgb, var(--err) 60%, transparent);
-  background: color-mix(in srgb, var(--err) 20%, rgba(35, 35, 66, 0.85));
-  color: var(--err);
-}
-.checks-pill-row > summary:hover .checks-pill { filter: brightness(1.2); }
-.checks-pill-row ul {
-  margin: 0.5rem 0 0.125rem;
-  padding: 0 0 0 1rem;
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: var(--text);
-}
-.checks-pill-row li { margin: 0 0 0.375rem; }
-.checks-pill-row code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.75rem;
-  color: var(--text-2);
-}
 /* The bar's own inset stops at the safe area; the rest of it belongs to the
    links, which spend it as hit area (see .nav-icon). The gap closes as the bar
    narrows, so nine icons in dev mode still land inside a phone's width and the
@@ -211,6 +171,25 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
   border: 2px solid var(--bg);
   box-sizing: content-box;
 }
+/* The check verdict, on the gear's corner where the bell wears its unread —
+   green when every check passes, red when one does not, and absent when this
+   deploy carries no reading. The gear is already in every nav and the dot is
+   inside its hit area, so the verdict costs the page no room. /settings names
+   what is red. */
+.site-nav .nav-gear.checks-ok::after,
+.site-nav .nav-gear.checks-red::after {
+  content: "";
+  position: absolute;
+  top: calc(0.75rem - 3px);
+  right: calc(0.375rem - 3px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  box-sizing: content-box;
+}
+.site-nav .nav-gear.checks-ok::after { background: var(--ok); }
+.site-nav .nav-gear.checks-red::after { background: var(--err); }
 
 /* Public nav hides Parts / Charts / Drawings / Boards / Cost unless
    html.dev-mode is set. The dev surface (.site-nav-dev) always shows them.
@@ -431,35 +410,45 @@ ${pageHead}
 // html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
 // visible. Updates is the complement: visible wherever that set is hidden.
 
-// What the checks found, under the nav on every page: `✓ Checks`, `✗ Checks`, or — with no
-// verdict on this deploy — no pill.
-//
-// The red one is <summary>, and opens on each red check's last lines, which carry the command
-// that repairs it. The green one is a span. `tools/checks_now.py` writes the verdict after every
-// commit, so the pill turns on the deploy that follows the commit that moved it.
-//
-// The page renders the same either way. CLAUDE.md, "Nothing withholds".
-export function renderChecksPill() {
+// The class the gear wears for this deploy's verdict: `checks-ok`, `checks-red`, or nothing
+// when no verdict shipped. `tools/checks_now.py` writes it after every commit, so the dot turns
+// on the deploy that follows the commit that moved it, and /settings names what is red.
+export function checksNavClass() {
   if (!CHECKS) return "";
-  const red = CHECKS.checks.filter((c) => c.status === "red");
-  if (!red.length) {
-    return `<div class="checks-pill-row"><span class="checks-pill">✓ Checks</span></div>\n`;
+  return CHECKS.checks.some((c) => c.status === "red") ? " checks-red" : " checks-ok";
+}
+
+// Every check and what it answered, for the settings page — the whole set, not just the red
+// ones, since the green rows are what say the reading was taken. A red row carries the check's
+// last lines under it, which hold the command that repairs it.
+export function renderChecksRows() {
+  if (!CHECKS) {
+    return `    <div class="setting-row">
+      <div><div class="setting-help">This deploy carries no reading.</div></div>
+    </div>`;
   }
-  const items = red
+  return CHECKS.checks
     .map((c) => {
-      const detail = (CHECKS.detail?.[c.check] ?? [])
-        .map((ln) => `<div>${escape(ln)}</div>`)
-        .join("");
-      return `    <li><code>${escape(c.check)}</code>${detail}</li>`;
+      const red = c.status === "red";
+      const name = c.check.split("/").pop().replace(/^check_|\.py$/g, "");
+      // `note` is the check's last line and `detail` ends with that same line, so a red row
+      // showing both says it twice — the detail alone carries it, and everything above it.
+      // The mark column carries the verdict, so a note opening with one repeats that too, and
+      // an empty note is a check that passed silently: `check_payloads` prints nothing when
+      // every payload is the one beside its solid.
+      const detail = red ? (CHECKS.detail?.[c.check] ?? []) : [];
+      const note = detail.length ? "" : c.note.replace(/^[✓✗•]\s*/, "").trim();
+      const lines = detail.map((ln) => `<div>${escape(ln)}</div>`).join("");
+      return `    <div class="setting-row checks-row">
+      <div>
+        <div class="setting-label">${escape(name)}</div>
+        ${note ? `<div class="setting-help">${escape(note)}</div>` : ""}
+        ${lines ? `<div class="checks-detail">${lines}</div>` : ""}
+      </div>
+      <span class="checks-mark ${red ? "red" : "ok"}">${red ? "✗" : "✓"}</span>
+    </div>`;
     })
     .join("\n");
-  return `<details class="checks-pill-row">
-  <summary><span class="checks-pill has-issues">✗ Checks</span></summary>
-  <ul>
-${items}
-  </ul>
-</details>
-`;
 }
 
 export function renderNav({ surface = "public", active = null }) {
@@ -486,10 +475,10 @@ export function renderNav({ surface = "public", active = null }) {
 ${iconItems}
   <div class="nav-right">
     <a href="/notifications" class="nav-icon nav-bell${bellActive}" data-nav="notifications" aria-label="Notifications">${BELL_SVG}</a>
-    <a href="/settings" class="nav-icon nav-gear${gearActive}" data-nav="settings" aria-label="Settings">${GEAR_SVG}</a>
+    <a href="/settings" class="nav-icon nav-gear${gearActive}${checksNavClass()}" data-nav="settings" aria-label="Settings">${GEAR_SVG}</a>
   </div>
 </nav>
-${renderChecksPill()}`;
+`;
 }
 
 export function renderFooter() {
