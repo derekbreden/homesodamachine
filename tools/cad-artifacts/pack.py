@@ -58,7 +58,6 @@ TAG = "cad-artifacts"
 #: Trees of local intermediates, each already ignored by the rule named beside it.
 NOT_BUNDLED_DIRS = (
     "hardware/pcb/pcba/.cad-cache",          # manufacturer downloads, keyed by LCSC
-    "hardware/pcb/pcba/out",                 # the on-demand full B-rep; out/<board>.glb is the artifact
     "hardware/assembly/scenes/out",          # a rendering intermediate for the unit cards' pictures
     "hardware/quickstart/out",               # where a mount study lands; no rule declares one
     "hardware/quickstart/studies",           # drawn by hand; the graph declares none of it
@@ -169,6 +168,21 @@ BUNDLED_ART_FILES = (
     "hardware/quickstart/quick-start.pdf.json",
 )
 
+#: A board's rendered set — the fab pack, the copper and mask views, the 3D assembly.
+#: `hardware/pcb/pcba/render-board.ts` writes them on every save of a board, the way a CadQuery
+#: `.py` regenerates its `.step`, and `web/lib/walk.js` serves them off `pcb/<dir>/out/`.
+#: Everything in the directory but the two below.
+BUNDLED_BOARD_DIRS = ("hardware/pcb/pcba/out",)
+
+#: The on-demand full B-rep, and the routed circuit-json the board's own `.gitignore` holds back.
+#: Neither is served and neither is small.
+BOARD_NOT_BUNDLED = (".step", ".circuit.json")
+
+#: Producers `graph.json` does not watch. `trace_inputs.py` watches a Python `__main__`; a board
+#: is drawn by a bun script, so the graph declares none of its outputs and `--check` has nothing
+#: to hold them against.
+UNWATCHED_PRODUCERS = BUNDLED_BOARD_DIRS
+
 
 def solids(root: Path) -> list:
     """Every generated `.step`, `.stl`, `.glb`, `.step.mesh`, `.png` and `.pdf` under
@@ -184,6 +198,7 @@ def solids(root: Path) -> list:
     scenes = tuple(f"{d}/" for d in BUNDLED_GLB_DIRS)
     payloads = tuple(f"{d}/" for d in BUNDLED_PAYLOAD_DIRS)
     art = tuple(f"{d}/" for d in BUNDLED_ART_DIRS)
+    boards = tuple(f"{d}/" for d in BUNDLED_BOARD_DIRS)
     out = []
     walk = list(hw.rglob("*.step"))
     for d in BUNDLED_MESH_DIRS:
@@ -196,11 +211,21 @@ def solids(root: Path) -> list:
         walk += list((root / d).rglob("*.png"))
         walk += list((root / d).rglob("*.pdf"))
     walk += [root / rel for rel in BUNDLED_ART_FILES if (root / rel).is_file()]
+    for d in BUNDLED_BOARD_DIRS:
+        walk += [p for p in (root / d).rglob("*")
+                 if p.is_file() and not p.name.endswith(BOARD_NOT_BUNDLED)]
     for p in walk:
         if not p.is_file() or p.is_symlink():
             continue
         rel = p.relative_to(root).as_posix()
         if rel.startswith(skip) or rel in HARVESTED:
+            continue
+        # A board directory carries its whole rendered set, so what a suffix says about a file
+        # elsewhere says nothing there. The two it does not carry are named.
+        if rel.startswith(boards):
+            if p.name.endswith(BOARD_NOT_BUNDLED):
+                continue
+            out.append(rel)
             continue
         if p.suffix == ".stl" and not rel.startswith(meshes):
             continue
@@ -565,7 +590,8 @@ def _graph_gaps(root: Path, rels: list) -> tuple:
     Bazel carries bytes, and every byte the release ships must be an output of the action that
     makes it."""
     declared = _declared(root)
-    present = set(rels)
+    unwatched = tuple(f"{d}/" for d in UNWATCHED_PRODUCERS)
+    present = {rel for rel in rels if not rel.startswith(unwatched)}
     return sorted(present - declared), sorted(declared - present)
 
 
