@@ -29,13 +29,9 @@ import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPD
 // The check verdict this deploy is carrying — `public/checks.json`, written by
 // `tools/checks.py --json` and committed by `tools/checks_now.py` off the post-commit hook.
 //
-// READ ONCE, AT BOOT, FOR THE SAME REASON `commit` IS. The file is part of the deploy, so it
-// cannot change under a running container; a read per request would be the same answer bought
-// again every time. A deploy restarts this process, and that is when the reading moves.
-//
-// A DEPLOY WITHOUT ONE IS NOT A FAILURE. The file arrives with the first commit that runs the
-// hook, and until then — and on any container whose disk does not hold it — there is simply no
-// band. Absent is not green: nothing is claimed either way.
+// Read at module load, like `commit`: the file ships with the deploy, so the reading moves when
+// a deploy restarts this process. A disk that holds no such file, or holds one this cannot
+// parse, leaves `CHECKS` null.
 const CHECKS_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", "checks.json");
 
 function readChecks() {
@@ -95,15 +91,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* What the checks found, under the nav on every page: the same pill the
-   enclosure's requirements verdict wears at the bottom of the 3D canvas
-   (.sc-badge in public/css/viewer.css), to the pixel — one mark, one word, the
-   green ground when it passes and the red one when it does not. Two readings of
-   whether the tree is holding should not look like two different kinds of thing.
-
-   RED OPENS AND GREEN DOES NOT. A red pill is <summary> and carries the rows
-   under it; a green one is a span, because a verdict with nothing to name has
-   nothing to expand. No script either way. */
+/* The checks' verdict, under the nav on every page, in .sc-badge's pill from
+   public/css/viewer.css — the one the enclosure's requirements verdict wears at
+   the bottom of the 3D canvas: the green ground when it passes, the red one when
+   it does not. A red pill is <summary> and carries the rows under it; a green one
+   is a span. No script either way. */
 .checks-pill-row {
   padding: 0.5rem calc(env(safe-area-inset-right, 0px) + 0.875rem)
            0.5rem calc(env(safe-area-inset-left, 0px) + 0.875rem);
@@ -438,21 +430,16 @@ ${pageHead}
 // present in the markup but, on the public surface, hidden by CSS unless
 // html.dev-mode is set (see BASE_CSS). On the dev surface, all are always
 // visible. Updates is the complement: visible wherever that set is hidden.
-// What the checks found, under the nav on every page: `✓ Checks` or `✗ Checks`, in the pill the
-// enclosure's verdict already wears at the bottom of the 3D canvas.
+
+// What the checks found, under the nav on every page: `✓ Checks`, `✗ Checks`, or — with no
+// verdict on this deploy — no pill.
 //
-// A MARK EITHER WAY, BECAUSE ABSENCE IS NOT AN ANSWER. A pill that appeared only in trouble
-// would leave green and never-ran looking alike, and never-ran is the state this whole path
-// exists to end. `✓ Checks` says the tree was read and answered; nothing at all says only that
-// this deploy carries no reading, which is true of a container whose disk holds no such file.
+// The red one is <summary>, and opens on each red check's last lines, which carry the command
+// that repairs it. The green one is a span. `tools/checks_now.py` writes the verdict after every
+// commit, so the pill turns on the deploy that follows the commit that moved it.
 //
-// THE RED ONE CARRIES ITS ROWS, each check's own last words, which are usually the command that
-// repairs it. `tools/checks_now.py` writes the verdict after every commit, so the pill turns on
-// the deploy that follows the commit that broke something.
-//
-// IT REPORTS AND HOLDS NOTHING. A red check has never stopped this page rendering, and the tree
-// it describes reached the site regardless. CLAUDE.md, "Nothing withholds".
-export function renderChecksBand() {
+// The page renders the same either way. CLAUDE.md, "Nothing withholds".
+export function renderChecksPill() {
   if (!CHECKS) return "";
   const red = CHECKS.checks.filter((c) => c.status === "red");
   if (!red.length) {
@@ -502,7 +489,7 @@ ${iconItems}
     <a href="/settings" class="nav-icon nav-gear${gearActive}" data-nav="settings" aria-label="Settings">${GEAR_SVG}</a>
   </div>
 </nav>
-${renderChecksBand()}`;
+${renderChecksPill()}`;
 }
 
 export function renderFooter() {
