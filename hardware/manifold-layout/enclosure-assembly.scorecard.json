@@ -229,6 +229,16 @@
    "active": true
   },
   {
+   "id": "flute-reveal",
+   "label": "A band on the run either carries the field or is a reveal",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6/6 hold",
+   "target": "fluted iff it stands 10 mm tall",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "cap-screw-reach",
    "label": "The clamp screw reaches the whole of its insert",
    "kind": "gate",
