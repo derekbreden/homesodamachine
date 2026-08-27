@@ -355,7 +355,8 @@ static void cmdWifi(const String &line) {
     }
 
     if (rest == "off") { linkWifiAp(false); return; }
-    if (rest == "on")  { linkWifiAp(true);  return; }
+    if (rest == "on")   { linkWifiAp(true);   return; }
+    if (rest == "live") { linkWifiApMode(3);  return; }
 
     // A trailing q takes BLE off the air for the run. Advertising through one
     // is the honest case; what it costs is only visible against a run without it.
