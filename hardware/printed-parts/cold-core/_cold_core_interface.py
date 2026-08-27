@@ -28,7 +28,8 @@ from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, World
 from _stated_bounds import bound, state
 
 
-# All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PETG.
+# All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PET-GF. The outer
+# wall is one flute deeper than this, and `outer_shell_wall` below is where that is said.
 wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
 
@@ -323,11 +324,13 @@ insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
 screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
 
-# The head sits in the lid. Each of the cap's six boss columns stops
-# [3.2 mm](HEAD_PAD_H) short of its mouth; the lid's pad, of the boss's own
-# cross-section, fills that relief and carries the counterbore the
-# [3 mm](SCREW_HEAD_H) head lands in. One wall of PETG under the head, the boss
-# section under that, and the lid's outer face a plane.
+# The head sits in the lid, and a lid is [5.2 mm](FOAM_CAP_LID_H) thick where it takes one —
+# one wall of PET-GF under the head, the boss section under that, and the lid's outer face a
+# plane. EACH END OF THE STACK BUYS THAT HEIGHT ITS OWN WAY. The bottom cup's boss columns stop
+# [3.2 mm](HEAD_PAD_H) short of its mouth and the lid's pad, of the boss's own cross-section,
+# fills that relief. The TOP lid is solid to the same height over its whole footprint — it is
+# the plate the service bay stands on, so its underside is one plane and the band is the cup's
+# to give up (`_foam_cap.top_cap_height`).
 screw_head_height = 3.0  # DIN 912 M3 nominal
 head_seat_recess = 0.2  # how far under the lid's outer face the head lands
 head_cbore_radius = 3.075  # ⌀[6.15 mm](HEAD_CBORE_D) over the ⌀5.5 head
@@ -335,6 +338,8 @@ head_cbore_depth = screw_head_height + head_seat_recess
 # A pad as tall as the counterbore is deep leaves the land at one wall exactly.
 head_pad_height = head_cbore_depth
 head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
+# A lid, plate and pad in one. `_foam_cap.lid_total_height` builds on this name.
+foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
 
 # --- The front face, and the lane that reaches it ---------------------------
 #
@@ -364,7 +369,7 @@ port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
 # evaporator's WARM tail drops this band to its own station low on the front wall
 # (`copper_plugs.columns`).
 west_lane_mid_y = -port_lane_mid_y
-# PETG left either side of a bore on the lane, and under the lowest one over the
+# PET-GF left either side of a bore on the lane, and under the lowest one over the
 # floor slab. Below this the wall between two features stops being printable.
 port_lane_wall = 1.5
 state(
@@ -372,7 +377,7 @@ state(
     f"{2 * (port_hole_radius + port_lane_wall):g} mm of lane",
     port_lane_inner_y - port_lane_outer_y >= 2 * (port_hole_radius + port_lane_wall),
     f"the port lane is {port_lane_inner_y - port_lane_outer_y:g} mm wide, which cannot carry a "
-    f"⌀{2 * port_hole_radius:g} bore with {port_lane_wall:g} mm of PETG either side")
+    f"⌀{2 * port_hole_radius:g} bore with {port_lane_wall:g} mm of PET-GF either side")
 
 # Where the evaporator coil's two tails leave the carbonator: the low one one
 # `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
@@ -394,7 +399,7 @@ evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
 # (`reed_cable_conduit_xy`). What is left on this face is the copper/PRV slot on each lane and
 # no round bore at all.
 front_port_pitch = 2 * port_hole_radius + port_lane_wall
-# WHAT THE SLOT STANDS ON is the pocket floor's own band — one wall of PETG over the floor, one
+# WHAT THE SLOT STANDS ON is the pocket floor's own band — one wall of PET-GF over the floor, one
 # bore of lane, one wall again. That is the lowest anything can sit on this lane and still leave
 # the floor its material.
 front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
@@ -497,7 +502,7 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
 # closed the corner the lane has to turn through. Held against the wall instead, all
 # six leave the same lane and the ±X ends of both bands run clear to the wall.
 #   The four end bosses stand over the reservoir pockets' own far walls, which is
-# the furthest out they can go and still keep one wall of PETG around their insert
+# the furthest out they can go and still keep one wall of PET-GF around their insert
 # pockets inside the corner's rounded skin. Opposite signs at ±Y preserve 180°
 # rotational symmetry about Z (balanced gasket compression, and the top cap free to
 # install either way round).
@@ -528,11 +533,15 @@ gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
 # The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
-# crosses the land, then the one continuous PETG section the lid's pad and the
-# cap's boss column make between them, then the gasket — and whatever is left
-# is what it has to give the insert on the far side of the shell's face. The
-# recess spends none of that: the head carries the land down with it, so the
-# screw arrives deeper by exactly the pad it sank.
+# crosses the land, then the one continuous PET-GF section the lid and the cap's
+# boss column make between them, then the gasket — and whatever is left is what
+# it has to give the insert on the far side of the shell's face. The recess
+# spends none of that: the head carries the land down with it, so the screw
+# arrives deeper by exactly the pad it sank.
+#   BOTH ENDS MEASURE THE SAME, and not for the same reason. At the bottom the cup
+# stands its full height and its boss column stops a pad short of the mouth; at the
+# top the column runs to the rim and the CUP is a pad shorter. Either way a station
+# carries one pad of lid over the rest of `foam_cap_height` in column.
 cap_screw_length = 25.0
 insert_length = 4.0  # ruthex RX-M3Sx4.0, set flush with the face
 cap_screw_beyond_face = cap_screw_length - (
@@ -602,7 +611,7 @@ deck_mount_cap_gap = 1.5
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
-    "seaflo-pump": DeckMount((-93.20,   2.62),  59.00,  79.00,   0.0,  8.50, 16.0),
+    "seaflo-pump": DeckMount((-93.20,   2.62),  59.00,  79.00,   0.0,  8.50, 20.0),
 }
 
 
@@ -628,13 +637,15 @@ def deck_mount_proud():
 
 def deck_mount_reach(name):
     """How far a seated screw runs past this mount's column top. A flush station's screw
-    crosses the lid on its way down; a standing one meets the column at the head. `seat`
-    is what the head bears on before it gets there — a board's own thickness, a hub's
-    floor, or the fan of ring terminals that is the ground bus."""
+    crosses the WHOLE lid on its way down — the top lid is solid to `foam_cap_lid_height`,
+    and that is what a station under it spends before it reaches the column. A standing one
+    meets its column at the head and crosses nothing. `seat` is what the head bears on before
+    either — a board's own thickness, a hub's floor, or the fan of ring terminals that is the
+    ground bus."""
     m = deck_mounts[name]
     over = m.seat
     if m.standoff == 0.0:
-        over += wall_and_floor_thickness
+        over += foam_cap_lid_height
     return m.screw - over
 
 
@@ -791,17 +802,19 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 
 # How far off its own bore axis a line leaves a conduit — a bore's `manifold_layout.FLAVOR_SKEW`.
 # The LID'S HOLE IS COUNTERSUNK to this angle: the lip a leaning line crosses lies along it, and
-# what the tube bears on there is a face. The column under the lid carries the bore on its own
-# axis. `_lines.CAP_BORE_SKEW` is bound to this name.
+# what the tube bears on there is a face. Everything under that countersink carries the bore on
+# its own axis — the rest of the lid's plate and the column beneath it, one straight run.
+# `_lines.CAP_BORE_SKEW` is bound to this name.
 cap_conduit_entry_skew = 38.0
 # The countersink's mouth on the lid's outer face — the bore opened at that angle through the
-# one wall of plate the lid is: ⌀[9.625](ENTRY_RELIEF_D).
+# one wall of plate the cone is sunk into: ⌀[9.625](ENTRY_RELIEF_D).
 cap_conduit_entry_relief_radius = (
     cap_conduit_bore_radius
     + wall_and_floor_thickness * math.tan(math.radians(cap_conduit_entry_skew)))
 # The relief stands inside the boss its own column carries, so `cap_conduit_room`,
 # `cap_conduit_wall_neck` and `cap_conduit_pair_neck` fence the cone where they fence the
-# column. A wall and a lid of one thickness put that ceiling at [45°](ENTRY_SKEW_CEILING).
+# column. A wall of boss over a cone one wall deep puts that ceiling at
+# [45°](ENTRY_SKEW_CEILING).
 cap_conduit_entry_skew_ceiling = math.degrees(
     math.atan2(cap_conduit_wall, wall_and_floor_thickness))
 state(
@@ -1719,6 +1732,7 @@ if __name__ == "__main__":
         "SCREW_BOSS_SIZE": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
         "SCREW_HEAD_H": f"{screw_head_height:.4g} mm",
         "HEAD_PAD_H": f"{head_pad_height:.4g} mm",
+        "FOAM_CAP_LID_H": f"{foam_cap_lid_height:.4g} mm",
         "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g} mm",
         "CAP_SCREW_L": f"{cap_screw_length:.4g}",
         "DECK_MOUNT_CAP_GAP": f"{deck_mount_cap_gap:.4g} mm",
