@@ -34,3 +34,13 @@ carried out.
 The corbel's last defect is worth reading in place. Search `0.9956`: the lane that made it
 could not see it, because the over-cut that broke retention is what turned its own clash
 check green.
+
+The shas the agents quote in this transcript are the ones they wrote under, and a history
+rewrite has moved all of them since — `git cat-file -e` fails on every one. `Model.md` cites
+this tree's own. To follow a sha from the transcript into the current history, look it up in
+[`tools/git-history/commit-map`](../../tools/git-history/commit-map), which holds an
+`old new` pair per line:
+
+```
+grep -E '^27a7c995' tools/git-history/commit-map
+```
