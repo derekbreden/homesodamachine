@@ -699,6 +699,26 @@
    "active": true
   },
   {
+   "id": "keystone-panel",
+   "label": "The keystone's latch closes on the wall it passes",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "`enclosure.wall` inside 1.5\u20133.2 mm",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "keystone-span",
+   "label": "The jack's bezel stands clear of both neighbours on the deck storey",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "wall either side of it",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "cutoff-bedded",
    "label": "The cutoff's case is pinched between the power box and its clamp",
    "kind": "gate",
