@@ -143,7 +143,7 @@ head-on one `slide_slip` behind it — the same telescoping mate the box always 
 arrived at along Y instead of dropped into.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [102 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
