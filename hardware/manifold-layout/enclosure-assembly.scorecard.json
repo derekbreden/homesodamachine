@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -45,10 +45,12 @@
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "pass",
-   "value": "91/91 declared",
+   "status": "fail",
+   "value": "91/92 declared",
    "target": "all declared",
-   "detail": [],
+   "detail": [
+    "placed, undeclared: keystone-jack"
+   ],
    "active": true
   },
   {
@@ -73,10 +75,15 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "4 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [],
+   "detail": [
+    "c14-inlet \u2229 enclosure-back-top   49.1 mm\u00b3, x[   45.50,   92.50] y[  457.30,  458.75] z[  321.64,  350.79]",
+    "keystone-jack \u2229 enclosure-back-top   85.6 mm\u00b3, x[   29.50,   44.15] y[  457.30,  458.70] z[  325.81,  349.96]",
+    "keystone-jack \u2229 enclosure-ceiling-panel   582.7 mm\u00b3, x[   29.50,   44.15] y[  437.00,  461.00] z[  347.00,  349.96]",
+    "enclosure-back-top \u2229 enclosure-ceiling-panel   248.8 mm\u00b3, x[  -79.50,   79.50] y[  236.00,  461.00] z[  345.75,  354.94]"
+   ],
    "active": true
   },
   {
@@ -157,6 +164,7 @@
     "funnel-drain-clamp \u2014 funnel-drain-union: 1.338 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
+    "c14-inlet \u2014 keystone-jack: 1.353 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.366 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.366 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
@@ -699,12 +707,12 @@
    "active": true
   },
   {
-   "id": "keystone-panel",
-   "label": "The keystone's latch closes on the wall it passes",
+   "id": "keystone-receptacle",
+   "label": "The wall carries the jack's lip and stands the rest of its pocket",
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "`enclosure.wall` inside 1.5\u20133.2 mm",
+   "target": "a section between `LIP_D` 3 and `DEPTH` 9.7 mm",
    "detail": [],
    "active": true
   },
@@ -996,10 +1004,12 @@
    "id": "ceiling-panel-slides-in",
    "label": "The deep ceiling panel and rails slide through back-top",
    "kind": "gate",
-   "status": "pass",
-   "value": "0.000 mm\u00b3 of fixed back-top in its continuous sweep",
+   "status": "fail",
+   "value": "240.038 mm\u00b3 of fixed back-top in its continuous sweep",
    "target": "no fixed back-top material in the field-and-rail complete Y sweep",
-   "detail": [],
+   "detail": [
+    "240.038 mm\u00b3 of back-top stands in the panel's insertion prism \u2014 move that feature onto the panel or open the fixed piece; a clear installed pose does not show that the ceiling can reach it."
+   ],
    "active": true
   },
   {
@@ -1414,7 +1424,7 @@
    "label": "Every body carries the colour of what it is made of",
    "kind": "gate",
    "status": "pass",
-   "value": "138/138 coloured",
+   "value": "139/139 coloured",
    "target": "every body coloured",
    "detail": [],
    "active": true
@@ -1503,10 +1513,12 @@
    "id": "box-depth",
    "label": "The pack stands inside the appliance's stated depth",
    "kind": "gate",
-   "status": "pass",
-   "value": "pack reaches y 464.00 at seaflo-pump, +Y wall at 464.00",
+   "status": "fail",
+   "value": "pack reaches y 470.00 at keystone-jack, +Y wall at 464.00",
    "target": "ahead of `rear_plane_y` 464",
-   "detail": [],
+   "detail": [
+    "the pack reaches y 470.00 but the +Y wall stands at 464.00 \u2014 6.00 mm over. Raise `rear_plane_y` or repack forward"
+   ],
    "active": true
   },
   {
@@ -1741,7 +1753,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "pass",
-   "value": "91/91 stated",
+   "value": "92/92 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [],
    "active": false
