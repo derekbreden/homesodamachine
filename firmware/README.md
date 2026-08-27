@@ -49,7 +49,8 @@ request; main board revision publication carries the result to the faucet over f
 
 J3/SIG-6 is a separate full-duplex 3.3 V TTL link to the 1.47-inch faucet display. The
 main board uses IO33 TX / IO35 RX; the faucet uses GPIO43 TX / GPIO44 RX, crossed TX to RX,
-at 115200 baud. TinyProto Fd supplies framing, CRC, acknowledgements and keepalives. J3 has
+at 921600 baud — direct TTL, with no transceiver ceiling over it. TinyProto Fd supplies
+framing, CRC, acknowledgements and keepalives. J3 has
 independent TX and RX conductors, so none of J9's half-duplex turn-taking or echo cancellation
 belongs on this link.
 
@@ -58,6 +59,48 @@ flavor and request token. The main board acknowledges its authoritative value an
 in NVS. Repeating a token cannot repeat the selection or its sound. At first installation only,
 a main board with no stored flavor adopts the faucet's cached selection; every established
 main board wins reconciliation. Both boards defer flash writes away from the touch path.
+
+## What the links carry, measured
+
+Both displays carry a WiFi radio no product path uses, and every image the
+machine moves goes over the wires instead. `wifi` and `bench j3` on the main
+board console are what that comparison is made of. All four numbers below are
+one bench, one room, `RSSI -40 dBm`.
+
+| Path | Rate | What is in it |
+|---|---|---|
+| J3, OTA pull | 9.2 KB/s | the shipping path: 1 KB asked for, waited on, written to flash |
+| J9, OTA pull | 11.2 KB/s | the same, across the half-duplex pair |
+| J3, `bench j3` | 71–74 KB/s | the wire itself — TinyProto's window, nothing written |
+| WiFi, BLE advertising | 99–135 KB/s | faucet to enclosure, SoftAP and one TCP socket |
+| WiFi, BLE off the air | 299–349 KB/s | the same run with `wifi <KB>q` |
+
+**The pull is most of what the wired numbers are.** J3 runs at 921600 and
+carries 82% of that when nothing is taking turns on it; the OTA path gets 12%
+of the same wire. What the difference buys is a receiver that stores no more
+than a frame — the property that lets a phone update four boards through a
+main board holding one chunk — and it costs a round trip per kilobyte.
+
+**The radio is one antenna and BLE is on it.** The faucet advertises to the
+phone with the same PHY it would forward over, and coexistence takes about two
+thirds of the throughput. A trailing `q` stops advertising for the length of a
+run, which is what the two WiFi rows are.
+
+**The enclosure's radio and its panel cannot both be up.** Its scan-out DMA
+refills a bounce buffer out of PSRAM and bringing WiFi up writes flash, which
+suspends the cache PSRAM is reached through — the conflict that already blanks
+this glass for an arriving image. `wifi on` takes the panel down the same way
+an OTA does, and the board reboots when the run ends. The faucet drives SPI and
+has no such conflict.
+
+```
+wifi on | off        raise or drop the enclosure's bench AP
+wifi <KB>[q]         the faucet joins it and sends; q takes BLE off the air
+bench j3 [<KB>]      push at J3 as fast as its window will take frames
+```
+
+Both are refused unless the machine is dark: each holds the main board's loop
+for the length of a run.
 
 ## What the appliance firmware must hold
 
@@ -217,13 +260,14 @@ All pins are fixed by the board design.
 | Touch SCL | 41 | |
 | Touch INT | 48 | FALLING edge per touch report |
 | Touch RST | 47 | |
-| J3 UART TX | 43 | 115200 baud, TinyProto Fd to main board IO35 RX |
-| J3 UART RX | 44 | 115200 baud, TinyProto Fd from main board IO33 TX |
+| J3 UART TX | 43 | 921600 baud, TinyProto Fd to main board IO35 RX |
+| J3 UART RX | 44 | 921600 baud, TinyProto Fd from main board IO33 TX |
 | BOOT button | 0 | |
 
 ## Inter-Board Communication
 
-Inter-MCU messages use [TinyProto](https://github.com/lexus2k/tinyproto) at 115200 baud.
+Inter-MCU messages use [TinyProto](https://github.com/lexus2k/tinyproto). The prototype's
+UARTs run at 115200; the appliance's run faster, J9 at 460800 and J3 at 921600.
 The appliance's J9 pair uses bare HDLC framing with explicit half-duplex turns; its J3 faucet
 link and the prototype's separate TX/RX UARTs use TinyProto Fd acknowledgements and
 retransmission. Text commands are sent inside `MSG_TEXT` messages; binary image uploads use a
