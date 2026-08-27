@@ -78,7 +78,7 @@ Matched exactly one: **PCBA placement 2**. Exporting it.
 
 Relayed in — and that session had itself relayed in "PCBA placement", so I have the whole arc.
 
-**Where it left off:** the east re-lay landed (`7dd27fd8`, 7/7 gates) — SeaFlo pushed to x[96,283], V-K turned to run *down* the strip, split tucked under its cradle, flavor run moved into the under-pump lane. That opened a **107.7 × 147.6 × 77.3 mm** void west of the pump. Then it measured the electronics into that void and concluded two-level is forced, blaming the **power tray's 151 mm width** (a wide-shallow row built for a bay that no longer exists), and declared its next move: re-lay `power-tray/` into the column.
+**Where it left off:** the east re-lay landed (`94a13e12`, 7/7 gates) — SeaFlo pushed to x[96,283], V-K turned to run *down* the strip, split tucked under its cradle, flavor run moved into the under-pump lane. That opened a **107.7 × 147.6 × 77.3 mm** void west of the pump. Then it measured the electronics into that void and concluded two-level is forced, blaming the **power tray's 151 mm width** (a wide-shallow row built for a bay that no longer exists), and declared its next move: re-lay `power-tray/` into the column.
 
 That last conclusion is exactly the kind of thing worth re-opening before anyone commits to it — it fixed a fence ("tray keeps its wide-shallow topology, PCBA goes on a bridge above") and then optimized inside it. Let me get hard ground truth before I brief anyone.
 
@@ -286,7 +286,7 @@ Agents still running; I'll synthesize when they land.
 | 5 | Single-point earth at the shelf | **HARD** | `/hardware/wiring/ac-wiring-schedule.md:115,120`: "Single-point chassis ground at the electronics shelf… gives the appliance Class I status". `/hardware/assembly/wiring.md:29-42`. |
 | 5b | AC/LV spatial segregation | **UNSUPPORTED** | `/hardware/assembly/wiring.md:5`: "A single zip-tied bundle exiting the electronics shelf carries 16 AWG mains, 12 V power, and 22 AWG signal **in close proximity**." Segregation is stated as *absent*, not required. The only mains-placement rule is relay #1 outside the shroud (`ac-wiring-schedule.md:22`). |
 | 6 | "The electronics shelf" | **SOFT — prose, not a region or a part** | Not in `COMPONENTS` (`scorecard.py:115-158`), not in `contents.build()`. `_contents.py:194-196` names the STEPs and nothing imports them. It is *two independent printed trays* (`pcba-tray`, `power-tray`) plus a TBD DC block, always described together. `/hardware/printed-parts/enclosure/README.md:29` lists **"which zone holds the electronics"** as explicitly open. |
-| 7 | SeaFlo at x[96,283] | **SOFT — and its stated justification is the electronics** | Three commits, all reasoned from the shelf: `4b4a58f7` "so the bay has a plane for the shelf"; `1b5d8975` "opening a 55.5 mm west column… wide enough to stand the IRM-90 (52 mm) on"; HEAD `7dd27fd8` "That opens 107.7 × 147.6 mm of full-height void west of the pump for the electronics shelf." |
+| 7 | SeaFlo at x[96,283] | **SOFT — and its stated justification is the electronics** | Three commits, all reasoned from the shelf: `f3c1b189` "so the bay has a plane for the shelf"; `958f9b96` "opening a 55.5 mm west column… wide enough to stand the IRM-90 (52 mm) on"; HEAD `94a13e12` "That opens 107.7 × 147.6 mm of full-height void west of the pump for the electronics shelf." |
 | 8 | CO2 cap-top entry at (141.5, 217.8) | **HARD as a fabricated feature — and already violated** | See below. |
 
 ---
@@ -1002,7 +1002,7 @@ HEAD already contains both changes. Something moved under me — checking whethe
 
 ---
 
-Another session committed `b62f30c4` mid-flight. Checking whether it swept up my edits.
+Another session committed `2736a810` mid-flight. Checking whether it swept up my edits.
 
 ---
 
@@ -1012,7 +1012,7 @@ Another session committed `b62f30c4` mid-flight. Checking whether it swept up my
 
 Found it — and it's worth flagging.
 
-**Another session is active in this repo right now.** It committed `b62f30c4` ("cards: a band holds its own content…") while I was working, and that commit **swept up both of my uncommitted edits**. The `psu_rot: 90 → 270` change and the `discharge-chain` dedupe are in `origin/main` — attributed to a commit whose message is entirely about card rendering and mentions neither.
+**Another session is active in this repo right now.** It committed `2736a810` ("cards: a band holds its own content…") while I was working, and that commit **swept up both of my uncommitted edits**. The `psu_rot: 90 → 270` change and the `discharge-chain` dedupe are in `origin/main` — attributed to a commit whose message is entirely about card rendering and mentions neither.
 
 So both fixes are landed and pushed, just filed under the wrong heading. Nothing is lost. But its commit is a blanket `add`, so anything I leave uncommitted gets absorbed into whatever it does next.
 
@@ -1117,7 +1117,7 @@ Full build and commit.
 
 ---
 
-Landed as `1066d190` — and note git showed only `_lines.py` changed, no geometry moved. The gate is now a position test.
+Landed as `c62afdc6` — and note git showed only `_lines.py` changed, no geometry moved. The gate is now a position test.
 
 That reopens the two-level and ceiling arrangements. Measuring the PSU's seat in the west column before I choose between them.
 
@@ -1240,8 +1240,8 @@ Three commits in, all 7/7 with clearances measured:
 
 | | |
 |---|---|
-| `1066d190` | the lane gate now tests **position**, not just height |
-| `08e353ea` | **the board is placed** — x[11, 84.3] y[205, 295.8] on the cap |
+| `c62afdc6` | the lane gate now tests **position**, not just height |
+| `7a184476` | **the board is placed** — x[11, 84.3] y[205, 295.8] on the cap |
 | earlier | scorecard denominators, `psu_rot` mains flip |
 
 The board turned out to have had a colour, a STEP path and fourteen ports but **no placement at all** — the pack didn't know it existed. Its port table was thirteen world literals carrying a transform solved two re-lays ago, pointing into the middle of the pump; they scored `off-surface` only because no solid was there to miss them. Those are now `pcbX`/`pcbY` verbatim from `pcba.tsx` run through `contents.pcba_port`, so moving `PCBA_POS` moves the whole map with it. `located` went **86% → 89%** as the thirteen resolved onto the real board face — that's the check that the pose is right, not my arithmetic.
@@ -1254,4 +1254,4 @@ Orientation is a quarter turn so the two edges that must stay reachable face lan
 
 **The PSU.** It doesn't share the cap with the board — every arrangement puts at least one of the board's four posts inside the PSU's footprint, and side-by-side is 106.8 mm against 96 of column. Live candidates are ceiling-hung above the board (53.2 mm of headroom, roots print free off the bed, but it inverts assembly order and hangs 219 g) or out of the bay entirely into the machine corridor, which `hits --x 0,52 --y 140,173.5 --z 30,139` reports CLEAR.
 
-One operational note: the other session committed `b62f30c4` mid-session and swept two of my uncommitted edits into it, so I've been landing in small increments since. Worth knowing if you see the `psu_rot` change filed under a card-rendering commit.
+One operational note: the other session committed `2736a810` mid-session and swept two of my uncommitted edits into it, so I've been landing in small increments since. Worth knowing if you see the `psu_rot` change filed under a card-rendering commit.

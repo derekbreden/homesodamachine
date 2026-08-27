@@ -116,7 +116,7 @@ Relayed in. Orientation first, plus one thing you need to know before I touch an
 
 **That session is live right now.** Its edits to [_contents.py](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) and [scorecard.py](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py) are 4 minutes old and uncommitted. Those are exactly the two files a drip-tray repose has to edit.
 
-**What it was doing:** a full audit of the 93-card assembly deck, which turned up ~20 defects and five "the CAD doesn't exist yet" holes — so it spawned seven design spikes to close them. The drip pan was one: the spike found the aft strip behind the SeaFlo is only **55 mm** deep (`y` 326→381), so the old 130×66 basin never fit anywhere, and reshaped it to **100 × 30 × 22** centred on the vent column with a VHB'd cradle. Committed as `b063d8e1`. **Where it left off:** integrating the cold-core-ring spike (which lifts the whole deck 5 mm on `RING_SEAT`) and chasing four clashes at 6/7 gates.
+**What it was doing:** a full audit of the 93-card assembly deck, which turned up ~20 defects and five "the CAD doesn't exist yet" holes — so it spawned seven design spikes to close them. The drip pan was one: the spike found the aft strip behind the SeaFlo is only **55 mm** deep (`y` 326→381), so the old 130×66 basin never fit anywhere, and reshaped it to **100 × 30 × 22** centred on the vent column with a VHB'd cradle. Committed as `bbdad666`. **Where it left off:** integrating the cold-core-ring spike (which lifts the whole deck 5 mm on `RING_SEAT`) and chasing four clashes at 6/7 gates.
 
 So your 30 mm Y dimension is a direct consequence of that 55 mm strip — the constraint is real, and it's what I have to go re-measure rather than assume.
 
@@ -480,7 +480,7 @@ The wall tracks content 1:1 — `iy1 = cymax + interior_clearance + rear_seam_cl
 
 ---
 
-The other session just landed the ring lift and integrated it *with* my pan rails (`0c06bc36`). My script read those two files mid-write. Re-running against the settled tree.
+The other session just landed the ring lift and integrated it *with* my pan rails (`f09fe47c`). My script read those two files mid-write. Re-running against the settled tree.
 
 ---
 
@@ -756,7 +756,7 @@ Staged set is exactly mine; the other session's five cards and three docs stay u
 
 ---
 
-Pushed as `c5c2ebbd`, with the other session's eight in-flight files untouched.
+Pushed as `1e3d2905`, with the other session's eight in-flight files untouched.
 
 ## You were right about the sensor — and it was worse than a lost objection
 

@@ -222,7 +222,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # four pieces cut their own z bands out of the same plan — which is why the grooves register
 # across the Z seam without either piece being told the other exists.
 #
-# THE PROFILE IS `reeding.groove`, shared with the corner coupon at `69459fea6`. That coupon is the box's
+# THE PROFILE IS `reeding.groove`, shared with the corner coupon at `c14bb2fff`. That coupon is the box's
 # own corner at the box's own `wall` and `corner_round`, so what printed there is what prints
 # here, and neither can drift from the other while they read one function.
 #
@@ -253,7 +253,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # machine's plane of symmetry inside as it does outside. `flute_rails` is where the box says
 # which runs it has, and `flute_skin.py` reads nothing else about either of them.
 flute_count = 260
-# THE DEPTH IS THE COUPON'S. the corner coupon at `69459fea6` cut this into a `wall`-thick standing wall
+# THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
 flute_depth = 1.2
 # THE SOLID A FLUTE MUST HAVE BEHIND IT — the whole `wall`, not what is left after something
@@ -267,7 +267,7 @@ flute_backing = wall
 # spline through them measures 1.1986 of the stated 1.2 at its deepest, which is a hundredth
 # of the 0.42 mm the nozzle draws.
 flute_samples = 13
-# THE FIELD STOPS SHORT OF AN EDGE, and this is how far short — the corner coupon at `69459fea6`'s own
+# THE FIELD STOPS SHORT OF AN EDGE, and this is how far short — the corner coupon at `c14bb2fff`'s own
 # `texture_rise`, ramped on the same smoothstep, so the box stops its flutes the way the
 # coupon stopped its. WHICH edges is not a list: `flute_skin.py` measures, over the whole
 # surface at once, how far every station stands from the nearest place the show face ends,
@@ -694,7 +694,7 @@ def cond_slot_half(sheet: float) -> float:
 # owed at any edge it makes — the skin's own rule, that a rim running with the flutes is not one
 # of them. Off-normal the wall reads as unbroken reeding; head-on it is a grille.
 #
-# EVERY GROOVE, NOT ALTERNATE. The coupon at `69459fea6` printed the three schemes side by side on a
+# EVERY GROOVE, NOT ALTERNATE. The coupon at `c14bb2fff` printed the three schemes side by side on a
 # section of this same flank at this same pitch, and the widest slot down every groove is both the
 # more open of them and the thicker at its thinnest: what a slot is measured against is the MULLION
 # left between two of them (`reeding.mullion`, `reeding.pierce_max`) and not the section behind the
@@ -6250,7 +6250,7 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
     `flute_skin` reads for itself off the run's own two ends rather than being told.
 
     EVERY GROOVE AND NOT ALTERNATE. What a slot is measured against is the MULLION between two
-    of them, and the coupon at `69459fea6` printed the schemes side by side: at this pitch a 3.1 mm
+    of them, and the coupon at `c14bb2fff` printed the schemes side by side: at this pitch a 3.1 mm
     slot down every groove leaves `reeding.mullion` of material carrying the exterior's four wall
     loops with `reeding.pierce_max` still overhead, and it is both more open and thicker at its
     thinnest than the same field pierced down alternate grooves at the full groove width.

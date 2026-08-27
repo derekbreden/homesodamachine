@@ -62,7 +62,7 @@ I'll pull in that session's transcript and look at both commits. First, let me f
 
 ---
 
-I've read the full transcript. Now let me look at both commits — yours (`ce2a16a5`) and the agent's (`99e4cfe2`).
+I've read the full transcript. Now let me look at both commits — yours (`a8a81ba5`) and the agent's (`fda2c8c4`).
 
 ---
 
@@ -86,7 +86,7 @@ Now the live scorecard state and the current source — what actually remains to
 
 ---
 
-One more quick look — your companion commit `dc665a26` and the shape of what remains in the source:
+One more quick look — your companion commit `7e56b76b` and the shape of what remains in the source:
 
 ---
 
@@ -102,7 +102,7 @@ Two more quick reads to size the remaining work — the route-hints doc referenc
 
 ---
 
-I've read everything: the full Engineered PCB transcript, both commits (plus `dc665a26`, the companion to yours), [requirements.md](/hardware/pcb/pcba/requirements.md), [routing-procedure.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/routing-procedure.md), [hand-routing.md](/hardware/pcb/pcba/hand-routing.md), [route-hints.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/route-hints.md), and the live scorecard (11/11 gates, 90% hand-routed, 10 nets on the autorouter, 8 deferred). Here are the three answers.
+I've read everything: the full Engineered PCB transcript, both commits (plus `7e56b76b`, the companion to yours), [requirements.md](/hardware/pcb/pcba/requirements.md), [routing-procedure.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/routing-procedure.md), [hand-routing.md](/hardware/pcb/pcba/hand-routing.md), [route-hints.md](https://github.com/derekbreden/homesodamachine/blob/0478b986/hardware/pcb/pcba/route-hints.md), and the live scorecard (11/11 gates, 90% hand-routed, 10 nets on the autorouter, 8 deferred). Here are the three answers.
 
 ## 1. Do I understand your goals?
 
@@ -110,7 +110,7 @@ I believe so. There are three, nested:
 
 **The board goal:** a fully *engineered* PCB — 100% of signal nets hand-routed on outer copper, zero vias on signals, the autorouter deleted from the pipeline entirely (you said it plainly: it cannot deliver traces that meet requirements), with the gates green the whole way so the board is always fab-ready. "Engineered" has a specific meaning you've been teaching: every segment defensible — right angles, pads exiting along their own face, jogs in open space, clearance allocated on purpose (centered or deliberately reserved), nothing sitting anywhere "because that's where it ended up." DRC is the floor; intent is the bar.
 
-**The delegation goal — the load-bearing one:** make this class of work executable by agents. You proved the standard yourself — and I read your two commits as a deliberate teaching pair, addressed to agents: `dc665a26` ("This is **how you** comment out everything in the way of your target area") demonstrates the clearing move from routing-procedure.md, and `ce2a16a5` ("This is **what** manual traces with no vias through the hardest problem on the board **looks like**") demonstrates the finished standard — seven raw `pcbPath` traces through the USB-C corner, including the VBUS choreography every prior session had TABLED. You wrote those the day before the Foundation session; the agents' job since has been turning your demonstration into repeatable infrastructure: frames, pattern helpers, the scorecard, deferred tracking, the principles doc. The acid test you defined — *no agent has ever landed a manual route* — has now been passed once (R1→R2) and then scaled to a full region (GAS/EN, 12 connections).
+**The delegation goal — the load-bearing one:** make this class of work executable by agents. You proved the standard yourself — and I read your two commits as a deliberate teaching pair, addressed to agents: `7e56b76b` ("This is **how you** comment out everything in the way of your target area") demonstrates the clearing move from routing-procedure.md, and `a8a81ba5` ("This is **what** manual traces with no vias through the hardest problem on the board **looks like**") demonstrates the finished standard — seven raw `pcbPath` traces through the USB-C corner, including the VBUS choreography every prior session had TABLED. You wrote those the day before the Foundation session; the agents' job since has been turning your demonstration into repeatable infrastructure: frames, pattern helpers, the scorecard, deferred tracking, the principles doc. The acid test you defined — *no agent has ever landed a manual route* — has now been passed once (R1→R2) and then scaled to a full region (GAS/EN, 12 connections).
 
 **The convergence goal:** get agent judgment aligned with *your* EE judgment, permanently. Your correction cycle in the last exchange (side-exits from U1 pads, the trace hugging R3) wasn't about that corner — you said so — it was about establishing that when you correct a defect, the agent must infer the *principle*, encode it in the tools so it's the default, and write down the why, so the taste survives into every future session. The repo itself — demonstration commits, docs, helpers, scorecard — is the curriculum a fresh agent wakes up into.
 
@@ -124,7 +124,7 @@ And the anti-goals, which matter as much: not "make the number green" (handing a
 
 **Make the principles as unfakeable as the gates.** This is the highest-leverage move left. The scorecard killed narration for connectivity and clearance because the number comes from geometry; the routing principles are currently doc-only, enforced by whoever remembers them. The mechanically checkable ones should become scorecard goals: every hand-trace segment 0°/90° (with declared 45° exceptions), first segment leaves each pad perpendicular to its face with a minimum stub, every corridor x traceable to a `channel()` allocation rather than a magic number. Then "engineered" isn't a vibe you audit by eye — it's a row that goes red, and your red-pen passes get spent on the judgment that genuinely doesn't reduce to a number.
 
-**Keep the teaching loop deliberate.** After each region: the zoomed plot, the scorecard delta, and an explicit invitation for the red-circle critique — each correction encoded the way `99e4cfe2` did it. And close the two questions the last session left open, because they change helper defaults: is corridor *centering* the default and reservation the exception (or reserve-by-default in dense areas)? And are there principles not yet captured — trace width by net class, differential-pair symmetry on the USB pair, corridors you want reserved board-wide, the comb-45° policy?
+**Keep the teaching loop deliberate.** After each region: the zoomed plot, the scorecard delta, and an explicit invitation for the red-circle critique — each correction encoded the way `fda2c8c4` did it. And close the two questions the last session left open, because they change helper defaults: is corridor *centering* the default and reservation the exception (or reserve-by-default in dense areas)? And are there principles not yet captured — trace width by net class, differential-pair symmetry on the USB pair, corridors you want reserved board-wide, the comb-45° policy?
 
 The honest residue: "does this read like a competent EE laid it out" will keep a tail that no check captures. The strategy above shrinks your involvement to a glance at a plot per region — I don't think it goes to zero, and I'd design for that rather than pretend otherwise.
 
@@ -137,7 +137,7 @@ Before touching copper (I can get all of these myself):
 - **The Failure session transcript** — I've only seen it summarized secondhand. It's the canonical statement of the failure mode this whole effort exists to end, and I'd want the primary source to mine for failure patterns the scorecard doesn't yet make impossible.
 - **The Foundation session transcript** — for the tooling roadmap already weighed there (geometry query interface, golden-file region locks) and what was deliberately deferred, so I don't re-litigate settled decisions.
 
-From you (not files, and the cheapest way to sharpen everything above): your rulings on the open principle questions — corridor default, width by net class, diff-pair symmetry, whether `pcbComb`'s 45° bundles meet the bar or eventually get orthogonalized — and, if you're willing, one red-pen pass on your *own* USB-C corner: anything you'd still change in `ce2a16a5` is the highest-signal calibration data that exists for where the bar sits.
+From you (not files, and the cheapest way to sharpen everything above): your rulings on the open principle questions — corridor default, width by net class, diff-pair symmetry, whether `pcbComb`'s 45° bundles meet the bar or eventually get orthogonalized — and, if you're willing, one red-pen pass on your *own* USB-C corner: anything you'd still change in `a8a81ba5` is the highest-signal calibration data that exists for where the bar sits.
 
 ---
 
@@ -423,7 +423,7 @@ Sounds exactly right — including the warning. I'll catch up on the scorecard w
 
 ---
 
-The tree is clean now — and there's a new commit from **you**: `53206c99` "Comments are a code smell (human Derek committed this just now)". Reading it before I touch anything — it lands directly on the comment-truth part of my plan:
+The tree is clean now — and there's a new commit from **you**: `1991ce4e` "Comments are a code smell (human Derek committed this just now)". Reading it before I touch anything — it lands directly on the comment-truth part of my plan:
 
 ---
 
@@ -551,7 +551,7 @@ Final sweeps — leftover references and the editor tests (J11's placement form 
 
 ---
 
-Pushed as `27cd80b1` — net −71 lines. One more cold read of the corner as it now stands, checking it the way you will:
+Pushed as `73f40523` — net −71 lines. One more cold read of the corner as it now stands, checking it the way you will:
 
 ---
 
@@ -569,7 +569,7 @@ One seam Garbage taught me to test before claiming done — the placement-previe
 
 Strip verified — all 208 traces removed cleanly, the preview path holds. Done, and here's where it landed.
 
-## The corner pass is pushed — `27cd80b1`, plus two fork commits
+## The corner pass is pushed — `73f40523`, plus two fork commits
 
 The fix went where the pain was born instead of where it surfaced. tscircuit's rule — numeric `pcbPath` points live in the from-component's frame — is the single fact that broke Failure's whole night, that `routing.ts` existed to fight, and that made the corner unreadable without executing rotation math in your head. The core fork now accepts `pcbPathRelativeTo="board"` ([core e9b7a318](https://github.com/derekbreden/core/commit/e9b7a318), one identity-transform branch beside the code that already resolves string points globally; props describe updated; upstream-PR-shaped). Every hand trace declares it.
 
@@ -719,7 +719,7 @@ Final render running — it will notify me, then I verify it matches render 1's 
 
 ---
 
-Fixed and pushed — [`8479541f`](https://github.com/derekbreden/homesodamachine/commit/8479541f). Your exact stashed move, replayed on the fixed paths, renders **11/11 gates at floor 0.157** — the same edit that was a near-total failure this morning. The plot above is that moved state: every run riding its pad row, VBUS landing on the relocated C22, R16 at its new home.
+Fixed and pushed — [`3b288ae9`](https://github.com/derekbreden/homesodamachine/commit/8479541f). Your exact stashed move, replayed on the fixed paths, renders **11/11 gates at floor 0.157** — the same edit that was a near-total failure this morning. The plot above is that moved state: every run riding its pad row, VBUS landing on the relocated C22, R16 at its new home.
 
 What happened, since you asked: your original commit was immune to this — every point was anchored to the from-component, so the whole corner could slide and the paths slid with it. Foundation replaced that with board-pinned "approach points," and the reason is visible in its transcript: the only move it ever tested was *U14 sliding west against a stationary J14*, and for that one motion, pinning the J14-side corridors to the board looked like the feature ("the approach turns stayed put while U14 slid"). It was actually a coincidence — the pinned points were J14-shaped, and J14 wasn't moving. My board-coordinate pass then carried those pinned semantics into bare literals, faithfully preserving the disease while making it more legible. Your group move was the first time anything moved in y, and every corridor stayed behind while the pads left. `pcbU` and `pcbFan` survived because they derive every point from a pad.
 
@@ -832,7 +832,7 @@ Committing:
 
 ---
 
-Landed and pushed — [`87928de7`](https://github.com/derekbreden/homesodamachine/commit/87928de7), net −24 lines on top of everything it replaced. Your sketch is now the API, names kept:
+Landed and pushed — [`5691d84a`](https://github.com/derekbreden/homesodamachine/commit/87928de7), net −24 lines on top of everything it replaced. Your sketch is now the API, names kept:
 
 ```tsx
 <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={route(
@@ -1213,7 +1213,7 @@ Diff is coherent — bundle plus instrument fix, nothing else. Committing:
 
 ---
 
-Done and pushed — [`651910f6`](https://github.com/derekbreden/homesodamachine/commit/651910f6). My own work, start to finish; here's what happened, including what I got wrong on the way.
+Done and pushed — [`aa973e2f`](https://github.com/derekbreden/homesodamachine/commit/651910f6). My own work, start to finish; here's what happened, including what I got wrong on the way.
 
 **The bundle.** The buzzer chain is hand-routed: `IO13 → R5 → Q1.B` colinear on IO13's row, then Q1's collector drops down its own column and turns once into U8's `_NEG` — three `route()` traces, two of them constraint-free straight ties, everything 0°/90°. C6 stepped east along its row, U8 south out of the chain row. **11/11 gates, floor 0.16, keep-outs positive, trace-check reports zero fouls, board at 43% with 27 autorouted connections left.** The eviction sweep found nothing to evict — the east-west transit corridor runs south of the bundle and stays open — checked, not assumed.
 
@@ -1263,7 +1263,7 @@ Preview hook N/A (PCB pipeline). Rendering the margin restoration:
 
 ---
 
-Fixed and pushed — [`b7747fbe`](https://github.com/derekbreden/homesodamachine/commit/b7747fbe). The board's tightest keep-out is back to exactly **0.128mm**, your bar, now a four-way tie: my U1–R5 and Q1–R5 sit level with the C12–R4 and U2–C4 pairs you left. Floor 0.164, 11/11 gates, routes unchanged.
+Fixed and pushed — [`f9e76cdf`](https://github.com/derekbreden/homesodamachine/commit/b7747fbe). The board's tightest keep-out is back to exactly **0.128mm**, your bar, now a four-way tie: my U1–R5 and Q1–R5 sit level with the C12–R4 and U2–C4 pairs you left. Floor 0.164, 11/11 gates, routes unchanged.
 
 Two errors of mine in that exchange, precisely: the U6–C6 advisory I cited was dead — you'd killed it in the demonstration commit — and I quoted it from a stale scorecard printout in my memory instead of from the current board, then used the dead fact to normalize a 6µm squeeze I'd just created. And the squeeze itself got past me because I read "11/11 gates" as "no regression": the keep-out floor was 0.128 before my commit and 0.006 after, both numbers sitting in picks.json, and I never diffed them. The gates check thresholds; the bar is the parent commit's numbers. From here on my bundle-verification battery ends with that diff — tightest pairs and floors against HEAD — not with the checkmarks.
 
@@ -1763,7 +1763,7 @@ Comment-only change — no re-render needed (geometry unchanged). Re-staging and
 
 ---
 
-Committed and pushed as [`fb88e272`](https://github.com/derekbreden/homesodamachine/commit/fb88e272). It went well, so continuing. Let me assess the next tractable reach-out — the region between the programming block and U1's north edge, where Q3.C→IO0, the UART lines (TXD→IO3, RXD→IO1), and R8→IO0 all wait.
+Committed and pushed as [`14900114`](https://github.com/derekbreden/homesodamachine/commit/fb88e272). It went well, so continuing. Let me assess the next tractable reach-out — the region between the programming block and U1's north edge, where Q3.C→IO0, the UART lines (TXD→IO3, RXD→IO1), and R8→IO0 all wait.
 
 ---
 
@@ -1771,7 +1771,7 @@ Committed and pushed as [`fb88e272`](https://github.com/derekbreden/homesodamach
 
 ---
 
-Committed and pushed as [`fb88e272`](https://github.com/derekbreden/homesodamachine/commit/fb88e272). Now, on continuing — I looked hard at the remaining deferred reach-outs in this region and hit a structural wall worth reporting rather than forcing through.
+Committed and pushed as [`14900114`](https://github.com/derekbreden/homesodamachine/commit/fb88e272). Now, on continuing — I looked hard at the remaining deferred reach-outs in this region and hit a structural wall worth reporting rather than forcing through.
 
 **SW1 → IO0 (landed).** Reoriented SW1 `rot180` so pin1 (the signal pad — kept on the diagonal so it's a guaranteed-opposite terminal from pin4/GND whatever the switch's internal split) exits *south* from the SE corner instead of being trapped at the NW corner behind its own pin3. It jogs 1mm east into the U13/J5 gap, drops the full height east of U13, then runs west under it into IO0 — a clean top-layer Z, all 90°, every coordinate off a pad (`SW1f.col("pin1",1)`, `U1f.row("IO0",1)`). Added a thin `Tact` wrapper so SW1/SW2 seat by `x/y/rot` and frame like every other part. The one obstacle was the lone autorouted `IO4→U12.IN1` diagonal that crossed every orthogonal approach to IO0 — it was the single routed member of the 4-line pump-IN bus whose other three are already deferred, so I folded it back in with them. **11/11 gates, keep-out floor 0.128 (unchanged tie), copper floor 0.16, trace-check clean.**
 
@@ -1944,8 +1944,8 @@ Right — the guard is correct, and it's Derek's own philosophy: the lesson belo
 Here's where things stand.
 
 **Two clean traces landed, both via the corridor you pointed me to:**
-- [`fb88e272`](https://github.com/derekbreden/homesodamachine/commit/fb88e272) — **SW1 → IO0** (BOOT), reoriented rot180 so pin1 drops east of U13.
-- [`ade0d419`](https://github.com/derekbreden/homesodamachine/commit/ade0d419) — **Q3.C → IO0** (auto-reset collector), down the far-west flank lane `channel(IO1,IO22)`, then the edge-parallel approach corridor into IO0.
+- [`14900114`](https://github.com/derekbreden/homesodamachine/commit/fb88e272) — **SW1 → IO0** (BOOT), reoriented rot180 so pin1 drops east of U13.
+- [`449cf8f2`](https://github.com/derekbreden/homesodamachine/commit/ade0d419) — **Q3.C → IO0** (auto-reset collector), down the far-west flank lane `channel(IO1,IO22)`, then the edge-parallel approach corridor into IO0.
 
 You were right about "all cross" — the reach-outs don't punch through the USB-C web, they go *around* its west flank and run parallel to U1's edge, exactly like the south-edge divider taps. IO0's node is now boot + collector (R8 pull-up still deferred). Both renders 11/11, copper floor 0.16, keep-out 0.128 — I caught one floor regression along the way (my Q3.C corridor grazed U1's 2.1mm castellation pads at 0.15 — under the *prior* floor though over the 0.14 gate, which is why trace-check didn't flag it) and re-centered it.
 
@@ -2005,7 +2005,7 @@ Let me stop guessing and look — first whether you changed anything, then the a
 
 ---
 
-No changes from you — HEAD is still my `ade0d419`, so the screenshot is my committed state. The top traces in/through the empty area south of U13 are exactly four: the two **D+/D- diagonals** (`U14→U13.D_POS/D_NEG`, which slice diagonally across it), plus **SW1→IO0** (east edge + bottom) and **Q3.C→IO0** (west + bottom). Let me plot it to see which three you've highlighted and where the corner is:
+No changes from you — HEAD is still my `449cf8f2`, so the screenshot is my committed state. The top traces in/through the empty area south of U13 are exactly four: the two **D+/D- diagonals** (`U14→U13.D_POS/D_NEG`, which slice diagonally across it), plus **SW1→IO0** (east edge + bottom) and **Q3.C→IO0** (west + bottom). Let me plot it to see which three you've highlighted and where the corner is:
 
 ---
 
@@ -2126,7 +2126,7 @@ trace-check clean (7 hand traces in the region, no sub-floor findings), 11/11. T
 
 ---
 
-Done — pushed as [`6ab36035`](https://github.com/derekbreden/homesodamachine/commit/6ab36035). The three now hug U13's south edge as a stacked orthogonal bundle:
+Done — pushed as [`806b22c5`](https://github.com/derekbreden/homesodamachine/commit/6ab36035). The three now hug U13's south edge as a stacked orthogonal bundle:
 
 - **D+/D-**: no longer diagonals. Each rises from its U14 pad (clearing C22's east edge — that pad is 1.41mm wide and was what my first attempt drove straight through), runs east along the underside of U13, and peels up into D_POS/D_NEG. Lanes at y=21.88 / 21.48.
 - **SW1**: drops U13's east edge, runs west at y=21.08 as the third lane under the D-pair, then drops into IO0 (converging with Q3.C at the pad). That leaves its old far-east-edge + bottom-corridor loop.
@@ -2189,7 +2189,7 @@ The pocket opened up — SW1's vertical is gone from the center; it now runs wes
 
 ---
 
-Pushed as [`80964596`](https://github.com/derekbreden/homesodamachine/commit/80964596). trace-check clean.
+Pushed as [`531d1a0d`](https://github.com/derekbreden/homesodamachine/commit/80964596). trace-check clean.
 
 SW1 now stays tucked under U13, runs west past the pocket center to x=-52, and drops onto Q3.C's lane at y=10.53 — the two IO0 traces merge and share one run into the pad, instead of SW1 dropping its own full-height vertical at IO0's column. The pocket's east half (x=-52 → -44, y=10.5 → 21) is now one open rectangle.
 
@@ -2445,7 +2445,7 @@ Doc tidied (comment-only). Committing the refactor:
 
 ---
 
-Pushed as [`0b82c4d6`](https://github.com/derekbreden/homesodamachine/commit/0b82c4d6).
+Pushed as [`c8274baa`](https://github.com/derekbreden/homesodamachine/commit/0b82c4d6).
 
 **What changed.** `framePins` now carries each pad's board-axis half-extents (read from the footprint rectangle, rotation-composed like the offsets already were), so a Frame exposes `below/above/east/west(pin, gap)` alongside `col/row`. The seven lanes that actually hug a pad edge moved to the edge-relative form:
 
@@ -2637,7 +2637,7 @@ Docs synced. Let me review what changed and commit:
 
 ---
 
-Pushed as [`345e0442`](https://github.com/derekbreden/homesodamachine/commit/345e0442). **Goal met, proven two ways.**
+Pushed as [`45799017`](https://github.com/derekbreden/homesodamachine/commit/345e0442). **Goal met, proven two ways.**
 
 The mechanism: `col`/`row`/`east`/`west`/`above`/`below` now read in the **part's own frame**. Each is a step along the part's local axis; the placement rotation drops it onto a board col or row. So the offset *directions* rotate with the part exactly as `framePins` already rotates the *positions* — both halves ride now, and `route()` reassembles the turned path.
 
@@ -3808,7 +3808,7 @@ Before I cascade into deferring real RS485 signals, let me be honest with myself
 I've pushed hard here and want to sync rather than spiral. Where things stand, concretely:
 
 **Committed (clean, pushed):**
-- `f5251c48` — single-direction pump drive (IN2→GND): pump IN bus halved, IO16/IO18 freed. Your + the sibling's lever 1.
+- `e7cb7db7` — single-direction pump drive (IN2→GND): pump IN bus halved, IO16/IO18 freed. Your + the sibling's lever 1.
 - Earlier: R9→J4.IO26 (top), the `topreach.py` reachability oracle, RXD/IO19 on the bottom.
 
 **Working tree (not committed — floor 0.16, but 6 errors):**
@@ -3952,7 +3952,7 @@ I'm going to be honest about scope here: this is a valid routing-procedure **ste
 
 ---
 
-Committed as [`9153756c`](https://github.com/derekbreden/homesodamachine/commit/9153756c). Let me give you an honest status, because this session went long and I owe you a clear picture rather than a victory lap.
+Committed as [`c7fcd96d`](https://github.com/derekbreden/homesodamachine/commit/9153756c). Let me give you an honest status, because this session went long and I owe you a clear picture rather than a victory lap.
 
 **What landed (committed, pushed):**
 - `R9→J4.IO26` — a clean top trace (the 1-wire pull-up tap).
@@ -3972,7 +3972,7 @@ Committed as [`9153756c`](https://github.com/derekbreden/homesodamachine/commit/
 
 ---
 
-Paused — main is at the committed step-5 milestone ([`9153756c`](https://github.com/derekbreden/homesodamachine/commit/9153756c)), 0 errors, for your review. The deferred list is the clean backlog for whenever you want the rebuild.
+Paused — main is at the committed step-5 milestone ([`c7fcd96d`](https://github.com/derekbreden/homesodamachine/commit/9153756c)), 0 errors, for your review. The deferred list is the clean backlog for whenever you want the rebuild.
 
 Let me capture the one durable, non-repo lesson from this session so a future me doesn't burn your time the same way.
 
@@ -3986,7 +3986,7 @@ Fair — and the hook is right. The lesson from this session is already encoded 
 
 **Handoff — paused for your review:**
 
-- **main is at [`9153756c`](https://github.com/derekbreden/homesodamachine/commit/9153756c)** — DRC-clean (0 errors, floor 0.164), deterministic, but mid-conversion: RS485/sensors/faucet are evicted (deferred 19) as the step-5 intermediate. Don't fab from this state.
+- **main is at [`c7fcd96d`](https://github.com/derekbreden/homesodamachine/commit/9153756c)** — DRC-clean (0 errors, floor 0.164), deterministic, but mid-conversion: RS485/sensors/faucet are evicted (deferred 19) as the step-5 intermediate. Don't fab from this state.
 - **The pump comb is the thing to review**: IO19 relay + both pump IN1 lines on the bottom north comb, single-direction pumps (IN2→GND), C18/C20 nudged 0.25 mm. That's the copper I'd want your eyes on before I invest in the rebuild.
 - **The rebuild backlog** (whenever you want it): re-add each held signal one at a time, hand-route the ~6 that fail against the fixed comb. RS485 A/B is a differential pair — the fiddliest.
 - **Also still deferred from before**: TXD→IO3, RXD→IO1 (UART0, fixed pins), R8→IO0, Q2.C→EN, SW2→EN, IO23 relay.

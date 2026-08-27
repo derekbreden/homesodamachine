@@ -915,7 +915,7 @@ The gate caught the cap's mass change from the two new columns. Running its own 
 
 ---
 
-Landed and pushed at `d65294ec`. Both reservoir caps now carry a fill bore, and the top foam cap carries a conduit standing over each one.
+Landed and pushed at `c6977a8a`. Both reservoir caps now carry a fill bore, and the top foam cap carries a conduit standing over each one.
 
 ```
 reservoir cap fill bore   ⌀6.5, at reservoir-frame (82, 45), mirrored for the other side
@@ -1086,7 +1086,7 @@ Sync passes — 27 segments, and it re-derives the ledger markers. Let me clear 
 
 ---
 
-Both pushed — `d65294ec` then `6bb8625b`. **Y-H is gone, fluid-25 with it, and the flank is open.**
+Both pushed — `c6977a8a` then `1e0c099b`. **Y-H is gone, fluid-25 with it, and the flank is open.**
 
 ```
 Y-H              deleted — the manifold's last trident; seven Tees left
@@ -1284,7 +1284,7 @@ Two claims from my last message I have *not* verified against solids, and I'd ra
 - **"east of SeaFlo: 11.00 mm"** — a box reading on a casting, and castings have been the worst offenders here. It's a floor, not a ceiling, but I haven't looked at it.
 - **"empty above z 313 to the 394 ceiling"** — also boxes. The discharge chain at x[1,18] misses the tray's column by 5 mm in x, which is close enough that the solids deserve a look before anyone builds on it.
 
-Where things stand: tree clean at `6f1b6755` (another session landed a tooling commit on top of my two), gates 10/11, both blocking gates 0 clash. The reservoir carries its own two mouths, Y-H and fluid-25 are gone, and fluid-17 no longer climbs over anything.
+Where things stand: tree clean at `ac529c89` (another session landed a tooling commit on top of my two), gates 10/11, both blocking gates 0 clash. The reservoir carries its own two mouths, Y-H and fluid-25 are gone, and fluid-17 no longer climbs over anything.
 
 The next move is yours to pick, and the honest state of it is: **raising the nozzle tray is the only direction with room, and it needs a stand that doesn't exist.** If you want it, I'll land the move with the cap's mount table corrected and the stand written up as an open item, so the ~36 mm is visible before the bracket is designed — and I'll verify those two box readings against solids first rather than build on them.
 
@@ -1418,7 +1418,7 @@ That's a fix I know how to make: with the tray turned and placed by its own two 
 
 I couldn't do what you asked there, and the reason is worth having: **the chain sits on the SeaFlo's crown with a 1 mm hug** — chain z[326.4, 343.4], pump crown 325.4. So "lower in Z" has about a millimetre before it's inside the casting. Going below the drip tray (underside 327.7) needs ~17 mm it doesn't have while it rests on the pump. Either the chain stops resting on the pump — a bracket, which it's carried "Bracket TBD" for since it was modelled — or the drip tray moves. That's a real fork and it's yours.
 
-**What's on main from this session:** `d65294ec` and `6bb8625b` — the reservoir carrying its own two mouths, Y-H and fluid-25 deleted, fluid-17 no longer crossing any crown, 10/11 with both blocking gates at zero. The next session's first move should be re-deriving `nozzle_gate_in_x` off the turned plate's own runs, because everything above is waiting behind it.
+**What's on main from this session:** `c6977a8a` and `1e0c099b` — the reservoir carrying its own two mouths, Y-H and fluid-25 deleted, fluid-17 no longer crossing any crown, 10/11 with both blocking gates at zero. The next session's first move should be re-deriving `nozzle_gate_in_x` off the turned plate's own runs, because everything above is waiting behind it.
 
 ---
 
@@ -1580,7 +1580,7 @@ The right elevation shows exactly what you described: the chain low, water-5 lea
 
 ---
 
-Pushed at `f707108e`. Tree clean, 10/11.
+Pushed at `93721d1e`. Tree clean, 10/11.
 
 ## Answering the question first
 

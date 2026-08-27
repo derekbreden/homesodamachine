@@ -103,7 +103,7 @@ as-paid breakdown in [`ledger/purchases.md`](/hardware/ledger/purchases.md)): PC
 Y6-12927587A ($60.13) + Standard-PCBA sub-order SMT026080460464 ($368.98). Same selections as the
 first batch throughout, FedEx Express DDP. All 50 BOM lines matched, 0 unselected; U13 on CH340B
 `C81010`, R22 on `C100444` (its `C25900` read a 20-piece shortfall on the order form and was swapped
-there — the board source carries `C100444`). The fab set is `29f598cb`'s: 227/227 drills, the three
+there — the board source carries `C100444`). The fab set is `163fa38e`'s: 227/227 drills, the three
 inner-layer rings, D2 anode-east. The polarity query (BT1 + D2–D6) was answered **confirmed as
 drawn, proceed** on 2026-08-04.
 

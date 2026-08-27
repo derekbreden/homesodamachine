@@ -94,7 +94,7 @@ I'll start by finding the sessions named in your request.
 
 Transcript read. Here's the orientation:
 
-**Routes 22** — Working the fluid-26 / fluid-24 runs off the bag-B tray down to their cap bores at world x 47. It landed the reed-channel move (`level_rod_y`), got both runs to single parallel legs (fluid-24 R19.78, fluid-26 R18.80 at `c1a20e3e`), then hit a wall on moving the tray west: every millimetre of westward travel costs radius, because both runs fall exactly 14.3 mm and a single 90° corner can't exceed R = the drop. It left off asking you two questions — what Y-F's 28.4 mm is measured against, and what radius floor you'd accept.
+**Routes 22** — Working the fluid-26 / fluid-24 runs off the bag-B tray down to their cap bores at world x 47. It landed the reed-channel move (`level_rod_y`), got both runs to single parallel legs (fluid-24 R19.78, fluid-26 R18.80 at `8f298ac5`), then hit a wall on moving the tray west: every millimetre of westward travel costs radius, because both runs fall exactly 14.3 mm and a single 90° corner can't exceed R = the drop. It left off asking you two questions — what Y-F's 28.4 mm is measured against, and what radius floor you'd accept.
 
 Your new request answers neither of those but changes the terms: you want the minimum bend radius established as a real fence, plus angular entry buffers at the collet and at the cap lid hole. Let me go find the routing code.
 

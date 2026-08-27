@@ -612,7 +612,7 @@ The build's still going. I'll wrap up when it lands.
 
 **Where this stands.** Both things you asked for are done and in the machine:
 
-**C14** — now on the port row's own storey (z 336.21) and at the east end of the wall's flat face (x 72.0), both struck rather than typed. A perfect centre-mirror of TAP wants x 78.07 and buries 286 mm³ of flange in the corner round; 72.0 is where the flange still lands on flat wall. The lever-nut row moved forward off the brick's centre to clear the housing it splices. Committed and pushed at `2ebfa0d6f`.
+**C14** — now on the port row's own storey (z 336.21) and at the east end of the wall's flat face (x 72.0), both struck rather than typed. A perfect centre-mirror of TAP wants x 78.07 and buries 286 mm³ of flange in the corner round; 72.0 is where the flange still lands on flat wall. The lever-nut row moved forward off the brick's centre to clear the housing it splices. Committed and pushed at `a3c09f1d5`.
 
 **The nameplate** — `104.53 × 66.07 × 2`, flush in a pocket of the back wall, two M3×8 at its ends on the one line the cold core's cap and the SeaFlo's disc leave open. Everything on it is at the chips' em except the link, which is sized to the lockup's width. The wall carries the pocket, both stepped bosses and their heat-set bores; the assembly card has a `nameplate-field` row reading the plate back against the field; and the ledgers count its filament, its two inserts and its two screws.
 
@@ -690,7 +690,7 @@ Everything is finished and verified; I'm holding the commit for a few minutes wh
 
 **Both asks are done.**
 
-**C14** — struck on both axes now. Its storey is `deck_storey`, the same plane the three top-row unions cross, so the four mating axes stand on one line. Its column is the east end of the wall's flat rear face: `corner_round` relieves the standing verticals for the bed, so the flat runs out at x ±95.5, and 72.0 is where the flange still bears on flat wall. I measured the alternative rather than argued it — the perfect centre-mirror of TAP at x 78.07 buries 286 mm³ of flange in the round, and even 73.0 is 0.5 mm in. That one is already pushed at `2ebfa0d6f`.
+**C14** — struck on both axes now. Its storey is `deck_storey`, the same plane the three top-row unions cross, so the four mating axes stand on one line. Its column is the east end of the wall's flat rear face: `corner_round` relieves the standing verticals for the bed, so the flat runs out at x ±95.5, and 72.0 is where the flange still bears on flat wall. I measured the alternative rather than argued it — the perfect centre-mirror of TAP at x 78.07 buries 286 mm³ of flange in the round, and even 73.0 is 0.5 mm in. That one is already pushed at `a3c09f1d5`.
 
 **The nameplate** — `104.53 × 66.07 × 2`, flush in a pocket of `enclosure-back-top`, two M3×8 at its ends on the one line the cold core's cap (z 253.4) and the SeaFlo's aft disc (z 266.4) leave open. Your screw instinct was right; my first answer was wrong because I had the counterbore 0.2 mm too deep in Y, which put its floor at 461.8 against two bodies standing 3 mm off the wall. Cutting the land 2.0 → 1.5 moved it to 462.5 and opened the band from x −28 to 85.
 
@@ -787,7 +787,7 @@ Still holding git for the force-push. Rebuild, sync and lock check are running; 
 
 Another Claude session sent a message:
 <cross-session-message from="uds:/tmp/cc-socks/13623.sock" from-name="Improve 11" from-mode="bypass">
-**Done. Commit away.** New history is live; `main` is `59f97e9700db` locally and on origin, 0 ahead 0 behind.
+**Done. Commit away.** New history is live; `main` is `38d4aefea2f8` locally and on origin, 0 ahead 0 behind.
 
 Your working tree is untouched — 89 files still uncommitted, and `hardware/cad-artifacts.lock.json` still the `cad-6a60dfaffad05a13` version you packed. Only the branch pointer moved (`git fetch` + `git reset --soft origin/main`). Every commit SHA in history is new, so anything you'd noted a SHA for needs re-reading, but nothing in the tree changed.
 
@@ -822,7 +822,7 @@ The rewrite landed cleanly and my 89 files came through untouched. The final bui
 
 Summary of where the work ended up:
 
-**C14** — on the port row's storey (z 336.21) and at the east end of the wall's flat face (x 72.0). Both figures struck, not typed. Already on the new history as `75d9db09c`.
+**C14** — on the port row's storey (z 336.21) and at the east end of the wall's flat face (x 72.0). Both figures struck, not typed. Already on the new history as `a3c09f1d5`.
 
 **The nameplate** — `104.53 × 66.07 × 2`, flush in its pocket, two M3×8 at the ends on the one line the cold core's cap and the SeaFlo's disc leave open. Type all at the chips' em bar the link, which is sized to the lockup's width so the plate reads as two marks of one measure. Padding 7.86 side / 3.93 top and bottom.
 
@@ -856,7 +856,7 @@ Improve 11's history rewrite is in. Every commit SHA changed; content is intact.
 
 Until it is committed the deploy builds from my older bundle. Both carry the white CO2, so the site is correct either way; yours additionally carries your finished plate geometry, so it goes live when you commit.
 
-**One thing to do before you commit:** your local tags are stale. 42 of 44 still point into the destroyed history, including `cad-artifacts` (local `c00c7ed49`, remote `3d637bc31`). Harmless for committing and pushing, but if you use tags for anything, refresh them:
+**One thing to do before you commit:** your local tags are stale. 42 of 44 still point into the destroyed history, including `cad-artifacts` (local `ea6de4afb`, remote `ea6de4afb`). Harmless for committing and pushing, but if you use tags for anything, refresh them:
 
     git fetch origin --tags --force --prune --prune-tags
 
@@ -945,7 +945,7 @@ A `gc` is running upstream, so I'll hold git and finish verifying with everythin
 
 ---
 
-The nameplate work is **committed and pushed** — `13c15c68a`, on top of the rewritten history.
+The nameplate work is **committed and pushed** — `b711e5f6f`, on top of the rewritten history.
 
 What happened after the push is worth telling you plainly, because it's a repo-level defect rather than anything about the plate.
 
@@ -1002,15 +1002,15 @@ Tree is down to the two graph files — the commit took everything else. Waiting
 
 Both jobs are done, committed and pushed. Tree clean, `main` 0 ahead 0 behind.
 
-**C14** — `13c15c68`'s predecessor `75d9db09`. It crosses the wall on the port row's own storey (z 336.21) and at the east end of the wall's flat rear face (x 72.0). Neither figure is typed: the storey is `deck_storey`, the column is `interior_x − (corner_round − wall) − FLANGE_W/2`. You asked for a mirror of the port's centre and I measured that rather than argued it — x 78.07 buries 286 mm³ of flange in the corner round, and even 73.0 is 0.5 mm in. The lever-nut row moved forward off the brick's centre to clear the housing it splices.
+**C14** — `b711e5f6`'s predecessor `a3c09f1d`. It crosses the wall on the port row's own storey (z 336.21) and at the east end of the wall's flat rear face (x 72.0). Neither figure is typed: the storey is `deck_storey`, the column is `interior_x − (corner_round − wall) − FLANGE_W/2`. You asked for a mirror of the port's centre and I measured that rather than argued it — x 78.07 buries 286 mm³ of flange in the corner round, and even 73.0 is 0.5 mm in. The lever-nut row moved forward off the brick's centre to clear the housing it splices.
 
-**The nameplate** — `13c15c68`. 104.53 × 66.07 × 2, flush in a pocket of the back wall, two M3×8 at its ends on the one line the cold core's cap and the SeaFlo's disc leave open. Your screw instinct was right from the start; my first answer was wrong because I had the counterbore 0.2 mm too deep in Y. Everything on it is at the chips' em except the link, sized to the lockup's width. Padding 7.86 side, 3.93 top and bottom.
+**The nameplate** — `b711e5f6`. 104.53 × 66.07 × 2, flush in a pocket of the back wall, two M3×8 at its ends on the one line the cold core's cap and the SeaFlo's disc leave open. Your screw instinct was right from the start; my first answer was wrong because I had the counterbore 0.2 mm too deep in Y. Everything on it is at the chips' em except the link, sized to the lockup's width. Padding 7.86 side, 3.93 top and bottom.
 
 The wall carries the pocket, both stepped bosses and their bores. The card gained `nameplate-field` and `nameplate-pocket`. The ledgers count its filament, its two inserts, its two screws and its print time. Six docs and the FS-02 bench card no longer describe a QR, a model number or a signature recess that doesn't exist.
 
 **Two things I'd want you to know rather than discover:**
 
-`c1c1a9e9` contains a hand edit to `tools/bazel/graph.json`, which is a machine-written file. Re-tracing `_pump_replacement_sync.py` drops a STEP it demonstrably reads, and the sandboxed build then fails. I proved the read is real, couldn't find the mechanism, and restored the entry that builds. `import-declared` stays red on that one generator. The alternative was leaving `main` with a target that can't build.
+`667caa52` contains a hand edit to `tools/bazel/graph.json`, which is a machine-written file. Re-tracing `_pump_replacement_sync.py` drops a STEP it demonstrably reads, and the sandboxed build then fails. I proved the read is real, couldn't find the mechanism, and restored the entry that builds. `import-declared` stays red on that one generator. The alternative was leaving `main` with a target that can't build.
 
 And `nameplate-pocket` trusts the plate's declared figures, not the plate solid's measured extents. It catches a stale wall against a current figure — the failure that actually happened tonight — but not a coherently-stale tree.
 
@@ -1229,9 +1229,9 @@ check_declared_imports (staged _scorecard.py)       exit 0
 gen_build.py --check                                BUILD.bazel is what 99 steps write
 ```
 
-**The hand-edit is no longer a hand-edit.** A clean re-trace now emits byte-identical reads to what I restored, so `c1c1a9e9` is what the machine produces. Build also corrected me on the other 15 entries: they were never under-reporting — they still carry all 228 reads from before the solids left the index. The hazard was prospective. Mine was simply the first generator anyone re-traced, because I'd touched `_scorecard.py`.
+**The hand-edit is no longer a hand-edit.** A clean re-trace now emits byte-identical reads to what I restored, so `667caa52` is what the machine produces. Build also corrected me on the other 15 entries: they were never under-reporting — they still carry all 228 reads from before the solids left the index. The hazard was prospective. Mine was simply the first generator anyone re-traced, because I'd touched `_scorecard.py`.
 
-Everything is on `origin/main` through `fa248f63`, tree clean of anything of mine. The two files still showing (`faucet_assembly.py`, `tube-collar/`) belong to other sessions.
+Everything is on `origin/main` through `265449d4`, tree clean of anything of mine. The two files still showing (`faucet_assembly.py`, `tube-collar/`) belong to other sessions.
 
 One loose thread Build handed me and I'm leaving alone deliberately: `trace_inputs.py` sets `HSM_SKIP_VIEWS=1` and `HSM_SKIP_SCENES=1`, and nothing in the repo reads either. Harmless, but they read as though tracing runs generators in a reduced mode, which it doesn't. Say the word and I'll take them out.
 
@@ -1253,7 +1253,7 @@ Another Claude session sent a message:
 
 Scope was much wider than the one generator you hit: 16 entries in the graph declare 228 such reads, and every one would have been dropped by the next re-trace of its generator. You caught it on the first one to be re-traced.
 
-One more thing came out of it — I fat-fingered `--selftest` and got a full `--selftests` re-trace. It gained 33 declared reads and lost none: `nameplate-001.step` for `probe.py` and `fit.py`, `_solids.py` for `check_thumbnails.py`, and your nameplate and materials modules for the generators that reach them. All reads that were being dropped. Committed as `4812eb80` with the three BUILD.bazel data deps it implies. Your `cards-build` warning didn't fire — `--selftests` reads no generator, so `graph.json` is untouched and the render tool kept its outputs.
+One more thing came out of it — I fat-fingered `--selftest` and got a full `--selftests` re-trace. It gained 33 declared reads and lost none: `nameplate-001.step` for `probe.py` and `fit.py`, `_solids.py` for `check_thumbnails.py`, and your nameplate and materials modules for the generators that reach them. All reads that were being dropped. Committed as `fdfc9165` with the three BUILD.bazel data deps it implies. Your `cards-build` warning didn't fire — `--selftests` reads no generator, so `graph.json` is untouched and the render tool kept its outputs.
 
 **On your third observation** — my fetch vs the tree, bazel-bin vs a direct cut, the tracer vs the sandbox — you're right that it's one shape, and I'd put it more narrowly than "a cache makes two readers disagree": in each case *two pieces of code independently answered the same question* and were allowed to drift. `_tracked()` existing twice is the purest instance, and the fix wasn't to make the copies agree but to delete one. `sync_tree` vs a direct cut is the same shape and doesn't have that fix available, since the two readings are genuinely different machines. Your `nameplate-field`-against-the-cut check is the right answer there, because it compares the two *answers* rather than trying to unify the readers.
 </cross-session-message>
@@ -1318,7 +1318,7 @@ The tool writes 2-space; HEAD has 1-space — my hand-edit script reformatted it
 
 **The fault:** `trace_inputs.py` had its own `_tracked()` — a bare `git ls-files` — separate from the `inventory.tracked()` that knows about the locked solids. Once the generated `.step` files left git's index, the tracer *saw* every read of them and then **discarded it on the way out**. That's why wrapping `import_step` showed the file loading while the graph said otherwise, and why clearing caches never helped. `git ls-files` names 3 `.step`; the tree has 101.
 
-**Improve 11 fixed it** (`fd893be3`): one reading instead of two that drifted.
+**Improve 11 fixed it** (`18346e2c`): one reading instead of two that drifted.
 
 **Verified here, independently:**
 
@@ -1335,7 +1335,7 @@ I said `check_declared_imports` would **stay red**. It doesn't — I reasoned fr
 
 I said the other 15 graph entries were **under-reporting and needed repair**. They weren't. They still carry all 228 reads from before the solids left the index; the hazard was only prospective. Mine was the first to be re-traced, not the first to break.
 
-**One thing I found while verifying that was genuinely still broken, and mine.** My plate's own generator didn't declare `nameplate-001.step` as an output — traced while the tracer was still eating writes, exactly as it ate the pump doc's read. Re-traced against the fixed tracer, `//:nameplate-dimensions` now names the solid and builds it. Pushed as `63f6b3a2`, which also restores `graph.json` to the two-space indent the tracer writes — `c1c1a9e9` had reformatted the whole file to one space as a side effect of my hand edit.
+**One thing I found while verifying that was genuinely still broken, and mine.** My plate's own generator didn't declare `nameplate-001.step` as an output — traced while the tracer was still eating writes, exactly as it ate the pump doc's read. Re-traced against the fixed tracer, `//:nameplate-dimensions` now names the solid and builds it. Pushed as `95aa9be8`, which also restores `graph.json` to the two-space indent the tracer writes — `667caa52` had reformatted the whole file to one space as a side effect of my hand edit.
 
 The hand edit itself is no longer a hand edit: a clean re-trace now emits byte-identical reads.
 
@@ -1360,11 +1360,11 @@ Held against every tracked source and the whole graph, not just a staged file:
 
 Every finding `check_declared_imports` has ever produced on this tree is a module no run loads. Your `_scorecard.py` → `enclosure_assembly.py` was one of the 329. `_facts.py` accounts for five more against your generator — it reaches `enclosure`, `enclosure_assembly`, `digiten_flow_sensor`, `jg_bulkhead_union` and `wr1110_regulator`, all from inside functions. So the "two gates in genuine conflict" you named was one gate demanding a re-trace that the trace then correctly refuses to satisfy, five more times over than either of us saw.
 
-`imports_of` now stops at function bodies. A class body still counts, and so does an import a module-level `if`/`try` guards, since both run at import. The check is not blunted — selftest is 13/13 and holds both directions, including that a module-level undeclared import is still named however it is spelled. `4b616b1e`.
+`imports_of` now stops at function bodies. A class body still counts, and so does an import a module-level `if`/`try` guards, since both run at import. The check is not blunted — selftest is 13/13 and holds both directions, including that a module-level undeclared import is still named however it is spelled. `962eca84`.
 
 The clincher for me was the module's own docstring: it already says that which of two same-named files an action reaches is the trace's to answer by watching, and that a guess there is the name rule this graph exists to stop making. A function-local import is that same question.
 
-Also landed, `23cd102c`: four env flags that were set and read by nothing — `HSM_SKIP_VIEWS`, `HSM_SKIP_SCENES`, `HSM_EDITOR`, and `HSM_SCORECARD_CACHE` in .gitignore. Each had a reader once and the setter outlived it. One carried a real error in prose: the dev-server comment claimed a headless build "still hard-stops on a clash", and `enclosure_assembly.py` has no non-zero exit path at all — the pack is written whether or not it closes, for every run. That comment now says what happens.
+Also landed, `0a811f3d`: four env flags that were set and read by nothing — `HSM_SKIP_VIEWS`, `HSM_SKIP_SCENES`, `HSM_EDITOR`, and `HSM_SCORECARD_CACHE` in .gitignore. Each had a reader once and the setter outlived it. One carried a real error in prose: the dev-server comment claimed a headless build "still hard-stops on a clash", and `enclosure_assembly.py` has no non-zero exit path at all — the pack is written whether or not it closes, for every run. That comment now says what happens.
 
 One red I deliberately did not clear, since it is not mine to run: `pack.py --check` reports the lock behind by `faucet-assembly.step` (moved) and five new `tube-collar-*.step`. Those are live in the tree right now, so a `--write` would bundle and publish in-flight geometry. Whoever owns the faucet and tube-collar work should pack when it settles.
 </cross-session-message>

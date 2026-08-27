@@ -1,19 +1,19 @@
 # PCBA audit — Snapshot 2026-07-11
 
-**This is a point-in-time snapshot, not a living document.** Board state: commit `f9355cc7`, rendered 2026-07-11. Re-running this audit later produces a fresh dated file against the then-current board.
+**This is a point-in-time snapshot, not a living document.** Board state: commit `858da065`, rendered 2026-07-11. Re-running this audit later produces a fresh dated file against the then-current board.
 
 ## TL;DR
 
 - Render gates **11/11 pass** (clearance floor 0.15 mm, 0 opens, 0 DRC errors), score 100 % (115 pcbPath, 0 auto, 0 deferred), 79/79 parts carry a JLCPCB #. `silk-audit.py`: 0 findings. `part-orientation-audit.py`: 79 parts, 0 flagged.
 - **One measured board defect:** the V12 island void at mounting holes MH2/MH3 is r 2.2 mm from the hole centre; every fastener the mounting-hole comment anticipates (M3 head r ≈ 2.75, hex standoff r ≈ 3.2, washer r ≈ 3.5) reaches past it onto mask-covered 12 V copper. §Board findings. *Resolved later the same day — see item 1.*
 - **Three pre-fab electrical decisions open:** buzzer flyback diode, flow-sensor 5 V-domain input, moisture-sensor VCC vs. the pulse instruction in `bom.md`. §Board findings. *Moisture-sensor VCC resolved 2026-07-12 — see item 4.*
-- **Firmware:** [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`b256c44e`; now `firmware/src_prototype/main.cpp`) is the L298N prototype's. The only pins agreeing with this board are I²C IO21/IO22. §Firmware ↔ board.
+- **Firmware:** [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`bf009d63`; now `firmware/src_prototype/main.cpp`) is the L298N prototype's. The only pins agreeing with this board are I²C IO21/IO22. §Firmware ↔ board.
 - **The drift checker cannot read the board:** `check_pinmap.py` parses 0 GPIOs from the current trace syntax; `silk-audit.py` / `part-orientation-audit.py` run only by hand; the scorecard prints gates but fails nothing. §Checks.
 - Doc rows in `jlcpcb-parts.md`, `ledger/bom.md`, and `pcb/pcba/README.md` describe earlier board states. §Docs ↔ board.
 
 ## Source-data state
 
-- `hardware/pcb/pcba/pcba.tsx` at `f9355cc7`; `out/pcba.circuit.json` from `bun render-board.ts pcba.tsx` on 2026-07-11.
+- `hardware/pcb/pcba/pcba.tsx` at `858da065`; `out/pcba.circuit.json` from `bun render-board.ts pcba.tsx` on 2026-07-11.
 - Field loads from `wiring/ac-wiring-schedule.md`, `wiring/power.mmd`, `hardware/topology/fluid-topology.md`, `wiring/valve-control.mmd`, `ledger/bom.md`.
 
 ## Methodology
@@ -56,7 +56,7 @@ To re-run: `bun render-board.ts pcba.tsx`, `python3 silk-audit.py`, `tools/cad-v
 
 ## Firmware ↔ board
 
-[`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`b256c44e`, env `esp32dev`; now `firmware/src_prototype/main.cpp`, env `prototype`) targets the L298N under-sink prototype — its header says so (`main.cpp:16-18`). Against this board:
+[`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`bf009d63`, env `esp32dev`; now `firmware/src_prototype/main.cpp`, env `prototype`) targets the L298N under-sink prototype — its header says so (`main.cpp:16-18`). Against this board:
 
 - Pins agreeing: **IO21/IO22 (I²C) only.**
 - Prototype outputs IO5/IO18 land on board-unconnected pins; board peripherals IO2, IO14, IO36, IO39 have no firmware.
@@ -67,7 +67,7 @@ To re-run: `bun render-board.ts pcba.tsx`, `python3 silk-audit.py`, `tools/cad-v
 
 ## Docs ↔ board
 
-Rows describing a different board state than `f9355cc7`:
+Rows describing a different board state than `858da065`:
 
 - `pcb/pcba/README.md:39`: "3V3 and 5 V both made on-board (K7803 / K7805 switching bucks)" — the board makes 3V3 with the AMS1117 LDO (U9) off the K7805's 5 V.
 - `pcb/pcba/jlcpcb-parts.md`: J9 listed as XH 3P `C5374805` (board: 4P `C5359632`, B/A/GND/V12); a "J12 — PROG" row (no J12 exists; programming is J14 USB-C); buzzer "tone on IO4" (IO13); U1 "placed rot 180" (rot 0); J10 described on the north edge at y=30.39 with pin1 east (east edge at (12.35, −24.4), pin1 south); a maze-router paragraph (every signal is pcbPath); no row for D2 (red KT-0603R, `C2286`).

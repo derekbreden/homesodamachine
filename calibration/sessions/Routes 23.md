@@ -484,13 +484,13 @@ All three resolve. Routes 20 forked from this session, so I'll take its tail rat
 
 ---
 
-All three read, and the repo checked against them — HEAD is `ed815c30`, tree clean, and every move that mattered did land. Here's the orientation, then the consideration you asked for.
+All three read, and the repo checked against them — HEAD is `175fd722`, tree clean, and every move that mattered did land. Here's the orientation, then the consideration you asked for.
 
-**Routes 20** — turned my Y-H discussion into something better than I proposed: reservoir B grew its own two mouths (fill bore through the reservoir cap, `d65294ec`), **Y-H and fluid-25 were deleted outright** (`6bb8625b`), and the discharge chain dropped 16.7 mm onto its real fence after the "1 mm to the pump crown" fiction collapsed (`f707108e` — the crown was the motor's, 80 mm east). It stalled six turns on offers and one fake context-budget claim; that stall is now literally documented in [Discretion.md](/calibration/Discretion.md).
+**Routes 20** — turned my Y-H discussion into something better than I proposed: reservoir B grew its own two mouths (fill bore through the reservoir cap, `c6977a8a`), **Y-H and fluid-25 were deleted outright** (`1e0c099b`), and the discharge chain dropped 16.7 mm onto its real fence after the "1 mm to the pump crown" fiction collapsed (`93721d1e` — the crown was the motor's, 80 mm east). It stalled six turns on offers and one fake context-budget claim; that stall is now literally documented in [Discretion.md](/calibration/Discretion.md).
 
-**Routes 21** — executed what 20 kept offering: the nozzle-A gate re-homed to the west lane's forward end, both runs axial, **fluid-17 R6.14 F → R25.40 B** (`93857c42`), bag-b's pose re-stated on its real fence (`dcd74d0b`). Then it built the V-H/V-I seat swap, saw Y-F get dragged aft with V-H-O and fluid-21 fall through bag-b's plate, reverted, and drowned you in prose. Its load-bearing blindspot: it thought tubes need walled channels — "tubes go in foam" had to be said to it out loud.
+**Routes 21** — executed what 20 kept offering: the nozzle-A gate re-homed to the west lane's forward end, both runs axial, **fluid-17 R6.14 F → R25.40 B** (`b6117c00`), bag-b's pose re-stated on its real fence (`54de02a1`). Then it built the V-H/V-I seat swap, saw Y-F get dragged aft with V-H-O and fluid-21 fall through bag-b's plate, reverted, and drowned you in prose. Its load-bearing blindspot: it thought tubes need walled channels — "tubes go in foam" had to be said to it out loud.
 
-**Routes 22** — asked to just move fluid-26, it re-argued the settled station across two novels, then found the one-line unlock: **merge the conduit into the cap's perimeter wall** (the `cap_conduit_pair_neck` precedent), landed the draw bore in the forward band beside V-H-I, and fluid-26 became one leaning leg, F → D (`ed815c30`).
+**Routes 22** — asked to just move fluid-26, it re-argued the settled station across two novels, then found the one-line unlock: **merge the conduit into the cap's perimeter wall** (the `cap_conduit_pair_neck` precedent), landed the draw bore in the forward band beside V-H-I, and fluid-26 became one leaning leg, F → D (`175fd722`).
 
 ## The campaign, seen whole
 

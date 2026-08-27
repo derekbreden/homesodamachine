@@ -3926,7 +3926,7 @@ One stale count in the logging section to fix, then commits:
 
 ---
 
-All four are landed and pushed — two commits: [`8758adab`](https://github.com/derekbreden/homesodamachine/commit/8758adab) in homesodamachine (calibration + rooms) and [`a7e0872`](https://github.com/derekbreden/claude-code-setup/commit/a7e0872) in claude-code-setup (both hooks, README, examples), plus the `need` instrument which reached main earlier via the in-flight stint — details below.
+All four are landed and pushed — two commits: [`4de288b3`](https://github.com/derekbreden/homesodamachine/commit/8758adab) in homesodamachine (calibration + rooms) and [`a7e0872`](https://github.com/derekbreden/claude-code-setup/commit/a7e0872) in claude-code-setup (both hooks, README, examples), plus the `need` instrument which reached main earlier via the in-flight stint — details below.
 
 **The `need` instrument** — [need.py](https://github.com/derekbreden/homesodamachine/blob/e5fd4588/thin/hardware/printed-parts/enclosure/enclosure-assembly/need.py) reports what a run connects before what it rides: ends, per-axis split, span, path, detour, worst first. Every `scorecard.bends` row now carries a `need` record and every bend-radius detail row ends with its need clause, so no future ranking can name four pins without the endpoints sitting in the same row. Selftests hold five controls (plus two new ones in `scorecard_selftest.py` — all gates still fire). A shared-tree note: while I worked, stint 3 committed the drip-pan move, swept my instrument in beside it (`b4cca54b`), and then rebuilt the sidecar so the card a commit carries is built by the source it carries (`dd8d4771`) — the protocol worked without a word exchanged. The instrument's first table made your point for you: **water-4, one of the four runs in the "envelope/mounts conversation" family, is the worst detour in the whole pack — 194 mm of path for ends that stand 61 mm apart, 3.20×.** fluid-25 still reads 1.66× (503/303) after stint 2's improvements.
 
@@ -4787,7 +4787,7 @@ The saddle stint still owns the tree. When it lands, the fluid-25 riser goes nex
 <status>completed</status>
 <summary>Agent "settle-then-saddle west wall" finished</summary>
 <note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
-<result>Pushed as `134c9999`.
+<result>Pushed as `78ccab70`.
 
 ## What became mounted
 
@@ -4861,7 +4861,7 @@ Tree clean at `9d1015e7`. Now the big one — the fluid-25 riser, with every lin
 
 ---
 
-**`mounted` finally moved: 20% → 27% (8/41 → 11/41), and `held` 41% → 49%** ([`134c9999`](https://github.com/derekbreden/homesodamachine/commit/134c9999)). Corners also went 61 → 63/109. That axis had been frozen since this morning while bend-radius climbed from 21 to 63.
+**`mounted` finally moved: 20% → 27% (8/41 → 11/41), and `held` 41% → 49%** ([`78ccab70`](https://github.com/derekbreden/homesodamachine/commit/134c9999)). Corners also went 61 → 63/109. That axis had been frozen since this morning while bend-radius climbed from 21 to 63.
 
 **How it mounted three fittings that have no mounting features.** Each has no ear but does have a round barrel, and the top wall is solid over the whole sequence — so the wall grew **clamp collars**: one wall thick around a bore read off the *placed* body, a mouth the barrel's own width cut down through the underside, one M3 across the mouth drawing the jaws in. Back the screw out and the fitting drops through, which is exactly what separates a mount from a pocket. Four collars, 245° least wrap, new `wall-clamps-grip` gate passing.
 
