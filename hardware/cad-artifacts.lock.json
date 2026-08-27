@@ -7,14 +7,23 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "ea1ae4d04b96e6936d48330f5163fab1edfb9bb1"
+    "commit": "7754a8f3d2d58b8ddd54e0807076bc5c636be623"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [],
     "members": [
-      "hardware/faucet-layout/faucet-assembly.step",
-      "hardware/faucet-layout/faucet-assembly.step.mesh",
+      "hardware/assembly/scenes/glb/back-half.glb",
+      "hardware/assembly/scenes/glb/back-top.glb",
+      "hardware/assembly/scenes/glb/cap-lid-fill.glb",
+      "hardware/assembly/scenes/glb/cap-lid.glb",
+      "hardware/assembly/scenes/glb/cold-core-open.glb",
+      "hardware/assembly/scenes/glb/cold-core.glb",
+      "hardware/assembly/scenes/glb/en04-stratum.glb",
+      "hardware/assembly/scenes/glb/front-top.glb",
+      "hardware/assembly/scenes/glb/pump-cartridge.glb",
+      "hardware/manifold-layout/enclosure-assembly.step",
+      "hardware/manifold-layout/enclosure-assembly.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl"
     ]
   },
