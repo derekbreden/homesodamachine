@@ -1067,20 +1067,27 @@ octagon alone; nothing about where one sits is a number this wall chose. Plate o
 head's crown, shoulder on the boss's, bore on the boss's flanks — each a plane or a
 shared wall, so a tray and the pump it takes share no volume.
 
-**The zip ties are the load path**, the meter's bargain again and on the heaviest body
-either wall carries: a pump hangs UNDER its tray, so the tray on its own holds nothing.
-**Two** close round the plate and the pump's own stamped mounting bracket — the steel
-plate at the head-to-motor junction, which stands proud of the head all the way round
-in the very plane the tray's plate lands on. `kamoer_kphm400` states that bracket and
-draws none of it; a zip tie here reaches under its lip rather than round the head, so the
-loop is a bracket wide and the 8" zip tie the ASSE anchor takes closes it.
+**The cap is the load path and the tray is the seat.** A pump hangs UNDER its tray, so
+what the tray takes is plan, clock and every moment, and none of the weight. That stands
+one storey down: the head's flanks ramp in twice on the way out of the case's cavity
+(`pump_case.flank_ramp_bands`), leaving four 45° faces looking down and outboard, and
+`build_pump_cap` keeps the wedge under every one of them (`pump_tray.head_room` closes
+the void back in wherever the case closed in on the part). So the pump stands on the
+flanks the case that printed it held it by.
 
-**The four channels stand in two bands, one either side of the can.** They sit outside
-the head, so each run crosses the shoulder's own face: inboard of the can's radius a
-run lies against the can, and outboard of the bracket's half-width its legs come down
-off the lip they reach under. Unlike every other cavity on this box the channels are
-**cut**, because there is no pair of end walls in a plate for a channel to be the gap
-between.
+**The bracket is the stop against lifting off them.** The stamped steel plate the part
+carries at the head-to-motor junction stands proud of the head all the way round, in the
+very plane the tray's plate lands on and the cap parts on (`cap_split_z`). That lip lands
+on the cap's own top face all round the head's opening — `kamoer_kphm400` states it and
+draws none of it — so a pump cannot rise off its seats without taking the cap with it.
+
+**Two M3 shut the seat, and they are the whole of the fastening.** They run up the lane
+between the pumps (`cap_band_x`, the one column of the piece with no pump and no barb in
+it), heads down in counterbores under that lane's flat ceiling, each pulling through
+`cap_web_land` of cap and landing in a ruthex M3 short in the block above the split
+(`_cap_screws`). Back both out, lift the cap away, and each boss comes straight up out of
+its octagon bore. **No tray is cut for a zip tie**, and nothing on either pump is closed
+by one.
 
 **A tray is a cantilever off the pump cartridge's face, and `_pump_tray_webs`' own boxes close
 the deck.** One web between the two trays and the across-runs to the deck's edges —
