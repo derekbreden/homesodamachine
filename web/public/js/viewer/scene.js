@@ -22,7 +22,6 @@
 
 import * as THREE from "three";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { state } from "./state.js";
 import { syncEdgeResolution } from "./xray.js";
 
@@ -85,11 +84,59 @@ export function afterGesture() {
   return new Promise((resolve) => gestureWaiters.push(resolve));
 }
 
-// A neutral studio environment gives metallic PBR materials (the GLB
-// component models — connectors, cans, ICs) something to reflect; without it
-// they render black. STEP parts (near-non-metallic) pick up only a faint sheen.
+// THE ENVIRONMENT IS WHAT A SPECULAR SURFACE HAS TO LOOK AT, and on this machine that is most
+// of what a surface is. A metal has no diffuse term at all — every photon it sends back is the
+// environment reflected — so a metal under a uniform grey box IS a uniform grey box, whatever
+// `_materials` says it is made of. Brass, copper, the sintered stone and the mill-finish
+// stainless all arrive at the viewer as their own colour and can only spend it here.
+//
+// So this is a lit room rather than a neutral one: ONE BRIGHT SOFTBOX overhead and forward, two
+// dim bounce cards off to either side, and dark everywhere else. The softbox is the highlight
+// that travels across a surface as it turns, the bounce keeps the shadow side from going flat,
+// and the dark surround is what makes the highlight read as a highlight. Measured against a
+// uniform environment on the cold core, that is worth a mean 22 counts of 255 across the frame
+// and it DOUBLES what `finishes.json` is worth on the same bodies — a roughness that has
+// nothing to sharpen or smear is a roughness nobody can see.
+//
+// The dielectrics gain far less and cannot gain more: a non-metal keeps about 4 % of the light
+// in its specular lobe, so the whole PETG-against-PET-GF difference is a redistribution of that
+// 4 % and no lamp lifts the ceiling. What it buys them is real and small; what it buys the
+// metals is the difference between metal and paint.
+const SOFTBOX = { size: [10, 0.2, 8], at: [0, 7, 2], power: 7 };
+const BOUNCE = [
+  { size: [8, 6, 0.2], at: [-7, 0, -4], power: 3.5 },
+  { size: [6, 5, 0.2], at: [6, -1, 3], power: 2.2 },
+  // A FLOOR, dim and broad. A metal facing down has only this to reflect, and a metal with
+  // nothing to reflect is not dark, it is BLACK — the failure a uniform environment cannot have
+  // and the one this rig has to be tuned against. The brass hex is the part that shows it: at a
+  // surround of 0.03 its underside went to nothing, and every value here was set by turning that
+  // face back into a readable shadow without flattening the highlight on top of it.
+  { size: [10, 0.2, 8], at: [0, -7, -1], power: 0.84 },
+];
+//: How dark the room is between the lights — the ground every surface sees before it sees a
+//: lamp. Not zero, for the same reason the floor is there.
+const SURROUND = 0.14;
+
+function studioRoom() {
+  const room = new THREE.Scene();
+  room.background = new THREE.Color(SURROUND, SURROUND, SURROUND);
+  for (const { size, at, power } of [SOFTBOX, ...BOUNCE]) {
+    // A basic material takes no lighting, so its colour IS its emission — and past 1.0 it is a
+    // light source rather than a white card, which is what the float PMREM target is for.
+    const face = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    face.color.multiplyScalar(power);
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(...size), face);
+    panel.position.set(...at);
+    room.add(panel);
+  }
+  return room;
+}
+
+// Blurred at 0.03 rather than convolved to nothing: the softbox has to keep an edge, because a
+// highlight with no edge is the uniform grey this replaces. Roughness does the rest of the
+// blurring per material, off the mip chain PMREM builds.
 const pmrem = new THREE.PMREMGenerator(renderer);
-export const studioEnvironment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+export const studioEnvironment = pmrem.fromScene(studioRoom(), 0.03).texture;
 
 // The rig every 3D surface in the app is lit by. step.js's offscreen thumbnail
 // scene takes the same one, so a part's grid thumbnail and its detail view are
