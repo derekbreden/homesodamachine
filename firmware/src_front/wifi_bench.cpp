@@ -19,6 +19,10 @@ static TaskHandle_t sinkTask = nullptr;
 static volatile bool apUp = false;
 static volatile bool sinkRun = false;
 static volatile uint8_t apChannel = WIFI_BENCH_CHANNEL;
+// Whether this run takes the panel down. The conflict that made it necessary
+// was never isolated from the stack overflow fixed at the same time, so it
+// has to be answerable at run time rather than assumed.
+static volatile bool stopPanel = true;
 
 // Written by the sink task, read by the J9 dispatch. One 32-bit word each and
 // only ever published after the connection that produced them has closed, so
@@ -47,10 +51,11 @@ static void snapHeap() {
 static void sinkLoop(void *) {
   stage = 1;
   snapHeap();
-  // The panel goes first. Everything below this line writes flash or drives the
-  // radio, and the scan-out cannot survive either.
-  wifiBenchPanelStop();
-  panelDown = true;
+  // The panel goes first, unless this run is the one asking whether it must.
+  if (stopPanel) {
+    wifiBenchPanelStop();
+    panelDown = true;
+  }
   stage = 2;
   // The radio comes up here rather than in the caller, so J9 is answered
   // immediately and the main board polls for `up` instead of waiting on it.
@@ -138,9 +143,10 @@ static void sinkLoop(void *) {
 
 // Returns at once in both directions. The radio is raised and dropped on the
 // sink task, and the main board polls wifiBenchFill() for the transition.
-void wifiBenchApSet(bool on, uint8_t channel) {
+void wifiBenchApSet(bool on, uint8_t channel, bool keepPanel) {
   if (on) {
     if (sinkTask) return;
+    stopPanel = !keepPanel;
     apChannel = channel ? channel : WIFI_BENCH_CHANNEL;
     lastBytes = 0;
     lastMs = 0;

@@ -18,7 +18,7 @@
 // the glass.
 
 // Raise or drop the access point. Idempotent.
-void wifiBenchApSet(bool on, uint8_t channel);
+void wifiBenchApSet(bool on, uint8_t channel, bool keepPanel);
 
 // Fill the answer the main board asked for.
 void wifiBenchFill(WifiApStatePayload &out);

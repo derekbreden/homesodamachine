@@ -564,11 +564,14 @@ static bool linkWifiAsk(uint8_t what) {
     return wifiApAck;
 }
 
-bool linkWifiAp(bool on) {
+bool linkWifiAp(bool on) { return linkWifiApMode(on ? 1 : 0); }
+
+bool linkWifiApMode(uint8_t mode) {
+    const bool on = (mode != 0);
     // The display raises its radio on a task of its own and answers this frame
     // at once, so the answer to the request is not the answer to the question.
     // Ask, then poll `up` until it moves. Asking twice is free at that end.
-    if (!linkWifiAsk(on ? 1 : 0)) {
+    if (!linkWifiAsk(mode)) {
         Serial.println("\nWIFI:AP UNREACHABLE — the enclosure display did not answer");
         return false;
     }
