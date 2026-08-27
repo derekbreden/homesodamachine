@@ -24,7 +24,7 @@ face's own pump relief. NO TRAY SHIPS AS A PART.
 THE CAP IS THE LOAD PATH AND THIS TRAY IS THE SEAT. A pump stands in the tray in plan and in
 clock, and what holds it up is one storey down: the head's own flanks ramp in twice on the way
 out of the cavity, and `enclosure.build_pump_cap` keeps the wedge under all four of those faces
-(`head_seats`). Over them the BRACKET the part carries at this crown (`kamoer_kphm400.bracket_w`,
+(`head_room`). Over them the BRACKET the part carries at this crown (`kamoer_kphm400.bracket_w`,
 stated there and drawn by nobody) laps that cap's top face all round the head's opening, and the
 two M3 that draw the cap up hold the seat shut. So this tray takes plan, clock and every moment,
 the flanks take the weight, and the lip keeps the part from lifting off them.
@@ -76,7 +76,7 @@ can_half = _pc.cylinder_id / 2.0
 # The mounting bracket the part carries at that same crown, stated by `kamoer_kphm400` and drawn
 # by nobody. It stands proud of the head all the way round, in the plane the plate lands on and
 # the plane the cap parts on, and THAT LIP IS WHAT THE CAP'S TOP FACE LAPS — the stop against a
-# pump lifting off the flank seats `head_seats` cuts for it.
+# pump lifting off the flank seats `head_room` cuts for it.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
 # The fall the head's outlet side takes under its barbs, and how far up off its front face it

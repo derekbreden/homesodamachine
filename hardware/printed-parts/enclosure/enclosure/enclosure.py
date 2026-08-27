@@ -1521,7 +1521,7 @@ plate_guide_wedge = 3.0      # the cheek's extra section at the fixed outer wall
 # twice on the way down — `pump_case.flank_ramp_bands`, the two levels the case that printed
 # and held this pump closed on it — leaving a 45 degree face on each side at each band, four
 # faces looking down and outboard. The cap keeps the wedge under every one of them
-# (`pump_tray.head_seats`), so the weight stands on the flanks and the lip over it only keeps
+# (`pump_tray.head_room`), so the weight stands on the flanks and the lip over it only keeps
 # the part from lifting off them. Nothing reaches under a head's FRONT face, which stands one
 # millimetre over the bay floor's own top.
 #
