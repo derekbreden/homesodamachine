@@ -144,6 +144,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "riteav-keystone"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "ceiling-panel"))
@@ -160,6 +161,7 @@ import flute_skin as _flute_skin
 import funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
+import riteav_keystone as _keystone
 import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
@@ -1739,10 +1741,10 @@ Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
             "cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
-            "port_field nameplate "
+            "port_field nameplate keystone "
             "valve_trays pump_trays core_stops core_holds vent_chase collet_plate")
 Pack.__new__.__defaults__ = ((), (), (), (), None, (), ((), ()), (), (), (), (), (), (),
-                             None, (), (), (), (), (), None, (), (), (), (), (), None)
+                             None, (), (), (), (), (), None, None, (), (), (), (), (), None)
 
 
 # --- the bounds this box states ---------------------------------------------
@@ -7130,6 +7132,33 @@ def c14_ceiling_cap(inner, outer, stations, ports, stock):
     return cap
 
 
+def _keystone_receptacle(solid, outer, station, z0, z1):
+    """Fuse the keystone's receptacle to its back-wall piece and open it.
+
+    A KEYSTONE IS HELD BY A RECEPTACLE AND NOT BY A HOLE. `riteav_keystone` states the whole of
+    it — an aperture at the show face, a lip behind it, a pocket taller than the aperture, an
+    ease over the aperture's top edge the body swings through, and two catches at the pocket's
+    back the tang and the latch snap over. This wall gives the lip its depth out of its own
+    section, and a boss standing inboard gives the rest.
+
+    THE BOSS IS FUSED, THEN THE POCKET IS CUT, THEN THE CATCHES ARE FUSED BACK. The catches
+    stand inside the pocket, and a cut running after them would take them off again."""
+    if station is None:
+        return solid
+    x, z = station
+    if not z0 <= z <= z1:
+        return solid
+    y_face = outer[3]
+    block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
+    if block is not None:
+        solid = solid.fuse(block)
+    cutter, _bands = _keystone.receptacle_cut(x, z, y_face)
+    solid = solid.cut(cutter)
+    if catches is not None:
+        solid = solid.fuse(catches)
+    return solid
+
+
 def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
     """Fuse the fixed portion of the C14 tunnel to its back-wall piece and open its bores."""
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1)
@@ -7263,6 +7292,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # because its bore reaches further inboard than the field's own cutters do — those run
         # to the boss each stands behind, and this one runs the whole depth of the tunnel.
         piece = _c14_tunnel(piece, inner, outer, box.pack.c14, box.pack.back_ports, zlo, zhi)
+        # And the keystone's receptacle, reaching further inboard again — the boss carrying the
+        # pocket the jack snaps into stands past where the field's own bosses stop.
+        piece = _keystone_receptacle(piece, outer, box.pack.keystone, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = _piece_bands(box, f"{y_side}-{z_side}")[:2]

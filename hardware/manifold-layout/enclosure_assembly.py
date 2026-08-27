@@ -4516,12 +4516,29 @@ def keystone_cutout():
 
 
 _stated.state(
-    "keystone-panel", "The keystone's latch closes on the wall it passes",
-    f"`enclosure.wall` inside {_keystone.PANEL_MIN:g}–{_keystone.PANEL_MAX:g} mm",
-    _keystone.PANEL_MIN <= _enc.wall <= _keystone.PANEL_MAX,
-    f"the wall is {_enc.wall:g} mm of PETG and the latch's band is "
-    f"{_keystone.PANEL_MIN:g}–{_keystone.PANEL_MAX:g} mm. Both bounds are NOMINAL — "
-    f"`riteav_keystone` carries no measured figure until RiteAV #58999 is delivered.")
+    "keystone-receptacle", "The wall carries the jack's lip and stands the rest of its pocket",
+    f"a section between `LIP_D` {_keystone.LIP_D:g} and `DEPTH` {_keystone.DEPTH:g} mm",
+    _keystone.LIP_D <= _enc.back_top_wall_t < _keystone.DEPTH,
+    f"the +Y wall of back-top runs {_enc.back_top_wall_t:g} mm at this station. The aperture "
+    f"takes {_keystone.LIP_D:g} of it as the lip the jack's face bottoms on, the pocket opens "
+    f"out behind that, and `enclosure._keystone_receptacle` stands a boss "
+    f"{_keystone.DEPTH - _enc.back_top_wall_t:.2f} mm further inboard to carry the catches. A "
+    f"wall at or past {_keystone.DEPTH:g} would bury the pocket in its own section.")
+
+
+KEYSTONE_STEP = _hw / "reference" / "riteav-keystone" / "riteav-keystone.step"
+
+
+def build_keystone():
+    """The jack snapped into its receptacle, face flush with the wall's outer plane.
+
+    `riteav_keystone` states that plane as its own Y = 0 and hangs the whole body inboard of it,
+    so the seat is the wall's outer face at the station and nothing else."""
+    body = import_step(str(KEYSTONE_STEP)).val()
+    x, z = keystone_station()
+    return seat_body(body, (), seat="keystone-jack",
+                     station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
+                              (x, _enc.rear_plane_y + _enc.wall, z)))
 
 
 def _keystone_clearances():
@@ -6306,6 +6323,9 @@ def build_pack() -> cq.Assembly:
     # readily as anywhere.
     c14, _c14_carry = build_c14()
     a.add(c14, name="c14-inlet", color=C_C14)
+    # The umbilical's signal jack, in the receptacle the same wall stands for it.
+    keystone, _keystone_carry = build_keystone()
+    a.add(keystone, name="keystone-jack", color=C_C14)
     wagos = build_wago_row(psu, wall_seat, c14)
     for name, solid, _carry in wagos:
         a.add(solid, name=name, color=C_AC_HUB)
@@ -6639,6 +6659,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
+                     keystone=keystone_station(),
                      valve_trays=a.valve_trays, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
                      vent_chase=a.vent_chase, collet_plate=a.collet_plate)
