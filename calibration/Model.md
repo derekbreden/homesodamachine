@@ -68,3 +68,11 @@ A purpose with a number on it survives being rebuilt. A purpose carried only in 
 survives until someone rewrites the prose: `_scorecard.py`'s seating block went on
 describing two shoulders on the bay floor's top for the whole of the redesign that removed
 them, and it is the first thing the next agent to touch the plate would have read.
+
+Those rows read the same before a cut as after. The part's docstring, its seating block and
+the checks naming it are the plate's specification: taken at the start they enumerate what
+the change has to keep, and taken at the end they are a list of files to bring current. Each
+of the three features the plate flip left standing is named in a sentence that was already
+in the tree — `_plate_cap` says what a drop-in IS and what its lane costs the piece,
+`plate_outline` says what a notch in a part means. A sentence asserting the thing about to
+change is findable by search before any geometry moves.
