@@ -7,14 +7,11 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "c09533d7fe900bb5ea22d4f2d4fbd7ab6e07a2b4"
+    "commit": "bf86e89de2721c7bbfc058c3c4026e8a3f049688"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
-    "paths": [
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "hardware/reference/riteav-keystone/riteav_keystone.py"
-    ],
+    "paths": [],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
       "hardware/assembly/scenes/glb/back-top.glb",
