@@ -43,6 +43,7 @@ import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this 
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
 import seaflo_discharge_chain as _dis  # noqa: E402  — on the path once `_lines` is imported
 import wr1110_regulator as _wr1110  # noqa: E402  — the barrel the box bores a rib for
+import digiten_flow_sensor as _digiten  # noqa: E402  — the arm its two anchors bore for
 import pump_tray as _tray  # noqa: E402  — the plate each Kamoer's head lies on
 
 from docgen import substitute_md  # noqa: E402
@@ -109,13 +110,18 @@ def main():
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
         "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_barrel_seat):.3g} mm",
         "CARB_1_LOOP": f"{_enc.tube_anchor_tie_loop(next(iter(_run_seats))):.3g} mm",
+        # And the meter's, on the seat `enclosure_assembly.digiten_anchors` strikes: the
+        # barrel's own radius and the slip the V stands off it by. A flow-meter anchor
+        # reaches `flow_meter_anchor_wall` off that axis where a rib reaches `wall`, and
+        # both are the box's three millimetres, so one hull answers for both families.
+        "DIGITEN_LOOP": f"{_enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP):.3g} mm",
         # And the loop each of a pump's two zip ties closes — the tray's plate and the bracket the
         # part carries under it, off the module that draws the tray, with the bore and the can's
         # own hole that tray takes the pump on.
         "PUMP_BRACKET": f"{_tray.bracket_half * 2:.4g} mm",
         # The cap and what closes it, off the module that cuts both the clearance bores and
         # the heat-set seats — so a screw added there is a screw the bench is told to drive.
-        "CAP_SCREWS": f"{len(_enc.cap_screw_ys(_f.box.inner, _f.box.pack.collet_plate))}",
+        "CAP_SCREWS": f"{len(_enc.cap_screw_ys(_f.box.inner, _f.box.collet_plate))}",
         "CAP_SCREW_LEN": f"{_enc.screw_len:.4g}",
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
         "PUMP_SOCKET_D": f"{_tray.boss_depth:.4g} mm",
