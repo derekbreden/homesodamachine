@@ -532,6 +532,49 @@ for _bx, _by in attachment_xy_positions:
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
+# EVERY BAND OF THE SILHOUETTE, AND WHICH SIDE OF THE RUN-OUT IT FALLS ON. The stack stands on
+# one footprint with seams across it, so what runs down the core's side is a column of bands —
+# shell, cup, plate, gasket, and nothing else: every other piece of the core is potted inside
+# the foam or inside the shell and reaches the outer plan at no station.
+#
+# A BAND CARRIES THE FIELD ONLY WHERE IT IS TWICE `flute_rise` TALL, and that is the field's own
+# fact rather than a choice. The fade is driven by how far a station stands from the nearest edge
+# of the show face (`_show_skin`, `flute_skin._depth_field`), a band's own two faces are both
+# edges, so the deepest station on a band of height h stands h / 2 from one — and reaches
+# `flute_depth` only once that clears `flute_rise`. Under that height every station on the band
+# is still on the ramp.
+#
+# WHAT A SHORT BAND GETS INSTEAD IS A REVEAL. Cut on the core's own field the top lid's plate
+# comes back at 0.604 mm and the bottom lid's and the gasket's at 0.121 mm, against the 0.4 mm
+# layer and 0.82 mm bead the core prints at (`foam-shell/print-log.md`) — the last two shallower
+# than one layer of the very defect the field is cut to hide. So the three take none of it, and
+# each seam of the stack is a smooth band standing between the two run-outs either side of it.
+#
+# AND THE GASKET WOULD OWE THIS AT ANY HEIGHT. It is the TPU 90A land the cap clamps against the
+# shell's face, and a groove across a sealing land is a path out.
+flute_full_depth_height = 2.0 * flute_rise
+silhouette_bands = (
+    ("foam-shell", foam_shell_outer_height, True),
+    ("foam-cap-bottom", foam_cap_height, True),
+    ("foam-cap-top", foam_cap_height - head_pad_height, True),
+    ("foam-cap-lid-top", foam_cap_lid_height, False),
+    ("foam-cap-lid-bottom", wall_and_floor_thickness, False),
+    ("foam-cap-gasket", gasket_thickness, False),
+)
+_flute_reveal = bound(
+    "flute-reveal", "A band on the run either carries the field or is a reveal",
+    f"fluted iff it stands {flute_full_depth_height:g} mm tall")
+for _band, _band_height, _band_fluted in silhouette_bands:
+    _flute_reveal(
+        _band_fluted == (_band_height >= flute_full_depth_height),
+        f"{_band} stands {_band_height:g} mm on the run and is "
+        + (f"fluted, under the {flute_full_depth_height:g} mm it takes before one station on "
+           f"it stands {flute_rise:g} mm clear of both its faces — so the whole band is ramp "
+           f"and no groove on it reaches {flute_depth:g} mm"
+           if _band_fluted else
+           f"left smooth, though at {flute_full_depth_height:g} mm the field would reach its "
+           f"full {flute_depth:g} mm on it"))
+
 # The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
 # crosses the land, then the one continuous PET-GF section the lid and the cap's
 # boss column make between them, then the gasket — and whatever is left is what

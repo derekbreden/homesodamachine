@@ -1424,7 +1424,7 @@
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches x \u00b1104.50, wall at \u00b1104.50",
+   "value": "pack reaches x \u00b1104.50 at foam-assembly, wall at \u00b1104.50",
    "target": "inside a 215 mm appliance",
    "detail": [],
    "active": true
@@ -1454,7 +1454,7 @@
    "label": "The pack stands inside the appliance's stated depth",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches y 464.00, +Y wall at 464.00",
+   "value": "pack reaches y 464.00 at seaflo-pump, +Y wall at 464.00",
    "target": "ahead of `rear_plane_y` 464",
    "detail": [],
    "active": true

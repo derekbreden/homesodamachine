@@ -175,7 +175,6 @@ wall = _interface.wall      # PETG wall thickness
 # the pack's z = 0, so the slab stands in the silhouette: the machine is `floor_t`, the
 # cavity, and one `wall` of top.
 floor_t = 6.0
-interior_clearance = 0.0    # gap between contents bbox and inner wall
 # The +Y wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
 # lip's inner face rather than against the wall the lip hangs off. A body mounted
@@ -2091,7 +2090,7 @@ def front_band_free_y(front_face):
     wall stands off whatever the pack puts nearest it, so a caller reading this before the box
     is sized has to say what that is. Everything after it is the same stated chain `_dims`
     builds the wall on."""
-    iy0 = front_face - interior_clearance - front_seam_clear
+    iy0 = front_face - front_seam_clear
     return (iy0, _y_boss(y_seam) - socket_r)
 
 
@@ -2313,8 +2312,6 @@ def _dims(pack):
     _z_seam_passes.clear()
     placed = pack.placed
     bbs = [_boxes.boxed(s) for s, _c in placed.values()]
-    cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
-    cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
     # WIDTH — the appliance's headline dimension, and the whole point of the yaw. Stated
     # as `appliance_width` and struck symmetric about x = 0, the axis the pack is centred
@@ -2327,7 +2324,7 @@ def _dims(pack):
     ix0, ix1 = interior_x()
     iy0 = front_plane_y
     iy1 = rear_plane_y
-    iz0 = min(czmin, 0.0) - interior_clearance
+    iz0 = min(czmin, 0.0)
     iz1 = (iz0 - floor_t) + appliance_height - wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     y_joint = y_seam
@@ -2359,16 +2356,22 @@ def _dims(pack):
     # What the pack still has to earn is the clearance. A body on the slab is held one
     # `side_band_inset` off the ±X walls where the seam's bosses stand — `seam_bosses`, the
     # same footprints the ceiling's own band takes below. Beside one, and over or under one,
-    # the band is the wall's own air, and a body clear of all of them answers on `cxmax`.
-    floor = [b for b in bbs
+    # the band is the wall's own air, and a body clear of all of them answers on its own reach.
+    #
+    # EVERY TERM CARRIES THE BODY IT CAME OFF, and on this axis both of them close flush. The
+    # cold core packs its `side_band_inset` off `interior_x` on the slab, and the Wago wells
+    # bore through the thickened ±X flanks to bottom on `interior_x` itself
+    # (`front_top_flank_t`, `front_bottom_flank_t`), so a lever nut's back face IS that plane.
+    # A reading with no air in it is a seat, and the name beside it is what says which.
+    floor = [(n, b) for n, b in zip(placed.keys(), bbs)
              if b.zmin < wall + 1e-6 and _in_a_boss(b, band_bosses)]
-    wide_need = max([cxmax + interior_clearance, -(cxmin - interior_clearance)]
-                    + [b.xmax + side_band_inset for b in floor]
-                    + [-(b.xmin - side_band_inset) for b in floor])
+    wide_need, wide_who = max(
+        [(max(b.xmax, -b.xmin), n) for n, b in zip(placed.keys(), bbs)]
+        + [(max(b.xmax, -b.xmin) + side_band_inset, n) for n, b in floor])
     record_bound(Bound(
         "box-width", "The pack stands inside the appliance's stated width",
         wide_need <= ix1 + stated_bound_tol,
-        f"pack reaches x ±{wide_need:.2f}, wall at ±{ix1:.2f}",
+        f"pack reaches x ±{wide_need:.2f} at {wide_who}, wall at ±{ix1:.2f}",
         f"inside a {appliance_width:g} mm appliance",
         ([] if wide_need <= ix1 + stated_bound_tol else [
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
@@ -2431,11 +2434,12 @@ def _dims(pack):
             f"{name} stands {-air:.2f} mm inside the front wall's surface — deepen its "
             f"relief in `_front_relief_regions`, or repack it aft"
             for air, name in front_rows if air < -stated_bound_tol])))
-    rear_need = cymax + interior_clearance + rear_seam_clear
+    rear_need, rear_who = max((b.ymax + rear_seam_clear, n)
+                              for n, b in zip(placed.keys(), bbs))
     record_bound(Bound(
         "box-depth", "The pack stands inside the appliance's stated depth",
         rear_need <= iy1 + stated_bound_tol,
-        f"pack reaches y {rear_need:.2f}, +Y wall at {iy1:.2f}",
+        f"pack reaches y {rear_need:.2f} at {rear_who}, +Y wall at {iy1:.2f}",
         f"ahead of `rear_plane_y` {rear_plane_y:g}",
         ([] if rear_need <= iy1 + stated_bound_tol else [
             f"the pack reaches y {rear_need:.2f} but the +Y wall stands at {iy1:.2f} — "
@@ -2465,7 +2469,7 @@ def _dims(pack):
          if (b.xmin < ix0 + boss_in or b.xmax > ix1 - boss_in)
          and _in_a_boss(b, ceiling_boss)),
         default=iz0)
-    need = max(czmax + interior_clearance, wall_band_top + pod_stack)
+    need = max(czmax, wall_band_top + pod_stack)
     record_bound(Bound(
         "box-height", "The pack stands under the appliance's stated ceiling",
         need <= iz1 + stated_bound_tol,
