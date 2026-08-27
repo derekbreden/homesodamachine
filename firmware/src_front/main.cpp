@@ -1465,7 +1465,14 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   if (type == MSG_WIFI_BENCH_AP && plen >= sizeof(WifiApPayload)) {
     WifiApPayload ap;
     memcpy(&ap, payload, sizeof(ap));
-    if (ap.on < 2) wifiBenchApSet(ap.on != 0, ap.channel);   // 2 asks without moving it
+    // 0 drops it, 1 raises it with the panel taken down, 2 only asks,
+    // 3 raises it with the panel left running.
+    switch (ap.on) {
+      case 0: wifiBenchApSet(false, ap.channel, false); break;
+      case 1: wifiBenchApSet(true,  ap.channel, false); break;
+      case 3: wifiBenchApSet(true,  ap.channel, true);  break;
+      default: break;   // 2 asks without moving it
+    }
     WifiApStatePayload st;
     wifiBenchFill(st);
     j9Post(MSG_RESP_WIFI_AP, &st, sizeof(st));
