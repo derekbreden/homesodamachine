@@ -245,12 +245,29 @@ def surfaces(directories=PIECES_DIRS):
 
     What `graft` is handed. A tree that has not cut them yet answers with nothing, and a graft
     of nothing leaves every payload as it stands — which is the smooth solid, and is what a
-    machine with no printed mesh could draw anyway."""
+    machine with no printed mesh could draw anyway.
+
+    A PAYLOAD IS HANDED OVER ONLY FOR THE SOLID IT WAS CUT FROM. `cut` stamps each one with its
+    own piece's digest, and a piece recut since then answers to a different one. `graft` reads
+    where a surface stands and not what it is, so a payload of an older cut of the same piece
+    lands inside `PLACEMENT_TOL` and draws that older wall — a hole moved across a face changes
+    no bound the graft measures. The stamp is the reading that separates them, and it is taken
+    here, where both the payload and the solid beside it are open."""
     out = {}
     for step, _stl in pieces(directories):
-        held = read_payload(step.with_name(step.name + ".mesh"))
-        if held and len(held) == 1:
-            out[held[0]["name"]] = held[0]
+        payload = step.with_name(step.name + ".mesh")
+        held = read_payload(payload)
+        if not held or len(held) != 1:
+            continue
+        stamped = _mesh_payload.read_source(payload)
+        current = _mesh_payload.source_digest(step)
+        if stamped != current:
+            raise ValueError(
+                f"{payload.name} was cut from a {step.name} that is not the one beside it "
+                f"({str(stamped)[:12]} against {current[:12]}) — it draws that solid's surface "
+                f"wherever it is grafted. Recut it:\n"
+                f"    tools/cad-venv/bin/python hardware/scripts/flute_payload.py")
+        out[held[0]["name"]] = held[0]
     return out
 
 
