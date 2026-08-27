@@ -353,6 +353,17 @@ def main():
     assy, placed = build()
     out = _here.parent / "foam-assembly.step"
     export_assembly(assy, str(out))
+    # AND THE FLUTED SURFACES INTO THE PAYLOAD THE VIEWER READS. The shell and both caps carry a
+    # show skin that is in the printed mesh and not in the solid (`cold-core/_show_skin.py`), so
+    # the payload written beside this STEP holds three smooth prisms until they are put back.
+    # `loadStepFile` prefers that payload to the STEP, so this is what /3d draws.
+    #
+    # IMPORTED HERE AND NOT AT THE TOP, the way `enclosure_assembly` does it: `flute_payload`
+    # pulls in a decimator and a proximity index that only the run which cuts an assembly uses.
+    import flute_payload                                                # noqa: E402
+    _grafted = flute_payload.graft(Path(str(out) + ".mesh"), flute_payload.surfaces())
+    if _grafted:
+        print(f"-> {Path(str(out)).name}.mesh  ({_grafted} fluted piece(s))")
     print("-> foam-assembly.step")
     _report(placed)
 

@@ -193,8 +193,10 @@ def carried_payload(step) -> Path | None:
     payload = Path(str(step) + ".mesh")
     if not payload.is_file():
         return None
-    held = {n.replace("_", "-") for n in flute_payload.payload_names(payload)}
-    return payload if held & {n.replace("_", "-") for n in fluted_pieces()} else None
+    pieces = set(fluted_pieces())
+    held = [n for n in flute_payload.payload_names(payload)
+            if flute_payload.fluted_key(n, pieces)]
+    return payload if held else None
 
 
 def bare_subject(step, name) -> Path:
