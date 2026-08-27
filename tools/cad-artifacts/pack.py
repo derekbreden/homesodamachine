@@ -1084,8 +1084,27 @@ def main(argv) -> int:
                     if digest != bundle.get("sha256"):
                         raise SystemExit("equal member hashes built a different bundle digest")
                     upload(_ROOT, path, release["asset"], digest, path.stat().st_size)
+            # AND THE OBJECT PATH, WHICH NOTHING ELSE PUTS BACK. `objects` is written only where
+            # a cut moves geometry, so a lock that lost it cannot regain it while the tree
+            # stands still — and losing it takes one refused upload, which a full release gives
+            # every one of them. The fast path then stays off and every deploy reads the whole
+            # tarball for members it already has. The members are named by their own bytes and
+            # this tree holds those bytes, so what the release is missing goes up without
+            # cutting anything and without the lock naming a different asset.
+            known = objects_on_release(_ROOT)
+            short = [r for r in rels if now[r] not in known]
+            if short:
+                make_room(_ROOT, len(short))
+                known = objects_on_release(_ROOT)
+            whole = upload_objects(_ROOT, rels, now, known)
+            objects_was = release.get("objects")
+            if whole:
+                release["objects"] = OBJECT_PREFIX
+            else:
+                release.pop("objects", None)
             if (held.get("source", {}).get("commit") != _head(_ROOT)
-                    or held.get("unproven", {}) != unproven_now):
+                    or held.get("unproven", {}) != unproven_now
+                    or release.get("objects") != objects_was):
                 held["source"] = {"commit": _head(_ROOT)}
                 _write_lock(_with_record(held, unproven_now))
                 print(f"lock names this tree — {held['release']['asset']}; source advanced"
