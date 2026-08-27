@@ -101,6 +101,25 @@ def _plain(v):
     raise TypeError(f"{type(v).__name__} has no plain form — teach `_plain` about it")
 
 
+_BOX_FACT_ORDER = (
+    "inner outer y_joint splits y_bosses z_seam_passes front_ports back_ports east_ports "
+    "west_ports funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle "
+    "cond_cradle cond_mount cond_airway asse_cradle flow_meter_anchors tube_anchors "
+    "ceiling_reliefs port_field nameplate valve_trays pump_trays core_stops core_holds "
+    "vent_chase column_reliefs collet_plate pump_bay").split()
+
+
+def _box_plain(box):
+    """The Box as the artifact carries it: the shell's own figures and the pack's stations in
+    one row, the order the readers of this file have always had them in.
+
+    A Box stands its Pack rather than copying it, so a station is reached through `box.pack`.
+    The artifact is read by drivers that take a station by name off `f.box`, and `placed` is
+    left out because it holds solids and a fact is numbers."""
+    src = {**box.pack._asdict(), **box._asdict()}
+    return {k: _plain(src[k]) for k in _BOX_FACT_ORDER}
+
+
 def gather(whole=None, module=None):
     """Every fact this file adds, off ONE build of the machine.
 
@@ -252,7 +271,7 @@ def gather(whole=None, module=None):
 
     # Derived off the box, by the function that derives it. A driver that recomputed this
     # would be keeping a second copy of the rule.
-    hopper_hole = _plain(_enc._funnel_hole(box.funnel))
+    hopper_hole = _plain(_enc._funnel_hole(box.pack.funnel))
 
     return {
         "schema": SCHEMA,
@@ -262,7 +281,7 @@ def gather(whole=None, module=None):
         # AND THE SOLID IT WAS MEASURED OFF. The run writes the STEP, then the card, then
         # this, so each digest here names one of the two that went before it.
         "step": _realized.code_digest(STEP),
-        "box": _plain(box),
+        "box": _box_plain(box),
         "constants": constants,
         "hopper_hole": hopper_hole,
         "manifold_bodies": sorted(n for n in solids if ea._manifold(n)),
@@ -386,7 +405,7 @@ class Facts:
 
     @property
     def valve_tray_stations(self):
-        """`(plane, sign, ((x, z), …))` per deck, as `enclosure.Box.valve_trays` is.
+        """`(plane, sign, ((x, z), …))` per deck, as `enclosure.Pack.valve_trays` is.
 
         What the plans cannot carry: the world plane a deck's valves stand their mounting
         faces on, and which way their own +Z runs off it. A valve seats the same way on

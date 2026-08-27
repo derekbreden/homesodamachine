@@ -252,7 +252,7 @@ def anchors(view: str) -> list:
     cuts the opening on, on the top wall's outer face."""
     if not _faces_camera((0.0, 0.0, 1.0), view):
         return []
-    fx, fy = _BOX.funnel
+    fx, fy = _BOX.pack.funnel
     return [{"id": THROAT_ANCHOR, "point": [fx, fy, OUTER[5]]}]
 
 
@@ -271,8 +271,8 @@ def refresh_comments() -> None:
             "APPLIANCE_D": f"{APPLIANCE_D:.4g} mm",
             "APPLIANCE_H": f"{APPLIANCE_H:.4g} mm",
             "PIECE_N": f"{len(PIECES):d}",
-            "FRONT_PORT_N": f"{len(_BOX.front_ports):d}",
-            "BACK_PORT_N": f"{len(_BOX.back_ports):d}",
+            "FRONT_PORT_N": f"{len(_BOX.pack.front_ports):d}",
+            "BACK_PORT_N": f"{len(_BOX.pack.back_ports):d}",
             "PANEL_PITCH": f"{pitch:.4g} mm",
             "MARKED_N": f"{len(MARKED_PORTS):d}",
         },

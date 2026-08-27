@@ -1118,7 +1118,7 @@ def tray_name(axis: int, sign: float, plane: float, taken: dict) -> str:
 
 
 def valve_tray_stations(placed: dict) -> tuple:
-    """Every deck as `enclosure.Box.valve_trays` — `(plane, sign, ((x, z), …))` per tray.
+    """Every deck as `enclosure.Pack.valve_trays` — `(plane, sign, ((x, z), …))` per tray.
 
     The world Y a deck's valves stand their mounting faces on, which way their own +Z runs off
     it, and each valve's footprint centre. This is the whole of what the wall is handed: the
@@ -1239,7 +1239,7 @@ def pump_tray_seats(placed: dict) -> dict:
 
 
 def pump_tray_stations(placed: dict) -> tuple:
-    """Every pump as `enclosure.Box.pump_trays` — one world `centre` each.
+    """Every pump as `enclosure.Pack.pump_trays` — one world `centre` each.
 
     This is the whole of what the wall is handed: how far a plate runs to the wall is the box's
     own figure, and its depth, its margin and its zip tie band are `pump_tray`'s."""
@@ -1850,7 +1850,7 @@ def check_plate_carried(pieces, shell) -> Bound:
     The probe is a slab one probe under the shelf's top, under each end of the steel from its
     end plane `enclosure.plate_shelf_land` inboard, taken in bands down the run so a gap
     reports where it is rather than as an average."""
-    spec = shell.collet_plate
+    spec = shell.pack.collet_plate
     fb = pieces["front-bottom"]
     fb = fb.val() if hasattr(fb, "val") else fb
     probe, land = 0.5, _enc.plate_shelf_land
@@ -1891,13 +1891,13 @@ def check_bay_floor(pieces, shell) -> Bound:
     the floor lies on the bed rather than hanging in the piece. SECOND, the land: a slab
     one probe over the steel's own top edge, across the whole width, is `enclosure._plate_cap`
     — the flat the plate comes up onto and stops on, which is the only stop in this joint."""
-    spec = shell.collet_plate
-    z_bed, top = _enc.bay_floor_z(shell.pump_trays)
+    spec = shell.pack.collet_plate
+    z_bed, top = _enc.bay_floor_z(shell.pack.pump_trays)
     probe = 0.5
     ft = pieces["front-top"]
     ft = ft.val() if hasattr(ft, "val") else ft
     berth = _enc._z_rail_channels(shell.inner, shell.y_joint, shell.splits[0],
-                                  "front", spec, shell.vent_chase).fuse(
+                                  "front", spec, shell.pack.vent_chase).fuse(
         _enc._plate_slot(shell.inner, spec, top + 1.0))
     lx0, lx1 = _enc.lip_face_x()
     aft = spec["aft_y"] + _enc.plate_slot_slip + _enc.wall
@@ -2253,8 +2253,8 @@ def check_flank_vent_towers(box, rows: dict) -> Bound:
     Recorded off `check_flank_vents`' one reading, and never from inside `build_piece`."""
     tall = max((r["tallest"] for r in rows.values()), default=None)
     thin = min((min(r["mullions"]) for r in rows.values()), default=None)
-    seg = _enc.vent_segment(box.cond_airway) if box.cond_airway else None
-    band = _enc.vent_band(box.cond_airway) if box.cond_airway else None
+    seg = _enc.vent_segment(box.pack.cond_airway) if box.pack.cond_airway else None
+    band = _enc.vent_band(box.pack.cond_airway) if box.pack.cond_airway else None
     ok = tall is None or tall <= seg + _enc.stated_bound_tol
     return record_bound(Bound(
         "flank-vent-towers",
@@ -2276,7 +2276,7 @@ def check_flank_vent_towers(box, rows: dict) -> Bound:
              f"down from its crown"]
              + [f"transom {i + 1} of {_enc.cond_vent_transoms}: z {a:g}..{b:g}, "
                 f"{b - a:g} mm of unpierced wall tying every mullion and both jambs"
-                for i, (a, b) in enumerate(_enc.vent_transoms(box.cond_airway))])
+                for i, (a, b) in enumerate(_enc.vent_transoms(box.pack.cond_airway))])
          + ([] if ok else [
              f"unpierced at {_enc.cond_vent_transoms} heights the band leaves {seg:.4f} mm "
              f"segments, and something on this flank is open {tall:.4f} mm — a transom did not "
@@ -2347,7 +2347,7 @@ CORE_HOLD_LANE = (58.0, 67.0)
 
 
 def core_stops(foam) -> tuple:
-    """The core's two FRONT corners as `enclosure.Box.core_stops` — `(cx, cy, r)` each.
+    """The core's two FRONT corners as `enclosure.Pack.core_stops` — `(cx, cy, r)` each.
 
     `cx, cy` is the centre the core's own corner round is struck on and `r` that round's radius,
     read off `_cold_core_interface` through the placement, so a block is pocketed about the same
@@ -2370,7 +2370,7 @@ def core_stops(foam) -> tuple:
 
 def vent_chase(foam, foam_carry) -> tuple:
     """Where the cold core's PRV relief line arrives at the west wall, as
-    `enclosure.Box.vent_chase` — one `(x, y, z)` in the machine's own frame.
+    `enclosure.Pack.vent_chase` — one `(x, y, z)` in the machine's own frame.
 
     The X is the core's own WEST FLANK, which is the plane the chase's lip lands on and the
     plane the tube is cut off at; the Y and Z are that tube's own axis where it comes through.
@@ -2390,7 +2390,7 @@ def vent_chase(foam, foam_carry) -> tuple:
 
 
 def core_holds(foam) -> tuple:
-    """The core's aft crown as `enclosure.Box.core_holds` — `(x0, x1, aft, crown)` each.
+    """The core's aft crown as `enclosure.Pack.core_holds` — `(x0, x1, aft, crown)` each.
 
     The lane is `CORE_HOLD_LANE` struck on both flanks; `aft` is the core's own aft face, which
     is the plane `rear_seam_clear` is measured to, and `crown` is `cap_face` — the lid's outer
@@ -2570,9 +2570,9 @@ def check_slide_lanes(pieces, solids, ebox) -> Bound:
     after the column is one piece (`check_core_ride`), and everything back-top carries
     — the chain, the meter, the panel, the wall electronics — rides with it over
     nothing. The piece-on-piece sweep is the whole of that close."""
-    plate = ebox.collet_plate if (ebox.pump_bay and ebox.collet_plate) else None
+    plate = ebox.pack.collet_plate if (ebox.pump_bay and ebox.pack.collet_plate) else None
     travel = _enc._z_rail_travel(ebox.inner, ebox.y_joint, "front", plate,
-                                 ebox.vent_chase)
+                                 ebox.pack.vent_chase)
     movers = [("front-top", pieces["front-top"].val())]
     for name, s in solids.items():
         if name.startswith(FRONT_RIDERS) and not name.startswith(CORE_RIDERS):
@@ -3284,7 +3284,7 @@ def wall_stations(bulkhead_carry, panel_carries, co2_carry) -> dict:
 
 
 def y_wall_field(stations):
-    """The pocket each chip lies in, as `enclosure.Box.port_field` — one per station, not one field
+    """The pocket each chip lies in, as `enclosure.Pack.port_field` — one per station, not one field
     across them. `enclosure._port_field` cuts each into the wall's outer face and stands a boss one
     `BULKHEAD_RING_RIM` larger on the inner one."""
     return _enc.PortField(PORT_BOSS_PROUD, BULKHEAD_RING_RIM,
@@ -3431,7 +3431,7 @@ def nameplate_station(foam) -> tuple:
 
 
 def nameplate_cut(foam) -> _enc.Nameplate:
-    """Everything the wall does for the plate, as `enclosure.Box.nameplate`."""
+    """Everything the wall does for the plate, as `enclosure.Pack.nameplate`."""
     x, z = nameplate_station(foam)
     return _enc.Nameplate(x, z, _np.WIDTH, _np.HEIGHT, _np.CORNER_R, _np.BEVEL, _np.SLIP,
                           _np.THICK, _np.WALL, _np.screw_stations(),
@@ -6974,7 +6974,7 @@ def check_loom_passes(pieces: dict, shell) -> Bound:
     piece = pieces["front-top"]
     piece = piece.val() if hasattr(piece, "val") else piece
     ry, rz = _enc.pcb_ridge(shell.outer)
-    fore, t = shell.collet_plate["aft_y"], _enc.ridge_wall_t
+    fore, t = shell.pack.collet_plate["aft_y"], _enc.ridge_wall_t
     jog = (ry + rz) - fore
     axis_z = (shell.pump_bay[2] + jog) / 2.0
     d = _enc.cable_sleeve_open
@@ -7027,7 +7027,7 @@ def _materialized_enclosure_pieces(box, materialized=False) -> dict:
     return {
         name: import_step(str(root / f"enclosure-{name}.step"))
         for name in _enc.PIECE_COLORS
-        if name not in ("pump-cartridge", "pump-cap") or (box.pump_bay and box.collet_plate)
+        if name not in ("pump-cartridge", "pump-cap") or (box.pump_bay and box.pack.collet_plate)
     }
 
 
@@ -7047,8 +7047,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         import _box_spec
 
         box, bounds = _box_spec.read(
-            _enc.Box, _enc.Bound, (_enc.PortField, _enc.Nameplate))
-        if _box_spec.document(live_box, _enc.BOUNDS) != _box_spec.document(box, bounds):
+            _enc.Box, _enc.Bound, (_enc.Pack, _enc.PortField, _enc.Nameplate))
+        if (_box_spec.document(_enc.documented(live_box), _enc.BOUNDS)
+                != _box_spec.document(_enc.documented(box), bounds)):
             raise ValueError(
                 "the materialized enclosure Box differs from the freshly derived placement; "
                 "rebuild enclosure-box before composing the assembly")
@@ -7130,7 +7131,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And each pump against the piece whose plate lies on its head, one storey up from those.
     check_trays_hold(pieces, a.pack_solids)
     check_cap_laps_bracket(pieces, a.pack_solids)
-    check_cap_passes_tubes(pieces, a.pack_solids, box.collet_plate)
+    check_cap_passes_tubes(pieces, a.pack_solids, box.pack.collet_plate)
     # And the one line in that piece a nozzle would otherwise have to begin in air, against the
     # rib built to carry it — a reading of whether a body can be LAID, not of where it stands.
     check_ridge_carried(pieces, box)
@@ -7146,12 +7147,12 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_column_face(pieces, box)
     # And whether the release those figures serve can actually happen — the one reading on
     # this card that asks a body to move rather than asking where it is.
-    check_release_travel(pieces, a.pack_solids, box.collet_plate)
+    check_release_travel(pieces, a.pack_solids, box.pack.collet_plate)
     # And the same question asked backwards — what takes the push that seats a tube in a tee.
-    check_insertion_backing(pieces, a.pack_solids, box.collet_plate)
+    check_insertion_backing(pieces, a.pack_solids, box.pack.collet_plate)
     # And how much of each valve's post the plate actually surrounds, which is what holds a
     # valve — `valve-trays-hold` reads that one is near its plate and cannot read that.
-    check_post_engagement(pieces, a.pack_solids, box.collet_plate)
+    check_post_engagement(pieces, a.pack_solids, box.pack.collet_plate)
     # And whether the wall between a seat's sockets and its port channel is thick enough for
     # the nozzle to lay anything in — the one reading here the solid itself cannot give.
     check_panel_web()
@@ -7159,7 +7160,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_pump_cartridge_sweep(pieces)
     # And the pump cartridge's own joint with what it lands against: the cap's aft face on the
     # steel.
-    check_cap_stop(pieces, box.collet_plate)
+    check_cap_stop(pieces, box.pack.collet_plate)
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)

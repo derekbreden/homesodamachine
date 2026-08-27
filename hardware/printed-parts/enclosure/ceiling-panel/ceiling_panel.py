@@ -255,7 +255,7 @@ def _rounded_slab(x0, x1, y0, y1, z0, z1, radius=relief_corner_r):
 def _tie_reliefs(box):
     """Full anchor footprints whose existing zip tie approach enters the deeper field."""
     _meter_anchors, ribs = _enc.ceiling_stations(
-        box.flow_meter_anchors, box.tube_anchors, panel=True)
+        box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=True)
     raw = structural_stock()
     pockets = []
     for mid, u, n, seat_r in ribs:
@@ -280,7 +280,7 @@ def _tie_reliefs(box):
 def _relieved_stock(box):
     """The broad field and rails after body headroom and zip tie approaches are opened below."""
     stock = structural_stock().fuse(rail_stock())
-    for _name, x0, x1, y0, y1, pocket_top_z in box.ceiling_reliefs:
+    for _name, x0, x1, y0, y1, pocket_top_z in box.pack.ceiling_reliefs:
         top = min(underside_z, pocket_top_z)
         if top <= structural_under_z:
             continue
@@ -335,11 +335,11 @@ def build(box=None):
     # The C14 tunnel's crown occupies this field at the installed pose and therefore travels
     # with it. Back-top keeps the rest of the same feature; the union is unchanged when closed.
     c14_cap = _enc.c14_ceiling_cap(
-        box.inner, box.outer, box.c14, box.back_ports, structural_stock())
+        box.inner, box.outer, box.pack.c14, box.pack.back_ports, structural_stock())
     if c14_cap is not None and c14_cap.Volume() > 1e-6:
         solid = solid.union(c14_cap)
     meter_anchors, ribs = _enc.ceiling_stations(
-        box.flow_meter_anchors, box.tube_anchors, panel=True)
+        box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=True)
     # THE CEILING THESE ROOT ON IS THIS PANEL'S UNDERSIDE. A rib's two ends climb to the face it
     # stops on and the zip tie's channel is the room they leave between them, so what the builders
     # are handed is the plane this part puts there — `enclosure.piece_root_faces` is the same
@@ -363,7 +363,7 @@ def machine_of():
 
     if _box_spec.in_action():
         box, bounds = _box_spec.read(
-            _enc.Box, _enc.Bound, (_enc.PortField, _enc.Nameplate))
+            _enc.Box, _enc.Bound, (_enc.Pack, _enc.PortField, _enc.Nameplate))
         _enc.BOUNDS[:] = bounds
         return box
     sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
@@ -436,11 +436,11 @@ def main():
           f"{screw_reach:.2f} of {_enc.screw_len:g} spent, {screw_tip_air:.2f} tip air")
     print(f"  brim:    lands y {fore_y:g}..{fore_y + brim_seat:g} on the show face")
     meter_anchors, ribs = _enc.ceiling_stations(
-        box.flow_meter_anchors, box.tube_anchors, panel=True)
+        box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=True)
     print(f"  carries: {0 if meter_anchors is None else len(meter_anchors[3])} meter anchor(s), "
           f"{len(ribs)} ceiling rib(s) — "
           + ", ".join(f"({m[0]:.2f}, {m[1]:.2f}) r{r:g}" for m, _u, _n, r in ribs))
-    print(f"  reliefs: {len(box.ceiling_reliefs)} body pocket(s), "
+    print(f"  reliefs: {len(box.pack.ceiling_reliefs)} body pocket(s), "
           f"{len(_tie_reliefs(box))} full zip tie approach pocket(s), rounded r{relief_corner_r:g}")
     print(f"  piece:   back-top stands {piece_h:g} mm on its seam rim at z {_enc.z_seam:g}")
     print(f"  bed:     {b.xlen:.1f} x {b.ylen:.1f} on the H2C's {bed_x:g} x {bed_y:g}")
@@ -455,7 +455,7 @@ def main():
             "STRUCTURAL_T": f"{structural_t:g} mm",
             "STRUCTURAL_UNDER": f"{structural_under_z:g}",
             "RELIEF_R": f"{relief_corner_r:g} mm",
-            "RELIEF_N": f"{len(box.ceiling_reliefs)}",
+            "RELIEF_N": f"{len(box.pack.ceiling_reliefs)}",
             "TIE_RELIEF_N": f"{len(_tie_reliefs(box))}",
             "PIECE_H": f"{piece_h:g} mm",
             "PANEL_FORE": f"{fore_y:g}",

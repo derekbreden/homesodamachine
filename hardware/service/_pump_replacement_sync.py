@@ -176,7 +176,7 @@ def main():
         # THE CAP AND THE SCREWS THAT HOLD IT, the joint a swap opens before a pump is
         # reachable at all. Counted off the module that cuts both the clearance bores and the
         # heat-set seats, so a screw added there is a screw this procedure names.
-        "CAP_SCREWS": f"{len(_enc.cap_screw_ys(f.box.inner, f.box.collet_plate))}",
+        "CAP_SCREWS": f"{len(_enc.cap_screw_ys(f.box.inner, f.box.pack.collet_plate))}",
         "CAP_SCREW_LEN": f"{_enc.screw_len:.4g}",
     }
 
