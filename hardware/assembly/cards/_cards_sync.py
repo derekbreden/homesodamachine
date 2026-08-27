@@ -182,15 +182,15 @@ def enclosure(m: Machine):
     # in at the back. EN-04: the condenser's air still has no route through a side
     # face (enclosure-mechanical.md Open items 2) — the card says so, and stops
     # saying so the moment a grille is cut.
-    assert not pack.front_ports and not box.pack.front_ports, (
-        f"{len(box.pack.front_ports)} station(s) are cut in the front wall — EN-02 says no "
+    assert not pack.front_ports, (
+        f"{len(pack.front_ports)} station(s) are cut in the front wall — EN-02 says no "
         f"connection is, and EN-02's whole CO2 paragraph is about that. The pump cartridge is "
         f"a piece of that wall, not a station in it")
     # EN-06: "every one of those bosses is on `enclosure-back-top`", which is what
     # makes the power column bench work on that piece rather than work inside a
     # standing box. A boss forward of the Y seam or below the back Z seam is in a
     # different piece and the step is a different step.
-    stray = [b for b in box.pack.east_bosses if b[0] < box.y_joint or b[1] < box.splits[1]]
+    stray = [b for b in box.east_bosses if b[0] < box.y_joint or b[1] < box.splits[1]]
     assert not stray, (
         f"{len(stray)} +X wall boss(es) fall outside `enclosure-back-top` ({stray}) — EN-06 "
         f"offers the whole power column up to that one piece on the bench")
@@ -287,10 +287,10 @@ def enclosure(m: Machine):
         # count is one fact under one name: EN-01 presses those inserts, EN-06
         # drives their screws and PC-01/PC-03 send the bench to them, and four
         # cards stating one wall's boss chain cannot be allowed to disagree.
-        "WALL_BOSSES": f"{len(box.pack.east_bosses)}",
-        "C14_INSERTS": f"{len(box.pack.c14)}",
+        "WALL_BOSSES": f"{len(box.east_bosses)}",
+        "C14_INSERTS": f"{len(box.c14)}",
         # The +Y wall (EN-02). Arrangement, not stations.
-        "BACK_BODIES": f"{len(box.pack.back_ports)}",
+        "BACK_BODIES": f"{len(box.back_ports)}",
         "PORT_COL_PITCH": f"{port_cols[1] - port_cols[0]:.4g} mm",
         "CARB_END": carb_end,
         "PORT_HOLE_D": f"{DIA}{port_hole_d:.4g}",
@@ -308,7 +308,7 @@ def enclosure(m: Machine):
         "COMP_MOUNT_PITCH": f"{_comp.MOUNT_PITCH_X:.4g} {X} {_comp.MOUNT_PITCH_Y:.4g} mm",
         "COMP_PLATE": f"{_comp.BASE_X:.4g} {X} {_comp.BASE_Y:.4g} mm",
         "COMP_CROWN": f"{m.a.bb('compressor').zmax:.4g} mm",
-        "SIDE_OPENINGS": f"{len(box.pack.east_ports)}",
+        "SIDE_OPENINGS": f"{len(box.east_ports)}",
         # The cold core (EN-05).
         "CORE_FOOTPRINT": f"{outer_shell_x_length:.4g} {X} {outer_shell_y_length:.4g} mm",
         "CAP_CONDUITS": f"{len(cap_conduits)}",
@@ -364,9 +364,9 @@ def power_column(m: Machine):
               "RELAY1_BOSSES": len(_relay.holes),
               "RELAY2_BOSSES": len(_relay.holes),
               "GND_BOSSES": len(_gnd.holes)}
-    assert sum(column.values()) == len(m.box.pack.east_bosses), (
+    assert sum(column.values()) == len(m.box.east_bosses), (
         f"the five bodies' own patterns hold {sum(column.values())} holes and the +X wall "
-        f"stands {len(m.box.pack.east_bosses)} bosses — PC-01's table is the wall's census, so "
+        f"stands {len(m.box.east_bosses)} bosses — PC-01's table is the wall's census, so "
         f"one of them has gained a station the other has not")
 
     # The screw schedule falls out of the same patterns: one M3 in through each
@@ -374,7 +374,7 @@ def power_column(m: Machine):
     # through a fan of ring terminals before it reaches its insert.
     long_screws = len(_gnd.holes)
     facts = {
-        "COLUMN_SCREWS_M3X8": f"{len(m.box.pack.east_bosses) - long_screws}",
+        "COLUMN_SCREWS_M3X8": f"{len(m.box.east_bosses) - long_screws}",
         "COLUMN_SCREWS_M3X10": f"{long_screws}",
         # The main board's own cut outline (`pcba.tsx`'s Edge_Cuts path, in the pcb
         # frame the tray shares) — not the gerber's stroked/plotted edge, which
@@ -502,9 +502,9 @@ def sub_assemblies(m: Machine):
     # this same reading.
     cart_stubs = sorted(n for n, by in holder.items()
                         if by in set(cart_pumps) and n.startswith("tube-"))
-    assert len(cart_stubs) == len(m.box.pack.collet_plate["holes"]), (
+    assert len(cart_stubs) == len(m.box.collet_plate["holes"]), (
         f"the pump cartridge carries {len(cart_stubs)} barb tube(s) and the collet plate is bored "
-        f"{len(m.box.pack.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
+        f"{len(m.box.collet_plate['holes'])} hole(s) — SA-09 stands one stub in every hole")
     # WHAT EACH OF THEM STANDS PROUD OF ITS BARB, which is the berth the steel and its two airs
     # are spent in. One plate presses one plane, so the four are one figure or the card has no
     # sentence: a stub the plate is not in the berth of releases nothing.
@@ -601,7 +601,7 @@ def sub_assemblies(m: Machine):
         "PUMP_SOCKET": f"{2 * _tray.boss_half:.4g} mm",
         "PUMP_BRACKET": f"{2 * _tray.bracket_half:.4g} mm",
         "PUMP_HEAD_W": f"{2 * _tray.head_half:.4g} mm",
-        "SA09_CAP_SCREWS": f"{len(_enc.cap_screw_ys(m.box.inner, m.box.pack.collet_plate))}",
+        "SA09_CAP_SCREWS": f"{len(_enc.cap_screw_ys(m.box.inner, m.box.collet_plate))}",
         "SA09_CAP_SCREW": f"M3 {X} {_enc.screw_len:.4g}",
         # And what it leaves the bench holding out in the air, and how far that stands.
         "SA09_STUBS": f"{len(cart_stubs)}",
