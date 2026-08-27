@@ -254,7 +254,7 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 flute_count = 260
 # THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
-flute_depth = 1.2
+flute_depth = _interface.flute_depth
 # THE SOLID A FLUTE MUST HAVE BEHIND IT — the whole `wall`, not what is left after something
 # else has taken its share. A groove cut where less than this stands behind it telegraphs
 # through to the show face; the coupon proved it on the 0.6 mm its engraved label took out of
@@ -272,7 +272,13 @@ flute_samples = 13
 # surface at once, how far every station stands from the nearest place the show face ends,
 # and ramps on that. A seam, an opening's rim, a pocket's edge and the facet's own diagonal
 # arris are the same fact to it, which is why none of them is named anywhere.
-flute_rise = 5.0
+flute_rise = _interface.flute_rise
+# WHAT A BAND GETS FOR BEING AS TALL AS IT IS. A band's own two faces are both edges of the show
+# face, so its deepest station stands half the height from one and reaches `flute_depth` only
+# once that clears `flute_rise`. The pieces let into the box's faces read these to say which side
+# of that they fall on — `display_cover.display-cover-reveal`, `ceiling_panel.ceiling-panel-reveal`.
+flute_full_depth_height = _interface.flute_full_depth_height
+flute_reach = _interface.flute_reach
 # Stations the ramp is drawn through, and the loft between them is RULED — a straight taper
 # from each station to the next, which is the only kind of loft a 2 * `flute_count`-edge
 # section survives being booleaned against afterwards. So the smoothstep is a polyline, and

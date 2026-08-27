@@ -69,6 +69,8 @@ sys.path.insert(0, str(_tools))
 import fits
 from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
+# The bound this file states about its own show face, recorded at import for the machine's card.
+import _stated_bounds as _bounds
 from docgen import substitute_md
 import enclosure as _enc
 import funnel as _funnel
@@ -91,6 +93,21 @@ show_z = underside_z + _enc.wall
 structural_t = 8.0
 structural_under_z = show_z - structural_t
 relief_corner_r = 3.0
+
+# THE PANEL SHOWS ONE FACE AND IT LIES FLAT, so the box's field never crosses it. That field is
+# struck along a plan and runs vertically (`enclosure.flute_rails`); the top surface is the top
+# rail's own answer, unfluted like the 45° facet and the pockets round the drop cutouts
+# (`cadlib/flute_skin.py`). The only band of this piece a run could pass over is the show skin's
+# own edge — and every one of those edges is a mating face anyway: the ±X pair runs in back-top's
+# dado, the fore edge takes the funnel's brim, and the aft edge butts the back wall.
+_bounds.state(
+    "ceiling-panel-reveal", "The ceiling panel's show face is the top, and its edge is a reveal",
+    f"under {_enc.flute_full_depth_height:g} mm of standing edge",
+    _enc.flute_reach(show_z - underside_z) < _enc.flute_depth,
+    f"the show skin stands {show_z - underside_z:g} mm on edge, at or over the "
+    f"{_enc.flute_full_depth_height:g} mm at which the field reaches its full "
+    f"{_enc.flute_depth:g} mm — so a groove would land "
+    f"{_enc.flute_reach(show_z - underside_z):.3f} mm on it, in a dado nobody sees")
 # How tall enclosure-back-top stands on the bed: its Z-seam rim to this face. Everything
 # the piece closes over its bay is printed at that height, over open air.
 piece_h = show_z - _enc.z_seam

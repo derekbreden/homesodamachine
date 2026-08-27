@@ -16,6 +16,28 @@ import fits  # noqa: E402
 wall = 3.0
 rear_seam_clear = 3.0
 
+# THE FIELD THE BOX'S SHOW FACES CARRY, in the two figures a piece that does NOT carry it still
+# has to know. The fade is driven by how far a station stands from the nearest edge of the show
+# face (`cadlib/flute_skin._depth_field`), so a band's own two faces are both edges and the
+# deepest station on a band of height h stands h / 2 from one — full depth only once that
+# clears `flute_rise`. `flute_full_depth_height` is that threshold, and the pieces let into the
+# box's faces read it to say which side of it they fall on: `display_cover.display-cover-reveal`,
+# `ceiling_panel.ceiling-panel-reveal`. `enclosure.py` cuts the field with the same two.
+flute_depth = 1.2
+flute_rise = 5.0
+flute_full_depth_height = 2.0 * flute_rise
+
+
+def flute_reach(band_height):
+    """How deep a groove lands on a band `band_height` tall — the field's own expression.
+
+    `flute_skin._depth_field` ramps on `smoothstep(far / flute_rise)`, where `far` is the
+    distance to the nearest edge of the show face; on a band the deepest station stands half
+    the height from either face. So this is what a piece gets for being as tall as it is, and
+    it is the reading a reveal is stated against rather than a number typed beside one."""
+    t = min(band_height / 2.0, flute_rise) / flute_rise
+    return flute_depth * t * t * (3.0 - 2.0 * t)
+
 screw_clear_dia = 3.9
 head_cbore_dia = 6.15
 heatset_dia = 4.0
