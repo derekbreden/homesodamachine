@@ -54,7 +54,7 @@ is drawn on — the container under the faucet is the only one the procedure ask
 ## How the plate lets go
 
 The collet plate is a laser-cut 1/8" 316 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
-`collet-plate.dxf`), [195.8](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
+`collet-plate.dxf`), [195.7](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
 on edge in a slot that passes clean through the bay floor and opens on front-top's own Z− face.
 The slot holds nothing back: it locates the steel fore and aft over the floor's whole section
 and is the same width the whole way, because the plate is a plain rectangle. What stops it is
