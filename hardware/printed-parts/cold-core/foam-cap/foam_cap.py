@@ -31,12 +31,17 @@ from _foam_cap import (
     build_foam_cap_gasket,
     lid_cut_through_depth,
     lid_total_height,
+    top_cap_height,
 )
+from _outer_shell import build_attachment_bosses
 from _cold_core_interface import (
     build_z_axis_hole_punch,
     attachment_xy_positions,
     wall_and_floor_thickness,
-    foam_cap_height,
+    corner_round_radius,
+    foam_cap_lid_pour_radius,
+    foam_cap_lid_vent_radius,
+    head_pad_height,
     screw_clearance_radius,
     screw_head_height,
     head_cbore_depth,
@@ -82,8 +87,18 @@ from _cold_core_interface import (
 from docgen import substitute_py_comments
 
 
-# Lid z-thickness — one wall-and-floor thickness, [2 mm](LID_Z_H).
-lid_z_height = wall_and_floor_thickness
+# The TOP lid's plate is solid the whole [5.2 mm](LID_Z_H) of `lid_total_height`, so what a hole
+# through it crosses is that and not one wall.
+
+# The lid's own footprint, as area: the shell's rectangle less what its four corner rounds take
+# out of it. Every plate in this stack is cut to it, and the two lids' plates differ by nothing
+# else.
+footprint_area = (outer_shell_x_length * outer_shell_y_length
+                  - (4.0 - math.pi) * corner_round_radius ** 2)
+# The pour hole and the two vents, as one area. Neither lid carries anything else through its
+# plate that the other does not, so this is the whole of what the two have in common there.
+lid_open_area = (math.pi * foam_cap_lid_pour_radius ** 2
+                 + 2.0 * math.pi * foam_cap_lid_vent_radius ** 2)
 
 
 
@@ -135,14 +150,14 @@ def _conduit_section_area():
 
 def deck_boss_z_top(name):
     """A deck mount's column tops, off the cap's floor. A flush mount stops at the mouth
-    rim, under the lid; a standing one carries the full cavity, the lid that closes it,
+    rim, under the lid; a standing one carries the whole cup, the lid that closes it,
     and its standoff. Same section the whole way, standing on the floor's cavity side —
     the cap prints floor-down, and each column rises off the bed like the six screw
     bosses beside it."""
     standoff = deck_mount_standoff(name)
     if standoff == 0.0:
-        return foam_cap_height
-    return foam_cap_height + lid_z_height + standoff
+        return top_cap_height
+    return top_cap_height + lid_total_height + standoff
 
 
 def add_deck_mounts(cap):
@@ -380,7 +395,7 @@ def main():
         for name in deck_mounts
     )
     deck_lid_hole_volume = sum(
-        len(deck_mount_xy(name)) * math.pi * deck_lid_hole_radius(name) ** 2 * lid_z_height
+        len(deck_mount_xy(name)) * math.pi * deck_lid_hole_radius(name) ** 2 * lid_total_height
         for name in deck_mounts
     )
     # Each conduit is a column off the floor's cavity side less a bore that carries on down
@@ -393,34 +408,28 @@ def main():
     # columns mutually overlapping. Nothing here is asked to trust that: the assertion below
     # is what a third conduit would fail against.
     conduit_column_volume = (
-        _conduit_section_area() * (foam_cap_height - wall_and_floor_thickness)
-        - len(cap_conduits) * math.pi * cap_conduit_bore_radius ** 2 * foam_cap_height
+        _conduit_section_area() * (top_cap_height - wall_and_floor_thickness)
+        - len(cap_conduits) * math.pi * cap_conduit_bore_radius ** 2 * top_cap_height
     )
     conduit_lid_hole_volume = (len(cap_conduits) * math.pi
-                               * cap_conduit_bore_radius ** 2 * lid_z_height)
-    # The lid's hole opens on its outer face into the entry countersink, so each conduit takes
-    # a frustum out of that plate rather than a cylinder — the bore's own radius at the inner
-    # face out to `cap_conduit_entry_relief_radius` a wall above it, less the cylinder already
-    # priced above. The three mouths stand clear of one another, so the cones price one each;
-    # the assertion is what a pair standing closer would fail against.
+                               * cap_conduit_bore_radius ** 2 * lid_total_height)
+    # The bore opens on the lid's outer face into the entry countersink, which is sunk ONE WALL
+    # into that face and no further — so each conduit takes a frustum out of the plate's top
+    # wall on top of the cylinder already priced through the whole of it: the bore's own radius
+    # a wall down, out to `cap_conduit_entry_relief_radius` at the face, less the cylinder that
+    # wall already held. The three mouths stand clear of one another, so the cones price one
+    # each; the assertion is what a pair standing closer would fail against.
     for _a, _b in itertools.combinations(cap_conduits.values(), 2):
         assert math.dist(_a, _b) >= 2.0 * cap_conduit_entry_relief_radius, (
             f"cap conduit entry reliefs at {_a} and {_b} stand {math.dist(_a, _b):.3f} mm apart "
             f"and each opens to ⌀{2.0 * cap_conduit_entry_relief_radius:.3f} — two cones that "
             f"meet are one opening, and the lens they share is priced twice below")
     conduit_lid_relief_volume = len(cap_conduits) * (
-        math.pi * lid_z_height / 3.0
+        math.pi * wall_and_floor_thickness / 3.0
         * (cap_conduit_bore_radius ** 2
            + cap_conduit_bore_radius * cap_conduit_entry_relief_radius
            + cap_conduit_entry_relief_radius ** 2)
-        - math.pi * cap_conduit_bore_radius ** 2 * lid_z_height)
-    # The two caps differ by the deck columns and the conduits, and the two lids by the
-    # openings both of those want, less the valve cradles the top one stands — nothing else is
-    # cut into or built onto one end of the stack and not the other.
-    #   The cradles are priced in closed form — four cylinders less four sockets per station
-    # (`valve_seat.seat_volume`). The bosses are fused onto a face they only touch, so the lid
-    # gains that sum and no more; a boss that plugged one of the lid's own openings, ran into its
-    # neighbour, or grew a plate between the four comes up short here.
+        - math.pi * cap_conduit_bore_radius ** 2 * wall_and_floor_thickness)
     cradle_volume = sum(seat.seat_volume(s.seat) for s in cap_cradles.values())
     # An anchor is priced the way it is laid down: one box the rib's length carrying a HALF bore
     # (the cylinder's own axis is the box's top face, so exactly half of it lies in the material),
@@ -451,15 +460,41 @@ def main():
         * (cap_side_anchor_height(n) - cap_side_tunnel_h(n))
         for n, s in cap_side_anchors.items()
     )
-    # The drain berth's cut is the plate's own section over its span — nothing else stands
-    # in the fore edge's band.
+    # The drain berth's cut is the plate's own section over its span, the whole thickness of it
+    # — nothing else stands in the fore edge's band.
     drain_berth_volume = (drain_berth_depth * (drain_berth_span[1] - drain_berth_span[0])
-                          * wall_and_floor_thickness)
+                          * lid_total_height)
+    # WHAT THE TOP LID'S PLATE HOLDS THAT THE BOTTOM'S DOES NOT: one head pad of footprint,
+    # less the six pads already standing in that band and less the openings both plates carry
+    # through it. The pads are the one figure here not written down — a pad is the cap boss's
+    # own section, a circle with its webs run out to the wall and the footprint's corner arc
+    # trimming both, and that section is BUILT rather than stated. So it is measured off the
+    # builder the bottom lid stands it with, and everything on either side of it is closed form.
+    plate_gain = ((footprint_area - lid_open_area) * head_pad_height
+                  - build_attachment_bosses(head_pad_height).val().Volume())
+    # The two cups differ by the deck columns and the conduits, read over the height they BOTH
+    # stand: the top cup gives its mouth band to its lid, so the bottom one is trimmed by that
+    # same band before the two are subtracted, and what is left on either side is one cup. The
+    # bottom cup's relief lives entirely inside the band, which is why nothing of it survives
+    # into this arithmetic.
+    #   The two lids differ by that band, by the openings the top one alone is cut with, and by
+    # the cradles and anchors it alone stands — nothing else is cut into or built onto one end
+    # of the stack and not the other.
+    #   The cradles are priced in closed form — four cylinders less four sockets per station
+    # (`valve_seat.seat_volume`). The bosses are fused onto a face they only touch, so the lid
+    # gains that sum and no more; a boss that plugged one of the lid's own openings, ran into its
+    # neighbour, or grew a plate between the four comes up short here.
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
                   + conduit_lid_relief_volume - cradle_volume - anchor_volume
-                  - side_anchor_volume + drain_berth_volume)
-    cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
+                  - side_anchor_volume + drain_berth_volume - plate_gain)
+    cap_diff = cap_top.val().Volume() - cap_bottom.cut(
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=-1.0)
+        .rect(outer_shell_x_length + 2.0, outer_shell_y_length + 2.0)
+        .extrude(head_pad_height + 1.0)
+        .unwrap()
+    ).val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \
         f"cap diff {cap_diff:.6f} != expected deck columns = {cap_expect:.6f}"
@@ -475,7 +510,7 @@ def main():
         assert _foul <= 1e-6, (
             f"cradle {_name} stands {_foul:.3f} mm^3 inside its own valve")
 
-    # What is under a head is still one wall of PETG — the same land the head
+    # What is under a head is still one wall of PET-GF — the same land the head
     # clamps on when it sits on a flat lid, which is what makes the recess a
     # relocation of the clamp rather than a thinning of it.
     land = lid_total_height - head_cbore_depth
@@ -539,7 +574,7 @@ def main():
         write_bed_file(shape, _here / f"{name}.stl")
 
     variables = {
-        "LID_Z_H": f"{lid_z_height:.4g} mm",
+        "LID_Z_H": f"{lid_total_height:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
