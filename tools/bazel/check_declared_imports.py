@@ -15,6 +15,10 @@ directory it sits in — `flute_payload.py` reads `enclosure.py` and imports `_m
 numpy, trimesh and scipy. Nothing of `enclosure.py` executes in that run, so no module behind
 it is owed, and the walk in `reaches` is what tells the two apart.
 
+AND IT RUNS EXACTLY ONE: ITS OWN. Module scope is what an import of a file runs, and `main` is
+what a run of it runs, so a generator that imports under `if __name__ == "__main__"` imports on
+every action and on no import — read as module scope alone it holds nothing of this tree.
+
 A name two tracked files share is left alone. Which of them an action reaches is what
 `trace_inputs.py` answers by watching, and a guess here would be the name rule this graph
 exists to stop making.
@@ -36,28 +40,8 @@ def _git(*args) -> list:
                           capture_output=True, text=True).stdout.split()
 
 
-@functools.lru_cache(maxsize=None)
-def imports_of(text: str) -> set:
-    """The module names a source imports AT IMPORT TIME.
-
-    HELD BY TEXT, BECAUSE THE WALK ASKS THE SAME FILE THOUSANDS OF TIMES. `reaches` runs once
-    per step per source and re-walks the imports under it each time; parsing them fresh made a
-    whole-tree pass minutes rather than seconds. A source's imports are a function of its bytes,
-    and the bytes are read once into `texts`, so the answer is the same every time it is asked.
-
-    A FUNCTION-LOCAL IMPORT IS NOT AN IMPORT-TIME FACT, and this check's whole subject is the
-    module that is missing when an action opens the file. `_facts.py` reaches five modules from
-    inside functions and `_scorecard.py` reaches `enclosure_assembly` from inside three; a step
-    that touches none of those paths loads none of them, so no such file is owed and the action
-    runs. Whether a run gets there is precisely what `trace_inputs.py` answers by watching, and
-    a guess here is the name rule this graph exists to stop making.
-
-    So the walk does not enter a function. A CLASS BODY RUNS AT IMPORT and is walked; so is an
-    import a module-level `if` or `try` guards, which runs at import like any other statement."""
-    try:
-        tree = ast.parse(text)
-    except SyntaxError:
-        return set()
+def _named(node) -> set:
+    """The module names the statements under `node` import, without entering a function."""
     names = set()
 
     def visit(node):
@@ -70,8 +54,74 @@ def imports_of(text: str) -> set:
                 names.add(child.module.split(".")[0])
             visit(child)
 
-    visit(tree)
+    visit(node)
     return names
+
+
+@functools.lru_cache(maxsize=None)
+def _read(text: str) -> tuple:
+    """`(what importing this runs, what running it adds)`, off ONE parse.
+
+    HELD BY TEXT, BECAUSE THE WALK ASKS THE SAME FILE THOUSANDS OF TIMES. `reaches` runs once
+    per step per source and re-walks the imports under it each time; parsing them fresh made a
+    whole-tree pass minutes rather than seconds. A source's imports are a function of its bytes,
+    and the bytes are read once into `texts`, so the answer is the same every time it is asked.
+    Both readings come off the one tree because both are asked of the same files."""
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return frozenset(), frozenset()
+    top, entry = _named(tree), set()
+    defs = {n.name: n for n in tree.body
+            if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))}
+    for node in tree.body:
+        if not (isinstance(node, ast.If)
+                and any(isinstance(n, ast.Name) and n.id == "__name__"
+                        for n in ast.walk(node.test))):
+            continue
+        for call in ast.walk(node):
+            if isinstance(call, ast.Call) and isinstance(call.func, ast.Name) \
+                    and call.func.id in defs:
+                entry |= _named(defs[call.func.id])
+    return frozenset(top), frozenset(entry - top)
+
+
+def imports_of(text: str) -> frozenset:
+    """The module names a source imports AT IMPORT TIME.
+
+    A FUNCTION-LOCAL IMPORT IS NOT AN IMPORT-TIME FACT, and this check's whole subject is the
+    module that is missing when an action opens the file. `_facts.py` reaches five modules from
+    inside functions and `_scorecard.py` reaches `enclosure_assembly` from inside three; a step
+    that touches none of those paths loads none of them, so no such file is owed and the action
+    runs. Whether a run gets there is precisely what `trace_inputs.py` answers by watching, and
+    a guess here is the name rule this graph exists to stop making.
+
+    So the walk does not enter a function. A CLASS BODY RUNS AT IMPORT and is walked; so is an
+    import a module-level `if` or `try` guards, which runs at import like any other statement.
+    What running the file adds to this is `entry_imports_of`."""
+    return _read(text)[0]
+
+
+def entry_imports_of(text: str) -> frozenset:
+    """The module names a source imports BECAUSE IT IS THE FILE BEING RUN.
+
+    A STEP RUNS ITS OWN FILE, AND RUNNING IT RUNS `main`. `if __name__ == "__main__": main()`
+    is dead on an import and certain on a run, so what `main` imports is loaded before the step
+    does anything — `enclosure_assembly.py` imports `_facts`, `_mesh_payload`, `_scorecard`,
+    `flute_payload` and `render_scenes` there and at no module scope, and read as module scope
+    alone it is a generator that imports nothing of this tree.
+
+    ONE LEVEL, AND ONLY THE NAMES THE GUARD ITSELF CALLS. `ceiling_panel.machine_of` imports
+    `_box_spec`, returns on `in_action()`, and imports `enclosure_assembly` past that return —
+    an action holds the first and never opens the second, which is what the graph states today
+    because a run was watched. Chasing the call chain would state the second and contradict the
+    watching. Which branch a run takes is `trace_inputs.py`'s answer, and a guess here is the
+    name rule this graph exists to stop making.
+
+    Held against the file a step IS, never a file it imports: importing a module runs no `main`.
+    Under the guard the reading is module scope's — a nested function is left alone, and an `if`
+    or `try` around an import does not defer it."""
+    return _read(text)[1]
 
 
 def reaches(gen: str, src: str, by_name: dict, texts: dict) -> bool:
@@ -80,7 +130,11 @@ def reaches(gen: str, src: str, by_name: dict, texts: dict) -> bool:
     A STEP READS A `.py` IT NEVER RUNS. Digesting a source is a read of it, and so is globbing
     the directory it sits in, and neither executes a line — `flute_payload.py` reads
     `enclosure.py` and imports `_mesh_payload`, numpy, trimesh and scipy. What a file imports is
-    owed by whoever imports it, so the walk to `src` is what decides, not the read."""
+    owed by whoever imports it, so the walk to `src` is what decides, not the read.
+
+    THE ROOT IS THE ONE FILE HERE THAT RUNS, so its entry counts at the root and nowhere below:
+    a step whose `main` imports `flute_payload` reaches everything `flute_payload` imports, and
+    a step that merely imports that step reaches none of it."""
     seen, stack = set(), [gen]
     while stack:
         cur = stack.pop()
@@ -89,7 +143,11 @@ def reaches(gen: str, src: str, by_name: dict, texts: dict) -> bool:
         seen.add(cur)
         if cur == src:
             return True
-        for name in imports_of(texts.get(cur, "")):
+        text = texts.get(cur, "")
+        names = imports_of(text)
+        if cur == gen:
+            names = names | entry_imports_of(text)
+        for name in names:
             stack += [f for f in by_name.get(name, ()) if f not in seen]
     return False
 
@@ -119,20 +177,27 @@ def owed(graph: dict, tracked: set, sources: dict, texts: dict | None = None) ->
                     pass
     texts = {**texts, **sources}
 
+    def wanted(names, src) -> set:
+        got = set()
+        for name in names:
+            same = by_name.get(name, [])
+            if len(same) == 1:
+                got.add(same[0])
+        got.discard(src)
+        return got
+
     out = []
     for src, text in sorted(sources.items()):
         if src not in tracked:
             continue
-        wants = set()
-        for name in imports_of(text):
-            same = by_name.get(name, [])
-            if len(same) == 1:
-                wants.add(same[0])
-        wants.discard(src)
+        wants = wanted(imports_of(text), src)
         for gen, entry in sorted(graph.items()):
             reads = set(entry.get("reads", ()))
             if src in reads and reaches(gen, src, by_name, texts):
-                out += [(gen, src, w) for w in sorted(wants - reads)]
+                # THE STEP IS THE ONE FILE IT RUNS RATHER THAN IMPORTS, and running it is what
+                # runs the entry, so what the entry imports is owed here and by nobody else.
+                want = (wants | wanted(entry_imports_of(text), src)) if gen == src else wants
+                out += [(gen, src, w) for w in sorted(want - reads)]
     return sorted(set(out))
 
 
@@ -152,6 +217,12 @@ def selftest() -> int:
 
     def named(text):
         return [w for _g, _s, w in owed(graph, tracked, {"src.py": text}, texts)]
+
+    def ran(text):
+        """The same reading of a file the step RUNS — `gen.py` is what the graph's step is."""
+        return [w for _g, _s, w in owed(graph, tracked, {"gen.py": text}, texts)]
+
+    guarded = "if __name__ == '__main__':\n    sys.exit(main())\n"
 
     hold("an import the step does not declare is named", named("import unseen"), ["unseen.py"])
     hold("an import the step declares is silent", named("import seen"), [])
@@ -194,9 +265,31 @@ def selftest() -> int:
          named("class A:\n    import unseen\n"), ["unseen.py"])
     hold("an import a module-level try guards runs at import",
          named("try:\n    import unseen\nexcept ImportError:\n    unseen = None\n"), ["unseen.py"])
+    # RUNNING A FILE RUNS ITS `main`, and a step's action is a run of the step's own file. An
+    # `enclosure_assembly.py` importing `render_scenes` under the guard and nowhere else reads
+    # as a generator that imports nothing of this tree.
+    hold("an import the step's own entry makes is the step's",
+         ran(f"def main():\n    import unseen\n\n\n{guarded}"), ["unseen.py"])
+    hold("the entry's import is read through its guards",
+         ran(f"def main():\n    if True:\n        import unseen\n\n\n{guarded}"), ["unseen.py"])
+    # A FILE A STEP IMPORTS RUNS NO `main`. This is the same source read the other way round,
+    # and the answer turns on which file the step is.
+    hold("an entry import of a file the step imports is silent",
+         named(f"def main():\n    import unseen\n\n\n{guarded}"), [])
+    # WHICH FUNCTION `main` CALLS, AND ON WHICH BRANCH, IS THE TRACE'S ANSWER — the guard names
+    # `main` and the walk goes no further.
+    hold("an import in a function the entry does not name is the trace's",
+         ran(f"def helper():\n    import unseen\n\n\ndef main():\n"
+             f"    return helper()\n\n\n{guarded}"), [])
+    # WHAT THE ENTRY IMPORTS BRINGS ITS OWN IMPORTS, so the walk starts at the step through it.
+    hold("a step reaching the source through its own entry is named",
+         owed({"gen.py": {"reads": ["gen.py", "mid.py"]}}, tracked | {"mid.py"},
+              {"mid.py": "import unseen"},
+              {"gen.py": f"def main():\n    import mid\n\n\n{guarded}"}),
+         [("gen.py", "mid.py", "unseen.py")])
 
-    print(f"check_declared_imports selftest {holds}/15")
-    return 0 if holds == 15 else 1
+    print(f"check_declared_imports selftest {holds}/20")
+    return 0 if holds == 20 else 1
 
 
 def repair(graph: dict, missing: list) -> int:

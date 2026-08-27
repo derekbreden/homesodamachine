@@ -3723,6 +3723,7 @@
       "hardware/scripts/_card.py",
       "hardware/scripts/_clearing.py",
       "hardware/scripts/_facts.py",
+      "hardware/scripts/_finishes.py",
       "hardware/scripts/_materials.py",
       "hardware/scripts/_measuring.py",
       "hardware/scripts/_mesh_payload.py",
