@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#include <esp_heap_caps.h>
+#include <esp_system.h>
 
 // One connection at a time, read in 8 KB bites out of internal RAM. PSRAM
 // would serve here too, but the panel is already reading it continuously and
@@ -24,11 +26,38 @@ static volatile uint8_t apChannel = WIFI_BENCH_CHANNEL;
 static volatile uint32_t lastBytes = 0;
 static volatile uint32_t lastMs = 0;
 
+// Where the radio got to, for a board with no console in the appliance.
+// 0 idle, 1 task entered, 2 mode set, 3 AP up, 4 serving, 8 no task, 9 refused.
+// In RTC memory and never initialised, so a stage that ends in a reset is still
+// readable from the boot that follows it — which is the whole question here.
+RTC_NOINIT_ATTR static uint8_t stage;
+RTC_NOINIT_ATTR static uint32_t attempts;
+static volatile bool rebootWanted = false;
+static volatile bool panelDown = false;
+static volatile uint32_t heapFree = 0;    // internal, at the moment of the attempt
+static volatile uint32_t heapBlock = 0;   // largest contiguous internal block
+static volatile uint32_t heapDma = 0;     // largest DMA-capable block
+
+static void snapHeap() {
+  heapFree = (uint32_t)heap_caps_get_free_size(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  heapBlock = (uint32_t)heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT);
+  heapDma = (uint32_t)heap_caps_get_largest_free_block(MALLOC_CAP_DMA);
+}
+
 static void sinkLoop(void *) {
+  stage = 1;
+  snapHeap();
+  // The panel goes first. Everything below this line writes flash or drives the
+  // radio, and the scan-out cannot survive either.
+  wifiBenchPanelStop();
+  panelDown = true;
+  stage = 2;
   // The radio comes up here rather than in the caller, so J9 is answered
   // immediately and the main board polls for `up` instead of waiting on it.
   WiFi.mode(WIFI_AP);
+  stage = 3;
   if (!WiFi.softAP(WIFI_BENCH_SSID, WIFI_BENCH_PSK, apChannel)) {
+    stage = 9;
     Serial.println("[bench] softAP refused");
     WiFi.mode(WIFI_OFF);
     sinkRun = false;
@@ -37,6 +66,7 @@ static void sinkLoop(void *) {
     return;
   }
   apUp = true;
+  stage = 4;
   Serial.printf("[bench] AP '%s' up on channel %u at %s\n",
                 WIFI_BENCH_SSID, apChannel, WiFi.softAPIP().toString().c_str());
 
@@ -50,6 +80,7 @@ static void sinkLoop(void *) {
     sinkRun = false;
   }
 
+  if (buf) stage = 5;
   while (sinkRun) {
     WiFiClient client = server.available();
     if (!client) {
@@ -98,6 +129,7 @@ static void sinkLoop(void *) {
   apUp = false;
   Serial.println("[bench] AP down");
   sinkTask = nullptr;
+  if (panelDown) rebootWanted = true;   // the glass only comes back on a boot
   vTaskDelete(nullptr);
 }
 
@@ -109,11 +141,14 @@ void wifiBenchApSet(bool on, uint8_t channel) {
     apChannel = channel ? channel : WIFI_BENCH_CHANNEL;
     lastBytes = 0;
     lastMs = 0;
+    ++attempts;
     sinkRun = true;
     if (xTaskCreatePinnedToCore(sinkLoop, "benchsink", SINK_STACK, nullptr, 4,
                                 &sinkTask, 0) != pdPASS) {
       sinkRun = false;
       sinkTask = nullptr;
+      stage = 8;
+      snapHeap();
       Serial.println("[bench] no task for the sink");
     }
     return;
@@ -129,4 +164,14 @@ void wifiBenchFill(WifiApStatePayload &out) {
   out.ip = up ? (uint32_t)WiFi.softAPIP() : 0;
   out.bytes = lastBytes;
   out.ms = lastMs;
+}
+
+bool wifiBenchRebootWanted() { return rebootWanted; }
+
+void wifiBenchDiag(char *out, unsigned n) {
+  // The reset reason is the point: a stage that ends in a panic says the radio
+  // took the board out rather than refusing.
+  snprintf(out, n, "s=%u n=%lu r=%d l=%lu", (unsigned)stage,
+           (unsigned long)attempts, (int)esp_reset_reason(),
+           (unsigned long)heapBlock);
 }

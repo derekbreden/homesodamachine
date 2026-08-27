@@ -22,3 +22,19 @@ void wifiBenchApSet(bool on, uint8_t channel);
 
 // Fill the answer the main board asked for.
 void wifiBenchFill(WifiApStatePayload &out);
+
+// How far the radio got and what memory it had to do it with. This display has
+// no console of its own in the appliance, so the account goes out on J9 as
+// text. Keep it under 40 bytes: that is what one queued J9 frame carries.
+void wifiBenchDiag(char *out, unsigned n);
+
+// Taking the panel down before the radio comes up, and putting the board back
+// afterwards. The scan-out DMA refills its bounce buffer out of PSRAM and the
+// radio's bring-up writes flash, which suspends the cache PSRAM is reached
+// through — the same conflict that makes an OTA blank this glass. Defined in
+// main.cpp, where the panel lives.
+void wifiBenchPanelStop();
+
+// True once the bench is finished with a board whose panel it took down. The
+// only way back is the reboot the loop then performs.
+bool wifiBenchRebootWanted();
