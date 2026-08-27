@@ -6427,9 +6427,9 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # perimeter of the pair, and not of the wall the rib stands on:
 #
 #     carb-1 tube in its rib      [40.1 mm](LOOP_CARB_1)
-#     DIGITEN arm in its anchor   55.2 mm
+#     DIGITEN arm in its anchor   [59.6 mm](LOOP_DIGITEN)
 #     WR1110 barrel in its rib    [84.1 mm](LOOP_WR1110)
-#     ASSE barrel in its anchor   100.6 mm
+#     ASSE barrel in its anchor   105.2 mm
 #
 # A 4" tie closes about 69 mm of loop, which takes the first two; the regulator's takes the 6",
 # which closes about 110. The ASSE barrel's passes both and takes the 8", and an 8" tie is a 50 lb
@@ -6525,7 +6525,7 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
     # and the web comes out no thinner than stated at any station.
     #
-    # IT IS THE WIDE ZIP TIE'S CAVITY. The barrel and this anchor make a 100 mm loop, past what a 4"
+    # IT IS THE WIDE ZIP TIE'S CAVITY. The barrel and this anchor make a 105 mm loop, past what a 4"
     # tie closes, so what shuts it is the 8" — and an 8" is a 50 lb tie, half again as wide as the
     # 18 lb zip tie the flow-meter anchors and the runs' ribs take.
     for ty in ties:
@@ -7754,6 +7754,15 @@ def main():
         raise ValueError(
             "the box bores no tube anchor at all, and the zip tie table quotes a loop for them. "
             "Either the pack stands a rib again or the table stops reading one.")
+    # And the meter's, off the one station its two anchors are struck from. A flow-meter anchor
+    # reaches `flow_meter_anchor_wall` off the arm's axis where a rib reaches `wall`, and both are
+    # the box's own three millimetres, so the hull is the same figure of the seat and one function
+    # reads both families.
+    meter = box.pack.flow_meter_anchors
+    if not meter:
+        raise ValueError(
+            "the box hangs no flow-meter anchor, and the zip tie table quotes the loop one closes. "
+            "Either the pack stands them again or the table stops reading one.")
     # The vents as the piece came out, for the page — the same reading `flank-vent-mullions` is
     # graded on, asked of the same solid after it was drawn.
     vent_read = vent_readings(pieces, box)
@@ -7783,6 +7792,7 @@ def main():
         "RAIL_RUN_BACK_W": f"{back_len[0]:.0f} mm",
         "LOOP_CARB_1": f"{tube_anchor_tie_loop(seats[0]):.3g} mm",
         "LOOP_WR1110": f"{tube_anchor_tie_loop(seats[-1]):.3g} mm",
+        "LOOP_DIGITEN": f"{tube_anchor_tie_loop(meter[2]):.3g} mm",
         "ANCHOR_SEATS": ", ".join(f"{2 * r:.4g}" for r in seats),
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
