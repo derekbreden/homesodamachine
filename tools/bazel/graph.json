@@ -3527,6 +3527,7 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "hardware/scripts/_stated_bounds.py",
+      "hardware/scripts/flute_payload.py",
       "tools/docgen/__init__.py"
     ],
     "rewritten": [
