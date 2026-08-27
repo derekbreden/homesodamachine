@@ -70,6 +70,10 @@ bool mainBoardPersistError = false;
 uint32_t tokenState = 1;
 uint32_t framesRx = 0;
 uint32_t framesTx = 0;
+// What this board would have printed at boot if it had a console. J3 is not
+// synchronised that early and the main board reboots often, so it is held and
+// said again on every connection rather than once into a link nobody had yet.
+char bootLine[96] = {0};
 uint32_t benchWant = 0;
 uint32_t benchGot = 0;
 uint32_t benchFirstMs = 0;
@@ -541,6 +545,11 @@ void baseLinkPrimeDiscard() {
 // Said over J3 because this board has no console of its own in the appliance.
 void baseLinkSay(const char *text) { base.trySend(MSG_TEXT, text, (uint16_t)strlen(text)); }
 
+void baseLinkSayOnConnect(const char *text) {
+  snprintf(bootLine, sizeof(bootLine), "%s", text);
+  baseLinkSay(text);
+}
+
 void baseLinkService() {
   const uint32_t startedUs = micros();
   base.service();
@@ -552,6 +561,7 @@ void baseLinkService() {
   const bool connected = base.isConnected();
   if (generation != connectionGeneration) {
     connectionGeneration = generation;
+    if (connected && bootLine[0]) base.trySend(MSG_TEXT, bootLine, (uint16_t)strlen(bootLine));
     synchronized = false;
     // A control accepted by the previous TinyProto epoch may or may not have
     // reached the main board. Drop it here; the UI fails closed and reasserts
