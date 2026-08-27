@@ -47,17 +47,17 @@
     },
     {
       "check": "hardware/scripts/check_tracked.py",
-      "note": "56/56 artifacts have their record in the index",
+      "note": "57/57 artifacts have their record in the index",
       "status": "ok"
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1320 tracked, 268 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1328 tracked, 268 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 83 of 1000 free, the next cut wants 3, and the whole lock reads by name in 156.0 MB against 157.1 MB of bundle",
+      "note": "check_release_room: 78 of 1000 free, the next cut wants 3, and the whole lock reads by name in 145.0 MB against 146.1 MB of bundle",
       "status": "ok"
     },
     {
@@ -77,7 +77,7 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 173 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 174 source(s) the graph names",
       "status": "ok"
     }
   ],
