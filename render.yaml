@@ -61,6 +61,18 @@ services:
         # minutes after the tree it describes. `web/lib/artifacts-live.js` carries it onto the
         # running container on the same look that adopts the artifact lock.
         - web/public/checks.json
+        # AND THE SUITE IS NOT SHIPPED. `buildCommand` runs `npm ci --omit=dev`, so the
+        # dependencies these need are not installed and no step of a deploy runs them — a
+        # container cannot behave differently for a test that changed, because it never had
+        # the test. A commit that only touches them was buying an `npm ci`, a fetch and a
+        # restart for code that never leaves this disk, and standing in front of the next
+        # push while it did.
+        #
+        # WHAT ACTUALLY HOLDS THEM IS THE BOARD. `tools/check_web_tests.py` runs the suite
+        # against the tree and `checks_now.py` pins the reading after every commit, so a
+        # broken test reddens the gear on the same look it always did. The deploy was never
+        # the thing asking.
+        - web/tests/**
     envVars:
       - key: DATABASE_URL
         fromDatabase:
