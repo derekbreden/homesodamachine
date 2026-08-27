@@ -51,8 +51,20 @@ M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # (`ledger/bom.md` §7): the four quadrants, the pump cartridge and the cap under it, the ceiling
 # panel, the display cover plate, the faucet shell's two pieces and the above-counter plate.
 # The cold core's five foam bodies come off the same stock — the shell and its four caps and
-# lids — so the two biggest plates in the build run one spool. Glass fill stands it a shade
-# above the PETG black it closes on, and matte beside the donor's matte-black metal.
+# lids — so the two biggest plates in the build run one spool.
+#
+# THIS TRIPLE IS NOT MEASURED, and it is the only black here that is not. `M_PETG_BLACK` above
+# is a swatch off a named spool; this was reasoned — glass fill standing it a shade over the
+# PETG it closes on. No swatch of PET-GF15 has been sampled, and `chip_filaments` is the
+# mechanism that would hold one.
+#
+# WHAT SEPARATES THE TWO STOCKS IS GLOSS, NOT COLOUR, so a better triple would not close the
+# gap on its own. `cadlib/flute-evidence/02` has both in one exposure: across the seam, where
+# the light grazes, PETG throws a warm specular bloom and PET-GF holds neutral, and PET-GF
+# reads 0.59× the PETG beside it; on the fluted panels below, same frame and same light, it
+# reads 1.10×. One ratio cannot be both, because what swings is the specular lobe. A material's
+# roughness is the channel that carries that, and there is nowhere to put it: a STEP colour is
+# RGBA, and `web/public/js/viewer/step.js` gives every body one hardcoded `roughness: 0.6`.
 M_PETGF_BLACK = cq.Color(0.20, 0.20, 0.21)
 # Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
 # (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
