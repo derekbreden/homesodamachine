@@ -16,6 +16,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from _cadq_export import export_assembly
 from _materials import C_FOAM_SHELL, one_body
 from _foam_shell import build_full_shell
+from _show_skin import write_bed_file
 from _cold_core_interface import (
     above_carbonator_elbows_height,
     bag_pocket_corner_inner_radius,
@@ -26,6 +27,15 @@ from _cold_core_interface import (
     coil_radial_clearance,
     carbonator_coil_envelope_radius,
     corner_round_radius,
+    flute_count,
+    flute_depth,
+    flute_pitch,
+    flute_rise,
+    forward_band_width,
+    outer_shell_plan_perimeter,
+    outer_shell_wall,
+    pour_band_pocket_side_y,
+    pour_band_shell_side_y,
     foam_cap_interior_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
@@ -187,6 +197,9 @@ def main():
     export_assembly(one_body(foam_shell, "foam-shell", C_FOAM_SHELL),
                     str(_here / "foam-shell.step"))
     print("-> foam-shell.step")
+    # AND THE SHOW SURFACES ARE FLUTED HERE, in the mesh, on the way to the bed. The STEP above
+    # is the surface the field is measured FROM; see `_show_skin` for why it is not in it.
+    write_bed_file(foam_shell, _here / "foam-shell.stl")
 
     _report_front_ports(foam_shell)
     _report_wall_openings()
@@ -223,6 +236,14 @@ def main():
             "SUPPORT_RING_INNER_R": f"{carbonator_coil_envelope_radius - support_ring_radial_width:.4g} mm",
             "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
             "CORNER_ROUND_R": f"{corner_round_radius:.4g} mm",
+            "FSHELL_FLUTE_PITCH": f"{flute_pitch():.4g} mm",
+            "FSHELL_FLUTE_COUNT": f"{flute_count:g}",
+            "FSHELL_FLUTE_DEPTH": f"{flute_depth:.4g} mm",
+            "FSHELL_FLUTE_RISE": f"{flute_rise:.4g} mm",
+            "FSHELL_PLAN_PERIMETER": f"{outer_shell_plan_perimeter():.4g} mm",
+            "FSHELL_OUTER_WALL": f"{outer_shell_wall:.4g} mm",
+            "FSHELL_POUR_BAND": f"{abs(pour_band_shell_side_y - pour_band_pocket_side_y):.4g} mm",
+            "FSHELL_FORWARD_BAND": f"{forward_band_width:.4g} mm",
             "BOSS_D": f"{screw_boss_size:.4g} mm",
             "CAP_H": f"{foam_cap_interior_height:.4g} mm",
             "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",

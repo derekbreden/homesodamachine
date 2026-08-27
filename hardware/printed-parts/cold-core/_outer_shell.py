@@ -7,6 +7,7 @@ supports."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
+    outer_shell_wall,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,
@@ -30,6 +31,38 @@ def _rounded_footprint(height):
         .edges("|Z")
         .fillet(corner_round_radius)
     )
+
+
+def cavity_plan(z0, z1, wall=None):
+    """The cup's cavity in plan between two heights — the footprint inset by `wall`, on the
+    concentric inner round a shell of that thickness leaves."""
+    w = outer_shell_wall if wall is None else wall
+    return (
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=z0)
+        .rect(outer_shell_x_length - 2 * w, outer_shell_y_length - 2 * w)
+        .extrude(z1 - z0)
+        .edges("|Z")
+        .fillet(corner_round_radius - w)
+    )
+
+
+#: How much of a shelled cup's floor is the show skin's stock rather than the floor's own.
+floor_skin_stock = outer_shell_wall - wall_and_floor_thickness
+
+
+def take_skin_off_the_floor(cup, z0, z1):
+    """`cup`, with the show skin's stock given back on the one face that is not show face —
+    `z0`..`z1` being the `floor_skin_stock`-thick slab of cavity the shell left behind.
+
+    A SHELL THICKENS EVERY FACE IT LEAVES, and a cup's closed end is one of them. But that end
+    lies FLAT: it carries no flutes, so it has no reason to stand a groove's depth deeper, and
+    it cannot afford to either. Every height in the core is measured off the shell floor's top
+    face (`bag_pocket_floor_top_z`, `front_face_port_z`, the support ring's own seat) and
+    `foam_cap_height` is a pour depth plus one floor, so a floor that moved would carry the
+    whole stack with it. The four standing walls keep their own section; only this is given
+    back."""
+    return cup.cut(cavity_plan(z0, z1))
 
 
 def build_attachment_bosses(height, oversize=0.0):
@@ -87,8 +120,12 @@ def build_outer_shell():
         .edges("|Z")
         .fillet(corner_round_radius)
         .faces(">Z")
-        .shell(-wall_and_floor_thickness)
+        # THE WALL IS ONE FLUTE DEEPER THAN THE STRUCTURE NEEDS (`outer_shell_wall`), and the
+        # depth is found on the inside. The footprint this is shelled out of is untouched, so
+        # the groove floor lands on the surface the cabinet was measured against.
+        .shell(-outer_shell_wall)
     )
+    shell = take_skin_off_the_floor(shell, wall_and_floor_thickness, outer_shell_wall)
     return shell.union(build_attachment_bosses(foam_shell_outer_height)).unwrap()
 
 

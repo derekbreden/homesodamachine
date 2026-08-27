@@ -21,6 +21,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from world_workplane import (WorldWorkplane, xy_plane_z_up, xz_plane_y_up,
                              yz_plane_x_up)
 from _cadq_export import export_assembly
+from _show_skin import write_bed_file
 import _materials as _mat
 from _materials import one_body
 import valve_seat as seat
@@ -74,6 +75,7 @@ from _cold_core_interface import (
     cap_anchor_cav_wall,
     cap_anchor_len,
     cap_anchor_wall,
+    outer_shell_wall,
     outer_shell_x_length,
     outer_shell_y_length,
 )
@@ -104,8 +106,8 @@ def _conduit_wall_overlap_area(x, y):
     carried, and counting it twice is what makes the stack's volume disagree with its parts.
     A column may merge into one face and no more: two at once is a corner, where the cup's
     own fillet is, and the section there is not this figure."""
-    over = [d for d in (outer_shell_x_length / 2.0 - wall_and_floor_thickness - abs(x),
-                        outer_shell_y_length / 2.0 - wall_and_floor_thickness - abs(y))
+    over = [d for d in (outer_shell_x_length / 2.0 - outer_shell_wall - abs(x),
+                        outer_shell_y_length / 2.0 - outer_shell_wall - abs(y))
             if d < cap_conduit_boss_radius]
     assert len(over) <= 1, (
         f"cap conduit at ({x:g}, {y:g}) merges into two walls at once — that is the cup's "
@@ -522,6 +524,19 @@ def main():
     print("-> foam-cap-lid-top.step")
     print("-> foam-cap-lid-bottom.step")
     print("-> foam-cap-gasket.step")
+
+    # AND THE TWO CUPS' WALLS ARE FLUTED HERE, on the shell's own run — they stand on the same
+    # footprint, so the stack is one silhouette and the field crosses each seam without a step.
+    # THE TOP CAP INSTALLS SPUN a half turn about Z (`foam_assembly._spin`), which shifts its
+    # field by half the perimeter; on an even `flute_count` that is a whole number of pitches,
+    # so a field cut in the cap's own frame lands on the shell's grooves after the spin and
+    # neither piece has to be told about the other (`flute-even`).
+    #   THE TWO LIDS TAKE NONE OF IT. Each is a plate one `wall_and_floor_thickness` thick, so
+    # its edge is a 2 mm band of the silhouette — a groove there would leave 0.8 mm behind it,
+    # and `flute_rise` could not develop in 2 mm anyway. What that band reads as instead is a
+    # reveal, which is what a seam wants.
+    for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
+        write_bed_file(shape, _here / f"{name}.stl")
 
     variables = {
         "LID_Z_H": f"{lid_z_height:.4g} mm",

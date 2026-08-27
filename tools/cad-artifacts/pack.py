@@ -126,10 +126,15 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # WHERE A MESH IS CARRIED TOO. A directory named here has its `.stl` bundled beside the solids.
 # The enclosure's six pieces are what a slicer is handed, and their flutes are in the MESH and not
 # in the solid, so the STEP beside them does not carry the surface that gets printed
-# (`printed-parts/enclosure/enclosure/flute_skin.py`). They are gitignored, so the bundle is the
+# (`printed-parts/cadlib/flute_skin.py`). They are gitignored, so the bundle is the
 # route by which they leave the machine that cut them — for a reader with a printer, not for the
-# viewer, which serves `.step`.
-BUNDLED_MESH_DIRS = ("hardware/printed-parts/enclosure/enclosure",)
+# viewer, which serves `.step`. The cold core's shell and its two caps carry the same skin off the
+# same field (`cold-core/_show_skin.py`) and leave the same way.
+BUNDLED_MESH_DIRS = (
+    "hardware/printed-parts/enclosure/enclosure",
+    "hardware/printed-parts/cold-core/foam-shell",
+    "hardware/printed-parts/cold-core/foam-cap",
+)
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
 #: a build directory and hands one to `openGlbDetail`, so a deploy that cannot find them serves a
@@ -153,8 +158,15 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # route. Both payloads there are also the cheaper artifact by a wide margin — 13.97 and 2.46 MB
 # against solids of 49.64 and 8.29 — so a browser that finds them fetches a quarter of the bytes
 # and skips the parse.
+#
+# AND THE COLD CORE'S TWO DIRECTORIES ARE HERE FOR THE SAME REASON THE BOX'S IS. Its shell and
+# both caps carry the same show skin off the same field (`cold-core/_show_skin.py`), cut into the
+# mesh and not into the solid, so a browser that cannot fetch their payloads draws three smooth
+# prisms where the machine has flutes.
 BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/enclosure/enclosure",
+    "hardware/printed-parts/cold-core/foam-shell",
+    "hardware/printed-parts/cold-core/foam-cap",
     "hardware/manifold-layout",
     "hardware/faucet-layout",
 )

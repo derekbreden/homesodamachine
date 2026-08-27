@@ -7480,7 +7480,7 @@ def main():
     # AND THE FLUTED SURFACES BACK INTO THE PAYLOAD THE VIEWER READS. The export above writes
     # `<out>.mesh` off this B-rep, and the six enclosure pieces in it are smooth prisms there —
     # their show surfaces are in the printed mesh and not in the solid
-    # (`printed-parts/enclosure/enclosure/flute_skin.py`). `loadStepFile` prefers that payload to
+    # (`printed-parts/cadlib/flute_skin.py`). `loadStepFile` prefers that payload to
     # the STEP, so this is what the appliance looks like on /3d and in every picture posed off it.
     #
     # IMPORTED HERE AND NOT AT THE TOP. This module is imported by most of the generators in the

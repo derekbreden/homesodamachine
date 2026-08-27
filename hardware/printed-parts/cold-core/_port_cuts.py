@@ -25,6 +25,7 @@ import math
 
 from _cold_core_interface import (
     wall_and_floor_thickness,
+    outer_shell_wall,
     hole_shift_from_edge,
     foam_shell_outer_height,
     bag_pocket_width,
@@ -317,7 +318,7 @@ def cut_lane_slots(foam_shell):
                     (slot_z_top + column.slot_z_bottom) / 2.0),
             slot_length=slot_z_top - column.slot_z_bottom,
             slot_diameter=slot_width_x,
-            slot_punch_height=wall_and_floor_thickness + 2.0 * overshoot,
+            slot_punch_height=outer_shell_wall + 2.0 * overshoot,
             direction=-1,
         )
         foam_shell = foam_shell.cut(port_to_shell(slot_punch.val(), column.lane_y))

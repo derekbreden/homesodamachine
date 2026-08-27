@@ -166,7 +166,7 @@ Outer footprint [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y). The **short** 
 the one that matters to the appliance: the foam assembly is yawed a quarter turn
 in the enclosure, so 181 is what sets the machine's width and the ±X faces are
 its front and back. The outboard foam-pour gap is split by direction: the ±Y
-faces leave [16 mm](OUTER_GAP) of foam-pour zone between the outer_shell's inner
+faces leave [14.8 mm](FSHELL_POUR_BAND) of foam-pour zone between the outer_shell's inner
 face and the pocket's ±Y walls, while on the ±X side there is no outboard foam —
 the reservoir's reed channel butts the outer shell wall. The 283 mm is held that
 way: the reservoir, shifted outward by the cylinder's foam blanket, lands with
@@ -176,8 +176,52 @@ every penetration travels along — see §Port lane.
 
 The four vertical corners are rounded — the exterior wall is a true
 [12 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
-face concentric one wall-thickness inboard — so the warp-prone sharp
-corner is gone.
+face concentric one wall inboard — so the warp-prone sharp
+corner is gone. A flute crosses that quarter turn without a seam: the field's
+across-coordinate is arc length, which does not know the corner is there.
+
+#### The show skin
+
+Every standing wall of the cup is fluted — half-round grooves
+[4.986 mm](FSHELL_FLUTE_PITCH) apart and [1.2 mm](FSHELL_FLUTE_DEPTH) deep, the box's own
+field at the box's own figures (`cadlib/flute_skin.py`). What it buys is not ornament. The
+groove field lays its own highlight and shadow across the surface at a spacing finer, and in
+far higher contrast, than a layer line — so the layer lines fall under it and a flat face
+stops announcing how it was made. That is worth most on exactly the faces hardest to print
+clean: the PET-GF15 slot runs its fan off and its chamber at 50 °C, which is a profile tuned
+for a standing wall.
+
+**The flutes are in the STL and not in the STEP.** The solid beside them is a smooth prism.
+The fade that stops the field is a measurement over the whole surface — how far each station
+stands from the nearest place the show face ends — and it has to follow a port's rim, a lane
+slot's jamb and the piece's own top and bottom edges with one rule, over
+[5 mm](FSHELL_FLUTE_RISE) of ramp. `foam-shell.stl` is what goes to the bed;
+`foam-shell.step` is the surface the field is measured from. Nothing is told where an opening
+is — the piece is asked, at every station, whether it has material at the nominal surface, and
+where it does not, that is an edge, whatever made it.
+
+**[182](FSHELL_FLUTE_COUNT) grooves close on the [907.4 mm](FSHELL_PLAN_PERIMETER) plan
+perimeter exactly**, which is what sets the pitch: a stated pitch would leave a remainder, and
+the remainder has to land somewhere. The count is EVEN, and two separate things buy that. The
+footprint has two mirror planes, and a datum on the middle of the −X wall gives one of them
+free — an even count gives the other. And the top cap installs spun a half turn about Z, which
+shifts its field by half the perimeter: a whole number of pitches only on an even count, and
+half a pitch otherwise, which would land every groove of the cap on a land of the shell.
+
+**The stock comes out of the pour, not off the envelope.** A groove must have a whole
+[2 mm](FSHELL_WALL_T) standing behind it, so a wall that carries flutes is
+[3.2 mm](FSHELL_OUTER_WALL) and the depth is found on the inside. The outer footprint is
+untouched — [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y), the same figures the cabinet was
+measured against — and the foam gives up the difference: the ±Y pour band is
+[14.8 mm](FSHELL_POUR_BAND) and the ±X forward band is [6.8 mm](FSHELL_FORWARD_BAND), which
+still passes the ⌀[6.5 mm](TUBE_HOLE_D) line that climbs it. The floor takes none of it and
+stays [2 mm](FSHELL_WALL_T): it lies flat, so it carries no flutes, and every height in the
+core is measured off its top face.
+
+Both caps carry the same field on the same run, so the stack reads as one silhouette with
+seams across it rather than as three parts. The two lids do not: each is a plate one wall
+thick, so its edge is a 2 mm band — a groove there would leave 0.8 mm behind it, and the ramp
+could not develop in 2 mm anyway. That band reads as a reveal, which is what a seam wants.
 
 **Every one of the six bosses stands hard against a ±Y wall** — none in a
 corner, and none on a ±X wall. Four sit over the reservoir pockets' own far
@@ -684,11 +728,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1040422.277 mm³](FSHELL_VOLUME) |
-| bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
-| bbox z | [-0.000 to 213.400 mm](FSHELL_BBOX_Z) |
-| bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.704722, 0.438955, 87.536613) mm](CENTROID) |
+| volume | [1240464.620 mm³](FSHELL_VOLUME) |
+| bbox x | [-141.508 to 141.508 mm](FSHELL_BBOX_X) |
+| bbox z | [-0.008 to 213.454 mm](FSHELL_BBOX_Z) |
+| bbox y | [-90.508 to 90.511 mm](FSHELL_BBOX_Y) |
+| centroid | [(0.926172, 0.205728, 90.760211) mm](CENTROID) |
 
 Quick reproduction:
 
