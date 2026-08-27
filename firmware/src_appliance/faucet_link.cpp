@@ -164,6 +164,16 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_OTA_SRC_BEGIN) { otaOnSrcBegin(payload, plen); return; }
     if (type == MSG_OTA_SRC_DATA)  { otaOnSrcData(payload, plen);  return; }
 
+    // The faucet has no console in the appliance. This is the one it borrows.
+    if (type == MSG_TEXT) {
+        char text[96];
+        uint16_t n = plen < sizeof(text) - 1 ? plen : (uint16_t)(sizeof(text) - 1);
+        memcpy(text, payload, n);
+        text[n] = '\0';
+        Serial.printf("\n[J3] text: %s\n", text);
+        return;
+    }
+
     if (type == MSG_RESP_BENCH && plen >= sizeof(BenchResultPayload)) {
         BenchResultPayload r;
         memcpy(&r, payload, sizeof(r));
