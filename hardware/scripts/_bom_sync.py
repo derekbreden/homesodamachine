@@ -260,6 +260,16 @@ display_cover_screws_per_build = display_cover_inserts_per_build
 ceiling_panel_inserts_per_build = len(_ceil.screw_stations())
 ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
 
+# The pump cap's two, read off the lane they run up. ONE CAP CLOSES ON BOTH PUMP HEADS
+# (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of that lane's
+# mid-depth, so it is two screws and two inserts however many pumps hang under it. They are
+# the box's M3 x 10 — `enclosure.screw_len` is the under-head length every cap screw here
+# takes, and the head sinks into a counterbore that costs the screw nothing. These are the
+# whole of what holds a pump: the tray is the seat, the cap is the load path, and four
+# assembly documents now say so.
+pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
+pump_cap_screws_per_build = pump_cap_inserts_per_build
+
 # THE PLATE AND ITS RING ARE PRINTED PARTS AND §7 BILLS BOTH: the plate a row of its own, the
 # gasket a line in the soft-seal sentence that carries every TPU seal in the machine. A body
 # the machine places and the ledger does not buy is a part nobody prints.
@@ -287,10 +297,10 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one, the ceiling panel's two, and the
-# enclosure's four seam screws.
+# And every M3 x 10: the ground-stack clamp's one, the ceiling panel's two, the pump cap's
+# two, and the enclosure's four seam screws.
 m3x10_per_build = (shelf_long_screws_per_build + ceiling_panel_screws_per_build
-                   + enclosure_seam_screws_per_build)
+                   + pump_cap_screws_per_build + enclosure_seam_screws_per_build)
 
 # And every M3 x 12 of the black-oxide 12.9 kind: the touch-flo plate's. (The 304
 # stainless M3 x 12 is a different row — the reservoir caps' wetted-zone hardware — and
@@ -308,6 +318,7 @@ total_m3_inserts_per_build = (
     + display_cover_inserts_per_build
     + faucet_display_cover_inserts_per_build
     + ceiling_panel_inserts_per_build
+    + pump_cap_inserts_per_build
     + enclosure_seam_inserts_per_build
 )
 total_m5_inserts_per_build = floor_inserts_per_build
@@ -326,6 +337,7 @@ total_m3_screws_per_build = (
     + display_cover_screws_per_build
     + faucet_display_cover_screws_per_build
     + ceiling_panel_screws_per_build
+    + pump_cap_screws_per_build
     + enclosure_seam_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build
@@ -450,6 +462,8 @@ def main():
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "CEILING_INSERTS": f"{ceiling_panel_inserts_per_build:.4g}",
         "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
+        "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
+        "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "FLOOR_WASHERS": f"{floor_washers_per_build:.4g}",
@@ -513,6 +527,7 @@ def main():
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
             "CEILING_SCREWS": f"{ceiling_panel_screws_per_build:.4g}",
+            "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",

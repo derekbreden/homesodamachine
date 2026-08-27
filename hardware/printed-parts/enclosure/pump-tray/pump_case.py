@@ -574,7 +574,7 @@ def cavity():
     (`kamoer_kphm400.build_head`) carries a 45 degree face on each side at each band, looking
     down and outboard.  WHATEVER CLOSES ON THAT HEAD CLOSES ON THIS FIGURE: the case did it
     with its own two walls, and the enclosure's pump cap does it with the ledges
-    `pump_tray.head_seats` cuts out of this same solid."""
+    `pump_tray.head_room` cuts out of this same solid."""
     skirt = loft_profile_stack(0, skirt_z_steps, skirt_inner_profiles)
     lower = loft_profile_stack(skirt_bottom_z, lower_z_steps(),
                                _lower_profile_set(skirt_wall))
