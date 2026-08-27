@@ -62,6 +62,7 @@ const routes = [
   { path: "/drawings", expect: 200, ct: "text/html" },
   { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/tour",     expect: 200, ct: "text/html" },
+  { path: "/spin",     expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 
   // Legacy redirects (301). Don't pin Content-Type — express renders a

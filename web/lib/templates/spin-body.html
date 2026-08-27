@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/css/spin.css">
+
+<div id="spin-stage" class="spin-stage">
+  <div class="spin-panel">
+    <h2>One lap, one bead</h2>
+    <p class="sub">
+      The head is fixed. The part turns. Everything here is read off the
+      carbonator — 4.870&quot; bore, plate recessed 1/4&quot;, so the corner
+      fillet is a 388.6&nbsp;mm circle. Clock runs at 1&times; on purpose:
+      the point is how long a lap actually takes.
+    </p>
+
+    <div class="spin-row">
+      <label for="travel">Travel at the bead <b><span id="v-travel">8.0</span> mm/s</b></label>
+      <input id="travel" type="range" min="3" max="20" step="0.5" value="8">
+    </div>
+    <div class="spin-row">
+      <label for="wire">Wire feed (ER316L .030) <b><span id="v-wire">12.0</span> mm/s</b></label>
+      <input id="wire" type="range" min="4" max="24" step="0.5" value="12">
+    </div>
+    <div class="spin-row">
+      <label for="overlap">Overlap past 360&deg; <b><span id="v-overlap">20</span>&deg;</b></label>
+      <input id="overlap" type="range" min="0" max="45" step="5" value="20">
+    </div>
+
+    <div class="spin-btns wide">
+      <button id="mode" type="button">one continuous lap</button>
+      <button id="dir" type="button">CCW from above</button>
+    </div>
+    <div class="spin-btns">
+      <button id="play" type="button">Pause</button>
+      <button id="reset" type="button">Reset</button>
+      <button type="button" data-scale="1" class="on">1&times;</button>
+      <button type="button" data-scale="4">4&times;</button>
+      <button type="button" data-scale="12">12&times;</button>
+    </div>
+    <div class="spin-btns">
+      <button type="button" data-view="3/4">3/4</button>
+      <button type="button" data-view="rim">Rim</button>
+      <button type="button" data-view="top">Top</button>
+      <button type="button" data-view="wide">Wide</button>
+    </div>
+
+    <div class="spin-readout">
+      <span class="hi">Table speed</span><b class="hi"><span id="r-rpm">1.235</span> RPM</b>
+      <span>One revolution</span><b><span id="r-rev">48.6</span> s</b>
+      <span>360&deg; + overlap</span><b><span id="r-total">51.3</span> s</b>
+      <span>Bead circumference</span><b><span id="r-lap">388.6</span> mm</b>
+      <span>Wire : travel</span><b><span id="r-ratio">1.50</span></b>
+      <span>Fillet leg</span><b><span id="r-leg">1.17</span> mm</b>
+    </div>
+
+    <div class="spin-bar"><i id="bar"></i></div>
+    <div class="spin-state">
+      <b id="r-deg">0</b>&deg; &middot; <b id="r-mm">0</b> mm laid &middot;
+      <b id="r-t">0.0</b> s &middot; <span id="r-state">welding</span>
+    </div>
+  </div>
+</div>
+
+<!-- Importmap MUST live in the page; browsers ignore importmaps inside
+     imported modules. Same pin as the viewer and the tour. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module" src="/js/spin/main.js"></script>
