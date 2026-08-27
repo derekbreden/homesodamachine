@@ -2602,6 +2602,7 @@ genrule(
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_card.py",
         "pysrc/hardware/scripts/_clearing.py",
+        "pysrc/hardware/scripts/_finishes.py",
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -9637,6 +9638,14 @@ genrule(
     name = "pysrc-29bfe738661b",
     srcs = ["hardware/scripts/_facts.py"],
     outs = ["pysrc/hardware/scripts/_facts.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-9e50d79e9130",
+    srcs = ["hardware/scripts/_finishes.py"],
+    outs = ["pysrc/hardware/scripts/_finishes.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
