@@ -6982,6 +6982,22 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/print-log.md",
+      "hardware/printed-parts/faucet/faucet-shell/.gitignore",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+      "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
+      "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+      "hardware/printed-parts/faucet/faucet-shell/print-log.md",
       "hardware/scripts/_cadq_export.py",
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
@@ -6997,7 +7013,9 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh"
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh"
     ]
   },
   "hardware/service/_pump_replacement_sync.py": {

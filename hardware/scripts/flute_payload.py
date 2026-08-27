@@ -3,9 +3,9 @@
 `printed-parts/cadlib/flute_skin.py` cuts the show surfaces into the MESH and says why they are
 not in the solid. The STEP beside that mesh is a smooth prism — 343 faces on the front-top piece,
 every one a plane or a cylinder — so a reader who is handed the solid is handed a box with no
-texture on it. The box's six pieces and the cold core's shell and two caps are all cut that way
-and all read the same here: a piece is any `.step` under `PIECES_DIRS` with an `.stl` of the same
-stem, so another one is carried with no edit to this file.
+texture on it. The box's six pieces, the cold core's shell and two caps, and the faucet's base
+are all cut that way and all read the same here: a piece is any `.step` under `PIECES_DIRS` with
+an `.stl` of the same stem, so another one is carried with no edit to this file.
 
 THE VIEWER PREFERS A PAYLOAD TO THE STEP BESIDE IT. `loadStepFile` fetches `<file>.step.mesh`
 first and only parses the solid when there is none (`web/public/js/viewer/step.js`), and every
@@ -37,7 +37,8 @@ drawn, with the surface it actually has.
 
     tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py
     tools/cad-venv/bin/python hardware/scripts/flute_payload_cold_core.py
-    tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # both trees
+    tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py
+    tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # every tree
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
 """
 
@@ -59,18 +60,20 @@ import _mesh_payload                                                    # noqa: 
 _ROOT = Path(__file__).resolve().parent.parent.parent
 
 #: Every directory whose solids stand beside a printed mesh the solid does not describe, in the
-#: two trees they fall into. The box's six pieces are one tree; the cold core's shell and its two
-#: caps are the other, fluted on the same field off the same `cadlib/flute_skin.py`
-#: (`cold-core/_show_skin.py`).
+#: three trees they fall into. The box's six pieces are one tree; the cold core's shell and its
+#: two caps are another; the faucet's base — the one piece that stands in the open on a kitchen
+#: counter — is the third. All three are fluted on the same field off the same
+#: `cadlib/flute_skin.py` (`cold-core/_show_skin.py`, `faucet_shell.write_bed_file`).
 #:
-#: NOTHING PASSES BETWEEN THE TWO. A run over one tree opens that tree's directories and writes
-#: the payloads standing in them, and reads nothing of the other — which is what lets the build
-#: flute them as two rules, `flute_payload_enclosure.py` and `flute_payload_cold_core.py`.
+#: NOTHING PASSES BETWEEN THEM. A run over one tree opens that tree's directories and writes
+#: the payloads standing in them, and reads nothing of the others — which is what lets the build
+#: flute them as three rules, `flute_payload_enclosure.py`, `flute_payload_cold_core.py` and
+#: `flute_payload_faucet.py`.
 #:
 #: AN ASSEMBLY ASKS FOR THE TREE ITS BODIES CAME OUT OF. `foam_assembly` and `cold_core_assembly`
 #: hold the core and nothing else, so they ask for `COLD_CORE_DIRS`; `enclosure_assembly` holds
 #: the machine and takes the default, because "which surfaces on this disk are fluted" is one
-#: question and a scene spanning both trees knows no better answer.
+#: question and a scene spanning several trees knows no better answer.
 ENCLOSURE_DIRS = (
     _ROOT / "hardware/printed-parts/enclosure/enclosure",
 )
@@ -78,7 +81,10 @@ COLD_CORE_DIRS = (
     _ROOT / "hardware/printed-parts/cold-core/foam-shell",
     _ROOT / "hardware/printed-parts/cold-core/foam-cap",
 )
-PIECES_DIRS = ENCLOSURE_DIRS + COLD_CORE_DIRS
+FAUCET_DIRS = (
+    _ROOT / "hardware/printed-parts/faucet/faucet-shell",
+)
+PIECES_DIRS = ENCLOSURE_DIRS + COLD_CORE_DIRS + FAUCET_DIRS
 
 #: The crease `xray.js` draws a feature edge at, in degrees.
 CREASE_DEG = 30.0
@@ -425,12 +431,26 @@ def fluted_key(name, fluted):
     A TRAILING ORDINAL IS NOT A NAME AND STOPS THE MATCH DEAD. `cold-core/evap-coil/2` is the
     second solid OF one body, and a fluted surface is the whole of a piece; landing a whole
     piece on one of its solids would be a worse answer than landing nothing. So only a name
-    that ends ON the piece matches."""
+    that ends ON the piece matches.
+
+    AND AN ASSEMBLY MAY LEAVE THE FAMILY OFF. Inside `faucet-shell.step` the two pieces are
+    `shell_base` and `shell_tip`, because the assembly is already called the faucet shell and
+    saying it twice reads as a stutter; the printed piece is `faucet-shell-base`, because a
+    file has no assembly around it to be named inside. Same body, and the surface has to
+    reach it under either spelling. THE TAIL HAS TO LAND ON A HYPHEN AND CARRY ONE: `cap-top`
+    is `foam-cap-top` and never `foam-cap-lid-top`, `top` alone is a role rather than a piece
+    and names nothing, and a tail that fits two pieces fits neither — a whole piece landed on
+    the wrong body is worse than nothing landing at all."""
     name = name.replace("_", "-")
     if name in fluted:
         return name
     owner, _sep, own = name.rpartition("/")
-    return own if owner and own in fluted else None
+    if owner and own in fluted:
+        return own
+    if "-" not in own:
+        return None
+    tails = [k for k in fluted if k.endswith("-" + own)]
+    return tails[0] if len(tails) == 1 else None
 
 
 def _axis_rotations():
@@ -777,6 +797,7 @@ def selftest():
         graft(host, {"some-piece": surface})
         check("a graft that changes nothing leaves the mtime alone", host.stat().st_mtime_ns, was)
 
+
         # AND THE SAME SUBSTITUTION IN A SCENE MESH. cadquery gives a piece one body per BREP
         # face; the graft has to take every one of them and leave the bodies around it standing,
         # at the place and in the frame the scene put them.
@@ -851,6 +872,28 @@ def selftest():
           True)
     check("and the groove is still there afterwards", round(after, 1), round(before, 1))
     check("inside the budget it was accepted on", dev <= budget, True)
+
+    # THE SPELLINGS A BODY'S NAME COMES IN, all of them reaching the one surface — and the three
+    # that must reach nothing. `shell_base` inside `faucet-shell.step` and `faucet-shell-base.step`
+    # on its own are the same piece; `top` is a role; a tail two pieces answer to is a piece
+    # about to land on the wrong body.
+    family = {"faucet-shell-base": 0, "foam-cap-top": 0, "foam-cap-lid-top": 0,
+              "enclosure-back-top": 0, "cold-core-back-top": 0}
+    check("a piece under its own name", fluted_key("faucet-shell-base", family),
+          "faucet-shell-base")
+    check("a piece under a subassembly's path", fluted_key("core/foam-cap-top", family),
+          "foam-cap-top")
+    check("a piece an assembly left the family off", fluted_key("shell_base", family),
+          "faucet-shell-base")
+    check("a tail lands on a hyphen and takes the piece it ends",
+          fluted_key("cap-top", family), "foam-cap-top")
+    check("and the longer piece keeps its own tail",
+          fluted_key("lid-top", family), "foam-cap-lid-top")
+    check("a tail two pieces answer to reaches neither",
+          fluted_key("back-top", family), None)
+    check("a one-word tail is a role and not a piece", fluted_key("top", family), None)
+    check("a trailing ordinal is one solid OF a body and stops the match",
+          fluted_key("faucet-shell-base/2", family), None)
 
     bad = [c for c in checks if not c[0]]
     print(f"\n{len(checks) - len(bad)}/{len(checks)} checks passed")

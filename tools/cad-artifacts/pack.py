@@ -131,11 +131,13 @@ def barren(root: Path, solid_hashes: dict) -> list:
 # (`printed-parts/cadlib/flute_skin.py`). They are gitignored, so the bundle is the
 # route by which they leave the machine that cut them — for a reader with a printer, not for the
 # viewer, which serves `.step`. The cold core's shell and its two caps carry the same skin off the
-# same field (`cold-core/_show_skin.py`) and leave the same way.
+# same field (`cold-core/_show_skin.py`) and leave the same way, and so does the faucet's base
+# (`faucet_shell.write_bed_file`) — the one piece of this machine that stands on a counter.
 BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/enclosure/enclosure",
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
+    "hardware/printed-parts/faucet/faucet-shell",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -164,11 +166,14 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # AND THE COLD CORE'S TWO DIRECTORIES ARE HERE FOR THE SAME REASON THE BOX'S IS. Its shell and
 # both caps carry the same show skin off the same field (`cold-core/_show_skin.py`), cut into the
 # mesh and not into the solid, so a browser that cannot fetch their payloads draws three smooth
-# prisms where the machine has flutes.
+# prisms where the machine has flutes. The faucet shell's directory is here on that same reason
+# and one more: it is the piece a customer stands in front of, and `faucet-shell.step` is what
+# /3d opens when anybody asks to look at the faucet.
 BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/enclosure/enclosure",
     "hardware/printed-parts/cold-core/foam-shell",
     "hardware/printed-parts/cold-core/foam-cap",
+    "hardware/printed-parts/faucet/faucet-shell",
     "hardware/manifold-layout",
     "hardware/faucet-layout",
 )
