@@ -13,19 +13,29 @@ Derek wants a reminder of the value, in 3D model work, of speaking in terms of t
 
 The crux, surfaced afterward: from the finished part's frame the screwholes *did* move, but the agent kept arguing from the coordinate list ("the coordinates didn't change") — the wrong frame. The correct fix changed no coordinates at all; it only shelled the opposite face of the cup — and that *is* what "move the screw holes" meant in Derek's frame. Naming the operation up front — "build the bottom cap mouth-down (shell the other face) without changing the hole coordinates" — removes the frame ambiguity that caused the detour.
 
-## Two asks, one night
+## Three asks, one night
 
-One manager briefed both out of the same conversation, into the same `enclosure.py`, to
-agents of the same tier, within an hour of each other. The room is
-[`model/`](model/README.md).
+One manager briefed all three out of the same conversation, into the same `enclosure.py`,
+to agents of the same tier, within an hour of each other. The room is
+[`model/`](model/README.md). They differ in one thing: what the ask says after the
+operation.
 
-**The MQ6 — operation and outcome. One pass.**
+**The MQ6 — operation and purpose. One pass.**
 
 - **Derek asked for:** "the MQ6 sensor needs rotated 90 degrees about Z and 90 degrees about X, such that the MQ6 supports print vertically from the floor instead of horizontally from the wall."
 - **Agent built** (`MQ6_TURN = ((X, −90°), (Z, +90°))`, across `c5300876` … `bc2b7052`): thickness across X, the 32 mm side fore-aft, the 20 mm side vertical; can west into the flank, header east into the bay; two posts standing on the slab, grooves taking the card's short edges, bite clamped to `min(mq6_grip, (card − can)/2)` so the can states it.
 - **The agent checked its own signs against the clause and said so** — they resolve "the way the outcome clause asks," and the other sign would have pressed the header against a wall with the loom reaching for it. On the way through it corrected an inverted claim in `mq6_gas_sensor.py` (`59ba86ca`): the can leaves 0.5 mm at the *long* edges, so the *short* edges are the ones with material to grip.
 
-**The corbel — end shape only. Four commits and a scope round-trip.**
+**The plate — operation only. The operation, and nothing else.**
+
+- **Derek asked for:** "we need to make the stainless steel plate insert into front-top-enclosure from the Z- face instead of from the Z+ direction as it does now."
+- **Agent built** (`27a7c995` … `691b04b3`): the blind seat gone, `_plate_slot` opening through the Z− face with a 45° lead at the mouth, the steel a three-width band, and retention by two shoulders coming up onto the bay floor's top (`ee87b5a7`). `gatesPass: true`, 0 non-pass of 148 checks, every piece-pair sweep 0.0 mm³.
+- **What it left standing:** the features whose only reason was the direction that had just changed. The guide cheeks stopped low and the lane over the plate stood empty — a drop-in needs its lane open above it for the whole of its own height, and every millimetre of that lane is a millimetre the piece cannot carry. The outline kept a foot and a shoulder, which a Z+ drop-in needs because it needs an insertion stop. Fed up from the seam plane the plate needs no room over its head at all.
+- **Named afterward, off the part.** `c49580b8` fills the lane from the steel's top edge to the bay's ceiling and makes its land the plate's Z datum; `e33cfe5a` runs front-bottom's shelves under it; `34d636ee` reduces the outline to four corners.
+
+One rule applied three times, and none of the three applications was in the ask. "It inserts from Z− now" is true of the version that kept all of them.
+
+**The corbel — neither operation nor purpose. Four commits and a scope round-trip.**
 
 - **Derek asked for:** two pick blocks and "Need a 45 degree chamfer or corbel or whatever it is called."
 - **Derek expanded:** "Yes of course its twin but also, I mean all of them, not just flanks, these too" — the whole y=95.08 family, not the picked segment.
@@ -37,3 +47,24 @@ agents of the same tier, within an hour of each other. The room is
 The crux: the wedge moves the deck's floor down 4.06 mm, and each round finds one more thing that had been living under the old one. The ask names the edge treatment; nothing in it says material is entering occupied space. `pack-closes` reads green after `af21669d` *because* of the over-cut — removing material removes clashes — and the retention loss surfaces from a different session reading an identical 0.9956 across eight valves as the probe cap rather than a displacement.
 
 Naming the operation up front — "fuse a 45° wedge along the deck underside's root, struck off the tee wall's aft face, so the deck prints without support" — states where the material comes from, what fixes its size, and what done means. An agent holding that sentence is being told the floor is moving.
+
+## The purposes that had a number
+
+The plate's purposes are named where the machine reads them: `plate-stops-collets`,
+`plate-passes-tubes`, `plate-berth`, `plate-holes-centred`, `pump-cap-stops-on-plate`.
+
+Across the flip and the redesign after it, the collet bores stayed honest the whole way.
+`pump-cap-stops-on-plate` takes the area of the pump cap's aft face standing on the steel;
+the reading moved from 3107.7 mm² to 3132.5 mm² as the plate was rebuilt under it, and never
+went red.
+
+Retention had no such row. It is the one purpose that stopped being served across a whole
+redesign with every gate green, and it was read off the part by hand rather than reported.
+`plate-carried` is that row now — a shelf under both ends of the steel, unbroken from the
+front wall to its aft plane, one `steel_air` under the seam plane, and a gap in it is a
+station where the plate has nothing under it.
+
+A purpose with a number on it survives being rebuilt. A purpose carried only in prose
+survives until someone rewrites the prose: `_scorecard.py`'s seating block went on
+describing two shoulders on the bay floor's top for the whole of the redesign that removed
+them, and it is the first thing the next agent to touch the plate would have read.
