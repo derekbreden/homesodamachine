@@ -406,6 +406,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $32.31 | 112-9276465-1199416 | 2026-06-20 | 2026-06-22 | ACQUIRED |
 | Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | 112-9091100-8229010 | 2026-04-17 | 2026-04-19 | ACQUIRED |
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | 112-0118962-3725825 | 2026-04-17 | 2026-04-18 | ACQUIRED |
+| RiteAV RJ11 6P4C black punchdown keystone jack, 110 IDC 90° (10 pk) — the SIG-6 umbilical station on the +Y wall of back-top; snap-in keystone, colour-coded wiring diagram on the jack body, ships with its own snap-in dust cover. mpn46181. $13.92 + $12.08 ship = $26.00, so $2.60/ea landed | [riteav.com](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) | 1 pk (10) | $26.00 | RiteAV #58999 | 2026-08-27 | — | ON-ORDER |
 
 ## 10. User interface — buttons, LEDs, air switch
 
@@ -635,6 +636,8 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
+| **110 punch-down tool (~$9.99)** | The RiteAV keystone above terminates 110 IDC and the bench owns no punch tool — [tools.md](/hardware/ledger/tools.md) carries four crimpers and nothing that seats an IDC blade. One impact tool with a 110 blade closes the J3 loom onto the jack at [`wiring.md`](/hardware/assembly/wiring.md). Cable Matters [B0072K1QHM](https://www.amazon.com/dp/B0072K1QHM) $9.99, or Klein VDV427-300 [B08J2DN6HC](https://www.amazon.com/dp/B08J2DN6HC) $39.97 for an adjustable-force impact. A [$6.99 jack stand](https://www.amazon.com/dp/B00MHWRYMQ) holds the keystone square under it. |
+| **RJ11/6P4C modular-plug crimper (~$13.99)** | Crimps the umbilical's own plug onto the ribbon at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). The bench's four crimpers are open-barrel and ferrule dies — none closes a modular plug's body. VCE 3-in-1 (RJ45/RJ11-12/RJ22) [B07XD98YYT](https://www.amazon.com/dp/B07XD98YYT) $13.99. **Buy after the pull test**, not before: if 110/IDC will not hold 16 × 0.08 mm silicone strands the cable changes and the plug may with it. |
 
 ---
 
