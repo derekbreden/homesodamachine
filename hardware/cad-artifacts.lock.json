@@ -2,17 +2,19 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-7aa0ffdba4bad491.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-7aa0ffdba4bad491.tar.gz",
+    "asset": "cad-de39a42fff3764ba.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-de39a42fff3764ba.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "fe91ede36f3c2b929d13b87df8ef1139a50ae9a3"
+    "commit": "d67f98b6b5c6eaa432b2ac2ce52605c9af21fd80"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "hardware/manifold-layout/enclosure-assembly.facts.json"
+      "firmware/README.md",
+      "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/reference/riteav-keystone/riteav_keystone.py"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -26,27 +28,8 @@
       "hardware/assembly/scenes/glb/front-top.glb",
       "hardware/assembly/scenes/glb/funnel-drain.glb",
       "hardware/assembly/scenes/glb/pump-cartridge.glb",
-      "hardware/cold-core-layout/cold-core-assembly.step",
-      "hardware/faucet-layout/faucet-assembly.step",
-      "hardware/faucet-layout/faucet-assembly.step.mesh",
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-      "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -68,16 +51,13 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
       "hardware/reference/riteav-keystone/riteav-keystone.step"
     ]
   },
   "bundle": {
-    "sha256": "7aa0ffdba4bad4919cf5d4e484e7a41c7c58bb8d74c4ca0ff5518df1195c42ed",
-    "bytes": 164439602,
+    "sha256": "de39a42fff3764babd303d93616bff8e9eedbc15614f7d00fcb247da638342d0",
+    "bytes": 157144446,
     "solids": 268
   },
   "solids": {
@@ -249,9 +229,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "5a9d95521f01e0f3b3306f018753d9c92872965a76bbf2475e9df853a2bab55b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "8c92563d1d42d8f16256748a89d68a485f4220c1aadd1e219ba8df7234310ade",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "5489454cccc07eaf049efe9e77948be8598cc8a02b90b1df4ee535f75d6fd6c7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "39cd23e91c8b70f72a8d789abb714ea62b5040118bc25c5fc082d70637c49eb7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "d84085f1163810609894223e7bc89170a5598dc66454947c55be1d45c2183377",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "f4074621dfc382eaf0ab0168337ae0defb67c4142627b03113a9656a82cf2764",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "2a82fc02d53a9e9c3c7d15897256f3cb05c228c376c65e1dcb02bfdb4e0a0b2d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "44e5a88861bfe4be03d9b1d2c09b33a33d4c6576a80a61e3c89ccc33578aa670",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "2a556cb499439c102da1ece8ababcf00d8fa99b638121def38012f4bb21b2c13",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a1d5802972a874d2ac79126192d78cb49dda44b35e1e993a61039fb08012f51b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "76bf74b7cb2a271085e6a4887afb3e24a2e194de5d32f2478ca761889b4a4c77",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7ed997ebcd89158339615066440fd2d1776d9055f4763bc8488c4b692c6fe02c",
@@ -264,8 +244,8 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "c3c7a4a595019a90853bd281ef370992acbd64791a84db8ef161e8762697c14f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "88b08156985f62af68f75d1f7615af9313b4ed17c267112ac13a544a030acb85",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "e877f4ab611ecdaf652c434d572ead99984455fa4ed2f55bb4831ea64774cad6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "9d919aa3ea7db6fc9dd527f57a2b95b8324f43e3e6a9c0d34a735168c44425ab",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "abab5c62b68edab85a600a16dc9a17f612d00ebbb3cd452122a8c9a073a5b03b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "8b003065e12ff499e4e71803c08a2d6188f72b974774073259f28643c26d237b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "0408c5ca96fcbb66aedafc3410b2316a7e63bbaf47f2239af665b79a1dd25a7e",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "f46edcde0141362f05a9179c51bb5b79e6540dea263308425698bac8509850d8",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "3e9f081c0c468cd3ddfe3186df20f947cd4d052ae4c0dcfd075f334a89853f8c",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "87fd848ad51a18bd85248a779d44eebda7c83710e6850e02204b30f01cdee413",
