@@ -1,6 +1,6 @@
 # Foam shell
 
-3D-printed PETG enclosure for the soda machine's "cold core" — the
+3D-printed PET-GF enclosure for the soda machine's "cold core" — the
 back-of-enclosure subsystem that holds the carbonator, the
 copper evaporator coil wrapped around it, and two flavor reservoirs in
 pockets on opposite sides. Pour-in-place polyurethane foam fills the
@@ -188,8 +188,8 @@ field at the box's own figures (`cadlib/flute_skin.py`). What it buys is not orn
 groove field lays its own highlight and shadow across the surface at a spacing finer, and in
 far higher contrast, than a layer line — so the layer lines fall under it and a flat face
 stops announcing how it was made. That is worth most on exactly the faces hardest to print
-clean: the PET-GF15 slot runs its fan off and its chamber at 50 °C, which is a profile tuned
-for a standing wall.
+clean: the slot this part prints on runs its fan off and its chamber at 50 °C, which is a
+profile tuned for a standing wall.
 
 **The flutes are in the STL and not in the STEP.** The solid beside them is a smooth prism.
 The fade that stops the field is a measurement over the whole surface — how far each station
@@ -239,7 +239,7 @@ the same clear lane. See §Port lane.
 
 Each boss is tied into the wall with the cylinder + corner-fill teardrop idiom of
 the reservoir pocket-corner supports, so it fuses into the outer skin (one
-wall-thickness of PETG over the insert) instead of meeting the wall on a
+wall-thickness of PET-GF over the insert) instead of meeting the wall on a
 knife-edge seam. The four end bosses also get a web toward the ±X wall they stand
 near, which stiffens that corner; every boss gets one toward its own ±Y wall.
 Each carries a heat-set insert pocket at each end (drilled in from each face) —
@@ -253,10 +253,11 @@ cables, each up the channel its own column stands in. See Penetrations.
 
 ### foam_cap and foam_cap_lid
 
-The `foam_cap` is a [16 mm](CAP_H)-tall cup matching the outer
-shell's footprint, printed twice. The top cap opens +Z (mouth up);
-the bottom cap is the same cup built mouth-down so its open ceiling
-faces −Z. Each seats with its floor against the shell's end face and
+The `foam_cap` is a cup matching the outer shell's footprint,
+printed twice — [16 mm](CAP_H) of pour at the bottom end and
+[12.8 mm](CAP_H_TOP) at the top, whose lid takes the band its wall
+would have stood in. The top cap opens +Z (mouth up); the bottom cap
+is the same cup built mouth-down so its open ceiling faces −Z. Each seats with its floor against the shell's end face and
 its open mouth + lid pointing outward — the lid is the outermost
 (extreme-Z) layer at that end, most +Z on top and most −Z on the
 bottom. Both share the one screw pattern (below), so the mouth-down
@@ -320,7 +321,7 @@ At each station the cap's boss column stops [3.2 mm](HEAD_PAD_H) short of the
 cup's mouth, and the lid carries a pad of that same boss cross-section into the
 relief — both trimmed to the one footprint, the relief a slip larger. The pad is
 counterbored Ø[6.15 mm](HEAD_CBORE_D) from the lid's outer face and the
-[3 mm](SCREW_HEAD_H) head drops into it, leaving one wall of PETG between the
+[3 mm](SCREW_HEAD_H) head drops into it, leaving one wall of PET-GF between the
 head and the boss section it bears on. The outer face is a plane: the bottom
 cap's is what the whole core stands on.
 
@@ -420,7 +421,7 @@ grid.
 
 ### What holds the slot up
 
-A lane's floor is the pocket floor's own band — [6.75 mm](SLOT_FLOOR_Z), one wall of PETG
+A lane's floor is the pocket floor's own band — [6.75 mm](SLOT_FLOOR_Z), one wall of PET-GF
 over the floor, one bore of lane, one wall again. The slot does not sit there: it stands
 one lane pitch above it, on `_cold_core_interface.front_slot_standoff`.
 
@@ -683,16 +684,21 @@ This drives several dimension choices:
 
 ## Print settings
 
-**Print with stock Bambu Studio defaults.**
+**The plate's figures are stock Bambu Studio defaults; the stock's are not.**
+PET-GF15 prints off the `Polymaker PET-GF @BBL H2C` slot, whose temperatures,
+flow and fan are its own ([Filament](#filament) below).
 
-Plate contents (when slicing): `foam-shell` + `copper-plug-west` +
-`copper-plug-port` together; the two `foam-cap`s +
-their two lids on a separate plate (the TPU gaskets on their own TPU
-plate).
+Plate contents (when slicing): `foam-shell` alone; the two `foam-cap`s + their
+two lids on a second plate; the TPU gaskets on their own TPU plate. **The two
+copper plugs are not on the shell's plate** — they are PETG
+([bom.md §7](/hardware/ledger/bom.md)) and go on the small-PETG plate with the
+drip pan, the PRV shroud, the reed bridge and the fuse clamp
+([machine-time.md](/hardware/ledger/machine-time.md) §1).
 
 ### Printer / profile
 
-- **Printer:** Bambu Lab H2C, **0.8 mm nozzle**
+- **Printer:** Bambu Lab H2C, **0.8 mm tungsten carbide nozzle, left hotend** —
+  every abrasive stock runs left ([tools.md](/hardware/ledger/tools.md))
 - **Print profile:** `0.40mm Standard @BBL H2C 0.8 nozzle`
 - **Layer height:** 0.4 mm (initial layer 0.4 mm)
 - **Line width:** 0.82 mm (inner / outer / top all 0.82)
@@ -708,15 +714,21 @@ plate).
 
 ### Filament
 
-- **Material:** Bambu PETG Basic @BBL H2C
-- **Nozzle temp:** 250 °C (initial layer 245 °C)
-- **Bed:** Textured PEI Plate at 70 °C
-- **Chamber:** passive (`chamber_temperatures: 0`)
-- **Flow ratio:** 0.97
-- **Max volumetric speed:** 21 mm³/s (28 on the second nozzle slot)
-- **Part-cooling fan:** max 40 %, min 20 %, overhang 90 % at ≥ 10 %
-  overhang, closed first 3 layers
-- **Auxiliary fan (P1):** on
+- **Material:** Polymaker Fiberon PET-GF15, black — slot `Polymaker PET-GF @BBL H2C`
+- **Nozzle temp:** 290 °C (initial layer 290 °C)
+- **Bed:** Textured PEI Plate at 100 °C
+- **Chamber:** 50 °C (`chamber_temperatures: 50`)
+- **Flow ratio:** 0.9555
+- **Max volumetric speed:** 18 mm³/s
+- **Part-cooling fan:** off — min / max / overhang all 0 %
+- **Retraction:** nil
+- **Drying:** 100 °C × 10 h in the SUNLU E2, only if the spool has taken on
+  moisture; a 3 kg spool feeds the print from a PolyDryer Box XL
+  ([tools.md](/hardware/ledger/tools.md) "What dries where")
+
+The fan and the chamber are what the [show skin](#the-show-skin) is insured
+against: a wall profile top to bottom, which is the right profile for a standing
+wall and the hardest one for a flat top surface.
 
 ## Regression baseline
 

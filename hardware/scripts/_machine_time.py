@@ -48,10 +48,8 @@ PRINTERS = 2          # Bambu Lab H2C, tools.md
 DUTY = 0.65           # machine duty — failed prints, plate changes, maintenance
 HOURS_PER_YEAR = 24 * 365
 
-# The two measured slices the print estimate stands on, each one its own
-# configuration's rate, and each one a plate whose hours AND filament were both
-# read off the same slice. Neither is scaled from the other, and neither is
-# scaled across stocks: the exterior is measured in the stock it ships in.
+# The two slices the print estimate stands on, each one a plate whose hours AND
+# filament were both read off the same slice.
 #
 #   bulk — the cold-core inner shell, 379.99 m in 14h22m on an H2C (0.8 nozzle,
 #          0.4 layer, PETG, 21 mm³/s). printed-parts/cold-core/foam-shell/print-log.md.
@@ -59,23 +57,39 @@ HOURS_PER_YEAR = 24 * 365
 #          0.24 layer, PET-GF15, 18 mm³/s).
 #          printed-parts/enclosure/enclosure/print-log.md holds the profile.
 #
-# The kg beside each is §7's figure for that ONE PIECE — what _bom_masses says the
-# plate lays, which is what this file multiplies. The slice's own metres are the
-# larger number of the two, by the supports and brim §7 does not carry; carrying
-# the rate against §7's figure is what puts the supports back into the hours.
+# A SLICE IS A PLATE, NOT A ROW. The kg beside each is what _bom_masses' shell-plus-
+# infill model bills for THE SOLID THAT PLATE WAS TAKEN FROM, which is the basis this
+# file multiplies — not a reading of whatever §7's row says today, so a part that
+# changes shape moves its own mass without disturbing the rate it is priced at. The
+# slice's own metres are the larger number of the two, by the supports and brim §7
+# does not carry; carrying the rate against the model's figure is what puts the
+# supports back into the hours.
 MEASURED = ("14 h 22 m", 1.126, 14 + 22 / 60)
 MEASURED_EXT = ("20 h 23 m", 0.653, 20 + 23 / 60)
 
-# Hours per kg of filament, by print configuration. `bulk` and `ext` are measured;
-# the other three are the bulk rate scaled for a slower setup and are labelled est.
-# in the ledger. See machine-time.md "Open items" for what would measure them.
-_BULK = round(MEASURED[2] / MEASURED[1], 1)
+# A RATE IN HOURS PER KG DOES NOT SURVIVE A STOCK CHANGE. A nozzle lays grams at
+# (volumetric cap × density), so hours per kg move by the inverse of that product —
+# the same arithmetic the enclosure's print log states when it prices its own slot.
+# The cold core ships in PET-GF15 (`ledger/bom.md` §7) and the plate that was timed
+# ran PETG, so `bulk` is CARRIED across that pair and is an estimate until a PET-GF
+# plate of the shell is sliced. `ext` needs no carry: it was measured in the stock
+# the exterior ships in.
+_CAP_PETG, _RHO_PETG = 21.0, 1.27        # foam-shell/print-log.md, bom.md §7
+_CAP_PETGF, _RHO_PETGF = 18.0, 1.43      # enclosure/print-log.md, bom.md §7
+PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
+
+# Hours per kg of filament, by print configuration. `ext` is measured; `bulk` is that
+# measurement carried across the stock; the other three are the MEASURED PLATE's own
+# rate scaled for a slower configuration, which is a scaling of the setup and not of
+# the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
+# four are labelled est. in the ledger. See machine-time.md "Open items".
+_BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
-    "bulk":  _BULK,                                             # 12.8 — measured
+    "bulk":  round(_BULK_PETG * PETGF_CARRY, 1),                # 13.3 — carried, est.
     "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
-    "tight": round(_BULK * 2.0),    # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
-    "small": round(_BULK * 2.8),    # travel + layer-change overhead dominates a small part
-    "petgf": round(_BULK * 5.5),    # the faucet: 0.4 TC, fine layers, 50 °C chamber, supported
+    "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
+    "small": round(_BULK_PETG * 2.8),  # travel + layer-change overhead dominates a small part
+    "petgf": round(_BULK_PETG * 5.5),  # the faucet: 0.4 TC, fine layers, 50 °C chamber, supported
 }
 
 GROUP_MARKER = {"bulk": "BULK", "ext": "EXT", "tight": "TIGHT",
@@ -208,11 +222,16 @@ def main():
         "MT_PRINTERS": PRINTERS,
         "MT_MEASURED": MEASURED[0],
         "MT_MEASURED_KG": f"{MEASURED[1]:.3f}",
+        "MT_RATE_BULK_PETG": f"{_BULK_PETG:g}",
+        "MT_PETGF_CARRY": f"{(PETGF_CARRY - 1) * 100:.1f} %",
         "MT_MEASURED_EXT": MEASURED_EXT[0],
         "MT_MEASURED_EXT_KG": f"{MEASURED_EXT[1]:.3f}",
         "MT_PETGF_DRY": "10 h at 100 °C",
         "MT_DUTY": f"{DUTY * 100:.0f} %",
         "MT_KG": f"{sum(kg.values()):.3f}",
+        # What a unit still takes off the PETG spool: the two groups that are not
+        # PET-GF. Summed from the same masses rather than typed, so it follows §7.
+        "MT_KG_PETG_UNIT": f"{kg['tight'] + kg['small']:.2f}",
         "MT_H_PRINT": f"{h_print:.1f}",
         "MT_H_PRINT_WALL": f"{wall:.1f}",
         "MT_H_CURE": f"{secs.get(2, 0):.1f}",

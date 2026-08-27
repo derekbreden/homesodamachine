@@ -1,6 +1,6 @@
 {
-  "thickness_mm": 2.0,
-  "material": "PETG",
+  "thickness_mm": 3.2,
+  "material": "PET-GF",
   "process": "3D-print",
-  "notes": "Wall thickness; inner shell for cold core"
+  "notes": "Outer wall thickness (2 mm structural + 1.2 mm flute backing); inner shell for cold core"
 }

@@ -451,7 +451,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 ## 13. Printing consumables
 
-3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). Per bom.md §7 the exterior is Polymaker Fiberon PET-GF15 and everything it encloses is PETG; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
+3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, funnel, etc.). Per bom.md §7 the exterior and the cold core's own shell stack are Polymaker Fiberon PET-GF15, and the small parts inside are PETG; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
