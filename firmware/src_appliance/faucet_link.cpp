@@ -163,6 +163,17 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_OTA_SRC_BEGIN) { otaOnSrcBegin(payload, plen); return; }
     if (type == MSG_OTA_SRC_DATA)  { otaOnSrcData(payload, plen);  return; }
 
+    if (type == MSG_RESP_BENCH && plen >= sizeof(BenchResultPayload)) {
+        BenchResultPayload r;
+        memcpy(&r, payload, sizeof(r));
+        const float secs = r.ms / 1000.0f;
+        Serial.printf("\nJ3:BENCH %lu bytes in %lu ms — %.1f KB/s (%.0f%% of the %ld baud wire)\n",
+                      (unsigned long)r.bytes, (unsigned long)r.ms,
+                      secs > 0 ? (r.bytes / 1024.0f) / secs : 0.0f,
+                      secs > 0 ? 100.0f * (r.bytes / secs) / (FAUCET_BAUD / 10.0f) : 0.0f);
+        return;
+    }
+
     // The bench run the console started, finished. Reported where it lands
     // rather than polled for: the run is seconds long and nothing waits on it.
     if (type == MSG_RESP_WIFI_PUSH && plen >= sizeof(WifiPushResultPayload)) {
@@ -400,6 +411,34 @@ void faucetLinkReadStatus(FaucetLinkStatus &status) {
 
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
     return faucet.trySend(type, data, len) >= 0;
+}
+
+// Push into TinyProto's window as fast as it will take frames, servicing the
+// link whenever it is full. No flash write and no per-chunk answer: what comes
+// back is what J3 carries, which is the number the OTA pull is measured against.
+bool faucetLinkBenchPush(uint32_t bytes) {
+    BenchBeginPayload begin{bytes};
+    if (faucet.trySend(MSG_BENCH_BEGIN, &begin, sizeof(begin)) < 0) return false;
+
+    static uint8_t chunk[BENCH_CHUNK];
+    for (uint16_t i = 0; i < BENCH_CHUNK; i++) chunk[i] = (uint8_t)i;
+
+    uint32_t sent = 0;
+    const uint32_t started = millis();
+    while (sent < bytes) {
+        uint16_t want = (bytes - sent) > BENCH_CHUNK ? BENCH_CHUNK : (uint16_t)(bytes - sent);
+        if (faucet.trySend(MSG_BENCH_DATA, chunk, want) >= 0) {
+            sent += want;
+        } else {
+            faucet.service();   // window full: drain it and try the same chunk again
+        }
+        if (millis() - started > 120000) return false;
+    }
+    // The last frames are still in the window; keep servicing so they land and
+    // the far end's report can come back.
+    const uint32_t drainUntil = millis() + 3000;
+    while ((long)(millis() - drainUntil) < 0) { faucet.service(); delay(1); }
+    return true;
 }
 
 bool faucetLinkWifiPush(uint32_t bytes) {
