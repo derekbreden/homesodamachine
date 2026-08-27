@@ -3198,6 +3198,7 @@ genrule(
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+        "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
         "out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
         "out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py",
@@ -3212,14 +3213,15 @@ set -e
 O0=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf)
 O1=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step)
 O2=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step)
-O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
-O4=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
-O5=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
-O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
-O7=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
-O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
-O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
-O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
+O3=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh)
+O4=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step)
+O5=$$PWD/$(location out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py)
+O6=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/_faucet_interface.py)
+O7=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json)
+O8=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md)
+O9=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json)
+O10=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.md)
+O11=$$PWD/$(location out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3235,19 +3237,20 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-shell/faucet_shell.py > /dev/null
 cp hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf $$O0
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step $$O1
 cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step $$O2
-cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O3
-cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O4
-cp hardware/printed-parts/faucet/_faucet_interface.py $$O5
-cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O6
-cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O7
-cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O8
-cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O9
-cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O10
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh $$O3
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step $$O4
+cp hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py $$O5
+cp hardware/printed-parts/faucet/_faucet_interface.py $$O6
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json $$O7
+cp hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md $$O8
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json $$O9
+cp hardware/printed-parts/faucet/faucet-shell/MATERIAL.md $$O10
+cp hardware/printed-parts/faucet/faucet-shell/faucet_shell.py $$O11
 """,
 )
 
@@ -8191,6 +8194,58 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh
 )
 
 genrule(
+    name = "flute-payload-faucet",
+    srcs = [
+        "hardware/printed-parts/faucet/faucet-shell/.gitignore",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.figures.json",
+        "hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/MATERIAL.figures.json",
+        "hardware/printed-parts/faucet/faucet-shell/MATERIAL.md",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+        ":out/under-counter-plate/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step",
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.json",
+        "hardware/printed-parts/faucet/faucet-shell/faucet_shell.md",
+        "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
+        "hardware/printed-parts/faucet/faucet-shell/print-log.md",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/flute_payload_faucet.py",
+    ],
+    outs = [
+        "out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+        "out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh)
+O1=$$PWD/$(location out/flute-payload-faucet/hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload_faucet.py > /dev/null
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh $$O0
+cp hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh $$O1
+""",
+)
+
+genrule(
     name = "pump-replacement-sync",
     srcs = [
         "pysrc/hardware/manifold-layout/_scorecard.py",
@@ -9819,6 +9874,14 @@ genrule(
     name = "pysrc-2212165d6fb8",
     srcs = ["hardware/scripts/flute_payload_enclosure.py"],
     outs = ["pysrc/hardware/scripts/flute_payload_enclosure.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-5701c949a45d",
+    srcs = ["hardware/scripts/flute_payload_faucet.py"],
+    outs = ["pysrc/hardware/scripts/flute_payload_faucet.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -16167,6 +16230,7 @@ filegroup(
         ":tools-totals",
         ":flute-payload-cold-core",
         ":flute-payload-enclosure",
+        ":flute-payload-faucet",
         ":pump-replacement-sync",
         ":fluid-topology-sync",
         ":ac-wiring-schedule-sync",
