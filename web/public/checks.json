@@ -27,7 +27,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 16 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
