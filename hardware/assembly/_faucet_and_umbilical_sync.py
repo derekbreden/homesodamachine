@@ -91,6 +91,9 @@ def main():
         "COLLAR_TUBE_OD": f"{faucet.tube_collar.TUBE_OD:.4g}",
         "COLLAR_SLEEVE_TAIL": f"{faucet.foam_bare_at_wall:.3g} mm",
         # The braid over the pack — §3. It is bought by what it opens to.
+        # The umbilical ribbon's own section, which is what the 6P4C plug closes on — §2.
+        "RIBBON_T": f"{faucet.cable_lane:.4g} mm",
+        "RIBBON_SECTION": f"{faucet.cable_lane:.4g} × {faucet.cable_width:.4g} mm",
         "SLEEVE_GIRTH": f"{faucet.bundle_girth():.4g} mm",
         "SLEEVE_BORE": f"{faucet.bundle_bore():.4g} mm",
         "SLEEVE_BORE_IN": f'{faucet.bundle_bore() / 25.4:.3g}"',
