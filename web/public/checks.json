@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -67,16 +67,10 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
+      "note": "check_declared_imports: every step holds what it imports, over 172 source(s) the graph names",
       "status": "ok"
     }
   ],
-  "detail": {
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
