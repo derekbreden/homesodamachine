@@ -1,7 +1,9 @@
 {
   "/hardware/scripts/_bom_sync.py": {
+    "ANCHOR_LOOP": "77 mm",
     "CAP_CRADLES": "3",
     "CARBONATOR_PORTS": "4",
+    "CARB_1_LOOP": "40.1 mm",
     "CARB_REEDS": "2",
     "CEILING_INSERTS": "2",
     "CEILING_SCREWS": "2",
@@ -11,6 +13,7 @@
     "COND_SCREWS": "2",
     "CUT_FT": "15.92 ft",
     "DECK_INSERTS": "4",
+    "DIGITEN_LOOP": "59.6 mm",
     "DISPLAY_COVER_INSERTS": "2",
     "DISPLAY_COVER_SCREWS": "2",
     "END_CAPS": "2",
@@ -19,6 +22,7 @@
     "FLOOR_INSERTS": "4",
     "FLOOR_SCREWS": "4",
     "FLOOR_WASHERS": "4",
+    "FLUID_18_POST_LOOP": "53 mm",
     "FOAM_CLAMP_INSERTS": "12",
     "FOAM_INSERTS": "16",
     "FOAM_SCREWS": "12",
@@ -54,6 +58,7 @@
     "SHELF_SCREWS_M3X10": "1",
     "SHELF_SCREWS_M3X8": "16",
     "SOLENOIDS": "10",
+    "SPLIT_LOOP": "65.5 mm",
     "STUB_INLET": "335.5 mm",
     "STUB_OUTLET": "429.6 mm",
     "TEES": "6",
@@ -62,7 +67,9 @@
     "TOUCHFLO_INSERTS": "3",
     "TOUCHFLO_SCREWS": "3",
     "VENT_FILTERS": "2",
-    "WASHER_MAX_OD": "29"
+    "WASHER_MAX_OD": "29",
+    "WATER_3_POST_LOOP": "50.3 mm",
+    "WR1110_LOOP": "84.1 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
     "BOM_GRAND": "$1,383.26",

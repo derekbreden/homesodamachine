@@ -19,7 +19,8 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cold_core_interface import (attachment_xy_positions, cap_cradles, deck_mounts,
+from _cold_core_interface import (attachment_xy_positions, cap_anchor_tie_loop,
+                                  cap_cradles, cap_side_anchor_tie_loop, deck_mounts,
                                   deck_mount_xy)
 from _reed_channels import reeds_per_reservoir
 from docgen import load_module, substitute_md
@@ -33,6 +34,7 @@ import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imp
 import enclosure as _enc  # likewise
 import nameplate as _np  # likewise
 import ceiling_panel as _ceil  # likewise
+import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
@@ -337,6 +339,57 @@ for _thread, _inserts, _screws in (("M3", total_m3_inserts_per_build, total_m3_s
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 
+# --- what a zip tie has to close, at every seat printed for one -------------
+#
+# WHAT PICKS THE LENGTH IS THE LOOP AND NOT THE WIDTH. A zip tie turns INSIDE its cavity, so
+# what it reaches round is the body together with the web behind it — the convex perimeter of
+# that pair — and the §11 rows quote it because that figure is what puts a seat on the 4", the
+# 6" or the 8". Every one below is read off the module that draws the seat, so a wall or a slip
+# that moves carries the rows with it.
+#
+# A SEAT IS ALL THE HULL KNOWS. `enclosure.tube_anchor_tie_loop` is the ribs' and the meter's
+# alike — a flow-meter anchor reaches `flow_meter_anchor_wall` off the arm's axis where a rib
+# reaches `wall`, and both are the box's own three millimetres.
+digiten_tie_loop = _enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP)
+# EVERY RIB HOLDING A RUN IS BORED FOR THE ONE STOCK, which is why the row quotes one figure for
+# all of them rather than reading them apiece.
+_run_seats = {round(r, 6) for *_s, r in _f.pack["tube_anchors"]}
+if len(_run_seats) != 1:
+    raise ValueError(
+        f"the box's run anchors are bored at {sorted(_run_seats)} and bom.md §11 quotes one loop "
+        f"for every rib holding a tube. Either they go back on one stock or the row reads them "
+        f"apiece.")
+run_tie_loop = _enc.tube_anchor_tie_loop(next(iter(_run_seats)))
+# THE RIBS BORED FOR A BODY take whatever section that body offers, so each answers on its own.
+# `BODY_ANCHOR_SITES` is the table `check_body_seated` grades the built pieces against, and the
+# radius is the reference module's — read here by name rather than off a row's position.
+_body_seats = {name: section()[1] + _ea.BODY_ANCHOR_SLIP
+               for name, section, _root, _piece in _ea.BODY_ANCHOR_SITES}
+_bored = {round(r, 6) for *_s, r in _f.pack["body_anchors"]}
+_missing = sorted(n for n, r in _body_seats.items() if round(r, 6) not in _bored)
+if _missing:
+    raise ValueError(
+        f"{_missing} name a section this table quotes a loop for and the last build bored no rib "
+        f"at that radius. The row reads the seat a body offers, so a body whose section moved "
+        f"without its rib is a figure with nothing behind it.")
+body_tie_loops = {n: _enc.tube_anchor_tie_loop(r) for n, r in _body_seats.items()}
+# THE FLAVOUR TAP'S PAIR IS QUOTED AS ONE. Their two barrels are within a hair of each other, so
+# the row says "either" — which holds only while both read the same at the precision it prints.
+_tap = {n: f"{v:.3g}" for n, v in body_tie_loops.items() if n != "wr1110"}
+if len(set(_tap.values())) != 1:
+    raise ValueError(
+        f"the flavour tap's two barrels close {_tap} and bom.md §11 quotes one figure for either "
+        f"of them. Either they go back on one section or the row reads them apiece.")
+# AND THE COLD CORE'S CAP CARRIES THE OTHER FAMILY, on its own wall and its own fastener.
+# `_cold_core_interface` owns both hulls; the two chain ribs are one section, and the two side
+# posts are not — a post's loop clears its own crown, which stands a wall proud of the pipe.
+_chain_loops = {n: f"{cap_anchor_tie_loop(n):.3g}" for n in ("discharge-chain", "suction-chain")}
+if len(set(_chain_loops.values())) != 1:
+    raise ValueError(
+        f"the cap's two chain ribs close {_chain_loops} and bom.md §11 quotes one figure for "
+        f"both. Either they go back on one section or the row reads them apiece.")
+chain_tie_loop = cap_anchor_tie_loop("discharge-chain")
+
 
 def main():
     variables = {
@@ -357,6 +410,18 @@ def main():
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
+        # The loops the §11 zip tie rows are picked by — one per seat printed for a tie,
+        # each off the module that draws it. `ANCHOR_LOOP` and `WR1110_LOOP` are the same
+        # names `_cold_core_interface` and `_internal_plumbing_sync` write elsewhere, so
+        # `docgen.lint` holds this row against those pages rather than letting the two drift.
+        "DIGITEN_LOOP": f"{digiten_tie_loop:.3g} mm",
+        "CARB_1_LOOP": f"{run_tie_loop:.3g} mm",
+        "WATER_3_POST_LOOP": f"{cap_side_anchor_tie_loop('water-3'):.3g} mm",
+        "FLUID_18_POST_LOOP": f"{cap_side_anchor_tie_loop('fluid-18'):.3g} mm",
+        "SPLIT_LOOP": f"{body_tie_loops['water-split']:.3g} mm",
+        "FLOWREG_LOOP": f"{body_tie_loops['flow-regulator']:.3g} mm",
+        "ANCHOR_LOOP": f"{chain_tie_loop:.3g} mm",
+        "WR1110_LOOP": f"{body_tie_loops['wr1110']:.3g} mm",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
         "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
