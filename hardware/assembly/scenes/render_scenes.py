@@ -46,6 +46,7 @@ for _p in (_HERE.parent, _HW / "scripts", _HW / "manifold-layout",
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 
+import _finishes                                        # noqa: E402
 import _mesh_payload                                    # noqa: E402
 import _scenes                                          # noqa: E402
 import _cold_core_style                                 # noqa: E402
@@ -719,14 +720,38 @@ def _entries_by_body(entries):
     return out
 
 
+def _scene_finish(rgba):
+    """`(roughness, metalness)` for a body's linear colour, as `_finishes` states it.
+
+    A glTF MATERIAL THAT NAMES NEITHER IS FULLY METALLIC AND FULLY ROUGH — that is the spec's
+    default, not an absence — so a body drawn without these is not drawn plainly, it is drawn
+    as rough metal. Every scene body here is looked up by the colour it was placed in, and the
+    one that names no material in this tree takes the viewer's own default rather than the
+    spec's.
+    """
+    row = _finishes.find(tuple(rgba[:3]))
+    if row is None:
+        return _VIEWER_DEFAULT_FINISH
+    return row["roughness"], row["metalness"]
+
+
+#: What `web/public/js/viewer/step.js` draws a colour it cannot place at, restated here so the
+#: two renderers agree on the one case neither can look up.
+_VIEWER_DEFAULT_FINISH = (0.6, 0.1)
+
+
 def _scene_material(rgba, index, exact):
     """One shared material per exact RGBA, and the name used to restore its float precision."""
     rgba = tuple(float(v) for v in rgba)
     if rgba in exact:
         return exact[rgba][0]
     name = f"hsm-rgba-{index}"
-    args = {"name": name, "baseColorFactor": rgba, "doubleSided": True}
+    rough, metal = _scene_finish(rgba)
+    args = {"name": name, "baseColorFactor": rgba, "doubleSided": True,
+            "roughnessFactor": rough, "metallicFactor": metal}
     if rgba[3] < 1.0:
+        # A see-through body takes no specular metal whatever its stock says: metalness and
+        # alpha do not compose, and the glass and the clear PVC read as glass either way.
         args.update(alphaMode="BLEND", metallicFactor=0.0)
     material = trimesh.visual.material.PBRMaterial(**args)
     exact[rgba] = (material, name)
@@ -792,6 +817,11 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
     def restore_material_precision(tree):
         # `PBRMaterial` quantises a base factor to u8. RWGltf carries the live linear floats,
         # including alpha, so put them back after trimesh has built the accessor/buffer tree.
+        #
+        # A GLTF MATERIAL THAT NAMES NO ROUGHNESS IS FULLY ROUGH METAL — 1.0 and 1.0 are the
+        # spec's defaults, not an absence — so the finish goes on here too, from the same table
+        # the browser reads. Without it every scene body is drawn as rough metal whatever it is
+        # made of, which is the condition the studio environment was compensating for.
         for material in tree.get("materials", ()):
             rgba = exact_by_name.get(material.get("name"))
             if rgba is None:
@@ -799,12 +829,14 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
             pbr = material.setdefault("pbrMetallicRoughness", {})
             pbr["baseColorFactor"] = list(rgba)
             material["doubleSided"] = True
+            rough, metal = _scene_finish(rgba)
+            pbr["roughnessFactor"] = rough
             if rgba[3] < 1.0:
                 material["alphaMode"] = "BLEND"
                 pbr["metallicFactor"] = 0.0
             else:
                 material.pop("alphaMode", None)
-                pbr.pop("metallicFactor", None)
+                pbr["metallicFactor"] = metal
 
     raw = trimesh.exchange.gltf.export_glb(
         scene, include_normals=True, tree_postprocessor=restore_material_precision)

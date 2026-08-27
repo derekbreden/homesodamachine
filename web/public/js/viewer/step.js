@@ -132,15 +132,70 @@ export function darkenBackFaces(shader) {
 // and the faucet took the manifold's when they were drawn in that order.
 const _matCache = new Map();
 
+// THE OTHER HALF OF A MATERIAL. A colour says what a body is made of and roughness says how that
+// stock takes the light, and only the first of the two fits down the pipe: a STEP carries
+// `COLOUR_RGB` and nothing else, so a body arrives here as three numbers with no name on it.
+// `hardware/scripts/check_finishes.py` writes the missing half out beside the model — every
+// colour this tree draws, with the roughness and metalness `_materials.FINISHES` and
+// `_routing.SPOOLS` state for it — and a body finds its own row by the colour it came in with.
+//
+// The table is worth having because the difference it carries is not small. Glass-filled PET-GF
+// and unfilled PETG are within a couple of display steps of each other and look nothing alike:
+// in `hardware/printed-parts/cadlib/flute-evidence/02`, one exposure holding both, the PETG
+// blooms warm where the light grazes and the PET-GF beside it stays matte. Drawn at one
+// roughness they are the same object twice.
+export const DEFAULT_FINISH = { roughness: 0.6, metalness: 0.1 };
+let _finishes = [];
+let _finishesReady = null;
+
+// MATCHED ON DISTANCE, NOT ON A KEY. Both routes into buildMesh carry a float triple — the
+// payload states the exact doubles `_materials.linear` wrote, the wasm parse converts the STEP's
+// sRGB with its own arithmetic — so the two agree to a hair and not to a bit. There is no
+// rounding either could share: near black the linear palette is crowded enough that a byte holds
+// two of its colours, which is the same trap `_matCache` above is keyed to avoid. The closest
+// two materials in this tree stand 0.00162 apart in linear space, so a body inside this radius
+// of a row is that row and a body outside it is nothing the tree names.
+const FINISH_TOL2 = 4e-4 * 4e-4;
+
+export function loadFinishes() {
+  if (!_finishesReady) {
+    _finishesReady = fetch("/finishes.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        _finishes = Array.isArray(d?.finishes) ? d.finishes : [];
+        // Anything already built was built at the default, and `_matCache` would hand that
+        // same material out for the rest of the session. Drop it so the table applies.
+        if (_finishes.length) forgetMaterials();
+      })
+      .catch(() => { _finishes = []; });
+  }
+  return _finishesReady;
+}
+
+// A body whose colour names no material takes the default rather than its nearest neighbour's
+// surface: an unplaced colour is a gap in the table, and a gap should read as one.
+function finishFor(color) {
+  if (!color || !_finishes.length) return DEFAULT_FINISH;
+  let best = DEFAULT_FINISH;
+  let bestD = FINISH_TOL2;
+  for (const f of _finishes) {
+    const dr = f.rgb[0] - color[0], dg = f.rgb[1] - color[1], db = f.rgb[2] - color[2];
+    const d = dr * dr + dg * dg + db * db;
+    if (d <= bestD) { bestD = d; best = f; }
+  }
+  return best;
+}
+
 function materialFor(color) {
   const key = color ? color.join(",") : "default";
   let mat = _matCache.get(key);
   if (!mat) {
+    const finish = finishFor(color);
     // Surfaces sit a depth-unit back, so the feature edges xray.js draws on
     // these same triangles resolve in front of them.
     mat = new THREE.MeshStandardMaterial({
       color: color ? new THREE.Color(color[0], color[1], color[2]) : new THREE.Color(DEFAULT_FRONT),
-      metalness: 0.1, roughness: 0.6,
+      metalness: finish.metalness, roughness: finish.roughness,
       side: THREE.DoubleSide,
       polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
     });
@@ -231,6 +286,7 @@ async function fetchMeshes(file, headers) {
 }
 
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
+  await loadFinishes();   // before any material is built, so none is built at the default
   // Loading pill lives inside the current step wrapper (or none if the
   // headless tool drove loadStepFile directly). Tolerate either.
   const loadingEl = state.currentCadWrapper && state.currentCadWrapper.querySelector(".cad-loading");
@@ -382,6 +438,7 @@ export async function renderThumbnail(file, px = THUMB_SIZE) {
   // would hand the second one the first one's pixels.
   const key = `${file}@${px}`;
   if (state.thumbnailCache.has(key)) return state.thumbnailCache.get(key);
+  await loadFinishes();
 
   try {
     const meshed = await fetchMeshes(file, {});
