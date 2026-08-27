@@ -112,6 +112,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
+           _hw / "reference" / "riteav-keystone",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
@@ -176,6 +177,7 @@ import cold_core_assembly as _cca                     # noqa: E402
 import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
+import riteav_keystone as _keystone                   # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import bulkhead_ring as _ring                         # noqa: E402
 # The same word and the same two filaments, on the customer's own tube outboard of the ring.
@@ -4483,6 +4485,39 @@ WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # that same wall with a body hanging off it. So it stands one pitch EAST of the carb union, on
 # `deck_storey`: the meter's own axis, one column over, parallel and level with it.
 CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
+
+# --- the umbilical's signal station, through the +Y wall of back-top -----------------
+#
+# SIG-6 crosses this wall in a keystone jack. The three tubes of the umbilical land in the
+# unions and its ribbon lands here, so the bundle arrives at one cluster and nothing in it
+# reaches past the wall.
+#
+# THE COLUMN IS THE CO2 INLET'S AND THE STOREY IS THE FLAVOUR PAIR'S. It stands under the gas
+# inlet on the lane the two flavour unions cruise in, which puts all four of the umbilical's
+# crossings — carb above, flavor-a and flavor-b west, and this — inside two columns of each
+# other. `PANEL_ON_GATE_LANE` is the pair whose storey it takes; `build_pack` reads that storey
+# off `flavor_storey` and hands it here.
+KEYSTONE_COLUMN = CO2_COLUMN
+_stated.state(
+    "keystone-panel", "The keystone's latch closes on the wall it passes",
+    f"`enclosure.wall` inside {_keystone.PANEL_MIN:g}–{_keystone.PANEL_MAX:g} mm",
+    _keystone.PANEL_MIN <= _enc.wall <= _keystone.PANEL_MAX,
+    f"the wall is {_enc.wall:g} mm of PETG and the latch's band is "
+    f"{_keystone.PANEL_MIN:g}–{_keystone.PANEL_MAX:g} mm. Both bounds are NOMINAL — "
+    f"`riteav_keystone` carries no measured figure until RiteAV #58999 is delivered.")
+
+
+def keystone_cutout(gate: float):
+    """The opening the jack snaps into, in `back_ports` shape — struck on `KEYSTONE_COLUMN` and
+    the storey `PANEL_ON_GATE_LANE` stands on."""
+    wx, wz, r = _keystone.panel_cutout()
+    return ("rect", KEYSTONE_COLUMN, gate, wx, wz, r)
+
+
+def keystone_station(gate: float) -> tuple:
+    """Where the jack's own seating face lands, as `(x, z)`."""
+    return (KEYSTONE_COLUMN, gate)
+
 # The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
 # socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
 # bulkhead's collet and the adapter's collet both take hold of.
@@ -6569,7 +6604,8 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
                      back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
-                                 + [c14_cutout(), co2_wall_port(a.co2_inlet_carry)]),
+                                 + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
+                                    keystone_cutout(a.gate_z)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
