@@ -11,6 +11,11 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_finishes.py",
+      "note": "finishes: 48 materials, and every colour this tree draws has one",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_flutes.py",
       "note": "✓ every payload stands within the budget its print was cut to",
       "status": "ok"
