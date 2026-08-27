@@ -107,14 +107,14 @@ def bench(m):
     # AB-01 stands the bench rig behind the machine and FS-03 caps two inlets on
     # one face. A station appearing in the front wall makes both cards wrong and
     # has no number in it to drift, so this is the only thing that can say so.
-    assert not pack.front_ports and not box.pack.front_ports, (
-        f"{len(box.pack.front_ports)} station(s) are cut in the front wall — AB-01 brings water, "
+    assert not pack.front_ports, (
+        f"{len(pack.front_ports)} station(s) are cut in the front wall — AB-01 brings water, "
         f"CO2 and mains to the BACK, and FS-03 caps both inlets on that one face")
     # The three the bench rig plugs into, each on the +Y wall: the water
     # union's bore, the ABU44's bore, the C14's opening. FS-03 fits a cap to
     # the first two and AB-01 lands a cord on the third.
-    assert len(box.pack.back_ports) >= 3 and box.pack.c14, (
-        f"the +Y wall stands {len(box.pack.back_ports)} station(s) and {len(box.pack.c14)} C14 boss(es) "
+    assert len(box.back_ports) >= 3 and box.c14, (
+        f"the +Y wall stands {len(box.back_ports)} station(s) and {len(box.c14)} C14 boss(es) "
         f"— AB-01 connects water, CO2 and mains there and FS-03 caps the two fluid ones")
 
     # ── neither inlet is a thread (FS-03, GT-02) ──────────────────────────
