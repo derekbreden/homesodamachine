@@ -14,6 +14,7 @@ import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { onStepReloaded } from "./component-edit.js";
+import { surfaceText } from "./pick-format.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -285,6 +286,22 @@ async function fetchMeshes(file, headers) {
   }
 }
 
+// WHAT THE PICTURE CAME OFF, SAID WHERE IT IS KNOWN. The route says `step:` and the pill says
+// the piece's name, and for the fluted pieces the payload beside the solid is what was drawn.
+// Only this function knows which of the two it read, and it knows it here — the breadcrumb and
+// the pill are built before the fetch lands, so a title set there would state a surface nobody
+// had chosen yet. `surfaceText` is the one sentence, shared with the edge picker.
+function nameSurface(file, surface) {
+  const wrapper = state.currentCadWrapper;
+  if (!wrapper) return;                      // headless: no chrome to name
+  const said = surfaceText(file, surface);
+  const card = wrapper.closest(".cv-card");
+  const pill = card && card.querySelector(".cv-filename");
+  if (pill) pill.title = said;
+  const here = wrapper.querySelector(".cad-crumb-here");
+  if (here) here.title = said;
+}
+
 export async function loadStepFile(file, { preserveCamera = false } = {}) {
   await loadFinishes();   // before any material is built, so none is built at the default
   // Loading pill lives inside the current step wrapper (or none if the
@@ -344,6 +361,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file, surface };
+    nameSurface(file, surface);
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
     onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
