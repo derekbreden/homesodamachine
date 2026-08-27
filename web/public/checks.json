@@ -27,7 +27,7 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "",
+      "note": "payloads: 16 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
       "status": "ok"
     },
     {
@@ -52,8 +52,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -67,10 +67,16 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 172 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
+    ]
+  },
+  "green": false
 }
