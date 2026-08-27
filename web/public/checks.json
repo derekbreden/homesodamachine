@@ -42,13 +42,13 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1301 tracked, 254 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1302 tracked, 263 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -66,12 +66,6 @@
       "status": "ok"
     }
   ],
-  "detail": {
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
