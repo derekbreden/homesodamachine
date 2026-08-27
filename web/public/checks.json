@@ -47,12 +47,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1313 tracked, 263 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1314 tracked, 267 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 143 of 1000 free, the next cut wants 3, and the whole lock reads by name in 143.0 MB against 144.2 MB of bundle",
+      "note": "check_release_room: 132 of 1000 free, the next cut wants 3, and the whole lock reads by name in 144.9 MB against 146.0 MB of bundle",
       "status": "ok"
     },
     {
