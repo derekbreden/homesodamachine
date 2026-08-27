@@ -47,6 +47,14 @@ WIRE_FEED = 12.0                 # mm/s — step 3's recipe
 SPEEDS = [5, 6, 8, 10, 12, 15, 20]
 V_NOM = 8.0
 
+# The head's own axis. The beam bisects the corner at 45° from vertical, and the
+# slide is built parallel to it so travel changes standoff and nothing else.
+# The retract only has to leave; the clearance below is what it leaves by.
+PLUNGE_ANGLE = 45.0       # ° from vertical
+RETRACT = 30.0            # mm of slide travel at the exit
+NOZZLE_STANDOFF = 10.0    # mm — nozzle tip above the plate face at weld height
+OVERLAP_DEG = 20.0        # ° of lap past 360°
+
 # A synchronous rotisserie motor is line-locked, so on 60 Hz it sits at the top
 # of its plate rating — which is what the cheap proof would actually run at.
 TYD_RPM = 2.4
@@ -90,8 +98,27 @@ def main():
     beam_w = LASER_W * POWER_FRACTION
     lap_energy = beam_w * (bead_circumference / V_NOM)
 
+    retract_z = RETRACT * math.cos(math.radians(PLUNGE_ANGLE))
+    deg_s = 360.0 * V_NOM / bead_circumference
+
     variables = {
         "RECESS": f"{plate_recess:.2f} mm",
+        "PLUNGE_ANGLE": f"{PLUNGE_ANGLE:.0f}\u00b0",
+        # A vertical slide under a leaning head moves the landing point radially
+        # by tan(lean) per mm; a slide along the beam moves it not at all.
+        "VERT_COUPLE": f"{math.tan(math.radians(PLUNGE_ANGLE)):.2f} mm",
+        "RETRACT": f"{RETRACT:.0f} mm",
+        "RETRACT_Z": f"{retract_z:.1f} mm",
+        "NOZZLE_STANDOFF": f"{NOZZLE_STANDOFF:.0f} mm",
+        "EXIT_CLEAR": f"{retract_z + NOZZLE_STANDOFF - plate_recess:.1f} mm",
+        "ANGLE_1DEG": f"{NOZZLE_STANDOFF * math.tan(math.radians(1)):.2f} mm",
+        "OVERLAP_DEG": f"{OVERLAP_DEG:.0f}\u00b0",
+        "DEG_S": f"{deg_s:.1f}\u00b0/s",
+        "OVERLAP_S": f"{OVERLAP_DEG / deg_s:.1f} s",
+        "OVERLAP_MM": f"{bead_circumference * OVERLAP_DEG / 360:.1f} mm",
+        "TRIP_1S": f"{deg_s:.1f}\u00b0",
+        "TRIP_1S_MM": f"{bead_circumference * deg_s / 360:.1f} mm",
+        "LAP_380": f"{bead_circumference * (360 + OVERLAP_DEG) / 360 / V_NOM:.1f} s",
         "BEAD_D": f"{bead_diameter:.2f} mm",
         "BEAD_C": f"{bead_circumference:.2f} mm",
         "MASS_S3": f"{m_s3 / 1000:.2f} kg",

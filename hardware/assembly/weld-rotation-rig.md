@@ -62,8 +62,8 @@ Costs: one bad moment ruins 388 mm instead of 48. A wire stick at 200° is a 50-
 | R5 | Turns at least 380° without stopping, and stops where told | 360° plus a deliberate overlap onto the start; a crater at 360° is a PT indication |
 | R6 | Indexes to 45° stops for the tacks | The eight-tack pattern becomes a program instead of eight guesses |
 | R7 | Unbroken electrical continuity from the work lead to the part, turning | The X1 Pro's interlock senses conductance; a rotating part cannot wear the clamp |
-| R8 | Head holder rigid in all six degrees of freedom once set | Any droop over 50 s is standoff and angle drift |
-| R9 | Head lifts straight up, ~30 mm, in one motion, trigger still held | The Don't-Let-Go exit ([`dont-let-go.md`](/marketing/video/dont-let-go.md)) is how the bead ends without a stuck wire |
+| R8 | Head rigid in all six degrees of freedom at weld height, and at the same height every weld | Any droop over 50 s is standoff and angle drift; any change between welds is a different recipe |
+| R9 | Head retracts [30 mm](RETRACT) along the beam axis in one motion, trigger still held | The Don't-Let-Go exit ([`dont-let-go.md`](/marketing/video/dont-let-go.md)) is how the bead ends without a stuck wire |
 | R10 | Nothing structural within ~40 mm of the bead is plastic | The corner is at melting point and the tube conducts |
 
 R3 and R4 are the ones that bite. They are not about the rig's bearing — a $20 turntable bearing runs truer than 0.25 mm — they are about **how the tube is held** and **whether the tube's cut end is square**, because the plate seats to a depth stop referenced off that end. A band-sawn end that is 0.5 mm out of square puts a 0.5 mm axial wave in the weld path, and the fixed head reads that as the focus moving in and out twice per lap. Squaring the tube ends becomes a rig prerequisite in a way it never was for a hand weld.
@@ -117,12 +117,87 @@ And it lands where the rest of this repo lands: the rig's setpoints become const
 | Stepper driver (DM542 class) + 24 V supply | Driving it | An ESP32 and a step/dir driver is the whole controller; the firmware tree already exists |
 | Laser-cut fixture ring, 316 or mild steel, 3 × M6 tapped at 120° | Holding the tube, R3 | SendCutSend, same path as the end caps. Set screws let the tube be indicated true rather than hoping a bore fits |
 | Dial indicator + magnetic base | R3, R4 | **Not optional.** Runout is the rig's failure mode and there is currently no instrument in [`tools.md`](/hardware/ledger/tools.md) that reads it |
-| 4040 aluminium extrusion column + brackets | Head holder, R8 | Bolted to the bench, arm reaching over the part's centre |
+| 4040 aluminium extrusion column + brackets | Head holder, R8 | Bolted to the bench, arm reaching over the part's centre. The rail mounts to it at [45°](PLUNGE_ANGLE) |
+| Linear rail + carriage (MGN12 / SBR16 class), ~100 mm, + extension spring | The fast axis, R9 | Spring pulls toward clear; the carriage carries the gun in a hard V-clamp, not a cradle |
+| Over-centre push–pull toggle clamp, 25–50 mm stroke | Stop, latch and release lever in one part | Its adjustable threaded plunger is the fine axis too. Split into a separate dovetail slide only if linkage play reads in the bead |
+| Adjustable dog + lever microswitch on the turntable rim | The 380° trip | Knocks the latch and cuts the motor at the set angle |
 | Carbon motor brush + holder, or tinned copper braid | Ground, R7 | Rides the rotating fixture plate |
 | 1/4" hose barb + fitting for the fixture plate | Back purge, below | Argon into the bore from underneath |
 | CHANCS TYD-50 class synchronous motor + 4" lazy-susan bearing | The A3 proof | Only if the proof runs first |
 
 Prices, Prime availability and ASINs get confirmed at order time and land in [`purchases.md`](/hardware/ledger/purchases.md) §16 beside the welder; nothing above is ordered yet.
+
+## The head's two positions
+
+The rotation is the axis that moves *during* the weld. The head has an axis too, and it moves twice: once down before the bead, once away after it. Neither is a welding motion — the head is dead still for all [48.6 s](REV_8) of the lap — and that is what makes them easy. A motion that has to *end* somewhere exact and does not care how it got there is a slide and a stop, and a hand shoving a slide into a stop arrives exactly where the stop is.
+
+That is the drill press's trick and the turret lathe's: the hand supplies the stroke, the steel supplies the number. It is also the answer to the skill question. What makes a hand laser weld hard is holding standoff, lean angle, travel speed and wire lead constant *while* watching a puddle. On the rig all four are set before the trigger is pressed, and none of them are held by anything living.
+
+### The stop is over-solved before it is built
+
+The X1 Pro is a handheld welder, so its focus window is at least as wide as a steady hand's wander — call it ±1.5 mm, because a machine needing tighter than that could not be used the way it is sold. A machined hard stop repeats to 0.01–0.02 mm. A bolt jammed against a plate repeats to 0.1 mm.
+
+**The plunge axis is therefore solved by a factor of fifteen the moment it exists in any form, and by a hundred if a real slide is bought.** No engineering belongs there. It belongs on runout — R3 and R4 — which a head axis does not relieve and in fact sharpens, because a hand unconsciously chases a part that is running out and a bolted-down head does not.
+
+### The slide runs along the beam, not down
+
+The head leans [45°](PLUNGE_ANGLE) from vertical so the beam bisects the corner, which makes the slide's direction a real decision:
+
+| Slide axis | What one mm of travel does |
+|---|---|
+| Vertical | Shifts the landing point [1.00 mm](VERT_COUPLE) radially — standoff and radius are one knob |
+| **Parallel to the beam** | Slides the head along its own beam. The landing point does not move. Standoff is the only thing that changes |
+
+Mount the rail at [45°](PLUNGE_ANGLE) and the two adjustments come apart. It barely matters to the weld — the head is stationary once it stops, so a vertical slide's coupling calibrates out with one number — it matters to the **iteration**. A rig still being tuned wants orthogonal knobs, because a coupled pair turns every experiment into a two-variable search.
+
+[30 mm](RETRACT) along that axis is [21.2 mm](RETRACT_Z) of vertical rise, carrying the nozzle from [10 mm](NOZZLE_STANDOFF) above the plate face to [24.9 mm](EXIT_CLEAR) above the tube rim — up and inboard, over an open bore, nothing to hit.
+
+Angle is the other thing the column holds and a wrist cannot. One degree of lean error moves the landing point [0.17 mm](ANGLE_1DEG) at that standoff, against a [1.17 mm](LEG_8) fillet leg. Bolted 4040 holds a tenth of a degree for a year; a magnetic-base arm does not hold it for a lap.
+
+### Two slides, because the two jobs are opposites
+
+| | Job | Wants | Moves |
+|---|---|---|---|
+| **Fine** | Sets *where* weld height is | Resolution, and to stay put | Once per rig, during iteration; locked for the batch |
+| **Fast** | Travels between weld height and clear | Speed and repeatability, no resolution at all | Twice per weld, twenty welds |
+
+Stacking them is what lets each be cheap. A dovetail or compound slide on a leadscrew is a good fine axis and a hopeless fast one — a leadscrew will not give up 30 mm in the moment a bead ends. A spring-returned carriage that knows only two positions is a perfect fast axis with no resolution at all. Fine slide on the fast carriage, fast carriage on the column, and the fast one's hard stop lands on the fine one's face.
+
+### The exit wants a latch, not a hand
+
+The retract is the only motion here with a time constraint, and the easiest, because it does not have to *arrive* anywhere — it only has to leave, quickly, trigger still held, so conductance breaks in mid-air and the machine's own retract/patch cycle snaps the wire clean ([`dont-let-go.md`](/marketing/video/dont-let-go.md)).
+
+Something that only has to leave wants a spring: an extension spring pulling the carriage toward clear, an over-centre or cam latch holding it down against the stop through the lap, and one lever to trip it. Trip it and the head is gone in ~100 ms with the trigger hand riding up.
+
+Two things fall out of that:
+
+- **The gun gets clamped, not cradled.** A cradle exists so a hand can lift the gun out at the end of a bead. Once the slide does the lifting, the gun bolts to the carriage in a hard V-clamp — which is R8, satisfied. Mechanising the exit is what buys the rigidity; the two requirements solve each other.
+- **The latch release is also the abort.** A rigidly clamped gun cannot flinch. Whatever trips the latch has to be reachable by reflex — a foot pedal, or a lever big enough to hit with the heel of a hand — because it is now the only fast way to get the head off the work. Releasing the trigger stays the master off; the latch is how the head gets clear.
+
+An over-centre push–pull toggle clamp is the cheapest part that is a stop, a latch and a release lever at once — $12–20, 25–50 mm of stroke, and its adjustable threaded plunger is the fine axis in the same body, collapsing the table above into one purchase. Worth trying first and worth splitting apart again if its linkage play reads in the bead.
+
+### The umbilical does not ride the carriage
+
+The X1 Pro's bundle carries fibre, wire, gas and power, and it is stiff and heavy enough to be a spring in its own right. Hung off the moving carriage it fights the stroke, puts hysteresis in the stop, and changes its own droop as the head moves — which is standoff drift arriving by the one path the stop cannot see. **Strain-relieve the bundle to the column above the carriage, in a slack loop, so the carriage moves its own mass and nothing else.** This is the single most likely reason a shop-built slide fails to repeat.
+
+### The 380° is the only judgement left, so let the table make it
+
+No controller enters anywhere, and none can: the X1 Pro has no external trigger input, so the laser is fired by a finger and by nothing else for the whole life of this rig. Every other step is a lever.
+
+One of those levers is timed. At [1.235 RPM](RPM_NOM) the part turns [7.4°/s](DEG_S), so the [20°](OVERLAP_DEG) overlap is a [2.7 s](OVERLAP_S) window and one second of human reaction is [7.4°](TRIP_1S) — [8.0 mm](TRIP_1S_MM) of bead against a [21.6 mm](OVERLAP_MM) overlap. Catchable off the index stripe, and sloppy.
+
+An adjustable **dog on the turntable rim** deletes the judgement: one striker, set once, that knocks the latch at 380° and opens a microswitch cutting the motor. The motion that was being timed becomes a consequence of the motion that was already exact, and the overlap turns into a number set with a wrench rather than a moment caught by eye. The position that ends the weld is the position of a piece of steel.
+
+### The sequence
+
+1. Head clear, latch open, laser off. Part indicated, plate seated, brush metered, purge sweeping.
+2. Table on.
+3. **Plunge and latch — one lever, and before the trigger.** A laser already lit while the head descends paints a line down the plate face on its way in.
+4. Trigger, held. The bead starts under a head that has not moved and will not.
+5. [51.3 s](LAP_380). The dog comes round and trips the latch — or a hand does. The head clears in ~100 ms, trigger still held, and the wire snaps in air.
+6. Release the trigger. Table off, purge off.
+
+Three lever-throws and one held finger, on a setup whose remaining skill is reading a dial indicator. That is the trade the rig is for: the setup is long and unskilled, the skilled part is a stop.
 
 ## The five things around the rotation
 
@@ -144,9 +219,9 @@ The holder is a column, not an articulated arm. Magnetic-base arms droop, and 50
 
 ### 3. The exit
 
-R9 is the one requirement that comes from the machine's own behaviour rather than the joint's. The X1 Pro's retract/patch cycle fires when conductance breaks, so lifting the head straight up with the trigger *still held* snaps the wire clean instead of leaving it fused into a cooling puddle. On a hand weld that is a wrist move. On a rig it has to be designed in: the gun sits in a **cradle**, not a clamp — a 45° V-block it drops into and lifts straight out of, with a magnet or a single strap for retention. Your hand rests on the gun holding the trigger for the whole lap; at 380° you lift it out of the cradle.
+R9 is the one requirement that comes from the machine's own behaviour rather than the joint's. The X1 Pro's retract/patch cycle fires when conductance breaks, so leaving the head with the trigger *still held* snaps the wire clean instead of leaving it fused into a cooling puddle. The spring-returned carriage and its latch are how that gets built — [The head's two positions](#the-heads-two-positions) above. Your hand rests on the gun holding the trigger for the whole lap and rides it up when the latch lets go.
 
-That also gives the bead its taper. There is no programmable power ramp to reach for, so the overlap plus the lift *is* the crater fill.
+That also gives the bead its taper. There is no programmable power ramp to reach for, so the overlap plus the retract *is* the crater fill.
 
 ### 4. Ground, turning
 
@@ -170,10 +245,10 @@ One safety note that falls out of the geometry: **the recessed corner is a beam 
 3. Plate in, seated to its 1/4" recess against the depth stop, per [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 3.
 4. Brush on the plate, work lead on the brush, meter it through one dry revolution.
 5. Back purge on, ~30 s to sweep the bore.
-6. Set the head: 45° lean, standoff, wire guide upstream of the puddle on the *arriving* side. Turn the table one dry revolution and watch the corner stay under the nozzle.
+6. Set the head *once per batch*, not per weld: 45° lean, standoff on the fine slide, wire guide upstream of the puddle on the *arriving* side. Turn the table one dry revolution with the carriage latched down and watch the corner stay under the nozzle.
 7. Index and fire the eight tacks — 0°, 180°, 90°, 270°, 45°, 225°, 135°, 315°.
-8. Return to 0°, which is now a tack. Run **380° at the commanded RPM**, trigger held the whole way.
-9. At 380°, lift the head straight out of the cradle with the trigger still held.
+8. Return to 0°, which is now a tack. Plunge and latch, then trigger. Run **380° at the commanded RPM**, trigger held the whole way.
+9. At 380° the dog trips the latch; the head clears in ~100 ms with the trigger still held.
 10. Purge off. PT per step 6.
 
 ## Open items
@@ -183,7 +258,8 @@ One safety note that falls out of the geometry: **the recessed corner is a beam 
 3. **Wire feeder ceiling.** The 1.50 wire:travel ratio at 8 mm/s is the current recipe's. Holding that ratio at 15 mm/s needs 22.5 mm/s of feed, and the X1 Pro's maximum feed rate is unrecorded. It bounds the fast half of the window.
 4. **Face-up service of a 4th-axis rotary.** These are sold for horizontal mounting on a mill table. Axial load rating, seal orientation and lubrication face-up all want confirming with the vendor before the order.
 5. **Whether the tacks are also the rig's.** R6 says index them. It may be better to tack by hand off the rig — a tack is 2 seconds and the part is easier to reach — and use the rig only for the lap. Decide after the first lap, not before.
-6. **Distortion, measured.** The eight-tack pattern exists to control it and nothing here has measured it. Indicate the plate's outer face before and after a lap and find out what the bead actually pulls.
+6. **Toggle clamp, or two slides.** Whether one over-centre clamp's linkage play stays under the focus window through twenty welds, or whether the fine and fast axes want separating. Measurable with the dial indicator on the carriage before any welding.
+7. **Distortion, measured.** The eight-tack pattern exists to control it and nothing here has measured it. Indicate the plate's outer face before and after a lap and find out what the bead actually pulls.
 
 ## Sources
 [value](NAME) texts are updated by:
