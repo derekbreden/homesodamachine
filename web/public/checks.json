@@ -2,7 +2,7 @@
   "checks": [
     {
       "check": "hardware/scripts/check_build_exit.py",
-      "note": "✗ hardware/reference/riteav-keystone/riteav_keystone.py:111  — use sys.exit(...) so a follower reads the failure",
+      "note": "✗ hardware/reference/riteav-keystone/riteav_keystone.py:214  — use sys.exit(...) so a follower reads the failure",
       "status": "red"
     },
     {
@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
+      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -57,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 102 of 1000 free, the next cut wants 3, and the whole lock reads by name in 145.0 MB against 146.2 MB of bundle",
+      "note": "check_release_room: 96 of 1000 free, the next cut wants 3, and the whole lock reads by name in 142.4 MB against 143.6 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -77,15 +77,53 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 173 source(s) the graph names",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     }
   ],
   "detail": {
     "hardware/scripts/check_build_exit.py": [
       "lock-taking scripts scanned: 84",
       "1 build(s) end on a status the lock cannot record:",
-      "  ✗ hardware/reference/riteav-keystone/riteav_keystone.py:111  — use sys.exit(...) so a follower reads the failure"
+      "  ✗ hardware/reference/riteav-keystone/riteav_keystone.py:214  — use sys.exit(...) so a follower reads the failure"
+    ],
+    "hardware/scripts/check_flutes.py": [
+      "1 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-back-top — the viewer draws this file, and it is another machine's",
+      "  the flute cut is what puts the surface back:",
+      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
+    ],
+    "hardware/scripts/check_payloads.py": [
+      "1 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ],
+    "tools/bazel/check_declared_imports.py": [
+      "3 step(s) read a file importing a module the step does not hold:",
+      "    hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/reference/riteav-keystone/riteav_keystone.py",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/reference/riteav-keystone/riteav_keystone.py",
+      "    hardware/service/_pump_replacement_sync.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/reference/riteav-keystone/riteav_keystone.py",
+      "  the import edges are read off the source and written in seconds:",
+      "    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix",
+      "  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.",
+      "  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a",
+      "  step that cannot import yet is a step whose file loads were never reached.",
+      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py hardware/printed-parts/enclosure/enclosure/enclosure.py hardware/service/_pump_replacement_sync.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_web_tests.py": [
+      "4 test(s) in web/ fail:",
+      "    build order puts a producer before the scripts that load its STEP",
+      "    every runnable generator appears exactly once in the build order",
+      "    the build order respects every STEP-load edge (producers before consumers)",
+      "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
+      "  cd web && npm test"
     ]
   },
   "green": false
