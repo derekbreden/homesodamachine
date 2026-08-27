@@ -621,6 +621,20 @@ _bounds.state(
 column_flute_band = (zone2_outer_z_bottom + cove_r, zone45_z_top)  # [22.25, 60.5] mm
 column_run_height = column_flute_band[1] - column_flute_band[0]  # [38.25 mm](COLUMN_RUN)
 
+# AND THE RUN STOPS BELOW THE GOOSENECK, which is what leaves the tip smooth. From `zone5_z_top`
+# up the piece is a tube swept along a path that turns as it climbs, so its plan turns with it
+# and there is no prism for a field to be measured FROM — the same reason the box's 45° facet
+# carries none. The tip and the display cover screwed onto it are one smooth region: the
+# cover's own cradle walls stand 11.75 mm on their own plan, past the 10 mm a band needs, and
+# it buys them nothing because no run passes there.
+_bounds.state(
+    "faucet-flute-under-the-sweep", "The field's band stops below the gooseneck",
+    f"the band's top at or under z {zone5_z_top:g} mm",
+    column_flute_band[1] <= zone5_z_top + 1e-9,
+    f"the band tops out at z {column_flute_band[1]:g} mm, into the sweep that starts at "
+    f"{zone5_z_top:g} — the plan the field is struck on turns with the path up there and a "
+    f"cutter run off a fixed plan would cut through the tube rather than into its surface")
+
 # EVERY BAND OF THE COUNTER SILHOUETTE, AND WHICH SIDE OF THE RUN-OUT IT FALLS ON. What stands
 # on the counter is a column of bands — gasket, plate, plinth, cove, column, wrapper — and each
 # names the PLAN it stands on, because the field is struck along one plan and a band on another
