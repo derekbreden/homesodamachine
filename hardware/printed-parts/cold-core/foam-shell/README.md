@@ -300,7 +300,7 @@ Each cap (top and bottom) is fastened to the outer_shell with **six
 M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
 oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665))
 threading into **six ruthex M3 short heat-set inserts**
-([B0D39W228K](https://www.amazon.com/dp/B0D39W228K) — same insert
+([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same insert
 spec as in `faucet-shell`; per-build insert counts in
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13) pressed into the
 corresponding face of the outer_shell. **Twelve inserts and twelve screws
