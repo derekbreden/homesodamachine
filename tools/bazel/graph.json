@@ -647,6 +647,31 @@
       "hardware/assembly/refrigerant-loop.md"
     ]
   },
+  "hardware/assembly/_weld_rotation_rig_sync.py": {
+    "reads": [
+      "hardware/assembly/_pressure_vessel_sync.py",
+      "hardware/assembly/_weld_rotation_rig_sync.py",
+      "hardware/assembly/weld-rotation-rig.figures.json",
+      "hardware/assembly/weld-rotation-rig.md",
+      "hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+      "hardware/printed-parts/cadlib/reeding.py",
+      "hardware/printed-parts/cadlib/world_workplane.py",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_realized.py",
+      "hardware/scripts/_run_lock.py",
+      "hardware/scripts/_stated_bounds.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [
+      "hardware/assembly/weld-rotation-rig.figures.json",
+      "hardware/assembly/weld-rotation-rig.md"
+    ],
+    "writes": [
+      "hardware/assembly/weld-rotation-rig.figures.json",
+      "hardware/assembly/weld-rotation-rig.md"
+    ]
+  },
   "hardware/assembly/_wiring_sync.py": {
     "reads": [
       "hardware/assembly/_wiring_sync.py",

@@ -958,6 +958,56 @@ cp hardware/assembly/refrigerant-loop.md $$O1
 )
 
 genrule(
+    name = "weld-rotation-rig-sync",
+    srcs = [
+        "pysrc/hardware/assembly/_pressure_vessel_sync.py",
+        "pysrc/hardware/assembly/_weld_rotation_rig_sync.py",
+        "hardware/assembly/weld-rotation-rig.md",
+        "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
+        "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_realized.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/tools/docgen/__init__.py",
+    ] + glob(
+        [
+            "hardware/assembly/weld-rotation-rig.figures.json",
+        ],
+        allow_empty = True,
+    ),
+    outs = [
+        "out/weld-rotation-rig-sync/hardware/assembly/weld-rotation-rig.figures.json",
+        "out/weld-rotation-rig-sync/hardware/assembly/weld-rotation-rig.md",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/weld-rotation-rig-sync/hardware/assembly/weld-rotation-rig.figures.json)
+O1=$$PWD/$(location out/weld-rotation-rig-sync/hardware/assembly/weld-rotation-rig.md)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/assembly/_weld_rotation_rig_sync.py > /dev/null
+cp hardware/assembly/weld-rotation-rig.figures.json $$O0
+cp hardware/assembly/weld-rotation-rig.md $$O1
+""",
+)
+
+genrule(
     name = "wiring-sync",
     srcs = [
         "pysrc/hardware/assembly/_wiring_sync.py",
@@ -8585,6 +8635,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-2259e160dcfd",
+    srcs = ["hardware/assembly/_weld_rotation_rig_sync.py"],
+    outs = ["pysrc/hardware/assembly/_weld_rotation_rig_sync.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-38fb8bca8a74",
     srcs = ["hardware/assembly/_wiring_sync.py"],
     outs = ["pysrc/hardware/assembly/_wiring_sync.py"],
@@ -16066,6 +16124,7 @@ filegroup(
         ":power-column-sync",
         ":pressure-vessel-sync",
         ":refrigerant-loop-sync",
+        ":weld-rotation-rig-sync",
         ":wiring-sync",
         ":cards-build",
         ":tools-build",
