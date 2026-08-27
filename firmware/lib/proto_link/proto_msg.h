@@ -170,6 +170,16 @@ constexpr uint8_t MSG_RESP_VERSION    = 0x45;  // VersionPayload
 constexpr uint8_t MSG_VERSIONS_QUERY  = 0x46;  // no payload: the whole machine
 constexpr uint8_t MSG_RESP_VERSIONS   = 0x47;  // VersionsPayload
 
+// ── The radio bench (0x48..) ─────────────────────────────────────────────
+// Both displays carry a WiFi radio that no product path uses. These four
+// frames stand a link up directly between them, push bytes across it, and
+// report what it carried — so the wired links have a number to be compared
+// against. The main board drives it from its console and is not on the path.
+constexpr uint8_t MSG_WIFI_BENCH_AP   = 0x48;  // WifiApPayload: raise or drop the SoftAP
+constexpr uint8_t MSG_RESP_WIFI_AP    = 0x49;  // WifiApStatePayload
+constexpr uint8_t MSG_WIFI_BENCH_PUSH = 0x4A;  // WifiPushPayload: join it and send this much
+constexpr uint8_t MSG_RESP_WIFI_PUSH  = 0x4B;  // WifiPushResultPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -542,6 +552,58 @@ struct __attribute__((packed)) VersionsPayload {
 constexpr uint8_t BLE_ST_UP        = 1 << 0;  // the stack came up and is advertising
 constexpr uint8_t BLE_ST_CONNECTED = 1 << 1;
 constexpr uint8_t BLE_ST_IDENTITY  = 1 << 2;  // the main board answered
+
+// ── The radio bench ──────────────────────────────────────────────────────
+// The enclosure display raises the access point and sinks the bytes; the
+// faucet joins it and sends them. Both ends carry the same credentials rather
+// than being told them, so a bench run is two independent commands and no
+// handshake between them.
+#define WIFI_BENCH_SSID "hsm-bench"
+#define WIFI_BENCH_PSK  "carbonated"
+
+// The SoftAP is always 192.168.4.1 and hands out .2 upward, so the sender
+// needs no address from anyone.
+constexpr uint16_t WIFI_BENCH_PORT    = 5001;
+constexpr uint8_t  WIFI_BENCH_CHANNEL = 6;
+
+struct __attribute__((packed)) WifiApPayload {
+  uint8_t on;
+  uint8_t channel;
+};
+
+struct __attribute__((packed)) WifiApStatePayload {
+  uint8_t  up;
+  uint8_t  clients;
+  uint8_t  channel;
+  uint32_t ip;       // the AP's own address, network order as WiFi reports it
+  uint32_t bytes;    // what the sink took on the last connection
+  uint32_t ms;       // first byte to last, on that connection
+};
+
+struct __attribute__((packed)) WifiPushPayload {
+  uint32_t bytes;
+  uint8_t  channel;
+};
+
+// joinMs is association and DHCP; xferMs is first byte written to last ack.
+// They are separate because only one of them is per-image: a machine that
+// keeps the link up between images pays joinMs once.
+struct __attribute__((packed)) WifiPushResultPayload {
+  uint8_t  ok;
+  uint8_t  err;      // WIFI_BENCH_ERR_*
+  int8_t   rssi;
+  uint8_t  channel;
+  uint32_t bytes;
+  uint32_t joinMs;
+  uint32_t connectMs;
+  uint32_t xferMs;
+};
+
+constexpr uint8_t WIFI_BENCH_ERR_NONE    = 0;
+constexpr uint8_t WIFI_BENCH_ERR_JOIN    = 1;  // never associated or never got an address
+constexpr uint8_t WIFI_BENCH_ERR_CONNECT = 2;  // associated, but the sink refused the socket
+constexpr uint8_t WIFI_BENCH_ERR_WRITE   = 3;  // the socket died mid-transfer
+constexpr uint8_t WIFI_BENCH_ERR_BUSY    = 4;  // a run is already in flight
 
 // The most image bytes one OTA_DATA carries on each link. Both are 1 KB: J9's
 // HDLC frame buffers are sized for it, and J3's TinyProto Fd fragments
