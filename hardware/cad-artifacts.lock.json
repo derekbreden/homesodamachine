@@ -2,17 +2,16 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-de39a42fff3764ba.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-de39a42fff3764ba.tar.gz",
+    "asset": "cad-6eb3bec292689412.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-6eb3bec292689412.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "d67f98b6b5c6eaa432b2ac2ce52605c9af21fd80"
+    "commit": "c09533d7fe900bb5ea22d4f2d4fbd7ab6e07a2b4"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "firmware/README.md",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
       "hardware/reference/riteav-keystone/riteav_keystone.py"
     ],
@@ -56,8 +55,8 @@
     ]
   },
   "bundle": {
-    "sha256": "de39a42fff3764babd303d93616bff8e9eedbc15614f7d00fcb247da638342d0",
-    "bytes": 157144446,
+    "sha256": "6eb3bec29268941207a9a1ac72a3a008a5929c1a494f52d942eb82a6e1b63344",
+    "bytes": 146141314,
     "solids": 268
   },
   "solids": {
@@ -145,8 +144,8 @@
     "hardware/assembly/cards/tools/out/so-solder-bench.png": "fa94054239655a2e099b8fc787819ea3261a5c3ec23f9a8419dfb562cef7846e",
     "hardware/assembly/cards/tools/out/tb-tube-bench.png": "2f0f6841adb48a0f1585679d6bc91666d6ea6185052c7f2e9a3293f11eb8328b",
     "hardware/assembly/cards/tools/out/vc-vacuum-charge.png": "edd5ad53c83a57c49751924bf6b9cbe53fa9177523116bb0e37850a9e700a444",
-    "hardware/assembly/scenes/glb/back-half.glb": "85bf2ac641cf3c7b93b92a2ad573d429595a12832ea9d90f3ae9145655457e44",
-    "hardware/assembly/scenes/glb/back-top.glb": "b51e5160adaf47cbd789c5fa465858dec488797a368ba3674dcfec5453ecf3ba",
+    "hardware/assembly/scenes/glb/back-half.glb": "bae9c28fb307a2ded109f29256d3fa5db5cf9f4d832628150d7489e1caeee53c",
+    "hardware/assembly/scenes/glb/back-top.glb": "be73fbed155797ef1d06a8d133ff8b07d7eef27fd1e9bd91ed46e88be442200f",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "5bc08d1de467f44a67917ec717b3c9377f23a7ad49592983216b7ebe4c78466f",
     "hardware/assembly/scenes/glb/cap-lid.glb": "6cdba39b27bf36ec852381ff6c8fd8bfede80bacbd45c39f7e5c8dc0898c5a5c",
     "hardware/assembly/scenes/glb/cold-core-open.glb": "0fe5cf2d0b68f3acc53e040c5c49a6890299c13cc6306095ccc9cc739ac21b64",
@@ -160,8 +159,8 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "3e113b16d687d7fdc7be3148cf90de4b49e7e7084df87c08ff3162bf4e2ff679",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "714c8b4298a7000996394efe3f52987617684553752ae40602c531a2a1bed097",
-    "hardware/manifold-layout/enclosure-assembly.step": "ea2cc01ac2594cfbbdb5b7b1424bdc3bf812f31c17798f67c13c740f72d0e6b1",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "9cd6c269fd099f2565d3134827ae0a14204636cefa51503d7ac17693464a5f00",
+    "hardware/manifold-layout/enclosure-assembly.step": "acc7924303a6a39018a18f3ffd5e0c36028f4a5c5a2999e50e7c3aa68f7b5a07",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "cd6667484cd1a94bb0833a777292691a4904f3034bc50aebf04a576be44f094b",
     "hardware/manifold-layout/manifold-layout.step": "b1ec5c322c80216d7bda15940c767ff696c351f88ce7c9725acaf9a1533bd120",
     "hardware/manifold-layout/manifold-layout.step.mesh": "1d64c534e6f94d485621e4bfc1b256a6adb3da044f094b7bd5e47bccaa31326f",
     "hardware/pcb/pcba/out/pcba.bom.csv": "9b13c80835f4d278eb8173c3da49885f159376a6df6a074f62ea66d30df73b06",
