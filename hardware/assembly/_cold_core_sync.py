@@ -32,8 +32,10 @@ from _cold_core_interface import (  # noqa: E402
     foam_cap_lid_vent_radius,
     foam_shell_outer_height,
     foam_cap_height,
+    foam_cap_lid_height,
     forward_band_width,
     gasket_thickness,
+    head_pad_height,
     insert_pocket_depth,
     insert_pocket_radius,
     lldpe_bend_radius,
@@ -119,6 +121,9 @@ def main():
         "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",
         # ─── Cap pour (step 3) ────────────────────────────────────────
         "CAP_H": f"{foam_cap_interior_height:.4g} mm",
+        # The top cup pours shallower by exactly the band its lid's solid plate stands in.
+        "CAP_H_TOP": f"{foam_cap_interior_height - head_pad_height:.4g} mm",
+        "FOAM_CAP_LID_H": f"{foam_cap_lid_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
         "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
         # The valve cradles on the top lid's outer face, and the land the pour hole

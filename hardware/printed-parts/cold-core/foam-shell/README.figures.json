@@ -2,6 +2,7 @@
   "/hardware/printed-parts/cold-core/foam-shell/foam_shell.py": {
     "BOSS_D": "8 mm",
     "CAP_H": "16 mm",
+    "CAP_H_TOP": "12.8 mm",
     "CAP_SCREW_LEN": "25",
     "CAP_SCREW_REACH": "6.2 mm",
     "CENTROID": "(0.926172, 0.205728, 90.760211) mm",
