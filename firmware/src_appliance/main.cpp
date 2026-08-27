@@ -357,16 +357,21 @@ static void cmdWifi(const String &line) {
     if (rest == "off") { linkWifiAp(false); return; }
     if (rest == "on")  { linkWifiAp(true);  return; }
 
+    // A trailing q takes BLE off the air for the run. Advertising through one
+    // is the honest case; what it costs is only visible against a run without it.
+    bool quiet = rest.endsWith("q");
+    if (quiet) { rest = rest.substring(0, rest.length() - 1); rest.trim(); }
+
     uint32_t kb = rest.length() ? (uint32_t)rest.toInt() : 1024;
-    if (kb < 1 || kb > 16384) { Serial.println("\nusage: wifi [on|off|<KB>]"); return; }
+    if (kb < 1 || kb > 16384) { Serial.println("\nusage: wifi [on|off|<KB>[q]]"); return; }
     const uint32_t bytes = kb * 1024UL;
 
     if (!linkWifiAp(true)) return;
     delay(300);   // let the AP settle before anyone probes for it
 
-    Serial.printf("\nWIFI:PUSH %lu KB — the faucet joins and sends; the answer prints when it lands\n",
-                  (unsigned long)kb);
-    if (!faucetLinkWifiPush(bytes)) {
+    Serial.printf("\nWIFI:PUSH %lu KB%s — the faucet joins and sends; the answer prints when it lands\n",
+                  (unsigned long)kb, quiet ? ", BLE off the air" : ", BLE advertising");
+    if (!faucetLinkWifiPush(bytes, quiet)) {
         Serial.println("J3 would not take the request");
         linkWifiAp(false);
         return;

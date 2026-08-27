@@ -441,8 +441,9 @@ bool faucetLinkBenchPush(uint32_t bytes) {
     return true;
 }
 
-bool faucetLinkWifiPush(uint32_t bytes) {
-    WifiPushPayload req{bytes, WIFI_BENCH_CHANNEL};
+bool faucetLinkWifiPush(uint32_t bytes, bool quietBle) {
+    WifiPushPayload req{bytes, WIFI_BENCH_CHANNEL,
+                        (uint8_t)(quietBle ? WIFI_PUSH_F_QUIET_BLE : 0)};
     return faucet.trySend(MSG_WIFI_BENCH_PUSH, &req, sizeof(req)) >= 0;
 }
 

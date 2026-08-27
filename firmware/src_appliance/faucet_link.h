@@ -29,7 +29,7 @@ void faucetLinkBleReport();
 // Ask the faucet to join the enclosure's bench AP and push this many bytes to
 // it. The answer arrives asynchronously and prints itself; this only says
 // whether J3 took the request.
-bool faucetLinkWifiPush(uint32_t bytes);
+bool faucetLinkWifiPush(uint32_t bytes, bool quietBle);
 
 // Push this many bytes at J3 as fast as TinyProto's window will take them,
 // writing nothing to flash. The wire's own ceiling, for the radio to be

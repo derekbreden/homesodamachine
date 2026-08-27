@@ -17,7 +17,7 @@
 // rather than the glass.
 
 // Start a run. False if one is already in flight.
-bool wifiBenchPush(uint32_t bytes, uint8_t channel);
+bool wifiBenchPush(uint32_t bytes, uint8_t channel, uint8_t flags);
 
 // True once between the end of a run and the collection of its result.
 bool wifiBenchResultReady();

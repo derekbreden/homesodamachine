@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
+#include "ble_link.h"
+
 // The bytes themselves are not the point, so they are never allocated: one 8 KB
 // pattern buffer is written over and over. What is measured is the link, and a
 // real image would be read out of PSRAM or flash at rates far above it.
@@ -13,6 +15,7 @@ static volatile bool running = false;
 static volatile bool ready = false;
 static WifiPushResultPayload result;
 static uint32_t wantBytes = 0;
+static bool quietBle = false;
 
 static void finish(uint8_t err, const WifiPushResultPayload &partial) {
   result = partial;
@@ -28,6 +31,8 @@ static void finish(uint8_t err, const WifiPushResultPayload &partial) {
 static void pushLoop(void *) {
   WifiPushResultPayload r{};
   r.channel = WIFI_BENCH_CHANNEL;
+
+  if (quietBle) bleLinkQuiet(true);
 
   const uint32_t t0 = millis();
   WiFi.mode(WIFI_STA);
@@ -95,9 +100,10 @@ static void pushLoop(void *) {
   vTaskDelete(nullptr);
 }
 
-bool wifiBenchPush(uint32_t bytes, uint8_t channel) {
+bool wifiBenchPush(uint32_t bytes, uint8_t channel, uint8_t flags) {
   (void)channel;
   if (running) return false;
+  quietBle = (flags & WIFI_PUSH_F_QUIET_BLE) != 0;
   wantBytes = bytes;
   ready = false;
   running = true;
@@ -122,4 +128,5 @@ void wifiBenchRelease() {
   if (running) return;
   WiFi.disconnect(true);
   WiFi.mode(WIFI_OFF);
+  if (quietBle) { bleLinkQuiet(false); quietBle = false; }
 }
