@@ -115,13 +115,19 @@ if (CHECK) {
   process.exit(1);
 }
 
-// A FEW MEMBERS ARE WORTH ASKING FOR BY NAME; A HUNDRED ARE NOT. `pack.py` puts every member of
-// a lock on the release under its own hash as well as inside the bundle, and says so with
-// `release.objects`. Fetching those one at a time costs what actually moved — a lock move
-// measured on 2026-08-26 changed 3 of 124 members against a 65 MB bundle — and a container that
-// holds nothing still reads one asset instead of 124 requests. The threshold is where those
-// cross; the bundle is also the whole of the answer for any lock written before `objects`.
-const OBJECT_LIMIT = 24;
+// EVERY MEMBER IS WORTH ASKING FOR BY NAME, AND THE WHOLE LOCK IS TOO. `pack.py` puts every
+// member of a lock on the release under its own hash as well as inside the bundle, and says so
+// with `release.objects`. Asking by name costs what actually moved; the bundle costs the tree
+// however little did. There is no member count at which the bundle is the cheaper read:
+// measured on 2026-08-27, the 263 objects of this lock come to 143.0 MB against a bundle of
+// 144.2 MB, because each member is gzipped on its own and the tar's framing is not carried.
+// Even the worst case — every member moving at once, which is what a colour or a deflection
+// change does — reads less by name than by bundle, and `check_release_room.py` holds that
+// premise so the day it stops being true is a red row rather than a slow deploy.
+//
+// SO WHAT IS LEFT IS ROUND TRIPS, AND THE LANES BELOW ARE WHAT ANSWER THAT. The bundle stays
+// the whole of the answer for a lock written before `objects`, and the fallthrough below keeps
+// it as the answer for any member that does not arrive by name.
 const { url, asset } = lock.release;
 
 // EIGHT AT A TIME, BECAUSE THE WAIT IS THE ROUND TRIP AND NOT THE BYTES. A member averages a
@@ -160,7 +166,7 @@ async function fetchObjects(rels) {
   return failed;
 }
 
-if (lock.release.objects && missing.length <= OBJECT_LIMIT) {
+if (lock.release.objects) {
   console.log(`[cad-artifacts] ${missing.length} solid(s) to fetch, by name`);
   const failed = await fetchObjects(missing);
   if (!failed.length) {

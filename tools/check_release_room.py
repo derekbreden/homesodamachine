@@ -40,18 +40,21 @@ import pack  # noqa: E402
 
 
 def reading(root: Path) -> tuple:
-    """`(held, free, want, objects_on, retirable)` for this release and this lock."""
+    """`(held, free, want, objects_on, retirable, by_name, by_bundle)` for release and lock."""
     assets = pack.release_assets(root)
     if not assets:
         return None
-    on_release = {a["name"] for a in assets}
+    size = {a["name"]: a["size"] for a in assets}
+    on_release = set(size)
     lock = pack.read_lock(root)
     members = set((lock.get("solids") or {}).values()) | set((lock.get("sidecars") or {}).values())
     short = [sha for sha in members if pack.object_asset(sha) not in on_release]
     unreachable, superseded = pack.retirable(root)
+    by_name = sum(size.get(pack.object_asset(sha), 0) for sha in members)
     return (len(on_release), pack.RELEASE_ASSET_CAP - len(on_release),
             1 + len(short), bool((lock.get("release") or {}).get("objects")),
-            len(unreachable) + len(superseded))
+            len(unreachable) + len(superseded),
+            by_name, (lock.get("bundle") or {}).get("bytes", 0))
 
 
 def main() -> int:
@@ -59,7 +62,7 @@ def main() -> int:
     if got is None:
         print("check_release_room: the release did not answer — no reading taken")
         return 0
-    held, free, want, objects_on, may_go = got
+    held, free, want, objects_on, may_go, by_name, by_bundle = got
     red = []
     if free < want:
         red.append(f"the release holds {held} of {pack.RELEASE_ASSET_CAP} and the next cut wants "
@@ -67,6 +70,13 @@ def main() -> int:
     if not objects_on:
         red.append("the lock does not carry `release.objects`, so every deploy reads the whole "
                    "bundle for members it already has")
+    # AND THE PREMISE `fetch-cad-artifacts.mjs` DROPPED ITS THRESHOLD ON. It asks for every
+    # member by name because the whole lock by name reads less than the bundle does — each
+    # member gzipped on its own, without the tar's framing. If that ever inverts, the worst
+    # case stops being the cheaper read and the fetch wants its threshold back.
+    if objects_on and by_bundle and by_name > by_bundle:
+        red.append(f"the whole lock by name is {by_name / 1e6:.1f} MB against a bundle of "
+                   f"{by_bundle / 1e6:.1f} MB, so a full move now reads more by object")
     for line in red:
         print(f"  {line}")
     if red:
@@ -74,7 +84,8 @@ def main() -> int:
               "\n    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room")
         return 1
     print(f"check_release_room: {free} of {pack.RELEASE_ASSET_CAP} free, the next cut wants "
-          f"{want}, and the lock reads by object")
+          f"{want}, and the whole lock reads by name in {by_name / 1e6:.1f} MB against "
+          f"{by_bundle / 1e6:.1f} MB of bundle")
     return 0
 
 
@@ -86,12 +97,14 @@ def selftest() -> int:
         holds.append((label, bool(got)))
         print(f"  {'ok  ' if got else 'FAIL'} {label}")
 
-    def verdict(held, free, want, objects_on):
+    def verdict(held, free, want, objects_on, by_name=143.0, by_bundle=144.2):
         out = []
         if free < want:
             out.append("room")
         if not objects_on:
             out.append("objects")
+        if objects_on and by_bundle and by_name > by_bundle:
+            out.append("cheaper")
         return out
 
     hold("a release with room and the object path on is green",
@@ -103,6 +116,14 @@ def selftest() -> int:
     hold("both at once name both", verdict(1000, 0, 86, False) == ["room", "objects"])
     hold("a cut wanting exactly the room left is not red",
          verdict(957, 43, 43, True) == [])
+    hold("objects grown past the bundle is red, since the fetch asks for them all",
+         verdict(795, 205, 43, True, by_name=200.0) == ["cheaper"])
+    hold("objects exactly the bundle's size is not red",
+         verdict(795, 205, 43, True, by_name=144.2) == [])
+    # A LOCK THAT DOES NOT READ BY NAME CANNOT BE ASKED THE CHEAPER QUESTION, so the size
+    # comparison stays quiet there and the missing `objects` is the whole of the finding.
+    hold("no object path means no size finding to make",
+         verdict(795, 205, 43, False, by_name=200.0) == ["objects"])
     # THE UNREADABLE CASE IS THE ONE THAT MUST NOT REDDEN, so it is held on the real function.
     hold("no answer from the release takes no reading", reading(Path("/nonexistent")) is None)
     bad = [label for label, got in holds if not got]
