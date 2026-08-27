@@ -18,9 +18,11 @@ static void finish(uint8_t err, const WifiPushResultPayload &partial) {
   result = partial;
   result.err = err;
   result.ok = (err == WIFI_BENCH_ERR_NONE) ? 1 : 0;
-  ready = true;
-  running = false;
   pushTask = nullptr;
+  // running clears first: the collector drops the radio the moment it sees
+  // ready, and it must not find a run still claiming to be in flight.
+  running = false;
+  ready = true;
 }
 
 static void pushLoop(void *) {

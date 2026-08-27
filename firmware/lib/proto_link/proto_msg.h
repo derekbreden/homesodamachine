@@ -180,6 +180,15 @@ constexpr uint8_t MSG_RESP_WIFI_AP    = 0x49;  // WifiApStatePayload
 constexpr uint8_t MSG_WIFI_BENCH_PUSH = 0x4A;  // WifiPushPayload: join it and send this much
 constexpr uint8_t MSG_RESP_WIFI_PUSH  = 0x4B;  // WifiPushResultPayload
 
+// The same question asked of the wire instead of the radio. The OTA path pulls
+// one chunk at a time and pays a round trip per kilobyte, so what it measures
+// is that discipline, not J3. These three frames push into TinyProto's window
+// as fast as it will take them and write nothing to flash, which is the wire's
+// own ceiling and the number the radio has to beat.
+constexpr uint8_t MSG_BENCH_BEGIN     = 0x4C;  // BenchBeginPayload: this many bytes follow
+constexpr uint8_t MSG_BENCH_DATA      = 0x4D;  // raw bytes, counted and dropped
+constexpr uint8_t MSG_RESP_BENCH      = 0x4E;  // BenchResultPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -598,6 +607,17 @@ struct __attribute__((packed)) WifiPushResultPayload {
   uint32_t connectMs;
   uint32_t xferMs;
 };
+
+struct __attribute__((packed)) BenchBeginPayload {
+  uint32_t bytes;
+};
+
+struct __attribute__((packed)) BenchResultPayload {
+  uint32_t bytes;
+  uint32_t ms;    // first byte to last, measured at the receiving end
+};
+
+constexpr uint16_t BENCH_CHUNK = 1024;
 
 constexpr uint8_t WIFI_BENCH_ERR_NONE    = 0;
 constexpr uint8_t WIFI_BENCH_ERR_JOIN    = 1;  // never associated or never got an address

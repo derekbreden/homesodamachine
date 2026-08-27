@@ -69,6 +69,9 @@ bool mainBoardPersistError = false;
 uint32_t tokenState = 1;
 uint32_t framesRx = 0;
 uint32_t framesTx = 0;
+uint32_t benchWant = 0;
+uint32_t benchGot = 0;
+uint32_t benchFirstMs = 0;
 uint32_t retries = 0;
 uint32_t queueDrops = 0;
 uint32_t staleResponses = 0;
@@ -337,6 +340,30 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     bleLinkOnVersions(all);
     return;
   }
+  // The wire's own ceiling, measured at the end that receives it. Nothing is
+  // written to flash and nothing is answered per chunk: the point is what J3
+  // and TinyProto's window carry when no one is taking a turn.
+  if (type == MSG_BENCH_BEGIN && plen >= sizeof(BenchBeginPayload)) {
+    BenchBeginPayload b;
+    memcpy(&b, payload, sizeof(b));
+    benchWant = b.bytes;
+    benchGot = 0;
+    benchFirstMs = 0;
+    return;
+  }
+
+  if (type == MSG_BENCH_DATA) {
+    if (!benchWant) return;
+    if (!benchGot) benchFirstMs = millis();
+    benchGot += plen;
+    if (benchGot >= benchWant) {
+      BenchResultPayload r{benchGot, (uint32_t)(millis() - benchFirstMs)};
+      base.trySend(MSG_RESP_BENCH, &r, sizeof(r));
+      benchWant = 0;
+    }
+    return;
+  }
+
   // The radio bench. The run itself happens on a task of its own; this only
   // starts it, and its result goes out from baseLinkService() when it lands.
   if (type == MSG_WIFI_BENCH_PUSH && plen >= sizeof(WifiPushPayload)) {

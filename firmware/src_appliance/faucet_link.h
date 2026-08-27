@@ -31,5 +31,10 @@ void faucetLinkBleReport();
 // whether J3 took the request.
 bool faucetLinkWifiPush(uint32_t bytes);
 
+// Push this many bytes at J3 as fast as TinyProto's window will take them,
+// writing nothing to flash. The wire's own ceiling, for the radio to be
+// measured against. Blocks for the length of the run.
+bool faucetLinkBenchPush(uint32_t bytes);
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);
