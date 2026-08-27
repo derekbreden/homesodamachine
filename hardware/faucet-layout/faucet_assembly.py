@@ -1067,6 +1067,24 @@ def main():
     out = _assembly_dir / "faucet-assembly.step"
     export_assembly(build_assembly(), str(out))
 
+    # AND THE FLUTED SURFACE BACK INTO THE PAYLOAD THE VIEWER READS. The export above writes
+    # `<out>.mesh` off this B-rep, and the shell's base is a smooth prism there — its show
+    # surface is in the printed mesh and not in the solid
+    # (`printed-parts/cadlib/flute_skin.py`, `faucet_shell.write_bed_file`). `loadStepFile`
+    # prefers that payload to the STEP, so this is what the faucet looks like on /3d and in
+    # every picture posed off it.
+    #
+    # IT ASKS FOR THE FAUCET'S TREE ALONE. Nothing of the box or the cold core stands above a
+    # counter, so the surfaces on this disk that could land here are `FAUCET_DIRS`'.
+    #
+    # IMPORTED HERE AND NOT AT THE TOP, because `flute_payload` pulls in a decimator and a
+    # proximity index that only this run uses. The read is still traced, so the graph declares it.
+    import flute_payload                                                # noqa: E402
+    grafted = flute_payload.graft(
+        Path(str(out) + ".mesh"), flute_payload.surfaces(flute_payload.FAUCET_DIRS))
+    if grafted:
+        print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
+
     bend1_deg = math.degrees(gn_bend1_sweep_rad)
     bend2_deg = math.degrees(gn_bend2_sweep_rad)
     tip_below_horiz = (bend1_deg + bend2_deg) - 90.0
