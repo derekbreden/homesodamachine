@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "faucet_link.h"
+#include "link.h"
 #include "ota.h"
 #include "flavor.h"
 #include "identity.h"
@@ -170,7 +171,8 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         Serial.printf("\nJ3:BENCH %lu bytes in %lu ms — %.1f KB/s (%.0f%% of the %ld baud wire)\n",
                       (unsigned long)r.bytes, (unsigned long)r.ms,
                       secs > 0 ? (r.bytes / 1024.0f) / secs : 0.0f,
-                      secs > 0 ? 100.0f * (r.bytes / secs) / (FAUCET_BAUD / 10.0f) : 0.0f);
+                      secs > 0 ? 100.0f * (r.bytes / secs) / (FAUCET_BAUD / 10.0f) : 0.0f,
+                      FAUCET_BAUD);
         return;
     }
 
@@ -432,12 +434,16 @@ bool faucetLinkBenchPush(uint32_t bytes) {
         } else {
             faucet.service();   // window full: drain it and try the same chunk again
         }
+        // The run is tens of seconds long and it owns the loop for all of them.
+        // J9 is a half-duplex pair whose far end polls: leave it unanswered that
+        // long and the enclosure gives up on the link and reinitialises it.
+        linkService();
         if (millis() - started > 120000) return false;
     }
     // The last frames are still in the window; keep servicing so they land and
     // the far end's report can come back.
     const uint32_t drainUntil = millis() + 3000;
-    while ((long)(millis() - drainUntil) < 0) { faucet.service(); delay(1); }
+    while ((long)(millis() - drainUntil) < 0) { faucet.service(); linkService(); delay(1); }
     return true;
 }
 

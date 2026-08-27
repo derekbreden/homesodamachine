@@ -55,6 +55,9 @@ static void sinkLoop(void *) {
   // The radio comes up here rather than in the caller, so J9 is answered
   // immediately and the main board polls for `up` instead of waiting on it.
   WiFi.mode(WIFI_AP);
+  // Power save is a station's setting but the call is global, and Arduino leaves
+  // it at MIN_MODEM. On the sink it costs a beacon interval on every burst.
+  WiFi.setSleep(false);
   stage = 3;
   if (!WiFi.softAP(WIFI_BENCH_SSID, WIFI_BENCH_PSK, apChannel)) {
     stage = 9;
