@@ -141,10 +141,16 @@ show_wall = wall_thickness_min + flute_depth  # [4.2 mm](SHOW_WALL)
 _westbrass_bore_farthest_from_shell_center = (
     (shell_center_y - westbrass_bore_y) + westbrass_bore_diameter / 2.0
 )  # = [19.18 mm](WESTBRASS_BORE_FARTHEST)
+# THE PILL'S FARTHEST POINT IS ON AN END CAP AND NOT ON ITS BACK EDGE. The cutout is a slot
+# with its cap circles at (±`flavor_tube_x_offset`, `flavor_tube_depth`), and the shell's outer
+# is a cylinder about `shell_center` — so the corner that reaches furthest from that centre is a
+# cap's own rim, `pill_width_y / 2` out from a centre standing off the axis in X as well as Y.
+# Read on the +Y edge alone the reach comes back 0.32 mm short, and the wall over the cap's
+# shoulder is that much thinner than the figure says.
 _pill_farthest_from_shell_center = (
-    (+flavor_tube_depth + pill_width_y / 2.0) - shell_center_y
-)  # = [19.38 mm](PILL_FARTHEST)
-# [23.57 mm](SHELL_OUTER_R) outer-cylinder radius.
+    math.hypot(flavor_tube_x_offset, flavor_tube_depth - shell_center_y) + pill_width_y / 2.0
+)  # = [19.69 mm](PILL_FARTHEST)
+# [23.89 mm](SHELL_OUTER_R) outer-cylinder radius.
 shell_outer_r = (
     max(_westbrass_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + show_wall
@@ -239,14 +245,14 @@ lever_clearance_x_half = lever_x_half + bore_clearance  # [6.75 mm](LEVER_CLEAR_
 lever_ramp_depth = 1.0
 tangent_overshoot = 0.002
 
-shell_rect_y_half = shell_outer_r  # [23.57 mm](SHELL_OUTER_R)
+shell_rect_y_half = shell_outer_r  # [23.89 mm](SHELL_OUTER_R)
 shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + show_wall  # [12.95 mm](SHELL_RECT_X_HALF)
 shell_rect_y_width = 2.0 * shell_rect_y_half
 shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # [26.75 mm](SHELL_RECT_Y_MAX) (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-20.4 mm](SHELL_RECT_Y_MIN) (toward user)
+shell_rect_y_max = shell_center_y + shell_rect_y_half  # [27.07 mm](SHELL_RECT_Y_MAX) (toward back)
+shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-20.72 mm](SHELL_RECT_Y_MIN) (toward user)
 
-lever_ramp_y_min = shell_center_y - shell_outer_r  # [-20.4 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
+lever_ramp_y_min = shell_center_y - shell_outer_r  # [-20.72 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
 _bore_y_at_lever_x = math.sqrt(
     (westbrass_bore_diameter / 2.0) ** 2 - lever_clearance_x_half ** 2
 )  # ≈ [14.51 mm](BORE_Y_AT_LEVER_X) — bore-cyl tangent at the cut's X half-span
@@ -467,7 +473,7 @@ max_print_overhang_rad = _path_total_rot / 4.0  # [35°](MAX_PRINT_OVERHANG)
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
 # (zone3_z_bottom at the -Y end) up to zone4_z_top at Y=fill_y_min,
 # tangent-horizontal at the high end. Center is directly below the high end.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # [30.86 mm](BACK_ARCH_DY) (positive depth span)
+_back_arch_dy = fill_y_min - shell_rect_y_min  # [31.18 mm](BACK_ARCH_DY) (positive depth span)
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -495,7 +501,7 @@ zone45_front_y = _z5_y_min - (shell_rect_y_max - _z5_y_max)
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=[54.72 mm](ZONE45_Z_BOT_FRONT).
+# ≈ Z=[54.63 mm](ZONE45_Z_BOT_FRONT).
 zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
 zone45_z_bottom_at_front = (
     back_arch_center_z
@@ -520,7 +526,7 @@ zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 # from a datum on the −Y arc's own middle: `reeding.groove` is even in arc length, so a field
 # struck from a station on a mirror plane of the plan is symmetric about that plane at any
 # pitch, and the machine's own plane costs the field nothing.
-column_flat_y_half = math.sqrt(shell_outer_r ** 2 - shell_rect_x_half ** 2)  # [19.7 mm](COLUMN_FLAT_HALF)
+column_flat_y_half = math.sqrt(shell_outer_r ** 2 - shell_rect_x_half ** 2)  # [20.08 mm](COLUMN_FLAT_HALF)
 column_arc_half_angle = math.atan2(column_flat_y_half, shell_rect_x_half)
 
 
@@ -554,16 +560,50 @@ def column_plan_at(s: float) -> tuple:
 
 # A WHOLE NUMBER OF GROOVES CLOSES ON THE PLAN, and the pitch is what falls out of that. A
 # stated pitch would leave the perimeter with a remainder and the remainder has to go
-# somewhere — one wrong land, at whichever station the array happened to close on. EVEN,
-# because the datum already buys symmetry about the −Y plane and reflecting about the +Y one
-# maps `s` to `half - s`, which is a whole number of pitches from `-s` only on an even count.
-flute_count = 26
+# somewhere — one wrong land, at whichever station the array happened to close on.
+#
+# THE MACHINE'S OWN PLANE COSTS NOTHING AND THE OTHER ONE IS NOT OWED. `reeding.groove` is even
+# in arc length and the datum stands on x = 0, so the field is symmetric across the plane the
+# faucet is struck about at any count. The plan's OTHER mirror maps `s` to `half - s` and would
+# want an even count — and the column installs one way up, one way round, with the +Y arc
+# against the wall, so nothing ever puts the two arcs side by side.
+flute_count = 27
 
 
 def flute_pitch() -> float:
     """The spacing the field actually lands on — a consequence of `flute_count`."""
     return column_plan_perimeter() / flute_count
 
+
+def flute_backed_sections() -> tuple:
+    """Every section a groove on the column is cut into, as (what, mm).
+
+    THE GROOVE FLOOR IS WHERE THE WALL WOULD HAVE BEEN. `show_wall` put the show face one
+    `flute_depth` further out than the section needs, so what stands behind a full-depth
+    groove is `wall_thickness_min` and the flutes are added stock rather than removed stock.
+    Each row below is one inner surface the column's own show face runs over — measured from
+    the plan the field is struck on, so it is the section at the deepest station of the
+    groove and not an average round the wall."""
+    return (
+        ("the ±Y arc over the flavour pill's end cap",
+         shell_outer_r - _pill_farthest_from_shell_center - flute_depth),
+        ("the ±Y arc over the Westbrass bore",
+         shell_outer_r - _westbrass_bore_farthest_from_shell_center - flute_depth),
+        ("a ±X flat over the Westbrass bore's rect",
+         shell_rect_x_half - westbrass_bore_rect_short_x / 2.0 - flute_depth),
+        ("a ±X flat over the arch bore's outer wing",
+         shell_rect_x_half - shell_arch_bore_outer_x - flute_depth),
+    )
+
+
+_flute_backed = _bounds.bound(
+    "faucet-flute-backed", "Every fluted face on the faucet keeps a whole wall behind its grooves",
+    f"at least {wall_thickness_min:g} mm")
+for _what, _mm in flute_backed_sections():
+    _flute_backed(
+        _mm >= wall_thickness_min - 1e-9,
+        f"{_what} carries {_mm:.4f} mm behind the groove, under the {wall_thickness_min:g} mm "
+        f"a fluted face must stand on")
 
 _bounds.state(
     "faucet-flute-closes", "The faucet's flute count lands near the nominal pitch",
