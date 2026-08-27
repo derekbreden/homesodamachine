@@ -865,6 +865,10 @@
     "tools/check_paths.py",
     "tools/docgen/__init__.py"
   ],
+  "tools/check_release_room.py": [
+    "tools/cad-artifacts/pack.py",
+    "tools/check_release_room.py"
+  ],
   "tools/docgen/lint.py": [
     "tools/docgen/__init__.py",
     "tools/docgen/lint.py"

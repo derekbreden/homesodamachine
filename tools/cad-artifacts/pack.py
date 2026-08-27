@@ -700,7 +700,18 @@ def prune(root: Path, allow_retired: bool = False) -> int:
 
 
 def _gh(root: Path, *args, **kw):
-    return subprocess.run(["gh", *args], cwd=str(root), capture_output=True, text=True, **kw)
+    """`gh`, with a machine that cannot run it reported the way a call that failed is.
+
+    NO `gh`, NO DIRECTORY, NO ANSWER — and every caller here already reads a non-zero return as
+    "the release did not answer". Letting the OSError out instead would take a check on the
+    board down with a traceback on a machine that simply has no CLI installed, which says
+    nothing about the tree the board is reading.
+    """
+    try:
+        return subprocess.run(["gh", *args], cwd=str(root),
+                              capture_output=True, text=True, **kw)
+    except OSError as exc:
+        return subprocess.CompletedProcess(args, 127, "", str(exc))
 
 
 def _release_asset_matches(root: Path, asset: str, digest: str, size: int) -> bool:
