@@ -48,6 +48,12 @@ renderer.setClearColor(BG_COLOR);
 // The scene renders through a filmic tone curve. step.js's offscreen thumbnail
 // renderer carries the same curve and exposure, so a grid thumbnail and the
 // detail view of a part are shaded alike.
+// NO SHADOW MAP, and the reason is the rig above rather than the cost. A key that travels with
+// the eye throws its shadows AWAY from the eye, behind the geometry that casts them, so a 2048²
+// map over 350 bodies measured 11.7 ms a frame — 44 % of the frame — and moved the picture's
+// tonal range by nothing at all: p05 61, p99 212, range 151, identical with it on and off. The
+// range came from the HalfFloat target below instead. A fixed-rig viewer would want them; this
+// one is paying for a pass whose output stands where nobody is looking.
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = TONE_EXPOSURE;
 renderer.domElement.id = "viewport";
@@ -506,7 +512,7 @@ export function resizeRenderer() {
     h = window.innerHeight;
   }
   renderer.setSize(w, h, false);
-  resizeComposer(w, h);
+  resizeComposer();
   // Also re-apply CSS size — setSize(...,false) doesn't touch style, and we
   // want the canvas to actually fill the wrapper's content box.
   renderer.domElement.style.width = w + "px";
@@ -613,9 +619,22 @@ let gtaoPass = null;
 
 function buildComposer() {
   try {
-    const c = renderer.domElement;
-    const w = Math.max(c.width, 1), h = Math.max(c.height, 1);
-    const made = new EffectComposer(renderer);
+    // The drawing buffer, which is what every size below is counted in — see `resizeComposer`.
+    // At module load the canvas can still be 0×0; `resizeRenderer` sizes the chain properly on
+    // the first layout pass, and this only has to be a valid target until then.
+    const px = renderer.getDrawingBufferSize(new THREE.Vector2());
+    const w = Math.max(px.x, 1), h = Math.max(px.y, 1);
+    // A COMPOSER THROWS AWAY THE CANVAS'S ANTI-ALIASING unless it is asked not to. `antialias:
+    // true` multisamples the DEFAULT framebuffer, and a post chain never draws there — it draws
+    // into its own target and blits the result — so the flutes, which are a 5 mm sawtooth run
+    // ninety times across a wall, came back stepped and crawling. The target has to carry the
+    // samples itself. HalfFloat because everything upstream of `OutputPass` is scene-referred
+    // light, and 8 bits of it clips a highlight before the tone curve ever sees it.
+    const rt = new THREE.WebGLRenderTarget(w, h, {
+      type: THREE.HalfFloatType,
+      samples: Math.min(4, renderer.capabilities.maxSamples ?? 4),
+    });
+    const made = new EffectComposer(renderer, rt);
     made.addPass(new RenderPass(scene, camera));
     const ao = new GTAOPass(scene, camera, w, h);
     ao.output = GTAOPass.OUTPUT.Default;
@@ -637,14 +656,47 @@ function buildComposer() {
   }
 }
 
-export function resizeComposer(w, h) {
-  if (composer) composer.setSize(w, h);
-  if (gtaoPass) gtaoPass.setSize(w, h);
+// IN DEVICE PIXELS, NOT CSS ONES. `EffectComposer` sizes its own target by `renderer`'s pixel
+// ratio — but only when it made that target itself. Handed one, it sets `_pixelRatio = 1` and
+// takes every later size at face value. Sized in CSS pixels on a 2× display the chain then
+// composites into the bottom-left quarter of the buffer, and the strip it never reaches shows
+// the raw clear colour beside a tone-mapped one: a pale band down two edges of the frame.
+export function resizeComposer() {
+  const px = renderer.getDrawingBufferSize(new THREE.Vector2());
+  if (composer) composer.setSize(px.x, px.y);
+  if (gtaoPass) gtaoPass.setSize(px.x, px.y);
+}
+
+// AMBIENT OCCLUSION IS FOR LOOKING AT, NOT FOR DRAGGING THROUGH. TrackballControls damps per
+// FRAME, not per second: it applies a fraction of the pending rotation each time `update()` runs
+// and spins the flywheel down by a fixed ratio per call. So a frame that costs twice as much does
+// not merely look choppy — it rotates the model half as far for the same hand movement, and a
+// flick dies before it travels. That is a control regression, not a performance one, and no
+// picture is worth it.
+//
+// So the chain runs when the eye is still and the direct path runs while it is not. Nobody is
+// studying a crevice mid-orbit, and the moment the camera settles the occluded frame arrives —
+// within one frame, which reads as the picture resolving rather than as a mode change.
+const _eye = { pos: new THREE.Vector3(), quat: new THREE.Quaternion(), zoom: 0 };
+let _stillFrames = 0;
+//: How many settled frames before the expensive chain takes over. Two, so a single stray frame
+//: inside a drag does not flicker the picture between the two paths.
+const SETTLE_FRAMES = 2;
+
+function eyeMoved() {
+  const moved = !_eye.pos.equals(camera.position)
+    || !_eye.quat.equals(camera.quaternion)
+    || _eye.zoom !== camera.zoom;
+  _eye.pos.copy(camera.position);
+  _eye.quat.copy(camera.quaternion);
+  _eye.zoom = camera.zoom;
+  return moved;
 }
 
 // The one place a frame is drawn, so the composer and the direct path cannot drift.
 export function renderFrame() {
-  if (composer) composer.render();
+  _stillFrames = eyeMoved() ? 0 : _stillFrames + 1;
+  if (composer && _stillFrames >= SETTLE_FRAMES) composer.render();
   else renderer.render(scene, camera);
 }
 
