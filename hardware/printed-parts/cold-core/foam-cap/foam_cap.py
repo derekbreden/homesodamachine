@@ -68,6 +68,7 @@ from _cold_core_interface import (
     cap_side_anchor_holds,
     cap_side_axis_y,
     cap_side_tunnel_h,
+    cap_side_tunnel_roof,
     cap_side_back_relief,
     cap_side_cav_w,
     cap_side_flank,
@@ -269,8 +270,10 @@ def add_side_anchors(lid, face_z):
 
     ONE BLOCK AND THREE CUTS. The pipe is cut as a full cylinder and the block stops at the axis
     plane, so what is left is a half pipe whose lip is one edge and not two. The tie's tunnel is
-    cut through under it — the lid's own face is the tunnel's floor, so only its width and its
-    roof are drawn. The tie's channel down the back face is the third.
+    a WINDOW cut through under it, hung off its own roof (`cap_side_tunnel_h`) with the post's
+    stock standing under it, so what prints below the pipe is one block and not two blades. The
+    tie's channel down the back face is the third, and it runs the window's floor to the crown —
+    which is the whole of what the zip tie climbs.
 
     The post is unified before it joins the lid, for the reason the up-opening ribs are: a fuse
     imprints the seam of every solid that went into it."""
@@ -279,7 +282,8 @@ def add_side_anchors(lid, face_z):
         (cx, cy) = station.centre
         seat_r = station.seat_r
         axis_z = face_z + station.over_face
-        roof_z = axis_z - seat_r - cap_side_wall     # the tunnel's roof, one wall under the pipe
+        roof_z = face_z + cap_side_tunnel_roof(name)  # the window's roof, one wall under the pipe
+        sill_z = roof_z - cap_side_tunnel_h(name)     # and its floor, hung off that roof
         top_z = face_z + cap_side_anchor_height(name)
         y0 = cy - cap_side_len / 2.0                 # the post's ends, along the run
 
@@ -295,17 +299,18 @@ def add_side_anchors(lid, face_z):
             )
 
         post = block(y0, cap_side_len, face_z, top_z)
-        # THE TIE'S TUNNEL, cut front to back under the pipe. The lid's own face is its floor and
-        # one wall of the post its roof, so what is cut is the width and nothing else.
+        # THE TIE'S WINDOW, cut front to back under the pipe and closed on every side but its two
+        # mouths. One wall of the post is its roof and the post's own stock its floor, so the
+        # zip tie lies against the material it pulls and the column under it is never opened.
         tunnel = (
             WorldWorkplane(xy_plane_z_up)
-            .workplane(offset=face_z)
+            .workplane(offset=sill_z)
             .polyline([(cx, cy - cap_side_cav_w / 2.0),
                        (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
                        (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
                        (cx, cy + cap_side_cav_w / 2.0)])
             .close()
-            .extrude(roof_z - face_z)
+            .extrude(roof_z - sill_z)
         )
         # The pipe runs ALONG the post, which is the cap's own Y — so its plane is the one whose
         # normal is Y, and the offset that walks it is the post's own end. Its axis stands
@@ -318,17 +323,19 @@ def add_side_anchors(lid, face_z):
             .circle(seat_r)
             .extrude(cap_side_len)
         )
-        # THE TIE'S OWN CHANNEL DOWN THE BACK, on the tunnel's own width and over its mouth, so
-        # the zip tie leaves the tunnel and climbs the post in one line and the buckle sits in it.
+        # THE TIE'S OWN CHANNEL DOWN THE BACK, on the window's own width and over its mouth, so
+        # the zip tie leaves the window and climbs the post in one line and the buckle sits in it.
+        # It stops on the window's floor: below that the tie has left the post, and a channel
+        # carried on down to the lid would groove the column for nothing that runs in it.
         relief = (
             WorldWorkplane(xy_plane_z_up)
-            .workplane(offset=face_z)
+            .workplane(offset=sill_z)
             .polyline([(cx - cap_side_depth + cap_side_back_relief, cy - cap_side_cav_w / 2.0),
                        (cx - cap_side_depth, cy - cap_side_cav_w / 2.0),
                        (cx - cap_side_depth, cy + cap_side_cav_w / 2.0),
                        (cx - cap_side_depth + cap_side_back_relief, cy + cap_side_cav_w / 2.0)])
             .close()
-            .extrude(top_z - face_z)
+            .extrude(top_z - sill_z)
         )
         lid = lid.union(post.cut(bore).cut(tunnel).cut(relief).clean().val())
     return lid
@@ -445,16 +452,18 @@ def main():
     )
     # A SIDEWAYS anchor is priced the way it is laid down: one block the post's whole footprint,
     # standing the lid's face to its own crown, carrying a HALF bore because the pipe's axis is
-    # that block's forward face; then the tie's tunnel taken out under the pipe, and the tie's
-    # channel out of the back — which only reaches the material over the tunnel, the rest of its
-    # own column being tunnel already. A post that swallowed a boss beside it, or a bore that
-    # broke out of its back, comes up over.
+    # that block's forward face; then the tie's window taken out under the pipe, and the tie's
+    # channel out of the back — which runs the window's floor to the crown, so what it takes on
+    # its own is only the material over the window's roof, the rest of that band being window
+    # already. Neither cut reaches the bore, which stands one wall over the window and forward of
+    # the channel. A post that swallowed a boss beside it, or a bore that broke out of its back,
+    # comes up over.
     side_anchor_volume = sum(
         cap_side_depth * cap_side_len * cap_side_anchor_height(n)
         - _circle_beyond(s.axis_off, s.seat_r) * cap_side_len
         - cap_side_depth * cap_side_cav_w * cap_side_tunnel_h(n)
         - cap_side_back_relief * cap_side_cav_w
-        * (cap_side_anchor_height(n) - cap_side_tunnel_h(n))
+        * (cap_side_anchor_height(n) - cap_side_tunnel_roof(n))
         for n, s in cap_side_anchors.items()
     )
     # The drain berth's cut is the plate's own section over its span, the whole thickness of it

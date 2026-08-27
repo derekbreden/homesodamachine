@@ -1368,23 +1368,32 @@ for _name in cap_anchors:
 # plane is its forward face and everything behind it is between the run and the core the run is
 # assembled onto. `centre` is that axis plane, so the post is on the far side of it from the room.
 #
-# THE TIE'S TUNNEL IS A REMAINDER, the same bargain the up-opening ribs strike: the post carries
-# its whole depth down to the lid's face at its two ENDS only, and its middle stops one wall under
-# the pipe — so what is left between that middle and the face is the tunnel, floored by the lid
-# itself and roofed by the post. Nothing is cut for it. The tie goes through the tunnel, out the
-# front, round the tube and back over the post's crown, and buckles in the channel down its back.
+# THE TIE'S TUNNEL IS A WINDOW CUT THROUGH THE POST, front to back, hung one wall under the pipe.
+# The tie goes through the window, out the front, round the tube and back over the post's crown,
+# and buckles in the channel down its back — so the loop closes on the tube, and every millimetre
+# the window stands off the pipe is a millimetre added to that loop and taken out of the post.
 SideAnchor = namedtuple("SideAnchor", "centre over_face seat_r axis_off")
 
 cap_side_wall = cap_anchor_wall           # every solid section in the post
 cap_side_len = cap_anchor_len             # along the run, one tie's tunnel and its two flanks
 cap_side_cav_w = cap_anchor_cav_w         # the tunnel's width, on the zip tie and its slip
 cap_side_flank = (cap_side_len - cap_side_cav_w) / 2.0
-# THE TUNNEL IS CUT AND NOT LEFT. The up-opening ribs leave theirs between two feet that carry on
-# down to the lid; this post's own floor is the run's tie path, so a post built that way would
-# stand on two legs with nothing over them. Cut, the block over the tunnel is continuous.
-# The 18 lb zip tie through its thickness — `enclosure.tie_t`, and the one figure the tunnel
+# The 18 lb zip tie through its thickness — `enclosure.tie_t`, and the one figure the window
 # has to leave standing.
 cap_side_tie_t = 1.0
+# WHAT THE WINDOW IS NOT IS THE WHOLE COLUMN UNDER THE PIPE. The up-opening ribs take their
+# channel as the remainder between two feet, and a post that did the same would give the whole of
+# its height to one: this post stands as tall as the run it grips, so on a high crossing the
+# remainder is two `cap_side_flank` blades running the post's length with nothing but the roof
+# joining them — a pair of towers to print where the section wants to be one block.
+#   So the window is a STATED height and the rest of that column is the post's own stock, which
+# is `enclosure.tube_anchor_cavity_depth`'s bargain read on this face: a 1 mm zip tie needs its
+# own thickness and routing air, not every millimetre between a low run and a tall post.
+cap_side_cav_h = cap_side_wall
+# And a post whose pipe runs low keeps all the air it has. Capping a window that is already
+# compact buys a fraction of channel back as a floor thinner than the room the cavity is cut
+# with — `enclosure.tube_anchor_backing_min` again, and the same figure.
+cap_side_cav_backing_min = cap_anchor_cav_buffer
 # The tie's own channel down the post's back face, so the buckle seats and the zip tie cannot walk
 # along the run.
 cap_side_back_relief = 1.2
@@ -1436,10 +1445,24 @@ def cap_side_wrap_deg(name) -> float:
     return 2.0 * math.degrees(math.acos(a.axis_off / a.seat_r))
 
 
-def cap_side_tunnel_h(name) -> float:
-    """The tie's tunnel: what is left between the lid's face and the material under the pipe."""
+def cap_side_tunnel_roof(name) -> float:
+    """The tunnel's roof over the lid's outer face — one wall under the pipe, which is the whole
+    of the column the post has to hand the zip tie."""
     a = cap_side_anchors[name]
     return a.over_face - a.seat_r - cap_side_wall
+
+
+def cap_side_tunnel_h(name) -> float:
+    """The tunnel's own height, hung under that roof.
+
+    A post with the column to spend gives the window `cap_side_cav_h` of it and stands its own
+    stock under the rest, so what prints below the pipe is one block and not two blades. A post
+    whose pipe runs low keeps all the air it has, since a window capped there would trade the
+    channel for a floor thinner than `cap_side_cav_backing_min`."""
+    roof = cap_side_tunnel_roof(name)
+    if roof - cap_side_cav_h >= cap_side_cav_backing_min - 1e-9:
+        return cap_side_cav_h
+    return roof
 
 
 def cap_side_anchor_height(name) -> float:
@@ -1455,12 +1478,12 @@ def cap_side_anchor_holds(name) -> None:
     A run laid closer to the lid's face than the pipe, one wall and the zip tie together is a run
     with no tie path under it, and the post would stand on its own zip tie."""
     a = cap_side_anchors[name]
-    tunnel = cap_side_tunnel_h(name)
-    if tunnel < cap_side_tie_t - 1e-9:
+    roof = cap_side_tunnel_roof(name)
+    if roof < cap_side_tie_t - 1e-9:
         raise ValueError(
             f"cap_side_anchor_holds: {name} runs {a.over_face:.3f} mm over the lid's face; the "
             f"pipe takes {a.seat_r:.3f} of that and one wall {cap_side_wall:.3f} more, leaving "
-            f"{tunnel:.3f} mm of tunnel where the zip tie is {cap_side_tie_t:g} thick. What gives "
+            f"{roof:.3f} mm under it where the zip tie is {cap_side_tie_t:g} thick. What gives "
             f"way here is the run's own lane, not the lid: route it further off that face.")
     if a.axis_off >= a.seat_r - cap_side_tie_t:
         raise ValueError(
@@ -1479,13 +1502,29 @@ def cap_side_anchor_holds(name) -> None:
 def cap_side_anchor_tie_loop(name) -> float:
     """The shortest tie that closes round the tube and the post's own back together.
 
-    A tie turns INSIDE the tunnel, so what it reaches round is the tube with the post behind it:
-    the tunnel's floor, the post's two faces up to the axis plane, a tangent from each of those
-    top corners onto the pipe, and the arc between the two tangent points."""
+    A tie turns INSIDE the window, so what it reaches round is everything ABOVE the window: the
+    tube, and the block of post between the window's roof and the post's own crown. That crown
+    is one wall PROUD OF THE TUBE'S TOP, so the loop clears the post there and not the pipe, and
+    the figure is not the up-opening ribs' — theirs stops on the axis plane.
+      The hull is that block's rectangle with the pipe bulging out of one face: the window's own
+    floor, the crown, the back face between them, a tangent from each front corner onto the pipe,
+    and the arc the two tangent points leave. Read on the post's own faces, so the back channel's
+    relief is slack the tie does not have to reach round.
+      IT IS THE WINDOW'S HEIGHT THAT SETS IT, which is why the window is stated rather than left:
+    a window taken as the remainder under the pipe carries the loop up with the post."""
     a = cap_side_anchors[name]
     w = a.seat_r + cap_side_wall
-    return (2.0 * cap_side_depth + 2.0 * w + 2.0 * math.sqrt(w * w - a.seat_r * a.seat_r)
-            + a.seat_r * (math.pi - 2.0 * math.acos(a.seat_r / w)))
+    tun_h = cap_side_tunnel_h(name)
+    axis = tun_h + w                              # the pipe's axis over the window's floor
+    crown = tun_h + 2.0 * w                       # and the post's crown over that same floor
+    d_lo = math.hypot(a.axis_off, axis)           # the two front corners' reach to the axis
+    d_hi = math.hypot(a.axis_off, crown - axis)
+    sweep = (math.atan2(crown - axis, -a.axis_off)
+             - math.atan2(-axis, -a.axis_off)) % (2.0 * math.pi)
+    return (2.0 * cap_side_depth + crown
+            + math.sqrt(d_lo * d_lo - a.seat_r * a.seat_r)
+            + math.sqrt(d_hi * d_hi - a.seat_r * a.seat_r)
+            + a.seat_r * (sweep - math.acos(a.seat_r / d_lo) - math.acos(a.seat_r / d_hi)))
 
 
 def cap_conduit_pair_neck(a, b):
