@@ -24,6 +24,14 @@ Seconds somebody waits for a generator to finish. The fourth ledger beside [bom.
 
 Sixty-two generators cut solids, and two more draw what the rest of them made — the cards and their pictures, which is why those two head the table. The rows here are hand-kept, as bom.md's are. `_build_time.py --check` names a generator whose readings come in slower than every row on this page.
 
+## What rides the machine and what stands one
+
+The enclosure assembly's row is one Bazel action, and every artifact of the appliance comes out of it: the STEP, the `.step.mesh` the viewer reads instead of parsing it, the collet plate's cut file, eleven scene GLBs, the scorecard, the facts, and sixty `check_*` called inline. The 296-solid machine is stood once and all of them read that one.
+
+**Eleven GLBs come off it in 1.4 s.** That is what a scene costs where it rides the machine that made it. What it costs anywhere else is the row above, because an action of its own has to stand the appliance before it can pose a picture — and the same arithmetic prices every other reader here, a check included. What they read is the built machine; the machine is the expense. The box these are measured on has 8 GB, and `.bazelrc` records a full build already sitting in 3.4–4.2 GB of swap, so a second action standing the same 296 solids is a second OpenCASCADE process on it as well as a second derivation.
+
+The seconds inside one run are not a figure this file carries, because a single reading on a shared box is not one — five sessions build this tree at once, and the spread quoted above is what that does to a number.
+
 ## What a figure moves
 
 A generator's seconds are its own code plus everything it imports, so a change to the shared machinery moves every row at once. `_cadq_export`'s STEP canonicalization renumbers the styling records on every `.step` written — the chain a colour hangs on, which is the only part of a file OpenCASCADE seats differently between runs. On the enclosure assembly that is 2,408 records of 858,725, found by reading the file once.
