@@ -159,7 +159,7 @@ part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it 
 
 `BARB_STANDOFF` is the exposed tube between each pump barb and its anchor tee's branch collet,
 and it is [5.7](BARB_STANDOFF) mm — **the collet plate's berth**. Both pumps ride out of the box
-on their own pump cartridge and these four runs are what release. A waterjet 1/8" 304 flat stands on
+on their own pump cartridge and these four runs are what release. A laser-cut 1/8" 316 flat stands on
 edge in the gap with one large hole per tube — wide enough to pass the Ø6.35 tube, narrow enough
 to catch the collet nose. So
 pulling the pump cartridge draws the anchor tees forward against the steel and the tubes come out of
@@ -170,7 +170,7 @@ pump cartridge service and no hand goes behind the deck.
 beside this file — the flat
 [`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) stages with the
 printed pieces and feeds into `enclosure-front-top` through that piece's own Z− face, up the slot
-through the bay floor until its two shoulders land on that floor's top. The berth is steel and its two airs, so
+through the bay floor until its top edge comes up onto the cap's land above. The berth is steel and its two airs, so
 the whole deck rides on it one millimetre for one: z [88.38](DECK_Z2) carries it, and so does
 every millimetre of `SOURCE_TRAVEL` the source runs have left to step in.
 
