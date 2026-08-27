@@ -539,6 +539,26 @@
    "active": true
   },
   {
+   "id": "display-cover-reveal",
+   "label": "The display cover is a reveal in the facet, not a fluted face",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "under 10 mm on the run",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "ceiling-panel-reveal",
+   "label": "The ceiling panel's show face is the top, and its edge is a reveal",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "under 10 mm of standing edge",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "fuse-clamp-donor",
    "label": "The clamp closes on features the compressor actually has",
    "kind": "gate",
