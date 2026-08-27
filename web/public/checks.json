@@ -12,7 +12,7 @@
     },
     {
       "check": "hardware/scripts/check_finishes.py",
-      "note": "finishes: 48 materials, and every colour this tree draws has one",
+      "note": "finishes: 52 materials, and every colour this tree draws has one",
       "status": "ok"
     },
     {
@@ -47,7 +47,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1305 tracked, 263 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1307 tracked, 263 fetched solids, 53 tags",
       "status": "ok"
     },
     {
