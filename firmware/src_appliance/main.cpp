@@ -373,6 +373,27 @@ static void cmdWifi(const String &line) {
     }
 }
 
+// What J3 carries with nothing taking turns on it — the wire's ceiling, which
+// is not what the OTA pull measures. Blocks for the length of the run, so it
+// takes the same dark-machine guard the radio bench does.
+static void cmdBench(const String &line) {
+    String rest = line.substring(5);
+    rest.trim();
+    if (!rest.startsWith("j3")) { Serial.println("\nusage: bench j3 [<KB>]"); return; }
+    if (machineState() != ST_IDLE) {
+        Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+    rest = rest.substring(2);
+    rest.trim();
+    uint32_t kb = rest.length() ? (uint32_t)rest.toInt() : 512;
+    if (kb < 1 || kb > 8192) { Serial.println("\nusage: bench j3 [<KB>]"); return; }
+
+    Serial.printf("\nJ3:BENCH pushing %lu KB\n", (unsigned long)kb);
+    if (!faucetLinkBenchPush(kb * 1024UL))
+        Serial.println("J3 would not take it");
+}
+
 static void console(const String &line) {
     if (line == "help")        { help(); return; }
     if (line == "status")      { status(); return; }
@@ -388,6 +409,7 @@ static void console(const String &line) {
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
     if (line.startsWith("wifi"))   { cmdWifi(line); return; }
+    if (line.startsWith("bench"))  { cmdBench(line); return; }
     if (line == "versions")        { versionsConsole(); return; }
 
     if (line.startsWith("flavor")) {
