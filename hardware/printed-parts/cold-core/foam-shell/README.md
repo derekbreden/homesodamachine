@@ -744,6 +744,28 @@ com = s.Center()
 print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x, com.z, com.y))
 ```
 
+**THIS SIEVE IS BLIND TO THE SHOW SKIN, and deliberately so.** It reads the SOLID, and
+the flutes are in the mesh (§The show skin) — so the whole field could be lost, or cut
+at the wrong pitch, or ramped flat everywhere, and not one scalar above would move. The
+volume it reports is the un-grooved prism's.
+
+What holds the skin instead, and what to read when a refactor touches it:
+
+- `_show_skin.write_bed_file` takes its reading off the FILE it just wrote, merged by
+  position the way a slicer merges one, and raises on a non-manifold edge or a surface
+  that is not closed. A field that booleans badly fails the export rather than reaching
+  a bed.
+- `hardware/scripts/check_flutes.py` holds each payload against the print it was cut
+  from, point-to-surface. A payload that lost the flutes stands about a groove deep away
+  from the printed mesh, which is far outside the deflection budget it was accepted on.
+- The two bounds `flute-closes` and `flute-even` in `_cold_core_interface` say the count
+  still divides the perimeter near the coupon's pitch and still lands the spun cap's
+  grooves on the shell's.
+
+None of those is a scalar in a table, because the skin is not a scalar: it is a field
+over a surface, and what makes it right is that it closes, stands off the edges, and
+keeps a whole wall behind it.
+
 ## Reference
 
 - [`/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py`](/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py)
