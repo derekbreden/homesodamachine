@@ -39,6 +39,7 @@ drawn, with the surface it actually has.
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
 """
 
+import itertools
 import json
 import re
 import struct
@@ -240,6 +241,21 @@ def surfaces(directories=PIECES_DIRS):
 PLACEMENT_TOL = 0.5
 
 
+def glb_members(scene, fluted):
+    """Every geometry key in `scene`, grouped by the fluted piece it is a patch of.
+
+    TWO ORDINALS, TWO MEANINGS, and telling them apart is the whole of this. cadquery writes one
+    mesh per BREP face, so a piece arrives as `<index>`, `<index>_1`, `<index>_2` … — an ordinal
+    after an UNDERSCORE is one face of a single body and all of them are the same piece. An
+    ordinal after a SLASH is a body of its own (`fluted_key`), and those never join."""
+    out = {}
+    for k in scene.geometry:
+        key = fluted_key(re.sub(r"_\d+$", "", k), fluted)
+        if key:
+            out.setdefault(key, []).append(k)
+    return {k: sorted(v) for k, v in out.items()}
+
+
 def graft_glb(path, fluted):
     """Put the fluted surfaces into the scene mesh at `path`, in place. Returns how many landed.
 
@@ -258,16 +274,33 @@ def graft_glb(path, fluted):
     they stand. `PLACEMENT_TOL` is what says so rather than this comment: the body that lands
     has to occupy the box the bodies it replaced occupied."""
     scene = trimesh.load(str(path))
+    grouped = glb_members(scene, fluted)
     landed = 0
     for name, surface in fluted.items():
-        members = [k for k in scene.geometry if k == name or k.startswith(name + "_")]
+        members = grouped.get(name)
         if not members:
             continue
+        # THE SCENE KEEPS ITS OWN NAME FOR THE BODY. A piece is `enclosure-front-top` in the
+        # machine's own frame and `cold-core/foam-shell` under the subassembly that places it;
+        # which surface it gets is this file's question, what it is called is the scene's.
+        body = re.sub(r"_\d+$", "", members[0])
         node = scene.graph.geometry_nodes[members[0]][0]
         transform = scene.graph.get(frame_to=node)[0]
         material = getattr(scene.geometry[members[0]].visual, "material", None)
         low = np.min([scene.geometry[k].bounds[0] for k in members], axis=0)
         high = np.max([scene.geometry[k].bounds[1] for k in members], axis=0)
+        # THE SAME CARRY THE PAYLOAD SIDE MAKES, and it has to be taken while the bodies it is
+        # measured against are still here. A piece cut in its own frame — the cold core's three —
+        # stands a subassembly's placement away from the patches it replaces, and the scene is
+        # where that has to be put right, because a `.glb` has no STEP behind it to fall back to
+        # (`placement_onto`).
+        own = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
+        if max(float(np.abs(own.min(0) - low).max()),
+               float(np.abs(own.max(0) - high).max())) > PLACEMENT_TOL:
+            placement = placement_onto(
+                trimesh.util.concatenate([scene.geometry[k] for k in members]), surface)
+            if placement is not None:
+                surface = carried(surface, placement)
         for k in members:
             scene.delete_geometry(k)
         pos = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
@@ -283,7 +316,7 @@ def graft_glb(path, fluted):
                 f"{Path(path).name}: {name}'s surface stands {drift:.3f} mm from the "
                 f"{len(members)} bodies it replaces, past {PLACEMENT_TOL} mm — a piece drawn "
                 f"somewhere its own solid is not.")
-        scene.add_geometry(mesh, node_name=name, geom_name=name, transform=transform)
+        scene.add_geometry(mesh, node_name=body, geom_name=body, transform=transform)
         landed += 1
     if landed:
         scene.export(str(path))
@@ -367,6 +400,124 @@ def piece_names(directories=PIECES_DIRS):
     return out
 
 
+def fluted_key(name, fluted):
+    """Which fluted surface `name` names, or None — the one place a body's name is matched.
+
+    A SOLID INDEX IS A PATH AND A PIECE'S OWN NAME IS THE END OF IT. The box places its six in
+    the machine's own frame and under their own names (`enclosure-front-top`); the machine
+    places the cold core's three under the core's (`cold-core/foam-shell`), because the core is
+    a subassembly that carries a name. They are the same pieces either way, so both spellings
+    have to reach the same surface — and matching the whole string only ever found the first.
+
+    A TRAILING ORDINAL IS NOT A NAME AND STOPS THE MATCH DEAD. `cold-core/evap-coil/2` is the
+    second solid OF one body, and a fluted surface is the whole of a piece; landing a whole
+    piece on one of its solids would be a worse answer than landing nothing. So only a name
+    that ends ON the piece matches."""
+    name = name.replace("_", "-")
+    if name in fluted:
+        return name
+    owner, _sep, own = name.rpartition("/")
+    return own if owner and own in fluted else None
+
+
+def _axis_rotations():
+    """The 24 rotations that carry the axes onto the axes — every signed permutation of them
+    whose determinant is +1.
+
+    THAT IS THE WHOLE SET A PLACEMENT IN THIS TREE EVER USES. A subassembly is stood on the
+    machine's floor at a quarter turn (`enclosure_assembly.build_foam`) and a scene poses a
+    piece to look at the face it wants, which can turn it over. Both land on an axis; neither
+    lands between two. A determinant of −1 is a mirror and no placement is one, so those are
+    left out rather than tried and rejected — a mirrored piece that fitted would be a piece
+    drawn inside out."""
+    out = []
+    for perm in itertools.permutations(range(3)):
+        for signs in itertools.product((1.0, -1.0), repeat=3):
+            m = np.zeros((3, 3))
+            for row, col in enumerate(perm):
+                m[row, col] = signs[row]
+            if round(float(np.linalg.det(m))) == 1:
+                out.append(m)
+    return out
+
+
+_AXIS_ROTATIONS = _axis_rotations()
+
+
+def placement_onto(entry, surface, tol=PLACEMENT_TOL):
+    """The rigid transform carrying `surface` onto the body `entry` holds — `(R, t)` — or None.
+
+    A SUBASSEMBLY'S PLACEMENT IS A QUARTER TURN AND A SHIFT. The box's six pieces are cut in the
+    machine's own frame and need none; the cold core's three are cut in the core's, and the
+    machine stands that frame yawed and lifted (`enclosure_assembly.build_foam`), so their
+    surfaces have to be carried before they can stand in for a body.
+
+    THE TURN IS RECOVERED, NOT PLUMBED, because the payload already holds both ends of it: the
+    body as the machine places it, and the piece as it was cut. Boxes say which axes swapped, and
+    that is as far as boxes go — a part symmetric about its own mid-planes has the same box under
+    several turns. WHAT SEPARATES THEM IS THE PIECE ITSELF: the shell's ports are on one face and
+    its cavity is not centred, so only one turn lays its surface ON the body. That is measured,
+    point to surface, on the same reading `deviation` takes.
+
+    A piece that matches none of them is not this body, and gets nothing rather than a guess."""
+    body = entry if isinstance(entry, trimesh.Trimesh) else trimesh.Trimesh(
+        np.asarray(entry["pos"], dtype=np.float64).reshape(-1, 3),
+        np.asarray(entry["idx"], dtype=np.int64).reshape(-1, 3), process=False)
+    a = np.asarray(body.vertices, dtype=np.float64)
+    b = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
+    rng = np.random.default_rng(0)
+    probe = b[rng.choice(len(b), min(1500, len(b)), replace=False)]
+    best = None
+    for R in _AXIS_ROTATIONS:
+        turned = b @ R.T
+        # The shift is what puts the two boxes on each other; if it cannot, this turn is wrong
+        # before any surface is measured.
+        t = ((a.min(0) + a.max(0)) - (turned.min(0) + turned.max(0))) / 2.0
+        if np.abs((turned.min(0) + t) - a.min(0)).max() > tol:
+            continue
+        # A HIGH PERCENTILE AND NOT THE MAX. The body being matched against is whatever
+        # tessellation that payload holds — a scene cuts its own, coarser than the piece's — so a
+        # handful of probe points land in a gap between its triangles and read far from a surface
+        # they are actually on. The max is that straggler; the 99th is the fit. It still
+        # separates the answer from every other turn by tens of millimetres.
+        dev = float(np.percentile(
+            trimesh.proximity.closest_point(body, probe @ R.T + t)[1], 99))
+        if best is None or dev < best[0]:
+            best = (dev, R, t)
+    if best is None:
+        return None
+    # A GROOVE IS THE ONLY THING THAT MAY STAND OFF THE SMOOTH BODY, so the reading a correct
+    # turn gives is a flute deep and no more. A wrong turn on this footprint is tens of mm out.
+    dev, R, t = best
+    return (R, t) if dev <= _FLUTE_STANDOFF else None
+
+
+#: How far the fluted surface may stand from the smooth body it replaces and still BE it: the
+#: groove's own depth with room for the tessellation either side. The box's flutes and the core's
+#: are cut to the same 1.2 mm (`cadlib/reeding.py`, `_cold_core_interface.flute_depth`).
+_FLUTE_STANDOFF = 2.0
+
+
+def carried(surface, placement):
+    """`surface` with its positions and normals carried by `placement` — a new dict, since the
+    same cut surface stands in several payloads at several placements."""
+    R, t = placement
+    pos = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3) @ R.T + t
+    nrm = np.asarray(surface["nrm"], dtype=np.float64).reshape(-1, 3) @ R.T
+    return {**surface, "pos": pos.ravel().tolist(), "nrm": nrm.ravel().tolist()}
+
+
+def _placement_drift(entry, surface):
+    """How far a fluted surface stands from the body it would replace, in mm.
+
+    Bounding box to bounding box, which is the same reading `graft_glb` takes: the two are the
+    same solid to within a groove's depth, so a box that has moved is a placement and not a
+    shape."""
+    a = np.asarray(entry["pos"], dtype=np.float64).reshape(-1, 3)
+    b = np.asarray(surface["pos"], dtype=np.float64).reshape(-1, 3)
+    return float(max(np.abs(a.min(0) - b.min(0)).max(), np.abs(a.max(0) - b.max(0)).max()))
+
+
 def graft(path: Path, fluted: dict):
     """Put the fluted surfaces into the payload at `path`, in place. Returns how many landed.
 
@@ -394,13 +545,30 @@ def graft(path: Path, fluted: dict):
     held = read_payload(path)
     if held is None:
         return 0
+    skipped = []
     landed = 0
     for entry in held:
-        surface = fluted.get(entry["name"].replace("_", "-"))
+        surface = fluted.get(fluted_key(entry["name"], fluted) or "")
         if surface is None:
             continue
+        # AND IT HAS TO LAND WHERE THE BODY IT REPLACES STANDS. `graft_glb` has always asked
+        # this and this side never did, because every piece it had was authored in the frame it
+        # is placed in — the box's six are cut in the machine's own coordinates. A piece that is
+        # NOT, like the cold core's three, arrives in its own frame and drops in a subassembly's
+        # placement away from itself: still a correct surface, drawn somewhere its solid is not.
+        # Silence is the wrong answer to that, so it is measured here on the same figure.
+        drift = _placement_drift(entry, surface)
+        if drift > PLACEMENT_TOL:
+            placement = placement_onto(entry, surface)
+            if placement is None:
+                skipped.append((entry["name"], drift))
+                continue
+            surface = carried(surface, placement)
         entry.update({k: surface[k] for k in ("pos", "nrm", "idx", "fac")})
         landed += 1
+    for name, drift in skipped:
+        print(f"   {Path(path).name}: {name} keeps its own surface — the fluted one stands "
+              f"{drift:.1f} mm off the body it would replace, past {PLACEMENT_TOL} mm")
     if not landed:
         return 0
     # BYTES THAT DID NOT MOVE DO NOT MOVE THE FILE. A payload rewritten identically takes a new
