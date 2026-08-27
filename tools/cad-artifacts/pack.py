@@ -843,18 +843,24 @@ def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = Fals
     return 1 if failed else 0
 
 
-def make_room(root: Path, need: int) -> None:
-    """Free enough of the release for a cut of `need` assets before any of it is uploaded.
+def make_room(root: Path, need: int) -> bool:
+    """Free enough of the release for a cut of `need` assets, and say whether anything left it.
 
     CALLED BEFORE THE UPLOAD AND NOT AFTER THE FAILURE, because the failure is silent. `gh`
     reports a refused upload the same way it reports a network flake, and the only reader of
     that is `upload_objects`, which turns off `objects` and carries on.
+
+    THE ANSWER MATTERS TO THE CALLER because a reading of the release taken before this one is
+    stale after it: a sweep takes assets an older lock's window held, and a caller still
+    holding the earlier `objects_on_release` would skip sending an object the release no longer
+    has — and then claim `objects` over a set it is short of.
     """
     state = room(root)
     if state["free"] >= need:
-        return
+        return False
     print(f"  release holds {state['held']} of {RELEASE_ASSET_CAP} and this cut wants {need}")
     retire(root)
+    return True
 
 
 def objects_on_release(root: Path) -> set:
@@ -1103,9 +1109,7 @@ def main(argv) -> int:
             # this tree holds those bytes, so what the release is missing goes up without
             # cutting anything and without the lock naming a different asset.
             known = objects_on_release(_ROOT)
-            short = [r for r in rels if now[r] not in known]
-            if short:
-                make_room(_ROOT, len(short))
+            if make_room(_ROOT, sum(1 for r in rels if now[r] not in known)):
                 known = objects_on_release(_ROOT)
             whole = upload_objects(_ROOT, rels, now, known)
             objects_was = release.get("objects")
@@ -1176,7 +1180,12 @@ def main(argv) -> int:
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
         # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
-        make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known))
+        # AND ASKED AGAIN AFTERWARDS, because retiring is what winning the room means. A member
+        # this lock does not name can stand on the release under an older lock's window and go
+        # in the same sweep — `known` was read before that and would have this run skip an
+        # object it no longer holds, leaving `objects` claiming a set the release is short of.
+        if make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known)):
+            known = objects_on_release(_ROOT)
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
         complete = upload_objects(_ROOT, rels, now, known)
 
