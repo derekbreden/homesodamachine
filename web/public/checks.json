@@ -37,7 +37,7 @@
     },
     {
       "check": "hardware/scripts/check_show_faces.py",
-      "note": "show faces: 9/9 bounds hold over 4 module(s)",
+      "note": "show faces: 10/10 bounds hold over 4 module(s)",
       "status": "ok"
     },
     {
