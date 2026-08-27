@@ -53,18 +53,21 @@ is drawn on — the container under the faucet is the only one the procedure ask
 
 ## How the plate lets go
 
-The collet plate is a waterjet 1/8" 304 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
+The collet plate is a laser-cut 1/8" 316 flat ([`/hardware/manifold-layout/`](/hardware/manifold-layout/README.md)
 `collet-plate.dxf`), [195.8](PLATE_SPAN) mm wall to wall and [3.175](PLATE_T) mm thick, standing
 on edge in a slot that passes clean through the bay floor and opens on front-top's own Z− face.
-The slot locates it fore and aft over the floor's whole section and narrows at that mouth to
-the foot's own width, so the two shoulders the foot leaves come up onto the floor's top and
-that is what carries the plate; the printed wall behind it takes the push across its whole face.
+The slot holds nothing back: it locates the steel fore and aft over the floor's whole section
+and is the same width the whole way, because the plate is a plain rectangle. What stops it is
+its own top edge on the cap's land a storey above; what carries it is the pair of shelves
+front-bottom runs at the seam, under the plate's own ends. The printed wall behind it takes
+the push across its whole face.
 The floor is not asked to keep the top from pitching: at the plate's
 two outer tails, stationary L-section cheeks stand just fore of the steel and return round
 its ends into front-top's fixed aft side-wall stock. Each cheek is a wedge in plan, deepest
 where it is rooted in that side wall, so the section taking the moment stands where the
 cheek is carried and not where it is free. Each cheek's crown reaches aft to the tee wall over
-the tail, one running clearance over the steel's top, and holds it down. They remain with the
+the tail and carries the cap's land out to the side wall, so the seat the top edge comes onto
+runs unbroken from wall to wall. They remain with the
 enclosure while the cartridge moves and the four collet noses load the plate. **A pump swap
 never touches the steel** — it is inside the closed front column, and nothing in this
 procedure opens that.
