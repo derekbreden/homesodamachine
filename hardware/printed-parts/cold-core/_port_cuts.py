@@ -220,7 +220,7 @@ def cut_line_corridors(foam_shell, gives_way):
     """Every internal line's opening through the shell, cut as that line's own CORRIDOR
     (`_internal_routes.route_corridor`) and not as a straight bore.
 
-    A wall here is two millimetres of PETG. A circular bore in one makes the line hold a
+    A wall here is two millimetres of PET-GF. A circular bore in one makes the line hold a
     straight a bore's length past it before it may begin to turn, and every one of these
     lines turns the moment it is through: both reservoir draws come out of a pocket and
     come about onto a lane, and the CO2 arrives down the port lane and turns in under the

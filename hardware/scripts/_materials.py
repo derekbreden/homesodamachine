@@ -42,15 +42,17 @@ M_JG_WHITE_PP = cq.Color(0.90, 0.90, 0.87)
 # the PI4512F6S flare swivel inside `reference/flare38-14ptc`.
 M_JG_GREY_ACETAL = cq.Color(0.55, 0.56, 0.57)
 M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
-# The one filament every black print on this machine comes off — the box, the pan, the clamp,
-# the cold core's five foam bodies and the plugs and shroud among them — MEASURED rather than
-# named: `_y_wall_dimensions.chip_filaments` holds the swatch the flavour chips are cut to.
+# The black PETG spool, and what still comes off it: the drip pan, the fuse clamp, the two
+# copper-line plugs, the PRV shroud, the reed bridge, and the black rings, collars and
+# nameplate stock. MEASURED rather than named — `_y_wall_dimensions.chip_filaments` holds the
+# swatch the flavour chips are cut to.
 M_PETG_BLACK = cq.Color(*(c / 255.0 for c in _rear.chip_color("flavor")))
 # Polymaker Fiberon PET-GF15 black, the stock every surface a customer sees prints in
 # (`ledger/bom.md` §7): the four quadrants, the pump cartridge and the cap under it, the ceiling
 # panel, the display cover plate, the faucet shell's two pieces and the above-counter plate.
-# Glass fill stands it a shade above the PETG black it closes on, and matte beside the donor's
-# matte-black metal.
+# The cold core's five foam bodies come off the same stock — the shell and its four caps and
+# lids — so the two biggest plates in the build run one spool. Glass fill stands it a shade
+# above the PETG black it closes on, and matte beside the donor's matte-black metal.
 M_PETGF_BLACK = cq.Color(0.20, 0.20, 0.21)
 # Bambu PETG Translucent Clear, the stock the four syrup-wetted reservoir parts print in
 # (`ledger/bom.md` §7) — SO THE CUSTOMER READS FILL STATE THROUGH THE WALL, which is the whole
@@ -108,15 +110,20 @@ M_COPPER = cq.Color(184 / 255.0, 115 / 255.0, 51 / 255.0)
 #
 # THE STACK IS OPAQUE BECAUSE THE STACK IS OPAQUE. Nine printed bodies close this box — the
 # shell, the four foam caps and lids, the two copper-line plugs, the PRV shroud and the reed
-# bridge — and every one of them comes off the black spool `ledger/bom.md` §7 bills. What is
-# potted inside them is read through x-ray, which is the viewer's default and ghosts the whole
-# model at once; a cap drawn see-through is a cap nobody prints.
+# bridge — and every one of them is black, off one of the two spools `ledger/bom.md` §7 bills.
+# What is potted inside them is read through x-ray, which is the viewer's default and ghosts
+# the whole model at once; a cap drawn see-through is a cap nobody prints.
+#
+# THE FIVE FOAM BODIES ARE PET-GF AND THE FOUR SMALL ONES ARE PETG, which is a real difference
+# in the hand and a hairline one in the eye: glass fill stands PET-GF a shade above the PETG it
+# stacks against. §7 is where a body's stock is stated; these two constants are what that stock
+# looks like.
 C_PLUG = M_PETG_BLACK
-C_FOAM_SHELL = M_PETG_BLACK
-C_CAP_TOP = M_PETG_BLACK
-C_CAP_LID_TOP = M_PETG_BLACK
-C_CAP_BOTTOM = M_PETG_BLACK
-C_CAP_LID_BOTTOM = M_PETG_BLACK
+C_FOAM_SHELL = M_PETGF_BLACK
+C_CAP_TOP = M_PETGF_BLACK
+C_CAP_LID_TOP = M_PETGF_BLACK
+C_CAP_BOTTOM = M_PETGF_BLACK
+C_CAP_LID_BOTTOM = M_PETGF_BLACK
 C_SHROUD = M_PETG_BLACK
 # The two syrup vessels and their caps, in the ONE stock on this machine that is bought clear —
 # `ledger/bom.md` §7, "so the customer reads fill state through the wall".

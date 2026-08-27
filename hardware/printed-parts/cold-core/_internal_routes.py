@@ -505,7 +505,7 @@ def route_corridor(name, radius=port_hole_radius):
     leave for it. Given a bigger `radius` it is the opening grown, which is how the land
     between this opening and its neighbour in the same wall gets priced.
 
-    A wall here is two millimetres of PETG, and a hole in a sheet that thin is whatever
+    A wall here is two millimetres of PET-GF, and a hole in a sheet that thin is whatever
     shape goes through it. Cut as the corridor rather than as a circle, a line may turn AT
     the wall instead of a bore's length beyond it, and the tube still crosses on the same
     ⌀6.5-around-⌀6.35 tight fit that keeps the body pour out of a pocket — the clearance is

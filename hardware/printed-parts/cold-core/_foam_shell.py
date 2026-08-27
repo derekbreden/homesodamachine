@@ -19,7 +19,7 @@ from _reed_channels import (
 
 def build_full_shell():
     # WHAT GIVES WAY TO A LINE, named here because this is where the bodies are. A bag
-    # pocket's ±Y wall is two millimetres of PETG a draw crosses on its way out and the CO2
+    # pocket's ±Y wall is two millimetres of PET-GF a draw crosses on its way out and the CO2
     # crosses on its way in; the pocket corner posts stand under the reservoirs in the space
     # the CO2's reach to the carbonator runs through. Each is opened along the line's own
     # corridor where it meets one (`_port_cuts.cut_line_corridors`). Nothing else in the

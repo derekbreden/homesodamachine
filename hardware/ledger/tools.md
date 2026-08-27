@@ -96,7 +96,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 |---|---|---|---:|
 | **Bambu Lab H2C (×2)** | Bambu Lab direct orders us712460111015776257 + us728027710789775361, [purchases.md §15](/hardware/ledger/purchases.md) | Production printers, AMS Combo bundles. Founding unit (Mar 22 2026) + second unit (May 4 2026 — ordered after the original's right-side Induction Heating Assembly was damaged during PET-CF clog troubleshooting). **The two hotends are different types and are not interchangeable** — see the hotend-compatibility rule below. Build envelope on the left nozzle is **325 × 320 × 320 mm** (`H2C_X/Y/Z` in [`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)); the enclosure's four-piece split is sized to it. | [$4,971.93](T_H2C) |
 | **Bambu Lab AMS HT (×2)** | Bambu order us717877837343809537, [purchases.md §15](/hardware/ledger/purchases.md) | High-temperature AMS expansion units, **85 °C ceiling**, separately powered. Dries TPU 90A, **75 °C × 18 h**. No center axle, its TPU port included — a spool does not turn freely enough there to feed TPU. | [$278.00](T_AMS_HT) |
-| **Bambu Lab AMS 2 Pro (×3)** | Bambu order us718417332286169089 + one inside each H2C AMS Combo, [purchases.md §15](/hardware/ledger/purchases.md) | Where PETG lives. **65 °C ceiling**; PETG's cycle is **65 °C × 12 h**. Fresh spools go straight in, the unit dries them in place, and the same unit feeds the print the moment the cycle ends — no transfer between drying and printing. $ is the standalone unit; the other two came inside the printer bundles. | [$331.99](T_AMS2PRO) |
+| **Bambu Lab AMS 2 Pro (×3)** | Bambu order us718417332286169089 + one inside each H2C AMS Combo, [purchases.md §15](/hardware/ledger/purchases.md) | Where PETG lives — the reservoirs' translucent stock and the small black parts, which is what is left of PETG on this machine ([bom.md §7](/hardware/ledger/bom.md)). **65 °C ceiling**; PETG's cycle is **65 °C × 12 h**. Fresh spools go straight in, the unit dries them in place, and the same unit feeds the print the moment the cycle ends — no transfer between drying and printing. $ is the standalone unit; the other two came inside the printer bundles. | [$331.99](T_AMS2PRO) |
 | **Bambu Vision Encoder / H2 Series** | Founding bundle, [purchases.md §15](/hardware/ledger/purchases.md) | Print monitoring camera. | [$78.75](T_VISION) |
 | **Bambu Engineering Plate / H2C** | Founding bundle, [purchases.md §15](/hardware/ledger/purchases.md) | Build plate for engineering filaments. | [$49.49](T_ENG_PLATE) |
 | **SUNLU E2 filament dryer** | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD), [purchases.md §13](/hardware/ledger/purchases.md) | Dual-chamber, **110 °C ceiling**, 500 W PTC. Dries both Fiberon grades — PET-CF17 and PET-GF15, each **100 °C × 10 h** — at either spool size. A **1 kg** spool also feeds the printer from the chamber at a 60 °C hold, so that stock prints without leaving the dryer; a **3 kg** spool turns too stiffly in the chamber to feed a print, and feeds from a PolyDryer Box XL instead. | [$321.74](T_DRYER_E2) |
@@ -156,6 +156,16 @@ plate, the faucet shell and the above-counter plate ([bom.md
 §7](/hardware/ledger/bom.md)). Polymaker's own `Fiberon PET-GF15 @BBL H2C`
 preset carries `required_nozzle_HRC` 40 and names one compatible printer:
 `Bambu Lab H2C 0.4 nozzle`.
+
+**The cold core's nozzle is the 0.8 mm tungsten carbide, on the same hotend.**
+The foam shell and its four caps and lids are the same PET-GF15 at a tenth the
+detail and ten times the bulk, so they take the big nozzle instead — 0.4 layer,
+0.82 line width ([foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)).
+HRC 40 is a floor and both the 0.8 TC HF and the two 0.8 Diamond PCD clear it;
+the preset's single named printer is a compatibility declaration on Polymaker's
+own slot, not a limit of the stock. This is the biggest plate in the build and
+it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
+— the cold core and the exterior queue for the same one.
 
 ## Casting / molding
 
