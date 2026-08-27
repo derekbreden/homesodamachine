@@ -317,9 +317,10 @@ def _head(root: Path) -> str:
 def _dirty_artifact_reach(root: Path) -> tuple:
     """`(artifact rules the tree's edits reach, edits nothing bounds, every edit either way)`.
 
-    Ignored generated solids are intentionally absent from git status; they are the bytes being
-    packed. What is left is the working tree standing outside HEAD, and the rules on the left
-    are the ones a member has to be under for HEAD not to describe it.
+    Ignored generated solids are intentionally absent from what `affected.changed` reports; they
+    are the bytes being packed. What is left is the working tree standing outside HEAD — asked
+    of HEAD by content, so a stale stat cache cannot spend an unlabelled path here — and the
+    rules on the left are the ones a member has to be under for HEAD not to describe it.
 
     TWO KINDS OF EDIT HAVE NO RULES TO NAME, and they go in the middle. An unlabelled path is
     one bazel names as a source of no rule, so nothing says which outputs it reaches. An
@@ -328,14 +329,10 @@ def _dirty_artifact_reach(root: Path) -> tuple:
     reach an rdeps walk over source labels does not show. Either one puts every member in the
     record rather than a nameable few.
     """
-    status = subprocess.run(
-        ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=all"],
-        capture_output=True, text=True, check=True)
     sys.path.insert(0, str(root / "tools" / "bazel"))
     import affected
 
-    moved = {path for line in status.stdout.splitlines()
-             for path in affected.paths_in(line)}
+    moved = set(affected.changed(root))
     moved.discard("hardware/cad-artifacts.lock.json")
     # These are generated outputs this very publication carries.
     moved -= set(sidecars(root)) | set(read_lock(root).get("sidecars", {}))
