@@ -357,6 +357,14 @@
     "hardware/scripts/_run_lock.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/reference/riteav-keystone/riteav_keystone.py": [
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "hardware/reference/riteav-keystone/riteav_keystone.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/reference/tee-connector/tee_connector.py": [
     "hardware/reference/tee-connector/tee-connector.step",
     "hardware/reference/tee-connector/tee_connector.py",
