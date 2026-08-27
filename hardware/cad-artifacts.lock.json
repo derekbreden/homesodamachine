@@ -3,16 +3,20 @@
   "release": {
     "tag": "cad-artifacts",
     "asset": "cad-1563b511bed72cca.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-1563b511bed72cca.tar.gz"
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-1563b511bed72cca.tar.gz",
+    "objects": "s-"
   },
   "source": {
-    "commit": "650caaf937c1e0602ec3f7cc902ac7ff516748d7"
+    "commit": "2a657e91d7837d473b1092013827a0f10992605c"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "web/public/js/viewer/scene.js",
-      "web/public/js/viewer/step.js"
+      "hardware/assembly/_internal_plumbing_sync.py",
+      "hardware/manifold-layout/enclosure_assembly.py",
+      "hardware/printed-parts/enclosure/enclosure/README.md",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "web/public/js/viewer/scene.js"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -48,7 +52,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh"
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
+      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step"
     ]
   },
   "bundle": {
