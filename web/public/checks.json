@@ -42,18 +42,18 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1297 tracked, 254 fetched solids, 53 tags",
-      "status": "ok"
+      "note": "1 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -62,10 +62,54 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 170 source(s) the graph names",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  21 declared read(s) across 21 generator(s) name a file",
+      "    the tree does not hold and no rule writes — hardware/printed-parts/enclosure/enclosure/flute_skin.py, read by _enclosure_mechanical_sync.py,",
+      "    among them. Drop the read if what wrote it is gone, or declare the writer.",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/bazel/check_declared_imports.py": [
+      "    hardware/printed-parts/enclosure/_enclosure_dimensions.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/scripts/_bom_sync.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/service/_pump_replacement_sync.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "    hardware/topology/_fluid_topology_sync.py",
+      "      reads hardware/printed-parts/enclosure/enclosure/enclosure.py, which imports hardware/printed-parts/cadlib/flute_skin.py",
+      "  the import edges are read off the source and written in seconds:",
+      "    tools/cad-venv/bin/python tools/bazel/check_declared_imports.py --fix",
+      "  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.",
+      "  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a",
+      "  step that cannot import yet is a step whose file loads were never reached.",
+      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/assembly/_enclosure_mechanical_sync.py hardware/assembly/_internal_plumbing_sync.py hardware/assembly/_power_column_sync.py hardware/manifold-layout/enclosure_assembly.py hardware/manifold-layout/enclosure_box.py hardware/printed-parts/enclosure/_enclosure_dimensions.py hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py hardware/printed-parts/enclosure/enclosure/enclosure.py hardware/scripts/_bom_sync.py hardware/service/_pump_replacement_sync.py hardware/topology/_fluid_topology_sync.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_paths.py": [
+      "hardware/printed-parts/enclosure/enclosure/README.md:333 — hardware/printed-parts/enclosure/enclosure/flute_skin.py is held nowhere, and no tag is named for it",
+      "1 reference(s) name a path nothing holds."
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
+    ]
+  },
+  "green": false
 }
