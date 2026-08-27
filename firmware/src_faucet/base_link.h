@@ -70,4 +70,8 @@ bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len);
 // has once it is in a machine.
 void baseLinkSay(const char *text);
 
+// The same, held and repeated on every J3 connection. What a board with no
+// console wants said at boot is exactly what the link is too young to carry.
+void baseLinkSayOnConnect(const char *text);
+
 void baseLinkReadStatus(BaseLinkStatus &status);

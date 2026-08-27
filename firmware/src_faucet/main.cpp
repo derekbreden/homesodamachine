@@ -1079,7 +1079,7 @@ void setup() {
     } else {
       snprintf(line, sizeof(line), "images: no store");
     }
-    baseLinkSay(line);
+    baseLinkSayOnConnect(line);
   }
   bleLinkBegin();
 
