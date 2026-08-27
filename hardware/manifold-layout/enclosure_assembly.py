@@ -1242,7 +1242,7 @@ def pump_tray_stations(placed: dict) -> tuple:
     """Every pump as `enclosure.Pack.pump_trays` — one world `centre` each.
 
     This is the whole of what the wall is handed: how far a plate runs to the wall is the box's
-    own figure, and its depth, its margin and its zip tie band are `pump_tray`'s."""
+    own figure, and its depth, its margin and the two storeys it wraps are `pump_tray`'s."""
     out = []
     for head, (axis, sign, centre) in sorted(pump_tray_seats(placed).items()):
         if (axis, sign) != (2, 1.0):
