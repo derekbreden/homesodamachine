@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-d67af81dbca6a0fc.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-d67af81dbca6a0fc.tar.gz",
+    "asset": "cad-c2d9054570de1dca.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-c2d9054570de1dca.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "cc0b2368d58acad01147dfa5d92125ba65b20b9c"
+    "commit": "ab40700c2f2ce24f9fbb45cca6115ffa4a4d64f6"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -31,20 +31,6 @@
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
       "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
       "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
-      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
-      "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
-      "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
-      "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
@@ -74,8 +60,8 @@
     ]
   },
   "bundle": {
-    "sha256": "d67af81dbca6a0fcec58b7b1d84c25250f48942eb3a5aaac0aed88b78d5366ea",
-    "bytes": 143503789,
+    "sha256": "c2d9054570de1dca37e090fa2bf1eebbd57a25a118c3829559c6cde3bc767fec",
+    "bytes": 143650012,
     "solids": 268
   },
   "solids": {
@@ -247,9 +233,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "5a9d95521f01e0f3b3306f018753d9c92872965a76bbf2475e9df853a2bab55b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "8c92563d1d42d8f16256748a89d68a485f4220c1aadd1e219ba8df7234310ade",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "5489454cccc07eaf049efe9e77948be8598cc8a02b90b1df4ee535f75d6fd6c7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "fa9f99e225766a7b2693250deaf96c5fa064e49d1cddc06e870b2255f84d373a",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "a8fdbc13d03e006af1b79f171b56e4627b754f60e0956fcf6ad2e3cefb6f486e",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "c1feccc7649e66afe5cfc17a247f1fd99ae0a87552ee98a81c779c1c675b67ca",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "a592907a06e3e705553960d47936c41a3807364115a6093901e5cd6483b0458d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "5cd42db46910c2f9074f05132e4d1d5daa8ddc3af4ec61d1b5a9faf493073103",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "a1d5802972a874d2ac79126192d78cb49dda44b35e1e993a61039fb08012f51b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "76bf74b7cb2a271085e6a4887afb3e24a2e194de5d32f2478ca761889b4a4c77",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "7ed997ebcd89158339615066440fd2d1776d9055f4763bc8488c4b692c6fe02c",
@@ -262,8 +248,8 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "c3c7a4a595019a90853bd281ef370992acbd64791a84db8ef161e8762697c14f",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh": "88b08156985f62af68f75d1f7615af9313b4ed17c267112ac13a544a030acb85",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl": "e877f4ab611ecdaf652c434d572ead99984455fa4ed2f55bb4831ea64774cad6",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "c9a3b04275dea0b07b866c1662ff9c4696d4df3cddc6ad16302d39c3aba3bae1",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "b130549690acfc609c30f1f22dd6105c9b4ad852152fa9f15a766507f83f20ee",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": "176801e20d58823f66ec984f07e8b88b10ef10c19c24c816b9b3a2764e07c499",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh": "d2fc1e35fce482e2616c4a4b93d7c2e22d533582227a6656dce8b7172d5d94d7",
     "hardware/printed-parts/enclosure/nameplate/nameplate-001.step": "f46edcde0141362f05a9179c51bb5b79e6540dea263308425698bac8509850d8",
     "hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step": "3e9f081c0c468cd3ddfe3186df20f947cd4d052ae4c0dcfd075f334a89853f8c",
     "hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step": "87fd848ad51a18bd85248a779d44eebda7c83710e6850e02204b30f01cdee413",
