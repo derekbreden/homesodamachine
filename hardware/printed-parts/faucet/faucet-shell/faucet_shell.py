@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+import trimesh
 
 _here = Path(__file__).resolve()
 sys.path.insert(
@@ -26,10 +27,16 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent.parent))  # for _faucet_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 import fits
+import reeding
+# The field the show face is cut with, and the ledger the figures below state their bounds into.
+import flute_skin as _flute_skin
+import _stated_bounds as _bounds
 from _cadq_export import export_assembly
 from _materials import C_FAUCET_BLACK, one_body
 import _faucet_interface
 from _faucet_interface import (
+    above_counter_gasket_thickness,
+    above_counter_plate_thickness,
     flavor_tube_od,
     flavor_tube_x_offset,
     flavor_tube_hole_dia,
@@ -107,16 +114,40 @@ flavor_pill_y_minus_edge = min(
 
 # SHELL OUTER
 wall_thickness_min = 3.0
+
+# THE COLUMN IS FLUTED, on the box's own field and the box's own figures
+# (`cadlib/flute_skin.py`, `cadlib/reeding.py`). This is the one printed piece that stands in
+# the open on a kitchen counter, and it prints in Polymaker Fiberon PET-GF15 on a 0.4 mm
+# nozzle at a [0.24 mm](PRINT_LAYER) layer and a [0.42 mm](PRINT_BEAD) bead
+# (`print-log.md` "Material and nozzle of record"). What the field buys is not ornament: a
+# fluted wall reads the same whether or not the stock laid every bead, and a flat one does
+# not — the two full-size assemblies in `enclosure/flute-evidence/` are the reading. So a
+# print the material would otherwise have scrapped comes off the bed usable.
+flute_depth = 1.2
+flute_rise = 5.0
+flute_pitch_nominal = 5.0
+flute_pitch_drift = 0.15
+# What the bed lays, and what a reveal is measured against: a groove shallower than one layer
+# or narrower than one bead hides nothing (`faucet-petgf.3mf`, `print-log.md`).
+print_layer_height = 0.24
+print_bead_width = 0.42
+
+# THE GROOVE'S STOCK COMES OUT OF THE ENVELOPE, NOT OUT OF THE WALL. A flute must have a whole
+# `wall_thickness_min` standing behind it — the box's `flute_backing` rule and the core's
+# `flute-backed` — so a face that carries the field stands one `flute_depth` further out than
+# a face that does not, and the groove's floor is where the wall would have been.
+show_wall = wall_thickness_min + flute_depth  # [4.2 mm](SHOW_WALL)
+
 _westbrass_bore_farthest_from_shell_center = (
     (shell_center_y - westbrass_bore_y) + westbrass_bore_diameter / 2.0
 )  # = [19.18 mm](WESTBRASS_BORE_FARTHEST)
 _pill_farthest_from_shell_center = (
     (+flavor_tube_depth + pill_width_y / 2.0) - shell_center_y
 )  # = [19.38 mm](PILL_FARTHEST)
-# [22.38 mm](SHELL_OUTER_R) outer-cylinder radius.
+# [23.57 mm](SHELL_OUTER_R) outer-cylinder radius.
 shell_outer_r = (
     max(_westbrass_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
-    + wall_thickness_min
+    + show_wall
 )
 
 
@@ -208,14 +239,14 @@ lever_clearance_x_half = lever_x_half + bore_clearance  # [6.75 mm](LEVER_CLEAR_
 lever_ramp_depth = 1.0
 tangent_overshoot = 0.002
 
-shell_rect_y_half = shell_outer_r  # [22.38 mm](SHELL_OUTER_R)
-shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + wall_thickness_min  # [11.75 mm](SHELL_RECT_X_HALF)
+shell_rect_y_half = shell_outer_r  # [23.57 mm](SHELL_OUTER_R)
+shell_rect_x_half = westbrass_bore_rect_short_x / 2.0 + show_wall  # [12.95 mm](SHELL_RECT_X_HALF)
 shell_rect_y_width = 2.0 * shell_rect_y_half
 shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # [25.55 mm](SHELL_RECT_Y_MAX) (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-19.2 mm](SHELL_RECT_Y_MIN) (toward user)
+shell_rect_y_max = shell_center_y + shell_rect_y_half  # [26.75 mm](SHELL_RECT_Y_MAX) (toward back)
+shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-20.4 mm](SHELL_RECT_Y_MIN) (toward user)
 
-lever_ramp_y_min = shell_center_y - shell_outer_r  # [-19.2 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
+lever_ramp_y_min = shell_center_y - shell_outer_r  # [-20.4 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
 _bore_y_at_lever_x = math.sqrt(
     (westbrass_bore_diameter / 2.0) ** 2 - lever_clearance_x_half ** 2
 )  # ≈ [14.51 mm](BORE_Y_AT_LEVER_X) — bore-cyl tangent at the cut's X half-span
@@ -244,7 +275,7 @@ shell_arch_bore_z_peak = arch_z_peak + bore_clearance  # [46.25 mm](SHELL_ARCH_B
 shell_arch_z_foot_top = arch_z_base + shell_outer_lip  # [44.25 mm](SHELL_ARCH_Z_FOOT_TOP)
 shell_arch_z_peak = arch_z_peak + shell_outer_lip  # [49.25 mm](SHELL_ARCH_Z_PEAK)
 wing_inner_x = shell_arch_bore_inner_x  # [6.75 mm](WING_INNER_X)
-wing_outer_x = shell_rect_x_half  # [11.75 mm](SHELL_RECT_X_HALF)
+wing_outer_x = shell_rect_x_half  # [12.95 mm](SHELL_RECT_X_HALF)
 
 # ZONE 3 — plateau fill (between the wings, Y ≥ fill_y_min).
 soda_faucet_tube_y = +8.875
@@ -436,7 +467,7 @@ max_print_overhang_rad = _path_total_rot / 4.0  # [35°](MAX_PRINT_OVERHANG)
 # ZONE 3 OUTER ARCH — single circular arc from the wing bottom
 # (zone3_z_bottom at the -Y end) up to zone4_z_top at Y=fill_y_min,
 # tangent-horizontal at the high end. Center is directly below the high end.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # [29.66 mm](BACK_ARCH_DY) (positive depth span)
+_back_arch_dy = fill_y_min - shell_rect_y_min  # [30.86 mm](BACK_ARCH_DY) (positive depth span)
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -464,7 +495,7 @@ zone45_front_y = _z5_y_min - (shell_rect_y_max - _z5_y_max)
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=[55.05 mm](ZONE45_Z_BOT_FRONT).
+# ≈ Z=[54.72 mm](ZONE45_Z_BOT_FRONT).
 zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
 zone45_z_bottom_at_front = (
     back_arch_center_z
@@ -481,6 +512,128 @@ _a_high = math.pi / 2.0  # fill_y_min end is directly above arch center
 _a_mid45 = (_a_front + _a_high) / 2.0
 zone45_bot_mid_y = fill_y_min + back_arch_r * math.cos(_a_mid45)
 zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
+
+
+# THE RUN THE FIELD IS STRUCK ALONG — the column's own plan, which is the outer cylinder with
+# the two ±X flats milled into it (`_rect_cove_cyl` clips the rect to that cylinder, so the
+# ±Y "faces" are the cylinder and the corners are its arcs). Two flats and three arcs, walked
+# from a datum on the −Y arc's own middle: `reeding.groove` is even in arc length, so a field
+# struck from a station on a mirror plane of the plan is symmetric about that plane at any
+# pitch, and the machine's own plane costs the field nothing.
+column_flat_y_half = math.sqrt(shell_outer_r ** 2 - shell_rect_x_half ** 2)  # [19.7 mm](COLUMN_FLAT_HALF)
+column_arc_half_angle = math.atan2(column_flat_y_half, shell_rect_x_half)
+
+
+def column_plan_segments() -> tuple:
+    """The column plan as `reeding.walk` segments, CCW from the −Y arc's middle."""
+    a = column_arc_half_angle
+    r = shell_outer_r
+    cx, cy = shell_center_x, shell_center_y
+    xh, fy = shell_rect_x_half, column_flat_y_half
+    return (
+        ("arc", (math.pi / 2.0 - a) * r, ((cx, cy), -math.pi / 2.0, r)),
+        ("line", 2.0 * fy, ((cx + xh, cy - fy), (0.0, 1.0), (1.0, 0.0))),
+        ("arc", (math.pi - 2.0 * a) * r, ((cx, cy), a, r)),
+        ("line", 2.0 * fy, ((cx - xh, cy + fy), (0.0, -1.0), (-1.0, 0.0))),
+        ("arc", (math.pi / 2.0 - a) * r, ((cx, cy), math.pi + a, r)),
+    )
+
+
+def column_plan_perimeter() -> float:
+    """How far it is round the column's plan once — what `flute_count` divides."""
+    return sum(length for _kind, length, _data in column_plan_segments())
+
+
+def column_plan_at(s: float) -> tuple:
+    """That plan's point and OUTWARD normal at arc length `s` from the datum.
+
+    THE PLAN CLOSES, so any `s` is on it: the walk is taken modulo the perimeter and the
+    column has no station where the field restarts."""
+    return reeding.walk(column_plan_segments(), s % column_plan_perimeter())
+
+
+# A WHOLE NUMBER OF GROOVES CLOSES ON THE PLAN, and the pitch is what falls out of that. A
+# stated pitch would leave the perimeter with a remainder and the remainder has to go
+# somewhere — one wrong land, at whichever station the array happened to close on. EVEN,
+# because the datum already buys symmetry about the −Y plane and reflecting about the +Y one
+# maps `s` to `half - s`, which is a whole number of pitches from `-s` only on an even count.
+flute_count = 26
+
+
+def flute_pitch() -> float:
+    """The spacing the field actually lands on — a consequence of `flute_count`."""
+    return column_plan_perimeter() / flute_count
+
+
+_bounds.state(
+    "faucet-flute-closes", "The faucet's flute count lands near the nominal pitch",
+    f"|{flute_pitch():.4g} - {flute_pitch_nominal:g}| <= {flute_pitch_drift:g} mm",
+    abs(flute_pitch() - flute_pitch_nominal) <= flute_pitch_drift,
+    f"{flute_count} grooves close on the {column_plan_perimeter():.4g} mm plan at "
+    f"{flute_pitch():.4g} mm, which is {abs(flute_pitch() - flute_pitch_nominal):.4g} mm off "
+    f"the nominal {flute_pitch_nominal:g}")
+
+# THE BAND THE RUN EXISTS OVER. Below the cove's top the piece is the foot, which stands
+# outside this plan at every station but two; above zone 4.5 the gooseneck leaves it forward.
+# A rail is the plan the field is measured FROM and nothing may reach past it, so the band is
+# where the column and its plan are the same prism — measured on the built solid, which stands
+# inside it from the cove's top to the top of zone 4.5 and nowhere below.
+column_flute_band = (zone2_outer_z_bottom + cove_r, zone45_z_top)  # [22.25, 60.5] mm
+column_run_height = column_flute_band[1] - column_flute_band[0]  # [38.25 mm](COLUMN_RUN)
+
+# EVERY BAND OF THE COUNTER SILHOUETTE, AND WHICH SIDE OF THE RUN-OUT IT FALLS ON. What stands
+# on the counter is a column of bands — gasket, plate, plinth, cove, column, wrapper — and each
+# names the PLAN it stands on, because the field is struck along one plan and a band on another
+# is not on the run at all. Only `flute_run` carries it.
+#
+# A BAND CARRIES THE FIELD ONLY WHERE IT IS TWICE `flute_rise` TALL, and that is the field's own
+# fact rather than a choice. The fade is driven by how far a station stands from the nearest edge
+# of the show face (`flute_skin._depth_field`), a band's own two faces are both edges, so the
+# deepest station on a band of height h stands h / 2 from one — and reaches `flute_depth` only
+# once that clears `flute_rise`. Under that height every station on the band is still on the ramp.
+#
+# WHAT THE OTHER BANDS GET INSTEAD IS A REVEAL. Cut on this same field the plate comes back at
+# 0.422 mm and the gasket at 0.121 mm, against the 0.24 mm layer and 0.42 mm bead the shell
+# prints at — the plate's groove one bead wide and under two layers deep, which is shallower
+# than the defect the field exists to hide. AND THE GASKET WOULD OWE THIS AT ANY HEIGHT: it is
+# the TPU 90A pad the plate clamps onto the countertop, and a groove across a sealing land is a
+# path out.
+flute_full_depth_height = 2.0 * flute_rise
+flute_run = "column"
+counter_run_bands = (
+    ("above-counter gasket", "foot", above_counter_gasket_thickness, False),
+    ("above-counter plate", "foot", above_counter_plate_thickness, False),
+    ("shell plinth", "foot", zone1_outer_z_top, False),
+    ("cove", "fillet", cove_r, False),
+    ("shell column", flute_run, column_run_height, True),
+    ("zone-5 tube wrapper", "wrapper", zone5_height, False),
+)
+_flute_reveal = _bounds.bound(
+    "faucet-flute-reveal", "A band on the faucet's counter run either carries the field or is a reveal",
+    f"fluted iff it stands on the {flute_run} plan {flute_full_depth_height:g} mm tall")
+for _band, _plan, _height, _band_fluted in counter_run_bands:
+    _on_run = _plan == flute_run
+    _flute_reveal(
+        _band_fluted == (_on_run and _height >= flute_full_depth_height),
+        f"{_band} stands {_height:g} mm on the {_plan} plan and is "
+        + ((f"fluted, though the field is struck along the {flute_run} plan and this band is "
+            f"not on it")
+           if _band_fluted and not _on_run else
+           f"fluted, under the {flute_full_depth_height:g} mm it takes before one station on "
+           f"it stands {flute_rise:g} mm clear of both its faces — so the whole band is ramp "
+           f"and no groove on it reaches {flute_depth:g} mm"
+           if _band_fluted else
+           f"left smooth, though at {flute_full_depth_height:g} mm on the run the field "
+           f"would reach its full {flute_depth:g} mm on it"))
+
+
+def flute_rails() -> list:
+    """Every run the shell's field is struck along.
+
+    ONE, AND IT IS THE COLUMN'S. Nothing is berthed against it — what stands inside the shell
+    is the Westbrass and the three tubes, and they are inside it."""
+    return [_flute_skin.Rail(at=column_plan_at, length=column_plan_perimeter(),
+                             band=column_flute_band)]
 
 
 # Joinery and retention: see ASSEMBLY.md.
@@ -1630,6 +1783,59 @@ def print_height(shape: cq.Workplane, build_rot: float) -> float:
     return max(heights) - min(heights)
 
 
+# HOW FINELY A PIECE IS TESSELLATED FOR THE BED. The show surface is fluted, so the mesh a
+# slicer reads has to hold a curve the nozzle can draw: the deviation allowed is a fraction of
+# the [0.42 mm](PRINT_BEAD) bead, and the angle is tight enough that a groove's own arc does not
+# come back as a few flats. It costs file size and nothing else — a slicer reads the triangles
+# once.
+piece_mesh_tol = 0.02
+piece_mesh_angle = 0.15
+
+
+def piece_mesh(solid) -> trimesh.Trimesh:
+    """One solid as the mesh that goes to a bed.
+
+    TESSELLATED, NOT ROUND-TRIPPED THROUGH STL. An STL is a triangle soup with no shared
+    vertices, and what comes back from re-merging one is a surface with edges that hold one
+    face where they should hold two — which a mesh boolean rightly refuses to treat as a
+    volume. `tessellate` hands back the indices directly."""
+    solid = solid.val() if hasattr(solid, "val") else solid
+    points, tris = solid.tessellate(piece_mesh_tol, piece_mesh_angle)
+    mesh = trimesh.Trimesh(vertices=[(p.x, p.y, p.z) for p in points],
+                           faces=tris, process=True)
+    mesh.merge_vertices()
+    return mesh
+
+
+def write_bed_file(solid, path):
+    """`solid` fluted and written to `path`, and the reading taken off the FILE.
+
+    THE FLUTES ARE IN THE MESH AND NOT IN THE STEP. The fade that stops them is a field over
+    the whole surface — how far a station stands from the nearest place the show face ends —
+    and a boundary-representation prism cannot carry one: it would have to follow the lever
+    clearance's rim, the arch's own arris and the cove's run-out with one rule. So the STEP
+    beside this file is a smooth prism and the STL is the surface a printer reads.
+
+    WHAT IS CHECKED IS WHAT A SLICER REFUSES. `is_watertight` is the easier question and a mesh
+    can pass it while Bambu Studio rejects the file outright, because winding can close over an
+    edge that four faces share. `non_manifold_edges` asks the harder one, and it is asked of the
+    bytes rather than of memory: everything before the write is in double precision and what
+    goes to the bed is not."""
+    path = Path(path)
+    mesh = _flute_skin.flute(piece_mesh(solid), flute_rails(),
+                             flute_pitch(), flute_depth, flute_rise)
+    mesh.export(str(path))
+    written = trimesh.load_mesh(str(path))
+    loose = _flute_skin.non_manifold_edges(written)
+    print(f"-> {path.name}  ({len(mesh.faces)} facets, "
+          f"{'watertight' if written.is_watertight else 'NOT WATERTIGHT'})")
+    if loose or not written.is_watertight:
+        raise ValueError(
+            f"{path.name}: a slicer refuses this — {loose} non-manifold edge(s), "
+            f"watertight={written.is_watertight}, over {len(written.faces)} facets")
+    return mesh
+
+
 def main():
     out_dir = Path(__file__).resolve().parent
     full = build_shell()
@@ -1653,6 +1859,10 @@ def main():
     print(f"-> {full_out.name}")
     print(f"-> {base_out.name}")
     print(f"-> {tip_out.name}")
+    # AND THE SHOW SURFACE IS FLUTED HERE, in the mesh, on the way to the bed. The base is the
+    # piece that stands on the counter; the tip is the gooseneck, whose plan is a swept tube
+    # and not a prism, so no run is struck along it and it prints off its own solid.
+    write_bed_file(base, out_dir / "faucet-shell-base.stl")
 
     variables = {
         "BORE_CLEAR": f"{bore_clearance:.4g} mm",
@@ -1671,6 +1881,13 @@ def main():
         "FLAVOR_PILL_Y_MINUS": f"{flavor_pill_y_minus_edge:.4g} mm",
         "BASE_POD_FRONT_CENTER_Y": f"{base_pod_front_center_y:.4g} mm",
         "SHELL_OUTER_R": f"{shell_outer_r:.4g} mm",
+        "SHOW_WALL": f"{show_wall:.4g} mm",
+        "COLUMN_FLAT_HALF": f"{column_flat_y_half:.4g} mm",
+        "COLUMN_RUN": f"{column_run_height:.4g} mm",
+        "PRINT_LAYER": f"{print_layer_height:.4g} mm",
+        "PRINT_BEAD": f"{print_bead_width:.4g} mm",
+        "FLUTE_DEPTH": f"{flute_depth:.4g} mm",
+        "FLUTE_PITCH": f"{flute_pitch():.4g} mm",
         "SODA_FAUCET_HOLE_D": f"{soda_faucet_hole_diameter:.4g} mm",
         "WALL_MIN": f"{wall_thickness_min:.4g} mm",
         "ZONE1_HEIGHT": f"{zone1_height:.4g} mm",
@@ -1764,6 +1981,11 @@ def main():
         variables=interface_variables,
     )
     print(f"-> {Path(_faucet_interface.__file__).name} (interface)")
+
+    # The bounds this file states about its own constants, read at import. `check_show_faces.py`
+    # is where they are held for the board; this is the reading the run itself leaves.
+    print()
+    _bounds.report()
 
 
 if __name__ == "__main__":

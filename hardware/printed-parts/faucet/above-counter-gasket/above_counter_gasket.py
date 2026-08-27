@@ -32,6 +32,8 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts
 from _cadq_export import export_assembly
 from _materials import M_TPU_BLACK, one_body
 from _faucet_interface import (
+    above_counter_gasket_thickness,
+    above_counter_plate_thickness,
     flavor_tube_depth,
     pill_length_x,
     pill_width_y,
@@ -48,14 +50,14 @@ from world_workplane import WorldWorkplane, xy_plane_z_up
 
 # Footprint matches the above-counter plate; [2 mm](GASKET_T) thick, compresses
 # under clamp load.
-gasket_thickness = 2.0
+gasket_thickness = above_counter_gasket_thickness
 # Center offset [3.175 mm](GASKET_Y) +Y (toward the appliance back); no
 # lateral offset.
 gasket_center = (0.0, +3.175)
 
 # Top face flush with the above-counter plate's bottom face; bottom face on
 # the countertop surface plane.
-plate_z_bottom = -4.0
+plate_z_bottom = -above_counter_plate_thickness
 gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 
 
