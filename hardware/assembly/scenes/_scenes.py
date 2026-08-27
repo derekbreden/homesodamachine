@@ -505,6 +505,9 @@ BEARS_ON = {
     "bulkhead-flavor-a": "enclosure-back-top",
     "bulkhead-flavor-b": "enclosure-back-top",
     "co2-inlet": "enclosure-back-top",
+    "collet-plate": "enclosure-front-top",           # in through that piece's bed face, ahead
+                                                     # of the front column; front-bottom's shelf
+                                                     # comes under it when the seam closes
     "display": "enclosure-front-top",               # let into that piece's own facet
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
     "funnel": "enclosure-front-top",         # brim on the top wall, collar forward
