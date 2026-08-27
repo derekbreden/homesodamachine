@@ -136,3 +136,60 @@ that and the plate is the supports and the brim, which §7 does not bill.
 [machine-time.md](/hardware/ledger/machine-time.md) §1 carries the 20 h 23 m against §7's
 0.653 kg as the exterior's measured **31.2 h/kg**, so the supports are back in the hours even
 though they are out of the mass.
+
+## The back-top plate (settings per [`enclosure-back-top-petgf.3mf`](enclosure-back-top-petgf.3mf))
+
+The back-top on the same Polymaker Fiberon PET-GF15 stock as the section above, sliced on the
+faucet's profile rather than the exterior's: `0.24mm PET-GF faucet`, 265 °C with the fan on
+over a 70 °C plate. One object on plate 1 at scale 1.0 and identity matrix, so the piece
+stands in the box's own frame with +Z up.
+
+Derek, a few hours in: *"it looks great so far."*
+
+Settings:
+- Printer: Bambu Lab H2C, **0.4 mm nozzle**, `required_nozzle_HRC` 40; printer profile
+  `Bambu Lab H2C 0.4 nozzle`, print profile **`0.24mm PET-GF faucet`**
+- Filament preset `Polymaker PET-GF @BBL H2C`, one slot, textured PEI plate
+- `layer_height` **0.24 mm** (initial 0.2); `line_width` 0.42 mm
+- `wall_loops` 2, `wall_generator` classic; top/bottom shells **4**/3;
+  `sparse_infill_density` 15 % grid
+- `nozzle_temperature` **265 °C** (initial 265), `nozzle_temperature_range_high` 300
+- `hot_plate_temp` / `textured_plate_temp` **70 °C**; `chamber_temperatures` 50 °C
+- Fan min/max **20 / 60 %**, overhang 60 % at a 0 % threshold,
+  `close_fan_the_first_x_layers` 3
+- `filament_flow_ratio` 0.9555; `filament_max_volumetric_speed` 18 mm³/s;
+  `filament_retraction_length` nil
+- Supports tree(auto), `support_threshold_angle` **35°**
+- `brim_type` auto_brim, `brim_width` 5 mm; `elefant_foot_compensation` 0.15 mm;
+  `seam_position` aligned; `fuzzy_skin` none
+- Slicer 02.08.02.61; first-layer time 700 s
+
+The plate stands 251.03 × 286.48 mm and the mesh is 1,169,804 faces, `mesh_stat` all zeros —
+no edges fixed, no degenerate facets, none removed and none reversed.
+
+**No time or length to carry.** The archive holds the project and no g-code, so unlike the
+front-top plate above there is no metre or hour figure to read back off it, and
+[machine-time.md](/hardware/ledger/machine-time.md) §1 stands on the front-top's 20 h 23 m
+alone.
+
+### Where the faucet profile differs from the exterior PET-GF slice
+
+Same stock, same nozzle, and the same volumetric cap, flow ratio and retraction. What the
+faucet profile moves:
+
+| | exterior ([`enclosure-front-top-petgf.3mf`](enclosure-front-top-petgf.3mf)) | back-top (this plate) |
+|---|---|---|
+| Print profile | `0.20mm Standard @BBL H2C` | **`0.24mm PET-GF faucet`** |
+| Layer height | 0.20 mm | **0.24 mm** |
+| Nozzle | 290 °C | **265 °C** |
+| Plate, textured | 100 °C | **70 °C** |
+| Chamber | 50 °C | 50 °C |
+| Fan min / max / overhang | 0 / 0 / 0 % | **20 / 60 / 60 %** |
+| Top shells | 5 | **4** |
+| Support threshold | 30° | **35°** |
+
+The three things the slot carries from the PET-CF preset it was cloned from it carries here
+unchanged: `enable_pressure_advance` 0 over a dormant `pressure_advance` of 0.02,
+`filament_type` `PET-CF` with `filament_ids` `GFT01`, and `filament_density` 1.29 at
+`filament_cost` 44.99 — so the grams and the dollars Bambu Studio prints for this plate are
+PET-CF's and not this spool's.
