@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -77,8 +77,15 @@
     }
   ],
   "detail": {
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  hardware/scripts/_bom_totals.py answers to selftest and selftests.json does not name it",
+      "      tools/cad-venv/bin/python tools/bazel/trace_inputs.py --selftests hardware/scripts/_bom_totals.py",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
     "tools/check_web_tests.py": [
-      "the suite did not finish within 300s",
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
       "  cd web && npm test"
     ]
   },
