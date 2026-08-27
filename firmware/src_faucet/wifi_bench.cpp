@@ -103,7 +103,8 @@ bool wifiBenchPush(uint32_t bytes, uint8_t channel) {
   running = true;
   // Core 0: the touch path, LVGL and J3 keep core 1. A blocked socket write
   // must not be able to stop the glass or the link.
-  if (xTaskCreatePinnedToCore(pushLoop, "benchpush", 8192, nullptr, 4, &pushTask, 0) != pdPASS) {
+  // 12 KB, not 8: bringing the radio up costs several kilobytes of stack.
+  if (xTaskCreatePinnedToCore(pushLoop, "benchpush", 12288, nullptr, 4, &pushTask, 0) != pdPASS) {
     running = false;
     return false;
   }
