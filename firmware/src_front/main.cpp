@@ -1123,6 +1123,21 @@ static void otaStopPanel() {
   }
 }
 
+// The radio bench takes the panel down through here. Same teardown an arriving
+// image uses and for the same reason, with its own banner: this glass is dark
+// for the length of the run and comes back on the reboot that ends it.
+void wifiBenchPanelStop() {
+  if (lockTitle) {
+    lockActive = true;
+    if (lockScreen) lv_obj_move_foreground(lockScreen);
+    lv_label_set_text(lockTitle, "RADIO BENCH");
+    if (lockBody) lv_label_set_text(lockBody, "The screen goes dark while the radio is up.\nIt restarts on its own when the run ends.");
+    if (lockScreen) lv_obj_clear_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
+    for (int i = 0; i < 24; i++) { lv_timer_handler(); delay(25); }
+  }
+  otaStopPanel();
+}
+
 static void otaAsk() {
   OtaReqPayload req{ota.nextOffset()};
   j9Post(MSG_OTA_REQ, &req, sizeof(req));
@@ -1454,6 +1469,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     WifiApStatePayload st;
     wifiBenchFill(st);
     j9Post(MSG_RESP_WIFI_AP, &st, sizeof(st));
+    // This board has no console inside the appliance, so how far the radio got
+    // rides back on the pair beside the state it produced.
+    if (!st.up) {
+      char diag[40];
+      wifiBenchDiag(diag, sizeof(diag));
+      j9Post(MSG_TEXT, diag, (uint8_t)strlen(diag));
+    }
     return;
   }
 
@@ -3523,6 +3545,7 @@ void loop() {
   // An update owns the board once it starts: the panel is already stopped and
   // nothing else should be drawing, polling, or sleeping it.
   otaService();
+  if (wifiBenchRebootWanted()) esp_restart();
   if (ota.active() || otaRebootPending) {
     j9.service();
     j9Pump();
