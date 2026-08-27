@@ -1,7 +1,7 @@
 # Enclosure connections — the three placed components — Snapshot 2026-07-17
 
 **This is a point-in-time snapshot, not a living document.** Pack state: on top of commit
-`29ffb5d4`. Scope: the three components that carry held placement rules today —
+`8ff7d0fe`. Scope: the three components that carry held placement rules today —
 `foam-assembly` (cold core), `compressor-shroud`, `condenser+fan` — evaluated for whether
 their positions and rotations serve the connections each must make. Re-running this against a
 later pack produces a fresh dated file. The durable rules are in

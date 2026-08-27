@@ -571,7 +571,7 @@ Phases 1 and 2 are done, pushed, and verified in production. Here's where it sta
 
 ## What shipped
 
-Four commits on `main`, ending at [`c00c7ed49`](https://github.com/derekbreden/homesodamachine/commit/c00c7ed49):
+Four commits on `main`, ending at [`ea6de4afb`](https://github.com/derekbreden/homesodamachine/commit/c00c7ed49):
 
 - [`tools/cad-artifacts/pack.py`](/tools/cad-artifacts/pack.py) — walks the generated solids, builds a deterministic `tar.gz`, uploads it as a GitHub Release asset, pins it. 117 MB → **26.4 MB**.
 - [`web/scripts/fetch-cad-artifacts.mjs`](/web/scripts/fetch-cad-artifacts.mjs) — downloads, verifies the bundle hash *before* extracting, then each solid's own.
@@ -638,7 +638,7 @@ Nameplate reports my clobber hit **two** files, not one, and cost them debugging
 
 Two things confirmed. `cards-build` is intact — Nameplate's warning is about a full `trace_inputs` run, and mine was `--selftests` on one file (88 insertions, zero deletions).
 
-The second is a real Phase 3 hazard I hadn't spotted: the `cad-artifacts` tag points at `3fbe438fe`, a commit the rewrite destroys.
+The second is a real Phase 3 hazard I hadn't spotted: the `cad-artifacts` tag points at `eedd50270`, a commit the rewrite destroys.
 
 ---
 
@@ -678,15 +678,15 @@ Ran on a hardlinked throwaway mirror — the live repo was never reachable by it
 
 ## A hazard I found and already defused
 
-The `cad-artifacts` tag — the anchor for the release the solids live in — pointed at `3fbe438fe`, a commit the rewrite destroys. That would have stranded the release that every deploy now depends on. I re-pointed it to `c00c7ed49` and confirmed the asset still downloads afterward (200, 26.4 MB). So "re-anchor the tag" is now a proven step in the procedure rather than a discovery mid-rewrite.
+The `cad-artifacts` tag — the anchor for the release the solids live in — pointed at `eedd50270`, a commit the rewrite destroys. That would have stranded the release that every deploy now depends on. I re-pointed it to `ea6de4afb` and confirmed the asset still downloads afterward (200, 26.4 MB). So "re-anchor the tag" is now a proven step in the procedure rather than a discovery mid-rewrite.
 
 ## Correction to what I told you earlier
 
-My clobber hit **two** files, not one. Nameplate reports `nameplate-001.step` was also reverted, and it cost them real time — they'd shortened the plate 75.7 → 66.07 mm, the assembly came back with `pack-closes` red showing a clash over a z span of exactly 75.7, and they spent minutes reading it as a cache bug in their own code before measuring the STEP on disk. Nothing was lost, but that's the worst shape a bug can take: the generator prints the write, the file is stale, and every layer above is coherently wrong. The fix is in `c00c7ed49`.
+My clobber hit **two** files, not one. Nameplate reports `nameplate-001.step` was also reverted, and it cost them real time — they'd shortened the plate 75.7 → 66.07 mm, the assembly came back with `pack-closes` red showing a clash over a z span of exactly 75.7, and they spent minutes reading it as a cache bug in their own code before measuring the STEP on disk. Nothing was lost, but that's the worst shape a bug can take: the generator prints the write, the file is stale, and every layer above is coherently wrong. The fix is in `ea6de4afb`.
 
 ## Current state
 
-Nameplate has since committed `7fc6de2ff`, and the lock is behind by three solids. Not broken — the deploy serves exactly what the lock names, so `/3d` is coherent, just one generation behind on those three. I deliberately didn't pack for them; it would move the lock under active work. They know.
+Nameplate has since committed `590f75105`, and the lock is behind by three solids. Not broken — the deploy serves exactly what the lock names, so `/3d` is coherent, just one generation behind on those three. I deliberately didn't pack for them; it would move the lock under active work. They know.
 
 Say the word on Phase 3, and whether you want the six commits preserved.
 
@@ -858,7 +858,7 @@ Stop — two urgent things at once. Let me check the remote state immediately.
 
 ---
 
-**The remote is untouched** — main is still `47d2d7c26`. The push failed entirely, and CO2 white is right that my mirror was two commits stale. That rejection saved us. Let me find out why it failed.
+**The remote is untouched** — main is still `38d4aefea`. The push failed entirely, and CO2 white is right that my mirror was two commits stale. That rejection saved us. Let me find out why it failed.
 
 ---
 
@@ -906,7 +906,7 @@ Nameplate is holding with nothing committed, and flags that `sync_tree.py --writ
 
 ---
 
-Mirror is rewritten from current main (`59f97e97` = rewritten `47d2d7c26`), and main is stable on both sides. Let me verify the mirror directly and size the push.
+Mirror is rewritten from current main (`38d4aefe` = rewritten `38d4aefea`), and main is stable on both sides. Let me verify the mirror directly and size the push.
 
 ---
 
@@ -956,7 +956,7 @@ Nameplate closed my `_realized` hypothesis with evidence and correctly pushed ba
 
 Status while the upload runs — there's one thing you should know now rather than at the end.
 
-**A near-miss.** My first force-push attempt used a mirror cloned when main was `7fc6de2ff`. By then CO2 white had pushed two more commits, including `f43fbeebd` — the lock update carrying the white CO2 word to the site. Had that push succeeded it would have dropped both, reverting the site to the black-lettered chip: precisely the failure my own change exists to make visible, caused by me. It failed for an unrelated reason and the remote was never touched. CO2 white caught it independently and messaged me mid-push.
+**A near-miss.** My first force-push attempt used a mirror cloned when main was `590f75105`. By then CO2 white had pushed two more commits, including `0c2cb69ab` — the lock update carrying the white CO2 word to the site. Had that push succeeded it would have dropped both, reverting the site to the black-lettered chip: precisely the failure my own change exists to make visible, caused by me. It failed for an unrelated reason and the remote was never touched. CO2 white caught it independently and messaged me mid-push.
 
 That was luck, not care. I read HEAD once and trusted it twenty minutes later, in a repo I knew had three sessions committing to it.
 
@@ -970,7 +970,7 @@ A full-history rewrite shares no commit with the remote, so negotiation finds no
 
 The fix is to upload in slices so each push carries its own pack. I'm staging them to `refs/heads/_rewrite_staging` rather than walking `main` backwards — `render.yaml` has `branch: main` and `autoDeploy: true`, so slicing through main would fire a deploy per slice, several from commits months old and each live on the site until the next finished. `main` moves exactly once at the end.
 
-**Where it stands:** 3864 of 5527 commits uploaded. `origin/main` is still `47d2d7c26`, untouched. Both other sessions are holding commits. Rewrite verified: pack 5.37 → 2.06 GiB, tree OID byte-identical (`55069975…`), fsck clean, all 48 refs including `cad-artifacts` present.
+**Where it stands:** 3864 of 5527 commits uploaded. `origin/main` is still `38d4aefea`, untouched. Both other sessions are holding commits. Rewrite verified: pack 5.37 → 2.06 GiB, tree OID byte-identical (`55069975…`), fsck clean, all 48 refs including `cad-artifacts` present.
 
 Once the objects are up: move `main`, `git reset --soft` locally so the 89 uncommitted files survive untouched, `gc` to reclaim the space, verify the site, then release both sessions.
 
@@ -1159,7 +1159,7 @@ All 44 tags restored, zero orphaned. Let me get final state and check on the rem
 
 ---
 
-Nameplate has committed and pushed — `13c15c68a`, main in sync, only 2 files uncommitted. Let me do a final verification of the whole chain.
+Nameplate has committed and pushed — `b711e5f6f`, main in sync, only 2 files uncommitted. Let me do a final verification of the whole chain.
 
 ---
 
@@ -1290,7 +1290,7 @@ The one thing still open is Nameplate's in-flight geometry: 97 of 98 solids are 
 
 Another Claude session sent a message:
 <cross-session-message from="uds:/tmp/cc-socks/48486.sock" from-name="Nameplate" from-mode="bypass">
-Pushed and done — `13c15c68` (the nameplate) and `c1c1a9e9` (the graph repair + lock). Tree is clean, `main` 0 ahead 0 behind. You're clear for anything you were holding.
+Pushed and done — `b711e5f6` (the nameplate) and `667caa52` (the graph repair + lock). Tree is clean, `main` 0 ahead 0 behind. You're clear for anything you were holding.
 
 The lock moved once more: `cad-4aeee4b20cf951c6.tar.gz`, which is the drifted `nameplate-001.step` you spotted. `pack.py --check` green.
 
@@ -1413,7 +1413,7 @@ Real sandboxed execution (2 darwin-sandbox processes), build succeeded, kamoer s
 
 ---
 
-Another session committed my fix as `fd893be3`. Let me see exactly what landed and assess the selftests.json change my accidental re-trace made.
+Another session committed my fix as `18346e2c`. Let me see exactly what landed and assess the selftests.json change my accidental re-trace made.
 
 ---
 
@@ -1421,7 +1421,7 @@ Another session committed my fix as `fd893be3`. Let me see exactly what landed a
 
 ---
 
-My accidental re-trace turned out to be a genuine fix: **33 entries gained, 0 lost** — including `nameplate-001.step` for `fit.py`/`probe.py`, reads that were being silently dropped. And `fd893be3` reveals the scope was far bigger than one generator: 228 such reads across 16 entries. Let me finish the unit.
+My accidental re-trace turned out to be a genuine fix: **33 entries gained, 0 lost** — including `nameplate-001.step` for `fit.py`/`probe.py`, reads that were being silently dropped. And `18346e2c` reveals the scope was far bigger than one generator: 228 such reads across 16 entries. Let me finish the unit.
 
 ---
 
@@ -1437,7 +1437,7 @@ Three insertions, zero deletions — and `cards-build` wasn't stripped, because 
 
 ---
 
-Committed and pushed as `4812eb80`, main in sync. Let me do a final check and close the loop with Nameplate.
+Committed and pushed as `fdfc9165`, main in sync. Let me do a final check and close the loop with Nameplate.
 
 ---
 

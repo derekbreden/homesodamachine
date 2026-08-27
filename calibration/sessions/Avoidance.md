@@ -23,7 +23,7 @@ A long conversation in jsonl2md with a prior Claude (Opus 4.7) about calibration
 
 **Memory / repo mechanics:**
 - Assistant tried to write a memory early; you blocked it and explained your view that memory-writes signal a gap better fixed in the repo by example.
-- Assistant read commits `5fb05690` (the rule attempt) and `ca053af5` and concluded the homesodamachine repo already encodes everything by example.
+- Assistant read commits `cc1f8424` (the rule attempt) and `8d39da6b` and concluded the homesodamachine repo already encodes everything by example.
 - You asked for "MEMORY.md in this repo" — Assistant wrote a repo file; you pointed out "removed the block" was the signal that you meant the project-memory directory. Eventually Assistant deleted the repo MEMORY.md and wrote a minimal `orientation.md` to project memory.
 
 **Soda machine focus:**

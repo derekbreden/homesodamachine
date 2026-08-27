@@ -95,7 +95,7 @@ This is a deep PCB-routing session. Let me read the rest of the transcript to se
 
 I've now read the full PCBA Audit session. 
 
-**Orientation:** That session ran a fresh-eyes audit, landed on the moisture-sensor needing a GPIO-switched VCC (a 7th pin on J4), and then implemented your full dependency chain to make room without growing the board — the 5 commits now on `main` (`190c2b84`→`40fa5b9c`). The last pass added **J4 pin 7 = IO23**, routed as a long haul that runs the **far-west flank on the bottom, crossing the WROOM antenna keepout** at x≈−67.3, plus the pre-existing **Q2.C→EN** reset line that crosses the same band on top. It left the tacts (SW1/SW2) rotated N/S and dropped to y≈32.75, tight against the north edge, with U13 just south of them.
+**Orientation:** That session ran a fresh-eyes audit, landed on the moisture-sensor needing a GPIO-switched VCC (a 7th pin on J4), and then implemented your full dependency chain to make room without growing the board — the 5 commits now on `main` (`2282961c`→`5c26c6a5`). The last pass added **J4 pin 7 = IO23**, routed as a long haul that runs the **far-west flank on the bottom, crossing the WROOM antenna keepout** at x≈−67.3, plus the pre-existing **Q2.C→EN** reset line that crosses the same band on top. It left the tacts (SW1/SW2) rotated N/S and dropped to y≈32.75, tight against the north edge, with U13 just south of them.
 
 That's exactly the two things your new task targets. Let me get oriented on current HEAD before touching anything.
 
@@ -489,7 +489,7 @@ Let me lay out what I found so you can see whether I'm missing an entry.
 
 I don't need a diagram — the geometry is tight and specific. Let me give you the exact picture.
 
-## IO23 — done ✓ (`5da0086a`, pushed)
+## IO23 — done ✓ (`a25683ab`, pushed)
 
 It's a **north-row pad**, so its pad-via drops *straight into the module interior*. It now runs the 3V3 plane's west room (west of the thermal-pad array), south under the body, out past the east column, and down to J4 — one via, entirely on inner1, **nowhere near the flank**. That's the "creative routing through a congested area on another layer" you described.
 
@@ -773,7 +773,7 @@ Understood — another agent completed the Q2.C→EN reroute I couldn't. Let me 
 
 ---
 
-I've read it. The other agent solved it cleanly (`b58b4c4a`, 4 vias, all clearances ≥0.3mm), and the solution is exactly what you'd pointed at. Let me confirm the board state, then give you the honest post-mortem.
+I've read it. The other agent solved it cleanly (`dcf30f18`, 4 vias, all clearances ≥0.3mm), and the solution is exactly what you'd pointed at. Let me confirm the board state, then give you the honest post-mortem.
 
 ---
 
@@ -781,7 +781,7 @@ I've read it. The other agent solved it cleanly (`b58b4c4a`, 4 vias, all clearan
 
 ---
 
-**Orientation:** "Cleanup Board 2" is where a fresh agent took my stuck-point, found the Q2.C→EN route, and shipped it — `b58b4c4a`, now on main (all three tasks are done; your tree is clean at it). Its route: Q2.C onto inner2, **run east above SCL**, hop SCL **once at x−39.37** where the top layer is wide open (east of the IO2 riser, west of U6), descend the Q1↔C6 gap, west under the module into EN. **4 vias, every clearance ≥0.3 mm, clean on the first render.** The tail of that session shows it then moving on to fold an antenna-keepout check into the audits.
+**Orientation:** "Cleanup Board 2" is where a fresh agent took my stuck-point, found the Q2.C→EN route, and shipped it — `dcf30f18`, now on main (all three tasks are done; your tree is clean at it). Its route: Q2.C onto inner2, **run east above SCL**, hop SCL **once at x−39.37** where the top layer is wide open (east of the IO2 riser, west of U6), descend the Q1↔C6 gap, west under the module into EN. **4 vias, every clearance ≥0.3 mm, clean on the first render.** The tail of that session shows it then moving on to fold an antenna-keepout check into the audits.
 
 Now the honest post-mortem you asked for.
 

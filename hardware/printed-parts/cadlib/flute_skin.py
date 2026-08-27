@@ -1,10 +1,19 @@
 """The enclosure's fluted show surfaces, cut into the MESH a printer reads.
 
-The corner coupon at `69459fea6` settled this texture, and settled it as a heightfield: every station
+The corner coupon at `c14bb2fff` settled this texture, and settled it as a heightfield: every station
 on the wall is displaced inward by `texture_depth * groove(across) * smoothstep(along / rise)`,
 sampled finely enough that what comes back is the curve and not an approximation of it. That
 coupon is this box's own corner at this box's own `wall` and `corner_round`, and it printed.
 This is the same field on the whole box.
+
+WHAT THE FIELD BUYS is a separate question from what it is cut at, and a 50 mm coupon cannot
+answer it: `flute-evidence/` holds two photographs of FULL-SIZE front assemblies, one printed
+in PETG and one in PET-GF, stood side by side. Fluted, the two materials are indistinguishable;
+flat, they are not, under ordinary light. The field is Z-invariant, so the show surface splits
+in two — the standing walls are fluted and give nothing away, and the 45 facet, the top rails
+and the pockets round the drop cutouts cannot be fluted at all and are the material's own
+answer. `flute-evidence/README.md` says which unit is which in each frame, which is not the
+same in the two.
 
 WHAT THE FIELD IS STRUCK ALONG IS A RAIL, and the box's outer silhouette is one of them. A
 rail hands back a point and an OUTWARD NORMAL at an arc length, says how far it runs, whether
@@ -64,7 +73,7 @@ import reeding                                                          # noqa: 
 walk = reeding.walk
 rounded_rect_segments = reeding.rounded_rect_segments
 
-# How finely the field is sampled ACROSS the flutes. The corner coupon at `69459fea6` used 0.3 mm on the
+# How finely the field is sampled ACROSS the flutes. The corner coupon at `c14bb2fff` used 0.3 mm on the
 # same groove and printed clean; a 4 mm groove read at this step carries its arc to about 28
 # microns, a fifteenth of the 0.42 mm bead that draws it and well under what the machine can
 # repeat. IT IS NOT FREE: the mesh is what a slicer reads, so a step finer than the show

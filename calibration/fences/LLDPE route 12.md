@@ -92,7 +92,7 @@ I've read the full **LLDPE route 11** transcript. Here's the orientation.
 
 ## Where LLDPE route 11 left off
 
-That session finished the **pump-discharge** routing (the divider→bag/nozzle side): it threw out the `_solve_discharge` "solver," hand-set the elbow lifts and divider placement, authored the four runs `fluid-13/17/23/27` (two straight, two gentle over-the-top arcs), fixed a latent `centreline()` bug (`r/sin(θ/2)`→`r/cos(θ/2)` that had been silently ballooning every non-square sweep), and landed **6/6 pack-closes** at commit `26b4553b` (on main).
+That session finished the **pump-discharge** routing (the divider→bag/nozzle side): it threw out the `_solve_discharge` "solver," hand-set the elbow lifts and divider placement, authored the four runs `fluid-13/17/23/27` (two straight, two gentle over-the-top arcs), fixed a latent `centreline()` bug (`r/sin(θ/2)`→`r/cos(θ/2)` that had been silently ballooning every non-square sweep), and landed **6/6 pack-closes** at commit `e452f85d` (on main).
 
 Its **last exchange** answered your "which ports?" question and teed up exactly this task:
 - **Segment 12** (channel A): `Y-D-1` stem → **P-A-O** (pump A outlet) — flagged as the hard one, a ~118 mm cross-machine run because pump A sits far west (x≈99) while y-d sits east (x≈214), and P-A-O faces **west, away from** the divider.
@@ -726,7 +726,7 @@ This is a substantial refactor of `enclosure_assembly.py` (a `_Pack` dataclass, 
 
 ---
 
-Committed `b067462c` — all pre-commit hooks passed (pack closes ✓, scorecard self-test ✓), and the concurrent `enclosure_assembly.py` change is left untouched. Pushing to main:
+Committed `647c1b17` — all pre-commit hooks passed (pack closes ✓, scorecard self-test ✓), and the concurrent `enclosure_assembly.py` change is left untouched. Pushing to main:
 
 ---
 
@@ -734,7 +734,7 @@ Committed `b067462c` — all pre-commit hooks passed (pack closes ✓, scorecard
 
 ---
 
-Done — `b067462c` is on main. Here's where it landed.
+Done — `647c1b17` is on main. Here's where it landed.
 
 ## Segments 12 & 22 routed, each pump to its nearest divider
 
@@ -874,7 +874,7 @@ The plot makes it concrete: pump B's outlet collet (the red arc) can never reach
 
 So the honest situation: **the committed fluid-12 is already about as straight as it gets while pump B stays put.** Your instinct (point the two faces at each other) is exactly right in general — it's just that pump B's outlet physically can't get to where that would work.
 
-I did **not** commit any of the re-aim/tilt experiments — they'd have made it worse, and the repo is still at the clean swap (`b067462c`).
+I did **not** commit any of the re-aim/tilt experiments — they'd have made it worse, and the repo is still at the clean swap (`647c1b17`).
 
 The real levers for a straighter fluid-12, since it needs pump B's *body* to move, not just its elbow:
 
@@ -1233,7 +1233,7 @@ All clear: **fluid-17 now 1.42 mm** (was 0.33), fluid-13 7.95 mm, fluid-12 17.6 
 
 ---
 
-Done — `617bce53` on main, pushed, gate **6/6**.
+Done — `681faa19` on main, pushed, gate **6/6**.
 
 You were right: rotating both faces to meet is exactly what straightens it. What landed:
 
@@ -1244,4 +1244,4 @@ You were right: rotating both faces to meet is exactly what straightens it. What
 
 The top-view above shows fluid-12 as the short near-straight run into the rotated stem.
 
-Two honest notes: the `enclosure_assembly.py` refactor from your other session got committed there (`39cd186c`); my work built cleanly on top of it, nothing lost. And if you'd rather fluid-12 be *fully* straight rather than balanced with fluid-13, just say so — pushing the rotation further trades fluid-13's bend up for fluid-12's down, and I'll pick whatever split you want.
+Two honest notes: the `enclosure_assembly.py` refactor from your other session got committed there (`4b964fbc`); my work built cleanly on top of it, nothing lost. And if you'd rather fluid-12 be *fully* straight rather than balanced with fluid-13, just say so — pushing the rotation further trades fluid-13's bend up for fluid-12's down, and I'll pick whatever split you want.

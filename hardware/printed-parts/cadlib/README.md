@@ -6,4 +6,7 @@ Read `_world_workplane.md` if your generator uses `xz_plane_y_up` (or any other 
 
 `world_workplane.py` is the world-coordinate interface: CadQuery reads coordinates in a workplane's own local frame, and for half the named planes that frame is not world, so a generator that wants world coordinates goes through here. `snap.py` is the snap-fit vocabulary — bump, notch and the ramps between them, applied to walls a generator already has.
 
+`flute_skin.py` cuts the fluted show surfaces into the mesh a printer reads, and
+`flute-evidence/` holds the two full-size photographs its appearance claims are read off.
+
 `reeding.py` is the flute vocabulary the texture generators share — fields that read (across, along) in mm ON the surface, so a tile and a standing wall lay down the same texture.
