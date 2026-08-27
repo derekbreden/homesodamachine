@@ -143,7 +143,7 @@ head-on one `slide_slip` behind it — the same telescoping mate the box always 
 arrived at along Y instead of dropped into.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [102 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [100 mm](RAIL_RUN_FRONT) per flank on the front column,
 [233 mm](RAIL_RUN_BACK) and [221 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face, square faces bearing full from the first micron. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -330,7 +330,7 @@ fade is what makes the texture look made rather than applied, and the fade is a 
 SURFACE — how far a station stands from the nearest place the show face ends. A boundary
 representation can carry a fade that runs level, because a level fade is a loft; it cannot carry
 one that follows an opening's rim, a pocket's edge and the display facet's diagonal arris all at
-once. So the STEP is a plain box and [flute_skin.py](flute_skin.py) cuts the flutes into the
+once. So the STEP is a plain box and [flute_skin.py](/hardware/printed-parts/cadlib/flute_skin.py) cuts the flutes into the
 mesh on the way to the bed. Everywhere else on the machine the STEP is the whole of the part;
 here it is not, and the `.stl` beside it is.
 

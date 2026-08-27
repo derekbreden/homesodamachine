@@ -5,7 +5,7 @@
 (`web/public/js/viewer/step.js`), and every picture this repository draws goes through that one
 mount: `/3d` in a browser,
 `tools/render/render-step-posed.js` for the assembly cards. On the enclosure the payload is
-where the show surface is — `printed-parts/enclosure/enclosure/flute_skin.py` cuts the flutes
+where the show surface is — `printed-parts/cadlib/flute_skin.py` cuts the flutes
 into the printed mesh and `hardware/scripts/flute_payload.py` puts them into the payload at the
 viewer's own deflection, and the solid beside them is a smooth prism of planes and cylinders. A
 payload that is absent draws that prism; one older than the solid draws the surface the solid no

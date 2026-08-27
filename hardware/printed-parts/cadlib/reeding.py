@@ -55,6 +55,66 @@ pierce_shell = 1.74              # the loops the exterior profile lays across a 
 _ROOT2 = math.sqrt(2.0)
 
 
+def walk(segments, s):
+    """A run's point and OUTWARD normal at arc length `s` from where that walk begins.
+
+    Everything the field knows about a surface is here. A groove is struck at `s` and drawn
+    through the stations either side of it, so a corner costs the field nothing to know about:
+    the walk hands back a normal that has already turned.
+
+    A segment is `(kind, length, data)`. A "line" carries its start, its unit tangent and its
+    outward normal; an "arc" carries its centre, the angle its outward normal starts at and its
+    radius, and turns a quarter over its own length."""
+    total = sum(length for _kind, length, _data in segments)
+    if not -1e-9 <= s <= total + 1e-9:
+        raise AssertionError("arc length walked off the end of a run")
+    s = min(max(s, 0.0), total)
+    for kind, length, data in segments:
+        if s <= length + 1e-9:
+            if kind == "line":
+                (px, py), (tx, ty), (nx, ny) = data
+                return (px + tx * s, py + ty * s), (nx, ny)
+            (cx, cy), a0, r = data
+            a = a0 + (math.pi / 2.0) * (s / length)
+            n = (math.cos(a), math.sin(a))
+            return (cx + r * n[0], cy + r * n[1]), n
+        s -= length
+    raise AssertionError("arc length walked off the end of a run")
+
+
+def rounded_rect_segments(x_len, y_len, r):
+    """A rounded rectangle centred on the origin, as segments, walked from the MIDDLE OF ITS
+    −X WALL heading −Y — four straight runs and the four quarter turns between them.
+
+    THE DATUM IS THE WALL CENTRE, and that is what makes the field symmetric. `reeding.groove`
+    is an even function of arc length, so a field struck from a station on a mirror plane of
+    the footprint is symmetric about that plane at any pitch — nothing has to be arranged for
+    it. The OTHER mirror plane is the one that has to be bought, and an even flute count is
+    what buys it: reflecting about it maps `s` to `half - s`, which is a whole number of
+    pitches from `-s` only when the count is even.
+
+    A piece that installs spun a half turn buys the same thing with the same coin. The spin
+    maps `s` to `s + half`; on an even count that is a whole number of pitches and the two
+    pieces' grooves land on each other."""
+    run_x = x_len - 2.0 * r
+    run_y = y_len - 2.0 * r
+    turn = math.pi * r / 2.0
+    x0, x1 = -x_len / 2.0, x_len / 2.0
+    y0, y1 = -y_len / 2.0, y_len / 2.0
+    return (
+        ("line", run_y / 2.0, ((x0, 0.0), (0.0, -1.0), (-1.0, 0.0))),
+        ("arc", turn, ((x0 + r, y0 + r), math.pi, r)),
+        ("line", run_x, ((x0 + r, y0), (1.0, 0.0), (0.0, -1.0))),
+        ("arc", turn, ((x1 - r, y0 + r), -math.pi / 2.0, r)),
+        ("line", run_y, ((x1, y0 + r), (0.0, 1.0), (1.0, 0.0))),
+        ("arc", turn, ((x1 - r, y1 - r), 0.0, r)),
+        ("line", run_x, ((x1 - r, y1), (-1.0, 0.0), (0.0, 1.0))),
+        ("arc", turn, ((x0 + r, y1 - r), math.pi / 2.0, r)),
+        ("line", run_y / 2.0, ((x0, y1 - r), (0.0, -1.0), (-1.0, 0.0))),
+    )
+
+
+
 def groove(across, pitch=flute_pitch, width=flute_width):
     """Half-round grooves `width` across on `pitch` centres, as a 0…1 depth fraction."""
     offset = (across + pitch / 2.0) % pitch - pitch / 2.0

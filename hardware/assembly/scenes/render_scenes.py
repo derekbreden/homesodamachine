@@ -182,7 +182,7 @@ def carried_payload(step) -> Path | None:
     """`<step>.mesh` where it holds a surface the solid does not, else None.
 
     THE ENCLOSURE'S PIECES CARRY THEIR SHOW SURFACES IN THE MESH, not in the B-rep
-    (`printed-parts/enclosure/enclosure/flute_skin.py`), so a picture drawn off those bytes is a
+    (`printed-parts/cadlib/flute_skin.py`), so a picture drawn off those bytes is a
     picture of a smooth prism. `hardware/scripts/flute_payload.py` cuts the payload that holds
     the fluted surface, `pack.py`'s `BUNDLED_PAYLOAD_DIRS` bundles it and the lock names it — so
     it is as answerable as the STEP is, and a fresh checkout has both.
@@ -304,7 +304,7 @@ def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
 
     # AND THE FLUTED PIECES PUT BACK INTO IT. The payload above is a tessellation of the scene's
     # B-rep, and for an enclosure piece that B-rep is a smooth prism — the show surfaces live in
-    # the printed mesh (`printed-parts/enclosure/enclosure/flute_skin.py`). A piece is cut where
+    # the printed mesh (`printed-parts/cadlib/flute_skin.py`). A piece is cut where
     # the assembly stands it, so its own surface drops into the scene's coordinates unchanged.
     grafted = flute_payload.graft(mesh, fluted_pieces(surfaces=True))
     if grafted:

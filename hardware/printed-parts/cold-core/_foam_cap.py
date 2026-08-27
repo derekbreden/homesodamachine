@@ -5,6 +5,7 @@ perimeter ring between cap mating edge and outer-shell mating face)."""
 from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
     wall_and_floor_thickness,
+    outer_shell_wall,
     outer_shell_x_length,
     outer_shell_y_length,
     corner_round_radius,
@@ -27,7 +28,7 @@ from _cold_core_interface import (
     gasket_thickness,
     gasket_strip_width,
 )
-from _outer_shell import build_attachment_bosses
+from _outer_shell import build_attachment_bosses, take_skin_off_the_floor
 
 # The lid is one wall of plate plus a head pad at each of the six stations.
 lid_total_height = wall_and_floor_thickness + head_pad_height
@@ -155,8 +156,16 @@ def build_foam_cap(open_down=False):
         .edges("|Z")
         .fillet(corner_round_radius)
         .faces("<Z" if open_down else ">Z")
-        .shell(-wall_and_floor_thickness)
+        # The cap's wall carries the same show skin as the shell it stacks on, so it stands on
+        # the same section (`outer_shell_wall`) and its pour tray gives up the difference.
+        .shell(-outer_shell_wall)
     )
+    # The cap's floor takes none of the skin's stock either, and it is at whichever end the
+    # cup is not open on — the mouth-down cap carries its floor on top.
+    cap = take_skin_off_the_floor(
+        cap,
+        *((foam_cap_height - outer_shell_wall, foam_cap_height - wall_and_floor_thickness)
+          if open_down else (wall_and_floor_thickness, outer_shell_wall)))
     # Same ⌀ boss + teardrop webs as the outer shell.
     bosses = build_attachment_bosses(foam_cap_height)
     # The mouth-end relief: the lid's pad section, one slip larger all round.
