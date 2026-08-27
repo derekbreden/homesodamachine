@@ -3284,6 +3284,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
