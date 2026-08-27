@@ -4488,16 +4488,33 @@ CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
 
 # --- the umbilical's signal station, through the +Y wall of back-top -----------------
 #
-# SIG-6 crosses this wall in a keystone jack. The three tubes of the umbilical land in the
-# unions and its ribbon lands here, so the bundle arrives at one cluster and nothing in it
-# reaches past the wall.
+# SIG-6 crosses this wall in a keystone jack, so that the umbilical's ribbon ends at the same
+# face its three tubes do.
 #
-# THE COLUMN IS THE CO2 INLET'S AND THE STOREY IS THE FLAVOUR PAIR'S. It stands under the gas
-# inlet on the lane the two flavour unions cruise in, which puts all four of the umbilical's
-# crossings — carb above, flavor-a and flavor-b west, and this — inside two columns of each
-# other. `PANEL_ON_GATE_LANE` is the pair whose storey it takes; `build_pack` reads that storey
-# off `flavor_storey` and hands it here.
-KEYSTONE_COLUMN = CO2_COLUMN
+# IT TAKES THE ONE SPAN OF THIS WALL NOTHING ELSE REACHES INTO. The gate lane's own east end is
+# the nameplate's — `nameplate_cut` fills x [-14.1, 90.4] over z [226.9, 292.9] — and the deck
+# storey's four stations leave one gap: between the CO2 pocket's east edge and the west edge of
+# the C14's cutout. The jack stands in the middle of it, on `deck_storey`, which puts all five
+# mating axes the customer meets on one line.
+def keystone_column() -> float:
+    """The middle of the span between the CO2 pocket and the C14 cutout."""
+    co2_east = CO2_COLUMN + port_pocket_d("neofit") / 2.0
+    c14_west = C14_STATION[0] - c14_cutout()[3] / 2.0
+    return (co2_east + c14_west) / 2.0
+
+
+def keystone_station() -> tuple:
+    """Where the jack's own seating face lands, as `(x, z)`."""
+    return (keystone_column(), deck_storey())
+
+
+def keystone_cutout():
+    """The opening the jack snaps into, in `back_ports` shape."""
+    wx, wz, r = _keystone.panel_cutout()
+    x, z = keystone_station()
+    return ("rect", x, z, wx, wz, r)
+
+
 _stated.state(
     "keystone-panel", "The keystone's latch closes on the wall it passes",
     f"`enclosure.wall` inside {_keystone.PANEL_MIN:g}–{_keystone.PANEL_MAX:g} mm",
@@ -4507,16 +4524,22 @@ _stated.state(
     f"`riteav_keystone` carries no measured figure until RiteAV #58999 is delivered.")
 
 
-def keystone_cutout(gate: float):
-    """The opening the jack snaps into, in `back_ports` shape — struck on `KEYSTONE_COLUMN` and
-    the storey `PANEL_ON_GATE_LANE` stands on."""
-    wx, wz, r = _keystone.panel_cutout()
-    return ("rect", KEYSTONE_COLUMN, gate, wx, wz, r)
+def _keystone_clearances():
+    """`(west, east)` — what the bezel leaves to the CO2 pocket and to the C14 cutout."""
+    half = _keystone.panel_footprint()[0] / 2.0
+    x = keystone_column()
+    return ((x - half) - (CO2_COLUMN + port_pocket_d("neofit") / 2.0),
+            (C14_STATION[0] - c14_cutout()[3] / 2.0) - (x + half))
 
 
-def keystone_station(gate: float) -> tuple:
-    """Where the jack's own seating face lands, as `(x, z)`."""
-    return (KEYSTONE_COLUMN, gate)
+_stated.state(
+    "keystone-span", "The jack's bezel stands clear of both neighbours on the deck storey",
+    "wall either side of it",
+    min(_keystone_clearances()) > 0.0,
+    f"the bezel is {_keystone.panel_footprint()[0]:g} mm across and leaves "
+    f"{_keystone_clearances()[0]:.2f} mm to the CO2 pocket and {_keystone_clearances()[1]:.2f} mm "
+    f"to the C14 cutout. The nameplate takes the gate lane's east end, so this span is the wall's "
+    f"only free one.")
 
 # The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
 # socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
@@ -6605,7 +6628,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
                      back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
-                                    keystone_cutout(a.gate_z)]),
+                                    keystone_cutout()]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
