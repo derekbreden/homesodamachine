@@ -263,14 +263,20 @@ MOUNTS = (
     ("funnel-drain-stub", None, "tube-clamp"),
     ("funnel-drain-clamp", None, "tube-clamp"),
     ("funnel-drain-union", None, "tube-hung"),
-    # THE ONE STEEL PIECE, STANDING IN A PRINTED SLOT. The collet plate comes up through
-    # `enclosure._plate_slot` from front-top's own Z− face and hangs its two shoulders on the bay
-    # floor's top; the slot's walls take it fore and aft, the guides' crowns close over its top
-    # edge, and gravity does the rest. What loads it is the pump cartridge's own release: the
+    # THE ONE STEEL PIECE, HELD BETWEEN TWO OPPOSED PRINTED FACES. The collet plate comes up
+    # through `enclosure._plate_slot` from front-top's own Z− face — a lane and not a seat, the
+    # steel's own section from the bed face to the floor's top — and stops with its TOP EDGE on
+    # `_plate_cap`'s land, one storey up and wall to wall, `_plate_fore_guides`' heads carrying
+    # that same plane out to the side walls. The outline is four corners and owes the stop no
+    # shoulder. Under the steel, front-bottom's `_plate_shelf` runs the whole front run one
+    # `steel_air` below the seam plane: the land is over the plate and not under it, so what
+    # stops it falling back out the way it came is the piece the mouth closes onto, and the
+    # steel rides that shelf in. The slot's walls take it fore and aft, the side walls across.
+    # What loads it is the pump cartridge's own release: the
     # four anchor-tee collets press its aft face as the pump cartridge is pulled, the slot's fore
     # wall carries that into a floor lying on the print bed, and the user's aft brace on the box
     # closes the loop. It goes in before the front column closes and comes out the same way.
-    ("collet-plate", "enclosure-front-top", "slot"),
+    ("collet-plate", ("enclosure-front-top", "enclosure-front-bottom"), "slot"),
     # THE DISPLAY IS CAPTURED BETWEEN TWO PRINTED PARTS. Its glass sits in the bezel counterbore
     # of the front-top piece's 45° facet, and the cover plate's border laps that glass on all
     # four sides, drawn down by two DIN 912 M3s into ruthex inserts in the facet's own inset
