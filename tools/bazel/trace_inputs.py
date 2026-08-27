@@ -23,6 +23,7 @@ nothing there.
 """
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -362,6 +363,35 @@ def selftest() -> int:
     return 0 if holds == 9 else 1
 
 
+def _lock_debt(wrote: set) -> list:
+    """The bundle members this run rewrote that `cad-artifacts.lock.json` no longer names.
+
+    A TRACE IS A CUT. Watching a generator means running it, and a generator writes its
+    outputs — which are ignored, so `git status` reads clean over a tree whose bundle has
+    moved. `pack.py --check` is the only thing that sees that, and a trace is not a publish,
+    so nobody was going to ask it. The run that moved the bytes is the run that says so.
+
+    Only what this run wrote is hashed, so the answer costs the members it touched and not
+    the 460 MB `--check` reads to answer the same question about all of them.
+    """
+    lock = _ROOT / "hardware" / "cad-artifacts.lock.json"
+    if not lock.is_file():
+        return []
+    pinned = json.loads(lock.read_text()).get("solids", {})
+    behind = []
+    for rel in sorted(set(wrote) & set(pinned)):
+        path = _ROOT / rel
+        if not path.is_file():
+            continue
+        digest = hashlib.sha256()
+        with path.open("rb") as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b""):
+                digest.update(chunk)
+        if digest.hexdigest() != pinned[rel]:
+            behind.append(rel)
+    return behind
+
+
 def main() -> int:
     # `selftest` holds the reading above; `--selftests` watches every OTHER module's. The two
     # words are one letter apart and answer different questions.
@@ -405,6 +435,7 @@ def main() -> int:
 
     graph = json.loads(GRAPH.read_text()) if GRAPH.is_file() else {}
     shrank = []
+    wrote = set()
     for i, gen in enumerate(gens, 1):
         seen = trace(gen, files)
         # `probe.py`, `fit.py` and `lanes.py` are instruments: they answer and write nothing,
@@ -428,6 +459,7 @@ def main() -> int:
         # tail as well, where a sweep of a hundred generators cannot scroll it away.
         raised = seen.pop("raised", None)
         if seen["writes"]:
+            wrote |= set(seen["writes"])
             prior = graph.get(gen)
             if prior and gave_up(prior, seen):
                 shrank.append((gen, len(prior["reads"]), len(seen["reads"]),
@@ -458,6 +490,16 @@ def main() -> int:
             print(f"    {gen}\n      {r0:3d} -> {r1:3d} read   {w0:3d} -> {w1:3d} written")
         print("  A run that stopped part way writes down the part it reached. Re-trace the one")
         print("  generator and read it again; the second reading is the one to keep.")
+    behind = _lock_debt(wrote)
+    if behind:
+        print(f"\n{len(behind)} member(s) this run wrote are no longer the lock's:")
+        for rel in behind[:8]:
+            print(f"    {rel}")
+        if len(behind) > 8:
+            print(f"    ... and {len(behind) - 8} more")
+        print("  A TRACE IS A CUT — the run rewrote them, and they are ignored, so")
+        print("  `git status` reads clean over a bundle that has moved. `pack.py --check`")
+        print("  is the only thing that sees this, and it reads rc=1 until someone publishes.")
     return 0
 
 
