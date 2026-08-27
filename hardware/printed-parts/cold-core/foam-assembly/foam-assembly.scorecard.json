@@ -83,11 +83,11 @@
     "port-lane: carb-water-out at z 13.8..233.4, x -55.4..-20.6",
     "port-lane: co2-in at z 13.8..233.4, x -4.7..50.0",
     "port-lane: evap-tail-inlet at z 24.6..50.2, x -143.5..-34.3",
-    "port-lane: reservoir-a at z 2.8..233.4, x -138.7..104.1",
+    "port-lane: reservoir-a at z 2.8..233.4, x -138.1..104.1",
     "west-lane: evap-tail-outlet at z 24.6..169.6, x -143.5..-34.3",
     "west-lane: prv-vent at z 168.7..187.9, x -3.2..3.2",
-    "west-lane: reservoir-b at z 2.8..233.4, x -138.7..-101.8",
-    "west-lane: water-in at z 179.9..233.4, x -138.7..-6.2"
+    "west-lane: reservoir-b at z 2.8..233.4, x -138.1..-101.8",
+    "west-lane: water-in at z 179.9..233.4, x -138.1..-6.2"
    ],
    "active": true
   },
@@ -376,13 +376,13 @@
    "to": "reservoir-a.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 538.36,
+   "length": 537.76,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 329.31,
+   "reach": 328.87,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -443,13 +443,13 @@
    "to": "reservoir-b.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 335.37,
+   "length": 334.77,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 231.08,
+   "reach": 231.0,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -473,7 +473,7 @@
     }
    ],
    "need": {
-    "detour": 1.451
+    "detour": 1.449
    }
   },
   {
@@ -504,13 +504,13 @@
    "to": "water-in.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 227.71,
+   "length": 227.1,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 142.67,
+   "reach": 142.14,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -534,7 +534,7 @@
     }
    ],
    "need": {
-    "detour": 1.596
+    "detour": 1.598
    }
   }
  ]
