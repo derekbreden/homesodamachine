@@ -547,47 +547,53 @@ bool linkDisplayUsbReattach() {
 // reattach above and for the same reason: it can meet a status poll, and the far
 // end's transition takes long enough that the first answer may be late. Raising
 // an AP that is already up is free at the other end, so a retry costs nothing.
-bool linkWifiAp(bool on) {
+// One main-board-originated frame on a pair whose rule is that the main board
+// answers, so it retries: it can meet the enclosure's own poll. 0 drops the
+// radio, 1 raises it, 2 only asks. All three are answered the same way.
+static bool linkWifiAsk(uint8_t what) {
     wifiApAck = false;
-    WifiApPayload req{(uint8_t)(on ? 1 : 0), WIFI_BENCH_CHANNEL};
-
-    for (uint8_t attempt = 0; attempt < 6 && !wifiApAck; attempt++) {
+    WifiApPayload req{what, WIFI_BENCH_CHANNEL};
+    for (uint8_t attempt = 0; attempt < 4 && !wifiApAck; attempt++) {
         j9.send(MSG_WIFI_BENCH_AP, &req, sizeof(req));
-        unsigned long until = millis() + 1500;
+        unsigned long until = millis() + 400;
         while ((long)(millis() - until) < 0 && !wifiApAck) {
             j9.service();
             delay(2);
         }
     }
+    return wifiApAck;
+}
 
-    if (!wifiApAck) {
+bool linkWifiAp(bool on) {
+    // The display raises its radio on a task of its own and answers this frame
+    // at once, so the answer to the request is not the answer to the question.
+    // Ask, then poll `up` until it moves. Asking twice is free at that end.
+    if (!linkWifiAsk(on ? 1 : 0)) {
         Serial.println("\nWIFI:AP UNREACHABLE — the enclosure display did not answer");
         return false;
     }
-    if (on && !wifiApState.up) {
-        Serial.println("\nWIFI:AP REFUSED — the enclosure display could not raise it");
-        return false;
+
+    const unsigned long deadline = millis() + (on ? 12000UL : 8000UL);
+    while ((long)(millis() - deadline) < 0) {
+        unsigned long until = millis() + 400;
+        while ((long)(millis() - until) < 0) { j9.service(); delay(2); }
+        if (!linkWifiAsk(2)) continue;
+        if ((bool)wifiApState.up == on) {
+            Serial.printf("\nWIFI:AP %s\n",
+                          on ? "up as '" WIFI_BENCH_SSID "', channel 6, sinking on port 5001"
+                             : "down");
+            return true;
+        }
     }
-    Serial.printf("\nWIFI:AP %s\n",
-                  wifiApState.up ? "up as '" WIFI_BENCH_SSID "', channel "
-                                   "6, sinking on port 5001" : "down");
-    return true;
+
+    Serial.printf("\nWIFI:AP did not come %s — the display answered but its radio did not move\n",
+                  on ? "up" : "down");
+    return false;
 }
 
 // What the sink counted, asked for after a run so the two ends can be compared.
 bool linkWifiApState(WifiApStatePayload &out) {
-    wifiApAck = false;
-    WifiApPayload req{2, WIFI_BENCH_CHANNEL};   // neither on nor off: just answer
-
-    for (uint8_t attempt = 0; attempt < 4 && !wifiApAck; attempt++) {
-        j9.send(MSG_WIFI_BENCH_AP, &req, sizeof(req));
-        unsigned long until = millis() + 500;
-        while ((long)(millis() - until) < 0 && !wifiApAck) {
-            j9.service();
-            delay(2);
-        }
-    }
-    if (!wifiApAck) return false;
+    if (!linkWifiAsk(2)) return false;
     out = wifiApState;
     return true;
 }
