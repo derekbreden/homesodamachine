@@ -24,6 +24,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts
 from _cadq_export import export_assembly
 from _materials import C_FAUCET_BLACK, one_body
 from _faucet_interface import (
+    above_counter_plate_thickness,
     flavor_tube_depth,
     pill_length_x,
     pill_width_y,
@@ -44,7 +45,7 @@ from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
 # [4 mm](PLATE_T) thick.
-plate_thickness = 4.0
+plate_thickness = above_counter_plate_thickness
 # Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
 # Footprint center at world (0, +[3.175 mm](PLATE_Y)); the Westbrass's axis at (0, 0).

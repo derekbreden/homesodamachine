@@ -64,7 +64,10 @@ def walk(segments, s):
 
     A segment is `(kind, length, data)`. A "line" carries its start, its unit tangent and its
     outward normal; an "arc" carries its centre, the angle its outward normal starts at and its
-    radius, and turns a quarter over its own length."""
+    radius, and TURNS AT ONE OVER THAT RADIUS — a quarter over `pi * r / 2`, and whatever sweep
+    its own length comes to otherwise. A run whose plan is a cylinder with flats milled into it
+    closes on two arcs of 33.3° and one of 66.6° (`faucet_shell.column_plan_segments`), and a
+    turn fixed at a quarter can walk none of them."""
     total = sum(length for _kind, length, _data in segments)
     if not -1e-9 <= s <= total + 1e-9:
         raise AssertionError("arc length walked off the end of a run")
@@ -75,7 +78,7 @@ def walk(segments, s):
                 (px, py), (tx, ty), (nx, ny) = data
                 return (px + tx * s, py + ty * s), (nx, ny)
             (cx, cy), a0, r = data
-            a = a0 + (math.pi / 2.0) * (s / length)
+            a = a0 + s / r
             n = (math.cos(a), math.sin(a))
             return (cx + r * n[0], cy + r * n[1]), n
         s -= length
