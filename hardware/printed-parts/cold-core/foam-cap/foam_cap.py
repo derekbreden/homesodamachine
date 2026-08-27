@@ -87,9 +87,6 @@ from _cold_core_interface import (
 from docgen import substitute_py_comments
 
 
-# The TOP lid's plate is solid the whole [5.2 mm](LID_Z_H) of `lid_total_height`, so what a hole
-# through it crosses is that and not one wall.
-
 # The lid's own footprint, as area: the shell's rectangle less what its four corner rounds take
 # out of it. Every plate in this stack is cut to it, and the two lids' plates differ by nothing
 # else.
@@ -566,10 +563,10 @@ def main():
     # field by half the perimeter; on an even `flute_count` that is a whole number of pitches,
     # so a field cut in the cap's own frame lands on the shell's grooves after the spin and
     # neither piece has to be told about the other (`flute-even`).
-    #   THE TWO LIDS TAKE NONE OF IT. Each is a plate one `wall_and_floor_thickness` thick, so
-    # its edge is a 2 mm band of the silhouette — a groove there would leave 0.8 mm behind it,
-    # and `flute_rise` could not develop in 2 mm anyway. What that band reads as instead is a
-    # reveal, which is what a seam wants.
+    #   THE TWO LIDS TAKE NONE OF IT, so each one's edge is a smooth band of the silhouette —
+    # one `wall_and_floor_thickness` where the bottom lid closes the stack, and the whole
+    # [5.2 mm](LID_Z_H) of its plate where the top lid meets the crown. What a band like that
+    # reads as is a reveal, which is what a seam wants.
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
 

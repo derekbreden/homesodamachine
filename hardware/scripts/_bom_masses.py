@@ -70,7 +70,13 @@ MATERIALS = {
 # Against the two slices that report both grams and geometry, the model reads:
 #
 #   enclosure-front-top, PET-GF, 0.24 layer   213.06 m = 512.5 cm³   model 456.4 (−11 %)
-#   cold-core foam shell, PETG, 0.8 nozzle    1142.47 g = 899.6 cm³  model 886.4 (−1.5 %)
+#   cold-core foam shell, 0.8 nozzle          1142.47 g = 899.6 cm³  model 886.4 (−1.5 %)
+#
+# EACH RESIDUAL BELONGS TO THE PLATE BESIDE IT, and validates the formula rather than the part:
+# `laid` is a function of the solid and the profile, so a residual measured on one solid holds
+# for any other run on the same profile. The shell's plate ran PETG and its grams are divided
+# by PETG's density to reach that cm³; the shell ships in PET-GF now, which changes what the
+# volume weighs and not what the volume is.
 #
 # THE MODEL IS THE PART AND THE SLICE IS THE PLATE. Supports, brim and purge are
 # filament off the same spool and are not here — the front-top's tree supports are
@@ -80,7 +86,8 @@ PROFILES = {
     # enclosure/print-log.md — 0.4 nozzle, `wall_loops` 2 classic, outer 0.42 +
     # inner 0.45, 15 % grid. Every exterior piece ships on it.
     "ext":   (0.87, 0.45, 0.15),
-    # foam-shell/print-log.md — 0.8 nozzle, `wall_loops` 2, `line_width` 0.82, 15 % grid.
+    # foam-shell/print-log.md — 0.8 nozzle, `wall_loops` 2, `line_width` 0.82, 15 % grid. The
+    # cold core's five foam bodies ship on it in PET-GF15, on the 0.8 mm tungsten carbide.
     "bulk":  (1.64, 0.82, 0.15),
     # reservoir/print-log.md — 0.6 nozzle, `wall_loops` 6 arachne, 0.60, and
     # `sparse_infill_density` 100 %: a syrup-tight wall is solid by the time it closes,

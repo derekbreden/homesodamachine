@@ -1,4 +1,4 @@
-"""Foam shell — the PETG enclosure for the cold core's pressure
+"""Foam shell — the PET-GF enclosure for the cold core's pressure
 carbonator + copper evaporator coil + flavor reservoir pockets. See
 README.md."""
 
@@ -246,6 +246,8 @@ def main():
             "FSHELL_FORWARD_BAND": f"{forward_band_width:.4g} mm",
             "BOSS_D": f"{screw_boss_size:.4g} mm",
             "CAP_H": f"{foam_cap_interior_height:.4g} mm",
+            # The top cup pours shallower by the band its lid's solid plate stands in.
+            "CAP_H_TOP": f"{foam_cap_interior_height - head_pad_height:.4g} mm",
             "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
             "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
             "GASKET_T": f"{gasket_thickness:.4g} mm",
