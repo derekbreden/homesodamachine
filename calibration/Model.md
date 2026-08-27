@@ -78,3 +78,9 @@ This tree states its premises as whole sentences, which is what makes them searc
 what a notch in a part means. Both sentences were written by the corrections rather than
 before them. A premise of that shape, standing in the tree at the start, names what the cut
 is about to make false.
+
+## Reading what comes back
+
+When options come back, one cost is argued where the others are counted — ask for that
+number, because the option an answer argues instead of measuring is the one it is least
+willing to do, and here it was the largest deletion of the four.
