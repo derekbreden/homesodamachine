@@ -22,6 +22,7 @@ had not yet written is absent from its outputs, and the copy at the end of its a
 nothing there.
 """
 
+import ast
 import argparse
 import hashlib
 import json
@@ -294,9 +295,41 @@ def _selftests(files: set) -> list:
         # A DEFINITION AND NOT A MENTION. `gen_build.py` names the word in the code that
         # looks for it, and matching on the mention gave it a test that its own argument
         # parser refuses.
-        if re.search(r"^def selftest\(", text, re.M):
+        #
+        # AND THE COMMAND LINE IS THE QUESTION, NOT THE FUNCTION'S NAME. A module answers to
+        # `selftest` by branching on it, and what the branch calls is the author's business:
+        # `render_scenes.py` runs `payload_glb_selftest` and `check_paths.py` runs `_selftest`,
+        # so a rule reading only `def selftest(` walks past both and their holds state
+        # themselves to nobody. `argv` on one side of a comparison against the word is the
+        # branch itself and cannot be a mention — this file passes `argv=("selftest",)` to the
+        # tracer a few lines down, and that is a call and not a comparison.
+        if re.search(r"^def selftest\(", text, re.M) or _argv_selftest(text):
             out.append(f)
     return out
+
+
+def _argv_selftest(text: str) -> bool:
+    """Whether the module's own command line branches on the word `selftest`.
+
+    EITHER SIDE MAY HOLD THE ARGV, because both readings are in this tree and they are the
+    same branch: `render_scenes.py` asks `sys.argv[1:] == ["selftest"]` and `check_paths.py`
+    asks `"selftest" in sys.argv[1:]`. A rule that reads only the first walks past the second.
+    """
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return False
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Compare):
+            continue
+        sides = [node.left, *node.comparators]
+        argv = any(isinstance(n, ast.Attribute) and n.attr == "argv"
+                   for side in sides for n in ast.walk(side))
+        word = any(isinstance(n, ast.Constant) and n.value == "selftest"
+                   for side in sides for n in ast.walk(side))
+        if argv and word:
+            return True
+    return False
 
 
 def gave_up(prior: dict, seen: dict) -> bool:
