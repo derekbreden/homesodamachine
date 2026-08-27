@@ -66,7 +66,8 @@ def reading(step: Path, stl: Path):
 def main() -> int:
     found = flute_payload.pieces()
     if not found:
-        print(f"  no printed meshes beside the solids in {flute_payload.PIECES_DIR}")
+        print("  no printed meshes beside the solids in "
+              + ", ".join(str(d) for d in flute_payload.PIECES_DIRS))
         print("  nothing to hold a payload against")
         return 0
 

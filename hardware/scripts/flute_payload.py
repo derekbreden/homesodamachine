@@ -35,7 +35,9 @@ that sRGB to the linear a STEP round trip delivers — the same expression `_mes
 every other part through. A picture drawn from this payload is the picture the STEP would have
 drawn, with the surface it actually has.
 
-    tools/cad-venv/bin/python hardware/scripts/flute_payload.py
+    tools/cad-venv/bin/python hardware/scripts/flute_payload_enclosure.py
+    tools/cad-venv/bin/python hardware/scripts/flute_payload_cold_core.py
+    tools/cad-venv/bin/python hardware/scripts/flute_payload.py            # both trees
     tools/cad-venv/bin/python hardware/scripts/flute_payload.py selftest
 """
 
@@ -56,16 +58,27 @@ import _mesh_payload                                                    # noqa: 
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
 
-#: Every directory whose solids stand beside a printed mesh the solid does not describe. The
-#: box's six pieces are one of them; the cold core's shell and its two caps are the others,
-#: fluted on the same field off the same `cadlib/flute_skin.py` (`cold-core/_show_skin.py`).
-#: A caller asks for all of them by default, because "which surfaces on this disk are fluted"
-#: is one question and no scene knows which tree a body came out of.
-PIECES_DIRS = (
+#: Every directory whose solids stand beside a printed mesh the solid does not describe, in the
+#: two trees they fall into. The box's six pieces are one tree; the cold core's shell and its two
+#: caps are the other, fluted on the same field off the same `cadlib/flute_skin.py`
+#: (`cold-core/_show_skin.py`).
+#:
+#: NOTHING PASSES BETWEEN THE TWO. A run over one tree opens that tree's directories and writes
+#: the payloads standing in them, and reads nothing of the other — which is what lets the build
+#: flute them as two rules, `flute_payload_enclosure.py` and `flute_payload_cold_core.py`.
+#:
+#: AN ASSEMBLY ASKS FOR THE TREE ITS BODIES CAME OUT OF. `foam_assembly` and `cold_core_assembly`
+#: hold the core and nothing else, so they ask for `COLD_CORE_DIRS`; `enclosure_assembly` holds
+#: the machine and takes the default, because "which surfaces on this disk are fluted" is one
+#: question and a scene spanning both trees knows no better answer.
+ENCLOSURE_DIRS = (
     _ROOT / "hardware/printed-parts/enclosure/enclosure",
+)
+COLD_CORE_DIRS = (
     _ROOT / "hardware/printed-parts/cold-core/foam-shell",
     _ROOT / "hardware/printed-parts/cold-core/foam-cap",
 )
+PIECES_DIRS = ENCLOSURE_DIRS + COLD_CORE_DIRS
 
 #: The crease `xray.js` draws a feature edge at, in degrees.
 CREASE_DEG = 30.0
@@ -585,11 +598,11 @@ def graft(path: Path, fluted: dict):
     return landed
 
 
-def main():
-    found = pieces()
+def main(directories=PIECES_DIRS):
+    found = pieces(directories)
     if not found:
         raise SystemExit("no printed meshes beside the solids in "
-                         + ", ".join(str(d) for d in PIECES_DIRS))
+                         + ", ".join(str(d) for d in directories))
     fluted = {}
     for step, stl in found:
         mesh = cut(step, stl)
@@ -602,9 +615,9 @@ def main():
     # A PAYLOAD IS GRAFTED BY WHOEVER WRITES IT. Everywhere else the run that cuts one does its
     # own graft as it goes — `manifold-layout/enclosure_assembly.py` for the appliance,
     # `assembly/scenes/render_scenes.py` for each bench scene — so nothing here walks the tree
-    # looking for them, and this reads one directory.
+    # looking for them, and this reads only the directories it was handed.
     cut_here = {step.name + ".mesh" for step, _ in found}
-    for directory in PIECES_DIRS:
+    for directory in directories:
         for path in sorted(directory.glob("*.step.mesh")):
             if path.name in cut_here:
                 continue

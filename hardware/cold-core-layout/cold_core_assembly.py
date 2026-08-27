@@ -715,8 +715,13 @@ def main() -> int:
     #
     # IMPORTED HERE AND NOT AT THE TOP, the way `enclosure_assembly` does it: `flute_payload`
     # pulls in a decimator and a proximity index that only the run which cuts an assembly uses.
+    #
+    # AND ASKED FOR THE CORE'S TREE, not the disk. This assembly holds cold-core bodies and no
+    # others, so the box's six fluted pieces are surfaces it can never graft — and indexing them
+    # makes the action hold the whole enclosure to read six payloads it puts down again.
     import flute_payload                                                # noqa: E402
-    _grafted = flute_payload.graft(Path(str(STEP_OUT) + ".mesh"), flute_payload.surfaces())
+    _grafted = flute_payload.graft(Path(str(STEP_OUT) + ".mesh"),
+                                   flute_payload.surfaces(flute_payload.COLD_CORE_DIRS))
     if _grafted:
         print(f"-> {Path(str(STEP_OUT)).name}.mesh  ({_grafted} fluted piece(s))")
     print(f"-> {STEP_OUT.name}")

@@ -148,7 +148,7 @@ def _recut_payloads_beside() -> None:
     """Cut the show surface for any piece STEP this carry just landed.
 
     A PAYLOAD IS CUT BY WHOEVER WRITES THE STEP, which is the same rule `flute_payload.main`
-    states for grafting: whoever writes a payload grafts it. Six solids in this tree keep their
+    states for grafting: whoever writes a payload grafts it. Nine solids in this tree keep their
     show surface in `<file>.step.mesh` rather than in the B-rep, and `/3d` — the deployed one and
     the dev server both — draws that file. Carrying the STEP alone leaves the tree holding a new
     solid and the old picture of it, so a geometry change is invisible until something recuts,
@@ -157,12 +157,12 @@ def _recut_payloads_beside() -> None:
     ONLY WHAT IS STALE, AND NEVER BAZEL. The payload records the digest of the STEP it was cut
     from, so a piece whose payload already answers to the file beside it is skipped and this
     costs a hash. Cutting reads the printed `.stl` beside the solid and runs in this process:
-    asking bazel for `//:flute-payload` instead would queue on the build lock, which another
-    session holds for minutes at a time.
+    asking bazel for `//:flute-payload-enclosure` and `//:flute-payload-cold-core` instead
+    would queue on the build lock, which another session holds for minutes at a time.
 
-    ASKED OF ALL SIX AND NOT ONLY OF WHAT MOVED. Whether the STEP came in on this carry does not
-    decide whether the payload answers to it — a piece can go stale under a carry that touched
-    something else, and six hashes is what it costs to find out.
+    ASKED OF ALL NINE AND NOT ONLY OF WHAT MOVED. Whether the STEP came in on this carry does
+    not decide whether the payload answers to it — a piece can go stale under a carry that touched
+    something else, and nine hashes is what it costs to find out.
 
     IT REPORTS AND HOLDS NOTHING. A cut that fails leaves the carry done and says which piece;
     the tree keeps the payload it had, which is a picture of the part before this change rather

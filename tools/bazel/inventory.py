@@ -79,28 +79,71 @@ ACTION_INTERMEDIATE = frozenset({
     "hardware/cold-core-layout/cold-core-assembly.step.mesh",
 })
 
+# ONE RUN THAT DOES TWO SEPARABLE JOBS IS TWO RULES, and each wrapper below is the real script
+# an action runs for its half. The reading is still one traced run of the source; what a wrapper
+# takes out of it is a pair of predicates — which writes are its, and which reads.
+#
 # A direct scene-render run can produce both media. The enclosure-assembly producer owns the
 # public GLBs now, cutting them from the named machine it already has in memory. This synthetic
-# card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace.
+# card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace, and every
+# read that run took.
+#
+# THE FLUTING PASS IS TWO TREES AND HELD THEM IN ONE RULE, which is a loop: `foam_assembly.py`
+# reads the cold core's payloads, `enclosure-box` is built from the foam assembly, `enclosure`
+# stands on the box, and the enclosure's payloads are cut off `enclosure` — so the one rule waited
+# on a rule whose inputs it made, and bazel refuses to load a graph that comes back around.
+# Nothing passes between the two trees, so each takes the payloads under its own roots and the
+# reads under them; the modules both halves import are under no root and go to both, because both
+# actions have to hold them.
+_FLUTE_ROOTS = {
+    "hardware/scripts/flute_payload_enclosure.py": (
+        "hardware/printed-parts/enclosure/enclosure/",),
+    "hardware/scripts/flute_payload_cold_core.py": (
+        "hardware/printed-parts/cold-core/foam-cap/",
+        "hardware/printed-parts/cold-core/foam-shell/"),
+}
+_FLUTE_TREES = tuple(sorted(r for roots in _FLUTE_ROOTS.values() for r in roots))
+
+
+def _one_tree(roots: tuple) -> tuple:
+    """The half of a two-tree run that works under `roots` — its writes, then its reads."""
+    return (lambda path: path.startswith(roots),
+            lambda path: path.startswith(roots) or not path.startswith(_FLUTE_TREES))
+
+
+def _every(_path) -> bool:
+    return True
+
+
+def _not_glb(path) -> bool:
+    return not path.endswith(".glb")
+
+
+#: `{source: {wrapper: (takes_write, takes_read)}}`. A wrapper is a real script with its own
+#: `__main__`; its graph entry is written from the source's trace and whatever a reading of the
+#: wrapper itself left behind is dropped — `trace_inputs.main` says so at its entrance.
 SPLIT_GENERATORS = {
-    "hardware/assembly/scenes/render_scenes.py": (
-        "hardware/assembly/scenes/render_scene_cards.py",
-    ),
+    "hardware/assembly/scenes/render_scenes.py": {
+        "hardware/assembly/scenes/render_scene_cards.py": (_not_glb, _every),
+    },
+    "hardware/scripts/flute_payload.py": {
+        wrapper: _one_tree(roots) for wrapper, roots in _FLUTE_ROOTS.items()
+    },
 }
 
 
 def _split_generators(graph: dict) -> dict:
     graph = dict(graph)
-    for source, (cards,) in SPLIT_GENERATORS.items():
+    for source, wrappers in SPLIT_GENERATORS.items():
         if source not in graph:
             continue
         seen = graph.pop(source)
-        rewritten = set(seen.get("rewritten", ()))
-        graph[cards] = {
-            "reads": list(seen.get("reads", ())),
-            "writes": [p for p in seen.get("writes", ()) if not p.endswith(".glb")],
-            "rewritten": list(seen.get("rewritten", ())),
-        }
+        for wrapper, (takes_write, takes_read) in wrappers.items():
+            graph[wrapper] = {
+                "reads": [p for p in seen.get("reads", ()) if takes_read(p)],
+                "writes": [p for p in seen.get("writes", ()) if takes_write(p)],
+                "rewritten": [p for p in seen.get("rewritten", ()) if takes_write(p)],
+            }
     return graph
 
 #: ONE WALK ANSWERS WHICH `.step` ON THIS DISK IS A GENERATED SOLID, and `pack.py` is where it
