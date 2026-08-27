@@ -4014,11 +4014,10 @@ BODY_ANCHOR_SITES = (
     # the regulator stand on one vertical with a hairpin joining them, and each takes a rib on the
     # run between its hub and the collet the tap arrives by — the one round section on either body
     # that is neither a box, a branch, nor the adjuster a hand has to reach.
-    #   ONE FACE TAKES BOTH AND TWO PIECES BUILD THEM. The pair's axes are parallel and level in
-    # X, so a rib off this face stands across each run the same way — but the tap runs forward
-    # across the Y seam, and a piece builds only the ribs whose whole length it owns. The split is
-    # aft of the seam and the regulator forward of it, so each seat prints on the piece its own
-    # body stands in and the two are one column of material across the joint.
+    #   ONE FACE TAKES BOTH AND ONE PIECE BUILDS THEM. The pair's axes are parallel and level in
+    # X, so a rib off this face stands across each run the same way, and a piece builds only the
+    # ribs whose whole length it owns. Both bodies stand aft of the Y seam, so both seats print on
+    # `enclosure-back-top` and the two are one column of material in one piece.
     ("water-split", _split.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
     ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
