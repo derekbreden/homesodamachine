@@ -2,7 +2,9 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis — analysis lives in the conversation, decisions land in the geometry.
 
-Geometry: the full cold-core foam shell, one object `foam-shell.step` from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). Outer footprint 283 × 181 mm, 213.4 mm tall, 2 mm walls/floor. README is the geometry source-of-truth.
+Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). Outer footprint 283 × 181 mm, 213.4 mm tall; the four standing walls are 3.2 mm on a 2 mm floor. README is the geometry source-of-truth.
+
+**Slice `foam-shell.stl`, not `foam-shell.step`.** The standing walls carry a fluted show skin that lives in the MESH and not in the solid, so the STEP beside it is a smooth prism — a plate sliced off it prints a part this machine does not have. The two foam caps are the same: `foam-cap-top.stl` and `foam-cap-bottom.stl`. Everywhere else on the machine the STEP is the whole of the part; on these three it is not. See README §The show skin.
 
 ## Print attempt 1 (settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
