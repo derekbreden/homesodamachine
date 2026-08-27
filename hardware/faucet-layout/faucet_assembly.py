@@ -472,9 +472,12 @@ flavor_tube_z_top = soda_faucet_tube_z_top
 # The lane the SIG-6 ribbon rides in, between the tube pack and the braid's inner face. The braid
 # stands off every tube in the pack by it.
 #
-# ASSUMED, NOT MEASURED — one 28 AWG silicone conductor's OD. The ribbon is on the shelf
-# (`ledger/purchases.md`, B07PNPHWMG) and modelled nowhere; a caliper across it replaces this.
-cable_lane = 1.5
+# One 28 AWG silicone conductor's OD, which is the ribbon's own thickness — four conductors lie
+# side by side and none stands over another. BNTECHGO states the section 1.2 x 4 mm +/- 0.1 for
+# B07PNPHWMG (`ledger/bom.md` §9), so the lane is that 1.2 and the ribbon is 4 wide across it.
+# Vendor figure, not a caliper: the spool is on the shelf and a measurement across it still refines
+# this to the tolerance's own width.
+cable_lane = 1.2
 sleeve_wall = 1.0
 
 
