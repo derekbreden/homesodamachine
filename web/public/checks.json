@@ -57,13 +57,13 @@
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 118 of 1000 free, the next cut wants 3, and the whole lock reads by name in 142.5 MB against 143.7 MB of bundle",
+      "note": "check_release_room: 115 of 1000 free, the next cut wants 3, and the whole lock reads by name in 142.5 MB against 143.6 MB of bundle",
       "status": "ok"
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -100,11 +100,6 @@
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
       "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
-    ],
-    "tools/check_web_tests.py": [
-      "1 test(s) in web/ fail:",
-      "    the artifact lock pins every committed viewer scorecard",
-      "  cd web && npm test"
     ]
   },
   "green": false
