@@ -42,6 +42,8 @@ sys.path.insert(
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "enclosure"))
 from _cadq_export import export_assembly
 from _materials import M_PETGF_BLACK, one_body
+# The bound this file states about its own show face, recorded at import for the machine's card.
+import _stated_bounds as _bounds
 from docgen import substitute_md, substitute_py_comments
 from _enclosure_interface import (
     display_bezel_depth,
@@ -58,6 +60,9 @@ from _enclosure_interface import (
     display_inset_slope,
     display_inset_x,
     display_screw_x,
+    flute_depth,
+    flute_full_depth_height,
+    flute_reach,
     head_cbore_dia,
     heatset_depth,
     mount_bore_relief,
@@ -110,6 +115,31 @@ lap_band = (seat_inner_x - window_x) / 2.0
 # What the deeper section is worth in stiffness, which is the reason to want it: a plate's
 # bending stiffness goes as the cube of its section, so this is [17.6×](SEAT_STIFFNESS) times.
 seat_stiffness = (display_cover_seat / display_cover_thickness) ** 3
+
+# THE PLATE IS A REVEAL IN THE FACET AND NOT A FLUTED FACE, and three separate things say so.
+#
+# ITS SHOW FACE LIES IN THE 45° PLANE. The box's field is struck along a plan and runs vertically
+# (`enclosure.flute_rails`), so the facet carries no run at all — it is the material's own
+# answer, along with the top rails and the pockets round the drop cutouts
+# (`cadlib/flute_skin.py`). A plate let into that plane reads with the facet or against it.
+#
+# AND THE BAND IT DOES STAND ON IS SHORT. The plate's own edge is `display_cover_seat` on the
+# run, well under the `flute_full_depth_height` it takes before one station stands `flute_rise`
+# clear of both faces — the whole band would be ramp, and `flute_reach` says what would land
+# there instead.
+#
+# AND TWO OF ITS FACES WOULD OWE THIS AT ANY HEIGHT. The border's underside over the glass is
+# the display gasket's own land (`glass_face_depth`), and a groove across a sealing land is a
+# path for what the gasket is there to keep out; the window it laps is the screen a customer
+# reads through.
+_bounds.state(
+    "display-cover-reveal", "The display cover is a reveal in the facet, not a fluted face",
+    f"under {flute_full_depth_height:g} mm on the run",
+    flute_reach(display_cover_seat) < flute_depth,
+    f"the plate stands {display_cover_seat:g} mm on the run, at or over the "
+    f"{flute_full_depth_height:g} mm at which the field reaches its full {flute_depth:g} mm — "
+    f"so a groove would land {flute_reach(display_cover_seat):.3f} mm here and the facet it "
+    f"lies in still carries no run")
 
 # THE LAP BEARS ON THE GLASS THROUGH THE GASKET. The plate's underside is one
 # `display_inset_depth` below the 45° face and the glass's own front face is

@@ -4751,6 +4751,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
