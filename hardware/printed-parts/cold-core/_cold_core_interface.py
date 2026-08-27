@@ -1397,11 +1397,16 @@ cap_side_cav_backing_min = cap_anchor_cav_buffer
 # The tie's own channel down the post's back face, so the buckle seats and the zip tie cannot walk
 # along the run.
 cap_side_back_relief = 1.2
-# How deep the post runs BEHIND the axis plane, and it is not its own to choose: the axis plane
-# is the CORE'S OWN FRONT FACE, so everything the post is stands inside the core's plan outline —
-# nothing of it is proud, and the grips the box closes on that outline do not move. What it has
-# aft is the band to the source pair's own bodies.
-cap_side_depth = 5.0
+# How deep the post runs back from its front face, which is `centre`'s own plane.
+#   THE SECTION IS SQUARE, because a post is only as stout as its NARROW side. The length is what
+# one tie's tunnel and its two flanks make; a depth under it leaves the depth narrow, and on a
+# post that stands the whole of a crown storey off the lid that narrow side is a blade. A depth
+# over it leaves the LENGTH narrow instead, and the tower is no steadier for the material.
+#   What the depth spends is aft. The front face stands inside the core's plan outline — nothing
+# of the post is proud, and the grips the box closes on that outline do not move — so every
+# millimetre goes into the band to the source pair's own bodies, and two more onto the loop the
+# tie has to close (`cap_side_anchor_tie_loop`).
+cap_side_depth = cap_side_len
 # The least material the post may carry behind the pipe's deepest point. The tie pulls the tube
 # into the pipe and the whole section reacts it, so this is a printing floor and not a strength
 # one: under it the back face is a skin with no fill behind the bore.
@@ -1490,11 +1495,15 @@ def cap_side_anchor_holds(name) -> None:
             f"cap_side_anchor_holds: {name} stands its pipe {a.axis_off:.3f} mm forward of the "
             f"post's face on a seat of {a.seat_r:.3f} — what is left of the seat is a scratch in "
             f"the face, and the tube would lie on the face rather than in anything.")
-    web = cap_side_depth + a.axis_off - a.seat_r
+    # The bore eats forward from the front face and the tie's channel eats back from the rear one,
+    # and they meet over the pipe: what is left between them is the whole of the web, so the
+    # relief comes off the reading the same way the seat does.
+    web = cap_side_depth + a.axis_off - a.seat_r - cap_side_back_relief
     if web < cap_side_web - 1e-9:
         raise ValueError(
-            f"cap_side_anchor_holds: the post runs {cap_side_depth:.3f} mm behind the axis and "
-            f"the pipe takes {a.seat_r:.3f}, leaving a web of {web:.3f} where this face wants "
+            f"cap_side_anchor_holds: the post runs {cap_side_depth:.3f} mm back from its face; "
+            f"the pipe takes {a.seat_r - a.axis_off:.3f} of that and the tie's channel "
+            f"{cap_side_back_relief:g} more, leaving a web of {web:.3f} where this face wants "
             f"{cap_side_web:g}. What caps the depth is the body behind the post, so what gives "
             f"is the pipe or the lane — not the web.")
 
