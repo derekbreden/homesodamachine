@@ -6,7 +6,7 @@
 
 import * as THREE from "three";
 import { state } from "./state.js";
-import { scene, camera, resetCamera, addStudioLighting, aimLights, fitCameraDepth, fitFog,
+import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, fitFog,
          BG_COLOR, TONE_EXPOSURE } from "./scene.js";
 import { applyXray, syncEdgeResolution } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
@@ -371,7 +371,7 @@ thumbRenderer.toneMapping = THREE.ACESFilmicToneMapping;
 thumbRenderer.toneMappingExposure = TONE_EXPOSURE;
 const thumbScene = new THREE.Scene();
 const thumbCam = new THREE.PerspectiveCamera(45, 1, 1, 1000);
-addStudioLighting(thumbScene);   // its own rig, aimed in renderThumbnail off its own framing
+addStudioLighting(thumbScene);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.
@@ -400,7 +400,6 @@ function snapThumbnail(group, px = THUMB_SIZE) {
   thumbCam.lookAt(center);
   fitCameraDepth(thumbCam, center, size.length() / 2);
   fitFog(thumbScene, dist, size.length() / 2);
-  aimLights(thumbCam, center, size.length() / 2, thumbScene);
   syncEdgeResolution(thumbRenderer);
 
   thumbRenderer.render(thumbScene, thumbCam);
