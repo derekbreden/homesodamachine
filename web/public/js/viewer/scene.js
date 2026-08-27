@@ -22,10 +22,7 @@
 
 import * as THREE from "three";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
-import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { state } from "./state.js";
 import { syncEdgeResolution } from "./xray.js";
 
@@ -33,27 +30,16 @@ import { syncEdgeResolution } from "./xray.js";
 export const canvasHost = document.getElementById("cad-canvas-host");
 
 // Exposure the filmic curve is driven at, shared with step.js's thumbnail renderer.
-export const TONE_EXPOSURE = 1.15;
+export const TONE_EXPOSURE = 1.25;
 // What every 3D surface in the app clears to, and what distance fades toward.
 export const BG_COLOR = 0x1a1a2e;
 
 export const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(BG_COLOR);
-// AND THE SCENE OWNS IT TOO, which is the spelling that survives the composer. A clear colour is
-// written straight into the render target, and the target a post chain draws into is LINEAR — so
-// `OutputPass` converts it to sRGB on the way out and a colour that was already sRGB comes back
-// lifted, 0x1a1a2e reading as a pale lilac. `scene.background` goes through three's own colour
-// management instead and lands on the same value it names, composer or not.
 // The scene renders through a filmic tone curve. step.js's offscreen thumbnail
 // renderer carries the same curve and exposure, so a grid thumbnail and the
 // detail view of a part are shaded alike.
-// NO SHADOW MAP, and the reason is the rig above rather than the cost. A key that travels with
-// the eye throws its shadows AWAY from the eye, behind the geometry that casts them, so a 2048²
-// map over 350 bodies measured 11.7 ms a frame — 44 % of the frame — and moved the picture's
-// tonal range by nothing at all: p05 61, p99 212, range 151, identical with it on and off. The
-// range came from the HalfFloat target below instead. A fixed-rig viewer would want them; this
-// one is paying for a pass whose output stands where nobody is looking.
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = TONE_EXPOSURE;
 renderer.domElement.id = "viewport";
@@ -61,7 +47,6 @@ renderer.domElement.classList.add("cad-viewport");
 canvasHost.appendChild(renderer.domElement);
 
 export const scene = new THREE.Scene();
-scene.background = new THREE.Color(BG_COLOR);
 // near/far are seeded here and fitted to the mounted model every frame by
 // updateDepthRange().
 export const camera = new THREE.PerspectiveCamera(45, 1, 1, 1000);
@@ -100,131 +85,26 @@ export function afterGesture() {
   return new Promise((resolve) => gestureWaiters.push(resolve));
 }
 
-// THE ENVIRONMENT IS WHAT A SPECULAR SURFACE HAS TO LOOK AT, and on this machine that is most
-// of what a surface is. A metal has no diffuse term at all — every photon it sends back is the
-// environment reflected — so a metal under a uniform grey box IS a uniform grey box, whatever
-// `_materials` says it is made of. Brass, copper, the sintered stone and the mill-finish
-// stainless all arrive at the viewer as their own colour and can only spend it here.
-//
-// So this is a lit room rather than a neutral one: ONE BRIGHT SOFTBOX overhead and forward, two
-// dim bounce cards off to either side, and dark everywhere else. The softbox is the highlight
-// that travels across a surface as it turns, the bounce keeps the shadow side from going flat,
-// and the dark surround is what makes the highlight read as a highlight. Measured against a
-// uniform environment on the cold core, that is worth a mean 22 counts of 255 across the frame
-// and it DOUBLES what `finishes.json` is worth on the same bodies — a roughness that has
-// nothing to sharpen or smear is a roughness nobody can see.
-//
-// The dielectrics gain far less and cannot gain more: a non-metal keeps about 4 % of the light
-// in its specular lobe, so the whole PETG-against-PET-GF difference is a redistribution of that
-// 4 % and no lamp lifts the ceiling. What it buys them is real and small; what it buys the
-// metals is the difference between metal and paint.
-// AN ENVIRONMENT LIGHTS DIFFUSE AS WELL AS SPECULAR. `scene.environment` is irradiance, not just
-// reflection: a face pointed at a dark wall gets a dark ambient term whatever the lamps do. So a
-// bright box on one side and a near-black room everywhere else does not merely fail to sparkle on
-// the far side — it STARVES it, and the machine reads light grey from the back and near-black
-// from the front. The room has to be lit all the way round, with one source clearly brightest.
-const SOFTBOX = { size: [10, 0.2, 8], at: [0, 7, 2], power: 7 };
-const BOUNCE = [
-  { size: [8, 6, 0.2], at: [-7, 0, -4], power: 3.5 },
-  { size: [6, 5, 0.2], at: [6, -1, 3], power: 2.2 },
-  // The two walls the first pair leaves dark. Dimmer than the key by enough that the highlight
-  // still travels, bright enough that no face of a closed box falls off a cliff.
-  { size: [0.2, 6, 8], at: [-8, 2, 2], power: 1.6 },
-  { size: [8, 6, 0.2], at: [0, 2, -8], power: 1.4 },
-  // A FLOOR, dim and broad. A metal facing down has only this to reflect, and a metal with
-  // nothing to reflect is not dark, it is BLACK — the failure a uniform environment cannot have
-  // and the one this rig has to be tuned against. The brass hex is the part that shows it: at a
-  // surround of 0.03 its underside went to nothing, and every value here was set by turning that
-  // face back into a readable shadow without flattening the highlight on top of it.
-  { size: [10, 0.2, 8], at: [0, -7, -1], power: 2.4 },
-];
-//: How dark the room is between the lights — the ground every surface sees before it sees a
-//: lamp. Not zero, for the same reason the floor is there.
-const SURROUND = 0.40;
-
-function studioRoom() {
-  const room = new THREE.Scene();
-  room.background = new THREE.Color(SURROUND, SURROUND, SURROUND);
-  for (const { size, at, power } of [SOFTBOX, ...BOUNCE]) {
-    // A basic material takes no lighting, so its colour IS its emission — and past 1.0 it is a
-    // light source rather than a white card, which is what the float PMREM target is for.
-    const face = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    face.color.multiplyScalar(power);
-    const panel = new THREE.Mesh(new THREE.BoxGeometry(...size), face);
-    panel.position.set(...at);
-    room.add(panel);
-  }
-  return room;
-}
-
-// Blurred at 0.03 rather than convolved to nothing: the softbox has to keep an edge, because a
-// highlight with no edge is the uniform grey this replaces. Roughness does the rest of the
-// blurring per material, off the mip chain PMREM builds.
+// A neutral studio environment gives metallic PBR materials (the GLB
+// component models — connectors, cans, ICs) something to reflect; without it
+// they render black. STEP parts (near-non-metallic) pick up only a faint sheen.
 const pmrem = new THREE.PMREMGenerator(renderer);
-export const studioEnvironment = pmrem.fromScene(studioRoom(), 0.03).texture;
+export const studioEnvironment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
 // The rig every 3D surface in the app is lit by. step.js's offscreen thumbnail
 // scene takes the same one, so a part's grid thumbnail and its detail view are
 // lit from the same directions.
-// A RIG NAILED TO THE WORLD STARVES A FACE. Lamps at fixed world positions light the sides they
-// happen to point at, and the machine is a closed box: orbit to the far side and the whole
-// silhouette falls to ambient, which is the one term carrying no form at all. The back of this
-// box read light grey and the front read near-black for exactly that reason — key and softbox
-// both stood on +Y.
-//
-// So the three lamps travel with the eye, in the camera's own basis, the way a photographer
-// carries a rig around a subject rather than nailing it to the room: KEY up and to the left of
-// the lens, FILL down and right at a fifth of it, RIM behind the subject to lift its edge off
-// the background. What stays fixed in the world is the ENVIRONMENT, because reflections have to
-// slide across a surface as it turns — a specular that travels with you is painted on, and the
-// eye reads that as fake immediately.
-const KEY_DIR = [-0.55, 0.62, 0.55];   // in camera basis: left, up, toward the eye
-const FILL_DIR = [0.70, -0.35, 0.35];
-const RIM_DIR = [0.25, 0.55, -0.85];   // behind the subject, raking its far edge
-
-// THE RIG BELONGS TO ITS SCENE, not to this module. `addStudioLighting` is called twice — once
-// for the model and once for step.js's offscreen thumbnail scene — so a lamp held in a module
-// variable is overwritten by whichever scene was lit second, and the FIRST scene's lamps are
-// then never aimed at all. They sit at the origin pointing at the origin, contribute nothing,
-// and every scrap of form the picture has comes from the environment alone. Hanging the rig on
-// the scene that owns it is what makes two lit scenes possible.
-
-// The lamps are placed each frame from the camera's own axes. `_aimAt` puts one at `dir` in that
-// basis, a fixed distance out, and a DirectionalLight only cares about direction so the distance
-// is arbitrary — it just has to be outside the model.
-function _aimAt(light, dir, cam, target, reach) {
-  const right = new THREE.Vector3(), up = new THREE.Vector3(), back = new THREE.Vector3();
-  cam.matrixWorld.extractBasis(right, up, back);
-  light.position.copy(target)
-    .addScaledVector(right, dir[0] * reach)
-    .addScaledVector(up, dir[1] * reach)
-    .addScaledVector(back, dir[2] * reach);
-  light.target.position.copy(target);
-  light.target.updateMatrixWorld();
-}
-
-export function aimLights(cam, target, radius, host = scene) {
-  const rig = host && host.userData && host.userData.hsmRig;
-  if (!rig) return;
-  const reach = Math.max(radius, 1) * 4;
-  _aimAt(rig.key, KEY_DIR, cam, target, reach);
-  _aimAt(rig.fill, FILL_DIR, cam, target, reach);
-  _aimAt(rig.rim, RIM_DIR, cam, target, reach);
-}
-
 export function addStudioLighting(target) {
-  // AMBIENT IS THE TERM THAT FLATTENS. It reaches every face at one value regardless of which way
-  // that face points, so every unit of it is a unit of shape removed — and at 0.5 it was most of
-  // the light in the room. What is left is a floor under the deepest shadow, not a light.
-  target.add(new THREE.AmbientLight(0xffffff, 0.14));
-  const key = new THREE.DirectionalLight(0xffffff, 3.4);
-  const fill = new THREE.DirectionalLight(0xffffff, 0.60);
-  const rim = new THREE.DirectionalLight(0xffffff, 1.25);
-  for (const l of [key, fill, rim]) { target.add(l); target.add(l.target); }
-  target.userData.hsmRig = { key, fill, rim };
-  // Sky above, a cooler ground below — the gradient a room actually has, and the cheapest cue
-  // that there is an up.
-  target.add(new THREE.HemisphereLight(0xdfe6ff, 0x24242e, 0.34));
+  target.add(new THREE.AmbientLight(0xffffff, 0.5));
+  const key = new THREE.DirectionalLight(0xffffff, 0.8);
+  key.position.set(1, 2, 1.5);
+  target.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.3);
+  fill.position.set(-1, -0.5, -1);
+  target.add(fill);
+  // Omnidirectional fill so no face reads as black when it faces away from the
+  // two directionals (the GLB assemblies have parts pointing every direction).
+  target.add(new THREE.HemisphereLight(0xffffff, 0x333340, 0.5));
   target.environment = studioEnvironment;
   // Distance fades a surface and an edge toward the background. The x-ray ghost
   // carries every solid's feature edges at once — 48,000 segments on the
@@ -512,7 +392,6 @@ export function resizeRenderer() {
     h = window.innerHeight;
   }
   renderer.setSize(w, h, false);
-  resizeComposer();
   // Also re-apply CSS size — setSize(...,false) doesn't touch style, and we
   // want the canvas to actually fill the wrapper's content box.
   renderer.domElement.style.width = w + "px";
@@ -573,7 +452,6 @@ export function updateDepthRange() {
     _depthGroup = group;
   }
   fitFog(scene, camera.position.distanceTo(_depthSphere.center), _depthSphere.radius);
-  aimLights(camera, _depthSphere.center, _depthSphere.radius);
   fitCameraDepth(camera, _depthSphere.center, _depthSphere.radius);
 }
 
@@ -595,115 +473,6 @@ function dropStalledGesture() {
   controls._lastAngle = 0;                       // and the rotation flywheel
 }
 
-// --- what a corner does to the light -----------------------------------------------------
-//
-// NOTHING IN A DIRECT RENDER KNOWS THAT A GROOVE IS A GROOVE. Ambient and hemisphere light reach
-// every face at full value whatever stands in front of it, so the floor of a 1.2 mm flute is lit
-// exactly as brightly as the ridge beside it and a 460 mm wall of them reads as a soft ripple
-// rather than as cut material. It is the single largest reason a render of a shape-dense part
-// looks like a render: real crevices are dark, and the darkness is what the eye reads depth from.
-//
-// GTAO puts it back — for each pixel it asks how much of the sky that point can actually see and
-// dims it by the answer. On this machine that is every flute valley, every counterbore, the seam
-// between two quadrants, the land under every boss, the inside of every port.
-//
-// SCREEN-SPACE RADIUS, not world. A viewer's zoom runs from the whole 460 mm box down to a
-// nameplate a few millimetres across, and a radius fixed in millimetres is either invisible at
-// one end or smeared over the whole frame at the other. Asking for it in screen terms holds the
-// effect at the scale the eye is actually looking at.
-const AO_RADIUS = 0.28;
-const AO_SAMPLES = 16;
-
-let composer = null;
-let gtaoPass = null;
-
-function buildComposer() {
-  try {
-    // The drawing buffer, which is what every size below is counted in — see `resizeComposer`.
-    // At module load the canvas can still be 0×0; `resizeRenderer` sizes the chain properly on
-    // the first layout pass, and this only has to be a valid target until then.
-    const px = renderer.getDrawingBufferSize(new THREE.Vector2());
-    const w = Math.max(px.x, 1), h = Math.max(px.y, 1);
-    // A COMPOSER THROWS AWAY THE CANVAS'S ANTI-ALIASING unless it is asked not to. `antialias:
-    // true` multisamples the DEFAULT framebuffer, and a post chain never draws there — it draws
-    // into its own target and blits the result — so the flutes, which are a 5 mm sawtooth run
-    // ninety times across a wall, came back stepped and crawling. The target has to carry the
-    // samples itself. HalfFloat because everything upstream of `OutputPass` is scene-referred
-    // light, and 8 bits of it clips a highlight before the tone curve ever sees it.
-    const rt = new THREE.WebGLRenderTarget(w, h, {
-      type: THREE.HalfFloatType,
-      samples: Math.min(4, renderer.capabilities.maxSamples ?? 4),
-    });
-    const made = new EffectComposer(renderer, rt);
-    made.addPass(new RenderPass(scene, camera));
-    const ao = new GTAOPass(scene, camera, w, h);
-    ao.output = GTAOPass.OUTPUT.Default;
-    ao.updateGtaoMaterial({
-      radius: AO_RADIUS, screenSpaceRadius: true,
-      distanceExponent: 1.0, thickness: 1.0, scale: 1.0,
-      samples: AO_SAMPLES, distanceFallOff: 1.0,
-    });
-    made.addPass(ao);
-    made.addPass(new OutputPass());
-    made.setSize(w, h);
-    composer = made;
-    gtaoPass = ao;
-  } catch (err) {
-    // A browser that cannot build the composer still gets the model, without the occlusion.
-    console.warn("post-processing unavailable, drawing direct:", err);
-    composer = null;
-    gtaoPass = null;
-  }
-}
-
-// IN DEVICE PIXELS, NOT CSS ONES. `EffectComposer` sizes its own target by `renderer`'s pixel
-// ratio — but only when it made that target itself. Handed one, it sets `_pixelRatio = 1` and
-// takes every later size at face value. Sized in CSS pixels on a 2× display the chain then
-// composites into the bottom-left quarter of the buffer, and the strip it never reaches shows
-// the raw clear colour beside a tone-mapped one: a pale band down two edges of the frame.
-export function resizeComposer() {
-  const px = renderer.getDrawingBufferSize(new THREE.Vector2());
-  if (composer) composer.setSize(px.x, px.y);
-  if (gtaoPass) gtaoPass.setSize(px.x, px.y);
-}
-
-// AMBIENT OCCLUSION IS FOR LOOKING AT, NOT FOR DRAGGING THROUGH. TrackballControls damps per
-// FRAME, not per second: it applies a fraction of the pending rotation each time `update()` runs
-// and spins the flywheel down by a fixed ratio per call. So a frame that costs twice as much does
-// not merely look choppy — it rotates the model half as far for the same hand movement, and a
-// flick dies before it travels. That is a control regression, not a performance one, and no
-// picture is worth it.
-//
-// So the chain runs when the eye is still and the direct path runs while it is not. Nobody is
-// studying a crevice mid-orbit, and the moment the camera settles the occluded frame arrives —
-// within one frame, which reads as the picture resolving rather than as a mode change.
-const _eye = { pos: new THREE.Vector3(), quat: new THREE.Quaternion(), zoom: 0 };
-let _stillFrames = 0;
-//: How many settled frames before the expensive chain takes over. Two, so a single stray frame
-//: inside a drag does not flicker the picture between the two paths.
-const SETTLE_FRAMES = 2;
-
-function eyeMoved() {
-  const moved = !_eye.pos.equals(camera.position)
-    || !_eye.quat.equals(camera.quaternion)
-    || _eye.zoom !== camera.zoom;
-  _eye.pos.copy(camera.position);
-  _eye.quat.copy(camera.quaternion);
-  _eye.zoom = camera.zoom;
-  return moved;
-}
-
-// The one place a frame is drawn, so the composer and the direct path cannot drift.
-export function renderFrame() {
-  _stillFrames = eyeMoved() ? 0 : _stillFrames + 1;
-  if (composer && _stillFrames >= SETTLE_FRAMES) composer.render();
-  else renderer.render(scene, camera);
-}
-
-// Built here rather than beside `addStudioLighting` above: `composer` is a `let` in this block,
-// and a call placed before it runs in its dead zone.
-buildComposer();
-
 let animating = false;
 let animateRafId = 0;
 let lastFrameAt = 0;
@@ -716,7 +485,7 @@ function animate() {
   controls.update();
   updateDepthRange();
   syncEdgeResolution(renderer);
-  renderFrame();
+  renderer.render(scene, camera);
   renderGizmo();
 }
 export function startAnimate() {

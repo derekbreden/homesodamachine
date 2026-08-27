@@ -63,17 +63,27 @@ def main():
                 f"the 3/8\" reinforced PVC's {_lines.HOSE_BEND} mm for both pump-port stubs — "
                 f"either they go back on one stock or the doc reads them out apiece.")
 
-    # The two loops a tie is picked by on this path, off the hull `enclosure` states for its own
-    # ribs and the seats the pack actually bored. Every rib holding a RUN is bored for the one
-    # stock, so the runs answer with one figure and the regulator's barrel with its own.
+    # The loops a tie is picked by on this path, off the hull `enclosure` states for its own ribs
+    # and the seats the pack actually bored. Every rib holding a RUN is bored for the one stock,
+    # so the runs answer with one figure and each anchored BODY with its own.
     _run_seats = {round(r, 6) for *_s, r in _f.pack["tube_anchors"]}
     if len(_run_seats) != 1:
         raise ValueError(
             f"the box's run anchors are bored at {sorted(_run_seats)}. This procedure quotes one "
             f"loop for all of them, so either they go back on one stock or it reads them apiece.")
-    _barrel = _f.carried_points["wr1110.barrel"]["pos"]
-    _barrel_seat = next(r for mid, _u, _n, r in _f.pack["body_anchors"]
-                        if mid == _barrel)
+    # A BODY'S SEAT IS ITS OWN REFERENCE MODULE'S SECTION, taken by name off the table
+    # `check_body_seated` grades the built pieces against — the same route `_bom_sync` takes, so
+    # this page and the ledger's rows cannot read one barrel two ways. What the pack bored is held
+    # against it rather than searched: a section that moved without its rib has nothing behind it.
+    _body_seats = {name: section()[1] + _ea.BODY_ANCHOR_SLIP
+                   for name, section, _root, _piece in _ea.BODY_ANCHOR_SITES}
+    _bored = {round(r, 6) for *_s, r in _f.pack["body_anchors"]}
+    _missing = sorted(n for n, r in _body_seats.items() if round(r, 6) not in _bored)
+    if _missing:
+        raise ValueError(
+            f"{_missing} name a section this procedure quotes a loop for and the last build bored "
+            f"no rib at that radius. The seat is the body's own, so a body whose section moved "
+            f"without its rib leaves a figure with nothing behind it.")
 
     variables = {
         # Every warm-side fluid termination this procedure lands on is a conduit
@@ -108,7 +118,9 @@ def main():
         # What each of the flow meter's anchors leave alone at the outer end of its barrel —
         # the push-fit ring, off the layout that strikes the anchor's own band on it.
         "DIGITEN_COLLET_FREE": f"{_ea.DIGITEN_COLLET_FREE:.4g} mm",
-        "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_barrel_seat):.3g} mm",
+        "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['wr1110']):.3g} mm",
+        "SPLIT_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['water-split']):.3g} mm",
+        "FLOWREG_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['flow-regulator']):.3g} mm",
         "CARB_1_LOOP": f"{_enc.tube_anchor_tie_loop(next(iter(_run_seats))):.3g} mm",
         # And the meter's, on the seat `enclosure_assembly.digiten_anchors` strikes: the
         # barrel's own radius and the slip the V stands off it by. A flow-meter anchor
