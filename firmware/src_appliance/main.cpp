@@ -337,6 +337,42 @@ static void cmdRtc(const String &line) {
     Serial.printf("  quiet hours %s read this clock\n", rtcValid() ? "can" : "CANNOT");
 }
 
+// ── The radio bench ───────────────────────────────────────────────────────
+// Both displays carry a WiFi radio that no product path uses, and the wired
+// links carry every image the machine has to move. This measures the one
+// against the other: the enclosure sinks, the faucet sends, and the main board
+// is not on the path it is timing.
+static void cmdWifi(const String &line) {
+    String rest = line.substring(4);
+    rest.trim();
+
+    // Raising the AP is a main-board-originated frame on J9 and it retries, so
+    // this call can hold the loop for seconds. Nothing that stops a pump runs
+    // in that window, so the bench is only available with the machine dark.
+    if (machineState() != ST_IDLE) {
+        Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+        return;
+    }
+
+    if (rest == "off") { linkWifiAp(false); return; }
+    if (rest == "on")  { linkWifiAp(true);  return; }
+
+    uint32_t kb = rest.length() ? (uint32_t)rest.toInt() : 1024;
+    if (kb < 1 || kb > 16384) { Serial.println("\nusage: wifi [on|off|<KB>]"); return; }
+    const uint32_t bytes = kb * 1024UL;
+
+    if (!linkWifiAp(true)) return;
+    delay(300);   // let the AP settle before anyone probes for it
+
+    Serial.printf("\nWIFI:PUSH %lu KB — the faucet joins and sends; the answer prints when it lands\n",
+                  (unsigned long)kb);
+    if (!faucetLinkWifiPush(bytes)) {
+        Serial.println("J3 would not take the request");
+        linkWifiAp(false);
+        return;
+    }
+}
+
 static void console(const String &line) {
     if (line == "help")        { help(); return; }
     if (line == "status")      { status(); return; }
@@ -351,6 +387,7 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line.startsWith("wifi"))   { cmdWifi(line); return; }
     if (line == "versions")        { versionsConsole(); return; }
 
     if (line.startsWith("flavor")) {

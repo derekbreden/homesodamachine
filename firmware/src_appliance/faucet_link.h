@@ -26,5 +26,10 @@ bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len);
 // What the display at the far end is doing with its radio.
 void faucetLinkBleReport();
 
+// Ask the faucet to join the enclosure's bench AP and push this many bytes to
+// it. The answer arrives asynchronously and prints itself; this only says
+// whether J3 took the request.
+bool faucetLinkWifiPush(uint32_t bytes);
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);

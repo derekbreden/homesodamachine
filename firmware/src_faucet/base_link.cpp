@@ -10,6 +10,7 @@
 #include "flavor_link_policy.h"
 #include "proto_link.h"
 #include "proto_msg.h"
+#include "wifi_bench.h"
 
 namespace {
 
@@ -336,6 +337,19 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     bleLinkOnVersions(all);
     return;
   }
+  // The radio bench. The run itself happens on a task of its own; this only
+  // starts it, and its result goes out from baseLinkService() when it lands.
+  if (type == MSG_WIFI_BENCH_PUSH && plen >= sizeof(WifiPushPayload)) {
+    WifiPushPayload req;
+    memcpy(&req, payload, sizeof(req));
+    if (!wifiBenchPush(req.bytes, req.channel)) {
+      WifiPushResultPayload busy{};
+      busy.err = WIFI_BENCH_ERR_BUSY;
+      base.trySend(MSG_RESP_WIFI_PUSH, &busy, sizeof(busy));
+    }
+    return;
+  }
+
   if (type == MSG_BLE_STATUS_REQ) {
     BleStatusPayload st;
     bleLinkFillStatus(st);
@@ -534,6 +548,16 @@ void baseLinkService() {
     } else {
       enqueue(MSG_FLAVOR_SYNC, desiredFlavor, false);
     }
+  }
+
+  // A finished bench run, reported the moment it lands rather than waiting for
+  // anyone to ask. The radio goes down with it: nothing on this board keeps a
+  // WiFi association standing outside a run.
+  if (wifiBenchResultReady()) {
+    WifiPushResultPayload r;
+    wifiBenchTakeResult(r);
+    base.trySend(MSG_RESP_WIFI_PUSH, &r, sizeof(r));
+    wifiBenchRelease();
   }
 
   if (connected && !sendPrimeHead()) sendHead();

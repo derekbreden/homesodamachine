@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "proto_msg.h"
+
 // ════════════════════════════════════════════════════════════
 //  J9 — the pair to the enclosure display
 // ════════════════════════════════════════════════════════════
@@ -29,6 +31,14 @@ void linkQueueOta(uint8_t type, const void *data, uint8_t len);
 // Answer an OTA request from inside its own dispatch, spending that turn's one
 // reply. Illegal anywhere else.
 bool linkReplyOta(uint8_t type, const void *data, uint16_t len);
+
+// Raise or drop the radio bench's access point on the enclosure display, which
+// is the sink for it. Retried, because this is a main-board-originated frame on
+// a pair the main board otherwise only answers on.
+bool linkWifiAp(bool on);
+
+// What the sink has counted. False if the display did not answer.
+bool linkWifiApState(WifiApStatePayload &out);
 
 // Make an externally-powered enclosure display present a fresh USB attach. An application
 // that knows MSG_DISPLAY_USB_REATTACH briefly deep-sleeps its USB PHY.
