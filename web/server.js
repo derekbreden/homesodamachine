@@ -9,6 +9,7 @@ import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
 import { mountTourRoutes } from "./lib/tour.js";
+import { mountSpinRoutes } from "./lib/spin.js";
 import { mountCostRoutes } from "./lib/cost.js";
 import { mountUpdatesRoutes } from "./lib/updates.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
@@ -270,6 +271,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountLandingRoutes(app);
   mountViewerPages(app);
   mountTourRoutes(app);
+  mountSpinRoutes(app);
   mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountUpdatesRoutes(app, { updatesDir: UPDATES_DIR, publicDir: LANDING_PUBLIC });
   mountSettingsRoutes(app);
