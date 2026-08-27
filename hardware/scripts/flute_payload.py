@@ -772,22 +772,29 @@ def selftest():
         # bodies this file knows nothing about, and each of them is named and coloured by the
         # assembly that placed it — a graft that took the piece's own name or colour over would
         # rename a part in the scorecard and repaint it in every picture.
+        #
+        # THE BODY AND THE SURFACE THAT REPLACES IT STAND IN ONE PLACE. A graft changes how
+        # finely a piece is drawn, never where it is, so the two agree to within a groove and
+        # `_placement_drift` reads nothing. A fixture whose surface stood somewhere else would
+        # be exercising the carry below instead of the substitution this asks about.
         host = Path(d) / "host.step.mesh"
+        smooth = [0.0, 0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 10.0, 0.0]
+        flutes = smooth + [10.0, 0.0, 0.0, 10.0, 10.0, 0.0, 0.0, 10.0, 0.0]
         _mesh_payload.write([
             {"name": "some_piece", "color": [0.5, 0.5, 0.5],
-             "pos": [0.0] * 9, "nrm": [0.0, 0.0, 1.0] * 3, "idx": [0, 1, 2], "fac": [0, 0]},
+             "pos": smooth, "nrm": [0.0, 0.0, 1.0] * 3, "idx": [0, 1, 2], "fac": [0, 0]},
             {"name": "a-neighbour", "color": None,
              "pos": [1.0] * 9, "nrm": [0.0, 1.0, 0.0] * 3, "idx": [0, 1, 2], "fac": [0, 0]},
         ], str(host))
         surface = {"name": "some-piece", "color": [0.9, 0.0, 0.0],
-                   "pos": [7.0] * 18, "nrm": [1.0, 0.0, 0.0] * 6,
+                   "pos": flutes, "nrm": [0.0, 0.0, 1.0] * 6,
                    "idx": [0, 1, 2, 3, 4, 5], "fac": [0, 1]}
         check("a graft lands on the piece the host names", graft(host, {"some-piece": surface}), 1)
         back = read_payload(host)
         check("the host keeps its own name and colour",
               [(m["name"], m["color"]) for m in back],
               [("some_piece", [0.5, 0.5, 0.5]), ("a-neighbour", None)])
-        check("and takes the fluted surface", back[0]["pos"], [7.0] * 18)
+        check("and takes the fluted surface", back[0]["pos"], flutes)
         check("a body the graft does not name is left alone", back[1]["pos"], [1.0] * 9)
         check("a payload naming none of them is not rewritten",
               graft(host, {"nothing-here": surface}), 0)
@@ -797,6 +804,39 @@ def selftest():
         graft(host, {"some-piece": surface})
         check("a graft that changes nothing leaves the mtime alone", host.stat().st_mtime_ns, was)
 
+        # AND A PIECE CUT IN ITS OWN FRAME IS CARRIED ONTO THE BODY IT REPLACES. The box's six
+        # are cut in the machine's own coordinates and drop straight in; the cold core's three
+        # are cut in the core's, and the machine stands that frame yawed and lifted, so their
+        # surfaces arrive a subassembly's placement away from the body they answer to. Dropping
+        # them where they arrive is a piece drawn correctly and in the wrong place.
+        #
+        # A WEDGE AND NOT A BOX. Boxes narrow the turn to four and no further — a box is its own
+        # mirror about each of its mid-planes — so what picks the answer is the piece's own
+        # asymmetry, here the corner three unequal edges meet at.
+        wedge = trimesh.Trimesh([[0, 0, 0], [30, 0, 0], [0, 20, 0], [0, 0, 10]],
+                                [[0, 2, 1], [0, 1, 3], [0, 3, 2], [1, 2, 3]],
+                                process=False).subdivide().subdivide().subdivide()
+        yaw = np.array([[0.0, -1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]])
+        placed = wedge.vertices @ yaw.T + np.array([319.5, 0.0, 20.0])
+        own_frame = {"name": "a-wedge", "color": None,
+                     "pos": wedge.vertices.ravel().tolist(),
+                     "nrm": wedge.vertex_normals.ravel().tolist(),
+                     "idx": wedge.faces.ravel().tolist(), "fac": [0, len(wedge.faces) - 1]}
+        stood = Path(d) / "stood.step.mesh"
+        _mesh_payload.write([{**own_frame, "name": "core/a-wedge",
+                              "pos": placed.ravel().tolist()}], str(stood))
+        check("a piece cut in its own frame is carried onto the body",
+              graft(stood, {"a-wedge": own_frame}), 1)
+        carried_pos = np.asarray(read_payload(stood)[0]["pos"]).reshape(-1, 3)
+        check("and lands where the body it replaces stood",
+              round(float(np.abs(carried_pos - placed).max()), 3), 0.0)
+
+        # AND A SURFACE THAT IS NOT THAT BODY GETS NOTHING RATHER THAN A GUESS. The wedge's own
+        # bounding box passes the gate boxes give and no turn lays it on the wedge, so every one
+        # is refused and the piece keeps the smooth surface it had.
+        crate = wedge.bounding_box.subdivide().subdivide()
+        check("a surface that is not the body is not placed at all",
+              placement_onto(own_frame, {"pos": crate.vertices.ravel().tolist()}), None)
 
         # AND THE SAME SUBSTITUTION IN A SCENE MESH. cadquery gives a piece one body per BREP
         # face; the graft has to take every one of them and leave the bodies around it standing,
@@ -819,16 +859,33 @@ def selftest():
         check("the piece is one body and the bystander stands",
               sorted(got.geometry), ["a-piece", "bystander"])
 
-        # AND IT REFUSES A SURFACE THAT WOULD LAND SOMEWHERE ELSE. A body drawn in the wrong
-        # place is worse than one drawn smooth, and nothing downstream would catch it.
+        # AND A SURFACE THAT ARRIVES IN THE PIECE'S OWN FRAME IS CARRIED HERE TOO. The reading
+        # is taken against the bodies it replaces, so it has to be taken while those bodies are
+        # still in the scene — a `.glb` has no STEP behind it to fall back to.
         built.export(str(glb))
         adrift = replacement.copy()
         adrift.apply_translation([50, 0, 0])
         moved = {"pos": adrift.vertices.ravel().tolist(),
                  "nrm": adrift.vertex_normals.ravel().tolist(),
                  "idx": adrift.faces.ravel().tolist(), "fac": [0, 11]}
+        check("a scene carries a surface onto the bodies it replaces",
+              graft_glb(glb, {"a-piece": moved}), 1)
+        check("and the piece stands where it stood",
+              bool(np.abs(trimesh.load(str(glb)).geometry["a-piece"].bounds
+                          - replacement.bounds).max() < PLACEMENT_TOL), True)
+
+        # AND IT REFUSES ONE IT CANNOT LAY ON THEM AT ALL. A surface no turn carries onto the
+        # bodies it would replace is a different solid, and dropping it in where it arrived
+        # draws the piece somewhere its own solid is not — worse than drawing it smooth, and
+        # nothing downstream would catch it.
+        built.export(str(glb))
+        stranger = trimesh.creation.box(extents=(4, 4, 12))
+        stranger.apply_translation([50, 0, 0])
+        elsewhere = {"pos": stranger.vertices.ravel().tolist(),
+                     "nrm": stranger.vertex_normals.ravel().tolist(),
+                     "idx": stranger.faces.ravel().tolist(), "fac": [0, 11]}
         try:
-            graft_glb(glb, {"a-piece": moved})
+            graft_glb(glb, {"a-piece": elsewhere})
             check("a surface that lands elsewhere is refused", "accepted", "refused")
         except ValueError:
             check("a surface that lands elsewhere is refused", "refused", "refused")
