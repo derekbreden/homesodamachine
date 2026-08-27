@@ -64,14 +64,41 @@ def _git(*args) -> list:
     return [line for line in run.stdout.splitlines() if line.strip()]
 
 
-def changed() -> list:
-    """Every path git reports as moved — staged, unstaged, and untracked alike.
+def _git_paths(root, *args) -> set:
+    """The paths one git command names, read NUL-separated so a space in a name is a name.
 
-    A build reads the worktree, so what is staged and what is merely saved reach it the same."""
-    out = set()
-    for line in _git("status", "--porcelain"):
-        out.update(paths_in(line))
-    return sorted(p for p in out if p and not p.endswith("/"))
+    `--no-optional-locks` keeps a read off `.git/index.lock`. With several sessions live, a
+    refresh that has to take that lock is a refresh that loses a race, and asking what the tree
+    holds has no business writing the index to find out."""
+    run = subprocess.run(["git", "--no-optional-locks", "-C", str(root), *args],
+                         capture_output=True, text=True)
+    if run.returncode != 0:
+        detail = next((line for line in run.stderr.splitlines() if line.strip()),
+                      f"exit {run.returncode}")
+        raise SystemExit(f"git {' '.join(args)} did not answer: {detail}")
+    return {path for path in run.stdout.split("\0") if path}
+
+
+def changed(root=None) -> list:
+    """Every path this worktree holds that HEAD does not — staged, unstaged and untracked alike.
+
+    A build reads the worktree, so what is staged and what is merely saved reach it the same.
+
+    ASKED AGAINST HEAD, NOT AGAINST THE INDEX. `status` compares the worktree to the index and
+    answers that half from stat data, so a file whose bytes are already HEAD's reads as modified
+    on a stale stat cache, and reads as modified again when a staged edit and an unstaged one
+    cancel. Neither is a change a build has to see, `update-index --refresh` clears only the
+    first, and it writes the index to do it. `diff HEAD` hashes whatever stat cannot settle, so
+    it never names a path whose content is already HEAD's, and `--no-renames` names both sides
+    of a rename, which is the reach an edit actually has.
+
+    `ls-files --others` names untracked files one by one. `status` collapses an untracked
+    DIRECTORY to `dir/` unless asked otherwise, and a trailing slash is not a path a build
+    scopes on, so files under a newly added directory reached nothing here."""
+    root = _ROOT if root is None else root
+    out = _git_paths(root, "diff", "--name-only", "--no-renames", "-z", "HEAD")
+    out |= _git_paths(root, "ls-files", "--others", "--exclude-standard", "-z")
+    return sorted(path for path in out if path)
 
 
 def changed_between(base: str, head: str = "HEAD") -> list:
@@ -285,18 +312,6 @@ def safely_scoped_metadata(paths: list, artifacts_only: bool, base: str = None,
     )
 
 
-def paths_in(line: str) -> tuple:
-    """The path or paths one porcelain line names.
-
-    A RENAME NAMES BOTH SIDES. The old path is gone from the worktree and the new one carries
-    its bytes, and a target reading either is a target this edit reaches."""
-    path = line[3:].strip()
-    if " -> " in path:
-        old, new = path.split(" -> ", 1)
-        return (old.strip('"'), new.strip('"'))
-    return (path.strip('"'),)
-
-
 def known(paths: list) -> tuple:
     """The paths bazel names as source labels, and the ones it does not."""
     if not paths:
@@ -504,16 +519,12 @@ def selftest() -> int:
         holds += ok
         print(f"  {'ok  ' if ok else 'FAIL'} {label}" + ("" if ok else f" — {got}"))
 
-    hold("a rename names both sides",
-         paths_in('R  old/a.py -> new/b.py') == ("old/a.py", "new/b.py"),
-         str(paths_in('R  old/a.py -> new/b.py')))
-    hold("a quoted path loses its quotes",
-         paths_in('?? "has space.py"') == ("has space.py",),
-         str(paths_in('?? "has space.py"')))
-    hold("an ordinary line is one path",
-         paths_in(' M hardware/scripts/lanes.py') == ("hardware/scripts/lanes.py",))
     hold("a diff rename names both sides",
          _diff_paths(["R100\told/a.py\tnew/b.py"]) == ["new/b.py", "old/a.py"])
+    hold("every tracked path changed() names really differs from HEAD",
+         all(_git("diff", "--name-only", "HEAD", "--", path)
+             for path in set(changed())
+             - _git_paths(_ROOT, "ls-files", "--others", "--exclude-standard", "-z")))
 
     def graph_node(reads=(), writes=(), rewritten=()):
         return {"reads": list(reads), "writes": list(writes),
