@@ -1683,6 +1683,12 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
     the stretch of that post's length the plate actually surrounds — so a socket shortened by a port channel crossing it,
     or by any later cut, reads short here even though the arithmetic still says six."""
     solids = [q.val() if hasattr(q, "val") else q for q in pieces.values()]
+    # A SLEEVE IS A THIMBLE AND THE PIECES ARE THE WHOLE BOX. Four sleeves a valve asked of
+    # every printed piece is 224 kernel booleans to find the one piece each post stands in,
+    # and `_boxes.loose` settles 192 of them without meshing anything: boxes that miss are
+    # solids that miss, and a slack box only lets a pair through to the boolean that would
+    # have answered anyway.
+    boxes = [_boxes.loose(s) for s in solids]
     inset, r = _vseat.corner_inset, _vseat.socket_radius
     rows, bad = [], []
     for _name, (_axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
@@ -1702,7 +1708,12 @@ def check_post_engagement(pieces, placed, spec) -> Bound:
                               .cut(cq.Solid.makeCylinder(r + 0.02, _vseat.seat_top_z,
                                                          base, axis)))
                     held = 0.0
-                    for solid in solids:
+                    sb = _boxes.loose(sleeve)
+                    for solid, pb in zip(solids, boxes):
+                        if (sb.xmin > pb.xmax or pb.xmin > sb.xmax
+                                or sb.ymin > pb.ymax or pb.ymin > sb.ymax
+                                or sb.zmin > pb.zmax or pb.zmin > sb.zmax):
+                            continue
                         try:
                             bb = sleeve.intersect(solid).BoundingBox()
                             held = max(held, bb.ylen)
@@ -2521,8 +2532,26 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
     # THE BOXES ARE A PRE-FILTER AND ONLY THAT, as in `manifold_layout.clashes`: boxes that
     # miss are solids that miss, boxes that meet prove nothing. The mover's box rides with
     # the mover, so a station's box is the home box offset.
+    #
+    # AND THE KERNEL IS ASKED ABOUT THE MOVERS NEAR THE MEMBER, NOT THE WHOLE TRAIN.
+    # `front-top` arrives carrying twenty-seven pack bodies, and every one of them is an
+    # argument `BOPAlgo` has to pave before it can answer about the one body that is actually
+    # in reach of the member. A mover the boxes miss shares nothing with it, so dropping that
+    # mover from the arguments cannot move the number — and measured on the front column's own
+    # close, the whole train against `front-bottom` costs 1.94–2.94 s a station where the one
+    # body left standing costs 0.23–0.29 s, six stations of it.
+    #
+    # THE SAME MESH SCREEN NARROWS IT FURTHER. A mover whose own mesh reads zero against the
+    # member contributed nothing to the fused reading that opened this pair — the fused mesh
+    # is these movers' triangles and no others — so the finer screen drops what the coarse one
+    # already counted as nothing. It is worth taking only where it can drop something: with a
+    # single candidate the screen is a second boolean over the same geometry the kernel is
+    # about to be handed anyway, and on the core's ride that is 0.2 s a station spent to
+    # confirm what the coarse screen said.
     solid = cq.Compound.makeCompound([s for _n, s in mover_parts])
     mover = _meshes.meshed(solid)
+    parts = [(s, m, _meshes.box(m))
+             for s, m in ((s, _meshes.meshed(s)) for _n, s in mover_parts)]
     fixed = [(name, s, m, _meshes.box(m))
              for name, s, m in ((n, s, _meshes.meshed(s)) for n, s in fixed_parts)]
     mbb = _meshes.box(mover)
@@ -2530,8 +2559,6 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
     for d in rungs:
         ox, oy, oz = axis[0] * d, axis[1] * d, axis[2] * d
         at = mover.translate([ox, oy, oz])
-        # The B-rep at this station is cut only where a screened pair asks for it.
-        exact = None
         mx0, mx1 = mbb.xmin + ox, mbb.xmax + ox
         my0, my1 = mbb.ymin + oy, mbb.ymax + oy
         mz0, mz1 = mbb.zmin + oz, mbb.zmax + oz
@@ -2543,9 +2570,23 @@ def _swept_worst(mover_parts, fixed_parts, axis, travel):
                 continue
             if _overlap.volume(at, m) <= 0.0:
                 continue
-            if exact is None:
-                exact = solid.translate(cq.Vector(ox, oy, oz))
-            v = exact.intersect(s).Volume()
+            # The B-rep at this station is cut only where a screened pair asks for it, and
+            # only over the movers that asked. STILL ONE BOOLEAN: a train narrowed to six
+            # bodies goes to the kernel as one compound of six, because `BOPAlgo` paving a
+            # set once beats paving each of them alone — the saving is in the arguments
+            # dropped, not in the call split up.
+            near = [p for p in parts
+                    if not (p[2].xmin + ox > bb.xmax or bb.xmin > p[2].xmax + ox
+                            or p[2].ymin + oy > bb.ymax or bb.ymin > p[2].ymax + oy
+                            or p[2].zmin + oz > bb.zmax or bb.zmin > p[2].zmax + oz)]
+            if len(near) > 1:
+                near = [p for p in near
+                        if _overlap.volume(p[1].translate([ox, oy, oz]), m) > 0.0]
+            if not near:
+                continue
+            asked = (near[0][0] if len(near) == 1
+                     else cq.Compound.makeCompound([p[0] for p in near]))
+            v = asked.translate(cq.Vector(ox, oy, oz)).intersect(s).Volume()
             if v > 1e-6:
                 total += v
                 if v > hits.get(name, (0.0, 0.0))[0]:
