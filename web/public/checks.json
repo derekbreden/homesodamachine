@@ -12,8 +12,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
+      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -67,6 +67,22 @@
     }
   ],
   "detail": {
+    "hardware/scripts/check_flutes.py": [
+      "2 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-front-bottom — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
+      "  the flute cut is what puts the surface back:",
+      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
+    ],
+    "hardware/scripts/check_payloads.py": [
+      "2 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
       "  21 declared read(s) across 21 generator(s) name a file",
@@ -98,7 +114,7 @@
       "  a read this cannot see — a solid a lazy path loads — is recorded by watching a run.",
       "  FIX THE IMPORTS FIRST: a trace of a run that died early records only what ran, so a",
       "  step that cannot import yet is a step whose file loads were never reached.",
-      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/assembly/_enclosure_mechanical_sync.py hardware/assembly/_internal_plumbing_sync.py hardware/assembly/_power_column_sync.py hardware/manifold-layout/enclosure_assembly.py hardware/manifold-layout/enclosure_box.py hardware/printed-parts/enclosure/_enclosure_dimensions.py hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py hardware/printed-parts/enclosure/enclosure/enclosure.py hardware/scripts/_bom_sync.py hardware/service/_pump_replacement_sync.py hardware/topology/_fluid_topology_sync.py",
+      "    tools/cad-venv/bin/python tools/bazel/trace_inputs.py hardware/assembly/_acceptance_and_burn_in_sync.py hardware/assembly/_cold_core_sync.py hardware/assembly/_enclosure_mechanical_sync.py hardware/assembly/_firmware_and_commissioning_sync.py hardware/assembly/_handwork_sync.py hardware/assembly/_internal_plumbing_sync.py hardware/assembly/_power_column_sync.py hardware/assembly/_pressure_vessel_sync.py hardware/cold-core-layout/cold_core_assembly.py hardware/manifold-layout/enclosure_assembly.py hardware/manifold-layout/enclosure_box.py hardware/printed-parts/cold-core/_cold_core_interface.py hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py hardware/printed-parts/cold-core/foam-cap/foam_cap.py hardware/printed-parts/cold-core/foam-shell/foam_shell.py hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py hardware/printed-parts/cold-core/reservoir/reservoir.py hardware/printed-parts/enclosure/_enclosure_dimensions.py hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py hardware/printed-parts/enclosure/drawings/line-art/_appliance_model.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py hardware/printed-parts/enclosure/enclosure/enclosure.py hardware/scripts/_bom_sync.py hardware/service/_pump_replacement_sync.py hardware/topology/_fluid_topology_sync.py",
       "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
     ],
     "tools/check_paths.py": [
