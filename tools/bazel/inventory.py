@@ -69,6 +69,13 @@ IMPLICIT_SOLIDS = {
     "hardware/faucet-layout/faucet_assembly.py": (
         "hardware/faucet-layout/faucet-assembly.step.mesh",
     ),
+    # THE ONE UNFLUTED PIECE OF THE FAUCET SHELL. Its directory is bundled because the BASE in
+    # it carries a show skin the solid does not (`faucet_shell.write_bed_file`), and bundling is
+    # by directory — so the tip's payload ships beside it. The same write no trace catches as
+    # the cap stack's three above.
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": (
+        "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step.mesh",
+    ),
 }
 
 # Outputs whose bytes cross from one Bazel action to another and stop there. The cold-core mesh
@@ -88,19 +95,21 @@ ACTION_INTERMEDIATE = frozenset({
 # card wrapper retains only the browser-driven PNG/JSON outputs from the shared trace, and every
 # read that run took.
 #
-# THE FLUTING PASS IS TWO TREES AND HELD THEM IN ONE RULE, which is a loop: `foam_assembly.py`
+# THE FLUTING PASS IS THREE TREES AND HELD THEM IN ONE RULE, which is a loop: `foam_assembly.py`
 # reads the cold core's payloads, `enclosure-box` is built from the foam assembly, `enclosure`
 # stands on the box, and the enclosure's payloads are cut off `enclosure` — so the one rule waited
 # on a rule whose inputs it made, and bazel refuses to load a graph that comes back around.
-# Nothing passes between the two trees, so each takes the payloads under its own roots and the
-# reads under them; the modules both halves import are under no root and go to both, because both
-# actions have to hold them.
+# Nothing passes between the trees, so each takes the payloads under its own roots and the
+# reads under them; the modules every half imports are under no root and go to all of them,
+# because every action has to hold them.
 _FLUTE_ROOTS = {
     "hardware/scripts/flute_payload_enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/",),
     "hardware/scripts/flute_payload_cold_core.py": (
         "hardware/printed-parts/cold-core/foam-cap/",
         "hardware/printed-parts/cold-core/foam-shell/"),
+    "hardware/scripts/flute_payload_faucet.py": (
+        "hardware/printed-parts/faucet/faucet-shell/",),
 }
 _FLUTE_TREES = tuple(sorted(r for roots in _FLUTE_ROOTS.values() for r in roots))
 
