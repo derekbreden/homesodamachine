@@ -128,19 +128,15 @@ def receptacle_cut(x: float, z: float, y_face: float):
                 .translate((x, y_face + 0.01, z)))
     pocket = (cq.Workplane("XZ").rect(POCKET_W, POCKET_H).extrude(DEPTH - LIP_D + 0.02)
               .translate((x, y_lip + 0.01, z + POCKET_RISE)))
-    # The ease is a wedge over the aperture's top edge: level with it at the face, standing
-    # `ease_rise` higher where the pocket begins.
+    # THE EASE RAMPS THROUGH THE WALL'S DEPTH AND IS LEVEL ACROSS ITS WIDTH. It is a wedge on
+    # the (Y, Z) plane swept along X: flush with the aperture's top edge where the customer's
+    # eye meets it, standing `ease_rise` higher by the time it reaches the pocket. Swept on any
+    # other pair it climbs across the face, which is an angle no jack has.
     top = z + APERTURE_H / 2.0
-    ease = (cq.Workplane("XZ")
-            .polyline([(-APERTURE_W / 2.0, top), (APERTURE_W / 2.0, top),
-                       (APERTURE_W / 2.0, top + ease_rise()),
-                       (-APERTURE_W / 2.0, top + ease_rise())]).close()
-            .extrude(LIP_D)
-            .translate((x, y_face, 0.0)))
-    ease = ease.intersect(
-        cq.Workplane("XZ").polyline([(-APERTURE_W, top - 0.01), (APERTURE_W, top - 0.01),
-                                     (APERTURE_W, top + ease_rise())]).close()
-        .extrude(LIP_D).translate((x, y_face, 0.0)))
+    ease = (cq.Workplane("YZ")
+            .polyline([(y_face, top), (y_lip, top), (y_lip, top + ease_rise())]).close()
+            .extrude(APERTURE_W)
+            .translate((x - APERTURE_W / 2.0, 0.0, 0.0)))
     return aperture.union(pocket).union(ease).val(), (y_lip, y_back)
 
 
@@ -201,6 +197,27 @@ def selftest():
         if not (0.0 < d < POCKET_W / 2.0 and 0.0 < h < POCKET_H / 2.0):
             print(f"FAIL: the {name} catch does not stand in the pocket")
             ok = False
+    # THE EASE IS LEVEL ACROSS THE WIDTH, and this is the reading that says so. Swept on the
+    # wrong pair it ramps across the face instead of through the depth, which leaves the
+    # aperture's top edge standing at a different Z at each end of its own width.
+    cut, (y_lip, _y_back) = receptacle_cut(0.0, 0.0, 0.0)
+
+    def lip_top_at(xx):
+        """The cutter's highest Z inside the lip's depth band, on a thin slab at `xx`."""
+        probe = cq.Solid.makeBox(0.2, LIP_D - 0.4, POCKET_H * 3.0,
+                                 cq.Vector(xx - 0.1, y_lip + 0.2, -POCKET_H * 1.5))
+        return cut.intersect(probe).BoundingBox().zmax
+
+    left = lip_top_at(-APERTURE_W / 2.0 + 1.0)
+    right = lip_top_at(APERTURE_W / 2.0 - 1.0)
+    if abs(left - right) > 0.02:
+        print(f"FAIL: the ease stands at {left:.3f} on one side of the aperture and "
+              f"{right:.3f} on the other — it ramps across the face, not through the depth")
+        ok = False
+    if not (APERTURE_H / 2.0 <= left <= APERTURE_H / 2.0 + ease_rise() + 0.02):
+        print(f"FAIL: the ease tops out at {left:.3f}, outside the aperture's own "
+              f"{APERTURE_H / 2.0:.3f} and its {ease_rise():.3f} of rise")
+        ok = False
     bb = build().BoundingBox()
     if bb.ymax > LIP_D + 1e-9:
         print(f"FAIL: the jack stands {bb.ymax:.3f} proud of its own face plane")
