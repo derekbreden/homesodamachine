@@ -3172,6 +3172,8 @@ genrule(
     srcs = [
         "hardware/cut-parts/faucet/under-counter-plate/under_counter_plate.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "hardware/printed-parts/faucet/_faucet_interface.py",
@@ -3183,6 +3185,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
@@ -3254,6 +3257,8 @@ genrule(
         ":out/under-counter-plate/hardware/cut-parts/faucet/under-counter-plate/under-counter-plate.dxf",
         "hardware/faucet-layout/faucet_assembly.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -3275,6 +3280,7 @@ genrule(
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
@@ -5655,6 +5661,8 @@ genrule(
     name = "above-counter-gasket",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
@@ -5664,6 +5672,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ],
     outs = [
@@ -5699,6 +5708,8 @@ genrule(
     name = "above-counter-plate",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
@@ -5710,6 +5721,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
@@ -5756,6 +5768,8 @@ genrule(
     name = "faucet-display-cover",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/printed-parts/faucet/_faucet_interface.py",
@@ -5767,6 +5781,7 @@ genrule(
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_realized.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [

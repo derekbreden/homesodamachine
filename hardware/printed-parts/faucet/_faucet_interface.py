@@ -58,6 +58,15 @@ flavor_tube_depth = 15.75 + flavor_tube_x_offset  # [18.925 mm](FLAVOR_TUBE_DEPT
 # `westbrass_bore_diameter` for the Westbrass OD).
 shank_hole_diameter = 12.6
 
+# The two bands the shell stands on, on the shell's own foot outline. They are stated here
+# rather than each in its own part because the three pieces make ONE silhouette on the counter
+# — the plate and the gasket carry the shell's footprint exactly — and what a band of that
+# silhouette is tall decides whether it can carry the shell's flute field at all
+# (`faucet_shell.counter_run_bands`). The gasket compresses under clamp load; the plate does
+# not, and its thickness is a screw seat's own section.
+above_counter_plate_thickness = 4.0
+above_counter_gasket_thickness = 2.0
+
 
 # Waveshare ESP32-S3-Touch-LCD-1.47 faucet display (faucet BOM §1) —
 # caliper-measured device envelope, shared by the faucet-assembly
