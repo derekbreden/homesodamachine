@@ -30,6 +30,8 @@ static_assert(SND_WIRE_ALARM  == SND_ALARM,  "sound wire id drift: alarm");
 static EchoCancel j9Stream(Serial1);
 static HdlcLink   j9;
 static bool displayUsbReattachAck = false;
+static bool wifiApAck = false;
+static WifiApStatePayload wifiApState{};
 static flavor_link_policy::TokenLedger enclosureFlavorTokens;
 static uint32_t enclosureFlavorDuplicates = 0;
 static uint32_t enclosureFlavorInvalid = 0;
@@ -217,6 +219,12 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (isUserAction(type)) soundPlay(SND_TICK);
     // A press is presence whether or not it also asked for something.
     if (isUserAction(type) || type == MSG_SOUND_PLAY || type == MSG_TOUCH) idleTouched();
+
+    if (type == MSG_RESP_WIFI_AP && plen >= sizeof(WifiApStatePayload)) {
+        memcpy(&wifiApState, payload, sizeof(wifiApState));
+        wifiApAck = true;
+        return;
+    }
 
     if (type == MSG_RESP_DISPLAY_USB_REATTACH) {
         displayUsbReattachAck = true;
@@ -532,6 +540,56 @@ bool linkDisplayUsbReattach() {
 
     Serial.println("\nDISPLAY_USB:UNREACHABLE — the display application did not answer");
     return false;
+}
+
+// The enclosure raises the bench AP, so this is a main-board-originated frame on
+// a pair whose rule is that the main board answers. Same shape as the USB
+// reattach above and for the same reason: it can meet a status poll, and the far
+// end's transition takes long enough that the first answer may be late. Raising
+// an AP that is already up is free at the other end, so a retry costs nothing.
+bool linkWifiAp(bool on) {
+    wifiApAck = false;
+    WifiApPayload req{(uint8_t)(on ? 1 : 0), WIFI_BENCH_CHANNEL};
+
+    for (uint8_t attempt = 0; attempt < 6 && !wifiApAck; attempt++) {
+        j9.send(MSG_WIFI_BENCH_AP, &req, sizeof(req));
+        unsigned long until = millis() + 1500;
+        while ((long)(millis() - until) < 0 && !wifiApAck) {
+            j9.service();
+            delay(2);
+        }
+    }
+
+    if (!wifiApAck) {
+        Serial.println("\nWIFI:AP UNREACHABLE — the enclosure display did not answer");
+        return false;
+    }
+    if (on && !wifiApState.up) {
+        Serial.println("\nWIFI:AP REFUSED — the enclosure display could not raise it");
+        return false;
+    }
+    Serial.printf("\nWIFI:AP %s\n",
+                  wifiApState.up ? "up as '" WIFI_BENCH_SSID "', channel "
+                                   "6, sinking on port 5001" : "down");
+    return true;
+}
+
+// What the sink counted, asked for after a run so the two ends can be compared.
+bool linkWifiApState(WifiApStatePayload &out) {
+    wifiApAck = false;
+    WifiApPayload req{2, WIFI_BENCH_CHANNEL};   // neither on nor off: just answer
+
+    for (uint8_t attempt = 0; attempt < 4 && !wifiApAck; attempt++) {
+        j9.send(MSG_WIFI_BENCH_AP, &req, sizeof(req));
+        unsigned long until = millis() + 500;
+        while ((long)(millis() - until) < 0 && !wifiApAck) {
+            j9.service();
+            delay(2);
+        }
+    }
+    if (!wifiApAck) return false;
+    out = wifiApState;
+    return true;
 }
 
 // The one thing here that speaks unprompted, and it is a bench command: it exists

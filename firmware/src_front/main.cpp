@@ -29,6 +29,7 @@ extern "C" const lv_font_t front_icons_96;
 // background is THEME_BG, so the centered image blends into the screen fill.
 #include "ota_receiver.h"
 #include "board_art.h"
+#include "wifi_bench.h"
 
 // The flavor marks are deliberately static artwork. Choose's selection refresh
 // changes only on actual main board state transitions, so these do not
@@ -1441,6 +1442,18 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     BoardArtHeader h;
     if (boardArtHeader(h) && h.magic == BOARD_ART_MAGIC) v.artCrc32 = h.crc32;
     j9Post(MSG_RESP_VERSION, &v, sizeof(v));
+    return;
+  }
+
+  // The radio bench. This board is the sink; the answer goes out in the same
+  // turn, because the main board asked for it and is waiting on that reply.
+  if (type == MSG_WIFI_BENCH_AP && plen >= sizeof(WifiApPayload)) {
+    WifiApPayload ap;
+    memcpy(&ap, payload, sizeof(ap));
+    if (ap.on < 2) wifiBenchApSet(ap.on != 0, ap.channel);   // 2 asks without moving it
+    WifiApStatePayload st;
+    wifiBenchFill(st);
+    j9Post(MSG_RESP_WIFI_AP, &st, sizeof(st));
     return;
   }
 

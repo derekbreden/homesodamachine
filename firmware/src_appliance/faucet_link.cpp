@@ -163,6 +163,29 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_OTA_SRC_BEGIN) { otaOnSrcBegin(payload, plen); return; }
     if (type == MSG_OTA_SRC_DATA)  { otaOnSrcData(payload, plen);  return; }
 
+    // The bench run the console started, finished. Reported where it lands
+    // rather than polled for: the run is seconds long and nothing waits on it.
+    if (type == MSG_RESP_WIFI_PUSH && plen >= sizeof(WifiPushResultPayload)) {
+        WifiPushResultPayload r;
+        memcpy(&r, payload, sizeof(r));
+        if (!r.ok) {
+            static const char *why[] = {"", "never joined the AP", "the sink refused the socket",
+                                        "the socket died mid-transfer", "a run is already in flight"};
+            Serial.printf("\nWIFI:FAIL — %s\n",
+                          r.err < 5 ? why[r.err] : "unknown");
+            return;
+        }
+        const float kb = r.bytes / 1024.0f;
+        const float secs = r.xferMs / 1000.0f;
+        Serial.printf("\nWIFI:OK  %lu bytes in %lu ms — %.0f KB/s (%.1f Mbit/s)\n",
+                      (unsigned long)r.bytes, (unsigned long)r.xferMs,
+                      secs > 0 ? kb / secs : 0.0f,
+                      secs > 0 ? (r.bytes * 8.0f / secs) / 1000000.0f : 0.0f);
+        Serial.printf("     join %lu ms, socket %lu ms, RSSI %d dBm on channel %u\n",
+                      (unsigned long)r.joinMs, (unsigned long)r.connectMs, r.rssi, r.channel);
+        return;
+    }
+
     if (type == MSG_RESP_BLE_STATUS && plen >= sizeof(BleStatusPayload)) {
         BleStatusPayload st;
         memcpy(&st, payload, sizeof(st));
@@ -377,6 +400,11 @@ void faucetLinkReadStatus(FaucetLinkStatus &status) {
 
 bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
     return faucet.trySend(type, data, len) >= 0;
+}
+
+bool faucetLinkWifiPush(uint32_t bytes) {
+    WifiPushPayload req{bytes, WIFI_BENCH_CHANNEL};
+    return faucet.trySend(MSG_WIFI_BENCH_PUSH, &req, sizeof(req)) >= 0;
 }
 
 void faucetLinkBleReport() {
