@@ -51,9 +51,14 @@
       "status": "ok"
     },
     {
-      "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
+      "check": "tools/check_release_room.py",
+      "note": "check_release_room: 163 of 1000 free, the next cut wants 3, and the whole lock reads by name in 143.0 MB against 144.2 MB of bundle",
       "status": "ok"
+    },
+    {
+      "check": "tools/check_web_tests.py",
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -67,10 +72,15 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 172 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 0 staged source(s)",
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "tools/check_web_tests.py": [
+      "the suite did not finish within 300s",
+      "  cd web && npm test"
+    ]
+  },
+  "green": false
 }
