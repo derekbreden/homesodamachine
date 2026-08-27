@@ -36,6 +36,11 @@
       "status": "ok"
     },
     {
+      "check": "hardware/scripts/check_show_faces.py",
+      "note": "show faces: 9/9 bounds hold over 4 module(s)",
+      "status": "ok"
+    },
+    {
       "check": "hardware/scripts/check_step_colours.py",
       "note": "step colours: 100/100 carry the colour of what they are made of",
       "status": "ok"
