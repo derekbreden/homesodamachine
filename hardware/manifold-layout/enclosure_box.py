@@ -17,13 +17,14 @@ import enclosure_assembly as _assembly  # noqa: E402
 
 def main() -> None:
     _machine, _pack, box = _assembly.machine()
-    # Exercise the actual 34-field description, including its nested lists, ordered
-    # dictionaries and named records, before publishing it as another action's input.
+    box = _enc.documented(box)
+    # Exercise the actual description, including its nested lists, ordered dictionaries and
+    # named records, before publishing it as another action's input.
     with tempfile.TemporaryDirectory(prefix="hsm-enclosure-box-") as directory:
         probe = Path(directory) / "enclosure-box.json"
         _box_spec.write(box, _enc.BOUNDS, probe)
         restored, bounds = _box_spec.read(
-            _enc.Box, _enc.Bound, (_enc.PortField, _enc.Nameplate), probe)
+            _enc.Box, _enc.Bound, (_enc.Pack, _enc.PortField, _enc.Nameplate), probe)
         if repr(restored) != repr(box) or repr(bounds) != repr(tuple(_enc.BOUNDS)):
             raise ValueError("enclosure-box serialization changed the live placement description")
     path = _box_spec.write(box, _enc.BOUNDS)

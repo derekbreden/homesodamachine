@@ -55,15 +55,15 @@ def internal_plumbing(m):
     # +Y WALL. Nothing is cut in the front wall at all, and that has no number
     # in it to drift — so this assertion is the only thing that can put the card
     # back if a front-face bore ever appears.
-    assert not pack.front_ports and not box.front_ports, (
-        f"{len(box.front_ports)} station(s) are cut in the front wall — IP-01 brings the CO2 "
+    assert not pack.front_ports and not box.pack.front_ports, (
+        f"{len(box.pack.front_ports)} station(s) are cut in the front wall — IP-01 brings the CO2 "
         f"in at the back and says nothing at all is cut in the front")
     # The bore, off the call that STRIKES it rather than a second copy of its
     # arithmetic: `co2_wall_port` is what `enclosure_assembly.pack` fills `back_ports` with,
     # so a change to how the hole is struck arrives here instead of leaving this
     # assertion checking the wall against a rule it no longer follows.
     co2_bore = a.wall_ports["co2"][3]
-    assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.back_ports), (
+    assert any(p[0] == "round" and abs(p[3] - co2_bore) < 1e-6 for p in box.pack.back_ports), (
         f"no {co2_bore:.4g} mm bore stands in the +Y wall of back-top — IP-01 threads the GASHER onto a "
         f"bulkhead clamped through it, and the +Y wall is where the card sends the bench")
     # NOTHING ON THIS CHAIN THREADS ONTO ITS NEIGHBOUR: the bulkhead reaches the check by tube

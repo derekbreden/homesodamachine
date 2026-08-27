@@ -1607,7 +1607,9 @@ grip_aft = wall              # and between its aft wall and the face that lands 
 grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inboard
 
 
-# The whole description of one box — what `build_pieces` cuts the four pieces from:
+# The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
+# stands around, and the figures the shell measures for itself once it knows what is inside.
+#   pack          the placed bodies and every station they put on a wall, as `Pack` states them
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
 #   y_joint       the front↔back seam plane
 #   splits        the bottom↔top seam height per Y column, (front, back)
@@ -1617,6 +1619,50 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 module state would make a serialized Box a different machine.
 #   z_seam_passes whether each (front, back) Z seam crosses its column rather than an open band;
 #                 a report reading taken with the placed solids, carried for the same reason
+#   column_reliefs what the standing corners' PILLARS give up to the pack standing in them, one
+#                 (sx, sy, name, room) per body — the corner's own signs, whose body it is, and
+#                 the world box the column is cut back to, as the six plain bounds
+#                 `(x0, x1, y0, y1, z0, z1)` every station on the pack is written in.
+#                 A STATION IS NUMBERS: `_facts` serialises this whole Box for the eight doc
+#                 drivers that read it, and `build_piece` strikes the box where it cuts.
+#                 Struck by `_dims` off the placed parts rather than passed in by the pack,
+#                 because it is the one question that needs the bodies AND the walls at once;
+#                 main() prints each.
+#
+#                 A COLUMN GIVES WAY TO A BODY AND NOT THE OTHER WAY ROUND. It is a print-corner
+#                 feature — what it buys is a fat vertical on the bed, and it buys that over the
+#                 height it does have. A body hung on a wall answers to the boss that holds it
+#                 and to whatever the pack packed it against, and by the time one reaches a
+#                 corner both of those are already spent.
+#   pump_bay      the pump cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
+#                 jamb between the corner columns' cusps, topped over the motor cans' crowns.
+#                 None when the pack stands no pumps
+# The two structured fields placement strikes for this description. They live with Box rather
+# than with the placement pass so a serialized Box can be restored without importing the whole
+# machine that produced it.
+PortField = namedtuple("PortField", "proud rim pockets")
+Nameplate = namedtuple(
+    "Nameplate", "x z width height corner bevel slip thick wall screws "
+                 "stem_d reach bore_d bore_depth")
+
+Box = namedtuple(
+    "Box", "pack inner outer y_joint splits y_bosses z_seam_passes column_reliefs pump_bay")
+
+
+def documented(box):
+    """The Box as `_box_spec` writes and reads it: its pack's stations without the placed solids.
+
+    A station is numbers and a body is not, so the description a producer hands another action
+    carries the walls and not the bodies that sized them. Both sides of a comparison between a
+    freshly derived box and a restored one take this form, because the restored one has no
+    solids to compare against."""
+    return box._replace(pack=box.pack._replace(placed={}))
+
+# What a box is built AROUND: the placed bodies, and every station they put on a wall.
+# A pack that does not carry a subsystem yet carries no stations for it, and the wall
+# comes out blank there rather than carrying a hole with nothing behind it. A Box stands
+# one of these and reads its stations through it.
+#   placed        {name: (solid, colour)} — the same shape a CadQuery assembly reads
 #   front_ports   / back_ports   wall through-holes, in the pack's format
 #   east_ports    +X side-wall through-holes, (kind, y, z, *size)
 #   west_ports    −X side-wall through-holes, same shape — the ASSE drip pan's slot
@@ -1680,50 +1726,10 @@ grip_rake = 1.0 / 3.0        # the ledge's fall in Y per millimetre it runs inbo
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
-#   column_reliefs what the standing corners' PILLARS give up to the pack standing in them, one
-#                 (sx, sy, name, room) per body — the corner's own signs, whose body it is, and
-#                 the world box the column is cut back to, as the six plain bounds
-#                 `(x0, x1, y0, y1, z0, z1)` every other station on this tuple is written in.
-#                 A STATION IS NUMBERS: `_facts` serialises this whole Box for the eight doc
-#                 drivers that read it, and `build_piece` strikes the box where it cuts.
-#                 Struck by `_dims` off the placed parts rather than passed in by the pack,
-#                 because it is the one question that needs the bodies AND the walls at once;
-#                 main() prints each.
-#
-#                 A COLUMN GIVES WAY TO A BODY AND NOT THE OTHER WAY ROUND. It is a print-corner
-#                 feature — what it buys is a fat vertical on the bed, and it buys that over the
-#                 height it does have. A body hung on a wall answers to the boss that holds it
-#                 and to whatever the pack packed it against, and by the time one reaches a
-#                 corner both of those are already spent.
 #   collet_plate  the steel plate the barb tubes release against, as the dict
 #                 `enclosure_assembly.collet_plate_spec` strikes off the four anchor tees'
 #                 branch collets: its two Y faces, its Z band, its X ends, and one (x, z)
 #                 per hole. The bay floor's slot takes it (`_plate_slot`)
-#   pump_bay      the pump cartridge's opening in the flat front span, (x0, x1, z_top) — jamb to
-#                 jamb between the corner columns' cusps, topped over the motor cans' crowns.
-#                 None when the pack stands no pumps
-# The two structured fields placement strikes for this description. They live with Box rather
-# than with the placement pass so a serialized Box can be restored without importing the whole
-# machine that produced it.
-PortField = namedtuple("PortField", "proud rim pockets")
-Nameplate = namedtuple(
-    "Nameplate", "x z width height corner bevel slip thick wall screws "
-                 "stem_d reach bore_d bore_depth")
-
-Box = namedtuple(
-    "Box", "inner outer y_joint splits y_bosses z_seam_passes "
-           "front_ports back_ports east_ports west_ports "
-           "funnel pan_sleeve c14 east_bosses side_wells floor_bosses west_cradle cond_cradle "
-           "cond_mount cond_airway asse_cradle flow_meter_anchors tube_anchors ceiling_reliefs "
-           "port_field nameplate "
-           "valve_trays pump_trays core_stops core_holds vent_chase column_reliefs "
-           "collet_plate pump_bay")
-
-# What a box is built AROUND: the placed bodies, and every station they put on a wall.
-# A pack that does not carry a subsystem yet carries no stations for it, and the wall
-# comes out blank there rather than carrying a hole with nothing behind it.
-#   placed        {name: (solid, colour)} — the same shape a CadQuery assembly reads
-# The rest are the Box fields above, and the box passes them through.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel pan_sleeve c14 "
             "east_bosses side_wells floor_bosses west_cradle cond_cradle cond_mount "
@@ -2684,15 +2690,8 @@ def _dims(pack):
     # ladder on the Box so a downstream action can reproduce the same joint without the pack.
     y_bosses = tuple(_bosses(inner, y_joint))
     z_passes = tuple(_z_seam_passes[col] for col in ("front", "back"))
-    return Box(inner, outer, y_joint, splits, y_bosses, z_passes,
-               pack.front_ports, pack.back_ports, pack.east_ports, pack.west_ports,
-               pack.funnel, pack.pan_sleeve, pack.c14, pack.east_bosses,
-               pack.side_wells, pack.floor_bosses, pack.west_cradle, pack.cond_cradle,
-               pack.cond_mount, pack.cond_airway, pack.asse_cradle,
-               pack.flow_meter_anchors, pack.tube_anchors, pack.ceiling_reliefs,
-               pack.port_field, pack.nameplate,
-               pack.valve_trays, pack.pump_trays, pack.core_stops, pack.core_holds,
-               pack.vent_chase, tuple(reliefs), pack.collet_plate, pump_bay)
+    return Box(pack, inner, outer, y_joint, splits, y_bosses, z_passes,
+               tuple(reliefs), pump_bay)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -2972,8 +2971,8 @@ def flute_rails(box, berthed=()):
     outer = box.outer
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
                               length=plan_perimeter(outer))]
-    if box.pump_bay and box.collet_plate:
-        segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.collet_plate)
+    if box.pump_bay and box.pack.collet_plate:
+        segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
         run = sum(length for _kind, length, _data in segments)
         rails.append(_flute_skin.Rail(
             at=lambda s: _walk(segments, s + run / 2.0), length=run, start=-run / 2.0,
@@ -3418,7 +3417,7 @@ def with_funnel(box, centre):
             f"{arris + wall - brim_y0:.2f} mm past the landing it owes and hangs over the 45°. "
             f"Take `funnel_front_y` aft of {arris + wall + _funnel.brim_overhang:.2f}, or "
             f"shorten the facet"])))
-    return box._replace(funnel=centre)
+    return box._replace(pack=box.pack._replace(funnel=centre))
 
 
 def _funnel_cut(inner, outer, centre):
@@ -4503,7 +4502,7 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     figure this reads: it is a berth cut through it."""
     ix0, ix1, _iy0, _iy1, _iz0, iz1 = inner
     fx0, fx1 = front_top_flank_face()
-    plate = box.collet_plate
+    plate = box.pack.collet_plate
     y0, y1 = outer[2] - 1.0, y_joint + lip_len
     rim = zj + z_rise
     depth = front_top_flank_t - wall
@@ -4528,11 +4527,11 @@ def _front_top_flanks(inner, outer, box, y_joint, zj):
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss in box.y_bosses:
         band = band.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
-    for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
+    for cutter in _port_cuts(box.pack.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         band = band.cut(cutter)
-    for cutter in _x_port_cuts(box.east_ports, fx1 - 5.0, outer[1] + 5.0):
+    for cutter in _x_port_cuts(box.pack.east_ports, fx1 - 5.0, outer[1] + 5.0):
         band = band.cut(cutter)
-    for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
+    for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0):
         band = band.cut(cutter)
     return band.cut(_front_top_flank_relief_cut())
 
@@ -4567,7 +4566,7 @@ def _back_top_wall(inner, outer, box, zj):
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     band = _ybox(ix0, ix1, back_top_wall_face(), iy1, zj + z_rise, iz1)
     # The wall's own holes, bored in `build_back_half` before this stood here.
-    for cutter in _port_cuts(box.back_ports, iy1 - 5.0, outer[3] + 5.0):
+    for cutter in _port_cuts(box.pack.back_ports, iy1 - 5.0, outer[3] + 5.0):
         band = band.cut(cutter)
     return band.cut(_back_top_wall_relief_cut())
 
@@ -4627,13 +4626,13 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
         seg = seg.cut(_xz_prism(y0 - 1.0, iy1 + 1.0,
                                 [(x_in, rim), (x_face, rim), (x_face, rim + depth)]))
         band = seg if band is None else band.fuse(seg)
-    for bx0, bx1, by0, by1, bz0, bz1 in box.pan_sleeve[0]:
+    for bx0, bx1, by0, by1, bz0, bz1 in box.pack.pan_sleeve[0]:
         band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
     # The PRV chase stands its own share of this band later (`_vent_chase`): each piece
     # carries the height of the rib it owns, so neither crosses into the other's travel.
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
     # slot, cut in `build_back_half` before this stood here.
-    for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, fx0 + 5.0):
+    for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0):
         band = band.cut(cutter)
     return band
 
@@ -5042,9 +5041,9 @@ def grip_figures(box):
     """What a flank grip comes to on this box, for the docs to read — its two bands, the
     depth it reaches at each of the pump's own storeys, and the travel its ledge buys. Empty
     on a box with no bay, which is a box with no pump cartridge to carry a grip."""
-    if not (box.pump_bay and box.pump_trays):
+    if not (box.pump_bay and box.pack.pump_trays):
         return {}
-    bay, trays, plate = box.pump_bay, box.pump_trays, box.collet_plate
+    bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
     edge = _cap_x_span(bay)[1]
     storeys = _grip_storeys(trays, bay_floor_z(trays)[1], bay[2] - face_reveal)
     cap_band, deck_band = _grip_bands(bay, trays)
@@ -5342,7 +5341,7 @@ def build_pump_cartridge(box, halves_cache=None):
     takes: the block's underside is one plane on the bed and the face stands up off it, so
     what hangs is whatever looks DOWN, and every ceiling cut into it rises at
     `relief_chamfer` to its own mouth."""
-    inner, outer, plate = box.inner, box.outer, box.collet_plate
+    inner, outer, plate = box.inner, box.outer, box.pack.collet_plate
     solid = _pump_cartridge_gross(box, halves_cache).cut(_cap_room(box))
     # ITS BOTTOM IS ONE PLANE, AND THAT PLANE IS THE FACE'S OWN SILL REVEAL. Where no head
     # noses in, the front wall's section runs back to `front_plane_y`, and that section is
@@ -5351,13 +5350,13 @@ def build_pump_cartridge(box, halves_cache=None):
     # riser of exactly `face_reveal` ran along every band to carry the step. What rides the
     # floor is the cap; nothing of this piece reaches below the reveal that keeps its face
     # off the sill.
-    floor_top = bay_floor_z(box.pump_trays)[1]
+    floor_top = bay_floor_z(box.pack.pump_trays)[1]
     solid = solid.cut(_ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
                             outer[4] - 1.0, floor_top + face_reveal))
-    for grip in _flank_grip(box.pump_bay, box.pump_trays, plate,
-                            _grip_bands(box.pump_bay, box.pump_trays)[1]):
+    for grip in _flank_grip(box.pump_bay, box.pack.pump_trays, plate,
+                            _grip_bands(box.pump_bay, box.pack.pump_trays)[1]):
         solid = solid.cut(grip)
-    for bore in _cap_screws(inner, plate, box.pump_trays)[1]:
+    for bore in _cap_screws(inner, plate, box.pack.pump_trays)[1]:
         solid = solid.cut(bore)
     return _unified(solid)
 
@@ -5375,7 +5374,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
     `build_pump_cap` what is under it, so the joint is a plane through one solid rather than
     two solids drawn to meet on one."""
     inner, outer = box.inner, box.outer
-    bay, plate = box.pump_bay, box.collet_plate
+    bay, plate = box.pump_bay, box.pack.collet_plate
     if not bay or not plate:
         raise ValueError("a pump cartridge wants a bay and a collet plate, and this box "
                          "carries neither station — the pack has no pumps to pull")
@@ -5387,7 +5386,7 @@ def _pump_cartridge_gross(box, halves_cache=None):
         half = build_front_half(box)
         if halves_cache is not None:
             halves_cache["front"] = half
-    face = _pump_cartridge_face_region(inner, outer, bay, box.pump_trays, plate)
+    face = _pump_cartridge_face_region(inner, outer, bay, box.pack.pump_trays, plate)
     solid = half.val().intersect(face)
     bx0, bx1, top = bay
     dx0, dx1 = bx0 + bay_face_slip, bx1 - bay_face_slip
@@ -5400,8 +5399,8 @@ def _pump_cartridge_gross(box, halves_cache=None):
     # stated reason, which put a step across the block's whole back and a ledge at the split
     # to carry it. One plane for both is one face against the steel and no ledge at all.
     deck_aft = cap_aft = _block_aft(plate)
-    split = cap_split_z(box.pump_trays)
-    floor_top = bay_floor_z(box.pump_trays)[1]
+    split = cap_split_z(box.pack.pump_trays)
+    floor_top = bay_floor_z(box.pack.pump_trays)[1]
     # The fill, both sides of the split. It starts on `pump_relief_floor` — the plane the
     # front wall presents wherever a head noses into it, and the surface the face carries
     # across the whole of both pockets. Under the split it beds on the bay floor's own top,
@@ -5413,12 +5412,12 @@ def _pump_cartridge_gross(box, halves_cache=None):
                              top - face_reveal))
     solid = solid.fuse(_ybox(cx0, cx1, pump_relief_floor, cap_aft, floor_top,
                              split))
-    for void in _pump_voids(box.pump_trays, top):
+    for void in _pump_voids(box.pack.pump_trays, top):
         solid = solid.cut(void)
-    for cx, cy, cz in box.pump_trays:
+    for cx, cy, cz in box.pack.pump_trays:
         tray = _tray.build_pump_tray(cy - pump_relief_floor).val()
         solid = solid.fuse(tray.moved(cq.Location(cq.Vector(cx, cy, cz))))
-    solid = _pump_tray_webs(solid, inner, box.pump_trays, (), 0.0, 1e4, -1e4, 1e4)
+    solid = _pump_tray_webs(solid, inner, box.pack.pump_trays, (), 0.0, 1e4, -1e4, 1e4)
     solid = solid.intersect(
         face.fuse(_ybox(dx0, dx1, outer[2], cap_aft, floor_top, top)))
     if halves_cache is not None:
@@ -5444,10 +5443,10 @@ def _cap_room(box, slip=0.0):
     decides the pump's height."""
     outer, inner = box.outer, box.inner
     room = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, box.y_joint,
-                 outer[4] - 1.0, cap_split_z(box.pump_trays))
+                 outer[4] - 1.0, cap_split_z(box.pack.pump_trays))
     wall_solid = _ybox(outer[0] - 1.0, outer[1] + 1.0, outer[2] - 1.0, front_plane_y + slip,
                        outer[4] - 1.0, outer[5] + 1.0)
-    for cutter in _front_relief_cuts(inner, box.pump_trays, slip):
+    for cutter in _front_relief_cuts(inner, box.pack.pump_trays, slip):
         wall_solid = wall_solid.cut(cutter)
     return room.cut(wall_solid)
 
@@ -5501,12 +5500,12 @@ def build_pump_cap(box, halves_cache=None):
     is nine millimetres of flank and the pocket keeps one `grip_cap_back` wall round the head:
     the piece comes out screwed to the pump cartridge and a hand pulling the assembly finds relief
     at both storeys. Printed on its Z− face, the same pose the pump cartridge takes."""
-    inner, plate = box.inner, box.collet_plate
+    inner, plate = box.inner, box.pack.collet_plate
     solid = _pump_cartridge_gross(box, halves_cache).intersect(_cap_room(box, fits.slip))
-    split = cap_split_z(box.pump_trays)
-    bx0, bx1 = cap_band_x(box.pump_trays)
+    split = cap_split_z(box.pack.pump_trays)
+    bx0, bx1 = cap_band_x(box.pack.pump_trays)
     solid = solid.cut(_ybox(bx0, bx1, front_plane_y, plate["fore_y"],
-                            bay_floor_z(box.pump_trays)[1] - 1.0, split - cap_web_t))
+                            bay_floor_z(box.pack.pump_trays)[1] - 1.0, split - cap_web_t))
     # ONE SLOT PER PUMP IN THE AFT FACE, AND ITS TWO TUBES COME DOWN IT. This piece is brought
     # UP onto a seated pump, so a tube already made up into its collet travels DOWN the aft
     # face as the cap rises — through a bore it cannot travel at all, and the cap could only
@@ -5529,15 +5528,15 @@ def build_pump_cap(box, halves_cache=None):
     # wall below its sill; a round bore here would lap the room's wall and leave the web
     # feathering to nothing at the two levels it grazes.
     # `enclosure_assembly.check_cap_passes_tubes` reads the resulting air off the placed barbs.
-    for cx, cy, cz in box.pump_trays:
+    for cx, cy, cz in box.pack.pump_trays:
         room_half = _tray.head_half + cap_pump_air
         sill = cz - _tray.head_depth + _tray.outlet_relief_run
         solid = solid.cut(_ybox(cx - cap_slot_half, cx + cap_slot_half,
                                 cy + room_half, plate["fore_y"] + 1.0, sill, cz + 0.1))
-    for grip in _flank_grip(box.pump_bay, box.pump_trays, plate,
-                            _grip_bands(box.pump_bay, box.pump_trays)[0]):
+    for grip in _flank_grip(box.pump_bay, box.pack.pump_trays, plate,
+                            _grip_bands(box.pump_bay, box.pack.pump_trays)[0]):
         solid = solid.cut(grip)
-    for bore in _cap_screws(inner, plate, box.pump_trays)[0]:
+    for bore in _cap_screws(inner, plate, box.pack.pump_trays)[0]:
         solid = solid.cut(bore)
     return _unified(solid)
 
@@ -5549,7 +5548,7 @@ def build_front_half(box):
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     # The front wall's reliefs, out of the section before anything stands on it: the
     # refrigeration bay and the pump pockets, each floored on its own stated plane.
-    for cutter in _front_relief_cuts(inner, box.pump_trays):
+    for cutter in _front_relief_cuts(inner, box.pack.pump_trays):
         front = front.cut(cutter)
     front = front.fuse(_front_lip(inner, y_joint))
     # The floor's overlap: a full-thickness tongue on the bed, ending in a 45°
@@ -5571,13 +5570,13 @@ def build_front_half(box):
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
     # Punch the funnel's throat through the top wall, behind the display.
-    if box.funnel:
-        front = front.cut(_funnel_cut(inner, outer, box.funnel))
+    if box.pack.funnel:
+        front = front.cut(_funnel_cut(inner, outer, box.pack.funnel))
     # The front wall's through-holes.
-    for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
+    for cutter in _port_cuts(box.pack.front_ports, outer[2] - 5.0, inner[2] + 5.0):
         front = front.cut(cutter)
     # East side-wall through-holes — the CO2 inlet's, low in the machine corridor.
-    for cutter in _x_port_cuts(box.east_ports, inner[1] - 5.0, outer[1] + 5.0):
+    for cutter in _x_port_cuts(box.pack.east_ports, inner[1] - 5.0, outer[1] + 5.0):
         front = front.cut(cutter)
     for x_in, x_ext, sx, z_boss in bosses:
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
@@ -5596,8 +5595,8 @@ def build_back_half(box):
     # Give up the tongue envelope and keep the bed-side 45° wedge under its nose.
     # The assembled top stays flat under the core. Lands in the bottom piece.
     back = back.cut(_floor_scarf(inner, y_joint)[1])
-    if box.funnel:
-        back = back.cut(_funnel_cut(inner, outer, box.funnel))
+    if box.pack.funnel:
+        back = back.cut(_funnel_cut(inner, outer, box.pack.funnel))
     yb = _y_boss(y_joint)
     bosses = box.y_bosses
     # One plug per level, standing on the back mouth off the wall it drives through.
@@ -5612,14 +5611,14 @@ def build_back_half(box):
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the +Y wall of back-top in the band above the
     # cold core; their bodies hang in the band's open rear half.
-    for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
+    for cutter in _port_cuts(box.pack.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
     # The ASSE drip pan's withdrawal slot through the −X wall, and the sleeve it lies in. The
     # sleeve's own cuts reach back through this wall, so the slot is opened here and reopened
     # there at the one shape.
-    for cutter in _x_port_cuts(box.west_ports, outer[0] - 5.0, inner[0] + 5.0):
+    for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, inner[0] + 5.0):
         back = back.cut(cutter)
-    back = _pan_sleeve(back, box.pan_sleeve, outer[4] - 1.0, outer[5] + 1.0)
+    back = _pan_sleeve(back, box.pack.pan_sleeve, outer[4] - 1.0, outer[5] + 1.0)
     return cq.Workplane(obj=back)
 
 
@@ -6295,16 +6294,16 @@ def vent_readings(pieces, box):
     THE PIECE IS FOUND THE WAY THE CUT FOUND IT — by whose own bands hold the block's airway
     (`_piece_bands`), which is the same test `build_piece` makes when it hands a station to the
     feature that cuts it. So this asks the piece that was cut and not a piece named here."""
-    if not box.cond_airway:
+    if not box.pack.cond_airway:
         return {}
-    ay0, ay1, az0, az1 = box.cond_airway
+    ay0, ay1, az0, az1 = box.pack.cond_airway
     for name, piece in pieces.items():
         if name.count("-") != 1:
             continue
         y0, y1, z0, z1 = _piece_bands(box, name)
         if y0 <= (ay0 + ay1) / 2.0 <= y1 and z0 <= (az0 + az1) / 2.0 <= z1:
             solid = piece.val() if hasattr(piece, "val") else piece
-            return {sx: vent_measure(solid, box.outer, box.cond_airway, sx)
+            return {sx: vent_measure(solid, box.outer, box.pack.cond_airway, sx)
                     for sx in (-1.0, 1.0)}
     return {}
 
@@ -7172,7 +7171,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if halves_cache is not None:
             halves_cache[y_side] = half
     solid = half.val()
-    plate = box.collet_plate if (box.pump_bay and box.collet_plate) else None
+    plate = box.pack.collet_plate if (box.pump_bay and box.pack.collet_plate) else None
     if z_side == "bottom":
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       oz0 - 1.0, zj))
@@ -7187,13 +7186,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if y_side == "front":
             # And front-bottom's own extra section on the west flank, welled round the card.
             piece = piece.fuse(_front_bottom_flank_skin(
-                inner, box.west_cradle, y_joint, zj).intersect(col))
+                inner, box.pack.west_cradle, y_joint, zj).intersect(col))
             # And the two shelves that carry the collet plate, which bring that same face in
             # the last millimetre under the steel's ends. Fused with the skin, before every
             # pocket, so anything cut into this flank later is cut out of the whole of it.
-            if box.pump_bay and box.collet_plate:
+            if box.pump_bay and box.pack.collet_plate:
                 piece = piece.fuse(
-                    _plate_shelf(inner, box.collet_plate, zj).intersect(col))
+                    _plate_shelf(inner, box.pack.collet_plate, zj).intersect(col))
         if y_side == "back":
             # And back-bottom's own extra section inboard of that, on the two flanks only.
             # Fused with them and before every pocket for the same reason: a well cut into
@@ -7205,12 +7204,12 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_front_flat_lip_drop(inner, zj))
             # And both flanks over the same run, round the corners to the tee wall's aft
             # face — the rail starts on that face and nothing crosses the seam fore of it.
-            piece = piece.cut(_flank_lip_drop(inner, box.collet_plate, y_joint, zj))
+            piece = piece.cut(_flank_lip_drop(inner, box.pack.collet_plate, y_joint, zj))
         # The rail heads and their stop blocks — the whole of what stands proud of this
         # piece's mouth, what the top's channel swallows on the way in and its return
         # rides at home.
         piece = piece.fuse(_z_rail_heads(inner, y_joint, zj, y_side, plate,
-                                         box.vent_chase))
+                                         box.pack.vent_chase))
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
@@ -7218,7 +7217,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # wells, the trays and every bore below are struck on `interior_x` and cut AFTER this,
         # so each one is cut out of the whole section rather than out of the skin it replaced —
         # which is what leaves a lever nut bottoming exactly where it bottomed before.
-        if y_side == "front" and box.collet_plate:
+        if y_side == "front" and box.pack.collet_plate:
             piece = piece.fuse(_front_top_flanks(inner, outer, box, y_joint, zj))
         # AND BACK-TOP'S OWN, first of everything that piece does to its flanks, for the same
         # reason: the wells and the +X bosses below are struck on `interior_x` and cut after
@@ -7229,7 +7228,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # every pocket, and carved to the slide's own profile by the channel cut at the
         # END of this piece's work, so everything later fused near a flank is carved too.
         piece = piece.fuse(_z_rail_feet(inner, y_joint, zj, y_side, plate,
-                                        box.vent_chase))
+                                        box.pack.vent_chase))
         if y_side == "back":
             # BACK-TOP'S OWN +Y SECTION, first of everything this piece does to that wall — so
             # the port field, the C14's bores and the nameplate's seat are cut out of the
@@ -7248,44 +7247,44 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # face and its bosses stand off the inner one, so the face the customer meets is flush.
         # The bosses carry the face's own through-holes across their depth, so a bore that
         # crosses the wall crosses them too.
-        piece = _port_field(piece, box.port_field, box.back_ports, outer, oy1, zlo, zhi,
+        piece = _port_field(piece, box.pack.port_field, box.pack.back_ports, outer, oy1, zlo, zhi,
                             None if rear is None else back_wall_t_at)
         # And the C14's tunnel, on whichever piece holds its two stations. Last on this wall
         # because its bore reaches further inboard than the field's own cutters do — those run
         # to the boss each stands behind, and this one runs the whole depth of the tunnel.
-        piece = _c14_tunnel(piece, inner, outer, box.c14, box.back_ports, zlo, zhi)
+        piece = _c14_tunnel(piece, inner, outer, box.pack.c14, box.pack.back_ports, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = _piece_bands(box, f"{y_side}-{z_side}")[:2]
-    piece = _east_bosses(piece, inner, outer, box.east_bosses, ylo, yhi, zlo, zhi)
+    piece = _east_bosses(piece, inner, outer, box.pack.east_bosses, ylo, yhi, zlo, zhi)
     # The +X wall's Wago wells, on whichever piece holds each one's station. After the
     # bosses for the same reason those go after the seam's own bosses: a pocket cut here is a
     # pocket nothing later fuses back in.
-    piece = _side_wells(piece, inner, box.side_wells, ylo, yhi, zlo, zhi)
+    piece = _side_wells(piece, inner, box.pack.side_wells, ylo, yhi, zlo, zhi)
     # The floor slab's, on whichever piece holds each one's plan station. Only the bottom
     # pieces have a slab to stand one on, and `_floor_bosses` drops any station outside.
-    piece = _floor_bosses(piece, inner, box.floor_bosses, ylo, yhi, zlo, zhi)
+    piece = _floor_bosses(piece, inner, box.pack.floor_bosses, ylo, yhi, zlo, zhi)
     # The −X wall's card slot, last of all: its bottom rail lands on the same slab those posts
     # rise from, so cutting its grooves after them is what keeps a groove a groove.
-    piece = _west_cradle(piece, inner, box.west_cradle, ylo, yhi, zlo, zhi)
+    piece = _west_cradle(piece, inner, box.pack.west_cradle, ylo, yhi, zlo, zhi)
     # The condenser block's four flanges, on the same slab and the walls either side of it: the
     # fore rails off the front wall, the aft fin off the +X one. After the floor's posts for the
     # card slot's own reason — a rail rooted on the slab is rooted on whatever is standing there.
-    piece = _cond_cradle(piece, inner, box.cond_cradle, ylo, yhi, zlo, zhi)
-    piece = _cond_mount(piece, inner, box.cond_mount, ylo, yhi, zlo, zhi)
+    piece = _cond_cradle(piece, inner, box.pack.cond_cradle, ylo, yhi, zlo, zhi)
+    piece = _cond_mount(piece, inner, box.pack.cond_mount, ylo, yhi, zlo, zhi)
     # The cold core's own two: the front corner blocks on the same slab those rails root on, and
     # the hold-down brackets a storey up on the +Y wall. The blocks carry a bore, so they go on
     # with the other pockets — after everything that could fuse material back into one.
-    piece = _core_stops(piece, inner, box.core_stops, ylo, yhi, zlo, zhi)
-    piece = _core_holds(piece, inner, box.core_holds, ylo, yhi, zlo, zhi,
+    piece = _core_stops(piece, inner, box.pack.core_stops, ylo, yhi, zlo, zhi)
+    piece = _core_holds(piece, inner, box.pack.core_holds, ylo, yhi, zlo, zhi,
                         back_top_wall_face() if (y_side, z_side) == ("back", "top") else None)
     # And the core's relief, which leaves it by a flank and needs somewhere to go: the rib is
     # fused before the channel is cut out of it, which is the same order the card slot takes.
-    piece = _vent_chase(piece, inner, outer, box.vent_chase, ylo, yhi, zlo, zhi)
+    piece = _vent_chase(piece, inner, outer, box.pack.vent_chase, ylo, yhi, zlo, zhi)
     # And the tap-water chain's, on the same wall a storey up. After the tray's rails, whose
     # band it stands over, and last like every other pocket: its tie slots are cut out of the
     # ASSE anchor this fuses, so nothing may fuse into them afterwards.
-    piece = _asse_cradle(piece, inner, box.asse_cradle, ylo, yhi, zlo, zhi)
+    piece = _asse_cradle(piece, inner, box.pack.asse_cradle, ylo, yhi, zlo, zhi)
     # And the flow meter's two anchors off the same piece's ceiling — the stations `ceiling_stations`
     # leaves this piece, because back-top's ceiling over the panel's field is the PANEL and a rib
     # rooted there roots on it (`../ceiling-panel/ceiling_panel.py`).
@@ -7294,27 +7293,27 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # room its two ends leave under the face it stops on, so the plane they are drawn to has to be
     # the plane this piece puts there (`piece_root_faces`).
     roots = piece_root_faces(inner, y_side, z_side)
-    meter_anchors, ribs = ceiling_stations(box.flow_meter_anchors, box.tube_anchors, panel=False)
+    meter_anchors, ribs = ceiling_stations(box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=False)
     piece = _flow_meter_anchors(piece, roots, meter_anchors, ylo, yhi, zlo, zhi)
     # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
     # The wall the anchor tees stand in, behind the collet plate — BEFORE the valve trays,
     # because a tray's seats are cut out of whatever stands on that plane and this stands on it.
-    if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
-        piece = piece.fuse(_tee_wall(inner, y_joint, box.collet_plate, box.pump_bay))
+    if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
+        piece = piece.fuse(_tee_wall(inner, y_joint, box.pack.collet_plate, box.pump_bay))
         # And the rib that stands on that wall's crown, carrying the ridge the display's
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
-        piece = piece.fuse(_ridge_wall(inner, outer, box.collet_plate, box.pump_bay))
-    piece = _valve_trays(piece, inner, box.valve_trays, ylo, yhi, zlo, zhi,
-                         wall_aft_y=(box.collet_plate["wall_aft_y"] if box.collet_plate else None))
+        piece = piece.fuse(_ridge_wall(inner, outer, box.pack.collet_plate, box.pump_bay))
+    piece = _valve_trays(piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
+                         wall_aft_y=(box.pack.collet_plate["wall_aft_y"] if box.pack.collet_plate else None))
     # The pump trays are the pump cartridge's (`build_pump_cartridge`); what this piece carries for
     # them is the bay's own furniture — the floor across the front and the seat the collet
     # plate drops into — and then the opening itself, cut last of the wall's work.
-    if y_side == "front" and z_side == "top" and box.pump_bay and box.collet_plate:
-        tray_z = min(cz for _cx, _cy, cz in box.pump_trays)
-        piece = piece.fuse(_bay_floor(inner, y_joint, box.collet_plate, box.pump_trays))
+    if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
+        tray_z = min(cz for _cx, _cy, cz in box.pack.pump_trays)
+        piece = piece.fuse(_bay_floor(inner, y_joint, box.pack.collet_plate, box.pack.pump_trays))
     # And the runs' own anchors, on whichever face each one stands nearest. Last, for the same
     # reason the ASSE anchor is: every one of these is a rib with a cavity cut through it.
     piece = _tube_anchors(piece, roots, inner, ribs, ylo, yhi, zlo, zhi)
@@ -7326,35 +7325,35 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # plate's lane, and cut here it roots on the pocket's floor with the plateau, one continuous
     # section, instead of poking through into the plate.
     if y_side == "back":
-        piece = _nameplate(piece, box.nameplate, outer, oy1, zlo, zhi)
+        piece = _nameplate(piece, box.pack.nameplate, outer, oy1, zlo, zhi)
     # And the flat ceiling's two strips over the funnel opening's flanks, on the front
     # top alone — the piece whose ceiling is nothing but those strips.
-    if y_side == "front" and z_side == "top" and box.funnel:
-        piece = _ceiling_corbels(piece, inner, outer, box.funnel, y_joint)
+    if y_side == "front" and z_side == "top" and box.pack.funnel:
+        piece = _ceiling_corbels(piece, inner, outer, box.pack.funnel, y_joint)
     # The bay's opening, after every fuse that stands near it: what leaves through it is
     # the pump cartridge, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
         # The seam's ceiling first: the opening's floor is this slab's top, so it has to be
         # standing before the opening is cut or the cut would take the plane it stands on.
-        piece = piece.fuse(_rim_cap(inner, outer, box.collet_plate, z_seam))
+        piece = piece.fuse(_rim_cap(inner, outer, box.pack.collet_plate, z_seam))
         # And the columns' own face across the bay — one turn of `column_round` swung from the
         # jamb (`_column_fairing`), over the storey the flank opening leaves them standing in.
         # Before the bay's cut, which takes the jamb off the disc's own tangent.
         piece = _column_fairing(piece, inner, outer, box.pump_bay,
                                 bay_storey_z(box.pump_bay))
-        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pump_trays,
-                                   box.collet_plate))
+        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pack.pump_trays,
+                                   box.pack.collet_plate))
         # And the sill it leaves — the floor's own top — washed fore, so what runs down the
         # face and gets past the reveal runs back out the front.
-        piece = piece.cut(_sill_wash(inner, outer, bay_floor_z(box.pump_trays)[1]))
+        piece = piece.cut(_sill_wash(inner, outer, bay_floor_z(box.pack.pump_trays)[1]))
         # The plate's fore restraint must survive the release, so it belongs to front-top and
         # stands OUTSIDE the pump cartridge sweep. Fused after the opening and its sill are cut:
         # these cheeks intentionally stand at the opening's aft outer edges.
         piece = piece.fuse(_plate_fore_guides(
-            inner, outer, box.pump_bay, box.collet_plate, box.pump_trays))
+            inner, outer, box.pump_bay, box.pack.collet_plate, box.pack.pump_trays))
         # And the wall over the steel, wall to wall — the land its top edge stops on, and the
         # section that fills the lane a Z+ drop-in would have had to leave open above it.
-        piece = piece.fuse(_plate_cap(inner, box.collet_plate, box.pump_bay))
+        piece = piece.fuse(_plate_cap(inner, box.pack.collet_plate, box.pump_bay))
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
@@ -7366,7 +7365,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
     # relief on those two flanks already in it.
-    piece = _flank_vents(piece, inner, outer, box.cond_airway, ylo, yhi, zlo, zhi)
+    piece = _flank_vents(piece, inner, outer, box.pack.cond_airway, ylo, yhi, zlo, zhi)
     if z_side == "top":
         # THE SLIDE'S OWN CARVING, after everything a top piece fuses. The channel is cut
         # through whatever now stands in the rail's lane — the foot slabs, the flank
@@ -7375,7 +7374,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # there. The corner reliefs the same: the pillars stand off the band the bottom's
         # corner fills and flank rails sweep, and regrow on their 45° pair above it.
         piece = piece.cut(_z_rail_channels(inner, y_joint, zj, y_side, plate,
-                                           box.vent_chase))
+                                           box.pack.vent_chase))
     if y_side == "front":
         # AND THE Y TELESCOPE'S, on both storeys and for the same reason: the lip's own
         # section is the section this piece presents aft of the mouth, whatever has grown
@@ -7473,11 +7472,11 @@ def _report_slide(pieces, box):
                        ("back", ("back-top", "back-bottom"))):
         if names[0] not in pieces or names[1] not in pieces:
             continue
-        plate = box.collet_plate if (box.pump_bay and box.collet_plate) else None
-        travel = _z_rail_travel(box.inner, box.y_joint, col, plate, box.vent_chase)
+        plate = box.pack.collet_plate if (box.pump_bay and box.pack.collet_plate) else None
+        travel = _z_rail_travel(box.inner, box.y_joint, col, plate, box.pack.vent_chase)
         # AND IT ENTERS FROM THE SIDE THIS COLUMN ENTERS FROM. The two columns are mirrored,
         # so a displacement that is entry on one is a piece driven past home on the other.
-        _runs = _z_rail_runs(box.inner, box.y_joint, col, plate, box.vent_chase)
+        _runs = _z_rail_runs(box.inner, box.y_joint, col, plate, box.pack.vent_chase)
         dy = 1.0 if _runs[0][3] > _runs[0][2] else -1.0
         top, bot = pieces[names[0]].val(), pieces[names[1]].val()
         rungs = [d for d in (0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0) if d < travel]
@@ -7560,7 +7559,7 @@ def build_pieces(box):
 
     names = [n for n in PIECE_COLORS
              if n not in ("pump-cartridge", "pump-cap")
-             or (box.pump_bay and box.collet_plate)]
+             or (box.pump_bay and box.pack.collet_plate)]
     pieces = {name: _realized.realized(
                   _realized.key(__name__, box, name),
                   lambda n=name: _product(n))
@@ -7616,8 +7615,8 @@ def _export_pieces(pieces, assy):
     # of them are what stands berthed in the room a rail runs round, and the steel is the one
     # that is not a piece.
     bodies = {name: _piece_mesh(piece.val()) for name, piece in pieces.items()}
-    steel = ([_piece_mesh(_collet_plate_body(box.collet_plate))]
-             if box.collet_plate else [])
+    steel = ([_piece_mesh(_collet_plate_body(box.pack.collet_plate))]
+             if box.pack.collet_plate else [])
     for name, piece in pieces.items():
         export_assembly(one_body(piece, f"enclosure-{name}", PIECE_COLORS[name]),
                         str(_here.parent / f"enclosure-{name}.step"))
@@ -7684,7 +7683,7 @@ def machine_of():
     import _box_spec
 
     if _box_spec.in_action():
-        box, bounds = _box_spec.read(Box, Bound, (PortField, Nameplate))
+        box, bounds = _box_spec.read(Box, Bound, (Pack, PortField, Nameplate))
         BOUNDS[:] = bounds
         return None, box
     sys.path.insert(0, str(_repo / "hardware" / "manifold-layout"))
@@ -7746,7 +7745,7 @@ def main():
     # section that body offers, so the radii are as many as the pack has kinds of seat. The
     # smallest is the runs' own and the largest is the widest body's, and a zip tie cut to the
     # largest closes on every one of them — which is what the table quotes.
-    seats = sorted({round(r, 6) for *_s, r in (box.tube_anchors or ())})
+    seats = sorted({round(r, 6) for *_s, r in (box.pack.tube_anchors or ())})
     if not seats:
         raise ValueError(
             "the box bores no tube anchor at all, and the zip tie table quotes a loop for them. "
@@ -7754,16 +7753,16 @@ def main():
     # The vents as the piece came out, for the page — the same reading `flank-vent-mullions` is
     # graded on, asked of the same solid after it was drawn.
     vent_read = vent_readings(pieces, box)
-    plate = box.collet_plate if (box.pump_bay and box.collet_plate) else None
-    front_runs = _z_rail_runs(box.inner, box.y_joint, "front", plate, box.vent_chase)
-    back_runs = _z_rail_runs(box.inner, box.y_joint, "back", plate, box.vent_chase)
+    plate = box.pack.collet_plate if (box.pump_bay and box.pack.collet_plate) else None
+    front_runs = _z_rail_runs(box.inner, box.y_joint, "front", plate, box.pack.vent_chase)
+    back_runs = _z_rail_runs(box.inner, box.y_joint, "back", plate, box.pack.vent_chase)
     # WHAT A FLANK ACTUALLY BEARS ON, which is its run less anything crossing it: the PRV
     # passage takes `vent_channel_w` of the flank it stands on (`_vent_chase`), so the two
     # back flanks do not read the same figure and the card should not say they do.
     def _borne(run):
         _x, sx, y0, y1, _lane = run
         lo, hi = min(y0, y1), max(y0, y1)
-        cut = sum(vent_channel_w for cx, cy, _cz in (box.vent_chase or ())
+        cut = sum(vent_channel_w for cx, cy, _cz in (box.pack.vent_chase or ())
                   if (cx < 0.0) == (sx > 0.0) and lo <= cy <= hi)
         return abs(y1 - y0) - rail_stop_len - cut
     back_len = sorted(_borne(r) for r in back_runs)
@@ -7789,19 +7788,19 @@ def main():
         "MQ6_CARD_T": f"{mq6_card_x:.4g} mm",
         "MQ6_SLOT_OPEN": f"{mq6_card_x + 2 * mq6_slot_press:.4g} mm",
         "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
-        "CORE_STOP_BORE": (f"{2.0 * (box.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
-                           if box.core_stops else "no station"),
+        "CORE_STOP_BORE": (f"{2.0 * (box.pack.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
+                           if box.pack.core_stops else "no station"),
         "CORE_STOP_WEB": f"{core_stop_web:.4g} mm",
         "CORE_STOP_RISE": f"{core_stop_rise:.4g} mm",
         # The block runs the wall inboard to one round past the tangent, and both are mirrored.
         "CORE_STOP_WIDE": (
-            f"{interior_x()[1] - (abs(box.core_stops[0][0]) - box.core_stops[0][2]):.4g} mm"
-            if box.core_stops else "no station"),
+            f"{interior_x()[1] - (abs(box.pack.core_stops[0][0]) - box.pack.core_stops[0][2]):.4g} mm"
+            if box.pack.core_stops else "no station"),
         "CORE_HOLD_LAND": f"{core_hold_land:.4g} mm",
         "CORE_HOLD_REACH": f"{core_hold_reach:.4g} mm",
         "CORE_HOLD_RISE": f"{core_hold_rise:.4g} mm",
-        "CORE_HOLD_WIDE": (f"{box.core_holds[0][1] - box.core_holds[0][0]:.4g} mm"
-                           if box.core_holds else "no station"),
+        "CORE_HOLD_WIDE": (f"{box.pack.core_holds[0][1] - box.pack.core_holds[0][0]:.4g} mm"
+                           if box.pack.core_holds else "no station"),
         "COLUMN_ARC": f"{column_round:.3g} mm",
         # What a hand gets on a flank: the return's own section and the lane the box keeps
         # open behind it, off the exterior side face.
@@ -7834,8 +7833,8 @@ def main():
         "FLUTE_RAMP": f"{math.degrees(math.atan(1.5 * flute_depth / flute_rise)):.3g}°",
         # The box's second run of flutes, round the inside of the bay's storey.
         "STOREY_RUN": (
-            f"{sum(l for _k, l, _d in _bay_storey_segments(box.inner, bo, box.pump_bay, box.collet_plate)):.5g} mm"
-            if box.pump_bay and box.collet_plate else "no bay on this pack"),
+            f"{sum(l for _k, l, _d in _bay_storey_segments(box.inner, bo, box.pump_bay, box.pack.collet_plate)):.5g} mm"
+            if box.pump_bay and box.pack.collet_plate else "no bay on this pack"),
         "STOREY_BAND": (f"{bay_storey_z(box.pump_bay)[0]:.4g}..{bay_storey_z(box.pump_bay)[1]:.4g} mm"
                         if box.pump_bay else "no bay on this pack"),
         # The condenser's own two vents, pierced down the flutes those flanks already carry.
@@ -7852,24 +7851,24 @@ def main():
         "VENT_OPEN_PCT": f"{100.0 * reeding.open_fraction(flute_pitch(bo), reeding.pierce_width, 1):.1f} %",
         "VENT_CLEAR": f"{cond_vent_clear:.4g} mm",
         "VENT_FLANK_T": f"{2.0 * wall:.4g} mm",
-        "VENT_WINDOW": (f"{box.cond_airway[0]:.4g}..{box.cond_airway[1]:.4g} mm"
-                        if box.cond_airway else "no block"),
-        "VENT_BAND": (f"{vent_band(box.cond_airway)[0]:.4g}..{vent_band(box.cond_airway)[1]:.4g} mm"
-                      if box.cond_airway else "no block"),
-        "VENT_BAND_H": (f"{vent_band(box.cond_airway)[1] - vent_band(box.cond_airway)[0]:.4g} mm"
-                        if box.cond_airway else "no block"),
+        "VENT_WINDOW": (f"{box.pack.cond_airway[0]:.4g}..{box.pack.cond_airway[1]:.4g} mm"
+                        if box.pack.cond_airway else "no block"),
+        "VENT_BAND": (f"{vent_band(box.pack.cond_airway)[0]:.4g}..{vent_band(box.pack.cond_airway)[1]:.4g} mm"
+                      if box.pack.cond_airway else "no block"),
+        "VENT_BAND_H": (f"{vent_band(box.pack.cond_airway)[1] - vent_band(box.pack.cond_airway)[0]:.4g} mm"
+                        if box.pack.cond_airway else "no block"),
         "VENT_FAN_RISE": f"{cond_fan_rise:.4g} mm",
         "VENT_FAN_DROP": f"{cond_fan_drop:.4g} mm",
         "VENT_TRANSOMS": f"{cond_vent_transoms:d}",
         "VENT_TRANSOM_H": f"{cond_vent_transom_h:.4g} mm",
         "VENT_TRANSOM_Z": (", ".join(f"{(a + b) / 2.0:.4g}" for a, b in
-                                     vent_transoms(box.cond_airway)) + " mm"
-                           if box.cond_airway else "no block"),
+                                     vent_transoms(box.pack.cond_airway)) + " mm"
+                           if box.pack.cond_airway else "no block"),
         "VENT_SEGMENTS": f"{cond_vent_transoms + 1:d}",
-        "VENT_SEGMENT": (f"{vent_segment(box.cond_airway):.4g} mm"
-                         if box.cond_airway else "no block"),
-        "VENT_GROOVES": (f"{sum(1 for sx, _y in vent_grooves(bo, box.cond_airway) if sx > 0):g}"
-                         if box.cond_airway else "0"),
+        "VENT_SEGMENT": (f"{vent_segment(box.pack.cond_airway):.4g} mm"
+                         if box.pack.cond_airway else "no block"),
+        "VENT_GROOVES": (f"{sum(1 for sx, _y in vent_grooves(bo, box.pack.cond_airway) if sx > 0):g}"
+                         if box.pack.cond_airway else "0"),
         "VENT_SLOTS_IN": (f"{len(vent_read[-1.0]['slots']):g}" if -1.0 in vent_read else "0"),
         "VENT_SLOTS_OUT": (f"{len(vent_read[1.0]['slots']):g}" if 1.0 in vent_read else "0"),
         "VENT_RUNS_IN": (f"{len(vent_read[-1.0]['runs']):g}" if -1.0 in vent_read else "0"),
@@ -7881,7 +7880,7 @@ def main():
         # And what the flank's own obstruction took out of that layout, read the same way: a run
         # the sweep left SHORT of a full segment is a run something rooted on this wall stopped.
         "VENT_SHORT": ((lambda seg: f"{sum(1 for r in vent_read.values() for v in r['runs'] if v < seg - stated_bound_tol):g}")(
-            vent_segment(box.cond_airway)) if vent_read and box.cond_airway else "0"),
+            vent_segment(box.pack.cond_airway)) if vent_read and box.pack.cond_airway else "0"),
         "VENT_SHORTEST": ((lambda v: f"{v:.4g} mm")(
             min(min(r["runs"]) for r in vent_read.values())) if vent_read else "no vent"),
         "VENT_ASPECT": ((lambda tall, thin: f"{tall / thin:.3g}:1")(
@@ -7889,9 +7888,9 @@ def main():
             min(min(r["mullions"]) for r in vent_read.values()))
             if vent_read else "no vent"),
         "VENT_ASPECT_BARE": ((lambda tall, thin: f"{tall / thin:.3g}:1")(
-            vent_band(box.cond_airway)[1] - vent_band(box.cond_airway)[0],
+            vent_band(box.pack.cond_airway)[1] - vent_band(box.pack.cond_airway)[0],
             min(min(r["mullions"]) for r in vent_read.values()))
-            if vent_read and box.cond_airway else "no vent"),
+            if vent_read and box.pack.cond_airway else "no vent"),
         "VENT_MEAS_MULLION": (
             f"{min(min(r['mullions']) for r in vent_read.values()):.4f} mm"
             if vent_read else "no vent"),
