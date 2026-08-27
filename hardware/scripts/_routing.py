@@ -586,6 +586,14 @@ class Spool:
     rgb: tuple           # 0–255, the units `port_colors` is stated in
     names: str
     alpha: float = 1.0
+    #: How the stock takes the light, the same channel `_materials.FINISHES` carries for every
+    #: other substance on this machine — 0 a mirror, 1 fully diffuse. Extruded LLDPE is
+    #: semi-gloss with a waxy sheen; the reinforced PVC over a barb is glossier for being wet-
+    #: looking; copper is the one spool here that is a metal and it takes `M_COPPER`'s figure.
+    #: A tube is as much a body in the picture as a printed part is, and was drawn at the
+    #: viewer's default until these were stated.
+    roughness: float = 0.35
+    metalness: float = 0.0
 
 
 SPOOLS = {
@@ -598,8 +606,12 @@ SPOOLS = {
     "black": Spool("neoFlo black 1/4\" LLDPE (LLDPE4-BLACK)",
                    _rear.port_colors["flavor"], "flavor"),
     "clear": Spool("neoPure reinforced clear PVC 3/8\" ID (PVCR-0610)", (206, 214, 218),
-                   "nothing", alpha=0.6),
-    "copper": Spool("1/4\" soft ACR copper", (184, 115, 51), "nothing"),
+                   "nothing", alpha=0.6, roughness=0.30),
+    # THE ONE SPOOL THAT IS A METAL, and the one whose figures are already stated elsewhere:
+    # this is `_materials.M_COPPER`'s stock, and the triple above is its triple for the same
+    # reason — a coil and the tube brazed to it are one thing.
+    "copper": Spool("1/4\" soft ACR copper", (184, 115, 51), "nothing",
+                    roughness=0.30, metalness=1.0),
 }
 
 # Which spool a run is cut off. Its connection id gives it for all but five:

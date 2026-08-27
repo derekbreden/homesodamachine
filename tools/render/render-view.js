@@ -358,7 +358,7 @@ async function inPageCompose(o) {
   controls.enabled = false;
   // The back-face darkening step.js hangs on every solid's material. A tinted
   // body below gets a material of this tool's own, and takes the same one.
-  const { darkenBackFaces } = await import("/js/viewer/step.js");
+  const { darkenBackFaces, DEFAULT_FINISH } = await import("/js/viewer/step.js");
   // The x-ray edges are LineSegments2, so an edge material is a LineMaterial and
   // has to be registered for the resolution sync below.
   const { makeEdgeMaterial, syncEdgeResolution } = await import("/js/viewer/xray.js");
@@ -430,9 +430,12 @@ async function inPageCompose(o) {
       if (m === "solid") {
         const tint = tintOf.get(name);
         if (tint) {
+          // A TINT IS NOT A MATERIAL. `--tint` replaces a body's own colour with a hue that
+          // tells it from its neighbour, so there is no stock left to look a finish up for:
+          // it takes the default surface, from the one place that states it.
           const tinted = new THREE.MeshStandardMaterial({
             color: new THREE.Color(tint),
-            metalness: 0.1, roughness: 0.6,
+            metalness: DEFAULT_FINISH.metalness, roughness: DEFAULT_FINISH.roughness,
             side: THREE.DoubleSide,
             polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
           });

@@ -25,6 +25,7 @@ import sys
 from pathlib import Path
 
 import cadquery as cq
+from OCP.Quantity import Quantity_TypeOfColor
 
 # `chip_color`, for `M_PETG_BLACK` below — the same anchor `_routing` uses to reach it.
 _yw = Path(__file__).resolve().parents[1] / "printed-parts" / "enclosure" / "y-wall-of-back-top"
@@ -199,6 +200,153 @@ C_FAUCET_BLACK = M_PETGF_BLACK
 # MATTE BLACK (`reference/touch-flo-faucet/README.md`, `faucet-shell/ASSEMBLY.md`) — a
 # finished metal, so it stands a shade under the print that wraps it rather than over it.
 M_DONOR_BLACK = cq.Color(0.13, 0.13, 0.14)
+
+
+# --- how each material takes the light -----------------------------------------
+#
+# A COLOUR IS HALF OF WHAT A MATERIAL LOOKS LIKE, and on this machine it is the quieter half.
+# `cadlib/flute-evidence/02` holds both print stocks in ONE exposure: across the seam, where the
+# light grazes, PETG throws a warm specular bloom — rgb(173,165,142), not a black at all — while
+# PET-GF beside it holds rgb(96,98,98) neutral, 0.59x the PETG. On the fluted panels below, same
+# frame and same light, the same PET-GF reads 1.10x the same PETG. ONE RATIO CANNOT BE BOTH. What
+# swings between those two readings is the specular lobe and not the pigment, which is why no
+# triple read off that frame could have settled it and why the evidence README forbids reading
+# one. The channel that carries it is ROUGHNESS.
+#
+# ROUGHNESS IS A MATERIAL PROPERTY EXACTLY AS COLOUR IS: 0 is a mirror, 1 is fully diffuse, and
+# `metalness` says whether the specular takes the surface's own colour (metal) or the light's
+# (everything else). A glass-filled print scatters where an unfilled one reflects; a sintered
+# stone reads matte where the bar stock it hangs off reads bright; a lacquered coil pack is
+# glossy where the moulded body under it is not. Those are the same kind of fact as "the reservoir
+# is see-through", and they are stated here for the same reason.
+#
+# THE FIGURES ARE ESTIMATES, and unlike the colours none of them is a measurement. They are read
+# off what each constant's own comment already says the surface is — matte, moulded, plated,
+# powder-formed, lacquered, an open weave — and a part whose comment says nothing about its
+# surface takes the value its class of thing takes. A gloss meter would replace the lot.
+#
+# EVERY COLOUR CONSTANT ABOVE MUST APPEAR EXACTLY ONCE BELOW. `_finish_table()` raises if one
+# does not, so a material cannot enter this module and silently inherit somebody else's finish —
+# which is the failure this whole block exists to end, the viewer having drawn all 44 of them at
+# one hardcoded 0.6.
+_METAL, _DIELECTRIC = 1.0, 0.0
+FINISHES = [
+    # the plastics
+    (M_JG_BLACK_PP,      0.45, _DIELECTRIC),   # moulded polypropylene
+    (M_JG_WHITE_PP,      0.45, _DIELECTRIC),
+    (M_JG_GREY_ACETAL,   0.35, _DIELECTRIC),   # acetal is slick in the hand
+    (M_NEOFIT_ACETAL,    0.35, _DIELECTRIC),
+    (M_PETG_BLACK,       0.45, _DIELECTRIC),   # the flank that blooms bronze in flute-evidence/02
+    (M_PETGF_BLACK,      0.85, _DIELECTRIC),   # glass fill scatters; it holds neutral in that frame
+    (M_PETG_TRANSLUCENT, 0.40, _DIELECTRIC),   # the black stock's own gloss, on a clear spool
+    (M_TPU_BLACK,        0.70, _DIELECTRIC),
+    (M_SILICONE_BLACK,   0.60, _DIELECTRIC),
+    (M_SILICONE_CLEAR,   0.55, _DIELECTRIC),
+    (M_PVC_CLEAR,        0.25, _DIELECTRIC),   # extruded clear tube
+    (M_PTFE_WHITE,       0.90, _DIELECTRIC),   # "an opaque sintered white"
+    (M_EPOXY_BLACK,      0.45, _DIELECTRIC),   # a moulded TO-92 package
+    (M_GLASS,            0.05, _DIELECTRIC),
+    (M_NITRILE_BLACK,    0.95, _DIELECTRIC),   # "reads flatter than any print on this machine"
+    (M_PET_BRAID,        0.80, _DIELECTRIC),   # "an OPEN weave"
+    # the metals, whose specular takes their own colour
+    (M_STAINLESS,        0.35, _METAL),
+    (M_SINTERED_SS,      0.85, _METAL),        # "powder-formed ... matte where the bar stock reads bright"
+    (M_ALUMINIUM,        0.30, _METAL),
+    (M_BRASS,            0.30, _METAL),
+    (M_TINNED_STEEL,     0.40, _METAL),        # "the SF76E's tin-plated case"
+    (M_NICKEL_PLATE,     0.25, _METAL),        # "a plated white metal"
+    (M_COPPER,           0.30, _METAL),
+    # the box's own steel, and the boards
+    (C_STEEL_PLATE,      0.40, _METAL),        # 1/8" 316, laser-cut
+    (C_PCBA,             0.50, _DIELECTRIC),   # solder mask
+    # the bought-in bodies
+    (C_COMP,             0.50, _DIELECTRIC),   # a PAINTED steel can — the paint is what you see
+    (C_COND,             0.45, _METAL),        # bare tube and fin stack
+    (C_SEAFLO,           0.50, _DIELECTRIC),
+    (C_DISPLAY,          0.50, _DIELECTRIC),   # solder mask
+    (C_DISPLAY_GLASS,    0.08, _DIELECTRIC),   # "the cover glass over the panel"
+    (C_PSU,              0.45, _METAL),
+    (C_RELAY,            0.50, _DIELECTRIC),   # "the relay board's green solder mask"
+    (C_AC_HUB,           0.50, _DIELECTRIC),   # "Wago's orange levers"
+    (C_GND,              0.50, _DIELECTRIC),
+    (C_PLATE,            0.40, 0.9),           # bare interdigitated copper on a board: mostly metal
+    (C_MQ6,              0.50, _DIELECTRIC),   # "the module's own blue board"
+    (C_C14,              0.45, _DIELECTRIC),
+    (C_DIGITEN,          0.50, _DIELECTRIC),
+    (C_VALVE,            0.50, _DIELECTRIC),   # "the Beduan solenoid's moulded white body"
+    (C_COIL,             0.30, _DIELECTRIC),   # "the LACQUERED coil pack", and lacquer is glossy
+    (C_PUMP_HEAD,        0.45, _DIELECTRIC),   # "a black moulded head"
+    (C_PUMP_BOSS,        0.45, _DIELECTRIC),   # "a WHITE moulded rotor housing"
+    (C_PUMP_MOTOR,       0.40, _METAL),        # "a bare steel motor can"
+    (M_DONOR_BLACK,      0.70, _DIELECTRIC),   # matte black on a finished metal: the coating is what shows
+    # THE WAYFINDING PALETTE, which is stock and not decoration. `_y_wall_dimensions` holds the
+    # four spools a bulkhead ring and its tube collar are cut from and the two a word is
+    # lettered in, and every one of them is Bambu PETG Basic — the black among them IS
+    # `M_PETG_BLACK` above, which is why it is not repeated here. `enclosure_assembly` paints
+    # these bodies straight off `chip_color`/`word_color` rather than off a constant in this
+    # module, so without these rows the rings, the collars and the nameplate's lettering are
+    # the one part of the machine with no finish to find.
+    # WALKED, NOT LISTED, so a sixth chip or a third lettering colour cannot arrive without one.
+    *[(cq.Color(*(c / 255.0 for c in rgb)), 0.45, _DIELECTRIC)
+      for rgb in dict.fromkeys([_rear.chip_color(f) for f in _rear.chip_filaments]
+                               + [_rear.word_color(f) for f in _rear.chip_word_colors])],
+]
+
+
+def linear(color) -> tuple:
+    """The exact three doubles a `.step.mesh` carries for this colour.
+
+    A COLOUR IS WRITTEN TWICE IN TWO SPACES. The STEP takes it in sRGB — `COLOUR_RGB` holds
+    0.2 for a 0.2 constant — and `_mesh_payload._mesh` takes it in LINEAR, off this same call,
+    where 0.2 is 0.0331. The viewer meets the linear one, so the linear one is what a finish
+    has to be found by. Reading it here through OCCT rather than converting by hand is what
+    makes the two bit-identical instead of merely close."""
+    return tuple(color.wrapped.GetRGB().Values(Quantity_TypeOfColor.Quantity_TOC_RGB))
+
+
+def finish_rows() -> list:
+    """`[{"rgb": [linear r, g, b], "roughness": f, "metalness": f}]`, one per material here.
+
+    NO KEY AND NO ROUNDING, for two reasons that both bite in the dark. A LINEAR palette is
+    crowded at the black end — `M_EPOXY_BLACK` and `M_NITRILE_BLACK` are 0.0100 and 0.0116,
+    which is one unit apart at 0-255 and would collapse to one material — so a quantized key
+    cannot carry this palette at all. And where a key lands on a rounding boundary the two ends
+    disagree by construction: Python's `round` is half-to-even and JavaScript's `Math.round` is
+    half-up, over a 0.1-spaced palette that produces such values readily. Handing over the
+    doubles themselves and letting the reader match on DISTANCE has no boundary to sit on: the
+    payload route hits at distance 0, and the occt-parse fallback, whose arithmetic is its own,
+    snaps to the nearest.
+
+    Raises rather than returning a table with a hole in it — see the two guards below."""
+    rows, seen = [], {}
+    for color, rough, metal in FINISHES:
+        # A WHITE IS TWO COLOURS BY THE TIME IT IS DRAWN. `step_safe` holds anything at or over
+        # `_WHITEST` down a part in 255 so OCCT writes a `COLOUR_RGB` for it at all, and the
+        # generators that cut a body's own STEP go through it — while the assemblies that place
+        # that body paint it off the raw constant. Both reach a renderer, so both are named.
+        for rgb in dict.fromkeys((linear(color), linear(step_safe(color)))):
+            # ONE ROW PER COLOUR. A stock can be named twice over — the flavour chip's filament
+            # IS `M_PETG_BLACK`, and a white reached through `step_safe` is the white it was —
+            # and naming it twice is agreement, not conflict. It is a second ROW at one colour
+            # that would be the defect, because a reader matching on distance would find both.
+            if rgb in seen:
+                seen[rgb].add((rough, metal))
+                continue
+            seen[rgb] = {(rough, metal)}
+            rows.append({"rgb": list(rgb), "roughness": rough, "metalness": metal})
+    for rgb, got in seen.items():
+        if len(got) > 1:
+            raise ValueError(
+                f"_materials: linear {rgb} is given {len(got)} finishes {sorted(got)}. Two "
+                f"substances at one colour cannot both be drawn — give one of them its own.")
+    named = {n: v for n, v in globals().items()
+             if isinstance(v, cq.Color) and (n.startswith("M_") or n.startswith("C_"))}
+    missing = sorted(n for n, v in named.items() if linear(v) not in seen)
+    if missing:
+        raise ValueError(
+            f"_materials: {', '.join(missing)} name a colour with no finish. Add each to "
+            f"FINISHES — a material cannot be drawn without saying how it takes the light.")
+    return rows
 
 
 #: The lightest a colour can be and still reach a STEP. OCCT treats pure white as the default
