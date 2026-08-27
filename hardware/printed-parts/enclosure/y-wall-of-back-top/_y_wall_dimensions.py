@@ -170,6 +170,8 @@ def main():
         "KEYSTONE_R": f"{_ea._keystone.OPEN_R:.4g}",
         "KEYSTONE_DEPTH": f"{_ea._keystone.BODY_DEPTH:.4g} mm",
         "KEYSTONE_PANEL": f"{_ea._keystone.PANEL_MIN:.4g}–{_ea._keystone.PANEL_MAX:.4g} mm",
+        "KEYSTONE_WEST_CLEAR": f"{_ea._keystone_clearances()[0]:.2f} mm",
+        "KEYSTONE_EAST_CLEAR": f"{_ea._keystone_clearances()[1]:.2f} mm",
     }
 
     substitute_md(

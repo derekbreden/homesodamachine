@@ -8,10 +8,12 @@
     "FLAVOR_B_END": "west",
     "FLAVOR_COLOR": "#262629",
     "KEYSTONE_DEPTH": "26 mm",
+    "KEYSTONE_EAST_CLEAR": "8.00 mm",
     "KEYSTONE_H": "16",
     "KEYSTONE_PANEL": "1.5\u20133.2 mm",
     "KEYSTONE_R": "0.6",
     "KEYSTONE_W": "14.5",
+    "KEYSTONE_WEST_CLEAR": "8.00 mm",
     "PANEL_HOLE_D": "18.0 mm",
     "PANEL_HOLE_D_SHORT": "18",
     "WATER_COLOR": "#ffffff"

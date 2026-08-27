@@ -80,7 +80,7 @@ APPLIANCE_H = OUTER[5] - OUTER[4]
 # The pieces the enclosure comes apart into, by the name they go into the
 # assembly under. None of them is a separate face — the front of this machine is
 # `enclosure-front-*`'s own skin, and it is BLANK: `enclosure_assembly.pack()` fills
-# `back_ports` with [6](BACK_PORT_N) stations and leaves `front_ports` at the
+# `back_ports` with [7](BACK_PORT_N) stations and leaves `front_ports` at the
 # `Pack` default, so the front wall is cut [0](FRONT_PORT_N) times and the
 # drawing shows a face with nothing on it.
 PIECES = tuple(n for n in _SOLIDS if n.startswith("enclosure-"))
