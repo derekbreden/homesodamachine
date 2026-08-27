@@ -64,6 +64,25 @@ function numAfter(text, re) {
 // The content root the viewer serves, as it stands in a repo-relative path.
 // Copy-all `file:` lines carry it; the viewer's own paths are what is left
 // after it.
+// WHICH SURFACE A PICTURE CAME OFF, said the same way wherever it is said. The page draws
+// the `.step.mesh` beside a STEP whenever there is one and reads the STEP only when there is
+// not (`step.js`), and for `pack.BUNDLED_PAYLOAD_DIRS` those are deliberately different
+// surfaces — the enclosure's and the cold core's flutes are cut into the payload
+// (`hardware/scripts/flute_payload.py`) and are in no solid.
+//
+// SO A NAME ALONE IS NOT AN ANSWER, and the route says `step:` because that is the piece the
+// walk names, not because a STEP is what was drawn. A reader told only the STEP's name goes
+// looking for the flutes in a file that does not hold them, finds none, and concludes either
+// that the model is broken or that the fluting never landed. The breadcrumb carries this on
+// the open model and the edge picker carries it on every pick.
+
+export function surfaceText(file, surface) {
+  const name = file.split("/").pop();
+  return surface === "mesh"
+    ? `${name}.mesh — drawn from this, not the STEP above; it can carry surface the solid does not`
+    : `${name} — the STEP itself; no payload stood beside it`;
+}
+
 export const CONTENT_ROOT = "hardware";
 
 // `root` is the seam node:test comes in through.

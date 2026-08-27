@@ -54,7 +54,7 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
-import { fnum, fpt, formatFace, CONTENT_ROOT } from "./pick-format.js";
+import { fnum, fpt, formatFace, surfaceText, CONTENT_ROOT } from "./pick-format.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-edge-pick";
@@ -714,18 +714,10 @@ function repoPath(file) {
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
-// WHICH SURFACE THE NUMBERS ABOVE CAME OFF. The page draws the `.step.mesh` beside a STEP
-// whenever there is one and reads the STEP only when there is not (`step.js`), and for
-// `pack.BUNDLED_PAYLOAD_DIRS` those are deliberately different surfaces — the enclosure's
-// flutes are cut into the payload (`hardware/scripts/flute_payload.py`) and are in no solid.
-// So a blob naming only the STEP sends its reader to look for geometry in a file that does
-// not hold it, and the reader finds nothing and concludes the model is broken. It is the
-// picker's own reconstruction either way: edges here come off triangles, not off the BREP.
-function surfaceText(file) {
-  const name = file.split("/").pop();
-  return (state.mountedDetail && state.mountedDetail.surface) === "mesh"
-    ? `${name}.mesh — drawn from this, not the STEP above; it can carry surface the solid does not`
-    : `${name} — the STEP itself; no payload stood beside it`;
+// WHICH SURFACE THE NUMBERS ABOVE CAME OFF — `surfaceText` in pick-format.js, which the
+// breadcrumb names the open model with too. One sentence, said in both places.
+function surfaceOfOpen(file) {
+  return surfaceText(file, state.mountedDetail && state.mountedDetail.surface);
 }
 
 // The clicked component's name, or null when there's none worth showing. Only
@@ -742,7 +734,7 @@ function allText(sel) {
   const file = currentFile();
   if (file) {
     lines.push(`file: ${repoPath(file)}`);
-    lines.push(`surface: ${surfaceText(file)}`);
+    lines.push(`surface: ${surfaceOfOpen(file)}`);
   }
   const solid = solidName(sel);
   if (solid) {

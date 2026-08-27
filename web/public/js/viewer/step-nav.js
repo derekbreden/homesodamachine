@@ -11,6 +11,7 @@
 // route.js hands popstate here whenever both sides of a move are STEP.
 
 import { state } from "./state.js";
+import { surfaceText } from "./pick-format.js";
 import { saveCameraState, applyCameraState } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { mountScorecard } from "./scorecard-3d.js";
@@ -82,9 +83,19 @@ function filenamePill(wrapper) {
   return card ? card.querySelector(".cv-filename") : null;
 }
 
+// WHAT THE PICTURE CAME OFF, ON THE THING THAT NAMES THE PICTURE. The route says `step:` and
+// the name says `.step`, and for the fluted pieces neither is what was drawn — the payload
+// beside the solid carries the show surface and the solid does not. `surfaceText` is the same
+// sentence the edge picker puts on every pick, so the two never drift apart.
+function surfaceOfOpen(file) {
+  return surfaceText(file, state.mountedDetail && state.mountedDetail.surface);
+}
+
 function setFilename(file) {
   const pill = filenamePill(state.currentCadWrapper);
-  if (pill) pill.textContent = label(file);
+  if (!pill) return;
+  pill.textContent = label(file);
+  pill.title = surfaceOfOpen(file);
 }
 
 function syncCrumb(file) {
@@ -125,6 +136,7 @@ function syncCrumb(file) {
   const here = document.createElement("span");
   here.className = "cad-crumb-here";
   here.textContent = label(file);
+  here.title = surfaceOfOpen(file);
   crumb.appendChild(here);
   crumb.classList.add("show");
   crumb.scrollLeft = crumb.scrollWidth;

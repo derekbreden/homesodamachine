@@ -20,6 +20,7 @@ import {
   formatFace,
   fpt,
   pickFileToViewerPath,
+  surfaceText,
   CONTENT_ROOT,
 } from "../public/js/viewer/pick-format.js";
 
@@ -344,4 +345,26 @@ test("the content root round-trips a copy blob", () => {
   // What the picker composes (`<root>/<viewer path>`) is what the Find box takes apart.
   const viewerPath = "manifold-layout/enclosure-assembly.step";
   assert.equal(pickFileToViewerPath(`${CONTENT_ROOT}/${viewerPath}`), viewerPath);
+});
+
+// WHAT THE PICTURE CAME OFF. The route says `step:` and the crumb says `.step`, and for the
+// fluted pieces the payload beside the solid is what was drawn. Both the breadcrumb and the
+// edge picker say so through this one function, so a drift between them is a failure here.
+test("surfaceText names the payload when the payload is what was drawn", () => {
+  const drawn = surfaceText("manifold-layout/enclosure-assembly.step", "mesh");
+  assert.match(drawn, /^enclosure-assembly\.step\.mesh — /);
+  assert.match(drawn, /it can carry surface the solid does not/);
+});
+
+test("surfaceText names the STEP when no payload stood beside it", () => {
+  const drawn = surfaceText("reference/compressor/compressor.step", "step");
+  assert.equal(drawn, "compressor.step — the STEP itself; no payload stood beside it");
+});
+
+test("surfaceText reads an unknown surface as the STEP rather than claiming a payload", () => {
+  // `state.mountedDetail` is absent before the first model lands, so the caller passes
+  // undefined; claiming a payload there would state a file that may not exist.
+  for (const surface of [undefined, null, "", "glb"]) {
+    assert.match(surfaceText("a/b.step", surface), /the STEP itself/);
+  }
 });
