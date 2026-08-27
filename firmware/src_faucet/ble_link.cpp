@@ -242,6 +242,11 @@ void bleLinkService() {
   }
 }
 
+void bleLinkQuiet(bool quiet) {
+  if (quiet) NimBLEDevice::stopAdvertising();
+  else       NimBLEDevice::startAdvertising();
+}
+
 bool bleLinkConnected() { return connected; }
 
 void bleLinkFillStatus(BleStatusPayload &out) {

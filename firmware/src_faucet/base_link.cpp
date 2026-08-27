@@ -369,7 +369,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
   if (type == MSG_WIFI_BENCH_PUSH && plen >= sizeof(WifiPushPayload)) {
     WifiPushPayload req;
     memcpy(&req, payload, sizeof(req));
-    if (!wifiBenchPush(req.bytes, req.channel)) {
+    if (!wifiBenchPush(req.bytes, req.channel, req.flags)) {
       WifiPushResultPayload busy{};
       busy.err = WIFI_BENCH_ERR_BUSY;
       base.trySend(MSG_RESP_WIFI_PUSH, &busy, sizeof(busy));

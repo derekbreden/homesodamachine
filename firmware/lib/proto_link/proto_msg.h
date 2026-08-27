@@ -592,7 +592,13 @@ struct __attribute__((packed)) WifiApStatePayload {
 struct __attribute__((packed)) WifiPushPayload {
   uint32_t bytes;
   uint8_t  channel;
+  uint8_t  flags;    // WIFI_PUSH_F_*
 };
+
+// Both radios on the faucet are one antenna. Advertising through a transfer is
+// the honest case — the phone is what put the image there — but what it costs
+// is only visible against a run with BLE out of the way.
+constexpr uint8_t WIFI_PUSH_F_QUIET_BLE = 1 << 0;
 
 // joinMs is association and DHCP; xferMs is first byte written to last ack.
 // They are separate because only one of them is per-image: a machine that

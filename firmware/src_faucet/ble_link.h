@@ -43,6 +43,11 @@ void bleLinkOnVersions(const VersionsPayload &all);
 void bleLinkOnSrcNeed(uint32_t offset, uint16_t len);
 void bleLinkOnSrcEnd(const OtaStatePayload &state);
 
+// Stop and restart advertising around a radio-bench run. Both radios are one
+// antenna and one PHY: what BLE costs WiFi is exactly the question, so it has
+// to be possible to take BLE out of the way and measure without it.
+void bleLinkQuiet(bool quiet);
+
 bool bleLinkConnected();
 void bleLinkFillStatus(BleStatusPayload &out);
 void bleLinkReport();
