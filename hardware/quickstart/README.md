@@ -60,10 +60,18 @@ Below it, three views repeat one fixed crop of the exact machine rear:
 3. the hand pulls back while the final blue and two black tubes remain visibly seated in their
    matching labeled ports.
 
+A fourth view follows the three: the ribbon's flat plug entering the square keystone socket on the
+same rear face, one motion and no tool. It is the one connection made without a cut, so no cutter
+appears in it, and the socket is drawn as the rectangle it is against the four round ports.
+
 The braided sleeve is crosshatched so it cannot read as another tube. Tube collars stay on the
 physical lines, port labels stay on the exact rear face, and the final state shows the connected
 hardware rather than detached identity cards. No interface screen or commissioning state is
 invented.
+
+**The connection sheet's artwork carries three views and the contract above asks four.** The
+fourth scene is unbuilt: `01-connect.html` names the plug in its header and draws no socket. The
+rear-face crop the other three share is where it goes.
 
 ## Build
 
