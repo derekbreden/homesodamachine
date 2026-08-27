@@ -165,6 +165,11 @@ def main():
         "FLAVOR_COLOR": port_color_hex("flavor"),
         "CARB_END": carb_union_end(_ea.PANEL_X),
         "FLAVOR_B_END": dropped_union_end(_ea.PANEL_ON_GATE_LANE, _ea.PANEL_X),
+        "KEYSTONE_W": f"{_ea._keystone.OPEN_W:.4g}",
+        "KEYSTONE_H": f"{_ea._keystone.OPEN_H:.4g}",
+        "KEYSTONE_R": f"{_ea._keystone.OPEN_R:.4g}",
+        "KEYSTONE_DEPTH": f"{_ea._keystone.BODY_DEPTH:.4g} mm",
+        "KEYSTONE_PANEL": f"{_ea._keystone.PANEL_MIN:.4g}–{_ea._keystone.PANEL_MAX:.4g} mm",
     }
 
     substitute_md(

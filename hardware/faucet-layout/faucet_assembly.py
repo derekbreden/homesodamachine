@@ -478,6 +478,8 @@ flavor_tube_z_top = soda_faucet_tube_z_top
 # Vendor figure, not a caliper: the spool is on the shelf and a measurement across it still refines
 # this to the tolerance's own width.
 cable_lane = 1.2
+# The ribbon across its four conductors, off the same BNTECHGO figure.
+cable_width = 4.0
 sleeve_wall = 1.0
 
 
