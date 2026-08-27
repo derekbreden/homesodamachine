@@ -379,6 +379,13 @@
     "hardware/scripts/_measuring.py",
     "hardware/scripts/_run_lock.py"
   ],
+  "hardware/scripts/_bom_totals.py": [
+    "hardware/ledger/bom.figures.json",
+    "hardware/ledger/bom.md",
+    "hardware/scripts/_bom_totals.py",
+    "hardware/scripts/_realized.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/scripts/_box_spec.py": [
     "hardware/scripts/_box_spec.py"
   ],
