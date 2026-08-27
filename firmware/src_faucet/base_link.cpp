@@ -11,6 +11,7 @@
 #include "proto_link.h"
 #include "proto_msg.h"
 #include "wifi_bench.h"
+#include "image_store.h"
 
 namespace {
 
@@ -536,6 +537,9 @@ void baseLinkPrimeHoldStop(uint8_t channel, uint32_t sessionToken, uint32_t hold
 void baseLinkPrimeDiscard() {
   clearPrimeQueue();
 }
+
+// Said over J3 because this board has no console of its own in the appliance.
+void baseLinkSay(const char *text) { base.trySend(MSG_TEXT, text, (uint16_t)strlen(text)); }
 
 void baseLinkService() {
   const uint32_t startedUs = micros();

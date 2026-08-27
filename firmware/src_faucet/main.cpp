@@ -6,6 +6,7 @@
 #include <Wire.h>
 #include "axs5106l.h"
 #include "base_link.h"
+#include "image_store.h"
 #include "ble_link.h"
 #include "fw_version.h"
 
@@ -1063,7 +1064,23 @@ void setup() {
   // J3 crosses them to IO35 RX / IO33 TX over the full-duplex TTL umbilical.
   primeTokenState = esp_random();
   if (primeTokenState == 0) primeTokenState = 1;
+  // The user's own pictures, mapped out of the partition nothing else uses.
+  // Opened after the link so the line it reports on already exists.
   baseLinkBegin(activeFlavor, acceptBaseFlavor, acceptBasePrime);
+
+  {
+    char line[96];
+    if (imageStoreBegin("spiffs", SCREEN_W, SCREEN_H)) {
+      uint8_t held = 0;
+      for (uint8_t i = 0; i < imageStoreCapacity(); i++)
+        if (imageStoreOccupied(i)) ++held;
+      snprintf(line, sizeof(line), "images: %u slots of %ux%u, %u held",
+               imageStoreCapacity(), SCREEN_W, SCREEN_H, held);
+    } else {
+      snprintf(line, sizeof(line), "images: no store");
+    }
+    baseLinkSay(line);
+  }
   bleLinkBegin();
 
   lastInputTime = millis();

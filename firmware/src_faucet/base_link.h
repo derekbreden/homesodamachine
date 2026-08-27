@@ -66,4 +66,8 @@ void baseLinkPrimeDiscard();
 // or down, which the pull answers by re-asking.
 bool baseLinkSendOtaSrc(uint8_t type, const void *data, uint16_t len);
 
+// One line to the main board's console, which is the only console this board
+// has once it is in a machine.
+void baseLinkSay(const char *text);
+
 void baseLinkReadStatus(BaseLinkStatus &status);
