@@ -42,7 +42,7 @@
     },
     {
       "check": "hardware/scripts/check_step_colours.py",
-      "note": "step colours: 100/100 carry the colour of what they are made of",
+      "note": "step colours: 101/101 carry the colour of what they are made of",
       "status": "ok"
     },
     {
@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1316 tracked, 267 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1316 tracked, 268 fetched solids, 53 tags",
       "status": "ok"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 131 of 1000 free, the next cut wants 3, and the whole lock reads by name in 144.9 MB against 146.0 MB of bundle",
+      "note": "check_release_room: 126 of 1000 free, the next cut wants 3, and the whole lock reads by name in 142.3 MB against 143.5 MB of bundle",
       "status": "ok"
     },
     {
