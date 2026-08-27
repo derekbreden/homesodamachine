@@ -41,3 +41,17 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
 Always commit and push to main. Don't ask. Just do it. The author of everything here is always me (via an instance of you), and you can trust it's worth committing and building on top of. It's all the same work.
+
+## Other sessions
+
+Several sessions work this tree at once, all on main, all committing. A dirty file you did not write is the normal state. It does not matter who commits what, as long as it all gets done.
+
+So: don't go read-only on sight of someone else's edit, don't narrow a commit to dodge their hunks, and don't end a turn offering to wait for the tree to settle. Commit your own work in small pieces as it lands. The collisions here are between running programs and the artifacts they produce, and meeting them live is what surfaces them — a merge would not.
+
+Wait on the inputs your work reads, never on a clean tree: with sessions live `git status` is never empty, so a wait armed on it never fires. `tools/bazel/graph.json` names what each generator reads. A file that parses and has not been written in a minute is one you can read.
+
+`calibration/Traffic.md` is the record — five sessions of this, and what the collisions produced.
+
+## Calibration
+
+`calibration/README.md` indexes the working calibration between us. `Principle.md` (a rule is better encoded as an example; explanatory comments are residue), `Fences.md` (a reported limit is usually the edge of the box you searched), `Traffic.md` (this tree, shared), `Discretion.md` (a turn that ends on an offer spends it on the one output with no value).
