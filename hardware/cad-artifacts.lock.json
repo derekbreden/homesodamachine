@@ -7,36 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "f8313235097a7b3d14683c6e68ba73dfc71450ca"
-  },
-  "unproven": {
-    "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
-    "paths": [],
-    "members": [
-      "hardware/assembly/cards/img/scene-back-half.png.scene.json",
-      "hardware/assembly/cards/img/scene-back-top.png.scene.json",
-      "hardware/assembly/cards/img/scene-cap-lid-fill.png.scene.json",
-      "hardware/assembly/cards/img/scene-cap-lid.png.scene.json",
-      "hardware/assembly/cards/img/scene-cold-core-open.png.scene.json",
-      "hardware/assembly/cards/img/scene-cold-core.png.scene.json",
-      "hardware/assembly/cards/img/scene-front-top.png.scene.json",
-      "hardware/assembly/cards/img/scene-pump-cartridge.png.scene.json",
-      "hardware/assembly/scenes/glb/back-half.glb",
-      "hardware/assembly/scenes/glb/back-top.glb",
-      "hardware/assembly/scenes/glb/cap-lid-fill.glb",
-      "hardware/assembly/scenes/glb/cap-lid.glb",
-      "hardware/assembly/scenes/glb/cold-core-open.glb",
-      "hardware/assembly/scenes/glb/cold-core.glb",
-      "hardware/assembly/scenes/glb/en04-stratum.glb",
-      "hardware/assembly/scenes/glb/en06-column.glb",
-      "hardware/assembly/scenes/glb/front-top.glb",
-      "hardware/assembly/scenes/glb/funnel-drain.glb",
-      "hardware/assembly/scenes/glb/pump-cartridge.glb",
-      "hardware/manifold-layout/enclosure-assembly.step",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "hardware/printed-parts/enclosure/nameplate/nameplate-001.step"
-    ]
+    "commit": "4c1ee13db95eae6e28ccf7d5e12ed24047c294e8"
   },
   "bundle": {
     "sha256": "1496062b1f7113cc7b2344a0690d3fbd576fa230f50bf6314a1561415996680b",
