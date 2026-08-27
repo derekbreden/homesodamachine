@@ -60,7 +60,6 @@ GLB_DIR = _HERE.parent / "glb"
 ASSEMBLY_MESH = _HW / "manifold-layout" / "enclosure-assembly.step.mesh"
 CORE_MESH = _HW / "cold-core-layout" / "cold-core-assembly.step.mesh"
 CORE_SCORECARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
-GLB_TOL = 0.5
 RENDERER = _ROOT / "tools" / "render" / "render-step-posed.js"
 SIZE = "1600x1200"
 # A part shot is drawn on the scenes' own canvas and then TRIMMED to its subject, so this is
@@ -313,26 +312,18 @@ def draw(scene, assembly, batch, force=False, images=True, glbs=True) -> Path:
     if grafted:
         print(f"   ({grafted} fluted piece(s) into {mesh.name})")
 
-    # AND THE VIEWER'S OWN ARTIFACT. A scene's B-rep is 2–10 MB and would churn on every move of
-    # any body in it; a mesh at viewer tolerance is a third of that, and /3d reads a `.glb` the
-    # same way it reads a board's. Same bargain the PCB carrier already takes: the big drawing
-    # stays out of the tree, the thing a browser opens goes in.
+    # AND THE VIEWER'S OWN ARTIFACT, REPACKED FROM THE PAYLOAD ABOVE. /3d opens a scene as this
+    # `.glb`, with no STEP behind it. Its triangles are `mesh`'s — the ones the picture is drawn
+    # from, fluted surfaces and all — and `_write_payload_glb` puts `_finishes` on every material.
+    # `hardware/scripts/check_payloads.py` reads both back out of these bytes.
     #
-    # `GLB_TOL` is what makes it affordable: the whole set comes to 9 MB at this tolerance and
-    # three times that at the 0.1 mm default, and the difference is invisible on a body a browser
-    # draws 900 px wide.
-    # Written straight rather than through `_cadq_export`: that helper's atomic write and
-    # thumbnail queue are for a repo artifact a page lists, and it is imported by nearly every
-    # generator in the tree — a keyword added there for one mesh moves the hash of every build
-    # graph that reads it.
+    # `cut` has already turned the scene, so the frame between the payload and the file is glTF's
+    # own Y-up: no flip, no carry, one model.
     if glbs:
         glb = GLB_DIR / f"{scene.id}.glb"
-        scene_assembly.export(str(glb), tolerance=GLB_TOL, angularTolerance=GLB_TOL)
-        # AND THE SAME SUBSTITUTION THE PAYLOAD ABOVE TOOK. This mesh is cut from the B-rep too,
-        # and it is what /3d opens a scene AS — there is no STEP behind it to fall back to.
-        in_glb = flute_payload.graft_glb(glb, fluted_pieces(surfaces=True))
-        if in_glb:
-            print(f"   ({in_glb} fluted piece(s) into {glb.name})")
+        drawn = [child.name for child in scene_assembly.children]
+        _write_payload_glb(glb, drawn, set(), _payload_geometry(mesh), (),
+                           _scene_rgba(scene_assembly), {}, None, np.eye(4), {})
         note_write(glb)
 
     # Publication needs the viewer GLB but not a photograph of it. Keeping that action on this
@@ -713,6 +704,20 @@ def _assembly_rgba(assembly):
     return out
 
 
+def _scene_rgba(assembly):
+    """Every body colour in a cut scene, whose children are its bodies.
+
+    `cut` adds one child per name it draws and paints each one there — a crossing line takes the
+    outer half's colour at that point — so the colour a scene GLB carries is read off the same
+    assembly its STEP and its payload are written from."""
+    out = {}
+    for child in assembly.children:
+        if child.color is None:
+            raise ValueError(f"{child.name!r}: scene body has no colour")
+        out[child.name] = _linear_rgba(child.color)
+    return out
+
+
 def _entries_by_body(entries):
     out = {}
     for entry in entries:
@@ -963,6 +968,23 @@ def payload_glb_selftest():
                           @ trimesh.transformations.rotation_matrix(
                               np.radians(90), (0, 0, 1), point=(0, 0, 0))))
         check("the GLB JSON chunk is first", kind == b"JSON")
+
+        # THE SHAPE `draw` COMPOSES IN: one already-turned model, no core, no flip, no carry, at a
+        # colour the finish table names. `check_payloads.py` reads these two factors back off every
+        # scene GLB in the tree, so what a material carries here is what that reading holds.
+        row = _finishes.rows()[0]
+        one = Path(directory) / "one-model.glb"
+        _write_payload_glb(one, ("wall",), set(), [tri("wall", 0)], (),
+                           {"wall": (*row["rgb"], 1.0)}, {}, None, np.eye(4), {})
+        raw = one.read_bytes()
+        head_len = struct.unpack_from("<I", raw, 12)[0]
+        material = json.loads(raw[20:20 + head_len])["materials"][0]
+        check("a one-model scene names the finish its colour is stated at",
+              (material["pbrMetallicRoughness"]["roughnessFactor"],
+               material["pbrMetallicRoughness"]["metallicFactor"])
+              == (row["roughness"], row["metalness"]))
+        check("an already-turned scene stands in glTF's Y-up alone",
+              np.allclose(trimesh.load(one).graph["wall"][0], _Z_UP_TO_Y_UP))
 
         # A valid payload first, then one mutation per class of silent corruption the strict
         # action handoff refuses. These are byte-format tests; no CadQuery shape is built.

@@ -43,7 +43,20 @@ none: they are written inside the sandbox and go with it, so `tools/bazel/sync_t
 the solid into the tree and leaves the payload the tree had. A run of the generator on this disk
 is what writes those three.
 
-Naming them costs a stat each. Writing one costs the generator's run.
+AND A SCENE IS READ FOR ITS FINISH. `pack.BUNDLED_GLB_DIRS` is the bundle's other half: the
+assembly scenes, which `/3d` opens as `.glb` themselves, with no STEP under them to read instead.
+A glTF material carries `baseColorFactor` and, beside it, `roughnessFactor` and `metallicFactor`
+— and a material naming those two not at all is FULLY ROUGH METAL, because 1.0 and 1.0 are the
+spec's defaults rather than an absence. So a scene composed without them opens with every body
+the right colour and every one of them drawn as scratched metal.
+
+`render_scenes._write_payload_glb` puts the pair on each material from `_finishes.py`. The
+reading here is that pair, out of the file's own JSON chunk, against `web/public/finishes.json` —
+the same table where the browser looks a finish up, matched on distance the way both of them
+match it. `check_finishes.py` is what keeps the file and the module one table.
+
+Naming them costs a stat each and one header read per scene. Writing one costs the generator's
+run.
 """
 import json
 import struct
@@ -59,6 +72,8 @@ sys.path.append(str(_ROOT / "tools" / "cad-artifacts"))
 import pack  # noqa: E402
 
 GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
+FINISHES = _ROOT / "web" / "public" / "finishes.json"
+FINISHES_REL = "web/public/finishes.json"
 
 sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
 from inventory import IMPLICIT_SOLIDS as _IMPLICIT_BY_GEN            # noqa: E402
@@ -79,6 +94,13 @@ def owed(root: Path) -> list:
 # `json` — but the module imports OCP at its top, which this checker does not have and must not
 # pay for. The read is repeated here against the version that module writes.
 PAYLOAD_VERSION = 3
+
+#: `_finishes.find`'s own tolerance and `render_scenes._VIEWER_DEFAULT_FINISH`, restated for the
+#: same reason `PAYLOAD_VERSION` is: both live in modules that import OCP at their top. Near black
+#: the linear palette is crowded enough that a byte holds two of its colours, so a finish is found
+#: by distance; `tol` is a quarter of the closest gap between two materials in the table.
+FINISH_TOL = 4e-4
+VIEWER_FINISH = (0.6, 0.1)
 
 
 def payload_header(path) -> dict:
@@ -113,6 +135,94 @@ def behind(root: Path) -> list:
                 out.append((rel, "cut from other bytes than the solid holds"))
         except OSError:
             continue
+    return sorted(out)
+
+
+def scenes(root: Path) -> list:
+    """Every scene mesh the bundle carries, repo-relative and sorted."""
+    dirs = tuple(f"{d}/" for d in pack.BUNDLED_GLB_DIRS)
+    return [rel for rel in pack.solids(root)
+            if rel.endswith(".glb") and rel.startswith(dirs)]
+
+
+def gltf_tree(path) -> dict:
+    """A binary glTF's JSON chunk — a 12-byte file header, then a u32 chunk length and the tag
+    `JSON`, then that many bytes. Raises on a file that is not one."""
+    with open(path, "rb") as f:
+        head = f.read(20)
+        if len(head) != 20 or head[:4] != b"glTF" or head[16:20] != b"JSON":
+            raise ValueError("not a binary glTF")
+        tree = json.loads(f.read(struct.unpack("<I", head[12:16])[0]))
+    if not isinstance(tree, dict):
+        raise ValueError("glTF JSON chunk is not an object")
+    return tree
+
+
+def finishes() -> list:
+    """`(rgb, roughness, metalness)` for every material this tree states."""
+    rows = json.loads(FINISHES.read_text(encoding="utf-8"))["finishes"]
+    return [(tuple(r["rgb"]), r["roughness"], r["metalness"]) for r in rows]
+
+
+def finish_for(table, rgb) -> tuple:
+    """The finish stated at a linear triple, or the viewer's own default where this tree names no
+    material there — which is the one case `web/public/js/viewer/step.js` cannot look up either."""
+    best, held = VIEWER_FINISH, FINISH_TOL * FINISH_TOL
+    for row, rough, metal in table:
+        d = sum((row[i] - rgb[i]) ** 2 for i in range(3))
+        if d <= held:
+            best, held = (rough, metal), d
+    return best
+
+
+def _number(v) -> bool:
+    return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def unfinished(material, table):
+    """What one scene material is short of, or None where it carries the finish this tree states.
+
+    A see-through body is held at metalness 0 whatever its stock says, which is where
+    `_write_payload_glb` puts it: metalness and alpha do not compose."""
+    pbr = material.get("pbrMetallicRoughness")
+    if not isinstance(pbr, dict):
+        return "a material with no pbrMetallicRoughness"
+    rgba = pbr.get("baseColorFactor")
+    if not isinstance(rgba, list) or len(rgba) != 4 or not all(_number(v) for v in rgba):
+        return "a material with no base colour"
+    rough, metal = pbr.get("roughnessFactor"), pbr.get("metallicFactor")
+    if not _number(rough) or not _number(metal):
+        return "a material naming no finish, which glTF draws as fully rough metal"
+    want = finish_for(table, rgba[:3])
+    if rgba[3] < 1.0:
+        want = (want[0], 0.0)
+    if (rough, metal) != want:
+        return f"a material at {rough}/{metal} where this tree states {want[0]}/{want[1]}"
+    return None
+
+
+def flat(root: Path, table) -> list:
+    """Every scene mesh the bundle carries whose materials are not the ones this tree states, as
+    (scene, which)."""
+    out = []
+    for rel in scenes(root):
+        try:
+            tree = gltf_tree(root / rel)
+        except (OSError, ValueError, struct.error):
+            out.append((rel, "not a binary glTF"))
+            continue
+        materials = tree.get("materials")
+        if not isinstance(materials, list) or not materials:
+            out.append((rel, "carries no material at all"))
+            continue
+        which = None
+        for material in materials:
+            which = ("a material that is not an object" if not isinstance(material, dict)
+                     else unfinished(material, table))
+            if which:
+                break
+        if which:
+            out.append((rel, which))
     return sorted(out)
 
 
@@ -223,8 +333,78 @@ def selftest() -> int:
         hold("a solid outside a payload directory is never named",
              [rel for rel, _ in behind(root)], [f"{payload_dir}/a.step"])
 
-    print(f"check_payloads selftest {holds}/8")
-    return 0 if holds == 6 else 1
+    # AND THE SCENE HALF, AGAINST A TABLE THIS BLOCK STATES rather than the tree's. What is under
+    # test is the reading, not which materials this machine happens to be made of.
+    scene_dir = pack.BUNDLED_GLB_DIRS[0]
+    table = [((0.1, 0.2, 0.3), 0.35, 0.0), ((0.5, 0.5, 0.5), 0.05, 1.0)]
+    with tempfile.TemporaryDirectory() as d:
+        root = Path(d)
+        here = root / scene_dir
+        here.mkdir(parents=True)
+        elsewhere = root / "hardware" / "pcb" / "board"
+        elsewhere.mkdir(parents=True)
+
+        def glb(path, materials):
+            """A binary glTF carrying just the JSON chunk this checker reads."""
+            body = json.dumps({"asset": {"version": "2.0"}, "materials": materials}).encode()
+            body += b" " * (-len(body) % 4)
+            path.write_bytes(struct.pack("<4sII", b"glTF", 2, 20 + len(body))
+                             + struct.pack("<I4s", len(body), b"JSON") + body)
+
+        def material(rgba, **pbr):
+            return {"pbrMetallicRoughness": {"baseColorFactor": list(rgba), **pbr}}
+
+        matte = material((0.1, 0.2, 0.3, 1.0), roughnessFactor=0.35, metallicFactor=0.0)
+        glb(here / "one.glb", [matte])
+        glb(elsewhere / "board.glb", [material((0.1, 0.2, 0.3, 1.0))])
+
+        hold("only a mesh in a scene directory is read", scenes(root), [f"{scene_dir}/one.glb"])
+
+        hold("a scene whose materials are this tree's finishes is not named",
+             flat(root, table), [])
+
+        glb(here / "one.glb", [material((0.1, 0.2, 0.3, 1.0))])
+        hold("a material naming no finish is named", flat(root, table),
+             [(f"{scene_dir}/one.glb",
+               "a material naming no finish, which glTF draws as fully rough metal")])
+
+        glb(here / "one.glb", [matte, material((0.5, 0.5, 0.5, 1.0),
+                                               roughnessFactor=0.6, metallicFactor=1.0)])
+        hold("a material at another finish than the table states is named",
+             flat(root, table), [(f"{scene_dir}/one.glb",
+                                  "a material at 0.6/1.0 where this tree states 0.05/1.0")])
+
+        # A COLOUR THE TABLE DOES NOT NAME IS NOT A FAILURE. It takes the viewer's own default,
+        # which is what `step.js` draws it at, so both renderers agree on the one case neither
+        # of them can look up.
+        glb(here / "one.glb", [material((0.9, 0.1, 0.4, 1.0),
+                                        roughnessFactor=VIEWER_FINISH[0],
+                                        metallicFactor=VIEWER_FINISH[1])])
+        hold("a colour the table does not name takes the viewer's own default",
+             flat(root, table), [])
+
+        # Metalness and alpha do not compose, so a see-through body is held at 0 whatever the
+        # table states for its colour — here, a mirror-bright metal seen through.
+        glb(here / "one.glb", [material((0.5, 0.5, 0.5, 0.35),
+                                        roughnessFactor=0.05, metallicFactor=0.0)])
+        hold("a see-through body is held nonmetallic at its own roughness",
+             flat(root, table), [])
+        glb(here / "one.glb", [material((0.5, 0.5, 0.5, 0.35),
+                                        roughnessFactor=0.05, metallicFactor=1.0)])
+        hold("a see-through body carrying its stock's metal is named",
+             flat(root, table), [(f"{scene_dir}/one.glb",
+                                  "a material at 0.05/1.0 where this tree states 0.05/0.0")])
+
+        glb(here / "one.glb", [])
+        hold("a scene with no material at all is named", flat(root, table),
+             [(f"{scene_dir}/one.glb", "carries no material at all")])
+
+        (here / "one.glb").write_bytes(b"not a gltf at all")
+        hold("a file that is not a binary glTF is named", flat(root, table),
+             [(f"{scene_dir}/one.glb", "not a binary glTF")])
+
+    print(f"check_payloads selftest {holds}/17")
+    return 0 if holds == 17 else 1
 
 
 def main(argv) -> int:
@@ -242,21 +422,38 @@ def main(argv) -> int:
         return 1
 
     named = behind(_ROOT)
-    if not named:
-        return 0
-    print(f"{len(named)} solid(s) whose surface is not in the payload beside them:")
-    for rel, which in named:
-        print(f"    {rel}.mesh — {which}")
-    cut_by = sorted({gen for rel, _ in named for gen in writers(seen, rel)})
-    if cut_by:
-        print("  the run that cuts a solid writes the payload beside it:")
-        for gen in cut_by:
-            print(f"    tools/cad-venv/bin/python {gen}")
-    flutes = flute_dirs(seen)
-    if flutes and any(rel.startswith(flutes) for rel, _ in named):
-        print("  and the enclosure's flutes go back into those payloads after:")
-        print("    tools/cad-venv/bin/python hardware/scripts/flute_payload.py")
-    return 1
+    if named:
+        print(f"{len(named)} solid(s) whose surface is not in the payload beside them:")
+        for rel, which in named:
+            print(f"    {rel}.mesh — {which}")
+        cut_by = sorted({gen for rel, _ in named for gen in writers(seen, rel)})
+        if cut_by:
+            print("  the run that cuts a solid writes the payload beside it:")
+            for gen in cut_by:
+                print(f"    tools/cad-venv/bin/python {gen}")
+        flutes = flute_dirs(seen)
+        if flutes and any(rel.startswith(flutes) for rel, _ in named):
+            print("  and the enclosure's flutes go back into those payloads after:")
+            print("    tools/cad-venv/bin/python hardware/scripts/flute_payload.py")
+        return 1
+
+    try:
+        table = finishes()
+    except (OSError, ValueError, KeyError, TypeError):
+        print(f"{FINISHES_REL} is not a finish table this reading can take.")
+        print("  fix: tools/cad-venv/bin/python hardware/scripts/check_finishes.py --write")
+        return 1
+    plain = flat(_ROOT, table)
+    if plain:
+        print(f"{len(plain)} scene(s) whose materials are not the finishes this tree states:")
+        for rel, which in plain:
+            print(f"    {rel} — {which}")
+        print("  the run that composes a scene writes its materials:")
+        print("    tools/cad-venv/bin/python hardware/assembly/scenes/render_scenes.py")
+        return 1
+    print(f"payloads: {len(owed(_ROOT))} solid(s) cut from the bytes beside them, "
+          f"{len(scenes(_ROOT))} scene(s) at the finishes this tree states")
+    return 0
 
 
 if __name__ == "__main__":
