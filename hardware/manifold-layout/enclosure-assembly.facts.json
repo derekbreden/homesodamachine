@@ -1264,9 +1264,9 @@
     ]
    ],
    "seat_z": 166.865,
-   "stroke": 1.5,
+   "stroke": 3.289,
    "stroke_ceiling": 4.62,
-   "wall_aft_y": 91.02,
+   "wall_aft_y": 89.231,
    "x0": -97.85,
    "x1": 97.85,
    "z0": 160.0,
@@ -1950,7 +1950,7 @@
    true
   ]
  },
- "card": "7a14b5fc96321a44fb2f41dc79e2b2e3",
+ "card": "ac4bc383373d0c9809f0467e0b43b266",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2979,7 +2979,7 @@
   }
  ],
  "schema": 2,
- "step": "18c6294591fd769bcbe75525a6236f8a",
+ "step": "edcee5a51664e2fa5af76cb7fbd8adf2",
  "valve_tray_stations": [
   [
    171.08,

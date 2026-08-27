@@ -78,7 +78,7 @@ they became.
 | **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | power column, electronics shelf |
 | **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
-| **collet plate** | the cut 304 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
+| **collet plate** | the cut 316 SS plate on edge across the pump bay, holding the collets so the pump cartridge can be pulled | |
 
 ## Agent approved
 

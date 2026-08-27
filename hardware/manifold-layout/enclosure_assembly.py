@@ -1379,7 +1379,7 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # --- the collet plate --------------------------------------------------------
 #
 # THE PUMP CARTRIDGE'S RELEASE, and the one piece of this machine that is steel. A flat of 1/8"
-# 304 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, standing
+# 316 stands one rest gap fore of the four anchor tees' branch collets, wall to wall, standing
 # in the slot `enclosure._plate_slot` cuts clean through the bay floor — the slot takes it fore
 # and aft over the floor's whole section, and its own TOP EDGE lands wall to wall on the
 # wall over it (`enclosure._plate_cap`), which is what stops it going in. IT GOES IN THROUGH FRONT-TOP'S OWN Z− FACE, the
@@ -1394,7 +1394,16 @@ def check_trays_hold(pieces: dict, placed: dict) -> Bound:
 # the plate's fore face, the tees braced by the deck lattice their own butted valves hang
 # them from. The user's two hands are the whole mechanism: one pulls the pump cartridge, the
 # other braces the box, and the box carries the brace to this plate through the floor.
-PLATE_T = 3.175              # 1/8" 304, waterjet from `collet-plate.dxf`
+PLATE_T = 3.175              # .125" 316, laser-cut from `collet-plate.dxf`
+# WHAT THE MILL IS ALLOWED TO SEND, and the reason the stroke below is not just the rest gap.
+# SendCutSend's stated thickness tolerance on .125" 316 is +.001"/-.010", so the steel that
+# arrives is 2.921..3.200 rather than 3.175. The plate's AFT face is datumed — the tee wall
+# holds it there and the rest gap is struck off it — so a thin plate does not move the collets;
+# what it moves is the plate's FORE face, and with it the distance the four noses shove the
+# plate before the slot's own fore face catches it. That distance is lost motion in the
+# release, and `PLATE_LOST_MOTION` is the whole of it at the thinnest plate the mill may cut.
+PLATE_T_UNDER = 0.254        # -.010", the negative half of that tolerance
+PLATE_LOST_MOTION = _enc.plate_slot_slip + PLATE_T_UNDER
 PLATE_REST_GAP = 1.5         # collet nose air off the plate's aft face, pump cartridge seated
 PLATE_HOLE_D = 8.0           # passes the tube, stops the nose
 COLLET_NOSE_R = 5.715        # the release nose's rim, measured off tee-connector.step
@@ -1405,7 +1414,7 @@ TEE_WALL_ARM_SLIP = 0.10     # the aft bore's air on the ARM — what leaves the
 
 def collet_plate_spec(mcarry, tray_stations) -> dict:
     """The plate as the four branch collets and the walls place it — faces, band, ends,
-    holes — the one figure the steel, the bay floor's slot and the waterjet's own outline
+    holes — the one figure the steel, the bay floor's slot and the cut file's own outline
     all read.
 
     ITS Z BAND IS STRUCK ON THE HOLES. The bottom is the seam plane — the foot fills the slot
@@ -1424,7 +1433,7 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     wall on `enclosure._plate_cap`'s land, so nothing else has to be a stop; the slot through
     the bay floor is one width, and its two ends are what locate the steel across. Running the
     ends wider over `seam_cap_z` bought nothing to be located BY — the flank there is opened
-    whole (`enclosure._flank_opening`) and the steel reached into the opening. The waterjet
+    whole (`enclosure._flank_opening`) and the steel reached into the opening. The laser
     cuts four corners and four holes."""
     holes, faces = [], []
     for t in sorted(ml.BARB_OF):
@@ -1468,19 +1477,30 @@ def collet_plate_spec(mcarry, tray_stations) -> dict:
     # may take: it is the tee's, and a wall standing in it is a wall the tee lands on before
     # its own grip has opened.
     #
-    # `stroke` IS THE TRAVEL THE RELEASE ASKS OF A TEE: its rest gap off the steel, plus how
-    # far its collet sleeve moves before the grip opens. That second figure is NOT on the
-    # tee's STEP — a harvested solid carries the sleeve where it was when it was scanned and
-    # has no way to say how far it slides — so it is read from the one member of this collet
-    # family measured in hand, `jg_pp0408w.COLLET_TRAVEL`, off the caliper record at
-    # `off-the-shelf-parts/john-guest-union/`: extended 41.80, pressed 39.13, half the
-    # difference each end. `stroke_ceiling` is the same sum against the sleeve's own proud
-    # length instead, which is as far as it could POSSIBLY be pressed — a sleeve cannot travel
-    # further than it stands out — so the two bracket the answer and `collet-travel-fits`
+    # `stroke` IS THE TRAVEL THE RELEASE ASKS OF A TEE, and it is three terms, not one.
+    #
+    # FIRST the rest gap, which carries the nose to the steel. SECOND the steel's own lost
+    # motion: nothing holds the plate aft but the tee wall it leans on, so the four noses shove
+    # it fore until the slot's fore face catches it, and over that distance the sleeve is not
+    # being pressed at all — the plate is travelling with the nose. `PLATE_LOST_MOTION` is that
+    # distance at the thinnest plate the mill may send. THIRD the sleeve's own slide, which is
+    # what actually opens the grip.
+    #
+    # THAT THIRD FIGURE IS NOT ON THE TEE'S STEP — a harvested solid carries the sleeve where it
+    # was when it was scanned and has no way to say how far it slides — so it is read from the
+    # one member of this collet family measured in hand, `jg_pp0408w.COLLET_TRAVEL`, off the
+    # caliper record at `off-the-shelf-parts/john-guest-union/`: extended 41.80, pressed 39.13,
+    # half the difference each end. `stroke_ceiling` is the same sum against the sleeve's own
+    # proud length instead, which is as far as it could POSSIBLY be pressed — a sleeve cannot
+    # travel further than it stands out — so the two bracket the answer and `collet-travel-fits`
     # holds one under the other.
+    #
+    # AND EVERY ONE OF THE THREE IS ROOM THE WALL BEHIND MUST GIVE BACK. `wall_aft_y` is struck
+    # off this sum, so a term dropped here is not a term the release does without — it is a
+    # printed face standing in the stroke, and the tee lands on it before its grip has opened.
     tee = ml.tee
     branch_face = faces[0]
-    stroke = PLATE_REST_GAP
+    stroke = PLATE_REST_GAP + PLATE_LOST_MOTION + _jgu.COLLET_TRAVEL
     return {"holes": tuple(sorted(holes)),
             "aft_y": round(aft, 6), "fore_y": round(aft - PLATE_T, 6),
             "z0": round(z0, 6), "z1": z1,
@@ -1507,8 +1527,13 @@ def build_collet_plate(spec):
 
 
 def export_collet_plate_dxf(spec, path):
-    """The waterjet's own file: outline and four tube holes, flat — the
+    """The cutter's own file: outline and four tube holes, flat — the
     section of a unit slab cut the way the steel is, so the loops cannot disagree with the solid.
+
+    AND IT COMES OUT ON Z=0. The section is taken half way up a unit slab, which puts every
+    line and circle on the plane it was cut at rather than on the plane a cut file is read on;
+    dropping the result back to zero is what makes the file two-dimensional in fact and not
+    only in shape. A shop's uploader is entitled to take a non-zero elevation at its word.
 
     Written through `export_dxf`, so the header's save-time stamps and GUIDs come out
     canonical and a rebuild that moves no dimension leaves the file alone."""
@@ -1517,7 +1542,7 @@ def export_collet_plate_dxf(spec, path):
     for hx, hz in spec["holes"]:
         flat = flat.cut(cq.Workplane("XY").workplane(offset=-0.5)
                         .center(hx, hz).circle(spec["hole_d"] / 2.0).extrude(2.0))
-    export_dxf(flat.section(0.5), str(path))
+    export_dxf(flat.section(0.5).translate((0, 0, -0.5)), str(path))
 
 
 def check_collet_plate(spec, mcarry) -> None:
@@ -1553,6 +1578,24 @@ def check_collet_plate(spec, mcarry) -> None:
         ([] if hole_r >= ml.TUBE_D / 2.0 + 0.5 else [
             f"a Ø{spec['hole_d']:g} hole closes on the Ø{ml.TUBE_D:g} tube it must let "
             f"slide — the plate would carry the tube instead of releasing it"])))
+    # THE ONE FIGURE IN THE STROKE THAT WAS MEASURED ON A DIFFERENT FITTING. `COLLET_TRAVEL`
+    # comes off a PP0408W union in hand, because no tee in this machine has been taken apart to
+    # watch its sleeve slide, and `collet_plate_spec` spends it as though it were this tee's.
+    # What makes that borrowing checkable is that a sleeve cannot be pressed further than it
+    # stands proud: the tee's own `COLLET_PROUD` is a ceiling the borrowed figure has to sit
+    # under, and if it ever does not, the number is not this family's and the wall behind the
+    # steel has been cut back on a measurement that does not apply to it.
+    travel, proud = _jgu.COLLET_TRAVEL, ml.tee.COLLET_PROUD
+    record_bound(Bound(
+        "collet-travel-fits", "The borrowed sleeve travel fits the tee's own sleeve",
+        travel <= proud + 1e-9,
+        f"{travel:.3f} mm of press against a sleeve standing {proud:.3f} mm proud",
+        "the measured travel under the sleeve's own proud length",
+        ([] if travel <= proud + 1e-9 else [
+            f"`jg_pp0408w.COLLET_TRAVEL` is {travel:.3f} mm, measured on a union, and this "
+            f"tee's sleeve stands only {proud:.3f} mm out — a sleeve cannot be pressed further "
+            f"than it stands, so the borrowed figure cannot be this tee's and the stroke "
+            f"`wall_aft_y` is struck off is not the stroke the release asks"])))
     barb = max(mcarry((ml.barb_station(t), (0.0, 0.0, 1.0)))[0][1] for t in ml.BARB_OF)
     air = spec["fore_y"] - barb
     record_bound(Bound(
@@ -7447,7 +7490,7 @@ def main():
     grafted = flute_payload.graft(mesh, flute_payload.surfaces())
     if grafted:
         print(f"-> {out.name}.mesh  ({grafted} fluted piece(s))")
-    # The waterjet's file for the one steel piece, off the same spec the pockets and the
+    # The cut file for the one steel piece, off the same spec the pockets and the
     # pump cartridge's stops were struck from.
     dxf = _here.parent / "collet-plate.dxf"
     export_collet_plate_dxf(a.collet_plate, dxf)

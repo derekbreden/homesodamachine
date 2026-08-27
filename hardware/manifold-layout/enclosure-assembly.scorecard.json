@@ -679,6 +679,16 @@
    "active": true
   },
   {
+   "id": "collet-travel-fits",
+   "label": "The borrowed sleeve travel fits the tee's own sleeve",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1.335 mm of press against a sleeve standing 3.120 mm proud",
+   "target": "the measured travel under the sleeve's own proud length",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "plate-berth",
    "label": "The standoff holds the plate off the barbs",
    "kind": "gate",
@@ -1049,8 +1059,8 @@
    "label": "Every anchor tee can make the release stroke",
    "kind": "gate",
    "status": "pass",
-   "value": "4/4 tees clear 1.500 mm fore",
-   "target": "every tee the release moves free over its whole 1.500 mm",
+   "value": "4/4 tees clear 3.289 mm fore",
+   "target": "every tee the release moves free over its whole 3.289 mm",
    "detail": [
     "Y-C   tee-y-c        CLEAR",
     "Y-D   tee-y-d        CLEAR",
@@ -1067,10 +1077,10 @@
    "value": "4/4 tees stopped going aft",
    "target": "every anchor tee landing on printed material before it can travel aft",
    "detail": [
-    "Y-C   tee-y-c        backed by front-top,       9.3 mm3 at 1.500 mm",
-    "Y-D   tee-y-d        backed by front-top,       9.3 mm3 at 1.500 mm",
-    "Y-F   tee-y-f        backed by front-top,       9.3 mm3 at 1.500 mm",
-    "Y-G   tee-y-g        backed by front-top,       9.3 mm3 at 1.500 mm"
+    "Y-C   tee-y-c        backed by front-top,       9.4 mm3 at 3.289 mm",
+    "Y-D   tee-y-d        backed by front-top,       9.4 mm3 at 3.289 mm",
+    "Y-F   tee-y-f        backed by front-top,       9.4 mm3 at 3.289 mm",
+    "Y-G   tee-y-g        backed by front-top,       9.4 mm3 at 3.289 mm"
    ],
    "active": true
   },
@@ -1214,7 +1224,7 @@
    "label": "The front top slides home carrying the flavour pack",
    "kind": "gate",
    "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out, 14 stations over 105.0 mm",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out, 14 stations over 106.8 mm",
    "target": "0 mm\u00b3 at every station of the loaded travel",
    "detail": [],
    "active": true
@@ -1564,7 +1574,7 @@
    "label": "The front top slides its whole travel onto its bottom clear",
    "kind": "gate",
    "status": "pass",
-   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 105.0 mm",
+   "value": "worst 0.0 mm\u00b3 contested, 0.00 mm out of home, 14 stations over 106.8 mm",
    "target": "0 mm\u00b3 at every station",
    "detail": [],
    "active": true
@@ -1574,7 +1584,7 @@
    "label": "The front top's rails catch it against a lift, on both flanks",
    "kind": "gate",
    "status": "pass",
-   "value": "337.4 mm\u00b3 engaged at a 1 mm lift \u2014 168.7 west, 168.7 east",
+   "value": "343.5 mm\u00b3 engaged at a 1 mm lift \u2014 171.8 west, 171.8 east",
    "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
    "detail": [],
    "active": true

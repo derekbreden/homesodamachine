@@ -1484,7 +1484,7 @@ sill_wash = 1.4              # the sill's top face falls this much fore, so the 
 cap_kiss = 0.1               # the cap's aft face off the collet plate's, at full seat
 # THE STEEL'S OWN AIR, on every edge it presents to printed material. `fits.slip` is the
 # figure for a printed face on a printed face; this is the figure for the one part of this
-# box that is cut rather than printed — 1/8" 304 off a waterjet, square-edged, carrying no
+# box that is cut rather than printed — 1/8" 316 off a fiber laser, square-edged, carrying no
 # support residue and no elephant's foot, and bought to a lead time.
 steel_air = 0.2
 plate_slot_slip = steel_air  # air fore and aft of the collet plate in the floor's slot, and
@@ -2890,7 +2890,7 @@ def plate_step_in():
     through the whole of the front column's slide, so a lane its bottom edge needs is a lane
     the whole part travels; stepping the ends out over `seam_cap_z` buys 6.5 mm of steel
     outboard of the outermost hole and costs the outline two notches, a slot with two widths
-    in it, and a waterjet path that turns eight times instead of four. AND IT BUYS NO
+    in it, and a cut path that turns eight times instead of four. AND IT BUYS NO
     RESTRAINT: over that plane the flank the wider end would stand against is opened whole
     (`_flank_opening`), so the steel's ends reach into the opening and touch nothing either
     way. What locates them in X is the bay floor's slot, one `plate_slot_slip` off each end,
@@ -2905,7 +2905,7 @@ def plate_step_in():
 
 def plate_outline(plate):
     """THE COLLET PLATE'S OWN OUTLINE, as an `(x, z)` polygon — the one figure the steel, the
-    waterjet's file and every body that stands beside it read.
+    cut file and every body that stands beside it read.
 
     IT IS A RECTANGLE. Every plane it stands on is one the box already has: `plate_step_in`
     off each side wall at every height, `z_seam` under it, and over it the height that
@@ -2931,27 +2931,9 @@ def bay_storey_z(bay):
     return seam_cap_z(), bay[2]
 
 
-def _walk(segments, s):
-    """A run's point and OUTWARD normal at arc length `s` from where that walk begins.
-
-    Everything the field knows about a surface is here. A groove is struck at `s` and drawn
-    through the stations either side of it, so a corner costs the field nothing to know about:
-    the walk hands back a normal that has already turned."""
-    total = sum(length for _kind, length, _data in segments)
-    if not -1e-9 <= s <= total + 1e-9:
-        raise AssertionError("arc length walked off the end of a run")
-    s = min(max(s, 0.0), total)
-    for kind, length, data in segments:
-        if s <= length + 1e-9:
-            if kind == "line":
-                (px, py), (tx, ty), (nx, ny) = data
-                return (px + tx * s, py + ty * s), (nx, ny)
-            (cx, cy), a0, r = data
-            a = a0 + (math.pi / 2.0) * (s / length)
-            n = (math.cos(a), math.sin(a))
-            return (cx + r * n[0], cy + r * n[1]), n
-        s -= length
-    raise AssertionError("arc length walked off the end of a run")
+#: A run's point and outward normal at an arc length — `flute_skin.walk`, which is where it
+#: lives because the cold core's skin is struck along runs of the same kind.
+_walk = _flute_skin.walk
 
 
 def plan_perimeter(outer):
