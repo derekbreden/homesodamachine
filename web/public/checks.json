@@ -67,7 +67,7 @@
     },
     {
       "check": "tools/bazel/check_declared_imports.py",
-      "note": "check_declared_imports: every step holds what it imports, over 171 source(s) the graph names",
+      "note": "check_declared_imports: every step holds what it imports, over 172 source(s) the graph names",
       "status": "ok"
     }
   ],
