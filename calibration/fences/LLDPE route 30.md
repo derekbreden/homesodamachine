@@ -64,9 +64,9 @@ I'll pull in that session's transcript.
 
 ---
 
-**Route 29, relayed.** That session found Y-E *couldn't* reach reservoir-A by rolling alone — both bag tees share world x=110.14, so any roll steep enough to thread the source tray's aft window made Y-E shallower than fluid-25 and it crossed its sibling's fall (measured 438 mm³). You called for re-pairing both lines; it rolled **both** tees to a shared −32°, so the branches descend parallel into the one corridor and fan to opposite reservoir ends. 7/7 gates, both lines 3 bends, committed as `c9aa9d1b`.
+**Route 29, relayed.** That session found Y-E *couldn't* reach reservoir-A by rolling alone — both bag tees share world x=110.14, so any roll steep enough to thread the source tray's aft window made Y-E shallower than fluid-25 and it crossed its sibling's fall (measured 438 mm³). You called for re-pairing both lines; it rolled **both** tees to a shared −32°, so the branches descend parallel into the one corridor and fan to opposite reservoir ends. 7/7 gates, both lines 3 bends, committed as `230b4243`.
 
-Now the ASSE 1022. Commit `5d176087` built it as a reference *solid* — let me confirm what's undone about it.
+Now the ASSE 1022. Commit `2f5e29d5` built it as a reference *solid* — let me confirm what's undone about it.
 
 ---
 
@@ -214,11 +214,11 @@ Pushed as [422d1b44](https://github.com/derekbreden/homesodamachine/commit/422d1
 
 ## Route 29, relayed
 
-Y-E couldn't reach reservoir-A by rolling alone — both bag tees share world x=110.14, so any roll steep enough to thread the source tray's aft window made Y-E shallower than fluid-25 and it crossed its sibling's fall (measured 438 mm³). You called for re-pairing both lines; it rolled **both** tees to a shared −32°, branches descending parallel into the one corridor and fanning to opposite reservoir ends. Committed as `c9aa9d1b`.
+Y-E couldn't reach reservoir-A by rolling alone — both bag tees share world x=110.14, so any roll steep enough to thread the source tray's aft window made Y-E shallower than fluid-25 and it crossed its sibling's fall (measured 438 mm³). You called for re-pairing both lines; it rolled **both** tees to a shared −32°, branches descending parallel into the one corridor and fanning to opposite reservoir ends. Committed as `230b4243`.
 
 ## The ASSE 1022
 
-It was the next undone item exactly as you said — `5d176087` built the assembly as a reference solid this morning, but `_contents.py` still listed "Multiplex BFP" among the deferred water deck. Now it's packed.
+It was the next undone item exactly as you said — `2f5e29d5` built the assembly as a reference solid this morning, but `_contents.py` still listed "Multiplex BFP" among the deferred water deck. Now it's packed.
 
 **There is only one place in the box it fits**, and I measured that rather than assumed it. The chain is 123.5 mm end to end and **41.3 mm tall** — and the band under the pump row, which `requirements.md` nominated for the water deck, measures **37.5–40 mm**. It is shorter than the body. The corridor's east half is refrig-1 and refrig-2 crossing it; every side column is narrower than the assembly's 33 mm. The machine corridor's **west lane** takes it whole.
 

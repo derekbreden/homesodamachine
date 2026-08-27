@@ -46,7 +46,7 @@ Three capabilities and one guard:
 A full implementation of the four capabilities above reached the main board, then
 was reverted from `main`; this desire is shelved until the main board is
 simplified in other ways first. It is preserved at tag
-**`phone-powered-demo-v1`** (commit `6c5c72ec`, built over `85bb8e58`). The clean
+**`phone-powered-demo-v1`** (commit `8e8ceaba`, built over `f76f34fa`). The clean
 source diff — the design work, without the regenerated `out/` renders:
 
     git diff 7ac5f02c phone-powered-demo-v1 -- hardware/pcb/pcba ':(exclude)hardware/pcb/pcba/out'

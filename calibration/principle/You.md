@@ -654,7 +654,7 @@ Then, next, I see some uncommitted changes in this repo - can you commit and pus
 
 Done. Three commits across two repos:
 
-**homesodamachine — [`55e3a0d`](https://github.com/derekbreden/homesodamachine/commit/55e3a0d)** Delete todo folder. One file remained (the May 20 companion-app gap doc); deleted along with the folder. Pushed.
+**homesodamachine — [`34ed7a4`](https://github.com/derekbreden/homesodamachine/commit/55e3a0d)** Delete todo folder. One file remained (the May 20 companion-app gap doc); deleted along with the folder. Pushed.
 
 **jsonl2md — two commits, both pushed:**
 

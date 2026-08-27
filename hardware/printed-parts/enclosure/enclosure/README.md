@@ -321,7 +321,7 @@ wall does.
 
 Every standing wall is **fluted** — half-round grooves [4 mm](FLUTE_WIDTH) across and
 [1.2 mm](FLUTE_DEPTH) deep, the profile `cadlib/reeding.py` carries and
-the corner coupon at `69459fea6` was printed on. That coupon is this box's own corner
+the corner coupon at `c14bb2fff` was printed on. That coupon is this box's own corner
 at this box's own `wall` and `corner_round`, so what printed there is what prints here, and
 neither can drift from the other while they read one function.
 
@@ -420,7 +420,7 @@ two figures move OPPOSITE ways: the jamb stands half a slot off the groove's cen
 half-ellipse where the groove is shallower, so the flank behind a jamb is
 [5.2416 mm](VENT_JAMB) rather than the 4.8 under the groove's own floor — a wider slot never
 thins the wall and only ever thins the mullion.
-The coupon at `69459fea6` printed this scheme beside the ceiling slot and a full-groove-width slot
+The coupon at `c14bb2fff` printed this scheme beside the ceiling slot and a full-groove-width slot
 down alternate grooves, on a section of this same flank at this same pitch.
 **`flank-vent-mullions`** reads every mullion off the built piece.
 

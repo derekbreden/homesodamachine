@@ -87,7 +87,7 @@ within the hour, because it was re-tracing against a module it had just moved.
 **Work integrated by the session that collided with it.**
 
 > The other session just landed the ring lift and integrated it *with* my pan rails
-> (`0c06bc36`). My script read those two files mid-write. Re-running against the settled tree.
+> (`f09fe47c`). My script read those two files mid-write. Re-running against the settled tree.
 > — [Drip tray](<fences/Drip tray.md>)
 
 **Advice sent unasked, extending a diagnosis its author had not finished.**

@@ -46,7 +46,7 @@ The snapshot landed. Committing and pushing per the repo's standing instruction.
 
 ---
 
-Audit complete — committed as [pcba-audit-2026-07-11.md](/hardware/snapshots/pcba-audit-2026-07-11.md) (`26f71525`, pushed). One note on process: my first draft of the snapshot got caught by your calibration hook; I read `You.md`/`Framing.md` and rewrote it in the register `build-readiness-2026-04-26.md` demonstrates — facts, measurements, and open questions instead of verdicts and persuasion.
+Audit complete — committed as [pcba-audit-2026-07-11.md](/hardware/snapshots/pcba-audit-2026-07-11.md) (`c4c13563`, pushed). One note on process: my first draft of the snapshot got caught by your calibration hook; I read `You.md`/`Framing.md` and rewrote it in the register `build-readiness-2026-04-26.md` demonstrates — facts, measurements, and open questions instead of verdicts and persuasion.
 
 The short version:
 
@@ -723,7 +723,7 @@ Summary:
    - `hardware/pcb/pcba/routing.ts`, `hand-routing.md` — frame semantics grounding move-cost classification
    - `hardware/snapshots/pcba-audit-2026-07-11.md` — CREATED by me (commit 26f71525), then externally updated twice: item 1 now records the MH resolution including "**R17 turned rot 0 (pads r 3.83) and SW1/SW2 slid east 0.5 to the J5 courtyard cap (SW2.C r 3.63, past the washer's 3.6 worst-case reach)**" — tact positions moved after my slack measurements; do not revert
    - `hardware/scripts/check_pinmap.py` — was broken (`\.U1[AB]? > \.IO(\d+)` regex vs `from="U1.IO25"` syntax); fixed by chip commit 19bf3dc0
-   - [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`b256c44e`; now `firmware/src_prototype/main.cpp`) — L298N prototype; GPIO15 double-booked (`FLOW_PIN 15` INPUT_PULLUP+FALLING ISR at ~3413-3416 AND `CONFIG_TX_PIN 15` Serial1 TX at 3464, no detachInterrupt; `flowPulses >= FLOW_MIN_PULSES` gates syrup injection at :3622)
+   - [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/b256c44e/firmware/src/main.cpp) (`bf009d63`; now `firmware/src_prototype/main.cpp`) — L298N prototype; GPIO15 double-booked (`FLOW_PIN 15` INPUT_PULLUP+FALLING ISR at ~3413-3416 AND `CONFIG_TX_PIN 15` Serial1 TX at 3464, no detachInterrupt; `flowPulses >= FLOW_MIN_PULSES` gates syrup injection at :3622)
    - `calibration/Principle.md`, `calibration/You.md`, `calibration/Framing.md` — register/conduct rules (read after hook block)
    - Measured slack map (agent, byte-validated vs committed picks.json) — key envelopes: J3[−58.5,−46.0], J4[−45,−27.5], J9[−26.5,−14.0], J7[−13.0,7.0] (all y[−33.8,−27.9]); J10 x[8.11,16.46] y[−29.80,−18.42]; J2 y[−17.35,0.15]; J1 y[1.25,26.25] x[8.60,14.50]; J5[−45.45,−32.95], J6[−31.85,−16.85], J13[−15.75,−3.25], J8[−2.15,10.35] (all y[28.60,34.50]); J11 x[−65.50,−59.60] y[−30.10,−17.60], outline-W 2.50; SW1/SW2 courtyard 7.51×5.71 (rot swaps); R18 x[−61.41,−59.59] y[27.10,30.37]; R19 x[11.55,14.82] y[26.69,28.51]; C17→U2 gap **0.02**; U13 top 28.54; pod = U11/U12/C17-C20/J13 rigid by comment
    - Gaps: J3↔J4↔J9↔J7 all 1.00; J7↔J10 1.11 (y-band overlap 1.90); J10↔J2 1.07; J2↔J1 1.10; J1↔R19 0.44; J1↔J8 corner 2.35 (x-band [8.60,10.35]); J5↔J6↔J13↔J8 1.10; SW1↔J5 0.79 (pre-flux); J3↔J11 0.10 + 1.0 = binds at S=0.10

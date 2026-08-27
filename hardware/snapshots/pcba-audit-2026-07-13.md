@@ -1,6 +1,6 @@
 # PCBA production-readiness — Snapshot 2026-07-13
 
-**This is a point-in-time snapshot, not a living document.** Board state: commit `ec664903`, rendered 2026-07-13. Re-running this audit later produces a fresh dated file against the then-current board.
+**This is a point-in-time snapshot, not a living document.** Board state: commit `b9542de2`, rendered 2026-07-13. Re-running this audit later produces a fresh dated file against the then-current board.
 
 ## TL;DR
 
@@ -8,11 +8,11 @@
 - A fresh-eyes pass over the 2026-07-11 board (thermal, DFM, external-interface protection) found **one fab blocker** and a set of protection/robustness gaps the earlier audit had not reached. This snapshot records the board with them resolved and lists the residual bench and DFM items.
 - **Fab blocker (resolved):** the exported solder-paste layer covered only rect pads — 148 of 330 top-side SMD lead pads (all gull-wing SOIC/SSOP leads across U2/U3, U4/U5, U6, U7, U11/U12, U13) had **no paste aperture**. A stencil cut from that layer would place nine ICs on paste-free pads. The `circuit-json-to-gerber` fork now derives F_Paste from `pcb_smtpad` copper, and a `paste-coverage` gate holds it.
 - **Protections now on the board:** reverse-polarity P-FET + surge clamp at the J10 12 V inlet; a firmware-independent gas→compressor interlock; a buzzer flyback clamp; faucet-UART series backstop + IO25 flow-input hardening; J4/J7 anti-misplug keying; three assembler fiducials.
-- **Residual:** bench-gated polarities/thermals (below) and a handful of cosmetic silk items. *(The faucet-end ESD TVS once listed here as a residual moved on-board later 2026-07-13 — D10/D11 shunt clamps at U1, commit `a8f55a44`; see the Faucet UART section.)*
+- **Residual:** bench-gated polarities/thermals (below) and a handful of cosmetic silk items. *(The faucet-end ESD TVS once listed here as a residual moved on-board later 2026-07-13 — D10/D11 shunt clamps at U1, commit `4f9b41aa`; see the Faucet UART section.)*
 
 ## Source-data state
 
-- `hardware/pcb/pcba/pcba.tsx` at `ec664903`; `out/pcba.circuit.json` from `bun render-board.ts pcba.tsx` on 2026-07-13.
+- `hardware/pcb/pcba/pcba.tsx` at `b9542de2`; `out/pcba.circuit.json` from `bun render-board.ts pcba.tsx` on 2026-07-13.
 - Fork `circuit-json-to-gerber` at `2329112` (branch `homesodamachine/through-hole-vias`), consumed via the `overrides` git dependency.
 - Off-board loads read from `wiring/ac-wiring-schedule.md`, `wiring/power.mmd`, `hardware/topology/fluid-topology.md`, `ledger/bom.md`, `hardware/future.md` (§Safety, §User-facing).
 
@@ -24,18 +24,18 @@ Three parallel read-only passes over the 2026-07-11 board — thermal/power-inte
 
 | # | On the board | Part(s) — LCSC | Commit |
 |---|---|---|---|
-| 1 | F_Paste derived from copper + `paste-coverage` gate | (fork + scorecard) | `730ec972`, fork `2329112` |
-| 2 | D7 buzzer flyback clamp across the MLT-5020 coil | 1N4148W SOD-123 `C81598` | `ed9c7713` |
-| 3 | R21/R22 IO25 flow-input hardening (1 k series + 4.7 k pull-up) | `C11702`, `C25900` | `0544a76e` |
-| 4 | J7 REEDS-B keyed to JST-EH (non-intermating with the XH SENSORS loom) | B7B-EH-A `C160254` | `c81e34e7` |
-| 5 | Q4 reverse-polarity P-FET + D8 surge clamp + D9 Vgs zener + R23 gate pulldown | AO3407 `C181093`, SMAJ15A `C571368`, BZT52C15 `C173427`, 100 k `C60491` | `59932118` |
-| 6 | U15 gas→compressor interlock + R24 pulldown + R25 invert-select + C23 decoupler | 74LVC1G08 `C12512`, 100 k `C60491`, 0 Ω `C17168`, 0.1 µF `C1525` | `261f6cb3` |
-| 7 | FID1–FID3 global fiducials (1 mm copper dot) | (bare-copper features) | `7eb423ef` |
-| 8 | R26/R27 faucet-UART series backstop (IO33/IO35) | 220 Ω 0402 `C25091` | `9df5986f` |
-| 9 | Faucet-end ESD TVS specified at the display connector (docs) | (cable-assembly spec) | `ec664903` |
-| 10 | On-board faucet-UART ESD — 2× shunt clamps at U1.IO33/IO35 (supersedes #9 as primary; same day) | ESD9B3.3ST5G SOD-923 `C96512` | `a8f55a44` |
+| 1 | F_Paste derived from copper + `paste-coverage` gate | (fork + scorecard) | `76e96652`, fork `2329112` |
+| 2 | D7 buzzer flyback clamp across the MLT-5020 coil | 1N4148W SOD-123 `C81598` | `5d340251` |
+| 3 | R21/R22 IO25 flow-input hardening (1 k series + 4.7 k pull-up) | `C11702`, `C25900` | `629e933b` |
+| 4 | J7 REEDS-B keyed to JST-EH (non-intermating with the XH SENSORS loom) | B7B-EH-A `C160254` | `57ab2a0d` |
+| 5 | Q4 reverse-polarity P-FET + D8 surge clamp + D9 Vgs zener + R23 gate pulldown | AO3407 `C181093`, SMAJ15A `C571368`, BZT52C15 `C173427`, 100 k `C60491` | `6deb9b53` |
+| 6 | U15 gas→compressor interlock + R24 pulldown + R25 invert-select + C23 decoupler | 74LVC1G08 `C12512`, 100 k `C60491`, 0 Ω `C17168`, 0.1 µF `C1525` | `e121de57` |
+| 7 | FID1–FID3 global fiducials (1 mm copper dot) | (bare-copper features) | `1fba0d91` |
+| 8 | R26/R27 faucet-UART series backstop (IO33/IO35) | 220 Ω 0402 `C25091` | `dc87092b` |
+| 9 | Faucet-end ESD TVS specified at the display connector (docs) | (cable-assembly spec) | `b9542de2` |
+| 10 | On-board faucet-UART ESD — 2× shunt clamps at U1.IO33/IO35 (supersedes #9 as primary; same day) | ESD9B3.3ST5G SOD-923 `C96512` | `4f9b41aa` |
 
-*(Change #4 was reversed 2026-07-14, `20b6efb5`: J7 unified back to XH2.54 7P — the same wafer as
+*(Change #4 was reversed 2026-07-14, `89b52d24`: J7 unified back to XH2.54 7P — the same wafer as
 J4 — trading the EH keying for a one-family connector BOM; the misplug guard is now loom labelling,
 per `assembly/cable-assemblies.md`.)*
 
@@ -86,11 +86,11 @@ The faucet display is a stock Waveshare ESP32-S3-Touch-LCD-1.47 on a ~1 m umbili
 - **Driver-end backstop (this board):** R26/R27 (220 Ω) in series on IO33/IO35 — ESD current limiting into the ESP clamp diodes and edge damping for the 1 m line.
 - **Primary ESD (cable assembly):** 2× low-capacitance ESD TVS (ESD9B3.3-class, SOD-923) from IO33 and IO35 to GND at the faucet-display connector end of the umbilical — protection at the user-touch source. Specified in `assembly/cable-assemblies.md` (SIG-6) and `assembly/faucet-and-umbilical.md`.
 
-**Resolved later 2026-07-13 (`a8f55a44`):** the primary clamp moved on-board. D11 (ESD9B3.3ST5G, `C96512`) shunts IO35→GND at R27.pin1 beside the U1.IO35 pad (−58.67, −9); D10 shunts IO33→GND at R26.pin1 (the 220 Ω output — the IO33 pad rim is boxed by the C10/C11 module-cap courtyards and the IO33/IO34 drop column at x −56.5). Both top-side (single-side assembly preserved), each GND pad a via-in-pad straight to the plane, board outline 85.05 × 72.85 unchanged, gates 12/12. R26/R27 remain the series element of the on-board clamp; the cable-end TVS drops to optional defence-in-depth. `cable-assemblies.md` and `faucet-and-umbilical.md` now carry the on-board topology as primary.
+**Resolved later 2026-07-13 (`4f9b41aa`):** the primary clamp moved on-board. D11 (ESD9B3.3ST5G, `C96512`) shunts IO35→GND at R27.pin1 beside the U1.IO35 pad (−58.67, −9); D10 shunts IO33→GND at R26.pin1 (the 220 Ω output — the IO33 pad rim is boxed by the C10/C11 module-cap courtyards and the IO33/IO34 drop column at x −56.5). Both top-side (single-side assembly preserved), each GND pad a via-in-pad straight to the plane, board outline 85.05 × 72.85 unchanged, gates 12/12. R26/R27 remain the series element of the on-board clamp; the cable-end TVS drops to optional defence-in-depth. `cable-assemblies.md` and `faucet-and-umbilical.md` now carry the on-board topology as primary.
 
 ## Firmware ↔ board
 
-Unchanged from the 2026-07-11 snapshot and out of scope for this pass: [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/bf009d63522f5c713723616fbffe8732a44b980a/firmware/src/main.cpp) (`b256c44e`; now `firmware/src_prototype/main.cpp`) is the L298N prototype's; the port encodes the interlock's assumed polarities, the GPPU enables, the ≤3-valve simultaneity, and the refill interlock. The board's wiring is self-consistent and boot-safe; nothing exercises it until a board exists.
+Unchanged from the 2026-07-11 snapshot and out of scope for this pass: [`firmware/src/main.cpp`](https://github.com/derekbreden/homesodamachine/blob/bf009d63522f5c713723616fbffe8732a44b980a/firmware/src/main.cpp) (`bf009d63`; now `firmware/src_prototype/main.cpp`) is the L298N prototype's; the port encodes the interlock's assumed polarities, the GPPU enables, the ≤3-valve simultaneity, and the refill interlock. The board's wiring is self-consistent and boot-safe; nothing exercises it until a board exists.
 
 ## Later 2026-07-13 — independent re-audit (F1 PPTC + order spec)
 
@@ -106,9 +106,9 @@ output**), and added:
   valve/pump coil, a stalled Kamoer, a chafed 12 V loom drawing between the ~3.3 A board peak and the
   6.7 A OLP) and protects Q4 (no forward-overcurrent limit of its own) + the V12 copper; auto-recovers, so
   a transient fault is not a dead unit. D8 (SMAJ15A) relocated to the open V12 island by C1/C2 to free the
-  slot — still island(V12)→GND. **No board growth (85.05 × 72.85), GATES 12/12.** Commit `76c80142`.
+  slot — still island(V12)→GND. **No board growth (85.05 × 72.85), GATES 12/12.** Commit `bca80b7d`.
   (Extended, ~33 k stock; no 2 A-hold SMD PPTC is Basic.)
-  *(F1 was dropped the next day, 2026-07-14, `5193b708`: the Mean Well supply's own 6.7 A OCP bounds
+  *(F1 was dropped the next day, 2026-07-14, `90575201`: the Mean Well supply's own 6.7 A OCP bounds
   inlet overcurrent, so the inlet protection is Q4 + D8 and the board carries no fuse.)*
 - **[`order.md`](/hardware/pcb/pcba/order.md)** — the JLCPCB order-form parameters not encoded in the
   gerber/BOM: **POFV epoxy-filled-&-capped vias (must-select — 89 vias are via-in-pad)**, ENIG finish,

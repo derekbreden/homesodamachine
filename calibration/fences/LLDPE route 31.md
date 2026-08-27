@@ -1170,7 +1170,7 @@ I've stopped — the tree isn't mine to build on right now.
 
 ## Another session is mid-edit in exactly this area
 
-`git log` has two commits I didn't make: **`a37c1752` "the ASSE 1022 vents forward, and water-1 closes on its inlet"** and **`af639af1` "asse1022: the stub reaches the body's underside"**. The ASSE has been re-posed along −Y and its vent reach cut to 3.0 — my along-X, vent-down-onto-the-cap placement is superseded. There's also now a **`water-1` segment**, so the water-path netlist I said was missing is being built.
+`git log` has two commits I didn't make: **`05c5a9e9` "the ASSE 1022 vents forward, and water-1 closes on its inlet"** and **`c8bff69c` "asse1022: the stub reaches the body's underside"**. The ASSE has been re-posed along −Y and its vent reach cut to 3.0 — my along-X, vent-down-onto-the-cap placement is superseded. There's also now a **`water-1` segment**, so the water-path netlist I said was missing is being built.
 
 And `_contents.py` is **currently broken in the working tree** — line 1150 calls `_water_deck(placed, foam_top)`, which isn't defined yet. The uncommitted diff is substantial: it moves the **SeaFlo and the whole water deck up into Zone B** ("the bay holds one subsystem — the pump is the floor plan"), and moves the C14 to `x = 22`.
 
@@ -1372,7 +1372,7 @@ My bug. `grep -c` prints `0` *and* exits 1, so `|| echo 0` appended a second lin
 
 ---
 
-It's settled — and my corrected check fires immediately: `refs=0 defs=0`, nothing touched in 4 minutes, **HEAD has moved to `ba9f65a2`**, and the only dirty files are instruction-card HTML. Route 33 landed its CAD work and moved to a different workstream.
+It's settled — and my corrected check fires immediately: `refs=0 defs=0`, nothing touched in 4 minutes, **HEAD has moved to `01734d15`**, and the only dirty files are instruction-card HTML. Route 33 landed its CAD work and moved to a different workstream.
 
 ---
 
@@ -1434,7 +1434,7 @@ I'm not going to jam it through three flavor lines. Here's the situation and wha
 
 ## The watcher
 
-My bug. `grep -c` prints `0` and exits non-zero, so `|| echo 0` appended a second line — `refs` became `"0\n0"` and the `[ ... ]` test threw on every iteration. It spun from the moment I launched it and could never have fired. I killed it (pid 56950), fixed the check, and it passes cleanly now: **route 33 landed at `ba9f65a2`**, working tree down to instruction-card HTML only.
+My bug. `grep -c` prints `0` and exits non-zero, so `|| echo 0` appended a second line — `refs` became `"0\n0"` and the `[ ... ]` test threw on every iteration. It spun from the moment I launched it and could never have fired. I killed it (pid 56950), fixed the check, and it passes cleanly now: **route 33 landed at `01734d15`**, working tree down to instruction-card HTML only.
 
 ## What route 33 built while I waited
 
@@ -1543,7 +1543,7 @@ I have to walk back my own last message — I committed to option A and then, se
 
 ## The watcher
 
-Answered first since you asked: it never fired, and couldn't have. My loop used `grep -c ... || echo 0`, but `grep -c` prints `0` *and* exits non-zero, so `|| echo 0` appended a second line — the variable became `"0\n0"` and the numeric test threw on every pass. It spun uselessly from launch. I killed it and re-checked by hand: **route 33 landed at `ba9f65a2`**, tree clean except instruction-card HTML.
+Answered first since you asked: it never fired, and couldn't have. My loop used `grep -c ... || echo 0`, but `grep -c` prints `0` *and* exits non-zero, so `|| echo 0` appended a second line — the variable became `"0\n0"` and the numeric test threw on every pass. It spun uselessly from launch. I killed it and re-checked by hand: **route 33 landed at `01734d15`**, tree clean except instruction-card HTML.
 
 ## V-K does not drop into this pack — it needs an enclosure change
 

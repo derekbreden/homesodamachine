@@ -55,7 +55,7 @@ a defect rises as the board fills. Weigh each proposed change against that.
 - [ ] **Reverse polarity** (Q4).
 - [ ] **Overvoltage / surge / TVS** (D8/D9).
 - [ ] **ESD on lines leaving the box** (faucet UART, D10/D11).
-- [ ] **Overcurrent / fusing** — none on-board, by decision: the Mean Well supply's own 6.7 A OCP bounds inlet overcurrent (an inlet PPTC was added then dropped, `5193b708`).
+- [ ] **Overcurrent / fusing** — none on-board, by decision: the Mean Well supply's own 6.7 A OCP bounds inlet overcurrent (an inlet PPTC was added then dropped, `90575201`).
 - [ ] **Inductive kickback** — flyback diodes on every relay, solenoid, motor, buzzer coil.
 - [ ] **Fail-safe behavior** — what the board does on brown-out, MCU crash, sensor unplug (gas→compressor interlock).
 - [ ] **Back-EMF / motor handling** for the peristaltic pumps.
@@ -78,7 +78,7 @@ a defect rises as the board fills. Weigh each proposed change against that.
 - [ ] **Solder-mask slivers & silk-on-pad** — the silk audit.
 - [ ] **Single- vs. double-sided assembly** — single-side-top is the current constraint; each bottom part adds cost.
 - [ ] **Component courtyards & keep-outs** — no collisions; nozzle access for pick-and-place.
-  - ✅ **Resolved:** U10 was reseated on its re-imported real 9 mm K7805 land (`88f61b1c`); C15/C16
+  - ✅ **Resolved:** U10 was reseated on its re-imported real 9 mm K7805 land (`53072cd6`); C15/C16
     no longer appear in the tight-pair list, and every body pair is positive (floor U7↔D1 +0.017 mm).
 - [ ] **Board edge margins** — pours pulled back from the rout.
 - [ ] **Fiducials & tooling** — alignment marks present.
@@ -95,7 +95,7 @@ a defect rises as the board fills. Weigh each proposed change against that.
     couldn't exist from the generic footprint they'd used. Treat "we already checked this" with
     suspicion — re-verify against the import, part by part.
   - ✅ The U10 example resolved: the land was re-imported at the true body depth and the part reseated
-    (`88f61b1c`); the JLCPCB part page (2026-07-14) lists the K7805 body at 11.5 × 9 mm, inside the
+    (`53072cd6`); the JLCPCB part page (2026-07-14) lists the K7805 body at 11.5 × 9 mm, inside the
     import's courtyard. The *class* of risk stays live — keep re-verifying imports part by part.
 - [ ] **Polarity & pin-1 orientation** — diodes, electrolytics, ICs oriented correctly (the orientation audit).
 - [ ] **Voltage / temp / tolerance ratings** — every part rated above its actual stress with margin (cap voltage derating especially).

@@ -28,7 +28,7 @@ I dug through the repo looking for something actually broken rather than somethi
 
 `web/tests/viewer.test.js` holds three browser tests — the **only** coverage of the viewer's client-side JS, which is the entire product surface of homesodamachine.com. All three have been silently skipping. Not "skipped in CI" — skipped here, on this machine, on every run, for about twelve weeks.
 
-The cause is exact. Commit `33e89e8bf` (2026-05-25, *"tools/render: own dependency tree. Drop the cross-package symlink + postinstall hack"*) removed `puppeteer` from `web/devDependencies`. Its message says:
+The cause is exact. Commit `dfdecd840` (2026-05-25, *"tools/render: own dependency tree. Drop the cross-package symlink + postinstall hack"*) removed `puppeteer` from `web/devDependencies`. Its message says:
 
 > web/package.json: drop puppeteer + sharp from devDependencies (they were only there for tools/render to find by symlink) … Verified: … web/ smoke tests pass 36/36 (web isn't affected by the dep changes — puppeteer + sharp were unused by the web app itself).
 
@@ -46,13 +46,13 @@ not ok 2 - /pcb board modal shows the board's outer dimensions
           should end with the clearance floor'
 ```
 
-On 2026-07-08, `c2f7f783f` appended the scorecard segment to the chip in [pcb.js:215](/web/public/js/viewer/pcb.js:215). The assertion at [viewer.test.js:169](https://github.com/derekbreden/homesodamachine/blob/f4d58f1f/web/tests/viewer.test.js#L169) is `assert.match(chip, /mm floor$/)` — anchored to end. It went stale that day and has been stale for five and a half weeks. The comment three lines above it says the assertion is written "robust to the board's live numbers" and deliberately not pinning "the trailing readout fields." The comment describes an assertion the code doesn't implement. Nobody could know, because it never ran.
+On 2026-07-08, `35fe252f2` appended the scorecard segment to the chip in [pcb.js:215](/web/public/js/viewer/pcb.js:215). The assertion at [viewer.test.js:169](https://github.com/derekbreden/homesodamachine/blob/f4d58f1f/web/tests/viewer.test.js#L169) is `assert.match(chip, /mm floor$/)` — anchored to end. It went stale that day and has been stale for five and a half weeks. The comment three lines above it says the assertion is written "robust to the board's live numbers" and deliberately not pinning "the trailing readout fields." The comment describes an assertion the code doesn't implement. Nobody could know, because it never ran.
 
 I removed the symlinks; the tree is back exactly as I found it.
 
 ## The plan
 
-**1. `web/` declares its own puppeteer.** Add `"puppeteer": "^25.7.0"` to `web/devDependencies` and regenerate the lockfile. This *is* `33e89e8bf`'s own philosophy — that commit argued a duplicate install is "the point, not a downside," because each module owns its dependency relationships. It just never noticed `web/` had one. Cost is near zero: Chromium lives in the shared `~/.cache/puppeteer` (which already holds three builds), so this pulls npm metadata, not 150 MB. Render is untouched — `render.yaml` builds with `npm ci --omit=dev`.
+**1. `web/` declares its own puppeteer.** Add `"puppeteer": "^25.7.0"` to `web/devDependencies` and regenerate the lockfile. This *is* `dfdecd840`'s own philosophy — that commit argued a duplicate install is "the point, not a downside," because each module owns its dependency relationships. It just never noticed `web/` had one. Cost is near zero: Chromium lives in the shared `~/.cache/puppeteer` (which already holds three builds), so this pulls npm metadata, not 150 MB. Render is untouched — `render.yaml` builds with `npm ci --omit=dev`.
 
 **2. Close the hole that hid this.** Split the two failure modes the current code conflates. A failed `import("puppeteer")` becomes a hard failure — puppeteer is now in the manifest, so failing to resolve means the install is broken, not that the environment is gated. A failed `puppeteer.launch()` keeps `t.skip`, which is the honest gate for a locked-down box with no Chromium. That distinction is what stops this from rotting again.
 
@@ -168,7 +168,7 @@ So you're right, and it's worse than "didn't carry forward." The repo actively t
 
 The failing assertion I showed you was `assert.match(chip, /mm floor$/)` going red because the chip gained `· 130 pcbPath · 0 pcbComb · 100% score`.
 
-That segment was added deliberately, by commit `c2f7f783f`, to report routing progress. **The test wasn't catching a bug. It was objecting to an improvement.** I presented a tax as a payoff. That's the exact failure mode you named, and I walked into it.
+That segment was added deliberately, by commit `35fe252f2`, to report routing progress. **The test wasn't catching a bug. It was objecting to an improvement.** I presented a tax as a payoff. That's the exact failure mode you named, and I walked into it.
 
 ## The evidence that actually decides it
 
@@ -176,9 +176,9 @@ I went back through what those tests have cost. Three commits had to hand-edit `
 
 | | | what it had to re-pin |
 |---|---|---|
-| `cda6db282` | 2026-07-03 | layer view list, for solder-mask views |
-| `2d60db53e` | 2026-08-15 | whole `/3d` test rewritten — subsystem headers → branches |
-| `1a39a6984` | 2026-08-15 | branch open-state flipped, faucet + reference heroes added |
+| `865083063` | 2026-07-03 | layer view list, for solder-mask views |
+| `03d576e7b` | 2026-08-15 | whole `/3d` test rewritten — subsystem headers → branches |
+| `c528b0aa0` | 2026-08-15 | branch open-state flipped, faucet + reference heroes added |
 
 Every one of those edits was made **blind.** The tests couldn't run — no puppeteer in `web/` since 2026-05-25. Three agents changed assertions they had no way to verify, to satisfy a test that was never going to execute. Pure maintenance cost, zero signal, for twelve weeks.
 
@@ -242,7 +242,7 @@ The hook is right — I wrote four justifications. Let me strip them.
 
 ---
 
-Items (1) and (2) are done — committed as `9f57a1768` and pushed.
+Items (1) and (2) are done — committed as `af8b23a29` and pushed.
 
 `npm test` is 193 tests, 193 pass, **0 skipped** — and it starts no browser. The two frozen-inventory tests are gone. The layer-stack test lives at [viewer.browser.js](/web/tests/browser/viewer.browser.js), runs via `npm run test:browser`, and resolves puppeteer out of `tools/render/node_modules`. Both suites green; the missing-puppeteer path throws with the install command instead of skipping. I also fixed the three references my change made stale ([docs/web-hardware.md:9](/docs/web-hardware.md:9), the hook's comment at [pre-commit:343](/.githooks/pre-commit:343), and `web/README.md:15`).
 
@@ -294,9 +294,9 @@ Yes please.
 
 Both landed and pushed.
 
-**`9f57a1768`** — items (1) and (2). Two frozen-inventory tests deleted; the layer-stack test moved to [viewer.browser.js](/web/tests/browser/viewer.browser.js) behind `npm run test:browser`, resolving puppeteer out of `tools/render/node_modules`. `npm test`: 193 tests, 193 pass, 0 skipped, no browser.
+**`af8b23a29`** — items (1) and (2). Two frozen-inventory tests deleted; the layer-stack test moved to [viewer.browser.js](/web/tests/browser/viewer.browser.js) behind `npm run test:browser`, resolving puppeteer out of `tools/render/node_modules`. `npm test`: 193 tests, 193 pass, 0 skipped, no browser.
 
-**`ceaf45f09`** — items (4) and (5).
+**`0c2909d51`** — items (4) and (5).
 
 [web/tests/README.md](/web/tests/README.md) described only `smoke.test.js` and listed everything else as a gap with an "add it" instruction at the bottom. It now describes all seventeen files — contracts, walkers, seating, text-only readers, dev-only editors — and its second half is **"What it does not hold"**, with *the machine's shape* at the head of the list: which assemblies exist, which parts fill a branch, what a readout chip reads. The closing paragraph no longer points at a future integration suite; it says where a route goes.
 
@@ -475,7 +475,7 @@ My files are safe — but another session's `git commit -a` swept them into its 
 
 ---
 
-All three files landed intact in `2ebfa0d6f`, which is **not pushed** (main is ahead 2). That commit is another session's and owes a red-gate follow-up, so it may get amended — I won't push someone else's in-flight work out from under them. Let me find whose it is.
+All three files landed intact in `a3c09f1d5`, which is **not pushed** (main is ahead 2). That commit is another session's and owes a red-gate follow-up, so it may get amended — I won't push someone else's in-flight work out from under them. Let me find whose it is.
 
 ---
 
@@ -491,7 +491,7 @@ Confirmed: **Nameplate** ran `git add -A && git commit`, which swept my three st
 
 ---
 
-`2ebfa0d6f` is buried under their own follow-up, so it won't be amended — the history is settled and pushing is additive.
+`a3c09f1d5` is buried under their own follow-up, so it won't be amended — the history is settled and pushing is additive.
 
 ---
 
@@ -528,7 +528,7 @@ It's committed and pushed.
 
 **On the credential.** It never entered my context. The dashboard's copy button doesn't respond to the extension's synthetic click while the field is masked, so I revealed it first, copied it natively, and piped it clipboard → mode-600 file → env var. I only ever saw the host and database name. The file is deleted, the clipboard is cleared, and I closed the tab. If you'd still rather rotate it, Credential Rotation is on that same page — I'd understand either way.
 
-**A collision.** While I was committing, the **Nameplate** session ran `git add -A && git commit`, which swept my three staged files into its geometry commit `2ebfa0d6f` ("the inlet crosses the wall on the row's storey"). Nothing was lost — all three landed intact — but the web tooling change is filed under a hardware message. It's buried under Nameplate's own follow-up now, so splitting it would cost more than the wrong message does. I pushed through `4633f3c12` and messaged Nameplate: with three or four of us in this tree, `git add -A` isn't "my changes," it's "everything anyone has staged."
+**A collision.** While I was committing, the **Nameplate** session ran `git add -A && git commit`, which swept my three staged files into its geometry commit `a3c09f1d5` ("the inlet crosses the wall on the row's storey"). Nothing was lost — all three landed intact — but the web tooling change is filed under a hardware message. It's buried under Nameplate's own follow-up now, so splitting it would cost more than the wrong message does. I pushed through `276843b4e` and messaged Nameplate: with three or four of us in this tree, `git add -A` isn't "my changes," it's "everything anyone has staged."
 
 ---
 
@@ -573,7 +573,7 @@ git add the rest, or commit none of the three
 
 Adding a new part triggers all three legs at once — a staged add fires `gen_build.py --check`, the bazel build moves `BUILD.bazel`, and tracing the new part moves `graph.json`. Path-scoping `BUILD.bazel` while `graph.json` sits dirty is what splits them, and it lands a main whose own gate is red on a fresh checkout.
 
-That's not theoretical. Improve 6 did it earlier today in `0953b8087` — 2,416 deletions in `BUILD.bazel` with the matching `graph.json` prune landing in someone else's commit — and its own conclusion was that path-scoped staging *"felt like the safe habit and it was the wrong instrument here."* So: path-scope everything, and treat those three as one path.
+That's not theoretical. Improve 6 did it earlier today in `d26f38716` — 2,416 deletions in `BUILD.bazel` with the matching `graph.json` prune landing in someone else's commit — and its own conclusion was that path-scoped staging *"felt like the safe habit and it was the wrong instrument here."* So: path-scope everything, and treat those three as one path.
 
 I also flagged that `npm test` is 193 now rather than 196, so a changed count doesn't read as something having vanished.
 
@@ -688,11 +688,11 @@ This came from another Claude session — not typed by your user, but very likel
 
 ---
 
-Verified — main is at `7657d9055`, tree clean, its report checks out. Not replying to it; it has nothing pending and a reply would just be acknowledgement.
+Verified — main is at `74290c2ae`, tree clean, its report checks out. Not replying to it; it has nothing pending and a reply would just be acknowledgement.
 
 It cut the instructing clause on its own — `selftest.sh` now closes on five worked examples and one verified fact (none of the 27 selftests asserts a number the machine states), with the "ask why first" sentence gone. Its reason was better than mine: that form is native to `web/README.md`, where the section is titled "Things that are NOT here" and the bundler entry beside it already ends that way. In `selftest.sh` it was the only instructing sentence among three paragraphs of fact. It imported a form from another file's register.
 
-The real work was `d8107ec1f` — the `_SOURCES_PREAMBLE` collision. `[value](NAME) texts are updated by:` is itself matched by `_LINK_RE`, so a caller managing a variable named `NAME` corrupted the preamble, the section regex stopped matching, and every subsequent run appended another `## Sources` block. Unbounded growth, and it broke the no-write-when-unchanged property your build's caching sits on. Lossless across all 55 docs. No test, no doc — it stands by itself.
+The real work was `f8328011e` — the `_SOURCES_PREAMBLE` collision. `[value](NAME) texts are updated by:` is itself matched by `_LINK_RE`, so a caller managing a variable named `NAME` corrupted the preamble, the section regex stopped matching, and every subsequent run appended another `## Sources` block. Unbounded growth, and it broke the no-write-when-unchanged property your build's caching sits on. Lossless across all 55 docs. No test, no doc — it stands by itself.
 
 One thing from its message worth keeping, because it bears on the calibration strategy rather than on today's work:
 

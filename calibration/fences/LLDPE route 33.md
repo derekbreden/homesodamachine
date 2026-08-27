@@ -175,7 +175,7 @@ Six agents are out. While they work, let me understand the integration path — 
 
 ---
 
-The other session finished and committed (`a37c1752`) — tree is clean apart from a build artifact, so no collision. And I found something material in the stash list that the arrangement agents need:
+The other session finished and committed (`05c5a9e9`) — tree is clean apart from a build artifact, so no collision. And I found something material in the stash list that the arrangement agents need:
 
 ---
 
@@ -198,7 +198,7 @@ stash@{0}: enclosure: SeaFlo accurate body dims 80x72x187 (research) + CO2 clear
 
 The pump's real envelope is **80 × 72 × 187 mm** — longer than the entire ASSE chain — and a previous attempt to pack it at true size didn't fit and got stashed. Meanwhile the service bay above the foam cap is being filled with the ASSE chain (margins already down to 4.71 mm off the C14), two trays, and a DC block. That's packing smallest-first with the biggest body still homeless. I've pushed that to both arrangement agents as the thing to attack, along with your permission to move everything above z = 253.4 including the rear-panel ports and the C14.
 
-Also worth knowing: the other session finished and committed while we talked (`a37c1752`, "the ASSE 1022 vents forward, and water-1 closes on its inlet"), so the tree is clean and we're not fighting it.
+Also worth knowing: the other session finished and committed while we talked (`05c5a9e9`, "the ASSE 1022 vents forward, and water-1 closes on its inlet"), so the tree is clean and we're not fighting it.
 
 I'll report back when the dimension modules land and the arrangement verdicts come in.
 
@@ -1764,7 +1764,7 @@ Reported to the packing agent. While it works, one thing I found in the build ma
 
 [enclosure_assembly.py:317](https://github.com/derekbreden/homesodamachine/blob/c858fc86/hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py#L317) says of a failing pack — *"the sidecar records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and blocks the commit — an invalid pack can be inspected but can never land."*
 
-That holds under `HSM_EDITOR`. Headless it doesn't: line 319 exits *before* the write, so the sidecar keeps the **last valid** verdict — `gatesPass: true`, describing a pack that no longer exists. The pre-commit hook then reads a passing sidecar and only emits a soft warning (`sidecar may be behind _contents.py`), so the commit lands. That's exactly what happened with `5c5ad1e1`, and it's also what made me misreport the gates twice — I was reading a scorecard from 20:23 against source edited at 20:42.
+That holds under `HSM_EDITOR`. Headless it doesn't: line 319 exits *before* the write, so the sidecar keeps the **last valid** verdict — `gatesPass: true`, describing a pack that no longer exists. The pre-commit hook then reads a passing sidecar and only emits a soft warning (`sidecar may be behind _contents.py`), so the commit lands. That's exactly what happened with `8b768b5c`, and it's also what made me misreport the gates twice — I was reading a scorecard from 20:23 against source edited at 20:42.
 
 ---
 
@@ -2154,7 +2154,7 @@ A lot of files I never touched are modified — cold-core sources, assembly docs
 
 ---
 
-Another session committed `91516c83` and is actively editing cold-core files. Staging only mine:
+Another session committed `2bbfac3f` and is actively editing cold-core files. Staging only mine:
 
 ---
 
@@ -2186,7 +2186,7 @@ The thumbnail renderer only resolves paths inside the repo. Rather than churn ar
 
 ---
 
-Right — and I'd already encoded it: commit `5c5ad1e1` names its own red gate in the message. That commit is the example; a memory file would just be a worse copy of it.
+Right — and I'd already encoded it: commit `8b768b5c` names its own red gate in the message. That commit is the example; a memory file would just be a worse copy of it.
 
 ---
 
@@ -2206,4 +2206,4 @@ Right — and I'd already encoded it: commit `5c5ad1e1` names its own red gate i
 
 Still open: `water-4` (discharge → carbonator) blocked on the MAACFLOW and GASHER check, and the branch run to V-A waiting on the flow regulator, which has never been placed anywhere.
 
-One caution — another session is actively editing this tree (it landed `91516c83` and the 87-card deck mid-work). I committed only my own files; the cold-core and assembly-doc changes in your working tree are theirs.
+One caution — another session is actively editing this tree (it landed `2bbfac3f` and the 87-card deck mid-work). I committed only my own files; the cold-core and assembly-doc changes in your working tree are theirs.

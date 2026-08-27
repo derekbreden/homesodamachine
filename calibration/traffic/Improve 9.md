@@ -157,7 +157,7 @@ Read it. Now let me check the calibration documents and whether the lesson was r
 
 ---
 
-Pulled `Improve 8` and read it end to end, plus `calibration/Principle.md`, the two files `ceaf45f09` rewrote, and the pre-commit hook.
+Pulled `Improve 8` and read it end to end, plus `calibration/Principle.md`, the two files `0c2909d51` rewrote, and the pre-commit hook.
 
 **Orientation:** `Improve 8` opened with the identical prompt I got. It pitched resurrecting three dead puppeteer tests. You pushed back — tests aren't free, they cost time to run and headaches to keep passing, they only pay when guarding something you *want* frozen. It relayed `Build`/`Manager`/`Cleanup`, found its own evidence was a test objecting to an improvement rather than catching a bug, deleted two tests, moved one behind `npm run test:browser`, and — after you sent it to `Principle.md` — withdrew its plan to write a rule into CLAUDE.md, fixing the two `web/` docs that had taught it wrong instead. It's now off reading the Postgres signup table.
 
@@ -165,7 +165,7 @@ Now the question.
 
 ## Why I reached for tests
 
-**The mechanical answer, which is only half true:** the lesson from `ceaf45f09` lives in exactly two files, `web/README.md:166` and `web/tests/README.md`, and I was standing in `tools/`. I ran `npm test` from inside `web/` and never opened either README. `grep -ril "stays still" tools/ hardware/ CLAUDE.md` returns nothing. There's no memory file — the directory holds only `MEMORY.md`, a copy of `CLAUDE.md`.
+**The mechanical answer, which is only half true:** the lesson from `0c2909d51` lives in exactly two files, `web/README.md:166` and `web/tests/README.md`, and I was standing in `tools/`. I ran `npm test` from inside `web/` and never opened either README. `grep -ril "stays still" tools/ hardware/ CLAUDE.md` returns nothing. There's no memory file — the directory holds only `MEMORY.md`, a copy of `CLAUDE.md`.
 
 But that's an alibi, not a cause. Here's the cause.
 
@@ -293,7 +293,7 @@ Four commits, pushed, tree clean.
 
 I first closed it with *"If you reach for a selftest on a module that holds no such rule, ask why first."* Then cut it. In `web/README.md` that form is native — the section is titled "Things that are NOT here" and the bundler entry beside it ends the same way. In `selftest.sh` it was the only instructing sentence in a file that otherwise only describes. `Principle.md` earns that compromise after the example fails across many runs; it has failed once.
 
-**[1acdef901](/marketing/install-envelope.md)** — running a real generator end-to-end turned up drift I hadn't caused: the enclosure moved in `2ebfa0d6f`/`4633f3c12` and `install-envelope.md` still carried the old silhouette. Kitchen 223×473 → 215×462.
+**[1acdef901](/marketing/install-envelope.md)** — running a real generator end-to-end turned up drift I hadn't caused: the enclosure moved in `a3c09f1d5`/`276843b4e` and `install-envelope.md` still carried the old silhouette. Kitchen 223×473 → 215×462.
 
 Gates: `gen_build.py --check` green, `check_declared_imports.py` green, `sh -n` on the harness, and `//:lint-selftest //:check-declared-imports-selftest //:sync-tree-selftest` all pass through the edited file.
 
@@ -352,7 +352,7 @@ The memory hook blocked that — correctly, and I'll leave it alone. Committing 
 
 ---
 
-Landed as `b8bae6877`. Two changes to that sentence, both small:
+Landed as `68231c936`. Two changes to that sentence, both small:
 
 **`any change you see` → `everything here`.** The original scopes to a change you're evaluating. What actually stopped us was work we weren't evaluating at all — files sitting dirty in the tree that belonged to a session still running. "Everything here" covers the tree, not just the diff in front of you.
 

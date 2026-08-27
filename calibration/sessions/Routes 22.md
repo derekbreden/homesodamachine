@@ -142,7 +142,7 @@ Confirmed. Now let me restore the tree and rebuild it green.
 
 ---
 
-I did what you asked and it fails on one line. Nothing is committed — the tree is clean at `dcd74d0b`.
+I did what you asked and it fails on one line. Nothing is committed — the tree is clean at `54de02a1`.
 
 **The move you asked for.** I set fluid-26's cap entry to (48.124, 188) in [`_cold_core_interface.py:528`](/hardware/printed-parts/cold-core/_cold_core_interface.py:528) and the build stops immediately:
 
@@ -497,7 +497,7 @@ Full west costs more than you asked to spend. Reverting the tree to the last goo
 
 ---
 
-Tree is back at `c1a20e3e`, 10/11, clean. Here's what I measured, all from real builds:
+Tree is back at `8f298ac5`, 10/11, clean. Here's what I measured, all from real builds:
 
 **Your two instructions conflict.** Max west and preserved radii are mutually exclusive:
 
@@ -554,7 +554,7 @@ Fair — I've been arguing from tables. Let me put the actual region in front of
 
 ---
 
-Plan of the region as it stands at `c1a20e3e`. **X increases to the left in this view, so X− is toward the right.**
+Plan of the region as it stands at `8f298ac5`. **X increases to the left in this view, so X− is toward the right.**
 
 - **tee-y-f** (purple) sits at x 137.0, directly over the tray's east collet V-H-O — that's the "follows" you want undone.
 - **bag-b-tray-assembly** (blue) spans x 78.0 → 137.0.
@@ -708,7 +708,7 @@ So Y-F west isn't a number, it's "far enough that fluid-21 leaves already on car
 2. I take Y-F now and Routes 24 stops.
 3. I relay carb-1's column to Routes 24 and it does both.
 
-Tree is clean at `c1a20e3e`.
+Tree is clean at `8f298ac5`.
 
 ---
 

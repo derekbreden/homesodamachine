@@ -13,7 +13,7 @@ purely **TPU hardness**, **CAD interference values**, and **install
 technique**. Print settings are stock Bambu profiles for whichever
 TPU SKU is loaded.
 
-## v1 — open-ended sleeve (commit `e10ce99`, 2026-05-22)
+## v1 — open-ended sleeve (commit `8ae9d71`, 2026-05-22)
 
 Geometry: 8 mm tall, Outer Ø 10.20 mm, Inner Ø 9.45 mm, wall 0.375 mm.
 Open both ends — water flows through the LLDPE inside, TPU seals
@@ -47,7 +47,7 @@ first-layer width check.
 Not printed in this configuration; the v2 redesign (below) supersedes
 the workaround.
 
-## v2 — thimble with cap (commit `57850a8`, 2026-05-24)
+## v2 — thimble with cap (commit `ef4e871`, 2026-05-24)
 
 Geometry: 15 mm total height = 1.5 mm cap + 13.5 mm cylinder. Outer
 Ø 10.20 mm, Cylinder ID 9.45 mm, wall 0.375 mm (unchanged), cap hole

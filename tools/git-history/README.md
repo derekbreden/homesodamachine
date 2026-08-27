@@ -24,13 +24,23 @@ the new SHA names is the same commit in every respect a reader cares about.
 expunged, so the rewrite left them empty and dropped them — 214 in the second run. The zero
 is the answer: there is no successor, and the work is in the commit that follows.
 
-**The transcripts were not edited.** A SHA sitting in prose — often in something the author
-typed — is the record of what was said, and rewriting it would be changing that record to
-keep a lookup working. Keeping the table is the cheaper half of the trade and it costs the
-record nothing. Blob URLs are the exception and were repinned: a URL's SHA is an address
-rather than a word, and a dead one is a link that 404s instead of a fact a reader can chase.
+**Every SHA in this tree that has a successor now names it.** A SHA in prose is an address a
+reader is meant to chase, not a word — the transcripts under [`calibration/`](/calibration/)
+carry them because a file moved or was deleted and the commit is where the thing still stands,
+which is the same reason source and print logs carry them. An address that resolves for nobody
+is worth less than the record it was thought to preserve, so the tree is repinned and this
+table is what a SHA written down somewhere ELSE — an old note, a message, a branch nobody
+kept — is followed with.
 
-[`check_paths.py`](/tools/check_paths.py) holds that: a blob URL pinned to a commit this
-repo does not have is reported, and this file is what answers it.
+**Twenty-six do not resolve, and none of them can.** Seventeen name commits the rewrite left
+empty and dropped, so there is no successor to point at; the work is in the commit that
+follows. Nine were never commits here — SHAs in the `rectdiff` and `circuit-json-to-gerber`
+forks, and payload content hashes, which are hex of a different kind and belong to whatever
+produced them.
+
+[`check_paths.py`](/tools/check_paths.py) reports a blob URL pinned to a commit this repo does
+not have, and this file is what answers it. It guards the PATH half of a reference; a bare SHA
+in prose is not a path, so nothing derives it and nothing catches it when a rewrite orphans
+it. That is why the sweep is a sweep and not a check.
 
 This table cannot be regenerated. The mirrors both runs came from were throwaways.

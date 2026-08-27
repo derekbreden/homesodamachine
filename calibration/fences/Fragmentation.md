@@ -614,7 +614,7 @@ Armed. Standing by for the commit that closes the corner — that's your J1/J2 w
 
 ---
 
-**Commit landed — the corner is done, and the tree is clean.** HEAD moved to `97589ecf` and porcelain is empty. Before I touch J1/J2, two things matter: what the agent committed, and whether it stopped or rolled straight into more work (which decides whether the window is actually safe). Let me look.
+**Commit landed — the corner is done, and the tree is clean.** HEAD moved to `81a10e4a` and porcelain is empty. Before I touch J1/J2, two things matter: what the agent committed, and whether it stopped or rolled straight into more work (which decides whether the window is actually safe). Let me look.
 
 ---
 
@@ -624,7 +624,7 @@ Armed. Standing by for the commit that closes the corner — that's your J1/J2 w
 
 Big moment, and the landscape just shifted — let me read it precisely before I touch anything.
 
-The executor **committed and pushed** the corner (`97589ecf`, "hand-route the USB-C corner — own it end-to-end, autorouter out"): floor 0.155, audits clean, every net verified connected, `jp`/`up`/`u13p` frame-mappers and `drop`/`rise` via-emitters as reusable primitives. It banked the win cleanly — my reserved gold-plating nudge was never needed. It even disclosed two honest boundaries (auto-reset still autorouted; 4 cosmetic UART lints, relievable by a U13/U14 placement nudge) and asked you which to pursue.
+The executor **committed and pushed** the corner (`81a10e4a`, "hand-route the USB-C corner — own it end-to-end, autorouter out"): floor 0.155, audits clean, every net verified connected, `jp`/`up`/`u13p` frame-mappers and `drop`/`rise` via-emitters as reusable primitives. It banked the win cleanly — my reserved gold-plating nudge was never needed. It even disclosed two honest boundaries (auto-reset still autorouted; 4 cosmetic UART lints, relievable by a U13/U14 placement nudge) and asked you which to pursue.
 
 **Then you answered — by pulling this very conversation ("Approach") into its session and telling it: *you are the main executor, the repo is yours, get us to a clean board with beautiful traces everywhere, make it happen.*** So its mandate just expanded from the corner to the whole board, and it's now reading this transcript before continuing.
 
@@ -903,7 +903,7 @@ So my net-less-blindness theory was **wrong**, and I nearly baked it into the pr
 
 ---
 
-Three doc commits landed since the corner (`b05ba1f`, `95ca0401`, `ea2c87d4`) — "document the routing procedure," "autorouter-coexistence.md," "capacity autorouter is deterministic." None touched the corner routing. Let me read "Failure" to see who's writing these and whether the procedure's already been relayed.
+Three doc commits landed since the corner (`f067e25`, `aaa0c28a`, `6e0000fb`) — "document the routing procedure," "autorouter-coexistence.md," "capacity autorouter is deterministic." None touched the corner routing. Let me read "Failure" to see who's writing these and whether the procedure's already been relayed.
 
 ---
 
@@ -1131,7 +1131,7 @@ Approach landed it — and **nailed the exact thing I was watching for.** The Ap
 
 ---
 
-Confirmed on `main`: **`92481bf1` — "clearance floor catches same-net redundant copper overlaps,"** only `clearance.ts` changed. Your directive is done, and Approach drew the line exactly right.
+Confirmed on `main`: **`bc7c05a2` — "clearance floor catches same-net redundant copper overlaps,"** only `clearance.ts` changed. Your directive is done, and Approach drew the line exactly right.
 
 The bug was `clearance.ts` line 217: `if (A.net === B.net || !shareLayer(A, B)) continue` — the floor skipped **every** same-net pair. Approach did **not** just delete that (the trap I was watching for — that would scream at every legal junction). It added overlap-**length** detection: same-net copper may touch at a junction (point contact), but coincident copper over a *length* gets flagged. That's the honest line, and it drew it correctly.
 
@@ -1182,11 +1182,11 @@ The executor watcher caught a big one — and it's another escalation in your fa
 
 ---
 
-The escalation cuts two ways — here's the honest both-sides. The detector fix landed in **two** `clearance.ts` commits: `92481bf1` (same-net redundant overlap) and now `a465ba5f` ("honest clearance floor — sees via-adjacent copper"). With both in, the committed board no longer reads 0.155 — it reads **−0.227**, and the executor traced it to a **cross-net** proximity: its UART **RXD** bottom run sits **0.12 mm from a V3 (3V3) stitch via** at (−51.25, 18.14). If real, that's not redundant same-net copper — it's an actual **different-net clearance violation** that shipped, hidden because the old check *dropped the segment right after a via* (the exact via-adjacent blind spot `a465ba5f` just closed).
+The escalation cuts two ways — here's the honest both-sides. The detector fix landed in **two** `clearance.ts` commits: `bc7c05a2` (same-net redundant overlap) and now `78592ce5` ("honest clearance floor — sees via-adjacent copper"). With both in, the committed board no longer reads 0.155 — it reads **−0.227**, and the executor traced it to a **cross-net** proximity: its UART **RXD** bottom run sits **0.12 mm from a V3 (3V3) stitch via** at (−51.25, 18.14). If real, that's not redundant same-net copper — it's an actual **different-net clearance violation** that shipped, hidden because the old check *dropped the segment right after a via* (the exact via-adjacent blind spot `78592ce5` just closed).
 
 Two ways it resolves, and the executor's geometry check is settling which:
 1. **Real short** → you were right past even the same-net overlaps: a genuine RXD-to-3V3 violation the blind floor hid, needs re-routing.
-2. **False positive** → `a465ba5f`'s via-adjacent detection is over-firing on a phantom segment — the detector swung from blind to *screaming*, the exact over-correction I told you I'd watch for. Then Approach's via-adjacent pass needs tightening.
+2. **False positive** → `78592ce5`'s via-adjacent detection is over-firing on a phantom segment — the detector swung from blind to *screaming*, the exact over-correction I told you I'd watch for. Then Approach's via-adjacent pass needs tightening.
 
 Either way it's the live test of whether the honest floor is calibrated right — and I'll report which it lands on.
 
@@ -1198,7 +1198,7 @@ One thing I'm heading off now: the executor is reading the 0.155→−0.227 chan
 
 ---
 
-Both away — the clarification's queued for the executor, and the watcher's re-armed for the verdict. The single thing that matters next is which way the RXD-to-V3 resolves: a **real cross-net short** the blind floor shipped (board needs a re-route, and you were right yet again), or an **over-fire** in `a465ba5f`'s via-adjacent detection (the honest floor swung too far and Approach's fix needs tightening). The executor's raw-geometry check decides it, and I'll bring you the answer the moment it lands — that's the one that tells us whether the clearance floor is finally both honest *and* trustworthy.
+Both away — the clarification's queued for the executor, and the watcher's re-armed for the verdict. The single thing that matters next is which way the RXD-to-V3 resolves: a **real cross-net short** the blind floor shipped (board needs a re-route, and you were right yet again), or an **over-fire** in `78592ce5`'s via-adjacent detection (the honest floor swung too far and Approach's fix needs tightening). The executor's raw-geometry check decides it, and I'll bring you the answer the moment it lands — that's the one that tells us whether the clearance floor is finally both honest *and* trustworthy.
 
 ---
 
@@ -1222,7 +1222,7 @@ Both away — the clarification's queued for the executor, and the watcher's re-
 
 The system-reminder injection lines up exactly with what the executor just found on its own — and the cliffhanger resolves in your favor, hard.
 
-**It's a real short — five of them.** After the executor fixed its *own* geometry checker to see copper leaving vias (the same blind spot the floor had), it now **agrees with the floor exactly: 5 different-net shorts** at U13's west face, gap 0.000, all among its own four manual bottom traces — host **D_POS/D_NEG** crossing UART **TXD/RXD**, plus **TXD×RXD**. So: **real shorts, not a false positive** — which also means Approach's via-adjacent detector (`a465ba5f`) is correctly calibrated, not over-firing. The floor is finally both honest *and* trustworthy.
+**It's a real short — five of them.** After the executor fixed its *own* geometry checker to see copper leaving vias (the same blind spot the floor had), it now **agrees with the floor exactly: 5 different-net shorts** at U13's west face, gap 0.000, all among its own four manual bottom traces — host **D_POS/D_NEG** crossing UART **TXD/RXD**, plus **TXD×RXD**. So: **real shorts, not a false positive** — which also means Approach's via-adjacent detector (`78592ce5`) is correctly calibrated, not over-firing. The floor is finally both honest *and* trustworthy.
 
 Full vindication: "clean 0.155" was **doubly** blind — the old floor *and* the executor's own old checker both skipped via-adjacent copper, so five real shorts sat in the committed corner the whole time. "It's been like this the entire time" — literally, and they're shorts, not merely redundant copper.
 
@@ -1326,7 +1326,7 @@ Armed. Two numbers I'll bring back on the commit: **cross-net shorts** (should h
 
 ---
 
-**The corner is fixed and committed** — `d3732f4a` "fix 5 cross-net shorts at U13 west — layer-separate the USB/UART escape." And the executor closed it out *properly*:
+**The corner is fixed and committed** — `812c7637` "fix 5 cross-net shorts at U13 west — layer-separate the USB/UART escape." And the executor closed it out *properly*:
 
 - **5 cross-net shorts → 0**, verified by its now-fully-honest geometric checker (wire-wire **and** wire-via) *and* the honest floor — they agree.
 - It even checked **manufacturability**, which most agents skip: its inner-layer vias show as `top→inner1` spans in circuit-json, but it read the actual `drill.drl` and confirmed there's one plated drill file, no blind/buried pairs — so every via is full-depth through-hole, JLCPCB-buildable. 0 opens, cap/conn/amp clean.

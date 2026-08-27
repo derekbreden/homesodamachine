@@ -462,7 +462,7 @@ Let me build that, and check the tree state while it runs.
 
 ---
 
-Tree's clean — the other session finished and committed (drip pan + rails landed in `0c06bc36`). The directory is mine. There's one untracked file left behind; let me see what it is, since the world has also moved since my measurements.
+Tree's clean — the other session finished and committed (drip pan + rails landed in `f09fe47c`). The directory is mine. There's one untracked file left behind; let me see what it is, since the world has also moved since my measurements.
 
 ---
 
@@ -754,7 +754,7 @@ Settled. Taking over.
 
 ---
 
-Tree is clean, `fit.py` landed in `ce33fb74`/`c94bf98b`, and the drip pan committed as `c5c2ebbd` — *"the chain rolls off its lid"*, so the ASSE may have changed pose too. Let me re-baseline completely before touching anything.
+Tree is clean, `fit.py` landed in `06394aae`/`02ec0095`, and the drip pan committed as `1e3d2905` — *"the chain rolls off its lid"*, so the ASSE may have changed pose too. Let me re-baseline completely before touching anything.
 
 ---
 
@@ -1147,7 +1147,7 @@ Here's the domino chain, measured, and it isn't where I thought:
 
 The prize is worth it: with those cleared, the pump goes to `SEAFLO_POS` x=**189.5** (flush at the cap's east edge), opening a **96 mm** west column instead of today's 55.5 — wide enough for the board's 73.3 outright.
 
-Two commits are already in and pushed (`4b4a58f7`, `1b5d8975`): pump at the cap's front edge, chain riding its column, 7/7 gates, and a real `water-4` overlap fixed on the way.
+Two commits are already in and pushed (`f3c1b189`, `958f9b96`): pump at the cap's front edge, chain riding its column, 7/7 gates, and a real `water-4` overlap fixed on the way.
 
 I'm going to start on the umbilical triangle re-spacing, since nothing else moves until the lanes can run high. Flagging one thing so it's a decision and not a surprise: raising the flavor bulkheads changes where the faucet umbilical exits the back panel, which is a visible exterior feature — say the word if you'd rather the lanes cross somewhere other than over the pump head.
 

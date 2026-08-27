@@ -16,7 +16,7 @@ genuine disbelief ("absolutely zero skill level," "that is amazing") is the
 whole appeal. The board is a **Waveshare MCP23017 I/O-expander module**
 (B07P2H1NZG — the same SKU as the reed-switch bench rig in
 [`/firmware/src_reed_bench/`](https://github.com/derekbreden/homesodamachine/blob/7660a01989133bb23f4a4e56bbdd4157efc2cae9/firmware/src_reed_bench/README.md),
-`c74ad433`), so the
+`7660a019`), so the
 soda-machine tie is real: it's a build part. It stays backdrop, never the pitch
 — see [`concepts.md`](concepts.md) (every Tier-2 piece keeps the machine
 present, never selling).

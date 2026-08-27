@@ -102,7 +102,7 @@ It ended asking you to approve deepening, or else opt into a harder repack. **Yo
 
 - **No V-K anywhere in the repo** — no fill valve, no inlet shutoff exists.
 - **Box was not deepened** — `z_joint_back = 267.0`, unchanged ([enclosure.py:214](/hardware/printed-parts/enclosure/enclosure/enclosure.py:214)); depth is still ~393.
-- The commits since route 33 landed (`ba9f65a2`) have all been **instruction cards and the electronics-shelf/AC wiring** — nobody picked up the basement or V-K.
+- The commits since route 33 landed (`01734d15`) have all been **instruction cards and the electronics-shelf/AC wiring** — nobody picked up the basement or V-K.
 
 So the whole thread is still open exactly where route 31 left it.
 
@@ -1065,7 +1065,7 @@ All 20 V-K files staged (the big `enclosure-assembly.step` diff is the geometry 
 
 ---
 
-Commit `e9be778e` created — and all six pre-commit gates passed (pin-map drift, BOM tags, build status, scorecard, silk, orientation). Now push to main.
+Commit `100b21cf` created — and all six pre-commit gates passed (pin-map drift, BOM tags, build status, scorecard, silk, orientation). Now push to main.
 
 ---
 
@@ -1202,7 +1202,7 @@ Both **pie-in-the-sky and appliance are idempotent too** (build1 == build2 ≠ H
 
 ---
 
-pcba has no `npm` scripts — it's driven by `render-board.ts` (tsx). Blame is the tell: `out/pcba.gerbers.zip` was last committed by `6e920402`, but `pcba.tsx` changed again in `06dd214a` ("J2's last two channels named as spare") — source moved past the committed outputs. Same pattern. But the gerber toolchain (forked tscircuit) could genuinely be non-deterministic, so I must verify before committing copper. Let me find the build command and test it.
+pcba has no `npm` scripts — it's driven by `render-board.ts` (tsx). Blame is the tell: `out/pcba.gerbers.zip` was last committed by `a81c0baf`, but `pcba.tsx` changed again in `02a83afe` ("J2's last two channels named as spare") — source moved past the committed outputs. Same pattern. But the gerber toolchain (forked tscircuit) could genuinely be non-deterministic, so I must verify before committing copper. Let me find the build command and test it.
 
 ---
 
@@ -1342,7 +1342,7 @@ Background regen is running (pie + pcba-tray, ~several minutes). Meanwhile, let 
 
 ---
 
-Notable: a **pre-commit hook already guards pcba staleness** — it caught "out/pcba.glb is behind the gerbers" and rebuilt it. So the repo has the *concept* of an output-staleness guard, but only for the pcba glb — not the gerbers, not enclosure/pie/appliance. That's the systemic gap. The fix is committed as `8e0f66cf`.
+Notable: a **pre-commit hook already guards pcba staleness** — it caught "out/pcba.glb is behind the gerbers" and rebuilt it. So the repo has the *concept* of an output-staleness guard, but only for the pcba glb — not the gerbers, not enclosure/pie/appliance. That's the systemic gap. The fix is committed as `d7c472c8`.
 
 Let me peek at the background regen progress while it runs.
 
@@ -1356,7 +1356,7 @@ Diagnosis is complete and the real bug is fixed. Here's where it stands while th
 
 **Two categories, both now understood:**
 
-1. **Real stale outputs** (enclosure pieces, pie-in-the-sky, appliance, pcba SVGs/PNGs) — *not* a bug. The builds are provably idempotent (build twice → byte-identical). Prior sessions committed **source** changes and orphaned the regenerated **binaries**; each session then inherited the churn and re-left it. I nearly did exactly that. Blame: the coupon grew 200→268 in [3020e227](https://github.com/derekbreden/homesodamachine/commit/3020e227) (plus later cold-core moves) for the enclosure; pcba's `out/` fell behind `pcba.tsx` at `06dd214a`.
+1. **Real stale outputs** (enclosure pieces, pie-in-the-sky, appliance, pcba SVGs/PNGs) — *not* a bug. The builds are provably idempotent (build twice → byte-identical). Prior sessions committed **source** changes and orphaned the regenerated **binaries**; each session then inherited the churn and re-left it. I nearly did exactly that. Blame: the coupon grew 200→268 in [3020e227](https://github.com/derekbreden/homesodamachine/commit/3020e227) (plus later cold-core moves) for the enclosure; pcba's `out/` fell behind `pcba.tsx` at `02a83afe`.
 
 2. **One genuine non-idempotency** — `out/pcba.gerbers.zip`. Two metadata causes (live gerber `CreationDate` + the zip's own per-entry mtimes/order), neither touching copper, invisible to the composed SVGs. **Fixed and committed** as [8e0f66cf](https://github.com/derekbreden/homesodamachine/commit/8e0f66cf); build-twice now byte-identical.
 
@@ -1416,7 +1416,7 @@ All 55 are regenerated derived outputs — no source files, nothing unexpected (
 
 ---
 
-Committed `2d040a72` (55 files, all gates pass). Let me confirm the tree is finally clean and push both commits.
+Committed `4b836781` (55 files, all gates pass). Let me confirm the tree is finally clean and push both commits.
 
 ---
 
@@ -1498,7 +1498,7 @@ Here's the complete diagnosis you asked for.
 
 ## Why those files churn — three distinct causes
 
-**1. Stale outputs never committed (the majority: enclosure, pie-in-the-sky, appliance, most of pcba `out/`).** Not a bug — the builds are *provably idempotent* (build twice → byte-identical). Prior commits changed **source** and orphaned the regenerated **binaries**; each session then inherited the churn and re-left it (I nearly did). Blame: the coupon grew 200→268 at [3020e227](https://github.com/derekbreden/homesodamachine/commit/3020e227) + later cold-core moves; pcba fell behind `pcba.tsx` at `06dd214a`. **Fixed** — regenerated and committed in [2d040a72](https://github.com/derekbreden/homesodamachine/commit/2d040a72).
+**1. Stale outputs never committed (the majority: enclosure, pie-in-the-sky, appliance, most of pcba `out/`).** Not a bug — the builds are *provably idempotent* (build twice → byte-identical). Prior commits changed **source** and orphaned the regenerated **binaries**; each session then inherited the churn and re-left it (I nearly did). Blame: the coupon grew 200→268 at [3020e227](https://github.com/derekbreden/homesodamachine/commit/3020e227) + later cold-core moves; pcba fell behind `pcba.tsx` at `02a83afe`. **Fixed** — regenerated and committed in [2d040a72](https://github.com/derekbreden/homesodamachine/commit/2d040a72).
 
 **2. `pcba.gerbers.zip` — a genuine non-idempotency.** Live gerber `%TF.CreationDate,<now>*%` plus the zip's own per-entry mtimes/readdir order, both metadata, invisible to the composed SVGs. **Fixed** in [8e0f66cf](https://github.com/derekbreden/homesodamachine/commit/8e0f66cf): pin the instant to 1970, canonical mtime + sorted entries + `-X`. Build-twice now identical.
 

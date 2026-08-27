@@ -173,7 +173,7 @@ Inside one run:
 | one thumbnail, drawn off the payload | 3 s |
 | one thumbnail, drawn off the STEP with no payload beside it | 16 s |
 
-The export and render rows are timed at `081a1bee`; the two derive rows at `c813264b`.
+The export and render rows are timed at `189e46a0`; the two derive rows at `7101d08c`.
 
 ## Part metadata sidecars
 
