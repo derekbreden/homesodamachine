@@ -69,11 +69,10 @@ from _cold_core_interface import (
     co2_inlet_tube_radius,
     screw_clearance_radius,
     deck_mount_xy,
-    foam_cap_height,
     foam_shell_outer_height,
     head_pad_height,
 )
-from _foam_cap import cap_face_z, lid_total_height, stack_floor_z
+from _foam_cap import cap_face_z, lid_total_height, stack_floor_z, top_cap_height
 from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 import _routing
@@ -199,20 +198,23 @@ def build():
     # Top cap: floor (its zmin face) lands on the shell's top; lid on its
     # mouth. Both spin about Z, which is what stations the deck mounts.
     # The lid seats on the cap's MOUTH RIM, one cap height off its floor —
-    # not on the cap's highest point, which is the main board's deck-mount columns
-    # standing on through the lid to carry it above them. The psu mount's
-    # columns stop at the rim itself, and the lid is what its module lands on.
-    # A lid's plate seats on the cap's mouth rim and its head pads sink one
-    # head_pad_height past it, into the relief the cap's boss columns leave
-    # there — so a lid is placed by the pads' far end, one pad short of the rim.
+    # not on the cap's highest point, which is a deck-mount column standing on
+    # through the lid to carry its module above it. A flush station's columns
+    # stop at the rim itself, and the lid is what its module lands on.
+    # The TOP lid is solid to its full height and its cup is a head pad shorter
+    # for it (`_foam_cap.top_cap_height`), so the plate's own underside is what
+    # meets the rim — it is placed by that face, off the cup's floor.
     cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")), zmin=shell_bb.zmax)
     lid_top = _place_z(
         _spin(_load(CAP_DIR / "foam-cap-lid-top.step")),
-        zmin=cap_top.BoundingBox().zmin + foam_cap_height - head_pad_height,
+        zmin=cap_top.BoundingBox().zmin + top_cap_height,
     )
 
     # Bottom cap (mouth-down): floor (its zmax face) lands up against the
     # shell's bottom; lid covers the downward mouth as the most-negative-Z layer.
+    # Its plate seats on the mouth rim and its head pads sink one head_pad_height
+    # past it, into the relief the cup's boss columns leave there — so it is placed
+    # by the pads' far end, one pad short of the rim.
     cap_bottom = _place_z(_load(CAP_DIR / "foam-cap-bottom.step"), zmax=shell_bb.zmin)
     lid_bottom = _place_z(
         _load(CAP_DIR / "foam-cap-lid-bottom.step"),
