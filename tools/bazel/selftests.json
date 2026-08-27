@@ -3,6 +3,21 @@
     "hardware/assembly/scenes/_local_service.py",
     "hardware/assembly/scenes/_scenes.py"
   ],
+  "hardware/assembly/scenes/render_scenes.py": [
+    "hardware/assembly/scenes/_scenes.py",
+    "hardware/assembly/scenes/render_scenes.py",
+    "hardware/cold-core-layout/_cold_core_style.py",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_finishes.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_mesh_payload.py",
+    "hardware/scripts/_routing.py",
+    "hardware/scripts/_run_lock.py",
+    "hardware/scripts/flute_payload.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/manifold-layout/_scorecard.py": [
     "hardware/manifold-layout/_lines.py",
     "hardware/manifold-layout/_scorecard.py",
@@ -844,6 +859,11 @@
   ],
   "tools/cad-artifacts/pack.py": [
     "tools/cad-artifacts/pack.py"
+  ],
+  "tools/check_paths.py": [
+    "hardware/cad-artifacts.lock.json",
+    "tools/check_paths.py",
+    "tools/docgen/__init__.py"
   ],
   "tools/docgen/lint.py": [
     "tools/docgen/__init__.py",
