@@ -154,7 +154,6 @@
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "water-3 \u2014 enclosure-back-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
-    "water-3 \u2014 fluid-26: 1.151 mm",
     "funnel-drain-clamp \u2014 funnel-drain-union: 1.338 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
@@ -174,6 +173,7 @@
     "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
     "fluid-18 \u2014 coil-v-a: 1.710 mm",
     "fluid-14 \u2014 valve-v-a: 1.710 mm",
+    "water-3 \u2014 fluid-26: 1.751 mm",
     "funnel-drain-stub \u2014 funnel-drain-clamp: 1.999 mm"
    ],
    "active": true
@@ -195,6 +195,26 @@
    "status": "pass",
    "value": "holds",
    "target": "9.5 mm of lane",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "flute-even",
+   "label": "The flute count is even",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "the spun cap's grooves land on the shell's",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "forward-band-takes-a-bore",
+   "label": "The forward band still passes a line",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "6.8 >= 6.5 mm",
    "detail": [],
    "active": true
   },
@@ -245,6 +265,16 @@
    "status": "pass",
    "value": "holds",
    "target": "1.5 mm off everything standing in the cup",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "forward-band-takes-a-tube",
+   "label": "A tube on the forward band's centre clears both its faces",
+   "kind": "gate",
+   "status": "pass",
+   "value": "holds",
+   "target": "6.8 >= 6.35 mm",
    "detail": [],
    "active": true
   },

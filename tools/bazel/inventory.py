@@ -49,6 +49,17 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
     ),
+    # THE THREE UNFLUTED PIECES OF THE CAP STACK. Their directory is bundled because the two
+    # CUPS in it carry a show skin the solid does not (`cold-core/_show_skin.py`), and bundling is
+    # by directory — so the gasket's and both lids' payloads ship beside them. `_cadq_export`
+    # writes each one beside the STEP it exports, which is a write no trace catches: a payload
+    # already standing at the right bytes is not rewritten, and the run that would record it is
+    # the run that finds nothing to do.
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": (
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+    ),
     "hardware/manifold-layout/enclosure_assembly.py": (
         "hardware/manifold-layout/enclosure-assembly.step.mesh",
     ),

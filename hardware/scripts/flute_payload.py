@@ -1,9 +1,11 @@
-"""The enclosure's flutes, in the triangles every picture is drawn from.
+"""The machine's flutes, in the triangles every picture is drawn from.
 
-`printed-parts/enclosure/enclosure/flute_skin.py` cuts the show surfaces into the MESH and says
-why they are not in the solid. The STEP beside that mesh is a smooth prism — 343 faces on the
-front-top piece, every one a plane or a cylinder — so a reader who is handed the solid is handed
-a box with no texture on it.
+`printed-parts/cadlib/flute_skin.py` cuts the show surfaces into the MESH and says why they are
+not in the solid. The STEP beside that mesh is a smooth prism — 343 faces on the front-top piece,
+every one a plane or a cylinder — so a reader who is handed the solid is handed a box with no
+texture on it. The box's six pieces and the cold core's shell and two caps are all cut that way
+and all read the same here: a piece is any `.step` under `PIECES_DIRS` with an `.stl` of the same
+stem, so another one is carried with no edit to this file.
 
 THE VIEWER PREFERS A PAYLOAD TO THE STEP BESIDE IT. `loadStepFile` fetches `<file>.step.mesh`
 first and only parses the solid when there is none (`web/public/js/viewer/step.js`), and every
@@ -53,9 +55,16 @@ import _mesh_payload                                                    # noqa: 
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
 
-#: Where a printed mesh stands beside the solid it was cut from. A piece is any `.step` here with
-#: an `.stl` of the same stem — so a seventh piece is carried with no edit to this file.
-PIECES_DIR = _ROOT / "hardware/printed-parts/enclosure/enclosure"
+#: Every directory whose solids stand beside a printed mesh the solid does not describe. The
+#: box's six pieces are one of them; the cold core's shell and its two caps are the others,
+#: fluted on the same field off the same `cadlib/flute_skin.py` (`cold-core/_show_skin.py`).
+#: A caller asks for all of them by default, because "which surfaces on this disk are fluted"
+#: is one question and no scene knows which tree a body came out of.
+PIECES_DIRS = (
+    _ROOT / "hardware/printed-parts/enclosure/enclosure",
+    _ROOT / "hardware/printed-parts/cold-core/foam-shell",
+    _ROOT / "hardware/printed-parts/cold-core/foam-cap",
+)
 
 #: The crease `xray.js` draws a feature edge at, in degrees.
 CREASE_DEG = 30.0
@@ -196,24 +205,29 @@ def solid_identity(step: Path):
     return names[0], linear
 
 
-def pieces(directory=PIECES_DIR):
-    """Every solid in `directory` that has a printed mesh beside it, as (step, stl) pairs."""
+def pieces(directories=PIECES_DIRS):
+    """Every solid in `directories` that has a printed mesh beside it, as (step, stl) pairs.
+
+    THE MESH BESIDE THE SOLID IS WHAT DECLARES A PIECE FLUTED. Nothing here holds a list of
+    which parts carry a show skin: a generator that cuts one writes an `.stl` next to its
+    `.step`, and that pair is the whole of the claim."""
     out = []
-    for step in sorted(directory.glob("*.step")):
-        stl = step.with_suffix(".stl")
-        if stl.is_file():
-            out.append((step, stl))
+    for directory in directories:
+        for step in sorted(directory.glob("*.step")):
+            stl = step.with_suffix(".stl")
+            if stl.is_file():
+                out.append((step, stl))
     return out
 
 
-def surfaces(directory=PIECES_DIR):
+def surfaces(directories=PIECES_DIRS):
     """The fluted surfaces standing on this disk, keyed by the name a payload holds them under.
 
     What `graft` is handed. A tree that has not cut them yet answers with nothing, and a graft
     of nothing leaves every payload as it stands — which is the smooth solid, and is what a
     machine with no printed mesh could draw anyway."""
     out = {}
-    for step, _stl in pieces(directory):
+    for step, _stl in pieces(directories):
         held = read_payload(step.with_name(step.name + ".mesh"))
         if held and len(held) == 1:
             out[held[0]["name"]] = held[0]
@@ -342,13 +356,13 @@ def payload_names(path):
     return [m["name"] for m in head["meshes"]]
 
 
-def piece_names(directory=PIECES_DIR):
+def piece_names(directories=PIECES_DIRS):
     """The names the fluted pieces standing on this disk are held under.
 
     What a caller asks when it needs to know whether a payload holds a surface its solid does
     not — cheaper than `surfaces`, which decodes the triangles as well."""
     out = set()
-    for step, _stl in pieces(directory):
+    for step, _stl in pieces(directories):
         out.update(payload_names(step.with_name(step.name + ".mesh")))
     return out
 
@@ -406,7 +420,8 @@ def graft(path: Path, fluted: dict):
 def main():
     found = pieces()
     if not found:
-        raise SystemExit(f"no printed meshes beside the solids in {PIECES_DIR}")
+        raise SystemExit("no printed meshes beside the solids in "
+                         + ", ".join(str(d) for d in PIECES_DIRS))
     fluted = {}
     for step, stl in found:
         mesh = cut(step, stl)
@@ -421,13 +436,14 @@ def main():
     # `assembly/scenes/render_scenes.py` for each bench scene — so nothing here walks the tree
     # looking for them, and this reads one directory.
     cut_here = {step.name + ".mesh" for step, _ in found}
-    for path in sorted(PIECES_DIR.glob("*.step.mesh")):
-        if path.name in cut_here:
-            continue
-        landed = graft(path, fluted)
-        if landed:
-            print(f"-> {path.relative_to(_ROOT)}  {landed} piece(s) grafted, "
-                  f"{path.stat().st_size / 1e6:.2f} MB")
+    for directory in PIECES_DIRS:
+        for path in sorted(directory.glob("*.step.mesh")):
+            if path.name in cut_here:
+                continue
+            landed = graft(path, fluted)
+            if landed:
+                print(f"-> {path.relative_to(_ROOT)}  {landed} piece(s) grafted, "
+                      f"{path.stat().st_size / 1e6:.2f} MB")
     return 0
 
 

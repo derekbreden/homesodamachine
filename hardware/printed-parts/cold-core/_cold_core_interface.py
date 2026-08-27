@@ -23,6 +23,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / 
 
 import cadquery as cq
 
+import reeding
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
 
@@ -30,6 +31,48 @@ from _stated_bounds import bound, state
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PETG.
 wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
+
+
+# --- The show skin ---------------------------------------------------------------------
+#
+# THE CORE'S OUTER SKIN IS FLUTED, on the box's own field at the box's own figures
+# (`cadlib/flute_skin.py`, `cadlib/reeding.py`). What the texture buys is not ornament. A
+# groove field at this pitch lays its own highlight and shadow across the surface at a spacing
+# finer, and in far higher contrast, than a layer line — so the layer lines fall under it and a
+# large flat face stops announcing how it was made. On PET-GF15 that is the difference between
+# a face that reads as printed and one that reads as moulded, and it is worth most on exactly
+# the faces that are hardest to print clean: the slot's fan is off and its chamber is at 50 °C
+# (`foam-shell/print-log.md`), which is a profile tuned for a standing wall.
+#
+# IT IS LIMITED TO WHAT STANDS VERTICAL, and that is the printer's fact and not a choice. On a
+# standing wall the groove is Z-INVARIANT: every layer traces the same toothed perimeter, so
+# the texture is the outer wall loop taking a wavier path and costs nothing. Off vertical the
+# same groove stops being a wall feature and becomes top-shell geometry, which is stepped solid
+# infill. So the four walls of the shell and of both caps carry it and no horizontal face does.
+flute_depth = 1.2
+flute_rise = 5.0
+flute_pitch_nominal = 5.0
+#: How far the landed pitch may sit from the nominal — `flute_count` closes on the perimeter
+#: exactly, so the pitch is a consequence and this is what holds it near the coupon's.
+flute_pitch_drift = 0.15
+#: THE COUNT IS EVEN, AND TWO SEPARATE THINGS BUY THAT. The footprint has two mirror planes and
+#: a datum on one of them gives its own for free (`flute_skin.rounded_rect_segments`); the
+#: other costs an even count. And the top cap and its lid install spun a half turn about Z
+#: (`foam_assembly._spin`), which shifts their field by half the perimeter — a whole number of
+#: pitches only when the count is even, and half a pitch otherwise, which would land every
+#: groove of the cap on a land of the shell. `flute-closes` and `flute-even` read both.
+flute_count = 182
+
+# THE GROOVE'S STOCK COMES OUT OF THE POUR, NOT OFF THE ENVELOPE. A flute must have a whole
+# `wall_and_floor_thickness` standing behind it — the box's `flute_backing` rule, which its
+# corner coupon proved on the 0.6 mm an engraved label took out of the far side and which read
+# on the show face as a mark you could find. A 1.2 mm groove in a 2 mm wall leaves 0.8, which is
+# under the 0.87 mm of shell two loops draw, so a wall that carries flutes is one flute deeper
+# than one that does not. The depth is found on the INSIDE: `outer_shell_x_length` and
+# `outer_shell_y_length` are what they were, and the foam behind the wall gives up the
+# difference. Nothing outboard moves, so the cabinet around the core does not know this
+# happened.
+outer_shell_wall = wall_and_floor_thickness + flute_depth
 
 
 # The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
@@ -191,11 +234,20 @@ outer_shell_y_length = 2 * (
 )
 
 # The ±X FORWARD BAND — what is left between the bag pocket's far wall and the outer shell's
-# inner face. It is the reed channel's own depth and wall and nothing else, because that pair
-# is what set `outer_shell_x_length`: the band exists at every y BECAUSE the reed channel is
-# in it at one. A line climbing this band is potted in the pour beside the reed column, and
-# there is a bore's width of it to climb.
-forward_band_width = reed_x_depth + wall_and_floor_thickness
+# inner face. The band exists at every y BECAUSE the reed channel is in it at one: the pair
+# that set `outer_shell_x_length` is the reed channel's own depth and wall. What the show skin
+# takes comes off this band, because the wall it thickens into is this band's outboard face —
+# and the reed channel is unharmed by that, because the wall it grows into is the reed's own
+# outboard wall, which is the same solid once the two are unioned. The reed CAVITY does not
+# move. A line climbing this band is potted in the pour beside the reed column, and there is
+# still a bore's width of it to climb (`forward-band-takes-a-bore`).
+forward_band_width = reed_x_depth + 2 * wall_and_floor_thickness - outer_shell_wall
+# AND ITS MIDDLE, which is where a line climbing it runs. A tube in this band has the pocket's
+# far wall on one hand and the shell's cavity face on the other and no room to favour either,
+# so the station is the band's own centre and not a figure — the show skin thickens the wall
+# this band's outboard face is, and a stated number would have stayed where the wall used to
+# be. `forward-band-takes-a-bore` is what says a tube still fits between the two.
+forward_band_mid_x = bag_pocket_outermost_x + forward_band_width / 2.0
 
 # The −Y pour band — the open gap between the bag-pocket wall's outer face
 # and the outer shell's inner face, poured full of foam around the
@@ -205,7 +257,7 @@ forward_band_width = reed_x_depth + wall_and_floor_thickness
 # the line turns through the band between them. The band is what lets the
 # two sit at different X.
 pour_band_pocket_side_y = -(bag_pocket_width / 2)
-pour_band_shell_side_y = -(outer_shell_y_length / 2 - wall_and_floor_thickness)
+pour_band_shell_side_y = -(outer_shell_y_length / 2 - outer_shell_wall)
 pour_band_mid_y = (pour_band_pocket_side_y + pour_band_shell_side_y) / 2
 
 
@@ -367,6 +419,74 @@ front_port_axis = (-1.0, 0.0, 0.0)
 # the outer face is a quarter-round of [12 mm](CORNER_ROUND_R) radius, the
 # inner face concentric one wall-thickness inboard.
 corner_round_radius = 12.0
+
+
+# --- The run the show skin is struck along ----------------------------------------------
+#
+# ONE RUN FOR THE WHOLE STACK. The shell, both caps and both lids are all cut to the SAME
+# footprint (`outer_shell_x_length` × `outer_shell_y_length` on `corner_round_radius`), so from
+# the outside the core is one silhouette with seams across it, and there is one perimeter for
+# every piece of it to strike its field on. A piece that took its own pitch off its own height
+# would put its grooves half a land off its neighbour's at the seam, which is the one place a
+# reader's eye is already going.
+#
+# ARC LENGTH IS THE ACROSS-COORDINATE, so a flute crosses `corner_round_radius`'s quarter turn
+# without knowing the corner is there, and a run round the outside is the same object to
+# `flute_skin` as any other run.
+
+
+def outer_shell_plan_segments():
+    """The core's outer plan boundary as (kind, length, data), walked from the middle of the
+    −X wall — the FRONT face, the one every penetration opens on and the one a reader is
+    standing at. That station is on the y = 0 plane the core is struck about."""
+    return reeding.rounded_rect_segments(
+        outer_shell_x_length, outer_shell_y_length, corner_round_radius)
+
+
+def outer_shell_plan_perimeter():
+    """How far it is round the core's outer plan once — what `flute_count` divides."""
+    return sum(length for _kind, length, _data in outer_shell_plan_segments())
+
+
+def outer_shell_plan_at(s):
+    """That boundary's point and OUTWARD normal at arc length `s` from the datum.
+
+    THE PLAN CLOSES, so any `s` is on it: the walk is taken modulo the perimeter and the core
+    has no station where the field restarts."""
+    segments = outer_shell_plan_segments()
+    return reeding.walk(segments, s % sum(length for _k, length, _d in segments))
+
+
+def flute_pitch():
+    """The spacing the field actually lands on. It is a CONSEQUENCE of `flute_count`, not a
+    figure of its own: a stated pitch would leave the perimeter with a remainder, and the
+    remainder has to go somewhere — one wrong land, at whichever station the array closed on."""
+    return outer_shell_plan_perimeter() / flute_count
+
+
+state("flute-closes", "The flute count lands near the nominal pitch",
+      f"|{flute_pitch():.4g} - {flute_pitch_nominal:g}| <= {flute_pitch_drift:g} mm",
+      abs(flute_pitch() - flute_pitch_nominal) <= flute_pitch_drift,
+      f"{flute_count} grooves close on the {outer_shell_plan_perimeter():.4g} mm perimeter at "
+      f"{flute_pitch():.4g} mm, which is {abs(flute_pitch() - flute_pitch_nominal):.4g} mm off "
+      f"the nominal {flute_pitch_nominal:g}")
+state("flute-even", "The flute count is even",
+      "the spun cap's grooves land on the shell's",
+      flute_count % 2 == 0,
+      f"{flute_count} is odd, so the half-perimeter the top cap's spin shifts its field by "
+      f"({flute_pitch() * flute_count / 2:.4g} mm) is a half pitch out of step, and every "
+      f"groove of the cap lands on a land of the shell")
+state("flute-backed", "A groove keeps a whole wall behind it",
+      f"{outer_shell_wall:g} - {flute_depth:g} >= {wall_and_floor_thickness:g} mm",
+      outer_shell_wall - flute_depth >= wall_and_floor_thickness - 1e-9,
+      f"a {flute_depth:g} mm groove in the {outer_shell_wall:g} mm outer wall leaves "
+      f"{outer_shell_wall - flute_depth:g} mm, under the {wall_and_floor_thickness:g} mm a "
+      f"fluted face must stand on")
+state("forward-band-takes-a-bore", "The forward band still passes a line",
+      f"{forward_band_width:g} >= {port_hole_radius * 2:g} mm",
+      forward_band_width >= port_hole_radius * 2,
+      f"the show skin thickened the ±X wall into the forward band, leaving "
+      f"{forward_band_width:g} mm against the {port_hole_radius * 2:g} mm bore that climbs it")
 
 # Every attachment boss stands hard against a ±Y wall — none in a corner, and none
 # on a ±X wall. Two reasons, and they are the same reason twice: the ±Y bands are
@@ -550,7 +670,7 @@ def deck_mount_cap_room(name):
                          - screw_boss_size / 2.0 - deck_mount_boss_radius, "a screw boss"))
         room.append((min(outer_shell_x_length / 2.0 - abs(x),
                          outer_shell_y_length / 2.0 - abs(y))
-                     - wall_and_floor_thickness - deck_mount_boss_radius, "the cavity wall"))
+                     - outer_shell_wall - deck_mount_boss_radius, "the cavity wall"))
         for other in deck_mounts:
             for ox, oy in deck_mount_xy(other):
                 if (ox, oy) != (x, y):
@@ -659,6 +779,11 @@ def cap_cradle_room(name):
 # and a line runs up it from the shell's open top out onto the lid's outer face. The
 # service bay stands on that face.
 lldpe_tube_od = 6.35                         # the 1/4" line every fluid port on the core takes
+state("forward-band-takes-a-tube", "A tube on the forward band's centre clears both its faces",
+      f"{forward_band_width:g} >= {lldpe_tube_od:g} mm",
+      forward_band_width >= lldpe_tube_od,
+      f"a ⌀{lldpe_tube_od:g} tube centred in a {forward_band_width:g} mm band stands "
+      f"{(forward_band_width - lldpe_tube_od) / 2.0:g} mm off each face")
 cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.5](PORT_HOLE_DIAMETER) every shell penetration takes
 cap_conduit_wall = 2.0
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
@@ -830,9 +955,11 @@ def reed_cable_conduit_xy(side):
 
 
 cap_fluid_conduits = {
-    "water-in": (135.5, -56.0),
-    "reservoir-a": (135.5, 43.5),
-    "reservoir-b": (135.5, -43.5),
+    # THE THREE THAT CLIMB THE FORWARD BAND stand on its centre (`forward_band_mid_x`), which is
+    # the only station in it that clears both its faces.
+    "water-in": (forward_band_mid_x, -56.0),
+    "reservoir-a": (forward_band_mid_x, 43.5),
+    "reservoir-b": (forward_band_mid_x, -43.5),
     "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
     "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
     "carb-water-out": (52.2, -port_lane_mid_y),
@@ -899,8 +1026,8 @@ def cap_conduit_wall_neck(x, y):
     A column that neither clears the wall nor reaches it stands tangent, which closes the
     same knife edge a tangent pair does."""
     to_outer = min(outer_shell_x_length / 2.0 - abs(x), outer_shell_y_length / 2.0 - abs(y))
-    if to_outer - wall_and_floor_thickness >= cap_conduit_boss_radius:
-        return (to_outer - wall_and_floor_thickness - cap_conduit_boss_radius,
+    if to_outer - outer_shell_wall >= cap_conduit_boss_radius:
+        return (to_outer - outer_shell_wall - cap_conduit_boss_radius,
                 "the pour gap behind a standing column")
     return (to_outer - cap_conduit_bore_radius, "the wall left outboard of a merged bore")
 

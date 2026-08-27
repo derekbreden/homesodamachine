@@ -55,8 +55,14 @@ from scipy import ndimage
 from scipy.spatial import cKDTree
 
 _here = Path(__file__).resolve()
-sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+sys.path.insert(0, str(_here.parent))
 import reeding                                                          # noqa: E402
+
+#: The runs a field is struck along are `reeding`'s, because a run is the path a flute
+#: takes and that is what that module is about. They are named here too so a caller that
+#: has this module has everything one rail needs.
+walk = reeding.walk
+rounded_rect_segments = reeding.rounded_rect_segments
 
 # How finely the field is sampled ACROSS the flutes. The corner coupon at `69459fea6` used 0.3 mm on the
 # same groove and printed clean; a 4 mm groove read at this step carries its arc to about 28

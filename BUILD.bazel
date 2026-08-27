@@ -17,6 +17,7 @@ genrule(
         "hardware/assembly/acceptance-and-burn-in.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
@@ -127,6 +128,7 @@ genrule(
         "hardware/assembly/cold-core.md",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -209,6 +211,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -234,7 +237,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -444,6 +446,7 @@ genrule(
         "pysrc/hardware/assembly/_firmware_and_commissioning_sync.py",
         "hardware/assembly/firmware-and-commissioning.md",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
@@ -512,6 +515,7 @@ genrule(
         "hardware/assembly/handwork.md",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -591,6 +595,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -616,7 +621,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -732,6 +736,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -757,7 +762,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -860,6 +864,7 @@ genrule(
         "hardware/assembly/pressure-vessel.md",
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/scripts/_cadq_export.py",
@@ -1313,6 +1318,7 @@ genrule(
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "hardware/pcb/pcba/pcba.tsx",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -1338,7 +1344,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -2446,6 +2451,7 @@ genrule(
         ":out/manifold-layout/hardware/manifold-layout/manifold-layout.step.mesh",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -2521,7 +2527,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -2927,6 +2932,7 @@ genrule(
         "pysrc/hardware/cold-core-layout/cold_core_assembly.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/ledger/bom.md",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -3282,6 +3288,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -3355,7 +3362,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -3532,6 +3538,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_box.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -3577,7 +3584,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
@@ -3755,6 +3761,7 @@ cp hardware/manifold-layout/README.md $$O3
 genrule(
     name = "cold-core-interface",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
@@ -3789,6 +3796,7 @@ cp hardware/printed-parts/cold-core/_cold_core_interface.py $$O0
 genrule(
     name = "coil-mandrel",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -3832,6 +3840,7 @@ cp hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py $$O1
 genrule(
     name = "copper-plugs",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
@@ -3878,6 +3887,7 @@ cp hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py $$O2
 genrule(
     name = "foam-assembly",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -3942,6 +3952,8 @@ cp hardware/printed-parts/cold-core/foam-assembly/internal-routes.step $$O1
 genrule(
     name = "foam-cap",
     srcs = [
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -3959,20 +3971,30 @@ genrule(
     ],
     outs = [
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     ],
     cmd = """
 set -e
 O0=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step)
-O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step)
-O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step)
-O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
-O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
-O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl)
+O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step)
+O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh)
+O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step)
+O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh)
+O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
+O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
+O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
+O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
+O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3988,13 +4010,18 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-cap/foam_cap.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O0
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step $$O1
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O2
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O3
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O4
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O5
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O1
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step $$O2
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh $$O3
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O4
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh $$O5
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O6
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O7
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O8
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O9
+cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O10
 """,
 )
 
@@ -4003,6 +4030,8 @@ genrule(
     srcs = [
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -4049,6 +4078,7 @@ genrule(
     ),
     outs = [
         "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
         "out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step",
@@ -4076,29 +4106,30 @@ genrule(
     cmd = """
 set -e
 O0=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step)
-O1=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step)
-O2=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step)
-O3=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step)
-O4=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step)
-O5=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step)
-O6=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step)
-O7=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step)
-O8=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step)
-O9=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step)
-O10=$$PWD/$(location out/foam-shell/hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json)
-O11=$$PWD/$(location out/foam-shell/hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md)
-O12=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json)
-O13=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.md)
-O14=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.figures.json)
-O15=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.md)
-O16=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py)
-O17=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json)
-O18=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)
-O19=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json)
-O20=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
-O21=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir.py)
-O22=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.figures.json)
-O23=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.md)
+O1=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl)
+O2=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step)
+O3=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step)
+O4=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step)
+O5=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step)
+O6=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step)
+O7=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step)
+O8=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step)
+O9=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step)
+O10=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step)
+O11=$$PWD/$(location out/foam-shell/hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json)
+O12=$$PWD/$(location out/foam-shell/hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md)
+O13=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json)
+O14=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.md)
+O15=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.figures.json)
+O16=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.md)
+O17=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py)
+O18=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json)
+O19=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md)
+O20=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json)
+O21=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
+O22=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir.py)
+O23=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.figures.json)
+O24=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4118,29 +4149,30 @@ HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/pyth
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step $$O0
-cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $$O1
-cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step $$O2
-cp hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step $$O3
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O4
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O5
-cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O6
-cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O7
-cp hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step $$O8
-cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O9
-cp hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json $$O10
-cp hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md $$O11
-cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$O12
-cp hardware/printed-parts/cold-core/foam-shell/README.md $$O13
-cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$O14
-cp hardware/printed-parts/cold-core/reed-bridge/README.md $$O15
-cp hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py $$O16
-cp hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json $$O17
-cp hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md $$O18
-cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$O19
-cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$O20
-cp hardware/printed-parts/cold-core/reservoir/reservoir.py $$O21
-cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$O22
-cp hardware/printed-parts/cold-core/reservoir/vent.md $$O23
+cp hardware/printed-parts/cold-core/foam-shell/foam-shell.stl $$O1
+cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $$O2
+cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step $$O3
+cp hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal-dry.step $$O4
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O5
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O6
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O7
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O8
+cp hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step $$O9
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O10
+cp hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json $$O11
+cp hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md $$O12
+cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$O13
+cp hardware/printed-parts/cold-core/foam-shell/README.md $$O14
+cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$O15
+cp hardware/printed-parts/cold-core/reed-bridge/README.md $$O16
+cp hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py $$O17
+cp hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.figures.json $$O18
+cp hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md $$O19
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$O20
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$O21
+cp hardware/printed-parts/cold-core/reservoir/reservoir.py $$O22
+cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$O23
+cp hardware/printed-parts/cold-core/reservoir/vent.md $$O24
 """,
 )
 
@@ -4294,6 +4326,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -4321,7 +4354,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -4542,6 +4574,7 @@ genrule(
     srcs = [
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -4549,7 +4582,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/ceiling-panel/ceiling_panel.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -4735,6 +4767,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -4785,7 +4818,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
@@ -4909,6 +4941,7 @@ genrule(
     srcs = [
         ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -4916,7 +4949,6 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/README.md",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -5130,6 +5162,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -5155,7 +5188,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "hardware/printed-parts/enclosure/pump-tray/README.md",
@@ -5270,6 +5302,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -5295,7 +5328,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -5410,6 +5442,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -5435,7 +5468,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -7571,6 +7603,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -7623,7 +7656,6 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
@@ -7920,6 +7952,26 @@ cp hardware/ledger/tools.md $$O1
 genrule(
     name = "flute-payload",
     srcs = [
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "pysrc/hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json",
+        "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        ":out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+        "pysrc/hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/enclosure/enclosure/.gitignore",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
         "hardware/printed-parts/enclosure/enclosure/README.md",
@@ -7943,7 +7995,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
@@ -7951,6 +8002,9 @@ genrule(
         "pysrc/hardware/scripts/flute_payload.py",
     ],
     outs = [
+        "out/flute-payload/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "out/flute-payload/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "out/flute-payload/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
         "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
         "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
         "out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
@@ -7960,12 +8014,15 @@ genrule(
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
-O1=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
-O2=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
-O3=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
-O4=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
-O5=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
+O0=$$PWD/$(location out/flute-payload/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh)
+O1=$$PWD/$(location out/flute-payload/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh)
+O2=$$PWD/$(location out/flute-payload/hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh)
+O3=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh)
+O4=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh)
+O5=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh)
+O6=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
+O7=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
+O8=$$PWD/$(location out/flute-payload/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -7982,12 +8039,15 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/scripts/flute_payload.py > /dev/null
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh $$O0
-cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh $$O1
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh $$O2
-cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O3
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O4
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O5
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh $$O0
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh $$O1
+cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh $$O2
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh $$O3
+cp hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh $$O4
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh $$O5
+cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O6
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O7
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O8
 """,
 )
 
@@ -7999,13 +8059,13 @@ genrule(
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
         "pysrc/hardware/printed-parts/enclosure/valve-tray/valve_tray.py",
@@ -8091,6 +8151,7 @@ genrule(
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -8116,7 +8177,6 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/nameplate.py",
         "pysrc/hardware/printed-parts/enclosure/pump-tray/pump_case.py",
@@ -8633,6 +8693,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-383810ce3ad4",
+    srcs = ["hardware/printed-parts/cadlib/flute_skin.py"],
+    outs = ["pysrc/hardware/printed-parts/cadlib/flute_skin.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-33bf54a48d01",
     srcs = ["hardware/printed-parts/cadlib/reeding.py"],
     outs = ["pysrc/hardware/printed-parts/cadlib/reeding.py"],
@@ -8756,6 +8824,14 @@ genrule(
     name = "pysrc-7ef089e42a46",
     srcs = ["hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-45bb826d73e3",
+    srcs = ["hardware/printed-parts/cold-core/foam-cap/foam_cap.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/foam-cap/foam_cap.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -8908,14 +8984,6 @@ genrule(
     name = "pysrc-1f8c69817980",
     srcs = ["hardware/printed-parts/enclosure/enclosure/enclosure.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
-    name = "pysrc-9c1b9f62e583",
-    srcs = ["hardware/printed-parts/enclosure/enclosure/flute_skin.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/flute_skin.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -9673,6 +9741,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -9695,13 +9764,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -9781,7 +9865,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -9956,6 +10039,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -9978,13 +10062,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -10064,7 +10163,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -10239,6 +10337,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -10261,13 +10360,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -10347,7 +10461,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -10522,6 +10635,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -10544,13 +10658,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -10630,7 +10759,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -10805,6 +10933,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -10827,13 +10956,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -10913,7 +11057,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -11088,6 +11231,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -11110,13 +11254,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -11196,7 +11355,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -11371,6 +11529,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -11393,13 +11552,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -11479,7 +11653,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -11655,6 +11828,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -11677,13 +11851,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -11763,7 +11952,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -11951,6 +12139,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -11973,13 +12162,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -12059,7 +12263,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -12234,6 +12437,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -12256,13 +12460,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -12342,7 +12561,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -12517,6 +12735,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -12539,13 +12758,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -12625,7 +12859,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -12826,6 +13059,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -12848,13 +13082,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -12934,7 +13183,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -13109,6 +13357,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -13131,13 +13380,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -13217,7 +13481,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -13521,6 +13784,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -13543,13 +13807,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -13629,7 +13908,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -13826,6 +14104,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -13848,13 +14127,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -13934,7 +14228,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -14122,6 +14415,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -14144,13 +14438,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -14230,7 +14539,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -14432,6 +14740,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -14454,13 +14763,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -14540,7 +14864,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -14715,6 +15038,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -14737,13 +15061,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -14823,7 +15162,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",
@@ -15000,6 +15338,7 @@ sh_test(
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.figures.json",
         "hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md",
         "hardware/printed-parts/cadlib/fits.py",
+        "hardware/printed-parts/cadlib/flute_skin.py",
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
@@ -15022,13 +15361,28 @@ sh_test(
         "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         "hardware/printed-parts/cold-core/foam-assembly/internal-routes.step",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
         "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+        "hardware/printed-parts/cold-core/foam-shell/.gitkeep",
         "hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "hardware/printed-parts/cold-core/foam-shell/README.md",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
         "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.json",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step.mesh",
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+        "hardware/printed-parts/cold-core/foam-shell/print-log.md",
         "hardware/printed-parts/cold-core/prv-shroud/README.figures.json",
         "hardware/printed-parts/cold-core/prv-shroud/README.md",
         "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -15108,7 +15462,6 @@ sh_test(
         "hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-        "hardware/printed-parts/enclosure/enclosure/flute_skin.py",
         "hardware/printed-parts/enclosure/enclosure/print-log.md",
         "hardware/printed-parts/enclosure/nameplate/README.figures.json",
         "hardware/printed-parts/enclosure/nameplate/README.md",

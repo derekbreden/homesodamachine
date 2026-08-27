@@ -88,6 +88,7 @@ from docgen import substitute_py_comments
 from _cold_core_interface import (
     make_box,
     wall_and_floor_thickness,
+    outer_shell_wall,
     foam_shell_outer_height,
     outer_shell_x_length,
     front_port_axis,
@@ -123,8 +124,8 @@ tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 # [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) outboard and [1 mm](FLANGE_T) inboard of it.
 # [-141.5 mm](WALL_OUTER_Y) — outer face of the wall (the shell's −X face, toward the user).
 outer_wall_outer_y = -outer_shell_x_length / 2
-# [-139.5 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
-outer_wall_inner_y = outer_wall_outer_y + wall_and_floor_thickness
+# [-138.3 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
+outer_wall_inner_y = outer_wall_outer_y + outer_shell_wall
 wall_y_range = (outer_wall_inner_y, outer_wall_outer_y)
 
 # The [2 mm](CPLUG_WALL_T) gap between the two flanges, at the wall's Y range
@@ -136,7 +137,7 @@ flange_y_thickness = 1.0
 plug_half_x_outer = slot_half_width_x + flange_x_overhang_per_side
 plug_x_range = (-plug_half_x_outer, plug_half_x_outer)
 
-# [-138.5 mm](PLUG_Y_INNER) — inner (cavity-side) flange's inward face.
+# [-137.3 mm](PLUG_Y_INNER) — inner (cavity-side) flange's inward face.
 plug_y_inner = outer_wall_inner_y + flange_y_thickness
 # [-142.5 mm](PLUG_Y_OUTER) — outer flange's outward face.
 plug_y_outer = outer_wall_outer_y - flange_y_thickness
