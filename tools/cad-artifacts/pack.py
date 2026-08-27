@@ -5,6 +5,8 @@
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --write    # build it, upload it, pin it
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --check    # 0 = the lock names this tree
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py --prune    # remove retired locked outputs
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --room     # what room the release has left
+    tools/cad-venv/bin/python tools/cad-artifacts/pack.py --retire   # take dead assets off it
     tools/cad-venv/bin/python tools/cad-artifacts/pack.py selftest   # the bundle, on fixtures
 
 `hardware/cad-artifacts.lock.json` names the source commit, the asset by its own sha256, every
@@ -713,10 +715,135 @@ def _release_asset_matches(root: Path, asset: str, digest: str, size: int) -> bo
 
 OBJECT_PREFIX = "s-"
 
+#: WHAT ONE RELEASE HOLDS. GitHub takes 1000 assets on a release and refuses the 1001st, and
+#: this store is append-only: every cut adds a bundle and every member that moved adds an
+#: object. The ceiling does not announce itself. It arrives as one member's upload failing,
+#: which `upload_objects` reads as "this lock is read from the bundle" and survives — so the
+#: first thing a full release does is quietly turn the fast path off and send every deploy
+#: back to the whole tarball. The bundle is what fails next, and it has no fallback: a lock
+#: naming an asset the release does not hold is a deploy that cannot fetch the geometry.
+RELEASE_ASSET_CAP = 1000
+
+#: HOW MANY CUTS THE RELEASE HOLDS WHOLE. A cut is a bundle and one object per member that
+#: moved, and this is the window both are kept for: the last `CUTS_KEPT` locks, entire. A
+#: publish that repaints or re-tessellates the tree moves every member at once — the material
+#: change on 2026-08-26 rewrote all five cold-core STEPs — so the room a cut wants is bounded
+#: by the member count and not by any average, and the store refills in a few of them.
+CUTS_KEPT = 12
+
 
 def object_asset(sha: str) -> str:
     """The release asset holding one member's bytes, named by those bytes."""
     return f"{OBJECT_PREFIX}{sha}.gz"
+
+
+def release_assets(root: Path) -> list:
+    """Every asset on the release, as `gh` reports it."""
+    listing = _gh(root, "release", "view", TAG, "--json", "assets")
+    if listing.returncode != 0:
+        return []
+    return json.loads(listing.stdout).get("assets", [])
+
+
+def locks_in_history(root: Path) -> list:
+    """Every committed lock, newest first, as the asset names each one names.
+
+    THE LOCK IS COMMITTED, so what a checkout can ask the release for is what its own lock
+    names — and the union over all of history is the set of names anyone can ask for at all.
+    A name outside it is not old, it is unreachable: the cut that made it was superseded before
+    its lock landed, or the commit that named it is no longer in the graph.
+    """
+    rel = str(LOCK.relative_to(root))
+    revs = subprocess.run(["git", "rev-list", "HEAD", "--", rel],
+                          cwd=str(root), capture_output=True, text=True).stdout.split()
+    out = []
+    for rev in revs:                                                    # newest first
+        blob = subprocess.run(["git", "show", f"{rev}:{rel}"],
+                              cwd=str(root), capture_output=True, text=True)
+        if blob.returncode != 0:
+            continue
+        try:
+            held = json.loads(blob.stdout)
+        except json.JSONDecodeError:
+            continue
+        names = {object_asset(sha) for sha in
+                 set((held.get("solids") or {}).values())
+                 | set((held.get("sidecars") or {}).values())}
+        asset = (held.get("release") or {}).get("asset")
+        if asset:
+            names.add(asset)
+        out.append(names)
+    return out
+
+
+def retirable(root: Path, keep_cuts: int = CUTS_KEPT) -> tuple:
+    """The assets that may leave the release, as `(unreachable, superseded)`.
+
+    UNREACHABLE IS NOT A JUDGEMENT — no commit's lock names it, so no checkout can fetch it.
+
+    SUPERSEDED IS EVERYTHING OUTSIDE THE LAST `keep_cuts` LOCKS, bundle and object alike, and
+    what retiring one costs is a re-pack rather than the bytes. This file's own contract is
+    that the pack carries no fact about the machine that made it: members go in sorted, the
+    tar's mtime/uid/gid/mode and the gzip header's mtime are dropped, so a tree whose geometry
+    has not moved packs to the same name and the same bytes. Checking that commit out and
+    running `--write` puts the identical assets back under the identical names.
+
+    THE WINDOW IS A UNION AND NOT A SLICE. A member that has not moved in fifty cuts is named
+    by the newest lock as well as the oldest, so it stands inside the window on the strength of
+    the newest — which is what makes this a retention rule about cuts rather than about bytes.
+    """
+    on_release = {a["name"] for a in release_assets(root)}
+    locks = locks_in_history(root)
+    reachable = set().union(*locks) if locks else set()
+    kept = set().union(*locks[:keep_cuts]) if locks[:keep_cuts] else set()
+    unreachable = sorted(n for n in on_release if n not in reachable)
+    superseded = sorted(n for n in on_release if n in reachable and n not in kept)
+    return unreachable, superseded
+
+
+def room(root: Path, keep_cuts: int = CUTS_KEPT) -> dict:
+    """How many assets the release holds, how many it can still take, and what could leave."""
+    held = len(release_assets(root))
+    unreachable, superseded = retirable(root, keep_cuts)
+    return {"held": held, "free": RELEASE_ASSET_CAP - held,
+            "unreachable": unreachable, "superseded": superseded}
+
+
+def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = False) -> int:
+    """Take the retirable assets off the release, unreachable first, and report the room won."""
+    state = room(root, keep_cuts)
+    going = list(state["unreachable"]) + ([] if unreachable_only else list(state["superseded"]))
+    if not going:
+        print(f"release holds {state['held']} of {RELEASE_ASSET_CAP}; nothing to retire")
+        return 0
+    print(f"release holds {state['held']} of {RELEASE_ASSET_CAP} — "
+          f"{len(state['unreachable'])} asset(s) no commit names"
+          + ("" if unreachable_only
+             else f", {len(state['superseded'])} outside the last {keep_cuts} cut(s)"))
+    failed = []
+    for name in going:
+        if _gh(root, "release", "delete-asset", TAG, name, "--yes").returncode != 0:
+            failed.append(name)
+    for name in failed:
+        print(f"  {name} did not come off")
+    left = len(release_assets(root))
+    print(f"{len(going) - len(failed)} asset(s) retired; release holds {left} of "
+          f"{RELEASE_ASSET_CAP}, {RELEASE_ASSET_CAP - left} free")
+    return 1 if failed else 0
+
+
+def make_room(root: Path, need: int) -> None:
+    """Free enough of the release for a cut of `need` assets before any of it is uploaded.
+
+    CALLED BEFORE THE UPLOAD AND NOT AFTER THE FAILURE, because the failure is silent. `gh`
+    reports a refused upload the same way it reports a network flake, and the only reader of
+    that is `upload_objects`, which turns off `objects` and carries on.
+    """
+    state = room(root)
+    if state["free"] >= need:
+        return
+    print(f"  release holds {state['held']} of {RELEASE_ASSET_CAP} and this cut wants {need}")
+    retire(root)
 
 
 def objects_on_release(root: Path) -> set:
@@ -828,6 +955,12 @@ def main(argv) -> int:
     ap.add_argument("--check", action="store_true", help="1 if the lock does not name this tree")
     ap.add_argument("--prune", action="store_true",
                     help="remove locked members no longer declared by the build graph")
+    ap.add_argument("--retire", action="store_true",
+                    help="take unreachable and superseded assets off the release")
+    ap.add_argument("--room", action="store_true",
+                    help="print how much of the release is left and what could leave it")
+    ap.add_argument("--keep-cuts", type=int, default=CUTS_KEPT, metavar="N",
+                    help=f"with --retire/--room, cuts to keep whole (default {CUTS_KEPT})")
     ap.add_argument("--sidecar-debt", action="store_true",
                     help="print producers whose viewer scorecards do not match the lock")
     ap.add_argument("--allow-retired", action="store_true",
@@ -836,6 +969,18 @@ def main(argv) -> int:
 
     if args.mode == "selftest":
         return selftest()
+    if args.room:
+        if args.write or args.check or args.prune or args.retire:
+            ap.error("--room is a separate read-only query")
+        state = room(_ROOT, args.keep_cuts)
+        print(f"release holds {state['held']} of {RELEASE_ASSET_CAP}; {state['free']} free")
+        print(f"  {len(state['unreachable'])} asset(s) no commit's lock names")
+        print(f"  {len(state['superseded'])} asset(s) outside the last {args.keep_cuts} cut(s)")
+        return 0
+    if args.retire:
+        if args.write or args.check or args.prune:
+            ap.error("--retire is a separate explicit step")
+        return retire(_ROOT, args.keep_cuts)
     if args.sidecar_debt:
         if args.write or args.check or args.prune or args.allow_retired:
             ap.error("--sidecar-debt is a separate read-only query")
@@ -1000,6 +1145,8 @@ def main(argv) -> int:
         data = lock_for(_ROOT, rels, digest, size, now, sidecar_now, unproven_now)
         print(f"bundle {data['release']['asset']} — {size / 1e6:.1f} MB "
               f"({100 * size / total:.0f}% of the tree's bytes)")
+        # THIS CUT'S OWN BUNDLE PLUS EVERY MEMBER THAT MOVED, asked for before a byte goes up.
+        make_room(_ROOT, 1 + sum(1 for r in rels if now[r] not in known))
         upload(_ROOT, bundle, data["release"]["asset"], digest, size)
         complete = upload_objects(_ROOT, rels, now, known)
 

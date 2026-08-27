@@ -39,6 +39,7 @@ from _cold_core_interface import (
     attachment_xy_positions,
     wall_and_floor_thickness,
     corner_round_radius,
+    flute_depth,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
     head_pad_height,
@@ -574,13 +575,18 @@ def main():
     # neither piece has to be told about the other (`flute-even`).
     #   THE TWO LIDS TAKE NONE OF IT, so each one's edge is a smooth band of the silhouette —
     # one `wall_and_floor_thickness` where the bottom lid closes the stack, and the whole
-    # [5.2 mm](LID_Z_H) of its plate where the top lid meets the crown. What a band like that
-    # reads as is a reveal, which is what a seam wants.
+    # [5.2 mm](LID_Z_H) of its plate where the top lid meets the crown. Neither is tall enough
+    # to carry the field: the fade runs over `flute_rise` off each of a band's own two faces, so
+    # a band reaches full depth only at twice that, and cut on the core's own run these two come
+    # back at 0.604 mm and 0.121 mm against the shell's [1.2 mm](FLUTE_D). `flute-reveal` is that
+    # bound, read over every band of the silhouette. What a band like this reads as is a reveal,
+    # which is what a seam wants.
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
 
     variables = {
         "LID_Z_H": f"{lid_total_height:.4g} mm",
+        "FLUTE_D": f"{flute_depth:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
