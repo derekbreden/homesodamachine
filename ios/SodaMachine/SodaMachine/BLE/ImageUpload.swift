@@ -42,6 +42,7 @@ enum ImageFrame {
     static let artQuery: UInt8 = 0x1D
     static let artState: UInt8 = 0x1E
     static let artSet:   UInt8 = 0x1F
+    static let abort:    UInt8 = 0x20
 }
 
 /// What the machine says it is holding.
@@ -133,6 +134,25 @@ extension BLEManager {
         }
     }
 
+    /// Stop one partway. The board's slot was erased when the transfer opened
+    /// and never got its header, so there is nothing to undo on either side.
+    func cancelImageUpload() {
+        guard case .sending = imageUploadState else { return }
+        let slot = imageSlotSending
+        bleQueue.async { [weak self] in
+            guard let self else { return }
+            self.imageBundle = Data()
+            self.sendBLEFrame(type: ImageFrame.abort, payload: Data())
+        }
+        forgetPreview(slot: slot)
+        DispatchQueue.main.async { self.imageUploadState = .idle }
+    }
+
+    /// A slot that did not receive its picture must not go on showing it.
+    func forgetPreview(slot: Int) {
+        SlotPreviews.forget(unit: connectedMachine?.unit ?? "", slot: slot)
+    }
+
     // ── Adding ────────────────────────────────────────────────────────────
     func uploadImage(_ crop: ImageCrop, to slot: Int) {
         guard !demoMode else { return }
@@ -189,6 +209,9 @@ extension BLEManager {
         switch state {
         case 3:   // FAILED
             let why = Int(err) < uploadErrors.count ? uploadErrors[Int(err)] : "unknown"
+            // The preview was kept before the push so a slow send still had a
+            // face. A send that failed has none, and must not pretend to.
+            forgetPreview(slot: imageSlotSending)
             bleQueue.async { [weak self] in self?.imageBundle = Data() }
             DispatchQueue.main.async { self.imageUploadState = .failed(why) }
             log.error("slot upload failed: \(why)")

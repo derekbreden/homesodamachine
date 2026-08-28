@@ -158,6 +158,9 @@ struct FlavorImagePicker: View {
                 .rotationEffect(.degrees(-90))
         }
         .padding(5)
+        .contextMenu {
+            Button("Cancel", role: .destructive) { ble.cancelImageUpload() }
+        }
     }
 
     private var addCell: some View {
@@ -244,5 +247,10 @@ enum SlotPreviews {
     static func load(unit: String, slot: Int) -> UIImage? {
         guard let u = url(unit, slot), let d = try? Data(contentsOf: u) else { return nil }
         return UIImage(data: d)
+    }
+
+    static func forget(unit: String, slot: Int) {
+        guard let u = url(unit, slot) else { return }
+        try? FileManager.default.removeItem(at: u)
     }
 }
