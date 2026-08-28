@@ -1864,6 +1864,26 @@ def _yz_prism(x0, x1, section):
     )
 
 
+def _y_wall_corbel(stock, fore, wall):
+    """A 45 degree underside carrying ``stock`` from its free face back to a +Y wall.
+
+    THE SUPPORT IS A SHEARED COPY OF THE SHAPE IT CARRIES, not a prism struck on that
+    shape's bounding box. At ``fore`` the copy coincides with ``stock``; toward ``wall`` it
+    falls one millimetre in Z for every millimetre in Y. Fusing the two therefore puts
+    material directly under every point of the lower outline — including a rounded corner —
+    while presenting one 45 degree underside to the bed. A square prism under a rounded
+    outline instead leaves a flat ledge with an air channel above it at every lower corner.
+    """
+    if wall <= fore:
+        raise ValueError(f"a +Y-wall corbel runs from {fore:g} to {wall:g}, not toward its wall")
+    shear = cq.Matrix([
+        [1.0, 0.0, 0.0, 0.0],
+        [0.0, 1.0, 0.0, 0.0],
+        [0.0, -1.0, 1.0, fore],
+    ])
+    return stock.transformGeometry(shear)
+
+
 def _xz_prism(y0, y1, section):
     """A prism along Y from y0 to y1, whose `section` is a closed `(x, z)` polygon.
 
@@ -7315,11 +7335,12 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     tunnel is the whole of what is left.
 
     ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece prints on its Z− face
-    with the +Y wall standing on the bed, so the tunnel's own soffit is ceiling starting in air;
-    run down the wall at 45° it is a ramp the wall reaches under. The collar is only five
-    millimetres long and joins that supported face around its whole perimeter. The crown needs
-    no such thing — it is clipped to the room, so above the aperture the section runs
-    out into the top wall the way the port field's top row of bosses does.
+    with the +Y wall standing on the bed, so the tunnel's own soffit is ceiling starting in air.
+    `_y_wall_corbel` shears THE TUNNEL'S OWN OUTLINE down to that wall at 45°: its R3 corners
+    are carried by the same shape rather than by their rectangular envelope. There is
+    consequently no flat ledge under a round corner and no air channel between support and
+    tunnel. The crown needs no such thing — it is clipped to the room, so above the aperture the
+    section runs out into the top wall the way the port field's top row of bosses does.
 
     IT ROOTS ON `back_wall_t_at` AND NOT ON `inner`. The piece holding these stations carries
     `back_top_wall_t` over most of this wall, so the plane the tunnel stands on is the section
@@ -7346,9 +7367,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     mouth = fore - _c14.FLANGE_T - c14_collar_extension
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
     tunnel = _rect_cut_y(cx, cz, 2.0 * hx, 2.0 * hz, c14_tunnel_r, fore, aft)
-    tunnel = tunnel.fuse(_yz_prism(cx - hx, cx + hx,
-                                   [(aft, cz - hz), (fore, cz - hz),
-                                    (aft, cz - hz - (aft - fore))]))
+    tunnel = tunnel.fuse(_y_wall_corbel(tunnel, fore, aft)).clean()
     collar = (_c14.flange_prism(
         c14_collar_slip + c14_collar_wall, mouth, fore)
         .translate((cx, 0.0, cz)).val())
