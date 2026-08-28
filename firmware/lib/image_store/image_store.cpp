@@ -175,7 +175,7 @@ bool imageStoreWriteFinish() {
   const bool ok = esp_partition_write(part, (size_t)writeSlot * slotBytes,
                                       &h, sizeof(h)) == ESP_OK;
   writing = false;
-  remap();
+  if (!remap()) Serial.println("[images] REMAP FAILED after write");
   if (ok) Serial.printf("[images] slot %u written, %lu B\n",
                         writeSlot, (unsigned long)bundleBytes);
   return ok;
@@ -189,6 +189,18 @@ void imageStoreWriteAbort() {
 
 uint32_t imageStoreWriteOffset() { return writing ? writeAt : 0; }
 bool     imageStoreWriteActive() { return writing; }
+
+void imageStoreDiag(char *out, unsigned n) {
+  if (!part) { snprintf(out, n, "no partition"); return; }
+  const ImageSlotHeader *raw =
+      mapped ? (const ImageSlotHeader *)mapped : nullptr;
+  snprintf(out, n, "map=%d n=%u m=%08lX f=%lu c=%u b=%lu",
+           mapped ? 1 : 0, slotCount,
+           raw ? (unsigned long)raw->magic : 0UL,
+           raw ? (unsigned long)raw->format : 0UL,
+           raw ? raw->count : 0,
+           raw ? (unsigned long)raw->bytes : 0UL);
+}
 
 bool imageStoreErase(uint8_t slot) {
   if (!part || slot >= slotCount || writing) return false;

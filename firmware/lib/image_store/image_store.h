@@ -90,5 +90,11 @@ uint32_t imageStoreBundleBytes();
 uint32_t imageStoreWriteOffset();
 bool     imageStoreWriteActive();
 
+// What the store sees when it looks at itself. For a board with no console:
+// whether the partition is mapped at all, and what slot zero's header reads
+// back as, which is what separates a write that did not happen from a write
+// that cannot be seen.
+void imageStoreDiag(char *out, unsigned n);
+
 // Give a slot back. What the app calls "remove".
 bool imageStoreErase(uint8_t slot);
