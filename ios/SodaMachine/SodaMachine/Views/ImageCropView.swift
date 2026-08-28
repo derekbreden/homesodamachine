@@ -3,12 +3,18 @@ import SwiftUI
 // ────────────────────────────────────────────────────────────
 // Choosing what part of a photograph the machine gets.
 //
-// TWO CROPS COME OUT OF ONE GESTURE. The faucet fills a tall 172x320 glass and
-// the enclosure wears a square card, so a photograph has to give up two
-// different rectangles. Asking for two crops in a row would be answering the
-// hardware's problem with the person's time — so the tall window is what is
-// positioned, and the square the enclosure will take is drawn inside it while
-// that happens. What both displays get is visible before either is committed.
+// TWO CROPS COME OUT OF ONE GESTURE, AND THEN THE SECOND ONE MOVES. The faucet
+// fills a tall 172x320 glass and the enclosure wears a square card, so a
+// photograph has to give up two different rectangles. Asking for two crops in a
+// row would be answering the hardware's problem with someone's time — so the
+// tall window is positioned first, and the square the enclosure takes rides
+// inside it on a handle of its own.
+//
+// It has to move independently, because the two rectangles want different
+// things out of the same photograph. A face centred for the tall glass sits
+// near its top; the square that flatters it is not the square in the middle.
+// Both are visible the whole time, and neither is committed until both look
+// right.
 //
 // Nothing is resampled here. This produces the two rectangles at full source
 // resolution and ImageBundle does every reduction from those, once.
@@ -28,6 +34,10 @@ struct ImageCropView: View {
     @State private var committedScale: CGFloat = 1
     @State private var offset: CGSize = .zero
     @State private var committedOffset: CGSize = .zero
+    // Where the enclosure's square sits inside the faucet's frame, as the
+    // fraction of its travel from top to bottom. Centred until someone moves it.
+    @State private var squarePos: CGFloat = 0.5
+    @State private var committedSquarePos: CGFloat = 0.5
 
     private let aspect: CGFloat = 172.0 / 320.0
 
@@ -48,7 +58,7 @@ struct ImageCropView: View {
                         .foregroundStyle(Theme.textPrimary)
                         .padding(.top, 24)
 
-                    Text("The tall frame is the faucet. The square inside it is\nwhat the front display shows.")
+                    Text("The tall frame is the faucet. Drag the handle to choose\nwhat the front display shows.")
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.textSecondary)
                         .multilineTextAlignment(.center)
@@ -66,14 +76,50 @@ struct ImageCropView: View {
                             .frame(width: window.width, height: window.height)
                             .clipped()
 
-                        // The square the enclosure takes, over the tall frame
-                        // the faucet takes. Both are the same gesture.
+                        // Everything the enclosure will not see, dimmed. The
+                        // square reads as the second picture rather than as a
+                        // line drawn over the first.
+                        Color.black.opacity(0.42)
+                            .mask(
+                                ZStack {
+                                    Rectangle()
+                                    Rectangle()
+                                        .frame(width: window.width, height: window.width)
+                                        .offset(y: squareOffset(window))
+                                        .blendMode(.destinationOut)
+                                }
+                                .compositingGroup()
+                            )
+                            .allowsHitTesting(false)
+
                         Rectangle()
-                            .strokeBorder(Color.white.opacity(0.85), lineWidth: 1.5)
+                            .strokeBorder(Color.white.opacity(0.9), lineWidth: 1.5)
                             .frame(width: window.width, height: window.width)
+                            .offset(y: squareOffset(window))
+                            .allowsHitTesting(false)
+
+                        // The handle that moves it. Everything outside the
+                        // handle pans the photograph, so the two gestures never
+                        // have to guess which one was meant.
+                        Capsule()
+                            .fill(Color.white.opacity(0.95))
+                            .frame(width: 44, height: 5)
+                            .shadow(radius: 3)
+                            .offset(y: squareOffset(window) + window.width / 2 - 3)
+                            .contentShape(Rectangle().inset(by: -22))
+                            .gesture(
+                                DragGesture()
+                                    .onChanged { v in
+                                        squarePos = clampPos(committedSquarePos
+                                            + v.translation.height / max(1, travel(window)))
+                                    }
+                                    .onEnded { _ in committedSquarePos = squarePos }
+                            )
+
                         Rectangle()
-                            .strokeBorder(Color.white.opacity(0.5), lineWidth: 2)
+                            .strokeBorder(Color.white.opacity(0.55), lineWidth: 2)
                             .frame(width: window.width, height: window.height)
+                            .allowsHitTesting(false)
                     }
                     .frame(width: window.width, height: window.height)
                     .contentShape(Rectangle())
@@ -120,6 +166,16 @@ struct ImageCropView: View {
         }
     }
 
+    /// How far the square can travel inside the frame, in points.
+    private func travel(_ window: CGSize) -> CGFloat { window.height - window.width }
+
+    /// Its centre, measured from the frame's centre.
+    private func squareOffset(_ window: CGSize) -> CGFloat {
+        (squarePos - 0.5) * travel(window)
+    }
+
+    private func clampPos(_ v: CGFloat) -> CGFloat { min(max(v, 0), 1) }
+
     // ── The displayed geometry ────────────────────────────────────────────
     // Aspect-fill against the window, which is the smallest scale that leaves
     // no gap. Everything below is measured from it.
@@ -148,9 +204,10 @@ struct ImageCropView: View {
         let y = (image.size.height * s / 2 - window.height / 2 - o.height) / s
         let portrait = CGRect(x: x, y: y, width: window.width / s, height: window.height / s)
 
-        // The square shares its centre, and its side is the window's width.
+        // The square is where it was left, not where the middle is.
         let side = window.width / s
-        let square = CGRect(x: portrait.midX - side / 2, y: portrait.midY - side / 2,
+        let square = CGRect(x: portrait.midX - side / 2,
+                            y: portrait.minY + (portrait.height - side) * squarePos,
                             width: side, height: side)
 
         return ImageCrop(portrait: cut(portrait), square: cut(square))
