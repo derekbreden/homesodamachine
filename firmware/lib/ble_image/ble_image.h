@@ -35,6 +35,24 @@ constexpr uint8_t BLE_FRAME_IMG_ACK   = 0x1A;  // board → phone: BleImgAck
 constexpr uint8_t BLE_FRAME_IMG_END   = 0x1B;  // phone → board: no payload
 constexpr uint8_t BLE_FRAME_IMG_ERASE = 0x1C;  // phone → board: BleImgSlot
 
+// Which face each channel wears. The phone is choosing among the same eight
+// the enclosure's own picker offers, so it asks for and sets the one thing the
+// main board owns rather than keeping an idea of its own.
+constexpr uint8_t BLE_FRAME_ART_QUERY = 0x1D;  // phone → board: no payload
+constexpr uint8_t BLE_FRAME_ART_STATE = 0x1E;  // board → phone: BleArtState
+constexpr uint8_t BLE_FRAME_ART_SET   = 0x1F;  // phone → board: BleArtSet
+
+struct __attribute__((packed)) BleArtState {
+  uint8_t art[2];      // art index each channel wears, low channel first
+  uint8_t factory;     // how many of them are the ones that ship
+  uint8_t custom;      // and how many are the owner's
+};
+
+struct __attribute__((packed)) BleArtSet {
+  uint8_t channel;
+  uint8_t art;
+};
+
 struct __attribute__((packed)) BleImgState {
   uint8_t  slots;        // custom slots this machine has
   uint8_t  held;         // how many hold a picture
@@ -84,6 +102,10 @@ constexpr uint32_t BLE_IMG_ACK_EVERY = 32768;
 // What the owning board supplies.
 struct BleImageSeams {
   void (*notify)(uint8_t type, const void *data, uint16_t len);
+  // Ask the main board to give a channel a different face, and read back what
+  // it currently holds. The main board owns this, not either display.
+  void (*setArt)(uint8_t channel, uint8_t art);
+  void (*readArt)(uint8_t out[2]);
   // Told at the start and end of a transfer, and every ack, so the glass can
   // say what is happening while its own flash is being written.
   void (*onProgress)(bool active, uint8_t percent);
@@ -101,3 +123,7 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen);
 void bleImageDisconnected();
 
 bool bleImageBusy();
+
+// Publish the pair whenever the main board revises it, so a phone watching the
+// machine sees a change made on the glass as fast as one it made itself.
+void bleImagePublishArt();

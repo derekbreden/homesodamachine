@@ -87,6 +87,7 @@ class BLEManager {
     // What the machine says it holds, and how an upload to it is going. The
     // bundle itself is held only for the length of the push.
     var imageSlots = ImageSlots()
+    var flavorArt = FlavorArt()
     var imageUploadState: ImageUploadState = .idle
     @ObservationIgnored var imageBundle = Data()
     @ObservationIgnored var imageSlotSending = 0
@@ -1913,6 +1914,8 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleImageState(payload)
             case 0x1A: // IMG_ACK — where the board has got to, and how it ended
                 ble.handleImageAck(payload)
+            case 0x1E: // ART_STATE — which face each channel wears
+                ble.handleFlavorArt(payload)
             default:
                 break
             }

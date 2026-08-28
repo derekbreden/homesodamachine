@@ -530,7 +530,9 @@ jobs:
       - name: Publish the bundle
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # `--prune` RETIRES; `--write` PUBLISHES, AND THE SECOND DOES NOT WAIT ON THE FIRST.
+        # `--prune` TAKES RETIRED OUTPUTS OUT OF THE TREE; `--write` PUBLISHES, AND THE SECOND
+        # DOES NOT WAIT ON THE FIRST. Neither is `--retire`, which takes assets off the GitHub
+        # release: the word is the same and the two operations share nothing.
         # A prune that declines to retire an output without a changed producing source (exit 2)
         # has said so, and leaving the retirement standing costs a stale pin. Failing the step
         # cost the whole cut: no bundle, no lock, no deploy.

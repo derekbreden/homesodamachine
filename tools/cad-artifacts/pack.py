@@ -39,6 +39,7 @@ out is `NOT_BUNDLED_DIRS` and `HARVESTED` below. `--check` holds what the walk f
 
 import argparse
 import concurrent.futures as cf
+import datetime as dt
 import gzip
 import hashlib
 import io
@@ -49,6 +50,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import time
 from pathlib import Path
 
 _HERE = Path(__file__).resolve()
@@ -747,6 +749,17 @@ RELEASE_ASSET_CAP = 1000
 #: by the member count and not by any average, and the store refills in a few of them.
 CUTS_KEPT = 12
 
+#: HOW LONG AN ASSET IS OFF LIMITS AFTER IT LANDS. `--write` puts the bundle and one object per
+#: moved member on the release BEFORE it writes the lock that names them, so for the length of
+#: an upload those bytes are on the release and no lock anywhere names them. A sweep reading
+#: only committed locks calls exactly that unreachable, and deleting it leaves a lock about to
+#: be written naming an asset the release does not hold — which is a deploy that cannot fetch
+#: the geometry, and nothing puts it back. Across the twelve cuts of 2026-08-27 the lock commit
+#: followed the newest asset it names by 1-2 s; this covers the upload in front of that gap,
+#: with room for the 143 MB bundle, and costs the sweep nothing — an asset this new is inside
+#: the `CUTS_KEPT` window in any case.
+RETIRE_FLOOR_S = 30 * 60
+
 
 def object_asset(sha: str) -> str:
     """The release asset holding one member's bytes, named by those bytes."""
@@ -759,6 +772,15 @@ def release_assets(root: Path) -> list:
     if listing.returncode != 0:
         return []
     return json.loads(listing.stdout).get("assets", [])
+
+
+def lock_assets(held: dict) -> set:
+    """The release assets one lock names — its bundle, and one per member and scorecard sha."""
+    names = {object_asset(sha) for sha in
+             set((held.get("solids") or {}).values())
+             | set((held.get("sidecars") or {}).values())}
+    asset = (held.get("release") or {}).get("asset")
+    return names | ({asset} if asset else set())
 
 
 def locks_in_history(root: Path) -> list:
@@ -782,17 +804,31 @@ def locks_in_history(root: Path) -> list:
             held = json.loads(blob.stdout)
         except json.JSONDecodeError:
             continue
-        names = {object_asset(sha) for sha in
-                 set((held.get("solids") or {}).values())
-                 | set((held.get("sidecars") or {}).values())}
-        asset = (held.get("release") or {}).get("asset")
-        if asset:
-            names.add(asset)
-        out.append(names)
+        out.append(lock_assets(held))
     return out
 
 
-def retirable(root: Path, keep_cuts: int = CUTS_KEPT) -> tuple:
+def too_new(assets: list, now: float = None) -> set:
+    """The assets inside `RETIRE_FLOOR_S`, which no sweep may take.
+
+    AN ASSET THIS FUNCTION CANNOT DATE IS NEW. A sweep with no ground to say when something
+    landed has no ground to delete it, and the cost of keeping one is one slot."""
+    now = time.time() if now is None else now
+    out = set()
+    for asset in assets:
+        name = asset.get("name") or ""
+        stamp = asset.get("createdAt")
+        try:
+            born = dt.datetime.fromisoformat(stamp.replace("Z", "+00:00")).timestamp()
+        except (AttributeError, TypeError, ValueError):
+            out.add(name)
+            continue
+        if now - born < RETIRE_FLOOR_S:
+            out.add(name)
+    return out
+
+
+def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tuple:
     """The assets that may leave the release, as `(unreachable, superseded)`.
 
     UNREACHABLE IS NOT A JUDGEMENT — no commit's lock names it, so no checkout can fetch it.
@@ -807,13 +843,24 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT) -> tuple:
     THE WINDOW IS A UNION AND NOT A SLICE. A member that has not moved in fifty cuts is named
     by the newest lock as well as the oldest, so it stands inside the window on the strength of
     the newest — which is what makes this a retention rule about cuts rather than about bytes.
+
+    AND TWO SETS STAND OUTSIDE ALL OF IT, both of them a cut that has not finished landing. The
+    lock on disk names a cut whose bytes are up and whose commit is not made; this tree is the
+    one shared record of it, so it is read here beside the committed ones — and it is the
+    NEWEST cut there is, so it stands inside the window as well as inside reach.
+    `RETIRE_FLOOR_S` covers the upload in front of that, where the bytes are on the release and
+    no lock names them at all.
     """
-    on_release = {a["name"] for a in release_assets(root)}
+    assets = release_assets(root)
+    on_release = {a["name"] for a in assets}
+    fresh = too_new(assets, now)
     locks = locks_in_history(root)
-    reachable = set().union(*locks) if locks else set()
-    kept = set().union(*locks[:keep_cuts]) if locks[:keep_cuts] else set()
-    unreachable = sorted(n for n in on_release if n not in reachable)
-    superseded = sorted(n for n in on_release if n in reachable and n not in kept)
+    disk = lock_assets(read_lock(root))
+    reachable = (set().union(*locks) if locks else set()) | disk
+    kept = (set().union(*locks[:keep_cuts]) if locks[:keep_cuts] else set()) | disk
+    unreachable = sorted(n for n in on_release if n not in reachable and n not in fresh)
+    superseded = sorted(n for n in on_release
+                        if n in reachable and n not in kept and n not in fresh)
     return unreachable, superseded
 
 
@@ -836,10 +883,19 @@ def retire(root: Path, keep_cuts: int = CUTS_KEPT, unreachable_only: bool = Fals
           f"{len(state['unreachable'])} asset(s) no commit names"
           + ("" if unreachable_only
              else f", {len(state['superseded'])} outside the last {keep_cuts} cut(s)"))
-    failed = []
-    for name in going:
-        if _gh(root, "release", "delete-asset", TAG, name, "--yes").returncode != 0:
-            failed.append(name)
+    def drop(name: str):
+        """Take one asset off. Returns the name on failure, None on success."""
+        return None if _gh(root, "release", "delete-asset", TAG, name,
+                           "--yes").returncode == 0 else name
+
+    # FOUR AT A TIME, BECAUSE `gh` SPENDS THE DELETE WAITING. `delete-asset` resolves the name
+    # against the release's whole listing before it removes anything, and eight round trips
+    # measured on 2026-08-28 against a release holding 981 assets ran 1.90 s each serially,
+    # 0.62 s each four-wide and 0.60 s each eight-wide — the client saturates at four. This
+    # sweep runs from `make_room` inside a publish, on the path that exists to beat the runner's
+    # 5.7 minutes, and the 648 assets retirable that night are 20.5 minutes of it serially.
+    with cf.ThreadPoolExecutor(max_workers=min(4, len(going))) as pool:
+        failed = [name for name in pool.map(drop, going) if name]
     for name in failed:
         print(f"  {name} did not come off")
     left = len(release_assets(root))
@@ -1283,6 +1339,43 @@ def selftest() -> int:
              retired_outputs(root), ["hardware/retired/old.scorecard.json",
                                      "hardware/retired/old.step"])
 
+        hold("a lock names its bundle and one asset per member and scorecard sha",
+             sorted(lock_assets({"solids": {"a.step": "aa"},
+                                 "sidecars": {"a.scorecard.json": "bb"},
+                                 "release": {"asset": "cad-cc.tar.gz"}})),
+             ["cad-cc.tar.gz", object_asset("aa"), object_asset("bb")])
+
+        # WHAT A SWEEP MAY NOT TAKE IS A CUT STILL LANDING. `--write` uploads before it writes
+        # its lock and commits after, so an asset can be on the release while no committed lock
+        # names it — and deleting one leaves a lock naming bytes the release does not hold.
+        clock = 1_700_000_000.0
+
+        def born(ago):
+            return dt.datetime.fromtimestamp(clock - ago, dt.timezone.utc
+                                             ).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        hold("an asset inside the floor stays, and so does one carrying no date",
+             sorted(too_new([{"name": "settled.gz", "createdAt": born(RETIRE_FLOOR_S + 60)},
+                             {"name": "landing.gz", "createdAt": born(60)},
+                             {"name": "undated.gz"}], clock)),
+             ["landing.gz", "undated.gz"])
+
+        (hw / "cad-artifacts.lock.json").write_text(json.dumps({
+            "release": {"asset": "cad-inflight.tar.gz"},
+            "solids": {"hardware/printed-parts/cap/cap.step": "inflight"},
+        }))
+        listing = [{"name": name, "createdAt": born(RETIRE_FLOOR_S + 60)}
+                   for name in ("cad-inflight.tar.gz", object_asset("inflight"), "obj-dead.gz")]
+        was = (release_assets, locks_in_history)
+        globals()["release_assets"] = lambda _root: listing
+        globals()["locks_in_history"] = lambda _root: []
+        try:
+            swept = retirable(root, now=clock)
+        finally:
+            globals()["release_assets"], globals()["locks_in_history"] = was
+        hold("a cut whose lock is on disk and in no commit is neither unreachable nor stale",
+             swept, (["obj-dead.gz"], []))
+
         # A publication under way beside somebody's open file. Both members still ship;
         # what the record adds is which uncommitted paths reach them.
         note = ("source.commit does not describe these members: an uncommitted path below"
@@ -1332,8 +1425,8 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/18")
-    return 0 if holds == 18 else 1
+    print(f"pack selftest {holds}/21")
+    return 0 if holds == 21 else 1
 
 
 if __name__ == "__main__":

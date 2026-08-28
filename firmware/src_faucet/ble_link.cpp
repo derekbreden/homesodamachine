@@ -223,6 +223,8 @@ void bleLinkBegin() {
   img.notify = notify;
   img.onProgress = faucetApplyImage;
   img.onStoreMoved = faucetRebindLogos;
+  img.setArt = faucetSetFlavorArt;
+  img.readArt = faucetReadFlavorArt;
   bleImageBegin(img);
 
   applyAdvertising();
