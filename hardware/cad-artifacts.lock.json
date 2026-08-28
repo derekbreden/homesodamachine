@@ -7,7 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "05d7239a19746493bc85d39bfb0ade4b0ffc8f5c"
+    "commit": "11a254df78d4f5aa271e08a9f2a329d9e73f4071"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -29,27 +29,6 @@
       "hardware/assembly/scenes/glb/pump-cartridge.glb",
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
-      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl"
     ]
   },
@@ -143,12 +122,12 @@
     "hardware/assembly/cards/tools/out/so-solder-bench.png": "fa94054239655a2e099b8fc787819ea3261a5c3ec23f9a8419dfb562cef7846e",
     "hardware/assembly/cards/tools/out/tb-tube-bench.png": "2f0f6841adb48a0f1585679d6bc91666d6ea6185052c7f2e9a3293f11eb8328b",
     "hardware/assembly/cards/tools/out/vc-vacuum-charge.png": "edd5ad53c83a57c49751924bf6b9cbe53fa9177523116bb0e37850a9e700a444",
-    "hardware/assembly/scenes/glb/back-half.glb": "a651af3475a57555663b21b096933c8c5a9e787ab965180bcb76adf4ce20b420",
+    "hardware/assembly/scenes/glb/back-half.glb": "5e3ba8d30124ca3054f1909453241ef2b26e6802146fe9c471afd35c78790782",
     "hardware/assembly/scenes/glb/back-top.glb": "527d77f891a9f9acae344f9d91233c3b4774f6c28bd83358cba0b5b99601e57d",
     "hardware/assembly/scenes/glb/cap-lid-fill.glb": "5bc08d1de467f44a67917ec717b3c9377f23a7ad49592983216b7ebe4c78466f",
     "hardware/assembly/scenes/glb/cap-lid.glb": "6cdba39b27bf36ec852381ff6c8fd8bfede80bacbd45c39f7e5c8dc0898c5a5c",
-    "hardware/assembly/scenes/glb/cold-core-open.glb": "0fe5cf2d0b68f3acc53e040c5c49a6890299c13cc6306095ccc9cc739ac21b64",
-    "hardware/assembly/scenes/glb/cold-core.glb": "b5204a1b3ddf05a3262f8abc768097469016426121a5dd86a63ae777d863a4c4",
+    "hardware/assembly/scenes/glb/cold-core-open.glb": "093b51073a7d29e9c56fad8f9439f9283b62fcf20fa7a08f1f562ef23d878378",
+    "hardware/assembly/scenes/glb/cold-core.glb": "6f32f94937bfd531a36d0dc5f333cd72fcb2d12ceac5809dfe1614f1176c1bf9",
     "hardware/assembly/scenes/glb/en04-stratum.glb": "bb00c5e5d2498f4792136ada48cc4a4b9d5ecfc58ba4a52ba3385b2a42fabe7a",
     "hardware/assembly/scenes/glb/en06-column.glb": "0db5adcb261aab12251fc1a547e747875960403e18560f0e9169254a22e7a706",
     "hardware/assembly/scenes/glb/front-top.glb": "ae0ce49ac27118faa17dd85cf1fb4ebd5d27ef9410f38fa9651b767b97a49445",
