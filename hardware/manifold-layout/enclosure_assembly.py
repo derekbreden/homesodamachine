@@ -4437,16 +4437,17 @@ def c14_mount_half() -> tuple:
 
 
 def c14_flat_column() -> float:
-    """The eastmost column the inlet can stand on: the one that leaves its MOUNT — the socket
-    round the flange, which is the widest thing either the part or the block has — wholly on the
-    wall's own flat rear face.
+    """The eastmost column the inlet can stand on: the one that leaves its FLANGE — the widest
+    thing the RECEPTACLE has, and what the two screws are struck off — wholly on the wall's own
+    flat rear face. The socket standing round that flange is wall, and wall may run out past the
+    tangent; a station struck on the socket instead drags both screws west with it.
 
     `enclosure.corner_round` relieves the box's standing verticals for the bed, so the rear face
     is flat only between the two tangents and rolls away to the side walls past them — and where
     a standing vertical carries a COLUMN the flat ends at its cusp instead, further in again.
     `enclosure.wall_flat_from_corner` is whichever of those the wall actually presents. A tunnel
     rooted past it is a tunnel rooted on curve."""
-    return (_enc.interior_x()[1] - _enc.wall_flat_from_corner()) - c14_mount_half()[0]
+    return (_enc.interior_x()[1] - _enc.wall_flat_from_corner()) - _c14.FLANGE_W / 2.0
 
 
 # WHERE IT SITS ON THAT WALL IS STRUCK ON BOTH AXES, and neither figure is its own.
