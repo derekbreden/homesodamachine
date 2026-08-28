@@ -647,10 +647,13 @@ wall needs no support.
 The **AC inlet's tunnel** stands off the +Y wall's inner face in back-top and costs
 nothing either. Its two flanks are vertical to the bed and its crown runs out into the top
 wall; the soffit under it, the one face that would hang, is cut back to the wall at 45°
-(`enclosure._c14_tunnel`). What is left over air is the bore's own ceiling — a bridge the
-aperture's full width, carried between the tunnel's two flanks. Nothing on the piece stands
-outside the print silhouette: the receptacle's two heat-sets go into the tunnel's fore face,
-from inside the box, and the back of the machine is flat.
+(`enclosure._c14_tunnel`). That corbel is a sheared copy of the tunnel's own outline: it follows
+the R3 lower corners, leaving neither square ledges under the rounds nor air channels between
+tunnel and support. What is left over air is the bore's own ceiling — a bridge the aperture's
+full width, carried between the tunnel's two
+flanks. Nothing on the piece stands outside the print silhouette: the receptacle's two
+heat-sets go into the tunnel's fore face, from inside the box, and the back of the machine is
+flat.
 
 ## ASSE anchor
 
