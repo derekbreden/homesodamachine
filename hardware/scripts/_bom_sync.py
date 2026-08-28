@@ -270,6 +270,32 @@ ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
+
+# THE COLLET PLATE'S OWN FIGURE, off `enclosure.plate_outline` and the hole row struck through
+# it. §8 sells a shop a plain rectangle and sends the bench to `collet-plate.dxf` to hold the
+# steel against, so what that row says about the shape is read here rather than typed there.
+_collet_plate = _f.box["collet_plate"]
+_collet_ring = _enc.plate_outline(_collet_plate)
+_collet_x = [x for x, _ in _collet_ring]
+_collet_z = [z for _, z in _collet_ring]
+_collet_w = max(_collet_x) - min(_collet_x)
+_collet_h = max(_collet_z) - min(_collet_z)
+# AND WHETHER IT IS STILL PLAIN. Zero is the whole of "no notch", and nothing else is: a closed
+# outline lies inside the rectangle it is measured across, so equal areas leave it nowhere to be
+# but ON that rectangle. A bite out of an edge, a chamfered corner and a stepped end each take
+# area and leave the rectangle where it was — and so does a four-point outline that is not a
+# rectangle, which is the reading a corner count cannot take.
+_collet_notch = _collet_w * _collet_h - abs(sum(
+    xa * zb - xb * za
+    for (xa, za), (xb, zb) in zip(_collet_ring, _collet_ring[1:] + _collet_ring[:1]))) / 2.0
+if _collet_notch > 1e-6:
+    raise ValueError(
+        f"the collet plate's outline falls {_collet_notch:.2f} mm² short of the "
+        f"{_collet_w:.2f} × {_collet_h:.2f} mm rectangle it stands in, so something is cut "
+        f"out of it. The §8 row is written for a plain rectangle — it prices the envelope as "
+        f"solid stock and tells the bench a notched plate is the wrong steel. It needs "
+        f"rewriting, not resyncing.")
+
 # THE PLATE AND ITS RING ARE PRINTED PARTS AND §7 BILLS BOTH: the plate a row of its own, the
 # gasket a line in the soft-seal sentence that carries every TPU seal in the machine. A body
 # the machine places and the ledger does not buy is a part nobody prints.
@@ -422,6 +448,14 @@ def main():
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
+        # The collet plate's shape, the whole of what §8 asks a shop to cut. `PLATE_CORNERS`
+        # and `PLATE_HOLES` are the same names `_enclosure_mechanical_sync` writes into §4 of
+        # the assembly, each driver reading the same outline, so `docgen.lint` holds the two
+        # sentences together rather than letting the ledger and the bench count differently.
+        "PLATE_PLAN": f"{_collet_w:.2f} × {_collet_h:.2f} mm",
+        "PLATE_CORNERS": f"{len(_collet_ring)}",
+        "PLATE_HOLES": f"{len(_collet_plate['holes'])}",
+        "PLATE_HOLE_D": f"Ø{_collet_plate['hole_d']:g}",
         # The loops the §11 zip tie rows are picked by — one per seat printed for a tie,
         # each off the module that draws it. `ANCHOR_LOOP` and `WR1110_LOOP` are the same
         # names `_cold_core_interface` and `_internal_plumbing_sync` write elsewhere, so
