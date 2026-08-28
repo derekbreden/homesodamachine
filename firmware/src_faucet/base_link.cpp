@@ -389,8 +389,12 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     char line[64];
     const bool ok = imageSynthWrite(req.slot);
     if (ok) faucetRebindLogos();
-    snprintf(line, sizeof(line), "synth slot %u %s", req.slot, ok ? "written" : "REFUSED");
+    snprintf(line, sizeof(line), "synth slot %u %s, held %u", req.slot,
+             ok ? "written" : "REFUSED", imageStoreHeld());
     base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
+    char diag[80];
+    imageStoreDiag(diag, sizeof(diag));
+    base.trySend(MSG_TEXT, diag, (uint16_t)strlen(diag));
     return;
   }
 
