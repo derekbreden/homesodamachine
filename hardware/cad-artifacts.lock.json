@@ -2,23 +2,21 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-58f2a0dfd0d932fb.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-58f2a0dfd0d932fb.tar.gz",
+    "asset": "cad-dcd48100d888f5ad.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-dcd48100d888f5ad.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "cf13def5ed7fb93f3d1707109216f7ce97a106ce"
+    "commit": "4f42b9295d82da16467e71162abe9d62f771b1db"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "firmware/lib/proto_link/proto_msg.h",
-      "firmware/src_faucet/wifi_bench.cpp",
-      "firmware/src_faucet/wifi_bench.h",
-      "firmware/src_front/main.cpp",
-      "firmware/src_front/wifi_bench.cpp",
+      "BUILD.bazel",
       "hardware/assembly/_enclosure_mechanical_sync.py",
+      "hardware/ledger/bom.md",
       "hardware/manifold-layout/enclosure-assembly.facts.json",
+      "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/off-the-shelf-parts/C14 - 1.jpeg",
       "hardware/off-the-shelf-parts/C14 - 10.jpeg",
       "hardware/off-the-shelf-parts/C14 - 11.jpeg",
@@ -34,9 +32,17 @@
       "hardware/off-the-shelf-parts/C14 - 7.jpeg",
       "hardware/off-the-shelf-parts/C14 - 8.jpeg",
       "hardware/off-the-shelf-parts/C14 - 9.jpeg",
+      "hardware/printed-parts/enclosure/enclosure/README.md",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "hardware/scripts/_bom_sync.py",
+      "ios/SodaMachine/SodaMachine/BLE/ImageUpload.swift",
+      "ios/SodaMachine/SodaMachine/Utilities/ImageBundle.swift",
+      "ios/SodaMachine/SodaMachine/Views/ImageCropView.swift",
+      "ios/SodaMachine/SodaMachine/Views/ImagesView.swift",
       "tools/bazel/affected.py",
-      "tools/bazel/check_unbounded_reach.py"
+      "tools/bazel/check_unbounded_reach.py",
+      "tools/bazel/selftests.json"
     ],
     "members": [
       "hardware/assembly/cards/deck.cover.png",
@@ -310,8 +316,8 @@
     ]
   },
   "bundle": {
-    "sha256": "58f2a0dfd0d932fbc8bbd64de94c3e71bdd949d2e4bafcfb01a56df35b719b5b",
-    "bytes": 150746755,
+    "sha256": "dcd48100d888f5adbd5cfff2a5b953757d7ba3ea59e1a4db48be89e2243d9bcc",
+    "bytes": 144918054,
     "solids": 268
   },
   "solids": {
@@ -414,8 +420,8 @@
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "bb6d47d7641a9759e444da2f68ea12d48ddcc19f36bcfcd4227414a5d75d538a",
     "hardware/faucet-layout/faucet-assembly.step": "3e113b16d687d7fdc7be3148cf90de4b49e7e7084df87c08ff3162bf4e2ff679",
     "hardware/faucet-layout/faucet-assembly.step.mesh": "714c8b4298a7000996394efe3f52987617684553752ae40602c531a2a1bed097",
-    "hardware/manifold-layout/enclosure-assembly.step": "dc44eaea355b860f34d7e9c120286e03490f531dca6c4786f3285e63be4b688e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "c12c979599f533724228c76b28c10fca04a274f18c3787fd4ce6ca1c8e31d088",
+    "hardware/manifold-layout/enclosure-assembly.step": "a63ea58ec74c1502c283553f2d2588744e2a4106ab1da3e07545e82880d3e20a",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "da8939b67de583c39647ed2d6803b3a39e16bd887c3003f096e70bf6fec4d9ee",
     "hardware/manifold-layout/manifold-layout.step": "b1ec5c322c80216d7bda15940c767ff696c351f88ce7c9725acaf9a1533bd120",
     "hardware/manifold-layout/manifold-layout.step.mesh": "1d64c534e6f94d485621e4bfc1b256a6adb3da044f094b7bd5e47bccaa31326f",
     "hardware/pcb/pcba/out/pcba.bom.csv": "9b13c80835f4d278eb8173c3da49885f159376a6df6a074f62ea66d30df73b06",
