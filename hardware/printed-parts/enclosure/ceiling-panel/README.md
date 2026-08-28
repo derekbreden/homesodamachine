@@ -38,10 +38,10 @@ states about itself.
 ## The structural field
 
 The load path is a continuous [8 mm](STRUCTURAL_T) plate, not a thin lid with a
-single directional brace. Its envelope absorbs all but 1.25 mm of the two
-retention-insert sockets and the upper roots of the flow-meter anchors and tube
-anchors. The existing print profile uses four top shells, three bottom shells
-and 15% grid infill, so the CAD envelope is not a solid 8 mm billet.
+single directional brace. Its envelope absorbs the upper roots of the
+flow-meter anchors and tube anchors. The existing print profile uses four top
+shells, three bottom shells and 15% grid infill, so the CAD envelope is not a
+solid 8 mm billet.
 
 There are [7](RELIEF_N) body pockets. Each starts from the purchased solid's
 exact intersection with the unrelieved field and rails, adds 2 mm of plan slip
@@ -57,14 +57,12 @@ is returned as the single [1](TIE_RELIEF_N) zip tie pocket, so the loop still
 descends on both sides of the WR1110 barrel. The other anchor channels and both
 meter channels remain open while their solid roots merge into the plate.
 
-The C14 tunnel reaches into the aft end of the field. Its intersecting upper cap
-belongs to this panel and travels with it; the rest stays on back-top and gives
-up the +X rail's clearance. The two screw piers likewise keep their structural
-section below the rail while leaving its dado open above. The union in the
-installed machine is the same tunnel, while neither it nor a pier blocks the
-panel's slide. `ceiling-panel-slides-in` checks the complete field-and-rail sweep
-from the open Y seam to the installed stop rather than checking only the final
-pose.
+The fixed C14 surround and keystone receptacle reach into the aft end of the
+field. Each belongs wholly to back-top; this panel carries a constant-section
+running pocket open through its aft edge, so the fixed crown enters that pocket
+as the panel reaches home. `ceiling-panel-slides-in` checks the complete
+field-and-rail sweep from the open Y seam to the installed stop rather than
+checking only the final pose.
 
 ## The rails
 
@@ -93,7 +91,7 @@ a dado.
   run and clears the show face at the open mouth; the corbel grows downward in
   the other direction, providing the lower capture section at the blind end.
 
-## The brim, and the two screws
+## The brim, and the two keepers
 
 The funnel's brim lands ON this panel. The flange overhangs the collar and
 covers the first [7 mm](BRIM_SEAT) of show face, inside the
@@ -101,27 +99,28 @@ covers the first [7 mm](BRIM_SEAT) of show face, inside the
 which is why the fore edge is load-bearing and why the fore [10 mm](BRIM_MARGIN)
 is not a place to put an opening.
 
-Two [M3x10](SCREW_LEN) socket caps pin the fore end against the slide, at x =
-±[74.925](SCREW_X), y = [239.5](SCREW_Y). **Each screw is inserted from the Z−
-direction and travels +Z.** Its head is in a downward-open counterbore in
-back-top's fixed boss; its thread lands in a heat-set inserted upward into this
-panel from the same Z− face. Nothing pierces or counterbores the appliance's
-show face. Aft of them the tongues hold the panel down and the +Y wall holds
-it in; nothing else is fastened.
+The long dados already constrain X and Z, and the +Y wall is the panel's home
+stop. The only unrestrained motion is back toward the open Y− mouth. Two
+[M3x12](RETAINER_LEN) headless socket set screws block that motion directly:
+one crosses each empty dado at y = [234.35](RETAINER_Y), z =
+[351.5](RETAINER_Z), immediately ahead of the tongue's fore face.
 
-The fixed boss presents [4 mm](SCREW_LAND) of land from the head's bearing face
-at z = [341.75](SCREW_HEAD_SEAT) to the panel socket at z =
-[345.75](SCREW_INSERT_OPEN). Its recessed head face is flush at z =
-[337.75](SCREW_HEAD_FACE). The panel socket is [9.25 mm](SCREW_SOCKET_T) from
-its downward mouth to the show face: a [5.25 mm](HEATSET) ruthex M3 short ends
-at z = [351](SCREW_INSERT_END), the bore continues to z =
-[352](SCREW_INSERT_BORE_END), and a whole 3 mm wall caps it under the show
-surface. Land and insert spend [9.25 mm](SCREW_REACH) of the
-[M3x10](SCREW_LEN)'s under-head length, leaving [0.25 mm](SCREW_TIP_AIR) beyond
-the tip before the blind end.
+The panel reaches the rear stop before either keeper exists. Each screw is then
+driven outboard from the empty field into a [5.25 mm](HEATSET) ruthex M3 short
+buried horizontally in back-top's existing corbel. Its socket end remains in
+the rail lane and crosses [2.6 mm](RETAINER_OVERLAP) of the 3 mm tongue; its
+aft crown leaves the same [0.15 mm](RETAINER_AIR) fore air as the dado's printed
+slide fit. The insert runs x = ±[86.65](RETAINER_INSERT_FACE)..±[91.9](RETAINER_INSERT_END),
+reached through a [4.3 mm](RETAINER_APPROACH_D) guide from the dado's blind wall.
+The Ø4 bore continues [1 mm](RETAINER_TIP_AIR) past the insert, so the cup point
+cannot bottom on PET-GF and jack the pin back into the field. The fixed strip
+carries a full ligament round the insert without any added boss.
 
-Each station stands as far outboard as a full ligament round its counterbore
-allows, tangent to the mouth and inside the panel's moving field.
+The panel carries no insert, socket, counterbore or local pad. When it tries to
+move fore, each tongue bears on a steel cross-pin and each pin bears directly in
+the fixed strip. `ceiling-dado-mouth-keepers` checks both sides independently:
+clear at home, caught after the stated fore air, empty socket, complete insert
+land.
 
 ## What hangs off it
 
@@ -145,13 +144,14 @@ flat plate.
 
 ## Fitting it
 
-1. Set the panel show-face down and install both heat-sets upward from its Z−
-   face until each is flush in its downward-open socket.
+1. Feed a ruthex M3 short through each dado-mouth guide and heat-set it outboard
+   into the horizontal socket in back-top's fixed corbel.
 2. Slide the panel aft through back-top's Y-seam mouth, tongues in the dados,
    until its aft edge lands on the +Y wall.
-3. Keep back-top ceiling-down, with its Z− face upward. Insert both screws from
-   that face through the fixed bosses and drive them upward into the panel's
-   heat-sets.
+3. From the still-empty field, drive one [M3x12](RETAINER_LEN) headless keeper
+   outboard into each insert until its socket end reaches the stated rail-lane
+   depth. The screw crosses the dado ahead of the tongue; it does not enter the
+   panel.
 4. Lay the meter into its two anchors and each run into its rib, and zip tie them.
    Then lower the populated piece onto the machine.
 5. Drop the funnel in. Its collar fills the throat immediately ahead of the

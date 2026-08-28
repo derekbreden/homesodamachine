@@ -1346,33 +1346,22 @@ straight through the top wall. So the last `depth` is **the groove's run-out**, 
 takes the blind end's own section carried square through — floor to roof, with the rest
 of the top wall bridging the mouth plane over it.
 
-**Two upward bosses** stand under the panel's own screw stations. Each carries a
-downward-open head counterbore and the shank's clearance; the ruthex M3 heat-set
-is in the panel socket above it. The screw is inserted from Z− and driven +Z,
-pulling the panel socket down onto the fixed boss without opening the show face.
-The panel's socket lands tangent to the strip's inboard face, so nothing joins a
-boss to this piece across that plane: the join is a **pier** from the boss's axis
-out to where the strip itself stops (`ceiling_pier_run`), with the socket's whole
-slide path struck back out of it. **Only the pad hangs**: the pad's outboard edge
-is the panel's edge, and out of it the block's underside rises at 45° into the
-corbel's own underside descending the other way, so the two slopes close over the
-middle of the run and the only thing laid on air under a pier is the screw's head
-face.
+**Two transverse keepers close the only direction the dado leaves open.** The
+long grooves already carry the panel in X and Z and the +Y wall stops it at home,
+so a headless M3 cross-pin stands immediately ahead of each tongue end and blocks
+Y− withdrawal directly. The panel slides through first, with both stations empty;
+then each M3×12 is driven OUTBOARD from the empty field into a horizontal ruthex
+M3 short buried in the fixed corbel.
 
-**The strip's stop is what makes the root.** The corbel is a wedge whose thin end
-is at the panel's edge, so how much section a pier roots in is how far out it
-carries: a block ending a `wall` past that edge ends in **3.10 mm** of corbel,
-and one carried to the stop roots in **14.25 mm** — the whole storey between the
-screw's counterbore and the ceiling. Both piers reach their flank: the two screw
-stations stand at y 236…244, the fore end of both strips, and the power column's
-own bodies begin at y 250.
-
-And a pier's run would **not** be the corbel's. `keep` is the strip's figure and
-the strip is shallow at its outboard edge, where a pier descends the whole storey
-— so a body the corbel clears by a millimetre is a body a pier arrives inside of.
-`back_top_ceiling_pier_runs` is that second measurement, one row per band, and
-`ceiling_pier_run` **refuses** a band nobody has measured for a pier rather than
-borrowing the corbel's figure and descending into a body.
+The insert's guide begins at the dado's blind wall and steps down to its Ø4 knurl
+bore only where the existing 45° wedge has a full `boss_ligament` around it. No
+boss, pier or pad is fused under the ceiling. The moving panel carries no socket
+and no bore. One millimetre of empty bore beyond the insert keeps the cup point
+off the blind PET-GF end. In service the tongue bears on the steel pin and the pin
+bears in the fixed strip around its own short tunnel; neither appliance show face is opened.
+`ceiling-panel-slides-in` reads the sweep before the pins exist, and
+`ceiling-dado-mouth-keepers` then proves both pins clear at home and catch their
+own tongue after the dado's 0.15 mm fore air is spent.
 
 **Everything rooted on the ceiling over that field hangs off the panel**: the
 flow meter's two anchors and the three ribs bored for `carb-1`,

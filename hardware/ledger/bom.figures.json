@@ -28,7 +28,8 @@
     "FOAM_SCREWS": "12",
     "GROMMET_SQUEEZE": "0.4",
     "LAID_FT": "13.41 ft",
-    "M3X10_TOTAL": "9",
+    "M3X10_TOTAL": "7",
+    "M3X12_SET_TOTAL": "2",
     "M3X12_TOTAL": "3",
     "M3X8_TOTAL": "23",
     "MANDREL_FT": "12.72 ft",
@@ -78,18 +79,18 @@
     "WR1110_LOOP": "84.1 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,383.62",
+    "BOM_GRAND": "$1,387.01",
     "BOM_SEC1": "$175.03",
-    "BOM_SEC11": "$31.00",
+    "BOM_SEC11": "$33.85",
     "BOM_SEC12": "$37.50",
-    "BOM_SEC13": "$13.76",
+    "BOM_SEC13": "$13.80",
     "BOM_SEC14": "$4.29",
     "BOM_SEC2": "$207.13",
     "BOM_SEC3": "$225.15",
     "BOM_SEC4": "$96.56",
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$15.62",
-    "BOM_SEC7": "$153.65",
+    "BOM_SEC7": "$154.15",
     "BOM_SEC8": "$221.39",
     "BOM_SEC9": "$60.29"
   }

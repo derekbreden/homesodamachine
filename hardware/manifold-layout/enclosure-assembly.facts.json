@@ -306,7 +306,7 @@
   ],
   "enclosure-ceiling-panel": [
    -82.5,
-   235.99999999999832,
+   236.0,
    336.21058083754997,
    82.5,
    461.00000000000006,
@@ -1974,7 +1974,7 @@
    true
   ]
  },
- "card": "bd68e49d160aebda4b7c69683f1ec188",
+ "card": "2942da94ea439b5707f6d188c9c675da",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2731,7 +2731,7 @@
   "ceiling-panel": {
    "box": [
     -82.5,
-    235.99999999999832,
+    236.0,
     336.21058083754997,
     82.5,
     461.00000000000006,
@@ -3005,7 +3005,7 @@
  ],
  "schema": 2,
  "sources": null,
- "step": "185190cae247dee135416e4f77b9cdb6",
+ "step": "4dbb9b31cffe902254ee824c7ffccee9",
  "valve_tray_stations": [
   [
    171.08,
