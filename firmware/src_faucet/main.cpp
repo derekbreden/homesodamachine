@@ -44,9 +44,9 @@
 
 // ── Flavors ──
 static const char *FLAVOR_NAMES[2] = {"Flavor 1", "Flavor 2"};
-// Every logo a channel can be given. Which one each channel wears is the
-// main board's to say — this display renders whichever it publishes.
-static const uint16_t *FLAVOR_BITMAPS[FLAVOR_ART_COUNT] = {
+// The logos compiled into every image. These cannot be removed: a machine whose
+// user has deleted all their own pictures still has four faces.
+static const uint16_t *FACTORY_BITMAPS[FLAVOR_ART_FACTORY] = {
     flavor0_faucet, flavor1_faucet, flavor2_faucet, flavor3_faucet,
 };
 static uint8_t flavorArt[2] = {0, 1};
@@ -285,8 +285,36 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
 //  Flavor state
 // ════════════════════════════════════════════════════════════
 
+// Which logo an index actually resolves to. A custom index whose slot is empty
+// falls back to the factory logo of the same channel rather than drawing
+// nothing: a picture can be removed while a channel is still wearing it.
+static uint8_t resolveArt(uint8_t art, uint8_t channel) {
+  if (art < FLAVOR_ART_FACTORY) return art;
+  const uint8_t slot = flavorArtCustomSlot(art);
+  if (slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, 0)) return art;
+  return (uint8_t)(channel & 1);
+}
+
+// Every descriptor, rebound. The custom ones point straight into mapped flash,
+// so this costs a pointer each and has to be redone whenever the store moves —
+// a written or erased slot remaps the partition underneath these.
+static void bindLogos() {
+  for (uint8_t i = 0; i < FLAVOR_ART_COUNT; i++) {
+    flavorLogos[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+    flavorLogos[i].header.always_zero = 0;
+    flavorLogos[i].header.w = SCREEN_W;
+    flavorLogos[i].header.h = SCREEN_H;
+    flavorLogos[i].data_size = SCREEN_W * SCREEN_H * sizeof(uint16_t);
+    const uint16_t *px = (i < FLAVOR_ART_FACTORY)
+                             ? FACTORY_BITMAPS[i]
+                             : imageStorePixels(flavorArtCustomSlot(i), 0);
+    flavorLogos[i].data = (const uint8_t *)(px ? px : FACTORY_BITMAPS[0]);
+  }
+}
+
 static void applyFlavorUi() {
-  lv_img_set_src(logoImg, &flavorLogos[flavorArt[activeFlavor & 1]]);
+  const uint8_t ch = activeFlavor & 1;
+  lv_img_set_src(logoImg, &flavorLogos[resolveArt(flavorArt[ch], ch)]);
 }
 
 // The main board's resulting truth for the pair. Rendered immediately when the
@@ -810,14 +838,7 @@ static void primeService(const BaseLinkStatus &link) {
 // ════════════════════════════════════════════════════════════
 
 static void buildUi() {
-  for (uint8_t i = 0; i < FLAVOR_ART_COUNT; i++) {
-    flavorLogos[i].header.cf = LV_IMG_CF_TRUE_COLOR;
-    flavorLogos[i].header.always_zero = 0;
-    flavorLogos[i].header.w = SCREEN_W;
-    flavorLogos[i].header.h = SCREEN_H;
-    flavorLogos[i].data_size = SCREEN_W * SCREEN_H * sizeof(uint16_t);
-    flavorLogos[i].data = (const uint8_t *)FLAVOR_BITMAPS[i];
-  }
+  bindLogos();
 
   lv_obj_t *scr = lv_scr_act();
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
@@ -1070,12 +1091,11 @@ void setup() {
 
   {
     char line[96];
-    if (imageStoreBegin("spiffs", SCREEN_W, SCREEN_H)) {
-      uint8_t held = 0;
-      for (uint8_t i = 0; i < imageStoreCapacity(); i++)
-        if (imageStoreOccupied(i)) ++held;
+    // The faucet wears one size: the whole glass.
+    static const ImageSize kSizes[] = {{SCREEN_W, SCREEN_H, 0}};
+    if (imageStoreBegin("spiffs", kSizes, 1)) {
       snprintf(line, sizeof(line), "images: %u slots of %ux%u, %u held",
-               imageStoreCapacity(), SCREEN_W, SCREEN_H, held);
+               imageStoreCapacity(), SCREEN_W, SCREEN_H, imageStoreHeld());
     } else {
       snprintf(line, sizeof(line), "images: no store");
     }
