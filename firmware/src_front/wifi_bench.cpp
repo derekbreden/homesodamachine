@@ -166,10 +166,18 @@ static void sinkLoop(void *) {
       vTaskDelay(1);
     }
 
-    // Drain whatever the stack still holds after the peer's FIN.
+    // Drain whatever the stack still holds after the peer's FIN — and write it.
+    // connected() goes false while lwIP is still holding the tail, so these are
+    // real bytes of the picture: counting them and dropping them is how one
+    // arrives a couple of kilobytes short of itself and gets refused.
     while (client.available() > 0) {
       int n = client.read(buf, SINK_BUF);
       if (n <= 0) break;
+      if (takingImage && !imageStoreWriteChunk(imageStoreWriteOffset(), buf, (uint16_t)n)) {
+        imageStoreWriteAbort();
+        takingImage = false;
+        break;
+      }
       got += (uint32_t)n;
       lastRxMs = millis();
     }
@@ -239,9 +247,9 @@ void wifiBenchFill(WifiApStatePayload &out) {
 bool wifiBenchRebootWanted() { return rebootWanted; }
 
 void wifiBenchPictureDiag(char *out, unsigned n) {
-  snprintf(out, n, "last picture: slot %u %s %lu of %lu B",
+  snprintf(out, n, "pic slot %u %s %lu/%lu",
            (unsigned)picSlot,
-           picKept == 1 ? "kept" : (picKept == 2 ? "REFUSED" : "turned away"),
+           picKept == 1 ? "kept" : (picKept == 2 ? "SHORT" : "refused"),
            (unsigned long)picTook, (unsigned long)picWant);
 }
 
