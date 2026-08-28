@@ -94,7 +94,13 @@ class BLEManager {
     /// Faces by the crc32 of the picture they belong to. Observable, so a face
     /// that lands redraws the tile that was waiting for it.
     var faces: [UInt32: UIImage] = [:]
-    @ObservationIgnored var faceBuffer = Data()
+    // A picture being read back, placed by offset rather than accumulated in
+    // order — see handleImagePix. `faceHave` is the offsets that have landed;
+    // the stride is what one frame carries, which the board fixes.
+    @ObservationIgnored var facePixels = Data()
+    @ObservationIgnored var faceHave = Set<Int>()
+    @ObservationIgnored var faceReceived = 0
+    @ObservationIgnored var facePixelStride = 228
     @ObservationIgnored var faceSlot = -1
     @ObservationIgnored var faceAskedAt = Date.distantPast
     @ObservationIgnored var faceResumes = 0
@@ -1845,7 +1851,9 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         // being asked for twice, so leaving it set across a disconnect means a
         // face that never arrived is never asked for again.
         ble.faceSlot = -1
-        ble.faceBuffer = Data()
+        ble.facePixels = Data()
+        ble.faceHave.removeAll()
+        ble.faceReceived = 0
         let m = ble
         DispatchQueue.main.async { m.stopFacePump() }
         DispatchQueue.main.async {
