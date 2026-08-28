@@ -63,7 +63,8 @@ NUT_AF = 0.827 * _IN              # H2 — 21.006 across flats
 BODY_LEN = 0.665 * _IN            # B1 = B2 — 16.891
 # A — 7.899, the BARE BARREL the sheet dimensions between the flange's face and the nut's. It is
 # what the panel is clamped in, so it is the panel this fitting takes, and
-# `enclosure_assembly.port-clamp-stack` holds the wall and its bulkhead ring inside it.
+# `enclosure_assembly.port_clamp_stack` holds inside it the section that panel actually presents —
+# the wall, the bulkhead ring lying flush in it, and the port field's boss behind it.
 PANEL_THREAD = 0.311 * _IN
 NUT_LEN = 0.276 * _IN             # E  — 7.010
 MASS_G = 9.4
