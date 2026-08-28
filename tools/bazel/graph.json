@@ -6488,6 +6488,22 @@
       "hardware/reference/neofit-flow-control/neofit-flow-control.step"
     ]
   },
+  "hardware/reference/riteav-keystone/riteav_keystone.py": {
+    "reads": [
+      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+      "hardware/reference/riteav-keystone/riteav-keystone.step",
+      "hardware/reference/riteav-keystone/riteav_keystone.py",
+      "hardware/scripts/_cadq_export.py",
+      "hardware/scripts/_materials.py",
+      "hardware/scripts/_mesh_payload.py",
+      "hardware/scripts/_run_lock.py",
+      "tools/docgen/__init__.py"
+    ],
+    "rewritten": [],
+    "writes": [
+      "hardware/reference/riteav-keystone/riteav-keystone.step"
+    ]
+  },
   "hardware/reference/seaflo-22-pump/seaflo_22_pump.py": {
     "reads": [
       "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
