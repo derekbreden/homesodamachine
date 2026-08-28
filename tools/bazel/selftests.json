@@ -346,6 +346,16 @@
     "hardware/scripts/_stated_bounds.py",
     "tools/docgen/__init__.py"
   ],
+  "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": [
+    "hardware/printed-parts/cadlib/world_workplane.py",
+    "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+    "hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+    "hardware/scripts/_cadq_export.py",
+    "hardware/scripts/_materials.py",
+    "hardware/scripts/_run_lock.py",
+    "tools/docgen/__init__.py"
+  ],
   "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": [
     "hardware/printed-parts/cadlib/world_workplane.py",
     "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
