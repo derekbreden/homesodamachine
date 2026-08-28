@@ -22,7 +22,6 @@
 
 import * as THREE from "three";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { state } from "./state.js";
 import { syncEdgeResolution } from "./xray.js";
 
@@ -85,26 +84,91 @@ export function afterGesture() {
   return new Promise((resolve) => gestureWaiters.push(resolve));
 }
 
-// A neutral studio environment gives metallic PBR materials (the GLB
-// component models — connectors, cans, ICs) something to reflect; without it
-// they render black. STEP parts (near-non-metallic) pick up only a faint sheen.
-const pmrem = new THREE.PMREMGenerator(renderer);
-export const studioEnvironment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+// THE ENVIRONMENT IS WHAT A SPECULAR SURFACE HAS TO LOOK AT, and on this machine that is most
+// of what a surface is. A metal has no diffuse term at all — every photon it sends back is the
+// environment reflected — so a metal under a uniform grey box IS a uniform grey box, whatever
+// finishes.json says it is made of. The large flat panels are the other half of it: a panel
+// under uniform light is one flat value across its whole face, which is the shape a render has
+// and a photograph does not.
+//
+// So this is a lit room rather than a neutral one: ONE BRIGHT SOFTBOX overhead and toward the
+// front-right, bounce cards off the left and low front, a narrow rim behind and above, and dark
+// everywhere else. The softbox is the highlight that travels across a surface as it turns, the
+// bounce keeps the shadow side from going flat, the rim separates the back edge from the
+// background, and the dark surround is what makes the highlight read as a highlight.
+//
+// IT IS BUILT IN THE SCENE'S OWN +Z-UP FRAME. three.js samples an environment in world space,
+// and this repo's CAD is +Z up with -Y the user's side, so "overhead" is +Z and "in front" is
+// -Y. A room laid out on three.js's own Y-up convention lights the machine from the back.
+//
+// A FLOOR, dim and broad. A metal facing down has only this to reflect, and a metal with
+// nothing to reflect is not dark, it is BLACK — the failure a uniform environment cannot have
+// and the one this rig has to be tuned against.
+const ROOM_PANELS = [
+  { size: [9, 7, 0.2],   at: [ 2, -3,  7], power: 7 },     // key softbox, overhead and forward
+  { size: [0.2, 8, 6],   at: [-7,  1,  0], power: 3 },     // bounce, left wall
+  { size: [7, 0.2, 5],   at: [ 1, -7, -1], power: 2 },     // bounce, low and in front
+  { size: [4, 0.2, 3],   at: [-2,  6,  4], power: 4 },     // rim, behind and above
+  { size: [10, 10, 0.2], at: [ 0,  0, -7], power: 0.84 },  // floor
+];
 
-// The rig every 3D surface in the app is lit by. step.js's offscreen thumbnail
-// scene takes the same one, so a part's grid thumbnail and its detail view are
-// lit from the same directions.
+//: How dark the room is between the lights — the ground every surface sees before it sees a
+//: lamp. Not zero, for the same reason the floor is there.
+const SURROUND = 0.14;
+
+function studioRoom() {
+  const room = new THREE.Scene();
+  room.background = new THREE.Color(SURROUND, SURROUND, SURROUND);
+  for (const { size, at, power } of ROOM_PANELS) {
+    // A basic material takes no lighting, so its colour IS its emission — and past 1.0 it is a
+    // light source rather than a white card, which is what the float PMREM target is for.
+    const face = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    face.color.multiplyScalar(power);
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(...size), face);
+    panel.position.set(...at);
+    room.add(panel);
+  }
+  return room;
+}
+
+// Blurred at 0.03 rather than convolved to nothing: the softbox has to keep an edge, because a
+// highlight with no edge is the uniform grey this replaces. Roughness does the rest of the
+// blurring per material, off the mip chain PMREM builds.
+//
+// THE WHOLE COST IS HERE, AT MODULE LOAD, AND IT IS 16 ms — measured cold, on a renderer whose
+// program cache is empty, which is the state this one runs in. Five plain boxes bake faster
+// than the thirteen meshes, seven of them area lights, that three's own RoomEnvironment is
+// made of: that reads 39 ms on the same machine. What the frame pays is one prefiltered cube
+// sampled per fragment, and that is what a uniform environment costs too.
+const pmrem = new THREE.PMREMGenerator(renderer);
+export const studioEnvironment = pmrem.fromScene(studioRoom(), 0.03).texture;
+
+// Where the key stands, as a direction from the model. The contact shadow below is thrown off
+// this same vector, so the dark on the floor and the bright on the panels cannot disagree.
+export const KEY_DIR = new THREE.Vector3(1, -1.2, 2);
+
+// The rig every 3D surface in the app is lit by, ON THE SCENE'S OWN AXIS. step.js's offscreen
+// thumbnail scene takes the same one, so a part's grid thumbnail and its detail view are lit
+// from the same directions.
+//
+// The key stands where a photographer stands a key: high, and off the camera axis toward the
+// front-right, so the face the default framing looks at is the lit one. The flat terms stay
+// small: an ambient floor and a hemisphere are a value added to every fragment alike, and a
+// surface shaded mostly by them has no shape in it. The environment above is what carries the
+// omnidirectional half of the light, and it carries a direction with it.
 export function addStudioLighting(target) {
-  target.add(new THREE.AmbientLight(0xffffff, 0.5));
-  const key = new THREE.DirectionalLight(0xffffff, 0.8);
-  key.position.set(1, 2, 1.5);
+  target.add(new THREE.AmbientLight(0xffffff, 0.12));
+  const key = new THREE.DirectionalLight(0xffffff, 1.1);
+  key.position.copy(KEY_DIR);
   target.add(key);
   const fill = new THREE.DirectionalLight(0xffffff, 0.3);
-  fill.position.set(-1, -0.5, -1);
+  fill.position.set(-1.2, 0.8, 0.3);
   target.add(fill);
-  // Omnidirectional fill so no face reads as black when it faces away from the
-  // two directionals (the GLB assemblies have parts pointing every direction).
-  target.add(new THREE.HemisphereLight(0xffffff, 0x333340, 0.5));
+  // Sky overhead, ground below, so no face reads as black when it faces away from the two
+  // directionals (the GLB assemblies have parts pointing every direction).
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x333340, 0.35);
+  hemi.position.set(0, 0, 1);
+  target.add(hemi);
   target.environment = studioEnvironment;
   // Distance fades a surface and an edge toward the background. The x-ray ghost
   // carries every solid's feature edges at once — 48,000 segments on the
@@ -126,6 +190,101 @@ export function fitFog(target, distance, radius) {
 }
 
 addStudioLighting(scene);
+
+// --- Contact shadow ---
+// A MACHINE WITH NOTHING UNDER IT IS FLOATING, and floating is the loudest thing left in the
+// picture that says "render". Every photograph of an appliance has the appliance standing on
+// something, and what the eye reads as standing is not the surface — it is the dark that
+// gathers where the object meets it.
+//
+// So: one quad under the model, carrying a falloff drawn once into a canvas. NO SHADOW MAP.
+// A 2048² map off the key light over this assembly's 354 bodies costs 2.0 ms of a 5.1 ms
+// frame — 40% — for a shadow the default framing barely sees. This costs the frame nothing
+// measurable: one more draw call among 354, priced at +0.02 ms against a ±0.12 ms floor.
+//
+// The falloff is drawn at the model's own footprint aspect rather than as a circle, so a
+// machine that is twice as wide as it is deep sits on a shadow that is too. TWO PASSES, and
+// they are two different things. The tight dark one stays under the object: that is the light
+// the object blocks from the floor it is touching, and it does not move, whatever the lamps do.
+// The wide soft one is the cast shadow and it LEANS AWAY FROM THE KEY, by the offset a body of
+// this height throws at the key's elevation. A shadow standing symmetrically under a machine lit
+// from one side is the one thing about it the eye reads as wrong.
+//
+// FrontSide, facing +Z. Orbiting under the model is an ordinary thing to do in a CAD viewer,
+// and from under it a shadow is a black disc floating in the way. Back-face culling is what
+// makes it disappear there and cost nothing to hide.
+const SHADOW_PX = 256;          // texture edge on the long axis
+const SHADOW_PAD = 0.34;        // fraction of the texture the falloff runs out over
+const SHADOW_SPREAD = 0.06;     // how far past the footprint the soft pass reaches
+//: How much of the throw a real point light of this elevation would give the cast pass gets
+//: kept. The whole of it puts the blob outside the quad; this is the fraction that reads as
+//: "the light is over there" while the shadow stays a shadow of this object.
+const SHADOW_LEAN = 0.14;
+
+function shadowTexture(aspect) {
+  const w = SHADOW_PX;
+  const h = Math.max(64, Math.round(SHADOW_PX * aspect));
+  const cv = document.createElement("canvas");
+  cv.width = w; cv.height = h;
+  const ctx = cv.getContext("2d");
+  const box = [w * SHADOW_PAD, h * SHADOW_PAD, w * (1 - 2 * SHADOW_PAD), h * (1 - 2 * SHADOW_PAD)];
+  // The quad lies in world XY with its texture unflipped in u and flipped in v, so canvas +x is
+  // world +X and canvas +y is world -Y. The throw runs opposite the key on both axes.
+  const throwX = -(KEY_DIR.x / KEY_DIR.z) * SHADOW_LEAN * w;
+  const throwY =  (KEY_DIR.y / KEY_DIR.z) * SHADOW_LEAN * h;
+  const grow = [
+    box[0] - w * SHADOW_SPREAD + throwX, box[1] - h * SHADOW_SPREAD + throwY,
+    box[2] + w * SHADOW_SPREAD * 2, box[3] + h * SHADOW_SPREAD * 2,
+  ];
+  ctx.filter = `blur(${Math.round(w * 0.10)}px)`;
+  ctx.fillStyle = "rgba(0,0,0,0.42)";
+  ctx.beginPath(); ctx.roundRect(...grow, w * 0.06); ctx.fill();
+  ctx.filter = `blur(${Math.round(w * 0.05)}px)`;
+  ctx.fillStyle = "rgba(0,0,0,0.82)";
+  ctx.beginPath(); ctx.roundRect(...box, w * 0.03); ctx.fill();
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+let _shadow = null;
+
+function dropGroundShadow() {
+  if (!_shadow) return;
+  scene.remove(_shadow);
+  _shadow.geometry.dispose();
+  _shadow.material.map.dispose();
+  _shadow.material.dispose();
+  _shadow = null;
+}
+
+// Sized and placed off the model's box, once per mounted group — updateDepthRange calls this
+// from the branch that already fires only when the group changes.
+//
+// `fog: false`: the fade this quad wants is its own falloff, not the distance fade, and a
+// shadow lifted toward the background colour is a grey patch rather than a shadow.
+export function fitGroundShadow(box) {
+  dropGroundShadow();
+  if (!box || box.isEmpty()) return;
+  const size = box.getSize(new THREE.Vector3());
+  const centre = box.getCenter(new THREE.Vector3());
+  if (!(size.x > 0) || !(size.y > 0)) return;
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1),
+    new THREE.MeshBasicMaterial({
+      map: shadowTexture(size.y / size.x),
+      transparent: true, depthWrite: false, fog: false,
+      side: THREE.FrontSide, color: 0x000000,
+    }),
+  );
+  mesh.scale.set(size.x / (1 - 2 * SHADOW_PAD), size.y / (1 - 2 * SHADOW_PAD), 1);
+  // A hair under the model's own floor, so the two never fight for the same depth and the
+  // part of the quad the model stands on is hidden by the model.
+  mesh.position.set(centre.x, centre.y, box.min.z - Math.max(size.z, 1) * 0.001);
+  mesh.renderOrder = -1;
+  scene.add(mesh);
+  _shadow = mesh;
+}
 
 // --- ViewCube ---
 // Each cube face's projected hit area is roughly gizmoSize/2 — Apple HIG
@@ -448,8 +607,17 @@ export function updateDepthRange() {
   const group = state.currentGroup;
   if (!group) return;
   if (group !== _depthGroup) {
-    new THREE.Box3().setFromObject(group).getBoundingSphere(_depthSphere);
+    const box = new THREE.Box3().setFromObject(group);
+    box.getBoundingSphere(_depthSphere);
+    // THE GROUP IS MARKED SEEN BEFORE THE SHADOW IS BUILT. The planes below are what makes the
+    // model visible at all, and this branch is the only place they are fitted; a shadow that
+    // threw with the mark still unset would re-enter here on every frame and take them with it
+    // every time. Marked first, the worst a failure costs is the shadow.
     _depthGroup = group;
+    // Fitted from the same box, in the same branch: this runs when a model is mounted and never
+    // on a frame that only moved the camera. A DXF plate lies flat and has no floor to stand
+    // on, so only a solid gets one.
+    fitGroundShadow(state.mountedDetail?.type === "dxf" ? null : box);
   }
   fitFog(scene, camera.position.distanceTo(_depthSphere.center), _depthSphere.radius);
   fitCameraDepth(camera, _depthSphere.center, _depthSphere.radius);
