@@ -775,7 +775,11 @@ def release_assets(root: Path) -> list:
 
 
 def lock_assets(held: dict) -> set:
-    """The release assets one lock names — its bundle, and one per member and scorecard sha."""
+    """The release assets one lock names — its bundle, and one per member and scorecard sha.
+
+    A SCORECARD IS SERVED FROM THE COMMITTED TREE and `upload_objects` sends solids, so a
+    scorecard's name here is one the release never holds. This is reach, and a superset of the
+    names on the release is the safe direction for it."""
     names = {object_asset(sha) for sha in
              set((held.get("solids") or {}).values())
              | set((held.get("sidecars") or {}).values())}
@@ -850,6 +854,12 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tupl
     NEWEST cut there is, so it stands inside the window as well as inside reach.
     `RETIRE_FLOOR_S` covers the upload in front of that, where the bytes are on the release and
     no lock names them at all.
+
+    WHAT THE COMMITTED LOCKS ALONE LEAVE OPEN IS THE WHOLE CUT. Asked of this tree on
+    2026-08-28 with the newest lock commit held back — the history a sweep reads while that
+    cut is still landing — reach off the committed locks alone missed 7 of that cut's 271
+    assets, one of them the bundle tarball. `make_room` is the only caller and it runs inside
+    a publish, so the sweep and the upload it would delete are the same minute.
     """
     assets = release_assets(root)
     on_release = {a["name"] for a in assets}
