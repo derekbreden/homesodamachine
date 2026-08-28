@@ -4520,35 +4520,26 @@ CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
 # SIG-6 crosses this wall in a keystone jack, so that the umbilical's ribbon ends at the same
 # face its three tubes do.
 #
-# IT TAKES THE ONE SPAN OF THIS WALL NOTHING ELSE REACHES INTO. The gate lane's own east end is
-# the nameplate's — `nameplate_cut` fills x [-14.1, 90.4] over z [226.9, 292.9] — and the deck
-# storey's four stations leave one gap: between the CO2 pocket's east edge and the west face of
-# the C14's mount. The jack stands in the middle of it, on `deck_storey`, which puts all five
-# mating axes the customer meets on one line.
-def keystone_span() -> tuple:
-    """Free cutter span between the CO2 field support and exact C14 collar.
-
-    The keystone's additive receptacle boss may fuse into both supports; its 14.9 mm pocket
-    cutter may not touch either functional wall. The west support includes the port field's
-    own rim, and the east support is the true-profile collar's outer X tangent."""
-    return (CO2_COLUMN + port_pocket_d("neofit") / 2.0 + BULKHEAD_RING_RIM,
-            C14_STATION[0] - _enc.c14_collar_half()[0])
-
-
-def keystone_column() -> float:
-    """The middle of that span."""
-    return sum(keystone_span()) / 2.0
+# THE SODA AND ITS FLAVOUR STAND ON ONE COLUMN. Their two storeys leave a deliberate vertical
+# interval between the coloured chips, and that is the umbilical's own interval: the signal
+# opening belongs with the three tube openings rather than beside the power inlet. The keystone's
+# POCKET, not merely its smaller show-face aperture, is centred between those two axes. Its pocket
+# rises `POCKET_RISE` above the aperture, so paying that offset here gives the tall inboard body
+# equal working room to the two bulkhead bodies while leaving the visible rectangle between their
+# rings. The receptacle's outer boss joins the two port-field bosses into one simple printed web;
+# its aperture and pocket remain clear of the rings and through-bores respectively.
+def keystone_station(flavor: float) -> tuple:
+    """The jack's show-face centre between the soda and flavour-A stations, as `(x, z)`."""
+    soda = (PANEL_X["bulkhead-carb"], deck_storey())
+    flavour = (PANEL_X["bulkhead-flavor-a"], flavor)
+    return ((soda[0] + flavour[0]) / 2.0,
+            (soda[1] + flavour[1]) / 2.0 - _keystone.POCKET_RISE)
 
 
-def keystone_station() -> tuple:
-    """Where the jack's own seating face lands, as `(x, z)`."""
-    return (keystone_column(), deck_storey())
-
-
-def keystone_cutout():
+def keystone_cutout(station: tuple):
     """The opening the jack snaps into, in `back_ports` shape."""
     wx, wz, r = _keystone.panel_cutout()
-    x, z = keystone_station()
+    x, z = station
     return ("rect", x, z, wx, wz, r)
 
 
@@ -4566,34 +4557,58 @@ _stated.state(
 KEYSTONE_STEP = _hw / "reference" / "riteav-keystone" / "riteav-keystone.step"
 
 
-def build_keystone():
+def build_keystone(station: tuple):
     """The jack snapped into its receptacle, face flush with the wall's outer plane.
 
     `riteav_keystone` states that plane as its own Y = 0 and hangs the whole body inboard of it,
     so the seat is the wall's outer face at the station and nothing else."""
     body = import_step(str(KEYSTONE_STEP)).val()
-    x, z = keystone_station()
+    x, z = station
     return seat_body(body, (), seat="keystone-jack",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
                               (x, _enc.rear_plane_y + _enc.wall, z)))
 
 
-def _keystone_clearances():
-    """Clear wall between the keystone pocket cutter and its two printed supports."""
-    half = _keystone.POCKET_W / 2.0
-    x, (west, east) = keystone_column(), keystone_span()
-    return ((x - half) - west, east - (x + half))
+def _keystone_clearances(station: tuple, flavor: float) -> tuple:
+    """Clearance to flavour A and soda as `(show face, inboard pocket)` pairs.
+
+    At the show face the neighbouring objects are the two circular chip pockets. Behind the
+    aperture lip those shallow pockets have ended; there the functional neighbours are the two
+    bulkhead through-bores. Reading each depth against what actually occupies it keeps the outer
+    receptacle boss free to fuse into the port-field bosses without pretending that union is a
+    collision."""
+    _x, z = station
+    soda, flavour = deck_storey(), flavor
+    ring_r = port_pocket_d() / 2.0
+    bore_r = _jg.panel_hole_d(PORT_HOLE_SLIP) / 2.0
+    face_lo, face_hi = z - _keystone.APERTURE_H / 2.0, z + _keystone.APERTURE_H / 2.0
+    pocket_z = z + _keystone.POCKET_RISE
+    pocket_lo = pocket_z - _keystone.POCKET_H / 2.0
+    pocket_hi = pocket_z + _keystone.POCKET_H / 2.0
+    return ((face_lo - (flavour + ring_r),
+             (soda - ring_r) - face_hi),
+            (pocket_lo - (flavour + bore_r),
+             (soda - bore_r) - pocket_hi))
 
 
-_stated.state(
-    "keystone-span", "The jack's pocket cutter stands clear of both adjacent supports",
-    "at least 1 mm of wall either side",
-    min(_keystone_clearances()) >= 1.0,
-    f"the cutter is {_keystone.POCKET_W:g} mm across and leaves "
-    f"{_keystone_clearances()[0]:.2f} mm to the CO2 pocket and {_keystone_clearances()[1]:.2f} mm "
-    f"to the C14 collar. The receptacle boss intentionally fuses into both supports; this span "
-    f"protects the cutter. The nameplate takes the gate lane's east end, so this is the "
-    f"wall's only free one.")
+def check_keystone_span(station: tuple, flavor: float) -> Bound:
+    """The signal receptacle fits the soda/flavour-A interval at both wall depths."""
+    face, pocket = _keystone_clearances(station, flavor)
+    aligned = abs(PANEL_X["bulkhead-carb"] - PANEL_X["bulkhead-flavor-a"]) <= 1e-9
+    centered = abs(station[0] - PANEL_X["bulkhead-carb"]) <= 1e-9
+    ok = aligned and centered and min(*face, *pocket) >= 1.0
+    return record_bound(Bound(
+        "keystone-span", "The signal jack belongs between the soda and flavour-A ports", ok,
+        f"show-face wall {face[0]:.2f}/{face[1]:.2f} mm to flavour/soda; inboard pocket "
+        f"{pocket[0]:.2f}/{pocket[1]:.2f} mm to their bores; station "
+        f"x {station[0]:.2f}, z {station[1]:.2f}",
+        "the shared soda/flavour column, with at least 1 mm between every functional cutter",
+        ([] if ok else [
+            f"the soda and flavour-A axes are x {PANEL_X['bulkhead-carb']:.2f} and "
+            f"{PANEL_X['bulkhead-flavor-a']:.2f}; their show-face clearances are "
+            f"{face[0]:.2f}/{face[1]:.2f} mm and the deeper pocket's bore clearances are "
+            f"{pocket[0]:.2f}/{pocket[1]:.2f} mm. Keep the jack on their shared column and "
+            "move or separate the two port storeys before allowing either cutter to merge."])))
 
 # The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
 # socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
@@ -6360,9 +6375,6 @@ def build_pack() -> cq.Assembly:
     # readily as anywhere.
     c14, _c14_carry = build_c14()
     a.add(c14, name="c14-inlet", color=C_C14)
-    # The umbilical's signal jack, in the receptacle the same wall stands for it.
-    keystone, _keystone_carry = build_keystone()
-    a.add(keystone, name="keystone-jack", color=C_C14)
     wagos = build_wago_row(psu, wall_seat, c14)
     for name, solid, _carry in wagos:
         a.add(solid, name=name, color=C_AC_HUB)
@@ -6416,6 +6428,14 @@ def build_pack() -> cq.Assembly:
     # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
     # strike and answers to `deck_storey` the way the union row does.
     a.gate_z = flavor_storey(gate_cruise, seaflo)
+    # The signal jack shares the soda/flavour-A column and centres its taller inboard pocket
+    # between their two axes. It goes down before the deck strike so the soda union's descent
+    # reads the real body standing below it rather than an empty interval the finished machine
+    # does not have.
+    a.keystone_station = keystone_station(a.gate_z)
+    keystone, _keystone_carry = build_keystone(a.keystone_station)
+    a.add(keystone, name="keystone-jack", color=C_C14)
+    check_keystone_span(a.keystone_station, a.gate_z)
     under_deck = [s for s, _c in _solids(a).values()]
     a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
     co2in, co2in_carry = build_co2_inlet(a.deck_z)
@@ -6685,7 +6705,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      west_ports=west_wall_ports(pan), pan_sleeve=pan_sleeve(pan, west),
                      back_ports=(y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
                                  + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
-                                    keystone_cutout()]),
+                                    keystone_cutout(a.keystone_station)]),
                      c14=c14_stations(), east_bosses=a.east_bosses,
                      side_wells=a.side_wells, floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
@@ -6696,7 +6716,7 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                      ceiling_reliefs=ceiling_reliefs(placed),
                      port_field=y_wall_field(a.wall_stations),
                      nameplate=nameplate_cut(placed["foam-assembly"][0]),
-                     keystone=keystone_station(),
+                     keystone=a.keystone_station,
                      valve_trays=a.valve_trays, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
                      vent_chase=a.vent_chase, collet_plate=a.collet_plate)
@@ -6737,11 +6757,10 @@ def check_ceiling_panel_insertion(back_top, box) -> Bound:
 
     This is a continuous motion bound, represented conservatively by the whole prism swept
     from the first pose with the panel aft edge at the seam through the installed pose. The C14
-    surround and keystone receptacle are the fixed features admitted into that prism: their
-    matching panel pockets keep one XZ clearance section apiece open through the panel's aft
-    edge, so each feature is behind the panel until it enters its pocket and remains in the
-    pocket for the rest of the travel. Everything else in the swept prism is an obstruction
-    even when the installed pose is clear."""
+    surround and any keystone material high enough to reach the sweep are the fixed features
+    admitted into that prism: a matching panel pocket keeps each reaching XZ section open
+    through the panel's aft edge. Everything else in the swept prism is an obstruction even
+    when the installed pose is clear."""
     fixed = back_top.val() if hasattr(back_top, "val") else back_top
     sweep = _cpanel.insertion_sweep()
     panel_stock = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
@@ -6775,9 +6794,8 @@ def check_ceiling_panel_insertion(back_top, box) -> Bound:
         "ceiling-panel-slides-in", "The deep ceiling panel and rails slide through back-top",
         ok, (f"{volume:.3f} mm³ of unpocketed fixed back-top in its continuous sweep"
              + (f"; {pocket_reading}" if pocket_reading else "")),
-        "no unpocketed fixed material in the field-and-rail complete Y sweep, and the fixed "
-        "C14 surround and keystone receptacle wholly inside their aft-open running-clearance "
-        "pockets",
+        "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed "
+        "rear feature which reaches it wholly inside an aft-open running-clearance pocket",
         ([] if ok else [
             f"{volume:.3f} mm³ of back-top stands outside the admitted pockets in the panel's "
             "insertion prism; " + (pocket_reading or "no admitted feature reaches the sweep")
@@ -6812,15 +6830,6 @@ def check_c14_collar(pieces: dict, box) -> Bound:
     for cutter in inserts:
         feature = feature.cut(cutter)
         backing = backing.cut(cutter)
-    # The west end shares this joint with the keystone receptacle. Its cutter is applied after
-    # the C14 fuse in the production piece, so the expected C14 feature and its backing take the
-    # same final cut before either is compared with the materialized back-top.
-    keystone_geometry = _enc._keystone_receptacle_geometry(
-        box.inner, box.outer, box.pack.keystone, box.inner[4], box.outer[5])
-    if keystone_geometry is not None:
-        _keystone_feature, keystone_cutter, _keystone_catches = keystone_geometry
-        feature = feature.cut(keystone_cutter)
-        backing = backing.cut(keystone_cutter)
     missing = feature.cut(back).Volume()
     backing_missing = backing.cut(back).Volume()
     panel_owned = feature.intersect(panel).Volume()
@@ -6869,8 +6878,7 @@ def check_c14_collar(pieces: dict, box) -> Bound:
         "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 "
         "material in the panel or its bores, the show skin bearing on the crown, and the exact "
         "flange profile translating through its Y- entry relief without touching fixed material; "
-        "the seating face's opened outer profile backed straight to the wall after the keystone "
-        "cut",
+        "the seating face's opened outer profile backed straight to the wall",
         ([] if ok else [
             f"the fixed C14 feature is missing {missing:.4f} mm³, the panel still owns "
             f"{panel_owned:.4f} mm³, and its bores contain {bore_occupied:.4f} mm³; the crown "

@@ -60,12 +60,12 @@
    "target": "every band held",
    "detail": [
     "bulkhead-flavor-a: fall onto what stands under it \u2014 wants 1, has 1.004",
+    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has 9.189",
     "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
     "digiten-flow: fall onto what stands under it \u2014 wants 6, has 13.262",
     "bulkhead-flavor-b: fall onto what stands under it \u2014 wants 1, has 9.004",
     "funnel: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 6.35, has 14.478",
-    "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400",
-    "bulkhead-carb: fall onto what stands under it \u2014 wants 6, has nothing under it"
+    "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
    ],
    "active": true
   },
@@ -151,10 +151,12 @@
     "carb-1 \u2014 suction-chain: 1.025 mm",
     "pump-a-head \u2014 collet-plate: 1.025 mm",
     "pump-b-head \u2014 collet-plate: 1.025 mm",
+    "keystone-jack \u2014 bulkhead-ring-flavor-a: 1.052 mm",
     "water-3 \u2014 enclosure-front-top: 1.125 mm",
     "water-3 \u2014 enclosure-back-top: 1.125 mm",
     "carb-1 \u2014 pcba: 1.147 mm",
     "fluid-1 \u2014 enclosure-front-top: 1.166 mm",
+    "keystone-jack \u2014 bulkhead-ring-carb: 1.185 mm",
     "funnel-drain-clamp \u2014 funnel-drain-union: 1.338 mm",
     "fluid-4 \u2014 coil-v-a: 1.341 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
@@ -720,16 +722,6 @@
    "active": true
   },
   {
-   "id": "keystone-span",
-   "label": "The jack's pocket cutter stands clear of both adjacent supports",
-   "kind": "gate",
-   "status": "pass",
-   "value": "holds",
-   "target": "at least 1 mm of wall either side",
-   "detail": [],
-   "active": true
-  },
-  {
    "id": "cutoff-bedded",
    "label": "The cutoff's case is pinched between the power box and its clamp",
    "kind": "gate",
@@ -864,11 +856,21 @@
    "active": true
   },
   {
+   "id": "keystone-span",
+   "label": "The signal jack belongs between the soda and flavour-A ports",
+   "kind": "gate",
+   "status": "pass",
+   "value": "show-face wall 2.74/6.08 mm to flavour/soda; inboard pocket 9.99/9.99 mm to their bores; station x -37.81, z 303.35",
+   "target": "the shared soda/flavour column, with at least 1 mm between every functional cutter",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "deck-floor",
    "label": "The panel deck lies over the storey its own descent leaves",
    "kind": "gate",
    "status": "pass",
-   "value": "deck 336.21, floor 328.95",
+   "value": "deck 336.21, floor 333.02",
    "target": "the deck at or over its floor",
    "detail": [],
    "active": true
@@ -968,7 +970,7 @@
    "label": "Every body seated through a wall stands under the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest reaches z 349.96, ceiling 352.00",
+   "value": "tallest reaches z 348.34, ceiling 352.00",
    "target": "every body under the ceiling",
    "detail": [],
    "active": true
@@ -1009,7 +1011,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "8761.669 mm\u00b3 feature over a 10.25 mm corbel; 0.0000 mm\u00b3 missing from back-top, 0.0000 mm\u00b3 in panel, 0.0000 mm\u00b3 in bores; 75.932 mm\u00b2 ceiling land with 0.0000 mm\u00b3 unsupported; 13.00 mm straight flange insertion with 0.0000 mm\u00b3 obstruction; 2950.856 mm\u00b3 straight wall backing with 0.0000 mm\u00b3 missing",
-   "target": "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 material in the panel or its bores, the show skin bearing on the crown, and the exact flange profile translating through its Y- entry relief without touching fixed material; the seating face's opened outer profile backed straight to the wall after the keystone cut",
+   "target": "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 material in the panel or its bores, the show skin bearing on the crown, and the exact flange profile translating through its Y- entry relief without touching fixed material; the seating face's opened outer profile backed straight to the wall",
    "detail": [],
    "active": true
   },
@@ -1018,8 +1020,8 @@
    "label": "The deep ceiling panel and rails slide through back-top",
    "kind": "gate",
    "status": "pass",
-   "value": "0.000 mm\u00b3 of unpocketed fixed back-top in its continuous sweep; C14 pocket missing 0.0000 mm\u00b3 and open aft; keystone pocket missing 0.0000 mm\u00b3 and open aft",
-   "target": "no unpocketed fixed material in the field-and-rail complete Y sweep, and the fixed C14 surround and keystone receptacle wholly inside their aft-open running-clearance pockets",
+   "value": "0.000 mm\u00b3 of unpocketed fixed back-top in its continuous sweep; C14 pocket missing 0.0000 mm\u00b3 and open aft",
+   "target": "no unpocketed fixed material in the field-and-rail complete Y sweep, with every fixed rear feature which reaches it wholly inside an aft-open running-clearance pocket",
    "detail": [],
    "active": true
   },
