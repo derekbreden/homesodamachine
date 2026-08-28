@@ -7,13 +7,12 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "f034eeff789e285b975535527390f6fba6881bec"
+    "commit": "0bc0ff722db948b5cb8e5b73c6bf8e7a0aa7692f"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "hardware/manifold-layout/enclosure-assembly.facts.json",
-      "tools/cad-artifacts/pack.py"
+      "hardware/manifold-layout/enclosure-assembly.facts.json"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -28,6 +27,8 @@
       "hardware/assembly/scenes/glb/funnel-drain.glb",
       "hardware/assembly/scenes/glb/pump-cartridge.glb",
       "hardware/cold-core-layout/cold-core-assembly.step",
+      "hardware/faucet-layout/faucet-assembly.step",
+      "hardware/faucet-layout/faucet-assembly.step.mesh",
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
       "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
@@ -51,7 +52,9 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl"
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step.mesh",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell.step.mesh"
     ]
   },
   "bundle": {
