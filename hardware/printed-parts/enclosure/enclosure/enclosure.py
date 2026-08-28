@@ -7267,6 +7267,11 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     stops at the fore face — the plane the flange bears on does not move, and neither does either
     insert.
 
+    THE SEATING FACE HAS A STRAIGHT BACKING TO THE WALL. The same outer profile runs unsheared
+    from `fore` to `aft`, filling the space above the print corbel at this short joint. The C14
+    bore, both insert sockets and the neighboring keystone cutter are applied after the fuse, so
+    each functional opening wins wherever these simple solids meet.
+
     THE INSERTS ENTER THE FORE FACE, from inside the machine like every other insert on this box,
     and bottom on the wall's own inner face. The station is relieved back to `wall`
     (`back_top_wall_reliefs`), so what stands over each blind end is `socket_cap` of wall and the
@@ -7312,14 +7317,17 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
     tunnel = _rect_cut_y(cx, cz, 2.0 * hx, 2.0 * hz, c14_tunnel_r, fore, aft)
     tunnel = tunnel.fuse(_y_wall_corbel(tunnel, fore, aft)).clean()
+    collar_outer = c14_collar_slip + c14_collar_wall
     collar = (_c14.flange_prism(
-        c14_collar_slip + c14_collar_wall, mouth, fore)
+        collar_outer, mouth, fore)
         .translate((cx, 0.0, cz)).val())
-    collar_support = (_c14.flange_prism(
-        c14_collar_slip + c14_collar_wall, mouth, aft)
+    collar_corbel = (_c14.flange_prism(
+        collar_outer, mouth, aft)
         .translate((cx, 0.0, cz)).val())
-    collar_support = _y_wall_corbel(collar_support, mouth, aft)
-    feature = tunnel.fuse(collar).fuse(collar_support).clean().intersect(
+    collar_corbel = _y_wall_corbel(collar_corbel, mouth, aft)
+    collar_backing = (_c14.flange_prism(collar_outer, fore, aft)
+                      .translate((cx, 0.0, cz)).val())
+    feature = tunnel.fuse(collar).fuse(collar_corbel).fuse(collar_backing).clean().intersect(
         _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
     # The original cord bore continues through the wall and tunnel. The exact flange pocket
     # opens through the collar and continues inboard through the +X strip for assembly access;
@@ -7333,7 +7341,7 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
         flange_pocket)
     inserts = tuple(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth)
                     for sx, sz in stations)
-    return feature, bore, inserts
+    return feature, bore, inserts, collar_backing
 
 
 def c14_ceiling_land(inner, outer, stations, ports, stock):
@@ -7346,7 +7354,7 @@ def c14_ceiling_land(inner, outer, stations, ports, stock):
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
     if geometry is None:
         return None
-    feature, bore, inserts = geometry
+    feature, bore, inserts, _backing = geometry
     land = feature.cut(bore)
     for cutter in inserts:
         land = land.cut(cutter)
@@ -7365,7 +7373,7 @@ def c14_ceiling_pocket(inner, outer, stations, ports, stock):
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
     if geometry is None:
         return None
-    feature, bore, inserts = geometry
+    feature, bore, inserts, _backing = geometry
     opened = feature.cut(bore)
     for cutter in inserts:
         opened = opened.cut(cutter)
@@ -7499,7 +7507,7 @@ def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1)
     if geometry is None:
         return solid
-    feature, bore, inserts = geometry
+    feature, bore, inserts, _backing = geometry
     # The collar, tunnel and crown are one fixed surround. The ceiling panel has an aft-opening
     # underside pocket around the part of this feature that reaches its structural field; its
     # uncut show skin lands on the crown at the installed pose.
