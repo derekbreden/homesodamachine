@@ -16791,6 +16791,24 @@ sh_test(
 )
 
 sh_test(
+    name = "check-unbounded-reach-selftest",
+    srcs = ["tools/bazel/selftest.sh"],
+    data = [
+        "hardware/cad-artifacts.lock.json",
+        "tools/bazel/affected.py",
+        "tools/bazel/check_unbounded_reach.py",
+        "tools/bazel/gen_build.py",
+        "tools/bazel/graph.json",
+        "tools/bazel/inventory.py",
+        "tools/bazel/trace_inputs.py",
+        "tools/cad-artifacts/pack.py",
+    ],
+    args = ["tools/bazel/check_unbounded_reach.py"],
+    size = "large",
+    tags = ["local"],
+)
+
+sh_test(
     name = "failed-targets-selftest",
     srcs = ["tools/bazel/selftest.sh"],
     data = [

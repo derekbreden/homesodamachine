@@ -893,6 +893,16 @@
   "tools/bazel/check_declared_imports.py": [
     "tools/bazel/check_declared_imports.py"
   ],
+  "tools/bazel/check_unbounded_reach.py": [
+    "hardware/cad-artifacts.lock.json",
+    "tools/bazel/affected.py",
+    "tools/bazel/check_unbounded_reach.py",
+    "tools/bazel/gen_build.py",
+    "tools/bazel/graph.json",
+    "tools/bazel/inventory.py",
+    "tools/bazel/trace_inputs.py",
+    "tools/cad-artifacts/pack.py"
+  ],
   "tools/bazel/failed_targets.py": [
     "tools/bazel/failed_targets.py"
   ],
