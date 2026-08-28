@@ -27,7 +27,7 @@ import re
 import subprocess
 import sys
 from functools import lru_cache
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 _ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(_ROOT / "tools" / "bazel"))
@@ -390,6 +390,35 @@ def declared_outputs() -> set:
     return {path for node in graph.values() for path in node.get("writes", ())}
 
 
+@lru_cache(maxsize=1)
+def _read_kinds() -> frozenset | None:
+    """Every file kind some generator reads, by suffix, or ``None`` when the graph is unreadable.
+
+    The trace records the files a generator actually opened, so a suffix present here is one
+    some generator has code to open — by a path it spells or by a glob over a directory. Either
+    way, one more file of that kind can reach it.
+    """
+    try:
+        graph = json.loads((_ROOT / "tools" / "bazel" / "graph.json").read_text())
+    except (OSError, ValueError):
+        return None
+    return frozenset(PurePosixPath(p).suffix.lower()
+                     for node in graph.values() for p in node.get("reads", ()))
+
+
+def read_kind(path: str) -> bool:
+    """Whether any generator reads files of `path`'s kind.
+
+    A KIND NO GENERATOR READS BOUNDS NOTHING. A photograph dropped under `hardware/` is a file
+    no action has code to open, so it defines no action and feeds none, and an unlabelled path
+    that reaches nothing must not stand in for a path that reaches everything — that is the
+    whole bundle recorded unproven behind one export. The day a generator does read one, the
+    trace names it and this answers yes again. With no graph to read, every kind bounds.
+    """
+    kinds = _read_kinds()
+    return True if kinds is None else PurePosixPath(path).suffix.lower() in kinds
+
+
 def artifact_sidecar_output(path: str) -> bool:
     """Whether `path` is generated viewer evidence, not an authored action input.
 
@@ -503,7 +532,7 @@ def artifact_unknown(path: str, artifacts_only: bool = False) -> bool:
         # derive lane, where cards and docs are outputs in their own right.
         if artifacts_only and artifact_presentation_only(path):
             return False
-        return True
+        return read_kind(path)
     if artifact_global(path):
         return True
     return path.startswith(("tools/bazel/", "tools/cad-artifacts/",
@@ -638,6 +667,15 @@ genrule(
          and artifact_unknown(".dockerignore")
          and artifact_unknown("hardware/new-image.png")
          and not artifact_unknown("hardware/new-image.png", artifacts_only=True))
+    hold("a kind no generator reads bounds nothing, in either lane",
+         not read_kind("hardware/off-the-shelf-parts/C14 - 1.jpeg")
+         and not artifact_unknown("hardware/off-the-shelf-parts/C14 - 1.jpeg", True)
+         and not artifact_unknown("hardware/off-the-shelf-parts/C14 - 1.jpeg"))
+    hold("a kind a generator does read still bounds what bazel cannot name",
+         read_kind("hardware/new_part.py")
+         and read_kind("hardware/off-the-shelf-parts/new.step")
+         and artifact_unknown("hardware/new_part.py", True)
+         and artifact_unknown("hardware/off-the-shelf-parts/new.step", True))
     hold("rewritten presentation is outside the artifact slice",
          artifact_presentation_only(
              "hardware/printed-parts/enclosure/ceiling-panel/README.md"))
