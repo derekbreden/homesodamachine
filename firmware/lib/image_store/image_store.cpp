@@ -112,6 +112,11 @@ uint8_t imageStoreHeld() {
 
 uint32_t imageStoreBundleBytes() { return bundleBytes; }
 
+uint32_t imageStoreCrc(uint8_t slot) {
+  const ImageSlotHeader *h = headerAt(slot);
+  return h ? h->crc32 : 0;
+}
+
 const uint16_t *imageStorePixels(uint8_t slot, uint8_t size) {
   const ImageSlotHeader *h = headerAt(slot);
   if (!h || size >= h->count) return nullptr;

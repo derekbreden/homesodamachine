@@ -45,6 +45,9 @@ void faucetSetFlavorArt(uint8_t channel, uint8_t art);
 // A picture landed here whole; ask for it to be carried the last hop.
 void faucetRequestRelay(uint8_t slot);
 
+// A phone asked for a picture and got it.
+void faucetSayRead(uint8_t slot, uint32_t bytes);
+
 // Whether the appliance considers anyone present. Defined in main.cpp, where
 // the backlight lives.
 void faucetApplyIdle(bool asleep);

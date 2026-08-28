@@ -604,6 +604,13 @@ void baseLinkPrimeDiscard() {
 // The enclosure needs its four renditions and cannot ask for them itself. The
 // main board is the only board that reaches both, so it is asked to sequence
 // the hop — radio up, send, radio down.
+void faucetSayRead(uint8_t slot, uint32_t bytes) {
+  char line[48];
+  snprintf(line, sizeof(line), "read back slot %u, %lu B to the phone",
+           slot, (unsigned long)bytes);
+  baseLinkSay(line);
+}
+
 void faucetRequestRelay(uint8_t slot) {
   ImageSlotPayload req{slot};
   base.trySend(MSG_IMAGE_RELAY_REQ, &req, sizeof(req));

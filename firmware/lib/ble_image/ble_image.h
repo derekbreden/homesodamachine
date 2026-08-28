@@ -47,6 +47,27 @@ constexpr uint8_t BLE_FRAME_ART_SET   = 0x1F;  // phone → board: BleArtSet
 // which is why this needs no rollback and no confirmation.
 constexpr uint8_t BLE_FRAME_IMG_ABORT = 0x20;  // phone → board: no payload
 
+// ── Reading one back ──────────────────────────────────────────────────────
+// A picture belongs to the machine, not to the phone that happened to send it.
+// A second phone, or a reinstalled one, has no copy of anything — so it asks,
+// and the board reads back out of the same mapped flash it draws from. What
+// comes back is identified by the slot's crc32, which is what lets a phone
+// keep a picture cached across sessions and know when a slot has changed hands.
+constexpr uint8_t BLE_FRAME_IMG_READ  = 0x21;  // phone → board: BleImgRead
+constexpr uint8_t BLE_FRAME_IMG_PIX   = 0x22;  // board → phone: BleImgPix, then bytes
+
+struct __attribute__((packed)) BleImgRead {
+  uint8_t slot;
+  uint8_t rendition;   // index into IMAGE_BUNDLE; 0 is the faucet's own face
+};
+
+struct __attribute__((packed)) BleImgPix {
+  uint8_t  slot;
+  uint8_t  rendition;
+  uint32_t offset;     // within that rendition
+  uint32_t total;      // its whole size, so the phone can size its buffer once
+};
+
 struct __attribute__((packed)) BleArtState {
   uint8_t art[2];      // art index each channel wears, low channel first
   uint8_t factory;     // how many of them are the ones that ship
@@ -65,6 +86,9 @@ struct __attribute__((packed)) BleImgState {
   uint8_t  renditions;   // IMAGE_BUNDLE_COUNT this build expects
   uint32_t bundleBytes;  // what one picture is, whole
   uint8_t  artFirst;     // art index the low custom slot answers to
+  // What each slot holds, as a picture's own identity rather than its address.
+  // Zero where the slot is empty.
+  uint32_t crc[FLAVOR_ART_CUSTOM];
 };
 
 struct __attribute__((packed)) BleImgBegin {
@@ -106,7 +130,9 @@ constexpr uint32_t BLE_IMG_ACK_EVERY = 32768;
 
 // What the owning board supplies.
 struct BleImageSeams {
-  void (*notify)(uint8_t type, const void *data, uint16_t len);
+  // False when the stack would not take it, which is how a read-back paces
+  // itself against a link it must not flood.
+  bool (*notify)(uint8_t type, const void *data, uint16_t len);
   // Ask the main board to give a channel a different face, and read back what
   // it currently holds. The main board owns this, not either display.
   void (*setArt)(uint8_t channel, uint8_t art);
@@ -114,6 +140,9 @@ struct BleImageSeams {
   // A picture is whole and on this board. The enclosure cannot receive one on
   // its own, so this is where the last hop gets asked for.
   void (*onStored)(uint8_t slot);
+  // A read-back finished. This board has no console in a machine, so whether a
+  // phone got what it asked for has to be sayable somewhere.
+  void (*onRead)(uint8_t slot, uint32_t bytes);
   // Told at the start and end of a transfer, and every ack, so the glass can
   // say what is happening while its own flash is being written.
   void (*onProgress)(bool active, uint8_t percent);
@@ -123,6 +152,12 @@ struct BleImageSeams {
 };
 
 void bleImageBegin(const BleImageSeams &seams);
+
+// Call every loop. Carries whatever a read-back still owes the phone.
+void bleImageService();
+
+// The MTU the phone agreed to, from the server's onMTUChange.
+void bleImageSetMtu(uint16_t mtu);
 
 // True when this type was one of ours.
 bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen);
