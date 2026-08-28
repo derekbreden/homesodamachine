@@ -5012,13 +5012,9 @@ def build_stack(psu, pcba, wagos, wall_seat):
 
     Relay #1 takes the MAIN BOARD'S crown — the main board is the tallest body on the cap and the shortest
     in depth, so the room over it is the one room a 70 mm relay lies down in. The ground stud
-    stands AFT of that relay at the same height, on its own wall bosses rather than on the board:
-    the shelf FORWARD of the relay is under the ceiling panel's fixed boss, whose pier descends
-    the whole storey off the +X ceiling strip to its screw's counterbore
-    (`enclosure._back_top_ceiling`), and a body standing in that strip leaves the pier no run to
-    root on. A ring stack is the one body here that will go wherever there is a corner. Relay #2
-    is not on either crown; it stands on the cap between the main board and the brick
-    (`build_relay2`)."""
+    stands AFT of that relay at the same height, on its own wall bosses rather than on the board.
+    A ring stack is the one body here that will go wherever there is a corner. Relay #2 is not on
+    either crown; it stands on the cap between the main board and the brick (`build_relay2`)."""
     out = []
     relay1, r1_carry = seat_body(import_step(str(RELAY_STEP)).val(), RELAY_TURN,
                                  seat="relay-1", x1=wall_seat, y1=box(pcba).ymax,
@@ -6849,39 +6845,67 @@ def check_c14_collar(pieces: dict, box) -> Bound:
             "probe is not covered by the ceiling show skin."])))
 
 
-def check_ceiling_fastener_direction() -> Bound:
-    """The complete ceiling fastener stack, read in its installation direction.
+def check_ceiling_retention(back_top, panel) -> Bound:
+    """Both headless keeper screws cross the empty dado mouths only after the panel is home.
 
-    The assembly imports `ceiling_panel` without running that module's command-line assertions,
-    so this repeats the one order that matters at machine level: head and bearing seat in fixed
-    back-top first, panel insert and blind show-face cap above. A positive tip-air reading says
-    the standard M3x10 stops before the blind end rather than jacking against the cap.
+    The insertion gate deliberately reads back-top without fasteners: the panel must traverse
+    these stations before either keeper exists. This gate reads the next operation. At home the
+    steel envelopes owe the panel the dado's own fore air; after that air is spent in Y−, each
+    tongue must meet its own pin. The horizontal heat-set sockets must be empty in the built
+    fixed piece and keep one standard boss ligament round the whole insert bore.
     """
-    stack = (
-        _cpanel.screw_head_face_z,
-        _cpanel.screw_head_seat_z,
-        _cpanel.screw_insert_open_z,
-        _cpanel.screw_insert_end_z,
-        _cpanel.screw_insert_bore_end_z,
-        _cpanel.show_z,
-    )
-    ordered = all(a < b for a, b in zip(stack, stack[1:]))
-    cap = _cpanel.show_z - _cpanel.screw_insert_bore_end_z
-    ok = (ordered
-          and _cpanel.screw_tip_air >= -1e-9
-          and abs(cap - _enc.socket_cap) <= 1e-9)
+    fixed = back_top.val() if hasattr(back_top, "val") else back_top
+    moving = panel.val() if hasattr(panel, "val") else panel
+    pins = _cpanel.retainer_fasteners()
+
+    home = tuple(pin.intersect(moving).Volume() for pin in pins)
+    fixed_clash = tuple(pin.intersect(fixed).Volume() for pin in pins)
+    catch_travel = _cpanel.retainer_fore_air + 0.75
+    caught_panel = moving.translate(cq.Vector(0.0, -catch_travel, 0.0))
+    caught = tuple(pin.intersect(caught_panel).Volume() for pin in pins)
+
+    land_missing = []
+    socket_occupied = []
+    outer_r = _enc.heatset_dia / 2.0 + _enc.boss_ligament
+    for sx, cy, cz in _cpanel.retainer_stations():
+        guide0, guide1 = sorted((sx * _cpanel.dado_blind_x,
+                                  sx * _cpanel.retainer_insert_face_x))
+        bore0, bore1 = sorted((sx * _cpanel.retainer_insert_face_x,
+                               sx * _cpanel.retainer_bore_end_x))
+        guide = _enc._xcyl(_cpanel.retainer_approach_d / 2.0,
+                            cy, cz, guide0, guide1)
+        bore = _enc._xcyl(_enc.heatset_dia / 2.0, cy, cz, bore0, bore1)
+        socket_occupied.append(guide.fuse(bore).intersect(fixed).Volume())
+        insert0, insert1 = sorted((sx * _cpanel.retainer_insert_face_x,
+                                   sx * _cpanel.retainer_insert_end_x))
+        insert_bore = _enc._xcyl(_enc.heatset_dia / 2.0,
+                                  cy, cz, insert0, insert1)
+        shell = _enc._xcyl(outer_r, cy, cz, insert0, insert1).cut(insert_bore)
+        land_missing.append(shell.cut(fixed).Volume())
+
+    home_clear = max(home, default=0.0) <= 1e-3
+    pin_paths_clear = max(fixed_clash, default=0.0) <= 1e-3
+    sockets_clear = max(socket_occupied, default=0.0) <= 1e-3
+    lands_whole = max(land_missing, default=0.0) <= 1e-3
+    both_catch = len(caught) == 2 and min(caught) >= 1.0
+    ok = home_clear and pin_paths_clear and sockets_clear and lands_whole and both_catch
     return record_bound(Bound(
-        "ceiling-screws-enter-from-below",
-        "Both ceiling screws enter from Z− and travel +Z into blind panel inserts",
+        "ceiling-dado-mouth-keepers",
+        "Two transverse keepers block both ceiling tongues at the open dado mouths",
         ok,
-        (f"head z {_cpanel.screw_head_face_z:.2f}..{_cpanel.screw_head_seat_z:.2f}, "
-         f"insert z {_cpanel.screw_insert_open_z:.2f}..{_cpanel.screw_insert_end_z:.2f}, "
-         f"{_cpanel.screw_tip_air:.2f} mm tip air, {cap:.2f} mm blind cap"),
-        "head below fixed seat below panel insert below an unpierced show face",
+        (f"{_cpanel.retainer_fore_air:.2f} mm home air; at {catch_travel:.2f} mm Y−, "
+         f"tongue engagement {caught[0]:.3f}/{caught[1]:.3f} mm³; home clash "
+         f"{max(home, default=0.0):.4f}, fixed clash {max(fixed_clash, default=0.0):.4f}, "
+         f"socket stock {max(socket_occupied, default=0.0):.4f}, land missing "
+         f"{max(land_missing, default=0.0):.4f} mm³"),
+        "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, "
+        "and run in empty fixed sockets with a complete heat-set ligament",
         ([] if ok else [
-            "The ceiling fastener stack is not strictly ordered from its Z− head through the "
-            "fixed boss and upward panel insert to a full blind cap, or M3x10 reaches the blind "
-            "end. Restore the below-driven stack in `ceiling_panel` and `_back_top_ceiling`."])))
+            f"the keeper pair reads home {home}, caught {caught}, fixed clash {fixed_clash}, "
+            f"socket stock {tuple(socket_occupied)}, land missing {tuple(land_missing)}. "
+            "Each pin is installed only after the panel reaches its +Y stop; put its axis "
+            "immediately ahead of the tongue, keep the guide open through the fixed corbel, "
+            "and leave the complete insert annulus in back-top."])))
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
@@ -7373,9 +7397,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.
     check_ceiling_panel_insertion(pieces["back-top"], box)
-    # The fasteners answer to that same joint: both heads remain on fixed back-top's Z− face,
-    # and both threads travel upward into blind inserts carried by the moving panel.
-    check_ceiling_fastener_direction()
+    # THEN THE KEEPERS EXIST. One headless screw crosses each empty dado mouth only after the
+    # panel has reached the rear wall, so the insertion sweep stays empty and both tongue ends
+    # acquire a direct fixed stop against Y− withdrawal.
+    check_ceiling_retention(pieces["back-top"], pieces["ceiling-panel"])
     # The chain against the piece that cradles it, once that piece exists — the one reading on
     # this card that can tell a anchor closed on the barrel from a anchor drawn near it.
     check_asse_seated(a.pack_solids["asse1022-assembly"], pieces["back-top"],
