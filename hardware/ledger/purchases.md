@@ -639,6 +639,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C funne
 | Part | Notes |
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
+| **HV6 6" horizontal/vertical rotary table, 150 mm, 90:1 worm, MT2 bore, 4 T-slots (~$199.99)** | The rotation for the cap-weld rig ([weld-rotation-rig.md](/hardware/assembly/weld-rotation-rig.md)) — a NEMA 23 goes on the worm shaft in place of the handwheel. Gated on that document's open item 1: buy only once the $18 synchronous-motor proof shows a continuous lap beats the tacked fill. [B0GPJ884VS](https://www.amazon.com/dp/B0GPJ884VS). |
 | **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 
 ---
