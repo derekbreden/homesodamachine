@@ -32,6 +32,19 @@ CH340 = (0x1A86, 0x7523)
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Which build each target is flashed from, and the env that produces it.
+# What each target's tree stamps into its own fw_version.h. A flash is checked
+# against this afterwards, because the failure worth catching is not a transfer
+# that breaks — that reports itself — but one that carries a stale image: a
+# build that did not run, whose previous firmware.bin is still on disk and gets
+# sent anyway. That flashes cleanly, verifies cleanly, and leaves the board
+# running code the source no longer describes, which is invisible until someone
+# spends an afternoon testing fixes that were never on the board.
+VERSION_HEADERS = {
+    "self":      "firmware/src_appliance/fw_version.h",
+    "faucet":    "firmware/src_faucet/fw_version.h",
+    "enclosure": "firmware/src_front/fw_version.h",
+}
+
 TARGETS = {
     "self":      ("appliance",      "the main board's own spare slot"),
     "faucet":    ("esp32s3_faucet", "the faucet display, over J3"),
@@ -99,6 +112,83 @@ def open_console(port: str) -> serial.Serial:
         sys.exit("the main board still has a single-slot partition table")
     ser.reset_input_buffer()
     return ser
+
+
+def expected_version(target: str) -> str | None:
+    """What the tree this target is built from currently stamps."""
+    rel = VERSION_HEADERS.get(target)
+    if not rel:
+        return None
+    try:
+        with open(os.path.join(REPO, rel)) as f:
+            for line in f:
+                if "FW_VERSION" in line and '"' in line:
+                    return line.split('"')[1]
+    except OSError:
+        return None
+    return None
+
+
+def confirm_version(port: str, target: str) -> int:
+    """Ask the machine what it is running and hold the flash to it.
+
+    Non-zero when the board comes back reporting something other than the image
+    just sent, which is what a stale binary looks like from the outside.
+    """
+    want = expected_version(target)
+    if not want:
+        return 0
+
+    # A fresh console rather than the one the transfer ran on: that one is still
+    # at the session's baud, and reopening the port is also what gives a main
+    # board that has just been talked at 500000 a clean 115200 to answer on.
+    time.sleep(8)          # the board reboots into what was just written
+    ser = open_console(port)
+
+    # A display answers through the main board, so its link has to come back
+    # before it can be asked at all — and the answer arrives whenever it
+    # arrives. So this asks repeatedly rather than once and waits.
+    deadline = time.time() + 75
+    asked = 0.0
+    seen, buf = None, b""
+    label = {"faucet": "faucet", "enclosure": "enclosure"}.get(target)
+    while time.time() < deadline and seen is None:
+        if time.time() - asked > 5:
+            asked = time.time()
+            ser.reset_input_buffer()
+            buf = b""
+            ser.write(b"versions\n")
+            ser.flush()
+        buf += ser.read(max(1, ser.in_waiting))
+        text = buf.decode(errors="replace")
+        # Only ever a completed line. A console answer arrives in pieces, and
+        # half of one parses perfectly well into the wrong answer — which is a
+        # worse failure here than none, because this is the check that is
+        # supposed to be trusted.
+        if target == "self":
+            for line in text.split("\n")[:-1]:
+                if line.startswith("main board") and len(line.split()) >= 3:
+                    seen = line.split(None, 2)[2].strip()
+        elif label:
+            marker = f"VERSION {label} = "
+            if marker in text:
+                rest = text.split(marker, 1)[1]
+                if "\n" in rest:
+                    candidate = rest.split("\n", 1)[0].strip()
+                    if candidate and "unanswered" not in candidate:
+                        seen = candidate
+        time.sleep(0.1)
+
+    ser.close()
+    if seen is None:
+        print(f"could not confirm what {target} is running — it did not answer")
+        return 1
+    if seen != want:
+        print(f"WRONG IMAGE: {target} reports {seen!r}, sent {want!r}")
+        print("the build did not run and a stale firmware.bin was flashed")
+        return 1
+    print(f"confirmed: {target} is running {seen}")
+    return 0
 
 
 def run(target: str, image: str, verbose: bool) -> int:
@@ -173,7 +263,7 @@ def run(target: str, image: str, verbose: bool) -> int:
                 print(f"\r  100.0%  {size:,}/{size:,}  in {el:.0f}s" + " " * 12)
                 print("verified and set to boot — the board restarts itself")
                 ser.close()
-                return 0
+                return confirm_version(port, target)
 
             elif line.startswith("OTA:FAIL") or line.startswith("OTA:ABORT"):
                 print(f"\n{line}")
