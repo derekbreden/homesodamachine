@@ -342,9 +342,9 @@ def build(box=None):
         structural_stock().fuse(rail_stock()))
     if c14_pocket is not None and c14_pocket.Volume() > 1e-6:
         solid = solid.cut(c14_pocket)
-    # The RJ11 keystone's fixed snap-in receptacle meets the same underside at the rear wall.
-    # Its rectangular running-clearance pocket also stays open through the aft edge; the panel
-    # carries neither receptacle material nor a break in the show skin above it.
+    # If the RJ11 keystone's fixed snap-in receptacle reaches this underside, its rectangular
+    # running-clearance pocket stays open through the aft edge. A lower receptacle returns no
+    # pocket and leaves the panel untouched.
     keystone_pocket = _enc.keystone_ceiling_pocket(
         box.inner, box.outer, box.pack.keystone,
         structural_stock().fuse(rail_stock()))

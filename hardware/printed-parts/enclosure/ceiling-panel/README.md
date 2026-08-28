@@ -43,7 +43,7 @@ flow-meter anchors and tube anchors. The existing print profile uses four top
 shells, three bottom shells and 15% grid infill, so the CAD envelope is not a
 solid 8 mm billet.
 
-There are [7](RELIEF_N) body pockets. Each starts from the purchased solid's
+There are [6](RELIEF_N) body pockets. Each starts from the purchased solid's
 exact intersection with the unrelieved field and rails, adds 2 mm of plan slip
 and 1 mm of vertical clearance, and rounds its plan corners to
 [3 mm](RELIEF_R). The pocket floor is therefore not a common guessed depth:
@@ -57,12 +57,13 @@ is returned as the single [1](TIE_RELIEF_N) zip tie pocket, so the loop still
 descends on both sides of the WR1110 barrel. The other anchor channels and both
 meter channels remain open while their solid roots merge into the plate.
 
-The fixed C14 surround and keystone receptacle reach into the aft end of the
-field. Each belongs wholly to back-top; this panel carries a constant-section
-running pocket open through its aft edge, so the fixed crown enters that pocket
-as the panel reaches home. `ceiling-panel-slides-in` checks the complete
-field-and-rail sweep from the open Y seam to the installed stop rather than
-checking only the final pose.
+The fixed C14 surround reaches into the aft end of the field. It belongs wholly
+to back-top; this panel carries a constant-section running pocket open through
+its aft edge, so the fixed crown enters that pocket as the panel reaches home.
+The RJ11 receptacle stands lower between SODA and FLAVOR-A and does not reach
+this panel. `ceiling-panel-slides-in` checks the complete field-and-rail sweep
+from the open Y seam to the installed stop rather than checking only the final
+pose.
 
 ## The rails
 
