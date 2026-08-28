@@ -822,6 +822,21 @@
    "active": true
   },
   {
+   "id": "east-boss-corbels",
+   "label": "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
+   "kind": "gate",
+   "status": "pass",
+   "value": "17/17 clear; 13 reach their mounting face and 4 use body-derived setbacks",
+   "target": "one clear D-stem corbel per mounting hole",
+   "detail": [
+    "`relay-2` y 343.500, z 321.400: 3.000 mm flat bridge past relay-2",
+    "`relay-2` y 330.500, z 321.400: 3.000 mm flat bridge past relay-2",
+    "`relay-1` y 320.500, z 330.700: 3.000 mm flat bridge past pcba",
+    "`relay-1` y 254.500, z 330.700: 3.000 mm flat bridge past pcba"
+   ],
+   "active": true
+  },
+  {
    "id": "cradles-land",
    "label": "Every printed valve cradle is under the valve it holds",
    "kind": "gate",
