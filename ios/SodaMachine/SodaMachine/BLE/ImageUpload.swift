@@ -154,13 +154,29 @@ extension BLEManager {
     // A picture this phone did not send has no cached face, so it is asked for
     // — once per picture, ever, because what comes back is filed under the
     // picture's own crc32 rather than under the slot it happens to occupy.
+    /// Faces are held in memory, not read off disk in a draw. A view that had
+    /// to open a file to know what to show would both do it on every frame and
+    /// have nothing to notice when the answer changed — which is how a picture
+    /// that arrived correctly still never appeared.
     func fetchMissingFaces() {
-        guard let unit = connectedMachine?.unit, !unit.isEmpty else { return }
+        guard let unit = connectedMachine?.unit, !unit.isEmpty else {
+            log.error("no machine unit; faces cannot be filed or fetched")
+            return
+        }
         for slot in 0..<imageSlots.count where imageSlots.isHeld(slot) {
             let crc = imageSlots.crc(of: slot)
-            guard crc != 0, PictureCache.load(unit: unit, crc: crc) == nil,
-                  !faceWanted.contains(crc) else { continue }
+            guard crc != 0 else {
+                log.error("slot \(slot) is held but reports no crc")
+                continue
+            }
+            if faces[crc] != nil { continue }
+            if let onDisk = PictureCache.load(unit: unit, crc: crc) {
+                faces[crc] = onDisk
+                continue
+            }
+            guard !faceWanted.contains(crc) else { continue }
             faceWanted.insert(crc)
+            log.info("asking for slot \(slot) face, crc \(crc)")
             requestFace(slot: slot)
             return   // one at a time; the next goes when this one lands
         }
@@ -190,15 +206,18 @@ extension BLEManager {
         guard faceBuffer.count >= total else { return }
 
         let crc = imageSlots.crc(of: slot)
-        if let unit = connectedMachine?.unit, !unit.isEmpty,
-           let face = ImageBundle.decode(faceBuffer, ImageBundle.sizes[0]) {
-            PictureCache.save(face, unit: unit, crc: crc)
-            log.info("read back slot \(slot), \(total) bytes")
-        }
+        let whole = faceBuffer
         faceBuffer = Data()
         faceSlot = -1
-        // Whatever else is missing, now that this one is in hand.
-        DispatchQueue.main.async { self.fetchMissingFaces() }
+        DispatchQueue.main.async {
+            if let unit = self.connectedMachine?.unit, !unit.isEmpty,
+               let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
+                PictureCache.save(face, unit: unit, crc: crc)
+                self.faces[crc] = face      // observable: this is what redraws the tile
+                log.info("read back slot \(slot), \(total) bytes")
+            }
+            self.fetchMissingFaces()   // whatever else is missing, now this is in hand
+        }
     }
 
     // ── Removing ──────────────────────────────────────────────────────────
@@ -237,6 +256,7 @@ extension BLEManager {
     func forgetPreview(slot: Int) {
         guard let crc = pendingCrc[slot] else { return }
         PictureCache.forget(unit: connectedMachine?.unit ?? "", crc: crc)
+        faces[crc] = nil
         pendingCrc[slot] = nil
     }
 
@@ -321,6 +341,7 @@ extension BLEManager {
             if let unit = self.connectedMachine?.unit, !unit.isEmpty,
                let face = ImageBundle.face(of: bundle) {
                 PictureCache.save(face, unit: unit, crc: crc)
+                DispatchQueue.main.async { self.faces[crc] = face }
             }
 
             var payload = Data([UInt8(slot)])

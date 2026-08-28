@@ -606,8 +606,8 @@ void baseLinkPrimeDiscard() {
 // the hop — radio up, send, radio down.
 void faucetSayRead(uint8_t slot, uint32_t bytes) {
   char line[48];
-  snprintf(line, sizeof(line), "read back slot %u, %lu B to the phone",
-           slot, (unsigned long)bytes);
+  if (bytes) snprintf(line, sizeof(line), "read slot %u: sent %lu B", slot, (unsigned long)bytes);
+  else       snprintf(line, sizeof(line), "read slot %u: REFUSED, nothing there", slot);
   baseLinkSay(line);
 }
 

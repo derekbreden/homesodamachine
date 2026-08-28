@@ -145,9 +145,17 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       BleImgRead req;
       memcpy(&req, payload, sizeof(req));
       // A picture being written is not a picture yet.
-      if (state == BLE_IMG_TAKING && req.slot == slot) return true;
+      if (state == BLE_IMG_TAKING && req.slot == slot) {
+        if (seams.onRead) seams.onRead(req.slot, 0);
+        return true;
+      }
       const uint32_t total = renditionBytes(req.rendition);
-      if (!total || !imageStorePixels(req.slot, req.rendition)) return true;
+      if (!total || !imageStorePixels(req.slot, req.rendition)) {
+        // Asked for something this board does not have. Said out loud, because
+        // the phone's side of a refusal is silence.
+        if (seams.onRead) seams.onRead(req.slot, 0);
+        return true;
+      }
       readSlot = req.slot;
       readRend = req.rendition;
       readAt = 0;
