@@ -1836,6 +1836,13 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         ble.rxCharacteristic = nil
         ble.nusReady = false
         ble.frameBuffer = Data()
+        // A read in flight cannot survive the link it was on, and the record of
+        // having asked must not either: `faceWanted` is what stops a picture
+        // being asked for twice, so leaving it set across a disconnect means a
+        // face that never arrived is never asked for again.
+        ble.faceSlot = -1
+        ble.faceBuffer = Data()
+        ble.faceWanted.removeAll()
         DispatchQueue.main.async {
             self.ble.connectionState = .searching
             self.ble.configSynced = false
