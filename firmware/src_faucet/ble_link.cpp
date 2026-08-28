@@ -251,6 +251,21 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
     sendIdentity();
     sendVersions();
     versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
+    return;
+  }
+
+  // Anything else the phone says goes to the main board's console. The phone is
+  // the half of this machine with no wire on it, and its own log is not
+  // reachable from a bench — so a decision it made silently, like declining to
+  // ask for a picture, had no way of being seen at all.
+  if (type == BLE_TEXT && plen) {
+    char text[80];
+    const uint16_t n = plen < sizeof(text) - 1 ? plen : (uint16_t)(sizeof(text) - 1);
+    memcpy(text, payload, n);
+    text[n] = '\0';
+    char line[96];
+    snprintf(line, sizeof(line), "[phone] %s", text);
+    baseLinkSay(line);
   }
 }
 

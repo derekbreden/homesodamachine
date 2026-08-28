@@ -56,9 +56,15 @@ constexpr uint8_t BLE_FRAME_IMG_ABORT = 0x20;  // phone → board: no payload
 constexpr uint8_t BLE_FRAME_IMG_READ  = 0x21;  // phone → board: BleImgRead
 constexpr uint8_t BLE_FRAME_IMG_PIX   = 0x22;  // board → phone: BleImgPix, then bytes
 
+// A notification is not acknowledged and can simply not arrive. So a read says
+// where to start, and the phone asks again from wherever it actually got to —
+// the same "every frame carries its offset, resume from there" the upload path
+// runs on. Without it one dropped notification silently costs the whole
+// picture: every frame after the gap is at an offset nobody is waiting for.
 struct __attribute__((packed)) BleImgRead {
-  uint8_t slot;
-  uint8_t rendition;   // index into IMAGE_BUNDLE; 0 is the faucet's own face
+  uint8_t  slot;
+  uint8_t  rendition;   // index into IMAGE_BUNDLE; 0 is the faucet's own face
+  uint32_t offset;      // where to start, which is where the phone got to
 };
 
 struct __attribute__((packed)) BleImgPix {

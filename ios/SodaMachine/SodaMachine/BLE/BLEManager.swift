@@ -96,6 +96,7 @@ class BLEManager {
     var faces: [UInt32: UIImage] = [:]
     @ObservationIgnored var faceBuffer = Data()
     @ObservationIgnored var faceSlot = -1
+    @ObservationIgnored var faceAskedAt = Date.distantPast
     @ObservationIgnored var faceWanted = Set<UInt32>()
     @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?

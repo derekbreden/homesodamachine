@@ -118,6 +118,16 @@ extension BLEManager {
         DispatchQueue.main.async { self.flavorArt = a }
     }
 
+    /// Say something on the machine's console. This phone has no wire on it and
+    /// its own log is not reachable from a bench, so a decision made here is
+    /// otherwise invisible to anyone holding the machine.
+    func say(_ text: String) {
+        guard !demoMode, let data = text.data(using: .utf8) else { return }
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: 0x01, payload: data.prefix(72))
+        }
+    }
+
     // ── Asking ────────────────────────────────────────────────────────────
     func queryImageSlots() {
         guard !demoMode else { return }
@@ -162,15 +172,18 @@ extension BLEManager {
         let unit = machineKey
         guard !unit.isEmpty else {
             log.error("no machine key yet; faces cannot be filed or fetched")
+            say("faces: no machine key, cannot fetch")
             return
         }
+        say("faces: unit=\(unit) slots=\(imageSlots.count) held=\(imageSlots.held) crcs=\(imageSlots.crc.count)")
         for slot in 0..<imageSlots.count where imageSlots.isHeld(slot) {
             let crc = imageSlots.crc(of: slot)
             guard crc != 0 else {
                 log.error("slot \(slot) is held but reports no crc")
+                say("faces: slot \(slot) held but crc is 0")
                 continue
             }
-            if faces[crc] != nil { continue }
+            if faces[crc] != nil { say("faces: slot \(slot) already in hand"); continue }
             if let onDisk = PictureCache.load(unit: unit, crc: crc) {
                 faces[crc] = onDisk
                 continue
@@ -178,17 +191,31 @@ extension BLEManager {
             guard !faceWanted.contains(crc) else { continue }
             faceWanted.insert(crc)
             log.info("asking for slot \(slot) face, crc \(crc)")
+            say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
             requestFace(slot: slot)
             return   // one at a time; the next goes when this one lands
         }
     }
 
-    private func requestFace(slot: Int) {
+    private func requestFace(slot: Int, from offset: Int = 0) {
         faceSlot = slot
-        faceBuffer = Data()
+        if offset == 0 { faceBuffer = Data() }
+        faceAskedAt = Date()
+        var payload = Data([UInt8(slot), 0])
+        payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
         bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.read, payload: Data([UInt8(slot), 0]))
+            self?.sendBLEFrame(type: ImageFrame.read, payload: payload)
         }
+    }
+
+    /// A stream that stopped short. Notifications are not acknowledged, so a
+    /// dropped one leaves every frame after it at an offset nothing is waiting
+    /// for — silence that used to cost the whole picture. Asking again from
+    /// where this actually got to costs the remainder and nothing else.
+    func resumeFaceIfStalled() {
+        guard faceSlot >= 0, Date().timeIntervalSince(faceAskedAt) > 2.0 else { return }
+        say("faces: resuming slot \(faceSlot) at \(faceBuffer.count)")
+        requestFace(slot: faceSlot, from: faceBuffer.count)
     }
 
     /// Pixels coming back, a frame at a time, each carrying where it belongs.
@@ -202,8 +229,16 @@ extension BLEManager {
         }
         let offset = Int(u32(2)), total = Int(u32(6))
         let bytes = payload.subdata(in: (b + 10)..<payload.endIndex)
-        guard slot == faceSlot, offset == faceBuffer.count else { return }
+        guard slot == faceSlot else { return }
+        // Behind what we have is a duplicate from a resume; ahead of it is a
+        // gap, and asking again from here is the whole recovery.
+        if offset < faceBuffer.count { return }
+        if offset > faceBuffer.count {
+            DispatchQueue.main.async { self.requestFace(slot: slot, from: self.faceBuffer.count) }
+            return
+        }
         faceBuffer.append(bytes)
+        faceAskedAt = Date()
         guard faceBuffer.count >= total else { return }
 
         let crc = imageSlots.crc(of: slot)
@@ -216,6 +251,7 @@ extension BLEManager {
                 PictureCache.save(face, unit: unit, crc: crc)
                 self.faces[crc] = face      // observable: this is what redraws the tile
                 log.info("read back slot \(slot), \(total) bytes")
+                self.say("faces: slot \(slot) decoded, \(total) B")
             }
             self.fetchMissingFaces()   // whatever else is missing, now this is in hand
         }
