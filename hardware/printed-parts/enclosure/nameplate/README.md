@@ -47,7 +47,7 @@ bulkhead ring's construction at another size, printed in a second filament.
 | Land under it | [1.5 mm](NAMEPLATE_LAND), and it is the plate's own section — head plus land is what sets [4.5 mm](NAMEPLATE_T) |
 | Seat | Ø[9.15 mm](NAMEPLATE_SEAT_D) of plate round the counterbore, one ligament, and no pad standing off the back |
 | Reach | [8 mm](NAMEPLATE_SCREW_REACH) under the head: the land, a ruthex M3 short, and [1.25 mm](BORE_RELIEF) of relief past its tip |
-| Boss | Ø[10 mm](BOSS_STEM_D) round the insert, [5 mm](BOSS_REACH) off the plateau. No collar — a collar closes a pad pocket, and there is none |
+| Boss | [7 mm](BOSS_STEM_D) wide, [5 mm](BOSS_REACH) off the plateau: round above the insert, square below its tangents, and carried to the wall on a full-width 45° corbel. No collar — a collar closes a pad pocket, and there is none |
 
 **The wall thickens to take it.** A pocket [4.5 mm](NAMEPLATE_T) deep is deeper than this wall's
 [3 mm](WALL_T) of stock, so the inner face carries a plateau standing to [6 mm](NAMEPLATE_WALL) —
@@ -69,11 +69,16 @@ would read as a V-groove round the plate instead of a flush inlay. The angle is
 `enclosure.relief_chamfer`, what every relief ceiling on this box rises at.
 
 **Where they stand is the wall's to say.** The cold core's cap crowns at z 253.4 and the
-SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall — so
-a boss anywhere else on this field is a boss in the core or in the pump. Between them the room
-is open from x −28 to 85, and the plate's own horizontal centreline stands on that line. That
-is what puts a screw at each end at mid-height. `enclosure_assembly.nameplate_screw_line` is
-the figure; `nameplate-field` on the build card is the reading.
+SeaFlo's aft disc comes down to z 266.4, both standing one `enclosure.wall` off this wall. The
+plate's horizontal centreline is therefore the lowest line that leaves the corbel one millimetre
+over the cap; the pump's rounded aft disc leaves more at the west screw and the PSU leaves more
+at the east one. `nameplate-support-clearance` measures both complete production supports, not
+their envelopes. `enclosure_assembly.nameplate_screw_line` is the figure; `nameplate-field` on
+the build card is the reading.
+
+**The squared lower half is part of the corbel.** It gives the wedge one full-width face to carry
+while the upper half remains the standard M3 boss section around the insert. The two screw
+supports are identical.
 
 ## Print settings
 

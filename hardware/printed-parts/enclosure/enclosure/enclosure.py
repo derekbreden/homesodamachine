@@ -3235,6 +3235,24 @@ def _rect_cut_x(hy, hz, wy, wz, radius, x0, x1):
     return (cut.edges("|X").fillet(radius) if radius else cut).val()
 
 
+def _nameplate_support(plate, sx, sz, y_pad):
+    """One support-free nameplate insert stem and its full-width 45° wall corbel.
+
+    The upper half stays round around the insert. The lower half is squared to the circle's
+    tangents, giving the corbel a full-width face to carry."""
+    stem_r = plate.stem_d / 2.0
+    y_tip = y_pad - plate.reach
+    stem = _ycyl(stem_r, sx, sz, y_tip, y_pad).fuse(
+        _ybox(sx - stem_r, sx + stem_r, y_tip, y_pad, sz - stem_r, sz))
+    support = stem.fuse(_yz_prism(
+        sx - stem_r, sx + stem_r,
+        [(y_tip, sz - stem_r), (y_pad, sz - stem_r),
+         (y_pad, sz - stem_r - plate.reach)]))
+    # Remove the cylinder/box imprint on the free face: the lower arc lies inside the D's
+    # material and is not a surface edge for the mesh viewer to expose.
+    return support.clean()
+
+
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     """The nameplate's pocket, cut into a ±Y wall's outer face, and the two screw bosses standing
     behind it on the inner one.
@@ -3264,10 +3282,12 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     face would read as a V-groove round the plate instead of the flush inlay this face is. What
     is left hanging is narrower than the square pocket hung before the plate ever thickened.
 
-    WHAT IS LEFT STANDING IS THE STEM ALONE. The plateau carries the first `nameplate.floor_under`
-    of the depth an insert's bore wants and the boss stands for the rest, round the insert and no
-    wider. There is no collar and no web: a collar closes a pad pocket and there is no pad, and a
-    web would have to stand in the band the plateau now fills.
+    WHAT IS LEFT STANDING IS A D-STEM AND A 45° CORBEL UNDER IT. The plateau carries the first
+    `nameplate.floor_under` of the depth an insert's bore wants and the boss stands for the rest,
+    one standard M3 section wide. Its upper half stays round around the insert; its lower half is
+    squared to the circle's tangents. The stem's whole underside is one face, and a full-stem-width
+    wedge carries that face back to the plateau, falling one millimetre for every millimetre of
+    reach. There is no collar: a collar closes a pad pocket and there is no pad.
 
     The plate lies wholly on one piece — `nameplate-field` is the reading that keeps it off the
     seam — so the station's own Z decides which piece carries all of it."""
@@ -3291,7 +3311,7 @@ def _nameplate(solid, plate, outer, y_outer, zlo, zhi):
     solid = solid.fuse(pad)
     for dx, dz in plate.screws:
         sx, sz = plate.x + dx, plate.z + dz
-        solid = solid.fuse(_ycyl(plate.stem_d / 2.0, sx, sz, y_pad - plate.reach, y_pad))
+        solid = solid.fuse(_nameplate_support(plate, sx, sz, y_pad))
     mouth = (cq.Workplane("XY").rect(pw, ph).extrude(plate.thick + 1.0)
              .edges("|Z").fillet(pr).faces("<Z").chamfer(plate.bevel).val()
              .rotate((0, 0, 0), (1, 0, 0), -90.0)
@@ -6133,6 +6153,18 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
+def _cond_cradle_corbel(inner, station):
+    """The crown rail's full-width 45° underside, rooted on the front wall."""
+    face, cx0, cx1, fz0, fz1, root = station
+    root_y = min([front_plane_y] + [f for rx0, rx1, rz0, rz1, f in (fridge_relief,)
+                                    if cx0 >= rx0 - 1e-6 and cx1 <= rx1 + 1e-6
+                                    and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
+    free_y = face + cond_slot_grip
+    reach = free_y - root_y
+    return _yz_prism(cx0, cx1, ((root_y, root - reach),
+                                (root_y, root), (free_y, root)))
+
+
 def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
     """The condenser block's FORE rails added to a PIECE, one per fore flange, for the stations
     inside the depth and height band that piece owns.
@@ -6145,8 +6177,10 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
     reach into the bay is its own depth and not a number typed here.
 
     The BASE rail's `root` is the slab, so it comes out of the print as a corner bracket in one
-    piece with both faces it stands on. The CROWN rail's is one section under its own groove, and
-    it hangs off the wall.
+    piece with both faces it stands on. The CROWN rail is one section under its own groove and its
+    whole flat underside is carried back to the front wall on a 45° corbel. The rail reaches only
+    `cond_slot_grip` past that wall, so the wedge is the same three millimetres deep and leaves the
+    condenser's upper flange more than one wall above it.
 
     THE GROOVE IS STRUCK OFF THE FLANGE IT TAKES and not off a figure typed here: `cond_slot_half`
     reads the station's own sheet. The rail's crown stands one section over that opening, so it
@@ -6162,10 +6196,23 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
                                         and rz0 <= (fz0 + fz1) / 2.0 <= rz1])
         solid = solid.fuse(_ybox(cx0, cx1, root_y, face + cond_slot_grip,
                                  root, fz1 + half + cond_rail_wall))
+        if root > inner[4] + 1e-6:
+            solid = solid.fuse(_cond_cradle_corbel(
+                inner, (face, cx0, cx1, fz0, fz1, root)))
         # The groove runs out past the rail's own aft end, so the flange enters from the bay.
         solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, face, face + cond_slot_grip + 1.0,
                                 fz0 - half, fz1 + half))
     return solid
+
+
+def _cond_mount_corbel(inner, station):
+    """The upper condenser finger's 45° underside, rooted on its standing east fin."""
+    flank, my0, my1, bosses = station
+    west = min(bx for bx, _by, _tip in bosses) - mount_boss_dia
+    tip = max(t for _bx, _by, t in bosses)
+    root = tip - cond_boss_t
+    return _xz_prism(my0, my1, ((west, root), (flank, root),
+                                (flank, root - (flank - west))))
 
 
 def _cond_mount(solid, inner, station, y0, y1, z0, z1):
@@ -6177,9 +6224,10 @@ def _cond_mount(solid, inner, station, y0, y1, z0, z1):
     and one `(x, y, tip)` per hole, where `tip` is the face of the flange that screw pulls down.
 
     THE LOWEST FINGER RUNS TO THE SLAB, because nothing stands between its own tip and the floor
-    and the block's aft end comes down on it. Every other is one `cond_boss_t` deep and hangs off
-    the fin, which is the only thing it can hang off: the recess it reaches into has the base
-    flange for a floor, so no column may root inside the block's own flanks."""
+    and the block's aft end comes down on it. The upper one is one `cond_boss_t` deep and its
+    whole underside is carried at 45° back to the standing fin. The wedge occupies the empty aft
+    recess and stops on the fin's west face, one `cond_mount_clear` off the condenser; no column
+    roots inside the block's own flanks."""
     if not station:
         return solid
     flank, my0, my1, bosses = station
@@ -6205,6 +6253,8 @@ def _cond_mount(solid, inner, station, y0, y1, z0, z1):
     for bx, by, tip in bosses:
         root = inner[4] if tip == floor_tip else tip - cond_boss_t
         solid = solid.fuse(_ybox(west, inner[1], my0, my1, root, tip))
+    if crown > floor_tip + 1e-6:
+        solid = solid.fuse(_cond_mount_corbel(inner, station))
     for bx, by, tip in bosses:
         solid = solid.cut(_zcyl(heatset_dia / 2.0, bx, by, tip - cond_bore_depth, tip))
     return solid
@@ -8189,6 +8239,7 @@ def main():
         "MQ6_CARD_T": f"{mq6_card_x:.4g} mm",
         "MQ6_SLOT_OPEN": f"{mq6_card_x + 2 * mq6_slot_press:.4g} mm",
         "COND_SLOT_OPEN": f"{cond_slot_open:.4g} mm",
+        "COND_SLOT_GRIP": f"{cond_slot_grip:.4g} mm",
         "CORE_STOP_BORE": (f"{2.0 * (box.pack.core_stops[0][2] + core_stop_slip / 2.0):.4g} mm"
                            if box.pack.core_stops else "no station"),
         "CORE_STOP_WEB": f"{core_stop_web:.4g} mm",

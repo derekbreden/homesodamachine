@@ -257,6 +257,19 @@ a wall that ever loses one is visible rather than silent.
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
 
+## Condenser cradle
+
+The condenser's four sheet flanges are the block's whole purchase. Its two fore flanges slide
+into rails on the front wall; its two aft holes screw into fingers on a standing fin at the +X
+wall. The base rail and lower finger run to the floor slab. The crown rail and upper finger do
+not: each carries its entire down-facing plane on a 45° corbel rooted on the wall or fin it grows
+from (`_cond_cradle_corbel`, `_cond_mount_corbel`).
+
+The crown wedge is only the rail's [3 mm](COND_SLOT_GRIP) reach. The aft wedge is longer, but it
+lies wholly in the donor block's open end recess and stops on the fin's west face. Both are read
+against the installed solids by `cond-corbels-clear`; the condenser stays fixed and the closer
+one keeps `cond_mount_clear` of assembly air.
+
 ## The box closes in four motions
 
 The slides fix the order, and the order is the service story backwards. **Front column**,
@@ -323,8 +336,7 @@ on the front face at the slip.
 aft bracket's bearing face does.** The straight from the head of the leg out to the foot's tip
 descends at 25° off vertical and is the bracket's upper face, laid on the section beneath it the
 whole way out — but the bearing face under it is flat and is the lowest thing on the bracket, so
-it is a soffit off the +Y wall and takes support, the way the ASSE anchor on that same
-wall does.
+it is a soffit off the +Y wall and takes removable support in its open lane.
 
 ## The reeded skin
 
@@ -623,10 +635,10 @@ through this short notch, which is centred on their installed Y station. Because
 notch opens upward it adds no bridge and traps no support; because it cuts the sleeve
 rather than the pan, the pan remains watertight.
 
-The **ASSE anchor** one storey above it costs the same. Its two 60° flanks
-stand 30° off vertical and are free; its **underside is flat**, a soffit off the wall
-under the lane, and that face hangs. Behind the anchor are the two zip ties' channels,
-one per tie band and `tie_cav_wide_w` long, and the support in each draws out its
+The **ASSE anchor** one storey above it carries its full underside on a 45° corbel rooted on
+the −X wall and tapering to the deepest section's V foot. Its two 60° seat flanks stand 30°
+off vertical and lay on themselves. Behind the anchor are the two zip ties' channels, one per
+tie band and `tie_cav_wide_w` long; each channel continues through the corbel and opens at its
 own end.
 
 The **bay floor** is the one feature that costs nothing and pays: it IS front-top's
