@@ -76,13 +76,11 @@
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
    "status": "fail",
-   "value": "5 clash, 0 unanswered",
+   "value": "3 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "c14-inlet \u2229 keystone-jack   72.9 mm\u00b3, x[   39.23,   42.83] y[  455.75,  458.75] z[  331.19,  341.23]",
-    "c14-inlet \u2229 enclosure-back-top   31.7 mm\u00b3, x[   42.95,   89.00] y[  457.30,  458.75] z[  325.13,  347.00]",
-    "keystone-jack \u2229 enclosure-back-top   207.5 mm\u00b3, x[   28.18,   42.83] y[  455.25,  458.70] z[  325.81,  349.96]",
-    "keystone-jack \u2229 enclosure-ceiling-panel   588.7 mm\u00b3, x[   28.18,   42.83] y[  437.00,  461.00] z[  347.00,  349.96]",
+    "keystone-jack \u2229 enclosure-back-top   85.6 mm\u00b3, x[   20.85,   35.50] y[  457.30,  458.70] z[  325.81,  349.96]",
+    "keystone-jack \u2229 enclosure-ceiling-panel   588.7 mm\u00b3, x[   20.85,   35.50] y[  437.00,  461.00] z[  347.00,  349.96]",
     "enclosure-back-top \u2229 enclosure-ceiling-panel   282.8 mm\u00b3, x[  -79.50,   79.50] y[  236.00,  461.00] z[  345.75,  354.95]"
    ],
    "active": true
@@ -115,11 +113,11 @@
    "label": "Two things the machine does not seat together stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "1 under, tightest 0.000 mm",
+   "value": "1 under, tightest 0.455 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "c14-inlet \u2014 keystone-jack: 0.000 mm \u2014 \u2717 under the floor, and nothing seats them together",
+    "keystone-jack \u2014 bulkhead-ring-co2: 0.455 mm \u2014 \u2717 under the floor, and nothing seats them together",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 seated against it",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 seated against it",
@@ -709,6 +707,18 @@
    "active": true
   },
   {
+   "id": "c14-cord-lands",
+   "label": "The receptacle's boss crosses the wall it seats behind",
+   "kind": "gate",
+   "status": "fail",
+   "value": "open",
+   "target": "a boss at least 8.25 mm proud",
+   "detail": [
+    "the boss stands 7.04 mm outboard of the seating plane and the stack over that plane is 8.25 \u2014 `enclosure.c14_tunnel_len` 5.25 of tunnel, so the two inserts have their own depth, and 3 of wall over each blind end. The boss's face lands 1.21 mm inside the wall's outer plane; a C13 whose housing is wider than the 27.46 x 19.18 bore stops on that plane and reaches no further."
+   ],
+   "active": true
+  },
+  {
    "id": "keystone-receptacle",
    "label": "The wall carries the jack's lip and stands the rest of its pocket",
    "kind": "gate",
@@ -722,10 +732,12 @@
    "id": "keystone-span",
    "label": "The jack's bezel stands clear of both neighbours on the deck storey",
    "kind": "gate",
-   "status": "pass",
-   "value": "holds",
+   "status": "fail",
+   "value": "open",
    "target": "wall either side of it",
-   "detail": [],
+   "detail": [
+    "the bezel is 19.9 mm across and leaves -2.39 mm to the CO2 pocket and -2.39 mm to the C14's mount. The nameplate takes the gate lane's east end, so this span is the wall's only free one."
+   ],
    "active": true
   },
   {
