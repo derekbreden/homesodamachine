@@ -44,10 +44,16 @@ struct FlavorImagePicker: View {
                         ForEach(heldCustomArt, id: \.self) { art in
                             tile(art: art, image: customImage(art), custom: true)
                         }
-                        if case .sending(let sent, let total) = ble.imageUploadState {
-                            pendingTile(progress: Double(sent) / Double(max(total, 1)))
-                        } else if ble.imageUploadState == .preparing {
-                            pendingTile(progress: 0)
+                        if let active = ble.activeUpload {
+                            pendingTile(active.preview, progress: sendingProgress)
+                        }
+                        ForEach(ble.imageQueue) { item in
+                            pendingTile(item.preview, progress: nil)
+                                .contextMenu {
+                                    Button("Cancel", role: .destructive) {
+                                        ble.cancelQueuedImage(id: item.id)
+                                    }
+                                }
                         }
                         if hasRoom { addCell }
                     }
@@ -109,26 +115,33 @@ struct FlavorImagePicker: View {
 
     // ── The cells ─────────────────────────────────────────────────────────
 
+    /// Every cell is the same shape, whatever is in it. An image asked to size
+    /// itself lays out to its own aspect and the row stops being a row — which
+    /// is why the cell is an empty box of the right shape and the picture is
+    /// laid over it, never the other way round.
+    private func cell<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+        Color.clear
+            .aspectRatio(tileAspect, contentMode: .fit)
+            .overlay(content())
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .padding(5)
+    }
+
     private func tile(art: Int, image: UIImage?, custom: Bool) -> some View {
-        Group {
+        cell {
             if let image {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()
-                    .aspectRatio(tileAspect, contentMode: .fit)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
             } else {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(Theme.placeholder)
-                        .aspectRatio(tileAspect, contentMode: .fit)
+                    Theme.placeholder
                     Image(systemName: "photo")
                         .font(.system(size: 24))
                         .foregroundStyle(Theme.textSecondary)
                 }
             }
         }
-        .padding(5)
         .overlay(
             RoundedRectangle(cornerRadius: 19)
                 .stroke(art == ble.flavorArt.art[channel] ? Theme.textPrimary : .clear, lineWidth: 1)
@@ -146,52 +159,76 @@ struct FlavorImagePicker: View {
 
     /// The photograph in the place it will occupy, dimmed under a ring — so the
     /// tile becomes the picture rather than being replaced by it.
-    private func pendingTile(progress: Double) -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 14)
-                .fill(Theme.placeholder)
-                .aspectRatio(tileAspect, contentMode: .fit)
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(Color.white, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                .frame(width: 56, height: 56)
-                .rotationEffect(.degrees(-90))
+    /// The photograph in the place it will occupy, dimmed under a ring — so the
+    /// tile becomes the picture rather than being replaced by one.
+    private func pendingTile(_ image: UIImage?, progress: Double?) -> some View {
+        cell {
+            ZStack {
+                if let image {
+                    Image(uiImage: image).resizable().scaledToFill()
+                } else {
+                    Theme.placeholder
+                }
+                Color.black.opacity(0.5)
+                if let progress {
+                    Circle()
+                        .trim(from: 0, to: progress)
+                        .stroke(Color.white, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                        .frame(width: 56, height: 56)
+                        .rotationEffect(.degrees(-90))
+                } else {
+                    Image(systemName: "clock")
+                        .font(.system(size: 24))
+                        .foregroundStyle(.white.opacity(0.7))
+                }
+            }
         }
-        .padding(5)
         .contextMenu {
             Button("Cancel", role: .destructive) { ble.cancelImageUpload() }
         }
     }
 
+    /// Available while a picture is still going up, so the next one can be
+    /// chosen and queued rather than waited for.
     private var addCell: some View {
         PhotosPicker(selection: picked, matching: .images, photoLibrary: .shared()) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(Theme.placeholder)
-                    .aspectRatio(tileAspect, contentMode: .fit)
-                Image(systemName: "plus")
-                    .font(.system(size: 28))
-                    .foregroundStyle(Theme.textSecondary)
+            cell {
+                ZStack {
+                    Theme.placeholder
+                    Image(systemName: "plus")
+                        .font(.system(size: 28))
+                        .foregroundStyle(Theme.textSecondary)
+                }
             }
-            .padding(5)
         }
-        .disabled(isBusy)
     }
 
     // ── State ─────────────────────────────────────────────────────────────
 
+    /// Slots the machine says it holds, minus any this phone is still sending
+    /// into — those are already on screen as the picture going up.
     private var heldCustomArt: [Int] {
-        (0..<ble.imageSlots.count)
-            .filter { ble.imageSlots.isHeld($0) }
+        let inFlight = Set(ble.imageQueue.map(\.slot) + (ble.activeUpload.map { [$0.slot] } ?? []))
+        return (0..<ble.imageSlots.count)
+            .filter { ble.imageSlots.isHeld($0) && !inFlight.contains($0) }
             .map { ble.flavorArt.artIndex(customSlot: $0) }
     }
 
-    private var hasRoom: Bool { ble.imageSlots.firstFree != nil && !isBusy }
+    /// Room for another, counting the ones already waiting on this phone —
+    /// the machine cannot know about those. The "+" stays live during a send;
+    /// choosing the next picture is not something to be made to wait for.
+    private var hasRoom: Bool { ble.nextFreeSlot() != nil }
 
-    private var isBusy: Bool {
-        if case .sending = ble.imageUploadState { return true }
-        return ble.imageUploadState == .preparing
+    /// How far the one in flight has got, or nil while its renditions are still
+    /// being made — which is a wait with nothing to measure yet.
+    private var sendingProgress: Double? {
+        if case .sending(let sent, let total) = ble.imageUploadState {
+            return Double(sent) / Double(max(total, 1))
+        }
+        return nil
     }
+
+    private var isBusy: Bool { ble.activeUpload != nil }
 
     private func factoryImage(_ art: Int) -> UIImage? {
         UIImage(named: "flavor_\(art + 1)")
@@ -219,11 +256,11 @@ struct FlavorImagePicker: View {
     /// A new picture takes whichever slot is free, and wears itself at once —
     /// choosing it was the point of adding it.
     private func add(_ crop: ImageCrop) {
-        guard let slot = ble.imageSlots.firstFree else { return }
-        if let preview = ImageBundle.preview(from: crop) {
+        let preview = ImageBundle.preview(from: crop)
+        guard let slot = ble.enqueueImage(crop, preview: preview) else { return }
+        if let preview {
             SlotPreviews.save(preview, unit: ble.connectedMachine?.unit ?? "", slot: slot)
         }
-        ble.uploadImage(crop, to: slot)
         ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
     }
 }

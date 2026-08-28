@@ -1954,18 +1954,25 @@ static void refreshFlavorImages() {
   for (uint8_t i = 0; i < selImgCount; i++) {
     lv_img_set_src(selImg[i], &selImgSet[i][flavorImage[flavorSel]]);
   }
+  // A slot with no picture in it is not a choice and not information — it is
+  // an empty frame asking to be understood. Only the faces that exist are laid
+  // out, and they close up rather than leaving gaps where the rest would be.
+  const lv_coord_t rowW = THUMB_PER_ROW * THUMB_BTN + (THUMB_PER_ROW - 1) * THUMB_GAP;
+  const lv_coord_t x0 = (PANE_W - 2 * PANE_PAD - rowW) / 2;
+  uint8_t shown = 0;
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
     if (!flvThumbBtn[i]) continue;
-    const bool have = flavorArtAvailable((uint8_t)i);
+    if (!flavorArtAvailable((uint8_t)i)) {
+      lv_obj_add_flag(flvThumbBtn[i], LV_OBJ_FLAG_HIDDEN);
+      continue;
+    }
+    lv_obj_clear_flag(flvThumbBtn[i], LV_OBJ_FLAG_HIDDEN);
+    lv_obj_set_pos(flvThumbBtn[i], x0 + (shown % THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP),
+                                   (shown / THUMB_PER_ROW) * (THUMB_BTN + THUMB_GAP));
+    ++shown;
     lv_obj_set_style_bg_color(
         flvThumbBtn[i],
         lv_color_hex(i == flavorImage[flavorSel] ? COL_ACCENT : COL_CARD), 0);
-    // An empty custom slot reads as empty: it draws the fallback face, so
-    // without this four of the eight tiles would be the first factory logo.
-    lv_obj_t *thumb = lv_obj_get_child(flvThumbBtn[i], 0);
-    if (thumb) lv_obj_set_style_img_opa(thumb, have ? LV_OPA_COVER : LV_OPA_20, 0);
-    lv_obj_set_style_border_width(flvThumbBtn[i], have ? 0 : 2, 0);
-    lv_obj_set_style_border_color(flvThumbBtn[i], lv_color_hex(COL_DIM), 0);
   }
 }
 

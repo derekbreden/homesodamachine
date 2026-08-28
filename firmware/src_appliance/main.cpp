@@ -109,6 +109,8 @@ void setup() {
     soundPlay(machineIoReady() ? SND_WELCOME : SND_FAULT);
 }
 
+static void relayImage(uint8_t slot);
+
 void loop() {
     // Expired heartbeat/session deadlines are terminal before either transport
     // may apply buffered input. A tick that sat behind a >2 s scheduler stall
@@ -124,6 +126,15 @@ void loop() {
     // Preferences can occasionally compact a flash page. Keep that work out of
     // every pump deadline and sound step; the logo already changed locally.
     if (machineState() == ST_IDLE && !soundBusy()) flavorService();
+
+    // A picture the faucet has taken in, carried the last hop. This blocks for
+    // seconds and takes the enclosure's panel down with it, so it waits for a
+    // dark machine and for the sounder to finish — and the phone is long gone
+    // by then, because nothing about the upload waited on this.
+    if (machineState() == ST_IDLE && !soundBusy()) {
+        const uint8_t slot = faucetLinkTakeRelayRequest();
+        if (slot != 0xFF) relayImage(slot);
+    }
 
     // Presence crosses both links, so a change is published to whichever glass
     // gives the main board its next turn.
@@ -413,8 +424,6 @@ static void relayImage(uint8_t slot) {
     linkWifiAp(false);
     Serial.println("relay done — the enclosure reboots into its new picture");
 }
-
-static uint8_t relayPending = 0xFF;
 
 static void cmdBench(const String &line) {
     String rest = line.substring(5);
