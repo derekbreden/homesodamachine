@@ -46,6 +46,12 @@ void faucetApplyIdle(bool asleep);
 // time, so the panel says what is happening rather than appearing to hang.
 void faucetApplyOta(bool active, uint8_t percent);
 
+// What the glass shows while a picture is arriving, and the rebind a written
+// or erased slot forces: writing the store remaps the partition every logo
+// descriptor points into. Both defined in main.cpp, where the display lives.
+void faucetApplyImage(bool active, uint8_t percent);
+void faucetRebindLogos();
+
 // A press this display did not otherwise report.
 void baseLinkTouched();
 
