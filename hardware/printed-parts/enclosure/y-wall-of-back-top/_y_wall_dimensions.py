@@ -152,8 +152,10 @@ def main():
     import _facts
     import enclosure_assembly as _ea
 
+    facts = _facts.read()
     bulkhead_panel_hole_diameter, co2_panel_hole_diameter = panel_hole_diameters(
-        _facts.read().wall_ports)
+        facts.wall_ports)
+    keystone_face_clear, keystone_pocket_clear = facts.constants.KEYSTONE_CLEARANCES
     variables = {
         "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm",
         "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
@@ -185,8 +187,10 @@ def main():
         "KEYSTONE_BOSS": f"{_ea._keystone.DEPTH - _ea._enc.back_top_wall_t:.2f} mm",
         "KEYSTONE_WALL_T": f"{_ea._enc.back_top_wall_t:.4g} mm",
         "KEYSTONE_DEPTH": f"{_ea._keystone.BODY_DEPTH:.4g} mm",
-        "KEYSTONE_WEST_CLEAR": f"{_ea._keystone_clearances()[0]:.2f} mm",
-        "KEYSTONE_EAST_CLEAR": f"{_ea._keystone_clearances()[1]:.2f} mm",
+        "KEYSTONE_FLAVOR_FACE_CLEAR": f"{keystone_face_clear[0]:.2f} mm",
+        "KEYSTONE_SODA_FACE_CLEAR": f"{keystone_face_clear[1]:.2f} mm",
+        "KEYSTONE_FLAVOR_POCKET_CLEAR": f"{keystone_pocket_clear[0]:.2f} mm",
+        "KEYSTONE_SODA_POCKET_CLEAR": f"{keystone_pocket_clear[1]:.2f} mm",
     }
 
     substitute_md(

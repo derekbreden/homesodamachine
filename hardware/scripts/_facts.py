@@ -305,6 +305,9 @@ def gather(whole=None, module=None):
         "C14_STATION": _plain(ea.C14_STATION),
         "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),
         "FLOOR_GROMMET_SQUEEZE": _plain(ea.FLOOR_GROMMET_SQUEEZE),
+        "KEYSTONE_CLEARANCES": _plain(
+            ea._keystone_clearances(whole.keystone_station, whole.gate_z)),
+        "KEYSTONE_STATION": _plain(whole.keystone_station),
         "PANEL_X": _plain(ea.PANEL_X),
         "CRADLE_TOL": _plain(ea.CRADLE_TOL),
         "PORT_NUT_GAP": _plain(ea.PORT_NUT_GAP),

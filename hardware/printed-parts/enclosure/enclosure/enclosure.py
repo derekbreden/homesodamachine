@@ -7269,8 +7269,8 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
 
     THE SEATING FACE HAS A STRAIGHT BACKING TO THE WALL. The same outer profile runs unsheared
     from `fore` to `aft`, filling the space above the print corbel at this short joint. The C14
-    bore, both insert sockets and the neighboring keystone cutter are applied after the fuse, so
-    each functional opening wins wherever these simple solids meet.
+    bore and both insert sockets are applied after the fuse, so each functional opening wins
+    wherever these simple solids meet.
 
     THE INSERTS ENTER THE FORE FACE, from inside the machine like every other insert on this box,
     and bottom on the wall's own inner face. The station is relieved back to `wall`
@@ -7407,11 +7407,10 @@ def c14_ceiling_pocket(inner, outer, stations, ports, stock):
 def _keystone_receptacle_geometry(inner, outer, station, z0, z1):
     """The keystone receptacle's fixed material and cutter.
 
-    The pocket needs the full module-standard height, but its printed surround may not rise
-    through the appliance's ceiling. The wall above that pocket therefore ends on the interior
-    ceiling plane: it still leaves 1.92 mm of PET-GF over the pocket, and the ceiling panel's
-    unbroken show skin lands on it. The matching panel pocket is open to the aft edge, so none of
-    this fixed material becomes a stop during insertion.
+    The pocket needs the full module-standard height. Its printed surround is clipped to the
+    interior-ceiling plane if a station ever carries it that high; `keystone_ceiling_land` and
+    `keystone_ceiling_pocket` then give the sliding panel a matching aft-open running clearance.
+    At a lower station the clip is inert and the whole receptacle remains in this fixed wall.
 
     Returns ``(feature, cutter, catches)``. The cutter is kept separate because it has to pass
     through both the additive boss and the wall already present in the piece; the catches are
