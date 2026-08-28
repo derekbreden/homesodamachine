@@ -25,9 +25,8 @@ marks the running one to look again when it finishes. Whatever is owed at that p
 gets cut, which is the newest state rather than the one that asked.
 
 IT REPORTS AND HOLDS NOTHING. The geometry's own commits are already on main by the time this
-runs; the one commit this makes is the lock, and it goes to main through `push.py` before the
-site is told anything. A publish that fails leaves the runner to do what it was always going to
-do.
+runs; the one commit this makes is the lock, and the site is told to look only once main holds
+it. A publish that fails leaves the runner to do what it was always going to do.
 """
 
 from __future__ import annotations
@@ -156,12 +155,15 @@ def publish() -> int:
             "hardware/cad-artifacts.lock.json", "-m", msg], quiet=True).returncode != 0:
         print("  the lock did not commit", file=sys.stderr)
         return 1
-    # THE SITE READS THE LOCK FROM MAIN, so a commit that has not landed there is a cut nobody
-    # can see and a `tell_the_site()` that sends the container to look at bytes that are not
-    # up yet. `push.py` is the reconcile: it fetches, settles a lost race in a detached
-    # worktree that shares no index with this one, and exits 0 only when the work is on the
-    # remote. Anything short of that leaves the cut to the runner, which is where it was.
-    if run([str(PY), "tools/push.py"]).returncode != 0:
+    # THE SITE READS THE LOCK FROM MAIN, so a cut that did not land there is one nobody can see
+    # and a `tell_the_site()` that sends the container to fetch the bytes it already has. The
+    # `.githooks/post-commit` hook runs `push.py` inside the commit above and, by its own
+    # contract, reports a push that did not land and leaves the work committed — so the commit
+    # returning says the commit was made and not that main has it. This reads the tracking ref
+    # `push.py` moves, which costs no network and no second reconcile: the post goes out on the
+    # strength of the lock being on main.
+    if run(["git", "merge-base", "--is-ancestor", "HEAD", "origin/main"],
+           quiet=True).returncode != 0:
         print(f"  the lock is committed and not on main; the runner reconciles this "
               f"({time.time() - started:.0f}s)", file=sys.stderr)
         return 1
