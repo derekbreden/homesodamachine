@@ -360,6 +360,7 @@ MOUNTS = (
     # the placed solids, and `port-clamp-stack` holds the barrel against what the stack spends.
     ("bulkhead-water", "enclosure-back-top", "wall-capture"),
     ("c14-inlet", "enclosure-back-top", "bosses"),
+    ("keystone-jack", "enclosure-back-top", "snap-capture"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
     # THE CHECK STANDS BETWEEN THE TWO OF THEM, one `CO2_INLET_HOP` inboard of the bulkhead and
     # one `CO2_HOP` short of the regulator, fed and drained by tube. Each hop is a stretch of
@@ -742,6 +743,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("bulkhead-water", "bulkhead-ring-water"),
     ("bulkhead-carb", "bulkhead-ring-carb"),
     ("co2-inlet", "bulkhead-ring-co2"),
+    # The RJ11 body snaps through the pocket and against the two catches printed in back-top.
+    # Its host overlap is the capture working, not two unrelated bodies closing on each other.
+    ("keystone-jack", "enclosure-back-top"),
     ("bulkhead-flavor-a", "bulkhead-ring-flavor-a"),
     ("bulkhead-flavor-b", "bulkhead-ring-flavor-b"),
     # AND THE WORD AGAINST THE CHIP IT IS LETTERED INTO. The recess is cut to the word and the
@@ -1981,13 +1985,13 @@ def selftest() -> int:
     # The terminal report and JSON card consume one expensive pairwise-solid reading.  This
     # fixture has no geometry: it holds the ownership rule directly, including object identity.
     class _Assembly:
-        pass
+        children = ()
 
     assembly = _Assembly()
     calls = 0
     real_clashes = ml.clashes
 
-    def counted_clashes(got):
+    def counted_clashes(got, **_kwargs):
         nonlocal calls
         calls += 1
         return (["held"], [])

@@ -1,56 +1,34 @@
-"""Reference solid of an IEC 60320 C14 panel-mount AC power inlet — the two-screw
-male appliance inlet, 40 mm screw pitch. BOM: MXR IEC 60320 C14 panel-mount AC
-inlet, 10 A / 250 VAC (Amazon B07DCXKNXQ); rear-wall mains inlet that accepts a
-standard NEMA 5-15P-to-C13 line cord. Moulded "AC-04" on its face.
+"""IEC 60320 C14 panel-mount inlet measured from the MXR AC-04 part.
 
-One moulded body: a LOZENGE FLANGE with a screw ear at each end, and one keyed
-COLUMN through it — barely proud on the mating face, where the recess the C13
-cordset enters is sunk into it and the three flat male blades stand, and long on
-the wiring face, where it carries the quick-connect spade terminals into the
-machine. The column's section is the same read from either side, and so is the
-45 deg key cut into it.
+This is the two-screw, 40 mm-pitch male appliance inlet sold as MXR B07DCXKNXQ.
+The photographed moulding has three different profiles: a tapered two-ear flange,
+a rounded mating-face shroud around the C13 cavity, and a chamfered wiring-side
+housing carrying the Faston tabs. Measurements taken on one face are not projected
+through the part.
 
-Calipered (the part on the bench)
----------------------------------
-  FLANGE_W 49.77 x FLANGE_H 22.17 — tip to tip through the ears, and across the
-      two flats. The ear is a round of half the difference from the pitch
-      (`EAR_R`), struck on the screw itself, so 40 + 2 x 4.885 is the length.
-  BODY_W 26.46 x BODY_H 18.18 — the moulded column that passes through the
-      flange, the same section read from either face. It is the widest thing
-      outboard of the seating plane, so a cutout is cut to it, and the flange
-      is left 1.995 mm of bearing either side.
-  EAR_SPAN 17.98 — across one ear, from the round where the full-width flat
-      gives way to the taper, to the round where the far taper meets that ear.
-      The taper's own 12.15 mm lies inside it, and the reading is what fixes the
-      run of the flat — see `_flat_run_for`.
-  7.04 IS NOT IN THIS FILE. It is calipered off the same part and its two loci
-      are not yet known, so nothing here is struck on it — a figure wired into
-      geometry on a guess at what it spans is worse than one left out.
-  SCREW_PITCH 40.0 — both screws ON the mating axis, one either side of the hole.
+Calipered from the part
+-----------------------
+* 49.77 x 22.17 mm: flange tip-to-tip and across its central long flats.
+* 17.98 mm: the in-plane chord from an ear's extreme nose to the shoulder where
+  that end taper meets a central long flat. It is not a Y depth or perimeter length.
+* 40.00 mm: screw pitch, with both screws on the mating axis.
+* 26.46 x 18.18 mm: wiring-side housing envelope.
+* 7.04 mm: the straight 45 degree segment across one housing corner, between its
+  two rounded transitions. It is not the cavity depth.
+* 30.95 x 22.15 mm, R3: the established panel opening this inlet mounts through.
 
-Estimated off the same photographs (rounding, and what nothing bears on)
-------------------------------------------------------------------------
-  FLANGE_T, FLANGE_FLAT_W and the corner radii; SHROUD_PROUD, CAVITY_DEPTH,
-  BODY_REACH and the blade layout; the Faston stubs. Each is marked at its own
-  constant.
+Estimated from the photographs
+------------------------------
+The flange shoulder round is R1.2 and the housing transitions are R0.9. The
+unmeasured Y stack and mating-face details use a 2 mm flange, 9 mm shroud,
+8 mm cavity, 22 mm housing and 5 mm tabs.
 
 Coordinate convention
-----------------------
-Matches jg_bulkhead_union.py.
-  Y = insertion / mating axis. +Y = OUTWARD (toward the outside of the
-      enclosure, where the C13 line cord plugs in — the male blades face
-      +Y). -Y = INWARD (the housing and spade terminals reach into the
-      enclosure).
-  Origin = the panel-seating plane = the outboard face of the flange, which
-      bears on the INSIDE of the +Y wall of back-top. The boss and its blades
-      reach out through the cutout at y >= 0; the flange, the housing and the
-      terminals sit at y < 0, inside the enclosure.
-  +Z = up. X completes the right-handed frame. The flange's long axis (49.77)
-      is along X; its short axis (22.17) is along Z.
-
-Note on the sketch plane: on the raw cq.Workplane(xz_plane_y_up), local +y
-maps to world -Z (chirality inversion documented in world_workplane.py), so
-the earth blade is placed at local -y to land at world +Z (top).
+---------------------
+Y is the mating axis and +Y points out of the enclosure toward the C13 cord. The
+panel-seating plane is Y=0, at the outboard face of the flange. The shroud reaches
+through the panel at Y>=0; flange, housing and terminals lie at Y<0. X is the
+flange's 49.77 mm axis and +Z is up.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/iec-c14-inlet/iec_c14_inlet.py
@@ -74,371 +52,319 @@ from world_workplane import xz_plane_y_up  # noqa: E402
 STEP = _here.parent / "iec-c14-inlet.step"
 
 
-# --- CALIPERED: the flange, and where a panel drills for it ----------------
-FLANGE_W = 49.77     # X, tip to tip through the two screw ears
-FLANGE_H = 22.17     # Z, across the two flats
-SCREW_PITCH = 40.0   # X, centre to centre; both screws on the cutout's own Z centreline
-EAR_R = (FLANGE_W - SCREW_PITCH) / 2.0   # 4.885 — the ear is a round on its screw
+# Flange and fasteners: all face dimensions below are calipered.
+FLANGE_W = 49.77
+FLANGE_H = 22.17
+FLANGE_END_CHORD = 17.98
+SCREW_PITCH = 40.0
+EAR_R = (FLANGE_W - SCREW_PITCH) / 2.0
+FLANGE_SHOULDER_X = FLANGE_W / 2.0 - math.sqrt(
+    FLANGE_END_CHORD ** 2 - (FLANGE_H / 2.0) ** 2)
+FLANGE_KNUCKLE_R = 1.2       # ESTIMATED from the four shoulder transitions
+FLANGE_T = 2.0               # ESTIMATED
+SCREW_D = 3.0                # M3 clearance
 
-# THE TAPER IS THE TANGENT the outline draws from the full-width flat onto the ear's round, so
-# the run of that flat is the only figure the outline needs beyond the extents. It is not typed:
-# `EAR_SPAN` is calipered across the ear — from the round where the flat gives way to the taper,
-# to the round where the far taper meets the ear — and the taper's own 12.15 mm lies inside it.
-# `_flat_run_for` is what turns that reading back into the run.
-EAR_SPAN = 17.98
-FLANGE_KNUCKLE = 1.0
-FLANGE_T = 5.0       # ESTIMATED. Y, the flange's own thickness
-SCREW_D = 3.5        # ESTIMATED. clearance hole for the M3 that holds it
+# The panel opening is a mounting datum, independent of either housing profile.
+CUTOUT_W = 30.95
+CUTOUT_H = 22.15
+CUTOUT_R = 3.0
 
-# --- CALIPERED: the moulded body, and the 45 deg key cut into it -----------
-# THE BODY IS ONE COLUMN THROUGH THE FLANGE, standing out on the mating face and in on the
-# wiring face, and its section is the same read from either side. That section is a rectangle
-# with every corner cut back at 45 deg, and the two flats those cuts leave are what the
-# calipers take — which is why both figures read the same from either face.
-BODY_W = 26.46       # X — the column, mating side and wiring side alike
-BODY_H = 18.18       # Z — the widest section outboard of the seating plane, so what a cutout
-                     #     is cut to, with 1.995 mm of flange bearing either side of it
-KEY = 4.24           # ESTIMATED. the 45 deg cut on each corner of that section
-CAVITY_H = 15.52     # ESTIMATED. the recess across the short axis
-SHROUD_T = (BODY_H - CAVITY_H) / 2.0        # 1.33 — the wall the two leave between them
-CAVITY_W = BODY_W - 2.0 * SHROUD_T          # 23.80
-BODY_R = 1.0         # ESTIMATED. round on every corner of that outline
+# Mating-face shroud and cavity: estimated from the photographs.
+SHROUD_W = 24.0
+SHROUD_H = 18.0
+SHROUD_T = 1.6
+SHROUD_PROUD = 9.0
+CAVITY_W = SHROUD_W - 2.0 * SHROUD_T
+CAVITY_H = SHROUD_H - 2.0 * SHROUD_T
+CAVITY_DEPTH = 8.0
+SHROUD_FILLET = 1.5
 
-# --- ESTIMATED: how far the column stands either way of the seating plane --
-# The mating face is very nearly the flange's own: this receptacle sinks its recess into the
-# body rather than standing a shroud off the panel, and a C13 lands on the flange.
-SHROUD_PROUD = 1.0   # ESTIMATED. Y, the column outboard of the seating plane
-CAVITY_DEPTH = 9.0   # ESTIMATED. Y, recess floor below the mating face
-BODY_REACH = 19.8    # ESTIMATED. Y, seating plane to the housing's back face, terminals aside
+# Wiring-side housing: envelope and bevel are calipered; rounding is estimated.
+BODY_W = 26.46
+BODY_H = 18.18
+BODY_CHAMFER = 7.04
+BODY_CORNER_R = 0.9
+BODY_CORNER_TRIM = BODY_CORNER_R * math.tan(math.pi / 8.0)
+# Filleting a 45 degree polygon corner trims this much off both ends of its diagonal.
+# Enlarge the construction leg so the remaining physical straight is exactly 7.04 mm.
+BODY_CHAMFER_LEG = (
+    BODY_CHAMFER + 2.0 * BODY_CORNER_TRIM
+) / math.sqrt(2.0)
+BODY_DEPTH = 22.0             # ESTIMATED
 
-# --- Male blades (mate with the C13 cordset) — ESTIMATED, IEC 60320-1 sheet C14
-BLADE_W = 4.0        # X
-BLADE_T = 1.0        # Z thickness
-BLADE_PROUD = 5.0    # Y projection from the cavity floor toward +Y
-LN_SPACING = 14.0    # line<->neutral center spacing along X
-EARTH_OFFSET_Z = 8.0  # earth blade above the L/N line (world +Z)
+# Male blades and Faston tabs: IEC/generic estimates.
+BLADE_W = 4.0
+BLADE_T = 1.0
+BLADE_PROUD = 7.0
+LN_SPACING = 14.0
+EARTH_OFFSET_Z = 8.0
+TAB_W = 4.8
+TAB_T = 0.8
+TAB_PROUD = 5.0
 
-TAB_W = 4.8          # ESTIMATED. X, Faston quick-connect spade
-TAB_T = 0.8          # ESTIMATED. Z
-TAB_PROUD = 6.0      # ESTIMATED. Y, behind the housing back face
-
-# Seating planes along Y.
-shroud_rim_y = SHROUD_PROUD                       # outer face of the boss, out through the hole
-cavity_floor_y = shroud_rim_y - CAVITY_DEPTH      # floor the blades stand on
-flange_back_y = -FLANGE_T                          # the flange's inboard face
-body_back_y = -BODY_REACH                          # housing back face, where the tabs start
-
-
-# --- What a panel owes this receptacle --------------------------------------
-# A screw-mount C14 asks a panel for three things: a CUTOUT its boss reaches out through,
-# two SCREW STATIONS that hold it there, and the FACE ROOM its flange takes on the inside
-# once it is in. A field spaced to the cutout fouls on the flange, which is the widest of
-# the three.
-#   All three are symmetric about the mating axis: the cutout is centred on it and both
-# screws sit on it. So a panel places one station and the three follow.
+shroud_rim_y = SHROUD_PROUD
+cavity_floor_y = shroud_rim_y - CAVITY_DEPTH
+flange_back_y = -FLANGE_T
+body_back_y = flange_back_y - BODY_DEPTH
 
 
 def panel_cutout() -> tuple:
-    """`(width, height, corner radius)` of the axis-centred rounded rectangle the boss
-    reaches out through. The keyed corners are inside this rectangle, so a panel cuts the
-    rectangle and the key rides free of it."""
-    return (BODY_W, BODY_H, BODY_R)
+    """Established axis-centred panel opening as ``(width, height, radius)``."""
+    return (CUTOUT_W, CUTOUT_H, CUTOUT_R)
 
 
 def panel_screws() -> tuple:
-    """The two screw stations in the panel plane, as `(x, z)` off the cutout's own centre.
-    Both sit ON the mating axis, one either side of the hole."""
+    """Two screw stations in the seating plane, relative to the inlet centre."""
     return ((-SCREW_PITCH / 2.0, 0.0), (SCREW_PITCH / 2.0, 0.0))
 
 
 def panel_footprint() -> tuple:
-    """`(width, height)` the receptacle takes on the panel face, seen down the mating axis —
-    what crowds a neighbour, a wall or a ceiling. The flange is the widest section, and it
-    bears on the panel's INNER face."""
+    """Overall flange extents in the seating plane."""
     return (FLANGE_W, FLANGE_H)
 
 
 def panel_stack() -> tuple:
-    """`(outboard, inboard)` of the seating plane. The first is all the panel and whatever
-    it carries may take before the cordset stops landing on the boss; the second is the room
-    the part asks for behind that plane, terminals aside."""
-    return (SHROUD_PROUD, BODY_REACH)
+    """Outboard shroud reach and inboard moulded reach, terminals excluded."""
+    return (SHROUD_PROUD, FLANGE_T + BODY_DEPTH)
 
 
-def stations_hold():
-    """Hold the calipered panel figures to `iec-c14-inlet.step` — the file the enclosure
-    seats through its wall, while it cuts and drills off these live figures.
+def _flange_landmarks() -> dict:
+    """Right-top landmarks of the final rounded flange outline.
 
-    The face footprint is the flange's own outline, an extent of that solid's box either
-    way. Against the cutout: what stands outboard of the seating plane clears it, the
-    flange covers it, and both screws land in flange and miss it."""
-    solid = import_step(str(STEP)).val()
-    bb = solid.BoundingBox()
-    face_w, face_h = panel_footprint()
-    for what, claimed, actual in (("face width", face_w, bb.xlen),
-                                  ("face height", face_h, bb.zlen)):
-        if abs(claimed - actual) > 1e-6:
-            raise ValueError(
-                f"iec-c14-inlet {what} is {claimed:g} and {STEP.name} carries {actual:.4f} — "
-                f"a panel field spaced to this figure is spaced to a body that is not there.")
-    cut_w, cut_h, _r = panel_cutout()
-    # Everything standing OUTBOARD of the seating plane is what reaches through the hole.
-    out = cq.Solid.makeBox(bb.xlen + 2, bb.ymax + 1, bb.zlen + 2,
-                           cq.Vector(bb.xmin - 1, 1e-3, bb.zmin - 1))
-    ob = solid.intersect(out).BoundingBox()
-    for what, thru, hole in (("width", ob.xlen, cut_w), ("height", ob.zlen, cut_h)):
-        if thru > hole + 1e-6:
-            raise ValueError(
-                f"iec-c14-inlet reaches {thru:.4f} through the panel in {what} and the "
-                f"calipered cutout is {hole:g} — the part does not pass its own hole.")
-    for what, cover, hole in (("width", face_w, cut_w), ("height", face_h, cut_h)):
-        if cover <= hole + 1e-6:
-            raise ValueError(
-                f"the cutout is {hole:g} in {what} and the flange {cover:g} — the flange no "
-                f"longer covers the hole it is meant to bear around.")
-    # Each screw has to land in flange material and miss the hole it stands beside.
-    for sx, sz in panel_screws():
-        if abs(sx) + SCREW_D / 2.0 > face_w / 2.0 or abs(sz) + SCREW_D / 2.0 > face_h / 2.0:
-            raise ValueError(
-                f"the screw at ({sx:g}, {sz:g}) reaches past the {face_w:g} x {face_h:g} "
-                f"flange — there is no moulding there to drive into.")
-        if abs(sx) - SCREW_D / 2.0 < cut_w / 2.0 and abs(sz) - SCREW_D / 2.0 < cut_h / 2.0:
-            raise ValueError(
-                f"the screw at ({sx:g}, {sz:g}) breaks into the {cut_w:g} x {cut_h:g} "
-                f"cutout — a boss there stands in the hole the boss comes through.")
-    outboard, inboard = panel_stack()
-    if abs(ob.ymax - outboard) > 1e-6 or abs(bb.ymin + inboard + TAB_PROUD) > 1e-6:
-        raise ValueError(
-            f"`panel_stack` states {outboard:g} out and {inboard:g} in, and {STEP.name} "
-            f"carries {ob.ymax:.4f} out and {-bb.ymin - TAB_PROUD:.4f} in — a wall spaced to "
-            f"the stated stack is spaced to a part that is not there.")
-
-
-# --- outlines ---------------------------------------------------------------
-# THE TWO PROFILES THIS PART IS DRAWN FROM, each struck one round INSIDE its stated size
-# and offset back out, so every corner of the result carries that round and the stated
-# figure is the outline's own extent.
-
-
-def _tangent(half_run, half_height, ear_x, ear_r):
-    """Where the hull's straight taper touches the ear's round, as `(x, z)`."""
-    dx, dz = ear_x - half_run, -half_height
+    ``shoulder`` is the measured long-flat endpoint. A radius at that point joins
+    the flat to the common external tangent shared with the screw-ear circle.
+    The construction preserves the 17.98 mm shoulder-to-nose chord after rounding.
+    """
+    a = FLANGE_SHOULDER_X
+    h = FLANGE_H / 2.0
+    kr = FLANGE_KNUCKLE_R
+    shoulder_center = (a, h - kr)
+    ear_center = (SCREW_PITCH / 2.0, 0.0)
+    dx = ear_center[0] - shoulder_center[0]
+    dz = ear_center[1] - shoulder_center[1]
     span = math.hypot(dx, dz)
-    if ear_r >= span:
-        raise ValueError(
-            f"an ear of {ear_r:g} swallows the corner {span:.3f} away it is meant to tangent "
-            f"from — there is no taper left between flat and ear.")
-    heading = math.atan2(dz, dx) + math.pi - math.acos(ear_r / span)
-    return ear_x + ear_r * math.cos(heading), ear_r * math.sin(heading)
+    if span <= abs(EAR_R - kr):
+        raise ValueError("the flange shoulder and screw-ear rounds swallow their tangent")
+    ux, uz = dx / span, dz / span
+    along = (kr - EAR_R) / span
+    across = math.sqrt(1.0 - along * along)
+    nx = along * ux + across * (-uz)
+    nz = along * uz + across * ux
+    q = (shoulder_center[0] + kr * nx, shoulder_center[1] + kr * nz)
+    t = (ear_center[0] + EAR_R * nx, ear_center[1] + EAR_R * nz)
+    theta = math.atan2(nz, nx)
+    mid_theta = (math.pi / 2.0 + theta) / 2.0
+    mid = (shoulder_center[0] + kr * math.cos(mid_theta),
+           shoulder_center[1] + kr * math.sin(mid_theta))
+    return {
+        "shoulder": (a, h),
+        "round_mid": mid,
+        "tangent_start": q,
+        "ear_tangent": t,
+        "nose": (FLANGE_W / 2.0, 0.0),
+    }
 
 
-def _ear_span(flat_run):
-    """What a caliper reads across one ear on a flange with this flat: the two rounds the jaws
-    land on are where the flat gives way to the taper on one side, and where the far taper meets
-    the ear on the other, so the whole taper lies between them."""
-    a, hz = flat_run / 2.0, FLANGE_H / 2.0 - FLANGE_KNUCKLE
-    tx, tz = _tangent(a, hz, SCREW_PITCH / 2.0, EAR_R - FLANGE_KNUCKLE)
-    vx, vz = tx - a, tz - hz
-    length = math.hypot(vx, vz)
-    nx, nz = -vz / length, vx / length                      # the taper's outward normal
-    sx, sz = a + FLANGE_KNUCKLE * nx, hz + FLANGE_KNUCKLE * nz
-    ex, ez = tx + FLANGE_KNUCKLE * nx, tz + FLANGE_KNUCKLE * nz
-    return math.hypot(ex - sx, ez + sz)
+def flange_profile(clearance: float = 0.0) -> cq.Sketch:
+    """Canonical rounded flange silhouette, offset outward by ``clearance``.
+
+    The enclosure imports this function for its insertion pocket and collar, so
+    the purchased part and printed surround cannot drift to different outlines.
+    """
+    if clearance < 0.0:
+        raise ValueError("flange-profile clearance must be non-negative")
+    p = _flange_landmarks()
+    a, h = p["shoulder"]
+    mx, mz = p["round_mid"]
+    qx, qz = p["tangent_start"]
+    tx, tz = p["ear_tangent"]
+    nose_x = p["nose"][0]
+    sketch = (
+        cq.Sketch()
+        .segment((-a, h), (a, h))
+        .arc((a, h), (mx, mz), (qx, qz))
+        .segment((qx, qz), (tx, tz))
+        .arc((tx, tz), (nose_x, 0.0), (tx, -tz))
+        .segment((tx, -tz), (qx, -qz))
+        .arc((qx, -qz), (mx, -mz), (a, -h))
+        .segment((a, -h), (-a, -h))
+        .arc((-a, -h), (-mx, -mz), (-qx, -qz))
+        .segment((-qx, -qz), (-tx, -tz))
+        .arc((-tx, -tz), (-nose_x, 0.0), (-tx, tz))
+        .segment((-tx, tz), (-qx, qz))
+        .arc((-qx, qz), (-mx, mz), (-a, h))
+        .assemble()
+        .reset()
+    )
+    if clearance:
+        face = sketch._faces.Faces()[0]  # CadQuery Sketch has no public wire accessor.
+        wires = face.outerWire().offset2D(clearance)
+        if len(wires) != 1:
+            raise ValueError(
+                f"a {clearance:g} mm flange offset produced {len(wires)} outlines")
+        sketch = cq.Sketch().face(wires[0]).reset()
+    return sketch
 
 
-def _flat_run_for(span, lo=8.0, hi=40.0):
-    """The flat run whose ear reads `span`. Monotone in between, so a bisection settles it."""
-    for _ in range(80):
-        mid = (lo + hi) / 2.0
-        lo, hi = (mid, hi) if _ear_span(mid) > span else (lo, mid)
-    return lo
+def flange_prism(clearance: float, y0: float, y1: float) -> cq.Workplane:
+    """The canonical flange silhouette extruded from ``y0`` to ``y1``.
+
+    This deliberately contains no screw holes. It is the material envelope used
+    both for the moulding and for true-profile enclosure offsets.
+    """
+    if y1 <= y0:
+        raise ValueError(f"flange prism ends at {y1:g}, not beyond its start {y0:g}")
+    return (cq.Workplane(xz_plane_y_up).workplane(offset=y0)
+            .placeSketch(flange_profile(clearance)).extrude(y1 - y0))
 
 
-FLANGE_FLAT_W = _flat_run_for(EAR_SPAN)     # 24.378
+def _body_profile() -> cq.Sketch:
+    hw, hh, k = BODY_W / 2.0, BODY_H / 2.0, BODY_CHAMFER_LEG
+    points = (
+        (-(hw - k), hh), (hw - k, hh), (hw, hh - k), (hw, -(hh - k)),
+        (hw - k, -hh), (-(hw - k), -hh), (-hw, -(hh - k)), (-hw, hh - k),
+    )
+    sketch = cq.Sketch()
+    for p0, p1 in zip(points, points[1:] + points[:1]):
+        sketch = sketch.segment(p0, p1)
+    return sketch.assemble().vertices().fillet(BODY_CORNER_R).reset()
 
 
-def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
-    """The flange's lozenge: two flats `2 * half_height` apart running `2 * half_run`, a
-    round of `ear_r` on each screw at `+/-ear_x`, and the tangent the hull draws between
-    them."""
-    tx, tz = _tangent(half_run, half_height, ear_x, ear_r)
-    return (wp.moveTo(-half_run, half_height).lineTo(half_run, half_height).lineTo(tx, tz)
-              .threePointArc((ear_x + ear_r, 0.0), (tx, -tz))
-              .lineTo(half_run, -half_height).lineTo(-half_run, -half_height).lineTo(-tx, -tz)
-              .threePointArc((-(ear_x + ear_r), 0.0), (-tx, tz))
-              .close())
-
-
-def _keyed_outline(wp, width, height, key):
-    """The C13/C14 section: a rectangle with every corner cut back at 45 deg. One `KEY` answers for
-    the column and for the recess inside it."""
-    hw, hh = width / 2.0, height / 2.0
-    return (wp.moveTo(-(hw - key), hh).lineTo(hw - key, hh)
-              .lineTo(hw, hh - key).lineTo(hw, -(hh - key))
-              .lineTo(hw - key, -hh).lineTo(-(hw - key), -hh)
-              .lineTo(-hw, -(hh - key)).lineTo(-hw, hh - key)
-              .close())
-
-
-def _plane(offset):
-    return cq.Workplane(xz_plane_y_up).workplane(offset=offset)
-
-
-def _flange_prism(radius, offset, length):
-    """The lozenge struck `radius` under size and offset back out, extruded `length` from
-    `offset` — every corner of the result carrying `radius`."""
-    return (_hull_outline(_plane(offset),
-                          FLANGE_FLAT_W / 2.0, FLANGE_H / 2.0 - radius,
-                          SCREW_PITCH / 2.0, EAR_R - radius)
-            .offset2D(radius, kind="arc").extrude(length))
-
-
-def _keyed_prism(width, height, key, radius, offset, length):
-    """The same for a keyed section."""
-    return (_keyed_outline(_plane(offset),
-                           width - 2 * radius, height - 2 * radius, key - radius)
-            .offset2D(radius, kind="arc").extrude(length))
-
-
-def build_flange():
-    """The lozenge, `flange_back_y` to 0, bearing on the panel's inner face and bored for
-    the two screws that hold it there."""
-    flange = _flange_prism(FLANGE_KNUCKLE, flange_back_y, FLANGE_T)
+def build_flange() -> cq.Workplane:
+    """Measured tapered flange from Y=-2 to the seating plane at Y=0."""
+    flange = flange_prism(0.0, flange_back_y, 0.0)
     for sx, sz in panel_screws():
-        bore = (cq.Workplane(xz_plane_y_up)
-                .workplane(offset=flange_back_y)
-                .center(sx, -sz)                  # local +y -> world -Z
-                .circle(SCREW_D / 2.0)
-                .extrude(FLANGE_T))
+        bore = (cq.Workplane(xz_plane_y_up).workplane(offset=flange_back_y)
+                .center(sx, -sz).circle(SCREW_D / 2.0).extrude(FLANGE_T))
         flange = flange.cut(bore)
     return flange
 
 
-def build_shroud():
-    """The keyed column standing outboard of the seating plane (0 -> `shroud_rim_y`), which is
-    the whole of what reaches through a panel."""
-    return _keyed_prism(BODY_W, BODY_H, KEY, BODY_R, 0.0, SHROUD_PROUD)
+def build_shroud() -> cq.Workplane:
+    """Rounded mating shroud and its recessed C13 cavity at Y=0..9."""
+    ring = (cq.Workplane(xz_plane_y_up).rect(SHROUD_W, SHROUD_H)
+            .extrude(SHROUD_PROUD).edges("|Y").fillet(SHROUD_FILLET))
+    cavity = (cq.Workplane(xz_plane_y_up).workplane(offset=shroud_rim_y)
+              .rect(CAVITY_W, CAVITY_H).extrude(-CAVITY_DEPTH))
+    return ring.cut(cavity)
 
 
-def build_cavity():
-    """The recess the C13 enters, sunk back from the mating face into the column — past the
-    flange and on into the housing, which is where a C13's blade engagement is."""
-    return _keyed_prism(CAVITY_W, CAVITY_H, KEY, BODY_R, shroud_rim_y, -CAVITY_DEPTH)
-
-
-def build_blades():
-    """The three flat male blades standing on the cavity floor, projecting +Y.
-    Line/neutral on a horizontal line `LN_SPACING` apart; earth centred above (world +Z ->
-    local -y on this plane)."""
+def build_blades() -> cq.Workplane:
+    """Three IEC male blades standing from the cavity floor toward +Y."""
     blades = None
-    ln_z_local = EARTH_OFFSET_Z / 2.0   # local +y -> world -Z: L/N below centre
+    ln_z_local = EARTH_OFFSET_Z / 2.0
     for sx in (-1.0, 1.0):
-        b = (cq.Workplane(xz_plane_y_up)
-             .workplane(offset=cavity_floor_y)
-             .center(sx * LN_SPACING / 2.0, ln_z_local)
-             .rect(BLADE_W, BLADE_T)
-             .extrude(BLADE_PROUD))
-        blades = b if blades is None else blades.union(b)
-    earth = (cq.Workplane(xz_plane_y_up)
-             .workplane(offset=cavity_floor_y)
+        blade = (cq.Workplane(xz_plane_y_up).workplane(offset=cavity_floor_y)
+                 .center(sx * LN_SPACING / 2.0, ln_z_local)
+                 .rect(BLADE_W, BLADE_T).extrude(BLADE_PROUD))
+        blades = blade if blades is None else blades.union(blade)
+    earth = (cq.Workplane(xz_plane_y_up).workplane(offset=cavity_floor_y)
              .center(0.0, ln_z_local - EARTH_OFFSET_Z)
-             .rect(BLADE_T, BLADE_W)   # earth blade oriented vertically (taller)
-             .extrude(BLADE_PROUD))
+             .rect(BLADE_T, BLADE_W).extrude(BLADE_PROUD))
     return blades.union(earth)
 
 
-def build_body():
-    """The moulded housing behind the flange (`flange_back_y` -> `body_back_y`), standing in
-    the enclosure with the terminals on its back face."""
-    return _keyed_prism(BODY_W, BODY_H, KEY, BODY_R,
-                        flange_back_y, body_back_y - flange_back_y)
+def build_body() -> cq.Workplane:
+    """Measured, chamfered wiring housing behind the flange."""
+    return (cq.Workplane(xz_plane_y_up).workplane(offset=flange_back_y)
+            .placeSketch(_body_profile()).extrude(-BODY_DEPTH))
 
 
-def build_terminals():
-    """Three Faston quick-connect spade tabs projecting -Y from the housing back face, on
-    the same X/Z layout as the blades."""
+def build_terminals() -> cq.Workplane:
+    """Three Faston tabs projecting from the wiring housing toward -Y."""
     tabs = None
     ln_z_local = EARTH_OFFSET_Z / 2.0
     for sx in (-1.0, 1.0):
-        t = (cq.Workplane(xz_plane_y_up)
-             .workplane(offset=body_back_y)
-             .center(sx * LN_SPACING / 2.0, ln_z_local)
-             .rect(TAB_W, TAB_T)
-             .extrude(-TAB_PROUD))
-        tabs = t if tabs is None else tabs.union(t)
-    earth = (cq.Workplane(xz_plane_y_up)
-             .workplane(offset=body_back_y)
+        tab = (cq.Workplane(xz_plane_y_up).workplane(offset=body_back_y)
+               .center(sx * LN_SPACING / 2.0, ln_z_local)
+               .rect(TAB_W, TAB_T).extrude(-TAB_PROUD))
+        tabs = tab if tabs is None else tabs.union(tab)
+    earth = (cq.Workplane(xz_plane_y_up).workplane(offset=body_back_y)
              .center(0.0, ln_z_local - EARTH_OFFSET_Z)
-             .rect(TAB_T, TAB_W)
-             .extrude(-TAB_PROUD))
+             .rect(TAB_T, TAB_W).extrude(-TAB_PROUD))
     return tabs.union(earth)
 
 
-def build_iec_c14_inlet():
-    """The inlet as a single solid wrapped in a cq.Workplane."""
-    return (
-        build_flange()
-        .union(build_shroud())
-        .union(build_body())
-        .cut(build_cavity())
-        .union(build_blades())
-        .union(build_terminals())
-    )
+def build_iec_c14_inlet() -> cq.Workplane:
+    """The complete inlet as one reference solid."""
+    return (build_flange().union(build_shroud()).union(build_blades())
+            .union(build_body()).union(build_terminals()))
+
+
+def stations_hold() -> None:
+    """Hold public mounting figures to the materialized STEP geometry."""
+    solid = import_step(str(STEP)).val()
+    bb = solid.BoundingBox()
+    for what, claimed, actual in (
+            ("face width", FLANGE_W, bb.xlen), ("face height", FLANGE_H, bb.zlen)):
+        if abs(claimed - actual) > 1e-6:
+            raise ValueError(
+                f"iec-c14-inlet {what} is {claimed:g}, STEP carries {actual:.4f}")
+    out = cq.Solid.makeBox(bb.xlen + 2.0, bb.ymax + 1.0, bb.zlen + 2.0,
+                           cq.Vector(bb.xmin - 1.0, 1e-3, bb.zmin - 1.0))
+    ob = solid.intersect(out).BoundingBox()
+    cut_w, cut_h, _cut_r = panel_cutout()
+    for what, through, opening in (("width", ob.xlen, cut_w), ("height", ob.zlen, cut_h)):
+        if through > opening + 1e-6:
+            raise ValueError(
+                f"the {through:.4f} mm outboard {what} does not pass its {opening:g} opening")
+    for sx, sz in panel_screws():
+        if abs(sx) + SCREW_D / 2.0 > FLANGE_W / 2.0:
+            raise ValueError(f"the screw at ({sx:g}, {sz:g}) leaves the flange")
+        if abs(sx) - SCREW_D / 2.0 < cut_w / 2.0:
+            raise ValueError(f"the screw at ({sx:g}, {sz:g}) breaks into the panel opening")
+    outboard, inboard = panel_stack()
+    if abs(ob.ymax - outboard) > 1e-6:
+        raise ValueError(f"panel stack says {outboard:g} out, STEP carries {ob.ymax:.4f}")
+    if abs(bb.ymin + inboard + TAB_PROUD) > 1e-6:
+        raise ValueError(
+            f"panel stack says {inboard:g} in plus {TAB_PROUD:g} tabs, STEP reaches {bb.ymin:.4f}")
 
 
 def selftest() -> int:
-    """The receptacle against the figures calipered off it."""
+    """Verify every photographed constraint and the shared enclosure profile."""
     fails = []
-    if abs(SCREW_PITCH + 2 * EAR_R - FLANGE_W) > 1e-9:
-        fails.append(
-            f"the ears are Ø{2 * EAR_R:.3f} on a {SCREW_PITCH:g} pitch and the flange is "
-            f"{FLANGE_W:g} long — the tip is not the ear's own outer point.")
-    if BODY_H >= FLANGE_H:
-        fails.append(
-            f"the body is {BODY_H:g} across and the flange {FLANGE_H:g} — the flange has "
-            f"no bearing left either side of the hole it covers.")
-    if KEY > min(CAVITY_W, CAVITY_H) / 2.0:
-        fails.append(f"a {KEY:g} key cuts past the middle of the {CAVITY_W:g} x "
-                     f"{CAVITY_H:g} recess it is also cut into")
-    if CAVITY_DEPTH >= SHROUD_PROUD + BODY_REACH:
-        fails.append(
-            f"the recess is {CAVITY_DEPTH:g} deep and the column runs "
-            f"{SHROUD_PROUD + BODY_REACH:g} — its floor is out the back of the housing.")
-    if abs(_ear_span(FLANGE_FLAT_W) - EAR_SPAN) > 1e-6:
-        fails.append(
-            f"the flat runs {FLANGE_FLAT_W:.4f} and reads {_ear_span(FLANGE_FLAT_W):.4f} across "
-            f"the ear, and the calipers read {EAR_SPAN:g}")
-    if FLANGE_FLAT_W / 2.0 >= SCREW_PITCH / 2.0 - EAR_R:
-        fails.append(
-            f"the flat runs to x {FLANGE_FLAT_W / 2.0:g} and the ear starts at "
-            f"{SCREW_PITCH / 2.0 - EAR_R:g} — there is no taper between them.")
+    p = _flange_landmarks()
+    chord = math.dist(p["shoulder"], p["nose"])
+    if abs(chord - FLANGE_END_CHORD) > 1e-9:
+        fails.append(f"flange shoulder-to-nose chord is {chord:.6f}, not {FLANGE_END_CHORD:g}")
+    if abs(SCREW_PITCH + 2.0 * EAR_R - FLANGE_W) > 1e-9:
+        fails.append("the screw-ear circles do not reach the measured flange tips")
+    straight = math.sqrt(2.0) * BODY_CHAMFER_LEG - 2.0 * BODY_CORNER_TRIM
+    if abs(straight - BODY_CHAMFER) > 1e-9:
+        fails.append(f"rounded body leaves a {straight:.6f} mm chamfer, not {BODY_CHAMFER:g}")
+    if SHROUD_W > CUTOUT_W or SHROUD_H > CUTOUT_H:
+        fails.append("the mating shroud does not pass the established panel opening")
     try:
+        nominal = flange_prism(0.0, -1.0, 0.0).val().BoundingBox()
+        slipped = flange_prism(0.5, -1.0, 0.0).val().BoundingBox()
+        if abs(nominal.xlen - FLANGE_W) > 1e-6 or abs(nominal.zlen - FLANGE_H) > 1e-6:
+            fails.append("canonical flange profile does not carry the measured extents")
+        if abs(slipped.xlen - FLANGE_W - 1.0) > 1e-6 or abs(
+                slipped.zlen - FLANGE_H - 1.0) > 1e-6:
+            fails.append("the shared 0.5 mm flange offset is not 0.5 mm per side")
         stations_hold()
-    except Exception as exc:                                     # noqa: BLE001
+    except Exception as exc:  # noqa: BLE001
         fails.append(str(exc))
     for line in fails:
         print(f"FAIL {line}")
     if not fails:
-        print(f"ok  iec-c14-inlet AC-04  flange {FLANGE_W:g} x {FLANGE_H:g}, "
-              f"flat {FLANGE_FLAT_W:.3f} off a {EAR_SPAN:g} ear span, "
-              f"body {BODY_W:g} x {BODY_H:g}, "
-              f"{BODY_REACH:g} in, screws {SCREW_PITCH:g} apart")
+        print(
+            f"ok  C14 flange {FLANGE_W:g} x {FLANGE_H:g}, chord {FLANGE_END_CHORD:g}; "
+            f"housing {BODY_W:g} x {BODY_H:g}, chamfer {BODY_CHAMFER:g}; "
+            f"cutout {CUTOUT_W:g} x {CUTOUT_H:g}")
     return 1 if fails else 0
 
 
-def main():
+def main() -> None:
     part = build_iec_c14_inlet()
     bb = part.val().BoundingBox()
-    print("IEC 60320 C14 panel-mount AC inlet — two-screw, 40 mm pitch (MXR B07DCXKNXQ)")
-    print(f"  Canonical-frame bounding box: "
-          f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
-          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
+    print("IEC 60320 C14 panel-mount AC inlet — MXR AC-04 / B07DCXKNXQ")
+    print(f"  X [{bb.xmin:.2f}, {bb.xmax:.2f}]  Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
           f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    print(f"  Extents: X {bb.xlen:.2f}  Y {bb.ylen:.2f}  Z {bb.zlen:.2f}")
-    print(f"  Proud of seating face (outward): {bb.ymax:.2f} mm")
-    print(f"  Into enclosure (inward): {bb.ymin:.2f} mm")
-    print(f"  Flange {FLANGE_W} x {FLANGE_H} / body {BODY_W} x {BODY_H}, key {KEY:.2f}")
-    print(f"  Solid valid: {part.val().isValid()}")
+    print(f"  flange {FLANGE_W:g} x {FLANGE_H:g}, end chord {FLANGE_END_CHORD:g}")
+    print(f"  rear housing {BODY_W:g} x {BODY_H:g}, 45-degree chamfer {BODY_CHAMFER:g}")
+    print(f"  solid valid: {part.val().isValid()}")
     export_assembly(one_body(part, "iec-c14-inlet", C_C14), str(STEP))
     print(f"-> {STEP.name}")
 

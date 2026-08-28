@@ -145,6 +145,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "funnel
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "wago-221"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "mq6-gas-sensor"))
 sys.path.insert(0, str(_repo / "hardware" / "reference" / "riteav-keystone"))
+sys.path.insert(0, str(_repo / "hardware" / "reference" / "iec-c14-inlet"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "valve-seat"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "valve-tray"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "ceiling-panel"))
@@ -162,6 +163,7 @@ import funnel as _funnel
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
+import iec_c14_inlet as _c14
 import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
@@ -1040,7 +1042,7 @@ back_top_wall_t = 6.0
 # still lands on it (`enclosure_assembly.check_wall_clamped`, `_c14_tunnel`).
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
-    ("c14-inlet", 67.615, 336.21, 56.77, 31.18),  # the tunnel's own footprint on the wall
+    ("c14-inlet", 69.0, 336.21, 47.0, 35.15),     # the established tunnel footprint
 )
 
 # --- what stands on that relief: the C14's tunnel ------------------------------
@@ -1064,34 +1066,32 @@ c14_tunnel_len = heatset_depth
 # own rectangle and both stations land in material.
 c14_tunnel_wall = back_top_wall_t
 c14_tunnel_r = 3.0
-# --- and the socket the receptacle drops into ---------------------------------
+# --- and the collar the receptacle drops into ---------------------------------
 #
-# THE FLANGE LANDS IN A POCKET AND NOT ON A FACE. The tunnel runs on past the seating plane and
-# the pocket is sunk back into it, so the moulding is wrapped on all four sides before either
-# screw is turned: it drops in, it cannot walk while the inserts take their screws, and what a
-# cord's tug reaches is a wall and not two M3s.
+# THE FLANGE LANDS IN A PROFILED POCKET AND NOT ON A FLAT FACE. A separate collar continues
+# inboard from the established tunnel's fore face. Its inner and outer silhouettes come from
+# `iec_c14_inlet.flange_profile`, the same rounded/tapered wire that draws the purchased part,
+# so a rectangular restatement cannot shave an angled edge or hide a thin corner.
 #
-# THE POCKET IS THE FLANGE'S OWN BOX AND A SLIP, and its floor is the seating plane exactly —
-# `c14_seat_y` does not move for any of this.
-c14_flange = (49.77, 22.17)     # `iec_c14_inlet.panel_footprint`, restated so the rows can read it
-c14_socket_slip = 0.5           # per side, between the moulding and the wall round it
-c14_socket_wall = 3.0           # XZ, the section that wall keeps all the way round
-c14_socket_len = 3.5            # Y, how far the socket's mouth stands inboard of the seat
+# THE POCKET IS 0.5 MM OFF THE MOULDING. The outer wire is another 3 mm beyond it everywhere
+# in XZ, and the collar continues one 3 mm section past the flange's own inboard edge in Y-.
+# The floor remains the established seating plane: none of these moves the part or its screws.
+c14_collar_slip = 0.5
+c14_collar_wall = 3.0
+c14_collar_extension = 3.0
 
 
 def c14_mount_half(bore_w, bore_h, screw_reach):
-    """`(across_x, across_z)`, halved — the mount's own outline, and the one figure a station
-    on this wall is placed off.
-
-    THREE REACHES SHARE IT AND THE FURTHEST DRAWS IT. The BORE and one `c14_tunnel_wall` either
-    side; the two INSERTS, each `screw_reach` off the axis with `heatset_dia` of bore and
-    `boss_ligament` round it; and the SOCKET, the flange's own box with a slip and a wall. Across
-    X the socket reaches furthest, across Z the bore's section does."""
-    socket = tuple(c14_flange[i] / 2.0 + c14_socket_slip + c14_socket_wall for i in (0, 1))
+    """Half extents of the established tunnel carrying the bore and two inserts."""
     return (max(bore_w / 2.0 + c14_tunnel_wall,
-                screw_reach + heatset_dia / 2.0 + boss_ligament,
-                socket[0]),
-            max(bore_h / 2.0 + c14_tunnel_wall, socket[1]))
+                screw_reach + heatset_dia / 2.0 + boss_ligament),
+            bore_h / 2.0 + c14_tunnel_wall)
+
+
+def c14_collar_half():
+    """XZ half extents of the exact-profile collar's outer offset."""
+    offset = c14_collar_slip + c14_collar_wall
+    return (_c14.FLANGE_W / 2.0 + offset, _c14.FLANGE_H / 2.0 + offset)
 
 # --- back-top's own ±X section ------------------------------------------------
 #
@@ -7303,10 +7303,11 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     the aperture itself and nothing else: the tunnel grows entirely OUTWARD of the hole, so
     neither its section nor its two bores ever stand in the plug's way.
 
-    AND IT DROPS INTO THAT FACE RATHER THAN LANDING ON IT. The block runs `c14_socket_len` past
-    the seating plane and the flange's own box is sunk back out of it, so `c14_socket_wall` of
-    wall stands round the moulding on all four sides. The pocket floor IS the fore face — the
-    plane the flange bears on does not move for the socket, and neither does either insert.
+    AND IT DROPS INTO A SEPARATE COLLAR ON THAT FACE. The collar's pocket is the purchased
+    flange's exact rounded/tapered profile at `c14_collar_slip`; its outer profile is another
+    `c14_collar_wall` beyond that everywhere in XZ. It wraps the flange's whole thickness and
+    continues `c14_collar_extension` further inboard. The pocket floor IS the fore face — the
+    plane the flange bears on does not move, and neither does either insert.
 
     THE INSERTS ENTER THE FORE FACE, from inside the machine like every other insert on this box,
     and bottom on the wall's own inner face. The station is relieved back to `wall`
@@ -7314,10 +7315,10 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     tunnel is the whole of what is left.
 
     ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece prints on its Z− face
-    with the +Y wall standing on the bed, so the tunnel's own soffit is tunnel and socket
-    together of ceiling starting in air; run down the wall at 45° it is a ramp the wall reaches
-    under. The
-    crown needs no such thing — it is clipped to the room, so above the aperture the section runs
+    with the +Y wall standing on the bed, so the tunnel's own soffit is ceiling starting in air;
+    run down the wall at 45° it is a ramp the wall reaches under. The collar is only five
+    millimetres long and joins that supported face around its whole perimeter. The crown needs
+    no such thing — it is clipped to the room, so above the aperture the section runs
     out into the top wall the way the port field's top row of bosses does.
 
     IT ROOTS ON `back_wall_t_at` AND NOT ON `inner`. The piece holding these stations carries
@@ -7342,20 +7343,24 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
                 f"insert would bottom on a plane the tunnel does not root on.")
     aft = outer[3] - cap
     fore = aft - c14_tunnel_len
-    mouth = fore - c14_socket_len
+    mouth = fore - _c14.FLANGE_T - c14_collar_extension
     hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
-    tunnel = _rect_cut_y(cx, cz, 2.0 * hx, 2.0 * hz, c14_tunnel_r, mouth, aft)
+    tunnel = _rect_cut_y(cx, cz, 2.0 * hx, 2.0 * hz, c14_tunnel_r, fore, aft)
     tunnel = tunnel.fuse(_yz_prism(cx - hx, cx + hx,
-                                   [(aft, cz - hz), (mouth, cz - hz),
-                                    (aft, cz - hz - (aft - mouth))]))
-    feature = tunnel.intersect(_ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
-    # The cord's bore, and the pocket the flange drops into — one cutter, so the crown the
-    # ceiling panel owns is cut on both sides of the ownership split by the same faces.
-    bore = _rect_cut_y(cx, cz, wx, wz, r, mouth - 1.0, outer[3] + 1.0).fuse(
-        _rect_cut_y(cx, cz,
-                    c14_flange[0] + 2.0 * c14_socket_slip,
-                    c14_flange[1] + 2.0 * c14_socket_slip,
-                    c14_tunnel_r, mouth - 1.0, fore))
+                                   [(aft, cz - hz), (fore, cz - hz),
+                                    (aft, cz - hz - (aft - fore))]))
+    collar = (_c14.flange_prism(
+        c14_collar_slip + c14_collar_wall, mouth, fore)
+        .translate((cx, 0.0, cz)).val())
+    feature = tunnel.fuse(collar).intersect(
+        _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
+    # The original cord bore continues through the wall and tunnel. The flange pocket opens
+    # only from the collar mouth to the seating plane, where its stopped cutter leaves the
+    # exact face the flange bears on.
+    flange_pocket = (_c14.flange_prism(c14_collar_slip, mouth - 1.0, fore)
+                      .translate((cx, 0.0, cz)).val())
+    bore = _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(
+        flange_pocket)
     inserts = tuple(_ycyl(heatset_dia / 2.0, sx, sz, fore, fore + heatset_depth)
                     for sx, sz in stations)
     return feature, bore, inserts

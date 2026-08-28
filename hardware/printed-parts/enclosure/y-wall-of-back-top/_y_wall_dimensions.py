@@ -165,6 +165,17 @@ def main():
         "FLAVOR_COLOR": port_color_hex("flavor"),
         "CARB_END": carb_union_end(_ea.PANEL_X),
         "FLAVOR_B_END": dropped_union_end(_ea.PANEL_ON_GATE_LANE, _ea.PANEL_X),
+        "C14_FLANGE": f"{_ea._c14.FLANGE_W:g} × {_ea._c14.FLANGE_H:g} mm",
+        "C14_OPENING": (
+            f"{_ea._c14.CUTOUT_W + 2.0 * _ea.C14_CUTOUT_SLIP:g} × "
+            f"{_ea._c14.CUTOUT_H + 2.0 * _ea.C14_CUTOUT_SLIP:g} mm R{_ea._c14.CUTOUT_R:g}"),
+        "C14_SEAT": (
+            f"x {_ea.C14_STATION[0]:g}, z {_ea.C14_STATION[1]:.2f}, "
+            f"seat y {_ea.c14_seat_y():.2f}"),
+        "C14_SCREWS": f"x {_ea.c14_stations()[0][0]:g} and {_ea.c14_stations()[1][0]:g}",
+        "C14_POCKET_SLIP": f"{_ea._enc.c14_collar_slip:g} mm",
+        "C14_COLLAR_WALL": f"{_ea._enc.c14_collar_wall:g} mm",
+        "C14_COLLAR_EXTENSION": f"{_ea._enc.c14_collar_extension:g} mm",
         "KEYSTONE_W": f"{_ea._keystone.APERTURE_W:.4g}",
         "KEYSTONE_H": f"{_ea._keystone.APERTURE_H:.4g}",
         "KEYSTONE_LIP": f"{_ea._keystone.LIP_D:.4g} mm",

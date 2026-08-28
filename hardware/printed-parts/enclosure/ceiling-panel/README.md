@@ -43,7 +43,7 @@ retention-insert sockets and the upper roots of the flow-meter anchors and tube
 anchors. The existing print profile uses four top shells, three bottom shells
 and 15% grid infill, so the CAD envelope is not a solid 8 mm billet.
 
-There are [6](RELIEF_N) body pockets. Each starts from the purchased solid's
+There are [7](RELIEF_N) body pockets. Each starts from the purchased solid's
 exact intersection with the unrelieved field and rails, adds 2 mm of plan slip
 and 1 mm of vertical clearance, and rounds its plan corners to
 [3 mm](RELIEF_R). The pocket floor is therefore not a common guessed depth:
@@ -78,7 +78,7 @@ a dado.
   [9 mm²](RAIL_AREA) captured rail down each long edge. It is centred on the
   interior ceiling datum, z = [350.5](TONGUE_FLOOR)..[353.5](TONGUE_ROOF), so
   half its root merges into the structural field and half into the show skin.
-  The rails take the part's bounding width to [165 mm](PANEL_BBOX_X), while the
+  The rails take the part's bounding width to [165.15 mm](PANEL_BBOX_X), while the
   show face stays [159 mm](PANEL_W) and its seam lines stay on the throat's own
   edges.
 - **Dado** [3.15 mm](DADO_DEPTH) deep, from z = [350.35](DADO_FLOOR) to

@@ -352,9 +352,22 @@ def build(box=None):
     # The C14 tunnel's crown occupies this field at the installed pose and therefore travels
     # with it. Back-top keeps the rest of the same feature; the union is unchanged when closed.
     c14_cap = _enc.c14_ceiling_cap(
-        box.inner, box.outer, box.pack.c14, box.pack.back_ports, structural_stock())
+        box.inner, box.outer, box.pack.c14, box.pack.back_ports,
+        structural_stock().fuse(rail_clearance()))
     if c14_cap is not None and c14_cap.Volume() > 1e-6:
         solid = solid.union(c14_cap)
+    # The panel starts as a broad field. Where the C14 collar crosses that field, adding its
+    # travelling cap is only half the operation: the exact flange pocket must also be opened
+    # through the field already present. Cutting the same bore used by back-top keeps the two
+    # ownership halves one continuous insertion pocket at the installed pose.
+    c14_geometry = _enc._c14_tunnel_geometry(
+        box.inner, box.outer, box.pack.c14, box.pack.back_ports,
+        box.inner[4], box.outer[5])
+    if c14_geometry is not None:
+        _feature, c14_bore, c14_inserts = c14_geometry
+        solid = solid.cut(c14_bore)
+        for cutter in c14_inserts:
+            solid = solid.cut(cutter)
     meter_anchors, ribs = _enc.ceiling_stations(
         box.pack.flow_meter_anchors, box.pack.tube_anchors, panel=True)
     # THE CEILING THESE ROOT ON IS THIS PANEL'S UNDERSIDE. A rib's two ends climb to the face it

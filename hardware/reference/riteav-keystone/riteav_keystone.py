@@ -163,7 +163,12 @@ def receptacle_boss(x: float, z: float, y_face: float, y_inner: float):
 
 def build():
     """The jack as it stands in the wall: the face in the aperture, the body in the pocket, and
-    the punchdown block reaching inboard behind them."""
+    the punchdown block reaching inboard behind them.
+
+    The two open bands at the body's back receive the receptacle catches. They represent the
+    module's flexible tang and latch regions rather than solid rectangular moulding, and keep
+    the purchased body and the printed snap features from occupying the same material.
+    """
     face = (cq.Workplane("XZ").rect(FACE_W, FACE_H).extrude(LIP_D)
             .translate((0.0, 0.0, 0.0)))
     body = (cq.Workplane("XZ").rect(POCKET_W - FIT_SLIP, POCKET_H - FIT_SLIP)
@@ -173,6 +178,16 @@ def build():
              .extrude(BODY_DEPTH - DEPTH)
              .translate((0.0, -DEPTH, POCKET_RISE)))
     jack = face.union(body).union(block)
+    top = POCKET_RISE + POCKET_H / 2.0
+    bot = POCKET_RISE - POCKET_H / 2.0
+    for height, proud, zc in (
+            (*CATCH_UPPER, top - CATCH_UPPER[0] / 2.0),
+            (*CATCH_LOWER, bot + CATCH_LOWER[0] / 2.0)):
+        capture = (cq.Workplane("XZ")
+                   .rect(POCKET_W + 2.0 * FIT_SLIP, height + 2.0 * FIT_SLIP)
+                   .extrude(proud + FIT_SLIP)
+                   .translate((0.0, -DEPTH + proud + FIT_SLIP, zc)))
+        jack = jack.cut(capture)
     port = (cq.Workplane("XZ").rect(PORT_W, PORT_H).extrude(PORT_DEPTH)
             .translate((0.0, 0.01, -1.0)))
     slot = (cq.Workplane("XZ").rect(LATCH_SLOT_W, LATCH_SLOT_H).extrude(PORT_DEPTH)
@@ -197,6 +212,11 @@ def selftest() -> int:
         if not (0.0 < d < POCKET_W / 2.0 and 0.0 < h < POCKET_H / 2.0):
             print(f"FAIL: the {name} catch does not stand in the pocket")
             ok = False
+    _boss, catches = receptacle_boss(0.0, 0.0, 0.0, -6.0)
+    catch_overlap = build().intersect(catches).Volume()
+    if catch_overlap > 1e-6:
+        print(f"FAIL: the receptacle catches penetrate {catch_overlap:.4f} mm3 of the jack")
+        ok = False
     # THE EASE IS LEVEL ACROSS THE WIDTH, and this is the reading that says so. Swept on the
     # wrong pair it ramps across the face instead of through the depth, which leaves the
     # aperture's top edge standing at a different Z at each end of its own width.
