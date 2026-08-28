@@ -515,12 +515,14 @@ socket_cap = wall            # one wall capping the insert's deep end
 # stands the same slot over its floor slab. The slot is open on the seam mouth and a pick reaches
 # it from the end of the piece, which is the one direction there is anything to reach from.
 #
-# AND IT IS THE FLOOR LEVEL THAT SETS THE FIGURE. Walked any nearer its own end wall, the lower
-# collar's carve (`_y_lip_channel`) leaves a corner of the front lip standing in the back half's
-# register and the two bottom pieces stop being a slip fit — 3.3 mm3 of contact at 12, 45.5 at 9.
-# `_report_split` reads it on every build, and both ends carry the one figure, so one reach
-# clears all four bosses.
-boss_end_clear = 14.0
+# BOTH ENDS FENCE IT AND IT IS ONE FIGURE, so one reach clears all four bosses. Walked nearer
+# its own end wall, the lower collar's carve (`_y_lip_channel`) leaves a corner of the front lip
+# standing in the back half's register and the two bottom pieces stop being a slip fit — 0.5 mm3
+# of contact at 13, 3.3 at 12, 10.4 at 11, which `_report_split` reads on every build. Walked
+# further from it, the upper collar's own 45° underside comes down the −X wall into `fluid-1`'s
+# lane — 1.16 mm of air at 13, 0.47 at 14, against the assembly's one-millimetre clearance
+# floor. Thirteen is the height between the two.
+boss_end_clear = 13.0
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
@@ -884,8 +886,8 @@ def back_top_wall_face():
 
 
 def back_wall_t_at(x, z):
-    """The section the +Y wall carries at one station — what a fitting's clamped stack spends
-    there, and the one figure `enclosure_assembly.port-clamp-stack` reads.
+    """The section the +Y wall carries at one station — what a fitting's clamped stack is struck
+    from, and the figure `enclosure_assembly.port_clamp_stack` reads it off.
 
     A RELIEF IS A FACT ABOUT THE WALL, not a note beside it. The CO2 station's barrel cannot take
     `back_top_wall_t`, so the wall is thinner there and this says so by measuring the same figure
@@ -1017,12 +1019,13 @@ rear_plane_y = 464.0
 # `rear_seam_clear` — which is the standoff this wall was given in the first place, and which
 # back-bottom already spends. A seventh millimetre is a wall drawn through the core.
 back_top_wall_t = 6.0
-# AND ONE STATION CANNOT HAVE IT. What clamps a rear-wall fitting is its own bare barrel between
-# flange and nut, and the stack it must take is the wall plus the bulkhead ring
-# (`enclosure_assembly.port-clamp-stack`). The four umbilical unions offer 15.29 mm of barrel and
-# do not care; the CO2 neoFit offers 7.90, which a 6 mm wall and a 2 mm ring would leave the nut
-# none of. So the wall gives that one station back to `rear_plane_y` — the plane it is struck off
-# — and the nut lands on it with the section it always had.
+# AND ONE STATION CANNOT AFFORD IT. What clamps a rear-wall fitting is its own bare barrel
+# between flange and nut, and what that barrel spans is the wall's outer face down to whatever the
+# nut lands on (`enclosure_assembly.port_clamp_stack`). The four umbilical unions offer 15.29 mm
+# of barrel and do not care; the CO2 neoFit offers 7.90, and a 6 mm wall spends six of them — an
+# M17 × 1.5 nut left holding 290 psi on 1.90 mm of thread. So the wall gives that one station back
+# to `rear_plane_y` — the plane it is struck off — and the port field stands its whole boss on the
+# section that leaves, so the nut lands on the boss with 2.90 mm of barrel under it.
 #
 # AND THE C14 IS THE SAME BARGAIN FOR A DIFFERENT REASON. Its receptacle bears on the fore face
 # of a TUNNEL standing off this wall (`c14_tunnel_len`) and not on the wall itself, and the two
@@ -1994,26 +1997,36 @@ column_relief_slip = 1.0
 
 
 def _column_relief(inner, sx, sy, room, zj):
-    """One column's pocket for the body standing in it: the room, and the rise its ceiling takes
-    into the column over it. Clipped to the PILLAR — the column and the lip's skin wrapping it
-    (`_column_pillar`) — so what a pocket can ever take is that and never the wall behind it or
-    the boss beside it.
+    """One column's pocket for the body standing in it. Clipped to the PILLAR — the column and
+    the lip's skin wrapping it (`_column_pillar`) — so what a pocket can ever take is that and
+    never the wall behind it or the boss beside it."""
+    return _ybox(*room).intersect(_column_pillar(inner, sx, sy, zj))
 
-    THE CEILING RISES OFF THE TWO FACES THE COLUMN HOLDS IT BY. A pocket is a bite out of a
-    corner, and the corner is where its material is: the two faces toward it have column under
-    them the whole height, and the two away from it open on the cavity. A piece bedded on Z−
-    closes such a pocket back over at `relief_chamfer` — the ceiling stands one millimetre
-    higher for every millimetre it reaches away from a held face, which is the pocket's own plan
-    walked in off both of them as the print climbs.
 
-    The rise is air over air, and its height is the pocket's own plan: at `min(width, depth)`
-    the two walks have met and there is nothing left of the room to stand over."""
-    x0, x1, y0, y1, z0, z1 = room
+def _column_relief_rise(inner, sx, sy, room, zj):
+    """The walk one pocket's CEILING takes into the column over it, and the piece that decides
+    how much of it survives.
+
+    A POCKET IS A BITE OUT OF A CORNER, and the corner is where its material is: the two faces
+    toward it have column under them the whole height, and the two away from it open on the
+    cavity. Cut flat, the ceiling is a shelf hanging off that corner. Walked in off both HELD
+    faces at `relief_chamfer` it stands one millimetre higher for every millimetre it reaches
+    away from one, and the column closes back over the pocket a layer at a time. Its height is
+    the pocket's own plan: at `min(width, depth)` the two walks have met.
+
+    IT IS CUT BEFORE THE PIECE FUSES ANYTHING AND THE POCKET IS CUT AFTER EVERYTHING, which is
+    what makes the walk a question about the piece rather than a figure a row carries. What
+    stands over the condenser's flange pocket is that flange's own groove (`_cond_cradle`,
+    `cond-mount-lands`), fused later, and it lands back in the walk: a ceiling a body slides
+    into comes back flat. Nothing is fused over the PSU's corner, so that one keeps the whole
+    walk."""
+    x0, x1, y0, y1, _z0, z1 = room
     held_x, free_x = (x1, x0) if sx > 0 else (x0, x1)
     held_y, free_y = (y1, y0) if sy > 0 else (y0, y1)
-    rise = _xz_prism(y0, y1, [(free_x, z1), (held_x, z1), (free_x, z1 + abs(x1 - x0))]).intersect(
-        _yz_prism(x0, x1, [(free_y, z1), (held_y, z1), (free_y, z1 + abs(y1 - y0))]))
-    return _ybox(*room).fuse(rise).intersect(_column_pillar(inner, sx, sy, zj))
+    return (_xz_prism(y0, y1, [(free_x, z1), (held_x, z1), (free_x, z1 + abs(x1 - x0))])
+            .intersect(_yz_prism(x0, x1,
+                                 [(free_y, z1), (held_y, z1), (free_y, z1 + abs(y1 - y0))]))
+            .intersect(_column_pillar(inner, sx, sy, zj)))
 
 
 def _block_key(x_in, sx, y0, y1, depth):
@@ -7486,6 +7499,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # cut out of what the corbel left rather than filling a pocket back in.
             piece = _back_top_ceiling(piece, inner, y_joint)
     piece = piece.intersect(_rounded_outer(outer))
+    # THE COLUMN RELIEFS' CEILINGS, ahead of every fuse this piece makes. The pockets are cut
+    # last, where a relief has to be; the 45° walk their ceilings take into the column is cut
+    # HERE, so a pocket the piece goes on to roof is roofed and one nothing stands over keeps
+    # the walk (`_column_relief_rise`).
+    for sx, sy, _name, room in box.column_reliefs:
+        piece = piece.cut(_column_relief_rise(
+            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
     zlo, zhi = _piece_bands(box, f"{y_side}-{z_side}")[2:]
     if y_side == "back":
         rear = back_top_wall_face() if z_side == "top" else None
@@ -7607,6 +7627,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
     # so what a pocket can ever take is that and never the wall behind it or the boss beside it.
+    # Their ceilings' 45° walk was taken at the head of this piece's work, so what the piece has
+    # fused over a pocket since stands in it (`_column_relief_rise`).
     for sx, sy, _name, room in box.column_reliefs:
         piece = piece.cut(_column_relief(
             inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
@@ -8169,6 +8191,7 @@ def main():
         "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
         "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
         "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
+        "BOSS_END_CLEAR": f"{boss_end_clear:.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.
         "BACK_TOP_FLANK_GROWN": f"{back_top_flank_t - wall:.4g} mm",

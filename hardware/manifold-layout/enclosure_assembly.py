@@ -3286,10 +3286,29 @@ BULKHEAD_RING_SLIP = fits.slip
 # thing holding one colour off the next — `port-field-web` reads the pitch against it. Inboard it
 # is how far the boss reaches past the chip it backs.
 BULKHEAD_RING_RIM = 3.0
-# How far the boss stands INBOARD off the wall's inner face, and it is the chip's own thickness:
-# exactly what the pocket took out of the outer face. So the stock under every chip is the wall's
-# own full thickness and the clamped stack is the same at every station.
+# How far the boss stands INBOARD off the wall's inner face WHERE THE WALL HAS NOT ALREADY MADE
+# THE POCKET BACK, and it is the chip's own thickness: exactly what the pocket took out of the
+# outer face. `enclosure._port_field` stands `max(0, this - (t - enclosure.wall))` of it, so a
+# station relieved to `enclosure.wall` gets the whole boss and one carrying `back_top_wall_t`
+# gets none — either way the stock under the chip comes to `enclosure.wall` or better.
 PORT_BOSS_PROUD = _ring.THICK
+
+
+def port_clamp_stack(t: float) -> float:
+    """What a fitting's bare barrel spans at a station carrying `t` of wall — its flange's face
+    down to its nut's landing, and the whole of what `port-clamp-stack` may spend.
+
+    THE RING IS IN THE SECTION AND NOT ON IT. `bulkhead_seat_y` is the wall's own outer face and
+    the chip lies flush in a pocket cut one `bulkhead_ring.THICK` into it, so the flange bears on
+    one plane and nothing of the chip stands outboard of the wall to be added to the stack.
+
+    AND THE NUT LANDS ON THE BOSS ONLY WHERE THERE IS ONE. What it spans is the chip, the stock
+    left under it and `PORT_BOSS_PROUD` of boss — and that boss is only what the wall has not
+    already made back, so a wall carrying more than `enclosure.wall` stands none and the nut lands
+    on its bare inner face. The stack is the section itself there, and `enclosure.wall` plus the
+    whole boss where the section is `enclosure.wall`: a RELIEVED station stacks more than it
+    carries, and a thick one stacks exactly what it carries."""
+    return max(t, _enc.wall + PORT_BOSS_PROUD)
 def port_pocket_d(ring: str = "union") -> float:
     """What one station's pocket measures ACROSS — the chip's own width and the slip it takes in
     it. The wall cuts it and `port-field-web` reads it against the pitch, off this one call."""
@@ -3597,9 +3616,11 @@ _stated.state(
     _ring.THICK < _enc.wall - 1e-9,
     f"the pocket is cut {_ring.THICK:g} mm into a wall {_enc.wall:g} mm thick and leaves "
     f"{_enc.wall - _ring.THICK:.2f} mm of floor under the chip.")
-# AND THE CLAMPED STACK IS WALL PLUS RING, at every station on this wall. Each fitting states how
-# much of its own barrel stands bare between flange and nut, and that is the whole of what the
-# stack may take — the one figure a thicker wall or a thicker ring spends.
+# AND THE CLAMPED STACK IS FLANGE FACE TO NUT'S LANDING, at every station on this wall. Each
+# fitting states how much of its own barrel stands bare between flange and nut, and that is the
+# whole of what the stack may take — the one figure a thicker wall or a thicker ring spends.
+# `port_clamp_stack` is what the joint presents there, chip and boss and all, and not a bound
+# standing over it: a gate right by two millimetres of slack cannot answer the question it names.
 #
 # AND THE WALL IS NOT ONE FIGURE ANY MORE. back-top carries `enclosure.back_top_wall_t` and the
 # CO2's own station is relieved back to `enclosure.wall` for exactly this reason, so what a
@@ -3607,15 +3628,17 @@ _stated.state(
 # `enclosure.back_wall_t_at` is that reading; `check_wall_clamped` takes it again at the placed
 # station, which is what catches a relief that has drifted off the hole it was cut for.
 _port_stack = _stated.bound(
-    "port-clamp-stack", "Every fitting's bare barrel takes the wall and its ring",
-    f"a stack of the wall at its own station plus {_ring.THICK:g} mm of ring")
+    "port-clamp-stack", "Every fitting's bare barrel takes the wall and the ring lying in it",
+    f"a stack of the wall at its own station, floored on `enclosure.wall` and "
+    f"{PORT_BOSS_PROUD:g} mm of boss")
 for _n, (_fit, _r, _w, _f) in Y_WALL_FITTINGS.items():
     _bare = getattr(_fit, "PANEL_THREAD", None) or _fit.THREAD_LEN
     _relieved = {_r[0] for _r in _enc.back_top_wall_reliefs}
     _t = _enc.wall if _n in _relieved else _enc.back_top_wall_t
-    _port_stack(_t + _ring.THICK <= _bare + 1e-9,
-                f"{_n} offers {_bare:.2f} mm of bare barrel and the wall it passes and its ring "
-                f"stack {_t + _ring.THICK:g} mm, leaving the nut none of it")
+    _stack = port_clamp_stack(_t)
+    _port_stack(_stack <= _bare + 1e-9,
+                f"{_n} offers {_bare:.2f} mm of bare barrel and the joint it makes up through "
+                f"{_t:g} mm of wall stacks {_stack:g} mm, leaving the nut none of it")
 def west_interior_face():
     """The −X wall's own inner face, off the stated width — the same face `enclosure._dims`
     builds the box on."""
@@ -3823,8 +3846,6 @@ def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
     wall = pieces.get("back-top")
     want = PORT_HOLE_SLIP / 2.0
     rows, worst_bear, tight = [], 0.0, want
-    # `_kind` and not `_ring`: the module of that name is what `THICK` is read off below,
-    # and a loop target shadows it for the whole function.
     for name, (_fitting, _kind, which, _fluid) in Y_WALL_FITTINGS.items():
         body, ring = bodies.get(name), rings.get(ring_name(which))
         if body is None or ring is None or wall is None:
@@ -3855,11 +3876,12 @@ def check_wall_clamped(bodies, rings, pieces, stations) -> Bound:
         # so a relief that has drifted off the hole it was cut for reads here rather than
         # nowhere — the wall would simply be thicker than the barrel can clamp.
         bare = getattr(_fitting, "PANEL_THREAD", None) or _fitting.THREAD_LEN
-        stack = _enc.back_wall_t_at(x, z) + _ring.THICK
+        stack = port_clamp_stack(_enc.back_wall_t_at(x, z))
         if stack > bare + 1e-9:
             rows.append(
                 f"{name} passes {_enc.back_wall_t_at(x, z):.2f} mm of wall at its own station "
-                f"(x {x:.2f}, z {z:.2f}) and stacks {stack:.2f} mm with its ring, against "
+                f"(x {x:.2f}, z {z:.2f}) and stacks {stack:.2f} mm from its flange's face to "
+                f"its nut's landing, against "
                 f"{bare:.2f} mm of bare barrel — the nut has none of it. Either the wall is "
                 f"thicker here than this fitting can clamp, or `enclosure.back_top_wall_relief` "
                 f"no longer stands on this hole.")
