@@ -30,6 +30,7 @@ extern "C" const lv_font_t front_icons_96;
 #include "ota_receiver.h"
 #include "board_art.h"
 #include "wifi_bench.h"
+#include "image_store.h"
 
 // The flavor marks are deliberately static artwork. Choose's selection refresh
 // changes only on actual main board state transitions, so these do not
@@ -60,7 +61,11 @@ extern "C" const lv_font_t front_icons_96;
 #define FLAVOR_THUMB_SIZE   96
 #define FLAVOR_HEAD_SIZE    60
 #define FLAVOR_MID_SIZE    120
-#define FLAVOR_IMAGE_COUNT   4   // logos a channel can be given
+// Logos a channel can be given: FLAVOR_ART_FACTORY compiled in and permanent,
+// the rest the user's own out of this board's image store. proto_msg.h holds
+// the split, because the main board is what says which one a channel wears.
+#define FLAVOR_IMAGE_COUNT   FLAVOR_ART_COUNT
+#define FLAVOR_FACTORY_COUNT FLAVOR_ART_FACTORY
 
 // ════════════════════════════════════════════════════════════
 //  ESP32-S3 Enclosure Display — foundation
@@ -275,6 +280,7 @@ static void showRail(RailPage p);
 static void setRailSelection(RailPage p);
 static void showFlavor(FlavorView v);
 static void refreshFlavorImages();
+static void bindFlavorLogos();
 static void showService(ServiceView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
@@ -314,18 +320,73 @@ static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorHead[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorMid[FLAVOR_IMAGE_COUNT];
-static const uint16_t *flavorArtPixels[FLAVOR_IMAGE_COUNT] = {
+static const uint16_t *flavorArtPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_card, flavor1_card, flavor2_card, flavor3_card,
 };
-static const uint16_t *flavorThumbPixels[FLAVOR_IMAGE_COUNT] = {
+static const uint16_t *flavorThumbPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_thumb, flavor1_thumb, flavor2_thumb, flavor3_thumb,
 };
-static const uint16_t *flavorHeadPixels[FLAVOR_IMAGE_COUNT] = {
+static const uint16_t *flavorHeadPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_head, flavor1_head, flavor2_head, flavor3_head,
 };
-static const uint16_t *flavorMidPixels[FLAVOR_IMAGE_COUNT] = {
+static const uint16_t *flavorMidPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_mid, flavor1_mid, flavor2_mid, flavor3_mid,
 };
+
+// The four sizes this board draws a logo at, in the order a bundle carries
+// them. A custom picture arrives already resampled to every one of them, so
+// nothing here scales anything at draw time.
+static const ImageSize kLogoSizes[] = {
+    {FLAVOR_ART_SIZE,   FLAVOR_ART_SIZE,   0},
+    {FLAVOR_THUMB_SIZE, FLAVOR_THUMB_SIZE, 0},
+    {FLAVOR_HEAD_SIZE,  FLAVOR_HEAD_SIZE,  0},
+    {FLAVOR_MID_SIZE,   FLAVOR_MID_SIZE,   0},
+};
+enum { LOGO_CARD = 0, LOGO_THUMB = 1, LOGO_HEAD = 2, LOGO_MID = 3 };
+
+// Which logo an index resolves to. A custom index whose slot is empty falls
+// back to the factory logo of the same channel: a picture can be removed from
+// the phone while a channel is still wearing it, and that is a state rather
+// than an error.
+static uint8_t resolveFlavorArt(uint8_t art, uint8_t channel) {
+  if (art < FLAVOR_FACTORY_COUNT) return art;
+  const uint8_t slot = flavorArtCustomSlot(art);
+  if (slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_CARD)) return art;
+  return (uint8_t)(channel & 1);
+}
+
+// Every descriptor, at every size. Factory entries point at .rodata; custom
+// entries point straight into mapped flash. Both cost a pointer and neither
+// costs RAM — and both have to be rebound whenever a slot is written or
+// erased, because that remaps the partition underneath them.
+static void bindFlavorLogos() {
+  struct Bound {
+    lv_img_dsc_t    *dsc;
+    const uint16_t **factory;
+    lv_coord_t       size;
+    uint8_t          rendition;
+  };
+  const Bound bound[] = {
+      {flavorArt,   flavorArtPixels,   FLAVOR_ART_SIZE,   LOGO_CARD},
+      {flavorThumb, flavorThumbPixels, FLAVOR_THUMB_SIZE, LOGO_THUMB},
+      {flavorHead,  flavorHeadPixels,  FLAVOR_HEAD_SIZE,  LOGO_HEAD},
+      {flavorMid,   flavorMidPixels,   FLAVOR_MID_SIZE,   LOGO_MID},
+  };
+
+  for (const Bound &b : bound) {
+    for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
+      b.dsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
+      b.dsc[i].header.always_zero = 0;
+      b.dsc[i].header.w = b.size;
+      b.dsc[i].header.h = b.size;
+      b.dsc[i].data_size = (uint32_t)b.size * b.size * sizeof(uint16_t);
+      const uint16_t *px = (i < FLAVOR_FACTORY_COUNT)
+                               ? b.factory[i]
+                               : imageStorePixels(flavorArtCustomSlot(i), b.rendition);
+      b.dsc[i].data = (const uint8_t *)(px ? px : b.factory[0]);
+    }
+  }
+}
 
 // A channel is named by the logo it wears. Some images always show one
 // particular channel; the rest follow whichever channel the screen is acting on.
@@ -1435,6 +1496,18 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
+
+  // This board has no console inside the appliance. What it would have printed
+  // at boot goes out on the first frame that proves anyone is listening —
+  // posting it into setup() would put it on a pair nobody was holding yet.
+  static bool saidBootLine = false;
+  if (!saidBootLine) {
+    saidBootLine = true;
+    char line[40];
+    snprintf(line, sizeof(line), "images: %u slots, %u held",
+             imageStoreCapacity(), imageStoreHeld());
+    j9Post(MSG_TEXT, line, (uint8_t)strlen(line));
+  }
 
   (void)link;
   uint8_t type = msgType(frame);
@@ -3113,6 +3186,12 @@ static void showRail(RailPage p) {
 }
 
 static void buildUi() {
+  // The user's own pictures, mapped out of the partition nothing else uses.
+  // Opened before the descriptors bind, because a custom slot is a pointer
+  // into it. A board with no store still has its four factory faces.
+  imageStoreBegin("spiffs", kLogoSizes,
+                  (uint8_t)(sizeof(kLogoSizes) / sizeof(kLogoSizes[0])));
+
   animBase = boardArtMap(NUM_ANIM_FRAMES, LOGO_SIZE, LOGO_SIZE);
   for (uint8_t i = 0; i < NUM_ANIM_FRAMES; i++) {
     frameDsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
@@ -3122,35 +3201,7 @@ static void buildUi() {
     frameDsc[i].data_size = LOGO_SIZE * LOGO_SIZE * sizeof(uint16_t);
     frameDsc[i].data = (const uint8_t *)animFrame(i);
   }
-  for (uint8_t i = 0; i < FLAVOR_IMAGE_COUNT; ++i) {
-    flavorArt[i].header.cf = LV_IMG_CF_TRUE_COLOR;
-    flavorArt[i].header.always_zero = 0;
-    flavorArt[i].header.w = FLAVOR_ART_SIZE;
-    flavorArt[i].header.h = FLAVOR_ART_SIZE;
-    flavorArt[i].data_size = FLAVOR_ART_SIZE * FLAVOR_ART_SIZE * sizeof(uint16_t);
-    flavorArt[i].data = (const uint8_t *)flavorArtPixels[i];
-
-    flavorThumb[i].header.cf = LV_IMG_CF_TRUE_COLOR;
-    flavorThumb[i].header.always_zero = 0;
-    flavorThumb[i].header.w = FLAVOR_THUMB_SIZE;
-    flavorThumb[i].header.h = FLAVOR_THUMB_SIZE;
-    flavorThumb[i].data_size = FLAVOR_THUMB_SIZE * FLAVOR_THUMB_SIZE * sizeof(uint16_t);
-    flavorThumb[i].data = (const uint8_t *)flavorThumbPixels[i];
-
-    flavorHead[i].header.cf = LV_IMG_CF_TRUE_COLOR;
-    flavorHead[i].header.always_zero = 0;
-    flavorHead[i].header.w = FLAVOR_HEAD_SIZE;
-    flavorHead[i].header.h = FLAVOR_HEAD_SIZE;
-    flavorHead[i].data_size = FLAVOR_HEAD_SIZE * FLAVOR_HEAD_SIZE * sizeof(uint16_t);
-    flavorHead[i].data = (const uint8_t *)flavorHeadPixels[i];
-
-    flavorMid[i].header.cf = LV_IMG_CF_TRUE_COLOR;
-    flavorMid[i].header.always_zero = 0;
-    flavorMid[i].header.w = FLAVOR_MID_SIZE;
-    flavorMid[i].header.h = FLAVOR_MID_SIZE;
-    flavorMid[i].data_size = FLAVOR_MID_SIZE * FLAVOR_MID_SIZE * sizeof(uint16_t);
-    flavorMid[i].data = (const uint8_t *)flavorMidPixels[i];
-  }
+  bindFlavorLogos();
   lv_obj_t *scr = lv_scr_act();
   lv_obj_set_style_bg_color(scr, THEME_BG, 0);
   lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
