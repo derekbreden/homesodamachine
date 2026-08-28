@@ -688,6 +688,19 @@ struct __attribute__((packed)) WifiPushResultPayload {
   uint32_t xferMs;
 };
 
+// What opens a picture on the enclosure's socket. The bench sends bytes with
+// no header and is counted and dropped; this magic is what tells a real
+// picture from that, on a link that carries both.
+constexpr uint32_t IMAGE_WIRE_MAGIC = 0x57474D49;  // 'IMGW'
+
+struct __attribute__((packed)) ImageWireHeader {
+  uint32_t magic;
+  uint8_t  slot;
+  uint8_t  reserved[3];
+  uint32_t bytes;    // the enclosure's four renditions, and only those
+  uint32_t crc32;
+};
+
 struct __attribute__((packed)) ImageSlotPayload {
   uint8_t slot;
 };

@@ -1195,6 +1195,12 @@ static void otaStopPanel() {
 // The radio bench takes the panel down through here. Same teardown an arriving
 // image uses and for the same reason, with its own banner: this glass is dark
 // for the length of the run and comes back on the reboot that ends it.
+// A picture that just landed remapped the partition every logo descriptor
+// points into.
+void wifiBenchRebind() {
+  bindFlavorLogos();
+}
+
 void wifiBenchPanelStop() {
   if (lockTitle) {
     lockActive = true;

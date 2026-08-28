@@ -17,8 +17,6 @@ import PhotosUI
 
 struct ImagesView: View {
     @Environment(BLEManager.self) var ble
-    @State private var picking: Int?
-    @State private var pickedItem: PhotosPickerItem?
     @State private var confirmRemove: Int?
 
     var body: some View {
@@ -55,15 +53,6 @@ struct ImagesView: View {
             }
         }
         .onAppear { ble.queryImageSlots() }
-        .photosPicker(isPresented: Binding(get: { picking != nil },
-                                           set: { if !$0 { picking = nil } }),
-                      selection: $pickedItem, matching: .images)
-        .onChange(of: pickedItem) { _, item in
-            guard let item, let slot = picking else { return }
-            picking = nil
-            pickedItem = nil
-            Task { await load(item, into: slot) }
-        }
         .confirmationDialog("Remove this picture?",
                             isPresented: Binding(get: { confirmRemove != nil },
                                                  set: { if !$0 { confirmRemove = nil } }),
@@ -116,12 +105,23 @@ struct ImagesView: View {
                 }
             }
 
-            Button(held ? "Remove" : "Add") {
-                if held { confirmRemove = slot } else { picking = slot }
+            // The picker is the control rather than a sheet raised beside one.
+            // A slot held in view state alongside a presentation flag is a slot
+            // the dismissal can clear before the selection is read — which is
+            // exactly the shape that silently dropped every chosen photo.
+            if held {
+                Button("Remove") { confirmRemove = slot }
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(Color.red.opacity(0.85))
+                    .disabled(isBusy)
+            } else {
+                PhotosPicker(selection: picked(for: slot), matching: .images) {
+                    Text("Add")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(Theme.textPrimary)
+                }
+                .disabled(isBusy)
             }
-            .font(.system(size: 14, weight: .medium))
-            .foregroundStyle(held ? Color.red.opacity(0.85) : Theme.textPrimary)
-            .disabled(isBusy)
         }
         .opacity(isBusy ? 0.5 : 1)
     }
@@ -160,6 +160,16 @@ struct ImagesView: View {
             .font(.system(size: 13))
             .foregroundStyle(Theme.textSecondary)
             .frame(maxWidth: .infinity)
+    }
+
+    /// The slot travels in the closure rather than in view state, so it cannot
+    /// be cleared by the dismissal that delivers the selection.
+    private func picked(for slot: Int) -> Binding<PhotosPickerItem?> {
+        Binding(get: { nil },
+                set: { item in
+                    guard let item else { return }
+                    Task { await load(item, into: slot) }
+                })
     }
 
     private func load(_ item: PhotosPickerItem, into slot: Int) async {
