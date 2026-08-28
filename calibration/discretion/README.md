@@ -21,5 +21,5 @@ under *"please proceed if you can,"* and the context window the agent rationed a
 million.
 
 `Build review 4` is the same failure one level up. The others are a step withheld inside work
-already commissioned; this one is a standing grant — the CI — read as still needing his
-signature, months after he gave it. Both end the turn the same way.
+already commissioned; this one is a whole area of the work — the CI — that Derek had already
+said was the agent's to decide, asked about again anyway. Both end the turn the same way.
