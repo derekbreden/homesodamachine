@@ -388,7 +388,12 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     memcpy(&req, payload, sizeof(req));
     char line[64];
     const bool ok = imageSynthWrite(req.slot);
-    if (ok) faucetRebindLogos();
+    if (ok) {
+      faucetRebindLogos();
+      // Through the same door a picture from a phone leaves by, so what this
+      // exercises is the whole path and not the half of it before the radio.
+      faucetRequestRelay(req.slot);
+    }
     snprintf(line, sizeof(line), "synth slot %u %s, held %u", req.slot,
              ok ? "written" : "REFUSED", imageStoreHeld());
     base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
@@ -405,6 +410,18 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     const bool started = wifiImagePush(req.slot);
     snprintf(line, sizeof(line), "relay slot %u %s", req.slot,
              started ? "pushing" : "REFUSED");
+    base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
+    return;
+  }
+
+  if (type == MSG_IMAGE_ERASE && plen >= sizeof(ImageSlotPayload)) {
+    ImageSlotPayload req;
+    memcpy(&req, payload, sizeof(req));
+    char line[48];
+    const bool ok = imageStoreErase(req.slot);
+    if (ok) faucetRebindLogos();
+    snprintf(line, sizeof(line), "erase slot %u %s, held %u", req.slot,
+             ok ? "done" : "REFUSED", imageStoreHeld());
     base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
     return;
   }
