@@ -57,6 +57,16 @@ struct ImageSlots: Equatable {
     var firstFree: Int? { (0..<count).first { !isHeld($0) } }
 }
 
+/// One picture waiting its turn. The preview travels with it so a queued tile
+/// can be the photograph rather than a placeholder standing in for one.
+struct QueuedImage: Identifiable, Equatable {
+    let id = UUID()
+    let crop: ImageCrop
+    let slot: Int
+    let preview: UIImage?
+    static func == (a: QueuedImage, b: QueuedImage) -> Bool { a.id == b.id }
+}
+
 enum ImageUploadState: Equatable {
     case idle
     case preparing
@@ -145,7 +155,14 @@ extension BLEManager {
             self.sendBLEFrame(type: ImageFrame.abort, payload: Data())
         }
         forgetPreview(slot: slot)
-        DispatchQueue.main.async { self.imageUploadState = .idle }
+        DispatchQueue.main.async { self.finishActive(.idle) }
+    }
+
+    /// Drop one that has not started yet.
+    func cancelQueuedImage(id: UUID) {
+        guard let item = imageQueue.first(where: { $0.id == id }) else { return }
+        forgetPreview(slot: item.slot)
+        imageQueue.removeAll { $0.id == id }
     }
 
     /// A slot that did not receive its picture must not go on showing it.
@@ -154,29 +171,68 @@ extension BLEManager {
     }
 
     // ── Adding ────────────────────────────────────────────────────────────
-    func uploadImage(_ crop: ImageCrop, to slot: Int) {
-        guard !demoMode else { return }
-        guard imageUploadState == .idle || isTerminal(imageUploadState) else { return }
+    /// Take a picture for the machine. Choosing the next one never waits on the
+    /// last: a queued picture is a real tile in the place it will occupy, and
+    /// the "+" stays live the whole time.
+    func enqueueImage(_ crop: ImageCrop, preview: UIImage?) -> Int? {
+        guard !demoMode, let slot = nextFreeSlot() else { return nil }
+        let item = QueuedImage(crop: crop, slot: slot, preview: preview)
+        DispatchQueue.main.async {
+            self.imageQueue.append(item)
+            if self.activeUpload == nil { self.startNextImage() }
+        }
+        return slot
+    }
 
-        DispatchQueue.main.async { self.imageUploadState = .preparing }
+    /// The lowest slot the machine has free that nothing already in this queue
+    /// has claimed. The board cannot know about the ones still on the phone.
+    func nextFreeSlot() -> Int? {
+        let claimed = Set(imageQueue.map(\.slot) + (activeUpload.map { [$0.slot] } ?? []))
+        return (0..<imageSlots.count).first { !imageSlots.isHeld($0) && !claimed.contains($0) }
+    }
+
+    func startNextImage() {
+        guard activeUpload == nil, !imageQueue.isEmpty else { return }
+        let item = imageQueue.removeFirst()
+        activeUpload = item
+        imageUploadState = .preparing
 
         // Resampling five renditions is real work; it does not belong on the
         // main thread and it does not belong on the BLE queue either, which has
         // a transfer to run the moment this finishes.
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            guard let bundle = ImageBundle.make(from: crop) else {
-                DispatchQueue.main.async { self.imageUploadState = .failed("that picture would not convert") }
+            guard let bundle = ImageBundle.make(from: item.crop) else {
+                DispatchQueue.main.async {
+                    self.forgetPreview(slot: item.slot)
+                    self.activeUpload = nil
+                    self.imageUploadState = .failed("that picture would not convert")
+                    self.startNextImage()
+                }
                 return
             }
-            self.startImagePush(bundle, slot: slot)
+            self.startImagePush(bundle, slot: item.slot)
         }
     }
 
-    private func isTerminal(_ s: ImageUploadState) -> Bool {
-        if case .sending = s { return false }
-        if s == .preparing { return false }
-        return true
+    /// One finished, one way or another. The next starts after a beat so a run
+    /// of pictures does not strobe.
+    private func finishActive(_ outcome: ImageUploadState) {
+        activeUpload = nil
+        imageUploadState = outcome
+        if !imageQueue.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.startNextImage()
+            }
+        } else if outcome == .done {
+            // Let the ring finish visibly, then clear so the grid is just the
+            // pictures again.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                if self?.activeUpload == nil, self?.imageQueue.isEmpty == true {
+                    self?.imageUploadState = .idle
+                }
+            }
+        }
     }
 
     private func startImagePush(_ bundle: Data, slot: Int) {
@@ -213,14 +269,14 @@ extension BLEManager {
             // face. A send that failed has none, and must not pretend to.
             forgetPreview(slot: imageSlotSending)
             bleQueue.async { [weak self] in self?.imageBundle = Data() }
-            DispatchQueue.main.async { self.imageUploadState = .failed(why) }
+            DispatchQueue.main.async { self.finishActive(.failed(why)) }
             log.error("slot upload failed: \(why)")
         case 2:   // DONE
             let took = Date().timeIntervalSince(imageStartedAt)
             let kbs = Double(imageBundle.count) / took / 1024
             log.info("done in \(took, format: .fixed(precision: 1))s — \(kbs, format: .fixed(precision: 1)) KB/s")
             bleQueue.async { [weak self] in self?.imageBundle = Data() }
-            DispatchQueue.main.async { self.imageUploadState = .done }
+            DispatchQueue.main.async { self.finishActive(.done) }
             queryImageSlots()
         default:  // TAKING — either the opening ack, or a rewind
             bleQueue.async { [weak self] in

@@ -584,6 +584,14 @@ void baseLinkPrimeDiscard() {
 // Said over J3 because this board has no console of its own in the appliance.
 // A phone asking for a different face. The main board owns the pair, so this
 // states both channels absolutely — the same shape a tap on either glass takes.
+// The enclosure needs its four renditions and cannot ask for them itself. The
+// main board is the only board that reaches both, so it is asked to sequence
+// the hop — radio up, send, radio down.
+void faucetRequestRelay(uint8_t slot) {
+  ImageSlotPayload req{slot};
+  base.trySend(MSG_IMAGE_RELAY_REQ, &req, sizeof(req));
+}
+
 void faucetSetFlavorArt(uint8_t channel, uint8_t art) {
   if (channel > 1 || art >= FLAVOR_ART_COUNT) return;
   uint8_t pair[2];

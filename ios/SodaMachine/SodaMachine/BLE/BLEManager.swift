@@ -88,6 +88,8 @@ class BLEManager {
     // bundle itself is held only for the length of the push.
     var imageSlots = ImageSlots()
     var flavorArt = FlavorArt()
+    var imageQueue: [QueuedImage] = []
+    var activeUpload: QueuedImage?
     var imageUploadState: ImageUploadState = .idle
     @ObservationIgnored var imageBundle = Data()
     @ObservationIgnored var imageSlotSending = 0

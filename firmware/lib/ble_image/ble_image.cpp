@@ -172,6 +172,9 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       if (seams.onStoreMoved) seams.onStoreMoved();
       sendAck();
       sendState();
+      // The phone is done and the faucet has it whole. The enclosure's copy is
+      // the machine's own business from here — nobody waits on it.
+      if (seams.onStored) seams.onStored(slot);
       return true;
     }
 

@@ -111,6 +111,9 @@ struct BleImageSeams {
   // it currently holds. The main board owns this, not either display.
   void (*setArt)(uint8_t channel, uint8_t art);
   void (*readArt)(uint8_t out[2]);
+  // A picture is whole and on this board. The enclosure cannot receive one on
+  // its own, so this is where the last hop gets asked for.
+  void (*onStored)(uint8_t slot);
   // Told at the start and end of a transfer, and every ack, so the glass can
   // say what is happening while its own flash is being written.
   void (*onProgress)(bool active, uint8_t percent);

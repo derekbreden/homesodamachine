@@ -46,5 +46,9 @@ bool faucetLinkImageSynth(uint8_t slot);
 // Tell the faucet the enclosure's radio is standing and it may send.
 bool faucetLinkImageRelayGo(uint8_t slot);
 
+// A slot the faucet has asked to have carried to the enclosure, or 0xFF for
+// none. Taking it clears it, so the loop runs one hop per request.
+uint8_t faucetLinkTakeRelayRequest();
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);
