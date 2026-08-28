@@ -89,6 +89,12 @@ class BLEManager {
     var imageSlots = ImageSlots()
     var flavorArt = FlavorArt()
     var imageQueue: [QueuedImage] = []
+    // A read-back in flight, and the crcs already asked for, so a face is
+    // fetched once ever rather than once per state frame.
+    @ObservationIgnored var faceBuffer = Data()
+    @ObservationIgnored var faceSlot = -1
+    @ObservationIgnored var faceWanted = Set<UInt32>()
+    @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?
     var imageUploadState: ImageUploadState = .idle
     @ObservationIgnored var imageBundle = Data()
@@ -1916,6 +1922,8 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleImageState(payload)
             case 0x1A: // IMG_ACK — where the board has got to, and how it ended
                 ble.handleImageAck(payload)
+            case 0x22: // IMG_PIX — a picture coming back off the machine
+                ble.handleImagePix(payload)
             case 0x1E: // ART_STATE — which face each channel wears
                 ble.handleFlavorArt(payload)
             default:

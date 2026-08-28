@@ -43,6 +43,8 @@ enum ImageFrame {
     static let artState: UInt8 = 0x1E
     static let artSet:   UInt8 = 0x1F
     static let abort:    UInt8 = 0x20
+    static let read:     UInt8 = 0x21
+    static let pix:      UInt8 = 0x22
 }
 
 /// What the machine says it is holding.
@@ -51,6 +53,12 @@ struct ImageSlots: Equatable {
     var occupancy: UInt8 = 0      // bit per slot, low slot first
     var bundleBytes: Int = 0
     var artFirst: Int = 4         // art index the low custom slot answers to
+    /// What each slot holds, as a picture's identity rather than its address —
+    /// so a cached face survives the picture moving, and a slot that changed
+    /// hands is noticed rather than shown stale.
+    var crc: [UInt32] = []
+
+    func crc(of slot: Int) -> UInt32 { slot < crc.count ? crc[slot] : 0 }
 
     func isHeld(_ slot: Int) -> Bool { occupancy & (1 << UInt8(slot)) != 0 }
     var held: Int { (0..<count).filter { isHeld($0) }.count }
@@ -121,16 +129,76 @@ extension BLEManager {
     func handleImageState(_ payload: Data) {
         guard payload.count >= 9 else { return }
         let b = payload.startIndex
+        func u32(_ at: Int) -> UInt32 {
+            UInt32(payload[b + at]) | (UInt32(payload[b + at + 1]) << 8) |
+            (UInt32(payload[b + at + 2]) << 16) | (UInt32(payload[b + at + 3]) << 24)
+        }
         var slots = ImageSlots()
         slots.count = Int(payload[b])
         slots.occupancy = payload[b + 2]
-        slots.bundleBytes = Int(UInt32(payload[b + 4]) | (UInt32(payload[b + 5]) << 8) |
-                                (UInt32(payload[b + 6]) << 16) | (UInt32(payload[b + 7]) << 24))
+        slots.bundleBytes = Int(u32(4))
         slots.artFirst = Int(payload[b + 8])
+        var crcs: [UInt32] = []
+        var at = 9
+        while at + 4 <= payload.count { crcs.append(u32(at)); at += 4 }
+        slots.crc = crcs
+
         DispatchQueue.main.async {
             self.imageSlots = slots
             log.info("slots \(slots.count) held \(slots.held) bundle \(slots.bundleBytes)")
+            self.fetchMissingFaces()
         }
+    }
+
+    // ── Reading one back ──────────────────────────────────────────────────
+    // A picture this phone did not send has no cached face, so it is asked for
+    // — once per picture, ever, because what comes back is filed under the
+    // picture's own crc32 rather than under the slot it happens to occupy.
+    func fetchMissingFaces() {
+        guard let unit = connectedMachine?.unit, !unit.isEmpty else { return }
+        for slot in 0..<imageSlots.count where imageSlots.isHeld(slot) {
+            let crc = imageSlots.crc(of: slot)
+            guard crc != 0, PictureCache.load(unit: unit, crc: crc) == nil,
+                  !faceWanted.contains(crc) else { continue }
+            faceWanted.insert(crc)
+            requestFace(slot: slot)
+            return   // one at a time; the next goes when this one lands
+        }
+    }
+
+    private func requestFace(slot: Int) {
+        faceSlot = slot
+        faceBuffer = Data()
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: ImageFrame.read, payload: Data([UInt8(slot), 0]))
+        }
+    }
+
+    /// Pixels coming back, a frame at a time, each carrying where it belongs.
+    func handleImagePix(_ payload: Data) {
+        guard payload.count >= 10 else { return }
+        let b = payload.startIndex
+        let slot = Int(payload[b])
+        func u32(_ at: Int) -> UInt32 {
+            UInt32(payload[b + at]) | (UInt32(payload[b + at + 1]) << 8) |
+            (UInt32(payload[b + at + 2]) << 16) | (UInt32(payload[b + at + 3]) << 24)
+        }
+        let offset = Int(u32(2)), total = Int(u32(6))
+        let bytes = payload.subdata(in: (b + 10)..<payload.endIndex)
+        guard slot == faceSlot, offset == faceBuffer.count else { return }
+        faceBuffer.append(bytes)
+        guard faceBuffer.count >= total else { return }
+
+        let crc = imageSlots.crc(of: slot)
+        if let unit = connectedMachine?.unit, !unit.isEmpty,
+           let face = ImageBundle.decode(faceBuffer, ImageBundle.sizes[0]) {
+            PictureCache.save(face, unit: unit, crc: crc)
+            log.info("read back slot \(slot), \(total) bytes")
+        }
+        faceBuffer = Data()
+        faceSlot = -1
+        // Whatever else is missing, now that this one is in hand.
+        DispatchQueue.main.async { self.fetchMissingFaces() }
     }
 
     // ── Removing ──────────────────────────────────────────────────────────
@@ -165,9 +233,11 @@ extension BLEManager {
         imageQueue.removeAll { $0.id == id }
     }
 
-    /// A slot that did not receive its picture must not go on showing it.
+    /// A picture that did not arrive must not go on being shown.
     func forgetPreview(slot: Int) {
-        SlotPreviews.forget(unit: connectedMachine?.unit ?? "", slot: slot)
+        guard let crc = pendingCrc[slot] else { return }
+        PictureCache.forget(unit: connectedMachine?.unit ?? "", crc: crc)
+        pendingCrc[slot] = nil
     }
 
     // ── Adding ────────────────────────────────────────────────────────────
@@ -243,9 +313,19 @@ extension BLEManager {
             self.imageSentOffset = 0
             self.imageStartedAt = Date()
 
+            // The face is decoded out of the bundle just built and filed under
+            // its crc32 — byte for byte what the board would send back if
+            // asked, so an upload and a read-back agree without meeting.
+            let crc = crc32(bundle)
+            self.pendingCrc[slot] = crc
+            if let unit = self.connectedMachine?.unit, !unit.isEmpty,
+               let face = ImageBundle.face(of: bundle) {
+                PictureCache.save(face, unit: unit, crc: crc)
+            }
+
             var payload = Data([UInt8(slot)])
             payload.append(contentsOf: withUnsafeBytes(of: UInt32(bundle.count).littleEndian, Array.init))
-            payload.append(contentsOf: withUnsafeBytes(of: crc32(bundle).littleEndian, Array.init))
+            payload.append(contentsOf: withUnsafeBytes(of: crc.littleEndian, Array.init))
             self.sendBLEFrame(type: ImageFrame.begin, payload: payload)
             log.info("slot \(slot): \(bundle.count) bytes")
             // Nothing is sent until the board answers BEGIN with the offset it

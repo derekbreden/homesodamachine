@@ -118,4 +118,38 @@ struct ImageBundle {
     }
 
     private static func clamp(_ v: Int) -> Int { v < 0 ? 0 : (v > 255 ? 255 : v) }
+
+    // ── Back the other way ────────────────────────────────────────────────
+    // A picture belongs to the machine, so a phone that did not send one still
+    // has to be able to show it. The same decode serves both directions: what
+    // is cached at upload time is decoded out of the bundle just built, so it
+    // is byte-for-byte what the board would send back if asked.
+    static func decode(_ pixels: Data, _ size: Size) -> UIImage? {
+        let want = size.w * size.h * 2
+        guard pixels.count >= want else { return nil }
+        var rgba = [UInt8](repeating: 255, count: size.w * size.h * 4)
+        pixels.withUnsafeBytes { (raw: UnsafeRawBufferPointer) in
+            for i in 0..<(size.w * size.h) {
+                let lo = UInt16(raw[i * 2]), hi = UInt16(raw[i * 2 + 1])
+                let v = lo | (hi << 8)
+                // Five and six bits back up to eight, replicating the high bits
+                // into the low ones so white stays white rather than near-white.
+                let r = UInt8((v >> 11) & 0x1F), g = UInt8((v >> 5) & 0x3F), b = UInt8(v & 0x1F)
+                rgba[i * 4]     = (r << 3) | (r >> 2)
+                rgba[i * 4 + 1] = (g << 2) | (g >> 4)
+                rgba[i * 4 + 2] = (b << 3) | (b >> 2)
+            }
+        }
+        guard let ctx = CGContext(data: &rgba, width: size.w, height: size.h,
+                                  bitsPerComponent: 8, bytesPerRow: size.w * 4,
+                                  space: CGColorSpaceCreateDeviceRGB(),
+                                  bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue),
+              let cg = ctx.makeImage() else { return nil }
+        return UIImage(cgImage: cg)
+    }
+
+    /// The face the faucet wears, out of a whole bundle.
+    static func face(of bundle: Data) -> UIImage? {
+        decode(bundle, sizes[0])
+    }
 }

@@ -51,17 +51,20 @@ static volatile uint8_t rxHead = 0;   // the radio task writes here
 static volatile uint8_t rxTail = 0;   // loop() reads from here
 static uint32_t stageDrops = 0;
 
-static void notify(uint8_t type, const void *data, uint16_t len) {
-  if (!txChar || !connected) return;
-  // VersionsPayload is the largest thing sent this way, at 76 bytes.
-  uint8_t frame[3 + 128];
-  if (len > sizeof(frame) - 3) return;
+// A picture read back out of flash is the largest thing sent this way now, and
+// it is sent a full MTU at a time — so this carries one, and says whether the
+// stack took it. A reader that cannot tell has no way to pace itself, and this
+// used to answer an oversized frame by silently dropping it.
+static bool notify(uint8_t type, const void *data, uint16_t len) {
+  if (!txChar || !connected) return false;
+  uint8_t frame[3 + 560];
+  if (len > sizeof(frame) - 3) return false;
   frame[0] = type;
   frame[1] = (uint8_t)(len & 0xFF);
   frame[2] = (uint8_t)(len >> 8);
   if (len) memcpy(frame + 3, data, len);
   txChar->setValue(frame, 3 + len);
-  txChar->notify();
+  return txChar->notify();
 }
 
 static void sendIdentity() {
@@ -190,6 +193,7 @@ class ServerCB : public NimBLEServerCallbacks {
   }
   void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
     bleOtaSetMtu(mtu);
+    bleImageSetMtu(mtu);
     Serial.printf("BLE: MTU %u\n", mtu);
   }
 };
@@ -226,6 +230,7 @@ void bleLinkBegin() {
   img.setArt = faucetSetFlavorArt;
   img.readArt = faucetReadFlavorArt;
   img.onStored = faucetRequestRelay;
+  img.onRead = faucetSayRead;
   bleImageBegin(img);
 
   applyAdvertising();
@@ -250,6 +255,7 @@ static void dispatchFrame(const uint8_t *work, uint16_t len) {
 
 void bleLinkService() {
   bleOtaService();
+  bleImageService();   // whatever a read-back still owes the phone
 
   // Until the main board answers, this board is advertising its own MAC rather
   // than the machine's. Ask again until it does.

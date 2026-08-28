@@ -54,7 +54,7 @@ constexpr uint16_t BLE_OTA_FRAME_OVERHEAD = 3 + 4;   // header, then the offset
 // What the owning board supplies: its notify, its link to the main board, and
 // what it does to its own screen while its own flash is being written.
 struct BleOtaSeams {
-  void (*notify)(uint8_t type, const void *data, uint16_t len);
+  bool (*notify)(uint8_t type, const void *data, uint16_t len);
   bool (*sendSrc)(uint8_t type, const void *data, uint16_t len);
   void (*onLocalProgress)(bool active, uint8_t percent);
   // OTA_TGT_* this board is, so an image addressed to it is written here.
