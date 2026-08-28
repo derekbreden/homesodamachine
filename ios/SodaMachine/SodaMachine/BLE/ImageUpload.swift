@@ -213,7 +213,13 @@ extension BLEManager {
     /// for — silence that used to cost the whole picture. Asking again from
     /// where this actually got to costs the remainder and nothing else.
     func resumeFaceIfStalled() {
-        guard faceSlot >= 0, Date().timeIntervalSince(faceAskedAt) > 2.0 else { return }
+        // Nothing in flight: something may still be missing, and a fetch that
+        // died with a link would otherwise never be started again.
+        guard faceSlot >= 0 else {
+            if !imageSlots.crc.isEmpty { fetchMissingFaces() }
+            return
+        }
+        guard Date().timeIntervalSince(faceAskedAt) > 2.0 else { return }
         say("faces: resuming slot \(faceSlot) at \(faceBuffer.count)")
         requestFace(slot: faceSlot, from: faceBuffer.count)
     }
