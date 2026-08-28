@@ -59,11 +59,19 @@ const CHECKS_URL =
 const POLL_MS = 120_000;
 
 // The floor under `/api/artifacts/refresh`, so the endpoint cannot be used to make this container
-// fetch 65 MB in a loop. Several sessions publishing at once land inside one of these.
+// fetch 65 MB in a loop. Several sessions publishing at once land inside one of these, and
+// `.githooks/post-commit` fires `publish_now.py` on every commit, so back-to-back cuts are the
+// resting state rather than a burst.
 const MIN_GAP_MS = 10_000;
 
 let running = null;
 let lastLook = 0;
+// THE LOOK THE FLOOR TURNS AWAY IS HELD, NOT DROPPED. A cut whose post lands inside the gap of
+// the one before it is the second session's geometry, and dropping the post leaves it for the
+// 120s poll — twelve times the floor it was refused for. One deferred look at a time carries it
+// instead: the floor is still one look per `MIN_GAP_MS`, and what a refused post now costs is
+// the remainder of that gap.
+let pending = null;
 
 async function bundleOnDisk() {
   try {
@@ -144,11 +152,22 @@ async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   return { moved: true, bundle: lock.bundle.sha256, files: files.length };
 }
 
-/** Look once, coalescing with any look already in flight. Never throws. */
+/** Look once, coalescing with any look already in flight or already deferred. Never throws. */
 export function refreshArtifacts(ctx, { force = false } = {}) {
   if (running) return running;
   const now = Date.now();
-  if (!force && now - lastLook < MIN_GAP_MS) return Promise.resolve({ skipped: true });
+  if (!force && now - lastLook < MIN_GAP_MS) {
+    if (!pending) {
+      pending = new Promise((resolve) => {
+        const t = setTimeout(() => {
+          pending = null;                        // cleared first, so the next post can defer too
+          resolve(refreshArtifacts(ctx));
+        }, MIN_GAP_MS - (now - lastLook));
+        t.unref?.();                             // a held look does not keep the process alive
+      });
+    }
+    return pending;
+  }
   lastLook = now;
   running = Promise.allSettled([adopt(ctx), carryChecks()])
     .then(([geometry, checks]) => {
