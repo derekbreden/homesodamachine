@@ -349,17 +349,24 @@ def build(box=None):
             screw_insert_open_z - 1.0, screw_insert_bore_end_z)))
     if box is None:
         return solid
-    # The C14 tunnel's crown occupies this field at the installed pose and therefore travels
-    # with it. Back-top keeps the rest of the same feature; the union is unchanged when closed.
-    c14_cap = _enc.c14_ceiling_cap(
+    # The C14 surround belongs wholly to back-top and reaches this panel's underside. Its
+    # constant-section pocket is open at the aft edge, so the fixed crown enters as the panel
+    # slides home; the show skin above the pocket remains whole and lands on that crown.
+    c14_pocket = _enc.c14_ceiling_pocket(
         box.inner, box.outer, box.pack.c14, box.pack.back_ports,
-        structural_stock().fuse(rail_clearance()))
-    if c14_cap is not None and c14_cap.Volume() > 1e-6:
-        solid = solid.union(c14_cap)
-    # The panel starts as a broad field. Where the C14 collar crosses that field, adding its
-    # travelling cap is only half the operation: the exact flange pocket must also be opened
-    # through the field already present. Cutting the same bore used by back-top keeps the two
-    # ownership halves one continuous insertion pocket at the installed pose.
+        structural_stock().fuse(rail_stock()))
+    if c14_pocket is not None and c14_pocket.Volume() > 1e-6:
+        solid = solid.cut(c14_pocket)
+    # The RJ11 keystone's fixed snap-in receptacle meets the same underside at the rear wall.
+    # Its rectangular running-clearance pocket also stays open through the aft edge; the panel
+    # carries neither receptacle material nor a break in the show skin above it.
+    keystone_pocket = _enc.keystone_ceiling_pocket(
+        box.inner, box.outer, box.pack.keystone,
+        structural_stock().fuse(rail_stock()))
+    if keystone_pocket is not None and keystone_pocket.Volume() > 1e-6:
+        solid = solid.cut(keystone_pocket)
+    # The same bore used by back-top opens the purchased part's insertion room through any
+    # surrounding field material which remains outside the fixed surround's pocket.
     c14_geometry = _enc._c14_tunnel_geometry(
         box.inner, box.outer, box.pack.c14, box.pack.back_ports,
         box.inner[4], box.outer[5])
