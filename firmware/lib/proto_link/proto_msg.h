@@ -210,6 +210,7 @@ constexpr uint8_t MSG_IMAGE_SYNTH     = 0x51;  // ImageSlotPayload
 // takes it down again, because it is the only board that can reach both.
 constexpr uint8_t MSG_IMAGE_RELAY_REQ = 0x52;  // faucet -> main: ImageSlotPayload
 constexpr uint8_t MSG_IMAGE_RELAY_GO  = 0x53;  // main -> faucet: ImageSlotPayload
+constexpr uint8_t MSG_IMAGE_ERASE     = 0x54;  // main -> either: ImageSlotPayload
 
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a

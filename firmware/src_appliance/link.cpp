@@ -562,6 +562,11 @@ bool linkDisplayUsbReattach() {
 // an AP that is already up is free at the other end, so a retry costs nothing.
 // The enclosure answers inside its own next turn, like every other question
 // put to it, so this only has to reach the pair once.
+bool linkImageErase(uint8_t slot) {
+    ImageSlotPayload req{slot};
+    return j9.send(MSG_IMAGE_ERASE, &req, sizeof(req)) >= 0;
+}
+
 bool linkImagesQuery() {
     return j9.send(MSG_IMAGES_QUERY, nullptr, 0) >= 0;
 }

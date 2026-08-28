@@ -45,6 +45,13 @@ RTC_NOINIT_ATTR static uint32_t attempts;
 static volatile bool rebootWanted = false;
 static volatile bool panelDown = false;
 static volatile bool imageTaken = false;
+
+// What the last arriving picture did, in RTC memory because taking one ends in
+// a reboot and the account of it has to outlive that.
+RTC_NOINIT_ATTR static uint32_t picTook;    // bytes the store actually accepted
+RTC_NOINIT_ATTR static uint32_t picWant;    // bytes it was promised
+RTC_NOINIT_ATTR static uint8_t  picSlot;
+RTC_NOINIT_ATTR static uint8_t  picKept;    // 1 kept, 2 refused by the store, 3 refused at the door
 static volatile uint32_t heapFree = 0;    // internal, at the moment of the attempt
 static volatile uint32_t heapBlock = 0;   // largest contiguous internal block
 static volatile uint32_t heapDma = 0;     // largest DMA-capable block
@@ -126,7 +133,11 @@ static void sinkLoop(void *) {
         Serial.printf("[bench] picture for slot %u, %lu B\n",
                       hdr.slot, (unsigned long)hdr.bytes);
       } else {
-        Serial.println("[bench] picture refused");
+        picSlot = hdr.slot;
+        picWant = hdr.bytes;
+        picTook = 0;
+        picKept = 3;
+        Serial.println("[bench] picture refused at the door");
         client.stop();
         continue;
       }
@@ -165,7 +176,11 @@ static void sinkLoop(void *) {
     client.stop();
 
     if (takingImage) {
+      picSlot = hdr.slot;
+      picWant = hdr.bytes;
+      picTook = imageStoreWriteOffset();
       const bool kept = imageStoreWriteFinish();
+      picKept = kept ? 1 : 2;
       Serial.printf("[bench] picture %s\n", kept ? "kept" : "REFUSED");
       imageTaken = kept;
       wifiBenchRebind();
@@ -222,6 +237,13 @@ void wifiBenchFill(WifiApStatePayload &out) {
 }
 
 bool wifiBenchRebootWanted() { return rebootWanted; }
+
+void wifiBenchPictureDiag(char *out, unsigned n) {
+  snprintf(out, n, "last picture: slot %u %s %lu of %lu B",
+           (unsigned)picSlot,
+           picKept == 1 ? "kept" : (picKept == 2 ? "REFUSED" : "turned away"),
+           (unsigned long)picTook, (unsigned long)picWant);
+}
 
 void wifiBenchDiag(char *out, unsigned n) {
   // The reset reason is the point: a stage that ends in a panic says the radio

@@ -28,6 +28,10 @@ void wifiBenchFill(WifiApStatePayload &out);
 // text. Keep it under 40 bytes: that is what one queued J9 frame carries.
 void wifiBenchDiag(char *out, unsigned n);
 
+// What the last arriving picture did. Survives the reboot that taking one ends
+// in, because that reboot is where the account of it would otherwise be lost.
+void wifiBenchPictureDiag(char *out, unsigned n);
+
 // Taking the panel down before the radio comes up, and putting the board back
 // afterwards. The scan-out DMA refills its bounce buffer out of PSRAM and the
 // radio's bring-up writes flash, which suspends the cache PSRAM is reached

@@ -1562,6 +1562,16 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_IMAGE_ERASE && plen >= sizeof(ImageSlotPayload)) {
+    ImageSlotPayload req;
+    memcpy(&req, payload, sizeof(req));
+    if (imageStoreErase(req.slot)) {
+      bindFlavorLogos();
+      if (uiReady) refreshFlavorImages();
+    }
+    return;
+  }
+
   if (type == MSG_IMAGES_QUERY) {
     ImagesPayload im{};
     im.board = OTA_TGT_ENCLOSURE;
@@ -1571,6 +1581,11 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     for (uint8_t i = 0; i < im.slots; i++)
       if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
     j9Post(MSG_RESP_IMAGES, &im, sizeof(im));
+    // This board has no console; how the last picture landed rides back beside
+    // the count, which is the question anyone asking the count actually has.
+    char diag[40];
+    wifiBenchPictureDiag(diag, sizeof(diag));
+    j9Post(MSG_TEXT, diag, (uint8_t)strlen(diag));
     return;
   }
 
