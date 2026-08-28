@@ -705,7 +705,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "3 mm in XZ, 3 mm beyond the flange's Y- edge, and one rooted profile corbel",
+   "target": "3 mm in XZ, 3 mm beyond the flange's Y- edge, a 9 mm entry relief, and one rooted profile corbel",
    "detail": [],
    "active": true
   },
@@ -1008,8 +1008,8 @@
    "label": "One fixed back-top surround encloses and carries the C14 up to the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "8397.567 mm\u00b3 feature over a 10.25 mm corbel; 0.0000 mm\u00b3 missing from back-top, 0.0000 mm\u00b3 in panel, 0.0000 mm\u00b3 in bores; 75.932 mm\u00b2 ceiling land with 0.0000 mm\u00b3 unsupported",
-   "target": "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 material in the panel or its bores, and the show skin bearing on the crown",
+   "value": "8397.567 mm\u00b3 feature over a 10.25 mm corbel; 0.0000 mm\u00b3 missing from back-top, 0.0000 mm\u00b3 in panel, 0.0000 mm\u00b3 in bores; 75.932 mm\u00b2 ceiling land with 0.0000 mm\u00b3 unsupported; 13.00 mm straight flange insertion with 0.0000 mm\u00b3 obstruction",
+   "target": "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 material in the panel or its bores, the show skin bearing on the crown, and the exact flange profile translating through its Y- entry relief without touching fixed material",
    "detail": [],
    "active": true
   },

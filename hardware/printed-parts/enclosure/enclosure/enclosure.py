@@ -1081,6 +1081,12 @@ c14_tunnel_r = 3.0
 c14_collar_slip = 0.5
 c14_collar_wall = 3.0
 c14_collar_extension = 3.0
+# THE FLANGE ENTERS THROUGH THE FIXED +X STRIP before it reaches that collar. Carry its exact
+# slipped profile another 9 mm in Y- so the two-ear moulding can be held square and translated
+# into its seat. One further millimetre is a boolean overcut past the stated running clearance,
+# not assembly travel.
+c14_insertion_relief = 9.0
+c14_pocket_overcut = 1.0
 
 
 def c14_mount_half(bore_w, bore_h, screw_reach):
@@ -7266,6 +7272,11 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     (`back_top_wall_reliefs`), so what stands over each blind end is `socket_cap` of wall and the
     tunnel is the whole of what is left.
 
+    THE FLANGE POCKET CONTINUES THROUGH THE +X STRIP IN Y-. Its exact slipped outline runs
+    `c14_insertion_relief` past the collar-mouth overcut, so the purchased two-ear flange has a
+    straight approach before it reaches the printed collar. The exterior seating plane, tunnel
+    bore and surrounding crown do not move.
+
     ITS UNDERSIDE RISES AT 45° INSTEAD OF HANGING. This piece prints on its Z− face with the +Y
     wall standing on the bed. `_y_wall_corbel` shears each outline that it carries: the tunnel's
     R3 rectangle from its fore face to the wall, and the collar's exact rounded/tapered profile
@@ -7310,10 +7321,13 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     collar_support = _y_wall_corbel(collar_support, mouth, aft)
     feature = tunnel.fuse(collar).fuse(collar_support).clean().intersect(
         _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
-    # The original cord bore continues through the wall and tunnel. The flange pocket opens
-    # only from the collar mouth to the seating plane, where its stopped cutter leaves the
-    # exact face the flange bears on.
-    flange_pocket = (_c14.flange_prism(c14_collar_slip, mouth - 1.0, fore)
+    # The original cord bore continues through the wall and tunnel. The exact flange pocket
+    # opens through the collar and continues inboard through the +X strip for assembly access;
+    # its stopped +Y end is still the face the flange bears on.
+    flange_pocket = (_c14.flange_prism(
+        c14_collar_slip,
+        mouth - c14_pocket_overcut - c14_insertion_relief,
+        fore)
                       .translate((cx, 0.0, cz)).val())
     bore = _rect_cut_y(cx, cz, wx, wz, r, fore, outer[3] + 1.0).fuse(
         flange_pocket)
