@@ -398,6 +398,17 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_IMAGE_RELAY_GO && plen >= sizeof(ImageSlotPayload)) {
+    ImageSlotPayload req;
+    memcpy(&req, payload, sizeof(req));
+    char line[64];
+    const bool started = wifiImagePush(req.slot);
+    snprintf(line, sizeof(line), "relay slot %u %s", req.slot,
+             started ? "pushing" : "REFUSED");
+    base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
+    return;
+  }
+
   if (type == MSG_IMAGES_QUERY) {
     ImagesPayload im{};
     im.board = OTA_TGT_FAUCET;
@@ -571,6 +582,17 @@ void baseLinkPrimeDiscard() {
 }
 
 // Said over J3 because this board has no console of its own in the appliance.
+// A phone asking for a different face. The main board owns the pair, so this
+// states both channels absolutely — the same shape a tap on either glass takes.
+void faucetSetFlavorArt(uint8_t channel, uint8_t art) {
+  if (channel > 1 || art >= FLAVOR_ART_COUNT) return;
+  uint8_t pair[2];
+  faucetReadFlavorArt(pair);
+  pair[channel] = art;
+  FlavorArtPayload req{{pair[0], pair[1]}};
+  base.trySend(MSG_FLAVOR_ART_SET, &req, sizeof(req));
+}
+
 void baseLinkSay(const char *text) { base.trySend(MSG_TEXT, text, (uint16_t)strlen(text)); }
 
 void baseLinkSayOnConnect(const char *text) {

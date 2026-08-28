@@ -7,6 +7,7 @@
 #include "axs5106l.h"
 #include "base_link.h"
 #include "image_store.h"
+#include "ble_image.h"
 #include "ble_link.h"
 #include "fw_version.h"
 
@@ -319,6 +320,9 @@ static void applyFlavorUi() {
 
 // The main board's resulting truth for the pair. Rendered immediately when the
 // channel on screen is one whose logo moved.
+// What the main board currently says each channel wears, for the phone.
+void faucetReadFlavorArt(uint8_t out[2]) { out[0] = flavorArt[0]; out[1] = flavorArt[1]; }
+
 void faucetApplyFlavorArt(const uint8_t art[2]) {
   bool moved = false;
   for (uint8_t i = 0; i < 2; i++) {
@@ -328,6 +332,9 @@ void faucetApplyFlavorArt(const uint8_t art[2]) {
     }
   }
   if (moved && logoImg) applyFlavorUi();
+  // A phone watching the machine should see a change made on either glass as
+  // fast as one it made itself.
+  if (moved) bleImagePublishArt();
 }
 
 static void wakeBacklight() {

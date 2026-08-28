@@ -43,5 +43,8 @@ bool faucetLinkImagesQuery();
 // it can be exercised with no phone in the room.
 bool faucetLinkImageSynth(uint8_t slot);
 
+// Tell the faucet the enclosure's radio is standing and it may send.
+bool faucetLinkImageRelayGo(uint8_t slot);
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);

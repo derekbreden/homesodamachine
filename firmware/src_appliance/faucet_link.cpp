@@ -441,6 +441,11 @@ bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
 // Push into TinyProto's window as fast as it will take frames, servicing the
 // link whenever it is full. No flash write and no per-chunk answer: what comes
 // back is what J3 carries, which is the number the OTA pull is measured against.
+bool faucetLinkImageRelayGo(uint8_t slot) {
+    ImageSlotPayload req{slot};
+    return faucet.trySend(MSG_IMAGE_RELAY_GO, &req, sizeof(req)) >= 0;
+}
+
 bool faucetLinkImageSynth(uint8_t slot) {
     ImageSlotPayload req{slot};
     return faucet.trySend(MSG_IMAGE_SYNTH, &req, sizeof(req)) >= 0;

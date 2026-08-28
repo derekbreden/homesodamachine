@@ -203,6 +203,14 @@ constexpr uint8_t MSG_RESP_IMAGES     = 0x50;  // ImagesPayload
 // last — so what it proves is the path and not a shortcut around it.
 constexpr uint8_t MSG_IMAGE_SYNTH     = 0x51;  // ImageSlotPayload
 
+// Carrying one picture the last hop, to the display that cannot receive it
+// itself. The faucet holds every rendition and has the radio; the enclosure
+// has neither a phone nor a store it can fill on its own. The main board is
+// not on the path — it only stands the enclosure's radio up, says go, and
+// takes it down again, because it is the only board that can reach both.
+constexpr uint8_t MSG_IMAGE_RELAY_REQ = 0x52;  // faucet -> main: ImageSlotPayload
+constexpr uint8_t MSG_IMAGE_RELAY_GO  = 0x53;  // main -> faucet: ImageSlotPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.

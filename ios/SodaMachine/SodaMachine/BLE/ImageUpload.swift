@@ -20,6 +20,17 @@ private let log = Logger(subsystem: "com.derekbreden.SodaMachine", category: "Im
 // sequence numbers, no window, and a frame the board was too busy to take costs
 // the distance between them rather than the transfer.
 
+/// Which face each channel wears, as the main board holds it.
+struct FlavorArt: Equatable {
+    var art: [Int] = [0, 1]
+    var factory: Int = 4
+    var custom: Int = 4
+    var total: Int { factory + custom }
+    /// Art index for a custom slot, and back again.
+    func artIndex(customSlot: Int) -> Int { factory + customSlot }
+    func customSlot(art: Int) -> Int? { art >= factory ? art - factory : nil }
+}
+
 enum ImageFrame {
     static let query: UInt8 = 0x16
     static let state: UInt8 = 0x17
@@ -28,6 +39,9 @@ enum ImageFrame {
     static let ack:   UInt8 = 0x1A
     static let end:   UInt8 = 0x1B
     static let erase: UInt8 = 0x1C
+    static let artQuery: UInt8 = 0x1D
+    static let artState: UInt8 = 0x1E
+    static let artSet:   UInt8 = 0x1F
 }
 
 /// What the machine says it is holding.
@@ -57,6 +71,33 @@ private let uploadErrors = [
 ]
 
 extension BLEManager {
+
+    // ── Which face a channel wears ────────────────────────────────────────
+    // The main board owns this. The app asks and sets; it never keeps an idea
+    // of its own, so a change made on either glass shows here immediately.
+    func queryFlavorArt() {
+        guard !demoMode else { return }
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: ImageFrame.artQuery, payload: Data())
+        }
+    }
+
+    func setFlavorArt(channel: Int, art: Int) {
+        guard !demoMode, channel >= 0, channel < 2 else { return }
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: ImageFrame.artSet, payload: Data([UInt8(channel), UInt8(art)]))
+        }
+    }
+
+    func handleFlavorArt(_ payload: Data) {
+        guard payload.count >= 4 else { return }
+        let b = payload.startIndex
+        var a = FlavorArt()
+        a.art = [Int(payload[b]), Int(payload[b + 1])]
+        a.factory = Int(payload[b + 2])
+        a.custom = Int(payload[b + 3])
+        DispatchQueue.main.async { self.flavorArt = a }
+    }
 
     // ── Asking ────────────────────────────────────────────────────────────
     func queryImageSlots() {

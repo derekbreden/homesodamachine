@@ -382,6 +382,40 @@ static void cmdWifi(const String &line) {
 // What J3 carries with nothing taking turns on it — the wire's ceiling, which
 // is not what the OTA pull measures. Blocks for the length of the run, so it
 // takes the same dark-machine guard the radio bench does.
+// ── Carrying one picture to the enclosure ─────────────────────────────────
+// Three steps that each block, so this runs from the loop rather than from
+// inside the frame that asked for it: stand the enclosure's radio up (its
+// panel comes down for that), tell the faucet to send, and take the radio back
+// down — which is the reboot that puts the glass back with the new face on it.
+//
+// The main board is not on the path it is sequencing. The bytes go faucet to
+// enclosure directly, which is the only reason this is seconds rather than the
+// minutes the wire would take.
+static void relayImage(uint8_t slot) {
+    Serial.printf("\nrelay slot %u: standing the enclosure's radio up\n", slot);
+    if (!linkWifiAp(true)) return;
+    delay(300);
+
+    if (!faucetLinkImageRelayGo(slot)) {
+        Serial.println("J3 would not take it");
+        linkWifiAp(false);
+        return;
+    }
+
+    // The faucet answers MSG_RESP_WIFI_PUSH when it is done, and that prints
+    // itself. Service both links while it works.
+    const unsigned long until = millis() + 60000;
+    while ((long)(millis() - until) < 0) {
+        linkService();
+        faucetLinkService();
+        delay(2);
+    }
+    linkWifiAp(false);
+    Serial.println("relay done — the enclosure reboots into its new picture");
+}
+
+static uint8_t relayPending = 0xFF;
+
 static void cmdBench(const String &line) {
     String rest = line.substring(5);
     rest.trim();
@@ -414,6 +448,20 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line.startsWith("images relay")) {
+        String rest = line.substring(12); rest.trim();
+        const uint8_t slot = rest.length() ? (uint8_t)rest.toInt() : 0;
+        if (slot >= FLAVOR_ART_CUSTOM) {
+            Serial.printf("\nusage: images relay <0..%u>\n", FLAVOR_ART_CUSTOM - 1);
+            return;
+        }
+        if (machineState() != ST_IDLE) {
+            Serial.printf("\nrefused — the machine is %s\n", machineStateName());
+            return;
+        }
+        relayImage(slot);
+        return;
+    }
     if (line.startsWith("images test")) {
         String rest = line.substring(11); rest.trim();
         const uint8_t slot = rest.length() ? (uint8_t)rest.toInt() : 0;

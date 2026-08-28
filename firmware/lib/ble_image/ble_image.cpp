@@ -54,6 +54,15 @@ void fail(uint8_t why) {
 
 void bleImageBegin(const BleImageSeams &s) { seams = s; }
 
+void bleImagePublishArt() {
+  if (!seams.notify || !seams.readArt) return;
+  BleArtState st{};
+  seams.readArt(st.art);
+  st.factory = FLAVOR_ART_FACTORY;
+  st.custom = FLAVOR_ART_CUSTOM;
+  seams.notify(BLE_FRAME_ART_STATE, &st, sizeof(st));
+}
+
 bool bleImageBusy() { return state == BLE_IMG_TAKING; }
 
 void bleImageDisconnected() {
@@ -71,6 +80,21 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     case BLE_FRAME_IMG_QUERY:
       sendState();
       return true;
+
+    case BLE_FRAME_ART_QUERY:
+      bleImagePublishArt();
+      return true;
+
+    case BLE_FRAME_ART_SET: {
+      if (plen < sizeof(BleArtSet)) return true;
+      BleArtSet req;
+      memcpy(&req, payload, sizeof(req));
+      if (req.channel < 2 && req.art < FLAVOR_ART_COUNT && seams.setArt)
+        seams.setArt(req.channel, req.art);
+      // The answer is whatever the main board settles on, published when it
+      // revises — not an echo of what was asked for.
+      return true;
+    }
 
     case BLE_FRAME_IMG_ERASE: {
       if (plen < sizeof(BleImgSlot)) return true;

@@ -37,6 +37,11 @@ void baseLinkService();
 // main.cpp, where the artwork and the image object live.
 void faucetApplyFlavorArt(const uint8_t art[2]);
 
+// The pair as this board last heard it, and a request to change one of them.
+// The main board owns the answer; this only asks.
+void faucetReadFlavorArt(uint8_t out[2]);
+void faucetSetFlavorArt(uint8_t channel, uint8_t art);
+
 // Whether the appliance considers anyone present. Defined in main.cpp, where
 // the backlight lives.
 void faucetApplyIdle(bool asleep);
