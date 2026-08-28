@@ -4,7 +4,7 @@
 
 **It is not a part.** It is the pump cartridge's own material (`enclosure.build_pump_cartridge`), fused onto the deck that slides out of the front bay — one per pump, off the stations `enclosure_assembly.pump_tray_stations` reads off the placed pumps, rooted on the cartridge face's own pump relief. Nothing ships under a pump and nothing is billed for one.
 
-The flavour manifold carries two KPHM400 peristaltic pumps, one per channel. Each gets a tray: [2](TRAY_COUNT) per machine.
+The flavour manifold carries two KPHM600 peristaltic pumps, one per channel. Each gets a tray: [2](TRAY_COUNT) per machine.
 
 | | |
 |---|---|
