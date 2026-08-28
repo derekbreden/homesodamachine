@@ -4,6 +4,7 @@
 #include <WiFi.h>
 
 #include "ble_link.h"
+#include "image_store.h"
 
 // The bytes themselves are not the point, so they are never allocated: one 8 KB
 // pattern buffer is written over and over. What is measured is the link, and a
@@ -16,6 +17,11 @@ static volatile bool ready = false;
 static WifiPushResultPayload result;
 static uint32_t wantBytes = 0;
 static bool quietBle = false;
+
+// A run either measures the link or carries a picture across it. Both join the
+// same AP and open the same socket; what differs is what goes down it.
+static bool     sendImage = false;
+static uint8_t  imageSlot = 0;
 
 static void finish(uint8_t err, const WifiPushResultPayload &partial) {
   result = partial;
@@ -79,16 +85,57 @@ static void pushLoop(void *) {
   const uint32_t tx = millis();
   uint32_t sent = 0;
   uint8_t err = WIFI_BENCH_ERR_NONE;
-  while (sent < wantBytes) {
-    size_t want = wantBytes - sent;
-    if (want > SEND_BUF) want = SEND_BUF;
-    int n = client.write(buf, want);
-    if (n <= 0) {
-      if (!client.connected()) { err = WIFI_BENCH_ERR_WRITE; break; }
-      vTaskDelay(1);
-      continue;
+
+  if (sendImage) {
+    // The enclosure's four renditions, out of the master copy this board keeps,
+    // behind the header that tells the sink this is a picture and not the bench.
+    uint32_t bytes = 0, crc = 0;
+    for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT; i++) {
+      const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
+      const uint16_t *px = imageStorePixels(imageSlot, r);
+      const uint32_t n = (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
+      if (!px) { err = WIFI_BENCH_ERR_WRITE; break; }
+      crc = uartCrc32Update(crc, (const uint8_t *)px, n);
+      bytes += n;
     }
-    sent += (uint32_t)n;
+
+    if (!err) {
+      ImageWireHeader hdr{IMAGE_WIRE_MAGIC, imageSlot, {0, 0, 0}, bytes, crc};
+      if (client.write((const uint8_t *)&hdr, sizeof(hdr)) != (int)sizeof(hdr))
+        err = WIFI_BENCH_ERR_WRITE;
+    }
+
+    for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT && !err; i++) {
+      const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
+      const uint8_t *px = (const uint8_t *)imageStorePixels(imageSlot, r);
+      const uint32_t n = (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
+      uint32_t at = 0;
+      while (at < n) {
+        size_t want = n - at;
+        if (want > SEND_BUF) want = SEND_BUF;
+        // Straight out of mapped flash; nothing is staged in RAM to send it.
+        int w = client.write(px + at, want);
+        if (w <= 0) {
+          if (!client.connected()) { err = WIFI_BENCH_ERR_WRITE; break; }
+          vTaskDelay(1);
+          continue;
+        }
+        at += (uint32_t)w;
+        sent += (uint32_t)w;
+      }
+    }
+  } else {
+    while (sent < wantBytes) {
+      size_t want = wantBytes - sent;
+      if (want > SEND_BUF) want = SEND_BUF;
+      int n = client.write(buf, want);
+      if (n <= 0) {
+        if (!client.connected()) { err = WIFI_BENCH_ERR_WRITE; break; }
+        vTaskDelay(1);
+        continue;
+      }
+      sent += (uint32_t)n;
+    }
   }
   client.flush();
   r.xferMs = millis() - tx;
@@ -98,6 +145,14 @@ static void pushLoop(void *) {
   free(buf);
   finish(err, r);
   vTaskDelete(nullptr);
+}
+
+bool wifiImagePush(uint8_t slot) {
+  if (running) return false;
+  if (!imageStorePixels(slot, IMAGE_BUNDLE_ENCLOSURE_AT)) return false;
+  sendImage = true;
+  imageSlot = slot;
+  return wifiBenchPush(imageEnclosureBytes(), WIFI_BENCH_CHANNEL, WIFI_PUSH_F_QUIET_BLE);
 }
 
 bool wifiBenchPush(uint32_t bytes, uint8_t channel, uint8_t flags) {
@@ -129,4 +184,5 @@ void wifiBenchRelease() {
   WiFi.disconnect(true);
   WiFi.mode(WIFI_OFF);
   if (quietBle) { bleLinkQuiet(false); quietBle = false; }
+  sendImage = false;
 }

@@ -19,6 +19,11 @@
 // Start a run. False if one is already in flight.
 bool wifiBenchPush(uint32_t bytes, uint8_t channel, uint8_t flags);
 
+// Carry one picture's enclosure renditions across the same link the bench
+// measures, out of the master copy this board keeps. The enclosure's AP has to
+// be standing before this is called.
+bool wifiImagePush(uint8_t slot);
+
 // True once between the end of a run and the collection of its result.
 bool wifiBenchResultReady();
 

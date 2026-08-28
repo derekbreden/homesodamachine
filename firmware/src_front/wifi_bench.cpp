@@ -5,10 +5,16 @@
 #include <esp_heap_caps.h>
 #include <esp_system.h>
 
+#include "image_store.h"
+
 // One connection at a time, read in 8 KB bites out of internal RAM. PSRAM
 // would serve here too, but the panel is already reading it continuously and
 // the sink has no reason to add to that.
 static const size_t SINK_BUF = 8192;
+
+// Every logo descriptor points into the mapped store and writing a slot remaps
+// it. Defined in main.cpp, where the descriptors live.
+void wifiBenchRebind();
 
 // Bringing the radio up costs several kilobytes of stack. It gets its own task
 // and its own stack for that reason: called down the J9 receive callback it
@@ -38,6 +44,7 @@ RTC_NOINIT_ATTR static uint8_t stage;
 RTC_NOINIT_ATTR static uint32_t attempts;
 static volatile bool rebootWanted = false;
 static volatile bool panelDown = false;
+static volatile bool imageTaken = false;
 static volatile uint32_t heapFree = 0;    // internal, at the moment of the attempt
 static volatile uint32_t heapBlock = 0;   // largest contiguous internal block
 static volatile uint32_t heapDma = 0;     // largest DMA-capable block
@@ -102,10 +109,42 @@ static void sinkLoop(void *) {
     uint32_t firstMs = 0;
     uint32_t lastRxMs = millis();
 
+    // A picture opens with a header; the bench opens with pixels. Read enough
+    // to tell them apart before deciding what this connection is.
+    ImageWireHeader hdr{};
+    bool takingImage = false;
+    uint32_t hdrHave = 0;
+    while (client.connected() && sinkRun && hdrHave < sizeof(hdr)) {
+      int n = client.read((uint8_t *)&hdr + hdrHave, sizeof(hdr) - hdrHave);
+      if (n > 0) { hdrHave += (uint32_t)n; lastRxMs = millis(); continue; }
+      if (millis() - lastRxMs > 3000) break;
+      vTaskDelay(1);
+    }
+    if (hdrHave == sizeof(hdr) && hdr.magic == IMAGE_WIRE_MAGIC) {
+      if (hdr.bytes == imageStoreBundleBytes() && imageStoreWriteBegin(hdr.slot, hdr.crc32)) {
+        takingImage = true;
+        Serial.printf("[bench] picture for slot %u, %lu B\n",
+                      hdr.slot, (unsigned long)hdr.bytes);
+      } else {
+        Serial.println("[bench] picture refused");
+        client.stop();
+        continue;
+      }
+    } else {
+      got = hdrHave;   // not a picture: those bytes were the bench's
+      if (hdrHave) firstMs = millis();
+    }
+
     while (client.connected() && sinkRun) {
       int n = client.read(buf, SINK_BUF);
       if (n > 0) {
         if (!got) firstMs = millis();
+        if (takingImage && !imageStoreWriteChunk(imageStoreWriteOffset(), buf, (uint16_t)n)) {
+          Serial.println("[bench] picture would not write");
+          imageStoreWriteAbort();
+          takingImage = false;
+          break;
+        }
         got += (uint32_t)n;
         lastRxMs = millis();
         continue;
@@ -124,6 +163,13 @@ static void sinkLoop(void *) {
       lastRxMs = millis();
     }
     client.stop();
+
+    if (takingImage) {
+      const bool kept = imageStoreWriteFinish();
+      Serial.printf("[bench] picture %s\n", kept ? "kept" : "REFUSED");
+      imageTaken = kept;
+      wifiBenchRebind();
+    }
 
     lastMs = got ? (lastRxMs - firstMs) : 0;
     lastBytes = got;
