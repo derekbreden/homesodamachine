@@ -19,10 +19,13 @@ Calipered (the part on the bench)
       flange, the same section read from either face. It is the widest thing
       outboard of the seating plane, so a cutout is cut to it, and the flange
       is left 1.995 mm of bearing either side.
-  BODY_KEY_FLAT 17.98 and CAVITY_KEY_FLAT 7.04 — the two flats the 45 deg key
-      leaves: the first across the column's long faces, the second across the
-      ends of the recess the C13 enters. Both read from either face. One KEY of
-      4.24 answers for both, and it is what sets CAVITY_H and SHROUD_T.
+  EAR_SPAN 17.98 — across one ear, from the round where the full-width flat
+      gives way to the taper, to the round where the far taper meets that ear.
+      The taper's own 12.15 mm lies inside it, and the reading is what fixes the
+      run of the flat — see `_flat_run_for`.
+  7.04 IS NOT IN THIS FILE. It is calipered off the same part and its two loci
+      are not yet known, so nothing here is struck on it — a figure wired into
+      geometry on a guess at what it spans is worse than one left out.
   SCREW_PITCH 40.0 — both screws ON the mating axis, one either side of the hole.
 
 Estimated off the same photographs (rounding, and what nothing bears on)
@@ -77,10 +80,12 @@ FLANGE_H = 22.17     # Z, across the two flats
 SCREW_PITCH = 40.0   # X, centre to centre; both screws on the cutout's own Z centreline
 EAR_R = (FLANGE_W - SCREW_PITCH) / 2.0   # 4.885 — the ear is a round on its screw
 
-# ESTIMATED. The run of full width before the outline tapers away to the ears, and the
-# knuckle where the two meet. The taper is the tangent the hull draws between them, so
-# the run is the only figure the outline needs beyond the four calipered ones.
-FLANGE_FLAT_W = 24.0
+# THE TAPER IS THE TANGENT the outline draws from the full-width flat onto the ear's round, so
+# the run of that flat is the only figure the outline needs beyond the extents. It is not typed:
+# `EAR_SPAN` is calipered across the ear — from the round where the flat gives way to the taper,
+# to the round where the far taper meets the ear — and the taper's own 12.15 mm lies inside it.
+# `_flat_run_for` is what turns that reading back into the run.
+EAR_SPAN = 17.98
 FLANGE_KNUCKLE = 1.0
 FLANGE_T = 5.0       # ESTIMATED. Y, the flange's own thickness
 SCREW_D = 3.5        # ESTIMATED. clearance hole for the M3 that holds it
@@ -93,10 +98,8 @@ SCREW_D = 3.5        # ESTIMATED. clearance hole for the M3 that holds it
 BODY_W = 26.46       # X — the column, mating side and wiring side alike
 BODY_H = 18.18       # Z — the widest section outboard of the seating plane, so what a cutout
                      #     is cut to, with 1.995 mm of flange bearing either side of it
-BODY_KEY_FLAT = 17.98   # X — what the key leaves on the column's two long faces
-CAVITY_KEY_FLAT = 7.04  # Z — what the same key leaves on the recess's two end faces
-KEY = (BODY_W - BODY_KEY_FLAT) / 2.0        # 4.24 — the 45 deg cut's own leg
-CAVITY_H = CAVITY_KEY_FLAT + 2.0 * KEY      # 15.52 — the recess across the short axis
+KEY = 4.24           # ESTIMATED. the 45 deg cut on each corner of that section
+CAVITY_H = 15.52     # ESTIMATED. the recess across the short axis
 SHROUD_T = (BODY_H - CAVITY_H) / 2.0        # 1.33 — the wall the two leave between them
 CAVITY_W = BODY_W - 2.0 * SHROUD_T          # 23.80
 BODY_R = 1.0         # ESTIMATED. round on every corner of that outline
@@ -217,10 +220,8 @@ def stations_hold():
 # figure is the outline's own extent.
 
 
-def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
-    """The flange's lozenge: two flats `2 * half_height` apart running `2 * half_run`, a
-    round of `ear_r` on each screw at `+/-ear_x`, and the tangent the hull draws between
-    them."""
+def _tangent(half_run, half_height, ear_x, ear_r):
+    """Where the hull's straight taper touches the ear's round, as `(x, z)`."""
     dx, dz = ear_x - half_run, -half_height
     span = math.hypot(dx, dz)
     if ear_r >= span:
@@ -228,8 +229,39 @@ def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
             f"an ear of {ear_r:g} swallows the corner {span:.3f} away it is meant to tangent "
             f"from — there is no taper left between flat and ear.")
     heading = math.atan2(dz, dx) + math.pi - math.acos(ear_r / span)
-    tx = ear_x + ear_r * math.cos(heading)
-    tz = ear_r * math.sin(heading)
+    return ear_x + ear_r * math.cos(heading), ear_r * math.sin(heading)
+
+
+def _ear_span(flat_run):
+    """What a caliper reads across one ear on a flange with this flat: the two rounds the jaws
+    land on are where the flat gives way to the taper on one side, and where the far taper meets
+    the ear on the other, so the whole taper lies between them."""
+    a, hz = flat_run / 2.0, FLANGE_H / 2.0 - FLANGE_KNUCKLE
+    tx, tz = _tangent(a, hz, SCREW_PITCH / 2.0, EAR_R - FLANGE_KNUCKLE)
+    vx, vz = tx - a, tz - hz
+    length = math.hypot(vx, vz)
+    nx, nz = -vz / length, vx / length                      # the taper's outward normal
+    sx, sz = a + FLANGE_KNUCKLE * nx, hz + FLANGE_KNUCKLE * nz
+    ex, ez = tx + FLANGE_KNUCKLE * nx, tz + FLANGE_KNUCKLE * nz
+    return math.hypot(ex - sx, ez + sz)
+
+
+def _flat_run_for(span, lo=8.0, hi=40.0):
+    """The flat run whose ear reads `span`. Monotone in between, so a bisection settles it."""
+    for _ in range(80):
+        mid = (lo + hi) / 2.0
+        lo, hi = (mid, hi) if _ear_span(mid) > span else (lo, mid)
+    return lo
+
+
+FLANGE_FLAT_W = _flat_run_for(EAR_SPAN)     # 24.378
+
+
+def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
+    """The flange's lozenge: two flats `2 * half_height` apart running `2 * half_run`, a
+    round of `ear_r` on each screw at `+/-ear_x`, and the tangent the hull draws between
+    them."""
+    tx, tz = _tangent(half_run, half_height, ear_x, ear_r)
     return (wp.moveTo(-half_run, half_height).lineTo(half_run, half_height).lineTo(tx, tz)
               .threePointArc((ear_x + ear_r, 0.0), (tx, -tz))
               .lineTo(half_run, -half_height).lineTo(-half_run, -half_height).lineTo(-tx, -tz)
@@ -238,9 +270,8 @@ def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
 
 
 def _keyed_outline(wp, width, height, key):
-    """The C13/C14 section: a rectangle with every corner cut back at 45 deg. `BODY_KEY_FLAT`
-    is what the cut leaves across the long faces and `CAVITY_KEY_FLAT` what it leaves across
-    the recess's ends, and one `KEY` answers for both."""
+    """The C13/C14 section: a rectangle with every corner cut back at 45 deg. One `KEY` answers for
+    the column and for the recess inside it."""
     hw, hh = width / 2.0, height / 2.0
     return (wp.moveTo(-(hw - key), hh).lineTo(hw - key, hh)
               .lineTo(hw, hh - key).lineTo(hw, -(hh - key))
@@ -369,16 +400,14 @@ def selftest() -> int:
     if KEY > min(CAVITY_W, CAVITY_H) / 2.0:
         fails.append(f"a {KEY:g} key cuts past the middle of the {CAVITY_W:g} x "
                      f"{CAVITY_H:g} recess it is also cut into")
-    if abs(BODY_W - 2 * KEY - BODY_KEY_FLAT) > 1e-9 or abs(CAVITY_H - 2 * KEY
-                                                           - CAVITY_KEY_FLAT) > 1e-9:
-        fails.append(
-            f"one 45 deg key of {KEY:g} leaves {BODY_W - 2 * KEY:.2f} on the body's long faces "
-            f"and {CAVITY_H - 2 * KEY:.2f} on the recess's ends, and the calipers read "
-            f"{BODY_KEY_FLAT:g} and {CAVITY_KEY_FLAT:g}")
     if CAVITY_DEPTH >= SHROUD_PROUD + BODY_REACH:
         fails.append(
             f"the recess is {CAVITY_DEPTH:g} deep and the column runs "
             f"{SHROUD_PROUD + BODY_REACH:g} — its floor is out the back of the housing.")
+    if abs(_ear_span(FLANGE_FLAT_W) - EAR_SPAN) > 1e-6:
+        fails.append(
+            f"the flat runs {FLANGE_FLAT_W:.4f} and reads {_ear_span(FLANGE_FLAT_W):.4f} across "
+            f"the ear, and the calipers read {EAR_SPAN:g}")
     if FLANGE_FLAT_W / 2.0 >= SCREW_PITCH / 2.0 - EAR_R:
         fails.append(
             f"the flat runs to x {FLANGE_FLAT_W / 2.0:g} and the ear starts at "
@@ -391,7 +420,8 @@ def selftest() -> int:
         print(f"FAIL {line}")
     if not fails:
         print(f"ok  iec-c14-inlet AC-04  flange {FLANGE_W:g} x {FLANGE_H:g}, "
-              f"body {BODY_W:g} x {BODY_H:g} on a {KEY:.2f} key, "
+              f"flat {FLANGE_FLAT_W:.3f} off a {EAR_SPAN:g} ear span, "
+              f"body {BODY_W:g} x {BODY_H:g}, "
               f"{BODY_REACH:g} in, screws {SCREW_PITCH:g} apart")
     return 1 if fails else 0
 
