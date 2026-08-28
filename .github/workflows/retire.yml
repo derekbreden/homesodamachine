@@ -1,0 +1,80 @@
+# The release's dead assets, swept off it away from the path a publish takes.
+#
+# THE CEILING ARRIVES INSIDE A PUBLISH, WHICH IS THE ONE PLACE IT MUST NOT. `pack.py`'s
+# `make_room` is the only caller of the sweep, and it runs from `--write` on the machine that
+# cut the geometry — so the minute the release fills is a minute added to the path measured
+# from "an agent changed something" to "it is on homesodamachine.com". At 653 assets retirable
+# and `gh delete-asset` resolving each name against the whole listing first, that is 20.5
+# minutes serially and 6.7 four-wide, paid on the laptop, in front of the site.
+#
+# SO THE SWEEP RUNS HERE INSTEAD, and `make_room` becomes the floor it never reaches rather
+# than the thing that does the work. Nothing about correctness moves: this calls exactly the
+# `--retire` a laptop would, against the same release and the same retention window.
+#
+# IT IS A JANITOR AND IT HOLDS NOTHING. A run that fails leaves every asset on the release and
+# the next hour's run reads the same tree; `make_room` is still there underneath as the
+# backstop it always was. Nothing waits on this and nothing is withheld for it.
+
+name: retire
+
+on:
+  # HOURLY, BECAUSE THE STORE FILLS IN HOURS AND A CUT IS ~271 ASSETS. Four sessions committing
+  # took it 51 free to 12 free inside one hour, and the gate below means an hour where nothing
+  # filled costs one `gh` call rather than a clone.
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+# ITS OWN GROUP, SO IT NEVER TAKES `derive`'s SLOT. That group holds one running and one
+# pending and discards the rest, so a janitor sharing it would cost a derive of the newest tree.
+concurrency:
+  group: retire
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    steps:
+      # SHALLOW ON PURPOSE, AND DEEPENED ONLY IF THERE IS WORK. The history is 653 MB and most
+      # runs have nothing to sweep, so the clone is the cost worth not paying by default.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ONE `gh` CALL, WHICH NEEDS NO HISTORY AT ALL. How many assets the release holds is a
+      # question about the release; only WHICH of them may go is a question about reach, and
+      # that is what the deepen below is for.
+      - name: What the release holds
+        id: room
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cap=$(python3 -c "import sys;sys.path.insert(0,'tools/cad-artifacts');import pack;print(pack.RELEASE_ASSET_CAP)")
+          tag=$(python3 -c "import sys;sys.path.insert(0,'tools/cad-artifacts');import pack;print(pack.TAG)")
+          held=$(gh release view "$tag" --json assets --jq '.assets | length')
+          free=$(( cap - held ))
+          # A FULL CUT IS ~271 ASSETS, so the floor is what keeps `make_room` from ever being
+          # the one to act: below this a publish could arrive needing more room than the
+          # release has, and pay for the sweep itself.
+          floor=400
+          echo "release holds $held of $cap; $free free (sweep under $floor)"
+          if [ "$free" -lt "$floor" ]; then echo "sweep=true" >> "$GITHUB_OUTPUT";
+          else echo "sweep=false" >> "$GITHUB_OUTPUT"; fi
+
+      # REACH IS READ OFF EVERY COMMITTED LOCK, so the whole history has to be here before the
+      # sweep asks. `pack.py` refuses outright on a shallow clone rather than answering short —
+      # a truncated history names fewer locks and every asset only the missing ones name reads
+      # as unreachable, which is the verdict that deletes.
+      - name: The whole history, which reach is read off
+        if: steps.room.outputs.sweep == 'true'
+        run: git fetch --unshallow --quiet
+
+      - name: The sweep
+        if: steps.room.outputs.sweep == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/cad-artifacts/pack.py --retire
