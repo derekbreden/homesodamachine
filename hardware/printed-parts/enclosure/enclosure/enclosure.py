@@ -509,6 +509,18 @@ heatset_dia = _interface.heatset_dia  # ruthex M3 short heat-set
 heatset_len = 4.0            # ruthex RX-M3Sx4.0 brass body, set flush at its opening
 heatset_depth = _interface.heatset_depth
 socket_cap = wall            # one wall capping the insert's deep end
+# HOW FAR THE PIN'S OWN FACE STANDS OFF THE END WALL IT PINS UNDER, and what has to come out of
+# that slot is PRINT SUPPORT. A top piece prints mouth-down and lays its ceiling strip over this
+# corner on air, so what holds that strip up comes down on the plug's crown; a bottom piece
+# stands the same slot over its floor slab. The slot is open on the seam mouth and a pick reaches
+# it from the end of the piece, which is the one direction there is anything to reach from.
+#
+# AND IT IS THE FLOOR LEVEL THAT SETS THE FIGURE. Walked any nearer its own end wall, the lower
+# collar's carve (`_y_lip_channel`) leaves a corner of the front lip standing in the back half's
+# register and the two bottom pieces stop being a slip fit — 3.3 mm3 of contact at 12, 45.5 at 9.
+# `_report_split` reads it on every build, and both ends carry the one figure, so one reach
+# clears all four bosses.
+boss_end_clear = 14.0
 # The ±X walls' own mounting bosses — what a body hung on a side wall is fastened by. Each
 # stands off the wall's INNER face and reaches inboard to the body's own mounting plane,
 # bored for a ruthex M3 short from that end; the screw comes the other way, in through the
@@ -1128,13 +1140,15 @@ front_bottom_flank_t = 9.0
 # reach — the y band the metal is actually in, how far inboard it comes, and the clearance the
 # kept run then stands off it — against the box each row would have been read off:
 #
-#   ground-stack   y 236.00..247.32, in to |x| 86.45, gives up 5..22    (box y 232..250, x 84.45)
 #   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 5..22    (box y 252.5..322.5)
-#   c14-inlet      y 456.75..458.75, in to |x| 80.71, gives up 0..22    (box y 429.8..467.8)
+#   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..22    (box y 325..343, x 84.45)
+#   c14-inlet      y 456.75..458.75, in to |x| 80.71, gives up 0..14    (box y 429.8..467.8)
 #
 # The C14 is the sharpest of the three: its box says the receptacle is under this strip for the
 # last 31 mm of it, and the casting is in the corbel for TWO — the moulded rim round the
-# aperture, and nothing else on the part.
+# aperture, and nothing else on the part. That rim comes hard against the panel's edge and
+# carries out to |x| 92.50, so it takes the wedge's thin end and the run behind it; the last
+# eight millimetres of run, where the wedge is deepest and roots on the flank, stand.
 #
 # THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes four rows because what
 # it occupies is four different things. Read off the placed chain against the full wedge, the
@@ -1157,13 +1171,16 @@ front_bottom_flank_t = 9.0
 # these two rows back against the ties it was handed, so a band that moves off its zip tie says so.
 _RAIL = 22.0                # `ceiling_panel.rail_run`, restated here so the rows can read it
 back_top_ceiling_reliefs = (
-    ("ground-stack",   +1.0, 236.0, 248.5, 5.0, _RAIL),   # the +X ground bar's stack, fore end
     # THE BAND STANDS OFF THE BOSSES AT ITS OWN ENDS. The relay's two upper mounting bosses are
     # `mount_boss_dia` cylinders centred y 254.5 and 320.5, so their end faces lie ON y 251 and
     # 324 — and a relief ending there would put the cut's own face on a boss's, which is four
-    # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face.
+    # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face. The
+    # stack's own single boss is centred y 334.0, so its end faces lie on y 330.5 and 337.5.
     ("relay-1",        +1.0, 250.0, 325.0, 5.0, _RAIL),   # the relay's crown, mid-strip
-    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, _RAIL),   # the receptacle's rim, on the +Y wall
+    ("ground-stack",   +1.0, 327.0, 341.5, 5.0, _RAIL),   # the +X ground bar's stack, aft of it
+    # A millimetre outboard of the rim's own face at |x| 92.50, so the cut stands on a plain
+    # face the way the relay's band does at its ends.
+    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, 14.0),    # the receptacle's rim, on the +Y wall
     # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
     # bands give up the whole run, so the zip tie's cavity opens on air out to the wall.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
@@ -1172,14 +1189,14 @@ back_top_ceiling_reliefs = (
     ("asse1022-tie-aft",  -1.0, 384.0, 390.5, 0.0, _RAIL),
 )
 # AND HOW FAR A FULL-DEPTH BLOCK MAY STAND ON A RELIEVED BAND, WHICH IS NOT `keep`. `keep` is the
-# corbel's own run, and a corbel is SHALLOW at its outboard edge: the 5 mm of strip left over the
-# ground stack hangs 5 mm under the ceiling, the stack's crown stands 5.61 mm under that, and the
-# two never meet. A boss's pier descends the whole way to its screw's counterbore
-# (`_back_top_ceiling`), and at THAT storey the stack stands in to |x| 84.45 — so what a pier may
-# keep of the band is its own figure, measured on the same solids the rows above were.
-# Stated as {station: run}. A pier crossing a relieved band nobody has measured for it is what
-# `ceiling_pier_run` refuses, rather than borrowing the corbel's figure and descending into a body.
-back_top_ceiling_pier_runs = {"ground-stack": 4.0}   # 0.95 mm off the stack, at a pier's depth
+# corbel's own run and a corbel is SHALLOW at its outboard edge, where a pier descends the whole
+# way to its screw's counterbore (`_back_top_ceiling`) — so a body a corbel clears by a
+# millimetre is a body a pier arrives inside of. Stated as {station: run}, measured at the pier's
+# own storey on the same placed solids the rows above were, and EMPTY: the panel's two fixed
+# bosses stand at y 236..244.075, the fore end of both strips, and no relief takes a band there.
+# A pier crossing a relieved band nobody has measured for is what `ceiling_pier_run` refuses,
+# rather than borrowing the corbel's figure and descending into a body.
+back_top_ceiling_pier_runs = {}
 
 
 @functools.lru_cache(maxsize=1)
@@ -1974,6 +1991,29 @@ _wall_block = {}
 # what a hand has to get past, and a pocket that hugged a casting's every feature would be a
 # pocket nothing could be lowered into.
 column_relief_slip = 1.0
+
+
+def _column_relief(inner, sx, sy, room, zj):
+    """One column's pocket for the body standing in it: the room, and the rise its ceiling takes
+    into the column over it. Clipped to the PILLAR — the column and the lip's skin wrapping it
+    (`_column_pillar`) — so what a pocket can ever take is that and never the wall behind it or
+    the boss beside it.
+
+    THE CEILING RISES OFF THE TWO FACES THE COLUMN HOLDS IT BY. A pocket is a bite out of a
+    corner, and the corner is where its material is: the two faces toward it have column under
+    them the whole height, and the two away from it open on the cavity. A piece bedded on Z−
+    closes such a pocket back over at `relief_chamfer` — the ceiling stands one millimetre
+    higher for every millimetre it reaches away from a held face, which is the pocket's own plan
+    walked in off both of them as the print climbs.
+
+    The rise is air over air, and its height is the pocket's own plan: at `min(width, depth)`
+    the two walks have met and there is nothing left of the room to stand over."""
+    x0, x1, y0, y1, z0, z1 = room
+    held_x, free_x = (x1, x0) if sx > 0 else (x0, x1)
+    held_y, free_y = (y1, y0) if sy > 0 else (y0, y1)
+    rise = _xz_prism(y0, y1, [(free_x, z1), (held_x, z1), (free_x, z1 + abs(x1 - x0))]).intersect(
+        _yz_prism(x0, x1, [(free_y, z1), (held_y, z1), (free_y, z1 + abs(y1 - y0))]))
+    return _ybox(*room).fuse(rise).intersect(_column_pillar(inner, sx, sy, zj))
 
 
 def _block_key(x_in, sx, y0, y1, depth):
@@ -3532,12 +3572,13 @@ def _bosses(inner, y_joint):
     agree. The manifold stack denies the −X wall a socket body over one band, so
     its levels there slide to the nearest height that can hold one.
 
-    The end levels sit one `wall` plus half the slot off the floor and the ceiling,
-    where a collar of one wall round that slot lands its own face on each."""
+    The end levels stand the PIN'S OWN FACE `boss_end_clear` off the floor and the
+    ceiling. What is in that slot is print support, and both walls carry the same
+    figure at both ends, so one reach clears all four."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
-    zt = iz1 - wall - r
-    zf = iz0 + wall + r
+    zt = iz1 - boss_end_clear - plug_dia / 2.0
+    zf = iz0 + boss_end_clear + plug_dia / 2.0
     fy0, fy1 = _y_corner(inner, y_joint)
     out = []
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
@@ -4574,9 +4615,20 @@ def _back_top_wall(inner, outer, box, zj):
     back-bottom's own tongue, and the lane it rises into is exactly the section this would add —
     so there is nothing to add there. Below the rim that wall is already `2 * wall`, carried to
     the slab as the lip's own skin (`_lip_underwall`); above it, this. One section, top to
-    bottom, and the rim is where the two meet rather than a step in either."""
+    bottom, and the rim is where the two meet rather than a step in either.
+
+    AND ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING, the way `_back_top_flanks`'
+    does on the two walls that turn out of this one. This piece beds on its own seam rim and
+    builds in +Z, so a section that began square at the rim would put a `depth`-wide soffit the
+    machine's whole width over the lip's lane. Taken back at 45° it is a wall the print grows
+    into, and what the ramp gives up is `depth` of height in a band the lip's travel never
+    reaches."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
-    band = _ybox(ix0, ix1, back_top_wall_face(), iy1, zj + z_rise, iz1)
+    rim, depth = zj + z_rise, back_top_wall_t - wall
+    band = _ybox(ix0, ix1, back_top_wall_face(), iy1, rim, iz1)
+    band = band.cut(_yz_prism(ix0 - 1.0, ix1 + 1.0,
+                              [(iy1, rim), (back_top_wall_face(), rim),
+                               (back_top_wall_face(), rim + depth)]))
     # The wall's own holes, bored in `build_back_half` before this stood here.
     for cutter in _port_cuts(box.pack.back_ports, iy1 - 5.0, outer[3] + 5.0):
         band = band.cut(cutter)
@@ -4603,6 +4655,14 @@ def _back_top_wall_relief_cut():
     return out
 
 
+def back_top_flank_start(y_joint):
+    """Where back-top's own flank section begins — past BOTH telescopes, so it costs the seams
+    nothing. The front half's Y lip runs to `y_joint + lip_len` on this wall surface
+    (`_front_lip`); `z_lip_y_margin` past that rim is the first plane the closing front half
+    never lands on, and everything this piece stands on its own flank starts there."""
+    return y_joint + lip_len + z_lip_y_margin
+
+
 def _back_top_flanks(inner, outer, box, y_joint, zj):
     """THE SECTION BACK-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`back_top_flank_t`). Fused before any of this piece's flank furniture, so the Wago wells,
@@ -4624,7 +4684,7 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     instead of this one."""
     ix0, ix1, _iy0, iy1, _iz0, iz1 = inner
     fx0, fx1 = back_top_flank_face()
-    y0, rim = y_joint + lip_len + z_lip_y_margin, zj + z_rise
+    y0, rim = back_top_flank_start(y_joint), zj + z_rise
     depth = back_top_flank_t - wall
     band = None
     for x_in, x_face in ((ix0, fx0), (ix1, fx1)):
@@ -4640,6 +4700,11 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
         band = seg if band is None else band.fuse(seg)
     for bx0, bx1, by0, by1, bz0, bz1 in box.pack.pan_sleeve[0]:
         band = band.cut(_ybox(bx0 - 1.0, bx1 + 1.0, by0, by1, bz0, bz1))
+        # AND WHERE IT RESUMES OVER THE BLOCK'S LID IT RISES AT `relief_chamfer` TOO, the same
+        # ramp on the same plane it takes at the rim: what the block's mouth leaves standing
+        # here is this section's `depth`, and struck square it is a ledge over the pan's opening.
+        band = band.cut(_xz_prism(by0, by1,
+                                  [(bx0, bz1), (fx0, bz1), (fx0, bz1 + depth)]))
     # The PRV chase stands its own share of this band later (`_vent_chase`): each piece
     # carries the height of the rib it owns, so neither crosses into the other's travel.
     # The one thing this wall was already bored for on the back half: the tray's own withdrawal
@@ -4681,11 +4746,13 @@ def _back_top_ceiling(solid, inner, y_joint):
     (`ceiling_pier_run`) — a pier takes the whole storey under the strip where the corbel takes a
     wedge of it, and a body is nearer to the one than to the other.
 
-    Its underside is a soffit and hangs, the way the ASSE anchor's block does one storey
-    down, and takes print support."""
+    AND ONLY THE PAD HANGS. The block's underside rises off the pad at 45° into the corbel's own
+    underside coming down the other way, so what is laid on air under a pier is the screw's head
+    face and nothing else."""
     cp = _ceiling()
     iz1 = inner[5]
     half, flanks = cp.panel_half_w, back_top_flank_face()
+    mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()
 
     # THE FIELD. The panel carries the top wall's own section over its whole footprint, so what
     # this piece gives up is exactly that footprint and nothing under it.
@@ -4693,10 +4760,22 @@ def _back_top_ceiling(solid, inner, y_joint):
 
     # THE TWO STRIPS. Each corbel is cut to its reliefs BEFORE it is fused, so a relief takes the
     # corbel and never the anchor, the flank section or the wall standing behind it.
+    #
+    # AND THE STRIP RUNS FORE OF THE FIELD, on the DADO'S BLIND END rather than the panel's edge.
+    # There is no panel beside it there and no field to take away: the top wall fore of `fore_y`
+    # is what the dado's own cut leaves of it, so that plane is the strip's inboard edge and the
+    # wedge is struck from it. It stops fore where the flank section does
+    # (`back_top_flank_start`), which is the first plane the closing front half never lands on —
+    # ahead of that the ceiling is the mouth the front lip telescopes through, and a corbel there
+    # would be drawn inside the lip's own lane.
     for sx, wall_x in ((+1.0, flanks[1]), (-1.0, flanks[0])):
         edge, deep = sx * half, abs(wall_x) - half
         corbel = _xz_prism(cp.fore_y, cp.aft_y,
                            [(edge, iz1), (wall_x, iz1), (wall_x, iz1 - deep)])
+        fore_deep = abs(wall_x) - blind_x
+        corbel = corbel.fuse(_xz_prism(back_top_flank_start(y_joint), cp.fore_y,
+                                       [(sx * blind_x, iz1), (wall_x, iz1),
+                                        (wall_x, iz1 - fore_deep)]))
         for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs:
             if rsx != sx:
                 continue
@@ -4732,7 +4811,6 @@ def _back_top_ceiling(solid, inner, y_joint):
     # carried square through it — floor to `roof_z`, with the rest of the top wall bridging the
     # mouth plane over it — a `depth`-wide bridge from the strip to the wall, `wall - lip_t`
     # thick, where beside the field that same section is the lip that feathers to nothing.
-    mouth_x, blind_x, floor_z, roof_z, chamfer = cp.dado()
     slope, depth = math.tan(math.radians(chamfer)), blind_x - mouth_x
     over = 1.0
     for sx in (+1.0, -1.0):
@@ -4751,8 +4829,21 @@ def _back_top_ceiling(solid, inner, y_joint):
         sx = 1.0 if cx > 0 else -1.0
         # The pier's own band is the block's, fore edge to the socket's aft face, and it stands out
         # to wherever the strip over that band does.
+        #
+        # AND ITS UNDERSIDE IS A RAMP OFF THE PAD, not a soffit the length of that run. The pad
+        # has to stand at the screw's own head face and the panel's socket lands tangent to the
+        # strip, so the pad's outboard edge IS the panel's edge — and out of that edge the block
+        # rises at 45° while the corbel's underside descends at 45° coming the other way. The two
+        # slopes close on each other over the middle of the run, so the only thing under this
+        # block laid on air is the pad itself.
         out = sx * (half + ceiling_pier_run(sx, cp.fore_y, cy + r))
-        solid = solid.fuse(_ybox(min(cx, out), max(cx, out), cp.fore_y, cy + r, floor, iz1))
+        pad, ceil = cx + sx * r, iz1 - floor
+        rise = min(abs(out - pad), ceil)
+        sec = [(cx, floor), (pad, floor), (pad + sx * rise, floor + rise)]
+        if rise < ceil - 1e-9:
+            sec.append((out, iz1))          # a relieved band stops the ramp short of the ceiling
+        sec.append((cx, iz1))
+        solid = solid.fuse(_xz_prism(cp.fore_y, cy + r, sec))
         solid = solid.fuse(_zcyl(r, cx, cy, floor, cp.screw_insert_open_z).intersect(plan))
         # THE SOCKET TRAVELS THIS LANE and nothing of this piece stands in it. At the final pose
         # its mouth lands on the fixed boss's top face.
@@ -5634,6 +5725,14 @@ def build_back_half(box):
     return cq.Workplane(obj=back)
 
 
+# HOW FAR THE SLEEVE'S CORBEL RUNS OUT FROM THE WALL. The block's floor is one `wall` under the
+# tray and the tray's own length carries it east off the flank, so printed Z−-down the whole
+# plate arrives over air. Struck on the plane the block is stated on — the box's own interior —
+# so a piece carrying a thicker flank there stands that much less of it proud; what stops it is
+# the flavour line's lane, which is what crosses the band under the block (`fluid-28`).
+pan_sleeve_corbel = 20.0
+
+
 def _pan_sleeve(solid, sleeve, z0, z1):
     """The ASSE drip pan's sleeve fused onto a −X wall and its berth cut back out, for a piece whose
     Z band holds the block's own top.
@@ -5641,13 +5740,30 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     The pack states the block as one world box rooted on that wall's inner face, and the berth
     as the two boxes the tray's own section makes. Fused THEN cut: the block closes the wall's
     slot on its way past and the berth reopens it, so the opening a hand meets from outside is
-    the berth's own shape end to end."""
+    the berth's own shape end to end.
+
+    A 45° CORBEL CARRIES THE BLOCK'S FLOOR, run the block's whole depth and rooted on the flank
+    the block is rooted on, tapering to nothing `pan_sleeve_corbel` off it. What the corbel does
+    not reach stays a soffit: the tray is longer than any wedge off that one wall can hold, and
+    nothing stands under the block's east half to root a second one on.
+
+    AND A NOTCH CARRIED PAST THE BLOCK'S OWN LID crosses the wall alone — the lead race does,
+    over the moisture plate's solder holes — so its head takes the 45° hip, struck on the notch's
+    own half-width, and the lintel over it is a ridge rather than a plate."""
     adds, cuts = sleeve
     blocks = [b for b in adds if z0 <= b[5] <= z1]
     for x0, x1, y0, y1, bz0, bz1 in blocks:
         solid = solid.fuse(_ybox(x0, x1, y0, y1, bz0, bz1))
+        solid = solid.fuse(_xz_prism(y0, y1,
+                                     [(x0 + pan_sleeve_corbel, bz0), (x0, bz0),
+                                      (x0, bz0 - pan_sleeve_corbel)]))
+    lid = max((b[5] for b in blocks), default=None)
     for x0, x1, y0, y1, cz0, cz1 in (cuts if blocks else ()):
         solid = solid.cut(_ybox(x0, x1, y0, y1, cz0, cz1))
+        if cz1 > lid:
+            solid = solid.cut(_yz_prism(x0, x1,
+                                        ((y0, cz1), ((y0 + y1) / 2.0, cz1 + (y1 - y0) / 2.0),
+                                         (y1, cz1))))
     return solid
 
 
@@ -5846,6 +5962,12 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
     of the wall is still standing outboard of it. The mouth is `vent_channel_w` square, on the
     tube's own axis, and its lip is the rib's east face — the face that lands on the core.
 
+    ITS CEILING IS A 45° HIP off the channel's own two jambs, and the rib's cap is that hip again
+    off the rib's — so the roof is laid on itself course by course rather than bridged across the
+    channel, and the two run parallel with the rib's own stock between them. The mouth carries
+    the hip through the lip: a gable over the square, and the same close a vent slot makes at its
+    own two ends.
+
     NEITHER THE RIB NOR THE PASSAGE CROSSES THE SEAM. They part on different planes and for
     different reasons, and between them nothing of one piece stands in the other's travel.
     THE RIB PARTS ON THE RIM, which is the bottom piece's own top: below it the rib is the
@@ -5895,9 +6017,17 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                           / ramp_depth)
         rim = z_seam + z_rise                       # the back column's own; the chase is its
         liner_x = inner[0] + slide_slip + vent_rib_wall
+        hip = vent_channel_w / 2.0                  # a 45° close on the channel's own half-width
         rib = _xz_prism(sy - half, sy + half,
                         [(inner[0], sz + half), (rib_x, sz + half),
                          (rib_x, ramp_top), (inner[0], rib_end)])
+        # AND THE CAP IS THAT HIP AGAIN, struck at the same 45° off the RIB's own two edges. The
+        # channel's ceiling closes on a hip off its jambs (below) and the rib is `vent_rib_wall`
+        # wider than that channel at each jamb, so the two run parallel `2 * vent_rib_wall` apart
+        # in height — more section across the slope than the flat cap carried straight up.
+        rib = rib.fuse(_yz_prism(inner[0], rib_x,
+                                 ((sy - half, sz + half), (sy, sz + 2.0 * half),
+                                  (sy + half, sz + half))))
         # THE RIB KEEPS OUT OF THE JOINT'S BAND AND THE DUCT DOES NOT, because one of them
         # is material and the other is air. Over the seam's own storey the joint reaches
         # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —
@@ -5930,6 +6060,13 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
                                      (inner[0], rim),                # is the duct's west face;
                                      (liner_x, rim),                 # above it the liner is,
                                      (liner_x, mouth_top)]))         # and the rib roofs the duct
+        # THE ROOF IS A HIP AND NOT A LINTEL. That last edge is `vent_channel_w` of ceiling
+        # struck flat between the channel's two jambs, and this piece builds in +Z — so the
+        # ceiling closes at 45° off those jambs the way a vent slot's own two ends do, over the
+        # duct and on through the lip. What the mouth gains is a gable over its square.
+        solid = solid.cut(_yz_prism(liner_x, rib_x + 1.0,
+                                    ((sy - hip, mouth_top), (sy, mouth_top + hip),
+                                     (sy + hip, mouth_top))))
     return solid
 
 
@@ -6499,9 +6636,12 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
     but a hole through solid material, and a zip tie in it stays where it was put. Two zip ties, two
     holes: the block's back is solid fore and aft of each and between them.
 
-    THE BLOCK'S UNDERSIDE HANGS. Printed Z−-down that face is a horizontal soffit under the
-    lane, and it takes print support the way the ASSE drip pan's rails do — the V's own two flanks
-    stand 30° off vertical and carry themselves.
+    A 45° CORBEL CARRIES THE BLOCK'S UNDERSIDE, run the anchor's whole length and rooted on the
+    wall the block is rooted on. It tapers to nothing at the DEEPEST SECTION'S OWN V FOOT — the
+    same apex the tie cavities are struck on — so under the barrel it carries that underside
+    whole, and under a bored section, where the block reaches further east than any wedge off
+    this wall may stand without meeting what hangs off the chain, it carries what it reaches.
+    The V's own two flanks stand 30° off vertical and carry themselves.
 
     NOTHING HERE HOLDS THE CHAIN UP. The V does that, on two faces of a section machined into the
     part; the ties only shut its mouth. Cut every tie and the chain still lies where it lies,
@@ -6528,6 +6668,16 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
         # east face at a right angle.
         solid = solid.fuse(_ybox(inner[0], x_axis, sy0, sy1, z_axis - dn, z_axis + up))
         solid = solid.cut(_ycyl(seat_r, x_axis, z_axis, sy0, sy1))
+    # THE CORBEL UNDER ALL OF THEM, on the deepest section's own V foot: that flank is the
+    # furthest west anything of this anchor comes down to, so a 45° struck to it is the wedge the
+    # narrowest section can carry whole and every wider one can stand on. Fused before the ties'
+    # channels so each channel goes on through it.
+    apex = min(w for _y0, _y1, w, _r, _a in sections)
+    foot = apex + dn * run
+    corbel = foot - inner[0]
+    solid = solid.fuse(_xz_prism(sections[0][0], sections[-1][1],
+                                 [(foot, z_axis - dn), (inner[0], z_axis - dn),
+                                  (inner[0], z_axis - dn - corbel)]))
     # THE ZIP TIES' CHANNELS, ONE EACH, cut after every section is fused so a neighbour's block
     # cannot fill one back in. Struck on the DEEPEST section's apex, which is the barrel's: that V
     # stands furthest west, so a cavity clear of it by one `wall` is clear of the other two by more
@@ -6542,11 +6692,10 @@ def _asse_cradle(solid, inner, station, y0, y1, z0, z1):
                 f"_asse_cradle: tie band {ty:.2f} falls outside the anchor's run "
                 f"[{sections[0][0]:.2f}, {sections[-1][1]:.2f}]. A zip tie's channel is cut through "
                 f"the block at its own band, so a band off either end has no channel at all.")
-    apex = min(w for _y0, _y1, w, _r, _a in sections)
     for ty in ties:
         solid = solid.cut(_asse_tie_cavity(apex, inner[0], z_axis,
                                            ty - tie_cav_wide_w / 2.0,
-                                           ty + tie_cav_wide_w / 2.0, up, dn))
+                                           ty + tie_cav_wide_w / 2.0, up, dn + corbel))
     return solid
 
 
@@ -6558,8 +6707,11 @@ def _asse_tie_cavity(x_apex, x_wall, z_axis, y0, y1, up, dn):
     and the room to turn the vertex where a zip tie needs that, out of one shape rather than out of a
     chamfer and a round.
 
-    Both ends run one millimetre past the block's faces, so each mouth is cut open rather than
-    closed by a plane coincident with the face it opens on."""
+    Both ends run one millimetre past the faces they open on, so each mouth is cut open rather
+    than closed by a plane coincident with that face. `dn` is what the caller has standing under
+    the axis — the block's own storey and the corbel below it — because a tie's loop leaves this
+    cavity by running east UNDER all of it, and a channel that stopped at the block would be
+    stopped by the corbel."""
     run = 1.0 / math.tan(math.radians(asse_v_half))
     x_in = x_apex - wall / math.sin(math.radians(asse_v_half))   # a `wall` west of the anchor
     x_w = x_wall + wall                                          # and a `wall` off the side wall
@@ -6884,6 +7036,11 @@ tube_anchor_cavity_depth = wall
 # Do not add a skin-thin backing merely to shave a fraction from an already compact channel.
 # A capped channel must put at least the cavity's routing buffer back into the load path.
 tube_anchor_backing_min = tie_cav_buffer
+# A CORBEL IS A WEDGE THAT HAS TO FIT, and what it grows into is the band the box keeps clear
+# against its own interior: `side_band_inset`, what a body on the floor stands off the wall where
+# the seam's boss chain runs. A rib whose axis stands inside that band gets the whole wedge; a
+# deeper one gets a truncated one, tapering out at the band's edge.
+tube_anchor_corbel_reach = side_band_inset
 
 
 def tube_anchor_tie_loop(seat_r: float) -> float:
@@ -6935,6 +7092,21 @@ def _anchor_rib(origin, u, n, length, reach, b0, b1):
     )
 
 
+def _anchor_corbel(origin, u, n, length, a_hang, b_root, deep):
+    """The 45 degree gusset under a rib's flank — `deep` under it at the root face, tapering to
+    nothing `deep` off that face and standing nowhere past there.
+
+    `a_hang` is the flank it stands under, and it grows outboard of that flank."""
+    return (
+        cq.Workplane(_anchor_plane(origin, u, n))
+        .polyline([(a_hang, b_root - deep), (a_hang + math.copysign(deep, a_hang), b_root),
+                   (a_hang, b_root)])
+        .close()
+        .extrude(length)
+        .val()
+    )
+
+
 def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
     """Every tube anchor whose whole rib this piece owns.
 
@@ -6956,18 +7128,33 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
     bargain read off the station rather than stated: the wall keeps its full section everywhere the
     rib does not need it, and one `wall` stands behind the relief because `lane` is one `wall` in.
 
-    THE RELIEF IS WIDER THAN THE RIB, and by the zip tie. What the loop runs down is the rib's two
-    FLANKS, from the channel's floor to the tube's own axis plane (`tube_anchor_tie_loop`), so a
-    relief cut to the rib's own reach would hand the zip tie a channel it could not leave. It is
-    carried `tie_t + tie_cav_buffer` past each flank instead — the same room over the zip tie
-    every cavity on this box carries — and those two lobes are what the loop comes down.
+    THE RELIEF IS WIDER THAN THE RIB OVER THE TIE BAND ALONE, and there by the zip tie. What the
+    loop runs down is the rib's two FLANKS, from the channel's floor to the tube's own axis plane
+    (`tube_anchor_tie_loop`), so a relief cut to the rib's own reach would hand the zip tie a
+    channel it could not leave. Over the cavity's own `tie_cav_w` it is carried
+    `tie_t + tie_cav_buffer` past each flank instead — the same room over the zip tie every cavity
+    on this box carries — and those two lobes are what the loop comes down. The rib's two
+    `tie_cav_wall` ends take the rib's own reach, which the rib fills back: the wall keeps its
+    full section everywhere the zip tie never arrives.
 
     THE CAVITY IS A REMAINDER: the rib stands one `wall` over the bore's crown down its whole
-    length and its two ends carry on to the face it roots on. In the middle, the zip tie keeps at
-    most `tube_anchor_cavity_depth` once there is enough excess reach to add substantial backing;
-    that excess is filled from the root face. The crown is therefore always its floor and either
-    the root face or that backing is its roof — neither is cut, so there is no cutter face to
-    graze the opening.
+    length and its two `tie_cav_wall` ends carry on to the face it roots on. The `tie_cav_w`
+    between them is the tie band, the one band the relief takes wide, and there the zip tie keeps
+    at most `tube_anchor_cavity_depth` once there is enough excess reach to add substantial
+    backing; that excess is filled from the root face. The crown is therefore always its floor and
+    either the root face or that backing is its roof — neither is cut, so there is no cutter face
+    to graze the opening.
+
+    A FLANK THAT LOOKS DOWN CARRIES A CORBEL — a 45 degree wedge rooted on the same face the rib
+    is, growing off that face into `tube_anchor_corbel_reach`. A rib whose axis stands inside that
+    band is a triangle, `b_root` deep at the root face and nothing at the tube's axis plane; a
+    deeper one is a truncated wedge, out to the band's edge and no further, and the deep end of
+    its flank keeps its flat. Which flank hangs comes off the profile's own `a` axis read in the
+    box's frame, so a rib rooted on the floor or the ceiling, or with its tube running along the
+    build axis, has neither flank down and takes none. It stands over the same two `tie_cav_wall`
+    ends and stops at the tie band, because the tie comes down that flank to the axis plane over
+    `tie_cav_w` and a corbel there is the one path it has closed. The band of flank between the
+    two corbels bridges.
 
     THE ZIP TIE CLOSES ROUND THE TUBE AND THE RIB'S OWN BACK TOGETHER: through the cavity, out one
     flank, round the far side of the tube and back in the other. What it pulls is the tube into
@@ -7016,20 +7203,30 @@ def _tube_anchors(solid, roots, lane, stations, y0, y1, z0, z1):
         # is UNIFIED before it joins the piece. A fuse imprints the seam of every solid that went
         # into it, so a rib fused straight onto the wall carries its lip in as many pieces as it
         # was laid down in — three here — and its bore in as many again.
+        band = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
+        # The flank that looks down — None where the profile's `a` axis is level — and how far
+        # off the root face its corbel grows: to the band's edge or the axis plane, whichever it
+        # arrives at first.
+        a_hang = None if abs(t[2]) < 1e-9 else math.copysign(reach, -t[2])
+        corbel = min(b_root, b_root - b_lane + tube_anchor_corbel_reach)
         if relief:
             # THE RELIEF, cut before the rib is fused so the rib is what fills it. Its floor is
-            # `lane`, so what stands behind it is the one `wall` this box carries everywhere, and
-            # its two lobes past the rib's flanks are where the zip tie comes down.
+            # `lane`, so what stands behind it is the one `wall` this box carries everywhere. The
+            # rib's own reach runs the whole length; the two lobes the zip tie comes down are the
+            # tie band's, and the wall keeps its full section at the rib's two ends.
             solid = solid.cut(_anchor_rib(origin, u, n, tube_anchor_len,
+                                          reach, b_face, b_lane))
+            solid = solid.cut(_anchor_rib(band, u, n, tie_cav_w,
                                           reach + tie_t + tie_cav_buffer, b_face, b_lane))
         rib = _anchor_rib(origin, u, n, tube_anchor_len, reach, 0.0, b_crown)
         for s0, s1 in ((0.0, tie_cav_wall), (tie_cav_wall + tie_cav_w, tube_anchor_len)):
             end = tuple(origin[k] + u[k] * s0 for k in range(3))
             rib = rib.fuse(_anchor_rib(end, u, n, s1 - s0, reach, b_crown, b_root))
+            if a_hang is not None and corbel > 1e-9:
+                rib = rib.fuse(_anchor_corbel(end, u, n, s1 - s0, a_hang, b_root, corbel))
         if b_root - b_crown >= tube_anchor_cavity_depth + tube_anchor_backing_min:
-            middle = tuple(origin[k] + u[k] * tie_cav_wall for k in range(3))
             rib = rib.fuse(_anchor_rib(
-                middle, u, n, tie_cav_w, reach,
+                band, u, n, tie_cav_w, reach,
                 b_crown + tube_anchor_cavity_depth, b_root))
         rib = rib.cut(_anchor_bore(origin, u, seat_r, tube_anchor_len))
         solid = solid.fuse(rib.clean() if hasattr(rib, "clean") else rib)
@@ -7142,7 +7339,13 @@ def _keystone_receptacle(solid, outer, station, z0, z1):
     section, and a boss standing inboard gives the rest.
 
     THE BOSS IS FUSED, THEN THE POCKET IS CUT, THEN THE CATCHES ARE FUSED BACK. The catches
-    stand inside the pocket, and a cut running after them would take them off again."""
+    stand inside the pocket, and a cut running after them would take them off again.
+
+    AND THE BOSS STANDS ON A 45° WEB, the same one a port chip's boss and a +X mounting boss
+    stand on. This piece prints on its Z− face with the +Y wall on the bed, so the block's own
+    underside is its reach off that wall of ceiling starting in air; the web is that reach taken
+    back down to the wall at `relief_chamfer`. ITS FIGURE IS THE BLOCK'S OWN BOX — the wall face
+    it roots on, the free face it ends at, and the soffit between them."""
     if station is None:
         return solid
     x, z = station
@@ -7152,6 +7355,10 @@ def _keystone_receptacle(solid, outer, station, z0, z1):
     block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
     if block is not None:
         solid = solid.fuse(block)
+        b = block.BoundingBox()
+        solid = solid.fuse(_yz_prism(b.xmin, b.xmax,
+                                     [(b.ymax, b.zmin), (b.ymin, b.zmin),
+                                      (b.ymax, b.zmin - (b.ymax - b.ymin))]))
     cutter, _bands = _keystone.receptacle_cut(x, z, y_face)
     solid = solid.cut(cutter)
     if catches is not None:
@@ -7401,8 +7608,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
     # so what a pocket can ever take is that and never the wall behind it or the boss beside it.
     for sx, sy, _name, room in box.column_reliefs:
-        pillar = _column_pillar(inner, sx, sy, box.splits[0] if sy < 0 else box.splits[1])
-        piece = piece.cut(_ybox(*room).intersect(pillar))
+        piece = piece.cut(_column_relief(
+            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
     # And the condenser's two vents, which are the last cut this piece takes for the same reason
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
@@ -7962,7 +8169,6 @@ def main():
         "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
         "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
         "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
-        "CEILING_PIER_KEEP": f"{min(back_top_ceiling_pier_runs.values()):.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.
         "BACK_TOP_FLANK_GROWN": f"{back_top_flank_t - wall:.4g} mm",

@@ -4826,7 +4826,7 @@ def build_pcba(foam, ahead_of, wall_seat):
 
 
 # The rest of the power block, on the two crowns: relay #1 on the MAIN BOARD'S crown with the ground
-# stud one clearance forward of it, and the five Wago wells on the BRICK'S. Each takes the same
+# stud one clearance aft of it, and the five Wago wells on the BRICK'S. Each takes the same
 # wall seat as its east face, so the whole group stands on one plane against the wall, in the
 # depth `enclosure.east_band_free_y` leaves aft of the Y seam's own bosses — the lever nuts
 # excepted, which seat on the wall itself because a well is not a boss.
@@ -4979,9 +4979,13 @@ def build_stack(psu, pcba, wagos, wall_seat):
 
     Relay #1 takes the MAIN BOARD'S crown — the main board is the tallest body on the cap and the shortest
     in depth, so the room over it is the one room a 70 mm relay lies down in. The ground stud
-    takes what that relay leaves of the same shelf, forward of it, because a ring stack is the
-    one body here that will go wherever there is a corner. Relay #2 is not on either crown; it
-    stands on the cap between the main board and the brick (`build_relay2`)."""
+    stands AFT of that relay at the same height, on its own wall bosses rather than on the board:
+    the shelf FORWARD of the relay is under the ceiling panel's fixed boss, whose pier descends
+    the whole storey off the +X ceiling strip to its screw's counterbore
+    (`enclosure._back_top_ceiling`), and a body standing in that strip leaves the pier no run to
+    root on. A ring stack is the one body here that will go wherever there is a corner. Relay #2
+    is not on either crown; it stands on the cap between the main board and the brick
+    (`build_relay2`)."""
     out = []
     relay1, r1_carry = seat_body(import_step(str(RELAY_STEP)).val(), RELAY_TURN,
                                  seat="relay-1", x1=wall_seat, y1=box(pcba).ymax,
@@ -4989,7 +4993,7 @@ def build_stack(psu, pcba, wagos, wall_seat):
     out.append(("relay-1", relay1, C_RELAY, r1_carry))
     stud, stud_carry = seat_body(import_step(str(GND_STACK_STEP)).val(), RELAY_TURN,
                                  seat="ground-stack", x1=wall_seat,
-                                 y1=box(relay1).ymin - STACK_CLEAR, z0=box(relay1).zmin)
+                                 y0=box(relay1).ymax + STACK_CLEAR, z0=box(relay1).zmin)
     out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
 
