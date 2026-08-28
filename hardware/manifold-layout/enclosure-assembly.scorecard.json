@@ -714,7 +714,7 @@
    "value": "open",
    "target": "a boss at least 8.25 mm proud",
    "detail": [
-    "the boss stands 7.04 mm outboard of the seating plane and the stack over that plane is 8.25 \u2014 `enclosure.c14_tunnel_len` 5.25 of tunnel, so the two inserts have their own depth, and 3 of wall over each blind end. The boss's face lands 1.21 mm inside the wall's outer plane; a C13 whose housing is wider than the 27.46 x 19.18 bore stops on that plane and reaches no further."
+    "the boss stands 1 mm outboard of the seating plane and the stack over that plane is 8.25 \u2014 `enclosure.c14_tunnel_len` 5.25 of tunnel, so the two inserts have their own depth, and 3 of wall over each blind end. The boss's face lands 7.25 mm inside the wall's outer plane; a C13 whose housing is wider than the 27.46 x 19.18 bore stops on that plane and reaches no further."
    ],
    "active": true
   },
@@ -825,7 +825,7 @@
    "label": "The lever-nut row lies over the brick it stands on",
    "kind": "gate",
    "status": "pass",
-   "value": "row spans y 355.37..428.77, crown 351.50..460.50, 6.00 mm of reach at the inlet",
+   "value": "row spans y 353.55..426.95, crown 351.50..460.50, 6.00 mm of reach at the inlet",
    "target": "every lug over the crown",
    "detail": [],
    "active": true
