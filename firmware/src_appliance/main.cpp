@@ -457,6 +457,18 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line.startsWith("images erase")) {
+        String rest = line.substring(12); rest.trim();
+        const uint8_t slot = rest.length() ? (uint8_t)rest.toInt() : 0xFF;
+        if (slot >= FLAVOR_ART_CUSTOM) {
+            Serial.printf("\nusage: images erase <0..%u>\n", FLAVOR_ART_CUSTOM - 1);
+            return;
+        }
+        Serial.printf("\ntaking slot %u off both displays\n", slot);
+        faucetLinkImageErase(slot);
+        linkImageErase(slot);
+        return;
+    }
     if (line.startsWith("images relay")) {
         String rest = line.substring(12); rest.trim();
         const uint8_t slot = rest.length() ? (uint8_t)rest.toInt() : 0;

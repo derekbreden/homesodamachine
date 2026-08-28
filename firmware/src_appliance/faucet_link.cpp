@@ -460,6 +460,11 @@ uint8_t faucetLinkTakeRelayRequest() {
     return slot;
 }
 
+bool faucetLinkImageErase(uint8_t slot) {
+    ImageSlotPayload req{slot};
+    return faucet.trySend(MSG_IMAGE_ERASE, &req, sizeof(req)) >= 0;
+}
+
 bool faucetLinkImageRelayGo(uint8_t slot) {
     ImageSlotPayload req{slot};
     return faucet.trySend(MSG_IMAGE_RELAY_GO, &req, sizeof(req)) >= 0;

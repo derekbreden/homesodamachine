@@ -45,6 +45,9 @@ bool linkWifiApMode(uint8_t mode);
 // What pictures the enclosure is holding. The answer prints itself.
 bool linkImagesQuery();
 
+// Take a picture back off the enclosure.
+bool linkImageErase(uint8_t slot);
+
 // What the sink has counted. False if the display did not answer.
 bool linkWifiApState(WifiApStatePayload &out);
 
