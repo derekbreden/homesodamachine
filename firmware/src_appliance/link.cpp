@@ -531,7 +531,26 @@ bool linkReplyOta(uint8_t type, const void *data, uint16_t len) {
     return j9.send(type, data, len) >= 0;
 }
 
-void linkService() { j9.service(); }
+// The enclosure asks which logo each channel wears exactly once per link
+// session, on the stated understanding that the main board republishes every
+// change. It did so only for a change the enclosure itself made — one arriving
+// from the faucet, which is where a phone puts one, reached J3 and stopped
+// there. So the glass kept the face it was told about at boot and the two
+// displays disagreed until something rebooted.
+//
+// Volunteered, so it waits for a turn like everything else the machine says.
+static uint8_t publishedArt[2] = {0xFF, 0xFF};
+
+void linkService() {
+    const uint8_t now0 = flavorArt(0), now1 = flavorArt(1);
+    if (now0 != publishedArt[0] || now1 != publishedArt[1]) {
+        publishedArt[0] = now0;
+        publishedArt[1] = now1;
+        FlavorArtPayload art{{now0, now1}};
+        announceQueue(MSG_RESP_FLAVOR_ART, &art, sizeof(art));
+    }
+    j9.service();
+}
 
 bool linkDisplayUsbReattach() {
     displayUsbReattachAck = false;
