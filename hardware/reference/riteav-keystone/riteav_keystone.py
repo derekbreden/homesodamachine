@@ -180,7 +180,7 @@ def build():
     return jack.cut(port).cut(slot).val()
 
 
-def selftest():
+def selftest() -> int:
     """Checks the aperture clears the module face, the pocket clears the aperture, the ease
     carries the body's swing, and the built jack stands wholly inboard of the face plane."""
     ok = True
@@ -223,15 +223,15 @@ def selftest():
         print(f"FAIL: the jack stands {bb.ymax:.3f} proud of its own face plane")
         ok = False
     print("PASS: riteav-keystone receptacle and jack agree" if ok else "FAIL")
-    return ok
+    return 0 if ok else 1
 
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
-        raise SystemExit(0 if selftest() else 1)
     export_assembly(one_body(build(), "riteav-keystone", M_DONOR_BLACK), STEP)
     print(f"-> {STEP}")
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "selftest":
+        sys.exit(selftest())
     main()

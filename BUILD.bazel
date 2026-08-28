@@ -7318,6 +7318,43 @@ cp hardware/reference/neofit-flow-control/neofit-flow-control.step $$O0
 )
 
 genrule(
+    name = "riteav-keystone",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/riteav-keystone/riteav_keystone.py > /dev/null
+cp hardware/reference/riteav-keystone/riteav-keystone.step $$O0
+""",
+)
+
+genrule(
     name = "seaflo-22-pump",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -10270,6 +10307,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -10574,6 +10612,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -10878,6 +10917,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -11182,6 +11222,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -11486,6 +11527,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -11790,6 +11832,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -12094,6 +12137,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -12398,6 +12442,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -12716,6 +12761,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -13020,6 +13066,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -13324,6 +13371,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -13628,6 +13676,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -13958,6 +14007,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -14262,6 +14312,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -14566,6 +14617,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -14931,6 +14983,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -15322,6 +15375,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -15685,6 +15739,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -16004,6 +16059,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/README.md",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
@@ -16335,6 +16391,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -16641,6 +16698,7 @@ sh_test(
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-flow-control/neofit-flow-control.step",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+        "hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -16935,6 +16993,7 @@ filegroup(
         ":multiplex-asse1022",
         ":neofit-bulkhead",
         ":neofit-flow-control",
+        ":riteav-keystone",
         ":seaflo-22-pump",
         ":seaflo-discharge-chain",
         ":seaflo-suction-chain",
