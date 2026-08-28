@@ -24,9 +24,10 @@ around a minute, so a second invocation while one is running does not queue behi
 marks the running one to look again when it finishes. Whatever is owed at that point is what
 gets cut, which is the newest state rather than the one that asked.
 
-IT REPORTS AND HOLDS NOTHING. Nothing here is in front of a commit or a push; the work is
-already on main by the time this runs, and a publish that fails leaves the runner to do what it
-was always going to do.
+IT REPORTS AND HOLDS NOTHING. The geometry's own commits are already on main by the time this
+runs; the one commit this makes is the lock, and it goes to main through `push.py` before the
+site is told anything. A publish that fails leaves the runner to do what it was always going to
+do.
 """
 
 from __future__ import annotations
@@ -117,8 +118,10 @@ def tell_the_site() -> None:
     poll on its own; this is what makes the usual case seconds instead.
 
     IT CARRIES NOTHING AND IS TRUSTED WITH NOTHING. The site reads the lock from GitHub either
-    way, so this says only "look now". A post that does not arrive costs a poll, which is why
-    nothing here is retried and nothing here fails a publish.
+    way, so this says only "look now" — and it is why the lock is on main before this is called,
+    since a container sent to look at a commit that is not there reads the previous cut and then
+    waits out a poll. A post that does not arrive costs a poll, which is why nothing here is
+    retried and nothing here fails a publish.
     """
     try:
         urllib.request.urlopen(
@@ -152,6 +155,15 @@ def publish() -> int:
     if run(["git", "commit", "--no-verify", "--only",
             "hardware/cad-artifacts.lock.json", "-m", msg], quiet=True).returncode != 0:
         print("  the lock did not commit", file=sys.stderr)
+        return 1
+    # THE SITE READS THE LOCK FROM MAIN, so a commit that has not landed there is a cut nobody
+    # can see and a `tell_the_site()` that sends the container to look at bytes that are not
+    # up yet. `push.py` is the reconcile: it fetches, settles a lost race in a detached
+    # worktree that shares no index with this one, and exits 0 only when the work is on the
+    # remote. Anything short of that leaves the cut to the runner, which is where it was.
+    if run([str(PY), "tools/push.py"]).returncode != 0:
+        print(f"  the lock is committed and not on main; the runner reconciles this "
+              f"({time.time() - started:.0f}s)", file=sys.stderr)
         return 1
     print(f"  lock pinned and pushed ({time.time() - started:.0f}s)")
     tell_the_site()
