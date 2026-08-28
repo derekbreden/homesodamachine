@@ -39,8 +39,15 @@ uint16_t mtu = 23;
 // bounded burst and then silence, and the phone asks again from wherever it
 // actually got to. That converges whatever the link loses, where blasting
 // converged on nothing at all.
-constexpr uint8_t READ_BURST    = 8;
-constexpr uint8_t READ_PER_PASS = 2;
+constexpr uint8_t READ_BURST    = 32;
+constexpr uint8_t READ_PER_PASS = 4;
+
+// The most a notification carries, whatever the MTU says. An ATT MTU of 517
+// permits 514, and a 514-byte notification is not reliably delivered — it
+// leaves the board, notify() reports success, and it never reaches the phone.
+// That is invisible from both ends at once, which is the worst shape a bug can
+// have here. 244 is the size a BLE link carries without argument.
+constexpr uint16_t NOTIFY_CAP = 244;
 
 // Only the low FLAVOR_ART_CUSTOM slots are the user's. The partition holds far
 // more, and the rest stay unused rather than becoming a capacity nobody asked
@@ -99,9 +106,11 @@ void bleImageService() {
   // rather than a guess at it: a link that never exchanged one carries twenty
   // bytes, and a fixed fallback larger than that is a frame the phone never
   // sees and a read that never finishes.
-  const int32_t fits = (int32_t)mtu - 3 - 3 - (int32_t)sizeof(BleImgPix);
+  int32_t fits = (int32_t)mtu - 3 - 3 - (int32_t)sizeof(BleImgPix);
+  const int32_t capped = (int32_t)NOTIFY_CAP - 3 - 3 - (int32_t)sizeof(BleImgPix);
+  if (fits > capped) fits = capped;
   if (fits < 1) { reading = false; return; }
-  const uint16_t room = (uint16_t)(fits > 512 ? 512 : fits);
+  const uint16_t room = (uint16_t)fits;
 
   for (uint8_t i = 0; i < READ_PER_PASS && reading; i++) {
     const uint8_t *px = (const uint8_t *)imageStorePixels(readSlot, readRend);

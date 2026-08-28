@@ -97,7 +97,6 @@ class BLEManager {
     @ObservationIgnored var faceBuffer = Data()
     @ObservationIgnored var faceSlot = -1
     @ObservationIgnored var faceAskedAt = Date.distantPast
-    @ObservationIgnored var faceWanted = Set<UInt32>()
     @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?
     var imageUploadState: ImageUploadState = .idle
@@ -1842,7 +1841,6 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         // face that never arrived is never asked for again.
         ble.faceSlot = -1
         ble.faceBuffer = Data()
-        ble.faceWanted.removeAll()
         DispatchQueue.main.async {
             self.ble.connectionState = .searching
             self.ble.configSynced = false
