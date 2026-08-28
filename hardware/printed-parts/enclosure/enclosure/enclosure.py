@@ -537,6 +537,10 @@ mount_boss_dia = _interface.mount_boss_dia
 # What that section keeps round its insert, which is the material any boss in this machine
 # stands a heat-set in.
 boss_ligament = _interface.boss_ligament
+# Assembly air between a power-column body's exact envelope and a corbel that has to begin
+# behind it. Most corbels reach their mounting face; this is spent only where the body itself
+# crosses the otherwise printable 45 degree wedge.
+east_boss_corbel_clear = 1.0
 # Air past the screw tip at the bore's blind end, so a screw longer than the insert has
 # somewhere to go rather than bottoming on printed material.
 mount_bore_relief = _interface.mount_bore_relief
@@ -1696,7 +1700,10 @@ def documented(box):
 #   pan_sleeve    the ASSE drip pan's carry, `(adds, cuts)` of world boxes — the solid block fused
 #                 onto the −X wall, and the berth cut back out of it
 #   c14           the mains inlet's heat-set stations on the +Y wall of back-top, (x, z)
-#   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches)
+#   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches, the
+#                 X plane its underside corbel reaches). The last plane normally equals the
+#                 mounting plane; a body crossing the candidate wedge holds it back by
+#                 `east_boss_corbel_clear`, while the D-shaped stem still reaches the body
 #   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z) — one press-fit pocket
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
@@ -5816,16 +5823,65 @@ def _floor_bosses(solid, inner, stations, y0, y1, z0, z1):
     return solid
 
 
+def _east_boss_stem(wall_x, station):
+    """One +X-wall boss's D-shaped horizontal stem, before its insert bore is cut.
+
+    The circle is the insert's annulus. Its lower half is filled out to a flat chord over the
+    boss's whole run, so the free face is a D rather than a circle and its underside is one
+    printable plane. The body still meets only the boss's own `mount_boss_dia`-wide footprint:
+    the two filled corners lie inside the same square and grow wallward, away from the body.
+    """
+    sy, sz, tip = station[:3]
+    r = mount_boss_dia / 2.0
+    return _xcyl(r, sy, sz, tip, wall_x).fuse(
+        _ybox(tip, wall_x, sy - r, sy + r, sz - r, sz))
+
+
+def _east_boss_d_fill(wall_x, station):
+    """Only the two lower corners that turn the established round stem into a D."""
+    sy, sz, tip = station[:3]
+    r = mount_boss_dia / 2.0
+    cylinder = _xcyl(r, sy, sz, tip, wall_x)
+    floor = _ybox(tip, wall_x, sy - r, sy + r, sz - r, sz)
+    return floor.cut(cylinder)
+
+
+def _east_boss_corbel(wall_x, station):
+    """One boss's full-width 45 degree underside from its carried floor to the +X wall.
+
+    `station[3]` is the inboard plane the wedge may reach. It is the mounting face unless an
+    installed body crosses that wedge; `enclosure_assembly.wall_mounts` derives a setback from
+    that body's exact solid. The D stem remains whole over the short setback, so even a held-
+    back wedge carries a flat bridge rather than leaving a round underside on air.
+    """
+    sy, sz, tip = station[:3]
+    web_tip = station[3] if len(station) > 3 else tip
+    r = mount_boss_dia / 2.0
+    if not (tip <= web_tip < wall_x):
+        raise ValueError(
+            f"east boss at ({sy:g}, {sz:g}) has corbel tip x={web_tip:g}; "
+            f"expected {tip:g}..{wall_x:g}")
+    drop = wall_x - web_tip
+    return _xz_prism(
+        sy - r, sy + r,
+        [(wall_x, sz - r), (web_tip, sz - r), (wall_x, sz - r - drop)])
+
+
+def _east_boss_support(wall_x, station):
+    """The material one +X-wall mounting station adds, before its bore."""
+    return _east_boss_stem(wall_x, station).fuse(_east_boss_corbel(wall_x, station))
+
+
 def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
     """The +X wall's mounting bosses added to a PIECE, for the stations inside the depth and
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
     and no piece grows a column standing in another's air.
 
-    Each station is `(y, z, tip)`: the two plan coordinates the boss stands on, and the plane
-    its top face reaches — the body's own mounting face, which is where that body's hole
-    pattern lies. The shaft runs from the wall's inner face out to it and the insert bore is
-    cut back from that face, so the length the wall gives a screw is the standoff the body
-    asked for and not a number typed here.
+    Each station is `(y, z, tip, web_tip)`: the two plan coordinates the boss stands on, the
+    plane its top face reaches — the body's own mounting face, where its hole pattern lies —
+    and the plane its 45 degree underside may reach. The last two are normally equal. Where an
+    installed body crosses the candidate wedge, `wall_mounts` holds only the wedge behind that
+    exact body and keeps assembly air; the D-shaped stem still reaches the mounting face.
 
     ON THE PIECE AND NOT ON THE HALF, because the Z seam's own socket collar is fused
     piece-side: where a station's height meets a mounting boss's, the two share the same
@@ -5833,27 +5889,14 @@ def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
     Cut here, the boss fuses nothing where the collar already stands and is bored through it
     all the same.
 
-    A boss is a `mount_boss_dia` BOX on a 45° web run down the wall — the seam collars'
-    own shape (`_front_socket`) at the mount's scale — and the web stops on the boss's
-    own tip plane, which is the body's mounting face. Only the last `wall` at the tip is
-    left round, and for a reason that is not printing: see below."""
-    for sy, sz, tip in stations:
+    The stem's flat, `mount_boss_dia`-wide floor matches the wedge it carries. Its upper half
+    stays round around the insert, so the body's mounting pad remains compact; no arbitrary
+    round pipe is left between the support and the mounting face."""
+    for station in stations:
+        sy, sz, tip = station[:3]
         if not (y0 <= sy <= y1 and z0 <= sz <= z1):
             continue
-        r = mount_boss_dia / 2.0
-        # The box and the web stop one `wall` short of the tip plane, and that last `wall`
-        # is a PIPE: the plane is the body's mounting face, and past it is the body's own
-        # back side — solder tails, potting lips — which only the bore's own pad annulus
-        # may meet. A square pad there would put four corners into that clearance. It is
-        # the one round left in the box's boss family, and it is short enough that its
-        # crown is a `wall`-long bridge off the box's own top face.
-        stop = tip + wall
-        drop = inner[1] - stop
-        solid = solid.fuse(_xcyl(r, sy, sz, tip, stop))
-        solid = solid.fuse(_ybox(stop, inner[1], sy - r, sy + r, sz - r, sz + r))
-        solid = solid.fuse(_xz_prism(sy - r, sy + r,
-                                     [(inner[1], sz - r), (stop, sz - r),
-                                      (inner[1], sz - r - drop)]))
+        solid = solid.fuse(_east_boss_support(inner[1], station))
         # AND THE BORE STOPS WHERE THE SURFACE SAYS, not where the plane does. Run its full
         # relief it ends on `interior_x`, which is one `wall` behind the flat and less than
         # that behind a corner round — and a flute is cut into that same surface, so a station
