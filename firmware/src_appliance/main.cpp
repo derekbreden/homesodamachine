@@ -414,6 +414,13 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line == "images")          {
+        // Neither display has a console. Both answer where they are.
+        Serial.println("\nasking both displays what they hold");
+        linkImagesQuery();
+        faucetLinkImagesQuery();
+        return;
+    }
     if (line.startsWith("wifi"))   { cmdWifi(line); return; }
     if (line.startsWith("bench"))  { cmdBench(line); return; }
     if (line == "versions")        { versionsConsole(); return; }

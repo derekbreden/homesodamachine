@@ -382,6 +382,18 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     return;
   }
 
+  if (type == MSG_IMAGES_QUERY) {
+    ImagesPayload im{};
+    im.board = OTA_TGT_FAUCET;
+    im.slots = imageStoreCapacity() < FLAVOR_ART_CUSTOM
+                   ? imageStoreCapacity() : FLAVOR_ART_CUSTOM;
+    im.bundleBytes = imageStoreBundleBytes();
+    for (uint8_t i = 0; i < im.slots; i++)
+      if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
+    base.trySend(MSG_RESP_IMAGES, &im, sizeof(im));
+    return;
+  }
+
   if (type == MSG_BLE_STATUS_REQ) {
     BleStatusPayload st;
     bleLinkFillStatus(st);

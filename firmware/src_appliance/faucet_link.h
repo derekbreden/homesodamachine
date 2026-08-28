@@ -36,5 +36,8 @@ bool faucetLinkWifiPush(uint32_t bytes, bool quietBle);
 // measured against. Blocks for the length of the run.
 bool faucetLinkBenchPush(uint32_t bytes);
 
+// What pictures the faucet is holding. The answer prints itself when it lands.
+bool faucetLinkImagesQuery();
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);

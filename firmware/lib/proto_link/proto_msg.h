@@ -189,6 +189,14 @@ constexpr uint8_t MSG_BENCH_BEGIN     = 0x4C;  // BenchBeginPayload: this many b
 constexpr uint8_t MSG_BENCH_DATA      = 0x4D;  // raw bytes, counted and dropped
 constexpr uint8_t MSG_RESP_BENCH      = 0x4E;  // BenchResultPayload
 
+// ── What pictures a display is holding (0x4F..) ──────────────────────────
+// Neither display has a console inside the appliance, and both hold a store
+// the user can fill and empty from a phone. This is how the main board's
+// console — and through it the factory and a service visit — sees what is
+// actually on each board.
+constexpr uint8_t MSG_IMAGES_QUERY    = 0x4F;  // no payload
+constexpr uint8_t MSG_RESP_IMAGES     = 0x50;  // ImagesPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -672,6 +680,14 @@ struct __attribute__((packed)) WifiPushResultPayload {
   uint32_t joinMs;
   uint32_t connectMs;
   uint32_t xferMs;
+};
+
+struct __attribute__((packed)) ImagesPayload {
+  uint8_t  board;        // OTA_TGT_*
+  uint8_t  slots;        // custom slots this display keeps
+  uint8_t  held;
+  uint8_t  occupancy;    // bit per slot, low slot first
+  uint32_t bundleBytes;  // what one picture costs on this board
 };
 
 struct __attribute__((packed)) BenchBeginPayload {

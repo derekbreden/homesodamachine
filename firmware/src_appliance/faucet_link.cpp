@@ -174,6 +174,19 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
+    if (type == MSG_RESP_IMAGES && plen >= sizeof(ImagesPayload)) {
+        ImagesPayload im;
+        memcpy(&im, payload, sizeof(im));
+        char bits[FLAVOR_ART_CUSTOM + 1];
+        for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++)
+            bits[i] = (i < im.slots) ? ((im.occupancy & (1u << i)) ? 'X' : '.') : ' ';
+        bits[FLAVOR_ART_CUSTOM] = '\0';
+        Serial.printf("\n%-10s %u custom slots [%s], %u held, %lu B each\n",
+                      im.board == OTA_TGT_FAUCET ? "faucet" : "enclosure",
+                      im.slots, bits, im.held, (unsigned long)im.bundleBytes);
+        return;
+    }
+
     if (type == MSG_RESP_BENCH && plen >= sizeof(BenchResultPayload)) {
         BenchResultPayload r;
         memcpy(&r, payload, sizeof(r));
@@ -428,6 +441,10 @@ bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
 // Push into TinyProto's window as fast as it will take frames, servicing the
 // link whenever it is full. No flash write and no per-chunk answer: what comes
 // back is what J3 carries, which is the number the OTA pull is measured against.
+bool faucetLinkImagesQuery() {
+    return faucet.trySend(MSG_IMAGES_QUERY, nullptr, 0) >= 0;
+}
+
 bool faucetLinkBenchPush(uint32_t bytes) {
     BenchBeginPayload begin{bytes};
     if (faucet.trySend(MSG_BENCH_BEGIN, &begin, sizeof(begin)) < 0) return false;
