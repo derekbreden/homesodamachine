@@ -48,6 +48,9 @@ void faucetRequestRelay(uint8_t slot);
 // A phone asked for a picture and got it.
 void faucetSayRead(uint8_t slot, uint32_t bytes);
 
+// A phone asked for one, and with how much room per frame.
+void faucetSayReadAsked(uint8_t slot, uint16_t mtu);
+
 // Whether the appliance considers anyone present. Defined in main.cpp, where
 // the backlight lives.
 void faucetApplyIdle(bool asleep);

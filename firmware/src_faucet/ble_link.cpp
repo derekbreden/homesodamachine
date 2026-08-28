@@ -231,6 +231,7 @@ void bleLinkBegin() {
   img.readArt = faucetReadFlavorArt;
   img.onStored = faucetRequestRelay;
   img.onRead = faucetSayRead;
+  img.onReadAsked = faucetSayReadAsked;
   bleImageBegin(img);
 
   applyAdvertising();

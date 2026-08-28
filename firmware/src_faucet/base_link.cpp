@@ -604,6 +604,12 @@ void baseLinkPrimeDiscard() {
 // The enclosure needs its four renditions and cannot ask for them itself. The
 // main board is the only board that reaches both, so it is asked to sequence
 // the hop — radio up, send, radio down.
+void faucetSayReadAsked(uint8_t slot, uint16_t mtu) {
+  char line[48];
+  snprintf(line, sizeof(line), "phone asked for slot %u, mtu %u", slot, mtu);
+  baseLinkSay(line);
+}
+
 void faucetSayRead(uint8_t slot, uint32_t bytes) {
   char line[48];
   if (bytes) snprintf(line, sizeof(line), "read slot %u: sent %lu B", slot, (unsigned long)bytes);
