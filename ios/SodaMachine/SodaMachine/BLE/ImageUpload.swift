@@ -118,6 +118,23 @@ extension BLEManager {
         DispatchQueue.main.async { self.flavorArt = a }
     }
 
+    /// Keep a read moving for as long as there is a link, rather than for as
+    /// long as someone is looking at it. A burst ends in deliberate silence, so
+    /// something has to ask for the next one — and that cannot be a timer on a
+    /// screen, because the fetch starts when the machine connects and finishes
+    /// long after anyone has stopped watching a particular view.
+    func startFacePump() {
+        stopFacePump()
+        facePump = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
+            self?.resumeFaceIfStalled()
+        }
+    }
+
+    func stopFacePump() {
+        facePump?.invalidate()
+        facePump = nil
+    }
+
     /// Say something on the machine's console. This phone has no wire on it and
     /// its own log is not reachable from a bench, so a decision made here is
     /// otherwise invisible to anyone holding the machine.
@@ -189,30 +206,32 @@ extension BLEManager {
                 say("faces: slot \(slot) came off disk")
                 continue
             }
-            // One read at a time, and "in flight" is the only thing that stops
-            // a second ask. Remembering that a picture was ever asked for is
-            // what made a failed fetch permanent: it was recorded as wanted,
-            // the read died, and every later attempt skipped it in silence for
-            // the life of the app.
-            if faceSlot >= 0 {
-                say("faces: slot \(faceSlot) still in flight at \(faceBuffer.count)")
-                return
-            }
+            // One read at a time. Whether one is in flight is decided where the
+            // read state lives, not here — this runs on the main queue and
+            // would be reading a copy of it.
             log.info("asking for slot \(slot) face, crc \(crc)")
-            say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
-            requestFace(slot: slot)
+            requestFace(slot: slot, crc: crc)
             return   // one at a time; the next goes when this one lands
         }
     }
 
-    private func requestFace(slot: Int, from offset: Int = 0) {
-        faceSlot = slot
-        if offset == 0 { faceBuffer = Data(); faceResumes = 0 }
-        faceAskedAt = Date()
-        var payload = Data([UInt8(slot), 0])
-        payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
+    /// Always on the radio's queue, which is the only place face state lives.
+    private func requestFace(slot: Int, from offset: Int = 0, crc: UInt32 = 0) {
         bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.read, payload: payload)
+            guard let self else { return }
+            // A fresh ask while one is already running would reset the buffer
+            // out from under the frames arriving into it.
+            if offset == 0, self.faceSlot >= 0, self.faceSlot != slot { return }
+            if offset == 0, self.faceSlot == slot, !self.faceBuffer.isEmpty { return }
+            if crc != 0 {
+                self.say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
+            }
+            self.faceSlot = slot
+            if offset == 0 { self.faceBuffer = Data(); self.faceResumes = 0 }
+            self.faceAskedAt = Date()
+            var payload = Data([UInt8(slot), 0])
+            payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
+            self.sendBLEFrame(type: ImageFrame.read, payload: payload)
         }
     }
 
@@ -221,10 +240,20 @@ extension BLEManager {
     /// for — silence that used to cost the whole picture. Asking again from
     /// where this actually got to costs the remainder and nothing else.
     func resumeFaceIfStalled() {
+        // On the radio's queue, because that is where the buffer this decides
+        // from is filled. Deciding on the main queue meant deciding from a copy
+        // that never saw a single byte arrive.
+        bleQueue.async { [weak self] in self?.resumeFaceOnBleQueue() }
+    }
+
+    private func resumeFaceOnBleQueue() {
         // Nothing in flight: something may still be missing, and a fetch that
         // died with a link would otherwise never be started again.
         guard faceSlot >= 0 else {
-            if !imageSlots.crc.isEmpty { fetchMissingFaces() }
+            DispatchQueue.main.async { [weak self] in
+                guard let self, !self.imageSlots.crc.isEmpty else { return }
+                self.fetchMissingFaces()
+            }
             return
         }
         // A burst ends in deliberate silence, so this is the normal way the
@@ -243,6 +272,8 @@ extension BLEManager {
     }
 
     /// Pixels coming back, a frame at a time, each carrying where it belongs.
+    /// Called on the radio's delegate queue, and everything it touches stays
+    /// there. The one thing that leaves is a finished picture.
     func handleImagePix(_ payload: Data) {
         guard payload.count >= 10 else { return }
         let b = payload.startIndex
