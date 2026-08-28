@@ -111,6 +111,16 @@ class BLEManager {
     var discovered: [DiscoveredMachine] = []
     var connectedMachine: DiscoveredMachine? = nil
 
+    /// What faces are filed under. The machine's own three bytes when it has
+    /// said them, and this phone's id for it otherwise — a picture is still
+    /// worth caching for a machine that has not introduced itself yet.
+    var machineKey: String {
+        if let m = connectedMachine {
+            return m.unit.isEmpty ? m.id : m.unit
+        }
+        return ""
+    }
+
     /// The one to reconnect to without asking. Set by picking, cleared by
     /// picking something else.
     var rememberedMachineID: String? {
@@ -1606,10 +1616,18 @@ class BLEManager {
         let version = String(data: Data(versionBytes), encoding: .utf8) ?? ""
         let name = String(data: Data(payload[(b + 4)..<(b + 25)].prefix { $0 != 0 }),
                           encoding: .utf8) ?? ""
+        // The three bytes that say which machine this is. They were being
+        // parsed and dropped, leaving the app to depend on a scan record having
+        // seen the manufacturer block — and a machine whose unit is unknown can
+        // neither file a face nor ask for one. A machine connected to has just
+        // told us who it is; that beats what a scan happened to catch.
+        let unit = payload[(b + 1)..<(b + 4)].map { String(format: "%02X", $0) }.joined()
+
         DispatchQueue.main.async {
             self.radioBoardVersion = version
-            if !name.isEmpty, var m = self.connectedMachine {
-                m.name = name
+            if var m = self.connectedMachine {
+                if !name.isEmpty { m.name = name }
+                if !unit.isEmpty, unit != "000000" { m.unit = unit }
                 self.connectedMachine = m
             }
         }
