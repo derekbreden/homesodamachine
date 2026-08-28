@@ -356,7 +356,7 @@ def build(box=None):
         box.inner, box.outer, box.pack.c14, box.pack.back_ports,
         box.inner[4], box.outer[5])
     if c14_geometry is not None:
-        _feature, c14_bore, c14_inserts = c14_geometry
+        _feature, c14_bore, c14_inserts, _backing = c14_geometry
         solid = solid.cut(c14_bore)
         for cutter in c14_inserts:
             solid = solid.cut(cutter)
