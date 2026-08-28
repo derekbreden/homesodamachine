@@ -36,10 +36,10 @@ extern "C" const lv_font_t front_icons_96;
 // participate in the background link polling that formerly disturbed a card.
 // Every logo is carried at both sizes: the 240 a Choose card shows, and the 96
 // the picker grid shows, baked rather than scaled under LVGL at draw time.
-#include "../src_config/images/flavor0_240.h"
-#include "../src_config/images/flavor1_240.h"
-#include "../src_config/images/flavor2_240.h"
-#include "../src_config/images/flavor3_240.h"
+#include "images/flavor0_card.h"
+#include "images/flavor1_card.h"
+#include "images/flavor2_card.h"
+#include "images/flavor3_card.h"
 #include "images/flavor0_thumb.h"
 #include "images/flavor1_thumb.h"
 #include "images/flavor2_thumb.h"
@@ -315,7 +315,7 @@ static lv_img_dsc_t flavorThumb[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorHead[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorMid[FLAVOR_IMAGE_COUNT];
 static const uint16_t *flavorArtPixels[FLAVOR_IMAGE_COUNT] = {
-    flavor0_240, flavor1_240, flavor2_240, flavor3_240,
+    flavor0_card, flavor1_card, flavor2_card, flavor3_card,
 };
 static const uint16_t *flavorThumbPixels[FLAVOR_IMAGE_COUNT] = {
     flavor0_thumb, flavor1_thumb, flavor2_thumb, flavor3_thumb,

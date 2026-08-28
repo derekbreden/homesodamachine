@@ -2,7 +2,6 @@
 
 #include <Arduino.h>
 #include <esp_partition.h>
-#include <spi_flash_mmap.h>
 #include <string.h>
 
 namespace {
@@ -11,12 +10,12 @@ const esp_partition_t *part = nullptr;
 const void            *mapped = nullptr;
 esp_partition_mmap_handle_t mapHandle = 0;
 
-uint16_t imgW = 0, imgH = 0;
-uint32_t slotBytes = 0;    // header + pixels, rounded up to the erase size
-uint32_t pixelBytes = 0;
-uint8_t  slotCount = 0;
+ImageSize wantSizes[IMAGE_MAX_SIZES];
+uint8_t   wantCount = 0;
+uint32_t  bundleBytes = 0;
+uint32_t  slotBytes = 0;
+uint8_t   slotCount = 0;
 
-// The open write, if any.
 bool     writing = false;
 uint8_t  writeSlot = 0;
 uint32_t writeAt = 0;
@@ -34,8 +33,8 @@ uint32_t crc32Update(uint32_t prev, const uint8_t *data, size_t len) {
   return ~crc;
 }
 
-// The map has to be dropped around a write and taken again after: what the MMU
-// is showing is the flash that just changed underneath it.
+// The map is showing flash that a write just changed underneath it, so it is
+// dropped around one and taken again after.
 bool remap() {
   if (mapped) {
     esp_partition_munmap(mapHandle);
@@ -52,13 +51,18 @@ const ImageSlotHeader *headerAt(uint8_t slot) {
   const uint8_t *base = (const uint8_t *)mapped + (size_t)slot * slotBytes;
   const ImageSlotHeader *h = (const ImageSlotHeader *)base;
   if (h->magic != IMAGE_SLOT_MAGIC || h->format != IMAGE_SLOT_FORMAT) return nullptr;
-  if (h->w != imgW || h->h != imgH || h->bytes != pixelBytes) return nullptr;
+  if (h->count != wantCount || h->bytes != bundleBytes) return nullptr;
+  // A bundle laid out for a different board is not this board's picture.
+  for (uint8_t i = 0; i < wantCount; i++)
+    if (h->sizes[i].w != wantSizes[i].w || h->sizes[i].h != wantSizes[i].h) return nullptr;
   return h;
 }
 
 }  // namespace
 
-bool imageStoreBegin(const char *partitionLabel, uint16_t w, uint16_t h) {
+bool imageStoreBegin(const char *partitionLabel, const ImageSize *sizes, uint8_t count) {
+  if (!sizes || !count || count > IMAGE_MAX_SIZES) return false;
+
   part = esp_partition_find_first(ESP_PARTITION_TYPE_DATA,
                                   ESP_PARTITION_SUBTYPE_ANY, partitionLabel);
   if (!part) {
@@ -66,16 +70,22 @@ bool imageStoreBegin(const char *partitionLabel, uint16_t w, uint16_t h) {
     return false;
   }
 
-  imgW = w;
-  imgH = h;
-  pixelBytes = (uint32_t)w * h * 2;
-  slotBytes = ((IMAGE_SLOT_HEADER + pixelBytes) + ERASE - 1) / ERASE * ERASE;
-  slotCount = (uint8_t)((part->size / slotBytes) > 255 ? 255 : (part->size / slotBytes));
+  wantCount = count;
+  bundleBytes = 0;
+  for (uint8_t i = 0; i < count; i++) {
+    wantSizes[i].w = sizes[i].w;
+    wantSizes[i].h = sizes[i].h;
+    wantSizes[i].offset = bundleBytes;
+    bundleBytes += (uint32_t)sizes[i].w * sizes[i].h * 2;
+  }
+
+  slotBytes = ((IMAGE_SLOT_PIXELS_AT + bundleBytes) + ERASE - 1) / ERASE * ERASE;
+  const uint32_t fits = part->size / slotBytes;
+  slotCount = (uint8_t)(fits > 255 ? 255 : fits);
 
   if (!slotCount) {
-    Serial.printf("[images] '%s' is %lu B, one %ux%u slot needs %lu\n",
-                  partitionLabel, (unsigned long)part->size, w, h,
-                  (unsigned long)slotBytes);
+    Serial.printf("[images] '%s' is %lu B, one bundle needs %lu\n",
+                  partitionLabel, (unsigned long)part->size, (unsigned long)slotBytes);
     part = nullptr;
     return false;
   }
@@ -85,31 +95,34 @@ bool imageStoreBegin(const char *partitionLabel, uint16_t w, uint16_t h) {
     return false;
   }
 
-  uint8_t held = 0;
-  for (uint8_t i = 0; i < slotCount; i++) if (headerAt(i)) ++held;
-  Serial.printf("[images] '%s': %u slots of %lu B for %ux%u, %u held\n",
-                partitionLabel, slotCount, (unsigned long)slotBytes, w, h, held);
+  Serial.printf("[images] '%s': %u slots of %lu B, bundle %lu B in %u sizes, %u held\n",
+                partitionLabel, slotCount, (unsigned long)slotBytes,
+                (unsigned long)bundleBytes, wantCount, imageStoreHeld());
   return true;
 }
 
 uint8_t imageStoreCapacity() { return slotCount; }
+bool    imageStoreOccupied(uint8_t slot) { return headerAt(slot) != nullptr; }
 
-bool imageStoreOccupied(uint8_t slot) { return headerAt(slot) != nullptr; }
-
-const uint16_t *imageStorePixels(uint8_t slot) {
-  const ImageSlotHeader *h = headerAt(slot);
-  if (!h) return nullptr;
-  return (const uint16_t *)((const uint8_t *)h + IMAGE_SLOT_HEADER);
+uint8_t imageStoreHeld() {
+  uint8_t n = 0;
+  for (uint8_t i = 0; i < slotCount; i++) if (headerAt(i)) ++n;
+  return n;
 }
 
-bool imageStoreWriteBegin(uint8_t slot, uint16_t w, uint16_t h, uint32_t crc32) {
-  if (!part || slot >= slotCount) return false;
-  if (w != imgW || h != imgH) {
-    Serial.printf("[images] %ux%u is not this board's %ux%u\n", w, h, imgW, imgH);
-    return false;
-  }
-  // Erasing first is what makes an interrupted write cost only this picture:
-  // the header goes on last, so until it does the slot reads as empty.
+uint32_t imageStoreBundleBytes() { return bundleBytes; }
+
+const uint16_t *imageStorePixels(uint8_t slot, uint8_t size) {
+  const ImageSlotHeader *h = headerAt(slot);
+  if (!h || size >= h->count) return nullptr;
+  const uint8_t *pixels = (const uint8_t *)h + IMAGE_SLOT_PIXELS_AT;
+  return (const uint16_t *)(pixels + h->sizes[size].offset);
+}
+
+bool imageStoreWriteBegin(uint8_t slot, uint32_t crc32) {
+  if (!part || slot >= slotCount || writing) return false;
+  // Erased first, so that until the header lands at the end this slot reads as
+  // empty rather than as whatever it used to hold.
   if (esp_partition_erase_range(part, (size_t)slot * slotBytes, slotBytes) != ESP_OK) {
     Serial.printf("[images] slot %u would not erase\n", slot);
     return false;
@@ -124,9 +137,8 @@ bool imageStoreWriteBegin(uint8_t slot, uint16_t w, uint16_t h, uint32_t crc32) 
 }
 
 bool imageStoreWriteChunk(uint32_t offset, const void *data, uint16_t len) {
-  if (!writing || offset != writeAt) return false;
-  if (writeAt + len > pixelBytes) return false;
-  const size_t at = (size_t)writeSlot * slotBytes + IMAGE_SLOT_HEADER + writeAt;
+  if (!writing || offset != writeAt || writeAt + len > bundleBytes) return false;
+  const size_t at = (size_t)writeSlot * slotBytes + IMAGE_SLOT_PIXELS_AT + writeAt;
   if (esp_partition_write(part, at, data, len) != ESP_OK) {
     imageStoreWriteAbort();
     return false;
@@ -138,42 +150,41 @@ bool imageStoreWriteChunk(uint32_t offset, const void *data, uint16_t len) {
 
 bool imageStoreWriteFinish() {
   if (!writing) return false;
-  if (writeAt != pixelBytes || writeRunning != writeCrc) {
-    Serial.printf("[images] slot %u refused: %lu of %lu bytes, crc %08lX want %08lX\n",
-                  writeSlot, (unsigned long)writeAt, (unsigned long)pixelBytes,
+  if (writeAt != bundleBytes || writeRunning != writeCrc) {
+    Serial.printf("[images] slot %u refused: %lu of %lu B, crc %08lX want %08lX\n",
+                  writeSlot, (unsigned long)writeAt, (unsigned long)bundleBytes,
                   (unsigned long)writeRunning, (unsigned long)writeCrc);
     imageStoreWriteAbort();
     return false;
   }
 
-  // The header last, and only now: it is what makes the slot readable, so a
-  // picture is either wholly there or not there at all.
   ImageSlotHeader h{};
   h.magic = IMAGE_SLOT_MAGIC;
   h.format = IMAGE_SLOT_FORMAT;
-  h.w = imgW;
-  h.h = imgH;
-  h.bytes = pixelBytes;
+  h.bytes = bundleBytes;
   h.crc32 = writeCrc;
+  h.count = wantCount;
+  for (uint8_t i = 0; i < wantCount; i++) h.sizes[i] = wantSizes[i];
   h.seq = 0;
   for (uint8_t i = 0; i < slotCount; i++) {
     const ImageSlotHeader *e = headerAt(i);
     if (e && e->seq >= h.seq) h.seq = e->seq + 1;
   }
+
+  // Last, and only now: the header is what makes the slot count.
   const bool ok = esp_partition_write(part, (size_t)writeSlot * slotBytes,
                                       &h, sizeof(h)) == ESP_OK;
   writing = false;
   remap();
   if (ok) Serial.printf("[images] slot %u written, %lu B\n",
-                        writeSlot, (unsigned long)pixelBytes);
+                        writeSlot, (unsigned long)bundleBytes);
   return ok;
 }
 
 void imageStoreWriteAbort() {
   if (!writing) return;
   writing = false;
-  // The slot stays erased. Nothing readable was ever there.
-  remap();
+  remap();   // the slot stays erased; nothing readable was ever there
 }
 
 uint32_t imageStoreWriteOffset() { return writing ? writeAt : 0; }
