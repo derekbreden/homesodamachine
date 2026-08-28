@@ -84,10 +84,13 @@ void bleImageService() {
   if (!reading) return;
 
   // ATT header, then this protocol's, then the frame's own place in the
-  // picture. What is left is pixels.
-  const uint16_t room = (mtu > 3 + 3 + sizeof(BleImgPix) + 16)
-                            ? (uint16_t)(mtu - 3 - 3 - sizeof(BleImgPix))
-                            : 64;
+  // picture. What is left is pixels — and it is what the MTU actually allows
+  // rather than a guess at it: a link that never exchanged one carries twenty
+  // bytes, and a fixed fallback larger than that is a frame the phone never
+  // sees and a read that never finishes.
+  const int32_t fits = (int32_t)mtu - 3 - 3 - (int32_t)sizeof(BleImgPix);
+  if (fits < 1) { reading = false; return; }
+  const uint16_t room = (uint16_t)(fits > 512 ? 512 : fits);
 
   for (uint8_t i = 0; i < READ_PER_PASS && reading; i++) {
     const uint8_t *px = (const uint8_t *)imageStorePixels(readSlot, readRend);
@@ -144,6 +147,9 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       if (plen < sizeof(BleImgRead)) return true;
       BleImgRead req;
       memcpy(&req, payload, sizeof(req));
+      // Said before anything can refuse it, so "the phone never asked" and
+      // "the board would not answer" stop looking identical from outside.
+      if (seams.onReadAsked) seams.onReadAsked(req.slot, mtu);
       // A picture being written is not a picture yet.
       if (state == BLE_IMG_TAKING && req.slot == slot) {
         if (seams.onRead) seams.onRead(req.slot, 0);

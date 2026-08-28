@@ -143,6 +143,10 @@ struct BleImageSeams {
   // A read-back finished. This board has no console in a machine, so whether a
   // phone got what it asked for has to be sayable somewhere.
   void (*onRead)(uint8_t slot, uint32_t bytes);
+  // A phone asked. Carries the MTU, because how much of a picture one frame
+  // holds is the whole difference between a read that finishes and one that
+  // crawls or stalls.
+  void (*onReadAsked)(uint8_t slot, uint16_t mtu);
   // Told at the start and end of a transfer, and every ack, so the glass can
   // say what is happening while its own flash is being written.
   void (*onProgress)(bool active, uint8_t percent);
