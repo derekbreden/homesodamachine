@@ -1283,6 +1283,16 @@
    "active": true
   },
   {
+   "id": "cond-corbels-clear",
+   "label": "The condenser's crown rail and upper screw finger have clear 45-degree corbels",
+   "kind": "gate",
+   "status": "pass",
+   "value": "fore crown rail 3.300 mm to condenser+fan, aft upper finger 1.000 mm to condenser+fan",
+   "target": "both at least 1 mm from an installed body",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "flank-vent-towers",
    "label": "No mullion the condenser's vents leave stands free for more than one slot segment",
    "kind": "gate",
@@ -1367,8 +1377,28 @@
    "label": "The plate stands in the field this wall leaves it",
    "kind": "gate",
    "status": "pass",
-   "value": "104.53 x 66.07 at (38.16, 259.90), z 226.86..292.93",
+   "value": "104.53 x 66.07 at (38.16, 262.90), z 229.86..295.93",
    "target": "inside x -19.18..95.50, z 160.00..317.58",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "nameplate-support-clearance",
+   "label": "Both nameplate stems and their corbels stay clear of the installed pack",
+   "kind": "gate",
+   "status": "pass",
+   "value": "east 1.003 mm to foam-assembly, west 1.000 mm to foam-assembly",
+   "target": "at least 1 mm each",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "nameplate-support-print",
+   "label": "Both nameplate insert stems have a D-shaped lower profile and wall corbel",
+   "kind": "gate",
+   "status": "pass",
+   "value": "2/2 D-stems, 7 mm floor, 5 mm 45-degree drop",
+   "target": "no complete circular free edge; one full-width floor carried back to the wall",
    "detail": [],
    "active": true
   },

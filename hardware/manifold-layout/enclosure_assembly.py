@@ -2203,6 +2203,56 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
          f"   ({got * 100:.1f}% of the probe)" for what, got, ok, bad_msg in rows]))
 
 
+def condenser_corbels(cradle, mount, inner) -> tuple:
+    """The two production corbels that carry the condenser's hanging upper furniture."""
+    rows = [("fore crown rail", _enc._cond_cradle_corbel(inner, station))
+            for station in cradle if station[5] > inner[4] + 1e-6]
+    if mount and max(t for _x, _y, t in mount[3]) > min(t for _x, _y, t in mount[3]) + 1e-6:
+        rows.append(("aft upper finger", _enc._cond_mount_corbel(inner, mount)))
+    return tuple(rows)
+
+
+def check_cond_corbel_clearance(cradle, mount, inner, placed) -> Bound:
+    """Both condenser corbels against every installed body in their neighbourhood.
+
+    The crown rail's wedge occupies only the three-millimetre front-wall reach beneath the upper
+    groove. The upper aft finger's longer wedge occupies the donor block's open recess and stops
+    on the standing fin. Bounding boxes discard distant bodies; the reported gaps are exact B-rep
+    distances from the same helper solids the production piece fuses."""
+    want, horizon = _enc.cond_mount_clear, 5.0
+    rows, bad = [], []
+    for label, corbel in condenser_corbels(cradle, mount, inner):
+        cb = _boxes.loose(corbel)
+        nearest = (float("inf"), None)
+        for name, body in placed.items():
+            if name.startswith("enclosure-"):
+                continue
+            body = body.val() if hasattr(body, "val") else body
+            if _clearing.box_gap(cb, _boxes.loose(body)) > horizon:
+                continue
+            query = _BRepDist(corbel.wrapped, body.wrapped)
+            if not query.IsDone():
+                raise RuntimeError(
+                    f"cond-corbels-clear: exact distance from {label} to {name} failed — "
+                    "its clearance is unknown, not clear")
+            gap = query.Value()
+            if gap < nearest[0]:
+                nearest = (gap, name)
+        gap, name = nearest
+        rows.append((label, name, gap))
+        if name is None or gap < want - 1e-6:
+            bad.append((label, name, gap))
+    actual = ", ".join(f"{label} {gap:.3f} mm to {name}" for label, name, gap in rows)
+    return record_bound(Bound(
+        "cond-corbels-clear",
+        "The condenser's crown rail and upper screw finger have clear 45-degree corbels",
+        bool(rows) and not bad, actual if rows else "no corbel stationed",
+        f"both at least {want:g} mm from an installed body",
+        [f"{label} leaves {gap:.3f} mm to {name or 'no measured body'}; keep the donor block "
+         f"and its neighbours at least {want:g} mm off the production corbel"
+         for label, name, gap in bad]))
+
+
 def check_flank_vents(box, pieces: dict) -> Bound:
     """What the condenser's vents owe, read off the piece they were cut in.
 
@@ -3459,9 +3509,10 @@ def build_bulkhead_rings(stations):
 # the back column's Z seam, which the box searches — so the plate is stood off the other three
 # and `nameplate-field` reads it back against the seam once the box is standing.
 NAMEPLATE_MARGIN = 5.0
-# What a boss keeps off the cold core's cap, on the radius. `nameplate.boss_stem_d` is the part
-# of the boss that reaches deep, so it is that one and not the collar the line is struck on.
-NAMEPLATE_BOSS_CLEAR = 1.5
+# What the lowest point of a boss's corbel keeps off the cold core's cap. One millimetre is the
+# enclosure's assembly-clearance floor; the pump's rounded aft disc leaves more above the other
+# side of this same station, and `nameplate-support-clearance` reads both exact solids back.
+NAMEPLATE_BOSS_CLEAR = 1.0
 # The two bodies the plate goes into the assembly under — the part and the filament lying in it.
 NAMEPLATE = "nameplate"
 NAMEPLATE_INK = "nameplate-ink"
@@ -3477,12 +3528,14 @@ def nameplate_field() -> tuple:
 
 
 def nameplate_screw_line(foam) -> float:
-    """The Z both screws stand on: the lowest a boss can, over the cold core's own cap.
+    """The Z both screws stand on: the lowest a corbelled boss can, over the cold core's cap.
 
     The plate's boss reaches `nameplate.boss_reach` inboard and the core's foam stands
     `enclosure.wall` off this wall for the whole of the field below — so a boss over the cap is a
-    boss in the core. This is the cap's face, half a stem, and the air past it."""
-    return cap_face(foam) + _np.boss_stem_d() / 2.0 + NAMEPLATE_BOSS_CLEAR
+    boss in the core. Its corbel falls one `boss_reach` below the stem's lower tangent; this is
+    the cap's face, that fall, half a stem, and the air past it."""
+    return (cap_face(foam) + _np.boss_reach() + _np.boss_stem_d() / 2.0
+            + NAMEPLATE_BOSS_CLEAR)
 
 
 def nameplate_station(foam) -> tuple:
@@ -3499,6 +3552,19 @@ def nameplate_cut(foam) -> _enc.Nameplate:
                           _np.THICK, _np.WALL, _np.screw_stations(),
                           _np.boss_stem_d(), _np.boss_reach(),
                           _enc.heatset_dia, _enc.heatset_depth + _np.bore_relief())
+
+
+def nameplate_supports(foam) -> tuple:
+    """The wall's two complete insert supports, as `(side, solid)` in assembly coordinates.
+
+    The same enclosure helper builds the production feature and these probes, so the clearance
+    reading cannot silently keep measuring an old cylinder after the corbel or stem changes."""
+    plate = nameplate_cut(foam)
+    y_pad = _enc.rear_plane_y + _enc.wall - plate.wall
+    return tuple(
+        (("east" if dx > 0.0 else "west"),
+         _enc._nameplate_support(plate, plate.x + dx, plate.z + dz, y_pad))
+        for dx, dz in plate.screws)
 
 
 def build_nameplate(foam, unit: int = 1):
@@ -3541,6 +3607,81 @@ def check_nameplate(foam, box) -> Bound:
         "nameplate-field", "The plate stands in the field this wall leaves it", not rows,
         f"{_np.WIDTH:g} x {_np.HEIGHT:g} at ({x:.2f}, {z:.2f}), z {low:.2f}..{high:.2f}",
         f"inside x {west:.2f}..{east:.2f}, z {seam:.2f}..{north:.2f}", rows))
+
+
+def check_nameplate_support_clearance(foam, placed) -> Bound:
+    """Both corbelled insert supports against every installed body near the rear wall.
+
+    This is the choice the station spends: the west support passes between the cold-core cap and
+    the SeaFlo's rounded aft disc, while the east support shares the cap line beside the PSU.
+    Bounding boxes only reject bodies that cannot be close; every reported distance is the exact
+    B-rep distance from the production support geometry to the placed purchased/core solid."""
+    skip = {NAMEPLATE, NAMEPLATE_INK}
+    horizon = 5.0
+    rows = []
+    bad = []
+    for side, support in nameplate_supports(foam):
+        sb = _boxes.loose(support)
+        nearest = (float("inf"), None)
+        for name, body in placed.items():
+            if name in skip or name.startswith("bulkhead-ring-"):
+                continue
+            body = body.val() if hasattr(body, "val") else body
+            if _clearing.box_gap(sb, _boxes.loose(body)) > horizon:
+                continue
+            query = _BRepDist(support.wrapped, body.wrapped)
+            if not query.IsDone():
+                raise RuntimeError(
+                    f"nameplate-support-clearance: exact distance from the {side} support to "
+                    f"{name} failed — its clearance is unknown, not clear")
+            gap = query.Value()
+            if gap < nearest[0]:
+                nearest = (gap, name)
+        gap, name = nearest
+        rows.append((side, name, gap))
+        if name is None or gap < NAMEPLATE_BOSS_CLEAR - 1e-6:
+            bad.append((side, name, gap))
+    actual = ", ".join(f"{side} {gap:.3f} mm to {name}" for side, name, gap in rows)
+    return record_bound(Bound(
+        "nameplate-support-clearance",
+        "Both nameplate stems and their corbels stay clear of the installed pack", not bad,
+        actual, f"at least {NAMEPLATE_BOSS_CLEAR:g} mm each",
+        [f"{side} support leaves {gap:.3f} mm to {name or 'no measured body'}; the enclosure "
+         f"keeps {NAMEPLATE_BOSS_CLEAR:g} mm of assembly air"
+         for side, name, gap in bad]))
+
+
+def check_nameplate_support_print(foam) -> Bound:
+    """Both horizontal nameplate supports have one printable D-shaped free edge."""
+    plate = nameplate_cut(foam)
+    y_pad = _enc.rear_plane_y + _enc.wall - plate.wall
+    y_tip, r = y_pad - plate.reach, plate.stem_d / 2.0
+    rows, bad = [], []
+    for (side, support), (_dx, dz) in zip(nameplate_supports(foam), plate.screws):
+        sz = plate.z + dz
+        free = [edge for edge in support.Edges()
+                if abs(edge.BoundingBox().ymin - y_tip) < 1e-6
+                and abs(edge.BoundingBox().ymax - y_tip) < 1e-6]
+        circles = [edge.Length() for edge in free if edge.geomType() == "CIRCLE"]
+        floors = [edge for edge in free if edge.geomType() == "LINE"
+                  and abs(edge.BoundingBox().zmin - (sz - r)) < 1e-6
+                  and abs(edge.BoundingBox().zmax - (sz - r)) < 1e-6
+                  and abs(edge.BoundingBox().xlen - plate.stem_d) < 1e-6]
+        full_circle = any(abs(length - math.pi * plate.stem_d) < 1e-4 for length in circles)
+        drop = sz - r - support.BoundingBox().zmin
+        ok = not full_circle and len(floors) == 1 and abs(drop - plate.reach) < 1e-6
+        rows.append((side, ok, drop, max(circles, default=0.0)))
+        if not ok:
+            bad.append((side, full_circle, len(floors), drop))
+    return record_bound(Bound(
+        "nameplate-support-print",
+        "Both nameplate insert stems have a D-shaped lower profile and wall corbel",
+        bool(rows) and not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} D-stems, {plate.stem_d:g} mm floor, "
+        f"{plate.reach:g} mm 45-degree drop",
+        "no complete circular free edge; one full-width floor carried back to the wall",
+        [f"{side}: full circle={circle}, floor edges={floors}, corbel drop={drop:.3f} mm"
+         for side, circle, floors, drop in bad]))
 
 
 # --- the panel deck: the three unions the machine dispenses through ---------
@@ -7492,6 +7633,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And the condenser's own four, which are a groove at one end of the block and a bored boss
     # at the other — the same question asked of a body with no hole to boss and one with two.
     check_cond_mount(a.cond_cradle, a.cond_mount, pieces)
+    check_cond_corbel_clearance(
+        a.cond_cradle, a.cond_mount, box.inner,
+        {n: s for n, (s, _c) in _solids(a).items() if not n.startswith("enclosure-")})
     # And the two vents opposite that same block, which are its flanks' own flutes pierced — read
     # for the mullion between two slots, which is what a slot's width is measured against, and
     # for the height any one of those mullions stands free, which is what the transoms set. Both
@@ -7522,6 +7666,11 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And the nameplate against the field this wall leaves it — the one reading that can tell
     # `nameplate.WIDTH`, `HEIGHT` and `SCREW_Z` from figures this wall would actually take.
     check_nameplate(a.pack_solids["foam-assembly"], box)
+    check_nameplate_support_clearance(
+        a.pack_solids["foam-assembly"],
+        {n: s for n, (s, _c) in _solids(a).items()
+         if not n.startswith("enclosure-")})
+    check_nameplate_support_print(a.pack_solids["foam-assembly"])
     # And the pocket the wall actually cut against the outline that plate has. `pack-closes`
     # answers a pocket too small; this is the one that answers a pocket too large.
     check_nameplate_pocket({n: s for n, (s, _c) in _solids(a).items()}.get(NAMEPLATE),

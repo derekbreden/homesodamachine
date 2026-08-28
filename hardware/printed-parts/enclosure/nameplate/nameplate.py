@@ -20,9 +20,9 @@ WHERE IT STANDS. `WIDTH` and `HEIGHT` are the plate's, and the field it drops in
 wall's: `enclosure_assembly.nameplate_station` strikes that field on the flavour chips' own edge
 west, the flat rear face's tangent east, the top row's chips north and the back column's Z seam
 south, and `nameplate-field` reads these two figures back against it. The plate's horizontal
-centreline is the SCREW LINE — the band where the cold core's cap crowns at z 253.4 and the
-SeaFlo's aft disc comes down to z 266.4, both standing 3 mm off the wall, leaving room open
-across the face — so its two screws stand at mid-height.
+centreline is the SCREW LINE — the lowest band where the two complete corbelled supports clear
+the cold core's cap, with the SeaFlo's rounded aft disc and the PSU still clear at their own
+ends — so its two screws stand at mid-height.
 
 THE TYPE IS A SECOND SOLID, as the chips' words are: it lies in a recess `INK_DEPTH` into the
 plate's outboard face and fills it flush, printed in the second filament.
@@ -175,9 +175,12 @@ def pocket_soffit(hang: float) -> float:
 
 
 def boss_stem_d() -> float:
-    """And the boss under that pocket, round the insert alone — one `enclosure.wall` about a
-    ruthex M3 short, which is the section anything on this box stands a bare insert in."""
-    return _enc.heatset_dia + 2.0 * _enc.wall
+    """And the boss under that pocket, one enclosure-standard M3 heat-set section wide.
+
+    Its upper half is round; the enclosure squares the lower half to the two tangents and carries
+    that whole face on a wall-wide corbel. It keeps the standard `boss_ligament` around the insert
+    and fits with its corbel in the cap-to-pump lane."""
+    return _enc.mount_boss_dia
 
 
 def screw_stations() -> tuple:
@@ -500,6 +503,10 @@ def selftest() -> int:
                      f"gives it {screw_reach():.2f}")
     if thread_engaged() < _enc.heatset_depth - 1e-9:
         fails.append(f"the screw takes {thread_engaged():.2f} of a {_enc.heatset_depth:g} insert")
+    boss_ligament = (boss_stem_d() - _enc.heatset_dia) / 2.0
+    if boss_ligament < _enc.boss_ligament - 1e-9:
+        fails.append(f"the boss keeps {boss_ligament:g} round its insert and the enclosure's "
+                     f"standard M3 boss keeps {_enc.boss_ligament:g}")
     for sx, sz in screw_stations():
         if abs(sx) + SEAT_DIA / 2.0 > WIDTH / 2.0 - 1e-9:
             fails.append(f"a seat at x {sx:g} reaches past the plate's own edge")
