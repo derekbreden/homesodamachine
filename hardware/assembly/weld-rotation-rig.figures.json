@@ -4,6 +4,7 @@
     "BEAD_C": "388.61 mm",
     "BEAD_D": "123.70 mm",
     "DEG_S": "7.4\u00b0/s",
+    "DRAG_TORQUE": "15.5 N\u00b7m",
     "EXIT_CLEAR": "24.9 mm",
     "HEAT_DT": "29 K",
     "HEAT_LAP": "20.4 kJ",
@@ -42,12 +43,15 @@
     "RPM_8": "1.235 RPM",
     "RPM_NOM": "1.235 RPM",
     "RPM_WINDOW": "0.77 \u2013 2.32 RPM",
+    "SEG_MM": "48.6 mm",
+    "SEG_S": "6.1 s",
     "TRIP_1S": "7.4\u00b0",
     "TRIP_1S_MM": "8.0 mm",
     "VERT_COUPLE": "1.00 mm",
     "V_NOM": "8 mm/s",
     "V_TYD": "15.5 mm/s",
     "WIRE_AREA": "0.456 mm\u00b2",
+    "WIRE_BREAK": "251 N",
     "WIRE_NOM": "12 mm/s"
   }
 }

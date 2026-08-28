@@ -55,6 +55,12 @@ RETRACT = 30.0            # mm of slide travel at the exit
 NOZZLE_STANDOFF = 10.0    # mm — nozzle tip above the plate face at weld height
 OVERLAP_DEG = 20.0        # ° of lap past 360°
 
+# What a stuck wire can pull against. ER316L is the weld metal's own strength;
+# the wire near a puddle is annealed and hotter, so this is an upper bound on
+# what the drivetrain has to be unable to notice.
+WIRE_TENSILE = 550.0      # MPa
+TACKS = 8                 # the bisecting pattern's count — and the fill's segments
+
 # A synchronous rotisserie motor is line-locked, so on 60 Hz it sits at the top
 # of its plate rating — which is what the cheap proof would actually run at.
 TYD_RPM = 2.4
@@ -119,6 +125,10 @@ def main():
         "TRIP_1S": f"{deg_s:.1f}\u00b0",
         "TRIP_1S_MM": f"{bead_circumference * deg_s / 360:.1f} mm",
         "LAP_380": f"{bead_circumference * (360 + OVERLAP_DEG) / 360 / V_NOM:.1f} s",
+        "SEG_MM": f"{bead_circumference / TACKS:.1f} mm",
+        "SEG_S": f"{bead_circumference / TACKS / V_NOM:.1f} s",
+        "WIRE_BREAK": f"{wire_area * WIRE_TENSILE:.0f} N",
+        "DRAG_TORQUE": f"{wire_area * WIRE_TENSILE * bead_radius / 1000:.1f} N\u00b7m",
         "BEAD_D": f"{bead_diameter:.2f} mm",
         "BEAD_C": f"{bead_circumference:.2f} mm",
         "MASS_S3": f"{m_s3 / 1000:.2f} kg",
