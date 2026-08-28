@@ -55,6 +55,7 @@ import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
 import { fnum, fpt, formatFace, surfaceText, CONTENT_ROOT } from "./pick-format.js";
+import { roundFitMeasured } from "./round-fit.js";
 import { makePanelCollapse } from "./tool-rail.js";
 
 const LS_KEY = "step-edge-pick";
@@ -253,26 +254,6 @@ function makeEdge(points) {
   return { points, a, b, length, kind: "curve" };
 }
 
-// A CIRCLE IS ONLY REPORTED WHEN THE SAMPLE MEASURED IT. Two independent
-// things disqualify one drawn through points that merely lie near it. The
-// residual bound is ABSOLUTE, because a tolerance scaled by the radius under
-// test grows with it and ends up admitting anything: at r = 2.5e5 a two
-// percent bound is kilometres of slack. The sweep bound is the other half —
-// a sample subtending less than `FIT_MIN_SWEEP` sits within the same figure
-// the plane test uses, so its radius is extrapolated off tessellation noise
-// rather than measured. BOTH are needed. The largest false fits in this
-// payload sit at a residual of exactly zero, and only their sweep rejects
-// them; every genuine arc here sweeps at least 2.58°.
-const FIT_RESIDUAL_MAX = 0.5;   // mm, whatever the radius
-const FIT_MIN_SWEEP = 2.0;      // degrees of arc the samples must cover
-
-// A chord `span` on radius `r` subtends 2·asin(span / 2r).
-function fitMeasured(r, span, residual) {
-  if (!(r > 1e-3) || !(span > 0)) return false;
-  if (residual > Math.min(FIT_RESIDUAL_MAX, Math.max(0.05, 0.02 * r))) return false;
-  return 2 * Math.asin(Math.min(1, span / (2 * r))) * (180 / Math.PI) >= FIT_MIN_SWEEP;
-}
-
 // Circumcircle through the polyline's two ends and its midpoint, accepted only
 // if every sample point sits on it. Returns {center, radius} or null.
 function fitCircle(points) {
@@ -297,7 +278,7 @@ function fitCircle(points) {
     residual = Math.max(residual, Math.abs(p.distanceTo(center) - radius));
     lo.min(p); hi.max(p);
   }
-  if (!fitMeasured(radius, hi.distanceTo(lo), residual)) return null;
+  if (!roundFitMeasured(radius, hi.distanceTo(lo), residual)) return null;
   return { center, radius, axis: n.clone().normalize() };
 }
 
@@ -418,7 +399,7 @@ function classifyFaceImpl(rec, f) {
         }
         // The chord is taken in the axis-normal plane: a cylinder's axial run
         // is not arc, and letting it stand in for sweep passes a flat patch.
-        if (fitMeasured(r, Math.hypot(xhi - xlo, yhi - ylo), maxRes)) {
+        if (roundFitMeasured(r, Math.hypot(xhi - xlo, yhi - ylo), maxRes)) {
           const axisPoint = centroid.clone().addScaledVector(u, cx).addScaledVector(v, cy);
           return { kind: "cylinder", r, axis: axisPoint, dir: axis };
         }
@@ -989,4 +970,3 @@ window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
     if (toggleRefresh) toggleRefresh();
   }
 });
-
