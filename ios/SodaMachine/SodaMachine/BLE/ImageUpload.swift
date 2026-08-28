@@ -228,6 +228,7 @@ extension BLEManager {
             }
             self.faceSlot = slot
             if offset == 0 { self.faceBuffer = Data(); self.faceResumes = 0 }
+            self.faceSaidFirstPix = false
             self.faceAskedAt = Date()
             var payload = Data([UInt8(slot), 0])
             payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
@@ -264,8 +265,12 @@ extension BLEManager {
         // whether a read is working, and it is the one number that has never
         // left the phone. Every eighth pull, so it says enough to be read
         // without becoming the traffic.
+        // Throttled by the clock, not by a count. The count is reset on every
+        // ask from zero, so "every eighth" was every single one — which is how
+        // a progress line became the traffic it was reporting on.
         faceResumes += 1
-        if faceResumes % 8 == 1 {
+        if Date().timeIntervalSince(faceSaidAt) > 3.0 {
+            faceSaidAt = Date()
             say("faces: at \(faceBuffer.count) of \(faceTotal) after \(faceResumes) pulls")
         }
         requestFace(slot: faceSlot, from: faceBuffer.count)
@@ -285,6 +290,15 @@ extension BLEManager {
         let offset = Int(u32(2)), total = Int(u32(6))
         faceTotal = total
         let bytes = payload.subdata(in: (b + 10)..<payload.endIndex)
+
+        // The first frame after each ask, said out loud. Which guard turns a
+        // frame away is the one thing this path has never reported, and it has
+        // been guessed at five times.
+        if !faceSaidFirstPix {
+            faceSaidFirstPix = true
+            say("pix s=\(slot)/\(faceSlot) off=\(offset) buf=\(faceBuffer.count) n=\(bytes.count)")
+        }
+
         guard slot == faceSlot else { return }
         // Behind what we have is a duplicate from a resume; ahead of it is a
         // gap, and asking again from here is the whole recovery.
