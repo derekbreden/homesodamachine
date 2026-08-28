@@ -37,6 +37,9 @@ uint32_t primeStatePublications = 0;
 uint32_t primeHeartbeatPublications = 0;
 // A faucet display that just came up renders from artwork it has not been told
 // yet, so the pair is published once per connection as well as on every change.
+// A slot the faucet says is ready to carry, or 0xFF for none. Read and cleared
+// by the loop, because standing the enclosure's radio up blocks.
+uint8_t relayWanted = 0xFF;
 bool artPublished = false;
 bool idlePublished = false;
 
@@ -171,6 +174,16 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
         memcpy(text, payload, n);
         text[n] = '\0';
         Serial.printf("\n[J3] text: %s\n", text);
+        return;
+    }
+
+    // A picture landed on the faucet. The hop that follows blocks for seconds,
+    // so it is noted here and run from the loop rather than from inside the
+    // frame that asked for it.
+    if (type == MSG_IMAGE_RELAY_REQ && plen >= sizeof(ImageSlotPayload)) {
+        ImageSlotPayload req;
+        memcpy(&req, payload, sizeof(req));
+        if (req.slot < FLAVOR_ART_CUSTOM) relayWanted = req.slot;
         return;
     }
 
@@ -441,6 +454,12 @@ bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
 // Push into TinyProto's window as fast as it will take frames, servicing the
 // link whenever it is full. No flash write and no per-chunk answer: what comes
 // back is what J3 carries, which is the number the OTA pull is measured against.
+uint8_t faucetLinkTakeRelayRequest() {
+    const uint8_t slot = relayWanted;
+    relayWanted = 0xFF;
+    return slot;
+}
+
 bool faucetLinkImageRelayGo(uint8_t slot) {
     ImageSlotPayload req{slot};
     return faucet.trySend(MSG_IMAGE_RELAY_GO, &req, sizeof(req)) >= 0;
