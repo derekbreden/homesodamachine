@@ -3,33 +3,32 @@ male appliance inlet, 40 mm screw pitch. BOM: MXR IEC 60320 C14 panel-mount AC
 inlet, 10 A / 250 VAC (Amazon B07DCXKNXQ); rear-wall mains inlet that accepts a
 standard NEMA 5-15P-to-C13 line cord. Moulded "AC-04" on its face.
 
-One moulded body in three sections along the mating axis. A LOZENGE FLANGE bears
-on the panel and carries a screw ear at each end. Standing outboard of it, the
-keyed MATING BOSS that reaches through the panel's cutout, hollowed into the
-recess the C13 cordset enters and carrying the three flat male blades. Standing
-inboard, the HOUSING that runs the blades back to the quick-connect spade
-terminals inside the machine.
+One moulded body: a LOZENGE FLANGE with a screw ear at each end, and one keyed
+COLUMN through it — barely proud on the mating face, where the recess the C13
+cordset enters is sunk into it and the three flat male blades stand, and long on
+the wiring face, where it carries the quick-connect spade terminals into the
+machine. The column's section is the same read from either side, and so is the
+45 deg key cut into it.
 
 Calipered (the part on the bench)
 ---------------------------------
   FLANGE_W 49.77 x FLANGE_H 22.17 — tip to tip through the ears, and across the
       two flats. The ear is a round of half the difference from the pitch
       (`EAR_R`), struck on the screw itself, so 40 + 2 x 4.885 is the length.
-  SHROUD_H 18.18 — the mating boss across the flange's own short axis. It is the
-      widest section outboard of the seating plane, so it is what a cutout is
-      cut to, and the flange has 1.995 mm of bearing either side of it.
-  SHROUD_PROUD 7.04 — how far that boss stands outboard of the seating plane.
-      A panel thicker than this buries the boss and the cordset never lands.
-  BODY_REACH 17.98 — how far the part reaches inboard of the seating plane,
-      terminals aside.
-  BODY_W 26.46 — the moulded column front and back, along the flange's long
-      axis. Read once from each face.
+  BODY_W 26.46 x BODY_H 18.18 — the moulded column that passes through the
+      flange, the same section read from either face. It is the widest thing
+      outboard of the seating plane, so a cutout is cut to it, and the flange
+      is left 1.995 mm of bearing either side.
+  BODY_KEY_FLAT 17.98 and CAVITY_KEY_FLAT 7.04 — the two flats the 45 deg key
+      leaves: the first across the column's long faces, the second across the
+      ends of the recess the C13 enters. Both read from either face. One KEY of
+      4.24 answers for both, and it is what sets CAVITY_H and SHROUD_T.
   SCREW_PITCH 40.0 — both screws ON the mating axis, one either side of the hole.
 
 Estimated off the same photographs (rounding, and what nothing bears on)
 ------------------------------------------------------------------------
-  FLANGE_T 3.0, FLANGE_FLAT_W 24.0 and the corner radii; SHROUD_T, CAVITY_DEPTH
-  and the blade layout; BODY_H and the Faston stubs. Each is marked at its own
+  FLANGE_T, FLANGE_FLAT_W and the corner radii; SHROUD_PROUD, CAVITY_DEPTH,
+  BODY_REACH and the blade layout; the Faston stubs. Each is marked at its own
   constant.
 
 Coordinate convention
@@ -44,8 +43,7 @@ Matches jg_bulkhead_union.py.
       reach out through the cutout at y >= 0; the flange, the housing and the
       terminals sit at y < 0, inside the enclosure.
   +Z = up. X completes the right-handed frame. The flange's long axis (49.77)
-      is along X; its short axis (22.17) is along Z, and the boss's two keyed
-      corners are the +Z pair, on the earth blade's own side.
+      is along X; its short axis (22.17) is along Z.
 
 Note on the sketch plane: on the raw cq.Workplane(xz_plane_y_up), local +y
 maps to world -Z (chirality inversion documented in world_workplane.py), so
@@ -84,19 +82,31 @@ EAR_R = (FLANGE_W - SCREW_PITCH) / 2.0   # 4.885 — the ear is a round on its s
 # the run is the only figure the outline needs beyond the four calipered ones.
 FLANGE_FLAT_W = 24.0
 FLANGE_KNUCKLE = 1.0
-FLANGE_T = 3.0       # ESTIMATED. Y, the flange's own thickness
+FLANGE_T = 5.0       # ESTIMATED. Y, the flange's own thickness
 SCREW_D = 3.5        # ESTIMATED. clearance hole for the M3 that holds it
 
-# --- CALIPERED: the mating boss, which is what passes the panel ------------
-# THE BOSS IS THE WHOLE OF WHAT REACHES THROUGH. Nothing else on the part stands
-# outboard of the seating plane, so `panel_cutout` is this section and a slip.
-SHROUD_W = 26.46     # X — the moulded column, shared with the housing behind it
-SHROUD_H = 18.18     # Z
-SHROUD_PROUD = 7.04  # Y, outboard of the seating plane
-SHROUD_KEY = 4.0     # ESTIMATED. the 45 deg cut on the two +Z corners — the C13's key
-SHROUD_R = 1.0       # ESTIMATED. round on every corner of that outline
-SHROUD_T = 1.6       # ESTIMATED. ring wall thickness round the cavity
-CAVITY_DEPTH = 5.5   # ESTIMATED. Y, how far the cavity floor sits below the boss rim
+# --- CALIPERED: the moulded body, and the 45 deg key cut into it -----------
+# THE BODY IS ONE COLUMN THROUGH THE FLANGE, standing out on the mating face and in on the
+# wiring face, and its section is the same read from either side. That section is a rectangle
+# with every corner cut back at 45 deg, and the two flats those cuts leave are what the
+# calipers take — which is why both figures read the same from either face.
+BODY_W = 26.46       # X — the column, mating side and wiring side alike
+BODY_H = 18.18       # Z — the widest section outboard of the seating plane, so what a cutout
+                     #     is cut to, with 1.995 mm of flange bearing either side of it
+BODY_KEY_FLAT = 17.98   # X — what the key leaves on the column's two long faces
+CAVITY_KEY_FLAT = 7.04  # Z — what the same key leaves on the recess's two end faces
+KEY = (BODY_W - BODY_KEY_FLAT) / 2.0        # 4.24 — the 45 deg cut's own leg
+CAVITY_H = CAVITY_KEY_FLAT + 2.0 * KEY      # 15.52 — the recess across the short axis
+SHROUD_T = (BODY_H - CAVITY_H) / 2.0        # 1.33 — the wall the two leave between them
+CAVITY_W = BODY_W - 2.0 * SHROUD_T          # 23.80
+BODY_R = 1.0         # ESTIMATED. round on every corner of that outline
+
+# --- ESTIMATED: how far the column stands either way of the seating plane --
+# The mating face is very nearly the flange's own: this receptacle sinks its recess into the
+# body rather than standing a shroud off the panel, and a C13 lands on the flange.
+SHROUD_PROUD = 1.0   # ESTIMATED. Y, the column outboard of the seating plane
+CAVITY_DEPTH = 9.0   # ESTIMATED. Y, recess floor below the mating face
+BODY_REACH = 19.8    # ESTIMATED. Y, seating plane to the housing's back face, terminals aside
 
 # --- Male blades (mate with the C13 cordset) — ESTIMATED, IEC 60320-1 sheet C14
 BLADE_W = 4.0        # X
@@ -104,14 +114,6 @@ BLADE_T = 1.0        # Z thickness
 BLADE_PROUD = 5.0    # Y projection from the cavity floor toward +Y
 LN_SPACING = 14.0    # line<->neutral center spacing along X
 EARTH_OFFSET_Z = 8.0  # earth blade above the L/N line (world +Z)
-
-# --- CALIPERED reach, ESTIMATED section: the housing inboard of the flange -
-# The housing passes through nothing — the flange lands from inside and the cutout owes
-# this section no clearance. Only its reach crowds anything, and that is calipered.
-BODY_REACH = 17.98   # Y, seating plane to the housing's back face, terminals aside
-BODY_W = SHROUD_W    # X
-BODY_H = 18.0        # ESTIMATED. Z
-BODY_R = 1.0         # ESTIMATED
 
 TAB_W = 4.8          # ESTIMATED. X, Faston quick-connect spade
 TAB_T = 0.8          # ESTIMATED. Z
@@ -137,7 +139,7 @@ def panel_cutout() -> tuple:
     """`(width, height, corner radius)` of the axis-centred rounded rectangle the boss
     reaches out through. The keyed corners are inside this rectangle, so a panel cuts the
     rectangle and the key rides free of it."""
-    return (SHROUD_W, SHROUD_H, SHROUD_R)
+    return (BODY_W, BODY_H, BODY_R)
 
 
 def panel_screws() -> tuple:
@@ -236,13 +238,14 @@ def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
 
 
 def _keyed_outline(wp, width, height, key):
-    """The C13/C14 mating section: a rectangle with the two corners on the earth blade's
-    side cut back at 45 deg, which is the key that stops a cordset going in upside down.
-    Local +y is world -Z, so the key is drawn on local -y."""
+    """The C13/C14 section: a rectangle with every corner cut back at 45 deg. `BODY_KEY_FLAT`
+    is what the cut leaves across the long faces and `CAVITY_KEY_FLAT` what it leaves across
+    the recess's ends, and one `KEY` answers for both."""
     hw, hh = width / 2.0, height / 2.0
-    return (wp.moveTo(-hw, hh).lineTo(hw, hh)
-              .lineTo(hw, -(hh - key)).lineTo(hw - key, -hh)
-              .lineTo(-(hw - key), -hh).lineTo(-hw, -(hh - key))
+    return (wp.moveTo(-(hw - key), hh).lineTo(hw - key, hh)
+              .lineTo(hw, hh - key).lineTo(hw, -(hh - key))
+              .lineTo(hw - key, -hh).lineTo(-(hw - key), -hh)
+              .lineTo(-hw, -(hh - key)).lineTo(-hw, hh - key)
               .close())
 
 
@@ -281,12 +284,15 @@ def build_flange():
 
 
 def build_shroud():
-    """The keyed boss reaching out through the panel cutout (0 -> `shroud_rim_y`) with the
-    cavity bored back down to the floor the blades stand on — the pocket the C13 enters."""
-    ring = _keyed_prism(SHROUD_W, SHROUD_H, SHROUD_KEY, SHROUD_R, 0.0, SHROUD_PROUD)
-    cavity = _keyed_prism(SHROUD_W - 2 * SHROUD_T, SHROUD_H - 2 * SHROUD_T,
-                          SHROUD_KEY - SHROUD_T, SHROUD_R, shroud_rim_y, -CAVITY_DEPTH)
-    return ring.cut(cavity)
+    """The keyed column standing outboard of the seating plane (0 -> `shroud_rim_y`), which is
+    the whole of what reaches through a panel."""
+    return _keyed_prism(BODY_W, BODY_H, KEY, BODY_R, 0.0, SHROUD_PROUD)
+
+
+def build_cavity():
+    """The recess the C13 enters, sunk back from the mating face into the column — past the
+    flange and on into the housing, which is where a C13's blade engagement is."""
+    return _keyed_prism(CAVITY_W, CAVITY_H, KEY, BODY_R, shroud_rim_y, -CAVITY_DEPTH)
 
 
 def build_blades():
@@ -313,7 +319,7 @@ def build_blades():
 def build_body():
     """The moulded housing behind the flange (`flange_back_y` -> `body_back_y`), standing in
     the enclosure with the terminals on its back face."""
-    return _keyed_prism(BODY_W, BODY_H, SHROUD_KEY, BODY_R,
+    return _keyed_prism(BODY_W, BODY_H, KEY, BODY_R,
                         flange_back_y, body_back_y - flange_back_y)
 
 
@@ -342,8 +348,9 @@ def build_iec_c14_inlet():
     return (
         build_flange()
         .union(build_shroud())
-        .union(build_blades())
         .union(build_body())
+        .cut(build_cavity())
+        .union(build_blades())
         .union(build_terminals())
     )
 
@@ -355,17 +362,23 @@ def selftest() -> int:
         fails.append(
             f"the ears are Ø{2 * EAR_R:.3f} on a {SCREW_PITCH:g} pitch and the flange is "
             f"{FLANGE_W:g} long — the tip is not the ear's own outer point.")
-    if SHROUD_H >= FLANGE_H:
+    if BODY_H >= FLANGE_H:
         fails.append(
-            f"the boss is {SHROUD_H:g} across and the flange {FLANGE_H:g} — the flange has "
+            f"the body is {BODY_H:g} across and the flange {FLANGE_H:g} — the flange has "
             f"no bearing left either side of the hole it covers.")
-    if SHROUD_KEY > min(SHROUD_W, SHROUD_H) / 2.0:
-        fails.append(f"a {SHROUD_KEY:g} key cuts past the middle of a "
-                     f"{SHROUD_W:g} x {SHROUD_H:g} section")
-    if CAVITY_DEPTH >= SHROUD_PROUD + FLANGE_T:
+    if KEY > min(CAVITY_W, CAVITY_H) / 2.0:
+        fails.append(f"a {KEY:g} key cuts past the middle of the {CAVITY_W:g} x "
+                     f"{CAVITY_H:g} recess it is also cut into")
+    if abs(BODY_W - 2 * KEY - BODY_KEY_FLAT) > 1e-9 or abs(CAVITY_H - 2 * KEY
+                                                           - CAVITY_KEY_FLAT) > 1e-9:
         fails.append(
-            f"the cavity is {CAVITY_DEPTH:g} deep and there is {SHROUD_PROUD + FLANGE_T:g} of "
-            f"boss and flange to sink it in — its floor is out the back of the flange.")
+            f"one 45 deg key of {KEY:g} leaves {BODY_W - 2 * KEY:.2f} on the body's long faces "
+            f"and {CAVITY_H - 2 * KEY:.2f} on the recess's ends, and the calipers read "
+            f"{BODY_KEY_FLAT:g} and {CAVITY_KEY_FLAT:g}")
+    if CAVITY_DEPTH >= SHROUD_PROUD + BODY_REACH:
+        fails.append(
+            f"the recess is {CAVITY_DEPTH:g} deep and the column runs "
+            f"{SHROUD_PROUD + BODY_REACH:g} — its floor is out the back of the housing.")
     if FLANGE_FLAT_W / 2.0 >= SCREW_PITCH / 2.0 - EAR_R:
         fails.append(
             f"the flat runs to x {FLANGE_FLAT_W / 2.0:g} and the ear starts at "
@@ -378,7 +391,7 @@ def selftest() -> int:
         print(f"FAIL {line}")
     if not fails:
         print(f"ok  iec-c14-inlet AC-04  flange {FLANGE_W:g} x {FLANGE_H:g}, "
-              f"boss {SHROUD_W:g} x {SHROUD_H:g} standing {SHROUD_PROUD:g} out, "
+              f"body {BODY_W:g} x {BODY_H:g} on a {KEY:.2f} key, "
               f"{BODY_REACH:g} in, screws {SCREW_PITCH:g} apart")
     return 1 if fails else 0
 
@@ -394,7 +407,7 @@ def main():
     print(f"  Extents: X {bb.xlen:.2f}  Y {bb.ylen:.2f}  Z {bb.zlen:.2f}")
     print(f"  Proud of seating face (outward): {bb.ymax:.2f} mm")
     print(f"  Into enclosure (inward): {bb.ymin:.2f} mm")
-    print(f"  Flange {FLANGE_W} x {FLANGE_H} / boss {SHROUD_W} x {SHROUD_H}")
+    print(f"  Flange {FLANGE_W} x {FLANGE_H} / body {BODY_W} x {BODY_H}, key {KEY:.2f}")
     print(f"  Solid valid: {part.val().isValid()}")
     export_assembly(one_body(part, "iec-c14-inlet", C_C14), str(STEP))
     print(f"-> {STEP.name}")

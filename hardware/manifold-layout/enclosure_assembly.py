@@ -4505,6 +4505,34 @@ def c14_cutout():
             wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r + C14_CUTOUT_SLIP)
 
 
+def build_c14():
+    """The receptacle seated on the tunnel's fore face, its shroud back out through the cutout.
+
+    `iec_c14_inlet` states the seating planes: the flange's outboard face is its own Y = 0 and
+    bears on `c14_seat_y` at the floor of the socket, the housing hangs `BODY_REACH` inboard of
+    it, and the boss rises `SHROUD_PROUD` the other way — up the tunnel's bore toward the wall."""
+    body = import_step(str(C14_STEP)).val()
+    return seat_body(body, (), seat="c14-inlet",
+                     station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
+                              (C14_STATION[0], c14_seat_y(), C14_STATION[1])))
+
+
+def c14_stations():
+    """The two heat-set screw stations on the +Y wall of back-top, as `(x, z)` — `enclosure._c14_tunnel`
+    bores one into its fore face at each. Both sit ON the mating axis, so the pair follows the
+    one station the receptacle is placed at, and the tunnel's own width across X is struck to
+    reach them."""
+    return tuple((C14_STATION[0] + dx, C14_STATION[1] + dz) for dx, dz in _c14.panel_screws())
+
+
+def c14_cutout():
+    """The rounded rectangle the shroud reaches out through, in `back_ports` shape — struck on
+    the same station the body is, one `C14_CUTOUT_SLIP` over the moulding on every side."""
+    wx, wz, r = _c14.panel_cutout()
+    return ("rect", C14_STATION[0], C14_STATION[1],
+            wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r + C14_CUTOUT_SLIP)
+
+
 def c14_outboard_stack() -> float:
     """What stands between the seating plane and the face the customer's cord meets — the tunnel
     and the wall's own cap, which the boss has to cross to be reached at all."""
