@@ -254,10 +254,10 @@ display_cover_inserts_per_build = len(display_cover_stations)
 # nameplate's two are, reaching the land, the insert and the relief bored under it.
 display_cover_screws_per_build = display_cover_inserts_per_build
 
-# The ceiling panel's two, read off the panel's own stations. Each is driven UPWARD from the
-# Z- side into a heat-set in the panel, through a fixed land in back-top's boss, so it is the
-# box's M3 x 10 and not the M3 x 8 every other insert station takes.
-ceiling_panel_inserts_per_build = len(_ceil.screw_stations())
+# The ceiling panel's two transverse keepers, read off the panel's mating stations. The inserts
+# are horizontal in back-top's fixed corbels and each M3 x 12 headless screw is driven outboard
+# across an empty dado mouth after the panel reaches its +Y stop.
+ceiling_panel_inserts_per_build = len(_ceil.retainer_stations())
 ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
 
 # The pump cap's two, read off the lane they run up. ONE CAP CLOSES ON BOTH PUMP HEADS
@@ -322,15 +322,16 @@ m3x8_per_build = (shelf_short_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build)
 
-# And every M3 x 10: the ground-stack clamp's one, the ceiling panel's two, the pump cap's
-# two, and the enclosure's four seam screws.
-m3x10_per_build = (shelf_long_screws_per_build + ceiling_panel_screws_per_build
-                   + pump_cap_screws_per_build + enclosure_seam_screws_per_build)
+# And every M3 x 10: the ground-stack clamp's one, the pump cap's two, and the enclosure's four
+# seam screws. The ceiling's pair are headless M3 x 12 keepers on their own row.
+m3x10_per_build = (shelf_long_screws_per_build + pump_cap_screws_per_build
+                   + enclosure_seam_screws_per_build)
 
 # And every M3 x 12 of the black-oxide 12.9 kind: the touch-flo plate's. (The 304
 # stainless M3 x 12 is a different row — the reservoir caps' wetted-zone hardware — and
 # is not counted here.)
 m3x12_per_build = touchflo_screws_per_build
+ceiling_set_screws_per_build = ceiling_panel_screws_per_build
 
 # Combined heat-set insert count across the appliance, by thread.
 total_m3_inserts_per_build = (
@@ -491,6 +492,7 @@ def main():
         "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
+        "M3X12_SET_TOTAL": f"{ceiling_set_screws_per_build:.4g}",
         "SEAM_SCREWS": f"{enclosure_seam_screws_per_build:.4g}",
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "CEILING_INSERTS": f"{ceiling_panel_inserts_per_build:.4g}",

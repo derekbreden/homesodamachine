@@ -1222,17 +1222,6 @@ back_top_ceiling_reliefs = (
     ("asse1022-tie-fore", -1.0, 358.0, 364.5, 0.0, _RAIL),
     ("asse1022-tie-aft",  -1.0, 384.0, 390.5, 0.0, _RAIL),
 )
-# AND HOW FAR A FULL-DEPTH BLOCK MAY STAND ON A RELIEVED BAND, WHICH IS NOT `keep`. `keep` is the
-# corbel's own run and a corbel is SHALLOW at its outboard edge, where a pier descends the whole
-# way to its screw's counterbore (`_back_top_ceiling`) — so a body a corbel clears by a
-# millimetre is a body a pier arrives inside of. Stated as {station: run}, measured at the pier's
-# own storey on the same placed solids the rows above were, and EMPTY: the panel's two fixed
-# bosses stand at y 236..244.075, the fore end of both strips, and no relief takes a band there.
-# A pier crossing a relieved band nobody has measured for is what `ceiling_pier_run` refuses,
-# rather than borrowing the corbel's figure and descending into a body.
-back_top_ceiling_pier_runs = {}
-
-
 @functools.lru_cache(maxsize=1)
 def _ceiling():
     """The slide-in ceiling panel, as a module — the part that STATES this joint's mating
@@ -1258,33 +1247,6 @@ def ceiling_corbel_at(x, y):
     for _who, sx, y0, y1, keep, out in back_top_ceiling_reliefs:
         if sx * x > 0.0 and y0 <= y <= y1 and keep < run <= out:
             return 0.0
-    return run
-
-
-def ceiling_pier_run(sx, y0, y1):
-    """How far outboard a FULL-DEPTH block may stand on back-top's ceiling strip over a band of
-    it — `ceiling_corbel_at`'s figure for something that spans a band rather than standing at one
-    station, and takes the whole storey under the strip rather than the corbel's own wedge.
-
-    The strip's full run is the panel's rail (`ceiling_panel.rail_run`), the same figure
-    `_back_top_ceiling` corbels. A relief takes the outboard run of it over its own band, so what
-    a block crossing several bands may stand on is the smallest run any of them leaves — and on a
-    relieved band that is `back_top_ceiling_pier_runs`, not `keep`, because the body a relief was
-    cut for stands nearer to something descending the whole storey than to the corbel's thin edge.
-    A band measured for the corbel and not for a pier is REFUSED: borrowing the one figure for the
-    other is how a block ends up inside the body its own relief was cut to clear."""
-    run = _ceiling().rail_run
-    for who, rsx, ry0, ry1, _keep, _out in back_top_ceiling_reliefs:
-        if not (rsx == sx and ry0 < y1 and y0 < ry1):
-            continue
-        if who not in back_top_ceiling_pier_runs:
-            raise ValueError(
-                f"ceiling_pier_run: a full-depth block spans y {y0:.2f}..{y1:.2f} on the "
-                f"{'+' if sx > 0 else '-'}X strip, which is the {who} relief's band, and no run "
-                f"has been measured for a pier there. `keep` is the CORBEL's run and a corbel "
-                f"stops short of the storey a pier takes: measure this band against the placed "
-                f"solid and add it to `back_top_ceiling_pier_runs`.")
-        run = min(run, back_top_ceiling_pier_runs[who])
     return run
 
 
@@ -4781,8 +4743,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
 def _back_top_ceiling(solid, inner, y_joint):
     """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
     away between the two side strips, each strip corbelled and relieved where a body stands in it,
-    the panel's dado down each strip's inboard face, and an upward screw boss under each of its
-    two insert sockets.
+    the panel's dado down each strip's inboard face, and a transverse keeper socket immediately
+    ahead of each tongue end.
 
     FUSED AND CUT BEFORE THIS PIECE'S OWN FURNITURE, the way its two sections are: the ASSE anchor's V,
     the chain's bores, the Wago wells and every bore below are cut AFTER this, so each is cut out
@@ -4792,27 +4754,17 @@ def _back_top_ceiling(solid, inner, y_joint):
     is slid the length of the piece with its tongues in these two grooves, before back-top meets
     another quadrant. So the groove starts on the seam plane, not on the panel's own fore edge.
 
-    THE BOSSES STAND ON PIERS AND THE PIERS HANG OFF THE STRIP. The panel's insert socket lands
-    tangent to the strip's inboard face (`ceiling_panel.screw_x`), so nothing joins a boss to
-    this piece across that plane — the pier is the join: a block from the boss's own axis out to
-    WHERE THE STRIP ITSELF STOPS (`ceiling_pier_run`), with the socket's travel struck back out.
+    THE KEEPER IS A CROSS-PIN, NOT A CLAMP. The dados already carry X and Z and the +Y wall is the
+    home stop; only travel back toward the open mouth remains. Once the panel is home, one
+    headless M3 screw is driven outboard across each empty dado mouth into a horizontal heat-set
+    buried in the existing corbel. The tongue bears on the steel pin, and the pin bears directly
+    in the fixed strip around its approach tunnel. Nothing hangs below the field, nothing is
+    added to the moving panel, and both show faces remain whole.
 
-    THE HEAD ENTERS FROM Z−. Each fixed boss carries the downward-open head counterbore and the
-    shank's clearance; its top bears on the panel socket's downward-facing mouth. The heat-set is
-    in the moving panel, so tightening upward pulls that socket down onto this boss without
-    piercing the appliance's show face.
-
-    AND THE STRIP'S STOP IS WHAT MAKES THE ROOT. The corbel is a wedge whose thin end is at the
-    panel's edge, so how much section a pier roots in is how far out it carries: a block ending a
-    `wall` past that edge ends in three millimetres of corbel, and one carried to the flank roots
-    in the whole of it. Where a relief has taken the strip's outboard run the pier stops short of
-    the body that relief was cut for, on that band's OWN measured run and not the corbel's
-    (`ceiling_pier_run`) — a pier takes the whole storey under the strip where the corbel takes a
-    wedge of it, and a body is nearer to the one than to the other.
-
-    AND ONLY THE PAD HANGS. The block's underside rises off the pad at 45° into the corbel's own
-    underside coming down the other way, so what is laid on air under a pier is the screw's head
-    face and nothing else."""
+    THE INSERTS ENTER FROM THE SAME OPEN FIELD. Their larger guide tunnels start at the dado's
+    blind wall and step down to the knurl bores where the corbel has the standard ligament around
+    them. The panel crosses these stations before the pins exist; the two screws are installed
+    only after its aft edge has reached the +Y wall."""
     cp = _ceiling()
     iz1 = inner[5]
     half, flanks = cp.panel_half_w, back_top_flank_face()
@@ -4886,44 +4838,19 @@ def _back_top_ceiling(solid, inner, y_joint):
         solid = solid.cut(_ybox(min(sx * mouth_x, sx * blind_x), max(sx * mouth_x, sx * blind_x),
                                 cp.aft_y, cp.aft_y + depth, floor_z, roof_z))
 
-    # THE TWO UPWARD SCREW BOSSES, and the lane the panel's insert sockets travel through.
-    r, floor = cp.screw_pad_r, cp.screw_head_face_z
-    plan = _ybox(-half - 1.0, half + 1.0, cp.fore_y, cp.aft_y, floor - 1.0, cp.show_z)
-    for cx, cy in cp.screw_stations():
-        sx = 1.0 if cx > 0 else -1.0
-        # The pier's own band is the block's, fore edge to the socket's aft face, and it stands out
-        # to wherever the strip over that band does.
-        #
-        # AND ITS UNDERSIDE IS A RAMP OFF THE PAD, not a soffit the length of that run. The pad
-        # has to stand at the screw's own head face and the panel's socket lands tangent to the
-        # strip, so the pad's outboard edge IS the panel's edge — and out of that edge the block
-        # rises at 45° while the corbel's underside descends at 45° coming the other way. The two
-        # slopes close on each other over the middle of the run, so the only thing under this
-        # block laid on air is the pad itself.
-        out = sx * (half + ceiling_pier_run(sx, cp.fore_y, cy + r))
-        pad, ceil = cx + sx * r, iz1 - floor
-        rise = min(abs(out - pad), ceil)
-        sec = [(cx, floor), (pad, floor), (pad + sx * rise, floor + rise)]
-        if rise < ceil - 1e-9:
-            sec.append((out, iz1))          # a relieved band stops the ramp short of the ceiling
-        sec.append((cx, iz1))
-        solid = solid.fuse(_xz_prism(cp.fore_y, cy + r, sec))
-        solid = solid.fuse(_zcyl(r, cx, cy, floor, cp.screw_insert_open_z).intersect(plan))
-        # THE SOCKET TRAVELS THIS LANE and nothing of this piece stands in it. At the final pose
-        # its mouth lands on the fixed boss's top face.
-        solid = solid.cut(_ybox(min(cx - sx * r, cx + sx * r), max(cx - sx * r, cx + sx * r),
-                                y_joint, cy + r, cp.screw_insert_open_z, iz1))
-        # The head counterbore opens on Z− and the narrower clearance continues upward to the
-        # panel's insert. Both are cut after pier and boss are fused, so no root closes either.
-        solid = solid.cut(_zcyl(head_cbore_dia / 2.0, cx, cy,
-                                floor - 1.0, cp.screw_head_seat_z))
-        solid = solid.cut(_zcyl(screw_clear_dia / 2.0, cx, cy,
-                                cp.screw_head_seat_z, cp.screw_insert_open_z + 1.0))
-    # THE PIERS WERE FUSED AFTER THE DADOS, so their top inside corner otherwise fills the lower
-    # half of each wall-square rail. Carry the dado's blind-end clearance through every late
-    # feature over the whole slide. The piers keep their full section below this lane and remain
-    # rooted on the measured outboard run of the corbel.
-    solid = solid.cut(cp.rail_clearance(y_joint, cp.aft_y))
+    # THE TWO HORIZONTAL INSERT SOCKETS. The guide is large enough to pass a ruthex short from
+    # the open field and steps down to the insert's Ø4 knurl bore only where the existing corbel
+    # has `boss_ligament` below it. The bore continues one `mount_bore_relief` past the insert,
+    # so the keeper's cup point cannot bottom on PET-GF and jack the pin back into the field. A
+    # headless screw later occupies the same axis, crossing the wall-square rail lane immediately
+    # ahead of the panel; no fixed material crosses that lane.
+    for sx, cy, cz in cp.retainer_stations():
+        guide0, guide1 = sorted((sx * cp.dado_blind_x,
+                                  sx * cp.retainer_insert_face_x))
+        bore0, bore1 = sorted((sx * cp.retainer_insert_face_x,
+                               sx * cp.retainer_bore_end_x))
+        solid = solid.cut(_xcyl(cp.retainer_approach_d / 2.0, cy, cz, guide0, guide1))
+        solid = solid.cut(_xcyl(heatset_dia / 2.0, cy, cz, bore0, bore1))
     return solid
 
 
