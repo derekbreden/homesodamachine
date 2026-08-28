@@ -181,6 +181,12 @@ BRAND_WAIVED = {
             "'External / user-supplied (not shipped)'",
     "Mountain": "flavor concentrate is user-supplied, per bom.md "
                 "'External / user-supplied (not shipped)'",
+    "CHANCS": "weld-rotation-rig.md's proof-rig synchronous motor — carried in "
+              "purchases.md 'Still needed', not bought, so no bom/tools line yet",
+    "DM542": "weld-rotation-rig.md's stepper driver — carried in purchases.md "
+             "'Still needed', not bought, so no bom/tools line yet",
+    "MGN12": "weld-rotation-rig.md's head-axis rail — carried in purchases.md "
+             "'Still needed', not bought, so no bom/tools line yet",
 }
 
 corpus_text = "\n".join(CORPUS.values())

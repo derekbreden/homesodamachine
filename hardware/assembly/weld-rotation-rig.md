@@ -137,7 +137,7 @@ And it lands where the rest of this repo lands: the rig's setpoints become const
 |---|---|---|
 | HV6 6" rotary table, 90:1 worm, 4 T-slots, MT2 bore, cast iron — [B0GPJ884VS](https://www.amazon.com/dp/B0GPJ884VS), $199.99 | The rotation | Ships from Amazon. Check the worm turns freely on arrival — a stiff worm is the reported failure on this class, and it is a return, not a fix. Face-up is the *gentler* orientation (open item 4); the fixture ring bolts into the T-slots |
 | *Fallback:* HHIP 3906-2306 6" H/V rotary table — [B093CCLTHJ](https://www.amazon.com/dp/B093CCLTHJ), $350.99 | The rotation, if the cheap table is stiff | A named industrial brand at 32 lb against the no-name's 30. Its ratio is not published on the listing — confirm before ordering, since the whole drivetrain argument is the ratio |
-| NEMA 23 + coupler for the worm shaft | Replacing the handwheel | Keep the handwheel — it is the hand-crank fallback and the manual index |
+| NEMA 23 + coupler for the worm shaft | Replacing the handwheel | Keep the handwheel — it is the hand-crank fallback and the manual index. **The worm shaft's diameter is on no listing**: measure it before ordering a coupler, since that is the one dimension the whole drive hangs on |
 | Stepper driver (DM542 class) + 24 V supply | Driving it | An ESP32 and a step/dir driver is the whole controller; the firmware tree already exists |
 | Laser-cut fixture ring, 316 or mild steel, 3 × M6 tapped at 120° | Holding the tube, R3 | SendCutSend, same path as the end caps. Set screws let the tube be indicated true rather than hoping a bore fits |
 | Dial indicator + magnetic base | R3, R4 | **Not optional.** Runout is the rig's failure mode and there is currently no instrument in [`tools.md`](/hardware/ledger/tools.md) that reads it |
@@ -149,7 +149,7 @@ And it lands where the rest of this repo lands: the rig's setpoints become const
 | 1/4" hose barb + fitting for the fixture plate | Back purge, below | Argon into the bore from underneath |
 | CHANCS TYD-50 class synchronous motor + 4" lazy-susan bearing | The A3 proof | Only if the proof runs first |
 
-Prices, Prime availability and ASINs get confirmed at order time and land in [`purchases.md`](/hardware/ledger/purchases.md) §16 beside the welder; nothing above is ordered yet.
+ASINs, prices and Prime availability for every row above are carried in [`purchases.md`](/hardware/ledger/purchases.md) under *Still needed — LIKELY-TO-BUY*, priced as of 2026-08-27. Nothing is ordered: the whole list is released by the [$18 proof](#the-pick), which is the first two rows of it. The ASINs that appear in this document rather than in the ledger are the four the *choice* turns on — the pick, the two 4th axes it beats, and the fallback.
 
 ## The head's two positions
 
