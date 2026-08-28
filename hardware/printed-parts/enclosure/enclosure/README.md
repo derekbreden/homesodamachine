@@ -96,6 +96,15 @@ level pins the two bottom pieces, the ceiling level the two tops. `_bosses` drop
 landing within two socket collars of one already placed, so the ladder carries one level per
 height it is owed.
 
+Each level stands the pin's own face **[13 mm](BOSS_END_CLEAR)** off the end wall it pins
+under, and what is in that slot is **print support**: a top piece prints mouth-down and lays
+its ceiling strip over this corner on air, so what holds that strip up comes down on the
+plug's crown, and a bottom piece stands the same slot over its floor slab. The slot is open
+on the seam mouth, which is the one direction there is anything to reach it from. Both ends
+are fenced — nearer its wall, the lower collar's carve leaves a corner of the front lip in
+the back half's register; further from it, the upper collar's 45° underside comes down the
+−X wall into `fluid-1`'s lane.
+
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
 the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spans
 the head seat to the heat-set, so the body is screw length − heat-set long), then
