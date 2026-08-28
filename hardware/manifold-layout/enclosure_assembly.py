@@ -6732,86 +6732,121 @@ def check_through_wall_headroom(a, shell) -> Bound:
             + ", ".join(f"{n} {z:.2f}" for n, z in sorted(over))])))
 
 
-def check_ceiling_panel_insertion(back_top) -> Bound:
+def check_ceiling_panel_insertion(back_top, box) -> Bound:
     """Whether the ceiling's deeper field and rails can slide through back-top's open Y seam.
 
     This is a continuous motion bound, represented conservatively by the whole prism swept
-    from the first pose with the panel aft edge at the seam through the installed pose. The
-    C14 tunnel's upper cap travels on the panel; any fixed back-top material in this prism is
-    therefore a real obstruction, even when both pieces are disjoint after assembly."""
+    from the first pose with the panel aft edge at the seam through the installed pose. The C14
+    surround and keystone receptacle are the fixed features admitted into that prism: their
+    matching panel pockets keep one XZ clearance section apiece open through the panel's aft
+    edge, so each feature is behind the panel until it enters its pocket and remains in the
+    pocket for the rest of the travel. Everything else in the swept prism is an obstruction
+    even when the installed pose is clear."""
     fixed = back_top.val() if hasattr(back_top, "val") else back_top
-    volume = _cpanel.insertion_sweep().intersect(fixed).Volume()
-    ok = volume <= 1e-3
+    sweep = _cpanel.insertion_sweep()
+    panel_stock = _cpanel.structural_stock().fuse(_cpanel.rail_stock())
+    admitted = (
+        ("C14", _enc.c14_ceiling_land(
+            box.inner, box.outer, box.pack.c14, box.pack.back_ports, sweep),
+         _enc.c14_ceiling_pocket(
+            box.inner, box.outer, box.pack.c14, box.pack.back_ports, panel_stock)),
+        ("keystone", _enc.keystone_ceiling_land(
+            box.inner, box.outer, box.pack.keystone, sweep),
+         _enc.keystone_ceiling_pocket(
+            box.inner, box.outer, box.pack.keystone, panel_stock)),
+    )
+    pocket_rows = []
+    pockets_ok = True
+    for name, feature, pocket in admitted:
+        if feature is None or feature.Volume() <= 1e-6:
+            continue
+        missing = feature.Volume() if pocket is None else feature.cut(pocket).Volume()
+        open_ = (pocket is not None
+                 and pocket.BoundingBox().ymax >= _cpanel.aft_y + fits.slip - 1e-6)
+        pocket_rows.append((name, missing, open_))
+        pockets_ok = pockets_ok and missing <= 1e-3 and open_
+        fixed = fixed.cut(feature)
+    volume = sweep.intersect(fixed).Volume()
+    ok = volume <= 1e-3 and pockets_ok
+    pocket_reading = "; ".join(
+        f"{name} pocket missing {missing:.4f} mm³ and {'open' if open_ else 'closed'} aft"
+        for name, missing, open_ in pocket_rows)
     return record_bound(Bound(
         "ceiling-panel-slides-in", "The deep ceiling panel and rails slide through back-top",
-        ok, f"{volume:.3f} mm³ of fixed back-top in its continuous sweep",
-        "no fixed back-top material in the field-and-rail complete Y sweep",
+        ok, (f"{volume:.3f} mm³ of unpocketed fixed back-top in its continuous sweep"
+             + (f"; {pocket_reading}" if pocket_reading else "")),
+        "no unpocketed fixed material in the field-and-rail complete Y sweep, and the fixed "
+        "C14 surround and keystone receptacle wholly inside their aft-open running-clearance "
+        "pockets",
         ([] if ok else [
-            f"{volume:.3f} mm³ of back-top stands in the panel's insertion prism — move that "
-            f"feature onto the panel or open the fixed piece; a clear installed pose does not "
-            f"show that the ceiling can reach it."])))
+            f"{volume:.3f} mm³ of back-top stands outside the admitted pockets in the panel's "
+            "insertion prism; " + (pocket_reading or "no admitted feature reaches the sweep")
+            + ". A clear installed pose does not show that the ceiling can reach it."])))
 
 
-def check_c14_collar(pieces: dict) -> Bound:
-    """Measure the complete exact-profile collar and its corbel across both owners.
+def check_c14_collar(pieces: dict, box) -> Bound:
+    """Measure the complete opened C14 surround as one fixed back-top feature.
 
-    The upper arc travels with the ceiling panel and the rest belongs to back-top. Testing their
-    installed union catches either owner omitting material, while testing the pocket catches any
-    later fuse that fills the insertion clearance back in. The support is the same full-profile
-    shear the production feature uses, with the same three cutters applied; asking how much of
-    that expected solid is absent catches a collar that is complete around the flange but hangs
-    off the tunnel without its print corbel. End faces are inset 0.02 mm so exact coincident-face
-    bookkeeping is not mistaken for missing volume.
+    Testing the finished feature rather than selected collar bands catches every missing part:
+    the exact flange annulus, both rounded tunnel corners, the full-profile lower corbel and the
+    crown up to the ceiling datum. The panel must own none of it below that datum. Where the
+    crown lies under the panel's plan, a thin copy of its top layer is moved above the datum to
+    prove the untouched show skin lands on it. The remainder lies under back-top's own fixed
+    ceiling strip and is not a panel bearing surface.
     """
     back = pieces["back-top"]
     panel = pieces["ceiling-panel"]
     back = back.val() if hasattr(back, "val") else back
     panel = panel.val() if hasattr(panel, "val") else panel
-    host = back.fuse(panel)
     fore = c14_seat_y()
     mouth = fore - _c14.FLANGE_T - _enc.c14_collar_extension
-    eps = 0.02
-    cx, cz = C14_STATION
-    outer = (_c14.flange_prism(
-        _enc.c14_collar_slip + _enc.c14_collar_wall, mouth + eps, fore - eps)
-        .translate((cx, 0.0, cz)).val())
-    pocket = (_c14.flange_prism(_enc.c14_collar_slip, mouth + eps, fore - eps)
-              .translate((cx, 0.0, cz)).val())
-    annulus = outer.cut(pocket)
-    missing = annulus.cut(host).Volume()
-    occupied = pocket.intersect(host).Volume()
     beyond = (fore - _c14.FLANGE_T) - mouth
-    aft = _enc.rear_plane_y
-    support_stock = (_c14.flange_prism(
-        _enc.c14_collar_slip + _enc.c14_collar_wall, mouth, aft)
-        .translate((cx, 0.0, cz)).val())
-    support = _enc._y_wall_corbel(support_stock, mouth, aft)
-    _kind, _px, _pz, wx, wz, r = c14_cutout()
-    support = support.cut(_enc._rect_cut_y(
-        cx, cz, wx, wz, r, fore, _enc.rear_plane_y + _enc.wall + 1.0))
-    support = support.cut(_c14.flange_prism(
-        _enc.c14_collar_slip, mouth - 1.0, fore).translate((cx, 0.0, cz)).val())
-    for sx, sz in c14_stations():
-        support = support.cut(_enc._ycyl(
-            _enc.heatset_dia / 2.0, sx, sz, fore, fore + _enc.heatset_depth))
-    support_missing = support.cut(host).Volume()
-    support_run = aft - mouth
-    ok = (missing <= 1e-3 and occupied <= 1e-3 and beyond >= 3.0 - 1e-9
-          and support_missing <= 1e-3)
+    geometry = _enc._c14_tunnel_geometry(
+        box.inner, box.outer, box.pack.c14, box.pack.back_ports,
+        box.inner[4], box.outer[5])
+    feature, bore, inserts = geometry
+    feature = feature.cut(bore)
+    for cutter in inserts:
+        feature = feature.cut(cutter)
+    missing = feature.cut(back).Volume()
+    panel_owned = feature.intersect(panel).Volume()
+    host = back.fuse(panel)
+    bore_occupied = bore.intersect(host).Volume()
+    for cutter in inserts:
+        bore_occupied += cutter.intersect(host).Volume()
+
+    eps = 0.02
+    b = feature.BoundingBox()
+    top_layer = feature.intersect(_enc._ybox(
+        b.xmin - 1.0, b.xmax + 1.0, b.ymin - 1.0, b.ymax + 1.0,
+        box.inner[5] - eps, box.inner[5]))
+    bearing_probe = top_layer.translate((0.0, 0.0, eps))
+    show_skin = _enc._ybox(
+        -_cpanel.panel_half_w, _cpanel.panel_half_w,
+        _cpanel.fore_y, _cpanel.aft_y,
+        _cpanel.underside_z, _cpanel.show_z)
+    bearing_probe = bearing_probe.intersect(show_skin)
+    bearing_area = bearing_probe.Volume() / eps
+    bearing_missing = bearing_probe.cut(panel).Volume()
+    support_run = _enc.rear_plane_y - mouth
+    ok = (missing <= 1e-3 and panel_owned <= 1e-3 and bore_occupied <= 1e-3
+          and beyond >= 3.0 - 1e-9 and bearing_area >= 50.0
+          and bearing_missing <= 1e-3)
     return record_bound(Bound(
         "c14-collar-complete",
-        "The C14's actual flange profile is surrounded and carried by printed wall",
+        "One fixed back-top surround encloses and carries the C14 up to the ceiling",
         ok,
-        f"{_enc.c14_collar_wall:g} mm XZ wall, {beyond:.2f} mm beyond Y- edge; "
-        f"{missing:.4f} mm³ missing, {occupied:.4f} mm³ in pocket; "
-        f"{support_run:.2f} mm corbel with {support_missing:.4f} mm³ missing",
-        "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket "
-        "and its full-profile 45 degree corbel present",
+        f"{feature.Volume():.3f} mm³ feature over a {support_run:.2f} mm corbel; "
+        f"{missing:.4f} mm³ missing from back-top, {panel_owned:.4f} mm³ in panel, "
+        f"{bore_occupied:.4f} mm³ in bores; {bearing_area:.3f} mm² ceiling land with "
+        f"{bearing_missing:.4f} mm³ unsupported",
+        "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 "
+        "material in the panel or its bores, and the show skin bearing on the crown",
         ([] if ok else [
-            f"the expected exact-profile annulus is missing {missing:.4f} mm³ and its insertion "
-            f"pocket contains {occupied:.4f} mm³; the support is missing "
-            f"{support_missing:.4f} mm³. The collar is split between fixed back-top and the "
-            "moving ceiling cap; restore the same profile, corbel and cutters to both owners."])))
+            f"the fixed C14 feature is missing {missing:.4f} mm³, the panel still owns "
+            f"{panel_owned:.4f} mm³, and its bores contain {bore_occupied:.4f} mm³; the crown "
+            f"offers {bearing_area:.3f} mm² but {bearing_missing:.4f} mm³ of its raised top-layer "
+            "probe is not covered by the ceiling show skin."])))
 
 
 def check_ceiling_fastener_direction() -> Bound:
@@ -7331,14 +7366,13 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # assembly is the two ceiling stations it carries.
     pieces["ceiling-panel"] = _materialized_ceiling_panel(box, require_box_spec)
     a.add(pieces["ceiling-panel"], name="enclosure-ceiling-panel", color=M_PETGF_BLACK)
-    # The collar is one continuous profile whose crown moves with the ceiling and whose
-    # remainder stays on back-top. Read the installed union before any collision whitelist can
-    # turn a missing wall or a filled insertion pocket into an intentional contact.
-    check_c14_collar(pieces)
+    # The collar, tunnel, corbel and crown are one fixed back-top feature. Read that ownership
+    # before the slide check admits its matching aft-open panel pocket into the moving field.
+    check_c14_collar(pieces, box)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.
-    check_ceiling_panel_insertion(pieces["back-top"])
+    check_ceiling_panel_insertion(pieces["back-top"], box)
     # The fasteners answer to that same joint: both heads remain on fixed back-top's Z− face,
     # and both threads travel upward into blind inserts carried by the moving panel.
     check_ceiling_fastener_direction()

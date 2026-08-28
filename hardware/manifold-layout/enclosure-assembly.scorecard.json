@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,12 +73,10 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash, 0 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
-   "detail": [
-    "enclosure-back-top \u2229 enclosure-ceiling-panel   138.4 mm\u00b3, x[  -79.50,   79.05] y[  236.00,  461.00] z[  345.75,  354.93]"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -1007,11 +1005,11 @@
   },
   {
    "id": "c14-collar-complete",
-   "label": "The C14's actual flange profile is surrounded and carried by printed wall",
+   "label": "One fixed back-top surround encloses and carries the C14 up to the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "3 mm XZ wall, 3.00 mm beyond Y- edge; 0.0000 mm\u00b3 missing, 0.0000 mm\u00b3 in pocket; 10.25 mm corbel with 0.0000 mm\u00b3 missing",
-   "target": "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket and its full-profile 45 degree corbel present",
+   "value": "8397.567 mm\u00b3 feature over a 10.25 mm corbel; 0.0000 mm\u00b3 missing from back-top, 0.0000 mm\u00b3 in panel, 0.0000 mm\u00b3 in bores; 75.932 mm\u00b2 ceiling land with 0.0000 mm\u00b3 unsupported",
+   "target": "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 material in the panel or its bores, and the show skin bearing on the crown",
    "detail": [],
    "active": true
   },
@@ -1019,12 +1017,10 @@
    "id": "ceiling-panel-slides-in",
    "label": "The deep ceiling panel and rails slide through back-top",
    "kind": "gate",
-   "status": "fail",
-   "value": "240.038 mm\u00b3 of fixed back-top in its continuous sweep",
-   "target": "no fixed back-top material in the field-and-rail complete Y sweep",
-   "detail": [
-    "240.038 mm\u00b3 of back-top stands in the panel's insertion prism \u2014 move that feature onto the panel or open the fixed piece; a clear installed pose does not show that the ceiling can reach it."
-   ],
+   "status": "pass",
+   "value": "0.000 mm\u00b3 of unpocketed fixed back-top in its continuous sweep; C14 pocket missing 0.0000 mm\u00b3 and open aft; keystone pocket missing 0.0000 mm\u00b3 and open aft",
+   "target": "no unpocketed fixed material in the field-and-rail complete Y sweep, and the fixed C14 surround and keystone receptacle wholly inside their aft-open running-clearance pockets",
+   "detail": [],
    "active": true
   },
   {
