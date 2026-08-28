@@ -183,13 +183,21 @@ extension BLEManager {
                 say("faces: slot \(slot) held but crc is 0")
                 continue
             }
-            if faces[crc] != nil { say("faces: slot \(slot) already in hand"); continue }
+            if faces[crc] != nil { continue }
             if let onDisk = PictureCache.load(unit: unit, crc: crc) {
                 faces[crc] = onDisk
+                say("faces: slot \(slot) came off disk")
                 continue
             }
-            guard !faceWanted.contains(crc) else { continue }
-            faceWanted.insert(crc)
+            // One read at a time, and "in flight" is the only thing that stops
+            // a second ask. Remembering that a picture was ever asked for is
+            // what made a failed fetch permanent: it was recorded as wanted,
+            // the read died, and every later attempt skipped it in silence for
+            // the life of the app.
+            if faceSlot >= 0 {
+                say("faces: slot \(faceSlot) still in flight at \(faceBuffer.count)")
+                return
+            }
             log.info("asking for slot \(slot) face, crc \(crc)")
             say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
             requestFace(slot: slot)
