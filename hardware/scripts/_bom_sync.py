@@ -270,7 +270,6 @@ ceiling_panel_screws_per_build = ceiling_panel_inserts_per_build
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
-
 # THE COLLET PLATE'S OWN FIGURE, off `enclosure.plate_outline` and the hole row struck through
 # it. §8 sells a shop a plain rectangle and sends the bench to `collet-plate.dxf` to hold the
 # steel against, so what that row says about the shape is read here rather than typed there.
