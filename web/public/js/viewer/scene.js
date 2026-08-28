@@ -55,6 +55,130 @@ controls.panSpeed = 0.2;
 controls.staticMoving = false;
 controls.dynamicDampingFactor = 0.12;
 
+// --- Surface-aware zoom --------------------------------------------------
+//
+// TrackballControls dollies toward `target`, and only toward `target`. The
+// default target is the model's bounding-box centre, so a surface beyond that
+// centre is literally unreachable from the near side: every wheel tick moves a
+// fraction of the remaining distance and asymptotically stops at the centre.
+// It also leaves the next orbit centred there, which throws the feature the
+// user just approached out of frame as soon as they rotate.
+//
+// A zoom gesture therefore starts by ray-picking the mounted model under the
+// pointer. We move the target to that surface's DEPTH along the existing view
+// direction (so the picture does not jump), then make TrackballControls' scale
+// happen about the picked point rather than about the old target. Scaling both
+// camera and target about that point keeps it under the pointer; moving the
+// target toward it makes the same point the natural pivot for the next orbit.
+//
+// This wraps the one TrackballControls internal that actually scales `_eye`.
+// The importmap pins three@0.170.0, the same exact build whose gesture internals
+// dropStalledGesture() uses below.
+const _surfaceRaycaster = new THREE.Raycaster();
+const _surfacePointer = new THREE.Vector2();
+const _surfaceAnchor = new THREE.Vector3();
+const _surfaceForward = new THREE.Vector3();
+const _surfaceOffset = new THREE.Vector3();
+const _surfaceTargetBeforeZoom = new THREE.Vector3();
+const TRACKBALL_ZOOM_STATE = 1;
+let surfaceZoomActive = false;
+
+function visibleInGroup(object, group) {
+  for (let node = object; node; node = node.parent) {
+    if (!node.visible) return false;
+    if (node === group) return true;
+  }
+  return false;
+}
+
+function surfaceUnderPointer(clientX, clientY) {
+  const group = state.currentGroup;
+  if (!group) return null;
+  const rect = renderer.domElement.getBoundingClientRect();
+  if (!(rect.width > 0) || !(rect.height > 0)) return null;
+
+  _surfacePointer.set(
+    ((clientX - rect.left) / rect.width) * 2 - 1,
+    -((clientY - rect.top) / rect.height) * 2 + 1,
+  );
+  _surfaceRaycaster.setFromCamera(_surfacePointer, camera);
+  const hits = _surfaceRaycaster.intersectObject(group, true);
+  const hit = hits.find(({ object, face }) =>
+    face && object.isMesh && visibleInGroup(object, group));
+  return hit ? hit.point : null;
+}
+
+function beginSurfaceZoom(clientX, clientY) {
+  surfaceZoomActive = false;
+  if (!controls.enabled || controls.noZoom || !camera.isPerspectiveCamera) return;
+  const point = surfaceUnderPointer(clientX, clientY);
+  if (!point) return;
+
+  camera.getWorldDirection(_surfaceForward);
+  const depth = _surfaceOffset.copy(point).sub(camera.position).dot(_surfaceForward);
+  if (!(depth > 1e-6)) return;
+
+  // This point lies on the camera's existing forward ray, so changing the
+  // target's depth cannot pan or turn the current picture.
+  controls.target.copy(camera.position).addScaledVector(_surfaceForward, depth);
+  _surfaceAnchor.copy(point);
+  surfaceZoomActive = true;
+}
+
+const trackballZoomCamera = controls._zoomCamera.bind(controls);
+controls._zoomCamera = function surfaceAwareZoomCamera() {
+  const distanceBefore = this._eye.length();
+  _surfaceTargetBeforeZoom.copy(this.target);
+  trackballZoomCamera();
+  if (!surfaceZoomActive || !this.object.isPerspectiveCamera || !(distanceBefore > 0)) return;
+
+  const scale = this._eye.length() / distanceBefore;
+  if (!Number.isFinite(scale) || Math.abs(scale - 1) < 1e-12) return;
+
+  // Trackball has already scaled `_eye` about target. Translating target by
+  // this amount makes the resulting camera + target identical to scaling both
+  // about the picked surface point. update() applies target + `_eye` to the
+  // camera immediately after this method returns.
+  _surfaceOffset.copy(_surfaceAnchor)
+    .sub(_surfaceTargetBeforeZoom)
+    .multiplyScalar(1 - scale);
+  this.target.add(_surfaceOffset);
+};
+
+// Capture runs before TrackballControls' own target-phase handlers, so the new
+// depth is in place when it records and consumes the gesture.
+renderer.domElement.addEventListener("wheel", (e) => {
+  if (e.deltaY) beginSurfaceZoom(e.clientX, e.clientY);
+}, { capture: true, passive: true });
+
+const surfaceTouches = new Map();
+renderer.domElement.addEventListener("pointerdown", (e) => {
+  if (e.pointerType === "touch") {
+    surfaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (surfaceTouches.size >= 2) {
+      const pair = [...surfaceTouches.values()].slice(0, 2);
+      beginSurfaceZoom((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2);
+    }
+  } else if (e.button === 1 || controls.keyState === TRACKBALL_ZOOM_STATE) {
+    // Middle-drag, or TrackballControls' S-key + drag zoom mode.
+    beginSurfaceZoom(e.clientX, e.clientY);
+  }
+}, true);
+renderer.domElement.addEventListener("pointermove", (e) => {
+  if (e.pointerType === "touch" && surfaceTouches.has(e.pointerId)) {
+    surfaceTouches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (surfaceTouches.size >= 2) {
+      const pair = [...surfaceTouches.values()].slice(0, 2);
+      beginSurfaceZoom((pair[0].x + pair[1].x) / 2, (pair[0].y + pair[1].y) / 2);
+    }
+  } else if (e.pointerType !== "touch" && (e.buttons & 4)) {
+    beginSurfaceZoom(e.clientX, e.clientY);
+  }
+}, true);
+function forgetSurfaceTouch(e) { surfaceTouches.delete(e.pointerId); }
+renderer.domElement.addEventListener("pointerup", forgetSurfaceTouch, true);
+renderer.domElement.addEventListener("pointercancel", forgetSurfaceTouch, true);
+
 // --- Gesture gate ---
 // occt's wasm STEP reader holds the main thread for the length of a parse — ~10 s
 // on the 20 MB enclosure assembly. Work that heavy waits for the pointer to come
