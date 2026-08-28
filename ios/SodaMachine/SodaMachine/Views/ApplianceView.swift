@@ -13,6 +13,7 @@ struct ApplianceView: View {
     @Environment(BLEManager.self) var ble
     @State private var inFirmware = false
     @State private var inMachines = false
+    @State private var inImages = false
 
     var body: some View {
         ZStack {
@@ -34,6 +35,9 @@ struct ApplianceView: View {
                 Spacer()
 
                 VStack(spacing: 0) {
+                    // The two things only this app can do to a machine
+                    // someone owns: change what it runs, and change its face.
+                    button("Your Pictures") { inImages = true }
                     button("Software Update") { inFirmware = true }
                 }
                 .padding(.horizontal, 24)
@@ -57,6 +61,10 @@ struct ApplianceView: View {
                 FirmwareUpdateView()
             }
             .presentationBackground(Theme.background)
+        }
+        .sheet(isPresented: $inImages) {
+            ImagesView()
+                .presentationBackground(Theme.background)
         }
         .sheet(isPresented: $inMachines) {
             MachinePickerView(onPick: { inMachines = false })
