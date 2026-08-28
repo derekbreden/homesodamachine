@@ -7,7 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "8d2ae121f5f74ab9db2f422a3193b2c36d24631f"
+    "commit": "627a827569f48e4eab830f99dd51decb19c5067f"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -49,7 +49,8 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step",
       "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl"
+      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "hardware/reference/iec-c14-inlet/iec-c14-inlet.step"
     ]
   },
   "bundle": {
