@@ -100,13 +100,12 @@ class BLEManager {
     @ObservationIgnored var facePixels = Data()
     @ObservationIgnored var faceHave = Set<Int>()
     @ObservationIgnored var faceReceived = 0
-    @ObservationIgnored var facePixelStride = 228
+    @ObservationIgnored var facePixelStride = 0
     @ObservationIgnored var faceSlot = -1
     @ObservationIgnored var faceAskedAt = Date.distantPast
     @ObservationIgnored var faceResumes = 0
     @ObservationIgnored var faceTotal = 0
     @ObservationIgnored var facePump: Timer?
-    @ObservationIgnored var faceSaidFirstPix = false
     @ObservationIgnored var faceSaidAt = Date.distantPast
     @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?
