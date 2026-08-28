@@ -435,6 +435,16 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     for (uint8_t i = 0; i < im.slots; i++)
       if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
     base.trySend(MSG_RESP_IMAGES, &im, sizeof(im));
+
+    // The identity each slot reports to a phone. A phone will not ask for a
+    // picture whose crc is zero — it has nothing to file the answer under — so
+    // a zero here is a face that can never arrive, and it is the one half of
+    // that path testable without a phone in the room.
+    char line[64];
+    snprintf(line, sizeof(line), "crc %08lX %08lX %08lX %08lX",
+             (unsigned long)imageStoreCrc(0), (unsigned long)imageStoreCrc(1),
+             (unsigned long)imageStoreCrc(2), (unsigned long)imageStoreCrc(3));
+    base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
     return;
   }
 
