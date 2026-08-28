@@ -16,6 +16,7 @@
     "COLUMN_DEPTH": "8.27 mm",
     "COLUMN_FACE_LAND": "5.676 mm",
     "COLUMN_FACE_LIGAMENT": "3.276 mm",
+    "COND_SLOT_GRIP": "3 mm",
     "CORE_HOLD_LAND": "8 mm",
     "CORE_HOLD_REACH": "12 mm",
     "CORE_HOLD_RISE": "40 mm",
