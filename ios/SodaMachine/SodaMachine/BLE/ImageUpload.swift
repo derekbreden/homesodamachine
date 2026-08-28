@@ -222,13 +222,17 @@ extension BLEManager {
             // A fresh ask while one is already running would reset the buffer
             // out from under the frames arriving into it.
             if offset == 0, self.faceSlot >= 0, self.faceSlot != slot { return }
-            if offset == 0, self.faceSlot == slot, !self.faceBuffer.isEmpty { return }
+            if offset == 0, self.faceSlot == slot, self.faceReceived > 0 { return }
             if crc != 0 {
                 self.say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
             }
             self.faceSlot = slot
-            if offset == 0 { self.faceBuffer = Data(); self.faceResumes = 0 }
-            self.faceSaidFirstPix = false
+            if offset == 0 {
+                self.facePixels = Data()
+                self.faceHave.removeAll()
+                self.faceReceived = 0
+                self.faceResumes = 0
+            }
             self.faceAskedAt = Date()
             var payload = Data([UInt8(slot), 0])
             payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
@@ -261,6 +265,7 @@ extension BLEManager {
         // next one is asked for rather than an error path. Short, because it is
         // in the middle of a transfer someone is watching.
         guard Date().timeIntervalSince(faceAskedAt) > 0.35 else { return }
+        let from = firstGap()
         // How far this phone has actually got is the number that settles
         // whether a read is working, and it is the one number that has never
         // left the phone. Every eighth pull, so it says enough to be read
@@ -271,14 +276,21 @@ extension BLEManager {
         faceResumes += 1
         if Date().timeIntervalSince(faceSaidAt) > 3.0 {
             faceSaidAt = Date()
-            say("faces: at \(faceBuffer.count) of \(faceTotal) after \(faceResumes) pulls")
+            say("faces: \(faceReceived)/\(faceTotal) next \(from) after \(faceResumes)")
         }
-        requestFace(slot: faceSlot, from: faceBuffer.count)
+        requestFace(slot: faceSlot, from: from)
     }
 
     /// Pixels coming back, a frame at a time, each carrying where it belongs.
     /// Called on the radio's delegate queue, and everything it touches stays
     /// there. The one thing that leaves is a finished picture.
+    ///
+    /// EVERY FRAME GOES WHERE ITS OFFSET SAYS, and none of them has to be first.
+    /// Requiring the next contiguous byte meant one lost frame at the head of a
+    /// burst threw away every frame behind it, forever — the phone asked from
+    /// zero, the first frames were the ones dropped, and it asked from zero
+    /// again. What is missing is asked for instead, so the order things arrive
+    /// in stops being something this has to be lucky about.
     func handleImagePix(_ payload: Data) {
         guard payload.count >= 10 else { return }
         let b = payload.startIndex
@@ -288,32 +300,29 @@ extension BLEManager {
             (UInt32(payload[b + at + 2]) << 16) | (UInt32(payload[b + at + 3]) << 24)
         }
         let offset = Int(u32(2)), total = Int(u32(6))
-        faceTotal = total
         let bytes = payload.subdata(in: (b + 10)..<payload.endIndex)
+        guard slot == faceSlot, total > 0, !bytes.isEmpty else { return }
+        guard offset >= 0, offset + bytes.count <= total else { return }
 
-        // The first frame after each ask, said out loud. Which guard turns a
-        // frame away is the one thing this path has never reported, and it has
-        // been guessed at five times.
-        if !faceSaidFirstPix {
-            faceSaidFirstPix = true
-            say("pix s=\(slot)/\(faceSlot) off=\(offset) buf=\(faceBuffer.count) n=\(bytes.count)")
+        if facePixels.count != total {
+            facePixels = Data(count: total)
+            faceHave.removeAll()
+            faceReceived = 0
+            faceTotal = total
         }
+        if faceHave.contains(offset) { return }   // a duplicate from a resume
 
-        guard slot == faceSlot else { return }
-        // Behind what we have is a duplicate from a resume; ahead of it is a
-        // gap, and asking again from here is the whole recovery.
-        if offset < faceBuffer.count { return }
-        // Ahead of what we have: a frame in this burst was dropped. The burst
-        // ends by itself and the next pull starts from what actually arrived,
-        // so this only has to be ignored rather than answered.
-        if offset > faceBuffer.count { return }
-        faceBuffer.append(bytes)
+        facePixels.replaceSubrange(offset..<(offset + bytes.count), with: bytes)
+        faceHave.insert(offset)
+        faceReceived += bytes.count
         faceAskedAt = Date()
-        guard faceBuffer.count >= total else { return }
+        guard faceReceived >= total else { return }
 
         let crc = imageSlots.crc(of: slot)
-        let whole = faceBuffer
-        faceBuffer = Data()
+        let whole = facePixels
+        facePixels = Data()
+        faceHave.removeAll()
+        faceReceived = 0
         faceSlot = -1
         DispatchQueue.main.async {
             let unit = self.machineKey
@@ -325,6 +334,18 @@ extension BLEManager {
             }
             self.fetchMissingFaces()   // whatever else is missing, now this is in hand
         }
+    }
+
+    /// The lowest byte this phone still needs, which is where the next pull
+    /// starts. Nothing about it assumes frames arrived in order.
+    private func firstGap() -> Int {
+        guard faceTotal > 0 else { return 0 }
+        var at = 0
+        while at < faceTotal {
+            if !faceHave.contains(at) { return at }
+            at += facePixelStride
+        }
+        return faceTotal
     }
 
     // ── Removing ──────────────────────────────────────────────────────────

@@ -39,8 +39,21 @@ uint16_t mtu = 23;
 // bounded burst and then silence, and the phone asks again from wherever it
 // actually got to. That converges whatever the link loses, where blasting
 // converged on nothing at all.
-constexpr uint8_t READ_BURST    = 32;
-constexpr uint8_t READ_PER_PASS = 4;
+// One frame a pass, which is the only rate this link has been observed to
+// carry without losing the front of a burst:
+//
+//     pix s=1/1 off=456 buf=0 n=228
+//
+// The first frame the phone ever saw was the third one. Four a pass overran
+// the host stack at the start of every burst, the two that were dropped were
+// the two the phone needed first, and everything after them was ahead of an
+// empty buffer and refused. The loop is the pacing now — a pass is milliseconds
+// and a connection interval is fifteen, so this cannot outrun the radio.
+//
+// A longer burst costs nothing once the rate is right; it is round trips, not
+// frames, that the phone waits on.
+constexpr uint8_t READ_BURST    = 64;
+constexpr uint8_t READ_PER_PASS = 1;
 
 // The most a notification carries, whatever the MTU says. An ATT MTU of 517
 // permits 514, and a 514-byte notification is not reliably delivered — it
