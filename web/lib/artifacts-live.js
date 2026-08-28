@@ -30,10 +30,15 @@
 // already has, which is the previous cut. CLAUDE.md, "Nothing withholds".
 
 import { execFile } from "node:child_process";
-import { readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { createReadStream } from "node:fs";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+
+import { isScorecard } from "../contracts/scorecard-sidecar.js";
 
 const run = promisify(execFile);
 
@@ -127,11 +132,109 @@ function usable(lock) {
   );
 }
 
+// THE SCORECARD IS COMMITTED DATA UNDER A PATH NOTHING DEPLOYS ON, WHICH IS WHY IT IS CARRIED
+// HERE. `pack.py` keeps the scorecards outside the geometry tar and off the release entirely:
+// the lock names each one's sha256 and the committed tree holds the bytes. So
+// `fetch-cad-artifacts.mjs` cannot bring one down — there is no object to ask for — and
+// `hardware/**` is not in `render.yaml`'s buildFilter, so the commit that moves a scorecard
+// deploys nothing. Both halves are deliberate, and without this a verdict reaches the site only
+// when some unrelated `web/**` push happens to rebuild the container around it, which is a bar
+// describing whatever cut that push landed beside.
+//
+// THE LOCK IS THE CHANGE DETECTOR, SO A QUIET LOOK COSTS NOTHING. `lock.sidecars` carries each
+// scorecard's sha256 and `adopt` has already fetched the lock, so what to ask GitHub for is
+// decided against bytes already in hand. That is what makes this affordable: the poll is two
+// calls every two minutes against an unauthenticated ceiling of 60/hour, and a scorecard read
+// unconditionally would put the look over it.
+const SIDECAR_SUFFIX = ".scorecard.json";
+
+function contentsUrl(rel) {
+  const encoded = rel.split("/").map(encodeURIComponent).join("/");
+  return `https://api.github.com/repos/derekbreden/homesodamachine/contents/${encoded}?ref=main`;
+}
+
+async function shaOnDisk(abs) {
+  try {
+    const h = createHash("sha256");
+    await pipeline(createReadStream(abs), h);
+    return h.digest("hex");
+  } catch {
+    return null;                               // absent is a scorecard to carry, not a failure
+  }
+}
+
+// A LOCK NAMES ITS SCORECARDS BY PATH AND THIS WRITES FILES OFF THAT NAME, so the name is
+// checked rather than trusted: a `.scorecard.json` resolving inside the tree, and nothing else.
+// The lock is the project's own and arrives over HTTPS; this is what keeps a truncated or
+// tampered one from choosing where a write lands.
+function sidecarPath(rel) {
+  if (typeof rel !== "string" || !rel.endsWith(SIDECAR_SUFFIX)) return null;
+  const abs = path.resolve(ROOT, rel);
+  return abs.startsWith(ROOT + path.sep) ? abs : null;
+}
+
+// ONE FETCH PER PIN, BECAUSE THE LOCK CAN NAME BYTES MAIN DOES NOT HOLD. `pack.py` cuts against
+// the working tree and says so in `unproven`, so a scorecard's locked hash can describe a file
+// that was never committed. Carrying what main holds is still right — it is the newest bytes
+// anyone can read — but its hash will not settle to the lock's, and a disk check alone would
+// then ask GitHub for it on every poll forever. This remembers the pin it acted on, so an
+// unproven scorecard costs one call and not one per poll.
+const carriedFor = new Map();
+
+async function carryScorecards(lock) {
+  const carried = [];
+  const failed = [];
+  for (const [rel, want] of Object.entries(lock.sidecars ?? {})) {
+    const abs = sidecarPath(rel);
+    if (!abs) { failed.push(`${rel} — not a path this writes`); continue; }
+    if (typeof want !== "string") { failed.push(`${rel} — the lock names no hash for it`); continue; }
+    if (carriedFor.get(rel) === want) continue;
+    if ((await shaOnDisk(abs)) === want) { carriedFor.set(rel, want); continue; }
+    try {
+      const res = await fetch(contentsUrl(rel), {
+        headers: { accept: "application/vnd.github+json", "user-agent": "homesodamachine-site" },
+      });
+      if (!res.ok) throw new Error(`GitHub says ${res.status} ${res.statusText}`);
+      const meta = await res.json();
+      if (meta.encoding !== "base64" || !meta.content) throw new Error("no inline content");
+      const text = Buffer.from(meta.content, "base64").toString("utf-8");
+      // Parsed and shape-checked before it is written, the same guard the viewer applies. One
+      // status `isScorecard` does not name costs the whole bar, so a sidecar that would draw
+      // nothing is one this leaves alone rather than installs.
+      if (!isScorecard(JSON.parse(text))) throw new Error("not a scorecard the viewer reads");
+      const here = await readFile(abs, "utf-8").catch(() => null);
+      if (here !== text) {
+        await mkdir(path.dirname(abs), { recursive: true });
+        await writeFile(abs, text);
+        carried.push(rel);
+      }
+      carriedFor.set(rel, want);
+    } catch (err) {
+      failed.push(`${rel} — ${err.message}`);
+    }
+  }
+  return { carried, failed };
+}
+
 async function adopt({ broadcast, setRecent, commit, hardwareDir, detect }) {
   const have = await bundleOnDisk();
   const lock = await lockOnMain();
   if (!usable(lock)) throw new Error("the lock on main is not one this can read");
-  if (lock.bundle.sha256 === have) return { moved: false };
+
+  // AHEAD OF THE BUNDLE GATE, BECAUSE A VERDICT MOVES WITHOUT THE GEOMETRY MOVING. The
+  // scorecards sit outside the tar, so `bundle.sha256` is not a function of them: a checker
+  // that answers on a tree whose solids did not change leaves the bundle where it was. Read
+  // after the gate, that scorecard would wait for the next cut of something else.
+  const sidecars = await carryScorecards(lock);
+  if (sidecars.carried.length) {
+    console.log(`[artifacts-live] carried ${sidecars.carried.length} scorecard(s) — `
+      + sidecars.carried.join(", "));
+  }
+  for (const line of sidecars.failed) {
+    console.error(`[artifacts-live] ${line} — the bar is the one already here`);
+  }
+
+  if (lock.bundle.sha256 === have) return { moved: false, scorecards: sidecars.carried.length };
 
   await writeFile(LOCK, JSON.stringify(lock, null, 2) + "\n");
   // The fetcher is the authority on bytes — it holds the bundle to the lock's sha256 and every

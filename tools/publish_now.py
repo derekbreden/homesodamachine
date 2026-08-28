@@ -88,6 +88,19 @@ def owed() -> tuple:
     return ("", [])
 
 
+def sidecar_paths() -> list:
+    """The scorecards the lock names, as paths this tree holds.
+
+    A lock predating the map names none, and a path it names that is not a file here is one
+    this commit has nothing to say about — the pack is what settles which scorecards exist."""
+    lock = ROOT / "hardware" / "cad-artifacts.lock.json"
+    try:
+        named = json.loads(lock.read_text()).get("sidecars", {})
+    except (OSError, ValueError):
+        return []
+    return [rel for rel in sorted(named) if (ROOT / rel).is_file()]
+
+
 def repair_flutes() -> None:
     """Recut and carry the enclosure payloads when they no longer draw their print.
 
@@ -136,23 +149,34 @@ def publish() -> int:
     started = time.time()
     repair_flutes()
     reason, targets = owed()
-    if not reason:
+    if reason:
+        print(f"  {reason}; cutting here")
+        if run([str(PY), "tools/cad-artifacts/pack.py", "--write"]).returncode != 0:
+            print("  --write did not finish; the runner still reconciles this", file=sys.stderr)
+            return 1
+    else:
+        # A CUT IS NOT THE ONLY THING A TREE CAN OWE. `--write` pins the scorecards off the
+        # working tree, so a verdict recomputed after the last publish leaves the lock naming
+        # bytes no commit carries — solids that match the lock exactly, and a scorecard the site
+        # cannot read. Nothing is cut for that, and the commit below still is.
         print("  nothing owed — this tree's solids are the ones the lock names")
+    # THE SCORECARDS COMMIT WITH THE LOCK, BECAUSE THE LOCK IS NOT WHERE THEIR BYTES LIVE.
+    # `pack.py` keeps them outside the geometry tar and off the release: the lock names each
+    # one's sha256 and the committed tree is what anyone reads them from. Pinning a hash whose
+    # bytes never landed leaves the lock naming a file main does not hold, and the site — which
+    # carries them from main in `web/lib/artifacts-live.js` — draws the older verdict against
+    # the newer geometry. They are one cut, so they are one commit.
+    paths = ["hardware/cad-artifacts.lock.json", *sidecar_paths()]
+    if run(["git", "diff", "--quiet", "--", *paths], quiet=True).returncode == 0:
+        if reason:
+            print(f"  the cut is the one already published ({time.time() - started:.0f}s)")
         return 0
-    print(f"  {reason}; cutting here")
-    if run([str(PY), "tools/cad-artifacts/pack.py", "--write"]).returncode != 0:
-        print("  --write did not finish; the runner still reconciles this", file=sys.stderr)
-        return 1
-    if run(["git", "diff", "--quiet", "--", "hardware/cad-artifacts.lock.json"],
-           quiet=True).returncode == 0:
-        print(f"  the cut is the one already published ({time.time() - started:.0f}s)")
-        return 0
-    run(["git", "add", "hardware/cad-artifacts.lock.json"], quiet=True)
-    # `--no-verify`: the pre-commit hook re-derives and stages, and this commit is one file by
+    run(["git", "add", "--", *paths], quiet=True)
+    # `--no-verify`: the pre-commit hook re-derives and stages, and this commit is these files by
     # name. `--only` keeps it that way whatever else the tree is holding.
     msg = "cad-artifacts: cut and pinned from the machine that changed it"
-    if run(["git", "commit", "--no-verify", "--only",
-            "hardware/cad-artifacts.lock.json", "-m", msg], quiet=True).returncode != 0:
+    if run(["git", "commit", "--no-verify", "--only", *paths, "-m", msg],
+           quiet=True).returncode != 0:
         print("  the lock did not commit", file=sys.stderr)
         return 1
     # THE SITE READS THE LOCK FROM MAIN, so a cut that did not land there is one nobody can see
