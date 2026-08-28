@@ -91,15 +91,15 @@ CREASE_DEG = 30.0
 
 #: Reductions tried, hardest first. `fast_simplification` refuses collapses it cannot make and
 #: returns what it reached, so the ladder is short: the run takes the first rung that holds.
-LADDER = (0.97, 0.95, 0.90, 0.80, 0.60, 0.0)
+LADDER = (0.97, 0.95, 0.90, 0.80, 0.75, 0.60, 0.0)
 
 #: How aggressively to collapse. Below the library's default of 7, which trades the run's speed
 #: for the shape — at 7 the front-top piece leaves the deflection budget by a factor of thirty.
 AGGRESSION = 4.0
 
-#: Points of the printed mesh the deviation is measured at. Every vertex is the exact answer and
-#: costs minutes on a million-facet piece; this is drawn without replacement and is the same
-#: draw every run, so a reading is reproducible.
+#: Smooth-field points of the printed mesh the deviation is measured at. Every sharp-feature
+#: vertex is added separately; sampling the rest keeps a million-facet piece inside a practical
+#: run time. The draw is without replacement and identical every run.
 PROBE_POINTS = 40000
 
 
@@ -112,15 +112,29 @@ def deflection(mesh) -> float:
     return float(mesh.bounding_box.extents.mean()) * _mesh_payload.LINEAR_DEFLECTION_RATIO
 
 
+def _deviation_indices(printed) -> np.ndarray:
+    """Vertices which hold a reduced payload to both its broad skin and its hard features.
+
+    A random draw covers the fluted field without making every simplification rung pay for the
+    million-vertex print. A small port corner can occupy only two or three vertices, though, and
+    losing it is millimetres of error even when every random point misses it. Every vertex on a
+    crease is therefore compulsory; those are precisely the corners the viewer's feature-edge
+    pass preserves as features. The random population remains for smooth regions between them."""
+    rng = np.random.default_rng(0)
+    n = min(PROBE_POINTS, len(printed.vertices))
+    random = rng.choice(len(printed.vertices), n, replace=False)
+    sharp = np.unique(printed.face_adjacency_edges[
+        printed.face_adjacency_angles >= np.radians(CREASE_DEG)])
+    return np.unique(np.concatenate((random, sharp)))
+
+
 def deviation(printed, reduced) -> float:
     """The furthest any probed point of `printed` stands from the surface of `reduced`.
 
     POINT TO SURFACE, NOT POINT TO POINT. A nearest-vertex reading falls to the sampling spacing
     of whichever mesh is denser and reports that instead of the error — it holds flat across a
     tenfold reduction and says nothing. This is the closest point on a triangle."""
-    rng = np.random.default_rng(0)
-    n = min(PROBE_POINTS, len(printed.vertices))
-    probe = printed.vertices[rng.choice(len(printed.vertices), n, replace=False)]
+    probe = printed.vertices[_deviation_indices(printed)]
     return float(trimesh.proximity.closest_point(reduced, probe)[1].max())
 
 
@@ -937,6 +951,11 @@ def selftest():
     # are what set it, through the same function.
     span = np.sort(ridged.bounding_box.extents)
     budget = deflection(trimesh.creation.box(extents=span[[1, 2, 2]]))
+    sharp = np.unique(ridged.face_adjacency_edges[
+        ridged.face_adjacency_angles >= np.radians(CREASE_DEG)])
+    probes = _deviation_indices(ridged)
+    check("every hard-feature vertex is measured during reduction",
+          np.isin(sharp, probes).all(), True)
     before = depth(ridged)
     kept, dev = simplify_within(ridged, budget)
     after = depth(kept)
