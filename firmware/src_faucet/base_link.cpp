@@ -627,6 +627,13 @@ void faucetSayRead(uint8_t slot, uint32_t bytes) {
   baseLinkSay(line);
 }
 
+// A picture removed here is removed from the machine. The enclosure keeps its
+// own copy and cannot be told directly, and a channel wearing it has to stop.
+void faucetRequestErase(uint8_t slot) {
+  ImageSlotPayload req{slot};
+  base.trySend(MSG_IMAGE_ERASE, &req, sizeof(req));
+}
+
 void faucetRequestRelay(uint8_t slot) {
   ImageSlotPayload req{slot};
   base.trySend(MSG_IMAGE_RELAY_REQ, &req, sizeof(req));

@@ -45,6 +45,9 @@ void faucetSetFlavorArt(uint8_t channel, uint8_t art);
 // A picture landed here whole; ask for it to be carried the last hop.
 void faucetRequestRelay(uint8_t slot);
 
+// A picture was removed here; remove it from the rest of the machine too.
+void faucetRequestErase(uint8_t slot);
+
 // A phone asked for a picture and got it.
 void faucetSayRead(uint8_t slot, uint32_t bytes);
 
