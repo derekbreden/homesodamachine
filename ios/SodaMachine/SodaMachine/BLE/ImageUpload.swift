@@ -159,8 +159,9 @@ extension BLEManager {
     /// have nothing to notice when the answer changed — which is how a picture
     /// that arrived correctly still never appeared.
     func fetchMissingFaces() {
-        guard let unit = connectedMachine?.unit, !unit.isEmpty else {
-            log.error("no machine unit; faces cannot be filed or fetched")
+        let unit = machineKey
+        guard !unit.isEmpty else {
+            log.error("no machine key yet; faces cannot be filed or fetched")
             return
         }
         for slot in 0..<imageSlots.count where imageSlots.isHeld(slot) {
@@ -210,8 +211,8 @@ extension BLEManager {
         faceBuffer = Data()
         faceSlot = -1
         DispatchQueue.main.async {
-            if let unit = self.connectedMachine?.unit, !unit.isEmpty,
-               let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
+            let unit = self.machineKey
+            if !unit.isEmpty, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
                 PictureCache.save(face, unit: unit, crc: crc)
                 self.faces[crc] = face      // observable: this is what redraws the tile
                 log.info("read back slot \(slot), \(total) bytes")
@@ -255,7 +256,7 @@ extension BLEManager {
     /// A picture that did not arrive must not go on being shown.
     func forgetPreview(slot: Int) {
         guard let crc = pendingCrc[slot] else { return }
-        PictureCache.forget(unit: connectedMachine?.unit ?? "", crc: crc)
+        PictureCache.forget(unit: machineKey, crc: crc)
         faces[crc] = nil
         pendingCrc[slot] = nil
     }
@@ -338,8 +339,8 @@ extension BLEManager {
             // asked, so an upload and a read-back agree without meeting.
             let crc = crc32(bundle)
             self.pendingCrc[slot] = crc
-            if let unit = self.connectedMachine?.unit, !unit.isEmpty,
-               let face = ImageBundle.face(of: bundle) {
+            let unit = self.machineKey
+            if !unit.isEmpty, let face = ImageBundle.face(of: bundle) {
                 PictureCache.save(face, unit: unit, crc: crc)
                 DispatchQueue.main.async { self.faces[crc] = face }
             }

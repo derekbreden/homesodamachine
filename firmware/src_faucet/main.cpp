@@ -1099,6 +1099,23 @@ void setup() {
   indev_drv.read_cb = touchpadRead;
   touchInput = lv_indev_drv_register(&indev_drv);
 
+  // The user's own pictures, before anything binds a pointer into them: the UI
+  // builds its logo descriptors once, and a store opened after that leaves
+  // every custom face bound to nothing and falling back to a factory one —
+  // which looks exactly like a picture that failed to arrive.
+  {
+    static ImageSize kSizes[IMAGE_BUNDLE_COUNT];
+    for (uint8_t i = 0; i < IMAGE_BUNDLE_COUNT; i++) {
+      kSizes[i].w = IMAGE_BUNDLE[i].w;
+      kSizes[i].h = IMAGE_BUNDLE[i].h;
+      kSizes[i].offset = 0;
+    }
+    // The master copy: every size either glass draws, not only this one's. An
+    // enclosure display can be replaced and re-provisioned from here with no
+    // phone in the room.
+    imageStoreBegin("spiffs", kSizes, IMAGE_BUNDLE_COUNT);
+  }
+
   buildUi();
 
   // P1 is the official Waveshare pinout: GPIO43 TX / GPIO44 RX. The main board's
@@ -1111,16 +1128,7 @@ void setup() {
 
   {
     char line[96];
-    // The master copy: every size either glass draws, not only this one's. An
-    // enclosure display can be replaced and re-provisioned from here without
-    // the phone being involved.
-    static ImageSize kSizes[IMAGE_BUNDLE_COUNT];
-    for (uint8_t i = 0; i < IMAGE_BUNDLE_COUNT; i++) {
-      kSizes[i].w = IMAGE_BUNDLE[i].w;
-      kSizes[i].h = IMAGE_BUNDLE[i].h;
-      kSizes[i].offset = 0;
-    }
-    if (imageStoreBegin("spiffs", kSizes, IMAGE_BUNDLE_COUNT)) {
+    if (imageStoreCapacity()) {
       snprintf(line, sizeof(line), "images: %u slots, %lu B each, %u held",
                imageStoreCapacity(), (unsigned long)imageStoreBundleBytes(),
                imageStoreHeld());
@@ -1129,6 +1137,7 @@ void setup() {
     }
     baseLinkSayOnConnect(line);
   }
+
   bleLinkBegin();
 
   lastInputTime = millis();
