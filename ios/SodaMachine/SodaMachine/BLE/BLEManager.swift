@@ -83,6 +83,16 @@ class BLEManager {
     // Demo mode (no hardware needed)
     var demoMode = false
 
+    // ── The user's own pictures ───────────────────────────────────────────
+    // What the machine says it holds, and how an upload to it is going. The
+    // bundle itself is held only for the length of the push.
+    var imageSlots = ImageSlots()
+    var imageUploadState: ImageUploadState = .idle
+    @ObservationIgnored var imageBundle = Data()
+    @ObservationIgnored var imageSlotSending = 0
+    @ObservationIgnored var imageSentOffset = 0
+    @ObservationIgnored var imageStartedAt = Date()
+
     // ── Which machines are in range ──────────────────────────────────────
     // Every scan result lands here rather than the first one winning. A phone
     // standing between the bench and the machine under the sink sees both.
@@ -208,14 +218,14 @@ class BLEManager {
     // GATT/NUS state
     @ObservationIgnored fileprivate var nusReady = false
     @ObservationIgnored fileprivate var frameBuffer = Data()
-    @ObservationIgnored fileprivate var rxCharacteristic: CBCharacteristic?
+    @ObservationIgnored var rxCharacteristic: CBCharacteristic?
 
     // BLE runs on a dedicated background queue so binary data accumulation
     // and BLE writes don't block the main thread during image downloads.
     @ObservationIgnored let bleQueue = DispatchQueue(label: "com.derekbreden.SodaMachine.BLE", qos: .userInitiated)
     @ObservationIgnored fileprivate var cbAdapter: CBDelegateAdapter!
     @ObservationIgnored fileprivate var centralManager: CBCentralManager!
-    @ObservationIgnored fileprivate var connectedPeripheral: CBPeripheral?
+    @ObservationIgnored var connectedPeripheral: CBPeripheral?
     @ObservationIgnored fileprivate var scanTimer: Timer?
     @ObservationIgnored fileprivate var reconnectTimer: Timer?
     @ObservationIgnored fileprivate var userInitiatedDisconnect = false
@@ -293,11 +303,15 @@ class BLEManager {
     }
 
     /// Send a framed BLE message: [type(1B)][len(2B LE)][payload...]
-    fileprivate func sendBLEFrame(type: UInt8, payload: Data) {
+    // withResponse costs a round trip per frame, which is the right price for a
+    // command and the wrong one for a stream: it is what holds the firmware
+    // path to one frame per connection interval. A picture's data frames go
+    // without it and are steered by the offsets the board reports instead.
+    func sendBLEFrame(type: UInt8, payload: Data, withResponse: Bool = true) {
         guard let rx = rxCharacteristic, let p = connectedPeripheral else { return }
         var frame = Data([type, UInt8(payload.count & 0xFF), UInt8((payload.count >> 8) & 0xFF)])
         frame.append(payload)
-        p.writeValue(frame, for: rx, type: .withResponse)
+        p.writeValue(frame, for: rx, type: withResponse ? .withResponse : .withoutResponse)
     }
 
     func requestConfig() {
@@ -1847,6 +1861,13 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         }
     }
 
+    // iOS says when its outgoing queue has drained. A picture is streamed
+    // rather than pulled, so this is what paces it: fill the link, stop when it
+    // says stop, and carry on from here.
+    func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
+        ble.bleQueue.async { [weak self] in self?.ble.pumpImageFrames() }
+    }
+
     // MARK: - CBPeripheralDelegate (NUS notifications)
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -1888,6 +1909,10 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.handleIdentity(payload)
             case 0x15: // VERSIONS
                 ble.handleVersions(payload)
+            case 0x17: // IMG_STATE — which custom slots hold a picture
+                ble.handleImageState(payload)
+            case 0x1A: // IMG_ACK — where the board has got to, and how it ended
+                ble.handleImageAck(payload)
             default:
                 break
             }
