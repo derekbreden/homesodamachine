@@ -7637,6 +7637,40 @@ def selftest():
         raise AssertionError(f"a hung seat lands {off:.2e} off its own rule, past {SEAT_TOL:g}")
     yield f"a hung seat lands {off:.1e} off the rule it was given"
 
+    # THE C14 CORBEL FOLLOWS THE TUNNEL, NOT ITS BOUNDING BOX. A rectangular wedge under the
+    # tunnel's R3 outline leaves two upward-facing 3 mm ledges at the original bottom plane,
+    # with the rounded corners rising over air. Build the production feature itself: it must
+    # reach one tunnel-run below that plane at the wall, yet leave no upward face on the plane.
+    inner = (-1000.0, 1000.0, -1000.0, 1000.0, -1000.0, 1000.0)
+    outer = (0.0, 0.0, 0.0, _enc.rear_plane_y + _enc.wall, 0.0, 0.0)
+    feature, bore, inserts = _enc._c14_tunnel_geometry(
+        inner, outer, c14_stations(), [c14_cutout()], -1000.0, 1000.0)
+    feature = feature.cut(bore)
+    for cutter in inserts:
+        feature = feature.cut(cutter)
+    _hx, hz = c14_mount_half()
+    bottom = C14_STATION[1] - hz
+    run = _enc.rear_plane_y - c14_seat_y()
+    if abs(feature.BoundingBox().zmin - (bottom - run)) > 1e-5:
+        raise AssertionError(
+            "the C14 tunnel does not carry its rounded underside down the full 45-degree "
+            f"corbel: zmin {feature.BoundingBox().zmin:.6f}, expected {bottom - run:.6f}")
+    ledges = []
+    for face in feature.Faces():
+        bb = face.BoundingBox()
+        try:
+            normal = face.normalAt()
+        except Exception:
+            continue
+        if (normal.z > 0.999999 and abs(bb.zmin - bottom) <= 1e-6
+                and abs(bb.zmax - bottom) <= 1e-6):
+            ledges.append(face.Area())
+    if sum(ledges) > 1e-4:
+        raise AssertionError(
+            f"the C14's rounded tunnel stands over {sum(ledges):.4f} mm² of flat corbel ledge; "
+            "strike the support on the tunnel outline rather than its envelope")
+    yield "the C14 corbel carries its rounded outline without a flat ledge or air channel"
+
 
 def main():
     # THIS FILE, UNDER THE NAME EVERYTHING ELSE IMPORTS IT BY. Run as a script it is `__main__`,
