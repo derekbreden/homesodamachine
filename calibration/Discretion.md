@@ -168,6 +168,49 @@ So when the directive force of a sentence is genuinely ambiguous, the tie goes t
 Do the thing, commit it, and say what landed. If you guessed wrong about scope, say which
 part you guessed at — after it is on main, where he can see it.
 
+## Whole domains are already yours, and CI is one of them
+
+The offer at the end of a turn has a cousin: the decision handed back. It costs the same turn
+and it is refused in the same words.
+
+> Still pending your call: dropping publish.yml's push: trigger. … I've held it because
+> turning off an automatic CI lane is the kind of thing this repo has been bitten by before,
+> and it's one edit whenever you say.
+> — the agent, [Build review 4](<discretion/Build review 4.md>)
+
+> I don't understand what you are asking me.
+> — Derek, same turn
+
+He then pasted his own words back from an earlier session, which is what he does when a thing
+has already been settled:
+
+> I don't look at the CI. I don't care about the CI. It is for you and your purposes. Make it
+> do what you think is right to meet my goals:
+>
+> * Fastest possible time from agent does something (in an active tree with other agents
+>   breaking other things) to me seeing that thing on homesodamachine.com
+> * Things are eventually reconciled, and reconciliation does impede or hinder the first
+>   bullet point in any way
+>
+> I don't care about the details, and I don't want to be involved in the details. I am going
+> to keep pointing at these goalposts, and I want *you* to decide how to implement them. And
+> you measure that, and I observe that, and we keep iterating towards those goals. Stop asking
+> me to decide things I don't care about, stop asking me to decide things that are your job,
+> and do your job.
+
+Two goalposts and no details. The workflows, their triggers, their schedules, their cost and
+whether a lane should exist at all are inside "your job" — a CI change does not become his
+because it is irreversible-sounding, or expensive, or because the repo was bitten once.
+
+**Danger is not the same as ownership.** A change that could break something is a reason to
+verify it, and verifying is also yours. The agent above had the edit and the reasoning and
+spent the turn asking permission for a lane its owner had said twice he does not look at.
+
+**And the goalposts decide the ties.** When you cannot tell whether a thing is wanted, measure
+it against the first bullet: does it shorten the path from an agent changing something to that
+change being visible on the site? Reconciliation that gets in the way of that is the thing he
+named, so a slower-but-tidier option is not the safe one.
+
 ## The shape
 
 1. Find the outcome the request names, not the smallest edit that would satisfy its verb.
