@@ -86,10 +86,10 @@ The fillet sits in an upward-facing internal corner, so gravity holds the puddle
 
 | Option | What it is | Cost | Speed | Indexes? | Verdict |
 |---|---|---|---|---|---|
-| **A1** CNC 4th-axis rotary table | 100 mm chuck, NEMA 23, laid face-up; driven by any stepper driver. Sold in two ratios and they are two prices: **6:1 belt** at ~$259, **50:1 strain-wave** at ~$420 | $259 / $420 | Exact, by command | Yes, for free | The 6:1 back-drives (below); the 50:1 works and costs double the pick |
+| **A1** CNC 4th-axis rotary table | 100 mm chuck, NEMA 23, laid face-up; driven by any stepper driver. CNCTOPBAOS K11-100, sold in two ratios that are two prices: **6:1 belt** ([B07B2RTBGZ](https://www.amazon.com/dp/B07B2RTBGZ)) and **50:1 strain-wave** ([B07B2SL9SD](https://www.amazon.com/dp/B07B2SL9SD)) | $259.00 / $420.00 | Exact, by command | Yes, for free | The 6:1 back-drives (below); the 50:1 works and costs double the pick |
 | **A2** Rotary welding positioner | 10 kg class, 3-jaw chuck, 0–90° tilt, foot pedal — e.g. VEVOR 1–12 RPM | ~$300–500 | Dial, and **1 RPM is its floor** — the bottom third of the window is off the end | No | Turnkey, but the window is the problem |
 | **A3** Synchronous rotisserie motor | 4 W AC synchronous, 2–2.4 RPM (CHANCS TYD-50 class), under a lazy-susan bearing and a plate | ~$18 + ~$25 | One speed, but **line-locked** — quartz-stable, better than any PWM dial | No | The afternoon that proves the idea |
-| **A4** Machinist's rotary table + **stepper on the worm shaft** | 6" hand table, **90:1 worm**, T-slots, cast iron — VEVOR HV6 class — with a NEMA 23 replacing the handwheel, on the same DM542 | ~$200 | Exact, by command, whole window | Yes, for free — and by graduation with the handwheel back on | **The pick** |
+| **A4** Machinist's rotary table + **stepper on the worm shaft** | HV6 6" hand table, **90:1 worm**, 4 T-slots, MT2 bore, cast iron ([B0GPJ884VS](https://www.amazon.com/dp/B0GPJ884VS)) — with a NEMA 23 replacing the handwheel, on the same DM542 | $199.99 | Exact, by command, whole window | Yes, for free — and by graduation with the handwheel back on | **The pick** |
 | **A5** Turntable bearing + stepper + gearbox, from parts | 4" lazy-susan ring, NEMA 17/23, 27:1 planetary, driver, ESP32 | ~$150–200 | Exact, by command | Yes | The pick without the worm, and with the runout to chase yourself |
 | **A6** Drill press + friction wheel | A rubber wheel on the tube OD off a geared motor | ~$30 | Unstable | No | Proof-of-concept only |
 
@@ -123,7 +123,9 @@ The 90:1 reduction is what makes it the pick over A1's 4th axis rather than besi
 
 That last row is the one that decides it. A 6:1 belt reflects [2.59 N·m](REFLECT_6) back at a NEMA 23 whose holding torque is under 2 N·m, so a stuck wire back-drives the table and drags the part — the failure mode described under *Costs* becomes a mechanism failure, not just a bent guide. A worm wedges: 90:1 is genuinely self-locking, which is also what holds the part still while the head is set.
 
-The rest is table, not gearbox. Cast iron and 13.6 kg is the mass that makes runout a question of the fixture rather than the bearing; a 150 mm table sits under the 127 mm tube instead of a 100 mm chuck that cannot grip it; and T-slots bolt the fixture ring straight down. It costs about half the 50:1 4th axis and has better resolution than it.
+The rest is table, not gearbox. Cast iron and 13.6 kg is the mass that makes runout a question of the fixture rather than the bearing; a 150 mm table sits under the 127 mm tube instead of a 100 mm chuck that cannot grip it; and four T-slots bolt the fixture ring straight down. It costs about half the 50:1 4th axis and has better resolution than it.
+
+The vendor states the ratio the way a hand table does — *each full handle rotation moves the table by 4 degrees*, which is 90:1 — and that handwheel is worth keeping when the stepper goes on the worm shaft. It is the manual index and the hand-crank fallback.
 
 And it lands where the rest of this repo lands: the rig's setpoints become constants in a file, the way `endcap_circular_dxf.py` owns the plate's and `_cold_core_interface.py` owns the core's. The weld recipe stops being prose.
 
@@ -133,7 +135,8 @@ And it lands where the rest of this repo lands: the rig's setpoints become const
 
 | Item | For | Note |
 |---|---|---|
-| 6" 90:1 worm rotary table, T-slotted, cast iron (VEVOR HV6 class) | The rotation | Confirm the backlash and the worm's free running before committing — this class is thinly reviewed and a stiff worm is the reported failure. Face-up is the *gentler* orientation (open item 4); the fixture ring bolts into the T-slots |
+| HV6 6" rotary table, 90:1 worm, 4 T-slots, MT2 bore, cast iron — [B0GPJ884VS](https://www.amazon.com/dp/B0GPJ884VS), $199.99 | The rotation | Ships from Amazon. Check the worm turns freely on arrival — a stiff worm is the reported failure on this class, and it is a return, not a fix. Face-up is the *gentler* orientation (open item 4); the fixture ring bolts into the T-slots |
+| *Fallback:* HHIP 3906-2306 6" H/V rotary table — [B093CCLTHJ](https://www.amazon.com/dp/B093CCLTHJ), $350.99 | The rotation, if the cheap table is stiff | A named industrial brand at 32 lb against the no-name's 30. Its ratio is not published on the listing — confirm before ordering, since the whole drivetrain argument is the ratio |
 | NEMA 23 + coupler for the worm shaft | Replacing the handwheel | Keep the handwheel — it is the hand-crank fallback and the manual index |
 | Stepper driver (DM542 class) + 24 V supply | Driving it | An ESP32 and a step/dir driver is the whole controller; the firmware tree already exists |
 | Laser-cut fixture ring, 316 or mild steel, 3 × M6 tapped at 120° | Holding the tube, R3 | SendCutSend, same path as the end caps. Set screws let the tube be indicated true rather than hoping a bore fits |
