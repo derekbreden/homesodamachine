@@ -78,7 +78,7 @@ a dado.
   [9 mm²](RAIL_AREA) captured rail down each long edge. It is centred on the
   interior ceiling datum, z = [350.5](TONGUE_FLOOR)..[353.5](TONGUE_ROOF), so
   half its root merges into the structural field and half into the show skin.
-  The rails take the part's bounding width to [165.15 mm](PANEL_BBOX_X), while the
+  The rails take the part's bounding width to [165 mm](PANEL_BBOX_X), while the
   show face stays [159 mm](PANEL_W) and its seam lines stay on the throat's own
   edges.
 - **Dado** [3.15 mm](DADO_DEPTH) deep, from z = [350.35](DADO_FLOOR) to

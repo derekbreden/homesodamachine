@@ -7395,24 +7395,136 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     return feature, bore, inserts
 
 
-def c14_ceiling_cap(inner, outer, stations, ports, stock):
-    """The part of the C14 tunnel owned by the sliding ceiling.
+def c14_ceiling_land(inner, outer, stations, ports, stock):
+    """The fixed C14 surround that reaches the ceiling panel's underside.
 
-    The tunnel's crown enters the ceiling's structural field. Keeping that crown on back-top
-    would leave a fixed stop across the panel's aft travel; owning exactly the intersection
-    here preserves the installed union while carrying the obstruction through the dado with
-    the panel. The same cutters are applied on both sides of the ownership split."""
+    The tunnel and collar are one back-top feature all the way to the interior-ceiling plane.
+    This is the part of that opened feature which enters a moving ceiling envelope. The panel
+    removes its matching aft-open pocket, leaving the show skin above this land and carrying no
+    fragment of the inlet surround itself."""
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
     if geometry is None:
         return None
     feature, bore, inserts = geometry
-    cap = feature.intersect(stock).cut(bore)
+    land = feature.cut(bore)
     for cutter in inserts:
-        cap = cap.cut(cutter)
-    return cap
+        land = land.cut(cutter)
+    return land.intersect(stock)
 
 
-def _keystone_receptacle(solid, outer, station, z0, z1):
+def c14_ceiling_pocket(inner, outer, stations, ports, stock):
+    """The aft-open underside pocket by which the ceiling slides over the fixed C14 surround.
+
+    Its XZ section contains the tunnel and exact flange-collar outlines with one running-fit
+    clearance. Carrying that section unchanged to the panel's aft edge makes the pocket open in
+    the insertion direction: before the surround enters it, the surround is behind the panel;
+    after it enters, every remaining millimetre of travel stays inside the same section. The
+    cutter stops on the interior-ceiling plane, so the complete 3 mm show skin remains and rests
+    directly on the surround's crown at the installed pose."""
+    geometry = _c14_tunnel_geometry(inner, outer, stations, ports, inner[4], outer[5])
+    if geometry is None:
+        return None
+    feature, bore, inserts = geometry
+    opened = feature.cut(bore)
+    for cutter in inserts:
+        opened = opened.cut(cutter)
+
+    cx, cz, wx, wz, _r = _c14_aperture(stations, ports)
+    cap = back_wall_t_at(cx, cz)
+    aft = outer[3] - cap
+    fore = aft - c14_tunnel_len
+    mouth = fore - _c14.FLANGE_T - c14_collar_extension
+    hx, hz = c14_mount_half(wx, wz, max(abs(sx - cx) for sx, _sz in stations))
+    slip = fits.slip
+    y1 = stock.BoundingBox().ymax + 1.0
+    tunnel_room = _rect_cut_y(
+        cx, cz, 2.0 * (hx + slip), 2.0 * (hz + slip), c14_tunnel_r + slip,
+        mouth - slip, y1)
+    collar_room = (_c14.flange_prism(
+        c14_collar_slip + c14_collar_wall + slip, mouth - slip, y1)
+        .translate((cx, 0.0, cz)).val())
+    b = stock.BoundingBox()
+    under_skin = _ybox(
+        b.xmin - 1.0, b.xmax + 1.0, mouth - slip, y1,
+        b.zmin - 1.0, inner[5])
+    # Include the exact opened feature as well as its running-fit envelope. The explicit union
+    # makes a future profile change fail open into the pocket rather than leave coincident
+    # printed material simply because the clearance reconstruction was not changed with it.
+    # Do not clip this cutter back to `stock`: its extra millimetre past `stock.ymax` is what
+    # makes the aft mouth an overcut instead of a coincident-face boolean at the panel edge.
+    return tunnel_room.fuse(collar_room).fuse(opened).intersect(under_skin)
+
+
+def _keystone_receptacle_geometry(inner, outer, station, z0, z1):
+    """The keystone receptacle's fixed material and cutter.
+
+    The pocket needs the full module-standard height, but its printed surround may not rise
+    through the appliance's ceiling. The wall above that pocket therefore ends on the interior
+    ceiling plane: it still leaves 1.92 mm of PET-GF over the pocket, and the ceiling panel's
+    unbroken show skin lands on it. The matching panel pocket is open to the aft edge, so none of
+    this fixed material becomes a stop during insertion.
+
+    Returns ``(feature, cutter, catches)``. The cutter is kept separate because it has to pass
+    through both the additive boss and the wall already present in the piece; the catches are
+    kept separate because they are fused only after that cut."""
+    if station is None:
+        return None
+    x, z = station
+    if not z0 <= z <= z1:
+        return None
+    y_face = outer[3]
+    block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
+    feature = block
+    if block is not None:
+        b = block.BoundingBox()
+        feature = feature.fuse(_yz_prism(
+            b.xmin, b.xmax,
+            [(b.ymax, b.zmin), (b.ymin, b.zmin),
+             (b.ymax, b.zmin - (b.ymax - b.ymin))]))
+        below_ceiling = _ybox(
+            outer[0] - 1.0, outer[1] + 1.0,
+            outer[2] - 1.0, outer[3] + 1.0,
+            outer[4] - 1.0, inner[5])
+        feature = feature.intersect(below_ceiling)
+        if catches is not None:
+            catches = catches.intersect(below_ceiling)
+    cutter, _bands = _keystone.receptacle_cut(x, z, y_face)
+    return feature, cutter, catches
+
+
+def keystone_ceiling_land(inner, outer, station, stock):
+    """Fixed opened keystone material which reaches the ceiling panel's underside."""
+    geometry = _keystone_receptacle_geometry(
+        inner, outer, station, inner[4], outer[5])
+    if geometry is None:
+        return None
+    feature, cutter, catches = geometry
+    opened = None if feature is None else feature.cut(cutter)
+    if catches is not None:
+        opened = catches if opened is None else opened.fuse(catches)
+    return None if opened is None else opened.intersect(stock)
+
+
+def keystone_ceiling_pocket(inner, outer, station, stock):
+    """The aft-open running-clearance pocket around the fixed keystone receptacle.
+
+    The boss is rectangular where it crosses the ceiling field. Carrying that XZ section from
+    one printed-fit clearance ahead of its fore face through the panel's aft edge lets the panel
+    slide over it while leaving the complete 3 mm show skin above the interior-ceiling plane."""
+    land = keystone_ceiling_land(inner, outer, station, stock)
+    if land is None or land.Volume() <= 1e-6:
+        return None
+    b, s = land.BoundingBox(), stock.BoundingBox()
+    slip = fits.slip
+    # Keep the aft millimetre as real cutter, rather than intersecting it back to the panel's
+    # bounding box and relying on coincident faces to open the mouth.
+    return _ybox(
+        b.xmin - slip, b.xmax + slip,
+        b.ymin - slip, s.ymax + 1.0,
+        s.zmin - 1.0, inner[5])
+
+
+def _keystone_receptacle(solid, inner, outer, station, z0, z1):
     """Fuse the keystone's receptacle to its back-wall piece and open it.
 
     A KEYSTONE IS HELD BY A RECEPTACLE AND NOT BY A HOLE. `riteav_keystone` states the whole of
@@ -7429,20 +7541,12 @@ def _keystone_receptacle(solid, outer, station, z0, z1):
     underside is its reach off that wall of ceiling starting in air; the web is that reach taken
     back down to the wall at `relief_chamfer`. ITS FIGURE IS THE BLOCK'S OWN BOX — the wall face
     it roots on, the free face it ends at, and the soffit between them."""
-    if station is None:
+    geometry = _keystone_receptacle_geometry(inner, outer, station, z0, z1)
+    if geometry is None:
         return solid
-    x, z = station
-    if not z0 <= z <= z1:
-        return solid
-    y_face = outer[3]
-    block, catches = _keystone.receptacle_boss(x, z, y_face, y_face - back_wall_t_at(x, z))
-    if block is not None:
-        solid = solid.fuse(block)
-        b = block.BoundingBox()
-        solid = solid.fuse(_yz_prism(b.xmin, b.xmax,
-                                     [(b.ymax, b.zmin), (b.ymin, b.zmin),
-                                      (b.ymax, b.zmin - (b.ymax - b.ymin))]))
-    cutter, _bands = _keystone.receptacle_cut(x, z, y_face)
+    feature, cutter, catches = geometry
+    if feature is not None:
+        solid = solid.fuse(feature)
     solid = solid.cut(cutter)
     if catches is not None:
         solid = solid.fuse(catches)
@@ -7450,17 +7554,15 @@ def _keystone_receptacle(solid, outer, station, z0, z1):
 
 
 def _c14_tunnel(solid, inner, outer, stations, ports, z0, z1):
-    """Fuse the fixed portion of the C14 tunnel to its back-wall piece and open its bores."""
+    """Fuse the complete C14 surround to its back-wall piece and open its bores."""
     geometry = _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1)
     if geometry is None:
         return solid
     feature, bore, inserts = geometry
-    # The upper cap belongs to the panel because the deeper field has to slide through this
-    # station, and the +X rail passes the tunnel's fore corner. The field itself is transferred
-    # to the panel; the rail keeps its printed-fit lane through the fixed remainder. At the
-    # installed pose the panel fills the moving section and the clearance remains the joint.
-    moving = _ceiling().structural_stock().fuse(_ceiling().rail_clearance())
-    solid = solid.fuse(feature.cut(moving))
+    # The collar, tunnel and crown are one fixed surround. The ceiling panel has an aft-opening
+    # underside pocket around the part of this feature that reaches its structural field; its
+    # uncut show skin lands on the crown at the installed pose.
+    solid = solid.fuse(feature)
     # The bore, opened through everything standing round it. The wall's own cutters run to its
     # inner face and this one runs to the tunnel's, so the hole is one rectangle end to end.
     solid = solid.cut(bore)
@@ -7591,7 +7693,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = _c14_tunnel(piece, inner, outer, box.pack.c14, box.pack.back_ports, zlo, zhi)
         # And the keystone's receptacle, reaching further inboard again — the boss carrying the
         # pocket the jack snaps into stands past where the field's own bosses stop.
-        piece = _keystone_receptacle(piece, outer, box.pack.keystone, zlo, zhi)
+        piece = _keystone_receptacle(piece, inner, outer, box.pack.keystone, zlo, zhi)
     # The +X wall's mounting bosses, on whichever piece holds each one's station. Last of
     # all, so a bore is cut through every column that has already been fused around it.
     ylo, yhi = _piece_bands(box, f"{y_side}-{z_side}")[:2]
