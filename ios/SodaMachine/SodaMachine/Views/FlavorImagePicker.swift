@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import PhotosUI
 
 // ────────────────────────────────────────────────────────────
@@ -85,6 +86,12 @@ struct FlavorImagePicker: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(Theme.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+        }
+        // A read that stopped short has nothing to restart it — notifications
+        // are not acknowledged, so a dropped one just stops arriving. This is
+        // what notices and asks again from where it got to.
+        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
+            ble.resumeFaceIfStalled()
         }
         .onAppear {
             ble.queryImageSlots()

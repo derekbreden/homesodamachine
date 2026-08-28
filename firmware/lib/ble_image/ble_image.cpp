@@ -164,7 +164,7 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       }
       readSlot = req.slot;
       readRend = req.rendition;
-      readAt = 0;
+      readAt = (req.offset < total) ? req.offset : 0;
       readTotal = total;
       reading = true;   // bleImageService carries it from here
       return true;
