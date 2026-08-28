@@ -4478,13 +4478,14 @@ def c14_cutout():
 
 _stated.state(
     "c14-surround", "The C14 flange is wrapped without moving its established mount",
-    "3 mm in XZ and 3 mm beyond the flange's Y- edge",
+    "3 mm in XZ, 3 mm beyond the flange's Y- edge, and one rooted profile corbel",
     (_enc.c14_collar_wall >= 3.0 and _enc.c14_collar_extension >= 3.0
      and C14_STATION[0] == 69.0 and abs(c14_seat_y() - 458.75) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_collar_wall:g} mm around the flange and continues "
-    f"{_enc.c14_collar_extension:g} mm beyond its {_c14.FLANGE_T:g} mm edge.")
+    f"{_enc.c14_collar_extension:g} mm beyond its {_c14.FLANGE_T:g} mm edge, while a sheared "
+    "copy of its outer profile continues to the wall on a 45 degree underside.")
 
 
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
@@ -6752,12 +6753,15 @@ def check_ceiling_panel_insertion(back_top) -> Bound:
 
 
 def check_c14_collar(pieces: dict) -> Bound:
-    """Measure the complete exact-profile collar across its two owning pieces.
+    """Measure the complete exact-profile collar and its corbel across both owners.
 
     The upper arc travels with the ceiling panel and the rest belongs to back-top. Testing their
     installed union catches either owner omitting material, while testing the pocket catches any
-    later fuse that fills the insertion clearance back in. End faces are inset 0.02 mm so exact
-    coincident-face bookkeeping is not mistaken for missing volume.
+    later fuse that fills the insertion clearance back in. The support is the same full-profile
+    shear the production feature uses, with the same three cutters applied; asking how much of
+    that expected solid is absent catches a collar that is complete around the flange but hangs
+    off the tunnel without its print corbel. End faces are inset 0.02 mm so exact coincident-face
+    bookkeeping is not mistaken for missing volume.
     """
     back = pieces["back-top"]
     panel = pieces["ceiling-panel"]
@@ -6777,17 +6781,37 @@ def check_c14_collar(pieces: dict) -> Bound:
     missing = annulus.cut(host).Volume()
     occupied = pocket.intersect(host).Volume()
     beyond = (fore - _c14.FLANGE_T) - mouth
-    ok = missing <= 1e-3 and occupied <= 1e-3 and beyond >= 3.0 - 1e-9
+    aft = _enc.rear_plane_y
+    support_stock = (_c14.flange_prism(
+        _enc.c14_collar_slip + _enc.c14_collar_wall, mouth, aft)
+        .translate((cx, 0.0, cz)).val())
+    support = _enc._y_wall_corbel(support_stock, mouth, aft)
+    _kind, _px, _pz, wx, wz, r = c14_cutout()
+    support = support.cut(_enc._rect_cut_y(
+        cx, cz, wx, wz, r, fore, _enc.rear_plane_y + _enc.wall + 1.0))
+    support = support.cut(_c14.flange_prism(
+        _enc.c14_collar_slip, mouth - 1.0, fore).translate((cx, 0.0, cz)).val())
+    for sx, sz in c14_stations():
+        support = support.cut(_enc._ycyl(
+            _enc.heatset_dia / 2.0, sx, sz, fore, fore + _enc.heatset_depth))
+    support_missing = support.cut(host).Volume()
+    support_run = aft - mouth
+    ok = (missing <= 1e-3 and occupied <= 1e-3 and beyond >= 3.0 - 1e-9
+          and support_missing <= 1e-3)
     return record_bound(Bound(
-        "c14-collar-complete", "The C14's actual flange profile is surrounded by printed wall",
+        "c14-collar-complete",
+        "The C14's actual flange profile is surrounded and carried by printed wall",
         ok,
         f"{_enc.c14_collar_wall:g} mm XZ wall, {beyond:.2f} mm beyond Y- edge; "
-        f"{missing:.4f} mm³ missing, {occupied:.4f} mm³ in pocket",
-        "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket",
+        f"{missing:.4f} mm³ missing, {occupied:.4f} mm³ in pocket; "
+        f"{support_run:.2f} mm corbel with {support_missing:.4f} mm³ missing",
+        "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket "
+        "and its full-profile 45 degree corbel present",
         ([] if ok else [
             f"the expected exact-profile annulus is missing {missing:.4f} mm³ and its insertion "
-            f"pocket contains {occupied:.4f} mm³. The collar is split between fixed back-top "
-            f"and the moving ceiling cap; restore the same profile and cutters to both owners."])))
+            f"pocket contains {occupied:.4f} mm³; the support is missing "
+            f"{support_missing:.4f} mm³. The collar is split between fixed back-top and the "
+            "moving ceiling cap; restore the same profile, corbel and cutters to both owners."])))
 
 
 def check_ceiling_fastener_direction() -> Bound:
@@ -7637,10 +7661,13 @@ def selftest():
         raise AssertionError(f"a hung seat lands {off:.2e} off its own rule, past {SEAT_TOL:g}")
     yield f"a hung seat lands {off:.1e} off the rule it was given"
 
-    # THE C14 CORBEL FOLLOWS THE TUNNEL, NOT ITS BOUNDING BOX. A rectangular wedge under the
+    # THE C14 CORBEL FOLLOWS BOTH PROFILES, NOT THEIR BOUNDING BOXES. A rectangular wedge under the
     # tunnel's R3 outline leaves two upward-facing 3 mm ledges at the original bottom plane,
-    # with the rounded corners rising over air. Build the production feature itself: it must
-    # reach one tunnel-run below that plane at the wall, yet leave no upward face on the plane.
+    # with the rounded corners rising over air. Stopping that support at the tunnel's fore face
+    # also leaves the exact-profile collar's five-millimetre underside hanging. Build the
+    # production feature itself: the tunnel ledges must be absent, the collar's corbel must reach
+    # the wall outside both ends of the narrower tunnel, and the full 10.25 mm run must fall at
+    # 45 degrees.
     inner = (-1000.0, 1000.0, -1000.0, 1000.0, -1000.0, 1000.0)
     outer = (0.0, 0.0, 0.0, _enc.rear_plane_y + _enc.wall, 0.0, 0.0)
     feature, bore, inserts = _enc._c14_tunnel_geometry(
@@ -7649,12 +7676,23 @@ def selftest():
     for cutter in inserts:
         feature = feature.cut(cutter)
     _hx, hz = c14_mount_half()
-    bottom = C14_STATION[1] - hz
-    run = _enc.rear_plane_y - c14_seat_y()
-    if abs(feature.BoundingBox().zmin - (bottom - run)) > 1e-5:
+    tunnel_bottom = C14_STATION[1] - hz
+    collar_hx, collar_hz = _enc.c14_collar_half()
+    collar_bottom = C14_STATION[1] - collar_hz
+    mouth = c14_seat_y() - _c14.FLANGE_T - _enc.c14_collar_extension
+    run = _enc.rear_plane_y - mouth
+    if abs(feature.BoundingBox().zmin - (collar_bottom - run)) > 1e-5:
         raise AssertionError(
-            "the C14 tunnel does not carry its rounded underside down the full 45-degree "
-            f"corbel: zmin {feature.BoundingBox().zmin:.6f}, expected {bottom - run:.6f}")
+            "the C14 collar does not carry its exact-profile underside down the full "
+            f"{run:.2f} mm 45-degree corbel: zmin {feature.BoundingBox().zmin:.6f}, "
+            f"expected {collar_bottom - run:.6f}")
+    for side in (-1.0, 1.0):
+        probe = (C14_STATION[0] + side * (collar_hx - 0.25),
+                 _enc.rear_plane_y - 0.10, C14_STATION[1] - run + 0.10)
+        if not feature.isInside(probe):
+            raise AssertionError(
+                f"the C14 collar's {'west' if side < 0 else 'east'} corbel stops before the "
+                f"wall; its sheared exact outer profile is absent at {probe}")
     ledges = []
     for face in feature.Faces():
         bb = face.BoundingBox()
@@ -7662,14 +7700,15 @@ def selftest():
             normal = face.normalAt()
         except Exception:
             continue
-        if (normal.z > 0.999999 and abs(bb.zmin - bottom) <= 1e-6
-                and abs(bb.zmax - bottom) <= 1e-6):
+        if (normal.z > 0.999999 and abs(bb.zmin - tunnel_bottom) <= 1e-6
+                and abs(bb.zmax - tunnel_bottom) <= 1e-6):
             ledges.append(face.Area())
     if sum(ledges) > 1e-4:
         raise AssertionError(
             f"the C14's rounded tunnel stands over {sum(ledges):.4f} mm² of flat corbel ledge; "
             "strike the support on the tunnel outline rather than its envelope")
-    yield "the C14 corbel carries its rounded outline without a flat ledge or air channel"
+    yield ("the C14 corbel carries its rounded tunnel and full exact-profile collar to the "
+           "wall without a flat ledge or air channel")
 
 
 def main():

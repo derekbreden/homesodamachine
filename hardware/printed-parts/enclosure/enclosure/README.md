@@ -644,16 +644,16 @@ so the hole is taken over from exactly where it stops being printable and nothin
 it is laid on air. The three lower quarters the collar bears on are untouched, and the
 wall needs no support.
 
-The **AC inlet's tunnel** stands off the +Y wall's inner face in back-top and costs
+The **AC inlet's mount** stands off the +Y wall's inner face in back-top and costs
 nothing either. Its two flanks are vertical to the bed and its crown runs out into the top
-wall; the soffit under it, the one face that would hang, is cut back to the wall at 45°
-(`enclosure._c14_tunnel`). That corbel is a sheared copy of the tunnel's own outline: it follows
-the R3 lower corners, leaving neither square ledges under the rounds nor air channels between
-tunnel and support. What is left over air is the bore's own ceiling — a bridge the aperture's
-full width, carried between the tunnel's two
-flanks. Nothing on the piece stands outside the print silhouette: the receptacle's two
-heat-sets go into the tunnel's fore face, from inside the box, and the back of the machine is
-flat.
+wall; each soffit is cut back to the wall at 45° (`enclosure._c14_tunnel`). One sheared copy
+follows the tunnel's R3 outline, leaving neither square ledges under the rounds nor air channels
+between tunnel and support. A second follows the collar's exact rounded/tapered profile over the
+full 10.25 mm from its open mouth to the wall, so the flange surround and its wider end ears are
+carried too. What is left over air is the bore's own ceiling — a bridge the aperture's full
+width, carried between the tunnel's two flanks. Nothing on the piece stands outside the print
+silhouette: the receptacle's two heat-sets go into the tunnel's fore face, from inside the box,
+and the back of the machine is flat.
 
 ## ASSE anchor
 

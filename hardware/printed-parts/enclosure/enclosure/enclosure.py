@@ -1075,7 +1075,9 @@ c14_tunnel_r = 3.0
 #
 # THE POCKET IS 0.5 MM OFF THE MOULDING. The outer wire is another 3 mm beyond it everywhere
 # in XZ, and the collar continues one 3 mm section past the flange's own inboard edge in Y-.
-# The floor remains the established seating plane: none of these moves the part or its screws.
+# A sheared copy of that outer wire runs from the collar mouth to the wall, making the collar
+# and its print corbel one continuous load path without widening the tunnel behind it. The floor
+# remains the established seating plane: none of these moves the part or its screws.
 c14_collar_slip = 0.5
 c14_collar_wall = 3.0
 c14_collar_extension = 3.0
@@ -7323,24 +7325,28 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     the aperture itself and nothing else: the tunnel grows entirely OUTWARD of the hole, so
     neither its section nor its two bores ever stand in the plug's way.
 
-    AND IT DROPS INTO A SEPARATE COLLAR ON THAT FACE. The collar's pocket is the purchased
+    AND IT DROPS INTO A PROFILED COLLAR ON THAT FACE. The collar's pocket is the purchased
     flange's exact rounded/tapered profile at `c14_collar_slip`; its outer profile is another
     `c14_collar_wall` beyond that everywhere in XZ. It wraps the flange's whole thickness and
-    continues `c14_collar_extension` further inboard. The pocket floor IS the fore face — the
-    plane the flange bears on does not move, and neither does either insert.
+    continues `c14_collar_extension` further inboard. A sheared copy of that outer profile spans
+    from the open mouth to the wall: both end ears therefore root in the unrelieved wall outside
+    the 47 mm tunnel relief without turning the tunnel itself into a 56.77 mm block. The pocket
+    stops at the fore face — the plane the flange bears on does not move, and neither does either
+    insert.
 
     THE INSERTS ENTER THE FORE FACE, from inside the machine like every other insert on this box,
     and bottom on the wall's own inner face. The station is relieved back to `wall`
     (`back_top_wall_reliefs`), so what stands over each blind end is `socket_cap` of wall and the
     tunnel is the whole of what is left.
 
-    ITS UNDERSIDE RISES AT `relief_chamfer` INSTEAD OF HANGING. This piece prints on its Z− face
-    with the +Y wall standing on the bed, so the tunnel's own soffit is ceiling starting in air.
-    `_y_wall_corbel` shears THE TUNNEL'S OWN OUTLINE down to that wall at 45°: its R3 corners
-    are carried by the same shape rather than by their rectangular envelope. There is
-    consequently no flat ledge under a round corner and no air channel between support and
-    tunnel. The crown needs no such thing — it is clipped to the room, so above the aperture the
-    section runs out into the top wall the way the port field's top row of bosses does.
+    ITS UNDERSIDE RISES AT 45° INSTEAD OF HANGING. This piece prints on its Z− face with the +Y
+    wall standing on the bed. `_y_wall_corbel` shears each outline that it carries: the tunnel's
+    R3 rectangle from its fore face to the wall, and the collar's exact rounded/tapered profile
+    over the whole 10.25 mm from its open mouth to the wall. The first leaves no square ledge or
+    air channel under either rounded tunnel corner; the second puts material directly under the
+    flange surround and carries both of its wider ends into the existing wall. The crown needs
+    no such thing — it is clipped to the room, so above the aperture the section runs out into
+    the top wall the way the port field's top row of bosses does.
 
     IT ROOTS ON `back_wall_t_at` AND NOT ON `inner`. The piece holding these stations carries
     `back_top_wall_t` over most of this wall, so the plane the tunnel stands on is the section
@@ -7371,7 +7377,11 @@ def _c14_tunnel_geometry(inner, outer, stations, ports, z0, z1):
     collar = (_c14.flange_prism(
         c14_collar_slip + c14_collar_wall, mouth, fore)
         .translate((cx, 0.0, cz)).val())
-    feature = tunnel.fuse(collar).intersect(
+    collar_support = (_c14.flange_prism(
+        c14_collar_slip + c14_collar_wall, mouth, aft)
+        .translate((cx, 0.0, cz)).val())
+    collar_support = _y_wall_corbel(collar_support, mouth, aft)
+    feature = tunnel.fuse(collar).fuse(collar_support).clean().intersect(
         _ybox(inner[0], inner[1], mouth, aft, inner[4], inner[5]))
     # The original cord bore continues through the wall and tunnel. The flange pocket opens
     # only from the collar mouth to the seating plane, where its stopped cutter leaves the
