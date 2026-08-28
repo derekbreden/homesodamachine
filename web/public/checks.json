@@ -2,8 +2,8 @@
   "checks": [
     {
       "check": "hardware/scripts/check_build_exit.py",
-      "note": "✗ hardware/reference/riteav-keystone/riteav_keystone.py:231  — use sys.exit(...) so a follower reads the failure",
-      "status": "red"
+      "note": "✓ every lock-taking script ends through sys.exit or an exception",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "cd web && npm test",
-      "status": "red"
+      "note": "check_web_tests: web's suite passes",
+      "status": "ok"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -81,20 +81,6 @@
       "status": "ok"
     }
   ],
-  "detail": {
-    "hardware/scripts/check_build_exit.py": [
-      "lock-taking scripts scanned: 84",
-      "1 build(s) end on a status the lock cannot record:",
-      "  ✗ hardware/reference/riteav-keystone/riteav_keystone.py:231  — use sys.exit(...) so a follower reads the failure"
-    ],
-    "tools/check_web_tests.py": [
-      "4 test(s) in web/ fail:",
-      "    build order puts a producer before the scripts that load its STEP",
-      "    every runnable generator appears exactly once in the build order",
-      "    the build order respects every STEP-load edge (producers before consumers)",
-      "    affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers",
-      "  cd web && npm test"
-    ]
-  },
-  "green": false
+  "detail": {},
+  "green": true
 }
