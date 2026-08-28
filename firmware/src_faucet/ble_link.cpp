@@ -5,6 +5,7 @@
 #include "ble_link.h"
 #include "base_link.h"
 #include "ble_ota.h"
+#include "ble_image.h"
 #include "fw_version.h"
 
 // Nordic UART Service — the same three UUIDs the iOS app already knows.
@@ -30,11 +31,24 @@ static bool            haveVersions = false;
 static uint32_t        versionsAskedAtMs = 0;
 
 // A write arrives on the NimBLE task; anything that touches flash, LVGL or J3
-// has to happen in loop(). One frame is in flight at a time because the pull
-// only ever asks for one, so a single staging buffer is the whole queue.
-static const uint16_t RX_STAGE = 640;
-static volatile uint16_t stageLen = 0;
-static uint8_t  stage[RX_STAGE];
+// has to happen in loop(). A ring rather than one slot, because one slot made
+// the connection interval the transfer rate: the phone could not put a second
+// frame on the air until this board had been round its whole loop once, so a
+// picture crawled in at a frame per 15 ms no matter what the radio could do.
+//
+// Nothing is lost by dropping when it fills, either. Every frame carries its
+// own offset, so a sender that overran this is told where the board actually
+// got to and winds back — which is cheaper than making the phone wait for a
+// board that is usually keeping up.
+static const uint16_t RX_FRAME = 560;   // one full MTU's worth, and room over
+static const uint8_t  RX_RING  = 12;
+struct RxFrame {
+  uint16_t len;
+  uint8_t  data[RX_FRAME];
+};
+static RxFrame ring[RX_RING];
+static volatile uint8_t rxHead = 0;   // the radio task writes here
+static volatile uint8_t rxTail = 0;   // loop() reads from here
 static uint32_t stageDrops = 0;
 
 static void notify(uint8_t type, const void *data, uint16_t len) {
@@ -150,9 +164,11 @@ void bleLinkOnSrcEnd(const OtaStatePayload &state)   { bleOtaOnSrcEnd(state); }
 class RxCB : public NimBLECharacteristicCallbacks {
   void onWrite(NimBLECharacteristic *chr, NimBLEConnInfo &) override {
     NimBLEAttValue raw = chr->getValue();
-    if (raw.length() > RX_STAGE || stageLen != 0) { ++stageDrops; return; }
-    memcpy(stage, raw.data(), raw.length());
-    stageLen = (uint16_t)raw.length();
+    const uint8_t next = (uint8_t)((rxHead + 1) % RX_RING);
+    if (raw.length() > RX_FRAME || next == rxTail) { ++stageDrops; return; }
+    memcpy(ring[rxHead].data, raw.data(), raw.length());
+    ring[rxHead].len = (uint16_t)raw.length();
+    rxHead = next;   // last, so a reader never sees a frame before its bytes
   }
 };
 
@@ -169,6 +185,7 @@ class ServerCB : public NimBLEServerCallbacks {
     connected = false;
     Serial.println("BLE: disconnected");
     bleOtaDisconnected();
+    bleImageDisconnected();
     NimBLEDevice::startAdvertising();
   }
   void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
@@ -202,8 +219,30 @@ void bleLinkBegin() {
   seams.self = OTA_TGT_FAUCET;
   bleOtaBegin(seams);
 
+  BleImageSeams img{};
+  img.notify = notify;
+  img.onProgress = faucetApplyImage;
+  img.onStoreMoved = faucetRebindLogos;
+  bleImageBegin(img);
+
   applyAdvertising();
   Serial.printf("BLE: advertising as '%s'\n", name);
+}
+
+static void dispatchFrame(const uint8_t *work, uint16_t len) {
+  if (len < 3) return;
+  const uint8_t type = work[0];
+  const uint16_t plen = (uint16_t)(work[1] | (work[2] << 8));
+  if (3 + plen > len) return;
+  const uint8_t *payload = work + 3;
+
+  if (bleOtaHandleFrame(type, payload, plen)) return;
+  if (bleImageHandleFrame(type, payload, plen)) return;
+  if (type == BLE_TEXT && plen >= 8 && !memcmp(payload, "IDENTITY", 8)) {
+    sendIdentity();
+    sendVersions();
+    versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
+  }
 }
 
 void bleLinkService() {
@@ -222,23 +261,12 @@ void bleLinkService() {
     baseLinkSendOtaSrc(MSG_VERSIONS_QUERY, nullptr, 0);
   }
 
-  if (stageLen == 0) return;
-  const uint16_t len = stageLen;
-  static uint8_t work[RX_STAGE];
-  memcpy(work, stage, len);
-  stageLen = 0;
-
-  if (len < 3) return;
-  const uint8_t type = work[0];
-  const uint16_t plen = (uint16_t)(work[1] | (work[2] << 8));
-  if (3 + plen > len) return;
-  const uint8_t *payload = work + 3;
-
-  if (bleOtaHandleFrame(type, payload, plen)) return;
-  if (type == BLE_TEXT && plen >= 8 && !memcmp(payload, "IDENTITY", 8)) {
-    sendIdentity();
-    sendVersions();
-    versionsAskedAtMs = 0;   // and ask the main board again, in case it has news
+  // Everything the radio left, not one frame. Draining one per pass is what
+  // made this board's own loop the ceiling on how fast a picture could arrive.
+  while (rxTail != rxHead) {
+    const RxFrame &f = ring[rxTail];
+    dispatchFrame(f.data, f.len);
+    rxTail = (uint8_t)((rxTail + 1) % RX_RING);
   }
 }
 

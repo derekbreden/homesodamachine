@@ -531,6 +531,19 @@ static void setPrimeVisible(bool visible) {
 // seconds at a time and LVGL only runs between chunks, so the panel is painted
 // once here and then only its percentage changes — a screen that says what is
 // happening rather than one that looks hung.
+// A picture arriving is not firmware arriving: this board stays up, keeps its
+// link and comes back to the same screen. Only the wording differs.
+void faucetApplyImage(bool active, uint8_t percent) {
+  faucetApplyOta(active, percent);
+}
+
+// Every logo descriptor points into the mapped store, and writing a slot
+// remaps it. Rebinding is a pointer each.
+void faucetRebindLogos() {
+  bindLogos();
+  if (logoImg) applyFlavorUi();
+}
+
 void faucetApplyOta(bool active, uint8_t percent) {
   if (!otaLayer) {
     otaLayer = lv_obj_create(lv_scr_act());
@@ -1091,11 +1104,19 @@ void setup() {
 
   {
     char line[96];
-    // The faucet wears one size: the whole glass.
-    static const ImageSize kSizes[] = {{SCREEN_W, SCREEN_H, 0}};
-    if (imageStoreBegin("spiffs", kSizes, 1)) {
-      snprintf(line, sizeof(line), "images: %u slots of %ux%u, %u held",
-               imageStoreCapacity(), SCREEN_W, SCREEN_H, imageStoreHeld());
+    // The master copy: every size either glass draws, not only this one's. An
+    // enclosure display can be replaced and re-provisioned from here without
+    // the phone being involved.
+    static ImageSize kSizes[IMAGE_BUNDLE_COUNT];
+    for (uint8_t i = 0; i < IMAGE_BUNDLE_COUNT; i++) {
+      kSizes[i].w = IMAGE_BUNDLE[i].w;
+      kSizes[i].h = IMAGE_BUNDLE[i].h;
+      kSizes[i].offset = 0;
+    }
+    if (imageStoreBegin("spiffs", kSizes, IMAGE_BUNDLE_COUNT)) {
+      snprintf(line, sizeof(line), "images: %u slots, %lu B each, %u held",
+               imageStoreCapacity(), (unsigned long)imageStoreBundleBytes(),
+               imageStoreHeld());
     } else {
       snprintf(line, sizeof(line), "images: no store");
     }
