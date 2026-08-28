@@ -197,6 +197,12 @@ constexpr uint8_t MSG_RESP_BENCH      = 0x4E;  // BenchResultPayload
 constexpr uint8_t MSG_IMAGES_QUERY    = 0x4F;  // no payload
 constexpr uint8_t MSG_RESP_IMAGES     = 0x50;  // ImagesPayload
 
+// A picture the machine makes for itself, so the store, the picker and the
+// hop to the enclosure can be exercised with no phone in the room. It goes in
+// through the same write path a real one does — erase, chunks, crc, header
+// last — so what it proves is the path and not a shortcut around it.
+constexpr uint8_t MSG_IMAGE_SYNTH     = 0x51;  // ImageSlotPayload
+
 // Fixed transport capacities are part of the replay contract. Keeping the
 // values beside the shared wire protocol lets each actual queue assert that a
 // future depth/window change still fits inside the main board's token ledger.
@@ -680,6 +686,10 @@ struct __attribute__((packed)) WifiPushResultPayload {
   uint32_t joinMs;
   uint32_t connectMs;
   uint32_t xferMs;
+};
+
+struct __attribute__((packed)) ImageSlotPayload {
+  uint8_t slot;
 };
 
 struct __attribute__((packed)) ImagesPayload {

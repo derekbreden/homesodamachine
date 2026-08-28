@@ -414,6 +414,17 @@ static void console(const String &line) {
     if (line.startsWith("ota"))    { otaConsole(line); return; }
     if (line.startsWith("identity")) { identityConsole(line); return; }
     if (line == "ble")             { faucetLinkBleReport(); return; }
+    if (line.startsWith("images test")) {
+        String rest = line.substring(11); rest.trim();
+        const uint8_t slot = rest.length() ? (uint8_t)rest.toInt() : 0;
+        if (slot >= FLAVOR_ART_CUSTOM) {
+            Serial.printf("\nusage: images test <0..%u>\n", FLAVOR_ART_CUSTOM - 1);
+            return;
+        }
+        Serial.printf("\nasking the faucet to make itself a picture in slot %u\n", slot);
+        if (!faucetLinkImageSynth(slot)) Serial.println("J3 would not take it");
+        return;
+    }
     if (line == "images")          {
         // Neither display has a console. Both answer where they are.
         Serial.println("\nasking both displays what they hold");

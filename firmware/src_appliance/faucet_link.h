@@ -39,5 +39,9 @@ bool faucetLinkBenchPush(uint32_t bytes);
 // What pictures the faucet is holding. The answer prints itself when it lands.
 bool faucetLinkImagesQuery();
 
+// Have the faucet make itself a picture, so the store and everything reading
+// it can be exercised with no phone in the room.
+bool faucetLinkImageSynth(uint8_t slot);
+
 void faucetLinkReport();
 void faucetLinkReadStatus(FaucetLinkStatus &status);

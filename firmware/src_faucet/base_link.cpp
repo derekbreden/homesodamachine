@@ -12,6 +12,7 @@
 #include "proto_msg.h"
 #include "wifi_bench.h"
 #include "image_store.h"
+#include "image_synth.h"
 
 namespace {
 
@@ -379,6 +380,17 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
       busy.err = WIFI_BENCH_ERR_BUSY;
       base.trySend(MSG_RESP_WIFI_PUSH, &busy, sizeof(busy));
     }
+    return;
+  }
+
+  if (type == MSG_IMAGE_SYNTH && plen >= sizeof(ImageSlotPayload)) {
+    ImageSlotPayload req;
+    memcpy(&req, payload, sizeof(req));
+    char line[64];
+    const bool ok = imageSynthWrite(req.slot);
+    if (ok) faucetRebindLogos();
+    snprintf(line, sizeof(line), "synth slot %u %s", req.slot, ok ? "written" : "REFUSED");
+    base.trySend(MSG_TEXT, line, (uint16_t)strlen(line));
     return;
   }
 
