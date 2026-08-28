@@ -4411,19 +4411,42 @@ def deck_z(placed, gate: float):
 # own frame already faces the mating axis down +Y with the seating plane on Y = 0, which is what
 # that face gives it, so it takes no turn either.
 C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
+# A printed cutout to the moulded boss that passes it, on each side. It is what the CORD is
+# drawn to as well: the tunnel behind this hole is bored to the same rectangle, so the housing
+# on the end of the C13 cordset comes down the whole depth of it to reach the blades.
+C14_CUTOUT_SLIP = 0.5
+
+
+def c14_mount_half() -> tuple:
+    """`(across_x, across_z)`, halved, of the block this receptacle mounts on — the bore and its
+    section, the two inserts, and the socket round the flange, whichever of the three reaches
+    furthest per axis. `enclosure.c14_mount_half` is the one that draws it; this hands it the
+    same three figures `_c14_tunnel_geometry` is handed, off the port and the part.
+
+    `enclosure.c14_flange` is the receptacle's own footprint restated on the far side of a
+    module the pack does not reach into, so the socket's outline can be struck at module scope
+    with the reliefs. Held to the part here, where both are in the room."""
+    if tuple(_enc.c14_flange) != tuple(_c14.panel_footprint()):
+        raise ValueError(
+            f"`enclosure.c14_flange` is {tuple(_enc.c14_flange)} and the receptacle's own "
+            f"footprint {tuple(_c14.panel_footprint())} — the socket is cut to a moulding that "
+            f"is not the one that drops into it.")
+    wx, wz, _r = _c14.panel_cutout()
+    return _enc.c14_mount_half(wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP,
+                               max(abs(dx) for dx, _dz in _c14.panel_screws()))
 
 
 def c14_flat_column() -> float:
-    """The eastmost column the inlet can stand on: the one that leaves its FLANGE — the widest
-    thing it has, and the outline the tunnel under it is drawn to — wholly on the wall's own flat
-    rear face.
+    """The eastmost column the inlet can stand on: the one that leaves its MOUNT — the socket
+    round the flange, which is the widest thing either the part or the block has — wholly on the
+    wall's own flat rear face.
 
     `enclosure.corner_round` relieves the box's standing verticals for the bed, so the rear face
     is flat only between the two tangents and rolls away to the side walls past them — and where
     a standing vertical carries a COLUMN the flat ends at its cusp instead, further in again.
     `enclosure.wall_flat_from_corner` is whichever of those the wall actually presents. A tunnel
     rooted past it is a tunnel rooted on curve."""
-    return (_enc.interior_x()[1] - _enc.wall_flat_from_corner()) - _c14.FLANGE_W / 2.0
+    return (_enc.interior_x()[1] - _enc.wall_flat_from_corner()) - c14_mount_half()[0]
 
 
 # WHERE IT SITS ON THAT WALL IS STRUCK ON BOTH AXES, and neither figure is its own.
@@ -4435,13 +4458,10 @@ def c14_flat_column() -> float:
 # THE COLUMN IS THE END OF THE FLAT FACE. What the wall carries runs out on its own tangent at
 # each end: `PORT_WEST_COLUMN` puts the tap-water chip's edge on the west one, and this puts the
 # inlet's flange on the east one. The two ends are not the same distance from the side walls,
-# because a chip is Ø`bulkhead_ring.od` and this flange is `iec_c14_inlet.FLANGE_W` — the moulding is
-# wider than the chip and eats the difference. The face they both run out on is the shared figure.
+# because a chip is Ø`bulkhead_ring.od` and this mount is the socket round
+# `iec_c14_inlet.FLANGE_W` — the moulding and its wall are wider than the chip and eat the
+# difference. The face they both run out on is the shared figure.
 C14_STATION = (c14_flat_column(), deck_storey())
-# A printed cutout to the moulded shroud that passes it, on each side. It is what the CORD is
-# drawn to as well: the tunnel behind this hole is bored to the same rectangle, so the housing
-# on the end of the C13 cordset comes down the whole depth of it to reach the blades.
-C14_CUTOUT_SLIP = 0.5
 
 
 def c14_seat_y() -> float:
@@ -4461,8 +4481,8 @@ def build_c14():
     """The receptacle seated on the tunnel's fore face, its shroud back out through the cutout.
 
     `iec_c14_inlet` states the seating planes: the flange's outboard face is its own Y = 0 and
-    bears on `c14_seat_y`, the housing hangs `BODY_DEPTH` inboard of it, and the shroud rises
-    `SHROUD_PROUD` the other way — up the tunnel's whole bore and through the wall behind it."""
+    bears on `c14_seat_y` at the floor of the socket, the housing hangs `BODY_REACH` inboard of
+    it, and the boss rises `SHROUD_PROUD` the other way — up the tunnel's bore toward the wall."""
     body = import_step(str(C14_STEP)).val()
     return seat_body(body, (), seat="c14-inlet",
                      station=(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)),
@@ -4482,7 +4502,27 @@ def c14_cutout():
     the same station the body is, one `C14_CUTOUT_SLIP` over the moulding on every side."""
     wx, wz, r = _c14.panel_cutout()
     return ("rect", C14_STATION[0], C14_STATION[1],
-            wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r)
+            wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r + C14_CUTOUT_SLIP)
+
+
+def c14_outboard_stack() -> float:
+    """What stands between the seating plane and the face the customer's cord meets — the tunnel
+    and the wall's own cap, which the boss has to cross to be reached at all."""
+    return (_enc.rear_plane_y + _enc.wall) - c14_seat_y()
+
+
+_stated.state(
+    "c14-cord-lands", "The receptacle's boss crosses the wall it seats behind",
+    f"a boss at least {c14_outboard_stack():.2f} mm proud",
+    _c14.panel_stack()[0] >= c14_outboard_stack(),
+    f"the boss stands {_c14.panel_stack()[0]:g} mm outboard of the seating plane and the stack "
+    f"over that plane is {c14_outboard_stack():.2f} — `enclosure.c14_tunnel_len` "
+    f"{_enc.c14_tunnel_len:g} of tunnel, so the two inserts have their own depth, and "
+    f"{_enc.socket_cap:g} of wall over each blind end. The boss's face lands "
+    f"{abs(_c14.panel_stack()[0] - c14_outboard_stack()):.2f} mm "
+    f"{'proud of' if _c14.panel_stack()[0] >= c14_outboard_stack() else 'inside'} the wall's "
+    f"outer plane; a C13 whose housing is wider than the {c14_cutout()[3]:.2f} x "
+    f"{c14_cutout()[4]:.2f} bore stops on that plane and reaches no further.")
 
 
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
@@ -4515,14 +4555,22 @@ CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
 #
 # IT TAKES THE ONE SPAN OF THIS WALL NOTHING ELSE REACHES INTO. The gate lane's own east end is
 # the nameplate's — `nameplate_cut` fills x [-14.1, 90.4] over z [226.9, 292.9] — and the deck
-# storey's four stations leave one gap: between the CO2 pocket's east edge and the west edge of
-# the C14's cutout. The jack stands in the middle of it, on `deck_storey`, which puts all five
+# storey's four stations leave one gap: between the CO2 pocket's east edge and the west face of
+# the C14's mount. The jack stands in the middle of it, on `deck_storey`, which puts all five
 # mating axes the customer meets on one line.
+def keystone_span() -> tuple:
+    """`(west, east)` — the free wall this jack stands in, on the deck storey.
+
+    ITS EAST END IS THE C14'S MOUNT AND NOT THE C14'S HOLE. What stands beside the jack there is
+    the socket the receptacle drops into, which reaches `c14_mount_half` off that station — the
+    hole is the smallest thing at that column and the last one a neighbour meets."""
+    return (CO2_COLUMN + port_pocket_d("neofit") / 2.0,
+            C14_STATION[0] - c14_mount_half()[0])
+
+
 def keystone_column() -> float:
-    """The middle of the span between the CO2 pocket and the C14 cutout."""
-    co2_east = CO2_COLUMN + port_pocket_d("neofit") / 2.0
-    c14_west = C14_STATION[0] - c14_cutout()[3] / 2.0
-    return (co2_east + c14_west) / 2.0
+    """The middle of that span."""
+    return sum(keystone_span()) / 2.0
 
 
 def keystone_station() -> tuple:
@@ -4564,11 +4612,10 @@ def build_keystone():
 
 
 def _keystone_clearances():
-    """`(west, east)` — what the bezel leaves to the CO2 pocket and to the C14 cutout."""
+    """`(west, east)` — what the bezel leaves to the CO2 pocket and to the C14's mount."""
     half = _keystone.panel_footprint()[0] / 2.0
-    x = keystone_column()
-    return ((x - half) - (CO2_COLUMN + port_pocket_d("neofit") / 2.0),
-            (C14_STATION[0] - c14_cutout()[3] / 2.0) - (x + half))
+    x, (west, east) = keystone_column(), keystone_span()
+    return ((x - half) - west, east - (x + half))
 
 
 _stated.state(
@@ -4577,8 +4624,8 @@ _stated.state(
     min(_keystone_clearances()) > 0.0,
     f"the bezel is {_keystone.panel_footprint()[0]:g} mm across and leaves "
     f"{_keystone_clearances()[0]:.2f} mm to the CO2 pocket and {_keystone_clearances()[1]:.2f} mm "
-    f"to the C14 cutout. The nameplate takes the gate lane's east end, so this span is the wall's "
-    f"only free one.")
+    f"to the C14's mount. The nameplate takes the gate lane's east end, so this span is the "
+    f"wall's only free one.")
 
 # The hop `co2-0` closes, mouth to mouth: the bulkhead's inboard collet to the check's inlet
 # socket. It holds a PI010822S in the check's female inlet and the stretch of 1/4" tube the
