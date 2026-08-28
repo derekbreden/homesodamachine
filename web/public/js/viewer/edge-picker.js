@@ -253,6 +253,26 @@ function makeEdge(points) {
   return { points, a, b, length, kind: "curve" };
 }
 
+// A CIRCLE IS ONLY REPORTED WHEN THE SAMPLE MEASURED IT. Two independent
+// things disqualify one drawn through points that merely lie near it. The
+// residual bound is ABSOLUTE, because a tolerance scaled by the radius under
+// test grows with it and ends up admitting anything: at r = 2.5e5 a two
+// percent bound is kilometres of slack. The sweep bound is the other half —
+// a sample subtending less than `FIT_MIN_SWEEP` sits within the same figure
+// the plane test uses, so its radius is extrapolated off tessellation noise
+// rather than measured. BOTH are needed. The largest false fits in this
+// payload sit at a residual of exactly zero, and only their sweep rejects
+// them; every genuine arc here sweeps at least 2.58°.
+const FIT_RESIDUAL_MAX = 0.5;   // mm, whatever the radius
+const FIT_MIN_SWEEP = 2.0;      // degrees of arc the samples must cover
+
+// A chord `span` on radius `r` subtends 2·asin(span / 2r).
+function fitMeasured(r, span, residual) {
+  if (!(r > 1e-3) || !(span > 0)) return false;
+  if (residual > Math.min(FIT_RESIDUAL_MAX, Math.max(0.05, 0.02 * r))) return false;
+  return 2 * Math.asin(Math.min(1, span / (2 * r))) * (180 / Math.PI) >= FIT_MIN_SWEEP;
+}
+
 // Circumcircle through the polyline's two ends and its midpoint, accepted only
 // if every sample point sits on it. Returns {center, radius} or null.
 function fitCircle(points) {
@@ -271,10 +291,13 @@ function fitCircle(points) {
   const center = term1.add(term2).multiplyScalar(1 / (2 * n2)).add(p1);
   const radius = center.distanceTo(p1);
 
-  const tol = Math.max(0.05, radius * 0.02);
+  let residual = 0;
+  const lo = p1.clone(), hi = p1.clone();
   for (const p of points) {
-    if (Math.abs(p.distanceTo(center) - radius) > tol) return null;
+    residual = Math.max(residual, Math.abs(p.distanceTo(center) - radius));
+    lo.min(p); hi.max(p);
   }
+  if (!fitMeasured(radius, hi.distanceTo(lo), residual)) return null;
   return { center, radius, axis: n.clone().normalize() };
 }
 
@@ -385,9 +408,17 @@ function classifyFaceImpl(rec, f) {
         const C = det3([Sxx, Sxy, Sxz, Sxy, Syy, Syz, Sx, Sy, Sz]) / D;
         const cx = A / 2, cy = B / 2;
         const r = Math.sqrt(Math.max(0, C + cx * cx + cy * cy));
-        let maxRes = 0;
-        for (const [x, y] of xy) maxRes = Math.max(maxRes, Math.abs(Math.hypot(x - cx, y - cy) - r));
-        if (r > 1e-3 && maxRes <= Math.max(0.05, 0.02 * r)) {
+        let maxRes = 0, xlo = Infinity, xhi = -Infinity, ylo = Infinity, yhi = -Infinity;
+        for (const [x, y] of xy) {
+          maxRes = Math.max(maxRes, Math.abs(Math.hypot(x - cx, y - cy) - r));
+          if (x < xlo) xlo = x;
+          if (x > xhi) xhi = x;
+          if (y < ylo) ylo = y;
+          if (y > yhi) yhi = y;
+        }
+        // The chord is taken in the axis-normal plane: a cylinder's axial run
+        // is not arc, and letting it stand in for sweep passes a flat patch.
+        if (fitMeasured(r, Math.hypot(xhi - xlo, yhi - ylo), maxRes)) {
           const axisPoint = centroid.clone().addScaledVector(u, cx).addScaledVector(v, cy);
           return { kind: "cylinder", r, axis: axisPoint, dir: axis };
         }
