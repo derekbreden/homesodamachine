@@ -220,6 +220,19 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     // A press is presence whether or not it also asked for something.
     if (isUserAction(type) || type == MSG_SOUND_PLAY || type == MSG_TOUCH) idleTouched();
 
+    if (type == MSG_RESP_IMAGES && plen >= sizeof(ImagesPayload)) {
+        ImagesPayload im;
+        memcpy(&im, payload, sizeof(im));
+        char bits[FLAVOR_ART_CUSTOM + 1];
+        for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++)
+            bits[i] = (i < im.slots) ? ((im.occupancy & (1u << i)) ? 'X' : '.') : ' ';
+        bits[FLAVOR_ART_CUSTOM] = '\0';
+        Serial.printf("\n%-10s %u custom slots [%s], %u held, %lu B each\n",
+                      im.board == OTA_TGT_FAUCET ? "faucet" : "enclosure",
+                      im.slots, bits, im.held, (unsigned long)im.bundleBytes);
+        return;
+    }
+
     if (type == MSG_RESP_WIFI_AP && plen >= sizeof(WifiApStatePayload)) {
         memcpy(&wifiApState, payload, sizeof(wifiApState));
         wifiApAck = true;
@@ -547,6 +560,12 @@ bool linkDisplayUsbReattach() {
 // reattach above and for the same reason: it can meet a status poll, and the far
 // end's transition takes long enough that the first answer may be late. Raising
 // an AP that is already up is free at the other end, so a retry costs nothing.
+// The enclosure answers inside its own next turn, like every other question
+// put to it, so this only has to reach the pair once.
+bool linkImagesQuery() {
+    return j9.send(MSG_IMAGES_QUERY, nullptr, 0) >= 0;
+}
+
 // One main-board-originated frame on a pair whose rule is that the main board
 // answers, so it retries: it can meet the enclosure's own poll. 0 drops the
 // radio, 1 raises it, 2 only asks. All three are answered the same way.

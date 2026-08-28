@@ -355,6 +355,14 @@ static uint8_t resolveFlavorArt(uint8_t art, uint8_t channel) {
   return (uint8_t)(channel & 1);
 }
 
+// Whether an index has a picture behind it at all. The factory four always do;
+// a custom one does only while the phone has put something in that slot.
+static bool flavorArtAvailable(uint8_t art) {
+  if (art < FLAVOR_FACTORY_COUNT) return true;
+  const uint8_t slot = flavorArtCustomSlot(art);
+  return slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_CARD) != nullptr;
+}
+
 // Every descriptor, at every size. Factory entries point at .rodata; custom
 // entries point straight into mapped flash. Both cost a pointer and neither
 // costs RAM — and both have to be rebound whenever a slot is written or
@@ -1497,17 +1505,6 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   awaitingAnswer = false;   // the main board has spoken; the wire is ours again
 
-  // This board has no console inside the appliance. What it would have printed
-  // at boot goes out on the first frame that proves anyone is listening —
-  // posting it into setup() would put it on a pair nobody was holding yet.
-  static bool saidBootLine = false;
-  if (!saidBootLine) {
-    saidBootLine = true;
-    char line[40];
-    snprintf(line, sizeof(line), "images: %u slots, %u held",
-             imageStoreCapacity(), imageStoreHeld());
-    j9Post(MSG_TEXT, line, (uint8_t)strlen(line));
-  }
 
   (void)link;
   uint8_t type = msgType(frame);
@@ -1556,6 +1553,18 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
       wifiBenchDiag(diag, sizeof(diag));
       j9Post(MSG_TEXT, diag, (uint8_t)strlen(diag));
     }
+    return;
+  }
+
+  if (type == MSG_IMAGES_QUERY) {
+    ImagesPayload im{};
+    im.board = OTA_TGT_ENCLOSURE;
+    im.slots = imageStoreCapacity() < FLAVOR_ART_CUSTOM
+                   ? imageStoreCapacity() : FLAVOR_ART_CUSTOM;
+    im.bundleBytes = imageStoreBundleBytes();
+    for (uint8_t i = 0; i < im.slots; i++)
+      if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
+    j9Post(MSG_RESP_IMAGES, &im, sizeof(im));
     return;
   }
 
@@ -1941,9 +1950,16 @@ static void refreshFlavorImages() {
   }
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
     if (!flvThumbBtn[i]) continue;
+    const bool have = flavorArtAvailable((uint8_t)i);
     lv_obj_set_style_bg_color(
         flvThumbBtn[i],
         lv_color_hex(i == flavorImage[flavorSel] ? COL_ACCENT : COL_CARD), 0);
+    // An empty custom slot reads as empty: it draws the fallback face, so
+    // without this four of the eight tiles would be the first factory logo.
+    lv_obj_t *thumb = lv_obj_get_child(flvThumbBtn[i], 0);
+    if (thumb) lv_obj_set_style_img_opa(thumb, have ? LV_OPA_COVER : LV_OPA_20, 0);
+    lv_obj_set_style_border_width(flvThumbBtn[i], have ? 0 : 2, 0);
+    lv_obj_set_style_border_color(flvThumbBtn[i], lv_color_hex(COL_DIM), 0);
   }
 }
 
@@ -2640,6 +2656,9 @@ static void homeSettingsCb(lv_event_t *e) {
 static void imagePickCb(lv_event_t *e) {
   const uint8_t img = (uint8_t)(intptr_t)lv_event_get_user_data(e);
   if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return;
+  // An empty custom slot is a place a picture can go, not a picture. Tapping
+  // one does nothing rather than putting a fallback face on a channel.
+  if (!flavorArtAvailable(img)) return;
   flavorImage[flavorSel] = img;
   refreshFlavorImages();
   sendFlavorArt();
