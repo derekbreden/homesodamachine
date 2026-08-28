@@ -50,6 +50,9 @@ bool faucetLinkImageRelayGo(uint8_t slot);
 // none. Taking it clears it, so the loop runs one hop per request.
 uint8_t faucetLinkTakeRelayRequest();
 
+// A slot the phone removed, or 0xFF for none. Taking it clears it.
+uint8_t faucetLinkTakeEraseRequest();
+
 // Take a picture back off the faucet.
 bool faucetLinkImageErase(uint8_t slot);
 

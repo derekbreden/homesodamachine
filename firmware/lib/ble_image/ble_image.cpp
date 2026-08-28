@@ -238,6 +238,7 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       if (s.slot >= customSlots()) { slot = s.slot; err = BLE_IMG_ERR_SLOT; sendAck(); return true; }
       imageStoreErase(s.slot);
       if (seams.onStoreMoved) seams.onStoreMoved();
+      if (seams.onErased) seams.onErased(s.slot);
       sendState();
       return true;
     }

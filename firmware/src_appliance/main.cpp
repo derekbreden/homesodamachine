@@ -136,6 +136,23 @@ void loop() {
         if (slot != 0xFF) relayImage(slot);
     }
 
+    // A picture removed from the phone. The enclosure holds its own copy, and a
+    // channel wearing that face has to stop wearing it — a dangling art index
+    // is how one glass kept showing a picture the machine no longer has.
+    if (machineState() == ST_IDLE) {
+        const uint8_t gone = faucetLinkTakeEraseRequest();
+        if (gone != 0xFF) {
+            const uint8_t art = (uint8_t)(FLAVOR_ART_FACTORY + gone);
+            uint8_t a0 = flavorArt(0), a1 = flavorArt(1);
+            if (a0 == art) a0 = 0;
+            if (a1 == art) a1 = 1;
+            flavorArtSet(a0, a1);   // published to both glasses by linkService
+            linkImageErase(gone);
+            Serial.printf("\nremoved picture %u — enclosure told, artwork %u/%u\n",
+                          gone, a0, a1);
+        }
+    }
+
     // Presence crosses both links, so a change is published to whichever glass
     // gives the main board its next turn.
     if (idleService()) {

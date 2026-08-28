@@ -153,6 +153,10 @@ struct BleImageSeams {
   // holds is the whole difference between a read that finishes and one that
   // crawls or stalls.
   void (*onReadAsked)(uint8_t slot, uint16_t mtu);
+  // A picture was removed. It exists on more than this board, and a channel
+  // may still be wearing it, so this is the machine's business and not only
+  // this store's.
+  void (*onErased)(uint8_t slot);
   // Told at the start and end of a transfer, and every ack, so the glass can
   // say what is happening while its own flash is being written.
   void (*onProgress)(bool active, uint8_t percent);
