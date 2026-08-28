@@ -61,6 +61,17 @@ OVERLAP_DEG = 20.0        # ° of lap past 360°
 WIRE_TENSILE = 550.0      # MPa
 TACKS = 8                 # the bisecting pattern's count — and the fill's segments
 
+# The X1 Pro's single wire feeder, vendor-published range. The recipe's ratio is
+# what holds a fillet leg constant, and the feeder's span is what lets travel
+# speed and fillet size come apart across the whole window.
+FEED_MIN = 2.0            # mm/s
+FEED_MAX = 50.0           # mm/s
+RATIO_NOM = WIRE_FEED / V_NOM
+
+# The reduction between the motor and the table, on the pick.
+GEAR_RATIO = 90
+STEPS_REV = 200           # 1.8° NEMA 23, full steps
+
 # A synchronous rotisserie motor is line-locked, so on 60 Hz it sits at the top
 # of its plate rating — which is what the cheap proof would actually run at.
 TYD_RPM = 2.4
@@ -129,6 +140,21 @@ def main():
         "SEG_S": f"{bead_circumference / TACKS / V_NOM:.1f} s",
         "WIRE_BREAK": f"{wire_area * WIRE_TENSILE:.0f} N",
         "DRAG_TORQUE": f"{wire_area * WIRE_TENSILE * bead_radius / 1000:.1f} N\u00b7m",
+        "FEED_RANGE": f"{FEED_MIN:.0f} \u2013 {FEED_MAX:.0f} mm/s",
+        "RATIO_NOM": f"{RATIO_NOM:.2f}",
+        "FEED_15": f"{RATIO_NOM * 15:.1f} mm/s",
+        "FEED_15_PCT": f"{RATIO_NOM * 15 / FEED_MAX * 100:.0f}%",
+        "V_FEED_MAX": f"{FEED_MAX / RATIO_NOM:.1f} mm/s",
+        "RPM_FEED_MAX": f"{rpm(FEED_MAX / RATIO_NOM):.2f} RPM",
+        "RPM_FEED_MIN": f"{rpm(FEED_MIN / RATIO_NOM):.2f} RPM",
+        # The pick's drivetrain, and what a stuck wire reflects back through it.
+        "WORM_RPM": f"{rpm(V_NOM) * GEAR_RATIO:.0f} RPM",
+        "WORM_STEPS": f"{rpm(V_NOM) * GEAR_RATIO / 60 * STEPS_REV:.0f} steps/s",
+        "STEP_DEG": f"{360 / (STEPS_REV * GEAR_RATIO):.3f}\u00b0",
+        "STEP_MM": f"{bead_circumference / (STEPS_REV * GEAR_RATIO):.3f} mm",
+        "REFLECT_90": f"{wire_area * WIRE_TENSILE * bead_radius / 1000 / GEAR_RATIO:.2f} N\u00b7m",
+        "REFLECT_6": f"{wire_area * WIRE_TENSILE * bead_radius / 1000 / 6:.2f} N\u00b7m",
+        "RAMP_MM": f"{bead_circumference * deg_s / 360:.1f} mm",
         "BEAD_D": f"{bead_diameter:.2f} mm",
         "BEAD_C": f"{bead_circumference:.2f} mm",
         "MASS_S3": f"{m_s3 / 1000:.2f} kg",

@@ -33,7 +33,7 @@ The bead sees travel speed, not RPM. `v = ωR` at the bore radius converts:
 | 15 mm/s | [2.316 RPM](RPM_15) | [25.9 s](REV_15) | 27.3 s | 0.80 | [0.85 mm](LEG_15) |
 | 20 mm/s | [3.088 RPM](RPM_20) | [19.4 s](REV_20) | 20.5 s | 0.60 | [0.74 mm](LEG_20) |
 
-The leg column is the second thing the rig hands you. A hand cannot hold a travel speed, so fillet size has been a feel; on a turned part it is arithmetic. Deposit per unit length is the wire's own section ([0.456 mm²](WIRE_AREA) for ER316L .030) times how much wire arrives per mm travelled, and a triangular fillet of that area has legs of √(2A). Wire feed and table speed are two knobs on one number.
+The leg column is the second thing the rig hands you. A hand cannot hold a travel speed, so fillet size has been a feel; on a turned part it is arithmetic. Deposit per unit length is the wire's own section ([0.456 mm²](WIRE_AREA) for ER316L .030) times how much wire arrives per mm travelled, and a triangular fillet of that area has legs of √(2A). Wire feed and table speed are two knobs on one number — and because the feeder spans [2 – 50 mm/s](FEED_RANGE) (open item 3), the column above is only what a *fixed* [12 mm/s](WIRE_NOM) leaves. Command feed = [1.50](RATIO_NOM) × travel instead and the leg holds at [1.17 mm](LEG_8) anywhere in the window. Travel speed and fillet size come apart, and the speed gets chosen on heat and runout rather than on bead size.
 
 **The useful window is [0.77 – 2.32 RPM](RPM_WINDOW)** — 5 to 15 mm/s. That window is the single hardest specification to buy, and it decides the option below.
 
@@ -51,7 +51,7 @@ Costs: not arc time, which is conserved — [388.61 mm](BEAD_C) at [8 mm/s](V_NO
 
 **Errors stop being local and become uniform.** Every parameter is set before the trigger and none of them move, so a wrong standoff or a wrong speed is wrong for all [388.61 mm](BEAD_C) identically. A hand makes eight different mistakes and you read them against each other; the rig makes one mistake 388 times and it comes off looking like a beautiful consistent bead. Uniform under-penetration is precisely the failure that passes PT and fails hydro.
 
-**A wire stick meets a rigid head.** Its frequency should *fall*: sticking is the pool solidifying around a submerged wire, which happens when the feed/travel balance drifts — and travel is the thing the rig nails to a number — while the highest-risk moment is the stop, and there is now one of those instead of eight. What changes is the consequence. The head is bolted to a column and the part is turning under a self-locking worm that will not notice the [251 N](WIRE_BREAK) it takes to part .030 wire, or the [15.5 N·m](DRAG_TORQUE) that is at the bead radius. A hand yields; a column bends the wire guide, and a bent guide throws away the setup that took three minutes to indicate. That is why R9's latch release is the abort and not a convenience. The cheap proof has a mechanical fuse the pick does not — a 4 W synchronous motor stalls well under that torque, and a NEMA 23 through 50:1 does not.
+**A wire stick meets a rigid head.** Its frequency should *fall*: sticking is the pool solidifying around a submerged wire, which happens when the feed/travel balance drifts — and travel is the thing the rig nails to a number — while the highest-risk moment is the stop, and there is now one of those instead of eight. What changes is the consequence. The head is bolted to a column and the part is turning under a self-locking worm that will not notice the [251 N](WIRE_BREAK) it takes to part .030 wire, or the [15.5 N·m](DRAG_TORQUE) that is at the bead radius. A hand yields; a column bends the wire guide, and a bent guide throws away the setup that took three minutes to indicate. That is why R9's latch release is the abort and not a convenience. How much of that the drivetrain notices is the reduction: the pick's 90:1 worm reflects [0.17 N·m](REFLECT_90) to the motor and wedges, a 6:1 belt reflects [2.59 N·m](REFLECT_6) and back-drives, and the [$18 proof](#the-pick) has a mechanical fuse neither has — a 4 W synchronous motor simply stalls.
 
 **The bisecting order is what gets given up.** Eight segments welded 0°–180°–90°–270° exist to balance the pull. A lap lays its shrinkage progressively around one circle instead — the same asymmetry as the heat bias above, arriving as distortion rather than as penetration drift. It is the one cost here that is genuinely whole-part rather than local, and open item 7 is the measurement that would settle it.
 
@@ -86,11 +86,11 @@ The fillet sits in an upward-facing internal corner, so gravity holds the puddle
 
 | Option | What it is | Cost | Speed | Indexes? | Verdict |
 |---|---|---|---|---|---|
-| **A1** CNC 4th-axis rotary table | 100 mm chuck on a 50:1 worm with a NEMA 23, laid face-up; driven by any stepper driver | ~$240 | Exact, by command, anywhere in the window | Yes, for free | **The pick** |
+| **A1** CNC 4th-axis rotary table | 100 mm chuck, NEMA 23, laid face-up; driven by any stepper driver. Sold in two ratios and they are two prices: **6:1 belt** at ~$259, **50:1 strain-wave** at ~$420 | $259 / $420 | Exact, by command | Yes, for free | The 6:1 back-drives (below); the 50:1 works and costs double the pick |
 | **A2** Rotary welding positioner | 10 kg class, 3-jaw chuck, 0–90° tilt, foot pedal — e.g. VEVOR 1–12 RPM | ~$300–500 | Dial, and **1 RPM is its floor** — the bottom third of the window is off the end | No | Turnkey, but the window is the problem |
 | **A3** Synchronous rotisserie motor | 4 W AC synchronous, 2–2.4 RPM (CHANCS TYD-50 class), under a lazy-susan bearing and a plate | ~$18 + ~$25 | One speed, but **line-locked** — quartz-stable, better than any PWM dial | No | The afternoon that proves the idea |
-| **A4** Machinist's rotary table + gearmotor | 4–6" hand table (72:1 or 90:1 worm), a 100 RPM 12 V gearmotor on the handwheel | ~$150–280 | PWM dial, whole window comfortably | Yes, by graduation, manually | Precise and heavy; the hand-crank fallback is real |
-| **A5** Turntable bearing + stepper + gearbox, from parts | 4" lazy-susan ring, NEMA 17/23, 27:1 planetary, driver, ESP32 | ~$150–200 | Exact, by command | Yes | A1 without the worm, and with the runout to chase yourself |
+| **A4** Machinist's rotary table + **stepper on the worm shaft** | 6" hand table, **90:1 worm**, T-slots, cast iron — VEVOR HV6 class — with a NEMA 23 replacing the handwheel, on the same DM542 | ~$200 | Exact, by command, whole window | Yes, for free — and by graduation with the handwheel back on | **The pick** |
+| **A5** Turntable bearing + stepper + gearbox, from parts | 4" lazy-susan ring, NEMA 17/23, 27:1 planetary, driver, ESP32 | ~$150–200 | Exact, by command | Yes | The pick without the worm, and with the runout to chase yourself |
 | **A6** Drill press + friction wheel | A rubber wheel on the tube OD off a geared motor | ~$30 | Unstable | No | Proof-of-concept only |
 
 **A2's floor is the whole story of this table.** The commercial positioners are built for pipe-to-flange TIG at 3–10 RPM; ours wants 0.8–2.3, and a 20 W PWM'd DC motor at the very bottom of its dial is exactly where speed stability goes. Two ways out if you want A2 anyway: run the fast half of the window (12–15 mm/s travel, a smaller fillet, more wire feed), or put a 3:1 reduction between the positioner and the fixture plate, which drops it to 0.33–4 RPM and triples the torque. Both work. Neither is as clean as commanding the number.
@@ -105,23 +105,36 @@ An arm carrying the weld head, swinging on a bearing centred on the tube axis. 3
 
 ### D — Trace the circle with a motion system
 
-Mount the gun on a CNC gantry or a robot arm and run a 123.7 mm circle in G-code. The gun's mass and the umbilical's spring rate are beyond any hobby gantry or arm that costs less than the rotary options, and a gantry that could hold it is a machine tool. The interesting sub-case is that a "CNC 4th axis" sold for this family **is** option A1 — the rotary axis is the cheap part of a CNC, so buy just that.
+Mount the gun on a CNC gantry or a robot arm and run a 123.7 mm circle in G-code. The gun's mass and the umbilical's spring rate are beyond any hobby gantry or arm that costs less than the rotary options, and a gantry that could hold it is a machine tool. The interesting sub-case is that a "CNC 4th axis" sold for this family **is** option A1 — the rotary axis is the cheap part of a CNC, so buy just the axis. A hand rotary table with a stepper on its worm is the same trade one step cheaper.
 
 ## The pick
 
-**A1: a 100 mm CNC 4th-axis rotary table, laid face-up, commanded by an ESP32.**
+**A4: a 6" 90:1 worm rotary table laid face-up, with a NEMA 23 on the worm shaft in place of the handwheel, commanded by an ESP32.**
 
-It wins on the requirement that is hardest to buy. Speed is a commanded number rather than a dial position, so R1 and R2 are satisfied by construction and unit 10 gets unit 1's weld. R5 (380° and stop) and R6 (45° index) are two more lines of the same program. The worm's reduction puts the motor at a comfortable step rate — 50:1 with a 1.8° NEMA 23 is 0.036° per full step, and [1.235 RPM](RPM_NOM) is 206 steps/s — and its self-locking mesh holds the part still while the head is set. It costs less than the positioner it beats.
+It wins on the requirement that is hardest to buy. Speed is a commanded number rather than a dial position, so R1 and R2 are satisfied by construction and unit 10 gets unit 1's weld. R5 (380° and stop) and R6 (45° index) are two more lines of the same program.
+
+The 90:1 reduction is what makes it the pick over A1's 4th axis rather than beside it:
+
+| | |
+|---|---|
+| Worm shaft at [1.235 RPM](RPM_NOM) | [111 RPM](WORM_RPM) — [371 steps/s](WORM_STEPS) for a 1.8° NEMA 23, trivial for a DM542 |
+| Resolution at the bead | [0.020°](STEP_DEG) of table per full step = [0.022 mm](STEP_MM) of bead |
+| A stuck wire, reflected to the motor | [0.17 N·m](REFLECT_90) out of the [15.5 N·m](DRAG_TORQUE) at the bead radius |
+
+That last row is the one that decides it. A 6:1 belt reflects [2.59 N·m](REFLECT_6) back at a NEMA 23 whose holding torque is under 2 N·m, so a stuck wire back-drives the table and drags the part — the failure mode described under *Costs* becomes a mechanism failure, not just a bent guide. A worm wedges: 90:1 is genuinely self-locking, which is also what holds the part still while the head is set.
+
+The rest is table, not gearbox. Cast iron and 13.6 kg is the mass that makes runout a question of the fixture rather than the bearing; a 150 mm table sits under the 127 mm tube instead of a 100 mm chuck that cannot grip it; and T-slots bolt the fixture ring straight down. It costs about half the 50:1 4th axis and has better resolution than it.
 
 And it lands where the rest of this repo lands: the rig's setpoints become constants in a file, the way `endcap_circular_dxf.py` owns the plate's and `_cold_core_interface.py` owns the core's. The weld recipe stops being prose.
 
-**Prove it with A3 first.** An $18 synchronous motor and a lazy-susan bearing is an afternoon, and it answers the only question that matters before spending: does a continuous lap on this joint beat eight tacks and a fill? At 60 Hz the TYD-50 class runs ~2.4 RPM — [15.5 mm/s](V_TYD) travel, a [0.85 mm](LEG_15) leg at 12 mm/s wire — the fast end of the window, on one fixed speed, with no control at all. If the bead that comes off it is better than a hand bead, buy the 4th axis. If it is not, the $18 is the whole loss.
+**Prove it with A3 first.** An $18 synchronous motor and a lazy-susan bearing is an afternoon, and it answers the only question that matters before spending: does a continuous lap on this joint beat eight tacks and a fill? At 60 Hz the TYD-50 class runs ~2.4 RPM — [15.5 mm/s](V_TYD) travel, a [0.85 mm](LEG_15) leg at 12 mm/s wire — the fast end of the window, on one fixed speed, with no control at all. If the bead that comes off it is better than a hand bead, buy the rotary table. If it is not, the $18 is the whole loss.
 
 ### What to buy
 
 | Item | For | Note |
 |---|---|---|
-| CNC 4th-axis rotary, 100 mm chuck, 50:1 worm, NEMA 23 | The rotation | Confirm it is rated to run **face-up** (axial load on the table) and what its actual backlash is. The 100 mm chuck will not grip a 127 mm tube — plan on the fixture plate below, bolted to the chuck face or straight to the rotary's flange |
+| 6" 90:1 worm rotary table, T-slotted, cast iron (VEVOR HV6 class) | The rotation | Confirm the backlash and the worm's free running before committing — this class is thinly reviewed and a stiff worm is the reported failure. Face-up is the *gentler* orientation (open item 4); the fixture ring bolts into the T-slots |
+| NEMA 23 + coupler for the worm shaft | Replacing the handwheel | Keep the handwheel — it is the hand-crank fallback and the manual index |
 | Stepper driver (DM542 class) + 24 V supply | Driving it | An ESP32 and a step/dir driver is the whole controller; the firmware tree already exists |
 | Laser-cut fixture ring, 316 or mild steel, 3 × M6 tapped at 120° | Holding the tube, R3 | SendCutSend, same path as the end caps. Set screws let the tube be indicated true rather than hoping a bore fits |
 | Dial indicator + magnetic base | R3, R4 | **Not optional.** Runout is the rig's failure mode and there is currently no instrument in [`tools.md`](/hardware/ledger/tools.md) that reads it |
@@ -229,7 +242,7 @@ The holder is a column, not an articulated arm. Magnetic-base arms droop, and 50
 
 R9 is the one requirement that comes from the machine's own behaviour rather than the joint's. The X1 Pro's retract/patch cycle fires when conductance breaks, so leaving the head with the trigger *still held* snaps the wire clean instead of leaving it fused into a cooling puddle. The spring-returned carriage and its latch are how that gets built — [The head's two positions](#the-heads-two-positions) above. Your hand rests on the gun holding the trigger for the whole lap and rides it up when the latch lets go.
 
-That also gives the bead its taper. There is no programmable power ramp to reach for, so the overlap plus the retract *is* the crater fill.
+That also gives the bead its taper, and the rig can reach for a second one the hand cannot use. The X1 Pro publishes a **Fall-Down time, 0–1000 ms** — laser power decaying to zero after the gun is turned off. The vendor's warning that a long fall-down digs a crater is written for a hand that has stopped moving; here the part is still turning through the decay, so 1000 ms lays [8.0 mm](RAMP_MM) of bead at falling power across the [21.6 mm](OVERLAP_MM) overlap. That is a programmable taper only a moving part can spend. It does not replace the retract, which is still what breaks conductance in air.
 
 ### 4. Ground, turning
 
@@ -263,8 +276,8 @@ One safety note that falls out of the geometry: **the recessed corner is a beam 
 
 1. **Does the continuous lap beat the tacked fill?** Unanswered until A3 runs. Everything above assumes it does.
 2. **Tube-end squareness.** The band saw's cut is the datum the plate's depth stop reads, and the rig turns any error in it into focus wander. Whether the 10-vessel stock needs facing, lapping, or nothing is unmeasured — measure it before choosing a rig, because a tube that will not come inside R4 wants a different fixture (one that seats the *plate* off the rotary's own datum rather than off the tube end).
-3. **Wire feeder ceiling.** The 1.50 wire:travel ratio at 8 mm/s is the current recipe's. Holding that ratio at 15 mm/s needs 22.5 mm/s of feed, and the X1 Pro's maximum feed rate is unrecorded. It bounds the fast half of the window.
-4. **Face-up service of a 4th-axis rotary.** These are sold for horizontal mounting on a mill table. Axial load rating, seal orientation and lubrication face-up all want confirming with the vendor before the order.
+3. **Wire feeder ceiling — closed, and it bounds nothing.** The X1 Pro's single feeder runs [2 – 50 mm/s](FEED_RANGE) (vendor parameter guide; corroborated by the manual's §3.1 screen and the DW1 dual-feeder page, which gives 50 single / 30 dual). Holding the [1.50](RATIO_NOM) ratio at 15 mm/s travel needs [22.5 mm/s](FEED_15) — [45%](FEED_15_PCT) of scale — and the feeder does not saturate until [33.3 mm/s](V_FEED_MAX) of travel, or [5.15 RPM](RPM_FEED_MAX), more than twice the fast end of the window. Its floor is [0.21 RPM](RPM_FEED_MIN), far below the slow end. *Beware:* web summaries widely assert "0–8 mm/s" for this machine. It appears on no vendor page and [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)'s own recipe already runs 12 mm/s.
+4. **Face-up service — closed; it is the gentler orientation.** Face-up the spindle carries a concentric column — chuck, part and fixture ring, ~60 N of pure thrust. Mounted as sold, that same chuck hangs off the spindle nose as a ~1.6 N·m static bending moment before any cut. Standing it face-up deletes the moment (the thrust figure is arithmetic; the comparison is an estimate — no vendor publishes an axial rating). Lubrication has no referent on a worm table or a belt drive, and strain-wave boxes are grease-packed rather than oil-filled, so orientation is indifferent there too. What face-up does change is that debris falls *into* the spindle nose — here that is spatter, and the fixture ring over the table face is the cover.
 5. **Whether the tacks are also the rig's.** R6 says index them. It may be better to tack by hand off the rig — a tack is 2 seconds and the part is easier to reach — and use the rig only for the lap. Decide after the first lap, not before.
 6. **Toggle clamp, or two slides.** Whether one over-centre clamp's linkage play stays under the focus window through twenty welds, or whether the fine and fast axes want separating. Measurable with the dial indicator on the carriage before any welding.
 7. **Distortion, measured.** The eight-tack pattern exists to control it and nothing here has measured it. Indicate the plate's outer face before and after a lap and find out what the bead actually pulls.
