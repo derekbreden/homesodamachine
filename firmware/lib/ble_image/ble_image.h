@@ -42,6 +42,11 @@ constexpr uint8_t BLE_FRAME_ART_QUERY = 0x1D;  // phone → board: no payload
 constexpr uint8_t BLE_FRAME_ART_STATE = 0x1E;  // board → phone: BleArtState
 constexpr uint8_t BLE_FRAME_ART_SET   = 0x1F;  // phone → board: BleArtSet
 
+// Stopping one partway. The slot was erased when the transfer opened and never
+// got its header, so abandoning it costs nothing and leaves it reading empty —
+// which is why this needs no rollback and no confirmation.
+constexpr uint8_t BLE_FRAME_IMG_ABORT = 0x20;  // phone → board: no payload
+
 struct __attribute__((packed)) BleArtState {
   uint8_t art[2];      // art index each channel wears, low channel first
   uint8_t factory;     // how many of them are the ones that ship

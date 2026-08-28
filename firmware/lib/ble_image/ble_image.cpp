@@ -151,6 +151,18 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       return true;
     }
 
+    case BLE_FRAME_IMG_ABORT: {
+      if (state != BLE_IMG_TAKING) return true;
+      imageStoreWriteAbort();
+      state = BLE_IMG_IDLE;
+      err = BLE_IMG_ERR_NONE;
+      if (seams.onProgress) seams.onProgress(false, 0);
+      if (seams.onStoreMoved) seams.onStoreMoved();
+      sendAck();
+      sendState();
+      return true;
+    }
+
     case BLE_FRAME_IMG_END: {
       if (state != BLE_IMG_TAKING) return true;
       if (!imageStoreWriteFinish()) { fail(BLE_IMG_ERR_CRC); return true; }
