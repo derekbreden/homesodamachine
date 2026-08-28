@@ -787,6 +787,23 @@ def lock_assets(held: dict) -> set:
     return names | ({asset} if asset else set())
 
 
+def _shallow(root: Path) -> bool:
+    """Whether this clone holds less than the whole history.
+
+    `git rev-list` ANSWERS A TRUNCATED CLONE WITHOUT SAYING SO. It reports the revisions the
+    clone can reach and nothing about the ones it does not hold, so `locks_in_history` on a
+    shallow tree returns FEWER locks and every asset only the missing ones name reads as
+    unreachable — which is the one verdict that takes bytes off the release. Nothing downstream
+    can catch it: the answer is confident, well-formed and short.
+
+    A RUNNER IS WHERE THIS BITES, because a checkout there is shallow by default and the sweep
+    is the one caller whose whole job is deletion. `actions/checkout` needs `fetch-depth: 0`.
+    """
+    got = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
+                         cwd=str(root), capture_output=True, text=True)
+    return got.stdout.strip() == "true"
+
+
 def locks_in_history(root: Path) -> list:
     """Every committed lock, newest first, as the asset names each one names.
 
@@ -861,6 +878,12 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tupl
     assets, one of them the bundle tarball. `make_room` is the only caller and it runs inside
     a publish, so the sweep and the upload it would delete are the same minute.
     """
+    if _shallow(root):
+        raise SystemExit(
+            "this clone is shallow, so reach read off its history is short and a sweep would "
+            "take assets a full checkout still resolves to — measured on 2026-08-27, 74 of 354 "
+            "against 0 from the whole history. Fetch it all (actions/checkout `fetch-depth: 0`) "
+            "before asking what may be retired.")
     assets = release_assets(root)
     on_release = {a["name"] for a in assets}
     fresh = too_new(assets, now)
@@ -872,6 +895,18 @@ def retirable(root: Path, keep_cuts: int = CUTS_KEPT, now: float = None) -> tupl
     superseded = sorted(n for n in on_release
                         if n in reachable and n not in kept and n not in fresh)
     return unreachable, superseded
+
+
+def held_and_free(root: Path) -> tuple:
+    """How full the release is — a question about the release, not about this clone's history.
+
+    SEPARATE FROM `room` BECAUSE THE GUARD IS. Whether there is space costs one `gh` call and
+    is true anywhere; WHICH assets may leave is read off every committed lock, and a clone that
+    does not hold them must not be asked. `make_room` wants the first on every publish and the
+    second only at the cliff, so asking them together is what put a shallow tree in front of a
+    sweep."""
+    held = len(release_assets(root))
+    return held, RELEASE_ASSET_CAP - held
 
 
 def room(root: Path, keep_cuts: int = CUTS_KEPT) -> dict:
@@ -926,10 +961,20 @@ def make_room(root: Path, need: int) -> bool:
     holding the earlier `objects_on_release` would skip sending an object the release no longer
     has — and then claim `objects` over a set it is short of.
     """
-    state = room(root)
-    if state["free"] >= need:
+    held, free = held_and_free(root)
+    if free >= need:
         return False
-    print(f"  release holds {state['held']} of {RELEASE_ASSET_CAP} and this cut wants {need}")
+    print(f"  release holds {held} of {RELEASE_ASSET_CAP} and this cut wants {need}")
+    # A SHALLOW CLONE DOES NOT SWEEP, IT SAYS SO. `publish.yml` checks out at `fetch-depth: 1`,
+    # where reach is read off a single lock and all but the newest cut looks unreachable — so
+    # the cliff is exactly where this would have deleted the bytes older commits resolve to.
+    # Declining costs a publish its `objects` lane, which `upload_objects` already degrades
+    # gracefully; sweeping wrongly costs the release. `.github/workflows/retire.yml` holds the
+    # store down from a full history so this floor is not reached.
+    if _shallow(root):
+        print("  this clone is shallow, so what is reachable cannot be read here and nothing "
+              "is swept; the `retire` workflow keeps the release below this")
+        return False
     retire(root)
     return True
 
