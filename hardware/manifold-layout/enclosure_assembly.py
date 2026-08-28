@@ -4478,14 +4478,18 @@ def c14_cutout():
 
 _stated.state(
     "c14-surround", "The C14 flange is wrapped without moving its established mount",
-    "3 mm in XZ, 3 mm beyond the flange's Y- edge, and one rooted profile corbel",
+    "3 mm in XZ, 3 mm beyond the flange's Y- edge, a 9 mm entry relief, and one rooted "
+    "profile corbel",
     (_enc.c14_collar_wall >= 3.0 and _enc.c14_collar_extension >= 3.0
+     and _enc.c14_insertion_relief >= 9.0
      and C14_STATION[0] == 69.0 and abs(c14_seat_y() - 458.75) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_collar_wall:g} mm around the flange and continues "
     f"{_enc.c14_collar_extension:g} mm beyond its {_c14.FLANGE_T:g} mm edge, while a sheared "
-    "copy of its outer profile continues to the wall on a 45 degree underside.")
+    f"copy of its outer profile continues to the wall on a 45 degree underside. Its exact "
+    f"slipped pocket continues {_enc.c14_insertion_relief:g} mm in Y- through the fixed strip "
+    "for insertion.")
 
 
 # --- the CO2 inlet chain, through the +Y wall of back-top ----------------------------
@@ -6797,6 +6801,8 @@ def check_c14_collar(pieces: dict, box) -> Bound:
     fore = c14_seat_y()
     mouth = fore - _c14.FLANGE_T - _enc.c14_collar_extension
     beyond = (fore - _c14.FLANGE_T) - mouth
+    entry_start = mouth - _enc.c14_pocket_overcut - _enc.c14_insertion_relief
+    insertion_travel = fore - _c14.FLANGE_T - entry_start
     geometry = _enc._c14_tunnel_geometry(
         box.inner, box.outer, box.pack.c14, box.pack.back_ports,
         box.inner[4], box.outer[5])
@@ -6810,6 +6816,14 @@ def check_c14_collar(pieces: dict, box) -> Bound:
     bore_occupied = bore.intersect(host).Volume()
     for cutter in inserts:
         bore_occupied += cutter.intersect(host).Volume()
+
+    # The exact nominal flange silhouette swept from the inboard end of its entry pocket to the
+    # installed seat is the continuous motion bound. Every housing and terminal section behind
+    # it fits inside this XZ envelope; if this prism is empty, the complete inlet can be held
+    # square and translated through the fixed +X strip into the collar.
+    flange_sweep = (_c14.flange_prism(0.0, entry_start, fore)
+                    .translate((C14_STATION[0], 0.0, C14_STATION[1])).val())
+    insertion_obstruction = flange_sweep.intersect(back).Volume()
 
     eps = 0.02
     b = feature.BoundingBox()
@@ -6827,7 +6841,8 @@ def check_c14_collar(pieces: dict, box) -> Bound:
     support_run = _enc.rear_plane_y - mouth
     ok = (missing <= 1e-3 and panel_owned <= 1e-3 and bore_occupied <= 1e-3
           and beyond >= 3.0 - 1e-9 and bearing_area >= 50.0
-          and bearing_missing <= 1e-3)
+          and bearing_missing <= 1e-3 and insertion_obstruction <= 1e-3
+          and insertion_travel >= _enc.c14_insertion_relief - 1e-9)
     return record_bound(Bound(
         "c14-collar-complete",
         "One fixed back-top surround encloses and carries the C14 up to the ceiling",
@@ -6835,14 +6850,18 @@ def check_c14_collar(pieces: dict, box) -> Bound:
         f"{feature.Volume():.3f} mm³ feature over a {support_run:.2f} mm corbel; "
         f"{missing:.4f} mm³ missing from back-top, {panel_owned:.4f} mm³ in panel, "
         f"{bore_occupied:.4f} mm³ in bores; {bearing_area:.3f} mm² ceiling land with "
-        f"{bearing_missing:.4f} mm³ unsupported",
+        f"{bearing_missing:.4f} mm³ unsupported; {insertion_travel:.2f} mm straight flange "
+        f"insertion with {insertion_obstruction:.4f} mm³ obstruction",
         "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 "
-        "material in the panel or its bores, and the show skin bearing on the crown",
+        "material in the panel or its bores, the show skin bearing on the crown, and the exact "
+        "flange profile translating through its Y- entry relief without touching fixed material",
         ([] if ok else [
             f"the fixed C14 feature is missing {missing:.4f} mm³, the panel still owns "
             f"{panel_owned:.4f} mm³, and its bores contain {bore_occupied:.4f} mm³; the crown "
             f"offers {bearing_area:.3f} mm² but {bearing_missing:.4f} mm³ of its raised top-layer "
-            "probe is not covered by the ceiling show skin."])))
+            "probe is not covered by the ceiling show skin; the exact flange sweep over "
+            f"{insertion_travel:.2f} mm intersects {insertion_obstruction:.4f} mm³ of fixed "
+            "back-top."])))
 
 
 def check_ceiling_retention(back_top, panel) -> Bound:
