@@ -707,7 +707,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "3 mm in XZ and 3 mm beyond the flange's Y- edge",
+   "target": "3 mm in XZ, 3 mm beyond the flange's Y- edge, and one rooted profile corbel",
    "detail": [],
    "active": true
   },
@@ -1007,11 +1007,11 @@
   },
   {
    "id": "c14-collar-complete",
-   "label": "The C14's actual flange profile is surrounded by printed wall",
+   "label": "The C14's actual flange profile is surrounded and carried by printed wall",
    "kind": "gate",
    "status": "pass",
-   "value": "3 mm XZ wall, 3.00 mm beyond Y- edge; 0.0000 mm\u00b3 missing, 0.0000 mm\u00b3 in pocket",
-   "target": "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket",
+   "value": "3 mm XZ wall, 3.00 mm beyond Y- edge; 0.0000 mm\u00b3 missing, 0.0000 mm\u00b3 in pocket; 10.25 mm corbel with 0.0000 mm\u00b3 missing",
+   "target": "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket and its full-profile 45 degree corbel present",
    "detail": [],
    "active": true
   },
