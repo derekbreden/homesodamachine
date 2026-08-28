@@ -219,8 +219,10 @@ extension BLEManager {
             if !imageSlots.crc.isEmpty { fetchMissingFaces() }
             return
         }
-        guard Date().timeIntervalSince(faceAskedAt) > 2.0 else { return }
-        say("faces: resuming slot \(faceSlot) at \(faceBuffer.count)")
+        // A burst ends in deliberate silence, so this is the normal way the
+        // next one is asked for rather than an error path. Short, because it is
+        // in the middle of a transfer someone is watching.
+        guard Date().timeIntervalSince(faceAskedAt) > 0.35 else { return }
         requestFace(slot: faceSlot, from: faceBuffer.count)
     }
 
@@ -239,10 +241,10 @@ extension BLEManager {
         // Behind what we have is a duplicate from a resume; ahead of it is a
         // gap, and asking again from here is the whole recovery.
         if offset < faceBuffer.count { return }
-        if offset > faceBuffer.count {
-            DispatchQueue.main.async { self.requestFace(slot: slot, from: self.faceBuffer.count) }
-            return
-        }
+        // Ahead of what we have: a frame in this burst was dropped. The burst
+        // ends by itself and the next pull starts from what actually arrived,
+        // so this only has to be ignored rather than answered.
+        if offset > faceBuffer.count { return }
         faceBuffer.append(bytes)
         faceAskedAt = Date()
         guard faceBuffer.count >= total else { return }
