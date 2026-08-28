@@ -46,7 +46,7 @@ Platypus bag
       → 1/4" OD hard tubing (push-connect into dispensing solenoid)
         → [dispensing solenoid valve, Beduan 12V NC, 1/4" push-connect]
           → 1/4" OD hard tubing
-            → [peristaltic pump, Kamoer 400ml/min 12V] (1/4" OD LLDPE through pump head, zip-tied)
+            → [peristaltic pump, Kamoer 600ml/min 12V] (1/4" OD LLDPE into the pump's BPT tube, zip-tied onto it)
               → 1/4" OD hard tubing → gooseneck
                 → 1/8" ID black silicone (cosmetic run, zip-tied to faucet)
                   → dispensing point
@@ -76,7 +76,7 @@ Beduan 12V 1/4" Inlet Water Solenoid Valve (B07NWCQJK9), normally closed. $8.99 
 
 ## Peristaltic Pumps
 
-Kamoer peristaltic pumps (B09MS6C91D), 400ml/min at 12V. $32.55 each.
+Kamoer KPHM600-SW3B17 peristaltic pumps (B09MVPJXFJ), 600ml/min at 12V. $39.62 each.
 
 - Duty-cycle driven by flow meter readings (burst mode, not continuous)
 - Burst duration: 50-300ms realistic range
