@@ -102,6 +102,54 @@ bench j3 [<KB>]      push at J3 as fast as its window will take frames
 Both are refused unless the machine is dark: each holds the main board's loop
 for the length of a run.
 
+## A user's own pictures
+
+Eight faces a channel can wear. The low four are compiled into every image and
+cannot be removed, so a machine whose owner deleted everything they added still
+has four. The high four are theirs, and only ever arrive from a phone.
+
+**The phone sends pixels, not photographs.** A picture crossing BLE is already
+cropped, resampled and dithered to RGB565 at exactly the sizes each panel draws
+— five renditions, `IMAGE_BUNDLE` in [`proto_msg.h`](lib/proto_link/proto_msg.h):
+one 172x320 for the faucet, and the enclosure's 240x240 card, 96x96 thumb,
+60x60 head and 120x120 mid. Neither board decodes or scales anything; each is
+handed a pointer into mapped flash and renders straight out of it, the way
+`board_art` already renders the loading animation.
+
+**Both stores live in the partition nothing was using.** `spiffs` — 9.94 MB on
+the faucet, 6.94 MB on the enclosure — needed no table change, which matters
+because a partition table is the one thing an update cannot install. A slot
+stands on its own erase boundary and carries its own header, written last, so a
+transfer cut short costs that one picture and leaves the slot reading empty
+rather than showing half a face.
+
+**The faucet is the master copy.** It has the radio and the space, so it keeps
+every rendition either glass draws — an enclosure display can be replaced and
+re-provisioned from it with no phone in the room.
+
+**Writing is the rare case and it is what costs.** Reading is a pointer, which
+is why this is flash and not PSRAM: re-sending on every boot would trade a cost
+paid once for a cost paid always. A picture chosen months ago is on both
+glasses the instant they boot.
+
+```
+phone  ──BLE──▶  faucet  ──WiFi──▶  enclosure
+                   │                    │
+                   └─ its own 172x320    └─ its four, written once
+```
+
+The last hop is the radio rather than J9 because the enclosure's panel has to
+come down for a flash write either way — so the transport that costs nothing
+extra at that moment is the fast one. Measured: **169,632 bytes in 919 ms**,
+180 KB/s, against the 15 s J9 would take. The access point stands only for that
+burst and the board reboots into its new face when it drops.
+
+```
+images                 what each display holds
+images test <slot>     have the faucet make itself a picture, with no phone
+images relay <slot>    carry one to the enclosure over the radio
+```
+
 ## What the appliance firmware must hold
 
 Three constraints the main board and the supply impose, each carried by a part that pays for a violation. They are in [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §9 as well, where the factory confirms them per unit.
