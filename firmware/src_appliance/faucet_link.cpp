@@ -40,6 +40,8 @@ uint32_t primeHeartbeatPublications = 0;
 // A slot the faucet says is ready to carry, or 0xFF for none. Read and cleared
 // by the loop, because standing the enclosure's radio up blocks.
 uint8_t relayWanted = 0xFF;
+// A slot the phone removed, for the loop to carry to the rest of the machine.
+uint8_t eraseWanted = 0xFF;
 bool artPublished = false;
 bool idlePublished = false;
 
@@ -180,6 +182,17 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     // A picture landed on the faucet. The hop that follows blocks for seconds,
     // so it is noted here and run from the loop rather than from inside the
     // frame that asked for it.
+    // A picture the phone removed. The faucet has already dropped its own copy;
+    // the enclosure holds another and cannot be told directly, and a channel
+    // may still be wearing a face that no longer exists. Both are the machine's
+    // to settle, and neither can be done from inside this frame — one drives J9.
+    if (type == MSG_IMAGE_ERASE && plen >= sizeof(ImageSlotPayload)) {
+        ImageSlotPayload req;
+        memcpy(&req, payload, sizeof(req));
+        if (req.slot < FLAVOR_ART_CUSTOM) eraseWanted = req.slot;
+        return;
+    }
+
     if (type == MSG_IMAGE_RELAY_REQ && plen >= sizeof(ImageSlotPayload)) {
         ImageSlotPayload req;
         memcpy(&req, payload, sizeof(req));
@@ -454,6 +467,12 @@ bool faucetLinkSendOta(uint8_t type, const void *data, uint16_t len) {
 // Push into TinyProto's window as fast as it will take frames, servicing the
 // link whenever it is full. No flash write and no per-chunk answer: what comes
 // back is what J3 carries, which is the number the OTA pull is measured against.
+uint8_t faucetLinkTakeEraseRequest() {
+    const uint8_t slot = eraseWanted;
+    eraseWanted = 0xFF;
+    return slot;
+}
+
 uint8_t faucetLinkTakeRelayRequest() {
     const uint8_t slot = relayWanted;
     relayWanted = 0xFF;
