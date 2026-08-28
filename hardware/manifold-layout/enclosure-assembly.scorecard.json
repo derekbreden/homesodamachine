@@ -1279,6 +1279,16 @@
    "active": true
   },
   {
+   "id": "east-bosses-print",
+   "label": "Every power-column station is printed as a D stem on its derived corbel",
+   "kind": "gate",
+   "status": "pass",
+   "value": "17/17 additions present, no \u00d87 round free edge; 15 exposed D floors and 2 merged into wall stock; 13 full corbels and 4 flat bridges",
+   "target": "all 17 D fills and wedges contained in back-top, with no complete outer circle",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "cond-mount-lands",
    "label": "The condenser block's four flanges all have printed material to land on, and both fore grooves stand open for the sheet",
    "kind": "gate",

@@ -2103,6 +2103,66 @@ def check_pump_cartridge_sweep(pieces) -> Bound:
 FLOOR_POST_TOL = 0.02
 
 
+def check_east_bosses_print(stations, pieces: dict) -> Bound:
+    """Every power-column corbel as material and topology in the built back-top piece.
+
+    `wall_mounts` proves the proposed additions clear the installed bodies. This reads the
+    other half: `_east_bosses` actually fused each D fill and wedge into the printable piece,
+    and no complete `mount_boss_dia` circle survives on a free mounting face. Two PSU stations
+    run into existing rear-wall stock, so their D floor is absorbed rather than exposed as an
+    edge; exact containment of the added material is the invariant for those as well.
+    """
+    back = pieces["back-top"]
+    back = back.val() if hasattr(back, "val") else back
+    edges = back.Edges()
+    wall_x = _enc.interior_x()[1]
+    r = _enc.mount_boss_dia / 2.0
+    rows, bad = [], []
+    for station in stations:
+        sy, sz, tip = station[:3]
+        addition = _enc._east_boss_d_fill(wall_x, station).fuse(
+            _enc._east_boss_corbel(wall_x, station))
+        missing = addition.cut(back).Volume()
+        free = []
+        for edge in edges:
+            eb = edge.BoundingBox()
+            if abs(eb.xmin - tip) > 1e-6 or abs(eb.xmax - tip) > 1e-6:
+                continue
+            if (eb.ymax < sy - r - 1e-6 or eb.ymin > sy + r + 1e-6
+                    or eb.zmax < sz - r - 1e-6 or eb.zmin > sz + r + 1e-6):
+                continue
+            free.append(edge)
+        full_circle = any(
+            edge.geomType() == "CIRCLE"
+            and abs(edge.radius() - r) < 1e-6
+            and abs(edge.Length() - 2.0 * math.pi * r) < 1e-4
+            for edge in free)
+        floors = [
+            edge for edge in free
+            if edge.geomType() == "LINE"
+            and abs(edge.BoundingBox().zmin - (sz - r)) < 1e-6
+            and abs(edge.BoundingBox().zmax - (sz - r)) < 1e-6
+            and abs(edge.Length() - _enc.mount_boss_dia) < 1e-6
+        ]
+        ok = missing <= 1e-6 and not full_circle
+        rows.append((station, ok, missing, full_circle, len(floors)))
+        if not ok:
+            bad.append(rows[-1])
+    exposed = sum(1 for _station, _ok, _missing, _circle, floors in rows if floors == 1)
+    bridges = sum(1 for station, *_rest in rows if station[3] > station[2] + 1e-6)
+    return record_bound(Bound(
+        "east-bosses-print",
+        "Every power-column station is printed as a D stem on its derived corbel",
+        bool(rows) and not bad,
+        f"{len(rows) - len(bad)}/{len(rows)} additions present, no Ø7 round free edge; "
+        f"{exposed} exposed D floors and {len(rows) - exposed} merged into wall stock; "
+        f"{len(rows) - bridges} full corbels and {bridges} flat bridges",
+        "all 17 D fills and wedges contained in back-top, with no complete outer circle",
+        [f"y {station[0]:.3f}, z {station[1]:.3f}: {missing:.5f} mm³ missing, "
+         f"full circle={circle}, floor edges={floors}"
+         for station, _ok, missing, circle, floors in bad]))
+
+
 def check_floor_mounts(stations, pieces: dict) -> Bound:
     """Whether every floor post the slab was stationed for is standing, off the built pieces.
 
@@ -5219,18 +5279,84 @@ def wago_wells(row, cluster, over):
 # is no separate number to keep in step, and a body left standing off the wall would print
 # itself the stilt it stood on.
 
-def wall_mounts(*mounted):
-    """The +X wall's boss stations, as `(y, z, tip)`.
+def wall_mounts(*mounted, blockers=()):
+    """The +X wall's boss stations, as `(y, z, tip, web_tip)`.
 
-    `mounted` is one `(carry, holes)` per body: the placement `seat_body` handed back, and the
-    body's own mount pattern in its own frame. Each hole is carried as a station on that body's
-    Z = 0 — the plane every one of these modules draws its bores from — so `(y, z)` is where
-    the boss stands on the wall and `tip` is the plane its top face reaches."""
-    out = []
-    for carry, holes in mounted:
+    `mounted` is one `(name, carry, holes)` per body. Each hole is carried through the
+    placement `seat_body` handed back from the body's own Z = 0 mounting plane, so `(y, z)` is
+    where the boss stands and `tip` is the plane its D-shaped stem reaches.
+
+    A full-width 45 degree corbel is offered from that same plane to the wall. `blockers` is the
+    installed pack, as `(name, solid)` pairs. If a solid crosses the offered wedge, `web_tip`
+    is put one `east_boss_corbel_clear` beyond that solid's exact outermost X; the D stem is
+    checked separately and still reaches the body's hole. This makes moving a body change its
+    support rather than preserving either an arbitrary round pipe or a typed exception."""
+    blockers = tuple(blockers)
+    wall_x = _enc.interior_x()[1]
+    out, held = [], []
+
+    def hits(feature):
+        found = []
+        for name, body in blockers:
+            overlap = feature.intersect(body)
+            if overlap.Volume() > 1e-6:
+                found.append((name, body, overlap.Volume()))
+        return found
+
+    for owner, carry, holes in mounted:
         for hx, hy in holes:
             pos, _axis = carry(((hx, hy, 0.0), (0.0, 0.0, 1.0)))
-            out.append((pos[1], pos[2], pos[0]))
+            sy, sz, tip = pos[1], pos[2], pos[0]
+            # The round annulus is the established boss and may meet the donor inside its own
+            # mounting hole (the ground stack does). Test only the two corners that turn that
+            # annulus into a D: those are the new material whose clearance is in question.
+            stem_hits = hits(_enc._east_boss_d_fill(wall_x, (sy, sz, tip)))
+            if stem_hits:
+                names = ", ".join(name for name, _body, _volume in stem_hits)
+                raise ValueError(
+                    f"the {owner} mount at y={sy:g}, z={sz:g} crosses its D stem ({names}); "
+                    "move the body or its mounting station — setting the corbel back cannot "
+                    "clear a blocker in the boss itself")
+
+            station = (sy, sz, tip, tip)
+            web_hits = hits(_enc._east_boss_corbel(wall_x, station))
+            if web_hits:
+                web_tip = max(box(body).xmax for _name, body, _volume in web_hits)
+                web_tip += _enc.east_boss_corbel_clear
+                station = (sy, sz, tip, web_tip)
+                remaining = hits(_enc._east_boss_corbel(wall_x, station))
+                if remaining:
+                    names = ", ".join(name for name, _body, _volume in remaining)
+                    raise ValueError(
+                        f"the {owner} mount at y={sy:g}, z={sz:g} still crosses {names} "
+                        f"after its object-derived corbel setback to x={web_tip:g}")
+                held.append((owner, sy, sz, web_tip - tip,
+                             tuple(name for name, _body, _volume in web_hits)))
+            out.append(station)
+
+    # All added support material — the D-fill corners and the wedge — stays out of every
+    # installed body. The established circular annulus is deliberately absent from this probe:
+    # the ground stack meets it inside its own mounting hole, which is intended seating rather
+    # than a collision introduced by the corbel.
+    bad = []
+    for station in out:
+        addition = _enc._east_boss_d_fill(wall_x, station).fuse(
+            _enc._east_boss_corbel(wall_x, station))
+        for name, _body, volume in hits(addition):
+            bad.append((station[:3], name, volume))
+    full = len(out) - len(held)
+    record_bound(Bound(
+        "east-boss-corbels",
+        "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
+        not bad,
+        f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face and "
+        f"{len(held)} use body-derived setbacks",
+        "one clear D-stem corbel per mounting hole",
+        ([f"boss {station} crosses `{name}` by {volume:.4f} mm³"
+          for station, name, volume in bad]
+         + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm flat bridge past "
+            f"{', '.join(names)}"
+            for owner, sy, sz, setback, names in held])))
     return tuple(out)
 
 
@@ -6545,11 +6671,16 @@ def build_pack() -> cq.Assembly:
     a.cond_airway = condenser_airway(cond, cond_carry)
     # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
     # well IS its mount, and that goes on the wall through `side_wells`.
+    power_mounts = (
+        ("psu", psu_carry, _psu.holes),
+        ("pcba", pcba_carry, _pcba.board.holes),
+        ("relay-2", relay2_carry, _relay.holes),
+        ("relay-1", stack_carry["relay-1"], _relay.holes),
+        ("ground-stack", stack_carry["ground-stack"], _gnd.holes),
+    )
     a.east_bosses = wall_mounts(
-        (psu_carry, _psu.holes), (pcba_carry, _pcba.board.holes),
-        (relay2_carry, _relay.holes),
-        (stack_carry["relay-1"], _relay.holes),
-        (stack_carry["ground-stack"], _gnd.holes))
+        *power_mounts,
+        blockers=tuple((name, solid) for name, (solid, _colour) in _solids(a).items()))
     vk, vk_carry = build_vk(chain_carry, source_row_y(stood))
     a.add(vk, name="vk-solenoid", color=C_VK)
     # The cradles, measured the moment the last valve standing on the cap is placed. The other
@@ -7630,6 +7761,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # And every floor post against the piece that grows it: a station outside every piece's
     # own Y column is not printed.
     check_floor_mounts(a.floor_bosses, pieces)
+    # And the horizontal power-column family against the actual back-top B-rep: the pack-side
+    # check above proves clearance, while this proves every offered D fill and corbel printed
+    # and no free face fell back to a complete round edge.
+    check_east_bosses_print(a.east_bosses, pieces)
     # And the condenser's own four, which are a groove at one end of the block and a bored boss
     # at the other — the same question asked of a body with no hole to boss and one with two.
     check_cond_mount(a.cond_cradle, a.cond_mount, pieces)

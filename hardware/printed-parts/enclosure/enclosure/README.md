@@ -257,6 +257,24 @@ a wall that ever loses one is visible rather than silent.
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
 
+## Power-column boss corbels
+
+The +X wall of back-top carries one horizontal boss for every mounting hole in the PSU, main
+board, two relays and ground stack: 17 in all. Each stem is a D in its mounting plane — the
+round crown keeps the M3 insert annulus compact and its 7 mm flat floor gives a full-width 45°
+corbel one continuous down-facing plane to carry. The D section runs all the way to the body's
+own mounting face, so no round pipe is left bridging between a generic support block and the
+part.
+
+`enclosure_assembly.wall_mounts` offers that corbel all the way to every mounting face and
+intersects the offered material with the installed pack. Thirteen fit in full. At the two upper
+holes of relay #2 and the two lower holes of relay #1, the relay or main-board envelope crosses
+the offered wedge; only those four wedges begin 1 mm beyond the exact blocker. Their D stems
+still reach the holes, leaving a short flat bridge. `east-boss-corbels` reads all 17 additions
+back against the installed bodies and records both the full-reach and body-derived populations;
+`east-bosses-print` reads the built back-top and rejects a missing wedge or any complete Ø7
+free edge.
+
 ## Condenser cradle
 
 The condenser's four sheet flanges are the block's whole purchase. Its two fore flanges slide
