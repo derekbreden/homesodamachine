@@ -1040,7 +1040,7 @@ back_top_wall_t = 6.0
 # still lands on it (`enclosure_assembly.check_wall_clamped`, `_c14_tunnel`).
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
-    ("c14-inlet", 64.115, 336.21, 56.77, 31.18),  # the tunnel's own footprint on the wall
+    ("c14-inlet", 67.615, 336.21, 56.77, 31.18),  # the tunnel's own footprint on the wall
 )
 
 # --- what stands on that relief: the C14's tunnel ------------------------------
