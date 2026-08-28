@@ -18,6 +18,9 @@ import PhotosUI
 struct ImagesView: View {
     @Environment(BLEManager.self) var ble
     @State private var confirmRemove: Int?
+    // The photograph someone chose, and which slot it is bound for, held only
+    // while they decide what part of it the machine gets.
+    @State private var cropping: (image: UIImage, slot: Int)?
 
     var body: some View {
         ZStack {
@@ -53,6 +56,17 @@ struct ImagesView: View {
             }
         }
         .onAppear { ble.queryImageSlots() }
+        .fullScreenCover(isPresented: Binding(get: { cropping != nil },
+                                              set: { if !$0 { cropping = nil } })) {
+            if let c = cropping {
+                ImageCropView(image: c.image,
+                              onUse: { crop in
+                                  cropping = nil
+                                  send(crop, to: c.slot)
+                              },
+                              onCancel: { cropping = nil })
+            }
+        }
         .confirmationDialog("Remove this picture?",
                             isPresented: Binding(get: { confirmRemove != nil },
                                                  set: { if !$0 { confirmRemove = nil } }),
@@ -175,12 +189,16 @@ struct ImagesView: View {
     private func load(_ item: PhotosPickerItem, into slot: Int) async {
         guard let data = try? await item.loadTransferable(type: Data.self),
               let image = UIImage(data: data) else { return }
+        await MainActor.run { cropping = (image, slot) }
+    }
+
+    private func send(_ crop: ImageCrop, to slot: Int) {
         // Kept before the push rather than after: what is shown for a filled
         // slot should be what was sent, even if the send is what fails.
-        if let preview = ImageBundle.preview(from: image) {
+        if let preview = ImageBundle.preview(from: crop) {
             SlotPreviews.save(preview, unit: ble.connectedMachine?.unit ?? "", slot: slot)
         }
-        ble.uploadImage(image, to: slot)
+        ble.uploadImage(crop, to: slot)
     }
 }
 

@@ -93,7 +93,7 @@ extension BLEManager {
     }
 
     // ── Adding ────────────────────────────────────────────────────────────
-    func uploadImage(_ image: UIImage, to slot: Int) {
+    func uploadImage(_ crop: ImageCrop, to slot: Int) {
         guard !demoMode else { return }
         guard imageUploadState == .idle || isTerminal(imageUploadState) else { return }
 
@@ -104,7 +104,7 @@ extension BLEManager {
         // a transfer to run the moment this finishes.
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self else { return }
-            guard let bundle = ImageBundle.make(from: image) else {
+            guard let bundle = ImageBundle.make(from: crop) else {
                 DispatchQueue.main.async { self.imageUploadState = .failed("that picture would not convert") }
                 return
             }

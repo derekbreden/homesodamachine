@@ -20,8 +20,10 @@ import UIKit
 //     3   60x60    its detail header
 //     4  120x120   its channel button
 //
-// The faucet's is the one that is not square, so it is cropped to its own
-// aspect rather than to the square the other four share.
+// WHAT IS CROPPED IS NOT DECIDED HERE. ImageCropView takes the two rectangles
+// a person positioned — one tall for the faucet, one square for the enclosure —
+// and this reduces each to the sizes its board draws. A centre crop chosen by
+// arithmetic would put the wrong half of most photographs on the machine.
 
 struct ImageBundle {
 
@@ -41,52 +43,37 @@ struct ImageBundle {
 
     static var byteCount: Int { sizes.reduce(0) { $0 + $1.w * $1.h * 2 } }
 
-    /// Every rendition, concatenated in wire order. Nil if the image will not
+    /// Every rendition, concatenated in wire order. Nil if the crop will not
     /// draw — refused here rather than half-written into a board's flash.
-    static func make(from image: UIImage) -> Data? {
+    static func make(from crop: ImageCrop) -> Data? {
         var out = Data(capacity: byteCount)
-        for size in sizes {
-            guard let cropped = fill(image, to: size),
-                  let pixels = rgb565(cropped, w: size.w, h: size.h) else { return nil }
+        for (i, size) in sizes.enumerated() {
+            // Index 0 is the faucet's tall glass; the rest are the enclosure's
+            // square card and the smaller faces cut from the same square.
+            let source = (i == 0) ? crop.portrait : crop.square
+            guard let scaled = resize(source, to: size),
+                  let pixels = rgb565(scaled, w: size.w, h: size.h) else { return nil }
             out.append(pixels)
         }
         return out.count == byteCount ? out : nil
     }
 
     /// What the faucet will actually show, for the app to put beside the
-    /// picture someone chose — cropped and quantised the same way, so the
-    /// preview is the result rather than an impression of it.
-    static func preview(from image: UIImage) -> UIImage? {
-        fill(image, to: sizes[0]).map { UIImage(cgImage: $0) }
+    /// picture someone chose — the same reduction, so the preview is the
+    /// result rather than an impression of it.
+    static func preview(from crop: ImageCrop) -> UIImage? {
+        resize(crop.portrait, to: sizes[0]).map { UIImage(cgImage: $0) }
     }
 
-    // ── Cropping ──────────────────────────────────────────────────────────
-    // Aspect-fill and centre. A face that arrived letterboxed would waste the
-    // glass, and these panels are the whole front of the product.
-    private static func fill(_ image: UIImage, to size: Size) -> CGImage? {
+    // ── Reduction ─────────────────────────────────────────────────────────
+    // The rectangle already has the right aspect, so this only makes it small.
+    private static func resize(_ image: UIImage, to size: Size) -> CGImage? {
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
         format.opaque = true
-
-        // Through UIImage once first, so an EXIF-rotated camera photo is
-        // upright before anything is measured against it.
-        let upright = UIGraphicsImageRenderer(size: image.size, format: format).image { _ in
-            image.draw(in: CGRect(origin: .zero, size: image.size))
-        }
-        guard let source = upright.cgImage else { return nil }
-
-        let sw = CGFloat(source.width), sh = CGFloat(source.height)
-        guard sw > 0, sh > 0 else { return nil }
-        let want = CGFloat(size.w) / CGFloat(size.h)
-        var cw = sw, ch = sh
-        if sw / sh > want { cw = sh * want } else { ch = sw / want }
-        let crop = CGRect(x: ((sw - cw) / 2).rounded(), y: ((sh - ch) / 2).rounded(),
-                          width: cw.rounded(), height: ch.rounded())
-        guard let cut = source.cropping(to: crop) else { return nil }
-
         let target = CGSize(width: size.w, height: size.h)
         return UIGraphicsImageRenderer(size: target, format: format).image { _ in
-            UIImage(cgImage: cut).draw(in: CGRect(origin: .zero, size: target))
+            image.draw(in: CGRect(origin: .zero, size: target))
         }.cgImage
     }
 
