@@ -24,12 +24,23 @@ uint8_t  readSlot = 0;
 uint8_t  readRend = 0;
 uint32_t readAt = 0;
 uint32_t readTotal = 0;
+uint32_t readSentThisBurst = 0;
+uint8_t  readBudget = 0;
 uint16_t mtu = 23;
 
-// How many frames one loop pass may put on the air. Enough that the read is
-// not gated on this board's own loop the way the write once was, bounded so a
-// read cannot starve the touch path it shares a core with.
-constexpr uint8_t READ_PER_PASS = 8;
+// How many frames one request is answered with, and how many go out per loop
+// pass. A notification is queued, not delivered — notify() returns true the
+// moment the host stack takes it, and that stack has a handful of buffers
+// against a link that carries a handful of packets per connection interval.
+// Sending a whole picture as fast as it will be accepted therefore overruns it
+// and most of the frames are simply dropped, with nothing anywhere saying so.
+//
+// So the phone's asking IS the flow control: a request is answered with one
+// bounded burst and then silence, and the phone asks again from wherever it
+// actually got to. That converges whatever the link loses, where blasting
+// converged on nothing at all.
+constexpr uint8_t READ_BURST    = 8;
+constexpr uint8_t READ_PER_PASS = 2;
 
 // Only the low FLAVOR_ART_CUSTOM slots are the user's. The partition holds far
 // more, and the rest stay unused rather than becoming a capacity nobody asked
@@ -109,9 +120,19 @@ void bleImageService() {
                                        (uint16_t)(sizeof(head) + want))) return;
 
     readAt += want;
+    readSentThisBurst += want;
+
     if (readAt >= readTotal) {
       reading = false;   // the last frame says so by its offset
-      if (seams.onRead) seams.onRead(readSlot, readTotal);
+      if (seams.onRead) seams.onRead(readSlot, readSentThisBurst);
+      return;
+    }
+    if (--readBudget == 0) {
+      // The burst is spent. Nothing more goes out until the phone says where
+      // it got to, which is the only honest measure of what arrived.
+      reading = false;
+      if (seams.onRead) seams.onRead(readSlot, readSentThisBurst);
+      return;
     }
   }
 }
@@ -166,6 +187,8 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
       readRend = req.rendition;
       readAt = (req.offset < total) ? req.offset : 0;
       readTotal = total;
+      readSentThisBurst = 0;
+      readBudget = READ_BURST;
       reading = true;   // bleImageService carries it from here
       return true;
     }
