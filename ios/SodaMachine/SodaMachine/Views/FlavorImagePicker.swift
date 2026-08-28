@@ -234,9 +234,12 @@ struct FlavorImagePicker: View {
         UIImage(named: "flavor_\(art + 1)")
     }
 
+    /// A face this phone holds for the picture that slot is carrying — whether
+    /// it sent that picture or read it back off the machine.
     private func customImage(_ art: Int) -> UIImage? {
         guard let slot = ble.flavorArt.customSlot(art: art) else { return nil }
-        return SlotPreviews.load(unit: ble.connectedMachine?.unit ?? "", slot: slot)
+        return PictureCache.load(unit: ble.connectedMachine?.unit ?? "",
+                                 crc: ble.imageSlots.crc(of: slot))
     }
 
     /// The picker is the control, and it holds nothing in view state that a
@@ -256,38 +259,40 @@ struct FlavorImagePicker: View {
     /// A new picture takes whichever slot is free, and wears itself at once —
     /// choosing it was the point of adding it.
     private func add(_ crop: ImageCrop) {
+        // The tile shown while it goes up. The durable one is filed under the
+        // bundle's crc32 once that exists, which is the same face by a name the
+        // machine also knows.
         let preview = ImageBundle.preview(from: crop)
         guard let slot = ble.enqueueImage(crop, preview: preview) else { return }
-        if let preview {
-            SlotPreviews.save(preview, unit: ble.connectedMachine?.unit ?? "", slot: slot)
-        }
         ble.setFlavorArt(channel: channel, art: ble.flavorArt.artIndex(customSlot: slot))
     }
 }
 
 // What this phone happens to have sent, so a filled slot shows as itself.
 // Not authority over anything: the machine says what it holds.
-enum SlotPreviews {
-    private static func url(_ unit: String, _ slot: Int) -> URL? {
-        guard !unit.isEmpty else { return nil }
+/// Faces this phone has, filed under the picture's own crc32 rather than the
+/// slot it occupies. A picture that moves keeps its face; a slot that changes
+/// hands does not inherit the old one; and a phone that never sent a picture
+/// still ends up holding it, because the machine can be asked.
+enum PictureCache {
+    private static func url(_ unit: String, _ crc: UInt32) -> URL? {
+        guard !unit.isEmpty, crc != 0 else { return nil }
         let dir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("images/\(unit)")
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        return dir.appendingPathComponent("slot_\(slot).png")
+        return dir.appendingPathComponent("face-\(unit)-\(String(crc, radix: 16)).png")
     }
 
-    static func save(_ image: UIImage, unit: String, slot: Int) {
-        guard let u = url(unit, slot), let png = image.pngData() else { return }
+    static func save(_ image: UIImage, unit: String, crc: UInt32) {
+        guard let u = url(unit, crc), let png = image.pngData() else { return }
         try? png.write(to: u)
     }
 
-    static func load(unit: String, slot: Int) -> UIImage? {
-        guard let u = url(unit, slot), let d = try? Data(contentsOf: u) else { return nil }
+    static func load(unit: String, crc: UInt32) -> UIImage? {
+        guard let u = url(unit, crc), let d = try? Data(contentsOf: u) else { return nil }
         return UIImage(data: d)
     }
 
-    static func forget(unit: String, slot: Int) {
-        guard let u = url(unit, slot) else { return }
+    static func forget(unit: String, crc: UInt32) {
+        guard let u = url(unit, crc) else { return }
         try? FileManager.default.removeItem(at: u)
     }
 }

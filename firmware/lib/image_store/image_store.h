@@ -70,6 +70,12 @@ uint8_t imageStoreCapacity();
 bool    imageStoreOccupied(uint8_t slot);
 uint8_t imageStoreHeld();
 
+// The crc32 over a slot's whole bundle, or 0 where the slot is empty. This is
+// a picture's identity: a phone that has never seen this machine can tell
+// which of its own cached faces is which, and a phone that cached one under a
+// slot number can tell that the slot has changed hands since.
+uint32_t imageStoreCrc(uint8_t slot);
+
 // A mapped pointer to one rendition of one slot, or nullptr where the slot is
 // empty. Valid until that slot is written again. Nothing is copied or allocated.
 const uint16_t *imageStorePixels(uint8_t slot, uint8_t size);

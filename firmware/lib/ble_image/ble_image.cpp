@@ -15,6 +15,22 @@ uint8_t  slot = 0;
 uint32_t want = 0;
 uint32_t nextAckAt = 0;
 
+// ── A read-back in progress ───────────────────────────────────────────────
+// Straight out of mapped flash, a frame at a time, paced by whether the stack
+// will take another. Nothing is staged in RAM: what is sent is a pointer into
+// the picture itself.
+bool     reading = false;
+uint8_t  readSlot = 0;
+uint8_t  readRend = 0;
+uint32_t readAt = 0;
+uint32_t readTotal = 0;
+uint16_t mtu = 23;
+
+// How many frames one loop pass may put on the air. Enough that the read is
+// not gated on this board's own loop the way the write once was, bounded so a
+// read cannot starve the touch path it shares a core with.
+constexpr uint8_t READ_PER_PASS = 8;
+
 // Only the low FLAVOR_ART_CUSTOM slots are the user's. The partition holds far
 // more, and the rest stay unused rather than becoming a capacity nobody asked
 // for and the picker cannot show.
@@ -32,6 +48,8 @@ void sendAck() {
 void sendState() {
   BleImgState st{};
   st.slots = customSlots();
+  for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++)
+    st.crc[i] = (i < st.slots) ? imageStoreCrc(i) : 0;
   st.renditions = IMAGE_BUNDLE_COUNT;
   st.bundleBytes = imageBundleBytes();
   st.artFirst = FLAVOR_ART_FACTORY;
@@ -53,6 +71,47 @@ void fail(uint8_t why) {
 }  // namespace
 
 void bleImageBegin(const BleImageSeams &s) { seams = s; }
+
+void bleImageSetMtu(uint16_t m) { mtu = m; }
+
+// One rendition's size, from the table both ends share.
+static uint32_t renditionBytes(uint8_t r) {
+  if (r >= IMAGE_BUNDLE_COUNT) return 0;
+  return (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
+}
+
+void bleImageService() {
+  if (!reading) return;
+
+  // ATT header, then this protocol's, then the frame's own place in the
+  // picture. What is left is pixels.
+  const uint16_t room = (mtu > 3 + 3 + sizeof(BleImgPix) + 16)
+                            ? (uint16_t)(mtu - 3 - 3 - sizeof(BleImgPix))
+                            : 64;
+
+  for (uint8_t i = 0; i < READ_PER_PASS && reading; i++) {
+    const uint8_t *px = (const uint8_t *)imageStorePixels(readSlot, readRend);
+    if (!px) { reading = false; return; }
+
+    uint32_t want = readTotal - readAt;
+    if (want > room) want = room;
+
+    uint8_t frame[3 + sizeof(BleImgPix) + 512];
+    BleImgPix head{readSlot, readRend, readAt, readTotal};
+    memcpy(frame, &head, sizeof(head));
+    memcpy(frame + sizeof(head), px + readAt, want);
+
+    // The stack would not take it; the rest keeps until the next pass.
+    if (!seams.notify || !seams.notify(BLE_FRAME_IMG_PIX, frame,
+                                       (uint16_t)(sizeof(head) + want))) return;
+
+    readAt += want;
+    if (readAt >= readTotal) {
+      reading = false;   // the last frame says so by its offset
+      if (seams.onRead) seams.onRead(readSlot, readTotal);
+    }
+  }
+}
 
 void bleImagePublishArt() {
   if (!seams.notify || !seams.readArt) return;
@@ -80,6 +139,22 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     case BLE_FRAME_IMG_QUERY:
       sendState();
       return true;
+
+    case BLE_FRAME_IMG_READ: {
+      if (plen < sizeof(BleImgRead)) return true;
+      BleImgRead req;
+      memcpy(&req, payload, sizeof(req));
+      // A picture being written is not a picture yet.
+      if (state == BLE_IMG_TAKING && req.slot == slot) return true;
+      const uint32_t total = renditionBytes(req.rendition);
+      if (!total || !imageStorePixels(req.slot, req.rendition)) return true;
+      readSlot = req.slot;
+      readRend = req.rendition;
+      readAt = 0;
+      readTotal = total;
+      reading = true;   // bleImageService carries it from here
+      return true;
+    }
 
     case BLE_FRAME_ART_QUERY:
       bleImagePublishArt();
