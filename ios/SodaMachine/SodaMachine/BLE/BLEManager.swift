@@ -97,6 +97,8 @@ class BLEManager {
     @ObservationIgnored var faceBuffer = Data()
     @ObservationIgnored var faceSlot = -1
     @ObservationIgnored var faceAskedAt = Date.distantPast
+    @ObservationIgnored var faceResumes = 0
+    @ObservationIgnored var faceTotal = 0
     @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?
     var imageUploadState: ImageUploadState = .idle
@@ -1892,8 +1894,17 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             ble.nusReady = true
             DispatchQueue.main.async { self.ble.connectionState = .connected }
             log.info("NUS ready")
-            ble.send("GET_CONFIG")
-            ble.send("LIST")
+            // GET_CONFIG and LIST are the rotary display's vocabulary, on the
+            // machine under the counter. An appliance answers neither, so it
+            // was being asked two questions it has no words for on every
+            // connection. What an appliance is asked instead is what pictures
+            // it holds, which is the screen someone opens the app for.
+            if ble.connectedMachine?.model == .prototype {
+                ble.send("GET_CONFIG")
+                ble.send("LIST")
+            } else {
+                ble.queryImageSlots()
+            }
         }
     }
 
