@@ -77,12 +77,11 @@ FLANGE_H = 22.17     # Z, across the two flats
 SCREW_PITCH = 40.0   # X, centre to centre; both screws on the cutout's own Z centreline
 EAR_R = (FLANGE_W - SCREW_PITCH) / 2.0   # 4.885 — the ear is a round on its screw
 
-# THE ENDS RUN AT 45 deg, so the two extents draw the whole outline: a rectangle of
-# `FLANGE_H` deep and `FLANGE_FLAT_W` long with a 45 deg point on each end. Nothing here is
-# free — the flat's run is the difference of the two calipered extents, and the outline's
-# own half-height where it crosses a screw is `EAR_R`, which is that screw's moulding.
-FLANGE_FLAT_W = FLANGE_W - FLANGE_H         # 27.60
-FLANGE_R = 2.0       # ESTIMATED. the round every corner of that outline carries
+# ESTIMATED. The run of full width before the outline tapers away to the ears, and the
+# knuckle where the two meet. The taper is the tangent the hull draws between them, so
+# the run is the only figure the outline needs beyond the four calipered ones.
+FLANGE_FLAT_W = 24.0
+FLANGE_KNUCKLE = 1.0
 FLANGE_T = 5.0       # ESTIMATED. Y, the flange's own thickness
 SCREW_D = 3.5        # ESTIMATED. clearance hole for the M3 that holds it
 
@@ -218,15 +217,23 @@ def stations_hold():
 # figure is the outline's own extent.
 
 
-def _lozenge_outline(wp, flat_run, half_height):
-    """The flange's outline: a rectangle `flat_run` long and `2 * half_height` deep, with a
-    45 deg point on each end. The point stands `half_height` beyond the flat, so the overall
-    length is `flat_run + 2 * half_height` and nothing else is needed to draw it."""
-    hf = flat_run / 2.0
-    return (wp.moveTo(-hf, half_height).lineTo(hf, half_height)
-              .lineTo(hf + half_height, 0.0)
-              .lineTo(hf, -half_height).lineTo(-hf, -half_height)
-              .lineTo(-(hf + half_height), 0.0)
+def _hull_outline(wp, half_run, half_height, ear_x, ear_r):
+    """The flange's lozenge: two flats `2 * half_height` apart running `2 * half_run`, a
+    round of `ear_r` on each screw at `+/-ear_x`, and the tangent the hull draws between
+    them."""
+    dx, dz = ear_x - half_run, -half_height
+    span = math.hypot(dx, dz)
+    if ear_r >= span:
+        raise ValueError(
+            f"an ear of {ear_r:g} swallows the corner {span:.3f} away it is meant to tangent "
+            f"from — there is no taper left between flat and ear.")
+    heading = math.atan2(dz, dx) + math.pi - math.acos(ear_r / span)
+    tx = ear_x + ear_r * math.cos(heading)
+    tz = ear_r * math.sin(heading)
+    return (wp.moveTo(-half_run, half_height).lineTo(half_run, half_height).lineTo(tx, tz)
+              .threePointArc((ear_x + ear_r, 0.0), (tx, -tz))
+              .lineTo(half_run, -half_height).lineTo(-half_run, -half_height).lineTo(-tx, -tz)
+              .threePointArc((-(ear_x + ear_r), 0.0), (-tx, tz))
               .close())
 
 
@@ -248,9 +255,10 @@ def _plane(offset):
 
 def _flange_prism(radius, offset, length):
     """The lozenge struck `radius` under size and offset back out, extruded `length` from
-    `offset` — every corner of the result carrying `radius`. A 45 deg end shrinks along its
-    own faces, so the flat's run is the one figure the offset leaves alone."""
-    return (_lozenge_outline(_plane(offset), FLANGE_FLAT_W, FLANGE_H / 2.0 - radius)
+    `offset` — every corner of the result carrying `radius`."""
+    return (_hull_outline(_plane(offset),
+                          FLANGE_FLAT_W / 2.0, FLANGE_H / 2.0 - radius,
+                          SCREW_PITCH / 2.0, EAR_R - radius)
             .offset2D(radius, kind="arc").extrude(length))
 
 
@@ -264,7 +272,7 @@ def _keyed_prism(width, height, key, radius, offset, length):
 def build_flange():
     """The lozenge, `flange_back_y` to 0, bearing on the panel's inner face and bored for
     the two screws that hold it there."""
-    flange = _flange_prism(FLANGE_R, flange_back_y, FLANGE_T)
+    flange = _flange_prism(FLANGE_KNUCKLE, flange_back_y, FLANGE_T)
     for sx, sz in panel_screws():
         bore = (cq.Workplane(xz_plane_y_up)
                 .workplane(offset=flange_back_y)
@@ -371,14 +379,10 @@ def selftest() -> int:
         fails.append(
             f"the recess is {CAVITY_DEPTH:g} deep and the column runs "
             f"{SHROUD_PROUD + BODY_REACH:g} — its floor is out the back of the housing.")
-    if abs(FLANGE_FLAT_W + FLANGE_H - FLANGE_W) > 1e-9:
+    if FLANGE_FLAT_W / 2.0 >= SCREW_PITCH / 2.0 - EAR_R:
         fails.append(
-            f"a {FLANGE_H:g} deep outline with 45 deg ends on a {FLANGE_FLAT_W:g} flat is "
-            f"{FLANGE_FLAT_W + FLANGE_H:g} long and the calipers read {FLANGE_W:g}")
-    if EAR_R + SCREW_D / 2.0 > FLANGE_H / 2.0:
-        fails.append(
-            f"the outline is {2 * EAR_R:g} deep where it crosses a screw and the hole "
-            f"Ø{SCREW_D:g} — the ear has no moulding round it.")
+            f"the flat runs to x {FLANGE_FLAT_W / 2.0:g} and the ear starts at "
+            f"{SCREW_PITCH / 2.0 - EAR_R:g} — there is no taper between them.")
     try:
         stations_hold()
     except Exception as exc:                                     # noqa: BLE001
