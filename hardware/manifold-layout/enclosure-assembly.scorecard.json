@@ -45,12 +45,10 @@
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "fail",
-   "value": "91/92 declared",
+   "status": "pass",
+   "value": "92/92 declared",
    "target": "all declared",
-   "detail": [
-    "placed, undeclared: keystone-jack"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -76,12 +74,10 @@
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
    "status": "fail",
-   "value": "3 clash, 0 unanswered",
+   "value": "1 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "keystone-jack \u2229 enclosure-back-top   85.6 mm\u00b3, x[   22.60,   37.25] y[  457.30,  458.70] z[  325.81,  349.96]",
-    "keystone-jack \u2229 enclosure-ceiling-panel   588.7 mm\u00b3, x[   22.60,   37.25] y[  437.00,  461.00] z[  347.00,  349.96]",
-    "enclosure-back-top \u2229 enclosure-ceiling-panel   282.8 mm\u00b3, x[  -79.50,   79.50] y[  236.00,  461.00] z[  345.75,  354.93]"
+    "enclosure-back-top \u2229 enclosure-ceiling-panel   138.4 mm\u00b3, x[  -79.50,   79.05] y[  236.00,  461.00] z[  345.75,  354.93]"
    ],
    "active": true
   },
@@ -706,15 +702,13 @@
    "active": true
   },
   {
-   "id": "c14-cord-lands",
-   "label": "The receptacle's boss crosses the wall it seats behind",
+   "id": "c14-surround",
+   "label": "The C14 flange is wrapped without moving its established mount",
    "kind": "gate",
-   "status": "fail",
-   "value": "open",
-   "target": "a boss at least 8.25 mm proud",
-   "detail": [
-    "the boss stands 1 mm outboard of the seating plane and the stack over that plane is 8.25 \u2014 `enclosure.c14_tunnel_len` 5.25 of tunnel, so the two inserts have their own depth, and 3 of wall over each blind end. The boss's face lands 7.25 mm inside the wall's outer plane; a C13 whose housing is wider than the 27.46 x 19.18 bore stops on that plane and reaches no further."
-   ],
+   "status": "pass",
+   "value": "holds",
+   "target": "3 mm in XZ and 3 mm beyond the flange's Y- edge",
+   "detail": [],
    "active": true
   },
   {
@@ -729,14 +723,12 @@
   },
   {
    "id": "keystone-span",
-   "label": "The jack's bezel stands clear of both neighbours on the deck storey",
+   "label": "The jack's pocket cutter stands clear of both adjacent supports",
    "kind": "gate",
-   "status": "fail",
-   "value": "open",
-   "target": "wall either side of it",
-   "detail": [
-    "the bezel is 19.9 mm across and leaves -0.64 mm to the CO2 pocket and -0.64 mm to the C14's mount. The nameplate takes the gate lane's east end, so this span is the wall's only free one."
-   ],
+   "status": "pass",
+   "value": "holds",
+   "target": "at least 1 mm of wall either side",
+   "detail": [],
    "active": true
   },
   {
@@ -824,7 +816,7 @@
    "label": "The lever-nut row lies over the brick it stands on",
    "kind": "gate",
    "status": "pass",
-   "value": "row spans y 353.55..426.95, crown 351.50..460.50, 6.00 mm of reach at the inlet",
+   "value": "row spans y 351.50..424.90, crown 351.50..460.50, 4.85 mm of reach at the inlet",
    "target": "every lug over the crown",
    "detail": [],
    "active": true
@@ -978,7 +970,7 @@
    "label": "Every body seated through a wall stands under the ceiling",
    "kind": "gate",
    "status": "pass",
-   "value": "tallest reaches z 348.34, ceiling 352.00",
+   "value": "tallest reaches z 349.96, ceiling 352.00",
    "target": "every body under the ceiling",
    "detail": [],
    "active": true
@@ -1010,6 +1002,16 @@
    "status": "pass",
    "value": "3.12 mm between the bay top and the display's envelope",
    "target": "at least 2 mm of lintel",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "c14-collar-complete",
+   "label": "The C14's actual flange profile is surrounded by printed wall",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3 mm XZ wall, 3.00 mm beyond Y- edge; 0.0000 mm\u00b3 missing, 0.0000 mm\u00b3 in pocket",
+   "target": "at least 3 mm around the exact profile and 3 mm past its Y- edge, with an empty pocket",
    "detail": [],
    "active": true
   },
@@ -1526,12 +1528,10 @@
    "id": "box-depth",
    "label": "The pack stands inside the appliance's stated depth",
    "kind": "gate",
-   "status": "fail",
-   "value": "pack reaches y 470.00 at keystone-jack, +Y wall at 464.00",
+   "status": "pass",
+   "value": "pack reaches y 464.00 at seaflo-pump, +Y wall at 464.00",
    "target": "ahead of `rear_plane_y` 464",
-   "detail": [
-    "the pack reaches y 470.00 but the +Y wall stands at 464.00 \u2014 6.00 mm over. Raise `rear_plane_y` or repack forward"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -1743,7 +1743,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "59/59 mounted, 20 part of another body, 12 nothing fastens",
+   "value": "60/60 mounted, 20 part of another body, 12 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The brim bears on the top wall's outer face, the collar fills `enclosure._funnel_hole`, and the elbow's own collet grips the stub the spout carries \u2014 so the funnel is held down by the joint it releases from. It is a dishwasher part and comes out by hand.",
