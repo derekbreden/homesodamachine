@@ -17,6 +17,7 @@ surface replaces the base. A hand run normally finds the current payload already
 STEP and leaves its bytes alone until `graft` decides they differ.
 """
 
+import sys
 from pathlib import Path
 
 import cadquery as cq
@@ -56,4 +57,4 @@ def _seed_host(step: Path) -> Path:
 
 if __name__ == "__main__":
     _seed_host(flute_payload.FAUCET_DIRS[0] / "faucet-shell.step")
-    raise SystemExit(flute_payload.main(flute_payload.FAUCET_DIRS))
+    sys.exit(flute_payload.main(flute_payload.FAUCET_DIRS))
