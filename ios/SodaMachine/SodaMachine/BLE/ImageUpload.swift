@@ -207,7 +207,7 @@ extension BLEManager {
 
     private func requestFace(slot: Int, from offset: Int = 0) {
         faceSlot = slot
-        if offset == 0 { faceBuffer = Data() }
+        if offset == 0 { faceBuffer = Data(); faceResumes = 0 }
         faceAskedAt = Date()
         var payload = Data([UInt8(slot), 0])
         payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
@@ -231,6 +231,14 @@ extension BLEManager {
         // next one is asked for rather than an error path. Short, because it is
         // in the middle of a transfer someone is watching.
         guard Date().timeIntervalSince(faceAskedAt) > 0.35 else { return }
+        // How far this phone has actually got is the number that settles
+        // whether a read is working, and it is the one number that has never
+        // left the phone. Every eighth pull, so it says enough to be read
+        // without becoming the traffic.
+        faceResumes += 1
+        if faceResumes % 8 == 1 {
+            say("faces: at \(faceBuffer.count) of \(faceTotal) after \(faceResumes) pulls")
+        }
         requestFace(slot: faceSlot, from: faceBuffer.count)
     }
 
@@ -244,6 +252,7 @@ extension BLEManager {
             (UInt32(payload[b + at + 2]) << 16) | (UInt32(payload[b + at + 3]) << 24)
         }
         let offset = Int(u32(2)), total = Int(u32(6))
+        faceTotal = total
         let bytes = payload.subdata(in: (b + 10)..<payload.endIndex)
         guard slot == faceSlot else { return }
         // Behind what we have is a duplicate from a resume; ahead of it is a
