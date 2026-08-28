@@ -1,6 +1,6 @@
 # Manifold layout
 
-The ten flavor valves, both KPHM400 pumps and the [6](TEE_COUNT) junctions between them, placed
+The ten flavor valves, both KPHM600 pumps and the [6](TEE_COUNT) junctions between them, placed
 with nothing else in the box — no enclosure, no tray, no reservoir, no gooseneck, no funnel, no
 carbonator. The connections are
 [`topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)'s, with one difference:

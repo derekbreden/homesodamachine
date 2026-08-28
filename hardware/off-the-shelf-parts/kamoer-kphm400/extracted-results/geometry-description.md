@@ -27,7 +27,7 @@ Viewed from the front (tube connector face), the pump head is nearly square with
   - White plastic barbed connectors for BPT tubing (4.8mm ID / 8.0mm OD)
   - Offset from center — one above center, one below (or left/right depending on orientation)
   - Barb protrusion from bracket surface: 34.54mm — the barbs extend 34.54mm forward of the mounting bracket face, within the 48.88mm full pump head depth
-  - Tubing fit: 1/4" OD LLDPE routes through the BPT barbs and zip-ties tight — fits directly, no silicone adapter
+  - Tubing fit: the barbs are not what the machine lands on. 1/4" OD LLDPE goes **into the BPT tube itself**, straight into the bore the barb would otherwise fill, and the tube is zip-tied down onto the LLDPE. At this tube's 4.8 mm ID the LLDPE's 6.35 mm OD is an interference fit and the zip tie only backs it up. No silicone adapter
 
 ### Section 2: Pump Head Body (Y = 0 to ~48mm)
 - Black plastic housing containing the peristaltic roller mechanism

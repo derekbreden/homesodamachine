@@ -1,6 +1,6 @@
 # Pump replacement
 
-The BPT tube around each Kamoer KPHM400's rotor is a consumable and a pump is replaced as a
+The BPT tube around each Kamoer KPHM600's rotor is a consumable and a pump is replaced as a
 unit. Both pumps ride `enclosure-pump-cartridge`, the printed piece whose face fills the bay in
 the front wall: pull the face against a braced box and both heads come out on its deck. No
 quadrant comes off and nothing is unscrewed.
@@ -146,10 +146,12 @@ up. **What carries a pump is its own stamped bracket**, lapping the cap's top fa
 head — so a cap that will not sit down flat is a pump that is not seated, and forcing the screws
 puts the load on the block instead of the bracket. Tug-test each pump once the cap is closed.
 
-**4. Route 1/4" OD LLDPE through the new heads** — onto the BPT barbs directly, around the
-rotor, zip-tied tight. Then push a fresh barb tube fully over each of the four barbs and leave
-it standing aft off the face; that stub is what the plate's hole passes and the branch collet
-grips.
+**4. Land 1/4" OD LLDPE in the new heads** — the tube runs around the rotor, and the LLDPE goes
+**into the tube's own bore** at each of its two ends, not onto the moulded barb. Zip-tie the tube
+down onto the LLDPE at all [4](JOINT_COUNT_4) joints and leave each length standing aft off the
+face; that LLDPE is what the plate's hole passes and the branch collet grips. **The zip tie is
+load-bearing here** — this joint takes the release tension when the cartridge is next drawn, so
+tug-test each of the four before the deck goes back in.
 
 **5. Push the cartridge home.** Spade pairs back on the motor tabs first — they are unreachable
 once the deck is in. Then the deck onto its ledges, the four tubes through the plate's holes
@@ -177,7 +179,7 @@ runs clean.
    purge and no dry mode: what it has is a per-channel PRIME (`machinePrimeBegin`,
    `machineIsPriming`, `HOLD_PRIME`), and priming FILLS where this EMPTIES. Step 1 of this
    procedure cannot be performed until something sequences them.
-2. **Dry-run wear on a KPHM400's BPT tube is not characterised.** Every one of the four states
+2. **Dry-run wear on a KPHM600's BPT tube is not characterised.** Every one of the four states
    turns a rotor on air.
 3. **A customer-facing transit mode is not written.** This procedure leaves the carbonator charged.
    The carbonator's only liquid outlet climbs to the faucet, and the factory's transit sequence is
