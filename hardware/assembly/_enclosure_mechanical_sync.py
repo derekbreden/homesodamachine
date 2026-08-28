@@ -62,6 +62,21 @@ def _span(facts, *names):
     return max(b.xmax for b in boxes) - min(b.xmin for b in boxes)
 
 
+def _notch_area(ring):
+    """HOW MUCH OF AN OUTLINE'S OWN BOUNDING RECTANGLE IS NOT INSIDE THE OUTLINE — zero is the
+    whole of "no notch", and nothing else is.
+
+    A closed outline lies inside the rectangle it is measured across, so equal areas leave it
+    nowhere to be but ON that rectangle. A bite out of an edge, a chamfered corner and a
+    stepped end each take area and leave the rectangle where it was. So does a four-point
+    outline that is not a rectangle — which is the reading a corner count cannot take."""
+    xs = [x for x, _ in ring]
+    zs = [z for _, z in ring]
+    area = abs(sum(xa * zb - xb * za
+                   for (xa, za), (xb, zb) in zip(ring, ring[1:] + ring[:1]))) / 2.0
+    return (max(xs) - min(xs)) * (max(zs) - min(zs)) - area
+
+
 def main():
     # The stations as PLACED, each read off the body's own mouth — the same station
     # `enclosure_assembly.y_wall_ports` strikes its bore on, so prose and hole cannot land on
@@ -133,6 +148,23 @@ def main():
             f"distance, or name whatever the bracket is nearest now.")
     _core_hold_clear = abs(_hold[1]) - abs(_union.xmin) if _hold else 0.0
 
+    # THE COLLET PLATE IS A PLAIN RECTANGLE, and §4 sends a builder to the DXF to check the
+    # steel against that — so `enclosure.plate_outline` is asked here whether it still is.
+    # The counts below are read off the same outline and the same hole row, and this is the
+    # half neither count can carry: four points can still be a trapezoid.
+    _plate = _box["collet_plate"]
+    _plate_ring = _enc.plate_outline(_plate)
+    _plate_notch = _notch_area(_plate_ring)
+    if _plate_notch > 1e-6:
+        raise ValueError(
+            f"the collet plate's outline falls {_plate_notch:.2f} mm² short of the "
+            f"{max(x for x, _ in _plate_ring) - min(x for x, _ in _plate_ring):.2f} × "
+            f"{max(z for _, z in _plate_ring) - min(z for _, z in _plate_ring):.2f} mm "
+            f"rectangle it stands in, so something is cut out of it. §4 is written for a "
+            f"plain rectangle end to end — either end leads, the slot is one width, and a "
+            f"notched plate is an old cut that will not seat. It needs rewriting, not "
+            f"resyncing.")
+
     variables = {
         # The box `enclosure._dims` builds around the pack, and where it comes apart.
         "BOX_SIZE": (f"{_ox1 - _ox0:.0f} × {_oy1 - _oy0:.0f} × {_oz1 - _oz0:.0f} mm"),
@@ -182,6 +214,12 @@ def main():
         # the seam's own storey — so its ends step in by what the joint takes of that band.
         "PLATE_STEP_Z": f"{_enc.seam_cap_z():.4g} mm",
         "PLATE_STEP_IN": f"{_enc.plate_step_in():.4g} mm",
+        # AND ITS SHAPE, which is what §4 hands a builder to hold the cut steel against: the
+        # turns in `plate_outline`'s own polygon, and the bores struck through it. `bom.md`
+        # writes these two names as well, off the same outline and the same row, so
+        # `docgen.lint` holds the ledger's sentence against this one.
+        "PLATE_CORNERS": f"{len(_plate_ring)}",
+        "PLATE_HOLES": f"{len(_plate['holes'])}",
         # And what the steel keeps off a PRINTED face — its own figure and not `fits.slip`,
         # which is printed-on-printed. The plate settles this far onto front-bottom's shelves,
         # because that face opposes the cap's land and the land is the datum.

@@ -23,6 +23,12 @@ written by the assembly's own run; this artifact is written beside it.
 THE CARD RIDES WITH THE VALUES. `card` names what `enclosure-assembly.scorecard.json` measured
 at the moment this was written beside it, so a reader holding both can tell whether they came
 off the same machine without importing the CAD.
+
+AND THE TREE RIDES WITH THE RUN. `card` and `step` hold the three artifacts to one run; nothing
+in them holds that run to this tree, and a stale triple agrees with itself perfectly. `sources`
+is the third digest — every file `tools/bazel/graph.json` traced the generator opening that no
+generator writes — so a reading taken off a machine that has since moved says so instead of
+reading green.
 """
 
 import json
@@ -43,6 +49,45 @@ ARTIFACT = _HW / "manifold-layout" / "enclosure-assembly.facts.json"
 SCORECARD = _HW / "manifold-layout" / "enclosure-assembly.scorecard.json"
 STEP = _HW / "manifold-layout" / "enclosure-assembly.step"
 SCHEMA = 2
+# WHAT THE RUN THAT WRITES THIS READS, as the tree's own account of it. `tools/bazel/graph.json`
+# records the files each generator was traced OPENING, so the sources behind the assembly are
+# already named and nothing here has to guess at them.
+GRAPH = _ROOT / "tools" / "bazel" / "graph.json"
+GENERATOR = "hardware/manifold-layout/enclosure_assembly.py"
+
+
+def sources() -> list:
+    """The files this artifact is taken FROM — what the generator reads and no generator writes.
+
+    A DERIVED INPUT CARRIES ITS OWN GENERATOR'S FRESHNESS AND NOT THIS ONE'S. The run opens 205
+    files and 98 of them are solids, meshes and cards some other generator drew; the sources
+    those were drawn from are in this list already, so a digest over the solids as well says
+    nothing the code does not and costs thirty seconds of hashing to say it. `writes` over the
+    whole graph is what names them, so the split is the graph's and not a suffix list of ours.
+
+    Empty when the graph is not on this disk or does not name the generator. A reading that
+    cannot be taken is not a reading that failed."""
+    try:
+        graph = json.loads(GRAPH.read_text())
+    except (OSError, ValueError):
+        return []
+    entry = graph.get(GENERATOR)
+    if not entry:
+        return []
+    derived = set()
+    for e in graph.values():
+        derived.update(e.get("writes", ()))
+        derived.update(e.get("rewritten", ()))
+    return sorted(set(entry.get("reads", ())) - derived)
+
+
+def source_digest():
+    """One name for what the whole of `sources()` computes, or None when the graph names none.
+
+    `_realized.code_digest` names a Python file by its PARSED CODE, so a comment moved is not a
+    tree moved and a doc pass does not redden this."""
+    paths = sources()
+    return _realized.digest([_ROOT / p for p in paths]) if paths else None
 
 # The pairs whose exact distance a document states and the card does not carry. The card
 # reports a pair only when it closes to within its own `REPORT_NEAR`, so a sentence naming a
@@ -281,6 +326,11 @@ def gather(whole=None, module=None):
         # AND THE SOLID IT WAS MEASURED OFF. The run writes the STEP, then the card, then
         # this, so each digest here names one of the two that went before it.
         "step": _realized.code_digest(STEP),
+        # AND THE TREE IT WAS TAKEN FROM. The two above hold the three artifacts to ONE RUN;
+        # they cannot hold that run to this tree, and a stale triple agrees with itself all the
+        # way down. This is the reading that separates "these three came off one machine" from
+        # "and that machine is the one described here" (`sources`).
+        "sources": source_digest(),
         "box": _box_plain(box),
         "constants": constants,
         "hopper_hole": hopper_hole,
@@ -519,6 +569,20 @@ class Facts:
         here = _realized.code_digest(STEP)
         return None if here is None else self._f.get("step") == here
 
+    def agrees_with_sources(self):
+        """Whether the tree beside this artifact is the one it was taken from.
+
+        None when it carries no digest for them, or when the graph is not here to take one.
+        An artifact written before this datum existed is SILENT about the tree and not wrong
+        about it — every artifact in the tree predates the key and gains one when it is next
+        written — so a reader gets None and says so rather than reading a fault into a
+        reading that was never taken."""
+        held = self._f.get("sources")
+        if held is None:
+            return None                  # and the tree is not walked to say so
+        here = source_digest()
+        return None if here is None else held == here
+
     def stale(self) -> list:
         """What this artifact names that the tree no longer holds, as lines a reader can act
         on. Empty is current.
@@ -533,6 +597,12 @@ class Facts:
         if self.agrees_with_step() is False:
             out.append(_disagrees(STEP.name, "measured off",
                                   self._f.get("step"), _realized.code_digest(STEP)))
+        if self.agrees_with_sources() is False:
+            out.append(
+                f"{ARTIFACT.name} was taken from a different tree — it holds "
+                f"{self._f.get('sources')} for the {len(sources())} sources behind "
+                f"{GENERATOR}, which stand at {source_digest()} here. The three artifacts "
+                f"agree with each other and describe a machine that has since moved.")
         return out
 
 
@@ -563,6 +633,28 @@ def selftest():
           f"{len(f.runs)} runs")
     print(f"  declared gaps: {f.gaps}")
     print(f"  artifact and card agree on the tree: {f.agrees_with_card()}")
+
+    # THE THIRD DIGEST, HELD ON ARTIFACTS THIS RUN MAKES UP. A stale triple agrees with itself,
+    # so the readings that matter are the ones no real artifact here can show at once: a tree
+    # that matches, a tree that has moved, and an artifact written before the datum existed.
+    silent = Facts({k: v for k, v in f._f.items() if k != "sources"}, f._c)
+    assert silent.agrees_with_sources() is None, \
+        "an artifact carrying no source digest reads as a fault instead of a silence"
+    assert not [ln for ln in silent.stale() if "different tree" in ln], \
+        "an artifact silent about its sources is reported stale for it"
+    here = source_digest()
+    if here is not None:
+        fresh = Facts({**f._f, "sources": here}, f._c)
+        moved = Facts({**f._f, "sources": "0" * 32}, f._c)
+        assert fresh.agrees_with_sources() is True, \
+            "a source digest naming this tree does not read current"
+        assert moved.agrees_with_sources() is False, \
+            "a source digest naming another tree reads current"
+        assert any("different tree" in ln for ln in moved.stale()), \
+            "a tree that has moved writes no line a reader can act on"
+        print(f"  {len(sources())} sources behind {GENERATOR} name this tree {here}")
+    else:
+        print(f"  no source digest: {GRAPH.relative_to(_ROOT)} names no {GENERATOR}")
     print("_facts selftest OK")
 
 
