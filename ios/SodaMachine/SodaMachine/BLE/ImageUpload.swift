@@ -310,6 +310,11 @@ extension BLEManager {
             faceReceived = 0
             faceTotal = total
         }
+        // What one frame carries, learned from a frame rather than agreed in
+        // advance. The board sizes these from the MTU it negotiated, so a
+        // constant here would be a second opinion about that — and a wrong one
+        // makes the phone hunt for gaps at offsets nothing will ever send.
+        if offset + bytes.count < total { facePixelStride = bytes.count }
         if faceHave.contains(offset) { return }   // a duplicate from a resume
 
         facePixels.replaceSubrange(offset..<(offset + bytes.count), with: bytes)
@@ -339,7 +344,7 @@ extension BLEManager {
     /// The lowest byte this phone still needs, which is where the next pull
     /// starts. Nothing about it assumes frames arrived in order.
     private func firstGap() -> Int {
-        guard faceTotal > 0 else { return 0 }
+        guard faceTotal > 0, facePixelStride > 0 else { return 0 }
         var at = 0
         while at < faceTotal {
             if !faceHave.contains(at) { return at }
