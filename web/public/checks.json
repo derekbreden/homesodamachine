@@ -7,8 +7,8 @@
     },
     {
       "check": "hardware/scripts/check_facts_current.py",
-      "note": "and the 107 sources behind them stand where they stood when it was written",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_finishes.py",
@@ -22,8 +22,8 @@
     },
     {
       "check": "hardware/scripts/check_ledger.py",
-      "note": "✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B0GPJ884VS (hardware/assembly/weld-rotation-rig.md:92)",
-      "status": "red"
+      "note": "✓ every part the instructions name is carried by bom.md or tools.md, and every procedure has a driver.",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_payloads.py",
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,18 +82,20 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 15 of 25 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 268 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 15 of 31 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 268 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
-    "hardware/scripts/check_ledger.py": [
-      "instructions: 117 files (14 procedures + 102 cards + cover) | ledger brands: 506 | waived: 1 ASIN + 4 brand",
-      "DRIFT: 4 instruction(s) out of step with the ledger:",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B07B2RTBGZ (hardware/assembly/weld-rotation-rig.md:89)",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B07B2SL9SD (hardware/assembly/weld-rotation-rig.md:89)",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B093CCLTHJ (hardware/assembly/weld-rotation-rig.md:139)",
-      "  ✗ ASIN cited by an instruction, carried by neither bom.md nor tools.md: B0GPJ884VS (hardware/assembly/weld-rotation-rig.md:92)"
+    "hardware/scripts/check_facts_current.py": [
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 4b6c9d891569bef757feab750f99e459 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at c31ebc603647be974d7b49c9f1ecffe1 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "  the three come off one run:",
+      "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
     ]
   },
   "green": false
