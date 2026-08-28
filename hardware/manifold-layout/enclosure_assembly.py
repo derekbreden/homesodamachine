@@ -6806,11 +6806,23 @@ def check_c14_collar(pieces: dict, box) -> Bound:
     geometry = _enc._c14_tunnel_geometry(
         box.inner, box.outer, box.pack.c14, box.pack.back_ports,
         box.inner[4], box.outer[5])
-    feature, bore, inserts = geometry
+    feature, bore, inserts, backing = geometry
     feature = feature.cut(bore)
+    backing = backing.cut(bore)
     for cutter in inserts:
         feature = feature.cut(cutter)
+        backing = backing.cut(cutter)
+    # The west end shares this joint with the keystone receptacle. Its cutter is applied after
+    # the C14 fuse in the production piece, so the expected C14 feature and its backing take the
+    # same final cut before either is compared with the materialized back-top.
+    keystone_geometry = _enc._keystone_receptacle_geometry(
+        box.inner, box.outer, box.pack.keystone, box.inner[4], box.outer[5])
+    if keystone_geometry is not None:
+        _keystone_feature, keystone_cutter, _keystone_catches = keystone_geometry
+        feature = feature.cut(keystone_cutter)
+        backing = backing.cut(keystone_cutter)
     missing = feature.cut(back).Volume()
+    backing_missing = backing.cut(back).Volume()
     panel_owned = feature.intersect(panel).Volume()
     host = back.fuse(panel)
     bore_occupied = bore.intersect(host).Volume()
@@ -6842,7 +6854,8 @@ def check_c14_collar(pieces: dict, box) -> Bound:
     ok = (missing <= 1e-3 and panel_owned <= 1e-3 and bore_occupied <= 1e-3
           and beyond >= 3.0 - 1e-9 and bearing_area >= 50.0
           and bearing_missing <= 1e-3 and insertion_obstruction <= 1e-3
-          and insertion_travel >= _enc.c14_insertion_relief - 1e-9)
+          and insertion_travel >= _enc.c14_insertion_relief - 1e-9
+          and backing_missing <= 1e-3)
     return record_bound(Bound(
         "c14-collar-complete",
         "One fixed back-top surround encloses and carries the C14 up to the ceiling",
@@ -6851,17 +6864,20 @@ def check_c14_collar(pieces: dict, box) -> Bound:
         f"{missing:.4f} mm³ missing from back-top, {panel_owned:.4f} mm³ in panel, "
         f"{bore_occupied:.4f} mm³ in bores; {bearing_area:.3f} mm² ceiling land with "
         f"{bearing_missing:.4f} mm³ unsupported; {insertion_travel:.2f} mm straight flange "
-        f"insertion with {insertion_obstruction:.4f} mm³ obstruction",
+        f"insertion with {insertion_obstruction:.4f} mm³ obstruction; {backing.Volume():.3f} "
+        f"mm³ straight wall backing with {backing_missing:.4f} mm³ missing",
         "the complete opened collar, tunnel, corbel and crown in fixed back-top alone; no C14 "
         "material in the panel or its bores, the show skin bearing on the crown, and the exact "
-        "flange profile translating through its Y- entry relief without touching fixed material",
+        "flange profile translating through its Y- entry relief without touching fixed material; "
+        "the seating face's opened outer profile backed straight to the wall after the keystone "
+        "cut",
         ([] if ok else [
             f"the fixed C14 feature is missing {missing:.4f} mm³, the panel still owns "
             f"{panel_owned:.4f} mm³, and its bores contain {bore_occupied:.4f} mm³; the crown "
             f"offers {bearing_area:.3f} mm² but {bearing_missing:.4f} mm³ of its raised top-layer "
             "probe is not covered by the ceiling show skin; the exact flange sweep over "
             f"{insertion_travel:.2f} mm intersects {insertion_obstruction:.4f} mm³ of fixed "
-            "back-top."])))
+            f"back-top, and {backing_missing:.4f} mm³ of the straight wall backing is absent."])))
 
 
 def check_ceiling_retention(back_top, panel) -> Bound:
@@ -7748,7 +7764,7 @@ def selftest():
     # 45 degrees.
     inner = (-1000.0, 1000.0, -1000.0, 1000.0, -1000.0, 1000.0)
     outer = (0.0, 0.0, 0.0, _enc.rear_plane_y + _enc.wall, 0.0, 0.0)
-    feature, bore, inserts = _enc._c14_tunnel_geometry(
+    feature, bore, inserts, _backing = _enc._c14_tunnel_geometry(
         inner, outer, c14_stations(), [c14_cutout()], -1000.0, 1000.0)
     feature = feature.cut(bore)
     for cutter in inserts:
@@ -7771,6 +7787,16 @@ def selftest():
             raise AssertionError(
                 f"the C14 collar's {'west' if side < 0 else 'east'} corbel stops before the "
                 f"wall; its sheared exact outer profile is absent at {probe}")
+    fore = c14_seat_y()
+    for side in (-1.0, 1.0):
+        x = C14_STATION[0] + side * (collar_hx - 3.5)
+        z = C14_STATION[1] + 2.25
+        for y in (fore + 0.25, (fore + _enc.rear_plane_y) / 2.0,
+                  _enc.rear_plane_y - 0.25):
+            if not feature.isInside((x, y, z)):
+                raise AssertionError(
+                    f"the C14 collar's {'west' if side < 0 else 'east'} seating-face backing "
+                    f"opens before the wall at {(x, y, z)}")
     ledges = []
     for face in feature.Faces():
         bb = face.BoundingBox()
@@ -7786,7 +7812,8 @@ def selftest():
             f"the C14's rounded tunnel stands over {sum(ledges):.4f} mm² of flat corbel ledge; "
             "strike the support on the tunnel outline rather than its envelope")
     yield ("the C14 corbel carries its rounded tunnel and full exact-profile collar to the "
-           "wall without a flat ledge or air channel")
+           "wall without a flat ledge or air channel, and the seating face is backed straight "
+           "to that wall")
 
 
 def main():
