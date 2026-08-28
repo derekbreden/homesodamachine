@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "✓ every payload stands within the budget its print was cut to",
-      "status": "ok"
+      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
+      "status": "red"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -52,7 +52,7 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1334 tracked, 268 fetched solids, 53 tags",
+      "note": "paths: every reference lands — 1336 tracked, 268 fetched solids, 53 tags",
       "status": "ok"
     },
     {
@@ -81,6 +81,27 @@
       "status": "ok"
     }
   ],
-  "detail": {},
-  "green": true
+  "detail": {
+    "hardware/scripts/check_flutes.py": [
+      "4 payload(s) were cut from a STEP that is no longer the one beside them:",
+      "  ✗ enclosure-back-bottom — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-back-top — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-front-bottom — the viewer draws this file, and it is another machine's",
+      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
+      "  the flute cut is what puts the surface back:",
+      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
+    ],
+    "hardware/scripts/check_payloads.py": [
+      "4 solid(s) whose surface is not in the payload beside them:",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
+      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
+      "  the run that cuts a solid writes the payload beside it:",
+      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "  and the enclosure's flutes go back into those payloads after:",
+      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ]
+  },
+  "green": false
 }
