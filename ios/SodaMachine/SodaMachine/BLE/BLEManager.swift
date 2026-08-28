@@ -91,6 +91,9 @@ class BLEManager {
     var imageQueue: [QueuedImage] = []
     // A read-back in flight, and the crcs already asked for, so a face is
     // fetched once ever rather than once per state frame.
+    /// Faces by the crc32 of the picture they belong to. Observable, so a face
+    /// that lands redraws the tile that was waiting for it.
+    var faces: [UInt32: UIImage] = [:]
     @ObservationIgnored var faceBuffer = Data()
     @ObservationIgnored var faceSlot = -1
     @ObservationIgnored var faceWanted = Set<UInt32>()

@@ -238,8 +238,7 @@ struct FlavorImagePicker: View {
     /// it sent that picture or read it back off the machine.
     private func customImage(_ art: Int) -> UIImage? {
         guard let slot = ble.flavorArt.customSlot(art: art) else { return nil }
-        return PictureCache.load(unit: ble.connectedMachine?.unit ?? "",
-                                 crc: ble.imageSlots.crc(of: slot))
+        return ble.faces[ble.imageSlots.crc(of: slot)]
     }
 
     /// The picker is the control, and it holds nothing in view state that a
