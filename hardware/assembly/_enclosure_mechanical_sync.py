@@ -63,8 +63,8 @@ def _span(facts, *names):
 
 
 def _notch_area(ring):
-    """HOW MUCH OF AN OUTLINE'S OWN BOUNDING RECTANGLE IS NOT INSIDE THE OUTLINE — zero is the
-    whole of "no notch", and nothing else is.
+    """An outline's bounding rectangle, and HOW MUCH OF THAT RECTANGLE IS NOT INSIDE THE
+    OUTLINE — zero is the whole of "no notch", and nothing else is.
 
     A closed outline lies inside the rectangle it is measured across, so equal areas leave it
     nowhere to be but ON that rectangle. A bite out of an edge, a chamfered corner and a
@@ -72,9 +72,10 @@ def _notch_area(ring):
     outline that is not a rectangle — which is the reading a corner count cannot take."""
     xs = [x for x, _ in ring]
     zs = [z for _, z in ring]
+    w, h = max(xs) - min(xs), max(zs) - min(zs)
     area = abs(sum(xa * zb - xb * za
                    for (xa, za), (xb, zb) in zip(ring, ring[1:] + ring[:1]))) / 2.0
-    return (max(xs) - min(xs)) * (max(zs) - min(zs)) - area
+    return w, h, w * h - area
 
 
 def main():
@@ -154,12 +155,11 @@ def main():
     # half neither count can carry: four points can still be a trapezoid.
     _plate = _box["collet_plate"]
     _plate_ring = _enc.plate_outline(_plate)
-    _plate_notch = _notch_area(_plate_ring)
+    _plate_w, _plate_h, _plate_notch = _notch_area(_plate_ring)
     if _plate_notch > 1e-6:
         raise ValueError(
             f"the collet plate's outline falls {_plate_notch:.2f} mm² short of the "
-            f"{max(x for x, _ in _plate_ring) - min(x for x, _ in _plate_ring):.2f} × "
-            f"{max(z for _, z in _plate_ring) - min(z for _, z in _plate_ring):.2f} mm "
+            f"{_plate_w:.2f} × {_plate_h:.2f} mm "
             f"rectangle it stands in, so something is cut out of it. §4 is written for a "
             f"plain rectangle end to end — either end leads, the slot is one width, and a "
             f"notched plate is an old cut that will not seat. It needs rewriting, not "
