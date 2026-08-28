@@ -13,7 +13,7 @@ struct ApplianceView: View {
     @Environment(BLEManager.self) var ble
     @State private var inFirmware = false
     @State private var inMachines = false
-    @State private var inImages = false
+    @State private var pickingFor: Int?
 
     var body: some View {
         ZStack {
@@ -35,9 +35,12 @@ struct ApplianceView: View {
                 Spacer()
 
                 VStack(spacing: 0) {
-                    // The two things only this app can do to a machine
-                    // someone owns: change what it runs, and change its face.
-                    button("Your Pictures") { inImages = true }
+                    // The two things only this app can do to a machine someone
+                    // owns: change what it runs, and change what it looks like.
+                    // Picking a face is asked per flavor, because that is the
+                    // question — not "manage your pictures".
+                    button("Flavor 1 Image") { pickingFor = 0 }
+                    button("Flavor 2 Image") { pickingFor = 1 }
                     button("Software Update") { inFirmware = true }
                 }
                 .padding(.horizontal, 24)
@@ -62,9 +65,12 @@ struct ApplianceView: View {
             }
             .presentationBackground(Theme.background)
         }
-        .sheet(isPresented: $inImages) {
-            ImagesView()
-                .presentationBackground(Theme.background)
+        .sheet(isPresented: Binding(get: { pickingFor != nil },
+                                    set: { if !$0 { pickingFor = nil } })) {
+            if let ch = pickingFor {
+                FlavorImagePicker(channel: ch)
+                    .presentationBackground(Theme.background)
+            }
         }
         .sheet(isPresented: $inMachines) {
             MachinePickerView(onPick: { inMachines = false })
