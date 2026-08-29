@@ -520,6 +520,7 @@ static bool flavorMainBoardPersisted = false;
 static bool flavorMainBoardPersistError = false;
 static bool flavorRequestPending = false;
 static bool flavorQueryOutstanding = false;
+static unsigned long idleAskedMs = 0;
 static uint32_t flavorRequestToken = 0;
 static uint32_t flavorTokenState = 1;
 static unsigned long flavorRequestStartedMs = 0;
@@ -531,6 +532,7 @@ static uint32_t flavorStaleResponses = 0;
 
 #define FLAVOR_QUERY_ACTIVE_MS      250
 #define FLAVOR_QUERY_BACKGROUND_MS  500
+#define IDLE_REASK_MS               5000
 #define FLAVOR_RESPONSE_TIMEOUT_MS  600
 #define FLAVOR_AUDIBLE_FRESH_MS     300
 #define BOOT_LOCK_MIN_MS            (NUM_ANIM_FRAMES * ANIM_FRAME_MS * 2)
@@ -559,6 +561,19 @@ static bool idleAsleepWanted = false;  // what it last said
 static uint32_t idleWindowMs = 0;      // the window it is counting against
 static uint8_t idleStage = 0;    // 0 lit · 1 dark · 2 at the page's root · 3 Choose
 static bool screenIdle = false;  // true while asleep (backlight off via idle)
+
+// A finger here is presence the main board has to hear. It keeps the one clock
+// for both glasses, so a touch it never learns of leaves the other glass dark
+// and this one about to follow it back down. MSG_TOUCH is a single frame into a
+// half-duplex pair that may be mid-repair, so it is retried rather than sent
+// once — and until an idle publication comes back agreeing this board is awake,
+// the dark is held off. Otherwise the sleep the main board published before it
+// heard the touch arrives afterward and undoes the wake, which reads at the
+// glass as a screen that turns itself off a few seconds after being tapped.
+static unsigned long touchUnconfirmedSince = 0;   // 0 when the main board agrees
+static unsigned long touchConfirmRetryMs = 0;
+#define TOUCH_CONFIRM_RETRY_MS   750
+#define TOUCH_CONFIRM_GIVEUP_MS  10000
 
 // ── Touch (GT911) ──
 static uint8_t gt911Addr = 0;     // probed at init (0 = not found)
@@ -1243,6 +1258,21 @@ static uint8_t       outHighWater = 0;
 static uint32_t      outDropped = 0;
 static unsigned long lastTxMs = 0;
 static bool          awaitingAnswer = false;
+
+// The pair goes quiet while this glass is dark, and dark is when the main board
+// most needs it: it never speaks unprompted, so everything it has to say waits
+// for a turn this board's poll gives it. A transport that fails while nobody is
+// looking therefore silences the machine rather than only this screen — the
+// faucet can be touched, the flavor changed, the idle clock run out and back,
+// and none of it arrives. Nothing here recovers on its own either, because a
+// dark glass is not being asked to.
+//
+// So the watchdog is armed by a transmission rather than by a screen: the first
+// frame sent into a silence starts the clock, anything arriving stops it. What
+// is being polled, and whether the backlight is on, stop mattering.
+static unsigned long j9SilentSinceMs = 0;   // 0 when the far end is answering
+#define J9_SILENT_MS 3000
+
 static bool          holding = false;
 
 // ── Firmware arriving over J9 ─────────────────────────────────────────────
@@ -1433,6 +1463,10 @@ static void j9Pump() {
   outCount--;
   lastTxMs = millis();
   awaitingAnswer = true;
+  // The first frame into a silence dates it. Later ones do not move the mark:
+  // the question is how long the far end has been unreachable, not how much
+  // has been said into it since.
+  if (!j9SilentSinceMs) j9SilentSinceMs = lastTxMs ? lastTxMs : 1;
 }
 
 static uint32_t nextFlavorToken() {
@@ -1530,12 +1564,21 @@ static void flavorLinkService() {
                                              : FLAVOR_QUERY_ACTIVE_MS;
   if (now - flavorQueryQueuedMs < interval || outCount >= OUT_Q_DEPTH / 2) return;
   j9Post(MSG_FLAVOR_QUERY, nullptr, 0);
-  // Asked once per link session; the main board republishes on every change,
-  // so a second ask would only crowd a pair that is already telling us.
+  // The artwork is asked for once: the main board republishes every change to
+  // it, and a change is a thing someone did rather than a clock running out.
   if (!flavorArtAsked) {
     j9Post(MSG_FLAVOR_ART_QUERY, nullptr, 0);
-    j9Post(MSG_IDLE_QUERY, nullptr, 0);
     flavorArtAsked = true;
+  }
+  // Idle is asked for again, slowly and forever. It is the one piece of main
+  // board truth that moves with no one touching anything, and the announcement
+  // carrying it has to win a turn against a four-deep queue and a pair that may
+  // be under repair. Missing one is how a lit pair goes dark, or a dark one
+  // stays dark through a finger on the other glass; asking again is what puts a
+  // ceiling on how long either lasts.
+  if (now - idleAskedMs >= IDLE_REASK_MS) {
+    idleAskedMs = now;
+    j9Post(MSG_IDLE_QUERY, nullptr, 0);
   }
   flavorQueryQueuedMs = now;
   flavorQueryOutstanding = true;
@@ -1557,7 +1600,6 @@ static unsigned long ctrlStatusMs = 0;
 static unsigned long statusAskedMs = 0;
 
 static uint32_t linkReinits = 0;
-static uint8_t  unanswered = 0;      // status polls sent since a frame last arrived
 static uint32_t padMux[2] = {0, 0}, padOut[2] = {0, 0};
 
 // A prime hold: the finger is down on the pad and ticks are going out under it. holdAckMs
@@ -1616,7 +1658,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   uint16_t plen = msgPayloadLen(len);
   char buf[64];
 
-  unanswered = 0;   // anything arriving says the far end is still hearing us
+  j9SilentSinceMs = 0;   // anything arriving says the far end is still hearing us
 
   if (type == MSG_OTA_BEGIN || type == MSG_OTA_DATA || type == MSG_OTA_ABORT) {
     otaOnFrame(type, payload, plen);
@@ -1712,6 +1754,10 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     idleAsleepKnown = true;
     idleWindowMs = idle.windowMs;
     idleAsleepWanted = idle.asleep != 0;
+    // An awake state is the main board answering for the touch: it only leaves
+    // sleep when a finger has been reported to it, on either glass. A sleep
+    // state proves nothing about ours, so it does not close the question.
+    if (!idleAsleepWanted) touchUnconfirmedSince = 0;
     // Waking is immediate; going dark waits for the loop, where a live hold or
     // an operation lock can still hold it off.
     if (!idleAsleepWanted && screenIdle) wake();
@@ -1853,7 +1899,8 @@ static void j9Reinit(const char *why) {
   Serial1.end();
   j9Begin();
   padSample(padMux, padOut);
-  unanswered = 0;
+  j9SilentSinceMs = 0;
+  awaitingAnswer = false;   // the wire this was waiting on no longer exists
 }
 
 static void padWatch() {
@@ -3678,8 +3725,9 @@ static void processTextLine(const char *line) {
                   (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale,
                   (unsigned long)touchCount, (unsigned)lastTouchX, (unsigned)lastTouchY);
-    Serial.printf("DIAG_SYS:unanswered=%u,psram=%lu,freePsram=%lu,bl=%d,frame=%u,uptime=%lus\n",
-                  (unsigned)unanswered, (unsigned long)ESP.getPsramSize(),
+    Serial.printf("DIAG_SYS:silentMs=%lu,psram=%lu,freePsram=%lu,bl=%d,frame=%u,uptime=%lus\n",
+                  j9SilentSinceMs ? (unsigned long)(millis() - j9SilentSinceMs) : 0UL,
+                  (unsigned long)ESP.getPsramSize(),
                   (unsigned long)ESP.getFreePsram(), backlightOn ? 1 : 0,
                   (unsigned)animFrameIdx, millis() / 1000);
     Serial.printf("DIAG_PRIME:known=%d,desired=%d,cancel=%d,stop=%d,lost=%d,phase=%u,owner=%u,outcome=%u,"
@@ -4050,6 +4098,25 @@ void loop() {
   if (touchPending) {
     touchPending = false;
     if (!pressSpoke) j9Post(MSG_TOUCH, nullptr, 0);
+    // Whichever frame carried it, the main board owes an awake idle state back.
+    // Arming on the press rather than on the send covers the command path too:
+    // a flavor select is presence, and one that is lost is presence lost.
+    if (!touchUnconfirmedSince) {
+      touchUnconfirmedSince = millis() ? millis() : 1;
+      touchConfirmRetryMs = millis();
+    }
+  }
+
+  // Say it again until it is heard, then stop. A pair being rebuilt under the
+  // watchdog loses the frames in flight across the rebuild; this is what makes
+  // a tap survive that rather than needing a second tap.
+  if (touchUnconfirmedSince) {
+    if (millis() - touchUnconfirmedSince >= TOUCH_CONFIRM_GIVEUP_MS) {
+      touchUnconfirmedSince = 0;   // the link is past a retry's help
+    } else if (millis() - touchConfirmRetryMs >= TOUCH_CONFIRM_RETRY_MS) {
+      touchConfirmRetryMs = millis();
+      j9Post(MSG_TOUCH, nullptr, 0);
+    }
   }
 
   tilePickService();   // a tile chosen only once its gesture is not a drag
@@ -4151,8 +4218,7 @@ void loop() {
   }
 
   // The status request keeps main board truth fresh once a second whenever a
-  // shared prime hold does not own the pair. Three unanswered turns recover the
-  // transport before the next customer action depends on it.
+  // shared prime hold does not own the pair.
   if (uiReady && !screenIdle && !primeLinkOwnsJ9()) {
     // The main board no longer speaks unprompted — a prime that timed out or a
     // pump that finished waits for a frame to answer. This poll is what collects
@@ -4160,10 +4226,20 @@ void loop() {
     // pair is ~50 bytes; at 115200 that is 1% of the pair at this interval.
     if (millis() - statusAskedMs >= 1000) {
       statusAskedMs = millis();
-      if (unanswered >= 3) j9Reinit("3 status polls unanswered");
-      else                 unanswered++;
       j9Post(MSG_STATUS_REQ, nullptr, 0);
     }
+  }
+
+  // Recovery is the link's own business, so it runs on every pass rather than
+  // beside the poll that used to notice — the background flavor query keeps the
+  // pair busy while this glass is dark, and that is exactly when a wedge here
+  // makes the whole machine unreachable rather than only this screen. Shares the
+  // prime backoff clock: both reinit the same transport, and one that has just
+  // been rebuilt deserves longer than this window to answer.
+  if (j9SilentSinceMs && millis() - j9SilentSinceMs >= J9_SILENT_MS &&
+      millis() - primeLastReinitMs >= PRIME_REINIT_BACKOFF_MS) {
+    primeLastReinitMs = millis();
+    j9Reinit("no answer for 3s");
   }
 
   // Choose's cached refresh does no LVGL work while the main board's selection
@@ -4182,7 +4258,7 @@ void loop() {
   // applyIdleState(). An active operation lock and a live hold still hold it off
   // here, because those are this panel's own business.
   if (displayReady && !screenIdle && idleAsleepKnown && idleAsleepWanted &&
-      !holding && !lockActive) {
+      !holding && !lockActive && !touchUnconfirmedSince) {
     const bool primeRunning = primeSessionKnown && !primeLinkLost &&
                               primeSession.phase == PRIME_SESSION_RUNNING;
     if (!primeRunning) {

@@ -111,6 +111,18 @@ static bool dimmed = false;
 static bool idleAsleepWanted = false;   // what the main board last said
 static unsigned long lastInputTime = 0;
 
+// A finger here is presence the main board keeps for both glasses, and J3 takes
+// MSG_TOUCH without owing an acknowledgement for it — a full TinyProto window or
+// a link a moment from reconnecting drops one silently. Left dropped, the main
+// board stays asleep, the enclosure stays dark through every tap on this glass,
+// and the idle heartbeat dims this one back down under the finger that just woke
+// it. So the touch is repeated until an idle state comes back agreeing the
+// machine is awake, and the dim is held off while that is outstanding.
+static unsigned long touchUnconfirmedSince = 0;
+static unsigned long touchConfirmRetryMs = 0;
+#define TOUCH_CONFIRM_RETRY_MS   750
+#define TOUCH_CONFIRM_GIVEUP_MS  10000
+
 // ── Pin assignments (fixed by Waveshare ESP32-S3-Touch-LCD-1.47) ──
 
 // Display SPI (JD9853, 172x320, driven via the ST7789 command set)
@@ -337,6 +349,17 @@ void faucetApplyFlavorArt(const uint8_t art[2]) {
   if (moved) bleImagePublishArt();
 }
 
+// Every finger on this glass, and nothing else. wakeBacklight() alone will not
+// do: the main board's own idle publication and an arriving transfer both wake
+// this screen, and neither is a touch to report back.
+static void faucetTouched() {
+  if (!touchUnconfirmedSince) {
+    touchUnconfirmedSince = millis() ? millis() : 1;
+    touchConfirmRetryMs = millis();
+  }
+  baseLinkTouched();
+}
+
 static void wakeBacklight() {
   // The main board is being told a finger landed. Take the awake state now, or
   // the loop re-dims against the sleep it last published before the answer.
@@ -377,13 +400,13 @@ static void onTap(lv_event_t *e) {
   if (dimmed) {  // a tap on a dimmed screen only wakes it
     lastInputTime = millis();
     wakeBacklight();
-    baseLinkTouched();
+    faucetTouched();
     return;
   }
   const uint8_t before = activeFlavor;
   selectFlavorLocally(activeFlavor ^ 1);
   // A tap that changed nothing sent nothing, and is still a finger.
-  if (activeFlavor == before) baseLinkTouched();
+  if (activeFlavor == before) faucetTouched();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -593,6 +616,9 @@ void faucetApplyOta(bool active, uint8_t percent) {
 
 void faucetApplyIdle(bool asleep) {
   idleAsleepWanted = asleep;
+  // Awake is the main board answering for a reported finger — it leaves sleep
+  // for nothing else. Asleep says only that it has not heard ours yet.
+  if (!asleep) touchUnconfirmedSince = 0;
   if (!asleep && dimmed) {
     lastInputTime = millis();
     wakeBacklight();
@@ -603,6 +629,7 @@ static bool primeWakeOnly() {
   if (!dimmed) return false;
   lastInputTime = millis();
   wakeBacklight();
+  faucetTouched();
   // Waking consumes the whole physical touch, even if the finger slides from
   // one half of the screen into the other before it lifts.
   if (touchInput) lv_indev_wait_release(touchInput);
@@ -1195,9 +1222,22 @@ void loop() {
   // done, then fade toward it. Waking snaps to full (wakeBacklight), so the
   // stepper only walks down. A live hold is this head's own business and holds
   // the dark off regardless.
+  // Say it again until it is heard, then stop. A window that was full when the
+  // finger landed has room a moment later, and a link that was reconnecting is
+  // connected — neither is worth a lost tap.
+  if (touchUnconfirmedSince) {
+    if (millis() - touchUnconfirmedSince >= TOUCH_CONFIRM_GIVEUP_MS) {
+      touchUnconfirmedSince = 0;   // J3 is past a retry's help
+    } else if (millis() - touchConfirmRetryMs >= TOUCH_CONFIRM_RETRY_MS) {
+      touchConfirmRetryMs = millis();
+      baseLinkTouched();
+    }
+  }
+
   const bool primeRunning = primeSessionKnown && !primeLinkLost &&
                             primeSession.phase == PRIME_SESSION_RUNNING;
-  if (!dimmed && idleAsleepWanted && !primePressed && !primeRunning) {
+  if (!dimmed && idleAsleepWanted && !primePressed && !primeRunning &&
+      !touchUnconfirmedSince) {
     dimmed = true;
     blTarget = BL_DIM_DUTY;
     Serial.println("Backlight dim (appliance idle)");
