@@ -7291,6 +7291,103 @@ def check_ground_ceiling_gable(ground, pieces: dict, box) -> Bound:
             "restoring a horizontal, material-rooted support band."])))
 
 
+def check_prv_chase_corbels(pieces: dict, box) -> Bound:
+    """The PRV groove and its top-piece rib both leave the wall on 45-degree X planes.
+
+    These are the chase's two lowest down-facing surfaces. The groove-to-duct transition is
+    only one wall above the bed, and the top rib begins on the Z-seam rim, so a flat at either
+    station creates a separate low support contact while every clearance and motion check still
+    passes. Read the actual planar topology: the outer groove roof must span the exact wall
+    section at 45 degrees, the rib floor must end at its core-side lip on the continuation of a
+    45-degree plane rooted at the grown flank, and no horizontal floor may survive inboard of
+    that root. The square discharge mouth and its lower land are checked independently so a
+    generous cut cannot pass merely by deleting the two flats.
+    """
+    if not box.pack.vent_chase:
+        return record_bound(Bound(
+            "prv-chase-corbels",
+            "The PRV groove and top rib close on wall-rooted X ramps",
+            True, "no PRV chase station", "both ramps when the cold core carries a PRV line", []))
+
+    fixed = pieces["back-top"]
+    fixed = fixed.val() if hasattr(fixed, "val") else fixed
+    rib_x, sy, sz = box.pack.vent_chase[0]
+    outer_x, inner_x = box.outer[0], box.inner[0]
+    root_x = _enc.back_top_flank_face()[0]
+    half = _enc.vent_channel_w / 2.0 + _enc.vent_rib_wall
+    groove_top = sz - _enc.vent_duct_drop
+    rim = _enc.z_seam + _enc.z_rise
+    roof_run = rib_x - root_x
+    mouth_bot = sz - _enc.vent_channel_w / 2.0
+    tol = 0.02
+    diag = 1.0 / math.sqrt(2.0)
+
+    groove_ramps = []
+    base_ramps = []
+    flat_roofs = []
+    for face in fixed.Faces():
+        if face.geomType() != "PLANE":
+            continue
+        b = face.BoundingBox()
+        c = face.Center()
+        n = face.normalAt(c)
+        down_diag = (abs(n.x - diag) <= tol and abs(n.y) <= tol
+                     and abs(n.z + diag) <= tol)
+        if down_diag:
+            if (abs(b.xmin - outer_x) <= tol and abs(b.xmax - inner_x) <= tol
+                    and abs(b.ymin - (sy - _enc.vent_channel_w / 2.0)) <= tol
+                    and abs(b.ymax - (sy + _enc.vent_channel_w / 2.0)) <= tol
+                    and abs(b.zmin - groove_top) <= tol
+                    and abs(b.zmax - (groove_top + inner_x - outer_x)) <= tol):
+                groove_ramps.append(face)
+            if (abs(b.xmax - rib_x) <= tol
+                    and abs(b.ymin - (sy - half)) <= tol
+                    and abs(b.ymax - (sy + half)) <= tol
+                    and abs(b.zmax - (rim + roof_run)) <= tol):
+                base_ramps.append(face)
+        if abs(n.z + 1.0) <= tol and abs(b.zmax - b.zmin) <= tol:
+            old_groove = (abs(b.zmin - groove_top) <= tol
+                          and b.ymax > sy - _enc.vent_channel_w / 2.0 + tol
+                          and b.ymin < sy + _enc.vent_channel_w / 2.0 - tol
+                          and b.xmax > outer_x + tol and b.xmin < inner_x - tol)
+            old_base = (abs(b.zmin - rim) <= tol
+                        and b.ymax > sy - half + tol and b.ymin < sy + half - tol
+                        and b.xmax > root_x + tol)
+            if old_groove or old_base:
+                flat_roofs.append(face)
+
+    mouth = _enc._ybox(
+        rib_x - 0.5, rib_x + 0.5,
+        sy - _enc.vent_channel_w / 2.0 + 0.2,
+        sy + _enc.vent_channel_w / 2.0 - 0.2,
+        mouth_bot + 0.2, sz + _enc.vent_channel_w / 2.0 - 0.2)
+    mouth_stock = mouth.intersect(fixed).Volume()
+    land = _enc._ybox(
+        rib_x - 0.5, rib_x,
+        sy - _enc.vent_channel_w / 2.0 + 0.2,
+        sy + _enc.vent_channel_w / 2.0 - 0.2,
+        mouth_bot - _enc.vent_rib_wall + 0.2, mouth_bot - 0.2)
+    land_missing = land.cut(fixed).Volume()
+    lip_land = mouth_bot - (rim + roof_run)
+    ok = (len(groove_ramps) == 1 and len(base_ramps) == 1 and not flat_roofs
+          and mouth_stock <= 1e-4 and land_missing <= 1e-4
+          and lip_land >= _enc.vent_rib_wall - tol)
+    return record_bound(Bound(
+        "prv-chase-corbels",
+        "The PRV groove and top rib close on wall-rooted X ramps",
+        ok,
+        f"{inner_x - outer_x:.2f} mm groove ramp, {roof_run:.2f} mm rib corbel; "
+        f"{len(flat_roofs)} flat support roofs; {mouth_stock:.4f} mm³ in the square mouth, "
+        f"{land_missing:.4f} mm³ missing lower land, {lip_land:.2f} mm lip land",
+        "one exact 45-degree X plane at each level, no horizontal support face, the complete "
+        "square mouth open and at least one rib wall below it",
+        ([] if ok else [
+            f"found {len(groove_ramps)} groove ramps, {len(base_ramps)} rib-base corbels and "
+            f"{len(flat_roofs)} horizontal support roofs; the mouth contains "
+            f"{mouth_stock:.4f} mm³, its lower land is missing {land_missing:.4f} mm³, and "
+            f"only {lip_land:.2f} mm remains below it."])))
+
+
 def check_ceiling_retention(back_top, panel) -> Bound:
     """Both headless keeper screws cross the empty dado mouths only after the panel is home.
 
@@ -7867,6 +7964,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     check_c14_collar(pieces, box)
     check_c14_ceiling_corbel(_solids(a)["c14-inlet"][0], box)
     check_ground_ceiling_gable(_solids(a)["ground-stack"][0], pieces, box)
+    check_prv_chase_corbels(pieces, box)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.
