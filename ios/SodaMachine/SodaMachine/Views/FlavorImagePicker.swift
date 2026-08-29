@@ -58,13 +58,13 @@ struct FlavorImagePicker: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 20)
 
-                    if case .failed(let why) = ble.imageUploadState {
-                        Text(why)
-                            .font(.system(size: 13))
-                            .foregroundStyle(Color.red.opacity(0.85))
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 32)
-                            .padding(.bottom, 20)
+                    // A disagreement about what a picture is stands the moment
+                    // the machine has said, so it is said here rather than
+                    // waiting to be discovered by a photograph someone framed.
+                    if let why = ble.imageSizeMismatch {
+                        note(why)
+                    } else if case .failed(let why) = ble.imageUploadState {
+                        note(why)
                     }
                 }
             }
@@ -263,6 +263,15 @@ struct FlavorImagePicker: View {
                         await MainActor.run { cropping = image }
                     }
                 })
+    }
+
+    private func note(_ why: String) -> some View {
+        Text(why)
+            .font(.system(size: 13))
+            .foregroundStyle(Color.red.opacity(0.85))
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, 32)
+            .padding(.bottom, 20)
     }
 
     /// A new picture takes whichever slot is free, and wears itself at once —
