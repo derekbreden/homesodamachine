@@ -1044,9 +1044,10 @@ back_top_wall_t = 6.0
 # takes. The name is carried because a relief that drifts off the thing it was cut for is a
 # relief for nothing, and `back_wall_t_at` read at the placed station is what says whether it
 # still lands on it (`enclosure_assembly.check_wall_clamped`, `_c14_tunnel`).
+c14_station_x = 66.9
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
-    ("c14-inlet", 69.0, 336.21, 47.0, 35.15),     # the established tunnel footprint
+    ("c14-inlet", c14_station_x, 336.21, 47.0, 35.15),  # the established tunnel footprint
 )
 
 # --- what stands on that relief: the C14's tunnel ------------------------------
@@ -1190,7 +1191,7 @@ front_bottom_flank_t = 9.0
 # throws away the one part of the corbel that is rooted on the flank and self-supporting, and
 # leaves the whole strip's width hanging. So a row gives up what its body occupies and no more.
 #
-# THE FOUR ROWS ARE MEASURED AGAINST THE PLACED SOLIDS AND NOT AGAINST THEIR BOXES, and the
+# THE TWO ELECTRONICS ROWS ARE MEASURED AGAINST THE PLACED SOLIDS AND NOT AGAINST THEIR BOXES, and the
 # difference is most of what they say. A bounding box on this pack stands well inside its own
 # metal, and a strip read off boxes is a strip with no corbel left in it. What the exact solids
 # reach — the y band the metal is actually in, how far inboard it comes, and the clearance the
@@ -1198,13 +1199,12 @@ front_bottom_flank_t = 9.0
 #
 #   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 3..22    (box y 252.5..322.5)
 #   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..22    (box y 325..343, x 84.45)
-#   c14-inlet      y 455.75..458.75, in to |x| 80.71, gives up 0..14    (box y 434.8..465.8)
 #
-# The C14 is the sharpest of the three: its box says the receptacle is under this strip for the
-# last 31 mm of it, and the casting is in the corbel for TWO — the moulded rim round the
-# aperture, and nothing else on the part. That rim comes hard against the panel's edge and
-# carries out to |x| 92.50, so it takes the wedge's thin end and the run behind it; the last
-# eight millimetres of run, where the wedge is deepest and roots on the flank, stand.
+# THE C14 KEEPS THE COMPLETE +X WEDGE. Its X station is struck 2.1 mm inboard of the nominal
+# rear-panel column, which leaves the purchased moulded rim one millimetre clear of the exact
+# 45° ceiling corbel while keeping its Z on the top port row. Its tunnel, screws and wall relief
+# all read that one station, so no ceiling-relief row is needed and no short roof is left over
+# the printed collar below.
 #
 # THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes four rows because what
 # it occupies is four different things. Read off the placed chain against the full wedge, the
@@ -1237,9 +1237,6 @@ back_top_ceiling_reliefs = (
     # stack's own single boss is centred y 334.0, so its end faces lie on y 330.5 and 337.5.
     ("relay-1",        +1.0, 250.0, 325.0, 3.0, _RAIL),   # the relay's crown, mid-strip
     ("ground-stack",   +1.0, 327.0, 341.5, 5.0, _RAIL),   # the +X ground bar's stack, aft of it
-    # A millimetre outboard of the rim's own face at |x| 92.50, so the cut stands on a plain
-    # face the way the relay's band does at its ends.
-    ("c14-inlet",      +1.0, 454.0, 461.0, 0.0, 14.0),    # the receptacle's rim, on the +Y wall
     # The tap-water chain's four. The barrel and the body give up what they stand in; the two tie
     # bands give up the whole run, so the zip tie's cavity opens on air out to the wall.
     ("asse1022-barrel",   -1.0, 354.0, 394.0, 0.0, 16.0),
@@ -4888,6 +4885,26 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     return band.cut(relief) if relief is not None else band
 
 
+def _back_top_ceiling_corbel(inner, y_joint, sx):
+    """One complete, unrelieved back-top ceiling-strip corbel.
+
+    The main run rises from the nominal flank face to the slide-in panel's edge. Ahead of the
+    panel it follows the dado's blind edge instead, ending at the first plane the Y telescope
+    cannot reach. `_back_top_ceiling` cuts only the named body bands from this exact solid, and
+    the assembly clearance gates use it unchanged when a placed body is expected to need no
+    relief at all."""
+    cp = _ceiling()
+    iz1 = inner[5]
+    half, wall_x = cp.panel_half_w, back_top_flank_face()[1 if sx > 0.0 else 0]
+    edge, deep = sx * half, abs(wall_x) - half
+    corbel = _xz_prism(cp.fore_y, cp.aft_y,
+                       [(edge, iz1), (wall_x, iz1), (wall_x, iz1 - deep)])
+    fore_deep = abs(wall_x) - cp.dado_blind_x
+    return corbel.fuse(_xz_prism(
+        back_top_flank_start(y_joint), cp.fore_y,
+        [(sx * cp.dado_blind_x, iz1), (wall_x, iz1), (wall_x, iz1 - fore_deep)]))
+
+
 def _back_top_ceiling(solid, inner, y_joint):
     """WHAT BACK-TOP KEEPS OF ITS CEILING, and what it gives the slide-in panel — the field taken
     away between the two side strips, each strip corbelled and relieved where a body stands in it,
@@ -4933,13 +4950,8 @@ def _back_top_ceiling(solid, inner, y_joint):
     # ahead of that the ceiling is the mouth the front lip telescopes through, and a corbel there
     # would be drawn inside the lip's own lane.
     for sx, wall_x in ((+1.0, flanks[1]), (-1.0, flanks[0])):
-        edge, deep = sx * half, abs(wall_x) - half
-        corbel = _xz_prism(cp.fore_y, cp.aft_y,
-                           [(edge, iz1), (wall_x, iz1), (wall_x, iz1 - deep)])
-        fore_deep = abs(wall_x) - blind_x
-        corbel = corbel.fuse(_xz_prism(back_top_flank_start(y_joint), cp.fore_y,
-                                       [(sx * blind_x, iz1), (wall_x, iz1),
-                                        (wall_x, iz1 - fore_deep)]))
+        deep = abs(wall_x) - half
+        corbel = _back_top_ceiling_corbel(inner, y_joint, sx)
         for who, rsx, y0, y1, keep, out in back_top_ceiling_reliefs:
             if rsx != sx:
                 continue
