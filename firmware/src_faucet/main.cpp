@@ -573,14 +573,18 @@ void faucetApplyOta(bool active, uint8_t percent) {
     lv_obj_align(otaPct, LV_ALIGN_CENTER, 0, 12);
   }
 
+  // Nothing dims or sleeps mid-transfer, and the screen must be lit to be read
+  // — including on the call that says it finished. The last thing a transfer
+  // does is report inactive at 100%, so waking below the return here is what
+  // put the glass back to sleep at the one moment there was something new on
+  // it to look at.
+  lastInputTime = millis();
+  wakeBacklight();
+
   if (!active) {
     lv_obj_add_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
     return;
   }
-
-  // Nothing dims or sleeps mid-transfer, and the screen must be lit to be read.
-  lastInputTime = millis();
-  wakeBacklight();
   lv_label_set_text_fmt(otaPct, "%u%%", (unsigned)percent);
   lv_obj_move_foreground(otaLayer);
   lv_obj_clear_flag(otaLayer, LV_OBJ_FLAG_HIDDEN);
