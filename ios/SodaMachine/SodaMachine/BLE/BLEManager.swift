@@ -107,6 +107,10 @@ class BLEManager {
     @ObservationIgnored var faceTotal = 0
     @ObservationIgnored var facePump: Timer?
     @ObservationIgnored var faceSaidAt = Date.distantPast
+    @ObservationIgnored var faceSweptAt = Date.distantPast
+    // The last standing condition reported to the machine's console, so one
+    // that persists is said when it starts rather than at the polling rate.
+    @ObservationIgnored var saidStanding = ""
     @ObservationIgnored var pendingCrc: [Int: UInt32] = [:]
     var activeUpload: QueuedImage?
     var imageUploadState: ImageUploadState = .idle
@@ -1915,6 +1919,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                 ble.send("GET_CONFIG")
                 ble.send("LIST")
             } else {
+                ble.saidStanding = ""   // a new session reports its own conditions
                 ble.queryImageSlots()
                 let m = ble
                 DispatchQueue.main.async { m.startFacePump() }
