@@ -3210,17 +3210,29 @@ def _display_cuts(outer):
 
 # --- wall through-holes -----------------------------------------------------
 
+# The roof angle of every horizontal round through-hole, measured up from the print bed.
+#
+# THE COMMITTED BACK-TOP PET-GF PROFILE IS THE LIMIT. Its automatic-support threshold is 35
+# degrees. The 36-degree exact-profile coupon is support-free, so the cutter keeps one whole
+# degree of margin. The line is tangent to the nominal circle: the fitting still gets its whole
+# round pass envelope below it, while no wider or taller peak is cut than this angle requires.
+teardrop_roof_angle = 36.0
+
+
 def _port_cuts(ports, y0, y1):
     """The through-holes of one wall's port list, as cutters spanning y0..y1
     (a wall's thickness with a margin either side). The pack owns both layouts,
     since it places the bodies the bands are measured from
     (../y-wall-of-back-top/README.md); the two walls differ only in which list and
-    which span, so they are cut by the same code."""
+    which span, so they are cut by the same code.
+
+    A ROUND port is round through its working lower section and closes on the same tangent
+    teardrop roof as every other Y-axis bore in these standing prints. Rectangular connectors
+    keep the aperture their own housings require."""
     out = []
     for kind, hx, hz, *size in ports:
         if kind == "round":
-            out.append(cq.Solid.makeCylinder(size[0] / 2.0, y1 - y0,
-                                             cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0)))
+            out.append(_teardrop_y(size[0] / 2.0, hx, hz, y0, y1))
         else:
             wx, wz, *radius = size
             out.append(_rect_cut_y(hx, hz, wx, wz, radius[0] if radius else 0.0, y0, y1))
@@ -5407,14 +5419,17 @@ def _teardrop_y(r, x, z, y0, y1):
     """The cutter for a bore on Y, TEARDROPPED — a horizontal hole in a piece bedded on Z.
 
     A ROUND HOLE ON A HORIZONTAL AXIS HAS NO TOP. Its crown is where the arc turns over, and
-    the layer that closes it is laid across the chord beneath with nothing under it. The roof
-    is two 45 degree planes standing on the bore's own tangent points and meeting over its
-    axis: 45 degrees is the steepest the arc itself reaches before it turns over, so the planes
-    take the hole from exactly where it stops being printable, and nothing over it is laid on
-    air. The three lower quarters — which is what a bore bears on — are untouched."""
-    t = r / math.sqrt(2.0)
+    the layer that closes it is laid across the chord beneath with nothing under it. Two planes
+    at `teardrop_roof_angle` stand on their tangent points and meet over the axis. Tangency makes
+    this the smallest roof at that printable angle: half-width `r sin(a)`, tangent height
+    `r cos(a)`, apex height `r / cos(a)`. The lower circle — which is what a bore locates and
+    bears on — is untouched."""
+    a = math.radians(teardrop_roof_angle)
+    half = r * math.sin(a)
+    tangent = z + r * math.cos(a)
+    apex = z + r / math.cos(a)
     return _ycyl(r, x, z, y0, y1).fuse(
-        _xz_prism(y0, y1, [(x - t, z + t), (x + t, z + t), (x, z + r * math.sqrt(2.0))]))
+        _xz_prism(y0, y1, [(x - half, tangent), (x + half, tangent), (x, apex)]))
 
 
 def _tee_bore(plate, hx, hz):
@@ -8427,6 +8442,7 @@ def main():
         "RIDGE_WALL_T": f"{ridge_wall_t:.4g} mm",
         "RIDGE_LEN": f"{display_pcb_x:.4g} mm",
         "CABLE_BORE": f"{cable_sleeve_open:.4g} mm",
+        "TEARDROP_ROOF": f"{teardrop_roof_angle:.4g}°",
         "SOCKET_BORE": f"{socket_bore_dia:.4g} mm",
         "SOCKET_OD": f"{2.0 * socket_r:.4g} mm",
         "BOX_SIZE": (f"{bo[1] - bo[0]:.0f} × {bo[3] - bo[2]:.0f} × "

@@ -668,11 +668,19 @@ plate comes up that slot from the bed face onto the floor's own top.
 The **tee wall** behind that plate costs nothing standing up, and its four bores are the
 only thing in it that could have hung. The piece beds on the seam plane, so a bore on Y
 lies horizontal and its crown is the only face in the wall that could be laid on air.
-Each is **teardropped** (`_tee_bore`): the roof is two 45° planes standing on the bore's
-own tangent points, 45° being the steepest the arc itself reaches before it turns over,
-so the hole is taken over from exactly where it stops being printable and nothing above
-it is laid on air. The three lower quarters the collar bears on are untouched, and the
-wall needs no support.
+Each is **teardropped** (`_tee_bore`): the roof stands on the bore's own tangent points.
+Its two planes rise at [36°](TEARDROP_ROOF), one whole degree above the committed back-top
+PET-GF profile's automatic-support threshold and verified support-free with that exact profile;
+tangency makes that the narrowest and shortest peak at this angle. The lower circle the collar
+bears on is untouched, and the wall needs no support.
+
+The **five round tube crossings in the +Y wall** use the same `_teardrop_y` section through
+their wall and pocket bosses. Their stated Ø18/Ø17.86 figures remain the complete circular
+pass envelopes for the threaded barrels; only the unsupported crown opens into the tangent
+[36°](TEARDROP_ROOF) roof. The separately printed identification chip keeps its circular bore,
+and the fitting's flange and nut clamp the chip and the remaining wall annulus on their two
+faces. The committed back-top profile places neither support body nor support interface inside
+any of the five passages.
 
 The **AC inlet's mount** stands off the +Y wall's inner face in back-top and costs
 nothing either. Its two flanks are vertical to the bed and its crown runs out into the top
