@@ -1039,6 +1039,16 @@
    "active": true
   },
   {
+   "id": "ground-ceiling-gable",
+   "label": "Two wall-carried 45-degree planes close the ground-stack ceiling relief",
+   "kind": "gate",
+   "status": "pass",
+   "value": "1.162 mm exact stack air; 0.0000 mm\u00b3 missing roof",
+   "target": "at least 1 mm exact air and the complete production gable in back-top",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "ceiling-panel-slides-in",
    "label": "The deep ceiling panel and rails slide through back-top",
    "kind": "gate",

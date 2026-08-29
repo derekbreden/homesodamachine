@@ -5133,6 +5133,11 @@ STACK_CLEAR = (_enc.mount_boss_dia / 2.0
 # back-top slice. Two millimetres leaves the same one-millimetre body air
 # `east_boss_corbel_clear` strikes in X against a 45-degree wedge.
 RELAY1_CORBEL_LIFT = 2.0
+# The ring stack's ceiling relief is short enough to close with two 45-degree Y roof planes.
+# A quarter millimetre below the nominal stack floor leaves those production planes more than
+# one exact assembly-clearance millimetre from the purchased stack while retaining five
+# millimetres over relay #2. Its wall bosses follow the same placed datum.
+GROUND_CEILING_DROP = 0.25
 
 
 # Relay #2 stands the same body ON END: a further quarter about X carries its long axis from
@@ -5284,7 +5289,8 @@ def build_stack(psu, pcba, wagos, wall_seat):
     out.append(("relay-1", relay1, C_RELAY, r1_carry))
     stud, stud_carry = seat_body(import_step(str(GND_STACK_STEP)).val(), RELAY_TURN,
                                  seat="ground-stack", x1=wall_seat,
-                                 y0=box(relay1).ymax + STACK_CLEAR, z0=stack_floor)
+                                 y0=box(relay1).ymax + STACK_CLEAR,
+                                 z0=stack_floor - GROUND_CEILING_DROP)
     out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
 
@@ -7230,6 +7236,28 @@ def check_c14_ceiling_corbel(c14, box) -> Bound:
             "inboard until the exact moulding clears instead of cutting a support-taking band."])))
 
 
+def check_ground_ceiling_gable(ground, pieces: dict, box) -> Bound:
+    """The ground stack clears the exact two-sided roof which replaces its support band."""
+    ground = ground.val() if hasattr(ground, "val") else ground
+    back = pieces["back-top"]
+    back = back.val() if hasattr(back, "val") else back
+    gables = _enc._back_top_ceiling_relief_gables(box.inner, "ground-stack")
+    gap = min(ground.distance(gable) for gable in gables)
+    missing = sum(gable.cut(back).Volume() for gable in gables)
+    want = _card.CLEARANCE_FLOOR
+    ok = gap >= want - 1e-6 and missing <= 1e-4
+    return record_bound(Bound(
+        "ground-ceiling-gable",
+        "Two wall-carried 45-degree planes close the ground-stack ceiling relief",
+        ok,
+        f"{gap:.3f} mm exact stack air; {missing:.4f} mm³ missing roof",
+        f"at least {want:g} mm exact air and the complete production gable in back-top",
+        ([] if ok else [
+            f"the ground stack leaves {gap:.3f} mm to its two-sided roof and "
+            f"{missing:.4f} mm³ of that roof is absent; move the stack datum rather than "
+            "restoring a horizontal, material-rooted support band."])))
+
+
 def check_ceiling_retention(back_top, panel) -> Bound:
     """Both headless keeper screws cross the empty dado mouths only after the panel is home.
 
@@ -7779,6 +7807,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     # before the slide check admits its matching aft-open panel pocket into the moving field.
     check_c14_collar(pieces, box)
     check_c14_ceiling_corbel(_solids(a)["c14-inlet"][0], box)
+    check_ground_ceiling_gable(_solids(a)["ground-stack"][0], pieces, box)
     # Installed clearance is not insertion clearance: the panel traverses the whole rear
     # column before it reaches this pose. Read the deeper field's continuous sweep against the
     # fixed piece, including the C14 ownership split that makes the aft end pass.
