@@ -581,6 +581,12 @@ static void imagesAsk(bool verbose) {
 static void reconcileService() {
     // A hop already owed is the same repair by another name; let it finish.
     if (relayOwed || machineState() != ST_IDLE || soundBusy()) return;
+    // AND NOT WHILE EITHER BOARD IS BEING FLASHED. A repair brings the faucet's
+    // radio up and takes the enclosure's panel down — over the same J3 an OTA is
+    // running at 921600, to the same two boards. A difference the machine sees
+    // mid-update is one it is about to be told a new answer for anyway, so the
+    // repair costs a firmware image and buys nothing.
+    if (otaBusy()) return;
     if ((long)(millis() - reconcileAt) < 0) return;
 
     if (!reconcileAskedAt) {
