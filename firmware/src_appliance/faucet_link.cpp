@@ -49,7 +49,6 @@ bool pushResultFresh = false;
 // A slot the phone removed, for the loop to carry to the rest of the machine.
 uint8_t eraseWanted = 0xFF;
 bool artPublished = false;
-bool idlePublished = false;
 
 void observeConnectionEpoch() {
     const uint32_t generation = faucet.connectionGeneration();
@@ -440,14 +439,20 @@ void faucetLinkService() {
         if (revisionPending || !artPublished) {
             if (sendArt()) artPublished = true;
         }
-        if (!idlePublished && sendIdle()) idlePublished = true;
+        // Absolute, on the heartbeat, like the state above it. Published once it
+        // would be a cache with no way back: a transition frame that TinyProto
+        // accepted but the faucet never applied leaves that glass answering to a
+        // presence the machine stopped believing in, and nothing would say so
+        // again until the next transition — which is one touch away from never.
+        sendIdle();
     }
 
     faucet.service();
 }
 
+// Sent here for the latency, repeated on the heartbeat for the certainty.
 void faucetLinkPublishIdle() {
-    if (!sendIdle()) idlePublished = false;
+    sendIdle();
 }
 
 void faucetLinkReadStatus(FaucetLinkStatus &status) {
