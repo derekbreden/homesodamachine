@@ -42,12 +42,13 @@ Bambu Studio and save the printer preset it loads modified.
 | [`z-trim-0.02.3mf`](z-trim-0.02.3mf) | 0.01 | 0.0 | 0.03 | 0.02 |
 | [`z-trim-0.03.3mf`](z-trim-0.03.3mf) | 0.02 | 0.01 | 0.04 | 0.03 |
 
-What the committed plates stand on:
+What the committed files stand on — [`petgf.3mf`](petgf.3mf) is the PET-GF 0.4 mm working
+profile, whichever models are loaded into it at the time:
 
-| plate | trim | printer preset |
+| file | trim | printer preset |
 | --- | --- | --- |
+| [`petgf.3mf`](petgf.3mf) | +0.03 | `Bambu Lab H2C 0.4 nozzle 03 first layer by agent` |
 | [`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf) | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
-| [`display-covers.3mf`](display-covers.3mf) | +0.03 | `Bambu Lab H2C 0.4 nozzle 03 first layer by agent` |
 
 ## Reading it back
 
