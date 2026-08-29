@@ -2,19 +2,16 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-12ba8d8e8cd142e1.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-12ba8d8e8cd142e1.tar.gz",
+    "asset": "cad-d5acfcfc42c5f933.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-d5acfcfc42c5f933.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "3fe5fafaa5fabd6ff0eba0ca6e280a267f4295ef"
+    "commit": "b2053bab56e7521fb3220b77846910e1c048e332"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
     "paths": [
-      "hardware/quickstart/_build.py",
-      "hardware/quickstart/plumbing/modern/render_modern_tee.py",
-      "marketing/unboxing-and-quickstart.md",
       "result.json",
       "tmp/pdfs/connect-connected-detail-fixed.png",
       "tmp/pdfs/connect-detail-fixed.png",
@@ -41,6 +38,20 @@
       "tmp/pdfs/pushfit-audit/draft2-4.png",
       "tmp/pdfs/pushfit-audit/draft2-5.png",
       "tmp/pdfs/pushfit-audit/draft2-plumbing.png",
+      "tmp/pdfs/pushfit-audit/final-page4-gray.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-1.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-2.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-3.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-4.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-5.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-grayscale-25.png",
+      "tmp/pdfs/pushfit-audit/final-pdf-montage.png",
+      "tmp/pdfs/pushfit-audit/final-plumbing-grayscale.png",
+      "tmp/pdfs/pushfit-audit/final-raw-scenes.png",
+      "tmp/pdfs/pushfit-audit/final.txt",
+      "tmp/pdfs/pushfit-audit/layout-pass-1.png",
+      "tmp/pdfs/pushfit-audit/page5-diff.png",
+      "tmp/pdfs/pushfit-audit/page5-side-by-side.png",
       "tmp/pdfs/pushfit-audit/raw-scenes-2.png",
       "tmp/pdfs/pushfit-audit/raw-scenes.png",
       "tmp/pdfs/quick-start-content-bounds-gray.png",
@@ -94,16 +105,6 @@
     "members": [
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
       "hardware/quickstart/art/mount-slide.png",
-      "hardware/quickstart/plumbing/modern/art/modern-release-pressed.png",
-      "hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
-      "hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
-      "hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
-      "hardware/quickstart/plumbing/modern/art/modern-tee-existing.png",
-      "hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png",
-      "hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png",
-      "hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png",
-      "hardware/quickstart/plumbing/modern/art/modern-water-off.png",
-      "hardware/quickstart/plumbing/modern/art/modern-water-on.png",
       "hardware/quickstart/plumbing/out/plumbing-pre-tee.png",
       "hardware/quickstart/plumbing/out/plumbing-tee-installed.png",
       "hardware/quickstart/plumbing/out/plumbing-valve-off.png",
@@ -111,9 +112,9 @@
     ]
   },
   "bundle": {
-    "sha256": "12ba8d8e8cd142e1d5ff5bf4a0fdd8beabf521196ee4d52871c5e1d625b7a882",
-    "bytes": 128125773,
-    "solids": 262
+    "sha256": "d5acfcfc42c5f933bf2c102e34480684d6359151661f3085d591800d0dfb9765",
+    "bytes": 127876031,
+    "solids": 260
   },
   "solids": {
     "hardware/assembly/cards/deck.cover.png": "a3816afa7d04514cc9606115ff62bb1a3deb5b7de76e017fd8ea2032c4fa32b3",
@@ -319,11 +320,9 @@
     "hardware/quickstart/plumbing/art/plumbing-tee-installed.png": "4ca4a806de30c43c724da3f0345768ac46f2274653e9b6ea240bdd0d06137d15",
     "hardware/quickstart/plumbing/art/plumbing-valve-off.png": "ef656f9b7e1b2bbe35a591eff27820d7c2fb4f2d1cf9faf5fe67a5d2e59d9183",
     "hardware/quickstart/plumbing/art/plumbing-valve-on.png": "d06a4d1226389f6ed475c52b263d360e2418478d1e35088ef7bf1dfb77c26d06",
-    "hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png": "279d1e92d87ea44bbad138fad0eacec12ea42f5166599f4907b786a4407d30e2",
-    "hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png": "57aa3b3c86687b31c13f2b385d23e9bfc882f39a103705e67de391e83a2b61d8",
     "hardware/quickstart/plumbing/modern/art/modern-release-pressed.png": "c23edd8d119dc0ad59be2823d3f8de155cb1f61a74c72329f295d952f176f23f",
     "hardware/quickstart/plumbing/modern/art/modern-release-ready.png": "a886b6487fb599748cdf16ec9b5575f4b6b61ffa07449c72e82eadd3cb0e4d66",
-    "hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png": "c6ca120c0791d22fd1070fdb1676d24a9566e80c4feca74c037d8332e2a2a38e",
+    "hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png": "5feb2c2235c03038d3edca9bee84fbe5302c3a79aa03c43a96a47da27e24aac0",
     "hardware/quickstart/plumbing/modern/art/modern-tee-complete.png": "19a94e7a2c78efb211b3da7f39a43c9b18cfc62ee5641cf9bec319c5b159d278",
     "hardware/quickstart/plumbing/modern/art/modern-tee-existing.png": "11bf5dcee66b4de456034b56cd7192aedfdd5b86b3bac4c6769c6e3a95ff461b",
     "hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png": "ae634decbf3da5a827edb7fc016ac15638709cf8b6e483528274c20a0b9e8649",
@@ -340,7 +339,7 @@
     "hardware/quickstart/plumbing/out/plumbing-valve-on.png": "dc7d6e75e2c1cf2a6873fdde8013820aaca2f047cdfdf26d63d316328bd8bf1d",
     "hardware/quickstart/plumbing/out/plumbing-valve-on.step": "62b88548ee8b9cf1e335f5a11009676b37c2428ae9c75d88d130636b4a24bbc0",
     "hardware/quickstart/quick-start.cover.png": "27eaf24449a7b12b9502e4baaf9a9a1d0c51c9b3907962f276c7be0ddb1e1f6c",
-    "hardware/quickstart/quick-start.pdf": "b2ced06ea480bf84ff2b3d78cef151b2f590e863713f893a81fcd8b8f5d394d4",
+    "hardware/quickstart/quick-start.pdf": "70233fe56349b4b2fab82fcae8f2268f1a1616eff6f72ea488f1cc38a1b60d1e",
     "hardware/quickstart/quick-start.pdf.json": "44d84683fe0561e30095dc109600d38642fe0d7e2ed3346cef1f01bf0897a3d6",
     "hardware/reference/asse1022-assembly/asse1022-assembly.step": "c6486e5fc7bfa79fc67b80e918e70685e6d1f18e869a477420625c7010f76c2e",
     "hardware/reference/basics-mtb-0606wp/basics-mtb-0606wp.step": "f3313444ebf3350ebf330f64676a7d9ce3729135b7086d197ffda14b228e5b98",
