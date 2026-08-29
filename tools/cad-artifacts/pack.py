@@ -1000,6 +1000,25 @@ def objects_on_release(root: Path) -> set:
     return out
 
 
+def objects_to_send(rels: list, solid_hashes: dict, known: set) -> list:
+    """Which members `upload_objects` actually puts up: one per hash the release lacks.
+
+    ONE ASSET PER HASH, NOT PER MEMBER. The name is the hash, so two members carrying the same
+    bytes are one asset — and sending both puts two concurrent `--clobber` uploads on one name,
+    where one wins and the other reports a failure for a member that is demonstrably up. That
+    failure costs the lock its `objects`, and every deploy then reads the whole bundle for
+    members it already holds. The second member of a pair is not a second send; it is already
+    there when the first lands."""
+    seen, todo = set(), []
+    for rel in rels:
+        sha = solid_hashes[rel]
+        if sha in known or sha in seen:
+            continue
+        seen.add(sha)
+        todo.append(rel)
+    return todo
+
+
 def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bool:
     """Put each member the release does not already hold on it, one asset per member.
 
@@ -1016,7 +1035,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
     THE BUNDLE IS STILL WRITTEN AND STILL UPLOADED. A container with no solids at all reads one
     asset rather than 124, and a lock this does not finish is a lock the tarball still answers.
     """
-    todo = [r for r in rels if solid_hashes[r] not in known]
+    todo = objects_to_send(rels, solid_hashes, known)
     if not todo:
         print("  every member is already on the release under its own hash")
         return True
@@ -1043,7 +1062,7 @@ def upload_objects(root: Path, rels: list, solid_hashes: dict, known: set) -> bo
             failures = [r for r in pool.map(lambda rel: send(rel, d), todo) if r]
     for rel in failures:
         print(f"  {rel} did not upload as {object_asset(solid_hashes[rel])}")
-    print(f"  {len(todo) - len(failures)} of {len(todo)} changed member(s) uploaded on their own hash"
+    print(f"  {len(todo) - len(failures)} of {len(todo)} changed object(s) uploaded on their own hash"
           + (f"; {len(failures)} did not, so this lock is read from the bundle" if failures else ""))
     return not failures
 
@@ -1480,8 +1499,19 @@ def selftest() -> int:
         hold("no machine is named in a member",
              (info.mtime, info.uid, info.gid, info.uname, info.gname), (0, 0, 0, "", ""))
 
-    print(f"pack selftest {holds}/21")
-    return 0 if holds == 21 else 1
+    # AN ASSET IS NAMED BY ITS BYTES, so what `upload_objects` sends is one send per hash. Two
+    # members carrying the same bytes sent as two uploads race one asset name, and the loser
+    # reports a failure that costs the lock its `objects` for a member that is demonstrably up.
+    twins = {"a.png": "h1", "b.png": "h1", "c.step": "h2"}
+    hold("two members of one hash are one send",
+         objects_to_send(list(twins), twins, set()), ["a.png", "c.step"])
+    hold("a member already on the release is not re-sent",
+         objects_to_send(list(twins), twins, {"h1"}), ["c.step"])
+    hold("nothing to send when the release holds every hash",
+         objects_to_send(list(twins), twins, {"h1", "h2"}), [])
+
+    print(f"pack selftest {holds}/24")
+    return 0 if holds == 24 else 1
 
 
 if __name__ == "__main__":
