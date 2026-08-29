@@ -114,6 +114,12 @@ class BLEManager {
     @ObservationIgnored var imageSlotSending = 0
     @ObservationIgnored var imageSentOffset = 0
     @ObservationIgnored var imageStartedAt = Date()
+    // When the machine last said anything about the picture going up, and how
+    // many times it has been asked again since. A notification is not
+    // acknowledged, so the one frame that says "kept it" can simply be lost —
+    // and with every byte already sent, nothing else was ever going to arrive.
+    @ObservationIgnored var uploadHeardAt = Date.distantPast
+    @ObservationIgnored var uploadAsks = 0
 
     // ── Which machines are in range ──────────────────────────────────────
     // Every scan result lands here rather than the first one winning. A phone

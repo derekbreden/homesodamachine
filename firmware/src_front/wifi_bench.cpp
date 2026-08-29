@@ -29,6 +29,9 @@ static volatile uint8_t apChannel = WIFI_BENCH_CHANNEL;
 // was never isolated from the stack overflow fixed at the same time, so it
 // has to be answerable at run time rather than assumed.
 static volatile bool stopPanel = true;
+// And what the glass says on its way down. A picture and a bench run take the
+// panel the same way; only one of them is something the owner just asked for.
+static volatile bool panelForPicture = false;
 
 // Written by the sink task, read by the J9 dispatch. One 32-bit word each and
 // only ever published after the connection that produced them has closed, so
@@ -67,7 +70,7 @@ static void sinkLoop(void *) {
   snapHeap();
   // The panel goes first, unless this run is the one asking whether it must.
   if (stopPanel) {
-    wifiBenchPanelStop();
+    wifiBenchPanelStop(panelForPicture);
     panelDown = true;
   }
   stage = 2;
@@ -138,6 +141,8 @@ static void sinkLoop(void *) {
         picTook = 0;
         picKept = 3;
         Serial.println("[bench] picture refused at the door");
+        const uint8_t answer = IMAGE_WIRE_REFUSED;
+        client.write(&answer, 1);
         client.stop();
         continue;
       }
@@ -146,7 +151,14 @@ static void sinkLoop(void *) {
       if (hdrHave) firstMs = millis();
     }
 
-    while (client.connected() && sinkRun) {
+    // A PICTURE ENDS AT ITS BYTE COUNT, NOT AT A CLOSED SOCKET. The header said
+    // how long it is, so that is what this waits for. Ending on connected() —
+    // which goes false while lwIP still holds the tail — is what left one a
+    // couple of kilobytes short of itself and refused.
+    const bool bounded = takingImage;
+    const uint32_t owed = takingImage ? hdr.bytes : 0;
+    bool wouldNotWrite = false;
+    while (sinkRun && (!bounded || got < owed)) {
       int n = client.read(buf, SINK_BUF);
       if (n > 0) {
         if (!got) firstMs = millis();
@@ -154,34 +166,19 @@ static void sinkLoop(void *) {
           Serial.println("[bench] picture would not write");
           imageStoreWriteAbort();
           takingImage = false;
+          wouldNotWrite = true;
           break;
         }
         got += (uint32_t)n;
         lastRxMs = millis();
         continue;
       }
-      // A sender that has stopped without closing is done as far as this is
-      // concerned; the reported interval already ended at the last byte.
+      // Nothing left to come and nothing left buffered. A sender that has
+      // stopped without closing is done too, by the same silence.
+      if (!client.connected() && client.available() <= 0) break;
       if (millis() - lastRxMs > 3000) break;
       vTaskDelay(1);
     }
-
-    // Drain whatever the stack still holds after the peer's FIN — and write it.
-    // connected() goes false while lwIP is still holding the tail, so these are
-    // real bytes of the picture: counting them and dropping them is how one
-    // arrives a couple of kilobytes short of itself and gets refused.
-    while (client.available() > 0) {
-      int n = client.read(buf, SINK_BUF);
-      if (n <= 0) break;
-      if (takingImage && !imageStoreWriteChunk(imageStoreWriteOffset(), buf, (uint16_t)n)) {
-        imageStoreWriteAbort();
-        takingImage = false;
-        break;
-      }
-      got += (uint32_t)n;
-      lastRxMs = millis();
-    }
-    client.stop();
 
     if (takingImage) {
       picSlot = hdr.slot;
@@ -191,7 +188,18 @@ static void sinkLoop(void *) {
       picKept = kept ? 1 : 2;
       Serial.printf("[bench] picture %s\n", kept ? "kept" : "REFUSED");
       imageTaken = kept;
+      // Said before the rebind, which suspends the cache and can take a while:
+      // the sender is holding the socket open for this and nothing else.
+      const uint8_t answer = kept ? IMAGE_WIRE_KEPT : IMAGE_WIRE_SHORT;
+      client.write(&answer, 1);
+      client.stop();
       wifiBenchRebind();
+    } else {
+      if (bounded) {   // a picture whose write failed partway
+        const uint8_t answer = IMAGE_WIRE_REFUSED;
+        client.write(&answer, 1);
+      }
+      client.stop();
     }
 
     lastMs = got ? (lastRxMs - firstMs) : 0;
@@ -212,10 +220,11 @@ static void sinkLoop(void *) {
 
 // Returns at once in both directions. The radio is raised and dropped on the
 // sink task, and the main board polls wifiBenchFill() for the transition.
-void wifiBenchApSet(bool on, uint8_t channel, bool keepPanel) {
+void wifiBenchApSet(bool on, uint8_t channel, bool keepPanel, bool forPicture) {
   if (on) {
     if (sinkTask) return;
     stopPanel = !keepPanel;
+    panelForPicture = forPicture;
     apChannel = channel ? channel : WIFI_BENCH_CHANNEL;
     lastBytes = 0;
     lastMs = 0;

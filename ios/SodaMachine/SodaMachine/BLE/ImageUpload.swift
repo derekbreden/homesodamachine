@@ -127,6 +127,7 @@ extension BLEManager {
         stopFacePump()
         facePump = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
             self?.resumeFaceIfStalled()
+            self?.nudgeUploadIfStalled()
         }
     }
 
@@ -143,6 +144,42 @@ extension BLEManager {
         bleQueue.async { [weak self] in
             self?.sendBLEFrame(type: 0x01, payload: data.prefix(72))
         }
+    }
+
+    /// A picture whose last byte is on the air and whose "kept it" never came
+    /// back. That answer is a single notification, and a notification is not
+    /// acknowledged — so it can be lost, and when it is, every byte of the
+    /// picture is already on the machine and nothing further was ever going to
+    /// arrive. Waiting on it forever is what left a finished ring on screen
+    /// with no way past it.
+    ///
+    /// Asking again is END, which the board answers from a finished transfer as
+    /// readily as from a running one. And behind that, the machine's own list of
+    /// what it holds settles it outright: a slot carrying the crc32 this phone
+    /// computed for the bundle it sent IS that bundle, whatever was lost coming
+    /// back.
+    func nudgeUploadIfStalled() {
+        guard case .sending(let sent, let total) = imageUploadState,
+              total > 0, sent >= total else { return }
+        guard Date().timeIntervalSince(uploadHeardAt) > 2.0 else { return }
+        uploadHeardAt = Date()
+        uploadAsks += 1
+
+        // Long enough that a board still writing flash is not called a failure,
+        // short enough that nobody is left holding a phone that will never move.
+        guard uploadAsks <= 8 else {
+            let slot = imageSlotSending
+            say("upload: slot \(slot) gave up after \(uploadAsks) asks")
+            forgetPreview(slot: slot)
+            bleQueue.async { [weak self] in self?.imageBundle = Data() }
+            finishActive(.failed("the machine never said it kept it"))
+            return
+        }
+        say("upload: slot \(imageSlotSending) asking again, \(uploadAsks)")
+        bleQueue.async { [weak self] in
+            self?.sendBLEFrame(type: ImageFrame.end, payload: Data(), withResponse: true)
+        }
+        queryImageSlots()
     }
 
     // ── Asking ────────────────────────────────────────────────────────────
@@ -173,6 +210,16 @@ extension BLEManager {
         DispatchQueue.main.async {
             self.imageSlots = slots
             log.info("slots \(slots.count) held \(slots.held) bundle \(slots.bundleBytes)")
+            // The machine listing this picture's own crc32 in the slot it was
+            // sent to is the picture having arrived, and outranks any frame
+            // that went missing on the way back.
+            if case .sending = self.imageUploadState, let active = self.activeUpload,
+               let want = self.pendingCrc[active.slot], want != 0,
+               slots.crc(of: active.slot) == want {
+                self.say("upload: slot \(active.slot) is on the machine")
+                self.bleQueue.async { [weak self] in self?.imageBundle = Data() }
+                self.finishActive(.done)
+            }
             self.fetchMissingFaces()
         }
     }
@@ -465,6 +512,8 @@ extension BLEManager {
             self.imageSlotSending = slot
             self.imageSentOffset = 0
             self.imageStartedAt = Date()
+            self.uploadHeardAt = Date()
+            self.uploadAsks = 0
 
             // The face is decoded out of the bundle just built and filed under
             // its crc32 — byte for byte what the board would send back if
@@ -495,6 +544,7 @@ extension BLEManager {
         let err = payload[b + 2]
         let have = Int(UInt32(payload[b + 3]) | (UInt32(payload[b + 4]) << 8) |
                        (UInt32(payload[b + 5]) << 16) | (UInt32(payload[b + 6]) << 24))
+        uploadHeardAt = Date()
 
         switch state {
         case 3:   // FAILED

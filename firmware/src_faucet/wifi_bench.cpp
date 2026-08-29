@@ -137,8 +137,27 @@ static void pushLoop(void *) {
       sent += (uint32_t)n;
     }
   }
-  client.flush();
-  r.xferMs = millis() - tx;
+  r.xferMs = millis() - tx;   // measured at the last byte, not at the answer
+
+  // THE SINK'S ANSWER IS WHAT ENDS THIS, NOT THE LAST write(). A close does not
+  // deliver: the tail is still in flight when stop() is called, and the far end
+  // stops reading the moment the socket says closed — which is how a picture
+  // arrived short and was refused while this reported every byte written. So
+  // the socket stays open until the enclosure says what it did with it, and
+  // "sent" and "kept" stop being two claims that can disagree.
+  if (sendImage && !err) {
+    const uint32_t waited = millis();
+    uint8_t answer = 0;
+    while (millis() - waited < 15000) {
+      if (client.available() > 0) { client.read(&answer, 1); break; }
+      if (!client.connected() && client.available() <= 0) break;
+      vTaskDelay(pdMS_TO_TICKS(5));
+    }
+    if      (answer == IMAGE_WIRE_KEPT) { /* whole, and its header is written */ }
+    else if (answer == 0)               err = WIFI_BENCH_ERR_SILENT;
+    else                                err = WIFI_BENCH_ERR_REFUSED;
+  }
+
   r.bytes = sent;
   client.stop();
 

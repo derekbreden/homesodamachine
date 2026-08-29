@@ -46,15 +46,12 @@ struct FlavorImagePicker: View {
                             tile(art: art, image: customImage(art), custom: true)
                         }
                         if let active = ble.activeUpload {
-                            pendingTile(active.preview, progress: sendingProgress)
+                            pendingTile(active.preview, progress: sendingProgress,
+                                        cancel: { ble.cancelImageUpload() })
                         }
                         ForEach(ble.imageQueue) { item in
-                            pendingTile(item.preview, progress: nil)
-                                .contextMenu {
-                                    Button("Cancel", role: .destructive) {
-                                        ble.cancelQueuedImage(id: item.id)
-                                    }
-                                }
+                            pendingTile(item.preview, progress: nil,
+                                        cancel: { ble.cancelQueuedImage(id: item.id) })
                         }
                         if hasRoom { addCell }
                     }
@@ -159,10 +156,8 @@ struct FlavorImagePicker: View {
     }
 
     /// The photograph in the place it will occupy, dimmed under a ring — so the
-    /// tile becomes the picture rather than being replaced by it.
-    /// The photograph in the place it will occupy, dimmed under a ring — so the
     /// tile becomes the picture rather than being replaced by one.
-    private func pendingTile(_ image: UIImage?, progress: Double?) -> some View {
+    private func pendingTile(_ image: UIImage?, progress: Double?, cancel: @escaping () -> Void) -> some View {
         cell {
             ZStack {
                 if let image {
@@ -182,10 +177,24 @@ struct FlavorImagePicker: View {
                         .font(.system(size: 24))
                         .foregroundStyle(.white.opacity(0.7))
                 }
+                // A way out that is visible. A picture in flight is the one tile
+                // that can hold the screen, and a long press is not somewhere to
+                // put the only escape from it.
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: cancel) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 22))
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white, .black.opacity(0.45))
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    Spacer()
+                }
+                .padding(8)
             }
-        }
-        .contextMenu {
-            Button("Cancel", role: .destructive) { ble.cancelImageUpload() }
         }
     }
 
