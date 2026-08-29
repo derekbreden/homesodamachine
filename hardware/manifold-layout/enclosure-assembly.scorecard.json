@@ -1193,10 +1193,10 @@
    "value": "4/4 tees stopped going aft",
    "target": "every anchor tee landing on printed material before it can travel aft",
    "detail": [
-    "Y-C   tee-y-c        backed by front-top,       9.4 mm3 at 3.289 mm",
-    "Y-D   tee-y-d        backed by front-top,       9.4 mm3 at 3.289 mm",
-    "Y-F   tee-y-f        backed by front-top,       9.4 mm3 at 3.289 mm",
-    "Y-G   tee-y-g        backed by front-top,       9.4 mm3 at 3.289 mm"
+    "Y-C   tee-y-c        backed by front-top,      10.0 mm3 at 3.289 mm",
+    "Y-D   tee-y-d        backed by front-top,      10.0 mm3 at 3.289 mm",
+    "Y-F   tee-y-f        backed by front-top,      10.0 mm3 at 3.289 mm",
+    "Y-G   tee-y-g        backed by front-top,      10.0 mm3 at 3.289 mm"
    ],
    "active": true
   },
@@ -1380,7 +1380,7 @@
    "label": "Every rear-wall fitting is clamped through the wall it passes",
    "kind": "gate",
    "status": "pass",
-   "value": "5 clamped, furthest off its ring 0.000 mm, tightest in its bore 0.427 mm",
+   "value": "5 clamped, furthest off its ring 0.000 mm, tightest in its bore 0.429 mm",
    "target": "bearing at 0.000 mm and 0.430 mm of bore",
    "detail": [],
    "active": true
