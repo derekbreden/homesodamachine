@@ -1733,9 +1733,11 @@ def documented(box):
 #                 onto the −X wall, and the berth cut back out of it
 #   c14           the mains inlet's heat-set stations on the +Y wall of back-top, (x, z)
 #   east_bosses   the +X wall's mounting bosses, (y, z, the plane the boss top reaches, the
-#                 X plane its underside corbel reaches). The last plane normally equals the
-#                 mounting plane; a body crossing the candidate wedge holds it back by
-#                 `east_boss_corbel_clear`, while the D-shaped stem still reaches the body
+#                 X plane its underside corbel reaches, optional clear Y bands where it reaches
+#                 the mounting plane after all). The X planes normally agree. A body crossing
+#                 only part of the candidate wedge holds that part back by
+#                 `east_boss_corbel_clear`; the clear bands keep their wall-rooted corbel all
+#                 the way to the body, and the D-shaped stem still reaches the whole hole
 #   side_wells    the side walls' Wago wells, (side, y, z, size, clear_z) — one press-fit pocket
 #                 per lever nut, on the flank its own cluster stands on
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
@@ -6079,24 +6081,39 @@ def _east_boss_d_fill(wall_x, station):
 
 
 def _east_boss_corbel(wall_x, station):
-    """One boss's full-width 45 degree underside from its carried floor to the +X wall.
+    """One boss's object-profiled 45 degree underside from its carried floor to the +X wall.
 
     `station[3]` is the inboard plane the wedge may reach. It is the mounting face unless an
     installed body crosses that wedge; `enclosure_assembly.wall_mounts` derives a setback from
-    that body's exact solid. The D stem remains whole over the short setback, so even a held-
-    back wedge carries a flat bridge rather than leaving a round underside on air.
+    that body's exact solid. Optional `station[4]` Y bands are the parts of that same boss width
+    outside the blocker: there the wall-rooted wedge still reaches the mounting face instead of
+    holding an entire seven-millimetre boss back for a blocker that occupies only one side. The
+    D stem remains whole over the blocker itself, where the purchased body already leaves too
+    little Z room for a slicer to grow support.
     """
     sy, sz, tip = station[:3]
     web_tip = station[3] if len(station) > 3 else tip
+    clear_bands = station[4] if len(station) > 4 else ()
     r = mount_boss_dia / 2.0
     if not (tip <= web_tip < wall_x):
         raise ValueError(
             f"east boss at ({sy:g}, {sz:g}) has corbel tip x={web_tip:g}; "
             f"expected {tip:g}..{wall_x:g}")
-    drop = wall_x - web_tip
-    return _xz_prism(
-        sy - r, sy + r,
-        [(wall_x, sz - r), (web_tip, sz - r), (wall_x, sz - r - drop)])
+
+    def wedge(ylo, yhi, reach):
+        drop = wall_x - reach
+        return _xz_prism(
+            ylo, yhi,
+            [(wall_x, sz - r), (reach, sz - r), (wall_x, sz - r - drop)])
+
+    out = wedge(sy - r, sy + r, web_tip)
+    for ylo, yhi in clear_bands:
+        if ylo < sy - r - 1e-6 or yhi > sy + r + 1e-6 or yhi <= ylo:
+            raise ValueError(
+                f"east boss at ({sy:g}, {sz:g}) has invalid clear corbel band "
+                f"y={ylo:g}..{yhi:g}; expected inside {sy-r:g}..{sy+r:g}")
+        out = out.fuse(wedge(ylo, yhi, tip))
+    return out
 
 
 def _east_boss_support(wall_x, station):
@@ -6109,11 +6126,13 @@ def _east_bosses(solid, inner, outer, stations, y0, y1, z0, z1):
     height band that piece owns — so a boss lands in the piece whose wall carries it, whole,
     and no piece grows a column standing in another's air.
 
-    Each station is `(y, z, tip, web_tip)`: the two plan coordinates the boss stands on, the
-    plane its top face reaches — the body's own mounting face, where its hole pattern lies —
-    and the plane its 45 degree underside may reach. The last two are normally equal. Where an
-    installed body crosses the candidate wedge, `wall_mounts` holds only the wedge behind that
-    exact body and keeps assembly air; the D-shaped stem still reaches the mounting face.
+    Each station is `(y, z, tip, web_tip, clear_bands)`: the two plan coordinates the boss
+    stands on, the plane its top face reaches — the body's own mounting face, where its hole
+    pattern lies — the plane its 45 degree underside may reach across the blocker, and any Y
+    bands where it can reach the mounting face. The last two are omitted when the whole wedge
+    reaches. Where an installed body crosses only part of the candidate wedge, `wall_mounts`
+    keeps assembly air around that part without throwing away the clear side's corbel; the
+    D-shaped stem still reaches the mounting face across the whole hole.
 
     ON THE PIECE AND NOT ON THE HALF, because the Z seam's own socket collar is fused
     piece-side: where a station's height meets a mounting boss's, the two share the same

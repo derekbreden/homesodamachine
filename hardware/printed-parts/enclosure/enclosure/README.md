@@ -278,13 +278,14 @@ own mounting face, so no round pipe is left bridging between a generic support b
 part.
 
 `enclosure_assembly.wall_mounts` offers that corbel all the way to every mounting face and
-intersects the offered material with the installed pack. Thirteen fit in full. At the two upper
-holes of relay #2 and the two lower holes of relay #1, the relay or main-board envelope crosses
-the offered wedge; only those four wedges begin 1 mm beyond the exact blocker. Their D stems
-still reach the holes, leaving a short flat bridge. `east-boss-corbels` reads all 17 additions
-back against the installed bodies and records both the full-reach and body-derived populations;
-`east-bosses-print` reads the built back-top and rejects a missing wedge or any complete Ø7
-free edge.
+intersects the offered material with the installed pack. Fifteen fit across their complete
+width. At the two upper holes of relay #2, the module's conservative underside pin envelope
+crosses only the inboard side of the offered wedge. Those two corbels begin 1 mm past the exact
+blocker only across its Y projection; each clear outer side still carries a wall-rooted 45° wing
+all the way to the mounting face. Their D stems remain whole across the holes. `east-boss-corbels`
+reads all 17 additions back against the installed bodies and records both the full-width and
+blocker-profiled populations; `east-bosses-print` reads the built back-top and rejects a missing
+wedge or any complete Ø7 free edge.
 
 ## Condenser cradle
 

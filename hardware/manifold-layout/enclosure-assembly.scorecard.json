@@ -826,11 +826,11 @@
    "label": "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
    "kind": "gate",
    "status": "pass",
-   "value": "17/17 clear; 15 reach their mounting face and 2 use body-derived setbacks",
+   "value": "17/17 clear; 15 reach their mounting face across their whole width and 2 use blocker-profiled split corbels",
    "target": "one clear D-stem corbel per mounting hole",
    "detail": [
-    "`relay-2` y 343.500, z 321.400: 3.000 mm flat bridge past relay-2",
-    "`relay-2` y 330.500, z 321.400: 3.000 mm flat bridge past relay-2"
+    "`relay-2` y 343.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 344.500..347.000",
+    "`relay-2` y 330.500, z 321.400: 3.000 mm setback past relay-2, full wall-rooted wing(s) y 327.000..329.500"
    ],
    "active": true
   },
@@ -1301,7 +1301,7 @@
    "label": "Every power-column station is printed as a D stem on its derived corbel",
    "kind": "gate",
    "status": "pass",
-   "value": "17/17 additions present, no \u00d87 round free edge; 15 exposed D floors and 2 merged into wall stock; 15 full corbels and 2 flat bridges",
+   "value": "17/17 additions present, no \u00d87 round free edge; 13 exposed D floors and 4 merged into wall stock; 15 full-width corbels, 2 blocker-profiled split corbels",
    "target": "all 17 D fills and wedges contained in back-top, with no complete outer circle",
    "detail": [],
    "active": true
