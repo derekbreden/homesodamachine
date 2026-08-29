@@ -1543,7 +1543,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # to `bay_x_span` and no further at any height, so the posts it slides between are untouched
 # and the front of the box outboard of the bay is theirs.
 bay_crown_air = 1.7          # bay top over the tallest motor can's crown
-bay_face_slip = fits.slip    # pump cartridge face inside the opening, per side — its running fit
+bay_face_slip = 0.5          # pump cartridge inside the front opening, per side in X and Z
 # HOW FAR A CORNER POST REACHES ALONG THE FRONT WALL'S INNER FACE. The post is the whole of
 # the box's corner and the bay stops on it, so this is what the front of the machine keeps
 # outboard of the opening. It is carried past the column's own arc — which lands one
@@ -1554,7 +1554,7 @@ bay_face_slip = fits.slip    # pump cartridge face inside the opening, per side 
 # is what stands behind the face where the turn lands on the flank — `column-face-backed` reads
 # it, against the section a flute wants under it.
 post_along = 14.676
-face_reveal = fits.slip      # the face's edge reveal at the sill and under the lintel
+face_reveal = bay_face_slip  # the same running fit at the sill and under the lintel
 # THE MOUTH IS SQUARE IN PLAN BECAUSE THE WHOLE BLOCK PASSES IT. A round on its fore standing
 # arrises admits the rounded drawer face at home but not the square fill behind that face: as
 # the drawer moves, the fill reaches the round and binds. The outside box keeps its rounded
@@ -5096,7 +5096,7 @@ def _bay_mouth(inner, outer, bay, pump_trays, inset):
 
     ONE FIGURE CUTS THE OPENING AND SHAPES WHAT FILLS IT. The jamb takes `inset` 0 and the
     pump cartridge takes `bay_face_slip`, which is also `face_reveal`, so face and fill are this
-    outline offset a uniform four tenths.
+    outline offset uniformly in X and Z.
 
     THE PLAN CORNERS STAY SQUARE BECAUSE THIS IS A SLIDE PATH. Every Y station of the filled
     block eventually crosses the mouth's fore edge; rounding only that edge admits the face at
@@ -8656,6 +8656,7 @@ def main():
         vent_rib_base = vent_rib_land = None
     variables = {
         "SLIDE_SLIP": f"{slide_slip:g} mm",
+        "PUMP_CARTRIDGE_CLEARANCE": f"{bay_face_slip:g} mm",
         "HOOK_LAP": f"{hook_lap:g} mm",
         "FRONT_HOOK_LAP": f"{front_hook_lap:g} mm",
         "BACK_HOOK_LAP": f"{back_hook_lap:g} mm",
