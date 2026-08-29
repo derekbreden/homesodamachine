@@ -52,12 +52,12 @@
     },
     {
       "check": "tools/check_paths.py",
-      "note": "paths: every reference lands — 1363 tracked, 270 fetched solids, 53 tags",
-      "status": "ok"
+      "note": "2 reference(s) name a path nothing holds.",
+      "status": "red"
     },
     {
       "check": "tools/check_release_room.py",
-      "note": "check_release_room: 555 of 1000 free, the next cut wants 3, and the whole lock reads by name in 157.2 MB against 158.3 MB of bundle",
+      "note": "check_release_room: 544 of 1000 free, the next cut wants 3, and the whole lock reads by name in 117.6 MB against 118.7 MB of bundle",
       "status": "ok"
     },
     {
@@ -67,8 +67,8 @@
     },
     {
       "check": "tools/bazel/check_build_file.py",
-      "note": "check_build_file: BUILD.bazel is what the graph writes",
-      "status": "ok"
+      "note": "tools/cad-venv/bin/python tools/bazel/gen_build.py",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_ci_targets.py",
@@ -82,13 +82,13 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 6 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 235 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 10 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 235 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 25e432692b13e9ab31a063053ef6e898 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 2d3dfa07e395fecec34e61c740d50f0a here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 25e432692b13e9ab31a063053ef6e898 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 657a9e380f9beb3f2dc6ac719f330671 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
     ],
@@ -111,6 +111,18 @@
       "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
       "  and the enclosure's flutes go back into those payloads after:",
       "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
+    ],
+    "tools/bazel/check_build_file.py": [
+      "BUILD.bazel is not what the graph would write now:",
+      "  1 declared read(s) across 1 generator(s) name a file",
+      "    the tree does not hold and no rule writes — hardware/pcb/pcba/out/pcba.glb, read by pcba_assembly.py,",
+      "    among them. Drop the read if what wrote it is gone, or declare the writer.",
+      "    tools/cad-venv/bin/python tools/bazel/gen_build.py"
+    ],
+    "tools/check_paths.py": [
+      "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py:51 — hardware/pcb/pcba/out/pcba.glb is held nowhere, and no tag is named for it",
+      "  hardware/printed-parts/electronics/pcba-tray/pcba_tray.py:94 — hardware/pcb/pcba/out/pcba.glb is held nowhere, and no tag is named for it",
+      "2 reference(s) name a path nothing holds."
     ]
   },
   "green": false
