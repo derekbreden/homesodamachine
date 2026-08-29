@@ -1760,7 +1760,7 @@
    "label": "The back top's rails catch it against a lift, on both flanks",
    "kind": "gate",
    "status": "pass",
-   "value": "769.1 mm\u00b3 engaged at a 1 mm lift \u2014 374.4 west, 394.8 east",
+   "value": "1921.7 mm\u00b3 engaged at a 1 mm lift \u2014 935.4 west, 986.4 east",
    "target": "the hooks bearing down both flanks, so more than 5 mm\u00b3 on each",
    "detail": [],
    "active": true
@@ -1772,6 +1772,16 @@
    "status": "pass",
    "value": "6.00 mm west, 6.00 mm east; arm reaches 10.15 mm into a 14 mm band",
    "target": "6.00 mm inward of interior_x on both flanks, rail inside its band",
+   "detail": [],
+   "active": true
+  },
+  {
+   "id": "z-slide-back-catch-section",
+   "label": "Both back-bottom heads spend the grown flank section on their catches",
+   "kind": "gate",
+   "status": "pass",
+   "value": "5.00 mm west, 5.00 mm east; least outer skin 3.85 mm",
+   "target": "5.00 mm overlap on both flanks and at least 3.00 mm outside the channel",
    "detail": [],
    "active": true
   },

@@ -1,6 +1,9 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
     "APPLIANCE_HEIGHT": "361 mm",
+    "BACK_HOOK_LAP": "5 mm",
+    "BACK_RAIL_FOOT": "6 mm",
+    "BACK_RAIL_INBOARD": "10.15 mm",
     "BACK_TOP_FLANK": "9 mm",
     "BACK_TOP_FLANK_GROWN": "6 mm",
     "BACK_TOP_WALL": "6 mm",
