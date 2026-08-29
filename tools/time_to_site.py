@@ -42,22 +42,39 @@ def git(*args: str) -> str:
                           capture_output=True, text=True).stdout.strip()
 
 
-def deploy_paths() -> list:
-    """The buildFilter, read off render.yaml so it cannot drift from what Render does."""
+def _yaml_list(text: str, key: str) -> list:
+    """The `- ` entries under one key, comment lines and all skipped."""
+    m = re.search(rf"\n\s*{key}:\s*\n((?:[ \t]*(?:#[^\n]*)?\n|[ \t]*-[ \t]*\S+[ \t]*\n)+)", text)
+    if not m:
+        return []
+    return [ln.strip()[1:].strip() for ln in m.group(1).splitlines() if ln.strip().startswith("-")]
+
+
+def deploy_filter() -> tuple:
+    """The buildFilter, read off render.yaml so it cannot drift from what Render does.
+
+    BOTH HALVES OF IT. Render builds on a changed file that is under `paths` and NOT under
+    `ignoredPaths`, and the second half is not a footnote here: `web/public/checks.json` is
+    pinned after every commit, so reading `paths` alone counts the most frequent commit in this
+    tree as a deploy that will never happen. That is the lag no push would ever clear, which is
+    the one reading this file exists to not report."""
     text = (ROOT / "render.yaml").read_text()
-    block = re.search(r"buildFilter:\s*\n\s*paths:\s*\n((?:\s*-\s*\S+\n)+)", text)
-    if not block:
-        return ["web/**", "hardware/cad-artifacts.lock.json", "updates/**", "render.yaml"]
-    return [ln.strip().lstrip("- ").strip() for ln in block.group(1).splitlines() if ln.strip()]
+    body = text.split("buildFilter:", 1)
+    if len(body) < 2:
+        return ["web/**", "hardware/cad-artifacts.lock.json", "updates/**", "render.yaml"], []
+    return (_yaml_list(body[1], "paths")
+            or ["web/**", "hardware/cad-artifacts.lock.json", "updates/**", "render.yaml"],
+            _yaml_list(body[1], "ignoredPaths"))
 
 
-def deploys(sha: str, patterns: list) -> bool:
+def under(f: str, patterns: list) -> bool:
+    return any(fnmatch.fnmatch(f, p) or (p.endswith("/**") and f.startswith(p[:-2]))
+               for p in patterns)
+
+
+def deploys(sha: str, patterns: list, ignored: list) -> bool:
     files = git("show", "--name-only", "--format=", sha).splitlines()
-    for f in files:
-        for p in patterns:
-            if fnmatch.fnmatch(f, p) or (p.endswith("/**") and f.startswith(p[:-2])):
-                return True
-    return False
+    return any(under(f, patterns) and not under(f, ignored) for f in files)
 
 
 def live() -> str:
@@ -95,9 +112,9 @@ def report() -> int:
     if not known:
         return 0
 
-    patterns = deploy_paths()
+    patterns, ignored = deploy_filter()
     ahead = git("rev-list", f"{served}..origin/main").split()
-    waiting = [s for s in ahead if deploys(s, patterns)]
+    waiting = [s for s in ahead if deploys(s, patterns, ignored)]
     print(f"  origin {git('rev-parse', '--short', 'origin/main')}  "
           f"{len(ahead)} commit(s) past what is live, {len(waiting)} of them deploying")
     if not waiting:
