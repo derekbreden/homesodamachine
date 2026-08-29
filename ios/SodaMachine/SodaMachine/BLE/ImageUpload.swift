@@ -85,7 +85,7 @@ enum ImageUploadState: Equatable {
 
 /// Board-side outcomes, as ble_image.h names them.
 private let uploadErrors = [
-    "", "no such slot", "not a picture this machine's size",
+    "", "no such slot", "a picture is a different size on that machine",
     "the board could not write it", "it did not arrive intact", "the board is busy",
 ]
 
@@ -463,10 +463,29 @@ extension BLEManager {
     }
 
     // ── Adding ────────────────────────────────────────────────────────────
+    /// WHAT A PICTURE IS, IF THE TWO SIDES DISAGREE ABOUT IT. The machine says
+    /// how many bytes a bundle is; this app makes a fixed number of them. When
+    /// those differ, every picture this app can produce will be refused, and it
+    /// is refused after the resampling and after the whole bundle has crossed
+    /// BLE — so the answer is known here, before any of that is spent, and
+    /// nothing about it is the photograph's fault.
+    ///
+    /// Nil while the machine has not said yet, which is not a disagreement.
+    var imageSizeMismatch: String? {
+        let theirs = imageSlots.bundleBytes
+        guard theirs > 0, theirs != ImageBundle.byteCount else { return nil }
+        return "this app and the machine disagree about what a picture is "
+             + "(\(ImageBundle.byteCount) bytes against \(theirs)) — one of them is a version behind"
+    }
+
     /// Take a picture for the machine. Choosing the next one never waits on the
     /// last: a queued picture is a real tile in the place it will occupy, and
     /// the "+" stays live the whole time.
     func enqueueImage(_ crop: UIImage, preview: UIImage?) -> Int? {
+        if let why = imageSizeMismatch {
+            DispatchQueue.main.async { self.imageUploadState = .failed(why) }
+            return nil
+        }
         guard !demoMode, let slot = nextFreeSlot() else { return nil }
         let item = QueuedImage(crop: crop, slot: slot, preview: preview)
         DispatchQueue.main.async {
