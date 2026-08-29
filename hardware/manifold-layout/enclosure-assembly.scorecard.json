@@ -1766,6 +1766,16 @@
    "active": true
   },
   {
+   "id": "z-slide-back-foot-section",
+   "label": "Both back-top slide feet carry the nominal flank section to the seam",
+   "kind": "gate",
+   "status": "pass",
+   "value": "6.00 mm west, 6.00 mm east; arm reaches 10.15 mm into a 14 mm band",
+   "target": "6.00 mm inward of interior_x on both flanks, rail inside its band",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "runs-drawn",
    "label": "Every authored run is drawn as its author asked",
    "kind": "gate",
