@@ -144,7 +144,8 @@ faucet's profile rather than the exterior's: `0.24mm PET-GF faucet`, 265 °C wit
 over a 70 °C plate. One object on plate 1 at scale 1.0 and identity matrix, so the piece
 stands in the box's own frame with +Z up.
 
-Derek, a few hours in: *"it looks great so far."*
+Derek, a few hours in: *"it looks great so far."* Off the plate: *"that turned out
+beautiful."*
 
 Settings:
 - Printer: Bambu Lab H2C, **0.4 mm nozzle**, `required_nozzle_HRC` 40; printer profile
@@ -163,6 +164,10 @@ Settings:
 - `brim_type` auto_brim, `brim_width` 5 mm; `elefant_foot_compensation` 0.15 mm;
   `seam_position` aligned; `fuzzy_skin` none
 - Slicer 02.08.02.61; first-layer time 700 s
+
+The snapshot carries the **+0.02 mm first-layer z-trim**
+([z-trim.md](/hardware/printed-parts/z-trim.md)) — `G29.1 Z{0.0}` on this plate and nozzle
+against Bambu's stock `Z{-0.02}`. The run above is the stock compensation.
 
 The plate stands 251.03 × 286.48 mm and the mesh is 1,169,804 faces, `mesh_stat` all zeros —
 no edges fixed, no degenerate facets, none removed and none reversed.
