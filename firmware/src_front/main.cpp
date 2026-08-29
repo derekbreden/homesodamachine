@@ -253,6 +253,18 @@ static uint32_t frameDoneTimeouts = 0;
 #define TILE_GAP       12
 #define IMAGE_LABEL_Y (PANE_BODY_Y + RATIO_CARD_H + 12)
 #define TILE_STRIP_Y  (IMAGE_LABEL_Y + TEXT_H_20 + 8)
+// A ROW THAT RUNS OFF THE SCREEN HAS TO SAY SO IN SOMETHING THAT CAN BE PRESSED.
+// A strip that only answers to a drag is a strip whose far end does not exist
+// for anyone who has never been taught to try. So it is flanked by two targets
+// the size of the tiles themselves, with a track under it saying where in the
+// row you are — and all three appear only when there is somewhere to go, because
+// an affordance for a row that fits is furniture.
+#define TILE_ARROW_W    64
+#define TILE_ARROW_GAP   8
+#define TILE_STRIP_W  (PANE_W - 2 * PANE_PAD - 2 * (TILE_ARROW_W + TILE_ARROW_GAP))
+#define TILE_TRACK_H    10
+#define TILE_TRACK_Y  (TILE_STRIP_Y + TILE_BTN_H + 8)
+#define TILE_PAGE_PX  (3 * (TILE_BTN_W + TILE_GAP))   // one press of either arrow
 #define PANE_PAD  16
 
 // ── Pages ──
@@ -291,6 +303,9 @@ static void setRailSelection(RailPage p);
 static void showFlavor(FlavorView v);
 static void refreshFlavorImages();
 static void bindFlavorLogos();
+static void tileStripAffordance();
+static void tilePickService();
+static void tileDisarm();
 static void showService(ServiceView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
@@ -420,6 +435,8 @@ static uint8_t   selImgCount = 0;
 static lv_obj_t *homeFlavorArtObj[2];
 static lv_obj_t *flvTileBtn[FLAVOR_IMAGE_COUNT];
 static lv_obj_t *flvTileStrip = NULL;
+static lv_obj_t *flvTileLeft = NULL, *flvTileRight = NULL;
+static lv_obj_t *flvTileTrack = NULL, *flvTileThumb = NULL;
 static lv_obj_t *homeFlavorCard[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
@@ -495,6 +512,12 @@ static bool screenIdle = false;  // true while asleep (backlight off via idle)
 static uint8_t gt911Addr = 0;     // probed at init (0 = not found)
 static uint32_t touchCount = 0;   // diagnostics: presses seen since last GET_DIAG
 static uint16_t lastTouchX = 0, lastTouchY = 0;  // where the last press landed
+// Where the finger is now, and whether it is still down. The press point alone
+// cannot tell a tap from the beginning of a drag, and inside a scrollable strip
+// that is the whole difference between choosing a picture and looking at the
+// next one.
+static uint16_t curTouchX = 0, curTouchY = 0;
+static bool     touchIsDown = false;
 static uint8_t lastRaw[8] = {0};                 // the GT911's own bytes for that press
 static uint8_t lastStatus = 0;
 
@@ -1057,6 +1080,9 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
                     touchWakesOnly ? " (dark — wakes only)" : "");
     }
     bridgedRun = 0;
+    curTouchX = x;
+    curTouchY = y;
+    touchIsDown = true;
     wake();
     data->point.x = x;
     data->point.y = y;
@@ -1080,6 +1106,7 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
       bridgedRun = 0;
     }
     touchWakesOnly = false;   // finger lifted — the next press is the user's own
+    touchIsDown = false;
     data->state = LV_INDEV_STATE_RELEASED;
   }
   prevTouch = now;
@@ -2018,6 +2045,7 @@ static void refreshFlavorImages() {
     lv_obj_set_pos(flvTileBtn[i], x0 + at * (TILE_BTN_W + TILE_GAP), 0);
     ++at;
   }
+  tileStripAffordance();
 }
 
 static void refreshFlavorText() {
@@ -2710,8 +2738,62 @@ static void homeSettingsCb(lv_event_t *e) {
   showFlavor(FLV_DETAIL);
 }
 
-static void imagePickCb(lv_event_t *e) {
-  const uint8_t img = (uint8_t)(intptr_t)lv_event_get_user_data(e);
+// Where in the row you are, and which way there is still to go. Modelled on the
+// SETUP column this recovers: a thumb sized to the fraction on screen, and an end
+// that cannot act saying so by going dim and by not answering.
+static void tileStripAffordance() {
+  if (!flvTileStrip || !flvTileTrack) return;
+  const lv_coord_t before = lv_obj_get_scroll_left(flvTileStrip);
+  const lv_coord_t after  = lv_obj_get_scroll_right(flvTileStrip);
+  const lv_coord_t view   = lv_obj_get_width(flvTileStrip);
+  lv_coord_t total = before + after + view;
+  if (total < view) total = view;
+
+  // A row that fits is not a row you can be lost in. No arrows, no track.
+  const bool scrolls = (before + after) > 0;
+  struct { lv_obj_t *o; } furniture[] = {{flvTileLeft}, {flvTileRight}, {flvTileTrack}};
+  for (auto &f : furniture) {
+    if (!f.o) continue;
+    if (scrolls) lv_obj_clear_flag(f.o, LV_OBJ_FLAG_HIDDEN);
+    else         lv_obj_add_flag(f.o, LV_OBJ_FLAG_HIDDEN);
+  }
+  if (!scrolls) return;
+
+  const lv_coord_t trackW = lv_obj_get_width(flvTileTrack);
+  lv_coord_t thumbW = (lv_coord_t)((int32_t)trackW * view / total);
+  if (thumbW < 56) thumbW = 56;
+  if (thumbW > trackW) thumbW = trackW;
+  const lv_coord_t span = trackW - thumbW;
+  const lv_coord_t off = (lv_coord_t)((int32_t)span * before / (before + after));
+  lv_obj_set_width(flvTileThumb, thumbW);
+  lv_obj_align(flvTileThumb, LV_ALIGN_LEFT_MID, off, 0);
+
+  struct { lv_obj_t *b; bool on; } ends[2] = {{flvTileLeft, before > 0},
+                                              {flvTileRight, after > 0}};
+  for (auto &e : ends) {
+    if (!e.b) continue;
+    if (e.on) lv_obj_clear_state(e.b, LV_STATE_DISABLED);
+    else      lv_obj_add_state(e.b, LV_STATE_DISABLED);
+    lv_obj_set_style_bg_color(e.b, lv_color_hex(e.on ? COL_CARD_ON : COL_CARD), 0);
+  }
+}
+
+static void tileStripScrolledCb(lv_event_t *e) {
+  (void)e;
+  tileStripAffordance();
+}
+
+static void tileStripPageCb(lv_event_t *e) {
+  const int dir = (int)(intptr_t)lv_event_get_user_data(e);
+  if (!flvTileStrip) return;
+  if (dir < 0 && lv_obj_get_scroll_left(flvTileStrip) <= 0) return;
+  if (dir > 0 && lv_obj_get_scroll_right(flvTileStrip) <= 0) return;
+  // No animation: every frame of one repaints the whole 800x480.
+  lv_obj_scroll_by(flvTileStrip, -dir * TILE_PAGE_PX, 0, LV_ANIM_OFF);
+  tileStripAffordance();
+}
+
+static void imagePick(uint8_t img) {
   if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return;
   // An empty custom slot is a place a picture can go, not a picture. Tapping
   // one does nothing rather than putting a fallback face on a channel.
@@ -2719,6 +2801,59 @@ static void imagePickCb(lv_event_t *e) {
   flavorImage[flavorSel] = img;
   refreshFlavorImages();
   sendFlavorArt();
+}
+
+// ── A tap, told apart from the start of a drag ────────────────────────────
+// EVERY OTHER TARGET ON THIS PANEL FIRES ON THE FIRST TOUCH, and should: waiting
+// for a release that has to land back on the same object is what made the stock
+// behaviour feel slack. But a tile lives inside something that is dragged, and
+// firing on the first touch there means every drag also chooses whatever it
+// started on — the strip moved and the picture changed with it.
+//
+// So a tile alone arms instead of acting, and the gesture decides:
+//
+//   the finger lifts without having moved   → chosen, which is the whole of a tap
+//   it is still there and still after 150 ms → chosen, so a deliberate press does
+//                                              not wait for a lift
+//   it moves, or the strip moves under it    → a drag, and nothing is chosen
+//
+// The strip's own offset is watched as well as the finger, because a press that
+// arrests a coasting fling has not moved either, and stopping the strip is what
+// that press was for.
+#define TILE_TAP_MS   150
+#define TILE_TAP_SLOP  12   // px of travel that is still a tap, not a drag
+
+static int16_t  tileArmed = -1;        // the tile a finger is down on, or none
+static uint32_t tileArmedAtMs = 0;
+static uint16_t tileArmedX = 0;
+static lv_coord_t tileArmedScroll = 0;
+
+static void tileDisarm() { tileArmed = -1; }
+
+static void imagePickCb(lv_event_t *e) {
+  tileArmed = (int16_t)(intptr_t)lv_event_get_user_data(e);
+  tileArmedAtMs = millis();
+  tileArmedX = lastTouchX;
+  tileArmedScroll = flvTileStrip ? lv_obj_get_scroll_x(flvTileStrip) : 0;
+}
+
+// Called every pass, because the answer is a thing that stops happening rather
+// than a thing that happens: no further event arrives to say a finger held
+// still.
+static void tilePickService() {
+  if (tileArmed < 0) return;
+
+  const int32_t moved = (int32_t)curTouchX - (int32_t)tileArmedX;
+  const lv_coord_t scroll = flvTileStrip ? lv_obj_get_scroll_x(flvTileStrip) : 0;
+  if ((moved > TILE_TAP_SLOP || moved < -TILE_TAP_SLOP) || scroll != tileArmedScroll) {
+    tileDisarm();
+    return;
+  }
+  if (!touchIsDown || millis() - tileArmedAtMs >= TILE_TAP_MS) {
+    const uint8_t img = (uint8_t)tileArmed;
+    tileDisarm();
+    imagePick(img);
+  }
 }
 
 static void cleanPickCb(lv_event_t *e) {
@@ -2968,16 +3103,21 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_align(mkText(det, "IMAGE", &lv_font_montserrat_20, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, IMAGE_LABEL_Y);
 
-  // One row of faces, dragged sideways. Positions are set here rather than by a
-  // layout, the way every other surface on this panel is.
+  // One row of faces, dragged sideways or paged with the arrows either side.
+  // Positions are set here rather than by a layout, the way every other surface
+  // on this panel is.
   lv_obj_t *strip = lv_obj_create(det);
-  lv_obj_set_size(strip, PANE_W - 2 * PANE_PAD, TILE_BTN_H);
+  lv_obj_set_size(strip, TILE_STRIP_W, TILE_BTN_H);
   lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, TILE_STRIP_Y);
   lv_obj_set_style_bg_opa(strip, LV_OPA_TRANSP, 0);
   lv_obj_set_style_border_width(strip, 0, 0);
   lv_obj_set_style_pad_all(strip, 0, 0);
   lv_obj_set_scroll_dir(strip, LV_DIR_HOR);
-  lv_obj_set_scrollbar_mode(strip, LV_SCROLLBAR_MODE_AUTO);
+  // The track below says where in the row you are, and says it in something big
+  // enough to read across a kitchen. LVGL's own hairline says the same thing to
+  // whoever already knew to look.
+  lv_obj_set_scrollbar_mode(strip, LV_SCROLLBAR_MODE_OFF);
+  lv_obj_add_event_cb(strip, tileStripScrolledCb, LV_EVENT_SCROLL, NULL);
   flvTileStrip = strip;
 
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
@@ -2991,6 +3131,34 @@ static void buildFlavor(lv_obj_t *page) {
     lv_obj_clear_flag(img, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
     flvTileBtn[i] = t;
   }
+
+  // The two ends, as tall as what they move. An arrow the size of a scrollbar
+  // is a scrollbar with a shape.
+  flvTileLeft = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
+  lv_obj_align(flvTileLeft, LV_ALIGN_TOP_LEFT, 0, TILE_STRIP_Y);
+  lv_obj_add_event_cb(flvTileLeft, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)-1);
+  lv_obj_center(mkText(flvTileLeft, LV_SYMBOL_LEFT, &lv_font_montserrat_40, COL_TEXT));
+
+  flvTileRight = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
+  lv_obj_align(flvTileRight, LV_ALIGN_TOP_RIGHT, 0, TILE_STRIP_Y);
+  lv_obj_add_event_cb(flvTileRight, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)1);
+  lv_obj_center(mkText(flvTileRight, LV_SYMBOL_RIGHT, &lv_font_montserrat_40, COL_TEXT));
+
+  flvTileTrack = lv_obj_create(det);
+  lv_obj_set_size(flvTileTrack, TILE_STRIP_W, TILE_TRACK_H);
+  lv_obj_align(flvTileTrack, LV_ALIGN_TOP_MID, 0, TILE_TRACK_Y);
+  lv_obj_set_style_bg_color(flvTileTrack, lv_color_hex(COL_CARD), 0);
+  lv_obj_set_style_border_width(flvTileTrack, 0, 0);
+  lv_obj_set_style_radius(flvTileTrack, TILE_TRACK_H / 2, 0);
+  lv_obj_set_style_pad_all(flvTileTrack, 0, 0);
+  lv_obj_clear_flag(flvTileTrack, LV_OBJ_FLAG_SCROLLABLE);
+
+  flvTileThumb = lv_obj_create(flvTileTrack);
+  lv_obj_set_height(flvTileThumb, TILE_TRACK_H);
+  lv_obj_set_style_bg_color(flvTileThumb, lv_color_hex(COL_ACCENT), 0);
+  lv_obj_set_style_border_width(flvTileThumb, 0, 0);
+  lv_obj_set_style_radius(flvTileThumb, TILE_TRACK_H / 2, 0);
+  lv_obj_clear_flag(flvTileThumb, LV_OBJ_FLAG_SCROLLABLE);
 
   flvView[FLV_DETAIL] = det;
 }
@@ -3147,6 +3315,9 @@ static void showFlavor(FlavorView v) {
   if (flvTileStrip && sel < FLAVOR_IMAGE_COUNT && flvTileBtn[sel] &&
       !lv_obj_has_flag(flvTileBtn[sel], LV_OBJ_FLAG_HIDDEN))
     lv_obj_scroll_to_view(flvTileBtn[sel], LV_ANIM_OFF);
+  tileStripAffordance();
+  // Whatever a finger was on belonged to the page being left.
+  tileDisarm();
 }
 
 static void showService(ServiceView v) {
@@ -3725,6 +3896,7 @@ void loop() {
     if (!pressSpoke) j9Post(MSG_TOUCH, nullptr, 0);
   }
 
+  tilePickService();   // a tile chosen only once its gesture is not a drag
   primeSessionService();
   flavorLinkService();
   j9Pump();      // at most one frame on the wire at a time
