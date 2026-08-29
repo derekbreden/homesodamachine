@@ -249,11 +249,6 @@ This polling turn also carries faucet-originated changes from J3 to this display
 
 ## The interface
 
-Each Choose card carries a settings target of its own beneath it — a sibling of the
-card, not a child, so no press reaches the card under it — opening that flavor's page
-with its ratio and a grid of every logo it could wear. Two rows of thumbnails fit
-before the grid scrolls.
-
 A 190 px rail down the left carries four 110 px targets — **CHOOSE · PRIME · FILL ·
 CLEAN** — each an icon over a word. Choose is the drink; Prime, Fill and Clean act on a
 channel and run down the rail from the least destructive to the most. Choose uses a hand
@@ -265,19 +260,39 @@ remaining 610 px is the pane, and it takes a different shape at each destination
 | Page | Shape | Reads / writes |
 |---|---|---|
 | Choose | two large, quiet flavor cards with an unmistakable retained selection | **the main board**, mirrored with the faucet |
-| A flavor's own page | `−`/`+` on the ratio, and every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
+| A flavor's own page | `−`/`+` on the ratio, and a row of every logo it can wear — reached from that flavor's Choose card, and Back returns there | display-local |
 | Prime | flavor choice → shared hold pad | **the base** |
 | Fill | flavor choice → confirmation | **the base** |
 | Clean | flavor choice → confirmation | **the base** |
-
-A channel is named by the logo it wears, never by a number. The three pick-a-flavor
-screens offer the same artwork Choose does, full size, under the mark for what is about to
-happen to it; Fill, Clean and Prime then take the same
-shape behind that choice — the logo at half size, a line about what is about to happen, and
-one wide target — so a channel never loses track of which one is committed. A flavor's own
-page carries it at a quarter in its title band, where the ratio card and picker grid take
-the room.
 | Settings | a deliberately quiet surface until a useful preference is ready; reached from the corner | — |
+
+**Every face on this panel is the faucet's glass.** A logo is 43:80 at three scales —
+172×320, 129×240, 86×160 — and nothing else, because choosing a face here is choosing what
+that glass will wear, and a square thumbnail answers a question nobody asked. That shape is
+what lays the pages out:
+
+- **Choose** stands the 129×240 face down the left of each card. What a tall face leaves
+  beside it is the column that says whether this is the flavor the machine is on, and what
+  it pours at — the number the settings target under the card exists to change. That target
+  is a sibling of the card rather than a child of it, so no press reaches the card under it.
+- **The three pick-a-flavor screens** give each channel a whole column of its own face,
+  under the mark for what is about to happen to it.
+- **Every page behind a choice** — a flavor's own, and the prime, fill and clean screens —
+  anchors that channel's 172×320 face at the pane's west edge, directly under a back button
+  of the same width. The choice slid left and its details opened east of it: one column, one
+  width, four pages, so moving between them moves only what changed.
+
+A channel is named by the logo it wears, never by a number.
+
+**The picker is one row, and a row that runs off has to say so in something that can be
+pressed.** East of the anchor, a flavor's own page carries its ratio card over a strip of
+faces that is dragged sideways or paged by an arrow at either end, with a track beneath
+saying where in the row you are. All three appear only when the row runs off, because an
+affordance for a row that fits is furniture, and an arrow with nowhere to go goes dim and
+does not answer — which includes not making the sound of having answered. A tile arms on
+the first touch like every other target here and is chosen 150 ms later or on the lift,
+whichever comes first; a finger that travels, or a strip that moves under it, is a drag and
+chooses nothing.
 
 Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
 render. Every page is built at boot and switching hides one and shows another. On Choose,

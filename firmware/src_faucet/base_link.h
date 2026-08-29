@@ -45,11 +45,9 @@ void faucetSetFlavorArt(uint8_t channel, uint8_t art);
 // A picture landed here whole; ask for it to be carried the last hop.
 void faucetRequestRelay(uint8_t slot);
 
-// The identity of the enclosure's copy of a slot, as that board's store keeps
-// it — so the main board can hold the two stores against each other. Zero where
-// the slot is empty. Cached; faucetForgetEnclosureCrc() drops it.
+// The identity of a slot, which is the same number on both boards — so the main
+// board can hold the two stores against each other. Zero where the slot is empty.
 uint32_t faucetEnclosureCrc(uint8_t slot);
-void     faucetForgetEnclosureCrc();
 
 // A picture was removed here; remove it from the rest of the machine too.
 void faucetRequestErase(uint8_t slot);

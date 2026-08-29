@@ -3,10 +3,10 @@
 
 Each source PNG produces headers for the S3 round rotary display (240×240,
 firmware/src_config/images/), the RP2040 round display (128×115,
-firmware/src_display/), and — for the two shipping flavors — the S3 faucet
-display (172×320 full-bleed center crop, firmware/src_faucet/images/).
-These are the first-boot seed bitmaps; runtime images live on the ESP32
-LittleFS store.
+firmware/src_display/), the S3 faucet display (172×320 full-bleed center crop,
+firmware/src_faucet/images/), and the three 43:80 renditions the enclosure
+display draws (firmware/src_front/images/). These are the first-boot seed
+bitmaps; runtime images live on the ESP32 LittleFS store.
 """
 
 from pathlib import Path
@@ -20,29 +20,29 @@ RP_DIR = PROJECT / "firmware" / "src_display"
 FAUCET_DIR = PROJECT / "firmware" / "src_faucet" / "images"
 FRONT_DIR = PROJECT / "firmware" / "src_front" / "images"
 
-# A channel can be given any logo here, and all three glasses render whichever it
-# wears — so every logo needs the 240 a Choose card shows, the tile the picker
-# strip shows, the 128x115 the round display shows, and the 172x320 the faucet
-# shows.
+# A channel can be given any logo here, and all three glasses render whichever
+# it wears — so every logo needs the 128x115 the round display shows, the 240
+# the rotary display shows, and the three 43:80 renditions the faucet and the
+# enclosure draw between them.
 
-# The picker tile is the faucet at half scale — 43:80, the same shape the glass
-# it is choosing for will wear it at. Center-cropped like the faucet's own, so
-# the tile is a preview rather than a differently-framed picture.
-TILE_W, TILE_H = 86, 160
-# A quarter of the card art, small enough to ride a pane's title band and say
-# which channel the screen is acting on without a word for it.
-HEAD = 60
-# Half the card art: what a confirm screen shows, where the channel being
-# committed to is the subject rather than a reminder.
-MID = 120
+# THE ENCLOSURE'S FACES ARE THE FAUCET'S SHAPE, SCALED. Every surface on that
+# panel that shows a logo shows the same rectangle a photograph gave the glass:
+# the anchor is the faucet's own rendition, the card is it at three quarters,
+# the picker tile at half. Center-cropped like the faucet's own, so a face is a
+# preview of the glass rather than a differently-framed picture of it.
+# These mirror IMAGE_BUNDLE in firmware/lib/proto_link/proto_msg.h, which is
+# what a phone resamples a user's own picture to.
+ANCHOR_W, ANCHOR_H = 43 * 4, 80 * 4   # 172x320 — and the faucet's own
+CARD_W, CARD_H     = 43 * 3, 80 * 3   # 129x240
+TILE_W, TILE_H     = 43 * 2, 80 * 2   #  86x160
 
 # (source png, label, S3 var [240×240], RP2040 var [128×115], faucet var [172×320],
-#  front picker tile var [86×160], front title-band var [60×60], front confirm var [120×120])
+#  front anchor var [172×320], front card var [129×240], front tile var [86×160])
 FLAVORS = [
-    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet", "flavor0_tile", "flavor0_head", "flavor0_mid"),
-    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet", "flavor1_tile", "flavor1_head", "flavor1_mid"),
-    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", "flavor2_faucet", "flavor2_tile", "flavor2_head", "flavor2_mid"),
-    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", "flavor3_faucet", "flavor3_tile", "flavor3_head", "flavor3_mid"),
+    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap", "flavor0_faucet", "flavor0_anchor", "flavor0_card", "flavor0_tile"),
+    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap", "flavor1_faucet", "flavor1_anchor", "flavor1_card", "flavor1_tile"),
+    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap", "flavor2_faucet", "flavor2_anchor", "flavor2_card", "flavor2_tile"),
+    ("flavor_4.png", "flavor_4", "flavor3_240", "flavor4_bitmap", "flavor3_faucet", "flavor3_anchor", "flavor3_card", "flavor3_tile"),
 ]
 
 
@@ -76,20 +76,21 @@ def main():
     FAUCET_DIR.mkdir(parents=True, exist_ok=True)
     FRONT_DIR.mkdir(parents=True, exist_ok=True)
     print(f"Converting {len(FLAVORS)} flavors to RGB565 headers...")
-    for png, label, s3_var, rp_var, faucet_var, tile_var, head_var, mid_var in FLAVORS:
+    for png, label, s3_var, rp_var, faucet_var, anchor_var, card_var, tile_var in FLAVORS:
         src = IMAGES / png
         if not src.exists():
             print(f"  SKIP {png} (missing)")
             continue
         write_header(src, s3_var, label, S3_DIR / f"{s3_var}.h", 240, 240)
         write_header(src, rp_var, label, RP_DIR / f"{rp_var}.h", 128, 115)
+        write_header(src, anchor_var, label, FRONT_DIR / f"{anchor_var}.h",
+                     ANCHOR_W, ANCHOR_H, cover=True)
+        write_header(src, card_var, label, FRONT_DIR / f"{card_var}.h",
+                     CARD_W, CARD_H, cover=True)
         write_header(src, tile_var, label, FRONT_DIR / f"{tile_var}.h",
                      TILE_W, TILE_H, cover=True)
-        write_header(src, head_var, label, FRONT_DIR / f"{head_var}.h", HEAD, HEAD)
-        write_header(src, mid_var, label, FRONT_DIR / f"{mid_var}.h", MID, MID)
-        if faucet_var:
-            write_header(src, faucet_var, label, FAUCET_DIR / f"{faucet_var}.h",
-                         172, 320, cover=True)
+        write_header(src, faucet_var, label, FAUCET_DIR / f"{faucet_var}.h",
+                     ANCHOR_W, ANCHOR_H, cover=True)
     print("Done.")
 
 

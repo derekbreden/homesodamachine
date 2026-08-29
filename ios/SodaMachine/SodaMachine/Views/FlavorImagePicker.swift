@@ -267,7 +267,7 @@ struct FlavorImagePicker: View {
 
     /// A new picture takes whichever slot is free, and wears itself at once —
     /// choosing it was the point of adding it.
-    private func add(_ crop: ImageCrop) {
+    private func add(_ crop: UIImage) {
         // The tile shown while it goes up. The durable one is filed under the
         // bundle's crc32 once that exists, which is the same face by a name the
         // machine also knows.

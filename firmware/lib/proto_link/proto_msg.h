@@ -307,36 +307,43 @@ inline uint8_t flavorArtCustomSlot(uint8_t art) {
 // Nothing on either board scales anything at draw time, so a custom face is as
 // sharp as a factory one.
 //
-// THE FAUCET KEEPS ALL FIVE. It is the board with the radio and the space, so
-// it is the master copy: an enclosure display can be replaced and re-provisioned
-// from it without the phone ever being involved. The enclosure keeps only the
-// four it draws, in its own draw order, which is why they are contiguous here.
+// ONE SHAPE, AT THREE SIZES. Every rendition is 43:80 — the faucet's glass —
+// so a photograph gives the machine one rectangle and every surface that shows
+// it shows the same picture. A face composed for the tall glass is the face the
+// enclosure's card wears and the face its picker previews, at three scales of
+// one crop rather than three framings of one photograph.
+//
+// BOTH BOARDS KEEP ALL THREE. The faucet is the master copy — it has the radio,
+// so an enclosure display can be replaced and re-provisioned from it without the
+// phone ever being involved — and it now holds byte for byte what the enclosure
+// holds, so one crc is both boards' answer for what a slot contains.
 
 struct __attribute__((packed)) ImageRenditionSpec {
   uint16_t w;
   uint16_t h;
 };
 
-constexpr uint8_t IMAGE_BUNDLE_COUNT = 5;
-constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_AT    = 1;   // first enclosure rendition
-constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_COUNT = 4;
+constexpr uint8_t IMAGE_BUNDLE_COUNT = 3;
+constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_AT    = 0;
+constexpr uint8_t IMAGE_BUNDLE_ENCLOSURE_COUNT = IMAGE_BUNDLE_COUNT;
 
-// index 0: the faucet fills its whole glass.
-// index 1..4: the enclosure's card, tile, head and mid, in the order it binds.
-//
-// THE PICKER TILE IS THE FAUCET'S OWN SHAPE, HALVED. Choosing a face on the
-// enclosure is choosing what the faucet will wear, and a square thumbnail
-// answers a different question than the one being asked — a photograph that
-// reads well cropped square can lose its subject entirely in a tall glass. So
-// the tile is 43:80 exactly, the faucet at half scale, cut from the same
-// portrait window the faucet's own rendition comes from.
+// index 0: the faucet's whole glass, and the enclosure's detail anchor — the
+//          picture at the size the faucet will wear it, standing under the back
+//          button to say which flavor the page is about.
+// index 1: the enclosure's Choose card, and the face on a prime/fill/clean pick.
+// index 2: its picker tile.
 constexpr ImageRenditionSpec IMAGE_BUNDLE[IMAGE_BUNDLE_COUNT] = {
     {172, 320},
-    {240, 240},
+    {129, 240},
     { 86, 160},
-    { 60,  60},
-    {120, 120},
 };
+
+// 43:80 exactly, all of them — the glass at four, three and two. A rendition
+// that is not the faucet's shape is a second crop of the photograph, and there
+// is only one.
+static_assert(IMAGE_BUNDLE[0].w == 43 * 4 && IMAGE_BUNDLE[0].h == 80 * 4, "43:80");
+static_assert(IMAGE_BUNDLE[1].w == 43 * 3 && IMAGE_BUNDLE[1].h == 80 * 3, "43:80");
+static_assert(IMAGE_BUNDLE[2].w == 43 * 2 && IMAGE_BUNDLE[2].h == 80 * 2, "43:80");
 
 inline uint32_t imageBundleBytes() {
   uint32_t n = 0;
