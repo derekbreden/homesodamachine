@@ -20,13 +20,76 @@ import SwiftUI
 // picture and one gesture still answers the whole question. It detaches the
 // moment it is touched, and a button on its preview puts it back.
 //
-// Nothing is resampled here. This produces the two rectangles at full source
-// resolution and ImageBundle does every reduction from those, once.
+// A FRAME CAN BE WIDER THAN THE PICTURE. A logo shot tight has no room above
+// and below it to become a tall glass, and cropping is the wrong tool for a
+// shortage of background — so zooming out past the photograph's own edge
+// continues it in the colour its edges run into. Two things keep that from
+// happening by accident: pinching back out STOPS at the picture's own frame,
+// and only a pinch that begins there goes past it. Zooming out ends the moment
+// the other axis reaches the photograph's edge, because past that there is
+// nothing left to reveal.
 // ────────────────────────────────────────────────────────────
 
 struct ImageCrop {
     let portrait: UIImage   // 172:320, for the faucet
     let square: UIImage     // 1:1, for the enclosure's card and its smaller sizes
+}
+
+/// How a photograph's edges carry on past themselves, so a frame wider than the
+/// picture continues it rather than boxing it in black. Each edge is a short run
+/// of colours along its length: a solid backdrop gives a flat one, a gradient
+/// keeps its gradient, and a subject touching an edge is outvoted by the median
+/// of the band it sits in rather than smeared into a streak.
+struct EdgeBackground {
+    var top: [Color] = [.black]
+    var bottom: [Color] = [.black]
+    var left: [Color] = [.black]
+    var right: [Color] = [.black]
+
+    static func detect(_ image: UIImage) -> EdgeBackground {
+        let n = 64, depth = 4, steps = 9
+        var px = [UInt8](repeating: 0, count: n * n * 4)
+        guard let cg = image.cgImage,
+              let ctx = CGContext(data: &px, width: n, height: n, bitsPerComponent: 8,
+                                  bytesPerRow: n * 4, space: CGColorSpaceCreateDeviceRGB(),
+                                  bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)
+        else { return EdgeBackground() }
+        ctx.interpolationQuality = .medium
+        ctx.draw(cg, in: CGRect(x: 0, y: 0, width: n, height: n))
+
+        // A median rather than a mean: a backdrop with one dark corner should
+        // give the backdrop, not a shade between the two.
+        func median(_ v: [(UInt8, UInt8, UInt8)]) -> Color {
+            guard !v.isEmpty else { return .black }
+            let m = v.count / 2
+            return Color(red: Double(v.map(\.0).sorted()[m]) / 255,
+                         green: Double(v.map(\.1).sorted()[m]) / 255,
+                         blue: Double(v.map(\.2).sorted()[m]) / 255)
+        }
+
+        // Row 0 of a bitmap context is the picture's top row. `along` runs the
+        // length of the edge and `into` runs inward from it, so one closure
+        // names each edge.
+        func edge(_ pick: (_ along: Int, _ into: Int) -> (Int, Int)) -> [Color] {
+            (0..<steps).map { s in
+                let lo = s * n / steps, hi = max(lo + 1, (s + 1) * n / steps)
+                var bucket: [(UInt8, UInt8, UInt8)] = []
+                for a in lo..<hi {
+                    for d in 0..<depth {
+                        let (x, y) = pick(a, d)
+                        let i = (y * n + x) * 4
+                        bucket.append((px[i], px[i + 1], px[i + 2]))
+                    }
+                }
+                return median(bucket)
+            }
+        }
+
+        return EdgeBackground(top:    edge { a, d in (a, d) },
+                              bottom: edge { a, d in (a, n - 1 - d) },
+                              left:   edge { a, d in (d, a) },
+                              right:  edge { a, d in (n - 1 - d, a) })
+    }
 }
 
 struct ImageCropView: View {
@@ -38,9 +101,9 @@ struct ImageCropView: View {
     private enum Face: Hashable { case faucet, display }
 
     /// Where one rectangle sits on the photograph. Scale 1 is the largest
-    /// rectangle of that shape the photograph can give, so it means the same
-    /// thing to both of them; centre is a fraction of the source, so it survives
-    /// a change of scale and of window size.
+    /// rectangle of that shape the photograph can give — the frame someone
+    /// uploaded. Above it is a tighter crop; below it the frame has outgrown
+    /// the picture and the difference is background.
     private struct Framing: Equatable {
         var scale: CGFloat = 1
         var center = CGPoint(x: 0.5, y: 0.5)
@@ -50,8 +113,11 @@ struct ImageCropView: View {
     @State private var tall = Framing()
     @State private var square = Framing()
     @State private var squareFollows = true
+    @State private var edges = EdgeBackground()
     /// The framing a gesture started from, so pan and pinch of the same touch
-    /// are both measured against one fixed thing rather than against each other.
+    /// are both measured against one fixed thing rather than against each other
+    /// — and so the floor a pinch is allowed to reach is decided once, from
+    /// where the fingers landed.
     @State private var gestureBase: Framing?
 
     private let tallAspect: CGFloat = 172.0 / 320.0
@@ -123,6 +189,14 @@ struct ImageCropView: View {
                 }
             }
         }
+        .task {
+            // Off the main thread: nothing on screen needs it until someone
+            // zooms past the picture's own edge.
+            let source = image
+            edges = await Task.detached(priority: .userInitiated) {
+                EdgeBackground.detect(source)
+            }.value
+        }
     }
 
     // ── The two faces, under the window ───────────────────────────────────
@@ -173,16 +247,47 @@ struct ImageCropView: View {
     // drift from what the window says — it is the same crop at another size.
 
     private func view(of face: Face, size: CGSize) -> some View {
-        let r = rect(framing(face), aspect: aspect(face))
+        let a = aspect(face)
+        let r = rect(framing(face), aspect: a)
         let k = size.width / max(r.width, 1)     // display points per source pixel
+        let shown = CGSize(width: image.size.width * k, height: image.size.height * k)
+        let at = CGPoint(x: (image.size.width / 2 - r.midX) * k,
+                         y: (image.size.height / 2 - r.midY) * k)
 
-        return Image(uiImage: image)
-            .resizable()
-            .frame(width: image.size.width * k, height: image.size.height * k)
-            .offset(x: (image.size.width / 2 - r.midX) * k,
-                    y: (image.size.height / 2 - r.midY) * k)
-            .frame(width: size.width, height: size.height)
-            .clipped()
+        return ZStack {
+            bands(size, shown, at, a)
+            Image(uiImage: image)
+                .resizable()
+                .frame(width: shown.width, height: shown.height)
+                .offset(x: at.x, y: at.y)
+        }
+        .frame(width: size.width, height: size.height)
+        .clipped()
+    }
+
+    /// What fills the frame where the photograph has run out. Only ever one
+    /// pair of edges — zooming out stops the moment the other axis reaches the
+    /// picture — so this is two runs of colour meeting under the middle of the
+    /// photograph, where the seam cannot be seen. Each is laid out across the
+    /// photograph's own extent, so its colours sit over the columns they were
+    /// taken from and the join at the picture's edge disappears.
+    @ViewBuilder
+    private func bands(_ size: CGSize, _ shown: CGSize, _ at: CGPoint, _ a: CGFloat) -> some View {
+        if extendsVertically(a) {
+            VStack(spacing: 0) {
+                LinearGradient(colors: edges.top, startPoint: .leading, endPoint: .trailing)
+                LinearGradient(colors: edges.bottom, startPoint: .leading, endPoint: .trailing)
+            }
+            .frame(width: shown.width, height: (size.height + shown.height) * 2)
+            .offset(x: at.x, y: at.y)
+        } else {
+            HStack(spacing: 0) {
+                LinearGradient(colors: edges.left, startPoint: .top, endPoint: .bottom)
+                LinearGradient(colors: edges.right, startPoint: .top, endPoint: .bottom)
+            }
+            .frame(width: (size.width + shown.width) * 2, height: shown.height)
+            .offset(x: at.x, y: at.y)
+        }
     }
 
     // ── The gesture ───────────────────────────────────────────────────────
@@ -198,7 +303,11 @@ struct ImageCropView: View {
 
                 var f = base
                 if let m = v.second {
-                    f.scale = min(max(base.scale * m, 1), maxScale(active))
+                    // Coming back out stops at the photograph's own frame.
+                    // Starting a pinch already there is the only way past it,
+                    // which makes going past a second, deliberate ask.
+                    let floor = base.scale <= 1.0001 ? minScale(aspect(active)) : 1
+                    f.scale = min(max(base.scale * m, floor), maxScale(active))
                 }
                 if let d = v.first {
                     // Measured at the scale this frame is drawn at, so a pinch
@@ -218,9 +327,9 @@ struct ImageCropView: View {
     private func set(_ f: Framing) {
         switch active {
         case .faucet:
-            tall = clamp(f, aspect: tallAspect)
+            tall = clamp(f, .faucet)
         case .display:
-            square = clamp(f, aspect: 1)
+            square = clamp(f, .display)
             squareFollows = false
         }
     }
@@ -240,42 +349,64 @@ struct ImageCropView: View {
         guard squareFollows else { return square }
         let t = rect(tall, aspect: tallAspect)
         let maxSide = min(image.size.width, image.size.height)
-        return Framing(scale: maxSide / max(t.width, 1),
-                       center: CGPoint(x: t.midX / image.size.width,
-                                       y: t.midY / image.size.height))
+        return clamp(Framing(scale: maxSide / max(t.width, 1),
+                             center: CGPoint(x: t.midX / max(image.size.width, 1),
+                                             y: t.midY / max(image.size.height, 1))),
+                     .display)
     }
 
-    /// The rectangle a framing selects, in the source's own pixels.
+    /// The rectangle a framing selects, in the source's own pixels. It may
+    /// reach past them, and what lies past them is background.
     private func rect(_ f: Framing, aspect a: CGFloat) -> CGRect {
         let (w, h) = extent(f, aspect: a)
-        let c = center(f, w, h)
-        return CGRect(x: c.x - w / 2, y: c.y - h / 2, width: w, height: h)
+        let cx = bound(f.center.x * image.size.width, w, image.size.width)
+        let cy = bound(f.center.y * image.size.height, h, image.size.height)
+        return CGRect(x: cx - w / 2, y: cy - h / 2, width: w, height: h)
     }
 
     private func extent(_ f: Framing, aspect a: CGFloat) -> (CGFloat, CGFloat) {
-        let w = min(image.size.width, image.size.height * a) / max(f.scale, 1)
+        let w = min(image.size.width, image.size.height * a) / max(f.scale, 0.01)
         return (w, w / a)
     }
 
-    /// Kept inside the photograph: no crop has an edge off the picture.
-    private func center(_ f: Framing, _ w: CGFloat, _ h: CGFloat) -> CGPoint {
-        CGPoint(x: min(max(f.center.x * image.size.width, w / 2), image.size.width - w / 2),
-                y: min(max(f.center.y * image.size.height, h / 2), image.size.height - h / 2))
+    /// A frame narrower than the photograph has to stay inside it; a frame
+    /// wider than the photograph has to keep all of it. The same sentence
+    /// either way: no edge of the frame may cut into nothing.
+    private func bound(_ c: CGFloat, _ extent: CGFloat, _ source: CGFloat) -> CGFloat {
+        let lo = extent / 2, hi = source - extent / 2
+        return min(max(c, min(lo, hi)), max(lo, hi))
     }
 
-    private func clamp(_ f: Framing, aspect a: CGFloat) -> Framing {
-        let (w, h) = extent(f, aspect: a)
-        let c = center(f, w, h)
-        return Framing(scale: f.scale,
-                       center: CGPoint(x: c.x / image.size.width, y: c.y / image.size.height))
+    private func clamp(_ f: Framing, _ face: Face) -> Framing {
+        let a = aspect(face)
+        var g = f
+        g.scale = min(max(f.scale, minScale(a)), maxScale(face))
+        let (w, h) = extent(g, aspect: a)
+        g.center = CGPoint(x: bound(g.center.x * image.size.width, w, image.size.width) / max(image.size.width, 1),
+                           y: bound(g.center.y * image.size.height, h, image.size.height) / max(image.size.height, 1))
+        return g
     }
 
     /// A photograph cannot be zoomed past its own resolution: the tightest crop
     /// allowed is the one that still fills the rendition it feeds.
     private func maxScale(_ face: Face) -> CGFloat {
-        let a = aspect(face)
-        let widest = min(image.size.width, image.size.height * a)
+        let widest = min(image.size.width, image.size.height * aspect(face))
         return max(1, widest / (face == .faucet ? 172 : 240))
+    }
+
+    /// How far out a frame can grow: until its other axis reaches the edge of
+    /// the photograph. Past that both axes would be background, which reveals
+    /// nothing and only makes the picture smaller.
+    private func minScale(_ a: CGFloat) -> CGFloat {
+        let w = image.size.width, h = image.size.height * a
+        guard w > 0, h > 0 else { return 1 }
+        return min(w, h) / max(w, h)
+    }
+
+    /// Which pair of edges a frame wider than the picture has to continue.
+    /// A window narrower than the photograph runs out of height first.
+    private func extendsVertically(_ a: CGFloat) -> Bool {
+        a < image.size.width / max(image.size.height, 1)
     }
 
     private func fit(_ a: CGFloat, in room: CGSize) -> CGSize {
@@ -298,14 +429,61 @@ struct ImageCropView: View {
                          square: cut(rect(effectiveSquare, aspect: 1), from: upright))
     }
 
-    /// One rectangle of the source, at full resolution.
+    /// One rectangle of the source at full resolution — and where the rectangle
+    /// reaches past the source, the colour its edges run into.
     private func cut(_ rect: CGRect, from upright: UIImage) -> UIImage {
         guard let cg = upright.cgImage else { return image }
-        let px = CGFloat(cg.width) / image.size.width
-        let inPixels = CGRect(x: rect.minX * px, y: rect.minY * px,
-                              width: rect.width * px, height: rect.height * px)
-            .intersection(CGRect(x: 0, y: 0, width: CGFloat(cg.width), height: CGFloat(cg.height)))
-        guard !inPixels.isEmpty, let cut = cg.cropping(to: inPixels) else { return image }
-        return UIImage(cgImage: cut)
+        let px = CGFloat(cg.width) / max(image.size.width, 1)
+        let r = CGRect(x: rect.minX * px, y: rect.minY * px,
+                       width: rect.width * px, height: rect.height * px)
+        let whole = CGRect(x: 0, y: 0, width: CGFloat(cg.width), height: CGFloat(cg.height))
+
+        // Inside the photograph: its own pixels, untouched.
+        if whole.insetBy(dx: -0.5, dy: -0.5).contains(r), let inside = cg.cropping(to: r) {
+            return UIImage(cgImage: inside)
+        }
+
+        let size = CGSize(width: max(r.width.rounded(), 1), height: max(r.height.rounded(), 1))
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        format.opaque = true
+        return UIGraphicsImageRenderer(size: size, format: format).image { c in
+            let g = c.cgContext
+            let vertical = extendsVertically(rect.width / max(rect.height, 1))
+            let x0 = -r.minX, y0 = -r.minY
+
+            /// One edge's colours, run across the photograph's own extent and
+            /// held at their end colours beyond it.
+            func band(_ colors: [Color], _ area: CGRect) {
+                let cs = colors.count >= 2 ? colors : colors + colors
+                guard !area.isEmpty,
+                      let grad = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(),
+                                            colors: cs.map { UIColor($0).cgColor } as CFArray,
+                                            locations: nil) else { return }
+                g.saveGState()
+                g.clip(to: area)
+                g.drawLinearGradient(
+                    grad,
+                    start: vertical ? CGPoint(x: x0, y: 0) : CGPoint(x: 0, y: y0),
+                    end: vertical ? CGPoint(x: x0 + whole.width, y: 0)
+                                  : CGPoint(x: 0, y: y0 + whole.height),
+                    options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+                g.restoreGState()
+            }
+
+            // The seam between them falls under the middle of the photograph,
+            // where the photograph itself covers it.
+            if vertical {
+                let seam = whole.midY + y0
+                band(edges.top, CGRect(x: 0, y: 0, width: size.width, height: seam))
+                band(edges.bottom, CGRect(x: 0, y: seam, width: size.width, height: size.height - seam))
+            } else {
+                let seam = whole.midX + x0
+                band(edges.left, CGRect(x: 0, y: 0, width: seam, height: size.height))
+                band(edges.right, CGRect(x: seam, y: 0, width: size.width - seam, height: size.height))
+            }
+            UIImage(cgImage: cg).draw(in: CGRect(x: x0, y: y0,
+                                                 width: whole.width, height: whole.height))
+        }
     }
 }
