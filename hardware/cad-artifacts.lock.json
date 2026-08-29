@@ -7,7 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "e80ddbd9bee52bed89da550def97129caf6e47fb"
+    "commit": "723b229bda3510b082e8b562f07d36576f8fbb55"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -124,8 +124,7 @@
       "tmp/quickstart-revision-qa/connect-quarter.png",
       "tmp/quickstart-revision-qa/mount-quarter.png",
       "tmp/quickstart-revision-qa/page-1.png",
-      "tmp/quickstart-revision-qa/page-2.png",
-      "tools/cad-artifacts/pack.py"
+      "tmp/quickstart-revision-qa/page-2.png"
     ],
     "members": [
       "hardware/assembly/scenes/glb/back-half.glb",
@@ -135,14 +134,17 @@
       "hardware/assembly/scenes/glb/cold-core-open.glb",
       "hardware/assembly/scenes/glb/cold-core.glb",
       "hardware/assembly/scenes/glb/en04-stratum.glb",
-      "hardware/assembly/scenes/glb/en06-column.glb",
       "hardware/assembly/scenes/glb/front-top.glb",
-      "hardware/assembly/scenes/glb/funnel-drain.glb",
       "hardware/assembly/scenes/glb/pump-cartridge.glb",
-      "hardware/cold-core-layout/cold-core-assembly.step",
+      "hardware/faucet-layout/faucet-assembly.step.mesh",
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
+      "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
       "hardware/quickstart/art/mount-slide.png"
     ]
   },
