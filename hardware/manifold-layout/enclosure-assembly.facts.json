@@ -225,10 +225,10 @@
    224.67500009999998
   ],
   "collet-plate": [
-   -97.85,
+   -94.0,
    75.635,
    160.0,
-   97.85,
+   94.0,
    78.81,
    216.49
   ],
@@ -1283,8 +1283,8 @@
    "stroke": 3.289,
    "stroke_ceiling": 4.62,
    "wall_aft_y": 89.231,
-   "x0": -97.85,
-   "x1": 97.85,
+   "x0": -94.0,
+   "x1": 94.0,
    "z0": 160.0,
    "z1": 216.49
   },
@@ -1983,7 +1983,7 @@
    true
   ]
  },
- "card": "c63a9d84aa37a4126581c2342bac7556",
+ "card": "a13fb7b066c96e68782d43eb591efdad",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -3027,8 +3027,8 @@
   }
  ],
  "schema": 2,
- "sources": "7640950a3dcfcee26d689a26f114f97a",
- "step": "a6f8d15fbc175187e5fb0c8b393ea7c9",
+ "sources": "27c2d7f3a424d3dbdc3694561ed21f72",
+ "step": "833a1c19c1b729e5510f2b0f232ffe36",
  "valve_tray_stations": [
   [
    171.08,

@@ -136,8 +136,8 @@ is the wall's own air.
 Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel slide on hooked rails, and
 no screw anywhere on it.** Down each flank's **straight run** the bottom piece raises an
 **arm** on its mouth, standing one [0.15 mm](SLIDE_SLIP) inboard of the top's own wall,
-and the arm's **head** steps back out over the **groove** between them: a compact
-[2 mm](HOOK_LAP) overlap on the front column and [5 mm](BACK_HOOK_LAP) on the back.
+and the arm's **head** steps back out over the **groove** between them: a
+[5 mm](FRONT_HOOK_LAP) overlap on the front column and [5 mm](BACK_HOOK_LAP) on the back.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
 [8.7 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
 the head, closing back to the full wall on a 45° roof. The storey is [14.8 mm](Z_RISE)
@@ -153,12 +153,13 @@ whole way until the foot's end face lands on the **stop block** closing that rai
 contact is the column's Y datum; the end walls and corner turns close head-on one
 `slide_slip` behind it — the same telescoping mate, arrived at along Y instead of dropped in.
 
-On the back column, the foot carries the flank's full [6 mm](BACK_RAIL_FOOT) inward growth
-from `interior_x` to the nominal 9 mm face on both sides. The back-bottom hook spends the
-same added 3 mm on its bearing overlap, making a [5 mm](BACK_HOOK_LAP) catch at that face's
-inboard edge; its arm reaches [10.15 mm](BACK_RAIL_INBOARD) inward from `interior_x`, inside
-the 14 mm body-free seam band. The catch still lies wholly over the six-millimetre foot and
-keeps a complete exterior wall outside its channel.
+On both columns, the foot carries the flank's full 6 mm inward section from `interior_x` to
+the nominal 9 mm face on both sides: [6 mm](FRONT_RAIL_FOOT) in front and
+[6 mm](BACK_RAIL_FOOT) in back. Each bottom hook carries a 5 mm bearing overlap at that
+face's inboard edge. Their arms reach [10.15 mm](FRONT_RAIL_INBOARD) in front and
+[10.15 mm](BACK_RAIL_INBOARD) in back from `interior_x`, inside the 14 mm body-free seam
+band. Each catch lies wholly over its six-millimetre foot and keeps a complete exterior wall
+outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [102 mm](RAIL_RUN_FRONT) per flank on the front column,
@@ -221,9 +222,9 @@ core's own entry (below).
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
-Y-seam collars, or the rail band over the seam's own storey. The front groove, arm and head
-together span [6.3 mm](RAIL_REACH) from the channel wall, inside that same band; the back
-column places its broader catch and the same arm at its full-section foot's inboard edge.
+Y-seam collars, or the rail band over the seam's own storey. Each column's full-section foot,
+groove, arm and head reach [10.2 mm](RAIL_REACH) inward from `interior_x`, inside that same
+band.
 The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold
@@ -297,6 +298,11 @@ The crown wedge is only the rail's [3 mm](COND_SLOT_GRIP) reach. The aft wedge i
 lies wholly in the donor block's open end recess and stops on the fin's west face. Both are read
 against the installed solids by `cond-corbels-clear`; the condenser stays fixed and the closer
 one keeps `cond_mount_clear` of assembly air.
+
+Each fore-flange groove keeps its exact [1 mm](COND_SLOT_OPEN) opening at the seated wall stop,
+then its roof rises toward the bay at 45° and runs through the rail crown at the insertion mouth.
+The sheet datum and grip are unchanged, while no flat one-millimetre roof is printed over the
+rail below it.
 
 ## The box closes in four motions
 
@@ -619,8 +625,9 @@ to whatever the pack packed it against. Two corners are relieved today, and `mai
 every one so a hollowed column is never silent:
 
 - **X+/Y-** — the condenser's two sheet flanges, at z 8.0–10.4 and 144.6–147.0. The pocket
-  is nearly a no-op: those flanges already slide into a groove the cradle rail cuts through
-  the same material, and the rail's east end and the lens print as one body.
+  shares material with the cradle groove. Its ceiling keeps the column's two 45° walks through
+  that overlap, while the groove roof rises toward its insertion mouth; the rail's east end and
+  the lens print as one body without restoring a flat roof over the pocket.
 - **X+/Y+** — the PSU's aft-east corner, over z 252.4–306.4, about a millimetre deep at its
   widest. The brick cannot give ground instead: its rear mount hole is on the aftmost boss
   station, the relay and the main board are packed one `WIRED_CLEAR` at a time ahead of
@@ -646,16 +653,15 @@ a one-wall-long 45° scarf nose. The back half's matching wedge also grows from 
 bed, so the cold-core bearing plane carries no supported surface. The side-wall
 segments, vertical to the bed, are free.
 
-The **ASSE drip pan's sleeve** in the back-top piece costs the same, and it is the
-first of two features in the box that do. The sleeve is a solid block off the −X wall
-running east on the withdrawal axis, and the rim rebate cut through it leaves a flat
-ceiling down either flank — the lid the pan's flange runs under, held at one height
-for the block's whole length, so it cannot be reached at 45° from the wall it grows out
-of. Its floor is the same case one storey down, and wider: a slab the pan's whole
-footprint, hanging off that wall. Both look down, so neither turns into a face that can
-be laid on air, and what stands over the lid is the vent gap (`asse_drip_pan.VENT_GAP`), which
-is air by construction. So the sleeve prints on support, one block 53 mm deep by the
-pan's rim plus a wall either way, in the band above the pan's slot.
+The **ASSE drip pan's sleeve** in the back-top piece has one supported surface: its floor beyond
+the wall-rooted `pan_sleeve_corbel`. The tray is longer than a 45° wedge from that one wall can
+carry, and nothing stands under its east half to root a second wedge. That remaining soffit is
+reached from the print bed through the open enclosure rather than from material just below it.
+
+The rim rebate's lid closes differently. Its four strips rise at 45° into the already-open tray
+mouth: from the exterior skin on the west, the fore and aft jambs, and the sleeve's east backstop.
+The exterior slot and seated flange gap keep their stated planes; only free clearance above the
+inserted rim grows toward the mouth. The rebate therefore leaves no short, material-rooted roof.
 
 The exception in that lid is the moisture probe's **open-top lead notch** through the
 −X withdrawal wall. The leads rise in the pan's existing open mouth and turn west
@@ -1046,11 +1052,13 @@ land out to the side wall, spanning `PLATE_T + plate_slot_slip` between two stan
 
 **The steel is a rectangle.** The band's bottom is the **seam plane** — it fills the slot to
 its mouth — and its top is whatever puts the four collet holes **centred** in the band
-(`plate-holes-centred`). Each end stands [6.65 mm](PLATE_STEP_IN) off its side wall at **every**
+(`plate-holes-centred`). Each end stands [10.5 mm](PLATE_STEP_IN) off its side wall at **every**
 height: the plate rides in front-top through the whole of the front column's slide, and the
 band `rail_reach_in` off each flank belongs to the joint — groove, arm and head — down that
 whole travel, which `z-slide-front-lanes` is the reading of. Held off by the deepest thing it
-ever passes, it is held off by that everywhere, and there is nothing left to step.
+ever passes, it is held off by that everywhere, and there is nothing left to step. The four
+collet holes keep their pack-struck X/Z datums; only the unperforated outer tails end at this
+clearance plane.
 
 **There is no notch in the part.** A notch is a thing something else stands in, and after the
 flip nothing stands in this one: the stop is the top edge on the cap's land, so the outline

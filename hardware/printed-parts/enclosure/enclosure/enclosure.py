@@ -1363,11 +1363,11 @@ relief_chamfer = _interface.relief_chamfer  # every relief ceiling rises at this
 # where it stands too. What moves is this one piece's own inner face, and only this piece knows
 # about it (`front_top_flank_face`).
 #
-# WHAT IT OWES, IT OWES TO THINGS THAT WERE ALREADY THERE: it begins at the Z-seam rim and the
-# storey under it is the box's own `wall`, which is the face front-bottom's tongue laps; the
-# collet plate stands out past it and keeps its berth; the openings are cut to the face
-# this leaves; and the Wago wells bore through it to bottom on `interior_x`, so a lever nut sits
-# where the box's own interior puts it and simply has more wall behind it.
+# WHAT IT OWES, IT OWES TO THINGS THAT WERE ALREADY THERE: its main band begins at the Z-seam
+# rim and its rail feet carry the same face through the storey below; the collet plate clears
+# the rails' complete moving envelope; the openings are cut to the face this leaves; and the
+# Wago wells bore through it to bottom on `interior_x`, so a lever nut sits where the box's own
+# interior puts it and simply has more wall behind it.
 front_top_flank_t = 9.0
 # And its one relief. `tube-water-3` runs down the −X flank inside the section this adds, so the
 # wall gives that run its lane back over a stated band and keeps the rest. Floored on
@@ -1431,11 +1431,12 @@ z_lip_y_margin = 2.0
 # face, not a cavity.
 slide_slip = fits.slip       # per-face running clearance on every sliding face of a Z seam
 hook_foot = 8.7              # the foot: the top's full section, mouth face to caught face
-hook_lap = 2.0               # the compact front catch: head overlap over the foot, in plan
-# The back flanks spend the same three millimetres they gain past the six-millimetre lip wall
-# on their catches too. Five millimetres still lie wholly over the six-millimetre foot past
-# `interior_x`, leaving the fixed exterior skin untouched while the exposed back-bottom lead
-# and the back-top foot answer to the same grown section.
+hook_lap = 2.0               # the catch overlap before a thick flank spends its added section
+# Both columns spend the same three millimetres they gain past the six-millimetre lip wall on
+# their catches too. Five millimetres still lie wholly over each six-millimetre foot past
+# `interior_x`, leaving the fixed exterior skin untouched while both pieces answer to the same
+# grown section.
+front_hook_lap = hook_lap + (front_bottom_flank_t - 2.0 * wall)
 back_hook_lap = hook_lap + (back_bottom_flank_t - 2.0 * wall)
 # THE Z SEAM'S OWN STOREY, mouth to rim, and THE FLAVOUR DECK IS ITS CEILING: the rim
 # stands under the lowest valve plate (`z-seam-under-deck`), so this is the whole height
@@ -1452,11 +1453,10 @@ hook_arm = 4.0
 rail_stop_len = 4.0          # the stop block closing each rail's far end, along Y
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
-# The hooked profile's reach from its channel wall: groove, arm and head all stand inside
-# this. The front profile begins at `interior_x`; the back foot carries its nominal flank
-# section first and places this profile at that foot's inboard edge. Both complete envelopes
-# remain inside the pack's `side_band_inset`.
-rail_reach_in = 2.0 * slide_slip + hook_lap + hook_arm
+# The deepest plane either hooked profile reaches inboard of `interior_x`: its full nominal
+# foot first, then the arm clearance and the arm itself. Both complete envelopes remain inside
+# the pack's `side_band_inset`; the collet plate spends this exact figure for its moving berth.
+rail_reach_in = (front_top_flank_t - wall) + slide_slip + hook_arm
 
 # --- THE PUMP BAY AND ITS PUMP CARTRIDGE ------------------------------------------
 #
@@ -2061,12 +2061,11 @@ def _column_relief_rise(inner, sx, sy, room, zj):
     away from one, and the column closes back over the pocket a layer at a time. Its height is
     the pocket's own plan: at `min(width, depth)` the two walks have met.
 
-    IT IS CUT BEFORE THE PIECE FUSES ANYTHING AND THE POCKET IS CUT AFTER EVERYTHING, which is
-    what makes the walk a question about the piece rather than a figure a row carries. What
-    stands over the condenser's flange pocket is that flange's own groove (`_cond_cradle`,
-    `cond-mount-lands`), fused later, and it lands back in the walk: a ceiling a body slides
-    into comes back flat. Nothing is fused over the PSU's corner, so that one keeps the whole
-    walk."""
+    IT IS CUT BEFORE THE PIECE FUSES ANYTHING AND AGAIN WITH THE POCKET AFTER EVERYTHING. The
+    first cut walks the shell itself; the second walks any rail or boss that subsequently grew
+    over that same air. This makes the final ceiling a question about the finished piece rather
+    than a figure a row carries, and prevents an overlapping feature from restoring a short flat
+    roof over the pocket."""
     x0, x1, y0, y1, _z0, z1 = room
     held_x, free_x = (x1, x0) if sx > 0 else (x0, x1)
     held_y, free_y = (y1, y0) if sy > 0 else (y0, y1)
@@ -2231,10 +2230,10 @@ def seam_bosses(inner, y_joint, splits):
     above and below every one of them, the band is the wall's own air.
 
     THE RAILS ARE IN THE ANSWER TOO. Each column's hooked rail runs its flanks' straight
-    runs over the seam's own storey, mouth to rim. The front carries the compact profile;
-    the back carries its full nominal foot first and places the same hook at that foot's
-    inboard edge. Both remain inside `side_band_inset`, so the band the pack keeps covers
-    them. A row per column says so, at the run each column's rail actually takes."""
+    runs over the seam's own storey, mouth to rim. Both carry their full nominal foot first
+    and place the hook at that foot's inboard edge. Both remain inside `side_band_inset`, so
+    the band the pack keeps covers them. A row per column says so, at the run each column's
+    rail actually takes."""
     r = socket_r
     yb0, yb1 = _y_corner(inner, y_joint)
     out = [(yb0, yb1, z - r, z + r)
@@ -2312,10 +2311,10 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
     """The seam heights the pack denies ONE Y column's Z seam, as z spans.
 
     The seam's furniture on a flank is the RAIL: groove, arm and head together span
-    `rail_reach_in` from their channel wall over the seam's own storey, on the runs that
-    column's rails take, wherever the seam lands. The back channel wall follows its full
-    nominal foot; the front's is the box interior face. So the lane measured is the actual
-    profile on those runs, over the full height of the box — and a body standing in one
+    `rail_reach_in` from `interior_x` over the seam's own storey, on the runs that column's
+    rails take, wherever the seam lands. Both channel walls follow the inboard portion of
+    their full nominal feet. So the lane measured is the actual profile on those runs, over
+    the full height of the box — and a body standing in one
     denies the seam heights that would put the slide through it: from `z_rise` under its foot (the
     rim would be below it) to one `wall` over its crown.
 
@@ -2997,22 +2996,18 @@ def plate_step_in():
     because the plate has one width and no step in it.
 
     ITS BOTTOM EDGE IS `z_seam` ITSELF, so the steel stands in the Z SEAM'S OWN STOREY, and
-    that storey belongs to the joint: `rail_reach_in` off a flank's interior face is what the
+    that storey belongs to the joint: `rail_reach_in` off `interior_x` is what the
     groove, the arm and the head take down both columns, and a body standing on it keeps out
     of that band. One `slide_slip` outboard of the joint's reach is the channel the top piece
     cuts for it; one `steel_air` inboard of that is the plate's, so the plan of the lane holds
     three faces and the steel takes the innermost — and the two figures are two figures
     because the face on each side of that last one is a different material.
 
-    AND IT IS HELD OFF BY THAT EVERYWHERE, NOT ONLY DOWN THERE. The plate rides in front-top
-    through the whole of the front column's slide, so a lane its bottom edge needs is a lane
-    the whole part travels; stepping the ends out over `seam_cap_z` buys 6.5 mm of steel
-    outboard of the outermost hole and costs the outline two notches, a slot with two widths
-    in it, and a cut path that turns eight times instead of four. AND IT BUYS NO
-    RESTRAINT: over that plane the flank the wider end would stand against is opened whole
-    (`_flank_opening`), so the steel's ends reach into the opening and touch nothing either
-    way. What locates them in X is the bay floor's slot, one `plate_slot_slip` off each end,
-    and that reads the same width whichever this is.
+    AND IT IS HELD OFF BY THAT EVERYWHERE. The plate rides in front-top through the whole of
+    the front column's slide, so the complete rectangle clears the rail envelope. Over
+    `seam_cap_z` the flank beside it is opened whole (`_flank_opening`), while the bay floor's
+    slot locates both ends in X one `plate_slot_slip` away. The four pack-struck holes keep
+    their X/Z datums; the unperforated tails end at the clearance plane this function states.
 
     AND THIS PLATE IS WHAT SETS THE FRONT RUN'S OPEN END: `_z_rail_runs` starts that
     column's rail on the plate's own tee wall (`wall_aft_y`). Keeping the joint's whole
@@ -3995,30 +3990,29 @@ def _z_rail_travel(inner, y_joint, col, plate, chase=()):
     return max(abs(r[3] - r[2]) for r in runs) - rail_stop_len + rail_entry
 
 
-def _back_rail_foot_face(sx):
-    """The common nominal flank face the back column can carry through its Z-seam foot.
+def _rail_nominal_foot_face(col, sx):
+    """The common nominal flank face one column can carry through its Z-seam foot.
 
-    A foot belongs to BOTH pieces: back-top presents its caught face and back-bottom carries
-    the head under it.  Use the shallower of their two nominal sections if those ever differ,
-    so the joint never invents stock one of its pieces does not have."""
-    top, bottom = back_top_flank_face(), back_bottom_flank_face()
+    A foot belongs to BOTH pieces: the top presents its caught face and the bottom carries the
+    head under it. Use the shallower of their two nominal sections if those ever differ, so the
+    joint never invents stock one of its pieces does not have."""
+    top, bottom = ((front_top_flank_face(), front_bottom_flank_face()) if col == "front"
+                   else (back_top_flank_face(), back_bottom_flank_face()))
     return min(top[0], bottom[0]) if sx > 0.0 else max(top[1], bottom[1])
 
 
 def _rail_foot_face(x_in, sx, col):
     """The inboard edge of one top foot.
 
-    The back column carries its full nominal flank section to the caught face and places its
-    arm there. The front column keeps its compact foot because its collet plate rides
-    immediately inboard of the joint for the whole slide."""
-    if col == "back":
-        return _back_rail_foot_face(sx)
-    return x_in + sx * (slide_slip + hook_lap)
+    Both columns carry their full nominal flank section to the caught face and place the arm
+    there. The front column derives its collet-plate ends from this moving envelope, so the
+    steel clears the deeper foot through the whole slide instead of truncating the wall."""
+    return _rail_nominal_foot_face(col, sx)
 
 
 def _rail_hook_lap(col):
     """The overlap one column's head carries over its top foot."""
-    return back_hook_lap if col == "back" else hook_lap
+    return back_hook_lap if col == "back" else front_hook_lap
 
 
 def _rail_x(x_in, sx, col):
@@ -4063,10 +4057,9 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
                                  (x_h1, rim), (x_h1, zj)])
         # The arm's base falls back to the lip's underwall on a 45° under-flare, its
         # hanging face at the one angle a floor-down piece hangs anything at.
-        # The under-flare roots half a millimetre outboard of the wall face that actually
-        # carries this column. On the back pair that is the common nine-millimetre face,
-        # with the broader back head lying over its full-section foot.
-        wall_face = _back_rail_foot_face(sx) if col == "back" else x_in + sx * wall
+        # The under-flare roots half a millimetre outboard of the common nine-millimetre
+        # face that carries this column, with the broad head lying over its full-section foot.
+        wall_face = _rail_nominal_foot_face(col, sx)
         x_uw = wall_face - sx * 0.5
         drop = abs(x_h1 - x_uw)
         arm = arm.fuse(_xz_prism(y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
@@ -4093,9 +4086,9 @@ def _z_rail_feet(inner, y_joint, zj, col, plate, chase=()):
     Each is one box: the box interior face out to the foot's face, mouth to the
     caught face, the run less the stop block — so its end face at the closed end IS
     the face that lands home. It lies on the bed of a piece that prints mouth-down,
-    rooted to the wall down its whole height. On the back column it carries the full
-    nominal flank section to the seam and its wider hook lies over the inboard part of that
-    foot; on the front it keeps the compact section the collet-plate lane leaves."""
+    rooted to the wall down its whole height. On both columns it carries the full nominal
+    flank section to the seam, and the hook lies over the inboard part of that foot. The
+    collet plate's ends are derived from the front rail's complete moving envelope."""
     z_foot = zj + hook_foot
     out = None
     for x_in, sx, y0, y1, _lane in _z_rail_runs(inner, y_joint, col, plate, chase):
@@ -4149,9 +4142,9 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
     Y telescope actually bears on.
     The cut is CLIPPED to `_rail_keep`, so at a corner it
     stops one `wall` inside the exterior round instead of slotting the show skin. The
-    compact front channel leaves the box's own `wall`-thick skin; the back channel starts
-    at the inboard edge of its full-section foot and therefore leaves more stock outboard.
-    Both keep the flutes' whole backing (`flute_backed_sections`)."""
+    channels occupy only the inboard portion of their full-section feet and leave a complete
+    exterior wall plus the uncut outer edge of the foot. Both keep the flutes' whole backing
+    (`flute_backed_sections`)."""
     z_foot, rim = zj + hook_foot, zj + z_rise
     z_roof = rim + slide_slip
     keep = _rail_keep(inner)
@@ -4161,9 +4154,9 @@ def _z_rail_channels(inner, y_joint, zj, col, plate, chase=()):
         sy = 1.0 if y1 > y0 else -1.0
         stop = y1 - sy * rail_stop_len
         x_hk, x_f, _a, x_h1 = _rail_x(x_in, sx, col)
-        # One slip outboard of the head is the channel's own standing wall. On the compact
-        # front foot that is `x_in`; on the full-section back foot it follows the inboard
-        # edge, carrying the added flank through the foot while leaving a fixed exterior skin.
+        # One slip outboard of the head is the channel's own standing wall. It lies in the
+        # full-section foot, carrying the nominal flank through the seam while leaving a fixed
+        # exterior skin and the foot's outer edge intact.
         x_open = x_hk - sx * slide_slip
         x_d = x_h1 + sx * slide_slip
         x_peak = (x_open + x_d) / 2.0
@@ -4685,27 +4678,20 @@ def _column_face_land(inner, outer):
 
 def _front_top_flanks(inner, outer, box, y_joint, zj):
     """THE SECTION FRONT-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
-    (`front_top_flank_t`). Fused before any of this piece's flank furniture, so a well, a
+    (`front_top_flank_t`). Fused before any of this piece's flank furniture, so a pocket, a
     well or a port cut afterwards is cut out of the whole of it.
 
-    IT BEGINS AT THE RIM, and under the rim this flank is the box's own `wall` and the
-    foot it ends in. Front-bottom's Z-seam arm stands one `slide_slip` inboard of the
-    foot's face over `z_rise` — the same joint the back column makes
-    (`_back_top_flanks`), on a piece that carries three times the section. What locates
-    the seam is the rails: each arm's head in this piece's own notch, run to run
-    (`_z_rail_heads`, `_z_rail_feet`). The mouth bears on the shoulder; the rails
+    THE FACE CONTINUES THROUGH THE SEAM AS EACH RAIL'S FOOT. `_z_rail_feet` carries the
+    section from `interior_x` to this same nominal face, mouth to caught face. Front-bottom's
+    head overlaps the inboard five millimetres of that foot and places its arm one
+    `slide_slip` beyond it (`_z_rail_heads`). The channel cut then carves the arm's berth and
+    its 45° roof out of only that inboard stock. The mouth bears on the shoulder; the rails
     register and retain.
 
-    SECTION CARRIED PAST THE RIM WOULD STAND ON THE FAR SIDE OF THAT TONGUE, and the lane
-    would stop being a lane: `wall` wide, `z_rise` deep, blind, roofed flat and running the
-    length of the flank, on the one piece of this box that beds mouth-down. Nothing about
-    the seam asks for a second face there — a tongue held on both flanks at once is held
-    at the fit of two printed walls, where one face and a slide fit is what closes.
-
     AND THE COLLET PLATE KEEPS ITS BERTH. The steel stands `plate_step_in` off `interior_x`,
-    past this face, so its own band comes out of this section — `PLATE_T`
-    of depth over the steel's height and nothing above it, which is why the plate is not a
-    figure this reads: it is a berth cut through it."""
+    beyond the rail's deepest moving face and its two distinct clearances. Its own band comes
+    out of this section — `PLATE_T` of depth over the steel's height and nothing above it,
+    which is why the plate is not a figure this reads: it is a berth cut through it."""
     ix0, ix1, _iy0, _iy1, _iz0, iz1 = inner
     fx0, fx1 = front_top_flank_face()
     plate = box.pack.collet_plate
@@ -5917,6 +5903,12 @@ def _pan_sleeve(solid, sleeve, z0, z1):
     not reach stays a soffit: the tray is longer than any wedge off that one wall can hold, and
     nothing stands under the block's east half to root a second one on.
 
+    THE RIM REBATE'S ROOF DOES HAVE FOUR ROOTS. Its outer strip rises into the central mouth from
+    the exterior skin, its fore and aft strips rise from their jambs, and its east strip rises
+    from the block's backstop. Those four 45° cuts leave the exterior opening and the seated
+    flange gap exactly where the pack states them, then spend only free clearance as they run
+    into the already-open mouth. No short roof remains over material printed below it.
+
     AND A NOTCH CARRIED PAST THE BLOCK'S OWN LID crosses the wall alone — the lead race does,
     over the moisture plate's solder holes — so its head takes the 45° hip, struck on the notch's
     own half-width, and the lintel over it is a ridge rather than a plate."""
@@ -5934,6 +5926,43 @@ def _pan_sleeve(solid, sleeve, z0, z1):
             solid = solid.cut(_yz_prism(x0, x1,
                                         ((y0, cz1), ((y0 + y1) / 2.0, cz1 + (y1 - y0) / 2.0),
                                          (y1, cz1))))
+    # The rebate is the larger plan box whose roof is exactly the central mouth's floor. Find
+    # that relationship in the pack rather than naming either cut by position: the well overlaps
+    # the rebate in Z, and the narrow lead race crosses several levels, but neither has this one
+    # contained, face-to-face transition.
+    roof_pairs = [
+        (rebate, mouth)
+        for rebate in cuts for mouth in cuts
+        if abs(rebate[5] - mouth[4]) < 1e-6
+        and rebate[0] <= mouth[0] + 1e-6 and rebate[1] >= mouth[1] - 1e-6
+        and rebate[2] <= mouth[2] + 1e-6 and rebate[3] >= mouth[3] - 1e-6
+        and (rebate[0] < mouth[0] - 1e-6 or rebate[1] > mouth[1] + 1e-6
+             or rebate[2] < mouth[2] - 1e-6 or rebate[3] > mouth[3] + 1e-6)
+    ] if blocks else []
+    if blocks and len(roof_pairs) != 1:
+        raise ValueError(
+            f"the pan sleeve has {len(roof_pairs)} contained rebate-to-mouth roof transitions; "
+            "exactly one is required")
+    if roof_pairs:
+        rebate, mouth = roof_pairs[0]
+        rx0, rx1, ry0, ry1, _rz0, roof = rebate
+        mx0, mx1, my0, my1, _mz0, _mz1 = mouth
+        outer_x = min(b[0] for b in blocks) - wall
+        # Fore and aft jambs, across the rebate's whole X span.
+        solid = solid.cut(_yz_prism(
+            rx0, rx1,
+            ((ry0, roof), (my0, roof + (my0 - ry0)), (my0, roof))))
+        solid = solid.cut(_yz_prism(
+            rx0, rx1,
+            ((my1, roof), (my1, roof + (ry1 - my1)), (ry1, roof))))
+        # The east backstop and the real exterior skin. The rebate cutter deliberately overcuts
+        # west of the part, so its own x0 is not a printable root; `outer_x` is.
+        solid = solid.cut(_xz_prism(
+            my0, my1,
+            ((rx1, roof), (mx1, roof + (rx1 - mx1)), (mx1, roof))))
+        solid = solid.cut(_xz_prism(
+            my0, my1,
+            ((outer_x, roof), (mx0, roof + (mx0 - outer_x)), (mx0, roof))))
     return solid
 
 
@@ -6396,8 +6425,10 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
     condenser's upper flange more than one wall above it.
 
     THE GROOVE IS STRUCK OFF THE FLANGE IT TAKES and not off a figure typed here: `cond_slot_half`
-    reads the station's own sheet. The rail's crown stands one section over that opening, so it
-    follows the groove wherever the sheet in it puts it."""
+    reads the station's own sheet. At the seated wall stop its roof keeps that exact opening;
+    from there it rises toward the bay at 45° until it runs through the rail's crown. The flange
+    therefore keeps its datum and fit while the one-millimetre opening is never closed by a flat
+    roof printed over material below it."""
     for face, cx0, cx1, fz0, fz1, root in stations:
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
@@ -6412,9 +6443,15 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
         if root > inner[4] + 1e-6:
             solid = solid.fuse(_cond_cradle_corbel(
                 inner, (face, cx0, cx1, fz0, fz1, root)))
-        # The groove runs out past the rail's own aft end, so the flange enters from the bay.
-        solid = solid.cut(_ybox(cx0 - 1.0, cx1 + 1.0, face, face + cond_slot_grip + 1.0,
-                                fz0 - half, fz1 + half))
+        # The groove runs out past the rail's own aft end, so the flange enters from the bay. Its
+        # floor remains flat; its roof rises one-for-one from the seated wall stop into that open
+        # end, preserving the exact fit at `face` and removing the short material-rooted bridge.
+        mouth = face + cond_slot_grip + 1.0
+        run = mouth - face
+        solid = solid.cut(_yz_prism(
+            cx0 - 1.0, cx1 + 1.0,
+            ((face, fz0 - half), (mouth, fz0 - half),
+             (mouth, fz1 + half + run), (face, fz1 + half))))
     return solid
 
 
@@ -8010,10 +8047,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
     # Clipped to the pillar — the column AND the lip's skin wrapping it (`_column_pillar`) —
     # so what a pocket can ever take is that and never the wall behind it or the boss beside it.
-    # Their ceilings' 45° walk was taken at the head of this piece's work, so what the piece has
-    # fused over a pocket since stands in it (`_column_relief_rise`).
+    # Their ceilings' 45° walk was first taken at the head of this piece's work. Take it again
+    # here with the final pocket so a rail or boss fused since cannot put a flat roof back over
+    # that air (`_column_relief_rise`).
     for sx, sy, _name, room in box.column_reliefs:
         piece = piece.cut(_column_relief(
+            inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
+        piece = piece.cut(_column_relief_rise(
             inner, sx, sy, room, box.splits[0] if sy < 0 else box.splits[1]))
     # And the condenser's two vents, which are the last cut this piece takes for the same reason
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
@@ -8182,50 +8222,51 @@ def _report_slide(pieces, box):
                 f"never entered. Read the channel cuts that run last on the top piece "
                 f"(`_z_rail_channels`) against the runs `_z_rail_runs` "
                 f"gives that flank, and `_rail_hook_lap` against both"])))
-        if col == "back":
-            foot_depths = [abs(_rail_foot_face(x_in, sx, col) - x_in)
-                           for x_in, sx, _y0, _y1, _lane in _runs]
-            rail_depths = [abs(_rail_x(x_in, sx, col)[3] - x_in)
-                           for x_in, sx, _y0, _y1, _lane in _runs]
-            catch_depths = [_rail_hook_lap(col) for _run in _runs]
-            channel_skins = [
-                wall + abs((_rail_x(x_in, sx, col)[0] - sx * slide_slip) - x_in)
-                for x_in, sx, _y0, _y1, _lane in _runs]
-            nominal = back_top_flank_t - wall
-            full_feet = (len(foot_depths) == 2
-                         and all(abs(depth - nominal) <= stated_bound_tol
-                                 for depth in foot_depths)
-                         and max(rail_depths) <= side_band_inset + stated_bound_tol)
-            record_bound(Bound(
-                "z-slide-back-foot-section",
-                "Both back-top slide feet carry the nominal flank section to the seam",
-                full_feet,
-                f"{foot_depths[0]:.2f} mm west, {foot_depths[1]:.2f} mm east; "
-                f"arm reaches {max(rail_depths):.2f} mm into a {side_band_inset:g} mm band",
-                f"{nominal:.2f} mm inward of interior_x on both flanks, rail inside its band",
-                ([] if full_feet else [
-                    f"the back feet reach {foot_depths}, but a {back_top_flank_t:g} mm wall "
-                    f"needs {nominal:.2f} mm past `interior_x`. Move the hook and its arm "
-                    f"to the foot's inboard edge rather than "
-                    f"ending the wall at the compact catch"])))
-            full_catches = (
-                len(catch_depths) == 2
-                and all(abs(depth - back_hook_lap) <= stated_bound_tol
-                        for depth in catch_depths)
-                and min(channel_skins) >= wall - stated_bound_tol)
-            record_bound(Bound(
-                "z-slide-back-catch-section",
-                "Both back-bottom heads spend the grown flank section on their catches",
-                full_catches,
-                f"{catch_depths[0]:.2f} mm west, {catch_depths[1]:.2f} mm east; "
-                f"least outer skin {min(channel_skins):.2f} mm",
-                f"{back_hook_lap:.2f} mm overlap on both flanks and at least "
-                f"{wall:.2f} mm outside the channel",
-                ([] if full_catches else [
-                    f"the back catches reach {catch_depths} and leave outer skins "
-                    f"{channel_skins}. Spend the {back_bottom_flank_t - 2.0 * wall:.2f} mm "
-                    f"grown past the lip wall on the back hook, while keeping one full wall "
-                    f"outside its channel"])))
+        foot_depths = [abs(_rail_foot_face(x_in, sx, col) - x_in)
+                       for x_in, sx, _y0, _y1, _lane in _runs]
+        rail_depths = [abs(_rail_x(x_in, sx, col)[3] - x_in)
+                       for x_in, sx, _y0, _y1, _lane in _runs]
+        catch_depths = [_rail_hook_lap(col) for _run in _runs]
+        channel_skins = [
+            wall + abs((_rail_x(x_in, sx, col)[0] - sx * slide_slip) - x_in)
+            for x_in, sx, _y0, _y1, _lane in _runs]
+        top_flank_t = front_top_flank_t if col == "front" else back_top_flank_t
+        bottom_flank_t = front_bottom_flank_t if col == "front" else back_bottom_flank_t
+        expected_lap = front_hook_lap if col == "front" else back_hook_lap
+        nominal = top_flank_t - wall
+        full_feet = (len(foot_depths) == 2
+                     and all(abs(depth - nominal) <= stated_bound_tol
+                             for depth in foot_depths)
+                     and max(rail_depths) <= side_band_inset + stated_bound_tol)
+        record_bound(Bound(
+            f"z-slide-{col}-foot-section",
+            f"Both {col}-top slide feet carry the nominal flank section to the seam",
+            full_feet,
+            f"{foot_depths[0]:.2f} mm west, {foot_depths[1]:.2f} mm east; "
+            f"arm reaches {max(rail_depths):.2f} mm into a {side_band_inset:g} mm band",
+            f"{nominal:.2f} mm inward of interior_x on both flanks, rail inside its band",
+            ([] if full_feet else [
+                f"the {col} feet reach {foot_depths}, but a {top_flank_t:g} mm wall needs "
+                f"{nominal:.2f} mm past `interior_x`. Carry the nominal wall section to "
+                f"the foot's face and place the hook and arm at its inboard edge"])))
+        full_catches = (
+            len(catch_depths) == 2
+            and all(abs(depth - expected_lap) <= stated_bound_tol
+                    for depth in catch_depths)
+            and min(channel_skins) >= wall - stated_bound_tol)
+        record_bound(Bound(
+            f"z-slide-{col}-catch-section",
+            f"Both {col}-bottom heads spend the grown flank section on their catches",
+            full_catches,
+            f"{catch_depths[0]:.2f} mm west, {catch_depths[1]:.2f} mm east; "
+            f"least outer skin {min(channel_skins):.2f} mm",
+            f"{expected_lap:.2f} mm overlap on both flanks and at least "
+            f"{wall:.2f} mm outside the channel",
+            ([] if full_catches else [
+                f"the {col} catches reach {catch_depths} and leave outer skins "
+                f"{channel_skins}. Carry the {bottom_flank_t - 2.0 * wall:.2f} mm grown "
+                f"past the lip wall into the hook while keeping one full wall outside "
+                f"its channel"])))
         out[col] = (worst, travel, len(rungs), lifted)
         print(f"  Z slide {col + ':':7s} travel {travel:6.1f} mm, worst contested "
               f"{worst[0]:6.1f} mm³ at {worst[1]:.2f} mm out; catch {lifted:8.1f} mm³ "
@@ -8463,6 +8504,10 @@ def main():
     plate = box.pack.collet_plate if (box.pump_bay and box.pack.collet_plate) else None
     front_runs = _z_rail_runs(box.inner, box.y_joint, "front", plate, box.pack.vent_chase)
     back_runs = _z_rail_runs(box.inner, box.y_joint, "back", plate, box.pack.vent_chase)
+    front_rail_foot = abs(_rail_foot_face(front_runs[0][0], front_runs[0][1], "front")
+                          - front_runs[0][0])
+    front_rail_inboard = max(abs(_rail_x(x_in, sx, "front")[3] - x_in)
+                              for x_in, sx, _y0, _y1, _lane in front_runs)
     back_rail_foot = abs(_rail_foot_face(back_runs[0][0], back_runs[0][1], "back")
                          - back_runs[0][0])
     back_rail_inboard = max(abs(_rail_x(x_in, sx, "back")[3] - x_in)
@@ -8480,11 +8525,14 @@ def main():
     variables = {
         "SLIDE_SLIP": f"{slide_slip:g} mm",
         "HOOK_LAP": f"{hook_lap:g} mm",
+        "FRONT_HOOK_LAP": f"{front_hook_lap:g} mm",
         "BACK_HOOK_LAP": f"{back_hook_lap:g} mm",
         "HOOK_FOOT": f"{hook_foot:g} mm",
         "Z_RISE": f"{z_rise:g} mm",
         "HOOK_NECK": f"{hook_foot + slide_slip:g} mm",
         "RAIL_REACH": f"{rail_reach_in:.1f} mm",
+        "FRONT_RAIL_FOOT": f"{front_rail_foot:.4g} mm",
+        "FRONT_RAIL_INBOARD": f"{front_rail_inboard:.4g} mm",
         "BACK_RAIL_FOOT": f"{back_rail_foot:.4g} mm",
         "BACK_RAIL_INBOARD": f"{back_rail_inboard:.4g} mm",
         "VENT_CHANNEL_W": f"{vent_channel_w:g} mm",
