@@ -6251,7 +6251,10 @@ genrule(
         "hardware/assembly/cards/fonts/IBMPlexSans-400-700-normal-latin.woff2",
         "hardware/assembly/cards/fonts/OFL.txt",
         "hardware/quickstart/00-mount.html",
-        "hardware/quickstart/01-connect.html",
+        "hardware/quickstart/01-water-off.html",
+        "hardware/quickstart/02-water-tee-braided.html",
+        "hardware/quickstart/03-water-tee-inline.html",
+        "hardware/quickstart/04-connect.html",
         "pysrc/hardware/quickstart/_build.py",
         ":out/cad-art/hardware/quickstart/art/colors.css",
         ":out/cad-art/hardware/quickstart/art/connect-rear-connected.png",
@@ -6260,6 +6263,12 @@ genrule(
         ":out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png",
+        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
+        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
+        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png",
+        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png",
         "hardware/quickstart/style.css",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -6325,8 +6334,10 @@ genrule(
         "pysrc/hardware/printed-parts/faucet/faucet-shell/faucet_shell.py",
         "pysrc/hardware/printed-parts/faucet/tpu-o-ring/tpu_o_ring.py",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
         ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+        ":out/tube-collar/hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
         "pysrc/hardware/printed-parts/faucet/tube-collar/tube_collar.py",
         "pysrc/hardware/quickstart/_cad_art.py",
         "pysrc/hardware/quickstart/quickstart_art.py",
@@ -6446,6 +6457,109 @@ cp hardware/quickstart/art/mount-tighten-close.png $$O22
 cp hardware/quickstart/art/mount-tighten.png $$O23
 cp hardware/quickstart/art/mount-under-slide-clean.png $$O24
 cp hardware/quickstart/art/mount-under-tighten-clean.png $$O25
+""",
+)
+
+genrule(
+    name = "render-modern-tee",
+    srcs = [
+        "pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py",
+        "hardware/reference/tee-connector/tee-connector.step",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+        ":render-step-posed-runtime",
+    ],
+    outs = [
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png)
+O1=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/plumbing/modern/render_modern_tee.py > /dev/null
+cp hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png $$O0
+cp hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png $$O1
+""",
+)
+
+genrule(
+    name = "plumbing-scenes",
+    srcs = [
+        "pysrc/hardware/quickstart/plumbing/plumbing_scenes.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "tools/render/browser.js",
+        "tools/render/render-step-posed.js",
+        "web/server.js",
+        ":render-step-posed-runtime",
+    ],
+    outs = [
+        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-pre-tee.step",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-tee-installed.step",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-off.step",
+        "out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-on.step",
+    ],
+    tags = ["requires-network"],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png)
+O1=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png)
+O2=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png)
+O3=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png)
+O4=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-pre-tee.step)
+O5=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-tee-installed.step)
+O6=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-off.step)
+O7=$$PWD/$(location out/plumbing-scenes/hardware/quickstart/plumbing/out/plumbing-valve-on.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/plumbing/plumbing_scenes.py > /dev/null
+cp hardware/quickstart/plumbing/art/plumbing-pre-tee.png $$O0
+cp hardware/quickstart/plumbing/art/plumbing-tee-installed.png $$O1
+cp hardware/quickstart/plumbing/art/plumbing-valve-off.png $$O2
+cp hardware/quickstart/plumbing/art/plumbing-valve-on.png $$O3
+cp hardware/quickstart/plumbing/out/plumbing-pre-tee.step $$O4
+cp hardware/quickstart/plumbing/out/plumbing-tee-installed.step $$O5
+cp hardware/quickstart/plumbing/out/plumbing-valve-off.step $$O6
+cp hardware/quickstart/plumbing/out/plumbing-valve-on.step $$O7
 """,
 )
 
@@ -9473,6 +9587,22 @@ genrule(
     name = "pysrc-2c464b11d1d4",
     srcs = ["hardware/quickstart/_cad_art.py"],
     outs = ["pysrc/hardware/quickstart/_cad_art.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-c91832389170",
+    srcs = ["hardware/quickstart/plumbing/modern/render_modern_tee.py"],
+    outs = ["pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-fb4904990362",
+    srcs = ["hardware/quickstart/plumbing/plumbing_scenes.py"],
+    outs = ["pysrc/hardware/quickstart/plumbing/plumbing_scenes.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )
@@ -17316,6 +17446,8 @@ filegroup(
         ":funnel",
         ":quickstart-build",
         ":cad-art",
+        ":render-modern-tee",
+        ":plumbing-scenes",
         ":asse1022-assembly",
         ":basics-mtb-0606wp",
         ":beduan-solenoid",
