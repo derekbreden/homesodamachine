@@ -36,7 +36,7 @@ SIDECAR = HERE / "quick-start.pdf.json"
 sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf, note_read, note_write  # noqa: E402
 
-TITLE = "Faucet + umbilical installation quick start"
+TITLE = "Faucet installation quick start"
 CANVAS_W, CANVAS_H = 2550, 1650
 COVER_W = 800
 
@@ -50,15 +50,10 @@ RENDER_ACTION_TIMEOUT_SECONDS = 660
 PAGE_ASSETS = (
     HERE / "style.css",
     HERE / "art" / "colors.css",
-    HERE / "art" / "faucet-side.png",
-    HERE / "art" / "machine-back-iso.png",
-    HERE / "art" / "machine-ports-iso.png",
-    HERE / "art" / "machine-ports-action.png",
-    HERE / "art" / "machine-signal-iso.png",
+    HERE / "art" / "connect-rear-open.png",
+    HERE / "art" / "connect-rear-connected.png",
     HERE / "art" / "mount-drop.png",
-    HERE / "art" / "mount-final-clean.png",
     HERE / "art" / "mount-lowered-clean.png",
-    HERE / "art" / "mount-slide-clean.png",
     HERE / "art" / "mount-under-slide-clean.png",
     HERE / "art" / "mount-under-tighten-clean.png",
 )

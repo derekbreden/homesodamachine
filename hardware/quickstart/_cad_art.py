@@ -44,6 +44,8 @@ RENDERER = ROOT / "tools" / "render" / "render-step-posed.js"
 FAUCET_SOURCE = HARDWARE / "faucet-layout" / "faucet_assembly.py"
 MACHINE_STEP = HARDWARE / "manifold-layout" / "enclosure-assembly.step"
 MACHINE_MESH = HARDWARE / "manifold-layout" / "enclosure-assembly.step.mesh"
+MACHINE_FACTS = HARDWARE / "manifold-layout" / "enclosure-assembly.facts.json"
+TUBE_COLLAR_DIR = HARDWARE / "printed-parts" / "faucet" / "tube-collar"
 MOUNT_CAM = (1.0, -1.45, -0.38)
 MOUNT_TARGET = (0.0, 0.0, 110.0)
 MOUNT_FRAME_SHAVE = 18
@@ -56,9 +58,18 @@ UNDER_MOUNT_FRAME_SHAVE = 18
 # The approach frame shows the plate clear of the retained washer before it moves. Its countertop
 # window is long on the world-X slide axis and narrow across world Y, where the real under-sink
 # approach is constrained.
-PLATE_APPROACH_X = -44.0
-UNDER_COUNTERTOP_X = 180.0
-UNDER_COUNTERTOP_Y = 82.0
+PLATE_APPROACH_X = -60.0
+UNDER_COUNTERTOP_X = 210.0
+UNDER_COUNTERTOP_Y = 72.0
+
+# Both rear-connection pictures are one literal scene viewed from one fixed camera.  The
+# appliance's +Y rear axis projects diagonally in this camera, so the disconnected state exposes
+# real air between each free end and its matching port instead of hiding that distance in a
+# straight-on view.
+CONNECT_CAM = (0.58, 1.0, 0.45)
+CONNECT_TARGET = (-6.0, 470.0, 220.0)
+CONNECT_FRAME_SHAVE = 18
+CONNECT_OPEN_GAP = 52.0
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -572,6 +583,298 @@ def _build_steps(work: Path) -> dict[str, Path]:
     }
 
 
+def _build_connection_steps(work: Path) -> dict[str, Path]:
+    """Build the two rear connection states as literal, fixed-camera CAD scenes.
+
+    The appliance exterior and every connection station come from the current enclosure STEP and
+    its generated facts.  The three tube collars are the production two-body STEP parts, including
+    their recessed lettering.  Only the field-cut tube lengths, the flat SIG-6 ribbon, and its
+    modular plug are constructed here because those flexible customer-routed bodies have no single
+    installed pose in the product assembly.
+    """
+    note_read(MACHINE_FACTS)
+    facts = json.loads(MACHINE_FACTS.read_text())
+    for which in ("carb", "flavor-a", "flavor-b"):
+        note_read(TUBE_COLLAR_DIR / f"tube-collar-{which}.step")
+
+    machine = cq.Assembly.load(str(MACHINE_STEP))
+
+    # The exact closed rear half, rather than the appliance's hidden internals.  These are the
+    # source assembly nodes a customer can see from the rear: the printed shell, ceiling/funnel,
+    # every through-wall fitting and jack, the factory-fitted TAP/CO2 stubs, and the nameplate.
+    exact_names = {
+        "c14-inlet",
+        "keystone-jack",
+        "co2-inlet",
+        "bulkhead-water",
+        "bulkhead-flavor-a",
+        "bulkhead-flavor-b",
+        "bulkhead-carb",
+        "funnel",
+        "nameplate",
+        "nameplate-ink",
+        "enclosure-back-bottom",
+        "enclosure-back-top",
+        "enclosure-ceiling-panel",
+    }
+    exact_prefixes = (
+        "bulkhead-ring-",
+        "tube-customer-",
+        "tube-collar-water",
+        "tube-collar-co2",
+    )
+    rear_children = [
+        child
+        for child in machine.children
+        if child.name in exact_names or child.name.startswith(exact_prefixes)
+    ]
+
+    tube_blue = cq.Color(0.035, 0.31, 0.82, 1.0)
+    # Both flavour tails are black stock.  A small lighting difference keeps the two round bodies
+    # countable where they cross the same dark rear wall without turning either one grey.
+    tube_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
+    tube_black_b = cq.Color(0.115, 0.12, 0.13, 1.0)
+    collar_blue = cq.Color(0.055, 0.34, 0.84, 1.0)
+    collar_black_a = cq.Color(0.02, 0.022, 0.026, 1.0)
+    collar_black_b = cq.Color(0.105, 0.11, 0.12, 1.0)
+    collar_word = cq.Color(0.94, 0.945, 0.955, 1.0)
+    ribbon_gray = cq.Color(0.47, 0.49, 0.53, 1.0)
+    ribbon_edge = cq.Color(0.22, 0.23, 0.26, 1.0)
+    plug_body = cq.Color(0.72, 0.74, 0.78, 1.0)
+    plug_latch = cq.Color(0.86, 0.87, 0.89, 1.0)
+    contact_gold = cq.Color(0.73, 0.49, 0.14, 1.0)
+    frame_anchor_color = cq.Color(0.95, 0.04, 0.82, 1.0)
+
+    def round_sweep(points, radius: float):
+        vectors = [cq.Vector(*point) for point in points]
+        tangent = cq.Vector(0.0, 1.0, 0.0)
+        path = cq.Edge.makeSpline(vectors, tangents=(tangent, tangent), scale=False)
+        profile = cq.Wire.makeCircle(radius, vectors[0], tangent)
+        return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=True)
+
+    def ribbon_sweep(points, width: float, thickness: float):
+        vectors = [cq.Vector(*point) for point in points]
+        tangent = cq.Vector(0.0, 1.0, 0.0)
+        path = cq.Edge.makeSpline(vectors, tangents=(tangent, tangent), scale=False)
+        p = vectors[0]
+        profile = cq.Wire.makePolygon(
+            [
+                cq.Vector(p.x - width / 2.0, p.y, p.z - thickness / 2.0),
+                cq.Vector(p.x + width / 2.0, p.y, p.z - thickness / 2.0),
+                cq.Vector(p.x + width / 2.0, p.y, p.z + thickness / 2.0),
+                cq.Vector(p.x - width / 2.0, p.y, p.z + thickness / 2.0),
+            ],
+            close=True,
+        )
+        return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=True)
+
+    def split_collar(which: str):
+        loaded = cq.importers.importStep(str(TUBE_COLLAR_DIR / f"tube-collar-{which}.step")).val()
+        solids = list(loaded.Solids())
+        body = max(solids, key=lambda solid: solid.Volume())
+        words = cq.Compound.makeCompound([solid for solid in solids if solid is not body])
+        return body, words
+
+    card_ports = facts["card_ports"]
+    stations = {
+        "carb": tuple(card_ports["bulkhead-carb"]["tube-out"]["pos"]),
+        "flavor-a": tuple(card_ports["bulkhead-flavor-a"]["tube-out"]["pos"]),
+        "flavor-b": tuple(card_ports["bulkhead-flavor-b"]["tube-out"]["pos"]),
+    }
+    tube_colors = {
+        "carb": tube_blue,
+        "flavor-a": tube_black_a,
+        "flavor-b": tube_black_b,
+    }
+    collar_colors = {
+        "carb": collar_blue,
+        "flavor-a": collar_black_a,
+        "flavor-b": collar_black_b,
+    }
+    # The bare tails stay straight through their collars, then flex into the compact end of the
+    # common umbilical.  These target points preserve three distinct solids all the way out of the
+    # picture instead of collapsing the tails into one illustrative stroke.
+    pack_stations = {
+        "carb": (-50.0, 312.0),
+        "flavor-a": (-45.0, 302.0),
+        "flavor-b": (-55.0, 302.0),
+    }
+
+    umbilical = cq.Assembly(name="faucet-umbilical-wall-end")
+    tube_start_y = 467.0
+    straight_end_y = 560.0
+    pack_y = 626.0
+    tail_y = 710.0
+    collar_y = 524.0
+    tube_radius = 6.35 / 2.0
+    for which in ("carb", "flavor-a", "flavor-b"):
+        x, _mouth_y, z = stations[which]
+        pack_x, pack_z = pack_stations[which]
+        straight = cq.Solid.makeCylinder(
+            tube_radius,
+            straight_end_y - tube_start_y + 0.5,
+            cq.Vector(x, tube_start_y, z),
+            cq.Vector(0.0, 1.0, 0.0),
+        )
+        curve = round_sweep(
+            (
+                (x, straight_end_y, z),
+                (x, 578.0, z),
+                ((2.0 * x + pack_x) / 3.0, 598.0, (2.0 * z + pack_z) / 3.0),
+                (pack_x, pack_y, pack_z),
+                (pack_x, tail_y, pack_z),
+            ),
+            tube_radius,
+        )
+        umbilical.add(
+            cq.Compound.makeCompound([straight, curve]),
+            name=f"wall-end-tube-{which}",
+            color=tube_colors[which],
+        )
+        collar, words = split_collar(which)
+        move = (x, collar_y, z)
+        umbilical.add(
+            collar.translate(move),
+            name=f"wall-end-collar-{which}",
+            color=collar_colors[which],
+        )
+        umbilical.add(
+            words.translate(move),
+            name=f"wall-end-collar-{which}-word",
+            color=collar_word,
+        )
+
+    # The jack's face is the enclosure's exact +Y outer plane.  Its opening is centred 1 mm below
+    # the keystone show-face station in the production reference model.
+    jack_x, jack_station_z = facts["constants"]["KEYSTONE_STATION"]
+    jack_face_y = facts["box"]["outer"][3]
+    jack_port_z = jack_station_z - 1.0
+    plug_w = 9.0
+    plug_h = 6.45
+    plug_y0 = jack_face_y - 6.2
+    plug_depth = 21.0
+    plug = cq.Solid.makeBox(
+        plug_w,
+        plug_depth,
+        plug_h,
+        cq.Vector(jack_x - plug_w / 2.0, plug_y0, jack_port_z - plug_h / 2.0),
+    )
+    boot = cq.Solid.makeBox(
+        7.8,
+        5.5,
+        5.5,
+        cq.Vector(jack_x - 3.9, plug_y0 + plug_depth, jack_port_z - 2.75),
+    )
+    umbilical.add(
+        cq.Compound.makeCompound([plug, boot]),
+        name="wall-end-rj11-plug-body",
+        color=plug_body,
+    )
+    # The flexible latch faces the jack's lower latch slot.  A thin tongue and its raised ramp are
+    # separate molded volumes, so the silhouette reads at print size instead of as a line drawn on
+    # the plug.
+    latch_z = jack_port_z - plug_h / 2.0
+    latch_tongue = cq.Solid.makeBox(
+        3.4,
+        12.0,
+        0.75,
+        cq.Vector(jack_x - 1.7, plug_y0 + 4.0, latch_z - 0.75),
+    )
+    latch_ramp = (
+        cq.Workplane("YZ")
+        .polyline(
+            [
+                (plug_y0 + 10.0, latch_z - 0.75),
+                (plug_y0 + 16.0, latch_z - 0.75),
+                (plug_y0 + 16.0, latch_z - 2.35),
+            ]
+        )
+        .close()
+        .extrude(3.4)
+        .translate((jack_x - 1.7, 0.0, 0.0))
+        .val()
+    )
+    umbilical.add(
+        cq.Compound.makeCompound([latch_tongue, latch_ramp]),
+        name="wall-end-rj11-latch",
+        color=plug_latch,
+    )
+    for index, contact_x in enumerate((-2.7, -0.9, 0.9, 2.7), start=1):
+        contact = cq.Solid.makeBox(
+            0.48,
+            7.0,
+            0.18,
+            cq.Vector(
+                jack_x + contact_x - 0.24,
+                plug_y0 + 0.4,
+                jack_port_z + plug_h / 2.0 - 0.18,
+            ),
+        )
+        umbilical.add(contact, name=f"wall-end-rj11-contact-{index}", color=contact_gold)
+
+    ribbon_start_y = plug_y0 + plug_depth + 5.5
+    ribbon_points = (
+        (jack_x, ribbon_start_y, jack_port_z),
+        (jack_x, 548.0, jack_port_z),
+        (-42.0, 590.0, 298.0),
+        (-48.5, pack_y, 294.0),
+        (-48.5, tail_y, 294.0),
+    )
+    ribbon = ribbon_sweep(ribbon_points, 4.0, 1.2)
+    ribbon_mark = ribbon_sweep(
+        tuple((x + 1.55, y, z + 0.63) for x, y, z in ribbon_points),
+        0.28,
+        0.08,
+    )
+    umbilical.add(ribbon, name="wall-end-sig6-ribbon", color=ribbon_gray)
+    umbilical.add(ribbon_mark, name="wall-end-sig6-ribbon-mark", color=ribbon_edge)
+
+    def add_fixed_frame(scene: cq.Assembly):
+        view = cq.Vector(*CONNECT_CAM)
+        view = view.multiply(1.0 / view.Length)
+        world_up = cq.Vector(0.0, 0.0, 1.0)
+        right = view.cross(world_up)
+        right = right.multiply(1.0 / right.Length)
+        screen_up = right.cross(view)
+        screen_up = screen_up.multiply(1.0 / screen_up.Length)
+        target = cq.Vector(*CONNECT_TARGET)
+        for index, (across, rise) in enumerate(
+            ((-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)),
+            start=1,
+        ):
+            point = target.add(right.multiply(across * 245.0)).add(
+                screen_up.multiply(rise * 225.0)
+            )
+            anchor = cq.Solid.makeBox(
+                1.5,
+                1.5,
+                1.5,
+                cq.Vector(point.x - 0.75, point.y - 0.75, point.z - 0.75),
+            )
+            scene.add(
+                anchor,
+                name=f"connect-render-frame-anchor-{index}",
+                color=frame_anchor_color,
+            )
+
+    def state(name: str, shift_y: float):
+        scene = cq.Assembly(name=name)
+        for child in rear_children:
+            scene.add(child)
+        scene.add(
+            umbilical,
+            name=f"{name}-umbilical",
+            loc=cq.Location(cq.Vector(0.0, shift_y, 0.0)),
+        )
+        add_fixed_frame(scene)
+        return _export_colored(scene, work / f"{name}.step")
+
+    return {
+        "connect-rear-open": state("connect-rear-open", CONNECT_OPEN_GAP),
+        "connect-rear-connected": state("connect-rear-connected", 0.0),
+    }
+
+
 def _job(
     step: Path,
     out: str | Path,
@@ -698,6 +1001,17 @@ def _shave_under_render_frame(path: Path, margin: int) -> None:
     note_write(path)
 
 
+def _shave_connect_render_frame(path: Path, margin: int) -> None:
+    """Remove the four fixed-camera anchors from a rear connection scene."""
+    with Image.open(path) as image:
+        if image.width <= 2 * margin or image.height <= 2 * margin:
+            raise ValueError(f"cannot shave {margin}px from {image.width}x{image.height}: {path}")
+        cropped = image.crop((margin, margin, image.width - margin, image.height - margin))
+        cropped.save(path, format="PNG", compress_level=9, optimize=False)
+    _canonicalize_png(path)
+    note_write(path)
+
+
 def main(*, mount_studies: bool = False) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -708,6 +1022,8 @@ def main(*, mount_studies: bool = False) -> None:
     with tempfile.TemporaryDirectory(prefix="quickstart-cad-", dir=OUT) as directory:
         work = Path(directory)
         steps = _build_steps(work)
+        if not mount_studies:
+            steps.update(_build_connection_steps(work))
         mount_jobs = [
             _job(steps["mount-drop"], "mount-drop.png", MOUNT_CAM, target=MOUNT_TARGET),
             _job(steps["mount-seated"], "mount-seated.png", MOUNT_CAM, target=MOUNT_TARGET),
@@ -756,6 +1072,20 @@ def main(*, mount_studies: bool = False) -> None:
             *mount_frame_jobs,
             *under_mount_jobs,
         ]
+        connect_jobs = [] if mount_studies else [
+            _job(
+                steps["connect-rear-open"],
+                "connect-rear-open.png",
+                CONNECT_CAM,
+                target=CONNECT_TARGET,
+            ),
+            _job(
+                steps["connect-rear-connected"],
+                "connect-rear-connected.png",
+                CONNECT_CAM,
+                target=CONNECT_TARGET,
+            ),
+        ]
         if mount_studies:
             study_dir = OUT / "mount-studies"
             study_dir.mkdir(parents=True, exist_ok=True)
@@ -777,6 +1107,7 @@ def main(*, mount_studies: bool = False) -> None:
                     (0.0, -1.0, 0.28),
                 ),
                 *mount_render_jobs,
+                *connect_jobs,
                 _job(MACHINE_STEP, "machine-front.png", (1.0, -1.25, 0.72)),
                 _job(MACHINE_STEP, work / "machine-back.png", (0.12, 1.0, 0.32)),
                 _job(MACHINE_STEP, "machine-back-iso.png", (1.0, 1.0, 1.0)),
@@ -795,6 +1126,8 @@ def main(*, mount_studies: bool = False) -> None:
                 _shave_render_frame(output, MOUNT_FRAME_SHAVE)
             elif job in under_mount_jobs:
                 _shave_under_render_frame(output, UNDER_MOUNT_FRAME_SHAVE)
+            elif job in connect_jobs:
+                _shave_connect_render_frame(output, CONNECT_FRAME_SHAVE)
             note_write(output)
 
         if not mount_studies:
