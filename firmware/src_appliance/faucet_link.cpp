@@ -209,13 +209,7 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_RESP_IMAGES && plen >= sizeof(ImagesPayload)) {
         ImagesPayload im;
         memcpy(&im, payload, sizeof(im));
-        char bits[FLAVOR_ART_CUSTOM + 1];
-        for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++)
-            bits[i] = (i < im.slots) ? ((im.occupancy & (1u << i)) ? 'X' : '.') : ' ';
-        bits[FLAVOR_ART_CUSTOM] = '\0';
-        Serial.printf("\n%-10s %u custom slots [%s], %u held, %lu B each\n",
-                      im.board == OTA_TGT_FAUCET ? "faucet" : "enclosure",
-                      im.slots, bits, im.held, (unsigned long)im.bundleBytes);
+        imagesReport(im);
         return;
     }
 
@@ -521,8 +515,9 @@ bool faucetLinkImageSynth(uint8_t slot) {
     return faucet.trySend(MSG_IMAGE_SYNTH, &req, sizeof(req)) >= 0;
 }
 
-bool faucetLinkImagesQuery() {
-    return faucet.trySend(MSG_IMAGES_QUERY, nullptr, 0) >= 0;
+bool faucetLinkImagesQuery(uint8_t verbose) {
+    ImagesQueryPayload q{verbose};
+    return faucet.trySend(MSG_IMAGES_QUERY, &q, sizeof(q)) >= 0;
 }
 
 bool faucetLinkBenchPush(uint32_t bytes) {

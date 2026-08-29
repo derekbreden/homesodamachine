@@ -737,12 +737,26 @@ struct __attribute__((packed)) ImageSlotPayload {
   uint8_t slot;
 };
 
+// WHAT EACH BOARD SAYS IT IS HOLDING, IN TERMS THE OTHER CAN BE COMPARED WITH.
+// The two stores keep different things — the faucet every rendition, the
+// enclosure only the four it draws — so their own crcs are not the same number
+// for the same picture and cannot be held against each other. `crc` is instead
+// the identity of the ENCLOSURE'S copy, from both ends: what that board holds,
+// and what the faucet would send it. Equal is in sync; anything else is a
+// difference the machine can act on without a person noticing it first.
 struct __attribute__((packed)) ImagesPayload {
   uint8_t  board;        // OTA_TGT_*
   uint8_t  slots;        // custom slots this display keeps
   uint8_t  held;
   uint8_t  occupancy;    // bit per slot, low slot first
   uint32_t bundleBytes;  // what one picture costs on this board
+  uint32_t crc[FLAVOR_ART_CUSTOM];
+};
+
+// Asking costs a frame; saying it out loud costs a console someone is reading.
+// The reconcile asks often and quietly; a person asking wants the account.
+struct __attribute__((packed)) ImagesQueryPayload {
+  uint8_t verbose;
 };
 
 struct __attribute__((packed)) BenchBeginPayload {

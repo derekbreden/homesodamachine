@@ -39,7 +39,7 @@ bool faucetLinkWifiPush(uint32_t bytes, bool quietBle);
 bool faucetLinkBenchPush(uint32_t bytes);
 
 // What pictures the faucet is holding. The answer prints itself when it lands.
-bool faucetLinkImagesQuery();
+bool faucetLinkImagesQuery(uint8_t verbose);
 
 // Have the faucet make itself a picture, so the store and everything reading
 // it can be exercised with no phone in the room.
