@@ -21,11 +21,12 @@ compression nut, screw, wrench, or routine line cut is part of this path.  A
 damaged tube end still needs to be remade square before reuse, but that repair
 is outside the normal sequence shown here.
 
-The existing line is cool gray, the supplied jumper is pale neutral gray, the
-PP0208E is black polypropylene, and the white filter/appliance branch carries
-a narrow modeled tracer for grayscale legibility.  Every tube, fitting,
-valve, handle, bore, and moving collet is 3D geometry; the page supplies its
-own instructional text and action arrows.
+Every household/tap-water tube uses the same white LLDPE material.  Modeled
+lighting and recessed dark bores keep the white geometry legible in color and
+grayscale without suggesting different tube types or printed patterns.  The
+PP0208E is black polypropylene.  Every tube, fitting, valve, handle, bore, and
+moving collet is 3D geometry; the page supplies its own instructional text and
+action arrows.
 
 ## Regenerate
 
