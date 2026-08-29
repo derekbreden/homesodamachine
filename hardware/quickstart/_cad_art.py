@@ -63,11 +63,12 @@ PLATE_APPROACH_X = -72.0
 UNDER_COUNTERTOP_X = 220.0
 UNDER_COUNTERTOP_Y = 72.0
 
-# Both rear-connection pictures are one literal scene viewed from one fixed camera.  The shallow
-# elevation makes the enclosure's top face a thin locator rather than a competing surface.  Its
-# modest side angle still projects the much larger physical open gap clear of the rear silhouette.
-CONNECT_CAM = (0.40, 1.0, 0.20)
-CONNECT_TARGET = (-6.0, 580.0, 370.0)
+# Both rear-connection pictures are one literal scene viewed from one fixed camera. The stronger
+# world-X component makes the +Y rear face visibly oblique and therefore narrower on the page.
+# That foreshortening leaves room for a large physical +Y withdrawal while the detached bundle's
+# modest projected move still clears the enclosure silhouette.
+CONNECT_CAM = (0.70, 1.0, 0.16)
+CONNECT_TARGET = (-6.0, 630.0, 370.0)
 CONNECT_ORTHO_SPAN = 180.0
 CONNECT_RENDER_SIZE = "1600x1800"
 CONNECT_OPEN_GAP = 160.0
