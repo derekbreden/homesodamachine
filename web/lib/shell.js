@@ -26,24 +26,43 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { HOME_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, UPDATES_SVG, TOUR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
-// The check verdict this deploy is carrying — `public/checks.json`, written by
+// The check verdict the site is showing — `public/checks.json`, written by
 // `tools/checks.py --json` and committed by `tools/checks_now.py` off the post-commit hook.
 //
-// Read at module load, like `commit`: the file ships with the deploy, so the reading moves when
-// a deploy restarts this process. A disk that holds no such file, or holds one this cannot
-// parse, leaves `CHECKS` null.
+// READ ON DEMAND, NOT ONCE AT MODULE LOAD. A boot-time constant was right while the file shipped
+// with a deploy and moved when one restarted this process. It does not any more: a pin is the
+// most frequent commit in this tree and `render.yaml` holds it out of the build filter rather
+// than buy an `npm ci` and a restart for each one, so `artifacts-live.js` carries the file onto
+// the running container instead. Under a constant this process kept whatever verdict it booted
+// with — the gear stayed red over a board that had gone green until something unrelated pushed
+// `web/**` and restarted it, which is the same way a scorecard used to reach the site.
+//
+// The cost is a stat per render; the parse happens only when the file has actually moved. A disk
+// that holds no such file, or holds one this cannot parse, reads as null the way it always did.
 const CHECKS_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public", "checks.json");
 
+let checksCache = { key: null, value: null };
+
 function readChecks() {
+  let key;
   try {
-    const v = JSON.parse(fs.readFileSync(CHECKS_FILE, "utf-8"));
-    return Array.isArray(v.checks) ? v : null;
+    const st = fs.statSync(CHECKS_FILE);
+    key = `${st.mtimeMs}:${st.size}`;
   } catch {
+    checksCache = { key: null, value: null };
     return null;
   }
+  if (key === checksCache.key) return checksCache.value;
+  let value = null;
+  try {
+    const v = JSON.parse(fs.readFileSync(CHECKS_FILE, "utf-8"));
+    value = Array.isArray(v.checks) ? v : null;
+  } catch {
+    value = null;
+  }
+  checksCache = { key, value };
+  return value;
 }
-
-const CHECKS = readChecks();
 
 function escape(s) {
   return String(s)
@@ -414,6 +433,7 @@ ${pageHead}
 // when no verdict shipped. `tools/checks_now.py` writes it after every commit, so the dot turns
 // on the deploy that follows the commit that moved it, and /settings names what is red.
 export function checksNavClass() {
+  const CHECKS = readChecks();
   if (!CHECKS) return "";
   return CHECKS.checks.some((c) => c.status === "red") ? " checks-red" : " checks-ok";
 }
@@ -422,6 +442,7 @@ export function checksNavClass() {
 // ones, since the green rows are what say the reading was taken. A red row carries the check's
 // last lines under it, which hold the command that repairs it.
 export function renderChecksRows() {
+  const CHECKS = readChecks();
   if (!CHECKS) {
     return `    <div class="setting-row">
       <div><div class="setting-help">This deploy carries no reading.</div></div>
