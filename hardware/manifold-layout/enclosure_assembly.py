@@ -5093,6 +5093,11 @@ RELAY_TURN = (((0.0, 0.0, 1.0), 270.0), ((0.0, 1.0, 0.0), 270.0))
 # pattern reaches furthest past the main board — and the gap is that reach with a clearance past it.
 STACK_CLEAR = (_enc.mount_boss_dia / 2.0
                - (_relay.width / 2.0 - _relay.hole_dy) + 1.0)
+# Relay #1's lower two wall bosses stand over the main board. This lift puts a full 45-degree
+# corbel under both D stems and removes their two separate support contact regions from the
+# back-top slice. Two millimetres leaves the same one-millimetre body air
+# `east_boss_corbel_clear` strikes in X against a 45-degree wedge.
+RELAY1_CORBEL_LIFT = 2.0
 
 
 # Relay #2 stands the same body ON END: a further quarter about X carries its long axis from
@@ -5231,18 +5236,20 @@ def build_stack(psu, pcba, wagos, wall_seat):
     """What stands on the two crowns, as `[(name, solid, colour, carry)]`.
 
     Relay #1 takes the MAIN BOARD'S crown — the main board is the tallest body on the cap and the shortest
-    in depth, so the room over it is the one room a 70 mm relay lies down in. The ground stud
-    stands AFT of that relay at the same height, on its own wall bosses rather than on the board.
+    in depth, so the room over it is the one room a 70 mm relay lies down in. Its print lift
+    clears the board under both lower wall corbels. The ground stud stands AFT of that relay on
+    the crown's nominal stack floor, on its own wall bosses rather than on the board.
     A ring stack is the one body here that will go wherever there is a corner. Relay #2 is not on
     either crown; it stands on the cap between the main board and the brick (`build_relay2`)."""
     out = []
+    stack_floor = box(pcba).zmax + STACK_CLEAR
     relay1, r1_carry = seat_body(import_step(str(RELAY_STEP)).val(), RELAY_TURN,
                                  seat="relay-1", x1=wall_seat, y1=box(pcba).ymax,
-                                 z0=box(pcba).zmax + STACK_CLEAR)
+                                 z0=stack_floor + RELAY1_CORBEL_LIFT)
     out.append(("relay-1", relay1, C_RELAY, r1_carry))
     stud, stud_carry = seat_body(import_step(str(GND_STACK_STEP)).val(), RELAY_TURN,
                                  seat="ground-stack", x1=wall_seat,
-                                 y0=box(relay1).ymax + STACK_CLEAR, z0=box(relay1).zmin)
+                                 y0=box(relay1).ymax + STACK_CLEAR, z0=stack_floor)
     out.append(("ground-stack", stud, C_GND, stud_carry))
     return out
 

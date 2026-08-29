@@ -1184,7 +1184,7 @@ front_bottom_flank_t = 9.0
 # reach — the y band the metal is actually in, how far inboard it comes, and the clearance the
 # kept run then stands off it — against the box each row would have been read off:
 #
-#   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 5..22    (box y 252.5..322.5)
+#   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 3..22    (box y 252.5..322.5)
 #   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..22    (box y 325..343, x 84.45)
 #   c14-inlet      y 455.75..458.75, in to |x| 80.71, gives up 0..14    (box y 434.8..465.8)
 #
@@ -1220,7 +1220,7 @@ back_top_ceiling_reliefs = (
     # 324 — and a relief ending there would put the cut's own face on a boss's, which is four
     # faces on one edge and a mesh a slicer refuses. A millimetre past each is a plain face. The
     # stack's own single boss is centred y 334.0, so its end faces lie on y 330.5 and 337.5.
-    ("relay-1",        +1.0, 250.0, 325.0, 5.0, _RAIL),   # the relay's crown, mid-strip
+    ("relay-1",        +1.0, 250.0, 325.0, 3.0, _RAIL),   # the relay's crown, mid-strip
     ("ground-stack",   +1.0, 327.0, 341.5, 5.0, _RAIL),   # the +X ground bar's stack, aft of it
     # A millimetre outboard of the rim's own face at |x| 92.50, so the cut stands on a plain
     # face the way the relay's band does at its ends.
@@ -8405,6 +8405,10 @@ def main():
         "CEILING_STRIP": f"{_ceiling().rail_run:.4g} mm",
         "CEILING_PANEL_W": f"{_ceiling().panel_w:.4g} mm",
         "CEILING_KEEP": f"{max(r[4] for r in back_top_ceiling_reliefs):.4g} mm",
+        "RELAY_CEILING_KEEP": f"{next(r[4] for r in back_top_ceiling_reliefs
+                                        if r[0] == 'relay-1'):.4g} mm",
+        "GROUND_CEILING_KEEP": f"{next(r[4] for r in back_top_ceiling_reliefs
+                                         if r[0] == 'ground-stack'):.4g} mm",
         "BOSS_END_CLEAR": f"{boss_end_clear:.4g} mm",
         # How much stock each grown flank stands INBOARD of the box's own interior — the room a
         # rib rooted on that piece loses, and the room its relief gives back.

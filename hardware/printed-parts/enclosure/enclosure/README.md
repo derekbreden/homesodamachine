@@ -1336,9 +1336,9 @@ width hanging.
 
 The rows are measured against the placed solids and not against their boxes, and
 the difference is most of what they say — a strip read off boxes is a strip with no
-corbel left in it. The ground bar's stack and the relay give up the +X strip from
-[5 mm](CEILING_KEEP) of run outward over their own bands, standing 2.45 and 2.00 mm
-off the crown under them. The C14 is the sharpest of them — its box says the
+corbel left in it. The ground bar's stack gives up the +X strip from
+[5 mm](GROUND_CEILING_KEEP) of run outward over its band, and the raised relay from
+[3 mm](RELAY_CEILING_KEEP), standing 2.45 and 2.00 mm off the crown under them. The C14 is the sharpest of them — its box says the
 receptacle is under this strip for the last 31 mm of it, and the casting is in the
 corbel for **two**, the moulded rim round the aperture and nothing else on the part.
 
