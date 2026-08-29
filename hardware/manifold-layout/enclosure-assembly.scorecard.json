@@ -1063,8 +1063,8 @@
    "label": "Two transverse keepers block both ceiling tongues at the open dado mouths",
    "kind": "gate",
    "status": "pass",
-   "value": "0.15 mm home air; at 0.90 mm Y\u2212, tongue engagement 3.434/3.434 mm\u00b3; home clash 0.0000, fixed clash 0.0000, socket stock 0.0000, land missing 0.0000 mm\u00b3",
-   "target": "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, and run in empty fixed sockets with a complete heat-set ligament",
+   "value": "0.15 mm home air; at 0.90 mm Y\u2212, tongue engagement 3.434/3.434 mm\u00b3; home clash 0.0000, fixed clash 0.0000, socket stock 0.0000, land missing 0.0000, roof missing 0.0000 mm\u00b3",
+   "target": "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, and run in round, teardrop-roofed fixed sockets with a complete lower heat-set land and at least 0.75 mm of PET-GF over the apex",
    "detail": [],
    "active": true
   },
