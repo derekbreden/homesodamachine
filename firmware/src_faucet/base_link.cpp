@@ -427,14 +427,18 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   if (type == MSG_IMAGES_QUERY) {
+    const bool verbose = plen >= sizeof(ImagesQueryPayload) ? payload[0] != 0 : true;
     ImagesPayload im{};
     im.board = OTA_TGT_FAUCET;
     im.slots = imageStoreCapacity() < FLAVOR_ART_CUSTOM
                    ? imageStoreCapacity() : FLAVOR_ART_CUSTOM;
     im.bundleBytes = imageStoreBundleBytes();
-    for (uint8_t i = 0; i < im.slots; i++)
+    for (uint8_t i = 0; i < im.slots; i++) {
       if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
+      im.crc[i] = faucetEnclosureCrc(i);   // what the enclosure's copy should be
+    }
     base.trySend(MSG_RESP_IMAGES, &im, sizeof(im));
+    if (!verbose) return;
 
     // The identity each slot reports to a phone. A phone will not ask for a
     // picture whose crc is zero — it has nothing to file the answer under — so
@@ -632,6 +636,39 @@ void faucetSayRead(uint8_t slot, uint32_t bytes) {
 void faucetRequestErase(uint8_t slot) {
   ImageSlotPayload req{slot};
   base.trySend(MSG_IMAGE_ERASE, &req, sizeof(req));
+}
+
+// ── What the enclosure's copy of a slot is, computed here ─────────────────
+// The two stores hold different renditions, so their own crcs are different
+// numbers for the same picture and cannot be compared. This is the number the
+// enclosure's store actually keeps: the crc over the four renditions it holds,
+// out of this board's master copy — the same one wifiImagePush puts in the
+// header it sends.
+//
+// Cached, because it is a bitwise crc over 170 KB and the reconcile asks
+// often. The cache is dropped whenever the store moves, which is the one event
+// that can change the answer.
+static uint32_t encCrc[FLAVOR_ART_CUSTOM];
+static bool     encCrcKnown[FLAVOR_ART_CUSTOM];
+
+void faucetForgetEnclosureCrc() {
+  for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++) encCrcKnown[i] = false;
+}
+
+uint32_t faucetEnclosureCrc(uint8_t slot) {
+  if (slot >= FLAVOR_ART_CUSTOM) return 0;
+  if (encCrcKnown[slot]) return encCrc[slot];
+  uint32_t crc = 0;
+  for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT; i++) {
+    const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
+    const uint16_t *px = imageStorePixels(slot, r);
+    if (!px) { crc = 0; break; }   // nothing there, and nothing owed
+    crc = uartCrc32Update(crc, (const uint8_t *)px,
+                          (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2);
+  }
+  encCrc[slot] = crc;
+  encCrcKnown[slot] = true;
+  return crc;
 }
 
 void faucetRequestRelay(uint8_t slot) {

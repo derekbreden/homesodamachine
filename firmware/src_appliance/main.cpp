@@ -111,6 +111,7 @@ void setup() {
 
 static void relayOwe(uint8_t slot);
 static void relayService();
+static void reconcileService();
 static void removePicture(uint8_t slot, bool tellFaucet);
 
 void loop() {
@@ -145,6 +146,10 @@ void loop() {
         const uint8_t gone = faucetLinkTakeEraseRequest();
         if (gone != 0xFF) removePicture(gone, false);
     }
+
+    // And whatever the two stores were never told, or were told while nobody
+    // was listening.
+    reconcileService();
 
     // Presence crosses both links, so a change is published to whichever glass
     // gives the main board its next turn.
@@ -500,6 +505,113 @@ static void relayOwe(uint8_t slot) {
     relayDueAt = millis();
 }
 
+// ── The two stores telling the same story ─────────────────────────────────
+// EVERY MESSAGE THAT CHANGES THIS MACHINE CAN BE LOST. A picture removed from
+// the phone reaches the faucet over the radio and the enclosure over J9, and
+// the second leg goes through a board that may be flashing, dispensing or
+// simply not listening in that pass. When it is missed, nothing tries again:
+// the faucet has three pictures, the enclosure has four, and it stays that way
+// until a person notices and runs a console command.
+//
+// So the state is reconciled rather than only announced. The two boards are
+// asked what they hold, and where they disagree the difference is acted on. The
+// immediate path stays exactly as it was — a removal still goes straight
+// through — because this is a floor under it, not a replacement for it.
+//
+// THE FAUCET IS THE MASTER COPY. It holds every rendition and it is the board
+// the phone reaches, so a difference is always resolved in its favour: the
+// enclosure is sent what it is missing and stripped of what the machine no
+// longer has.
+constexpr uint32_t RECONCILE_MS = 30000;
+
+static ImagesPayload seenFaucet{}, seenEnclosure{};
+static bool haveFaucet = false, haveEnclosure = false;
+static unsigned long reconcileAt = 0;
+static unsigned long reconcileAskedAt = 0;
+static uint8_t imagesPrintOwed = 0;   // reports a person asked for
+
+// Both links land here. Printing is what the console asked for; the reconcile
+// asks far more often than anyone wants to read.
+void imagesReport(const ImagesPayload &im) {
+    if (im.board == OTA_TGT_FAUCET) { seenFaucet = im; haveFaucet = true; }
+    else                            { seenEnclosure = im; haveEnclosure = true; }
+
+    if (!imagesPrintOwed) return;
+    --imagesPrintOwed;
+    char bits[FLAVOR_ART_CUSTOM + 1];
+    for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++)
+        bits[i] = (i < im.slots) ? ((im.occupancy & (1u << i)) ? 'X' : '.') : ' ';
+    bits[FLAVOR_ART_CUSTOM] = '\0';
+    Serial.printf("\n%-10s %u custom slots [%s], %u held, %lu B each\n",
+                  im.board == OTA_TGT_FAUCET ? "faucet" : "enclosure",
+                  im.slots, bits, im.held, (unsigned long)im.bundleBytes);
+    Serial.printf("           enclosure copy %08lX %08lX %08lX %08lX\n",
+                  (unsigned long)im.crc[0], (unsigned long)im.crc[1],
+                  (unsigned long)im.crc[2], (unsigned long)im.crc[3]);
+}
+
+static void imagesAsk(bool verbose) {
+    haveFaucet = haveEnclosure = false;
+    if (verbose) imagesPrintOwed = 2;
+    ImagesQueryPayload q{(uint8_t)(verbose ? 1 : 0)};
+    faucetLinkImagesQuery(q.verbose);
+    linkImagesQuery(q.verbose);
+}
+
+static void reconcileService() {
+    // A hop already owed is the same repair by another name; let it finish.
+    if (relayOwed || machineState() != ST_IDLE || soundBusy()) return;
+    if ((long)(millis() - reconcileAt) < 0) return;
+
+    if (!reconcileAskedAt) {
+        reconcileAskedAt = millis();
+        imagesAsk(false);
+        return;
+    }
+    if (!haveFaucet || !haveEnclosure) {
+        // One of them did not answer. Nothing is wrong that this can see, so it
+        // waits rather than acting on half a picture of the machine.
+        if (millis() - reconcileAskedAt > 5000) {
+            reconcileAskedAt = 0;
+            reconcileAt = millis() + RECONCILE_MS;
+        }
+        return;
+    }
+    reconcileAskedAt = 0;
+    reconcileAt = millis() + RECONCILE_MS;
+
+    // One difference per pass. Each repair is a transfer and a reboot, and the
+    // next pass finds whatever is still wrong.
+    for (uint8_t slot = 0; slot < FLAVOR_ART_CUSTOM; slot++) {
+        const bool onFaucet = (seenFaucet.occupancy & (1u << slot)) != 0;
+        const bool onGlass  = (seenEnclosure.occupancy & (1u << slot)) != 0;
+        if (onFaucet && (!onGlass || seenEnclosure.crc[slot] != seenFaucet.crc[slot])) {
+            Serial.printf("\nreconcile: the enclosure is %s picture %u — sending it\n",
+                          onGlass ? "holding a different" : "missing", slot);
+            relayOwe(slot);
+            return;
+        }
+        if (!onFaucet && onGlass) {
+            Serial.printf("\nreconcile: the enclosure holds picture %u the machine gave up\n",
+                          slot);
+            linkImageErase(slot);
+            return;
+        }
+    }
+
+    // And no channel may go on wearing a face that is not there. removePicture
+    // does this when it is told; this catches the removal it never heard about.
+    uint8_t a0 = flavorArt(0), a1 = flavorArt(1);
+    const uint8_t s0 = flavorArtCustomSlot(a0), s1 = flavorArtCustomSlot(a1);
+    if (s0 < FLAVOR_ART_CUSTOM && !(seenFaucet.occupancy & (1u << s0))) a0 = 0;
+    if (s1 < FLAVOR_ART_CUSTOM && !(seenFaucet.occupancy & (1u << s1))) a1 = 1;
+    if (a0 != flavorArt(0) || a1 != flavorArt(1)) {
+        Serial.printf("\nreconcile: a channel was wearing a picture that is gone — artwork %u/%u\n",
+                      a0, a1);
+        flavorArtSet(a0, a1);
+    }
+}
+
 static void relayService() {
     if (!relayOwed || (long)(millis() - relayDueAt) < 0) return;
 
@@ -597,8 +709,13 @@ static void console(const String &line) {
     if (line == "images")          {
         // Neither display has a console. Both answer where they are.
         Serial.println("\nasking both displays what they hold");
-        linkImagesQuery();
-        faucetLinkImagesQuery();
+        imagesAsk(true);
+        return;
+    }
+    if (line == "images sync") {
+        Serial.println("\nreconciling now");
+        reconcileAskedAt = 0;
+        reconcileAt = millis();
         return;
     }
     if (line.startsWith("wifi"))   { cmdWifi(line); return; }

@@ -1621,14 +1621,18 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   }
 
   if (type == MSG_IMAGES_QUERY) {
+    const bool verbose = plen >= sizeof(ImagesQueryPayload) ? payload[0] != 0 : true;
     ImagesPayload im{};
     im.board = OTA_TGT_ENCLOSURE;
     im.slots = imageStoreCapacity() < FLAVOR_ART_CUSTOM
                    ? imageStoreCapacity() : FLAVOR_ART_CUSTOM;
     im.bundleBytes = imageStoreBundleBytes();
-    for (uint8_t i = 0; i < im.slots; i++)
+    for (uint8_t i = 0; i < im.slots; i++) {
       if (imageStoreOccupied(i)) { im.occupancy |= (uint8_t)(1u << i); ++im.held; }
+      im.crc[i] = imageStoreCrc(i);   // what this board's copy actually is
+    }
     j9Post(MSG_RESP_IMAGES, &im, sizeof(im));
+    if (!verbose) return;
     // This board has no console; how the last picture landed rides back beside
     // the count, which is the question anyone asking the count actually has.
     char diag[40];

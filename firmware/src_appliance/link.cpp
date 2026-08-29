@@ -223,13 +223,7 @@ static void dispatch(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_RESP_IMAGES && plen >= sizeof(ImagesPayload)) {
         ImagesPayload im;
         memcpy(&im, payload, sizeof(im));
-        char bits[FLAVOR_ART_CUSTOM + 1];
-        for (uint8_t i = 0; i < FLAVOR_ART_CUSTOM; i++)
-            bits[i] = (i < im.slots) ? ((im.occupancy & (1u << i)) ? 'X' : '.') : ' ';
-        bits[FLAVOR_ART_CUSTOM] = '\0';
-        Serial.printf("\n%-10s %u custom slots [%s], %u held, %lu B each\n",
-                      im.board == OTA_TGT_FAUCET ? "faucet" : "enclosure",
-                      im.slots, bits, im.held, (unsigned long)im.bundleBytes);
+        imagesReport(im);
         return;
     }
 
@@ -586,8 +580,9 @@ bool linkImageErase(uint8_t slot) {
     return j9.send(MSG_IMAGE_ERASE, &req, sizeof(req)) >= 0;
 }
 
-bool linkImagesQuery() {
-    return j9.send(MSG_IMAGES_QUERY, nullptr, 0) >= 0;
+bool linkImagesQuery(uint8_t verbose) {
+    ImagesQueryPayload q{verbose};
+    return j9.send(MSG_IMAGES_QUERY, &q, sizeof(q)) >= 0;
 }
 
 // One main-board-originated frame on a pair whose rule is that the main board

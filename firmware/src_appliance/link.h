@@ -44,8 +44,13 @@ bool linkWifiAp(bool on);
 // exists to answer.
 bool linkWifiApMode(uint8_t mode);
 
-// What pictures the enclosure is holding. The answer prints itself.
-bool linkImagesQuery();
+// What pictures the enclosure is holding. Both boards' answers land in
+// imagesReport(), which prints them only when a person asked.
+bool linkImagesQuery(uint8_t verbose);
+
+// One store's account of itself, from either link. Defined in main.cpp, which
+// is the only place that can hold the two of them against each other.
+void imagesReport(const ImagesPayload &im);
 
 // Take a picture back off the enclosure.
 bool linkImageErase(uint8_t slot);
