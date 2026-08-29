@@ -910,10 +910,16 @@ def back_top_flank_face():
     """back-top's own ±X interior faces — `back_top_flank_t` in from the exterior, where the
     box's own is one `wall` in.
 
-    NOTHING OUTSIDE THAT PIECE READS THIS, the same way nothing outside front-top reads its own
-    (`front_top_flank_face`). `interior_x` is still the box's interior and every seated body is
-    packed to it; this is the plane back-top's own flank furniture stands on, and the plane
-    `_dims` reads back against the pack (`back-top-flank-clear`)."""
+    `interior_x` is still the box's interior and every seated body is packed to it; this is the
+    plane back-top's own flank furniture stands on, and the plane `_dims` reads back against the
+    pack (`back-top-flank-clear`).
+
+    FOUR THINGS OUTSIDE BACK-TOP STAND ON THIS PLANE, so `back_top_flank_t` is not back-top's
+    alone to move. `_rail_nominal_foot_face` takes the shallower of this and back-bottom's for
+    the foot the two of them share; `ceiling_panel.rail_run` measures its rail in from it;
+    and the assembly datums both `SPLIT_COLUMN` and the exposed rib's wall root on it. Changing
+    the section carries all four, which is why `back-top-flank-clear` reads a body's built solid
+    against this face rather than the column it was placed on."""
     ix0, ix1 = interior_x()
     grown = back_top_flank_t - wall
     return (ix0 + grown, ix1 - grown)
@@ -958,12 +964,14 @@ def vent_flank_face(sx):
 
 
 def front_top_flank_face():
-    """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where
-    every other piece's is one `wall` in.
+    """front-top's own ±X interior faces — `front_top_flank_t` in from the exterior, where the
+    box's own is one `wall` in.
 
-    NOTHING OUTSIDE THAT PIECE READS THIS. `interior_x` is still the box's interior, and the
-    bodies, the seams and the other three pieces are all struck on it; this is the plane
-    front-top's own flank furniture stands on and the plane its openings are cut to."""
+    `interior_x` is still the box's interior, and the bodies and the seams are all struck on it;
+    this is the plane front-top's own flank furniture stands on and the plane its openings are
+    cut to. All four pieces carry their own section in from it, and `_rail_nominal_foot_face`
+    takes the shallower of this and front-bottom's for the foot the two of them share, so the
+    front column's two sections answer to each other."""
     ix0, ix1 = interior_x()
     grown = front_top_flank_t - wall
     return (ix0 + grown, ix1 - grown)
@@ -1472,7 +1480,11 @@ rail_lead = 2.0              # 45° plan taper easing the head's open end over t
 # The deepest plane either hooked profile reaches inboard of `interior_x`: its full nominal
 # foot first, then the arm clearance and the arm itself. Both complete envelopes remain inside
 # the pack's `side_band_inset`; the collet plate spends this exact figure for its moving berth.
-rail_reach_in = (front_top_flank_t - wall) + slide_slip + hook_arm
+# EITHER means the deeper of the two columns' top sections, because everything reading this
+# reads it for both: the plate is held off by the deepest thing it ever passes and holds that
+# offset at every height, and `_lip_denied` measures the same band down whichever column it is
+# given. Taking one column's section would make the figure true of both only while they agree.
+rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip + hook_arm
 
 # --- THE PUMP BAY AND ITS PUMP CARTRIDGE ------------------------------------------
 #
