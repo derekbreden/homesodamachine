@@ -6479,7 +6479,9 @@ genrule(
         "pysrc/tools/docgen/__init__.py",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
+        "web/public/js/viewer/scene.js",
         "web/server.js",
+        ":node-packages",
         ":render-step-posed-runtime",
     ],
     outs = [

@@ -28,6 +28,7 @@
 //   --ortho          orthographic projection (dimension-drawing look)
 //   --no-ground      omit the viewer's contact-shadow floor
 //   --no-fog         omit the viewer's distance fade
+//   --transparent    preserve a true transparent canvas in the output PNG
 //
 // The step path is relative to hardware/ (matches /api/steps + /steps/*).
 //
@@ -40,7 +41,8 @@
 //
 //     [{"step": "...", "out": "...", "cam": [1,1,1], "zoom": 3.0,
 //       "target": [x,y,z], "up": [0,0,1], "size": "1600x1200", "bg": "#1a1a2e",
-//       "trim": true, "solid": true, "ortho": false}, ...]
+//       "trim": true, "solid": true, "ortho": false,
+//       "transparent": false}, ...]
 //
 // and only `step` and `out` are required — every other key defaults to the flag
 // of the same name. This takes its `--payloads` manifest the
@@ -102,7 +104,7 @@ function usage(msg) {
   console.error(
     "usage: node tools/render/render-step-posed.js <step-file-relative> <output-png> " +
       "[--cam x,y,z] [--target x,y,z] [--zoom f] [--span mm] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] " +
-      "[--solid] [--ortho] [--no-ground] [--no-fog]\n" +
+      "[--solid] [--ortho] [--no-ground] [--no-fog] [--transparent]\n" +
       "       node tools/render/render-step-posed.js --jobs <manifest.json|->",
   );
   process.exit(1);
@@ -126,6 +128,7 @@ function defaults() {
     ortho: false,
     ground: true,
     fog: true,
+    transparent: false,
   };
 }
 
@@ -165,6 +168,7 @@ function parseArgs(argv) {
     else if (a === "--ortho") opts.ortho = true;
     else if (a === "--no-ground") opts.ground = false;
     else if (a === "--no-fog") opts.fog = false;
+    else if (a === "--transparent") opts.transparent = true;
     else positional.push(a);
   }
   if (!Number.isFinite(opts.zoom) || opts.zoom <= 0) usage("bad --zoom");
@@ -199,6 +203,7 @@ function job(entry, i) {
   opts.ortho = !!entry.ortho;
   if (entry.ground != null) opts.ground = !!entry.ground;
   if (entry.fog != null) opts.fog = !!entry.fog;
+  if (entry.transparent != null) opts.transparent = !!entry.transparent;
   if (!Number.isFinite(opts.zoom) || opts.zoom <= 0) usage(`${where}: bad zoom`);
   if (opts.span != null && (!Number.isFinite(opts.span) || opts.span <= 0))
     usage(`${where}: bad span`);
@@ -261,7 +266,8 @@ async function openViewer(browser, port, stepRel, opts) {
     if (line) console.error(line);
   });
 
-  const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepRel)}`;
+  const alpha = opts.transparent ? "&renderAlpha=1" : "";
+  const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepRel)}${alpha}`;
   console.log(`navigating: ${url}`);
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
@@ -421,7 +427,7 @@ async function shoot(page, outAbs, opts) {
     // The read is on the line after the render — see browser.js frameBuffer.
     // The clear colour is set here so the read-back carries the background the
     // card wants: it comes off the canvas, not the page behind it.
-    renderer.setClearColor(o.bg, 1);
+    renderer.setClearColor(o.bg, o.transparent ? 0 : 1);
     renderer.render(scene, cam);
     const png = renderer.domElement.toDataURL("image/png");
     // WHAT THE FRAME WAS COMPOSED AGAINST. Two pictures of one subject that
@@ -460,7 +466,10 @@ async function shoot(page, outAbs, opts) {
 
   let buf = raw;
   if (opts.trim) {
-    let img = sharp(raw).trim({ background: opts.bg, threshold: 10 });
+    const trimBackground = opts.transparent
+      ? { r: 0, g: 0, b: 0, alpha: 0 }
+      : opts.bg;
+    let img = sharp(raw).trim({ background: trimBackground, threshold: 10 });
     const meta = await img.metadata();
     if (meta.width && meta.height) {
       img = img.resize({
@@ -470,7 +479,9 @@ async function shoot(page, outAbs, opts) {
         withoutEnlargement: true,
       });
     }
-    buf = await img.flatten({ background: opts.bg }).png().toBuffer();
+    buf = opts.transparent
+      ? await img.png().toBuffer()
+      : await img.flatten({ background: opts.bg }).png().toBuffer();
   }
   fs.writeFileSync(outAbs, buf);
   const finalMeta = await sharp(buf).metadata();
@@ -499,7 +510,7 @@ async function renderAll(jobs) {
       try {
         const stepAbs = path.join(hardwareDir, stepRel);
         if (!fs.existsSync(stepAbs)) throw new Error(`step file not found: ${stepAbs}`);
-        const want = `${opts.width}x${opts.height}`;
+        const want = `${opts.width}x${opts.height}:${opts.transparent ? "alpha" : "opaque"}`;
         if (page && pageSize === want) {
           await mount(page, stepRel);
         } else {

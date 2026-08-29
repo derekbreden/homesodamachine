@@ -13,7 +13,7 @@
 }
 
 :root {
-  --paper: #fff;
+  --paper: #eef0f2;
   --ink: #202126;
   --muted: #777980;
   --rule: #d7d8dc;
@@ -151,7 +151,7 @@ body {
 
 .lower-arrow path {
   fill: var(--motion);
-  stroke: #fff;
+  stroke: var(--paper);
   stroke-width: 5px;
   stroke-linejoin: round;
   paint-order: stroke fill;
@@ -208,7 +208,7 @@ body {
 
 .transition-arrow path {
   fill: var(--motion);
-  stroke: #fff;
+  stroke: var(--paper);
   stroke-width: 5px;
   stroke-linejoin: round;
   paint-order: stroke fill;
@@ -273,7 +273,7 @@ body {
 
 .scene-motion path {
   fill: var(--motion);
-  stroke: #fff;
+  stroke: var(--paper);
   stroke-width: 5px;
   stroke-linejoin: round;
   paint-order: stroke fill;
@@ -376,7 +376,7 @@ body {
 
 .connection-arrow path {
   fill: var(--motion);
-  stroke: #fff;
+  stroke: var(--paper);
   stroke-width: 4px;
   stroke-linejoin: round;
   paint-order: stroke fill;
