@@ -179,6 +179,40 @@ test("nothing in the hardware tree is unseated", (t) => {
   for (const a of flat(tree)) assert.ok(a.model, `${a.id} has no model to draw`);
 });
 
+// EXCLUDED_DIRS states where builds put their workings, and .gitignore is what
+// actually holds those directories out of the repository. The two are one claim
+// written twice, so this fails when they part rather than letting the next
+// generator's `out/` surface as an unseated directory nobody can place.
+test("EXCLUDED_DIRS is every out/ .gitignore holds under hardware", () => {
+  const ignored = new Set();
+
+  // A rule written in the directory it governs: `out/` inside hardware/x/.gitignore.
+  const sweep = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) {
+        if (e.name !== "node_modules" && e.name !== ".git") sweep(full);
+      } else if (e.name === ".gitignore") {
+        const rel = path.relative(HARDWARE, dir);
+        for (const line of fs.readFileSync(full, "utf8").split("\n")) {
+          if (/^\s*out\/?\s*$/.test(line)) ignored.add(path.join(rel, "out"));
+        }
+      }
+    }
+  };
+  sweep(HARDWARE);
+
+  // And a rule written at the root, naming the directory by its full path.
+  const root = path.resolve(__dirname, "..", "..", ".gitignore");
+  for (const line of fs.readFileSync(root, "utf8").split("\n")) {
+    const m = /^hardware\/(.*\/out)\/?\s*$/.exec(line.trim());
+    if (m) ignored.add(m[1]);
+  }
+
+  assert.deepEqual([...ignored].sort(), [...EXCLUDED_DIRS].sort(),
+    "contracts/parts-tree.js and .gitignore disagree about where builds put their workings");
+});
+
 test("no two lists claim the same directory", () => {
   const held = walkAssemblies().flatMap((a) => a.holds || []);
   const all = [...held, ...PURCHASED, ...TOOLING];
