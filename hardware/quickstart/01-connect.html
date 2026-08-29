@@ -6,194 +6,30 @@
   <link rel="stylesheet" href="art/colors.css">
 </head>
 <body>
-<main class="sheet connect-sheet connect-camera-sheet">
-  <header class="page-head">
-    <div class="brand">HOME SODA MACHINE <span>/ INSTALLATION QUICK START</span></div>
-    <div class="page-id">REAR CONNECTIONS <b>02 / 02</b></div>
-    <h1>CONNECT THE UMBILICAL</h1>
-    <p>Three labeled tubes and one <b>RJ11</b> plug. Four rear connections.</p>
+<main class="sheet connect-sheet">
+  <header class="guide-head">
+    <h1>Connect the faucet</h1>
+    <p class="page-number">2 / 2</p>
   </header>
 
-  <section class="connect-camera-lead" aria-label="Visual convention">
-    <strong>ONE CONTINUOUS ROUTE</strong>
-    <span>Keep the machine forward until every tail is secure.</span>
+  <p class="guide-note">Blue tube to SODA. Black tubes to FLAVOR. RJ11 to SIGNAL.</p>
+
+  <section class="connection-pair" aria-label="The exact same rear view is shown before and after all four faucet leads are connected.">
+    <figure class="connection-scene" role="img" aria-label="The rear of the appliance with the blue soda tube, two black flavor tubes, and the RJ11 signal plug modeled nearby but not connected.">
+      <figcaption>Before</figcaption>
+      <img src="art/connect-rear-open.png" alt="">
+    </figure>
+
+    <svg class="connection-arrow" viewBox="0 0 140 100" aria-hidden="true">
+      <defs><marker id="connectionArrowHead" markerWidth="20" markerHeight="20" refX="10" refY="10" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L18 10L2 18Z"/></marker></defs>
+      <path d="M12 50H120" marker-end="url(#connectionArrowHead)"/>
+    </svg>
+
+    <figure class="connection-scene" role="img" aria-label="The identical rear view with the blue soda tube, both black flavor tubes, and the RJ11 signal plug fully connected.">
+      <figcaption>Connected</figcaption>
+      <img src="art/connect-rear-connected.png" alt="">
+    </figure>
   </section>
-
-  <section class="connection-grid" aria-label="Four physical scenes complete the faucet umbilical connection: pull the appliance forward, trim each tube, push and tug-test each tube, then click the RJ11 plug into its square signal jack.">
-    <article class="connect-operation route-operation">
-      <header class="connect-operation-head"><span>4</span><h2>PULL THE MACHINE FORWARD</h2></header>
-      <figure class="connect-operation-art route-operation-art" role="img" aria-label="The mounted faucet and its braided umbilical remain one continuous assembly. The machine moves forward from inside the cabinet until its rear face reaches the cabinet opening, leaving a relaxed service loop.">
-        <svg viewBox="0 0 1196 510" aria-hidden="true">
-          <defs>
-            <pattern id="routeBraid" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(2)">
-              <path d="M-6 6L6-6M0 24L24 0M18 30L30 18M-6 18L6 30M0 0L24 24M18-6L30 6" fill="none" stroke="#777981" stroke-width="2.8"/>
-            </pattern>
-            <marker id="pullArrowHead" markerWidth="20" markerHeight="20" refX="10" refY="10" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L18 10L2 18Z"/></marker>
-          </defs>
-
-          <path d="M22 146H412" class="connect-counter-line"/>
-          <path d="M1016 128V488" class="connect-cabinet-face"/>
-          <path d="M744 488H1182" class="connect-floor-line"/>
-          <text x="1016" y="112" class="connect-scene-micro label-halo" text-anchor="middle">CABINET FACE</text>
-
-          <image href="art/faucet-side.png" x="58" y="0" width="164" height="159" preserveAspectRatio="xMidYMid meet"/>
-          <image href="art/machine-back-iso.png" x="858" y="170" width="330" height="319" preserveAspectRatio="xMidYMax meet" class="connect-machine-ghost"/>
-          <image href="art/machine-back-iso.png" x="520" y="50" width="476" height="460" preserveAspectRatio="xMidYMax meet" class="connect-machine-present"/>
-
-          <path d="M165 151C250 206 244 383 405 426C566 470 701 405 805 315" class="connect-route-halo"/>
-          <path d="M165 151C250 206 244 383 405 426C566 470 701 405 805 315" fill="none" stroke="url(#routeBraid)" class="connect-route-braid"/>
-          <text x="390" y="382" class="connect-scene-label label-halo" text-anchor="middle">RELAXED SERVICE LOOP</text>
-
-          <path d="M804 307C840 294 863 279 892 260" class="connect-tail tube-blue"/>
-          <path d="M803 316C842 313 865 300 899 283" class="connect-tail tube-black"/>
-          <path d="M801 326C840 337 866 324 896 305" class="connect-tail tube-black"/>
-          <path d="M799 336C838 355 867 352 900 335" class="connect-signal-tail"/>
-
-          <path d="M1108 458H784" class="connect-motion-halo"/>
-          <path d="M1108 458H784" class="connect-motion-line" marker-end="url(#pullArrowHead)"/>
-          <text x="946" y="438" class="connect-motion-word label-halo" text-anchor="middle">PULL FORWARD</text>
-        </svg>
-      </figure>
-      <p class="connect-operation-note"><b>REAR FACE AT THE CABINET OPENING</b><span>LEAVE ONE RELAXED SERVICE LOOP</span></p>
-    </article>
-
-    <article class="connect-operation trim-operation">
-      <header class="connect-operation-head"><span>5</span><h2>TRIM ALL THREE TUBES</h2></header>
-      <figure class="connect-operation-art trim-operation-art" role="img" aria-label="At the rear face, one tube is laid to its matching port and cut square below its retained word collar with the included cutter. The same cut is repeated on all three tubes; the RJ11 ribbon is not cut.">
-        <svg viewBox="0 0 1196 510" aria-hidden="true">
-          <defs><marker id="cutArrowHead" markerWidth="20" markerHeight="20" refX="10" refY="10" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L18 10L2 18Z"/></marker></defs>
-          <image href="art/machine-ports-action.png" x="0" y="0" width="514" height="510" preserveAspectRatio="none"/>
-
-          <path d="M1170 225C944 222 742 225 488 236" class="connect-action-halo"/>
-          <path d="M1170 225C944 222 742 225 488 236" class="connect-action-tube tube-blue"/>
-          <path d="M466 236C430 236 400 236 370 236" class="trim-offcut"/>
-          <path d="M1170 337C946 340 732 327 428 320" class="connect-action-halo"/>
-          <path d="M1170 337C946 340 732 327 428 320" class="connect-action-tube tube-black"/>
-          <path d="M1170 437C948 430 720 391 366 361" class="connect-action-halo"/>
-          <path d="M1170 437C948 430 720 391 366 361" class="connect-action-tube tube-black"/>
-          <circle cx="370" cy="236" r="8" class="connect-free-end connect-free-blue"/>
-          <circle cx="428" cy="320" r="8" class="connect-free-end connect-free-black"/>
-          <circle cx="366" cy="361" r="8" class="connect-free-end connect-free-black"/>
-
-          <g transform="translate(918 204)">
-            <rect width="84" height="32" rx="4" class="collar-blue"/>
-            <text x="42" y="23" class="collar-word" text-anchor="middle">SODA</text>
-          </g>
-          <g transform="translate(923 320)">
-            <rect width="100" height="32" rx="4" class="collar-black"/>
-            <text x="50" y="23" class="collar-word" text-anchor="middle">FLAVOR</text>
-          </g>
-          <g transform="translate(915 403) rotate(6)">
-            <rect width="100" height="32" rx="4" class="collar-black"/>
-            <text x="50" y="23" class="collar-word" text-anchor="middle">FLAVOR</text>
-          </g>
-
-          <g class="quickstart-cutter" transform="translate(326 145) rotate(-4) scale(1.25)">
-            <path d="M16 12H174L194 28L173 43H82L52 70H9L0 55L25 36Z" class="cutter-body"/>
-            <path d="M90 42L132 82H93L58 55Z" class="cutter-body"/>
-            <path d="M111 16L126 67L142 18Z" class="cutter-blade"/>
-            <path d="M14 66V98H70L88 72" class="cutter-cradle"/>
-            <circle cx="149" cy="30" r="9" class="cutter-pivot"/>
-          </g>
-          <path d="M482 209V256" class="connect-cut-mark-halo"/>
-          <path d="M482 209V256" class="connect-cut-mark"/>
-          <path d="M520 70V157" class="connect-motion-halo"/>
-          <path d="M520 70V157" class="connect-motion-line" marker-end="url(#cutArrowHead)"/>
-          <text x="520" y="50" class="connect-motion-word label-halo" text-anchor="middle">CUT SQUARE</text>
-
-          <g class="repeat-three" transform="translate(1080 72)">
-            <circle r="44"/>
-            <text y="10" text-anchor="middle">3×</text>
-          </g>
-          <text x="680" y="284" class="connect-scene-micro label-halo" text-anchor="middle">COLLAR STAYS ON THE KEPT TUBE</text>
-        </svg>
-      </figure>
-      <p class="connect-operation-note"><b>LAY EACH TUBE TO ITS MATCHING PORT</b><span>DO NOT CUT THE FLAT SIGNAL RIBBON</span></p>
-    </article>
-
-    <article class="connect-operation seat-operation">
-      <header class="connect-operation-head"><span>6</span><h2>PUSH IN. TUG BACK.</h2></header>
-      <figure class="connect-operation-art seat-operation-art" role="img" aria-label="The blue tube is pushed into SODA and the two black tubes are pushed into the two interchangeable FLAVOR ports. A second arrow shows the pull-back tug test. All three tubes remain visibly seated.">
-        <svg viewBox="0 0 1196 510" aria-hidden="true">
-          <defs><marker id="seatArrowHead" markerWidth="20" markerHeight="20" refX="10" refY="10" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L18 10L2 18Z"/></marker></defs>
-          <image href="art/machine-ports-action.png" x="0" y="0" width="514" height="510" preserveAspectRatio="none"/>
-
-          <path d="M1170 190C901 186 634 208 346 236" class="connect-action-halo"/>
-          <path d="M1170 190C901 186 634 208 346 236" class="connect-action-tube tube-blue"/>
-          <path d="M1170 326C922 330 669 308 408 322" class="connect-action-halo"/>
-          <path d="M1170 326C922 330 669 308 408 322" class="connect-action-tube tube-black"/>
-          <path d="M1170 438C908 423 650 387 346 361" class="connect-action-halo"/>
-          <path d="M1170 438C908 423 650 387 346 361" class="connect-action-tube tube-black"/>
-
-          <g transform="translate(906 171) rotate(-2)">
-            <rect width="84" height="32" rx="4" class="collar-blue"/>
-            <text x="42" y="23" class="collar-word" text-anchor="middle">SODA</text>
-          </g>
-          <g transform="translate(911 308)">
-            <rect width="100" height="32" rx="4" class="collar-black"/>
-            <text x="50" y="23" class="collar-word" text-anchor="middle">FLAVOR</text>
-          </g>
-          <g transform="translate(889 403) rotate(7)">
-            <rect width="100" height="32" rx="4" class="collar-black"/>
-            <text x="50" y="23" class="collar-word" text-anchor="middle">FLAVOR</text>
-          </g>
-
-          <path d="M766 210C646 216 511 226 374 235" class="connect-motion-halo"/>
-          <path d="M766 210C646 216 511 226 374 235" class="connect-motion-line" marker-end="url(#seatArrowHead)"/>
-          <text x="628" y="190" class="connect-motion-word label-halo" text-anchor="middle">PUSH</text>
-          <path d="M514 382C604 391 687 402 772 413" class="connect-motion-halo"/>
-          <path d="M514 382C604 391 687 402 772 413" class="connect-motion-line" marker-end="url(#seatArrowHead)"/>
-          <text x="649" y="378" class="connect-motion-word label-halo" text-anchor="middle">TUG</text>
-
-          <g class="secure-three" transform="translate(1080 78)">
-            <circle r="44"/>
-            <path d="M-19 1L-5 16L22-17"/>
-          </g>
-        </svg>
-      </figure>
-      <p class="connect-operation-note"><b>BLUE TO SODA / BLACK TO EITHER FLAVOR</b><span>TUG EACH ONCE - THE TUBE MUST STAY</span></p>
-    </article>
-
-    <article class="connect-operation signal-operation">
-      <header class="connect-operation-head"><span>7</span><h2>CLICK IN THE RJ11 PLUG</h2></header>
-      <figure class="connect-operation-art signal-operation-art" role="img" aria-label="In a closer view of the same rear face, the flat grey faucet-display ribbon ends in an RJ11 plug. With its latch facing up, the plug moves diagonally into the square signal jack until it clicks. The three tubes remain connected above it.">
-        <svg viewBox="0 0 1196 510" aria-hidden="true">
-          <defs><marker id="plugArrowHead" markerWidth="22" markerHeight="22" refX="11" refY="11" orient="auto" markerUnits="userSpaceOnUse"><path d="M2 2L20 11L2 20Z"/></marker></defs>
-          <image href="art/machine-signal-iso.png" x="0" y="0" width="770" height="510" preserveAspectRatio="none"/>
-
-          <path d="M1175 56C914 53 697 65 508 81" class="connect-action-halo"/>
-          <path d="M1175 56C914 53 697 65 508 81" class="connect-action-tube tube-blue"/>
-          <path d="M1175 161C951 168 777 195 605 214" class="connect-action-halo"/>
-          <path d="M1175 161C951 168 777 195 605 214" class="connect-action-tube tube-black"/>
-          <path d="M1175 245C932 250 730 262 508 275" class="connect-action-halo"/>
-          <path d="M1175 245C932 250 730 262 508 275" class="connect-action-tube tube-black"/>
-
-          <path d="M1188 442C1009 443 864 407 730 354" class="signal-ribbon-halo"/>
-          <path d="M1188 442C1009 443 864 407 730 354" class="signal-ribbon"/>
-          <path d="M1188 437C1009 438 864 402 730 349M1188 447C1009 448 864 412 730 359" class="signal-ribbon-stripe"/>
-
-          <g class="rj11-plug" transform="translate(584 276) rotate(9)">
-            <path d="M0 11H38V2H147V70H38V60H0Z" class="rj11-plug-body"/>
-            <path d="M57 2L105-20L127 2Z" class="rj11-latch"/>
-            <path d="M9 18V53M17 18V53M25 18V53M33 18V53" class="rj11-contact"/>
-            <path d="M130 12V60" class="rj11-strain"/>
-          </g>
-
-          <path d="M574 286C471 271 364 248 258 229" class="connect-motion-halo"/>
-          <path d="M574 286C471 271 364 248 258 229" class="connect-motion-line" marker-end="url(#plugArrowHead)"/>
-          <text x="414" y="239" class="connect-motion-word label-halo" text-anchor="middle">PUSH UNTIL IT CLICKS</text>
-
-          <path d="M105 340L205 245" class="signal-jack-leader"/>
-          <circle cx="237" cy="223" r="10" class="signal-jack-dot"/>
-          <text x="66" y="372" class="signal-jack-title">RJ11 SIGNAL</text>
-          <text x="66" y="396" class="signal-jack-copy">LATCH FACES UP</text>
-        </svg>
-      </figure>
-      <p class="connect-operation-note"><b>ONE SQUARE JACK / ONE AUDIBLE CLICK</b><span>NO CUTTING. NO TOOL.</span></p>
-    </article>
-  </section>
-
-  <footer class="page-foot"><span>INSTALLATION QUICK START</span><b>homesodamachine.com</b></footer>
 </main>
 </body>
 </html>
