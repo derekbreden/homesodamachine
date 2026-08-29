@@ -7,7 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "72c9b062f0474a6b01bbc5e5f882be104ac12f2c"
+    "commit": "926ea0b527fee7e72468bc804110f20768fab797"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -154,19 +154,6 @@
       "tmp/quickstart-revision-qa/page-2.png"
     ],
     "members": [
-      "hardware/assembly/scenes/glb/back-half.glb",
-      "hardware/assembly/scenes/glb/back-top.glb",
-      "hardware/assembly/scenes/glb/cap-lid-fill.glb",
-      "hardware/assembly/scenes/glb/cap-lid.glb",
-      "hardware/assembly/scenes/glb/cold-core-open.glb",
-      "hardware/assembly/scenes/glb/cold-core.glb",
-      "hardware/assembly/scenes/glb/en04-stratum.glb",
-      "hardware/assembly/scenes/glb/front-top.glb",
-      "hardware/assembly/scenes/glb/pump-cartridge.glb",
-      "hardware/faucet-layout/faucet-assembly.step.mesh",
-      "hardware/manifold-layout/enclosure-assembly.step",
-      "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "hardware/printed-parts/enclosure/ceiling-panel/ceiling-panel.step",
       "hardware/quickstart/art/mount-slide.png"
     ]
   },
