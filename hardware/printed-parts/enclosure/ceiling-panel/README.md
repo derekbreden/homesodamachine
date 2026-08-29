@@ -115,13 +115,16 @@ slide fit. The insert runs x = ±[86.65](RETAINER_INSERT_FACE)..±[91.9](RETAINE
 reached through a [4.3 mm](RETAINER_APPROACH_D) guide from the dado's blind wall.
 The Ø4 bore continues [1 mm](RETAINER_TIP_AIR) past the insert, so the cup point
 cannot bottom on PET-GF and jack the pin back into the field. The fixed strip
-carries a full ligament round the insert without any added boss.
+carries the standard radial ligament around the insert's lower bearing land without
+any added boss. The guide and insert socket retain their complete nominal round
+passages and open only above them into the enclosure's 36° tangent teardrop roof,
+with at least three 0.24 mm production layers of fixed PET-GF required over the apex.
 
 The panel carries no insert, socket, counterbore or local pad. When it tries to
 move fore, each tongue bears on a steel cross-pin and each pin bears directly in
 the fixed strip. `ceiling-dado-mouth-keepers` checks both sides independently:
 clear at home, caught after the stated fore air, empty socket, complete insert
-land.
+lower land and printable roof.
 
 ## What hangs off it
 

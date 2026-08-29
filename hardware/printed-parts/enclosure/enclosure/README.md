@@ -1421,11 +1421,15 @@ then each M3×12 is driven OUTBOARD from the empty field into a horizontal ruthe
 M3 short buried in the fixed corbel.
 
 The insert's guide begins at the dado's blind wall and steps down to its Ø4 knurl
-bore only where the existing 45° wedge has a full `boss_ligament` around it. No
-boss, pier or pad is fused under the ceiling. The moving panel carries no socket
-and no bore. One millimetre of empty bore beyond the insert keeps the cup point
-off the blind PET-GF end. In service the tongue bears on the steel pin and the pin
-bears in the fixed strip around its own short tunnel; neither appliance show face is opened.
+bore only where the existing 45° wedge has a full `boss_ligament` around its lower
+bearing land. Both horizontal cuts retain their complete nominal circles and open
+above them into the same 36° tangent teardrop used by the enclosure's other X-axis
+bores, so neither leaves a circular crown for support. At least three 0.24 mm PET-GF
+layers remain over the insert roof. No boss, pier or pad is fused under the ceiling.
+The moving panel carries no socket and no bore. One millimetre of empty bore beyond
+the insert keeps the cup point off the blind PET-GF end. In service the tongue bears
+on the steel pin and the pin bears in the fixed strip around its own short tunnel;
+neither appliance show face is opened.
 `ceiling-panel-slides-in` reads the sweep before the pins exist, and
 `ceiling-dado-mouth-keepers` then proves both pins clear at home and catch their
 own tongue after the dado's 0.15 mm fore air is spent.

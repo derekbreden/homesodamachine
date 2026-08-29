@@ -7297,8 +7297,9 @@ def check_ceiling_retention(back_top, panel) -> Bound:
     The insertion gate deliberately reads back-top without fasteners: the panel must traverse
     these stations before either keeper exists. This gate reads the next operation. At home the
     steel envelopes owe the panel the dado's own fore air; after that air is spent in Y−, each
-    tongue must meet its own pin. The horizontal heat-set sockets must be empty in the built
-    fixed piece and keep one standard boss ligament round the whole insert bore.
+    tongue must meet its own pin. The horizontal heat-set sockets keep their full nominal round
+    passage inside a support-free teardrop roof. The insert bears in a standard-ligament lower
+    land, while a measured PET-GF roof closes over the teardrop apex.
     """
     fixed = back_top.val() if hasattr(back_top, "val") else back_top
     moving = panel.val() if hasattr(panel, "val") else panel
@@ -7311,30 +7312,52 @@ def check_ceiling_retention(back_top, panel) -> Bound:
     caught = tuple(pin.intersect(caught_panel).Volume() for pin in pins)
 
     land_missing = []
+    roof_missing = []
     socket_occupied = []
     outer_r = _enc.heatset_dia / 2.0 + _enc.boss_ligament
+    roof_skin = 0.75
+    angle = math.radians(_enc.teardrop_roof_angle)
     for sx, cy, cz in _cpanel.retainer_stations():
         guide0, guide1 = sorted((sx * _cpanel.dado_blind_x,
                                   sx * _cpanel.retainer_insert_face_x))
         bore0, bore1 = sorted((sx * _cpanel.retainer_insert_face_x,
                                sx * _cpanel.retainer_bore_end_x))
-        guide = _enc._xcyl(_cpanel.retainer_approach_d / 2.0,
-                            cy, cz, guide0, guide1)
-        bore = _enc._xcyl(_enc.heatset_dia / 2.0, cy, cz, bore0, bore1)
+        guide = _enc._teardrop_x(_cpanel.retainer_approach_d / 2.0,
+                                  cy, cz, guide0, guide1)
+        bore = _enc._teardrop_x(_enc.heatset_dia / 2.0, cy, cz, bore0, bore1)
         socket_occupied.append(guide.fuse(bore).intersect(fixed).Volume())
         insert0, insert1 = sorted((sx * _cpanel.retainer_insert_face_x,
                                    sx * _cpanel.retainer_insert_end_x))
         insert_bore = _enc._xcyl(_enc.heatset_dia / 2.0,
                                   cy, cz, insert0, insert1)
-        shell = _enc._xcyl(outer_r, cy, cz, insert0, insert1).cut(insert_bore)
-        land_missing.append(shell.cut(fixed).Volume())
+        # The teardrop opens only the unsupported upper sector. Below its tangent the exact
+        # circular insert land remains, with the same radial ligament as every M3 wall boss.
+        tangent = cz + _enc.heatset_dia / 2.0 * math.cos(angle)
+        lower = _enc._xcyl(outer_r, cy, cz, insert0, insert1).cut(insert_bore)
+        lower = lower.intersect(_enc._ybox(
+            insert0 - 1.0, insert1 + 1.0,
+            cy - outer_r - 1.0, cy + outer_r + 1.0,
+            cz - outer_r - 1.0, tangent))
+        land_missing.append(lower.cut(fixed).Volume())
+
+        # A real roof, not merely the zero-area apex edge: at least three 0.24 mm production
+        # layers, plus margin, of fixed PET-GF immediately above the teardrop's centreline must
+        # remain across the full insert depth.
+        apex = cz + (_enc.heatset_dia / 2.0) / math.cos(angle)
+        roof = _enc._ybox(
+            insert0 + 0.05, insert1 - 0.05,
+            cy - 0.15, cy + 0.15,
+            apex + 0.05, apex + roof_skin)
+        roof_missing.append(roof.cut(fixed).Volume())
 
     home_clear = max(home, default=0.0) <= 1e-3
     pin_paths_clear = max(fixed_clash, default=0.0) <= 1e-3
     sockets_clear = max(socket_occupied, default=0.0) <= 1e-3
     lands_whole = max(land_missing, default=0.0) <= 1e-3
+    roofs_whole = max(roof_missing, default=0.0) <= 1e-3
     both_catch = len(caught) == 2 and min(caught) >= 1.0
-    ok = home_clear and pin_paths_clear and sockets_clear and lands_whole and both_catch
+    ok = (home_clear and pin_paths_clear and sockets_clear and lands_whole and roofs_whole
+          and both_catch)
     return record_bound(Bound(
         "ceiling-dado-mouth-keepers",
         "Two transverse keepers block both ceiling tongues at the open dado mouths",
@@ -7343,15 +7366,18 @@ def check_ceiling_retention(back_top, panel) -> Bound:
          f"tongue engagement {caught[0]:.3f}/{caught[1]:.3f} mm³; home clash "
          f"{max(home, default=0.0):.4f}, fixed clash {max(fixed_clash, default=0.0):.4f}, "
          f"socket stock {max(socket_occupied, default=0.0):.4f}, land missing "
-         f"{max(land_missing, default=0.0):.4f} mm³"),
+         f"{max(land_missing, default=0.0):.4f}, roof missing "
+         f"{max(roof_missing, default=0.0):.4f} mm³"),
         "both M3 cross-pins clear at home, catch their own tongue after the stated fore air, "
-        "and run in empty fixed sockets with a complete heat-set ligament",
+        "and run in round, teardrop-roofed fixed sockets with a complete lower heat-set land "
+        f"and at least {roof_skin:g} mm of PET-GF over the apex",
         ([] if ok else [
             f"the keeper pair reads home {home}, caught {caught}, fixed clash {fixed_clash}, "
             f"socket stock {tuple(socket_occupied)}, land missing {tuple(land_missing)}. "
+            f"roof missing {tuple(roof_missing)}. "
             "Each pin is installed only after the panel reaches its +Y stop; put its axis "
             "immediately ahead of the tongue, keep the guide open through the fixed corbel, "
-            "and leave the complete insert annulus in back-top."])))
+            "and leave the round passage, lower insert land and printable roof in back-top."])))
 
 
 # --- the box those bodies stand in, and what is seated in its walls ---------
