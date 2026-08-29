@@ -87,15 +87,10 @@ TEE_RIGHT_FACE = TEE_X + PP0208_REACH
 TEE_BRANCH_FACE_Z = AXIS_Z - PP0208_REACH
 
 
-# Instruction-lighting materials.  The existing household line stays cool
-# gray across every frame.  The supplied jumper is a pale cool neutral so it
-# remains distinct without borrowing the appliance's blue SODA language, and
-# the filter/appliance branch is white with a modeled dark tracer so it
-# survives grayscale and a small printed view.
-C_EXISTING = cq.Color(0.48, 0.57, 0.66, 1.0)
-C_JUMPER = cq.Color(0.72, 0.77, 0.79, 1.0)
-C_BRANCH = cq.Color(0.90, 0.92, 0.93, 1.0)
-C_BRANCH_TRACER = cq.Color(0.30, 0.34, 0.38, 1.0)
+# Every household/tap-water tube uses the same white LLDPE material.  Modeled
+# lighting and recessed bore witnesses preserve the geometry in print without
+# implying that the customer needs multiple tube types.
+C_WATER_TUBE = cq.Color(0.90, 0.92, 0.93, 1.0)
 C_CUT_BORE = cq.Color(0.065, 0.075, 0.085, 1.0)
 C_TEE_BODY = cq.Color(0.035, 0.040, 0.045, 1.0)
 C_TEE_COLLET = cq.Color(0.085, 0.090, 0.100, 1.0)
@@ -200,10 +195,6 @@ def _branch(start_z: float, *, open_end: bool = False) -> cq.Shape:
         (0.0, 0.0, -1.0),
     )
     return outer.cut(bore)
-
-
-def _branch_tracer(start_z: float) -> cq.Shape:
-    return _swept_round(_branch_points(start_z, y=-TUBE_OD / 2.0), 0.34)
 
 
 def _bore_witness(face, inward) -> cq.Solid:
@@ -358,7 +349,7 @@ def _add_source_line(scene: cq.Assembly) -> None:
         scene,
         _tube((-SCENE_END, 0.0, AXIS_Z), (stop_x, 0.0, AXIS_Z)),
         "existing-source-lldpe",
-        C_EXISTING,
+        C_WATER_TUBE,
     )
 
 
@@ -377,7 +368,7 @@ def _add_original_line(scene: cq.Assembly, *, destination: str) -> None:
         scene,
         _tube((start_x, 0.0, AXIS_Z), (SCENE_END, 0.0, AXIS_Z)),
         "existing-downstream-lldpe",
-        C_EXISTING,
+        C_WATER_TUBE,
     )
     if destination.endswith("free"):
         _add(
@@ -395,7 +386,7 @@ def _add_jumper(scene: cq.Assembly) -> None:
         scene,
         _tube((start_x, 0.0, AXIS_Z), (stop_x, 0.0, AXIS_Z)),
         "supplied-lldpe-jumper",
-        C_JUMPER,
+        C_WATER_TUBE,
     )
     _add(
         scene,
@@ -406,8 +397,12 @@ def _add_jumper(scene: cq.Assembly) -> None:
 
 
 def _add_staged_branch(scene: cq.Assembly) -> None:
-    _add(scene, _branch(BRANCH_FREE_Z, open_end=True), "filter-to-appliance-branch", C_BRANCH)
-    _add(scene, _branch_tracer(BRANCH_FREE_Z), "branch-modeled-tracer", C_BRANCH_TRACER)
+    _add(
+        scene,
+        _branch(BRANCH_FREE_Z, open_end=True),
+        "filter-to-appliance-branch",
+        C_WATER_TUBE,
+    )
     _add(
         scene,
         _bore_witness((TEE_X, 0.0, BRANCH_FREE_Z), (0.0, 0.0, -1.0)),
@@ -419,8 +414,7 @@ def _add_staged_branch(scene: cq.Assembly) -> None:
 def _add_connected_branch(scene: cq.Assembly, *, tugged: bool = False) -> None:
     insertion = PP0208_INSERTION - (3.2 if tugged else 0.0)
     start_z = TEE_BRANCH_FACE_Z + insertion
-    _add(scene, _branch(start_z), "filter-to-appliance-branch", C_BRANCH)
-    _add(scene, _branch_tracer(start_z), "branch-modeled-tracer", C_BRANCH_TRACER)
+    _add(scene, _branch(start_z), "filter-to-appliance-branch", C_WATER_TUBE)
 
 
 def build_release_ready() -> cq.Assembly:
@@ -550,14 +544,14 @@ def _add_modern_shutoff(scene: cq.Assembly, *, on: bool) -> None:
     wide_union_right = WIDE_UNION_X + UNION_REACH
     _add(scene, _tube((-SCENE_END, 0.0, WIDE_AXIS_Z),
                       (valve_left_face + 5.0, 0.0, WIDE_AXIS_Z)),
-         "household-source-lldpe", C_EXISTING)
+         "household-source-lldpe", C_WATER_TUBE)
     _add(scene, _tube((valve_right_face - 5.0, 0.0, WIDE_AXIS_Z),
                       (wide_union_left + UNION_INSERTION, 0.0, WIDE_AXIS_Z)),
-         "household-line-before-union", C_EXISTING)
+         "household-line-before-union", C_WATER_TUBE)
     _add_union(scene, center=(WIDE_UNION_X, 0.0, WIDE_AXIS_Z), pressed_right=False)
     _add(scene, _tube((wide_union_right - UNION_INSERTION, 0.0, WIDE_AXIS_Z),
                       (SCENE_END, 0.0, WIDE_AXIS_Z)),
-         "household-line-after-union", C_EXISTING)
+         "household-line-after-union", C_WATER_TUBE)
 
 
 def build_water_on() -> cq.Assembly:
