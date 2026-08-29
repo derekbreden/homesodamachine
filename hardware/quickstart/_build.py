@@ -1,8 +1,8 @@
 """Build the five-sheet, 11 x 17 in Home Soda Machine installation quick start.
 
-Product-derived artwork is generated separately by ``quickstart_art.py`` and the two plumbing
-scene generators. Keeping artwork separate means a layout or copy edit rerenders only these
-sheets; CAD and firmware changes rebuild the pictures first through the Bazel dependency graph.
+Product-derived artwork is generated separately by ``quickstart_art.py`` and the modern push-fit
+scene generator. Keeping artwork separate means a layout or copy edit rerenders only these sheets;
+CAD and firmware changes rebuild the pictures first through the Bazel dependency graph.
 
     quick-start.pdf         five print-ready 11 x 17 in pages
     quick-start.cover.png   the installation sheet for the drawings shelf
@@ -44,8 +44,8 @@ FONTS = tuple((HARDWARE / "assembly" / "cards" / "fonts").glob("*.woff2"))
 PAGES = (
     HERE / "00-mount.html",
     HERE / "01-water-off.html",
-    HERE / "02-water-tee-braided.html",
-    HERE / "03-water-tee-inline.html",
+    HERE / "02-water-release.html",
+    HERE / "03-water-tee.html",
     HERE / "04-connect.html",
 )
 RENDER_PAGE_TIMEOUT_SECONDS = 180
@@ -62,12 +62,14 @@ PAGE_ASSETS = (
     HERE / "art" / "mount-lowered-clean.png",
     HERE / "art" / "mount-under-slide-clean.png",
     HERE / "art" / "mount-under-tighten-clean.png",
-    HERE / "plumbing" / "art" / "plumbing-pre-tee.png",
-    HERE / "plumbing" / "art" / "plumbing-tee-installed.png",
-    HERE / "plumbing" / "art" / "plumbing-valve-off.png",
-    HERE / "plumbing" / "art" / "plumbing-valve-on.png",
-    HERE / "plumbing" / "modern" / "art" / "modern-inline-tee-after.png",
-    HERE / "plumbing" / "modern" / "art" / "modern-inline-tee-before.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-water-on.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-water-off.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-release-pressed.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-release-withdrawn.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-tee-jumper.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-tee-mounted.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-tee-existing.png",
+    HERE / "plumbing" / "modern" / "art" / "modern-tee-complete.png",
 )
 
 

@@ -6252,8 +6252,8 @@ genrule(
         "hardware/assembly/cards/fonts/OFL.txt",
         "hardware/quickstart/00-mount.html",
         "hardware/quickstart/01-water-off.html",
-        "hardware/quickstart/02-water-tee-braided.html",
-        "hardware/quickstart/03-water-tee-inline.html",
+        "hardware/quickstart/02-water-release.html",
+        "hardware/quickstart/03-water-tee.html",
         "hardware/quickstart/04-connect.html",
         "pysrc/hardware/quickstart/_build.py",
         ":out/cad-art/hardware/quickstart/art/colors.css",
@@ -6263,12 +6263,14 @@ genrule(
         ":out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-pre-tee.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-tee-installed.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-off.png",
-        ":out/plumbing-scenes/hardware/quickstart/plumbing/art/plumbing-valve-on.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
-        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png",
+        ":out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png",
         "hardware/quickstart/style.css",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_run_lock.py",
@@ -6463,25 +6465,45 @@ cp hardware/quickstart/art/mount-under-tighten-clean.png $$O25
 genrule(
     name = "render-modern-tee",
     srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
         "pysrc/hardware/quickstart/plumbing/modern/render_modern_tee.py",
-        "hardware/reference/tee-connector/tee-connector.step",
+        ":out/jg-pp0408w/hardware/reference/jg-pp0408w/jg-pp0408w.step",
+        "pysrc/hardware/reference/jg-pp0408w/jg_pp0408w.py",
         "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_mesh_payload.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
         "web/server.js",
         ":render-step-posed-runtime",
     ],
     outs = [
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png",
-        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png",
+        "out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png",
     ],
     tags = ["requires-network"],
     cmd = """
 set -e
-O0=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png)
-O1=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png)
+O0=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-pressed.png)
+O1=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-ready.png)
+O2=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png)
+O3=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-complete.png)
+O4=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-existing.png)
+O5=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png)
+O6=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png)
+O7=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png)
+O8=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-off.png)
+O9=$$PWD/$(location out/render-modern-tee/hardware/quickstart/plumbing/modern/art/modern-water-on.png)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6498,8 +6520,16 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/quickstart/plumbing/modern/render_modern_tee.py > /dev/null
-cp hardware/quickstart/plumbing/modern/art/modern-inline-tee-after.png $$O0
-cp hardware/quickstart/plumbing/modern/art/modern-inline-tee-before.png $$O1
+cp hardware/quickstart/plumbing/modern/art/modern-release-pressed.png $$O0
+cp hardware/quickstart/plumbing/modern/art/modern-release-ready.png $$O1
+cp hardware/quickstart/plumbing/modern/art/modern-release-withdrawn.png $$O2
+cp hardware/quickstart/plumbing/modern/art/modern-tee-complete.png $$O3
+cp hardware/quickstart/plumbing/modern/art/modern-tee-existing.png $$O4
+cp hardware/quickstart/plumbing/modern/art/modern-tee-jumper.png $$O5
+cp hardware/quickstart/plumbing/modern/art/modern-tee-mounted.png $$O6
+cp hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png $$O7
+cp hardware/quickstart/plumbing/modern/art/modern-water-off.png $$O8
+cp hardware/quickstart/plumbing/modern/art/modern-water-on.png $$O9
 """,
 )
 

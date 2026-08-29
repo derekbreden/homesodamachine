@@ -5,13 +5,15 @@ Five single-sided landscape 11 x 17 inch sheets publish together as `quick-start
 
 1. mount the complete factory faucet assembly;
 2. close the under-sink cold-water valve;
-3. add the brass tee where the home has a 3/8-inch braided faucet hose;
-4. add the black push-fit tee where the home has an existing 1/4-inch plastic line;
+3. release the existing 1/4-inch plastic tube from its push fitting;
+4. add one black push-fit tee with the supplied short tube;
 5. connect the five tubes and RJ11 signal lead to the appliance rear panel.
 
-The two tee sheets are alternatives. The installer uses only the sheet that matches the existing
-cold-water connection. In either path, the new white tube continues through the supplied filter
-before it reaches the appliance `TAP` inlet.
+This edition follows the modern-home installation path: an existing 1/4-inch plastic cold-water
+line and push fitting under the sink. The installer releases one tube, adds one tee and one short
+piece of supplied tube, reconnects the original line, and pushes the new white branch into the
+third port. The white branch continues through the supplied filter before it reaches the appliance
+`TAP` inlet. No threaded fitting is opened during this path.
 
 ## Faucet mount
 
@@ -23,15 +25,20 @@ The retracted plate stays visibly clear of the washer and nut before it moves.
 
 ## Cold-water connection
 
-`plumbing/plumbing_scenes.py` models the common 3/8-inch braided-hose installation as four states
-in one coordinate frame: valve open, valve closed, hose removed with the tee and new branch staged,
-and tee installed with both lines connected. The finished wall, copper stub, escutcheon, valve,
-braided hose, brass compression fittings, and white 1/4-inch branch are CAD solids. One fixed
-2000 x 1100 orthographic viewport keeps invariant geometry registered in every state.
+`plumbing/modern/render_modern_tee.py` models the complete push-fit sequence in one continuous
+under-sink coordinate frame. The wide camera shows the same valve and connected plastic line open
+and closed. The macro camera then shows the existing fitting's collet pressed, the original tube
+withdrawn, the supplied short tube seated, the tee seated on that tube, the original tube
+reconnected, and the filtered white branch seated in the third port.
 
-`plumbing/modern/render_modern_tee.py` models the alternative existing-1/4-inch-line installation.
-The checked-in PP0208E reference solid sits between two square-cut ends, and the new white branch
-occupies its third port. Before and connected states share one 2000 x 1100 orthographic viewport.
+The existing fitting uses the repository's measured John Guest PP0408W union geometry, including
+its 1.335 mm collet travel and 16 mm tube insertion. The customer-facing PP0208E tee is built from
+John Guest's published 1/4-inch dimensions: 39.0 mm run span, 19.5 mm port reach, 15.7 mm insertion
+depth, 16.3 mm maximum body diameter, and 4.3 mm bore. Long tubes continue through the common crop;
+no arbitrary remote tube end is shown. Every connector and tube is a CAD solid.
+
+`plumbing/plumbing_scenes.py` retains the separate older-home braided-hose study assets. They are
+not pages or dependencies of this modern push-fit guide.
 
 ## Appliance rear connections
 
@@ -57,8 +64,7 @@ From the repository root:
 # Faucet and appliance-rear CAD artwork.
 tools/cad-venv/bin/python hardware/quickstart/quickstart_art.py
 
-# Both under-sink tee alternatives.
-tools/cad-venv/bin/python hardware/quickstart/plumbing/plumbing_scenes.py
+# Modern under-sink shutoff, release, and tee sequence.
 tools/cad-venv/bin/python hardware/quickstart/plumbing/modern/render_modern_tee.py
 
 # Five rendered sheets and the bound PDF.

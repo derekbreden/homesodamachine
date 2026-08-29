@@ -1,4 +1,7 @@
-# Quick Start plumbing scenes
+# Older-home braided-hose plumbing study
+
+These assets support the separate installer path for a 3/8-inch braided faucet hose and threaded
+angle-stop tee. They are not pages or build dependencies of the modern push-fit Quick Start.
 
 `plumbing_scenes.py` generates four registered under-sink installation scenes:
 

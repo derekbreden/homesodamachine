@@ -214,6 +214,127 @@ body {
   paint-order: stroke fill;
 }
 
+.mechanic-pair {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  top: 205px;
+  bottom: 44px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 70px;
+}
+
+.mechanic-scene {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 52px minmax(0, 1fr);
+}
+
+.mechanic-scene figcaption,
+.push-scene h2 {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34px;
+  letter-spacing: -0.15px;
+}
+
+.mechanic-scene figcaption span,
+.push-scene h2 span {
+  display: inline-block;
+  width: 34px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.scene-media {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.scene-media > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.scene-motion {
+  position: absolute;
+  width: 180px;
+  height: 100px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.scene-motion path {
+  fill: var(--motion);
+  stroke: #fff;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+
+.release-press {
+  left: 53%;
+  top: 44%;
+  transform: rotate(184deg);
+}
+
+.release-pull {
+  left: 52%;
+  top: 44%;
+  transform: rotate(4deg);
+}
+
+.push-story {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  top: 205px;
+  bottom: 44px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  column-gap: 70px;
+  row-gap: 40px;
+}
+
+.push-scene {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: 52px minmax(0, 1fr);
+}
+
+.tee-jumper {
+  left: 24%;
+  top: 24%;
+  transform: rotate(184deg);
+}
+
+.tee-mounted {
+  left: 54%;
+  top: 44%;
+  transform: rotate(184deg);
+}
+
+.tee-existing {
+  left: 68%;
+  top: 34%;
+  transform: rotate(184deg);
+}
+
+.tee-branch {
+  left: 42%;
+  top: 55%;
+  transform: rotate(-90deg);
+}
+
 .connection-pair {
   position: absolute;
   left: 80px;
