@@ -2743,9 +2743,12 @@ static void homeSettingsCb(lv_event_t *e) {
 // that cannot act saying so by going dim and by not answering.
 static void tileStripAffordance() {
   if (!flvTileStrip || !flvTileTrack) return;
-  const lv_coord_t before = lv_obj_get_scroll_left(flvTileStrip);
-  const lv_coord_t after  = lv_obj_get_scroll_right(flvTileStrip);
-  const lv_coord_t view   = lv_obj_get_width(flvTileStrip);
+  // A drag can leave these momentarily negative while the strip springs back.
+  lv_coord_t before = lv_obj_get_scroll_left(flvTileStrip);
+  lv_coord_t after  = lv_obj_get_scroll_right(flvTileStrip);
+  if (before < 0) before = 0;
+  if (after < 0) after = 0;
+  const lv_coord_t view = lv_obj_get_width(flvTileStrip);
   lv_coord_t total = before + after + view;
   if (total < view) total = view;
 
@@ -2764,7 +2767,9 @@ static void tileStripAffordance() {
   if (thumbW < 56) thumbW = 56;
   if (thumbW > trackW) thumbW = trackW;
   const lv_coord_t span = trackW - thumbW;
-  const lv_coord_t off = (lv_coord_t)((int32_t)span * before / (before + after));
+  const lv_coord_t off = (before + after) > 0
+                             ? (lv_coord_t)((int32_t)span * before / (before + after))
+                             : 0;
   lv_obj_set_width(flvTileThumb, thumbW);
   lv_obj_align(flvTileThumb, LV_ALIGN_LEFT_MID, off, 0);
 
@@ -2786,21 +2791,33 @@ static void tileStripScrolledCb(lv_event_t *e) {
 static void tileStripPageCb(lv_event_t *e) {
   const int dir = (int)(intptr_t)lv_event_get_user_data(e);
   if (!flvTileStrip) return;
-  if (dir < 0 && lv_obj_get_scroll_left(flvTileStrip) <= 0) return;
-  if (dir > 0 && lv_obj_get_scroll_right(flvTileStrip) <= 0) return;
-  // No animation: every frame of one repaints the whole 800x480.
-  lv_obj_scroll_by(flvTileStrip, -dir * TILE_PAGE_PX, 0, LV_ANIM_OFF);
+  const lv_coord_t room = dir < 0 ? lv_obj_get_scroll_left(flvTileStrip)
+                                  : lv_obj_get_scroll_right(flvTileStrip);
+  if (room <= 0) {
+    // Dim and does not answer, which includes not making the sound of having
+    // answered. mkBtn has already armed the click; this is the press taking it
+    // back.
+    clickPending = false;
+    return;
+  }
+  // BOUNDED, because lv_obj_scroll_by is not. A step of a fixed size from a
+  // place a drag left the strip in walks straight off the end of the row: the
+  // remainder is whatever the drag happened to leave, never the step. No
+  // animation either way — every frame of one repaints the whole 800x480.
+  lv_obj_scroll_by_bounded(flvTileStrip, -dir * TILE_PAGE_PX, 0, LV_ANIM_OFF);
   tileStripAffordance();
 }
 
-static void imagePick(uint8_t img) {
-  if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return;
+// True when this put a frame on J9, which is then the press's one sound.
+static bool imagePick(uint8_t img) {
+  if (img >= FLAVOR_IMAGE_COUNT || flavorImage[flavorSel] == img) return false;
   // An empty custom slot is a place a picture can go, not a picture. Tapping
   // one does nothing rather than putting a fallback face on a channel.
-  if (!flavorArtAvailable(img)) return;
+  if (!flavorArtAvailable(img)) return false;
   flavorImage[flavorSel] = img;
   refreshFlavorImages();
   sendFlavorArt();
+  return true;
 }
 
 // ── A tap, told apart from the start of a drag ────────────────────────────
@@ -2831,6 +2848,11 @@ static lv_coord_t tileArmedScroll = 0;
 static void tileDisarm() { tileArmed = -1; }
 
 static void imagePickCb(lv_event_t *e) {
+  // The press has not spoken yet and must not sound as though it had. mkBtn
+  // arms a click on every press, and one fired here is a beep for a gesture
+  // that will not be known to be a choice for another 150 ms — which is how a
+  // chosen picture came with two beeps and a drag came with one.
+  clickPending = false;
   tileArmed = (int16_t)(intptr_t)lv_event_get_user_data(e);
   tileArmedAtMs = millis();
   tileArmedX = lastTouchX;
@@ -2852,7 +2874,11 @@ static void tilePickService() {
   if (!touchIsDown || millis() - tileArmedAtMs >= TILE_TAP_MS) {
     const uint8_t img = (uint8_t)tileArmed;
     tileDisarm();
-    imagePick(img);
+    // One press, one sound, and it happens where the press is finally answered.
+    // A choice speaks for itself on J9; pressing the face already worn is still
+    // a press and owns an ordinary tick. A drag reaches neither, which is right
+    // — the strip moving is the whole of its feedback.
+    if (!imagePick(img)) sendSound(SND_WIRE_TICK);
   }
 }
 
