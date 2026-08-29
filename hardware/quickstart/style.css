@@ -1089,3 +1089,244 @@ html, body {
   font-size: 15px;
   line-height: 1;
 }
+
+/* Page 2 uses four physical scenes: the complete route, one square cut, the seated tube set,
+   and the RJ11 signal connection. The three close scenes keep one rear-camera family while the
+   first scene retains enough cabinet context to explain why the appliance moves. */
+.connect-camera-sheet .page-head h1 { font-size: 46px; }
+.connect-camera-lead {
+  position: absolute;
+  left: 58px;
+  top: 164px;
+  width: 2434px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  border-bottom: 2px solid var(--rule);
+}
+.connect-camera-lead strong {
+  color: var(--accent);
+  font: 700 20px/1 var(--mono);
+  letter-spacing: 1.2px;
+}
+.connect-camera-lead span {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+}
+.connection-grid {
+  position: absolute;
+  left: 58px;
+  top: 246px;
+  width: 2434px;
+  height: 1312px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  column-gap: 42px;
+  row-gap: 30px;
+}
+.connect-operation {
+  min-width: 0;
+  height: 641px;
+  display: grid;
+  grid-template-rows: 62px 510px 69px;
+  overflow: hidden;
+}
+.connect-operation:nth-child(n + 3) { border-top: 2px solid var(--rule); }
+.connect-operation-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 7px 14px 0;
+}
+.connect-operation-head > span {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--ink);
+  font: 700 21px/1 var(--mono);
+}
+.connect-operation-head h2 {
+  max-width: calc(100% - 56px);
+  padding-top: 4px;
+  font-size: 29px;
+  line-height: .98;
+  letter-spacing: -.55px;
+}
+.connect-operation-art {
+  position: relative;
+  width: 100%;
+  height: 510px;
+  overflow: hidden;
+  background: #fff;
+}
+.connect-operation-art > svg {
+  display: block;
+  width: 100%;
+  height: 510px;
+}
+.connect-operation-note {
+  padding: 14px 14px 0;
+  border-top: 2px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--mono);
+  letter-spacing: .12px;
+}
+.connect-operation-note b {
+  display: block;
+  font-size: 17px;
+  line-height: 1.1;
+}
+.connect-operation-note span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.connect-counter-line,
+.connect-floor-line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-linecap: round;
+}
+.connect-counter-line { stroke-width: 9px; }
+.connect-floor-line { stroke-width: 4px; stroke: #96989f; }
+.connect-cabinet-face {
+  fill: none;
+  stroke: #a6a8ae;
+  stroke-width: 4px;
+  stroke-dasharray: 13 11;
+}
+.connect-machine-ghost { opacity: .14; }
+.connect-machine-present { filter: drop-shadow(0 6px 6px rgba(32, 33, 38, .12)); }
+.connect-route-halo,
+.connect-route-braid {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-route-halo { stroke: #e1e2e5; stroke-width: 58px; }
+.connect-route-braid { stroke-width: 50px; }
+.connect-tail,
+.connect-signal-tail {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-tail { stroke-width: 10px; }
+.connect-signal-tail {
+  stroke: #8e9097;
+  stroke-width: 8px;
+}
+.connect-scene-label,
+.connect-scene-micro,
+.connect-motion-word,
+.signal-jack-title,
+.signal-jack-copy {
+  font-family: var(--mono);
+  font-weight: 700;
+}
+.connect-scene-label { fill: var(--ink); font-size: 18px; }
+.connect-scene-micro { fill: var(--muted); font-size: 15px; }
+.connect-motion-word { fill: var(--accent); font-size: 18px; }
+.connect-motion-halo,
+.connect-motion-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-motion-halo { stroke: #fff; stroke-width: 18px; }
+.connect-motion-line { stroke: var(--accent); stroke-width: 9px; }
+.connect-operation-art marker path {
+  fill: var(--accent);
+  stroke: #fff;
+  stroke-width: 3px;
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+}
+
+.connect-action-halo,
+.connect-action-tube {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.connect-action-halo { stroke: #fff; stroke-width: 29px; }
+.connect-action-tube { stroke-width: 17px; }
+.connect-free-end {
+  fill: #fff;
+  stroke-width: 5px;
+}
+.connect-free-blue { stroke: var(--water); }
+.connect-free-black { stroke: var(--ink); }
+.connect-cut-mark-halo,
+.connect-cut-mark {
+  fill: none;
+  stroke-linecap: round;
+}
+.connect-cut-mark-halo { stroke: #fff; stroke-width: 19px; }
+.connect-cut-mark { stroke: var(--accent); stroke-width: 8px; }
+.quickstart-cutter { filter: drop-shadow(0 4px 4px rgba(32, 33, 38, .15)); }
+.repeat-three circle { fill: var(--ink); }
+.repeat-three text {
+  fill: #fff;
+  font: 700 25px/1 var(--mono);
+}
+.secure-three circle { fill: var(--good); }
+.secure-three path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 8px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.signal-ribbon-halo,
+.signal-ribbon,
+.signal-ribbon-stripe {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.signal-ribbon-halo { stroke: #fff; stroke-width: 35px; }
+.signal-ribbon { stroke: #a6a8ae; stroke-width: 27px; }
+.signal-ribbon-stripe { stroke: #71737a; stroke-width: 2.5px; }
+.rj11-plug-body {
+  fill: rgba(226, 228, 232, .94);
+  stroke: #75777e;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.rj11-latch {
+  fill: #d8dade;
+  stroke: #75777e;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.rj11-contact {
+  fill: none;
+  stroke: #c6973d;
+  stroke-width: 4px;
+}
+.rj11-strain {
+  fill: none;
+  stroke: #8b8d93;
+  stroke-width: 4px;
+}
+.signal-jack-leader {
+  fill: none;
+  stroke: #70727a;
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+.signal-jack-dot { fill: var(--accent); stroke: #fff; stroke-width: 5px; }
+.signal-jack-title { fill: var(--accent); font-size: 20px; }
+.signal-jack-copy { fill: var(--muted); font-size: 15px; }

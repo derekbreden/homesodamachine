@@ -8,10 +8,10 @@ The two sheets form one physical story:
 
 1. Mount the complete factory faucet assembly through the prepared countertop opening.
 2. Follow its braided umbilical to the appliance, trim the three tube tails to the real cabinet,
-   push each tail into its rear port, and tug each connection.
+   push and tug-test each tube, then click its RJ11 plug into the signal jack.
 
-Words identify the action and result. Exact product artwork, hands, the supplied cutter, motion,
-and the changed physical state carry the instructions.
+Words identify the action and result. Exact product artwork, the supplied cutter, motion, and the
+changed physical state carry the instructions.
 
 ## Confirmed installation facts
 
@@ -39,39 +39,37 @@ pull-back tug that sets the collet.
 The physical endpoint rule is:
 
 - blue `SODA` tail to the blue `SODA` port;
-- either black `FLAVOR` tail to either black `FLAVOR` port.
+- either black `FLAVOR` tail to either black `FLAVOR` port;
+- flat SIG-6 ribbon's RJ11 plug to the square signal jack.
 
-SIG-6 remains part of the same routed assembly but is already factory-fitted. It is not one of the
-three tubes being trimmed or pushed into the rear face.
+SIG-6 remains part of the same routed assembly and arrives with its RJ11 plug factory-fitted. It is
+not one of the three tubes being trimmed or pushed into the round rear ports.
 
 ## Picture contract
 
 The mount sheet uses one below-counter three-quarter camera for all four states. The upper image
 locates the complete recognizable faucet in the kitchen-scale event. The lower image magnifies the
 same registered frame at the countertop stack. Only the complete assembly moves down, only the
-under-counter plate moves sideways, and the final hand turns the same retained nut.
+under-counter plate moves sideways, and the final cue turns the same retained nut. In the approach
+frame the plate stands clear of the retained washer before it moves. The countertop window is long
+on the plate's slide axis and narrow across it, preserving the full support behind the retracted
+plate while showing the constrained under-sink working direction.
 
-The connection sheet uses one continuous cabinet-scale scene from mounted faucet to appliance.
-Below it, three views repeat one fixed crop of the exact machine rear:
+The connection sheet carries four physical scenes in order:
 
-1. the supplied cutter crosses a tube at a square cut, with all three tails shown by the repeated
-   cut mark;
-2. the hand drives the square tube end into the matching fitting and finishes at its hard stop;
-3. the hand pulls back while the final blue and two black tubes remain visibly seated in their
-   matching labeled ports.
-
-A fourth view follows the three: the ribbon's flat plug entering the square keystone socket on the
-same rear face, one motion and no tool. It is the one connection made without a cut, so no cutter
-appears in it, and the socket is drawn as the rectangle it is against the four round ports.
+1. one cabinet-scale view keeps the mounted faucet, relaxed braided service loop, and appliance in
+   the same route while the appliance moves forward to the cabinet opening;
+2. the supplied cutter crosses one tail at a square cut beside the exact machine rear, with all
+   three tubes laid toward their physical ports and the action marked `3x`;
+3. one registered rear-port view leaves all three tubes visibly seated while the opposed arrows
+   show push-in and pull-back tug test;
+4. a tighter crop of the same rear camera keeps the three tubes seated while the ribbon's RJ11 plug
+   enters the square signal jack, latch up, in one motion and with no tool.
 
 The braided sleeve is crosshatched so it cannot read as another tube. Tube collars stay on the
 physical lines, port labels stay on the exact rear face, and the final state shows the connected
 hardware rather than detached identity cards. No interface screen or commissioning state is
 invented.
-
-**The connection sheet's artwork carries three views and the contract above asks four.** The
-fourth scene is unbuilt: `01-connect.html` names the plug in its header and draws no socket. The
-rear-face crop the other three share is where it goes.
 
 ## Build
 
@@ -86,8 +84,9 @@ tools/cad-venv/bin/python hardware/quickstart/_build.py
 ```
 
 The two steps are separate build targets. A layout-only iteration consumes the generated artwork
-without rebuilding CAD. `machine-ports-iso.png` is a fixed crop of `machine-back-iso.png`; every
-connection beat therefore preserves the same camera, scale, and physical port locations.
+without rebuilding CAD. `machine-ports-iso.png`, `machine-ports-action.png`, and
+`machine-signal-iso.png` are fixed crops of `machine-back-iso.png`; every connection beat therefore
+preserves the same camera and physical port locations.
 
 The pinned Linux CAD image is the byte authority for generated artwork and the bound PDF. Local
 macOS runs are visual previews because native OCCT tessellation differs by host. The scoped derive
