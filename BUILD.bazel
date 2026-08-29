@@ -6256,7 +6256,9 @@ genrule(
         ":out/cad-art/hardware/quickstart/art/colors.css",
         ":out/cad-art/hardware/quickstart/art/faucet-side.png",
         ":out/cad-art/hardware/quickstart/art/machine-back-iso.png",
+        ":out/cad-art/hardware/quickstart/art/machine-ports-action.png",
         ":out/cad-art/hardware/quickstart/art/machine-ports-iso.png",
+        ":out/cad-art/hardware/quickstart/art/machine-signal-iso.png",
         ":out/cad-art/hardware/quickstart/art/mount-drop.png",
         ":out/cad-art/hardware/quickstart/art/mount-final-clean.png",
         ":out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
@@ -6315,6 +6317,8 @@ genrule(
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/enclosure/bulkhead-ring/bulkhead_ring.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -6337,6 +6341,7 @@ genrule(
         "pysrc/hardware/scripts/_materials.py",
         "pysrc/hardware/scripts/_measuring.py",
         "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/tools/docgen/__init__.py",
         "tools/render/browser.js",
         "tools/render/render-step-posed.js",
@@ -6355,7 +6360,9 @@ genrule(
         "out/cad-art/hardware/quickstart/art/machine-back-iso.png",
         "out/cad-art/hardware/quickstart/art/machine-front.png",
         "out/cad-art/hardware/quickstart/art/machine-funnel-close.png",
+        "out/cad-art/hardware/quickstart/art/machine-ports-action.png",
         "out/cad-art/hardware/quickstart/art/machine-ports-iso.png",
+        "out/cad-art/hardware/quickstart/art/machine-signal-iso.png",
         "out/cad-art/hardware/quickstart/art/mount-drop.png",
         "out/cad-art/hardware/quickstart/art/mount-final-clean.png",
         "out/cad-art/hardware/quickstart/art/mount-lowered-clean.png",
@@ -6381,17 +6388,19 @@ O7=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-back-close.png)
 O8=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-back-iso.png)
 O9=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-front.png)
 O10=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-funnel-close.png)
-O11=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-ports-iso.png)
-O12=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-drop.png)
-O13=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-final-clean.png)
-O14=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-lowered-clean.png)
-O15=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-seated.png)
-O16=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-slide-clean.png)
-O17=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-slide.png)
-O18=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-tighten-close.png)
-O19=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-tighten.png)
-O20=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png)
-O21=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png)
+O11=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-ports-action.png)
+O12=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-ports-iso.png)
+O13=$$PWD/$(location out/cad-art/hardware/quickstart/art/machine-signal-iso.png)
+O14=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-drop.png)
+O15=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-final-clean.png)
+O16=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-lowered-clean.png)
+O17=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-seated.png)
+O18=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-slide-clean.png)
+O19=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-slide.png)
+O20=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-tighten-close.png)
+O21=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-tighten.png)
+O22=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-under-slide-clean.png)
+O23=$$PWD/$(location out/cad-art/hardware/quickstart/art/mount-under-tighten-clean.png)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -6420,17 +6429,19 @@ cp hardware/quickstart/art/machine-back-close.png $$O7
 cp hardware/quickstart/art/machine-back-iso.png $$O8
 cp hardware/quickstart/art/machine-front.png $$O9
 cp hardware/quickstart/art/machine-funnel-close.png $$O10
-cp hardware/quickstart/art/machine-ports-iso.png $$O11
-cp hardware/quickstart/art/mount-drop.png $$O12
-cp hardware/quickstart/art/mount-final-clean.png $$O13
-cp hardware/quickstart/art/mount-lowered-clean.png $$O14
-cp hardware/quickstart/art/mount-seated.png $$O15
-cp hardware/quickstart/art/mount-slide-clean.png $$O16
-cp hardware/quickstart/art/mount-slide.png $$O17
-cp hardware/quickstart/art/mount-tighten-close.png $$O18
-cp hardware/quickstart/art/mount-tighten.png $$O19
-cp hardware/quickstart/art/mount-under-slide-clean.png $$O20
-cp hardware/quickstart/art/mount-under-tighten-clean.png $$O21
+cp hardware/quickstart/art/machine-ports-action.png $$O11
+cp hardware/quickstart/art/machine-ports-iso.png $$O12
+cp hardware/quickstart/art/machine-signal-iso.png $$O13
+cp hardware/quickstart/art/mount-drop.png $$O14
+cp hardware/quickstart/art/mount-final-clean.png $$O15
+cp hardware/quickstart/art/mount-lowered-clean.png $$O16
+cp hardware/quickstart/art/mount-seated.png $$O17
+cp hardware/quickstart/art/mount-slide-clean.png $$O18
+cp hardware/quickstart/art/mount-slide.png $$O19
+cp hardware/quickstart/art/mount-tighten-close.png $$O20
+cp hardware/quickstart/art/mount-tighten.png $$O21
+cp hardware/quickstart/art/mount-under-slide-clean.png $$O22
+cp hardware/quickstart/art/mount-under-tighten-clean.png $$O23
 """,
 )
 
