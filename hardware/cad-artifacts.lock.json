@@ -2,12 +2,12 @@
   "_": "Written by tools/cad-artifacts/pack.py. The solids are fetched, not committed \u2014 web/scripts/fetch-cad-artifacts.mjs reads this at deploy.",
   "release": {
     "tag": "cad-artifacts",
-    "asset": "cad-d5acfcfc42c5f933.tar.gz",
-    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-d5acfcfc42c5f933.tar.gz",
+    "asset": "cad-2d7fb2d173194cf1.tar.gz",
+    "url": "https://github.com/derekbreden/homesodamachine/releases/download/cad-artifacts/cad-2d7fb2d173194cf1.tar.gz",
     "objects": "s-"
   },
   "source": {
-    "commit": "943d69841045b86d7d007f74cf80f074ec8e4b70"
+    "commit": "e80ddbd9bee52bed89da550def97129caf6e47fb"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -143,17 +143,13 @@
       "hardware/manifold-layout/enclosure-assembly.step",
       "hardware/manifold-layout/enclosure-assembly.step.mesh",
       "hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.stl",
-      "hardware/quickstart/art/mount-slide.png",
-      "hardware/quickstart/plumbing/out/plumbing-pre-tee.png",
-      "hardware/quickstart/plumbing/out/plumbing-tee-installed.png",
-      "hardware/quickstart/plumbing/out/plumbing-valve-off.png",
-      "hardware/quickstart/plumbing/out/plumbing-valve-on.png"
+      "hardware/quickstart/art/mount-slide.png"
     ]
   },
   "bundle": {
-    "sha256": "d5acfcfc42c5f933bf2c102e34480684d6359151661f3085d591800d0dfb9765",
-    "bytes": 127876031,
-    "solids": 260
+    "sha256": "2d7fb2d173194cf137393965f42f23dddbb63b79724026710a4760601b6da19c",
+    "bytes": 126717299,
+    "solids": 252
   },
   "solids": {
     "hardware/assembly/cards/deck.cover.png": "a3816afa7d04514cc9606115ff62bb1a3deb5b7de76e017fd8ea2032c4fa32b3",
@@ -369,14 +365,6 @@
     "hardware/quickstart/plumbing/modern/art/modern-tee-tug-check.png": "0906f56e49c1108fc78835e168fff74818dae42b3548b1158c47eb46e44e3052",
     "hardware/quickstart/plumbing/modern/art/modern-water-off.png": "9cf7c6b448f65c11896177b8a1b742a6518bf295ab5dae8fde72845acc4d752e",
     "hardware/quickstart/plumbing/modern/art/modern-water-on.png": "28c83f51da091f9f10abbd18c5cd97ba884f802e984860584eb0830e1f139178",
-    "hardware/quickstart/plumbing/out/plumbing-pre-tee.png": "705ee50c8799d87983d7090c836834d415034dd867d83d4c706123c706c7d2fa",
-    "hardware/quickstart/plumbing/out/plumbing-pre-tee.step": "9f4a779a27204c246b6d4a4f2a2dfd0f45c73bbc12228064d166e3e5aaedd4a8",
-    "hardware/quickstart/plumbing/out/plumbing-tee-installed.png": "1391e7cdc28c5d50d247f84ee2269eaa4cb3d1afa779ce6b5fe92b41bef599ab",
-    "hardware/quickstart/plumbing/out/plumbing-tee-installed.step": "3c49836471599234cadc1c03beba23670fccde2c0d88e32f3e86bdbaa9dddc48",
-    "hardware/quickstart/plumbing/out/plumbing-valve-off.png": "864b3994d9fd3de1e1a2cc37971c55a726a009e5ab3436c709cb8abe4d844da4",
-    "hardware/quickstart/plumbing/out/plumbing-valve-off.step": "7c6838ecfd5ac28c6c5459b558b53f31144cb4225a14960106a2e575c89f03b1",
-    "hardware/quickstart/plumbing/out/plumbing-valve-on.png": "dc7d6e75e2c1cf2a6873fdde8013820aaca2f047cdfdf26d63d316328bd8bf1d",
-    "hardware/quickstart/plumbing/out/plumbing-valve-on.step": "62b88548ee8b9cf1e335f5a11009676b37c2428ae9c75d88d130636b4a24bbc0",
     "hardware/quickstart/quick-start.cover.png": "27eaf24449a7b12b9502e4baaf9a9a1d0c51c9b3907962f276c7be0ddb1e1f6c",
     "hardware/quickstart/quick-start.pdf": "70233fe56349b4b2fab82fcae8f2268f1a1616eff6f72ea488f1cc38a1b60d1e",
     "hardware/quickstart/quick-start.pdf.json": "44d84683fe0561e30095dc109600d38642fe0d7e2ed3346cef1f01bf0897a3d6",
