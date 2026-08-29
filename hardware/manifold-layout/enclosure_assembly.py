@@ -2210,10 +2210,10 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
     """Whether all four of the condenser block's flanges have printed material to land on.
 
     The block is a donor envelope and these four sheets are its whole purchase, so what the box
-    owes each is a face. FORE, that is a groove: material under the flange, material over it, and
-    AIR BETWEEN THE TWO for the sheet to enter — all three across the block's own width and the
-    whole of `cond_slot_grip`. AFT, it is a boss: the annulus a ruthex bore leaves in a finger,
-    read from the flange face down one insert.
+    owes each is a face. FORE, that is a groove: material under the flange, a triangular roof
+    carried from the seated stop, AIR BETWEEN THE TWO for the sheet to enter, and the widening
+    air above that opening as the roof rises 45° toward the bay. AFT, it is a boss: the annulus
+    a ruthex bore leaves in a finger, read from the flange face down one insert.
 
     Read the way `check_floor_mounts` reads a post — a probe volume against the printed pieces —
     because a station that no piece's band owns is a station nothing prints, and the assembly
@@ -2229,13 +2229,32 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
     grip, sect = _enc.cond_slot_grip, _enc.cond_rail_wall
     for face, cx0, cx1, fz0, fz1, _root in cradle:
         half = _enc.cond_slot_half(fz1 - fz0)
-        for what, z0 in (("under", fz0 - half - sect), ("over", fz1 + half)):
-            probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins, z0 + ins))
-                     .box(cx1 - cx0 - 2 * ins, grip - 2 * ins, sect - 2 * ins,
-                          centered=False).val())
-            got = filled(probe)
-            rows.append((f"fore flange at z {fz0:7.3f}, {what} its groove", got,
-                         got >= 1.0 - COND_MOUNT_TOL, _COND_UNPRINTED))
+        probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins,
+                                             fz0 - half - sect + ins))
+                 .box(cx1 - cx0 - 2 * ins, grip - 2 * ins, sect - 2 * ins,
+                      centered=False).val())
+        got = filled(probe)
+        rows.append((f"fore flange at z {fz0:7.3f}, under its groove", got,
+                     got >= 1.0 - COND_MOUNT_TOL, _COND_UNPRINTED))
+
+        # The roof is a triangular prism, not the rectangular slab this gate used to probe. Its
+        # lower face rises one-for-one from the seated stop until it meets the rail crown. The
+        # condenser's corner relief takes a small part of the far-east end of this prism, so the
+        # same whole-width reading allows five mesh tolerances while still requiring its span.
+        roof, roof_run = fz1 + half, min(grip, sect)
+        roof_profile = [
+            (face + ins, roof + ins),
+            (face + roof_run - ins, roof + roof_run - ins),
+        ]
+        if sect > roof_run + 1e-9:
+            roof_profile.append((face + roof_run - ins, roof + sect - ins))
+        roof_profile.append((face + ins, roof + sect - ins))
+        roof_probe = _enc._yz_prism(
+            cx0 + ins, cx1 - ins, roof_profile)
+        got = filled(roof_probe)
+        rows.append((f"fore flange at z {fz0:7.3f}, on its 45° roof", got,
+                     got >= 1.0 - 5.0 * COND_MOUNT_TOL, _COND_UNPRINTED))
+
         air = COND_AIR_INSET
         probe = (cq.Workplane("XY", origin=(cx0 + ins, face + ins, fz0 - half + air))
                  .box(cx1 - cx0 - 2 * ins, grip - 2 * ins,
@@ -2244,6 +2263,20 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
         rows.append((f"fore flange at z {fz0:7.3f}, {(fz1 - fz0) + 2 * half:.2f} mm open",
                      1.0 - got, got <= COND_MOUNT_TOL,
                      "OBSTRUCTED — a piece stands in the opening the flange enters"))
+
+        # And ask for the extra air the slope creates above that seated opening. A flat roof
+        # still passes the one-millimetre slot probe; this triangular wedge is what distinguishes
+        # the support-free opening from the old short bridge.
+        relief_probe = _enc._yz_prism(
+            cx0 + ins, cx1 - ins,
+            ((face + ins, roof + air),
+             (face + roof_run - ins, roof + air),
+             (face + roof_run - ins, roof + roof_run - ins - air),
+             (face + ins, roof + ins - air)))
+        got = filled(relief_probe)
+        rows.append((f"fore flange at z {fz0:7.3f}, 45° roof relief open", 1.0 - got,
+                     got <= COND_MOUNT_TOL,
+                     "OBSTRUCTED — the groove roof is flat or filled"))
     _flank, _my0, _my1, bosses = mount
     for bx, by, tip in bosses:
         plug = cq.Solid.makeCylinder(
@@ -2256,9 +2289,9 @@ def check_cond_mount(cradle, mount, pieces: dict) -> Bound:
     bad = [r for r in rows if not r[2]]
     return record_bound(Bound(
         "cond-mount-lands", "The condenser block's four flanges all have printed material "
-        "to land on, and both fore grooves stand open for the sheet", bool(rows) and not bad,
+        "to land on, and both fore grooves rise open at 45 degrees", bool(rows) and not bad,
         "nothing stationed" if not rows else f"{len(rows) - len(bad)}/{len(rows)} standing",
-        "a groove standing open at each fore flange and a bored boss under each aft one",
+        "a wall-rooted roof over each open fore groove and a bored boss under each aft one",
         [f"{what:44s} {'standing' if ok else bad_msg}"
          f"   ({got * 100:.1f}% of the probe)" for what, got, ok, bad_msg in rows]))
 
