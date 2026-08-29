@@ -7,7 +7,7 @@
     "objects": "s-"
   },
   "source": {
-    "commit": "ac230fb0f48c8cf80439ffa74f93cce2715b40ff"
+    "commit": "e7312eec45d655ab869f0036d58ef5328795a8ef"
   },
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, or that rule would not cut.",
@@ -124,10 +124,7 @@
       "tmp/quickstart-revision-qa/connect-quarter.png",
       "tmp/quickstart-revision-qa/mount-quarter.png",
       "tmp/quickstart-revision-qa/page-1.png",
-      "tmp/quickstart-revision-qa/page-2.png",
-      "tools/_single_flight.py",
-      "tools/checks_now.py",
-      "tools/publish_now.py"
+      "tmp/quickstart-revision-qa/page-2.png"
     ],
     "members": [
       "hardware/quickstart/art/mount-slide.png"
