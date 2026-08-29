@@ -108,6 +108,46 @@ def once() -> int:
     return land()
 
 
+def holder_alive() -> bool:
+    """Whether the process named in the lock is still running.
+
+    The pid goes into the lock for exactly this question and nothing ever asked it. A run that
+    dies before its `finally` — a machine asleep, a terminal closed, a kill — leaves a lock no
+    later run will take, and every commit after that prints "a read is already running" about a
+    process that stopped existing hours ago. Nothing is watching: the hook detaches this under
+    `nohup` into a log nobody reads, so the verdict on the site simply stops moving and goes on
+    describing whichever tree was current when the reader died."""
+    try:
+        pid = int(LOCK.read_text().strip())
+    except (OSError, ValueError):
+        return False                    # unreadable or half-written: nobody is holding this
+    if pid == os.getpid():
+        return True
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True                     # alive, and not ours to signal
+    return True
+
+
+def take_lock():
+    """The lock's fd, or None while another live read holds it."""
+    try:
+        return os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        pass
+    if holder_alive():
+        return None
+    print("  clearing a lock whose reader is gone")
+    LOCK.unlink(missing_ok=True)
+    try:
+        return os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        return None                     # another run took it in between, and it will read
+
+
 def main(argv) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true")
@@ -123,9 +163,8 @@ def main(argv) -> int:
               f"{'would pin it' if changed() else 'unchanged from this commit'}")
         return 0
 
-    try:
-        fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-    except FileExistsError:
+    fd = take_lock()
+    if fd is None:
         AGAIN.touch()
         print("  a read is already running — it will read the tree again when it finishes")
         return 0
