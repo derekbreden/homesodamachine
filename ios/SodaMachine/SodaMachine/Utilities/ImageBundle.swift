@@ -16,7 +16,7 @@ import UIKit
 //
 //     0  172x320   the faucet, filling its whole glass
 //     1  240x240   the enclosure's card
-//     2   96x96    its picker thumb
+//     2   86x160   its picker tile — the faucet's own shape, halved
 //     3   60x60    its detail header
 //     4  120x120   its channel button
 //
@@ -24,19 +24,27 @@ import UIKit
 // a person positioned — one tall for the faucet, one square for the enclosure —
 // and this reduces each to the sizes its board draws. A centre crop chosen by
 // arithmetic would put the wrong half of most photographs on the machine.
+//
+// WHICH RECTANGLE A RENDITION COMES FROM IS ITS OWN SHAPE'S ANSWER, not its
+// position in the list. The picker tile is tall because the picker is choosing
+// what the faucet will wear, so it is cut from the faucet's window — reducing
+// it from the square would make the one preview that is supposed to show the
+// tall crop show the other one.
 
 struct ImageBundle {
 
-    /// One rendition's geometry, matching IMAGE_BUNDLE on the wire.
+    /// One rendition's geometry, matching IMAGE_BUNDLE on the wire, and which
+    /// of the two rectangles someone positioned it is reduced from.
     struct Size {
         let w: Int
         let h: Int
+        var tall: Bool { h > w }
     }
 
     static let sizes: [Size] = [
         Size(w: 172, h: 320),
         Size(w: 240, h: 240),
-        Size(w:  96, h:  96),
+        Size(w:  86, h: 160),
         Size(w:  60, h:  60),
         Size(w: 120, h: 120),
     ]
@@ -47,10 +55,11 @@ struct ImageBundle {
     /// draw — refused here rather than half-written into a board's flash.
     static func make(from crop: ImageCrop) -> Data? {
         var out = Data(capacity: byteCount)
-        for (i, size) in sizes.enumerated() {
-            // Index 0 is the faucet's tall glass; the rest are the enclosure's
-            // square card and the smaller faces cut from the same square.
-            let source = (i == 0) ? crop.portrait : crop.square
+        for size in sizes {
+            // The tall ones are the faucet's glass and the tile that previews
+            // it; the square ones are the enclosure's card and the smaller
+            // faces cut from the same square.
+            let source = size.tall ? crop.portrait : crop.square
             guard let scaled = resize(source, to: size),
                   let pixels = rgb565(scaled, w: size.w, h: size.h) else { return nil }
             out.append(pixels)
