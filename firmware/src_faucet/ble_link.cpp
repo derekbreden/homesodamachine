@@ -51,14 +51,24 @@ static volatile uint8_t rxHead = 0;   // the radio task writes here
 static volatile uint8_t rxTail = 0;   // loop() reads from here
 static uint32_t stageDrops = 0;
 
+// What this link has actually negotiated. A notification larger than that is
+// truncated by the host stack rather than split — the phone gets a frame header
+// promising more bytes than arrived, and nothing later can put that right.
+static uint16_t linkMtu = 23;
+
 // A picture read back out of flash is the largest thing sent this way now, and
 // it is sent a full MTU at a time — so this carries one, and says whether the
 // stack took it. A reader that cannot tell has no way to pace itself, and this
 // used to answer an oversized frame by silently dropping it.
+//
+// A FRAME THE LINK CANNOT CARRY IS NOT SENT AT ALL. Refusing it here is the
+// difference between a caller that knows to ask again and a phone handed a
+// header for bytes that were cut off in the radio.
 static bool notify(uint8_t type, const void *data, uint16_t len) {
   if (!txChar || !connected) return false;
   uint8_t frame[3 + 560];
   if (len > sizeof(frame) - 3) return false;
+  if ((uint32_t)len + 3 > (uint32_t)linkMtu - 3) return false;
   frame[0] = type;
   frame[1] = (uint8_t)(len & 0xFF);
   frame[2] = (uint8_t)(len >> 8);
@@ -186,12 +196,14 @@ class ServerCB : public NimBLEServerCallbacks {
   }
   void onDisconnect(NimBLEServer *, NimBLEConnInfo &, int) override {
     connected = false;
+    linkMtu = 23;   // the next phone negotiates its own
     Serial.println("BLE: disconnected");
     bleOtaDisconnected();
     bleImageDisconnected();
     NimBLEDevice::startAdvertising();
   }
   void onMTUChange(uint16_t mtu, NimBLEConnInfo &) override {
+    linkMtu = mtu;
     bleOtaSetMtu(mtu);
     bleImageSetMtu(mtu);
     Serial.printf("BLE: MTU %u\n", mtu);

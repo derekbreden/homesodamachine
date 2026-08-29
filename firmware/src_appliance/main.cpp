@@ -109,7 +109,8 @@ void setup() {
     soundPlay(machineIoReady() ? SND_WELCOME : SND_FAULT);
 }
 
-static void relayImage(uint8_t slot);
+static void relayOwe(uint8_t slot);
+static void relayService();
 static void removePicture(uint8_t slot, bool tellFaucet);
 
 void loop() {
@@ -134,7 +135,8 @@ void loop() {
     // by then, because nothing about the upload waited on this.
     if (machineState() == ST_IDLE && !soundBusy()) {
         const uint8_t slot = faucetLinkTakeRelayRequest();
-        if (slot != 0xFF) relayImage(slot);
+        if (slot != 0xFF) relayOwe(slot);
+        relayService();
     }
 
     // A picture removed from the phone. The faucet has dropped its own copy and
@@ -477,34 +479,51 @@ static bool relayImageOnce(uint8_t slot) {
     return true;
 }
 
-// The enclosure reboots whenever its panel came down, which is every run of
-// this. A retry has to wait for that board to be answering again, or it asks a
-// display that is still in its bootloader and calls the silence a second
-// failure.
-static bool enclosureBack(unsigned long within) {
-    const unsigned long until = millis() + within;
-    while ((long)(millis() - until) < 0) {
-        linkService();
-        faucetLinkService();
-        WifiApStatePayload st;
-        if (linkWifiApState(st)) return true;
-        delay(50);
-    }
-    return false;
+// A PICTURE THE ENCLOSURE DOES NOT HAVE YET IS STILL OWED IT. A hop that fails
+// leaves the two boards disagreeing about what the machine holds, and nothing
+// but a console command used to bring them back together — so what is owed is
+// remembered and tried again rather than announced as lost. Between attempts
+// the loop runs normally: the enclosure reboots whenever its panel came down,
+// and asking a board that is still in its bootloader is how a transient failure
+// becomes a permanent one.
+constexpr uint8_t  RELAY_TRIES    = 4;
+constexpr uint32_t RELAY_RETRY_MS = 20000;
+
+static uint8_t relayOwed = 0;                       // bit per custom slot
+static uint8_t relayTries[FLAVOR_ART_CUSTOM] = {0};
+static unsigned long relayDueAt = 0;
+
+static void relayOwe(uint8_t slot) {
+    if (slot >= FLAVOR_ART_CUSTOM) return;
+    relayOwed |= (uint8_t)(1u << slot);
+    relayTries[slot] = 0;
+    relayDueAt = millis();
 }
 
-static void relayImage(uint8_t slot) {
-    Serial.printf("\nrelay slot %u: standing the enclosure's radio up\n", slot);
-    if (relayImageOnce(slot)) return;
+static void relayService() {
+    if (!relayOwed || (long)(millis() - relayDueAt) < 0) return;
 
-    if (!enclosureBack(20000)) {
-        Serial.printf("relay slot %u FAILED — the enclosure never came back to be asked again\n",
-                      slot);
+    uint8_t slot = 0;
+    while (slot < FLAVOR_ART_CUSTOM && !(relayOwed & (1u << slot))) ++slot;
+    if (slot >= FLAVOR_ART_CUSTOM) { relayOwed = 0; return; }
+
+    Serial.printf("\nrelay slot %u: standing the enclosure's radio up\n", slot);
+    if (relayImageOnce(slot)) {
+        relayOwed &= (uint8_t)~(1u << slot);
+        relayDueAt = millis();
         return;
     }
-    Serial.println("relay: trying once more");
-    if (!relayImageOnce(slot))
-        Serial.printf("relay slot %u FAILED — the enclosure is still on its old picture\n", slot);
+
+    if (++relayTries[slot] >= RELAY_TRIES) {
+        relayOwed &= (uint8_t)~(1u << slot);
+        Serial.printf("relay slot %u FAILED after %u tries — the enclosure is still on its old "
+                      "picture. 'images relay %u' asks again.\n",
+                      slot, relayTries[slot], slot);
+        return;
+    }
+    relayDueAt = millis() + RELAY_RETRY_MS;
+    Serial.printf("relay slot %u: try %u did not take — again in %lu s\n",
+                  slot, relayTries[slot], (unsigned long)(RELAY_RETRY_MS / 1000));
 }
 
 static void cmdBench(const String &line) {
@@ -560,7 +579,8 @@ static void console(const String &line) {
             Serial.printf("\nrefused — the machine is %s\n", machineStateName());
             return;
         }
-        relayImage(slot);
+        relayOwe(slot);
+        relayService();
         return;
     }
     if (line.startsWith("images test")) {
