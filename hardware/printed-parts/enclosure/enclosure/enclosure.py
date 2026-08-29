@@ -5047,17 +5047,21 @@ def _back_top_ceiling(solid, inner, y_joint):
 
     # THE TWO HORIZONTAL INSERT SOCKETS. The guide is large enough to pass a ruthex short from
     # the open field and steps down to the insert's Ø4 knurl bore only where the existing corbel
-    # has `boss_ligament` below it. The bore continues one `mount_bore_relief` past the insert,
-    # so the keeper's cup point cannot bottom on PET-GF and jack the pin back into the field. A
-    # headless screw later occupies the same axis, crossing the wall-square rail lane immediately
-    # ahead of the panel; no fixed material crosses that lane.
+    # has `boss_ligament` below it. Both cuts keep their complete nominal circles and add the same
+    # tangent 36-degree roof every other horizontal X bore in this standing print takes: the
+    # insert and screw still pass in a round bore, while no circular crown asks the slicer for a
+    # short support grown from the dado below. The bore continues one `mount_bore_relief` past the
+    # insert, so the keeper's cup point cannot bottom on PET-GF and jack the pin back into the
+    # field. A headless screw later occupies the same axis, crossing the wall-square rail lane
+    # immediately ahead of the panel; no fixed material crosses that lane.
     for sx, cy, cz in cp.retainer_stations():
         guide0, guide1 = sorted((sx * cp.dado_blind_x,
                                   sx * cp.retainer_insert_face_x))
         bore0, bore1 = sorted((sx * cp.retainer_insert_face_x,
                                sx * cp.retainer_bore_end_x))
-        solid = solid.cut(_xcyl(cp.retainer_approach_d / 2.0, cy, cz, guide0, guide1))
-        solid = solid.cut(_xcyl(heatset_dia / 2.0, cy, cz, bore0, bore1))
+        solid = solid.cut(_teardrop_x(cp.retainer_approach_d / 2.0,
+                                      cy, cz, guide0, guide1))
+        solid = solid.cut(_teardrop_x(heatset_dia / 2.0, cy, cz, bore0, bore1))
     return solid
 
 
