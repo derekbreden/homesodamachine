@@ -255,7 +255,6 @@ class BLEManager {
 
     // GATT/NUS state
     @ObservationIgnored fileprivate var nusReady = false
-    @ObservationIgnored fileprivate var frameBuffer = Data()
     @ObservationIgnored var rxCharacteristic: CBCharacteristic?
 
     // BLE runs on a dedicated background queue so binary data accumulation
@@ -302,7 +301,6 @@ class BLEManager {
                 // Download was interrupted by backgrounding — the S3 stopped
                 // sending while we were suspended. Clear the dead transfer so
                 // requestStatsAndCharts() isn't blocked by isDownloading.
-                self.frameBuffer = Data()
                 self.imgDownloadQueue = []
                 self.imgDownloadData = Data()
                 self.imgDownloadSlot = -1
@@ -322,7 +320,6 @@ class BLEManager {
                 connectedPeripheral = nil
                 rxCharacteristic = nil
                 nusReady = false
-                frameBuffer = Data()
             }
             startScan()
         }
@@ -685,7 +682,6 @@ class BLEManager {
         connectedPeripheral = nil
         rxCharacteristic = nil
         nusReady = false
-        frameBuffer = Data()
         connectionState = .searching
         configSynced = false
         statsSynced = false
@@ -1445,7 +1441,6 @@ class BLEManager {
         connectedPeripheral = nil
         rxCharacteristic = nil
         nusReady = false
-        frameBuffer = Data()
         connectedMachine = nil
         rememberedMachineID = nil
         forgetConnectedState()
@@ -1850,7 +1845,6 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         ble.connectedPeripheral = nil
         ble.rxCharacteristic = nil
         ble.nusReady = false
-        ble.frameBuffer = Data()
         // A read in flight cannot survive the link it was on, and the record of
         // having asked must not either: `faceWanted` is what stops a picture
         // being asked for twice, so leaving it set across a disconnect means a
@@ -1937,22 +1931,38 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
 
     // MARK: - CBPeripheralDelegate (NUS notifications)
 
+    // ONE NOTIFICATION IS ONE FRAME, AND A BAD ONE COSTS ONLY ITSELF. The board
+    // builds [type][len][payload] and sends it in a single notification, so
+    // there is nothing to reassemble — and treating the notifications as a
+    // stream meant one short delivery desynchronised the parser for good. A
+    // notification larger than the negotiated MTU is truncated rather than
+    // split; the header then promises bytes that never arrive, the buffer waits
+    // for them, and everything the machine says afterwards is swallowed
+    // building a frame that will never complete. That is a phone that can still
+    // send and can no longer hear, which is exactly what an upload with no
+    // "kept it" looks like from the outside.
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil, let value = characteristic.value, characteristic.uuid == nusTxUUID else { return }
-        ble.frameBuffer.append(value)
+        var frameBuffer = value
 
         // Parse all complete frames: [type(1B)][len(2B LE)][payload...]
-        while ble.frameBuffer.count >= 3 {
-            let type = ble.frameBuffer[ble.frameBuffer.startIndex]
-            let lenLo = ble.frameBuffer[ble.frameBuffer.startIndex + 1]
-            let lenHi = ble.frameBuffer[ble.frameBuffer.startIndex + 2]
+        while frameBuffer.count >= 3 {
+            let type = frameBuffer[frameBuffer.startIndex]
+            let lenLo = frameBuffer[frameBuffer.startIndex + 1]
+            let lenHi = frameBuffer[frameBuffer.startIndex + 2]
             let payloadLen = Int(lenLo) | (Int(lenHi) << 8)
             let frameLen = 3 + payloadLen
 
-            guard ble.frameBuffer.count >= frameLen else { break }
+            // Short of what its own header claims: cut off in the radio, and
+            // nothing later can complete it. Dropped here, where it costs one
+            // frame instead of every frame after it.
+            guard frameBuffer.count >= frameLen else {
+                log.error("dropped a frame claiming \(payloadLen) bytes with \(frameBuffer.count - 3) delivered")
+                break
+            }
 
-            let payload = ble.frameBuffer.subdata(in: (ble.frameBuffer.startIndex + 3)..<(ble.frameBuffer.startIndex + frameLen))
-            ble.frameBuffer = ble.frameBuffer.subdata(in: (ble.frameBuffer.startIndex + frameLen)..<ble.frameBuffer.endIndex)
+            let payload = frameBuffer.subdata(in: (frameBuffer.startIndex + 3)..<(frameBuffer.startIndex + frameLen))
+            frameBuffer = frameBuffer.subdata(in: (frameBuffer.startIndex + frameLen)..<frameBuffer.endIndex)
 
             switch type {
             case 0x01: // TEXT
