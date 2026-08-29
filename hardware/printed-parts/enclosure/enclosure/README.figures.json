@@ -82,6 +82,7 @@
     "SOCKET_OD": "16.2 mm",
     "STOREY_BAND": "177.8..281 mm",
     "STOREY_RUN": "369.67 mm",
+    "TEARDROP_ROOF": "36\u00b0",
     "VENT_ASPECT": "12.1:1",
     "VENT_ASPECT_BARE": "54.2:1",
     "VENT_BAND": "31..141 mm",
