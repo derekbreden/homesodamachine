@@ -40,7 +40,10 @@ loads modified.
 | [`z-trim-0.03.3mf`](z-trim-0.03.3mf) | 0.02 | 0.01 | 0.04 | 0.03 |
 
 [`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf)
-carries the 0.02 values, byte-identical in its start G-code to `z-trim-0.02.3mf`.
+and [`display-covers.3mf`](display-covers.3mf) carry the 0.02 values, byte-identical in their
+start G-code to `z-trim-0.02.3mf`. The display-covers plate stands on the saved user preset
+`Bambu Lab H2C 0.4 nozzle 02 first layer by agent`; the back-top plate on the system preset
+with the start G-code as its one project override.
 
 ## Reading it back
 
