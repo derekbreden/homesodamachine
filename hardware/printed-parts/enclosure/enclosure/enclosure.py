@@ -3691,12 +3691,20 @@ def _back_plug(x_ext, sx, z_boss, y_boss):
     the first `wall` of its length and a stub of the same section beyond.
 
     IT IS A BOX AND NOT A PIPE — the box's one boss section. A pipe meets the mouth on
-    the line where it grazes it and closes on a crown laid over its own axis, so the
-    stub beyond the wall has no printable half; squared, it stands on a face at both."""
+    the line where it grazes it and closes on a crown laid over its own axis. The square
+    pin keeps the flat registration faces the socket wants, and a full-width 45° corbel
+    carries its lower face from the wall to the pin's inboard tip. `_y_lip_channel` takes
+    the same profile, one `fits.slip` lower, out of the front socket's whole travel."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     r = plug_dia / 2.0
+    x_in = x_ext + sx * wall
     xa, xb = sorted((x_ext, x_tip))
-    return _ybox(xa, xb, y_boss - r, y_boss + r, z_boss - r, z_boss + r)
+    pin = _ybox(xa, xb, y_boss - r, y_boss + r, z_boss - r, z_boss + r)
+    floor = z_boss - r
+    drop = abs(x_tip - x_in)
+    corbel = _xz_prism(y_boss - r, y_boss + r,
+                       [(x_in, floor), (x_tip, floor), (x_in, floor - drop)])
+    return pin.fuse(corbel)
 
 
 def _front_socket(x_in, x_ext, sx, z_boss, y_joint, inner):
@@ -3818,7 +3826,12 @@ def _y_lip_channel(inner, y_joint, bosses):
     THE FOUR COLLARS STAND OUT OF ITS FLANKS. `_front_socket`'s outboard face is what
     each screw pulls the back wall onto, and four of them across two walls are what
     locates this joint in X. The collars keep that face; the lip runs clear of the wall
-    between them, and their crowns are carved with everything else."""
+    between them, and their crowns are carved with everything else.
+
+    THE PIN CORBELS TRAVEL IN THIS CHANNEL TOO. Each back pin's lower face rises 45°
+    from its wall to its inboard tip. The matching cut runs the lip's whole travel and
+    stands one `fits.slip` below that profile, so the corbel enters with the square pin
+    and the socket keeps its full screw and heat-set section inboard of it."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
     zlo, zhi = iz0 - floor_t - 1.0, iz1 + wall + 1.0
@@ -3830,6 +3843,12 @@ def _y_lip_channel(inner, y_joint, bosses):
         xa, xb = sorted((x_in, x_cap))
         flanks = flanks.cut(_ybox(xa, xb, yb - socket_r, yb + socket_r,
                                   z_boss - socket_r, z_boss + socket_r))
+        _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+        floor = z_boss - plug_dia / 2.0 - fits.slip
+        drop = abs(x_tip - x_in)
+        flanks = flanks.fuse(_xz_prism(
+            y_joint, y_joint + lip_len,
+            [(x_in, floor), (x_tip, floor), (x_in, floor - drop)]))
     return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1, iz1 - fits.slip, zhi))
 
 
