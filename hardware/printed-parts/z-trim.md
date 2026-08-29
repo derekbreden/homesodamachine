@@ -8,42 +8,46 @@ G-code writes once per print, cleared to zero at the top of the block and set ag
 type and nozzle. Bambu's stock values lower the nozzle on textured PEI, because homing lands
 the tip on the tops of the texture:
 
-| plate / nozzle | stock | this tree |
-| --- | --- | --- |
-| Textured PEI, 0.2 mm | −0.01 | **+0.01** |
-| Textured PEI, 0.4 mm | −0.02 | **0.0** |
-| other plate, 0.2 mm | +0.01 | **+0.03** |
-| other plate, 0.4 mm | — | **+0.02** |
+| plate / nozzle | stock |
+| --- | --- |
+| Textured PEI, 0.2 mm | −0.01 |
+| Textured PEI, 0.4 mm | −0.02 |
+| other plate, 0.2 mm | +0.01 |
+| other plate, 0.4 mm | — |
 
-Negative lowers. Every branch stands **+0.02 mm** over stock, so the figure holds whichever
-plate the project is set to. On textured PEI with the 0.4 mm nozzle it comes to a trim of
-0.00 — Bambu's texture compensation off, the nozzle where homing and the bed mesh put it.
+Negative lowers. This tree stands a flat **+0.01 to +0.03 mm** over those values on every
+branch, so the figure holds whichever plate the project is set to. At +0.02, textured PEI
+with the 0.4 mm nozzle comes to a trim of 0.00 — Bambu's texture compensation off, the nozzle
+where homing and the bed mesh put it.
 
-The figure is for the stack the exterior ships on: Bambu Lab H2C, 0.4 mm tungsten carbide
+The figures are for the stack the exterior ships on: Bambu Lab H2C, 0.4 mm tungsten carbide
 hotend on the left extruder, Polymaker Fiberon PET-GF15, textured PEI plate, 0.2 mm initial
 layer ([enclosure/enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)).
 
-Derek: *"I think .02 might really be our setting, for this material and this nozzle size on
-these beds in these H2Cs."*
+Derek, on 0.02: *"I think .02 might really be our setting, for this material and this nozzle
+size on these beds in these H2Cs."* Then, off the prints it came back on: *"the more I look
+at the prints here, the more I think I might be wrong and we might need a .01."*
 
 ## The carriers
 
-[`z-trim-0.02.3mf`](z-trim-0.02.3mf) and [`z-trim-0.03.3mf`](z-trim-0.03.3mf) are empty
-plates that carry nothing but the printer profile — `Bambu Lab H2C 0.4 nozzle` with
-`machine_start_gcode` as its one setting modified from system, on the `Polymaker PET-GF @BBL
-H2C` slot over a textured PEI plate. Open one in Bambu Studio and save the printer preset it
-loads modified.
+[`z-trim-0.01.3mf`](z-trim-0.01.3mf), [`z-trim-0.02.3mf`](z-trim-0.02.3mf) and
+[`z-trim-0.03.3mf`](z-trim-0.03.3mf) are empty plates that carry nothing but the printer
+profile — `Bambu Lab H2C 0.4 nozzle` with `machine_start_gcode` as its one setting modified
+from system, on the `Polymaker PET-GF @BBL H2C` slot over a textured PEI plate. Open one in
+Bambu Studio and save the printer preset it loads modified.
 
-| | textured 0.2 | textured 0.4 | other 0.2 | other 0.4 |
+| carrier | textured 0.2 | textured 0.4 | other 0.2 | other 0.4 |
 | --- | --- | --- | --- | --- |
+| [`z-trim-0.01.3mf`](z-trim-0.01.3mf) | 0.0 | −0.01 | 0.02 | 0.01 |
 | [`z-trim-0.02.3mf`](z-trim-0.02.3mf) | 0.01 | 0.0 | 0.03 | 0.02 |
 | [`z-trim-0.03.3mf`](z-trim-0.03.3mf) | 0.02 | 0.01 | 0.04 | 0.03 |
 
-[`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf)
-and [`display-covers.3mf`](display-covers.3mf) carry the 0.02 values, byte-identical in their
-start G-code to `z-trim-0.02.3mf`. The display-covers plate stands on the saved user preset
-`Bambu Lab H2C 0.4 nozzle 02 first layer by agent`; the back-top plate on the system preset
-with the start G-code as its one project override.
+What the committed plates stand on:
+
+| plate | trim | printer preset |
+| --- | --- | --- |
+| [`enclosure/enclosure/enclosure-back-top-petgf.3mf`](/hardware/printed-parts/enclosure/enclosure/enclosure-back-top-petgf.3mf) | +0.02 | `Bambu Lab H2C 0.4 nozzle`, the start G-code its one project override |
+| [`display-covers.3mf`](display-covers.3mf) | +0.03 | `Bambu Lab H2C 0.4 nozzle 03 first layer by agent` |
 
 ## Reading it back
 
