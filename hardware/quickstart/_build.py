@@ -53,6 +53,8 @@ PAGE_ASSETS = (
     HERE / "art" / "faucet-side.png",
     HERE / "art" / "machine-back-iso.png",
     HERE / "art" / "machine-ports-iso.png",
+    HERE / "art" / "machine-ports-action.png",
+    HERE / "art" / "machine-signal-iso.png",
     HERE / "art" / "mount-drop.png",
     HERE / "art" / "mount-final-clean.png",
     HERE / "art" / "mount-lowered-clean.png",

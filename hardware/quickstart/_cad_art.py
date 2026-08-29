@@ -53,6 +53,12 @@ UNDER_MOUNT_CAM = (0.58, -1.60, -0.72)
 # Centred on the stack the two frames are about, not on the slab that surrounds it.
 UNDER_MOUNT_TARGET = (0.0, 0.0, -34.0)
 UNDER_MOUNT_FRAME_SHAVE = 18
+# The approach frame shows the plate clear of the retained washer before it moves. Its countertop
+# window is long on the world-X slide axis and narrow across world Y, where the real under-sink
+# approach is constrained.
+PLATE_APPROACH_X = -44.0
+UNDER_COUNTERTOP_X = 180.0
+UNDER_COUNTERTOP_Y = 82.0
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -190,6 +196,23 @@ def _build_steps(work: Path) -> dict[str, Path]:
         .translate((0.0, fa.countertop_hole_center_y - 90.0, 0.0))
     )
     countertop_section = parts["countertop"].obj.cut(section_cutter)
+    under_countertop = (
+        cq.Workplane("XY")
+        .workplane(offset=fa.countertop_bottom_z)
+        .box(
+            UNDER_COUNTERTOP_X,
+            UNDER_COUNTERTOP_Y,
+            fa.countertop_thickness,
+            centered=(True, True, False),
+        )
+        .cut(
+            cq.Workplane("XY")
+            .workplane(offset=fa.countertop_bottom_z - 1.0)
+            .center(0.0, fa.countertop_hole_center_y)
+            .circle(fa.hole_radius)
+            .extrude(fa.countertop_thickness + 2.0)
+        )
+    )
 
     mount_names = (
         "westbrass",
@@ -405,8 +428,8 @@ def _build_steps(work: Path) -> dict[str, Path]:
         _add_child(out, parts["countertop"], obj=countertop_section)
 
     def add_under_countertop(out: cq.Assembly):
-        """Keep the complete source slab intact for the view the installer actually sees."""
-        _add_child(out, parts["countertop"], color=countertop_stone)
+        """Show the long slide runway and the narrow cross-slide working clearance."""
+        out.add(under_countertop, name="under-countertop", color=countertop_stone)
 
     def add_under_mount_product(out: cq.Assembly, *, washer_top_z: float):
         """Show only the real shank, three attached tubes and captive donor pair below the slab."""
@@ -465,13 +488,13 @@ def _build_steps(work: Path) -> dict[str, Path]:
     _add_child(
         slide,
         parts["under_counter_plate"],
-        obj=_moved(parts["under_counter_plate"].obj, (-36.0, 0.0, 0.0)),
+        obj=_moved(parts["under_counter_plate"].obj, (PLATE_APPROACH_X, 0.0, 0.0)),
         color=plate_steel,
     )
     add_render_frame(slide)
     slide_clean_step = _export_colored(slide, work / "mount-slide-clean.step")
     slide.add(
-        motion_arrow((-61.0, -23.0, -29.0), (1.0, 0.0, 0.0), 28.0, 8.0),
+        motion_arrow((-72.0, -23.0, -29.0), (1.0, 0.0, 0.0), 42.0, 8.0),
         name="slide-motion",
         color=motion_red,
     )
@@ -502,11 +525,11 @@ def _build_steps(work: Path) -> dict[str, Path]:
         under_slide,
         parts["under_counter_plate"],
         name="under-open-plate",
-        obj=_moved(parts["under_counter_plate"].obj, (-36.0, 0.0, 0.0)),
+        obj=_moved(parts["under_counter_plate"].obj, (PLATE_APPROACH_X, 0.0, 0.0)),
         color=plate_steel,
     )
     under_slide.add(
-        motion_arrow((-62.0, -20.0, -51.0), (1.0, 0.0, 0.0), 40.0, 9.0),
+        motion_arrow((-76.0, -20.0, -51.0), (1.0, 0.0, 0.0), 47.0, 9.0),
         name="under-slide-motion",
         color=motion_red,
     )
@@ -778,6 +801,8 @@ def main(*, mount_studies: bool = False) -> None:
             _crop("machine-front.png", "960x660+0+100", "machine-funnel-close.png")
             _crop(work / "machine-back.png", "720x560+180+300", "machine-back-close.png")
             _crop("machine-back-iso.png", "617x720+850+220", "machine-ports-iso.png")
+            _crop("machine-ports-iso.png", "617x612+0+72", "machine-ports-action.png")
+            _crop("machine-ports-iso.png", "594x393+23+293", "machine-signal-iso.png")
             _crop(work / "faucet-full-front.png", "410x540+0+1060", "faucet-tails-front.png")
             _crop("mount-tighten.png", "772x560+0+700", "mount-tighten-close.png")
 
