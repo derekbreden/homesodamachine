@@ -522,13 +522,33 @@ static void relayOwe(uint8_t slot) {
 // the phone reaches, so a difference is always resolved in its favour: the
 // enclosure is sent what it is missing and stripped of what the machine no
 // longer has.
-constexpr uint32_t RECONCILE_MS = 30000;
+constexpr uint32_t RECONCILE_MS     = 30000;
+constexpr uint32_t RECONCILE_MAX_MS = 1800000;   // where the backing off stops
 
 static ImagesPayload seenFaucet{}, seenEnclosure{};
 static bool haveFaucet = false, haveEnclosure = false;
 static unsigned long reconcileAt = 0;
 static unsigned long reconcileAskedAt = 0;
 static uint8_t imagesPrintOwed = 0;   // reports a person asked for
+
+// A REPAIR THAT DOES NOT STICK MUST NOT BE ATTEMPTED FOREVER. Sending the
+// enclosure a picture takes its panel down and reboots it; a slot it cannot
+// keep — a store that will not erase, a picture it refuses — would otherwise
+// blank the glass every half minute for the life of the machine, which is worse
+// than the difference it is trying to close. So the same repair, needed again,
+// waits twice as long each time, and anything that finally agrees puts it back.
+static uint8_t reconcileSlot = 0xFF;   // what the last pass repaired
+static uint8_t reconcileTried = 0;     // times in a row it has needed repairing
+
+static void reconcileRepaired(uint8_t slot) {
+    if (slot == reconcileSlot && reconcileTried < 8) ++reconcileTried;
+    else if (slot != reconcileSlot) { reconcileSlot = slot; reconcileTried = 1; }
+    uint32_t wait = RECONCILE_MS << (uint8_t)(reconcileTried - 1);
+    if (wait > RECONCILE_MAX_MS || wait < RECONCILE_MS) wait = RECONCILE_MAX_MS;
+    reconcileAt = millis() + wait;
+    if (reconcileTried == 4)
+        Serial.printf("reconcile: picture %u will not settle — trying more slowly\n", slot);
+}
 
 // Both links land here. Printing is what the console asked for; the reconcile
 // asks far more often than anyone wants to read.
@@ -589,15 +609,21 @@ static void reconcileService() {
             Serial.printf("\nreconcile: the enclosure is %s picture %u — sending it\n",
                           onGlass ? "holding a different" : "missing", slot);
             relayOwe(slot);
+            reconcileRepaired(slot);
             return;
         }
         if (!onFaucet && onGlass) {
             Serial.printf("\nreconcile: the enclosure holds picture %u the machine gave up\n",
                           slot);
             linkImageErase(slot);
+            reconcileRepaired(slot);
             return;
         }
     }
+
+    // Nothing to repair: whatever was hard is not hard any more.
+    reconcileSlot = 0xFF;
+    reconcileTried = 0;
 
     // And no channel may go on wearing a face that is not there. removePicture
     // does this when it is told; this catches the removal it never heard about.
@@ -715,6 +741,8 @@ static void console(const String &line) {
     if (line == "images sync") {
         Serial.println("\nreconciling now");
         reconcileAskedAt = 0;
+        reconcileSlot = 0xFF;   // a person asking clears whatever it had given up on
+        reconcileTried = 0;
         reconcileAt = millis();
         return;
     }

@@ -7,11 +7,11 @@ Epson for in-house review.
 The two sheets form one physical story:
 
 1. Mount the complete factory faucet assembly through the prepared countertop opening.
-2. Follow its braided umbilical to the appliance, trim the three tube tails to the real cabinet,
-   push and tug-test each tube, then click its RJ11 plug into the signal jack.
+2. Connect its three tubes and RJ11 signal lead to the appliance rear panel.
 
-Words identify the action and result. Exact product artwork, the supplied cutter, motion, and the
-changed physical state carry the instructions.
+Four registered model states tell the mounting story. Two registered model states show the rear
+connections before and after installation. Words identify only the action and endpoint; modeled
+product geometry carries the instruction.
 
 ## Confirmed installation facts
 
@@ -55,21 +55,19 @@ frame the plate stands clear of the retained washer before it moves. The counter
 on the plate's slide axis and narrow across it, preserving the full support behind the retracted
 plate while showing the constrained under-sink working direction.
 
-The connection sheet carries four physical scenes in order:
+The connection sheet carries exactly two physical scenes from the same tight rear-panel camera:
 
-1. one cabinet-scale view keeps the mounted faucet, relaxed braided service loop, and appliance in
-   the same route while the appliance moves forward to the cabinet opening;
-2. the supplied cutter crosses one tail at a square cut beside the exact machine rear, with all
-   three tubes laid toward their physical ports and the action marked `3x`;
-3. one registered rear-port view leaves all three tubes visibly seated while the opposed arrows
-   show push-in and pull-back tug test;
-4. a tighter crop of the same rear camera keeps the three tubes seated while the ribbon's RJ11 plug
-   enters the square signal jack, latch up, in one motion and with no tool.
+1. the appliance with the blue soda tube, two black flavor tubes, and RJ11 signal lead modeled a
+   clear connector-length away from their ports;
+2. the same appliance with all four leads fully seated.
 
-The braided sleeve is crosshatched so it cannot read as another tube. Tube collars stay on the
-physical lines, port labels stay on the exact rear face, and the final state shows the connected
-hardware rather than detached identity cards. No interface screen or commissioning state is
-invented.
+The enclosure, camera, scale, lighting, and crop remain registered between the two states. The
+lower enclosure is outside the viewport so the ports and lead ends dominate each column; a clean
+white field carries no floor, contact shadow, gradient, or distance fog. The
+three tube collars are the production solids with their modeled lettering. The RJ11 body, boot,
+latch, contacts, and ribbon are CAD solids. Tube end faces, routing bends, port labels, and signal
+jack remain physical model geometry. No connector, tube, cord, leader, or callout is drawn over a
+render; the small transition arrow in the page gutter is the only overlay.
 
 ## Build
 
@@ -83,14 +81,11 @@ tools/cad-venv/bin/python hardware/quickstart/quickstart_art.py
 tools/cad-venv/bin/python hardware/quickstart/_build.py
 ```
 
-The two steps are separate build targets. A layout-only iteration consumes the generated artwork
-without rebuilding CAD. `machine-ports-iso.png`, `machine-ports-action.png`, and
-`machine-signal-iso.png` are fixed crops of `machine-back-iso.png`; every connection beat therefore
-preserves the same camera and physical port locations.
-
-The pinned Linux CAD image is the byte authority for generated artwork and the bound PDF. Local
-macOS runs are visual previews because native OCCT tessellation differs by host. The scoped derive
-workflow regenerates and publishes the canonical Linux PDF, cover, and metadata.
+The two steps are separate build targets. A layout-only iteration consumes generated artwork
+without rebuilding CAD. `connect-rear-open.png` and `connect-rear-connected.png` use fixed frame
+anchors and one camera definition so every rear-panel feature remains in the same printed
+position. The publisher's pinned CAD environment is the byte authority for generated artwork and
+the bound PDF; local runs remain visual previews because native OCCT tessellation differs by host.
 
 `out/00-mount.png`, `out/01-connect.png`, and their page PDFs are the full-resolution 150 px/in
 sheet renders. Inspect both pages at actual size, in grayscale, at quarter scale, and with the

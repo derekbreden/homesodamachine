@@ -15,8 +15,9 @@
 //   --target x,y,z   look-at point in model coords. Default: bbox center
 //   --zoom f         perspective only: distance = f · bbox-radius along --cam.
 //                    Default 3.0. Under --ortho the half-height is the frame and
-//                    it fits the subject; tools/render/render-view.js takes an
-//                    orthographic half-height in millimetres as --span.
+//                    it fits the subject unless --span is supplied.
+//   --span mm        orthographic half-height in model units. This can frame a
+//                    detail while retaining the complete source assembly.
 //   --up x,y,z       camera up. Default 0,1,0
 //   --size WxH       viewport + output size. Default 1600x1200
 //   --bg #hex        background. Default #1a1a2e (site navy)
@@ -25,6 +26,8 @@
 //   --solid          opaque surfaces, no feature-edge ghost (default: the
 //                    viewer's own x-ray, which every part draws through)
 //   --ortho          orthographic projection (dimension-drawing look)
+//   --no-ground      omit the viewer's contact-shadow floor
+//   --no-fog         omit the viewer's distance fade
 //
 // The step path is relative to hardware/ (matches /api/steps + /steps/*).
 //
@@ -98,8 +101,8 @@ function usage(msg) {
   if (msg) console.error(`render-step-posed: ${msg}`);
   console.error(
     "usage: node tools/render/render-step-posed.js <step-file-relative> <output-png> " +
-      "[--cam x,y,z] [--target x,y,z] [--zoom f] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] " +
-      "[--solid] [--ortho]\n" +
+      "[--cam x,y,z] [--target x,y,z] [--zoom f] [--span mm] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] " +
+      "[--solid] [--ortho] [--no-ground] [--no-fog]\n" +
       "       node tools/render/render-step-posed.js --jobs <manifest.json|->",
   );
   process.exit(1);
@@ -113,6 +116,7 @@ function defaults() {
     cam: [1, 1, 1],
     target: null,
     zoom: 3.0,
+    span: null,
     up: [0, 1, 0],
     width: 1600,
     height: 1200,
@@ -120,6 +124,8 @@ function defaults() {
     trim: false,
     solid: false,
     ortho: false,
+    ground: true,
+    fog: true,
   };
 }
 
@@ -150,15 +156,19 @@ function parseArgs(argv) {
     else if (a.startsWith("--cam")) opts.cam = vec(val("cam"), "--cam");
     else if (a.startsWith("--target")) opts.target = vec(val("target"), "--target");
     else if (a.startsWith("--zoom")) opts.zoom = Number(val("zoom"));
+    else if (a.startsWith("--span")) opts.span = Number(val("span"));
     else if (a.startsWith("--up")) opts.up = vec(val("up"), "--up");
     else if (a.startsWith("--size")) size(val("size"), opts, "--size");
     else if (a.startsWith("--bg")) opts.bg = val("bg");
     else if (a === "--trim") opts.trim = true;
     else if (a === "--solid") opts.solid = true;
     else if (a === "--ortho") opts.ortho = true;
+    else if (a === "--no-ground") opts.ground = false;
+    else if (a === "--no-fog") opts.fog = false;
     else positional.push(a);
   }
   if (!Number.isFinite(opts.zoom) || opts.zoom <= 0) usage("bad --zoom");
+  if (opts.span != null && (!Number.isFinite(opts.span) || opts.span <= 0)) usage("bad --span");
   return { positional, opts, jobs };
 }
 
@@ -181,12 +191,17 @@ function job(entry, i) {
   if (entry.target != null) opts.target = vec(entry.target, `${where}.target`);
   if (entry.up != null) opts.up = vec(entry.up, `${where}.up`);
   if (entry.zoom != null) opts.zoom = Number(entry.zoom);
+  if (entry.span != null) opts.span = Number(entry.span);
   if (entry.size != null) size(entry.size, opts, `${where}.size`);
   if (entry.bg != null) opts.bg = String(entry.bg);
   opts.trim = !!entry.trim;
   opts.solid = !!entry.solid;
   opts.ortho = !!entry.ortho;
+  if (entry.ground != null) opts.ground = !!entry.ground;
+  if (entry.fog != null) opts.fog = !!entry.fog;
   if (!Number.isFinite(opts.zoom) || opts.zoom <= 0) usage(`${where}: bad zoom`);
+  if (opts.span != null && (!Number.isFinite(opts.span) || opts.span <= 0))
+    usage(`${where}: bad span`);
   return { stepRel: String(entry.step), outAbs: outPath(String(entry.out)), opts };
 }
 
@@ -345,6 +360,15 @@ async function shoot(page, outAbs, opts) {
     sceneMod.resetCamera(currentGroup);
     controls.enabled = false;
 
+    // Instruction art can ask for a literal white field. The viewer's contact
+    // shadow is useful in an interactive product view but becomes a large dark
+    // gradient when the camera intentionally crops into one appliance detail.
+    // Keep the shared defaults for ordinary renders and remove these two
+    // presentation effects only when the caller opts out.
+    if (!hsm.__baseFog && scene.fog) hsm.__baseFog = scene.fog;
+    scene.fog = o.fog ? (hsm.__baseFog || scene.fog) : null;
+    if (!o.ground) sceneMod.fitGroundShadow(null);
+
     // xray.js remembers the mode in localStorage and applies it to the mounted
     // group as it is set. A page drawing one picture reads the default and is
     // told once; a page drawing many carries the last job's answer, so the mode
@@ -365,7 +389,7 @@ async function shoot(page, outAbs, opts) {
     if (o.ortho) {
       // An orthographic camera framing the subject. Its half-height is the
       // frame, so distance along `dir` only has to clear the near plane.
-      const half = radius * 1.1;
+      const half = o.span ?? radius * 1.1;
       cam = new THREE.OrthographicCamera(
         -half * aspect, half * aspect, half, -half, 0.01, radius * 100,
       );
