@@ -1477,6 +1477,12 @@ hook_arm = 4.0
 rail_stop_len = 4.0          # the stop block closing each rail's far end, along Y
 rail_entry = 5.0             # approach past full disengagement, entry to first engagement
 rail_lead = 2.0              # 45° plan taper easing the head's open end over the foot
+# HOW FAR THE RAIL REACHES BELOW ITS SEAM, the way `z_rise` is how far it reaches above. The
+# arm's base falls back to the lip's underwall on a 45° under-flare, so the fall equals its own
+# run: the arm's back stands `slide_slip + hook_arm` inboard of the nominal foot face and the
+# underwall half a millimetre outboard of it. `_z_rail_heads` builds that fall and `_lip_denied`
+# denies seam heights by it — a body's crown has to clear the flare, not merely the wall over it.
+rail_flare_drop = slide_slip + hook_arm + 0.5
 # The deepest plane either hooked profile reaches inboard of `interior_x`: its full nominal
 # foot first, then the arm clearance and the arm itself. Both complete envelopes remain inside
 # the pack's `side_band_inset`; the collet plate spends this exact figure for its moving berth.
@@ -2346,7 +2352,9 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
     their full nominal feet. So the lane measured is the actual profile on those runs, over
     the full height of the box — and a body standing in one
     denies the seam heights that would put the slide through it: from `z_rise` under its foot (the
-    rim would be below it) to one `wall` over its crown.
+    rim would be below it) to one `rail_flare_drop` over its crown, which is how far the arm's
+    under-flare hangs below the seam and therefore how high above a crown a seam can still drop
+    rail through it.
 
     A Z SEAM IS PER Y COLUMN AND SO IS ITS LANE. `y_span` is that column's half, cut
     at the Y joint; a body spanning the joint is charged to both columns, as it
@@ -2372,7 +2380,7 @@ def _lip_denied(placed, inner, y_span, plate, y_joint):
         hit = ring.intersect(solid)
         if hit.Volume() > 1.0:
             b = hit.BoundingBox()
-            out.append((b.zmin - z_rise, b.zmax + wall))
+            out.append((b.zmin - z_rise, b.zmax + rail_flare_drop))
     return out
 
 
@@ -4091,7 +4099,7 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=()):
         # face that carries this column, with the broad head lying over its full-section foot.
         wall_face = _rail_nominal_foot_face(col, sx)
         x_uw = wall_face - sx * 0.5
-        drop = abs(x_h1 - x_uw)
+        drop = rail_flare_drop                    # equals abs(x_h1 - x_uw): the fall is the run
         arm = arm.fuse(_xz_prism(y0, y1, [(x_uw, zj), (x_h1, zj), (x_uw, zj - drop)]))
         # The plan taper at the OPEN end, whichever end that is: the head's lap falls back
         # to the arm's own sliding face over `rail_lead`, the cut reaching INTO the run,
