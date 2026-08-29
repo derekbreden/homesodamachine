@@ -17,8 +17,8 @@
     },
     {
       "check": "hardware/scripts/check_flutes.py",
-      "note": "bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload",
-      "status": "red"
+      "note": "✓ every payload stands within the budget its print was cut to",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_ledger.py",
@@ -27,8 +27,8 @@
     },
     {
       "check": "hardware/scripts/check_payloads.py",
-      "note": "tools/cad-venv/bin/python hardware/scripts/flute_payload.py",
-      "status": "red"
+      "note": "payloads: 19 solid(s) cut from the bytes beside them, 11 scene(s) at the finishes this tree states",
+      "status": "ok"
     },
     {
       "check": "hardware/scripts/check_pinmap.py",
@@ -62,8 +62,8 @@
     },
     {
       "check": "tools/check_web_tests.py",
-      "note": "check_web_tests: web's suite passes",
-      "status": "ok"
+      "note": "cd web && npm test",
+      "status": "red"
     },
     {
       "check": "tools/bazel/check_build_file.py",
@@ -82,35 +82,15 @@
     },
     {
       "check": "tools/bazel/check_unbounded_reach.py",
-      "note": "check_unbounded_reach: 0 of 10 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 235 member(s) keep their provenance",
+      "note": "check_unbounded_reach: 0 of 25 uncommitted path(s) are a kind no generator reads, and none widens the artifact slice — 237 member(s) keep their provenance",
       "status": "ok"
     }
   ],
   "detail": {
     "hardware/scripts/check_facts_current.py": [
-      "enclosure-assembly.facts.json was taken from a different tree — it holds 25e432692b13e9ab31a063053ef6e898 for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 657a9e380f9beb3f2dc6ac719f330671 here. The three artifacts agree with each other and describe a machine that has since moved.",
+      "enclosure-assembly.facts.json was taken from a different tree — it holds 6e59746e5298d9ba3dc10a1932ebcd8a for the 107 sources behind hardware/manifold-layout/enclosure_assembly.py, which stand at 761bfc06e90aa36f3d2050937b2d6483 here. The three artifacts agree with each other and describe a machine that has since moved.",
       "  the three come off one run:",
       "    tools/cad-venv/bin/python hardware/manifold-layout/enclosure_assembly.py"
-    ],
-    "hardware/scripts/check_flutes.py": [
-      "4 payload(s) were cut from a STEP that is no longer the one beside them:",
-      "  ✗ enclosure-back-bottom — the viewer draws this file, and it is another machine's",
-      "  ✗ enclosure-back-top — the viewer draws this file, and it is another machine's",
-      "  ✗ enclosure-front-bottom — the viewer draws this file, and it is another machine's",
-      "  ✗ enclosure-front-top — the viewer draws this file, and it is another machine's",
-      "  the flute cut is what puts the surface back:",
-      "    bazel build //:flute-payload && tools/cad-venv/bin/python tools/bazel/sync_tree.py --write --targets //:flute-payload"
-    ],
-    "hardware/scripts/check_payloads.py": [
-      "4 solid(s) whose surface is not in the payload beside them:",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh — cut from other bytes than the solid holds",
-      "    hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh — cut from other bytes than the solid holds",
-      "  the run that cuts a solid writes the payload beside it:",
-      "    tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py",
-      "  and the enclosure's flutes go back into those payloads after:",
-      "    tools/cad-venv/bin/python hardware/scripts/flute_payload.py"
     ],
     "tools/bazel/check_build_file.py": [
       "BUILD.bazel is not what the graph would write now:",
@@ -123,6 +103,11 @@
       "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py:51 — hardware/pcb/pcba/out/pcba.glb is held nowhere, and no tag is named for it",
       "  hardware/printed-parts/electronics/pcba-tray/pcba_tray.py:94 — hardware/pcb/pcba/out/pcba.glb is held nowhere, and no tag is named for it",
       "2 reference(s) name a path nothing holds."
+    ],
+    "tools/check_web_tests.py": [
+      "1 test(s) in web/ fail:",
+      "    the artifact lock pins every committed viewer scorecard",
+      "  cd web && npm test"
     ]
   },
   "green": false
