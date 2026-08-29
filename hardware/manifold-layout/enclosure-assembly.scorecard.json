@@ -1049,6 +1049,16 @@
    "active": true
   },
   {
+   "id": "prv-chase-corbels",
+   "label": "The PRV groove and top rib close on wall-rooted X ramps",
+   "kind": "gate",
+   "status": "pass",
+   "value": "3.00 mm groove ramp, 8.00 mm rib corbel; 0 flat support roofs; 0.0000 mm\u00b3 in the square mouth, 0.0000 mm\u00b3 missing lower land, 3.10 mm lip land",
+   "target": "one exact 45-degree X plane at each level, no horizontal support face, the complete square mouth open and at least one rib wall below it",
+   "detail": [],
+   "active": true
+  },
+  {
    "id": "ceiling-panel-slides-in",
    "label": "The deep ceiling panel and rails slide through back-top",
    "kind": "gate",
