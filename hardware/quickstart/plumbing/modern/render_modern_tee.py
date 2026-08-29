@@ -12,10 +12,11 @@ opens a threaded or compression joint:
 5. push the original household line into the tee's other run port;
 6. push the new appliance/filter branch into the tee, then tug-check it.
 
-Every visible fitting, tube, wall, valve, and handle is literal CAD geometry.
+Every visible fitting, tube, valve, and handle is literal CAD geometry.
 The wide shutoff pair, release trio, and cumulative tee sequence each retain a
 registered orthographic camera so motion is the only visual change within a
-step.  No arrow or connector is painted into a render.
+step.  No arrow or connector is painted into a render, and the final PNGs have
+transparent canvases so the guide page is their only background.
 
 Regenerate from the repository root with::
 
@@ -27,6 +28,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -90,7 +92,6 @@ TEE_BRANCH_FACE_Z = AXIS_Z - PP0208_REACH
 # remains distinct without borrowing the appliance's blue SODA language, and
 # the filter/appliance branch is white with a modeled dark tracer so it
 # survives grayscale and a small printed view.
-C_WALL = cq.Color(0.95, 0.945, 0.925, 1.0)
 C_EXISTING = cq.Color(0.48, 0.57, 0.66, 1.0)
 C_JUMPER = cq.Color(0.72, 0.77, 0.79, 1.0)
 C_BRANCH = cq.Color(0.90, 0.92, 0.93, 1.0)
@@ -110,13 +111,16 @@ class View:
     camera: tuple[float, float, float]
     target: tuple[float, float, float]
     span: float
-    background: str
 
 
-WATER_VIEW = View((1.05, -1.72, 0.72), (-25.0, 8.0, 105.0), 104.0, "#f3f0ea")
-RELEASE_VIEW = View((0.58, -1.58, 0.66), (-80.0, 0.0, 40.0), 30.0, "#f3f0ea")
-TEE_VIEW = View((0.62, -1.58, 0.72), (-25.0, 0.0, 12.0), 52.0, "#f3f0ea")
+WATER_VIEW = View((1.05, -1.72, 0.72), (-25.0, 8.0, 105.0), 104.0)
+RELEASE_VIEW = View((0.58, -1.58, 0.66), (-80.0, 0.0, 40.0), 30.0)
+TEE_VIEW = View((0.62, -1.58, 0.72), (-25.0, 0.0, 12.0), 52.0)
 RENDER_SIZE = "2000x1100"
+# The shared renderer needs an opaque clear color.  This deliberately distinct
+# matte is removed from the connected picture edge after rendering; it is not
+# part of the published scene.
+RENDER_MATTE = "#f3f0ea"
 
 
 def _vector(values) -> cq.Vector:
@@ -507,9 +511,6 @@ WIDE_UNION_X = 34.0
 
 
 def _add_modern_shutoff(scene: cq.Assembly, *, on: bool) -> None:
-    wall = cq.Solid.makeBox(500.0, 18.0, 310.0, cq.Vector(-250.0, 38.0, -40.0))
-    _add(scene, wall, "finished-cabinet-wall", C_WALL)
-
     body_left = WIDE_VALVE_X - 28.0
     _add(
         scene,
@@ -598,7 +599,49 @@ def _canonicalize_png(path: Path) -> None:
     with Image.open(path) as image:
         if image.size != (2000, 1100):
             raise RuntimeError(f"unexpected render size {image.size}: {path}")
-        image.convert("RGBA").save(path, format="PNG", compress_level=9, optimize=False)
+        rgba = image.convert("RGBA")
+        alpha = rgba.getchannel("A")
+        if alpha.getextrema() != (0, 255) or alpha.getbbox() is None:
+            raise RuntimeError(f"render does not hold transparent scene art: {path}")
+        rgba.save(path, format="PNG", compress_level=9, optimize=False)
+
+
+def _clear_connected_matte(path: Path) -> None:
+    """Clear only the render matte connected to the picture edge.
+
+    A global color-to-alpha operation would also erase the light union and
+    filter tube.  Flood-filling alpha from a one-pixel matte border removes the
+    outside field while preserving enclosed light surfaces and highlights.
+    """
+    magick = shutil.which("magick") or shutil.which("convert")
+    if not magick:
+        raise RuntimeError("ImageMagick is required to clear CAD picture mattes")
+    primitive = "alpha" if Path(magick).name == "magick" else "matte"
+    subprocess.run(
+        [
+            magick,
+            str(path),
+            "-bordercolor",
+            RENDER_MATTE,
+            "-border",
+            "1",
+            "-alpha",
+            "set",
+            "-channel",
+            "RGBA",
+            "-fuzz",
+            "3%",
+            "-fill",
+            "none",
+            "-draw",
+            f"{primitive} 0,0 floodfill",
+            "-shave",
+            "1x1",
+            "-strip",
+            str(path),
+        ],
+        check=True,
+    )
 
 
 def _job(step: Path, output: Path, view: View) -> dict:
@@ -610,7 +653,7 @@ def _job(step: Path, output: Path, view: View) -> dict:
         "target": view.target,
         "size": RENDER_SIZE,
         "span": view.span,
-        "bg": view.background,
+        "bg": RENDER_MATTE,
         "trim": False,
         "solid": True,
         "ortho": True,
@@ -646,6 +689,7 @@ def main() -> None:
             check=True,
         )
         for output in outputs:
+            _clear_connected_matte(output)
             _canonicalize_png(output)
             note_write(output)
 
