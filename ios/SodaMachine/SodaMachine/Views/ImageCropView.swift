@@ -3,22 +3,10 @@ import SwiftUI
 // ────────────────────────────────────────────────────────────
 // Choosing what part of a photograph the machine gets.
 //
-// TWO RECTANGLES COME OUT OF ONE PHOTOGRAPH. The faucet fills a tall 172x320
-// glass and the front display wears a square card, so a picture has to give up
-// two different shapes. They want different things out of it: a face composed
-// for the tall glass sits high in the frame, and the square that flatters the
-// same face is neither the middle of that glass nor the same distance away.
-//
-// ONE IS FRAMED AT A TIME AND BOTH ARE ALWAYS VISIBLE. The big window is
-// whichever shape is being framed, with the whole surface to pan and pinch on;
-// the two previews under it are the finished faces, live, and tapping one makes
-// it the window. Nothing about the second shape is a second screen, and nothing
-// about it is a smaller version of the first one's gestures.
-//
-// THE SQUARE FOLLOWS UNTIL SOMEONE FRAMES IT. Left alone it is the square
-// inscribed in the faucet's frame, so the two faces stay recognisably the same
-// picture and one gesture still answers the whole question. It detaches the
-// moment it is touched, and a button on its preview puts it back.
+// ONE RECTANGLE COMES OUT OF ONE PHOTOGRAPH. Every face the machine wears is
+// the faucet's glass — 43:80, at three scales — so there is one shape to frame
+// and framing it answers the whole question. The window is that shape, with the
+// whole surface to pan and pinch on, and what it shows is what the machine gets.
 //
 // A FRAME CAN BE WIDER THAN THE PICTURE. A logo shot tight has no room above
 // and below it to become a tall glass, and cropping is the wrong tool for a
@@ -29,11 +17,6 @@ import SwiftUI
 // the other axis reaches the photograph's edge, because past that there is
 // nothing left to reveal.
 // ────────────────────────────────────────────────────────────
-
-struct ImageCrop {
-    let portrait: UIImage   // 172:320, for the faucet
-    let square: UIImage     // 1:1, for the enclosure's card and its smaller sizes
-}
 
 /// How a photograph's edges carry on past themselves, so a frame wider than the
 /// picture continues it rather than boxing it in black. Each edge is a short run
@@ -94,13 +77,10 @@ struct EdgeBackground {
 
 struct ImageCropView: View {
     let image: UIImage
-    let onUse: (ImageCrop) -> Void
+    let onUse: (UIImage) -> Void
     let onCancel: () -> Void
 
-    /// Which shape the window is currently showing.
-    private enum Face: Hashable { case faucet, display }
-
-    /// Where one rectangle sits on the photograph. Scale 1 is the largest
+    /// Where the rectangle sits on the photograph. Scale 1 is the largest
     /// rectangle of that shape the photograph can give — the frame someone
     /// uploaded. Above it is a tighter crop; below it the frame has outgrown
     /// the picture and the difference is background.
@@ -109,10 +89,7 @@ struct ImageCropView: View {
         var center = CGPoint(x: 0.5, y: 0.5)
     }
 
-    @State private var active: Face = .faucet
     @State private var tall = Framing()
-    @State private var square = Framing()
-    @State private var squareFollows = true
     @State private var edges = EdgeBackground()
     /// The framing a gesture started from, so pan and pinch of the same touch
     /// are both measured against one fixed thing rather than against each other
@@ -124,14 +101,12 @@ struct ImageCropView: View {
 
     var body: some View {
         GeometryReader { geo in
-            // The window is the largest rectangle of the active shape that fits
-            // in what the titles, the previews and the buttons leave. The band
-            // it sits in is the taller shape's height whichever shape is in it,
-            // so switching faces moves the window's edges and nothing else —
-            // the previews and the buttons are where they were.
-            let room = CGSize(width: geo.size.width - 48, height: geo.size.height - 340)
-            let window = fit(aspect(active), in: room)
-            let band = fit(tallAspect, in: room).height
+            // The window is the largest glass-shaped rectangle that fits in
+            // what the titles and the buttons leave. It is the only rendition
+            // of the picture on this screen, because every face the machine
+            // wears is this one at another size.
+            let window = fit(in: CGSize(width: geo.size.width - 48,
+                                        height: geo.size.height - 220))
 
             ZStack {
                 Theme.background.ignoresSafeArea()
@@ -142,7 +117,7 @@ struct ImageCropView: View {
                         .foregroundStyle(Theme.textPrimary)
                         .padding(.top, 24)
 
-                    Text("Tap either face to frame it. Drag to move, pinch to zoom.")
+                    Text("Drag to move, pinch to zoom.")
                         .font(.system(size: 13))
                         .foregroundStyle(Theme.textSecondary)
                         .multilineTextAlignment(.center)
@@ -151,22 +126,15 @@ struct ImageCropView: View {
 
                     Spacer(minLength: 8)
 
-                    view(of: active, size: window)
+                    view(size: window)
                         .overlay(
                             Rectangle()
                                 .strokeBorder(Color.white.opacity(0.55), lineWidth: 2)
                         )
                         .contentShape(Rectangle())
                         .gesture(gesture(window))
-                        .frame(height: band)
 
                     Spacer(minLength: 8)
-
-                    HStack(alignment: .top, spacing: 26) {
-                        preview(.faucet)
-                        preview(.display)
-                    }
-                    .padding(.bottom, 4)
 
                     HStack(spacing: 12) {
                         Button("Cancel", action: onCancel)
@@ -199,63 +167,17 @@ struct ImageCropView: View {
         }
     }
 
-    // ── The two faces, under the window ───────────────────────────────────
-    // Each is the rendition itself at a size you can judge, not a diagram of
-    // where a rectangle sits. The one being framed is lit; the other is the
-    // answer you are getting for free.
+    // ── Drawing the rectangle of the photograph ───────────────────────────
 
-    private func preview(_ face: Face) -> some View {
-        let side: CGFloat = 96
-        let size = CGSize(width: side * aspect(face), height: side)
-        let on = active == face
-
-        return VStack(spacing: 6) {
-            view(of: face, size: size)
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(on ? Color.white : Color.white.opacity(0.22),
-                                lineWidth: on ? 2 : 1)
-                )
-                .opacity(on ? 1 : 0.55)
-                .overlay(alignment: .topLeading) {
-                    // Only ever on the square, and only once it is on its own:
-                    // the way back to following the faucet, which is otherwise
-                    // a framing someone would have to rebuild by hand.
-                    if face == .display && !squareFollows {
-                        Button { squareFollows = true; square = Framing() } label: {
-                            Image(systemName: "arrow.uturn.backward.circle.fill")
-                                .font(.system(size: 18))
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, .black.opacity(0.5))
-                        }
-                        .buttonStyle(.plain)
-                        .padding(5)
-                    }
-                }
-
-            Text(face == .faucet ? "Faucet" : "Front display")
-                .font(.system(size: 11, weight: on ? .medium : .regular))
-                .foregroundStyle(on ? Theme.textPrimary : Theme.textSecondary)
-        }
-        .contentShape(Rectangle())
-        .onTapGesture { withAnimation(.easeInOut(duration: 0.18)) { active = face } }
-    }
-
-    // ── Drawing a rectangle of the photograph ─────────────────────────────
-    // One function draws the window and both previews, so a preview cannot
-    // drift from what the window says — it is the same crop at another size.
-
-    private func view(of face: Face, size: CGSize) -> some View {
-        let a = aspect(face)
-        let r = rect(framing(face), aspect: a)
+    private func view(size: CGSize) -> some View {
+        let r = rect(tall)
         let k = size.width / max(r.width, 1)     // display points per source pixel
         let shown = CGSize(width: image.size.width * k, height: image.size.height * k)
         let at = CGPoint(x: (image.size.width / 2 - r.midX) * k,
                          y: (image.size.height / 2 - r.midY) * k)
 
         return ZStack {
-            bands(size, shown, at, a)
+            bands(size, shown, at)
             Image(uiImage: image)
                 .resizable()
                 .frame(width: shown.width, height: shown.height)
@@ -272,8 +194,8 @@ struct ImageCropView: View {
     /// photograph's own extent, so its colours sit over the columns they were
     /// taken from and the join at the picture's edge disappears.
     @ViewBuilder
-    private func bands(_ size: CGSize, _ shown: CGSize, _ at: CGPoint, _ a: CGFloat) -> some View {
-        if extendsVertically(a) {
+    private func bands(_ size: CGSize, _ shown: CGSize, _ at: CGPoint) -> some View {
+        if extendsVertically(tallAspect) {
             VStack(spacing: 0) {
                 LinearGradient(colors: edges.top, startPoint: .leading, endPoint: .trailing)
                 LinearGradient(colors: edges.bottom, startPoint: .leading, endPoint: .trailing)
@@ -298,7 +220,7 @@ struct ImageCropView: View {
     private func gesture(_ window: CGSize) -> some Gesture {
         SimultaneousGesture(DragGesture(minimumDistance: 0), MagnificationGesture())
             .onChanged { v in
-                let base = gestureBase ?? framing(active)
+                let base = gestureBase ?? tall
                 if gestureBase == nil { gestureBase = base }
 
                 var f = base
@@ -306,59 +228,29 @@ struct ImageCropView: View {
                     // Coming back out stops at the photograph's own frame.
                     // Starting a pinch already there is the only way past it,
                     // which makes going past a second, deliberate ask.
-                    let floor = base.scale <= 1.0001 ? minScale(aspect(active)) : 1
-                    f.scale = min(max(base.scale * m, floor), maxScale(active))
+                    let floor = base.scale <= 1.0001 ? minScale(tallAspect) : 1
+                    f.scale = min(max(base.scale * m, floor), maxScale())
                 }
                 if let d = v.first {
                     // Measured at the scale this frame is drawn at, so a pinch
                     // and a drag in one touch track the finger rather than
                     // fighting over it.
-                    let k = window.width / max(rect(f, aspect: aspect(active)).width, 1)
+                    let k = window.width / max(rect(f).width, 1)
                     f.center = CGPoint(
                         x: base.center.x - d.translation.width / (k * image.size.width),
                         y: base.center.y - d.translation.height / (k * image.size.height))
                 }
-                set(f)
+                tall = clamp(f)
             }
             .onEnded { _ in gestureBase = nil }
     }
 
-    /// Framing the active shape is what detaches the square from the faucet.
-    private func set(_ f: Framing) {
-        switch active {
-        case .faucet:
-            tall = clamp(f, .faucet)
-        case .display:
-            square = clamp(f, .display)
-            squareFollows = false
-        }
-    }
-
     // ── Geometry ──────────────────────────────────────────────────────────
-
-    private func aspect(_ face: Face) -> CGFloat { face == .faucet ? tallAspect : 1 }
-
-    private func framing(_ face: Face) -> Framing {
-        face == .faucet ? tall : effectiveSquare
-    }
-
-    /// Where the square sits while it is following: the one inscribed in the
-    /// faucet's frame. That is the same picture the glass wears, squared — what
-    /// someone who only framed the tall shape was asking for.
-    private var effectiveSquare: Framing {
-        guard squareFollows else { return square }
-        let t = rect(tall, aspect: tallAspect)
-        let maxSide = min(image.size.width, image.size.height)
-        return clamp(Framing(scale: maxSide / max(t.width, 1),
-                             center: CGPoint(x: t.midX / max(image.size.width, 1),
-                                             y: t.midY / max(image.size.height, 1))),
-                     .display)
-    }
 
     /// The rectangle a framing selects, in the source's own pixels. It may
     /// reach past them, and what lies past them is background.
-    private func rect(_ f: Framing, aspect a: CGFloat) -> CGRect {
-        let (w, h) = extent(f, aspect: a)
+    private func rect(_ f: Framing) -> CGRect {
+        let (w, h) = extent(f, aspect: tallAspect)
         let cx = bound(f.center.x * image.size.width, w, image.size.width)
         let cy = bound(f.center.y * image.size.height, h, image.size.height)
         return CGRect(x: cx - w / 2, y: cy - h / 2, width: w, height: h)
@@ -377,21 +269,20 @@ struct ImageCropView: View {
         return min(max(c, min(lo, hi)), max(lo, hi))
     }
 
-    private func clamp(_ f: Framing, _ face: Face) -> Framing {
-        let a = aspect(face)
+    private func clamp(_ f: Framing) -> Framing {
         var g = f
-        g.scale = min(max(f.scale, minScale(a)), maxScale(face))
-        let (w, h) = extent(g, aspect: a)
+        g.scale = min(max(f.scale, minScale(tallAspect)), maxScale())
+        let (w, h) = extent(g, aspect: tallAspect)
         g.center = CGPoint(x: bound(g.center.x * image.size.width, w, image.size.width) / max(image.size.width, 1),
                            y: bound(g.center.y * image.size.height, h, image.size.height) / max(image.size.height, 1))
         return g
     }
 
     /// A photograph cannot be zoomed past its own resolution: the tightest crop
-    /// allowed is the one that still fills the rendition it feeds.
-    private func maxScale(_ face: Face) -> CGFloat {
-        let widest = min(image.size.width, image.size.height * aspect(face))
-        return max(1, widest / (face == .faucet ? 172 : 240))
+    /// allowed is the one that still fills the largest rendition it feeds.
+    private func maxScale() -> CGFloat {
+        let widest = min(image.size.width, image.size.height * tallAspect)
+        return max(1, widest / CGFloat(ImageBundle.sizes[0].w))
     }
 
     /// How far out a frame can grow: until its other axis reaches the edge of
@@ -409,24 +300,23 @@ struct ImageCropView: View {
         a < image.size.width / max(image.size.height, 1)
     }
 
-    private func fit(_ a: CGFloat, in room: CGSize) -> CGSize {
-        let h = min(room.height, room.width / a)
-        return CGSize(width: h * a, height: h)
+    private func fit(in room: CGSize) -> CGSize {
+        let h = min(room.height, room.width / tallAspect)
+        return CGSize(width: h * tallAspect, height: h)
     }
 
     // ── Back to the source's own pixels ───────────────────────────────────
 
-    private func crop() -> ImageCrop {
+    private func crop() -> UIImage {
         // Through UIImage once, so an EXIF-rotated camera photo is upright
-        // before either rectangle is measured against it.
+        // before the rectangle is measured against it.
         let format = UIGraphicsImageRendererFormat()
         format.scale = 1
         format.opaque = true
         let upright = UIGraphicsImageRenderer(size: image.size, format: format).image { _ in
             image.draw(in: CGRect(origin: .zero, size: image.size))
         }
-        return ImageCrop(portrait: cut(rect(tall, aspect: tallAspect), from: upright),
-                         square: cut(rect(effectiveSquare, aspect: 1), from: upright))
+        return cut(rect(tall), from: upright)
     }
 
     /// One rectangle of the source at full resolution — and where the rectangle

@@ -110,11 +110,18 @@ has four. The high four are theirs, and only ever arrive from a phone.
 
 **The phone sends pixels, not photographs.** A picture crossing BLE is already
 cropped, resampled and dithered to RGB565 at exactly the sizes each panel draws
-— five renditions, `IMAGE_BUNDLE` in [`proto_msg.h`](lib/proto_link/proto_msg.h):
-one 172x320 for the faucet, and the enclosure's 240x240 card, 96x96 thumb,
-60x60 head and 120x120 mid. Neither board decodes or scales anything; each is
+— three renditions, `IMAGE_BUNDLE` in [`proto_msg.h`](lib/proto_link/proto_msg.h):
+172x320, 129x240 and 86x160. Neither board decodes or scales anything; each is
 handed a pointer into mapped flash and renders straight out of it, the way
 `board_art` already renders the loading animation.
+
+**One shape, at three scales.** Every rendition is 43:80 — the faucet's glass —
+so a photograph gives the machine one rectangle and every surface that shows a
+logo shows the same picture. The faucet fills its glass with the largest; the
+enclosure anchors a detail page on that same one, wears the middle on a Choose
+card and previews the smallest in its picker. Both boards keep all three, so a
+slot's own crc32 is its identity on either of them and the reconcile below has
+one number to compare.
 
 **Both stores live in the partition nothing was using.** `spiffs` — 9.94 MB on
 the faucet, 6.94 MB on the enclosure — needed no table change, which matters
@@ -135,14 +142,14 @@ glasses the instant they boot.
 ```
 phone  ──BLE──▶  faucet  ──WiFi──▶  enclosure
                    │                    │
-                   └─ its own 172x320    └─ its four, written once
+                   └────── all three, byte for byte ──────┘
 ```
 
 The last hop is the radio rather than J9 because the enclosure's panel has to
 come down for a flash write either way — so the transport that costs nothing
-extra at that moment is the fast one. Measured: **169,632 bytes in 919 ms**,
-180 KB/s, against the 15 s J9 would take. The access point stands only for that
-burst and the board reboots into its new face when it drops.
+extra at that moment is the fast one. A bundle is 199,520 bytes; measured at
+**180 KB/s**, against the 15 s J9 would take. The access point stands only for
+that burst and the board reboots into its new face when it drops.
 
 ```
 images                 what each display holds

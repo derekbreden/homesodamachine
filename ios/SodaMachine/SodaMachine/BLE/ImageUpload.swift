@@ -69,7 +69,7 @@ struct ImageSlots: Equatable {
 /// can be the photograph rather than a placeholder standing in for one.
 struct QueuedImage: Identifiable, Equatable {
     let id = UUID()
-    let crop: ImageCrop
+    let crop: UIImage
     let slot: Int
     let preview: UIImage?
     static func == (a: QueuedImage, b: QueuedImage) -> Bool { a.id == b.id }
@@ -466,7 +466,7 @@ extension BLEManager {
     /// Take a picture for the machine. Choosing the next one never waits on the
     /// last: a queued picture is a real tile in the place it will occupy, and
     /// the "+" stays live the whole time.
-    func enqueueImage(_ crop: ImageCrop, preview: UIImage?) -> Int? {
+    func enqueueImage(_ crop: UIImage, preview: UIImage?) -> Int? {
         guard !demoMode, let slot = nextFreeSlot() else { return nil }
         let item = QueuedImage(crop: crop, slot: slot, preview: preview)
         DispatchQueue.main.async {
@@ -489,7 +489,7 @@ extension BLEManager {
         activeUpload = item
         imageUploadState = .preparing
 
-        // Resampling five renditions is real work; it does not belong on the
+        // Resampling every rendition is real work; it does not belong on the
         // main thread and it does not belong on the BLE queue either, which has
         // a transfer to run the moment this finishes.
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in

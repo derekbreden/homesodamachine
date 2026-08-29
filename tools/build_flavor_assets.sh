@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Regenerate every flavor placeholder asset from the designs in
 # tools/gen_flavor_placeholders.py: master PNGs, the firmware RGB565 seed
-# headers (S3 rotary 240×240 + RP2040 128×115 + S3 faucet 172×320 full-bleed),
-# and the iOS demo-mode bundle copies.
+# headers (S3 rotary 240×240 + RP2040 128×115 + the three 43:80 renditions the
+# faucet and the enclosure draw), and the iOS demo-mode bundle copies.
 #
 # Edit a design in tools/gen_flavor_placeholders.py, run this, commit.
 set -euo pipefail

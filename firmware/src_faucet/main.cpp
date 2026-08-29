@@ -549,10 +549,6 @@ void faucetApplyImage(bool active, uint8_t percent) {
 void faucetRebindLogos() {
   bindLogos();
   if (logoImg) applyFlavorUi();
-  // Writing a slot remaps the partition and changes what is in it, which is
-  // exactly and only when the enclosure's copy of it stops being what this
-  // board last said it was.
-  faucetForgetEnclosureCrc();
 }
 
 void faucetApplyOta(bool active, uint8_t percent) {

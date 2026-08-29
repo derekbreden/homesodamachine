@@ -21,7 +21,6 @@ extern "C" uint32_t home_soda_rgb_restart_count(void);
 // Static Font Awesome icons keep the customer rail and full-card actions crisp
 // without asking LVGL to transform text at runtime.
 extern "C" const lv_font_t front_icons_48;
-extern "C" const lv_font_t front_icons_96;
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -38,6 +37,10 @@ extern "C" const lv_font_t front_icons_96;
 // Every logo is carried at every size it is drawn at: the 240 a Choose card
 // shows, and the 86x160 the picker strip shows, baked rather than scaled under
 // LVGL at draw time.
+#include "images/flavor0_anchor.h"
+#include "images/flavor1_anchor.h"
+#include "images/flavor2_anchor.h"
+#include "images/flavor3_anchor.h"
 #include "images/flavor0_card.h"
 #include "images/flavor1_card.h"
 #include "images/flavor2_card.h"
@@ -46,26 +49,23 @@ extern "C" const lv_font_t front_icons_96;
 #include "images/flavor1_tile.h"
 #include "images/flavor2_tile.h"
 #include "images/flavor3_tile.h"
-#include "images/flavor0_mid.h"
-#include "images/flavor1_mid.h"
-#include "images/flavor2_mid.h"
-#include "images/flavor3_mid.h"
-#include "images/flavor0_head.h"
-#include "images/flavor1_head.h"
-#include "images/flavor2_head.h"
-#include "images/flavor3_head.h"
 
 #define NUM_ANIM_FRAMES  16
 #define ANIM_FRAME_MS    100   // ~10 fps, matches the config display
 #define LOGO_SIZE        360
-#define FLAVOR_ART_SIZE    240
-// The picker tile is the faucet's own shape at half scale — choosing a face
-// here is choosing what that glass will wear, and a square says nothing about
-// how a photograph sits in a tall one.
-#define FLAVOR_TILE_W       86
-#define FLAVOR_TILE_H      160
-#define FLAVOR_HEAD_SIZE    60
-#define FLAVOR_MID_SIZE    120
+// ── A logo is one shape, at three scales ──
+// EVERY FACE ON THIS PANEL IS THE FAUCET'S GLASS. A picture reaches the machine
+// as one tall rectangle, and a square thumbnail cut from a different window
+// would answer a question nobody asked: what a photograph looks like somewhere
+// it will never be shown. So the anchor is the faucet's own rendition, the card
+// is it at three quarters and the tile at half — 43:80 all the way down, so
+// choosing on this glass is choosing for that one.
+#define FLAVOR_ANCHOR_W    (43 * 4)   // 172x320, and what the faucet wears
+#define FLAVOR_ANCHOR_H    (80 * 4)
+#define FLAVOR_CARD_W      (43 * 3)   // 129x240
+#define FLAVOR_CARD_H      (80 * 3)
+#define FLAVOR_TILE_W      (43 * 2)   //  86x160
+#define FLAVOR_TILE_H      (80 * 2)
 // Logos a channel can be given: FLAVOR_ART_FACTORY compiled in and permanent,
 // the rest the user's own out of this board's image store. proto_msg.h holds
 // the split, because the main board is what says which one a channel wears.
@@ -203,6 +203,7 @@ static uint32_t frameDoneTimeouts = 0;
 // ── Shell geometry ──
 // The rail fills the screen height between its 8 px top and bottom rims; the
 // pane takes the remaining 76% of the width.
+#define PANE_PAD         16
 #define RAIL_W          190
 #define RAIL_INSET_Y      8
 #define RAIL_ITEM_GAP     8
@@ -232,21 +233,37 @@ static uint32_t frameDoneTimeouts = 0;
 #define TEXT_H_40   44
 
 // Choose gives each card a settings target under it, and a badge that reports
-// the selection the card itself changes.
-// A chevron the width of its own glyph, in the title band ahead of the word.
-#define BACK_BTN       58
-#define BACK_GAP       14
+// the selection the card itself changes. The card's face is tall now, so the
+// column it no longer fills holds the badge and what that flavor pours at —
+// the one fact about a flavor that was otherwise a page away.
 #define HOME_GEAR_H    56
 #define HOME_GEAR_GAP  16
 #define HOME_BADGE_H   44
+#define HOME_CARD_PAD  12
 #define HOME_CARD_H    (PANE_H - PANE_BODY_Y - HOME_GEAR_H - HOME_GEAR_GAP)
+#define HOME_FACE_GAP  16
+
+// ── The anchor: which flavor a detail page is about ──
+// ONCE A FLAVOR IS CHOSEN THE PAGE IS ABOUT IT, AND SAYS SO IN THE PICTURE
+// RATHER THAN IN A WORD FOR IT. Every page reached by picking a channel puts
+// that channel's face at the pane's west edge, directly under the back button
+// and at the size the faucet itself will wear it: the choice slid left, and its
+// details opened to the east of it. One column, one width, four pages — so
+// moving between them moves only what changed.
+#define ANCHOR_GAP     16
+#define ANCHOR_Y       PANE_BODY_Y
+#define BACK_BTN       58                      // the back control's height
+#define BACK_W         FLAVOR_ANCHOR_W         // and its width: the column's
+#define DETAIL_X       (FLAVOR_ANCHOR_W + ANCHOR_GAP)
+#define DETAIL_W       (PANE_W - 2 * PANE_PAD - DETAIL_X)
+static_assert(FLAVOR_ANCHOR_H <= PANE_H - ANCHOR_Y, "the anchor must fit under the back button");
 
 // The flavor's own page: ratio, then every logo it could wear.
 #define RATIO_CARD_H  130
 // A tile is the picture plus the ring that says it is the chosen one. The strip
-// runs off the right of the pane and is dragged: eight faces at this size do
-// not fit across 610 px, and shrinking them until they do is how the tall shape
-// stops being readable at the moment it is meant to be read.
+// runs off the right of the column and is dragged: eight faces at this size do
+// not fit beside the anchor, and shrinking them until they do is how the tall
+// shape stops being readable at the moment it is meant to be read.
 #define TILE_PAD        5
 #define TILE_BTN_W    (FLAVOR_TILE_W + 2 * TILE_PAD)
 #define TILE_BTN_H    (FLAVOR_TILE_H + 2 * TILE_PAD)
@@ -256,16 +273,19 @@ static uint32_t frameDoneTimeouts = 0;
 // A ROW THAT RUNS OFF THE SCREEN HAS TO SAY SO IN SOMETHING THAT CAN BE PRESSED.
 // A strip that only answers to a drag is a strip whose far end does not exist
 // for anyone who has never been taught to try. So it is flanked by two targets
-// the size of the tiles themselves, with a track under it saying where in the
-// row you are — and all three appear only when there is somewhere to go, because
-// an affordance for a row that fits is furniture.
-#define TILE_ARROW_W    64
+// as tall as what they move, with a track under it saying where in the row you
+// are — and all three appear only when there is somewhere to go, because an
+// affordance for a row that fits is furniture.
+#define TILE_ARROW_W    48
 #define TILE_ARROW_GAP   8
-#define TILE_STRIP_W  (PANE_W - 2 * PANE_PAD - 2 * (TILE_ARROW_W + TILE_ARROW_GAP))
+#define TILE_STRIP_W  (DETAIL_W - 2 * (TILE_ARROW_W + TILE_ARROW_GAP))
+#define TILE_STRIP_X  (DETAIL_X + TILE_ARROW_W + TILE_ARROW_GAP)
 #define TILE_TRACK_H    10
 #define TILE_TRACK_Y  (TILE_STRIP_Y + TILE_BTN_H + 8)
-#define TILE_PAGE_PX  (3 * (TILE_BTN_W + TILE_GAP))   // one press of either arrow
-#define PANE_PAD  16
+// One press of either arrow. Two tiles, because the strip is two and a bit
+// wide: a step longer than the view skips a face past whoever is looking for it.
+#define TILE_PAGE_PX  (2 * (TILE_BTN_W + TILE_GAP))
+static_assert(TILE_PAGE_PX <= TILE_STRIP_W, "an arrow must not step past the view it moves");
 
 // ── Pages ──
 // Every page is built once and lives for the life of the firmware; switching hides one and
@@ -341,33 +361,40 @@ static unsigned long bootLockMaxUntil = 0;
 static uint8_t flavorImage[2] = {0, 1};
 static bool flavorArtAsked = false;
 
-static lv_img_dsc_t flavorArt[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorAnchor[FLAVOR_IMAGE_COUNT];
+static lv_img_dsc_t flavorCard[FLAVOR_IMAGE_COUNT];
 static lv_img_dsc_t flavorTile[FLAVOR_IMAGE_COUNT];
-static lv_img_dsc_t flavorHead[FLAVOR_IMAGE_COUNT];
-static lv_img_dsc_t flavorMid[FLAVOR_IMAGE_COUNT];
-static const uint16_t *flavorArtPixels[FLAVOR_FACTORY_COUNT] = {
+static const uint16_t *flavorAnchorPixels[FLAVOR_FACTORY_COUNT] = {
+    flavor0_anchor, flavor1_anchor, flavor2_anchor, flavor3_anchor,
+};
+static const uint16_t *flavorCardPixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_card, flavor1_card, flavor2_card, flavor3_card,
 };
 static const uint16_t *flavorTilePixels[FLAVOR_FACTORY_COUNT] = {
     flavor0_tile, flavor1_tile, flavor2_tile, flavor3_tile,
 };
-static const uint16_t *flavorHeadPixels[FLAVOR_FACTORY_COUNT] = {
-    flavor0_head, flavor1_head, flavor2_head, flavor3_head,
-};
-static const uint16_t *flavorMidPixels[FLAVOR_FACTORY_COUNT] = {
-    flavor0_mid, flavor1_mid, flavor2_mid, flavor3_mid,
-};
 
-// The four sizes this board draws a logo at, in the order a bundle carries
-// them. A custom picture arrives already resampled to every one of them, so
-// nothing here scales anything at draw time.
+// The three sizes this board draws a logo at, in the order the bundle carries
+// them — which is IMAGE_BUNDLE, whole: this board keeps every rendition the
+// faucet does. A custom picture arrives already resampled to every one of them,
+// so nothing here scales anything at draw time.
 static const ImageSize kLogoSizes[] = {
-    {FLAVOR_ART_SIZE,  FLAVOR_ART_SIZE,  0},
-    {FLAVOR_TILE_W,    FLAVOR_TILE_H,    0},
-    {FLAVOR_HEAD_SIZE, FLAVOR_HEAD_SIZE, 0},
-    {FLAVOR_MID_SIZE,  FLAVOR_MID_SIZE,  0},
+    {FLAVOR_ANCHOR_W, FLAVOR_ANCHOR_H, 0},
+    {FLAVOR_CARD_W,   FLAVOR_CARD_H,   0},
+    {FLAVOR_TILE_W,   FLAVOR_TILE_H,   0},
 };
-enum { LOGO_CARD = 0, LOGO_TILE = 1, LOGO_HEAD = 2, LOGO_MID = 3 };
+enum { LOGO_ANCHOR = 0, LOGO_CARD = 1, LOGO_TILE = 2 };
+
+// A picture arrives as one run of bytes and is cut up by this order. Draw order
+// and wire order are the same list, so a mismatch is a build error rather than a
+// card wearing the bytes of a tile.
+static_assert(IMAGE_BUNDLE_COUNT == 3, "this board draws every rendition the bundle carries");
+static_assert(IMAGE_BUNDLE[LOGO_ANCHOR].w == FLAVOR_ANCHOR_W &&
+              IMAGE_BUNDLE[LOGO_ANCHOR].h == FLAVOR_ANCHOR_H, "anchor");
+static_assert(IMAGE_BUNDLE[LOGO_CARD].w == FLAVOR_CARD_W &&
+              IMAGE_BUNDLE[LOGO_CARD].h == FLAVOR_CARD_H, "card");
+static_assert(IMAGE_BUNDLE[LOGO_TILE].w == FLAVOR_TILE_W &&
+              IMAGE_BUNDLE[LOGO_TILE].h == FLAVOR_TILE_H, "tile");
 
 // Which logo an index resolves to. A custom index whose slot is empty falls
 // back to the factory logo of the same channel: a picture can be removed from
@@ -376,7 +403,7 @@ enum { LOGO_CARD = 0, LOGO_TILE = 1, LOGO_HEAD = 2, LOGO_MID = 3 };
 static uint8_t resolveFlavorArt(uint8_t art, uint8_t channel) {
   if (art < FLAVOR_FACTORY_COUNT) return art;
   const uint8_t slot = flavorArtCustomSlot(art);
-  if (slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_CARD)) return art;
+  if (slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_ANCHOR)) return art;
   return (uint8_t)(channel & 1);
 }
 
@@ -385,7 +412,7 @@ static uint8_t resolveFlavorArt(uint8_t art, uint8_t channel) {
 static bool flavorArtAvailable(uint8_t art) {
   if (art < FLAVOR_FACTORY_COUNT) return true;
   const uint8_t slot = flavorArtCustomSlot(art);
-  return slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_CARD) != nullptr;
+  return slot < FLAVOR_ART_CUSTOM && imageStorePixels(slot, LOGO_ANCHOR) != nullptr;
 }
 
 // Every descriptor, at every size. Factory entries point at .rodata; custom
@@ -401,10 +428,9 @@ static void bindFlavorLogos() {
     uint8_t          rendition;
   };
   const Bound bound[] = {
-      {flavorArt,  flavorArtPixels,  FLAVOR_ART_SIZE,  FLAVOR_ART_SIZE,  LOGO_CARD},
-      {flavorTile, flavorTilePixels, FLAVOR_TILE_W,    FLAVOR_TILE_H,    LOGO_TILE},
-      {flavorHead, flavorHeadPixels, FLAVOR_HEAD_SIZE, FLAVOR_HEAD_SIZE, LOGO_HEAD},
-      {flavorMid,  flavorMidPixels,  FLAVOR_MID_SIZE,  FLAVOR_MID_SIZE,  LOGO_MID},
+      {flavorAnchor, flavorAnchorPixels, FLAVOR_ANCHOR_W, FLAVOR_ANCHOR_H, LOGO_ANCHOR},
+      {flavorCard,   flavorCardPixels,   FLAVOR_CARD_W,   FLAVOR_CARD_H,   LOGO_CARD},
+      {flavorTile,   flavorTilePixels,   FLAVOR_TILE_W,   FLAVOR_TILE_H,   LOGO_TILE},
   };
 
   for (const Bound &b : bound) {
@@ -438,6 +464,7 @@ static lv_obj_t *flvTileStrip = NULL;
 static lv_obj_t *flvTileLeft = NULL, *flvTileRight = NULL;
 static lv_obj_t *flvTileTrack = NULL, *flvTileThumb = NULL;
 static lv_obj_t *homeFlavorCard[2];
+static lv_obj_t *homeFlavorRatio[2];
 static lv_obj_t *homeFlavorBadge[2];
 static lv_obj_t *homeFlavorBadgeText[2];
 
@@ -1933,22 +1960,17 @@ static void mkRailIcon(lv_obj_t *parent, RailPage page) {
   }
 }
 
-// A step back out of a chosen channel, into the picker it was chosen from.
-static lv_obj_t *mkChevronBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
-  lv_obj_t *b = mkBtn(parent, BACK_BTN, BACK_BTN, COL_CARD);
-  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - BACK_BTN) / 2);
-  lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
-  lv_obj_center(mkText(b, LV_SYMBOL_LEFT, &lv_font_montserrat_28, COL_TEXT));
-  return b;
-}
-
+// A step back out of a chosen channel, into the page it was chosen from. It is
+// the anchor's width, and the anchor is directly under it: the two are the one
+// column that says which flavor this page is about and how to leave it.
 static lv_obj_t *mkBack(lv_obj_t *parent, lv_event_cb_t cb, void *user) {
-  lv_obj_t *b = mkBtn(parent, 150, 58, COL_CARD);
-  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - 58) / 2);
+  lv_obj_t *b = mkBtn(parent, BACK_W, BACK_BTN, COL_CARD);
+  lv_obj_align(b, LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - BACK_BTN) / 2);
   lv_obj_add_event_cb(b, cb, ACT_EVENT, user);
   lv_obj_center(mkText(b, LV_SYMBOL_LEFT "  BACK", &lv_font_montserrat_20, COL_TEXT));
   return b;
 }
+
 
 // A full-bleed layer inside a page. One of a page's views is visible at a time.
 static lv_obj_t *mkView(lv_obj_t *parent) {
@@ -2011,9 +2033,24 @@ static lv_obj_t *mkSelectedImg(lv_obj_t *parent, const lv_img_dsc_t *set) {
   return o;
 }
 
+// The face of the flavor a detail page is acting on, under that back button and
+// as wide as it. Nothing else on these pages reaches this far west.
+static lv_obj_t *mkAnchor(lv_obj_t *parent) {
+  lv_obj_t *o = mkSelectedImg(parent, flavorAnchor);
+  lv_obj_align(o, LV_ALIGN_TOP_LEFT, 0, ANCHOR_Y);
+  return o;
+}
+
+// A detail page's title, east of the column, on the same line as the back
+// button it is the destination of.
+static void mkDetailTitle(lv_obj_t *parent, const char *word) {
+  lv_obj_align(mkText(parent, word, &lv_font_montserrat_28, COL_DIM),
+               LV_ALIGN_TOP_LEFT, DETAIL_X, (PANE_HEAD_H - TEXT_H_28) / 2);
+}
+
 static void refreshFlavorImages() {
   for (uint8_t i = 0; i < 2; i++) {
-    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], &flavorArt[flavorImage[i]]);
+    if (homeFlavorArtObj[i]) lv_img_set_src(homeFlavorArtObj[i], &flavorCard[flavorImage[i]]);
   }
   for (uint8_t i = 0; i < chanImgCount; i++) {
     lv_img_set_src(chanImg[i], &chanImgSet[i][flavorImage[chanImgCh[i]]]);
@@ -2041,7 +2078,7 @@ static void refreshFlavorImages() {
   // that runs off the screen. Add a fifth and they start from the left and the
   // strip begins to scroll, which is the same rule either way.
   const lv_coord_t rowW = shown ? (lv_coord_t)(shown * TILE_BTN_W + (shown - 1) * TILE_GAP) : 0;
-  const lv_coord_t room = PANE_W - 2 * PANE_PAD;
+  const lv_coord_t room = TILE_STRIP_W;
   const lv_coord_t x0 = rowW < room ? (lv_coord_t)((room - rowW) / 2) : 0;
   uint8_t at = 0;
   for (int i = 0; i < FLAVOR_IMAGE_COUNT; i++) {
@@ -2053,10 +2090,12 @@ static void refreshFlavorImages() {
 }
 
 static void refreshFlavorText() {
-  char a[16], b[16];
-  snprintf(a, sizeof(a), "1:%u", flavorRatio[0]);
-  snprintf(b, sizeof(b), "1:%u", flavorRatio[1]);
-  if (flvDetailRatio) lv_label_set_text(flvDetailRatio, flavorSel ? b : a);
+  char r[2][16];
+  for (uint8_t i = 0; i < 2; i++) {
+    snprintf(r[i], sizeof(r[i]), "1:%u", flavorRatio[i]);
+    if (homeFlavorRatio[i]) lv_label_set_text(homeFlavorRatio[i], r[i]);
+  }
+  if (flvDetailRatio) lv_label_set_text(flvDetailRatio, r[flavorSel & 1]);
 }
 
 static void refreshHomeSelection() {
@@ -3063,8 +3102,15 @@ static lv_obj_t *buildPane(lv_obj_t *scr) {
 // The appliance's default interaction: two clear, whole-card choices. The
 // flavor marks make the cards recognizable at a glance; their static image
 // objects do not redraw during routine main board heartbeats.
+//
+// THE FACE IS A GLASS, SO IT IS TALLER THAN IT IS WIDE, and the card no longer
+// closes around it. What that frees is a column beside it, and the column gets
+// the two things a card ought to answer without being opened: whether this is
+// the flavor the machine is on, and what it pours at.
 static void buildHome(lv_obj_t *page) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
+  const lv_coord_t inner = cw - 2 * HOME_CARD_PAD;
+  const lv_coord_t colX = FLAVOR_CARD_W + HOME_FACE_GAP;
   lv_obj_align(mkText(page, "CHOOSE A FLAVOR", &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
 
@@ -3073,7 +3119,7 @@ static void buildHome(lv_obj_t *page) {
   for (uint8_t i = 0; i < 2; ++i) {
     lv_obj_t *card = mkBtn(page, cw, HOME_CARD_H, COL_CARD);
     lv_obj_align(card, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
-    lv_obj_set_style_pad_all(card, 12, 0);
+    lv_obj_set_style_pad_all(card, HOME_CARD_PAD, 0);
     lv_obj_add_event_cb(card, homeFlavorPickCb, ACT_EVENT, (void *)(intptr_t)i);
 
     lv_obj_t *gear = mkBtn(page, cw, HOME_GEAR_H, COL_CARD);
@@ -3083,17 +3129,25 @@ static void buildHome(lv_obj_t *page) {
                          &lv_font_montserrat_20, COL_DIM));
 
     lv_obj_t *art = lv_img_create(card);
-    lv_img_set_src(art, &flavorArt[flavorImage[i]]);
-    lv_obj_center(art);
+    lv_img_set_src(art, &flavorCard[flavorImage[i]]);
+    lv_obj_align(art, LV_ALIGN_LEFT_MID, 0, 0);
     lv_obj_clear_flag(art, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_CLICKABLE);
     homeFlavorArtObj[i] = art;
 
+    // What this flavor pours at, in the column the tall face leaves. It is the
+    // number the gear under the card exists to change, so showing it here is
+    // what makes that target legible without opening it.
+    lv_obj_t *ratioCap = mkText(card, "RATIO", &lv_font_montserrat_20, COL_DIM);
+    lv_obj_align(ratioCap, LV_ALIGN_LEFT_MID, colX, -26);
+    homeFlavorRatio[i] = mkText(card, "1:20", &lv_font_montserrat_40, COL_TEXT);
+    lv_obj_align(homeFlavorRatio[i], LV_ALIGN_LEFT_MID, colX, 14);
+
     lv_obj_t *badge = lv_obj_create(card);
     // The card's own accent outline already carries the selection; this only
-    // has to name it. Riding the artwork's corner keeps it out of the column,
-    // which is what leaves the settings target under the card its full height.
+    // has to name it. It sits at the head of the column beside the face, where
+    // it covers nothing and the settings target under the card keeps its height.
     lv_obj_set_size(badge, HOME_BADGE_H, HOME_BADGE_H);
-    lv_obj_align_to(badge, art, LV_ALIGN_TOP_RIGHT, -8, 8);
+    lv_obj_align(badge, LV_ALIGN_TOP_LEFT, colX + (inner - colX - HOME_BADGE_H) / 2, 0);
     lv_obj_set_style_border_width(badge, 0, 0);
     lv_obj_set_style_radius(badge, HOME_BADGE_H / 2, 0);
     lv_obj_set_style_pad_all(badge, 0, 0);
@@ -3113,11 +3167,10 @@ static void buildHome(lv_obj_t *page) {
 static void buildFlavor(lv_obj_t *page) {
   lv_obj_t *det = mkView(page);
   mkBack(det, flavorBackCb, NULL);
-  lv_obj_align(mkSelectedImg(det, flavorHead), LV_ALIGN_TOP_MID, 0,
-               (PANE_HEAD_H - FLAVOR_HEAD_SIZE) / 2);
+  mkAnchor(det);
 
-  lv_obj_t *row = mkCard(det, PANE_W - 2 * PANE_PAD, RATIO_CARD_H);
-  lv_obj_align(row, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
+  lv_obj_t *row = mkCard(det, DETAIL_W, RATIO_CARD_H);
+  lv_obj_align(row, LV_ALIGN_TOP_LEFT, DETAIL_X, PANE_BODY_Y);
   lv_obj_align(mkText(row, "RATIO", &lv_font_montserrat_20, COL_DIM), LV_ALIGN_TOP_LEFT, 0, 0);
   lv_obj_t *minus = mkBtn(row, 84, 72, COL_CARD_ON);
   lv_obj_align(minus, LV_ALIGN_BOTTOM_LEFT, 0, 0);
@@ -3131,14 +3184,14 @@ static void buildFlavor(lv_obj_t *page) {
   lv_obj_align(flvDetailRatio, LV_ALIGN_BOTTOM_MID, 0, -12);
 
   lv_obj_align(mkText(det, "IMAGE", &lv_font_montserrat_20, COL_DIM),
-               LV_ALIGN_TOP_LEFT, 0, IMAGE_LABEL_Y);
+               LV_ALIGN_TOP_LEFT, DETAIL_X, IMAGE_LABEL_Y);
 
   // One row of faces, dragged sideways or paged with the arrows either side.
   // Positions are set here rather than by a layout, the way every other surface
   // on this panel is.
   lv_obj_t *strip = lv_obj_create(det);
   lv_obj_set_size(strip, TILE_STRIP_W, TILE_BTN_H);
-  lv_obj_align(strip, LV_ALIGN_TOP_MID, 0, TILE_STRIP_Y);
+  lv_obj_align(strip, LV_ALIGN_TOP_LEFT, TILE_STRIP_X, TILE_STRIP_Y);
   lv_obj_set_style_bg_opa(strip, LV_OPA_TRANSP, 0);
   lv_obj_set_style_border_width(strip, 0, 0);
   lv_obj_set_style_pad_all(strip, 0, 0);
@@ -3165,7 +3218,7 @@ static void buildFlavor(lv_obj_t *page) {
   // The two ends, as tall as what they move. An arrow the size of a scrollbar
   // is a scrollbar with a shape.
   flvTileLeft = mkBtn(det, TILE_ARROW_W, TILE_BTN_H, COL_CARD_ON);
-  lv_obj_align(flvTileLeft, LV_ALIGN_TOP_LEFT, 0, TILE_STRIP_Y);
+  lv_obj_align(flvTileLeft, LV_ALIGN_TOP_LEFT, DETAIL_X, TILE_STRIP_Y);
   lv_obj_add_event_cb(flvTileLeft, tileStripPageCb, ACT_EVENT, (void *)(intptr_t)-1);
   lv_obj_center(mkText(flvTileLeft, LV_SYMBOL_LEFT, &lv_font_montserrat_40, COL_TEXT));
 
@@ -3176,7 +3229,7 @@ static void buildFlavor(lv_obj_t *page) {
 
   flvTileTrack = lv_obj_create(det);
   lv_obj_set_size(flvTileTrack, TILE_STRIP_W, TILE_TRACK_H);
-  lv_obj_align(flvTileTrack, LV_ALIGN_TOP_MID, 0, TILE_TRACK_Y);
+  lv_obj_align(flvTileTrack, LV_ALIGN_TOP_LEFT, TILE_STRIP_X, TILE_TRACK_Y);
   lv_obj_set_style_bg_color(flvTileTrack, lv_color_hex(COL_CARD), 0);
   lv_obj_set_style_border_width(flvTileTrack, 0, 0);
   lv_obj_set_style_radius(flvTileTrack, TILE_TRACK_H / 2, 0);
@@ -3195,77 +3248,99 @@ static void buildFlavor(lv_obj_t *page) {
 
 // Two flavor targets, side by side, under a title: the mark for what this
 // screen does, over the logo of the channel it would do it to.
+//
+// THE FACE IS THE TARGET AND THE MARK IS THE CAPTION, which is the other way
+// round from what the height used to allow. A card is a whole column tall, so
+// the face takes the room a square one left empty and the mark shrinks to the
+// size it is doing a mark's work at — the page's title already says which of
+// the three services this is, and the rail is lit under the same word.
+#define PICK_ICON_H  48
+#define PICK_ICON_GAP 16
 static void buildFlavorPicker(lv_obj_t *view, const char *title,
                               const char *icon, const lv_font_t *iconFont,
                               lv_event_cb_t cb) {
   const lv_coord_t cw = (PANE_W - 2 * PANE_PAD - 16) / 2;
   const lv_coord_t ch = PANE_H - PANE_BODY_Y;
-  const lv_coord_t top = (ch - (96 + 20 + FLAVOR_MID_SIZE)) / 2;
+  const lv_coord_t top = (ch - (PICK_ICON_H + PICK_ICON_GAP + FLAVOR_CARD_H)) / 2;
+  static_assert(PICK_ICON_H + PICK_ICON_GAP + FLAVOR_CARD_H <= PANE_H - PANE_BODY_Y,
+                "a pick card must hold its mark over a whole face");
   lv_obj_align(mkText(view, title, &lv_font_montserrat_28, COL_DIM),
                LV_ALIGN_TOP_LEFT, 0, (PANE_HEAD_H - TEXT_H_28) / 2);
   for (int i = 0; i < 2; i++) {
     lv_obj_t *b = mkBtn(view, cw, ch, COL_CARD);
     lv_obj_align(b, LV_ALIGN_TOP_LEFT, i * (cw + 16), PANE_BODY_Y);
+    lv_obj_set_style_pad_all(b, 0, 0);
     lv_obj_add_event_cb(b, cb, ACT_EVENT, (void *)(intptr_t)i);
     lv_obj_align(mkText(b, icon, iconFont, COL_ACCENT), LV_ALIGN_TOP_MID, 0, top);
-    lv_obj_align(mkChannelImg(b, (uint8_t)i, flavorMid),
-                 LV_ALIGN_TOP_MID, 0, top + 96 + 20);
+    lv_obj_align(mkChannelImg(b, (uint8_t)i, flavorCard),
+                 LV_ALIGN_TOP_MID, 0, top + PICK_ICON_H + PICK_ICON_GAP);
   }
+}
+
+// ── A detail page's east column ──
+// The anchor holds the west. What is left is one column three lines of prose
+// and one target wide, and every service detail lays out the same way in it, so
+// moving between them moves only the words and the picture.
+#define DETAIL_BODY_LINES  3
+#define DETAIL_BODY_Y      PANE_BODY_Y
+#define DETAIL_ACT_Y       (DETAIL_BODY_Y + DETAIL_BODY_LINES * TEXT_H_20 + 28)
+#define DETAIL_ACT_ROOM    (ANCHOR_Y + FLAVOR_ANCHOR_H - DETAIL_ACT_Y)
+#define CONFIRM_ACT_H      120
+
+// A line of prose in that column, wrapped to it and centred over it.
+static lv_obj_t *mkDetailBody(lv_obj_t *parent, const char *body) {
+  lv_obj_t *b = mkText(parent, body, &lv_font_montserrat_20, COL_DIM);
+  lv_obj_set_width(b, DETAIL_W);
+  lv_obj_set_style_text_align(b, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(b, LV_ALIGN_TOP_LEFT, DETAIL_X, DETAIL_BODY_Y);
+  return b;
 }
 
 // The channel, what is about to happen to it, and one wide target to say go.
 static lv_obj_t *buildConfirm(lv_obj_t *page, const char *word, const char *body,
                               const char *action, lv_event_cb_t cb,
                               ServiceView back, lv_obj_t **msgOut) {
-  const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
   lv_obj_t *v = mkView(page);
-  mkChevronBack(v, svcBackCb, (void *)(intptr_t)back);
-  lv_obj_align(mkText(v, word, &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, BACK_BTN + BACK_GAP, (PANE_HEAD_H - TEXT_H_28) / 2);
+  mkBack(v, svcBackCb, (void *)(intptr_t)back);
+  mkDetailTitle(v, word);
+  mkAnchor(v);
+  mkDetailBody(v, body);
 
-  lv_obj_align(mkSelectedImg(v, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
-
-  lv_obj_t *b = mkText(v, body, &lv_font_montserrat_20, COL_DIM);
-  lv_obj_set_style_text_align(b, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(b, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + FLAVOR_MID_SIZE + 16);
-
-  lv_obj_t *go = mkBtn(v, fw, 96, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_TOP_MID, 0,
-               PANE_BODY_Y + FLAVOR_MID_SIZE + 16 + 2 * TEXT_H_20 + 32);
+  // Centred in what the column has left, rather than pushed to the top of it:
+  // a target this size wants air around it, and committing is not the thing to
+  // put under a wandering thumb.
+  lv_obj_t *go = mkBtn(v, DETAIL_W, CONFIRM_ACT_H, COL_ACCENT);
+  lv_obj_align(go, LV_ALIGN_TOP_LEFT, DETAIL_X,
+               DETAIL_ACT_Y + (DETAIL_ACT_ROOM - CONFIRM_ACT_H) / 2);
   lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);   // slide off to change your mind
   lv_obj_add_event_cb(go, cb, LV_EVENT_CLICKED, NULL);
   lv_obj_center(mkText(go, action, &lv_font_montserrat_28, COL_TEXT));
 
   *msgOut = mkText(v, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(*msgOut, LV_ALIGN_BOTTOM_MID, 0, 0);
+  lv_obj_set_width(*msgOut, DETAIL_W);
+  lv_obj_set_style_text_align(*msgOut, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(*msgOut, LV_ALIGN_BOTTOM_LEFT, DETAIL_X, 0);
   return v;
 }
 
 static void buildService(lv_obj_t *page) {
-  const lv_coord_t fw = PANE_W - 2 * PANE_PAD;
-
   lv_obj_t *pick = mkView(page);
-  buildFlavorPicker(pick, "PRIME A FLAVOR", "\xEF\x81\x83", &front_icons_96,
+  buildFlavorPicker(pick, "PRIME A FLAVOR", "\xEF\x81\x83", &front_icons_48,
                     primePickCb);
   svcView[SVC_PRIME_PICK] = pick;
 
-  // The hold pad. It fills the pane because it is meant to be found without looking.
+  // The hold pad. It fills the column to the foot of the anchor because it is
+  // meant to be found without looking.
   lv_obj_t *hold = mkView(page);
-  mkChevronBack(hold, svcBackCb, (void *)(intptr_t)SVC_PRIME_PICK);
-  lv_obj_align(mkText(hold, "PRIME", &lv_font_montserrat_28, COL_DIM),
-               LV_ALIGN_TOP_LEFT, BACK_BTN + BACK_GAP, (PANE_HEAD_H - TEXT_H_28) / 2);
+  mkBack(hold, svcBackCb, (void *)(intptr_t)SVC_PRIME_PICK);
+  mkDetailTitle(hold, "PRIME");
+  mkAnchor(hold);
+  mkDetailBody(hold, "Hold the pad while the pump\n"
+                     "pushes concentrate out to\n"
+                     "the gooseneck.");
 
-  lv_obj_align(mkSelectedImg(hold, flavorMid), LV_ALIGN_TOP_MID, 0, PANE_BODY_Y);
-
-  lv_obj_t *ph = mkText(hold, "Hold the pad while the pump pushes\n"
-                              "concentrate out to the gooseneck.",
-                        &lv_font_montserrat_20, COL_DIM);
-  lv_obj_set_style_text_align(ph, LV_TEXT_ALIGN_CENTER, 0);
-  lv_obj_align(ph, LV_ALIGN_TOP_MID, 0, PANE_BODY_Y + FLAVOR_MID_SIZE + 16);
-
-  primePad = mkBtn(hold, fw, 96, COL_ACCENT);
-  lv_obj_align(primePad, LV_ALIGN_TOP_MID, 0,
-               PANE_BODY_Y + FLAVOR_MID_SIZE + 16 + 2 * TEXT_H_20 + 32);
+  primePad = mkBtn(hold, DETAIL_W, DETAIL_ACT_ROOM, COL_ACCENT);
+  lv_obj_align(primePad, LV_ALIGN_TOP_LEFT, DETAIL_X, DETAIL_ACT_Y);
   // A slide out of the hold target is a lost press and must stop the pump just
   // like a lift; ordinary navigation buttons keep PRESS_LOCK.
   lv_obj_clear_flag(primePad, LV_OBJ_FLAG_PRESS_LOCK);
@@ -3274,27 +3349,31 @@ static void buildService(lv_obj_t *page) {
   lv_obj_center(primePadLbl);
 
   primeMsg = mkText(hold, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_align(primeMsg, LV_ALIGN_BOTTOM_MID, 0, 0);
+  lv_obj_set_width(primeMsg, DETAIL_W);
+  lv_obj_set_style_text_align(primeMsg, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_align(primeMsg, LV_ALIGN_BOTTOM_LEFT, DETAIL_X, 0);
   svcView[SVC_PRIME_HOLD] = hold;
 
   lv_obj_t *cpick = mkView(page);
-  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_icons_96,
+  buildFlavorPicker(cpick, "CLEAN A FLAVOR", "\xEE\x81\xAD", &front_icons_48,
                     cleanPickCb);
   svcView[SVC_CLEAN_PICK] = cpick;
 
   svcView[SVC_CLEAN_CONFIRM] = buildConfirm(
-      page, "CLEAN", "Three rounds: fill the line with water,\n"
-                     "then pump it through to the gooseneck.",
+      page, "CLEAN", "Three rounds: fill the line\n"
+                     "with water, then pump it\n"
+                     "through to the gooseneck.",
       "START CLEAN CYCLE", cleanStartCb, SVC_CLEAN_PICK, &cleanMsg);
 
   lv_obj_t *fpick = mkView(page);
-  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_96,
+  buildFlavorPicker(fpick, "FILL A FLAVOR", "\xEF\x82\xB0", &front_icons_48,
                     fillPickCb);
   svcView[SVC_FILL_PICK] = fpick;
 
   svcView[SVC_FILL_CONFIRM] = buildConfirm(
-      page, "FILL", "Pour concentrate into the funnel on top,\n"
-                    "then this draws it down to the reservoir.",
+      page, "FILL", "Pour concentrate into the funnel\n"
+                    "on top, then this draws it down\n"
+                    "to the reservoir.",
       "START FILL", fillStartCb, SVC_FILL_PICK, &fillMsg);
 }
 
