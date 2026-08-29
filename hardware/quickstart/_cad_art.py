@@ -50,6 +50,7 @@ MOUNT_CAM = (1.0, -1.45, -0.38)
 MOUNT_TARGET = (0.0, 0.0, 110.0)
 MOUNT_FRAME_SHAVE = 18
 MOUNT_FRAME_TRIM_TOP = 200
+MOUNT_DROP_TRIM_TOP = 120
 MOUNT_FRAME_TRIM_BOTTOM = 40
 UNDER_MOUNT_CAM = (0.58, -1.60, -0.72)
 # Centred on the stack the two frames are about, not on the slab that surrounds it.
@@ -62,15 +63,14 @@ PLATE_APPROACH_X = -72.0
 UNDER_COUNTERTOP_X = 220.0
 UNDER_COUNTERTOP_Y = 72.0
 
-# Both rear-connection pictures are one literal scene viewed from one fixed camera.  The
-# appliance's +Y rear axis projects diagonally in this camera, so the disconnected state exposes
-# real air between each free end and its matching port instead of hiding that distance in a
-# straight-on view.
-CONNECT_CAM = (0.58, 1.0, 0.45)
-CONNECT_TARGET = (-6.0, 555.0, 370.0)
-CONNECT_ORTHO_SPAN = 175.0
+# Both rear-connection pictures are one literal scene viewed from one fixed camera.  The shallow
+# elevation makes the enclosure's top face a thin locator rather than a competing surface.  Its
+# modest side angle still projects the much larger physical open gap clear of the rear silhouette.
+CONNECT_CAM = (0.40, 1.0, 0.20)
+CONNECT_TARGET = (-6.0, 580.0, 370.0)
+CONNECT_ORTHO_SPAN = 180.0
 CONNECT_RENDER_SIZE = "1600x1800"
-CONNECT_OPEN_GAP = 82.0
+CONNECT_OPEN_GAP = 160.0
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
@@ -201,17 +201,10 @@ def _build_steps(work: Path) -> dict[str, Path]:
     # lever is outside that crop; every pictured tube, sleeve and word collar comes from source CAD.
     faucet_full_step = _export_colored(faucet, work / "faucet-full.step")
 
-    # The lowering event needs one cutaway view that keeps the recognizable faucet, countertop,
-    # shank and tails together. The two securing frames below deliberately use the intact source
-    # countertop from the installer’s below-counter viewpoint instead.
-    section_cutter = (
-        cq.Workplane("XY")
-        .workplane(offset=-130.0)
-        .box(180.0, 180.0, 260.0, centered=(True, True, False))
-        .translate((0.0, fa.countertop_hole_center_y - 90.0, 0.0))
-    )
-    countertop_section = parts["countertop"].obj.cut(section_cutter)
-    under_countertop = (
+    # One literal countertop window appears in every mount state. The upper and lower cameras are
+    # intentionally different, but the 220 x 72 mm footprint, opening and thickness are identical
+    # so the securing frames read as the underside of the lowering frames above them.
+    countertop_window = (
         cq.Workplane("XY")
         .workplane(offset=fa.countertop_bottom_z)
         .box(
@@ -440,11 +433,11 @@ def _build_steps(work: Path) -> dict[str, Path]:
         out.add(nut, name="retained-donor-nut", color=nut_steel)
 
     def add_countertop_section(out: cq.Assembly):
-        _add_child(out, parts["countertop"], obj=countertop_section)
+        out.add(countertop_window, name="countertop-window", color=countertop_stone)
 
     def add_under_countertop(out: cq.Assembly):
         """Show the long slide runway and the narrow cross-slide working clearance."""
-        out.add(under_countertop, name="under-countertop", color=countertop_stone)
+        out.add(countertop_window, name="under-countertop-window", color=countertop_stone)
 
     def add_under_mount_product(out: cq.Assembly, *, washer_top_z: float):
         """Show only the real shank, three attached tubes and captive donor pair below the slab."""
@@ -591,8 +584,8 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     """Build the two rear connection states as literal, fixed-camera CAD scenes.
 
     The appliance exterior and every connection station come from the current enclosure STEP and
-    its generated facts.  The three tube collars are the production two-body STEP parts, including
-    their recessed lettering.  Only the field-cut tube lengths, the flat SIG-6 ribbon, and its
+    its generated facts.  All five tube collars are production solids, including their recessed
+    lettering.  Only the field-cut tube lengths, the flat SIG-6 ribbon, and its
     modular plug are constructed here because those flexible customer-routed bodies have no single
     installed pose in the product assembly.
     """
@@ -605,7 +598,9 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
 
     # The exact closed rear half, rather than the appliance's hidden internals.  These are the
     # source assembly nodes a customer can see from the rear: the printed shell, ceiling/funnel,
-    # every through-wall fitting and jack, the factory-fitted TAP/CO2 stubs, and the nameplate.
+    # every through-wall fitting and jack, and the nameplate. TAP and CO2 customer leads are
+    # deliberately withheld here and added to the movable field-lead assembly below, so the open
+    # state cannot accidentally leave either one seated.
     exact_names = {
         "c14-inlet",
         "keystone-jack",
@@ -621,12 +616,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "enclosure-back-top",
         "enclosure-ceiling-panel",
     }
-    exact_prefixes = (
-        "bulkhead-ring-",
-        "tube-customer-",
-        "tube-collar-water",
-        "tube-collar-co2",
-    )
+    exact_prefixes = ("bulkhead-ring-",)
     rear_children = [
         child
         for child in machine.children
@@ -634,6 +624,8 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     ]
 
     tube_blue = cq.Color(0.035, 0.31, 0.82, 1.0)
+    tube_red = cq.Color(0.67, 0.042, 0.042, 1.0)
+    tube_white = cq.Color(0.82, 0.84, 0.87, 1.0)
     # Both flavour tails are black stock.  A small lighting difference keeps the two round bodies
     # countable where they cross the same dark rear wall without turning either one grey.
     tube_black_a = cq.Color(0.025, 0.027, 0.031, 1.0)
@@ -652,7 +644,9 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         tangent = cq.Vector(0.0, 1.0, 0.0)
         path = cq.Edge.makeSpline(vectors, tangents=(tangent, tangent), scale=False)
         profile = cq.Wire.makeCircle(radius, vectors[0], tangent)
-        return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=True)
+        # A parallel-transported profile stays continuous through the long, shallow bends used by
+        # these hoses. A Frenet frame can flip at a spline inflection and leave a visible split.
+        return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=False)
 
     def ribbon_sweep(points, width: float, thickness: float):
         vectors = [cq.Vector(*point) for point in points]
@@ -678,13 +672,22 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         return body, words
 
     card_ports = facts["card_ports"]
+    co2_bounds = facts["bodies"]["tube-customer-co2"]
     stations = {
+        "tap": tuple(card_ports["bulkhead-water"]["outboard"]["pos"]),
         "carb": tuple(card_ports["bulkhead-carb"]["tube-out"]["pos"]),
+        "co2": (
+            (co2_bounds[0] + co2_bounds[3]) / 2.0,
+            co2_bounds[1],
+            (co2_bounds[2] + co2_bounds[5]) / 2.0,
+        ),
         "flavor-a": tuple(card_ports["bulkhead-flavor-a"]["tube-out"]["pos"]),
         "flavor-b": tuple(card_ports["bulkhead-flavor-b"]["tube-out"]["pos"]),
     }
     tube_colors = {
+        "tap": tube_white,
         "carb": tube_blue,
+        "co2": tube_red,
         "flavor-a": tube_black_a,
         "flavor-b": tube_black_b,
     }
@@ -694,32 +697,40 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
         "flavor-b": collar_black_b,
     }
     # The bare tails stay straight through their collars, then flex into the compact end of the
-    # common umbilical.  These target points preserve three distinct solids all the way out of the
+    # common umbilical.  These target points preserve five distinct solids all the way out of the
     # picture instead of collapsing the tails into one illustrative stroke.
     pack_stations = {
+        "tap": (-60.0, 322.0),
+        "co2": (-40.0, 322.0),
         "carb": (-50.0, 312.0),
-        "flavor-a": (-45.0, 302.0),
-        "flavor-b": (-55.0, 302.0),
+        "flavor-a": (-40.0, 302.0),
+        "flavor-b": (-60.0, 302.0),
     }
 
-    umbilical = cq.Assembly(name="faucet-umbilical-wall-end")
-    tube_start_y = 467.0
+    umbilical = cq.Assembly(name="customer-field-leads-wall-end")
+    # The exact TAP and CO2 collars travel with their customer tubes. Their short source stubs are
+    # replaced with the same useful field length and routed tail treatment as the faucet leads.
+    customer_collar_names = {
+        "tube-collar-water",
+        "tube-collar-water-word",
+        "tube-collar-co2",
+        "tube-collar-co2-word",
+    }
+    for child in machine.children:
+        if child.name in customer_collar_names:
+            umbilical.add(child)
+
     straight_end_y = 560.0
     pack_y = 626.0
     tail_y = 660.0
     collar_y = 524.0
     tube_radius = 6.35 / 2.0
-    for which in ("carb", "flavor-a", "flavor-b"):
-        x, _mouth_y, z = stations[which]
+    for which in ("tap", "co2", "carb", "flavor-a", "flavor-b"):
+        x, tube_start_y, z = stations[which]
         pack_x, pack_z = pack_stations[which]
-        straight = cq.Solid.makeCylinder(
-            tube_radius,
-            straight_end_y - tube_start_y + 0.5,
-            cq.Vector(x, tube_start_y, z),
-            cq.Vector(0.0, 1.0, 0.0),
-        )
-        curve = round_sweep(
+        tube = round_sweep(
             (
+                (x, tube_start_y, z),
                 (x, straight_end_y, z),
                 (x, 578.0, z),
                 ((2.0 * x + pack_x) / 3.0, 598.0, (2.0 * z + pack_z) / 3.0),
@@ -729,22 +740,23 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
             tube_radius,
         )
         umbilical.add(
-            cq.Compound.makeCompound([straight, curve]),
+            tube,
             name=f"wall-end-tube-{which}",
             color=tube_colors[which],
         )
-        collar, words = split_collar(which)
-        move = (x, collar_y, z)
-        umbilical.add(
-            collar.translate(move),
-            name=f"wall-end-collar-{which}",
-            color=collar_colors[which],
-        )
-        umbilical.add(
-            words.translate(move),
-            name=f"wall-end-collar-{which}-word",
-            color=collar_word,
-        )
+        if which in collar_colors:
+            collar, words = split_collar(which)
+            move = (x, collar_y, z)
+            umbilical.add(
+                collar.translate(move),
+                name=f"wall-end-collar-{which}",
+                color=collar_colors[which],
+            )
+            umbilical.add(
+                words.translate(move),
+                name=f"wall-end-collar-{which}-word",
+                color=collar_word,
+            )
 
     # The jack's face is the enclosure's exact +Y outer plane.  Its opening is centred 1 mm below
     # the keystone show-face station in the production reference model.
@@ -971,7 +983,10 @@ def _clear_connected_background(path: Path) -> None:
 def _shave_render_frame(path: Path, margin: int) -> None:
     """Remove the frame anchors and their deliberately generous vertical review margin."""
     with Image.open(path) as image:
-        top = margin + MOUNT_FRAME_TRIM_TOP
+        # The first faucet starts higher than the seated views. Preserve that real top geometry;
+        # the page layout lets its image box extend into unused heading-row air.
+        trim_top = MOUNT_DROP_TRIM_TOP if path.name == "mount-drop.png" else MOUNT_FRAME_TRIM_TOP
+        top = margin + trim_top
         bottom = image.height - margin - MOUNT_FRAME_TRIM_BOTTOM
         if image.width <= 2 * margin or bottom <= top:
             raise ValueError(f"cannot shave {margin}px from {image.width}x{image.height}: {path}")

@@ -7,7 +7,8 @@ Epson for in-house review.
 The two sheets form one physical story:
 
 1. Mount the complete factory faucet assembly through the prepared countertop opening.
-2. Connect its three tubes and RJ11 signal lead to the appliance rear panel.
+2. Connect its three tubes and RJ11 signal lead, plus the tap-water and CO2 supply tubes, to the
+   appliance rear panel.
 
 Four registered model states tell the mounting story. Two registered model states show the rear
 connections before and after installation. Words identify only the action and endpoint; modeled
@@ -38,6 +39,8 @@ pull-back tug that sets the collet.
 
 The physical endpoint rule is:
 
+- red `CO2` supply to the red `CO2` inlet;
+- white tap-water supply to the white `TAP` inlet;
 - blue `SODA` tail to the blue `SODA` port;
 - either black `FLAVOR` tail to either black `FLAVOR` port;
 - flat SIG-6 ribbon's RJ11 plug to the square signal jack.
@@ -51,20 +54,22 @@ The mount sheet uses one below-counter three-quarter camera for all four states.
 locates the complete recognizable faucet in the kitchen-scale event. The lower image magnifies the
 same registered frame at the countertop stack. Only the complete assembly moves down, only the
 under-counter plate moves sideways, and the final cue turns the same retained nut. In the approach
-frame the plate stands clear of the retained washer before it moves. The countertop window is long
-on the plate's slide axis and narrow across it, preserving the full support behind the retracted
-plate while showing the constrained under-sink working direction.
+frame the plate stands clear of the retained washer before it moves. The exact same 220 x 72 mm
+countertop solid and opening appear in all four frames, so the lower views read as the underside of
+the upper views. That window is long on the plate's slide axis and narrow across it, preserving the
+full support behind the retracted plate while showing the constrained under-sink working direction.
 
 The connection sheet carries exactly two physical scenes from the same tight rear-panel camera:
 
-1. the appliance with the blue soda tube, two black flavor tubes, and RJ11 signal lead modeled a
-   clear connector-length away from their ports;
-2. the same appliance with all four leads fully seated.
+1. the appliance with the red CO2 tube, white tap-water tube, blue soda tube, two black flavor
+   tubes, and RJ11 signal lead modeled entirely clear of the enclosure silhouette;
+2. the same appliance with all six leads fully seated.
 
-The enclosure, camera, scale, lighting, and crop remain registered between the two states. The
-lower enclosure is outside the viewport so the ports and lead ends dominate each column; a clean
-white field carries no floor, contact shadow, gradient, or distance fog. The
-three tube collars are the production solids with their modeled lettering. The RJ11 body, boot,
+The enclosure, camera, scale, lighting, and crop remain registered between the two states. A
+shallow camera elevation thins the top face while a large physical open gap projects every free
+lead beyond the rear silhouette. The lower enclosure is outside the viewport so the ports and
+lead ends dominate each column; a clean white field carries no floor, contact shadow, gradient,
+or distance fog. The five tube collars are production solids with their modeled lettering. The RJ11 body, boot,
 latch, contacts, and ribbon are CAD solids. Tube end faces, routing bends, port labels, and signal
 jack remain physical model geometry. No connector, tube, cord, leader, or callout is drawn over a
 render; the small transition arrow in the page gutter is the only overlay.
