@@ -36,6 +36,8 @@ its 1.335 mm collet travel and 16 mm tube insertion. The customer-facing PP0208E
 John Guest's published 1/4-inch dimensions: 39.0 mm run span, 19.5 mm port reach, 15.7 mm insertion
 depth, 16.3 mm maximum body diameter, and 4.3 mm bore. Long tubes continue through the common crop;
 no arbitrary remote tube end is shown. Every connector and tube is a CAD solid.
+The final scene PNGs have transparent canvases, matching the faucet and rear-panel artwork, so the
+white guide page is the only background and no hidden image rectangle influences layout review.
 
 `plumbing/plumbing_scenes.py` retains the separate older-home braided-hose study assets. They are
 not pages or dependencies of this modern push-fit guide.
