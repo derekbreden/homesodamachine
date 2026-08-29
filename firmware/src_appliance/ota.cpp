@@ -290,6 +290,8 @@ void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen) {
     }
 }
 
+bool otaBusy() { return target != OTA_TGT_NONE; }
+
 void otaService() {
     if (target == OTA_TGT_NONE) return;
 

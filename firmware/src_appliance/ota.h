@@ -43,3 +43,8 @@ bool otaOnRequest(OtaTarget from, const uint8_t *payload, uint16_t plen);
 void otaOnState(OtaTarget from, const uint8_t *payload, uint16_t plen);
 
 void otaService();
+
+// True while a session is open on any target. A repair the machine would
+// otherwise start on its own brings a radio up on one of these boards and takes
+// the other's panel down, so nothing that moves a picture may run inside one.
+bool otaBusy();
