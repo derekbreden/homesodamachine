@@ -1212,8 +1212,8 @@ front_bottom_flank_t = 9.0
 # reach — the y band the metal is actually in, how far inboard it comes, and the clearance the
 # kept run then stands off it — against the box each row would have been read off:
 #
-#   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 3..22    (box y 252.5..322.5)
-#   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..22    (box y 325..343, x 84.45)
+#   relay-1        y 252.50..322.50, in to |x| 86.50, gives up 3..19    (box y 252.5..322.5)
+#   ground-stack   y 327.68..340.32, in to |x| 86.45, gives up 5..19    (box y 325..343, x 84.45)
 #
 # THE GROUND ROW CLOSES AGAIN FROM ITS TWO Y ENDS. The ring stack is short enough in Y for the
 # intact wall corbel immediately fore and aft of it to carry a pair of 45 degree roof planes to
@@ -1232,10 +1232,10 @@ front_bottom_flank_t = 9.0
 #   y 354..394     run  1.50..14.09      the Multiplex barrel, its crown one
 #                                        `DECK_CEILING_CLEAR` under the ceiling
 #   y 394..424     run  4.67.. 5.42      the ASSE body aft of the anchor — three quarters of a
-#                                        millimetre of run, in a strip 22 wide
+#                                        millimetre of run, in a strip 19 wide
 #   y 424..425     nothing
 #
-# 1275 mm3 of a 17182 mm3 corbel, and NONE of it outboard of run 14.09. So the outboard run is
+# 1275 mm3 of a 12816 mm3 corbel, and NONE of it outboard of run 14.09. So the outboard run is
 # given back: it is the half of the wedge that roots on the flank and carries itself, and taking
 # it left the strip's whole width hanging over the rear storey for 71 mm of depth.
 #
