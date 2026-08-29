@@ -302,6 +302,10 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
             if (faucet.trySendResponse(MSG_ERR_SLOT_INVALID, request.art[0]) >= 0) ++framesTx;
             return;
         }
+        // Changing a face is a user action on the front's link. It is the same
+        // action arriving on this one, and it changes what both glasses draw —
+        // so it keeps them awake to be seen.
+        idleTouched();
         sendArt();
         return;
     }

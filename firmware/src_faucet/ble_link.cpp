@@ -251,12 +251,28 @@ void bleLinkBegin() {
   Serial.printf("BLE: advertising as '%s'\n", name);
 }
 
+static uint32_t lastTouchTxMs = 0;
+
 static void dispatchFrame(const uint8_t *work, uint16_t len) {
   if (len < 3) return;
   const uint8_t type = work[0];
   const uint16_t plen = (uint16_t)(work[1] | (work[2] << 8));
   if (3 + plen > len) return;
   const uint8_t *payload = work + 3;
+
+  // THE PHONE IS A FINGER ON THIS MACHINE. Someone holding it is someone using
+  // the machine, so anything it says holds both glasses lit exactly the way a
+  // touch does. The main board owns the only sleep clock either display has,
+  // and MSG_TOUCH is already what it reads as presence — so this needs no new
+  // message and no phone change, only for the traffic to be counted.
+  //
+  // Once a second. An upload delivers hundreds of frames a second down this
+  // same wire, and the window one touch holds open is sixty.
+  const uint32_t now = millis();
+  if (now - lastTouchTxMs >= 1000) {
+    lastTouchTxMs = now;
+    baseLinkTouched();
+  }
 
   if (bleOtaHandleFrame(type, payload, plen)) return;
   if (bleImageHandleFrame(type, payload, plen)) return;
