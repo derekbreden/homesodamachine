@@ -7,7 +7,7 @@ A PET-GF15 box. [3 mm](WALL_T) is the section a piece starts from and every exte
 wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
 and `interior_x` both stand still: a bottom piece's three lipped sides get
 [6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
-flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [6 mm](BACK_TOP_FLANK) and its
+flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [9 mm](BACK_TOP_FLANK) and its
 +Y wall [6 mm](BACK_TOP_WALL). The floor is the one section taken OUTWARD:
 [6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
@@ -97,18 +97,20 @@ landing within two socket collars of one already placed, so the ladder carries o
 height it is owed.
 
 Each level stands the pin's own face **[13 mm](BOSS_END_CLEAR)** off the end wall it pins
-under, and what is in that slot is **print support**: a top piece prints mouth-down and lays
-its ceiling strip over this corner on air, so what holds that strip up comes down on the
-plug's crown, and a bottom piece stands the same slot over its floor slab. The slot is open
-on the seam mouth, which is the one direction there is anything to reach it from. Both ends
-are fenced — nearer its wall, the lower collar's carve leaves a corner of the front lip in
-the back half's register; further from it, the upper collar's 45° underside comes down the
-−X wall into `fluid-1`'s lane.
+under. The back plug's full-width underside runs to its inboard tip on a 45° wall-rooted
+corbel. The front lip's slide channel gives up the matching profile one `fits.slip` lower,
+so the square registration faces and full insertion travel remain while neither half leaves
+a support contact in the pin slot. Both ends are fenced — nearer its wall, the lower collar's
+carve leaves a corner of the front lip in the back half's register; further from it, the upper
+collar's 45° underside comes down the −X wall into `fluid-1`'s lane.
 
 Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
 the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spans
 the head seat to the heat-set, so the body is screw length − heat-set long), then
-the heat-set, then a one-wall cap.
+the heat-set, then a one-wall cap. The counterbore retains that complete circular pass and
+bearing envelope, while its unsupported crown continues on two tangent
+[36°](TEARDROP_ROOF) roof planes. The four head pockets therefore close without isolated
+support towers.
 
 - **Receiving piece = pin** (the back pieces): a [9.9 mm](PLUG_DIA) SQUARE prism (the shank
   + one wall each side, *not* the head — the head sits in the wall counterbore) from the
@@ -838,7 +840,7 @@ The two side mouths stay open and no cutter grazes them. A zip tie therefore goe
 **And the face is the piece's own** (`piece_root_faces`), not the box's interior. A
 station is struck in the box's frame because that is the frame the body is in; the
 plane a rib STOPS on is whatever the piece carrying it presents, and on the two
-pieces with a grown flank those two stand [3 mm](BACK_TOP_FLANK_GROWN) and
+pieces with a grown flank those two stand [6 mm](BACK_TOP_FLANK_GROWN) and
 [6 mm](FRONT_TOP_FLANK_GROWN) apart. Measured to the wrong one, the channel is
 drawn inside the wall's own stock and the rib arrives buried to its crown.
 
@@ -851,8 +853,9 @@ relief is **wider than the rib, and by the zip tie**: what the loop runs down is
 rib's two flanks, from the channel's floor to the body's axis plane, so it is
 carried `tie_t + tie_cav_buffer` past each flank and those two lobes are
 what the loop comes down. The tap-water pair's two ribs are the pair that take it —
-back-top's 6 mm flank leaves the `water-split` and `flow-regulator` barrels
-2.44 mm of room where a rib needs 4.
+back-top's 9 mm flank occupies the room their zip-tie cavities use, so those two generated
+reliefs return only the ribs' footprints to `interior_x` while the nominal flank stays whole
+around them.
 
 **And the channel is read back** (`enclosure_assembly.check_tie_channels`,
 `tie-channels` on the card). A remainder cannot fail loudly: a wall standing in
@@ -1313,7 +1316,7 @@ lip over the hole's span, which the mouth shelf's own relief already accounts fo
 back-top has no throat, so its ceiling would be a flat slab — the whole width of
 the machine by the whole depth of the back half — laid [195 mm](PIECE_H) up over
 the open service bay on a piece that prints mouth-down. It is not printed in this
-piece at all. What back-top keeps is **two side strips**, [22 mm](CEILING_STRIP)
+piece at all. What back-top keeps is **two side strips**, [19 mm](CEILING_STRIP)
 wide, and between them the [159 mm](CEILING_PANEL_W) channel the
 [ceiling panel](/hardware/printed-parts/enclosure/ceiling-panel/README.md) fills
 — a separate part, printed flat on the bed and **slid in** through the Y-seam

@@ -511,11 +511,11 @@ heatset_dia = _interface.heatset_dia  # ruthex M3 short heat-set
 heatset_len = 4.0            # ruthex RX-M3Sx4.0 brass body, set flush at its opening
 heatset_depth = _interface.heatset_depth
 socket_cap = wall            # one wall capping the insert's deep end
-# HOW FAR THE PIN'S OWN FACE STANDS OFF THE END WALL IT PINS UNDER, and what has to come out of
-# that slot is PRINT SUPPORT. A top piece prints mouth-down and lays its ceiling strip over this
-# corner on air, so what holds that strip up comes down on the plug's crown; a bottom piece
-# stands the same slot over its floor slab. The slot is open on the seam mouth and a pick reaches
-# it from the end of the piece, which is the one direction there is anything to reach from.
+# HOW FAR THE PIN'S OWN FACE STANDS OFF THE END WALL IT PINS UNDER. A full-width 45-degree
+# corbel carries each back plug's underside from its wall to its inboard tip, and the front
+# slide channel gives up the same profile one `fits.slip` lower. The pin therefore keeps its
+# square registration faces and the two pieces keep their full insertion travel without a
+# support contact in this slot.
 #
 # BOTH ENDS FENCE IT AND IT IS ONE FIGURE, so one reach clears all four bosses. Walked nearer
 # its own end wall, the lower collar's carve (`_y_lip_channel`) leaves a corner of the front lip
@@ -1107,17 +1107,26 @@ def c14_collar_half():
 
 # --- back-top's own ±X section ------------------------------------------------
 #
-# THE LAST FLANK ON THIS BOX STILL AT `wall`. Both bottom pieces carry `2 * wall` down their
-# sides already — the lip's own skin, slab to rim (`_lip_underwall`) — and front-top carries
-# `front_top_flank_t`. This is what puts back-top on the same footing, so the side of the machine
-# is one section from the slab to the ceiling rather than a thin band across the back's top half.
+# BOTH FLANKS CARRY THE SAME NINE-MILLIMETRE SECTION AS THE OTHER THREE PIECES. It is taken
+# INWARD off `interior_x`, so the appliance's stated width and every exterior show face stay
+# fixed. The section begins past both telescopes and above the Z-seam rim
+# (`_back_top_flanks`), leaving the two closing lanes on their original planes.
 #
-# IT IS TAKEN INWARD, off `interior_x`, and what it spends is the boss chain's own room. A body
-# on this storey stands `side_band_inset` off both ±X walls; the nearest faces that are not a
-# Wago's are the main board's mounting plane and the PSU's flank, both at x 98.25 — 6.25 in from the
-# wall. Six leaves 3.25 mm of that and nine would leave a quarter of a millimetre, which is not
-# a clearance. Six is also the figure the two bottom pieces already carry.
-back_top_flank_t = 6.0
+# WHAT STANDS ON A FLANK READS THE FACE THAT IS ACTUALLY THERE. Wago wells and the drip-pan
+# sleeve cut their own berths through the whole section; the two fitting anchors give their zip
+# tie lanes back to `interior_x`; and the +X power column keeps its full insert-length boss datum
+# clear of this face. The one routed tube that crosses the new stock gets the named support-free
+# relief below.
+back_top_flank_t = 9.0
+
+# The `water-3` run crosses the front/back joint in the west strip. Its front-top share already
+# has the same relief; this is the aft continuation, on back-top from the first plane past the Y
+# telescope until the route has turned inboard. The floor is `lip_face_x`, leaving six
+# millimetres of wall, and the roof rises at `relief_chamfer` to the nominal nine-millimetre face.
+# Stated as (placed-body name, side, y0, y1, z0, z1).
+back_top_flank_reliefs = (
+    ("tube-water-3", -1.0, 215.0, 245.0, 248.0, 273.0),
+)
 # --- back-bottom's own ±X section ---------------------------------------------
 #
 # AND THE STOREY UNDER IT CARRIES MORE, because down there nothing is in the way. The only
@@ -1213,7 +1222,10 @@ front_bottom_flank_t = 9.0
 # anchor's back — and that cavity's top mouth is out at the wall (`_asse_tie_cavity`), so a corbel
 # standing over the outboard run would roof the one opening the zip tie has. `_asse_cradle` reads
 # these two rows back against the ties it was handed, so a band that moves off its zip tie says so.
-_RAIL = 22.0                # `ceiling_panel.rail_run`, restated here so the rows can read it
+# The run the side strip actually has: the nominal flank face to the panel's own edge. A thicker
+# flank spends its added section outboard and shortens only the exposed corbel; the panel and the
+# appliance silhouette do not move.
+_RAIL = back_top_flank_face()[1] - _funnel.collar_w / 2.0
 back_top_ceiling_reliefs = (
     # THE BAND STANDS OFF THE BOSSES AT ITS OWN ENDS. The relay's two upper mounting bosses are
     # `mount_boss_dia` cylinders centred y 254.5 and 320.5, so their end faces lie ON y 251 and
@@ -2468,10 +2480,11 @@ def _dims(pack):
     # `back_top_flank_t - wall` inboard of `interior_x` on that one piece, so a body that clears
     # the appliance's width can still be standing in its wall — and `box-width` cannot see it,
     # because the width it reads is the box's own. What this section may stand in is what the
-    # wall gives a LANE to and nothing else: a Wago in its own well, bored back to `interior_x`
-    # so the lug never moves, and whatever lies in the ASSE drip pan's sleeve. A body is matched to
-    # a lane by its CENTRE, so a well that no longer covers the lug it was cut for stops
-    # excusing it instead of excusing it by a hair.
+    # wall gives a LANE to and nothing else: a Wago in its own well, bored back to `interior_x`,
+    # whatever lies in the ASSE drip pan's sleeve, and the named run in
+    # `back_top_flank_reliefs`. A body is matched to a geometric well by its CENTRE; the named
+    # route relief is verified against the exact finished piece by `pack-closes`, so this
+    # pre-piece ledger recognizes its intent without pretending the nominal face remains there.
     bt0, bt1 = back_top_flank_face()
     bt_y0 = y_joint + lip_len + z_lip_y_margin
     bt_z0 = splits[1] + z_rise
@@ -2479,9 +2492,13 @@ def _dims(pack):
               for _sd, sy, sz, size, _cz in pack.side_wells
               for hy, hz in (wago_half(size),)]
              + [(by0, by1, bz0, bz1) for _bx0, _bx1, by0, by1, bz0, bz1 in pack.pan_sleeve[0]])
+    relieved_names = {who for who, _side, _y0, _y1, _z0, _z1
+                      in back_top_flank_reliefs}
     flank_rows = []
     for name, b in zip(placed.keys(), bbs):
         if b.ymax <= bt_y0 or b.zmax <= bt_z0:
+            continue
+        if name in relieved_names:
             continue
         cy, cz = (b.ymin + b.ymax) / 2.0, (b.zmin + b.zmax) / 2.0
         if any(ly0 <= cy <= ly1 and lz0 <= cz <= lz1 for ly0, ly1, lz0, lz1 in lanes):
@@ -3767,10 +3784,12 @@ def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
 def _screw_cut(x_ext, sx, z_boss, y_boss, length=None):
     """M3 shank clearance from the ±X exterior through the plug to the heat-set,
     plus the SHCS head counterbore at the exterior — the seat one wall outboard
-    of the heat-set."""
+    of the heat-set. The head keeps its complete round pass and bearing envelope;
+    `_teardrop_x` gives only its unsupported crown a tangent printable roof."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx, length)
     shank = _xcyl(screw_clear_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_tip)
-    cbore = _xcyl(head_cbore_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_ext + sx * head_cbore_depth)
+    cbore = _teardrop_x(head_cbore_dia / 2.0, y_boss, z_boss,
+                        x_ext - sx * 1.0, x_ext + sx * head_cbore_depth)
     return shank.fuse(cbore)
 
 
@@ -4753,6 +4772,40 @@ def back_top_flank_start(y_joint):
     return y_joint + lip_len + z_lip_y_margin
 
 
+def _back_top_flank_relief_cut(box):
+    """The named pockets in back-top's nominal ±X section.
+
+    Each floor is the corresponding `lip_face_x` plane, so six millimetres of wall remain at
+    the relieved station. Back-top prints on its Z-seam rim and grows in +Z: the routed pocket's
+    floor and ends are supported faces, while its roof rises 45 degrees from the six-millimetre
+    floor to the nine-millimetre nominal face instead of bridging the pocket's depth.
+
+    The ASSE anchor's two zip-tie cavities open upward into the service air under the ceiling.
+    Their bands come from the placed cradle, so the added flank stock gives up exactly those two
+    mouths from the cavity's own west edge to the nominal face. They run to the ceiling and need
+    no roof: the ceiling-strip corbel gives up the same bands in `back_top_ceiling_reliefs`."""
+    faces, floors = back_top_flank_face(), lip_face_x()
+    out = None
+    for _who, side, y0, y1, z0, z1 in back_top_flank_reliefs:
+        i = 1 if side > 0 else 0
+        face, floor = faces[i], floors[i]
+        depth = abs(face - floor)
+        cut = _ybox(min(face, floor), max(face, floor), y0, y1, z0, z1 - depth)
+        cut = cut.fuse(_xz_prism(
+            y0, y1, [(face, z1 - depth), (floor, z1 - depth), (face, z1)]))
+        out = cut if out is None else out.fuse(cut)
+    if box.pack.asse_cradle:
+        z_axis, _sections, ties, _dn = box.pack.asse_cradle
+        face, floor = faces[0], floors[0]
+        mouth_z = z_axis + asse_cradle_up + 1.0
+        for ty in ties:
+            cut = _ybox(min(face, floor), max(face, floor),
+                        ty - tie_cav_wide_w / 2.0, ty + tie_cav_wide_w / 2.0,
+                        mouth_z, box.inner[5] + 1.0)
+            out = cut if out is None else out.fuse(cut)
+    return out
+
+
 def _back_top_flanks(inner, outer, box, y_joint, zj):
     """THE SECTION BACK-TOP'S ±X WALLS CARRY BEYOND `wall`, standing inboard of `interior_x`
     (`back_top_flank_t`). Fused before any of this piece's flank furniture, so the Wago wells,
@@ -4801,7 +4854,8 @@ def _back_top_flanks(inner, outer, box, y_joint, zj):
     # slot, cut in `build_back_half` before this stood here.
     for cutter in _x_port_cuts(box.pack.west_ports, outer[0] - 5.0, fx0 + 5.0):
         band = band.cut(cutter)
-    return band
+    relief = _back_top_flank_relief_cut(box)
+    return band.cut(relief) if relief is not None else band
 
 
 def _back_top_ceiling(solid, inner, y_joint):
@@ -5449,6 +5503,20 @@ def _teardrop_y(r, x, z, y0, y1):
     apex = z + r / math.cos(a)
     return _ycyl(r, x, z, y0, y1).fuse(
         _xz_prism(y0, y1, [(x - half, tangent), (x + half, tangent), (x, apex)]))
+
+
+def _teardrop_x(r, y, z, x0, x1):
+    """The same support-free horizontal bore as `_teardrop_y`, carried on X.
+
+    The nominal circle remains whole below the roof, so a round screw head or tool passes
+    and bears exactly as it does in a cylindrical counterbore. Two tangent planes at
+    `teardrop_roof_angle` replace only the circular crown a standing print cannot close."""
+    a = math.radians(teardrop_roof_angle)
+    half = r * math.sin(a)
+    tangent = z + r * math.cos(a)
+    apex = z + r / math.cos(a)
+    return _xcyl(r, y, z, x0, x1).fuse(
+        _yz_prism(x0, x1, [(y - half, tangent), (y + half, tangent), (y, apex)]))
 
 
 def _tee_bore(plate, hx, hz):
