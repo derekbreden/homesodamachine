@@ -299,6 +299,14 @@ bool bleImageHandleFrame(uint8_t type, const uint8_t *payload, uint16_t plen) {
     }
 
     case BLE_FRAME_IMG_END: {
+      // A NOTIFICATION IS NOT ACKNOWLEDGED, SO THE ANSWER HAS TO BE ASKABLE
+      // TWICE. The phone puts every byte on the air and then waits on one
+      // notification saying the picture was kept — and if that one is lost, the
+      // phone waits forever, because a second END arrived here and was
+      // answered with silence. The picture is already whole and written by
+      // then, so saying so again costs nothing and is the only thing the phone
+      // is missing.
+      if (state == BLE_IMG_DONE) { sendAck(); sendState(); return true; }
       if (state != BLE_IMG_TAKING) return true;
       if (!imageStoreWriteFinish()) { fail(BLE_IMG_ERR_CRC); return true; }
       state = BLE_IMG_DONE;

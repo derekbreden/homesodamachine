@@ -592,7 +592,8 @@ bool linkImagesQuery() {
 
 // One main-board-originated frame on a pair whose rule is that the main board
 // answers, so it retries: it can meet the enclosure's own poll. 0 drops the
-// radio, 1 raises it, 2 only asks. All three are answered the same way.
+// radio, 1 raises it, 2 only asks, 4 raises it for a picture. All of them are
+// answered the same way.
 static bool linkWifiAsk(uint8_t what) {
     wifiApAck = false;
     WifiApPayload req{what, WIFI_BENCH_CHANNEL};

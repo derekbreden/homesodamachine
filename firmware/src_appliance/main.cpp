@@ -110,6 +110,7 @@ void setup() {
 }
 
 static void relayImage(uint8_t slot);
+static void removePicture(uint8_t slot, bool tellFaucet);
 
 void loop() {
     // Expired heartbeat/session deadlines are terminal before either transport
@@ -136,21 +137,11 @@ void loop() {
         if (slot != 0xFF) relayImage(slot);
     }
 
-    // A picture removed from the phone. The enclosure holds its own copy, and a
-    // channel wearing that face has to stop wearing it — a dangling art index
-    // is how one glass kept showing a picture the machine no longer has.
+    // A picture removed from the phone. The faucet has dropped its own copy and
+    // told the machine; the rest of the removal is the machine's.
     if (machineState() == ST_IDLE) {
         const uint8_t gone = faucetLinkTakeEraseRequest();
-        if (gone != 0xFF) {
-            const uint8_t art = (uint8_t)(FLAVOR_ART_FACTORY + gone);
-            uint8_t a0 = flavorArt(0), a1 = flavorArt(1);
-            if (a0 == art) a0 = 0;
-            if (a1 == art) a1 = 1;
-            flavorArtSet(a0, a1);   // published to both glasses by linkService
-            linkImageErase(gone);
-            Serial.printf("\nremoved picture %u — enclosure told, artwork %u/%u\n",
-                          gone, a0, a1);
-        }
+        if (gone != 0xFF) removePicture(gone, false);
     }
 
     // Presence crosses both links, so a change is published to whichever glass
@@ -407,6 +398,27 @@ static void cmdWifi(const String &line) {
     }
 }
 
+// Removing a picture is three things, and doing only the first is what left
+// one glass showing a face the machine no longer had: drop it from each store
+// that holds a copy, and move any channel that was wearing it onto something
+// that still exists. The reassignment publishes to both glasses and back out to
+// the phone the way every other art change does.
+//
+// `tellFaucet` is false when the faucet is the one that asked — it has already
+// dropped its own copy, and telling it again would be an erase of an empty slot.
+static void removePicture(uint8_t slot, bool tellFaucet) {
+    if (slot >= FLAVOR_ART_CUSTOM) return;
+    const uint8_t art = (uint8_t)(FLAVOR_ART_FACTORY + slot);
+    uint8_t a0 = flavorArt(0), a1 = flavorArt(1);
+    if (a0 == art) a0 = 0;
+    if (a1 == art) a1 = 1;
+    flavorArtSet(a0, a1);
+    if (tellFaucet) faucetLinkImageErase(slot);
+    linkImageErase(slot);
+    Serial.printf("\nremoved picture %u — both displays told, artwork %u/%u\n",
+                  slot, a0, a1);
+}
+
 // What J3 carries with nothing taking turns on it — the wire's ceiling, which
 // is not what the OTA pull measures. Blocks for the length of the run, so it
 // takes the same dark-machine guard the radio bench does.
@@ -419,27 +431,80 @@ static void cmdWifi(const String &line) {
 // The main board is not on the path it is sequencing. The bytes go faucet to
 // enclosure directly, which is the only reason this is seconds rather than the
 // minutes the wire would take.
-static void relayImage(uint8_t slot) {
-    Serial.printf("\nrelay slot %u: standing the enclosure's radio up\n", slot);
-    if (!linkWifiAp(true)) return;
-    delay(300);
+// THE HOP ENDS WHEN THE FAUCET SAYS SO. It takes a second or two; waiting a
+// fixed minute for it spent that whole minute with the enclosure's panel down,
+// because the panel only comes back on the reboot that follows the radio going
+// away. So this waits on the outcome and stops.
+//
+// AND THE OUTCOME IS READ RATHER THAN ASSUMED. The sink now answers with what
+// it did — one byte back down the same socket — so a picture that arrived short
+// is a failure here instead of an announcement that the enclosure has a new
+// picture it never kept. One retry, because the loss that produces it is the
+// tail of a transfer and not a property of the picture.
+static bool relayImageOnce(uint8_t slot) {
+    // Mode 4 is mode 1 with the banner someone who just chose a photograph
+    // reads, rather than the one the radio bench leaves up.
+    if (!linkWifiApMode(4)) return false;
 
+    faucetLinkForgetPushResult();
     if (!faucetLinkImageRelayGo(slot)) {
         Serial.println("J3 would not take it");
         linkWifiAp(false);
-        return;
+        return false;
     }
 
-    // The faucet answers MSG_RESP_WIFI_PUSH when it is done, and that prints
-    // itself. Service both links while it works.
-    const unsigned long until = millis() + 60000;
+    WifiPushResultPayload r{};
+    bool answered = false;
+    const unsigned long until = millis() + 90000;
     while ((long)(millis() - until) < 0) {
         linkService();
         faucetLinkService();
+        if (faucetLinkTakePushResult(r)) { answered = true; break; }
         delay(2);
     }
     linkWifiAp(false);
-    Serial.println("relay done — the enclosure reboots into its new picture");
+
+    if (!answered) {
+        Serial.println("relay: the faucet never reported — the picture may not have crossed");
+        return false;
+    }
+    if (!r.ok) {
+        Serial.printf("relay: the enclosure did not keep it — %s\n", faucetLinkPushError(r.err));
+        return false;
+    }
+    Serial.printf("relay: the enclosure kept %lu bytes and reboots into them\n",
+                  (unsigned long)r.bytes);
+    return true;
+}
+
+// The enclosure reboots whenever its panel came down, which is every run of
+// this. A retry has to wait for that board to be answering again, or it asks a
+// display that is still in its bootloader and calls the silence a second
+// failure.
+static bool enclosureBack(unsigned long within) {
+    const unsigned long until = millis() + within;
+    while ((long)(millis() - until) < 0) {
+        linkService();
+        faucetLinkService();
+        WifiApStatePayload st;
+        if (linkWifiApState(st)) return true;
+        delay(50);
+    }
+    return false;
+}
+
+static void relayImage(uint8_t slot) {
+    Serial.printf("\nrelay slot %u: standing the enclosure's radio up\n", slot);
+    if (relayImageOnce(slot)) return;
+
+    if (!enclosureBack(20000)) {
+        Serial.printf("relay slot %u FAILED — the enclosure never came back to be asked again\n",
+                      slot);
+        return;
+    }
+    Serial.println("relay: trying once more");
+    if (!relayImageOnce(slot))
+        Serial.printf("relay slot %u FAILED — the enclosure is still on its old picture\n", slot);
 }
 
 static void cmdBench(const String &line) {
@@ -481,9 +546,7 @@ static void console(const String &line) {
             Serial.printf("\nusage: images erase <0..%u>\n", FLAVOR_ART_CUSTOM - 1);
             return;
         }
-        Serial.printf("\ntaking slot %u off both displays\n", slot);
-        faucetLinkImageErase(slot);
-        linkImageErase(slot);
+        removePicture(slot, true);
         return;
     }
     if (line.startsWith("images relay")) {

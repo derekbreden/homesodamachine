@@ -18,7 +18,7 @@
 // the glass.
 
 // Raise or drop the access point. Idempotent.
-void wifiBenchApSet(bool on, uint8_t channel, bool keepPanel);
+void wifiBenchApSet(bool on, uint8_t channel, bool keepPanel, bool forPicture = false);
 
 // Fill the answer the main board asked for.
 void wifiBenchFill(WifiApStatePayload &out);
@@ -37,7 +37,7 @@ void wifiBenchPictureDiag(char *out, unsigned n);
 // radio's bring-up writes flash, which suspends the cache PSRAM is reached
 // through — the same conflict that makes an OTA blank this glass. Defined in
 // main.cpp, where the panel lives.
-void wifiBenchPanelStop();
+void wifiBenchPanelStop(bool forPicture);
 
 // True once the bench is finished with a board whose panel it took down. The
 // only way back is the reboot the loop then performs.

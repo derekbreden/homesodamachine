@@ -37,7 +37,9 @@ bool linkReplyOta(uint8_t type, const void *data, uint16_t len);
 // a pair the main board otherwise only answers on.
 bool linkWifiAp(bool on);
 
-// 1 raises it with the panel taken down, 3 leaves the panel running.
+// 1 raises it with the panel taken down, 3 leaves the panel running, 4 takes
+// the panel down for a picture — same teardown as 1, and the banner someone
+// who chose a photograph reads instead of the bench's.
 // Which of those the radio actually survives is the question `wifi live`
 // exists to answer.
 bool linkWifiApMode(uint8_t mode);
