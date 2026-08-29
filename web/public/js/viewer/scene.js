@@ -33,7 +33,11 @@ export const TONE_EXPOSURE = 1.25;
 // What every 3D surface in the app clears to, and what distance fades toward.
 export const BG_COLOR = 0x1a1a2e;
 
-export const renderer = new THREE.WebGLRenderer({ antialias: true });
+// Headless instruction renders can request a canvas with a real alpha channel.
+// The ordinary viewer keeps the browser default (opaque) context, so its
+// interactive rendering path is unchanged.
+const renderAlpha = new URLSearchParams(window.location.search).get("renderAlpha") === "1";
+export const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: renderAlpha });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(BG_COLOR);
 // The scene renders through a filmic tone curve. step.js's offscreen thumbnail

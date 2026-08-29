@@ -37,7 +37,8 @@ John Guest's published 1/4-inch dimensions: 39.0 mm run span, 19.5 mm port reach
 depth, 16.3 mm maximum body diameter, and 4.3 mm bore. Long tubes continue through the common crop;
 no arbitrary remote tube end is shown. Every connector and tube is a CAD solid.
 The final scene PNGs have transparent canvases, matching the faucet and rear-panel artwork, so the
-white guide page is the only background and no hidden image rectangle influences layout review.
+guide's single full-bleed cool-neutral field is the only background and no hidden image rectangle
+influences layout review.
 
 `plumbing/plumbing_scenes.py` retains the separate older-home braided-hose study assets. They are
 not pages or dependencies of this modern push-fit guide.

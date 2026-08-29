@@ -6063,7 +6063,8 @@
       "hardware/scripts/_mesh_payload.py",
       "hardware/scripts/_run_lock.py",
       "tools/docgen/__init__.py",
-      "tools/render/render-step-posed.js"
+      "tools/render/render-step-posed.js",
+      "web/public/js/viewer/scene.js"
     ],
     "rewritten": [],
     "writes": [
