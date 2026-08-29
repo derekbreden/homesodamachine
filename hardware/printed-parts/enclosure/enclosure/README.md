@@ -136,7 +136,8 @@ is the wall's own air.
 Bottom↔top, per column, at `enclosure.z_seam`: **a full-travel slide on hooked rails, and
 no screw anywhere on it.** Down each flank's **straight run** the bottom piece raises an
 **arm** on its mouth, standing one [0.15 mm](SLIDE_SLIP) inboard of the top's own wall,
-and the arm's **head** steps [2 mm](HOOK_LAP) back out over the **groove** between them.
+and the arm's **head** steps back out over the **groove** between them: a compact
+[2 mm](HOOK_LAP) overlap on the front column and [5 mm](BACK_HOOK_LAP) on the back.
 The top piece's wall runs to the mouth at full section — the **foot**, its caught face
 [8.7 mm](HOOK_FOOT) over the mouth — with a **notch** in its inboard face that swallows
 the head, closing back to the full wall on a 45° roof. The storey is [14.8 mm](Z_RISE)
@@ -144,14 +145,20 @@ mouth to rim, and **the flavour deck is its ceiling** — the rim stands under t
 valve plate (`z-seam-under-deck`), which is the whole height the box has to spend here.
 It buys the groove first: [8.85 mm](HOOK_NECK) of it, the top piece's own sliding tongue,
 with 5.9 mm of head over the catch. That height is the Z seam's own — `lip_len` is the Y
-seam's overlap, struck off its boss, and the two are independent figures. **Both tops enter
-fore of home and slide AFT** the length of their column — front-top over the front wall's
-own plane, in open air ahead of the box; back-top over the open Y-seam mouth, the one
-opening the box has before the halves telescope — the mouth riding the shoulder the whole
-way, until the foot's aft end face lands on the **stop block** closing each rail's aft
-end. That contact is the column's Y datum; the end walls and the corner turns close
-head-on one `slide_slip` behind it — the same telescoping mate the box always had,
-arrived at along Y instead of dropped into.
+seam's overlap, struck off its boss, and the two are independent figures. The two columns
+enter from opposite ends: **front-top enters fore of home and slides AFT**, over the front
+wall's own plane in open air ahead of the box; **back-top enters aft of home and slides FORE**,
+over the open Y-seam mouth before the halves telescope. Each mouth rides its shoulder the
+whole way until the foot's end face lands on the **stop block** closing that rail. That
+contact is the column's Y datum; the end walls and corner turns close head-on one
+`slide_slip` behind it — the same telescoping mate, arrived at along Y instead of dropped in.
+
+On the back column, the foot carries the flank's full [6 mm](BACK_RAIL_FOOT) inward growth
+from `interior_x` to the nominal 9 mm face on both sides. The back-bottom hook spends the
+same added 3 mm on its bearing overlap, making a [5 mm](BACK_HOOK_LAP) catch at that face's
+inboard edge; its arm reaches [10.15 mm](BACK_RAIL_INBOARD) inward from `interior_x`, inside
+the 14 mm body-free seam band. The catch still lies wholly over the six-millimetre foot and
+keeps a complete exterior wall outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
 along both whole runs** — [102 mm](RAIL_RUN_FRONT) per flank on the front column,
@@ -214,9 +221,10 @@ core's own entry (below).
 floor slab spans the interior wall to wall, so a body laid on a wall's face would
 leave the seam machinery nowhere to stand. A **floor body is held one
 `side_band_inset` in from the ±X walls where it meets the seam's furniture** — the
-Y-seam collars, or the rail band over the seam's own storey, whose groove, arm and head
-together reach [6.3 mm](RAIL_REACH) inboard, inside that same band — and the **+Y wall
-keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
+Y-seam collars, or the rail band over the seam's own storey. The front groove, arm and head
+together span [6.3 mm](RAIL_REACH) from the channel wall, inside that same band; the back
+column places its broader catch and the same arm at its full-section foot's inboard edge.
+The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness. That is a requirement
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold
 core meets the band at the seam's storey; the compressor and condenser stand wholly
