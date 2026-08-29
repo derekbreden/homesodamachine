@@ -65,11 +65,12 @@ The connection sheet carries exactly two physical scenes from the same tight rea
    tubes, and RJ11 signal lead modeled entirely clear of the enclosure silhouette;
 2. the same appliance with all six leads fully seated.
 
-The enclosure, camera, scale, lighting, and crop remain registered between the two states. A
-shallow camera elevation thins the top face while a large physical open gap projects every free
-lead beyond the rear silhouette. The lower enclosure is outside the viewport so the ports and
-lead ends dominate each column; a clean white field carries no floor, contact shadow, gradient,
-or distance fog. The five tube collars are production solids with their modeled lettering. The RJ11 body, boot,
+The enclosure, camera, scale, lighting, and crop remain registered between the two states. An
+oblique rear camera foreshortens the appliance's +Y face, so the large physical +Y withdrawal
+projects into a compact white gap while every free lead still clears the enclosure silhouette.
+The lower enclosure is outside the viewport so the ports and lead ends dominate each column; a
+clean white field carries no floor, contact shadow, gradient, or distance fog. The five tube
+collars are production solids with their modeled lettering. The RJ11 body, boot,
 latch, contacts, and ribbon are CAD solids. Tube end faces, routing bends, port labels, and signal
 jack remain physical model geometry. No connector, tube, cord, leader, or callout is drawn over a
 render; the small transition arrow in the page gutter is the only overlay.
