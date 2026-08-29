@@ -14,53 +14,41 @@ import UIKit
 // each resampled from the original rather than zoomed from one another, in the
 // order IMAGE_BUNDLE names in firmware/lib/proto_link/proto_msg.h.
 //
-//     0  172x320   the faucet, filling its whole glass
-//     1  240x240   the enclosure's card
-//     2   86x160   its picker tile — the faucet's own shape, halved
-//     3   60x60    its detail header
-//     4  120x120   its channel button
+//     0  172x320   the faucet's whole glass, and the enclosure's detail anchor
+//     1  129x240   the enclosure's Choose card, and its service pick face
+//     2   86x160   its picker tile
 //
-// WHAT IS CROPPED IS NOT DECIDED HERE. ImageCropView takes the two rectangles
-// a person positioned — one tall for the faucet, one square for the enclosure —
-// and this reduces each to the sizes its board draws. A centre crop chosen by
-// arithmetic would put the wrong half of most photographs on the machine.
+// ONE RECTANGLE COMES OUT OF THE PHOTOGRAPH, because every one of those is the
+// same shape: 43:80, at four, three and two. Somebody frames the glass, and the
+// glass is what every surface on the machine shows — so this is one crop at
+// three scales rather than three framings of one picture, and a face composed
+// for the faucet cannot be a different picture on the front display.
 //
-// WHICH RECTANGLE A RENDITION COMES FROM IS ITS OWN SHAPE'S ANSWER, not its
-// position in the list. The picker tile is tall because the picker is choosing
-// what the faucet will wear, so it is cut from the faucet's window — reducing
-// it from the square would make the one preview that is supposed to show the
-// tall crop show the other one.
+// WHAT IS CROPPED IS NOT DECIDED HERE. ImageCropView takes the rectangle a
+// person positioned and this reduces it to the sizes the boards draw. A centre
+// crop chosen by arithmetic would put the wrong half of most photographs on the
+// machine.
 
 struct ImageBundle {
 
-    /// One rendition's geometry, matching IMAGE_BUNDLE on the wire, and which
-    /// of the two rectangles someone positioned it is reduced from.
+    /// One rendition's geometry, matching IMAGE_BUNDLE on the wire. The glass
+    /// at four, three and two: 43 by 80, all of them.
     struct Size {
         let w: Int
         let h: Int
-        var tall: Bool { h > w }
     }
 
-    static let sizes: [Size] = [
-        Size(w: 172, h: 320),
-        Size(w: 240, h: 240),
-        Size(w:  86, h: 160),
-        Size(w:  60, h:  60),
-        Size(w: 120, h: 120),
-    ]
+    static let unit = (w: 43, h: 80)
+    static let sizes: [Size] = [4, 3, 2].map { Size(w: unit.w * $0, h: unit.h * $0) }
 
     static var byteCount: Int { sizes.reduce(0) { $0 + $1.w * $1.h * 2 } }
 
     /// Every rendition, concatenated in wire order. Nil if the crop will not
     /// draw — refused here rather than half-written into a board's flash.
-    static func make(from crop: ImageCrop) -> Data? {
+    static func make(from crop: UIImage) -> Data? {
         var out = Data(capacity: byteCount)
         for size in sizes {
-            // The tall ones are the faucet's glass and the tile that previews
-            // it; the square ones are the enclosure's card and the smaller
-            // faces cut from the same square.
-            let source = size.tall ? crop.portrait : crop.square
-            guard let scaled = resize(source, to: size),
+            guard let scaled = resize(crop, to: size),
                   let pixels = rgb565(scaled, w: size.w, h: size.h) else { return nil }
             out.append(pixels)
         }
@@ -70,8 +58,8 @@ struct ImageBundle {
     /// What the faucet will actually show, for the app to put beside the
     /// picture someone chose — the same reduction, so the preview is the
     /// result rather than an impression of it.
-    static func preview(from crop: ImageCrop) -> UIImage? {
-        resize(crop.portrait, to: sizes[0]).map { UIImage(cgImage: $0) }
+    static func preview(from crop: UIImage) -> UIImage? {
+        resize(crop, to: sizes[0]).map { UIImage(cgImage: $0) }
     }
 
     // ── Reduction ─────────────────────────────────────────────────────────

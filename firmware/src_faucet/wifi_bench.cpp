@@ -88,11 +88,11 @@ static void pushLoop(void *) {
   uint8_t err = WIFI_BENCH_ERR_NONE;
 
   if (sendImage) {
-    // The enclosure's four renditions, out of the master copy this board keeps,
-    // behind the header that tells the sink this is a picture and not the bench.
+    // Every rendition, out of the master copy this board keeps, behind the
+    // header that tells the sink this is a picture and not the bench.
     uint32_t bytes = 0;
-    // The same number the main board is told this slot's enclosure copy should
-    // be — one definition, so the header and the reconcile cannot disagree.
+    // The same number the main board is told this slot should be — one
+    // definition, so the header and the reconcile cannot disagree.
     const uint32_t crc = faucetEnclosureCrc(imageSlot);
     for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT; i++) {
       const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
@@ -171,8 +171,6 @@ static void pushLoop(void *) {
 bool wifiImagePush(uint8_t slot) {
   if (running) return false;
   if (!imageStorePixels(slot, IMAGE_BUNDLE_ENCLOSURE_AT)) return false;
-  // Primed on the loop task, so the push task only ever reads it.
-  faucetEnclosureCrc(slot);
   sendImage = true;
   imageSlot = slot;
   return wifiBenchPush(imageEnclosureBytes(), WIFI_BENCH_CHANNEL, WIFI_PUSH_F_QUIET_BLE);
