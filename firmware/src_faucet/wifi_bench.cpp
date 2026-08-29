@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
+#include "base_link.h"
 #include "ble_link.h"
 #include "image_store.h"
 
@@ -89,15 +90,16 @@ static void pushLoop(void *) {
   if (sendImage) {
     // The enclosure's four renditions, out of the master copy this board keeps,
     // behind the header that tells the sink this is a picture and not the bench.
-    uint32_t bytes = 0, crc = 0;
+    uint32_t bytes = 0;
+    // The same number the main board is told this slot's enclosure copy should
+    // be — one definition, so the header and the reconcile cannot disagree.
+    const uint32_t crc = faucetEnclosureCrc(imageSlot);
     for (uint8_t i = 0; i < IMAGE_BUNDLE_ENCLOSURE_COUNT; i++) {
       const uint8_t r = (uint8_t)(IMAGE_BUNDLE_ENCLOSURE_AT + i);
-      const uint16_t *px = imageStorePixels(imageSlot, r);
-      const uint32_t n = (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
-      if (!px) { err = WIFI_BENCH_ERR_WRITE; break; }
-      crc = uartCrc32Update(crc, (const uint8_t *)px, n);
-      bytes += n;
+      if (!imageStorePixels(imageSlot, r)) { err = WIFI_BENCH_ERR_WRITE; break; }
+      bytes += (uint32_t)IMAGE_BUNDLE[r].w * IMAGE_BUNDLE[r].h * 2;
     }
+    if (!crc) err = WIFI_BENCH_ERR_WRITE;
 
     if (!err) {
       ImageWireHeader hdr{IMAGE_WIRE_MAGIC, imageSlot, {0, 0, 0}, bytes, crc};
@@ -169,6 +171,8 @@ static void pushLoop(void *) {
 bool wifiImagePush(uint8_t slot) {
   if (running) return false;
   if (!imageStorePixels(slot, IMAGE_BUNDLE_ENCLOSURE_AT)) return false;
+  // Primed on the loop task, so the push task only ever reads it.
+  faucetEnclosureCrc(slot);
   sendImage = true;
   imageSlot = slot;
   return wifiBenchPush(imageEnclosureBytes(), WIFI_BENCH_CHANNEL, WIFI_PUSH_F_QUIET_BLE);
