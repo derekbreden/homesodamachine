@@ -4898,10 +4898,10 @@ _ROUTED: set = set()
 
 # --- the +X wall's own seat ------------------------------------------------
 #
-# The power column hangs ON the +X wall, not off it. Its seat is one `enclosure.mount_boss_out`
-# inboard of the interior face the STATED `appliance_width` opens — the length of an M3
-# heat-set and the air past the screw tip, and nothing else, because that is the whole of what
-# a boss carrying a body has to be. The wall's inner face is what caps the bore's blind end.
+# The power column hangs ON back-top's +X flank. Its mounted bodies stand on the D bosses' own
+# tips, one complete heat-set-and-blind-relief run inboard of the box's base interior plane.
+# Back-top's added flank stock surrounds those stems and stops short of the body plane; the bore
+# still carries one full M3 heat-set and its blind-end relief, with the wall section capping it.
 #
 # The seam's own furniture reaches a whole `enclosure.boss_in` further inboard, and each piece
 # of it is a block round its own screw, one `enclosure.socket_r` about the level it pins. A body
@@ -4917,8 +4917,8 @@ _ROUTED: set = set()
 # carries it has been sized, and nothing arriving on the floor moves it afterwards.
 
 def east_wall_seat():
-    """The plane a body hung on the east wall stands its outer face on: one
-    `enclosure.mount_boss_out` inboard of the stated wall, which is its own boss and no more.
+    """The plane a body hung on the east wall stands its outer face on: one complete mounting
+    boss inboard of the box's base interior plane.
 
     Read off the wall and not off whichever body is widest on the floor. The boss is built on
     the wall, so a body that seats on the boss's own tip seats on the wall whatever else is
@@ -6149,14 +6149,14 @@ BOWL_CLEAR = 1.0
 # mouths face each other down one column with the step between them, so what this has to be is
 # the run that step's two corners and the lean between them take.
 WATER_2 = 42.0
-# THE SPLIT STANDS ON ITS OWN COLUMN AND `water-2` IS WHAT CROSSES TO IT. The chain answers to
-# the +Y wall of back-top — all three of its coordinates are the tap-water union's, and `PORT_WEST_COLUMN`
-# is what stands that union's pair in the lane. The storey below is a different room: the gate
-# line holds its own union's column inboard of this one the whole way aft, `water-3` falls out of
-# this split's own downward branch on whatever column the split stands on, and neither is under
-# the other. So the sequence forward of the step keeps its column when the wall's moves, and the
-# lean already in `water-2` for the step carries the offset across as well as down.
-SPLIT_COLUMN = -92.0
+# THE SPLIT AND REGULATOR SHARE THE SHALLOWEST COLUMN THEIR WALL ANCHORS CAN CLOSE ON. The
+# regulator's square hub is the pair's widest wallward profile after `FLOWREG_TURN`; one body-
+# anchor slip between that profile and back-top's nominal flank face leaves both purchased
+# solids in air while their round sections lie in the ribs. `water-2` already leans across from
+# the union column above, and every line leaving this pair is struck from its carried ports.
+SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP
+SPLIT_COLUMN = (_enc.back_top_flank_face()[0] + _flowreg.HUB / 2.0
+                + SPLIT_FLANK_CLEAR)
 
 
 def build_split(asse_carry):

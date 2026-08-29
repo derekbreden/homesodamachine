@@ -2,7 +2,7 @@
   "/hardware/assembly/_enclosure_mechanical_sync.py": {
     "AC_RECESS_DEPTH": "3\u20135 mm",
     "APPLIANCE_W": "215 mm",
-    "BACK_TOP_FLANK": "6 mm",
+    "BACK_TOP_FLANK": "9 mm",
     "BACK_TOP_WALL": "6 mm",
     "BODY_COUNT": "92",
     "BOX_SIZE": "215 \u00d7 462 \u00d7 361 mm",
