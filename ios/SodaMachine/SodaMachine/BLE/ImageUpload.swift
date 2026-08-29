@@ -146,6 +146,16 @@ extension BLEManager {
         }
     }
 
+    /// The same, for a condition that persists rather than an event that
+    /// happens. Said when it becomes true and not again while it stays true,
+    /// because a standing fault repeated at the polling rate buries every other
+    /// line on the console.
+    func sayOnce(_ text: String) {
+        guard saidStanding != text else { return }
+        saidStanding = text
+        say(text)
+    }
+
     /// A picture whose last byte is on the air and whose "kept it" never came
     /// back. That answer is a single notification, and a notification is not
     /// acknowledged — so it can be lost, and when it is, every byte of the
@@ -232,19 +242,24 @@ extension BLEManager {
     /// to open a file to know what to show would both do it on every frame and
     /// have nothing to notice when the answer changed — which is how a picture
     /// that arrived correctly still never appeared.
+    /// A RECONCILE IS SILENT WHEN THERE IS NOTHING TO RECONCILE. This runs off
+    /// the pump as well as off a state frame, so a line at the top of it is a
+    /// line five times a second on a console someone is reading and on the link
+    /// it is reporting about — the same shape as the progress line that became
+    /// the traffic it was measuring. It speaks when it acts, or when something
+    /// is wrong, and neither of those repeats on a quiet machine.
     func fetchMissingFaces() {
         let unit = machineKey
         guard !unit.isEmpty else {
             log.error("no machine key yet; faces cannot be filed or fetched")
-            say("faces: no machine key, cannot fetch")
+            sayOnce("faces: no machine key, cannot fetch")
             return
         }
-        say("faces: unit=\(unit) slots=\(imageSlots.count) held=\(imageSlots.held) crcs=\(imageSlots.crc.count)")
         for slot in 0..<imageSlots.count where imageSlots.isHeld(slot) {
             let crc = imageSlots.crc(of: slot)
             guard crc != 0 else {
                 log.error("slot \(slot) is held but reports no crc")
-                say("faces: slot \(slot) held but crc is 0")
+                sayOnce("faces: slot \(slot) held but crc is 0")
                 continue
             }
             if faces[crc] != nil { continue }
@@ -302,6 +317,12 @@ extension BLEManager {
         // Nothing in flight: something may still be missing, and a fetch that
         // died with a link would otherwise never be started again.
         guard faceSlot >= 0 else {
+            // Nothing in flight is the normal state of a machine whose faces
+            // are all in hand. Sweeping for a missing one is a catch-up for a
+            // fetch that died with a link, not something to do five times a
+            // second.
+            guard Date().timeIntervalSince(faceSweptAt) > 3.0 else { return }
+            faceSweptAt = Date()
             DispatchQueue.main.async { [weak self] in
                 guard let self, !self.imageSlots.crc.isEmpty else { return }
                 self.fetchMissingFaces()
@@ -383,6 +404,7 @@ extension BLEManager {
                 self.faces[crc] = face      // observable: this is what redraws the tile
                 log.info("read back slot \(slot), \(total) bytes")
                 self.say("faces: slot \(slot) decoded, \(total) B")
+                self.saidStanding = ""      // the path works; a fault may be said again
             }
             self.fetchMissingFaces()   // whatever else is missing, now this is in hand
         }
