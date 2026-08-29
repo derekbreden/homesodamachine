@@ -23,7 +23,7 @@ is outside the normal sequence shown here.
 
 The existing line is cool gray, the supplied jumper is pale neutral gray, the
 PP0208E is black polypropylene, and the white filter/appliance branch carries
-a narrow modeled tracer for grayscale legibility.  Every tube, fitting, wall,
+a narrow modeled tracer for grayscale legibility.  Every tube, fitting,
 valve, handle, bore, and moving collet is 3D geometry; the page supplies its
 own instructional text and action arrows.
 
@@ -53,11 +53,12 @@ Two extra comparison states are retained for visual development:
 - `art/modern-tee-tug-check.png` — the white branch pulled outward 3.2 mm while
   it remains inside its gripping envelope.
 
-Every output is a 2000 × 1100 PNG on one uniform warm-neutral background.  The
-ON/OFF pair, release trio, and tee sequence each use their own fixed
-orthographic camera, target, span, and canvas.  Persistent scene geometry is
-registered within each group.  Long tubes leave the crop, so no arbitrary
-remote tube end appears.
+Every output is a 2000 × 1100 RGBA PNG with a transparent canvas.  The renderer
+uses a temporary warm-neutral matte to protect the light fitting surfaces,
+then clears only the matte connected to the picture edge.  The ON/OFF pair,
+release trio, and tee sequence each use their own fixed orthographic camera,
+target, span, and canvas.  Persistent scene geometry is registered within each
+group.  Long tubes leave the crop, so no arbitrary remote tube end appears.
 
 ## Held geometry
 
