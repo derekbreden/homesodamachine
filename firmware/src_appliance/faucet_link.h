@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#include "proto_msg.h"   // the wire payloads a caller reads a result out of
+
 struct FaucetLinkStatus {
     bool connected;
     bool synchronized;
@@ -52,6 +54,17 @@ uint8_t faucetLinkTakeRelayRequest();
 
 // A slot the phone removed, or 0xFF for none. Taking it clears it.
 uint8_t faucetLinkTakeEraseRequest();
+
+// The outcome of the last radio push, once. A relay waits on this rather than
+// on a clock: the transfer takes a second or two and the fixed minute it used
+// to wait was a minute of dark glass on the enclosure. False until one lands.
+bool faucetLinkTakePushResult(WifiPushResultPayload &out);
+
+// Drop any result still standing, so a wait cannot be satisfied by the last run.
+void faucetLinkForgetPushResult();
+
+// What a WIFI_BENCH_ERR_* means, in words.
+const char *faucetLinkPushError(uint8_t err);
 
 // Take a picture back off the faucet.
 bool faucetLinkImageErase(uint8_t slot);

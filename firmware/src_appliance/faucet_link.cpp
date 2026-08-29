@@ -40,6 +40,12 @@ uint32_t primeHeartbeatPublications = 0;
 // A slot the faucet says is ready to carry, or 0xFF for none. Read and cleared
 // by the loop, because standing the enclosure's radio up blocks.
 uint8_t relayWanted = 0xFF;
+
+// The last radio push the faucet reported, kept so a relay can wait for its own
+// outcome rather than for a clock. Printing it and dropping it is what let the
+// main board announce a picture the enclosure had refused.
+WifiPushResultPayload pushResult{};
+bool pushResultFresh = false;
 // A slot the phone removed, for the loop to carry to the rest of the machine.
 uint8_t eraseWanted = 0xFF;
 bool artPublished = false;
@@ -230,11 +236,10 @@ void onMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
     if (type == MSG_RESP_WIFI_PUSH && plen >= sizeof(WifiPushResultPayload)) {
         WifiPushResultPayload r;
         memcpy(&r, payload, sizeof(r));
+        pushResult = r;
+        pushResultFresh = true;
         if (!r.ok) {
-            static const char *why[] = {"", "never joined the AP", "the sink refused the socket",
-                                        "the socket died mid-transfer", "a run is already in flight"};
-            Serial.printf("\nWIFI:FAIL — %s\n",
-                          r.err < 5 ? why[r.err] : "unknown");
+            Serial.printf("\nWIFI:FAIL — %s\n", faucetLinkPushError(r.err));
             return;
         }
         const float kb = r.bytes / 1024.0f;
@@ -477,6 +482,28 @@ uint8_t faucetLinkTakeRelayRequest() {
     const uint8_t slot = relayWanted;
     relayWanted = 0xFF;
     return slot;
+}
+
+void faucetLinkForgetPushResult() { pushResultFresh = false; }
+
+bool faucetLinkTakePushResult(WifiPushResultPayload &out) {
+    if (!pushResultFresh) return false;
+    out = pushResult;
+    pushResultFresh = false;
+    return true;
+}
+
+const char *faucetLinkPushError(uint8_t err) {
+    switch (err) {
+        case WIFI_BENCH_ERR_NONE:    return "none";
+        case WIFI_BENCH_ERR_JOIN:    return "never joined the AP";
+        case WIFI_BENCH_ERR_CONNECT: return "the sink refused the socket";
+        case WIFI_BENCH_ERR_WRITE:   return "the socket died mid-transfer";
+        case WIFI_BENCH_ERR_BUSY:    return "a run is already in flight";
+        case WIFI_BENCH_ERR_REFUSED: return "every byte arrived and the sink kept none";
+        case WIFI_BENCH_ERR_SILENT:  return "the sink never said whether it kept it";
+        default:                     return "unknown";
+    }
 }
 
 bool faucetLinkImageErase(uint8_t slot) {

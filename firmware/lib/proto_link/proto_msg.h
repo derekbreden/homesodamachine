@@ -710,6 +710,22 @@ struct __attribute__((packed)) ImageWireHeader {
   uint32_t crc32;
 };
 
+// THE SINK ANSWERS, AND THAT ANSWER IS WHAT ENDS THE CONNECTION. A close is not
+// a delivery: the sender's last kilobytes are still in flight when it calls
+// stop(), and the receiver's loop ends the moment the socket says closed — so a
+// picture arrives a couple of kilobytes short of itself and is refused, with the
+// sender reporting every byte written and the machine holding nothing.
+//
+//     pic slot 0 SHORT 166844/169632
+//
+// One byte back closes that: the receiver has counted the whole picture and
+// written its header before it sends, and the sender does not close until it
+// arrives. So "sent" and "kept" become the same claim rather than two that can
+// disagree.
+constexpr uint8_t IMAGE_WIRE_KEPT    = 0xA1;  // whole, and its header is written
+constexpr uint8_t IMAGE_WIRE_SHORT   = 0xA2;  // the bytes stopped coming
+constexpr uint8_t IMAGE_WIRE_REFUSED = 0xA3;  // not a picture this board can hold
+
 struct __attribute__((packed)) ImageSlotPayload {
   uint8_t slot;
 };
@@ -738,6 +754,8 @@ constexpr uint8_t WIFI_BENCH_ERR_JOIN    = 1;  // never associated or never got 
 constexpr uint8_t WIFI_BENCH_ERR_CONNECT = 2;  // associated, but the sink refused the socket
 constexpr uint8_t WIFI_BENCH_ERR_WRITE   = 3;  // the socket died mid-transfer
 constexpr uint8_t WIFI_BENCH_ERR_BUSY    = 4;  // a run is already in flight
+constexpr uint8_t WIFI_BENCH_ERR_REFUSED = 5;  // every byte arrived and the sink kept none
+constexpr uint8_t WIFI_BENCH_ERR_SILENT  = 6;  // the sink never said whether it kept it
 
 // The most image bytes one OTA_DATA carries on each link. Both are 1 KB: J9's
 // HDLC frame buffers are sized for it, and J3's TinyProto Fd fragments

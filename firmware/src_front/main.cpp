@@ -1201,12 +1201,19 @@ void wifiBenchRebind() {
   bindFlavorLogos();
 }
 
-void wifiBenchPanelStop() {
+// This is the last thing anyone sees before the glass goes dark, so it says
+// what is about to happen in the words of whoever caused it. Someone who just
+// chose a photograph on their phone is not looking at a radio bench.
+void wifiBenchPanelStop(bool forPicture) {
   if (lockTitle) {
     lockActive = true;
     if (lockScreen) lv_obj_move_foreground(lockScreen);
-    lv_label_set_text(lockTitle, "RADIO BENCH");
-    if (lockBody) lv_label_set_text(lockBody, "The screen goes dark while the radio is up.\nIt restarts on its own when the run ends.");
+    lv_label_set_text(lockTitle, forPicture ? "NEW PICTURE" : "RADIO BENCH");
+    if (lockBody)
+      lv_label_set_text(lockBody,
+                        forPicture
+                            ? "Saving the picture you chose.\nThe screen comes back on its own."
+                            : "The screen goes dark while the radio is up.\nIt restarts on its own when the run ends.");
     if (lockScreen) lv_obj_clear_flag(lockScreen, LV_OBJ_FLAG_HIDDEN);
     for (int i = 0; i < 24; i++) { lv_timer_handler(); delay(25); }
   }
@@ -1542,11 +1549,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     WifiApPayload ap;
     memcpy(&ap, payload, sizeof(ap));
     // 0 drops it, 1 raises it with the panel taken down, 2 only asks,
-    // 3 raises it with the panel left running.
+    // 3 raises it with the panel left running, 4 raises it for a picture —
+    // same teardown as 1, and the banner someone who chose a photograph reads.
     switch (ap.on) {
       case 0: wifiBenchApSet(false, ap.channel, false); break;
       case 1: wifiBenchApSet(true,  ap.channel, false); break;
       case 3: wifiBenchApSet(true,  ap.channel, true);  break;
+      case 4: wifiBenchApSet(true,  ap.channel, false, true); break;
       default: break;   // 2 asks without moving it
     }
     WifiApStatePayload st;
