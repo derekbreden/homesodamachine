@@ -58,8 +58,8 @@ UNDER_MOUNT_FRAME_SHAVE = 18
 # The approach frame shows the plate clear of the retained washer before it moves. Its countertop
 # window is long on the world-X slide axis and narrow across world Y, where the real under-sink
 # approach is constrained.
-PLATE_APPROACH_X = -60.0
-UNDER_COUNTERTOP_X = 210.0
+PLATE_APPROACH_X = -72.0
+UNDER_COUNTERTOP_X = 220.0
 UNDER_COUNTERTOP_Y = 72.0
 
 # Both rear-connection pictures are one literal scene viewed from one fixed camera.  The
@@ -67,13 +67,14 @@ UNDER_COUNTERTOP_Y = 72.0
 # real air between each free end and its matching port instead of hiding that distance in a
 # straight-on view.
 CONNECT_CAM = (0.58, 1.0, 0.45)
-CONNECT_TARGET = (-6.0, 470.0, 220.0)
-CONNECT_FRAME_SHAVE = 18
-CONNECT_OPEN_GAP = 52.0
+CONNECT_TARGET = (-6.0, 555.0, 370.0)
+CONNECT_ORTHO_SPAN = 175.0
+CONNECT_RENDER_SIZE = "1600x1800"
+CONNECT_OPEN_GAP = 82.0
 
 sys.path.insert(0, str(HARDWARE / "scripts"))
 os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
-from _cadq_export import _per_solid_color, note_read, note_write  # noqa: E402
+from _cadq_export import _per_solid_color, _write_mesh_payload, note_read, note_write  # noqa: E402
 
 
 def _load_faucet_module():
@@ -86,8 +87,11 @@ def _load_faucet_module():
     return module
 
 
-def _export_colored(assembly: cq.Assembly, target: Path) -> Path:
-    _per_solid_color(assembly).export(str(target))
+def _export_colored(assembly: cq.Assembly, target: Path, *, mesh: bool = False) -> Path:
+    colored = _per_solid_color(assembly)
+    colored.export(str(target))
+    if mesh:
+        _write_mesh_payload(target, colored)
     return target
 
 
@@ -505,7 +509,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
     add_render_frame(slide)
     slide_clean_step = _export_colored(slide, work / "mount-slide-clean.step")
     slide.add(
-        motion_arrow((-72.0, -23.0, -29.0), (1.0, 0.0, 0.0), 42.0, 8.0),
+        motion_arrow((-105.0, -23.0, -29.0), (1.0, 0.0, 0.0), 42.0, 9.0),
         name="slide-motion",
         color=motion_red,
     )
@@ -540,7 +544,7 @@ def _build_steps(work: Path) -> dict[str, Path]:
         color=plate_steel,
     )
     under_slide.add(
-        motion_arrow((-76.0, -20.0, -51.0), (1.0, 0.0, 0.0), 47.0, 9.0),
+        motion_arrow((-105.0, -20.0, -51.0), (1.0, 0.0, 0.0), 42.0, 9.0),
         name="under-slide-motion",
         color=motion_red,
     )
@@ -643,8 +647,6 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     plug_body = cq.Color(0.72, 0.74, 0.78, 1.0)
     plug_latch = cq.Color(0.86, 0.87, 0.89, 1.0)
     contact_gold = cq.Color(0.73, 0.49, 0.14, 1.0)
-    frame_anchor_color = cq.Color(0.95, 0.04, 0.82, 1.0)
-
     def round_sweep(points, radius: float):
         vectors = [cq.Vector(*point) for point in points]
         tangent = cq.Vector(0.0, 1.0, 0.0)
@@ -704,7 +706,7 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     tube_start_y = 467.0
     straight_end_y = 560.0
     pack_y = 626.0
-    tail_y = 710.0
+    tail_y = 660.0
     collar_y = 524.0
     tube_radius = 6.35 / 2.0
     for which in ("carb", "flavor-a", "flavor-b"):
@@ -829,34 +831,6 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
     umbilical.add(ribbon, name="wall-end-sig6-ribbon", color=ribbon_gray)
     umbilical.add(ribbon_mark, name="wall-end-sig6-ribbon-mark", color=ribbon_edge)
 
-    def add_fixed_frame(scene: cq.Assembly):
-        view = cq.Vector(*CONNECT_CAM)
-        view = view.multiply(1.0 / view.Length)
-        world_up = cq.Vector(0.0, 0.0, 1.0)
-        right = view.cross(world_up)
-        right = right.multiply(1.0 / right.Length)
-        screen_up = right.cross(view)
-        screen_up = screen_up.multiply(1.0 / screen_up.Length)
-        target = cq.Vector(*CONNECT_TARGET)
-        for index, (across, rise) in enumerate(
-            ((-1.0, -1.0), (-1.0, 1.0), (1.0, -1.0), (1.0, 1.0)),
-            start=1,
-        ):
-            point = target.add(right.multiply(across * 245.0)).add(
-                screen_up.multiply(rise * 225.0)
-            )
-            anchor = cq.Solid.makeBox(
-                1.5,
-                1.5,
-                1.5,
-                cq.Vector(point.x - 0.75, point.y - 0.75, point.z - 0.75),
-            )
-            scene.add(
-                anchor,
-                name=f"connect-render-frame-anchor-{index}",
-                color=frame_anchor_color,
-            )
-
     def state(name: str, shift_y: float):
         scene = cq.Assembly(name=name)
         for child in rear_children:
@@ -866,12 +840,29 @@ def _build_connection_steps(work: Path) -> dict[str, Path]:
             name=f"{name}-umbilical",
             loc=cq.Location(cq.Vector(0.0, shift_y, 0.0)),
         )
-        add_fixed_frame(scene)
-        return _export_colored(scene, work / f"{name}.step")
+        return _export_colored(scene, work / f"{name}.step", mesh=True)
+
+    open_step = state("connect-rear-open", CONNECT_OPEN_GAP)
+    connected_step = state("connect-rear-connected", 0.0)
+
+    # The production appliance's payload already carries the fluted printed skin that its B-rep
+    # intentionally omits.  Graft those exact rear-body meshes into each scene payload by body
+    # name; the modeled tubes, collars, ribbon and plug remain the new solids tessellated above.
+    import flute_payload
+
+    source_meshes = flute_payload.read_payload(MACHINE_MESH) or []
+    exact_meshes = {entry["name"]: entry for entry in source_meshes}
+    for step in (open_step, connected_step):
+        mesh = Path(str(step) + ".mesh")
+        landed = flute_payload.graft(mesh, exact_meshes)
+        if landed < 3:
+            raise RuntimeError(
+                f"{step.name}: only {landed} exact appliance meshes landed in rear scene"
+            )
 
     return {
-        "connect-rear-open": state("connect-rear-open", CONNECT_OPEN_GAP),
-        "connect-rear-connected": state("connect-rear-connected", 0.0),
+        "connect-rear-open": open_step,
+        "connect-rear-connected": connected_step,
     }
 
 
@@ -1001,17 +992,6 @@ def _shave_under_render_frame(path: Path, margin: int) -> None:
     note_write(path)
 
 
-def _shave_connect_render_frame(path: Path, margin: int) -> None:
-    """Remove the four fixed-camera anchors from a rear connection scene."""
-    with Image.open(path) as image:
-        if image.width <= 2 * margin or image.height <= 2 * margin:
-            raise ValueError(f"cannot shave {margin}px from {image.width}x{image.height}: {path}")
-        cropped = image.crop((margin, margin, image.width - margin, image.height - margin))
-        cropped.save(path, format="PNG", compress_level=9, optimize=False)
-    _canonicalize_png(path)
-    note_write(path)
-
-
 def main(*, mount_studies: bool = False) -> None:
     ART.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -1086,6 +1066,15 @@ def main(*, mount_studies: bool = False) -> None:
                 target=CONNECT_TARGET,
             ),
         ]
+        for job in connect_jobs:
+            # One literal orthographic viewport registers the rear panel pixel-for-pixel in both
+            # states.  Its final canvas is the page crop; no scene geometry or content trim frames
+            # it.  Viewer floor and distance effects are omitted for clean instruction-page art.
+            job["size"] = CONNECT_RENDER_SIZE
+            job["span"] = CONNECT_ORTHO_SPAN
+            job["trim"] = False
+            job["ground"] = False
+            job["fog"] = False
         if mount_studies:
             study_dir = OUT / "mount-studies"
             study_dir.mkdir(parents=True, exist_ok=True)
@@ -1126,8 +1115,6 @@ def main(*, mount_studies: bool = False) -> None:
                 _shave_render_frame(output, MOUNT_FRAME_SHAVE)
             elif job in under_mount_jobs:
                 _shave_under_render_frame(output, UNDER_MOUNT_FRAME_SHAVE)
-            elif job in connect_jobs:
-                _shave_connect_render_frame(output, CONNECT_FRAME_SHAVE)
             note_write(output)
 
         if not mount_studies:

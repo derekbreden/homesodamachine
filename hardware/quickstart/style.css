@@ -141,18 +141,10 @@ body {
 }
 
 .lower-arrow path {
-  fill: none;
-  stroke: var(--motion);
-  stroke-width: 12px;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.lower-arrow marker path,
-.connection-arrow marker path {
   fill: var(--motion);
   stroke: #fff;
-  stroke-width: 3px;
+  stroke-width: 5px;
+  stroke-linejoin: round;
   paint-order: stroke fill;
 }
 
@@ -191,9 +183,9 @@ body {
 }
 
 .connection-arrow path {
-  fill: none;
-  stroke: var(--motion);
-  stroke-width: 8px;
-  stroke-linecap: round;
+  fill: var(--motion);
+  stroke: #fff;
+  stroke-width: 4px;
   stroke-linejoin: round;
+  paint-order: stroke fill;
 }
