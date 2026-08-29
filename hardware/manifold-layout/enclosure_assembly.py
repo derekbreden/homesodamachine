@@ -4716,13 +4716,23 @@ def c14_cutout():
             wx + 2 * C14_CUTOUT_SLIP, wz + 2 * C14_CUTOUT_SLIP, r)
 
 
+# WHAT THE PLACEMENT AND THE PRINTED WALL HAVE TO AGREE ON. `enclosure.c14_station_x` is the one
+# column, so `C14_STATION[0] == _enc.c14_station_x` says nothing — this file reads that name to
+# build the tuple. What can still drift is a DERIVATION off it: the wall relief the tunnel stands
+# on carries its own X in `back_top_wall_reliefs`, and the cutout and the two screws are struck
+# here. So the bound reads them all back against the shared datum.
+_c14_relief_x = next(x for who, x, _z, _w, _h in _enc.back_top_wall_reliefs
+                     if who == "c14-inlet")
+
 _stated.state(
     "c14-surround", "The C14 flange is wrapped at its ceiling-clear mount",
     "3 mm in XZ, 3 mm beyond the flange's Y- edge, a 9 mm entry relief, and one rooted "
     "profile corbel",
     (_enc.c14_collar_wall >= 3.0 and _enc.c14_collar_extension >= 3.0
      and _enc.c14_insertion_relief >= 9.0
-     and C14_STATION[0] == _enc.c14_station_x and abs(c14_seat_y() - 458.75) < 1e-9),
+     and _c14_relief_x == C14_STATION[0] and c14_cutout()[1] == C14_STATION[0]
+     and abs(sum(x for x, _z in c14_stations()) / 2.0 - C14_STATION[0]) < 1e-9
+     and abs(c14_seat_y() - 458.75) < 1e-9),
     f"station x {C14_STATION[0]:g}, seat y {c14_seat_y():.2f}, screws "
     f"{c14_stations()[0][0]:g}/{c14_stations()[1][0]:g}; the exact-profile pocket keeps "
     f"{_enc.c14_collar_wall:g} mm around the flange and continues "
@@ -5425,18 +5435,27 @@ def wall_mounts(*mounted, blockers=()):
         for name, _body, volume in hits(addition):
             bad.append((station[:3], name, volume))
     full = len(out) - len(held)
+    # A HELD-BACK BOSS AND A SPLIT ONE ARE NOT THE SAME READING. A blocker that covers the whole
+    # seven millimetres leaves no clear band, and calling that a split corbel would report a
+    # wall-rooted wing the piece does not have. The two populations are counted apart, and a
+    # boss with no band says which body took the width.
+    splits = [row for row in held if row[5]]
+    plain = [row for row in held if not row[5]]
     record_bound(Bound(
         "east-boss-corbels",
         "Every +X-wall power-column boss has a flat D stem and a body-clear 45 degree corbel",
         not bad,
         f"{len(out) - len(bad)}/{len(out)} clear; {full} reach their mounting face across "
-        f"their whole width and {len(held)} use blocker-profiled split corbels",
+        f"their whole width and {len(splits)} use blocker-profiled split corbels"
+        + (f", {len(plain)} are held back across their whole width" if plain else ""),
         "one clear D-stem corbel per mounting hole",
         ([f"boss {station} crosses `{name}` by {volume:.4f} mm³"
           for station, name, volume in bad]
          + [f"`{owner}` y {sy:.3f}, z {sz:.3f}: {setback:.3f} mm setback past "
-            f"{', '.join(names)}, full wall-rooted wing(s) "
-            + ", ".join(f"y {lo:.3f}..{hi:.3f}" for lo, hi in bands)
+            f"{', '.join(names)}, "
+            + ("full wall-rooted wing(s) "
+               + ", ".join(f"y {lo:.3f}..{hi:.3f}" for lo, hi in bands)
+               if bands else "no clear width left for a full wing")
             for owner, sy, sz, setback, names, bands in held])))
     return tuple(out)
 
@@ -7302,6 +7321,12 @@ def check_prv_chase_corbels(pieces: dict, box) -> Bound:
     45-degree plane rooted at the grown flank, and no horizontal floor may survive inboard of
     that root. The square discharge mouth and its lower land are checked independently so a
     generous cut cannot pass merely by deleting the two flats.
+
+    AND THE GROUND HALF IS READ WITH IT, because that wedge is cut from the whole rib before the
+    two shares are taken. A cutter carried below `rim` to keep off a coincident plane reaches the
+    run the joint lane leaves standing inboard of the back rail — material the piece below owns
+    and this piece never had. Its crest is measured on both flanks of the passage, where the duct
+    itself takes nothing.
     """
     if not box.pack.vent_chase:
         return record_bound(Bound(
@@ -7369,8 +7394,20 @@ def check_prv_chase_corbels(pieces: dict, box) -> Bound:
         mouth_bot - _enc.vent_rib_wall + 0.2, mouth_bot - 0.2)
     land_missing = land.cut(fixed).Volume()
     lip_land = mouth_bot - (rim + roof_run)
+
+    ground = pieces["back-bottom"]
+    ground = ground.val() if hasattr(ground, "val") else ground
+    lane_x = _enc._rail_x(box.inner[0], +1.0, "back")[3] + _enc.slide_slip
+    crest_missing = 0.0
+    for lo, hi in ((sy - half, sy - _enc.vent_channel_w / 2.0),
+                   (sy + _enc.vent_channel_w / 2.0, sy + half)):
+        crest_missing += _enc._ybox(
+            lane_x + 0.2, rib_x - 0.2, lo + 0.2, hi - 0.2,
+            rim - _enc.vent_rib_wall, rim - 0.05).cut(ground).Volume()
+
     ok = (len(groove_ramps) == 1 and len(base_ramps) == 1 and not flat_roofs
           and mouth_stock <= 1e-4 and land_missing <= 1e-4
+          and crest_missing <= 1e-4
           and lip_land >= _enc.vent_rib_wall - tol)
     return record_bound(Bound(
         "prv-chase-corbels",
@@ -7378,14 +7415,16 @@ def check_prv_chase_corbels(pieces: dict, box) -> Bound:
         ok,
         f"{inner_x - outer_x:.2f} mm groove ramp, {roof_run:.2f} mm rib corbel; "
         f"{len(flat_roofs)} flat support roofs; {mouth_stock:.4f} mm³ in the square mouth, "
-        f"{land_missing:.4f} mm³ missing lower land, {lip_land:.2f} mm lip land",
+        f"{land_missing:.4f} mm³ missing lower land, {lip_land:.2f} mm lip land, "
+        f"{crest_missing:.4f} mm³ off the ground half's crest",
         "one exact 45-degree X plane at each level, no horizontal support face, the complete "
-        "square mouth open and at least one rib wall below it",
+        "square mouth open, at least one rib wall below it and the seam crest below it whole",
         ([] if ok else [
             f"found {len(groove_ramps)} groove ramps, {len(base_ramps)} rib-base corbels and "
             f"{len(flat_roofs)} horizontal support roofs; the mouth contains "
-            f"{mouth_stock:.4f} mm³, its lower land is missing {land_missing:.4f} mm³, and "
-            f"only {lip_land:.2f} mm remains below it."])))
+            f"{mouth_stock:.4f} mm³, its lower land is missing {land_missing:.4f} mm³, "
+            f"only {lip_land:.2f} mm remains below it, and the ground half's rib crest is "
+            f"missing {crest_missing:.4f} mm³ under the seam."])))
 
 
 def check_ceiling_retention(back_top, panel) -> Bound:

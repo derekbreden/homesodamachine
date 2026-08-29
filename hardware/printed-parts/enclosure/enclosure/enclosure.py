@@ -1044,6 +1044,12 @@ back_top_wall_t = 6.0
 # takes. The name is carried because a relief that drifts off the thing it was cut for is a
 # relief for nothing, and `back_wall_t_at` read at the placed station is what says whether it
 # still lands on it (`enclosure_assembly.check_wall_clamped`, `_c14_tunnel`).
+# AND THE COLUMN THE WHOLE C14 CHAIN HANGS ON IS SET BY THE CEILING ABOVE IT. The receptacle's
+# exact moulded rim stands under the +X ceiling strip, and this is the station at which it clears
+# the COMPLETE wall-rooted 45 degree corbel by the card's own clearance floor — so that wedge runs
+# over the inlet whole, with no relief band cut in it and no short roof left over the printed
+# collar (`enclosure_assembly.check_c14_ceiling_corbel` reads the air off the unrelieved wedge).
+# The cutout, tunnel, collar, both screws and the wall relief below all read this one name.
 c14_station_x = 66.9
 back_top_wall_reliefs = (
     ("co2-inlet", 2.65, 336.21, 30.0, 30.0),      # the neoFit's nut, across its corners
@@ -1206,11 +1212,10 @@ front_bottom_flank_t = 9.0
 # a ridge over the stack's centre. The X relief still gives the purchased body its exact room,
 # but there is no horizontal roof left over that room and therefore no support body on its crown.
 #
-# THE C14 KEEPS THE COMPLETE +X WEDGE. Its X station is struck 2.1 mm inboard of the nominal
-# rear-panel column, which leaves the purchased moulded rim one millimetre clear of the exact
-# 45° ceiling corbel while keeping its Z on the top port row. Its tunnel, screws and wall relief
-# all read that one station, so no ceiling-relief row is needed and no short roof is left over
-# the printed collar below.
+# THE C14 KEEPS THE COMPLETE +X WEDGE. `c14_station_x` is struck for this: at that column the
+# purchased moulded rim stands one assembly clearance clear of the exact 45° ceiling corbel, with
+# its Z on the top port row. Its tunnel, screws and wall relief all read that one station, so no
+# ceiling-relief row is needed and no short roof is left over the printed collar below.
 #
 # THE TAP-WATER CHAIN IS THE ONE THAT STANDS IN THE MIDDLE, and it takes four rows because what
 # it occupies is four different things. Read off the placed chain against the full wedge, the
@@ -6357,16 +6362,6 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
             sy - half, sy + half,
             ((root_x, sz + half), (rib_x, sz + half),
              (rib_x, cap_root + roof_run), (root_x, cap_root))))
-        # THE TOP RIB ROOTS ON THE WALL AT ITS FLOOR. Its underside begins on `rim` at the
-        # actual flank face and rises one-for-one to the lip, where more than
-        # `vent_rib_wall` remains below the square mouth. The complete projection therefore
-        # grows from wall stock. Applied to `rib` before the piece band is selected, this
-        # profiles the top share; the bottom share is clipped below `rim` afterward.
-        rib = rib.cut(_xz_prism(
-            sy - half - 1.0, sy + half + 1.0,
-            ((root_x, rim - 1.0), (rib_x + 1.0, rim - 1.0),
-             (rib_x + 1.0, rim + (rib_x + 1.0 - root_x)),
-             (root_x, rim))))
         # THE RIB KEEPS OUT OF THE JOINT'S BAND AND THE DUCT DOES NOT, because one of them
         # is material and the other is air. Over the seam's own storey the joint reaches
         # `rail_reach_in + slide_slip` inboard of the flank — head, foot, arm and channel —
@@ -6386,9 +6381,23 @@ def _vent_chase(solid, inner, outer, stations, y0, y1, z0, z1):
         # NOTHING OF EITHER CROSSES INTO THE OTHER'S TRAVEL, so the top needs no berth cut
         # down its flank for a rib that was never in it.
         band = ((outer[4] - 1.0, rim) if owns else (rim, outer[5] + 1.0))
-        solid = solid.fuse(rib.intersect(
+        share = rib.intersect(
             _ybox(outer[0] - 1.0, outer[1] + 1.0,
-                  sy - half - 1.0, sy + half + 1.0, band[0], band[1])))
+                  sy - half - 1.0, sy + half + 1.0, band[0], band[1]))
+        if not owns:
+            # AND THE TOP SHARE'S RIB ROOTS ON THE WALL AT ITS OWN FLOOR. Its underside begins
+            # on `rim` at the actual flank face and rises one-for-one to the lip, where more
+            # than `vent_rib_wall` remains below the square mouth, so the whole projection grows
+            # from wall stock. IT IS TAKEN OUT OF THE SHARE AND NOT OUT OF THE RIB, because a
+            # cutter carried below `rim` to keep off a coincident plane reaches the ground half's
+            # own crest there — `joint_lane` clears that band only as far inboard as the rail
+            # reaches, and the run from the rail to the lip is the piece below's to stand.
+            share = share.cut(_xz_prism(
+                sy - half - 1.0, sy + half + 1.0,
+                ((root_x, rim - 1.0), (rib_x + 1.0, rim - 1.0),
+                 (rib_x + 1.0, rim + (rib_x + 1.0 - root_x)),
+                 (root_x, rim))))
+        solid = solid.fuse(share)
         solid = solid.cut(_xz_prism(sy - vent_channel_w / 2.0, sy + vent_channel_w / 2.0,
                                     [(rib_x + 1.0, mouth_top),       # the mouth, through the lip
                                      (rib_x + 1.0, mouth_bot),

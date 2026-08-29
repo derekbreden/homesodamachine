@@ -710,11 +710,11 @@ width, carried between the tunnel's two flanks. Nothing on the piece stands outs
 silhouette: the receptacle's two heat-sets go into the tunnel's fore face, from inside the box,
 and the back of the machine is flat.
 
-The inlet's X station is 2.1 mm inboard of the nominal rear-panel column. Its exact moulded rim
-there keeps about one millimetre from the complete +X ceiling-strip corbel, so that wall-rooted
-45° wedge continues over the inlet without a relief band or a short support stack. The aperture,
-tunnel, collar and both screw stations all follow the same X datum; its Z remains aligned with
-the other top-row ports.
+The inlet stands on the column where its exact moulded rim clears the complete +X ceiling-strip
+corbel — `c14-ceiling-corbel-clear` reads about a millimetre of air between the two — so that
+wall-rooted 45° wedge continues over the inlet without a relief band or a short support stack.
+The aperture, tunnel, collar and both screw stations all follow that one X datum; its Z remains
+aligned with the other top-row ports.
 
 The **PRV chase's two lowest roofs lean from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the roof rises inward across the exact

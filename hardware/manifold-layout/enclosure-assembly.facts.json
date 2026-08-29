@@ -294,7 +294,7 @@
    -6.0,
    107.5,
    467.0,
-   174.8
+   174.80000000000007
   ],
   "enclosure-back-top": [
    -107.5000001,
@@ -1995,7 +1995,7 @@
    true
   ]
  },
- "card": "78024eff09cd44475cdfd3271cd92a66",
+ "card": "d42ae0ef35092fe7f0edc4ce87daca14",
  "card_ports": {
   "asse1022-assembly": {
    "tube-in": {
@@ -2750,7 +2750,7 @@
     -6.0,
     107.5,
     467.0,
-    174.8
+    174.80000000000007
    ]
   },
   "back-top": {
@@ -3039,8 +3039,8 @@
   }
  ],
  "schema": 2,
- "sources": "4a269a68884dd5c9ac5f539db2bba9ff",
- "step": "cd80f6ee7a3c62b2eb1502693fda90fe",
+ "sources": "6e2d02b95377106f9520d7d3598e3e35",
+ "step": "75679a3454f1893f1af28e275d104d95",
  "valve_tray_stations": [
   [
    171.08,
